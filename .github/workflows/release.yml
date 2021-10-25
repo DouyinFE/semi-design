@@ -1,0 +1,21 @@
+name: release
+
+on:
+  create
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: release
+        if: github.event.ref_type == 'tag'
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+      - run: |
+            npm i -g lerna && npm run bootstrap
+            node script/release.js
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            CHANGELOG_PATH: content/start/changelog/index.md, content/start/changelog/index-en-US.md

@@ -1,0 +1,23 @@
+# This is a basic workflow to help you get started with Actions
+
+name: test
+
+on:
+  push:
+    branches: [ main, release-beta ]
+  pull_request:
+    branches: [ main, release-beta ]
+
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Run install
+        run: npm i -g lerna && npm run bootstrap
+
+      - name: Run test
+        run: npm run test:unit
