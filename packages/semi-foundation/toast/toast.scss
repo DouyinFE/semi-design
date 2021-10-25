@@ -1,0 +1,92 @@
+//@import '../theme/variables.scss';
+@import "./variables.scss";
+
+$module: #{$prefix}-toast;
+$icon: #{$prefix}-toast-icon;
+
+.#{$module} {
+    pointer-events: none;
+
+    &-wrapper {
+        pointer-events: none;
+        position: fixed;
+        top: $spacing-toast_wrapper-top;
+        width: $width-toast_wrapper;
+        text-align: center;
+        z-index: $z-toast;
+    }
+
+    &-content {
+        pointer-events: all;
+        @include shadow-elevated;
+        @include font-size-regular;
+        background-color: $color-toast-bg-default;
+        border-radius: $radius-toast_content;
+        padding: $spacing-toast_content-paddingY $spacing-toast_content-paddingX;
+        display: inline-flex;
+        align-items: flex-start;
+        justify-content: center;
+        margin: $spacing-toast_content-margin;
+        font-weight: $font-toast_content-fontWeight;
+        color: $color-toast-text-default;
+
+        .#{$module}-close-button {
+            margin-top: $spacing-toast_content_close_btn-marginTop;
+            height: $width-icon-large;
+        }
+
+        .#{$module}-content-text {
+            margin-left: $spacing-toast_content_text-marginLeft;
+            margin-right: $spacing-toast_content_text-marginRight;
+            text-align: left;
+        }
+    }
+
+    &-light {
+        &.#{$module}-warning {
+            .#{$module}-content {
+                background-color: $color-toast_warning_light-bg;
+                border: $width-toast_light-border solid $color-toast_warning_light-border;
+            }
+        }
+
+        &.#{$module}-success {
+            .#{$module}-content {
+                background-color: $color-toast_success_light-bg;
+                border: $width-toast_light-border solid $color-toast_success_light-border;
+            }
+        }
+
+        &.#{$module}-info {
+            .#{$module}-content {
+                background-color: $color-toast_info_light-bg;
+                border: $width-toast_light-border solid $color-toast_info_light-border;
+            }
+        }
+
+        &.#{$module}-error {
+            .#{$module}-content {
+                background-color: $color-toast_danger_light-bg;
+                border: $width-toast_light-border solid $color-toast_danger_light-border;
+            }
+        }
+    }
+
+    .#{$icon}-warning {
+        color: $color-toast_warning-icon;
+    }
+
+    .#{$icon}-success {
+        color: $color-toast_success-icon;
+    }
+
+    .#{$icon}-info {
+        color: $color-toast_info-icon;
+    }
+
+    .#{$icon}-error {
+        color: $color-toast_danger-icon;
+    }
+}
+
+@import "./rtl.scss";

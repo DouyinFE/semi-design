@@ -1,0 +1,1 @@
+../../../content/input/switch/index-en-US.md

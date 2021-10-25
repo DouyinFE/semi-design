@@ -1,0 +1,152 @@
+import { Locale as dateFnsLocale } from 'date-fns';
+
+export interface Locale {
+    code: string;
+    dateFnsLocale: dateFnsLocale;
+    Pagination: {
+        item: string;
+        page: string;
+        pageSize: string;
+        total: string;
+        jumpTo: string;
+    };
+    Modal: {
+        confirm: string;
+        cancel: string;
+    };
+    TimePicker: {
+        placeholder: {
+            time: string;
+            timeRange: string;
+        };
+        begin: string;
+        end: string;
+        hour: string;
+        minute: string;
+        second: string;
+        AM: string;
+        PM: string;
+    };
+    DatePicker: {
+        placeholder: {
+            date: string;
+            dateTime: string;
+            dateRange: [string, string];
+            dateTimeRange: [string, string];
+        };
+        footer: {
+            confirm: string;
+            cancel: string;
+        };
+        selectDate: string;
+        selectTime: string;
+        year: string;
+        month: string;
+        day: string;
+        monthText: string;
+        months: {
+            1: string;
+            2: string;
+            3: string;
+            4: string;
+            5: string;
+            6: string;
+            7: string;
+            8: string;
+            9: string;
+            10: string;
+            11: string;
+            12: string;
+        };
+        fullMonths: {
+            1: string;
+            2: string;
+            3: string;
+            4: string;
+            5: string;
+            6: string;
+            7: string;
+            8: string;
+            9: string;
+            10: string;
+            11: string;
+            12: string;
+        };
+        weeks: {
+            Mon: string;
+            Tue: string;
+            Wed: string;
+            Thu: string;
+            Fri: string;
+            Sat: string;
+            Sun: string;
+        };
+        localeFormatToken: {
+            FORMAT_SWITCH_DATE: string;
+        };
+    };
+    Navigation: {
+        collapseText: string;
+        expandText: string;
+    };
+    Popconfirm: {
+        confirm: string;
+        cancel: string;
+    };
+    Table: {
+        emptyText: string;
+        pageText: string;
+    };
+    Select: {
+        emptyText: string;
+        createText: string;
+    };
+    Cascader: {
+        emptyText: string;
+    };
+    Tree: {
+        emptyText: string;
+        searchPlaceholder: string;
+    };
+    List: {
+        emptyText: string;
+    };
+    Calendar: {
+        allDay: string;
+        AM: string;
+        PM: string;
+        datestring: string;
+        remaining: string;
+    };
+    Upload: {
+        mainText: string;
+        illegalTips: string;
+        legalTips: string;
+        retry: string;
+        clear: string;
+        selectedFiles: string;
+        replace: string;
+        illegalSize: string;
+        fail: string;
+    };
+    TreeSelect: {
+        searchPlaceholder: string;
+    };
+    Typography: {
+        copy: string;
+        copied: string;
+        expand: string;
+        collapse: string;
+    };
+    Transfer: {
+        emptyLeft: string;
+        emptySearch: string;
+        emptyRight: string;
+        placeholder: string;
+        clear: string;
+        selectAll: string;
+        clearSelectAll: string;
+        total: string;
+        selected: string;
+    };
+}

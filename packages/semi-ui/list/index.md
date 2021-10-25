@@ -1,0 +1,1 @@
+../../../content/show/list/index.md

@@ -1,0 +1,1 @@
+../../../content/other/locale/index-en-US.md

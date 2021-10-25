@@ -1,0 +1,87 @@
+$module: #{$prefix}-upload;
+
+.#{$prefix}-rtl,
+.#{$prefix}-portal-rtl {
+    .#{$module} {
+        direction: rtl;
+
+        &-file-list {
+
+            &-title {
+
+                &-choosen {
+                    margin-right: 0;
+                    margin-left: $spacing-upload_title_choosen-marginRight;
+                }
+
+                &-choosen,
+                &-clear {
+                    display: inline-block;
+                }
+            }
+        }
+
+        &-file-card {
+            margin-right: 0;
+            margin-left: $spacing-upload_picture_file_card-marginRight;
+
+            &-info {
+
+                &-size {
+                    margin-left: 0;
+                    margin-right: $spacing-upload_file_card_info_size-marginLeft;
+                }
+
+                &-retry {
+                    margin-left: 0;
+                    margin-right: $spacing-upload_file_card_info_retry-marginLeft;
+                }
+            }
+
+            &-icon {
+
+                &-loading,
+                &-error {
+                    margin-right: 0;
+                    margin-left: $spacing-upload_file_card_icon-marginRight;
+                }
+            }
+        }
+
+        // listType = 'picture'
+
+        &-picture {
+
+            &-file-card {
+                margin-right: 0;
+                margin-left: $spacing-upload_picture_file_card-marginRight;
+
+                &-close {
+                    right: auto;
+                    left: $spacing-upload_picture_file_card_close-right;
+                }
+
+                .#{$prefix}-progress-circle {
+                    left: auto;
+                    right: 50%;
+                    transform: translate(50%, -50%);
+                }
+
+                &-retry {
+                    left: auto;
+                    right: 50%;
+                    transform: translate(50%, -50%);
+                }
+                // &-icon-retry {
+                //     transform: scale(-1, 1);
+                // }
+
+                &-icon-loading,
+                &-icon-error {
+                    right: 0;
+                    left: $spacing-upload_picture_file_card_loading_error-right;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,105 @@
+//@import '../theme/variables.scss';
+@import './variables.scss';
+
+$module: #{$prefix}-popconfirm;
+
+.#{$module} {
+    box-sizing: border-box;
+    max-width: $width-popconfirm-maxWidth;
+
+    &-inner {
+        display: flex;
+        flex-direction: column;
+        padding: $spacing-popconfirm-top $spacing-popconfirm-top $spacing-popconfirm-top $spacing-popconfirm-bottom;
+        position: relative;
+
+        .#{$module}-btn-close {
+            position: absolute;
+            right: $spacing-popconfirm_inner_close_btn-right;
+            top: $spacing-popconfirm_inner_close_btn-top;
+            margin-top: $spacing-popconfirm_btn_close-margin;
+            margin-right: $spacing-popconfirm_btn_close-margin;
+        }
+    }
+
+    &-header {
+        display: flex;
+        justify-content: flex-start;
+        margin-right: $spacing-popconfirm_header-marginRight;
+
+        &-title {
+            @include font-size-header-6;
+            font-weight: $font-popconfirm_header_title-fontWeight;
+            margin-bottom: $spacing-popconfirm_header_title-marginBottom;
+            color: $color-popconfirm_header-text;
+        }
+
+        &-icon {
+            width: $width-popconfirm-icon;
+            height: $width-popconfirm-icon;
+            margin-right: $spacing-popconfirm_header_icon-marginRight;
+        }
+
+        .#{$prefix}-icon {
+
+            &-alert_triangle {
+                color: $color-popconfirm_header_alert-icon;
+            }
+        }
+
+        &-body {
+            display: inline-flex;
+            flex-direction: column;
+        }
+
+        &-content {
+            color: $color-popconfirm_body-text;
+
+            & > p {
+                margin: $spacing-popconfirm_header_content_p-margin;
+                padding: $spacing-popconfirm_header_content_p-padding;
+            }
+        }
+    }
+
+    &-body {
+        // margin-left: $width-popconfirm-icon + $spacing-popconfirm_header_icon-marginRight;
+        // margin-top: 8px;
+
+        color: $color-popconfirm_body-text;
+
+        & > p {
+            margin: $spacing-popconfirm_body_p-margin;
+            padding: $spacing-popconfirm_body_p-padding;
+        }
+    }
+
+    &-footer {
+        margin-top: $spacing-popconfirm_footer-marginTop;
+        display: flex;
+        justify-content: flex-end;
+
+        & > .#{$prefix}-button:first-child:not(:last-child) {
+            margin-right: $spacing-popconfirm_footer_btn-marginRight;
+        }
+    }
+
+    // The border-radius is defined separately in the component, the default value is the same as popover
+
+    &-popover {
+        border-radius: $radius-popconfirm-popover;
+    }
+}
+
+.#{$prefix}-popover-with-arrow {
+    .#{$module}-inner {
+        padding: $spacing-popconfirm_popover_with_arrow_inner-padding;
+
+        .#{$module}-btn-close {
+            margin-top: $spacing-popconfirm_popover_with_arrow_inner_btn_close-marginTop;
+            margin-right: $spacing-popconfirm_popover_with_arrow_inner_btn_close-marginRight;
+        }
+    }
+}
+
+@import './rtl.scss';

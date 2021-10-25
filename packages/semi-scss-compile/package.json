@@ -1,0 +1,28 @@
+{
+    "name": "@douyinfe/semi-scss-compile",
+    "version": "2.0.0",
+    "description": "compile semi scss to css",
+    "author": "zhanghao.613@bytedance.com",
+    "license": "MIT",
+    "main": "lib/index.js",
+    "files": [
+        "lib"
+    ],
+    "keywords": [
+        "semi-scss-compiler",
+        "scss"
+    ],
+    "scripts": {
+        "build:lib": "tsc",
+        "prepublishOnly": "npm run build:lib"
+    },
+    "dependencies": {
+        "fs-extra": "^8.1.0",
+        "sass": "1.32.13"
+    },
+    "devDependencies": {
+        "@types/sass": "^1.16.1",
+        "typescript": "^4.4.4"
+    },
+    "gitHead": "661ac2de772e28c3b6f934f70e4e08efbe2387b2"
+}

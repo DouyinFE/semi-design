@@ -1,0 +1,86 @@
+@import "./variables.scss";
+$module: #{$prefix}-timepicker;
+$module-list: #{$prefix}-scrolllist;
+
+.#{$module} {
+    display: inline-block;
+
+    &-panel {
+        .#{$module-list}-body {
+            height: $height-timePicker_panel_body;
+        }
+
+        .#{$module-list}-item,
+        .#{$module-list}-item-wheel {
+            flex: none;
+        }
+        .#{$module-list}-item-wheel,
+        .#{$module-list}-item-wheel:not(:last-child) {
+            border: none;
+        }
+
+        &-list {
+
+            &-ampm {
+                width: $width-timePicker_panel_list_ampm;
+            }
+
+            &-hour {
+                width: $width-timePicker_panel_list_hour;
+            }
+
+            &-minute {
+                width: $width-timePicker_panel_list_minute;
+            }
+
+            &-second {
+                width: $width-timePicker_panel_list_second;
+            }
+        }
+    }
+
+    &-range {
+
+        &-panel {
+            .#{$module}-lists {
+                display: flex;
+                box-shadow: $shadow-timePicker_range_panel;
+                border: $width-timePicker_range_panel-border solid $color-timePicker_range_panel-border;
+                border-radius: $radius-timePicker_range_panel;
+
+                & > .#{$prefix}-scrolllist:not(:last-child) {
+                    .#{$prefix}-scrolllist {
+
+                        &-body {
+                            border-right: $width-timePicker_range_panel_scrolllist_body-border solid $color-timePicker_range_picker_panel_split-border;
+                        }
+                    }
+                }
+
+                & > .#{$prefix}-scrolllist {
+                    box-shadow: none;
+
+                    .#{$prefix}-scrolllist {
+
+                        &-body,
+                        &-header {
+                            padding: $spacing-timePicker_range_panel_scrolllist_header_body-padding;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .#{$module}-input {
+        @include font-size-regular;
+        border-radius: $radius-timePicker_input;
+        align-items: center;
+    }
+
+    .#{$prefix}-input-readonly {
+        cursor: pointer;
+    }
+}
+
+@import "./rtl.scss";

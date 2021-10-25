@@ -1,0 +1,13 @@
+@keyframes semi-fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.semi-fadeIn {
+    animation-name: semi-fadeIn;
+}

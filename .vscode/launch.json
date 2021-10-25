@@ -1,0 +1,74 @@
+{
+    // 使用 IntelliSense 了解相关属性。
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug UnitTest",
+            "type": "node",
+            "request": "launch",
+            "runtimeArgs": [
+                "--inspect-brk",
+                "${workspaceRoot}/node_modules/.bin/jest",
+                "${workspaceRoot}/packages/semi-ui/form/", // 需要调试哪个组件，替换文件夹路径即可
+                "--runInBand",
+                "--coverage",
+                "--silent" // ignore warning such as componentWillReceiveProps will be abondon...
+            ],
+            "env": {
+                "NODE_ENV": "test",
+                // "type": "story" // 调试snapshot快照的时候用这个
+                "type": "unit"     // 调试unitTest的时候用这个
+            },
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "port": 9229
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "compile css",
+            "env": {
+                "NODE_ENV": "dev"
+            },
+            "runtimeExecutable": "node",
+            "program": "${workspaceFolder}/scripts/build-css.js",
+            "restart": true,
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "runtimeArgs": [
+            ],
+            "name": "debug snapshot update",
+            "env": {
+                "NODE_ENV": "dev"
+            },
+            "runtimeExecutable": "node",
+            "program": "${workspaceFolder}/scripts/snapshotUpdate.js",
+            "restart": true,
+            "console": "integratedTerminal",
+        },
+        {
+            "name": "Debug StorySnapShot",
+            "type": "node",
+            "request": "launch",
+            "runtimeArgs": [
+                "--inspect-brk",
+                "${workspaceRoot}/node_modules/.bin/jest",
+                "--runInBand",
+                "--silent" // ignore warning such as componentWillReceiveProps will be abondon...
+            ],
+            "env": {
+                "NODE_ENV": "test",
+                "type": "story"
+            },
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "port": 9229
+        }
+    ]
+}

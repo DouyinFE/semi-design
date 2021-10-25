@@ -1,0 +1,1 @@
+../../../content/show/sidesheet/index.md

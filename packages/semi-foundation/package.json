@@ -1,0 +1,46 @@
+{
+    "name": "@douyinfe/semi-foundation",
+    "version": "2.0.0",
+    "description": "",
+    "files": [
+        "lib",
+        "README.md"
+    ],
+    "scripts": {
+        "build:lib": "node ./scripts/compileLib.js",
+        "prepublishOnly": "npm run build:lib"
+    },
+    "dependencies": {
+        "@babel/runtime-corejs3": "^7.15.4",
+        "@douyinfe/semi-animation": "2.0.0",
+        "async-validator": "^3.5.0",
+        "classnames": "^2.2.6",
+        "date-fns": "^2.9.0",
+        "date-fns-tz": "^1.0.10",
+        "lodash-es": "^4.17.15",
+        "memoize-one": "^5.2.1",
+        "scroll-into-view-if-needed": "^2.2.24"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "MIT",
+    "sideEffects": [
+        "*.scss",
+        "*.css"
+    ],
+    "gitHead": "661ac2de772e28c3b6f934f70e4e08efbe2387b2",
+    "devDependencies": {
+        "@babel/plugin-proposal-decorators": "^7.15.8",
+        "@babel/plugin-transform-runtime": "^7.15.8",
+        "@babel/preset-env": "^7.15.8",
+        "del": "^6.0.0",
+        "gulp": "^4.0.2",
+        "gulp-babel": "^8.0.0",
+        "gulp-replace": "^1.1.3",
+        "gulp-sass": "^5.0.0",
+        "gulp-typescript": "^6.0.0-alpha.1",
+        "merge2": "^1.4.1",
+        "sass": "1.32.13",
+        "through2": "^4.0.2"
+    }
+}

@@ -1,0 +1,379 @@
+@import "./variables.scss";
+
+$module: #{$prefix}-radio;
+$inner-width: $width-icon-medium;
+
+.#{$module} {
+    @include box-sizing;
+    @include font-size-regular;
+    position: relative;
+    display: inline-flex;
+    flex-wrap: wrap;
+
+    &.#{$module}-vertical {
+        display: block;
+    }
+
+    min-height: $height-radio_inner_min;
+    min-width: $width-radio_inner;
+    cursor: pointer;
+    vertical-align: bottom;
+    text-align: left;
+
+    input[type="checkbox"],
+    input[type="radio"] {
+        position: absolute;
+        left: 0;
+        top: 0;
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+    }
+
+    &:hover {
+        .#{$module}-inner-display {
+            background: $color-radio_default-bg-hover;
+            border: solid $width-radio_hover-border $color-radio_default-border-hover;
+        }
+
+        &.#{$module}-cardRadioGroup {
+            .#{$module}-inner-display {
+                background: $color-radio_card-bg-hover;
+            }
+        }
+
+        .#{$module}-inner-checked {
+            .#{$module}-inner-display {
+                background: $color-radio_primary-bg-hover;
+            }
+        }
+    }
+
+    &:active {
+        .#{$module}-inner-display {
+            background: $color-radio_default-bg-active;
+        }
+
+        &.#{$module}-cardRadioGroup {
+            .#{$module}-inner-display {
+                background: $color-radio_card-bg-active;
+            }
+        }
+
+        .#{$module}-inner-checked {
+            .#{$module}-inner-display {
+                background: $color-radio_primary-bg-active;
+            }
+        }
+    }
+
+    &-buttonRadioComponent {
+        padding: $spacing-radio_buttonRadio-padding;
+        background: $color-radio_buttonRadio-bg-default;
+        border-radius: $radius-radio_buttonRadio;
+    }
+
+    &-buttonRadioGroup {
+        padding: $spacing-radio_buttonRadioGroup_middle-padding;
+        border-radius: $radius-radio_buttonRadio;
+        line-height: $font-radio_buttonRadioGroup_middle-lineHeight;
+
+        &:not(:last-child) {
+            padding-right: $spacing-radio_buttonRadioGroup-paddingRight;
+        }
+
+        &-small {
+            padding: $spacing-radio_buttonRadioGroup_small-paddingX $spacing-radio_buttonRadioGroup_small-paddingY;
+            line-height: $font-radio_buttonRadioGroup_small-lineHeight;
+        }
+
+
+        &-large {
+            padding: $spacing-radio_buttonRadioGroup_large-padding;
+            line-height: $font-radio_buttonRadioGroup_large-lineHeight;
+        }
+    }
+
+    &-cardRadioGroup {
+        flex-wrap: nowrap;
+        border-radius: $radius-radio_cardRadioGroup;
+        padding: $spacing-radio_cardRadioGroup-paddingY $spacing-radio_cardRadioGroup-paddingX;
+        background: transparent;
+        border: $width-radio_cardRadioGroup_checked-border solid transparent;
+
+        .#{$module}-inner {
+            position: relative;
+            &-display {
+                background: $color-radio_card-bg-default;
+            }
+            margin-right: $spacing-radio_cardRadioGroup_inner-marginRight;
+            flex-shrink: 0;
+        }
+
+        .#{$module}-addon {
+            font-weight: $font-radio_cardRadioGroup_addon-fontWeight;
+            font-size: $font-radio_cardRadioGroup_addon-size;
+            line-height: $font-radio_cardRadioGroup_addon-lineHeight;
+            color: $color-radio_cardRadioGroup_addon-text-default;
+            margin-left: 0;
+            padding-left: 0;
+        }
+
+        .#{$module}-extra {
+            font-weight: $font-radio_cardRadioGroup_extra-fontWeight;
+            font-size: $font-radio_cardRadioGroup_extra-size;
+            line-height: $font-radio_cardRadioGroup_extra-lineHeight;
+            color: $color-radio_cardRadioGroup_extra-text-default;
+            padding-left: 0;
+        }
+
+        &:active {
+            background: $color-radio_cardRadioGroup-bg-active;
+        }
+
+        &_checked {
+            background: $color-radio_cardRadioGroup-bg-checked;
+            border: $width-radio_cardRadioGroup_checked-border solid $color-radio_cardRadioGroup_border-active;
+        }
+
+        &_hover {
+            background: $color-radio_cardRadioGroup-bg-hover;
+        }
+
+        &_disabled {
+            &:active {
+                background: transparent;
+            }
+        }
+    }
+
+    &.#{$module}-disabled:hover,
+    &.#{$module}-disabled:active {
+        .#{$module}-inner-display {
+            background: $color-radio_disabled-bg-default;
+            border: solid $width-radio_disabled-border $color-radio_disabled-border-default;
+        }
+
+        .#{$module}-inner-checked {
+            .#{$module}-inner-display {
+                background: $color-radio_checked-bg-disabled;
+            }
+        }
+    }
+
+    &-inner {
+        position: absolute;
+        display: inline-block;
+        top: 2px;
+        left: 0;
+        width: $width-radio_inner;
+        height: $width-radio_inner;
+        vertical-align: sub;
+        user-select: none; // prevent text under it will be selected when double click
+
+        &-display {
+            position: absolute;
+            left: 0;
+            top: 0;
+            @include box-sizing;
+            width: $width-radio_inner;
+            height: $width-radio_inner;
+            border: solid $width-radio_innder-border $color-radio_default-border-default;
+            border-radius: $width-radio_inner;
+            background: $color-radio_default-bg-default;
+
+            .#{$prefix}-icon {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                font-size: 14px;
+            }
+        }
+    }
+
+    &:hover {
+        .#{$module}-inner-display {
+            background: $color-radio_default-bg-hover;
+        }
+    }
+
+    &:active {
+        .#{$module}-inner-display {
+            background: $color-radio_default-bg-active;
+        }
+    }
+
+    &-addon {
+        user-select: none;
+        padding-left: $spacing-radio_addon-paddingLeft;
+        margin-left: $spacing-radio_addon-marginLeft;
+        color: $color-radio_default-text-default;
+        display: inline-flex;
+        align-items: center;
+
+        &-buttonRadio {
+            margin-left: $spacing-radio_addon_buttonRadio_marginLeft;
+            text-align: center;
+            border-radius: $radius-radio_addon_buttonRadio;
+            font-weight: $font-radio_buttonRadio-default-fontWeight;
+            color: $color-radio_buttonRadio-text-default;
+            font-size: $font-radio_buttonRadio_middle-default-size;
+            padding: $spacing-radio_addon_buttonRadio_middle-paddingY $spacing-radio_addon_buttonRadio_middle-paddingX;
+
+            &-hover {
+                font-weight: $font-radio_buttonRadio-hover-fontWeight;
+                background: $color-radio_addon_buttonRadio-bg-hover;
+            }
+
+            &-checked {
+                font-weight: $font-radio_buttonRadio-checked-fontWeight;
+                background: $color-radio_addon_buttonRadio-bg-checked;
+                color: $color-radio_addon_buttonRadio-text-checked;
+            }
+
+            &-disabled {
+                cursor: not-allowed;
+                color: $color-radio_buttonRadio-text-disabled;
+            }
+
+            &-small {
+                font-size: $font-radio_buttonRadio_small-default-size;
+                padding: $spacing-radio_addon_buttonRadio_small-paddingY $spacing-radio_addon_buttonRadio_small-paddingX;
+            }
+
+            &-large {
+                font-size: $font-radio_buttonRadio_large-default-size;
+                padding: $spacing-radio_addon_buttonRadio_large-paddingY $spacing-radio_addon_buttonRadio_large-paddingX;
+            }
+        }
+    }
+
+    .#{$module}-inner-checked {
+
+        &:hover {
+            .#{$module}-inner-display {
+                background: $color-radio_primary-bg-hover;
+            }
+        }
+
+        &:active {
+            .#{$module}-inner-display {
+                background: $color-radio_primary-bg-active;
+            }
+        }
+
+        .#{$module}-inner-display {
+            border: solid $width-radio_innder-border $color-radio_primary-border-default;
+            background: $color-radio_primary-bg-default;
+            color: $color-radio_primary-text-default;
+            border-radius: $width-radio_inner;
+        }
+
+        >.#{$module}-addon {
+            color: $color-radio_default-text-default;
+        }
+    }
+
+    .#{$module}-inner-buttonRadio,
+    .#{$module}-inner-pureCardRadio  {
+        display: none;
+    }
+
+    &-disabled {
+
+        &,
+        &:hover {
+            cursor: not-allowed;
+        }
+
+        .#{$module}-inner {
+            cursor: not-allowed;
+
+            &-display {
+                opacity: 0.75;
+                background: $color-radio_disabled-bg-default;
+                border-color: $color-radio_checked-border-disabled;
+
+                &:hover {
+                    background: $color-radio_disabled-bg-hover;
+                }
+            }
+        }
+
+        .#{$module}-inner-checked {
+            .#{$module}-inner-display {
+                background: $color-radio_checked-bg-disabled;
+                border-color: $color-radio_checked-border-disabled;
+
+                &:hover {
+                    background: $color-radio_checked-bg-disabled;
+                }
+            }
+        }
+
+        .#{$module}-addon {
+            color: $color-radio_disabled-text-default;
+        }
+
+        .#{$module}-extra {
+            color: $color-radio_disabled-text-default;
+        }
+    }
+
+    &-extra {
+        flex-grow: 1;
+        flex-basis: 100%;
+        flex-shrink: 0;
+        color: $color-radio_extra-text-default;
+        padding-left: $spacing-radio_extra-paddingLeft;
+        box-sizing: border-box;
+    }
+}
+
+.#{$module}Group {
+    @include font-size-regular;
+
+    &-vertical {
+        .#{$module} {
+            &:last-of-type {
+                margin-bottom: 0;
+            }
+        }
+        &-default {
+            .#{$module} {
+                display: block;
+                margin-bottom: $spacing-radio_group_vertical-marginBottom;
+
+            }
+        }
+        &-card {
+            .#{$module} {
+                display: flex;
+                margin-bottom: $spacing-radio_card_group_vertical-marginBottom;
+            }
+        }
+    }
+
+    &-horizontal {
+        .#{$module} {
+            margin-right: $spacing-radio_group_horizontal-marginRight;
+
+            &:last-of-type {
+                margin-right: 0;
+            }
+        }
+        &-default {
+            display: inline-block;
+        }
+    }
+
+    &-buttonRadio {
+        display: inline-block;
+        background: $color-radio_buttonRadio-bg-default;
+        border-radius: $radius-radio_buttonRadio;
+        vertical-align: middle;
+    }
+}
+
+@import "./rtl.scss";

@@ -1,0 +1,892 @@
+import React, { Fragment, ReactNode, CSSProperties, MouseEvent } from 'react';
+import ReactDOM from 'react-dom';
+import cls from 'classnames';
+import PropTypes from 'prop-types';
+import CascaderFoundation, {
+    /* Corresponding to the state of react */
+    BasicCascaderInnerData,
+    /* Corresponding to the props of react */
+    BasicCascaderProps,
+    BasicTriggerRenderProps,
+    BasicScrollPanelProps,
+    CascaderAdapter,
+    CascaderType
+} from '@douyinfe/semi-foundation/cascader/foundation';
+import { cssClasses, strings } from '@douyinfe/semi-foundation/cascader/constants';
+import { numbers as popoverNumbers } from '@douyinfe/semi-foundation/popover/constants';
+import { isEqual, isString, isEmpty, isFunction, isNumber, noop } from 'lodash-es';
+import '@douyinfe/semi-foundation/cascader/cascader.scss';
+import { IconClear, IconChevronDown } from '@douyinfe/semi-icons';
+import { findKeysForValues, convertDataToEntities } from '@douyinfe/semi-foundation/cascader/util';
+import { calcCheckedKeys, normalizeKeyList, calcDisabledKeys } from '@douyinfe/semi-foundation/tree/treeUtil';
+import ConfigContext from '../configProvider/context';
+import BaseComponent, { ValidateStatus } from '../_base/baseComponent';
+import Input from '../input/index';
+import Popover, { PopoverProps } from '../popover/index';
+import Item, { CascaderData, Entities, Entity, Data } from './item';
+import Trigger from '../trigger';
+import Tag from '../tag';
+import TagInput from '../tagInput';
+import { Motion } from '../_base/base';
+import { isSemiIcon } from '../_utils';
+
+export { CascaderData, Entity, Data, CascaderItemProps } from './item';
+
+export interface ScrollPanelProps extends BasicScrollPanelProps {
+    activeNode: CascaderData;
+}
+
+export interface TriggerRenderProps extends BasicTriggerRenderProps {
+    componentProps: CascaderProps;
+    onClear: (e: React.MouseEvent) => void;
+}
+
+/* The basic type of the value of Cascader */
+export type SimpleValueType = string | number | CascaderData;
+
+/* The value of Cascader */
+export type Value = SimpleValueType | Array<SimpleValueType> | Array<Array<SimpleValueType>>;
+
+export interface CascaderProps extends BasicCascaderProps {
+    arrowIcon?: ReactNode;
+    defaultValue?: Value;
+    dropdownStyle?: CSSProperties;
+    emptyContent?: ReactNode;
+    motion?: Motion;
+    treeData?: Array<CascaderData>;
+    restTagsPopoverProps?: PopoverProps;
+    children?: ReactNode;
+    value?: Value;
+    prefix?: ReactNode;
+    suffix?: ReactNode;
+    insetLabel?: ReactNode;
+    style?: CSSProperties;
+    bottomSlot?: ReactNode;
+    topSlot?: ReactNode;
+    triggerRender?: (props: TriggerRenderProps) => ReactNode;
+    onListScroll?: (e: React.UIEvent<HTMLUListElement, UIEvent>, panel: ScrollPanelProps) => void;
+    loadData?: (selectOptions: CascaderData[]) => Promise<void>;
+    onLoad?: (newLoadedKeys: Set<string>, data: CascaderData) => void;
+    onChange?: (value: Value) => void;
+    onExceed?: (checkedItem: Entity[]) => void;
+    displayRender?: (selected: Array<string> | Entity, idx?: number) => ReactNode;
+    onBlur?: (e: MouseEvent) => void;
+    onFocus?: (e: MouseEvent) => void;
+    validateStatus?: ValidateStatus;
+}
+
+export interface CascaderState extends BasicCascaderInnerData {
+    keyEntities: Entities;
+    prevProps: CascaderProps;
+    treeData?: Array<CascaderData>;
+}
+
+const prefixcls = cssClasses.PREFIX;
+const resetkey = 0;
+
+class Cascader extends BaseComponent<CascaderProps, CascaderState> {
+    static contextType = ConfigContext;
+    static propTypes = {
+        arrowIcon: PropTypes.node,
+        changeOnSelect: PropTypes.bool,
+        defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+        disabled: PropTypes.bool,
+        dropdownClassName: PropTypes.string,
+        dropdownStyle: PropTypes.object,
+        emptyContent: PropTypes.node,
+        motion: PropTypes.oneOfType([PropTypes.bool, PropTypes.func, PropTypes.object]),
+        /* show search input, if passed in a function, used as custom filter */
+        filterTreeNode: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
+        filterLeafOnly: PropTypes.bool,
+        placeholder: PropTypes.string,
+        searchPlaceholder: PropTypes.string,
+        size: PropTypes.oneOf<CascaderType>(strings.SIZE_SET),
+        style: PropTypes.object,
+        className: PropTypes.string,
+        treeData: PropTypes.arrayOf(
+            PropTypes.shape({
+                value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+                label: PropTypes.any,
+            }),
+        ),
+        treeNodeFilterProp: PropTypes.string,
+        suffix: PropTypes.node,
+        prefix: PropTypes.node,
+        insetLabel: PropTypes.node,
+        displayProp: PropTypes.string,
+        displayRender: PropTypes.func,
+        onChange: PropTypes.func,
+        onSearch: PropTypes.func,
+        onSelect: PropTypes.func,
+        onBlur: PropTypes.func,
+        onFocus: PropTypes.func,
+        children: PropTypes.node,
+        getPopupContainer: PropTypes.func,
+        zIndex: PropTypes.number,
+        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array]),
+        validateStatus: PropTypes.oneOf<CascaderProps['validateStatus']>(strings.VALIDATE_STATUS),
+        showNext: PropTypes.oneOf([strings.SHOW_NEXT_BY_CLICK, strings.SHOW_NEXT_BY_HOVER]),
+        stopPropagation: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+        showClear: PropTypes.bool,
+        defaultOpen: PropTypes.bool,
+        autoAdjustOverflow: PropTypes.bool,
+        onDropdownVisibleChange: PropTypes.func,
+        triggerRender: PropTypes.func,
+        onListScroll: PropTypes.func,
+        onChangeWithObject: PropTypes.bool,
+        bottomSlot: PropTypes.node,
+        topSlot: PropTypes.node,
+        multiple: PropTypes.bool,
+        autoMergeValue: PropTypes.bool,
+        maxTagCount: PropTypes.number,
+        showRestTagsPopover: PropTypes.bool,
+        restTagsPopoverProps: PropTypes.object,
+        max: PropTypes.number,
+        onExceed: PropTypes.func,
+        onClear: PropTypes.func,
+        loadData: PropTypes.func,
+        onLoad: PropTypes.func,
+        loadedKeys: PropTypes.array,
+        disableStrictly: PropTypes.bool,
+    };
+
+    static defaultProps = {
+        arrowIcon: <IconChevronDown />,
+        stopPropagation: true,
+        motion: true,
+        defaultOpen: false,
+        zIndex: popoverNumbers.DEFAULT_Z_INDEX,
+        showClear: false,
+        autoClearSearchValue: true,
+        changeOnSelect: false,
+        disabled: false,
+        disableStrictly: false,
+        autoMergeValue: true,
+        multiple: false,
+        filterTreeNode: false,
+        filterLeafOnly: true,
+        showRestTagsPopover: false,
+        restTagsPopoverProps: {},
+        size: 'default' as const,
+        treeNodeFilterProp: 'label' as const,
+        displayProp: 'label' as const,
+        treeData: [] as Array<CascaderData>,
+        showNext: strings.SHOW_NEXT_BY_CLICK,
+        onExceed: noop,
+        onClear: noop,
+        onDropdownVisibleChange: noop,
+        onListScroll: noop,
+    };
+
+    options: any;
+    isEmpty: boolean;
+    inputRef: React.RefObject<typeof Input>;
+    triggerRef: React.RefObject<HTMLDivElement>;
+    optionsRef: React.RefObject<any>;
+    clickOutsideHandler: any;
+
+    constructor(props: CascaderProps) {
+        super(props);
+        this.state = {
+            disabledKeys: new Set(),
+            isOpen: props.defaultOpen,
+            /* By changing rePosKey, the dropdown position can be refreshed */
+            rePosKey: resetkey,
+            /* A data structure for storing cascader data items */
+            keyEntities: {},
+            /* Selected and show tick icon */
+            selectedKeys: new Set([]),
+            /* The key of the activated node */
+            activeKeys: new Set([]),
+            /* The key of the filtered node */
+            filteredKeys: new Set([]),
+            /* Value of input box */
+            inputValue: '',
+            /* Is searching */
+            isSearching: false,
+            /* The placeholder of input box */
+            inputPlaceHolder: props.searchPlaceholder || props.placeholder,
+            /* Cache props */
+            prevProps: {},
+            /* Is hovering */
+            isHovering: false,
+            /* Key of checked node, when multiple */
+            checkedKeys: new Set([]),
+            /* Key of half checked node, when multiple */
+            halfCheckedKeys: new Set([]),
+            /* Auto merged checkedKeys, when multiple */
+            mergedCheckedKeys: new Set([]),
+            /* Keys of loaded item */
+            loadedKeys: new Set(),
+            /* Keys of loading item */
+            loadingKeys: new Set(),
+            /* Mark whether this rendering has triggered asynchronous loading of data */
+            loading: false
+        };
+        this.options = {};
+        this.isEmpty = false;
+        this.inputRef = React.createRef();
+        this.triggerRef = React.createRef();
+        this.optionsRef = React.createRef();
+        this.clickOutsideHandler = null;
+        this.foundation = new CascaderFoundation(this.adapter);
+    }
+
+    get adapter(): CascaderAdapter {
+        const filterAdapter: Pick<CascaderAdapter, 'updateInputValue' | 'updateInputPlaceHolder' | 'focusInput'> = {
+            updateInputValue: value => {
+                this.setState({ inputValue: value });
+            },
+            updateInputPlaceHolder: value => {
+                this.setState({ inputPlaceHolder: value });
+            },
+            focusInput: () => {
+                if (this.inputRef && this.inputRef.current) {
+                    // TODO: check the reason
+                    (this.inputRef.current as any).focus();
+                }
+            },
+        };
+        const cascaderAdapter: Pick<CascaderAdapter,
+        'registerClickOutsideHandler'
+        | 'unregisterClickOutsideHandler'
+        | 'rePositionDropdown'
+        > = {
+            registerClickOutsideHandler: cb => {
+                const clickOutsideHandler = (e: Event) => {
+                    const optionInstance = this.optionsRef && this.optionsRef.current;
+                    const triggerDom = this.triggerRef && this.triggerRef.current;
+                    const optionsDom = ReactDOM.findDOMNode(optionInstance);
+                    const target = e.target as Element;
+                    if (
+                        optionsDom &&
+                        (!optionsDom.contains(target) || !optionsDom.contains(target.parentNode)) &&
+                        triggerDom &&
+                        !triggerDom.contains(target)
+                    ) {
+                        cb(e);
+                    }
+                };
+                this.clickOutsideHandler = clickOutsideHandler;
+                document.addEventListener('mousedown', clickOutsideHandler, false);
+            },
+            unregisterClickOutsideHandler: () => {
+                document.removeEventListener('mousedown', this.clickOutsideHandler, false);
+            },
+            rePositionDropdown: () => {
+                let { rePosKey } = this.state;
+                rePosKey = rePosKey + 1;
+                this.setState({ rePosKey });
+            },
+        };
+        return {
+            ...super.adapter,
+            ...filterAdapter,
+            ...cascaderAdapter,
+            updateStates: states => {
+                this.setState({ ...states } as CascaderState);
+            },
+            openMenu: () => {
+                this.setState({ isOpen: true });
+            },
+            closeMenu: cb => {
+                this.setState({ isOpen: false }, () => {
+                    cb && cb();
+                });
+            },
+            updateSelection: selectedKeys => this.setState({ selectedKeys }),
+            notifyChange: value => {
+                this.props.onChange && this.props.onChange(value);
+            },
+            notifySelect: selected => {
+                this.props.onSelect && this.props.onSelect(selected);
+            },
+            notifyOnSearch: input => {
+                this.props.onSearch && this.props.onSearch(input);
+            },
+            notifyFocus: (...v) => {
+                this.props.onFocus && this.props.onFocus(...v);
+            },
+            notifyBlur: (...v) => {
+                this.props.onBlur && this.props.onBlur(...v);
+            },
+            notifyDropdownVisibleChange: visible => {
+                this.props.onDropdownVisibleChange(visible);
+            },
+            toggleHovering: bool => {
+                this.setState({ isHovering: bool });
+            },
+            notifyLoadData: (selectedOpt, callback) => {
+                const { loadData } = this.props;
+                if (loadData) {
+                    new Promise<void>(resolve => {
+                        loadData(selectedOpt).then(() => {
+                            callback();
+                            this.setState({ loading: false });
+                            resolve();
+                        });
+                    });
+                }
+            },
+            notifyOnLoad: (newLoadedKeys, data) => {
+                const { onLoad } = this.props;
+                onLoad && onLoad(newLoadedKeys, data);
+            },
+            notifyListScroll: (e, { panelIndex, activeNode }) => {
+                this.props.onListScroll(e, { panelIndex, activeNode });
+            },
+            notifyOnExceed: data => this.props.onExceed(data),
+            notifyClear: () => this.props.onClear(),
+        };
+    }
+
+    static getDerivedStateFromProps(props: CascaderProps, prevState: CascaderState) {
+        const {
+            multiple,
+            value,
+            defaultValue,
+            onChangeWithObject
+        } = props;
+        const { prevProps } = prevState;
+        let keyEntities = prevState.keyEntities || {};
+        const newState: Partial<CascaderState> = { };
+        const needUpdate = (name: string) => {
+            const firstInProps = isEmpty(prevProps) && name in props;
+            const nameHasChange = prevProps && !isEqual(prevProps[name], props[name]);
+            return firstInProps || nameHasChange;
+        };
+        const needUpdateData = () => {
+            const firstInProps = !prevProps && 'treeData' in props;
+            const treeDataHasChange = prevProps && prevProps.treeData !== props.treeData;
+            return firstInProps || treeDataHasChange;
+        };
+        const needUpdateTreeData = needUpdate('treeData') || needUpdateData();
+        const needUpdateValue = needUpdate('value') || (isEmpty(prevProps) && defaultValue);
+        if (multiple) {
+            // when value and treedata need updated
+            if (needUpdateTreeData || needUpdateValue) {
+                // update state.keyEntities
+                if (needUpdateTreeData) {
+                    newState.treeData = props.treeData;
+                    keyEntities = convertDataToEntities(props.treeData);
+                    newState.keyEntities = keyEntities;
+                }
+                let realKeys: Array<string> | Set<string> = prevState.checkedKeys;
+                // when data was updated
+                if (needUpdateValue) {
+                    // normallizedValue is used to save the value in two-dimensional array format
+                    let normallizedValue: SimpleValueType[][] = [];
+                    const realValue = needUpdate('value') ? value : defaultValue;
+                    // eslint-disable-next-line max-depth
+                    if (!isEmpty(realValue)) {
+                        normallizedValue = Array.isArray(realValue[0]) ?
+                            realValue as SimpleValueType[][] :
+                            [realValue] as SimpleValueType[][];
+                    }
+                    // formatValuePath is used to save value of valuePath
+                    const formatValuePath: (string | number)[][] = [];
+                    normallizedValue.forEach((valueItem: SimpleValueType[]) => {
+                        const formatItem: (string | number)[] = onChangeWithObject && !isEmpty(prevProps) ?
+                            valueItem.map((i: CascaderData) => i.value) :
+                            valueItem as (string | number)[];
+                        formatValuePath.push(formatItem);
+                    });
+                    // formatKeys is used to save key of value
+                    const formatKeys: any[] = [];
+                    formatValuePath.forEach(v => {
+                        const formatKeyItem = findKeysForValues(v, keyEntities);
+                        !isEmpty(formatKeyItem) && formatKeys.push(formatKeyItem);
+                    });
+                    realKeys = formatKeys;
+                }
+                let checkedKeys = new Set([]);
+                let halfCheckedKeys = new Set([]);
+                realKeys.forEach(v => {
+                    const calRes = calcCheckedKeys(v, keyEntities);
+                    checkedKeys = new Set([...checkedKeys, ...calRes.checkedKeys]);
+                    halfCheckedKeys = new Set([...halfCheckedKeys, ...calRes.halfCheckedKeys]);
+                });
+                // disableStrictly
+                if (props.disableStrictly) {
+                    newState.disabledKeys = calcDisabledKeys(keyEntities);
+                }
+                newState.prevProps = props;
+                newState.checkedKeys = checkedKeys;
+                newState.halfCheckedKeys = halfCheckedKeys;
+                newState.mergedCheckedKeys = new Set(normalizeKeyList(checkedKeys, keyEntities));
+            }
+        }
+        return newState;
+    }
+
+    componentDidMount() {
+        this.foundation.init();
+    }
+
+    componentWillUnmount() {
+        this.foundation.destroy();
+    }
+
+    componentDidUpdate(prevProps: CascaderProps) {
+        let isOptionsChanged = false;
+        if (!isEqual(prevProps.treeData, this.props.treeData)) {
+            isOptionsChanged = true;
+            this.foundation.collectOptions();
+        }
+        if (prevProps.value !== this.props.value && !isOptionsChanged) {
+            this.foundation.handleValueChange(this.props.value);
+        }
+    }
+
+    handleInputChange = (value: string) => {
+        this.foundation.handleInputChange(value);
+    };
+
+    handleTagRemove = (e: any, tagValuePath: Array<string | number>) => {
+        this.foundation.handleTagRemove(e, tagValuePath);
+    };
+
+    renderTagItem = (value: string | Array<string>, idx: number, type: string) => {
+        const { keyEntities, disabledKeys } = this.state;
+        const { size, disabled, displayProp, displayRender, disableStrictly } = this.props;
+        const nodeKey = type === strings.IS_VALUE ?
+            findKeysForValues(value, keyEntities)[0] :
+            value;
+        const isDsiabled = disabled ||
+            keyEntities[nodeKey].data.disabled ||
+            (disableStrictly && disabledKeys.has(nodeKey));
+        if (!isEmpty(keyEntities) && !isEmpty(keyEntities[nodeKey])) {
+            const tagCls = cls(`${prefixcls}-selection-tag`, {
+                [`${prefixcls}-selection-tag-disabled`]: isDsiabled,
+            });
+            // custom render tags
+            if (isFunction(displayRender)) {
+                return displayRender(keyEntities[nodeKey], idx);
+            // default render tags
+            } else {
+                return (
+                    <Tag
+                        size={size === 'default' ? 'large' : size}
+                        key={`tag-${nodeKey}-${idx}`}
+                        color="white"
+                        className={tagCls}
+                        closable
+                        onClose={(tagChildren, e) => {
+                            // When value has not changed, prevent clicking tag closeBtn to close tag
+                            e.preventDefault();
+                            this.handleTagRemove(e, keyEntities[nodeKey].valuePath);
+                        }}
+                    >
+                        {displayProp === 'label' && keyEntities[nodeKey].data.label}
+                        {displayProp === 'value' && keyEntities[nodeKey].data.value}
+                    </Tag>
+                );
+            }
+        }
+        return null;
+    };
+
+    renderTagInput() {
+        const {
+            size,
+            disabled,
+            autoMergeValue,
+            placeholder,
+            maxTagCount,
+            showRestTagsPopover,
+            restTagsPopoverProps,
+        } = this.props;
+        const {
+            inputValue,
+            checkedKeys,
+            keyEntities,
+            mergedCheckedKeys
+        } = this.state;
+        const tagInputcls = cls(`${prefixcls}-tagInput-wrapper`);
+        const tagValue: Array<Array<string>> = [];
+        const realKeys = autoMergeValue ? mergedCheckedKeys : checkedKeys;
+        [...realKeys].forEach(checkedKey => {
+            if (!isEmpty(keyEntities[checkedKey])) {
+                tagValue.push(keyEntities[checkedKey].valuePath);
+            }
+        });
+        return (
+            <TagInput
+                className={tagInputcls}
+                ref={this.inputRef as any}
+                disabled={disabled}
+                size={size}
+                // TODO Modify logic, not modify type
+                value={tagValue as unknown as string[]}
+                showRestTagsPopover={showRestTagsPopover}
+                restTagsPopoverProps={restTagsPopoverProps}
+                maxTagCount={maxTagCount}
+                renderTagItem={(value, index) => this.renderTagItem(value, index, strings.IS_VALUE)}
+                inputValue={inputValue}
+                onInputChange={this.handleInputChange}
+                // TODO Modify logic, not modify type
+                onRemove={v => this.handleTagRemove(null, v as unknown as (string | number)[])}
+                placeholder={placeholder}
+            />
+        );
+    }
+
+    renderInput() {
+        const { size, disabled } = this.props;
+        const inputcls = cls(`${prefixcls}-input`);
+        const { inputValue, inputPlaceHolder } = this.state;
+        const inputProps = {
+            disabled,
+            value: inputValue,
+            className: inputcls,
+            onChange: this.handleInputChange,
+            placeholder: inputPlaceHolder,
+        };
+        const wrappercls = cls({
+            [`${prefixcls}-search-wrapper`]: true,
+        });
+        return (
+            <div className={wrappercls}>
+                <Input
+                    ref={this.inputRef as any}
+                    size={size}
+                    {...inputProps}
+                />
+            </div>
+        );
+    }
+
+    handleItemClick = (e: MouseEvent, item: Entity | Data) => {
+        this.foundation.handleItemClick(e, item);
+    };
+
+    handleItemHover = (e: MouseEvent, item: Entity) => {
+        this.foundation.handleItemHover(e, item);
+    };
+
+    onItemCheckboxClick = (item: Entity | Data) => {
+        this.foundation.onItemCheckboxClick(item);
+    };
+
+    handleListScroll = (e: React.UIEvent<HTMLUListElement, UIEvent>, ind: number) => {
+        this.foundation.handleListScroll(e, ind);
+    };
+
+    renderContent = () => {
+        const {
+            inputValue,
+            isSearching,
+            activeKeys,
+            selectedKeys,
+            checkedKeys,
+            halfCheckedKeys,
+            loadedKeys,
+            loadingKeys
+        } = this.state;
+        const {
+            filterTreeNode,
+            dropdownClassName,
+            dropdownStyle,
+            loadData,
+            emptyContent,
+            topSlot,
+            bottomSlot,
+            showNext,
+            multiple
+        } = this.props;
+        const searchable = Boolean(filterTreeNode) && isSearching;
+        const popoverCls = cls(dropdownClassName, `${prefixcls}-popover`);
+        const renderData = this.foundation.getRenderData();
+        const content = (
+            <div className={popoverCls} role="list-box" style={dropdownStyle}>
+                {topSlot}
+                <Item
+                    activeKeys={activeKeys}
+                    selectedKeys={selectedKeys}
+                    loadedKeys={loadedKeys}
+                    loadingKeys={loadingKeys}
+                    onItemClick={this.handleItemClick}
+                    onItemHover={this.handleItemHover}
+                    showNext={showNext}
+                    onItemCheckboxClick={this.onItemCheckboxClick}
+                    onListScroll={this.handleListScroll}
+                    searchable={searchable}
+                    keyword={inputValue}
+                    emptyContent={emptyContent}
+                    loadData={loadData}
+                    data={renderData}
+                    multiple={multiple}
+                    checkedKeys={checkedKeys}
+                    halfCheckedKeys={halfCheckedKeys}
+                />
+                {bottomSlot}
+            </div>
+        );
+        return content;
+    };
+
+    renderPlusN = (hiddenTag: Array<ReactNode>) => {
+        const { disabled, showRestTagsPopover, restTagsPopoverProps } = this.props;
+        const plusNCls = cls(`${prefixcls}-selection-n`, {
+            [`${prefixcls}-selection-n-disabled`]: disabled
+        });
+        const renderPlusNChildren = (
+            <span className={plusNCls}>
+                +{hiddenTag.length}
+            </span>
+        );
+        return (
+            showRestTagsPopover && !disabled ?
+                (
+                    <Popover
+                        content={hiddenTag}
+                        showArrow
+                        trigger="hover"
+                        position="top"
+                        autoAdjustOverflow
+                        {...restTagsPopoverProps}
+                    >
+                        {renderPlusNChildren}
+                    </Popover>
+                ) :
+                renderPlusNChildren
+        );
+    };
+
+    renderMultipleTags = () => {
+        const { autoMergeValue, maxTagCount } = this.props;
+        const { checkedKeys, mergedCheckedKeys } = this.state;
+        const realKeys = autoMergeValue ? mergedCheckedKeys : checkedKeys;
+        const displayTag: Array<ReactNode> = [];
+        const hiddenTag: Array<ReactNode> = [];
+        [...realKeys].forEach((checkedKey, idx) => {
+            const notExceedMaxTagCount = !isNumber(maxTagCount) || maxTagCount >= idx + 1;
+            const item = this.renderTagItem(checkedKey, idx, strings.IS_KEY);
+            if (notExceedMaxTagCount) {
+                displayTag.push(item);
+            } else {
+                hiddenTag.push(item);
+            }
+        });
+        return (
+            <>
+                {displayTag}
+                {!isEmpty(hiddenTag) && this.renderPlusN(hiddenTag)}
+            </>
+        );
+    };
+
+    renderSelectContent = () => {
+        const { placeholder, filterTreeNode, multiple } = this.props;
+        const { selectedKeys, checkedKeys } = this.state;
+        const searchable = Boolean(filterTreeNode);
+        if (!searchable) {
+            if (multiple) {
+                if (isEmpty(checkedKeys)) {
+                    return <span className={`${prefixcls}-selection-placeholder`}>{placeholder}</span>;
+                }
+                return this.renderMultipleTags();
+            } else {
+                const displayText = selectedKeys.size ?
+                    this.foundation.renderDisplayText([...selectedKeys][0]) :
+                    '';
+                const spanCls = cls({
+                    [`${prefixcls}-selection-placeholder`]: !displayText || !displayText.length,
+                });
+                return <span className={spanCls}>{displayText ? displayText : placeholder}</span>;
+            }
+        }
+        const input = multiple ? this.renderTagInput() : this.renderInput();
+        return input;
+    };
+
+    renderSuffix = () => {
+        const { suffix }: any = this.props;
+        const suffixWrapperCls = cls({
+            [`${prefixcls}-suffix`]: true,
+            [`${prefixcls}-suffix-text`]: suffix && isString(suffix),
+            [`${prefixcls}-suffix-icon`]: isSemiIcon(suffix),
+        });
+        return <div className={suffixWrapperCls}>{suffix}</div>;
+    };
+
+    renderPrefix = () => {
+        const { prefix, insetLabel } = this.props;
+        const labelNode: any = prefix || insetLabel;
+
+        const prefixWrapperCls = cls({
+            [`${prefixcls}-prefix`]: true,
+            // to be doublechecked
+            [`${prefixcls}-inset-label`]: insetLabel,
+            [`${prefixcls}-prefix-text`]: labelNode && isString(labelNode),
+            [`${prefixcls}-prefix-icon`]: isSemiIcon(labelNode),
+        });
+
+        return <div className={prefixWrapperCls}>{labelNode}</div>;
+    };
+
+    renderCustomTrigger = () => {
+        const { disabled, triggerRender } = this.props;
+        const { selectedKeys, inputValue, inputPlaceHolder } = this.state;
+        return (
+            <Trigger
+                value={[...selectedKeys][0]}
+                inputValue={inputValue}
+                onChange={this.handleInputChange}
+                onClear={this.handleClear}
+                placeholder={inputPlaceHolder}
+                disabled={disabled}
+                triggerRender={triggerRender}
+                componentName={'Cascader'}
+                componentProps={{ ...this.props }}
+            />
+        );
+    };
+
+    handleMouseOver = () => {
+        this.foundation.toggleHoverState(true);
+    };
+
+    handleMouseLeave = () => {
+        this.foundation.toggleHoverState(false);
+    };
+
+    handleClear = (e: MouseEvent) => {
+        e && e.stopPropagation();
+        this.foundation.handleClear();
+    };
+
+    showClearBtn = () => {
+        const { showClear, disabled, multiple } = this.props;
+        const { selectedKeys, isOpen, isHovering, checkedKeys } = this.state;
+        const hasValue = selectedKeys.size;
+        const multipleWithHaveValue = multiple && checkedKeys.size;
+        return showClear && (hasValue || multipleWithHaveValue) && !disabled && (isOpen || isHovering);
+    };
+
+    renderClearBtn = () => {
+        const clearCls = cls(`${prefixcls}-clearbtn`);
+        const allowClear = this.showClearBtn();
+        if (allowClear) {
+            return (
+                <div className={clearCls} onClick={this.handleClear}>
+                    <IconClear />
+                </div>
+            );
+        }
+        return null;
+    };
+
+    renderArrow = () => {
+        const { arrowIcon } = this.props;
+        const showClearBtn = this.showClearBtn();
+        if (showClearBtn) {
+            return null;
+        }
+        return arrowIcon ? <div className={cls(`${prefixcls}-arrow`)}>{arrowIcon}</div> : null;
+    };
+
+    renderSelection = () => {
+        const {
+            disabled,
+            multiple,
+            filterTreeNode,
+            style,
+            size,
+            className,
+            validateStatus,
+            prefix,
+            suffix,
+            insetLabel,
+            triggerRender,
+            showClear,
+        } = this.props;
+        const { isOpen, isFocus, isInput, checkedKeys } = this.state;
+        const filterable = Boolean(filterTreeNode);
+        const useCustomTrigger = typeof triggerRender === 'function';
+        const classNames = useCustomTrigger ?
+            cls(className) :
+            cls(prefixcls, className, {
+                [`${prefixcls}-focus`]: isFocus || (isOpen && !isInput),
+                [`${prefixcls}-disabled`]: disabled,
+                [`${prefixcls}-single`]: true,
+                [`${prefixcls}-filterable`]: filterable,
+                [`${prefixcls}-error`]: validateStatus === 'error',
+                [`${prefixcls}-warning`]: validateStatus === 'warning',
+                [`${prefixcls}-small`]: size === 'small',
+                [`${prefixcls}-large`]: size === 'large',
+                [`${prefixcls}-with-prefix`]: prefix || insetLabel,
+                [`${prefixcls}-with-suffix`]: suffix,
+            });
+        const mouseEvent = showClear ?
+            {
+                onMouseEnter: () => this.handleMouseOver(),
+                onMouseLeave: () => this.handleMouseLeave(),
+            } :
+            {};
+        const sectionCls = cls(`${prefixcls}-selection`, {
+            [`${prefixcls}-selection-multiple`]: multiple && !isEmpty(checkedKeys),
+        });
+        const inner = useCustomTrigger ?
+            this.renderCustomTrigger() :
+            [
+                <Fragment key={'prefix'}>{prefix || insetLabel ? this.renderPrefix() : null}</Fragment>,
+                <Fragment key={'selection'}>
+                    <div className={sectionCls}>{this.renderSelectContent()}</div>
+                </Fragment>,
+                <Fragment key={'clearbtn'}>{this.renderClearBtn()}</Fragment>,
+                <Fragment key={'suffix'}>{suffix ? this.renderSuffix() : null}</Fragment>,
+                <Fragment key={'arrow'}>{this.renderArrow()}</Fragment>,
+            ];
+
+        return (
+            <div
+                className={classNames}
+                style={style}
+                ref={this.triggerRef}
+                onClick={e => this.foundation.handleClick(e)}
+                {...mouseEvent}
+            >
+                {inner}
+            </div>
+        );
+    };
+
+    render() {
+        const {
+            zIndex,
+            getPopupContainer,
+            autoAdjustOverflow,
+            stopPropagation,
+            mouseLeaveDelay,
+            mouseEnterDelay,
+        } = this.props;
+        const { isOpen, rePosKey } = this.state;
+        const { direction } = this.context;
+        const content = this.renderContent();
+        const selection = this.renderSelection();
+        const pos = direction === 'rtl' ? 'bottomRight' : 'bottomLeft';
+        const mergedMotion: Motion = this.foundation.getMergedMotion();
+        return (
+            <Popover
+                getPopupContainer={getPopupContainer}
+                zIndex={zIndex}
+                motion={mergedMotion}
+                ref={this.optionsRef}
+                content={content}
+                visible={isOpen}
+                trigger="custom"
+                rePosKey={rePosKey}
+                position={pos}
+                autoAdjustOverflow={autoAdjustOverflow}
+                stopPropagation={stopPropagation}
+                mouseLeaveDelay={mouseLeaveDelay}
+                mouseEnterDelay={mouseEnterDelay}
+            >
+                {selection}
+            </Popover>
+        );
+    }
+}
+
+export default Cascader;

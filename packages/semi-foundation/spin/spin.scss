@@ -1,0 +1,104 @@
+//@import '../theme/variables.scss';
+@import "./variables.scss";
+@import "./mixin.scss";
+@import "../keyframes/rotate.scss";
+
+$module: #{$prefix}-spin;
+
+.#{$module} {
+    position: relative;
+    display: inline-block;
+    @include size($width-spin_middle);
+
+    &-wrapper {
+        text-align: center;
+        position: absolute;
+        width: 100%;
+        transform: $motion-spin_wrapper-translate;
+        top: $spacing-spin_wrapper-top;
+        color: $color-spin-bg;
+
+        &>svg {
+            animation: $motion-spin_wrapper_svg-animationDuration linear infinite #{$prefix}-animation-rotate;
+            @include size($width-spin_middle);
+        }
+    }
+
+    &-animate {
+        display: inline-flex;
+        animation: $motion-spin_animate_svg-animationDuration linear infinite #{$prefix}-animation-rotate;
+    }
+
+    &-children {
+        opacity: $opacity-spin_children;
+        user-select: none;
+    }
+
+    &-block {
+        display: block;
+
+        // 添加一个遮罩解决嵌套 Spin 穿透问题
+
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .#{$module}-wrapper {
+            display: block;
+        }
+
+        &.#{$module} {
+            height: auto;
+            width: auto;
+        }
+    }
+
+    &-hidden {
+
+        &::after {
+            content: none;
+        }
+
+        // 考虑到嵌套，.spin-chidren 节点的 opacity 由直接父级节点的 .spin-hidden 决定
+        &>.#{$module}-children {
+            opacity: 1;
+            user-select: auto;
+        }
+    }
+}
+
+.#{$module}-small {
+    @include size($width-spin_small);
+
+    &>.#{$module}-wrapper svg {
+        @include size($width-spin_small);
+    }
+}
+
+.#{$module}-middle {
+    @include size($width-spin_middle);
+
+    &>.#{$module}-wrapper svg {
+        @include size($width-spin_middle);
+    }
+}
+
+.#{$module}-large {
+    @include size($width-spin_large);
+
+    &>.#{$module}-wrapper svg {
+        @include size($width-spin_large);
+    }
+}
+
+.#{$module}-container {
+    overflow: hidden;
+}
+
+@import "./rtl.scss";

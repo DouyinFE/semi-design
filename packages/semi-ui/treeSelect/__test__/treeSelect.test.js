@@ -1,0 +1,783 @@
+import { TreeSelect, Icon } from '../../index';
+import { BASE_CLASS_PREFIX } from '../../../semi-foundation/base/constants';
+
+
+const treeChildren = [
+    {
+        label: '北京',
+        value: 'Beijing',
+        key: 'beijing',
+    },
+    {
+        label: '上海',
+        value: 'Shanghai',
+        key: 'shanghai',
+    },
+];
+
+const treeData = [
+    {
+        label: '亚洲',
+        value: 'Yazhou',
+        key: 'yazhou',
+        children: [
+            {
+                label: '中国',
+                value: 'Zhongguo',
+                key: 'zhongguo',
+                children: treeChildren,
+            },
+            {
+                label: '日本',
+                value: 'Riben',
+                key: 'riben',
+                children: [
+                    {
+                        label: '东京',
+                        value: 'Dongjing',
+                        key: 'dongjing'
+                    },
+                    {
+                        label: '大阪',
+                        value: 'Daban',
+                        key: 'daban'
+                    }
+                ]
+            },
+        ],
+    },
+    {
+        label: '北美洲',
+        value: 'Beimeizhou',
+        key: 'beimeizhou',
+        children: [
+            {
+                label: '美国',
+                value: 'Meiguo',
+                key: 'meiguo'
+            },
+            {
+                label: '加拿大',
+                value: 'Jianada',
+                key: 'jianada'
+            }
+        ]
+    },
+];
+
+const treeData2 = [
+    {
+        label: '亚洲',
+        value: 'Asia',
+        key: '0',
+        children: [
+            {
+                label: '中国',
+                value: 'China',
+                key: '0-0',
+                children: [
+                    {
+                        label: '北京',
+                        value: 'Beijing',
+                        key: '0-0-0',
+                    },
+                    {
+                        label: '上海',
+                        value: 'Shanghai',
+                        key: '0-0-1',
+                    },
+                ],
+            },
+        ],
+    },
+    {
+        label: '北美洲',
+        value: 'North America',
+        key: '1',
+    }
+];
+
+let commonProps = {
+    motion: false,
+    motionExpand: false,
+    mouseEnterDelay: 0,
+    mouseLeaveDelay: 0,
+};
+
+function getTreeSelect(props) {
+    props = { treeData: treeData, ...props }
+    return mount(
+        <TreeSelect
+            {...commonProps}
+            defaultOpen={true}
+            {...props}
+        />,
+        {
+            attachTo: document.getElementById('container')
+        }
+    );
+}
+
+describe('TreeSelect', () => {
+
+    beforeEach(() => {
+        // Avoid `attachTo: document.body` Warning
+        const div = document.createElement('div');
+        div.setAttribute('id', 'container');
+        document.body.appendChild(div);
+    });
+
+    afterEach(() => {
+        const div = document.getElementById('container');
+        if (div) {
+            document.body.removeChild(div);
+        }
+        document.body.innerHTML = '';
+    });
+
+    it('className / style', () => {
+        let props = {
+            className: 'test',
+            style: { height: 420 },
+        };
+        let treeSelect = getTreeSelect(props);
+        expect(treeSelect.hasClass('test')).toEqual(true);
+        expect(treeSelect.find('div.test')).toHaveStyle('height', 420);
+    });
+
+    it('placeholder', () => {
+        const props = {
+            placeholder: 'semi'
+        };
+        const treeSelect = getTreeSelect(props);
+        expect(treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-select-selection-placeholder`).instance().textContent).toEqual('semi');
+    });
+
+    it('validateStatus', () => {
+        const props = {};
+        const treeSelect = getTreeSelect(props);
+        expect(treeSelect.exists(`.${BASE_CLASS_PREFIX}-tree-select-error`)).toEqual(false);
+        expect(treeSelect.exists(`.${BASE_CLASS_PREFIX}-tree-select-warning`)).toEqual(false);
+        treeSelect.setProps({ validateStatus: 'error' });
+        expect(treeSelect.exists(`.${BASE_CLASS_PREFIX}-tree-select-error`)).toEqual(true);
+        treeSelect.setProps({ validateStatus: 'warning' });
+        expect(treeSelect.exists(`.${BASE_CLASS_PREFIX}-tree-select-warning`)).toEqual(true);
+    });
+
+    it('outerBottomSlot', () => {
+        let outerBottomSlot = <div class="outer-slot">outer</div>;
+        let props = {
+            outerBottomSlot: outerBottomSlot,
+        };
+        const treeSelect = getTreeSelect(props);
+        expect(treeSelect.contains(outerBottomSlot)).toEqual(true);
+    });
+
+    it('size', () => {
+        const props = {};
+        const treeSelect = getTreeSelect(props);
+        expect(treeSelect.exists(`.${BASE_CLASS_PREFIX}-tree-select-large`)).toEqual(false);
+        expect(treeSelect.exists(`.${BASE_CLASS_PREFIX}-tree-select-small`)).toEqual(false);
+        treeSelect.setProps({ size: 'large' });
+        expect(treeSelect.exists(`.${BASE_CLASS_PREFIX}-tree-select-large`)).toEqual(true);
+        treeSelect.setProps({ size: 'small' });
+        expect(treeSelect.exists(`.${BASE_CLASS_PREFIX}-tree-select-small`)).toEqual(true);
+    });
+
+    it('custom dropdownClassName / dropdownStyle / zIndex', () => {
+        let props = {
+            dropdownClassName: 'test',
+            dropdownStyle: {
+                color: 'red',
+            },
+            zIndex: 2000,
+        };
+        let treeSelect = getTreeSelect(props);
+        expect(treeSelect.exists('.test')).toEqual(true);
+        expect(treeSelect.find('.test')).toHaveStyle('color', 'red');
+        expect(document.querySelector(`.${BASE_CLASS_PREFIX}-portal`).style.zIndex).toEqual("2000");
+    });
+
+    it('dropdownMatchSelectWidth = true', () => {
+        // dropdownMatchSelectWidth default is true
+        let props = {
+            style: { width: 90 },
+            defaultValue: 'tiktok',
+        };
+        let treeSelect = getTreeSelect(props);
+        // cause jsdom doesn't support layout engine like browser, so you can't access offsetWidth/scrollWidth or use getBoundingRect(), it will always return 0;
+        // just use getComputedStyle to avoid this problem.
+        let selector = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-select`).getDOMNode();
+        let selectorWidth = window.getComputedStyle(selector).width; // expect 90px
+        let list = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-select-popover`).getDOMNode();
+        let listWidth = window.getComputedStyle(list).minWidth;
+        expect(selectorWidth).toEqual(listWidth);
+        treeSelect.unmount();
+    });
+
+    it('dropdownMatchSelectWidth = false', () => {
+        let props = {
+            style: { width: 90 },
+            defaultValue: 'tiktok',
+            dropdownMatchSelectWidth: false,
+        };
+        let treeSelect = getTreeSelect(props);
+        let selector = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-select`).getDOMNode();
+        let selectorWidth = window.getComputedStyle(selector).width; // expect 90px
+        let list = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-select-popover`).getDOMNode();
+        let listWidth = window.getComputedStyle(list).minWidth;
+        expect(selectorWidth).not.toEqual(listWidth);
+        treeSelect.unmount();
+    });
+
+    it('getPopupContainer', () => {
+        let treeSelect = getTreeSelect({
+            getPopupContainer: () => document.querySelector(`.${BASE_CLASS_PREFIX}-tree-select`),
+        });
+        let dom = document.querySelector(`.${BASE_CLASS_PREFIX}-tree-select`);
+        expect(dom.querySelectorAll(`.${BASE_CLASS_PREFIX}-tree-select-popover`).length).toEqual(1);
+    });
+
+    it('custom prefix / suffix / insetLabel', () => {
+        let prefix = <div className="prefix">prefix content</div>;
+        let suffix = <div className="suffix">suffix content</div>;
+        let insetLabel = 'semi';
+        const props = {
+            prefix: prefix,
+            suffix: suffix,
+        };
+        let treeSelect = getTreeSelect(props);
+        expect(treeSelect.contains(prefix)).toEqual(true);
+        expect(treeSelect.contains(suffix)).toEqual(true);
+        treeSelect.unmount();
+        let ntreeSelect = getTreeSelect({ insetLabel: insetLabel });
+        expect(ntreeSelect.contains(insetLabel)).toEqual(true);
+        ntreeSelect.unmount();
+    });
+
+    it('empty data', () => {
+        let treeSelect = getTreeSelect({
+            treeData: [],
+            emptyContent: 'empty'
+        });
+        let node = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option`);
+        expect(node.length).toEqual(1);
+        expect(node.hasClass(`${BASE_CLASS_PREFIX}-tree-option-empty`)).toEqual(true);
+        expect(node.instance().textContent).toEqual('empty');
+    });
+
+    it('defaultOpen', () => {
+        let props = {
+            defaultOpen: false,
+        };
+        let treeSelect = getTreeSelect(props);
+        expect(treeSelect.state().isOpen).toEqual(false);
+        expect(treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-select-popover`).exists()).toEqual(false);
+        treeSelect.unmount();
+
+        let ntreeSelect = getTreeSelect({ defaultOpen: true, });
+        expect(ntreeSelect.state().isOpen).toEqual(true);
+        expect(ntreeSelect.find(`.${BASE_CLASS_PREFIX}-tree-select-popover`).exists()).toEqual(true);
+        let options = ntreeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option`);
+        expect(ntreeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option`).length).toEqual(2);
+        expect(options.at(0).getDOMNode().textContent).toEqual('亚洲');
+        expect(options.at(1).getDOMNode().textContent).toEqual('北美洲');
+    });
+
+    it('defaultValue', () => {
+        // auto expand parent, if node exist means parent is open
+        let treeSelect = getTreeSelect({
+            defaultValue: 'Beijing'
+        });
+        let selectedNode = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option-selected`);
+        expect(treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-select-selection`).getDOMNode().textContent).toEqual('北京');
+        expect(selectedNode.instance().textContent).toEqual('北京');
+        treeSelect.unmount();
+        // array case only select first item
+        let tree2 = getTreeSelect({
+            defaultValue: ['Riben', 'Beijing']
+        });
+        let selectedNode2 = tree2.find(`.${BASE_CLASS_PREFIX}-tree-option-selected`);
+        expect(selectedNode2.instance().textContent).toEqual('日本');
+        expect(tree2.find(`.${BASE_CLASS_PREFIX}-tree-select-selection`).getDOMNode().textContent).toEqual('日本');
+        expect(tree2.find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-2`).at(0).hasClass(`${BASE_CLASS_PREFIX}-tree-option-collapsed`)).toEqual(true);
+    })
+
+    it('defaultExpandedKeys', () => {
+        // auto expand parent
+        let treeSelect = getTreeSelect({
+            defaultExpandedKeys: ['zhongguo', 'beimeizhou']
+        });
+        // yazhou beimeizhou
+        let topNode = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-1`);
+        expect(topNode.at(0).hasClass(`${BASE_CLASS_PREFIX}-tree-option-collapsed`)).toEqual(false);
+        expect(topNode.at(1).hasClass(`${BASE_CLASS_PREFIX}-tree-option-collapsed`)).toEqual(false);
+        // zhongguo riben
+        let children = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-2`);
+        expect(children.at(0).hasClass(`${BASE_CLASS_PREFIX}-tree-option-collapsed`)).toEqual(false);
+        expect(children.at(1).hasClass(`${BASE_CLASS_PREFIX}-tree-option-collapsed`)).toEqual(true);
+    })
+
+    it('defaultExpandAll', () => {
+        let treeSelect = getTreeSelect({
+            defaultExpandAll: true
+        });
+        let nodes = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option`);
+        let collapsed = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option-collapsed`);
+        expect(nodes.length).toEqual(10);
+        expect(collapsed.length).toEqual(0);
+
+        treeSelect.setProps({ treeData: treeData2});
+        treeSelect.update();
+        const nodes2 = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option`);
+        const collapsed2 = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option-collapsed`);
+        expect(nodes2.length).toEqual(2);
+        expect(collapsed2.length).toEqual(2);
+    })
+
+    it('expandAll', () => {
+        const treeSelect = getTreeSelect({
+            expandAll: true
+        });
+        const nodes = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option`);
+        const collapsed = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option-collapsed`);
+        expect(nodes.length).toEqual(10);
+        expect(collapsed.length).toEqual(0);
+
+        treeSelect.setProps({ treeData: treeData2});
+        treeSelect.update();
+        const nodes2 = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option`);
+        const collapsed2 = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option-collapsed`);
+        expect(nodes2.length).toEqual(5);
+        expect(collapsed2.length).toEqual(0);
+    })
+
+    it('if expandedKeys values work', () => {
+        // auto expand parent
+        let treeSelect = getTreeSelect({
+            expandedKeys: ['beimeizhou']
+        });
+        // yazhou beimeizhou
+        let topNode = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-1`);
+        expect(topNode.at(0).hasClass(`${BASE_CLASS_PREFIX}-tree-option-collapsed`)).toEqual(true);
+        expect(topNode.at(1).hasClass(`${BASE_CLASS_PREFIX}-tree-option-collapsed`)).toEqual(false);
+        treeSelect.setProps({ expandedKeys: ['yazhou', 'zhongguo', 'beimeizhou'] });
+        treeSelect.update();
+        // zhongguo riben
+        let children = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-2`);
+        expect(children.at(0).hasClass(`${BASE_CLASS_PREFIX}-tree-option-collapsed`)).toEqual(false);
+        expect(children.at(1).hasClass(`${BASE_CLASS_PREFIX}-tree-option-collapsed`)).toEqual(true);
+    });
+
+    it('if expand behavior works / onExpand', () => {
+        const nativeEvent = { nativeEvent: { stopImmediatePropagation: () => { } } }
+        let spyOnExpand = sinon.spy(() => { });
+        let treeSelect = getTreeSelect({
+            onExpand: spyOnExpand,
+        });
+        // yazhou
+        let topNodeAsia = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-1`).at(0);
+        let expandIcon = topNodeAsia.find(`.${BASE_CLASS_PREFIX}-tree-option-expand-icon`).at(0);
+        // expand yazhou
+        expandIcon.simulate('click', nativeEvent);
+        expect(spyOnExpand.calledOnce).toBe(true);
+        expect(spyOnExpand.calledWithMatch(["yazhou"], { expanded: true, node: { key: 'yazhou' } })).toEqual(true);
+        // zhongguo riben
+        let topNode = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-1`);
+        expect(topNode.at(0).hasClass(`${BASE_CLASS_PREFIX}-tree-option-collapsed`)).toEqual(false);
+        expect(topNode.at(1).hasClass(`${BASE_CLASS_PREFIX}-tree-option-collapsed`)).toEqual(true);
+        // collapse yazhou
+        expandIcon.simulate('click', nativeEvent);
+        expect(spyOnExpand.calledWithMatch([], { expanded: false, node: { key: 'yazhou' } })).toEqual(true);
+        topNode = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-1`);
+        expect(topNode.at(0).hasClass(`${BASE_CLASS_PREFIX}-tree-option-collapsed`)).toEqual(true);
+    });
+
+    it('if expandedKeys controlled work / onExpand', () => {
+        const nativeEvent = { nativeEvent: { stopImmediatePropagation: () => { } } }
+        let spyOnExpand = sinon.spy(() => { });
+        let treeSelect = getTreeSelect({
+            expandedKeys: ['beimeizhou'],
+            onExpand: spyOnExpand,
+        });
+        // yazhou
+        let topNodeAsia = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-1`).at(0);
+        let expandIcon = topNodeAsia.find(`.${BASE_CLASS_PREFIX}-tree-option-expand-icon`).at(0);
+        // expand yazhou
+        expandIcon.simulate('click', nativeEvent);
+        expect(spyOnExpand.calledWithMatch(["beimeizhou", "yazhou"], { expanded: true, node: { key: 'yazhou' } })).toEqual(true);
+        // zhongguo riben
+        let topNode = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-1`);
+        expect(topNode.at(0).hasClass(`${BASE_CLASS_PREFIX}-tree-option-collapsed`)).toEqual(true);
+    });
+
+    it('select item / onSelect / onChange', () => {
+        let spyOnSelect = sinon.spy(() => { });
+        let spyOnChange = sinon.spy(() => { });
+        let treeSelect = getTreeSelect({
+            defaultExpandAll: true,
+            onSelect: spyOnSelect,
+            onChange: spyOnChange,
+        });
+        let nodeBeijing = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-3`).at(0);
+        // select beijing
+        nodeBeijing.simulate('click');
+        // onSelect & onChange
+        expect(spyOnSelect.calledOnce).toBe(true);
+        expect(spyOnChange.calledOnce).toBe(true);
+        expect(spyOnSelect.calledWithMatch('beijing', true, { key: "beijing" })).toEqual(true);
+        expect(spyOnChange.calledWithMatch('Beijing', { key: "beijing" })).toEqual(true);
+
+        let selectBox = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-select`).at(0);
+        selectBox.simulate('click');
+        // classname
+        nodeBeijing = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-3`).at(0);
+        expect(nodeBeijing.hasClass(`${BASE_CLASS_PREFIX}-tree-option-selected`)).toEqual(true);
+        // render in input box
+        expect(treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-select-selection`).getDOMNode().textContent).toEqual('北京');
+
+        // change
+        let nodeAsia = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-1`).at(0);
+        // select asia
+        nodeAsia.simulate('click');
+        // onSelect & onChange
+        expect(spyOnSelect.calledWithMatch('yazhou', true, { key: "yazhou" })).toEqual(true);
+        expect(spyOnChange.calledWithMatch('Yazhou', { key: "yazhou" })).toEqual(true);
+
+        selectBox.simulate('click');
+        // classname
+        nodeAsia = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-1`).at(0);
+        expect(nodeAsia.hasClass(`${BASE_CLASS_PREFIX}-tree-option-selected`)).toEqual(true);
+        // render in input box
+        expect(treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-select-selection`).getDOMNode().textContent).toEqual('亚洲');
+    });
+
+    it('onChange + value not changed', () => {
+        let spyOnSelect = sinon.spy(() => { });
+        let spyOnChange = sinon.spy(() => { });
+        let treeSelect = getTreeSelect({
+            defaultExpandAll: true,
+            onSelect: spyOnSelect,
+            onChange: spyOnChange,
+            defaultValue: 'Beijing'
+        });
+        let nodeBeijing = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-3`).at(0);
+        // select beijing
+        nodeBeijing.simulate('click');
+        // onSelect & onChange
+        expect(spyOnSelect.calledOnce).toBe(true);
+        expect(spyOnChange.notCalled).toBe(true);
+    });
+
+    it('onChange + onChangeWithObject', () => {
+        let spyOnChange = sinon.spy(() => { });
+        let treeSelect = getTreeSelect({
+            defaultExpandAll: true,
+            onChangeWithObject: true,
+            onChange: spyOnChange,
+        });
+        let nodeBeijing = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-3`).at(0);
+        // select beijing
+        nodeBeijing.simulate('click');
+        // onSelect & onChange
+        expect(spyOnChange.calledOnce).toBe(true);
+        expect(spyOnChange.calledWithMatch({ key: "beijing" })).toEqual(true);
+    });
+
+    it('treeNodeLabelProp', () => {
+        // auto expand parent, if node exist means parent is open
+        let treeSelect = getTreeSelect({
+            defaultValue: 'Beijing',
+            treeNodeLabelProp: 'value'
+        });
+        expect(treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-select-selection`).getDOMNode().textContent).toEqual('Beijing');
+
+        // select asia
+        let nodeAsia = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-1`).at(0);
+        nodeAsia.simulate('click');
+        expect(treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-select-selection`).getDOMNode().textContent).toEqual('Yazhou');
+    })
+
+    it('filterTreeNode = true shows input box', () => {
+        let treeSelect = getTreeSelect({});
+        let searchWrapper = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-search-wrapper`)
+        expect(searchWrapper.exists()).toEqual(false);
+        treeSelect.setProps({
+            filterTreeNode: true
+        });
+        treeSelect.update();
+        searchWrapper = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-search-wrapper`)
+        expect(searchWrapper.exists()).toEqual(true);
+    });
+
+    it('searchPlaceholder', () => {
+        let treeSelect = getTreeSelect({
+            filterTreeNode: true,
+            searchPlaceholder: 'test',
+        });
+        let searchWrapper = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-search-wrapper`)
+        expect(searchWrapper.find('input').instance().getAttribute('placeholder')).toEqual('test');
+    });
+
+    it('onSearch', () => {
+        let onSearch = value => { };
+        let spyOnSearch = sinon.spy(onSearch);
+        let treeSelect = getTreeSelect({
+            filterTreeNode: true,
+            onSearch: spyOnSearch,
+        });
+        const searchWrapper = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-search-wrapper`);
+        let searchValue = 'semi';
+        let event = { target: { value: searchValue } };
+        searchWrapper.find('input').simulate('change', event);
+        expect(spyOnSearch.calledOnce).toBe(true);
+        expect(spyOnSearch.calledWithMatch(searchValue)).toBe(true);
+    });
+
+    it('filterTreeNode shows correct result', () => {
+        let treeSelect1 = getTreeSelect({
+            filterTreeNode: true,
+        });
+        const searchWrapper = treeSelect1.find(`.${BASE_CLASS_PREFIX}-tree-search-wrapper`);
+        let searchValue = '北';
+        let event = { target: { value: searchValue } };
+        searchWrapper.find('input').simulate('change', event);
+        expect(treeSelect1.find(`.${BASE_CLASS_PREFIX}-tree-option`).length).toEqual(6);
+        expect(treeSelect1.find(`.${BASE_CLASS_PREFIX}-tree-option-highlight`).length).toEqual(2);
+        expect(treeSelect1.find(`.${BASE_CLASS_PREFIX}-tree-option-highlight`).at(0).instance().textContent).toEqual('北');
+        expect(treeSelect1.find(`.${BASE_CLASS_PREFIX}-tree-option-highlight`).at(1).instance().textContent).toEqual('北');
+        treeSelect1.unmount();
+
+        let treeSelect2 = getTreeSelect({
+            filterTreeNode: true,
+            treeNodeFilterProp: 'value',
+        });
+        const searchWrapper2 = treeSelect2.find(`.${BASE_CLASS_PREFIX}-tree-search-wrapper`);
+        let searchValue2 = 'an';
+        let event2 = { target: { value: searchValue2 } };
+        searchWrapper2.find('input').simulate('change', event2);
+        expect(treeSelect2.find(`.${BASE_CLASS_PREFIX}-tree-option`).length).toEqual(10);
+        expect(treeSelect2.find(`.${BASE_CLASS_PREFIX}-tree-option-filtered`).length).toEqual(3);
+        expect(treeSelect2.find(`.${BASE_CLASS_PREFIX}-tree-option-filtered`).at(0).instance().textContent).toEqual('上海');
+        expect(treeSelect2.find(`.${BASE_CLASS_PREFIX}-tree-option-filtered`).at(1).instance().textContent).toEqual('大阪');
+        expect(treeSelect2.find(`.${BASE_CLASS_PREFIX}-tree-option-filtered`).at(2).instance().textContent).toEqual('加拿大');
+    });
+
+    it('filterTreeNode + no result', () => {
+        let treeSelect1 = getTreeSelect({
+            filterTreeNode: true,
+        });
+        const searchWrapper = treeSelect1.find(`.${BASE_CLASS_PREFIX}-tree-search-wrapper`);
+        let searchValue = 'Bei';
+        let event = { target: { value: searchValue } };
+        searchWrapper.find('input').simulate('change', event);
+        expect(treeSelect1.find(`.${BASE_CLASS_PREFIX}-tree-option`).length).toEqual(2);
+        expect(treeSelect1.find(`.${BASE_CLASS_PREFIX}-tree-option-highlight`).length).toEqual(0);
+        treeSelect1.unmount();
+
+        let treeSelect2 = getTreeSelect({
+            filterTreeNode: true,
+            treeNodeFilterProp: 'value',
+        });
+        const searchWrapper2 = treeSelect2.find(`.${BASE_CLASS_PREFIX}-tree-search-wrapper`);
+        let searchValue2 = '北';
+        let event2 = { target: { value: searchValue2 } };
+        searchWrapper2.find('input').simulate('change', event2);
+        expect(treeSelect2.find(`.${BASE_CLASS_PREFIX}-tree-option`).length).toEqual(2);
+        expect(treeSelect2.find(`.${BASE_CLASS_PREFIX}-tree-option-filtered`).length).toEqual(0);
+    });
+
+    it('async load data', () => {
+        const nativeEvent = { nativeEvent: { stopImmediatePropagation: () => { } } }
+        const then = jest.fn(() => Promise.resolve());
+        const loadData = jest.fn(() => ({ then }));
+        const data = {
+            label: '亚洲',
+            value: 'Asia',
+            key: 'asia',
+        };
+        const treeSelect = getTreeSelect({
+            loadData,
+            loadedKeys: ['0-1'],
+            treeData: [data]
+        });
+        const topNodeAsia = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-1`).at(0);
+        const expandIcon = topNodeAsia.find(`.${BASE_CLASS_PREFIX}-tree-option-expand-icon`).at(0);
+        expandIcon.simulate('click', nativeEvent);
+        expect(loadData).toHaveBeenCalledWith(data);
+        expect(then).toHaveBeenCalled();
+    });
+
+    it('filterTreeNode + treeNodeFilterProp', () => {
+        let treeSelect = getTreeSelect({
+            filterTreeNode: true,
+            treeNodeFilterProp: 'value',
+        });
+        const searchWrapper = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-search-wrapper`);
+        let searchValue = 'Bei';
+        let event = { target: { value: searchValue } };
+        searchWrapper.find('input').simulate('change', event);
+        expect(treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option`).length).toEqual(6);
+        expect(treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option-filtered`).length).toEqual(2);
+        expect(treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option-filtered`).at(0).instance().textContent).toEqual('北京');
+        expect(treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option-filtered`).at(1).instance().textContent).toEqual('北美洲');
+    });
+
+    it('filterTreeNode + showFilteredOnly + no result', () => {
+        let treeSelect = getTreeSelect({
+            filterTreeNode: true,
+            showFilteredOnly: true,
+        });
+        const searchWrapper = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-search-wrapper`);
+        let searchValue = 'Bei';
+        let event = { target: { value: searchValue } };
+        searchWrapper.find('input').simulate('change', event);
+        let node = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option`);
+        expect(node.length).toEqual(1);
+        expect(node.hasClass(`${BASE_CLASS_PREFIX}-tree-option-empty`)).toEqual(true);
+    });
+
+    it('filterTreeNode + showFilteredOnly shows correct result', () => {
+        let treeSelect = getTreeSelect({
+            filterTreeNode: true,
+            showFilteredOnly: true,
+        });
+        const searchWrapper = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-search-wrapper`);
+        let searchValue = '北';
+        let event = { target: { value: searchValue } };
+        searchWrapper.find('input').simulate('change', event);
+        expect(treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option`).length).toEqual(4);
+        expect(treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option-highlight`).length).toEqual(2);
+    });
+
+    it('filterTreeNode as a func', () => {
+        let treeSelect = getTreeSelect({
+            filterTreeNode: (inputValue, treeNode) => treeNode === inputValue,
+        });
+        const searchWrapper = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-search-wrapper`);
+        searchWrapper.find('input').simulate('change', { target: { value: '北' } });
+        expect(treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option-highlight`).length).toEqual(0);
+        // update
+        searchWrapper.find('input').simulate('change', { target: { value: '北京' } });
+        expect(treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option-highlight`).length).toEqual(1);
+        expect(treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option-highlight`).instance().textContent).toEqual('北京');
+    });
+
+    it('controlled: value shows correct', () => {
+        let treeSelect = getTreeSelect({
+            value: 'Beijing'
+        });
+        let selectedNode = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option-selected`);
+        expect(selectedNode.instance().textContent).toEqual('北京');
+        expect(treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-select-selection`).getDOMNode().textContent).toEqual('北京');
+        treeSelect.unmount();
+        // array case only select first item
+        let treeSelect2 = getTreeSelect({
+            value: ['Riben', 'Beijing']
+        });
+        let selectedNode2 = treeSelect2.find(`.${BASE_CLASS_PREFIX}-tree-option-selected`);
+        expect(selectedNode2.instance().textContent).toEqual('日本');
+        expect(treeSelect2.find(`.${BASE_CLASS_PREFIX}-tree-select-selection`).getDOMNode().textContent).toEqual('日本');
+        expect(treeSelect2.find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-2`).at(0).hasClass(`${BASE_CLASS_PREFIX}-tree-option-collapsed`)).toEqual(true);
+    });
+
+    it('controlled: fire onChange and ui not update', () => {
+        let spyOnChange = sinon.spy(() => { });
+        let treeSelect = getTreeSelect({
+            value: '',
+            defaultExpandAll: true,
+            onChange: spyOnChange,
+        });
+        expect(treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option-selected`).exists()).toEqual(false);
+        let nodeBeijing = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-3`).at(0);
+        // select beijing
+        nodeBeijing.simulate('click');
+        // onSelect & onChange
+        expect(spyOnChange.calledOnce).toBe(true);
+        expect(spyOnChange.calledWithMatch("Beijing")).toEqual(true);
+        expect(treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option-selected`).exists()).toEqual(false);
+    });
+
+    it('controlled: value + onChangeWithObject', () => {
+        let spyOnChange = sinon.spy(() => { });
+        let treeSelect = getTreeSelect({
+            value: {
+                label: '北京',
+                value: 'Beijing',
+                key: 'beijing',
+            },
+            defaultExpandAll: true,
+            onChange: spyOnChange,
+            onChangeWithObject: true,
+        });
+        expect(treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option-selected`).exists()).toEqual(true);
+    });
+
+    it('virtualized: fixed height', () => {
+        let treeSelect = getTreeSelect({
+            defaultExpandAll: true,
+            virtualize: {
+                itemSize: 28,
+                height: 84,
+            },
+        });
+        // virtual list
+        expect(treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-virtual-list`).exists()).toEqual(true);
+        // fewer nodes
+        let nodes = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option`);
+        expect(nodes.length).toBeLessThan(10);
+    });
+
+    it('disabled', () => {
+        let treeSelect = getTreeSelect({
+            disabled: true,
+        });
+        let inputBox = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-select-disabled`);
+        expect(inputBox.exists()).toEqual(true);
+        expect(treeSelect.state().isOpen).toEqual(false);
+        expect(treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-wrapper`).exists()).toEqual(false);
+
+        inputBox.simulate('click');
+        expect(treeSelect.state().isOpen).toEqual(false);
+        expect(treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-wrapper`).exists()).toEqual(false);
+    });
+
+    it('renderSelectedItem', () => {
+        let spyOnSelect = sinon.spy(() => { });
+        let spyOnChange = sinon.spy(() => { });
+        let treeSelect = getTreeSelect({
+            renderSelectedItem: treeNode => treeNode.value,
+            defaultExpandAll: true,
+            onSelect: spyOnSelect,
+            onChange: spyOnChange,
+        });
+        const yaZhouKey = 'yazhou';
+        const yaZhouValue = 'Yazhou';
+        let nodeYaZhou = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-1`).at(0);
+        nodeYaZhou.simulate('click');
+        // 判断回调，这里其实没有更新，不是很重要
+        expect(spyOnSelect.calledOnce).toBe(true);
+        expect(spyOnChange.calledOnce).toBe(true);
+        expect(spyOnSelect.getCall(0).args[0]).toEqual(yaZhouKey);
+        expect(spyOnChange.getCall(0).args[0]).toEqual(yaZhouValue);
+        // 判断已选项的渲染
+        const innerHTML = document.querySelector('.semi-tree-select-selection span').textContent;
+        expect(innerHTML).toEqual(yaZhouValue);
+    });
+
+    it('search autofocus', () => {
+        let treeSelect = getTreeSelect({
+            filterTreeNode: true,
+            searchAutoFocus: true,
+        });
+        let selectEle = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-select`)
+        selectEle.simulate('click');
+        setTimeout(() => {
+            let searchWrapper = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-search-wrapper`)
+
+            const searchInput = searchWrapper.find(`input`)
+            expect(searchInput.matchesElement(document.activeElement)).toEqual(true);
+            done();
+        }, 100);
+    });
+})

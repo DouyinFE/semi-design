@@ -1,0 +1,218 @@
+@import "./variables.scss";
+
+$module: #{$prefix}-typography;
+
+.#{$module} {
+    color: $color-typography_default-text-default;
+    @include font-size-regular;
+
+    &.#{$module}-secondary {
+        color: $color-typography_secondary-text-default;
+    }
+
+    &.#{$module}-tertiary {
+        color: $color-typography_tertiary-text-default;
+    }
+
+    &.#{$module}-quaternary {
+        color: $color-typography_quaternary-text-default;
+    }
+
+    &.#{$module}-warning {
+        color: $color-typography_warning-text-default;
+    }
+
+    &.#{$module}-success {
+        color: $color-typography_success-text-default;
+    }
+
+    &.#{$module}-danger {
+        color: $color-typography_danger-text-default;
+    }
+
+    &.#{$module}-link {
+        color: $color-typography_link-text-default;
+        font-weight: $font-typography_link-fontWeight;
+    }
+
+    &.#{$module}-disabled {
+        color: $color-typography_disabled-text-default;
+        cursor: not-allowed;
+        user-select: none;
+        &.#{$module}-link {
+            color: $color-typography_link-text-disabled;
+        }
+    }
+
+    &-icon {
+        // display: inline-flex;
+        margin-right: $spacing-typography_iconPrefix-marginRight;
+        vertical-align: middle;
+        color: inherit;
+    }
+
+    &-small {
+        @include font-size-small;
+    }
+
+    code {
+        border: $width-typography_code-border solid $color-typography_code-border-default;
+        border-radius: $radius-typography_code;
+        color: $color-typography_code-text-default;
+        background-color: $color-typography_code-bg-default;
+        padding: $spacing-super-tight $spacing-extra-tight;
+    }
+
+    mark {
+        background-color: $color-typography_mark-bg-default;
+    }
+
+    u {
+        text-decoration: underline;
+        text-decoration-skip-ink: auto;
+    }
+
+    del {
+        text-decoration: line-through;
+    }
+
+    strong {
+        font-weight: $font-typography_strong-fontWeight;
+    }
+
+    a {
+        display: inline;
+        color: $color-typography_link-text-default;
+        cursor: pointer;
+        text-decoration: none;
+
+        &:visited {
+            color: $color-typography_link-text-visited;
+        }
+
+        &:hover {
+            color: $color-typography_link-text-hover;
+        }
+
+        &:active {
+            color: $color-typography_link-text-active;
+        }
+
+        .#{$module}-link-underline:hover {
+            border-bottom: $width-typography_link-border solid $color-typography_link-text-hover;
+            margin-bottom: -$width-typography_link-border;
+        }
+
+        .#{$module}-link-underline:active {
+            border-bottom: $width-typography_link-border solid $color-typography_link-text-active;
+            margin-bottom: -$width-typography_link-border;
+        }
+    }
+
+    // ============ Ellipsis ============
+    // &-ellipsis {
+    //   display: block;
+    // }
+
+    &-ellipsis-single-line {
+        // display: block;
+        overflow: hidden;
+    }
+
+    &-ellipsis-multiple-line {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    &-ellipsis-overflow-ellipsis {
+        display: block;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    &-ellipsis-expand {
+        display: inline;
+        margin-left: $spacing-typography_expandText-marginLeft;
+    }
+
+    // ============ Copyable ============
+
+    &-action-copy {
+        display: inline-flex;
+        vertical-align: text-bottom;
+        padding: $spacing-typography_copyIcon-padding;
+        margin-left: $spacing-typography_copyIcon-marginLeft;
+    }
+
+    a.#{$module}-action-copy-icon {
+        display: inline-flex;
+    }
+
+    &-action-copied {
+        display: inline-flex;
+        padding: $spacing-typography_copyIcon-padding;
+        margin-left: $spacing-typography_copyIcon-marginLeft;
+        color: $color-typography_copied-text-success;
+
+        .#{$prefix}-icon {
+            vertical-align: text-bottom;
+            color: $color-typography_copied-icon-success;
+        }
+    }
+
+    &-paragraph {
+        margin: $spacing-typography_title_paragraph-margin;
+    }
+}
+
+// ============ Title ============
+h1.#{$module},
+.#{$module}-h1.#{$module} {
+    @include font-size-header-1;
+    font-weight: $font-typography_title-fontWeight;
+    margin: $spacing-typography_title_h1-margin;
+}
+
+h2.#{$module},
+.#{$module}-h2.#{$module} {
+    @include font-size-header-2;
+    font-weight: $font-typography_title-fontWeight;
+    margin: $spacing-typography_title_h2-margin;
+}
+
+h3.#{$module},
+.#{$module}-h3.#{$module} {
+    @include font-size-header-3;
+    font-weight: $font-typography_title-fontWeight;
+    margin: $spacing-typography_title_h3-margin;
+}
+
+h4.#{$module},
+.#{$module}-h4.#{$module} {
+    @include font-size-header-4;
+    font-weight: $font-typography_title-fontWeight;
+    margin: $spacing-typography_title_h4-margin;
+}
+
+h5.#{$module},
+.#{$module}-h5.#{$module} {
+    @include font-size-header-5;
+    font-weight: $font-typography_title-fontWeight;
+    margin: $spacing-typography_title_h5-margin;
+}
+
+h6.#{$module},
+.#{$module}-h6.#{$module} {
+    @include font-size-header-6;
+    font-weight: $font-typography_title-fontWeight;
+    margin: $spacing-typography_title_h6-margin;
+}
+
+// ============ Paragraph ============
+p.#{$module}-extended,
+.#{$module}-paragraph.#{$module}-extended {
+    line-height: $font-typography_paragraph_extended-lineHeight;
+}
+
+@import "./rtl.scss";

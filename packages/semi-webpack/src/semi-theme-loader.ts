@@ -1,0 +1,54 @@
+import loaderUtils from 'loader-utils';
+import { get } from 'lodash';
+import resolve from 'enhanced-resolve';
+
+export default function SemiThemeLoader(source: string) {
+    const query = loaderUtils.getOptions ? loaderUtils.getOptions(this) : loaderUtils.parseQuery(this.query);
+    const theme = get(query, 'name', '@douyinfe/semi-theme-default');
+    // always inject
+    const scssVarStr = `@import "~${theme}/scss/index.scss";\n`;
+    // inject once
+    const cssVarStr = `@import "~${theme}/scss/global.scss";\n`;
+
+    const shouldInject = source.includes('semi-base');
+
+    let fileStr = source;
+
+    let componentVariables: string | boolean;
+    try {
+        componentVariables = resolve.sync(this.context, `${theme}/scss/local.scss`);
+    } catch(e) {}
+
+    if (get(query, 'include') || get(query, 'variables') || componentVariables) {
+        let localImport = '';
+        if (componentVariables) {
+            localImport += `\n@import "~${theme}/scss/local.scss";`;
+        }
+        if (get(query, 'include')) {
+            localImport += `\n@import "${query.include}";`;
+        }
+        if (get(query, 'variables')) {
+            localImport += `\n${query.variables}`;
+        }
+        try {
+            const regex = /(@import '.\/variables.scss';?|@import ".\/variables.scss";?)/g;
+            const fileSplit = source.split(regex).filter(item => Boolean(item));
+            if (fileSplit.length > 1) {
+                fileSplit.splice(fileSplit.length - 1, 0, localImport);
+                fileStr = fileSplit.join('');
+            }
+        } catch (error) {}
+    }
+
+    // inject prefix
+    const prefixCls = get(query, 'prefixCls', 'semi');
+
+    const prefixClsStr = `$prefix: '${prefixCls}';\n`;
+
+    if (shouldInject) {
+        return `${cssVarStr}${scssVarStr}${prefixClsStr}${fileStr}`;
+    } else {
+        return `${scssVarStr}${prefixClsStr}${fileStr}`;
+    }
+}
+

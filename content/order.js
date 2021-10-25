@@ -1,0 +1,151 @@
+const order = [
+    'introduction',
+    'getting-started',
+    'customize-theme',
+    'dark-mode',
+    'changelog',
+    'update-to-v2',
+    'faq',
+    'overview',
+    'grid',
+    'icon',
+    'layout',
+    'tokens',
+    'space',
+    'typography',
+    'autocomplete',
+    'button',
+    'cascader',
+    'checkbox',
+    'datepicker',
+    'form',
+    'input',
+    'inputnumber',
+    'radio',
+    'rating',
+    'select',
+    'slider',
+    'switch',
+    'taginput',
+    'timepicker',
+    'transfer',
+    'treeselect',
+    'upload',
+    'anchor',
+    'backtop',
+    'breadcrumb',
+    'navigation',
+    'pagination',
+    'steps',
+    'tabs',
+    'tree',
+    'avatar',
+    'badge',
+    'calendar',
+    'card',
+    'collapse',
+    'collapsible',
+    'descriptions',
+    'dropdown',
+    'empty',
+    'list',
+    'modal',
+    'overflowlist',
+    'popover',
+    'scrolllist',
+    'sidesheet',
+    'table',
+    'tag',
+    'timeline',
+    'tooltip',
+    'banner',
+    'notification',
+    'popconfirm',
+    'progress',
+    'skeleton',
+    'spin',
+    'toast',
+    'configprovider',
+    'locale',
+];
+let { exec } = require('child_process');
+let fs = require('fs');
+const executeShell = (command, callback) => {
+    exec(command, (error, stdout, stderr) => {
+        callback(stdout);
+    });
+};
+module.exports = () => {
+    const reOrderSingleMdx = (mdxPath, order) => {
+        let data = fs.readFileSync(mdxPath, { encoding: 'utf-8' });
+        let dataArray = data.split('---');
+        let yaml = dataArray[1];
+        const yamlArray = yaml.split('\n');
+        let done = false;
+        let localeDone = false;
+        //    let title=null;
+        //    let titleIndex=null;
+        for (let index in yamlArray) {
+            let info = yamlArray[index];
+
+            //  //
+            //  if(info.indexOf('subTitle')!==-1){
+            //     title=info.split(':')[1];
+            //     if(titleIndex){
+            //         yamlArray[titleIndex]=`title: ${title}`;
+            //     }
+            //  }
+            //  if(info.match(/title: /)){
+            //     if(title){
+            //         yamlArray[index]=`title: ${title}`;
+            //     }else{
+            //         titleIndex=index;
+            //     }
+            //  }
+            //  //
+
+            let localeResult = info.match(/localeCode: /);
+            if (localeResult) {
+                localeDone = true;
+            }
+
+            let result = info.match(/order: \d/);
+            if (result) {
+                yamlArray[index] = `order: ${order}`;
+                done = true;
+            }
+        }
+        if (!done) {
+            yamlArray.splice(1, 0, `order: ${order}`);
+        }
+        if (!localeDone) {
+            const localCode = mdxPath.indexOf('en-US') !== -1 ? 'en-US' : 'zh-CN';
+            yamlArray.splice(1, 0, `localeCode: ${localCode}`);
+            console.log(`add localCode ${localCode} into ${mdxPath}'s yaml.`);
+        }
+        dataArray[1] = yamlArray.join('\n');
+        const orderedData = dataArray.join('---');
+        fs.writeFileSync(mdxPath, orderedData);
+    };
+    executeShell(`find ${process.cwd()}/content/* | grep index`, fileListStr => {
+        let mdxFileList = fileListStr.split('\n').filter(filePath => {
+            let res = filePath && fs.existsSync(filePath) && fs.statSync(filePath).isFile();
+            if (!res && filePath) {
+                console.error(`ERROR: ${filePath} not found or it's not a file.`);
+            }
+            return res;
+        });
+        mdxFileList.map(filePath => {
+            const pathArray = filePath.split('/');
+            const itemName = pathArray[pathArray.length - 2];
+            const newOrder = order.indexOf(itemName) + 1;
+            if (newOrder !== -1) {
+                reOrderSingleMdx(filePath, newOrder);
+            } else {
+                console.error(`${itenName} not in order Array. Check your order.js or markdown folder name.`);
+            }
+            // console.log(`set ${itemName} to order ${newOrder}`)
+        });
+        console.log('ordered mdx');
+    });
+};

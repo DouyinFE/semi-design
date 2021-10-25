@@ -1,0 +1,1 @@
+../../../content/feedback/banner/index.md

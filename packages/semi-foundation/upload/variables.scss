@@ -1,0 +1,81 @@
+// Color
+$color-upload-text: var(--semi-color-text-0); // 上传文件卡片等默认文本颜色
+$color-upload_assist-text: var(--semi-color-text-2); // 上传辅助文本颜色
+$color-upload-border: var(--semi-color-border); // 上传描边颜色
+$color-upload_card-bg-hover: var(--semi-color-fill-1); // 上传文件卡片背景色 - 悬浮
+$color-upload_card-bg: var(--semi-color-fill-0); // 上传文件卡片背景色 - 默认
+$color-upload_card_fail-bg-hover: var(--semi-color-danger-light-hover); // 上传失败文件卡片背景色 - 悬浮
+$color-upload_card_fail-bg: var(--semi-color-danger-light-default); // 上传失败文件卡片背景色 - 默认
+$color-upload_clear-text: var(--semi-color-primary); // 上传清空按钮文本颜色
+$color-upload_drag_area-bg-hover: var(--semi-color-primary-light-default); // 上传可拖拽区域背景颜色 - 悬浮
+$color-upload_drag_area-border-hover: var(--semi-color-primary); // 上传可拖拽区域描边颜色 - 悬浮
+$color-upload_drag_area_disabled-text: var(--semi-color-disabled-text); // 上传可拖拽区域禁用文本颜色
+$color-upload_drag_area-bg: var(--semi-color-tertiary-light-default); // 上传可拖拽区域背景颜色 - 默认
+$color-upload_drag_area_icon: var(--semi-color-primary); // 上传可拖拽区域图标颜色
+$color-upload_drag_area_tips-text: var(--semi-color-primary); // 上传可拖拽区域背景颜色 - 悬浮
+$color-upload_file_card_fail_info-text: var(--semi-color-danger); // 上传文件卡片失败提示信息文本颜色
+$color-upload_file_card_preview_placeholder-bg: rgba(var(--semi-grey-3), 1); // 文件卡片默认预览背景颜色
+$color-upload_file_card_preview_placeholder-text: rgba(var(--semi-white), 1); // 文件卡片默认预览图颜色
+$color-upload_file_card_retry-bg: #fff; // 重新上传按钮背景颜色
+$color-upload_file_card_retry-text: var(--semi-color-primary); // 重新上传按钮文本颜色
+$color-upload-icon: var(--semi-color-tertiary); // 图片墙上传图标加号颜色
+$color-upload_pic_add-bg-active: var(--semi-color-fill-2); // 图片墙上传背景色 - 按下
+$color-upload_pic_add-bg-hover: var(--semi-color-fill-1); // 图片墙上传背景色 - 悬浮
+$color-upload_pic_add-bg: var(--semi-color-fill-0); // 图片墙上传背景色 - 默认
+$color-upload_pic_remove-bg: var(--semi-overlay-bg); // 图片墙上传移除图标颜色
+$color-upload_picture_file_card_loading_error-icon: var(--semi-color-danger); // 图片墙上传移除图标颜色
+$color-upload_preview-icon: var(--semi-color-text-2); // 上传文件卡片文本颜色
+$color-upload_retry-text: var(--semi-color-primary); // 上传文件卡片重新上传按钮文本颜色
+$color-upload_replace-text: var(--semi-color-white); // 上传文件卡片重新替换按钮文本颜色
+// Width/Height
+$height-upload_file_card: 52px; // 上传文件卡片高度
+$width-upload_file_card: 250px; // 上传文件卡片宽度
+$height-upload_file_pic_card: 96px; // 图片墙上传卡片高度
+$width-upload_file_pic_card: 96px; // 图片墙上传卡片宽度
+$width-upload_file_card_preview: 36px; // 文件卡片预览图标宽度
+$height-upload_file_card_preview: 36px; // 文件卡片预览图标高度
+$width-upload_file_card_preview_img: 36px; // 文件卡片预览图片宽度
+$width-upload_file_card_info_name: 106px; // 文件卡片信息名称
+$width-upload_file_card-icon: 11px; // 文件卡片图标宽度
+$width-upload_picture_add-border: 2px; // 文件卡片图标宽度
+$width-upload_picture_file_card_img: 96px; // 图片墙上传卡片宽度
+$width-upload_picture_file_card_close: 16px; // 图片墙上传卡片删除annual宽度
+$width-upload_file_card_retry: 24px; // 重新上传按钮宽度
+$width-upload_file_card_retry-icon: 13px; // 重新上传按钮图标宽度
+$height-upload_file_card_retry-icon: 14px; // 重新上传按钮图标高度
+$width-upload_picture_file_card_loading-icon: 14px; // 上传加载 spin 宽度
+$width-upload_drag_area-border: 2px; // 可拖拽上传描边宽度
+
+// Spacing
+$spacing-upload_title_choosen-marginRight: $spacing-tight; // 已选择文件标题右侧外边距
+$spacing-upload_title-marginBottom: $spacing-extra-tight; // 文件列表标题底部外边距
+$spacing-upload_file_card_preview-margin: $spacing-tight; // 上传文件卡片预览外边距
+$spacing-upload_file_card_info_size-marginLeft: $spacing-tight; // 上传文件卡片文件大小文本左侧外边距
+$spacing-upload_file_card_info_retry-marginLeft: $spacing-tight; // 上传文件卡片重新上传按钮左侧外边距
+$spacing-upload_file_card_info_progress-marginTop: 4px; // 上传文件卡片进度顶部外边距
+$spacing-upload_file_card_close-marginLeft: $spacing-tight; // 上传文件卡片删除按钮左侧外边距
+$spacing-upload_file_card_close-marginRight: $spacing-tight; // 上传文件卡片删除按钮右侧外边距
+$spacing-upload_file_card_icon-marginRight: $spacing-super-tight; // 上传文件卡片图标右侧外边距
+$spacing-upload_picture_file_card-marginRight: $spacing-tight; // 图片墙上传卡片右侧外边距
+$spacing-upload_picture_file_card-marginBottom: $spacing-tight; // 图片墙上传卡片底部外边距
+$spacing-upload_picture_file_card_close-top: 8px; // 图片墙上传卡片删除按钮顶部位置
+$spacing-upload_picture_file_card_close-right: 8px; // 图片墙上传卡片删除右侧位置
+$spacing-upload_picture_file_card_loading_error-bottom: 6px; // 图片墙上传卡片加载中图标底部位置
+$spacing-upload_picture_file_card_loading_error-right: 6px; // 图片墙上传卡片报错图标底部位置
+$spacing-upload_picture_file_card_icon_error-top: -1px; // 图片墙上传卡片加载中图标顶部位置
+$spacing-upload_drag_area-padding: $spacing-base-tight; // 可拖拽上传拖拽区域内边距
+$spacing-upload_drag_area_main_text-marginBottom: $spacing-extra-tight; // 可拖拽上传拖拽标题底部外边距
+
+// Radius
+$radius-upload_file_card: var(--semi-border-radius-medium); // 上传文件卡片圆角
+$radius-upload_file_card_preview: var(--semi-border-radius-small); // 上传文件卡片预览图圆角
+$radius-upload_picture_add: var(--semi-border-radius-small); // 图片墙上传文件添加按钮圆角
+$radius-upload_picture_file_card_img: var(--semi-border-radius-small); // 图片墙上传卡片圆角
+$radius-upload_picture_file_card_close: var(--semi-border-radius-circle); // 图片墙上传卡片删除按钮圆角
+$radius-upload_file_card_retry: var(--semi-border-radius-circle); // 上传文件卡片重新上传圆角
+$radius-upload_drag_area: var(--semi-border-radius-small); // 可拖拽上传拖拽区域圆角
+
+// Font
+$font-upload_file_card_info_name-fontWeight: $font-weight-bold; // 上传文件卡片文件名字重
+$font-upload_file_card_info_size-fontWeight: $font-weight-regular; // 上传文件卡片文件尺寸字重
+$font-upload_drag_area_tips-fontWeight: 600; // 可拖拽上传提示文本字重

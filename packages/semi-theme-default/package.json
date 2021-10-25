@@ -1,0 +1,24 @@
+{
+    "name": "@douyinfe/semi-theme-default",
+    "version": "2.0.0",
+    "description": "semi-theme-default",
+    "keywords": [
+        "semi-theme",
+        "scss"
+    ],
+    "files": [
+        "scss"
+    ],
+    "main": "semi.scss",
+    "sideEffects": "*.scss",
+    "author": "huangzhijing.pixel@bytedance.com",
+    "license": "MIT",
+    "gitHead": "661ac2de772e28c3b6f934f70e4e08efbe2387b2",
+    "dependencies": {
+        "glob": "^7.1.6"
+    },
+    "_unpkg": true,
+    "devDependencies": {
+        "path": "^0.12.7"
+    }
+}

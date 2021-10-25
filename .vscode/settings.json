@@ -1,0 +1,49 @@
+{
+    "[typescript]": {
+        "editor.formatOnSave": false,
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    },
+    "[javascript]": {
+        "editor.formatOnSave": false,
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    },
+    "[scss]": {
+        "editor.formatOnPaste": false
+    },
+    "[javascriptreact]": {
+        "editor.defaultFormatter": "carlsirce.vscode-eden-plugin",
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    },
+    "[less]": {
+        "editor.defaultFormatter": "michelemelluso.code-beautifier"
+    },
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "carlsirce.vscode-eden-plugin",
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    },
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "files.autoSave": "off",
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "[css]": {
+        "editor.defaultFormatter": "michelemelluso.code-beautifier"
+    },
+    "editor.tabSize": 4,
+    "eden-develop-environment.loose": true,
+    "eden-develop-environment.temporaryHideWarnings": true,
+    "git.ignoreLimitWarning": true,
+    "edenDevelopEnvironment.loose": true,
+    "edenDevelopEnvironment.temporaryHideWarnings": true,
+    "i18n-ally.localesPaths": [
+        "src/locale",
+        "packages/semi-ui-react/locale",
+        "content/other/locale",
+        "public/page-data/en-US/other/locale",
+        "public/page-data/zh-CN/other/locale"
+    ],
+    "cSpell.words": [
+        "backtop",
+        "Splited"
+    ]
+}

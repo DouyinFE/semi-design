@@ -1,0 +1,200 @@
+//@import '../theme/variables.scss';
+@import "./variables.scss";
+
+$module: #{$prefix}-modal;
+
+.#{$module} {
+    @include font-size-regular;
+    position: relative;
+    // width: 600px;
+    margin: $spacing-modal-marginY $spacing-modal-marginX;
+
+    &-mask {
+        position: fixed;
+        top: $spacing-modal_mask-top;
+        right: $spacing-modal_mask-right;
+        left: $spacing-modal_mask-left;
+        bottom: $spacing-modal_mask-bottom;
+        background-color: $color-modal_mask-bg;
+        height: 100%;
+        // filter: alpha(opacity=50);
+        z-index: $z-modal-mask;
+
+        &-hidden {
+            display: none;
+        }
+    }
+
+    &-icon-wrapper {
+        display: inline-flex;
+        margin-right: $spacing-modal_icon_wrapper-marginRight;
+        width: $width-icon-extra-large;
+    }
+
+    &-wrap {
+        position: fixed;
+        overflow: auto;
+        top: $spacing-modal_wrap-top;
+        right: $spacing-modal_wrap-right;
+        bottom: $spacing-modal_wrap-bottom;
+        left: $spacing-modal_wrap-left;
+        z-index: $z-modal;
+        -webkit-overflow-scrolling: touch;
+        outline: 0;
+    }
+
+    &-title {
+        display: inline-flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        width: $width-modal_title;
+        margin: $spacing-modal_title-margin;
+    }
+
+    &-content {
+        position: relative;
+        display: flex;
+        height: $height-modal_content;
+        width: $width-modal_content;
+        box-sizing: border-box;
+        flex-direction: column;
+        background-color: $color-modal-bg;
+        border: $width-modal_content-border solid $color-modal_content-border;
+        border-radius: $radius-modal_content;
+        padding: $spacing-modal_content-paddingY $spacing-modal_content-paddingX;
+        background-clip: padding-box;
+        overflow: hidden;
+        @include shadow-elevated;
+    }
+
+    &-content-fullScreen {
+        border-radius: $radius-modal_content_fullscreen;
+        border: none;
+    }
+
+    // &-close {
+    // position: absolute;
+    // right: 15px;
+    // }
+
+    &-header {
+        display: flex;
+        align-items: flex-start;
+        margin: $spacing-modal_header-marginY $spacing-modal_header-marginX;
+        padding: $spacing-modal_header-paddingY $spacing-modal_header-paddingX;
+        font-size: $font-modal_header-fontSize;
+        font-weight: $font-modal_header-fontWeight;
+        color: $color-modal_main-text;
+        border-bottom: $width-modal_header-border solid $color-modal_header-border;
+    }
+
+    &-body-wrapper {
+        display: flex;
+        align-items: flex-start;
+        margin: $spacing-modal_body_wrapper-marginY $spacing-modal_body_wrapper-marginX;
+    }
+
+    &-body {
+        flex: 1 1 auto;
+        // padding: $spacing-loose;
+        margin: $spacing-modal_body-margin;
+        padding: $spacing-modal_body-padding;
+    }
+
+    &-withIcon {
+        margin-left: $spacing-modal_content_withicon-marginLeft;
+    }
+
+    &-footer {
+        // padding: $spacing-loose;
+        margin: $spacing-modal_footer-marginY $spacing-modal_footer-marginX;
+        padding: $spacing-modal_footer-paddingY $spacing-modal_footer-paddingX;
+        text-align: right;
+        border-radius: $radius-modal_footer;
+        border-top: $width-modal_footer-border solid $color-modal_footer-border;
+
+        .#{$prefix}-button {
+            margin-left: $spacing-modal_footer_button-marginLeft;
+            margin-right: 0;
+        }
+    }
+
+    &-confirm {
+        .#{$module}-header {
+            margin-bottom: $spacing-modal_confirm_header-marginBottom;
+        }
+
+        // &-content-withIcon {
+        // margin-left: 36px;
+        // }
+
+        &-icon-wrapper {
+            display: inline-flex;
+            margin-right: $spacing-modal_confirm_icon_wrapper-marginRight;
+            width: $width-icon-extra-large;
+        }
+
+        &-icon {
+            display: inline-flex;
+            color: $color-modal_primary-icon;
+        }
+    }
+
+    &-info-icon {
+        color: $color-modal_info-icon;
+    }
+
+    &-success-icon {
+        color: $color-modal_success-icon;
+    }
+
+    &-error-icon {
+        color: $color-modal_danger-icon;
+    }
+
+    &-warning-icon {
+        color: $color-modal_warning-icon;
+    }
+
+    &-small {
+        width: $width-modal_small;
+    }
+
+    &-medium {
+        width: $width-modal_medium;
+    }
+
+    &-large {
+        width: $width-modal_large;
+    }
+
+    &-full-width {
+        width: $width-modal_full_width;
+    }
+}
+
+.#{$module}-centered {
+    margin: 0 auto;
+}
+
+.#{$module}-popup {
+    .#{$module}-mask,
+    .#{$module}-wrap {
+        position: absolute;
+        overflow: hidden;
+    }
+}
+
+.#{$module}-fixed {
+    .#{$module}-mask,
+    .#{$module}-wrap {
+        position: fixed;
+        overflow: hidden;
+    }
+}
+
+.#{$module}-hidden {
+    display: none;
+}
+
+@import "./rtl.scss";

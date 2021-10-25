@@ -1,0 +1,54 @@
+@import '../tooltip/variables.scss';
+@import './variables.scss';
+
+$module: #{$prefix}-popover;
+$module-icon: #{$module}-icon-arrow;
+
+.#{$module} {
+
+    &-wrapper {
+        position: relative;
+        // position: absolute;
+        background-color: $color-popover-bg-default;
+        // background-color: transparent;
+
+        @include shadow-elevated;
+        // box-shadow: 0 0 1px rgba(0, 0, 0, 0.4), 0 4px 14px rgba(0, 0, 0, 0.1);
+        z-index: $z-popover;
+        border-radius: $radius-popover;
+        // padding: $spacing-extra-tight $spacing-tight;
+        @include font-size-regular;
+        visibility: hidden;
+    
+        &-show {
+            visibility: visible;
+        }
+    }
+
+    &-trigger {
+        display: inline-block;
+        width: auto;
+        height: auto;
+    }
+
+    &-title {
+        padding: $spacing-popover_title-padding;
+        border-bottom: $width-popover_title-border solid $color-popover-border-default;
+    }
+
+    // &-content {
+    //     padding: 20px;
+    // }
+
+    &-confirm {
+        position: absolute;
+    }
+
+    &-with-arrow {
+        padding: $spacing-popover_withArrow-padding;
+        box-sizing: border-box;
+    }
+}
+
+@import '../tooltip/arrow.scss';
+@import "./rtl.scss";

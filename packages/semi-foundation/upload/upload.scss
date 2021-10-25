@@ -1,0 +1,522 @@
+@import "./variables.scss";
+
+$module: #{$prefix}-upload;
+
+.#{$module} {
+    display: flex;
+    flex-wrap: wrap;
+
+    &-disabled {
+        cursor: not-allowed;
+
+        .#{$module}-file-card {
+            cursor: not-allowed;
+
+            &-close {
+                cursor: not-allowed;
+            }
+        }
+
+        .#{$module}-drag-area {
+            border: none;
+            cursor: not-allowed;
+
+            &:hover {
+                background-color: $color-upload_drag_area-bg;
+            }
+
+            &-main-text,
+            &-sub-text,
+            &-icon {
+                cursor: not-allowed;
+                color: $color-upload_drag_area_disabled-text;
+            }
+        }
+    }
+
+    &-hidden-input {
+        display: none;
+    }
+
+    &-hidden-input-replace {
+        display: none;
+    }
+
+    &-add {
+        display: flex;
+        align-items: center;
+    }
+
+    &[x-prompt-pos="right"] {
+        .#{$module}-add {
+            display: inline-flex;
+        }
+
+        .#{$module}-prompt {
+            display: inline-flex;
+        }
+    }
+
+    &[x-prompt-pos="bottom"] {
+        .#{$module}-add {
+            display: flex;
+        }
+
+        .#{$module}-prompt {
+            display: flex;
+            flex-basis: 100%;
+        }
+
+        .#{$module}-file-list {
+            flex-basis: 100%;
+        }
+    }
+
+    &[x-prompt-pos="left"] {
+        .#{$module}-add {
+            display: inline-flex;
+            order: 2;
+        }
+
+        .#{$module}-prompt {
+            display: inline-flex;
+            order: 1;
+        }
+
+        .#{$module}-file-list {
+            order: 2;
+        }
+    }
+
+    &-file-list {
+        flex-basis: 100%;
+        flex-shrink: 0;
+        display: block;
+        margin-top: $spacing-tight;
+        margin-bottom: $spacing-tight;
+
+        &-main {
+            display: flex;
+            flex-wrap: wrap;
+            flex-shrink: 0;
+
+            p {
+                @include ver-center;
+            }
+        }
+
+        &-title {
+            @include font-size-small;
+            color: $color-upload_assist-text;
+
+            &-choosen {
+                margin-right: $spacing-upload_title_choosen-marginRight;
+            }
+
+            &-clear {
+                cursor: pointer;
+                color: $color-upload_clear-text;
+            }
+
+            margin-bottom: $spacing-upload_title-marginBottom;
+        }
+    }
+
+    &-file-card {
+        // border: 1px solid $color-upload-border;
+        border-radius: $radius-upload_file_card;
+        display: inline-flex;
+        align-items: center;
+        justify-content: space-between;
+        height: $height-upload_file_card;
+        width: $width-upload_file_card;
+        margin-right: $spacing-tight;
+        margin-bottom: $spacing-tight;
+        background-color: $color-upload_card-bg;
+        cursor: pointer;
+
+        &:hover {
+            background-color: $color-upload_card-bg-hover;
+        }
+
+        a {
+            text-decoration: none;
+            // color: inherit;
+        }
+
+        &-preview {
+            height: $height-upload_file_card_preview;
+            width: $width-upload_file_card_preview;
+            color: $color-upload_preview-icon;
+            margin: $spacing-upload_file_card_preview-margin;
+            @include all-center;
+            border-radius: $radius-upload_file_card_preview;
+            flex-shrink: 0;
+
+            img {
+                width: $width-upload_file_card_preview_img;
+                height: $width-upload_file_card_preview_img;
+                object-fit: cover;
+            }
+        }
+
+        &-preview-placeholder {
+            background-color: $color-upload_file_card_preview_placeholder-bg;
+            color: $color-upload_file_card_preview_placeholder-text;
+        }
+
+        &-show-pointer {
+            cursor: pointer;
+        }
+
+        &-info {
+            display: flex;
+            align-items: center;
+
+            &-main {
+                display: flex;
+                flex-wrap: wrap;
+                flex: 1;
+
+                &-text {
+                    @include ver-center;
+                    flex-basis: 100%;
+                }
+
+                &-control {
+                    display: flex;
+                }
+            }
+
+            &-name {
+                // width: $width-upload_file_card_info_name;
+                width: 0;
+                flex: 1;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                display: inline-block;
+                @include font-size-regular;
+                font-weight: $font-upload_file_card_info_name-fontWeight;
+                color: $color-upload-text;
+            }
+
+            &-size {
+                @include font-size-small;
+                font-weight: $font-upload_file_card_info_size-fontWeight;
+                margin-left: $spacing-upload_file_card_info_size-marginLeft;
+                color: $color-upload_assist-text;
+                margin-top: 1px;
+            }
+
+            &-replace {
+                display: inline-flex;
+                margin-left: $spacing-tight;
+                color: var(--semi-color-text-2);
+            }
+
+            &-validate-message {
+                @include font-size-small;
+                @include ver-center;
+                color: $color-upload-text;
+            }
+
+            &-retry {
+                @include font-size-small;
+                color: $color-upload_retry-text;
+                cursor: pointer;
+                margin-left: $spacing-upload_file_card_info_retry-marginLeft;
+            }
+
+            .#{$prefix}-progress {
+                flex-basis: 100%;
+                margin-top: $spacing-upload_file_card_info_progress-marginTop;
+            }
+        }
+
+        &-close {
+            margin-left: $spacing-upload_file_card_close-marginLeft;
+            margin-right: $spacing-upload_file_card_close-marginRight;
+            flex-shrink: 0;
+        }
+
+        &-replace {
+            margin-left: $spacing-tight;
+            width: 24px;
+            flex-shrink: 0;
+        }
+
+        &-icon {
+
+            &-loading,
+            &-error {
+                font-size: $width-upload_file_card-icon;
+                margin-right: $spacing-upload_file_card_icon-marginRight;
+            }
+
+            &-error {
+                position: relative;
+                top: $spacing-upload_picture_file_card_icon_error-top;
+            }
+
+            &-loading {
+                .#{$prefix}-spin-wrapper svg {
+                    height: $width-upload_file_card-icon;
+                    width: $width-upload_file_card-icon;
+                }
+            }
+        }
+
+        &-fail {
+            background-color: $color-upload_card_fail-bg;
+
+            &:hover {
+                background-color: $color-upload_card_fail-bg-hover;
+            }
+
+            .#{$module}-file-card {
+
+                &-info-validate-message {
+                    color: $color-upload_file_card_fail_info-text;
+                }
+            }
+        }
+    }
+
+    // listType = 'picture'
+
+    &-picture {
+        display: flex;
+
+        &[x-prompt-pos="bottom"] {
+            flex-direction: column;
+
+            .#{$module}-prompt {
+                order: 2;
+            }
+
+            .#{$module}-add {
+                order: 1;
+            }
+        }
+
+        &[x-prompt-pos="right"] {
+            .#{$module}-prompt {
+                order: 2;
+            }
+
+            .#{$module}-add {
+                order: 1;
+            }
+        }
+
+        &-add {
+            background-color: $color-upload_pic_add-bg;
+            height: $height-upload_file_pic_card;
+            width: $width-upload_file_pic_card;
+            box-sizing: border-box;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            border: $width-upload_picture_add-border dashed $color-upload-border;
+            color: $color-upload-icon;
+            border-radius: $radius-upload_picture_add;
+            order: 2;
+            cursor: pointer;
+
+            &:hover {
+                background-color: $color-upload_pic_add-bg-hover;
+            }
+
+            &:active {
+                background-color: $color-upload_pic_add-bg-active;
+            }
+        }
+
+        &-add-disabled {
+            cursor: not-allowed;
+
+            &:hover {
+                background-color: $color-upload_pic_add-bg;
+            }
+
+            &:active {
+                background-color: $color-upload_pic_add-bg;
+            }
+        }
+
+        &-file-list {
+            flex-basis: inherit;
+            margin-top: 0;
+            margin-bottom: 0;
+            // width: 100%;
+        }
+
+        &-file-card {
+            height: $height-upload_file_pic_card;
+            width: $width-upload_file_pic_card;
+            position: relative;
+            margin-right: $spacing-upload_picture_file_card-marginRight;
+            margin-bottom: $spacing-upload_picture_file_card-marginBottom;
+
+            img {
+                height: $width-upload_picture_file_card_img;
+                width: $width-upload_picture_file_card_img;
+                object-fit: cover;
+                border-radius: $radius-upload_picture_file_card_img;
+            }
+
+            &-close {
+                width: $width-upload_picture_file_card_close;
+                height: $width-upload_picture_file_card_close;
+                background-color: $color-upload_pic_remove-bg;
+                position: absolute;
+                top: $spacing-upload_picture_file_card_close-top;
+                right: $spacing-upload_picture_file_card_close-right;
+                @include all-center;
+                display: none;
+                border-radius: $radius-upload_picture_file_card_close;
+                color: white;
+                cursor: pointer;
+                transition: all 0s;
+            }
+
+            &:hover {
+                .#{$module}-picture-file-card-close {
+                    display: flex;
+                }
+
+                .#{$module}-picture-file-card-replace {
+                    visibility: visible;
+                }
+            }
+
+            .#{$prefix}-progress-circle {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            &-retry {
+                background-color: $color-upload_file_card_retry-bg;
+                width: $width-upload_file_card_retry;
+                height: $width-upload_file_card_retry;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                color: $color-upload_file_card_retry-text;
+                border-radius: $radius-upload_file_card_retry;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+            }
+
+            &-icon-retry {
+                transform: scale(-1, 1);
+                font-size: $width-upload_file_card_retry-icon;
+            }
+
+            &-replace {
+                visibility: hidden;
+                display: inline-flex;
+                position: absolute;
+                cursor: pointer;
+                top: 50%;
+                left: 50%;
+                color: $color-upload_replace-text;
+                transform: translate3D(-50%, -50%, 0);
+            }
+
+            &-icon-loading,
+            &-icon-error {
+                position: absolute;
+                bottom: $spacing-upload_picture_file_card_loading_error-bottom;
+                right: $spacing-upload_picture_file_card_loading_error-right;
+                color: $color-upload_picture_file_card_loading_error-icon;
+            }
+
+            &-icon-loading {
+                font-size: $width-upload_picture_file_card_loading-icon;
+            }
+
+            &-show-pointer {
+                cursor: pointer;
+            }
+        }
+    }
+
+    &-drag-area {
+        border-radius: $radius-upload_drag_area;
+        border: $width-upload_drag_area-border dashed $color-upload-border;
+        width: 100%;
+        padding: $spacing-upload_drag_area-padding;
+        background-color: $color-upload_drag_area-bg;
+        @include all-center;
+        flex-direction: column;
+        cursor: pointer;
+
+        &:hover {
+            background-color: $color-upload_drag_area-bg-hover;
+            border-color: $color-upload_drag_area-border-hover;
+        }
+
+        &-custom {
+            border: none;
+            padding: 0;
+            background-color: inherit;
+
+            &:hover {
+                background-color: inherit;
+            }
+        }
+
+        &-legal {
+            background-color: $color-upload_drag_area-bg-hover;
+            border-color: $color-upload_drag_area-border-hover;
+
+            .#{$module}-drag-area-sub-text {
+                display: none;
+            }
+        }
+
+        &-icon {
+            color: $color-upload_drag_area_icon;
+        }
+
+        &-text {
+            text-align: center;
+        }
+
+        &-main-text {
+            cursor: pointer;
+            @include font-size-regular;
+            margin-bottom: $spacing-upload_drag_area_main_text-marginBottom;
+        }
+
+        &-sub-text {
+            cursor: pointer;
+            @include font-size-small;
+        }
+
+        &-tips {
+            @include font-size-small;
+            font-weight: $font-upload_drag_area_tips-fontWeight;
+
+            &-legal {
+                color: $color-upload_drag_area_tips-text;
+            }
+        }
+    }
+
+    &-validate-message {
+        flex-basis: 100%;
+        flex-shrink: 0;
+        display: block;
+        color: $color-upload_file_card_fail_info-text;
+    }
+}
+
+@import "./rtl.scss";

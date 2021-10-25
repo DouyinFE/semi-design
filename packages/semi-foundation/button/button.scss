@@ -1,0 +1,219 @@
+@import './variables.scss';
+@import './splitButtonGroup.scss';
+
+$module: #{$prefix}-button;
+
+.#{$module} {
+    @include shadow-0;
+    @include font-size-regular;
+    height: $height-button_default;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    cursor: pointer;
+    user-select: none;
+    border: $width-button-border $color-button_primary-border-default solid;
+    border-radius: $radius-button;
+    padding-left: $spacing-button_default-paddingLeft;
+    padding-right: $spacing-button_default-paddingRight;
+    padding-top: $spacing-button_default-paddingTop;
+    padding-bottom: $spacing-button_default-paddingTop;
+    font-weight: $font-button-fontWeight;
+    outline: none;
+    vertical-align: middle;
+    white-space: nowrap;
+    &-danger {
+        background-color: $color-button_danger-bg-default;
+        color: $color-button_danger-text-default;
+        &:hover {
+            background-color: $color-button_danger-bg-hover;
+        }
+        &:active {
+            background-color: $color-button_danger-bg-active;
+        }
+        &.#{$module}-light,
+        &.#{$module}-borderless {
+            color: $color-button_danger-bg-default;
+        }
+    }
+    &-warning {
+        background-color: $color-button_warning-bg-default;
+        color: $color-button_warning-text-default;
+        &:hover {
+            background-color: $color-button_warning-bg-hover;
+        }
+        &:active {
+            background-color: $color-button_warning-bg-active;
+        }
+        &.#{$module}-light,
+        &.#{$module}-borderless {
+            color: $color-button_warning-bg-default;
+        }
+    }
+    &-tertiary {
+        background-color: $color-button_tertiary-bg-default;
+        color: $color-button_tertiary-text-default;
+        &:hover {
+            background-color: $color-button_tertiary-bg-hover;
+        }
+        &:active {
+            background-color: $color-button_tertiary-bg-active;
+        }
+        &.#{$module}-light,
+        &.#{$module}-borderless {
+            color: $color-button_tertiary_solid-text-default;
+        }
+    }
+    &-primary {
+        background-color: $color-button_primary-bg-default;
+        color: $color-button_primary-text-default;
+        &:not(.#{$module}-borderless):not(.#{$module}-light):hover {
+            background-color: $color-button_primary-bg-hover;
+        }
+        &:not(.#{$module}-borderless):not(.#{$module}-light):active {
+            background-color: $color-button_primary-bg-active;
+        }
+
+        &.#{$module}-light,
+        &.#{$module}-borderless {
+            color: $color-button_primary-bg-default;
+        }
+    }
+    &-secondary {
+        background-color: $color-button_secondary-bg-default;
+        outline-color: $color-button_secondary-border-default;
+        color: $color-button_secondary-text-default;
+        &:hover {
+            background-color: $color-button_secondary-bg-hover;
+        }
+        &:active {
+            background-color: $color-button_secondary-bg-active;
+        }
+
+        &.#{$module}-light,
+        &.#{$module}-borderless {
+            color: $color-button_secondary-bg-default;
+        }
+    }
+    &-disabled {
+        color: $color-button_disabled_solid-text-default;
+        background-color: $color-button_disabled-bg-default;
+        &:not(.#{$module}-borderless):not(.#{$module}-light):hover {
+            color: $color-button_disabled-text-hover;
+            background-color: $color-button_disabled-bg-hover;
+        }
+        cursor: not-allowed;
+
+        &.#{$module}-light,
+        &.#{$module}-borderless {
+            color: $color-button_disabled-text-default;
+        }
+    }
+    &-borderless {
+        background-color: transparent;
+        &:not(.#{$module}-disabled):hover {
+            background-color: $color-button_borderless-bg-hover;
+        }
+        &:not(.#{$module}-disabled):active {
+            background-color: $color-button_borderless-bg-active;
+        }
+    }
+
+    &-light {
+        background-color: $color-button_light-bg-default;
+        &:not(.#{$module}-disabled):hover {
+            background-color: $color-button_light-bg-hover;
+        }
+        &:not(.#{$module}-disabled):active {
+            background-color: $color-button_light-bg-active;
+        }
+    }
+    &-size-small {
+        height: $height-button_small;
+        padding-top: $spacing-button_small-paddingTop;
+        padding-bottom: $spacing-button_small-paddingBottom;
+        padding-left: $spacing-button_small-paddingLeft;
+        padding-right: $spacing-button_small-paddingRight;
+    }
+    &-size-large {
+        height: $height-button_large;
+        padding-top: $spacing-button_large-paddingTop;
+        padding-bottom: $spacing-button_large-paddingBottom;
+        padding-left: $spacing-button_large-paddingLeft;
+        padding-right: $spacing-button_large-paddingRight;
+    }
+    &-block {
+        width: 100%;
+    }
+
+    &-group {
+        & > .#{$module} {
+            margin: 0;
+            padding-left: 0;
+            padding-right: 0;
+            border-radius: 0;
+
+            .#{$module}-content {
+                padding-left: $spacing-button_default-paddingLeft;
+                padding-right: $spacing-button_default-paddingRight;
+            }
+
+            &-size-large {
+                .#{$module}-content {
+                    padding-left: $spacing-button_large-paddingLeft;
+                    padding-right: $spacing-button_large-paddingRight;
+                }
+            }
+
+            &-size-small {
+                .#{$module}-content {
+                    padding-left: $spacing-button_small-paddingLeft;
+                    padding-right: $spacing-button_small-paddingRight;
+                }
+            }
+
+            &.#{$module}-with-icon-only {
+                padding-left: 0;
+                padding-right: 0;
+
+                .#{$module}-content {
+                    padding-left: $spacing-button_iconOnly_default-paddingLeft;
+                    padding-right: $spacing-button_iconOnly_default-paddingRight;
+                }
+
+                &.#{$module}-size {
+                    &-small {
+                        .#{$module}-content {
+                            padding-left: $spacing-button_iconOnly_small-paddingLeft;
+                            padding-right: $spacing-button_iconOnly_small-paddingRight;
+                        }
+                    }
+
+                    &-large {
+                        .#{$module}-content {
+                            padding-left: $spacing-button_iconOnly_large-paddingLeft;
+                            padding-right: $spacing-button_iconOnly_large-paddingRight;
+                        }
+                    }
+                }
+            }
+
+            &:first-child {
+                border-top-left-radius: $radius-button_group;
+                border-bottom-left-radius: $radius-button_group;
+            }
+            &:not(:last-child) {
+                .#{$prefix}-button-content {
+                    border-right: $width-button_group-border $color-button_group-border-default solid;
+                }
+            }
+            &:last-child {
+                border-top-right-radius: $radius-button_group;
+                border-bottom-right-radius: $radius-button_group;
+            }
+        }
+    }
+}
+
+@import './rtl.scss';

@@ -1,0 +1,332 @@
+@import './variables.scss';
+
+$module: #{$prefix}-tree-select;
+
+.#{$module} {
+    box-sizing: border-box;
+    border-radius: $radius-treeSelect;
+    border: $width-treeSelect-border solid $color-treeSelect_default-border-default;
+    min-width: $width-treeSelect_default;
+    min-height: $height-treeSelect_default;
+    line-height: $font-treeSelect_default-lineHeight;
+    font-weight: $font-treeSelect_default-fontWeight;
+    background-color: $color-treeSelect_default-bg-default;
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+
+    &:hover {
+        background-color: $color-treeSelect_default-bg-hover;
+    }
+
+    &-focus {
+        border: $width-treeSelect_focus-border solid $color-treeSelect_default-border-focus;
+        outline: 0;
+    }
+
+    &-warning {
+        background-color: $color-treeSelect_warning-bg-default;
+        border-color: $color-treeSelect_warning-border-default;
+
+        &:hover {
+            background-color: $color-treeSelect_warning-bg-hover;
+            border-color: $color-treeSelect_warning-border-hover;
+        }
+
+        &.#{$module}-focus {
+            background-color: $color-treeSelect_warning-bg-focus;
+            border-color: $color-treeSelect_warning-border-focus;
+        }
+
+        &:active {
+            background-color: $color-treeSelect_warning-bg-active;
+            border-color: $color-treeSelect_warning-border-active;
+        }
+    }
+
+    &-error {
+        background-color: $color-treeSelect_danger-bg-default;
+        border-color: $color-treeSelect_danger-border-default;
+
+        &:hover {
+            background-color: $color-treeSelect_danger-bg-hover;
+            border-color: $color-treeSelect_danger-border-hover;
+        }
+
+        &.#{$module}-focus {
+            background-color: $color-treeSelect_danger-bg-focus;
+            border-color: $color-treeSelect_danger-border-focus;
+        }
+
+        &:active {
+            background-color: $color-treeSelect_danger-bg-active;
+            border-color: $color-treeSelect_danger-border-active;
+        }
+    }
+
+    &-disabled {
+        cursor: not-allowed;
+        user-select: none;
+
+        background-color: $color-treeSelect_input_disabled-bg-default;
+        // border: 1px solid $color-treeSelect_input_disabled-border-default;
+
+        &:hover {
+            background-color: $color-treeSelect_input_disabled-bg-hover;
+        }
+
+        .#{$module}-selection,
+        .#{$module}-selection-placeholder {
+            color: $color-treeSelect_input_disabled-text-default;
+            cursor: not-allowed;
+        }
+
+        .#{$module}-arrow,
+        .#{$module}-prefix,
+        .#{$module}-suffix {
+            color: $color-treeSelect_input_disabled-text-default;
+        }
+
+        .#{$prefix}-tag {
+            color: $color-treeSelect_input_disabled-text-default;
+            background-color: $color-treeSelect_tag_disabled-bg-default;
+        }
+    }
+
+    &-selection {
+        @include font-size-regular;
+
+        height: 100%;
+        display: inline-flex;
+        align-items: center;
+        flex-wrap: wrap;
+        flex-grow: 1;
+        overflow: hidden;
+        padding-left: $spacing-treeSelect_selection-paddingLeft;
+        padding-right: 0;
+        cursor: pointer;
+        color: $color-treeSelect_selection-text-default;
+
+        &-placeholder {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            color: $color-treeSelect_input_placeholder-text-default;
+        }
+
+        .#{$prefix}-tag-group {
+            height: inherit;
+            display: inline-flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .#{$prefix}-tag {
+            margin: $spacing-treeSelect_tag-marginY $spacing-treeSelect_tag-marginX;
+        }
+
+        &-TriggerSearchItem {
+            position: absolute;
+            
+            &-placeholder {
+                opacity: .6;
+            }
+
+            &-disabled {
+                cursor: not-allowed;
+                color: $color-treeSelect_selection_TriggerSearchItem_disabled-text-default;
+            }
+        }
+
+        .#{$module}-triggerSingleSearch-wrapper{
+            width: 100%;
+
+            .#{$module}-inputTrigger {
+                .#{$prefix}-input-wrapper {
+                    background: transparent;
+                }
+            }
+
+            // Same as Cascader, covering part of the style of semi Input component
+            // 这里和 cascader 相同, 覆盖 semi Input 的部分内置样式
+            .#{$prefix}-input-wrapper {
+                height: 100%;
+                width: 100%;
+                border: $color-treeSelect_inputTrigger-border-default;
+                background-color: $color-treeSelect_inputTrigger-bg-default;
+            }
+
+            .#{$prefix}-input-wrapper-focus {
+                border: $color-treeSelect_inputTrigger-border-default;
+            }
+
+            .#{$prefix}-input {
+                padding-left: 0;
+                padding-right: 0;
+            }
+        }
+
+        .#{$prefix}-tagInput {
+            border: hidden;
+            background: transparent;
+
+            .#{$prefix}-tagInput-wrapper{
+                padding-left: $spacing-treeSelect_selection_tagInput_wrapper-paddingX;
+                padding-right: $spacing-treeSelect_selection_tagInput_wrapper-paddingX;
+
+                .#{$prefix}-input-wrapper {
+                    height: $height-treeSelect_selection_tagInput_input_default;
+    
+                    .#{$prefix}-input {
+                        padding-left: 0;
+                    }
+                }
+    
+                .#{$prefix}-input-wrapper-small {
+                    height: $height-treeSelect_selection_tagInput_input_small;
+                }
+                .#{$prefix}-input-wrapper-large {
+                    height: $height-treeSelect_selection_tagInput_input_large;
+                }
+            }
+        }
+    }
+    
+    &-multiple-tagInput-notEmpty {
+        .#{$prefix}-tagInput {
+            margin-left: $spacing-treeSelect_selection_tagInput_notEmpty-marginLeft;
+        }
+    }
+
+
+    &-multiple-tagInput-empty {
+        .#{$prefix}-tagInput {
+            margin-left: $spacing-treeSelect_selection_tagInput_empty-marginLeft;
+        }
+    }
+
+    &-multiple {
+        display: inline-flex;
+
+        .#{$module}-selection {
+            padding-left: $spacing-treeSelect_selection_multiple-paddingLeft;
+            padding-right: 0;
+
+            &-placeholder {
+                padding-left: $spacing-treeSelect_placeholder_multiple-paddingLeft;
+            }
+        }
+    }
+
+    &-small {
+        min-height: $height-treeSelect_small;
+        line-height: $font-treeSelect_small-lineHeight;
+    }
+
+    &-large {
+        min-height: $height-treeSelect_large;
+        line-height: $font-treeSelect_large-lineHeight;
+    }
+
+    &-arrow {
+        // position: absolute;
+        // top: 0;
+        // right: 0;
+        display: inline-flex;
+        align-items: center;
+        height: 100%;
+        justify-content: center;
+        width: $width-treeSelect_arrow;
+        color: $color-treeSelect_default-icon-default;
+    }
+
+    &-inset-label {
+        display: inline;
+        margin-right: $spacing-treeSelect_insertLabel-marginRight;
+        font-weight: $font-treeSelect_insertLabel-fontWeight;
+        @include font-size-regular;
+        color: $color-treeSelect_insertLabel-text-default;
+        flex-shrink: 0;
+        white-space: nowrap;
+    }
+
+    &.#{$module}-with-prefix {
+        display: inline-flex;
+        align-items: center;
+    }
+
+    &-arrow,
+    &-clearbtn {
+        display: inline-flex;
+        align-items: center;
+        height: 100%;
+        justify-content: center;
+        width: $width-treeSelect_arrow;
+        color: $color-treeSelect_default-icon-default;
+    }
+
+    &-clearbtn {
+        &:hover {
+            color: $color-treeSelect_default-icon-hover;
+        }
+
+        &:active {
+            color: $color-treeSelect_default-icon-active;
+        }
+    }
+
+    &-prefix,
+    &-suffix {
+        display: inline;
+        @include all-center;
+
+        &-text {
+            margin: $spacing-treeSelect_prefix_text-marginY $spacing-treeSelect_prefix_text-marginX;
+        }
+
+        &-icon {
+            color: $color-treeSelect_default-icon-default;
+            margin: $spacing-treeSelect_prefix_icon-marginY $spacing-treeSelect_prefix_icon-marginX;
+        }
+
+        &.#{$module}-with-suffix {
+            .#{$module}-selection {
+                padding-right: $spacing-treeSelect_selection_withSuffix-paddingRight;
+            }
+        }
+
+        &-search-wrapper {
+            padding: $spacing-treeSelect_search_wrapper-paddingY $spacing-treeSelect_search_wrapper-paddingX;
+            border-bottom: $width-treeSelect_search_wrapper-border solid $color-treeSelect_search-border-default;
+        }
+
+        &-maxTagCount {
+            color: $color-treeSelect_input_placeholder-text-default;
+            font-size: $font-treeSelect_default-fontSize;
+        }
+
+        &-popover {
+            max-height: $height-treeSelect_popover;
+            overflow: auto;
+        }
+    }
+}
+.#{$module}-popover {
+    .#{$prefix}-tree-wrapper {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+
+        .#{$prefix}-tree-option-list {
+            flex: 1;
+            min-width: $width-treeSelect_option;
+        }
+
+        .#{$prefix}-tree-search-wrapper {
+            border-bottom: $width-treeSelect_search_wrapper-border $color-treeSelect_search-border-default solid;
+        }
+    }
+}
+
+@import './rtl.scss';

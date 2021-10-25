@@ -1,0 +1,1 @@
+../../../content/input/inputnumber/index.md

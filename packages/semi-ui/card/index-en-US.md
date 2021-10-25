@@ -1,0 +1,1 @@
+../../../content/show/card/index-en-US.md

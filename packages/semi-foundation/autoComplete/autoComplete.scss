@@ -1,0 +1,37 @@
+$module: #{$prefix}-autocomplete;
+
+@import "./variables.scss";
+
+.#{$module} {
+    cursor: text;
+    display: inline-flex;
+    vertical-align: middle;
+    box-sizing: border-box;
+
+    &-option-list {
+        overflow-x: hidden;
+        overflow-y: auto;
+
+        &-chosen {
+            .#{$module}-option-icon {
+                display: flex;
+            }
+        }
+    }
+
+    &-loading-wrapper {
+        // padding-left: $spacing-base;
+        // padding-right: $spacing-base;
+        padding-top: $spacing-autoComplete_loading_wrapper-paddingTop;
+        padding-bottom: $spacing-autoComplete_loading_wrapper-paddingBottom;
+        cursor: not-allowed;
+        // height: $spacing-extra-loose;
+        // @include all-center;
+        .#{$prefix}-spin {
+            width: 100%;
+        }
+    }
+
+}
+
+@import './rtl.scss';

@@ -1,0 +1,168 @@
+//@import '../theme/variables.scss';
+@import "./variables.scss";
+
+$module: #{$prefix}-notification;
+
+.#{$module}-wrapper {
+    position: fixed;
+}
+
+.#{$module}-list {
+    position: fixed;
+    box-sizing: border-box;
+    margin: $spacing-notification_list-margin;
+    padding: $spacing-notification_list-padding;
+    z-index: $z-notification;
+    pointer-events: none;
+
+    &[placement="topRight"] {
+        right: 0;
+        top: 0;
+    }
+
+    &[placement="top"] {
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    &[placement="topLeft"] {
+        left: 0;
+        top: 0;
+    }
+
+    &[placement="bottom"] {
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    &[placement="bottomRight"] {
+        bottom: 0;
+        right: 0;
+    }
+
+    &[placement="bottomLeft"] {
+        bottom: 0;
+        left: 0;
+    }
+}
+
+.#{$module} {
+
+    &-notice {
+        @include shadow-elevated;
+        border-radius: $radius-notification_notice;
+        padding-top: $spacing-notification_notice-paddingTop;
+        padding-right: $spacing-notification_notice-paddingRight;
+        padding-bottom: $spacing-notification_notice-paddingBottom;
+        padding-left: $spacing-notification_notice-paddingLeft;
+        margin: $spacing-notification_notice-margin;
+        width: $width-notification_notice;
+        min-width: $width-notification_notice_minWidth;
+        background-color: $color-notification-bg-default;
+        position: relative;
+        display: flex;
+        pointer-events: auto;
+
+        &-icon {
+            width: $width-notification_notice-icon;
+            @include font-size-header-6;
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            height: 100%;
+            margin-right: $spacing-notification_notice_icon-marginRight;
+        }
+
+        &-info {
+            color: $color-notification_info-icon;
+        }
+
+        &-warning {
+            color: $color-notification_warning-icon;
+        }
+
+        &-error {
+            color: $color-notification_danger-icon;
+        }
+
+        &-success {
+            color: $color-notification_success-icon;
+        }
+
+        &-light {
+            &.#{$module}-notice-warning {
+                background-color: $color-notification_warning_light-bg;
+                border: $width-notification_notice-border solid $color-notification_warning_light-border;
+            }
+
+            &.#{$module}-notice-success {
+                background-color: $color-notification_success_light-bg;
+                border: $width-notification_notice-border solid $color-notification_success_light-border;
+            }
+
+            &.#{$module}-notice-info,
+            &.#{$module}-notice-default {
+                background-color: $color-notification_info_light-bg;
+                border: $width-notification_notice-border solid $color-notification_info_light-border;
+            }
+
+            &.#{$module}-notice-error {
+                background-color: $color-notification_danger_light-bg;
+                border: $width-notification_notice-border solid $color-notification_danger_light-border;
+            }
+        }
+
+        &-title {
+            @include font-size-header-6;
+            font-weight: $font-notification_notice_title-fontWeight;
+            color: $color-notification_title-text;
+            margin-bottom: $spacing-notification_notice_title-marginBottom;
+        }
+
+        &-inner {
+            display: flex;
+            width: 100%;
+        }
+
+        &-content-wrapper {
+            flex: 1 1 auto;
+            margin-right: $spacing-notification_notice_content_wrapper-marginRight;
+        }
+
+        &-content {
+            @include font-size-regular;
+            font-weight: $font-notification_notice_content-fontWeight;
+            color: $color-notification_content-text;
+            // padding-top: $spacing-extra-tight;
+        }
+
+        &-icon-close {
+            height: $width-icon-extra-large;
+
+            .#{$prefix}-icon-close {
+                color: $color-notification_closeBtn-icon;
+            }
+        }
+
+        &-controls {
+            display: flex;
+
+            @include font-size-regular;
+            cursor: pointer;
+        }
+
+        &-detail {
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        &-later {
+            text-align: center;
+            flex-grow: 1;
+        }
+    }
+}
+
+@import "./rtl.scss";

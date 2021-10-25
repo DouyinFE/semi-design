@@ -1,0 +1,1 @@
+../../../content/input/inputnumber/index-en-US.md

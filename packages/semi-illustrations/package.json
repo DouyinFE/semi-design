@@ -1,0 +1,50 @@
+{
+  "name": "@douyinfe/semi-illustrations",
+  "version": "2.0.0",
+  "description": "semi illustrations",
+  "keywords": [
+    "semi",
+    "illustrations"
+  ],
+  "author": "",
+  "homepage": "",
+  "license": "MIT",
+  "files": [
+    "lib",
+    "src"
+  ],
+  "sideEffects": [
+    "lib/es/index.js"
+  ],
+  "main": "lib/es/index.js",
+  "module": "lib/es/index.js",
+  "typings": "lib/es/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DouyinFE/semi-design"
+  },
+  "dependencies": {
+    "@babel/runtime-corejs3": "^7.15.4"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0 || ^17.0.0"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-decorators": "^7.15.8",
+    "@babel/plugin-transform-runtime": "^7.15.8",
+    "@babel/preset-env": "^7.15.8",
+    "@babel/preset-react": "^7.14.5",
+    "del": "^6.0.0",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
+    "gulp-replace": "^1.1.3",
+    "gulp-typescript": "^6.0.0-alpha.1",
+    "merge2": "^1.4.1"
+  },
+  "scripts": {
+    "build:icon": "node scripts/build-illustration",
+    "build:lib": "node ./scripts/compileLib.js",
+    "prepublishOnly": "npm run build:lib"
+  },
+  "gitHead": "5d5893482dd1f4c69333907f01fc66a8125ac9cd"
+}

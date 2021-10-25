@@ -1,0 +1,91 @@
+//@import '../theme/variables.scss';
+@import './variables.scss';
+
+$module: #{$prefix}-tooltip;
+$module-icon: #{$module}-icon-arrow;
+
+@keyframes #{$module}-zoomIn {
+    from {
+        opacity: $motion-zoom_opacity-from;
+        transform: scale($motion-zoom_scale-from, $motion-zoom_scale-from);
+    }
+
+    50% {
+        opacity: $motion-zoom_opacity-to;
+    }
+}
+
+@keyframes #{$module}-bounceIn {
+    from {
+        opacity: 0;
+        transform: scale(0.6, 0.6);
+    }
+
+    70% {
+        opacity: 1;
+        transform: scale(1.01, 1.01);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1, 1);
+        animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+}
+
+@keyframes #{$module}-zoomOut {
+    from {
+        opacity: $motion-zoom_opacity-to;
+    }
+
+    60% {
+        opacity: $motion-zoom_opacity-from;
+        transform: scale($motion-zoom_scale-from, $motion-zoom_scale-from);
+    }
+
+    to {
+        opacity: $motion-zoom_opacity-from;
+    }
+}
+
+.#{$module} {
+    &-wrapper {
+        position: relative;
+        background-color: $color-tooltip-bg-default;
+        color: $color-tooltip-text-default;
+        // z-index: $z-tooltip; // TODO z-index定义需要收敛
+        border-radius: $radius-tooltip;
+        padding-top: $spacing-tooltip_content-paddingTop;
+        padding-right: $spacing-tooltip_content-paddingRight;
+        padding-bottom: $spacing-tooltip_content-paddingBottom;
+        padding-left: $spacing-tooltip_content-paddingLeft;
+        font-size: $font-tooltip-fontSize;
+        left: 0;
+        top: 0;
+
+        @include font-size-regular;
+        visibility: hidden;
+        max-width: $width-tooltip;
+
+        &-show {
+            visibility: visible;
+        }
+    }
+
+    &-trigger {
+        display: inline-block;
+        width: auto;
+        height: auto;
+    }
+
+    &-with-arrow {
+        // padding: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+    }
+}
+
+@import './arrow.scss';
+@import './rtl.scss';

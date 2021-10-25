@@ -1,0 +1,188 @@
+@import "./variables.scss";
+
+$module: #{$prefix}-input;
+
+
+.#{$module}-textarea-wrapper {
+    box-sizing: border-box;
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    border: $width-input_wrapper-border $color-input_default-border-default solid;
+    border-radius: $radius-input_wrapper;
+    vertical-align: bottom;
+    background-color: $color-input_default-bg-default;
+
+    &:hover {
+        background-color: $color-input_default-bg-hover;
+    }
+
+    &-focus {
+        background-color: $color-input_default-bg-focus;
+        border: $width-input_wrapper_focus-border $color-input_default-border-focus solid;
+        &:hover,
+        &:active {
+            background-color: $color-input_default-bg-focus;
+        }
+    }
+
+    &:active {
+        background-color: $color-input_default-bg-active;
+    }
+
+    .#{$module}-clearbtn {
+        position: absolute;
+        top: 0;
+        min-width: $width-textarea-icon;
+        color: $color-textarea-icon-default;
+        right: $spacing-textarea-icon-right;
+        height: $height-textarea-default;
+
+        & > svg {
+            pointer-events: none;
+        }
+
+        &:hover {
+            cursor: pointer;
+
+            .#{$prefix}-icon {
+                color: $color-textarea-icon-hover;
+            }
+        }
+
+        &-hidden {
+            visibility: hidden;
+        }
+    }
+
+    &-readonly {
+        cursor: default;
+    }
+
+    &-disabled {
+        cursor: not-allowed;
+        // border: $border-thickness-control $color-input_disabled-border-default solid;
+        color: $color-input_disabled-text-default;
+        background-color: $color-input_disabled-bg-default;
+
+        &:hover {
+            background-color: $color-input_disabled-bg-default;
+        }
+
+        &::placeholder {
+            color: $color-input_disabled-text-default;
+        }
+    }
+
+    &-error {
+        background-color: $color-input_danger-bg-default;
+        border-color: $color-input_danger-border-default;
+
+        &:hover {
+            background-color: $color-input_danger-bg-hover;
+            border-color: $color-input_danger-border-hover;
+        }
+
+        &.#{$module}-textarea-wrapper-focus {
+            background-color: $color-input_danger-bg-focus;
+            border-color: $color-input_danger-border-focus;
+        }
+
+        &:active {
+            background-color: $color-input_danger-bg-active;
+            border-color: $color-input_danger-border-active;
+        }
+    }
+
+    &-warning {
+        background-color: $color-input_warning-bg-default;
+        border-color: $color-input_warning-border-default;
+
+        &:hover {
+            background-color: $color-input_warning-bg-hover;
+            border-color: $color-input_warning-border-hover;
+        }
+
+        &.#{$module}-textarea-wrapper-focus {
+            background-color: $color-input_warning-bg-focus;
+            border-color: $color-input_warning-border-focus;
+        }
+
+        &:active {
+            background-color: $color-input_warning-bg-active;
+            border-color: $color-input_warning-border-active;
+        }
+    }
+
+    // &-resize {
+    //     resize: vertical;
+    //     overflow: auto;
+
+    //     .#{$module}-textarea {
+    //         min-height: 52px;
+    //         height: calc(100% - 24px);
+    //     }
+    // }
+}
+
+.#{$module}-textarea {
+    position: relative;
+    resize: none;
+    // min-height: $height-input_default;
+    padding: $spacing-textarea-paddingY $spacing-textarea-paddingX;
+
+    @include shadow-0;
+    @include font-size-regular;
+    background-color: transparent;
+    border: $width-textarea-border solid $color-textarea-border-default;
+    vertical-align: bottom;
+
+    width: 100%;
+    outline: none;
+    cursor: text;
+    box-sizing: border-box;
+    color: $color-input_default-text-default;
+
+    &::placeholder {
+        color: $color-input_placeholder-text-default;
+    }
+
+    &-showClear {
+        padding-right: $spacing-textarea_withShowClear-paddingRight;
+    }
+
+    &-disabled {
+        cursor: not-allowed;
+        color: $color-input_disabled-text-default;
+        background-color: transparent;
+
+        &:hover {
+            background-color: transparent;
+        }
+
+        &::placeholder {
+            color: $color-input_disabled-text-default;
+        }
+    }
+
+    &-autosize {
+        overflow: hidden;
+    }
+    
+    &-counter {
+        @include font-size-small;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: $spacing-textarea_counter-paddingTop $spacing-textarea_counter-paddingRight $spacing-textarea_counter-paddingBottom $spacing-textarea_counter-paddingLeft;
+        min-height: $height-textarea_counter;
+        text-align: right;
+        color: $color-input_counter-text-default;
+
+        &-exceed {
+            color: $color-input_counter_danger-text-default;
+        }
+    }
+}
+
+@import "./rtl.scss";

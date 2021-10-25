@@ -1,0 +1,105 @@
+.highlight {
+    color: rgba(var(--semi-blue-5), 1);
+}
+
+.results {
+    width: 640px;
+    padding-bottom: 24px;
+    .hovered {
+        background-color: rgba(var(--semi-grey-0), 1);
+    }
+    .resultItem {
+        box-sizing: border-box;
+        display: block;
+        text-decoration: none;
+        color: black;
+        &:visited &:hover &:active {
+            text-decoration: none;
+        }
+
+        height: 92px;
+        display: flex;
+        padding: 16px;
+        border-radius: 6px;
+        .imgWrapper {
+            box-sizing: border-box;
+            width: 88px;
+            height: 60px;
+            margin-right: 16px;
+        }
+        .info {
+            box-sizing: border-box;
+            width: 490px;
+            .title {
+                font-family: system, -apple-system, BlinkMacSystemFont, PingFang SC, Segoe UI, Microsoft YaHei,
+                    wenquanyi micro hei, Hiragino Sans GB, Hiragino Sans GB W3, Roboto, Oxygen, Ubuntu, Cantarell,
+                    Fira Sans, Droid Sans, Helvetica Neue, Helvetica, Arial, sans-serif;
+                font-size: 18px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 24px;
+                letter-spacing: 0em;
+                text-align: left;
+                margin-bottom: 7px;
+            }
+            .content {
+                display: flex;
+                .type {
+                    display: block;
+                    width: fit-content;
+                    border-right: 1px solid rgba(var(--semi-grey-1), 1);
+                    padding-right: 12px;
+                    margin-right: 12px;
+                }
+                .context {
+                    flex: 1;
+                    display: block;
+                    font-family: system, -apple-system, BlinkMacSystemFont, PingFang SC, Segoe UI, Microsoft YaHei,
+                        wenquanyi micro hei, Hiragino Sans GB, Hiragino Sans GB W3, Roboto, Oxygen, Ubuntu, Cantarell,
+                        Fira Sans, Droid Sans, Helvetica Neue, Helvetica, Arial, sans-serif;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 18px;
+                    letter-spacing: 0em;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    color: var(--semi-color-disabled-text);
+                }
+            }
+        }
+    }
+}
+
+.list {
+    height: 550px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    &::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0);
+    }
+
+    &::-webkit-scrollbar-corner {
+        background-color: rgba(0, 0, 0, 0);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 6px;
+        background: transparent;
+        transition: all 1s;
+    }
+
+    &:hover::-webkit-scrollbar-thumb {
+        background: var(--semi-color-fill-2);
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: var(--semi-color-fill-1);
+    }
+}

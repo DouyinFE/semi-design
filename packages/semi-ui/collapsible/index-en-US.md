@@ -1,0 +1,1 @@
+../../../content/show/collapsible/index-en-US.md
