@@ -1,11 +1,11 @@
 <article style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
-    <p><img width="200" height="100%" src="https://lf1-cdn-tos.bytescm.com/obj/ttfe/ies/semi/SemiLogo/Logo_1576122865926.png" /></p>
+    <p align="center"><img width="300" src="https://lf1-cdn-tos.bytescm.com/obj/ttfe/ies/semi/SemiLogo/Logo_1576122865926.png" /></p>
     <h1 style="width: 100%; text-align: center;">Semi-UI</h1>
     <p>
         A modern, comprehensive, flexible design system and UI library. Quickly build beautiful React apps.
     </p>
     <p style="display: flex">
-        <img src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/Semi_info.gif" />
+        <img src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/semi-info-1.gif" />
     </p>
 </article>
 
