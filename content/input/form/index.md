@@ -206,7 +206,7 @@ class BasicDemoWithInit extends React.Component {
                         preview: true,
                         fileInstance:  new File([new ArrayBuffer(2048)], 'jiafang1.jpeg', { type: 'image/jpeg' }),
                         url: 'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg'
-                    }
+                    },
                     {
                         uid: '3',
                         name: 'jiafang2.jpeg',
