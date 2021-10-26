@@ -20,20 +20,20 @@ $color-switch_default-bg-default: var(--semi-color-fill-0); // 关闭态开关�
 $color-switch_default-bg-hover: var(--semi-color-fill-1); // 关闭态开关背景色 - 悬浮
 $color-switch_default-bg-active: var(--semi-color-fill-2); // 关闭态开关背景色 - 按下
 $color-switch_default-border-default: transparent; // 关闭态开关描边颜色
-$color-switch_checked-bg-default: var(--semi-color-success); // 开启态开关背景色 - 默认
-$color-switch_checked-bg-hover: var(--semi-color-success-hover); // 开启态开关背景色 - 悬浮
-$color-switch_checked-bg-active: var(--semi-color-success-active); // 开启态开关背景色 - 按下
+$color-switch_checked-bg-default: var(--semi-color-primary); // 开启态开关背景色 - 默认
+$color-switch_checked-bg-hover: var(--semi-color-primary-hover); // 开启态开关背景色 - 悬浮
+$color-switch_checked-bg-active: var(--semi-color-primary-active); // 开启态开关背景色 - 按下
 $color-switch_disabled-bg-default: transparent; // 禁用态开关背景色
 $color-switch_disabled-border-default: var(--semi-color-border); // 禁用态开关描边颜色
 $color-switch_disabled-bg-hover: transparent; // 禁用态开关背景色 - 悬浮
-$color-switch_checked_disabled-bg-default: var(--semi-color-success-disabled); // 禁用开启态开关背景颜色
+$color-switch_checked_disabled-bg-default: var(--semi-color-primary-disabled); // 禁用开启态开关背景颜色
 $color-switch_checked_disabled-border-default: transparent; // 禁用开启态开关描边颜色
 $color-switch_knob-bg-default: white; // 开关按钮背景颜色
 $color-switch_knob-border-default: var(--semi-color-border); // 开关按钮描边颜色
 $color-switch_checked-text-default: var(--semi-color-white); // 开启态开关按钮文字颜色
 $color-switch_unchecked-text-default: var(--semi-color-text-2); // 关闭态开关按钮文字颜色
 $color-switch_loading_spin-default: var(--semi-color-white); // 加载态开关loading图标颜色
-$color-switch_spin_checked-bg-default: var(--semi-color-success-hover); // 已开启开关加载态loading背景颜色
+$color-switch_spin_checked-bg-default: var(--semi-color-primary-hover); // 已开启开关加载态loading背景颜色
 $color-switch_spin_unchecked-bg-default: var(--semi-color-fill-1); // 已关闭开关加载态loading背景颜色
 
 // Width/Height
