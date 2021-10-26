@@ -33,8 +33,8 @@ import { IconUpload } from '@douyinfe/semi-icons';
 
 ### 添加提示文本
 
-通过`prompt`插槽，设置自定义提示文本  
-通过`promptPosition`设置插槽位置，可选`left`、`right`、`bottom`，默认为`right`
+通过 `prompt` 插槽，设置自定义提示文本  
+通过 `promptPosition` 设置插槽位置，可选 `left`、`right`、`bottom`，默认为 `right`
 
 ```jsx live=true width=48%
 import React from 'react';
@@ -280,7 +280,7 @@ import { IconUpload } from '@douyinfe/semi-icons';
 
 ### 上传文件夹
 
-通过传入`directory`为`true`，可以支持上传文件夹下的所有文件
+通过传入 `directory` 为 `true`，可以支持上传文件夹下的所有文件
 
 ```jsx live=true
 import React from 'react';
@@ -325,7 +325,7 @@ import { IconUpload } from '@douyinfe/semi-icons';
 ### 限制文件总数量
 
 通过设置 `limit` 属性可以限制最大可上传的文件数  
-当`limit`为1时，始终用最新上传的代替当前，并不会触发onExceed回调**v1.5.0生效**
+当 `limit` 为1时，始终用最新上传的代替当前，并不会触发onExceed回调**v1.5.0生效**
 
 ```jsx dir="column" live=true width=48%
 import React from 'react';
@@ -458,7 +458,7 @@ import { IconUpload } from '@douyinfe/semi-icons';
 
 ### 自定义预览逻辑
 
-`listType`为`list`时，可以通过传入 `previewFile` 览逻辑。  
+`listType` 为 `list` 时，可以通过传入 `previewFile` 览逻辑。  
 例如你不需要对图片类型进行缩略图预览时，可以在 `previewFile` 中恒定返回一个`<IconFile />`
 
 ```jsx live=true width=48%
@@ -734,7 +734,7 @@ import { Upload } from '@douyinfe/semi-ui';
 );
 ```
 
-可以通过`dragIcon`、`dragMainText`、`dragSubText` 快捷设置拖拽区内容
+可以通过 `dragIcon`、`dragMainText`、`dragSubText` 快捷设置拖拽区内容
 
 ```jsx live=true width=48%
 import React from 'react';
@@ -752,7 +752,7 @@ import { IconBolt } from '@douyinfe/semi-icons';
 ></Upload>
 ```
 
-还可以通过`children`传入 ReactNode，完全自定义拖拽区的显示
+还可以通过 `children` 传入 ReactNode，完全自定义拖拽区的显示
 
 ```jsx live=true width=48%
 import React from 'react';
@@ -810,7 +810,7 @@ Scss 样式如下
 
 ### 上传前自定义校验
 
-可通过`beforeUpload`钩子，对文件状态进行更新，这是在网络上传前，选择文件后进行校验，`({ file: FileItem, fileList: Array<FileItem> }) => beforeUploadResult | Promise | boolean` 同步校验时需返回 boolean（true 为校验通过，false 为校验失败，校验失败会阻止文件网络上传）或者一个 Object 对象，具体结构如下
+可通过 `beforeUpload` 钩子，对文件状态进行更新，这是在网络上传前，选择文件后进行校验，`({ file: FileItem, fileList: Array<FileItem> }) => beforeUploadResult | Promise | boolean` 同步校验时需返回 boolean（true 为校验通过，false 为校验失败，校验失败会阻止文件网络上传）或者一个 Object 对象，具体结构如下
 
 ```ts
 // beforeUploadResult:
@@ -936,7 +936,7 @@ class AsyncBeforeUploadDemo extends React.Component {
 
 ### 上传后更新文件信息
 
-可以通过`afterUpload`钩子，对文件状态，校验信息，文件名进行更新。  
+可以通过 `afterUpload` 钩子，对文件状态，校验信息，文件名进行更新。  
 `({ response: any, file: FileItem, fileList: Array<FileItem> }) => afterUploadResult`  
 afterUpload 在上传完成后(xhr.onload)且没有发生错误的情况下触发，需返回一个 Object 对象（不支持异步返回），具体结构如下
 

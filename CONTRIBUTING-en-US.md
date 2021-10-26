@@ -13,8 +13,8 @@ The Semi Design team will take every Pull Request seriously. We will review and 
 To open a Pull Request, please follow the steps below:
  - Fork our repo, then clone your fork
 ```bash
-git clone https://github.com/<your-username>/semi-ui.git
-cd semi-ui
+git clone https://github.com/<your-username>/semi-design.git
+cd semi-design
 ```
  - Checkout to `beta` branch, install the dependencies
 ```bash
