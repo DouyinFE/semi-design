@@ -150,7 +150,7 @@ class ObjectDemo extends React.Component {
         super();
         this.state = {
             list: [
-                { value: 'tiktok', label: 'douyin', email: '1@gmail.com', type: 2 },
+                { value: 'abc', label: 'douyin', email: '1@gmail.com', type: 2 },
                 { value: 'hotsoon', label: 'huoshan', email: '2@gmail.com', type: 3 },
                 { value: 'pipixia', label: 'pip', email: '3@gmail.com' },
             ],

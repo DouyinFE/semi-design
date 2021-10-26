@@ -93,7 +93,7 @@ const TagGroupDemo = () => {
     let tagList = [
         { color: 'white', children: '抖音' },
         { color: 'white', children: '火山小视频' },
-        { color: 'white', children: 'tiktok' },
+        { color: 'white', children: 'Abc' },
         { color: 'white', children: 'vigo' },
         { color: 'white', children: '皮皮虾' },
     ];
@@ -148,7 +148,7 @@ const AvatarTagGroupDemo = () => {
     let tagList = [
         { color: 'white', children: '抖音', avatarSrc: src },
         { color: 'white', children: '火山小视频', avatarSrc: src },
-        { color: 'white', children: 'tiktok', avatarSrc: src },
+        { color: 'white', children: 'Abc', avatarSrc: src },
         { color: 'white', children: 'vigo', avatarSrc: src },
         { color: 'white', children: '皮皮虾', avatarSrc: src },
     ];

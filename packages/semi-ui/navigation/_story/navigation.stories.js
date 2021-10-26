@@ -153,7 +153,7 @@ class Demo extends React.Component {
     render() {
         let { isCollapsed, defaultOpenKeys, mode, navHeight } = this.state;
         let logo = '//lf1-cdn-tos.bytescm.com/obj/ttfe/ies/semi/logo_huoshan.png';
-        let tiktokIcon = '//lf1-cdn-tos.bytescm.com/obj/mosaic-legacy/da9d0015af0f09667998';
+        let testIcon = '//lf1-cdn-tos.bytescm.com/obj/mosaic-legacy/da9d0015af0f09667998';
         let vigoIcon = '//lf1-cdn-tos.bytescm.com/obj/mosaic-legacy/504100070cbe0498d66f';
         return (
             <div>
@@ -172,7 +172,7 @@ class Demo extends React.Component {
                     <Nav.Sub
                         itemKey={'2'}
                         text={<span>抖音运营</span>}
-                        icon={<img width="20" height="20" src={tiktokIcon} />}
+                        icon={<img width="20" height="20" src={testIcon} />}
                         stayWhenClick={true}
                     >
                         {['2-1', '2-2'].map(k => (

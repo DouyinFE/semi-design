@@ -202,7 +202,7 @@ describe('TreeSelect', () => {
         // dropdownMatchSelectWidth default is true
         let props = {
             style: { width: 90 },
-            defaultValue: 'tiktok',
+            defaultValue: 'abc',
         };
         let treeSelect = getTreeSelect(props);
         // cause jsdom doesn't support layout engine like browser, so you can't access offsetWidth/scrollWidth or use getBoundingRect(), it will always return 0;
@@ -218,7 +218,7 @@ describe('TreeSelect', () => {
     it('dropdownMatchSelectWidth = false', () => {
         let props = {
             style: { width: 90 },
-            defaultValue: 'tiktok',
+            defaultValue: 'abc',
             dropdownMatchSelectWidth: false,
         };
         let treeSelect = getTreeSelect(props);

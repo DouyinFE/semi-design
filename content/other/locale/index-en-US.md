@@ -214,7 +214,7 @@ class I18nDemo extends React.Component {
                     <h5>Select & Cascader</h5>
                     <div style={style}>
                         <Select filter style={{ width: '180px' }}>
-                            <Option value='tiktok'>tiktok</Option>
+                            <Option value='abc'>abc</Option>
                             <Option value='vigo' disabled>vigo</Option>
                             <Option value='hotsoon'>hotsoon</Option>
                         </Select>

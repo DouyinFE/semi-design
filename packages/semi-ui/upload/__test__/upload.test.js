@@ -49,7 +49,7 @@ const defaultFileList = [
     },
     {
         uid: '2',
-        name: 'tiktok.jpeg',
+        name: 'test.jpeg',
         status: 'uploadFail',
         size: '222KB',
         preview: false,
@@ -443,7 +443,7 @@ describe('Upload', () => {
         const fileInstance = createFile(200, 'semi.jpg');
         const file = {
             uid: '2',
-            name: 'tiktok.jpeg',
+            name: 'test.jpeg',
             status: 'uploadFail',
             size: '222KB',
             preview: true,
@@ -497,7 +497,7 @@ describe('Upload', () => {
         let fileInstance = createFile(200, 'semi.jpg');
         let file = {
             uid: '2',
-            name: 'tiktok.jpeg',
+            name: 'test.jpeg',
             status: 'error',
             size: '222KB',
             preview: true,
@@ -531,7 +531,7 @@ describe('Upload', () => {
             defaultFileList: [
                 {
                     uid: '2',
-                    name: 'tiktok.jpeg',
+                    name: 'test.jpeg',
                     status: 'error',
                     size: '222KB',
                     preview: true,

@@ -251,7 +251,7 @@ class BasicDemoWithInit extends React.Component {
                             placeholder='Choose application'
                             label="Application（Multiple Select）"
                         >
-                            <Select.Option value="tiktok">Tiktok</Select.Option>
+                            <Select.Option value="abc">Semi</Select.Option>
                             <Select.Option value="hotsoon">Vigo</Select.Option>
                             <Select.Option value="xigua">BuzzVideo</Select.Option>
                         </Select>
@@ -339,7 +339,7 @@ class BasicDemoWithInit extends React.Component {
                         <TagInput 
                             field="product"
                             label='Product（TagInput）'
-                            defaultValue={['tiktok','hotsoon']}
+                            defaultValue={['abc','hotsoon']}
                             style={style}
                         />
                     </Col>
@@ -566,7 +566,7 @@ import { Form, Row, Col } from '@douyinfe/semi-ui';
             </Col>
             <Col span={8}>
                 <Form.Select label="Application" field='business1' style={{ width: '250px' }}>
-                    <Form.Select.Option value="tiktok">Tiktok</Form.Select.Option>
+                    <Form.Select.Option value="abc">Semi</Form.Select.Option>
                     <Form.Select.Option value="hotsoon">Vigo</Form.Select.Option>
                     <Form.Select.Option value="xigua">BussVideo</Form.Select.Option>
                 </Form.Select>
@@ -591,7 +591,7 @@ import { Form, Row, Col } from '@douyinfe/semi-ui';
             </Col>
             <Col span={6}>
                 <Form.Select label="Application" field='business2' style={{ width: '250px' }}>
-                    <Form.Select.Option value="tiktok">Tiktok</Form.Select.Option>
+                    <Form.Select.Option value="abc">Semi</Form.Select.Option>
                     <Form.Select.Option value="hotsoon">Vigo</Form.Select.Option>
                     <Form.Select.Option value="xigua">BussVideo</Form.Select.Option>
                 </Form.Select>

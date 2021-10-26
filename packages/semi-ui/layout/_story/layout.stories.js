@@ -4,7 +4,7 @@ import { storiesOf } from '@storybook/react'; // import { withKnobs, text, boole
 import { Layout } from '../index';
 import Nav from '../../navigation';
 import { Button } from '../../index';
-import { IconBytedanceLogo, IconVigoLogo, IconTiktokLogo, IconDescend, IconList, IconEdit, IconCamera, IconFile, IconGlobe } from '@douyinfe/semi-icons';
+import { IconBytedanceLogo, IconVigoLogo, IconDescend, IconList, IconEdit, IconCamera, IconFile, IconGlobe } from '@douyinfe/semi-icons';
 const stories = storiesOf('Layout', module); // stories.addDecorator(withKnobs);;
 
 const { Header, Footer, Sider, Content } = Layout;
@@ -183,7 +183,7 @@ class NavApp extends React.Component {
                 >
                     <Nav.Header logo={<IconBytedanceLogo size="extra-large" />} text="互娱运营" />
                     <Nav.Item itemKey={'1'} text={<strong>火山运营</strong>} icon={<IconVigoLogo />} />
-                    <Nav.Sub itemKey={'2'} text={<strong>抖音运营</strong>} icon={<IconTiktokLogo />}>
+                    <Nav.Sub itemKey={'2'} text={<strong>运营</strong>} icon={<IconVigoLogo />}>
                         {['2-1', '2-2'].map(k => (
                             <Nav.Item key={k} itemKey={String(k)} text={'Option ' + k} />
                         ))}

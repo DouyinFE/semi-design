@@ -11,7 +11,7 @@ const Demo = () => (
         <TagGroup tagList={[
             { color: 'white', children: '抖音' },
             { color: 'white', children: '火山小视频' },
-            { color: 'white', children: 'tiktok' },
+            { color: 'white', children: 'jkl' },
             { color: 'white', children: 'vigo' },
             { color: 'white', children: '皮皮虾' },
         ]}

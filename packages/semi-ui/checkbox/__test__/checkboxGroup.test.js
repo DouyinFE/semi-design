@@ -4,7 +4,7 @@ import { Checkbox, CheckboxGroup } from '../../index';
 import { BASE_CLASS_PREFIX } from '../../../semi-foundation/base/constants';
 
 const options = [
-    { label: 'Tiktok', value: 'tiktok' },
+    { label: 'Abc', value: 'abc' },
     { label: 'Hotsoon', value: 'hotsoon' },
     { label: 'Pipixia', value: 'pipixia' },
     { label: 'Toutiao', value: 'toutiao' },
@@ -30,7 +30,7 @@ describe('CheckboxGroup', () => {
         let group = checkboxGroup.find(`div.${BASE_CLASS_PREFIX}-checkboxGroup`);
         expect(group.children().length).toEqual(4);
         let labels = checkboxGroup.find(`.${BASE_CLASS_PREFIX}-checkbox-addon`);
-        expect(labels.at(0).text()).toEqual('Tiktok');
+        expect(labels.at(0).text()).toEqual('Abc');
         expect(labels.at(1).text()).toEqual('Hotsoon');
         expect(labels.at(2).text()).toEqual('Pipixia');
         expect(labels.at(3).text()).toEqual('Toutiao');
@@ -45,7 +45,7 @@ describe('CheckboxGroup', () => {
         let group = checkboxGroup.find(`div.${BASE_CLASS_PREFIX}-checkboxGroup`);
         expect(group.children().length).toEqual(4);
         let labels = checkboxGroup.find(`.${BASE_CLASS_PREFIX}-checkbox-addon`);
-        expect(labels.at(0).text()).toEqual('Tiktok');
+        expect(labels.at(0).text()).toEqual('Abc');
         expect(labels.at(1).text()).toEqual('Hotsoon');
         expect(labels.at(2).text()).toEqual('Pipixia');
         expect(labels.at(3).text()).toEqual('Toutiao');
@@ -76,11 +76,11 @@ describe('CheckboxGroup', () => {
         let cg = getCG(props);
         let checkboxs = cg.find(`.${BASE_CLASS_PREFIX}-checkbox-inner`);
         checkboxs.at(0).simulate('click', {});
-        expect(spyOnChange.getCall(0).calledWithMatch(['tiktok'])).toEqual(true);
+        expect(spyOnChange.getCall(0).calledWithMatch(['abc'])).toEqual(true);
         checkboxs.at(1).simulate('click', {});
-        expect(spyOnChange.getCall(1).calledWithMatch(['tiktok', 'hotsoon'])).toEqual(true);
+        expect(spyOnChange.getCall(1).calledWithMatch(['abc', 'hotsoon'])).toEqual(true);
         checkboxs.at(2).simulate('click', {});
-        expect(spyOnChange.getCall(2).calledWithMatch(['tiktok', 'hotsoon', 'pipixia'])).toEqual(true);
+        expect(spyOnChange.getCall(2).calledWithMatch(['abc', 'hotsoon', 'pipixia'])).toEqual(true);
         expect(spyOnChange.callCount).toEqual(3);
     });
 
@@ -109,7 +109,7 @@ describe('CheckboxGroup', () => {
         let checkboxs = cg.find(`.${BASE_CLASS_PREFIX}-checkbox-inner`);
         expect(checkboxs.at(1).hasClass(`${BASE_CLASS_PREFIX}-checkbox-inner-checked`)).toEqual(true);
         checkboxs.at(0).simulate('click', {});
-        expect(spyOnChange.calledOnceWith(['hotsoon', 'tiktok'])).toEqual(true);
+        expect(spyOnChange.calledOnceWith(['hotsoon', 'abc'])).toEqual(true);
     });
 
     it('should be controlled by value', () => {

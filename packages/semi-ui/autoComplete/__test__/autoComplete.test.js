@@ -10,7 +10,7 @@ function getAc(props, needAttachTo) {
 
 let stringData = ['semi', 'ies', 'design', 'platform'];
 let objectData = [
-    { email: 'semi@tiktok.com', value: 'tiktok' },
+    { email: 'semi@abc.com', value: 'abc' },
     { email: 'semi@bytedance.com', value: 'bytedance' },
     { email: 'semi@vigo.com', value: 'vigo' },
 ];

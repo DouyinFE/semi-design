@@ -234,7 +234,7 @@ class BasicDemoWithInit extends Component {
                                 placeholder='请选择业务线'
                                 label="业务线（多选）"
                             >
-                                <Form.Select.Option value="tiktok">抖音</Form.Select.Option>
+                                <Form.Select.Option value="dy">抖音</Form.Select.Option>
                                 <Form.Select.Option value="hootsoon">火山小视频</Form.Select.Option>
                                 <Form.Select.Option value="toutiao">今日头条</Form.Select.Option>
                             </Form.Select>

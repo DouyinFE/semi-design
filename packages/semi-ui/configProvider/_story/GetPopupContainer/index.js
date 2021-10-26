@@ -158,8 +158,8 @@ const UseToastDemo = () => {
 export default () => (
     <ConfigProvider getPopupContainer={() => document.querySelector('.test')} locale={en_GB}>
         <div className="test">
-            <Select defaultValue='tiktok' style={{ width: 120 }}>
-                <Option value='tiktok'>抖音</Option>
+            <Select defaultValue='dy' style={{ width: 120 }}>
+                <Option value='dy'>抖音</Option>
                 <Option value='hotsoon'>火山</Option>
                 <Option value='pipixia' disabled>皮皮虾</Option>
                 <Option value='xigua'>西瓜视频</Option>

@@ -364,7 +364,7 @@ class ModalFormSelectWithObject extends React.Component {
 
     renderOption() {
         const list = [
-            { value: 'tiktok', label: '抖音小视频', c: { arr: [2] } },
+            { value: 'semi', label: 'Semi', c: { arr: [2] } },
             { value: 'hotsoon', label: '火山小视频', c: { arr: [3] } },
             { value: 'pipixia', label: '皮皮虾', c: { arr: [4] } },
             { value: 'toutiao', label: '今日头条', c: { arr: [5] } },

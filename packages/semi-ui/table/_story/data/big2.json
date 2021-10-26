@@ -185,7 +185,7 @@
                                         {
                                             "en_name": "",
                                             "code": "288980000064983495",
-                                            "name": "TnS-OPS-Overseas Sites Mgmt-GGN Site-TikTok Operations",
+                                            "name": "TnS-OPS-Overseas Sites Mgmt-GGN Site-Test Operations",
                                             "resource_id": 316,
                                             "resource_point_code": "288980000064983495",
                                             "app_id": 47,
@@ -487,7 +487,7 @@
                                 {
                                     "en_name": "",
                                     "code": "288980000064596625",
-                                    "name": "TnS-OPS-Planning-Workflow Mgmt-TikTok Vigo and Live",
+                                    "name": "TnS-OPS-Planning-Workflow Mgmt-Test Vigo and Live",
                                     "resource_id": 316,
                                     "resource_point_code": "288980000064596625",
                                     "app_id": 47,
@@ -786,7 +786,7 @@
                                 {
                                     "en_name": "",
                                     "code": "288980000064984158",
-                                    "name": "TnS-OPS-Domestic Sites Mgmt-TikTok Vigo and Live",
+                                    "name": "TnS-OPS-Domestic Sites Mgmt-Test Vigo and Live",
                                     "resource_id": 316,
                                     "resource_point_code": "288980000064984158",
                                     "app_id": 47,
@@ -893,7 +893,7 @@
                                         {
                                             "en_name": "",
                                             "code": "288980000064975744",
-                                            "name": "TnS-OPS-TnQ-Global Quality Analysis and Operations-TikTok",
+                                            "name": "TnS-OPS-TnQ-Global Quality Analysis and Operations-Test",
                                             "resource_id": 316,
                                             "resource_point_code": "288980000064975744",
                                             "app_id": 47,
@@ -4708,7 +4708,7 @@
                         {
                             "en_name": "",
                             "code": "288980000064976559",
-                            "name": "TikTok\u56fd\u9645\u5316\u89c6\u9891\u7ec4-\u5929\u6d25",
+                            "name": "Test\u56fd\u9645\u5316\u89c6\u9891\u7ec4-\u5929\u6d25",
                             "resource_id": 316,
                             "resource_point_code": "288980000064976559",
                             "app_id": 47,
@@ -4733,7 +4733,7 @@
                                 {
                                     "en_name": "",
                                     "code": "288980000064974118",
-                                    "name": "TikTok\u56fd\u9645\u5316\u4e1a\u52a1\u7efc\u5408\u7ba1\u7406-\u5929\u6d25 TikTok Global General Management-TSN",
+                                    "name": "Test\u56fd\u9645\u5316\u4e1a\u52a1\u7efc\u5408\u7ba1\u7406-\u5929\u6d25 Test Global General Management-TSN",
                                     "resource_id": 316,
                                     "resource_point_code": "288980000064974118",
                                     "app_id": 47,
@@ -4758,7 +4758,7 @@
                                         {
                                             "en_name": "",
                                             "code": "288980000064974119",
-                                            "name": "TikTok\u840c\u65b0\u7ec4 TikTok New Group-TSN",
+                                            "name": "Test\u840c\u65b0\u7ec4 Test New Group-TSN",
                                             "resource_id": 316,
                                             "resource_point_code": "288980000064974119",
                                             "app_id": 47,
@@ -4785,7 +4785,7 @@
                                         {
                                             "en_name": "",
                                             "code": "288980000064974120",
-                                            "name": "TikTok\u7efc\u5408\u652f\u6301-\u5929\u6d25 TikTok Support-TSN",
+                                            "name": "Test\u7efc\u5408\u652f\u6301-\u5929\u6d25 Test Support-TSN",
                                             "resource_id": 316,
                                             "resource_point_code": "288980000064974120",
                                             "app_id": 47,
@@ -4812,7 +4812,7 @@
                                         {
                                             "en_name": "",
                                             "code": "288980000064977045",
-                                            "name": "TikTok\u56fd\u9645\u5316\u8d28\u91cf\u7ba1\u7406-\u5929\u6d25 TikTok Quality Management-TSN",
+                                            "name": "Test\u56fd\u9645\u5316\u8d28\u91cf\u7ba1\u7406-\u5929\u6d25 Test Quality Management-TSN",
                                             "resource_id": 316,
                                             "resource_point_code": "288980000064977045",
                                             "app_id": 47,
@@ -4837,7 +4837,7 @@
                                                 {
                                                     "en_name": "",
                                                     "code": "288980000064977053",
-                                                    "name": "TikTok\u56fd\u9645\u5316\u8d28\u91cf\u7ba1\u7406A\u7ec4-\u5929\u6d25 TikTok Quality Management Team A-TSN",
+                                                    "name": "Test\u56fd\u9645\u5316\u8d28\u91cf\u7ba1\u7406A\u7ec4-\u5929\u6d25 Test Quality Management Team A-TSN",
                                                     "resource_id": 316,
                                                     "resource_point_code": "288980000064977053",
                                                     "app_id": 47,
@@ -4864,7 +4864,7 @@
                                                 {
                                                     "en_name": "",
                                                     "code": "288980000064977054",
-                                                    "name": "TikTok\u56fd\u9645\u5316\u8d28\u91cf\u7ba1\u7406B\u7ec4-\u5929\u6d25 TikTok Quality Management Team B-TSN",
+                                                    "name": "Test\u56fd\u9645\u5316\u8d28\u91cf\u7ba1\u7406B\u7ec4-\u5929\u6d25 Test Quality Management Team B-TSN",
                                                     "resource_id": 316,
                                                     "resource_point_code": "288980000064977054",
                                                     "app_id": 47,
@@ -4891,7 +4891,7 @@
                                                 {
                                                     "en_name": "",
                                                     "code": "288980000064977055",
-                                                    "name": "TikTok\u56fd\u9645\u5316\u8d28\u91cf\u7ba1\u7406C\u7ec4-\u5929\u6d25 TikTok Quality Management Team C-TSN",
+                                                    "name": "Test\u56fd\u9645\u5316\u8d28\u91cf\u7ba1\u7406C\u7ec4-\u5929\u6d25 Test Quality Management Team C-TSN",
                                                     "resource_id": 316,
                                                     "resource_point_code": "288980000064977055",
                                                     "app_id": 47,
@@ -4918,7 +4918,7 @@
                                                 {
                                                     "en_name": "",
                                                     "code": "288980000064977056",
-                                                    "name": "TikTok\u56fd\u9645\u5316\u8d28\u91cf\u7ba1\u7406D\u7ec4-\u5929\u6d25 TikTok Quality Management Team D-TSN",
+                                                    "name": "Test\u56fd\u9645\u5316\u8d28\u91cf\u7ba1\u7406D\u7ec4-\u5929\u6d25 Test Quality Management Team D-TSN",
                                                     "resource_id": 316,
                                                     "resource_point_code": "288980000064977056",
                                                     "app_id": 47,
@@ -4945,7 +4945,7 @@
                                                 {
                                                     "en_name": "",
                                                     "code": "288980000064977057",
-                                                    "name": "TikTok\u56fd\u9645\u5316\u57f9\u8bad-\u5929\u6d25 TikTok Training-TSN",
+                                                    "name": "Test\u56fd\u9645\u5316\u57f9\u8bad-\u5929\u6d25 Test Training-TSN",
                                                     "resource_id": 316,
                                                     "resource_point_code": "288980000064977057",
                                                     "app_id": 47,
@@ -4972,7 +4972,7 @@
                                                 {
                                                     "en_name": "",
                                                     "code": "288980000064978220",
-                                                    "name": "TikTok\u56fd\u9645\u5316\u8d28\u91cf\u7ba1\u7406E\u7ec4-\u5929\u6d25 TikTok Quality Management Team E-TSN",
+                                                    "name": "Test\u56fd\u9645\u5316\u8d28\u91cf\u7ba1\u7406E\u7ec4-\u5929\u6d25 Test Quality Management Team E-TSN",
                                                     "resource_id": 316,
                                                     "resource_point_code": "288980000064978220",
                                                     "app_id": 47,
@@ -4999,7 +4999,7 @@
                                                 {
                                                     "en_name": "",
                                                     "code": "288980000064978221",
-                                                    "name": "TikTok\u56fd\u9645\u5316\u8d28\u91cf\u7ba1\u7406F\u7ec4-\u5929\u6d25 TikTok Quality Management Team F-TSN",
+                                                    "name": "Test\u56fd\u9645\u5316\u8d28\u91cf\u7ba1\u7406F\u7ec4-\u5929\u6d25 Test Quality Management Team F-TSN",
                                                     "resource_id": 316,
                                                     "resource_point_code": "288980000064978221",
                                                     "app_id": 47,
@@ -5026,7 +5026,7 @@
                                                 {
                                                     "en_name": "",
                                                     "code": "288980000064978222",
-                                                    "name": "TikTok Quality Improvement Team-TSN",
+                                                    "name": "Test Quality Improvement Team-TSN",
                                                     "resource_id": 316,
                                                     "resource_point_code": "288980000064978222",
                                                     "app_id": 47,
@@ -5053,7 +5053,7 @@
                                                 {
                                                     "en_name": "",
                                                     "code": "288980000064981652",
-                                                    "name": "TikTok\u56fd\u9645\u5316\u8d28\u91cf\u7ba1\u7406G\u7ec4-\u5929\u6d25 TikTok Quality Management Team G-TSN",
+                                                    "name": "Test\u56fd\u9645\u5316\u8d28\u91cf\u7ba1\u7406G\u7ec4-\u5929\u6d25 Test Quality Management Team G-TSN",
                                                     "resource_id": 316,
                                                     "resource_point_code": "288980000064981652",
                                                     "app_id": 47,
@@ -5083,7 +5083,7 @@
                                         {
                                             "en_name": "",
                                             "code": "288980000064977046",
-                                            "name": "TikTok Global Sentiment Control",
+                                            "name": "Test Global Sentiment Control",
                                             "resource_id": 316,
                                             "resource_point_code": "288980000064977046",
                                             "app_id": 47,
@@ -5113,7 +5113,7 @@
                                 {
                                     "en_name": "",
                                     "code": "288980000064975876",
-                                    "name": "TikTok\u56fd\u9645\u5316\u89c6\u9891\u4e1a\u52a1-\u5929\u6d25 TikTok Vlog Moderation-TSN",
+                                    "name": "Test\u56fd\u9645\u5316\u89c6\u9891\u4e1a\u52a1-\u5929\u6d25 Test Vlog Moderation-TSN",
                                     "resource_id": 316,
                                     "resource_point_code": "288980000064975876",
                                     "app_id": 47,
@@ -5138,7 +5138,7 @@
                                         {
                                             "en_name": "",
                                             "code": "288980000064976998",
-                                            "name": "TikTok\u4e92\u52a8\u4e1a\u52a1-\u5929\u6d25 TikTok Interactive-TSN",
+                                            "name": "Test\u4e92\u52a8\u4e1a\u52a1-\u5929\u6d25 Test Interactive-TSN",
                                             "resource_id": 316,
                                             "resource_point_code": "288980000064976998",
                                             "app_id": 47,
@@ -5163,7 +5163,7 @@
                                                 {
                                                     "en_name": "",
                                                     "code": "288980000064977039",
-                                                    "name": "TikTok\u4e92\u52a8\u4e1a\u52a1\u7528\u6237\u7ec4-\u5929\u6d25 TikTok User Interactive Team-TSN",
+                                                    "name": "Test\u4e92\u52a8\u4e1a\u52a1\u7528\u6237\u7ec4-\u5929\u6d25 Test User Interactive Team-TSN",
                                                     "resource_id": 316,
                                                     "resource_point_code": "288980000064977039",
                                                     "app_id": 47,
@@ -5188,7 +5188,7 @@
                                                         {
                                                             "en_name": "",
                                                             "code": "288980000064978212",
-                                                            "name": "TikTok\u4e92\u52a8\u4e1a\u52a1\u7528\u62371\u7ec4-\u5929\u6d25 TikTok User Interactive Team 1-TSN",
+                                                            "name": "Test\u4e92\u52a8\u4e1a\u52a1\u7528\u62371\u7ec4-\u5929\u6d25 Test User Interactive Team 1-TSN",
                                                             "resource_id": 316,
                                                             "resource_point_code": "288980000064978212",
                                                             "app_id": 47,
@@ -5213,7 +5213,7 @@
                                                                 {
                                                                     "en_name": "",
                                                                     "code": "288980000064983802",
-                                                                    "name": "TikTok\u4e92\u52a8\u4e1a\u52a1\u7528\u62371-1\u7ec4-\u5929\u6d25 TikTok User Interactive Team 1-1-TSN",
+                                                                    "name": "Test\u4e92\u52a8\u4e1a\u52a1\u7528\u62371-1\u7ec4-\u5929\u6d25 Test User Interactive Team 1-1-TSN",
                                                                     "resource_id": 316,
                                                                     "resource_point_code": "288980000064983802",
                                                                     "app_id": 47,
@@ -5243,7 +5243,7 @@
                                                         {
                                                             "en_name": "",
                                                             "code": "288980000064978213",
-                                                            "name": "TikTok\u4e92\u52a8\u4e1a\u52a1\u7528\u62372\u7ec4-\u5929\u6d25 TikTok User Interactive Team 2-TSN",
+                                                            "name": "Test\u4e92\u52a8\u4e1a\u52a1\u7528\u62372\u7ec4-\u5929\u6d25 Test User Interactive Team 2-TSN",
                                                             "resource_id": 316,
                                                             "resource_point_code": "288980000064978213",
                                                             "app_id": 47,
@@ -5268,7 +5268,7 @@
                                                                 {
                                                                     "en_name": "",
                                                                     "code": "288980000064982479",
-                                                                    "name": "TikTok\u4e92\u52a8\u4e1a\u52a1\u7528\u62372-2\u7ec4-\u5929\u6d25 TikTok User Interactive Team 2-2-TSN",
+                                                                    "name": "Test\u4e92\u52a8\u4e1a\u52a1\u7528\u62372-2\u7ec4-\u5929\u6d25 Test User Interactive Team 2-2-TSN",
                                                                     "resource_id": 316,
                                                                     "resource_point_code": "288980000064982479",
                                                                     "app_id": 47,
@@ -5295,7 +5295,7 @@
                                                                 {
                                                                     "en_name": "",
                                                                     "code": "288980000064983341",
-                                                                    "name": "TikTok\u4e92\u52a8\u4e1a\u52a1\u7528\u62372-3\u7ec4-\u5929\u6d25 TikTok User Interactive Team 2-3-TSN",
+                                                                    "name": "Test\u4e92\u52a8\u4e1a\u52a1\u7528\u62372-3\u7ec4-\u5929\u6d25 Test User Interactive Team 2-3-TSN",
                                                                     "resource_id": 316,
                                                                     "resource_point_code": "288980000064983341",
                                                                     "app_id": 47,
@@ -5322,7 +5322,7 @@
                                                                 {
                                                                     "en_name": "",
                                                                     "code": "288980000064983803",
-                                                                    "name": "TikTok\u4e92\u52a8\u4e1a\u52a1\u7528\u62372-1\u7ec4-\u5929\u6d25 TikTok User Interactive Team 2-1-TSN",
+                                                                    "name": "Test\u4e92\u52a8\u4e1a\u52a1\u7528\u62372-1\u7ec4-\u5929\u6d25 Test User Interactive Team 2-1-TSN",
                                                                     "resource_id": 316,
                                                                     "resource_point_code": "288980000064983803",
                                                                     "app_id": 47,
@@ -5349,7 +5349,7 @@
                                                                 {
                                                                     "en_name": "",
                                                                     "code": "288980000064984668",
-                                                                    "name": "TikTok\u4e92\u52a8\u4e1a\u52a1\u7528\u62372-4\u7ec4-\u5929\u6d25 TikTok User Interactive Team 2-4-TSN",
+                                                                    "name": "Test\u4e92\u52a8\u4e1a\u52a1\u7528\u62372-4\u7ec4-\u5929\u6d25 Test User Interactive Team 2-4-TSN",
                                                                     "resource_id": 316,
                                                                     "resource_point_code": "288980000064984668",
                                                                     "app_id": 47,
@@ -5382,7 +5382,7 @@
                                                 {
                                                     "en_name": "",
                                                     "code": "288980000064977040",
-                                                    "name": "TikTok\u4e92\u52a8\u4e1a\u52a1\u4e3e\u62a5\u7ec4-\u5929\u6d25 TikTok Report Interactive-TSN",
+                                                    "name": "Test\u4e92\u52a8\u4e1a\u52a1\u4e3e\u62a5\u7ec4-\u5929\u6d25 Test Report Interactive-TSN",
                                                     "resource_id": 316,
                                                     "resource_point_code": "288980000064977040",
                                                     "app_id": 47,
@@ -5412,7 +5412,7 @@
                                         {
                                             "en_name": "",
                                             "code": "288980000064976999",
-                                            "name": "TikTok\u591a\u8bed\u8a00\u4e1a\u52a1-\u5929\u6d25 TikTok Multilingual Moderation-TSN",
+                                            "name": "Test\u591a\u8bed\u8a00\u4e1a\u52a1-\u5929\u6d25 Test Multilingual Moderation-TSN",
                                             "resource_id": 316,
                                             "resource_point_code": "288980000064976999",
                                             "app_id": 47,
@@ -5437,7 +5437,7 @@
                                                 {
                                                     "en_name": "",
                                                     "code": "288980000064977041",
-                                                    "name": "TikTok\u591a\u8bed\u8a00\u4e1a\u52a1\u65e5\u8bed\u7ec4-\u5929\u6d25 TikTok Multilingual Moderation JP Team-TSN",
+                                                    "name": "Test\u591a\u8bed\u8a00\u4e1a\u52a1\u65e5\u8bed\u7ec4-\u5929\u6d25 Test Multilingual Moderation JP Team-TSN",
                                                     "resource_id": 316,
                                                     "resource_point_code": "288980000064977041",
                                                     "app_id": 47,
@@ -5462,7 +5462,7 @@
                                                         {
                                                             "en_name": "",
                                                             "code": "288980000064978214",
-                                                            "name": "TikTok\u591a\u8bed\u8a00\u4e1a\u52a1\u65e5\u8bed1\u7ec4-\u5929\u6d25 TikTok Multilingual Moderation JP Team 1-TSN",
+                                                            "name": "Test\u591a\u8bed\u8a00\u4e1a\u52a1\u65e5\u8bed1\u7ec4-\u5929\u6d25 Test Multilingual Moderation JP Team 1-TSN",
                                                             "resource_id": 316,
                                                             "resource_point_code": "288980000064978214",
                                                             "app_id": 47,
@@ -5489,7 +5489,7 @@
                                                         {
                                                             "en_name": "",
                                                             "code": "288980000064978215",
-                                                            "name": "TikTok\u591a\u8bed\u8a00\u4e1a\u52a1\u65e5\u8bed2\u7ec4-\u5929\u6d25 TikTok Multilingual Moderation JP Team 2-TSN",
+                                                            "name": "Test\u591a\u8bed\u8a00\u4e1a\u52a1\u65e5\u8bed2\u7ec4-\u5929\u6d25 Test Multilingual Moderation JP Team 2-TSN",
                                                             "resource_id": 316,
                                                             "resource_point_code": "288980000064978215",
                                                             "app_id": 47,
@@ -5516,7 +5516,7 @@
                                                         {
                                                             "en_name": "",
                                                             "code": "288980000064978216",
-                                                            "name": "TikTok\u591a\u8bed\u8a00\u4e1a\u52a1\u65e5\u8bed3\u7ec4-\u5929\u6d25 TikTok Multilingual Moderation JP Team 3-TSN",
+                                                            "name": "Test\u591a\u8bed\u8a00\u4e1a\u52a1\u65e5\u8bed3\u7ec4-\u5929\u6d25 Test Multilingual Moderation JP Team 3-TSN",
                                                             "resource_id": 316,
                                                             "resource_point_code": "288980000064978216",
                                                             "app_id": 47,
@@ -5546,7 +5546,7 @@
                                                 {
                                                     "en_name": "",
                                                     "code": "288980000064977043",
-                                                    "name": "TikTok\u591a\u8bed\u8a00\u4e1a\u52a1\u97e9\u8bed\u7ec4-\u5929\u6d25 TikTok Multilingual Moderation KR Team-TSN",
+                                                    "name": "Test\u591a\u8bed\u8a00\u4e1a\u52a1\u97e9\u8bed\u7ec4-\u5929\u6d25 Test Multilingual Moderation KR Team-TSN",
                                                     "resource_id": 316,
                                                     "resource_point_code": "288980000064977043",
                                                     "app_id": 47,
@@ -5571,7 +5571,7 @@
                                                         {
                                                             "en_name": "",
                                                             "code": "288980000064978217",
-                                                            "name": "TikTok\u591a\u8bed\u8a00\u4e1a\u52a1\u97e9\u8bed1\u7ec4-\u5929\u6d25 TikTok Multilingual Moderation KR Team 1-TSN",
+                                                            "name": "Test\u591a\u8bed\u8a00\u4e1a\u52a1\u97e9\u8bed1\u7ec4-\u5929\u6d25 Test Multilingual Moderation KR Team 1-TSN",
                                                             "resource_id": 316,
                                                             "resource_point_code": "288980000064978217",
                                                             "app_id": 47,
@@ -5598,7 +5598,7 @@
                                                         {
                                                             "en_name": "",
                                                             "code": "288980000064978218",
-                                                            "name": "TikTok\u591a\u8bed\u8a00\u4e1a\u52a1\u97e9\u8bed2\u7ec4-\u5929\u6d25 TikTok Multilingual Moderation KR Team 2-TSN",
+                                                            "name": "Test\u591a\u8bed\u8a00\u4e1a\u52a1\u97e9\u8bed2\u7ec4-\u5929\u6d25 Test Multilingual Moderation KR Team 2-TSN",
                                                             "resource_id": 316,
                                                             "resource_point_code": "288980000064978218",
                                                             "app_id": 47,
@@ -5631,7 +5631,7 @@
                                         {
                                             "en_name": "",
                                             "code": "288980000064977000",
-                                            "name": "TikTok\u521d\u5ba1\u4e1a\u52a1A\u7ec4-\u5929\u6d25 TikTok Moderation Team A-TSN",
+                                            "name": "Test\u521d\u5ba1\u4e1a\u52a1A\u7ec4-\u5929\u6d25 Test Moderation Team A-TSN",
                                             "resource_id": 316,
                                             "resource_point_code": "288980000064977000",
                                             "app_id": 47,
@@ -5656,7 +5656,7 @@
                                                 {
                                                     "en_name": "",
                                                     "code": "288980000064978185",
-                                                    "name": "TikTok\u521d\u5ba1\u4e1a\u52a1A1\u7ec4-\u5929\u6d25 TikTok Moderation Team A1-TSN",
+                                                    "name": "Test\u521d\u5ba1\u4e1a\u52a1A1\u7ec4-\u5929\u6d25 Test Moderation Team A1-TSN",
                                                     "resource_id": 316,
                                                     "resource_point_code": "288980000064978185",
                                                     "app_id": 47,
@@ -5681,7 +5681,7 @@
                                                         {
                                                             "en_name": "",
                                                             "code": "288980000064977004",
-                                                            "name": "TikTok\u521d\u5ba1\u4e1a\u52a1A1-1\u7ec4-\u5929\u6d25 TikTok Moderation Team A1-1-TSN",
+                                                            "name": "Test\u521d\u5ba1\u4e1a\u52a1A1-1\u7ec4-\u5929\u6d25 Test Moderation Team A1-1-TSN",
                                                             "resource_id": 316,
                                                             "resource_point_code": "288980000064977004",
                                                             "app_id": 47,
@@ -5711,7 +5711,7 @@
                                                 {
                                                     "en_name": "",
                                                     "code": "288980000064978186",
-                                                    "name": "TikTok\u521d\u5ba1\u4e1a\u52a1A2\u7ec4-\u5929\u6d25 TikTok Moderation Team A2-TSN",
+                                                    "name": "Test\u521d\u5ba1\u4e1a\u52a1A2\u7ec4-\u5929\u6d25 Test Moderation Team A2-TSN",
                                                     "resource_id": 316,
                                                     "resource_point_code": "288980000064978186",
                                                     "app_id": 47,
@@ -5736,7 +5736,7 @@
                                                         {
                                                             "en_name": "",
                                                             "code": "288980000064977006",
-                                                            "name": "TikTok\u521d\u5ba1\u4e1a\u52a1A2-2\u7ec4-\u5929\u6d25 TikTok Moderation Team A2-2-TSN",
+                                                            "name": "Test\u521d\u5ba1\u4e1a\u52a1A2-2\u7ec4-\u5929\u6d25 Test Moderation Team A2-2-TSN",
                                                             "resource_id": 316,
                                                             "resource_point_code": "288980000064977006",
                                                             "app_id": 47,
@@ -5763,7 +5763,7 @@
                                                         {
                                                             "en_name": "",
                                                             "code": "288980000064977007",
-                                                            "name": "TikTok\u521d\u5ba1\u4e1a\u52a1A2-1\u7ec4-\u5929\u6d25 TikTok Moderation Team A2-1-TSN",
+                                                            "name": "Test\u521d\u5ba1\u4e1a\u52a1A2-1\u7ec4-\u5929\u6d25 Test Moderation Team A2-1-TSN",
                                                             "resource_id": 316,
                                                             "resource_point_code": "288980000064977007",
                                                             "app_id": 47,
@@ -5790,7 +5790,7 @@
                                                         {
                                                             "en_name": "",
                                                             "code": "288980000064977355",
-                                                            "name": "TikTok\u521d\u5ba1\u4e1a\u52a1A2-3\u7ec4-\u5929\u6d25 TikTok Moderation Team A2-3-TSN",
+                                                            "name": "Test\u521d\u5ba1\u4e1a\u52a1A2-3\u7ec4-\u5929\u6d25 Test Moderation Team A2-3-TSN",
                                                             "resource_id": 316,
                                                             "resource_point_code": "288980000064977355",
                                                             "app_id": 47,
@@ -5817,7 +5817,7 @@
                                                         {
                                                             "en_name": "",
                                                             "code": "288980000064977358",
-                                                            "name": "TikTok\u521d\u5ba1\u4e1a\u52a1A2-4\u7ec4-\u5929\u6d25 TikTok Moderation Team A2-4-TSN",
+                                                            "name": "Test\u521d\u5ba1\u4e1a\u52a1A2-4\u7ec4-\u5929\u6d25 Test Moderation Team A2-4-TSN",
                                                             "resource_id": 316,
                                                             "resource_point_code": "288980000064977358",
                                                             "app_id": 47,
@@ -5847,7 +5847,7 @@
                                                 {
                                                     "en_name": "",
                                                     "code": "288980000064978187",
-                                                    "name": "TikTok\u521d\u5ba1\u4e1a\u52a1A3\u7ec4-\u5929\u6d25 TikTok Moderation Team A3-TSN",
+                                                    "name": "Test\u521d\u5ba1\u4e1a\u52a1A3\u7ec4-\u5929\u6d25 Test Moderation Team A3-TSN",
                                                     "resource_id": 316,
                                                     "resource_point_code": "288980000064978187",
                                                     "app_id": 47,
@@ -5872,7 +5872,7 @@
                                                         {
                                                             "en_name": "",
                                                             "code": "288980000064977009",
-                                                            "name": "TikTok\u521d\u5ba1\u4e1a\u52a1A3-1\u7ec4-\u5929\u6d25 TikTok Moderation Team A3-1-TSN",
+                                                            "name": "Test\u521d\u5ba1\u4e1a\u52a1A3-1\u7ec4-\u5929\u6d25 Test Moderation Team A3-1-TSN",
                                                             "resource_id": 316,
                                                             "resource_point_code": "288980000064977009",
                                                             "app_id": 47,
@@ -5899,7 +5899,7 @@
                                                         {
                                                             "en_name": "",
                                                             "code": "288980000064977010",
-                                                            "name": "TikTok\u521d\u5ba1\u4e1a\u52a1A3-2\u7ec4-\u5929\u6d25 TikTok Moderation Team A3-2-TSN",
+                                                            "name": "Test\u521d\u5ba1\u4e1a\u52a1A3-2\u7ec4-\u5929\u6d25 Test Moderation Team A3-2-TSN",
                                                             "resource_id": 316,
                                                             "resource_point_code": "288980000064977010",
                                                             "app_id": 47,
@@ -5926,7 +5926,7 @@
                                                         {
                                                             "en_name": "",
                                                             "code": "288980000064977011",
-                                                            "name": "TikTok\u521d\u5ba1\u4e1a\u52a1A3-3\u7ec4-\u5929\u6d25 TikTok Moderation Team A3-3-TSN",
+                                                            "name": "Test\u521d\u5ba1\u4e1a\u52a1A3-3\u7ec4-\u5929\u6d25 Test Moderation Team A3-3-TSN",
                                                             "resource_id": 316,
                                                             "resource_point_code": "288980000064977011",
                                                             "app_id": 47,
@@ -5953,7 +5953,7 @@
                                                         {
                                                             "en_name": "",
                                                             "code": "288980000064984669",
-                                                            "name": "TikTok\u521d\u5ba1\u4e1a\u52a1A3-4\u7ec4-\u5929\u6d25 TikTok Moderation Team A3-4-TSN",
+                                                            "name": "Test\u521d\u5ba1\u4e1a\u52a1A3-4\u7ec4-\u5929\u6d25 Test Moderation Team A3-4-TSN",
                                                             "resource_id": 316,
                                                             "resource_point_code": "288980000064984669",
                                                             "app_id": 47,
@@ -5986,7 +5986,7 @@
                                         {
                                             "en_name": "",
                                             "code": "288980000064977001",
-                                            "name": "TikTok\u521d\u5ba1\u4e1a\u52a1B\u7ec4-\u5929\u6d25 TikTok Moderation Team B-TSN",
+                                            "name": "Test\u521d\u5ba1\u4e1a\u52a1B\u7ec4-\u5929\u6d25 Test Moderation Team B-TSN",
                                             "resource_id": 316,
                                             "resource_point_code": "288980000064977001",
                                             "app_id": 47,
@@ -6011,7 +6011,7 @@
                                                 {
                                                     "en_name": "",
                                                     "code": "288980000064978202",
-                                                    "name": "TikTok\u521d\u5ba1\u4e1a\u52a1B1\u7ec4-\u5929\u6d25 TikTok Moderation Team B1-TSN",
+                                                    "name": "Test\u521d\u5ba1\u4e1a\u52a1B1\u7ec4-\u5929\u6d25 Test Moderation Team B1-TSN",
                                                     "resource_id": 316,
                                                     "resource_point_code": "288980000064978202",
                                                     "app_id": 47,
@@ -6036,7 +6036,7 @@
                                                         {
                                                             "en_name": "",
                                                             "code": "288980000064977018",
-                                                            "name": "TikTok\u521d\u5ba1\u4e1a\u52a1B1-2\u7ec4-\u5929\u6d25 TikTok Moderation Team B1-2-TSN",
+                                                            "name": "Test\u521d\u5ba1\u4e1a\u52a1B1-2\u7ec4-\u5929\u6d25 Test Moderation Team B1-2-TSN",
                                                             "resource_id": 316,
                                                             "resource_point_code": "288980000064977018",
                                                             "app_id": 47,
@@ -6063,7 +6063,7 @@
                                                         {
                                                             "en_name": "",
                                                             "code": "288980000064977019",
-                                                            "name": "TikTok\u521d\u5ba1\u4e1a\u52a1B1-1\u7ec4-\u5929\u6d25 TikTok Moderation Team B1-1-TSN",
+                                                            "name": "Test\u521d\u5ba1\u4e1a\u52a1B1-1\u7ec4-\u5929\u6d25 Test Moderation Team B1-1-TSN",
                                                             "resource_id": 316,
                                                             "resource_point_code": "288980000064977019",
                                                             "app_id": 47,
@@ -6090,7 +6090,7 @@
                                                         {
                                                             "en_name": "",
                                                             "code": "288980000064977020",
-                                                            "name": "TikTok\u521d\u5ba1\u4e1a\u52a1B1-3\u7ec4-\u5929\u6d25 TikTok Moderation Team B1-3-TSN",
+                                                            "name": "Test\u521d\u5ba1\u4e1a\u52a1B1-3\u7ec4-\u5929\u6d25 Test Moderation Team B1-3-TSN",
                                                             "resource_id": 316,
                                                             "resource_point_code": "288980000064977020",
                                                             "app_id": 47,
@@ -6117,7 +6117,7 @@
                                                         {
                                                             "en_name": "",
                                                             "code": "288980000064977024",
-                                                            "name": "TikTok\u521d\u5ba1\u4e1a\u52a1B1-4\u7ec4-\u5929\u6d25 TikTok Moderation Team B1-4-TSN",
+                                                            "name": "Test\u521d\u5ba1\u4e1a\u52a1B1-4\u7ec4-\u5929\u6d25 Test Moderation Team B1-4-TSN",
                                                             "resource_id": 316,
                                                             "resource_point_code": "288980000064977024",
                                                             "app_id": 47,
@@ -6144,7 +6144,7 @@
                                                         {
                                                             "en_name": "",
                                                             "code": "288980000064983796",
-                                                            "name": "TikTok\u521d\u5ba1\u4e1a\u52a1B1-5\u7ec4-\u5929\u6d25 TikTok Moderation Team B1-5-TSN",
+                                                            "name": "Test\u521d\u5ba1\u4e1a\u52a1B1-5\u7ec4-\u5929\u6d25 Test Moderation Team B1-5-TSN",
                                                             "resource_id": 316,
                                                             "resource_point_code": "288980000064983796",
                                                             "app_id": 47,
@@ -6174,7 +6174,7 @@
                                                 {
                                                     "en_name": "",
                                                     "code": "288980000064978203",
-                                                    "name": "TikTok\u521d\u5ba1\u4e1a\u52a1B2\u7ec4-\u5929\u6d25 TikTok Moderation Team B2-TSN",
+                                                    "name": "Test\u521d\u5ba1\u4e1a\u52a1B2\u7ec4-\u5929\u6d25 Test Moderation Team B2-TSN",
                                                     "resource_id": 316,
                                                     "resource_point_code": "288980000064978203",
                                                     "app_id": 47,
@@ -6199,7 +6199,7 @@
                                                         {
                                                             "en_name": "",
                                                             "code": "288980000064977017",
-                                                            "name": "TikTok\u521d\u5ba1\u4e1a\u52a1B2-1\u7ec4-\u5929\u6d25 TikTok Moderation Team B2-1-TSN",
+                                                            "name": "Test\u521d\u5ba1\u4e1a\u52a1B2-1\u7ec4-\u5929\u6d25 Test Moderation Team B2-1-TSN",
                                                             "resource_id": 316,
                                                             "resource_point_code": "288980000064977017",
                                                             "app_id": 47,
@@ -6226,7 +6226,7 @@
                                                         {
                                                             "en_name": "",
                                                             "code": "288980000064977021",
-                                                            "name": "TikTok\u521d\u5ba1\u4e1a\u52a1B2-2\u7ec4-\u5929\u6d25 TikTok Moderation Team B2-2-TSN",
+                                                            "name": "Test\u521d\u5ba1\u4e1a\u52a1B2-2\u7ec4-\u5929\u6d25 Test Moderation Team B2-2-TSN",
                                                             "resource_id": 316,
                                                             "resource_point_code": "288980000064977021",
                                                             "app_id": 47,
@@ -6256,7 +6256,7 @@
                                                 {
                                                     "en_name": "",
                                                     "code": "288980000064983797",
-                                                    "name": "TikTok\u521d\u5ba1\u4e1a\u52a1B3\u7ec4-\u5929\u6d25 TikTok Moderation Team B3-TSN",
+                                                    "name": "Test\u521d\u5ba1\u4e1a\u52a1B3\u7ec4-\u5929\u6d25 Test Moderation Team B3-TSN",
                                                     "resource_id": 316,
                                                     "resource_point_code": "288980000064983797",
                                                     "app_id": 47,
@@ -6281,7 +6281,7 @@
                                                         {
                                                             "en_name": "",
                                                             "code": "288980000064983798",
-                                                            "name": "TikTok\u521d\u5ba1\u4e1a\u52a1B3-1\u7ec4-\u5929\u6d25 TikTok Moderation Team B3-1-TSN",
+                                                            "name": "Test\u521d\u5ba1\u4e1a\u52a1B3-1\u7ec4-\u5929\u6d25 Test Moderation Team B3-1-TSN",
                                                             "resource_id": 316,
                                                             "resource_point_code": "288980000064983798",
                                                             "app_id": 47,
@@ -6311,7 +6311,7 @@
                                                 {
                                                     "en_name": "",
                                                     "code": "288980000064983799",
-                                                    "name": "TikTok\u521d\u5ba1\u4e1a\u52a1B4\u7ec4-\u5929\u6d25 TikTok Moderation Team B4-TSN",
+                                                    "name": "Test\u521d\u5ba1\u4e1a\u52a1B4\u7ec4-\u5929\u6d25 Test Moderation Team B4-TSN",
                                                     "resource_id": 316,
                                                     "resource_point_code": "288980000064983799",
                                                     "app_id": 47,
@@ -6336,7 +6336,7 @@
                                                         {
                                                             "en_name": "",
                                                             "code": "288980000064983800",
-                                                            "name": "TikTok\u521d\u5ba1\u4e1a\u52a1B4-1\u7ec4-\u5929\u6d25 TikTok Moderation Team B4-1-TSN",
+                                                            "name": "Test\u521d\u5ba1\u4e1a\u52a1B4-1\u7ec4-\u5929\u6d25 Test Moderation Team B4-1-TSN",
                                                             "resource_id": 316,
                                                             "resource_point_code": "288980000064983800",
                                                             "app_id": 47,
@@ -6363,7 +6363,7 @@
                                                         {
                                                             "en_name": "",
                                                             "code": "288980000064983801",
-                                                            "name": "TikTok\u521d\u5ba1\u4e1a\u52a1B4-2\u7ec4-\u5929\u6d25 TikTok Moderation Team B4-2-TSN",
+                                                            "name": "Test\u521d\u5ba1\u4e1a\u52a1B4-2\u7ec4-\u5929\u6d25 Test Moderation Team B4-2-TSN",
                                                             "resource_id": 316,
                                                             "resource_point_code": "288980000064983801",
                                                             "app_id": 47,
@@ -6396,7 +6396,7 @@
                                         {
                                             "en_name": "",
                                             "code": "288980000064977002",
-                                            "name": "TikTok\u521d\u5ba1\u4e1a\u52a1C\u7ec4-\u5929\u6d25 TikTok Moderation Team C-TSN",
+                                            "name": "Test\u521d\u5ba1\u4e1a\u52a1C\u7ec4-\u5929\u6d25 Test Moderation Team C-TSN",
                                             "resource_id": 316,
                                             "resource_point_code": "288980000064977002",
                                             "app_id": 47,
@@ -6421,7 +6421,7 @@
                                                 {
                                                     "en_name": "",
                                                     "code": "288980000064978204",
-                                                    "name": "TikTok\u521d\u5ba1\u4e1a\u52a1C1\u7ec4-\u5929\u6d25 TikTok Moderation Team C1-TSN",
+                                                    "name": "Test\u521d\u5ba1\u4e1a\u52a1C1\u7ec4-\u5929\u6d25 Test Moderation Team C1-TSN",
                                                     "resource_id": 316,
                                                     "resource_point_code": "288980000064978204",
                                                     "app_id": 47,
@@ -6446,7 +6446,7 @@
                                                         {
                                                             "en_name": "",
                                                             "code": "288980000064977037",
-                                                            "name": "TikTok\u521d\u5ba1\u4e1a\u52a1C1-1\u7ec4-\u5929\u6d25 TikTok Moderation Team C1-1-TSN",
+                                                            "name": "Test\u521d\u5ba1\u4e1a\u52a1C1-1\u7ec4-\u5929\u6d25 Test Moderation Team C1-1-TSN",
                                                             "resource_id": 316,
                                                             "resource_point_code": "288980000064977037",
                                                             "app_id": 47,
@@ -6473,7 +6473,7 @@
                                                         {
                                                             "en_name": "",
                                                             "code": "288980000064977038",
-                                                            "name": "TikTok\u521d\u5ba1\u4e1a\u52a1C1-3\u7ec4-\u5929\u6d25 TikTok Moderation Team C1-3-TSN",
+                                                            "name": "Test\u521d\u5ba1\u4e1a\u52a1C1-3\u7ec4-\u5929\u6d25 Test Moderation Team C1-3-TSN",
                                                             "resource_id": 316,
                                                             "resource_point_code": "288980000064977038",
                                                             "app_id": 47,
@@ -6500,7 +6500,7 @@
                                                         {
                                                             "en_name": "",
                                                             "code": "288980000064978207",
-                                                            "name": "TikTok\u521d\u5ba1\u4e1a\u52a1C1-2\u7ec4-\u5929\u6d25 TikTok Moderation Team C1-2-TSN",
+                                                            "name": "Test\u521d\u5ba1\u4e1a\u52a1C1-2\u7ec4-\u5929\u6d25 Test Moderation Team C1-2-TSN",
                                                             "resource_id": 316,
                                                             "resource_point_code": "288980000064978207",
                                                             "app_id": 47,
@@ -6527,7 +6527,7 @@
                                                         {
                                                             "en_name": "",
                                                             "code": "288980000064978208",
-                                                            "name": "TikTok\u521d\u5ba1\u4e1a\u52a1C1-4\u7ec4-\u5929\u6d25 TikTok Moderation Team C1-4-TSN",
+                                                            "name": "Test\u521d\u5ba1\u4e1a\u52a1C1-4\u7ec4-\u5929\u6d25 Test Moderation Team C1-4-TSN",
                                                             "resource_id": 316,
                                                             "resource_point_code": "288980000064978208",
                                                             "app_id": 47,
@@ -6554,7 +6554,7 @@
                                                         {
                                                             "en_name": "",
                                                             "code": "288980000064978209",
-                                                            "name": "TikTok\u521d\u5ba1\u4e1a\u52a1C1-5\u7ec4-\u5929\u6d25 TikTok Moderation Team C1-5-TSN",
+                                                            "name": "Test\u521d\u5ba1\u4e1a\u52a1C1-5\u7ec4-\u5929\u6d25 Test Moderation Team C1-5-TSN",
                                                             "resource_id": 316,
                                                             "resource_point_code": "288980000064978209",
                                                             "app_id": 47,
@@ -6584,7 +6584,7 @@
                                                 {
                                                     "en_name": "",
                                                     "code": "288980000064978205",
-                                                    "name": "TikTok\u521d\u5ba1\u4e1a\u52a1C2\u7ec4-\u5929\u6d25 TikTok Moderation Team C2-TSN",
+                                                    "name": "Test\u521d\u5ba1\u4e1a\u52a1C2\u7ec4-\u5929\u6d25 Test Moderation Team C2-TSN",
                                                     "resource_id": 316,
                                                     "resource_point_code": "288980000064978205",
                                                     "app_id": 47,
@@ -6609,7 +6609,7 @@
                                                         {
                                                             "en_name": "",
                                                             "code": "288980000064977026",
-                                                            "name": "TikTok\u521d\u5ba1\u4e1a\u52a1C2-3\u7ec4-\u5929\u6d25 TikTok Moderation Team C2-3-TSN",
+                                                            "name": "Test\u521d\u5ba1\u4e1a\u52a1C2-3\u7ec4-\u5929\u6d25 Test Moderation Team C2-3-TSN",
                                                             "resource_id": 316,
                                                             "resource_point_code": "288980000064977026",
                                                             "app_id": 47,
@@ -6636,7 +6636,7 @@
                                                         {
                                                             "en_name": "",
                                                             "code": "288980000064977028",
-                                                            "name": "TikTok\u521d\u5ba1\u4e1a\u52a1C2-1\u7ec4-\u5929\u6d25 TikTok Moderation Team C2-1-TSN",
+                                                            "name": "Test\u521d\u5ba1\u4e1a\u52a1C2-1\u7ec4-\u5929\u6d25 Test Moderation Team C2-1-TSN",
                                                             "resource_id": 316,
                                                             "resource_point_code": "288980000064977028",
                                                             "app_id": 47,
@@ -6663,7 +6663,7 @@
                                                         {
                                                             "en_name": "",
                                                             "code": "288980000064977029",
-                                                            "name": "TikTok\u521d\u5ba1\u4e1a\u52a1C2-2\u7ec4-\u5929\u6d25 TikTok Moderation Team C2-2-TSN",
+                                                            "name": "Test\u521d\u5ba1\u4e1a\u52a1C2-2\u7ec4-\u5929\u6d25 Test Moderation Team C2-2-TSN",
                                                             "resource_id": 316,
                                                             "resource_point_code": "288980000064977029",
                                                             "app_id": 47,
@@ -6690,7 +6690,7 @@
                                                         {
                                                             "en_name": "",
                                                             "code": "288980000064977030",
-                                                            "name": "TikTok\u521d\u5ba1\u4e1a\u52a1C2-4\u7ec4-\u5929\u6d25 TikTok Moderation Team C2-4-TSN",
+                                                            "name": "Test\u521d\u5ba1\u4e1a\u52a1C2-4\u7ec4-\u5929\u6d25 Test Moderation Team C2-4-TSN",
                                                             "resource_id": 316,
                                                             "resource_point_code": "288980000064977030",
                                                             "app_id": 47,
@@ -6723,7 +6723,7 @@
                                         {
                                             "en_name": "",
                                             "code": "288980000064981644",
-                                            "name": "TikTok\u521d\u5ba1\u4e1a\u52a1D\u7ec4-\u5929\u6d25 TikTok Moderation Team D-TSN",
+                                            "name": "Test\u521d\u5ba1\u4e1a\u52a1D\u7ec4-\u5929\u6d25 Test Moderation Team D-TSN",
                                             "resource_id": 316,
                                             "resource_point_code": "288980000064981644",
                                             "app_id": 47,
@@ -6748,7 +6748,7 @@
                                                 {
                                                     "en_name": "",
                                                     "code": "288980000064981645",
-                                                    "name": "TikTok\u521d\u5ba1\u4e1a\u52a1D1\u7ec4-\u5929\u6d25 TikTok Moderation Team D1-TSN",
+                                                    "name": "Test\u521d\u5ba1\u4e1a\u52a1D1\u7ec4-\u5929\u6d25 Test Moderation Team D1-TSN",
                                                     "resource_id": 316,
                                                     "resource_point_code": "288980000064981645",
                                                     "app_id": 47,
@@ -6775,7 +6775,7 @@
                                                 {
                                                     "en_name": "",
                                                     "code": "288980000064981646",
-                                                    "name": "TikTok\u521d\u5ba1\u4e1a\u52a1D2\u7ec4-\u5929\u6d25 TikTok Moderation Team D2-TSN",
+                                                    "name": "Test\u521d\u5ba1\u4e1a\u52a1D2\u7ec4-\u5929\u6d25 Test Moderation Team D2-TSN",
                                                     "resource_id": 316,
                                                     "resource_point_code": "288980000064981646",
                                                     "app_id": 47,
@@ -6802,7 +6802,7 @@
                                                 {
                                                     "en_name": "",
                                                     "code": "288980000064981647",
-                                                    "name": "TikTok\u521d\u5ba1\u4e1a\u52a1D3\u7ec4-\u5929\u6d25 TikTok Moderation Team D3-TSN",
+                                                    "name": "Test\u521d\u5ba1\u4e1a\u52a1D3\u7ec4-\u5929\u6d25 Test Moderation Team D3-TSN",
                                                     "resource_id": 316,
                                                     "resource_point_code": "288980000064981647",
                                                     "app_id": 47,
@@ -6829,7 +6829,7 @@
                                                 {
                                                     "en_name": "",
                                                     "code": "288980000064981648",
-                                                    "name": "TikTok\u521d\u5ba1\u4e1a\u52a1D4\u7ec4-\u5929\u6d25 TikTok Moderation Team D4-TSN",
+                                                    "name": "Test\u521d\u5ba1\u4e1a\u52a1D4\u7ec4-\u5929\u6d25 Test Moderation Team D4-TSN",
                                                     "resource_id": 316,
                                                     "resource_point_code": "288980000064981648",
                                                     "app_id": 47,
@@ -6856,7 +6856,7 @@
                                                 {
                                                     "en_name": "",
                                                     "code": "288980000064981649",
-                                                    "name": "TikTok\u521d\u5ba1\u4e1a\u52a1D5\u7ec4-\u5929\u6d25 TikTok Moderation Team D5-TSN",
+                                                    "name": "Test\u521d\u5ba1\u4e1a\u52a1D5\u7ec4-\u5929\u6d25 Test Moderation Team D5-TSN",
                                                     "resource_id": 316,
                                                     "resource_point_code": "288980000064981649",
                                                     "app_id": 47,
@@ -6883,7 +6883,7 @@
                                                 {
                                                     "en_name": "",
                                                     "code": "288980000064981650",
-                                                    "name": "TikTok\u521d\u5ba1\u4e1a\u52a1D6\u7ec4-\u5929\u6d25 TikTok Moderation Team D6-TSN",
+                                                    "name": "Test\u521d\u5ba1\u4e1a\u52a1D6\u7ec4-\u5929\u6d25 Test Moderation Team D6-TSN",
                                                     "resource_id": 316,
                                                     "resource_point_code": "288980000064981650",
                                                     "app_id": 47,
@@ -42036,7 +42036,7 @@
                                         {
                                             "en_name": "",
                                             "code": "6664140196646224141",
-                                            "name": "W_GUR_Tiktok 2nd Round-Gurgaon",
+                                            "name": "W_GUR_T 2nd Round-Gurgaon",
                                             "resource_id": 316,
                                             "resource_point_code": "6664140196646224141",
                                             "app_id": 47,
@@ -42119,7 +42119,7 @@
                                         {
                                             "en_name": "",
                                             "code": "6764259170678997262",
-                                            "name": "W_HYD_Tiktok 2nd Round-Hyderabad",
+                                            "name": "W_HYD_T 2nd Round-Hyderabad",
                                             "resource_id": 316,
                                             "resource_point_code": "6764259170678997262",
                                             "app_id": 47,

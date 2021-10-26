@@ -404,12 +404,12 @@ import { IconPlus } from '@douyinfe/semi-icons';
         },
         {
             uid: '2',
-            name: 'tiktok.jpeg',
+            name: 'abc.jpeg',
             status: 'success',
             size: '222KB',
             preview: true,
-            fileInstance: new File([new ArrayBuffer(2048)], 'tiktok.jpeg', { type: 'image/png' }),
-            url: 'https://sf6-cdn-tos.douyinstatic.com/img/ee-finolhu/a0ca113c9c6d4fb49c9b8bb54a392a00~noop.image',
+            fileInstance: new File([new ArrayBuffer(2048)], 'abc.jpeg', { type: 'image/png' }),
+            url: 'https://sf6-cdn-tos.douyinstatic.com/img/ee-finolhu/c2a65140483e4a20802d64af5fec1b39~noop.image',
         },
     ];
     return (
@@ -514,12 +514,12 @@ import { IconUpload } from '@douyinfe/semi-icons';
         },
         {
             uid: '2',
-            name: 'tiktok.jpeg',
+            name: 'abc.jpeg',
             status: 'uploadFail',
             size: '222KB',
             preview: true,
-            fileInstance: new File([new ArrayBuffer(2048)], 'tiktok.jpeg', { type: 'image/png' }),
-            url: 'https://sf6-cdn-tos.douyinstatic.com/img/ee-finolhu/a0ca113c9c6d4fb49c9b8bb54a392a00~noop.image',
+            fileInstance: new File([new ArrayBuffer(2048)], 'abc.jpeg', { type: 'image/png' }),
+            url: 'https://sf6-cdn-tos.douyinstatic.com/img/ee-finolhu/c2a65140483e4a20802d64af5fec1b39~noop.image',
         },
     ];
 
@@ -556,11 +556,14 @@ import { IconUpload } from '@douyinfe/semi-icons';
         },
         {
             uid: '2',
-            name: 'tiktok.jpeg',
-            status: 'validateFail',
+            name: 'jiafang2.jpeg',
+            status: 'uploading',
             size: '222KB',
+            percent: 50,
             preview: true,
-            url: 'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/8bd8224511db085ed74fea37205aede5.jpg',
+            fileInstance: new File([new ArrayBuffer(2048)], 'jiafang2.jpeg', { type: 'image/jpeg' }),
+            url:
+                'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/4a55704fb0b8b85eaccdb4ed22469f57.jpg',
         },
         {
             uid: '3',
@@ -651,11 +654,11 @@ import { IconUpload } from '@douyinfe/semi-icons';
         },
         {
             uid: '2',
-            name: 'tiktok.jpeg',
+            name: 'abc.jpeg',
             status: 'validateFail',
             size: '222KB',
             preview: true,
-            url: 'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dbf7351bb779433d17c4f50478cf42f7.jpg',
+            url: 'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/e82f3b261133d2b20d85e8483c203112.jpg',
         },
     ];
     let action = '//semi.design/api/upload';

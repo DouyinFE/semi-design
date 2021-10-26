@@ -152,12 +152,12 @@ import { IconClose } from '@douyinfe/semi-icons';
     };
 
     const data = [
-        { label: 'Xiakeman', value: 'xiakeman@example.com', abbr: 'Xia', color: 'amber', area: 'tiktok-US', key: 1 },
-        { label: 'Shenyue', value: 'shenyue@example.com', abbr: 'Shen', color: 'indigo', area: 'tiktok-UK', key: 2 },
-        { label: 'Wenjiamao', value: 'wenjiamao@example.com', abbr: 'Wen', color: 'cyan', area: 'tiktok-HK', key: 3 },
-        { label: 'Quchenyi', value: 'quchenyi@example.com', abbr: 'Qu', color: 'blue', area: 'vigo-India', key: 4 },
-        { label: 'Quchener', value: 'quchener@example.com', abbr: 'Qu', color: 'blue', area: 'vigo-India', key: 5 },
-        { label: 'Quchensan', value: 'quchensan@example.com', abbr: 'Qu', color: 'blue', area: 'vigo-India', key: 6 },
+        { label: 'Xiakeman', value: 'xiakeman@example.com', abbr: 'Xia', color: 'amber', area: 'US', key: 1 },
+        { label: 'Shenyue', value: 'shenyue@example.com', abbr: 'Shen', color: 'indigo', area: 'UK', key: 2 },
+        { label: 'Wenjiamao', value: 'wenjiamao@example.com', abbr: 'Wen', color: 'cyan', area: 'HK', key: 3 },
+        { label: 'Quchenyi', value: 'quchenyi@example.com', abbr: 'Qu', color: 'blue', area: 'India', key: 4 },
+        { label: 'Quchener', value: 'quchener@example.com', abbr: 'Qu', color: 'blue', area: 'India', key: 5 },
+        { label: 'Quchensan', value: 'quchensan@example.com', abbr: 'Qu', color: 'blue', area: 'India', key: 6 },
     ];
 
     return (
@@ -326,12 +326,12 @@ import { IconHandle, IconClose } from '@douyinfe/semi-icons';
     };
 
     const data = [
-        { label: 'Xiakeman', value: 'xiakeman@example.com', abbr: 'Xia', color: 'amber', area: 'tiktok-US', key: 1 },
-        { label: 'Shenyue', value: 'shenyue@example.com', abbr: 'Shen', color: 'indigo', area: 'tiktok-UK', key: 2 },
-        { label: 'Wenjiamao', value: 'wenjiamao@example.com', abbr: 'Wen', color: 'cyan', area: 'tiktok-HK', key: 3 },
-        { label: 'Quchenyi', value: 'quchenyi@example.com', abbr: 'Qu', color: 'blue', area: 'vigo-India', key: 4 },
-        { label: 'Quchener', value: 'quchener@example.com', abbr: 'Er', color: 'blue', area: 'vigo-India', key: 5 },
-        { label: 'Quchensan', value: 'quchensan@example.com', abbr: 'San', color: 'blue', area: 'vigo-India', key: 6 },
+        { label: 'Xiakeman', value: 'xiakeman@example.com', abbr: 'Xia', color: 'amber', area: 'US', key: 1 },
+        { label: 'Shenyue', value: 'shenyue@example.com', abbr: 'Shen', color: 'indigo', area: 'UK', key: 2 },
+        { label: 'Wenjiamao', value: 'wenjiamao@example.com', abbr: 'Wen', color: 'cyan', area: 'HK', key: 3 },
+        { label: 'Quchenyi', value: 'quchenyi@example.com', abbr: 'Qu', color: 'blue', area: 'India', key: 4 },
+        { label: 'Quchener', value: 'quchener@example.com', abbr: 'Er', color: 'blue', area: 'India', key: 5 },
+        { label: 'Quchensan', value: 'quchensan@example.com', abbr: 'San', color: 'blue', area: 'India', key: 6 },
     ];
 
     return (

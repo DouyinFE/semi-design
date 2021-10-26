@@ -365,7 +365,7 @@ stories.add('transition-slideInOutLeft', () => {
 
         renderNavWithTransform = ({ transform, translateX }) => {
             let { isCollapsed, defaultOpenKeys, mode, navHeight, selectedKeys, openKeys } = this.state;
-            let tiktokIcon = '//lf1-cdn-tos.bytescm.com/obj/mosaic-legacy/da9d0015af0f09667998';
+            let testIcon = '//lf1-cdn-tos.bytescm.com/obj/mosaic-legacy/da9d0015af0f09667998';
             let vigoIcon = '//lf1-cdn-tos.bytescm.com/obj/mosaic-legacy/504100070cbe0498d66f';
             let icon3 = '//lf1-cdn-tos.bytescm.com/eesz/resource/bear/public/doc-favicon-v4.902ddd709d8aaa55df8d.ico';
             return (
@@ -388,7 +388,7 @@ stories.add('transition-slideInOutLeft', () => {
                     <Nav.Sub
                         itemKey={'2'}
                         text={<strong>抖音运营</strong>}
-                        icon={<img width="20" height="20" src={tiktokIcon} />}
+                        icon={<img width="20" height="20" src={testIcon} />}
                     >
                         {['2-1', '2-2'].map(k => (
                             <Nav.Item key={k} itemKey={String(k)} text={'Option ' + k} />
@@ -405,7 +405,7 @@ stories.add('transition-slideInOutLeft', () => {
         render() {
             let { isCollapsed, defaultOpenKeys, mode, navHeight, selectedKeys, openKeys } = this.state;
 
-            let tiktokIcon = '//lf1-cdn-tos.bytescm.com/obj/mosaic-legacy/da9d0015af0f09667998';
+            let testIcon = '//lf1-cdn-tos.bytescm.com/obj/mosaic-legacy/da9d0015af0f09667998';
             let vigoIcon = '//lf1-cdn-tos.bytescm.com/obj/mosaic-legacy/504100070cbe0498d66f';
             let icon3 = '//lf1-cdn-tos.bytescm.com/eesz/resource/bear/public/doc-favicon-v4.902ddd709d8aaa55df8d.ico';
 
@@ -433,7 +433,7 @@ stories.add('transition-slideInOutLeft', () => {
                                       <Nav.Sub
                                           itemKey={'2'}
                                           text={<strong>抖音运营</strong>}
-                                          icon={<img width="20" height="20" src={tiktokIcon} />}
+                                          icon={<img width="20" height="20" src={testIcon} />}
                                       >
                                           {['2-1', '2-2'].map(k => (
                                               <Nav.Item key={k} itemKey={String(k)} text={'Option ' + k} />

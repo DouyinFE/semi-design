@@ -155,7 +155,7 @@ import { CheckboxGroup } from '@douyinfe/semi-ui';
 
 () => {
   const options = [
-    { label: '抖音', value: 'tiktok' },
+    { label: '抖音', value: 'abc' },
     { label: '火山', value: 'hotsoon' },
     { label: '皮皮虾', value: 'pipixia' },
     { label: '今日头条', value: 'toutiao' }

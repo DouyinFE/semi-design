@@ -2,7 +2,7 @@ import { _t } from "src/utils/locale";
 import React from 'react';
 import styles from './index.module.scss';
 import {Descriptions, Typography, Form, Button, Avatar, Table} from '@douyinfe/semi-ui'
-import {IconBell, IconFeishuLogo, IconMail, IconMapPin, IconTiktokLogo, IconUserCircle} from '@douyinfe/semi-icons'
+import {IconBell, IconFeishuLogo, IconMail, IconMapPin, IconSemiLogo, IconUserCircle} from '@douyinfe/semi-icons'
 import avatarPng from './images/avatar.png'
 import classnames from 'classnames'
 
@@ -47,7 +47,7 @@ function Demo(props) {
                     <Avatar 
                         size='small' 
                         style={{backgroundColor: 'rgb(var(--semi-grey-9))', marginRight: 12}}>
-                        <IconTiktokLogo></IconTiktokLogo>
+                        <IconSemiLogo></IconSemiLogo>
                     </Avatar>{_t("system_notification", { }, "系统通知")}</span>
             ),
             content: <Text>{_t("design", { }, "设计")}</Text>,
@@ -67,7 +67,7 @@ function Demo(props) {
                 </header>
                 <main className={styles.profileMain}>
                     <Text icon={<IconMapPin size="extra-large"></IconMapPin>}>{_t("beijing__china", { }, "中国 北京")}</Text>
-                    <Text icon={<IconTiktokLogo></IconTiktokLogo>}>{_t("douyin_certification", { }, "抖音认证")}</Text>
+                    <Text icon={<IconSemiLogo></IconSemiLogo>}>{_t("douyin_certification", { }, "官方认证")}</Text>
                     <Text icon={<IconMail></IconMail>}>richard@gmail.com</Text>
                     <Text icon={<IconUserCircle></IconUserCircle>}>{_t("chief_foodie__good_at_algorithms__especially", { }, "首席吃货，擅长算法，特别是")}<br />{_t("video_compression_algorithm", { }, "视频压缩算法")}</Text>
                 </main>
@@ -93,9 +93,9 @@ function Demo(props) {
                 </section>
                 <section className={styles.dataSection}>
                     <div>
-                        <Form layout="horizontal" initValues={{type: 'tiktok'}}>
+                        <Form layout="horizontal" initValues={{type: 'abc'}}>
                             <Select field="type" noLabel={true}>
-                                <Option value="tiktok">{_t("douyin_little_assistant", { }, "抖音小助手")}</Option>
+                                <Option value="abc">{_t("douyin_little_assistant", { }, "抖音小助手")}</Option>
                                 <Option value="huoshan">{_t("volcano_little_helper", { }, "火山小助手")}</Option>
                             </Select>
                             <TextArea field="content" placeholder='placeholder' noLabel={true} style={{width: 556, height: 75}} className={styles.textarea}></TextArea>

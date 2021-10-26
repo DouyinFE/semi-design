@@ -130,7 +130,7 @@ class App extends React.Component {
       console.log('checked = ', checkedValues);
     }
 
-    const plainOptions = ['tiktok', 'vigo', 'helo'];
+    const plainOptions = ['semi', 'vigo', 'helo'];
     const options = [
       { label: 'Aim for the highest', value: '1', extra: "Raise the bar. Wait for bigger gains. Find the best solutions by widening your perspective. Be attentive. Distill ideas down to their fundamental truths. Keep learning and growing" },
       { label: 'Be grounded & courageous', value: '2', extra:"Make your own discoveries. Dive deep into facts. Stay level-headed. Focus on impact. Assume ownership, take risks, break the mold. Rapid iterations, multiple possibilities." },
@@ -144,7 +144,7 @@ class App extends React.Component {
     ];
     return (
       <div>
-        <CheckboxGroup options={plainOptions} defaultValue={['tiktok']} onChange={onChange} />
+        <CheckboxGroup options={plainOptions} defaultValue={['semi']} onChange={onChange} />
         <br/><br/>
         <CheckboxGroup options={options} defaultValue={[]} onChange={onChange} />
         <br/><br/>
@@ -170,7 +170,7 @@ import { CheckboxGroup } from '@douyinfe/semi-ui';
 
 () => {
   const options = [
-    { label: 'tiktok', value: 'tiktok' },
+    { label: 'semi', value: 'semi' },
     { label: 'hotsoon', value: 'hotsoon' },
     { label: 'pipixia', value: 'pipixia' },
     { label: 'toutiao', value: 'toutiao' }

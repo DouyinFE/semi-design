@@ -154,12 +154,12 @@ import { IconClose } from '@douyinfe/semi-icons';
     };
 
     const data = [
-        { label: '夏可漫', value: 'xiakeman@example.com', abbr: '夏', color: 'amber', area: 'tiktok-US', key: 1 },
-        { label: '申悦', value: 'shenyue@example.com', abbr: '申', color: 'indigo', area: 'tiktok-UK', key: 2 },
-        { label: '文嘉茂', value: 'wenjiamao@example.com', abbr: '文', color: 'cyan', area: 'tiktok-HK', key: 3 },
-        { label: '曲晨一', value: 'quchenyi@example.com', abbr: '曲', color: 'blue', area: 'vigo-India', key: 4 },
-        { label: '曲晨二', value: 'quchener@example.com', abbr: '二', color: 'blue', area: 'vigo-India', key: 5 },
-        { label: '曲晨三', value: 'quchensan@example.com', abbr: '三', color: 'blue', area: 'vigo-India', key: 6 },
+        { label: '夏可漫', value: 'xiakeman@example.com', abbr: '夏', color: 'amber', area: 'US', key: 1 },
+        { label: '申悦', value: 'shenyue@example.com', abbr: '申', color: 'indigo', area: 'UK', key: 2 },
+        { label: '文嘉茂', value: 'wenjiamao@example.com', abbr: '文', color: 'cyan', area: 'HK', key: 3 },
+        { label: '曲晨一', value: 'quchenyi@example.com', abbr: '曲', color: 'blue', area: 'India', key: 4 },
+        { label: '曲晨二', value: 'quchener@example.com', abbr: '二', color: 'blue', area: 'India', key: 5 },
+        { label: '曲晨三', value: 'quchensan@example.com', abbr: '三', color: 'blue', area: 'India', key: 6 },
     ];
 
     return (
@@ -328,12 +328,12 @@ import { IconHandle, IconClose } from '@douyinfe/semi-icons';
     };
 
     const data = [
-        { label: '夏可漫', value: 'xiakeman@example.com', abbr: '夏', color: 'amber', area: 'tiktok-US', key: 1 },
-        { label: '申悦', value: 'shenyue@example.com', abbr: '申', color: 'indigo', area: 'tiktok-UK', key: 2 },
-        { label: '文嘉茂', value: 'wenjiamao@example.com', abbr: '文', color: 'cyan', area: 'tiktok-HK', key: 3 },
-        { label: '曲晨一', value: 'quchenyi@example.com', abbr: '曲', color: 'blue', area: 'vigo-India', key: 4 },
-        { label: '曲晨二', value: 'quchener@example.com', abbr: '二', color: 'blue', area: 'vigo-India', key: 5 },
-        { label: '曲晨三', value: 'quchensan@example.com', abbr: '三', color: 'blue', area: 'vigo-India', key: 6 },
+        { label: '夏可漫', value: 'xiakeman@example.com', abbr: '夏', color: 'amber', area: 'US', key: 1 },
+        { label: '申悦', value: 'shenyue@example.com', abbr: '申', color: 'indigo', area: 'UK', key: 2 },
+        { label: '文嘉茂', value: 'wenjiamao@example.com', abbr: '文', color: 'cyan', area: 'HK', key: 3 },
+        { label: '曲晨一', value: 'quchenyi@example.com', abbr: '曲', color: 'blue', area: 'India', key: 4 },
+        { label: '曲晨二', value: 'quchener@example.com', abbr: '二', color: 'blue', area: 'India', key: 5 },
+        { label: '曲晨三', value: 'quchensan@example.com', abbr: '三', color: 'blue', area: 'India', key: 6 },
     ];
 
     return (

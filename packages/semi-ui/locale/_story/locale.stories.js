@@ -71,7 +71,7 @@ const I18nComponent = () => {
             </div>
             <div style={style}>
                 <Select filter style={{ width: '180px' }}>
-                    <Option value="tiktok">tiktok</Option>
+                    <Option value="abc">abc</Option>
                     <Option value="vigo" disabled>
                         vigo
                     </Option>

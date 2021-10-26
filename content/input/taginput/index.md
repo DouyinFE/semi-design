@@ -283,7 +283,7 @@ class TagInputDemo extends React.Component {
     constructor() {
         super();
         this.state = {
-            value: 'tiktok'
+            value: 'abc'
         }
     }
     handleInputChange(value, event) {

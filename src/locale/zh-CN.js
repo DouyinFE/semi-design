@@ -125,7 +125,7 @@ const appLocale = {
         "#nezha_s_magic_child_descent_#topic_activity_is_now_open!_according_to_the_rules_e2fe356bd395679eb176daa81ef0d082": "#哪吒之魔童降世# 话题活动开讲啦！根据活动规则，恭喜 13 位...",
         "semi_design_share_presentation": "Semi Design 分享演示文稿",
         "beijing__china": "中国 北京",
-        "douyin_certification": "抖音认证",
+        "douyin_certification": "官方认证",
         "chief_foodie__good_at_algorithms__especially": "首席吃货，擅长算法，特别是",
         "video_compression_algorithm": "视频压缩算法",
         "official_topics": "官方话题",
