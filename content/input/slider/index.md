@@ -57,6 +57,9 @@ class InputSlider extends React.Component {
   }
 
   getSliderValue(value) {
+      if(isNaN(Number(value))){
+          return;
+      }
       this.setState({ value: value / 1 }); 
   }
 
@@ -67,7 +70,7 @@ class InputSlider extends React.Component {
           <div style={{ width: 320, marginRight: 15 }}>
               <Slider step={1} value={value} onChange={(value) => (this.getSliderValue(value))} ></Slider>
           </div>
-          <InputNumber onChange={(v) => this.getSliderValue(v)} style={{width: 100}} value={value} />
+          <InputNumber onChange={(v) => this.getSliderValue(v)} style={{width: 100}} value={value} min={0} max={100} />
       </div>
     );
   }
