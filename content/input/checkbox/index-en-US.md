@@ -12,7 +12,7 @@ brief: Checkboxes allow the user to select one or more items from a set.
 ## When to use
 
 -   When making multiple choices in a set of options;
--   Use independenly to select from different states, similar to the Switch component. The difference is that switching the Switch triggers a state change directly, while Checkbox is generally used for tagging status and works with the submission.
+-   Use independently to select from different states, similar to the Switch component. The difference is that switching the Switch triggers a state change directly, while Checkbox is generally used for tagging status and works with the submission.
 
 
 ## Demos
@@ -54,7 +54,7 @@ import { Checkbox } from '@douyinfe/semi-ui';
 )
 ```
 
-You can use `extra` to add aextra information. The extra information usually is longer and even has line changes.
+You can use `extra` to add extra information. The extra information usually is longer and even has line changes.
 
 ```jsx live=true
 import React from 'react';
