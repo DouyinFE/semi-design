@@ -200,8 +200,8 @@ import { Button } from '@douyinfe/semi-ui';
 function ButtonDemo() {
   return (
     <div>
-      <Button size='large' style={{marginRight:8}}>large</Button>
-      <Button size='default' style={{marginRight:8}}>default</Button>
+      <Button size='large' style={{ marginRight:8 }}>large</Button>
+      <Button size='default' style={{ marginRight:8 }}>default</Button>
       <Button size='small'>small</Button>
     </div>
   );
@@ -237,13 +237,13 @@ import { IconCamera, IconSidebar, IconChevronDown } from '@douyinfe/semi-icons';
 function ButtonDemo() {
   return (
     <div>
-      <strong>Default Status:</strong>
+      <strong>Default Status: </strong>
       <Button icon={<IconCamera />}/>
           <br/><br/>
       <strong>Disabled Status：</strong>
       <Button icon={<IconCamera />}/>
           <br/><br/>
-      <strong>With Type:</strong>
+      <strong>With Type: </strong>
       <span className="btn-margin-right">
       <Button type="primary" icon={<IconCamera />}/>
       <Button type="secondary" icon={<IconCamera />}/>
@@ -251,13 +251,13 @@ function ButtonDemo() {
       <Button type="danger" icon={<IconCamera />}/>
       </span>
           <br/><br/>
-      <strong>Change Theme:</strong>
+      <strong>Change Theme: </strong>
       <Button icon={<IconCamera />} theme="solid" style={{ marginRight: 10 }}/>
       <Button icon={<IconCamera />} theme="light"/>
           <br/><br/>
-      <strong>Change Icon Position:</strong>
+      <strong>Change Icon Position: </strong>
       <Button icon={<IconSidebar />} theme="solid" style={{ marginRight: 10 }}>Collpase</Button>
-      <Button icon={<IconChevronDown />} theme="solid" iconPosition={"right"}>Expand Options</Button>
+      <Button icon={<IconChevronDown />} theme="solid" iconPosition="right">Expand Options</Button>
           <br/><br/>
     </div>
   );
