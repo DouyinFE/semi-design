@@ -26,7 +26,7 @@ jobs:
         
 
       - name: get version
-        run: echo "RELEASE_VERSION="$(node script/version.js)"" >> $GITHUB_ENV
+        run: echo "RELEASE_VERSION="$(node scripts/version.js)"" >> $GITHUB_ENV
         env:
             RELEASE_TYPE: ${{ github.event.inputs.release_type }}
 
