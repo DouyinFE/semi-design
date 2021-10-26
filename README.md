@@ -50,7 +50,7 @@ const App = () => (
 ReactDOM.render(<App />, document.querySelector('#app'));
 ```
 
-And [Semi UI Doc Site](https://semi.design) have hundreds editable examples and live preview, welcome play with those examples.
+And [Semi UI Doc Site](https://semi.design/en-US/) have hundreds editable examples and live preview, welcome play with those examples.
 
 # 📌 Documentation
 
