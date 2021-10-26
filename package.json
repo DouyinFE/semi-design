@@ -25,7 +25,7 @@
     "test": "cross-env NODE_ENV=test ./node_modules/.bin/jest --silent",
     "test:unit": "cross-env NODE_ENV=test type=unit ./node_modules/.bin/jest --silent --notify",
     "test:story": "cross-env NODE_ENV=test type=story ./node_modules/.bin/jest --silent --notify --maxWorkers=4",
-    "test:coverage": "cross-env TZ=Asia/Shanghai cross-env NODE_ENV=test type=unit ./node_modules/.bin/jest --silent --coverage --notify",
+    "test:coverage": "cross-env TZ=Asia/Shanghai NODE_ENV=test type=unit ./node_modules/.bin/jest --silent --coverage --notify",
     "test:storyUpdate": "cross-env NODE_ENV=test type=story ./node_modules/.bin/jest --silent -u --notify --maxWorkers=4",
     "build:lib": "lerna run build:lib",
     "build:js": "lerna run build:js",
