@@ -16,6 +16,8 @@ npm i @douyinfe/semi-ui
 # 使用 yarn
 yarn add @douyinfe/semi-ui
 
+# 使用 pnpm
+pnpm add @douyinfe/semi-ui
 ```
 
 ## 2、模块化方式使用组件
