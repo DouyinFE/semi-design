@@ -1,8 +1,6 @@
-import React, { useState, useLayoutEffect, Component } from 'react';
-import { storiesOf } from '@storybook/react';
-import { Button, Modal, TreeSelect, Row, Col, Avatar } from '../../../index';
-import { Select as BasicSelect } from '../../../index';
+import React, { useState } from 'react';
 import {
+    Button,
     Form,
     useFormState,
     useFormApi,
@@ -10,13 +8,9 @@ import {
     useFieldState,
     withFormState,
     withFormApi,
-    withField,
     ArrayField,
-    AutoComplete,
-    Collapse,
-    Icon,
 } from '../../../index';
-const { Input, Select, DatePicker, Switch, Slider, CheckboxGroup, Checkbox, RadioGroup, Radio, TimePicker, InputNumber, InputGroup } = Form;
+const { Input } = Form;
 
 const UseFormApiDemo = () => {
     return (

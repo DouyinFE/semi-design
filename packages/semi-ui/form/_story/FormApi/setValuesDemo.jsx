@@ -1,23 +1,12 @@
-import React, { useState, useLayoutEffect } from 'react';
-import { storiesOf } from '@storybook/react';
-import { Button, Modal, TreeSelect, Row, Col, Avatar, TextArea } from '../../../index';
-import { Select as BasicSelect } from '../../../index';
+import React from 'react';
 import {
+    Button,
+    TextArea,
     Form,
-    useFormState,
-    useFormApi,
-    useFieldApi,
-    useFieldState,
-    withFormState,
-    withFormApi,
-    withField,
     ArrayField,
-    AutoComplete,
-    Collapse,
-    Icon,
 } from '../../../index';
-import { ComponentUsingFormState, CustomStringify } from '../Hook/hookDemo';
-const { Input, Select, DatePicker, Switch, Slider, CheckboxGroup, Checkbox, RadioGroup, Radio, TimePicker, InputNumber, InputGroup } = Form;
+import { CustomStringify } from '../Hook/hookDemo';
+const { Input, Select, Checkbox } = Form;
 
 class SetValuesDemo extends React.Component {
     constructor() {
