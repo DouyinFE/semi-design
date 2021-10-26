@@ -15,7 +15,7 @@ jobs:
           node-version: 14
       - run: |
             npm i -g lerna && npm run bootstrap
-            node script/release.js
+            node scripts/release.js
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             CHANGELOG_PATH: content/start/changelog/index.md, content/start/changelog/index-en-US.md
