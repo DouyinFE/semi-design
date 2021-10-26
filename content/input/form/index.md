@@ -873,7 +873,7 @@ class AssistComponent extends React.Component {
 
 ### 内嵌 Label
 
-通过将 labelPositon 设为`inset`，可以将 Label 内嵌在表单控件中。目前支持这项功能的组件有`Input`、`InputNumber`、`DatePicker`、`TimePicker`、`Select`、`TreeSelect`、`Cascader`
+通过将 labelPosition 设为`inset`，可以将 Label 内嵌在表单控件中。目前支持这项功能的组件有`Input`、`InputNumber`、`DatePicker`、`TimePicker`、`Select`、`TreeSelect`、`Cascader`
 
 ```jsx live=true dir="column"
 import React from 'react';
