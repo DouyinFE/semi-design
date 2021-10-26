@@ -7,4 +7,7 @@ module.exports = {
     singleQuote: true,
     useTabs: false,
     semi: true,
+    // windows and md table need this set
+    proseWrap: 'never',
+    endOfLine: 'lf',
 };

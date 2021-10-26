@@ -32,7 +32,8 @@
     "build:css": "lerna run build:css",
     "build-storybook": "build-storybook  -c ./.storybook/js/",
     "build:gatsbydoc": "lerna run build:lib --scope=@douyinfe/semi-webpack-plugin && cross-env NODE_ENV=production node --max_old_space_size=16384 ./node_modules/gatsby/cli.js build --prefix-paths --verbose && rm -rf build && mv public build",
-    "build:icon": "lerna run build:icon --scope='@douyinfe/semi-{icons,illustrations}'"
+    "build:icon": "lerna run build:icon --scope='@douyinfe/semi-{icons,illustrations}'",
+    "prettier": "prettier --write \"**/**.{js,jsx,tsx,ts,less,md,json}\""
   },
   "dependencies": {
     "@douyinfe/semi-site-banner": "0.0.1",
@@ -161,7 +162,7 @@
     "mini-css-extract-plugin": "^0.12.0",
     "null-loader": "^3.0.0",
     "postcss-loader": "^2.1.6",
-    "prettier": "^1.19.1",
+    "prettier": "^2.4.1",
     "progress-bar-webpack-plugin": "^1.12.1",
     "react-dnd-cjs": "^9.5.1",
     "react-storybook-addon-props-combinations": "^1.1.0",
@@ -191,6 +192,9 @@
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx}": [
       "eslint --ext '.js,.jsx,.ts,.tsx'"
+    ],
+    "src/**/*.{js,jsx,ts,tsx,md,css,scss,json}": [
+      "pretty-quick --staged"
     ],
     "packages/**/*.{js,jsx,ts,tsx}": [
       "eslint --ext '.js,.jsx,.ts,.tsx'"
