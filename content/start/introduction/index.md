@@ -34,7 +34,7 @@ Semi 是如何在连贯统一的基础上，做到灵活多变的？答案是强
 
 通过对数千个设计变量 (Design Token) 的分层和梳理，设计师和开发者可在全局、乃至组件级别，对 表现层进行深度定制 —— 即使你不了解 CSS，也可以**通过主题编辑器(DSM)，打造符合业务和品牌多样化视觉需求的风格**。开发者则可通过 npm 包一键发布并替换，轻松定制，易于管理。
 
-你可以在[主题商店](https://semi.design/dsm/store)，查看Semi 在抖音、剪映、飞书、火山引擎等不同品牌场景下的官方示例主题。  
+你可以在[主题商店](https://semi.design/dsm/store)，查看 Semi 在抖音、剪映、飞书、火山引擎等不同品牌场景下的官方示例主题。  
 
 ![全面覆盖的设计变量用例、文档与编辑器](https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/tech-doc/p3.gif)
 
@@ -65,12 +65,12 @@ Semi Design 采用了一套跨前端框架技术方案，F/A 分层设计，将�
 
 ![F/A架构](https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/tech-doc/crossFrame.png)
 #### Foundation
-Foundation 包含最能代表 Semi Design 组件交互的业务逻辑，包括UI行为触发后的各种计算、分支判断等逻辑，它并不直接操作或者引用DOM，任意需要DOM操作，驱动组件渲染更新的部分会委派给Adapter执行。
+Foundation 包含最能代表 Semi Design 组件交互的业务逻辑，包括 UI 行为触发后的各种计算、分支判断等逻辑，它并不直接操作或者引用 DOM，任意需要 DOM 操作，驱动组件渲染更新的部分会委派给 Adapter 执行。
 
 #### Adaptor
-Adapter 是一个接口，具有 Foundation 实现 Semi Design 业务逻辑所需的所有方法，并负责 1. 组件DOM结构声明 2.负责所有跟DOM操作/更新相关的逻辑，通常会使用框架API进行setState、getState、addEventListener、removeListener等操作。适配器可以有许多实现，允许与不同框架的互操作性。
+Adapter 是一个接口，具有 Foundation 实现 Semi Design 业务逻辑所需的所有方法，并负责 1. 组件 DOM 结构声明 2.负责所有跟 DOM 操作/更新相关的逻辑，通常会使用框架 API 进行 setState、getState、addEventListener、removeListener 等操作。适配器可以有许多实现，允许与不同框架的互操作性。
 
-目前，我们实现了 Adapter 的 React 版本，你可以直接通过引入 semi-ui 来使用我们的React组件。如果你对 Semi 的架构设计感兴趣，可以进一步查阅[这篇文章](https://bytedance.feishu.cn/docs/doccnTgc0iGOVPubHZkwPpxXSNh#)。
+目前，我们实现了 Adapter 的 React 版本，你可以直接通过引入 semi-ui 来使用我们的 React 组件。如果你对 Semi 的架构设计感兴趣，可以进一步查阅[这篇文章](https://bytedance.feishu.cn/docs/doccnTgc0iGOVPubHZkwPpxXSNh#)。
 
 
 ## 展望
