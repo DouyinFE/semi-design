@@ -14,7 +14,7 @@ npm install @douyinfe/semi-animation
 
 ### Animation
 
-`semi-animation` provides a class called  `Animation`.It has a complete life cycle hook and control method to support operatindg animation like audio and video.
+`semi-animation` provides a class called  `Animation` . It has a complete life cycle hook and control method to support operating animation like audio and video.
 
 -   Use in JS
 
