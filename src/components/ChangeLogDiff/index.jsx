@@ -75,7 +75,7 @@ export default function ChangeLogDiff(props) {
                 const filterComponent = componentsIsValid ? components : allComponents;
                 const filterType = Array.isArray(types) && types.length > 0 ? types : ALL_TYPES;
                 const searchResult = filterData(v1, v2, filterComponent, filterType);
-                searchResult.sort((a, b) => (a.component < b.component ? -1 : 1));
+                // searchResult.sort((a, b) => (a.component < b.component ? -1 : 1)); // remove component name sort
 
                 if (!componentsIsValid) {
                     const newComponentList = Array.from(new Set(searchResult.map(item => item.component)));
