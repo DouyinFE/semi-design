@@ -17,7 +17,7 @@ English | [简体中文](./README-zh_CN.md)
 - 💅 Thousands Design Tokens. Powerful Themes Customizing.
 - 🌍 Internationalization Support for Dozens of Languages.
 - 👏 Written in Typescript, Friendly Static Type Support.
-- 🥳 SSR (Sever Side Rendering) Compatible.
+- 🥳 SSR (Server Side Rendering) Compatible.
 - 🤩
 
 # 🔥 Install
