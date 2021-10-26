@@ -14,11 +14,10 @@
 # 🎉 特性
 
 - 💪 58+高质量组件
-- 💅 强大的定制定力，上千个Design Token
+- 💅 强大的主题定制，上千个Design Token
 - 🌍 国际化支持14种语言
 - 👏 使用TypeScript，良好的类型定义
 - 🥳 支持SSR
-- 🤩
 
 # 🔥 安装
 
@@ -42,7 +41,7 @@ import { Button, Switch } from '@douyinfe/semi-ui';
 
 const App = () => (
   <>
-    <Button type="primary">primary button</Button>
+    <Button type='primary'>primary button</Button>
     <Switch size='large' />
   </>
 );

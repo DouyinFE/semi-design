@@ -18,7 +18,6 @@ English | [简体中文](./README-zh_CN.md)
 - 🌍 Internationalization Support for Dozens of Languages.
 - 👏 Written in Typescript, Friendly Static Type Support.
 - 🥳 SSR (Server Side Rendering) Compatible.
-- 🤩
 
 # 🔥 Install
 
@@ -42,7 +41,7 @@ import { Button, Switch } from '@douyinfe/semi-ui';
 
 const App = () => (
   <>
-    <Button type="primary">primary button</Button>
+    <Button type='primary'>primary button</Button>
     <Switch size='large' />
   </>
 );
