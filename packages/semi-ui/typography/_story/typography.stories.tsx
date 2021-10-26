@@ -127,7 +127,7 @@ stories.add('Ellipsis', () => (
         </Paragraph>
         <br />
         <Paragraph ellipsis={{rows: 3}} style={{width: 300}}>
-        Ant Design system-level color system also comes from the "natural" design language. Designers abstract the natural scenes through the capture, combined with the technical gene of Ant Financial, forming a unique 12 colors. Further through a large number of observations, to capture the different colors of natural light under the law of change, with the art of drawing ideas, the 12 colors were derived. The definition of neutral color palette is balanced with readability, aesthetics and usability.
+        Inspired by Ant Design Typography. 更多细节：https://bytedance.feishu.cn/docs/doccnqovjjyoKm2U5O13bj30aTh
         </Paragraph>
         <br />
         <Paragraph ellipsis={{rows: 3, expandable: true}} style={{width: 250}}>

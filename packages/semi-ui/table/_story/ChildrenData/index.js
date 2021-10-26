@@ -3,7 +3,7 @@ import { Table, Button } from '@douyinfe/semi-ui/';
 import {IconArrowUp, IconArrowDown} from '@douyinfe/semi-icons';
 
 /**
- * see [antd-demo](https://codesandbox.io/s/great-mcclintock-14fl7)
+ * Aligned to Ant Design API，便于迁移。see [antd-demo](https://codesandbox.io/s/great-mcclintock-14fl7)
  */
 const Demo = () => {
     const childrenRecordName = 'children';
