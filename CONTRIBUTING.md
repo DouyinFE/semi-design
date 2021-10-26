@@ -25,7 +25,7 @@ git checkout beta
 npm run bootstrap
 ```
  - 接下来进行你想要做的修改，可以是bug修复，也可以是新功能的开发
- - 你可以通过运行storybook(`npm start`)和官网(`npm run docstie`)来验证逻辑
+ - 你可以通过运行storybook(`npm start`)和官网(`npm run docsite`)来验证逻辑
  - 为你的修改编写测试用例，并确保测试通过
 ```bash
 npm run test:unit
