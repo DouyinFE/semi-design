@@ -77,7 +77,7 @@ Semi UI supports all major modern browsers.
 
 Read the contributing guide to learn about our development process, how to propose bugfixes and improvements, and how to build and test your changes to Semi UI.
 
-See [CONTRIBUTING](CONTRIBUTING.md) documentation.
+See [CONTRIBUTING](CONTRIBUTING-en-US.md) documentation.
 
 # 🎈 License
 
