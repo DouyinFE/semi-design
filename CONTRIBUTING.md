@@ -19,6 +19,10 @@ Semi Design 团队会认真对待每一个 Pull Request。我们会 review 并�
 git clone https://github.com/<your-username>/semi-design.git
 cd semi-design
 ```
+安装环境前确保本地有`lerna`的依赖，如果没有则运行：
+```bash
+npm install --global lerna
+```
  - 切换到 `beta` 分支，完成项目依赖安装
 ```bash
 git checkout beta

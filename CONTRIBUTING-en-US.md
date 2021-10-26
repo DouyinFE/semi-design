@@ -16,6 +16,10 @@ To open a Pull Request, please follow the steps below:
 git clone https://github.com/<your-username>/semi-design.git
 cd semi-design
 ```
+Before installing the enviroment,make sure that there is a dependency of `lerna` locally, if not, should run:
+```bash
+npm install --global lerna
+```
  - Checkout to `beta` branch, install the dependencies
 ```bash
 git checkout beta
