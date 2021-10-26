@@ -1,6 +1,6 @@
 import React, { useState, useLayoutEffect } from 'react';
 import { Form, Select } from '../../../index';
-import { IconTiktokLogo } from '@douyinfe/semi-icons';
+import { IconSemiLogo } from '@douyinfe/semi-icons';
 
 const { Option } = Select;
 class AssistComponent extends React.Component {
@@ -67,7 +67,7 @@ class AssistComponent extends React.Component {
                             我是一个传string label的slot
                         </div>
                     </Form.Slot>
-                    <Form.Slot label={<IconTiktokLogo />}>
+                    <Form.Slot label={<IconSemiLogo />}>
                         <div
                             style={{
                                 display: 'flex',
@@ -78,7 +78,7 @@ class AssistComponent extends React.Component {
                             我是一个传ReactNode label的slot
                         </div>
                     </Form.Slot>
-                    <Form.Slot label={<IconTiktokLogo />} error={'我是slot的错误信息'}>
+                    <Form.Slot label={<IconSemiLogo />} error={'我是slot的错误信息'}>
                         <div>我是一个带error的slot</div>
                     </Form.Slot>
                     <Form.Slot

@@ -66,12 +66,12 @@ describe('TagInput', () => {
 
     it('TagInput with defaultValue', () => {
         const props = {
-            defaultValue: ['tiktok', 'hotsoon']
+            defaultValue: ['abc', 'hotsoon']
         };
         const tagInput = getTagInput(props);
         const tags = tagInput.find(`.${BASE_CLASS_PREFIX}-tagInput-wrapper .${BASE_CLASS_PREFIX}-tag-content`);
         expect(tags.length).toEqual(2);
-        expect(tags.at(0).getDOMNode().textContent).toEqual('tiktok');
+        expect(tags.at(0).getDOMNode().textContent).toEqual('abc');
         expect(tags.at(1).getDOMNode().textContent).toEqual('hotsoon');
         tagInput.unmount();
     });
@@ -88,13 +88,13 @@ describe('TagInput', () => {
     it('TagInput with separator', () => {
         const props = {
             separator: '-',
-            inputValue: 'tiktok-hotsoon'
+            inputValue: 'abc-hotsoon'
         }
         const tagInput = getTagInput(props);
         tagInput.find('input').simulate('keyDown', { keyCode: 13 });
         const tags = tagInput.find(`.${BASE_CLASS_PREFIX}-tagInput-wrapper .${BASE_CLASS_PREFIX}-tag-content`);
         expect(tags.length).toEqual(2);
-        expect(tags.at(0).getDOMNode().textContent).toEqual('tiktok');
+        expect(tags.at(0).getDOMNode().textContent).toEqual('abc');
         expect(tags.at(1).getDOMNode().textContent).toEqual('hotsoon');
         tagInput.unmount();
     });
@@ -103,13 +103,13 @@ describe('TagInput', () => {
     it('TagInput with arrat type separator', () => {
         const props = {
             separator: ['-','/','*'],
-            inputValue: 'tiktok-hotsoon/pipixi*qingyan'
+            inputValue: 'abc-hotsoon/pipixi*qingyan'
         }
         const tagInput = getTagInput(props);
         tagInput.find('input').simulate('keyDown', { keyCode: 13 });
         const tags = tagInput.find(`.${BASE_CLASS_PREFIX}-tagInput-wrapper .${BASE_CLASS_PREFIX}-tag-content`);
         expect(tags.length).toEqual(4);
-        expect(tags.at(0).getDOMNode().textContent).toEqual('tiktok');
+        expect(tags.at(0).getDOMNode().textContent).toEqual('abc');
         expect(tags.at(1).getDOMNode().textContent).toEqual('hotsoon');
         expect(tags.at(2).getDOMNode().textContent).toEqual('pipixi');
         expect(tags.at(3).getDOMNode().textContent).toEqual('qingyan');
@@ -121,7 +121,7 @@ describe('TagInput', () => {
         const spyOnRemove = sinon.spy(value => { });
         const spyOnChange = sinon.spy(value => { });
         const props = {
-            defaultValue: ['tiktok', 'hotsoon', 'toutiao', 'lark'],
+            defaultValue: ['abc', 'hotsoon', 'toutiao', 'lark'],
             onRemove: spyOnRemove,
             onChange: spyOnChange,
             showClear: true
@@ -136,11 +136,11 @@ describe('TagInput', () => {
 
         //click tagCloseBtn
         expect(spyOnRemove.getCall(0).args[0]).toEqual('hotsoon');
-        expect(spyOnChange.getCall(0).args[0]).toEqual(['tiktok', 'toutiao', 'lark']);
+        expect(spyOnChange.getCall(0).args[0]).toEqual(['abc', 'toutiao', 'lark']);
 
         //enter basespace
         expect(spyOnRemove.getCall(1).args[0]).toEqual('lark');
-        expect(spyOnChange.getCall(1).args[0]).toEqual(['tiktok', 'toutiao']);
+        expect(spyOnChange.getCall(1).args[0]).toEqual(['abc', 'toutiao']);
 
         //click clearBtn
         expect(spyOnChange.getCall(2).args[0]).toEqual([]);
@@ -165,7 +165,7 @@ describe('TagInput', () => {
 
         // inputValue is not empty
         const props = {
-            inputValue: 'tiktok,toutiao,,,hotsoon',
+            inputValue: 'abc,toutiao,,,hotsoon',
             onChange: spyOnChange,
             defaultValue: ['lark'],
             onAdd: spyOnAdd
@@ -173,15 +173,15 @@ describe('TagInput', () => {
         const tagInput = getTagInput(props);
         tagInput.find('input').simulate('keyDown', { keyCode: 13 });
         expect(spyOnAdd.callCount).toEqual(1);
-        expect(spyOnAdd.getCall(0).args[0]).toEqual(['tiktok', 'toutiao', 'hotsoon']);
+        expect(spyOnAdd.getCall(0).args[0]).toEqual(['abc', 'toutiao', 'hotsoon']);
         expect(spyOnChange.callCount).toEqual(1);
-        expect(spyOnChange.getCall(0).args[0]).toEqual(['lark', 'tiktok', 'toutiao', 'hotsoon']);
+        expect(spyOnChange.getCall(0).args[0]).toEqual(['lark', 'abc', 'toutiao', 'hotsoon']);
         tagInput.unmount();
     });
 
     it('TagInput with max', () => {
         const props = {
-            defaultValue: ['tiktok', 'hotsoon'],
+            defaultValue: ['abc', 'hotsoon'],
             max: 2,
             inputValue: 'lark',
         };
@@ -189,14 +189,14 @@ describe('TagInput', () => {
         tagInput.find('input').simulate('keyDown', { keyCode: 13 });
         const tags = tagInput.find(`.${BASE_CLASS_PREFIX}-tagInput-wrapper .${BASE_CLASS_PREFIX}-tag-content`);
         expect(tags.length).toEqual(2);
-        expect(tags.at(0).getDOMNode().textContent).toEqual('tiktok');
+        expect(tags.at(0).getDOMNode().textContent).toEqual('abc');
         expect(tags.at(1).getDOMNode().textContent).toEqual('hotsoon');
         tagInput.unmount();
     });
 
     it('TagInput with maxTagCount', () => {
         const props = {
-            defaultValue: ['tiktok', 'hotsoon'],
+            defaultValue: ['abc', 'hotsoon'],
             maxTagCount: 2,
             inputValue: 'lark',
         };
@@ -204,7 +204,7 @@ describe('TagInput', () => {
         tagInput.find('input').simulate('keyDown', { keyCode: 13 });
         const tags = tagInput.find(`.${BASE_CLASS_PREFIX}-tagInput-wrapper .${BASE_CLASS_PREFIX}-tag-content`);
         expect(tags.length).toEqual(2);
-        expect(tags.at(0).getDOMNode().textContent).toEqual('tiktok');
+        expect(tags.at(0).getDOMNode().textContent).toEqual('abc');
         expect(tags.at(1).getDOMNode().textContent).toEqual('hotsoon');
         const n = tagInput.find(`.${BASE_CLASS_PREFIX}-tagInput-wrapper-n`);
         expect(n.at(0).getDOMNode().textContent).toEqual('+1');
@@ -227,7 +227,7 @@ describe('TagInput', () => {
         const spyOnExceed = sinon.spy(() => { });
         const props = {
             max: 2,
-            defaultValue: ['tiktok', 'hotsoon'],
+            defaultValue: ['abc', 'hotsoon'],
             inputValue: 'semi',
             onExceed: spyOnExceed
         };
@@ -279,7 +279,7 @@ describe('TagInput', () => {
     it('TagInput with addOnBlur', () => {
         const props = {
             addOnBlur: true,
-            defaultValue: ['tiktok']
+            defaultValue: ['abc']
         };
         const tagInput = getTagInput(props);
         tagInput.find('input').simulate('focus', {});
@@ -294,10 +294,10 @@ describe('TagInput', () => {
 
     it('tagInput with value controlled mode ', () => {
         const props = {
-            value: ['tiktok']
+            value: ['abc']
         };
         const tagInput = getTagInput(props);
-        expect(tagInput.find(`.${BASE_CLASS_PREFIX}-tagInput-wrapper .${BASE_CLASS_PREFIX}-tag-content`).getDOMNode().textContent).toEqual('tiktok');
+        expect(tagInput.find(`.${BASE_CLASS_PREFIX}-tagInput-wrapper .${BASE_CLASS_PREFIX}-tag-content`).getDOMNode().textContent).toEqual('abc');
         tagInput.setProps({ value: ['hotsoon'] });
         tagInput.update();
         expect(tagInput.find(`.${BASE_CLASS_PREFIX}-tagInput-wrapper .${BASE_CLASS_PREFIX}-tag-content`).getDOMNode().textContent).toEqual('hotsoon');
@@ -305,10 +305,10 @@ describe('TagInput', () => {
 
     it('tagInput with inputValue controlled mode ', () => {
         const props = {
-            inputValue: 'tiktok'
+            inputValue: 'abc'
         };
         const tagInput = getTagInput(props);
-        expect(tagInput.find('input').getDOMNode().value).toEqual('tiktok');
+        expect(tagInput.find('input').getDOMNode().value).toEqual('abc');
         tagInput.setProps({ inputValue: 'hotsoon' });
         tagInput.update();
         expect(tagInput.find('input').getDOMNode().value).toEqual('hotsoon');

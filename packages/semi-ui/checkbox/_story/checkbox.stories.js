@@ -117,7 +117,7 @@ class GroupDemo extends React.Component {
             <>
                 水平Group
                 <Checkbox.Group direction="horizontal" onChange={v => console.log(v)}>
-                    <Checkbox value="tiktok">抖音</Checkbox>
+                    <Checkbox value="dy">抖音</Checkbox>
                     <Checkbox value="hotsoon">火山</Checkbox>
                     <Checkbox value="toutiao">今日头条</Checkbox>
                     <Checkbox value="xigua">西瓜视频</Checkbox>
@@ -126,7 +126,7 @@ class GroupDemo extends React.Component {
                 <br />
                 垂直Group
                 <Checkbox.Group onChange={v => console.log(v)}>
-                    <Checkbox value="tiktok">抖音</Checkbox>
+                    <Checkbox value="dy">抖音</Checkbox>
                     <Checkbox value="hotsoon">火山</Checkbox>
                     <Checkbox value="toutiao">今日头条</Checkbox>
                     <Checkbox value="xigua">西瓜视频</Checkbox>
@@ -135,7 +135,7 @@ class GroupDemo extends React.Component {
                 <br />
                 默认Group
                 <Checkbox.Group direction="horizontal" defaultValue={['xigua']} onChange={console.log}>
-                    <Checkbox value="tiktok">抖音</Checkbox>
+                    <Checkbox value="dy">抖音</Checkbox>
                     <Checkbox value="hotsoon">火山</Checkbox>
                     <Checkbox value="toutiao">今日头条</Checkbox>
                     <Checkbox value="xigua">西瓜视频</Checkbox>
@@ -144,7 +144,7 @@ class GroupDemo extends React.Component {
                 <br />
                 受控Group
                 <Checkbox.Group direction="horizontal" value={value} onChange={console.log}>
-                    <Checkbox value="tiktok">抖音</Checkbox>
+                    <Checkbox value="dy">抖音</Checkbox>
                     <Checkbox value="hotsoon">火山</Checkbox>
                     <Checkbox value="toutiao">今日头条</Checkbox>
                     <Checkbox value="xigua">西瓜视频</Checkbox>
@@ -153,7 +153,7 @@ class GroupDemo extends React.Component {
                 <br />
                 受控Group+onChange
                 <Checkbox.Group direction="horizontal" value={value} onChange={this.onChange}>
-                    <Checkbox value="tiktok">抖音</Checkbox>
+                    <Checkbox value="dy">抖音</Checkbox>
                     <Checkbox value="hotsoon">火山</Checkbox>
                     <Checkbox value="toutiao">今日头条</Checkbox>
                     <Checkbox value="xigua">西瓜视频</Checkbox>
@@ -162,7 +162,7 @@ class GroupDemo extends React.Component {
                 <br />
                 disabled
                 <Checkbox.Group disabled>
-                    <Checkbox value="tiktok">抖音</Checkbox>
+                    <Checkbox value="dy">抖音</Checkbox>
                     <Checkbox value="hotsoon">火山</Checkbox>
                     <Checkbox value="toutiao">今日头条</Checkbox>
                     <Checkbox value="xigua">西瓜视频</Checkbox>

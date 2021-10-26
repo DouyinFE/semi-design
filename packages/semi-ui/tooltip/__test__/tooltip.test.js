@@ -309,7 +309,7 @@ it('wrapperClassName', () => {
     const wrapperWithDisabledSelect = mount(
         <Tooltip wrapperClassName='test' content={'hi bytedance'}>
             <Select disabled placeholder='请选择业务线' style={{ width: 120 }}>
-                <Select.Option value='tiktok'>抖音</Select.Option>
+                <Select.Option value='abc'>抖音</Select.Option>
                 <Select.Option value='hotsoon'>火山</Select.Option>
                 <Select.Option value='jianying' disabled>剪映</Select.Option>
                 <Select.Option value='xigua'>西瓜视频</Select.Option>

@@ -350,7 +350,7 @@ By using `header`, `footer`, etc, you could create any modal to your needs.
 ```jsx live=true
 import React from 'react';
 import { Modal, Button, List } from '@douyinfe/semi-ui';
-import { IconTiktokLogo, IconVigoLogo, IconSemiLogo } from '@douyinfe/semi-icons';
+import { IconVigoLogo, IconSemiLogo } from '@douyinfe/semi-icons';
 
 class modalDemo extends React.Component {
   constructor() {
@@ -378,7 +378,7 @@ class modalDemo extends React.Component {
   render() {
     const data = [
       {
-        icon: <IconTiktokLogo style={{fontSize: 48}} />,
+        icon: <IconSemiLogo style={{fontSize: 48}} />,
         title: 'Boost new feature adoption with Integration',
         content: 'Sample data is prepared for you to demostrate how Integration may be useful for your team'
       },

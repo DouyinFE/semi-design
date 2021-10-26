@@ -137,7 +137,7 @@ class Wrap extends React.Component {
             options: [
                 {
                     label: '抖音',
-                    value: 'tiktok',
+                    value: 'dy',
                 },
                 {
                     label: '火山',

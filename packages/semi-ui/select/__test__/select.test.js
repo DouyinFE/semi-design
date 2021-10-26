@@ -7,7 +7,7 @@ import { BASE_CLASS_PREFIX } from '../../../semi-foundation/base/constants';
 import keyCode from '../../../semi-foundation/utils/keyCode';
 
 const defaultList = [
-    { value: 'tiktok', label: 'Tiktok' },
+    { value: 'abc', label: 'Abc' },
     { value: 'hotsoon', label: 'Hotsoon' },
     { value: 'pipixia', label: 'Pipixia' },
     { value: 'toutiao', label: 'TopBuzz' },
@@ -37,7 +37,7 @@ function getSelect(props) {
 let stringData = ['semi', 'ies', 'design', 'platform'];
 
 let objectData = [
-    { email: 'semi@tiktok.com', value: 'tiktok' },
+    { email: 'semi@abc.com', value: 'abc' },
     { email: 'semi@bytedance.com', value: 'bytedance' },
     { email: 'semi@vigo.com', value: 'vigo' },
 ];
@@ -149,20 +149,20 @@ describe('Select', () => {
     it('defaultValue  (can match in optionList)', () => {
         // single select
         let props = {
-            defaultValue: 'tiktok',
+            defaultValue: 'abc',
         };
         let select = getSelect(props);
-        expect(select.find(`.${BASE_CLASS_PREFIX}-select-selection-text`).getDOMNode().textContent).toEqual('Tiktok');
+        expect(select.find(`.${BASE_CLASS_PREFIX}-select-selection-text`).getDOMNode().textContent).toEqual('Abc');
         select.unmount();
         // multiple select
         let mProps = {
-            defaultValue: ['tiktok', 'hotsoon'],
+            defaultValue: ['abc', 'hotsoon'],
             multiple: true,
         };
         const mSelect = getSelect(mProps);
         let tags = mSelect.find(`.${BASE_CLASS_PREFIX}-select-selection .${BASE_CLASS_PREFIX}-tag-content`);
         expect(tags.length).toEqual(2);
-        expect(tags.at(0).getDOMNode().textContent).toEqual('Tiktok');
+        expect(tags.at(0).getDOMNode().textContent).toEqual('Abc');
         expect(tags.at(1).getDOMNode().textContent).toEqual('Hotsoon');
         mSelect.unmount();
     });
@@ -219,7 +219,7 @@ describe('Select', () => {
         expect(select.state().isOpen).toEqual(true);
         let options = select.find(`.${BASE_CLASS_PREFIX}-select-option-list`).children();
         expect(options.length).toEqual(4);
-        expect(options.at(0).getDOMNode().textContent).toEqual('Tiktok');
+        expect(options.at(0).getDOMNode().textContent).toEqual('Abc');
         expect(options.at(1).getDOMNode().textContent).toEqual('Hotsoon');
     });
 
@@ -228,7 +228,7 @@ describe('Select', () => {
         let props = {
             defaultOpen: true,
             style: { width: 90 },
-            defaultValue: 'tiktok',
+            defaultValue: 'abc',
         };
         let defaultSelect = getSelect(props);
         // cause jsdom doesn't support layout engine like browser, so you can't access offsetWidth/scrollWidth or use getBoundingRect(), it will always return 0;
@@ -245,7 +245,7 @@ describe('Select', () => {
         let notMatchProps = {
             defaultOpen: true,
             style: { width: 90 },
-            defaultValue: 'tiktok',
+            defaultValue: 'abc',
             dropdownMatchSelectWidth: false,
         };
         let nmSelect = getSelect(notMatchProps);
@@ -266,7 +266,7 @@ describe('Select', () => {
         const select = getSelect(props);
         let candidate = select.find(`.${BASE_CLASS_PREFIX}-select-option-list`).children();
         expect(candidate.length).toEqual(4);
-        expect(candidate.at(0).getDOMNode().textContent).toEqual('Tiktok');
+        expect(candidate.at(0).getDOMNode().textContent).toEqual('Abc');
         expect(candidate.at(1).getDOMNode().textContent).toEqual('Hotsoon');
         select.unmount();
     });
@@ -281,7 +281,7 @@ describe('Select', () => {
         const select = getSelect(props);
         let candidate = select.find(`.${BASE_CLASS_PREFIX}-select-option-list`).children();
         expect(candidate.length).toEqual(5);
-        expect(candidate.at(0).getDOMNode().textContent).toEqual('Tiktok');
+        expect(candidate.at(0).getDOMNode().textContent).toEqual('Abc');
         expect(candidate.at(4).getDOMNode().textContent).toEqual('SemiDesign');
         select.unmount();
     });
@@ -289,7 +289,7 @@ describe('Select', () => {
     it('can choose more than one option when multiple is true', () => {
         const props = {
             multiple: true,
-            defaultValue: ['tiktok', 'hotsoon'],
+            defaultValue: ['abc', 'hotsoon'],
             defaultOpen: true,
         };
         const select = getSelect(props);
@@ -308,7 +308,7 @@ describe('Select', () => {
     it('multiple with maxTagCount', () => {
         const props = {
             multiple: true,
-            defaultValue: ['tiktok', 'hotsoon'],
+            defaultValue: ['abc', 'hotsoon'],
             maxTagCount: 2,
             defaultOpen: true,
         };
@@ -335,7 +335,7 @@ describe('Select', () => {
         let spyonExceed = sinon.spy(onExceed);
         const props = {
             multiple: true,
-            defaultValue: ['tiktok', 'hotsoon'],
+            defaultValue: ['abc', 'hotsoon'],
             max: 2,
             onExceed: spyonExceed,
             defaultOpen: true,
@@ -395,7 +395,7 @@ describe('Select', () => {
 
     it('option className & style & disabled & showTick', () => {
         let options = [
-            { className: 'optCls', style: { color: 'red' }, label: 'Tiktok', value: 'tiktok' },
+            { className: 'optCls', style: { color: 'red' }, label: 'Abc', value: 'abc' },
             { label: 'Vigo', value: 'vigo', disabled: true, className: 'disabled-opt' },
             { label: 'NoTick', value: 'noTick', showTick: false },
         ];
@@ -481,12 +481,12 @@ describe('Select', () => {
         const select = getSelect(props);
         // click to show input
         select.find(`.${BASE_CLASS_PREFIX}-select`).simulate('click', {});
-        let inputValue = 'tik';
+        let inputValue = 'abc';
         let event = { target: { value: inputValue } };
         select.find('input').simulate('change', event);
         let optionList = select.find(`.${BASE_CLASS_PREFIX}-select-option-list`).children();
         expect(optionList.length).toEqual(1);
-        expect(optionList.at(0).text()).toEqual('Tiktok');
+        expect(optionList.at(0).text()).toEqual('Abc');
     });
 
     it('filter = custom function', () => {
@@ -584,11 +584,11 @@ describe('Select', () => {
         });
         let props = {
             renderSelectedItem: spyRSI,
-            defaultValue: 'tiktok',
+            defaultValue: 'abc',
         };
         const select = getSelect(props);
-        expect(select.find(`.${BASE_CLASS_PREFIX}-select-selection-text`).text()).toEqual('tiktok-Tiktok');
-        expect(spyRSI.calledWith({ value: 'tiktok', label: 'Tiktok' }));
+        expect(select.find(`.${BASE_CLASS_PREFIX}-select-selection-text`).text()).toEqual('abc-Abc');
+        expect(spyRSI.calledWith({ value: 'abc', label: 'Abc' }));
     });
 
     it('renderSelectedItem, single & value = 0, not exist in optionList', () => {
@@ -613,18 +613,18 @@ describe('Select', () => {
         });
         let props = {
             optionList: [
-                { value: 'tiktok', label: 'Tiktok', extra: 'a1' },
+                { value: 'abc', label: 'Abc', extra: 'a1' },
                 { value: 'hotsoon', label: 'Hotsoon', extra: 'b2' },
                 { value: 'pipixia', label: 'Pipixia', extra: 'c3' },
                 { value: 'toutiao', label: 'TopBuzz', extra: 'd4' },
             ],
             renderSelectedItem: spyRSI,
-            defaultValue: ['tiktok', 'hotsoon'],
+            defaultValue: ['abc', 'hotsoon'],
             multiple: true,
         };
         const select = getSelect(props);
         let tags = select.find(`.${BASE_CLASS_PREFIX}-tag-content`);
-        expect(tags.at(0).text()).toEqual('tiktok-a1');
+        expect(tags.at(0).text()).toEqual('abc-a1');
         expect(tags.at(1).text()).toEqual('hotsoon-b2');
     });
 
@@ -644,13 +644,13 @@ describe('Select', () => {
         });
         let props = {
             optionList: [
-                { value: 'tiktok', label: 'Tiktok', extra: 'a1' },
+                { value: 'abc', label: 'Abc', extra: 'a1' },
                 { value: 'hotsoon', label: 'Hotsoon', extra: 'b2' },
                 { value: 'pipixia', label: 'Pipixia', extra: 'c3' },
                 { value: 'toutiao', label: 'TopBuzz', extra: 'd4' },
             ],
             renderSelectedItem: spyRSI,
-            defaultValue: ['tiktok', 'hotsoon'],
+            defaultValue: ['abc', 'hotsoon'],
             multiple: true,
         };
         const select = getSelect(props);
@@ -666,7 +666,7 @@ describe('Select', () => {
         };
         const select = getSelect(props);
         // expect first option active
-        expect(select.find(`.${BASE_CLASS_PREFIX}-select-option-focused`).text()).toEqual('Tiktok');
+        expect(select.find(`.${BASE_CLASS_PREFIX}-select-option-focused`).text()).toEqual('Abc');
     });
 
     it('onSelect', () => {
@@ -682,8 +682,8 @@ describe('Select', () => {
         const nativeEvent = { nativeEvent: { stopImmediatePropagation: noop } };
         firstOption.simulate('click', nativeEvent);
         expect(spyOnSelect.calledOnce).toBe(true);
-        expect(spyOnSelect.calledWith('tiktok', { value: 'tiktok', label: 'Tiktok' })).toBe(true);
-        expect(spyOnSelect.calledWith('tiktok', { value: 'tiktok', label: 'Tiktok', extraKey: true })).toBe(false);
+        expect(spyOnSelect.calledWith('abc', { value: 'abc', label: 'Abc' })).toBe(true);
+        expect(spyOnSelect.calledWith('abc', { value: 'abc', label: 'Abc', extraKey: true })).toBe(false);
     });
 
     it('onDeselect', () => {
@@ -694,7 +694,7 @@ describe('Select', () => {
             multiple: true,
             spyOnDeselect,
             defaultOpen: true,
-            defaultValue: ['tiktok', 'hotsoon'],
+            defaultValue: ['abc', 'hotsoon'],
             onDeselect: spyOnDeselect,
         };
         const select = getSelect(props);
@@ -719,7 +719,7 @@ describe('Select', () => {
         const nativeEvent = { nativeEvent: { stopImmediatePropagation: noop } };
         firstOption.simulate('click', nativeEvent);
         expect(spyOnChange.calledOnce).toBe(true);
-        expect(spyOnChange.calledWith('tiktok')).toBe(true);
+        expect(spyOnChange.calledWith('abc')).toBe(true);
     });
 
     it('onChange (multiple)', () => {
@@ -735,8 +735,8 @@ describe('Select', () => {
         options.at(0).simulate('click', nativeEvent);
         options.at(1).simulate('click', nativeEvent);
         expect(spyOnChange.callCount).toEqual(2);
-        expect(spyOnChange.getCall(0).args[0]).toEqual(['tiktok']);
-        expect(spyOnChange.getCall(1).args[0]).toEqual(['tiktok', 'hotsoon']);
+        expect(spyOnChange.getCall(0).args[0]).toEqual(['abc']);
+        expect(spyOnChange.getCall(1).args[0]).toEqual(['abc', 'hotsoon']);
     });
 
     it('onChange + onChangeWithObject (single)', () => {
@@ -751,7 +751,7 @@ describe('Select', () => {
         let firstOption = options.at(0);
         const nativeEvent = { nativeEvent: { stopImmediatePropagation: noop } };
         firstOption.simulate('click', nativeEvent);
-        expect(spyOnChange.calledWith({ value: 'tiktok', label: 'Tiktok' })).toBe(true);
+        expect(spyOnChange.calledWith({ value: 'abc', label: 'Abc' })).toBe(true);
     });
 
     it('onChange + onChangeWithObject (multiple)', () => {
@@ -768,9 +768,9 @@ describe('Select', () => {
         options.at(0).simulate('click', nativeEvent);
         options.at(1).simulate('click', nativeEvent);
         expect(spyOnChange.callCount).toEqual(2);
-        expect(spyOnChange.getCall(0).args[0]).toEqual([{ value: 'tiktok', label: 'Tiktok' }]);
+        expect(spyOnChange.getCall(0).args[0]).toEqual([{ value: 'abc', label: 'Abc' }]);
         expect(spyOnChange.getCall(1).args[0]).toEqual([
-            { value: 'tiktok', label: 'Tiktok' },
+            { value: 'abc', label: 'Abc' },
             { value: 'hotsoon', label: 'Hotsoon' },
         ]);
     });
@@ -778,10 +778,10 @@ describe('Select', () => {
     it('【value】controlled mode', () => {
         let props = {
             data: [],
-            value: 'tiktok',
+            value: 'abc',
         };
         let select = getSelect(props);
-        expect(select.find(`.${BASE_CLASS_PREFIX}-select-selection-text`).getDOMNode().textContent).toEqual('Tiktok');
+        expect(select.find(`.${BASE_CLASS_PREFIX}-select-selection-text`).getDOMNode().textContent).toEqual('Abc');
         select.setProps({ value: 'hotsoon' });
         select.update();
         expect(select.find(`.${BASE_CLASS_PREFIX}-select-selection-text`).getDOMNode().textContent).toEqual('Hotsoon');
@@ -965,7 +965,7 @@ describe('Select', () => {
         let props = {
             defaultOpen: true,
             optionList: [
-                { value: 'tiktok', label: '抖音', },
+                { value: 'abc', label: '抖音', },
                 { value: 'jianying', label: '剪映', },
             ],
             renderOptionItem

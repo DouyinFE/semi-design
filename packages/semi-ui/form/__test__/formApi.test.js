@@ -13,7 +13,7 @@ function getForm(props) {
 const Option = Select.Option;
 const FormSelect = (
     <Form.Select label="business" field="business" style={{ width: 200 }}>
-        <Option value="tiktok">Tiktok</Option>
+        <Option value="abc">Abc</Option>
         <Option value="hotsoon">Hotsoon</Option>
         <Option value="topbuzz">TopBuzz</Option>
     </Form.Select>
@@ -67,7 +67,7 @@ describe('Form-formApi', () => {
         };
         let initValues = {
             name: 'semi',
-            business: 'tiktok',
+            business: 'abc',
         };
         let props = {
             initValues,
@@ -76,7 +76,7 @@ describe('Form-formApi', () => {
         };
         const form = getForm(props);
         expect(formApi.getInitValue('name')).toEqual('semi');
-        expect(formApi.getInitValue('business')).toEqual('tiktok');
+        expect(formApi.getInitValue('business')).toEqual('abc');
         expect(formApi.getInitValue('notExistField')).toEqual(undefined);
         expect(formApi.getInitValue()).toEqual(initValues);
         expect(formApi.getInitValues()).toEqual(initValues);
@@ -266,7 +266,7 @@ describe('Form-formApi', () => {
         const form = getForm(props);
         let expectVal = {
             name: 'semi',
-            business: 'tiktok',
+            business: 'abc',
             extraKeyB: 'Kay tse',
         };
         formApi.setValues(expectVal, { isOverride: true });
@@ -289,10 +289,10 @@ describe('Form-formApi', () => {
         const form = getForm(props);
         let expectVal = {
             name: 'semi',
-            business: 'tiktok',
+            business: 'abc',
             extraKeyB: 'not exist',
         };
-        let mergeVal = { name: 'semi', business: 'tiktok', extraKeyA: 'uno' };
+        let mergeVal = { name: 'semi', business: 'abc', extraKeyA: 'uno' };
         formApi.setValues(expectVal);
         expect(formApi.getValue()).toEqual(mergeVal);
     });

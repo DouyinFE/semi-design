@@ -6,11 +6,11 @@ const { Option } = Select;
 export default function Demo() {
     return (
         <Select
-            defaultValue="tiktok"
+            defaultValue="abc"
             style={{ width: 120 }}
             triggerRender={({ value }) => <Button>{value && value[0] && value[0].value}</Button>}
         >
-            <Option value="tiktok">抖音</Option>
+            <Option value="abc">抖音</Option>
             <Option value="hotsoon">火山</Option>
             <Option value="pipixia" disabled>
                 皮皮虾

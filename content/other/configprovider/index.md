@@ -80,7 +80,7 @@ function Demo(props = {}) {
 ```jsx live=true dir="column" hideInDSM
 import React, { useState } from 'react';
 import { ConfigProvider, ButtonGroup, Button, Row, Col, Spin, Notification, DatePicker, TimePicker, Timeline, Popover, Tag, Tooltip, Badge, Avatar, Steps, Pagination, Modal, Breadcrumb, Rating, Nav, Spin, Cascader, Radio, Select, Input, Typography, TextArea, Checkbox, Switch } from '@douyinfe/semi-ui';
-import { IconTiktokLogo, IconVigoLogo, IconEdit, IconCamera, IconList, IconSidebar, IconChevronDown } from '@douyinfe/semi-icons';
+import { IconVigoLogo, IconEdit, IconCamera, IconList, IconSidebar, IconChevronDown } from '@douyinfe/semi-icons';
 
 function Demo(props = {}) {
     const { Option } = Select;
@@ -203,21 +203,21 @@ function Demo(props = {}) {
                     <TimePicker style={{width: '100%'}} />
                     <br/><br/>
                     <Select style={{ width: '100%' }} placeholder="选择器-单选">
-                      <Option value='tiktok'>抖音</Option>
+                      <Option value='abc'>抖音</Option>
                       <Option value='hotsoon'>火山</Option>
                       <Option value='pipixia' disabled>皮皮虾</Option>
                       <Option value='xigua'>西瓜视频</Option>
                     </Select>
                     <br/><br/>
                     <Select disabled style={{ width: '100%' }} placeholder="选择器-禁用">
-                      <Option value='tiktok'>抖音</Option>
+                      <Option value='abc'>抖音</Option>
                       <Option value='hotsoon'>火山</Option>
                       <Option value='pipixia' disabled>皮皮虾</Option>
                       <Option value='xigua'>西瓜视频</Option>
                     </Select>
                     <br/><br/>
                     <Select multiple style={{ width: '100%' }} placeholder="选择器-多选">
-                      <Option value='tiktok'>抖音</Option>
+                      <Option value='abc'>抖音</Option>
                       <Option value='hotsoon'>火山</Option>
                       <Option value='pipixia' disabled>皮皮虾</Option>
                       <Option value='xigua'>西瓜视频</Option>
@@ -341,8 +341,8 @@ function Demo(props = {}) {
                     <Button
                         style={buttonStyle}
                         ghost={false}
-                        icon={<IconTiktokLogo />}
-                        onClick={() => Notification.info({ ...opts, icon: <IconTiktokLogo /> })}
+                        icon={<IconVigoLogo />}
+                        onClick={() => Notification.info({ ...opts, icon: <IconVigoLogo /> })}
                     />
                     <Button
                         style={buttonStyle}

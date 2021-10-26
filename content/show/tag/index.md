@@ -155,14 +155,14 @@ import { TagGroup } from '@douyinfe/semi-ui';
   const tagList = [
     { color: 'white', children:'抖音'},
     { color: 'white', children:'火山小视频'},
-    { color: 'white', children:'tiktok'},
+    { color: 'white', children:'剪映'},
     { color: 'white', children:'皮皮虾'},
   ];
   const src = 'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg'
   const tagList2 = [
     { color: 'white', children:'Douyin', avatarSrc:src},
     { color: 'white', children:'Hotsoon', avatarSrc:src},
-    { color: 'white', children:'Tiktok', avatarSrc:src},
+    { color: 'white', children:'Capcut', avatarSrc:src},
     { color: 'white', children:'Pipixia', avatarSrc:src},
   ];
   const divStyle = {

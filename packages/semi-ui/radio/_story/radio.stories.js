@@ -370,19 +370,19 @@ stories.add(`radioGroup button style`, () => {
         return (
             <Space vertical spacing='loose' align='start'>
                 <RadioGroup type='button' buttonSize='small' onChange={onChange1} value={value1}>
-                    <Radio value={1}>tiktok</Radio>
+                    <Radio value={1}>semi</Radio>
                     <Radio value={2}>pipixia</Radio>
                     <Radio value={3}>hotsoon</Radio>
                     <Radio value={4}>toutiao</Radio>
                 </RadioGroup>
                 <RadioGroup type='button' buttonSize='middle' onChange={onChange2} value={value2}>
-                    <Radio value={1}>tiktok</Radio>
+                    <Radio value={1}>semi</Radio>
                     <Radio value={2}>pipixia</Radio>
                     <Radio value={3}>hotsoon</Radio>
                     <Radio value={4}>toutiao</Radio>
                 </RadioGroup>
                 <RadioGroup type='button' buttonSize='large' onChange={onChange3} value={value3}>
-                    <Radio value={1}>tiktok</Radio>
+                    <Radio value={1}>semi</Radio>
                     <Radio value={2}>pipixia</Radio>
                     <Radio value={3}>hotsoon</Radio>
                     <Radio value={4}>toutiao</Radio>

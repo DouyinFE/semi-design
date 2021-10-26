@@ -25,7 +25,7 @@ import { TagInput } from '@douyinfe/semi-ui';
 
 () => (
     <TagInput
-        defaultValue={['Tiktok','Hotsoon','Pipixia']}
+        defaultValue={['Semi','Hotsoon','Pipixia']}
         placeholder='Please enter...'
         onChange={v => console.log(v)}
     />
@@ -68,7 +68,7 @@ import { TagInput } from '@douyinfe/semi-ui';
 () => (
     <TagInput 
         showClear 
-        defaultValue={['Tiktok','Hotsoon']} 
+        defaultValue={['Semi','Hotsoon']} 
         placeholder='Please enter...'
         onChange={v => console.log(v)}
     />
@@ -86,7 +86,7 @@ import { TagInput } from '@douyinfe/semi-ui';
     <TagInput 
         disabled 
         showClear 
-        defaultValue={['Tiktok','Hotsoon','Pipixia']} 
+        defaultValue={['Semi','Hotsoon','Pipixia']} 
         placeholder='Please enter...'
     />
 )
@@ -165,7 +165,7 @@ import { TagInput } from '@douyinfe/semi-ui';
 () => (
     <TagInput
         allowDuplicates={false}
-        defaultValue={['Tiktok','Hotsoon','Pipixia']} 
+        defaultValue={['Semi','Hotsoon','Pipixia']} 
         placeholder='Please enter...'
         onChange={v => console.log(v)}
     />
@@ -183,7 +183,7 @@ import { TagInput } from '@douyinfe/semi-ui';
 () => (
     <TagInput
         addOnBlur={true}
-        defaultValue={['Tiktok','Hotsoon','Pipixia']} 
+        defaultValue={['Semi','Hotsoon','Pipixia']} 
         placeholder='Please enter...'
         onChange={v => console.log(v)}
     />
@@ -238,7 +238,7 @@ import { TagInput } from '@douyinfe/semi-ui';
         maxTagCount={2}
         showRestTagsPopover={true}
         restTagsPopoverProps={{ position: 'top' }}
-        defaultValue={['Tiktok','Hotsoon','Pipixia']} 
+        defaultValue={['Semi','Hotsoon','Pipixia']} 
     />
 )
 ```
@@ -255,7 +255,7 @@ class TagInputDemo extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: ['tiktok']
+            value: ['abc']
         };
     }
     onChange(value) {
@@ -284,7 +284,7 @@ class TagInputDemo extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: 'tiktok'
+            value: 'abc'
         }
     }
     handleInputChange(value, event) {
@@ -309,7 +309,7 @@ import { TagInput } from '@douyinfe/semi-ui';
 
 () => (
     <TagInput 
-        defaultValue={['Tiktok','Hotsoon','Pipixia']} 
+        defaultValue={['Semi','Hotsoon','Pipixia']} 
         showClear 
         onFocus={e =>{console.log(`onFocus`);}} 
         onBlur={e=>{console.log(`onBlur`);}} 
@@ -343,7 +343,7 @@ class TagInputDemo extends React.Component {
     render() {
         return (
             <>
-                <TagInput defaultValue={['Tiktok','Hotsoon']} ref={this.ref} />
+                <TagInput defaultValue={['Semi','Hotsoon']} ref={this.ref} />
                 <Button style={{marginTop:10}} onClick={this.handleTagInputFocus}>
                     focus
                 </Button>

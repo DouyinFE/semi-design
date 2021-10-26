@@ -14,11 +14,11 @@ const SelectSection = () => {
 
     return (
         <Select
-            defaultValue="tiktok"
+            defaultValue="abc"
             style={{ width: 120 }}
             getPopupContainer={() => document.querySelector('#popup-container')}
         >
-            <Option value="tiktok">抖音</Option>
+            <Option value="abc">抖音</Option>
             <Option value="hotsoon">火山</Option>
             <Option value="pipixia" disabled>
                 皮皮虾

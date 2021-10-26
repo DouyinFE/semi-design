@@ -9,7 +9,7 @@ export default class ObjectDemo extends React.Component {
         this.state = {
             list: [
                 {
-                    value: 'tiktok',
+                    value: 'douyin',
                     label: 'douyin',
                     email: '1@gmail.com',
                     type: 2,

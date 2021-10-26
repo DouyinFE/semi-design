@@ -32,20 +32,20 @@ import { Select } from '@douyinfe/semi-ui';
 
 () => (
   <>
-    <Select defaultValue='tiktok' style={{ width: 120 }}>
-        <Select.Option value='tiktok'>抖音</Select.Option>
+    <Select defaultValue='abc' style={{ width: 120 }}>
+        <Select.Option value='abc'>抖音</Select.Option>
         <Select.Option value='hotsoon'>火山</Select.Option>
         <Select.Option value='jianying' disabled>剪映</Select.Option>
         <Select.Option value='xigua'>西瓜视频</Select.Option>
     </Select>
     <br/><br/>
-    <Select style={{ width: '180px' }} defaultValue='tiktok' disabled style={{ width: 120 }}>
-        <Select.Option value='tiktok'>抖音</Select.Option>
+    <Select style={{ width: '180px' }} defaultValue='abc' disabled style={{ width: 120 }}>
+        <Select.Option value='abc'>抖音</Select.Option>
         <Select.Option value='hotsoon'>火山</Select.Option>
     </Select>
     <br/><br/>
     <Select placeholder='请选择业务线' style={{ width: 120 }}>
-        <Select.Option value='tiktok'>抖音</Select.Option>
+        <Select.Option value='abc'>抖音</Select.Option>
         <Select.Option value='hotsoon'>火山</Select.Option>
         <Select.Option value='jianying' disabled>剪映</Select.Option>
         <Select.Option value='xigua'>西瓜视频</Select.Option>
@@ -64,7 +64,7 @@ import { Select } from '@douyinfe/semi-ui';
 
 () => {
   const list = [
-    { value: 'tiktok', label: '抖音', otherKey:0 },
+    { value: 'abc', label: '抖音', otherKey:0 },
     { value: 'hotsoon', label: '火山小视频', disabled: true, otherKey: 1 },
     { value: 'jianying', label: '剪映', otherKey: 2 },
     { value: 'toutiao', label: '今日头条', otherKey: 3 },
@@ -90,23 +90,23 @@ import { Select } from '@douyinfe/semi-ui';
 
 () => (
   <>
-    <Select multiple style={{ width: '320px' }} defaultValue={['tiktok','hotsoon']}>
-      <Select.Option value='tiktok'>抖音</Select.Option>
+    <Select multiple style={{ width: '320px' }} defaultValue={['abc','hotsoon']}>
+      <Select.Option value='abc'>抖音</Select.Option>
       <Select.Option value='hotsoon'>火山</Select.Option>
       <Select.Option value='jianying'>剪映</Select.Option>
       <Select.Option value='xigua'>西瓜视频</Select.Option>
     </Select>
     <br/><br/>
-    <Select multiple style={{ width: '320px' }} defaultValue={['tiktok','hotsoon', 'jianying']} maxTagCount={2}>
-      <Select.Option value='tiktok'>抖音</Select.Option>
+    <Select multiple style={{ width: '320px' }} defaultValue={['abc','hotsoon', 'jianying']} maxTagCount={2}>
+      <Select.Option value='abc'>抖音</Select.Option>
       <Select.Option value='hotsoon'>火山</Select.Option>
       <Select.Option value='jianying'>剪映</Select.Option>
       <Select.Option value='xigua'>西瓜视频</Select.Option>
     </Select>
 
     <br/><br/>
-    <Select multiple style={{ width: '320px' }} defaultValue={['tiktok']} max={2} onExceed={()=>Toast.warning('最多只允许选择两项')}>
-      <Select.Option value='tiktok'>抖音</Select.Option>
+    <Select multiple style={{ width: '320px' }} defaultValue={['abc']} max={2} onExceed={()=>Toast.warning('最多只允许选择两项')}>
+      <Select.Option value='abc'>抖音</Select.Option>
       <Select.Option value='hotsoon'>火山</Select.Option>
       <Select.Option value='jianying'>剪映</Select.Option>
       <Select.Option value='xigua'>西瓜视频</Select.Option>
@@ -266,7 +266,7 @@ import { IconVigoLogo, IconGift } from '@douyinfe/semi-icons';
       prefix={<IconVigoLogo />}
       showClear={true}
     >
-      <Select.Option value='tiktok'>抖音</Select.Option>
+      <Select.Option value='abc'>抖音</Select.Option>
       <Select.Option value='hotsoon'>火山</Select.Option>
       <Select.Option value='jianying'>剪映</Select.Option>
       <Select.Option value='xigua'>西瓜视频</Select.Option>
@@ -279,7 +279,7 @@ import { IconVigoLogo, IconGift } from '@douyinfe/semi-icons';
       suffix={<IconGift />}
       showArrow={false}
     >
-      <Select.Option value='tiktok'>抖音</Select.Option>
+      <Select.Option value='abc'>抖音</Select.Option>
       <Select.Option value='hotsoon'>火山</Select.Option>
       <Select.Option value='jianying'>剪映</Select.Option>
       <Select.Option value='xigua'>西瓜视频</Select.Option>
@@ -299,14 +299,14 @@ import { Select } from '@douyinfe/semi-ui';
 
 () => {
   const list = [
-    { value: 'tiktok', label: '抖音' },
+    { value: 'abc', label: '抖音' },
     { value: 'hotsoon', label: '火山小视频' },
     { value: 'jianying', label: '剪映' },
     { value: 'toutiao', label: '今日头条' },
   ]
   return (
     <>
-      <Select style={{ width: 300 }} optionList={list} insetLabel='业务线' defaultValue='tiktok'>
+      <Select style={{ width: 300 }} optionList={list} insetLabel='业务线' defaultValue='abc'>
       </Select>
       <br/><br/>
       <Select
@@ -373,7 +373,7 @@ import { Select } from '@douyinfe/semi-ui';
               autoAdjustOverflow={false}
               position='bottom'
           >
-                <Select.Option value='tiktok'>抖音</Select.Option>
+                <Select.Option value='abc'>抖音</Select.Option>
                 <Select.Option value='hotsoon'>火山</Select.Option>
                 <Select.Option value='jianying'>剪映</Select.Option>
                 <Select.Option value='duoshan'>多闪</Select.Option>
@@ -387,7 +387,7 @@ import { Select } from '@douyinfe/semi-ui';
               innerBottomSlot={innerSlotNode}
               placeholder='自定义内侧底部slot'
           >
-                <Select.Option value='tiktok'>抖音</Select.Option>
+                <Select.Option value='abc'>抖音</Select.Option>
                 <Select.Option value='hotsoon'>火山</Select.Option>
                 <Select.Option value='jianying'>剪映</Select.Option>
                 <Select.Option value='duoshan'>多闪</Select.Option>
@@ -500,7 +500,7 @@ import { Select } from '@douyinfe/semi-ui';
   return (
     <>
       <Select value={value} style={{ width: '300px' }} onChange={setValue} placeholder='受控的Select'>
-        <Select.Option value='tiktok'>抖音</Select.Option>
+        <Select.Option value='abc'>抖音</Select.Option>
         <Select.Option value='hotsoon'>火山</Select.Option>
         <Select.Option value='jianying'>剪映</Select.Option>
         <Select.Option value='xigua'>西瓜视频</Select.Option>
@@ -619,14 +619,14 @@ import { Select } from '@douyinfe/semi-ui';
 () => (
   <>
     <Select filter style={{ width: 180 }} placeholder='带搜索功能的单选'>
-      <Select.Option value='tiktok'>抖音</Select.Option>
+      <Select.Option value='abc'>抖音</Select.Option>
       <Select.Option value='hotsoon'>火山</Select.Option>
       <Select.Option value='jianying'>剪映</Select.Option>
       <Select.Option value='xigua'>西瓜视频</Select.Option>
     </Select>
     <br/><br/>
     <Select filter multiple style={{ width: 300 }} placeholder='带搜索功能的多选'>
-      <Select.Option value='tiktok'>抖音</Select.Option>
+      <Select.Option value='abc'>抖音</Select.Option>
       <Select.Option value='hotsoon'>火山</Select.Option>
       <Select.Option value='jianying'>剪映</Select.Option>
       <Select.Option value='xigua'>西瓜视频</Select.Option>
@@ -654,7 +654,7 @@ class SearchDemo extends React.Component {
         this.state = {
             loading: false,
             optionList: [
-                { value: 'tiktok', label: '抖音', type: 1 },
+                { value: 'abc', label: '抖音', type: 1 },
                 { value: 'hotsoon', label: '火山小视频', type: 2 },
                 { value: 'jianying', label: '剪映', type: 3 },
                 { value: 'toutiao', label: '今日头条', type: 4 },
@@ -744,8 +744,8 @@ import { Select } from '@douyinfe/semi-ui';
     return label.includes(sug);
   }
   return (
-    <Select filter={searchLabel} style={{ width: '180px' }} placeholder='try tiktok'>
-        <Select.Option value='tiktok'>TIKTOK</Select.Option>
+    <Select filter={searchLabel} style={{ width: '180px' }} placeholder='try abc'>
+        <Select.Option value='abc'>ABC</Select.Option>
         <Select.Option value='hotsoon'>HOTSOON</Select.Option>
         <Select.Option value='jianying'>PIPIXIA</Select.Option>
         <Select.Option value='xigua'>XIGUA</Select.Option>
@@ -906,7 +906,7 @@ import { Select } from '@douyinfe/semi-ui';
 
 () => (
   <Select placeholder='自定义弹出层样式的' style={{ width: 180 }} dropdownStyle={{ width: 250 }} dropdownClassName='test'>
-      <Select.Option value='tiktok'>抖音</Select.Option>
+      <Select.Option value='abc'>抖音</Select.Option>
       <Select.Option value='hotsoon'>火山</Select.Option>
       <Select.Option value='jianying'>剪映</Select.Option>
       <Select.Option value='xigua'>西瓜视频</Select.Option>
@@ -929,7 +929,7 @@ import { Select, TextArea } from '@douyinfe/semi-ui';
 
 () => {
     const list = [
-      { value: 'tiktok', label: '抖音', type: 1 },
+      { value: 'abc', label: '抖音', type: 1 },
       { value: 'hotsoon', label: '火山', type: 2 },
       { value: 'jianying', label: '剪映', type: 3 },
       { value: 'toutiao', label: '今日头条', type: 4 },
@@ -997,7 +997,7 @@ import { Select } from '@douyinfe/semi-ui';
 
 () => {
   const optionList = [
-    { value: 'tiktok', label: '抖音' },
+    { value: 'abc', label: '抖音' },
     { value: 'hotsoon', label: '火山小视频' },
     { value: 'jianying', label: '剪映' },
     { value: 'toutiao', label: '今日头条' },
@@ -1101,10 +1101,10 @@ import { Select } from '@douyinfe/semi-ui';
 import { IconAppCenter, IconChevronDown } from '@douyinfe/semi-icons';
 
 () => {
-  const [valList, setValList] = useState(['tiktok', 'hotsoon']);
-  const [val, setVal] = useState('tiktok');
+  const [valList, setValList] = useState(['abc', 'hotsoon']);
+  const [val, setVal] = useState('abc');
   const list = [
-    { value: 'tiktok', label: '抖音' },
+    { value: 'abc', label: '抖音' },
     { value: 'hotsoon', label: '火山小视频' },
     { value: 'jianying', label: '剪映' },
     { value: 'toutiao', label: '今日头条' },
@@ -1233,7 +1233,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
     };
 
     const optionList = [
-      { value: 'tiktok', label: '抖音', otherKey:0 },
+      { value: 'abc', label: '抖音', otherKey:0 },
       { value: 'hotsoon', label: '火山小视频', disabled: true, otherKey: 1 },
       { value: 'jianying', label: '剪映', otherKey: 2 },
       { value: 'toutiao', label: '今日头条', otherKey: 3 },
@@ -1441,7 +1441,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
         ```
           <Select placeholder='choose company by app'>
             <Option label='vigo' value='bytedance' />
-            <Option label='tiktok' value='bytedance' />
+            <Option label='abc' value='bytedance' />
           </Select>
         ```
 

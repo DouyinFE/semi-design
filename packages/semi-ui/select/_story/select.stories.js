@@ -120,7 +120,7 @@ const AutoFocusDemo = () => {
                 onFocus={() => console.log('onFocus')}
                 onBlur={() => console.log('onBlur')}
             >
-                <Option value="tiktok">抖音</Option>
+                <Option value="abc">抖音</Option>
                 <Option value="hotsoon">火山</Option>
                 <Option value="pipixia">皮皮虾</Option>
                 <Option value="duoshan">多闪</Option>
@@ -146,7 +146,7 @@ stories.add('innerTopSlot / outerTopSlot', () => {
                     }}
                     maxHeight={150}
                 >
-                    <Option value="tiktok">抖音</Option>
+                    <Option value="abc">抖音</Option>
                     <Option value="hotsoon">火山</Option>
                     <Option value="pipixia">皮皮虾</Option>
                     <Option value="duoshan">多闪</Option>
@@ -162,7 +162,7 @@ stories.add('innerTopSlot / outerTopSlot', () => {
                     }}
                     maxHeight={150}
                 >
-                    <Option value="tiktok">抖音</Option>
+                    <Option value="abc">抖音</Option>
                     <Option value="hotsoon">火山</Option>
                     <Option value="pipixia">皮皮虾</Option>
                     <Option value="duoshan">多闪</Option>
@@ -194,9 +194,9 @@ let options = [
         otherKey: 'all semi',
     },
     {
-        value: 'tiktok',
+        value: 'abc',
         label: '抖音',
-        otherKey: 'tiktok semi',
+        otherKey: 'abc semi',
     },
     {
         value: 'hotsoon',
@@ -260,7 +260,7 @@ stories.add('select size', () => (
             }}
         ></Select>
         <Select
-            defaultValue={'tiktok'}
+            defaultValue={'abc'}
             size="large"
             optionList={options}
             style={{
@@ -1479,7 +1479,7 @@ class SearchDemo2 extends React.Component {
             loading: false,
             optionList: [
                 {
-                    value: 'tiktok',
+                    value: 'abc',
                     label: '抖音',
                     type: 1,
                 },
@@ -1665,7 +1665,7 @@ let AllowCreateControledDemo = () => {
     let [value, setValue] = useState();
     const optionList = [
         {
-            value: 'tiktok',
+            value: 'abc',
             label: '抖音',
         },
         {
@@ -1716,7 +1716,7 @@ const AllowCreateDemo = () => {
     let [value, setValue] = useState();
     const optionList = [
         {
-            value: 'tiktok',
+            value: 'abc',
             label: '抖音',
         },
         {
@@ -1753,7 +1753,7 @@ const AllowCreateDemo = () => {
                 width: 400,
             }}
             optionList={list}
-            defaultValue={['tiktok', 'hotsoon']}
+            defaultValue={['abc', 'hotsoon']}
             allowCreate={true}
             multiple={true}
             filter={true}
@@ -1770,7 +1770,7 @@ class HideDemo extends React.Component {
         this.state = {
             optionList: [
                 {
-                    value: 'tiktok',
+                    value: 'abc',
                     label: '抖音',
                 },
                 {
@@ -1822,7 +1822,7 @@ class CustomCreate extends React.Component {
         this.state = {
             optionList: [
                 {
-                    value: 'tiktok',
+                    value: 'abc',
                     label: '抖音',
                 },
                 {
@@ -1901,7 +1901,7 @@ class CustomCreate extends React.Component {
         return (
             <>
                 <Select
-                    defaultValue={['tiktok']}
+                    defaultValue={['abc']}
                     filter
                     style={{
                         width: 300,
@@ -2047,7 +2047,7 @@ stories.add('Select onBlur/onFocus', () => <BlurDemo></BlurDemo>); // stories.ad
 const AutoAdjustOverflowDemo = () => {
     const [list, setList] = useState([
         {
-            value: 'tiktok',
+            value: 'abc',
             label: '1111',
         },
         {
@@ -2107,8 +2107,8 @@ stories.add('autoAdjustOverflow', () => <AutoAdjustOverflowDemo></AutoAdjustOver
 const AllowCreateWithFilter = () => {
     const [list, setList] = useState([
         {
-            value: 'tiktok',
-            label: 'tiktok',
+            value: 'abc',
+            label: 'abc',
             otherKey: 'abc',
         },
         {
@@ -2162,8 +2162,8 @@ const SelectRefDemo = () => {
     const [open, setOpen] = useState(false);
     const list = [
         {
-            value: 'tiktok',
-            label: 'Tiktok',
+            value: 'abc',
+            label: 'Abc',
         },
         {
             value: 'hotsoon',
@@ -2334,12 +2334,12 @@ const SelectPosition = () => {
             <p>p</p>
             <p>p</p>
             <Select
-                defaultValue="tiktok"
+                defaultValue="abc"
                 style={{
                     width: 120,
                 }}
             >
-                <Option value="tiktok">抖音</Option>
+                <Option value="abc">抖音</Option>
                 <Option value="hotsoon">火山</Option>
                 <Option value="pipixia" disabled>
                     皮皮虾

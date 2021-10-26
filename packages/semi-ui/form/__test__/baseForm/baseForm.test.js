@@ -12,7 +12,7 @@ function getForm(props) {
 const Option = Select.Option;
 const FormSelect = (
     <Form.Select label="business" field="business" style={{ width: 200 }}>
-        <Option value="tiktok">Tiktok</Option>
+        <Option value="abc">Abc</Option>
         <Option value="hotsoon">Hotsoon</Option>
         <Option value="topbuzz">TopBuzz</Option>
     </Form.Select>
@@ -348,12 +348,12 @@ describe('Form-baseForm', () => {
         let props = {
             initValues: {
                 name: 'semi',
-                business: 'tiktok',
+                business: 'abc',
             },
             children: fields,
         };
         const form = getForm(props);
-        expect(form.find(`.${BASE_CLASS_PREFIX}-select-selection-text`).text()).toEqual('Tiktok');
+        expect(form.find(`.${BASE_CLASS_PREFIX}-select-selection-text`).text()).toEqual('Abc');
         expect(form.find(`.${BASE_CLASS_PREFIX}-input`).instance().value).toEqual('semi');
     });
 

@@ -117,9 +117,9 @@ import { IconToutiaoLogo, IconVigoLogo } from '@douyinfe/semi-icons';
                 }
             ></Button>
             <Button
-                icon={<IconTiktokLogo />}
+                icon={<IconVigoLogo />}
                 style={{ marginRight: 5 }}
-                onClick={() => Notification.info({ ...opts, icon: <IconTiktokLogo /> })}
+                onClick={() => Notification.info({ ...opts, icon: <IconVigoLogo /> })}
             ></Button>
             <Button
                 icon={<IconVigoLogo />}

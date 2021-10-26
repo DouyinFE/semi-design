@@ -28,20 +28,20 @@ import { Select } from '@douyinfe/semi-ui';
 
 () => (
     <>
-        <Select defaultValue="tiktok" style={{ width: 120 }}>
-            <Select.Option value="tiktok">Tiktok</Select.Option>
+        <Select defaultValue="abc" style={{ width: 120 }}>
+            <Select.Option value="abc">Semi</Select.Option>
             <Select.Option value="hotsoon">Hotsoon</Select.Option>
         </Select>
         <br />
         <br />
-        <Select style={{ width: '180px' }} defaultValue="tiktok" style={{ width: 120 }}>
-            <Select.Option value="tiktok">Tiktok</Select.Option>
+        <Select style={{ width: '180px' }} defaultValue="abc" style={{ width: 120 }}>
+            <Select.Option value="abc">Semi</Select.Option>
             <Select.Option value="hotsoon">Hotsoon</Select.Option>
         </Select>
         <br />
         <br />
         <Select placeholder="Select line of business" style={{ width: 120 }}>
-            <Select.Option value="tiktok">Tiktok</Select.Option>
+            <Select.Option value="abc">Semi</Select.Option>
             <Select.Option value="hotsoon">Hotsoon</Select.Option>
         </Select>
     </>
@@ -58,7 +58,7 @@ import { Select } from '@douyinfe/semi-ui';
 
 () => {
     const list = [
-        { value: 'tiktok', label: 'Tiktok' },
+        { value: 'abc', label: 'Semi' },
         { value: 'hotsoon', label: 'Hotsoon' },
         { value: 'pipixia', label: 'Pipixia' },
         { value: 'toutiao', label: 'TooBuzz' },
@@ -81,16 +81,16 @@ import { Select } from '@douyinfe/semi-ui';
 
 () => (
     <>
-        <Select multiple style={{ width: '320px' }} defaultValue={['tiktok', 'hotsoon']}>
-            <Select.Option value="tiktok">Tiktok</Select.Option>
+        <Select multiple style={{ width: '320px' }} defaultValue={['abc', 'hotsoon']}>
+            <Select.Option value="abc">Semi</Select.Option>
             <Select.Option value="hotsoon">Hotsoon</Select.Option>
             <Select.Option value="pipixia">Pipixia</Select.Option>
             <Select.Option value="xigua">BuzzVideo</Select.Option>
         </Select>
         <br />
         <br />
-        <Select multiple style={{ width: '320px' }} defaultValue={['tiktok', 'hotsoon', 'pipixia']} maxTagCount={2}>
-            <Select.Option value="tiktok">Tiktok</Select.Option>
+        <Select multiple style={{ width: '320px' }} defaultValue={['abc', 'hotsoon', 'pipixia']} maxTagCount={2}>
+            <Select.Option value="abc">Semi</Select.Option>
             <Select.Option value="hotsoon">Hotsoon</Select.Option>
             <Select.Option value="pipixia">Pipixia</Select.Option>
             <Select.Option value="xigua">BuzzVideo</Select.Option>
@@ -101,11 +101,11 @@ import { Select } from '@douyinfe/semi-ui';
         <Select
             multiple
             style={{ width: '320px' }}
-            defaultValue={['tiktok']}
+            defaultValue={['abc']}
             max={2}
             onExceed={() => Toast.warning('Only two options are allowed')}
         >
-            <Select.Option value="tiktok">Tiktok</Select.Option>
+            <Select.Option value="abc">Semi</Select.Option>
             <Select.Option value="hotsoon">Hotsoon</Select.Option>
             <Select.Option value="pipixia">Pipixia</Select.Option>
             <Select.Option value="xigua">BuzzVideo</Select.Option>
@@ -248,7 +248,7 @@ import { IconVigoLogo, IconGift } from '@douyinfe/semi-icons';
 () => (
     <>
         <Select style={{ width: '320px' }} defaultValue={'hotsoon'} prefix={<IconVigoLogo />} showClear={true}>
-            <Select.Option value="tiktok">Tiktok</Select.Option>
+            <Select.Option value="abc">Semi</Select.Option>
             <Select.Option value="hotsoon">Hotsoon</Select.Option>
             <Select.Option value="pipixia">Pipixia</Select.Option>
             <Select.Option value="xigua">BuzzVideo</Select.Option>
@@ -262,7 +262,7 @@ import { IconVigoLogo, IconGift } from '@douyinfe/semi-icons';
             suffix={<IconGift />}
             showArrow={false}
         >
-            <Select.Option value="tiktok">Tiktok</Select.Option>
+            <Select.Option value="abc">Semi</Select.Option>
             <Select.Option value="hotsoon">Hotsoon</Select.Option>
             <Select.Option value="pipixia">Pipixia</Select.Option>
             <Select.Option value="xigua">BuzzVideo</Select.Option>
@@ -282,13 +282,13 @@ import { Select } from '@douyinfe/semi-ui';
 
 () => {
     const list = [
-        { value: 'tiktok', label: 'Tiktok' },
+        { value: 'abc', label: 'Semi' },
         { value: 'capcut', label: 'Capcut' },
         { value: 'xigua', label: 'BuzzVideo' },
     ];
     return (
         <>
-            <Select style={{ width: 320 }} optionList={list} insetLabel="Application" defaultValue="tiktok"></Select>
+            <Select style={{ width: 320 }} optionList={list} insetLabel="Application" defaultValue="abc"></Select>
             <br />
             <br />
             <Select
@@ -358,14 +358,14 @@ import { IconClock } from '@douyinfe/semi-icons';
                 position="bottom"
                 outerBottomSlot={outSlotNode}
             >
-                <Select.Option value="tiktok">Tiktok</Select.Option>
+                <Select.Option value="abc">Semi</Select.Option>
                 <Select.Option value="hotsoon">Hotsoon</Select.Option>
                 <Select.Option value="pipixia">Pipixia</Select.Option>
                 <Select.Option value="xigua">BuzzVideo</Select.Option>
             </Select>
             <p>innerBottomSlot:</p>
             <Select style={selectStyle} dropdownStyle={{ width: 180 }} innerBottomSlot={innerSlotNode}>
-                <Select.Option value="tiktok">Tiktok</Select.Option>
+                <Select.Option value="abc">Semi</Select.Option>
                 <Select.Option value="hotsoon">Hotsoon</Select.Option>
                 <Select.Option value="pipixia">Pipixia</Select.Option>
                 <Select.Option value="xigua">BuzzVideo</Select.Option>
@@ -478,7 +478,7 @@ import { Select } from '@douyinfe/semi-ui';
     return (
         <>
             <Select value={value} style={{ width: '300px' }} onChange={setValue} placeholder="Controlled Component">
-                <Select.Option value="tiktok">Tiktok</Select.Option>
+                <Select.Option value="abc">Semi</Select.Option>
                 <Select.Option value="capcut">Capcut</Select.Option>
                 <Select.Option value="xigua">BuzzVideo</Select.Option>
             </Select>
@@ -566,7 +566,7 @@ import { Select } from '@douyinfe/semi-ui';
 () => (
     <>
         <Select filter style={{ width: 180 }} placeholder="Searchable Select">
-            <Select.Option value="app1">Tiktok</Select.Option>
+            <Select.Option value="app1">Semi</Select.Option>
             <Select.Option value="app2">Hotsoon</Select.Option>
             <Select.Option value="app3">Pipixia</Select.Option>
             <Select.Option value="app4">BuzzVideo</Select.Option>
@@ -574,7 +574,7 @@ import { Select } from '@douyinfe/semi-ui';
         <br />
         <br />
         <Select filter multiple style={{ width: 350 }} placeholder="Searchable Multiple Select">
-            <Select.Option value="app1">Tiktok</Select.Option>
+            <Select.Option value="app1">Semi</Select.Option>
             <Select.Option value="app2">Hotsoon</Select.Option>
             <Select.Option value="app3">Pipixia</Select.Option>
             <Select.Option value="app4">BuzzVideo</Select.Option>
@@ -603,7 +603,7 @@ class SearchDemo extends React.Component {
         this.state = {
             Loading: false,
             optionList: [
-                { value: 'tiktok', label: 'Tiktok', type: 1 },
+                { value: 'abc', label: 'Semi', type: 1 },
                 { value: 'capcut', label: 'Capcut', type: 2 },
                 { value: 'xigua', label: 'BuzzVideo', type: 4 },
             ],
@@ -689,8 +689,8 @@ import { Select } from '@douyinfe/semi-ui';
         return label.includes(sug) || value.includes(sug);
     }
     return (
-        <Select filter={search} style={{ width: '180px' }} placeholder="try hello or tiktok">
-            <Select.Option value="hello">Tiktok</Select.Option>
+        <Select filter={search} style={{ width: '180px' }} placeholder="try hello or abc">
+            <Select.Option value="hello">Semi</Select.Option>
             <Select.Option value="bytedance">UlikeCam</Select.Option>
             <Select.Option value="semi">BuzzVideo</Select.Option>
         </Select>
@@ -849,7 +849,7 @@ import { Select } from '@douyinfe/semi-ui';
 
 () => (
     <Select style={{ width: 180 }} dropdownStyle={{ width: 250 }} dropdownClassName="test">
-        <Select.Option value="tiktok">Tiktok</Select.Option>
+        <Select.Option value="abc">Semi</Select.Option>
         <Select.Option value="hotsoon">Hotsoon</Select.Option>
         <Select.Option value="pipixia">Pipixia</Select.Option>
         <Select.Option value="xigua">BuzzVideo</Select.Option>
@@ -903,7 +903,7 @@ import { Select, TextArea } from '@douyinfe/semi-ui';
 
 () => {
     const list = [
-        { value: 'tiktok', label: 'Tiktok', type: 1 },
+        { value: 'abc', label: 'Semi', type: 1 },
         { value: 'capcut', label: 'Capcut', type: 2 },
         { value: 'xigua', label: 'BuzzVideo', type: 3 },
     ];
@@ -962,7 +962,7 @@ import { Select } from '@douyinfe/semi-ui';
 
 () => {
     const optionList = [
-        { value: 'tiktok', label: 'Tiktok' },
+        { value: 'abc', label: 'Semi' },
         { value: 'capcut', label: 'Capcut' },
         { value: 'xigua', label: 'BuzzVideo' },
     ];
@@ -1062,10 +1062,10 @@ import { Select } from '@douyinfe/semi-ui';
 import { IconAppCenter, IconChevronDown } from '@douyinfe/semi-icons';
 
 () => {
-    const [valList, setValList] = useState(['tiktok', 'hotsoon']);
-    const [val, setVal] = useState('tiktok');
+    const [valList, setValList] = useState(['abc', 'hotsoon']);
+    const [val, setVal] = useState('abc');
     const list = [
-        { value: 'tiktok', label: 'Tiktok' },
+        { value: 'abc', label: 'Semi' },
         { value: 'hotsoon', label: 'Hotsoon' },
         { value: 'pipixia', label: 'Pipixia' },
         { value: 'toutiao', label: 'TooBuzz' },
@@ -1215,7 +1215,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
     };
 
     const optionList = [
-      { value: 'tiktok', label: 'Tiktok', otherKey:0 },
+      { value: 'abc', label: 'Semi', otherKey:0 },
       { value: 'capcut', label: 'Capcut', disabled: true, otherKey: 1 },
       { value: 'cam', label: 'UlikeCam', otherKey: 2 },
       { value: 'buzz', label: 'Buzz', otherKey: 3 },
@@ -1225,7 +1225,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
         <Select
             filter
             defaultOpen
-            defaultValue='tiktok'
+            defaultValue='abc'
             dropdownClassName='components-select-demo-renderOptionItem'
             optionList={optionList}
             style={{ width: 180 }}

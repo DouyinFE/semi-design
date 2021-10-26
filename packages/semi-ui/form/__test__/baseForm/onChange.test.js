@@ -11,7 +11,7 @@ function getForm(props) {
 const Option = Select.Option;
 const FormSelect = (
     <Form.Select label="business" field="business" style={{ width: 200 }}>
-        <Option value="tiktok">Tiktok</Option>
+        <Option value="abc">Abc</Option>
         <Option value="hotsoon">Hotsoon</Option>
         <Option value="topbuzz">TopBuzz</Option>
     </Form.Select>

@@ -189,7 +189,7 @@ import { TagGroup } from '@douyinfe/semi-ui';
 
 () => {
     const tagList = [
-        { color: 'white', children: 'Tiktok' },
+        { color: 'white', children: 'Abc' },
         { color: 'white', children: 'Hotsoon' },
         { color: 'white', children: 'Toutiao' },
         { color: 'white', children: 'Vigo' },
@@ -198,7 +198,7 @@ import { TagGroup } from '@douyinfe/semi-ui';
     const src =
         'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg';
     const tagList2 = [
-        { color: 'white', children: 'Tiktok', avatarSrc: src },
+        { color: 'white', children: 'Abcd', avatarSrc: src },
         { color: 'white', children: 'Hotsoon', avatarSrc: src },
         { color: 'white', children: 'Toutiao', avatarSrc: src },
         { color: 'white', children: 'Vigo', avatarSrc: src },

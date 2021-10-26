@@ -25,15 +25,6 @@ class RTLForm extends React.Component {
                             'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/vigo.png',
                     },
                     {
-                        uid: '2',
-                        name: 'tiktok.png',
-                        status: 'validateFail',
-                        size: '222KB',
-                        preview: true,
-                        url:
-                            'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/tiktok.png',
-                    },
-                    {
                         uid: '3',
                         name: 'jiafang.jpeg',
                         status: 'uploading',
@@ -173,7 +164,7 @@ class RTLForm extends React.Component {
                                         </div>
                                     )}
                                 >
-                                    <Select.Option value="tiktok">抖音</Select.Option>
+                                    <Select.Option value="dy">抖音</Select.Option>
                                     <Select.Option value="hotsoon">火山小视频</Select.Option>
                                     <Select.Option value="toutiao">今日头条</Select.Option>
                                 </Select>

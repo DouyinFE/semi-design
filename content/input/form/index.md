@@ -199,20 +199,22 @@ class BasicDemoWithInit extends React.Component {
                     },
                     {
                         uid: '2',
-                        name: 'tiktok.png',
+                        name: 'jiafang1.jpeg',
                         status: 'validateFail',
                         size: '222KB',
+                        percent: 50,
                         preview: true,
-                        url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/tiktok.png'
+                        fileInstance:  new File([new ArrayBuffer(2048)], 'jiafang1.jpeg', { type: 'image/jpeg' }),
+                        url: 'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg'
                     },
                     {
                         uid: '3',
-                        name: 'jiafang.jpeg',
+                        name: 'jiafang2.jpeg',
                         status: 'uploading',
                         size: '222KB',
                         percent: 50,
                         preview: true,
-                        fileInstance:  new File([new ArrayBuffer(2048)], 'jiafang.jpeg', { type: 'image/jpeg' }),
+                        fileInstance:  new File([new ArrayBuffer(2048)], 'jiafang2.jpeg', { type: 'image/jpeg' }),
                         url: 'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg'
                     }
                ]
@@ -309,7 +311,7 @@ class BasicDemoWithInit extends React.Component {
                                     </div>
                                 }
                             >
-                                <Select.Option value="tiktok">抖音</Select.Option>
+                                <Select.Option value="abc">Semi</Select.Option>
                                 <Select.Option value="ulikeCam">轻颜相机</Select.Option>
                                 <Select.Option value="toutiao">今日头条</Select.Option>
                             </Select>
@@ -343,7 +345,7 @@ class BasicDemoWithInit extends React.Component {
                             <TagInput 
                                 field="product"
                                 label='产品（TagInput）'
-                                defaultValue={['tiktok','ulikeCam']}
+                                defaultValue={['abc','ulikeCam']}
                                 placeholder='请输入产品'
                                 style={style}
                             />
@@ -640,7 +642,7 @@ import { Form, Col, Row } from '@douyinfe/semi-ui';
             </Col>
             <Col span={8}>
                 <Form.Select label="业务线" field='business1' style={{ width: '250px' }}>
-                    <Form.Select.Option value="tiktok">抖音</Form.Select.Option>
+                    <Form.Select.Option value="abc">Semi</Form.Select.Option>
                     <Form.Select.Option value="ulikeCam">轻颜相机</Form.Select.Option>
                     <Form.Select.Option value="toutiao">今日头条</Form.Select.Option>
                 </Form.Select>
@@ -665,7 +667,7 @@ import { Form, Col, Row } from '@douyinfe/semi-ui';
             </Col>
             <Col span={6}>
                 <Form.Select label="业务线" field='business2' style={{ width: '200px' }}>
-                    <Form.Select.Option value="tiktok">抖音</Form.Select.Option>
+                    <Form.Select.Option value="abc">Semi</Form.Select.Option>
                     <Form.Select.Option value="ulikeCam">轻颜相机</Form.Select.Option>
                     <Form.Select.Option value="toutiao">今日头条</Form.Select.Option>
                 </Form.Select>

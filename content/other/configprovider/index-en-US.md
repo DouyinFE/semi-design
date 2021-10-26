@@ -76,7 +76,7 @@ Special components:
 ```jsx live=true dir="column" hideInDSM
 import React, { useState } from 'react';
 import { ConfigProvider, ButtonGroup, Button, Row, Col, Spin, Notification, DatePicker, TimePicker, Timeline, Popover, Tag, Tooltip, Badge, Avatar, Steps, Pagination, Modal, Breadcrumb, Rating, Nav, Spin, Cascader, Radio, Select, Input, Typography, TextArea, Checkbox, Switch } from '@douyinfe/semi-ui';
-import { IconTiktokLogo, IconVigoLogo, IconEdit, IconCamera, IconList, IconSidebar, IconChevronDown } from '@douyinfe/semi-icons';
+import { IconVigoLogo, IconEdit, IconCamera, IconList, IconSidebar, IconChevronDown } from '@douyinfe/semi-icons';
 import en_GB from '@douyinfe/semi-ui/locale/source/en_GB';
 
 function Demo(props = {}) {
@@ -200,21 +200,21 @@ function Demo(props = {}) {
                     <TimePicker style={{width: '100%'}} />
                     <br/><br/>
                     <Select style={{ width: '100%' }} placeholder="Select-single">
-                      <Option value='tiktok'>Tiktok</Option>
+                      <Option value='abc'>Semi</Option>
                       <Option value='hotsoon'>Hotsoon</Option>
                       <Option value='pipixia' disabled>Pipixia</Option>
                       <Option value='xigua'>Xigua</Option>
                     </Select>
                     <br/><br/>
                     <Select disabled style={{ width: '100%' }} placeholder="Select-disabled">
-                      <Option value='tiktok'>Tiktok</Option>
+                      <Option value='abc'>Semi</Option>
                       <Option value='hotsoon'>Hotsoon</Option>
                       <Option value='pipixia' disabled>Pipixia</Option>
                       <Option value='xigua'>Xigua</Option>
                     </Select>
                     <br/><br/>
                     <Select multiple style={{ width: '100%' }} placeholder="Select-mutiple">
-                      <Option value='tiktok'>Tiktok</Option>
+                      <Option value='abc'>Semi</Option>
                       <Option value='hotsoon'>Hotsoon</Option>
                       <Option value='pipixia' disabled>Pipixia</Option>
                       <Option value='xigua'>Xigua</Option>
@@ -338,8 +338,8 @@ function Demo(props = {}) {
                     <Button
                         style={buttonStyle}
                         ghost={false}
-                        icon={<IconTiktokLogo />}
-                        onClick={() => Notification.info({ ...opts, icon: <IconTiktokLogo /> })}
+                        icon={<IconVigoLogo />}
+                        onClick={() => Notification.info({ ...opts, icon: <IconVigoLogo /> })}
                     />
                     <Button
                         style={buttonStyle}
