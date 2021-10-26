@@ -79,7 +79,7 @@ import { Space, Button, Tag } from '@douyinfe/semi-ui';
 
 ### Spacing
 
-You can use `spacing` to set the spacing size, optional: `tight` (8px, defalut), `medium` (16px), `loose` (24px), and allow to pass in number to customize the spacing size, and also support to pass in array to set the horizontal and vertical spacing at the same time.
+You can use `spacing` to set the spacing size, optional: `tight` (8px, default), `medium` (16px), `loose` (24px), and allow to pass in number to customize the spacing size, and also support to pass in array to set the horizontal and vertical spacing at the same time.
 
 ```jsx live=true hideInDSM
 import React from 'react';
