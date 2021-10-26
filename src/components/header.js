@@ -15,7 +15,11 @@ const Header = ({ location, localeCode, style }) => (
             onSearch={() => window.showSearch()}
             onDarkChange={(mode)=>{
                 const iframeDOM=document.querySelector('iframe');
-                iframeDOM?.contentWindow?.semidoc?.setDarkmode(mode==='dark');
+                try{
+                    iframeDOM?.contentWindow?.semidoc?.setDarkmode(mode==='dark');
+                }catch (e){
+
+                }
             }}
             onLocaleChange={locale => {
                 if (locale === 'en-US') {
