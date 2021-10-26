@@ -1,6 +1,6 @@
 ---
 category: 开始
-title:  Introduction 介绍
+title: Introduction 介绍
 icon: doc-intro
 localeCode: zh-CN
 order: 1
@@ -14,7 +14,7 @@ Semi Design 是由抖音前端团队，MED 产品设计团队设计、开发并�
 ## 我们的愿景
 
 Semi 多用于前缀或词组中，表示「一半」 —— 正如同一个完整的企业应用，通常由业务逻辑与前端界面构成，Semi Design 希望成为这不可或缺的一半，为企业应用前端提供坚实且优质的基础。  
-我们相信，设计系统的真正价值在于降低前端的搭建成本，同时提供优秀的设计和工程化标准，充分解放设计师与开发者的生产力，从而不断孵化明星产品。  
+我们相信，设计系统的真正价值在于降低前端的搭建成本，同时提供优秀的设计和工程化标准，充分解放设计师与开发者的生产力，从而不断孵化明星产品。
 
 ### 设计 —— 不变与多变
 
@@ -34,10 +34,9 @@ Semi 是如何在连贯统一的基础上，做到灵活多变的？答案是强
 
 通过对数千个设计变量 (Design Token) 的分层和梳理，设计师和开发者可在全局、乃至组件级别，对 表现层进行深度定制 —— 即使你不了解 CSS，也可以**通过主题编辑器(DSM)，打造符合业务和品牌多样化视觉需求的风格**。开发者则可通过 npm 包一键发布并替换，轻松定制，易于管理。
 
-你可以在[主题商店](https://semi.design/dsm/store)，查看 Semi 在抖音、剪映、飞书、火山引擎等不同品牌场景下的官方示例主题。  
+你可以在[主题商店](https://semi.design/dsm/store)，查看 Semi 在抖音、剪映、飞书、火山引擎等不同品牌场景下的官方示例主题。
 
 ![全面覆盖的设计变量用例、文档与编辑器](https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/tech-doc/p3.gif)
-
 
 在今年内，我们还将实现主题**从线上到设计工具的实时同步** —— 在提升效率的同时，进一步保证设计和研发的持续对齐，降低产研间的沟通成本。
 
@@ -64,16 +63,19 @@ Semi 是如何在连贯统一的基础上，做到灵活多变的？答案是强
 Semi Design 采用了一套跨前端框架技术方案，F/A 分层设计，将每个组件的 JavaScript 拆分为两部分：Foundation 和 Adapter，这使得我们可以通过仅重新实现适配器来跨框架重用 Foundation 代码，例如 React、Vue、Angular、Svelte 或者 WebComponent，快速打造不同平台上的通用组件库。
 
 ![F/A架构](https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/tech-doc/crossFrame.png)
+
 #### Foundation
+
 Foundation 包含最能代表 Semi Design 组件交互的业务逻辑，包括 UI 行为触发后的各种计算、分支判断等逻辑，它并不直接操作或者引用 DOM，任意需要 DOM 操作，驱动组件渲染更新的部分会委派给 Adapter 执行。
 
 #### Adaptor
+
 Adapter 是一个接口，具有 Foundation 实现 Semi Design 业务逻辑所需的所有方法，并负责 1. 组件 DOM 结构声明 2.负责所有跟 DOM 操作/更新相关的逻辑，通常会使用框架 API 进行 setState、getState、addEventListener、removeListener 等操作。适配器可以有许多实现，允许与不同框架的互操作性。
 
 目前，我们实现了 Adapter 的 React 版本，你可以直接通过引入 semi-ui 来使用我们的 React 组件。如果你对 Semi 的架构设计感兴趣，可以进一步查阅[这篇文章](https://bytedance.feishu.cn/docs/doccnTgc0iGOVPubHZkwPpxXSNh#)。
 
-
 ## 展望
+
 在未来一年内，Semi Design 团队会持续进行质量提升与优化，并将更多内部落地的工具链与资源，陆续开放给社区用户，包括不限于：
 
 ### 物料社区
@@ -94,11 +96,9 @@ Adapter 是一个接口，具有 Foundation 实现 Semi Design 业务逻辑所�
 
 ![Semi Pro 页面模板 & 落地页转代码 (内部)](https://lf9-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/tech-doc/semiPro.gif)
 
-
 ### A11y
 
 Semi 始终关注 Web 可访问性，当前我们从语义化标签，色盘算法可对比度、文本感知性等方面实现了一部分的无障碍支持，但我们相信这仍有不少提升的空间。我们后续会持续关注并提升组件的可操作性、可感知性，为基于鼠标的操作提供更便捷的键盘交互，提供更完善的 WAI-ARIA 支持。
-
 
 ### 多框架
 
@@ -112,12 +112,12 @@ Foundation 层同样基于 MIT 协议开源，我们会在未来的迭代中，�
 
 ![Figma Logo](https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Figma-logo.svg/64px-Figma-logo.svg.png)
 
--   设计师可以从 Figma 组件库 [Semi Design System](https://www.figma.com/file/pLnKJW5xyf8fNnMVfXjcsQ/Semi-Design-Variants) 获得色盘、样式库及组件。
+-   设计师可以从 Figma 组件库 [Semi Design System](https://www.figma.com/@semi) 获得色盘、样式库及组件。
 
 ## 兼容性
 
 -   现代浏览器（Semi 的暗色模式/样式文件依赖于 css variable，最低版本要求为 edge，ie11 及以下均不支持）
 
-|[<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Chrome |[<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/> Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Opera | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/electron/electron_48x48.png" alt="Electron" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Electron |
+| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/> Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Opera | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/electron/electron_48x48.png" alt="Electron" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Electron |
 | --- | --- | --- | --- | --- | --- |
 | last 2 versions | last 2 versions | last 2 versions | last 2 versions | last 2 versions | last 2 versions |
