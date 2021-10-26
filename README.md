@@ -81,15 +81,7 @@ See [CONTRIBUTING](CONTRIBUTING-en-US.md) documentation.
 
 # 👨‍👨‍👧‍👦 User Group
 
-<div>
-  <div>Feishu Group：</div>
-  <img width="200px" src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/lark_qrcode.png" />
-</div>
-
-<div>
-  <div>Wechat Group：</div>
-  <img width="200px" src="https://lf3-static.semi.design/obj/semi-tos/images/wechat-2.jpg" />
-</div>
+Join [User Group](https://bytedance.feishu.cn/docs/doccnw93Dujm3UCkHRDTMTm1qwe#).
 
 # 🎈 License
 
