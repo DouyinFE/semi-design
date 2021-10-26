@@ -17,8 +17,7 @@ English | [简体中文](./README-zh_CN.md)
 - 💅 Thousands Design Tokens. Powerful Themes Customizing.
 - 🌍 Internationalization Support for Dozens of Languages.
 - 👏 Written in Typescript, Friendly Static Type Support.
-- 🥳 SSR (Sever Side Rendering) Compatible.
-- 🤩
+- 🥳 SSR (Server Side Rendering) Compatible.
 
 # 🔥 Install
 
@@ -42,7 +41,7 @@ import { Button, Switch } from '@douyinfe/semi-ui';
 
 const App = () => (
   <>
-    <Button type="primary">primary button</Button>
+    <Button type='primary'>primary button</Button>
     <Switch size='large' />
   </>
 );
@@ -77,7 +76,7 @@ Semi UI supports all major modern browsers.
 
 Read the contributing guide to learn about our development process, how to propose bugfixes and improvements, and how to build and test your changes to Semi UI.
 
-See [CONTRIBUTING](CONTRIBUTING.md) documentation.
+See [CONTRIBUTING](CONTRIBUTING-en-US.md) documentation.
 
 # 🎈 License
 
