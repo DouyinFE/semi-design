@@ -18,7 +18,7 @@ function NewHome() {
         AOS.init()
     }, [])
     return (
-        <div className={classnames({[styles.homeEnglish]: locale === 'en-US'})}>
+        <div className={classnames(styles.homePage, {[styles.homeEnglish]: locale === 'en-US'})}>
             <Banner></Banner>
             <Products data-aos="fade-in"></Products>
             <Resource data-aos="fade-in"></Resource>

@@ -51,7 +51,7 @@ function Products(props) {
                     </div>
                 </div>
                 <div className={styles.frame4145}><img src="https://lf9-static.semi.design/obj/semi-tos/images/16d132b0-321a-11ec-b393-ab4adc2e449f.svg" className={styles.frame} />
-                    <p className={styles.developer_697ea731}>Miigo</p>
+                    <p className={styles.developer_697ea731}>字节项目</p>
                 </div>
             </div>
         </div>
