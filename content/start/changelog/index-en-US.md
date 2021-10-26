@@ -16,6 +16,46 @@ Version：Major.Minor.Patch
 
 ---
 
+#### 🎉 2.0.0 (2021-10-26)
+
+- 【Breaking Change】
+  - Component Changes
+    - Icon related
+      - Icon component no longer supports type = xxx using built-in icons
+      - Custom svg no longer supports plug-in configuration srcSvgPaths
+      - The Button icon property no longer supports passing built-in icon names through strings
+      - Dropdown deletes the iconType attribute and unifies it into the icon attribute
+      - Navigation icons no longer support incoming by string, ReactNode needs to be passed in
+      - Notification icons are no longer passed in by string, please use ReactNode uniformly
+    - AutoComplete officially discards the onChangeWithObject property
+    - Remove onInputChange from Cascader triggerRender
+    - Form no longer exports Label components from `semi-ui/index.js`
+    - Tree onRightClick renamed onContextMenu
+    - Upload dragable renamed draggable
+    - Table
+      - API that no longer responds when componentDidUpdate
+        - DefaultExpandAllRows, please replace with expandAllRows
+        - Default ExpandRowKeys, please replace with expandRowKeys
+        - Default ExpandAllGroupRows, please replace with expandAllGroupRows
+  - Style Changes
+    - CSS variable with semi prefix, for example --color-primary = > --semi-color-primary
+    - In 2.x, the unified set the width and height of the illustration to `200 * 200px`
+    - Design Token Changes
+      - Popconfirm
+        - $color-popconfirm_body-text 由 --semi-color-tertiary => --semi-color-text-2
+        - $color-popconfirm_header_alert-icon 由 #fa7500 => --semi-color-warning
+      - Progress
+        - $spacing-progress_line_text-marginLeft 由 15px => $spacing-base(16px)
+        - $spacing-progress_line_text-marginRight 由 15px => $spacing-base(16px)
+      - Radio
+        - $spacing-radio_addon_buttonRadio_large-paddingY 由 6px => $spacing-base-tight / 2 (6px)
+        - $radius-radio_cardRadioGroup 由 3px => --semi-border-radius-small(3px)
+  - Plugin Changes
+    - In 2.x, the iconLazyLoad, svgPaths, srcSvgPaths configurations are no longer supported
+    - In 2.x, section dark mode and bright mode no longer need to configure themeScope attributes in the plug-in, and the default is built-in. The usage method is updated from adding id #semi-ways-xxx to adding class .semi-ways-xxx.
+  - Other Changes
+    - Due to the adjustment of the Icon, the way of using icons and illustrations for Icon and Empty components is different from before. Please see for [details](/en-US/start/update-to-v2)
+
 #### 🎉 1.33.0 (2021-10-22)
 - 【Fix】
     - Fix that when the Cascader uses changeOnSelect and loadData attributes at the same time, and the last level is not selected, the value can not reset  

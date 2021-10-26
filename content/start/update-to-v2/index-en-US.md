@@ -33,7 +33,7 @@ v2.0 Semi is officially released to the public network npm, the package name nee
 
 ```jsx
 // before
-import { Select, Input, Form } from '@douyinfe/semi-ui';
+import { Select, Input, Form } from '@ies/semi-ui';
 
 // now
 import { Select, Input, Form } from '@douyinfe/semi-ui';
@@ -43,7 +43,7 @@ import { Select, Input, Form } from '@douyinfe/semi-ui';
 
 ```jsx
 // before
-import { SelectProps } from '@douyinfe/semi-ui/select' 
+import { SelectProps } from '@ies/semi-ui/select' 
 
 // now
 import { SelectProps } from '@douyinfe/semi-ui/lib/es/select'
@@ -53,7 +53,7 @@ import { SelectProps } from '@douyinfe/semi-ui/lib/es/select'
 
 ```jsx
 // before
-import en_GB from '@douyinfe/semi-ui/locale/source/en_GB'
+import en_GB from '@ies/semi-ui/locale/source/en_GB'
 
 // now
 import en_GB from '@douyinfe/semi-ui/lib/es/locale/source/en_GB'
@@ -103,7 +103,7 @@ Icon usage adjustment:
 <Icon type="home" />
 
 // 1.x when iconLazyload is true
-import homeSvg from '@douyinfe/semi-icons/semi-icons-home.svg';
+import homeSvg from '@ies/semi-icons/semi-icons-home.svg';
 <Icon type={homeSvg.id} />
 
 // 2.x use the following methods uniformly
@@ -115,8 +115,8 @@ Illustration Adjustment:
 
 ```jsx
 // 1.x
-import { Empty } from '@douyinfe/semi-ui';
-import Construction from '@douyinfe/semi-illustrations/construction.svg';
+import { Empty } from '@ies/semi-ui';
+import Construction from '@ies/semi-illustrations/construction.svg';
 <Empty image={Construction} />
 
 // 2.x

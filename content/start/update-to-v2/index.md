@@ -33,7 +33,7 @@ v2.0 Semi 正式开源发布至公网 npm，包名需要调整，去除原有的
 
 ```jsx
 // before
-import { Select, Input, Form } from '@douyinfe/semi-ui';
+import { Select, Input, Form } from '@ies/semi-ui-react';
 
 // after
 import { Select, Input, Form } from '@douyinfe/semi-ui';
@@ -44,7 +44,7 @@ import { Select, Input, Form } from '@douyinfe/semi-ui';
 
 ```jsx
 // before
-import { SelectProps } from '@douyinfe/semi-ui/select' 
+import { SelectProps } from '@ies/semi-ui/select' 
 
 // now
 import { SelectProps } from '@douyinfe/semi-ui/lib/es/select'
@@ -54,7 +54,7 @@ import { SelectProps } from '@douyinfe/semi-ui/lib/es/select'
 
 ```jsx
 // before
-import en_GB from '@douyinfe/semi-ui/locale/source/en_GB'
+import en_GB from '@ies/semi-ui/locale/source/en_GB'
 
 // now
 import en_GB from '@douyinfe/semi-ui/lib/es/locale/source/en_GB'
@@ -105,7 +105,7 @@ Icon 使用调整：
 <Icon type="home" />
 
 // 1.x 当 iconLazyload 为 true 的情况
-import homeSvg from '@douyinfe/semi-icons/semi-icons-home.svg';
+import homeSvg from '@ies/semi-icons/semi-icons-home.svg';
 <Icon type={homeSvg.id} />
 
 // 2.x 统一使用如下方式使用
@@ -117,8 +117,8 @@ import { IconHome } from '@douyinfe/semi-icons';
 
 ```jsx
 // 1.x
-import { Empty } from '@douyinfe/semi-ui';
-import Construction from '@douyinfe/semi-illustrations/construction.svg';
+import { Empty } from '@ies/semi-ui';
+import Construction from '@ies/semi-illustrations/construction.svg';
 <Empty image={Construction} />
 
 // 2.x

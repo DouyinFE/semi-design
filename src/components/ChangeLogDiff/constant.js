@@ -7,4 +7,5 @@ export const CHANGELOG_TYPE_MAP = {
     performance: '🚀 Performance',
     chore: '🗃 Chore',
     docs: '✏️ Documentation',
+    'breaking change': '💥 Breaking Change'
 };
