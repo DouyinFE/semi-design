@@ -1,3 +1,4 @@
+<div align="center">
 <article style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
     <p align="center"><img width="300" src="https://lf1-cdn-tos.bytescm.com/obj/ttfe/ies/semi/SemiLogo/Logo_1576122865926.png" /></p>
     <h1 style="width: 100%; text-align: center;">Semi-UI</h1>
@@ -9,7 +10,11 @@
     </p>
 </article>
 
+![NPM](https://img.shields.io/npm/l/@douyinfe/semi-ui)
+
 简体中文 | [English](./README.md)
+
+</div>
 
 # 🎉 特性
 
