@@ -3,7 +3,7 @@
 
 By default, the theme package will be automatically installed as dependence of `@douyinfe/semi-foundation`.
 
-You can make a custom theme through [Semi Design System](https://www.figma.com/file/pLnKJW5xyf8fNnMVfXjcsQ/Semi-Design-Variants).
+You can make a custom theme through [Semi Design System](https://semi.design/dsm).
 
 ## Directory Structure
 
