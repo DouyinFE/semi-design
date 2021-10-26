@@ -127,7 +127,8 @@ stories.add('Ellipsis', () => (
         </Paragraph>
         <br />
         <Paragraph ellipsis={{rows: 3}} style={{width: 300}}>
-        Ant Design system-level color system also comes from the "natural" design language. Designers abstract the natural scenes through the capture, combined with the technical gene of Ant Financial, forming a unique 12 colors. Further through a large number of observations, to capture the different colors of natural light under the law of change, with the art of drawing ideas, the 12 colors were derived. The definition of neutral color palette is balanced with readability, aesthetics and usability.
+        Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统。设计系统包含设计语言以及一整套可复用的前端组件，帮助设计师与开发者更容易地打造高质量的、用户体验一致的、符合设计规范的 Web 应用。
+区别于其他的设计系统而言，Semi Design 以用户中心、内容优先、设计人性化为设计理念，具有四大优势。
         </Paragraph>
         <br />
         <Paragraph ellipsis={{rows: 3, expandable: true}} style={{width: 250}}>
