@@ -79,7 +79,7 @@ Semi UI 支持所有主流浏览器。
 [CONTRIBUTING](CONTRIBUTING.md)
 
 
-# 交流群
+# 👨‍👨‍👧‍👦 交流群
 
 有任何问题可以进群交流，我们会及时给予解答和反馈。
 
@@ -90,7 +90,7 @@ Semi UI 支持所有主流浏览器。
 
 <div>
   <div>微信群：</div>
-  <img width="200px" src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/wechat_qrcode.png" />
+  <img width="200px" src="https://lf3-static.semi.design/obj/semi-tos/images/wechat-2.jpg" />
 </div>
 
 # 🎈 协议
