@@ -16,10 +16,10 @@ Semi Design团队会认真对待每一个Pull Request。我们会review并合并
 要提交一个Pull Request，请遵循以下步骤：
  - Fork 项目并克隆下来
 ```bash
-git clone https://github.com/<your-username>/semi-ui.git
-cd semi-ui
+git clone https://github.com/<your-username>/semi-design.git
+cd semi-design
 ```
- - 切换到`beta`分支，完成项目依赖安装
+ - 切换到 `beta` 分支，完成项目依赖安装
 ```bash
 git checkout beta
 npm run bootstrap
@@ -30,7 +30,7 @@ npm run bootstrap
 ```bash
 npm run test:unit
 ```
- - 新建一个Pull Request到源项目的`beta`分支
+ - 新建一个Pull Request到源项目的 `beta` 分支
 
 ## 帮助改善文档
 文档站基于 [gatsby](https://www.gatsbyjs.com/) 构建，核心代码在 `src` 目录。
