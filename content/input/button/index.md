@@ -160,8 +160,8 @@ import { Button } from '@douyinfe/semi-ui';
 function ButtonDemo() {
   return (
     <div>
-      <Button size='large' style={{marginRight:8}}>大尺寸</Button>
-      <Button size='default' style={{marginRight:8}}>默认尺寸</Button>
+      <Button size='large' style={{ marginRight:8 }}>大尺寸</Button>
+      <Button size='default' style={{ marginRight:8 }}>默认尺寸</Button>
       <Button size='small'>小尺寸</Button>
     </div>
   );
@@ -217,7 +217,7 @@ function ButtonDemo() {
           <br/><br/>
       <strong>更改图标位置：</strong>
       <Button icon={<IconSidebar />} theme="solid" style={{ marginRight: 10 }}>收起</Button>
-      <Button icon={<IconChevronDown />} theme="solid" iconPosition={"right"}>展开选项</Button>
+      <Button icon={<IconChevronDown />} theme="solid" iconPosition="right">展开选项</Button>
           <br/><br/>
     </div>
   );
