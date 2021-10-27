@@ -54,7 +54,7 @@ class Form extends BaseComponent<BaseFormProps, BaseFormState> {
         /* Triggered from update, including field mount/unmount/value change/blur/verification status change/error prompt change, input parameter is formState, currentField */
         onChange: PropTypes.func,
         onReset: PropTypes.func,
-        // Triggered when the value of the form is updated, only when the value of the subfield changes. The entry parameter is formS tate.values
+        // Triggered when the value of the form is updated, only when the value of the subfield changes. The entry parameter is formState.values
         onValueChange: PropTypes.func,
         initValues: PropTypes.object,
         getFormApi: PropTypes.func,
