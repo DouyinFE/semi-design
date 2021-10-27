@@ -1,5 +1,5 @@
 <!-- Thanks so much for your PR 💗 -->
-[中文模板 / Chinese Template](./PULL_REQUEST_TEMPLATE.zh-CN.md)
+[中文模板 / Chinese Template](https://github.com/DouyinFE/semi-design/blob/main/.github/PULL_REQUEST_TEMPLATE.zh-CN.md)
 
 - [ ] I have read and followed [Pull Request Guidelines](https://github.com/DouyinFE/semi-design/blob/main/CONTRIBUTING-en-US.md#pull-request-guidelines) of the contributing guide.
 
