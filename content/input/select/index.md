@@ -898,7 +898,7 @@ class CustomRender extends React.Component {
 ### 自定义弹出层样式
 
 你可以通过 dropdownClassName、dropdownStyle 控制弹出层的样式  
-例如当自定义弹出层的宽度时，可以通过 drowndownStyle 传入 width
+例如当自定义弹出层的宽度时，可以通过 dropdownStyle 传入 width
 
 ```jsx live=true hideInDSM
 import React from 'react';
@@ -960,7 +960,7 @@ import { Select, TextArea } from '@douyinfe/semi-ui';
             >
             </Select>
             <h4>onChange回调:</h4>
-            <TextArea style={{ width: 320, marginBottom: 48 }}autosize value={JSON.stringify(cbValue)} rows={2}/>
+            <TextArea style={{ width: 320, marginBottom: 48 }} autosize value={JSON.stringify(cbValue)} rows={2}/>
           </div>
           <div>
               <Select
