@@ -76,7 +76,7 @@ const TYPE_MAP = {
     styles: 'style',
 };
 
-const SUPPORT_TYPES = new Set(['feature', 'performance', 'style', 'new component', 'chore', 'docs', 'fix', 'refactor']);
+const SUPPORT_TYPES = new Set(['feature', 'performance', 'style', 'new component', 'chore', 'docs', 'fix', 'refactor', 'breaking change']);
 
 const UNKNOWN_COMPONENT_NAME = 'Other';
 const UNKNOWN_TYPE_NAME = 'chore';
@@ -156,10 +156,12 @@ function getChangeLogList(rawMarkdown) {
     const output = [];
     let version, type, parentComponent, prevLevel, level, prevIndent;
     let parentIndent = 0;
+    let intent2Level = new Map();
     for (let line of lines) {
         // is version line, eg. #### 🎉 1.24.4 (2021-06-21)
         if (line.startsWith('####')) {
             version = getVersion(line);
+            intent2Level = new Map();
             continue;
         }
         // is type line, eg. - 【Fix】
@@ -175,12 +177,20 @@ function getChangeLogList(rawMarkdown) {
             let [content, indent] = getChangeLog(line);
             let component = getComponent(content);
             // process level
-            if (indent > prevIndent) {
-                level = ++prevLevel;
-            } else if (indent < prevIndent) {
-                level = --prevLevel;
+            const _level = intent2Level.get(indent); // align to same value indent
+            if (_level) {
+                level = _level;
+                prevIndent = indent;
+                prevLevel = level;
             } else {
-                level = prevLevel;
+                if (indent > prevIndent) {
+                    level = ++prevLevel;
+                } else if (indent < prevIndent) {
+                    level = --prevLevel;
+                } else {
+                    level = prevLevel;
+                }
+                intent2Level.set(indent, level);
             }
             // process component is none
             if ((prevIndent && (indent > prevIndent)) || ((indent === prevIndent) && level !== 1)) {
