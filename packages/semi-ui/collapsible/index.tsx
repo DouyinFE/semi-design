@@ -2,7 +2,7 @@
 import { Transition } from '@douyinfe/semi-animation-react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
-import React, { useRef, useState, useCallback } from 'react';
+import React, {useRef, useState, useCallback, useMemo} from 'react';
 import { cssClasses } from '@douyinfe/semi-foundation/collapsible/constants';
 import { Motion } from '../_base/base';
 import getMotionObjFromProps from '@douyinfe/semi-foundation/utils/getMotionObjFromProps';
@@ -55,6 +55,7 @@ const Collapsible = (props: CollapsibleProps) => {
         if (currHeight && maxHeight !== currHeight) {
             setMaxHeight(currHeight);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [left, reCalcKey, maxHeight]);
 
     const resetHeight = () => {
@@ -65,6 +66,10 @@ const Collapsible = (props: CollapsibleProps) => {
 
     const shouldKeepDOM = () => keepDOM || collapseHeight !== 0;
 
+    const getDefaultMaxHeight = useMemo(() => {
+        return isOpen || !shouldKeepDOM() && !motion ? 'none' : collapseHeight
+    }, [collapseHeight, motion, isOpen, shouldKeepDOM]);
+
     const renderChildren = (transitionStyle: Record<string, any>) => {
         const transition =
             transitionStyle && typeof transitionStyle === 'object' ?
@@ -73,10 +78,15 @@ const Collapsible = (props: CollapsibleProps) => {
 
         const wrapperstyle = {
             overflow: 'hidden',
-            maxHeight: (isOpen || !shouldKeepDOM() && !motion) ? 'none' : collapseHeight,
+            maxHeight: getDefaultMaxHeight,
             ...style,
             ...transition,
         };
+
+        if (isFirst) {
+            wrapperstyle.maxHeight = getDefaultMaxHeight;
+        }
+
         const wrapperCls = cls(`${cssClasses.PREFIX}-wrapper`, className);
         return (
             <div style={wrapperstyle} className={wrapperCls} ref={ref}>
