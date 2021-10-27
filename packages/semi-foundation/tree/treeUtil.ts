@@ -1,3 +1,8 @@
+/**
+ * Part of the utils function implementation process reference
+ * https://github.com/react-component/tree/blob/master/src/util.tsx
+ */
+
 import { difference, uniq, max, isObject, isNull, isUndefined, isEmpty, pick, get } from 'lodash-es';
 
 export interface KeyEntities {

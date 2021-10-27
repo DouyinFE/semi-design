@@ -1,3 +1,8 @@
+/**
+ * The drag and drop handler implementation is referenced from rc-tree
+ * https://github.com/react-component/tree
+ */
+
 import { isUndefined, difference, pick, cloneDeep, get } from 'lodash-es';
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import {

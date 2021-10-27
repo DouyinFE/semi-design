@@ -1,3 +1,6 @@
+/**
+ * Implementation reference from: https://github.com/ant-design/ant-design/blob/master/components/grid/col.tsx
+ */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { RowContext } from './row';
