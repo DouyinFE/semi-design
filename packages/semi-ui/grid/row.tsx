@@ -1,3 +1,6 @@
+/**
+ * Implementation reference from: https://github.com/ant-design/ant-design/blob/master/components/grid/row.tsx
+ */
 import React from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';

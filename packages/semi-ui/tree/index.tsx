@@ -174,6 +174,11 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
         this.dragNode = null;
     }
 
+    /**
+     * Process of getDerivedStateFromProps was inspired by rc-tree
+     * https://github.com/react-component/tree
+     */
+
     static getDerivedStateFromProps(props: TreeProps, prevState: TreeState) {
         const { prevProps } = prevState;
         let treeData;
