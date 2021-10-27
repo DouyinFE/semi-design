@@ -19,18 +19,10 @@ const getAnotherSideUrl=(site:'design'|'main')=>{
     }
 }
 
-const changeDomain=()=>{
-    window.addEventListener("load", ()=>{
-        if(document){
-            
-        }
-    })
-}
 
 const cache={scrollHeight:null};
 
 const transContent=(site:'main'|'design')=>{
-    changeDomain();
     const url=`${getAnotherSideUrl('design')}?concisemode=true`;
     const mainSiteContentDOM= document.querySelector('.main-article') as HTMLDivElement;
     if(site==='design'){
@@ -94,7 +86,7 @@ const isHaveUedDocs=(pathName:string)=>{
 }
 
 const isJumpToDesignSite=(pathName:string)=>{
-    const components=['toast','notification'];
+    const components=['toast','notification','popconfirm','scrolllist'];
     if(pathName){
         const urlSplitArray=pathName.split('/').filter(v=>v);
         const componentName=urlSplitArray[urlSplitArray.length-1];
