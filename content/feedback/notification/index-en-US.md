@@ -237,29 +237,31 @@ import { Notification, Button } from '@douyinfe/semi-ui';
   let opts = {
     content: 'Not auto close',
     title: 'Hi',
-    duration: 0
+    duration: 0,
   };
-  const [id, setId] = useState([]);
+  const [id, setId] = useState();
   function show() {
-    let id = Notification.info(opts);
-    setId(id);
+    if(id) return;
+    let notificationId = Notification.info(opts);
+    setId(notificationId);
   }
   function hide() {
     Notification.close(id);
+    setId()
   }
   return (
     <>
-      <Button type='primary' onClick={show}>
+      <Button type="primary" onClick={show}>
         Show Notification
       </Button>
-       <br/>
-       <br/>
-      <Button type='primary' onClick={hide}>
+      <br />
+      <br />
+      <Button type="primary" onClick={hide}>
         Hide Notification
       </Button>
     </>
-  )
-}
+  );
+};
 ```
 
 ## API Reference

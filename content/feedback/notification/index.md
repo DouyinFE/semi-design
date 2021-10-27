@@ -230,13 +230,15 @@ import { Notification, Button } from '@douyinfe/semi-ui';
         title: 'Hi',
         duration: 0,
     };
-    const [id, setId] = useState([]);
+    const [id, setId] = useState();
     function show() {
-        let id = Notification.info(opts);
-        setId(id);
+        if(id) return;
+        let notificationId = Notification.info(opts);
+        setId(notificationId);
     }
     function hide() {
         Notification.close(id);
+        setId()
     }
     return (
         <>
@@ -251,6 +253,7 @@ import { Notification, Button } from '@douyinfe/semi-ui';
         </>
     );
 };
+
 ```
 
 ## API 参考
