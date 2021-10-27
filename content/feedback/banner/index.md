@@ -50,7 +50,7 @@ import { Banner, Layout, Button } from '@douyinfe/semi-ui';
               margin: '0 auto'
             }}
           >
-            Show Banner
+            { visible ? 'Hide Banner' : 'Show Banner' }
           </Button>
         </>
       );
