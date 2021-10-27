@@ -30,7 +30,7 @@ In order to use the NPM package, you need to customize the theme through [Semi D
 
 ``` js
 // webpack.config.js
-const SemiPlugin = require('@douyinfe/semi-webpack-plugin');
+const SemiPlugin = require('@douyinfe/semi-webpack-plugin').default;
 
 module.exports = {
     // ...
@@ -57,7 +57,7 @@ $font-size-small: 16px;
 ``` js
 // webpack.config.js
 const path = require('path');
-const SemiPlugin = require('@douyinfe/semi-webpack-plugin');
+const SemiPlugin = require('@douyinfe/semi-webpack-plugin').default;
 
 module.exports = {
     // ...
@@ -72,7 +72,7 @@ module.exports = {
 #### Through parameters
 ``` js
 // webpack.config.js
-const SemiPlugin = require('@douyinfe/semi-webpack-plugin');
+const SemiPlugin = require('@douyinfe/semi-webpack-plugin').default;
 
 module.exports = {
     // ...
@@ -91,7 +91,7 @@ The css selectors used by SemiDesign is prefixed with semi by default(e.g, `.sem
 
 ``` js
 // webpack.config.js
-const SemiPlugin = require('@douyinfe/semi-webpack-plugin');
+const SemiPlugin = require('@douyinfe/semi-webpack-plugin').default;
 
 module.exports = {
     // ...
