@@ -24,7 +24,7 @@ In recent years, more and more SaaS products such as Slack, Notion, Figma have b
 Semi Design is always committed to improving the experience of enterprise applications. By refining simple and lightweight, modern design style, meticulously polishing the interaction of atomic components, and iterating under the massive business scenarios of byte beating, a set of high-quality default foundations have been deposited-it will ensure the enterprise application products created by Semi , Born with a consistent "language" and a quality baseline that is significantly better than the old system.  
 In addition, a good design system must be "live", it needs to be able to develop and update with the growth of the business. Therefore, Semi has never tried to constrain users and solidify the so-called "unified specifications". Instead, on the basis of default, it fully implements modular decoupling and opens up customization capabilities to facilitate the secondary tailoring and customization of users, and the construction is suitable for different Front-end assets of morphological products.
 
-![Diversified products and team components based on Semi Design](https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/p2Kapture.gif)
+![Diversified products and team components based on Semi Design](https:/lf9-static.semi.design/obj/semi-tos/images/introduction-showcase.gif)
 
 Adhere to the high-quality and stable default foundation (unchanged), and fully open the flexibility of customization (variable) when needed, this is the unique design principle of Semi Design and will always follow.
 
