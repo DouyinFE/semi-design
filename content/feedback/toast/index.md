@@ -69,7 +69,7 @@ function Demo() {
 
     return (
         <>
-            <Button onClick={() => Toast.success('Hi,Bytedance dance dance')}>Success</Button>
+            <Button style={{color:`var(--semi-color-success)`}} onClick={() => Toast.success('Hi,Bytedance dance dance')}>Success</Button>
             <br />
             <br />
             <Button type="warning" onClick={() => Toast.warning(opts)}>
@@ -106,7 +106,7 @@ function Demo() {
             <Button onClick={() => Toast.info(opts)}>Info</Button>
             <br />
             <br />
-            <Button onClick={() => Toast.success(opts)}>Success</Button>
+            <Button style={{color:`var(--semi-color-success)`}} onClick={() => Toast.success(opts)}>Success</Button>
             <br />
             <br />
             <Button type="warning" onClick={() => Toast.warning(opts)}>
