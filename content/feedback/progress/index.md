@@ -251,7 +251,7 @@ import { Progress } from '@douyinfe/semi-ui';
 |属性 | 说明 | 类型 | 默认值 |
 |--- | --- | --- | --- |
 |className | 样式类名 | string |  |
-|direction | 条状进度条方向 `horizontal`、s`vertical` | string | 'horizontal' |
+|direction | 条状进度条方向 `horizontal`、`vertical` | string | 'horizontal' |
 |format | 格式化函数，入参为当前百分比，return 的结果将会直接渲染在圆形进度条中心 | (percent: number) => ReactNode | (percent) => percent + '%' |
 |orbitStroke | 进度条轨道填充色<br/>**v1.0.0 后提供** | string | 'var(--semi-color-fill-0)' |
 |percent | 进度百分比 | number |  |

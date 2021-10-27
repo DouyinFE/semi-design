@@ -74,7 +74,7 @@ import { Progress } from '@douyinfe/semi-ui';
 ### Vertical progress bar
 
 You can use vertical progress bar by setting `direction='vertical'`
-If perset width is not satisfied, you can pass width to customize the width of the vertical progress bar throught `style` property.
+If preset width is not satisfied, you can pass width to customize the width of the vertical progress bar through `style` property.
 
 ```jsx live=true
 import React from 'react';
@@ -223,7 +223,7 @@ import { Progress } from '@douyinfe/semi-ui';
 | PROPERTIES | Instructions | Type | Default |
 |--- | --- | --- | --- |
 |className | style class name | string | |
-|direction | The direction of the bar progress bar `horizontal`, s`vertical` | string |'horizontal' |
+|direction | The direction of the bar progress bar `horizontal`, `vertical` | string |'horizontal' |
 |format | Formatting function, the input parameter is the current percentage, the result of return will be directly rendered in the center of the circular progress bar | (percent: number) => ReactNode | (percent) => percent +'%' |
 |orbitStroke | Progress bar track fill color<br/>**provided after v1.0.0** | string |'var(--semi-color-fill-0)' |
 |percent | percentage of progress | number | |
@@ -234,7 +234,7 @@ import { Progress } from '@douyinfe/semi-ui';
 |strokeWidth | When type is `line`, this property controls the height of the progress bar; when type is `circle`, this property controls the width of the progress bar | number | 4 |
 |style | style | CSSProperties | |
 |type | type, optional `line`, `circle` | string |'line' |
-|width | Width of circular progress bar | number | 72 when size='default', 24 for'small' |
+|width | Width of circular progress bar | number | 72 when size='default', 24 for 'small' |
 
 ## Design Tokens
 <DesignToken/>
