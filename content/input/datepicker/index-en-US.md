@@ -817,7 +817,7 @@ Multiple dates or times are used by default `","` (English comma) separated.
 ## FAQ
 
 -   **Date time picker, when you choose time, minute and second, you don't want to scroll infinitely. How to achieve the effect?**  
-    This behavior can be controlled by a specific switch in timePickerOpts, timePickerOpts={{scrollitemprops: {cycled: false}}}, and cycled is set to false
+    This behavior can be controlled by a specific switch in timePickerOpts, timePickerOpts={{scrollItemProps: {cycled: false}}}, and cycled is set to false
 
 -   **How to set the default display time when the panel is opened?**  
     You can use the defaultPickerValue property.
