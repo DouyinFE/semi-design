@@ -3,7 +3,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const darkmodeProcesser = () => {
+const darkModeProcesser = () => {
     if (!window) {
         return;
     }
@@ -157,7 +157,7 @@ export default function HTML(props) {
                 <meta name="viewport" content="width=1440, initial-scale=0, shrink-to-fit=no" />
                 <script src="https://lf1-cdn-tos.bytescm.com/goofy/semi_convenience/semi-analyze.js" />
                 <link rel="icon" href="https://lf9-static.semi.design/obj/semi-tos/images/favicon.ico" />
-                <script dangerouslySetInnerHTML={{ __html: `(${darkmodeProcesser.toString()})()` }} />
+                <script dangerouslySetInnerHTML={{ __html: `(${darkModeProcesser.toString()})()` }} />
                 {props.headComponents}
                 <script dangerouslySetInnerHTML={{ __html: `(${semiThemeProcesser.toString()})()` }} />
             </head>
