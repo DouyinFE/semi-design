@@ -1,5 +1,5 @@
 <!-- 非常感谢您的PR 💗 -->
-[English Template / 英文模板](./PULL_REQUEST_TEMPLATE.zh-CN.md)
+[English Template / 英文模板](./PULL_REQUEST_TEMPLATE.md)
 
 - [ ] 我已阅读并遵循了贡献文档中的[PR指南](https://github.com/DouyinFE/semi-design/blob/main/CONTRIBUTING.md#pull-request-%E6%8C%87%E5%8D%97).
 
