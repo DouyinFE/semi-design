@@ -35,11 +35,11 @@ export interface OnSelectedData {
 }
 
 export interface SubNavPropsWithItems extends SubNavProps {
-    items: SubNavPropsWithItems[];
+    items?: (SubNavPropsWithItems | string)[];
 }
 
 export interface NavItemPropsWithItems extends NavItemProps {
-    items: NavItemPropsWithItems[];
+    items?: (NavItemPropsWithItems | string)[];
 }
 
 export type NavItems = (string | SubNavPropsWithItems | NavItemPropsWithItems)[];
