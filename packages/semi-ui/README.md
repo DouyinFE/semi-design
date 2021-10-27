@@ -2,10 +2,10 @@
 ## Install
 ```sh
 # with npm
-npm install semi-ui
+npm install @douyinfe/semi-ui
 
 # with yarn
-yarn add semi-ui
+yarn add @douyinfe/semi-ui
 
 ```
 
