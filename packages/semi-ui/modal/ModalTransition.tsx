@@ -1,12 +1,12 @@
 // @ts-ignore Temporarily do not proceed  the action package ts
 import { Transition } from '@douyinfe/semi-animation-react';
-import React, { JSXElementConstructor, ReactChildren } from 'react';
+import React, { JSXElementConstructor } from 'react';
 import { Motion } from '../_base/base';
 
 interface ContentTransitionProps {
     // eslint-disable-next-line max-len
     motion?: Motion<ContentTransitionProps>;
-    children?: ReactChildren | JSXElementConstructor<any>;
+    children?: React.ReactNode | JSXElementConstructor<any>;
     controlled?: boolean;
     visible?: boolean;
 }

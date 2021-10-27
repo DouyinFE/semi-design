@@ -411,7 +411,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         if (mergedMotion) {
             return (
                 <ContentTransition motion={mergedMotion} controlled={keepDOM} visible={visible}>
-                    {shouldRender ? this.renderDialogWithTransition() : null}
+                    {shouldRender ? (...animationState) => this.renderDialogWithTransition(...animationState) : null}
                 </ContentTransition>
             );
         }
