@@ -1,6 +1,13 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
 
+/**
+ * The logic of JS for text truncation is referenced from antd typography
+ * https://github.com/ant-design/ant-design/blob/master/components/typography/util.tsx
+ * 
+ * For more thinking and analysis about this function, please refer to Feishu document
+ * https://bytedance.feishu.cn/docs/doccnqovjjyoKm2U5O13bj30aTh
+ */
 
 let ellipsisContainer: HTMLElement;
 
