@@ -1125,6 +1125,14 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         return key;
     };
 
+    /* Event handler function after popover is closed */
+    handlePopoverClose = isVisible => {
+        const { filterTreeNode } = this.props;
+        if (isVisible === false && Boolean(filterTreeNode)) {
+            this.foundation.clearInput();
+        }
+    }
+
     renderTreeNode = (treeNode: FlattenNode, ind: number, style: React.CSSProperties) => {
         const { data } = treeNode;
         // eslint-disable-next-line @typescript-eslint/no-shadow
@@ -1281,6 +1289,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 autoAdjustOverflow={autoAdjustOverflow}
                 mouseLeaveDelay={mouseLeaveDelay}
                 mouseEnterDelay={mouseEnterDelay}
+                onVisibleChange={this.handlePopoverClose}
             >
                 {selection}
             </Popover>
