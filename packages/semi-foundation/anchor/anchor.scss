@@ -27,7 +27,7 @@ $module: #{$prefix}-anchor;
             position: absolute;
             top: 0;
             width: $width-anchor_slide_default;
-            border-radius: $radis-anchor_slide;
+            border-radius: $radius-anchor_slide;
 
             &-active {
                 display: inline-block;
@@ -56,7 +56,7 @@ $module: #{$prefix}-anchor;
             width: $width-anchor_slide_default;
             height: 100%;
             background-color: $color-anchor_slide_default-bg-default;
-            border-radius: $radis-anchor_slide;
+            border-radius: $radius-anchor_slide;
             content: ' ';
         }
     }

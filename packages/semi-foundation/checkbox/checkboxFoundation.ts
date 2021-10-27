@@ -57,9 +57,9 @@ class CheckboxFoundation<P = Record<string, any>, S = Record<string, any>> exten
             return;
         }
 
-        const isInGrpoup = this._adapter.getIsInGroup();
+        const isInGroup = this._adapter.getIsInGroup();
 
-        if (isInGrpoup) {
+        if (isInGroup) {
             const groupDisabled = this._adapter.getGroupDisabled();
             if (!groupDisabled) {
                 this.handleChangeInGroup(e);
