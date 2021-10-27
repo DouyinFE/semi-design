@@ -2,8 +2,9 @@
 
 We are glad that you are interested in contributing to Semi UI. Please take some minutes to read the following guidelines:
 ## Branch Management
- - main: Normally, the branch is just a snapshot of the latest stable release. We will merge the `beta` to this branch releasing a minor version every two weeks. If an emergency bug is fixed, we will release a patch version on this branch.
- - beta: For bug fixes and feature development. The beta version will be released based on this branch one week after the minor version is released
+Semi Team will maintain two resident branches: `main` and `release`, we will release the code follow our [Publishing Period](https://semi.design/en-US/start/changelog)
+ - main: This branch is just a snapshot of the **latest stable** release. After minor release, we will merge `release` into this branch.
+ - release: Bug fixes and feature development will merge into this branch first, new version will be released based on this branch on release day.
 ## Bug
 We use Github issues to track bugs. In order to understand and fix bugs faster, when reporting a bug, you can also reproduce the problem through the template we provide. we recommend you
 ## Feature
@@ -16,13 +17,16 @@ To open a Pull Request, please follow the steps below:
 git clone https://github.com/<your-username>/semi-design.git
 cd semi-design
 ```
-Before installing the enviroment,make sure that there is a dependency of `lerna` locally, if not, should run:
+ - Checkout a topic branch
 ```bash
-npm install --global lerna
+git checkout -b <TOPIC_BRANCH_NAME>
 ```
- - Checkout to `beta` branch, install the dependencies
+>Before installing the enviroment,make sure that there is a dependency of `lerna` and `yarn` locally, if not, should run:
 ```bash
-git checkout beta
+npm install --global lerna yarn
+```
+ - Install the dependencies
+```bash
 npm run bootstrap
 ```
  - Next, make the modifications you want to make, which can be bug fixes or development of new features
@@ -31,7 +35,9 @@ npm run bootstrap
 ```bash
 npm run test:unit
 ```
- - Open a Pull Request against `beta` of source repo
+ - Open a Pull Request against `release` of source repo
+
+We may ask or help you to modify the PR according to the situation. For inappropriate PR, we will close it with an explanation.
 
 ## Help Improve the Docs
 The documentation site is based on [gatsby](https://www.gatsbyjs.com/), and the code is in the `src` directory.
@@ -40,6 +46,7 @@ The documentation site is based on [gatsby](https://www.gatsbyjs.com/), and the 
 
 * Chinese document `packages/semi-ui/tooltip/index.md` 
 * English document `packages/semi-ui/tooltip/index-en-US.md`
+
 To get started:
 ```sh
 npm run docsite
