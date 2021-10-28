@@ -1,3 +1,8 @@
+/*
+* Modified based on animate.css and added prefix name to prevent style conflicts
+* Reference: https://github.com/animate-css/animate.css
+*/
+
 @keyframes semi-rotateOutUpLeft {
     from {
         transform-origin: left bottom;
@@ -14,3 +19,4 @@
 .semi-rotateOutUpLeft {
     animation-name: semi-rotateOutUpLeft;
 }
+

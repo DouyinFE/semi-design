@@ -1,3 +1,8 @@
+/*
+* Modified based on animate.css and added prefix name to prevent style conflicts
+* Reference: https://github.com/animate-css/animate.css
+*/
+
 .semi-animated {
     animation-duration: 1s;
     animation-fill-mode: both;
@@ -79,3 +84,4 @@
         animation-iteration-count: 1 !important;
     }
 }
+

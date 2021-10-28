@@ -1,3 +1,8 @@
+/*
+* Modified based on animate.css and added prefix name to prevent style conflicts
+* Reference: https://github.com/animate-css/animate.css
+*/
+
 @keyframes semi-bounceIn {
     from,
     20%,
@@ -40,3 +45,4 @@
     animation-duration: .75s;
     animation-name: semi-bounceIn;
 }
+

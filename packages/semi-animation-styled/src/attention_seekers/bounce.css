@@ -1,3 +1,8 @@
+/*
+* Modified based on animate.css and added prefix name to prevent style conflicts
+* Reference: https://github.com/animate-css/animate.css
+*/
+
 @keyframes semi-bounce {
     from,
     20%,
@@ -28,3 +33,4 @@
     animation-name: semi-bounce;
     transform-origin: center bottom;
 }
+
