@@ -1218,7 +1218,7 @@ function Demo() {
 | onLoad | 节点加载完毕时触发的回调 | (loadedKeys: Set< string >, treeNode: TreeNode) => void |- |  1.32.0|
 | onSearch | 文本框值变化时回调 | function(sugInput: string) | - | - |
 | onSelect | 被选中时调用，返回值为当前事件选项的key值 | function(selectedKey:string, selected: bool, selectedNode: TreeNode) | - | - |
-| onVisibleChange     | 弹出层展示/隐藏时触发的回调   | function(isVisble:boolean) |     |   1.4.0  |
+| onVisibleChange     | 弹出层展示/隐藏时触发的回调   | function(isVisible:boolean) |     |   1.4.0  |
 
 ### TreeNode
 
