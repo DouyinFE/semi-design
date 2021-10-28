@@ -178,53 +178,53 @@ stories.add('checkbox group with options ', () => {
         console.log('checked = ', checkedValues);
     }
 
-    const plainOptions = ['Apple', 'Pear', 'Orange'];
+    const plainOptions = ['green', 'red', 'pink'];
     const options = [
         {
-            label: 'Apple',
-            value: 'Apple',
+            label: 'green',
+            value: 'green',
         },
         {
-            label: 'Pear',
-            value: 'Pear',
+            label: 'red',
+            value: 'red',
         },
         {
-            label: 'Orange',
-            value: 'Orange',
+            label: 'pink',
+            value: 'pink',
             disabled: true,
         },
     ];
     const optionsWithDisabled = [
         {
-            label: 'Apple',
-            value: 'Apple',
+            label: 'green',
+            value: 'green',
         },
         {
-            label: 'Pear',
-            value: 'Pear',
+            label: 'red',
+            value: 'red',
         },
         {
-            label: 'Orange',
-            value: 'Orange',
+            label: 'pink',
+            value: 'pink',
             disabled: false,
         },
     ];
     return (
         <div>
             default
-            <CheckboxGroup options={plainOptions} defaultValue={['Apple']} onChange={onChange}/>
+            <CheckboxGroup options={plainOptions} defaultValue={['green']} onChange={onChange}/>
             <br/>
             <br/>
             受控
-            <CheckboxGroup options={plainOptions} value={['Apple']} onChange={onChange}/>
+            <CheckboxGroup options={plainOptions} value={['green']} onChange={onChange}/>
             <br/>
             最后一个disabled
             <br/>
-            <CheckboxGroup options={options} defaultValue={['Pear']} onChange={onChange}/>
+            <CheckboxGroup options={options} defaultValue={['red']} onChange={onChange}/>
             <br/>
             全体disabled， 优先父级disabled，次选子级disabled
             <br/>
-            <CheckboxGroup options={optionsWithDisabled} disabled defaultValue={['Apple']} onChange={onChange}/>
+            <CheckboxGroup options={optionsWithDisabled} disabled defaultValue={['green']} onChange={onChange}/>
         </div>
     );
 });
@@ -232,14 +232,14 @@ stories.add('checkboxGroup-直接后代是其他类型Node', () => {
     return (
         <CheckboxGroup>
             <div className="test">
-                <Checkbox value="Apple" extra="苹果">
-                    Apple
+                <Checkbox value="green" extra="苹果">
+                    green
                 </Checkbox>
-                <Checkbox value="Pear" extra="梨">
-                    Pear
+                <Checkbox value="red" extra="梨">
+                    red
                 </Checkbox>
-                <Checkbox value="Orange" extra="橙子">
-                    Orange
+                <Checkbox value="pink" extra="橙子">
+                    pink
                 </Checkbox>
             </div>
         </CheckboxGroup>
@@ -248,18 +248,18 @@ stories.add('checkboxGroup-直接后代是其他类型Node', () => {
 stories.add('checkbox 主文本+副文本', () => {
     let options = [
         {
-            label: 'Apple',
-            value: 'Apple',
+            label: 'green',
+            value: 'green',
             extra: '苹果',
         },
         {
-            label: 'Pear',
-            value: 'Pear',
+            label: 'red',
+            value: 'red',
             extra: '梨',
         },
         {
-            label: 'Orange',
-            value: 'Orange',
+            label: 'pink',
+            value: 'pink',
             disabled: true,
             extra: '橙子',
         },
@@ -286,14 +286,14 @@ stories.add('checkbox 主文本+副文本', () => {
             <br/>
             checkboxGroup
             <CheckboxGroup>
-                <Checkbox value="Apple" extra="苹果">
-                    Apple
+                <Checkbox value="green" extra="苹果">
+                    green
                 </Checkbox>
-                <Checkbox value="Pear" extra="梨">
-                    Pear
+                <Checkbox value="red" extra="梨">
+                    red
                 </Checkbox>
-                <Checkbox value="Orange" extra="橙子">
-                    Orange
+                <Checkbox value="pink" extra="橙子">
+                    pink
                 </Checkbox>
             </CheckboxGroup>
             <br/>
