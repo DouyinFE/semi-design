@@ -1,5 +1,5 @@
-import { Table, Checkbox } from '@douyinfe/semi-ui';
-import React, { useMemo, useState, useCallback } from 'react';
+import {Checkbox, Table} from '@douyinfe/semi-ui';
+import React, {useCallback, useMemo, useState} from 'react';
 import * as _ from 'lodash-es';
 
 const getKey = (record, rowKey) => (typeof rowKey === 'function' ? rowKey(rowKey) : _.get(record, rowKey));
@@ -45,73 +45,53 @@ function ChildrenDataSelectedDemo(props = {}) {
         () => [
             {
                 key: 1,
-                name: 'John Brown sr.',
-                age: 60,
-                address: 'New York No. 1 Lake Park',
+                name: 'ZhangSan',
+                age: 30,
+                address: 'bytedance 1',
                 children: [
                     {
                         key: 11,
-                        name: 'John Brown',
-                        age: 42,
-                        address: 'New York No. 2 Lake Park',
+                        name: 'LiSi',
+                        age: 40,
+                        address: 'bytedance 2',
                     },
                     {
                         key: 12,
-                        name: 'John Brown jr.',
+                        name: 'WangWu',
                         age: 30,
-                        address: 'New York No. 3 Lake Park',
+                        address: 'bytedance 2',
                         children: [
                             {
                                 key: 121,
-                                name: 'Jimmy Brown',
-                                age: 16,
-                                address: 'New York No. 3 Lake Park',
+                                name: 'XiaoMing',
+                                age: 50,
+                                address: 'bytedance 3',
                             },
                         ],
                     },
                     {
                         key: 13,
-                        name: 'Jim Green sr.',
-                        age: 72,
-                        address: 'London No. 1 Lake Park',
+                        name: 'XiaoZhang',
+                        age: 60,
+                        address: 'bytedance 4',
                         children: [
                             {
                                 key: 131,
-                                name: 'Jim Green',
-                                age: 42,
-                                address: 'London No. 2 Lake Park',
+                                name: 'XiaoLi',
+                                age: 50,
+                                address: 'bytedance 5',
                                 children: [
                                     {
                                         key: 1311,
-                                        name: 'Jim Green jr.',
-                                        age: 25,
-                                        address: 'London No. 3 Lake Park',
+                                        name: 'XiaoGuo',
+                                        age: 40,
+                                        address: 'bytedance 6',
                                     },
                                     {
                                         key: 1312,
-                                        name: 'Jimmy Green sr.',
-                                        age: 18,
-                                        address: 'London No. 4 Lake Park',
-                                    },
-                                ],
-                            },
-                            {
-                                key: 132,
-                                name: 'Jack Green',
-                                age: 48,
-                                address: 'London No. 3 Lake Park',
-                                children: [
-                                    {
-                                        key: 1321,
-                                        name: 'Jack Green jr.',
-                                        age: 35,
-                                        address: 'London No. 31 Lake Park',
-                                    },
-                                    {
-                                        key: 1322,
-                                        name: 'Jack Green sr.',
-                                        age: 28,
-                                        address: 'London No. 41 Lake Park',
+                                        name: 'XiaoHong',
+                                        age: 30,
+                                        address: 'bytedance 7',
                                     },
                                 ],
                             },
@@ -121,9 +101,9 @@ function ChildrenDataSelectedDemo(props = {}) {
             },
             {
                 key: 2,
-                name: 'Joe Black',
-                age: 32,
-                address: 'Sidney No. 1 Lake Park',
+                name: 'XiaoGang',
+                age: 80,
+                address: 'bytedance 8',
             },
         ],
         []
@@ -200,12 +180,12 @@ function ChildrenDataSelectedDemo(props = {}) {
                 key: 'name',
                 width: 300,
                 render: (text, record) => (
-                    <span style={{ display: 'inline-flex', alignItems: 'center' }}>
+                    <span style={{display: 'inline-flex', alignItems: 'center'}}>
                         {_.size(_.get(record, childrenRecordName)) ? (
                             <Checkbox
                                 checked={selectedRowKeys.includes(_.get(record, rowKey))}
                                 onChange={e => doSelect(record, e.target.checked)}
-                                style={{ display: 'inline-flex', marginRight: 5 }}
+                                style={{display: 'inline-flex', marginRight: 5}}
                             />
                         ) : null}
                         {text}

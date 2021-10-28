@@ -1,12 +1,12 @@
-import React, { useState, useCallback, useMemo } from 'react';
-import { storiesOf } from '@storybook/react'; // import { withKnobs, text, boolean } from '@storybook/addon-knobs';
-
+import React, {useCallback, useMemo, useState} from 'react';
+import {storiesOf} from '@storybook/react'; // import { withKnobs, text, boolean } from '@storybook/addon-knobs';
 import Button from '../../button';
 import Popover from '../../popover';
 import Checkbox from '../index';
 import CheckboxGroup from '../checkboxGroup';
-import { Input, Row, Col } from '../../index';
-import { IconClose } from '@douyinfe/semi-icons';
+import {Col, Input, Row} from '../../index';
+import {IconClose} from '@douyinfe/semi-icons';
+
 const stories = storiesOf('Checkbox', module); // stories.addDecorator(withKnobs);;
 
 stories.add('checkbox default', () => {
@@ -15,17 +15,17 @@ stories.add('checkbox default', () => {
             <Checkbox onChange={e => console.log(e)} value={1} onChange={v => console.log(v)}>
                 hello
             </Checkbox>
-            <br />
+            <br/>
             <Checkbox checked>这是一个受控的checked=true的checkbox,没有配onChange</Checkbox>
-            <br />
+            <br/>
             <Checkbox defaultChecked>这是一个不受控的defaultChecked=true的checkbox</Checkbox>
-            <br />
+            <br/>
             <Checkbox disabled>这是一个受控的disabled=true的checkbox</Checkbox>
-            <br />
+            <br/>
             <Checkbox checked disabled>
                 既checked又disabled
             </Checkbox>
-            <br />
+            <br/>
             <Checkbox indeterminate>indeterminate</Checkbox>
         </div>
     );
@@ -33,7 +33,7 @@ stories.add('checkbox default', () => {
 stories.add('checkbox without text', () => {
     return (
         <div>
-            <Checkbox onChange={e => console.log(e)} />
+            <Checkbox onChange={e => console.log(e)}/>
         </div>
     );
 });
@@ -93,7 +93,7 @@ class CheckboxControl extends React.Component {
     }
 }
 
-stories.add('checkbox controlled disabled & checked', () => <CheckboxControl />);
+stories.add('checkbox controlled disabled & checked', () => <CheckboxControl/>);
 
 class GroupDemo extends React.Component {
     constructor() {
@@ -112,7 +112,7 @@ class GroupDemo extends React.Component {
     }
 
     render() {
-        let { value } = this.state;
+        let {value} = this.state;
         return (
             <>
                 水平Group
@@ -122,8 +122,8 @@ class GroupDemo extends React.Component {
                     <Checkbox value="toutiao">今日头条</Checkbox>
                     <Checkbox value="xigua">西瓜视频</Checkbox>
                 </Checkbox.Group>
-                <br />
-                <br />
+                <br/>
+                <br/>
                 垂直Group
                 <Checkbox.Group onChange={v => console.log(v)}>
                     <Checkbox value="dy">抖音</Checkbox>
@@ -131,8 +131,8 @@ class GroupDemo extends React.Component {
                     <Checkbox value="toutiao">今日头条</Checkbox>
                     <Checkbox value="xigua">西瓜视频</Checkbox>
                 </Checkbox.Group>
-                <br />
-                <br />
+                <br/>
+                <br/>
                 默认Group
                 <Checkbox.Group direction="horizontal" defaultValue={['xigua']} onChange={console.log}>
                     <Checkbox value="dy">抖音</Checkbox>
@@ -140,8 +140,8 @@ class GroupDemo extends React.Component {
                     <Checkbox value="toutiao">今日头条</Checkbox>
                     <Checkbox value="xigua">西瓜视频</Checkbox>
                 </Checkbox.Group>
-                <br />
-                <br />
+                <br/>
+                <br/>
                 受控Group
                 <Checkbox.Group direction="horizontal" value={value} onChange={console.log}>
                     <Checkbox value="dy">抖音</Checkbox>
@@ -149,8 +149,8 @@ class GroupDemo extends React.Component {
                     <Checkbox value="toutiao">今日头条</Checkbox>
                     <Checkbox value="xigua">西瓜视频</Checkbox>
                 </Checkbox.Group>
-                <br />
-                <br />
+                <br/>
+                <br/>
                 受控Group+onChange
                 <Checkbox.Group direction="horizontal" value={value} onChange={this.onChange}>
                     <Checkbox value="dy">抖音</Checkbox>
@@ -158,8 +158,8 @@ class GroupDemo extends React.Component {
                     <Checkbox value="toutiao">今日头条</Checkbox>
                     <Checkbox value="xigua">西瓜视频</Checkbox>
                 </Checkbox.Group>
-                <br />
-                <br />
+                <br/>
+                <br/>
                 disabled
                 <Checkbox.Group disabled>
                     <Checkbox value="dy">抖音</Checkbox>
@@ -172,7 +172,7 @@ class GroupDemo extends React.Component {
     }
 }
 
-stories.add('checkbox group', () => <GroupDemo />);
+stories.add('checkbox group', () => <GroupDemo/>);
 stories.add('checkbox group with options ', () => {
     function onChange(checkedValues) {
         console.log('checked = ', checkedValues);
@@ -212,19 +212,19 @@ stories.add('checkbox group with options ', () => {
     return (
         <div>
             default
-            <CheckboxGroup options={plainOptions} defaultValue={['Apple']} onChange={onChange} />
-            <br />
-            <br />
+            <CheckboxGroup options={plainOptions} defaultValue={['Apple']} onChange={onChange}/>
+            <br/>
+            <br/>
             受控
-            <CheckboxGroup options={plainOptions} value={['Apple']} onChange={onChange} />
-            <br />
+            <CheckboxGroup options={plainOptions} value={['Apple']} onChange={onChange}/>
+            <br/>
             最后一个disabled
-            <br />
-            <CheckboxGroup options={options} defaultValue={['Pear']} onChange={onChange} />
-            <br />
+            <br/>
+            <CheckboxGroup options={options} defaultValue={['Pear']} onChange={onChange}/>
+            <br/>
             全体disabled， 优先父级disabled，次选子级disabled
-            <br />
-            <CheckboxGroup options={optionsWithDisabled} disabled defaultValue={['Apple']} onChange={onChange} />
+            <br/>
+            <CheckboxGroup options={optionsWithDisabled} disabled defaultValue={['Apple']} onChange={onChange}/>
         </div>
     );
 });
@@ -282,8 +282,8 @@ stories.add('checkbox 主文本+副文本', () => {
             >
                 我是主文本
             </Checkbox>
-            <br />
-            <br />
+            <br/>
+            <br/>
             checkboxGroup
             <CheckboxGroup>
                 <Checkbox value="Apple" extra="苹果">
@@ -296,8 +296,8 @@ stories.add('checkbox 主文本+副文本', () => {
                     Orange
                 </Checkbox>
             </CheckboxGroup>
-            <br />
-            <br />
+            <br/>
+            <br/>
             checkboxGroup with options
             <CheckboxGroup options={options}></CheckboxGroup>
         </div>
@@ -334,54 +334,53 @@ stories.add('checkbox + grid', () => {
         </Checkbox.Group>
     );
 });
-const plainOptions = ['Apple', 'Pear', 'Orange'];
-const defaultCheckedList = ['Apple', 'Orange'];
 
-class IndeterminateDemo extends React.Component {
-    state = {
-        checkedList: defaultCheckedList,
-        indeterminate: true,
-        checkAll: false,
-    };
-    onChange = checkedList => {
-        this.setState({
-            checkedList,
-            indeterminate: !!checkedList.length && checkedList.length < plainOptions.length,
-            checkAll: checkedList.length === plainOptions.length,
-        });
-    };
-    onCheckAllChange = e => {
-        this.setState({
-            checkedList: e.target.checked ? plainOptions : [],
-            indeterminate: false,
-            checkAll: e.target.checked,
-        });
+
+const IndeterminateDemo = () => {
+    const options = ['yellow', 'green', 'red'];
+    const defaultCheckedColors = ['yellow', 'red'];
+
+    const [checkedList, setCheckList] = useState(defaultCheckedColors);
+    const [indeterminate, setIndeterminate] = useState(true);
+    const [checkAll, setCheckAll] = useState(false);
+
+    const onCheckListChange = checkedList => {
+        setCheckList([...checkedList]);
+        setIndeterminate(!!checkedList.length && checkedList.length < options.length);
+        setCheckAll(checkedList.length === options.length)
     };
 
-    render() {
-        return (
-            <div>
-                <div
-                    style={{
-                        borderBottom: '1px solid #E9E9E9',
-                    }}
+    const onCheckAllChange = e => {
+        setCheckList([...(e.target.checked ? options : [])]);
+        setIndeterminate(false);
+        setCheckAll(e.target.checked)
+    };
+
+
+    return
+    return (
+        <div>
+            <div
+                style={{
+                    borderBottom: '1px solid #E9E9E9',
+                }}
+            >
+                <Checkbox
+                    indeterminate={indeterminate}
+                    onChange={onCheckAllChange}
+                    checked={state.checkAll}
                 >
-                    <Checkbox
-                        indeterminate={this.state.indeterminate}
-                        onChange={this.onCheckAllChange}
-                        checked={this.state.checkAll}
-                    >
-                        Check all
-                    </Checkbox>
-                </div>
-                <br />
-                <CheckboxGroup options={plainOptions} value={this.state.checkedList} onChange={this.onChange} />
+                    Check all
+                </Checkbox>
             </div>
-        );
-    }
+            <br/>
+            <CheckboxGroup options={options} value={checkedList} onChange={onCheckListChange}/>
+        </div>
+    );
 }
 
-stories.add('checkbox inderterminate联动', () => <IndeterminateDemo />);
+
+stories.add('checkbox inderterminate联动', () => <IndeterminateDemo/>);
 stories.add('checkbox render in div', () => (
     <>
         <div
@@ -420,10 +419,10 @@ const SwitchCheckedFromTrue2Undefined = () => {
     const change = () => {
         if (flag === 0) {
             setFlag(1);
-            setProps({ checked: true });
+            setProps({checked: true});
         } else {
             setFlag(0);
-            setProps({ checked: false });
+            setProps({checked: false});
         }
     };
 
@@ -433,10 +432,10 @@ const SwitchCheckedFromTrue2Undefined = () => {
     </>
 };
 
-stories.add('checkbox switch checked: true => undefined', () => <SwitchCheckedFromTrue2Undefined />);
+stories.add('checkbox switch checked: true => undefined', () => <SwitchCheckedFromTrue2Undefined/>);
 
 const TransformSelect = props => {
-    const { onChange, value, options = [], defaultValue = [], placeholder } = props;
+    const {onChange, value, options = [], defaultValue = [], placeholder} = props;
     const [currentValue, setCurrentValue] = useState([]);
     const [inputValue, setInputValue] = useState(''); // 变化
 
@@ -508,7 +507,7 @@ const TransformSelect = props => {
                                 <div key={option.key ? option.key : idx}>
                                     <span>{option.label}</span>
                                     <span onClick={() => removeValue(idx)}>
-                                        <IconClose size="small" />
+                                        <IconClose size="small"/>
                                     </span>
                                 </div>
                             );
@@ -522,52 +521,52 @@ const TransformSelect = props => {
     );
 };
 
-stories.add(`bugDemo`, () => <TransformSelect />);
+stories.add(`bugDemo`, () => <TransformSelect/>);
 
 stories.add(`checkboxGroup card style`, () => (
     <>
         <div>常见情况</div>
         <CheckboxGroup type='card' direction='horizontal' defaultValue={['1']}>
-            <Checkbox value='1' extra='Semi Design' style={{ width: 280 }}>
+            <Checkbox value='1' extra='Semi Design' style={{width: 280}}>
                 多选框标题
             </Checkbox>
-            <Checkbox value='2' extra='Semi Design' style={{ width: 280 }}>
+            <Checkbox value='2' extra='Semi Design' style={{width: 280}}>
                 多选框标题
             </Checkbox>
-            <Checkbox value='3' extra='Semi Design' style={{ width: 280 }}>
+            <Checkbox value='3' extra='Semi Design' style={{width: 280}}>
                 多选框标题
             </Checkbox>
         </CheckboxGroup>
-        <br />
-        <br />
+        <br/>
+        <br/>
         <div>radio disabled</div>
         <CheckboxGroup type='card' direction='horizontal' defaultValue={['1']}>
-            <Checkbox value='1' disabled extra='Semi Design' style={{ width: 280 }}>
+            <Checkbox value='1' disabled extra='Semi Design' style={{width: 280}}>
                 多选框标题
             </Checkbox>
-            <Checkbox value='2' extra='Semi Design' style={{ width: 280 }}>
+            <Checkbox value='2' extra='Semi Design' style={{width: 280}}>
                 多选框标题
             </Checkbox>
-            <Checkbox value='3' extra='Semi Design' style={{ width: 280 }}>
+            <Checkbox value='3' extra='Semi Design' style={{width: 280}}>
                 多选框标题
             </Checkbox>
         </CheckboxGroup>
-        <br />
-        <br />
+        <br/>
+        <br/>
         <div>checkboxGroup disabled</div>
         <CheckboxGroup type='card' direction='horizontal' disabled defaultValue={['1']}>
-            <Checkbox value='1' extra='Semi Design' style={{ width: 280 }}>
+            <Checkbox value='1' extra='Semi Design' style={{width: 280}}>
                 多选框标题
             </Checkbox>
-            <Checkbox value='2' extra='Semi Design' style={{ width: 280 }}>
+            <Checkbox value='2' extra='Semi Design' style={{width: 280}}>
                 多选框标题
             </Checkbox>
-            <Checkbox value='3' extra='Semi Design' style={{ width: 280 }}>
+            <Checkbox value='3' extra='Semi Design' style={{width: 280}}>
                 多选框标题
             </Checkbox>
         </CheckboxGroup>
-        <br />
-        <br />
+        <br/>
+        <br/>
         <div>文字很长，并且没有设置宽度，因此换行显示</div>
         <CheckboxGroup type='card' direction='horizontal' defaultValue={['1']}>
             <Checkbox value='1' extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统'>
@@ -580,63 +579,63 @@ stories.add(`checkboxGroup card style`, () => (
                 多选框标题
             </Checkbox>
         </CheckboxGroup>
-        <br />
-        <br />
+        <br/>
+        <br/>
         <div>设置了width=180</div>
         <CheckboxGroup type='card' direction='horizontal' defaultValue={['1']}>
-            <Checkbox value='1' extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 180 }}>
+            <Checkbox value='1' extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{width: 180}}>
                 多选框标题
             </Checkbox>
-            <Checkbox value='2' extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 180 }}>
+            <Checkbox value='2' extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{width: 180}}>
                 多选框标题
             </Checkbox>
-            <Checkbox value='3' extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 180 }}>
+            <Checkbox value='3' extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{width: 180}}>
                 多选框标题
             </Checkbox>
         </CheckboxGroup>
-        <br />
-        <br />
+        <br/>
+        <br/>
         <div>没有extra，width=180</div>
         <CheckboxGroup type='card' direction='horizontal' defaultValue={['1']}>
-            <Checkbox value='1' style={{ width: 180 }}>
+            <Checkbox value='1' style={{width: 180}}>
                 多选框标题
             </Checkbox>
-            <Checkbox value='2' style={{ width: 180 }}>
+            <Checkbox value='2' style={{width: 180}}>
                 多选框标题
             </Checkbox>
-            <Checkbox value='3' style={{ width: 180 }}>
+            <Checkbox value='3' style={{width: 180}}>
                 多选框标题
             </Checkbox>
         </CheckboxGroup>
-        <br />
-        <br />
+        <br/>
+        <br/>
         <div>没有标题，width=380</div>
         <CheckboxGroup type='card' direction='horizontal' defaultValue={['1']}>
-            <Checkbox value='1' extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 380 }}>
+            <Checkbox value='1' extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{width: 380}}>
             </Checkbox>
-            <Checkbox value='2' extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 380 }}>
+            <Checkbox value='2' extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{width: 380}}>
             </Checkbox>
-            <Checkbox value='3' extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 380 }}>
+            <Checkbox value='3' extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{width: 380}}>
             </Checkbox>
         </CheckboxGroup>
-        <br />
-        <br />
-        <hr />
+        <br/>
+        <br/>
+        <hr/>
         <div>下面是垂直的情况：</div>
         <div>常见情况</div>
         <CheckboxGroup direction='vertical' type='card' defaultValue={['1']}>
-            <Checkbox value='1' extra='Semi Design' style={{ width: 280 }}>
+            <Checkbox value='1' extra='Semi Design' style={{width: 280}}>
                 多选框标题
             </Checkbox>
-            <Checkbox value='2' extra='Semi Design' style={{ width: 280 }}>
+            <Checkbox value='2' extra='Semi Design' style={{width: 280}}>
                 多选框标题
             </Checkbox>
-            <Checkbox value='3' extra='Semi Design' style={{ width: 280 }}>
+            <Checkbox value='3' extra='Semi Design' style={{width: 280}}>
                 多选框标题
             </Checkbox>
         </CheckboxGroup>
-        <br />
-        <br />
+        <br/>
+        <br/>
         <div>没有设置宽度</div>
         <CheckboxGroup direction='vertical' type='card' defaultValue={['1']}>
             <Checkbox value='1' extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统'>
@@ -649,17 +648,17 @@ stories.add(`checkboxGroup card style`, () => (
                 多选框标题
             </Checkbox>
         </CheckboxGroup>
-        <br />
-        <br />
+        <br/>
+        <br/>
         <div>设置了width=380</div>
         <CheckboxGroup direction='vertical' type='card' defaultValue={['1']}>
-            <Checkbox value='1' extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 380 }}>
+            <Checkbox value='1' extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{width: 380}}>
                 多选框标题
             </Checkbox>
-            <Checkbox value='2' extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 380 }}>
+            <Checkbox value='2' extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{width: 380}}>
                 多选框标题
             </Checkbox>
-            <Checkbox value='3' extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 380 }}>
+            <Checkbox value='3' extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{width: 380}}>
                 多选框标题
             </Checkbox>
         </CheckboxGroup>
@@ -670,46 +669,46 @@ stories.add(`checkboxGroup pureCard style`, () => (
     <>
         <div>常见情况</div>
         <CheckboxGroup type='pureCard' defaultValue={['1']}>
-            <Checkbox value='1' extra='Semi Design' style={{ width: 280 }}>
+            <Checkbox value='1' extra='Semi Design' style={{width: 280}}>
                 多选框标题
             </Checkbox>
-            <Checkbox value='2' extra='Semi Design' style={{ width: 280 }}>
+            <Checkbox value='2' extra='Semi Design' style={{width: 280}}>
                 多选框标题
             </Checkbox>
-            <Checkbox value='3' extra='Semi Design' style={{ width: 280 }}>
+            <Checkbox value='3' extra='Semi Design' style={{width: 280}}>
                 多选框标题
             </Checkbox>
         </CheckboxGroup>
-        <br />
-        <br />
+        <br/>
+        <br/>
         <div>radio disabled</div>
         <CheckboxGroup type='pureCard' defaultValue={['1']}>
-            <Checkbox value='1' disabled extra='Semi Design' style={{ width: 280 }}>
+            <Checkbox value='1' disabled extra='Semi Design' style={{width: 280}}>
                 多选框标题
             </Checkbox>
-            <Checkbox value='2' extra='Semi Design' style={{ width: 280 }}>
+            <Checkbox value='2' extra='Semi Design' style={{width: 280}}>
                 多选框标题
             </Checkbox>
-            <Checkbox value='3' extra='Semi Design' style={{ width: 280 }}>
+            <Checkbox value='3' extra='Semi Design' style={{width: 280}}>
                 多选框标题
             </Checkbox>
         </CheckboxGroup>
-        <br />
-        <br />
+        <br/>
+        <br/>
         <div>checkboxGroup disabled</div>
         <CheckboxGroup type='pureCard' disabled defaultValue={['1']}>
-            <Checkbox value='1' extra='Semi Design' style={{ width: 280 }}>
+            <Checkbox value='1' extra='Semi Design' style={{width: 280}}>
                 多选框标题
             </Checkbox>
-            <Checkbox value='2' extra='Semi Design' style={{ width: 280 }}>
+            <Checkbox value='2' extra='Semi Design' style={{width: 280}}>
                 多选框标题
             </Checkbox>
-            <Checkbox value='3' extra='Semi Design' style={{ width: 280 }}>
+            <Checkbox value='3' extra='Semi Design' style={{width: 280}}>
                 多选框标题
             </Checkbox>
         </CheckboxGroup>
-        <br />
-        <br />
+        <br/>
+        <br/>
         <div>文字很长，并且没有设置宽度，因此换行显示</div>
         <CheckboxGroup type='pureCard' defaultValue={['1']}>
             <Checkbox value='1' extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统'>
@@ -722,63 +721,63 @@ stories.add(`checkboxGroup pureCard style`, () => (
                 多选框标题
             </Checkbox>
         </CheckboxGroup>
-        <br />
-        <br />
+        <br/>
+        <br/>
         <div>设置了width=180</div>
         <CheckboxGroup type='pureCard' defaultValue={['1']}>
-            <Checkbox value='1' extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 180 }}>
+            <Checkbox value='1' extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{width: 180}}>
                 多选框标题
             </Checkbox>
-            <Checkbox value='2' extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 180 }}>
+            <Checkbox value='2' extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{width: 180}}>
                 多选框标题
             </Checkbox>
-            <Checkbox value='3' extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 180 }}>
+            <Checkbox value='3' extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{width: 180}}>
                 多选框标题
             </Checkbox>
         </CheckboxGroup>
-        <br />
-        <br />
+        <br/>
+        <br/>
         <div>没有extra，width=180</div>
         <CheckboxGroup type='pureCard' defaultValue={['1']}>
-            <Checkbox value='1' style={{ width: 180 }}>
+            <Checkbox value='1' style={{width: 180}}>
                 多选框标题
             </Checkbox>
-            <Checkbox value='2' style={{ width: 180 }}>
+            <Checkbox value='2' style={{width: 180}}>
                 多选框标题
             </Checkbox>
-            <Checkbox value='3' style={{ width: 180 }}>
+            <Checkbox value='3' style={{width: 180}}>
                 多选框标题
             </Checkbox>
         </CheckboxGroup>
-        <br />
-        <br />
+        <br/>
+        <br/>
         <div>没有标题，width=380</div>
         <CheckboxGroup type='pureCard' defaultValue={['1']}>
-            <Checkbox value='1' extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 380 }}>
+            <Checkbox value='1' extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{width: 380}}>
             </Checkbox>
-            <Checkbox value='2' extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 380 }}>
+            <Checkbox value='2' extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{width: 380}}>
             </Checkbox>
-            <Checkbox value='3' extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 380 }}>
+            <Checkbox value='3' extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{width: 380}}>
             </Checkbox>
         </CheckboxGroup>
-        <br />
-        <br />
-        <hr />
+        <br/>
+        <br/>
+        <hr/>
         <div>下面是垂直的情况：</div>
         <div>常见情况</div>
         <CheckboxGroup direction='vertical' type='pureCard' defaultValue={['1']}>
-            <Checkbox value='1' extra='Semi Design' style={{ width: 280 }}>
+            <Checkbox value='1' extra='Semi Design' style={{width: 280}}>
                 多选框标题
             </Checkbox>
-            <Checkbox value='2' extra='Semi Design' style={{ width: 280 }}>
+            <Checkbox value='2' extra='Semi Design' style={{width: 280}}>
                 多选框标题
             </Checkbox>
-            <Checkbox value='3' extra='Semi Design' style={{ width: 280 }}>
+            <Checkbox value='3' extra='Semi Design' style={{width: 280}}>
                 多选框标题
             </Checkbox>
         </CheckboxGroup>
-        <br />
-        <br />
+        <br/>
+        <br/>
         <div>没有设置宽度</div>
         <CheckboxGroup direction='vertical' type='pureCard' defaultValue={['1']}>
             <Checkbox value='1' extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统'>
@@ -791,17 +790,17 @@ stories.add(`checkboxGroup pureCard style`, () => (
                 多选框标题
             </Checkbox>
         </CheckboxGroup>
-        <br />
-        <br />
+        <br/>
+        <br/>
         <div>设置了width=380</div>
         <CheckboxGroup direction='vertical' type='pureCard' defaultValue={['1']}>
-            <Checkbox value='1' extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 380 }}>
+            <Checkbox value='1' extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{width: 380}}>
                 多选框标题
             </Checkbox>
-            <Checkbox value='2' extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 380 }}>
+            <Checkbox value='2' extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{width: 380}}>
                 多选框标题
             </Checkbox>
-            <Checkbox value='3' extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 380 }}>
+            <Checkbox value='3' extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{width: 380}}>
                 多选框标题
             </Checkbox>
         </CheckboxGroup>

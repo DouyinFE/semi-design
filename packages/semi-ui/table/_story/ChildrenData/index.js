@@ -1,6 +1,6 @@
-import React, { useState, useMemo } from 'react';
-import { Table, Button } from '@douyinfe/semi-ui/';
-import {IconArrowUp, IconArrowDown} from '@douyinfe/semi-icons';
+import React, {useState} from 'react';
+import {Button, Table} from '@douyinfe/semi-ui/';
+import {IconArrowDown, IconArrowUp} from '@douyinfe/semi-icons';
 
 /**
  * Aligned to Ant Design APIs for migration, see [antd-demo](https://codesandbox.io/s/great-mcclintock-14fl7).
@@ -12,53 +12,53 @@ const Demo = () => {
     const [data, setData] = useState([
         {
             key: 1,
-            name: 'John Brown sr.',
-            age: 60,
-            address: 'New York No. 1 Lake Park',
+            name: 'ZhangSan',
+            age: 30,
+            address: 'bytedance 1',
             children: [
                 {
                     key: 11,
-                    name: 'John Brown',
-                    age: 42,
-                    address: 'New York No. 2 Lake Park',
+                    name: 'LiSi',
+                    age: 40,
+                    address: 'bytedance 2',
                 },
                 {
                     key: 12,
-                    name: 'John Brown jr.',
+                    name: 'WangWu',
                     age: 30,
-                    address: 'New York No. 3 Lake Park',
+                    address: 'bytedance 2',
                     children: [
                         {
                             key: 121,
-                            name: 'Jimmy Brown',
-                            age: 16,
-                            address: 'New York No. 3 Lake Park',
+                            name: 'XiaoMing',
+                            age: 50,
+                            address: 'bytedance 3',
                         },
                     ],
                 },
                 {
                     key: 13,
-                    name: 'Jim Green sr.',
-                    age: 72,
-                    address: 'London No. 1 Lake Park',
+                    name: 'XiaoZhang',
+                    age: 60,
+                    address: 'bytedance 4',
                     children: [
                         {
                             key: 131,
-                            name: 'Jim Green',
-                            age: 42,
-                            address: 'London No. 2 Lake Park',
+                            name: 'XiaoLi',
+                            age: 50,
+                            address: 'bytedance 5',
                             children: [
                                 {
                                     key: 1311,
-                                    name: 'Jim Green jr.',
-                                    age: 25,
-                                    address: 'London No. 3 Lake Park',
+                                    name: 'XiaoGuo',
+                                    age: 40,
+                                    address: 'bytedance 6',
                                 },
                                 {
                                     key: 1312,
-                                    name: 'Jimmy Green sr.',
-                                    age: 18,
-                                    address: 'London No. 4 Lake Park',
+                                    name: 'XiaoHong',
+                                    age: 30,
+                                    address: 'bytedance 7',
                                 },
                             ],
                         },
@@ -68,9 +68,9 @@ const Demo = () => {
         },
         {
             key: 2,
-            name: 'Joe Black',
-            age: 32,
-            address: 'Sidney No. 1 Lake Park',
+            name: 'XiaoGang',
+            age: 80,
+            address: 'bytedance 8',
         },
     ]);
 
@@ -82,8 +82,8 @@ const Demo = () => {
             const item2 = findRecordByKey(key2, newData);
 
             // you have to copy item1 and item2 first
-            const copiedItem1 = { ...item1 };
-            const copiedItem2 = { ...item2 };
+            const copiedItem1 = {...item1};
+            const copiedItem2 = {...item2};
 
             coverRecord(item1, copiedItem2);
             coverRecord(item2, copiedItem1);
@@ -114,7 +114,7 @@ const Demo = () => {
     const coverRecord = (obj, srcObj) => {
         if (obj && typeof obj === 'object' && srcObj && typeof srcObj === 'object') {
             const srcKeys = Object.keys(srcObj);
-            const copied = { ...srcObj };
+            const copied = {...srcObj};
 
             Object.assign(obj, copied);
 
@@ -159,9 +159,9 @@ const Demo = () => {
             width: 150,
             filterChildrenRecord: true,
             filters: [
-                { text: 'age < 30', value: 30 },
-                { text: 'age < 20', value: 20 },
-                { text: 'age < 10', value: 10 },
+                {text: 'age < 30', value: 30},
+                {text: 'age < 20', value: 20},
+                {text: 'age < 10', value: 10},
             ],
             onFilter: (filteredValue, record) => {
                 // console.log(`filteredValue: `, filteredValue, ` record: `, record);
@@ -202,8 +202,8 @@ const Demo = () => {
 
                 return (
                     <>
-                        <Button icon={<IconArrowUp />} {...upProps} />
-                        <Button icon={<IconArrowDown />} {...downProps} />
+                        <Button icon={<IconArrowUp/>} {...upProps} />
+                        <Button icon={<IconArrowDown/>} {...downProps} />
                     </>
                 );
             },

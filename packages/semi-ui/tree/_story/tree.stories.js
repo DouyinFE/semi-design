@@ -1,26 +1,12 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { storiesOf } from '@storybook/react';
-// import { withKnobs, text, boolean } from '@storybook/addon-knobs';
-import withPropsCombinations from 'react-storybook-addon-props-combinations';
+import React, {useRef, useState} from 'react';
+import {storiesOf} from '@storybook/react';
 import Tree from '../index';
 import AutoSizer from '../autoSizer';
-import { Icon, Toast, ButtonGroup, Button, Popover, Input } from '../../index';
+import {Button, ButtonGroup, Input, Popover, Toast} from '../../index';
 import BigTree from './BigData';
 import testData from './data';
-import {
-    isEmpty,
-    isPlainObject,
-    cloneDeep,
-    isObject,
-    cloneDeepWith,
-    isArray,
-    isEqual,
-    debounce,
-    omit,
-    update,
-    difference,
-} from 'lodash-es';
-import {IconMapPin, IconMore, IconEdit } from '@douyinfe/semi-icons';
+import {cloneDeep, difference, isEqual,} from 'lodash-es';
+import {IconEdit, IconMapPin, IconMore} from '@douyinfe/semi-icons';
 
 const TreeNode = Tree.TreeNode;
 
@@ -138,19 +124,19 @@ const treeDataWithIcon = [
         label: 'Asia',
         value: 'Asia',
         key: '0',
-        icon: <IconMapPin style={{ color: 'var(--semi-color-text-2)' }} />,
+        icon: <IconMapPin style={{color: 'var(--semi-color-text-2)'}}/>,
         children: [
             {
                 label: 'China',
                 value: 'China',
                 key: '0-0',
-                icon: <IconMapPin style={{ color: 'var(--semi-color-text-2)' }} />,
+                icon: <IconMapPin style={{color: 'var(--semi-color-text-2)'}}/>,
             },
             {
                 label: 'Japan',
                 value: 'Japan',
                 key: '0-1',
-                icon: <IconMapPin style={{ color: 'var(--semi-color-text-2)' }} />,
+                icon: <IconMapPin style={{color: 'var(--semi-color-text-2)'}}/>,
             },
         ],
     },
@@ -165,9 +151,9 @@ const treeDataWithNode = [
     {
         label: (
             <span>
-                <span style={{ marginRight: 30 }}>亚洲</span>
+                <span style={{marginRight: 30}}>亚洲</span>
                 <Button
-                    style={{ zIndex: 2 }}
+                    style={{zIndex: 2}}
                     onClick={e => {
                         Toast.info(opts);
                         e.stopPropagation();
@@ -280,17 +266,17 @@ stories.add('multiple tree', () => (
 ));
 
 stories.add('searchable tree', () => (
-    <Tree treeData={treeData1} filterTreeNode treeNodeFilterProp="value" multiple searchStyle={{ width: '300px' }} />
+    <Tree treeData={treeData1} filterTreeNode treeNodeFilterProp="value" multiple searchStyle={{width: '300px'}}/>
 ));
 
 stories.add('disabled tree', () => (
-    <Tree treeData={treeData1} defaultValue={['dongjing', 'daban']} multiple disabled />
+    <Tree treeData={treeData1} defaultValue={['dongjing', 'daban']} multiple disabled/>
 ));
 
 stories.add('default tree', () => (
     <div>
-        <Tree treeData={treeData1} defaultValue={['zhongguo']} />
-        <br />
+        <Tree treeData={treeData1} defaultValue={['zhongguo']}/>
+        <br/>
         <Tree
             treeData={treeData1}
             multiple
@@ -303,8 +289,8 @@ stories.add('default tree', () => (
 
 stories.add('expandAction', () => (
     <div>
-        <Tree treeData={treeData1} defaultValue={['zhongguo']} />
-        <br />
+        <Tree treeData={treeData1} defaultValue={['zhongguo']}/>
+        <br/>
         <Tree
             treeData={treeData1}
             //multiple
@@ -312,7 +298,7 @@ stories.add('expandAction', () => (
             expandAction="click"
             onDoubleClick={e => console.log(e.detail)}
         />
-        <br />
+        <br/>
         <Tree
             treeData={treeData1}
             multiple
@@ -329,14 +315,16 @@ class Demo extends React.Component {
             value: 'shanghai',
         };
     }
+
     onChange(value) {
-        this.setState({ value });
+        this.setState({value});
     }
+
     render() {
         return (
             <Tree
-                style={{ width: 300 }}
-                dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                style={{width: 300}}
+                dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
                 treeData={treeData1}
                 value={this.state.value}
                 placeholder="Please select"
@@ -346,7 +334,7 @@ class Demo extends React.Component {
     }
 }
 
-stories.add('controlled Component single', () => <Demo />);
+stories.add('controlled Component single', () => <Demo/>);
 
 class Demo2 extends React.Component {
     constructor() {
@@ -355,17 +343,19 @@ class Demo2 extends React.Component {
             value: ['shanghai', 'beijing', 'zhongguo'],
         };
     }
+
     onChange(value) {
         console.log(value);
-        this.setState({ value });
+        this.setState({value});
     }
+
     render() {
         console.log(this.state.value);
         return (
             <Tree
-                style={{ width: 300 }}
+                style={{width: 300}}
                 multiple
-                dropdownStyle={{ maxHeight: 200, overflow: 'auto' }}
+                dropdownStyle={{maxHeight: 200, overflow: 'auto'}}
                 treeData={treeData1}
                 value={this.state.value}
                 placeholder="Please select"
@@ -375,7 +365,7 @@ class Demo2 extends React.Component {
     }
 }
 
-stories.add('controlled Component multiple', () => <Demo2 />);
+stories.add('controlled Component multiple', () => <Demo2/>);
 
 stories.add('json tree', () => (
     <div>
@@ -384,20 +374,20 @@ stories.add('json tree', () => (
             onChange={e => console.log('change', e)}
             onSelect={e => console.log('select', e)}
         />
-        <br />
-        <Tree treeDataSimpleJson={treeJson} multiple onChange={e => console.log(e)} onSelect={e => console.log(e)} />
+        <br/>
+        <Tree treeDataSimpleJson={treeJson} multiple onChange={e => console.log(e)} onSelect={e => console.log(e)}/>
     </div>
 ));
 
 stories.add('icon tree', () => (
     <div>
-        <Tree treeData={treeDataWithIcon} />
-        <br />
-        <Tree treeData={treeDataWithIcon} multiple blockNode />
+        <Tree treeData={treeDataWithIcon}/>
+        <br/>
+        <Tree treeData={treeDataWithIcon} multiple blockNode/>
     </div>
 ));
 
-stories.add('directory tree', () => <Tree treeData={treeData1} directory multiple blockNode />);
+stories.add('directory tree', () => <Tree treeData={treeData1} directory multiple blockNode/>);
 
 const button = (
     <ButtonGroup size="small" theme="borderless">
@@ -470,7 +460,7 @@ const treeDataWithNode2 = [
 
 stories.add('tree label using node', () => (
     <div>
-        <Tree treeData={treeDataWithNode2} blockNode defaultExpandAll />
+        <Tree treeData={treeDataWithNode2} blockNode defaultExpandAll/>
     </div>
 ));
 
@@ -494,24 +484,27 @@ class TagSideSheet2 extends React.Component {
         this.renderLabel = this.renderLabel.bind(this);
         this.transLabel = this.transLabel.bind(this);
     }
+
     componentDidMount() {
         let tagList = [...treeDataTest];
         this.setState({
             tagList,
         });
     }
+
     onVisible(visibles) {
         this.setState({
             visibles,
         });
     }
+
     renderLabel(item) {
-        const { visibles } = this.state;
+        const {visibles} = this.state;
         console.log('rendering label', visibles);
         return (
             <Popover trigger="custom" position="bottomLeft" visible={visibles} content={'测试popover'}>
                 <Button
-                    icon={<IconEdit />}
+                    icon={<IconEdit/>}
                     onClick={e => {
                         e.stopPropagation();
                         this.onVisible(!visibles);
@@ -522,6 +515,7 @@ class TagSideSheet2 extends React.Component {
             </Popover>
         );
     }
+
     transLabel(list) {
         // list = cloneDeep(list);
         list.forEach(item => {
@@ -530,29 +524,30 @@ class TagSideSheet2 extends React.Component {
         });
         return list;
     }
+
     render() {
-        const { tagList = [] } = this.state;
+        const {tagList = []} = this.state;
         const transformedTags = this.transLabel(cloneDeep(tagList));
         console.log('transformedTags', transformedTags, treeDataTest);
-        return <Tree treeData={transformedTags} />;
+        return <Tree treeData={transformedTags}/>;
     }
 }
 
-stories.add('tree label using popover', () => <TagSideSheet2 />);
+stories.add('tree label using popover', () => <TagSideSheet2/>);
 
 stories.add('defaultExpandKeys tree', () => (
     <>
-        <Tree treeData={treeData1} defaultExpandedKeys={['zhongguo', 'beimeizhou']} blockNode />
-        <Tree treeData={treeData1} defaultExpandAll blockNode />
-        <Tree treeData={treeData1} defaultExpandAll multiple blockNode />
+        <Tree treeData={treeData1} defaultExpandedKeys={['zhongguo', 'beimeizhou']} blockNode/>
+        <Tree treeData={treeData1} defaultExpandAll blockNode/>
+        <Tree treeData={treeData1} defaultExpandAll multiple blockNode/>
     </>
 ));
 
 stories.add('labelInValue tree', () => (
     <>
-        <Tree treeData={treeData1} labelInValue onChange={e => console.log(e)} />
-        <Tree treeData={treeData1} labelInValue onChange={e => console.log(e)} multiple />
-        <Tree treeData={treeDataWithIcon} labelInValue onChange={e => console.log(e)} multiple />
+        <Tree treeData={treeData1} labelInValue onChange={e => console.log(e)}/>
+        <Tree treeData={treeData1} labelInValue onChange={e => console.log(e)} multiple/>
+        <Tree treeData={treeDataWithIcon} labelInValue onChange={e => console.log(e)} multiple/>
     </>
 ));
 
@@ -567,7 +562,7 @@ class Test extends React.Component {
     componentDidMount() {
         setTimeout(() => {
             console.log('set loading');
-            this.setState({ loading: true });
+            this.setState({loading: true});
         }, 5000);
     }
 
@@ -620,11 +615,11 @@ class Test extends React.Component {
                 ],
             },
         ];
-        return <Tree treeData={treeDataWithNode2} />;
+        return <Tree treeData={treeDataWithNode2}/>;
     }
 }
 
-stories.add('setState after 5s', () => <Test />);
+stories.add('setState after 5s', () => <Test/>);
 
 class DemoExpandedKeys extends React.Component {
     constructor() {
@@ -633,15 +628,17 @@ class DemoExpandedKeys extends React.Component {
             expand: ['zhongguo', 'beimeizhou'],
         };
     }
+
     onExpand(expand) {
         console.log(expand);
-        this.setState({ expand });
+        this.setState({expand});
     }
+
     render() {
         return (
             <Tree
-                style={{ width: 300 }}
-                dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                style={{width: 300}}
+                dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
                 treeData={treeData1}
                 expandedKeys={this.state.expand}
                 placeholder="Please select"
@@ -658,16 +655,18 @@ class DemoExpandeKeysMulti extends React.Component {
             expand: ['zhongguo'],
         };
     }
+
     onExpand(expand) {
         console.log(expand);
-        this.setState({ expand });
+        this.setState({expand});
     }
+
     render() {
         return (
             <Tree
-                style={{ width: 300 }}
+                style={{width: 300}}
                 multiple
-                dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
                 treeData={treeData1}
                 expandedKeys={this.state.expand}
                 placeholder="Please select"
@@ -679,9 +678,9 @@ class DemoExpandeKeysMulti extends React.Component {
 
 stories.add('expandedKeys', () => (
     <>
-        <DemoExpandedKeys />
-        <br />
-        <DemoExpandeKeysMulti />
+        <DemoExpandedKeys/>
+        <br/>
+        <DemoExpandeKeysMulti/>
     </>
 ));
 
@@ -699,6 +698,7 @@ class DmExpandedKeys extends React.Component {
         };
         this.add = this.add.bind(this);
     }
+
     add() {
         let itemLength = Math.floor(Math.random() * 5) + 1;
         let treeData = new Array(itemLength).fill(0).map((v, i) => {
@@ -719,14 +719,15 @@ class DmExpandedKeys extends React.Component {
             };
             return item;
         });
-        this.setState({ treeData });
+        this.setState({treeData});
     }
+
     render() {
-        const { treeData } = this.state;
+        const {treeData} = this.state;
         return (
             <>
-                <Tree treeData={this.state.treeData} expandedKeys={['0', '1']} />
-                <br />
+                <Tree treeData={this.state.treeData} expandedKeys={['0', '1']}/>
+                <br/>
                 <Button onClick={this.add}>动态改变数据</Button>
             </>
         );
@@ -735,7 +736,7 @@ class DmExpandedKeys extends React.Component {
 
 stories.add('dynamic expandKeys', () => (
     <>
-        <DmExpandedKeys />
+        <DmExpandedKeys/>
     </>
 ));
 
@@ -753,6 +754,7 @@ class DmSelectedKeys extends React.Component {
         };
         this.add = this.add.bind(this);
     }
+
     add() {
         let itemLength = Math.floor(Math.random() * 5) + 1;
         let treeData = new Array(itemLength).fill(0).map((v, i) => {
@@ -773,14 +775,15 @@ class DmSelectedKeys extends React.Component {
             };
             return item;
         });
-        this.setState({ treeData });
+        this.setState({treeData});
     }
+
     render() {
-        const { treeData } = this.state;
+        const {treeData} = this.state;
         return (
             <>
-                <Tree treeData={treeData} value={['0-0']} onChange={e => console.log(e)} />
-                <br />
+                <Tree treeData={treeData} value={['0-0']} onChange={e => console.log(e)}/>
+                <br/>
                 <Button onClick={this.add}>动态改变数据</Button>
             </>
         );
@@ -790,13 +793,13 @@ class DmSelectedKeys extends React.Component {
 // the demo will not work anymore as value does not exist when the tree mounts
 stories.add('dynamic selectedKey', () => (
     <>
-        <DmSelectedKeys />
+        <DmSelectedKeys/>
     </>
 ));
 
 stories.add('large amount of data', () => (
     <>
-        <BigTree />
+        <BigTree/>
     </>
 ));
 
@@ -814,10 +817,10 @@ stories.add('autosizer', () => (
             }}
         >
             <AutoSizer
-            // defaultHeight={defaultHeight}
-            // defaultWidth={defaultWidth}
+                // defaultHeight={defaultHeight}
+                // defaultWidth={defaultWidth}
             >
-                {({ height, width }) => (
+                {({height, width}) => (
                     <div
                         style={{
                             width: width,
@@ -872,11 +875,11 @@ const MotionCustomLabelDemo = () => {
                 return;
             }
             list.forEach(item => {
-                const { type, label, key } = item;
+                const {type, label, key} = item;
                 item.label = (
                     <div onMouseEnter={() => setHoverKey(key)}>
                         {label}
-                        {hoverKey === key ? <IconMore /> : null}
+                        {hoverKey === key ? <IconMore/> : null}
                     </div>
                 );
                 recusive(item.children);
@@ -885,10 +888,10 @@ const MotionCustomLabelDemo = () => {
         recusive(list);
         return list;
     };
-    return <Tree treeData={cusLabel(treeData)} defaultExpandAll />;
+    return <Tree treeData={cusLabel(treeData)} defaultExpandAll/>;
 };
 
-stories.add('motion custom label', () => <MotionCustomLabelDemo />);
+stories.add('motion custom label', () => <MotionCustomLabelDemo/>);
 
 const AutoParentDemo = () => {
     const [expandedKeys, setExpandedKeys] = useState(['beimeizhou']);
@@ -934,7 +937,7 @@ const AutoParentDemo = () => {
 
 stories.add('autoExpandParent', () => (
     <>
-        <AutoParentDemo />
+        <AutoParentDemo/>
     </>
 ));
 
@@ -942,7 +945,7 @@ const findDescendantKeys = node => {
     let res = [node.key];
     const findChild = item => {
         if (!item) return;
-        const { children } = item;
+        const {children} = item;
 
         if (children && children.length) {
             children.forEach(child => {
@@ -978,7 +981,7 @@ class DyTreeWithExpandControlled extends React.Component {
             !isEqual(prevState.treeData, this.state.treeData) ||
             !isEqual(prevState.inputValue, this.state.inputValue)
         ) {
-            const { treeData, inputValue, collapsedKeys } = this.state;
+            const {treeData, inputValue, collapsedKeys} = this.state;
             let filteredKeys = [];
 
             const findFilteredKey = arr => {
@@ -1020,14 +1023,14 @@ class DyTreeWithExpandControlled extends React.Component {
             };
             return item;
         });
-        this.setState({ treeData });
+        this.setState({treeData});
     };
 
     search = val => {
-        this.setState({ inputValue: val });
+        this.setState({inputValue: val});
     };
 
-    onExpand = (keys, { expanded, node }) => {
+    onExpand = (keys, {expanded, node}) => {
         let collapsed = this.state.collapsedKeys;
         let desKeys = findDescendantKeys(node);
         if (!expanded) {
@@ -1043,7 +1046,7 @@ class DyTreeWithExpandControlled extends React.Component {
     };
 
     render() {
-        const { treeData, expandedKeys, autoExpandParent } = this.state;
+        const {treeData, expandedKeys, autoExpandParent} = this.state;
         return (
             <div>
                 <Tree
@@ -1054,8 +1057,8 @@ class DyTreeWithExpandControlled extends React.Component {
                     onSearch={this.search}
                     onExpand={this.onExpand}
                 />
-                <br />
-                <Button onClick={this.add} style={{ margin: 20 }}>
+                <br/>
+                <Button onClick={this.add} style={{margin: 20}}>
                     动态改变数据
                 </Button>
             </div>
@@ -1063,7 +1066,7 @@ class DyTreeWithExpandControlled extends React.Component {
     }
 }
 
-stories.add('dynamic treeData with searchValue and controlled expand', () => <DyTreeWithExpandControlled />);
+stories.add('dynamic treeData with searchValue and controlled expand', () => <DyTreeWithExpandControlled/>);
 
 const CusSearchRender = () => {
     const [inputValue, setInputValue] = useState('');
@@ -1080,7 +1083,7 @@ const CusSearchRender = () => {
             treeData={treeData1}
             filterTreeNode
             showFilteredOnly
-            searchRender={({ prefix, placeholder }) => (
+            searchRender={({prefix, placeholder}) => (
                 <Input
                     prefix={prefix}
                     placeholder={placeholder}
@@ -1094,7 +1097,7 @@ const CusSearchRender = () => {
 
 stories.add('CusSearchRender', () => (
     <>
-        <CusSearchRender />
+        <CusSearchRender/>
     </>
 ));
 
@@ -1157,7 +1160,7 @@ const RefSearch = () => {
     ];
     return (
         <div>
-            <Input onChange={v => ref.current.search(v)} />
+            <Input onChange={v => ref.current.search(v)}/>
             <Tree
                 treeData={treeData}
                 defaultValue="Shanghai"
@@ -1172,7 +1175,7 @@ const RefSearch = () => {
 
 stories.add('RefSearch', () => (
     <>
-        <RefSearch />
+        <RefSearch/>
     </>
 ));
 
@@ -1195,10 +1198,10 @@ const initTreeDate = [
 function updateTreeData(list, key, children) {
     return list.map(node => {
         if (node.key === key) {
-            return { ...node, children };
+            return {...node, children};
         }
         if (node.children) {
-            return { ...node, children: updateTreeData(node.children, key, children) };
+            return {...node, children: updateTreeData(node.children, key, children)};
         }
 
         return node;
@@ -1208,7 +1211,7 @@ function updateTreeData(list, key, children) {
 const LoadingTreeDemo = () => {
     const [treeData, setTreeData] = useState(initTreeDate);
 
-    function onLoadData({ key, children }) {
+    function onLoadData({key, children}) {
         return new Promise(resolve => {
             if (children) {
                 resolve();
@@ -1233,19 +1236,19 @@ const LoadingTreeDemo = () => {
         });
     }
 
-    return <Tree loadData={onLoadData} treeData={cloneDeep(treeData)} />;
+    return <Tree loadData={onLoadData} treeData={cloneDeep(treeData)}/>;
 };
 
 stories.add('loading', () => (
     <>
-        <LoadingTreeDemo />
+        <LoadingTreeDemo/>
     </>
 ));
 
 const LoadingWithSearch = () => {
     const [treeData, setTreeData] = useState(initTreeDate);
 
-    function onLoadData({ key, children }) {
+    function onLoadData({key, children}) {
         return new Promise(resolve => {
             if (children) {
                 resolve();
@@ -1270,12 +1273,12 @@ const LoadingWithSearch = () => {
         });
     }
 
-    return <Tree loadData={onLoadData} treeData={cloneDeep(treeData)} filterTreeNode />;
+    return <Tree loadData={onLoadData} treeData={cloneDeep(treeData)} filterTreeNode/>;
 };
 
 stories.add('Loading with search', () => (
     <>
-        <LoadingWithSearch />
+        <LoadingWithSearch/>
     </>
 ));
 
@@ -1329,7 +1332,7 @@ const DisabledStrictly = () => {
                 defaultExpandAll
                 disableStrictly
             />
-            <br />
+            <br/>
             <span> disable shanghai(checked), beijing(checked) </span>
             <Tree
                 treeData={[
@@ -1423,7 +1426,7 @@ const DisabledStrictly = () => {
                 defaultExpandAll
                 disableStrictly
             />
-            <br />
+            <br/>
             <span> disable shanghai </span>
             <Tree
                 treeData={[
@@ -1570,7 +1573,7 @@ const DisabledStrictly = () => {
     )
 }
 
-stories.add('disableStrictly', () => <DisabledStrictly />);
+stories.add('disableStrictly', () => <DisabledStrictly/>);
 
 const ActionTree = () => {
     let initData = [{
@@ -1619,7 +1622,7 @@ const ActionTree = () => {
     );
 };
 
-stories.add('Delete or Add Child Node', () => <ActionTree />);
+stories.add('Delete or Add Child Node', () => <ActionTree/>);
 
 
 const MutipleHLTree = () => {
@@ -1630,7 +1633,7 @@ const MutipleHLTree = () => {
         let res = [node.key];
         const findChild = item => {
             if (!item) return;
-            const { children } = item;
+            const {children} = item;
 
             if (children && children.length) {
                 children.forEach(child => {
@@ -1655,7 +1658,7 @@ const MutipleHLTree = () => {
         onClick,
         expandIcon
     }) => {
-        const { label, icon, key } = data;
+        const {label, icon, key} = data;
         const isLeaf = !(data.children && data.children.length);
         const style = {
             backgroundColor: selected.has(key)
@@ -1692,7 +1695,7 @@ const MutipleHLTree = () => {
     )
 }
 
-stories.add('renderOuterLable', () => <MutipleHLTree />)
+stories.add('renderOuterLable', () => <MutipleHLTree/>)
 
 stories.add('tree without value props', () => (
     <Tree
@@ -1715,7 +1718,7 @@ const generateData = (_level, _preKey, _tns) => {
     const children = [];
     for (let i = 0; i < x; i++) {
         const key = `${preKey}-${i}`;
-        tns.push({ label: key, key });
+        tns.push({label: key, key});
         if (i < y) {
             children.push(key);
         }
@@ -1732,15 +1735,17 @@ const generateData = (_level, _preKey, _tns) => {
 generateData(z);
 const DnDTree = () => {
     function generateData(x = 3, y = 2, z = 1, gData = []) {
-        // x：每一级下的节点总数。y：每级节点里有y个节点、存在子节点。z：树的level层级数（0表示一级）
-        function _loop(_level, _preKey, _tns) {
+        // x：每一级下的节点总数。
+        // y：每级节点里有y个节点、存在子节点。
+        // z：树的level层级数（0表示一级）
+        function dfs(_level, _preKey, _tns) {
             const preKey = _preKey || '0';
             const tns = _tns || gData;
 
             const children = [];
             for (let i = 0; i < x; i++) {
                 const key = `${preKey}-${i}`;
-                tns.push({ label: `${key}`, key: `${key}-key`, value: `${key}-value` });
+                tns.push({label: `${key}`, key: `${key}-key`, value: `${key}-value`});
                 if (i < y) {
                     children.push(key);
                 }
@@ -1751,18 +1756,20 @@ const DnDTree = () => {
             const __level = _level - 1;
             children.forEach((key, index) => {
                 tns[index].children = [];
-                return _loop(__level, key, tns[index].children);
+                return dfs(__level, key, tns[index].children);
             });
 
             return null;
         }
-        _loop(z);
+
+        dfs(z);
         return gData;
     }
 
     const initialData = generateData();
 
     const [treeData, setTreeData] = useState(initialData);
+
     // const [expandedKeys, setExpandedKeys] = useState(['zhongguo']);
 
     function onDragEnter(info) {
@@ -1772,7 +1779,7 @@ const DnDTree = () => {
     }
 
     function onDrop(info) {
-        const { dropToGap, node, dragNode } = info;
+        const {dropToGap, node, dragNode} = info;
         const dropKey = node.key;
         const dragKey = dragNode.key;
         const dropPos = node.pos.split('-');
@@ -1831,14 +1838,14 @@ const DnDTree = () => {
     />;
 };
 
-stories.add('draggable Tree', () => <DnDTree />)
+stories.add('draggable Tree', () => <DnDTree/>)
 
 const TestTree = () => {
     return (
         <Tree
             treeData={testData}
             // motion={false}
-            style={{ height: '100%' }}
+            style={{height: '100%'}}
             filterTreeNode
             expandAction="click"
             showFilteredOnly
@@ -1846,165 +1853,165 @@ const TestTree = () => {
     );
 };
 
-stories.add('draggable', () => <TestTree />);
+stories.add('draggable', () => <TestTree/>);
 
 stories.add('renderFullLabel with draggable', () => {
-    const [selected, setSelected] = useState(new Set());
-    const [selectedThroughParent, setSelectedThroughParent] = useState(new Set());
-    const defaultTreeData = [
-        {
-            label: '黑色固定按钮',
-            key: 'fix-btn-0'
-        },
-        {
-            label: '模块',
-            key: 'module-0',
-            children: [
-                {
-                    label: '可自由摆放的组件',
-                    key: 'free-compo-0',
-                },
-                {
-                    label: '分栏容器',
-                    key: 'split-col-0',
-                    children: [
-                        {
-                            label: '按钮组件',
-                            key: 'btn-0'
-                        },
-                        {
-                            label: '按钮组件',
-                            key: 'btn-1'
-                        }
-                    ]
-                },
-            ],
-        },
-        {
-            label: '模块',
-            key: 'module-1',
-            children: [
-                {
-                    label: '自定义组件',
-                    key: 'cus-0'
-                }
-            ]
-        }
-    ]
-    const [treeData, setTreeData] = useState(defaultTreeData);
+        const [selected, setSelected] = useState(new Set());
+        const [selectedThroughParent, setSelectedThroughParent] = useState(new Set());
+        const defaultTreeData = [
+            {
+                label: '黑色固定按钮',
+                key: 'fix-btn-0'
+            },
+            {
+                label: '模块',
+                key: 'module-0',
+                children: [
+                    {
+                        label: '可自由摆放的组件',
+                        key: 'free-compo-0',
+                    },
+                    {
+                        label: '分栏容器',
+                        key: 'split-col-0',
+                        children: [
+                            {
+                                label: '按钮组件',
+                                key: 'btn-0'
+                            },
+                            {
+                                label: '按钮组件',
+                                key: 'btn-1'
+                            }
+                        ]
+                    },
+                ],
+            },
+            {
+                label: '模块',
+                key: 'module-1',
+                children: [
+                    {
+                        label: '自定义组件',
+                        key: 'cus-0'
+                    }
+                ]
+            }
+        ]
+        const [treeData, setTreeData] = useState(defaultTreeData);
 
-    const onDrop = (info) => {
-        const { dropToGap, node, dragNode } = info;
-        const dropKey = node.key;
-        const dragKey = dragNode.key;
-        const dropPos = node.pos.split('-');
-        const dropPosition = info.dropPosition - Number(dropPos[dropPos.length - 1]);
+        const onDrop = (info) => {
+            const {dropToGap, node, dragNode} = info;
+            const dropKey = node.key;
+            const dragKey = dragNode.key;
+            const dropPos = node.pos.split('-');
+            const dropPosition = info.dropPosition - Number(dropPos[dropPos.length - 1]);
 
-        const data = [...treeData];
-        const loop = (data, key, callback) => {
-            data.forEach((item, ind, arr) => {
-                if (item.key === key) return callback(item, ind, arr);
-                if (item.children) return loop(item.children, key, callback);
-            })
-        }
+            const data = [...treeData];
+            const loop = (data, key, callback) => {
+                data.forEach((item, ind, arr) => {
+                    if (item.key === key) return callback(item, ind, arr);
+                    if (item.children) return loop(item.children, key, callback);
+                })
+            }
 
-        let dragObj;
-        loop(data, dragKey, (item, ind, arr) => {
-            arr.splice(ind, 1);
-            dragObj = item;
-        })
+            let dragObj;
+            loop(data, dragKey, (item, ind, arr) => {
+                arr.splice(ind, 1);
+                dragObj = item;
+            })
 
-        if (!dropToGap) {
-            loop(data, dropKey, (item, ind, arr) => {
-                item.children = item.children || [];
-                item.children.push(dragObj)
-            })
-        } else if (dropPosition === 1 && node.children && node.expanded) {
-            loop(data, dropKey, item => {
-                item.children = item.children || [];
-                item.children.unshift(dragObj)
-            })
-        } else {
-            let dropNodeInd;
-            let dropNodePosArr;
-            loop(data, dropKey, (item, ind, arr) => {
-                dropNodePosArr = arr;
-                dropNodeInd = ind;
-            })
-            if (dropPosition === -1) {
-                dropNodePosArr.splice(dropNodeInd, 0, dragObj)
+            if (!dropToGap) {
+                loop(data, dropKey, (item, ind, arr) => {
+                    item.children = item.children || [];
+                    item.children.push(dragObj)
+                })
+            } else if (dropPosition === 1 && node.children && node.expanded) {
+                loop(data, dropKey, item => {
+                    item.children = item.children || [];
+                    item.children.unshift(dragObj)
+                })
             } else {
-                dropNodePosArr.splice(dropNodeInd + 1, 0, dragObj)
+                let dropNodeInd;
+                let dropNodePosArr;
+                loop(data, dropKey, (item, ind, arr) => {
+                    dropNodePosArr = arr;
+                    dropNodeInd = ind;
+                })
+                if (dropPosition === -1) {
+                    dropNodePosArr.splice(dropNodeInd, 0, dragObj)
+                } else {
+                    dropNodePosArr.splice(dropNodeInd + 1, 0, dragObj)
+                }
             }
+            setTreeData(data)
         }
-        setTreeData(data)
-    }
 
-    const findDescendantKeys = (node) => {
-        let res = [node.key];
-        const findChild = item => {
-            if (!item) return;
-            const { children } = item;
+        const findDescendantKeys = (node) => {
+            let res = [node.key];
+            const findChild = item => {
+                if (!item) return;
+                const {children} = item;
 
-            if (children && children.length) {
-                children.forEach(child => {
-                    res.push(child.key);
-                    findChild(child);
-                });
+                if (children && children.length) {
+                    children.forEach(child => {
+                        res.push(child.key);
+                        findChild(child);
+                    });
+                }
+            };
+            findChild(node);
+            return res;
+        }
+
+        const handleSelect = (key, bool, node) => {
+            setSelected(new Set([key]));
+            const descendantKeys = findDescendantKeys(node);
+            setSelectedThroughParent(new Set(descendantKeys));
+        }
+
+        const renderLabel = ({
+            className,
+            data,
+            onClick,
+            expandIcon
+        }) => {
+            const {label, icon, key} = data;
+            const isLeaf = !(data.children && data.children.length);
+            const style = {
+                backgroundColor: selected.has(key)
+                    ? 'rgba(var(--semi-blue-0), 1)'
+                    : selectedThroughParent.has(key)
+                        ? 'rgba(var(--semi-blue-0), .5)' : 'transparent'
             }
-        };
-        findChild(node);
-        return res;
-    }
-
-    const handleSelect = (key, bool, node) => {
-        setSelected(new Set([key]));
-        const descendantKeys = findDescendantKeys(node);
-        setSelectedThroughParent(new Set(descendantKeys));
-    }
-
-    const renderLabel = ({
-        className,
-        data,
-        onClick,
-        expandIcon
-    }) => {
-        const { label, icon, key } = data;
-        const isLeaf = !(data.children && data.children.length);
-        const style = {
-            backgroundColor: selected.has(key)
-                ? 'rgba(var(--semi-blue-0), 1)'
-                : selectedThroughParent.has(key)
-                    ? 'rgba(var(--semi-blue-0), .5)' : 'transparent'
+            return (
+                <li
+                    className={className}
+                    role="treenode"
+                    onClick={onClick}
+                    style={style}
+                >
+                    {isLeaf ? <span style={{width: 24}}></span> : expandIcon}
+                    {icon ? icon : null}
+                    <span>{label}</span>
+                </li>
+            )
         }
-        return (
-            <li
-                className={className}
-                role="treenode"
-                onClick={onClick}
-                style={style}
-            >
-                {isLeaf ? <span style={{ width: 24 }}></span> : expandIcon}
-                {icon ? icon : null}
-                <span>{label}</span>
-            </li>
-        )
+
+        const treeStyle = {
+            height: 420,
+            border: '1px solid var(--semi-color-border)'
+        }
+
+
+        return <Tree
+            treeData={treeData}
+            draggable
+            onDrop={onDrop}
+            renderFullLabel={renderLabel}
+            onSelect={handleSelect}
+            style={treeStyle}
+            defaultExpandAll
+        />;
     }
-
-    const treeStyle = {
-        height: 420,
-        border: '1px solid var(--semi-color-border)'
-    }
-
-
-    return <Tree
-        treeData={treeData}
-        draggable
-        onDrop={onDrop}
-        renderFullLabel={renderLabel}
-        onSelect={handleSelect}
-        style={treeStyle}
-        defaultExpandAll
-    />;
-}
 );
