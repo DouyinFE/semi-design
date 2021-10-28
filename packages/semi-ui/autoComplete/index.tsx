@@ -388,14 +388,14 @@ class AutoComplete extends BaseComponent<AutoCompleteProps, AutoCompleteState> {
 
     renderOption(option: StateOptionItem, optionIndex: number): React.ReactNode {
         const { focusIndex } = this.state;
-        const isFocusd = optionIndex === focusIndex;
+        const isFocused = optionIndex === focusIndex;
 
         return (
             <Option
                 showTick={false}
                 onSelect={(v: StateOptionItem, e: React.MouseEvent | React.KeyboardEvent) => this.onSelect(v, optionIndex, e)}
                 // selected={selection.has(option.label)}
-                focused={isFocusd}
+                focused={isFocused}
                 onMouseEnter={() => this.foundation.handleOptionMouseEnter(optionIndex)}
                 key={option.key || option.label + option.value + optionIndex}
                 {...option}
