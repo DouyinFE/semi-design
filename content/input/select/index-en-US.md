@@ -587,7 +587,7 @@ import { Select } from '@douyinfe/semi-ui';
 A multi-select example with remote search, request debounce, loading status.
 
 -   Use `filter` turn on the search capability.
--   Use `remote` to disbaled local filter
+-   Use `remote` to disabled local filter
 -   Dynamic Update `optionList` after `onSearch` callback
 -   Update `loading` when fetching data / finish
 -   Use controlled value attribute
@@ -890,7 +890,7 @@ import { Select, Button } from '@douyinfe/semi-ui';
 ```
 
 
-### Get all attrbute of selected option
+### Get all attribute of selected option
 
 By default, through `onChange` uou can only get value attribute of selected option.  
 If you need to take other attributes of the selected option, you can use `onChangeWithObject` Properties  
@@ -1342,7 +1342,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | value | The currently selected value is passed as a controlled component, used in conjunction with `onchange` | string\|number\|array |  |
 | zIndex | Popup layer z-index | number | 1030 |
 | onBlur | Callback when blur | function(event) |  |
-| onChange | Callback function when selectd option | function (value) |  |
+| onChange | Callback function when selected option | function (value) |  |
 | onChangeWithObject | Whether to use the other properties of the selected option as a callback. When set to true, the entry type of onchange changes from string to object: {value, label,...rest} | boolean | false |
 | onClear | Callback when click clear icon | function |  |
 | onCreate | Allow Create is true and provides after the callback when creating the standby option | function |  |
@@ -1360,7 +1360,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | Properties | Instructions | Type | Default |
 | --- | --- | --- | --- |
 | className | The CSS class name of the wrapper element | string |  |
-| disabled | Disbaled | boolean | false |
+| disabled | Disabled | boolean | false |
 | label | Text displayed. Prioritize the label when rendering, take the child, value if not, and downgrade in turn | string\|reactNode |  |
 | showTick | Whether to show the Icon of tick when option selected | boolean | true |
 | style | Inline Style | object |  |
