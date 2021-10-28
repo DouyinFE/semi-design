@@ -538,6 +538,7 @@ const cardSource = {
 
 const cardTarget = {
     hover(props, monitor, component) {
+        // test demo below is from react-dnd and react-dnd-html5-backend. https://react-dnd.github.io/react-dnd/about
         const dragIndex = monitor.getItem().index;
         const hoverIndex = props.index;
 
