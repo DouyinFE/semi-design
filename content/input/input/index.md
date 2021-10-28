@@ -61,7 +61,7 @@ import { Input } from '@douyinfe/semi-ui';
     <Input defaultValue='enabled input'></Input>
     <br/>
     <br/>
-    <Input disabled defaultValue='disbaled input'></Input>
+    <Input disabled defaultValue='disabled input'></Input>
   </>
 )
 ```
