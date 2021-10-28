@@ -4,7 +4,7 @@ order: 29
 category: 输入类
 title: TimePicker 时间选择器
 icon: doc-timepicker
-breif: 用户使用时间选择器可以方便地选择某一符合要求的、格式化的时间点
+brief: 用户使用时间选择器可以方便地选择某一符合要求的、格式化的时间点
 ---
 
 

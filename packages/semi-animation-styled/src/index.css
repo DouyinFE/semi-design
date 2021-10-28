@@ -1,3 +1,8 @@
+/*
+* Modified based on animate.css and added prefix name to prevent style conflicts
+* Reference: https://github.com/animate-css/animate.css
+*/
+
 @import './_base.css';
 
 @import './attention_seekers/bounce.css';
@@ -91,3 +96,4 @@
 @import './zooming_exits/zoomOutLeft.css';
 @import './zooming_exits/zoomOutRight.css';
 @import './zooming_exits/zoomOutUp.css';
+

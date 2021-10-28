@@ -1,3 +1,8 @@
+/*
+* Modified based on animate.css and added prefix name to prevent style conflicts
+* Reference: https://github.com/animate-css/animate.css
+*/
+
 @keyframes semi-zoomInUp {
     from {
         opacity: 0;
@@ -15,3 +20,4 @@
 .semi-zoomInUp {
     animation-name: semi-zoomInUp;
 }
+

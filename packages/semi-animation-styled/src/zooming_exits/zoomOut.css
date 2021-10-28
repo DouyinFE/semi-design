@@ -1,3 +1,8 @@
+/*
+* Modified based on animate.css and added prefix name to prevent style conflicts
+* Reference: https://github.com/animate-css/animate.css
+*/
+
 @keyframes semi-zoomOut {
     from {
         opacity: 1;
@@ -16,3 +21,4 @@
 .semi-zoomOut {
     animation-name: semi-zoomOut;
 }
+
