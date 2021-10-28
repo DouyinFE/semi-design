@@ -1,3 +1,8 @@
+/*
+* Modified based on animate.css and added prefix name to prevent style conflicts
+* Reference: https://github.com/animate-css/animate.css
+*/
+
 @keyframes semi-slideInLeft {
     from {
         transform: translate3d(-100%, 0, 0);
@@ -12,3 +17,4 @@
 .semi-slideInLeft {
     animation-name: semi-slideInLeft;
 }
+
