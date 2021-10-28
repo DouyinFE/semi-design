@@ -885,8 +885,8 @@ class ValidateDemo extends React.Component {
 }
 ```
 
-In the case of asynchronous verification, a Promise must be returned. Promise reslove means that the verification is passed, and reject means that the verification fails and the upload will not be triggered.
-Object can be passed in when reslove/reject (the structure is the same as beforeUploadResult)
+In the case of asynchronous verification, a Promise must be returned. Promise resolve means that the verification is passed, and reject means that the verification fails and the upload will not be triggered.
+Object can be passed in when resolve/reject (the structure is the same as beforeUploadResult)
 
 ```jsx live=true width=48%
 import React from 'react';
@@ -903,14 +903,14 @@ class AsyncBeforeUploadDemo extends React.Component {
 
     beforeUpload({ file, fileList }) {
         let result;
-        return new Promise((reslove, reject) => {
+        return new Promise((resolve, reject) => {
             if (this.count > 1) {
                 result = {
                     autoRemove: false,
                     shouldUpload: true,
                 };
                 this.count = this.count + 1;
-                reslove(result);
+                resolve(result);
             } else {
                 result = {
                     autoRemove: false,
@@ -1085,7 +1085,7 @@ import { IconUpload } from '@douyinfe/semi-icons';
 |onAcceptInvalid | Triggered when the received file does not conform to the accept specification (generally because the folder selects all types of files / drags and drops files that do not conform to the format) | (files: File[]) => void | | 1.24 .0 |
 |onChange | Called when the file status changes, including upload success, failure, upload, the callback input parameter is Object, including fileList, currentFile, etc.| ({fileList: Array<FileItem\>, currentFile?: FileItem}) = > void | | 1.0.0 |
 |onClear | Callback when click to clear | () => void | | 1.1.0 |
-|onDrop | Triggered when the dragged element is released on the drag area | (e, files: Array<File\>, filelist: Array<FileItem\>) => void | | 1.9.0 |
+|onDrop | Triggered when the dragged element is released on the drag area | (e, files: Array<File\>, fileList: Array<FileItem\>) => void | | 1.9.0 |
 |onError | Callback when uploading error| (error: Error, file: [File](https://developer.mozilla.org/zh-CN/docs/Web/API/File), fileList: Array<FileItem\> , xhr: XMLHttpRequest) => void | | |
 |onExceed | Callback when the total number of uploaded files exceeds `limit` | (fileList:Array<FileItem\>) => void | | |
 |onFileChange | Callback after file selection | (Array<File\>) => void | | |
