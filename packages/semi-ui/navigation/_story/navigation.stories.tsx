@@ -1,5 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import { IconHome, IconHistogram, IconSetting, IconLive, IconUser, IconStar } from '@douyinfe/semi-icons';
 
 import Nav from '..';
 
@@ -34,6 +35,65 @@ stories.add(`default`, () => {
                     <Nav.Footer collapseButton  />
                 </Nav>
             </div>
+        );
+    };
+
+    return <Demo />;
+});
+
+
+stories.add(`fix 35`, () => {
+    const Demo = () => {
+        return (
+            <>
+                <Nav
+                    style={{ maxWidth: 220, height: '100%' }}
+                    defaultSelectedKeys={['Home']}
+                    items={[
+                        { itemKey: 'Home', text: '首页', icon: <IconHome size="large" /> },
+                        { itemKey: 'Histogram', text: '基础数据', icon: <IconHistogram size="large" /> },
+                        { itemKey: 'Live', text: '测试功能', icon: <IconLive size="large" /> },
+                        { itemKey: 'Setting', text: '设置', icon: <IconSetting size="large" /> },
+                    ]}
+                    footer={{
+                        collapseButton: true,
+                    }}
+                />
+                <Nav
+                    bodyStyle={{ height: 320 }}
+                    items={[
+                        { itemKey: 'user', text: '用户管理', icon: <IconUser /> },
+                        { itemKey: 'union', text: '公会中心', icon: <IconStar /> },
+                        {
+                            text: '任务平台',
+                            icon: <IconSetting />,
+                            itemKey: 'job',
+                            items: ['任务管理', '用户任务查询'],
+                        },
+                    ]}
+                    onSelect={data => console.log('trigger onSelect: ', data)}
+                    onClick={data => console.log('trigger onClick: ', data)}
+                />
+                <Nav
+                    bodyStyle={{ height: 320 }}
+                    defaultOpenKeys={['user', 'union']}
+                    onSelect={data => console.log('trigger onSelect: ', data)}
+                    onClick={data => console.log('trigger onClick: ', data)}
+                >
+                    <Nav.Header logo={<img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />} text={'直播运营后台'} />
+                    <Nav.Item itemKey={'union'} text={'公会中心'} icon={<IconStar />} />
+                    <Nav.Sub itemKey={'user'} text="用户管理" icon={<IconUser />}>
+                        <Nav.Item itemKey={'golder'} text={'金主管理'} />
+                        <Nav.Item itemKey={'ban'} text={'用户封禁'} />
+                    </Nav.Sub>
+                    <Nav.Sub itemKey={'union-management'} text="公会管理" icon={<IconUserGroup />}>
+                        <Nav.Item itemKey={'notice'} text={'公告设置'} />
+                        <Nav.Item itemKey={'query'} text={'公会查询'} />
+                        <Nav.Item itemKey={'info'} text={'信息录入'} />
+                    </Nav.Sub>
+                    <Nav.Footer collapseButton={true} />
+                </Nav>
+            </>
         );
     };
 

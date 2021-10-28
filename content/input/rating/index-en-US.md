@@ -162,7 +162,7 @@ import { IconLikeHeart } from '@douyinfe/semi-icons';
 | ------------- | ------------------------------------------------------------------------------------- | ----------------------- | ---------------------------------------- |
 | allowClear    | Toggle whether it is allowed to clear when clicking                                   | boolean                 | true                                     |
 | allowHalf     | Toggle whether it is allowed to select half stars                                     | boolean                 | false                                    |
-| autoFocus     | Automaticly focus                                                                     | boolean                 | false                                    |
+| autoFocus     | Automatically focus                                                                     | boolean                 | false                                    |
 | character     | Custom characters to display rating                                                   | React Node              | `<IconStar size="extra-large"/>` |
 | className     | Class name                                                                            | string                  | -                                        |
 | count         | Number of stars or characters                                                         | number                  | 5                                        |

@@ -1,15 +1,34 @@
+<div align="center">
 <article style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
     <p align="center"><img width="300" src="https://lf1-cdn-tos.bytescm.com/obj/ttfe/ies/semi/SemiLogo/Logo_1576122865926.png" /></p>
     <h1 style="width: 100%; text-align: center;">Semi-UI</h1>
     <p>
         现代、全面、灵活的设计系统和 UI 库。 快速搭建美观的React 应用。
     </p>
-    <p style="display: flex">
-        <img src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/semi-info-1.gif" />
-    </p>
 </article>
+    
+<div align="center">
+
+[![NPM][npm-badge]][npm-url] [![FIGMA][figma-badge]][figma-url] [![LICENSE][license-badge]][license-url]
+
+
+[npm-badge]: https://img.shields.io/npm/v/@douyinfe/semi-ui.svg
+[npm-url]: https://www.npmjs.com/package/@douyinfe/semi-ui
+[figma-badge]: https://img.shields.io/badge/Figma-UIKit-%2318a0fb
+[figma-url]: https://www.figma.com/@semi
+
+[license-badge]: https://img.shields.io/npm/l/@douyinfe/semi-ui
+[license-url]: https://github.com/DouyinFE/semi-design/blob/main/LICENSE
+
+</div>
+
+<p>
+    <img src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/semi-info-1.gif" />
+</p>
 
 简体中文 | [English](./README.md)
+
+</div>
 
 # 🎉 特性
 
@@ -70,7 +89,7 @@ Semi UI 支持所有主流浏览器。
 
 |[<img alt="chrome" height="24px" src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/chrome/chrome.png" />](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/chrome/chrome.png)<br>chrome|[<img alt="firefox" height="24px" src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/firefox/firefox.png" />](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/firefox/firefox.png)<br>firefox|[<img alt="safari" height="24px" src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/safari/safari.png" />](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/safari/safari.png)<br>safari|[<img alt="IE/Edge" height="24px" src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/edge/edge.png" />](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/edge/edge.png)<br> IE/Edge|[<img alt="electron" height="24px" src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/electron/electron.png" />](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/electron/electron.png)<br>Electron|
 |--|--|--|--|--|
-| latest 2 versions | latest 2 versions | latest 2 version | Edge | latest 2 version |
+| latest 2 versions | latest 2 versions | latest 2 versions | Edge | latest 2 versions |
 
 # 👐 贡献指南
 

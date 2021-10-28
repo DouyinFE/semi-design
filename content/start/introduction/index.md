@@ -24,7 +24,7 @@ Semi Design 始终致力于提升企业应用的体验。通过提炼简洁轻�
 
 此外，一个好的设计系统必须是「活的」，它需要能跟随业务的增长而发展、更新。因此，Semi 从未尝试约束用户，固化所谓的「统一规范」，而是在默认基础上，充分进行模块化解耦，并开放自定义能力，方便用户进行二次裁剪与定制，搭建适用于不同形态产品的前端资产。
 
-![基于 Semi Design 的多元化产品与团队组件](https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/p2Kapture.gif)
+![基于 Semi Design 的多元化产品与团队组件](https://lf9-static.semi.design/obj/semi-tos/images/introduction-showcase.gif)
 
 坚守优质且稳定的默认基础(不变)，并在需要时充分开放自定义的灵活度(多变)，这是 Semi Design 独特的，并将一直遵循的设计原则。
 

@@ -1,3 +1,9 @@
+/**
+ * The Semi Foundation / Adapter architecture split was inspired by Material Component For Web. （https://github.com/material-components/material-components-web）
+ * We re-implemented our own code based on the principle and added more functions we need according to actual needs.
+ * 
+ */
+ 
 import log from '../utils/log';
 import { noop } from 'lodash-es';
 
