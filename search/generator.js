@@ -109,7 +109,7 @@ class SingleMdxProcessor {
     }
 
 
-    processChildNode(childNode, meanfulType) {
+    processChildNode(childNode, meaningfulType) {
         const belong=this.belong;
         const mdxID = this.mdxID;
         const mdxInfo = this.mdxInfo;
@@ -126,7 +126,7 @@ class SingleMdxProcessor {
                 parent:null,
                 anchor,
                 mdxInfo,
-                meanfulType: "heading",
+                meaningfulType: "heading",
             };
             this.nodeMap[uniqueID] = node;
             this.closestAnchorAncestorUniqueID=node.uniqueID;
@@ -143,7 +143,7 @@ class SingleMdxProcessor {
                 value,
                 parent:this.closestAnchorAncestorUniqueID,
                 mdxInfo,
-                meanfulType,
+                meaningfulType,
             };
             this.nodeMap[uniqueID] = node;
             this.mdxInfo.nodeUniqueIDList.push(uniqueID);
@@ -159,7 +159,7 @@ class SingleMdxProcessor {
                 value,
                 parent:this.closestAnchorAncestorUniqueID,
                 mdxInfo,
-                meanfulType: type,
+                meaningfulType: type,
             };
             this.nodeMap[uniqueID] = node;
             this.mdxInfo.nodeUniqueIDList.push(uniqueID);
