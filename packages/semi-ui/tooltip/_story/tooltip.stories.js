@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { storiesOf } from '@storybook/react';
 import Tooltip from '../index';
 import './story.scss';
-import { Tag, Icon, IconButton, Switch, Checkbox, Radio, Button, Select } from '@douyinfe/semi-ui';
+import { Tag, Icon, IconButton, Switch, Checkbox, Radio, Button, Select, ButtonGroup, Button, DatePicker, Popover } from '@douyinfe/semi-ui';
 
 import InTableDemo from './InTable';
 import EdgeDemo from './Edge';
@@ -453,7 +453,7 @@ stories.add('快速移动鼠标可见性', () => {
      */
     const Demo = () => {
         const props = {
-            mouseEnterDelay: 50,
+            mouseEnterDelay: 0,
             mouseLeaveDelay: 0,
         }
         return (
@@ -566,4 +566,64 @@ stories.add('showArrow', () => {
     }
       
     return <Demo />
-})
+});
+
+stories.add('fix 69', () => {
+
+    function Demo() {
+        const [visible, setVisible] = useState(false);
+
+        return (
+            <div style={{ height: '200vh', position: 'relative' }}>
+                <div style={{ position: 'absolute', top: '40%' }}>
+                    <Tooltip
+                        content={'hi bytedance'}
+                        trigger="custom"
+                        visible={visible}
+                    >
+                        <span style={{ display: 'inline-block' }}>
+                            <ButtonGroup>
+                                <Button onClick={() => setVisible(true)}>受控显示</Button>
+                                <Button onClick={() => setVisible(false)}>受控隐藏</Button>
+                            </ButtonGroup>
+                        </span>
+                    </Tooltip>
+                    <div>
+                        <DatePicker motion={true} style={{ marginTop: 20 }} />
+                    </div>
+                </div>
+            </div>
+        );
+    }
+      
+    return <Demo />
+});
+
+stories.add('fix hover and scroll', () => {
+
+    function Demo() {
+        const Test = React.forwardRef((props, ref) => (
+            <span {...props} ref={ref}>
+                Test
+            </span>
+        ));
+        return (
+            <div style={{ height: '200vh', position: 'relative' }}>
+                <div style={{ position: 'absolute', top: '40%', left: 100 }}>
+                    <Popover
+                        content={
+                            <article style={{ padding: 12 }}>
+                                Hi ByteDancer, this is a popover.
+                                <br /> We have 2 lines.
+                            </article>
+                        }
+                    >
+                        <Tag>悬停此处</Tag>
+                    </Popover>
+                </div>
+            </div>
+        );
+    }
+      
+    return <Demo />
+});

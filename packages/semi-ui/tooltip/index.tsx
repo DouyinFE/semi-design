@@ -76,6 +76,7 @@ interface TooltipState {
     isInsert: boolean;
     placement: Position;
     transitionStyle: Record<string, any>;
+    isPositionUpdated: boolean; // mark whether is second insert portal
 }
 
 const prefix = cssClasses.PREFIX;
@@ -164,6 +165,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             isInsert: false,
             placement: props.position || 'top',
             transitionStyle: {},
+            isPositionUpdated: false,
         };
         this.foundation = new TooltipFoundation(this.adapter);
         this.eventManager = new Event();
@@ -200,12 +202,15 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                          * Hiding portal will remove portalInserted event listener(normal process)
                          * then portal can't hide because _togglePortalVisible(false) will found isVisible=false and nowVisible=false(bug here)
                          */
-                        this.eventManager.emit('portalInserted');
+                        setTimeout(() => {
+                            // waiting child component mounted
+                            this.eventManager.emit('portalInserted');
+                        }, 0);
                     }
                 );
             },
             removePortal: () => {
-                this.setState({ isInsert: false });
+                this.setState({ isInsert: false, isPositionUpdated: false });
             },
             getEventName: () => ({
                 mouseEnter: 'onMouseEnter',
@@ -272,7 +277,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             getDocumentElementBounding: () => document.documentElement.getBoundingClientRect(),
             setPosition: ({ position, ...style }: { position: Position }) => {
                 this.setState(
-                    { containerStyle: { ...this.state.containerStyle, ...style }, placement: position },
+                    { containerStyle: { ...this.state.containerStyle, ...style }, placement: position, isPositionUpdated: true },
                     () => {
                         this.eventManager.emit('positionUpdated');
                     }
@@ -418,16 +423,17 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         return false;
     };
 
-    willEnter = () => {
-        this.foundation.calcPosition();
-        /**
-         * Dangerous: remove setState in motion fix #1379
-         * because togglePortalVisible callback function will use visible state to notifyVisibleChange
-         * if visible state is old value, then notifyVisibleChange function will not be called
-         * we should ensure that after calling togglePortalVisible, callback function can get right visible value
-         */
-        // this.setState({ visible: true });
-    };
+    // no need calcPosition in motion
+    // willEnter = () => {
+    //     this.foundation.calcPosition();
+    //     /**
+    //      * Dangerous: remove setState in motion fix #1379
+    //      * because togglePortalVisible callback function will use visible state to notifyVisibleChange
+    //      * if visible state is old value, then notifyVisibleChange function will not be called
+    //      * we should ensure that after calling togglePortalVisible, callback function can get right visible value
+    //      */
+    //     // this.setState({ visible: true });
+    // };
 
     didLeave = () => {
         this.adapter.unregisterClickOutsideHandler();
@@ -485,7 +491,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
     };
 
     renderPortal = () => {
-        const { containerStyle = {}, visible, portalEventSet, placement, transitionState } = this.state;
+        const { containerStyle = {}, visible, portalEventSet, placement, transitionState, isPositionUpdated } = this.state;
         const { prefixCls, content, showArrow, style, motion, zIndex } = this.props;
         const { className: propClassName } = this.props;
         const direction = this.context.direction;
@@ -498,15 +504,15 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         const icon = this.renderIcon();
         const portalInnerStyle = omit(containerStyle, motion ? ['transformOrigin'] : undefined);
         const transformOrigin = get(containerStyle, 'transformOrigin');
-        const inner = motion ? (
-            <TooltipTransition position={placement} willEnter={this.willEnter} didLeave={this.didLeave} motion={motion}>
+        const inner = motion && isPositionUpdated ? (
+            <TooltipTransition position={placement} didLeave={this.didLeave} motion={motion}>
                 {
                     transitionState === 'enter' ?
                         ({ animateCls, animateStyle, animateEvents }) => (
                             <div
                                 className={classNames(className, animateCls)}
                                 style={{
-                                    visibility: 'visible',
+                                    // visibility: 'visible', // even with motion, we should control visibility with visible state #69
                                     ...animateStyle,
                                     transformOrigin,
                                     ...style,

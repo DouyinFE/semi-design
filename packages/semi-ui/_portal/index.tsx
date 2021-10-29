@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import { BASE_CLASS_PREFIX } from '@douyinfe/semi-foundation/base/constants';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import { get } from 'lodash-es';
 import ConfigContext from '../configProvider/context';
 import '@douyinfe/semi-foundation/_portal/portal.scss';
 
@@ -77,7 +78,7 @@ class Portal extends PureComponent<PortalProps, PortalState> {
 
     componentWillUnmount() {
         const { container } = this.state;
-        if (container) {
+        if (container && get(this.el, 'parentNode') === container) {
             container.removeChild(this.el);
         }
     }

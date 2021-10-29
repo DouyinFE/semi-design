@@ -5,6 +5,7 @@ const OptGroup = Select.OptGroup;
 import { IconClear, IconChevronDown } from '@douyinfe/semi-icons';
 import { BASE_CLASS_PREFIX } from '../../../semi-foundation/base/constants';
 import keyCode from '../../../semi-foundation/utils/keyCode';
+import { sleep } from '../../_test_/utils';
 
 const defaultList = [
     { value: 'abc', label: 'Abc' },
@@ -457,7 +458,7 @@ describe('Select', () => {
         expect(select.exists(`.${BASE_CLASS_PREFIX}-select-option-list`)).toEqual(false);
     });
 
-    it('onDropdownVisibleChange & clickToHide', () => {
+    it('onDropdownVisibleChange & clickToHide', async () => {
         let onDropdownVisible = () => {};
         let spyOnDV = sinon.spy(onDropdownVisible);
         const props = {
@@ -470,6 +471,8 @@ describe('Select', () => {
         expect(spyOnDV.calledOnce).toEqual(true);
         expect(spyOnDV.calledWithMatch(true)).toEqual(true);
         select.find(`.${BASE_CLASS_PREFIX}-select`).simulate('click', {});
+        await sleep(200);
+        select.update();
         expect(select.exists(`.${BASE_CLASS_PREFIX}-select-option-list`)).toEqual(false);
         expect(spyOnDV.calledWithMatch(false)).toEqual(true);
     });
@@ -999,7 +1002,7 @@ describe('Select', () => {
         expect(select.find('.semi-select-option').length).toEqual(defaultList.length);
     });
 
-    it('test keyboard press', () => {
+    it('test keyboard press', async () => {
         let props = {
             defaultOpen: true,
         };
@@ -1012,6 +1015,8 @@ describe('Select', () => {
         expect(select.find(`.${BASE_CLASS_PREFIX}-select-option`).at(defaultList.length-1).hasClass(`${BASE_CLASS_PREFIX}-select-option-focused`)).toBe(true);
         // press ESC
         select.find(`.${BASE_CLASS_PREFIX}-select`).simulate('keydown', { keyCode: keyCode.ESC });
+        await sleep(100);
+        select.update();
         expect(select.find(`.${BASE_CLASS_PREFIX}-select-option`).exists()).toBe(false);
         // reopen select, press ⬇️ and ENTER, the first option should be selected
         select.find(`.${BASE_CLASS_PREFIX}-select`).simulate('click', {});

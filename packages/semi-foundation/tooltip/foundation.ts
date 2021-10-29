@@ -267,9 +267,9 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
 
         this._adapter.insertPortal(content, position);
 
-        if (trigger === 'custom') {
-            this._togglePortalVisible(true);
-        }
+        // if (trigger === 'custom') {
+        //     this._togglePortalVisible(true);
+        // }
 
         /**
          * trigger类型是click时，仅当portal被插入显示后，才绑定clickOutsideHandler
