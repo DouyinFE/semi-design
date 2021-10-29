@@ -1176,38 +1176,68 @@ import React, { useState } from 'react';
 import { Tree } from '@douyinfe/semi-ui';
 
 () => {
-    function generateData(x = 3, y = 2, z = 1, gData = []) {
-    /**
-     * x: Total number of nodes under each level
-     * y: There are y nodes in each level node, and there are child nodes
-     * z: The number of levels of the tree (0 means one level)
-     */
-        function _loop(_level, _preKey, _tns) {
-            const preKey = _preKey || '0';
-            const tns = _tns || gData;
-            const children = [];
-            for (let i = 0; i < x; i++) {
-                const key = `${preKey}-${i}`;
-                tns.push({ label: `${key}`, key: `${key}-key`, value: `${key}-value` });
-                if (i < y) {
-                    children.push(key);
+    const initialData = [
+        {
+            label: 'Asia',
+            value: 'Asia',
+            key: '0',
+            children: [
+                {
+                    label: 'China',
+                    value: 'China',
+                    key: '0-0',
+                    children: [
+                        {
+                            label: 'Beijing',
+                            value: 'Beijing',
+                            key: '0-0-0',
+                            disabled: true,
+                        },
+                        {
+                            label: 'Shanghai',
+                            value: 'Shanghai',
+                            key: '0-0-1',
+                            disabled: true,
+                        },
+                    ],
+                },
+                {
+                    label: 'Japan',
+                    value: 'Japan',
+                    key: '0-1',
+                    children: [
+                        {
+                            label: 'Osaka',
+                            value: 'Osaka',
+                            key: '0-1-0'
+                        }
+                    ]
+                },
+            ],
+        },
+        {
+            label: 'North America',
+            value: 'North America',
+            key: '1',
+            children: [
+                {
+                    label: 'United States',
+                    value: 'United States',
+                    key: '1-0'
+                },
+                {
+                    label: 'Canada',
+                    value: 'Canada',
+                    key: '1-1'
                 }
-            }
-            if (_level < 0) {
-                return tns;
-            }
-            const __level = _level - 1;
-            children.forEach((key, index) => {
-                tns[index].children = [];
-                return _loop(__level, key, tns[index].children);
-            });
-            return null;
+            ]
+        },
+        {
+            label: 'Europe',
+            value: 'Europe',
+            key: '2',
         }
-        _loop(z);
-        return gData;
-    }
-
-    const initialData = generateData();
+    ];
     const [treeData, setTreeData] = useState(initialData);
 
     function onDrop(info) {

@@ -1711,62 +1711,71 @@ const y = 2;
 const z = 1;
 const gData = [];
 
-const generateData = (_level, _preKey, _tns) => {
-    const preKey = _preKey || '0';
-    const tns = _tns || gData;
 
-    const children = [];
-    for (let i = 0; i < x; i++) {
-        const key = `${preKey}-${i}`;
-        tns.push({label: key, key});
-        if (i < y) {
-            children.push(key);
-        }
-    }
-    if (_level < 0) {
-        return tns;
-    }
-    const level = _level - 1;
-    children.forEach((key, index) => {
-        tns[index].children = [];
-        return generateData(level, key, tns[index].children);
-    });
-};
-generateData(z);
 const DnDTree = () => {
-    function generateData(x = 3, y = 2, z = 1, gData = []) {
-        // x：每一级下的节点总数。
-        // y：每级节点里有y个节点、存在子节点。
-        // z：树的level层级数（0表示一级）
-        function dfs(_level, _preKey, _tns) {
-            const preKey = _preKey || '0';
-            const tns = _tns || gData;
-
-            const children = [];
-            for (let i = 0; i < x; i++) {
-                const key = `${preKey}-${i}`;
-                tns.push({label: `${key}`, key: `${key}-key`, value: `${key}-value`});
-                if (i < y) {
-                    children.push(key);
+    
+    const initialData = [
+        {
+            label: 'Asia',
+            value: 'Asia',
+            key: '0',
+            children: [
+                {
+                    label: 'China',
+                    value: 'China',
+                    key: '0-0',
+                    children: [
+                        {
+                            label: 'Beijing',
+                            value: 'Beijing',
+                            key: '0-0-0',
+                            disabled: true,
+                        },
+                        {
+                            label: 'Shanghai',
+                            value: 'Shanghai',
+                            key: '0-0-1',
+                            disabled: true,
+                        },
+                    ],
+                },
+                {
+                    label: 'Japan',
+                    value: 'Japan',
+                    key: '0-1',
+                    children: [
+                        {
+                            label: 'Osaka',
+                            value: 'Osaka',
+                            key: '0-1-0'
+                        }
+                    ]
+                },
+            ],
+        },
+        {
+            label: 'North America',
+            value: 'North America',
+            key: '1',
+            children: [
+                {
+                    label: 'United States',
+                    value: 'United States',
+                    key: '1-0'
+                },
+                {
+                    label: 'Canada',
+                    value: 'Canada',
+                    key: '1-1'
                 }
-            }
-            if (_level < 0) {
-                return tns;
-            }
-            const __level = _level - 1;
-            children.forEach((key, index) => {
-                tns[index].children = [];
-                return dfs(__level, key, tns[index].children);
-            });
-
-            return null;
+            ]
+        },
+        {
+            label: 'Europe',
+            value: 'Europe',
+            key: '2',
         }
-
-        dfs(z);
-        return gData;
-    }
-
-    const initialData = generateData();
+    ];
 
     const [treeData, setTreeData] = useState(initialData);
 
