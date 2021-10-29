@@ -16,6 +16,7 @@ brief: 横幅通常用于标识全页的状态或通知等。它通常是常驻�
 ```jsx import
 import { Banner } from '@douyinfe/semi-ui';
 ```
+
 ### 基本用法
 
 ```jsx live=true dir="column"
@@ -50,7 +51,7 @@ import { Banner, Layout, Button } from '@douyinfe/semi-ui';
               margin: '0 auto'
             }}
           >
-            Show Banner
+            { visible ? 'Hide Banner' : 'Show Banner' }
           </Button>
         </>
       );
