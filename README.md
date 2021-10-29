@@ -9,7 +9,7 @@
     
 <div align="center">
 
-[![NPM][npm-badge]][npm-url] [![FIGMA][figma-badge]][figma-url] [![LICENSE][license-badge]][license-url]
+[![NPM][npm-badge]][npm-url] [![FIGMA][figma-badge]][figma-url] [![LICENSE][license-badge]][license-url] [![CODECOV][codecov-badge]][codecov-url]
 
 
 [npm-badge]: https://img.shields.io/npm/v/@douyinfe/semi-ui.svg
@@ -19,6 +19,8 @@
 
 [license-badge]: https://img.shields.io/npm/l/@douyinfe/semi-ui
 [license-url]: https://github.com/DouyinFE/semi-design/blob/main/LICENSE
+[codecov-badge]: https://img.shields.io/codecov/c/gh/DouyinFE/semi-design
+[codecov-url]: https://app.codecov.io/gh/DouyinFE/semi-design
 
 </div>
 
