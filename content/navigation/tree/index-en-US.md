@@ -1802,7 +1802,7 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
 | hideDraggingNode | Toggle whether to hide dragImg of dragging node | boolean | false | 1.8.0 | 
 | icon       | Icon | ReactNode         | -       | - |
 | labelEllipsis | Toggle whether to ellipsis label when overflow. Set to false iff there are other requirements | boolean | false\|true(virtualized) | 1.8.0 | 
-| leafOnly | Toggle whether to display tags for leaf nodes only and for onChange callback parms in multiple mode | boolean | false | 1.18.0 |
+| leafOnly | Toggle whether to display tags for leaf nodes only and for onChange callback params in multiple mode | boolean | false | 1.18.0 |
 | loadData | Load data asynchronously and the return value should be a promise | (treeNode?: TreeNode) => Promise< void > |-| 1.0.0|
 | loadedKeys | （Controlled）Mark node as loaded, working with `loadData` | string[] | - | 1.0.0|
 | motion              | Toggle whether to turn on animation| boolean                     | true    | - |
