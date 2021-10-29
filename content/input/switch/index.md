@@ -120,7 +120,7 @@ import { Switch, Typography } from '@douyinfe/semi-ui';
 
 ### 受控组件
 
-组件是否选中完全取决于传入的 checkced 值，配合 onChange 回调函数使用
+组件是否选中完全取决于传入的 checked 值，配合 onChange 回调函数使用
 
 ```jsx live=true hideInDSM
 import React from 'react';
