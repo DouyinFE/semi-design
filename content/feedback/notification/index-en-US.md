@@ -239,15 +239,15 @@ import { Notification, Button } from '@douyinfe/semi-ui';
     title: 'Hi',
     duration: 0,
   };
-  const [id, setId] = useState();
+  const [ids, setIds] = useState([]);
   function show() {
-    if(id) return;
-    let notificationId = Notification.info(opts);
-    setId(notificationId);
+    let id = Notification.info(opts);
+    setIds([...ids, id]);
   }
   function hide() {
-    Notification.close(id);
-    setId()
+    let idsTmp = [...ids];
+    Notification.close(idsTmp.shift());
+    setIds(idsTmp);
   }
   return (
     <>
