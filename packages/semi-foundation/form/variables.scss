@@ -17,7 +17,7 @@ $spacing-form_label-paddingRight: $spacing-base; // 表单标题右侧内边距
 $spacing-form_label-marginBottom: $spacing-extra-tight; // 表单标题底部外边距 
 $spacing-form_label_extra-marginLeft: $spacing-extra-tight; // 表单标题图标左侧内边距 
 $spacing-form_label_required-marginLeft: $spacing-extra-tight; // 表单标题必填标志左侧内边距 
-$spacing-form_label_posLeft-marginRight: $spacing-extra-tight; // 水平布局表单标题右侧外边距 
+$spacing-form_label_posLeft-marginRight: 0; // 水平布局表单标题右侧外边距 
 $spacing-form_label_posLeft-marginBottom: 0; // 水平布局表单标题底部外边距 
 $spacing-form_label_posTop-paddingTop: $spacing-extra-tight; // 垂直布局表单标题顶部内边距
 $spacing-form_label_posTop-paddingBottom: $spacing-extra-tight; // 垂直布局表单标题底部内边距
