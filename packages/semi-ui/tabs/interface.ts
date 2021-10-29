@@ -34,6 +34,7 @@ export interface TabsProps {
     tabPaneMotion?: boolean;
     tabPosition?: TabPosition;
     type?: TabType;
+    closable?: boolean;
 }
 
 export interface TabBarProps {
@@ -49,6 +50,8 @@ export interface TabBarProps {
     type?: TabType;
     dropdownClassName?: string;
     dropdownStyle?: CSSProperties;
+    closable?: boolean;
+    deleteTabItem?: (tabKey: string, event: MouseEvent<Element>) => void;
 }
 
 export interface TabPaneProps {

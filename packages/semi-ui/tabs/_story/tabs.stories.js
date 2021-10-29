@@ -38,7 +38,7 @@ class App extends React.Component {
     render() {
         return (
             <div>
-                <Tabs type="line">
+                <Tabs closable type="card">
                     <TabPane tab="文档" itemKey="1">
                         <h3>文档</h3>
                         <p
@@ -132,6 +132,44 @@ class App extends React.Component {
                     </TabPane>
                     <TabPane tab="帮助" itemKey="3">
                         <h3>帮助</h3>
+                        <p
+                            style={{
+                                lineHeight: 1.8,
+                                color: 'var(--semi-color-text-0)',
+                                fontWeight: 600,
+                            }}
+                        >
+                            Q：有新组件需求、或者现有组件feature不能满足业务需求？
+                        </p>
+                        <p
+                            style={{
+                                lineHeight: 1.8,
+                                color: 'var(--semi-color-text-1)',
+                            }}
+                        >
+                            右上角问题反馈，提交issue，label选择Feature Request / New Component Request
+                            我们会高优处理这些需求。
+                        </p>
+                        <p
+                            style={{
+                                lineHeight: 1.8,
+                                color: 'var(--semi-color-text-0)',
+                                fontWeight: 600,
+                            }}
+                        >
+                            Q：对组件的使用有疑惑？
+                        </p>
+                        <p
+                            style={{
+                                lineHeight: 1.8,
+                                color: 'var(--semi-color-text-1)',
+                            }}
+                        >
+                            欢迎进我们的客服lark群进行咨询提问。
+                        </p>
+                    </TabPane>
+                    <TabPane tab="测试" itemKey="4">
+                        <h3>测试</h3>
                         <p
                             style={{
                                 lineHeight: 1.8,

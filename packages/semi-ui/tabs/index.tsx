@@ -45,6 +45,7 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
         tabPaneMotion: PropTypes.oneOfType([PropTypes.bool, PropTypes.object, PropTypes.func]),
         tabPosition: PropTypes.oneOf(strings.POSITION_MAP),
         type: PropTypes.oneOf(strings.TYPE_MAP),
+        closable: PropTypes.bool
     };
 
     static defaultProps: TabsProps = {
@@ -58,6 +59,7 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
         tabPaneMotion: true,
         tabPosition: 'top',
         type: 'line',
+        closable: false
     };
 
     contentRef: RefObject<HTMLDivElement>;
@@ -185,6 +187,24 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
         });
     };
 
+    deleteTabItem = (tabKey: string, event: MouseEvent<HTMLDivElement>) => {
+        event.stopPropagation();
+        if(this.state.panes.length===1) return
+        if(tabKey===this.state.activeKey) {
+            const activeIndex = this.state.panes.findIndex(e => e.itemKey === tabKey) === 0 ?
+                0: this.state.panes.findIndex(e => e.itemKey === tabKey) -1
+            this.setState(state=>({
+                activeKey: state.panes[activeIndex].itemKey,
+                panes: state.panes.filter(pane => pane.itemKey !== tabKey)
+            }))
+        }else {
+            this.setState(state=>({
+                ...state,
+                panes: state.panes.filter(pane => pane.itemKey !== tabKey)
+            }))
+        }
+    }
+
     render(): ReactNode {
         const {
             children,
@@ -202,6 +222,7 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
             tabPaneMotion,
             tabPosition,
             type,
+            closable,
             ...restProps
         } = this.props;
         const { panes, activeKey } = this.state;
@@ -226,6 +247,8 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
             tabBarExtraContent,
             tabPosition,
             type,
+            closable,
+            deleteTabItem: this.deleteTabItem
         };
 
         const tabBar = renderTabBar ? renderTabBar(tabBarProps, TabBar) : <TabBar {...tabBarProps} />;

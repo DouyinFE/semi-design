@@ -39,6 +39,12 @@ $module: #{$prefix}-tabs;
 
             user-select: none;
 
+            .semi-icon-close {
+                font-size: 14px;
+                color: var(--semi-color-text-2) !important;
+                padding-left: 10px;
+            }
+
             .#{$prefix}-icon {
                 position: relative;
                 margin-right: $spacing-tabs_tab_icon-marginRight;
