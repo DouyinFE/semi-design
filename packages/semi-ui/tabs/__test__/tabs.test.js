@@ -167,9 +167,9 @@ describe('Tabs', () => {
         expect(tabs.contains(extraContent)).toEqual(true);
     });
 
-    it('renderTabBar', () => {
+    // it('renderTabBar', () => {
 
-    });
+    // });
     it('click right close icon will delete current tab', () => {
         let tabsProps = {
             activeKey: 'itemKeyB',
