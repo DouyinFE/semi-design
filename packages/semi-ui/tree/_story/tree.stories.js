@@ -1706,12 +1706,6 @@ stories.add('tree without value props', () => (
     />
 ));
 
-const x = 3;
-const y = 2;
-const z = 1;
-const gData = [];
-
-
 const DnDTree = () => {
     
     const initialData = [
@@ -1729,13 +1723,11 @@ const DnDTree = () => {
                             label: 'Beijing',
                             value: 'Beijing',
                             key: '0-0-0',
-                            disabled: true,
                         },
                         {
                             label: 'Shanghai',
                             value: 'Shanghai',
                             key: '0-0-1',
-                            disabled: true,
                         },
                     ],
                 },

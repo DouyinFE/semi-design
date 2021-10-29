@@ -1191,13 +1191,11 @@ import { Tree } from '@douyinfe/semi-ui';
                             label: 'Beijing',
                             value: 'Beijing',
                             key: '0-0-0',
-                            disabled: true,
                         },
                         {
                             label: 'Shanghai',
                             value: 'Shanghai',
                             key: '0-0-1',
-                            disabled: true,
                         },
                     ],
                 },
