@@ -377,7 +377,7 @@ import { Checkbox, CheckboxGroup, Row, Col } from '@douyinfe/semi-ui';
 | checked | 指定当前Checkbox是否选中（在Group中使用时无效） | boolean | false |
 | defaultChecked | 初始是否选中（在Group中使用时无效） | boolean | false |
 | disabled | 失效状态 | boolean | false |
-| extra | 副文本<br/>__v0.25.0后提供__ | reactNode | - |
+| extra | 副文本<br/>__v0.25.0后提供__ | ReactNode | - |
 | value | 该checkbox在CheckboxGroup中代表的value | any | - |
 | indeterminate | 设置 indeterminate 状态，只负责样式控制 | boolean | false |
 | onChange | 变化时回调函数 | function(e:Event) | - |

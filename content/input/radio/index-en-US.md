@@ -364,7 +364,7 @@ class App extends React.Component {
 | className | Class name | string |  |
 | defaultChecked | Checked by default | boolean | false |
 | disabled | Disable the radio | boolean | false |
-| extra | Extra information displayed <br/>**provided after v0.25.0** | reactNode | - |
+| extra | Extra information displayed <br/>**provided after v0.25.0** | ReactNode | - |
 | mode | In advanced mode, options can be clicked to uncheck, one of `advanced` | string | - |
 | style | Inline style | CSSProperties |  |
 | value | Compared based on value to determine whether the option is selected | any | - |

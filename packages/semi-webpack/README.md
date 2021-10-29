@@ -1,9 +1,9 @@
-> A webpack plugin for SemiDesign to custom theme、replace prefix and so on.
+> A webpack plugin for Semi Design to custom theme、replace prefix and so on.
 
 ## Introduction
-The plugin is designed for SemiDesign, support webpack4 and webpack5, provides two major abilities:
+The plugin is designed for Semi Design, support webpack4 and webpack5, provides two major abilities:
 - Custom theme
-- Replace prefix of css selector 
+- Replace prefix of CSS selector 
 
 ## Usage 
 
@@ -17,16 +17,16 @@ yarn add --dev @douyinfe/semi-webpack-plugin
 ```
 
 ### Custom theme
-SemiDesign uses the scss variables to extract thousands of Design Tokens. You can replace Token through this plugin to achieve theme customization. [More info](https://semi.design/dsm/)
+Semi Design uses the Scss variables to extract thousands of Design Tokens. You can replace Token through this plugin to achieve theme customization. [More info](https://semi.design/dsm/)
 
 You can custom theme through three ways:
-- NPM package for custom theme
-- Local scss file in your project
+- npm package for custom theme
+- Local Scss file in your project
 - Pass key-value pair parameters to plugin 
 Priority from low to high.
-#### Through NPM package 
+#### Through npm package 
 
-In order to use the NPM package, you need to customize the theme through [Semi Design System](https://semi.design/dsm/).After finishing the customization, Semi DSM will generate an NPM package for you, and then you can use it like this.
+In order to use the npm package, you need to customize the theme through [Semi Design System](https://semi.design/dsm/).After finishing the customization, Semi DSM will generate a npm package for you, and then you can use it like this.
 
 ``` js
 // webpack.config.js
@@ -43,7 +43,7 @@ module.exports = {
 };
 ```
 
-#### Through local scss file
+#### Through local Scss file
 
 You can check which tokens can be customized on the [Semi WebSite](https://semi.design/zh-CN/basic/tokens).
 
@@ -86,8 +86,8 @@ module.exports = {
 };
 ```
 
-### Replace prefix of css selector
-The css selectors used by SemiDesign is prefixed with semi by default(e.g, `.semi-button`).You can replace the prefix through this plugin.
+### Replace prefix of CSS selector
+The CSS selectors used by Semi Design is prefixed with semi by default(e.g, `.semi-button`).You can replace the prefix through this plugin.
 
 ``` js
 // webpack.config.js
@@ -104,7 +104,7 @@ module.exports = {
 };
 ```
 
-Then you get the replaced css selectors(e.g, `.custom-button`).
+Then you get the replaced CSS selectors(e.g, `.custom-button`).
 
 ## Api
 ### new SemiPlugin(options)
@@ -113,13 +113,13 @@ Then you get the replaced css selectors(e.g, `.custom-button`).
 
 Type: `String`
 
-The prefix of css selector.
+The prefix of CSS selector.
 
 #### options.theme
 
 Type: `String` or `Object`
 
-When the type is string, it represents the name of NPM for custom theme.You can use [Semi Design System](https://semi.design) to custom theme.
+When the type is string, it represents the name of npm for custom theme.You can use [Semi Design System](https://semi.design) to custom theme.
 
 ##### options.theme.name
 
@@ -129,10 +129,10 @@ Same performance as when the type of `options.theme` is string.
 
 Type: `String`
 
-The absolute path of the local scss file.
+The absolute path of the local Scss file.
 
 ##### options.variables
 
 Type: `Object`
 
-The key-value pair of scss token.
+The key-value pair of Scss token.

@@ -33,9 +33,9 @@ After downloading the theme, publish the npm package by yourself. (Temporary beh
 
 Then you need to specify the theme to be used in the configuration file.
 
-### When using Webpack as a build tool
+### When using webpack as a build tool
 
-For users who use Webpack, add the `theme` parameter to SemiWebpackPlugin.
+For users who use webpack, add the `theme` parameter to SemiWebpackPlugin.
 
 SemiWebpackPlugin  `yarn add -D @douyinfe/semi-webpack-plugin` or `npm i -D @douyinfe/semi-webpack-plugin`
 

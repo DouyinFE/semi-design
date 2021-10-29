@@ -140,7 +140,7 @@ import { IllustrationConstruction } from '@douyinfe/semi-illustrations';
 
 ## FAQ
 ### 为什么引用路径发生了变化？
-在 1.x 中，Semi 采用源码发布的方式，执行 npm publish 前不会执行预编译，组件库的 scss、jsx/js 会跟随业务代码一同进行编译，2.0 中 npm publish前进行了预编译，对于普通用户来说，预编译可以让 Semi 做到开箱即用：无需让用户编译 Semi 源文件，无需在使用时引入 Semi 插件。由于编译后的结果在 lib/es 下，因此接口和语言包的引用路径发生了变化，但对于组件引用，你无需改变原有的引用路径（因为 package.json main 属性指向 lib/es/index.js）。
+在 1.x 中，Semi 采用源码发布的方式，执行 npm publish 前不会执行预编译，组件库的 Scss、jsx/js 会跟随业务代码一同进行编译，2.0 中 npm publish前进行了预编译，对于普通用户来说，预编译可以让 Semi 做到开箱即用：无需让用户编译 Semi 源文件，无需在使用时引入 Semi 插件。由于编译后的结果在 lib/es 下，因此接口和语言包的引用路径发生了变化，但对于组件引用，你无需改变原有的引用路径（因为 package.json main 属性指向 lib/es/index.js）。
 ### 项目希望升级至 2.0，但项目中使用了 Semi 物料，物料基于 1.x Semi，是否可同时使用？
 由于Semi 2.0的包名与1.x并不相同，所以实际上他们会成了两个单独的包，互不影响。
 

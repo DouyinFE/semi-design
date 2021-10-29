@@ -320,7 +320,7 @@ class App extends React.Component {
 | className      | 样式类名                                                                | string            |        |
 | defaultChecked | 初始是否选中                                                             | boolean           | false  |
 | disabled       | 禁选单选框                                                              |boolean            | false    |
-| extra          | 副文本，只对type='default'生效<br/>**v0.25.0 后提供**                     | reactNode         | -      |
+| extra          | 副文本，只对type='default'生效<br/>**v0.25.0 后提供**                     | ReactNode         | -      |
 | mode           | 高级和普通模式，高级模式可以在 checked 时点击变成 unchecked，可选值 advanced   | string            | -      |
 | style          | 内联样式                                                                 | CSSProperties    |        |
 | value          | 根据 value 进行比较，判断是否选中                                          | any               | -      |

@@ -238,7 +238,7 @@ Version：Major.Minor.Patch
         - Fix the problem that the button type Radio is not aligned, add align-item: middle
     - Design Token
         - PopConfirm add new component sass token: $radius-popconfirm-popover , you can use it to modify border-radius of popConfirm
-        - Add new css global token: --border-radius，can be used to create full-size rounded corners, such as capsule labels, etc.
+        - Add new CSS global token: --border-radius，can be used to create full-size rounded corners, such as capsule labels, etc.
 - 【Fix】
     - Table
         - Fixed the problem of incorrect rendering of selectable cells disabled with controlled rowSelection
@@ -478,7 +478,7 @@ Version：Major.Minor.Patch
   - Select
     - Fix the problem that ref.selectAll does not take effect when Select onChangeWithObject is true; fix the problem that onChange is not triggered after calling ref.selectAll 
     - Fix the problem of updating the optionList after Select search and changing the number of options, in some cases directly hitting Enter will throw Uncaught TypeError: Cannot read property'_inputCreateOnly' of undefined
-  - Fixed the problem that propType check warning was thrown when the Description data key was passed into reactNode
+  - Fixed the problem that propType check warning was thrown when the Description data key was passed into ReactNode
 - 【Style】
   - Radio and Checkbox border color are aligned with the design draft, unified update to var(--color-text-3) 
   - Fix the incorrect color of Radio disabled border 
@@ -550,7 +550,7 @@ Version：Major.Minor.Patch
 - 【Style】
   - Display ToolTip when TagInput tag is too long and truncated 
   - Add 2px margin between title and description in Banner non-full screen mode 
-  - Form label font-weight update from 700 to 600, the corresponding scss variable font-weight-bold is also adjusted from 700 to 600 
+  - Form label font-weight update from 700 to 600, the corresponding Scss variable font-weight-bold is also adjusted from 700 to 600 
 
 
 #### 🎉 1.19.0 (2021-04-02)
@@ -688,7 +688,7 @@ Version：Major.Minor.Patch
   - Fix the problem that when selecting autoFocus, directly clicking on the external out of focus does not trigger the onBlur event 
   - Fix Table functional component rowSelection failure when using literal value 
 - 【Style】
-  - Solve the problem that Form.Section does not reference css variables and displays abnormal in dark mode
+  - Solve the problem that Form.Section does not reference CSS variables and displays abnormal in dark mode
   - Description Add an explicit line-height declaration to prevent inheritance when the parent sets the line-height
 - 【Chore】
   - Update Form autoScrollToError type definition to supplement object type
@@ -1154,7 +1154,7 @@ Version：Major.Minor.Patch
     -   Fix the problem that `Table` still displays selected columns when rowSelection is false 
     -   Fix `Tooltip`'s getPopupContainer using configProvider is invalid 
 -   【Performance】
-    -   Optimized displayName of withField HOC to facilitate positioning related elements in react devtool 
+    -   Optimized displayName of withField HOC to facilitate positioning related elements in React devtool 
 -   【Style】
     -   `Modal` imperative content and header add 8px spacing
     -   Fix the center alignment problem of `Banner` close button
@@ -1231,7 +1231,7 @@ Version：Major.Minor.Patch
         -   Field Props add
             -   `helpText` placement prompt information (share the same block display with the verification result, when both have values, the verification result is displayed first)
             -   `extraText` is used to place additional prompt information, often displayed and will not Overwritten by verification result
-        -   error message supports reactNode (return reactNode in validate or rules in version 0.x will be considered to pass verification, and return to reactNode after version 1.0 will be the same as the return of string, which is regarded as verification failure)
+        -   error message supports ReactNode (return ReactNode in validate or rules in version 0.x will be considered to pass verification, and return to ReactNode after version 1.0 will be the same as the return of string, which is regarded as verification failure)
     -   InputNumber
         -   New: `hideButtons` is used to control the hiding of the" increase / decrease "buttons, ** discard the original suffix = {null} method **.
     -   List
@@ -1299,7 +1299,7 @@ Version：Major.Minor.Patch
         -   Automatically added when error message is displayed ❌ icon (if not required, you can close it with showValidateIcon)
     -   Input prefix / suffix / addonBefore / addonAfter style adjustment 
         -   prefix / suffix is no longer processed as Icon when passing in a string, and is directly mapped into a string; Icon needs to be passed in the form of React.Node
-        -   there will be no padding when passing in a custom reactNode, only the String and Icon have their own padding
+        -   there will be no padding when passing in a custom ReactNode, only the String and Icon have their own padding
     -   InputNumber
         -"Up / Down" button is adjusted to the right of Input
     -   Modal
@@ -2009,7 +2009,7 @@ Version：Major.Minor.Patch
 #### 0.16.0
 
 -   [Feat] Add the `TimeLine` component
--   [feat] semi global variable update
+-   [feat] Semi global variable update
 -   [feat] `Back Top` component adds animation, adds character attribute
 -   [Feat] `Modal` component adds centered properties and updates the positioning of the default style
 -   [feat] `Cascader` component supports dynamic update subnodes
@@ -2029,7 +2029,7 @@ Version：Major.Minor.Patch
 
 #### 0.15 .3
 
--   [style] semi adds global font font-family statement
+-   [style] Semi adds global font font-family statement
 
 #### 0.15.1
 
@@ -2156,7 +2156,7 @@ Version：Major.Minor.Patch
 
 #### 0.4.0
 
--   [feat] semi supports dark mode
+-   [feat] Semi supports dark mode
 
 #### 0.3.0
 

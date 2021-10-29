@@ -1360,8 +1360,8 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | Properties | Instructions | Type | Default |
 | --- | --- | --- | --- |
 | className | The CSS class name of the wrapper element | string |  |
-| disabled | Disbaled | boolean | false |
-| label | Text displayed. Prioritize the label when rendering, take the child, value if not, and downgrade in turn | string\|reactNode |  |
+| disabled | Disabled | boolean | false |
+| label | Text displayed. Prioritize the label when rendering, take the child, value if not, and downgrade in turn | string\|ReactNode |  |
 | showTick | Whether to show the Icon of tick when option selected | boolean | true |
 | style | Inline Style | object |  |
 | value | Property value | string\|number |  |
@@ -1395,7 +1395,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
      Please check whether `remote={true}` is set. If remote is not set, the input value of the input box will be compared with the current optionList by default. If there is no match, no data will be displayed.  
      You can turn off matching filtering on the current local data by setting remote to true.
 
--   **Use jsx to declare Option, label is the content after i18n, fail to re-render after switching locale** When the children jsx method declares Options, because it is reactNode, it is impossible to use deepEqual to compare whether the content is updated (excessive performance consumption), so the key of children reactNode will be collected. When the key is unchanged, it is considered that Options have not occurred. Changes will not go through the process of re-collecting data. You can also use locale as part of the Option key.  
+-   **Use jsx to declare Option, label is the content after i18n, fail to re-render after switching locale** When the children jsx method declares Options, because it is ReactNode, it is impossible to use deepEqual to compare whether the content is updated (excessive performance consumption), so the key of children ReactNode will be collected. When the key is unchanged, it is considered that Options have not occurred. Changes will not go through the process of re-collecting data. You can also use locale as part of the Option key.  
     The problem can also be solved by using `optionList` to pass in. Because the key is relatively limited for the object form, isEqual is used inside Select to determine whether there is a change
 
 -   **Use jsx to declare Option, and fail to re-render after dynamically switching the disabled attribute**   
