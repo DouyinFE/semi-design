@@ -170,7 +170,7 @@ describe('Tabs', () => {
     // it('renderTabBar', () => {
 
     // });
-    it('closable', () => {
+    it('click right close icon will delete current tab', () => {
         let tabsProps = {
             activeKey: 'itemKeyB',
             type: 'card',
@@ -179,10 +179,7 @@ describe('Tabs', () => {
         let paneProps = defaultTabPane;
         
         const tabs = mount(getTabs(tabsProps, paneProps));
-        console.log(tabs.props())
-        console.log('target1:', tabs.find(`.${BASE_CLASS_PREFIX}-tabs-tab-active`).type())
-        console.log('target2:', tabs.find(`.${BASE_CLASS_PREFIX}-tabs-tab-active`).find('span').find('span').type())
-        // tabs.find(`.${BASE_CLASS_PREFIX}-tabs-tab .semi-icon-close`).simulate('click');
-        // expect(tabs.find(`.${BASE_CLASS_PREFIX}-tabs-tab-active`).text()).toEqual('titleA');
+        tabs.find(`.${BASE_CLASS_PREFIX}-tabs-tab`).find('span').at(0).simulate('click');
+        expect(tabs.props().activeKey).toEqual('itemKeyB');
     });
 })
