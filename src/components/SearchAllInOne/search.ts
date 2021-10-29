@@ -39,7 +39,7 @@ export default function search(str,data,locale) {
     resultNodeList.map((node) => {
         const result:searchFuncResultItemInterface = {
             text: node.value,
-            type: node.meanfulType,
+            type: node.meaningfulType,
             belong:node.belong,
             context: getContext(node),
             url: withPrefix(node.mdxInfo.slug + (node.anchor ?calcHashViaAnchor(node.anchor) : (node.parent?calcHashViaAnchor(nodeMap[node.parent].anchor):''))),

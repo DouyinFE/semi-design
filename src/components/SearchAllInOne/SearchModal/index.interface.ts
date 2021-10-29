@@ -27,7 +27,7 @@ export interface nodeInterface {
     "parent": string | null,
     "anchor": string,
     "mdxInfo": mdxInfoInterface,
-    "meanfulType": 'heading' | 'code' | 'jsx' | 'list' | 'listItem' | 'root' | 'strong' | 'paragraph' | 'table'
+    "meaningfulType": 'heading' | 'code' | 'jsx' | 'list' | 'listItem' | 'root' | 'strong' | 'paragraph' | 'table'
 }
 export interface searchDataInterface {
     'zh-CN'?: {
