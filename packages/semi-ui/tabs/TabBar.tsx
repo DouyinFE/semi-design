@@ -91,7 +91,7 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
     renderTabItem = (panel: PlainTab): ReactNode => {
         const { size, type, closable, deleteTabItem } = this.props;
         const panelIcon = panel.icon ? this.renderIcon(panel.icon) : null;
-        const closableIcon = (type==='card' && closable) ? <span onClick={(e: React.MouseEvent<HTMLSpanElement>)=> deleteTabItem(panel.itemKey,e)}><IconClose /></span>: null
+        const closableIcon = (type==='card' && closable) ? <span onClick={(e: React.MouseEvent<HTMLSpanElement>)=> deleteTabItem(panel.itemKey,e)}><IconClose className={`${cssClasses.TABS_TAB}-icon-close`} /></span>: null
         let events = {};
         const key = panel.itemKey;
         if (!panel.disabled) {

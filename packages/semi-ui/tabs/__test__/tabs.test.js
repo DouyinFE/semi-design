@@ -179,7 +179,7 @@ describe('Tabs', () => {
         let paneProps = defaultTabPane;
         
         const tabs = mount(getTabs(tabsProps, paneProps));
-        tabs.find(`.${BASE_CLASS_PREFIX}-tabs-tab`).find('span').at(0).simulate('click');
+        tabs.find(`.${BASE_CLASS_PREFIX}-tabs-tab-active`).find('span').at(0).simulate('click');
         expect(tabs.props().activeKey).toEqual('itemKeyB');
     });
 })

@@ -39,9 +39,9 @@ $module: #{$prefix}-tabs;
 
             user-select: none;
 
-            .semi-icon-close {
+            .#{$prefix}-icon-close {
                 font-size: 14px;
-                color: var(--semi-color-text-2) !important;
+                color: var(--semi-color-text-2);
                 padding-left: 10px;
             }
 
@@ -61,11 +61,7 @@ $module: #{$prefix}-tabs;
             }
 
             &:active {
-                color: $color-tabs_tab_line_default-text-active;
-
-                .#{$prefix}-icon {
-                    color: $color-tabs_tab-icon-active;
-                }
+                color: $color-tabs_tab_line_default-text-active;  
             }
         }
 
@@ -81,6 +77,10 @@ $module: #{$prefix}-tabs;
 
                 .#{$prefix}-icon {
                     color: $color-tabs_tab_selected-icon-default;
+                }
+                
+                .#{$prefix}-icon-close {
+                    color: var(--semi-color-text-2);
                 }
             }
         }
