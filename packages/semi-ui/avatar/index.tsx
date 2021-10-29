@@ -123,7 +123,7 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
         const { shape, children, size, color, className, hoverMask, onClick, imgAttr, src, srcSet, style, alt, ...others } = this.props;
         const { isImgExist, hoverContent } = this.state;
         const isImg = src && isImgExist;
-        const avtarCls = cls(
+        const avatarCls = cls(
             prefixCls,
             {
                 [`${prefixCls}-${shape}`]: shape,
@@ -150,7 +150,7 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
             <span
                 {...(others as any)}
                 style={style}
-                className={avtarCls}
+                className={avatarCls}
                 onClick={onClick as any}
                 onMouseEnter={this.onEnter as any}
                 onMouseLeave={this.onLeave as any}

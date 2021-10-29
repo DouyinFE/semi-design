@@ -1,3 +1,8 @@
+/*
+* Modified based on animate.css and added prefix name to prevent style conflicts
+* Reference: https://github.com/animate-css/animate.css
+*/
+
 @keyframes semi-bounceOutDown {
     20% {
         transform: translate3d(0, 10px, 0);
@@ -18,3 +23,4 @@
 .semi-bounceOutDown {
     animation-name: semi-bounceOutDown;
 }
+

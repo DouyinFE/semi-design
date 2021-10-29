@@ -15,6 +15,45 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 ---
 
+#### 🎉 2.0.0 (2021-10-26)
+
+- 【Breaking Change】
+  - 组件相关调整
+    - Icon 相关
+      - Icon 组件不再支持  type=xxx 方式使用内置 icon
+      - 自定义 svg 不再支持插件方式配置 srcSvgPaths
+      - Button icon 属性不再支持通过 string 传递内置 icon 名
+      - Dropdown 删除 iconType 属性，统一为 icon 属性
+      - Navigation icon 不再支持通过 string 方式传入，需要传入 ReactNode
+      - Notification icon 不再支持通过 string 方式传入，请统一使用 ReactNode
+    - AutoComplete 正式废弃 onChangeWithObject 属性
+    - Cascader triggerRender 的入参移除 onInputChange
+    - Form 不再从 `semi-ui/index.js` 导出 Label组件，如需使用请用 Form.Label
+    - Tree onRightClick 更名为 onContextMenu
+    - Upload dragable 更名为 draggable
+    - Table
+      - 不再在 componentDidUpdate 时响应的 API
+        - defaultExpandAllRows，请用 expandAllRows 替换
+        - defaultExpandRowKeys，请用 expandRowKeys 替换
+        - defaultExpandAllGroupRows，请用 expandAllGroupRows 替换
+  - 样式相关调整
+    - CSS 变量添加 semi 前缀，例如 --color-primary => --semi-color-primary
+    - 在 2.x，统一将插画的宽高设置为 `200 * 200px`，1.x 的尺寸为 `300 * 150px`
+    - 设计变量调整
+      - Popconfirm
+        - $color-popconfirm_body-text 由 --semi-color-tertiary => --semi-color-text-2
+        - $color-popconfirm_header_alert-icon 由 #fa7500 => --semi-color-warning
+      - Progress
+        - $spacing-progress_line_text-marginLeft 由 15px => $spacing-base(16px)
+        - $spacing-progress_line_text-marginRight 由 15px => $spacing-base(16px)
+      - Radio
+        - $spacing-radio_addon_buttonRadio_large-paddingY 由 6px => $spacing-base-tight / 2 (6px)
+        - $radius-radio_cardRadioGroup 由 3px => --semi-border-radius-small(3px)
+  - 插件相关调整
+      - 2.x 不再支持通过 Semi 插件配置 iconLazyLoad、svgPaths、srcSvgPaths
+      - 2.x 默认已支持局部暗色/亮色模式，不再需要在插件配置 themeScope。使用方式由 #semi-always-xxx => .semi-always-xxx
+  - 其他调整
+    - 由于 Icon 方案的调整，Icon、Empty 组件使用 icon、插画的方式与之前不同，具体请看 [1.x 迁移 2.x 指南](/zh-CN/start/update-to-v2)
 
 #### 🎉 1.33.0 (2021-10-22)
 - 【Fix】

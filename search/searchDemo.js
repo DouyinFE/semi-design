@@ -25,7 +25,7 @@ function search(str) {
     resultNodeList.map((node) => {
         const result = {
             text: node.value,
-            type: node.meanfulType,
+            type: node.meaningfulType,
             context: getContext(node).join(" => "),
             url: "https://semi.design/design/" + node.mdxInfo.slug + (node.anchor ? node.anchor : nodeMap[node.parent].anchor),
         };

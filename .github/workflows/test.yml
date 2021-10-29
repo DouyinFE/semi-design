@@ -20,4 +20,6 @@ jobs:
         run: npm i -g lerna && npm run bootstrap
 
       - name: Run test
-        run: npm run test:unit
+        run: npm run test:coverage
+      - name: Run codecov
+        run: npx codecov --token=${{ secrets.CODECOV_TOKEN }}

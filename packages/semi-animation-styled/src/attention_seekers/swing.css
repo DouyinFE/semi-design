@@ -1,3 +1,8 @@
+/*
+* Modified based on animate.css and added prefix name to prevent style conflicts
+* Reference: https://github.com/animate-css/animate.css
+*/
+
 @keyframes semi-swing {
     20% {
         transform: rotate3d(0, 0, 1, 15deg);
@@ -24,3 +29,4 @@
     transform-origin: top center;
     animation-name: semi-swing;
 }
+

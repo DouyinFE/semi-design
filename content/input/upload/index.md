@@ -874,8 +874,8 @@ class ValidateDemo extends React.Component {
 }
 ```
 
-异步校验时，需返回 Promise，Promise reslove 代表检验通过，reject 代表校验失败，不会触发上传。  
-reslove/reject 时可以传入 object（结构同上 beforeUploadResult）
+异步校验时，需返回 Promise，Promise resolve 代表检验通过，reject 代表校验失败，不会触发上传。  
+resolve/reject 时可以传入 object（结构同上 beforeUploadResult）
 
 ```jsx live=true width=48%
 import React from 'react';
@@ -892,14 +892,14 @@ class AsyncBeforeUploadDemo extends React.Component {
 
     beforeUpload({ file, fileList }) {
         let result;
-        return new Promise((reslove, reject) => {
+        return new Promise((resolve, reject) => {
             if (this.count > 1) {
                 result = {
                     autoRemove: false,
                     shouldUpload: true,
                 };
                 this.count = this.count + 1;
-                reslove(result);
+                resolve(result);
             } else {
                 result = {
                     autoRemove: false,
@@ -1074,7 +1074,7 @@ import { IconUpload } from '@douyinfe/semi-icons';
 |onAcceptInvalid | 当接收到的文件不符合accept规范时触发（一般是因为文件夹选择了全部类型文件/拖拽不符合格式的文件时触发） | (files: File[]) => void | | 1.24.0 |
 |onChange | 文件状态发生变化时调用，包括上传成功，失败，上传中，回调入参为 Object，包含 fileList、currentFile 等值 | ({fileList: Array<FileItem\>, currentFile?: FileItem}) => void |  | 1.0.0 |
 |onClear | 点击清空时的回调 | () => void |  | 1.1.0 |
-|onDrop | 当拖拽的元素在拖拽区上被释放时触发 | (e, files: Array<File\>, filelist: Array<FileItem\>) => void |  | 1.9.0 |
+|onDrop | 当拖拽的元素在拖拽区上被释放时触发 | (e, files: Array<File\>, fileList: Array<FileItem\>) => void |  | 1.9.0 |
 |onError | 上传错误时的回调 | (error: Error, file: [File](https://developer.mozilla.org/zh-CN/docs/Web/API/File), fileList: Array<FileItem\>, xhr: XMLHttpRequest) => void |  |  |
 |onExceed | 上传文件总数超出 `limit` 时的回调 | (fileList:Array<FileItem\>) => void |  |  |
 |onFileChange | 选中文件后的回调 | (Array<File\>) => void |  |  |

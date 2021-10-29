@@ -420,7 +420,7 @@ class App extends React.Component {
 
 ### Dynamic Update
 
-You can add events to update tabBar dynamicly.
+You can add events to update tabBar dynamically.
 
 ```jsx live=true
 import React from 'react';

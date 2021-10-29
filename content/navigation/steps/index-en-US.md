@@ -22,7 +22,7 @@ import { Steps } from '@douyinfe/semi-ui';
 const Step = Steps. Step.;
 ```
 
-### Default step bar(Deperecated)
+### Default step bar(Deprecated)
 
 It is recommended to use the simple version of steps, which will be gradually deprecated later
 
@@ -262,7 +262,7 @@ import { IconHome, IconLock, IconClear, IconTickCircle } from '@douyinfe/semi-ic
 
 ### onChange CallBack
 
-Since version 1.29.0, onChange is supported, which can be used to realize the processing progress. onChange receives a parameter of type number, which is equal to inital + current.
+Since version 1.29.0, onChange is supported, which can be used to realize the processing progress. onChange receives a parameter of type number, which is equal to initial + current.
 
 ```jsx live=true dir="column"
 import React from 'react';

@@ -100,7 +100,7 @@ import { Switch } from '@douyinfe/semi-ui';
 )
 ```
 
-Compared to setting the embedded text through chekedText and uncheckedText, we recommend placing the text description outside the Switch
+Compared to setting the embedded text through checkedText and uncheckedText, we recommend placing the text description outside the Switch
 ```jsx live=true
 import React, { useState } from 'react';
 import { Switch, Typography } from '@douyinfe/semi-ui';
@@ -119,7 +119,7 @@ import { Switch, Typography } from '@douyinfe/semi-ui';
 
 ### Controlled component
 
-Whether the component is selected depends entirely on the incoming checkced value, used with `onChange`
+Whether the component is selected depends entirely on the incoming checked value, used with `onChange`
 
 ```jsx live=true
 import React from 'react';

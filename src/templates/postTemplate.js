@@ -283,6 +283,10 @@ const components = {
             if (children[0] === '【Refactor】') {
                 children[0] = <div className={'changelog-title'}>🧶【Refactor】</div>;
             }
+
+            if (children[0] === '【Breaking Change】') {
+                children[0] = <div className={'changelog-title'}>💥【Breaking Change】</div>;
+            }
         }
 
         return <li className={'gatsby-li'}>{children}</li>;

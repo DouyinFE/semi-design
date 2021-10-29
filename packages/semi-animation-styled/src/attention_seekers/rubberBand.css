@@ -1,3 +1,8 @@
+/*
+* Modified based on animate.css and added prefix name to prevent style conflicts
+* Reference: https://github.com/animate-css/animate.css
+*/
+
 @keyframes semi-rubberBand {
     from {
         transform: scale3d(1, 1, 1);
@@ -31,3 +36,4 @@
 .semi-rubberBand {
     animation-name: semi-rubberBand;
 }
+

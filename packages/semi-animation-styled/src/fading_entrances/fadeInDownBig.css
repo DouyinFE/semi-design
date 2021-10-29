@@ -1,3 +1,8 @@
+/*
+* Modified based on animate.css and added prefix name to prevent style conflicts
+* Reference: https://github.com/animate-css/animate.css
+*/
+
 @keyframes semi-fadeInDownBig {
     from {
         opacity: 0;
@@ -13,3 +18,4 @@
 .semi-fadeInDownBig {
     animation-name: semi-fadeInDownBig;
 }
+
