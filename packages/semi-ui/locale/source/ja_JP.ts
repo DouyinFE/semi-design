@@ -9,7 +9,7 @@ const local: Locale = {
         page: 'ページ',
         pageSize: '個数 / ページ',
         total: '合計',
-        jumpTo: 'にジャンプ'
+        jumpTo: 'ページへ'
     },
     Modal: {
         confirm: '確認する',
@@ -39,7 +39,7 @@ const local: Locale = {
             confirm: '確認する',
             cancel: 'キャンセル',
         },
-        selectDate: '選択日を返す',
+        selectDate: '日付を選ぶ',
         selectTime: '時間を選ぶ',
         year: '年',
         month: '月',
