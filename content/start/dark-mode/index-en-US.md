@@ -62,7 +62,7 @@ class Demo extends React.Component {
 If you want the mode of the site to change with the system setting, you may find this property  [Prefers-color-scheme
 ](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme) helpful. Please pay attention that this property is experimental. It asks for browser compatibility (Chrome >= 76, Safari >= 12.1) and you may expect behavior to change in the future.
 
-To change system setting in MacOs, go to System Preferences -> General -> Appearance
+To change system setting in macOS, go to System Preferences -> General -> Appearance
 
 Since we do not recommend modifying the content of the npm theme package directly, you could add a listener for this property using js. Here is another example:
 ```jsx

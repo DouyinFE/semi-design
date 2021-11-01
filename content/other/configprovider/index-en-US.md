@@ -15,7 +15,7 @@ brief: Provide a unified global configuration for components.
 ```jsx import
 import { ConfigProvider } from '@douyinfe/semi-ui';
 ```
-### Basic Uage
+### Basic Usage
 
 By passing in the timeZone parameter, users can configure the time zone for the time components:
 
