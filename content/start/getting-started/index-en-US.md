@@ -68,10 +68,11 @@ Use script and link tags to import files directly in the browser, and use the gl
 
 ```jsx
 <script type="text/babel">
-    const {(Input, Button, Toast, Icon, Form)} = SemiUI; ReactDOM.render(
-    <div>
-        <Button onClick={() => Toast.warning({ duration: 0, content: 'Semi Design' })}>test</Button>
-        <Input defaultValue="semi" onChange={value => Toast.info('abc')}></Input>
-    </div>, document.getElementById("root") );
+    const { Input, Button, Toast, Icon, Form } = SemiUI;
+    ReactDOM.render(
+        <div>
+            <Button onClick={() => Toast.warning({ duration: 0, content: 'Semi Design' })}>test</Button>
+            <Input defaultValue="semi" onChange={value => Toast.info('abc')}></Input>
+        </div>, document.getElementById("root"));
 </script>
 ```
