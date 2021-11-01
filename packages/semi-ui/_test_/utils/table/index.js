@@ -1,7 +1,7 @@
 import React from 'react';
-import { Tooltip, Tag, Table } from '../../../index';
+import {Table, Tag, Tooltip} from '../../../index';
 
-const { Column } = Table;
+const {Column} = Table;
 
 function getRandomNumber(end = 100, start = 0) {
     const number = Math.ceil(Math.random() * (end - start)) + start;
@@ -26,18 +26,18 @@ function getData(total = 25) {
 
 function getGroupData() {
     const data = [
-        { city: 'Beijing', job: 'FE', department: 'IES' },
-        { city: 'Beijing', job: 'BE', department: 'IES' },
-        { city: 'Shanghai', job: 'Android', department: 'IES' },
-        { city: 'Tokyo', job: 'Android', department: 'IES' },
-        { city: 'Shanghai', job: 'IOS', department: 'EE' },
-        { city: 'LA', job: 'SE', department: 'EE' },
-        { city: 'Beijing', job: 'Android', department: 'EE' },
-        { city: 'Tokyo', job: 'IOS', department: 'EE' },
-        { city: 'Tokyo', job: 'SE', department: 'DATA' },
-        { city: 'Shanghai', job: 'BE', department: 'DATA' },
-        { city: 'LA', job: 'Android', department: 'DATA' },
-        { city: 'LA', job: 'IOS', department: 'DATA' },
+        {city: 'Beijing', job: 'FE', department: 'IES'},
+        {city: 'Beijing', job: 'BE', department: 'IES'},
+        {city: 'Shanghai', job: 'Android', department: 'IES'},
+        {city: 'Tokyo', job: 'Android', department: 'IES'},
+        {city: 'Shanghai', job: 'IOS', department: 'EE'},
+        {city: 'LA', job: 'SE', department: 'EE'},
+        {city: 'Beijing', job: 'Android', department: 'EE'},
+        {city: 'Tokyo', job: 'IOS', department: 'EE'},
+        {city: 'Tokyo', job: 'SE', department: 'DATA'},
+        {city: 'Shanghai', job: 'BE', department: 'DATA'},
+        {city: 'LA', job: 'Android', department: 'DATA'},
+        {city: 'LA', job: 'IOS', department: 'DATA'},
     ];
     return data;
 }
@@ -79,9 +79,9 @@ function getColumns() {
 function getJSXColumns() {
     const jsxColumns = (
         <>
-            <Column title={'Name'} dataIndex={'name'} width={150} />
-            <Column title={'Age'} dataIndex={'age'} width={150} />
-            <Column title={'Address'} dataIndex={'address'} />
+            <Column title={'Name'} dataIndex={'name'} width={150}/>
+            <Column title={'Age'} dataIndex={'age'} width={150}/>
+            <Column title={'Address'} dataIndex={'address'}/>
             <Column
                 render={(text, record) => (
                     <Tooltip content={record.description}>
@@ -97,18 +97,18 @@ function getJSXColumns() {
 
 function getGroupColumns() {
     const columns = [
-        { dataIndex: 'city', title: 'City', width: 400, sorter: (a, b) => (a.city > b.city ? 1 : -1) },
+        {dataIndex: 'city', title: 'City', width: 400, sorter: (a, b) => (a.city > b.city ? 1 : -1)},
         {
             dataIndex: 'job',
             title: 'Job',
             width: 200,
             filters: [
-                { text: 'IOS', value: 'IOS' },
-                { text: 'Android', value: 'Android' },
+                {text: 'IOS', value: 'IOS'},
+                {text: 'Android', value: 'Android'},
             ],
             onFilter: (value, record) => record.job && record.job.indexOf(value) === 0,
         },
-        { dataIndex: 'department', title: 'Department' },
+        {dataIndex: 'department', title: 'Department'},
     ];
     return columns;
 }
@@ -192,53 +192,53 @@ function getTreeData() {
     const childrenData = [
         {
             key: 1,
-            name: 'John Brown sr.',
-            age: 60,
-            address: 'New York No. 1 Lake Park',
+            name: 'ZhangSan',
+            age: 30,
+            address: 'bytedance 1',
             children: [
                 {
                     key: 11,
-                    name: 'John Brown',
-                    age: 42,
-                    address: 'New York No. 2 Lake Park',
+                    name: 'LiSi',
+                    age: 40,
+                    address: 'bytedance 2',
                 },
                 {
                     key: 12,
-                    name: 'John Brown jr.',
+                    name: 'WangWu',
                     age: 30,
-                    address: 'New York No. 3 Lake Park',
+                    address: 'bytedance 2',
                     children: [
                         {
                             key: 121,
-                            name: 'Jimmy Brown',
-                            age: 16,
-                            address: 'New York No. 3 Lake Park',
+                            name: 'XiaoMing',
+                            age: 50,
+                            address: 'bytedance 3',
                         },
                     ],
                 },
                 {
                     key: 13,
-                    name: 'Jim Green sr.',
-                    age: 72,
-                    address: 'London No. 1 Lake Park',
+                    name: 'XiaoZhang',
+                    age: 60,
+                    address: 'bytedance 4',
                     children: [
                         {
                             key: 131,
-                            name: 'Jim Green',
-                            age: 42,
-                            address: 'London No. 2 Lake Park',
+                            name: 'XiaoLi',
+                            age: 50,
+                            address: 'bytedance 5',
                             children: [
                                 {
                                     key: 1311,
-                                    name: 'Jim Green jr.',
-                                    age: 25,
-                                    address: 'London No. 3 Lake Park',
+                                    name: 'XiaoGuo',
+                                    age: 40,
+                                    address: 'bytedance 6',
                                 },
                                 {
                                     key: 1312,
-                                    name: 'Jimmy Green sr.',
-                                    age: 18,
-                                    address: 'London No. 4 Lake Park',
+                                    name: 'XiaoHong',
+                                    age: 30,
+                                    address: 'bytedance 7',
                                 },
                             ],
                         },
@@ -248,9 +248,9 @@ function getTreeData() {
         },
         {
             key: 2,
-            name: 'Joe Black',
-            age: 32,
-            address: 'Sidney No. 1 Lake Park',
+            name: 'XiaoGang',
+            age: 80,
+            address: 'bytedance 8',
         },
     ];
     return childrenData;
@@ -287,10 +287,10 @@ function getJSXNestColumns() {
                 />
             </Column>
             <Column title={'Company Information'} dataIndex={'company'}>
-                <Column title={'Company Name'} dataIndex={'company.name'} />
-                <Column title={'Company Address'} dataIndex={'company.address'} />
+                <Column title={'Company Name'} dataIndex={'company.name'}/>
+                <Column title={'Company Address'} dataIndex={'company.address'}/>
             </Column>
-            <Column title={'Address'} dataIndex={'address'} width={250} fixed="right" />
+            <Column title={'Address'} dataIndex={'address'} width={250} fixed="right"/>
         </>
     );
     return jsxNestColumns;

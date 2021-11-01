@@ -267,7 +267,7 @@ class Nav extends BaseComponent<NavProps, NavState> {
                     if (Array.isArray(item.items) && item.items.length) {
                         return (
                             <SubNav key={item.itemKey || String(level) + idx} {...item as SubNavPropsWithItems} level={level}>
-                                {this.renderItems(item.items, level + 1)}
+                                {this.renderItems(item.items as (SubNavPropsWithItems | NavItemPropsWithItems)[], level + 1)}
                             </SubNav>
                         );
                     } else {

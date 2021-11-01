@@ -70,10 +70,11 @@ class Demo extends React.Component {
 
 ```jsx
 <script type="text/babel">
-    const {(Input, Button, Toast, Icon, Form)} = SemiUI; ReactDOM.render(
-    <div>
-        <Button onClick={() => Toast.warning({ duration: 0, content: 'Semi Design' })}>test</Button>
-        <Input defaultValue="semi" onChange={value => Toast.info('hello semi')}></Input>
-    </div>, document.getElementById("root") );
+    const { Input, Button, Toast, Icon, Form } = SemiUI;
+    ReactDOM.render(
+        <div>
+            <Button onClick={() => Toast.warning({ duration: 0, content: 'Semi Design' })}>test</Button>
+            <Input defaultValue="semi" onChange={value => Toast.info('hello semi')}></Input>
+        </div>, document.getElementById("root"));
 </script>
 ```

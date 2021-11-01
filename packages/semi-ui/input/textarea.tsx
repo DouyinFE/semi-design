@@ -23,8 +23,7 @@ type OmitTextareaAttr =
     | 'onKeyUp';
 
 export interface TextAreaProps extends
-    Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, OmitTextareaAttr>,
-    React.RefAttributes<HTMLTextAreaElement> {
+    Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, OmitTextareaAttr> {
     autosize?: boolean;
     placeholder?: string;
     value?: string;
@@ -50,7 +49,7 @@ export interface TextAreaProps extends
     onPressEnter?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
     onResize?: (data: {height: number}) => void;
     getValueLength?: (value: string) => number;
-    forwardRef?: ((instance: any) => void) | React.MutableRefObject<any> | null;
+    forwardRef?: ((instance: HTMLTextAreaElement) => void) | React.MutableRefObject<HTMLTextAreaElement> | null;
 }
 
 export interface TextAreaState {
@@ -240,7 +239,7 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
         return counter;
     }
 
-    setRef = (node: React.ReactNode) => {
+    setRef = (node: HTMLTextAreaElement) => {
         (this.libRef as any).current = node;
         const { forwardRef } = this.props;
         if (typeof forwardRef === 'function') {
@@ -326,6 +325,6 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
     }
 }
 
-const ForwardTextarea = React.forwardRef((props, ref) => <TextArea {...props} forwardRef={ref} />);
+const ForwardTextarea = React.forwardRef<HTMLTextAreaElement, Omit<TextAreaProps, 'forwardRef'>>((props, ref) => <TextArea {...props} forwardRef={ref} />);
 
 export default ForwardTextarea;

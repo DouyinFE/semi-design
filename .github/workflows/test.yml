@@ -4,9 +4,9 @@ name: test
 
 on:
   push:
-    branches: [ main, release-beta ]
+    branches: [ main, release ]
   pull_request:
-    branches: [ main, release-beta ]
+    branches: [ main, release ]
 
   workflow_dispatch:
 
