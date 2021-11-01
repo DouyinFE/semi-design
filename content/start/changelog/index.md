@@ -15,6 +15,22 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 ---
 
+#### 🎉 2.0.1 (2021-11-01)
+- 【Fix】
+  - 修复 TreeSelect 选中节点后会展开其子节点并立即关闭，造成视觉跳闪的感觉 [#78](https://github.com/DouyinFE/semi-design/issues/78)
+  - 修复 Progress 组件 size 改变时渲染错误 [#94](https://github.com/DouyinFE/semi-design/issues/94)
+  - 修复 Collapsible 组件默认打开时，组件高度没有完全展开问题 [#85](https://github.com/DouyinFE/semi-design/issues/85) [@Janlay884181317](https://github.com//Janlay884181317)
+  - 修复 Navigation items 类型定义报错问题 [#35](https://github.com/DouyinFE/semi-design/issues/35)
+  - 修复 Navigation.Header linkOptions 传 target 类型报错问题 [#120](https://github.com/DouyinFE/semi-design/issues/120) [@boenfu](https://github.com//boenfu)
+  - 修复 Table Column.render text 类型报错问题，由 string => any [#144](https://github.com/DouyinFE/semi-design/issues/144)
+  - 修复 TextArea 组件 TextAreaProps 类型定义报错问题 [#149](https://github.com/DouyinFE/semi-design/issues/149)
+- 【Style】
+  - 更新 Form 组件 Token，$spacing-form_label_posLeft-marginRight 的值：4px -> 0px，将labelPosition='left' 时  Label 的右边距对齐（无论其是否位于 Form.InputGroup 中）。并修正Form.InputGroup中Label 在 labelPosition='left' 时未垂直居中的问题 [#67](https://github.com/DouyinFE/semi-design/issues/67)
+  - Anchor 的组件修改 Token 拼写问题，更新 $radis-anchor_slide => $radius-anchor_slide [#92](https://github.com/DouyinFE/semi-design/issues/92) [@btea](https://github.com//btea)
+- 【Docs】
+  - 优化了 Navigation、Upload、TreeSelect、TimePicker、Switch、Select、Rating、Form、DatePicker、Notification 等组件的示例文档、修正了一些拼写错误问题。[@songjianet](https://github.com//songjianet) [@wangzhitao](https://github.com//wangzhitao) [@pleiades-embers](https://github.com//pleiades-embers) [@jaydonyin](https://github.com//jaydonyin) [@jukrb0x](https://github.com//jukrb0x) [@GoldSubmarine](https://github.com//GoldSubmarine) [@wangzt-arch](https://github.com//wangzt-arch) [@ivan0525](https://github.com//ivan0525) [@Shigma](https://github.com//Shigma) [@GoldSubmarine](https://github.com//GoldSubmarine) [@WscatsWscats](https://github.com//WscatsWscats) [@oddguan](https://github.com//oddguan) （排名不分先后，相同的场景不一一批注）
+  - 帮助完善了 README、CONTRIBUTING、介绍等文档  [@ChelesteWang](https://github.com//ChelesteWang) [@Timeless0911](https://github.com//Timeless0911) [@niexq](https://github.com//niexq) [@Pingren](https://github.com//Pingren) [@oddguan](https://github.com//oddguan) [@noahziheng](https://github.com//noahziheng) [@Aaron00101010](https://github.com//Aaron00101010) [@Faithree](https://github.com//Faithree)
+
 #### 🎉 2.0.0 (2021-10-26)
 
 - 【Breaking Change】

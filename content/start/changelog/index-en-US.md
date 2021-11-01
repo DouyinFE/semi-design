@@ -16,6 +16,22 @@ Version：Major.Minor.Patch
 
 ---
 
+#### 🎉 2.0.1 (2021-11-01)
+- 【Fix】
+  - Fixed TreeSelect will expand its child nodes and close them immediately after selecting a node, causing a visual flickering feeling [#78](https://github.com/DouyinFE/semi-design/issues/78)
+  - Fixed the rendering error when the size of Progress component is changed [#94](https://github.com/DouyinFE/semi-design/issues/94)
+  - Fixed the problem that the height of the component is not fully expanded when the Collapsible component is opened by default [#85](https://github.com/DouyinFE/semi-design/issues/85) [@Janlay884181317](https://github.com//Janlay884181317)
+  - Fixed Navigation `items` type definition error issue [#35](https://github.com/DouyinFE/semi-design/issues/35)
+  - Fixed Navigation.Header `linkOptions` upload target type error problem [#120](https://github.com/DouyinFE/semi-design/issues/120) [@boenfu](https://github.com//boenfu)
+  - Fixed the error of Table `Column.render` `text` type, caused by `string` => `any` [#144](https://github.com/DouyinFE/semi-design/issues/144)
+  - Fixed an error in the TextArea component `TextAreaProps` type definition [#149](https://github.com/DouyinFE/semi-design/issues/149)
+- 【Style】
+  - Update the Form component Token, the value of $spacing-form_label_posLeft-marginRight: 4px -> 0px, align the right margin of the Label when labelPosition='left' (regardless of whether it is in Form.InputGroup or not). And fix the problem that the Label in Form.InputGroup is not vertically centered when labelPosition='left' [#67](https://github.com/DouyinFE/semi-design/issues/67)
+  - Anchor component modify Token spelling problem, update $radis-anchor_slide => $radius-anchor_slide [#92](https://github.com/DouyinFE/semi-design/issues/92) [@btea](https://github.com//btea)
+- 【Docs】
+  - Optimized the sample documents of Navigation, Upload, TreeSelect, TimePicker, Switch, Select, Rating, Form, DatePicker, Notification and other components, and fixed some spelling errors. [@songjianet](https://github.com//songjianet) [@wangzhitao](https://github.com//wangzhitao) [@pleiades-embers](https://github.com//pleiades-embers) [@jaydonyin](https://github.com//jaydonyin) [@jukrb0x](https://github.com//jukrb0x) [@GoldSubmarine](https://github.com//GoldSubmarine) [@wangzt-arch](https://github.com//wangzt-arch) [@ivan0525](https://github.com//ivan0525) [@Shigma](https://github.com//Shigma) [@GoldSubmarine](https://github.com//GoldSubmarine) [@WscatsWscats](https://github.com//WscatsWscats) [@oddguan](https://github.com//oddguan) (in no particular order, the same scenes may not be a batch of notes)
+  - Helped to improve the README, CONTRIBUTING, introduction and other documents [@ChelesteWang](https://github.com//ChelesteWang) [@Timeless0911](https://github.com//Timeless0911) [@niexq](https://github.com//niexq) [@Pingren](https://github.com//Pingren) [@oddguan](https://github.com//oddguan) [@noahziheng](https://github.com//noahziheng) [@Aaron00101010](https://github.com//Aaron00101010) [@Faithree](https://github.com//Faithree)
+
 #### 🎉 2.0.0 (2021-10-26)
 
 - 【Breaking Change】
