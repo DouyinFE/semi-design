@@ -1277,7 +1277,7 @@ import { Tree } from '@douyinfe/semi-ui';
 You could use `renderFullLabel` for advanced rendering to render the entire option on you own.
 
 <Notice type="primary" title="Important">
-<div>If virtualized is set to true, be sure to apply `style` to targeted reactNode to correctly render virtualized list.</div>
+<div>If virtualized is set to true, be sure to apply `style` to targeted ReactNode to correctly render virtualized list.</div>
 </Notice>
 
 Here are some demos.

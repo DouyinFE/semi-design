@@ -136,7 +136,7 @@ import { IconCopy } from '@douyinfe/semi-icons';
 | keepDOM | Whether to keep the hidden panel in DOM tree, destroyed by default | boolean | `false` | 0.25.0 |
 | motion | Toggle whether to have animation | object \| boolean | `true` | 1.4.0 |
 | expandIconPosition | Expand icon position | `left`, `right` | `right` | 1.12.0 |
-| style | Inline css style | CSSProperties | {} | - |
+| style | Inline CSS style | CSSProperties | {} | - |
 | onChange | Callback function when switching panel | function(activeKey: string \| string[], e: event) | - | - |
 
 ### Collapse.Panel
@@ -147,7 +147,7 @@ import { IconCopy } from '@douyinfe/semi-icons';
 | header | Panel head content | ReactNode | - | - ||
 | itemKey | Required and must be unique, used to match `activeKey`, `defaultActiveKey` | string | - ||
 | reCalcKey | When reCalcKey changes, the height of children will be reset. Used for optimize dynamic content rendering. | string \| number |-| 1.5.0 |
-| style | inline css style | CSSProperties | - ||
+| style | inline CSS style | CSSProperties | - ||
 
 ## Design Tokens
 

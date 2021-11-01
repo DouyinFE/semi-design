@@ -135,7 +135,7 @@ import { IconCopy } from '@douyinfe/semi-icons';
 | expandIconPosition | 展开图标位置 | `left`, `right` | `right` | 1.12.0 |
 | keepDOM | 是否保留隐藏的面板 DOM 树，默认销毁 | bool | `false` | 0.25.0 |
 | motion | 是否开启动画 | object \| boolean | `true` | 1.4.0 |
-| style | 内联 css 样式 | CSSProperties | {} | - |
+| style | 内联 CSS 样式 | CSSProperties | {} | - |
 | onChange | 切换面板的回调 | function(activeKey: string \| string[], e: event) | 无 | - |
 
 ### Collapse.Panel
@@ -147,7 +147,7 @@ import { IconCopy } from '@douyinfe/semi-icons';
 | header    | 面板头内容                                                            | ReactNode      | 无     ||
 | itemKey   | 必填且唯一，选中状态匹配 `activeKey`，`defaultActiveKey`              | string                 | 无     ||
 | reCalcKey | 当 reCalcKey 改变时，将重新计算子节点的高度，用于优化动态渲染时的计算 | string \| number |无| 1.5.0  |
-| style     | 内联 css 样式                                                         | CSSProperties                 |  无  |    |
+| style     | 内联 CSS 样式                                                         | CSSProperties                 |  无  |    |
 
 ## 设计变量
 

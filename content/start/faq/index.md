@@ -18,7 +18,7 @@ order: 7
 
 #### Semi是否支持Tree Shaking
 -  Semi执行发包时，发布的其实是esModule源码，因此天然支持tree shaking，不需要再进行额外的配置。
- -  组件的SCSS也是由组件的index.(j|t)sx负责import的，因此样式也会shaking。简单来说，只有你使用的组件会被打包
+ -  组件的 Scss 也是由组件的index.(j|t)sx负责import的，因此样式也会shaking。简单来说，只有你使用的组件会被打包
 
 #### 为什么 defaultValue、defaultXXX 不起作用？
 
@@ -34,9 +34,9 @@ Semi 组件中，所有的 defaultValue、defaultXXX 传参只会在组件被 mo
 
 Semi 目前支持 14 种语言，具体使用可以查阅 [Semi·LocaleProvider](/zh-CN/other/locale)
 
-#### Semi 的样式是基于 SCSS 还是 LESS？为什么不用 CSS Module？
+#### Semi 的样式是基于 Scss 还是 Less ？为什么不用 CSS Module？
 
-我们的样式基于 SCSS，与此我们还使用了 CSS Variable 作为色盘变量。色盘变量和通用变量挂载在 body 下。
+我们的样式基于 Scss，与此我们还使用了 CSS Variable 作为色盘变量。色盘变量和通用变量挂载在 body 下。
 不使用 CSS Module 是因为我们希望有固定的 className，为业务方保留修改/覆盖 Semi 样式的能力（虽然不提倡，但有些业务场景下确实需要）
 
 #### Semi 的默认的主题风格跟我们系统的定位不符，可以配置另外的主题吗？
@@ -56,7 +56,7 @@ Semi 目前支持 14 种语言，具体使用可以查阅 [Semi·LocaleProvider]
 欢迎进我们的 [客服飞书 Lark 群](https://bytedance.feishu.cn/docs/doccnw93Dujm3UCkHRDTMTm1qwe) 进行咨询提问。
 
 #### 希望自定义滚动条的样式？
-可以使用 `.semi-light-scrollbar` 类名，会对 webkit (chrome/safari) 的浏览器应用 semi 的滚动条样式。该类名放在最外层的DOM元素即可，会对所有子元素生效。注：使用了通配符，可能会对性能有影响。其他浏览器可以参考是否有相关的css属性支持滚动条的样式定制。
+可以使用 `.semi-light-scrollbar` 类名，会对 webkit (chrome/safari) 的浏览器应用 Semi 的滚动条样式。该类名放在最外层的DOM元素即可，会对所有子元素生效。注：使用了通配符，可能会对性能有影响。其他浏览器可以参考是否有相关的css属性支持滚动条的样式定制。
 
 #### 更多的FAQ
 请查阅 https://bytedance.feishu.cn/docs/doccnMRDbkhde6p3dMokfFpcNug

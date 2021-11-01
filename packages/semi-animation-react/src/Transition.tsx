@@ -158,7 +158,7 @@ export default class Transition extends Component<TransitionProps, TransitionSta
         return (
             <Animation {...restProps} force from={from} to={to} onRest={this.onRest} onStart={this.onStart}>
                 {
-                    (props: any) => (
+                    (props: Record<string, any>) => (
                         // eslint-disable-next-line no-nested-ternary
                         typeof children === 'function' ?
                             children(props) :

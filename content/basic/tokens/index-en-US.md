@@ -14,7 +14,7 @@ brief: Semi Design Tokens
 Variables actually decouple the basic elements of design from specific styles.
 For designers, if the style of the product needs to be updated iteratively, for example, the dangerous function color, namely color danger, needs to be updated, they only need to modify its corresponding color default value to complete the UI iteration of the whole product.
 For R &amp; D, in order to adapt to the iteration of product style update, design token can update the style of all components more quickly without modifying everywhere. This is why we need to pay special attention to using variables instead of fixed default values in the development process. If the style of the product is shared by multiple platforms, it can get twice the result with half the effort.
-In particular, for platforms with dark mode requirements, semi design's color variable is needed to achieve the effect of one click switching between light and dark. Therefore, here we will introduce the design token system of semi design in detail and how to use them.
+In particular, for platforms with dark mode requirements, Semi Design's color variable is needed to achieve the effect of one click switching between light and dark. Therefore, here we will introduce the design token system of Semi Design in detail and how to use them.
 
 ## Basic color
 
@@ -139,7 +139,7 @@ Determine the thickness of different levels of text
 
 In order to reduce the packing volume, the default English font inter needs to be introduced separately
 
-If you want to use it on the business side, you need to add a font face statement in your CSS (it is not included in semi, because the font is slightly larger, and the default loading may affect the speed of the first screen of the business). It is up to the business to decide whether to use it or not.
+If you want to use it on the business side, you need to add a font face statement in your CSS (it is not included in Semi, because the font is slightly larger, and the default loading may affect the speed of the first screen of the business). It is up to the business to decide whether to use it or not.
 
 ```css
 @font-face {
@@ -199,7 +199,7 @@ It is used to describe the sequence of interface elements
 
 ## Variables not yet supported
 
-Currently, semi does not support global variables in the following categories. If you have related requirements, you can give feedback through issue and describe your expected needs in detail.
+Currently, Semi does not support global variables in the following categories. If you have related requirements, you can give feedback through issue and describe your expected needs in detail.
 
 **Line height**
 

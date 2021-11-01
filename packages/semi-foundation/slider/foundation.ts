@@ -71,7 +71,7 @@ export interface SliderAdapter extends DefaultAdapter<SliderProps, SliderState>{
     isEventFromHandle: (e: any) => boolean;
     getOverallVars: () => OverallVars;
     updateDisabled: (disabled: SliderState['disabled']) => void;
-    transNewPropsToState: <K extends keyof SliderState>(stateObj: Pick<SliderState, K>, callback: () => void) => void;
+    transNewPropsToState: <K extends keyof SliderState>(stateObj: Pick<SliderState, K>, callback?: () => void) => void;
     notifyChange: (callbackValue: number | number[]) => void;
     setDragging: (value: boolean[]) => void;
     updateCurrentValue: (value: SliderState['currentValue']) => void;
@@ -447,7 +447,7 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
             resultState = disableState;
         }
         if (resultState) {
-            this._adapter.transNewPropsToState(resultState, () => this._adapter.onHandleUpAfter());
+            this._adapter.transNewPropsToState(resultState);
 
         }
     };

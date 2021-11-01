@@ -130,7 +130,7 @@ import { Slider } from '@douyinfe/semi-ui';
 
 
 ### Segmented Background
-To create a slider with segmented background, you could use css property `linear-gradient` for `railStyle` along with `onChange` to change background dynamically。
+To create a slider with segmented background, you could use CSS property `linear-gradient` for `railStyle` along with `onChange` to change background dynamically。
 ```jsx live=true
 import React from 'react';
 import { Slider } from '@douyinfe/semi-ui';

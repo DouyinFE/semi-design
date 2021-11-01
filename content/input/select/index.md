@@ -1421,7 +1421,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
      可以通过设置 remote 为 true 关闭对本地当前数据的匹配筛选。
 
 -   **使用jsx方式声明Option，label为i18n后的内容，切换locale后未能重新渲染**
-    -   children jsx方式声明Options时，由于是reactNode，不可能用deepEqual来做对比判断内容是否有更新（性能消耗过大），所以会收集children reactNode的key，当key不变时，就认为Options都没有发生变化，不会走重新收集数据的流程。你可以将locale也作为Option key的一部分。
+    -   children jsx方式声明Options时，由于是ReactNode，不可能用deepEqual来做对比判断内容是否有更新（性能消耗过大），所以会收集children ReactNode的key，当key不变时，就认为Options都没有发生变化，不会走重新收集数据的流程。你可以将locale也作为Option key的一部分。
     -   使用optionList方式传入，也可以解决问题。因为对于object形式传入，key相对有限，Select内部会使用isEqual来判断是否发生变化
 
 -   **使用jsx方式声明Option，动态切换disabled属性后未能重新渲染**

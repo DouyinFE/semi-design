@@ -278,7 +278,7 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
         - 修复按钮类型的 Radio 默认背景色和设计稿的差异，从 var(--color-fill-1) 改为 var(--color-fill-0) 
         - 修复按钮类型的 Radio 不对齐的问题，添加 align-item: middle
     - Design Token
-        - Popconfirm 新增 $radius-popconfirm-popover SCSS 变量，通过配置此变量可以自定义本组件border-radius
+        - Popconfirm 新增 $radius-popconfirm-popover Scss 变量，通过配置此变量可以自定义本组件border-radius
         - 新增 --border-radius-full（值为9999px） CSS 变量，可用于创建全尺寸圆角，如胶囊标签等
 - 【Fix】
     - Table
@@ -530,7 +530,7 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
   - Select  
     - 修复 Select onChangeWithObject 为 true 时，调用ref.selectAll不生效问题；修复调用ref.selectAll后未触发onChange的问题 
     - 修复 Select 搜索后更新optionList将选项个数变更后，某些情况下直接敲击回车抛出 Uncaught TypeError: Cannot read property '_inputCreateOnly' of undefined 的问题 
-  - 修复 Description data key传入reactNode时，抛出propType check warning的问题
+  - 修复 Description data key传入ReactNode时，抛出propType check warning的问题
 - 【Style】
   - Radio、Checkbox border color 与设计稿对齐，统一更新为 var(--color-text-3) 
   - 修复 Radio disabled border 颜色不正确问题 
@@ -602,7 +602,7 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 - 【Style】
   - TagInput 标签过长发生截断时，自动显示 ToolTip 
   - Banner 非全屏模式下 title 与 description 添加 2px 间距 
-  - Form label font-weight 更新 700 => 600，相对应的 scss 变量 font-weight-bold 也从 700 调整为 600 
+  - Form label font-weight 更新 700 => 600，相对应的 Scss 变量 font-weight-bold 也从 700 调整为 600 
 
 
 #### 🎉 1.19.0 (2021-04-02)
@@ -741,7 +741,7 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
     - 修复Select autoFocus时，直接点击外部失焦未触发onBlur事件的问题 
     - 修复 Table 函数式组件 rowSelection 在使用字面量方式时选择失效问题 
 - 【Style】
-    - 解决Form.Section未引用css变量，在暗色模式下显示不正常的问题
+    - 解决Form.Section未引用 CSS 变量，在暗色模式下显示不正常的问题
     - Description增加显式line-height声明，防止父级设置了line-height时被继承
 - 【Chore】
     - 更新 Form autoScrollToError 类型定义，补充 object 类型
@@ -1125,7 +1125,7 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 -   【Fix】
     -   修复了 Form.TimePicker 点击清空按钮后未触发 validator 在 1.3 版本中复现的问题
     -   修改了 DatePicker 和 TimePicker onBlur 事件的触发时机，input blur => panel close 
-    -   修复 Tree 组件 label 中的所有 icon 都会加上右 margin 的 css 选择器的样式问题
+    -   修复 Tree 组件 label 中的所有 icon 都会加上右 margin 的 CSS 选择器的样式问题
 -   【Docs】
     -   更新 Table 组件的文档，修正部分 props 默认值描述错误的问题
 
@@ -1156,16 +1156,16 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 -   【Fix】
     -   修复 `Tree` TriggerRender 多选模式下 value 值始终为空数组的问题
 -   【Perf】
-    -   修复 sass-loader 9.x scss 变量未字符串化的 warning 
+    -   修复 sass-loader 9.x Scss 变量未字符串化的 warning 
 
 #### 🎉 1.2.2 (2020-07-26)
 
 -   【Perf】
-    -   优化 `Icon` 中的 svg 动画为 css 动画，修复当页面引入有 svg 动画的 `Icon` 或者全量引入（默认）时页面不断重绘的问题。如有单独使用 loading `Icon` 的需要添加 css 动画
+    -   优化 `Icon` 中的 svg 动画为 CSS 动画，修复当页面引入有 svg 动画的 `Icon` 或者全量引入（默认）时页面不断重绘的问题。如有单独使用 loading `Icon` 的需要添加 CSS 动画
     -   `OverflowList` 不再对渲染函数的更新做状态重置，如需重置可以通过更新 key 刷新组件
     -   优化 `Typography` ellipsis 模式下文本动态更新时进行状态重置
 -   【Fix】
-    -   修复 `Button` height css 被移除，导致父级为 `display:flex` 时，高度不对的问题
+    -   修复 `Button` height CSS 被移除，导致父级为 `display:flex` 时，高度不对的问题
     -   修复 `Descriptions` row 不同尺寸下的样式丢失问题
 
 #### 🎉 1.2.0-beta.0 (2020-07-17)
@@ -1210,7 +1210,7 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
     -   修复 `Table` 在 rowSelection 为 false 时依旧显示选择列的问题 
     -   修复 `Tooltip` 使用 configProvider 的 getPopupContainer 无效的问题 
 -   【Performance】
-    -   优化 withField HOC 的 displayName，方便在 react devtool 中定位相关元素 
+    -   优化 withField HOC 的 displayName，方便在 React devtool 中定位相关元素 
 -   【Style】
     -   `Modal` 命令式 content 与 header 增加 8px 的 spacing
     -   修复 `Banner` 关闭按钮的居中对齐问题
@@ -1286,7 +1286,7 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
         -   Field Props 增加
             -   `helpText` 放置提示信息（与校验结果共用同一区块展示，两者均有值时，优先展示校验结果）
             -   `extraText` 用于放置额外的提示信息，常显且不会被校验结果覆盖
-        -   错误信息支持 reactNode（0.x 版本中在 validate 或者 rules 中 return reactNode 会被认为校验通过，1.0 版本后返回 reactNode 会与返回 string 一样，被视为校验失败）
+        -   错误信息支持 ReactNode（0.x 版本中在 validate 或者 rules 中 return ReactNode 会被认为校验通过，1.0 版本后返回 ReactNode 会与返回 string 一样，被视为校验失败）
     -   InputNumber
         -   新增: `hideButtons`用于控制隐藏“增/减”按钮，**废弃原先的 suffix={null} 的方式**。
     -   List
@@ -1354,7 +1354,7 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
         -   **错误信息展示时自动添加 ❌ icon（如不需要，可以通过 showValidateIcon 关闭）**
     -   **Input prefix/suffix/addonBefore/addonAfter 样式调整** 
         -   prefix/suffix 传入字符串时不再处理为 Icon，直接映射成字符串；Icon 需要通过 React.Node 的形式传入
-        -   传入自定义 reactNode 时不会有 padding，只有 String、Icon 时有自带的 padding
+        -   传入自定义 ReactNode 时不会有 padding，只有 String、Icon 时有自带的 padding
     -   InputNumber
         -   **“上/下”按钮调整到 Input 右侧**
     -   Modal
@@ -2017,7 +2017,7 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 -   【New Component】
     -  新增 `TimeLine` 组件
 -   【Feat】
-    -  semi 全局变量更新
+    -  Semi 全局变量更新
     -  `BackTop` 组件增加动画，增加 duration 属性
     -  `Modal` 组件增加 centered 属性，并且更新默认样式的定位
     -  `Cascader` 组件支持动态更新子节点
@@ -2029,7 +2029,7 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
     -  `Form` setValues 时触发多次 onChange、onValuesChange 改为只触发一次
 -   【Style】
     -  `Navigation` 组件样式优化，功能优化
-    -  semi 增加全局字体 font-family 的声明
+    -  Semi 增加全局字体 font-family 的声明
 -   【Perf】
     -  `Select`、`Tooltip`、`Popover` 等浮层动效优化与调整
     -  `Table` 组件底层优化，滚动错位问题修复
@@ -2096,7 +2096,7 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 #### 0.5.0 (2019-08-05)
 -   【Feat】
-    -  🎉🎉 semi 支持暗色模式 🎉🎉
+    -  🎉🎉 Semi 支持暗色模式 🎉🎉
     -  `ScrollList` 支持卷轴滚动以及无限循环滚动模式
 -   【Style】
     - 优化 `TimePicker` 组件样式

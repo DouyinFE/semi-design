@@ -241,10 +241,6 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         return this.getProp('expandedKeys');
     }
 
-    _isFilterable() {
-        return Boolean(this.getProp('filterTreeNode')); // filter can be boolean or function
-    }
-
     _isSelectToClose() {
         return !this.getProp('expandAction');
     }
@@ -402,9 +398,6 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         this._adapter.closeMenu();
         this._adapter.unregisterClickOutsideHandler();
         this._notifyBlur(e);
-        if (this._isFilterable()) {
-            this.clearInput();
-        }
         if (this.getProp('motionExpand')) {
             this._adapter.updateState({ motionKeys: new Set([]) } as any);
         }
