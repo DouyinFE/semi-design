@@ -30,7 +30,7 @@ npm install --global lerna yarn
 npm run bootstrap
 ```
  - Next, make the modifications you want to make, which can be bug fixes or development of new features
- - You can verify your change by running storybook (`npm start`) and official website (`npm run docstie`) locally
+ - You can verify your change by running storybook (`npm start`) and official website (`npm run docsite`) locally
  - Add accompanying tests for your change, ensure all tests pass
 ```bash
 npm run test:unit
