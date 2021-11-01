@@ -95,7 +95,7 @@ If you use Semi plug-ins, such as `@ies/semi-ui-plugin-webpack` or `@ies/semi-ui
 
 #### Icon/Illustration use adjustment
 
-In the 0.x/1.x version of Semi, we strongly rely on svg-sprite-loader to convert svg files to svg symbols and insert body at runtime, so that we can use Icon icons only through < Icon type = 'xxx'/> in the form of string. While convenient to use, it also brings some problems: icon is introduced in full by default and cannot be shaken; svg-sprite-loader is strongly bound to Webpack and cannot easily support Rollup, Vite, Snowpack and other construction schemes. Therefore, in 2.0, we removed the strong binding with svg-sprite-loader, and the consumption mode of Icon needs to be changed:
+In the 0.x/1.x version of Semi, we strongly rely on svg-sprite-loader to convert svg files to svg symbols and insert body at runtime, so that we can use Icon icons only through < Icon type = 'xxx'/> in the form of string. While convenient to use, it also brings some problems: icon is introduced in full by default and cannot be shaken; svg-sprite-loader is strongly bound to webpack and cannot easily support Rollup, Vite, Snowpack and other construction schemes. Therefore, in 2.0, we removed the strong binding with svg-sprite-loader, and the consumption mode of Icon needs to be changed:
 Icon usage adjustment:
 
 ```jsx
@@ -140,13 +140,13 @@ import { IllustrationConstruction } from '@douyinfe/semi-illustrations';
 ## FAQ
 
 ### Why has the reference path changed?
-In 1.x, Semi uses source code publishing. It will not perform precompilation before performing npm publishing. The scss and jsx/js of the component library will be compiled together with the business code. In 2.0, precompilation was performed before npm publishing. For ordinary users, precompilation can make Semi work out of the box: there is no need for users to compile Semi source files, and there is no need to introduce Semi plug-ins when using them. Since the compiled results are under lib/es, the reference path of the interface and language package has changed, but for component references, you do not need to change the original reference path (because package.json main attribute points to lib/es/index.js).
+In 1.x, Semi uses source code publishing. It will not perform precompilation before performing npm publishing. The Scss and jsx/js of the component library will be compiled together with the business code. In 2.0, precompilation was performed before npm publishing. For ordinary users, precompilation can make Semi work out of the box: there is no need for users to compile Semi source files, and there is no need to introduce Semi plug-ins when using them. Since the compiled results are under lib/es, the reference path of the interface and language package has changed, but for component references, you do not need to change the original reference path (because package.json main attribute points to lib/es/index.js).
 
 ### The project wants to upgrade to 2.0, but the Semi material is used in the project. The material is based on 1.x Semi. Can it be used at the same time?
 Since Semi 2.0 does not have the same package name as 1.x, they will actually be two separate packages that do not affect each other.
 
 ### Why do CSS variables add semi prefixes?
-Due to the increasing number of business micro front-end application scenarios, in order to avoid naming conflicts with other library css variables and avoid the problem of mutual influence of styles.
+Due to the increasing number of business micro front-end application scenarios, in order to avoid naming conflicts with other library CSS variables and avoid the problem of mutual influence of styles.
 
 ### Why is the local dark/bright mode changed from add id to add class?
 ID is semantically globally unique, while class does not. Using class is more in line with the specification.

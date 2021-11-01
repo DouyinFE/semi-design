@@ -46,7 +46,7 @@ function Demo() {
 
 ### Text
 
-Text component has different built-in styles. You could also pass `icon` to use the build-in styles for icon. Different from passing icon to children, using `icon` for link will have no underline in compliance with Semi design principles.
+Text component has different built-in styles. You could also pass `icon` to use the build-in styles for icon. Different from passing icon to children, using `icon` for link will have no underline in compliance with Semi Design principles.
 
 ```jsx live=true
 import React from 'react';

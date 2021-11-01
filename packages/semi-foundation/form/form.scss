@@ -238,6 +238,13 @@ $rating: #{$prefix}-rating;
 
     &[x-label-pos="left"] {
         display: flex;
+        .#{$field}-label {
+            margin-bottom: $spacing-form_label_posLeft-marginBottom;
+            margin-right: $spacing-form_label_posLeft-marginRight;
+            // add padding-top to align first line text in component
+            padding-top: $spacing-form_label-paddingTop;
+            padding-bottom: $spacing-form_label-paddingTop;
+        }
     }
 }
 

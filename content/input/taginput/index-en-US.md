@@ -134,7 +134,7 @@ import { TagInput } from '@douyinfe/semi-ui';
 ### Prefix / Suffix
 
 You can pass the input box prefix through `prefix`, the input box suffix through `suffix`, for text or React Node.  
-The left and right padding is automatically brought when the content passed in by prefix and reactix is text or Icon. If it is a custom ReactNode, the left and right padding is 0.If necessary, you can set it in the reactNode you passed in.
+The left and right padding is automatically brought when the content passed in by prefix and reactix is text or Icon. If it is a custom ReactNode, the left and right padding is 0.If necessary, you can set it in the ReactNode you passed in.
 
 ```jsx live=true
 import React from 'react';

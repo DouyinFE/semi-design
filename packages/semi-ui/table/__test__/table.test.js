@@ -1,23 +1,22 @@
 import BaseTable from '../Table';
 import Table from '../index';
 import Column from '../Column';
-import { Tooltip, Tag } from '../../index';
+import {Tag, Tooltip} from '../../index';
 import {
-    mount,
-    sleep,
-    getData,
-    getTreeData,
     getColumns,
-    getJSXColumns,
-    getRandomNumber,
-    getJSXNestColumns,
-    getNestColumns,
-    getNestData,
+    getData,
     getGroupColumns,
     getGroupData,
+    getJSXColumns,
+    getNestColumns,
+    getNestData,
+    getRandomNumber,
+    getTreeData,
+    mount,
+    sleep,
 } from '../../_test_/utils';
-import { BASE_CLASS_PREFIX } from '../../../semi-foundation/base/constants';
-import { IconStar } from '@douyinfe/semi-icons';
+import {BASE_CLASS_PREFIX} from '../../../semi-foundation/base/constants';
+import {IconStar} from '@douyinfe/semi-icons';
 
 /**
  * Table 需要测试的使用场景
@@ -45,7 +44,7 @@ const data = getData(dataTotalSize);
 const columns = getColumns();
 
 function testAppearance(demo, params) {
-    const { onRow, myCls, myClsIndex } = params; // check table wrapper
+    const {onRow, myCls, myClsIndex} = params; // check table wrapper
 
     expect(demo.find(`.${BASE_CLASS_PREFIX}-table-wrapper`).length).toBe(1); // check if has header
 
@@ -182,13 +181,13 @@ describe(`Table`, () => {
         const disabledKeys = ['4'];
         let rowSelection = {
             onChange: sinon.spy((selectedRowKeys, selectedRows) => {
-                rowSelection = { ...rowSelection, selectedRowKeys: [...selectedRowKeys] };
+                rowSelection = {...rowSelection, selectedRowKeys: [...selectedRowKeys]};
                 demo.setProps({
                     rowSelection,
                 });
             }),
             onSelectAll: sinon.spy((selected, selectedRows, changedRows) => {
-                rowSelection = { ...rowSelection, selectedRowKeys: selected ? [...selectedRowKeys] : [] };
+                rowSelection = {...rowSelection, selectedRowKeys: selected ? [...selectedRowKeys] : []};
                 demo.setProps({
                     rowSelection,
                 });
@@ -198,11 +197,12 @@ describe(`Table`, () => {
                 // Column configuration not to be checked
                 name: record.name,
             })),
-            onSelect: sinon.spy((record, selected) => {}),
+            onSelect: sinon.spy((record, selected) => {
+            }),
             selectedRowKeys: ['3'],
             defaultSelectedRowKeys: ['0', '1'],
         };
-        const demo = mount(<Table rowKey={rowKey} dataSource={data} columns={columns} rowSelection={rowSelection} />);
+        const demo = mount(<Table rowKey={rowKey} dataSource={data} columns={columns} rowSelection={rowSelection}/>);
         expect(demo.find(`.${BASE_CLASS_PREFIX}-checkbox`).length).toBeGreaterThan(0);
         expect(demo.find(`.${BASE_CLASS_PREFIX}-table-row .${BASE_CLASS_PREFIX}-checkbox-inner-checked`).length).toBe(
             rowSelection.selectedRowKeys.length
@@ -260,7 +260,7 @@ describe(`Table`, () => {
         const disabledKeys = ['4'];
         let rowSelection = {
             onSelectAll: sinon.spy((selected, selectedRows, changedRows) => {
-                rowSelection = { ...rowSelection, selectedRowKeys: selected ? [...selectedRowKeys] : [] };
+                rowSelection = {...rowSelection, selectedRowKeys: selected ? [...selectedRowKeys] : []};
                 demo.setProps({
                     rowSelection,
                 });
@@ -270,9 +270,10 @@ describe(`Table`, () => {
                 // Column configuration not to be checked
                 name: record.name,
             })),
-            onSelect: sinon.spy((record, selected) => {}),
+            onSelect: sinon.spy((record, selected) => {
+            }),
         };
-        const demo = mount(<Table rowKey={rowKey} dataSource={data} columns={columns} rowSelection={rowSelection} />);
+        const demo = mount(<Table rowKey={rowKey} dataSource={data} columns={columns} rowSelection={rowSelection}/>);
         const newData = getData(50);
         demo.setProps({
             dataSource: newData,
@@ -550,7 +551,7 @@ describe(`Table`, () => {
         ];
         let onChangeCalledCount = 0;
         const onChange = sinon.spy();
-        const demo = mount(<Table dataSource={data} columns={columns} onChange={onChange} />);
+        const demo = mount(<Table dataSource={data} columns={columns} onChange={onChange}/>);
         demo.find(`.${BASE_CLASS_PREFIX}-table-thead .${BASE_CLASS_PREFIX}-table-column-filter`).simulate('click');
         expect(demo.find(`.${BASE_CLASS_PREFIX}-dropdown`).length).toBe(1);
         expect(onChange.callCount).toBe(onChangeCalledCount); // click first filter
@@ -620,7 +621,7 @@ describe(`Table`, () => {
                 dataIndex: 'address',
             },
         ];
-        const demo = mount(<Table dataSource={data} columns={columns} pagination={false} />);
+        const demo = mount(<Table dataSource={data} columns={columns} pagination={false}/>);
         demo.find(`.${BASE_CLASS_PREFIX}-table-thead .${BASE_CLASS_PREFIX}-table-column-filter`).simulate('click'); // click first filter
 
         demo.find(`.${BASE_CLASS_PREFIX}-dropdown .${BASE_CLASS_PREFIX}-dropdown-item`)
@@ -692,7 +693,7 @@ describe(`Table`, () => {
                 width: 150,
             },
         ];
-        const onChange = sinon.spy(({ pagination: tablePagination, filters: tableFilters, sorters: tableSorters }) => {
+        const onChange = sinon.spy(({pagination: tablePagination, filters: tableFilters, sorters: tableSorters}) => {
             if (tablePagination && tablePagination.currentPage !== pagination.currentPage) {
                 pagination.currentPage = tablePagination.currentPage;
                 currentData = getPageData();
@@ -705,7 +706,7 @@ describe(`Table`, () => {
             }
         });
         const demo = mount(
-            <Table onChange={onChange} dataSource={currentData} pagination={pagination} columns={columns} />
+            <Table onChange={onChange} dataSource={currentData} pagination={pagination} columns={columns}/>
         );
         const table = demo.find(BaseTable);
         demo.find(`.${BASE_CLASS_PREFIX}-page .${BASE_CLASS_PREFIX}-page-item`)
@@ -770,7 +771,7 @@ describe(`Table`, () => {
         );
 
         const demo = mount(
-            <Table columns={columns} dataSource={data} resizable expandedRowRender={expandedRowRender} />
+            <Table columns={columns} dataSource={data} resizable expandedRowRender={expandedRowRender}/>
         );
         expect(demo.find(`.${BASE_CLASS_PREFIX}-table-thead .react-resizable-handle`).length).toBe(
             columns.reduce((count, col) => (typeof col.width === 'number' ? count + 1 : count), 0)
@@ -820,8 +821,8 @@ describe(`Table`, () => {
             },
         ];
         const targetData = sortData.reduce((a, b) => (a.name.length > b.name.length ? a : b));
-        const { name } = targetData;
-        const sortTable = mount(<Table columns={sortColumns} dataSource={sortData} />);
+        const {name} = targetData;
+        const sortTable = mount(<Table columns={sortColumns} dataSource={sortData}/>);
         const firstCell = sortTable.find('.semi-table-tbody .semi-table-row .semi-table-row-cell').at(0); // console.log(sortTable.debug({ ignoreProps: true }));
 
         expect(firstCell.text()).toBe(name);
@@ -870,8 +871,8 @@ describe(`Table`, () => {
             },
         ];
         const targetData = sortData.reduce((a, b) => (a.name.length < b.name.length ? a : b));
-        const { name } = targetData;
-        const sortTable = mount(<Table columns={sortColumns} dataSource={sortData} />);
+        const {name} = targetData;
+        const sortTable = mount(<Table columns={sortColumns} dataSource={sortData}/>);
         const firstCell = sortTable.find('.semi-table-tbody .semi-table-row .semi-table-row-cell').at(0);
         expect(firstCell.text()).toBe(name);
     });
@@ -919,8 +920,8 @@ describe(`Table`, () => {
             },
         ];
         const targetData = sortData.reduce((a, b) => (a.name.length > b.name.length ? a : b));
-        const { name } = targetData;
-        const sortTable = mount(<Table columns={sortColumns} dataSource={sortData} />);
+        const {name} = targetData;
+        const sortTable = mount(<Table columns={sortColumns} dataSource={sortData}/>);
         const firstCell = sortTable.find('.semi-table-tbody .semi-table-row .semi-table-row-cell').at(0);
         expect(firstCell.text()).toBe(name);
         const ascendOrderColumns = [
@@ -945,7 +946,7 @@ describe(`Table`, () => {
         });
         sortTable.update();
         const ascendTargetData = sortData.reduce((a, b) => (a.name.length < b.name.length ? a : b));
-        const { name: ascendTargetName } = ascendTargetData;
+        const {name: ascendTargetName} = ascendTargetData;
         const ascendFirstCell = sortTable.find('.semi-table-tbody .semi-table-row .semi-table-row-cell').at(0);
         expect(ascendFirstCell.text()).toBe(ascendTargetName); // test sortOrder: false, expect order as given data
 
@@ -970,7 +971,7 @@ describe(`Table`, () => {
         });
         sortTable.update();
         const defaultTargetData = sortData[0];
-        const { name: defaultTargetName } = defaultTargetData;
+        const {name: defaultTargetName} = defaultTargetData;
         const defaultFirstCell = sortTable.find('.semi-table-tbody .semi-table-row .semi-table-row-cell').at(0);
         expect(defaultFirstCell.text()).toBe(defaultTargetName);
     });
@@ -992,14 +993,15 @@ describe(`Table`, () => {
             },
         ];
         const rowSelection = {
-            onSelectAll: sinon.spy(() => {}),
+            onSelectAll: sinon.spy(() => {
+            }),
             getCheckboxProps: sinon.spy(record => ({
                 disabled: true,
                 // disabled all
                 name: record.name,
             })),
         };
-        const demo = mount(<Table columns={columns} dataSource={data} rowSelection={rowSelection} />);
+        const demo = mount(<Table columns={columns} dataSource={data} rowSelection={rowSelection}/>);
         demo.find(
             `.${BASE_CLASS_PREFIX}-table-thead .${BASE_CLASS_PREFIX}-table-column-selection .${BASE_CLASS_PREFIX}-checkbox`
         ).simulate('click'); // should select 0 rows
@@ -1035,9 +1037,9 @@ describe(`Table`, () => {
         ];
         const demo = mount(
             <Table dataSource={[]}>
-                <Column title="Name" dataIndex="name" key="name" render={(text, record, index) => <a>{text}</a>} />
-                <Column title="Age" dataIndex="age" key="age" />
-                <Column title="Address" dataIndex="address" key="address" />
+                <Column title="Name" dataIndex="name" key="name" render={(text, record, index) => <a>{text}</a>}/>
+                <Column title="Age" dataIndex="age" key="age"/>
+                <Column title="Address" dataIndex="address" key="address"/>
             </Table>
         );
         setTimeout(() => {
@@ -1056,7 +1058,7 @@ describe(`Table`, () => {
             column.align = 'right';
             return column;
         });
-        const demo = mount(<Table dataSource={data} columns={alignRightColumns} />);
+        const demo = mount(<Table dataSource={data} columns={alignRightColumns}/>);
         const titleAlignCells = demo.find(`.${BASE_CLASS_PREFIX}-table-align-right`);
         expect(titleAlignCells.length).toBeGreaterThan(0);
         const bodyAlignCells = document.querySelectorAll(`.${BASE_CLASS_PREFIX}-table-row-cell`);
@@ -1070,7 +1072,7 @@ describe(`Table`, () => {
             column.className = 'test';
             return column;
         });
-        const demo = mount(<Table dataSource={data} columns={alignRightColumns} />);
+        const demo = mount(<Table dataSource={data} columns={alignRightColumns}/>);
         const titleAlignCells = demo.find(`.${BASE_CLASS_PREFIX}-table-row-head`);
         const bodyAlignCells = demo.find(`.${BASE_CLASS_PREFIX}-table-row-cell`);
         titleAlignCells.forEach(cell => {
@@ -1123,7 +1125,7 @@ describe(`Table`, () => {
                 }}
             />
         );
-        const { dataSource } = refObj.current.getCurrentPageData();
+        const {dataSource} = refObj.current.getCurrentPageData();
         expect(dataSource.length).toEqual(pageSize); // jsx column
 
         const jsxColumns = getJSXColumns();
@@ -1141,7 +1143,7 @@ describe(`Table`, () => {
                 {jsxColumns}
             </Table>
         );
-        const { dataSource: jsxData } = jsxRefObj.current.getCurrentPageData();
+        const {dataSource: jsxData} = jsxRefObj.current.getCurrentPageData();
         expect(jsxData.length).toEqual(pageSize);
     });
     it('test render expandIcon', async () => {
@@ -1153,7 +1155,7 @@ describe(`Table`, () => {
                 dataSource={data}
                 columns={columns}
                 expandedRowRender={expandedRowRender}
-                expandIcon={<IconStar size="small" />}
+                expandIcon={<IconStar size="small"/>}
             />
         );
         expect(demo.find('.semi-icon-star').length).toBeGreaterThan(0);
@@ -1163,16 +1165,20 @@ describe(`Table`, () => {
                 columns={columns}
                 expandedRowRender={expandedRowRender}
                 defaultExpandAllRows
-                expandIcon={expanded => <div>{expanded && <IconStar size="small" />}</div>}
+                expandIcon={expanded => <div>{expanded && <IconStar size="small"/>}</div>}
             />
         );
         expect(demo2.find('.semi-icon-star').length).toBeGreaterThan(0);
     });
     it(`test onRow/onCell`, async () => {
-        const onRowClick = sinon.spy(() => {});
-        const onHeaderRowClick = sinon.spy(() => {});
-        const onCellClick = sinon.spy(() => {});
-        const onHeaderCellClick = sinon.spy(() => {});
+        const onRowClick = sinon.spy(() => {
+        });
+        const onHeaderRowClick = sinon.spy(() => {
+        });
+        const onCellClick = sinon.spy(() => {
+        });
+        const onHeaderCellClick = sinon.spy(() => {
+        });
         const onRow = sinon.spy((record, index) => ({
             className: 'test-row',
             onClick: onRowClick,
@@ -1186,9 +1192,9 @@ describe(`Table`, () => {
             const style =
                 index === 0
                     ? {
-                          width: 200,
-                          height: 60,
-                      }
+                        width: 200,
+                        height: 60,
+                    }
                     : {};
 
             column.onCell = () => ({
@@ -1204,7 +1210,7 @@ describe(`Table`, () => {
 
             return column;
         });
-        const demo = mount(<Table dataSource={data} onRow={onRow} onHeaderRow={onHeaderRow} columns={onCellColumns} />);
+        const demo = mount(<Table dataSource={data} onRow={onRow} onHeaderRow={onHeaderRow} columns={onCellColumns}/>);
         const tableCells = demo.find('.semi-table-body .semi-table-row-cell');
         const tableHeaderCells = demo.find('.semi-table-thead .semi-table-row-head'); // cell style
 
@@ -1273,20 +1279,20 @@ describe(`Table`, () => {
                     />
                 </Column>
                 <Column title={'Company Information'} dataIndex={'company'}>
-                    <Column title={'Company Name'} dataIndex={'company.name'} />
-                    <Column title={'Company Address'} dataIndex={'company.address'} />
+                    <Column title={'Company Name'} dataIndex={'company.name'}/>
+                    <Column title={'Company Address'} dataIndex={'company.address'}/>
                 </Column>
-                <Column title={'Address'} dataIndex={'address'} width={250} fixed="right" />
+                <Column title={'Address'} dataIndex={'address'} width={250} fixed="right"/>
             </Table>
         );
         const columns = getNestColumns();
-        const demo = mount(<Table dataSource={nestData} columns={columns} />);
+        const demo = mount(<Table dataSource={nestData} columns={columns}/>);
         testHeaderMerge(jsxDemo);
         testHeaderMerge(demo);
     });
     it('test without columns', async () => {
         const jsxDemo = mount(<Table dataSource={data}></Table>);
-        const demo = mount(<Table dataSource={data} columns={[]} />);
+        const demo = mount(<Table dataSource={data} columns={[]}/>);
         expect(jsxDemo.find('.semi-table-row-head').length).toBe(0);
         expect(jsxDemo.find('.semi-table-row-cell').length).toBe(0);
         expect(demo.find('.semi-table-row-head').length).toBe(0);
@@ -1312,7 +1318,7 @@ describe(`Table`, () => {
                 // 此处将useFullRender设置为true开启完全自定义渲染
                 useFullRender: true,
                 // 此处从render的第四个形参中解构出 展开按钮、选择按钮、文本等内容
-                render: (text, record, index, { expandIcon, selection, indentText }) => {
+                render: (text, record, index, {expandIcon, selection, indentText}) => {
                     return (
                         <span
                             className="custom-render"
@@ -1335,7 +1341,7 @@ describe(`Table`, () => {
                         </span>
                     );
                 },
-                title: ({ sorter, filter, selection }) => (
+                title: ({sorter, filter, selection}) => (
                     <span
                         className="custom-title"
                         style={{
@@ -1457,7 +1463,7 @@ describe(`Table`, () => {
             currentPage: 1,
         };
         const columns = getColumns();
-        const demo = mount(<Table dataSource={getData(total)} columns={columns} pagination={pagination} />);
+        const demo = mount(<Table dataSource={getData(total)} columns={columns} pagination={pagination}/>);
         const paginationProps = demo.find(BaseTable).state('pagination');
         expect(paginationProps.total).toEqual(total);
         expect(paginationProps.pageSize).toEqual(pagination.pageSize);
@@ -1549,7 +1555,7 @@ describe(`Table`, () => {
     it(`test given object columns and children`, async () => {
         const demo = mount(
             <Table dataSource={data} columns={columns}>
-                <Table.Column title="Age" dataIndex="age" key="age" />
+                <Table.Column title="Age" dataIndex="age" key="age"/>
             </Table>
         );
         const test = demo.find(BaseTable); // 同时传columns与children时，columns优先
@@ -1585,46 +1591,46 @@ describe(`Table`, () => {
         const data = [
             {
                 key: '1',
-                name: 'John Brown',
-                age: 32,
-                tel: '0571-22098909',
-                phone: 18889898989,
-                address: 'New York No. 1 Lake Park',
+                name: 'ZhangSan',
+                age: 50,
+                tel: '010-20000000',
+                phone: 10010,
+                address: 'BeiJing No.1 High School',
             },
             {
                 key: '2',
-                name: 'Jim Green',
-                tel: '0571-22098333',
-                phone: 18889898888,
-                age: 42,
-                address: 'London No. 1 Lake Park',
+                name: 'LiSi',
+                tel: '010-30000000',
+                phone: 10086,
+                age: 40,
+                address: 'ShangHai No. 1 High School',
             },
             {
                 key: '3',
-                name: 'Joe Black',
-                age: 32,
-                tel: '0575-22098909',
-                phone: 18900010002,
-                address: 'Sidney No. 1 Lake Park',
+                name: 'WangWu',
+                age: 60,
+                tel: '010-40000000',
+                phone: 10011,
+                address: 'NaiJing No.1 High School',
             },
             {
                 key: '4',
-                name: 'Jim Red',
-                age: 18,
-                tel: '0575-22098909',
-                phone: 18900010002,
-                address: 'London No. 2 Lake Park',
+                name: 'XiaoMing',
+                age: 20,
+                tel: '010-50000000',
+                phone: 12580,
+                address: 'ShiJiaZhuang No.1 High School',
             },
             {
                 key: '5',
-                name: 'Jake White',
-                age: 18,
-                tel: '0575-22098909',
-                phone: 18900010002,
-                address: 'Dublin No. 2 Lake Park',
+                name: 'XiaoHong',
+                age: 40,
+                tel: '010-60000000',
+                phone: 12530,
+                address: 'TaiBei No.2 High School',
             },
         ];
-        const demo = mount(<Table dataSource={data} columns={columns} />);
+        const demo = mount(<Table dataSource={data} columns={columns}/>);
         expect(demo.find('.semi-table-row .semi-table-row-head').length).toBe(columns.length - 1);
     });
 
@@ -1642,12 +1648,12 @@ describe(`Table`, () => {
         />);
 
         const newData = getData(20);
-        demo.setProps({ dataSource: newData });
+        demo.setProps({dataSource: newData});
         demo.update();
         const expandedRows = demo.find(`.${BASE_CLASS_PREFIX}-table-tbody .${BASE_CLASS_PREFIX}-table-row-expanded`)
         expect(expandedRows.length).toEqual(newData.length);
         // 动态切换 expandAllRows
-        demo.setProps({ expandAllRows: false });
+        demo.setProps({expandAllRows: false});
         demo.update();
         const newExpandedRows = demo.find(`.${BASE_CLASS_PREFIX}-table-tbody .${BASE_CLASS_PREFIX}-table-row-expanded`)
         expect(newExpandedRows.length).toEqual(0);
@@ -1656,7 +1662,7 @@ describe(`Table`, () => {
     it(`test defaultExpandAllGroupRows`, async () => {
         const data = getGroupData();
         const columns = getGroupColumns();
-        const rowKey = record =>`${record.city && record.city.toLowerCase()}-${record.job && record.job.toLowerCase()}`;
+        const rowKey = record => `${record.city && record.city.toLowerCase()}-${record.job && record.job.toLowerCase()}`;
         const groupSize = new Set(data.map(item => item.city)).size;
 
         const demo = mount(
@@ -1666,7 +1672,7 @@ describe(`Table`, () => {
                 groupBy={'city'}
                 columns={columns}
                 renderGroupSection={groupKey => <strong>Jobs in {groupKey}:</strong>}
-                scroll={{ y: 480 }}
+                scroll={{y: 480}}
                 defaultExpandAllGroupRows
             />
         );
@@ -1678,7 +1684,7 @@ describe(`Table`, () => {
         const data = getGroupData();
         const groupSize = new Set(data.map(item => item.city)).size;
         const columns = getGroupColumns();
-        const rowKey = record =>`${record.city && record.city.toLowerCase()}-${record.job && record.job.toLowerCase()}`;
+        const rowKey = record => `${record.city && record.city.toLowerCase()}-${record.job && record.job.toLowerCase()}`;
 
         const demo = mount(
             <Table
@@ -1687,15 +1693,15 @@ describe(`Table`, () => {
                 groupBy={'city'}
                 columns={columns}
                 renderGroupSection={groupKey => <strong>Jobs in {groupKey}:</strong>}
-                scroll={{ y: 480 }}
+                scroll={{y: 480}}
                 expandAllGroupRows={true}
             />
         );
 
-        demo.setProps({ dataSource: data });
+        demo.setProps({dataSource: data});
         demo.update();
         expect(demo.find(`.${BASE_CLASS_PREFIX}-table-tbody .${BASE_CLASS_PREFIX}-table-row-section.on`).length).toBe(groupSize);
-        demo.setProps({ expandAllGroupRows: false });
+        demo.setProps({expandAllGroupRows: false});
         demo.update();
         expect(demo.find(`.${BASE_CLASS_PREFIX}-table-tbody .${BASE_CLASS_PREFIX}-table-row-section.on`).length).toBe(0);
     });
@@ -1743,12 +1749,13 @@ describe(`Table`, () => {
                 address: 'London No. 2 Lake Park',
             },
         ];
-        const onChange = sinon.spy(() => {});
+        const onChange = sinon.spy(() => {
+        });
 
         // test default descend
         const targetData = sortData.reduce((a, b) => a.name.length > b.name.length ? a : b);
-        const { name } = targetData;
-        const sortTable = mount(<Table columns={sortColumns} dataSource={sortData} onChange={onChange} />);
+        const {name} = targetData;
+        const sortTable = mount(<Table columns={sortColumns} dataSource={sortData} onChange={onChange}/>);
         const firstCell = sortTable.find('.semi-table-tbody .semi-table-row .semi-table-row-cell').at(0);
         expect(firstCell.text()).toBe(name);
 
@@ -1769,10 +1776,10 @@ describe(`Table`, () => {
                 dataIndex: 'address',
             }
         ];
-        sortTable.setProps({ columns: ascendOrderColumns })
+        sortTable.setProps({columns: ascendOrderColumns})
         sortTable.update()
         const ascendTargetData = sortData.reduce((a, b) => a.name.length < b.name.length ? a : b);
-        const { name: ascendTargetName } = ascendTargetData;
+        const {name: ascendTargetName} = ascendTargetData;
         const ascendFirstCell = sortTable.find('.semi-table-tbody .semi-table-row .semi-table-row-cell').at(0);
         expect(ascendFirstCell.text()).toBe(ascendTargetName);
 
@@ -1796,15 +1803,15 @@ describe(`Table`, () => {
         sortTable.setProps({columns: defaultOrderColumns})
         sortTable.update()
         const defaultTargetData = sortData[0]
-        const { name: defaultTargetName } = defaultTargetData;
+        const {name: defaultTargetName} = defaultTargetData;
         const defaultFirstCell = sortTable.find('.semi-table-tbody .semi-table-row .semi-table-row-cell').at(0);
         expect(defaultFirstCell.text()).toBe(defaultTargetName);
 
         // test click sorter
-        sortTable.find(`.${BASE_CLASS_PREFIX}-table-thead .${BASE_CLASS_PREFIX}-table-column-sorter`).at(0).simulate('click', { nativeEvent: null });
+        sortTable.find(`.${BASE_CLASS_PREFIX}-table-thead .${BASE_CLASS_PREFIX}-table-column-sorter`).at(0).simulate('click', {nativeEvent: null});
         expect(onChange.callCount).toBe(1);
         expect(onChange.getCall(0).args[0].sorter.sortOrder).toBe('ascend');
-        sortTable.find(`.${BASE_CLASS_PREFIX}-table-thead .${BASE_CLASS_PREFIX}-table-column-sorter`).at(0).simulate('click', { nativeEvent: null });
+        sortTable.find(`.${BASE_CLASS_PREFIX}-table-thead .${BASE_CLASS_PREFIX}-table-column-sorter`).at(0).simulate('click', {nativeEvent: null});
         expect(onChange.callCount).toBe(2);
         expect(onChange.getCall(1).args[0].sorter.sortOrder).toBe('descend');
 
@@ -1835,10 +1842,10 @@ describe(`Table`, () => {
                 address: 'London No. 2 Lake Park',
             },
         ];
-        sortTable.setProps({ dataSource: newData });
+        sortTable.setProps({dataSource: newData});
         sortTable.update()
         const newDescendTargetData = newData.reduce((a, b) => a.name.length > b.name.length ? a : b);
-        const { name: newDescendTargetName  } = newDescendTargetData;
+        const {name: newDescendTargetName} = newDescendTargetData;
         const newDataFirstCell = sortTable.find('.semi-table-tbody .semi-table-row .semi-table-row-cell').at(0);
         expect(newDataFirstCell.text()).toBe(newDescendTargetName);
     });

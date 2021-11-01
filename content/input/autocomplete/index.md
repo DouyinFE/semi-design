@@ -366,7 +366,7 @@ import { IllustrationNoContent } from '@douyinfe/semi-illustrations';
 | defaultOpen | 是否默认展开下拉菜单 | boolean | false |
 | defaultValue | 默认值 | string | |
 | disabled | 是否禁用 | boolean | false |
-| dropdownClassName | 下拉列表的 css 类名 | string |  |
+| dropdownClassName | 下拉列表的 CSS 类名 | string |  |
 | dropdownStyle | 下拉列表的内联样式 | object |  |
 | emptyContent | data 为空时自定义下拉内容  | ReactNode | null | 1.16.0 |
 | getPopupContainer | 指定父级 DOM，下拉列表浮层将会渲染至该 DOM 中，自定义需要设置 `position: relative` | () => HTMLElement | () => document.body |

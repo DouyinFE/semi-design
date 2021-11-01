@@ -785,4 +785,4 @@ function NavApp (props = {}) {
 ## FAQ
 - **Lost animation in navigation bar?**
 
-    When using functional components, you should give items with useState or useMemo, because passing an array directly to items will trigger component re rendering.
+    When using functional components, you should give items with useState or useMemo, because passing an array directly to items will trigger component rerendering.

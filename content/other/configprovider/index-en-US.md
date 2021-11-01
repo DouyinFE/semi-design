@@ -15,7 +15,7 @@ brief: Provide a unified global configuration for components.
 ```jsx import
 import { ConfigProvider } from '@douyinfe/semi-ui';
 ```
-### Basic Uage
+### Basic Usage
 
 By passing in the timeZone parameter, users can configure the time zone for the time components:
 
@@ -403,7 +403,7 @@ If you want to accurately set the time zone of a region, it is recommended to us
 
 ### FAQ
 
-- The ConfigProvider does not provide the function of global custom prefix classname. How to achieve similar requirements (for example, Semi is used in the SDK, and it is expected that the packaged dom style does not have the .semi-xx prefix, so as not to be affected by the host's global css)?
+- The ConfigProvider does not provide the function of global custom prefix classname. How to achieve similar requirements (for example, Semi is used in the SDK, and it is expected that the packaged dom style does not have the .semi-xx prefix, so as not to be affected by the host's global CSS)?
     - Since prefixCls needs to be consumed by the js/css of the component layer at the same time, Semi put this switch in the configuration item of webpack plugin, rather than as a configuration item of ConfigProvider.
     - If you use webpack, please configure it in the parameters of `SemiWebpackPlugin`
 

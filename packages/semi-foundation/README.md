@@ -29,7 +29,7 @@ This allows us to reuse Foundation code across frameworks by only re-implementin
 
 ## Related documents
 
-[Technical solutions](https://bytedance.feishu.cn/space/doc/doccnaizfDWdjXv7xrVAlm)
+[Technical solutions](https://bytedance.feishu.cn/docs/doccnTgc0iGOVPubHZkwPpxXSNh)
     
 ![image](https://lf1-cdn-tos.bytescm.com/obj/ttfe/ies/uikits/F_A.png)
 

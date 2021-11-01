@@ -41,9 +41,9 @@ You can submit your issue to describe your needs. Issue Label Please select `Fea
 
 Welcome to ours [Customer Service Lark Group](https://bytedance.feishu.cn/docs/doccnw93Dujm3UCkHRDTMTm1qwe) For a consultation question.
 
-#### Is the style of Semi based on SCSS or LESS? Why not use CSS Module?
+#### Is the style of Semi based on Scss or Less? Why not use CSS Module?
 
-Our style is based on SCSS, and we also use CSS Variable as the color wheel variable. Color variables and common variables are mounted under `body`. CSS Module is not used because we want to have a fixed className and retain the ability to modify / override Semi style for our users(although it is not recommended, it is really needed sometime).
+Our style is based on Scss, and we also use CSS Variable as the color wheel variable. Color variables and common variables are mounted under `body`. CSS Module is not used because we want to have a fixed className and retain the ability to modify / override Semi style for our users(although it is not recommended, it is really needed sometime).
 
 #### Semi's default theme style does not match the positioning of our system. Can i configure another theme?
 

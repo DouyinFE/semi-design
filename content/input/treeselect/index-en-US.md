@@ -1184,7 +1184,7 @@ function Demo() {
 | clickToHide  | Whether to close the drop-down layer automatically when selecting, only works in single-selection mode  | boolean    | true | 1.5.0      |
 | defaultExpandAll    | Set whether to expand all nodes during initialization. And if the data (`treeData`) changes, this api cannot affect the expansion of the node. If you need this, you can use `expandAll`    | boolean                     | false   | 0.32.0 |
 | defaultExpandedKeys | Keys of default expanded nodes. Direct child nodes will be displayed. | string\[] | - | 0.32.0 |
-| defaultOpen | Toggle whether to open dropdown menu by defaultt | boolean | false | 0.32.0 |
+| defaultOpen | Toggle whether to open dropdown menu by default | boolean | false | 0.32.0 |
 | defaultValue             | Default value                                                                       | string \| number \| TreeNode \| (string \| number \| TreeNode)[]                                                  | -           | -       |
 | disabled                 | Disabled                                                                            | boolean                                                           | false       | -       |
 | disableStrictly | Disable Strictly | boolean | false | 1.30.0 |
@@ -1199,7 +1199,7 @@ function Demo() {
 | getPopupContainer        | Container to render pop-up level, you need to set 'position: relative`                                                    | function():HTMLElement                                            | -           | -       |
 | insetLabel               | Prefix alias，used mainly in Form                                                   | ReactNode                                                         | -           | 0.28.0  |
 | labelEllipsis | Toggle whether to ellipsis label when overflow | boolean | false\|true(virtualized) | 1.8.0 |  
-| leafOnly | Toggle whether to display tags for leaf nodes only and for onChange callback parms in multiple mode | boolean | false |0.32.0 |
+| leafOnly | Toggle whether to display tags for leaf nodes only and for onChange callback params in multiple mode | boolean | false |0.32.0 |
 | loadData | Load data asynchronously and the return value should be a promise | (treeNode: TreeNode) => Promise |-| 1.32.0|
 | loadedKeys | （Controlled）Mark node as loaded, working with `loadData` | Set< string > | - | 1.32.0|
 | maxTagCount              | Maximum number of tags displayed                                                    | number                                                            | -           | -       |
@@ -1238,7 +1238,7 @@ function Demo() {
 | onLoad | Callback function when a node is loaded | (loadedKeys: Set< string >, treeNode: TreeNode) => void | - | 1.32.0|
 | onSearch                 | Callback function when search value changes                                         | function(sugInput: string)                                        | -           | -       |
 | onSelect                 | Callback function when selected, return the key property of data                    | function(selectedKey:string, selected: bool, selectedNode: TreeNode)                      | -           | -       |
-| onVisibleChange     | A callback triggered when the pop-up layer is displayed/hidden   | function(isVisble:boolean) |     |   1.4.0  |
+| onVisibleChange     | A callback triggered when the pop-up layer is displayed/hidden   | function(isVisible:boolean) |     |   1.4.0  |
 
 ### TreeNode
 

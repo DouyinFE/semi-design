@@ -1147,38 +1147,67 @@ import React, { useState } from 'react';
 import { Tree } from '@douyinfe/semi-ui';
 
 () => {
-    function generateData(x = 3, y = 2, z = 1, gData = []) {
-        // x：number of nodes
-        // y：number of nodes with children in each level
-        // z：number of level
-        function _loop(_level, _preKey, _tns) {
-            const preKey = _preKey || '0';
-            const tns = _tns || gData;
 
-            const children = [];
-            for (let i = 0; i < x; i++) {
-                const key = `${preKey}-${i}`;
-                tns.push({ label: `${key}`, key: `${key}-key`, value: `${key}-value` });
-                if (i < y) {
-                    children.push(key);
+    const initialData = [
+        {
+            label: 'Asia',
+            value: 'Asia',
+            key: '0',
+            children: [
+                {
+                    label: 'China',
+                    value: 'China',
+                    key: '0-0',
+                    children: [
+                        {
+                            label: 'Beijing',
+                            value: 'Beijing',
+                            key: '0-0-0',
+                        },
+                        {
+                            label: 'Shanghai',
+                            value: 'Shanghai',
+                            key: '0-0-1',
+                        },
+                    ],
+                },
+                {
+                    label: 'Japan',
+                    value: 'Japan',
+                    key: '0-1',
+                    children: [
+                        {
+                            label: 'Osaka',
+                            value: 'Osaka',
+                            key: '0-1-0'
+                        }
+                    ]
+                },
+            ],
+        },
+        {
+            label: 'North America',
+            value: 'North America',
+            key: '1',
+            children: [
+                {
+                    label: 'United States',
+                    value: 'United States',
+                    key: '1-0'
+                },
+                {
+                    label: 'Canada',
+                    value: 'Canada',
+                    key: '1-1'
                 }
-            }
-            if (_level < 0) {
-                return tns;
-            }
-            const __level = _level - 1;
-            children.forEach((key, index) => {
-                tns[index].children = [];
-                return _loop(__level, key, tns[index].children);
-            });
-
-            return null;
+            ]
+        },
+        {
+            label: 'Europe',
+            value: 'Europe',
+            key: '2',
         }
-        _loop(z);
-        return gData;
-    }
-
-    const initialData = generateData();
+    ];
 
     const [treeData, setTreeData] = useState(initialData);
 
@@ -1248,7 +1277,7 @@ import { Tree } from '@douyinfe/semi-ui';
 You could use `renderFullLabel` for advanced rendering to render the entire option on you own.
 
 <Notice type="primary" title="Important">
-<div>If virtualized is set to true, be sure to apply `style` to targeted reactNode to correctly render virtualized list.</div>
+<div>If virtualized is set to true, be sure to apply `style` to targeted ReactNode to correctly render virtualized list.</div>
 </Notice>
 
 Here are some demos.
@@ -1802,7 +1831,7 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
 | hideDraggingNode | Toggle whether to hide dragImg of dragging node | boolean | false | 1.8.0 | 
 | icon       | Icon | ReactNode         | -       | - |
 | labelEllipsis | Toggle whether to ellipsis label when overflow. Set to false iff there are other requirements | boolean | false\|true(virtualized) | 1.8.0 | 
-| leafOnly | Toggle whether to display tags for leaf nodes only and for onChange callback parms in multiple mode | boolean | false | 1.18.0 |
+| leafOnly | Toggle whether to display tags for leaf nodes only and for onChange callback params in multiple mode | boolean | false | 1.18.0 |
 | loadData | Load data asynchronously and the return value should be a promise | (treeNode?: TreeNode) => Promise< void > |-| 1.0.0|
 | loadedKeys | （Controlled）Mark node as loaded, working with `loadData` | string[] | - | 1.0.0|
 | motion              | Toggle whether to turn on animation| boolean                     | true    | - |

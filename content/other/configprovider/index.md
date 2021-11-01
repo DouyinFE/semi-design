@@ -73,7 +73,7 @@ function Demo(props = {}) {
 
 特殊组件：
 - Modal，Notification，Toast 的命令式调用需要通过 prop 传 `direction`。
-- 如果你想对有方向性的 Icon 做 RTL 国际化，需要自己单独进行处理。我们认为对 Icon 进行 RTL 会让它变得难以理解和维护。其他组件内的 icon semi 已经做了 RTL 适配。
+- 如果你想对有方向性的 Icon 做 RTL 国际化，需要自己单独进行处理。我们认为对 Icon 进行 RTL 会让它变得难以理解和维护。其他组件内的 icon Semi 已经做了 RTL 适配。
 - Table 的固定列或表头，树形数据，虚拟化表格暂不支持 RTL，Slider 暂不支持 RTL
 
 
@@ -404,7 +404,7 @@ function Demo(props = {}) {
 
 ### FAQ
 
-- ConfigProvider中没有提供全局自定义prefix classname的功能，有类似需求如何实现（例如SDK中使用了Semi，期望打包的dom样式不带.semi-xx前缀，以免被宿主的全局css影响）？
+- ConfigProvider中没有提供全局自定义prefix classname的功能，有类似需求如何实现（例如SDK中使用了Semi，期望打包的dom样式不带.semi-xx前缀，以免被宿主的全局 CSS 影响）？
     - 由于 prefixCls 需要同时被组件层的 js/css 消费，Semi 将此开关放在了webpack plugin的配置项中，而不是作为ConfigProvider的配置项。
     - 如果你使用webpack，请在`SemiWebpackPlugin`的参数中进行配置
 

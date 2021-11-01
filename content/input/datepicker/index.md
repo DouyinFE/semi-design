@@ -694,7 +694,7 @@ function Demo() {
 | disabledDate | 日期禁止判断方法，返回为 true 时禁止该日期，options 参数 1.9.0 后支持，rangeEnd 1.29 后支持 | (date: Date, options: { rangeStart: string, rangeEnd: string }) => boolean | () => false |  |
 | disabledTime | 时间禁止配置，返回值将会作为参数透传给 [`TimePicker`](/zh-CN/input/timepicker#API_参考) | (date: Date \| Date[], panelType?: string) => ({ <br/>disabledHours:() => number[], <br/>disabledMinutes: (hour: number) => number[], <br/>disabledSeconds: (hour: number, minute: number) => number[] }) | () => false | **0.36.0** |
 | disabledTimePicker | 是否禁止时间选择 | boolean |  | **0.32.0** |
-| dropdownClassName | 下拉列表的 css 类名 | string |  | **1.13.0** |
+| dropdownClassName | 下拉列表的 CSS 类名 | string |  | **1.13.0** |
 | dropdownStyle | 下拉列表的内联样式 | object |  | **1.13.0** |
 | endDateOffset | type 为 dateRange 时，设置单击选择范围的结束日期 | (selectedDate?: Date) => Date; | - | **1.10.0** |
 | format | 在输入框内展现的日期串格式 | string | 与 type 对应：详见[日期时间格式](#日期时间格式) |  |

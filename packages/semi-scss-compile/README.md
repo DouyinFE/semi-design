@@ -1,4 +1,4 @@
-> A scss compile tool for Semi Design
+> A Scss compile tool for Semi Design
 
 ## Description
 

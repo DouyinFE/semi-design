@@ -264,7 +264,7 @@ import { IconHome, IconLock } from '@douyinfe/semi-icons';
 
 ### onChange 回调
 
-从 1.29.0 版本开始支持 onChange，可以使用它来实现处理进度。onChange 接收一个 number 类型的参数，该参数等于 inital + current。
+从 1.29.0 版本开始支持 onChange，可以使用它来实现处理进度。onChange 接收一个 number 类型的参数，该参数等于 initial + current。
 
 ```jsx live=true dir="column" hideInDSM
 import React from 'react';

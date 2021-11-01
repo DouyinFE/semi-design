@@ -3,13 +3,13 @@
     <p align="center"><img width="300" src="https://lf1-cdn-tos.bytescm.com/obj/ttfe/ies/semi/SemiLogo/Logo_1576122865926.png" /></p>
     <h1 style="width: 100%; text-align: center;">Semi-UI</h1>
     <p>
-        现代、全面、灵活的设计系统和 UI 库。 快速搭建美观的React 应用。
+        现代、全面、灵活的设计系统和 UI 库。 快速搭建美观的 React 应用。
     </p>
 </article>
     
 <div align="center">
 
-[![NPM][npm-badge]][npm-url] [![FIGMA][figma-badge]][figma-url] [![LICENSE][license-badge]][license-url]
+[![NPM][npm-badge]][npm-url] [![FIGMA][figma-badge]][figma-url] [![LICENSE][license-badge]][license-url] [![CODECOV][codecov-badge]][codecov-url]
 
 
 [npm-badge]: https://img.shields.io/npm/v/@douyinfe/semi-ui.svg
@@ -19,6 +19,8 @@
 
 [license-badge]: https://img.shields.io/npm/l/@douyinfe/semi-ui
 [license-url]: https://github.com/DouyinFE/semi-design/blob/main/LICENSE
+[codecov-badge]: https://img.shields.io/codecov/c/gh/DouyinFE/semi-design
+[codecov-url]: https://app.codecov.io/gh/DouyinFE/semi-design
 
 </div>
 

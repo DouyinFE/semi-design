@@ -41,7 +41,7 @@ class Demo extends React.Component {
 
 > 我们并不推荐直接使用已构建文件，这样会全量引入所有组件，无法实现按需加载。但如果确实有非构建场景的需求，可以通过以下方式引用
 
-在浏览器中使用 script 和 link 标签直接引入文件，并使用全局变量 SemiUI
+在浏览器中使用 script 和 link 标签直接引入文件，并使用全局变量 `SemiUI`
 
 1. 请确保你已提前引入 react 以及 react-dom
 2. 引入 JS 文件，以下示例 URL 中 2.0.0 为 version 标识，希望使用不同版本 Semi 时，将 version 中对应的值替换即可（注意构建文件仅在 v1.3.0 后开始提供）
@@ -70,10 +70,11 @@ class Demo extends React.Component {
 
 ```jsx
 <script type="text/babel">
-    const {(Input, Button, Toast, Icon, Form)} = SemiUI; ReactDOM.render(
-    <div>
-        <Button onClick={() => Toast.warning({ duration: 0, content: 'Semi Design' })}>test</Button>
-        <Input defaultValue="semi" onChange={value => Toast.info('hello semi')}></Input>
-    </div>, document.getElementById("root") );
+    const { Input, Button, Toast, Icon, Form } = SemiUI;
+    ReactDOM.render(
+        <div>
+            <Button onClick={() => Toast.warning({ duration: 0, content: 'Semi Design' })}>test</Button>
+            <Input defaultValue="semi" onChange={value => Toast.info('hello semi')}></Input>
+        </div>, document.getElementById("root"));
 </script>
 ```

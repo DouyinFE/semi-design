@@ -131,7 +131,7 @@ import { TagInput } from '@douyinfe/semi-ui';
 ### 前缀 / 后缀
 
 可以通过 `prefix` 传入输入框前缀，通过 `suffix` 传入输入框后缀，可以为文本或者 ReactNode。  
-当 `prefix`、`suffix` 传入的内容为 string 或者 Icon 时，会自动带上左右间隔；若为自定义 ReactNode，则左右间隔为 0，如需可以在你传入的reactNode中自行设置。  
+当 `prefix`、`suffix` 传入的内容为 string 或者 Icon 时，会自动带上左右间隔；若为自定义 ReactNode，则左右间隔为 0，如需可以在你传入的 ReactNode中自行设置。  
 
 ```jsx live=true
 import React from 'react';

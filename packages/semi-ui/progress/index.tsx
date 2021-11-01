@@ -153,7 +153,7 @@ class Progress extends Component<ProgressProps, ProgressState> {
 
         return (
             <div className={classNames.wrapper} style={style}>
-                <svg className={classNames.svg} height={width} width={width}>
+                <svg key={size} className={classNames.svg} height={width} width={width}>
                     <circle
                         strokeDashoffset={0}
                         strokeWidth={strokeWidth}

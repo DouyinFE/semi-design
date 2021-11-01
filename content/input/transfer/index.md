@@ -520,12 +520,14 @@ class CustomRenderDemo extends React.Component {
 
 ```scss
 .component-transfer-demo-custom-panel {
+
     .sp-font {
         color: rgba(var(--semi-grey-9), 1);
         font-size: 12px;
         font-weight: 500;
         line-height: 20px;
     }
+
     .empty {
         width: 100%;
         height: 100%;
@@ -533,68 +535,33 @@ class CustomRenderDemo extends React.Component {
         align-items: center;
         justify-content: center;
     }
+
     .panel-item {
-        width: 176px;
+        flex-shrink: 0;
         height: 56px;
         border-radius: 4px;
-        margin-bottom: 8px;
         padding: 8px 12px;
         flex-wrap: wrap;
-        background-color: rgba(22, 24, 35, 0.03);
+        background-color: rgba(22, 24, 35, .03);
+
         &-main {
             flex-grow: 1;
         }
+
         p {
             margin: 0 12px;
             flex-basis: 100%;
         }
+
         .panel-item-remove {
             cursor: pointer;
             color: var(--semi-color-primary);
         }
     }
-    .source-panel {
-        width: 482px;
-        height: 353px;
-        border: 1px solid var(--semi-color-border);
-        border-top: none;
-        .panel-list {
-            overflow-y: auto;
-            height: 202px;
-            display: flex;
-            margin-left: 12px;
-            margin-right: 12px;
-            flex-wrap: wrap;
-        }
-        .panel-controls {
-            margin: 10px 12px;
-            font-size: 12px;
-            line-height: 20px;
-            .semi-button {
-                margin-left: 8px;
-                font-size: 12px;
-            }
-        }
-        .panel-item {
-            margin-right: 8px;
-        }
-        margin-right: 16px;
-    }
-    .selected-panel {
-        width: 200px;
-        height: 353px;
-        .panel-main {
-            overflow-y: auto;
-            padding: 12px;
-            border: 1px solid var(--semi-color-border);
-            border-top: none;
-            height: 315px;
-            box-sizing: border-box;
-        }
-    }
+
     .panel-header {
         padding: 10px 12px;
-        border: 1px solid rgba(22, 24, 35, 0.16);
+        border: 1px solid rgba(22, 24, 35, .16);
         border-radius: 4px 4px 0 0;
         height: 38px;
         box-sizing: border-box;
@@ -602,9 +569,68 @@ class CustomRenderDemo extends React.Component {
         display: flex;
         align-items: center;
         justify-content: space-between;
+
         .clear {
             cursor: pointer;
             color: var(--semi-color-primary);
+        }
+    }
+
+    .source-panel {
+        display: flex;
+        flex-direction: column;
+        width: 482px;
+        height: 353px;
+
+        .panel-main {
+            border: 1px solid var(--semi-color-border);
+            border-top: none;
+
+            .panel-list {
+                display: flex;
+                flex-wrap: wrap;
+                row-gap: 8px;
+                column-gap: 8px;
+                overflow-y: auto;
+                height: 214px;
+                margin-left: 12px;
+                margin-right: 12px;
+                padding-bottom: 8px;
+            }
+        }
+
+        .panel-controls {
+            margin: 10px 12px;
+            font-size: 12px;
+            line-height: 20px;
+
+            .semi-button {
+                margin-left: 8px;
+                font-size: 12px;
+            }
+        }
+
+        .panel-item {
+            width: 176px;
+        }
+
+        margin-right: 16px;
+    }
+
+    .selected-panel {
+        width: 200px;
+        height: 353px;
+
+        .panel-main {
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            padding: 12px;
+            border: 1px solid var(--semi-color-border);
+            border-top: none;
+            height: 323px;
+            box-sizing: border-box;
+            row-gap: 8px;
         }
     }
 }
