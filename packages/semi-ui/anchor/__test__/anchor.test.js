@@ -50,4 +50,10 @@ describe('Anchor', () => {
     expect(wrapper.find('.semi-anchor-link-title-active').length).toEqual(1)
     expect(wrapper.exists('.semi-anchor-link .semi-anchor-link')).toEqual(false);
   });
+
+  it('anchor max height and max width', () => {
+    const wrapper = mountAnchor({maxHeight: 50, maxWidth: 100})
+    expect(wrapper.find('.semi-anchor').instance().style.maxHeight).toBe('50px')
+    expect(wrapper.find('.semi-anchor').instance().style.maxWidth).toBe('100px')
+  })
 });
