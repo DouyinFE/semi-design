@@ -1,13 +1,12 @@
 name: release
 
 on:
-  push:
-    tags:        
-      - 'v*'    
+  create
 
 jobs:
   release:
     runs-on: ubuntu-latest
+    if: github.event.ref_type == 'tag'
     steps:
       - uses: actions/checkout@v2
       - name: release
