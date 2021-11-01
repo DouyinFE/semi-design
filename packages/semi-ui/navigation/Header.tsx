@@ -13,7 +13,7 @@ export type Logo = React.ReactNode;
 
 export interface NavHeaderProps extends BaseProps {
     link?: string;
-    linkOptions?: React.HTMLAttributes<HTMLLinkElement>;
+    linkOptions?: React.AnchorHTMLAttributes<HTMLAnchorElement>;
     logo?: Logo;
     prefixCls?: string;
     text?: React.ReactNode;
