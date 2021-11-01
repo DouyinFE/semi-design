@@ -244,7 +244,7 @@ import { Slider } from '@douyinfe/semi-ui';
 | -------------- | ------------------------------------------------------------------------------------------ | ------------- | ------- |------ |
 | defaultValue   | Default value                                                                              | number \| number[] | 0       |- |
 | disabled       | Disable slider                                                                             | boolean       | false   |- |
-| included       | Takes effect when `marks` is not null, true means containment and false means coordinative | boolean       | true    |- |
+| included       | Takes effect when `marks` is not null, true means containment and false means coordination | boolean       | true    |- |
 | marks          | Tick mark of Slider, type of key must be number, and must in closed interval [min, max]    | Record<number, string \>        | -       |- |
 | max            | Maximum value of the slider.                                                               | number        | 100     |- |
 | min            | Minimum value of the slider.                                                               | number        | 0       |- |
