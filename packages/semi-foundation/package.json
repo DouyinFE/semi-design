@@ -1,6 +1,6 @@
 {
     "name": "@douyinfe/semi-foundation",
-    "version": "2.0.0",
+    "version": "2.0.1-alpha.0",
     "description": "",
     "files": [
         "lib",
@@ -12,7 +12,7 @@
     },
     "dependencies": {
         "@babel/runtime-corejs3": "^7.15.4",
-        "@douyinfe/semi-animation": "2.0.0",
+        "@douyinfe/semi-animation": "2.0.1-alpha.0",
         "async-validator": "^3.5.0",
         "classnames": "^2.2.6",
         "date-fns": "^2.9.0",
