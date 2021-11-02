@@ -46,7 +46,6 @@ class IconButton extends PureComponent<IconButtonProps> {
         loading: PropTypes.bool,
         prefixCls: PropTypes.string,
         icon: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.node]),
-        iconType: PropTypes.element,
         iconSize: PropTypes.oneOf(iconSizes),
         noHorizontalPadding: PropTypes.oneOfType([PropTypes.bool, PropTypes.string, PropTypes.array]),
         children: PropTypes.node,

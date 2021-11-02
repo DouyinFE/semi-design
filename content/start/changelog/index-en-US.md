@@ -39,7 +39,9 @@ Version：Major.Minor.Patch
     - Icon related
       - Icon component no longer supports type = xxx using built-in icons
       - Custom svg no longer supports plug-in configuration srcSvgPaths
-      - The Button icon property no longer supports passing built-in icon names through strings
+      - Button
+        - The Button icon property no longer supports passing built-in icon names through strings
+        - The iconType property is removed
       - Dropdown deletes the iconType attribute and unifies it into the icon attribute
       - Navigation icons no longer support incoming by string, ReactNode needs to be passed in
       - Notification icons are no longer passed in by string, please use ReactNode uniformly

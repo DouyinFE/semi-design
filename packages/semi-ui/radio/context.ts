@@ -8,7 +8,7 @@ export type RadioMode = ArrayElement<typeof strings.MODE>;
 export interface RadioContextValue {
     mode?: RadioMode;
     radioGroup?: {
-        value?: any;
+        value?: string | number;
         isButtonRadio?: any;
         disabled?: boolean;
         prefixCls?: string;

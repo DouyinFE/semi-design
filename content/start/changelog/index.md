@@ -38,7 +38,9 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
     - Icon 相关
       - Icon 组件不再支持  type=xxx 方式使用内置 icon
       - 自定义 svg 不再支持插件方式配置 srcSvgPaths
-      - Button icon 属性不再支持通过 string 传递内置 icon 名
+      - Button
+        - icon 属性不再支持通过 string 传递内置 icon 名
+        - 移除 iconType 属性
       - Dropdown 删除 iconType 属性，统一为 icon 属性
       - Navigation icon 不再支持通过 string 方式传入，需要传入 ReactNode
       - Notification icon 不再支持通过 string 方式传入，请统一使用 ReactNode
