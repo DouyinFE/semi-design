@@ -317,10 +317,10 @@ const components = {
             }
 
             return (
-                <a 
-                    href={href} 
-                    className="md gatsby-a" 
-                    target={props.target} 
+                <a
+                    href={href}
+                    className="md gatsby-a"
+                    target={props.target}
                     onClick={isCodeBOrGitlab ? (() => Toast.info({
                         content: intl.formatMessage({ id: 'changelog.internal.link' }),
                         duration: 3,
@@ -592,12 +592,14 @@ export default function Template(args) {
                     </Tabs>
                 )}
             </div>
-            {tabValue==='rd' && (
-                <PageAnchor slug={pageContext.slug} data={current.tableOfContents.items} />
-            )}
-            {
-                iframeAnchorData && tabValue==='ued' && <DesignPageAnchor data={iframeAnchorData}/>
-            }
+            <div className={'pageAnchor'}>
+                {tabValue==='rd' && (
+                    <PageAnchor slug={pageContext.slug} data={current.tableOfContents.items} />
+                )}
+                {
+                    iframeAnchorData && tabValue==='ued' && <DesignPageAnchor data={iframeAnchorData}/>
+                }
+            </div>
             <div className="main-article">
                 <MDXProvider components={components}>
                     <MDXRenderer>{current.body}</MDXRenderer>
