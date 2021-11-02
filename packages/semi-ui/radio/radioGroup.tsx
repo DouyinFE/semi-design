@@ -13,8 +13,8 @@ import Radio, { RadioType } from './radio';
 import Context, { RadioGroupButtonSize, RadioMode } from './context';
 
 export interface OptionItem {
-    label?: string;
-    value?: string;
+    label?: React.ReactNode;
+    value?: string | number;
     disabled?: boolean;
     extra?: React.ReactNode;
     style?: React.CSSProperties;
@@ -23,11 +23,11 @@ export interface OptionItem {
 export type Options = string[] | Array<OptionItem>;
 
 export type RadioGroupProps = {
-    defaultValue?: any;
+    defaultValue?: string | number;
     disabled?: boolean;
     name?: string;
     options?: Options;
-    value?: any;
+    value?: string | number;
     onChange?: (event: RadioChangeEvent) => void;
     className?: string;
     style?: React.CSSProperties;
