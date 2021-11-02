@@ -6,19 +6,15 @@ function compile() {
         console.log('compile jsx start');
         webpack(config({ minimize: false }), (err, stats) => {
             if (err) {
-                console.error(err);
                 reject(err);
-                return;
+                throw err;
             }
             
             const info = stats.toJson();
         
             if (stats.hasErrors()) {
-                (info.errors || []).forEach(error => {
-                    console.error(error);
-                });
-                reject(err);
-                return;
+                reject(info.errors);
+                throw info.errors;
             }
             console.log('compile jsx success');
             resolve();
@@ -31,17 +27,15 @@ function compileMin() {
         console.log('compile jsx with minimize start');
         webpack(config({ minimize: true }), (err, stats) => {
             if (err) {
-                console.error(err);
                 reject(err);
+                throw err;
             }
             
             const info = stats.toJson();
         
             if (stats.hasErrors()) {
-                (info.errors || []).forEach(error => {
-                    console.error(error);
-                    reject(err);
-                });
+                reject(info.errors);
+                throw info.errors;
             }
             console.log('compile jsx with minimize success');
             resolve();
