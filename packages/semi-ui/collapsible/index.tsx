@@ -90,7 +90,7 @@ const Collapsible = (props: CollapsibleProps) => {
         const wrapperCls = cls(`${cssClasses.PREFIX}-wrapper`, className);
         return (
             <div style={wrapperstyle} className={wrapperCls} ref={ref}>
-                <div ref={setHeight}>{children}</div>
+                <div ref={setHeight} style={{display: 'inline-block'}}>{children}</div>
             </div>
         );
     };
