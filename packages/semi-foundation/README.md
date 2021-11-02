@@ -1,8 +1,8 @@
-> The infrastructure layer used to build modern component library. 
+> The infrastructure layer is used to build modern component libraries. 
 
 
 Semi UI adopts a set of cross-front-end framework technical solutions to split the JavaScript of each component into two parts: `Foundation` and `Adapter`.
-This allows us to reuse Foundation code across frameworks by only re-implementing the adapter, e.g, React and Vue.Quickly build common component libraries on different platforms.
+This allows us to reuse Foundation code across frameworks by only re-implementing the adapter, e.g, React and Vue. Quickly build common component libraries on different platforms.
 
 -   **Foundation**
 
