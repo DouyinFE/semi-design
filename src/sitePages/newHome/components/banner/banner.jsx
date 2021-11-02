@@ -23,7 +23,7 @@ function Banner() {
                     </div>
                     <div className={styles.group2835}>
                         <Button onClick={goStart} size="large" theme="solid" className={styles.extraLarge}>{_t("start_using", { }, "开始使用")}</Button>
-                        <div onClick={goGithub} className={styles.buttonSecondarySolid_4427b030}><IconGithubLogo size="extra-large" /><p className={styles.text_bff7eaeb}>Github</p>
+                        <div onClick={goGithub} className={styles.buttonSecondarySolid_4427b030}><IconGithubLogo size="extra-large" /><p className={styles.text_bff7eaeb}>GitHub</p>
                         </div>
                     </div>
                 </div>
