@@ -6,7 +6,7 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
-    if: github.event.ref_type == 'tag'
+    if: github.event.ref_type == 'tag' && !contains(github.event.ref, 'alpha')
     steps:
       - uses: actions/checkout@v2
       - name: release
