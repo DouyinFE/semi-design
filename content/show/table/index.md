@@ -1767,6 +1767,80 @@ function EventTable(props = {}) {
 render(EventTable);
 ```
 
+### 实现斑马纹样式
+
+使用 OnRow 给每行设置一个背景色，实现有斑马纹效果的表格。
+
+```jsx live=true noInline=true dir="column"
+import React from 'react';
+import { Table } from '@douyinfe/semi-ui';
+
+function App() {
+    const columns = [
+        {
+            title: 'Name',
+            dataIndex: 'name',
+            render: (text, record, index) => {
+                console.log(text, record, index)
+                return <a>{text}</a>;
+            },
+        },
+        {
+            title: 'Age',
+            dataIndex: 'age',
+        },
+        {
+            title: 'Address',
+            dataIndex: 'address',
+        },
+    ];
+
+    const data = [
+        {
+            key: '1',
+            name: 'John Brown',
+            age: 32,
+            address: 'New York No. 1 Lake Park, New York No. 1 Lake Park',
+        },
+        {
+            key: '2',
+            name: 'Jim Green',
+            age: 42,
+            address: 'London No. 1 Lake Park',
+        },
+        {
+            key: '3',
+            name: 'Joe Black',
+            age: 32,
+            address: 'Sidney No. 1 Lake Park',
+        },
+        {
+            key: '4',
+            name: 'Michael James',
+            age: 99,
+            address: 'Sidney No. 1 Lake Park',
+        },
+    ];
+
+    const handleRow = (record, index) => {
+        // 给偶数行设置斑马纹
+        if (index % 2 === 0) {
+            return {
+                style: {
+                    background: 'var(--semi-color-fill-0)',
+                }
+            };
+        } else {
+            return {};
+        }
+    };
+
+    return <Table columns={columns} dataSource={data} onRow={handleRow} pagination={false} />;
+}
+
+render(App);
+```
+
 ### 可伸缩列
 
 版本 >= 0.15.0
