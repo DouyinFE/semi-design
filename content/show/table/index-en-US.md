@@ -1793,7 +1793,7 @@ render(EventTable);
 
 ### Zebra Pattern Table
 
-Use `OnRow` to set a background color for each row to achieve a table with zebra pattern effect.
+Use `OnRow` to set a background color for each row to create a zebra stripped table.
 
 ```jsx live=true noInline=true dir="column"
 import React from 'react';
