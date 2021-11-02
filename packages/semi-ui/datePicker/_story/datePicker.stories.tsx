@@ -226,3 +226,4 @@ stories.add('Form.DatePicker', () => {
   return <Demo />;
 });
 
+stories.add('fix 1460', () => <DatePicker type={'month'} onChange={(date, dateString) => console.log('DatePicker changed: ', date, dateString)} />);

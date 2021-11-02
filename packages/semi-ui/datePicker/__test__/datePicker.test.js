@@ -513,18 +513,17 @@ describe(`DatePicker`, () => {
     it('click presets disabled date should not trigger onChange', async () => {
         const onChange = sinon.spy();
         const defaultValue = '2021-04-12';
-        const disabeldValue = '2021-04-15';
+        const disabledValue = '2021-04-15';
         const notDisabledValue = '2021-04-30';
-        const defaultDate = new Date(defaultValue);
-        const disableDate = new Date(disabeldValue);
-        const notDisabeldDate = new Date(notDisabledValue);
+        const defaultDate = new Date(`${defaultValue} 00:00:00`);
+        const disableDate = new Date(`${disabledValue} 00:00:00`);
+        const notDisabledDate = new Date(`${notDisabledValue} 00:00:00`);
         let props = {
             open: true,
             motion: false,
             defaultValue,
             onChange,
-            disabledDate: dateStr => {
-                const date = new Date(dateStr);
+            disabledDate: date => {
                 const day = date.getDate();
                 if (day === 15) {
                     return true;
@@ -556,7 +555,7 @@ describe(`DatePicker`, () => {
         btns[1].click();
         await sleep();
         value = elem.state('value');
-        expect(value[0].getDate()).toEqual(notDisabeldDate.getDate());
+        expect(value[0].getDate()).toEqual(notDisabledDate.getDate());
         expect(onChange.called).toBeTruthy();
     });
 

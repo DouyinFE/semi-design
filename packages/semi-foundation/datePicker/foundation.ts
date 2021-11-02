@@ -770,7 +770,8 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
         const { currentMonth, currentYear } = item;
 
         if (typeof currentMonth === 'number' && typeof currentYear === 'number') {
-            const date = new Date(`${currentYear}-${currentMonth}`);
+            // Strings with only dates (e.g. "1970-01-01") will be treated as UTC instead of local time #1460
+            const date = new Date(currentYear, currentMonth - 1);
 
             this.handleSelectedChange([date]);
         }
