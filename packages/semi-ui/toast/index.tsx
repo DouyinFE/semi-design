@@ -130,28 +130,28 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
     static getWrapperId() {
         return this.wrapperId;
     }
-    static info(opts: ToastProps) {
+    static info(opts: Omit<ToastProps, 'type'> | string) {
         if (typeof opts === 'string') {
             opts = { content: opts };
         }
         return this.create({ ...ToastList.defaultOpts, ...opts, type: 'info' });
     }
 
-    static warning(opts: ToastProps) {
+    static warning(opts: Omit<ToastProps, 'type'> | string) {
         if (typeof opts === 'string') {
             opts = { content: opts };
         }
         return this.create({ ...ToastList.defaultOpts, ...opts, type: 'warning' });
     }
 
-    static error(opts: ToastProps) {
+    static error(opts: Omit<ToastProps, 'type'> | string) {
         if (typeof opts === 'string') {
             opts = { content: opts };
         }
         return this.create({ ...ToastList.defaultOpts, ...opts, type: 'error' });
     }
 
-    static success(opts: ToastProps) {
+    static success(opts: Omit<ToastProps, 'type'> | string) {
         if (typeof opts === 'string') {
             opts = { content: opts };
         }
