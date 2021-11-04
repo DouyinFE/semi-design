@@ -16,7 +16,7 @@ const prefixCls = cssClasses.PREFIX;
 export interface ToastReactProps extends ToastProps {
     style?: CSSProperties;
     icon?: React.ReactNode;
-    content?: React.ReactNode;
+    content: React.ReactNode;
 }
 
 class Toast extends BaseComponent<ToastReactProps, ToastState> {
