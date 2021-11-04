@@ -7,7 +7,7 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "bin": {
-    "semiScssCompile": "lib/bin.js"
+    "semi-build-scss": "lib/bin.js"
   },
   "files": [
     "lib",
