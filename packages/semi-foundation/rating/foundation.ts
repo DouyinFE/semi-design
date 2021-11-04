@@ -108,7 +108,7 @@ export default class RatingFoundation<P = Record<string, any>, S = Record<string
         if (isReset) {
             this._adapter.notifyHoverChange(0, newValue);
         } else {
-            this._adapter.clearValue(null);
+            this._adapter.notifyHoverChange(newValue, null);
         }
     }
 

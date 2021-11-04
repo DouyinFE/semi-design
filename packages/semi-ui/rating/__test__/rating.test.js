@@ -142,6 +142,24 @@ describe('Rating', () => {
         expect(R.state().value).toEqual(0);
     });
 
+
+    it('sync hoverValue when click', () => {
+        let props = {
+            allowClear: true,
+            defaultValue: 2,
+        };
+        const R = getRating(props);
+        expect(R.state().value).toEqual(2);
+        let stars = R.find('div[role="radio"]');
+        const event = {};
+        stars.at(1).simulate('click', event);
+        expect(R.state().hoverValue).toEqual(0);
+        expect(R.state().value).toEqual(0);
+        stars.at(1).simulate('click', event);
+        expect(R.state().hoverValue).toEqual(2);
+        expect(R.state().value).toEqual(2);
+    });
+
     it('tooltips', () => {
         let tooltips = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
         let props = {
