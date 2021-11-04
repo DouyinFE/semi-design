@@ -187,7 +187,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
         showPath: false,
     };
 
-    _treeRef: React.RefObject<Tree> = null;
+    _treeRef: Tree = null;
 
     constructor(props: TransferProps) {
         super(props);
@@ -471,7 +471,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
                 value={values}
                 defaultExpandAll
                 leafOnly
-                ref={this._treeRef}
+                ref={tree => this._treeRef = tree}
                 filterTreeNode
                 searchRender={false}
                 searchStyle={{ padding: 0 }}
