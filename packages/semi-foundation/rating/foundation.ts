@@ -106,7 +106,7 @@ export default class RatingFoundation<P = Record<string, any>, S = Record<string
         const isReset = allowClear ? newValue === value : false;
         this._adapter.updateValue(isReset ? 0 : newValue);
         if (isReset) {
-            this._adapter.notifyHoverChange(0, newValue);
+            this._adapter.notifyHoverChange(undefined, newValue);
         } else {
             this._adapter.clearValue(null);
         }
