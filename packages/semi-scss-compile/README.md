@@ -41,7 +41,7 @@ compile(resolve('semi-foundation/'), resolve('semi-theme-default/'), resolve('se
 
 ```
 
-### extend API
+### Advanced API
 
 ```js
 const {generateScssMap, writeFile, compilerFromScssMap} = require('@douyinfe/semi-scss-compile');
