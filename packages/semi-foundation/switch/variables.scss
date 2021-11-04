@@ -24,6 +24,8 @@ $color-switch_checked-bg-default: var(--semi-color-success); // 开启态开关�
 $color-switch_checked-bg-hover: var(--semi-color-success-hover); // 开启态开关背景色 - 悬浮
 $color-switch_checked-bg-active: var(--semi-color-success-active); // 开启态开关背景色 - 按下
 $color-switch_disabled-bg-default: transparent; // 禁用态开关背景色
+$color-switch_disabled-bg-hover: transparent; // 禁用态开关背景色 - 悬浮
+$color-switch_disabled-bg-active: transparent; // 禁用态开关背景色 - 按下
 $color-switch_disabled-border-default: var(--semi-color-border); // 禁用态开关描边颜色
 $color-switch_disabled-bg-hover: transparent; // 禁用态开关背景色 - 悬浮
 $color-switch_checked_disabled-bg-default: var(--semi-color-success-disabled); // 禁用开启态开关背景颜色

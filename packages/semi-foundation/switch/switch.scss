@@ -55,6 +55,14 @@ $module: #{$prefix}-switch;
         background-color: $color-switch_disabled-bg-default;
         border: $border-thickness-control $color-switch_disabled-border-default solid;
 
+        &:hover {
+            background-color: $color-switch_disabled-bg-hover;
+        }
+
+        &:active {
+            background-color: $color-switch_disabled-bg-active;
+        }
+        
         .#{$module}-knob {
             cursor: not-allowed;
             @include shadow-0;
