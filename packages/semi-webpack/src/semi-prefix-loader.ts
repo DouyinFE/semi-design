@@ -4,7 +4,7 @@ import traverse from '@babel/traverse';
 import generate from '@babel/generator';
 
 export default function semiPrefixLoader(source: string) {
-    const query = loaderUtils.getOptions ? loaderUtils.getOptions(this) : loaderUtils.parseQuery(this.query);
+    const query = loaderUtils.getOptions(this);
     const ast = parse(source, {
         sourceType: 'module'
     });
