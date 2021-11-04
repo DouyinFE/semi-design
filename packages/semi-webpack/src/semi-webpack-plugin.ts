@@ -7,6 +7,7 @@ export interface SemiWebpackPluginOptions {
     prefixCls?: string;
     variables?: {[key: string]: string | number};
     include?: string;
+    omitCss?: boolean;
 }
 
 export interface SemiThemeOptions {
@@ -22,9 +23,13 @@ export default class SemiWebpackPlugin {
 
     apply(compiler: any) {
         compiler.hooks.compilation.tap('SemiPlugin', (compilation: any) => {
-            if (this.options.theme || this.options.prefixCls) {
+            if (this.options.theme || this.options.prefixCls || this.options.omitCss) {
                 if (NormalModule.getCompilationHooks) {
                     NormalModule.getCompilationHooks(compilation).loader.tap('SemiPlugin', (context: any, module: any) => {
+                        if (this.options.omitCss) {
+                            this.omitCss(module);
+                            return;
+                        }
                         this.customTheme(module);
                         if (this.options.prefixCls) {
                             this.customPrefix(module, this.options.prefixCls);
@@ -32,6 +37,10 @@ export default class SemiWebpackPlugin {
                     })
                 } else {
                     compilation.hooks.normalModuleLoader.tap('SemiPlugin', (context: any, module: any) => {
+                        if (this.options.omitCss) {
+                            this.omitCss(module);
+                            return;
+                        }
                         this.customTheme(module);
                         if (this.options.prefixCls) {
                             this.customPrefix(module, this.options.prefixCls);
@@ -40,6 +49,16 @@ export default class SemiWebpackPlugin {
                 }
             }
         });
+    }
+
+    omitCss(module: any) {
+        const compatiblePath = transformPath(module.resource);
+        if (/@douyinfe\/semi-(ui|icons)\/.+\.js$/.test(compatiblePath)) {
+            module.loaders = module.loaders || [];
+            module.loaders.push({
+                loader: path.join(__dirname, 'semi-omit-css-loader')
+            });
+        }
     }
 
     customTheme(module: any) {
