@@ -39,7 +39,7 @@ Version：Major.Minor.Patch
     - Icon related
       - Icon component no longer supports type = xxx using built-in icons
       - Custom svg no longer supports plug-in configuration srcSvgPaths
-      - The Button icon property no longer supports passing built-in icon names through strings
+      - The Button `icon` and `iconType` property no longer supports passing built-in icon names through strings
       - Dropdown deletes the iconType attribute and unifies it into the icon attribute
       - Navigation icons no longer support incoming by string, ReactNode needs to be passed in
       - Notification icons are no longer passed in by string, please use ReactNode uniformly
@@ -48,6 +48,7 @@ Version：Major.Minor.Patch
     - Form no longer exports Label components from `semi-ui/index.js`
     - Tree onRightClick renamed onContextMenu
     - Upload dragable renamed draggable
+    - Tooltip no longer supports the `disabled` attribute, and components that rely on Tooltip (such as Popover, Dropdown, etc.) transparently transmitted to Tooltip `disabled` will become invalid
     - Table
       - API that no longer responds when componentDidUpdate
         - DefaultExpandAllRows, please replace with expandAllRows
