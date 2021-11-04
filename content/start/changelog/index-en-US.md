@@ -16,6 +16,22 @@ Version：Major.Minor.Patch
 
 ---
 
+#### 🎉 2.0.2 (2021-11-04)
+- 【Fix】
+  - Fixed the type definition of Toast [#166](https://github.com/DouyinFE/semi-design/issues/166)
+  - Fixed the type definition of Radio `value` and `defaultValue`, from `string` to `string | number` [#159](https://github.com/DouyinFE/semi-design/issues/159)
+  - Fixed the problem of Transfer search under `treeList` `type` [#163](https://github.com/DouyinFE/semi-design/issues/163)
+  - When DatePicker `type=month`, the computer is set to the US Eastern time zone and the date cannot be selected [#173](https://github.com/DouyinFE/semi-design/issues/173)
+  - Fixed List type definition error [#156](https://github.com/DouyinFE/semi-design/issues/156)
+  - Fixed the type definition issue of Select component `renderSelectedItems` [#160](https://github.com/DouyinFE/semi-design/issues/160)
+  - Fixed Tooltip event callback is not removed correctly [#192](https://github.com/DouyinFE/semi-design/issues/192)
+- 【Style】
+  - New tokens for Switch: `$color-switch_disabled-bg-hover`, `$color-switch_disabled-bg-active`, custom disabled background color [#115](https://github.com/DouyinFE/semi-design/issues/115)
+- 【Docs】
+  - Optimize some document issues [#165](https://github.com/DouyinFE/semi-design/issues/165) [#175](https://github.com/DouyinFE/semi-design/issues/175) [@YufeeXing](https://github.com/YufeeXing) [@BestDingSheng](https://github.com/BestDingSheng)
+- 【Chore】
+  - Anchor adds `max-height`, `max-width` test cases [#151](https://github.com/DouyinFE/semi-design/issues/151) [@songjianet](https://github.com/songjianet)
+
 #### 🎉 2.0.1 (2021-11-01)
 - 【Fix】
   - Fixed TreeSelect will expand its child nodes and close them immediately after selecting a node, causing a visual flickering feeling [#78](https://github.com/DouyinFE/semi-design/issues/78)
