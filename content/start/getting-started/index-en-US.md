@@ -15,6 +15,9 @@ npm i @douyinfe/semi-ui
 
 # with yarn
 yarn add @douyinfe/semi-ui
+
+# with pnpm
+pnpm add @douyinfe/semi-ui
 ```
 ## 2、Use components in a modular way 💫
 
