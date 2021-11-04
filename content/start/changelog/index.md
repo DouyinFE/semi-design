@@ -15,6 +15,23 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 ---
 
+#### 🎉 2.0.2 (2021-11-04)
+- 【Fix】
+  - 修复 Toast 的类型定义 [#166](https://github.com/DouyinFE/semi-design/issues/166)
+  - 修复 Radio value / defaultValue 的类型定义，从 string 改正为 string | number [#159](https://github.com/DouyinFE/semi-design/issues/159)
+  - 修复 Transfer 在 treeList 类型下搜索问题 [#163](https://github.com/DouyinFE/semi-design/issues/163)
+  - 修复 DatePicker type=month 时，计算机设置为美东时区，无法选中日期问题 [#173](https://github.com/DouyinFE/semi-design/issues/173)
+  - 修复 List 类型定义错误问题 [#156](https://github.com/DouyinFE/semi-design/issues/156)
+  - 修复 Select 组件 renderSelectedItems 类型定义问题 [#160](https://github.com/DouyinFE/semi-design/issues/160)
+  - 修复 Tooltip 事件回调没有正确移除问题 [#192](https://github.com/DouyinFE/semi-design/issues/192)
+- 【Style】
+  - Switch 新增 Token：$color-switch_disabled-bg-hover，$color-switch_disabled-bg-active， 定制disabled 态的背景颜色 [#115](https://github.com/DouyinFE/semi-design/issues/115)
+- 【Docs】
+  - 优化一些文档问题 [#165](https://github.com/DouyinFE/semi-design/issues/165) [#175](https://github.com/DouyinFE/semi-design/issues/175) [@YufeeXing](https://github.com//YufeeXing) [@BestDingSheng](https://github.com//BestDingSheng)
+- 【Chore】
+  - Anchor 新增 max-height、max-width 测试用例 [#151](https://github.com/DouyinFE/semi-design/issues/151) [@songjianet](https://github.com//songjianet)
+
+
 #### 🎉 2.0.1 (2021-11-01)
 - 【Fix】
   - 修复 TreeSelect 选中节点后会展开其子节点并立即关闭，造成视觉跳闪的感觉 [#78](https://github.com/DouyinFE/semi-design/issues/78)
