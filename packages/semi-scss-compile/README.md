@@ -15,11 +15,11 @@ There are mainly the following two usage scenarios:
 ```shell
 npm i -g @douyinfe/semi-scss-compile
 
-semiScssCompile --foundation="path/to/foundation" --theme="path/to/theme" --output="path/to/output.css" --min=true
+semi-build-scss --foundation="path/to/foundation" --theme="path/to/theme" --output="path/to/output.css" --min=true
 
 # or for short
 
-semiScssCompile -f "path/to/foundation" -t "path/to/theme" -o "path/to/output.css" -m true
+semi-build-scss -f "path/to/foundation" -t "path/to/theme" -o "path/to/output.css" -m true
 
 ```
 
