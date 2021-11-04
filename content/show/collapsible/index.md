@@ -322,7 +322,7 @@ class Demo extends React.Component {
             <>
                 <Button onClick={this.toggle}>Toggle</Button>
                 <div style={{ position: 'relative' }}>
-                    <Collapsible isOpen={isOpen} collapseHeight={80} style={{ ...maskStyle }}>
+                    <Collapsible isOpen={isOpen} collapseHeight={50} style={{ ...maskStyle }}>
                         {collapsed}
                     </Collapsible>
                     {isOpen ? null : (
