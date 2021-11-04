@@ -18,7 +18,7 @@ export interface ConfigProps {
 }
 export interface ToastProps extends ConfigProps {
     onClose?: () => void;
-    content?: any;
+    content: any;
     type?: ToastType;
     textMaxWidth?: string | number;
     style?: Record<string, any>;

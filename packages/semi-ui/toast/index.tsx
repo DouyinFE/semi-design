@@ -21,7 +21,7 @@ export { ToastTransitionProps } from './ToastTransition';
 export interface ToastReactProps extends ToastProps{
     style?: CSSProperties;
     icon?: React.ReactNode;
-    content?: React.ReactNode;
+    content: React.ReactNode;
 }
 
 export {
@@ -33,9 +33,10 @@ export {
 const createBaseToast = () => class ToastList extends BaseComponent<ToastListProps, ToastListState> {
     static ref: ToastList;
     static useToast: typeof useToast;
-    static defaultOpts: ToastProps & { motion: Motion } = {
+    static defaultOpts: ToastReactProps & { motion: Motion } = {
         motion: true,
         zIndex: 1010,
+        content: '',
     };
     static propTypes = {
         content: PropTypes.node,
@@ -66,7 +67,7 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
         };
     }
 
-    static create(opts: ToastProps) {
+    static create(opts: ToastReactProps) {
         const id = getUuid('toast');
         // this.id = id;
         if (!ToastList.ref) {
@@ -130,35 +131,35 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
     static getWrapperId() {
         return this.wrapperId;
     }
-    static info(opts: Omit<ToastProps, 'type'> | string) {
+    static info(opts: Omit<ToastReactProps, 'type'> | string) {
         if (typeof opts === 'string') {
             opts = { content: opts };
         }
         return this.create({ ...ToastList.defaultOpts, ...opts, type: 'info' });
     }
 
-    static warning(opts: Omit<ToastProps, 'type'> | string) {
+    static warning(opts: Omit<ToastReactProps, 'type'> | string) {
         if (typeof opts === 'string') {
             opts = { content: opts };
         }
         return this.create({ ...ToastList.defaultOpts, ...opts, type: 'warning' });
     }
 
-    static error(opts: Omit<ToastProps, 'type'> | string) {
+    static error(opts: Omit<ToastReactProps, 'type'> | string) {
         if (typeof opts === 'string') {
             opts = { content: opts };
         }
         return this.create({ ...ToastList.defaultOpts, ...opts, type: 'error' });
     }
 
-    static success(opts: Omit<ToastProps, 'type'> | string) {
+    static success(opts: Omit<ToastReactProps, 'type'> | string) {
         if (typeof opts === 'string') {
             opts = { content: opts };
         }
         return this.create({ ...ToastList.defaultOpts, ...opts, type: 'success' });
     }
 
-    static config(opts: ToastProps) {
+    static config(opts: ConfigProps) {
         ['top', 'left', 'bottom', 'right'].forEach(pos => {
             if (pos in opts) {
                 ToastList.defaultOpts[pos] = opts[pos];
