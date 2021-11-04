@@ -1,3 +1,5 @@
+import isNullOrUndefined from "./isNullOrUndefined";
+
 export default class Event {
     _eventMap = new Map<string, Array<(...arg: any) => void>>();
 
@@ -32,7 +34,7 @@ export default class Event {
                         callbacks.splice(index, 1);
                     }
                 }
-            } else if (callback === null) {
+            } else if (isNullOrUndefined(callback)) {
                 this._eventMap.delete(event);
             }
         }
