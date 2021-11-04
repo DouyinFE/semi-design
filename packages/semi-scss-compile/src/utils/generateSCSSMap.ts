@@ -22,7 +22,7 @@ const generateComponentsScssMap = (foundationPath: string, iconPath: string) => 
     });
 
     //for react icon
-    const stylePath = path.join(iconPath, 'lib', 'es', 'styles');
+    const stylePath = path.join(iconPath, 'src', 'styles');
     const scssFileList = fs.readdirSync(stylePath).filter((fileName) => fileName.endsWith('.scss'));
     scssFileList.forEach(scssFileName => {
         let scssRaw = fs.readFileSync(path.join(stylePath, scssFileName), {encoding: 'utf-8'});
