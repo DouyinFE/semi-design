@@ -15,6 +15,17 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 ---
 
+#### 🎉 2.0.3 (2021-11-06)
+- 【Fix】
+  - 修复 Tree / TreeSelect 在 loading 状态下 item 高度变大的问题 [#181](https://github.com/DouyinFE/semi-design/issues/181)
+  - 修复 TagInput 在 separator 不为 string 或 array 时输入值会被清空的问题 [#182](https://github.com/DouyinFE/semi-design/issues/182)
+  - 修复 Form 通过 setValues 重置 ArrayField时，formState已生效，UI渲染未同步更新的问题 [#211](https://github.com/DouyinFE/semi-design/issues/211)
+- 【Docs】
+  - 介绍页增加 pnpm 安装方式 [#27](https://github.com/DouyinFE/semi-design/pull/27) [@Sepush](https://github.com//Sepush)
+- 【Chore】
+  - 日语语言包优化 Pagination、DatePicker 组件的两处文案 [#135](https://github.com/DouyinFE/semi-design/pull/135) [@Void-YY](https://github.com//Void-YY)
+
+
 #### 🎉 2.0.2 (2021-11-04)
 - 【Fix】
   - 修复 Toast 的类型定义 [#166](https://github.com/DouyinFE/semi-design/issues/166)

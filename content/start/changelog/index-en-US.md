@@ -16,6 +16,17 @@ Version：Major.Minor.Patch
 
 ---
 
+#### 🎉 2.0.3 (2021-11-06)
+- 【Fix】
+  - Fix the problem that the item height of Tree / TreeSelect becomes larger in the loading state [#181](https://github.com/DouyinFE/semi-design/issues/181)
+  - Fix the problem that the input value of TagInput will be cleared when separator is not string or array [#182](https://github.com/DouyinFE/semi-design/issues/182)
+  - Fix the issue that when Form resets ArrayField through setValues, formState has taken effect and UI rendering is not updated synchronously [#211](https://github.com/DouyinFE/semi-design/issues/211)
+- 【Docs】
+  - Introduction page adds pnpm installation method [#27](https://github.com/DouyinFE/semi-design/pull/27) [@Sepush](https://github.com//Sepush)
+- 【Chore】
+  - Japanese language locale sources optimizes two copywriting of Pagination and DatePicker components[#135](https://github.com/DouyinFE/semi-design/pull/135) [@Void-YY](https://github.com//Void-YY)
+
+
 #### 🎉 2.0.2 (2021-11-04)
 - 【Fix】
   - Fixed the type definition of Toast [#166](https://github.com/DouyinFE/semi-design/issues/166)
