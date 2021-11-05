@@ -1,9 +1,10 @@
 //@import '../theme/variables.scss';
-@import './variables.scss';
+@import "./variables.scss";
 
 $module: #{$prefix}-input;
 
 @keyframes #{$module}-active {
+
     from {
         transform: scale($motion-scale_size-inactive);
     }
@@ -14,6 +15,7 @@ $module: #{$prefix}-input;
 }
 
 @keyframes #{$module}-inactive {
+
     from {
         transform: scale($motion-scale_size-active);
     }
@@ -523,6 +525,7 @@ $module: #{$prefix}-input;
     }
 
     &-disabled {
+
         &::placeholder {
             color: $color-input_disabled-text-default;
         }
@@ -538,32 +541,6 @@ $module: #{$prefix}-input;
         .#{$prefix}-select,
         .#{$prefix}-cascader,
         .#{$prefix}-tree-select,
-        & > .#{$module}-wrapper {
-            border-radius: 0;
-
-            &:first-child {
-                border-radius: $radius-input_wrapper 0 0 $radius-input_wrapper;
-            }
-
-            &:last-child {
-                border-radius: 0 $radius-input_wrapper $radius-input_wrapper 0;
-            }
-
-            &:not(:last-child) {
-                position: relative;
-
-                &::after {
-                    content: '';
-                    background-color: $color-input_group-border-default;
-                    width: $width-input_group_pseudo-border;
-                    // height: $inputGroup-border-height;
-                    position: absolute;
-                    right: -1px;
-                    top: 1px;
-                    bottom: 1px;
-                }
-            }
-        }
 
         .#{$prefix}-input-number,
         .#{$prefix}-datepicker,
@@ -592,7 +569,7 @@ $module: #{$prefix}-input;
                 position: relative;
 
                 &::after {
-                    content: '';
+                    content: "";
                     background-color: $color-input_group-border-default;
                     width: $width-input_group_pseudo-border;
                     // height: $inputGroup-border-height;
@@ -605,7 +582,35 @@ $module: #{$prefix}-input;
         }
     }
 
+    &-group > .#{$module}-wrapper {
+        border-radius: 0;
+
+        &:first-child {
+            border-radius: $radius-input_wrapper 0 0 $radius-input_wrapper;
+        }
+
+        &:last-child {
+            border-radius: 0 $radius-input_wrapper $radius-input_wrapper 0;
+        }
+
+        &:not(:last-child) {
+            position: relative;
+
+            &::after {
+                content: "";
+                background-color: $color-input_group-border-default;
+                width: $width-input_group_pseudo-border;
+                // height: $inputGroup-border-height;
+                position: absolute;
+                right: -1px;
+                top: 1px;
+                bottom: 1px;
+            }
+        }
+    }
+
     &-group-wrapper {
+
         &-with-top-label {
             margin-top: $spacing-input_group_withTopLabel-marginTop;
             margin-bottom: $spacing-input_group_withTopLabel-marginBottom;
