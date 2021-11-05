@@ -35,7 +35,7 @@ export interface ListProps {
 
 const prefixCls = cssClasses.PREFIX;
 
-class List extends BaseComponent<ListProps, void> {
+class List extends BaseComponent<ListProps> {
     static Item = ListItem;
 
     static propTypes = {

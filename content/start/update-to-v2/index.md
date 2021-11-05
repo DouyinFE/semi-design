@@ -64,9 +64,7 @@ import en_GB from '@douyinfe/semi-ui/lib/es/locale/source/en_GB'
 - Icon 相关
   - Icon 组件不再支持  type=xxx 方式使用内置 icon
   - 自定义 svg 不再支持插件方式配置 srcSvgPaths
-  - Button
-    - icon 属性不再支持通过 string 传递内置 icon 名
-    - 移除 iconType 属性
+  - Button icon 属性不再支持通过 string 传递内置 icon 或 iconType
   - Dropdown 删除 iconType 属性，统一为 icon 属性
   - Navigation icon 不再支持通过 string 方式传入，需要传入 ReactNode
   - Notification icon 不再支持通过 string 方式传入，请统一使用 ReactNode
@@ -75,6 +73,7 @@ import en_GB from '@douyinfe/semi-ui/lib/es/locale/source/en_GB'
 - Form 不再从 `semi-ui/index.js` 导出 Label组件，如需使用请用 Form.Label
 - Tree onRightClick 更名为 onContextMenu
 - Upload dragable 更名为 draggable
+- Tooltip 不再支持 disabled 属性，依赖 Tooltip 的组件（如 Popover、Dropdown 等）透传给 Tooltip disabled 将失效
 - Table
   - 不再在 componentDidUpdate 时响应的 API
     - defaultExpandAllRows，请用 expandAllRows 替换

@@ -55,7 +55,6 @@ $module: #{$prefix}-tree;
     }
 
     li > .#{$module}-option-label {
-        // box-sizing: border-box;
         list-style-type: none;
         padding: 0;
     }
@@ -66,10 +65,8 @@ $module: #{$prefix}-tree;
         width: $width-tree_emptyIcon;
         color: $color-tree_option-icon-default;
         margin-right: $spacing-tree_icon-marginRight;
-        // padding: 4px 0;
         display: flex;
         flex-shrink: 0;
-        // align-self: start;
     }
 
     .#{$module}-option {
@@ -110,7 +107,6 @@ $module: #{$prefix}-tree;
 
         &-label-text,
         .#{$prefix}-checkbox-addon {
-            // padding: 2px 4px;
             border-radius: $radius-tree_checkbox_addon;
 
             &:hover {
@@ -318,14 +314,11 @@ $module: #{$prefix}-tree;
 
         &-spin-icon {
             display: flex;
-            // box-sizing: content-box;
             & svg {
                 width: $width-tree_spinIcon;
                 height: $width-tree_spinIcon;
             }
-            margin-right: $spacing-tree_icon-marginRight;
             color: $color-tree_option_loading-icon-default;
-            padding: $spacing-tree_spinIcon-paddingY $spacing-tree_spinIcon-paddingX;
         }
 
         &-selected {

@@ -1,13 +1,14 @@
-@import './variable.scss';
+@import "./variable.scss";
 
 :lang(zh-CN),
 html {
-    quotes: '“' '”';
+    quotes: "“" "”";
 }
 
 html {
     // scroll-behavior: smooth;
 }
+
 body {
     width: 100%;
     overflow-x: hidden;
@@ -16,17 +17,18 @@ body {
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
     font-synthesis: none;
-    -moz-font-feature-settings: 'kern';
+    -moz-font-feature-settings: "kern";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB',
-        'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB",
+        "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-body[theme-mode='dark'] {
+body[theme-mode="dark"] {
+
     .live-container .editor-outer .editor-container {
-        background: rgba(255, 255, 255, 0.04);
+        background: rgba(255, 255, 255, .04);
     }
 }
 
@@ -35,16 +37,17 @@ pre {
     font-family: Inconsolata, monospace;
 }
 
-body[theme-mode='dark'] {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB',
-        'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+body[theme-mode="dark"] {
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB",
+        "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
     .gatsby-side-nav-top {
-        background: rgba(35, 36, 41, 0.75);
+        background: rgba(35, 36, 41, .75);
         border-color: transparent;
     }
 
     .side-nav {
-        background: rgba(35, 36, 41, 0.55);
+        background: rgba(35, 36, 41, .55);
         border-color: transparent;
     }
 
@@ -61,22 +64,27 @@ body[theme-mode='dark'] {
     top: 0;
     left: 0;
     margin-top: 60px;
-    background: rgba(255, 255, 255, 0.55);
+    background: rgba(255, 255, 255, .55);
+
     .semi-navigation {
-        padding-right: 0px;
+        padding-right: 0;
     }
 
     .semi-navigation-sub .semi-navigation-item {
         height: 40px;
         color: var(--semi-color-text-1);
     }
+
     .semi-navigation-item-selected {
         color: var(--semi-color-primary) !important;
     }
+
     .semi-navigation-list-wrapper {
+
         .semi-navigation-list {
             padding-bottom: 30px;
         }
+
         &::-webkit-scrollbar {
             width: 8px;
             height: 8px;
@@ -115,7 +123,8 @@ body[theme-mode='dark'] {
         z-index: 100;
         backdrop-filter: saturate(20%) blur(20px);
         -webkit-backdrop-filter: saturate(20%) blur(20px);
-        transition: transform 0.2s ease-in-out;
+        transition: transform .2s ease-in-out;
+
         &.show {
             transform: translateX(0);
         }
@@ -135,7 +144,7 @@ body[theme-mode='dark'] {
         padding-left: 0;
     }
 
-    [class*=footerMini8] {
+    [class*="footerMini8"] {
         margin-top: 0;
     }
 }
@@ -200,7 +209,7 @@ body[theme-mode='dark'] {
             margin: 0;
             position: relative;
             cursor: help;
-            top: 0.12em;
+            top: .12em;
         }
 
         p.md {
@@ -255,12 +264,13 @@ body[theme-mode='dark'] {
             visibility: hidden;
         }
 
-        [class^='image-'] {
+        [class^="image-"] {
             margin-bottom: 1.5 * $bf;
             box-shadow: 0 0 0 1px var(--semi-color-border);
             border-radius: 3px;
             overflow: hidden;
         }
+
         .image-large {
             grid-column: large;
         }
@@ -280,7 +290,7 @@ body[theme-mode='dark'] {
             width: 100%;
             @media screen and (max-width: $bp-mobile) {
                 grid-column: large;
-                border-width: 0.5px;
+                border-width: .5px;
                 // padding-left: 24px;
                 padding-right: 16px;
                 box-sizing: border-box;
@@ -301,6 +311,7 @@ body[theme-mode='dark'] {
         .text {
             vertical-align: middle;
         }
+
         .example-container {
             grid-column: large;
         }
@@ -327,6 +338,7 @@ body[theme-mode='dark'] {
             display: none;
         }
         margin-top: 1.5 * $bf;
+
         a {
             text-decoration: none;
         }
@@ -344,9 +356,11 @@ body[theme-mode='dark'] {
         margin-top: $bf;
         margin-bottom: 0;
     }
+
     .article-tag + .article-title {
         margin-top: $bf;
     }
+
     .article-footer {
         margin-top: 8 * $bf;
         padding-top: 16px;
@@ -358,6 +372,7 @@ body[theme-mode='dark'] {
 
 // 隐藏anchor时，文章宽度最大化，避免API参考部分出现积压
 @media screen and (max-width: 1399px) {
+
     .article-wrapper {
         box-sizing: border-box;
         width: 100%;
@@ -390,8 +405,10 @@ $spCol: var(--semi-color-primary);
     padding-top: 60px;
 }
 
-[theme-mode='dark'] {
+[theme-mode="dark"] {
+
     .color-block {
+
         &:hover {
             box-shadow: 0 0 0 3px rgba(10, 10, 10, 1);
         }
@@ -399,8 +416,10 @@ $spCol: var(--semi-color-primary);
 }
 
 :global {
+
     body {
         display: block;
+
         &::-webkit-scrollbar {
             width: 8px;
             height: 8px;
@@ -427,5 +446,12 @@ $spCol: var(--semi-color-primary);
         &::-webkit-scrollbar-thumb:hover {
             background: var(--semi-color-fill-1);
         }
+    }
+}
+
+@media (max-width: 1500px) {
+
+    .pageAnchor {
+        display: none;
     }
 }

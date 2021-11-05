@@ -72,10 +72,12 @@ export interface virtualListProps {
     height?: number;
     width?: string | number;
 }
-export interface RenderSelectedItemFn {
-    (optionNode: Record<string, any>): React.ReactNode;
-    (optionNode: Record<string, any>, multipleProps: { index: number } & Record<string, any>): { isRenderInTag: boolean; content: React.ReactNode };
-}
+
+export type RenderSingleSelectedItemFn = (optionNode: Record<string, any>) => React.ReactNode;
+export type RenderMultipleSelectedItemFn = (optionNode: Record<string, any>, multipleProps: { index: number; disabled: boolean; onClose: (tagContent: React.ReactNode, e: MouseEvent) => void }) => { isRenderInTag: boolean; content: React.ReactNode };
+
+export type RenderSelectedItemFn = RenderSingleSelectedItemFn | RenderMultipleSelectedItemFn;
+
 export type SelectProps = {
     autoFocus?: boolean;
     arrowIcon?: React.ReactNode;
@@ -791,7 +793,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
 
         if (selectedItems.length) {
             const selectedItem = selectedItems[0][1];
-            renderText = renderSelectedItem(selectedItem);
+            renderText = (renderSelectedItem as RenderSingleSelectedItemFn)(selectedItem);
         }
 
         const spanCls = cls({
@@ -838,7 +840,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 }
                 this.foundation.removeTag({ label, value });
             };
-            const { content, isRenderInTag } = renderSelectedItem(item[1], { index: i, disabled, onClose });
+            const { content, isRenderInTag } = (renderSelectedItem as RenderMultipleSelectedItemFn)(item[1], { index: i, disabled, onClose });
             const basic = {
                 disabled,
                 closable: !disabled,

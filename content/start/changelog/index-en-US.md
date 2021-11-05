@@ -16,6 +16,33 @@ Version：Major.Minor.Patch
 
 ---
 
+#### 🎉 2.0.3 (2021-11-06)
+- 【Fix】
+  - Fix the problem that the item height of Tree / TreeSelect becomes larger in the loading state [#181](https://github.com/DouyinFE/semi-design/issues/181)
+  - Fix the problem that the input value of TagInput will be cleared when separator is not string or array [#182](https://github.com/DouyinFE/semi-design/issues/182)
+  - Fix the issue that when Form resets ArrayField through setValues, formState has taken effect and UI rendering is not updated synchronously [#211](https://github.com/DouyinFE/semi-design/issues/211)
+- 【Docs】
+  - Introduction page adds pnpm installation method [#27](https://github.com/DouyinFE/semi-design/pull/27) [@Sepush](https://github.com//Sepush)
+- 【Chore】
+  - Japanese language locale sources optimizes two copywriting of Pagination and DatePicker components[#135](https://github.com/DouyinFE/semi-design/pull/135) [@Void-YY](https://github.com//Void-YY)
+
+
+#### 🎉 2.0.2 (2021-11-04)
+- 【Fix】
+  - Fixed the type definition of Toast [#166](https://github.com/DouyinFE/semi-design/issues/166)
+  - Fixed the type definition of Radio `value` and `defaultValue`, from `string` to `string | number` [#159](https://github.com/DouyinFE/semi-design/issues/159)
+  - Fixed the problem of Transfer search under `treeList` `type` [#163](https://github.com/DouyinFE/semi-design/issues/163)
+  - When DatePicker `type=month`, the computer is set to the US Eastern time zone and the date cannot be selected [#173](https://github.com/DouyinFE/semi-design/issues/173)
+  - Fixed List type definition error [#156](https://github.com/DouyinFE/semi-design/issues/156)
+  - Fixed the type definition issue of Select component `renderSelectedItems` [#160](https://github.com/DouyinFE/semi-design/issues/160)
+  - Fixed Tooltip event callback is not removed correctly [#192](https://github.com/DouyinFE/semi-design/issues/192)
+- 【Style】
+  - New tokens for Switch: `$color-switch_disabled-bg-hover`, `$color-switch_disabled-bg-active`, custom disabled background color [#115](https://github.com/DouyinFE/semi-design/issues/115)
+- 【Docs】
+  - Optimize some document issues [#165](https://github.com/DouyinFE/semi-design/issues/165) [#175](https://github.com/DouyinFE/semi-design/issues/175) [@YufeeXing](https://github.com/YufeeXing) [@BestDingSheng](https://github.com/BestDingSheng)
+- 【Chore】
+  - Anchor adds `max-height`, `max-width` test cases [#151](https://github.com/DouyinFE/semi-design/issues/151) [@songjianet](https://github.com/songjianet)
+
 #### 🎉 2.0.1 (2021-11-01)
 - 【Fix】
   - Fixed TreeSelect will expand its child nodes and close them immediately after selecting a node, causing a visual flickering feeling [#78](https://github.com/DouyinFE/semi-design/issues/78)
@@ -39,9 +66,7 @@ Version：Major.Minor.Patch
     - Icon related
       - Icon component no longer supports type = xxx using built-in icons
       - Custom svg no longer supports plug-in configuration srcSvgPaths
-      - Button
-        - The Button icon property no longer supports passing built-in icon names through strings
-        - The iconType property is removed
+      - The Button `icon` and `iconType` property no longer supports passing built-in icon names through strings
       - Dropdown deletes the iconType attribute and unifies it into the icon attribute
       - Navigation icons no longer support incoming by string, ReactNode needs to be passed in
       - Notification icons are no longer passed in by string, please use ReactNode uniformly
@@ -50,6 +75,7 @@ Version：Major.Minor.Patch
     - Form no longer exports Label components from `semi-ui/index.js`
     - Tree onRightClick renamed onContextMenu
     - Upload dragable renamed draggable
+    - Tooltip no longer supports the `disabled` attribute, and components that rely on Tooltip (such as Popover, Dropdown, etc.) transparently transmitted to Tooltip `disabled` will become invalid
     - Table
       - API that no longer responds when componentDidUpdate
         - DefaultExpandAllRows, please replace with expandAllRows

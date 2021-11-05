@@ -1,9 +1,9 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import Select from '../index';
 import classNames from 'classnames';
-import { optionRenderProps } from '@douyinfe/semi-ui/select/index';
+import { optionRenderProps, RenderMultipleSelectedItemFn, RenderSingleSelectedItemFn } from '@douyinfe/semi-ui/select/index';
 import { Checkbox } from '../../index';
+import { Select, Avatar, Tag, Space } from '../../index';
 
 const stories = storiesOf('Select', module);
 
@@ -50,7 +50,7 @@ const RenderOptionDemo = () => {
         // 3.onMouseEnter需在wrapper dom上绑定，否则上下键盘操作时显示会有问题
 
         return (
-            <div style={style} className={optionCls} onClick={() => onClick()} onMouseEnter={e => onMouseEnter()}>
+            <div style={style} className={optionCls} onClick={(e) => onClick(e)} onMouseEnter={e => onMouseEnter(e)}>
                 <Checkbox checked={selected} />
                 <div className="option-right">{label}</div>
             </div>
@@ -67,3 +67,129 @@ const RenderOptionDemo = () => {
         />
     );
 };
+
+interface OptionNode {
+    name: string;
+    email: string;
+    avatar: string;
+}
+
+
+function CustomRender(props) {
+    const list = [
+        {
+            name: '夏可漫',
+            email: 'xiakeman@example.com',
+            avatar:
+                'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg',
+        },
+        {
+            name: '申悦',
+            email: 'shenyue@example.com',
+            avatar:
+                'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg',
+        },
+        {
+            name: '曲晨一',
+            email: 'quchenyi@example.com',
+            avatar:
+                'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/8bd8224511db085ed74fea37205aede5.jpg',
+        },
+        {
+            name: '文嘉茂',
+            email: 'wenjiamao@example.com',
+            avatar:
+                'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/6fbafc2d-e3e6-4cff-a1e2-17709c680624.png',
+        },
+    ];
+
+    const renderCustomOption = (item) => {
+        let optionStyle = {
+            display: 'flex',
+            paddingLeft: 24,
+            paddingTop: 10,
+            paddingBottom: 10,
+        };
+        return (
+            <Select.Option value={item.name} style={optionStyle} showTick={true} {...item} key={item.email}>
+                <Avatar size="small" src={item.avatar} />
+                <div style={{ marginLeft: 8 }}>
+                    <div style={{ fontSize: 14 }}>{item.name}</div>
+                    <div
+                        style={{
+                            color: 'var(--semi-color-text-2)',
+                            fontSize: 12,
+                            lineHeight: '16px',
+                            fontWeight: 'normal',
+                        }}
+                    >
+                        {item.email}
+                    </div>
+                </div>
+            </Select.Option>
+        );
+    }
+
+    const renderSelectedItem: RenderSingleSelectedItemFn = (optionNode: OptionNode): React.ReactNode => {
+        return (
+            <div key={optionNode.email} style={{ display: 'flex', alignItems: 'center' }}>
+                <Avatar src={optionNode.avatar} size="small">
+                    {optionNode.avatar}
+                </Avatar>
+                <span style={{ marginLeft: 8 }}>{optionNode.email}</span>
+            </div>
+        );
+    }
+
+    const renderMultipleWithCustomTag: RenderMultipleSelectedItemFn = (optionNode: OptionNode, { onClose  }) => {
+        let content = (
+            <Tag
+                avatarSrc={optionNode.avatar}
+                avatarShape="circle"
+                closable={true}
+                onClose={onClose}
+                size="large"
+                key={optionNode.name}
+            >
+                {optionNode.name}
+            </Tag>
+        );
+        return {
+            isRenderInTag: false,
+            content,
+        };
+    }
+
+    return (
+        <Space>
+            <Select
+                style={{
+                    width: 300,
+                    height: 40,
+                }}
+                defaultValue={'夏可漫'}
+                renderSelectedItem={renderSelectedItem}
+            >
+                {list.map(item => renderCustomOption(item))}
+            </Select>
+            <Select
+                placeholder="请选择"
+                maxTagCount={2}
+                style={{ width: 280 }}
+                onChange={v => console.log(v)}
+                defaultValue={['夏可漫', '申悦']}
+                multiple
+                renderSelectedItem={renderMultipleWithCustomTag}
+            >
+                {list.map(item => renderCustomOption(item))}
+            </Select>
+        </Space>
+    );
+}
+
+stories.add('自定义已选标签渲染', () => (
+    <>
+        <div>renderSelectedItem</div>
+        <CustomRender />
+    </>
+));

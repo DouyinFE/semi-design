@@ -1767,6 +1767,80 @@ function EventTable(props = {}) {
 render(EventTable);
 ```
 
+### 实现斑马纹样式
+
+使用 OnRow 给每行设置一个背景色，实现有斑马纹效果的表格。
+
+```jsx live=true noInline=true dir="column"
+import React from 'react';
+import { Table } from '@douyinfe/semi-ui';
+
+function App() {
+    const columns = [
+        {
+            title: 'Name',
+            dataIndex: 'name',
+            render: (text, record, index) => {
+                console.log(text, record, index)
+                return <a>{text}</a>;
+            },
+        },
+        {
+            title: 'Age',
+            dataIndex: 'age',
+        },
+        {
+            title: 'Address',
+            dataIndex: 'address',
+        },
+    ];
+
+    const data = [
+        {
+            key: '1',
+            name: 'John Brown',
+            age: 32,
+            address: 'New York No. 1 Lake Park, New York No. 1 Lake Park',
+        },
+        {
+            key: '2',
+            name: 'Jim Green',
+            age: 42,
+            address: 'London No. 1 Lake Park',
+        },
+        {
+            key: '3',
+            name: 'Joe Black',
+            age: 32,
+            address: 'Sidney No. 1 Lake Park',
+        },
+        {
+            key: '4',
+            name: 'Michael James',
+            age: 99,
+            address: 'Sidney No. 1 Lake Park',
+        },
+    ];
+
+    const handleRow = (record, index) => {
+        // 给偶数行设置斑马纹
+        if (index % 2 === 0) {
+            return {
+                style: {
+                    background: 'var(--semi-color-fill-0)',
+                }
+            };
+        } else {
+            return {};
+        }
+    };
+
+    return <Table columns={columns} dataSource={data} onRow={handleRow} pagination={false} />;
+}
+
+render(App);
+```
+
 ### 可伸缩列
 
 版本 >= 0.15.0
@@ -1954,35 +2028,35 @@ render(ResizableDemo);
 使用自定义元素，我们可以集成 `react-dnd` 来实现拖拽排序。
 
 ```jsx live=true dir="column" noInline=true hideInDSM
-import React from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import { Table, Tooltip, Tag } from '@douyinfe/semi-ui';
 import { DndProvider, DragSource, DropTarget } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
-let dragingIndex = -1;
+let draggingIndex = -1;
+const PAGE_SIZE = 5;
 
-class BodyRow extends React.Component {
-    render() {
-        const { isOver, connectDragSource, connectDropTarget, moveRow, ...restProps } = this.props;
-        const style = { ...restProps.style, cursor: 'move' };
+function BodyRow(props) {
+    const { isOver, connectDragSource, connectDropTarget, moveRow, currentPage, ...restProps } = props;
+    const style = { ...restProps.style, cursor: 'move' };
 
-        let { className } = restProps;
-        if (isOver) {
-            if (restProps.index > dragingIndex) {
-                className += ' drop-over-downward';
-            }
-            if (restProps.index < dragingIndex) {
-                className += ' drop-over-upward';
-            }
+    let { className } = restProps;
+    if (isOver) {
+        console.log('true');
+        if (restProps.index > draggingIndex) {
+            className += ' drop-over-downward';
         }
-
-        return connectDragSource(connectDropTarget(<tr {...restProps} className={className} style={style} />));
+        if (restProps.index < draggingIndex) {
+            className += ' drop-over-upward';
+        }
     }
+
+    return connectDragSource(connectDropTarget(<tr {...restProps} className={className} style={style} />));
 }
 
 const rowSource = {
     beginDrag(props) {
-        dragingIndex = props.index;
+        draggingIndex = props.index;
         return {
             index: props.index,
         };
@@ -2004,7 +2078,7 @@ const rowTarget = {
     },
 };
 
-const DragableBodyRow = DropTarget('row', rowTarget, (connect, monitor) => ({
+const DraggableBodyRow = DropTarget('row', rowTarget, (connect, monitor) => ({
     connectDropTarget: connect.dropTarget(),
     isOver: monitor.isOver(),
 }))(
@@ -2046,64 +2120,68 @@ const columns = [
     }
 ];
 
-class DragSortingTableDemo extends React.Component {
-    constructor() {
-        this.data = [];
-        for (let i = 0; i < 46; i++) {
-            let age = 40 + (Math.random() > 0.5 ? 1 : -1) * Math.ceil(i/3);
-            let name = `Edward King ${i}`;
-            this.data.push({
-                key: '' + i,
-                name,
-                age,
-                address: `London, Park Lane no. ${i}`,
-                description: `My name is ${name}, I am ${age} years old, living in New York No. ${i+1} Lake Park.`,
-            });
-        }
+const initData = [];
+for (let i = 0; i < 46; i++) {
+    let age = 40 + (Math.random() > 0.5 ? 1 : -1) * Math.ceil(i/3);
+    let name = `Edward King ${i}`;
+    initData.push({
+        key: '' + i,
+        name,
+        age,
+        address: `London, Park Lane no. ${i}`,
+        description: `My name is ${name}, I am ${age} years old, living in New York No. ${i+1} Lake Park.`,
+    });
+}
 
-        this.state = {
-            data: [...this.data],
-        };
+function DragSortingTableDemo(props) {
+    const [data, setData] = useState([...initData]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [pageData, setPageData] = useState(data.slice(0, PAGE_SIZE));
 
-        this.components = {
-            body: {
-                row: DragableBodyRow,
-            },
-        };
+    const components = useMemo(() => ({
+        body: {
+            row: DraggableBodyRow,
+        },
+    }), []);
 
-        this.pagination = {
-            pageSize: 5
-        };
+    const moveRow = (dragIndex, hoverIndex) => {
+        const totalDragIndex = (currentPage - 1) * PAGE_SIZE + dragIndex;
+        const totalHoverIndex = (currentPage - 1) * PAGE_SIZE + hoverIndex;
+        const dragRow = data[totalDragIndex];
+        const newData = [...data];
+        newData.splice(totalDragIndex, 1);
+        newData.splice(totalHoverIndex, 0, dragRow);
+        setData(newData);
+        setPageData(newData.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE));
+    };
 
-        this.moveRow = (dragIndex, hoverIndex) => {
-            const { data } = this.state;
-            const dragRow = data[dragIndex];
-            
-            const newData = [...data];
-            newData.splice(dragIndex, 1);
-            newData.splice(hoverIndex, 0, dragRow);
-            this.setState({ data: newData });
-        };
-    }
+    const handlePageChange = (pageNum) => {
+        console.log(pageNum);
+        setCurrentPage(pageNum);
+        setPageData(data.slice((pageNum - 1) * PAGE_SIZE, pageNum * PAGE_SIZE));
+    };
 
-    render() {
-        return (
-            <div id="components-table-demo-drag-sorting">
-                <DndProvider backend={HTML5Backend}>
-                    <Table
-                        pagination={this.pagination}
-                        columns={columns}
-                        dataSource={this.state.data}
-                        components={this.components}
-                        onRow={(record, index) => ({
-                            index,
-                            moveRow: this.moveRow,
-                        })}
-                    />
-                </DndProvider>
-            </div>
-        );
-    }
+    return (
+        <div id="components-table-demo-drag-sorting">
+            <DndProvider backend={HTML5Backend}>
+                <Table
+                    columns={columns}
+                    dataSource={pageData}
+                    pagination={{
+                        pageSize: PAGE_SIZE,
+                        total: data.length,
+                        currentPage,
+                        onPageChange: handlePageChange
+                    }}
+                    components={components}
+                    onRow={(record, index) => ({
+                        index,
+                        moveRow,
+                    })}
+                />
+            </DndProvider>
+        </div>
+    );
 }
 
 render(DragSortingTableDemo);
