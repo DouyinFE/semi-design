@@ -27,7 +27,42 @@ stories.add('autoFocus', () => (
 
 
 stories.add('separator', () => (
-    <TagInput separator='-' style={style} placeholder='使用"-"分隔' />
+    <>
+        <TagInput
+            placeholder='默认 separator'
+            onChange={v => console.log(v)}
+        />
+        <br /><br />
+        <TagInput
+            separator='-'
+            placeholder='使用 - 进行批量输入'
+            onChange={v => console.log(v)}
+        />
+        <br /><br />
+        <TagInput
+            separator={[',','|','.']}
+            placeholder='支持多个分隔符进行批量输入'
+            onChange={v => console.log(v)}
+        />
+        <br /><br />
+        <TagInput
+            separator={null}
+            placeholder='separator 为 null'
+            onChange={v => console.log(v)}
+        />
+        <br /><br />
+        <TagInput
+            separator={1}
+            placeholder='separator 为 number'
+            onChange={v => console.log(v)}
+        />
+        <br /><br />
+        <TagInput
+            separator={' '}
+            placeholder='separator 为 空格'
+            onChange={v => console.log(v)}
+        />
+    </>
 ))
 
 

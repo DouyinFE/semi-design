@@ -48,7 +48,7 @@ export interface TagInputProps {
     placeholder?: string;
     prefix?: React.ReactNode;
     renderTagItem?: (value: string, index: number) => React.ReactNode;
-    separator?: string | string[];
+    separator?: string | string[] | null;
     showClear?: boolean;
     size?: Size;
     style?: React.CSSProperties;
