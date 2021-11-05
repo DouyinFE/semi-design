@@ -384,11 +384,7 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
         if (this.registeredArrayField.size) {
             const arrayFieldPaths = [...this.registeredArrayField.keys()];
             arrayFieldPaths.forEach(path => {
-                // if values includes arrayField's fieldPath as key
-                const pathVal = ObjectUtil.get(values, path);
-                if (pathVal) {
-                    this.updateArrayField(path, { updateKey: new Date().valueOf() });
-                }
+                this.updateArrayField(path, { updateKey: new Date().valueOf() });
             });
         }
         // When isOverrid is true, there may be a non-existent field in the values passed in, directly synchronized to formState.values
