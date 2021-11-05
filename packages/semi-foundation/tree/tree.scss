@@ -323,9 +323,7 @@ $module: #{$prefix}-tree;
                 width: $width-tree_spinIcon;
                 height: $width-tree_spinIcon;
             }
-            margin-right: $spacing-tree_icon-marginRight;
             color: $color-tree_option_loading-icon-default;
-            padding: $spacing-tree_spinIcon-paddingY $spacing-tree_spinIcon-paddingX;
         }
 
         &-selected {
