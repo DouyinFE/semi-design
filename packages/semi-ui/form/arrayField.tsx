@@ -9,7 +9,17 @@ import { ArrayFieldStaff, FormUpdaterContextType } from '@douyinfe/semi-foundati
 export interface ArrayFieldProps {
     initValue?: any[];
     field?: string;
-    children?: ({ }) => React.ReactNode;
+    children?: (props: ArrayFieldChildrenProps) => React.ReactNode;
+}
+
+export interface ArrayFieldChildrenProps {
+    arrayFields: {
+        key: string;
+        field: string;
+        remove: () => void;
+    }[];
+    add: () => void;
+    addWithInitValue: (lineObject: Record<string, any>) => void;
 }
 
 export interface ArrayFieldState {
