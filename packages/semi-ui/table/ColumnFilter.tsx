@@ -137,6 +137,8 @@ export interface ColumnFilterProps {
     filterDropdown?: React.ReactElement;
     renderFilterDropdown?: (props: RenderDropdownProps, options: { iconElem: React.ReactNode }) => React.ReactElement;
     filterDropdownProps?: DropdownProps;
+    onFilterDropdownVisibleChange?: OnFilterDropdownVisibleChange;
+    onSelect?: (data: OnSelectData) => void;
 }
 
 export default function ColumnFilter(props: ColumnFilterProps = {}): React.ReactElement {
