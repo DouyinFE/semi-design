@@ -361,7 +361,41 @@ stories.add('disabled', () => {
 stories.add('disabled option', () => {
     return (
         <div>
-            <Cascader style={{ width: 300 }} treeData={treeData2} placeholder="Please select" filterTreeNode disabled />
+            <div>common disabled option</div>
+            <Cascader
+                style={{ width: 300 }}
+                treeData={treeData2}
+                placeholder="Japan node is disabled"
+            />
+            <br /><br />
+            <div>single selection + defaultValue is disabled option + changeOnSelect</div>
+            <Cascader
+                style={{ width: 300 }}
+                treeData={treeData2}
+                changeOnSelect
+                defaultValue={['yazhou', 'riben']}
+                placeholder="Japan node is disabled"
+            />
+            <br /><br />
+            <div>single selection + defaultValue is disabled option + changeOnSelect + filterTreeNode</div>
+            <Cascader
+                style={{ width: 300 }}
+                treeData={treeData2}
+                changeOnSelect
+                filterTreeNode
+                defaultValue={['yazhou', 'riben']}
+                placeholder="Japan node is disabled"
+            />
+            <br /><br />
+            <div>multiple selection + defaultValue is disabled option</div>
+            <Cascader
+                multiple
+                filterTreeNode
+                style={{ width: 300 }}
+                treeData={treeData2}
+                defaultValue={['yazhou', 'riben']}
+                placeholder="Japan node is disabled"
+            />
         </div>
     );
 });

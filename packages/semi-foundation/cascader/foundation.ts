@@ -414,9 +414,12 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
 
         if (selectedKeys.length) {
             const selectedKey = selectedKeys[0];
-            const isOptionDisabled = this._isOptionDisabled(selectedKey, keyEntities);
             const selectedItem = keyEntities[selectedKey];
-            if (!isOptionDisabled && (changeOnSelect || this._isLeaf(selectedItem.data))) {
+            /**
+             * When changeOnSelect is turned on, or the target option is a leaf option,
+             * the option is considered to be selected, even if the option is disabled
+             */
+            if (changeOnSelect || this._isLeaf(selectedItem.data)) {
                 updateStates.selectedKeys = new Set([selectedKey]);
                 if (!loadingActive.length) {
                     updateStates.activeKeys = new Set(selectedItem.path);

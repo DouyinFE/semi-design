@@ -302,6 +302,89 @@ describe('Cascader', () => {
         // done();
     });
 
+    it('disabled + defaultValue', () => {
+        const cascaderWithSingle = render({
+            treeData: treeDataWithDisabled,
+            changeOnSelect: true,
+            defaultValue:['Yazhou', 'Zhongguo']
+        });
+        expect(
+            cascaderWithSingle
+            .find(`.${BASE_CLASS_PREFIX}-cascader-selection span`)
+            .at(0)
+            .getDOMNode()
+            .textContent
+        ).toEqual('亚洲 / 中国');
+        cascaderWithSingle.unmount();
+
+        const cascaderWithSingleFilter = render({
+            treeData: treeDataWithDisabled,
+            changeOnSelect: true,
+            filterTreeNode: true,
+            defaultValue:['Yazhou', 'Zhongguo']
+        });
+        expect(
+            cascaderWithSingleFilter
+            .find(`.${BASE_CLASS_PREFIX}-cascader-search-wrapper .${BASE_CLASS_PREFIX}-input`)
+            .getDOMNode()
+            .getAttribute('value')
+        ).toEqual('亚洲 / 中国');
+        cascaderWithSingleFilter.unmount();
+
+        const cascaderWithSingleControlled = render({
+            treeData: treeDataWithDisabled,
+            changeOnSelect: true,
+            value: ['Yazhou', 'Zhongguo'],
+        });
+        expect(cascaderWithSingleControlled.find(`.${BASE_CLASS_PREFIX}-cascader-selection span`).getDOMNode().textContent).toEqual(
+            '亚洲 / 中国'
+        );
+        cascaderWithSingleControlled.unmount();
+
+        const cascaderWithMultiple = render({
+            treeData: treeDataWithDisabled,
+            multiple: true,
+            defaultValue:['Yazhou', 'Zhongguo']
+        });
+        expect(
+            cascaderWithMultiple
+            .find(`.${BASE_CLASS_PREFIX}-tag .${BASE_CLASS_PREFIX}-tag-content`)
+            .at(0)
+            .getDOMNode()
+            .textContent
+        ).toEqual('中国');
+        cascaderWithMultiple.unmount();
+
+        const cascaderWithMultipleFilter = render({
+            treeData: treeDataWithDisabled,
+            multiple: true,
+            filterTreeNode: true,
+            defaultValue:['Yazhou', 'Zhongguo']
+        });
+        expect(
+            cascaderWithMultipleFilter
+            .find(`.${BASE_CLASS_PREFIX}-tag .${BASE_CLASS_PREFIX}-tag-content`)
+            .at(0)
+            .getDOMNode()
+            .textContent
+        ).toEqual('中国');
+        cascaderWithMultipleFilter.unmount();
+
+        const cascaderWithMultipleControlled = render({
+            treeData: treeDataWithDisabled,
+            multiple: true,
+            value:['Yazhou', 'Zhongguo']
+        });
+        expect(
+            cascaderWithMultipleControlled
+            .find(`.${BASE_CLASS_PREFIX}-tag .${BASE_CLASS_PREFIX}-tag-content`)
+            .at(0)
+            .getDOMNode()
+            .textContent
+        ).toEqual('中国');
+        cascaderWithMultipleControlled.unmount();
+    });
+
     it('select item / onSelect / onChange', () => {
         let spyOnSelect = sinon.spy(() => {});
         let spyOnChange = sinon.spy(() => {});
