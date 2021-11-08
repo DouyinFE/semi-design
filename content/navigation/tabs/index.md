@@ -508,6 +508,34 @@ class App extends React.Component {
 }
 ```
 
+### 关闭
+
+关闭标签栏中的某一个标签页。   
+只有卡片样式的页签支持关闭选项。使用 `closable={true}` 来开启。
+
+```jsx live=true
+import React from 'react';
+import { Tabs, TabPane } from '@douyinfe/semi-ui';
+
+class App extends React.Component {
+    render() {
+        return (
+            <Tabs closable type="card" defaultActiveKey="1">
+                <TabPane tab="文档" itemKey="1">
+                    文档
+                </TabPane>
+                <TabPane tab="快速起步" itemKey="2">
+                    快速起步
+                </TabPane>
+                <TabPane tab="帮助" itemKey="3">
+                    帮助
+                </TabPane>
+            </Tabs>
+        );
+    }
+}
+```
+
 ## API 参考
 
 ### Tab
@@ -531,6 +559,7 @@ tabPosition | tab 的位置，支持`top`(水平), `left`(垂直)，**>=1.0.0** 
 type | 标签栏的样式，可选`line`、 `card`、 `button` | string | `line` |
 onChange | 切换 tab 页时的回调函数 | function(activeKey: string) | 无 |
 onTabClick | 单击事件 | function(key: string, e: Event) | 无 |
+closable | 关闭选中的tab | boolean | false |
 
 ### TabPane
 

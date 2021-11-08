@@ -1,4 +1,5 @@
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
+import { PlainTab } from '../../semi-ui/tabs/interface';
 import { noop } from 'lodash-es';
 
 export interface TabsAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
@@ -6,6 +7,7 @@ export interface TabsAdapter<P = Record<string, any>, S = Record<string, any>> e
     notifyTabClick: (activeKey: string, event: any) => void;
     notifyChange: (activeKey: string) => void;
     setNewActiveKey: (activeKey: string) => void;
+    setNewPanes: (panes: Array<PlainTab>) => void;
     getDefaultActiveKeyFromChildren: () => string;
 }
 
@@ -65,6 +67,23 @@ class TabsFoundation<P = Record<string, any>, S = Record<string, any>> extends B
         if (typeof activeKey !== 'undefined') {
             this.handleNewActiveKey(activeKey);
         }
+    }
+
+    handleTabDelete(tabKey: string): void {
+        this._adapter.collectPane();
+        const activeKey = this.getState('activeKey');
+        const panes = this.getState('panes');
+
+        if(tabKey === activeKey) {
+            const activeIndex = panes.findIndex(e => e.itemKey === tabKey) === 0 ?
+                0: panes.findIndex(e => e.itemKey === tabKey) - 1;
+            const newPanes = panes.filter(pane => pane.itemKey !== tabKey)
+            this._adapter.setNewPanes(newPanes);
+            this._adapter.setNewActiveKey(newPanes[activeIndex].itemKey);
+        }else {
+            this._adapter.setNewPanes(panes.filter(pane => pane.itemKey !== tabKey));
+        }
+        
     }
 }
 

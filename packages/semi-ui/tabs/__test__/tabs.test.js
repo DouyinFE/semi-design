@@ -170,4 +170,16 @@ describe('Tabs', () => {
     // it('renderTabBar', () => {
 
     // });
+    it('click right close icon will delete current tab', () => {
+        let tabsProps = {
+            activeKey: 'itemKeyB',
+            type: 'card',
+            closable: true
+        }
+        let paneProps = defaultTabPane;
+        
+        const tabs = mount(getTabs(tabsProps, paneProps));
+        tabs.find(`.${BASE_CLASS_PREFIX}-tabs-tab-active`).find('span').at(0).simulate('click');
+        expect(tabs.props().activeKey).toEqual('itemKeyB');
+    });
 })

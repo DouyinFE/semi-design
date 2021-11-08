@@ -45,6 +45,7 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
         tabPaneMotion: PropTypes.oneOfType([PropTypes.bool, PropTypes.object, PropTypes.func]),
         tabPosition: PropTypes.oneOf(strings.POSITION_MAP),
         type: PropTypes.oneOf(strings.TYPE_MAP),
+        closable: PropTypes.bool
     };
 
     static defaultProps: TabsProps = {
@@ -58,6 +59,7 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
         tabPaneMotion: true,
         tabPosition: 'top',
         type: 'line',
+        closable: false
     };
 
     contentRef: RefObject<HTMLDivElement>;
@@ -103,6 +105,9 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
             },
             setNewActiveKey: (activeKey: string): void => {
                 this.setState({ activeKey });
+            },
+            setNewPanes: (panes: Array<PlainTab>): void => {
+                this.setState({ panes });
             },
             getDefaultActiveKeyFromChildren: (): string => {
                 const { tabList, children } = this.props;
@@ -185,6 +190,12 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
         });
     };
 
+    deleteTabItem = (tabKey: string, event: MouseEvent<HTMLDivElement>) => {
+        event.stopPropagation();
+        if(this.state.panes.length === 1) return
+        this.foundation.handleTabDelete(tabKey)
+    }
+
     render(): ReactNode {
         const {
             children,
@@ -202,6 +213,7 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
             tabPaneMotion,
             tabPosition,
             type,
+            closable,
             ...restProps
         } = this.props;
         const { panes, activeKey } = this.state;
@@ -226,6 +238,8 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
             tabBarExtraContent,
             tabPosition,
             type,
+            closable,
+            deleteTabItem: this.deleteTabItem
         };
 
         const tabBar = renderTabBar ? renderTabBar(tabBarProps, TabBar) : <TabBar {...tabBarProps} />;
