@@ -293,6 +293,8 @@ class Select extends BaseComponent<SelectProps, SelectState> {
     inputRef: React.RefObject<HTMLInputElement>;
     triggerRef: React.RefObject<HTMLDivElement>;
     optionsRef: React.RefObject<any>;
+    virtualizeListRef: React.RefObject<any>;
+    selectOptionListID: string;
     clickOutsideHandler: (e: MouseEvent) => void;
     foundation: SelectFoundation;
 
@@ -312,6 +314,9 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             optionGroups: [],
             isHovering: false,
         };
+        /* Generate random string */
+        this.selectOptionListID = Math.random().toString(36).slice(2);
+        this.virtualizeListRef = React.createRef();
         this.inputRef = React.createRef();
         this.triggerRef = React.createRef();
         this.optionsRef = React.createRef();
@@ -493,7 +498,26 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 } catch (error) {
 
                 }
-            }
+            },
+            updateScrollTop: () => {
+                // eslint-disable-next-line max-len
+                let destNode = document.querySelector(`#${prefixcls}-${this.selectOptionListID} .${prefixcls}-option-selected`) as HTMLDivElement;
+                if (Array.isArray(destNode)) {
+                    // eslint-disable-next-line prefer-destructuring
+                    destNode = destNode[0];
+                }
+                if (destNode) {
+                    /**
+                     * Scroll the first selected item into view.
+                     * The reason why ScrollIntoView is not used here is that it may cause page to move.
+                     */
+                    const destParent = destNode.parentNode as HTMLDivElement;
+                    destParent.scrollTop = destNode.offsetTop -
+                        destParent.offsetTop -
+                        (destParent.clientHeight / 2) +
+                        (destNode.clientHeight / 2);
+                }
+            },
         };
     }
 
@@ -718,6 +742,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
 
         return (
             <List
+                ref={this.virtualizeListRef}
                 height={height || numbers.LIST_HEIGHT}
                 itemCount={visibileOptions.length}
                 itemSize={itemSize}
@@ -761,7 +786,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
 
         const isEmpty = !options.length || !options.some(item => item._show);
         return (
-            <div className={dropdownClassName} style={style}>
+            <div id={`${prefixcls}-${this.selectOptionListID}`} className={dropdownClassName} style={style}>
                 {outerTopSlot}
                 <div
                     style={{ maxHeight: `${maxHeight}px` }}
@@ -892,6 +917,27 @@ class Select extends BaseComponent<SelectProps, SelectState> {
 
     onMouseLeave(e: MouseEvent) {
         this.foundation.handleMouseLeave(e as any);
+    }
+
+    /* Processing logic when popover visible changes */
+    handlePopoverVisibleChange(status) {
+        const { virtualize } = this.props;
+        const { selections } = this.state;
+        if (!status) {
+            return;
+        }
+        if (virtualize) {
+            let minKey;
+            selections.forEach((v, k) => {
+                const tempKey = Number(String(k).match(/option-(.*)/)[1]);
+                minKey = (typeof minKey === 'number' && minKey < tempKey) ? minKey : tempKey;
+            });
+            if (minKey) {
+                this.virtualizeListRef.current.scrollToItem(minKey, 'center');
+            }
+        } else {
+            this.foundation.updateScrollTop();
+        }
     }
 
     renderSuffix() {
@@ -1053,6 +1099,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 position={position}
                 spacing={spacing}
                 stopPropagation={stopPropagation}
+                onVisibleChange={status => this.handlePopoverVisibleChange(status)}
             >
                 {selection}
             </Popover>
