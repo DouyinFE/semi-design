@@ -378,15 +378,17 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                     let normallizedValue: SimpleValueType[][] = [];
                     const realValue = needUpdate('value') ? value : defaultValue;
                     // eslint-disable-next-line max-depth
-                    if (!isEmpty(realValue)) {
+                    if (Array.isArray(realValue)) {
                         normallizedValue = Array.isArray(realValue[0]) ?
                             realValue as SimpleValueType[][] :
                             [realValue] as SimpleValueType[][];
+                    } else {
+                        normallizedValue = [[realValue]];
                     }
                     // formatValuePath is used to save value of valuePath
                     const formatValuePath: (string | number)[][] = [];
                     normallizedValue.forEach((valueItem: SimpleValueType[]) => {
-                        const formatItem: (string | number)[] = onChangeWithObject && !isEmpty(prevProps) ?
+                        const formatItem: (string | number)[] = onChangeWithObject ?
                             valueItem.map((i: CascaderData) => i.value) :
                             valueItem as (string | number)[];
                         formatValuePath.push(formatItem);
