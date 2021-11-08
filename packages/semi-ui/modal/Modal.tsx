@@ -8,18 +8,10 @@ import Portal from '../_portal';
 import LocaleConsumer from '../locale/localeConsumer';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
-import { isUndefined } from 'lodash-es';
-import '@douyinfe/semi-foundation/modal/modal.scss';
 import { noop } from 'lodash-es';
-import ContentTransition from './ModalTransition';
+import '@douyinfe/semi-foundation/modal/modal.scss';
 import BaseComponent from '../_base/baseComponent';
-import confirm, {
-    withConfirm,
-    withError,
-    withInfo,
-    withSuccess,
-    withWarning
-} from '../modal/confirm';
+import confirm, { withConfirm, withError, withInfo, withSuccess, withWarning } from '../modal/confirm';
 import { Locale } from '../locale/interface';
 import useModal from '../modal/useModal';
 import { ButtonProps } from '../button/Button';
@@ -314,22 +306,16 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         );
     };
 
-    getDialog = () => {
-        const {
-            footer,
-            ...restProps
-        } = this.props;
-        const renderFooter = 'footer' in this.props ? footer : this.renderFooter();
-        return <ModalContent {...restProps} footer={renderFooter} onClose={this.handleCancel} />;
-    };
+    // getDialog = () => {
+    //     const {
+    //         footer,
+    //         ...restProps
+    //     } = this.props;
+    //     const renderFooter = 'footer' in this.props ? footer : this.renderFooter();
+    //     return <ModalContent {...restProps} footer={renderFooter} onClose={this.handleCancel}/>;
+    // };
 
-    renderDialogWithTransition = ({
-        opacity,
-        scale,
-    }: {
-        opacity?: CSSProperties['opacity'];
-        scale?: number;
-    } = {}) => {
+    renderDialog = () => {
         let {
             footer,
             className,
@@ -339,30 +325,17 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
             style: styleFromProps,
             zIndex,
             getPopupContainer,
+            visible,
             ...restProps
         } = this.props;
-        let maskStyle = maskStyleFromProps;
         let style = styleFromProps;
+        const maskStyle = maskStyleFromProps;
         const renderFooter = 'footer' in this.props ? footer : this.renderFooter();
         if (this.props.centered) {
             style = {
                 transform: 'translateY(-50%)',
                 top: '50%', ...style,
             };
-        }
-        if (!isUndefined(opacity)) {
-            maskStyle = { opacity, ...maskStyle };
-            style = { opacity, ...style };
-        }
-
-        if (!isUndefined(scale)) {
-            style = { transform: `scale(${scale})`, ...style };
-            if (this.props.centered) {
-                style = {
-                    ...style,
-                    transform: `scale(${scale}) translateY(-${50 / scale}%)`,
-                };
-            }
         }
         let wrapperStyle: {
             zIndex?: CSSProperties['zIndex'];
@@ -378,18 +351,36 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         }
 
         const classList = cls(className, {
-            [`${cssClasses.DIALOG}-hidden`]: keepDOM && this.state.hidden,
+            [`${cssClasses.DIALOG}-displayNone`]: keepDOM && this.state.hidden,
         });
+        const contentClassName = cls({
+            [`${cssClasses.DIALOG}-content-animate-hide`]: !visible,
+            [`${cssClasses.DIALOG}-content-animate-show`]: visible
+        });
+        const maskClassName = cls({
+            [`${cssClasses.DIALOG}-mask-animate-hide`]: !visible,
+            [`${cssClasses.DIALOG}-mask-animate-show`]: visible
+        })
+
         return (
             <Portal style={wrapperStyle} getPopupContainer={getPopupContainer}>
                 <ModalContent
                     {...restProps}
                     isFullScreen={this.state.isFullScreen}
+                    contentClassName={contentClassName}
+                    maskClassName={maskClassName}
                     className={classList}
                     getPopupContainer={getPopupContainer}
                     maskStyle={maskStyle}
                     style={style}
                     ref={this.modalRef}
+                    onAnimationEnd={() => {
+                        if (!visible && !this.state.hidden) {
+                            this.foundation.toggleHidden(true)
+                        } else if (visible && this.state.hidden) {
+                            this.foundation.toggleHidden(false)
+                        }
+                    }}
                     footer={renderFooter}
                     onClose={this.handleCancel}
 
@@ -405,19 +396,9 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
             lazyRender,
         } = this.props;
         this._active = this._active || visible;
-        const shouldRender = (visible || keepDOM) && (!lazyRender || this._active);
-
-        const mergedMotion = this.foundation.getMergedMotion();
-        if (mergedMotion) {
-            return (
-                <ContentTransition motion={mergedMotion} controlled={keepDOM} visible={visible}>
-                    {shouldRender ? (...animationState) => this.renderDialogWithTransition(...animationState) : null}
-                </ContentTransition>
-            );
-        }
-
+        const shouldRender = ((visible || keepDOM) && (!lazyRender || this._active)) || !this.state.hidden;
         if (shouldRender) {
-            return this.renderDialogWithTransition();
+            return this.renderDialog();
         }
 
         return null;
