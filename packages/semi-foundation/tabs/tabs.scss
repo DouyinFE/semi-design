@@ -43,6 +43,7 @@ $module: #{$prefix}-tabs;
                 font-size: 14px;
                 color: var(--semi-color-text-2);
                 padding-left: 10px;
+                cursor: pointer;
             }
 
             .#{$prefix}-icon {
@@ -61,7 +62,11 @@ $module: #{$prefix}-tabs;
             }
 
             &:active {
-                color: $color-tabs_tab_line_default-text-active;  
+                color: $color-tabs_tab_line_default-text-active;
+
+                .#{$prefix}-icon {
+                    color: $color-tabs_tab-icon-active;
+                }
             }
         }
 
