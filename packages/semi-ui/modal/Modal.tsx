@@ -353,14 +353,26 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         const classList = cls(className, {
             [`${cssClasses.DIALOG}-displayNone`]: keepDOM && this.state.hidden,
         });
-        const contentClassName = cls({
+        const contentClassName = motion ? cls({
             [`${cssClasses.DIALOG}-content-animate-hide`]: !visible,
             [`${cssClasses.DIALOG}-content-animate-show`]: visible
-        });
-        const maskClassName = cls({
+        }) : null;
+        const maskClassName = motion ? cls({
             [`${cssClasses.DIALOG}-mask-animate-hide`]: !visible,
             [`${cssClasses.DIALOG}-mask-animate-show`]: visible
-        })
+        }) : null;
+
+        const updateHiddenState=()=>{
+            if (!visible && !this.state.hidden) {
+                this.foundation.toggleHidden(true)
+            } else if (visible && this.state.hidden) {
+                this.foundation.toggleHidden(false)
+            }
+        };
+
+        if(!motion){
+            updateHiddenState()
+        }
 
         return (
             <Portal style={wrapperStyle} getPopupContainer={getPopupContainer}>
@@ -375,11 +387,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
                     style={style}
                     ref={this.modalRef}
                     onAnimationEnd={() => {
-                        if (!visible && !this.state.hidden) {
-                            this.foundation.toggleHidden(true)
-                        } else if (visible && this.state.hidden) {
-                            this.foundation.toggleHidden(false)
-                        }
+                        updateHiddenState();
                     }}
                     footer={renderFooter}
                     onClose={this.handleCancel}
