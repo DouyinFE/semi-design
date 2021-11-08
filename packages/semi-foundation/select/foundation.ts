@@ -462,7 +462,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
     updateOptionsActiveStatus(selections: Map<any, any>, options: BasicOptionProps[] = this.getState('options')) {
         const { allowCreate } = this.getProps();
         const newOptions = options.map(option => {
-            if (selections.has(option.label)) {
+            if (selections.has(option.label) && selections.get(option.label).value === option.value) {
                 option._selected = true;
                 if (allowCreate) {
                     delete option._inputCreateOnly;
