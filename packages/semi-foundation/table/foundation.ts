@@ -117,8 +117,8 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
         const mergePagination: (pagination: BasePagination) => BasePagination = this._adapter.getMergePagination();
 
         this.memoizedWithFnsColumns = memoizeOne(handleColumns, isEqual);
-        this.memoizedFilterColumns = memoizeOne(filterColumns, isEqual);
-        this.memoizedFlattenFnsColumns = memoizeOne(flattenColumns, isEqual);
+        this.memoizedFilterColumns = memoizeOne(filterColumns);
+        this.memoizedFlattenFnsColumns = memoizeOne(flattenColumns);
         this.memoizedPagination = memoizeOne(mergePagination, isEqual);
     }
 
