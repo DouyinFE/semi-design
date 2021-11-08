@@ -2,20 +2,20 @@ import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import KeyCode from '../utils/keyCode';
 import { ModalProps } from '../modal/modalFoundation';
 
-export interface ModalContentProps extends ModalProps{
+export interface ModalContentProps extends ModalProps {
     onClose: (e: any) => void;
     getContainerContext: () => any;
     isFullScreen?: boolean;
-    contentClassName?:string,
-    maskClassName?:string;
-    onAnimationEnd?:()=>void;
+    contentClassName?: string,
+    maskClassName?: string;
+    onAnimationEnd?: () => void;
 }
 
-export interface ModalContentState{
+export interface ModalContentState {
     dialogMouseDown: boolean;
 }
 
-export interface ModalContentAdapter extends DefaultAdapter<ModalContentProps, ModalContentState>{
+export interface ModalContentAdapter extends DefaultAdapter<ModalContentProps, ModalContentState> {
     notifyClose: (e: any) => void;
     notifyDialogMouseDown: () => void;
     notifyDialogMouseUp: () => void;
