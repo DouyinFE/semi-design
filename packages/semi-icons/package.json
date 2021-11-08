@@ -27,7 +27,8 @@
     "prepublishOnly": "npm run build:lib"
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.15.4"
+    "@babel/runtime-corejs3": "^7.15.4",
+    "classnames": "^2.2.6"
   },
   "devDependencies": {
     "@babel/plugin-proposal-decorators": "^7.15.8",
