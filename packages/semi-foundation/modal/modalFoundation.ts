@@ -5,7 +5,7 @@ import { Motion } from '../utils/type';
 export type OKType = 'primary' | 'secondary' | 'tertiary' | 'warning' | 'danger';
 export type Size = 'small' | 'medium' | 'large' | 'full-width';
 
-export interface ModalAdapter extends DefaultAdapter<ModalProps, ModalState>{
+export interface ModalAdapter extends DefaultAdapter<ModalProps, ModalState> {
     disabledBodyScroll: () => void;
     enabledBodyScroll: () => void;
     notifyCancel: (e: any) => void;

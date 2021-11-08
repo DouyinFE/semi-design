@@ -225,7 +225,7 @@ export default class ModalContent extends BaseComponent<ModalContentProps, Modal
                     onAnimationEnd={props.onAnimationEnd}
                     className={cls([`${cssClasses.DIALOG}-content`,
                         props.contentClassName,
-                        { [`${cssClasses.DIALOG}-content-fullScreen`]: props.isFullScreen }])}>
+                        {[`${cssClasses.DIALOG}-content-fullScreen`]: props.isFullScreen }])}>
                     {header}
                     {body}
                     {footer}
