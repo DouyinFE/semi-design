@@ -555,7 +555,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
                 pagination: statePagination = null,
                 dataSource: stateDataSource = null,
             } = states;
-            const handledProps: Partial<NormalTableState<RecordType>> = this.foundation.getCurrentPageData(stateDataSource, statePagination, stateQueries);
+            const handledProps: Partial<NormalTableState<RecordType>> = this.foundation.getCurrentPageData(stateDataSource, statePagination as TablePaginationProps, stateQueries);
 
             // After the pager is updated, reset allRowKeys of the current page
             this.adapter.setAllRowKeys(handledProps.allRowKeys);
@@ -614,7 +614,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
         }
     };
 
-    _invokeColumnFn = (key: string | number, funcName: string, ...args: any[]) => {
+    _invokeColumnFn = (key: string, funcName: string, ...args: any[]) => {
         if (key && funcName) {
             const column = this.foundation.getQuery(key);
             const func = get(column, funcName, null);
@@ -643,10 +643,15 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
 
     getColumns = (columns: ColumnProps<RecordType>[], children: ReactNode) => (!Array.isArray(columns) || !columns || !columns.length ? getColumns(children) : columns);
 
+    // @ts-ignore
     getCellWidths = (...args: any[]) => this.foundation.getCellWidths(...args);
+    // @ts-ignore
     setHeadWidths = (...args: any[]) => this.foundation.setHeadWidths(...args);
+    // @ts-ignore
     getHeadWidths = (...args: any[]) => this.foundation.getHeadWidths(...args);
+    // @ts-ignore
     mergedRowExpandable = (...args: any[]) => this.foundation.mergedRowExpandable(...args);
+    // @ts-ignore
     setBodyHasScrollbar = (...args: any[]) => this.foundation.setBodyHasScrollbar(...args);
 
     handleWheel = (event: React.WheelEvent<HTMLDivElement>) => {
@@ -858,7 +863,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
         const key =
             typeof groupKey === 'string' || typeof groupKey === 'number' ?
                 groupKey :
-                this.foundation.getRecordKey(record);
+                this.foundation.getRecordKey(record as RecordType);
 
         return (
             <ExpandedIcon
@@ -871,6 +876,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
         );
     };
 
+    // @ts-ignore
     handleRowExpanded = (...args: any[]) => this.foundation.handleRowExpanded(...args);
 
     normalizeExpandColumn = (props: { prefixCls?: string; expandCellFixed?: ArrayElement<typeof strings.FIXED_SET>; expandIcon?: ExpandIcon } = {}) => {
