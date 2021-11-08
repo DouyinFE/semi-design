@@ -34,6 +34,7 @@ const SideNav = ({ location = null, type = null, itemsArr, edges, style, hasBann
                     text: node.frontmatter.title,
                     icon: <Icon svg={<IconNode />} size={'extra-large'} /> || '',
                     order: node.frontmatter.order || 0,
+                    link: `/${node.fields.slug}`,
                     category: navData[categoryIndex].text || navData[categoryIndex].textUs,
                 });
                 navData[categoryIndex].items.sort((a, b) => a.order - b.order);
