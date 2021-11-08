@@ -42,7 +42,7 @@ We may ask or help you to modify the PR according to the situation. For inapprop
 ## Help Improve the Docs
 The documentation site is based on [gatsby](https://www.gatsbyjs.com/), and the code is in the `src` directory.
 
-**The component documentation is located in the md file under the `semi-ui` component folder. ** Take tooltip as an example:
+**The component documentation is located in the md file under the `semi-ui` component folder.** Take tooltip as an example:
 
 * Chinese document `packages/semi-ui/tooltip/index.md` 
 * English document `packages/semi-ui/tooltip/index-en-US.md`
