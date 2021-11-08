@@ -80,10 +80,11 @@ describe(`InputNumber`, () => {
             <InputNumber value={oldValue} onChange={onChange} onBlur={onBlur} onFocus={onFocus} onKeyDown={onKeyDown} />
         );
 
+        /**
+         * input a invalid number should not trigger onChange 
+         */
         inputNumber.find('input').simulate('change', event);
-
-        expect(onChange.calledOnce).toBe(true);
-        expect(onChange.calledWithMatch(event.target.value)).toBe(true);
+        expect(onChange.calledOnce).toBe(false);
 
         /**
          * set an invalid value and blur
@@ -109,11 +110,12 @@ describe(`InputNumber`, () => {
         expect(inputNumber.find('input').instance().value).toBe(newValue.toString());
 
         /**
-         * focusing and set a invalid value
+         * TODO: focusing and set a invalid value
          */
         inputNumber.find('input').simulate('focus');
         inputNumber.setProps({ value: newInvalidValue });
         inputNumber.find('input').simulate('blur');
+        // after blur input value will same with state number
         expect(inputNumber.find('input').instance().value).toBe(newValue.toString());
 
         /**
@@ -122,7 +124,7 @@ describe(`InputNumber`, () => {
         inputNumber.find('input').simulate('focus');
         inputNumber.setProps({ value: newValidStr });
         inputNumber.find('input').simulate('blur');
-        expect(inputNumber.find('input').instance().value).toBe(newValidStr);
+        expect(inputNumber.find('input').instance().value).toBe(newValue.toString());
 
         /**
          * press up arrow button and down arrow button
@@ -181,8 +183,9 @@ describe(`InputNumber`, () => {
         const inputElem = inputNumber.find('input');
 
         inputElem.simulate('change', event);
-        expect(onChange.calledOnce).toBe(true);
-        expect(onChange.calledWithMatch(Number(newValue.toFixed(precision)))).toBe(true);
+        // should not trigger change if input invalid number
+        expect(onChange.calledOnce).toBe(false);
+        // input invalid number only change input value
         expect(inputElem.instance().value).toBe(formatter(newValue));
 
         inputElem.simulate('blur');
@@ -312,8 +315,8 @@ describe(`InputNumber`, () => {
         const inputNumber = mount(<InputNumber value={max} onNumberChange={onNumberChange} onChange={onChange} max={max} />);
         inputNumber.find('input').simulate('change', event);
 
-        expect(onChange.calledOnce).toBe(true);
-        expect(onChange.calledWithMatch(event.target.value)).toBe(true);
+        // 即使受控，超出 max 也不会触发 onChange
+        expect(onChange.calledOnce).toBe(false);
         // 受控超出范围时不应调用onNumberChange
         expect(onNumberChange.called).toBe(false);
         expect(inputNumber.find(BaseInputNumber).state('number')).toBe(max);

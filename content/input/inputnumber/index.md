@@ -140,7 +140,7 @@ import { InputNumber } from '@douyinfe/semi-ui';
       <div style={{ width: 180 }}>
         <label>人民币</label>
         <InputNumber
-            onChange={this.log}
+            onChange={log}
             defaultValue={1000}
             min={0}
             formatter={value => `￥ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
@@ -150,7 +150,7 @@ import { InputNumber } from '@douyinfe/semi-ui';
 
         <label>自定义串</label>
         <InputNumber
-            onChange={this.log}
+            onChange={log}
             defaultValue={1111}
             formatter={value => String(value).split('').join('-')}
             parser={value => value.replace(/\-/g, '')}

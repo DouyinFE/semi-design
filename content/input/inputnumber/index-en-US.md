@@ -157,7 +157,7 @@ class App extends React.Component {
       <div style={{ width: 180 }}>
         <label>RMB</label>
         <InputNumber
-            onChange={this.log}
+            onChange={log}
             defaultValue={1000}
             min={0}
             formatter={value => `￥ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
@@ -167,7 +167,7 @@ class App extends React.Component {
 
         <label>Custom string</label>
         <InputNumber
-            onChange={this.log}
+            onChange={log}
             defaultValue={1111}
             formatter={value => String(value).split('').join('-')}
             parser={value => value.replace(/\-/g, '')}

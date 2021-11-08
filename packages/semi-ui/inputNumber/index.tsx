@@ -226,6 +226,7 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
     currentValue!: number | string;
     cursorBefore!: string;
     cursorAfter!: string;
+    foundation: InputNumberFoundation;
     constructor(props: InputNumberProps) {
         super(props);
         this.state = {
@@ -243,7 +244,7 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
         const { value } = this.props;
         const { focusing } = this.state;
         /**
-         * To determine whether the front and back are equal
+         * To determine whether the value and prevProps.value are equal
          * NaN need to check whether both are NaN
          */
         if (value !== prevProps.value && !isBothNaN(value, prevProps.value)) {
@@ -292,7 +293,7 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
                 if (focusing) {
                     if (this.foundation.isValidNumber(parsedNum) && parsedNum !== this.state.number) {
                         const obj: { number?: number; value?: string } = { number: parsedNum };
-                        // Updates input when a button is clicked
+                        // Updates input when up/down button is clicked
                         if (this.clickUpOrDown) {
                             obj.value = this.foundation.doFormat(valueStr, true);
                         }
@@ -307,7 +308,7 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
                 } else if (this.foundation.isValidNumber(parsedNum)) {
                     this.setState({ number: parsedNum, value: this.foundation.doFormat(parsedNum) });
                 } else {
-                    // Invalid digital analog blurring effect instead of controlled failure
+                    // Invalid digital simulate blurring effect instead of controlled failure
                     this.setState({ number: null, value: '' });
                 }
             }

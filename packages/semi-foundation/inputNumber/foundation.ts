@@ -4,7 +4,7 @@
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import keyCode from '../utils/keyCode';
 import { numbers } from './constants';
-import { toNumber, toString } from 'lodash-es';
+import { toNumber, toString, isUndefined } from 'lodash-es';
 import { minus as numberMinus } from '../utils/number';
 
 export interface InputNumberAdapter extends DefaultAdapter {
@@ -49,8 +49,8 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
     }
 
     _doInput(v = '', event: any = null, updateCb: any = null) {
-        let notifyVal = v;
-        let number = v;
+        let notifyVal: string | number = v;
+        let number: string | number = v;
         let isValidNumber = true;
         const isControlled = this.isControlled();
         // console.log(v);
@@ -131,8 +131,8 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
 
     /**
      * Input box content update processing
-     * @param {String} value
-     * @param {*} event
+     *  if value is valid, set state value, number and notifyChange
+     *  else only set state value and don't notifyChange
      */
     handleInputChange(value: string, event: any) {
         // Check accuracy, adjust accuracy, adjust maximum and minimum values, call parser to parse the number
@@ -189,15 +189,19 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
             notifyVal = valueAfterParser;
         }
 
-        if (!this.isControlled() && (num === null || (typeof num === 'number' && !isNaN(num)))) {
+        const _controlled = this.isControlled();
+
+        if (!_controlled && (num === null || this.isValidNumber(num))) {
             this._adapter.setNumber(num);
         }
 
-        this._adapter.setValue(this.isControlled() ? formattedNum : this.doFormat(valueAfterParser as unknown as number, false), () => {
+        this._adapter.setValue(_controlled ? formattedNum : this.doFormat(valueAfterParser as unknown as number, false), () => {
             this._adapter.restoreCursor();
         });
 
-        this.notifyChange(notifyVal, event);
+        if (this.isValidString(notifyVal) || this.isValidNumber(notifyVal) || isUndefined(notifyVal)) {
+            this.notifyChange(notifyVal, event);
+        }
     }
 
     handleInputKeyDown(event: any) {
@@ -218,37 +222,53 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
         this._adapter.notifyKeyDown(event);
     }
 
+    /**
+     * if input value is invalid we should do these thing
+     *  1. get a valid number(from state number or parsed from input value)
+     *  2. notifyChange this valid number
+     * always notifyBlur
+     */
     handleInputBlur(e: any) {
         const currentValue = toString(this.getState('value'));
         let currentNumber = this.getState('number');
 
         if (currentNumber != null || (currentValue != null && currentValue !== '')) {
+            // parse a valid number
             const parsedNum = this.doParse(currentValue, false, true, true);
 
             let numHasChanged = false;
             let strHasChanged = false;
             let willSetNum, willSetVal;
 
+            /**
+             * if input value can be parse to valid number and is not equal with state number,
+             * use the parsed number as a input valid value
+             */
             if (this.isValidNumber(parsedNum) && currentNumber !== parsedNum) {
                 willSetNum = parsedNum;
-                if (!this.isControlled()) {
-                    currentNumber = willSetNum;
-                }
+                currentNumber = willSetNum;
                 numHasChanged = true;
             }
 
+            /**
+             * format currentNumber, then show it in input box
+             * currentNumber may come from two place
+             *  1. parsed from input value, and it is valid number
+             *  2. state number
+             */
             const currentFormattedNum = this.doFormat(currentNumber, true);
-
+            /**
+             * if currentFormattedNum is not equal currentValue, show it later
+             * else input value no need to change
+             */
             if (currentFormattedNum !== currentValue) {
                 willSetVal = currentFormattedNum;
                 strHasChanged = true;
             }
 
             if (strHasChanged || numHasChanged) {
-                const notifyVal = willSetVal != null ? willSetVal : willSetNum;
                 if (willSetVal != null) {
                     this._adapter.setValue(willSetVal);
-                    // this.notifyChange(willSetVal);
                 }
 
                 if (willSetNum != null) {
@@ -256,10 +276,11 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
                     if (!this._isControlledComponent('value')) {
                         this._adapter.setNumber(willSetNum);
                     }
-                    // this.notifyChange(willSetNum);
                 }
 
-                this.notifyChange(notifyVal, e);
+                if (numHasChanged) {
+                    this.notifyChange(willSetNum, e);
+                }
             }
         }
         this._adapter.setFocusing(false);
@@ -425,14 +446,8 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
 
     /**
      * format number to string
-     * @param {number} value
-     * @param {boolean} needAdjustPrec
-     * @returns {string}
      */
-    doFormat(value = 0, needAdjustPrec = true): string {
-        // if (typeof value === 'string') {
-        //     return value;
-        // }
+    doFormat(value: number | string = 0, needAdjustPrec = true): string {
         let str;
         const formatter = this.getProp('formatter');
         if (needAdjustPrec) {
@@ -464,13 +479,8 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
 
     /**
      * parse to number
-     * @param {string|number} value
-     * @param {boolean} needCheckPrec
-     * @param {boolean} needAdjustPrec
-     * @param {boolean} needAdjustMaxMin
-     * @returns {number}
      */
-    doParse(value: string | number, needCheckPrec = true, needAdjustPrec = false, needAdjustMaxMin = false) {
+    doParse(value: string | number, needCheckPrec = true, needAdjustPrec = false, needAdjustMaxMin = false): number {
         if (typeof value === 'number') {
             if (needAdjustMaxMin) {
                 value = this.fetchMinOrMax(value);
@@ -516,10 +526,8 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
 
     /**
      * Parsing the input value
-     * @param {string} value
-     * @returns {string}
      */
-    afterParser(value: string) {
+    afterParser(value: string | number) {
         const parser = this.getProp('parser');
         if (typeof value === 'string' && typeof parser === 'function') {
             return toString(parser(value));
@@ -549,9 +557,6 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
      * 1.type is number and not equal to NaN
      * 2.min < = value < = max
      * 3.length after decimal point requires < = precision | | No precision
-     * @param {*} um
-     * @param {*} needCheckPrec
-     * @returns
      */
     isValidNumber(num: number, needCheckPrec = true) {
         if (typeof num === 'number' && !isNaN(num)) {
@@ -578,14 +583,20 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
         return false;
     }
 
-    notifyChange(value: string, e: any) {
+    /**
+     * notify change when
+     *  1. input change
+     *  2. input blur
+     *  3. click up/down button
+     *  4. touch up/down keyboard
+     */
+    notifyChange(value: string | number, e: any) {
         if (value == null || value === '') {
             this._adapter.notifyChange('', e);
         } else {
             const parsedNum = this.toNumber(value, true);
 
             if (typeof parsedNum === 'number' && !isNaN(parsedNum)) {
-                // this._adapter.notifyChange(typeof value === 'number' ? parsedNum : this.afterParser(value), e);
                 this._adapter.notifyChange(parsedNum, e);
                 this.notifyNumberChange(parsedNum, e);
             } else {
