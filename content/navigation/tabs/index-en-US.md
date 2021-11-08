@@ -484,6 +484,34 @@ class App extends React.Component {
 }
 ```
 
+### Closeable
+
+Close a tab in the tab bar.
+Only card style tabs support the close option. Use `closable={true}` to turn it on.
+
+```jsx live=true 
+import React from 'react';
+import {Tabs, TabPane} from '@douyinfe/semi-ui';
+
+class App extends React.Component {
+     render() {
+         return (
+             <Tabs closable type="card" defaultActiveKey="1">
+                 <TabPane tab="document" itemKey="1">
+                     Documentation
+                 </TabPane>
+                 <TabPane tab="Quick Start" itemKey="2">
+                     Quick start
+                 </TabPane>
+                 <TabPane tab="Help" itemKey="3">
+                     help
+                 </TabPane>
+             </Tabs>
+         );
+     }
+}
+```
+
 ## API Reference
 
 ### Tab
