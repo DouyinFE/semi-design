@@ -873,5 +873,44 @@ describe('Cascader', () => {
         // check checkedKeys
         expect(cascaderWithDisable.state().checkedKeys.size).toEqual(5); 
         cascaderWithDisable.unmount();
-    })
+    });
+
+    it('multiple + onChangeWithObject', () => {
+        const cascader = render({
+            multiple: true,
+            onChangeWithObject: true,
+            defaultValue: [
+                {
+                    label: '北美洲',
+                    value: 'Beimeizhou',
+                    key: 'beimeizhou',
+                    children: [
+                        {
+                            label: '美国',
+                            value: 'Meiguo',
+                            key: 'meiguo',
+                        },
+                        {
+                            label: '加拿大',
+                            value: 'Jianada',
+                            key: 'jianada',
+                        },
+                    ],
+                },
+                {
+                    label: '美国',
+                    value: 'Meiguo',
+                    key: 'meiguo',
+                }
+            ]
+        });
+        const tags = cascader.find(`.${BASE_CLASS_PREFIX}-cascader-selection .${BASE_CLASS_PREFIX}-tag`)
+        expect(tags.length).toEqual(1);
+        expect(
+            tags
+            .find(`.${BASE_CLASS_PREFIX}-tag-content`)
+            .getDOMNode()
+            .textContent
+        ).toEqual('美国');
+    });
 });
