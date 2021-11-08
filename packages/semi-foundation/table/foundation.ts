@@ -102,7 +102,14 @@ export interface TableAdapter<RecordType> extends DefaultAdapter {
 }
 
 class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType>> {
-    memoizedWithFnsColumns: (queries: BaseColumnProps<RecordType>[], cachedColumns: BaseColumnProps<RecordType>[]) => BaseColumnProps<RecordType>[];
+    memoizedWithFnsColumns: (
+        queries: BaseColumnProps<RecordType>[], 
+        cachedColumns: BaseColumnProps<RecordType>[], 
+        rowSelectionUpdate: boolean, 
+        hideExpandedColumn: boolean,
+        scrollbarColumnUpdate: boolean | string | number,
+        bodyHasScrollBar: boolean,
+    ) => BaseColumnProps<RecordType>[];
     memoizedFilterColumns: (columns: BaseColumnProps<RecordType>[], ignoreKeys?: string[]) => BaseColumnProps<RecordType>[];
     memoizedFlattenFnsColumns: (columns: BaseColumnProps<RecordType>[], childrenColumnName?: string) => BaseColumnProps<RecordType>[];
     memoizedPagination: (pagination: BasePagination) => BasePagination;
@@ -117,8 +124,8 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
         const mergePagination: (pagination: BasePagination) => BasePagination = this._adapter.getMergePagination();
 
         this.memoizedWithFnsColumns = memoizeOne(handleColumns, isEqual);
-        this.memoizedFilterColumns = memoizeOne(filterColumns, isEqual);
-        this.memoizedFlattenFnsColumns = memoizeOne(flattenColumns, isEqual);
+        this.memoizedFilterColumns = memoizeOne(filterColumns);
+        this.memoizedFlattenFnsColumns = memoizeOne(flattenColumns);
         this.memoizedPagination = memoizeOne(mergePagination, isEqual);
     }
 
@@ -214,7 +221,7 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
      * @param {object} queries
      * @returns {{dataSource: RecordType[], groups: Map<string, Set<string>>, pagination: object, disabledRowKeys: string[], queries: BaseColumnProps[], allRowKeys: string[]}}
      */
-    getCurrentPageData(dataSource: RecordType[], pagination?: BasePagination, queries?: BaseColumnProps<RecordType>[]) {
+    getCurrentPageData(dataSource?: RecordType[], pagination?: BasePagination, queries?: BaseColumnProps<RecordType>[]) {
         const filteredSortedDataSource = this._adapter.getCachedFilteredSortedDataSource();
         dataSource = dataSource == null ? [...filteredSortedDataSource] : dataSource;
         pagination =

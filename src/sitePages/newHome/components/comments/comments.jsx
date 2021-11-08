@@ -21,7 +21,7 @@ function Comments(props) {
                 <div className={styles.group3737}>
                     <Button onClick={goStart} size="large" theme="solid" className={styles.extraLarge}>{_t("start_using", { }, "开始使用")}</Button>
                     <div onClick={goGithub} className={styles.buttonSecondarySolid_4427b030}>
-                        <IconGithubLogo size="extra-large" /><p className={styles.text_bff7eaeb}>Github</p>
+                        <IconGithubLogo size="extra-large" /><p className={styles.text_bff7eaeb}>GitHub</p>
                     </div>
                 </div>
             </div>

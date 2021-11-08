@@ -15,6 +15,15 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 ---
 
+#### 🎉 2.0.4 (2021-11-08)
+- 【Fix】
+  - 修复 Cascader 单选时，defaultValue 为 disabled 节点时选中会被过滤的问题 [#183](https://github.com/DouyinFE/semi-design/issues/183)
+  - 修复 Cascader 多选且开启 onChangeWithObject，defaultValue 为 object[] 没有生效的问题 [#184](https://github.com/DouyinFE/semi-design/issues/184) 
+  - 修复 Select 支持打开下拉框后，无法自动滚动到已选中的项目的问题 [#169](https://github.com/DouyinFE/semi-design/issues/169) 
+  - 修复 Table resizable 表格问题 [#154](https://github.com/DouyinFE/semi-design/issues/154)
+- 【Docs】
+  - 优化了共建文档 [#224](https://github.com/DouyinFE/semi-design/issues/224) [@btea](https://github.com/btea)
+
 #### 🎉 2.0.3 (2021-11-06)
 - 【Fix】
   - 修复 Tree / TreeSelect 在 loading 状态下 item 高度变大的问题 [#181](https://github.com/DouyinFE/semi-design/issues/181)

@@ -16,6 +16,15 @@ Version：Major.Minor.Patch
 
 ---
 
+#### 🎉 2.0.4 (2021-11-08)
+- 【Fix】
+   - Fixed Cascader single selection, the problem that the `defaultValue` is disabled when the node is selected will be filtered [#183](https://github.com/DouyinFE/semi-design/issues/183)
+   - Fixed Cascader `multiple` and `onChangeWithObject` enabled, the `defaultValue` is `object[]` does not take effect [#184](https://github.com/DouyinFE/semi-design/issues/184)
+   - Fixed the problem that the Select support cannot automatically scroll to the selected item after opening the drop-down box [#169](https://github.com/DouyinFE/semi-design/issues/169)
+   - Fixed Table `resizable` table issue [#154](https://github.com/DouyinFE/semi-design/issues/154)
+- 【Docs】
+  - Optimized the contributing document [#224](https://github.com/DouyinFE/semi-design/issues/224) [@btea](https://github.com/btea)
+
 #### 🎉 2.0.3 (2021-11-06)
 - 【Fix】
   - Fix the problem that the item height of Tree / TreeSelect becomes larger in the loading state [#181](https://github.com/DouyinFE/semi-design/issues/181)

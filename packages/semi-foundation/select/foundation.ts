@@ -43,6 +43,7 @@ export interface SelectAdapter<P = Record<string, any>, S = Record<string, any>>
     notifyMouseLeave(event: any): void;
     notifyMouseEnter(event: any): void;
     updateHovering(isHover: boolean): void;
+    updateScrollTop(): void;
 }
 type PropValue = string | number | Record<string, any>;
 
@@ -925,5 +926,9 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
                 warning(true, '[Semi Select] defaultValue/value should be array type in multiple mode');
             }
         }
+    }
+
+    updateScrollTop() {
+        this._adapter.updateScrollTop();
     }
 }

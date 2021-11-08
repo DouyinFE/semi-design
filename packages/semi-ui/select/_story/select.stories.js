@@ -2269,37 +2269,39 @@ const SelectRefDemo = () => {
 };
 
 stories.add('ref', () => <SelectRefDemo />);
-stories.add(`custom trigger`, () => <CustomTrigger />); // class VirtualizeDemo extends React.Component {
-//     constructor(props) {
-//         super(props);
-//         // this.handleSearch = this.handleSearch.bind(this);
-//         let newOptions = Array.from({ length: 1000 }, (v, i) => ({ label: `option-${i}`, value: i }));
-//         this.state = {
-//             optionList: newOptions,
-//         };
-//     }
-//     render() {
-//         let { groups, optionList } = this.state;
-//         let virtualize = {
-//             height: 300,
-//             widht: '100%',
-//             itemSize: 36,
-//         };
-//         return (
-//             <>
-//                 <Select
-//                     placeholder=""
-//                     style={{ width: 180 }}
-//                     filter
-//                     onSearch={this.handleSearch}
-//                     virtualize={virtualize}
-//                     optionList={optionList}
-//                 ></Select>
-//             </>
-//         );
-//     }
-// }
-// stories.add(`virtualize select`, () => <VirtualizeDemo />);
+stories.add(`custom trigger`, () => <CustomTrigger />); 
+
+class VirtualizeDemo extends React.Component {
+    constructor(props) {
+        super(props);
+        // this.handleSearch = this.handleSearch.bind(this);
+        let newOptions = Array.from({ length: 1000 }, (v, i) => ({ label: `option-${i}`, value: i }));
+        this.state = {
+            optionList: newOptions,
+        };
+    }
+    render() {
+        let { groups, optionList } = this.state;
+        let virtualize = {
+            height: 300,
+            widht: '100%',
+            itemSize: 36,
+        };
+        return (
+            <>
+                <Select
+                    placeholder=""
+                    style={{ width: 180 }}
+                    filter
+                    onSearch={this.handleSearch}
+                    virtualize={virtualize}
+                    optionList={optionList}
+                ></Select>
+            </>
+        );
+    }
+}
+stories.add(`virtualize select`, () => <VirtualizeDemo />);
 
 const SelectPosition = () => {
     return (
@@ -2609,3 +2611,46 @@ const Highlight = () => {
 };
 
 stories.add('highlight', () => <Highlight />);
+
+stories.add('scroll into view', () => (
+    <>
+        <div>
+            <p>single selection</p>
+            <Select defaultValue='option-11' defaultOpen style={{ marginBottom: 300, width: 120 }}>
+                {new Array(50).fill(null).map((item, idx) => (
+                    <Option value={`${idx}`} key={idx}>{`option-${idx}`}</Option>
+                ))}
+            </Select>
+            <p>single selection with no selected item</p>
+            <Select style={{ marginBottom: 300, width: 120 }}>
+                {new Array(50).fill(null).map((item, idx) => (
+                    <Option value={`${idx}`} key={idx}>{`option-${idx}`}</Option>
+                ))}
+            </Select>
+            <p>The selected node is the last</p>
+            <Select defaultValue='option-49' defaultOpen style={{ marginBottom: 300, width: 120 }}>
+                {new Array(50).fill(null).map((item, idx) => (
+                    <Option value={`${idx}`} key={idx}>{`option-${idx}`}</Option>
+                ))}
+            </Select>
+            <p>The selected node is the first</p>
+            <Select defaultValue='option-0' style={{ marginBottom: 300, width: 120 }}>
+                {new Array(50).fill(null).map((item, idx) => (
+                    <Option value={`${idx}`} key={idx}>{`option-${idx}`}</Option>
+                ))}
+            </Select>
+            <p>multiple selection</p>
+            <Select defaultValue={['option-25', 'option-9']} multiple style={{ marginBottom: 300, width: 220 }}>
+                {new Array(30).fill(null).map((item, idx) => (
+                    <Option value={`${idx}`} key={idx}>{`option-${idx}`}</Option>
+                ))}
+            </Select>
+            <p>multiple selection with no selected item</p>
+            <Select multiple style={{ marginBottom: 300, width: 220 }}>
+                {new Array(30).fill(null).map((item, idx) => (
+                    <Option value={`${idx}`} key={idx}>{`option-${idx}`}</Option>
+                ))}
+            </Select>
+        </div>
+    </>
+));
