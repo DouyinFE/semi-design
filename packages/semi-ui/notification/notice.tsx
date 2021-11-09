@@ -12,7 +12,7 @@ import NotificationFoundation, {
 import Button from '../iconButton';
 import BaseComponent from '../_base/baseComponent';
 import { isSemiIcon } from '../_utils';
-import { noop } from 'lodash-es';
+import { noop } from 'lodash';
 import { IconAlertTriangle, IconInfoCircle, IconTickCircle, IconAlertCircle, IconClose } from '@douyinfe/semi-icons';
 
 export interface NoticeReactProps extends NoticeProps{

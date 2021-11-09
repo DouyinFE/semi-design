@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import TimePickerPanel from '../index';
 import { TimePicker as BasicTimePicker, Button } from '../../index';
 import { strings } from '@douyinfe/semi-foundation/timePicker/constants';
-import { get } from 'lodash-es';
+import { get } from 'lodash';
 
 import Callbacks from './Callbacks';
 import CustomTrigger from './CustomTrigger';

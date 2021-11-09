@@ -1,5 +1,5 @@
 import { Upload, Icon } from '../../index';
-import { noop } from 'lodash-es';
+import { noop } from 'lodash';
 import { cssClasses } from '@douyinfe/semi-foundation/icons/constants';
 import { BASE_CLASS_PREFIX } from '../../../semi-foundation/base/constants';
 import { IconBolt } from '@douyinfe/semi-icons';

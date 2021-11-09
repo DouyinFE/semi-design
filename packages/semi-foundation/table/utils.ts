@@ -14,7 +14,7 @@ import {
     some,
     includes,
     toString
-} from 'lodash-es';
+} from 'lodash';
 import { strings, numbers } from './constants';
 import isNullOrUndefined from '../utils/isNullOrUndefined';
 

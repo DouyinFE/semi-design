@@ -10,7 +10,7 @@ import Checkbox from '../../checkbox';
 import Icon from '../../icons';
 import Tree from '../../tree';
 import Input from '../../input';
-import { omit, values } from 'lodash-es';
+import { omit, values } from 'lodash';
 import './transfer.scss';
 import { SortableContainer, SortableElement, sortableHandle } from 'react-sortable-hoc';
 import {IconClose, IconSearch, IconHandle} from '@douyinfe/semi-icons';

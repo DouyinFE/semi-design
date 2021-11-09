@@ -1,5 +1,5 @@
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
-import { noop } from 'lodash-es';
+import { noop } from 'lodash';
 
 export interface TabsAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     collectPane: () => void;

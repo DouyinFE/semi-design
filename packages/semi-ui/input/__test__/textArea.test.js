@@ -2,7 +2,7 @@ import TextArea from '../textarea';
 import Icon from '../../icons/index';
 import { BASE_CLASS_PREFIX } from '../../../semi-foundation/base/constants';
 import GraphemeSplitter from 'grapheme-splitter';
-import { isString } from 'lodash-es';
+import { isString } from 'lodash';
 
 function getValueLength(str) {
   if (isString(str)) {

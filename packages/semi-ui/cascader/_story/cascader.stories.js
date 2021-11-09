@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { storiesOf } from '@storybook/react';
 // import { withKnobs, text, boolean } from '@storybook/addon-knobs';
 import withPropsCombinations from 'react-storybook-addon-props-combinations';
-import { cloneDeep } from 'lodash-es'
+import { cloneDeep } from 'lodash'
 import Button from '../../button/index';
 import Cascader from '../index';
 import CustomTrigger from './CustomTrigger';

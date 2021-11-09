@@ -1,13 +1,17 @@
 import path from 'path';
 import { transformPath } from './utils';
-const NormalModule = require('webpack/lib/NormalModule');
+const _NormalModule_ = require('webpack/lib/NormalModule');
 
+export interface WebpackContext {
+    NormalModule?: any;
+}
 export interface SemiWebpackPluginOptions {
     theme?: string | SemiThemeOptions;
     prefixCls?: string;
     variables?: {[key: string]: string | number};
     include?: string;
     omitCss?: boolean;
+    WebpackContext?: WebpackContext
 }
 
 export interface SemiThemeOptions {
@@ -22,6 +26,7 @@ export default class SemiWebpackPlugin {
     }
 
     apply(compiler: any) {
+        const NormalModule = this.options.WebpackContext?.NormalModule || _NormalModule_;
         compiler.hooks.compilation.tap('SemiPlugin', (compilation: any) => {
             if (this.options.theme || this.options.prefixCls || this.options.omitCss) {
                 if (NormalModule.getCompilationHooks) {

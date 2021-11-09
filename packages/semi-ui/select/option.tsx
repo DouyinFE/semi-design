@@ -2,7 +2,7 @@
 import React, { PureComponent } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import { isString } from 'lodash-es';
+import { isString } from 'lodash';
 import { cssClasses } from '@douyinfe/semi-foundation/select/constants';
 import LocaleCosumer from '../locale/localeConsumer';
 import { IconTick } from '@douyinfe/semi-icons';

@@ -2,7 +2,7 @@
 /* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import AsyncValidator from 'async-validator';
-import { cloneDeep, toPath } from 'lodash-es';
+import { cloneDeep, toPath } from 'lodash';
 import { FieldValidateTriggerType, BasicTriggerType, ComponentProps, withFieldOption } from './interface';
 
 export function getDisplayName(WrappedComponent: React.ComponentType | any) {

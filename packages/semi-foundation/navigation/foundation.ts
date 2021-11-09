@@ -4,7 +4,7 @@ import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import NavItem from './NavItem';
 import { ItemProps } from './itemFoundation';
 import { strings } from './constants';
-import { get } from 'lodash-es';
+import { get } from 'lodash';
 import isNullOrUndefined from '../utils/isNullOrUndefined';
 
 export interface ItemKey2ParentKeysMap {

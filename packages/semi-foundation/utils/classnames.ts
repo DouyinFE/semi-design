@@ -1,5 +1,5 @@
 import classnames, { Argument } from 'classnames';
-import { split, filter, map } from 'lodash-es';
+import { split, filter, map } from 'lodash';
 
 function addClass(rawCls: Argument, ...srcClss: Argument[]) {
     const clss = split(rawCls as string, /\s+/);
