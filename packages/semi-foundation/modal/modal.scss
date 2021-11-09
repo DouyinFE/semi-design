@@ -65,7 +65,6 @@ $module: #{$prefix}-modal;
         background-clip: padding-box;
         overflow: hidden;
         @include shadow-elevated;
-        animation: #{$module}-show 1s ease-in 0s;
     }
     
     &-content-fullScreen {
