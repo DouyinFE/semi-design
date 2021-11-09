@@ -279,7 +279,7 @@ describe('modal', () => {
         let modal = mount(com, { attachTo: document.getElementById('container') });
         setTimeout(() => {
             modal.update();
-            expect(modal.find(`div.${BASE_CLASS_PREFIX}-modal`)).toHaveStyle({ transform: 'scale(1) translateY(-50%)', top: '50%' });
+            expect(modal.find(`div.${BASE_CLASS_PREFIX}-modal-content`)).toHaveClassName(`semi-modal-content-animate-show`);
             done();
         }, 2000);
     });
@@ -288,22 +288,6 @@ describe('modal', () => {
         let com = getModal({ centered: true, visible: true, motion: false });
         let modal = mount(com, { attachTo: document.getElementById('container') });
         expect(modal.find(`div.${BASE_CLASS_PREFIX}-modal`)).toHaveStyle({ transform: 'translateY(-50%)', top: '50%' });
-    });
-
-    // didLeave motion need to call clear() in beforeEach, while other confirm tests do not need, so it is tested here
-    it('motion didLeave', (done) => {
-        let leave = () => { };
-        let spyLeave = sinon.spy(leave);
-        Modal.confirm({ 'title': 'Semi', 'content': 'Content', motion: { didLeave: spyLeave } });
-        let modal = document.querySelector(`.${BASE_CLASS_PREFIX}-modal-confirm`);
-        let btn = modal.querySelectorAll(`.${BASE_CLASS_PREFIX}-button`)
-        btn[2].click();
-        expect(spyLeave.notCalled).toBe(true);
-        setTimeout(() => {
-            debugger
-            expect(spyLeave.calledOnce).toBe(true);
-            done();
-        }, 3000);
     });
 
     it('keepDOM', () => {
