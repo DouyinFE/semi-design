@@ -4,7 +4,7 @@ $color-input_default-bg-default: var(--semi-color-fill-0); // 输入框背景颜
 $color-input_default-text-default: var(--semi-color-text-0); // 输入框文本颜色 - 默认
 
 $color-input_default-bg-hover: var(--semi-color-fill-1); // 输入框背景颜色 - 悬浮
-$color-input_default-border-hover: $color-input_default-bg-hover; // 输入框描边颜色 - 悬浮
+$color-input_default-border-hover: transparent·; // 输入框描边颜色 - 悬浮
 
 $color-input_default-bg-active: var(--semi-color-fill-2); // 输入框背景颜色 - 按下
 $color-input_default-border-active: $color-input_default-bg-active; // 输入框描边颜色 - 按下
