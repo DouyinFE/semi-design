@@ -132,7 +132,7 @@ import { Spin, Button } from '@douyinfe/semi-ui';
 | size             | 组件大小，可选值为 `small`, `middle`, `large` | string     | `middle` |
 | spinning         | 是否处于加载中的状态                          | boolean    | true     |
 | style            | 内联样式                                      | CSSProperties     | -        |
-| tip              | 当 spin 作为包裹元素时，可以自定义描述文字    | string     | 无       |
+| tip              | 当 spin 作为包裹元素时，可以自定义描述文字    | ReactNode     | 无       |
 | wrapperClassName | 包裹元素的类名                                | string     | 无       |
 
 ## 设计变量

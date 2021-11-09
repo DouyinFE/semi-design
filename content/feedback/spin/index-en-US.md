@@ -157,7 +157,7 @@ import { Spin } from '@douyinfe/semi-ui';
 | size             | Size, one of `small`, `middle`, `large`                   | string     | `middle` |
 | spinning         | Toggle whether it is in loading                           | boolean    | true     |
 | style            | Inline style                                              | CSSProperties     | -        |
-| tip              | Description texts when Spin is used as a wrapping element | string     | -        |
+| tip              | Description texts when Spin is used as a wrapping element | ReactNode     | -        |
 | wrapperClassName | Class name of wrapping element                            | string     | -        |
 
 ## Design Tokens
