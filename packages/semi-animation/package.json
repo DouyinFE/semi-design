@@ -8,7 +8,7 @@
   ],
   "homepage": "",
   "license": "MIT",
-  "main": "lib/es/index.js",
+  "main": "lib/cjs/index.js",
   "module": "lib/es/index.js",
   "typings": "lib/es/index.d.ts",
   "directories": {
