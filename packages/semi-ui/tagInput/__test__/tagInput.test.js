@@ -1,5 +1,5 @@
 import { Icon, TagInput } from '../../index';
-import { noop } from 'lodash-es';
+import { noop } from 'lodash';
 import { cssClasses } from '@douyinfe/semi-foundation/icons/constants';
 import { BASE_CLASS_PREFIX } from '../../../semi-foundation/base/constants';
 const prefixCls = cssClasses.PREFIX;

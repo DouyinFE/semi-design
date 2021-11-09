@@ -1,6 +1,6 @@
 import {Checkbox, Table} from '@douyinfe/semi-ui';
 import React, {useCallback, useMemo, useState} from 'react';
-import * as _ from 'lodash-es';
+import * as _ from 'lodash';
 
 const getKey = (record, rowKey) => (typeof rowKey === 'function' ? rowKey(rowKey) : _.get(record, rowKey));
 

@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { get, noop } from 'lodash-es';
+import { get, noop } from 'lodash';
 import classnames from 'classnames';
 
 import ColGroup from './ColGroup';

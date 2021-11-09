@@ -1,5 +1,5 @@
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
-import { get, noop } from 'lodash-es';
+import { get, noop } from 'lodash';
 import KeyCode from '../utils/keyCode';
 import { Motion } from '../utils/type';
 

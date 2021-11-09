@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable max-len, max-depth,  */
 import { format, isValid, isSameSecond, isEqual as isDateEqual, isDate } from 'date-fns';
-import { get, isObject, isString, isEqual } from 'lodash-es';
+import { get, isObject, isString, isEqual } from 'lodash';
 
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import { isValidDate, isTimestamp } from './_utils/index';

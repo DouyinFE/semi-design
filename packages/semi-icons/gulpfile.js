@@ -24,9 +24,13 @@ function compileTSX(isESM) {
         }));
     const jsStream = tsStream.js
         .pipe(gulpBabel(getBabelConfig({ isESM })))
+        .pipe(replace(/(require\(['"])([^'"]+)(\.scss)(['"]\))/g, '$1$2.css$4'))
         .pipe(replace(/(import\s+)['"]([^'"]+)(\.scss)['"]/, '$1\'$2.css\''))
         .pipe(gulp.dest(targetDir));
-    const dtsStream = tsStream.dts.pipe(gulp.dest(targetDir));
+    const dtsStream = tsStream.dts
+        .pipe(replace(/(require\(['"])([^'"]+)(\.scss)(['"]\))/g, '$1$2.css$4'))
+        .pipe(replace(/(import\s+)['"]([^'"]+)(\.scss)['"]/, '$1\'$2.css\''))
+        .pipe(gulp.dest(targetDir));
     return merge2([jsStream, dtsStream]);
 }
 

@@ -13,7 +13,7 @@ import ModalContentFoundation, {
     ModalContentProps,
     ModalContentState
 } from '@douyinfe/semi-foundation/modal/modalContentFoundation';
-import { noop } from 'lodash-es';
+import { noop } from 'lodash';
 import { IconClose } from '@douyinfe/semi-icons';
 
 let uuid = 0;

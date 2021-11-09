@@ -15,7 +15,7 @@ import DropdownTitle, { DropdownTitleProps } from './dropdownTitle';
 
 import DropdownContext from './context';
 import '@douyinfe/semi-foundation/dropdown/dropdown.scss';
-import { noop, get } from 'lodash-es';
+import { noop, get } from 'lodash';
 import { Motion } from '../_base/base';
 
 const positionSet = strings.POSITION_SET;

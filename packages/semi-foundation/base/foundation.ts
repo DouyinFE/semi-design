@@ -5,7 +5,7 @@
  */
  
 import log from '../utils/log';
-import { noop } from 'lodash-es';
+import { noop } from 'lodash';
 
 export type noopFunction = (...args: any) => any;
 // eslint-disable-next-line

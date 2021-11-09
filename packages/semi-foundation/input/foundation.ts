@@ -1,6 +1,6 @@
 import BaseFoundation, { DefaultAdapter, noopFunction } from '../base/foundation';
 import { strings } from './constants';
-import { noop, set, isNumber, isString, isFunction } from 'lodash-es';
+import { noop, set, isNumber, isString, isFunction } from 'lodash';
 
 const ENTER_KEY_CODE = 'Enter';
 
