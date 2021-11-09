@@ -16,6 +16,12 @@ Version：Major.Minor.Patch
 
 ---
 
+#### 🎉 2.0.5 (2021-11-09)
+- 【Style】
+   - Fixed the border style issue when the Input component is hover [#204](https://github.com/DouyinFE/semi-design/issues/204)
+- 【Perf】
+   - Modal uses CSS animation to optimize the animation effect when opening and closing [#236](https://github.com/DouyinFE/semi-design/issues/236)
+
 #### 🎉 2.0.4 (2021-11-08)
 - 【Fix】
    - Fixed Cascader single selection, the problem that the `defaultValue` is disabled when the node is selected will be filtered [#183](https://github.com/DouyinFE/semi-design/issues/183)
