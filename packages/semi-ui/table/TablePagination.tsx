@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 import React, { PureComponent, isValidElement } from 'react';
 import PropTypes from 'prop-types';
-import { get, isFunction } from 'lodash-es';
+import { get, isFunction } from 'lodash';
 
 import { cssClasses } from '@douyinfe/semi-foundation/table/constants';
 import Pagination from '../pagination';

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import * as _ from 'lodash-es';
+import * as _ from 'lodash';
 import { Nav } from '../../../index';
 
 const navList = [

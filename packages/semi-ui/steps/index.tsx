@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { noop } from 'lodash-es';
+import { noop } from 'lodash';
 import PropTypes from 'prop-types';
 import '@douyinfe/semi-foundation/steps/steps.scss';
 import Step from './step';

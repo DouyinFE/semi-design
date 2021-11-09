@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import PropTypes from 'prop-types';
-import { isEqual, isEmpty } from 'lodash-es';
+import { isEqual, isEmpty } from 'lodash';
 
 export interface ReactIntersectionObserverProps {
     onIntersect?: IntersectionObserverCallback;

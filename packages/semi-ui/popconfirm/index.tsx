@@ -2,7 +2,7 @@
 import React from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
-import { noop, get } from 'lodash-es';
+import { noop, get } from 'lodash';
 import { cssClasses, numbers } from '@douyinfe/semi-foundation/popconfirm/constants';
 import PopconfirmFoundation, { PopconfirmAdapter } from '@douyinfe/semi-foundation/popconfirm/popconfirmFoundation';
 import { IconClose, IconAlertTriangle } from '@douyinfe/semi-icons';

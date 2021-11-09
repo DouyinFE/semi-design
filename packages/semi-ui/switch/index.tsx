@@ -7,7 +7,7 @@ import { cssClasses, strings } from '@douyinfe/semi-foundation/switch/constants'
 import BaseComponent from '../_base/baseComponent';
 import '@douyinfe/semi-foundation/switch/switch.scss';
 
-import { noop } from 'lodash-es';
+import { noop } from 'lodash';
 import Spin from '../spin';
 
 export interface SwitchProps {

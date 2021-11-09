@@ -1,7 +1,7 @@
 /* eslint-disable max-lines-per-function */
 import React, { useState, useMemo } from 'react';
 import { DatePicker, ConfigProvider, Select } from '@douyinfe/semi-ui';
-import * as _ from 'lodash-es';
+import * as _ from 'lodash';
 import * as dateFns from 'date-fns';
 import { utcToZonedTime } from 'date-fns-tz';
 

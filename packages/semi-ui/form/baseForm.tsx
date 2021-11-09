@@ -16,7 +16,7 @@ import Section from './section';
 import Label from './label';
 import ErrorMessage from './errorMessage';
 import FormInputGroup from './group';
-import { noop } from 'lodash-es';
+import { noop } from 'lodash';
 import '@douyinfe/semi-foundation/form/form.scss';
 import { FormInput,
     FormInputNumber,

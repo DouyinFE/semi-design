@@ -1,7 +1,7 @@
 import React, { PureComponent, Fragment } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
-import { get as lodashGet, isFunction, isNumber } from 'lodash-es';
+import { get as lodashGet, isFunction, isNumber } from 'lodash';
 import Avatar from './index';
 import { AvatarGroupProps } from './interface';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/avatar/constants';

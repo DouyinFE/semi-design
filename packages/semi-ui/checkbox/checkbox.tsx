@@ -8,7 +8,7 @@ import CheckboxInner from './checkboxInner';
 import BaseComponent from '../_base/baseComponent';
 import '@douyinfe/semi-foundation/checkbox/checkbox.scss';
 import { Context } from './context';
-import { isUndefined, isBoolean, noop } from 'lodash-es';
+import { isUndefined, isBoolean, noop } from 'lodash';
 export type CheckboxEvent = BasicCheckboxEvent;
 export type TargetObject = BasicTargetObject;
 
