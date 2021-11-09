@@ -60,7 +60,7 @@ $module: #{$prefix}-input;
 
     &:hover {
         background-color: $color-input_default-bg-hover;
-        border: $color-input_default-border-hover;
+        border-color: $color-input_default-border-hover;
     }
 
     // &:active {
