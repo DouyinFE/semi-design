@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 /* argus-disable unPkgSensitiveInfo */
 import React from 'react';
-import { cloneDeepWith, set, get } from 'lodash-es';
+import { cloneDeepWith, set, get } from 'lodash';
 import warning from '@douyinfe/semi-foundation/utils/warning';
 import { findAll } from '@douyinfe/semi-foundation/utils/getHighlight';
 /**

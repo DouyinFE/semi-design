@@ -3,7 +3,7 @@ import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { FixedSizeList as List } from 'react-window';
-import { noop } from 'lodash-es';
+import { noop } from 'lodash';
 
 import PaginationFoundation, {
     AdapterPageList,
