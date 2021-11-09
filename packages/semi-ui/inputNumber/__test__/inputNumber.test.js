@@ -3,7 +3,7 @@ import InputNumber, { InputNumber as BaseInputNumber } from '../index';
 import { mount } from 'enzyme';
 import sinon from 'sinon';
 import keyCode from '@douyinfe/semi-foundation/utils/keyCode';
-import * as _ from 'lodash-es';
+import * as _ from 'lodash';
 import { BASE_CLASS_PREFIX } from '../../../semi-foundation/base/constants';
 import { Form, withField } from '../../index';
 

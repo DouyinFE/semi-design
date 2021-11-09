@@ -5,7 +5,7 @@ import {
     isNumber,
     isFunction,
     isUndefined
-} from 'lodash-es';
+} from 'lodash';
 import getSplitedArray from './utils/getSplitedArray';
 
 export type TagInputChangeEvent = any;

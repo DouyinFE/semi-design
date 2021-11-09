@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { get } from 'lodash-es';
+import { get } from 'lodash';
 import { numbers, cssClasses, strings } from '@douyinfe/semi-foundation/popover/constants';
 
 export interface ArrowProps {

@@ -12,7 +12,7 @@ import IconButton from '../iconButton';
 import { IconChevronLeft } from '@douyinfe/semi-icons';
 import { BASE_CLASS_PREFIX } from '@douyinfe/semi-foundation/base/constants';
 
-import { noop, stubFalse } from 'lodash-es';
+import { noop, stubFalse } from 'lodash';
 import { setYear, setMonth } from 'date-fns';
 import { Locale } from '../locale/interface';
 

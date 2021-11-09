@@ -1,5 +1,5 @@
 // Modified version based on 'highlight-words-core'
-import { isString } from 'lodash-es';
+import { isString } from 'lodash';
 
 const escapeRegExpFn = (string: string) => string.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
 interface ChunkQuery {

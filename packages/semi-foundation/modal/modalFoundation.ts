@@ -1,4 +1,4 @@
-import { get } from 'lodash-es';
+import { get } from 'lodash';
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import { Motion } from '../utils/type';
 

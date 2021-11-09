@@ -1,5 +1,5 @@
 import { Form, Select } from '../../index';
-import { noop } from 'lodash-es';
+import { noop } from 'lodash';
 import { func } from 'prop-types';
 import { BASE_CLASS_PREFIX } from '../../../semi-foundation/base/constants';
 

@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import React from 'react';
-import { noop } from 'lodash-es';
+import { noop } from 'lodash';
 import { ColumnProps, GetVirtualizedListRef } from './interface';
 
 export interface TableContextProps {

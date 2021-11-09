@@ -12,7 +12,7 @@ import BaseComponent from '../_base/baseComponent';
 import CollapsePanel from './item';
 import '@douyinfe/semi-foundation/collapse/collapse.scss';
 import { noop } from '@douyinfe/semi-foundation/utils/function';
-import { isEqual } from 'lodash-es';
+import { isEqual } from 'lodash';
 import CollapseContext from './collapse-context';
 
 export { CollapsePanelProps } from './item';

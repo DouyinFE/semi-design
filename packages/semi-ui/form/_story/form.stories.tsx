@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { storiesOf } from '@storybook/react';
 import { Form, useFormState, useFormApi, withField, Input, Button } from '../../index';
-import { values } from 'lodash-es';
+import { values } from 'lodash';
 const stories = storiesOf('Form', module);
 
 import { FormApi, FormFCChild } from '../interface';
