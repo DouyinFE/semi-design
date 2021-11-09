@@ -5,26 +5,30 @@ const gulpBabel = require('gulp-babel');
 const merge2 = require('merge2');
 const del = require('del');
 const tsConfig = require('./tsconfig.json');
-const babelConfig = require('./babel.config');
+const getBabelConfig = require('./getBabelConfig');
 
 gulp.task('cleanLib', function cleanLib() {
     return del(['lib/**/*']);
 });
 
-gulp.task('compileTS', function compileTSX() {
+function compileTS(isESM) {
+    const targetDir = isESM ? 'lib/es' : 'lib/cjs';
     const tsStream = gulp.src(['**/*.ts', '!_story/**/*.*', '!node_modules/**/*.*', '!lib/**/*.*'])
         .pipe(gulpTS(tsConfig.compilerOptions));
     const jsStream = tsStream.js
-        .pipe(gulpBabel(babelConfig))
-        .pipe(gulp.dest('lib/es'));
-    const dtsStream = tsStream.dts.pipe(gulp.dest('lib/es'));
+        .pipe(gulpBabel(getBabelConfig({ isESM })))
+        .pipe(gulp.dest(targetDir));
+    const dtsStream = tsStream.dts.pipe(gulp.dest(targetDir));
     return merge2([jsStream, dtsStream]);
+}
+
+gulp.task('compileTSForESM', function compileTSForESM() {
+    return compileTS(true);
 });
 
-gulp.task('compileScss', function compileScss() {
-    return gulp.src(['**/*.css', '!_story/**/*.*', '!node_modules/**/*.*', '!lib/**/*.*'])
-        .pipe(gulp.dest('lib/es'));
+gulp.task('compileTSForCJS', function compileTSForCJS() {
+    return compileTS(false);
 });
 
-gulp.task('compileLib', gulp.series(['cleanLib', 'compileScss', 'compileTS']));
+gulp.task('compileLib', gulp.series(['cleanLib', gulp.parallel('compileTSForESM', 'compileTSForCJS')]));
 
