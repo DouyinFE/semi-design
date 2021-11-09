@@ -15,6 +15,12 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 ---
 
+#### 🎉 2.0.5 (2021-11-09)
+- 【Style】
+  - 修复 Input 组件 hover 时 border 样式问题 [#204](https://github.com/DouyinFE/semi-design/issues/204)
+- 【Perf】
+  - Modal 使用 CSS 动画，优化打开和关闭时的动画效果 [#236](https://github.com/DouyinFE/semi-design/issues/236)
+
 #### 🎉 2.0.4 (2021-11-08)
 - 【Fix】
   - 修复 Cascader 单选时，defaultValue 为 disabled 节点时选中会被过滤的问题 [#183](https://github.com/DouyinFE/semi-design/issues/183)
