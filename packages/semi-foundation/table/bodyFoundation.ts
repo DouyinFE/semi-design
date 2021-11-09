@@ -1,5 +1,5 @@
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
-import { get, includes, isMap, findLastIndex, isObject } from 'lodash-es';
+import { get, includes, isMap, findLastIndex, isObject } from 'lodash';
 import { strings } from './constants';
 import { getRecordKey, genExpandedRowKey, getRecordChildren, expandBtnShouldInRow } from './utils';
 

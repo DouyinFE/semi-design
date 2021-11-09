@@ -2,7 +2,7 @@ import React from 'react';
 import BaseComponent from '../_base/baseComponent';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { noop, debounce, throttle, find, map, findIndex, times } from 'lodash-es';
+import { noop, debounce, throttle, find, map, findIndex, times } from 'lodash';
 
 import { cssClasses, numbers } from '@douyinfe/semi-foundation/scrollList/constants';
 import ItemFoundation, { Item, ScrollItemAdapter } from '@douyinfe/semi-foundation/scrollList/itemFoundation';

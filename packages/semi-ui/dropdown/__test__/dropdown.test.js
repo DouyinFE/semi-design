@@ -1,6 +1,6 @@
 import { Icon, Dropdown, Tag } from '../../index';
 import { string } from 'prop-types';
-import { noop, drop } from 'lodash-es';
+import { noop, drop } from 'lodash';
 import { BASE_CLASS_PREFIX } from '../../../semi-foundation/base/constants';
 
 const defaultItems = [{ children: 'Menu Item 1' }, { children: 'Menu Item 2' }, { children: 'Menu Item 3' }];

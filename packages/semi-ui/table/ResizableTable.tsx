@@ -4,7 +4,7 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable max-lines-per-function */
 import React, { useState, useEffect, useMemo } from 'react';
-import { merge, get, find, noop } from 'lodash-es';
+import { merge, get, find, noop } from 'lodash';
 
 import { addClass, removeClass } from '@douyinfe/semi-foundation/utils/classnames';
 import { strings, numbers } from '@douyinfe/semi-foundation/table/constants';

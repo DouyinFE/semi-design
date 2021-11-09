@@ -3,7 +3,7 @@
  * https://github.com/react-component/tree/blob/master/src/util.tsx
  */
 
-import { difference, uniq, max, isObject, isNull, isUndefined, isEmpty, pick, get } from 'lodash-es';
+import { difference, uniq, max, isObject, isNull, isUndefined, isEmpty, pick, get } from 'lodash';
 
 export interface KeyEntities {
     [x: string]: any;

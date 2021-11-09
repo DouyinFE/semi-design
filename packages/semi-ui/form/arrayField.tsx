@@ -1,7 +1,7 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import { getUuidv4 } from '@douyinfe/semi-foundation/utils/uuid';
-import { cloneDeep, isUndefined } from 'lodash-es';
+import { cloneDeep, isUndefined } from 'lodash';
 import { FormUpdaterContext, ArrayFieldContext } from './context';
 import warning from '@douyinfe/semi-foundation/utils/warning';
 import { ArrayFieldStaff, FormUpdaterContextType } from '@douyinfe/semi-foundation/form/interface';

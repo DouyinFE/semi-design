@@ -3,7 +3,7 @@
 import React, { createRef, ReactNode } from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
-import { each, noop, get, stubTrue, omit, isEqual, pick } from 'lodash-es';
+import { each, noop, get, stubTrue, omit, isEqual, pick } from 'lodash';
 
 import { strings, cssClasses } from '@douyinfe/semi-foundation/table/constants';
 import shallowEqualObjects from '@douyinfe/semi-foundation/utils/shallowEqualObjects';

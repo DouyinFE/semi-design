@@ -3,7 +3,7 @@ import BaseComponent, { BaseProps } from '../_base/baseComponent';
 import React, { Children } from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
-import { noop, get, isEqual } from 'lodash-es';
+import { noop, get, isEqual } from 'lodash';
 
 import NavigationFoundation, { NavigationAdapter } from '@douyinfe/semi-foundation/navigation/foundation';
 import { strings, cssClasses, numbers } from '@douyinfe/semi-foundation/navigation/constants';

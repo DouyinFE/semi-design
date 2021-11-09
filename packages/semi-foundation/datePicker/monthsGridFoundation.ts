@@ -16,7 +16,7 @@ import {
 import { isBefore, isValidDate, getDefaultFormatToken, getFullDateOffset } from './_utils/index';
 import { formatFullDate, WeekStartNumber } from './_utils/getMonthTable';
 import { compatiableParse } from './_utils/parser';
-import { includes, isSet, isEqual } from 'lodash-es';
+import { includes, isSet, isEqual } from 'lodash';
 import { zonedTimeToUtc } from '../utils/date-fns-extra';
 import { getDefaultFormatTokenByType } from './_utils/getDefaultFormatToken';
 import isNullOrUndefined from '../utils/isNullOrUndefined';
