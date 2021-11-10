@@ -60,7 +60,7 @@ gulp.task('compileScss', function compileScss() {
 gulp.task('moveScss', function moveScss() {
     return gulp.src(['**/*.scss', '!node_modules/**/*.*'])
         .pipe(gulp.dest('lib/es'))
-        .pipe(gulp.dest('lib/es'));
+        .pipe(gulp.dest('lib/cjs'));
 });
 
 gulp.task('compileLib', 
