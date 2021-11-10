@@ -17,6 +17,8 @@ Version：Major.Minor.Patch
 ---
 
 #### 🎉 2.0.7 (2021-11-10)
+- 【Fix】
+ - semi-icons add dependencies `classnames` [#231](https://github.com/DouyinFE/semi-design/issues/231)
 - 【Style】
   - Table Fixed the problem of table misalignment when there is a fixed column/header scenario, all columns are not set to width [#247](https://github.com/DouyinFE/semi-design/issues/247)
 
