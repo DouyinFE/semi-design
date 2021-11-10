@@ -107,7 +107,6 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
         cachedColumns: BaseColumnProps<RecordType>[], 
         rowSelectionUpdate: boolean, 
         hideExpandedColumn: boolean,
-        scrollbarColumnUpdate: boolean | string | number,
         bodyHasScrollBar: boolean,
     ) => BaseColumnProps<RecordType>[];
     memoizedFilterColumns: (columns: BaseColumnProps<RecordType>[], ignoreKeys?: string[]) => BaseColumnProps<RecordType>[];
