@@ -528,7 +528,7 @@ class NavApp extends React.Component {
                 defaultOpenKeys={['job']}
                 bodyStyle={{ height: 320 }}
                 items={[
-                    { itemKey: 'user', text: '用户管理', icon: 'user' },
+                    { itemKey: 'user', text: '用户管理', icon: <IconUser /> },
                     {
                         text: '任务平台',
                         icon: <IconSetting />,
