@@ -16,6 +16,15 @@ Version：Major.Minor.Patch
 
 ---
 
+#### 🎉 2.0.7 (2021-11-10)
+- 【Style】
+  - Table Fixed the problem of table misalignment when there is a fixed column/header scenario, all columns are not set to width [#247](https://github.com/DouyinFE/semi-design/issues/247)
+
+
+#### 🎉 2.0.6 (2021-11-10)
+- 【Style】
+  - Table removed scrollbar column when there is a fixed column/header scenario by using the `overflow-y` to simulate the scrollbar [#164](https://github.com/DouyinFE/semi-design/issues/164)
+
 #### 🎉 2.0.5 (2021-11-09)
 - 【Style】
    - Fixed the border style issue when the Input component is hover [#204](https://github.com/DouyinFE/semi-design/issues/204)
