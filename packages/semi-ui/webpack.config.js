@@ -5,7 +5,7 @@ const DefinePlugin = webpack.DefinePlugin;
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const WebpackBarPlugin = require('webpackbar');
 const HashedModuleIdsPlugin = webpack.HashedModuleIdsPlugin;
-const babelConfig = require('./babel.config');
+const getBabelConfig = require('./getBabelConfig');
 
 const rootPath = path.join(__dirname, '../..');
 module.exports = function ({ minimize }) {
@@ -33,7 +33,7 @@ module.exports = function ({ minimize }) {
                     use: [
                         {
                             loader: 'babel-loader',
-                            options: babelConfig
+                            options: getBabelConfig({ isESM: true })
                         },
                         {
                             loader: 'ts-loader',
