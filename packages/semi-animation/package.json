@@ -1,6 +1,6 @@
 {
   "name": "@douyinfe/semi-animation",
-  "version": "2.0.5",
+  "version": "2.0.6-alpha.1",
   "description": "animation base library for semi-ui",
   "keywords": [
     "animation",
