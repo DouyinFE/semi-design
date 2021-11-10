@@ -17,7 +17,7 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 #### 🎉 2.0.7 (2021-11-10)
 - 【Fix】
- - 修复 Icon 包缺少 classnames 依赖问题 [#231](https://github.com/DouyinFE/semi-design/issues/231)
+  - 修复 Icon 包缺少 classnames 依赖问题 [#231](https://github.com/DouyinFE/semi-design/issues/231)
 - 【Style】
   - Table 修复了固定列/表头场景，所有列均不设置宽度时表格对不齐问题 [#247](https://github.com/DouyinFE/semi-design/issues/247)
 
