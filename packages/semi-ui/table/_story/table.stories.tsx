@@ -1,11 +1,12 @@
 import React, { ReactNode, useMemo } from 'react';
 import { storiesOf } from '@storybook/react';
+import { IllustrationConstruction } from '@douyinfe/semi-illustrations';
+
 import { Fixed, ColumnProps, OnRow, OnHeaderRow, OnGroupedRow, RowKey } from '../interface';
 import JSXColumnsNest from './JSXColumnsNest';
 import DefaultSortOrder from './DefaultSortOrder';
+import BetterScrollbar from './BetterScrollbar';
 import Empty from '../../empty';
-import { IllustrationConstruction } from '@douyinfe/semi-illustrations';
-
 import Table from '../index';
 
 const stories = storiesOf('Table', module);
@@ -371,3 +372,5 @@ stories.add('empty', () => {
         <Table columns={columns} dataSource={[]} empty={test} />
     );
 });
+
+stories.add('better scrollbar', () => <BetterScrollbar />);
