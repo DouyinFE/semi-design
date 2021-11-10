@@ -1,6 +1,6 @@
 {
     "name": "@douyinfe/semi-ui",
-    "version": "2.0.5",
+    "version": "2.0.6-alpha.0",
     "description": "",
     "main": "lib/es/index.js",
     "module": "lib/es/index.js",
@@ -20,7 +20,7 @@
     "dependencies": {
         "@babel/runtime-corejs3": "^7.15.4",
         "@douyinfe/semi-animation-react": "2.0.5",
-        "@douyinfe/semi-foundation": "2.0.5",
+        "@douyinfe/semi-foundation": "2.0.6-alpha.0",
         "@douyinfe/semi-icons": "2.0.5",
         "@douyinfe/semi-illustrations": "2.0.5",
         "@douyinfe/semi-theme-default": "2.0.5",
