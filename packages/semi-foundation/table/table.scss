@@ -492,6 +492,14 @@ $module: #{$prefix}-table;
                 align-items: center;
             }
         }
+
+        // when header is fixed, table should use `table-layout: fixed` to avoid align bug
+        &-header {
+
+            table {
+                table-layout: fixed;
+            }
+        }
     }
 
     &-scroll {
