@@ -2,10 +2,6 @@
     "name": "@douyinfe/semi-foundation",
     "version": "2.0.5",
     "description": "",
-    "files": [
-        "lib",
-        "README.md"
-    ],
     "scripts": {
         "build:lib": "node ./scripts/compileLib.js",
         "prepublishOnly": "npm run build:lib"
