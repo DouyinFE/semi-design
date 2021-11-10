@@ -1081,7 +1081,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
                     key="head"
                     anyColumnFixed={anyColumnFixed}
                     ref={headerRef}
-                    columns={bodyHasScrollBar ? columns : filteredColumns}
+                    columns={filteredColumns}
                     prefixCls={prefixCls}
                     fixed={fixed}
                     handleBodyScroll={this.handleBodyScrollLeft}
@@ -1090,6 +1090,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
                     showHeader={showHeader}
                     selectedRowKeysSet={selectedRowKeysSet}
                     dataSource={dataSource}
+                    bodyHasScrollBar={bodyHasScrollBar}
                 />
             ) : null;
 
@@ -1187,24 +1188,6 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             }
         }
 
-        /**
-          * Whether to insert the scroll shaft in the header
-          * If there is no fixed but there is a vertical scroll axis, the scroll-bar should be inserted in the head
-          */
-        if (isAnyFixedRight(columns) || get(scroll, 'y')) {
-            const scrollbarWidth = measureScrollbar('vertical');
-            if (scrollbarWidth) {
-                const column = this.normalizeScrollbarColumn({ scrollbarWidth });
-
-                const destIndex = findIndex(columns, item => item.key === strings.DEFAULT_KEY_COLUMN_SCROLLBAR);
-                if (destIndex > -1) {
-                    columns[destIndex] = { ...column, ...columns[destIndex] };
-                } else {
-                    columns.push(column);
-                }
-            }
-        }
-
         assignColumnKeys(columns);
 
         return columns;
@@ -1281,13 +1264,11 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
           */
         if (!this.adapter.isAnyColumnUseFullRender(queries)) {
             const rowSelectionUpdate: boolean = propRowSelection && !get(propRowSelection, 'hidden');
-            const scrollbarColumnUpdate: boolean | string | number = isAnyFixedRight(cachedColumns) || get(scroll, 'y');
             columns = this.foundation.memoizedWithFnsColumns(
                 queries,
                 cachedColumns,
                 rowSelectionUpdate,
                 hideExpandedColumn,
-                scrollbarColumnUpdate,
                 // Update the columns after the body scrollbar changes to ensure that the head and body are aligned
                 bodyHasScrollBar
             );
