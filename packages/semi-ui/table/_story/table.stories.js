@@ -71,6 +71,7 @@ import FixRenderReturnProps from './FixRenderReturnProps';
 import ExpandAllRows from './ExpandAllRows';
 import ExpandAllGroupRows from './ExpandAllGroupRows';
 import ExpandRowByClick from './ExpandRowByClick';
+import FixAllColumnsWithoutWidth from './FixAllColumnsWithoutWidth';
 
 const stories = storiesOf('Table', module);
 // // stories.addDecorator(withKnobs);;
@@ -432,3 +433,4 @@ stories.add('expandAllRows', () => <ExpandAllRows/>);
 stories.add('expandAllGroupRows', () => <ExpandAllGroupRows/>);
 stories.add('expandRowByClick', () => <ExpandRowByClick/>);
 stories.add('rowSelection boolean', () => <Table columns={columns} dataSource={data} rowSelection/>);
+stories.add('fix all columns without width', () => <FixAllColumnsWithoutWidth />);
