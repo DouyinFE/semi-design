@@ -239,7 +239,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
             this.foundation.afterHide();
         }
 
-        if(!this.props.motion){
+        if (!this.props.motion) {
             this.updateHiddenState();
         }
     }
@@ -258,9 +258,9 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         this.foundation.handleOk(e);
     };
 
-    updateHiddenState=()=>{
-        const {visible}=this.props;
-        const {hidden}=this.state;
+    updateHiddenState = () => {
+        const { visible } = this.props;
+        const { hidden } = this.state;
         if (!visible && !hidden) {
             this.foundation.toggleHidden(true, () => this.foundation.afterClose());
         } else if (visible && this.state.hidden) {
