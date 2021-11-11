@@ -727,7 +727,7 @@ function NavApp (props = {}) {
 | icon         | Navigation project icon name or component                                                                         | ReactNode                                                            |          |         |
 | indent       | If the icon is empty, keep its space or not. Only effective for first level navigation                            | boolean                                                              | false    |         |
 | itemKey      | Navigation project only key                                                                                       | string                                                               | ""       |         |
-| level        | The nesting level of the current item. When limitIndent is true, it is used to customize the indentation position | number                                                               | 1.27.0   |
+| level        | The nesting level of the current item. When limitIndent is true, it is used to customize the indentation position | number                                                               |          | 1.27.0  |
 | link         | Navigation item href link, when imported, the navigation item will be wrapped with an a tag                       | string                                                               | -        | 1.0.0   |
 | linkOptions  | Parameters transparently passed to the a tag                                                                      | object                                                               | -        | 1.0.0   |
 | text         | Navigation project copy or element                                                                                | string \| ReactNode                                                  | ""       |         |
@@ -771,7 +771,7 @@ function NavApp (props = {}) {
 | children       | Sub element                                                                                                                       | ReactNode                                 |         |         |
 | className      | Outermost style name                                                                                                              | string                                    |         |         |
 | collapseButton | Do you show the bottom "put away the sidebar" button, mode = "vertical" and the child parameter of the Footer component is empty? | boolean\|ReactNode                        | false   |         |
-| collapseText   | Title of the collapse button                                                                                                      | (collapsed?:boolean) => string\|ReactNode |         | 0.35.0  |
+| collapseText   | Title of the collapse button                                                                                                      | (collapsed:boolean) => string\|ReactNode |         | 0.35.0  |
 | style          | Outermost style                                                                                                                   | object                                    |         |         |
 
 ## Design Tokens
