@@ -79,7 +79,7 @@ export interface SliderAdapter extends DefaultAdapter<SliderProps, SliderState>{
     getMinHandleEl: () => { current: HTMLElement };
     getMaxHandleEl: () => { current: HTMLElement };
     onHandleDown: (e: any) => any;
-    onHandleMove: (mousePos: number, isMin: boolean, stateChangeCallback?: () => void) => boolean | void;
+    onHandleMove: (mousePos: number, isMin: boolean, stateChangeCallback?: () => void, clickTrack?: boolean) => boolean | void;
     setEventDefault: (e: any) => void;
     setStateVal: (state: keyof SliderState, value: any) => void;
     onHandleEnter: (position: SliderState['focusPos']) => void;
@@ -568,7 +568,7 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
         const mousePos = this.handleMousePos(e.pageX, e.pageY);
         const position = vertical ? mousePos.y : mousePos.x;
         const isMin = this.checkWhichHandle(position);
-        this.setHandlePos(position, isMin);
+        this.setHandlePos(position, isMin, true);
     };
 
     /**
@@ -576,8 +576,8 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
      *
      * @memberof SliderFoundation
      */
-    setHandlePos = (position: number, isMin: boolean) => {
-        this._adapter.onHandleMove(position, isMin, () => this._adapter.onHandleUpAfter());
+    setHandlePos = (position: number, isMin: boolean, clickTrack = false) => {
+        this._adapter.onHandleMove(position, isMin, () => this._adapter.onHandleUpAfter(), clickTrack);
     };
 
     /**
