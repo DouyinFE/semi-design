@@ -16,6 +16,10 @@ Version：Major.Minor.Patch
 
 ---
 
+#### 🎉 2.0.8 (2021-11-11)
+- 【Fix】
+  - Fix Modal afterClose not work in some scenario.
+
 #### 🎉 2.0.7 (2021-11-10)
 - 【Fix】
   - semi-icons add dependencies `classnames` [#231](https://github.com/DouyinFE/semi-design/issues/231)
