@@ -16,6 +16,17 @@ on:
       - '!packages/**/*.story.[tj]sx?'
       - '!packages/**/*.test.[tj]sx?'
       - '!packages/**/*.md'
+  push:
+    branches: [ main, release, test-chromatic ]
+    paths:
+      - 'packages/**/*.[tj]sx?'
+      - 'packages/**/*.scss'
+      - '!packages/**/_story/**'
+      - '!packages/**/__test__/**'
+      - '!packages/**/*.stories.[tj]sx?'
+      - '!packages/**/*.story.[tj]sx?'
+      - '!packages/**/*.test.[tj]sx?'
+      - '!packages/**/*.md'
 
 # List of jobs
 jobs:
@@ -29,8 +40,9 @@ jobs:
         with:
           node-version: '14'
       - name: Install dependencies
-        run: npx lerna bootstrap && lerna run build:lib
-        # 👇 Adds Chromatic as a step in the workflow
+        run: npx lerna bootstrap
+      - name: Pre-build libs
+        run: npx lerna run build:lib
       - name: Publish to Chromatic
         uses: chromaui/action@v1
         # Chromatic GitHub Action options
@@ -39,3 +51,5 @@ jobs:
           # 👇 Chromatic projectToken, refer to the manage page to obtain it.
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           buildScriptName: 'build-storybook'
+          # Positive exit of action even when there are changes detected
+          exitZeroOnChanges: false
