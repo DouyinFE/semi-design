@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react'; // import { withKnobs, text, boolean } from '@storybook/addon-knobs';
 
 import Others from './Others';
-import { IconHome, IconLock, IconClear, IconTickCircle, IconTick, IconClose, IconCaretUp } from '@douyinfe/semi-icons';
+import { IconHome, IconLock, IconClear, IconTickCircle, IconTick, IconClose, IconCaretup } from '@douyinfe/semi-icons';
 const stories = storiesOf('Icon', module); // stories.addDecorator(withKnobs);;
 
 stories.add('Icon', () => (
@@ -15,7 +15,7 @@ stories.add('Icon', () => (
             <IconTickCircle />
             <IconTick />
             <IconClose />
-            <IconCaretUp />
+            <IconCaretup />
         </div>
         <div
             style={{
@@ -29,7 +29,7 @@ stories.add('Icon', () => (
             <IconTickCircle />
             <IconTick />
             <IconClose />
-            <IconCaretUp />
+            <IconCaretup />
         </div>
         <div
             style={{
@@ -43,7 +43,7 @@ stories.add('Icon', () => (
             <IconTickCircle />
             <IconTick />
             <IconClose />
-            <IconCaretUp />
+            <IconCaretup />
         </div>
     </div>
 ));

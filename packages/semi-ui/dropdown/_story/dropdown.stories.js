@@ -11,7 +11,7 @@ import MultiDropdown from './MultiDropdown';
 import DisabledItem from './DisabledItem';
 import InHoverElements from './InHoverElements';
 import WrapAvatar from './WrapAvatar';
-import { IconChevronDown, IconBox, IconSimiarlity } from '@douyinfe/semi-icons';
+import { IconChevronDown, IconBox, IconSimilarity } from '@douyinfe/semi-icons';
 
 const stories = storiesOf('Dropdown', module); // stories.addDecorator(withKnobs);;
 
@@ -264,7 +264,7 @@ function DropdownItemPropsDemo() {
                         </Dropdown.Item>
                         <Dropdown.Item
                             icon={
-                                <IconSimiarlity
+                                <IconSimilarity
                                     style={{
                                         color: 'var(--semi-color-tertiary)',
                                     }}
@@ -307,7 +307,7 @@ function DropdownItemPropsDemo() {
                         </Dropdown.Item>
                         <Dropdown.Item
                             icon={
-                                <IconSimiarlity
+                                <IconSimilarity
                                     style={{
                                         color: 'var(--semi-color-tertiary)',
                                     }}

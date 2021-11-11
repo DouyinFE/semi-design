@@ -10,13 +10,13 @@ const stories = storiesOf('Empty', module);
 
 stories.add('empty simple', () => (
     <div>
-        <Empty image={Success} description={'功能建设中'} />
+        <Empty image={<IllustrationSuccess />} description={'功能建设中'} />
         <br />
-        <Empty image={Success} description={'功能建设中'}>
+        <Empty image={<IllustrationSuccess />} description={'功能建设中'}>
             该模块功能建设中，敬请期待。该模块功能建设中，敬请期待。
         </Empty>
         <br />
-        <Empty image={Success}>该模块功能建设中，敬请期待。该模块功能建设中，敬请期待。</Empty>
+        <Empty image={<IllustrationSuccess />}>该模块功能建设中，敬请期待。该模块功能建设中，敬请期待。</Empty>
         <br />
         <Empty description={'功能建设中'}>该模块功能建设中，敬请期待。该模块功能建设中，敬请期待。</Empty>
     </div>

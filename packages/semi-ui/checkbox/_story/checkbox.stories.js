@@ -357,7 +357,6 @@ const IndeterminateDemo = () => {
     };
 
 
-    return
     return (
         <div>
             <div
@@ -368,7 +367,7 @@ const IndeterminateDemo = () => {
                 <Checkbox
                     indeterminate={indeterminate}
                     onChange={onCheckAllChange}
-                    checked={state.checkAll}
+                    checked={checkAll}
                 >
                     Check all
                 </Checkbox>

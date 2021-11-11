@@ -502,6 +502,8 @@ stories.add('disabled style', () => {
             </>
         );
     }
+
+    return <Demo />
 });
 
 stories.add('Form.CustomInput', () => {
