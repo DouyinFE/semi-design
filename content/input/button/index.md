@@ -37,6 +37,7 @@ function ButtonDemo() {
   return (
     <div className="btn-margin-right">
       <Button>主要按钮</Button>
+      <Button>主要按钮</Button>
       <Button type="secondary">次要按钮</Button>
       <Button type="tertiary">第三按钮</Button>
       <Button type="warning">警告按钮</Button>
