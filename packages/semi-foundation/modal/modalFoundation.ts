@@ -94,8 +94,8 @@ export default class ModalFoundation extends BaseFoundation<ModalAdapter> {
     }
 
 
-    toggleHidden = (hidden: boolean,callback?:(hidden:boolean)=>void) => {
-        this._adapter.toggleHidden(hidden,callback);
+    toggleHidden = (hidden: boolean, callback?: (hidden: boolean) => void) => {
+        this._adapter.toggleHidden(hidden, callback);
     };
 
     // // eslint-disable-next-line max-len
