@@ -430,8 +430,6 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             willUpdateStates.cachedChildren = props.children;
         }
 
-        TableFoundation.warnIfNoDataIndex(willUpdateStates.flattenColumns || state.flattenColumns);
-
         // Update controlled selection column
         if (rowSelection !== state.prePropRowSelection) {
             let newSelectionStates: TableStateRowSelection = {};

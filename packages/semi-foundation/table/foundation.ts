@@ -27,7 +27,6 @@ import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import { strings, numbers } from './constants';
 import { mergeQueries, flattenColumns, filterColumns } from './utils';
 import { pullAll, withOrderSort } from '../utils/array';
-import Logger from '../utils/Logger';
 
 export interface BaseColumnProps<RecordType> {
     align?: BaseAlign;
@@ -127,17 +126,6 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
         this.memoizedFilterColumns = memoizeOne(filterColumns);
         this.memoizedFlattenFnsColumns = memoizeOne(flattenColumns);
         this.memoizedPagination = memoizeOne(mergePagination, isEqual);
-    }
-
-    static warnIfNoDataIndex = (columns: any[]) => {
-        if (Array.isArray(columns)) {
-            for (const column of columns) {
-                const { filters, sorter, dataIndex, title } = column;
-                if ((Array.isArray(filters) || isFunction(sorter)) && !dataIndex ) {
-                    new Logger('[@douyinfe/semi-ui Table]').warn(`The '${title}' column with sorter or filter must pass the 'dataIndex' prop`);
-                }
-            }
-        }
     }
 
     init() {
