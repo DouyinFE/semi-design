@@ -1,15 +1,26 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
-import ScrollList from '../index';
-import ScrollItem from '../scrollItem';
-import Button from '../../button';
 import WheelListDemo from './WheelList';
 import ScrollListDemo from './ScrollList';
 
-const stories = storiesOf('scrollList', module);
 
-stories.add('ScrollList simple', () => {
-    return <ScrollListDemo />;
-});
+export default {
+  title: 'ScrollList'
+}
 
-stories.add('wheel list demo', () => <WheelListDemo />);
+export const ScrollListSimple = () => {
+  return <ScrollListDemo />;
+};
+
+ScrollListSimple.story = {
+  name: 'ScrollList simple',
+};
+
+ScrollListSimple.parameters = {
+  chromatic: { disableSnapshot: true },
+}
+
+export const _WheelListDemo = () => <WheelListDemo />;
+
+_WheelListDemo.story = {
+  name: 'wheel list demo',
+};

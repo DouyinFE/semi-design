@@ -1,5 +1,4 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 
 import Nav from '..';
 import Switch from '../../switch';
@@ -13,250 +12,319 @@ import ItemsChange from './ItemsChange';
 import DisabledNav from './DisabledNav';
 import Button from '../../button';
 
-import { IconMail, IconFolder, IconGift, IconList,
-     IconFlag, IconStar, IconCloud, IconEdit,
-     IconFile,IconCamera,IconArticle,IconUser,IconAscend,IconDescend,IconSetting,IconUserGroup } from '@douyinfe/semi-icons';
+import {
+  IconMail,
+  IconFolder,
+  IconGift,
+  IconList,
+  IconFlag,
+  IconStar,
+  IconCloud,
+  IconEdit,
+  IconFile,
+  IconCamera,
+  IconArticle,
+  IconUser,
+  IconAscend,
+  IconDescend,
+  IconSetting,
+  IconUserGroup,
+} from '@douyinfe/semi-icons';
 
-const stories = storiesOf('Navigation', module);
+export default {
+  title: 'Navigation'
+}
 
-// stories.addDecorator(withKnobs);;
+export const Default = () => {
+  return (
+    <div style={{ height: '100vh', display: 'inline-block' }}>
+      <Nav onSelect={(...args) => console.log(...args)}>
+        <Nav.Item itemKey={'1'} text={'Option 1'} icon={<IconMail />} />
+        <Nav.Sub text={'Group 2'} icon={<IconFolder />} stayWhenClick={true} itemKey={'2'}>
+          {['2-1', '2-2'].map(k => (
+            <Nav.Item key={k} itemKey={String(k)} text={'Option ' + k} />
+          ))}
+          <Nav.Item itemKey={'2-3'} text={'Option 2-3'} />
+          <Nav.Sub text={'Group 2-4'} itemKey={'2-4'}>
+            <Nav.Item itemKey={'2-4-1'} text={'Option 2-3-1'} />
+            <Nav.Item itemKey={'2-4-2'} text={'Option 2-3-2'} />
+          </Nav.Sub>
+        </Nav.Sub>
+        <Nav.Item key={3} itemKey={'3'} text={'Option 3'} icon={<IconGift />} />
+        <Nav.Item key={4} itemKey={'4'} text={'Option 4'} icon={<IconList />} />
+        <Nav.Sub text={'Group 5'} icon={<IconFlag />} stayWhenClick={true} itemKey={'5'}>
+          {['5-1', '5-2'].map(k => (
+            <Nav.Item key={k} itemKey={String(k)} text={'Option ' + k} />
+          ))}
+        </Nav.Sub>
+        <Nav.Item itemKey={'6'} text={'Option 6 (with link)'} icon={<IconStar />} link="/star" />
+        <Nav.Sub text={'Group 7'} icon={<IconFolder />} stayWhenClick={true} itemKey={'7'}>
+          {['7-1', '7-2'].map(k => (
+            <Nav.Item
+              key={k}
+              itemKey={String(k)}
+              text={'Option ' + k + ' (with link)'}
+              link={`folder/${k}`}
+            />
+          ))}
+          <Nav.Item itemKey={'7-3'} text={'Option 7-3'} />
+        </Nav.Sub>
+      </Nav>
+    </div>
+  );
+};
 
-stories.add('普通导航', () => {
-    return (
-        <div style={{ height: '100vh', display: 'inline-block' }}>
-            <Nav onSelect={(...args) => console.log(...args)}>
-                <Nav.Item itemKey={'1'} text={'Option 1'} icon={<IconMail />} />
-                <Nav.Sub text={'Group 2'} icon={<IconFolder />} stayWhenClick={true} itemKey={'2'}>
-                    {['2-1', '2-2'].map(k => (
-                        <Nav.Item key={k} itemKey={String(k)} text={'Option ' + k} />
-                    ))}
-                    <Nav.Item itemKey={'2-3'} text={'Option 2-3'} />
-                    <Nav.Sub text={'Group 2-4'} itemKey={'2-4'}>
-                        <Nav.Item itemKey={'2-4-1'} text={'Option 2-3-1'} />
-                        <Nav.Item itemKey={'2-4-2'} text={'Option 2-3-2'} />
-                    </Nav.Sub>
-                </Nav.Sub>
-                <Nav.Item key={3} itemKey={'3'} text={'Option 3'} icon={<IconGift />} />
-                <Nav.Item key={4} itemKey={'4'} text={'Option 4'} icon={<IconList />} />
-                <Nav.Sub text={'Group 5'} icon={<IconFlag />} stayWhenClick={true} itemKey={'5'}>
-                    {['5-1', '5-2'].map(k => (
-                        <Nav.Item key={k} itemKey={String(k)} text={'Option ' + k} />
-                    ))}
-                </Nav.Sub>
-                <Nav.Item itemKey={'6'} text={'Option 6 (with link)'} icon={<IconStar />} link="/star" />
-                <Nav.Sub text={'Group 7'} icon={<IconFolder />} stayWhenClick={true} itemKey={'7'}>
-                    {['7-1', '7-2'].map(k => (
-                        <Nav.Item key={k} itemKey={String(k)} text={'Option ' + k + ' (with link)'} link={`folder/${k}`} />
-                    ))}
-                    <Nav.Item itemKey={'7-3'} text={'Option 7-3'} />
-                </Nav.Sub>
-            </Nav>
-        </div>
-    );
-});
+Default.story = {
+  name: 'default',
+};
 
 class NavApp extends React.Component {
-    state = {
-        isCollapsed: true,
-    };
+  state = {
+    isCollapsed: true,
+  };
 
-    updateCollapsed = isCollapsed => {
-        this.setState({ isCollapsed });
-    };
+  updateCollapsed = isCollapsed => {
+    this.setState({ isCollapsed });
+  };
 
-    render() {
-        let { isCollapsed } = this.state;
-        return (
-            <div style={{ height: '100vh', display: 'inline-block' }}>
-                <div>
-                    {'收起到左侧'}
-                    <Switch defaultChecked={isCollapsed} onChange={v => this.updateCollapsed(v)} />
-                </div>
-                <Nav isCollapsed={isCollapsed}>
-                    <Nav.Item itemKey={'1'} text={'Option 1'} icon={<IconCloud />} />
-                    <Nav.Sub text={'Group 2'} icon={<IconEdit />} stayWhenClick={true}>
-                        {['2-1', '2-2'].map(k => (
-                            <Nav.Item key={k} itemKey={String(k)} text={'Option ' + k} />
-                        ))}
-                        <Nav.Sub text={'Group 2-3'} icon={<IconFile />}>
-                            <Nav.Item itemKey={'2-3-1'} text={'Option 2-3-1'} />
-                            <Nav.Item itemKey={'2-3-2'} text={'Option 2-3-2'} />
-                        </Nav.Sub>
-                    </Nav.Sub>
-                    <Nav.Item key={3} itemKey={'3'} text={'Option 3'} icon={<IconCamera />} />
-                    <Nav.Item key={4} itemKey={'4'} text={'Option 4'} icon={<IconArticle />} />
-                    <Nav.Sub text={'Group 5'} stayWhenClick={true} icon={<IconFolder />}>
-                        {['5-1', '5-2'].map(k => (
-                            <Nav.Item key={k} itemKey={String(k)} text={'Option ' + k} />
-                        ))}
-                    </Nav.Sub>
-                </Nav>
-            </div>
-        );
-    }
+  render() {
+    let { isCollapsed } = this.state;
+    return (
+      <div style={{ height: '100vh', display: 'inline-block' }}>
+        <div>
+          {'收起到左侧'}
+          <Switch defaultChecked={isCollapsed} onChange={v => this.updateCollapsed(v)} />
+        </div>
+        <Nav isCollapsed={isCollapsed}>
+          <Nav.Item itemKey={'1'} text={'Option 1'} icon={<IconCloud />} />
+          <Nav.Sub text={'Group 2'} icon={<IconEdit />} stayWhenClick={true}>
+            {['2-1', '2-2'].map(k => (
+              <Nav.Item key={k} itemKey={String(k)} text={'Option ' + k} />
+            ))}
+            <Nav.Sub text={'Group 2-3'} icon={<IconFile />}>
+              <Nav.Item itemKey={'2-3-1'} text={'Option 2-3-1'} />
+              <Nav.Item itemKey={'2-3-2'} text={'Option 2-3-2'} />
+            </Nav.Sub>
+          </Nav.Sub>
+          <Nav.Item key={3} itemKey={'3'} text={'Option 3'} icon={<IconCamera />} />
+          <Nav.Item key={4} itemKey={'4'} text={'Option 4'} icon={<IconArticle />} />
+          <Nav.Sub text={'Group 5'} stayWhenClick={true} icon={<IconFolder />}>
+            {['5-1', '5-2'].map(k => (
+              <Nav.Item key={k} itemKey={String(k)} text={'Option ' + k} />
+            ))}
+          </Nav.Sub>
+        </Nav>
+      </div>
+    );
+  }
 }
 
-stories.add('收起/展开导航', () => <NavApp />);
+export const CollapseExpand = () => <NavApp />;
 
-stories.add('基于配置渲染的导航', () => (
-    <div style={{ border: '1px solid black', height: '100vh', display: 'inline-block' }}>
-        <Nav
-            items={[
-                { itemKey: 'user', text: '用户管理', icon: <IconUser />, link: '/user' },
-                { itemKey: 'union', text: '公会中心', icon: <IconUser />, link: '/star' },
-                {
-                    text: '任务平台',
-                    icon: <IconSetting />,
-                    itemKey: 'job',
-                    items: ['任务管理', '用户任务查询'],
-                },
-            ]}
-            onSelect={key => console.log(key)}
-        />
-    </div>
-));
+CollapseExpand.story = {
+  name: 'collapse/expand',
+};
 
-stories.add('横向导航', () => (
-    <div>
-        <Nav
-            mode="horizontal"
-            items={[
-                '1',
-                { itemKey: '2', text: 'Option 2 Option 2 Option 2 Option 2', icon: <IconCamera /> },
-                {
-                    text: 'Group 3',
-                    itemKey: '3',
-                    icon: <IconFile />,
-                    items: ['3-1', '3-2', { text: 'Group 3-3', items: ['3-3-1', '3-3-2'] }],
-                },
-            ]}
-            onSelect={key => console.log(key)}
-        />
-    </div>
-));
+export const ConfigItems = () => (
+  <div style={{ border: '1px solid black', height: '100vh', display: 'inline-block' }}>
+    <Nav
+      items={[
+        { itemKey: 'user', text: '用户管理', icon: <IconUser />, link: '/user' },
+        { itemKey: 'union', text: '公会中心', icon: <IconUser />, link: '/star' },
+        {
+          text: '任务平台',
+          icon: <IconSetting />,
+          itemKey: 'job',
+          items: ['任务管理', '用户任务查询'],
+        },
+      ]}
+      onSelect={key => console.log(key)}
+    />
+  </div>
+);
+
+ConfigItems.story = {
+  name: 'config items',
+};
+
+export const Horizontal = () => (
+  <div>
+    <Nav
+      mode="horizontal"
+      items={[
+        '1',
+        { itemKey: '2', text: 'Option 2 Option 2 Option 2 Option 2', icon: <IconCamera /> },
+        {
+          text: 'Group 3',
+          itemKey: '3',
+          icon: <IconFile />,
+          items: ['3-1', '3-2', { text: 'Group 3-3', items: ['3-3-1', '3-3-2'] }],
+        },
+      ]}
+      onSelect={key => console.log(key)}
+    />
+  </div>
+);
+
+Horizontal.story = {
+  name: 'horizontal',
+};
 
 class Demo extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            isCollapsed: false,
-            defaultOpenKeys: ['2', '2-3'],
-            mode: 'vertical',
-            navHeight: '100vh',
-        };
-    }
+  constructor() {
+    super();
+    this.state = {
+      isCollapsed: false,
+      defaultOpenKeys: ['2', '2-3'],
+      mode: 'vertical',
+      navHeight: '100vh',
+    };
+  }
 
-    updateCollapsed(isCollapsed) {
-        this.setState({ isCollapsed });
-    }
+  updateCollapsed(isCollapsed) {
+    this.setState({ isCollapsed });
+  }
 
-    render() {
-        let { isCollapsed, defaultOpenKeys, mode, navHeight } = this.state;
-        let logo = '//lf1-cdn-tos.bytescm.com/obj/ttfe/ies/semi/logo_huoshan.png';
-        let testIcon = '//lf1-cdn-tos.bytescm.com/obj/mosaic-legacy/da9d0015af0f09667998';
-        let vigoIcon = '//lf1-cdn-tos.bytescm.com/obj/mosaic-legacy/504100070cbe0498d66f';
-        return (
-            <div>
-                <Nav
-                    isCollapsed={isCollapsed}
-                    defaultOpenKeys={defaultOpenKeys}
-                    style={{ height: navHeight }}
-                    mode={mode}
-                >
-                    <Nav.Header logo={<img src={logo} />} text="互娱运营" />
-                    <Nav.Item
-                        itemKey={'1'}
-                        text={<strong>火山运营</strong>}
-                        icon={<img width="20" height="20" src={vigoIcon} />}
-                    />
-                    <Nav.Sub
-                        itemKey={'2'}
-                        text={<span>抖音运营</span>}
-                        icon={<img width="20" height="20" src={testIcon} />}
-                        stayWhenClick={true}
-                    >
-                        {['2-1', '2-2'].map(k => (
-                            <Nav.Item key={k} itemKey={String(k)} text={'Option ' + k} />
-                        ))}
-                    </Nav.Sub>
-                    <Nav.Footer>
-                        <Button
-                            title="展开/收起切换"
-                            icon={isCollapsed ? <IconAscend /> : <IconDescend />}
-                            onClick={() => this.updateCollapsed(!isCollapsed)}
-                        />
-                    </Nav.Footer>
-                </Nav>
-            </div>
-        );
-    }
+  render() {
+    let { isCollapsed, defaultOpenKeys, mode, navHeight } = this.state;
+    let logo = '//lf1-cdn-tos.bytescm.com/obj/ttfe/ies/semi/logo_huoshan.png';
+    let testIcon = '//lf1-cdn-tos.bytescm.com/obj/mosaic-legacy/da9d0015af0f09667998';
+    let vigoIcon = '//lf1-cdn-tos.bytescm.com/obj/mosaic-legacy/504100070cbe0498d66f';
+    return (
+      <div>
+        <Nav
+          isCollapsed={isCollapsed}
+          defaultOpenKeys={defaultOpenKeys}
+          style={{ height: navHeight }}
+          mode={mode}
+        >
+          <Nav.Header logo={<img src={logo} />} text="互娱运营" />
+          <Nav.Item
+            itemKey={'1'}
+            text={<strong>火山运营</strong>}
+            icon={<img width="20" height="20" src={vigoIcon} />}
+          />
+          <Nav.Sub
+            itemKey={'2'}
+            text={<span>抖音运营</span>}
+            icon={<img width="20" height="20" src={testIcon} />}
+            stayWhenClick={true}
+          >
+            {['2-1', '2-2'].map(k => (
+              <Nav.Item key={k} itemKey={String(k)} text={'Option ' + k} />
+            ))}
+          </Nav.Sub>
+          <Nav.Footer>
+            <Button
+              title="展开/收起切换"
+              icon={isCollapsed ? <IconAscend /> : <IconDescend />}
+              onClick={() => this.updateCollapsed(!isCollapsed)}
+            />
+          </Nav.Footer>
+        </Nav>
+      </div>
+    );
+  }
 }
-stories.add('配logo，展开/收起切换', () => <Demo />);
+export const ExpandCollapseWithLogo = () => <Demo />;
+
+ExpandCollapseWithLogo.story = {
+  name: 'expand collapse with logo',
+};
 
 class HorizontalDemo extends React.Component {
-    render() {
-        return (
-            <div style={{ width: '100%' }}>
-                <Nav
-                    bodyStyle={{ height: 320 }}
-                    items={[
-                        { itemKey: 'user', text: '用户管理', icon: <IconUser /> },
-                        { itemKey: 'union', text: '公会中心', icon: <IconStar /> },
-                        {
-                            itemKey: 'union-management',
-                            text: '公会管理',
-                            icon: <IconUserGroup />,
-                            items: ['公告设置', '公会查询', '信息录入'],
-                        },
-                        {
-                            itemKey: 'approve-management',
-                            text: '审批管理',
-                            icon: <IconEdit />,
-                            items: [
-                                '入驻审核',
-                                {
-                                    itemKey: 'operation-management',
-                                    text: '运营管理',
-                                    items: ['人员管理', '人员变更'],
-                                },
-                            ],
-                        },
-                        {
-                            text: '任务平台',
-                            icon: <IconSetting />,
-                            itemKey: 'job',
-                            items: ['任务管理', '用户任务查询'],
-                        },
-                    ]}
-                    onSelect={key => console.log(key)}
-                    header={{
-                        logo: <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />,
-                        text: '直播运营后台',
-                    }}
-                    footer={{
-                        collapseButton: true,
-                    }}
-                />
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div style={{ width: '100%' }}>
+        <Nav
+          bodyStyle={{ height: 320 }}
+          items={[
+            { itemKey: 'user', text: '用户管理', icon: <IconUser /> },
+            { itemKey: 'union', text: '公会中心', icon: <IconStar /> },
+            {
+              itemKey: 'union-management',
+              text: '公会管理',
+              icon: <IconUserGroup />,
+              items: ['公告设置', '公会查询', '信息录入'],
+            },
+            {
+              itemKey: 'approve-management',
+              text: '审批管理',
+              icon: <IconEdit />,
+              items: [
+                '入驻审核',
+                {
+                  itemKey: 'operation-management',
+                  text: '运营管理',
+                  items: ['人员管理', '人员变更'],
+                },
+              ],
+            },
+            {
+              text: '任务平台',
+              icon: <IconSetting />,
+              itemKey: 'job',
+              items: ['任务管理', '用户任务查询'],
+            },
+          ]}
+          onSelect={key => console.log(key)}
+          header={{
+            logo: (
+              <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />
+            ),
+            text: '直播运营后台',
+          }}
+          footer={{
+            collapseButton: true,
+          }}
+        />
+      </div>
+    );
+  }
 }
-stories.add('配logo，横向导航栏', () => <HorizontalDemo />);
+export const HorizontalWithLogo = () => <HorizontalDemo />;
 
-stories.add('auto open', () => <AutoOpenDemo />);
+HorizontalWithLogo.story = {
+  name: 'horizontal with logo',
+};
 
-stories.add(`link nav`, () => <LinkNavDemo />);
+export const AutoOpen = () => <AutoOpenDemo />;
 
-stories.add(`mount unmount`, () => <MountUnmount />);
+AutoOpen.story = {
+  name: 'auto open',
+};
 
-stories.add(`controlled selected keys`, () => <ControlledSelectedKeys />);
+export const LinkNav = () => <LinkNavDemo />;
+LinkNav.story = {
+  name: 'link nav',
+}
 
-stories.add(`with router`, () => <WithRouter />);
+export const MountUnmountDemo = () => <MountUnmount />;
+MountUnmountDemo.story = {
+  name: 'mount unmount'
+}
 
-stories.add(`with children`, () => <WithChildren />);
+export const ControlledSelectedKeysDemo = () => <ControlledSelectedKeys />;
+ControlledSelectedKeysDemo.story = {
+  name: 'controlled selected keys'
+};
 
-stories.add(`nav cannot set item to 0 dynaicly`, () => <ItemsChange />);
+export const WithRouterDemo = () => <WithRouter />;
+WithRouter.story = {
+  name: 'with router'
+};
 
-stories.add(`disabled nav`, () => <DisabledNav />);
+export const WithChildrenDemo = () => <WithChildren />;
+WithChildrenDemo.story = {
+  name: 'with children'
+}
 
+export const ItemsChangeDemo = () => <ItemsChange />;
+ItemsChangeDemo.story = {
+  name: 'nav cannot set item to 0 dynamically'
+};
 
+export const DisabledNavDemo = () => <DisabledNav />;
+DisabledNavDemo.story = {
+  name: 'disabled nav'
+}

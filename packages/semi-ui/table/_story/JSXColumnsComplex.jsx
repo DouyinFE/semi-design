@@ -27,7 +27,7 @@ export default class JSXColumnsComplex extends React.Component {
             this.data.push({
                 key: `${i}`,
                 name: `Edward King ${i}`,
-                age: 40 + (Math.random() > 0.5 ? 1 : -1) * Math.ceil(i / 3),
+                age: (i * 1000) % 149 ,
                 address: `London, Park Lane no. ${i}`,
             });
         }

@@ -8,7 +8,6 @@ on:
   pull_request:
     branches: [ main, release, test-chromatic ]
     paths:
-      - 'packages/**/*.[tj]sx?'
       - 'packages/**/*.scss'
       - '!packages/**/_story/**'
       - '!packages/**/__test__/**'
@@ -17,15 +16,9 @@ on:
       - '!packages/**/*.test.[tj]sx?'
       - '!packages/**/*.md'
   push:
-    branches: [ main, release, test-chromatic ]
+    branches: [ test-chromatic ]
     paths:
-      - 'packages/**/*.[tj]sx?'
       - 'packages/**/*.scss'
-      - '!packages/**/_story/**'
-      - '!packages/**/__test__/**'
-      - '!packages/**/*.stories.[tj]sx?'
-      - '!packages/**/*.story.[tj]sx?'
-      - '!packages/**/*.test.[tj]sx?'
       - '!packages/**/*.md'
 
 # List of jobs
@@ -51,5 +44,3 @@ jobs:
           # 👇 Chromatic projectToken, refer to the manage page to obtain it.
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           buildScriptName: 'build-storybook'
-          # Positive exit of action even when there are changes detected
-          # exitZeroOnChanges: false
