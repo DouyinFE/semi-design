@@ -1,7 +1,15 @@
 import React, { useState, useRef } from 'react';
-import { storiesOf } from '@storybook/react';
-import withPropsCombinations from 'react-storybook-addon-props-combinations';
-import { addDays, addWeeks, addMonths, isBefore, startOfMonth, endOfMonth, parseISO, startOfWeek, endOfWeek } from 'date-fns';
+import {
+  addDays,
+  addWeeks,
+  addMonths,
+  isBefore,
+  startOfMonth,
+  endOfMonth,
+  parseISO,
+  startOfWeek,
+  endOfWeek,
+} from 'date-fns';
 import { Space, ConfigProvider, InputGroup, InputNumber, Form, withField } from '../../index';
 
 // stores
@@ -29,16 +37,55 @@ import DatePickerTimeZone from './DatePickerTimeZone';
 import BetterRangePicker from './BetterRangePicker';
 import SyncSwitchMonth from './SyncSwitchMonth';
 
-const stories = storiesOf('DatePicker', module);
+export default {
+  title: 'DatePicker',
+  parameters: {
+    chromatic: { disableSnapshot: true },
+  },
+}
 
-// stories.addDecorator(withKnobs);;
+ControlledDemo.parameters = {
+  chromatic: { disableSnapshot: false }
+}
+
+NeedConfirmDemo.parameters = {
+  chromatic: { disableSnapshot: false }
+}
+
+AllTypesDemo.parameters = {
+  chromatic: { disableSnapshot: false }
+}
+
+export {
+  ControlledDemo,
+  NeedConfirmDemo,
+  ExceptionDemo,
+  AllTypesDemo,
+  Callbacks,
+  DisabledDate,
+  CustomTrigger,
+  OverPopover,
+  OnChangeWithDateFirst,
+  RenderDate,
+  RenderFullDate,
+  Autofocus,
+  DateOffset,
+  CycledDatePicker,
+  AutoSwitchDate,
+  TimepikcerOpts,
+  Density,
+  DatePickerSlot,
+  DatePickerTimeZone,
+  BetterRangePicker,
+  SyncSwitchMonth
+}
 
 const demoDiv = {
   marginTop: '20px',
   marginLeft: '20px',
 };
 
-stories.add('DatePicker default', () => (
+export const DatePickerDefault = () => (
   <div style={demoDiv}>
     <span>datePicker施工现场</span>
     <DatePicker
@@ -54,7 +101,10 @@ stories.add('DatePicker default', () => (
     <br />
 
     <span>defaultValue: new Date('2019-07-07')</span>
-    <DatePicker defaultValue={new Date('2019-07-07')} onOpenChange={isOpen => console.log(isOpen)} />
+    <DatePicker
+      defaultValue={new Date('2019-07-07')}
+      onOpenChange={isOpen => console.log(isOpen)}
+    />
     <br />
 
     <span>defaultValue: 2019-07-09</span>
@@ -62,11 +112,14 @@ stories.add('DatePicker default', () => (
     <br />
 
     <span>defaultValue: 1569888000000</span>
-    <DatePicker defaultValue={1569888000000} onChange={(input, value) => console.log({ input, value })} />
+    <DatePicker
+      defaultValue={1569888000000}
+      onChange={(input, value) => console.log({ input, value })}
+    />
   </div>
-));
+);
 
-stories.add('DatePicker callbacks', () => {
+export const DatePickerCallbacks = () => {
   const printArgs = (...args) => console.log(...args);
 
   return (
@@ -84,14 +137,17 @@ stories.add('DatePicker callbacks', () => {
       <br />
 
       <span>defaultValue: 1569888000000</span>
-      <DatePicker defaultValue={1569888000000} onChange={(input, value) => console.log(input, value)} />
+      <DatePicker
+        defaultValue={1569888000000}
+        onChange={(input, value) => console.log(input, value)}
+      />
     </div>
   );
-});
+};
 
-stories.add('DatePicker multiple', () => <Multiple />);
+export const DatePickerMultiple = () => <Multiple />;
 
-stories.add('DateRangePicker', () => (
+export const DateRangePicker = () => (
   <div style={demoDiv}>
     <div>dateRangePicker</div>
     <DatePicker type="dateRange" insetLabel="结束日期" prefix="test" validateStatus="error" />
@@ -106,18 +162,24 @@ stories.add('DateRangePicker', () => (
     <br />
 
     <div>compact dateRangePicker</div>
-    <DatePicker type="dateRange" density='compact' validateStatus="warning" />
+    <DatePicker type="dateRange" density="compact" validateStatus="warning" />
     <br />
 
     <div>dateRangePicker with offset</div>
-    <DatePicker type="dateRange" startDateOffset={date => startOfWeek(date, { weekStartsOn: 1 })}
-                endDateOffset={date => endOfWeek(date, { weekStartsOn: 1 })} />
+    <DatePicker
+      type="dateRange"
+      startDateOffset={date => startOfWeek(date, { weekStartsOn: 1 })}
+      endDateOffset={date => endOfWeek(date, { weekStartsOn: 1 })}
+    />
     <br />
 
     <div>defaultValue：07/01-08/02</div>
     <DatePicker type="dateRange" defaultValue={[new Date('2019-07-01'), new Date('2019-08-02')]} />
   </div>
-));
+);
+DateRangePicker.parameters = {
+  chromatic: { disableSnapshot: false },
+};
 
 const presets = [
   {
@@ -162,14 +224,19 @@ const presets = [
   },
 ];
 
-stories.add('DatePicker with presets', () => {
+export const DatePickerWithPresets = () => {
   const onPresetClick = (item, e) => {
     console.log('preset click', item, e);
-  }
-  return (    
+  };
+  return (
     <div style={demoDiv}>
       <span>带快捷选择的DatePicker</span>
-      <DatePicker type="dateRange" presets={presets} onPresetClick={onPresetClick} onChange={(...args) => console.log(...args)} />
+      <DatePicker
+        type="dateRange"
+        presets={presets}
+        onPresetClick={onPresetClick}
+        onChange={(...args) => console.log(...args)}
+      />
       <DatePicker
         type="dateTime"
         presets={presets.map(preset => ({
@@ -200,20 +267,20 @@ stories.add('DatePicker with presets', () => {
       />
     </div>
   );
-});
+};
 
 function isDisabled(dayStr) {
   return isBefore(new Date(dayStr), new Date());
 }
 
-stories.add('DatePicker disabledDate', () => (
+export const DatePickerDisabledDate = () => (
   <div style={demoDiv}>
     <span>不可选日期</span>
     <DatePicker type="dateRange" presets={presets} disabledDate={isDisabled} />
   </div>
-));
+);
 
-stories.add('DateTimePicker', () => (
+export const DateTimePicker = () => (
   <div style={demoDiv}>
     <span>dateTimePicker</span>
     <DatePicker
@@ -222,9 +289,9 @@ stories.add('DateTimePicker', () => (
       onChange={(...args) => console.log('onChange: ', ...args)}
     />
   </div>
-));
+);
 
-stories.add('DateTimeRange Picker', () => (
+export const DateTimeRangePicker = () => (
   <div style={demoDiv}>
     <span>dateTimeRangePicker</span>
     <DatePicker type="dateTimeRange" defaultPickerValue={parseISO('2020-02-20 20:00:00')} />
@@ -238,9 +305,9 @@ stories.add('DateTimeRange Picker', () => (
     <DatePicker type="dateTimeRange" multiple />
     <br />
   </div>
-));
+);
 
-stories.add('Year Picker', () => (
+export const YearPicker = () => (
   <>
     <div>
       <span>Year Picker</span>
@@ -251,9 +318,9 @@ stories.add('Year Picker', () => (
       <DatePicker type="dateTimeRange" presets={presets} />
     </div>
   </>
-));
+);
 
-stories.add('Month Picker', () => {
+export const MonthPicker = () => {
   const Demo = () => {
     const [controlledValue, setControlledValue] = useState('2019-09');
 
@@ -297,61 +364,31 @@ stories.add('Month Picker', () => {
   };
 
   return <Demo />;
-});
+};
 
-stories.add('propTypes and defaultProps', () => (
+export const PropTypesAndDefaultProps = () => (
   <div>
     <article>
       <p>{JSON.stringify(Object.keys(DatePicker.propTypes))}</p>
       <p>{JSON.stringify(DatePicker.defaultProps)}</p>
     </article>
   </div>
-));
+);
 
-stories.add('受控组件', () => <ControlledDemo />);
+export const InputReadOnly = () => <DatePicker inputReadOnly={true} />;
 
-stories.add('inputReadOnly', () => <DatePicker inputReadOnly={true} />);
-
-stories.add('need confirm', () => <NeedConfirmDemo />);
-
-stories.add('边界问题', () => <ExceptionDemo />);
-
-stories.add('all types', () => <AllTypesDemo />);
-stories.add('callbacks', () => <Callbacks />);
-
-stories.add('Disabled Date', () => <DisabledDate />);
-
-stories.add('custom trigger', () => <CustomTrigger />);
-stories.add('over popover', () => <OverPopover />);
-
-stories.add('onChange with Date first', () => <OnChangeWithDateFirst />);
-
-stories.add('renderDate', () => <RenderDate />);
-stories.add('renderFullDate', () => <RenderFullDate />);
-stories.add('autoFocus', () => <Autofocus />);
-stories.add('startDateOffset & endDateOffset', () => <DateOffset />);
-stories.add('cycled', () => <CycledDatePicker />);
-stories.add('autoSwitchDate', () => <AutoSwitchDate />);
-
-stories.add('dropdownClassName & dropdownStyle', () => (
+export const DropdownClassNameDropdownStyle = () => (
   <div>
     <h4>fontSize: 16，dropdownClassName: 'my-datePicker'</h4>
-    <DatePicker 
+    <DatePicker
       dropdownStyle={{ fontSize: 16 }}
-      dropdownClassName='my-datePicker'
+      dropdownClassName="my-datePicker"
       onChange={(date, dateString) => console.log(dateString)}
     />
   </div>
-));
-stories.add('timepickerOpts', () => <TimepikcerOpts />);
+);
 
-stories.add('density', () => <Density />);
-
-stories.add('topSlot/bottomSlot', () => <DatePickerSlot />);
-
-stories.add('timeZone', () => <DatePickerTimeZone />);
-
-stories.add('custom placeholder', () => (
+export const CustomPlaceholder = () => (
   <Space wrap>
     <DatePicker placeholder="请选择日期" insetLabel="默认" />
     <DatePicker placeholder={undefined} insetLabel="undefined" />
@@ -360,48 +397,51 @@ stories.add('custom placeholder', () => (
     <DatePicker placeholder={null} insetLabel="null" />
     <DatePicker placeholder="" type="dateRange" insetLabel="空字符串" />
   </Space>
-));
+);
+CustomPlaceholder.parameters = {
+  chromatic: { disableSnapshot: false },
+};
 
-stories.add('better range picker', () => <BetterRangePicker />);
-
-stories.add('syncSwitchMonth', () => <SyncSwitchMonth />);
-
-stories.add('fix notifyChange', () => {
+export const FixNotifyChange = () => {
   function Demo() {
-    const [tz,setTz] = useState(0);
+    const [tz, setTz] = useState(0);
     const [value, setVal] = useState();
     const [value2, setVal2] = useState();
     const [value3, setVal3] = useState();
     const [value4, setVal4] = useState();
-    const withLog = (fn) => {
-      return (val => {
-          console.log('notifyChange', val);
-          fn(val);
-      });
-    }
+    const withLog = fn => {
+      return val => {
+        console.log('notifyChange', val);
+        fn(val);
+      };
+    };
     return (
-        <ConfigProvider timeZone={tz}>
-            <InputGroup>
-                <InputNumber defaultValue={0} onChange={setTz} hideButtons />
-                <DatePicker type='dateTimeRange' value={value} onChange={withLog(setVal)}  />
-                <DatePicker type='dateTimeRange' needConfirm value={value2} onConfirm={withLog(setVal2)}  />
-                <DatePicker type='date' value={value3} onChange={withLog(setVal3)}  />
-                <DatePicker type='dateRange' value={value4} onChange={withLog(setVal4)}  />
-            </InputGroup>
-        </ConfigProvider> 
+      <ConfigProvider timeZone={tz}>
+        <InputGroup>
+          <InputNumber defaultValue={0} onChange={setTz} hideButtons />
+          <DatePicker type="dateTimeRange" value={value} onChange={withLog(setVal)} />
+          <DatePicker
+            type="dateTimeRange"
+            needConfirm
+            value={value2}
+            onConfirm={withLog(setVal2)}
+          />
+          <DatePicker type="date" value={value3} onChange={withLog(setVal3)} />
+          <DatePicker type="dateRange" value={value4} onChange={withLog(setVal4)} />
+        </InputGroup>
+      </ConfigProvider>
     );
-  };
+  }
   return <Demo />;
+};
 
-});
-
-stories.add('select not disabled date(v1.26+)', () => {
+export const SelectNotDisabledDateV126 = () => {
   const defaultValue = ['2021-08-06', '2021-08-15'];
   const disabledMonth = dateStr => {
     const date = new Date(dateStr);
     const month = date.getMonth();
     if (month === 7) {
-        return true;
+      return true;
     }
     return false;
   };
@@ -409,7 +449,7 @@ stories.add('select not disabled date(v1.26+)', () => {
     const date = new Date(dateStr);
     const day = date.getDate();
     if (day > 20 && day < 25) {
-        return true;
+      return true;
     }
     return false;
   };
@@ -419,7 +459,7 @@ stories.add('select not disabled date(v1.26+)', () => {
     motion: false,
     defaultValue,
     onChange: (...args) => console.log('changed', ...args),
-    style: { width: 300 }
+    style: { width: 300 },
   };
 
   return (
@@ -429,19 +469,21 @@ stories.add('select not disabled date(v1.26+)', () => {
       <h4>date type + multiple select + given disabled defaultValue</h4>
       <DatePicker {...props} type="date" multiple disabledDate={disabledDate} />
     </>
-  )
-});
-
-const CustomDatePicker = (props) => {
-  const { fieldRef, ...rest } = props;
-  return (
-    <DatePicker {...rest} ref={fieldRef}  />
   );
+};
+
+SelectNotDisabledDateV126.story = {
+  name: 'select not disabled date(v1.26+)',
+};
+
+const CustomDatePicker = props => {
+  const { fieldRef, ...rest } = props;
+  return <DatePicker {...rest} ref={fieldRef} />;
 };
 
 const CustomFieldDatePicker = withField(CustomDatePicker);
 
-stories.add('fix onFocus', () => {
+export const FixOnFocus = () => {
   function FocusDemo() {
     const [open1, setOpen1] = useState(false);
     const [open2, setOpen2] = useState(false);
@@ -449,16 +491,16 @@ stories.add('fix onFocus', () => {
     const ref = useRef();
     const ref2 = useRef();
     const presets = [
-        {
-            text: 'Today',
-            start: new Date(),
-            end: new Date(),
-        },
-        {
-            text: 'Tomorrow',
-            start: new Date(new Date().valueOf() + 1000 * 3600 * 24),
-            end: new Date(new Date().valueOf() + 1000 * 3600 * 24),
-        },
+      {
+        text: 'Today',
+        start: new Date(),
+        end: new Date(),
+      },
+      {
+        text: 'Tomorrow',
+        start: new Date(new Date().valueOf() + 1000 * 3600 * 24),
+        end: new Date(new Date().valueOf() + 1000 * 3600 * 24),
+      },
     ];
     return (
       <>
@@ -467,16 +509,19 @@ stories.add('fix onFocus', () => {
           presets={presets}
           open={open1}
           onPresetClick={() => {
-              setOpen1(false);
+            setOpen1(false);
           }}
           onFocus={() => {
-              console.log('focus');
-              setOpen1(true);
+            console.log('focus');
+            setOpen1(true);
           }}
-          onBlur={() => {console.log('blur')}}
+          onBlur={() => {
+            console.log('blur');
+          }}
           style={{ width: 300 }}
         />
-        <br /><br />
+        <br />
+        <br />
         <DatePicker
           type="dateTimeRange"
           presets={presets}
@@ -493,40 +538,48 @@ stories.add('fix onFocus', () => {
             console.log('focus');
             setOpen2(true);
           }}
-          onBlur={() => {console.log('blur')}}
+          onBlur={() => {
+            console.log('blur');
+          }}
           style={{ width: 500 }}
           ref={ref}
         />
         <Form>
           <CustomFieldDatePicker
-              type="dateTimeRange"
-              field="a"
-              label="Form.DatePicker"
-              presets={presets}
-              open={open3}
-              onPresetClick={() => {
-                console.log('click presets', ref2);
-                setOpen3(false);
-                setTimeout(() => {
-                  ref2.current &&  ref2.current.foundation.closePanel();
-                }, 0);
-              }}
-              onFocus={() => {
-                console.log('focus');
-                setOpen3(true);
-              }}
-              onBlur={() => {console.log('blur')}}
-              style={{ width: 500 }}
-              fieldRef={ref2}
+            type="dateTimeRange"
+            field="a"
+            label="Form.DatePicker"
+            presets={presets}
+            open={open3}
+            onPresetClick={() => {
+              console.log('click presets', ref2);
+              setOpen3(false);
+              setTimeout(() => {
+                ref2.current && ref2.current.foundation.closePanel();
+              }, 0);
+            }}
+            onFocus={() => {
+              console.log('focus');
+              setOpen3(true);
+            }}
+            onBlur={() => {
+              console.log('blur');
+            }}
+            style={{ width: 500 }}
+            fieldRef={ref2}
           />
         </Form>
       </>
     );
-  };
-  return <FocusDemo />
-});
+  }
+  return <FocusDemo />;
+};
 
-stories.add('fix disabledTime callback #1418', () => {
+FixOnFocus.story = {
+  name: 'fix onFocus',
+};
+
+export const FixDisabledTimeCallback1418 = () => {
   function Demo() {
     const disabledTime2 = (date, panelType) => {
       console.log('disabledTime callback parameter: ', date, panelType);
@@ -541,37 +594,55 @@ stories.add('fix disabledTime callback #1418', () => {
       <>
         <strong>fix disabledTime callback parameter bug</strong>
         <DatePicker
-            type="dateTimeRange"
-            hideDisabledOptions={false}
-            disabledTime={disabledTime2}
-            defaultValue={['2021-09-08', '2021-10-03']}
-            style={{ width: 400 }}
+          type="dateTimeRange"
+          hideDisabledOptions={false}
+          disabledTime={disabledTime2}
+          defaultValue={['2021-09-08', '2021-10-03']}
+          style={{ width: 400 }}
         />
         <DatePicker
-            type="dateTime"
-            hideDisabledOptions={false}
-            defaultValue={'2021-09-08'}
-            disabledTime={disabledTime2}
-            style={{ width: 400 }}
+          type="dateTime"
+          hideDisabledOptions={false}
+          defaultValue={'2021-09-08'}
+          disabledTime={disabledTime2}
+          style={{ width: 400 }}
         />
       </>
     );
-  };
+  }
 
   return <Demo />;
-});
+};
 
-stories.add('rangeSeparator', () => (
+FixDisabledTimeCallback1418.story = {
+  name: 'fix disabledTime callback #1418',
+};
+
+export const RangeSeparator = () => (
   <Space wrap>
     <div>
       <div>custom rangeSeparator</div>
-      <DatePicker type="dateRange" rangeSeparator="-" defaultValue={[new Date('2019-07-01'), new Date('2019-08-02')]} />
-      <DatePicker type="dateTimeRange" rangeSeparator="-" defaultValue={[new Date('2019-07-01'), new Date('2019-08-02')]} />
+      <DatePicker
+        type="dateRange"
+        rangeSeparator="-"
+        defaultValue={[new Date('2019-07-01'), new Date('2019-08-02')]}
+      />
+      <DatePicker
+        type="dateTimeRange"
+        rangeSeparator="-"
+        defaultValue={[new Date('2019-07-01'), new Date('2019-08-02')]}
+      />
     </div>
     <div>
       <div>default rangeSeparator</div>
-      <DatePicker type="dateRange" defaultValue={[new Date('2019-07-01'), new Date('2019-08-02')]} />
-      <DatePicker type="dateTimeRange" defaultValue={[new Date('2019-07-01'), new Date('2019-08-02')]} />
+      <DatePicker
+        type="dateRange"
+        defaultValue={[new Date('2019-07-01'), new Date('2019-08-02')]}
+      />
+      <DatePicker
+        type="dateTimeRange"
+        defaultValue={[new Date('2019-07-01'), new Date('2019-08-02')]}
+      />
     </div>
   </Space>
-));
+);

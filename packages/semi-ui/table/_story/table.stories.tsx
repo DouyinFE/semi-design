@@ -102,7 +102,7 @@ stories.add(`header merge table`, () => {
     const data = useMemo(() => {
         const data = [];
         for (let i = 0; i < 100; i++) {
-            let age = 40 + (Math.random() > 0.5 ? 1 : -1) * (i % 9);
+            let age = (i * 1000) % 149 ;
             let name = `Edward King ${i}`;
             data.push({
                 key: '' + i,

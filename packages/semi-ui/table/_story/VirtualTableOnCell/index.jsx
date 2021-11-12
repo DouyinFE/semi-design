@@ -54,7 +54,7 @@ export default class VirtualizedFixedDemo extends React.Component {
         this.data = [];
 
         for (let i = 0; i < 1000; i++) {
-            let age = 40 + (Math.random() > 0.5 ? 1 : -1) * (i % 9);
+            let age = (i * 1000) % 149 ;
             let name = `Edward King ${i}`;
             this.data.push({
                 key: '' + i,

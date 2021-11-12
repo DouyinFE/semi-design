@@ -4,6 +4,10 @@ import { IconClose, IconChevronDown } from '@douyinfe/semi-icons';
 
 import { DatePicker, Button } from '../../../index';
 
+Demo.parameters = {
+    chromatic: { disableSnapshot: false },
+};
+
 export default function Demo() {
     const [date, setDate] = useState(new Date());
     const formatToken = 'yyyy-MM-dd';
