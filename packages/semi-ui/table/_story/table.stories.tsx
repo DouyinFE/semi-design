@@ -9,6 +9,7 @@ import BetterScrollbar from './BetterScrollbar';
 import Empty from '../../empty';
 import Table from '../index';
 import FixAllColumnsWithoutWidth from './FixAllColumnsWithoutWidth';
+import WarnColumnWithoutDataIndex from './WarnColumnWithoutDataIndex';
 
 const stories = storiesOf('Table', module);
 
@@ -377,3 +378,5 @@ stories.add('empty', () => {
 stories.add('better scrollbar', () => <BetterScrollbar />);
 
 stories.add('fix all columns without width', () => <FixAllColumnsWithoutWidth />);
+
+stories.add('warn if column without dataIndex', () => <WarnColumnWithoutDataIndex />);
