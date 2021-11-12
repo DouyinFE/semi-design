@@ -32,7 +32,7 @@ function App() {
     const data = [];
 
     for (let i = 0; i < 8; i++) {
-        const age = 40 + (Math.random() > 0.5 ? 1 : -1) * Math.ceil(i / 3);
+        const age = (i * 1000) % 149 ;
         const name = `Edward King ${i}`;
         data.push({
             key: `${i}`,

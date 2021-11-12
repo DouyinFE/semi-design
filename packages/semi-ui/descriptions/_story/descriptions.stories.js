@@ -1,10 +1,11 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 // import { withKnobs, text, boolean } from '@storybook/addon-knobs';
 
 import Descriptions from '../index';
 
-const stories = storiesOf('Descriptions', module);
+export default {
+  title: 'Descriptions',
+}
 
 let data = [
     // ShortId: '火山号',
@@ -46,49 +47,49 @@ let data4 = [
     { key: '7天留存', value: '103.4M' },
 ];
 
-stories.add('Descriptions default', () => (
-    <div>
-        <Descriptions data={data} />
-        <Descriptions align='justify' data={data2} />
-        <Descriptions align='left' data={data3} />
-        <Descriptions align='plain' data={data2} />
-    </div>
-));
+export const DescriptionsDefault = () => (
+  <div>
+    <Descriptions data={data} />
+    <Descriptions align="justify" data={data2} />
+    <Descriptions align="left" data={data3} />
+    <Descriptions align="plain" data={data2} />
+  </div>
+);
 
-stories.add('Descriptions double row', () => (
-    <div>
-        <Descriptions data={data4} row size='small' />
-        <Descriptions data={data4} row />
-        <Descriptions data={data4} row size='large' />
-    </div>
-));
+export const DescriptionsDoubleRow = () => (
+  <div>
+    <Descriptions data={data4} row size="small" />
+    <Descriptions data={data4} row />
+    <Descriptions data={data4} row size="large" />
+  </div>
+);
 
-stories.add('Descriptions.Item', () => (
-    <div>
-        <Descriptions>
-            <Descriptions.Item itemKey='实际用户数量'>1,480,000</Descriptions.Item>
-            <Descriptions.Item itemKey='7天留存'>98%</Descriptions.Item>
-            <Descriptions.Item itemKey='安全等级'>3级</Descriptions.Item>
-            <Descriptions.Item itemKey='垂类标签'>电商</Descriptions.Item>
-            <Descriptions.Item itemKey='认证状态'>未认证</Descriptions.Item>
-        </Descriptions>
-        <br />
-        <Descriptions row size='small'>
-            <Descriptions.Item itemKey='实际用户数量'>1,480,000</Descriptions.Item>
-            <Descriptions.Item itemKey='7天留存'>98%</Descriptions.Item>
-            <Descriptions.Item itemKey='安全等级'>3级</Descriptions.Item>
-            <Descriptions.Item itemKey='垂类标签'>电商</Descriptions.Item>
-            <Descriptions.Item itemKey='认证状态'>未认证</Descriptions.Item>
-        </Descriptions>
-        <br />
-        <Descriptions align='justify'>
-            <Descriptions.Item >1,480,000</Descriptions.Item>
-            <Descriptions.Item itemKey='7天留存'>98%</Descriptions.Item>
-            <Descriptions.Item itemKey='安全等级'>3级</Descriptions.Item>
-            <Descriptions.Item itemKey='垂类标签'>电商</Descriptions.Item>
-            <Descriptions.Item itemKey='认证状态'>未认证</Descriptions.Item>
-        </Descriptions>
-        <br />
-    </div>
-));
+export const DescriptionsItem = () => (
+  <div>
+    <Descriptions>
+      <Descriptions.Item itemKey="实际用户数量">1,480,000</Descriptions.Item>
+      <Descriptions.Item itemKey="7天留存">98%</Descriptions.Item>
+      <Descriptions.Item itemKey="安全等级">3级</Descriptions.Item>
+      <Descriptions.Item itemKey="垂类标签">电商</Descriptions.Item>
+      <Descriptions.Item itemKey="认证状态">未认证</Descriptions.Item>
+    </Descriptions>
+    <br />
+    <Descriptions row size="small">
+      <Descriptions.Item itemKey="实际用户数量">1,480,000</Descriptions.Item>
+      <Descriptions.Item itemKey="7天留存">98%</Descriptions.Item>
+      <Descriptions.Item itemKey="安全等级">3级</Descriptions.Item>
+      <Descriptions.Item itemKey="垂类标签">电商</Descriptions.Item>
+      <Descriptions.Item itemKey="认证状态">未认证</Descriptions.Item>
+    </Descriptions>
+    <br />
+    <Descriptions align="justify">
+      <Descriptions.Item>1,480,000</Descriptions.Item>
+      <Descriptions.Item itemKey="7天留存">98%</Descriptions.Item>
+      <Descriptions.Item itemKey="安全等级">3级</Descriptions.Item>
+      <Descriptions.Item itemKey="垂类标签">电商</Descriptions.Item>
+      <Descriptions.Item itemKey="认证状态">未认证</Descriptions.Item>
+    </Descriptions>
+    <br />
+  </div>
+);
 
