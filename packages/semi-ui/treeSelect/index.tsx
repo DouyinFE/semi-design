@@ -80,20 +80,7 @@ export type RenderSelectedItemInMultiple = (
     content: React.ReactNode;
 };
 
-export interface RenderSelectedItem {
-    (treeNode: TreeNodeData): React.ReactNode;
-    (
-        treeNode: TreeNodeData,
-        otherProps: {
-            index: number | string;
-            onClose: (tagContent: any, e: React.MouseEvent) => void;
-        }
-    ):
-    {
-        isRenderInTag: boolean;
-        content: React.ReactNode;
-    };
-}
+export type RenderSelectedItem = RenderSelectedItemInSingle | RenderSelectedItemInMultiple;
 
 export type OverrideCommonProps =
 'renderFullLabel'
@@ -698,7 +685,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 this.removeTag(key);
             };
             const { content, isRenderInTag } = (treeNodeLabelProp in item && item) ?
-                renderSelectedItem(item, { index: key, onClose }) :
+                (renderSelectedItem as RenderSelectedItemInMultiple)(item, { index: key, onClose }) :
                 null;
             if (!content) {
                 return;
@@ -969,7 +956,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             });
         if (isFunction(renderSelectedItem)) {
             const { content, isRenderInTag } = treeNodeLabelProp in item && item ?
-                renderSelectedItem(item, { index: idx, onClose }) :
+                (renderSelectedItem as RenderSelectedItemInMultiple)(item, { index: idx, onClose }):
                 null;
             if (isRenderInTag) {
                 return <Tag {...tagProps}>{content}</Tag>;
