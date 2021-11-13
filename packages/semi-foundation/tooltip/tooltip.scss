@@ -51,8 +51,8 @@ $module-icon: #{$module}-icon-arrow;
 .#{$module} {
     &-wrapper {
         position: relative;
-        background-color: $color-tooltip-bg-default;
-        color: $color-tooltip-text-default;
+        background-color: red !important;
+        color: red !important;
         // z-index: $z-tooltip; // TODO z-index定义需要收敛
         border-radius: $radius-tooltip;
         padding-top: $spacing-tooltip_content-paddingTop;

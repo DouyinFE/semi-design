@@ -6,7 +6,7 @@ $module: #{$prefix}-rating;
     display: inline-block;
     margin: $spacing-rating-margin;
     padding: $spacing-rating-padding;
-    color: $color-rating-icon-default;
+    color: red !important;
     font-size: $font-rating-fontSize;
     line-height: unset;
     list-style: none;

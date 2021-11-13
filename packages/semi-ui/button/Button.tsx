@@ -34,6 +34,8 @@ export interface ButtonProps {
     onMouseLeave?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
+// console.log('ok');
+
 // TODO: icon configuration
 export default class Button extends PureComponent<ButtonProps> {
     static defaultProps = {
