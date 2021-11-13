@@ -15,6 +15,7 @@ $colors: "amber", "blue", "cyan", "green", "grey", "indigo", "light-blue", "ligh
     white-space: nowrap;
     text-align: center;
     vertical-align: middle;
+    color: red !important;
 
     .#{$module}-label {
         display: flex;
