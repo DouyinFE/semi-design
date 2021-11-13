@@ -570,6 +570,9 @@ export const VirtualizedNotFixedDemo = () => <VirtualizedNotFixed />;
 export const InfiniteScrollDemo = () => <InfiniteScroll />;
 export const VirtualTableOnCellDemo = () => <VirtualTableOnCell />;
 export const ControlledSelectionDemo = () => <ControlledSelection />;
+ControlledSelectionDemo.parameters = {
+  chromatic: { disableSnapshot: true },
+}
 export const PerfComplexRenderDemo = () => <PerfComplexRender />;
 PerfComplexRenderDemo.parameters = {
   chromatic: { disableSnapshot: true },
