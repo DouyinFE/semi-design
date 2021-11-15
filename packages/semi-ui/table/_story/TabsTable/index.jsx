@@ -39,7 +39,7 @@ function AsyncTable(props = {}) {
         setTimeout(() => {
             const _data = [];
             for (let i = 0; i < dataTotalSize; i++) {
-                let age = 40 + (Math.random() > 0.5 ? 1 : -1) * Math.ceil(i / 3);
+                let age = (i * 1000) % 149 ;
                 let name = `Edward King ${i}`;
                 _data.push({
                     key: '' + i,

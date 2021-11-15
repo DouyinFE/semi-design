@@ -1,16 +1,30 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import ChangeTimeZone from './ChangeTimeZone';
 import GetContainer from './GetPopupContainer';
-import RTLWrapper from './RTLDirection/RTLWrapper'
-import RTLTable  from './RTLDirection/RTLTable';
-import RTLForm  from './RTLDirection/RTLForm';
+import RTLWrapper from './RTLDirection/RTLWrapper';
+import RTLTable from './RTLDirection/RTLTable';
+import RTLForm from './RTLDirection/RTLForm';
 
-const stories = storiesOf('ConfigProvider', module);
-stories.add(`change timeZone`, () => <ChangeTimeZone />);
+export default {
+  title: 'ConfigProvider',
+  parameters: {
+    chromatic: { disableSnapshot: true },
+  },
+}
 
-stories.add(`getPopupContainer`, () => <GetContainer />);
+export {
+  ChangeTimeZone,
+  GetContainer,
+}
 
-stories.add(`RTL Table`, () => <RTLWrapper><RTLTable /></RTLWrapper>);
+export const RTLTableDemo = () => (
+  <RTLWrapper>
+    <RTLTable />
+  </RTLWrapper>
+);
 
-stories.add(`RTL Form`, () => <RTLWrapper><RTLForm /></RTLWrapper>);
+export const RTLFormDemo = () => (
+  <RTLWrapper>
+    <RTLForm />
+  </RTLWrapper>
+);

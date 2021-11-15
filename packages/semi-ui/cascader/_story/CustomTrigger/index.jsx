@@ -1,6 +1,10 @@
 import React from 'react';
 import { AutoComplete, Icon, Button, Cascader } from '@douyinfe/semi-ui';
 
+Demo.parameters = {
+    chromatic: { disableSnapshot: false },
+}
+
 export default function Demo() {
     const treeData = [
         {
