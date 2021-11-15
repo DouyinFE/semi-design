@@ -341,3 +341,5 @@ stories.add('prefix / suffix', () => (
         <TagInput style={style} suffix="Suffix" showClear />
     </>
 ));
+
+stories.add('onKeyDown', () => <TagInput style={style} onKeyDown={e=>console.log(e)} />);

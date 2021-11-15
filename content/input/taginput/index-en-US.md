@@ -442,6 +442,7 @@ class CustomRender extends React.Component {
 |onFocus       |Callback invoked when input gets focus           |(e:React.MouseEvent<HTMLInputElement\>) => void                  | -        |1.19.0|
 |onInputChange |Callback invoked when input changes              |(value:string,e: React.KeyboardEvent<HTMLInputElement\>) => void)| -        |1.19.0|
 |onInputExceed |Callback invoked when maxLength is exceeded      |(value:string) => void                                           | -        |1.19.0|
+|onKeyDown    |Callback invoked when keydown                     |(e: React.KeyboardEvent<HTMLInputElement\>) => void          | -        |2.1.0|
 |onRemove      |Callback invoked when tags are removed           |(removedValue: string, idx: number) => void                                 | -        |1.19.0|
 
 ## Methods
