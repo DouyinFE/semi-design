@@ -11,7 +11,7 @@ export interface SemiWebpackPluginOptions {
     variables?: {[key: string]: string | number};
     include?: string;
     omitCss?: boolean;
-    WebpackContext?: WebpackContext
+    webpackContext?: WebpackContext
 }
 
 export interface SemiThemeOptions {
@@ -26,7 +26,7 @@ export default class SemiWebpackPlugin {
     }
 
     apply(compiler: any) {
-        const NormalModule = this.options.WebpackContext?.NormalModule || _NormalModule_;
+        const NormalModule = this.options.webpackContext?.NormalModule || _NormalModule_;
         compiler.hooks.compilation.tap('SemiPlugin', (compilation: any) => {
             if (this.options.theme || this.options.prefixCls || this.options.omitCss) {
                 if (NormalModule.getCompilationHooks) {
@@ -58,7 +58,7 @@ export default class SemiWebpackPlugin {
 
     omitCss(module: any) {
         const compatiblePath = transformPath(module.resource);
-        if (/@douyinfe\/semi-(ui|icons)\/.+\.js$/.test(compatiblePath)) {
+        if (/@douyinfe\/semi-(ui|icons)\/lib\/.+\.js$/.test(compatiblePath)) {
             module.loaders = module.loaders || [];
             module.loaders.push({
                 loader: path.join(__dirname, 'semi-omit-css-loader')
@@ -68,13 +68,13 @@ export default class SemiWebpackPlugin {
 
     customTheme(module: any) {
         const compatiblePath = transformPath(module.resource);
-        if (/@douyinfe\/semi-(ui|icons)\/.+\.js$/.test(compatiblePath)) {
+        if (/@douyinfe\/semi-(ui|icons)\/lib\/.+\.js$/.test(compatiblePath)) {
             module.loaders = module.loaders || [];
             module.loaders.push({
                 loader: path.join(__dirname, 'semi-source-suffix-loader')
             });
         }
-        if (/@douyinfe\/semi-(ui|icons|foundation)\/.+\.scss$/.test(compatiblePath)) {
+        if (/@douyinfe\/semi-(ui|icons|foundation)\/lib\/.+\.scss$/.test(compatiblePath)) {
             const scssLoader = require.resolve('sass-loader');
             const cssLoader = require.resolve('css-loader');
             const styleLoader = require.resolve('style-loader');

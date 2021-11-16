@@ -79,3 +79,45 @@ Use script and link tags to import files directly in the browser, and use the gl
         </div>, document.getElementById("root"));
 </script>
 ```
+
+## 4、Use in Next.js
+
+### Step1
+
+Install `@douyinfe/semi-next` in the project root directory.
+
+``` shell
+# with npm
+npm i @douyinfe/semi-next --save-dev
+
+# with yarn
+yarn add @douyinfe/semi-next --dev
+
+# with pnpm
+pnpm add @douyinfe/semi-next --dev
+
+```
+
+### Step2
+
+Create `next.config.js` in the project root directory and configure it.
+
+```js
+// next.config.js
+const semi = require('@douyinfe/semi-next').default({/* the extension options */});
+module.exports = semi({
+    // your custom Next.js configuration
+});
+```
+
+[Detailed documentation]() of `@douyinfe/semi-next`.
+
+### Step3
+
+Introduce the full amount of semi css in `global.css`. Currently, on-demand introduction is not supported.
+
+``` css
+/* styles/globals.css */
+@import '~@douyinfe/semi-ui/dist/css/semi.min.css';
+
+```
