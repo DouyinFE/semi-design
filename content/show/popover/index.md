@@ -472,6 +472,6 @@ function Demo() {
 | visible            | 是否显示，配合trigger='custom'可实现完全受控                                                                                                                                    | boolean                    |                                             |            |
 | zIndex             | 弹出层 z-index 值                                                                                                                             | number                     | 1030                                        |            |
 | onVisibleChange    | 弹出层展示/隐藏时触发的回调                                                                                                                 | function(isVisble:boolean) |                                             |            |
-| onClickOutSide     | 当弹出层处于展示状态，点击非Children、非浮层内部区域时的回调（仅trigger为custom、click时有效）| function(e:event) |  | **1.35.0** |
+| onClickOutSide     | 当弹出层处于展示状态，点击非Children、非浮层内部区域时的回调（仅trigger为custom、click时有效）| function(e:event) |  | **2.1.0** |
 ## 设计变量
 <DesignToken/>

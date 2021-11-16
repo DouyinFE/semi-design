@@ -148,6 +148,6 @@ Please refer to [Use with Tooltip/Popover](/en-US/show/tooltip#Use-with-Popver-o
 | onConfirm          | Click the confirmation button to call back.                                                                                                                           | (e) => void                |                     |
 | onCancel           | Click the Cancel button to call back.                                                                                                                                 | (e) => void                |                     |
 | onVisibleChange    | Bubble box toggle shows hidden callbacks                                                                                                                              | (visible: boolean) => void | () => {}            | **0.19.0**        |
-| onClickOutSide     | Callback when the pop-up layer is in the display state and the non-Children, non-floating layer inner area is clicked                                                 | (e: event) => void         |                     | **1.35.0**        |
+| onClickOutSide     | Callback when the pop-up layer is in the display state and the non-Children, non-floating layer inner area is clicked                                                 | (e: event) => void         |                     | **2.1.0**        |
 ## Design Tokens
 <DesignToken/>
