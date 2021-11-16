@@ -80,3 +80,45 @@ class Demo extends React.Component {
     </div>, document.getElementById("root"));
 </script>;
 ```
+
+## 4、在 Next.js 中使用
+
+### Step1
+
+在项目根目录安装 `@douyinfe/semi-next` 。
+
+``` shell
+# 使用 npm
+npm i @douyinfe/semi-next --save-dev
+
+# 使用 yarn
+yarn add @douyinfe/semi-next --dev
+
+# 使用 pnpm
+pnpm add @douyinfe/semi-next --dev
+
+```
+
+### Step2
+
+在项目根目录创建 `next.config.js`，并进行配置。
+
+```js
+// next.config.js
+const semi = require('@douyinfe/semi-next').default({/* the extension options */});
+module.exports = semi({
+    // your custom Next.js configuration
+});
+```
+
+`@douyinfe/semi-next` 的[详细文档]()。
+
+### Step3
+
+在 `global.css` 中引入全量的 semi css。目前不支持按需引入。
+
+``` css
+/* styles/globals.css */
+@import '~@douyinfe/semi-ui/dist/css/semi.min.css';
+
+```

@@ -14,7 +14,7 @@
         "README.md"
     ],
     "scripts": {
-        "build:lib": "tsc",
+        "build:lib": "rimraf lib && tsc",
         "prepublishOnly": "npm run build:lib"
     },
     "dependencies": {
@@ -34,6 +34,7 @@
     },
     "devDependencies": {
         "@types/loader-utils": "^2.0.3",
+        "rimraf": "^3.0.2",
         "typescript": "^4"
     }
 }
