@@ -19,7 +19,7 @@ export default class SplitButtonGroup extends BaseComponent<SplitButtonGroupProp
         const { children, style, className } = this.props;
         const cls = classNames(`${prefixCls}-split`, className);
         return (
-            <div className={cls} style={style}>
+            <div className={cls} style={style} role="group" aria-label="split style button group">
                 {children}
             </div>
         );

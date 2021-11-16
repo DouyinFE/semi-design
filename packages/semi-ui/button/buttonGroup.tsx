@@ -41,6 +41,6 @@ export default class ButtonGroup extends BaseComponent<ButtonGroupProps> {
                 React.cloneElement(itm, { disabled, size, type, ...itm.props, ...rest, key: index })
             );
         }
-        return <div className={`${prefixCls}-group`} aria-label="button group">{inner}</div>;
+        return <div className={`${prefixCls}-group`} role="group" aria-label="button group">{inner}</div>;
     }
 }
