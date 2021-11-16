@@ -13,7 +13,7 @@ module.exports = {
     overrides: [
         {
             files: ['*.js', '*.jsx'],
-            extends: ['jest-enzyme', 'plugin:react/recommended', 'plugin:import/recommended', 'plugin:import/errors', 'plugin:import/warnings'],
+            extends: ['jest-enzyme', 'plugin:react/recommended', 'plugin:import/recommended', 'plugin:import/errors', 'plugin:import/warnings', 'plugin:jsx-a11y/recommended'],
             parser: '@babel/eslint-parser',
             plugins: ['react', 'react-hooks', 'jest', 'import'],
             rules: {
@@ -35,7 +35,7 @@ module.exports = {
         },
         {
             files: ['*.ts', '*.tsx'],
-            extends: ['jest-enzyme', 'plugin:@typescript-eslint/recommended', 'plugin:import/typescript', 'plugin:react/recommended'],
+            extends: ['jest-enzyme', 'plugin:@typescript-eslint/recommended', 'plugin:import/typescript', 'plugin:react/recommended', 'plugin:jsx-a11y/recommended'],
             parser: '@typescript-eslint/parser',
             parserOptions: {
                 project: ['./tsconfig.eslint.json'],

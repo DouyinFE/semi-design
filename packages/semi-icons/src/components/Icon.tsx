@@ -31,7 +31,7 @@ const Icon: ForwardRefExoticComponent<IconProps> & { elementType?: string } = Re
         outerStyle.transform = `rotate(${rotate}deg)`;
     }
     Object.assign(outerStyle, style);
-    return <span role="img" ref={ref} className={classes} style={outerStyle} {...restProps}>{svg}</span>;
+    return <span role="img" ref={ref} aria-label={type} className={classes} style={outerStyle} {...restProps}>{svg}</span>;
 });
 
 Icon.elementType = 'Icon';

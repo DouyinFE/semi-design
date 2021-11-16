@@ -106,6 +106,8 @@ export default class Button extends PureComponent<ButtonProps> {
                 className
             ),
             type: htmlType,
+            'aria-disabled': disabled,
+            'aria-label': type
         };
 
         return (
@@ -116,6 +118,7 @@ export default class Button extends PureComponent<ButtonProps> {
                 onMouseDown={this.props.onMouseDown}
                 style={style}
             >
+                {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
                 <span className={`${prefixCls}-content`} onClick={e => disabled && e.stopPropagation()}>
                     {children}
                 </span>
