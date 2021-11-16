@@ -432,7 +432,7 @@ function Demo() {
 | wrapperClassName | 当 children 为 disabled ，或者 children 为多个元素时，外层将会包裹一层 span 元素，该 api 用于设置此 span 的样式类名 | string |  | **1.32.0** |
 | zIndex | 弹层层级 | number | 1060 |  |
 | onVisibleChange | 弹出层展示/隐藏时触发的回调 | function(isVisible:boolean) |  |  |
-
+| onClickOutSide | 当弹出层处于展示状态，点击非Children、非浮层内部区域时的回调（仅trigger为custom、click时有效）| function(e:event) |  | **1.35.0** |
 ## 设计变量
 
 <DesignToken/>

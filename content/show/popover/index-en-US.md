@@ -463,7 +463,6 @@ Please refer to [Use with Tooltip/Popconfirm](/en-US/show/tooltip#%E6%90%AD%E9%8
 | getPopupContainer | Specifies the parent DOM, and the bullet layer will be rendered to the DOM, you need to set 'position: relative` | () => HTMLElement | () => document.body |
 | mouseEnterDelay | After the mouse is moved in, the display delay time, in milliseconds (only effective when the trigger is hover/focus) | number | 50 |  |
 | mouseLeaveDelay | The time for the delay to disappear after the mouse is moved out, in milliseconds (only effective when the trigger is hover/focus) | number | 50 |  |
-| onVisibleChange | A callback triggered when the pop-up layer is displayed / hidden | (isVisble: boolean) => void |  |
 | rePosKey | You can update the value of this item to manually trigger the repositioning of the pop-up layer | string\|number |  |  |
 | visible | Display popup or not | boolean |  |
 | position | Directions, optional values: `top`, `topLeft`, `topRight`, `leftTop`, `leftBottom`, `rightTop`, `rightTop`, `rightBottom`, `bottomLeft`, `bottomRight`, `bottomRight` | string | "bottom" |
@@ -472,7 +471,8 @@ Please refer to [Use with Tooltip/Popconfirm](/en-US/show/tooltip#%E6%90%AD%E9%8
 | trigger | Trigger mode, optional value: `hover`, `focus`, `click`, `custom` | string | 'hover' |
 | stopPropagation | Whether to prevent click events on the bomb layer from bubbling | boolean | false | **0.34.0** |
 | zIndex | Floating layer z-index value | number | 1030 |
-
+| onVisibleChange | A callback triggered when the pop-up layer is displayed / hidden | (isVisble: boolean) => void |  |
+| onClickOutSide  | Callback when the pop-up layer is in the display state and the non-Children, non-floating layer inner area is clicked (only valid when trigger is custom, click) | (e:event) => void | | **1.35.0** |
 ## Design Tokens
 
 <DesignToken/>
