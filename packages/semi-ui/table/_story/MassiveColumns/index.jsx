@@ -102,4 +102,8 @@ const Demo = () => {
     );
 };
 
+Demo.parameters = {
+    chromatic: { disableSnapshot: true },
+}
+
 export default Demo;

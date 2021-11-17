@@ -25,6 +25,10 @@ const presets = [
 const baseDate = new Date(baseYear, baseMon, baseDay, 8, 8, 8, 8);
 const currentValue = [new Date(baseDate), new Date(baseDate).setDate(baseDay + dayOffset)];
 
+Demo.parameters = {
+    chromatic: { disableSnapshot: false },
+};
+
 export default function Demo(props = {}) {
     const style = { width: 240 };
     return (

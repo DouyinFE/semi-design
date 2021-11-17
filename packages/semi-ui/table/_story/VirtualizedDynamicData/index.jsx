@@ -1,6 +1,10 @@
 import React, { useMemo, useState, useEffect, useRef } from 'react';
 import { Table, Tooltip, Tag, Avatar } from '../../../index';
 
+Demo.parameters = {
+    chromatic: { disableSnapshot: true },
+}
+
 export default function Demo() {
     const [counter, setCounter] = useState(1);
     const scrollingRef = useRef(false);
