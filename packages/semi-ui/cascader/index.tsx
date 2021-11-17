@@ -30,6 +30,7 @@ import TagInput from '../tagInput';
 import { Motion } from '../_base/base';
 import { isSemiIcon } from '../_utils';
 
+export { CascaderType, ShowNextType } from '@douyinfe/semi-foundation/cascader/foundation';
 export { CascaderData, Entity, Data, CascaderItemProps } from './item';
 
 export interface ScrollPanelProps extends BasicScrollPanelProps {
