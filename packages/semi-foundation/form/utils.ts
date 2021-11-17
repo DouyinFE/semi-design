@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import AsyncValidator from 'async-validator';
 import { cloneDeep, toPath } from 'lodash-es';
-import { FieldValidateTriggerType, BasicTriggerType, ComponentProps, withFieldOption } from './interface';
+import { FieldValidateTriggerType, BasicTriggerType, ComponentProps, WithFieldOption } from './interface';
 
 export function getDisplayName(WrappedComponent: React.ComponentType | any) {
     const originName = WrappedComponent.displayName || WrappedComponent.name;
@@ -61,7 +61,7 @@ function transformTrigger(trigger: FieldValidateTriggerType): Array<BasicTrigger
     return result;
 }
 
-export function mergeOptions(opts: withFieldOption, props: ComponentProps) {
+export function mergeOptions(opts: WithFieldOption, props: ComponentProps) {
     // Opts: different types of component identification value, value change callback function may be inconsistent, used to adapt 1, input, select 2, radio, checkbox 3, switch
     // valueKey: input, select class component control value props are value, and checkbox, switch is checked
     // eg：checkbox、radio   { valueKey: 'checked', onKeyChangeFnName: 'onChange', valuePath: 'target.value' }

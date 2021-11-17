@@ -79,7 +79,7 @@ export interface FieldState {
     status?: 'error' | 'success';
 }
 
-export interface withFieldOption {
+export interface WithFieldOption {
     valueKey?: string;
     onKeyChangeFnName?: string;
     valuePath?: string;

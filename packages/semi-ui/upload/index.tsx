@@ -15,6 +15,7 @@ import '@douyinfe/semi-foundation/upload/upload.scss';
 
 const prefixCls = cssClasses.PREFIX;
 
+export { BeforeUploadObjectResult, AfterUploadResult };
 
 export interface FileItem extends BaseFileItem {
     validateMessage?: ReactNode;

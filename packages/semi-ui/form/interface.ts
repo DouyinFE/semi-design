@@ -5,7 +5,7 @@ import { Subtract } from 'utility-types';
 import type { RuleItem } from 'async-validator';
 import { Options as scrollIntoViewOptions } from 'scroll-into-view-if-needed';
 
-import { BaseFormApi as FormApi, FormState } from '@douyinfe/semi-foundation/form/interface';
+import { BaseFormApi as FormApi, FormState, WithFieldOption } from '@douyinfe/semi-foundation/form/interface';
 import { SelectProps } from '../select/index';
 import Option from '../select/option';
 import OptGroup from '../select/optionGroup';
@@ -15,7 +15,7 @@ import { RadioProps } from '../radio/index';
 import { ErrorMessageProps, ReactFieldError as FieldError } from './errorMessage';
 import { LabelProps } from './label';
 
-export { FormState, FormApi };
+export { FormState, FormApi, WithFieldOption };
 
 export type CommonFieldProps = {
     /** Field is required (except Form. Checkbox within the Group, Form. Radio) */
