@@ -1516,10 +1516,10 @@ With Field did the following things.
 -   Insert Field's `<Form.Label>`above the field
 -   Insert Field's `<ErrorMessage>` under the field
 
-With Field Options specific configuration can be consulted [withFieldOption](#WithFieldOptions)
+With Field Options specific configuration can be consulted [withFieldOption](#WithFieldOption)
 
 ```jsx
-withField(YourComponent, withFieldOptions);
+withField(YourComponent, withFieldOption);
 ```
 
 ```jsx live=true dir="column"
@@ -1790,7 +1790,7 @@ const { ErrorMessage } = Form;
 | className  | Classname of ErrorMessage wrapper | string                   |         |
 | style      | Inline style                      | object                   |         |
 
-## withFieldOptions
+## withFieldOption
 
 | key               | Description                                                                                                                                                                                                                                                                                                                                                                 | Default    |
 | ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |

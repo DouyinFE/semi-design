@@ -13,7 +13,7 @@ import ErrorMessage from '../errorMessage';
 import { isElement } from '../../_base/reactUtils';
 import Label from '../label';
 import { Col } from '../../grid';
-import { CallOpts, withFieldOption } from '@douyinfe/semi-foundation/form/interface';
+import { CallOpts, WithFieldOption } from '@douyinfe/semi-foundation/form/interface';
 import { CommonFieldProps, CommonexcludeType } from '../interface';
 import { Subtract } from 'utility-types';
 
@@ -29,7 +29,7 @@ const prefix = cssClasses.PREFIX;
 function withField<
     C extends React.ComponentType<React.ComponentProps<C>>,
     T extends React.ComponentType<Subtract<React.ComponentProps<C>, CommonexcludeType> & CommonFieldProps>
->(Component: C, opts?: withFieldOption): T {
+>(Component: C, opts?: WithFieldOption): T {
     let SemiField = (props: any, ref: React.MutableRefObject<any>) => {
         let {
             // condition,

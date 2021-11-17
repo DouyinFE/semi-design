@@ -26,7 +26,8 @@ export interface NoticeReactProps extends NoticeProps{
 export {
     NoticeState,
     NotificationListProps,
-    NotificationListState
+    NotificationListState,
+    ConfigProps
 };
 
 export type NoticesInPosition = { top: NoticeInstance[];
