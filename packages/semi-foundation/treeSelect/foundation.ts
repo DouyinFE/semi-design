@@ -29,14 +29,15 @@ export type ValidateStatus = 'error' | 'warning' | 'default';
 
 export type Size = 'small' | 'large' | 'default';
 
-export interface BasicRenderSelectedItem {
-    (treeNode: BasicTreeNodeData): any;
-    (treeNode: BasicTreeNodeData, otherProps: { index: number | string; onClose: (tagContent: any, e: any) => void }):
-    {
-        isRenderInTag: boolean;
-        content: any;
-    };
-}
+export type BasicRenderSelectedItemInMultiple = (
+    treeNode: BasicTreeNodeData, 
+    otherProps: { index: number | string; onClose: (tagContent: any, e: any) => void }
+)=> {
+    isRenderInTag: boolean;
+    content: any;
+};
+export type BasicRenderSelectedItemInSingle = (treeNode: BasicTreeNodeData) => any;
+export type BasicRenderSelectedItem = BasicRenderSelectedItemInSingle | BasicRenderSelectedItemInMultiple;
 
 export interface BasicTriggerRenderProps {
     [x: string]: any;
