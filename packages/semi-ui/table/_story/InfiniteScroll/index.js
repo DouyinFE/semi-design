@@ -80,7 +80,7 @@ class InfiniteScrollDemo extends React.Component {
         const data = [...this.state.data];
         const currentLenght = data.length;
         for (let i = currentLenght; i < currentLenght + pageSize; i++) {
-            let age = 40 + (Math.random() > 0.5 ? 1 : -1) * (i % 9);
+            let age = (i * 1000) % 149 ;
             let name = `Edward King ${i}`;
             data.push({
                 key: '' + i,

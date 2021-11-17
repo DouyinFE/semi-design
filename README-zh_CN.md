@@ -9,7 +9,8 @@
     
 <div align="center">
 
-[![NPM][npm-badge]][npm-url] [![FIGMA][figma-badge]][figma-url] [![LICENSE][license-badge]][license-url] [![CODECOV][codecov-badge]][codecov-url]
+[![NPM][npm-badge]][npm-url] [![FIGMA][figma-badge]][figma-url] [![LICENSE][license-badge]][license-url] 
+[![CODECOV][codecov-badge]][codecov-url] [![Chromatic][chromatic-badge]][chromatic-url]
 
 
 [npm-badge]: https://img.shields.io/npm/v/@douyinfe/semi-ui.svg
@@ -21,6 +22,8 @@
 [license-url]: https://github.com/DouyinFE/semi-design/blob/main/LICENSE
 [codecov-badge]: https://img.shields.io/codecov/c/gh/DouyinFE/semi-design
 [codecov-url]: https://app.codecov.io/gh/DouyinFE/semi-design
+[chromatic-badge]: https://img.shields.io/badge/test-chromatic-f52
+[chromatic-url]: https://www.chromatic.com/
 
 </div>
 
@@ -105,6 +108,12 @@ Semi UI 支持所有主流浏览器。
 有任何问题可以进群交流，我们会及时给予解答和反馈。
 
 加入[用户群](https://bytedance.feishu.cn/docs/doccnw93Dujm3UCkHRDTMTm1qwe#).
+
+# 💖 Thanks
+
+<a href="https://www.chromatic.com/"><img src="https://user-images.githubusercontent.com/321738/84662277-e3db4f80-af1b-11ea-88f5-91d67a5e59f6.png" width="153" height="30" alt="Chromatic" /></a>
+
+感谢 [Chromatic](https://www.chromatic.com/) 提供可视化测试平台，帮助我们审查 UI 更改和提供视觉回归测试。
 
 # 🎈 协议
 

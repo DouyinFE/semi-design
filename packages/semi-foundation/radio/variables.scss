@@ -48,7 +48,7 @@ $width-radio_hover-border: $border-thickness-control; // 描边宽度 - 悬浮�
 $width-radio_disabled-border: $border-thickness-control; // 描边宽度 - 禁用态
 $width-radio_innder-border: $border-thickness-control; // 描边宽度 - 禁用态
 
-$height-radio_inner_min: $spacing-base-loose; // 单选按钮高度
+$height-radio_inner_min: 20px; // 单选按钮高度
 $width-radio_inner: $width-icon-medium; // 单选按钮宽度
 $spacing-radio_addon-paddingLeft: $spacing-tight; //单选标题到单选按钮左侧边距
 $spacing-radio_addon-marginLeft: $width-radio_inner; //单选标题左侧整体外边距

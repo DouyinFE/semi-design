@@ -1,18 +1,14 @@
 {
     "name": "@douyinfe/semi-foundation",
-    "version": "2.0.4",
+    "version": "2.0.8",
     "description": "",
-    "files": [
-        "lib",
-        "README.md"
-    ],
     "scripts": {
         "build:lib": "node ./scripts/compileLib.js",
         "prepublishOnly": "npm run build:lib"
     },
     "dependencies": {
         "@babel/runtime-corejs3": "^7.15.4",
-        "@douyinfe/semi-animation": "2.0.4",
+        "@douyinfe/semi-animation": "2.0.8",
         "async-validator": "^3.5.0",
         "classnames": "^2.2.6",
         "date-fns": "^2.9.0",

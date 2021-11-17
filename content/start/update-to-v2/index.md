@@ -66,7 +66,9 @@ import en_GB from '@douyinfe/semi-ui/lib/es/locale/source/en_GB'
   - 自定义 svg 不再支持插件方式配置 srcSvgPaths
   - Button icon 属性不再支持通过 string 传递内置 icon 或 iconType
   - Dropdown 删除 iconType 属性，统一为 icon 属性
-  - Navigation icon 不再支持通过 string 方式传入，需要传入 ReactNode
+  - Navigation 
+    - Nav.item组件, Nav.Sub组件 props.icon 不再支持通过 string 方式传入，需要传入 ReactNode 
+    - Nav 组件props.items 中的 icon也不再支持通过 string 方式传入，需要传入 ReactNode  
   - Notification icon 不再支持通过 string 方式传入，请统一使用 ReactNode
 - AutoComplete 正式废弃 onChangeWithObject 属性
 - Cascader triggerRender 的入参移除 onInputChange

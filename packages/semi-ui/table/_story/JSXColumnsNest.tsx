@@ -6,7 +6,7 @@ const JSXColumnsNest: React.FunctionComponent = () => {
     const data = useMemo(() => {
         const _data = [];
         for (let i = 0; i < 100; i++) {
-            const age = 40 + (Math.random() > 0.5 ? 1 : -1) * (i % 9);
+            const age = (i * 1000) % 149 ;
             const name = `Edward King ${i}`;
             _data.push({
                 key: `${ i}`,

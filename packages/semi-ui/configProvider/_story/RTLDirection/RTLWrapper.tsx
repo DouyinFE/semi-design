@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { ButtonGroup, Button, ConfigProvider } from '@douyinfe/semi-ui';
 
-export default function RTLWrapper({ children, onDirectionChange }) {
+export default function RTLWrapper({ children, onDirectionChange }: { children: React.ReactNode; onDirectionChange?: (direction: 'ltr' | 'rtl') => void }) {
     const [direction, setDirection] = useState();
     const handleDirectionChange = dir => {
         setDirection(dir);
-        onDirectionChange(dir);
+        
+        if (typeof onDirectionChange === 'function') {
+            onDirectionChange(dir);
+        }
     };
 
     return (

@@ -528,7 +528,7 @@ class NavApp extends React.Component {
                 defaultOpenKeys={['job']}
                 bodyStyle={{ height: 320 }}
                 items={[
-                    { itemKey: 'user', text: '用户管理', icon: 'user' },
+                    { itemKey: 'user', text: '用户管理', icon: <IconUser /> },
                     {
                         text: '任务平台',
                         icon: <IconSetting />,
@@ -730,7 +730,7 @@ function NavApp (props = {}) {
 | icon        | 导航项目图标                             | ReactNode |      |               |
 | indent      | 如果 icon 为空，是否保留其占位，仅对一级导航生效       | boolean           | false  |               |
 | itemKey     | 导航项目唯一 key                                   | string            | ""     |               |
-| level       | 当前项所在嵌套层级，limitIndent 为 true时，用于自定义缩进位置| number | 1.27.0 |
+| level       | 当前项所在嵌套层级，limitIndent 为 true时，用于自定义缩进位置| number | | 1.27.0 | 
 | link        | 导航项 href 链接，传入时导航项整体会包裹一个 a 标签 | string            | -      | 1.0.0 |
 | linkOptions | 透传给 a 标签的参数                                | object            | -      | 1.0.0 |
 | text        | 导航项目文案或元素                                 | string\|ReactNode | ""     |               |
@@ -774,7 +774,7 @@ function NavApp (props = {}) {
 | children       | 子元素                                                                                   | ReactNode                                 |        |                |
 | className      | 最外层样式名                                                                             | string                                    |        |                |
 | collapseButton | 是否展示底部“收起侧边栏”按钮，mode="vertical" 且 Footer 组件的 children 参数为空才有效果 | boolean\|ReactNode                        | false  |                |
-| collapseText   | “收起”按钮的文案                                                                         | (collapsed?:boolean) => string\|ReactNode |        | 0.35.0 |
+| collapseText   | “收起”按钮的文案                                                                         | (collapsed:boolean) => string\|ReactNode |        | 0.35.0 |
 | style          | 最外层样式                                                                               | CSSProperties                                    |        |                |
 
 ## 设计变量

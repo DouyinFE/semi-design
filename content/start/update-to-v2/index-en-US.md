@@ -75,9 +75,9 @@ import en_GB from '@douyinfe/semi-ui/lib/es/locale/source/en_GB'
 - Tooltip no longer supports the `disabled` attribute, and components that rely on Tooltip (such as Popover, Dropdown, etc.) transparently transmitted to Tooltip `disabled` will become invalid
 - Table
   - API that no longer responds when componentDidUpdate
-    - DefaultExpandAllRows, please replace with expandAllRows
-    - Default ExpandRowKeys, please replace with expandRowKeys
-    - Default ExpandAllGroupRows, please replace with expandAllGroupRows
+    - defaultExpandAllRows, please replace with expandAllRows
+    - defaultExpandRowKeys, please replace with expandRowKeys
+    - defaultExpandAllGroupRows, please replace with expandAllGroupRows
 
 ### 🎨 Style incompatibility
 

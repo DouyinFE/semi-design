@@ -15,6 +15,28 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 ---
 
+#### 🎉 2.0.8 (2021-11-11)
+- 【Fix】
+  - 修复 Modal afterClose 部分场景失效
+
+#### 🎉 2.0.7 (2021-11-10)
+- 【Fix】
+  - 修复 Icon 包缺少 classnames 依赖问题 [#231](https://github.com/DouyinFE/semi-design/issues/231)
+- 【Style】
+  - Table 修复了固定列/表头场景，所有列均不设置宽度时表格对不齐问题 [#247](https://github.com/DouyinFE/semi-design/issues/247)
+
+
+#### 🎉 2.0.6 (2021-11-10)
+- 【Style】
+  - Table 移除固定列/固定表头时在表头插入的滚动轴列，使用 overflow-y 方案模拟滚动轴 [#164](https://github.com/DouyinFE/semi-design/issues/164)
+
+
+#### 🎉 2.0.5 (2021-11-09)
+- 【Style】
+  - 修复 Input 组件 hover 时 border 样式问题 [#204](https://github.com/DouyinFE/semi-design/issues/204)
+- 【Perf】
+  - Modal 使用 CSS 动画，优化打开和关闭时的动画效果 [#236](https://github.com/DouyinFE/semi-design/issues/236)
+
 #### 🎉 2.0.4 (2021-11-08)
 - 【Fix】
   - 修复 Cascader 单选时，defaultValue 为 disabled 节点时选中会被过滤的问题 [#183](https://github.com/DouyinFE/semi-design/issues/183)

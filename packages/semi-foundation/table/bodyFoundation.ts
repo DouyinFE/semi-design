@@ -15,15 +15,6 @@ export default class TableBodyFoundation<P = Record<string, any>, S = Record<str
     init() {
         this.initVirtualizedData();
         this.initExpandBtnShouldInRow();
-
-        /**
-         * Use ResizeObserver to monitor changes in the size of the body content area, and notify Table to recalculate if it changes. columns #1219
-         * (Only monitor the scroll.y scene, other scenes are not monitored, because the header of the scroll.y scene is a separate table, and a scrollbar column will be inserted)
-         */
-        const { scroll } = this.getProps(); // TODO check: this._adapter.getProps -> this.getProps
-        if (get(scroll, 'y')) {
-            this.observeBodyResize();
-        }
     }
 
     destroy() {
@@ -120,9 +111,8 @@ export default class TableBodyFoundation<P = Record<string, any>, S = Record<str
     /**
      * Use ResizeObserver to monitor changes in the size of the body content area, and notify Table to recalculate if it changes. columns #1219
      * (Only monitor the scroll.y scene, other scenes are not monitored, because the header of the scroll.y scene is a separate table, and a scrollbar column will be inserted)
-     * @param {any} bodyDOM
      */
-    observeBodyResize(bodyDOM?: any) {
+    observeBodyResize(bodyDOM: any) {
         const { scroll } = this.getProps(); // TODO check: this._adapter.getProps -> this.getProps
         if (get(scroll, 'y')) {
             return this._adapter.observeBodyResize(bodyDOM);
