@@ -297,7 +297,7 @@ class App extends React.Component {
 **v>= 1.1.0**  
 You could use `collapsible` for a scrollable tabs with dropdown menu. Horizontal mode only.
 
-```jsx live=true
+```jsx live=true dir=column
 import React from 'react';
 import { Tabs, TabPane } from '@douyinfe/semi-ui';
 
@@ -496,14 +496,14 @@ import {Tabs, TabPane} from '@douyinfe/semi-ui';
 class App extends React.Component {
      render() {
          return (
-             <Tabs closable type="card" defaultActiveKey="1">
-                 <TabPane tab="document" itemKey="1">
+             <Tabs type="card" defaultActiveKey="1">
+                 <TabPane closable tab="document" itemKey="1">
                      Documentation
                  </TabPane>
-                 <TabPane tab="Quick Start" itemKey="2">
+                 <TabPane closable tab="Quick Start" itemKey="2">
                      Quick start
                  </TabPane>
-                 <TabPane tab="Help" itemKey="3">
+                 <TabPane closable tab="Help" itemKey="3">
                      help
                  </TabPane>
              </Tabs>
@@ -535,6 +535,7 @@ tabPosition | The position of the tab, support `top` (horizontal), `left` (verti
 type | The style of the label bar, optional `line`, `card`, `button` | string | `line` |
 onChange | Callback function when switching tab pages | function(activeKey: string) | None |
 onTabClick | Click event | function(key: string, e: Event) | None |
+onTabClose | executed when tab closed by user, **>=2.0.1**  |  function(tabKey: string) | None
 
 ### TabPane
 
@@ -546,6 +547,7 @@ icon | Tab bar icon | ReactNode | None |
 itemKey | corresponding to `activeKey` | string | None |
 style | style object | CSSProperties | None |
 tab | Tab page bar display text | ReactNode | None |
+closable | whether user can close the tab **>=2.0.1** | boolean | false |
 
 ## Design Token
 
