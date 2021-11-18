@@ -215,7 +215,7 @@ describe('Form-field', () => {
             expect(formApi.getError('name')).toEqual(undefined);
             expect(form.exists(`.${BASE_CLASS_PREFIX}-form-field-error-message`)).toEqual(false);
             done();
-        }, 400);
+        }, 800);
     });
     it('rules', done => {
         // rules work
