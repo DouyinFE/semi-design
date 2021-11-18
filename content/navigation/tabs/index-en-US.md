@@ -535,7 +535,7 @@ tabPosition | The position of the tab, support `top` (horizontal), `left` (verti
 type | The style of the label bar, optional `line`, `card`, `button` | string | `line` |
 onChange | Callback function when switching tab pages | function(activeKey: string) | None |
 onTabClick | Click event | function(key: string, e: Event) | None |
-onTabClose | executed when tab closed by user, **>=2.0.1**  |  function(tabKey: string) | None
+onTabClose | executed when tab closed by user, **>=2.1.0**  |  function(tabKey: string) | None
 
 ### TabPane
 
@@ -547,7 +547,7 @@ icon | Tab bar icon | ReactNode | None |
 itemKey | corresponding to `activeKey` | string | None |
 style | style object | CSSProperties | None |
 tab | Tab page bar display text | ReactNode | None |
-closable | whether user can close the tab **>=2.0.1** | boolean | false |
+closable | whether user can close the tab **>=2.1.0** | boolean | false |
 
 ## Design Token
 

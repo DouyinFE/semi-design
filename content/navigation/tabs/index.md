@@ -559,7 +559,7 @@ tabPosition | tab 的位置，支持`top`(水平), `left`(垂直)，**>=1.0.0** 
 type | 标签栏的样式，可选`line`、 `card`、 `button` | string | `line` |
 onChange | 切换 tab 页时的回调函数 | function(activeKey: string) | 无 |
 onTabClick | 单击事件 | function(key: string, e: Event) | 无 |
-onTabClose | 关闭 tab 页时的回调函数 **>=2.0.1** |  function(tabKey: string) | 无
+onTabClose | 关闭 tab 页时的回调函数 **>=2.1.0** |  function(tabKey: string) | 无
 
 ### TabPane
 
@@ -571,7 +571,7 @@ icon      | 标签页栏 icon    | ReactNode | 无     |
 itemKey   | 对应 `activeKey` | string             | 无     |
 style     | 样式对象         | CSSProperties             | 无     |
 tab       | 标签页栏显示文字 | ReactNode | 无     |
-closable  | 允许关闭tab **>=2.0.1**| boolean | false |
+closable  | 允许关闭tab **>=2.1.0**| boolean | false |
 
 ## 设计变量
 
