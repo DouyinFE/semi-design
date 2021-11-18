@@ -1,22 +1,23 @@
-import React, { createRef, RefObject, ReactElement, MouseEvent, RefCallback, ReactNode } from 'react';
+import React, { createRef, MouseEvent, ReactElement, ReactNode, RefCallback, RefObject } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/tabs/constants';
 import isNullOrUndefined from '@douyinfe/semi-foundation/utils/isNullOrUndefined';
 import getDataAttr from '@douyinfe/semi-foundation/utils/getDataAttr';
 import TabsFoundation, { TabsAdapter } from '@douyinfe/semi-foundation/tabs/foundation';
-import { isEqual, pick, omit } from 'lodash-es';
+import { isEqual, omit, pick } from 'lodash-es';
 import BaseComponent from '../_base/baseComponent';
 import '@douyinfe/semi-foundation/tabs/tabs.scss';
 
 import TabBar from './TabBar';
 import TabPane from './TabPane';
 import TabsContext from './tabs-context';
-import { TabsProps, PlainTab, TabPaneProps } from './interface';
+import { PlainTab, TabPaneProps, TabsProps } from './interface';
 
 const panePickKeys = Object.keys(omit(TabPane.propTypes, ['children']));
 
 export * from './interface';
+
 export interface TabsState {
     activeKey: string;
     panes: Array<PlainTab>;
@@ -45,7 +46,7 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
         tabPaneMotion: PropTypes.oneOfType([PropTypes.bool, PropTypes.object, PropTypes.func]),
         tabPosition: PropTypes.oneOf(strings.POSITION_MAP),
         type: PropTypes.oneOf(strings.TYPE_MAP),
-        closable: PropTypes.bool
+        onTabClose: PropTypes.func,
     };
 
     static defaultProps: TabsProps = {
@@ -59,7 +60,7 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
         tabPaneMotion: true,
         tabPosition: 'top',
         type: 'line',
-        closable: false
+        onTabClose: () => undefined
     };
 
     contentRef: RefObject<HTMLDivElement>;
@@ -90,8 +91,8 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
                 }
                 const panes = React.Children.map(children, (child: any) => {
                     if (child) {
-                        const { tab, icon, disabled, itemKey } = child.props;
-                        return { tab, icon, disabled, itemKey };
+                        const { tab, icon, disabled, itemKey, closable } = child.props;
+                        return { tab, icon, disabled, itemKey, closable };
                     }
                     return undefined;
                 });
@@ -106,7 +107,7 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
             setNewActiveKey: (activeKey: string): void => {
                 this.setState({ activeKey });
             },
-            setNewPanes: (panes: Array<PlainTab>): void => {
+            notifyPanesUpdate: (panes: Array<PlainTab>): void => {
                 this.setState({ panes });
             },
             getDefaultActiveKeyFromChildren: (): string => {
@@ -120,6 +121,9 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
                 });
                 return activeKey;
             },
+            notifyTabDelete: (tabKey: string) => {
+                this.props.onTabClose && this.props.onTabClose(tabKey);
+            }
         };
     }
 
@@ -132,7 +136,7 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
     }
 
     componentDidUpdate(prevProps: TabsProps): void {
-    // Panes state acts on tab bar, no need to compare TabPane children
+        // Panes state acts on tab bar, no need to compare TabPane children
         const prevChildrenProps = React.Children.toArray(prevProps.children).map((child: ReactElement<TabPaneProps>) =>
             pick(child.props, panePickKeys)
         );
@@ -192,7 +196,7 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
 
     deleteTabItem = (tabKey: string, event: MouseEvent<HTMLDivElement>) => {
         event.stopPropagation();
-        if(this.state.panes.length === 1) return
+        if (this.state.panes.length === 1) return
         this.foundation.handleTabDelete(tabKey)
     }
 
@@ -213,7 +217,6 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
             tabPaneMotion,
             tabPosition,
             type,
-            closable,
             ...restProps
         } = this.props;
         const { panes, activeKey } = this.state;
@@ -238,7 +241,6 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
             tabBarExtraContent,
             tabPosition,
             type,
-            closable,
             deleteTabItem: this.deleteTabItem
         };
 
