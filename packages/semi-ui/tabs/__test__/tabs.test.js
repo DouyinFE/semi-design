@@ -1,4 +1,4 @@
-import { Icon, Tabs, TabPane, Button } from '../../index';
+import { TabPane, Tabs } from '../../index';
 import { BASE_CLASS_PREFIX } from '../../../semi-foundation/base/constants';
 
 let defaultTabPane = [
@@ -13,8 +13,8 @@ function getTabs(tabProps, tabPaneProps = defaultTabPane) {
         return <TabPane {...pane}></TabPane>
     });
     return <Tabs {...tabProps}>
-            {tabPane}
-        </Tabs>
+        {tabPane}
+    </Tabs>
 }
 
 describe('Tabs', () => {
@@ -47,11 +47,11 @@ describe('Tabs', () => {
         const tabs = mount(getTabs(tabProps));
         const activeTabContent = tabs.find(`.${BASE_CLASS_PREFIX}-tabs-tab-active`).text();
         expect(activeTabContent).toEqual('titleB');
-    });                        
+    });
 
     it('different type Tabs', () => {
         let lineTabs = mount(getTabs({ type: 'line' }));
-        let cardTabs  = mount(getTabs({ type: 'card' }));
+        let cardTabs = mount(getTabs({ type: 'card' }));
         let buttonTabs = mount(getTabs({ type: 'button' }));
         expect(lineTabs.exists(`.${BASE_CLASS_PREFIX}-tabs-bar-button`)).toEqual(false);
         expect(lineTabs.exists(`.${BASE_CLASS_PREFIX}-tabs-bar-card`)).toEqual(false);
@@ -61,19 +61,21 @@ describe('Tabs', () => {
 
     it('tabList', () => {
         let tabList = [
-            {tab:"文档", itemKey:"1"},
-            {tab:"快速起步", itemKey:"2"},
-            {tab:"帮助", itemKey:"3"}
+            { tab: "文档", itemKey: "1" },
+            { tab: "快速起步", itemKey: "2" },
+            { tab: "帮助", itemKey: "3" }
         ];
-        const contentList=[
+        const contentList = [
             (<div>文档</div>),
             (<div>快速起步</div>),
             (<div>帮助</div>)
-          ]
+        ]
+
         class TabListDemo extends React.Component {
             state = {
                 key: '1'
             };
+
             render() {
                 return (
                     <Tabs
@@ -84,6 +86,7 @@ describe('Tabs', () => {
                 )
             }
         }
+
         const tabs = mount(<TabListDemo></TabListDemo>);
         expect(tabs.find(`.${BASE_CLASS_PREFIX}-tabs-content`).children().length).toEqual(1);
     })
@@ -121,7 +124,7 @@ describe('Tabs', () => {
         expect(spyOnTabClick.calledWithMatch("itemKeyB")).toBe(true);
         expect(spyOnTabClick.calledOnce).toBe(true);
     });
-    
+
     it('onChange', () => {
         let onChange = value => {
             // debugger
@@ -174,10 +177,12 @@ describe('Tabs', () => {
         let tabsProps = {
             activeKey: 'itemKeyB',
             type: 'card',
-            closable: true
         }
-        let paneProps = defaultTabPane;
-        
+        let paneProps = [
+            { itemKey: 'itemKeyA', tab: 'titleA', children: 'contentA', closable: true },
+            { itemKey: 'itemKeyB', tab: 'titleB', children: 'contentB', closable: true }
+        ];
+
         const tabs = mount(getTabs(tabsProps, paneProps));
         tabs.find(`.${BASE_CLASS_PREFIX}-tabs-tab-active`).find('span').at(0).simulate('click');
         expect(tabs.props().activeKey).toEqual('itemKeyB');
