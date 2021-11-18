@@ -17,7 +17,6 @@ import Trigger from '../trigger';
 import Option from '../select/option';
 import warning from '@douyinfe/semi-foundation/utils/warning';
 import '@douyinfe/semi-foundation/autoComplete/autoComplete.scss';
-import '@douyinfe/semi-foundation/select/option.scss';
 import { Motion } from '../_base/base';
 
 const prefixCls = cssClasses.PREFIX;
