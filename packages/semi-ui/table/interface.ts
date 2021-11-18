@@ -50,7 +50,7 @@ export interface TableProps<RecordType extends Record<string, any> = any> extend
     id?: string;
     indentSize?: number;
     loading?: boolean;
-    pagination?: Pagination;
+    pagination?: TablePagination;
     prefixCls?: string;
     renderGroupSection?: RenderGroupSection;
     renderPagination?: RenderPagination;
@@ -250,6 +250,7 @@ export type Size = ArrayElement<typeof strings.SIZES>;
 export type Title<RecordType> = React.ReactNode | ((pageData?: RecordType[]) => React.ReactNode);
 export type PaginationPosition = ArrayElement<typeof strings.PAGINATION_POSITIONS>;
 export type Pagination = TablePaginationProps | boolean;
+export type TablePagination = Pagination;
 export interface ChangeInfoFilter<RecordType> extends BaseChangeInfoFilter<RecordType> {
     filters?: Filter[];
     onFilter?: OnFilter<RecordType>;
