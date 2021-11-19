@@ -25,8 +25,8 @@ npm i @douyinfe/semi-ui@latest
 
 ##### 1.全局安装自动升级工具:
 
-```
-npm i @ies/semi-codemod-v2@latest -g    // bnpm源
+```bash
+npm i @ies/semi-codemod-v2@latest -g # bnpm源
 ```
 
 ##### 2.使用 semi-codemod-v2 对项目代码进行扫描，并对 breaking change 进行自动修改
@@ -67,7 +67,40 @@ Time elapsed: 5.398seconds
 
 ##### 4.更新 css variable 的使用方式
 
-若你在代码中使用了 Semi 的 css variable，除了需要使用 semi-codemod-v2 外，你还需要使用我们提供的 style-lint 工具，对所有 css varable 的使用进行自动更新
+若你在代码中使用了 Semi 的 css variable，除了需要使用 semi-codemod-v2 外，你还需要使用我们提供的 style-lint 工具，对所有 css variable 的使用进行自动更新
+
+- 安装 Semi style-lint 包
+
+```bash
+# 需指定 npm 源为 bnpm
+npm i -D @ies/stylelint-semi@2.0.0-alpha.1
+```
+
+- 创建或修改 `.stylelintrc.json` 文件
+
+```json
+{
+  "plugins": ["@ies/stylelint-semi"],
+  "rules": {
+    "semi/css-token-migrate": [true, { "severity": "warning" }]
+  }
+}
+```
+
+- CSS Token 从 1.x 升级为 2.x
+
+```bash
+# "**/*.scss" 或者其他文件/目录，可以处理 JSX、TSX、CSS、SCSS、LESS 等格式的文件
+npx stylelint "**/*.scss" --fix
+```
+
+> 自动替换依赖 stylelint，仅替换在样式文件或 style 属性里的颜色变量（引用的值不会替换），建议替换后全局搜索一下没有替换干净的地方
+
+```
+// replace '--amber-0' to '--semi-amber-0'
+const searchReg = /--((amber|black|blue|cyan|green|grey|indigo|light|lime|orange|pink|purple|red|teal|violet|yellow|white|color|shadow|overlay|border|gray)(-[a-z\d]+)*)/;
+const replaceReg = /--semi-$1/;
+```
 
 ##### 5.更新主题包
 

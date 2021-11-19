@@ -68,6 +68,39 @@ All warning logs will be output in the semi-codemod-log.log file under ProjectPa
 
 If you use Semi's css variable in your code, in addition to using semi-codemod-v2, you also need to use the style-lint tool we provide to automatically update all css varable usage
 
+- Install Semi style-lint package
+
+```bash
+# set npm registry as bnpm
+npm i -D @ies/stylelint-semi@2.0.0-alpha.1
+```
+
+- create or update `.stylelintrc.json` file
+
+```json
+{
+  "plugins": ["@ies/stylelint-semi"],
+  "rules": {
+    "semi/css-token-migrate": [true, { "severity": "warning" }]
+  }
+}
+```
+
+- CSS Token updated from 1.x to 2.x
+
+```bash
+# "**/*.scss" or other files and directories. The tool can process files in JSX, TSX, CSS, SCSS, LESS and other formats files
+npx stylelint "**/*.scss" --fix
+```
+
+> Automatic replacement depends on stylelint, only replaces the color variables in the style file or style attribute (the quoted value will not be replaced), it is recommended to search globally after the replacement, where there is no clean replacement
+
+```
+// replace '--amber-0' to '--semi-amber-0'
+const searchReg = /--((amber|black|blue|cyan|green|grey|indigo|light|lime|orange|pink|purple|red|teal|violet|yellow|white|color|shadow|overlay|border|gray)(-[a-z\d]+)*)/;
+const replaceReg = /--semi-$1/;
+```
+
 ##### 5. Update the theme package
 
 If you use a custom theme package in your project, you need to go to [Semi DSM](https://semi.design/dsm) (the upgraded version of the original Semi theme store) to release the 2.x version of the theme package. And install the new theme npm package into the project
