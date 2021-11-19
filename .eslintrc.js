@@ -27,7 +27,9 @@ module.exports = {
                 'react/prop-types': 'off',
                 'react/prefer-stateless-function': 'off',
                 'operator-linebreak': ['warn', 'after', { 'overrides': { '?': 'before', ':': 'before' } }],
-                'import/no-unresolved': 'off'
+                'import/no-unresolved': 'off',
+                'semi': ['error', 'always'],
+                'keyword-spacing': ["error", { "before": true, "after": true }]
             },
             globals: {
                 "sinon": "readonly",
@@ -62,7 +64,9 @@ module.exports = {
                 '@typescript-eslint/no-var-requires': 'warn',
                 '@typescript-eslint/no-inferrable-types': 'off',
                 '@typescript-eslint/no-this-alias': 'off',
-                'import/no-unresolved': 'off'
+                'import/no-unresolved': 'off',
+                'semi': ['error', 'always'],
+                'keyword-spacing': ["error", { "before": true, "after": true }]
             }
         },
     ],
