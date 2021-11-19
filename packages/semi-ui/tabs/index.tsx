@@ -101,7 +101,7 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
             collectActiveKey: (): void => {
                 let panes = [];
                 const { tabList, children, activeKey: propsActiveKey } = this.props;
-                if(typeof propsActiveKey !== 'undefined'){
+                if (typeof propsActiveKey !== 'undefined') {
                     return;
                 }
                 const { activeKey } = this.state;
@@ -133,9 +133,6 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
             },
             setNewActiveKey: (activeKey: string): void => {
                 this.setState({ activeKey });
-            },
-            notifyPanesUpdate: (panes: Array<PlainTab>): void => {
-                this.setState({ panes });
             },
             getDefaultActiveKeyFromChildren: (): string => {
                 const { tabList, children } = this.props;
@@ -223,7 +220,7 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
 
     deleteTabItem = (tabKey: string, event: MouseEvent<HTMLDivElement>) => {
         event.stopPropagation();
-        this.foundation.handleTabDelete(tabKey)
+        this.foundation.handleTabDelete(tabKey);
     }
 
     render(): ReactNode {

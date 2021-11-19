@@ -91,7 +91,7 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
     renderTabItem = (panel: PlainTab): ReactNode => {
         const { size, type, deleteTabItem } = this.props;
         const panelIcon = panel.icon ? this.renderIcon(panel.icon) : null;
-        const closableIcon = (type === 'card' && panel.closable) ? <IconClose className={`${cssClasses.TABS_TAB}-icon-close`} onClick={(e: React.MouseEvent<HTMLSpanElement>) => deleteTabItem(panel.itemKey, e)}/> : null
+        const closableIcon = (type === 'card' && panel.closable) ? <IconClose className={`${cssClasses.TABS_TAB}-icon-close`} onClick={(e: React.MouseEvent<HTMLSpanElement>) => deleteTabItem(panel.itemKey, e)} /> : null
         let events = {};
         const key = panel.itemKey;
         if (!panel.disabled) {
@@ -195,7 +195,7 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
     };
 
     renderOverflow = (items: [Array<OverflowItem>, Array<OverflowItem>]): Array<ReactNode> => items.map((item, ind) => {
-        const icon = ind === 0 ? <IconChevronLeft/> : <IconChevronRight/>;
+        const icon = ind === 0 ? <IconChevronLeft /> : <IconChevronRight />;
         const pos = ind === 0 ? 'start' : 'end';
         return this.renderCollapse(item, icon, pos);
     });

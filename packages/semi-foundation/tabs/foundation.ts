@@ -7,7 +7,6 @@ export interface TabsAdapter<P = Record<string, any>, S = Record<string, any>> e
     notifyTabClick: (activeKey: string, event: any) => void;
     notifyChange: (activeKey: string) => void;
     setNewActiveKey: (activeKey: string) => void;
-    notifyPanesUpdate: (panes: Array<any>) => void;
     getDefaultActiveKeyFromChildren: () => string;
     notifyTabDelete: (tabKey: string) => void;
 }
