@@ -3,6 +3,7 @@ import { noop } from 'lodash-es';
 
 export interface TabsAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     collectPane: () => void;
+    collectActiveKey: () => void;
     notifyTabClick: (activeKey: string, event: any) => void;
     notifyChange: (activeKey: string) => void;
     setNewActiveKey: (activeKey: string) => void;
@@ -59,30 +60,10 @@ class TabsFoundation<P = Record<string, any>, S = Record<string, any>> extends B
 
     handleTabPanesChange(): void {
         this._adapter.collectPane();
-
-        let activeKey = this.getState('activeKey');
-        if (typeof activeKey === 'undefined') {
-            activeKey = this._adapter.getDefaultActiveKeyFromChildren();
-        }
-        if (typeof activeKey !== 'undefined') {
-            this.handleNewActiveKey(activeKey);
-        }
+        this._adapter.collectActiveKey();
     }
 
     handleTabDelete(tabKey: string): void {
-        this._adapter.collectPane();
-        const activeKey = this.getState('activeKey');
-        const panes = this.getState('panes');
-
-        if (tabKey === activeKey) {
-            const activeIndex = panes.findIndex(e => e.itemKey === tabKey) === 0 ?
-                0 : panes.findIndex(e => e.itemKey === tabKey) - 1;
-            const newPanes = panes.filter(pane => pane.itemKey !== tabKey)
-            this._adapter.notifyPanesUpdate(newPanes);
-            this._adapter.setNewActiveKey(newPanes[activeIndex].itemKey);
-        } else {
-            this._adapter.notifyPanesUpdate(panes.filter(pane => pane.itemKey !== tabKey));
-        }
         this._adapter.notifyTabDelete(tabKey);
     }
 }

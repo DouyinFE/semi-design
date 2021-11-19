@@ -491,24 +491,34 @@ Only card style tabs support the close option. Use `closable={true}` to turn it 
 
 ```jsx live=true 
 import React from 'react';
-import {Tabs, TabPane} from '@douyinfe/semi-ui';
+import { Tabs, TabPane } from '@douyinfe/semi-ui';
 
 class App extends React.Component {
-     render() {
-         return (
-             <Tabs type="card" defaultActiveKey="1">
-                 <TabPane closable tab="document" itemKey="1">
-                     Documentation
-                 </TabPane>
-                 <TabPane closable tab="Quick Start" itemKey="2">
-                     Quick start
-                 </TabPane>
-                 <TabPane closable tab="Help" itemKey="3">
-                     help
-                 </TabPane>
-             </Tabs>
-         );
-     }
+    constructor(props){
+        super(props);
+        this.state = {
+            tabList: [
+                {tab: 'Doc', itemKey:'1', text:'Doc', closable:true},
+                {tab: 'Quick Start', itemKey:'2', text:'Quick Start', closable:true},
+                {tab: 'Help', itemKey:'3', text:'Help'},
+            ]
+        }
+    }
+    close(key){
+        const newTabList = [...this.state.tabList];
+        const closeIndex = newTabList.findIndex(t=>t.itemKey===key);
+        newTabList.splice(closeIndex, 1);
+        this.setState({tabList:newTabList});
+    }
+    render() {
+        return (
+            <Tabs type="card" defaultActiveKey="1" onTabClose={this.close.bind(this)}>
+                {
+                    this.state.tabList.map(t=><TabPane closable={t.closable} tab={t.tab} itemKey={t.itemKey} key={t.itemKey}>{t.text}</TabPane>)
+                }
+            </Tabs>
+        );
+    }
 }
 ```
 

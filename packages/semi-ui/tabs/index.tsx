@@ -98,6 +98,33 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
                 });
                 this.setState({ panes });
             },
+            collectActiveKey: (): void => {
+                let panes = [];
+                const { tabList, children, activeKey: propsActiveKey } = this.props;
+                if(typeof propsActiveKey !== 'undefined'){
+                    return;
+                }
+                const { activeKey } = this.state;
+                if (Array.isArray(tabList) && tabList.length) {
+                    panes = tabList;
+                } else {
+                    panes = React.Children.map(children, (child: any) => {
+                        if (child) {
+                            const { tab, icon, disabled, itemKey, closable } = child.props;
+                            return { tab, icon, disabled, itemKey, closable };
+                        }
+                        return undefined;
+                    });
+                }
+                if(panes.findIndex(p => p.itemKey === activeKey) === -1){
+                    if(panes.length>0){
+                        this.setState({activeKey: panes[0].itemKey});
+                    } else {
+                        this.setState({activeKey: ''});
+                    }
+                }
+                
+            },
             notifyTabClick: (activeKey: string, event: MouseEvent<HTMLDivElement>): void => {
                 this.props.onTabClick(activeKey, event);
             },
@@ -196,7 +223,6 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
 
     deleteTabItem = (tabKey: string, event: MouseEvent<HTMLDivElement>) => {
         event.stopPropagation();
-        if (this.state.panes.length === 1) return
         this.foundation.handleTabDelete(tabKey)
     }
 

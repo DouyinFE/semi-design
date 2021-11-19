@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { TabPane, Tabs } from '../../index';
 import { BASE_CLASS_PREFIX } from '../../../semi-foundation/base/constants';
 
@@ -170,21 +171,38 @@ describe('Tabs', () => {
         expect(tabs.contains(extraContent)).toEqual(true);
     });
 
-    // it('renderTabBar', () => {
-
-    // });
-    it('click right close icon will delete current tab', () => {
-        let tabsProps = {
-            activeKey: 'itemKeyB',
-            type: 'card',
+    it('tabpane closable', () => {
+        const Demo = () => {
+            const [tabList, $tabList] = useState([
+                {tab: '文档', itemKey:'1', text:'文档', closable:true},
+                {tab: '快速起步', itemKey:'2', text:'快速起步', closable:true},
+                {tab: '帮助', itemKey:'3', text:'帮助'},
+            ]);
+            const close = (key)=>{
+                const newTabList = [...tabList];
+                const closeIndex = newTabList.findIndex(t=>t.itemKey===key);
+                newTabList.splice(closeIndex, 1);
+                $tabList(newTabList);
+            }
+            return <Tabs type="card" defaultActiveKey="1" onTabClose={close}>
+            {
+                tabList.map(t=><TabPane closable={t.closable} tab={t.tab} itemKey={t.itemKey} key={t.itemKey}>{t.text}</TabPane>)
+            }
+        </Tabs>
         }
-        let paneProps = [
-            { itemKey: 'itemKeyA', tab: 'titleA', children: 'contentA', closable: true },
-            { itemKey: 'itemKeyB', tab: 'titleB', children: 'contentB', closable: true }
-        ];
 
-        const tabs = mount(getTabs(tabsProps, paneProps));
-        tabs.find(`.${BASE_CLASS_PREFIX}-tabs-tab-active`).find('span').at(0).simulate('click');
-        expect(tabs.props().activeKey).toEqual('itemKeyB');
+        const demo = mount(<Demo />);
+        const firstTab = demo.find(`.${BASE_CLASS_PREFIX}-tabs-tab`).at(0);
+        const secondTab = demo.find(`.${BASE_CLASS_PREFIX}-tabs-tab`).at(1);
+        const thirdTab = demo.find(`.${BASE_CLASS_PREFIX}-tabs-tab`).at(2);
+
+        expect(firstTab.exists(`.${BASE_CLASS_PREFIX}-tabs-tab-icon-close`)).toEqual(true);
+        expect(secondTab.exists(`.${BASE_CLASS_PREFIX}-tabs-tab-icon-close`)).toEqual(true);
+        expect(thirdTab.exists(`.${BASE_CLASS_PREFIX}-tabs-tab-icon-close`)).toEqual(false);
+
+        demo.find(`.${BASE_CLASS_PREFIX}-tabs-tab-icon-close`).at(0).simulate('click');
+
+        expect(demo.find(`.${BASE_CLASS_PREFIX}-tabs-tab`).length).toEqual(2)
+        expect(demo.find(`.${BASE_CLASS_PREFIX}-tabs-tab`).at(0).hasClass(`${BASE_CLASS_PREFIX}-tabs-tab-active`)).toEqual(true);
     });
 })
