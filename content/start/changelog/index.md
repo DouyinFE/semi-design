@@ -15,7 +15,7 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 ---
 
-#### 🎉 2.1.0-bate.0 (2021-11-19)
+#### 🎉 2.1.0-beta.0 (2021-11-19)
 - 【Feature】
   - Tabs 新增 关闭可选项 closable API [@xieyezi](https://github.com/xieyezi)
   - TagInput 新增 onKeyDown API [#255](https://github.com/DouyinFE/semi-design/issues/255)

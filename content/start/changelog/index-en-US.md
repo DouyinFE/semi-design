@@ -16,7 +16,7 @@ Version：Major.Minor.Patch
 
 ---
 
-#### 🎉 2.1.0-bate.0 (2021-11-19)
+#### 🎉 2.1.0-beta.0 (2021-11-19)
 - 【Feature】
   - Tabs add close options closable API [@xieyezi](https://github.com/xieyezi)
   - TagInput added onKeyDown API [#255](https://github.com/DouyinFE/semi-design/issues/255)
