@@ -16,6 +16,26 @@ Version：Major.Minor.Patch
 
 ---
 
+#### 🎉 2.1.0-bate.0 (2021-11-19)
+- 【Feature】
+  - Tabs add close options closable API [@xieyezi](https://github.com/xieyezi)
+  - TagInput added onKeyDown API [#255](https://github.com/DouyinFE/semi-design/issues/255)
+  - Tooltip, Popover, and Popconfirm add onClickOutSide API, which makes it easier to implement the behavior of clicking the blank space to close when trigger='custom'[#268](https://github.com/DouyinFE/semi-design/issues/268)
+- 【Fix】
+  - Fix the possible vertical misalignment of Radio under certain theme packages: the value of Radio $height-radio_inner_min is changed from inheriting $spacing-base-loose to fixed 20px to avoid being affected by different theme packages
+  - Fix the problem that onChange is still triggered when Tabs is clicked on the active tab [#208](https://github.com/DouyinFE/semi-design/issues/208)
+  - Fix the problem that the height of the Collapsible component is not fully expanded when the collapsible component is opened by default [#85](https://github.com/DouyinFE/semi-design/issues/85)
+  - Fix the problem that onAfterChange is not triggered when clicking on the track when the Slider value is controlled
+  - Fix Select, AutoComplete UMD CSS missing problem
+- 【Chore】
+  - Fix the inaccurate definition of the renderSelectedItem ts of TreeSelect [#265](https://github.com/DouyinFE/semi-design/issues/265)
+  - Typescript Interface related changes [#277](https://github.com/DouyinFE/semi-design/issues/277)
+    - Form adds the export of WithFieldOption
+    - Notification adds the export of ConfigProps
+    - Toast adds the export of ConfigProps
+    - Upload adds the export of BeforeUploadObjectResult and AfterUploadResult
+    - Cascader adds CascaderType and ShowNextType export
+
 #### 🎉 2.0.8 (2021-11-11)
 - 【Fix】
   - Fix Modal afterClose not work in some scenario.

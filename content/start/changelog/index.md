@@ -15,6 +15,27 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 ---
 
+#### 🎉 2.1.0-bate.0 (2021-11-19)
+- 【Feature】
+  - Tabs 新增 关闭可选项 closable API [@xieyezi](https://github.com/xieyezi)
+  - TagInput 新增 onKeyDown API [#255](https://github.com/DouyinFE/semi-design/issues/255)
+  - Tooltip、Popover、Popconfirm新增 onClickOutSide API，更易于在trigger='custom'情况下实现点击空白处关闭的行为 [#268](https://github.com/DouyinFE/semi-design/issues/268)
+- 【Fix】
+  - 修复 Radio在某些主题包下可能存在的垂直方向未对齐问题：Radio $height-radio_inner_min值由 继承 $spacing-base-loose改为固定20px，避免受不同主题包影响 
+  - 修复 Tabs 点击激活状态的 tab 仍触发 onChange 的问题 [#208](https://github.com/DouyinFE/semi-design/issues/208)
+  - 修复Collapsible组件默认打开时，组件高度没有完全展开问题 [#85](https://github.com/DouyinFE/semi-design/issues/85)
+  - 修复 Slider value 受控时点击轨道未触发 onAfterChange 的问题
+  - 修复 Select， AutoComplete UMD CSS丢失问题
+- 【Chore】
+  - 修复 TreeSelect 的 renderSelectedItem ts 类型不准确问题 [#265](https://github.com/DouyinFE/semi-design/issues/265)
+  - Typescript Interface相关变更 [#277](https://github.com/DouyinFE/semi-design/issues/277)
+    - Form增加 WithFieldOption 的导出
+    - Notification增加 ConfigProps的导出
+    - Toast增加 ConfigProps的导出
+    - Upload增加 BeforeUploadObjectResult、AfterUploadResult的导出
+    - Cascader 增加 CascaderType 和 ShowNextType 的导出
+
+
 #### 🎉 2.0.8 (2021-11-11)
 - 【Fix】
   - 修复 Modal afterClose 部分场景失效
