@@ -19,8 +19,105 @@ npm i @douyinfe/semi-ui@2.0.0
 
 ### Modify code
 
-Please follow the change record below to modify your project code. Semi will launch a migration tool within 1 to 2 weeks to help users migrate from 1.x to 2.x.
+To modify the code related to breaking change, you can manually check the following [incompatible list](/en-US/start/update-to-v2#What%20are%20the%20incompatible%20changes%20in%202.0). Check the code one by one and modify it.
+In addition, we also provide a codemod cli tool to help you quickly upgrade to version 2.0.
+##### 1. Install the automatic upgrade tool globally:
 
+```
+npm i @ies/semi-codemod-v2@latest -g // bnpm registry
+```
+
+##### 2. Use semi-codemod-v2 to scan the project code and automatically modify breaking changes
+If you want to know the specific scope of automatic changes made by codemod, you can check [this document](https://github.com/DouyinFE/semi-design/wiki/About-semi-codemod-v2)
+
+```
+semi-codemod-v2 <ProjectPath> [options]
+
+//  options:
+//    --dry,        Dry run (no changes are made to files)   
+//    --force,      Whether ignore git status;               
+//    --verbose=2,  Log level, optional: 0/1/2, default: 0   
+```
+
+| Example of use | Command to be executed |
+| --- | --- |
+| When you want to scan and upgrade all files of the entire project<br/>(The project path is root/workspace/demo-project) | `semi-codemod-v2 root/workspace/demo-project` |
+| When you only want to scan and upgrade a single file | `semi-codemod-v2 root/workspace/demo-project/testFile.jsx` |
+| When you only want to scan and upgrade a single file, but you only want to output the changes to the terminal without writing the actual changes to the file | `semi-codemod-v2 root/workspace/demo-project/testFile.jsx --dry `|
+
+<br/>
+
+![codemod](https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/codemod.gif)
+
+```
+// Result output description
+Results:
+  0 errors       // The number of files in which the conversion rule was executed but an error occurred during the replacement process
+  13 unmodified  // The number of files that comply with the matching rule but have not been modified (that is, the component is used, but the related obsolete API is not involved)
+  158 skipped    // The number of skipped files that do not meet the matching rule
+  4 ok           // A total of 4 files meet the replacement rules, and the cli has been automatically modified
+Time elapsed: 5.398seconds
+```
+
+##### 3. For the part that can be recognized but cannot be automatically modified, codemod will prompt on the command line and throw a warning. You need to suggest to modify manually according to the prompts
+
+![warning](https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/waringDemo.png)
+All warning logs will be output in the semi-codemod-log.log file under ProjectPath, and you can check and modify them one by one according to the log.
+
+##### 4. Update the usage of Css Variable
+
+If you use Semi's css variable in your code, in addition to using semi-codemod-v2, you also need to use the style-lint tool we provide to automatically update all css varable usage
+
+- Install Semi style-lint package
+
+```bash
+# set npm registry as bnpm
+npm i -D @ies/stylelint-semi@2.0.0-alpha.1
+```
+
+- create or update `.stylelintrc.json` file
+
+```json
+{
+  "plugins": ["@ies/stylelint-semi"],
+  "rules": {
+    "semi/css-token-migrate": [true, { "severity": "warning" }]
+  }
+}
+```
+
+- CSS Token updated from 1.x to 2.x
+
+```bash
+# "**/*.scss" or other files and directories. The tool can process files in JSX, TSX, CSS, SCSS, LESS and other formats files
+npx stylelint "**/*.scss" --fix    // Upgrade CSS variables in inline style in SCSS
+npx stylelint "**/*.tsx" --fix     // Upgrade CSS variables in inline style in tsx
+npx stylelint "**/*.jsx" --fix     // Upgrade CSS variables in inline style in jsx
+```
+
+> Automatic replacement depends on stylelint, only replaces the color variables in the style file or style attribute (the quoted value will not be replaced), it is recommended to search globally after the replacement, where there is no clean replacement
+
+```
+// replace '--amber-0' to '--semi-amber-0'
+const searchReg = /--((amber|black|blue|cyan|green|grey|indigo|light|lime|orange|pink|purple|red|teal|violet|yellow|white|color|shadow|overlay|border|gray)(-[a-z\d]+)*)/;
+const replaceReg = /--semi-$1/;
+```
+
+![VS Code token replace](https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/vscode-semi-token-replace.png)
+
+##### 5. Update the theme package
+
+If you use a custom theme package in your project, you need to go to [Semi DSM](https://semi.design/dsm) (the upgraded version of the original Semi theme store) to release the 2.x version of the theme package. And install the new theme npm package into the project
+
+##### 6. Run your project for dev build. Modify the code segment that throws the error
+
+Since codemod relies on the AST syntax tree for analysis and replacement, it is not ruled out that it cannot be detected by AST analysis. And because we refactored TS in version 2.x, the related type definitions will be stricter than 1.x. There may be cases where some type checking can pass in 1.x but fail to compile in 2.x.
+This type of case will be directly exposed during the construction phase, so you can directly modify the case by case accordingly.
+##### 7. Execute git diff review all code changes and return to related pages
+
+At this point, you have completed all the upgrade steps🥳  
+Although we have considered the user's usage scenarios as much as possible, we still cannot rule out omissions or cases that [cannot be detected by relying on AST analysis](https://bytedance.feishu.cn/docs/doccnOIgRqiqeBkhYzro1Bmvd8e#). The automatic modification/detection of codemod may not cover all scenarios. If you find a case that is not covered by the codemod, you can pull up oncall to give feedback.  
+Please perform regression testing on all pages with code modifications.
 ## What are the incompatible changes in 2.0
 
 ### 🎁 Package name adjustment
@@ -40,6 +137,8 @@ import { Select, Input, Form } from '@douyinfe/semi-ui';
 ```
 
 #### Import interface（TypeScript project）
+
+All interface related changes can be found in [Semi 1.x -> 2.0 TS interface change detailed record](https://bytedance.feishu.cn/docs/doccn5abrdIWvXO7No0Wkh8zo4b)
 
 ```jsx
 // before
