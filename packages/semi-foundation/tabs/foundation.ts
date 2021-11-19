@@ -23,12 +23,19 @@ class TabsFoundation<P = Record<string, any>, S = Record<string, any>> extends B
 
     destroy = noop;
 
+    _notifyChange(activeKey: string): void {
+        const { activeKey: stateActiveKey } = this.getStates();
+        if (stateActiveKey !== activeKey) {
+            this._adapter.notifyChange(activeKey);
+        }
+    }
+
     handleTabClick(activeKey: string, event: any): void {
-        const isControlledComponent = this._isInProps('activeKey');
-        if (isControlledComponent) {
-            this._adapter.notifyChange(activeKey);
+        const isControledComponent = this._isInProps('activeKey');
+        if (isControledComponent) {
+            this._notifyChange(activeKey);
         } else {
-            this._adapter.notifyChange(activeKey);
+            this._notifyChange(activeKey);
             this.handleNewActiveKey(activeKey);
         }
         this._adapter.notifyTabClick(activeKey, event);

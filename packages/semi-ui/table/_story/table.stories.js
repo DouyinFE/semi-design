@@ -75,6 +75,7 @@ export { default as JSXAsyncData } from './JSXAsyncData';
 export { default as ScrollBar } from './ScrollBar';
 export { default as TableSpan } from './TableSpan';
 export { default as FixRenderReturnProps } from './FixRenderReturnProps';
+export { default as WarnColumnWithoutDataIndex } from './WarnColumnWithoutDataIndex';
 
 // empty table
 

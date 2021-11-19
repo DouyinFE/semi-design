@@ -1724,14 +1724,14 @@ withField 主要做了以下事情
 -   负责在表单控件下方插入 Field 的`<ErrorMessage>`
 -   负责在表单控件下方插入 Field 的 extraText
 
-withFieldOptions 具体配置可参考[withField Option](#withFieldOptions)
+withFieldOption 具体配置可参考[withField Option](#withFieldOption)
 
 你的自定义受控组件需要做以下事情：  
 值发生变化时，调用props.onChange并且将最新的值作为入参  
 响应props.value的变化，并更新你的组件UI渲染结果  
 
 ```jsx
-withField(YourComponent, withFieldOptions);
+withField(YourComponent, withFieldOption);
 ```
 
 ```jsx live=true dir="column" hideInDSM
@@ -2053,7 +2053,7 @@ const { ErrorMessage } = Form;
 | showValidateIcon | 自动加上 validateStatus 对应的 icon                       | boolean                  |
 | validateStatus   | 信息所属的校验状态，可选 default/error/warning/success(success一般建议与default样式相同) | boolean                  |
 
-## withFieldOptions
+## withFieldOption
 
 | key               | 描述                                                                                                                                                                                                                                          | 默认值     |
 | ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |

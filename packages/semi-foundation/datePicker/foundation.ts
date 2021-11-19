@@ -282,7 +282,7 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
         if (isValidDate(value)) {
             dateObj = value as Date;
         } else if (isString(value)) {
-            dateObj = compatiableParse(value, this.getProp('format'), undefined, dateFnsLocale);
+            dateObj = compatiableParse(value as string, this.getProp('format'), undefined, dateFnsLocale);
         } else if (isTimestamp(value)) {
             dateObj = new Date(value);
         } else {

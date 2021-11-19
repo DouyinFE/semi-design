@@ -25,6 +25,7 @@ export interface ToastReactProps extends ToastProps{
 }
 
 export {
+    ConfigProps,
     ToastListProps,
     ToastListState,
     ToastState

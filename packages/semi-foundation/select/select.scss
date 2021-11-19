@@ -1,6 +1,7 @@
 //@import '../theme/variables.scss';
 @import './variables.scss';
 @import './mixin.scss';
+@import './option.scss';
 
 $module: #{$prefix}-select;
 $single: #{$module}-single;

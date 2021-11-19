@@ -29,7 +29,6 @@ import { isSemiIcon } from '../_utils';
 import warning from '@douyinfe/semi-foundation/utils/warning';
 
 import '@douyinfe/semi-foundation/select/select.scss';
-import '@douyinfe/semi-foundation/select/option.scss';
 import { Locale } from '../locale/interface';
 import { Position, TooltipProps } from '../tooltip';
 
