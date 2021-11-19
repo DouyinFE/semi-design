@@ -301,7 +301,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                 if (this.clickOutsideHandler) {
                     this.adapter.unregisterClickOutsideHandler();
                 }
-                this.clickOutsideHandler = (e: MouseEvent): any => {
+                this.clickOutsideHandler = (e: React.MouseEvent): any => {
                     if (!this.mounted) {
                         return false;
                     }
