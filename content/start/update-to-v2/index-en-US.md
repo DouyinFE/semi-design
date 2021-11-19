@@ -72,7 +72,11 @@ If you use Semi's css variable in your code, in addition to using semi-codemod-v
 
 If you use a custom theme package in your project, you need to go to [Semi DSM](https://semi.design/dsm) (the upgraded version of the original Semi theme store) to release the 2.x version of the theme package. And install the new theme npm package into the project
 
-##### 6. Execute git diff review all code changes and return to related pages
+##### 6. Run your project for dev build. Modify the code segment that throws the error
+
+Since codemod relies on the AST syntax tree for analysis and replacement, it is not ruled out that it cannot be detected by AST analysis. And because we refactored TS in version 2.x, the related type definitions will be stricter than 1.x. There may be cases where some type checking can pass in 1.x but fail to compile in 2.x.
+This type of case will be directly exposed during the construction phase, so you can directly modify the case by case accordingly.
+##### 7. Execute git diff review all code changes and return to related pages
 
 At this point, you have completed all the upgrade steps🥳  
 Although we have considered the user's usage scenarios as much as possible, we still cannot rule out omissions or cases that cannot be detected by relying on AST analysis. The automatic modification/detection of codemod may not cover all scenarios. If you find a case that is not covered by the codemod, you can pull up oncall to give feedback.  
