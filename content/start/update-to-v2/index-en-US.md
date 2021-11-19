@@ -59,12 +59,12 @@ Results:
 Time elapsed: 5.398seconds
 ```
 
-##### 3. For the parts that cannot be modified automatically, codemod will prompt on the command line and throw a warning. You need to suggest to modify manually according to the prompts
+##### 3. For the part that can be recognized but cannot be automatically modified, codemod will prompt on the command line and throw a warning. You need to suggest to modify manually according to the prompts
 
 ![warning](https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/waringDemo.png)
 All warning logs will be output in the semi-codemod-log.log file under ProjectPath, and you can check and modify them one by one according to the log.
 
-##### 4. Update the usage of css variable
+##### 4. Update the usage of Css Variable
 
 If you use Semi's css variable in your code, in addition to using semi-codemod-v2, you also need to use the style-lint tool we provide to automatically update all css varable usage
 
@@ -90,7 +90,9 @@ npm i -D @ies/stylelint-semi@2.0.0-alpha.1
 
 ```bash
 # "**/*.scss" or other files and directories. The tool can process files in JSX, TSX, CSS, SCSS, LESS and other formats files
-npx stylelint "**/*.scss" --fix
+npx stylelint "**/*.scss" --fix    // Upgrade CSS variables in inline style in SCSS
+npx stylelint "**/*.tsx" --fix     // Upgrade CSS variables in inline style in tsx
+npx stylelint "**/*.jsx" --fix     // Upgrade CSS variables in inline style in jsx
 ```
 
 > Automatic replacement depends on stylelint, only replaces the color variables in the style file or style attribute (the quoted value will not be replaced), it is recommended to search globally after the replacement, where there is no clean replacement
@@ -114,7 +116,7 @@ This type of case will be directly exposed during the construction phase, so you
 ##### 7. Execute git diff review all code changes and return to related pages
 
 At this point, you have completed all the upgrade steps🥳  
-Although we have considered the user's usage scenarios as much as possible, we still cannot rule out omissions or cases that cannot be detected by relying on AST analysis. The automatic modification/detection of codemod may not cover all scenarios. If you find a case that is not covered by the codemod, you can pull up oncall to give feedback.  
+Although we have considered the user's usage scenarios as much as possible, we still cannot rule out omissions or cases that [cannot be detected by relying on AST analysis](https://bytedance.feishu.cn/docs/doccnOIgRqiqeBkhYzro1Bmvd8e#). The automatic modification/detection of codemod may not cover all scenarios. If you find a case that is not covered by the codemod, you can pull up oncall to give feedback.  
 Please perform regression testing on all pages with code modifications.
 ## What are the incompatible changes in 2.0
 
@@ -135,6 +137,8 @@ import { Select, Input, Form } from '@douyinfe/semi-ui';
 ```
 
 #### Import interface（TypeScript project）
+
+All interface related changes can be found in [Semi 1.x -> 2.0 TS interface change detailed record](https://bytedance.feishu.cn/docs/doccn5abrdIWvXO7No0Wkh8zo4b)
 
 ```jsx
 // before

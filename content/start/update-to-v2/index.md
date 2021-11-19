@@ -60,14 +60,14 @@ Results:
 Time elapsed: 5.398seconds
 ```
 
-##### 3.对于无法自动修改的部分，codemod 会在命令行进行提示，抛出 warning，你需要建议按提示手动修改
+##### 3.对于可识别但无法自动修改的部分，codemod 会在命令行进行提示，抛出 warning，你需要建议按提示手动修改
 
 ![warning](https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/waringDemo.png)
 所有 warning 日志会在 ProjectPath 下 semi-codemod-log.log 文件进行输出，你可以按照log日志逐条检查修改
 
-##### 4.更新 css variable 的使用方式
+##### 4.更新 CSS Variable 的使用方式
 
-若你在代码中使用了 Semi 的 css variable，除了需要使用 semi-codemod-v2 外，你还需要使用我们提供的 style-lint 工具，对所有 css variable 的使用进行自动更新
+若你在代码中使用了 Semi 的 CSS Variable，除了需要使用 semi-codemod-v2 外，你还需要使用我们提供的 style-lint 工具，对所有 CSS Variable 的使用进行自动更新
 
 - 安装 Semi style-lint 包
 
@@ -91,7 +91,9 @@ npm i -D @ies/stylelint-semi@2.0.0-alpha.1
 
 ```bash
 # "**/*.scss" 或者其他文件/目录，可以处理 JSX、TSX、CSS、SCSS、LESS 等格式的文件
-npx stylelint "**/*.scss" --fix
+npx stylelint "**/*.scss" --fix    // 处理scss中的 CSS 变量
+npx stylelint "**/*.tsx" --fix     // 处理tsx中的内联style中的 CSS 变量
+npx stylelint "**/*.jsx" --fix     // 处理jsx中的内联style中的 CSS 变量
 ```
 
 > 自动替换依赖 stylelint，仅替换在样式文件或 style 属性里的颜色变量（引用的值不会替换），建议替换后全局搜索一下没有替换干净的地方
@@ -116,7 +118,7 @@ const replaceReg = /--semi-$1/;
 ##### 7.执行 git diff review 所有代码改动，回归相关页面
 
 至此，你已完成所有升级步骤🥳  
-尽管我们尽可能地考虑了用户的使用场景，但仍不能排除会有遗漏或依靠 AST 分析无法检测的情况，codemod 的自动修改/检测可能不能覆盖所有场景。如果发现有 codemod未覆盖的case，可以拉起oncall进行反馈。  
+尽管我们尽可能地考虑了用户的使用场景，但仍不能排除会有遗漏或依靠 AST 分析无法检测的情况（[当前已知的无法被检测或修改的Case](https://bytedance.feishu.cn/docs/doccnOIgRqiqeBkhYzro1Bmvd8e#)），codemod 的自动修改/检测可能不能覆盖所有场景。如果发现有 codemod未覆盖的case，可以拉起oncall进行反馈。  
 请对所有涉及改动的页面进行回归测试。
 
 
