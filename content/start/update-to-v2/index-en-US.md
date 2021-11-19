@@ -19,7 +19,7 @@ npm i @douyinfe/semi-ui@2.0.0
 
 ### Modify code
 
-To modify the code related to breaking change, you can manually check the following [incompatible list](/zh-CN/start/update-to-v2#2.0%20%E6%9C%89%E5%93%AA%E4%BA%9B%E4%B8%8D%E5%85%BC%E5%AE%B9%E7%9A%84%E5%8F%98%E5%8C%96). Check the code one by one and modify it.
+To modify the code related to breaking change, you can manually check the following [incompatible list](/en-US/start/update-to-v2#What%20are%20the%20incompatible%20changes%20in%202.0). Check the code one by one and modify it.
 In addition, we also provide a codemod cli tool to help you quickly upgrade to version 2.0.
 ##### 1. Install the automatic upgrade tool globally:
 
