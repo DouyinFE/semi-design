@@ -101,6 +101,8 @@ const searchReg = /--((amber|black|blue|cyan|green|grey|indigo|light|lime|orange
 const replaceReg = /--semi-$1/;
 ```
 
+![VS Code token replace](https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/vscode-semi-token-replace.png)
+
 ##### 5. Update the theme package
 
 If you use a custom theme package in your project, you need to go to [Semi DSM](https://semi.design/dsm) (the upgraded version of the original Semi theme store) to release the 2.x version of the theme package. And install the new theme npm package into the project

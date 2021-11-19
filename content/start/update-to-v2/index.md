@@ -102,6 +102,8 @@ const searchReg = /--((amber|black|blue|cyan|green|grey|indigo|light|lime|orange
 const replaceReg = /--semi-$1/;
 ```
 
+![VS Code token replace](https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/vscode-semi-token-replace.png)
+
 ##### 5.更新主题包
 
 若你的项目中使用了自定义主题包，需要前往 [Semi DSM](https://semi.design/dsm) （即原 Semi 主题商店的升级版）进行 2.x 版本主题包的发布。并将新版主题 npm 包安装至项目内
