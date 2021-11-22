@@ -1276,10 +1276,10 @@ interface TriggerRenderProps {
     /* 是否禁用 Cascader */
     disabled: boolean;
     /**
-     * 单选时，已选中的 node 在 treeData 中的层级位置，如下例子，
-     * 当选中 浙江省-杭州市-萧山区时，此处 value 为 '0-0-0'
+     * 已选中的 node 在 treeData 中的层级位置，如下例子，
+     * 当选中浙江省-杭州市-萧山区时，此处 value 为 '0-0-0'
      */
-    value?: string;
+    value?: string | Set<string>;
     /* 当前 Input 框的输入值 */
     inputValue: string;
     /**
