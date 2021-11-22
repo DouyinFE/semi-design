@@ -107,7 +107,6 @@ export default class Button extends PureComponent<ButtonProps> {
             ),
             type: htmlType,
             'aria-disabled': disabled,
-            'aria-label': type
         };
 
         return (

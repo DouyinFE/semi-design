@@ -283,6 +283,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
             } else {
                 return (
                     <Button
+                        aria-label="cancel"
                         onClick={this.handleCancel}
                         loading={cancelLoading}
                         type="tertiary"
@@ -300,6 +301,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
                     <div>
                         {getCancelButton(locale)}
                         <Button
+                            aria-label="confirm"
                             type={okType}
                             theme="solid"
                             loading={confirmLoading}
