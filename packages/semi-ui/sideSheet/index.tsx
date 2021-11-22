@@ -8,7 +8,7 @@ import ConfigContext from '../configProvider/context';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/sideSheet/constants';
 import SideSheetTransition from './SideSheetTransition';
 import SideSheetContent from './SideSheetContent';
-import { noop } from 'lodash';
+import { noop } from 'lodash-es';
 import SideSheetFoundation, {
     SideSheetAdapter,
     SideSheetProps,

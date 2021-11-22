@@ -2,7 +2,7 @@
 import React, { useContext } from 'react';
 import classNames from 'classnames';
 import { cssClasses } from '@douyinfe/semi-foundation/form/constants';
-import { isString, isNumber, isObject } from 'lodash';
+import { isString, isNumber, isObject } from 'lodash-es';
 import Label, { LabelProps } from './label';
 import { Col } from '../grid';
 import { FormUpdaterContext } from './context';

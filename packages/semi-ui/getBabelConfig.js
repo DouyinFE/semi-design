@@ -19,7 +19,6 @@ module.exports = ({ isESM }) => {
             ],
         ],
         plugins: [
-            'lodash',
             [
                 '@babel/plugin-transform-runtime',
                 {

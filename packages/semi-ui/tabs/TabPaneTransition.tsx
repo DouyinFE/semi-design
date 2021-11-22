@@ -1,7 +1,7 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { FC, ReactNode } from 'react';
 import { Transition } from '@douyinfe/semi-animation-react';
-import { toInteger } from 'lodash';
+import { toInteger } from 'lodash-es';
 import { TabPaneTransitionProps } from './interface';
 
 const TabPaneTransition: FC<TabPaneTransitionProps> = (props = {}) => {

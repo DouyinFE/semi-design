@@ -1,5 +1,5 @@
 import React from 'react';
-import { debounce } from 'lodash';
+import { debounce } from 'lodash-es';
 import { AutoComplete, Icon, Button } from '@douyinfe/semi-ui';
 import { IconSearch } from '@douyinfe/semi-icons';
 

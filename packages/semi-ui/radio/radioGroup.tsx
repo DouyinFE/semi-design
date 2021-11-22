@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { noop } from 'lodash';
+import { noop } from 'lodash-es';
 
 import { radioGroupClasses as css, strings } from '@douyinfe/semi-foundation/radio/constants';
 import RadioGroupFoundation, { RadioGroupAdapter } from '@douyinfe/semi-foundation/radio/radioGroupFoundation';

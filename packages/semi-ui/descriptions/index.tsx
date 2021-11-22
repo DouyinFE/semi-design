@@ -3,7 +3,7 @@ import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { strings, cssClasses } from '@douyinfe/semi-foundation/descriptions/constants';
 import '@douyinfe/semi-foundation/descriptions/descriptions.scss';
-import { isPlainObject } from 'lodash';
+import { isPlainObject } from 'lodash-es';
 import DescriptionsContext, { DescriptionsAlign } from './descriptions-context';
 import Item from './item';
 

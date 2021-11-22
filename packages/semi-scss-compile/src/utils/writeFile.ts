@@ -2,7 +2,7 @@ import fs from 'fs-extra';
 import path from 'path';
 import os from 'os';
 import generateScssMap from "./generateSCSSMap";
-import {cloneDeep, omit} from "lodash";
+import {cloneDeep, omit} from "lodash-es";
 
 const lodash = {cloneDeep, omit};
 

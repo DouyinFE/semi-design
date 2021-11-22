@@ -1,4 +1,4 @@
-import { isEqual, get, difference, isUndefined, assign, cloneDeep, isEmpty, isNumber, includes } from 'lodash';
+import { isEqual, get, difference, isUndefined, assign, cloneDeep, isEmpty, isNumber, includes } from 'lodash-es';
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import {
     filter,

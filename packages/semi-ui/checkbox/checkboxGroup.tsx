@@ -6,7 +6,7 @@ import { checkboxGroupClasses as css, strings } from '@douyinfe/semi-foundation/
 import CheckboxGroupFoudation, { CheckboxGroupAdapter } from '@douyinfe/semi-foundation/checkbox/checkboxGroupFoundation';
 import BaseComponent from '../_base/baseComponent';
 import { Context } from './context';
-import { isEqual } from 'lodash';
+import { isEqual } from 'lodash-es';
 import Checkbox, { CheckboxEvent } from './checkbox';
 
 export type CheckboxDirection = 'horizontal' | 'vertical';

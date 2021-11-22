@@ -4,7 +4,7 @@ import {
     isFunction,
     isNumber,
     isString
-} from 'lodash';
+} from 'lodash-es';
 import calculateNodeHeight from './util/calculateNodeHeight';
 import getSizingData from './util/getSizingData';
 

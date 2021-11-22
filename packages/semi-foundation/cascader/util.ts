@@ -2,7 +2,7 @@ import {
     isNull,
     isUndefined,
     isEqual
-} from 'lodash';
+} from 'lodash-es';
 
 function getPosition(level: any, index: any) {
     return `${level}-${index}`;

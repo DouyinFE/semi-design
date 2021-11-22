@@ -20,7 +20,7 @@ import {
 } from '@douyinfe/semi-foundation/tree/treeUtil';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/tree/constants';
 import BaseComponent from '../_base/baseComponent';
-import { isEmpty, isEqual, get, isFunction } from 'lodash';
+import { isEmpty, isEqual, get, isFunction } from 'lodash-es';
 import { cloneDeep } from './treeUtil';
 import Input from '../input/index';
 import { FixedSizeList as VirtualList } from 'react-window';

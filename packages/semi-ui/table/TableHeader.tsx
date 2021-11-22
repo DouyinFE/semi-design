@@ -3,7 +3,7 @@ import React, { ReactNode } from 'react';
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
 import PropTypes from 'prop-types';
 import { strings, cssClasses } from '@douyinfe/semi-foundation/table/constants';
-import { noop, isFunction } from 'lodash';
+import { noop, isFunction } from 'lodash-es';
 import TableHeaderRow from './TableHeaderRow';
 import { Fixed, TableComponents, OnHeaderRow } from './interface';
 

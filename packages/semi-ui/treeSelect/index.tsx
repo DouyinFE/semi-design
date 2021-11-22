@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
-import { isEqual, isString, isEmpty, noop, get, isFunction } from 'lodash';
+import { isEqual, isString, isEmpty, noop, get, isFunction } from 'lodash-es';
 import TreeSelectFoundation, {
     Size,
     BasicTriggerRenderProps,

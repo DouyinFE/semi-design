@@ -1,5 +1,5 @@
 import { Form, Select, Button } from '@douyinfe/semi-ui';
-import { noop } from 'lodash';
+import { noop } from 'lodash-es';
 import { BASE_CLASS_PREFIX } from '../../../../semi-foundation/base/constants';
 import { sleep as baseSleep } from '../../../_test_/utils/index';
 

@@ -1,6 +1,6 @@
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import { strings } from './constants';
-import { noop, get, cloneDeep } from 'lodash';
+import { noop, get, cloneDeep } from 'lodash-es';
 const Boundary = strings.BOUNDARY_MAP;
 const OverflowDirection = strings.OVERFLOW_DIR;
 

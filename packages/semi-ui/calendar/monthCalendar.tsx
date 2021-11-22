@@ -1,7 +1,7 @@
 import React, { ReactInstance } from 'react';
 import ReactDOM from 'react-dom';
 import cls from 'classnames';
-import { isEqual } from 'lodash';
+import { isEqual } from 'lodash-es';
 import PropTypes from 'prop-types';
 import { IconClose } from '@douyinfe/semi-icons';
 // eslint-disable-next-line max-len

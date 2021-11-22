@@ -1,5 +1,5 @@
 import { Form } from '../../index';
-import { noop } from 'lodash';
+import { noop } from 'lodash-es';
 import { BASE_CLASS_PREFIX } from '../../../semi-foundation/base/constants';
 
 const Slot = Form.Slot;

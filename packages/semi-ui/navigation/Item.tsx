@@ -4,7 +4,7 @@ import BaseComponent, { BaseProps } from '../_base/baseComponent';
 import React from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
-import { times, noop } from 'lodash';
+import { times, noop } from 'lodash-es';
 
 import isNullOrUndefined from '@douyinfe/semi-foundation/utils/isNullOrUndefined';
 import { cloneDeep, isSemiIcon } from '../_utils';

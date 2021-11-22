@@ -1,4 +1,4 @@
-import { isString, isArray, isNumber } from 'lodash';
+import { isString, isArray, isNumber } from 'lodash-es';
 
 /**
  * Get the splited array.

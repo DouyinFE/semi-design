@@ -1,6 +1,6 @@
 import React from 'react';
 import { Table } from '@douyinfe/semi-ui';
-import { cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash-es';
 
 const ControlledSortOrder = () => {
     const [sortColumns, setSortColumns] = React.useState([]);

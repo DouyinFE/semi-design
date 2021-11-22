@@ -8,7 +8,7 @@ import Portal from '../_portal';
 import LocaleConsumer from '../locale/localeConsumer';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
-import { noop } from 'lodash';
+import { noop } from 'lodash-es';
 import '@douyinfe/semi-foundation/modal/modal.scss';
 import BaseComponent from '../_base/baseComponent';
 import confirm, { withConfirm, withError, withInfo, withSuccess, withWarning } from '../modal/confirm';

@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/cascader/constants';
-import { includes } from 'lodash';
+import { includes } from 'lodash-es';
 import ConfigContext from '../configProvider/context';
 import LocaleConsumer from '../locale/localeConsumer';
 import { IconChevronRight, IconTick } from '@douyinfe/semi-icons';

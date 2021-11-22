@@ -7,7 +7,7 @@ import { cssClasses, strings } from '@douyinfe/semi-foundation/input/constants';
 import { isSemiIcon } from '../_utils';
 import BaseComponent from '../_base/baseComponent';
 import '@douyinfe/semi-foundation/input/input.scss';
-import { isString, noop, isFunction } from 'lodash';
+import { isString, noop, isFunction } from 'lodash-es';
 import { IconClear, IconEyeOpened, IconEyeClosedSolid } from '@douyinfe/semi-icons';
 
 const prefixCls = cssClasses.PREFIX;

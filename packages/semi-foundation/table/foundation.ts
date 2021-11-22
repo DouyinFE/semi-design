@@ -18,7 +18,7 @@ import {
     isMap,
     slice,
     isEqual
-} from 'lodash';
+} from 'lodash-es';
 import memoizeOne from 'memoize-one';
 
 import { ArrayElement } from '../utils/type';

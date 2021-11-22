@@ -2,7 +2,7 @@
 /* eslint-disable max-len */
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import KeyCode from '../utils/keyCode';
-import { isNumber, isString, isEqual } from 'lodash';
+import { isNumber, isString, isEqual } from 'lodash-es';
 import warning from '../utils/warning';
 import isNullOrUndefined from '../utils/isNullOrUndefined';
 import { BasicOptionProps } from './optionFoundation';

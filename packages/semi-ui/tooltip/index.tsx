@@ -3,7 +3,7 @@ import React, { isValidElement, cloneElement } from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import { throttle, noop, get, omit, each, isEmpty } from 'lodash';
+import { throttle, noop, get, omit, each, isEmpty } from 'lodash-es';
 
 import { BASE_CLASS_PREFIX } from '@douyinfe/semi-foundation/base/constants';
 import warning from '@douyinfe/semi-foundation/utils/warning';

@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { isEqual } from 'lodash';
+import { isEqual } from 'lodash-es';
 import TreeContext from './treeContext';
 import Collapse from './collapse';
 import { FlattenNode, NodeListProps, NodeListState, TransitionNodes } from './interface';

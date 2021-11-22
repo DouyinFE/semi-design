@@ -2,7 +2,7 @@ import React from 'react';
 import DatePicker from '../index';
 import BaseDatePicker from '../datePicker';
 import ConfigProvider from '../../configProvider';
-import * as _ from 'lodash';
+import * as _ from 'lodash-es';
 import { clear } from 'jest-date-mock';
 import { addDays, startOfWeek, endOfWeek, add, format, addWeeks, set } from 'date-fns';
 import { zhCN, enUS } from "date-fns/locale";

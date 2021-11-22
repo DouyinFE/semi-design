@@ -3,7 +3,7 @@ import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { strings, cssClasses } from '@douyinfe/semi-foundation/space/constants';
 import '@douyinfe/semi-foundation/space/space.scss';
-import { isString, isArray, isNumber } from 'lodash';
+import { isString, isArray, isNumber } from 'lodash-es';
 import { flatten } from './utils';
 
 const prefixCls = cssClasses.PREFIX;

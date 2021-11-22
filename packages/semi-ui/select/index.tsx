@@ -8,7 +8,7 @@ import ConfigContext from '../configProvider/context';
 import SelectFoundation, { SelectAdapter } from '@douyinfe/semi-foundation/select/foundation';
 import { cssClasses, strings, numbers } from '@douyinfe/semi-foundation/select/constants';
 import BaseComponent, { ValidateStatus } from '../_base/baseComponent';
-import { isEqual, isString, noop } from 'lodash';
+import { isEqual, isString, noop } from 'lodash-es';
 import Tag from '../tag/index';
 import TagGroup from '../tag/group';
 import LocaleCosumer from '../locale/localeConsumer';

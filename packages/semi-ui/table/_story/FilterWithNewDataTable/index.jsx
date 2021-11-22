@@ -1,6 +1,6 @@
 import React from 'react';
 import { Table, Button } from '@douyinfe/semi-ui';
-import { cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash-es';
 
 export default class FilterWithNewDataTable extends React.Component {
     constructor(p) {

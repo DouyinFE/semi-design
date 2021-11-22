@@ -1,6 +1,6 @@
 // formApi test
 import { Form, Select, Button } from '../../index';
-import { noop } from 'lodash';
+import { noop } from 'lodash-es';
 import { sleep as baseSleep } from '../../_test_/utils/index';
 const sleep = (ms = 200) => baseSleep(ms);
 

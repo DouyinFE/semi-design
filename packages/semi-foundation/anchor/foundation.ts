@@ -1,5 +1,5 @@
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
-import { isArray, get } from 'lodash';
+import { isArray, get } from 'lodash-es';
 import scrollIntoView, { CustomBehaviorOptions } from 'scroll-into-view-if-needed';
 import { cssClasses } from './constants';
 import React from 'react';

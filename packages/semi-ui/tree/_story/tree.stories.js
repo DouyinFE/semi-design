@@ -4,7 +4,7 @@ import AutoSizer from '../autoSizer';
 import { Button, ButtonGroup, Input, Popover, Toast } from '../../index';
 import BigTree from './BigData';
 import testData from './data';
-import { cloneDeep, difference, isEqual } from 'lodash';
+import { cloneDeep, difference, isEqual } from 'lodash-es';
 import { IconEdit, IconMapPin, IconMore } from '@douyinfe/semi-icons';
 
 const TreeNode = Tree.TreeNode;

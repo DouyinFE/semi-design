@@ -3,7 +3,7 @@ import React from 'react';
 import BaseComponent from '../_base/baseComponent';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
-import { noop } from 'lodash';
+import { noop } from 'lodash-es';
 
 import { cssClasses } from '@douyinfe/semi-foundation/table/constants';
 import TableSelectionCellFoundation, { TableSelectionCellAdapter, TableSelectionCellEvent } from '@douyinfe/semi-foundation/table/tableSelectionCellFoundation';

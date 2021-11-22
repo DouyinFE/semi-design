@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
-import { isEqual, noop } from 'lodash';
+import { isEqual, noop } from 'lodash-es';
 
 import { strings, cssClasses } from '@douyinfe/semi-foundation/autoComplete/constants';
 import AutoCompleteFoundation, { AutoCompleteAdapter, StateOptionItem, DataItem } from '@douyinfe/semi-foundation/autoComplete/foundation';

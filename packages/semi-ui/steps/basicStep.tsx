@@ -1,5 +1,5 @@
 import React from 'react';
-import { isFunction } from 'lodash';
+import { isFunction } from 'lodash-es';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { stepsClasses as css } from '@douyinfe/semi-foundation/steps/constants';

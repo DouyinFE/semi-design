@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { noop, get } from 'lodash';
+import { noop, get } from 'lodash-es';
 
 import ConfigContext from '../configProvider/context';
 import BaseComponent, { ValidateStatus } from '../_base/baseComponent';

@@ -4,7 +4,7 @@
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import keyCode from '../utils/keyCode';
 import { numbers } from './constants';
-import { toNumber, toString } from 'lodash';
+import { toNumber, toString } from 'lodash-es';
 import { minus as numberMinus } from '../utils/number';
 
 export interface InputNumberAdapter extends DefaultAdapter {

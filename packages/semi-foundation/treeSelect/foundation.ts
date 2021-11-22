@@ -1,4 +1,4 @@
-import { isNumber, isFunction, get, isUndefined, isString, cloneDeep, isEmpty, difference } from 'lodash';
+import { isNumber, isFunction, get, isUndefined, isString, cloneDeep, isEmpty, difference } from 'lodash-es';
 import { strings } from '../treeSelect/constants';
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import {

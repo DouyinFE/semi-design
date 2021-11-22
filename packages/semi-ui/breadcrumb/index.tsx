@@ -5,7 +5,7 @@ import propTypes from 'prop-types';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/breadcrumb/constants';
 import BreadcrumbFoundation, { BreadcrumbAdapter } from '@douyinfe/semi-foundation/breadcrumb/foundation';
 import warning from '@douyinfe/semi-foundation/utils/warning';
-import { isFunction } from 'lodash';
+import { isFunction } from 'lodash-es';
 import '@douyinfe/semi-foundation/breadcrumb/breadcrumb.scss';
 import { noop } from '@douyinfe/semi-foundation/utils/function';
 import BaseComponent, { BaseProps } from '../_base/baseComponent';

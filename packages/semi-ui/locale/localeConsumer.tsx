@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Locale as dateFns } from 'date-fns';
 import PropTypes from 'prop-types';
-import { get } from 'lodash';
+import { get } from 'lodash-es';
 import LocaleContext from './context';
 import ConfigContext from '../configProvider/context';
 import DefaultLocale from './source/zh_CN';

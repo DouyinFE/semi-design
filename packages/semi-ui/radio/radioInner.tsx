@@ -6,7 +6,7 @@ import { radioClasses as css } from '@douyinfe/semi-foundation/radio/constants';
 import Context from './context';
 import classnames from 'classnames';
 import { IconRadio } from '@douyinfe/semi-icons';
-import { noop } from 'lodash';
+import { noop } from 'lodash-es';
 
 export type RadioInnerMode = 'advanced' | '';
 export interface RadioInnerProps extends BaseProps {

@@ -7,7 +7,7 @@ import BaseComponent, { BaseProps } from '../_base/baseComponent';
 import { noop } from '@douyinfe/semi-foundation/utils/function';
 import BreadContext from './bread-context';
 import Typography from '../typography';
-import { merge, isUndefined, isNull } from 'lodash';
+import { merge, isUndefined, isNull } from 'lodash-es';
 
 const clsPrefix = cssClasses.PREFIX;
 

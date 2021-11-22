@@ -2,7 +2,7 @@
 import React from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
-import { get, noop, map, set, omit, findIndex } from 'lodash';
+import { get, noop, map, set, omit, findIndex } from 'lodash-es';
 
 import { cssClasses } from '@douyinfe/semi-foundation/table/constants';
 import {

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isFunction } from 'lodash';
+import { isFunction } from 'lodash-es';
 import classnames from 'classnames';
 import { stepsClasses as css } from '@douyinfe/semi-foundation/steps/constants';
 import { IconChevronRight } from '@douyinfe/semi-icons';

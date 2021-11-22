@@ -2,7 +2,7 @@ import React, { Component, useState } from 'react';
 import TimePickerPanel from '../index';
 import { TimePicker as BasicTimePicker, Button } from '../../index';
 import { strings } from '@douyinfe/semi-foundation/timePicker/constants';
-import { get } from 'lodash';
+import { get } from 'lodash-es';
 
 import Callbacks from './Callbacks';
 import CustomTrigger from './CustomTrigger';

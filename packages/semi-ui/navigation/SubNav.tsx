@@ -16,7 +16,7 @@ import NavItem from './Item';
 import Dropdown, { DropdownProps } from '../dropdown';
 import NavContext from './nav-context';
 
-import { times, get } from 'lodash';
+import { times, get } from 'lodash-es';
 
 import SubNavTransition from './SubNavTransition';
 import OpenIconTransition from './OpenIconTransition';

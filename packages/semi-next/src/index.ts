@@ -26,7 +26,8 @@ export default function(options: SemiNextOptions = {}) {
                             (context: any) => {
                                 return new Promise((resolve) => {
                                     if (
-                                        /@douyinfe\/semi-(ui|icons)/.test(context.request)
+                                        /@douyinfe\/semi-(ui|icons)/.test(context.request) ||
+                                        /lodash-es/.test(context.request)
                                     ) {
                                         resolve(undefined);
                                     } else {

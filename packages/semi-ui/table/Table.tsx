@@ -25,7 +25,7 @@ import {
     difference,
     isFunction,
     isObject
-} from 'lodash';
+} from 'lodash-es';
 
 import {
     mergeQueries,

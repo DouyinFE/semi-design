@@ -3,7 +3,7 @@ import BaseFoundation from '../base/foundation';
 import * as ObjectUtil from '../utils/object';
 import isPromise from '../utils/isPromise';
 import { isValid } from './utils';
-import { isUndefined, isFunction, toPath } from 'lodash';
+import { isUndefined, isFunction, toPath } from 'lodash-es';
 import scrollIntoView, { Options as scrollIntoViewOptions } from 'scroll-into-view-if-needed';
 
 import { BaseFormAdapter, FormState, CallOpts, FieldState, FieldStaff, ComponentProps, setValuesConfig, ArrayFieldStaff } from './interface';

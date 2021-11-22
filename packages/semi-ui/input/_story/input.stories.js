@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import GraphemeSplitter from 'grapheme-splitter';
-import { isFunction, isString } from 'lodash';
+import { isFunction, isString } from 'lodash-es';
 
 import {
   Input,

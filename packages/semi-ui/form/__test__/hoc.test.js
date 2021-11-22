@@ -1,5 +1,5 @@
 import { Form } from '../../index';
-import { noop } from 'lodash';
+import { noop } from 'lodash-es';
 
 describe('Form-hoc', () => {
     beforeEach(() => {

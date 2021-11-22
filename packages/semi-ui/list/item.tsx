@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/list/constants';
-import { noop } from 'lodash';
+import { noop } from 'lodash-es';
 import { Col } from '../grid';
 import ListContext from './list-context';
 

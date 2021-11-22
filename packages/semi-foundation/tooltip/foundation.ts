@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable prefer-destructuring, max-lines-per-function, one-var, max-len, @typescript-eslint/restrict-plus-operands */
 /* argus-disable unPkgSensitiveInfo */
-import { get, isEmpty } from 'lodash';
+import { get, isEmpty } from 'lodash-es';
 import { DOMRectLikeType } from '../utils/dom';
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import { ArrayElement } from '../utils/type';

@@ -3,7 +3,7 @@
 /* eslint-disable max-len */
 import React, { ReactNode } from 'react';
 import PropTypes from 'prop-types';
-import { get, size, isMap, each, isEqual, pick, isNull } from 'lodash';
+import { get, size, isMap, each, isEqual, pick, isNull } from 'lodash-es';
 import classnames from 'classnames';
 import { VariableSizeList as List } from 'react-window';
 

@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { cssClasses } from '@douyinfe/semi-foundation/tree/constants';
 import ResizeObserver, { ResizeEntry } from '../resizeObserver';
-import { get } from 'lodash';
+import { get } from 'lodash-es';
 
 export interface AutoSizerProps {
     defaultHeight?: number | string;

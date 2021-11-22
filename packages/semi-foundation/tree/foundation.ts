@@ -3,7 +3,7 @@
  * https://github.com/react-component/tree
  */
 
-import { isUndefined, difference, pick, cloneDeep, get } from 'lodash';
+import { isUndefined, difference, pick, cloneDeep, get } from 'lodash-es';
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import {
     flattenTreeData,

@@ -7,7 +7,7 @@ import BaseComponent from '../_base/baseComponent';
 import Link from './link';
 import AnchorContext from './anchor-context';
 import '@douyinfe/semi-foundation/anchor/anchor.scss';
-import { noop, debounce, throttle } from 'lodash';
+import { noop, debounce, throttle } from 'lodash-es';
 import getUuid from '@douyinfe/semi-foundation/utils/uuid';
 import { ArrayElement } from '../_base/base';
 

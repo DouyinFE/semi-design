@@ -2,7 +2,7 @@
 /* eslint-disable eqeqeq */
 import React, { isValidElement } from 'react';
 import cls from 'classnames';
-import { noop } from 'lodash';
+import { noop } from 'lodash-es';
 import { IconFilter } from '@douyinfe/semi-icons';
 
 import { cssClasses } from '@douyinfe/semi-foundation/table/constants';

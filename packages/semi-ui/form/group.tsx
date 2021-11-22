@@ -1,7 +1,7 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import classNames from 'classnames';
-import { isString } from 'lodash';
+import { isString } from 'lodash-es';
 import { isValid } from '@douyinfe/semi-foundation/form/utils';
 import { cssClasses } from '@douyinfe/semi-foundation/form/constants';
 import * as ObjectUtil from '@douyinfe/semi-foundation/utils/object';

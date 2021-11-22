@@ -5,7 +5,7 @@ import { cssClasses as css, strings } from '@douyinfe/semi-foundation/dropdown/c
 import DropdownContext from './context';
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
 import { IconTick } from '@douyinfe/semi-icons';
-import { noop } from 'lodash';
+import { noop } from 'lodash-es';
 
 export type Type = 'primary' | 'secondary' | 'tertiary' | 'warning' | 'danger';
 

@@ -1,5 +1,5 @@
 import { clear } from 'jest-date-mock';
-import * as _ from 'lodash';
+import * as _ from 'lodash-es';
 
 import Tooltip from '../index';
 import Button from '../../button';

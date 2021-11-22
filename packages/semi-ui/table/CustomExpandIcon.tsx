@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { noop } from 'lodash';
+import { noop } from 'lodash-es';
 
 import { IconChevronRight, IconChevronDown, IconTreeTriangleDown, IconTreeTriangleRight } from '@douyinfe/semi-icons';
 import { cssClasses } from '@douyinfe/semi-foundation/table/constants';

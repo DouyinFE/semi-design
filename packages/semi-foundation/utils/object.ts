@@ -10,7 +10,7 @@ import {
     isNumber,
     isObject,
     values
-} from 'lodash';
+} from 'lodash-es';
 
 type Many<T> = T | ReadonlyArray<T>;
 type PropertyName = string | number | symbol;

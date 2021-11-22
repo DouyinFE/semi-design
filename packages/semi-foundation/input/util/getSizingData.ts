@@ -1,5 +1,5 @@
 // Reference to https://github.com/andreypopp/react-textarea-autosize/
-import { pick } from 'lodash';
+import { pick } from 'lodash-es';
 
 const SIZING_STYLE = [
     'borderBottomWidth',

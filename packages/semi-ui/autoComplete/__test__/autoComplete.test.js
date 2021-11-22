@@ -1,5 +1,5 @@
 import { Icon, AutoComplete } from '../../index';
-import { noop } from 'lodash';
+import { noop } from 'lodash-es';
 import sinon from 'sinon';
 import { BASE_CLASS_PREFIX } from '../../../semi-foundation/base/constants';
 import keyCode from '@douyinfe/semi-foundation/utils/keyCode';

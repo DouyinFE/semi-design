@@ -7,7 +7,7 @@ import Switch from '../index';
 // });
 
 import { BASE_CLASS_PREFIX } from '../../../semi-foundation/base/constants';
-import { wrap } from 'lodash';
+import { wrap } from 'lodash-es';
 
 let CHECKED_CLS = `.${BASE_CLASS_PREFIX}-switch-checked`;
 

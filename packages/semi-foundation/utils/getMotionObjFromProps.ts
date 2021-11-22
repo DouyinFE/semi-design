@@ -1,5 +1,5 @@
 import { MotionObject } from "./type";
-import { cloneDeep, isObject } from 'lodash';
+import { cloneDeep, isObject } from 'lodash-es';
 import warning from './warning';
 
 export interface MergeMotionProps {

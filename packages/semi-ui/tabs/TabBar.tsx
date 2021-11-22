@@ -7,7 +7,7 @@ import OverflowList from '../overflowList';
 import Dropdown from '../dropdown';
 import Button from '../button';
 import { TabBarProps, PlainTab } from './interface';
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'lodash-es';
 import { IconChevronRight, IconChevronLeft } from '@douyinfe/semi-icons';
 import { getUuidv4 } from '@douyinfe/semi-foundation/utils/uuid';
 

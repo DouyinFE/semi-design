@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 import Button from '../button';
-import { get } from 'lodash';
+import { get } from 'lodash-es';
 import { Locale } from '../locale/interface';
 
 interface FooterProps {

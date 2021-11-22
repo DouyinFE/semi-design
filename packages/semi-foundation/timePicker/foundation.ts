@@ -10,7 +10,7 @@ import {
     transformToArray,
     isTimeFormatLike
 } from './utils';
-import { split } from 'lodash';
+import { split } from 'lodash-es';
 import { isValid, format } from 'date-fns';
 import { utcToZonedTime, zonedTimeToUtc } from '../utils/date-fns-extra';
 import isNullOrUndefined from '../utils/isNullOrUndefined';

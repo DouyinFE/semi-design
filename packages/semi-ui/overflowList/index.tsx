@@ -3,7 +3,7 @@ import React, { CSSProperties, ReactNode, MutableRefObject, RefCallback, Key, Re
 import cls from 'classnames';
 import BaseComponent from '../_base/baseComponent';
 import PropTypes from 'prop-types';
-import { isEqual, omit, isNull, isUndefined } from 'lodash';
+import { isEqual, omit, isNull, isUndefined } from 'lodash-es';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/overflowList/constants';
 import ResizeObserver, { ResizeEntry } from '../resizeObserver';
 import IntersectionObserver from './intersectionObserver';

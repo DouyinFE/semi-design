@@ -2,7 +2,7 @@
 import React, { PureComponent } from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
-import { noop } from 'lodash';
+import { noop } from 'lodash-es';
 import { checkboxClasses as css } from '@douyinfe/semi-foundation/checkbox/constants';
 import { Context } from './context';
 import { IconCheckboxTick, IconCheckboxIndeterminate } from '@douyinfe/semi-icons';

@@ -8,7 +8,7 @@ import { numbers, cssClasses, strings } from '@douyinfe/semi-foundation/toast/co
 import BaseComponent from '../_base/baseComponent';
 import Button from '../iconButton/index';
 import { IconClose, IconAlertTriangle, IconInfoCircle, IconTickCircle, IconAlertCircle } from '@douyinfe/semi-icons';
-import { noop } from 'lodash';
+import { noop } from 'lodash-es';
 import { isSemiIcon } from '../_utils';
 
 const prefixCls = cssClasses.PREFIX;

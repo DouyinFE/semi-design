@@ -2,7 +2,7 @@ import Nav from '../index';
 import { clear } from 'jest-date-mock';
 import { genBeforeEach, genAfterEach, mount } from '@douyinfe/semi-ui/_test_/utils/tooltip';
 import { BASE_CLASS_PREFIX } from '../../../semi-foundation/base/constants';
-import { noop } from 'lodash';
+import { noop } from 'lodash-es';
 
 describe(`Navigation`, () => {
     beforeEach(() => {

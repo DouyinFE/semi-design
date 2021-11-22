@@ -2,7 +2,7 @@ import React from 'react';
 import cls from 'classnames';
 import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 import PropTypes from 'prop-types';
-import { isEqual, noop, omit, isEmpty, isArray } from 'lodash';
+import { isEqual, noop, omit, isEmpty, isArray } from 'lodash-es';
 import TransferFoundation, { TransferAdapter, BasicDataItem, OnSortEndProps } from '@douyinfe/semi-foundation/transfer/foundation';
 import { _generateDataByType, _generateSelectedItems } from '@douyinfe/semi-foundation/transfer/transferUtlls';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/transfer/constants';

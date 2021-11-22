@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 // import cls from 'classnames';
 import PropTypes from 'prop-types';
-import { noop } from 'lodash';
+import { noop } from 'lodash-es';
 
 import IconButton from '../iconButton';
 import Button from '../button';

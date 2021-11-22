@@ -4,7 +4,7 @@ import { destroyFns, ModalReactProps } from './Modal';
 import ConfirmModal from './ConfirmModal';
 
 import '@douyinfe/semi-foundation/modal/modal.scss';
-import { get } from 'lodash';
+import { get } from 'lodash-es';
 import { IconAlertTriangle, IconInfoCircle, IconTickCircle, IconHelpCircle, IconAlertCircle } from '@douyinfe/semi-icons';
 import { Motion } from '../_base/base';
 

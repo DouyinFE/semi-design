@@ -1,6 +1,6 @@
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import isElement from '../utils/isElement';
-import { slice, find, findIndex } from 'lodash';
+import { slice, find, findIndex } from 'lodash-es';
 import { append, prepend } from '../utils/dom';
 
 export interface Item {

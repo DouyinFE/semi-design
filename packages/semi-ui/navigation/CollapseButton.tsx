@@ -1,5 +1,5 @@
 import React from 'react';
-import { noop } from 'lodash';
+import { noop } from 'lodash-es';
 import { IconSidebar } from '@douyinfe/semi-icons';
 import Button from '../button';
 import Tooltip from '../tooltip';

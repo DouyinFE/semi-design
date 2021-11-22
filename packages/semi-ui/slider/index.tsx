@@ -9,7 +9,7 @@ import BaseComponent from '../_base/baseComponent';
 import SliderFoundation, { SliderAdapter, SliderProps as BasicSliceProps, SliderState } from '@douyinfe/semi-foundation/slider/foundation';
 import Tooltip from '../tooltip/index';
 import '@douyinfe/semi-foundation/slider/slider.scss';
-import { isEqual, noop } from 'lodash';
+import { isEqual, noop } from 'lodash-es';
 
 const prefixCls = cssClasses.PREFIX;
 

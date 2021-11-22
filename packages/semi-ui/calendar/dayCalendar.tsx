@@ -1,5 +1,5 @@
 import React from 'react';
-import { isEqual } from 'lodash';
+import { isEqual } from 'lodash-es';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
 import CalendarFoundation, { CalendarAdapter, ParsedEventsWithArray } from '@douyinfe/semi-foundation/calendar/foundation';

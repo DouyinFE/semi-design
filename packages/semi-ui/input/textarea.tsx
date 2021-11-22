@@ -6,7 +6,7 @@ import TextAreaFoundation from '@douyinfe/semi-foundation/input/textareaFoundati
 import { cssClasses } from '@douyinfe/semi-foundation/input/constants';
 import BaseComponent, { ValidateStatus } from '../_base/baseComponent';
 import '@douyinfe/semi-foundation/input/textarea.scss';
-import { noop, omit, isFunction } from 'lodash';
+import { noop, omit, isFunction } from 'lodash-es';
 import { IconClear } from '@douyinfe/semi-icons';
 
 const prefixCls = cssClasses.PREFIX;

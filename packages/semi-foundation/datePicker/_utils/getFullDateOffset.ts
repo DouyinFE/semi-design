@@ -1,4 +1,4 @@
-import { isFunction } from 'lodash';
+import { isFunction } from 'lodash-es';
 import { strings } from '../constants';
 import { format } from 'date-fns';
 

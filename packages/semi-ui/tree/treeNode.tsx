@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses } from '@douyinfe/semi-foundation/tree/constants';
-import { debounce, isFunction, isString } from 'lodash';
+import { debounce, isFunction, isString } from 'lodash-es';
 import { IconTreeTriangleDown, IconFile, IconFolder, IconFolderOpen } from '@douyinfe/semi-icons';
 import { Checkbox } from '../checkbox';
 import TreeContext from './treeContext';

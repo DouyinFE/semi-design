@@ -3,7 +3,7 @@ import Button from '../../button';
 import TimePicker from '../TimePicker';
 import Locale from '../../locale/source/zh_CN';
 import { clear } from 'jest-date-mock';
-import * as _ from 'lodash';
+import * as _ from 'lodash-es';
 import { IconClose } from '@douyinfe/semi-icons';
 import { genAfterEach, genBeforeEach, mount, sleep, trigger } from '../../_test_/utils';
 import { isTimeFormatLike } from '@douyinfe/semi-foundation/timePicker/utils';

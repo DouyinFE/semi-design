@@ -1,4 +1,4 @@
-import { isSet } from 'lodash';
+import { isSet } from 'lodash-es';
 
 export function copySet<T = unknown>(setA: Iterable<T>) {
     return new Set(setA);

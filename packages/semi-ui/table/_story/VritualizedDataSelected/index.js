@@ -1,6 +1,6 @@
 import { Table, Checkbox, SideSheet, Button } from '@douyinfe/semi-ui';
 import React, { useMemo, useState, useCallback, useEffect, useRef } from 'react';
-import * as _ from 'lodash';
+import * as _ from 'lodash-es';
 import { IconEdit } from '@douyinfe/semi-icons';
 import testJson from '../data/big2.json';
 

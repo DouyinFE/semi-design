@@ -1,7 +1,7 @@
 /* eslint-disable max-lines-per-function */
 import { Table, Checkbox, Button, SideSheet } from '@douyinfe/semi-ui';
 import React, { useMemo, useState, useCallback, useEffect } from 'react';
-import * as _ from 'lodash';
+import * as _ from 'lodash-es';
 import { IconEdit } from '@douyinfe/semi-icons';
 import testJson from '../data/big2.json';
 

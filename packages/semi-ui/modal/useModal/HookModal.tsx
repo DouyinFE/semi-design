@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from 'react';
 import ConfirmModal from '../ConfirmModal';
-import { get } from 'lodash';
+import { get } from 'lodash-es';
 import { ConfirmProps } from '../confirm';
 import { Motion } from '../../_base/base';
 
