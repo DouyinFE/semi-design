@@ -179,7 +179,7 @@ export interface TreeSelectAdapter<P = Record<string, any>, S = Record<string, a
     setOptionWrapperWidth: (width: null | number) => void;
     notifyChange: BasicOnChangeWithBasic;
     notifyChangeWithObject: BasicOnChangeWithObject;
-    notifyExpand: (expandedKeys: Set<string>, expanedOtherProps: BasicExpandedOtherProps) => void;
+    notifyExpand: (expandedKeys: Set<string>, expandedOtherProps: BasicExpandedOtherProps) => void;
     notifyFocus: (e: any) => void;
     notifyBlur: (e: any) => void;
     toggleHovering: (bool: boolean) => void;
