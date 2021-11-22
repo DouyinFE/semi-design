@@ -40,7 +40,7 @@ export interface DragEnterProps extends DragProps {
     expandedKeys?: string[];
 }
 
-export interface ExpanedOtherProps extends BasicExpandedOtherProps {
+export interface ExpandedOtherProps extends BasicExpandedOtherProps {
     node: TreeNodeData;
 }
 export interface RenderFullLabelProps extends BasicRenderFullLabelProps {
@@ -75,7 +75,7 @@ export interface TreeProps extends BasicTreeProps {
     onDragStart?: (dragProps: DragProps) => void;
     onDragEnter?: (dragEnterProps: DragEnterProps) => void;
     onDrop?: (onDragProps: OnDragProps) => void;
-    onExpand?: (expandedKeys: string[], expanedOtherProps: ExpanedOtherProps) => void;
+    onExpand?: (expandedKeys: string[], expandedOtherProps: ExpandedOtherProps) => void;
     onLoad?: (loadedKeys?: Set<string>, treeNode?: TreeNodeData) => void;
     onContextMenu?: (e: MouseEvent, node: TreeNodeData) => void;
     onSelect?: (selectedKeys: string, selected: boolean, selectedNode: TreeNodeData) => void;
