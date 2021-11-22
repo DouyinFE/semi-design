@@ -26,7 +26,7 @@ import { Radio } from '@douyinfe/semi-ui';
 
 () => (
     <Radio>Radio</Radio>
-)
+);
 ```
 
 ### 带辅助文本
@@ -43,7 +43,7 @@ import { Radio } from '@douyinfe/semi-ui';
     <Radio extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统">
         Semi Design
     </Radio>
-)
+);
 ```
 
 ### 禁用
@@ -74,8 +74,8 @@ import { Radio, Button } from '@douyinfe/semi-ui';
                 </Button>
             </div>
         </div>
-    )
-}
+    );
+};
 ```
 
 ### 高级模式
@@ -100,8 +100,8 @@ import { Radio } from '@douyinfe/semi-ui';
         >
             允许取消选择
         </Radio>
-    )
-}
+    );
+};
 ```
 
 ### 单选组合
@@ -117,7 +117,7 @@ import { RadioGroup, Radio } from '@douyinfe/semi-ui';
     const onChange = (e) => {
         console.log('radio checked', e.target.value);
         setValue(e.target.value);
-    } 
+    }; 
     return (
         <RadioGroup onChange={onChange} value={value}>
             <Radio value={1}>A</Radio>
@@ -126,7 +126,7 @@ import { RadioGroup, Radio } from '@douyinfe/semi-ui';
             <Radio value={4}>D</Radio>
         </RadioGroup>
     );
-}
+};
 ```
 
 ### 垂直排列
@@ -144,7 +144,7 @@ import { RadioGroup, Radio } from '@douyinfe/semi-ui';
         <Radio value={3}>C</Radio>
         <Radio value={4}>D</Radio>
     </RadioGroup>
-)
+);
 ```
 
 ### 按钮样式
@@ -178,8 +178,8 @@ import { RadioGroup, Radio, Space } from '@douyinfe/semi-ui';
                 <Radio value={3}>动态推送</Radio>
             </RadioGroup>
         </Space>
-    )
-}
+    );
+};
 ```
 
 ### 卡片样式

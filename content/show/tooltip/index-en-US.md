@@ -369,7 +369,7 @@ import { Popconfirm, Tooltip, Button } from '@douyinfe/semi-ui';
             </Tooltip>
         </span>
     </Popconfirm>
-)
+);
 ```
 
 ## API Reference

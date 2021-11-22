@@ -27,7 +27,7 @@ import { Space, Button, Switch } from '@douyinfe/semi-ui';
         <Button type="tertiary">tertiary</Button>
         <Button type="warning">warning</Button>
     </Space>
-)
+);
 ```
 
 ### Alignment
@@ -73,8 +73,8 @@ import { Space, Button, Tag } from '@douyinfe/semi-ui';
                 <Tag color='green' size='large'> tag </Tag>
             </Space>
         </Space>
-    )
-}
+    );
+};
 ```
 
 ### Spacing
@@ -126,7 +126,7 @@ import { Space, Tabs, TabPane, Button } from '@douyinfe/semi-ui';
             </Space>
         </TabPane>
     </Tabs>
-)
+);
 ```
 
 ### Direction
@@ -144,7 +144,7 @@ import { Space, Button } from '@douyinfe/semi-ui';
         <Button theme='solid' type='primary'>button</Button>
         <Button theme='solid' type='primary'>button</Button>
     </Space>
-)
+);
 ```
 
 ### Wrap
@@ -161,7 +161,7 @@ import { Space, Button } from '@douyinfe/semi-ui';
             <Button theme='solid' type='secondary' key={idex}>button</Button>
         ))}
     </Space>
-)
+);
 ```
 
 ## API Reference

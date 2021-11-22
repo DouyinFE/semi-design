@@ -25,8 +25,8 @@ import React from 'react';
 import { Input } from '@douyinfe/semi-ui';
 
 () => (
-  <Input defaultValue='hi' autofocus></Input>
-)
+    <Input defaultValue='hi' autofocus></Input>
+);
 ```
 
 ### 三种大小
@@ -38,14 +38,14 @@ import React from 'react';
 import { Input } from '@douyinfe/semi-ui';
 
 () => (
-  <>
-    <Input placeholder='large' size='large'></Input>
-    <br/><br/>
-    <Input placeholder='default'></Input>
-    <br/><br/>
-    <Input placeholder='small' size='small'></Input>
-  </>
-)
+    <>
+        <Input placeholder='large' size='large'></Input>
+        <br/><br/>
+        <Input placeholder='default'></Input>
+        <br/><br/>
+        <Input placeholder='small' size='small'></Input>
+    </>
+);
 ```
 
 ### 不可用
@@ -57,13 +57,13 @@ import React from 'react';
 import { Input } from '@douyinfe/semi-ui';
 
 () => (
-  <>
-    <Input defaultValue='enabled input'></Input>
-    <br/>
-    <br/>
-    <Input disabled defaultValue='disabled input'></Input>
-  </>
-)
+    <>
+        <Input defaultValue='enabled input'></Input>
+        <br/>
+        <br/>
+        <Input disabled defaultValue='disabled input'></Input>
+    </>
+);
 ```
 
 ### 前缀/后缀
@@ -76,16 +76,16 @@ import { Input, Typography } from '@douyinfe/semi-ui';
 import { IconSearch } from '@douyinfe/semi-icons';
 
 () => (
-  <>
-    <Input prefix={<IconSearch />} showClear></Input>
-    <br/><br/>
-    <Input prefix="Prefix" showClear></Input>
-    <br/><br/>
-    <Input suffix={<IconSearch />} showClear></Input>
-    <br/><br/>
-    <Input suffix={<Typography.Text strong type='secondary' style={{ marginRight: 8 }}>Suffix</Typography.Text>} showClear></Input>
-  </>
-)
+    <>
+        <Input prefix={<IconSearch />} showClear></Input>
+        <br/><br/>
+        <Input prefix="Prefix" showClear></Input>
+        <br/><br/>
+        <Input suffix={<IconSearch />} showClear></Input>
+        <br/><br/>
+        <Input suffix={<Typography.Text strong type='secondary' style={{ marginRight: 8 }}>Suffix</Typography.Text>} showClear></Input>
+    </>
+);
 ```
 
 ### 前置/后置标签
@@ -97,8 +97,8 @@ import React from 'react';
 import { Input } from '@douyinfe/semi-ui';
 
 () => (
-  <Input addonBefore="http://" addonAfter=".com" />
-)
+    <Input addonBefore="http://" addonAfter=".com" />
+);
 ```
 
 ### 带移除图标
@@ -110,8 +110,8 @@ import React from 'react';
 import { Input } from '@douyinfe/semi-ui';
 
 () => (
-  <Input showClear defaultValue='click to clear'></Input>
-)
+    <Input showClear defaultValue='click to clear'></Input>
+);
 ```
 
 ### 密码模式
@@ -123,8 +123,8 @@ import React from 'react';
 import { Input } from '@douyinfe/semi-ui';
 
 () => (
-  <Input mode="password" defaultValue="123456"></Input>
-)
+    <Input mode="password" defaultValue="123456"></Input>
+);
 ```
 
 
@@ -137,14 +137,14 @@ import React from 'react';
 import { Input } from '@douyinfe/semi-ui';
 
 () => (
-  <>
-    <Input defaultValue='ies' validateStatus='warning'></Input>
-    <br/><br/>
-    <Input defaultValue='ies' validateStatus='error'></Input>
-    <br/><br/>
-    <Input defaultValue='ies'></Input>
-  </>
-)
+    <>
+        <Input defaultValue='ies' validateStatus='warning'></Input>
+        <br/><br/>
+        <Input defaultValue='ies' validateStatus='error'></Input>
+        <br/><br/>
+        <Input defaultValue='ies'></Input>
+    </>
+);
 ```
 
 ### 受控组件
@@ -157,26 +157,26 @@ import { Input } from '@douyinfe/semi-ui';
 
 class InputDemo extends React.Component {
     constructor() {
-        super()
+        super();
         this.state = {
             value: 'controlInput',
             value2: 'input'
-        }
+        };
         this.onChange = this.onChange.bind(this);
     }
     onChange(value, e) {
-      console.log(value)
-      this.setState({ value });
+        console.log(value);
+        this.setState({ value });
     }
     render() {
         return (
             <>
-              <Input
-                  value={this.state.value}
-                  onChange={this.onChange}>
-              </Input>
+                <Input
+                    value={this.state.value}
+                    onChange={this.onChange}>
+                </Input>
             </>
-        )
+        );
     }
 }
 ```
@@ -191,97 +191,97 @@ class InputDemo extends React.Component {
 
 ```jsx live=true
 import React from 'react';
-import { InputGroup, Input, InputNumber, Input, AutoComplete, DatePicker } from '@douyinfe/semi-ui';
+import { InputGroup, Input, InputNumber, AutoComplete, DatePicker, Select } from '@douyinfe/semi-ui';
 
 () => (
     <div>
-      <InputGroup>
-        <Input placeholder="Name" style={{ width: 100 }} />
-        <InputNumber placeholder="Score" style={{ width: 140 }} />
-      </InputGroup>
-      <br/><br/><br/>
-      <InputGroup size={'small'}>
-        <Select style={{ width: '100px' }} defaultValue='home'>
-            <Select.Option value='home'>Home</Select.Option>
-            <Select.Option value='work'>Work</Select.Option>
-        </Select>
-        <AutoComplete
-            data={['Beijing Haidian']}
-            placeholder='Address: '
-            style={{ width: 180 }}
-        >
-        </AutoComplete>
-      </InputGroup>
-      <br/><br/><br/>
-      <InputGroup size={'small'}>
-        <Select style={{ width: '100px' }} defaultValue='signup'>
-            <Select.Option value='signup'>Sign Up</Select.Option>
-            <Select.Option value='signin'>Sign In</Select.Option>
-        </Select>
-        <Input placeholder="Email" style={{ width: 180 }} />
-      </InputGroup>
-      <br/><br/><br/>
-      <InputGroup size={'small'}>
-        <Input placeholder="Name" style={{ width: 100 }} />
-        <DatePicker placeholder="Birthday" />
-      </InputGroup>
+        <InputGroup>
+            <Input placeholder="Name" style={{ width: 100 }} />
+            <InputNumber placeholder="Score" style={{ width: 140 }} />
+        </InputGroup>
+        <br/><br/><br/>
+        <InputGroup size={'small'}>
+            <Select style={{ width: '100px' }} defaultValue='home'>
+                <Select.Option value='home'>Home</Select.Option>
+                <Select.Option value='work'>Work</Select.Option>
+            </Select>
+            <AutoComplete
+                data={['Beijing Haidian']}
+                placeholder='Address: '
+                style={{ width: 180 }}
+            >
+            </AutoComplete>
+        </InputGroup>
+        <br/><br/><br/>
+        <InputGroup size={'small'}>
+            <Select style={{ width: '100px' }} defaultValue='signup'>
+                <Select.Option value='signup'>Sign Up</Select.Option>
+                <Select.Option value='signin'>Sign In</Select.Option>
+            </Select>
+            <Input placeholder="Email" style={{ width: 180 }} />
+        </InputGroup>
+        <br/><br/><br/>
+        <InputGroup size={'small'}>
+            <Input placeholder="Name" style={{ width: 100 }} />
+            <DatePicker placeholder="Birthday" />
+        </InputGroup>
     </div>
-)
+);
 ```
 
 ```jsx live=true
 import React from 'react';
-import { InputGroup, Select, Cascader } from '@douyinfe/semi-ui';
+import { InputGroup, Select, Cascader, TreeSelect } from '@douyinfe/semi-ui';
 
 () => {
-  const Option = Select.Option;
-  const treeData = [
-    {
-        label: 'Asia',
-        value: 'Asia',
-        key: '0',
-        children: [
-            {
-                label: 'China',
-                value: 'China',
-                key: '0-0',
-                children: [
-                    { label: 'Beijing', value: 'Beijing', key: '0-0-0' },
-                    { label: 'Shanghai', value: 'Shanghai', key: '0-0-1' },
-                ],
-            },
-        ],
-    },
-    { label: 'North America', value: 'North America', key: '1' }
-  ];
-  return (
-    <>
-      <InputGroup>
-        <Select style={{ width: 100 }} defaultValue='from'>
-          <Select.Option value='from'>From: </Select.Option>
-          <Select.Option value='to'>To: </Select.Option>
-        </Select>
-        <TreeSelect
-          style={{ width: 220 }}
-          treeData={treeData}
-          placeholder="Please select"
-        />
-      </InputGroup>
-      <br/><br/>
-      <InputGroup>
-          <Select style={{ width: 100 }} defaultValue='from'>
-            <Select.Option value='from'>From: </Select.Option>
-            <Select.Option value='to'>To: </Select.Option>
-          </Select>
-          <Cascader
-              style={{ width: 220 }}
-              treeData={treeData}
-              placeholder="Please select"
-          />
-      </InputGroup>
-    </>
-  )
-}
+    const Option = Select.Option;
+    const treeData = [
+        {
+            label: 'Asia',
+            value: 'Asia',
+            key: '0',
+            children: [
+                {
+                    label: 'China',
+                    value: 'China',
+                    key: '0-0',
+                    children: [
+                        { label: 'Beijing', value: 'Beijing', key: '0-0-0' },
+                        { label: 'Shanghai', value: 'Shanghai', key: '0-0-1' },
+                    ],
+                },
+            ],
+        },
+        { label: 'North America', value: 'North America', key: '1' }
+    ];
+    return (
+        <>
+            <InputGroup>
+                <Select style={{ width: 100 }} defaultValue='from'>
+                    <Select.Option value='from'>From: </Select.Option>
+                    <Select.Option value='to'>To: </Select.Option>
+                </Select>
+                <TreeSelect
+                    style={{ width: 220 }}
+                    treeData={treeData}
+                    placeholder="Please select"
+                />
+            </InputGroup>
+            <br/><br/>
+            <InputGroup>
+                <Select style={{ width: 100 }} defaultValue='from'>
+                    <Select.Option value='from'>From: </Select.Option>
+                    <Select.Option value='to'>To: </Select.Option>
+                </Select>
+                <Cascader
+                    style={{ width: 220 }}
+                    treeData={treeData}
+                    placeholder="Please select"
+                />
+            </InputGroup>
+        </>
+    );
+};
 
 ```
 
@@ -294,12 +294,12 @@ import React from 'react';
 import { TextArea } from '@douyinfe/semi-ui';
 
 () => (
-  <div>
-    <TextArea />
-    <br/><br/>
-    <TextArea maxCount={100} showClear/>
-  </div>
-)
+    <div>
+        <TextArea />
+        <br/><br/>
+        <TextArea maxCount={100} showClear/>
+    </div>
+);
 ```
 
 ### 自动扩展的多行输入框
@@ -311,12 +311,12 @@ import React from 'react';
 import { TextArea } from '@douyinfe/semi-ui';
 
 () => (
-  <div>
-    <TextArea autosize rows={1} />
-    <br/><br/>
-    <TextArea autosize maxCount={100} />
-  </div>
-)
+    <div>
+        <TextArea autosize rows={1} />
+        <br/><br/>
+        <TextArea autosize maxCount={100} />
+    </div>
+);
 ```
 
 ### 自定义计算字符串长度
@@ -336,49 +336,49 @@ import GraphemeSplitter from 'grapheme-splitter';
 import { Input, Typography, Form, TextArea, Button } from '@douyinfe/semi-ui';
 
 () => {
-  const [value, setValue] = useState();
-  function getValueLength(str) {
-    if (typeof str === 'string') {
-      const splitter = new GraphemeSplitter();
-      return splitter.countGraphemes(str);
-    } else {
-      return 0;
+    const [value, setValue] = useState();
+    function getValueLength(str) {
+        if (typeof str === 'string') {
+            const splitter = new GraphemeSplitter();
+            return splitter.countGraphemes(str);
+        } else {
+            return 0;
+        }
     }
-  }
 
-  function getTextAreaStrLength(str) {
-    const filteredStr = str.replace(/\s/g, '');
-    return filteredStr.length;
-  }
+    function getTextAreaStrLength(str) {
+        const filteredStr = str.replace(/\s/g, '');
+        return filteredStr.length;
+    }
 
-  return (
-    <div>
-      <h4>maxLength=10</h4>
-      <div>
-        <Typography.Text>尝试输入以下字符</Typography.Text>
-        <div><Typography.Text copyable>💖</Typography.Text></div>
-        <div><Typography.Text copyable>👨‍👩‍👧‍👦</Typography.Text></div>
-      </div>
-      <Input maxLength={10} getValueLength={getValueLength} onChange={setValue} style={{ width: 200, marginTop: 12, marginBottom: 12 }} />
-      {
-        value && (
-          <div>
-            <div><Typography.Text type="tertiary">{`getValueLength=${getValueLength(value)}`}</Typography.Text></div>
-            <div><Typography.Text type="tertiary">{`length=${value.length}`}</Typography.Text></div>
-          </div>
-        )
-      }
-      <br/><br/>
-      <h4>Form.Input + minLength=4</h4>
-      <Form layout="horizontal">
-        <Form.Input noLabel field="username" minLength={4} getValueLength={getValueLength} style={{ width: 200 }} />
-        <Button type="primary" htmlType="submit">提交</Button>
-      </Form>
-      <h4>maxCount=10</h4>
-      <TextArea defaultValue="semi design" rows={2} maxCount={10} getValueLength={getTextAreaStrLength} style={{ width: 200 }} />
-    </div>
-  );
-}
+    return (
+        <div>
+            <h4>maxLength=10</h4>
+            <div>
+                <Typography.Text>尝试输入以下字符</Typography.Text>
+                <div><Typography.Text copyable>💖</Typography.Text></div>
+                <div><Typography.Text copyable>👨‍👩‍👧‍👦</Typography.Text></div>
+            </div>
+            <Input maxLength={10} getValueLength={getValueLength} onChange={setValue} style={{ width: 200, marginTop: 12, marginBottom: 12 }} />
+            {
+                value && (
+                    <div>
+                        <div><Typography.Text type="tertiary">{`getValueLength=${getValueLength(value)}`}</Typography.Text></div>
+                        <div><Typography.Text type="tertiary">{`length=${value.length}`}</Typography.Text></div>
+                    </div>
+                )
+            }
+            <br/><br/>
+            <h4>Form.Input + minLength=4</h4>
+            <Form layout="horizontal">
+                <Form.Input noLabel field="username" minLength={4} getValueLength={getValueLength} style={{ width: 200 }} />
+                <Button type="primary" htmlType="submit">提交</Button>
+            </Form>
+            <h4>maxCount=10</h4>
+            <TextArea defaultValue="semi design" rows={2} maxCount={10} getValueLength={getTextAreaStrLength} style={{ width: 200 }} />
+        </div>
+    );
+};
 ```
 
 一些问题的回答：

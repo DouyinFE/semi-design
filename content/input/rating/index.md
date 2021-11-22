@@ -32,7 +32,7 @@ import { Rating } from '@douyinfe/semi-ui';
         <br/>
         <Rating size='small' defaultValue={5}/>
     </div>
-)
+);
 ```
 
 ### 半星
@@ -49,7 +49,7 @@ import { Rating } from '@douyinfe/semi-ui';
         <br/>
         <Rating allowHalf defaultValue={3.65}/>
     </div>
-)
+);
 ```
 
 ### 只读
@@ -60,7 +60,7 @@ import { Rating } from '@douyinfe/semi-ui';
 
 () => (
     <Rating disabled defaultValue={3} />
-)
+);
 ```
 
 ### 点击清除
@@ -80,7 +80,7 @@ import { Rating } from '@douyinfe/semi-ui';
         <br/>
         <Rating allowClear={false} defaultValue={3}/>
     </div>
-)
+);
 ```
 
 ### 文案展现
@@ -104,7 +104,7 @@ import { Rating } from '@douyinfe/semi-ui';
             <Rating tooltips={desc} onChange={change} value={value} />
         </div>
     );
-}
+};
 ```
 
 ### 自定义
@@ -130,7 +130,7 @@ import { IconLikeHeart } from '@douyinfe/semi-icons';
         <br/>
         <Rating count={10} defaultValue={6}/>
     </div>
-)
+);
 ```
 
 ## API参考

@@ -30,174 +30,7 @@ import React from 'react';
 import { TreeSelect } from '@douyinfe/semi-ui';
 
 () => {
-  const treeData = [
-    {
-        label: 'Asia',
-        value: 'Asia',
-        key: '0',
-        children: [
-            {
-                label: 'China',
-                value: 'China',
-                key: '0-0',
-                children: [
-                    {
-                        label: 'Beijing',
-                        value: 'Beijing',
-                        key: '0-0-0',
-                    },
-                    {
-                        label: 'Shanghai',
-                        value: 'Shanghai',
-                        key: '0-0-1',
-                    },
-                ],
-            },
-        ],
-    },
-    {
-        label: 'North America',
-        value: 'North America',
-        key: '1',
-    }
-  ]
-  return (
-    <TreeSelect
-      style={{ width: 300 }}
-      dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-      treeData={treeData}
-      placeholder="Please select"
-    />
-  )
-}
-```
-
-### Multi-choice
-
-You could use `multiple` to set mode to multi-choice. When all child items are selected, the parent item will be selected. Use `maxTagCount` to set the cap number of tags displayed. Use `leafOnly` (>= v0.32.0) if you prefer to render leaf nodes only and the corresponding params for onChange will also be leaf nodes values.
-
-```jsx live=true
-import React from 'react';
-import { TreeSelect } from '@douyinfe/semi-ui';
-
-() => {
-  const treeData = [
-    {
-        label: 'Asia',
-        value: 'Asia',
-        key: '0',
-        children: [
-            {
-                label: 'China',
-                value: 'China',
-                key: '0-0',
-                children: [
-                    {
-                        label: 'Beijing',
-                        value: 'Beijing',
-                        key: '0-0-0',
-                    },
-                    {
-                        label: 'Shanghai',
-                        value: 'Shanghai',
-                        key: '0-0-1',
-                    },
-                    {
-                        label: 'Chengdu',
-                        value: 'Chengdu',
-                        key: '0-0-2',
-                    },
-                ],
-            },
-            {
-                label: 'Japan',
-                value: 'Japan',
-                key: '0-1',
-                children: [
-                    {
-                        label: 'Osaka',
-                        value: 'Osaka',
-                        key: '0-1-0'
-                    }
-                ]
-            },
-        ],
-    },
-    {
-        label: 'North America',
-        value: 'North America',
-        key: '1',
-        children: [
-            {
-                label: 'United States',
-                value: 'United States',
-                key: '1-0'
-            },
-            {
-                label: 'Canada',
-                value: 'Canada',
-                key: '1-1'
-            }
-        ]
-    }
-  ];
-  return (
-    <div>
-      <TreeSelect
-        style={{ width: 300 }}
-        multiple
-        dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-        treeData={treeData}
-        placeholder="Please select"
-      />
-      <br/>
-      <br/>
-      <TreeSelect
-        style={{ width: 300 }}
-        dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-        treeData={treeData}
-        multiple
-        maxTagCount={2}
-        placeholder="Display at most two tags"
-      />
-      <br/>
-      <br/>
-      <TreeSelect
-        style={{ width: 300 }}
-        dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-        treeData={treeData}
-        multiple
-        leafOnly
-        placeholder="Display leaf nodes only"
-      />
-    </div>
-  )
-}
-```
-
-### Searchable
-
-Use `filterTreeNode` to support search input. By default it searches the `label` property of the data. You can use `treeNodeFilterProp` to set another property to search or pass in a function to `filterTreeNode` to customize search behavior.
-
-You could also use `showFilteredOnly` if you prefer to display filtered results only.
-
-```jsx live=true
-import React from 'react';
-import { TreeSelect, Switch } from '@douyinfe/semi-ui';
-
-class Demo extends React.Component {
-    constructor() {
-        super()
-        this.state = {
-            showFilteredOnly: false,
-        }
-        this.onChange = this.onChange.bind(this);
-    }
-    onChange(showFilteredOnly) {
-        this.setState({ showFilteredOnly });
-    }
-    render() {
-        const treeData = [
+    const treeData = [
         {
             label: 'Asia',
             value: 'Asia',
@@ -217,6 +50,62 @@ class Demo extends React.Component {
                             label: 'Shanghai',
                             value: 'Shanghai',
                             key: '0-0-1',
+                        },
+                    ],
+                },
+            ],
+        },
+        {
+            label: 'North America',
+            value: 'North America',
+            key: '1',
+        }
+    ];
+    return (
+        <TreeSelect
+            style={{ width: 300 }}
+            dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+            treeData={treeData}
+            placeholder="Please select"
+        />
+    );
+};
+```
+
+### Multi-choice
+
+You could use `multiple` to set mode to multi-choice. When all child items are selected, the parent item will be selected. Use `maxTagCount` to set the cap number of tags displayed. Use `leafOnly` (>= v0.32.0) if you prefer to render leaf nodes only and the corresponding params for onChange will also be leaf nodes values.
+
+```jsx live=true
+import React from 'react';
+import { TreeSelect } from '@douyinfe/semi-ui';
+
+() => {
+    const treeData = [
+        {
+            label: 'Asia',
+            value: 'Asia',
+            key: '0',
+            children: [
+                {
+                    label: 'China',
+                    value: 'China',
+                    key: '0-0',
+                    children: [
+                        {
+                            label: 'Beijing',
+                            value: 'Beijing',
+                            key: '0-0-0',
+                        },
+                        {
+                            label: 'Shanghai',
+                            value: 'Shanghai',
+                            key: '0-0-1',
+                        },
+                        {
+                            label: 'Chengdu',
+                            value: 'Chengdu',
+                            key: '0-0-2',
                         },
                     ],
                 },
@@ -252,55 +141,166 @@ class Demo extends React.Component {
             ]
         }
     ];
-    const { showFilteredOnly } = this.state;
     return (
-        <>
-        <span>showFilteredOnly</span>
-        <Switch
-            checked={showFilteredOnly}
-            onChange={this.onChange}
-            size="small"
-        />
-        <br/>
-        <br/>
-        <TreeSelect
-            style={{ width: 300 }}
-            dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-            treeData={treeData}
-            filterTreeNode
-            showFilteredOnly={showFilteredOnly}
-            placeholder="Single Searchable TreeSelect"
-            searchPlaceholder="Start searching"
-        />
-        <br/>
-        <br/>
-        <TreeSelect
-            style={{ width: 300 }}
-            dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-            treeData={treeData}
-            multiple
-            filterTreeNode
-            maxTagCount={2}
-            showFilteredOnly={showFilteredOnly}
-            placeholder="Multiple Searchable TreeSelect"
-            searchPlaceholder="Start searching"
-        />
-        <br/>
-        <br/>
-        <TreeSelect
-            style={{ width: 300 }}
-            dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-            treeData={treeData}
-            multiple
-            filterTreeNode
-            maxTagCount={2}
-            showFilteredOnly={showFilteredOnly}
-            placeholder="search input autofocus"
-            searchPlaceholder="autofocus"
-            searchAutoFocus
-        />
-        </>
-    )
+        <div>
+            <TreeSelect
+                style={{ width: 300 }}
+                multiple
+                dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                treeData={treeData}
+                placeholder="Please select"
+            />
+            <br/>
+            <br/>
+            <TreeSelect
+                style={{ width: 300 }}
+                dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                treeData={treeData}
+                multiple
+                maxTagCount={2}
+                placeholder="Display at most two tags"
+            />
+            <br/>
+            <br/>
+            <TreeSelect
+                style={{ width: 300 }}
+                dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                treeData={treeData}
+                multiple
+                leafOnly
+                placeholder="Display leaf nodes only"
+            />
+        </div>
+    );
+};
+```
+
+### Searchable
+
+Use `filterTreeNode` to support search input. By default it searches the `label` property of the data. You can use `treeNodeFilterProp` to set another property to search or pass in a function to `filterTreeNode` to customize search behavior.
+
+You could also use `showFilteredOnly` if you prefer to display filtered results only.
+
+```jsx live=true
+import React from 'react';
+import { TreeSelect, Switch } from '@douyinfe/semi-ui';
+
+class Demo extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            showFilteredOnly: false,
+        };
+        this.onChange = this.onChange.bind(this);
+    }
+    onChange(showFilteredOnly) {
+        this.setState({ showFilteredOnly });
+    }
+    render() {
+        const treeData = [
+            {
+                label: 'Asia',
+                value: 'Asia',
+                key: '0',
+                children: [
+                    {
+                        label: 'China',
+                        value: 'China',
+                        key: '0-0',
+                        children: [
+                            {
+                                label: 'Beijing',
+                                value: 'Beijing',
+                                key: '0-0-0',
+                            },
+                            {
+                                label: 'Shanghai',
+                                value: 'Shanghai',
+                                key: '0-0-1',
+                            },
+                        ],
+                    },
+                    {
+                        label: 'Japan',
+                        value: 'Japan',
+                        key: '0-1',
+                        children: [
+                            {
+                                label: 'Osaka',
+                                value: 'Osaka',
+                                key: '0-1-0'
+                            }
+                        ]
+                    },
+                ],
+            },
+            {
+                label: 'North America',
+                value: 'North America',
+                key: '1',
+                children: [
+                    {
+                        label: 'United States',
+                        value: 'United States',
+                        key: '1-0'
+                    },
+                    {
+                        label: 'Canada',
+                        value: 'Canada',
+                        key: '1-1'
+                    }
+                ]
+            }
+        ];
+        const { showFilteredOnly } = this.state;
+        return (
+            <>
+                <span>showFilteredOnly</span>
+                <Switch
+                    checked={showFilteredOnly}
+                    onChange={this.onChange}
+                    size="small"
+                />
+                <br/>
+                <br/>
+                <TreeSelect
+                    style={{ width: 300 }}
+                    dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                    treeData={treeData}
+                    filterTreeNode
+                    showFilteredOnly={showFilteredOnly}
+                    placeholder="Single Searchable TreeSelect"
+                    searchPlaceholder="Start searching"
+                />
+                <br/>
+                <br/>
+                <TreeSelect
+                    style={{ width: 300 }}
+                    dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                    treeData={treeData}
+                    multiple
+                    filterTreeNode
+                    maxTagCount={2}
+                    showFilteredOnly={showFilteredOnly}
+                    placeholder="Multiple Searchable TreeSelect"
+                    searchPlaceholder="Start searching"
+                />
+                <br/>
+                <br/>
+                <TreeSelect
+                    style={{ width: 300 }}
+                    dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                    treeData={treeData}
+                    multiple
+                    filterTreeNode
+                    maxTagCount={2}
+                    showFilteredOnly={showFilteredOnly}
+                    placeholder="search input autofocus"
+                    searchPlaceholder="autofocus"
+                    searchAutoFocus
+                />
+            </>
+        );
     }
 }
 ```
@@ -398,7 +398,7 @@ import { TreeSelect } from '@douyinfe/semi-ui';
             />
         </>
     );
-}
+};
 ```
 
 ### Size
@@ -410,7 +410,7 @@ import React from 'react';
 import { TreeSelect } from '@douyinfe/semi-ui';
 
 () => {
-  const treeData = [
+    const treeData = [
         {
             label: 'Asia',
             value: 'Asia',
@@ -465,39 +465,39 @@ import { TreeSelect } from '@douyinfe/semi-ui';
             ]
         }
     ];
-  return ( 
-    <div>
-        <TreeSelect
-            style={{ width: 300 }}
-            dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-            treeData={treeData}
-            multiple
-            size="small"
-            placeholder="small"
-        />
-        <br />
-        <br />
-        <TreeSelect
-            style={{ width: 300 }}
-            dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-            treeData={treeData}
-            multiple
-            size="default"
-            placeholder="default"
-        />
-        <br />
-        <br />
-        <TreeSelect
-            style={{ width: 300 }}
-            dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-            treeData={treeData}
-            multiple
-            size="large"
-            placeholder="large"
-        />
-    </div>
-  )
-}
+    return ( 
+        <div>
+            <TreeSelect
+                style={{ width: 300 }}
+                dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                treeData={treeData}
+                multiple
+                size="small"
+                placeholder="small"
+            />
+            <br />
+            <br />
+            <TreeSelect
+                style={{ width: 300 }}
+                dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                treeData={treeData}
+                multiple
+                size="default"
+                placeholder="default"
+            />
+            <br />
+            <br />
+            <TreeSelect
+                style={{ width: 300 }}
+                dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                treeData={treeData}
+                multiple
+                size="large"
+                placeholder="large"
+            />
+        </div>
+    );
+};
 ```
 
 ### Disabled
@@ -507,68 +507,68 @@ import React from 'react';
 import { TreeSelect } from '@douyinfe/semi-ui';
 
 () => {
-  const treeData = [
-    {
-        label: 'Asia',
-        value: 'Asia',
-        key: '0',
-        children: [
-            {
-                label: 'China',
-                value: 'China',
-                key: '0-0',
-                children: [
-                    {
-                        label: 'Beijing',
-                        value: 'Beijing',
-                        key: '0-0-0',
-                    },
-                    {
-                        label: 'Shanghai',
-                        value: 'Shanghai',
-                        key: '0-0-1',
-                    },
-                ],
-            },
-        ],
-    },
-    {
-        label: 'North America',
-        value: 'North America',
-        key: '1',
-    }
-  ]
-  return (
-    <div>
-        <TreeSelect
-            style={{ width: 300 }}
-            dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-            treeData={treeData}
-            disabled
-            placeholder="Disabled TreeSelect"
-        />
-        <br />
-        <br />
-        <TreeSelect
-            style={{ width: 300 }}
-            defaultValue={'Shanghai'}
-            dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-            treeData={treeData}
-            disabled
-        />
-        <br />
-        <br />
-        <TreeSelect
-            style={{ width: 300 }}
-            defaultValue={['Shanghai', 'North America']}
-            dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-            treeData={treeData}
-            multiple
-            disabled
-        />
-    </div>
-  )
-}
+    const treeData = [
+        {
+            label: 'Asia',
+            value: 'Asia',
+            key: '0',
+            children: [
+                {
+                    label: 'China',
+                    value: 'China',
+                    key: '0-0',
+                    children: [
+                        {
+                            label: 'Beijing',
+                            value: 'Beijing',
+                            key: '0-0-0',
+                        },
+                        {
+                            label: 'Shanghai',
+                            value: 'Shanghai',
+                            key: '0-0-1',
+                        },
+                    ],
+                },
+            ],
+        },
+        {
+            label: 'North America',
+            value: 'North America',
+            key: '1',
+        }
+    ];
+    return (
+        <div>
+            <TreeSelect
+                style={{ width: 300 }}
+                dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                treeData={treeData}
+                disabled
+                placeholder="Disabled TreeSelect"
+            />
+            <br />
+            <br />
+            <TreeSelect
+                style={{ width: 300 }}
+                defaultValue={'Shanghai'}
+                dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                treeData={treeData}
+                disabled
+            />
+            <br />
+            <br />
+            <TreeSelect
+                style={{ width: 300 }}
+                defaultValue={['Shanghai', 'North America']}
+                dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                treeData={treeData}
+                multiple
+                disabled
+            />
+        </div>
+    );
+};
 ```
 
 
@@ -585,56 +585,56 @@ import React from 'react';
 import { TreeSelect } from '@douyinfe/semi-ui';
 
 () => {
-  const treeData = [
-    {
-        label: 'Asia',
-        value: 'Asia',
-        key: '0',
-        children: [
-            {
-                label: 'China',
-                value: 'China',
-                key: '0-0',
-                disable: true,
-                children: [
-                    {
-                        label: 'Beijing',
-                        value: 'Beijing',
-                        key: '0-0-0',
-                    },
-                    {
-                        label: 'Shanghai',
-                        value: 'Shanghai',
-                        key: '0-0-1',
-                    },
-                ],
-            },
-            {
-                label: 'Japan',
-                value: 'Japan',
-                key: '0-1',
-            },
-        ],
-    },
-    {
-        label: 'North America',
-        value: 'North America',
-        key: '1',
-    }
-  ]
-  return ( 
-    <div>
-        <TreeSelect
-            style={{ width: 300 }}
-            dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-            treeData={treeData}
-            disableStrictly
-            multiple
-            defaultValue={['Shanghai']}
-        />
-    </div>
-  )
-}
+    const treeData = [
+        {
+            label: 'Asia',
+            value: 'Asia',
+            key: '0',
+            children: [
+                {
+                    label: 'China',
+                    value: 'China',
+                    key: '0-0',
+                    disable: true,
+                    children: [
+                        {
+                            label: 'Beijing',
+                            value: 'Beijing',
+                            key: '0-0-0',
+                        },
+                        {
+                            label: 'Shanghai',
+                            value: 'Shanghai',
+                            key: '0-0-1',
+                        },
+                    ],
+                },
+                {
+                    label: 'Japan',
+                    value: 'Japan',
+                    key: '0-1',
+                },
+            ],
+        },
+        {
+            label: 'North America',
+            value: 'North America',
+            key: '1',
+        }
+    ];
+    return ( 
+        <div>
+            <TreeSelect
+                style={{ width: 300 }}
+                dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                treeData={treeData}
+                disableStrictly
+                multiple
+                defaultValue={['Shanghai']}
+            />
+        </div>
+    );
+};
 ```
 
 ### Default Expand All
@@ -685,7 +685,7 @@ import { TreeSelect } from '@douyinfe/semi-ui';
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        setTimeout(() => setData(treeData), 500)
+        setTimeout(() => setData(treeData), 500);
     }, []);
 
     return (
@@ -703,8 +703,8 @@ import { TreeSelect } from '@douyinfe/semi-ui';
                 placeholder="defaultExpandAll"
             />
         </>
-    )
-}
+    );
+};
 ```
 
 ### Controlled Component
@@ -717,13 +717,13 @@ import { TreeSelect } from '@douyinfe/semi-ui';
 
 class Demo extends React.Component {
     constructor() {
-        super()
+        super();
         this.state = {
             value: 'Shanghai'
         };
     }
     onChange(value) {
-        this.setState({value})
+        this.setState({value});
     }
     render() {
         const treeData = [
@@ -766,7 +766,7 @@ class Demo extends React.Component {
                 placeholder="Please select"
                 onChange={e => this.onChange(e)}
             />
-        )
+        );
     }
 }
 ```
@@ -791,7 +791,7 @@ class Demo extends React.Component {
         this.state = {
             gData: [],
             total: 0,
-        }
+        };
         this.onGen = this.onGen.bind(this);
     }
 
@@ -841,32 +841,32 @@ class Demo extends React.Component {
     };
   
     render() {
-      return (
-        <div style={{ padding: '0 20px' }}>
-          <Button onClick={this.onGen}>Generate Data: </Button>
-          <span>In total: {this.state.total}</span>
-          <br/>
-          <br/>
-          {this.state.gData.length ? (
-                <TreeSelect
-                  style={{ width: 300 }}
-                  treeData={this.state.gData}
-                  filterTreeNode
-                  showFilteredOnly
-                  placeholder="Please select"
-                  dropdownStyle={{ 
-                      overflow: 'hidden'
-                    }}
-                  virtualize={{
-                    itemSize: 28,
-                    // dropDown height 300 minus search box height minus padding 8 * 2
-                    // or if you set dropDown height, it will automatically fill rest space
-                    height: 236                
-                  }}
-            />
-          ) : null}
-        </div>
-      );
+        return (
+            <div style={{ padding: '0 20px' }}>
+                <Button onClick={this.onGen}>Generate Data: </Button>
+                <span>In total: {this.state.total}</span>
+                <br/>
+                <br/>
+                {this.state.gData.length ? (
+                    <TreeSelect
+                        style={{ width: 300 }}
+                        treeData={this.state.gData}
+                        filterTreeNode
+                        showFilteredOnly
+                        placeholder="Please select"
+                        dropdownStyle={{ 
+                            overflow: 'hidden'
+                        }}
+                        virtualize={{
+                            itemSize: 28,
+                            // dropDown height 300 minus search box height minus padding 8 * 2
+                            // or if you set dropDown height, it will automatically fill rest space
+                            height: 236                
+                        }}
+                    />
+                ) : null}
+            </div>
+        );
     }
 }
 ```
@@ -879,10 +879,10 @@ import { TreeSelect, Button } from '@douyinfe/semi-ui';
 
 class Demo extends React.Component {
     constructor() {
-        super()
+        super();
         this.state = {
             treeData: [],
-        }
+        };
         this.add = this.add.bind(this);
     }
     add() {
@@ -894,7 +894,7 @@ class Demo extends React.Component {
                     key: `${i}-${ci}`,
                     label: `Leaf-${i}-${ci}`,
                     value: `${i}-${ci}`
-                }
+                };
                 return child;
             });
             let item = {
@@ -904,7 +904,7 @@ class Demo extends React.Component {
                 children
             };
             return item;
-        })
+        });
         this.setState({ treeData });
     }
     render() {
@@ -922,7 +922,7 @@ class Demo extends React.Component {
                     Update Data
                 </Button>
             </>
-        )
+        );
     }
 }
 ```
@@ -1026,36 +1026,36 @@ import { IconClose, IconChevronDown } from '@douyinfe/semi-icons';
 function Demo() {
     const [value, setValue] = useState([]);
     const treeData = useMemo(() => [
-            {
-                label: 'Asia',
-                value: 'Asia',
-                key: '0',
-                children: [
-                    {
-                        label: 'China',
-                        value: 'China',
-                        key: '0-0',
-                        children: [
-                            {
-                                label: 'Beijing',
-                                value: 'Beijing',
-                                key: '0-0-0',
-                            },
-                            {
-                                label: 'Shanghai',
-                                value: 'Shanghai',
-                                key: '0-0-1',
-                            },
-                        ],
-                    },
-                ],
-            },
-            {
-                label: 'North America',
-                value: 'North America',
-                key: '1',
-            }
-        ], []);
+        {
+            label: 'Asia',
+            value: 'Asia',
+            key: '0',
+            children: [
+                {
+                    label: 'China',
+                    value: 'China',
+                    key: '0-0',
+                    children: [
+                        {
+                            label: 'Beijing',
+                            value: 'Beijing',
+                            key: '0-0-0',
+                        },
+                        {
+                            label: 'Shanghai',
+                            value: 'Shanghai',
+                            key: '0-0-1',
+                        },
+                    ],
+                },
+            ],
+        },
+        {
+            label: 'North America',
+            value: 'North America',
+            key: '1',
+        }
+    ], []);
     const onChange = useCallback((val) => {
         setValue(val);
     }, []);
@@ -1102,45 +1102,45 @@ import { TreeSelect, Tag } from '@douyinfe/semi-ui';
 function Demo() {
     const [value, setValue] = useState([]);
     const treeData = useMemo(() => [
-      {
-          label: 'Asia',
-          value: 'Asia',
-          key: '0',
-          children: [
-              {
-                  label: 'China',
-                  value: 'China',
-                  key: '0-0',
-                  children: [
-                      {
-                          label: 'Beijing',
-                          value: 'Beijing',
-                          key: '0-0-0',
-                      },
-                      {
-                          label: 'Shanghai',
-                          value: 'Shanghai',
-                          key: '0-0-1',
-                      },
-                  ],
-              },
-          ],
-      },
-      {
-        label: 'North America',
-        value: 'North America',
-        key: '1',
-      },
-      {
-        label: 'South America',
-        value: 'South America',
-        key: '2',
-      },
-      {
-        label: 'Antarctica',
-        value: 'Antarctica',
-        key: '3',
-      },
+        {
+            label: 'Asia',
+            value: 'Asia',
+            key: '0',
+            children: [
+                {
+                    label: 'China',
+                    value: 'China',
+                    key: '0-0',
+                    children: [
+                        {
+                            label: 'Beijing',
+                            value: 'Beijing',
+                            key: '0-0-0',
+                        },
+                        {
+                            label: 'Shanghai',
+                            value: 'Shanghai',
+                            key: '0-0-1',
+                        },
+                    ],
+                },
+            ],
+        },
+        {
+            label: 'North America',
+            value: 'North America',
+            key: '1',
+        },
+        {
+            label: 'South America',
+            value: 'South America',
+            key: '2',
+        },
+        {
+            label: 'Antarctica',
+            value: 'Antarctica',
+            key: '3',
+        },
     ], []);
     
     return (

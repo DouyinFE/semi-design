@@ -31,7 +31,7 @@ import { Pagination } from '@douyinfe/semi-ui';
         <Pagination total={200} style={{ marginBottom: 12 }}></Pagination>
         <Pagination total={80} pageSize={30} style={{ marginBottom: 12 }}></Pagination>
     </div>
-)
+);
 ```
 
 ### Show total page number
@@ -47,7 +47,7 @@ import { Pagination } from '@douyinfe/semi-ui';
         <Pagination total={80} showTotal style={{ marginBottom: 12 }}></Pagination>
         <Pagination total={200} showTotal style={{ marginBottom: 12 }}></Pagination>
     </div>
-)
+);
 ```
 
 ### Specify current page number
@@ -62,7 +62,7 @@ import { Pagination } from '@douyinfe/semi-ui';
     <div>
         <Pagination total={80} showTotal defaultCurrentPage={3}></Pagination>
     </div>
-)
+);
 ```
 
 ### Capacity switching per page
@@ -80,7 +80,7 @@ import { Pagination } from '@douyinfe/semi-ui';
         <br/>
         <Pagination total={300} showSizeChanger></Pagination>
     </div>
-)
+);
 ```
 
 ### Jump to a page quickly
@@ -99,7 +99,7 @@ import { Pagination } from '@douyinfe/semi-ui';
         <Pagination total={80} showQuickJumper style={{ marginBottom: 12 }}></Pagination>
         <Pagination total={300} showQuickJumper></Pagination>
     </div>
-)
+);
 ```
 
 
@@ -123,7 +123,7 @@ import { Pagination } from '@douyinfe/semi-ui';
             onPageChange={onPageChange}>
         </Pagination>
     );
-}
+};
 ```
 
 ### Preset capacity per page
@@ -149,7 +149,7 @@ import { Pagination } from '@douyinfe/semi-ui';
             pageSizeOpts={[10, 20, 50, 200]}>
         </Pagination>
     </div>
-)
+);
 ```
 
 ### Mini version
@@ -162,7 +162,7 @@ import { Pagination } from '@douyinfe/semi-ui';
 
 () => (
     <Pagination total={90} size="small"></Pagination>
-)
+);
 ```
 
 Turn on hoverShowPageSelect to quickly switch hover page numbers (provided after v1.27.0)
@@ -173,7 +173,7 @@ import { Pagination } from '@douyinfe/semi-ui';
 
 () => (
     <Pagination total={90} size="small" hoverShowPageSelect></Pagination>
-)
+);
 ```
 
 ## API reference

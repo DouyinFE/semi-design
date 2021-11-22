@@ -45,12 +45,12 @@ import { IconSearch } from '@douyinfe/semi-icons';
             result = [];
         }
         setStringData(result);
-    }
+    };
 
     const handleChange = (value) => {
         console.log('onChange', value);
         setValue(value);
-    }
+    };
     return (
         <AutoComplete
             data={stringData}
@@ -62,8 +62,8 @@ import { IconSearch } from '@douyinfe/semi-icons';
             onChange={handleChange}
             style={{ width: 200 }}
         />
-    )
-}
+    );
+};
 ```
 
 ### 自定义候选项渲染
@@ -253,7 +253,7 @@ import { AutoComplete } from '@douyinfe/semi-ui';
             style={{ width: 200 }}
         ></AutoComplete>
     </div>
-)
+);
 ```
 
 ### 下拉菜单的位置
@@ -279,7 +279,7 @@ import { AutoComplete } from '@douyinfe/semi-ui';
             style={{ width: 200, margin: 10 }}
         ></AutoComplete>
     </div>
-)
+);
 ```
 
 ### 禁用
@@ -290,7 +290,7 @@ import { AutoComplete } from '@douyinfe/semi-ui';
 
 () => (
     <AutoComplete data={[1, 2, 3, 4]} placeholder={'禁用下拉菜单'} disabled style={{ width: 200 }}></AutoComplete>
-)
+);
 ```
 
 ### 校验状态
@@ -311,7 +311,7 @@ import { AutoComplete } from '@douyinfe/semi-ui';
         <br />
         <AutoComplete defaultValue="ies"></AutoComplete>
     </>
-)
+);
 ```
 
 ### 自定义空内容

@@ -128,7 +128,7 @@ v2.0 Semi is officially released to the public network npm, the package name nee
 
 #### Import components
 
-```jsx
+```text
 // before
 import { Select, Input, Form } from '@ies/semi-ui-react';
 
@@ -140,7 +140,7 @@ import { Select, Input, Form } from '@douyinfe/semi-ui';
 
 All interface related changes can be found in [Semi 1.x -> 2.0 TS interface change detailed record](https://bytedance.feishu.cn/docs/doccn5abrdIWvXO7No0Wkh8zo4b)
 
-```jsx
+```text
 // before
 import { SelectProps } from '@ies/semi-ui-react/select' 
 
@@ -150,7 +150,7 @@ import { SelectProps } from '@douyinfe/semi-ui/lib/es/select'
 
 #### Import locale language packages
 
-```jsx
+```text
 // before
 import en_GB from '@ies/semi-ui-react/locale/source/en_GB'
 
@@ -198,22 +198,22 @@ If you use Semi plug-ins, such as `@ies/semi-ui-plugin-webpack` or `@ies/semi-ui
 In the 0.x/1.x version of Semi, we strongly rely on svg-sprite-loader to convert svg files to svg symbols and insert body at runtime, so that we can use Icon icons only through < Icon type = 'xxx'/> in the form of string. While convenient to use, it also brings some problems: icon is introduced in full by default and cannot be shaken; svg-sprite-loader is strongly bound to webpack and cannot easily support Rollup, Vite, Snowpack and other construction schemes. Therefore, in 2.0, we removed the strong binding with svg-sprite-loader, and the consumption mode of Icon needs to be changed:
 Icon usage adjustment:
 
-```jsx
+```text
 // 1.x default iconLazyload is false
-<Icon type="home" />
+<Icon type="home" />;
 
 // 1.x when iconLazyload is true
 import homeSvg from '@ies/semi-icons/semi-icons-home.svg';
-<Icon type={homeSvg.id} />
+<Icon type={homeSvg.id} />;
 
 // 2.x use the following methods uniformly
 import { IconHome } from '@douyinfe/semi-icons';
-<IconHome />
+<IconHome />;
 ```
 
 Illustration Adjustment:
 
-```jsx
+```text
 // 1.x
 import { Empty } from '@ies/semi-ui-react';
 import Construction from '@ies/semi-illustrations/construction.svg';

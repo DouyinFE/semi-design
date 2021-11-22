@@ -290,9 +290,9 @@ class Demo extends React.Component {
         const maskStyle = isOpen
             ? {}
             : {
-                  WebkitMaskImage:
+                WebkitMaskImage:
                       'linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 0.2) 80%, transparent 100%)',
-              };
+            };
         const collapsed = (
             <ul>
                 <li>

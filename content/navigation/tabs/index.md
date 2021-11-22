@@ -92,7 +92,7 @@ import { Tabs, TabPane } from '@douyinfe/semi-ui';
             </TabPane>
         </Tabs>
     </div>
-)
+);
 
 ```
 
@@ -112,7 +112,7 @@ import { Tabs, TabPane } from '@douyinfe/semi-ui';
             帮助
         </TabPane>
     </Tabs>
-)
+);
 ```
 
 ```jsx live=true
@@ -131,6 +131,7 @@ class TabDemo extends React.Component {
     }
 
     render() {
+        // eslint-disable-next-line react/jsx-key
         const contentList = [<div>文档</div>, <div>快速起步</div>, <div>帮助</div>];
         const tabList = [
             { tab: '文档', itemKey: '1' },
@@ -162,42 +163,42 @@ import { Tabs, TabPane } from '@douyinfe/semi-ui';
 import { IconFile, IconGlobe, IconHelpCircle } from '@douyinfe/semi-icons';
 
 () => (
-  <Tabs>
-      <TabPane
-          tab={
-              <span>
-                  <IconFile />
-                  文档
-              </span>
-          }
-          itemKey="1"
-      >
-          文档
-      </TabPane>
-      <TabPane
-          tab={
-              <span>
-                  <IconGlobe />
-                  快速起步
-              </span>
-          }
-          itemKey="2"
-      >
-          快速起步
-      </TabPane>
-      <TabPane
-          tab={
-              <span>
-                  <IconHelpCircle />
-                  帮助
-              </span>
-          }
-          itemKey="3"
-      >
-          帮助
-      </TabPane>
-  </Tabs>
-)
+    <Tabs>
+        <TabPane
+            tab={
+                <span>
+                    <IconFile />
+                    文档
+                </span>
+            }
+            itemKey="1"
+        >
+            文档
+        </TabPane>
+        <TabPane
+            tab={
+                <span>
+                    <IconGlobe />
+                    快速起步
+                </span>
+            }
+            itemKey="2"
+        >
+            快速起步
+        </TabPane>
+        <TabPane
+            tab={
+                <span>
+                    <IconHelpCircle />
+                    帮助
+                </span>
+            }
+            itemKey="3"
+        >
+            帮助
+        </TabPane>
+    </Tabs>
+);
 ```
 
 ### 垂直的标签栏
@@ -406,7 +407,7 @@ import { Tabs, TabPane, Button } from '@douyinfe/semi-ui';
             帮助
         </TabPane>
     </Tabs>
-)
+);
 ```
 
 ### 标签栏二次封装
@@ -439,7 +440,7 @@ import { Tabs, TabPane } from '@douyinfe/semi-ui';
             帮助
         </TabPane>
     </Tabs>
-)
+);
 ```
 
 ### 动态更新

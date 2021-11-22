@@ -45,7 +45,7 @@ import { Progress } from '@douyinfe/semi-ui';
         <br />
         <Progress percent={80} style={{ height: '8px' }} />
     </div>
-)
+);
 ```
 
 ### 展示百分比文本
@@ -66,7 +66,7 @@ import { Progress } from '@douyinfe/semi-ui';
         <br />
         <Progress percent={50} showInfo={true} format={percent => percent * 10 + '‰'} />
     </div>
-)
+);
 ```
 
 ### 垂直的进度条
@@ -85,7 +85,7 @@ import { Progress } from '@douyinfe/semi-ui';
         <Progress percent={80} direction="vertical" size="large" />
         <Progress percent={80} direction="vertical" style={{ width: '8px' }} />
     </div>
-)
+);
 ```
 
 ### 环形进度条
@@ -103,7 +103,7 @@ import { Progress } from '@douyinfe/semi-ui';
         <Progress percent={50} type="circle" style={{ margin: 5 }} />
         <Progress percent={80} type="circle" style={{ margin: 5 }} />
     </div>
-)
+);
 ```
 
 你可以通过修改`width`来控制环形进度条的大小
@@ -121,7 +121,7 @@ import { Progress } from '@douyinfe/semi-ui';
             <Progress percent={100} type="circle" width={100} style={{ margin: 5 }} stroke="#f93920" />
         </div>
     </React.Fragment>
-)
+);
 ```
 
 ### 小号的环形进度条
@@ -139,15 +139,14 @@ import { Progress } from '@douyinfe/semi-ui';
         <Progress percent={50} type="circle" size="small" style={{ margin: 5 }} />
         <Progress percent={80} type="circle" size="small" style={{ margin: 5 }} />
     </React.Fragment>
-)
+);
 ```
 
 ### 动态改变进度
 
 ```jsx live=true
-import React from 'react';
-import { Progress } from '@douyinfe/semi-ui';
 import React, { useState } from 'react';
+import { Progress, Button } from '@douyinfe/semi-ui';
 import { IconChevronLeft, IconChevronRight } from '@douyinfe/semi-icons';
 
 () => {
@@ -179,9 +178,8 @@ import { IconChevronLeft, IconChevronRight } from '@douyinfe/semi-icons';
 ```
 
 ```jsx live=true
-import React from 'react';
-import { Progress } from '@douyinfe/semi-ui';
 import React, { useState } from 'react';
+import { Progress, Button } from '@douyinfe/semi-ui';
 import { IconChevronLeft, IconChevronRight } from '@douyinfe/semi-icons';
 
 () => {
@@ -225,9 +223,9 @@ import { Progress } from '@douyinfe/semi-ui';
     <React.Fragment>
         <Progress percent={75} showInfo type="circle" format={per => per + 'Days'} style={{ margin: 10 }} />
         <Progress percent={100} showInfo type="circle" format={per => 'Done'} style={{ margin: 10 }} />
-        <Progress percent={50} showInfo type="circle" showInfo={false} style={{ margin: 10 }} />
+        <Progress percent={50} type="circle" showInfo={false} style={{ margin: 10 }} />
     </React.Fragment>
-)
+);
 ```
 
 ### 圆角/方角边缘
@@ -243,7 +241,7 @@ import { Progress } from '@douyinfe/semi-ui';
         <Progress percent={50} strokeLinecap="round" type="circle" style={{ margin: 10 }} />
         <Progress percent={50} strokeLinecap="square" type="circle" style={{ margin: 10 }} />
     </React.Fragment>
-)
+);
 ```
 
 ## API 参考
