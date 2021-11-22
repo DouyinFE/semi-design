@@ -10,6 +10,7 @@ module.exports = {
             "version": "detect"
         }
     },
+    extends: ["plugin:markdown/recommended"],
     overrides: [
         {
             files: ['*.js', '*.jsx'],
@@ -37,6 +38,7 @@ module.exports = {
         },
         {
             files: ['*.ts', '*.tsx'],
+            excludedFiles: ['content/**'],
             extends: ['jest-enzyme', 'plugin:@typescript-eslint/recommended', 'plugin:import/typescript', 'plugin:react/recommended'],
             parser: '@typescript-eslint/parser',
             parserOptions: {
