@@ -15,7 +15,7 @@ import ToastTransition from './ToastTransition';
 import getUuid from '@douyinfe/semi-foundation/utils/uuid';
 import useToast from './useToast';
 import { ConfigProps, ToastInstance, ToastProps, ToastState } from '@douyinfe/semi-foundation/toast/toastFoundation';
-import { Motion } from '_base/base';
+import { Motion } from '../_base/base';
 
 export { ToastTransitionProps } from './ToastTransition';
 export interface ToastReactProps extends ToastProps{
