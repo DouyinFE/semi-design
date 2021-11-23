@@ -26,7 +26,7 @@ export default class LocaleTimePicker extends React.PureComponent<LocalePickerPr
         const { type } = this.props;
         return (
             <ConfigContext.Consumer>
-                {({ timeZone }: { timeZone: string | number }) => (
+                {({ timeZone }: { timeZone?: string | number }) => (
                     <LocaleConsumer componentName="TimePicker">
                         {(locale: Locale['TimePicker'], localeCode: string, dateFnsLocale: Locale['dateFnsLocale']) => (
                             <BaseTimePicker
