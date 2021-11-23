@@ -11,7 +11,7 @@ import BaseComponent, { ValidateStatus } from '../_base/baseComponent';
 import { isEqual, isString, noop } from 'lodash-es';
 import Tag from '../tag/index';
 import TagGroup from '../tag/group';
-import LocaleCosumer from '../locale/localeConsumer';
+import LocaleConsumer from '../locale/localeConsumer';
 import Popover from '../popover/index';
 import { numbers as popoverNumbers } from '@douyinfe/semi-foundation/popover/constants';
 import { FixedSizeList as List } from 'react-window';
@@ -684,14 +684,14 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                     focused={isFocused}
                     style={style}
                 >
-                    <LocaleCosumer componentName="Select">
+                    <LocaleConsumer<Locale['Select']> componentName="Select" >
                         {(locale: Locale['Select']) => (
                             <>
                                 <span className={`${prefixcls}-create-tips`}>{locale.createText}</span>
                                 {option.value}
                             </>
                         )}
-                    </LocaleCosumer>
+                    </LocaleConsumer>
                 </Option>
             );
             return defaultCreateItem;
