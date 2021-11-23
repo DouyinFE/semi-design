@@ -501,6 +501,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 const clickOutsideHandler = (e: Event) => {
                     const optionInstance = this.optionsRef && this.optionsRef.current as React.ReactInstance;
                     const triggerDom = this.triggerRef && this.triggerRef.current;
+                    // eslint-disable-next-line
                     const optionsDom = ReactDOM.findDOMNode(optionInstance);
                     const target = e.target as Element;
                     if (
@@ -948,7 +949,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         const nodeHaveData = !isEmpty(nodes) && !isEmpty(nodes[0]);
         const isDisableStrictlyNode = disableStrictly && nodeHaveData && disabledKeys.has(nodes[0].key);
         const closable = nodeHaveData && !nodes[0].disabled && !disabled && !isDisableStrictlyNode;
-        const onClose = (tagChildren: string, e: React.MouseEvent) => {
+        const onClose = (tagChildren: React.ReactNode, e: React.MouseEvent) => {
             // When value has not changed, prevent clicking tag closeBtn to close tag
             e.preventDefault();
             this.removeTag(key);

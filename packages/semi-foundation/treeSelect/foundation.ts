@@ -127,7 +127,7 @@ export interface BasicTreeSelectProps extends Pick<BasicTreeProps,
     searchRender?: (inputProps: any) => any;
     renderSelectedItem?: BasicRenderSelectedItem;
     getPopupContainer?: () => HTMLElement;
-    triggerRender?: (props: BasicTriggerRenderProps) => any;
+    // triggerRender?: (props: BasicTriggerRenderProps) => any;
     onBlur?: (e: any) => void;
     onChange?: BasicOnChange;
     onFocus?: (e: any) => void;

@@ -62,6 +62,8 @@ module.exports = {
                 '@typescript-eslint/no-var-requires': 'warn',
                 '@typescript-eslint/no-inferrable-types': 'off',
                 '@typescript-eslint/no-this-alias': 'off',
+                 // In scenarios where specific rest props need to be passed, some keys may be taken out first, so set 'no-unused-vars' to off
+                '@typescript-eslint/no-unused-vars': 'off',
                 'import/no-unresolved': 'off'
             }
         },
