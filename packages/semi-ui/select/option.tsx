@@ -148,7 +148,7 @@ class Option extends PureComponent<OptionProps> {
                         <IconTick />
                     </div>
                 ) : null}
-                <div className={`${prefixCls}-text`}>{this.renderOptionContent({ children, config, inputValue, prefixCls })}</div>
+                {isString(children) ? <div className={`${prefixCls}-text`}>{this.renderOptionContent({ children, config, inputValue, prefixCls })}</div> : children}
             </div>
         );
     }
