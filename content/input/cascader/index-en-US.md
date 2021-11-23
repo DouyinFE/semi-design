@@ -1298,7 +1298,7 @@ interface TriggerRenderProps {
      *  as in the following example, when "Asia-China-Beijing" is 
      *  selected, the value here is 0-0-1
      */
-    value?: string;
+    value?: string | Set<string>;
     /* The input value of the current Input box */
     inputValue: string;
     /**
