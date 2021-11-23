@@ -103,7 +103,7 @@ Delayed to display Spin.
 
 ```jsx live=true hideInDSM
 import React, { useState } from 'react';
-import { Spin } from '@douyinfe/semi-ui';
+import { Spin, Button } from '@douyinfe/semi-ui';
 
 () => {
     const [loading, toggleLoading] = useState(false);
@@ -128,7 +128,7 @@ Use `spinning` to determine if the component is in loading status
 
 ```jsx live=true hideInDSM
 import React, { useState } from 'react';
-import { Spin } from '@douyinfe/semi-ui';
+import { Spin, Button } from '@douyinfe/semi-ui';
 
 () => {
     const [loading, toggleLoading] = useState(false);

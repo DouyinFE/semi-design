@@ -84,8 +84,8 @@ class App extends React.Component {
                             not meet my needs?
                         </p>
                         <p style={{ lineHeight: 1.8, color: 'var(--semi-color-text-1)' }}>
-                            Give feedbacks in the upper right corner, submit an Issue, describe your needs as well as
-                            the business scenario. We'll handle these issues with priorities.
+                            {`Give feedbacks in the upper right corner, submit an Issue, describe your needs as well as
+                            the business scenario. We'll handle these issues with priorities.`}
                         </p>
                         <p style={{ lineHeight: 1.8, color: 'var(--semi-color-text-0)', fontWeight: 600 }}>
                             Q: Have questions when using components?
@@ -140,6 +140,7 @@ class TabDemo extends React.Component {
     }
 
     render() {
+        // eslint-disable-next-line react/jsx-key
         const contentList = [<div>Document</div>, <div>Quick Start</div>, <div>Help</div>];
         const tabList = [
             { tab: 'Document', itemKey: '1' },
@@ -305,8 +306,8 @@ class App extends React.Component {
     render() {
         return (
             <Tabs style={{ width: '60%', margin: '20px' }} type="card" collapsible>
-                {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(i => (
-                    <TabPane tab={`Tab-${i}`} itemKey={`Tab-${i}`}>
+                {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((item, index) => (
+                    <TabPane tab={`Tab-${item}`} itemKey={`Tab-${item}`} key={item}>
                         Content of card tab {i}
                     </TabPane>
                 ))}
@@ -474,7 +475,7 @@ class App extends React.Component {
                 }
             >
                 {panes.map(pane => (
-                    <TabPane tab={pane.title} itemKey={pane.itemKey}>
+                    <TabPane tab={pane.title} itemKey={pane.itemKey} key={pane.itemKey}>
                         {pane.content}
                     </TabPane>
                 ))}

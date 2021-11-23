@@ -43,12 +43,12 @@ import React from 'react';
 import { DatePicker } from '@douyinfe/semi-ui';
 
 function Demo() {
-  return (
-      <div>
-        <DatePicker type="dateTime" density='compact' /><br /><br />
-        <DatePicker type="dateRange" density='compact' style={{ width: 260 }} />
-      </div>
-  );
+    return (
+        <div>
+            <DatePicker type="dateTime" density='compact' /><br /><br />
+            <DatePicker type="dateRange" density='compact' style={{ width: 260 }} />
+        </div>
+    );
 }
 ```
 
@@ -479,10 +479,10 @@ class App extends React.Component {
         this.disabledTime = date =>
             dateFns.isToday(date)
                 ? {
-                      disabledHours: () => [17, 18],
-                      disabledMinutes: hour => (19 === hour ? range(0, 10, 1) : []),
-                      disabledSeconds: (hour, minute) => (hour === 20 && minute === 20 ? range(0, 20, 1) : []),
-                  }
+                    disabledHours: () => [17, 18],
+                    disabledMinutes: hour => (19 === hour ? range(0, 10, 1) : []),
+                    disabledSeconds: (hour, minute) => (hour === 20 && minute === 20 ? range(0, 20, 1) : []),
+                }
                 : null;
 
         this.disabledTime2 = (date, panelType) => {

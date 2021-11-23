@@ -26,7 +26,7 @@ import { Calendar } from '@douyinfe/semi-ui';
 
 () => (
     <Calendar mode="day"></Calendar>
-)
+);
 ```
 
 ### Week Mode
@@ -39,7 +39,7 @@ import { Calendar } from '@douyinfe/semi-ui';
 
 () => (
     <Calendar mode="week"></Calendar>
-)
+);
 ```
 
 ### Month Mode
@@ -52,7 +52,7 @@ import { Calendar } from '@douyinfe/semi-ui';
 
 () => (
     <Calendar mode="month"></Calendar>
-)
+);
 ```
 
 ### Range Mode
@@ -65,7 +65,7 @@ import { Calendar } from '@douyinfe/semi-ui';
 
 () => (
     <Calendar mode="range" range={[new Date(2020, 8, 26), new Date(2020, 8, 31)]} />
-)
+);
 ```
 
 ### Render Events
@@ -218,18 +218,18 @@ import { Calendar } from '@douyinfe/semi-ui';
     };
     const displayValue = new Date(2019, 6, 23, 8, 32, 0);
     const dateRender = (dateString) => {
-      if (dateString === new Date(2019, 6, 23).toString()) {
-        return (
-          <>
-            <div style={{...dailyEventStyle, top: '500px', height: 50}}>Eating 🍰</div>
-            <div style={{...dailyEventStyle, top: '0', height: 400}}>Sleeping 😪</div>
-            <div style={{...dailyEventStyle, top: '700px', height: 100}}>Playstation 🎮</div>
-          </>
-        )
-      } else {
-        return null;
-      }
-    }
+        if (dateString === new Date(2019, 6, 23).toString()) {
+            return (
+                <>
+                    <div style={{...dailyEventStyle, top: '500px', height: 50}}>Eating 🍰</div>
+                    <div style={{...dailyEventStyle, top: '0', height: 400}}>Sleeping 😪</div>
+                    <div style={{...dailyEventStyle, top: '700px', height: 100}}>Playstation 🎮</div>
+                </>
+            );
+        } else {
+            return null;
+        }
+    };
     return (
         <Calendar 
             height={700}
@@ -238,7 +238,7 @@ import { Calendar } from '@douyinfe/semi-ui';
             dateGridRender={dateRender}
         />
     );
-}
+};
 ```
 
 #### Customized Date Cell Style
@@ -258,19 +258,19 @@ import { Calendar } from '@douyinfe/semi-ui';
     };
     const displayValue = new Date(2019, 6, 23, 8, 32, 0);
     const importDates = [
-      new Date(2019, 6, 2),
-      new Date(2019, 6, 8),
-      new Date(2019, 6, 19),
-      new Date(2019, 6, 23)
-    ]
+        new Date(2019, 6, 2),
+        new Date(2019, 6, 8),
+        new Date(2019, 6, 19),
+        new Date(2019, 6, 23)
+    ];
     const dateRender = (dateString) => {
-      if (importDates.filter(date => date.toString() === dateString).length) {
-        return (
-          <div style={importantDate} />
-        )
-      } 
-      return null;
-    }
+        if (importDates.filter(date => date.toString() === dateString).length) {
+            return (
+                <div style={importantDate} />
+            );
+        } 
+        return null;
+    };
     return (
         <Calendar 
             height={700}
@@ -279,7 +279,7 @@ import { Calendar } from '@douyinfe/semi-ui';
             dateGridRender={dateRender}
         />
     );
-}
+};
 ```
 
 ## API Reference

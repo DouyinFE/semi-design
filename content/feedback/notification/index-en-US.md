@@ -26,16 +26,16 @@ import React from 'react';
 import { Notification, Button } from '@douyinfe/semi-ui';
 
 () => (
-  <Button
-    onClick={()=> Notification.open({
-      title: 'Hi, Bytedance',
-      content: 'ies dance dance dance',
-      with: 3
-    })}
-  >
-    Display Notification
-  </Button>
-)
+    <Button
+        onClick={()=> Notification.open({
+            title: 'Hi, Bytedance',
+            content: 'ies dance dance dance',
+            with: 3
+        })}
+    >
+        Display Notification
+    </Button>
+);
 
 ```
 
@@ -48,29 +48,29 @@ import React from 'react';
 import { Notification, Button, ButtonGroup } from '@douyinfe/semi-ui';
 
 () => {
-  let opts = {
-    with: 3,
-    Position: 'topRight',
-    content: 'semi-ui-notification',
-    title: 'Hi bytedance',
-  };
+    let opts = {
+        with: 3,
+        Position: 'topRight',
+        content: 'semi-ui-notification',
+        title: 'Hi bytedance',
+    };
 
-  return (
-    <>
-      <ButtonGroup>
-        <Button onClick={() => Notification.info({...opts, Position: 'top'})}>top</Button>
-        <Button onClick={() => Notification.info({...opts, position: 'topLeft'})}>topLeft</Button>
-        <Button onClick={() => Notification.info(opts)}>topRight</Button>
-      </ButtonGroup>
-      <br/><br/>
-      <ButtonGroup>
-        <Button onClick={() => Notification.info({...opts, position: 'bottom'})}>bottom</Button>
-        <Button onClick={() => Notification.info({...opts, position: 'bottomRight'})}>bottomRight</Button>
-        <Button onClick={() => Notification.info({...opts, position: 'bottomLeft'})}>bottomLeft</Button>
-      </ButtonGroup>
-    </>
-  )
-}
+    return (
+        <>
+            <ButtonGroup>
+                <Button onClick={() => Notification.info({...opts, Position: 'top'})}>top</Button>
+                <Button onClick={() => Notification.info({...opts, position: 'topLeft'})}>topLeft</Button>
+                <Button onClick={() => Notification.info(opts)}>topRight</Button>
+            </ButtonGroup>
+            <br/><br/>
+            <ButtonGroup>
+                <Button onClick={() => Notification.info({...opts, position: 'bottom'})}>bottom</Button>
+                <Button onClick={() => Notification.info({...opts, position: 'bottomRight'})}>bottomRight</Button>
+                <Button onClick={() => Notification.info({...opts, position: 'bottomLeft'})}>bottomLeft</Button>
+            </ButtonGroup>
+        </>
+    );
+};
 ```
 
 ### With Icons
@@ -83,50 +83,50 @@ import { Notification, Button } from '@douyinfe/semi-ui';
 import { IconToutiaoLogo, IconVigoLogo } from '@douyinfe/semi-icons';
 
 () => {
-  let opts = {
-    title: 'Hi, Bytedance',
-    content: 'ies dance dance dance',
-    duration: 3,
-  };
+    let opts = {
+        title: 'Hi, Bytedance',
+        content: 'ies dance dance dance',
+        duration: 3,
+    };
 
-  return (
-    <>
-    <h5>Default Icon</h5>
-    <Button type='primary' onClick={()=>Notification.success(opts)} style={{margin: 4}}>
-      Success
-    </Button>
-    <Button onClick={() => Notification.info(opts)} style={{margin: 4}}>
-      Info
-    </Button>
-    <Button type="warning" onClick={()=>Notification.warning(opts)} style={{margin: 4}}>
-      Warning
-    </Button>
-    <Button type="danger" onClick={()=>Notification.error(opts)} style={{margin: 4}}>
-      Error
-    </Button>
-    <h5>Customized Icon</h5>
-    <Button
-      icon={<IconToutiaoLogo />}
-      style={{ marginRight: 5 }}
-      onClick={() =>
-          Notification.info({
-              ...opts,
-              icon: <IconToutiaoLogo style={{ color: 'red' }} />,
-          })
-      }
-    ></Button>
-    <Button
-      icon={<IconVigoLogo />}
-      style={{ marginRight: 5 }}
-      onClick={() => Notification.info({ ...opts, icon: <IconVigoLogo /> })}
-    ></Button>
-    <Button
-      icon={<IconVigoLogo />}
-      onClick={() => Notification.info({ ...opts, icon: <IconVigoLogo style={{ color: 'pink' }} />  })}
-    ></Button>
-    </>
-  )
-}
+    return (
+        <>
+            <h5>Default Icon</h5>
+            <Button type='primary' onClick={()=>Notification.success(opts)} style={{margin: 4}}>
+                Success
+            </Button>
+            <Button onClick={() => Notification.info(opts)} style={{margin: 4}}>
+                Info
+            </Button>
+            <Button type="warning" onClick={()=>Notification.warning(opts)} style={{margin: 4}}>
+                Warning
+            </Button>
+            <Button type="danger" onClick={()=>Notification.error(opts)} style={{margin: 4}}>
+                Error
+            </Button>
+            <h5>Customized Icon</h5>
+            <Button
+                icon={<IconToutiaoLogo />}
+                style={{ marginRight: 5 }}
+                onClick={() =>
+                    Notification.info({
+                        ...opts,
+                        icon: <IconToutiaoLogo style={{ color: 'red' }} />,
+                    })
+                }
+            ></Button>
+            <Button
+                icon={<IconVigoLogo />}
+                style={{ marginRight: 5 }}
+                onClick={() => Notification.info({ ...opts, icon: <IconVigoLogo /> })}
+            ></Button>
+            <Button
+                icon={<IconVigoLogo />}
+                onClick={() => Notification.info({ ...opts, icon: <IconVigoLogo style={{ color: 'pink' }} />  })}
+            ></Button>
+        </>
+    );
+};
 ```
 
 ### Colored Background
@@ -137,36 +137,36 @@ import React from 'react';
 import { Notification, Button } from '@douyinfe/semi-ui';
 
 () => {
-  let opts = {
-     title: 'Hi, Bytedance',
-    content: 'Hi, Bytedance dance dance',
-    duration: 3,
-    theme: 'light'
-  };
+    let opts = {
+        title: 'Hi, Bytedance',
+        content: 'Hi, Bytedance dance dance',
+        duration: 3,
+        theme: 'light'
+    };
 
-  return (
-    <>
-    <Button onClick={() => Notification.info(opts)}>
-      Info
-    </Button>
-    <br/>
-    <br/>
-    <Button onClick={() => Notification.success(opts)}>
-      Success
-    </Button>
-    <br/>
-    <br/>
-    <Button type="warning" onClick={() => Notification.warning(opts)}>
-      Warning
-    </Button>
-    <br/>
-    <br/>
-    <Button type="danger" onClick={() => Notification.error(opts)}>
-      Error
-    </Button>
-    </>
-  )
-}
+    return (
+        <>
+            <Button onClick={() => Notification.info(opts)}>
+                Info
+            </Button>
+            <br/>
+            <br/>
+            <Button onClick={() => Notification.success(opts)}>
+                Success
+            </Button>
+            <br/>
+            <br/>
+            <Button type="warning" onClick={() => Notification.warning(opts)}>
+                Warning
+            </Button>
+            <br/>
+            <br/>
+            <Button type="danger" onClick={() => Notification.error(opts)}>
+                Error
+            </Button>
+        </>
+    );
+};
 ```
 
 ### Custom Children with Link
@@ -178,29 +178,29 @@ import React from 'react';
 import { Notification, Button, Typography } from '@douyinfe/semi-ui';
 
 () => {
-  const { Text } = Typography;
+    const { Text } = Typography;
 
-  let opts = {
-    title: 'This is a title',
-    content: (
-      <>
-       <div>Hi, Bytedance dance dance</div>
-        <div style={{marginTop: 8}}>
-          <Text link>More Info</Text>
-          <Text link style={{marginLeft: 20}}>Show Later</Text>
-        </div>
-      </>),
-    duration: 3,
-  };
+    let opts = {
+        title: 'This is a title',
+        content: (
+            <>
+                <div>Hi, Bytedance dance dance</div>
+                <div style={{marginTop: 8}}>
+                    <Text link>More Info</Text>
+                    <Text link style={{marginLeft: 20}}>Show Later</Text>
+                </div>
+            </>),
+        duration: 3,
+    };
 
-  return (
-    <Button
-      onClick={() => Notification.info(opts)}
-    >
-      Display Notification
-    </Button>
-  )
-}
+    return (
+        <Button
+            onClick={() => Notification.info(opts)}
+        >
+            Display Notification
+        </Button>
+    );
+};
 ```
 
 ### Delay
@@ -212,17 +212,17 @@ import React from 'react';
 import { Notification, Button } from '@douyinfe/semi-ui';
 
 () => {
-  let opts = {
-    content: 'Hi, Bytedance dance dance',
-    duration: 10,
-  };
+    let opts = {
+        content: 'Hi, Bytedance dance dance',
+        duration: 10,
+    };
 
-  return (
-    <Button onClick={() => Notification.info(opts)}>
-      Close After 10s
-    </Button>
-  )
-}
+    return (
+        <Button onClick={() => Notification.info(opts)}>
+            Close After 10s
+        </Button>
+    );
+};
 ```
 
 ### Manual Close
@@ -234,33 +234,33 @@ import React from 'react';
 import { Notification, Button } from '@douyinfe/semi-ui';
 
 () => {
-  let opts = {
-    content: 'Not auto close',
-    title: 'Hi',
-    duration: 0,
-  };
-  const [ids, setIds] = useState([]);
-  function show() {
-    let id = Notification.info(opts);
-    setIds([...ids, id]);
-  }
-  function hide() {
-    let idsTmp = [...ids];
-    Notification.close(idsTmp.shift());
-    setIds(idsTmp);
-  }
-  return (
-    <>
-      <Button type="primary" onClick={show}>
-        Show Notification
-      </Button>
-      <br />
-      <br />
-      <Button type="primary" onClick={hide}>
-        Hide Notification
-      </Button>
-    </>
-  );
+    let opts = {
+        content: 'Not auto close',
+        title: 'Hi',
+        duration: 0,
+    };
+    const [ids, setIds] = useState([]);
+    function show() {
+        let id = Notification.info(opts);
+        setIds([...ids, id]);
+    }
+    function hide() {
+        let idsTmp = [...ids];
+        Notification.close(idsTmp.shift());
+        setIds(idsTmp);
+    }
+    return (
+        <>
+            <Button type="primary" onClick={show}>
+                Show Notification
+            </Button>
+            <br />
+            <br />
+            <Button type="primary" onClick={hide}>
+                Hide Notification
+            </Button>
+        </>
+    );
 };
 ```
 

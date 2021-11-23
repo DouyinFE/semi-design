@@ -32,11 +32,11 @@ import { Steps } from '@douyinfe/semi-ui';
 
 () => (
     <Steps current={1}>
-      <Steps.Step title="Finished" description="This is a description" />
-      <Steps.Step title="In Progress" description="This is a description" />
-      <Steps.Step title="Waiting" description="This is a description" />
+        <Steps.Step title="Finished" description="This is a description" />
+        <Steps.Step title="In Progress" description="This is a description" />
+        <Steps.Step title="Waiting" description="This is a description" />
     </Steps>
-)
+);
 ```
 
 ### 简单步骤条（新版）
@@ -48,12 +48,12 @@ import React from 'react';
 import { Steps } from '@douyinfe/semi-ui';
 
 () => (
-  <Steps type="basic" current={1}>
-    <Steps.Step title="Finished" description="This is a description" />
-    <Steps.Step title="In Progress" description="This is a description" />
-    <Steps.Step title="Waiting" description="This is a description" />
-  </Steps>
-)
+    <Steps type="basic" current={1}>
+        <Steps.Step title="Finished" description="This is a description" />
+        <Steps.Step title="In Progress" description="This is a description" />
+        <Steps.Step title="Waiting" description="This is a description" />
+    </Steps>
+);
 ```
 
 ### 导航步骤条
@@ -72,15 +72,15 @@ import React from 'react';
 import { Steps } from '@douyinfe/semi-ui';
 
 () => (
-  <div style={{display:'flex',justifyContent:'center'}}>
-    <Steps type="nav" current={1} style={{margin:'auto'}}>
-      <Steps.Step title="注册账号" />
-      <Steps.Step title="这个项目的文字比较多多多多" />
-      <Steps.Step title="产品用途" />
-      <Steps.Step title="期待尝试功能" />
-    </Steps>
-  </div>
-)
+    <div style={{display:'flex',justifyContent:'center'}}>
+        <Steps type="nav" current={1} style={{margin:'auto'}}>
+            <Steps.Step title="注册账号" />
+            <Steps.Step title="这个项目的文字比较多多多多" />
+            <Steps.Step title="产品用途" />
+            <Steps.Step title="期待尝试功能" />
+        </Steps>
+    </div>
+);
 ```
 
 
@@ -93,12 +93,12 @@ import React from 'react';
 import { Steps } from '@douyinfe/semi-ui';
 
 () => (
-  <Steps type="basic" size="small" current={1}>
-    <Steps.Step title="Finished" description="This is a description" />
-    <Steps.Step title="In Progress" description="This is a description" />
-    <Steps.Step title="Waiting" description="This is a description" />
-  </Steps>
-)
+    <Steps type="basic" size="small" current={1}>
+        <Steps.Step title="Finished" description="This is a description" />
+        <Steps.Step title="In Progress" description="This is a description" />
+        <Steps.Step title="Waiting" description="This is a description" />
+    </Steps>
+);
 ```
 
 ```jsx live=true dir="column"
@@ -106,15 +106,15 @@ import React from 'react';
 import { Steps } from '@douyinfe/semi-ui';
 
 () => (
-  <div style={{display:'flex',justifyContent:'center'}}>
-    <Steps type="nav" size="small" current={1} style={{margin:'auto'}}>
-      <Steps.Step title="注册账号" />
-      <Steps.Step title="这个项目的文字比较多多多多" />
-      <Steps.Step title="产品用途" />
-      <Steps.Step title="期待尝试功能" />
-    </Steps>
-  </div>
-)
+    <div style={{display:'flex',justifyContent:'center'}}>
+        <Steps type="nav" size="small" current={1} style={{margin:'auto'}}>
+            <Steps.Step title="注册账号" />
+            <Steps.Step title="这个项目的文字比较多多多多" />
+            <Steps.Step title="产品用途" />
+            <Steps.Step title="期待尝试功能" />
+        </Steps>
+    </div>
+);
 
 ```
 
@@ -127,69 +127,69 @@ import React from 'react';
 import { Steps, Button } from '@douyinfe/semi-ui';
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      current: 0,
-    };
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
+            current: 0,
+        };
+    }
 
-  next() {
-    const current = this.state.current + 1;
-    this.setState({ current });
-  }
+    next() {
+        const current = this.state.current + 1;
+        this.setState({ current });
+    }
 
-  prev() {
-    const current = this.state.current - 1;
-    this.setState({ current });
-  }
+    prev() {
+        const current = this.state.current - 1;
+        this.setState({ current });
+    }
 
-  render() {
-    const { current } = this.state;
-    const { Step } = Steps;
-    const steps = [
-      {
-        title: 'First',
-        content: 'First-content',
-      },
-      {
-        title: 'Second',
-        content: 'Second-content',
-      },
-      {
-        title: 'Last',
-        content: 'Last-content',
-      },
-    ];
+    render() {
+        const { current } = this.state;
+        const { Step } = Steps;
+        const steps = [
+            {
+                title: 'First',
+                content: 'First-content',
+            },
+            {
+                title: 'Second',
+                content: 'Second-content',
+            },
+            {
+                title: 'Last',
+                content: 'Last-content',
+            },
+        ];
 
-    return (
-      <div>
-        <Steps type="basic" current={current}>
-          {steps.map(item => (
-            <Step key={item.title} title={item.title} />
-          ))}
-        </Steps>
-        <div className="steps-content" style={{marginTop: 4, marginBottom: 4}}>{steps[current].content}</div>
-        <div className="steps-action">
-          {current < steps.length - 1 && (
-            <Button type="primary" onClick={() => this.next()}>
-              Next
-            </Button>
-          )}
-          {current === steps.length - 1 && (
-            <Button type="primary" onClick={() => console.log('Processing complete!')}>
-              Done
-            </Button>
-          )}
-          {current > 0 && (
-            <Button style={{ marginLeft: 8 }} onClick={() => this.prev()}>
-              Previous
-            </Button>
-          )}
-        </div>
-      </div>
-    );
-  }
+        return (
+            <div>
+                <Steps type="basic" current={current}>
+                    {steps.map(item => (
+                        <Step key={item.title} title={item.title} />
+                    ))}
+                </Steps>
+                <div className="steps-content" style={{marginTop: 4, marginBottom: 4}}>{steps[current].content}</div>
+                <div className="steps-action">
+                    {current < steps.length - 1 && (
+                        <Button type="primary" onClick={() => this.next()}>
+                            Next
+                        </Button>
+                    )}
+                    {current === steps.length - 1 && (
+                        <Button type="primary" onClick={() => console.log('Processing complete!')}>
+                            Done
+                        </Button>
+                    )}
+                    {current > 0 && (
+                        <Button style={{ marginLeft: 8 }} onClick={() => this.prev()}>
+                            Previous
+                        </Button>
+                    )}
+                </div>
+            </div>
+        );
+    }
 }
 
 ```
@@ -203,12 +203,12 @@ import React from 'react';
 import { Steps } from '@douyinfe/semi-ui';
 
 () => (
-  <Steps direction="vertical" current={1} style={{width: 300}}>
-    <Steps.Step title="Finished" description="This is a description" />
-    <Steps.Step title="In Progress" description="This is a description" />
-    <Steps.Step title="Waiting" description="This is a description" />
-  </Steps>
-)
+    <Steps direction="vertical" current={1} style={{width: 300}}>
+        <Steps.Step title="Finished" description="This is a description" />
+        <Steps.Step title="In Progress" description="This is a description" />
+        <Steps.Step title="Waiting" description="This is a description" />
+    </Steps>
+);
 ```
 
 ```jsx live=true dir="column"
@@ -216,12 +216,12 @@ import React from 'react';
 import { Steps } from '@douyinfe/semi-ui';
 
 () => (
-  <Steps direction="vertical" type="basic" current={1}>
-    <Steps.Step title="Finished" description="This is a description" />
-    <Steps.Step title="In Progress" description="This is a description" />
-    <Steps.Step title="Waiting" description="This is a description" />
-  </Steps>
-)
+    <Steps direction="vertical" type="basic" current={1}>
+        <Steps.Step title="Finished" description="This is a description" />
+        <Steps.Step title="In Progress" description="This is a description" />
+        <Steps.Step title="Waiting" description="This is a description" />
+    </Steps>
+);
 ```
 
 ### 指定步骤状态
@@ -233,12 +233,12 @@ import React from 'react';
 import { Steps } from '@douyinfe/semi-ui';
 
 () => (
-  <Steps type="basic" current={1} status="error">
-    <Steps.Step title="Finished" description="This is a description" />
-    <Steps.Step title="In Process" description="This is a description" />
-    <Steps.Step title="Waiting" description="This is a description" />
-  </Steps>
-)
+    <Steps type="basic" current={1} status="error">
+        <Steps.Step title="Finished" description="This is a description" />
+        <Steps.Step title="In Process" description="This is a description" />
+        <Steps.Step title="Waiting" description="This is a description" />
+    </Steps>
+);
 ```
 
 ### 自定义图标/状态
@@ -252,14 +252,14 @@ import { Steps } from '@douyinfe/semi-ui';
 import { IconHome, IconLock } from '@douyinfe/semi-icons';
 
 () => (
-  <Steps type="basic">
-    <Steps.Step status="finish" title="已完成" />
-    <Steps.Step status="error" title="错误" />
-    <Steps.Step status="warning" title="警告" />
-    <Steps.Step status="process" title="正在进行" icon={<IconHome size="extra-large" />} />
-    <Steps.Step status="wait" title="等待" icon={<IconLock size="extra-large" />} />
-  </Steps>
-)
+    <Steps type="basic">
+        <Steps.Step status="finish" title="已完成" />
+        <Steps.Step status="error" title="错误" />
+        <Steps.Step status="warning" title="警告" />
+        <Steps.Step status="process" title="正在进行" icon={<IconHome size="extra-large" />} />
+        <Steps.Step status="wait" title="等待" icon={<IconLock size="extra-large" />} />
+    </Steps>
+);
 ```
 
 ### onChange 回调
@@ -271,45 +271,45 @@ import React from 'react';
 import { Steps } from '@douyinfe/semi-ui';
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      current: 1,
-    };
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
+            current: 1,
+        };
+    }
 
-  onChange(index) {
-    this.setState({ current: index });
-  }
+    onChange(index) {
+        this.setState({ current: index });
+    }
 
-  render() {
-    const { current } = this.state;
-    const { Step } = Steps;
-    const steps = [
-      {
-        title: 'First',
-        content: 'First-content',
-      },
-      {
-        title: 'Second',
-        content: 'Second-content',
-      },
-      {
-        title: 'Last',
-        content: 'Last-content',
-      },
-    ];
+    render() {
+        const { current } = this.state;
+        const { Step } = Steps;
+        const steps = [
+            {
+                title: 'First',
+                content: 'First-content',
+            },
+            {
+                title: 'Second',
+                content: 'Second-content',
+            },
+            {
+                title: 'Last',
+                content: 'Last-content',
+            },
+        ];
 
-    return (
-      <div>
-        <Steps type="basic" current={current} onChange={index => this.onChange(index)}>
-          {steps.map(item => (
-            <Step key={item.title} title={item.title} />
-          ))}
-        </Steps>
-      </div>
-    );
-  }
+        return (
+            <div>
+                <Steps type="basic" current={current} onChange={index => this.onChange(index)}>
+                    {steps.map(item => (
+                        <Step key={item.title} title={item.title} />
+                    ))}
+                </Steps>
+            </div>
+        );
+    }
 }
 ```
 

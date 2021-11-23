@@ -133,7 +133,7 @@ v2.0 Semi 正式开源发布至公网 npm，包名需要调整，去除原有的
 
 #### 引入组件
 
-```jsx
+```text
 // before
 import { Select, Input, Form } from '@ies/semi-ui-react';
 
@@ -144,7 +144,7 @@ import { Select, Input, Form } from '@douyinfe/semi-ui';
 #### 引入 interface（TypeScript 项目）
 
 所有 Interface 的相关变更可查阅 [Semi 1.x -> 2.0 TS interface变更详细记录](https://bytedance.feishu.cn/docs/doccn5abrdIWvXO7No0Wkh8zo4b)
-```jsx
+```text
 // before
 import { SelectProps } from '@ies/semi-ui-react/select';
 
@@ -154,7 +154,7 @@ import { SelectProps } from '@douyinfe/semi-ui/lib/es/select';
 
 #### 引入 locale 资源文件
 
-```jsx
+```text
 // before
 import en_GB from '@ies/semi-ui-react/locale/source/en_GB';
 
@@ -209,7 +209,7 @@ import en_GB from '@douyinfe/semi-ui/lib/es/locale/source/en_GB';
 
 Icon 使用调整：
 
-```jsx
+```text
 // 1.x 默认 iconLazyload 为 false 的情况
 <Icon type="home" />;
 
@@ -224,7 +224,7 @@ import { IconHome } from '@douyinfe/semi-icons';
 
 插画使用调整：
 
-```jsx
+```text
 // 1.x
 import { Empty } from '@ies/semi-ui-react';
 import Construction from '@ies/semi-illustrations/construction.svg';

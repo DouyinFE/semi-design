@@ -31,23 +31,23 @@ import { Popconfirm, Button, Toast } from '@douyinfe/semi-ui';
 
 () => {
     const onConfirm = () => {
-      Toast.success('Confirm save!');
+        Toast.success('Confirm save!');
     };
 
     const onCancel = () => {
-      Toast.warning('Cancel save!');
-    }
+        Toast.warning('Cancel save!');
+    };
     return (
-      <Popconfirm
-          title="Are you sure you want to save this modification?"
-          content="This modification will be irreversible"
-          onConfirm={onConfirm}
-          onCancel={onCancel}
-      >
-          <Button>Save</Button>
-      </Popconfirm>
-    )
-}
+        <Popconfirm
+            title="Are you sure you want to save this modification?"
+            content="This modification will be irreversible"
+            onConfirm={onConfirm}
+            onCancel={onCancel}
+        >
+            <Button>Save</Button>
+        </Popconfirm>
+    );
+};
 ```
 
 ### Type collocation

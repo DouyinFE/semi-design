@@ -278,7 +278,7 @@ You could also use `ReactDOM.createPortal` to insert toast in a Portal.
 
 ```jsx live=true noInline=true
 import React, { useRef } from 'react';
-import { Toast } from '@douyinfe/semi-ui';
+import { Toast, Button } from '@douyinfe/semi-ui';
 
 const ReachableContext = React.createContext();
 
@@ -378,6 +378,9 @@ The global configuration is set before any method call, and takes effect only on
     If you need Toast with different configs in your application, you can use ToastFactory.create(config)to create a new Toast (>= 1.23):
 
 ```jsx live=true noInline=true
+import React from 'react';
+import { Button } from '@douyinfe/semi-ui';
+
 function Demo() {
     const ToastInCustomContainer = ToastFactory.create({
         getPopupContainer: () => document.getElementById('custom-toast-container'),

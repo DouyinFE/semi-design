@@ -36,7 +36,7 @@ class Demo extends React.Component {
         const body = document.body;
         if (body.hasAttribute('theme-mode')) {
             body.removeAttribute('theme-mode');
-           // Notify our site to update current mode
+            // Notify our site to update current mode
             window.setMode('light');
         } else {
             body.setAttribute('theme-mode', 'dark');
