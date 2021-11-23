@@ -3,6 +3,7 @@ import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/upload/constants';
 import { getFileSize } from '@douyinfe/semi-foundation/upload/utils';
+import { BaseFileItem } from '@douyinfe/semi-foundation/upload/foundation';
 import LocaleConsumer from '../locale/localeConsumer';
 import { Locale } from '../locale/interface';
 
@@ -11,6 +12,7 @@ import Progress from '../progress/index';
 import Tooltip from '../tooltip/index';
 import Spin from '../spin/index';
 import { isElement } from '../_base/reactUtils';
+import { RenderFileItemProps } from './interface';
 import { IconAlertCircle, IconClose, IconFile, IconRefresh } from '@douyinfe/semi-icons';
 
 const prefixCls = cssClasses.PREFIX;
@@ -41,25 +43,9 @@ const DirectorySvg: FC<SVGProps<SVGSVGElement>> = (props = {}) => (
 
 );
 
-export interface FileCardProps {
+export interface FileCardProps extends RenderFileItemProps {
     className?: string;
-    disabled?: boolean;
-    listType?: 'picture' | 'list';
-    name?: string;
-    onPreviewClick?: MouseEventHandler<HTMLDivElement>;
-    onRemove?: (props: FileCardProps, e: MouseEvent) => void;
-    onReplace?: (props: FileCardProps, e: MouseEvent) => void;
-    onRetry?: (props: FileCardProps, e: MouseEvent) => void;
-    percent?: number;
-    preview?: boolean;
-    previewFile?: (props: FileCardProps) => ReactNode;
-    showReplace?: boolean;
-    showRetry?: boolean;
-    size?: string;
-    status?: string;
     style?: CSSProperties;
-    url?: string;
-    validateMessage?: ReactNode;
 }
 
 
