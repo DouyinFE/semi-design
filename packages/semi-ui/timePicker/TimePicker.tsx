@@ -70,7 +70,7 @@ export type TimePickerProps = {
     position?: Position;
     prefixCls?: string;
     rangeSeparator?: string;
-    scrollItemProps?: ScrollItemProps;
+    scrollItemProps?: ScrollItemProps<any>;
     secondStep?: number;
     showClear?: boolean;
     size?: InputSize;

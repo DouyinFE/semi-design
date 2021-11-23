@@ -14,12 +14,12 @@ const msPerFrame = 1000 / 60;
 const blankReg = /^\s*$/;
 const wheelMode = 'wheel';
 
-export interface ScrollItemProps {
+export interface ScrollItemProps<T extends Item> {
     mode?: string;
     cycled?: boolean;
-    list?: Item[];
+    list?: T[];
     selectedIndex?: number;
-    onSelect?: (data: Item) => void;
+    onSelect?: (data: T) => void;
     transform?: (value: any, text: string) => string;
     className?: string;
     motion?: Motion;
@@ -32,7 +32,7 @@ export interface ScrollItemState {
     appendCount: number;
 }
 
-export default class ScrollItem extends BaseComponent<ScrollItemProps, ScrollItemState> {
+export default class ScrollItem<T extends Item> extends BaseComponent<ScrollItemProps<T>, ScrollItemState> {
     static propTypes = {
         mode: PropTypes.string,
         cycled: PropTypes.bool,
@@ -50,7 +50,7 @@ export default class ScrollItem extends BaseComponent<ScrollItemProps, ScrollIte
         selectedIndex: 0,
         motion: true,
         // transform: identity,
-        list: [] as Item[],
+        list: [] as const,
         onSelect: noop,
         cycled: false,
         mode: wheelMode,
@@ -93,10 +93,10 @@ export default class ScrollItem extends BaseComponent<ScrollItemProps, ScrollIte
 
         // cache if select action comes from outside
 
-        this.foundation = new ItemFoundation(this.adapter);
+        this.foundation = new ItemFoundation<ScrollItemProps<T>, ScrollItemState, T>(this.adapter);
     }
 
-    get adapter(): ScrollItemAdapter<ScrollItemProps, ScrollItemState> {
+    get adapter(): ScrollItemAdapter<ScrollItemProps<T>, ScrollItemState, T> {
         return {
             ...super.adapter,
             setState: (states, callback) => this.setState({ ...states }, callback),
@@ -133,7 +133,7 @@ export default class ScrollItem extends BaseComponent<ScrollItemProps, ScrollIte
         }
     }
 
-    componentDidUpdate(prevProps: ScrollItemProps) {
+    componentDidUpdate(prevProps: ScrollItemProps<T>) {
         const { selectedIndex } = this.props;
 
         // smooth scroll to selected option
@@ -262,7 +262,7 @@ export default class ScrollItem extends BaseComponent<ScrollItemProps, ScrollIte
         return false;
     };
 
-    isDisabledData = (data: Item) => data && typeof data === 'object' && data.disabled;
+    isDisabledData = (data: T) => data && typeof data === 'object' && data.disabled;
 
     isWheelMode = () => this.props.mode === wheelMode;
 

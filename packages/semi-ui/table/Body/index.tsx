@@ -337,7 +337,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
     };
 
     // virtualized List innerElementType
-    renderTbody = React.forwardRef<HTMLDivElement, any>((props: any = {}, ref: React.MutableRefObject<HTMLDivElement>) => (
+    renderTbody = React.forwardRef<HTMLDivElement, any>((props: any = {}, ref: React.MutableRefObject<HTMLDivElement> | ((instance: HTMLDivElement) => void)) => (
         <div
             {...props}
             onScroll={(...args) => {
@@ -353,7 +353,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
     ));
 
     // virtualized List outerElementType
-    renderOuter = React.forwardRef<HTMLDivElement, any>((props: any, ref: React.MutableRefObject<HTMLDivElement>) => {
+    renderOuter = React.forwardRef<HTMLDivElement, any>((props: any, ref: React.MutableRefObject<HTMLDivElement> | ((instance: HTMLDivElement) => void)) => {
         const { children, ...rest } = props;
         // eslint-disable-next-line react/no-this-in-sfc
         const { handleWheel, prefixCls, emptySlot, dataSource } = this.props;
@@ -395,7 +395,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
         }
     };
 
-    renderVirtualizedBody = (direction: Direction) => {
+    renderVirtualizedBody = (direction?: Direction) => {
         const { scroll, prefixCls, virtualized, anyColumnFixed, columns } = this.props;
         const { virtualizedData } = this.state;
         const { getCellWidths } = this.context;
@@ -713,7 +713,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
         return renderedRows;
     }
 
-    renderBody = (direction: Direction) => {
+    renderBody = (direction?: Direction) => {
         const {
             scroll,
             prefixCls,
@@ -807,7 +807,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
         const { virtualized } = this.props;
         return (
             <ConfigContext.Consumer>
-                {({ direction }: { direction: Direction }) => (virtualized ? this.renderVirtualizedBody(direction) : this.renderBody(direction))}
+                {({ direction }: { direction?: Direction }) => (virtualized ? this.renderVirtualizedBody(direction) : this.renderBody(direction))}
             </ConfigContext.Consumer>
         );
     }
