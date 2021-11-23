@@ -144,7 +144,7 @@ class CheckboxGroup extends BaseComponent<CheckboxGroupProps, CheckboxGroupState
                 }
             });
         } else if (children) {
-            inner = React.Children.toArray(children).map((itm: React.ReactElement, index) => React.cloneElement(itm, { key: index }));
+            inner = (React.Children.toArray(children) as React.ReactElement[]).map((itm, index) => React.cloneElement(itm, { key: index }));
         }
 
         return (
