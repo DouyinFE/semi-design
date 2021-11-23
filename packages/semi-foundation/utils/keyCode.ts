@@ -426,4 +426,6 @@ const keyCode = {
     WIN_IME: 229,
 };
 
+export const ENTER_KEY_CODE = 'Enter';
+
 export default keyCode;

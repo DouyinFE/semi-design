@@ -101,6 +101,7 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
     libRef: React.RefObject<React.ReactNode>;
     _resizeLock: boolean;
     _resizeListener: any;
+    foundation: TextAreaFoundation;
 
     constructor(props: TextAreaProps) {
         super(props);
@@ -197,6 +198,10 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
         this.foundation.handleClear(e);
     };
 
+    handleClearEnterPress = (e: React.KeyboardEvent<HTMLDivElement>) => {
+        this.foundation.handleClearEnterPress(e);
+    }
+
     renderClearBtn() {
         const { showClear } = this.props;
         const displayClearBtn = this.foundation.isAllowClear();
@@ -205,7 +210,14 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
         });
         if (showClear) {
             return (
-                <div className={clearCls} onClick={this.handleClear}>
+                <div
+                    role="button"
+                    tabIndex={0}
+                    aria-label="Clear textarea value"
+                    className={clearCls}
+                    onClick={this.handleClear}
+                    onKeyPress={this.handleClearEnterPress}
+                >
                     <IconClear />
                 </div>
             );
@@ -214,10 +226,10 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
     }
 
     renderCounter() {
-        let counter,
-            current,
-            total,
-            countCls;
+        let counter: React.ReactNode,
+            current: number,
+            total: number,
+            countCls: string;
         const { showCounter, maxCount, getValueLength } = this.props;
         if (showCounter || maxCount) {
             const { value } = this.state;
@@ -231,7 +243,14 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
                 }
             );
             counter = (
-                <div className={countCls}>{current}{total ? '/' : null}{total}</div>
+                <div
+                    aria-label="Textarea value length counter"
+                    aria-valuemax={maxCount}
+                    aria-valuenow={current}
+                    className={countCls}
+                >
+                    {current}{total ? '/' : null}{total}
+                </div>
             );
         } else {
             counter = null;
