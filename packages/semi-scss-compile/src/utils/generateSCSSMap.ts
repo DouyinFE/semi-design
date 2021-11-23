@@ -1,6 +1,6 @@
 import path from 'path';
 import fs from "fs-extra";
-import {set} from 'lodash-es';
+import {set} from 'lodash';
 
 const lodash = {set};
 
