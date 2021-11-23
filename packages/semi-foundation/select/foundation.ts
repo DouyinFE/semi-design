@@ -230,9 +230,9 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
             selections.set(optionExist.label, optionExist);
         } else if (noMatchOptionInList) {
             // If the current value does not have a corresponding item in the optionList, construct an option and update it to the selection. However, it does not need to be inserted into the list
-            let optionNotExist = { value: propValue, label: propValue, _notExist: true, _scrollIndex: -1 };
+            let optionNotExist = { value: propValue, label: propValue, _notExist: true, _scrollIndex: -1 } as BasicOptionProps;
             if (onChangeWithObject) {
-                optionNotExist = { ...propValue as BasicOptionProps, _notExist: true, _scrollIndex: -1 } as any;
+                optionNotExist = { ...propValue as BasicOptionProps, _notExist: true, _scrollIndex: -1 };
             }
             selections.set(optionNotExist.label, optionNotExist);
         }
