@@ -1,4 +1,3 @@
-/* argus-disable unPkgSensitiveInfo */
 /* eslint-disable max-lines-per-function, react-hooks/rules-of-hooks, prefer-const, max-len */
 import React, { useState, useLayoutEffect, useMemo, useRef, forwardRef } from 'react';
 import classNames from 'classnames';
@@ -27,9 +26,10 @@ const prefix = cssClasses.PREFIX;
  */
 
 function withField<
-    C extends React.ComponentType<React.ComponentProps<C>>,
-    T extends React.ComponentType<Subtract<React.ComponentProps<C>, CommonexcludeType> & CommonFieldProps>
->(Component: C, opts?: WithFieldOption): T {
+    C extends React.ElementType,
+    T extends Subtract<React.ComponentProps<C>, CommonexcludeType> & CommonFieldProps,
+    R extends React.ComponentType<T>
+>(Component: C, opts?: WithFieldOption): R {
     let SemiField = (props: any, ref: React.MutableRefObject<any>) => {
         let {
             // condition,
@@ -550,10 +550,6 @@ function withField<
             return FieldComponent;
         }
     };
-    /**
-     * Reasons for using ts-igonre: skip strict check of ref
-     */
-    // @ts-ignore-next-line 
     SemiField = forwardRef(SemiField);
     (SemiField as React.SFC).displayName = getDisplayName(Component);
     return SemiField as any;
