@@ -63,7 +63,7 @@ class Collapse extends BaseComponent<CollapseReactProps, CollapseState> {
     get adapter(): CollapseAdapter {
         return {
             ...super.adapter,
-            handleChange: (...args: ArgsType<CollapseReactProps['onChange']>) => this.props.onChange(...args),
+            handleChange: (activeKey: CollapseProps['activeKey'], e: React.MouseEvent) => this.props.onChange(activeKey, e),
             addActiveKey: (activeSet: CollapseState['activeSet']) => this.setState({ activeSet }),
         };
     }

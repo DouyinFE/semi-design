@@ -33,6 +33,7 @@
         "react-resizable": "^1.8.0",
         "react-sortable-hoc": "^1.11.0",
         "react-window": "^1.8.2",
+        "@types/react-window": "^1.8.2",
         "resize-observer-polyfill": "^1.5.1",
         "scroll-into-view-if-needed": "^2.2.24",
         "utility-types": "^3.10.0"
