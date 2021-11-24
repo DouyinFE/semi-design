@@ -1,9 +1,10 @@
 import React, { ReactNode } from 'react';
-import HookModal from './HookModal';
-import { withConfirm, withInfo, withSuccess, withError, withWarning, ConfirmProps } from '../confirm';
+import HookModal, { HookModalRef } from './HookModal';
+import { ConfirmProps, withConfirm, withError, withInfo, withSuccess, withWarning } from '../confirm';
 import { ModalReactProps } from '../Modal';
 
 let uuid = 0;
+
 function usePatchElement(): ([ReactNode[], (element: ReactNode) => () => void]) {
     const [elements, setElements] = React.useState<ReactNode[]>([]);
 
@@ -26,10 +27,7 @@ export default function useModal() {
         return function hookConfirm(config: ModalReactProps) {
             uuid += 1;
 
-            const modalRef = React.createRef<{
-                destroy: () => void;
-                update: (newConfig: ConfirmProps) => void;
-            }>();
+            const modalRef = React.createRef<HookModalRef>();
 
             // eslint-disable-next-line prefer-const
             let closeFunc: () => void;
