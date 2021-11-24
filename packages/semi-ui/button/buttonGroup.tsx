@@ -8,8 +8,6 @@ import '@douyinfe/semi-foundation/button/button.scss';
 
 export type Theme = 'solid' | 'borderless' | 'light';
 
-// type cloneEle = React.ReactSVGElement | React.DOMElement | React.ReactHTMLElement | React.DetailedReactHTMLElement | React.ReactElement;
-type cloneEle = React.ReactSVGElement | React.ReactElement | React.FunctionComponentElement<any>;
 export interface ButtonGroupProps extends BaseProps {
     disabled?: boolean;
     type?: Type;

@@ -15,7 +15,7 @@ import '@douyinfe/semi-foundation/upload/upload.scss';
 
 const prefixCls = cssClasses.PREFIX;
 
-export { FileItem, RenderFileItemProps, UploadListType, PromptPositionType, BeforeUploadProps, AfterUploadProps, OnChangeProps, customRequestArgs, CustomError };
+export { FileItem, RenderFileItemProps, UploadListType, PromptPositionType, BeforeUploadProps, AfterUploadProps, OnChangeProps, customRequestArgs, CustomError, BeforeUploadObjectResult, AfterUploadResult };
 
 export interface UploadProps {
     accept?: string;
