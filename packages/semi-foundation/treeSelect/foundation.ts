@@ -29,14 +29,15 @@ export type ValidateStatus = 'error' | 'warning' | 'default';
 
 export type Size = 'small' | 'large' | 'default';
 
-export interface BasicRenderSelectedItem {
-    (treeNode: BasicTreeNodeData): any;
-    (treeNode: BasicTreeNodeData, otherProps: { index: number | string; onClose: (tagContent: any, e: any) => void }):
-    {
-        isRenderInTag: boolean;
-        content: any;
-    };
-}
+export type BasicRenderSelectedItemInMultiple = (
+    treeNode: BasicTreeNodeData, 
+    otherProps: { index: number | string; onClose: (tagContent: any, e: any) => void }
+)=> {
+    isRenderInTag: boolean;
+    content: any;
+};
+export type BasicRenderSelectedItemInSingle = (treeNode: BasicTreeNodeData) => any;
+export type BasicRenderSelectedItem = BasicRenderSelectedItemInSingle | BasicRenderSelectedItemInMultiple;
 
 export interface BasicTriggerRenderProps {
     [x: string]: any;
@@ -178,7 +179,7 @@ export interface TreeSelectAdapter<P = Record<string, any>, S = Record<string, a
     setOptionWrapperWidth: (width: null | number) => void;
     notifyChange: BasicOnChangeWithBasic;
     notifyChangeWithObject: BasicOnChangeWithObject;
-    notifyExpand: (expandedKeys: Set<string>, expanedOtherProps: BasicExpandedOtherProps) => void;
+    notifyExpand: (expandedKeys: Set<string>, expandedOtherProps: BasicExpandedOtherProps) => void;
     notifyFocus: (e: any) => void;
     notifyBlur: (e: any) => void;
     toggleHovering: (bool: boolean) => void;

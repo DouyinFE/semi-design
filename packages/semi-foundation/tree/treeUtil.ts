@@ -441,7 +441,7 @@ export function normalizeKeyList(keyList: any, keyEntities: KeyEntities, leafOnl
             res.push(key);
         });
     } else {
-        res = keyList.filter((key: string) => keyEntities[key] && !isValid(keyEntities[key].children));
+        res = Array.from(keyList).filter((key: string) => keyEntities[key] && !isValid(keyEntities[key].children)) as string[];
     }
     return res;
 }

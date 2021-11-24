@@ -442,6 +442,7 @@ class CustomRender extends React.Component {
 |onFocus      |输入框获取焦点时的回调                                |(e:React.MouseEvent<HTMLInputElement\>) => void               | -        |1.19.0|
 |onInputChange|输入框内容变化时的回调                                |(value:string,e: React.KeyboardEvent<HTMLInputElement\>) => void)  | -        |1.19.0|
 |onInputExceed|超过 maxLength 时的回调                             |(value:string) => void          | -        |1.19.0|
+|onKeyDown    |keydown 回调                             |(e: React.KeyboardEvent<HTMLInputElement\>) => void          | -        |2.1.0|
 |onRemove     |移除标签时的回调                                     |(removedValue: string, idx: number) => void     | -        |1.19.0|
 ## 方法
 

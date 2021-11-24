@@ -338,4 +338,15 @@ describe('TagInput', () => {
         tagInput.update();
         expect(tagInput.find('input').getDOMNode().value).toEqual('hotsoon');
     })
+
+    it('TagInput with onKeyDown', () => {
+        const spyOnKeyDown = sinon.spy(value => { });
+        const props = {
+            onKeyDown: spyOnKeyDown,
+        };
+        const tagInput = getTagInput(props);
+        tagInput.find('input').simulate('keyDown', { keyCode: 13 });
+        expect(spyOnKeyDown.callCount).toEqual(1);
+        tagInput.unmount();
+    });
 })

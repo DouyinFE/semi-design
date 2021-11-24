@@ -1,11 +1,12 @@
-import React, { createRef, RefObject, ReactElement, MouseEvent, RefCallback, ReactNode, isValidElement } from 'react';
+
+import React, { createRef, MouseEvent, ReactElement, ReactNode, RefCallback, RefObject, isValidElement } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/tabs/constants';
 import isNullOrUndefined from '@douyinfe/semi-foundation/utils/isNullOrUndefined';
 import getDataAttr from '@douyinfe/semi-foundation/utils/getDataAttr';
 import TabsFoundation, { TabsAdapter } from '@douyinfe/semi-foundation/tabs/foundation';
-import { isEqual, pick, omit } from 'lodash-es';
+import { isEqual, omit, pick } from 'lodash-es';
 import BaseComponent from '../_base/baseComponent';
 import '@douyinfe/semi-foundation/tabs/tabs.scss';
 
@@ -17,6 +18,7 @@ import { TabsProps, PlainTab, TabBarProps } from './interface';
 const panePickKeys = Object.keys(omit(TabPane.propTypes, ['children']));
 
 export * from './interface';
+
 export interface TabsState {
     activeKey: string;
     panes: Array<PlainTab>;
@@ -45,6 +47,7 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
         tabPaneMotion: PropTypes.oneOfType([PropTypes.bool, PropTypes.object, PropTypes.func]),
         tabPosition: PropTypes.oneOf(strings.POSITION_MAP),
         type: PropTypes.oneOf(strings.TYPE_MAP),
+        onTabClose: PropTypes.func,
     };
 
     static defaultProps: TabsProps = {
@@ -58,6 +61,7 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
         tabPaneMotion: true,
         tabPosition: 'top',
         type: 'line',
+        onTabClose: () => undefined
     };
 
     contentRef: RefObject<HTMLDivElement>;
@@ -88,12 +92,39 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
                 }
                 const panes = React.Children.map(children, (child: any) => {
                     if (child) {
-                        const { tab, icon, disabled, itemKey } = child.props;
-                        return { tab, icon, disabled, itemKey };
+                        const { tab, icon, disabled, itemKey, closable } = child.props;
+                        return { tab, icon, disabled, itemKey, closable };
                     }
                     return undefined;
                 });
                 this.setState({ panes });
+            },
+            collectActiveKey: (): void => {
+                let panes = [];
+                const { tabList, children, activeKey: propsActiveKey } = this.props;
+                if (typeof propsActiveKey !== 'undefined') {
+                    return;
+                }
+                const { activeKey } = this.state;
+                if (Array.isArray(tabList) && tabList.length) {
+                    panes = tabList;
+                } else {
+                    panes = React.Children.map(children, (child: any) => {
+                        if (child) {
+                            const { tab, icon, disabled, itemKey, closable } = child.props;
+                            return { tab, icon, disabled, itemKey, closable };
+                        }
+                        return undefined;
+                    });
+                }
+                if(panes.findIndex(p => p.itemKey === activeKey) === -1){
+                    if(panes.length>0){
+                        this.setState({activeKey: panes[0].itemKey});
+                    } else {
+                        this.setState({activeKey: ''});
+                    }
+                }
+                
             },
             notifyTabClick: (activeKey: string, event: MouseEvent<HTMLDivElement>): void => {
                 this.props.onTabClick(activeKey, event);
@@ -115,6 +146,9 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
                 });
                 return activeKey;
             },
+            notifyTabDelete: (tabKey: string) => {
+                this.props.onTabClose && this.props.onTabClose(tabKey);
+            }
         };
     }
 
@@ -127,7 +161,7 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
     }
 
     componentDidUpdate(prevProps: TabsProps): void {
-    // Panes state acts on tab bar, no need to compare TabPane children
+        // Panes state acts on tab bar, no need to compare TabPane children
         const prevChildrenProps = React.Children.toArray(prevProps.children).map((child) =>
             pick(isValidElement(child) ? child.props : null, panePickKeys)
         );
@@ -185,6 +219,11 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
         });
     };
 
+    deleteTabItem = (tabKey: string, event: MouseEvent<HTMLDivElement>) => {
+        event.stopPropagation();
+        this.foundation.handleTabDelete(tabKey);
+    }
+
     render(): ReactNode {
         const {
             children,
@@ -226,6 +265,7 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
             tabBarExtraContent,
             tabPosition,
             type,
+            deleteTabItem: this.deleteTabItem
         } as TabBarProps;
 
         const tabBar = renderTabBar ? renderTabBar(tabBarProps, TabBar) : <TabBar {...tabBarProps} />;

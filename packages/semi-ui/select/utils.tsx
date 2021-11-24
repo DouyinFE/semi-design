@@ -3,7 +3,7 @@ import warning from '@douyinfe/semi-foundation/utils/warning';
 import { OptionProps } from './option';
 import { OptionGroupProps } from './optionGroup';
 
-const generateOption = (child: React.ReactElement, parent?: any): OptionProps => {
+const generateOption = (child: React.ReactElement, parent: any, index: number): OptionProps => {
     const childProps = child.props;
     if (!child || !childProps) {
         return null;
@@ -14,6 +14,7 @@ const generateOption = (child: React.ReactElement, parent?: any): OptionProps =>
         label: childProps.label || childProps.children || childProps.value,
         _show: true,
         _selected: false,
+        _scrollIndex: index,
         ...childProps,
         _parentGroup: parent,
     };
@@ -36,11 +37,13 @@ const getOptionsFromGroup = (selectChildren: React.ReactNode) => {
     childNodes = childNodes.filter((childNode) => childNode && childNode.props);    
 
     let type = '';
+    let optionIndex = -1;
 
     childNodes.forEach((child: React.ReactElement<any, any>) => {
         if (child.type.isSelectOption) {
             type = 'option';
-            const option = generateOption(child);
+            optionIndex++;
+            const option = generateOption(child, undefined, optionIndex);
             emptyGroup.children.push(option);
             options.push(option);
         } else if (child.type.isSelectOptionGroup) {
@@ -49,7 +52,10 @@ const getOptionsFromGroup = (selectChildren: React.ReactNode) => {
             // eslint-disable-next-line prefer-const
             let { children, ...restGroupProps } = child.props;
             children = React.Children.toArray(children);
-            const childrenOption = children.map((option: React.ReactElement) => generateOption(option, restGroupProps));
+            const childrenOption = children.map((option: React.ReactElement) => {
+                optionIndex++;
+                return generateOption(option, restGroupProps, optionIndex);
+            });
             const group = {
                 ...child.props,
                 children: childrenOption,
