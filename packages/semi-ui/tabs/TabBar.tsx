@@ -190,7 +190,7 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
         );
     };
 
-    renderOverflow = (items: [Array<OverflowItem>, Array<OverflowItem>]): Array<ReactNode> => items.map((item, ind) => {
+    renderOverflow = (items: any[]): Array<ReactNode> => items.map((item, ind) => {
         const icon = ind === 0 ? <IconChevronLeft /> : <IconChevronRight />;
         const pos = ind === 0 ? 'start' : 'end';
         return this.renderCollapse(item, icon, pos);
