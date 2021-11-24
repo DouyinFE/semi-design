@@ -16,7 +16,7 @@ Version：Major.Minor.Patch
 
 ---
 
-#### 🎉 2.1.0-beta.1 (2021-11-22)
+#### 🎉 2.1.0-beta.1 (2021-11-24)
 - 【Fix】
   - Select
     - Fix the crash of virtualization. [#308](https://github.com/DouyinFE/semi-design/issues/308)
