@@ -29,7 +29,7 @@ import { TagInput } from '@douyinfe/semi-ui';
         placeholder='Please enter...'
         onChange={v => console.log(v)}
     />
-)
+);
 ```
 
 ### Batch Add
@@ -54,7 +54,7 @@ import { TagInput } from '@douyinfe/semi-ui';
             onChange={v => console.log(v)}
         />
     </>
-)
+);
 ```
 
 ### Batch Remove
@@ -72,7 +72,7 @@ import { TagInput } from '@douyinfe/semi-ui';
         placeholder='Please enter...'
         onChange={v => console.log(v)}
     />
-)
+);
 ```
 
 
@@ -89,7 +89,7 @@ import { TagInput } from '@douyinfe/semi-ui';
         defaultValue={['Semi','Hotsoon','Pipixia']} 
         placeholder='Please enter...'
     />
-)
+);
 ```
 
 ### Size
@@ -108,7 +108,7 @@ import { TagInput } from '@douyinfe/semi-ui';
         <br/><br/>
         <TagInput size='large' placeholder='large'/>
     </>
-)
+);
 ```
 
 ### Different validate status
@@ -128,7 +128,7 @@ import { TagInput } from '@douyinfe/semi-ui';
         <br/><br/>
         <TagInput placeholder='error' validateStatus='error'/>
     </>
-)
+);
 ``` 
 
 ### Prefix / Suffix
@@ -151,7 +151,7 @@ import { IconVigoLogo, IconGift } from '@douyinfe/semi-icons';
         <br/><br/>
         <TagInput  suffix="Suffix" showClear/>
     </>
-)
+);
 ``` 
 
 ### Allow Duplicates
@@ -169,7 +169,7 @@ import { TagInput } from '@douyinfe/semi-ui';
         placeholder='Please enter...'
         onChange={v => console.log(v)}
     />
-)
+);
 ```
 
 ### Autocomplete
@@ -187,7 +187,7 @@ import { TagInput } from '@douyinfe/semi-ui';
         placeholder='Please enter...'
         onChange={v => console.log(v)}
     />
-)
+);
 ```
 
 ### Limits
@@ -222,7 +222,7 @@ import { TagInput } from '@douyinfe/semi-ui';
             }} 
         />
     </>
-)
+);
 ```
 
 ### Limit the number of tags displayed
@@ -240,7 +240,7 @@ import { TagInput } from '@douyinfe/semi-ui';
         restTagsPopoverProps={{ position: 'top' }}
         defaultValue={['Semi','Hotsoon','Pipixia']} 
     />
-)
+);
 ```
 
 ### Controlled Tag
@@ -267,7 +267,7 @@ class TagInputDemo extends React.Component {
                 value={this.state.value}
                 onChange={value => {this.onChange(value);}}
             />
-        )
+        );
     }
 }
 ```
@@ -285,10 +285,10 @@ class TagInputDemo extends React.Component {
         super(props);
         this.state = {
             value: 'abc'
-        }
+        };
     }
     handleInputChange(value, event) {
-      this.setState({ value });
+        this.setState({ value });
     }
     render() {
         return (
@@ -296,7 +296,7 @@ class TagInputDemo extends React.Component {
                 inputValue={this.state.value}
                 onInputChange={(v,e) => this.handleInputChange(v,e)}
             />
-        )
+        );
     }
 }
 ```
@@ -318,7 +318,7 @@ import { TagInput } from '@douyinfe/semi-ui';
         onRemove={(v,i)=>{console.log(`onRemove ：${v}, index：${i}`);}} 
         onInputChange={(input,e)=>{console.log(`onInputChange ：${input}`);}} 
     />
-)
+);
 ```
 
 ### Focus Management
@@ -348,7 +348,7 @@ class TagInputDemo extends React.Component {
                     focus
                 </Button>
             </>
-        )
+        );
     }
 }
 ```
@@ -366,13 +366,13 @@ class CustomRender extends React.Component {
         super(props);
         this.state = {
             value : ['xiakeman']
-        }
+        };
         this.list = [
             { "name": "xiakeman", "avatar":  "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"},
             { "name": "shenyue",  "avatar":  "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg"},
             { "name": "quchenyi", "avatar":  "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dbf7351bb779433d17c4f50478cf42f7.jpg"},
             { "name": "wenjiamao", "avatar":  "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/7abf810ff060ac3387bd027ead92c4e0.jpg"},
-        ]
+        ];
         this.mapList = new Map(this.list.map( item => [item.name,item]));
     }
 
@@ -391,7 +391,7 @@ class CustomRender extends React.Component {
                     {`${value}@semi.com`}
                 </span>
             </div>
-        )
+        );
     }
 
     render() {

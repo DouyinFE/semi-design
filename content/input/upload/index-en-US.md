@@ -24,11 +24,13 @@ import React from 'react';
 import { Upload, Button } from '@douyinfe/semi-ui';
 import { IconUpload } from '@douyinfe/semi-icons';
 
-<Upload action="//semi.design/api/upload">
-    <Button icon={<IconUpload />} theme="light">
-        Click upload
-    </Button>
-</Upload>
+() => (
+    <Upload action="//semi.design/api/upload">
+        <Button icon={<IconUpload />} theme="light">
+            Click upload
+        </Button>
+    </Upload>
+);
 ```
 
 ### Add prompt text
@@ -191,8 +193,8 @@ import { IconCamera } from '@douyinfe/semi-icons';
         >
             <Avatar src={url} style={{ margin: 4 }} hoverMask={hoverMask} />
         </Upload>
-    )
-}
+    );
+};
 ```
 
 ```css
@@ -207,7 +209,7 @@ Custom upload attributes can be added by setting `data`, `headers`
 
 ```jsx live=true width=48%
 import React from 'react';
-import { Upload } from '@douyinfe/semi-ui';
+import { Upload, Button } from '@douyinfe/semi-ui';
 import { IconUpload } from '@douyinfe/semi-icons';
 
 () => {
@@ -248,7 +250,7 @@ For example, only allowing users to upload PNG and PDF files, `accept` can be wr
 
 ```jsx live=true width=48%
 import React from 'react';
-import { Upload } from '@douyinfe/semi-ui';
+import { Upload, Button } from '@douyinfe/semi-ui';
 import { IconUpload } from '@douyinfe/semi-icons';
 
 () => {
@@ -336,7 +338,7 @@ import { IconUpload } from '@douyinfe/semi-icons';
     let action = 'https://semi.design/api/upload';
     let limit = 1;
     let onChange = props => {
-        console.log(props.fileList)
+        console.log(props.fileList);
     };
     return (
         <Upload
@@ -586,7 +588,7 @@ import { IconUpload } from '@douyinfe/semi-icons';
         console.log(currentFile);
         let newFileList = [...fileList]; // spread to get new array
         updateList(newFileList);
-    }
+    };
 
     return (
         <Upload
@@ -599,8 +601,8 @@ import { IconUpload } from '@douyinfe/semi-icons';
                 Click upload
             </Button>
         </Upload>
-    )
-}
+    );
+};
 ```
 
 ### Photo Wall
@@ -752,7 +754,7 @@ import { IconBolt } from '@douyinfe/semi-icons';
     dragMainText={'Click to upload the file or drag and drop the file here'}
     dragSubText="Only supports jpeg, pdf"
     style={{ marginTop: 10 }}
-></Upload>
+></Upload>;
 ```
 
 You can also pass in ReactNode through `children` to completely customize the display of the drag area
@@ -787,8 +789,8 @@ import { IconBolt } from '@douyinfe/semi-icons';
             Wow, you can really dance.
         </div>
     </div>
-    </Upload>
-)
+</Upload>
+);
 ```
 
 The scss style is as follows

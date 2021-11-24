@@ -34,7 +34,7 @@ import { Select } from '@douyinfe/semi-ui';
         </Select>
         <br />
         <br />
-        <Select style={{ width: '180px' }} defaultValue="abc" style={{ width: 120 }}>
+        <Select defaultValue="abc" style={{ width: 120 }}>
             <Select.Option value="abc">Semi</Select.Option>
             <Select.Option value="hotsoon">Hotsoon</Select.Option>
         </Select>
@@ -45,7 +45,7 @@ import { Select } from '@douyinfe/semi-ui';
             <Select.Option value="hotsoon">Hotsoon</Select.Option>
         </Select>
     </>
-)
+);
 ```
 
 ### Pass Option as an array
@@ -111,7 +111,7 @@ import { Select } from '@douyinfe/semi-ui';
             <Select.Option value="xigua">BuzzVideo</Select.Option>
         </Select>
     </>
-)
+);
 ```
 ### With Group
 
@@ -135,7 +135,7 @@ import { Select } from '@douyinfe/semi-ui';
             <Select.Option value="c-1">Peru</Select.Option>
         </Select.OptGroup>
     </Select>
-)
+);
 ```
 
 ```jsx live=true
@@ -203,7 +203,7 @@ import { Select } from '@douyinfe/semi-ui';
             <Select.Option value="hotsoon">Hotsoon</Select.Option>
         </Select>
     </>
-)
+);
 ```
 
 ### Different validate status
@@ -230,7 +230,7 @@ import { Select } from '@douyinfe/semi-ui';
             <Select.Option value="Capcut">Capcut</Select.Option>
         </Select>
     </>
-)
+);
 ```
 
 ### Configure Prefix, Suffix, Clear Button
@@ -268,7 +268,7 @@ import { IconVigoLogo, IconGift } from '@douyinfe/semi-icons';
             <Select.Option value="xigua">BuzzVideo</Select.Option>
         </Select>
     </>
-)
+);
 ```
 
 ### Select with inset label
@@ -580,7 +580,7 @@ import { Select } from '@douyinfe/semi-ui';
             <Select.Option value="app4">BuzzVideo</Select.Option>
         </Select>
     </>
-)
+);
 ```
 ### Remote search
 
@@ -718,22 +718,22 @@ class CustomRender extends React.Component {
     constructor() {
         super();
         this.state = {
-          list: [
-            { "name": "XiaKeMan", "email": "xiakeman@example.com", "avatar":  "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"},
-            { "name": "ShenYue", "email": "shenyue@example.com", "avatar":  "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg"},
-            { "name": "QuChenYi", "email": "quchenyi@example.com", "avatar":  "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/8bd8224511db085ed74fea37205aede5.jpg"},
-            { "name": "WenJiaMao", "email": "wenjiamao@example.com", "avatar":  "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/6fbafc2d-e3e6-4cff-a1e2-17709c680624.png"},
-          ]
+            list: [
+                { "name": "XiaKeMan", "email": "xiakeman@example.com", "avatar":  "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"},
+                { "name": "ShenYue", "email": "shenyue@example.com", "avatar":  "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg"},
+                { "name": "QuChenYi", "email": "quchenyi@example.com", "avatar":  "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/8bd8224511db085ed74fea37205aede5.jpg"},
+                { "name": "WenJiaMao", "email": "wenjiamao@example.com", "avatar":  "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/6fbafc2d-e3e6-4cff-a1e2-17709c680624.png"},
+            ]
         };
     }
 
     renderSelectedItem(optionNode) {
         return (
-          <div key={optionNode.email} style={{display: 'flex', alignItems: 'center'}}>
-            <Avatar src={optionNode.avatar} size="small">{optionNode.abbr}</Avatar>
-            <span style={{ marginLeft: 8 }}>{optionNode.email}</span>
-          </div>
-        )
+            <div key={optionNode.email} style={{display: 'flex', alignItems: 'center'}}>
+                <Avatar src={optionNode.avatar} size="small">{optionNode.abbr}</Avatar>
+                <span style={{ marginLeft: 8 }}>{optionNode.email}</span>
+            </div>
+        );
     }
 
     // avatarSrc & avatarShape are supported after 1.6.0
@@ -746,13 +746,13 @@ class CustomRender extends React.Component {
                 onClose={onClose}
                 size='large'
                 key={optionNode.name}
-                >
+            >
                 {optionNode.name}
             </Tag>
         );
         return {
-          isRenderInTag: false,
-          content
+            isRenderInTag: false,
+            content
         };
     }
 
@@ -765,13 +765,13 @@ class CustomRender extends React.Component {
                 onClose={onClose}
                 size='large'
                 key={optionNode.name}
-                >
+            >
                 {optionNode.name}
             </Tag>
         );
         return {
-          isRenderInTag: false,
-          content
+            isRenderInTag: false,
+            content
         };
     }
 
@@ -781,16 +781,16 @@ class CustomRender extends React.Component {
             paddingLeft: 24,
             paddingTop: 10,
             paddingBottom: 10
-        }
+        };
         return (
             <Select.Option value={item.name} style={optionStyle} showTick={true}  {...item} key={item.email}>
-               <Avatar size="small" src={item.avatar} />
+                <Avatar size="small" src={item.avatar} />
                 <div style={{ marginLeft: 8 }}>
                     <div style={{ fontSize: 14 }}>{item.name}</div>
                     <div style={{ color: 'var(--semi-color-text-2)', fontSize: 12, lineHeight: '16px', fontWeight: 'normal' }}>{item.email}</div>
                 </div>
             </Select.Option>
-        )
+        );
     }
 
     render() {
@@ -804,7 +804,7 @@ class CustomRender extends React.Component {
                     renderSelectedItem={this.renderSelectedItem}
                 >
                     {
-                      list.map(item => this.renderCustomOption(item))
+                        list.map(item => this.renderCustomOption(item))
                     }
                 </Select>
                 <Select
@@ -816,7 +816,7 @@ class CustomRender extends React.Component {
                     renderSelectedItem={this.renderMultipleWithCustomTag}
                 >
                     {
-                      list.map(item => this.renderCustomOption(item))
+                        list.map(item => this.renderCustomOption(item))
                     }
                 </Select>
                 <Select
@@ -828,7 +828,7 @@ class CustomRender extends React.Component {
                     renderSelectedItem={this.renderMultipleWithCustomTag2}
                 >
                     {
-                      list.map(item => this.renderCustomOption(item))
+                        list.map(item => this.renderCustomOption(item))
                     }
                 </Select>
             </React.Fragment>
@@ -854,7 +854,7 @@ import { Select } from '@douyinfe/semi-ui';
         <Select.Option value="pipixia">Pipixia</Select.Option>
         <Select.Option value="xigua">BuzzVideo</Select.Option>
     </Select>
-)
+);
 ```
 
 ### Dynamic Modification Options
@@ -1211,14 +1211,14 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
             <div className='option-right'>
                 {label}
             </div>
-        </div>
+        </div>;
     };
 
     const optionList = [
-      { value: 'abc', label: 'Semi', otherKey:0 },
-      { value: 'capcut', label: 'Capcut', disabled: true, otherKey: 1 },
-      { value: 'cam', label: 'UlikeCam', otherKey: 2 },
-      { value: 'buzz', label: 'Buzz', otherKey: 3 },
+        { value: 'abc', label: 'Semi', otherKey:0 },
+        { value: 'capcut', label: 'Capcut', disabled: true, otherKey: 1 },
+        { value: 'cam', label: 'UlikeCam', otherKey: 2 },
+        { value: 'buzz', label: 'Buzz', otherKey: 3 },
     ];
 
     return <>
@@ -1242,7 +1242,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
             style={{ width: 320, marginTop: 180 }}
             renderOptionItem={renderOptionItem}
         />
-    </>
+    </>;
 };
 ```
 

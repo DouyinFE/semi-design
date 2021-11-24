@@ -26,53 +26,53 @@ import React from 'react';
 import { Cascader } from '@douyinfe/semi-ui';
 
 () => {
-  const treeData = [
-    {
-        label: 'Impressionism',
-        value: 'impressionism',
-        children: [
-            {
-                label: 'Visual Arts',
-                value: 'visualArts',
-                children: [
-                    {
-                        label: 'Claude Monet',
-                        value: 'Monet',
-                    },
-                    {
-                        label: 'Pierre-Auguste Renoir',
-                        value: 'Renoir',
-                    },
-                    {
-                        label: 'Édouard Manet',
-                        value: 'Manet',
-                    },
-                ],
-            },
-            {
-                label: 'Music',
-                value: 'music',
-                children: [
-                    {
-                        label: 'Claude Debussy',
-                        value: 'Debussy',
-                    },
-                    {
-                        label: 'Maurice Ravel',
-                        value: 'Ravel',
-                    }
-                ]
-            }
-        ],
-    }];
-  return (
-    <Cascader
-        style={{ width: 400 }}
-        treeData={treeData}
-        placeholder="Please select"
-    />
-  )
-}
+    const treeData = [
+        {
+            label: 'Impressionism',
+            value: 'impressionism',
+            children: [
+                {
+                    label: 'Visual Arts',
+                    value: 'visualArts',
+                    children: [
+                        {
+                            label: 'Claude Monet',
+                            value: 'Monet',
+                        },
+                        {
+                            label: 'Pierre-Auguste Renoir',
+                            value: 'Renoir',
+                        },
+                        {
+                            label: 'Édouard Manet',
+                            value: 'Manet',
+                        },
+                    ],
+                },
+                {
+                    label: 'Music',
+                    value: 'music',
+                    children: [
+                        {
+                            label: 'Claude Debussy',
+                            value: 'Debussy',
+                        },
+                        {
+                            label: 'Maurice Ravel',
+                            value: 'Ravel',
+                        }
+                    ]
+                }
+            ],
+        }];
+    return (
+        <Cascader
+            style={{ width: 400 }}
+            treeData={treeData}
+            placeholder="Please select"
+        />
+    );
+};
 ```
 
 ### Multiple
@@ -85,55 +85,55 @@ import React from 'react';
 import { Cascader } from '@douyinfe/semi-ui';
 
 () => {
-  const treeData = [
-    {
-        label: 'Impressionism',
-        value: 'impressionism',
-        children: [
-            {
-                label: 'Visual Arts',
-                value: 'visualArts',
-                children: [
-                    {
-                        label: 'Claude Monet',
-                        value: 'Monet',
-                    },
-                    {
-                        label: 'Pierre-Auguste Renoir',
-                        value: 'Renoir',
-                    },
-                    {
-                        label: 'Édouard Manet',
-                        value: 'Manet',
-                    },
-                ],
-            },
-            {
-                label: 'Music',
-                value: 'music',
-                children: [
-                    {
-                        label: 'Claude Debussy',
-                        value: 'Debussy',
-                    },
-                    {
-                        label: 'Maurice Ravel',
-                        value: 'Ravel',
-                    }
-                ]
-            }
-        ],
-    }];
-  return (
-    <Cascader
-        defaultValue= {['impressionism','visualArts','Monet']}
-        style={{ width: 400 }}
-        treeData={treeData}
-        placeholder="Please select"
-        multiple
-    />
-  )
-}
+    const treeData = [
+        {
+            label: 'Impressionism',
+            value: 'impressionism',
+            children: [
+                {
+                    label: 'Visual Arts',
+                    value: 'visualArts',
+                    children: [
+                        {
+                            label: 'Claude Monet',
+                            value: 'Monet',
+                        },
+                        {
+                            label: 'Pierre-Auguste Renoir',
+                            value: 'Renoir',
+                        },
+                        {
+                            label: 'Édouard Manet',
+                            value: 'Manet',
+                        },
+                    ],
+                },
+                {
+                    label: 'Music',
+                    value: 'music',
+                    children: [
+                        {
+                            label: 'Claude Debussy',
+                            value: 'Debussy',
+                        },
+                        {
+                            label: 'Maurice Ravel',
+                            value: 'Ravel',
+                        }
+                    ]
+                }
+            ],
+        }];
+    return (
+        <Cascader
+            defaultValue= {['impressionism','visualArts','Monet']}
+            style={{ width: 400 }}
+            treeData={treeData}
+            placeholder="Please select"
+            multiple
+        />
+    );
+};
 ```
 
 ### Searchable
@@ -146,64 +146,64 @@ import { Cascader } from '@douyinfe/semi-ui';
 
 () => {
     const treeData = [
-    {
-        label: 'Impressionism',
-        value: 'impressionism',
-        children: [
-            {
-                label: 'Visual Arts',
-                value: 'visualArts',
-                children: [
-                    {
-                        label: 'Claude Monet',
-                        value: 'Monet',
-                    },
-                    {
-                        label: 'Pierre-Auguste Renoir',
-                        value: 'Renoir',
-                    },
-                    {
-                        label: 'Édouard Manet',
-                        value: 'Manet',
-                    },
-                ],
-            },
-            {
-                label: 'Music',
-                value: 'music',
-                children: [
-                    {
-                        label: 'Claude Debussy',
-                        value: 'Debussy',
-                    },
-                    {
-                        label: 'Maurice Ravel',
-                        value: 'Ravel',
-                    }
-                ]
-            }
-        ],
-    }];
-  return (
-    <div>
-        <Cascader
-            style={{ width: 400 }}
-            treeData={treeData}
-            placeholder="Search in label by default"
-            filterTreeNode
-        />
-        <br/>
-        <br/>
-        <Cascader
-            style={{ width: 400 }}
-            treeData={treeData}
-            placeholder="Search in value"
-            filterTreeNode
-            treeNodeFilterProp='value'
-        />
-    </div>
-  )
-}
+        {
+            label: 'Impressionism',
+            value: 'impressionism',
+            children: [
+                {
+                    label: 'Visual Arts',
+                    value: 'visualArts',
+                    children: [
+                        {
+                            label: 'Claude Monet',
+                            value: 'Monet',
+                        },
+                        {
+                            label: 'Pierre-Auguste Renoir',
+                            value: 'Renoir',
+                        },
+                        {
+                            label: 'Édouard Manet',
+                            value: 'Manet',
+                        },
+                    ],
+                },
+                {
+                    label: 'Music',
+                    value: 'music',
+                    children: [
+                        {
+                            label: 'Claude Debussy',
+                            value: 'Debussy',
+                        },
+                        {
+                            label: 'Maurice Ravel',
+                            value: 'Ravel',
+                        }
+                    ]
+                }
+            ],
+        }];
+    return (
+        <div>
+            <Cascader
+                style={{ width: 400 }}
+                treeData={treeData}
+                placeholder="Search in label by default"
+                filterTreeNode
+            />
+            <br/>
+            <br/>
+            <Cascader
+                style={{ width: 400 }}
+                treeData={treeData}
+                placeholder="Search in value"
+                filterTreeNode
+                treeNodeFilterProp='value'
+            />
+        </div>
+    );
+};
 ```
 
 
@@ -277,7 +277,7 @@ class Demo extends React.Component {
                 filterTreeNode
                 onChange={e => this.onChange(e)}
             />
-        )
+        );
     }
 }
 ```
@@ -348,8 +348,8 @@ import { Cascader } from '@douyinfe/semi-ui';
                 ['impressionism', 'visualArts', 'Renoir']
             ]}
         />
-    )
-}
+    );
+};
 ```
 
 
@@ -418,8 +418,8 @@ import { Cascader, Toast } from '@douyinfe/semi-ui';
                 ['impressionism', 'visualArts', 'Monet']
             ]}
         />
-    )
-}
+    );
+};
 ```
 
 ### Change on Select
@@ -432,64 +432,64 @@ import { Cascader } from '@douyinfe/semi-ui';
 
 () => {
     const treeData = [
-    {
-        label: 'Impressionism',
-        value: 'impressionism',
-        children: [
-            {
-                label: 'Visual Arts',
-                value: 'visualArts',
-                children: [
-                    {
-                        label: 'Claude Monet',
-                        value: 'Monet',
-                    },
-                    {
-                        label: 'Pierre-Auguste Renoir',
-                        value: 'Renoir',
-                    },
-                    {
-                        label: 'Édouard Manet',
-                        value: 'Manet',
-                    },
-                ],
-            },
-            {
-                label: 'Music',
-                value: 'music',
-                children: [
-                    {
-                        label: 'Claude Debussy',
-                        value: 'Debussy',
-                    },
-                    {
-                        label: 'Maurice Ravel',
-                        value: 'Ravel',
-                    }
-                ]
-            }
-        ],
-    }];
-  return (
-    <div>
-    <Cascader
-        style={{ width: 400 }}
-        treeData={treeData}
-        changeOnSelect
-        placeholder="Change on select"
-    />
-    <br/>
-    <br/>
-    <Cascader
-        style={{ width: 400 }}
-        treeData={treeData}
-        changeOnSelect
-        placeholder="Searchable change on select"
-        filterTreeNode
-    />
-    </div>
-  )
-}
+        {
+            label: 'Impressionism',
+            value: 'impressionism',
+            children: [
+                {
+                    label: 'Visual Arts',
+                    value: 'visualArts',
+                    children: [
+                        {
+                            label: 'Claude Monet',
+                            value: 'Monet',
+                        },
+                        {
+                            label: 'Pierre-Auguste Renoir',
+                            value: 'Renoir',
+                        },
+                        {
+                            label: 'Édouard Manet',
+                            value: 'Manet',
+                        },
+                    ],
+                },
+                {
+                    label: 'Music',
+                    value: 'music',
+                    children: [
+                        {
+                            label: 'Claude Debussy',
+                            value: 'Debussy',
+                        },
+                        {
+                            label: 'Maurice Ravel',
+                            value: 'Ravel',
+                        }
+                    ]
+                }
+            ],
+        }];
+    return (
+        <div>
+            <Cascader
+                style={{ width: 400 }}
+                treeData={treeData}
+                changeOnSelect
+                placeholder="Change on select"
+            />
+            <br/>
+            <br/>
+            <Cascader
+                style={{ width: 400 }}
+                treeData={treeData}
+                changeOnSelect
+                placeholder="Searchable change on select"
+                filterTreeNode
+            />
+        </div>
+    );
+};
 ```
 
 ### Custom Display Property
@@ -541,7 +541,7 @@ import { Cascader, Typography } from '@douyinfe/semi-ui';
             ],
         }
     ];
-  return (
+    return (
         <>
             <Typography.Title heading={6}>single selection</Typography.Title>
             <Cascader
@@ -564,7 +564,7 @@ import { Cascader, Typography } from '@douyinfe/semi-ui';
             />
         </>
     );
-}
+};
 ```
 
 The return format can be set by setting `displayRender`.
@@ -662,8 +662,8 @@ import { Cascader, Tag, Typography } from '@douyinfe/semi-ui';
                 )}
             />
         </>
-    )
-}
+    );
+};
 ```
 
 ### Disabled
@@ -674,65 +674,65 @@ import { Cascader } from '@douyinfe/semi-ui';
 
 () => {
     const treeData = [
-    {
-        label: 'Impressionism',
-        value: 'impressionism',
-        children: [
-            {
-                label: 'Visual Arts',
-                value: 'visualArts',
-                children: [
-                    {
-                        label: 'Claude Monet',
-                        value: 'Monet',
-                    },
-                    {
-                        label: 'Pierre-Auguste Renoir',
-                        value: 'Renoir',
-                    },
-                    {
-                        label: 'Édouard Manet',
-                        value: 'Manet',
-                    },
-                ],
-            },
-            {
-                label: 'Music',
-                value: 'music',
-                children: [
-                    {
-                        label: 'Claude Debussy',
-                        value: 'Debussy',
-                    },
-                    {
-                        label: 'Maurice Ravel',
-                        value: 'Ravel',
-                    }
-                ]
-            }
-        ],
-    }];
-  return (
-    <div>
-      <Cascader
-          style={{ width: 400 }}
-          treeData={treeData}
-          placeholder="Please select"
-          disabled
-      />
-      <br />
-      <br />
-      <Cascader
-          style={{ width: 400 }}
-          treeData={treeData}
-          placeholder="Please select"
-          defaultValue={['impressionism', 'music', 'Debussy']}
-          filterTreeNode
-          disabled
-      />
-    </div>
-  )
-}
+        {
+            label: 'Impressionism',
+            value: 'impressionism',
+            children: [
+                {
+                    label: 'Visual Arts',
+                    value: 'visualArts',
+                    children: [
+                        {
+                            label: 'Claude Monet',
+                            value: 'Monet',
+                        },
+                        {
+                            label: 'Pierre-Auguste Renoir',
+                            value: 'Renoir',
+                        },
+                        {
+                            label: 'Édouard Manet',
+                            value: 'Manet',
+                        },
+                    ],
+                },
+                {
+                    label: 'Music',
+                    value: 'music',
+                    children: [
+                        {
+                            label: 'Claude Debussy',
+                            value: 'Debussy',
+                        },
+                        {
+                            label: 'Maurice Ravel',
+                            value: 'Ravel',
+                        }
+                    ]
+                }
+            ],
+        }];
+    return (
+        <div>
+            <Cascader
+                style={{ width: 400 }}
+                treeData={treeData}
+                placeholder="Please select"
+                disabled
+            />
+            <br />
+            <br />
+            <Cascader
+                style={{ width: 400 }}
+                treeData={treeData}
+                placeholder="Please select"
+                defaultValue={['impressionism', 'music', 'Debussy']}
+                filterTreeNode
+                disabled
+            />
+        </div>
+    );
+};
 ```
 
 ### Disable Strictly
@@ -748,47 +748,47 @@ import React from 'react';
 import { Cascader } from '@douyinfe/semi-ui';
 
 () => {
-  const treeData = [
-    {
-        label: 'Impressionism',
-        value: 'impressionism',
-        children: [
-            {
-                label: 'Visual Arts',
-                value: 'visualArts',
-                children: [
-                    {
-                        label: 'Claude Monet',
-                        value: 'Monet',
-                    },
-                    {
-                        label: 'Pierre-Auguste Renoir',
-                        value: 'Renoir',
-                    },
-                    {
-                        label: 'Édouard Manet',
-                        value: 'Manet',
-                    },
-                ],
-            },
-            {
-                label: 'Music',
-                value: 'music',
-                disabled: true,
-                children: [
-                    {
-                        label: 'Claude Debussy',
-                        value: 'Debussy',
-                    },
-                    {
-                        label: 'Maurice Ravel',
-                        value: 'Ravel',
-                    }
-                ]
-            }
-        ],
-    }];
-  return (
+    const treeData = [
+        {
+            label: 'Impressionism',
+            value: 'impressionism',
+            children: [
+                {
+                    label: 'Visual Arts',
+                    value: 'visualArts',
+                    children: [
+                        {
+                            label: 'Claude Monet',
+                            value: 'Monet',
+                        },
+                        {
+                            label: 'Pierre-Auguste Renoir',
+                            value: 'Renoir',
+                        },
+                        {
+                            label: 'Édouard Manet',
+                            value: 'Manet',
+                        },
+                    ],
+                },
+                {
+                    label: 'Music',
+                    value: 'music',
+                    disabled: true,
+                    children: [
+                        {
+                            label: 'Claude Debussy',
+                            value: 'Debussy',
+                        },
+                        {
+                            label: 'Maurice Ravel',
+                            value: 'Ravel',
+                        }
+                    ]
+                }
+            ],
+        }];
+    return (
         <Cascader
             style={{ width: 300 }}
             treeData={treeData}
@@ -796,8 +796,8 @@ import { Cascader } from '@douyinfe/semi-ui';
             placeholder="Please select..."
             disableStrictly
         />
-  )
-}
+    );
+};
 ```
 
 ### the Way of Expand Menu
@@ -812,53 +812,53 @@ import { Cascader } from '@douyinfe/semi-ui';
 
 () => {
     const treeData = [
-    {
-        label: 'Impressionism',
-        value: 'impressionism',
-        children: [
-            {
-                label: 'Visual Arts',
-                value: 'visualArts',
-                children: [
-                    {
-                        label: 'Claude Monet',
-                        value: 'Monet',
-                    },
-                    {
-                        label: 'Pierre-Auguste Renoir',
-                        value: 'Renoir',
-                    },
-                    {
-                        label: 'Édouard Manet',
-                        value: 'Manet',
-                    },
-                ],
-            },
-            {
-                label: 'Music',
-                value: 'music',
-                children: [
-                    {
-                        label: 'Claude Debussy',
-                        value: 'Debussy',
-                    },
-                    {
-                        label: 'Maurice Ravel',
-                        value: 'Ravel',
-                    }
-                ]
-            }
-        ],
-    }];
-  return (
+        {
+            label: 'Impressionism',
+            value: 'impressionism',
+            children: [
+                {
+                    label: 'Visual Arts',
+                    value: 'visualArts',
+                    children: [
+                        {
+                            label: 'Claude Monet',
+                            value: 'Monet',
+                        },
+                        {
+                            label: 'Pierre-Auguste Renoir',
+                            value: 'Renoir',
+                        },
+                        {
+                            label: 'Édouard Manet',
+                            value: 'Manet',
+                        },
+                    ],
+                },
+                {
+                    label: 'Music',
+                    value: 'music',
+                    children: [
+                        {
+                            label: 'Claude Debussy',
+                            value: 'Debussy',
+                        },
+                        {
+                            label: 'Maurice Ravel',
+                            value: 'Ravel',
+                        }
+                    ]
+                }
+            ],
+        }];
+    return (
         <Cascader
             style={{ width: 400 }}
             treeData={treeData}
             placeholder="Please select"
             showNext="hover"
         />
-  )
-}
+    );
+};
 ```
 
 ### Additional items
@@ -870,68 +870,68 @@ import React from 'react';
 import { Cascader, Typography } from '@douyinfe/semi-ui';
 
 () => {
-  const { Text } = Typography;
-  const slotStyle = {
+    const { Text } = Typography;
+    const slotStyle = {
         height: '36px',
         display: 'flex',
         padding: '0 32px',
         alignItems: 'center',
         cursor: 'pointer',
         borderTop: '1px solid var(--semi-color-border)'
-  };
-  const treeData = [
-    {
-        label: 'Impressionism',
-        value: 'impressionism',
-        children: [
-            {
-                label: 'Visual Arts',
-                value: 'visualArts',
-                children: [
-                    {
-                        label: 'Claude Monet',
-                        value: 'Monet',
-                    },
-                    {
-                        label: 'Pierre-Auguste Renoir',
-                        value: 'Renoir',
-                    },
-                    {
-                        label: 'Édouard Manet',
-                        value: 'Manet',
-                    },
-                ],
-            },
-            {
-                label: 'Music',
-                value: 'music',
-                children: [
-                    {
-                        label: 'Claude Debussy',
-                        value: 'Debussy',
-                    },
-                    {
-                        label: 'Maurice Ravel',
-                        value: 'Ravel',
-                    }
-                ]
+    };
+    const treeData = [
+        {
+            label: 'Impressionism',
+            value: 'impressionism',
+            children: [
+                {
+                    label: 'Visual Arts',
+                    value: 'visualArts',
+                    children: [
+                        {
+                            label: 'Claude Monet',
+                            value: 'Monet',
+                        },
+                        {
+                            label: 'Pierre-Auguste Renoir',
+                            value: 'Renoir',
+                        },
+                        {
+                            label: 'Édouard Manet',
+                            value: 'Manet',
+                        },
+                    ],
+                },
+                {
+                    label: 'Music',
+                    value: 'music',
+                    children: [
+                        {
+                            label: 'Claude Debussy',
+                            value: 'Debussy',
+                        },
+                        {
+                            label: 'Maurice Ravel',
+                            value: 'Ravel',
+                        }
+                    ]
+                }
+            ],
+        }];
+    return (
+        <Cascader
+            style={{ width: 300 }}
+            treeData={treeData}
+            placeholder="Please select"
+            bottomSlot={
+                <div style={slotStyle}>
+                    <Text>{`Can't find a relevant option?`}</Text>
+                    <Text link>Go to create</Text>
+                </div>
             }
-        ],
-    }];
-  return (
-    <Cascader
-        style={{ width: 300 }}
-        treeData={treeData}
-        placeholder="Please select"
-        bottomSlot={
-            <div style={slotStyle}>
-                <Text>Can't find a relevant option?</Text>
-                <Text link>Go to create</Text>
-            </div>
-        }
-    />
-  )
-}
+        />
+    );
+};
 
 ```
 
@@ -945,54 +945,54 @@ import { Cascader } from '@douyinfe/semi-ui';
 
 class Demo extends React.Component {
     constructor() {
-        super()
+        super();
         this.state = {
             value: []
         };
     }
     onChange(value) {
-        this.setState({value})
+        this.setState({value});
     }
     render() {
-            const treeData = [
-    {
-        label: 'Impressionism',
-        value: 'impressionism',
-        children: [
+        const treeData = [
             {
-                label: 'Visual Arts',
-                value: 'visualArts',
+                label: 'Impressionism',
+                value: 'impressionism',
                 children: [
                     {
-                        label: 'Claude Monet',
-                        value: 'Monet',
+                        label: 'Visual Arts',
+                        value: 'visualArts',
+                        children: [
+                            {
+                                label: 'Claude Monet',
+                                value: 'Monet',
+                            },
+                            {
+                                label: 'Pierre-Auguste Renoir',
+                                value: 'Renoir',
+                            },
+                            {
+                                label: 'Édouard Manet',
+                                value: 'Manet',
+                            },
+                        ],
                     },
                     {
-                        label: 'Pierre-Auguste Renoir',
-                        value: 'Renoir',
-                    },
-                    {
-                        label: 'Édouard Manet',
-                        value: 'Manet',
-                    },
-                ],
-            },
-            {
-                label: 'Music',
-                value: 'music',
-                children: [
-                    {
-                        label: 'Claude Debussy',
-                        value: 'Debussy',
-                    },
-                    {
-                        label: 'Maurice Ravel',
-                        value: 'Ravel',
+                        label: 'Music',
+                        value: 'music',
+                        children: [
+                            {
+                                label: 'Claude Debussy',
+                                value: 'Debussy',
+                            },
+                            {
+                                label: 'Maurice Ravel',
+                                value: 'Ravel',
+                            }
+                        ]
                     }
-                ]
-            }
-        ],
-    }];
+                ],
+            }];
         return (
             <Cascader
                 style={{ width: 400 }}
@@ -1001,7 +1001,7 @@ class Demo extends React.Component {
                 value={this.state.value}
                 onChange={e => this.onChange(e)}
             />
-        )
+        );
     }
 }
 ```
@@ -1017,13 +1017,13 @@ import { Cascader } from '@douyinfe/semi-ui';
 
 class Demo extends React.Component {
     constructor() {
-        super()
+        super();
         this.state = {
             value: ['impressionism','visualArts']
         };
     }
     onChange(value) {
-        this.setState({value})
+        this.setState({value});
     }
     render() {
         const treeData = [
@@ -1089,10 +1089,10 @@ import { Cascader, Button } from '@douyinfe/semi-ui';
 
 class Demo extends React.Component {
     constructor() {
-        super()
+        super();
         this.state = {
             treeData: [],
-        }
+        };
         this.add = this.add.bind(this);
     }
     add() {
@@ -1104,7 +1104,7 @@ class Demo extends React.Component {
                     key: `${i}-${ci}`,
                     label: `Item-${i}-${ci}`,
                     value: `${i}-${ci}`
-                }
+                };
                 return child;
             });
             let item = {
@@ -1114,7 +1114,7 @@ class Demo extends React.Component {
                 children
             };
             return item;
-        })
+        });
         this.setState({ treeData });
     }
     render() {
@@ -1131,7 +1131,7 @@ class Demo extends React.Component {
                     Update Data
                 </Button>
             </>
-        )
+        );
     }
 }
 ```
@@ -1145,50 +1145,50 @@ import React from 'react';
 import { Cascader } from '@douyinfe/semi-ui';
 
 () => {
-  const treeData = [
-    {
-        label: 'A',
-        value: 'A',
-        children: [
-            {
-                label: 'B',
-                value: 'B',
-                children: [
-                    {
-                        label: 'C',
-                        value: 'C',
-                        children: [
-                            {
-                                label: 'D',
-                                value: 'D',
-                                children: [
-                                    {
-                                        label: 'E',
-                                        value: 'E',
-                                        children: [
-                                            {
-                                                label: 'F',
-                                                value: 'F',
-                                            }
-                                        ]
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                ],
-            }
-        ]
-    }
-  ];
-  return (
-    <Cascader
-        dropdownClassName='components-cascader-demo'
-        style={{ width: 300 }}
-        treeData={treeData}
-    />
-  )
-}
+    const treeData = [
+        {
+            label: 'A',
+            value: 'A',
+            children: [
+                {
+                    label: 'B',
+                    value: 'B',
+                    children: [
+                        {
+                            label: 'C',
+                            value: 'C',
+                            children: [
+                                {
+                                    label: 'D',
+                                    value: 'D',
+                                    children: [
+                                        {
+                                            label: 'E',
+                                            value: 'E',
+                                            children: [
+                                                {
+                                                    label: 'F',
+                                                    value: 'F',
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                }
+            ]
+        }
+    ];
+    return (
+        <Cascader
+            dropdownClassName='components-cascader-demo'
+            style={{ width: 300 }}
+            treeData={treeData}
+        />
+    );
+};
 ```
 
 ```css
@@ -1237,7 +1237,7 @@ import { Cascader } from '@douyinfe/semi-ui';
             }
             return node;
         });
-    }
+    };
 
     const onLoadData = selectedOpt => {
         const targetOpt = selectedOpt[selectedOpt.length - 1];
@@ -1252,21 +1252,21 @@ import { Cascader } from '@douyinfe/semi-ui';
                 setData(origin =>
                     updateTreeData(origin, value, [
                         {
-                          label: `${label} - 1`,
-                          value: `${label}-1`,
-                          isLeaf: selectedOpt.length > 1
+                            label: `${label} - 1`,
+                            value: `${label}-1`,
+                            isLeaf: selectedOpt.length > 1
                         },
                         {
-                          label: `${label} - 2`,
-                          value: `${label}-2`,
-                          isLeaf: selectedOpt.length > 1
+                            label: `${label} - 2`,
+                            value: `${label}-2`,
+                            isLeaf: selectedOpt.length > 1
                         },
-                      ]),
+                    ]),
                 );
                 resolve();
-            }, 1000)
-        })
-    }
+            }, 1000);
+        });
+    };
 
     return (
         <Cascader
@@ -1276,7 +1276,7 @@ import { Cascader } from '@douyinfe/semi-ui';
             placeholder="Please select"
         />
     );
-}
+};
 ```
 
 
@@ -1324,41 +1324,41 @@ import { IconClose, IconChevronDown } from '@douyinfe/semi-icons';
 function Demo() {
     const [value, setValue] = useState([]);
     const treeData = useMemo(() => [
-            {
-                label: 'Asia',
-                value: 'asia',
-                children: [
-                    {
-                        label: 'China',
-                        value: 'china',
-                        children: [
-                            {
-                                label: 'Guangdong',
-                                value: 'guangdong',
-                            },
-                            {
-                                label: 'Beijing',
-                                value: 'beijing',
-                            },
-                            {
-                                label: 'Shanghai',
-                                value: 'shanghai',
-                            },
-                        ],
-                    },
-                    {
-                        label: 'Koera',
-                        value: 'koera',
-                        children: [
-                            {
-                                label: 'Seoul',
-                                value: 'seoul',
-                            }
-                        ]
-                    },
-                ],
-            }
-        ], []);
+        {
+            label: 'Asia',
+            value: 'asia',
+            children: [
+                {
+                    label: 'China',
+                    value: 'china',
+                    children: [
+                        {
+                            label: 'Guangdong',
+                            value: 'guangdong',
+                        },
+                        {
+                            label: 'Beijing',
+                            value: 'beijing',
+                        },
+                        {
+                            label: 'Shanghai',
+                            value: 'shanghai',
+                        },
+                    ],
+                },
+                {
+                    label: 'Koera',
+                    value: 'koera',
+                    children: [
+                        {
+                            label: 'Seoul',
+                            value: 'seoul',
+                        }
+                    ]
+                },
+            ],
+        }
+    ], []);
     const onChange = useCallback((val) => {
         setValue(val);
     }, []);

@@ -27,23 +27,23 @@ import { InputNumber } from '@douyinfe/semi-ui';
 
 () => (
     <div style={{ width: 280 }}>
-      <label>简单数字输入框</label>
-      <InputNumber />
-      <br/><br/>
+        <label>简单数字输入框</label>
+        <InputNumber />
+        <br/><br/>
 
-      <label>设置了步长 step=2 </label>
-      <InputNumber step={2} />
-      <br/><br/>
+        <label>设置了步长 step=2 </label>
+        <InputNumber step={2} />
+        <br/><br/>
 
-      <label>设置 shiftStep=100， 按住 shift 同时点击按钮，可以一次增加/减少100 </label>
-      <InputNumber shiftStep={100} />
-      <br/><br/>
+        <label>设置 shiftStep=100， 按住 shift 同时点击按钮，可以一次增加/减少100 </label>
+        <InputNumber shiftStep={100} />
+        <br/><br/>
 
-      <label>设置了上下界 min=1,max=10</label>
-      <InputNumber min={1} max={10} defaultValue={1} />
-      <br/><br/>
+        <label>设置了上下界 min=1,max=10</label>
+        <InputNumber min={1} max={10} defaultValue={1} />
+        <br/><br/>
     </div>
-)
+);
 ```
 
 ```jsx live=true
@@ -52,27 +52,27 @@ import { InputNumber } from '@douyinfe/semi-ui';
 
 () => (
     <div style={{ width: 280 }}>
-      <label>设置了默认值 defaultValue=1 </label>
-      <InputNumber defaultValue={1} />
-      <br/><br/>
+        <label>设置了默认值 defaultValue=1 </label>
+        <InputNumber defaultValue={1} />
+        <br/><br/>
 
-      <label>禁用 disabled=true</label>
-      <InputNumber defaultValue={2} disabled />
-      <br/><br/>
+        <label>禁用 disabled=true</label>
+        <InputNumber defaultValue={2} disabled />
+        <br/><br/>
 
-      <label>自动获得焦点 autofocus=true </label>
-      <InputNumber defaultValue={3} autofocus />
-      <br/><br/>
+        <label>自动获得焦点 autofocus=true </label>
+        <InputNumber defaultValue={3} autofocus />
+        <br/><br/>
 
-      <label>设置了小数位数 precision=2 </label>
-      <InputNumber precision={2} defaultValue={1.234} />
-      <br/><br/>
+        <label>设置了小数位数 precision=2 </label>
+        <InputNumber precision={2} defaultValue={1.234} />
+        <br/><br/>
 
-      <label>设置了 innerButtons=true </label>
-      <InputNumber innerButtons={true} suffix={'小时'} defaultValue={1} style={{ width: 190}} />
-      <br/>
+        <label>设置了 innerButtons=true </label>
+        <InputNumber innerButtons={true} suffix={'小时'} defaultValue={1} style={{ width: 190}} />
+        <br/>
     </div>
-)
+);
 ```
 
 
@@ -85,8 +85,8 @@ import React from 'react';
 import { InputNumber } from '@douyinfe/semi-ui';
 
 () => (
-  <InputNumber innerButtons style={{ width: 190}} />
-)
+    <InputNumber innerButtons style={{ width: 190}} />
+);
 ```
 
 hideButtons设为true，彻底隐藏步进器
@@ -96,8 +96,8 @@ import React from 'react';
 import { InputNumber } from '@douyinfe/semi-ui';
 
 () => (
-  <InputNumber hideButtons style={{ width: 190}} />
-)
+    <InputNumber hideButtons style={{ width: 190}} />
+);
 ```
 
 ### 尺寸
@@ -108,19 +108,19 @@ import { InputNumber } from '@douyinfe/semi-ui';
 
 () => (
     <div style={{ width: 180 }}>
-      <label>默认尺寸 size=default</label>
-      <InputNumber />
-      <br/><br/>
+        <label>默认尺寸 size=default</label>
+        <InputNumber />
+        <br/><br/>
 
-      <label>大尺寸 size=large</label>
-      <InputNumber size="large" />
-      <br/><br/>
+        <label>大尺寸 size=large</label>
+        <InputNumber size="large" />
+        <br/><br/>
 
-      <label>小尺寸 size=small</label>
-      <InputNumber size="small" />
-      <br/>
+        <label>小尺寸 size=small</label>
+        <InputNumber size="small" />
+        <br/>
     </div>
-)
+);
 ```
 
 ### 自定义显示格式与解析方式
@@ -132,33 +132,33 @@ import React from 'react';
 import { InputNumber } from '@douyinfe/semi-ui';
 
 () => {
-  const log = (v) => {
-    console.log(`Changed to: [${typeof v}] ${v}`);
-  }
+    const log = (v) => {
+        console.log(`Changed to: [${typeof v}] ${v}`);
+    };
 
-  return (
-      <div style={{ width: 180 }}>
-        <label>人民币</label>
-        <InputNumber
-            onChange={this.log}
-            defaultValue={1000}
-            min={0}
-            formatter={value => `￥ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-            parser={value => value.replace(/\￥\s?|(,*)/g, '')}
-        />
-        <br/><br/>
+    return (
+        <div style={{ width: 180 }}>
+            <label>人民币</label>
+            <InputNumber
+                onChange={this.log}
+                defaultValue={1000}
+                min={0}
+                formatter={value => `￥ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                parser={value => value.replace(/\￥\s?|(,*)/g, '')}
+            />
+            <br/><br/>
 
-        <label>自定义串</label>
-        <InputNumber
-            onChange={this.log}
-            defaultValue={1111}
-            formatter={value => String(value).split('').join('-')}
-            parser={value => value.replace(/\-/g, '')}
-        />
-        <br/>
-      </div>
-  )
-}
+            <label>自定义串</label>
+            <InputNumber
+                onChange={this.log}
+                defaultValue={1111}
+                formatter={value => String(value).split('').join('-')}
+                parser={value => value.replace(/\-/g, '')}
+            />
+            <br/>
+        </div>
+    );
+};
 ```
 
 ### 纯数字输入框
@@ -169,14 +169,14 @@ import React from 'react';
 import { InputNumber } from '@douyinfe/semi-ui';
 
 function Demo () {
-  return (
-    <InputNumber
-      formatter={value => `${value}`.replace(/\D/g, '')}
-      onNumberChange={number => console.log(number)}
-      min={0}
-      max={Number.MAX_SAFE_INTEGER}
-    />
-  );
+    return (
+        <InputNumber
+            formatter={value => `${value}`.replace(/\D/g, '')}
+            onNumberChange={number => console.log(number)}
+            min={0}
+            max={Number.MAX_SAFE_INTEGER}
+        />
+    );
 }
 ```
 

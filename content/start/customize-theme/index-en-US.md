@@ -43,7 +43,7 @@ SemiWebpackPlugin  `yarn add -D @douyinfe/semi-webpack-plugin` or `npm i -D @dou
 new SemiWebpackPlugin({
     theme: `Your theme npm package name`
     /* ...options */
-})
+});
 ```
 ### Make changes to component-level variables take effect
 

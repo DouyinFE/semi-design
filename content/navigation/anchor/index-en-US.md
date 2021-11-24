@@ -33,7 +33,7 @@ import { Anchor } from '@douyinfe/semi-ui';
         <Anchor.Link href="#Blocks" title="Blocks" />
         <Anchor.Link href="#Theme" title="Theme" />
     </Anchor>
-)
+);
 ```
 
 ### Integrated Usage
@@ -49,12 +49,13 @@ You can use `getContainer`, `targetOffset`, `offsetTop`, and `style` to create a
 -   offsetTop：`offsetTop` can trigger the current Link switch when the scrolling content reaches a specified offset from the top of the container.
 
 ```jsx
+import React from 'react';
 import { Anchor } from '@douyinfe/semi-ui';
 
 () => {
     const getContainer = () => {
         return document.querySelector('window');
-    }
+    };
     return (
         <div>
             <span>See the fixed Anchor on the right </span>
@@ -76,8 +77,8 @@ import { Anchor } from '@douyinfe/semi-ui';
                 </Anchor.Link>
             </Anchor>
         </div>
-    )
-}
+    );
+};
 ```
 
 ### Size
@@ -95,7 +96,7 @@ import { Anchor } from '@douyinfe/semi-ui';
         <Anchor.Link href="#Blocks" title="Blocks" />
         <Anchor.Link href="#Theme" title="Theme" />
     </Anchor>
-)
+);
 ```
 
 ```jsx live=true
@@ -109,7 +110,7 @@ import { Anchor } from '@douyinfe/semi-ui';
         <Anchor.Link href="#Blocks" title="Blocks" />
         <Anchor.Link href="#Theme" title="Theme" />
     </Anchor>
-)
+);
 ```
 
 ### Rail Theme
@@ -123,7 +124,7 @@ import { Anchor } from '@douyinfe/semi-ui';
 () => {
     const getContainer = () => {
         return document.querySelector('window');
-    }
+    };
     return (
         <div>
             <Anchor
@@ -138,8 +139,8 @@ import { Anchor } from '@douyinfe/semi-ui';
                 <Anchor.Link href="#Theme" title="Theme" />
             </Anchor>
         </div>
-    )
-}
+    );
+};
 ```
 
 ```jsx live=true
@@ -149,7 +150,7 @@ import { Anchor } from '@douyinfe/semi-ui';
 () => {
     const getContainer = () => {
         return document.querySelector('window');
-    }
+    };
     return (
         <div>
             <Anchor
@@ -164,8 +165,8 @@ import { Anchor } from '@douyinfe/semi-ui';
                 <Anchor.Link href="#Theme" title="Theme" />
             </Anchor>
         </div>
-    )
-}
+    );
+};
 ```
 
 ```jsx live=true
@@ -175,7 +176,7 @@ import { Anchor } from '@douyinfe/semi-ui';
 () => {
     const getContainer = () => {
         return document.querySelector('window');
-    }
+    };
     return (
         <div>
             <Anchor
@@ -190,8 +191,8 @@ import { Anchor } from '@douyinfe/semi-ui';
                 <Anchor.Link href="#Theme" title="Theme" />
             </Anchor>
         </div>
-    )
-}
+    );
+};
 ```
 
 ### Auto Collapse
@@ -205,28 +206,28 @@ import { Anchor } from '@douyinfe/semi-ui';
 () => {
     const getContainer = () => {
         return document.querySelector('window');
-    }
+    };
     return (
         <div>
-        <Anchor
-            autoCollapse={true}
-            getContainer={getContainer}
-            targetOffset={60}
-            offsetTop={100}>
-            <Anchor.Link href="#Auto_Collapse" title="1. Auto Collapse">
-                <Anchor.Link href="#Components" title="1.1 Components">
-                    <Anchor.Link href="#Avatar" title="1.1.1 Avatar" />
-                    <Anchor.Link href="#Button" title="1.1.2 Button" />
-                    <Anchor.Link href="#Icon" title="1.1.3 Icon" />
+            <Anchor
+                autoCollapse={true}
+                getContainer={getContainer}
+                targetOffset={60}
+                offsetTop={100}>
+                <Anchor.Link href="#Auto_Collapse" title="1. Auto Collapse">
+                    <Anchor.Link href="#Components" title="1.1 Components">
+                        <Anchor.Link href="#Avatar" title="1.1.1 Avatar" />
+                        <Anchor.Link href="#Button" title="1.1.2 Button" />
+                        <Anchor.Link href="#Icon" title="1.1.3 Icon" />
+                    </Anchor.Link>
+                    <Anchor.Link href="#Blocks" title="1.2 Blocks" />
+                    <Anchor.Link href="#Theme" title="1.3 Theme" />
                 </Anchor.Link>
-                <Anchor.Link href="#Blocks" title="1.2 Blocks" />
-                <Anchor.Link href="#Theme" title="1.3 Theme" />
-            </Anchor.Link>
-            <Anchor.Link href="#Design" title="2. Design" />
-        </Anchor>
+                <Anchor.Link href="#Design" title="2. Design" />
+            </Anchor>
         </div>
-    )
-}
+    );
+};
 ```
 
 ```jsx live=true
@@ -236,7 +237,7 @@ import { Anchor } from '@douyinfe/semi-ui';
 () => {
     const getContainer = () => {
         return document.querySelector('window');
-    }
+    };
     return (
         <div>
             <Anchor
@@ -256,8 +257,8 @@ import { Anchor } from '@douyinfe/semi-ui';
                 <Anchor.Link href="#Design" title="2. Design" />
             </Anchor>
         </div>
-    )
-}
+    );
+};
 ```
 
 ### Show Tooltip
@@ -271,24 +272,24 @@ import { Anchor } from '@douyinfe/semi-ui';
 () => {
     const getContainer = () => {
         return document.querySelector('window');
-    }
+    };
     return (
         <div>
-        <Anchor
-            showTooltip={true}
-            getContainer={getContainer}
-            targetOffset={60}
-            offsetTop={100}
-        >
-            <Anchor.Link href="#Show_Tooltip" title="Tooltip is a useful tool that displays the entire content when text is abbreviated." />
-            <Anchor.Link href="#Components" title="Components" />
-            <Anchor.Link href="#Design" title="Design" />
-            <Anchor.Link href="#Blocks" title="Blocks" />
-            <Anchor.Link href="#Theme" title="Theme" />
-        </Anchor>
+            <Anchor
+                showTooltip={true}
+                getContainer={getContainer}
+                targetOffset={60}
+                offsetTop={100}
+            >
+                <Anchor.Link href="#Show_Tooltip" title="Tooltip is a useful tool that displays the entire content when text is abbreviated." />
+                <Anchor.Link href="#Components" title="Components" />
+                <Anchor.Link href="#Design" title="Design" />
+                <Anchor.Link href="#Blocks" title="Blocks" />
+                <Anchor.Link href="#Theme" title="Theme" />
+            </Anchor>
         </div>
-    )
-}
+    );
+};
 ```
 
 ### Tooltip Position
@@ -302,25 +303,25 @@ import { Anchor } from '@douyinfe/semi-ui';
 () => {
     const getContainer = () => {
         return document.querySelector('window');
-    }
+    };
     return (
         <div>
-        <Anchor
-            showTooltip={true}
-            position={'right'}
-            getContainer={getContainer}
-            targetOffset={60}
-            offsetTop={100}
-        >
-            <Anchor.Link href="#Tooltip_Position" title="Tooltip is a useful tool that displays the entire content when text is abbreviated." />
-            <Anchor.Link href="#Components" title="Components" />
-            <Anchor.Link href="#Design" title="Design" />
-            <Anchor.Link href="#Blocks" title="Blocks" />
-            <Anchor.Link href="#Theme" title="Theme" />
-        </Anchor>
+            <Anchor
+                showTooltip={true}
+                position={'right'}
+                getContainer={getContainer}
+                targetOffset={60}
+                offsetTop={100}
+            >
+                <Anchor.Link href="#Tooltip_Position" title="Tooltip is a useful tool that displays the entire content when text is abbreviated." />
+                <Anchor.Link href="#Components" title="Components" />
+                <Anchor.Link href="#Design" title="Design" />
+                <Anchor.Link href="#Blocks" title="Blocks" />
+                <Anchor.Link href="#Theme" title="Theme" />
+            </Anchor>
         </div>
-    )
-}
+    );
+};
 ```
 
 ## API Reference
@@ -365,16 +366,19 @@ import { Anchor } from '@douyinfe/semi-ui';
     - No, it means there is a problem with the id. check whether the id exists in the document;
     - Yes, it may be that the scrolling container is not set correctly to ensure that the content of the document is wrapped in the scrolling container. The default scrolling container is window. If your container is a div of .my-container, you should set the scrolling container to this div.
     
-    ```jsx
-    function() {
+    ```text
+    import React from 'react';
+    import { Anchor } from '@douyinfe/semi-ui';
+
+    function App() {
         const getContainer = () => {
             return document.querySelector('.my-container');
-        }
+        };
         return (
             <Anchor
                 /* Other props */
                 getContainer={getContainer}
-                >
+            >
                 /* Links */
             </Anchor>
         )

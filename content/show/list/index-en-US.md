@@ -92,6 +92,7 @@ import { List, ButtonGroup, Button, Avatar } from '@douyinfe/semi-ui';
 class ContentList extends React.Component {
     render() {
         const data = [
+            // eslint-disable-next-line react/jsx-key
             <p
                 style={{
                     color: 'var(--semi-color-text-2)',
@@ -102,15 +103,17 @@ class ContentList extends React.Component {
                     textOverflow: 'ellipsis',
                 }}
             >
-                Life's but a walking shadow, a poor player, that struts and frets his hour upon the stage, and then is
-                heard no more; it is a tale told by an idiot, full of sound and fury, signifying nothing.
+                {`Life's but a walking shadow, a poor player, that struts and frets his hour upon the stage, and then is
+                heard no more; it is a tale told by an idiot, full of sound and fury, signifying nothing.`}
             </p>,
+            // eslint-disable-next-line react/jsx-key
             <p style={{ color: 'var(--semi-color-text-2)', margin: '4px 0', width: 500 }}>
                 Come what come may, time and the hour run through the roughest day.
             </p>,
+            // eslint-disable-next-line react/jsx-key
             <p style={{ color: 'var(--semi-color-text-2)', margin: '4px 0', width: 500 }}>
-                Where shall we three meet again in thunder, lightning, or in rain? When the hurlyburly's done, when the
-                battle's lost and won
+                {`Where shall we three meet again in thunder, lightning, or in rain? When the hurlyburly's done, when the
+                battle's lost and won`}
             </p>,
         ];
 
@@ -181,9 +184,9 @@ class LayoutList extends React.Component {
                                 <div>
                                     <span style={{ color: 'var(--semi-color-text-0)', fontWeight: 500 }}>{item.title}</span>
                                     <p style={{ color: 'var(--semi-color-text-2)', margin: '4px 0' }}>
-                                        Life's but a walking shadow, a poor player, that struts and frets his hour upon
+                                        {` Life's but a walking shadow, a poor player, that struts and frets his hour upon
                                         the stage, and then is heard no more; it is a tale told by an idiot, full of
-                                        sound and fury, signifying nothing.
+                                        sound and fury, signifying nothing.`}
                                     </p>
                                 </div>
                             }
@@ -500,7 +503,7 @@ You can integrate [react-infinite-scroller](https://github.com/CassetteRocks/rea
 
 ```jsx live=true dir="column" noInline=true hideInDSM
 import React from 'react';
-import { List, Avatar, Spin } from '@douyinfe/semi-ui';
+import { List, Avatar, Spin, Button } from '@douyinfe/semi-ui';
 import InfiniteScroll from 'react-infinite-scroller';
 
 class ScrollLoad extends React.Component {
@@ -569,7 +572,7 @@ class ScrollLoad extends React.Component {
 
         return (
             <div
-                class
+                className
                 Name="light-scrollbar"
                 style={{ height: 420, overflow: 'auto', border: '1px solid var(--semi-color-border)', padding: 10 }}
             >

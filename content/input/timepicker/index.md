@@ -28,7 +28,7 @@ import React from 'react';
 import { TimePicker } from '@douyinfe/semi-ui';
 
 function Demo() {
-  return <TimePicker />;
+    return <TimePicker />;
 }
 ```
 
@@ -39,7 +39,7 @@ import React from 'react';
 import { TimePicker } from '@douyinfe/semi-ui';
 
 function Demo() {
-  return <TimePicker insetLabel='时刻'/>;
+    return <TimePicker insetLabel='时刻'/>;
 }
 ```
 
@@ -52,22 +52,22 @@ import React from 'react';
 import { TimePicker } from '@douyinfe/semi-ui';
 
 class Demo extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      value: null,
+    constructor() {
+        super();
+        this.state = {
+            value: null,
+        };
+        this.onChange = this.onChange.bind(this);
+    }
+
+    onChange(time) {
+        console.log(time);
+        this.setState({ value: time });
     };
-    this.onChange = this.onChange.bind(this);
-  }
 
-  onChange(time) {
-    console.log(time);
-    this.setState({ value: time });
-  };
-
-  render() {
-    return <TimePicker value={this.state.value} onChange={this.onChange} />;
-  }
+    render() {
+        return <TimePicker value={this.state.value} onChange={this.onChange} />;
+    }
 }
 ```
 
@@ -82,7 +82,7 @@ import React from 'react';
 import { TimePicker } from '@douyinfe/semi-ui';
 
 function Demo() {
-  return <TimePicker format={'HH:mm'} defaultValue={'10:24'}/>;
+    return <TimePicker format={'HH:mm'} defaultValue={'10:24'}/>;
 }
 ```
 
@@ -93,14 +93,14 @@ import React, { useState } from 'react';
 import { TimePicker, Button } from '@douyinfe/semi-ui';
 
 function Demo() {
-  const [open, setOpen] = useState(false);
-  const closePanel = () => setOpen(false);
-  const onOpenChange = (open) =>  {
-    setOpen(open);
-    console.log(open);
-  };
+    const [open, setOpen] = useState(false);
+    const closePanel = () => setOpen(false);
+    const onOpenChange = (open) =>  {
+        setOpen(open);
+        console.log(open);
+    };
 
-  return <TimePicker open={open} onOpenChange={onOpenChange} panelHeader={'Time Select'} panelFooter={<Button onClick={closePanel}>close</Button>}/>;
+    return <TimePicker open={open} onOpenChange={onOpenChange} panelHeader={'Time Select'} panelFooter={<Button onClick={closePanel}>close</Button>}/>;
 }
 ```
 
@@ -111,7 +111,7 @@ import React from 'react';
 import { TimePicker } from '@douyinfe/semi-ui';
 
 function Demo() {
-  return <TimePicker defaultValue={'12:08:23'} disabled />;
+    return <TimePicker defaultValue={'12:08:23'} disabled />;
 }
 ```
 
@@ -124,7 +124,7 @@ import React from 'react';
 import { TimePicker } from '@douyinfe/semi-ui';
 
 function Demo() {
-  return <TimePicker minuteStep={15} secondStep={10} />;
+    return <TimePicker minuteStep={15} secondStep={10} />;
 }
 ```
 
@@ -139,12 +139,12 @@ import React from 'react';
 import { TimePicker } from '@douyinfe/semi-ui';
 
 function Demo() {
-  return (
-    <div>
-      <TimePicker use12Hours /><br/><br/>
-      <TimePicker use12Hours format="a h:mm" />
-    </div>
-  );
+    return (
+        <div>
+            <TimePicker use12Hours /><br/><br/>
+            <TimePicker use12Hours format="a h:mm" />
+        </div>
+    );
 }
 ```
 
@@ -159,12 +159,12 @@ import React from 'react';
 import { TimePicker } from '@douyinfe/semi-ui';
 
 function Demo() {
-  return (
-    <div>
-      <TimePicker type="timeRange" defaultValue={["10:23:15", "12:38:32"]} /><br/><br/>
-      <TimePicker type="timeRange" use12Hours format="a h:mm" defaultValue={["上午 08:11", "下午 11:21"]} />
-    </div>
-  );
+    return (
+        <div>
+            <TimePicker type="timeRange" defaultValue={["10:23:15", "12:38:32"]} /><br/><br/>
+            <TimePicker type="timeRange" use12Hours format="a h:mm" defaultValue={["上午 08:11", "下午 11:21"]} />
+        </div>
+    );
 }
 ```
 
@@ -224,10 +224,10 @@ function Demo(props = {}) {
     const defaultTimestamp = 1581599305265;
     const gmtList = useMemo(() => {
         const list = [];
-        for(let hourOffset = -11; hourOffset <= 14 ; hourOffset++) {
+        for (let hourOffset = -11; hourOffset <= 14 ; hourOffset++) {
             const prefix = hourOffset >= 0 ? '+' : '-';
             const hOffset = Math.abs(parseInt(hourOffset, 10));
-            list.push(`GMT${prefix}${String(hOffset).padStart(2, '0')}:00`)
+            list.push(`GMT${prefix}${String(hOffset).padStart(2, '0')}:00`);
         }
         return list;
     }, []);

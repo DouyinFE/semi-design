@@ -29,7 +29,7 @@ import { Radio } from '@douyinfe/semi-ui';
 
 () => (
     <Radio>Radio</Radio>
-)
+);
 
 ```
 
@@ -48,7 +48,7 @@ import { Radio } from '@douyinfe/semi-ui';
     <Radio extra="Semi Design is a design system developed and maintained by IES Front-end Team and UED Team">
         Semi Design
     </Radio>
-)
+);
 ```
 
 ### Disabled
