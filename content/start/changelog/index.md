@@ -15,6 +15,15 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 ---
 
+#### 🎉 2.1.0-beta.1 (2021-11-22)
+- 【Fix】
+  - Select
+    - 修复虚拟化使用崩溃的问题 [#308](https://github.com/DouyinFE/semi-design/issues/308)
+    - 修复 Option children 不是 string 时的渲染问题
+  - 修复 TreeSelect leafOnly 和 searchPosition='hover' 同时开启时报错的问题 [#306](https://github.com/DouyinFE/semi-design/issues/306)
+  - 修复 Cascader 多选时，triggerRender 入参中 value 为空的问题 [259](https://github.com/DouyinFE/semi-design/issues/259)
+  - 修复 Tree 的 interface ExpanedOtherProps 命名不正确的问题，将其修正为 ExpandedOtherProps [297](https://github.com/DouyinFE/semi-design/issues/297)
+
 #### 🎉 2.1.0-beta.0 (2021-11-19)
 - 【Feature】
   - Tabs 新增 关闭可选项 closable API [@xieyezi](https://github.com/xieyezi)

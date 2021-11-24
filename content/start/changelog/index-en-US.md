@@ -16,6 +16,15 @@ Version：Major.Minor.Patch
 
 ---
 
+#### 🎉 2.1.0-beta.1 (2021-11-22)
+- 【Fix】
+  - Select
+    - Fix the crash of virtualization. [#308](https://github.com/DouyinFE/semi-design/issues/308)
+    - Fix the rendering problem when Option children are not string.
+  - Fix an error when TreeSelect leafOnly and searchPosition='hover' are opened at the same time. [#306](https://github.com/DouyinFE/semi-design/issues/306)
+  - Fix that the value of triggerRender in the parameter is empty when Cascader is multi-selected. [259](https://github.com/DouyinFE/semi-design/issues/259)
+  - Fix the incorrect naming of the interface ExpanedOtherProps of Tree and amend it to ExpandedOtherProps. [297](https://github.com/DouyinFE/semi-design/issues/297)
+
 #### 🎉 2.1.0-beta.0 (2021-11-19)
 - 【Feature】
   - Tabs add close options closable API [@xieyezi](https://github.com/xieyezi)
