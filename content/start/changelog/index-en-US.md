@@ -16,7 +16,7 @@ Version：Major.Minor.Patch
 
 ---
 
-#### 🎉 2.1.0-beta.2 (2021-11-24)
+#### 🎉 2.1.0-beta.3 (2021-11-24)
 - 【Fix】
   - Update the ts type definitions of some components, and fix the problem that the build report error when strict: true is enabled and skipLibCheck is false in tscofnig.json [#283](https://github.com/DouyinFE/semi-design/issues/283)
 #### 🎉 2.1.0-beta.1 (2021-11-24)

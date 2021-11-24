@@ -15,7 +15,7 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 ---
 
-#### 🎉 2.1.0-beta.2 (2021-11-24)
+#### 🎉 2.1.0-beta.3 (2021-11-24)
 - 【Fix】
   - 更新部分组件的ts类型定义，修复 tsconfig.json 开启 strict: true 且 skipLibCheck为false时 build报错的问题 [#283](https://github.com/DouyinFE/semi-design/issues/283)
 
