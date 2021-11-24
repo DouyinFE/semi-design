@@ -11,16 +11,16 @@ export interface Item {
     disabled?: boolean;
 }
 
-export interface ScrollItemAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
+export interface ScrollItemAdapter<P = Record<string, any>, S = Record<string, any>, I = Item> extends DefaultAdapter<P, S> {
     setPrependCount: (prependCount: number) => void;
     setAppendCount: (appendCount: number) => void;
     setSelectedNode: (el: HTMLElement) => void;
     isDisabledIndex: (i: number) => boolean;
-    notifySelectItem: (data: Item) => void;
+    notifySelectItem: (data: I) => void;
     scrollToCenter: (selectedNode: Element, scrollWrapper?: Element, duration?: number) => void;
 }
 
-export default class ItemFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<ScrollItemAdapter<P, S>, P, S> {
+export default class ItemFoundation<P = Record<string, any>, S = Record<string, any>, I = Item> extends BaseFoundation<ScrollItemAdapter<P, S, I>, P, S> {
     _cachedSelectedNode: HTMLElement = null;
 
     selectIndex(index: number, listWrapper: HTMLElement) {

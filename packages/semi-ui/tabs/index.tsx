@@ -1,4 +1,5 @@
-import React, { createRef, MouseEvent, ReactElement, ReactNode, RefCallback, RefObject } from 'react';
+
+import React, { createRef, MouseEvent, ReactElement, ReactNode, RefCallback, RefObject, isValidElement } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/tabs/constants';
@@ -12,7 +13,7 @@ import '@douyinfe/semi-foundation/tabs/tabs.scss';
 import TabBar from './TabBar';
 import TabPane from './TabPane';
 import TabsContext from './tabs-context';
-import { PlainTab, TabPaneProps, TabsProps } from './interface';
+import { TabsProps, PlainTab, TabBarProps } from './interface';
 
 const panePickKeys = Object.keys(omit(TabPane.propTypes, ['children']));
 
@@ -137,7 +138,7 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
             getDefaultActiveKeyFromChildren: (): string => {
                 const { tabList, children } = this.props;
                 let activeKey = '';
-                const list = tabList ? tabList : React.Children.toArray(children).map((child: ReactElement<TabPaneProps>) => child.props);
+                const list = tabList ? tabList : React.Children.toArray(children).map((child) => isValidElement(child) ? child.props : null);
                 list.forEach(item => {
                     if (item && !activeKey && !item.disabled) {
                         activeKey = item.itemKey;
@@ -161,11 +162,11 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
 
     componentDidUpdate(prevProps: TabsProps): void {
         // Panes state acts on tab bar, no need to compare TabPane children
-        const prevChildrenProps = React.Children.toArray(prevProps.children).map((child: ReactElement<TabPaneProps>) =>
-            pick(child.props, panePickKeys)
+        const prevChildrenProps = React.Children.toArray(prevProps.children).map((child) =>
+            pick(isValidElement(child) ? child.props : null, panePickKeys)
         );
-        const nowChildrenProps = React.Children.toArray(this.props.children).map((child: ReactElement<TabPaneProps>) =>
-            pick(child.props, panePickKeys)
+        const nowChildrenProps = React.Children.toArray(this.props.children).map((child) =>
+            pick(isValidElement(child) ? child.props : null, panePickKeys)
         );
 
         const isTabListType = this.props.tabList || prevProps.tabList;
@@ -210,8 +211,8 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
         if (tabList || !Array.isArray(children)) {
             return children;
         }
-        return React.Children.toArray(children).filter((pane: ReactElement) => {
-            if (pane && pane.type && (pane.type as any).isTabPane) {
+        return React.Children.toArray(children).filter((pane) => {
+            if (isValidElement(pane) && pane.type && (pane.type as any).isTabPane) {
                 return pane.props.itemKey === activeKey;
             }
             return true;
@@ -265,7 +266,7 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
             tabPosition,
             type,
             deleteTabItem: this.deleteTabItem
-        };
+        } as TabBarProps;
 
         const tabBar = renderTabBar ? renderTabBar(tabBarProps, TabBar) : <TabBar {...tabBarProps} />;
         const content = keepDOM ? children : this.getActiveItem();

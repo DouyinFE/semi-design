@@ -69,7 +69,7 @@ stories.add('default', () => {
             <>
                 <DatePicker ref={ref} style={{ display: 'inline-block' }} />
                 <DatePicker
-                    type="dateTime"
+                    type='dateTime'
                     presets={presets.map(preset => ({
                         text: preset.text,
                         start: preset.start,
@@ -151,6 +151,7 @@ stories.add('triggerRender', () => {
 
     return (
         <DatePicker
+            ref={ref}
             onChange={onChange}
             value={date}
             format={formatToken}
@@ -184,20 +185,20 @@ stories.add('Form.DatePicker', () => {
             end: new Date(new Date().valueOf() + 1000 * 3600 * 24),
         },
     ];
-    const CustomDatePicker = (props: DatePickerProps & { fieldRef: React.Ref<Object> }) => {
-      const { fieldRef, ...rest } = props;
-      return (
-        <DatePicker {...rest} ref={fieldRef}  />
-      );
-    };
+    // const CustomDatePicker = (props: DatePickerProps & { fieldRef: React.Ref<Object> }) => {
+    //   const { fieldRef, ...rest } = props;
+    //   return (
+    //     <DatePicker {...rest} ref={fieldRef}  />
+    //   );
+    // };
     
-    const CustomFieldDatePicker = withField(CustomDatePicker);
+    // const CustomFieldDatePicker = withField(CustomDatePicker);
 
     return (
       <>
         <DatePicker type="dateRange" ref={ref} />
         <Form>
-        <CustomFieldDatePicker
+        {/* <CustomFieldDatePicker
               type="dateTimeRange"
               field="a"
               label="Form.DatePicker"
@@ -217,7 +218,7 @@ stories.add('Form.DatePicker', () => {
               onBlur={() => {console.log('blur')}}
               style={{ width: 500 }}
               fieldRef={ref2}
-          />
+          /> */}
         </Form>
       </>
     );

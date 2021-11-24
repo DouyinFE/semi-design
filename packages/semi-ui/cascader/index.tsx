@@ -390,7 +390,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                     const formatValuePath: (string | number)[][] = [];
                     normallizedValue.forEach((valueItem: SimpleValueType[]) => {
                         const formatItem: (string | number)[] = onChangeWithObject ?
-                            valueItem.map((i: CascaderData) => i.value) :
+                            (valueItem as CascaderData[]).map(i => i.value) :
                             valueItem as (string | number)[];
                         formatValuePath.push(formatItem);
                     });

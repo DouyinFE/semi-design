@@ -45,8 +45,9 @@ export interface SelectAdapter<P = Record<string, any>, S = Record<string, any>>
     updateHovering(isHover: boolean): void;
     updateScrollTop(): void;
 }
-type PropValue = string | number | Record<string, any>;
 
+type LabelValue = string | number;
+type PropValue = LabelValue | Record<string, any>;
 export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
 
     constructor(adapter: SelectAdapter) {
@@ -258,11 +259,11 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
 
         // When onChangeWithObject is true
         if (onChangeWithObject && propValueIsArray) {
-            selectedValues = propValue.map((item: BasicOptionProps) => item.value) as any;
+            selectedValues = (propValue as BasicOptionProps[]).map(item => item.value);
         }
 
         if (propValueIsArray && selectedValues.length) {
-            selectedValues.forEach((selectedValue: string, i: number) => {
+            (selectedValues as LabelValue[]).forEach((selectedValue, i: number) => {
                 // The current value exists in the current optionList
                 const index = originalOptions.findIndex(option => option.value === selectedValue);
                 if (index !== -1) {

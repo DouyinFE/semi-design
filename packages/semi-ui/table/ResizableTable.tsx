@@ -16,7 +16,7 @@ import getColumns from './getColumns';
 import ResizableHeaderCell from './ResizableHeaderCell';
 import { TableProps, ColumnProps } from './interface';
 
-const ResizableTable = (props: TableProps = {}, ref: React.MutableRefObject<Table<any>>) => {
+const ResizableTable = (props: TableProps = {}, ref: React.MutableRefObject<Table<any>> | ((instance: Table<any>) => void)) => {
     const { components: propComponents, columns: propColumns, resizable, ...restProps } = props;
 
     const childrenColumnName = 'children';

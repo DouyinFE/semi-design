@@ -35,7 +35,7 @@ export default forwardStatics(
 
         return (
             <ConfigContext.Consumer>
-                {({ timeZone }: { timeZone: string | number }) => (
+                {({ timeZone }: { timeZone?: string | number }) => (
                     <LocaleConsumer componentName={'DatePicker'}>
                         {(locale: Locale['DatePicker'], localeCode: string, dateFnsLocale: Locale['dateFnsLocale']) => (
                             <DatePicker

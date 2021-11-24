@@ -31,7 +31,7 @@ export interface SideSheetReactProps extends SideSheetProps{
     title?: React.ReactNode;
     footer?: React.ReactNode;
     children?: React.ReactNode;
-    onCancel?: (e: React.MouseEvent) => void;
+    onCancel?: (e: React.MouseEvent | React.KeyboardEvent) => void;
 
 }
 
@@ -107,7 +107,7 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
                     document.body.style.overflow = '';
                 }
             },
-            notifyCancel: (e: React.MouseEvent) => {
+            notifyCancel: (e: React.MouseEvent | React.KeyboardEvent) => {
                 this.props.onCancel && this.props.onCancel(e);
             },
             notifyVisibleChange: (visible: boolean) => {
@@ -169,11 +169,11 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
         }
     }
 
-    handleCancel = (e: MouseEvent) => {
+    handleCancel = (e: React.MouseEvent) => {
         this.foundation.handleCancel(e);
     };
 
-    handleKeyDown = (e: MouseEvent) => {
+    handleKeyDown = (e: KeyboardEvent) => {
         this.foundation.handleKeyDown(e);
     };
 

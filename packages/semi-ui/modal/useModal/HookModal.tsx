@@ -4,14 +4,19 @@ import { get } from 'lodash-es';
 import { ConfirmProps } from '../confirm';
 import { Motion } from '../../_base/base';
 
-interface HookModalProps{
+interface HookModalProps {
     afterClose: (...args: any[]) => void;
     config: ConfirmProps;
     motion?: Motion;
 }
 
+export interface HookModalRef {
+    destroy: () => void;
+    update: (newConfig: ConfirmProps) => void
+}
+
 // eslint-disable-next-line max-len
-const HookModal = ({ afterClose, config, ...props }: PropsWithChildren<HookModalProps>, ref: React.RefObject<{ destroy: () => void; update: (newConfig: ConfirmProps) => void }>) => {
+const HookModal = ({ afterClose, config, ...props }: PropsWithChildren<HookModalProps>, ref: React.Ref<any>) => {
     const [innerConfig, setInnerConfig] = React.useState(config);
 
     React.useImperativeHandle(ref, () => ({
@@ -54,4 +59,4 @@ const HookModal = ({ afterClose, config, ...props }: PropsWithChildren<HookModal
     );
 };
 
-export default React.forwardRef(HookModal);
+export default React.forwardRef<HookModalRef, HookModalProps>(HookModal);
