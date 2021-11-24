@@ -251,7 +251,8 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
  
     // 在此你可以处理searchData(GraphQL查询的raw数据) 或者传入回调 处理运算后的数据
     processGraphQLData(searchData, processedData => {});
-    fs.copyFileSync('./search/data_client.json', './static/search_data_client.json');
+    // 搜索有用到，但是目前没有搜索，先注释掉，不然影响文档站的本地调试
+    // fs.copyFileSync('./search/data_client.json', './static/search_data_client.json');
     //   console.log('building search data success.')
     // 搜索数据处理结束
     const result = await graphql(`
