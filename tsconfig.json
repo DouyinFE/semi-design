@@ -25,7 +25,6 @@
         "noImplicitReturns": true,
         "noImplicitThis": false,
         "strictNullChecks": false,
-        // "noUnusedLocals": true,
         "esModuleInterop": true,
         "skipLibCheck": true,
     },
