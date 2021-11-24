@@ -7,6 +7,9 @@ import { Type, Size } from './Button';
 import '@douyinfe/semi-foundation/button/button.scss';
 
 export type Theme = 'solid' | 'borderless' | 'light';
+
+// type cloneEle = React.ReactSVGElement | React.DOMElement | React.ReactHTMLElement | React.DetailedReactHTMLElement | React.ReactElement;
+type cloneEle = React.ReactSVGElement | React.ReactElement | React.FunctionComponentElement<any>;
 export interface ButtonGroupProps extends BaseProps {
     disabled?: boolean;
     type?: Type;
@@ -37,7 +40,7 @@ export default class ButtonGroup extends BaseComponent<ButtonGroupProps> {
         let inner;
 
         if (children) {
-            inner = (Array.isArray(children) ? children : [children]).map((itm: React.ReactElement, index) =>
+            inner = ((Array.isArray(children) ? children : [children]) as React.ReactElement[]).map((itm, index) =>
                 React.cloneElement(itm, { disabled, size, type, ...itm.props, ...rest, key: index })
             );
         }
