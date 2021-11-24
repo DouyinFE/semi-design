@@ -14,6 +14,7 @@ const msPerFrame = 1000 / 60;
 const blankReg = /^\s*$/;
 const wheelMode = 'wheel';
 
+type DebounceSelectFn = (e: React.UIEvent, newSelectedNode: HTMLElement) => void;
 export interface ScrollItemProps<T extends Item> {
     mode?: string;
     cycled?: boolean;
@@ -31,7 +32,6 @@ export interface ScrollItemState {
     prependCount: number;
     appendCount: number;
 }
-
 export default class ScrollItem<T extends Item> extends BaseComponent<ScrollItemProps<T>, ScrollItemState> {
     static propTypes = {
         mode: PropTypes.string,
@@ -63,15 +63,8 @@ export default class ScrollItem<T extends Item> extends BaseComponent<ScrollItem
     selector: unknown;
     scrollAnimation: any;
     scrolling: boolean;
-
-    throttledAdjustList = throttle((e, nearestNode) => {
-        this.foundation.adjustInfiniteList(this.list, this.wrapper, nearestNode);
-    }, msPerFrame);
-
-    debouncedSelect = debounce((e, nearestNode) => {
-        this._cacheSelectedNode(nearestNode);
-        this.foundation.selectNode(nearestNode, this.list);
-    }, msPerFrame * 5);
+    throttledAdjustList: DebounceSelectFn;
+    debouncedSelect: DebounceSelectFn;
 
     constructor(props = {}) {
         super(props);
@@ -94,6 +87,15 @@ export default class ScrollItem<T extends Item> extends BaseComponent<ScrollItem
         // cache if select action comes from outside
 
         this.foundation = new ItemFoundation<ScrollItemProps<T>, ScrollItemState, T>(this.adapter);
+
+        this.throttledAdjustList = throttle((e, nearestNode) => {
+            this.foundation.adjustInfiniteList(this.list, this.wrapper, nearestNode);
+        }, msPerFrame);
+
+        this.debouncedSelect = debounce((e, nearestNode) => {
+            this._cacheSelectedNode(nearestNode);
+            this.foundation.selectNode(nearestNode, this.list);
+        }, msPerFrame * 5);
     }
 
     get adapter(): ScrollItemAdapter<ScrollItemProps<T>, ScrollItemState, T> {
