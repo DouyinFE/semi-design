@@ -1,6 +1,6 @@
 {
     "name": "@douyinfe/semi-ui",
-    "version": "2.0.9-alpha.2",
+    "version": "2.0.9-alpha.3",
     "description": "",
     "main": "lib/es/index.js",
     "module": "lib/es/index.js",
@@ -20,10 +20,11 @@
     "dependencies": {
         "@babel/runtime-corejs3": "^7.15.4",
         "@douyinfe/semi-animation-react": "2.0.8",
-        "@douyinfe/semi-foundation": "2.0.9-alpha.2",
-        "@douyinfe/semi-icons": "2.0.9-alpha.0",
+        "@douyinfe/semi-foundation": "2.0.9-alpha.3",
+        "@douyinfe/semi-icons": "2.0.9-alpha.3",
         "@douyinfe/semi-illustrations": "2.0.9-alpha.0",
         "@douyinfe/semi-theme-default": "2.0.8",
+        "@types/react-window": "^1.8.2",
         "async-validator": "^3.5.0",
         "classnames": "^2.2.6",
         "copy-text-to-clipboard": "^2.1.1",
@@ -33,7 +34,6 @@
         "react-resizable": "^1.8.0",
         "react-sortable-hoc": "^1.11.0",
         "react-window": "^1.8.2",
-        "@types/react-window": "^1.8.2",
         "resize-observer-polyfill": "^1.5.1",
         "scroll-into-view-if-needed": "^2.2.24",
         "utility-types": "^3.10.0"
