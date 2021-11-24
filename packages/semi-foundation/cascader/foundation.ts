@@ -667,6 +667,9 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         }
         if (multiple) {
             this._adapter.updateStates({ activeKeys: new Set(activeKeys) });
+            if (isLeaf) {
+                this.onItemCheckboxClick(item)
+            }
         } else {
             this._adapter.notifySelect(data.value);
             if (hasChanged) {
