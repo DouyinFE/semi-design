@@ -547,10 +547,13 @@ function withField<
             return useMemo(() => FieldComponent, [...shouldUpdate]);
         } else {
             // Some Custom Component with inner state shouldn't be memo, otherwise the component will not updated when the internal state is updated
-            // Fixed issue 328
             return FieldComponent;
         }
     };
+    /**
+     * Reasons for using ts-igonre: skip strict check of ref
+     */
+    // @ts-ignore-next-line 
     SemiField = forwardRef(SemiField);
     (SemiField as React.SFC).displayName = getDisplayName(Component);
     return SemiField as any;

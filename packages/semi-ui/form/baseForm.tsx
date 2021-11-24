@@ -122,8 +122,7 @@ class Form extends BaseComponent<BaseFormProps, BaseFormState> {
             formId: getUuidv4(),
         };
         warning(
-            // @ts-ignore special usage
-            props.component && props.render,
+            Boolean(props.component && props.render),
             '[Semi Form] You should not use <Form component> and <Form render> in ths same time; <Form render> will be ignored'
         );
         warning(

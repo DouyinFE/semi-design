@@ -25,7 +25,6 @@
         "esModuleInterop": true,
         "skipLibCheck": true,
         "declaration": true,
-        "strict": true,
         "strictNullChecks": false
     },
     "include": ["**/*.tsx", "**/*.ts"],
