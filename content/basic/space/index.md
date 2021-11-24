@@ -27,7 +27,7 @@ import { Space, Button, Switch } from '@douyinfe/semi-ui';
         <Button type="tertiary">第三</Button>
         <Button type="warning">警告</Button>
     </Space>
-)
+);
 ```
 ### 对齐方式
 
@@ -71,8 +71,8 @@ import { Space, Button, Tag } from '@douyinfe/semi-ui';
                 <Tag color='green' size='large'>标签</Tag>
             </Space>
         </Space>
-    )
-}
+    );
+};
 ```
 
 ### 间距尺寸
@@ -124,7 +124,7 @@ import { Space, Tabs, TabPane, Button } from '@douyinfe/semi-ui';
             </Space>
         </TabPane>
     </Tabs>
-)
+);
 ```
 
 ### 间距方向
@@ -142,7 +142,7 @@ import { Space, Button } from '@douyinfe/semi-ui';
         <Button theme='solid' type='primary'>按钮</Button>
         <Button theme='solid' type='primary'>按钮</Button>
     </Space>
-)
+);
 ```
 
 ### 设置换行
@@ -159,7 +159,7 @@ import { Space, Button } from '@douyinfe/semi-ui';
             <Button theme='solid' type='secondary' key={idex}>按钮</Button>
         ))}
     </Space>
-)
+);
 ```
 
 ## API参考

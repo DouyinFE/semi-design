@@ -52,7 +52,7 @@ import { IconLock } from '@douyinfe/semi-icons';
             </Badge>
         </div>
     );  
-}
+};
 ```
 
 ### 设置显示数字最大值
@@ -92,7 +92,7 @@ import { Badge, Avatar } from '@douyinfe/semi-ui';
             </Badge>
         </div>
     );
-}
+};
 ```
 
 ### 设置徽标位置
@@ -132,7 +132,7 @@ import { Badge, Avatar } from '@douyinfe/semi-ui';
             </Badge>
         </div>
     );
-}
+};
 ```
 
 ### 设置徽标样式
@@ -188,7 +188,7 @@ import { Badge, Avatar } from '@douyinfe/semi-ui';
             </div>
         </div>
     );
-}
+};
 ```
 
 `type` 支持如下类型：`primary`，`secondary`，`tertiary`，`warning` 和 `danger`。默认类型为 `primary`。
@@ -242,7 +242,7 @@ import { Badge, Avatar } from '@douyinfe/semi-ui';
             </div>
         </div>
     );
-}
+};
 ```
 
 ### 独立使用

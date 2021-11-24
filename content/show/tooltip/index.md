@@ -72,7 +72,7 @@ function Demo() {
 
 ```jsx live=true hideInDSM
 import React, { useState } from 'react';
-import { Tooltip, Button, ButtonGroup } from '@douyinfe/semi-ui';
+import { Tooltip, Button, ButtonGroup, Input } from '@douyinfe/semi-ui';
 
 function Demo() {
     const [visible, setVisible] = useState(false);
@@ -362,14 +362,14 @@ import React from 'react';
 import { Tooltip, Popconfirm, Button } from '@douyinfe/semi-ui';
 
 () => (
-  <Popconfirm content="是否确认删除">
-    <span style={{ display: 'inline-block' }}>
-        <Tooltip content={'删除评价'}>
-            <Button type="danger">删除</Button>
-        </Tooltip>
-    </span>
-  </Popconfirm>
-)
+    <Popconfirm content="是否确认删除">
+        <span style={{ display: 'inline-block' }}>
+            <Tooltip content={'删除评价'}>
+                <Button type="danger">删除</Button>
+            </Tooltip>
+        </span>
+    </Popconfirm>
+);
 ```
 
 ### 仅当内容宽度超出时展示 Tooltip

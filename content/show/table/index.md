@@ -92,7 +92,7 @@ class App extends React.Component {
                 title: 'Name',
                 dataIndex: 'name',
                 render: (text, record, index) => {
-                    console.log(text, record, index)
+                    console.log(text, record, index);
                     return <a>{text}</a>;
                 },
             },
@@ -337,13 +337,13 @@ class TableApp extends React.Component {
 
     removeRecord(key) {
         let dataSource = [...this.state.dataSource];
-        if(key != null) {
+        if (key != null) {
             let idx = dataSource.findIndex(data => data.key === key);
 
-             if(idx > -1) {
-                 dataSource.splice(idx, 1)
-                 this.setState({ dataSource });
-             }
+            if (idx > -1) {
+                dataSource.splice(idx, 1);
+                this.setState({ dataSource });
+            }
         }
     }
 
@@ -502,7 +502,7 @@ class App extends React.Component {
                     dataSource,
                 });
             });
-        }
+        };
 
         this.state = {
             loading: false,
@@ -543,7 +543,7 @@ render(App);
 
 ```jsx live=true noInline=true dir="column"
 import React from 'react';
-import { Table } from '@douyinfe/semi-ui';
+import { Table, Tooltip, Tag } from '@douyinfe/semi-ui';
 
 class TableApp extends React.Component {
     constructor() {
@@ -880,7 +880,7 @@ class App extends React.Component {
             },
         ];
 
-        this.expandRowRender = (record, index) => index < 2 ? (<Table columns={this.expandColumns} dataSource={this.expandData} />) : <p>{record.description}</p>
+        this.expandRowRender = (record, index) => index < 2 ? (<Table columns={this.expandColumns} dataSource={this.expandData} />) : <p>{record.description}</p>;
     }
     render() {
         return (
@@ -953,7 +953,7 @@ class App extends React.Component {
             },
         ];
 
-        this.expandRowRender = record => <p>{record.description}</p>
+        this.expandRowRender = record => <p>{record.description}</p>;
     }
     render() {
         return (
@@ -1027,7 +1027,7 @@ class App extends React.Component {
             },
         ];
 
-        this.expandRowRender = record => <p>{record.description}</p>
+        this.expandRowRender = record => <p>{record.description}</p>;
     }
     render() {
         return (
@@ -1665,7 +1665,7 @@ const ChildrenDataSelectedDemo = (props = {}) => {
             dataSource={data}
         />
     );
-}
+};
 
 render(ChildrenDataSelectedDemo);
 ```
@@ -1781,7 +1781,7 @@ function App() {
             title: 'Name',
             dataIndex: 'name',
             render: (text, record, index) => {
-                console.log(text, record, index)
+                console.log(text, record, index);
                 return <a>{text}</a>;
             },
         },
@@ -1856,7 +1856,7 @@ render(App);
 
 ```jsx live=true noInline=true dir="column"
 import React from 'react';
-import { Table, Tooltip } from '@douyinfe/semi-ui';
+import { Table, Tooltip, Tag } from '@douyinfe/semi-ui';
 
 class ResizableDemo extends React.Component {
     constructor() {
@@ -2266,7 +2266,7 @@ function Demo() {
                         // onMouseLeave: () => {
                         //     console.log(`Grouped row mouse leave: `, group, index);
                         // },
-                        onClick: e => { console.log(`Grouped row clicked: `, group, index) }
+                        onClick: e => { console.log(`Grouped row clicked: `, group, index); }
                     };
                 }}
                 clickGroupedRowToExpand // if you want to click the entire row to expand
@@ -2300,7 +2300,7 @@ import { Table, Tag, Tooltip, Button } from '@douyinfe/semi-ui';
 class VirtualizedFixedDemo extends React.Component {
     constructor(props = {}) {
         super(props);
-        this.virtualizedListRef = React.createRef()
+        this.virtualizedListRef = React.createRef();
         this.columns = [
             {
                 title: 'Name',
@@ -2810,7 +2810,7 @@ class App extends React.Component {
 
             this.setState({ columns });
 
-            if(!checked) {
+            if (!checked) {
                 this.setPage(null, null, []);
             }
         };
@@ -2889,11 +2889,11 @@ class App extends React.Component {
             let pagination = checked
                 ? false
                 : {
-                      currentPage: 1,
-                      pageSize: 8,
-                      total: data.length,
-                      onPageChange: page => this.setPage(page),
-                  };
+                    currentPage: 1,
+                    pageSize: 8,
+                    total: data.length,
+                    onPageChange: page => this.setPage(page),
+                };
 
             this.setState({ pagination });
         };
@@ -3193,7 +3193,7 @@ function Demo(props = {}) {
     );
 }
 
-render(Demo)
+render(Demo);
 ```
 
 ### 表头合并
@@ -3296,7 +3296,7 @@ function Demo() {
     );
 }
 
-render(Demo)
+render(Demo);
 ```
 
 #### 合并表头 JSX 写法
@@ -3369,7 +3369,7 @@ function Demo() {
     );
 }
 
-render(Demo)
+render(Demo);
 ```
 
 
@@ -3644,28 +3644,33 @@ onHeaderRow中可以返回 th 支持的属性或者事件
 onRow中可以返回 tr 支持的属性或者事件
 
 ```jsx
-<Table
-    onRow={(record, index) => {
-        return {
-            onClick: event => {}, // 点击行
-            onMouseEnter: event => {}, // 鼠标移入行
-            onMouseLeave: event => {}, // 鼠标移出行
-            className: '',
-            // ...
-            // 其他可以作用于 tr 的属性或事件
-        };
-    }}
-    onHeaderRow={(columns, index) => {
-        return {
-            onClick: event => {}, // 点击表头行
-            onMouseEnter: event => {}, // 鼠标移入表头行
-            onMouseLeave: event => {}, // 鼠标移出表头行
-            className: '',
-            // ...
-            // 其他可以作用于 th 的属性或事件
-        };
-    }}
-/>
+import React from 'react';
+import { Table } from '@douyinfe/semi-ui';
+
+() => (
+    <Table
+        onRow={(record, index) => {
+            return {
+                onClick: event => {}, // 点击行
+                onMouseEnter: event => {}, // 鼠标移入行
+                onMouseLeave: event => {}, // 鼠标移出行
+                className: '',
+                // ...
+                // 其他可以作用于 tr 的属性或事件
+            };
+        }}
+        onHeaderRow={(columns, index) => {
+            return {
+                onClick: event => {}, // 点击表头行
+                onMouseEnter: event => {}, // 鼠标移入表头行
+                onMouseLeave: event => {}, // 鼠标移出表头行
+                className: '',
+                // ...
+                // 其他可以作用于 th 的属性或事件
+            };
+        }}
+    />
+);
 ```
 
 ## Column
@@ -3809,7 +3814,7 @@ function Demo() {
 
 - **表格数据为何没有更新？**  
     Table 组件目前所有参数都为浅层对比，也就是说如果该参数值类型为一个 Array 或者 Object，你需要手动改变其引用才能触发更新。同理，如果你不想触发额外更新，尽量不要直接在传参的时候使用字面量或是在 render 过程中定义引用型参数值：
-    ```jsx
+    ```text
     // ...render() {
         <Table dataSource={[/*...*/]} columns={[/*...*/]} />}
     ```

@@ -28,7 +28,7 @@ import { Breadcrumb } from '@douyinfe/semi-ui';
         <Breadcrumb.Item>Breadcrumb</Breadcrumb.Item>
         <Breadcrumb.Item>Default</Breadcrumb.Item>
     </Breadcrumb>
-)
+);
 ```
 
 ### 带图标的
@@ -46,7 +46,7 @@ import { IconHome, IconArticle } from '@douyinfe/semi-icons';
         <Breadcrumb.Item icon={<IconArticle size="small" />}>Breadcrumb</Breadcrumb.Item>
         <Breadcrumb.Item>With Icon</Breadcrumb.Item>
     </Breadcrumb>
-)
+);
 ```
 
 ### 尺寸
@@ -72,7 +72,7 @@ import { IconHome } from '@douyinfe/semi-icons';
             <Breadcrumb.Item>Loose</Breadcrumb.Item>
         </Breadcrumb>
     </div>
-)
+);
 ```
 
 ### 自定义的分隔符
@@ -81,7 +81,7 @@ import { IconHome } from '@douyinfe/semi-icons';
 
 ```jsx live=true
 import React from 'react';
-import { Breadcrumb } from '@douyinfe/semi-ui';
+import { Breadcrumb, Tag } from '@douyinfe/semi-ui';
 import { IconArrowRight } from '@douyinfe/semi-icons';
 
 () => (
@@ -98,7 +98,7 @@ import { IconArrowRight } from '@douyinfe/semi-icons';
             <Breadcrumb.Item>Default</Breadcrumb.Item>
         </Breadcrumb>
         <br/>
-        <Tag>v>=1.16.0</Tag>
+        <Tag>{`v>=1.16.0`}</Tag>
         <br/>
         <Breadcrumb size={'small'} >
             <Breadcrumb.Item separator=":">Semi-ui</Breadcrumb.Item>
@@ -106,7 +106,7 @@ import { IconArrowRight } from '@douyinfe/semi-icons';
             <Breadcrumb.Item>Default</Breadcrumb.Item>
         </Breadcrumb>
     </div>
-)
+);
 ```
 
 ### 截断逻辑
@@ -151,8 +151,8 @@ import { Breadcrumb, Typography } from '@douyinfe/semi-ui';
                 routes={routes}
             />
         </>
-    )
-}
+    );
+};
 ```
 
 当路径层级超过 4 个级别，则：第二层至倒数第三层省略，点击省略号展开显示全部级别；如果过长则自动换行。
@@ -172,7 +172,7 @@ import { Breadcrumb } from '@douyinfe/semi-ui';
         <Breadcrumb.Item>上一层</Breadcrumb.Item>
         <Breadcrumb.Item>详情页</Breadcrumb.Item>
     </Breadcrumb>
-)
+);
 ```
 
 ### 自定义省略号区域
@@ -193,7 +193,7 @@ import { Breadcrumb } from '@douyinfe/semi-ui';
         <Breadcrumb.Item>上一层</Breadcrumb.Item>
         <Breadcrumb.Item>详情页</Breadcrumb.Item>
     </Breadcrumb>
-)
+);
 ```
 
 如果想要为省略号区域自定义其他形式的渲染，则可以使用 `renderMore()` 方法。
@@ -221,7 +221,7 @@ function Demo() {
                     ))
                 }
             </>
-        )
+        );
         return (
             <Popover
                 content={content}
@@ -293,7 +293,7 @@ import { IconHome, IconArticle } from '@douyinfe/semi-icons';
             routes={['首页', '当这个页面标题很长时需要省略', '详情页']}
         />
     </div>
-)
+);
 ```
 
 ## API 参考

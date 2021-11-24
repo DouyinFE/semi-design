@@ -82,8 +82,8 @@ import { IconHelpCircle } from '@douyinfe/semi-icons';
             <Form.Input field='UserName' label='用户名' style={{width:80}}/>
             <Form.Input field='Password' label={{ text: '密码', extra: <IconHelpCircle /> }} style={{width:176}}/>
         </Form>
-    )
-}
+    );
+};
 ```
 
 #### 支持的其他写法
@@ -113,8 +113,8 @@ import { Form } from '@douyinfe/semi-ui';
             </>
         )} layout='horizontal' onValueChange={values=>console.log(values)}>
         </Form>
-    )
-}
+    );
+};
 
 ```
 
@@ -144,8 +144,8 @@ import { Form } from '@douyinfe/semi-ui';
                 )
             }
         </Form>
-    )
-}
+    );
+};
 ```
 
 #### 通过 props.component
@@ -158,15 +158,15 @@ import { Form } from '@douyinfe/semi-ui';
 
 () => {
     const fields = ({ formState, formApi, values }) => (
-          <>
-              <Form.Input field='Role' style={{width:176}}/>
-              <Form.Input field='UserName' style={{width:80}}/>
-              <Form.Input field='Password' style={{width:176}}/>
-              <code style={{marginTop: 30}}>{JSON.stringify(formState)}</code>
-          </>
+        <>
+            <Form.Input field='Role' style={{width:176}}/>
+            <Form.Input field='UserName' style={{width:80}}/>
+            <Form.Input field='Password' style={{width:176}}/>
+            <code style={{marginTop: 30}}>{JSON.stringify(formState)}</code>
+        </>
     );
-    return <Form component={fields} layout='horizontal' onValueChange={values=>console.log(values)}/>
-}
+    return <Form component={fields} layout='horizontal' onValueChange={values=>console.log(values)}/>;
+};
 ```
 
 ### 已支持的表单控件
@@ -179,6 +179,8 @@ import { Form } from '@douyinfe/semi-ui';
 ```jsx live=true dir="column"
 import React from 'react';
 import { Form, Col, Row, Button } from '@douyinfe/semi-ui';
+import { IconUpload } from '@douyinfe/semi-icons';
+
 class BasicDemoWithInit extends React.Component {
     constructor() {
         super();
@@ -217,13 +219,13 @@ class BasicDemoWithInit extends React.Component {
                         fileInstance:  new File([new ArrayBuffer(2048)], 'jiafang2.jpeg', { type: 'image/jpeg' }),
                         url: 'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg'
                     }
-               ]
+                ]
             }
         };
         this.getFormApi = this.getFormApi.bind(this);
     }
 
-    getFormApi(formApi) { this.formApi = formApi }
+    getFormApi(formApi) { this.formApi = formApi; }
 
     render() {
         const { Section, Input, InputNumber, AutoComplete, Select, TreeSelect, Cascader, DatePicker, TimePicker, TextArea, CheckboxGroup, Checkbox, RadioGroup, Radio, Slider, Rating, Switch, TagInput } = Form;
@@ -352,20 +354,20 @@ class BasicDemoWithInit extends React.Component {
                         </Col>
                     </Row>
                     <Row>
-                      <Col span={24}>
-                        <Form.Upload
-                            field='files'
-                            label='证明文件（Upload）'
-                            action='//semi.design/api/upload'
-                        >
-                            <Button icon={<IconUpload />} theme="light">
-                                点击上传
-                            </Button>
-                        </Form.Upload>
-                      </Col>
+                        <Col span={24}>
+                            <Form.Upload
+                                field='files'
+                                label='证明文件（Upload）'
+                                action='//semi.design/api/upload'
+                            >
+                                <Button icon={<IconUpload />} theme="light">
+                                    点击上传
+                                </Button>
+                            </Form.Upload>
+                        </Col>
                     </Row>
-                 </Section>
-                 <Section text='资源详情'>
+                </Section>
+                <Section text='资源详情'>
                     <Row>
                         <Col span={12}>
                             <TextArea
@@ -401,7 +403,7 @@ class BasicDemoWithInit extends React.Component {
                     </Row>
                     <Row>
                         <Col span={12}>
-                        <TimePicker field="time" label='截止时刻（TimePicker）' style={{ width: '90%' }}/>
+                            <TimePicker field="time" label='截止时刻（TimePicker）' style={{ width: '90%' }}/>
                         </Col>
                         <Col span={12}>
                             <InputNumber field='number' label='申请数量（InputNumber）' initValue={20} style={style}/>
@@ -409,15 +411,15 @@ class BasicDemoWithInit extends React.Component {
                     </Row>
                     <Row>
                         <Col span={12}>
-                        <Slider field="range" label='资源使用报警阈值(%)（Slider）' initValue={10} style={{ width: '90%' }}/>
+                            <Slider field="range" label='资源使用报警阈值(%)（Slider）' initValue={10} style={{ width: '90%' }}/>
                         </Col>
                         <Col span={12}>
-                        <Switch field='switch' label='开关(Switch)'/>
+                            <Switch field='switch' label='开关(Switch)'/>
                         </Col>
                     </Row>
                     <Row>
                         <Col span={12}>
-                        <Rating field="rating" label='满意度(Rating)' initValue={2} style={{ width: '90%' }}/>
+                            <Rating field="rating" label='满意度(Rating)' initValue={2} style={{ width: '90%' }}/>
                         </Col>
                     </Row>
                 </Section>
@@ -474,7 +476,7 @@ import { Form, Toast, Row, Col, TextArea } from '@douyinfe/semi-ui';
             )
         }
     </Form>
-)
+);
 ```
 
 ### 表单布局
@@ -487,28 +489,28 @@ import React from 'react';
 import { Form, Toast, Button } from '@douyinfe/semi-ui';
 
 () => {
- const handleSubmit = (values) => {
-   console.log(values);
-   Toast.info('表单已提交');
- }
- return (
-     <Form onSubmit={values => handleSubmit(values)} style={{width: 400}}>
-        {({formState, values, formApi}) => (
-            <>
-                <Form.Input field='phone' label='PhoneNumber' style={{ width: '100%' }} placeholder='Enter your phone number'></Form.Input>
-                <Form.Input field='password' label='Password' style={{ width: '100%' }} placeholder='Enter your password'></Form.Input>
-                <Form.Checkbox field='agree' noLabel>I have read and agree to the terms of service</Form.Checkbox>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <p>
-                      <span>Or</span><Button theme='borderless' style={{ color: 'rgb(101, 178, 252)', marginLeft: 10, cursor:'pointer' }}>Sign up</Button>
-                  </p>
-                  <Button disabled={!values.agree} htmlType='submit' type="tertiary">Log in</Button>
-                </div>
-            </>
-        )}
-    </Form>
- )
-}
+    const handleSubmit = (values) => {
+        console.log(values);
+        Toast.info('表单已提交');
+    };
+    return (
+        <Form onSubmit={values => handleSubmit(values)} style={{width: 400}}>
+            {({formState, values, formApi}) => (
+                <>
+                    <Form.Input field='phone' label='PhoneNumber' style={{ width: '100%' }} placeholder='Enter your phone number'></Form.Input>
+                    <Form.Input field='password' label='Password' style={{ width: '100%' }} placeholder='Enter your password'></Form.Input>
+                    <Form.Checkbox field='agree' noLabel>I have read and agree to the terms of service</Form.Checkbox>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <p>
+                            <span>Or</span><Button theme='borderless' style={{ color: 'rgb(101, 178, 252)', marginLeft: 10, cursor:'pointer' }}>Sign up</Button>
+                        </p>
+                        <Button disabled={!values.agree} htmlType='submit' type="tertiary">Log in</Button>
+                    </div>
+                </>
+            )}
+        </Form>
+    );
+};
 ```
 
 -   水平布局：表单控件之间水平排列
@@ -523,7 +525,7 @@ import { Form } from '@douyinfe/semi-ui';
         <Form.Input field='phone' label='PhoneNumber' placeholder='Enter your phone number'></Form.Input>
         <Form.Input field='password' label='Password' placeholder='Enter your password'></Form.Input>
     </Form>
-)
+);
 ```
 
 -   labelPosition、labelAlign  
@@ -549,61 +551,61 @@ class BasicDemo extends React.Component {
     changeLabelPos(labelPosition) {
         let labelWidth;
         labelPosition === 'left' ? labelWidth = '180px' : labelWidth = 'auto';
-        this.setState({ labelPosition, labelWidth })
+        this.setState({ labelPosition, labelWidth });
     }
 
-    changeLabelAlign(labelAlign) { this.setState({ labelAlign }) }
+    changeLabelAlign(labelAlign) { this.setState({ labelAlign }); }
 
     render() {
         const { labelPosition, labelAlign, labelWidth } = this.state;
         return (
             <>
-            <div style={{borderBottom: '1px solid var(--semi-color-border)', paddingBottom: 12 }}>
-                <Form.Label style={{ marginLeft: 10 }}>切换Label位置:</Form.Label>
-                <Select onChange={this.changeLabelPos} value={labelPosition} style={{width: 200}} insetLabel='labelPosition'>
-                    <Select.Option value='top'>top</Select.Option>
-                    <Select.Option value='left'>left</Select.Option>
-                </Select>
-                <Form.Label style={{ marginLeft: 10 }}>切换Label文本对齐方向:</Form.Label>
-                <Select onChange={this.changeLabelAlign} value={labelAlign} style={{width: 200}} insetLabel='labelAlign'>
-                    <Select.Option value='left'>left</Select.Option>
-                    <Select.Option value='right'>right</Select.Option>
-                </Select>
-            </div>
-            <Form
-                labelPosition={labelPosition}
-                labelWidth={labelWidth}
-                labelAlign={labelAlign}
-                key={labelPosition + labelAlign}
-                style={{ padding: '10px', width: 600 }}>
-                      <Form.Input
-                          field="input"
-                          label="手机号码"
-                          trigger='blur'
-                          style={{width: 200}}
-                          rules={[
-                              { required: true, message: 'required error' },
-                              { type: 'string', message: 'type error' },
-                              { validator: (rule, value) => value === 'muji', message: 'not muji' }
-                          ]}
-                      />
-                      <Form.Switch label="是否同意" field='agree'/>
-                      <Form.InputNumber field='price' label='价格' style={{width: 200}}/>
-                      <Form.Select label="姓名" field='name' style={{width: 200}}>
-                          <Form.Select.Option value="mike">mike</Form.Select.Option>
-                          <Form.Select.Option value="jane">jane</Form.Select.Option>
-                          <Form.Select.Option value="kate">kate</Form.Select.Option>
-                      </Form.Select>
-                      <Form.CheckboxGroup label="角色" field='role' direction='horizontal'>
-                          <Form.Checkbox value="admin">admin</Form.Checkbox>
-                          <Form.Checkbox value="user">user</Form.Checkbox>
-                          <Form.Checkbox value="guest">guest</Form.Checkbox>
-                          <Form.Checkbox value="root">root</Form.Checkbox>
-                      </Form.CheckboxGroup>
-                      <Form.RadioGroup field="性别">
-                          <Form.Radio value="1">man</Form.Radio>
-                          <Form.Radio value="2">woman</Form.Radio>
-                      </Form.RadioGroup>
+                <div style={{borderBottom: '1px solid var(--semi-color-border)', paddingBottom: 12 }}>
+                    <Form.Label style={{ marginLeft: 10 }}>切换Label位置:</Form.Label>
+                    <Select onChange={this.changeLabelPos} value={labelPosition} style={{width: 200}} insetLabel='labelPosition'>
+                        <Select.Option value='top'>top</Select.Option>
+                        <Select.Option value='left'>left</Select.Option>
+                    </Select>
+                    <Form.Label style={{ marginLeft: 10 }}>切换Label文本对齐方向:</Form.Label>
+                    <Select onChange={this.changeLabelAlign} value={labelAlign} style={{width: 200}} insetLabel='labelAlign'>
+                        <Select.Option value='left'>left</Select.Option>
+                        <Select.Option value='right'>right</Select.Option>
+                    </Select>
+                </div>
+                <Form
+                    labelPosition={labelPosition}
+                    labelWidth={labelWidth}
+                    labelAlign={labelAlign}
+                    key={labelPosition + labelAlign}
+                    style={{ padding: '10px', width: 600 }}>
+                    <Form.Input
+                        field="input"
+                        label="手机号码"
+                        trigger='blur'
+                        style={{width: 200}}
+                        rules={[
+                            { required: true, message: 'required error' },
+                            { type: 'string', message: 'type error' },
+                            { validator: (rule, value) => value === 'muji', message: 'not muji' }
+                        ]}
+                    />
+                    <Form.Switch label="是否同意" field='agree'/>
+                    <Form.InputNumber field='price' label='价格' style={{width: 200}}/>
+                    <Form.Select label="姓名" field='name' style={{width: 200}}>
+                        <Form.Select.Option value="mike">mike</Form.Select.Option>
+                        <Form.Select.Option value="jane">jane</Form.Select.Option>
+                        <Form.Select.Option value="kate">kate</Form.Select.Option>
+                    </Form.Select>
+                    <Form.CheckboxGroup label="角色" field='role' direction='horizontal'>
+                        <Form.Checkbox value="admin">admin</Form.Checkbox>
+                        <Form.Checkbox value="user">user</Form.Checkbox>
+                        <Form.Checkbox value="guest">guest</Form.Checkbox>
+                        <Form.Checkbox value="root">root</Form.Checkbox>
+                    </Form.CheckboxGroup>
+                    <Form.RadioGroup field="性别">
+                        <Form.Radio value="1">man</Form.Radio>
+                        <Form.Radio value="2">woman</Form.Radio>
+                    </Form.RadioGroup>
                 </Form>
             </>
         );
@@ -682,7 +684,7 @@ import { Form, Col, Row } from '@douyinfe/semi-ui';
             </Col>
         </Row>
     </Form>
-)
+);
 ```
 
 ### 表单分组
@@ -691,7 +693,7 @@ import { Form, Col, Row } from '@douyinfe/semi-ui';
 
 ```jsx live=true dir="column"
 import React from 'react';
-import { Form, Button } from '@douyinfe/semi-ui';
+import { Form, Button, Radio } from '@douyinfe/semi-ui';
     
 () => {
     const { Section, Input, DatePicker, TimePicker, Select, Switch, InputNumber, Checkbox, CheckboxGroup, RadioGroup } = Form;
@@ -702,16 +704,16 @@ import { Form, Button } from '@douyinfe/semi-ui';
             </Section>
             <Section text={'合格标准'} >
                 <div style={{display:'flex'}}>
-                   <InputNumber field='pass' initValue={60} style={{width:80}} label={{text:'及格正确率', required: true}}/>
-                   <InputNumber field='number' initValue={10} style={{width:80}} label={{text:'合格人数', required: true}}/>
+                    <InputNumber field='pass' initValue={60} style={{width:80}} label={{text:'及格正确率', required: true}}/>
+                    <InputNumber field='number' initValue={10} style={{width:80}} label={{text:'合格人数', required: true}}/>
                 </div>
             </Section>
             <Section text={'考试时间'} >
-               <DatePicker field='date' type='dateTime' initValue={new Date()} style={{width:272}} label={{text:'开始时间', required: true}}/>
-               <div  style={{display:'flex'}}>
-                 <Input field='time' label='考试时长' style={{ width: 176 }} initValue={'60'} addonAfter='分钟'/>
-                 <Checkbox initValue={true} noLabel field='auto' style={{paddingTop: 30, marginLeft: 12}}>到时间自动交卷</Checkbox>
-               </div>
+                <DatePicker field='date' type='dateTime' initValue={new Date()} style={{width:272}} label={{text:'开始时间', required: true}}/>
+                <div  style={{display:'flex'}}>
+                    <Input field='time' label='考试时长' style={{ width: 176 }} initValue={'60'} addonAfter='分钟'/>
+                    <Checkbox initValue={true} noLabel field='auto' style={{paddingTop: 30, marginLeft: 12}}>到时间自动交卷</Checkbox>
+                </div>
                 <RadioGroup
                     field="type"
                     label='有效时间'
@@ -732,10 +734,10 @@ import { Form, Button } from '@douyinfe/semi-ui';
                 >
                     <Radio value="always">自动放出</Radio>
                     <Radio value="user">
-                      <div style={{display:'inline-block'}}>
-                      自定义放出时间
-                      <Form.DatePicker type='dateTimeRange' noLabel field='customTime' style={{width:464, display: 'inline-block'}}/>
-                      </div>
+                        <div style={{display:'inline-block'}}>
+                            自定义放出时间
+                            <Form.DatePicker type='dateTimeRange' noLabel field='customTime' style={{width:464, display: 'inline-block'}}/>
+                        </div>
                     </Radio>
                 </RadioGroup>
             </Section>
@@ -744,11 +746,11 @@ import { Form, Button } from '@douyinfe/semi-ui';
                     <Switch field='open'  label={{ text:'对外开放', required: true }} checkedText='开' uncheckedText='关'></Switch>
                 </div>
                 <Select
-                  field='users'
-                  label={{ text:'考生', required: true }}
-                  style={{width: 560}}
-                  multiple
-                  initValue={['1','2','3', '4']}
+                    field='users'
+                    label={{ text:'考生', required: true }}
+                    style={{width: 560}}
+                    multiple
+                    initValue={['1','2','3', '4']}
                 >
                     <Select.Option value='1'>曲晨一</Select.Option>
                     <Select.Option value='2'>夏可曼</Select.Option>
@@ -759,8 +761,8 @@ import { Form, Button } from '@douyinfe/semi-ui';
             <Button type='primary' theme='solid' style={{ width: 120, marginTop: 12, marginRight: 4 }}>创建考试</Button>
             <Button style={{marginTop: 12}}>预览</Button>
         </Form>
-    )
-}
+    );
+};
 ```
 
 ### wrapperCol / labelCol
@@ -787,7 +789,7 @@ import { Form } from '@douyinfe/semi-ui';
             <Form.Select.Option value="ued">设计</Form.Select.Option>
         </Form.Select>
     </Form>
-)
+);
 ```
 
 ### 隐藏Label
@@ -808,7 +810,7 @@ import { Form } from '@douyinfe/semi-ui';
             <Form.Select.Option value="ued">设计</Form.Select.Option>
         </Form.Select>
     </Form>
-)
+);
 ```
 
 ### 导出 Label、ErrorMessage 使用
@@ -869,7 +871,7 @@ class AssistComponent extends React.Component {
                     </div>
                 </Form.Slot>
             </Form>
-    )}
+        );}
 }
 ```
 
@@ -893,7 +895,7 @@ import { Form } from '@douyinfe/semi-ui';
         <Form.DatePicker field="date" label='开始日期' style={{ width: '250px' }} initValue={new Date()}>
         </Form.DatePicker>
     </Form>
-)
+);
 ```
 
 ### 使用 helpText、extraText 放置提示信息
@@ -912,7 +914,7 @@ class HelpAndExtra extends React.Component {
         this.state = {
             helpText: '',
             validateStatus: 'default'
-        }
+        };
         this.formApi = null;
         this.getFormApi = this.getFormApi.bind(this);
         this.validate = this.validate.bind(this);
@@ -925,11 +927,11 @@ class HelpAndExtra extends React.Component {
 
     validate(val, values) {
         if (!val) {
-            this.setState({ validateStatus: 'error' })
+            this.setState({ validateStatus: 'error' });
             return <span>密码不能为空</span>;
         } else if (val && val.length <= 3) {
             this.setState({
-                helpText: <span style={{ color: 'var(--semi-color-warning)' }}>'密码强度：弱'</span>,
+                helpText: <span style={{ color: 'var(--semi-color-warning)' }}>密码强度：弱</span>,
                 validateStatus: 'warning'
             }); // show helpText
             return ''; // validate pass
@@ -963,15 +965,19 @@ class HelpAndExtra extends React.Component {
                     field="Password"
                     validateStatus={validateStatus}
                     helpText={helpText}
-                    extraText={<div style={{
-                        color: 'rgba(var(--semi-blue-5), 1)',
-                        fontSize: 14,
-                        userSelect: 'none',
-                        cursor: 'pointer'
-                    }}
-                    onClick={this.random}>
-                        没有想到合适的密码？点击随机生成一个
-                    </div>}
+                    extraText={
+                        <div 
+                            style={{
+                                color: 'rgba(var(--semi-blue-5), 1)',
+                                fontSize: 14,
+                                userSelect: 'none',
+                                cursor: 'pointer'
+                            }}
+                            onClick={this.random}
+                        >
+                            没有想到合适的密码？点击随机生成一个
+                        </div>
+                    }
                 ></Form.Input>
             </Form>
         );
@@ -988,26 +994,26 @@ import React from 'react';
 import { Form } from '@douyinfe/semi-ui';
 
 () => {
-  const options = [
-    { label: '飞书通知', value: 'lark' },
-    { label: '邮件通知', value: 'email' },
-    { label: '顶部横幅通知', value: 'notification' }
-  ];
-  const notifyText = '未勾选时，默认为红点提醒，消息默认进入收件人消息列表。对于重要通知，可同时勾选相应的通知方式。';
-  const forceText = '对于对话框通知，可指定该消息必须在指定时长后才可置为已读。';
-  return (
-    <Form extraTextPosition='middle'>
-      <Form.CheckboxGroup
-        direction='horizontal'
-        field='notify'
-        label='通知方式'
-        extraText={notifyText}
-        options={options}
-      />
-      <Form.InputNumber field='force' label='强制读取(可选)' placeholder='秒' extraText={forceText} extraTextPosition='bottom'/>
-    </Form>
-  );
-}
+    const options = [
+        { label: '飞书通知', value: 'lark' },
+        { label: '邮件通知', value: 'email' },
+        { label: '顶部横幅通知', value: 'notification' }
+    ];
+    const notifyText = '未勾选时，默认为红点提醒，消息默认进入收件人消息列表。对于重要通知，可同时勾选相应的通知方式。';
+    const forceText = '对于对话框通知，可指定该消息必须在指定时长后才可置为已读。';
+    return (
+        <Form extraTextPosition='middle'>
+            <Form.CheckboxGroup
+                direction='horizontal'
+                field='notify'
+                label='通知方式'
+                extraText={notifyText}
+                options={options}
+            />
+            <Form.InputNumber field='force' label='强制读取(可选)' placeholder='秒' extraText={forceText} extraTextPosition='bottom'/>
+        </Form>
+    );
+};
 
 ```
 
@@ -1038,7 +1044,7 @@ import { Form, Button } from '@douyinfe/semi-ui';
         <Form.Input field='姓名' trigger='blur' initValue='Semi'></Form.Input>
         <Button htmlType='submit'>提交</Button>
     </Form>
-)
+);
 ```
 
 ### Modal 弹出层中的表单
@@ -1055,7 +1061,7 @@ class ModalFormDemo extends React.Component {
         super(props);
         this.state = {
             visible: false,
-        }
+        };
         this.showDialog = this.showDialog.bind(this);
         this.handleOk = this.handleOk.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
@@ -1069,15 +1075,15 @@ class ModalFormDemo extends React.Component {
     handleOk() {
         this.formApi.validate()
             .then((values) => {
-                console.log(values)
+                console.log(values);
             })
             .catch((errors) => {
-                console.log(errors)
+                console.log(errors);
             });
     }
 
     handleCancel() {
-        this.setState({ visible: false })
+        this.setState({ visible: false });
     }
 
     getFormApi(formApi) {
@@ -1186,11 +1192,11 @@ class BasicDemoWithInit extends React.Component {
         this.getFormApi = this.getFormApi.bind(this);
     }
 
-    getFormApi(formApi) { this.formApi = formApi }
+    getFormApi(formApi) { this.formApi = formApi; }
 
     render() {
         const { Select, Input } = Form;
-        const style = { width: '100%' }
+        const style = { width: '100%' };
         return (
             <Form initValues={this.state.initValues}>
                 <Input
@@ -1212,7 +1218,7 @@ class BasicDemoWithInit extends React.Component {
                 </Select>
                 <Button htmlType='submit'>提交</Button>
             </Form>
-        )
+        );
     }
 }
 ```
@@ -1334,7 +1340,7 @@ class FieldLevelValidateDemo extends React.Component {
 
     validateName(val) {
         if (!val) {
-             return '【sync】can\'t be empty';
+            return '【sync】can\'t be empty';
         } else if (val.length <= 5) {
             return '【sync】must more than 5';
         }
@@ -1434,7 +1440,7 @@ import { Form, Button } from '@douyinfe/semi-ui';
             </React.Fragment>
         )}
     </Form>
-)
+);
 ```
 
 #### 数组类动态增删表单项-使用 ArrayField
@@ -1446,6 +1452,7 @@ ArrayField 自带了 add、remove、addWithInitValue 等 api 用来执行新增�
 ```jsx live=true dir="column" hideInDSM
 import React from 'react';
 import { ArrayField, TextArea, Form, Button, useFormState } from '@douyinfe/semi-ui';
+import { IconPlusCircle, IconMinusCircle } from '@douyinfe/semi-icons';
 
 class ArrayFieldDemo extends React.Component {
     constructor() {
@@ -1455,7 +1462,7 @@ class ArrayFieldDemo extends React.Component {
                 { name: '脸部贴纸', type: '2D' },
                 { name: '前景贴纸', type: '3D' },
             ]
-        }
+        };
     }
 
     render() {
@@ -1472,7 +1479,7 @@ class ArrayFieldDemo extends React.Component {
                     {({ add, arrayFields, addWithInitValue }) => (
                         <React.Fragment>
                             <Button onClick={add} icon={<IconPlusCircle />} theme='light'>新增空白行</Button>
-                            <Button  icon={<IconPlusCircle />} onClick={() => {addWithInitValue({name: '自定义贴纸', type: '2D'})}} style={{marginLeft:8}}>新增带有初始值的行</Button>
+                            <Button  icon={<IconPlusCircle />} onClick={() => {addWithInitValue({name: '自定义贴纸', type: '2D'});}} style={{marginLeft:8}}>新增带有初始值的行</Button>
                             {
                                 arrayFields.map(({ field, key, remove }, i) => (
                                     <div key={key} style={{ width: 1000, display: 'flex' }}>
@@ -1537,7 +1544,7 @@ class UseFromApiDemo extends React.Component {
                 <Form.Input field='name' initValue='mike'></Form.Input>
                 <ComponentUsingFormApi />
             </Form>
-        )
+        );
     }
 }
 ```
@@ -1568,7 +1575,7 @@ class UseFromStateDemo extends React.Component {
                 <ComponentUsingFormState />
             </Form>
         );
-  }
+    }
 }
 ```
 
@@ -1597,7 +1604,7 @@ class UseFieldApiDemo extends React.Component {
                 <Form.Input field='name' initValue='mike'></Form.Input>
                 <ComponentUsingFieldApi />
             </Form>
-        )
+        );
     }
 }
 ```
@@ -1611,28 +1618,28 @@ import React from 'react';
 import { useFieldState, Form } from '@douyinfe/semi-ui';
 
 class UseFieldStateDemo extends React.Component {
-  constructor() {
-    super();
-  }
-  render() {
-    const ComponentUsingFieldState = props => {
-        const fieldState = useFieldState(props.field);
+    constructor() {
+        super();
+    }
+    render() {
+        const ComponentUsingFieldState = props => {
+            const fieldState = useFieldState(props.field);
+            return (
+                <>
+                    <span>【{props.field}】FieldState read by 【useFieldState】：</span>
+                    <code>{JSON.stringify(fieldState)}</code>
+                </>
+            );
+        };
         return (
-            <>
-              <span>【{props.field}】FieldState read by 【useFieldState】：</span>
-              <code>{JSON.stringify(fieldState)}</code>
-            </>
+            <Form>
+                <Form.Input field='name' initValue='mike'></Form.Input>
+                <ComponentUsingFieldState field='name' />
+                <Form.Input field='country' initValue='china'></Form.Input>
+                <ComponentUsingFieldState field='country' />
+            </Form>
         );
-    };
-    return (
-       <Form>
-            <Form.Input field='name' initValue='mike'></Form.Input>
-            <ComponentUsingFieldState field='name' />
-            <Form.Input field='country' initValue='china'></Form.Input>
-            <ComponentUsingFieldState field='country' />
-      </Form>
-    )
-  }
+    }
 }
 ```
 
@@ -1799,7 +1806,7 @@ class withFieldDemo2 extends React.Component {
                     />
                 </div>
             );
-        }
+        };
         const CustomField = withField(MyComponent, { valueKey: 'value', onKeyChangeFnName: 'onChange' });
 
         const ComponentUsingFormState = () => {
@@ -1902,6 +1909,9 @@ FormState 存储了所有 Form 内部的状态值，包括各表单控件的值�
 -   通过[withFormApi](#HOC-withFormApi) HOC
 
 ```jsx
+import React from 'react';
+import { Form, Button } from '@douyinfe/semi-ui';
+
 class FormApiDemo extends React.Component {
     constructor() {
         super();
@@ -1922,27 +1932,34 @@ class FormApiDemo extends React.Component {
     }
 
     render() {
-        return <>
-            // 通过getFormApi回调获取并保存formApi
-            <Form getFormApi={this.getFormApi} />
-            // 通过ref直接获取Form组件实例上的formApi
-            <Form ref={this.formBRef} />
-            <Button onClick={()=>this.changeValues()}>Change</Button>
-        </>
+        return (
+            <>
+                {/* 通过getFormApi回调获取并保存formApi */}
+                <Form getFormApi={this.getFormApi} />
+                {/* 通过ref直接获取Form组件实例上的formApi */}
+                <Form ref={this.formBRef} />
+                <Button onClick={()=>this.changeValues()}>Change</Button>
+            </>
+        );
     }
 }
 ```
 
 ```jsx
+import React from 'react';
+import { Form, Button } from '@douyinfe/semi-ui';
+
 () => {
     // 函数式组件通过useRef存储formApi
     const api = useRef();
 
-    return (<Form getFormApi={formApi => api.current = formApi}>
-        <Form.Input field='a' />
-        <Button onClick={()=>{console.log(api)}}>log</Button>
-    </Form>)
-}
+    return (
+        <Form getFormApi={formApi => api.current = formApi}>
+            <Form.Input field='a' />
+            <Button onClick={()=>{console.log(api);}}>log</Button>
+        </Form>
+    );
+};
 ```
 
 ## Field Props

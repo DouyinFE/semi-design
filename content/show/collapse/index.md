@@ -167,17 +167,22 @@ import { IconCopy } from '@douyinfe/semi-icons';
     可以在自定义元素的 onClick 事件回调中，阻止事件冒泡至 Collapse.Header 即可。若自定义元素未提供 event 对象，再包裹一层 div，于 div onClick 中阻止冒泡亦可。
 
 ```jsx
-<Collapse>
-    <Collapse.Panel
-        header={
-            <div style={{ display: 'inline-flex' }} onClick={e => e.stopPropagation()}>
-                <span>Panel header</span>
-                <Input />
-            </div>
-        }
-        itemKey="1"
-    >
-        <p>Hi, bytedance dance dance. This is the docsite of Semi UI. </p>
-    </Collapse.Panel>
-</Collapse>
+import React from 'react';
+import { Collapse, Input } from '@douyinfe/semi-ui';
+
+() => (
+    <Collapse>
+        <Collapse.Panel
+            header={
+                <div style={{ display: 'inline-flex' }} onClick={e => e.stopPropagation()}>
+                    <span>Panel header</span>
+                    <Input />
+                </div>
+            }
+            itemKey="1"
+        >
+            <p>Hi, bytedance dance dance. This is the docsite of Semi UI. </p>
+        </Collapse.Panel>
+    </Collapse>
+);
 ```

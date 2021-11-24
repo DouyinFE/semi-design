@@ -28,7 +28,8 @@ brief: 国际化组件，为 Semi 组件提供多语言支持
 LocaleProvider 使用了 React 的 context 上下文特性，你只需要在应用外围包裹一次即可全局生效  
 当需要切换语言时，直接切换 props 传入的 locale 即可
 
-```js hideInDSM
+```jsx hideInDSM
+import React from 'react';
 import zh_CN from '@douyinfe/semi-ui/lib/es/locale/source/zh_CN';
 import en_GB from '@douyinfe/semi-ui/lib/es/locale/source/en_GB';
 import en_US from '@douyinfe/semi-ui/lib/es/locale/source/en_US';
@@ -49,7 +50,8 @@ import { LocaleProvider } from '@douyinfe/semi-ui';
 // 在locale中传入相应的语言包即可
 return (
     <LocaleProvider locale={en_GB}>
-        <App/>
+        {/* eslint-disable-next-line react/jsx-no-undef */}
+        <App />
     </LocaleProvider>
 );
 ```
@@ -114,7 +116,7 @@ class I18nDemo extends React.Component {
         this.state = {
             locale: zh_CN,
             localeCode: 'zh_CN',
-        }
+        };
         this.onLanguageChange = this.onLanguageChange.bind(this);
     }
 
@@ -133,8 +135,8 @@ class I18nDemo extends React.Component {
             'tr_TR': tr_TR,
             'pt_BR': pt_BR,
             'zh_TW': zh_TW,
-        }
-        this.setState({ locale: language[code], localeCode: code })
+        };
+        this.setState({ locale: language[code], localeCode: code });
     }
 
     render() {
@@ -209,10 +211,10 @@ class I18nDemo extends React.Component {
                             visible={modalVisible}
                             onOk={() => setModalVisible(false)}
                             onCancel={() => setModalVisible(false)}
-                            >
+                        >
                             <p>This is the content of a basic modal.</p>
                             <p>More content...</p>
-                    </Modal>
+                        </Modal>
                     </div>
                     <h5>Select & Cascader</h5>
                     <div style={style}>
@@ -281,7 +283,7 @@ class I18nDemo extends React.Component {
                     </ConfigProvider>
                 </LocaleProvider>
             </>
-        )
+        );
     }
 }
 ```

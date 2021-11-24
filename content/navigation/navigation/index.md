@@ -457,8 +457,8 @@ class NavApp extends React.Component {
     render() {
         return (
             <>
-            {this.renderHorizontal()}
-            {this.renderVertical()}
+                {this.renderHorizontal()}
+                {this.renderVertical()}
             </>
         );
     }
@@ -649,7 +649,7 @@ function NavApp (props = {}) {
 
     const onCollapseChange = isCollapsed => {
         setIsCollapsed(isCollapsed);
-    }
+    };
 
     const items = useMemo(() => [
         { itemKey: 'user', text: '用户管理', icon: <IconUser /> },
@@ -686,7 +686,7 @@ function NavApp (props = {}) {
             onOpenChange={onOpenChange}
             onSelect={onSelect}
         />
-    )
+    );
 }
 ```
 

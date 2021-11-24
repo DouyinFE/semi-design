@@ -22,14 +22,14 @@ import React from 'react';
 import { Switch } from '@douyinfe/semi-ui';
 
 () => (
-  <div>
-      <Switch onChange={(v, e) => console.log(v)}>
-      </Switch>
-      <br/>
-      <Switch defaultChecked={true} onChange={(v, e) => console.log(v)}>
-      </Switch>
-  </div>
-)
+    <div>
+        <Switch onChange={(v, e) => console.log(v)}>
+        </Switch>
+        <br/>
+        <Switch defaultChecked={true} onChange={(v, e) => console.log(v)}>
+        </Switch>
+    </div>
+);
 ```
 
 ### Size
@@ -39,7 +39,7 @@ import React from 'react';
 import { Switch } from '@douyinfe/semi-ui';
 
 () => (
-  <div>
+    <div>
         <Switch size='small'></Switch>
         <Switch defaultChecked={true} size='small'></Switch>
         <Switch size='small' loading/>
@@ -54,8 +54,8 @@ import { Switch } from '@douyinfe/semi-ui';
         <Switch defaultChecked={true} size='large'></Switch>
         <Switch size='large' loading/>
         <Switch size='large' loading defaultChecked={true} />
-  </div>
-)
+    </div>
+);
 ```
 
 ### Disabled
@@ -65,12 +65,12 @@ import React from 'react';
 import { Switch } from '@douyinfe/semi-ui';
 
 () => (
-  <div>
+    <div>
         <Switch disabled></Switch>
         <br/>
         <Switch disabled checked={true}></Switch>
-  </div>
-)
+    </div>
+);
 ```
 
 ### With text
@@ -97,7 +97,7 @@ import { Switch } from '@douyinfe/semi-ui';
         <Switch defaultChecked checkedText='on' uncheckedText='off' size='large' />
         <Switch defaultChecked checkedText='｜' uncheckedText='〇' size='large' style={{marginLeft:5}}/>
     </div>
-)
+);
 ```
 
 Compared to setting the embedded text through checkedText and uncheckedText, we recommend placing the text description outside the Switch
@@ -110,11 +110,11 @@ import { Switch, Typography } from '@douyinfe/semi-ui';
     const { Title } = Typography;
     return (
         <div style={{display:'flex', alignItems: 'center'}}>
-          <Title heading={6} style={{margin: 8}}>{open?'Open':'Closed'}</Title>
-          <Switch checked={open} onChange={setOpen}/>
+            <Title heading={6} style={{margin: 8}}>{open?'Open':'Closed'}</Title>
+            <Switch checked={open} onChange={setOpen}/>
         </div>
-    )
-}
+    );
+};
 ```
 
 ### Controlled component
@@ -127,10 +127,10 @@ import { Switch } from '@douyinfe/semi-ui';
 
 class Demo extends React.Component {
     constructor() {
-        super()
+        super();
         this.state = {
             checked: true,
-        }
+        };
         this.onChange = this.onChange.bind(this);
     }
     onChange(checked) {
@@ -139,12 +139,12 @@ class Demo extends React.Component {
     render() {
         return (
             <>
-            <Switch
-                checked={this.state.checked}
-                onChange={this.onChange}>
-            </Switch>
+                <Switch
+                    checked={this.state.checked}
+                    onChange={this.onChange}>
+                </Switch>
             </>
-        )
+        );
     }
 }
 ```
@@ -165,7 +165,7 @@ import { Switch } from '@douyinfe/semi-ui';
         <br />
         <Switch loading defaultChecked={true} />
     </div>
-)
+);
 ```
 
 ## API reference
