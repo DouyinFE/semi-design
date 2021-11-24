@@ -32,7 +32,9 @@ const getOptionsFromGroup = (selectChildren: React.ReactNode) => {
 
     // avoid null
     // eslint-disable-next-line max-len
-    const childNodes = React.Children.toArray(selectChildren).filter((childNode: React.ReactElement) => childNode && childNode.props);
+    let childNodes = React.Children.toArray(selectChildren) as React.ReactElement[];
+    childNodes = childNodes.filter((childNode) => childNode && childNode.props);    
+
     let type = '';
 
     childNodes.forEach((child: React.ReactElement<any, any>) => {
