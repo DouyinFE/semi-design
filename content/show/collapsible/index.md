@@ -25,48 +25,37 @@ import { Collapsible } from '@douyinfe/semi-ui';
 通过 `isOpen` 来控制内容的展开或者折叠。
 
 ```jsx live=true hideInDSM
-import React from 'react';
+import React, { useState } from 'react';
 import { Collapsible, Button } from '@douyinfe/semi-ui';
 
-class Demo extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isOpen: false,
-        };
-        this.toggle = this.toggle.bind(this);
-    }
-
-    toggle() {
-        this.setState({ isOpen: !this.state.isOpen });
-    }
-
-    render() {
-        const { isOpen } = this.state;
-        const collapsed = (
-            <ul>
-                <li>
-                    <p>Semi Design 以内容优先进行设计。</p>
-                </li>
-                <li>
-                    <p>更容易地自定义主题。</p>
-                </li>
-                <li>
-                    <p>适用国际化场景。</p>
-                </li>
-                <li>
-                    <p>效率场景加入人性化关怀。</p>
-                </li>
-            </ul>
-        );
-        return (
-            <div>
-                <Button onClick={this.toggle}>Toggle</Button>
-                <Collapsible isOpen={isOpen}>{collapsed}</Collapsible>
-            </div>
-        );
-    }
-}
+() => {
+    const [isOpen ,setOpen] = useState();
+    const toggle = () => {
+        setOpen(!isOpen);
+    };
+    const collapsed = (
+        <ul>
+            <li>
+                <p>Semi Design 以内容优先进行设计。</p>
+            </li>
+            <li>
+                <p>更容易地自定义主题。</p>
+            </li>
+            <li>
+                <p>适用国际化场景。</p>
+            </li>
+            <li>
+                <p>效率场景加入人性化关怀。</p>
+            </li>
+        </ul>
+    );
+    return (
+        <div>
+            <Button onClick={toggle}>Toggle</Button>
+            <Collapsible isOpen={isOpen}>{collapsed}</Collapsible>
+        </div>
+    );
+};
 ```
 
 ### 自定义动画时间
@@ -74,194 +63,85 @@ class Demo extends React.Component {
 通过 `duration` 设置动画展开或者折叠的时间，也可以通过 `motion` 来关闭动画。
 
 ```jsx live=true hideInDSM
-import React from 'react';
+import React, { useState } from 'react';
 import { Collapsible, InputNumber, Button } from '@douyinfe/semi-ui';
 
-class Demo extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isOpen: false,
-            duration: 250,
-        };
-        this.toggle = this.toggle.bind(this);
-        this.setDuration = this.setDuration.bind(this);
-    }
-
-    toggle() {
-        this.setState({ isOpen: !this.state.isOpen });
-    }
-
-    setDuration(duration) {
-        this.setState({ duration: duration });
-    }
-
-    render() {
-        const { isOpen, duration } = this.state;
-        const collapsed = (
-            <ul>
-                <li>
-                    <p>Semi Design 以内容优先进行设计。</p>
-                </li>
-                <li>
-                    <p>更容易地自定义主题。</p>
-                </li>
-                <li>
-                    <p>适用国际化场景。</p>
-                </li>
-                <li>
-                    <p>效率场景加入人性化关怀。</p>
-                </li>
-            </ul>
-        );
-        return (
-            <div>
-                <label>设置动画时间：</label>
-                <InputNumber min={0} defaultValue={250} style={{ width: 120 }} onChange={this.setDuration} step={10} />
-                <br />
-                <Button onClick={this.toggle}>Toggle</Button>
-                <Collapsible isOpen={isOpen} duration={duration}>
-                    {collapsed}
-                </Collapsible>
-            </div>
-        );
-    }
-}
+() => {
+    const [isOpen, setOpen] = useState(false);
+    const [duration, setDuration] = useState(250);
+    const toggle = () => {
+        setOpen(!isOpen);
+    };
+    const collapsed = (
+        <ul>
+            <li>
+                <p>Semi Design 以内容优先进行设计。</p>
+            </li>
+            <li>
+                <p>更容易地自定义主题。</p>
+            </li>
+            <li>
+                <p>适用国际化场景。</p>
+            </li>
+            <li>
+                <p>效率场景加入人性化关怀。</p>
+            </li>
+        </ul>
+    );
+    return (
+        <div>
+            <label>设置动画时间：</label>
+            <InputNumber min={0} defaultValue={250} style={{ width: 120 }} onChange={(val) => setDuration(val)} step={10} />
+            <br />
+            <Button onClick={toggle}>Toggle</Button>
+            <Collapsible isOpen={isOpen} duration={duration}>
+                {collapsed}
+            </Collapsible>
+        </div>
+    );
+};
 ```
 
 ### 嵌套使用
 
-当嵌套使用 Collapsible 时需要将当前触发动画的节点设置 motion，未触发动画的节点设置为 false。
-
-> 在 v0.29.2 之后的版本，我们对 Collapsible 做了优化，不再需要手动传入触发动画的节点
-
-版本 < v0.29.2 的写法：
-
 ```jsx live=true hideInDSM
 import React from 'react';
 import { Collapsible, Button } from '@douyinfe/semi-ui';
 
-class Demo extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isOpen: false,
-            isChildOpen: false,
-            activeKey: '',
-        };
-        this.toggle = this.toggle.bind(this);
-        this.toggleChild = this.toggleChild.bind(this);
-    }
+() => {
+    const [isOpen, setOpen] = useState(false);
+    const [isChildOpen, setChildOpen] = useState(false);
 
-    toggle() {
-        this.setState({
-            isOpen: !this.state.isOpen,
-            activeKey: 'p',
-        });
-    }
-
-    toggleChild() {
-        this.setState({
-            isChildOpen: !this.state.isChildOpen,
-            activeKey: 'c',
-        });
-    }
-
-    render() {
-        const { isOpen, isChildOpen, activeKey } = this.state;
-        const collapsed = (
-            <ul>
-                <li>
-                    <p>Semi Design 以内容优先进行设计。</p>
-                </li>
-                <li>
-                    <p>更容易地自定义主题。</p>
-                </li>
-                <li>
-                    <p>适用国际化场景。</p>
-                </li>
-                <li>
-                    <p>效率场景加入人性化关怀。</p>
-                </li>
-            </ul>
-        );
-        return (
-            <div>
-                <Button onClick={this.toggle}>Toggle</Button>
-                <br />
-                <Collapsible isOpen={isOpen} motion={'p' === activeKey}>
-                    <div>
-                        <span>Semi Design的设计原则包括：</span>
-                        <Button onClick={this.toggleChild}>Toggle List</Button>
-                    </div>
-                    <Collapsible isOpen={isChildOpen} motion={'c' === activeKey}>
-                        {collapsed}
-                    </Collapsible>
-                </Collapsible>
-            </div>
-        );
-    }
-}
-```
-
-优化后 版本 >=v0.29.2 的写法：
-
-```jsx live=true hideInDSM
-import React from 'react';
-import { Collapsible, Button } from '@douyinfe/semi-ui';
-
-class Demo extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isOpen: false,
-            isChildOpen: false,
-        };
-        this.toggle = this.toggle.bind(this);
-        this.toggleChild = this.toggleChild.bind(this);
-    }
-
-    toggle() {
-        this.setState({ isOpen: !this.state.isOpen });
-    }
-
-    toggleChild() {
-        this.setState({ isChildOpen: !this.state.isChildOpen });
-    }
-
-    render() {
-        const { isOpen, isChildOpen } = this.state;
-        const collapsed = (
-            <ul>
-                <li>
-                    <p>Semi Design 以内容优先进行设计。</p>
-                </li>
-                <li>
-                    <p>更容易地自定义主题。</p>
-                </li>
-                <li>
-                    <p>适用国际化场景。</p>
-                </li>
-                <li>
-                    <p>效率场景加入人性化关怀。</p>
-                </li>
-            </ul>
-        );
-        return (
-            <div>
-                <Button onClick={this.toggle}>Toggle</Button>
-                <br />
-                <Collapsible isOpen={isOpen}>
-                    <div>
-                        <span>Semi Design的设计原则包括：</span>
-                        <Button onClick={this.toggleChild}>Toggle List</Button>
-                    </div>
-                    <Collapsible isOpen={isChildOpen}>{collapsed}</Collapsible>
-                </Collapsible>
-            </div>
-        );
-    }
-}
+    const collapsed = (
+        <ul>
+            <li>
+                <p>Semi Design 以内容优先进行设计。</p>
+            </li>
+            <li>
+                <p>更容易地自定义主题。</p>
+            </li>
+            <li>
+                <p>适用国际化场景。</p>
+            </li>
+            <li>
+                <p>效率场景加入人性化关怀。</p>
+            </li>
+        </ul>
+    );
+    return (
+        <div>
+            <Button onClick={() => setOpen(!isOpen)}>Toggle</Button>
+            <br />
+            <Collapsible isOpen={isOpen}>
+                <div>
+                    <span>Semi Design的设计原则包括：</span>
+                    <Button onClick={() => setChildOpen(!isChildOpen)}>Toggle List</Button>
+                </div>
+                <Collapsible isOpen={isChildOpen}>{collapsed}</Collapsible>
+            </Collapsible>
+        </div>
+    );
+};
 ```
 
 ### 自定义折叠高度
@@ -269,72 +149,61 @@ class Demo extends React.Component {
 可以使用 collapseHeight 自定义收起的高度，需要版本 **v>=1.0.0**
 
 ```jsx live=true hideInDSM
-import React from 'react';
+import React, { useState } from 'react';
 import { Collapsible, Button } from '@douyinfe/semi-ui';
 
-class Demo extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isOpen: false,
+() => {
+    const [isOpen, setOpen] = useState(false);
+    const maskStyle = isOpen
+        ? {}
+        : {
+            WebkitMaskImage:
+                    'linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 0.2) 80%, transparent 100%)',
         };
-        this.toggle = this.toggle.bind(this);
-    }
-
-    toggle() {
-        this.setState({ isOpen: !this.state.isOpen });
-    }
-
-    render() {
-        const { isOpen } = this.state;
-        const maskStyle = isOpen
-            ? {}
-            : {
-                WebkitMaskImage:
-                      'linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 0.2) 80%, transparent 100%)',
-            };
-        const collapsed = (
-            <ul>
-                <li>
-                    <p>Semi Design 以内容优先进行设计。</p>
-                </li>
-                <li>
-                    <p>更容易地自定义主题。</p>
-                </li>
-                <li>
-                    <p>适用国际化场景。</p>
-                </li>
-                <li>
-                    <p>效率场景加入人性化关怀。</p>
-                </li>
-            </ul>
-        );
-        const linkStyle = {
-            position: 'absolute',
-            left: 0,
-            right: 0,
-            textAlign: 'center',
-            bottom: -10,
-            fontWeight: 700,
-            cursor: 'pointer',
-        };
-        return (
-            <>
-                <Button onClick={this.toggle}>Toggle</Button>
-                <div style={{ position: 'relative' }}>
-                    <Collapsible isOpen={isOpen} collapseHeight={50} style={{ ...maskStyle }}>
-                        {collapsed}
-                    </Collapsible>
-                    {isOpen ? null : (
-                        <a onClick={this.toggle} style={{ ...linkStyle }}>
-                            + Show More
-                        </a>
-                    )}
-                </div>
-            </>
-        );
-    }
-}
+    const collapsed = (
+        <ul>
+            <li>
+                <p>Semi Design 以内容优先进行设计。</p>
+            </li>
+            <li>
+                <p>更容易地自定义主题。</p>
+            </li>
+            <li>
+                <p>适用国际化场景。</p>
+            </li>
+            <li>
+                <p>效率场景加入人性化关怀。</p>
+            </li>
+        </ul>
+    );
+    const toggle = () => {
+        setOpen(!isOpen);
+    };
+    const linkStyle = {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        textAlign: 'center',
+        bottom: -10,
+        fontWeight: 700,
+        cursor: 'pointer',
+    };
+    return (
+        <>
+            <Button onClick={toggle}>Toggle</Button>
+            <div style={{ position: 'relative' }}>
+                <Collapsible isOpen={isOpen} collapseHeight={60} style={{ ...maskStyle }}>
+                    {collapsed}
+                </Collapsible>
+                {isOpen ? null : (
+                    <a onClick={toggle} style={{ ...linkStyle }}>
+                        + Show More
+                    </a>
+                )}
+            </div>
+        </>
+    );
+};
 ```
 
 ## API 参考
