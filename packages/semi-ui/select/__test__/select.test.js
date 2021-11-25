@@ -241,6 +241,21 @@ describe('Select', () => {
         defaultSelect.unmount();
     });
 
+    it('dropdownMatchSelectWidth, width is string', () => {
+        let stringProps = {
+            defaultOpen: true,
+            style: { width: '90px' },
+            defaultValue: 'abc',
+        };
+        let stringSelect = getSelect(stringProps);
+        let strSelector = stringSelect.find(`.${BASE_CLASS_PREFIX}-select`).getDOMNode();
+        let strSelectorWidth = window.getComputedStyle(strSelector).width; // expect 90px
+        let strList = stringSelect.find(`.${BASE_CLASS_PREFIX}-select-option-list`).getDOMNode().parentNode;
+        let strListWidth = window.getComputedStyle(strList).minWidth;
+        expect(strSelectorWidth).toEqual(strListWidth);
+        stringSelect.unmount();
+    });
+
     it('dropdownMatchSelectWidth = false', () => {
         let notMatchProps = {
             defaultOpen: true,
@@ -776,8 +791,9 @@ describe('Select', () => {
     });
 
     it('【value】controlled mode', () => {
+        let spyOnChange = sinon.spy((value, option) => {});
+
         let props = {
-            data: [],
             value: 'abc',
         };
         let select = getSelect(props);
@@ -789,13 +805,46 @@ describe('Select', () => {
         select.update();
         expect(select.find(`.${BASE_CLASS_PREFIX}-select-selection-text`).getDOMNode().textContent).toEqual('');
         select.unmount();
+
+        let singleProps = {
+            value: 'abc',
+            optionList: defaultList,
+            defaultOpen: true,
+            onChange: spyOnChange,
+        };
+        select = getSelect(singleProps);
+        let options = select.find(`.${BASE_CLASS_PREFIX}-select-option-list`).children();
+        const nativeEvent = { nativeEvent: { stopImmediatePropagation: noop } };
+        options.at(1).simulate('click', nativeEvent);
+        expect(spyOnChange.getCall(0).args[0]).toEqual('hotsoon');
+        select.unmount();
+
+        let spyMOnChange = sinon.spy((value, option) => {});
+        let spyMOnClear = sinon.spy(() => {});
+        let multipleProps = {
+            value: '',
+            optionList: defaultList,
+            defaultOpen: true,
+            multiple: true,
+            filter: true,
+            onChange: spyMOnChange,
+            showClear: true,
+            onClear: spyMOnClear,
+        };
+        select = getSelect(multipleProps);
+        let mOptions = select.find(`.${BASE_CLASS_PREFIX}-select-option-list`).children();
+        mOptions.at(1).simulate('click', nativeEvent);
+        expect(spyMOnChange.getCall(0).args[0]).toEqual(['hotsoon']);
+
+        // TODO
+        // test 
+
     });
 
     it('【onBlur/onFocus】', () => {
         let spyOnBlur = sinon.spy((value, option) => {
         });
         let spyOnFocus = sinon.spy((value, option) => {
-            // debugger
         });
 
         let props = {
@@ -1002,6 +1051,12 @@ describe('Select', () => {
     it('test keyboard press', () => {
         let props = {
             defaultOpen: true,
+            optionList: [
+                { value: 'abc', label: 'Abc' },
+                { value: 'hotsoon', label: 'Hotsoon' },
+                { value: 'pipixia', label: 'Pipixia' },
+                { value: 'toutiao', label: 'TopBuzz' },
+            ],
         };
         let select = getSelect(props);
         // press ⬇️
@@ -1018,7 +1073,25 @@ describe('Select', () => {
         select.find(`.${BASE_CLASS_PREFIX}-select`).simulate('keydown', { keyCode: keyCode.DOWN });
         select.find(`.${BASE_CLASS_PREFIX}-select`).simulate('keydown', { keyCode: keyCode.ENTER });
         expect(select.find(`.${BASE_CLASS_PREFIX}-select-selection-text`).text()).toBe(defaultList[0].label);
+        select.unmount();
+
+        // test whether backspace can skip disabled option
+        let dProps = {
+            defaultOpen: true,
+            optionList: [
+                { value: 'abc', label: 'Abc' },
+                { value: 'hotsoon', label: 'Hotsoon', disabled: true },
+                { value: 'pipixia', label: 'Pipixia' },
+            ],
+            defaultValue: ['hotsoon', 'abc'],
+            multiple: true,
+        };
+        let dSelect = getSelect(dProps);
+        dSelect.find(`.${BASE_CLASS_PREFIX}-select`).simulate('keydown', { keyCode: keyCode.BACKSPACE });
+        let selections = Array.from(dSelect.state().selections);
+        expect(selections[0][0]).toEqual('Hotsoon');
     });
+
     it('allowCreate', () => {
         const props = {
             multiple: true,
@@ -1034,10 +1107,141 @@ describe('Select', () => {
         select.find(`.${BASE_CLASS_PREFIX}-select .${BASE_CLASS_PREFIX}-input`).simulate('keydown', { keyCode: keyCode.BACKSPACE });
         expect(select.find(`.${BASE_CLASS_PREFIX}-select .semi-tag`).length).toBe(0);
     });
+
+    it('【onMouseEnter/onMouseLeave】', () => {
+        let spyEnter = sinon.spy((e) => {
+        });
+        let spyLeave = sinon.spy((e) => {
+        });
+
+        let props = {
+            onMouseEnter: spyEnter,
+            onMouseLeave: spyLeave,
+        };
+        let select = getSelect(props);
+        let trigger = select.find('.semi-select');
+        const nativeEvent = { nativeEvent: { stopImmediatePropagation: noop } };
+        trigger.simulate('mouseenter', nativeEvent);
+        expect(spyEnter.callCount).toEqual(1);
+
+        trigger.simulate('mouseleave', nativeEvent);
+        expect(spyLeave.callCount).toEqual(1);
+        select.unmount();
+    });
+
+    it('ref method', () => {
+        let r;
+        let props = {
+            ref: (ref) => { r = ref },
+            filter: true,
+            multiple: true,
+            optionList: defaultList,
+        };
+
+        let select = getSelect(props);
+        r.open();
+        expect(select.state().isOpen).toEqual(true);
+
+        r.close();
+        expect(select.state().isOpen).toEqual(false);
+
+        r.selectAll();
+        select.update();
+        expect(select.state().selections.size).toEqual(4);
+
+        r.deselectAll();
+        expect(select.state().selections.size).toEqual(0);
+
+        r.focus();
+        expect(document.activeElement.tagName).toEqual('INPUT');
+
+        select.unmount();
+        // selectAll not work when multiple is false
+        let r2;
+        let props2 = {
+            ref: (ref) => { r2 = ref },
+            filter: true,
+            optionList: defaultList,
+        };
+        let singleSelect = getSelect(props2);
+        r2.selectAll();
+        expect(singleSelect.state().selections.size).toEqual(0);
+    });
+
+    it('props optionList update after choose some option, uncontroled mode', () => {
+
+        let props = {
+            defaultActiveFirstOption: true,
+            optionList: [
+                { value: 'abc', label: 'Abc' },
+                { value: 'hotsoon', label: 'Hotsoon' }
+            ],
+            defaultOpen: true,
+            multiple: true,
+            filter: true,
+        };
+        
+        let select = getSelect(props);
+        let options = select.find(`.${BASE_CLASS_PREFIX}-select-option-list`).children();
+        const nativeEvent = { nativeEvent: { stopImmediatePropagation: noop } };
+        options.at(0).simulate('click', nativeEvent);
+        options.at(1).simulate('click', nativeEvent);
+
+        let newList = [
+            { value: 'pipixia', label: 'Pipixia' },
+            { value: 'toutiao', label: 'TopBuzz' },
+        ];
+        select.setProps({ optionList: newList });
+        select.update();
+        let selections = Array.from(select.state().selections);
+        expect(selections[0][0]).toEqual('Abc');
+        expect(selections[1][0]).toEqual('Hotsoon');
+        select.unmount();
+
+        let singleProps = {
+            defaultActiveFirstOption: true,
+            optionList: [
+                { value: 'abc', label: 'Abc' },
+                { value: 'hotsoon', label: 'Hotsoon' },
+            ],
+            defaultOpen: true,
+        };
+
+        let singleSelect = getSelect(singleProps);
+        let options2 = singleSelect.find(`.${BASE_CLASS_PREFIX}-select-option-list`).children();
+        options2.at(0).simulate('click', nativeEvent);
+        singleSelect.setProps({ optionList: newList });
+        singleSelect.update();
+        let selections2 = Array.from(singleSelect.state().selections);
+        expect(selections2[0][0]).toEqual('abc');
+    });
+
+    it('click tag close when multiple, controled mode', () => {
+        let spyOnChange = sinon.spy((value) => {
+        });
+        let spyOnDeselect = sinon.spy((option) => {
+        });
+        let props = {
+            optionList: [
+                { value: 'abc', label: 'Abc' },
+                { value: 'hotsoon', label: 'Hotsoon' },
+            ],
+            multiple: true,
+            value: ['abc', 'hotsoon'],
+            onChange: spyOnChange,
+            onDeselect: spyOnDeselect,
+        };
+        let select = getSelect(props);
+        let tagClose = select.find('.semi-tag-close').children();
+        const nativeEvent = { nativeEvent: { stopImmediatePropagation: noop } };
+        tagClose.at(0).simulate('click', nativeEvent);
+        expect(spyOnDeselect.calledWith('abc'));
+        expect(spyOnChange.calledWith(['hotsoon']));
+    });
+
     // TODO ref selectAll \deselectAll when onChangeWithObject is true
     // TODO when loading is true, do not response any keyborard event
     // TODO can't remove tag when option is diabled
-    // TODO
     // it('allowCreate-renderCreateItem', ()=>{})
     // it('autoAdjustOverflow', ()=>{})
     // it('remote', ()=>{})
@@ -1059,7 +1263,4 @@ describe('Select', () => {
     //         expect(candidate.at(0).getDOMNode().textContent).toEqual('ies');
     //         expect(candidate.at(1).getDOMNode().textContent).toEqual('design');
     //     })
-
-    //     // 即将废弃的兼容API测试
-    // OptGroup
 });
