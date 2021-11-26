@@ -1,4 +1,4 @@
-import React, { ReactNode, ReactElement, MouseEvent } from 'react';
+import React, { MouseEvent, ReactElement, ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/tabs/constants';
@@ -6,9 +6,9 @@ import getDataAttr from '@douyinfe/semi-foundation/utils/getDataAttr';
 import OverflowList from '../overflowList';
 import Dropdown from '../dropdown';
 import Button from '../button';
-import { TabBarProps, PlainTab } from './interface';
+import { PlainTab, TabBarProps } from './interface';
 import { isEmpty } from 'lodash-es';
-import { IconChevronRight, IconChevronLeft } from '@douyinfe/semi-icons';
+import { IconChevronLeft, IconChevronRight, IconClose } from '@douyinfe/semi-icons';
 import { getUuidv4 } from '@douyinfe/semi-foundation/utils/uuid';
 
 export interface TabBarState {
@@ -34,6 +34,8 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
         tabBarExtraContent: PropTypes.node,
         tabPosition: PropTypes.oneOf(strings.POSITION_MAP),
         type: PropTypes.oneOf(strings.TYPE_MAP),
+        closable: PropTypes.bool,
+        deleteTabItem: PropTypes.func
     };
 
     uuid: string;
@@ -87,8 +89,9 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
     };
 
     renderTabItem = (panel: PlainTab): ReactNode => {
-        const { size } = this.props;
+        const { size, type, deleteTabItem } = this.props;
         const panelIcon = panel.icon ? this.renderIcon(panel.icon) : null;
+        const closableIcon = (type === 'card' && panel.closable) ? <IconClose className={`${cssClasses.TABS_TAB}-icon-close`} onClick={(e: React.MouseEvent<HTMLSpanElement>) => deleteTabItem(panel.itemKey, e)} /> : null;
         let events = {};
         const key = panel.itemKey;
         if (!panel.disabled) {
@@ -113,6 +116,7 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
             >
                 {panelIcon}
                 {panel.tab}
+                {closableIcon}
             </div>
         );
     };
@@ -190,7 +194,7 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
         );
     };
 
-    renderOverflow = (items: [Array<OverflowItem>, Array<OverflowItem>]): Array<ReactNode> => items.map((item, ind) => {
+    renderOverflow = (items: any[]): Array<ReactNode> => items.map((item, ind) => {
         const icon = ind === 0 ? <IconChevronLeft /> : <IconChevronRight />;
         const pos = ind === 0 ? 'start' : 'end';
         return this.renderCollapse(item, icon, pos);

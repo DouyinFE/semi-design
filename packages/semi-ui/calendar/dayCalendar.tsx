@@ -2,7 +2,7 @@ import React from 'react';
 import { isEqual } from 'lodash-es';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
-import CalendarFoundation, { CalendarAdapter, ParsedEventsWithArray } from '@douyinfe/semi-foundation/calendar/foundation';
+import CalendarFoundation, { CalendarAdapter, ParsedEventsType, ParsedEventsWithArray } from '@douyinfe/semi-foundation/calendar/foundation';
 import { cssClasses } from '@douyinfe/semi-foundation/calendar/constants';
 import DayCol from './dayCol';
 import TimeCol from './timeCol';
@@ -77,8 +77,8 @@ export default class DayCalendar extends BaseComponent<DayCalendarProps, DayCale
             updateScrollHeight: scrollHeight => {
                 this.setState({ scrollHeight });
             },
-            setParsedEvents: (parsedEvents: ParsedEventsWithArray) => {
-                this.setState({ parsedEvents });
+            setParsedEvents: (parsedEvents: ParsedEventsType) => {
+                this.setState({ parsedEvents: parsedEvents as ParsedEventsWithArray });
             },
             cacheEventKeys: cachedKeys => {
                 this.setState({ cachedKeys });

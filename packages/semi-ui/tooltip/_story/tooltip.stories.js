@@ -665,3 +665,26 @@ export const ShowArrow = () => {
 ShowArrow.story = {
   name: 'showArrow',
 };
+
+export const OnClickOutSideDemo = () => {
+    let [v, setV] = useState(false);
+    let clickOutSide = () => {
+        console.log('clickOutSide');
+        setV(false);
+    }
+    return (
+        <>
+            <Tooltip onClickOutSide={() => clickOutSide()} content={'hi bytedance'} visible={v} trigger='custom'>
+                <Button onClick={() => setV(true)}>按钮</Button>
+            </Tooltip>
+            <br />
+            <br />
+            <Tooltip onClickOutSide={() => console.log('clickOutSide')} content={'hi bytedance'} trigger='click'>
+                <Button >单个按钮</Button>
+            </Tooltip>
+        </>
+    );
+}
+OnClickOutSideDemo.story = {
+  name: 'OnClickOutSide',
+};

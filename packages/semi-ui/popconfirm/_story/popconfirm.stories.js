@@ -4,6 +4,7 @@ import Popconfirm from '../index';
 import Button from '../../button';
 import Input from '../../input';
 import Table from '../../table';
+import Toast from '../../toast';
 
 import TypesConfrimDemo from './TypesConfirm';
 import DynamicDisableDemo from './DynamicDisable';
@@ -139,3 +140,31 @@ export const ShowArrowDemo = () => <ShowArrow />;
 ShowArrowDemo.style = {
   name: 'show arrow'
 }
+
+export const ClickOutSideDemo = () => {
+    const [v, setV] = useState(false)
+    const onConfirm = () => {
+      Toast.success('确认保存！');
+    };
+
+    const onCancel = () => {
+      Toast.warning('取消保存！');
+    }
+    return (
+      <Popconfirm
+          title="确定是否要保存此修改？"
+          content="此修改将不可逆"
+          visible={v}
+          onClickOutSide={onCancel}
+          onConfirm={onConfirm}
+          onCancel={onCancel}
+      >
+          <Button onClick={() => setV(true)}>保存</Button>
+      </Popconfirm>
+    )
+}
+
+
+ClickOutSideDemo.story = {
+  name: 'ClickOutSideDemo',
+};

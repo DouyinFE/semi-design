@@ -219,12 +219,12 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
     }
 
 
-}
+};
 
 
 export class ToastFactory {
     static create(config?: ConfigProps): ReturnType<typeof createBaseToast> {
-        const newToast = createBaseToast()
+        const newToast = createBaseToast();
         newToast.useToast = useToast;
         config && newToast.config(config);
         return newToast;

@@ -67,7 +67,7 @@ const Collapsible = (props: CollapsibleProps) => {
     const shouldKeepDOM = () => keepDOM || collapseHeight !== 0;
 
     const defaultMaxHeight = useMemo(() => {
-        return isOpen || !shouldKeepDOM() && !motion ? 'none' : collapseHeight
+        return isOpen || !shouldKeepDOM() && !motion ? 'none' : collapseHeight;
     }, [collapseHeight, motion, isOpen, shouldKeepDOM]);
 
     const renderChildren = (transitionStyle: Record<string, any>) => {
@@ -90,7 +90,7 @@ const Collapsible = (props: CollapsibleProps) => {
         const wrapperCls = cls(`${cssClasses.PREFIX}-wrapper`, className);
         return (
             <div style={wrapperstyle} className={wrapperCls} ref={ref}>
-                <div ref={setHeight}>{children}</div>
+                <div ref={setHeight} style={{overflow:'hidden'}}>{children}</div>
             </div>
         );
     };

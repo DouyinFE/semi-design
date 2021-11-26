@@ -42,6 +42,11 @@ export interface ComboboxState {
     secondOptions: number[];
 }
 
+export type FormatOptionReturn = ReturnType<typeof formatOption>;
+export interface AMPMOptionItem {
+    value: string;
+    text: string;
+}
 
 class Combobox extends BaseComponent<ComboboxProps, ComboboxState> {
     static propTypes = {
@@ -97,7 +102,7 @@ class Combobox extends BaseComponent<ComboboxProps, ComboboxState> {
         // this.foundation.init();
     }
 
-    cacheRefCurrent = (key: string, current: ScrollItem) => {
+    cacheRefCurrent = (key: string, current: ScrollItem<FormatOptionReturn> | ScrollItem<AMPMOptionItem>) => {
         if (key && typeof key === 'string') {
             this.adapter.setCache(key, current);
         }
@@ -115,7 +120,7 @@ class Combobox extends BaseComponent<ComboboxProps, ComboboxState> {
         });
     };
 
-    onItemChange = ({ type, value }: { type: string; value: string }) => {
+    onItemChange = ({ type, value, disabled }: { type?: string; value: string; disabled?: boolean; }) => {
         // eslint-disable-next-line prefer-const
         let { onChange, use12Hours, isAM, format, timeStampValue } = this.props;
         const transformValue = this.foundation.getDisplayDateFromTimeStamp(timeStampValue);
@@ -188,7 +193,7 @@ class Combobox extends BaseComponent<ComboboxProps, ComboboxState> {
         const className = `${prefixCls}-list-hour`;
 
         return (
-            <ScrollItem
+            <ScrollItem<FormatOptionReturn>
                 ref={current => this.cacheRefCurrent('hour', current)}
                 mode={'wheel'}
                 transform={transformHour}
@@ -219,7 +224,7 @@ class Combobox extends BaseComponent<ComboboxProps, ComboboxState> {
         const transformMinute = (min: string) => min + locale.minute;
 
         return (
-            <ScrollItem
+            <ScrollItem<FormatOptionReturn>
                 ref={current => this.cacheRefCurrent('minute', current)}
                 mode={'wheel'}
                 transform={transformMinute}
@@ -251,7 +256,7 @@ class Combobox extends BaseComponent<ComboboxProps, ComboboxState> {
         const transformSecond = (sec: number) => String(sec) + locale.second;
 
         return (
-            <ScrollItem
+            <ScrollItem<FormatOptionReturn>
                 ref={current => this.cacheRefCurrent('second', current)}
                 mode={'wheel'}
                 transform={transformSecond}
@@ -272,7 +277,7 @@ class Combobox extends BaseComponent<ComboboxProps, ComboboxState> {
             return null;
         }
 
-        const AMPMOptions = [
+        const AMPMOptions: AMPMOptionItem[] = [
             {
                 value: 'AM',
                 text: locale.AM || '上午',
@@ -288,7 +293,7 @@ class Combobox extends BaseComponent<ComboboxProps, ComboboxState> {
         const className = `${prefixCls}-list-ampm`;
 
         return (
-            <ScrollItem
+            <ScrollItem<AMPMOptionItem>
                 ref={current => this.cacheRefCurrent('ampm', current)}
                 mode={'wheel'}
                 className={className}

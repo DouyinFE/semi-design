@@ -30,7 +30,7 @@ export interface RatingProps {
     onFocus?: (e: React.FocusEvent) => void;
     onBlur?: (e: React.FocusEvent) => void;
     onKeyDown?: (e: React.KeyboardEvent) => void;
-    onClick?: (e: React.MouseEvent, index: number) => void;
+    onClick?: (e: React.MouseEvent | React.KeyboardEvent, index: number) => void;
     autoFocus?: boolean;
     size?: 'small' | 'default' | number;
     tooltips?: string[];

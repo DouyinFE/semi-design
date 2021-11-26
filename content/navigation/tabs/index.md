@@ -330,7 +330,7 @@ class App extends React.Component {
 **v>= 1.1.0**  
 通过设置 `collapsible` 可以支持滚动折叠，目前只支持 horizontal 模式。
 
-```jsx live=true
+```jsx live=true dir=column
 import React from 'react';
 import { Tabs, TabPane } from '@douyinfe/semi-ui';
 
@@ -509,6 +509,45 @@ class App extends React.Component {
 }
 ```
 
+### 关闭
+
+关闭标签栏中的某一个标签页。   
+只有卡片样式的页签支持关闭选项。使用 `closable={true}` 来开启。
+
+```jsx live=true
+import React from 'react';
+import { Tabs, TabPane } from '@douyinfe/semi-ui';
+
+class App extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            tabList: [
+                {tab: '文档', itemKey:'1', text:'文档', closable:true},
+                {tab: '快速起步', itemKey:'2', text:'快速起步', closable:true},
+                {tab: '帮助', itemKey:'3', text:'帮助'},
+            ]
+        }
+    }
+    close(key){
+        const newTabList = [...this.state.tabList];
+        const closeIndex = newTabList.findIndex(t=>t.itemKey===key);
+        newTabList.splice(closeIndex, 1);
+        this.setState({tabList:newTabList});
+    }
+    render() {
+        return (
+            <Tabs type="card" defaultActiveKey="1" onTabClose={this.close.bind(this)}>
+                {
+                    this.state.tabList.map(t=><TabPane closable={t.closable} tab={t.tab} itemKey={t.itemKey} key={t.itemKey}>{t.text}</TabPane>)
+                }
+            </Tabs>
+        );
+    }
+}
+
+```
+
 ## API 参考
 
 ### Tab
@@ -532,6 +571,7 @@ tabPosition | tab 的位置，支持`top`(水平), `left`(垂直)，**>=1.0.0** 
 type | 标签栏的样式，可选`line`、 `card`、 `button` | string | `line` |
 onChange | 切换 tab 页时的回调函数 | function(activeKey: string) | 无 |
 onTabClick | 单击事件 | function(key: string, e: Event) | 无 |
+onTabClose | 关闭 tab 页时的回调函数 **>=2.1.0** |  function(tabKey: string) | 无
 
 ### TabPane
 
@@ -543,6 +583,7 @@ icon      | 标签页栏 icon    | ReactNode | 无     |
 itemKey   | 对应 `activeKey` | string             | 无     |
 style     | 样式对象         | CSSProperties             | 无     |
 tab       | 标签页栏显示文字 | ReactNode | 无     |
+closable  | 允许关闭tab **>=2.1.0**| boolean | false |
 
 ## 设计变量
 

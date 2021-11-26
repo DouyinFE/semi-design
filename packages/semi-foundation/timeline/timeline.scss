@@ -94,6 +94,7 @@ $module: #{$prefix}-timeline;
             position: relative;
             margin: $spacing-none $spacing-none $spacing-none $spacing-timeline_content-marginLeft;
             word-break: break-word;
+            color: $color-timeline_item_content-text-default;
 
             &-extra,
             &-time {

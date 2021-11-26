@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { isString } from 'lodash-es';
 import { cssClasses } from '@douyinfe/semi-foundation/select/constants';
-import LocaleCosumer from '../locale/localeConsumer';
+import LocaleConsumer from '../locale/localeConsumer';
 import { IconTick } from '@douyinfe/semi-icons';
 import { getHighLightTextHTML } from '../_utils/index';
 import { Locale } from '../locale/interface';
@@ -104,9 +104,9 @@ class Option extends PureComponent<OptionProps> {
                 return null;
             }
             return (
-                <LocaleCosumer componentName="Select">
+                <LocaleConsumer<Locale['Select']> componentName="Select">
                     {(locale: Locale['Select']) => <div className={optionClassName}>{emptyContent || locale.emptyText}</div>}
-                </LocaleCosumer>
+                </LocaleConsumer>
             );
         }
 
@@ -148,7 +148,7 @@ class Option extends PureComponent<OptionProps> {
                         <IconTick />
                     </div>
                 ) : null}
-                <div className={`${prefixCls}-text`}>{this.renderOptionContent({ children, config, inputValue, prefixCls })}</div>
+                {isString(children) ? <div className={`${prefixCls}-text`}>{this.renderOptionContent({ children, config, inputValue, prefixCls })}</div> : children}
             </div>
         );
     }

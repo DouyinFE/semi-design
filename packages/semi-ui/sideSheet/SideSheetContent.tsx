@@ -11,7 +11,7 @@ const prefixCls = cssClasses.PREFIX;
 
 
 export interface SideSheetContentProps{
-    onClose?: (e: React.MouseEvent | MouseEvent) => void;
+    onClose?: (e: React.MouseEvent) => void;
     mask?: boolean;
     maskStyle?: CSSProperties;
     maskClosable?: boolean;

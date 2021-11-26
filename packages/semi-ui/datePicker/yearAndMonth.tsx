@@ -46,8 +46,8 @@ class YearAndMonth extends BaseComponent<YearAndMonthProps, YearAndMonthState> {
         onSelect: noop,
     };
     foundation: YearAndMonthFoundation;
-    yearRef: React.RefObject<ScrollItem>;
-    monthRef: React.RefObject<ScrollItem>;
+    yearRef: React.RefObject<ScrollItem<YearScrollItem>>;
+    monthRef: React.RefObject<ScrollItem<MonthScrollItem>>;
 
     constructor(props: YearAndMonthProps) {
         super(props);
@@ -117,7 +117,7 @@ class YearAndMonth extends BaseComponent<YearAndMonthProps, YearAndMonthState> {
         const { years, currentYear, currentMonth } = this.state;
         const { disabledDate, localeCode, yearCycled } = this.props;
         const currentDate = setMonth(Date.now(), currentMonth - 1);
-        const list = years.map(({ value, year }) => ({
+        const list: any[] = years.map(({ value, year }) => ({
             year,
             value, // Actual rendered text
             disabled: disabledDate(setYear(currentDate, year)),
@@ -170,7 +170,7 @@ class YearAndMonth extends BaseComponent<YearAndMonthProps, YearAndMonthState> {
             transform = val => `${val }月`;
         }
         // i18n
-        const list = months.map(({ value, month }) => ({
+        const list: MonthScrollItem[] = months.map(({ value, month }) => ({
             month,
             disabled: disabledDate(setMonth(currentDate, month - 1)),
             value: locale.fullMonths[value], // Actual rendered text
@@ -208,7 +208,7 @@ class YearAndMonth extends BaseComponent<YearAndMonthProps, YearAndMonthState> {
                     <div className={prefix}>
                         <IconButton
                             noHorizontalPadding={false}
-                            iconType={<IconChevronLeft size={iconSize} />}
+                            icon={<IconChevronLeft size={iconSize} />}
                             size={buttonSize}
                             onClick={this.backToMain}
                         >

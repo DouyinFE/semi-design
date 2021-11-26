@@ -24,7 +24,7 @@ export type RadioProps = {
     autoFocus?: boolean;
     checked?: boolean;
     defaultChecked?: boolean;
-    value?: any;
+    value?: string | number;
     disabled?: boolean;
     prefixCls?: string;
     displayMode?: RadioDisplayMode;

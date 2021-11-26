@@ -16,6 +16,38 @@ Version：Major.Minor.Patch
 
 ---
 
+#### 🎉 2.1.0-beta.3 (2021-11-24)
+- 【Fix】
+  - Update the ts type definitions of some components, and fix the problem that the build report error when strict: true is enabled and skipLibCheck is false in tscofnig.json [#283](https://github.com/DouyinFE/semi-design/issues/283)
+#### 🎉 2.1.0-beta.1 (2021-11-24)
+- 【Fix】
+  - Select
+    - Fix the crash of virtualization. [#308](https://github.com/DouyinFE/semi-design/issues/308)
+    - Fix the rendering problem when Option children are not string.
+  - Fix an error when TreeSelect leafOnly and searchPosition='hover' are opened at the same time. [#306](https://github.com/DouyinFE/semi-design/issues/306)
+  - Fix that the value of triggerRender in the parameter is empty when Cascader is multi-selected. [259](https://github.com/DouyinFE/semi-design/issues/259)
+  - Fix the incorrect naming of the interface ExpanedOtherProps of Tree and amend it to ExpandedOtherProps. [297](https://github.com/DouyinFE/semi-design/issues/297)
+
+#### 🎉 2.1.0-beta.0 (2021-11-19)
+- 【Feature】
+  - Tabs add close options closable API [@xieyezi](https://github.com/xieyezi)
+  - TagInput added onKeyDown API [#255](https://github.com/DouyinFE/semi-design/issues/255)
+  - Tooltip, Popover, and Popconfirm add onClickOutSide API, which makes it easier to implement the behavior of clicking the blank space to close when trigger='custom'[#268](https://github.com/DouyinFE/semi-design/issues/268)
+- 【Fix】
+  - Fix the possible vertical misalignment of Radio under certain theme packages: the value of Radio $height-radio_inner_min is changed from inheriting $spacing-base-loose to fixed 20px to avoid being affected by different theme packages
+  - Fix the problem that onChange is still triggered when Tabs is clicked on the active tab [#208](https://github.com/DouyinFE/semi-design/issues/208)
+  - Fix the problem that the height of the Collapsible component is not fully expanded when the collapsible component is opened by default [#85](https://github.com/DouyinFE/semi-design/issues/85)
+  - Fix the problem that onAfterChange is not triggered when clicking on the track when the Slider value is controlled
+  - Fix Select, AutoComplete UMD CSS missing problem
+- 【Chore】
+  - Fix the inaccurate definition of the renderSelectedItem ts of TreeSelect [#265](https://github.com/DouyinFE/semi-design/issues/265)
+  - Typescript Interface related changes [#277](https://github.com/DouyinFE/semi-design/issues/277)
+    - Form adds the export of WithFieldOption
+    - Notification adds the export of ConfigProps
+    - Toast adds the export of ConfigProps
+    - Upload adds the export of BeforeUploadObjectResult and AfterUploadResult
+    - Cascader adds CascaderType and ShowNextType export
+
 #### 🎉 2.0.8 (2021-11-11)
 - 【Fix】
   - Fix Modal afterClose not work in some scenario.

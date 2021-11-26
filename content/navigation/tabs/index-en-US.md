@@ -298,7 +298,7 @@ class App extends React.Component {
 **v>= 1.1.0**  
 You could use `collapsible` for a scrollable tabs with dropdown menu. Horizontal mode only.
 
-```jsx live=true
+```jsx live=true dir=column
 import React from 'react';
 import { Tabs, TabPane } from '@douyinfe/semi-ui';
 
@@ -485,6 +485,44 @@ class App extends React.Component {
 }
 ```
 
+### Closeable
+
+Close a tab in the tab bar.
+Only card style tabs support the close option. Use `closable={true}` to turn it on.
+
+```jsx live=true 
+import React from 'react';
+import { Tabs, TabPane } from '@douyinfe/semi-ui';
+
+class App extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            tabList: [
+                {tab: 'Doc', itemKey:'1', text:'Doc', closable:true},
+                {tab: 'Quick Start', itemKey:'2', text:'Quick Start', closable:true},
+                {tab: 'Help', itemKey:'3', text:'Help'},
+            ]
+        }
+    }
+    close(key){
+        const newTabList = [...this.state.tabList];
+        const closeIndex = newTabList.findIndex(t=>t.itemKey===key);
+        newTabList.splice(closeIndex, 1);
+        this.setState({tabList:newTabList});
+    }
+    render() {
+        return (
+            <Tabs type="card" defaultActiveKey="1" onTabClose={this.close.bind(this)}>
+                {
+                    this.state.tabList.map(t=><TabPane closable={t.closable} tab={t.tab} itemKey={t.itemKey} key={t.itemKey}>{t.text}</TabPane>)
+                }
+            </Tabs>
+        );
+    }
+}
+```
+
 ## API Reference
 
 ### Tab
@@ -508,6 +546,7 @@ tabPosition | The position of the tab, support `top` (horizontal), `left` (verti
 type | The style of the label bar, optional `line`, `card`, `button` | string | `line` |
 onChange | Callback function when switching tab pages | function(activeKey: string) | None |
 onTabClick | Click event | function(key: string, e: Event) | None |
+onTabClose | executed when tab closed by user, **>=2.1.0**  |  function(tabKey: string) | None
 
 ### TabPane
 
@@ -519,6 +558,7 @@ icon | Tab bar icon | ReactNode | None |
 itemKey | corresponding to `activeKey` | string | None |
 style | style object | CSSProperties | None |
 tab | Tab page bar display text | ReactNode | None |
+closable | whether user can close the tab **>=2.1.0** | boolean | false |
 
 ## Design Token
 

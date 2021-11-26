@@ -5,7 +5,7 @@ import { isEqual } from 'lodash-es';
 import PropTypes from 'prop-types';
 import { IconClose } from '@douyinfe/semi-icons';
 // eslint-disable-next-line max-len
-import CalendarFoundation, { CalendarAdapter, EventObject, MonthData, MonthlyEvent, ParsedRangeEvent } from '@douyinfe/semi-foundation/calendar/foundation';
+import CalendarFoundation, { CalendarAdapter, EventObject, MonthData, MonthlyEvent, ParsedEventsType, ParsedEventsWithArray, ParsedRangeEvent } from '@douyinfe/semi-foundation/calendar/foundation';
 import { cssClasses } from '@douyinfe/semi-foundation/calendar/constants';
 import { DateObj } from '@douyinfe/semi-foundation/calendar/eventUtil';
 import LocaleConsumer from '../locale/localeConsumer';
@@ -118,8 +118,8 @@ export default class monthCalendar extends BaseComponent<MonthCalendarProps, Mon
                     showCard: { ...updates }
                 }));
             },
-            setParsedEvents: (parsedEvents: MonthlyEvent) => {
-                this.setState({ parsedEvents });
+            setParsedEvents: (parsedEvents: ParsedEventsType) => {
+                this.setState({ parsedEvents: parsedEvents as MonthlyEvent });
             },
             setItemLimit: itemLimit => {
                 this.setState({ itemLimit });

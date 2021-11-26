@@ -1,4 +1,4 @@
-import { MouseEvent, ReactNode, ComponentType, CSSProperties } from 'react';
+import { ComponentType, CSSProperties, MouseEvent, ReactNode } from 'react';
 import { Motion } from '../_base/base';
 
 export type TabType = 'line' | 'card' | 'button';
@@ -10,6 +10,7 @@ export interface PlainTab {
     icon?: ReactNode;
     itemKey: string;
     tab?: ReactNode;
+    closable: boolean;
 }
 
 
@@ -34,6 +35,7 @@ export interface TabsProps {
     tabPaneMotion?: boolean;
     tabPosition?: TabPosition;
     type?: TabType;
+    onTabClose?: (tabKey: string) => void;
 }
 
 export interface TabBarProps {
@@ -49,6 +51,8 @@ export interface TabBarProps {
     type?: TabType;
     dropdownClassName?: string;
     dropdownStyle?: CSSProperties;
+    closable?: boolean;
+    deleteTabItem?: (tabKey: string, event: MouseEvent<Element>) => void;
 }
 
 export interface TabPaneProps {
@@ -58,10 +62,12 @@ export interface TabPaneProps {
     itemKey?: string;
     style?: CSSProperties;
     tab?: ReactNode;
+    closable?: boolean,
 }
 
 export interface TabPaneTransitionProps {
     [key: string]: any;
+
     children?: ((p: { transform?: string; opacity: number }) => ReactNode | undefined) | undefined;
     direction?: boolean;
     mode?: 'vertical' | 'horizontal';

@@ -12,9 +12,9 @@ export interface PaginationAdapter<P = Record<string, any>, S = Record<string, a
     setCurrentPage: (pageIndex: number) => void;
     registerKeyDownHandler: (handler: KeyDownHandler) => void;
     unregisterKeyDownHandler: (handler: KeyDownHandler) => void;
-    notifyPageChange: (pageIndex: number | string) => void;
+    notifyPageChange: (pageIndex: number) => void;
     notifyPageSizeChange: (pageSize: number) => void;
-    notifyChange: (pageIndex: number | string, pageSize: number) => void;
+    notifyChange: (pageIndex: number, pageSize: number) => void;
 }
 
 export type PageRenderText = number | '...';
