@@ -10,7 +10,7 @@ module.exports = function getWebpackConfig({ minimize }){
         bail: true,
         devtool: 'source-map',
         entry: {
-            index: ['./src/index.ts']
+            index: ['./lib/es/index.js']
         },
         output: {
             filename: minimize ? 'umd/semi-illustrations.min.js' : 'umd/semi-illustrations.js',
@@ -29,14 +29,6 @@ module.exports = function getWebpackConfig({ minimize }){
                         {
                             loader: 'babel-loader',
                             options: babelConfig
-                        },
-                        {
-                            loader: 'ts-loader',
-                            options: {
-                                transpileOnly: true,
-                                happyPackMode: false,
-                                appendTsSuffixTo: []
-                            }
                         }
                     ]
                 }

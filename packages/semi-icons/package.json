@@ -26,8 +26,8 @@
     "clean": "rimraf dist lib",
     "build:icon": "node scripts/build-icon ",
     "build:lib": "node ./scripts/compileLib.js",
-    "build:js": "node scripts/compileDist.js",
-    "prepublishOnly": "npm run clean && npm run build:lib && npm run build:js"
+    "build:js": "npm run build:lib && node scripts/compileDist.js",
+    "prepublishOnly": "npm run clean && npm run build:js"
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.15.4",
@@ -40,7 +40,6 @@
     "@babel/preset-react": "^7.14.5",
     "@douyinfe/semi-webpack-plugin": "2.1.0",
     "babel-loader": "^8.2.2",
-    "case-sensitive-paths-webpack-plugin": "2.4.0",
     "css-loader": "4.3.0",
     "del": "^6.0.0",
     "gulp": "^4.0.2",

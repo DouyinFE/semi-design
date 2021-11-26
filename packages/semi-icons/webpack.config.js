@@ -5,15 +5,13 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const babelConfig = require('./babel.config');
 
-const semiThemeLoader = path.resolve(__dirname, '../semi-webpack/lib/semi-theme-loader.js');
-
 module.exports = function getWebpackConfig({ minimize }){
     return {
         mode: 'production',
         bail: true,
         devtool: 'source-map',
         entry: {
-            index: ['./src/index.ts']
+            index: ['./lib/es/index.js']
         },
         output: {
             filename: minimize ? 'umd/semi-icons.min.js' : 'umd/semi-icons.js',
@@ -32,31 +30,17 @@ module.exports = function getWebpackConfig({ minimize }){
                         {
                             loader: 'babel-loader',
                             options: babelConfig
-                        },
-                        {
-                            loader: 'ts-loader',
-                            options: {
-                                transpileOnly: true,
-                                happyPackMode: false,
-                                appendTsSuffixTo: []
-                            }
                         }
                     ]
                 },
                 { 
-                    test: /\.scss$/, 
+                    test: /\.css$/, 
                     loaders: [
                         {
                             loader: MiniCssExtractPlugin.loader
                         },
                         {
                             loader: 'css-loader'
-                        },
-                        {
-                            loader: 'sass-loader'
-                        },
-                        {
-                            loader: semiThemeLoader
                         }
                     ] 
                 },

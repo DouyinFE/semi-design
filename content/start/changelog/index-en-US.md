@@ -16,9 +16,12 @@ Version：Major.Minor.Patch
 
 ---
 
-#### 🎉 2.1.0 (2021-11-26)
+#### 🎉 2.1.1 (2021-11-26)
 - 【Fix】
   - Provide UMD products of semi-icons and semi-illustrations to solve the problem that icons cannot be used in UMD scenarios [#215](https://github.com/DouyinFE/semi-design/issues/215)
+
+#### 🎉 2.1.0 (2021-11-26)
+- 【Fix】
   - Fix the issue that the Collapsible component is stuck when expanding/retracting when the content has a margin [@ChelesteWang](https://github.com/ChelesteWang)
 - 【Style】
   - Timeline adds $color-timeline_item_content-text-default Sass variable, which is used to configure the timeline title text color

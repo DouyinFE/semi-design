@@ -15,9 +15,12 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 ---
 
-#### 🎉 2.1.0 (2021-11-26)
+#### 🎉 2.1.1 (2021-11-26)
 - 【Fix】
   - 提供 semi-icons、semi-illustrations 的 UMD 产物，解决 UMD 场景下无法使用 icon 的问题 [#215](https://github.com/DouyinFE/semi-design/issues/215)
+
+#### 🎉 2.1.0 (2021-11-26)
+- 【Fix】
   - 修复 Collapsible 组件在 content 有 margin 时展开/收起卡顿的问题 [@ChelesteWang](https://github.com/ChelesteWang)
 - 【Style】
   - Timeline 新增 $color-timeline_item_content-text-default Sass 变量，用于配置时间轴标题文字颜色
