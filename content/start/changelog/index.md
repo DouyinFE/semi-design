@@ -15,6 +15,17 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 ---
 
+#### 🎉 2.1.0 (2021-11-26)
+- 【Fix】
+  - 提供 semi-icons、semi-illustrations 的 UMD 产物，解决 UMD 场景下无法使用 icon 的问题 [#215](https://github.com/DouyinFE/semi-design/issues/215)
+  - 修复 Collapsible 组件在 content 有 margin 时展开/收起卡顿的问题 @ChelesteWang
+- 【Style】
+  - Timeline 新增 $color-timeline_item_content-text-default Sass 变量，用于配置时间轴标题文字颜色
+- 【Docs】
+  - 增加对局部模块应用暗色模式、亮色模式的 Demo 例子 [#301](https://github.com/DouyinFE/semi-design/issues/301)
+  - 更新 Table 示例，使用更符合使用场景的示例代码，对一些常见问题添加备注 [#315](https://github.com/DouyinFE/semi-design/issues/315)
+  - List 增加与 Checkbox、Radio、Input、Pagination 搭配使用的 Demo 示例；增加拖拽排序的Demo示例；增加键盘响应事件的 Demo 示例
+
 #### 🎉 2.1.0-beta.3 (2021-11-24)
 - 【Fix】
   - 更新部分组件的ts类型定义，修复 tsconfig.json 开启 strict: true 且 skipLibCheck为false时 build报错的问题 [#283](https://github.com/DouyinFE/semi-design/issues/283)
