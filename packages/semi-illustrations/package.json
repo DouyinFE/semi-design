@@ -34,17 +34,25 @@
     "@babel/plugin-transform-runtime": "^7.15.8",
     "@babel/preset-env": "^7.15.8",
     "@babel/preset-react": "^7.14.5",
+    "case-sensitive-paths-webpack-plugin": "2.4.0",
+    "babel-loader": "^8.2.2",
     "del": "^6.0.0",
     "gulp": "^4.0.2",
     "gulp-babel": "^8.0.0",
     "gulp-replace": "^1.1.3",
     "gulp-typescript": "^6.0.0-alpha.1",
-    "merge2": "^1.4.1"
+    "merge2": "^1.4.1",
+    "rimraf": "^3.0.2",
+    "terser-webpack-plugin": "^4.2.3",
+    "ts-loader": "^5.4.5",
+    "webpack": "^4.46.0"
   },
   "scripts": {
+    "clean": "rimraf dist lib",
     "build:icon": "node scripts/build-illustration",
     "build:lib": "node ./scripts/compileLib.js",
-    "prepublishOnly": "npm run build:lib"
+    "build:js": "node scripts/compileDist.js",
+    "prepublishOnly": "npm run clean && npm run build:lib && npm run build:js"
   },
   "gitHead": "5d5893482dd1f4c69333907f01fc66a8125ac9cd"
 }

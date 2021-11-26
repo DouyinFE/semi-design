@@ -1,11 +1,8 @@
 const path = require('path');
 const webpack = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const babelConfig = require('./babel.config');
-
-const semiThemeLoader = path.resolve(__dirname, '../semi-webpack/lib/semi-theme-loader.js');
 
 module.exports = function getWebpackConfig({ minimize }){
     return {
@@ -16,9 +13,9 @@ module.exports = function getWebpackConfig({ minimize }){
             index: ['./src/index.ts']
         },
         output: {
-            filename: minimize ? 'umd/semi-icons.min.js' : 'umd/semi-icons.js',
+            filename: minimize ? 'umd/semi-illustrations.min.js' : 'umd/semi-illustrations.js',
             path: path.join(__dirname, 'dist'),
-            library: 'SemiIcons',
+            library: 'SemiIllustrations',
             libraryTarget: 'umd'
         },
         module: {
@@ -42,24 +39,7 @@ module.exports = function getWebpackConfig({ minimize }){
                             }
                         }
                     ]
-                },
-                { 
-                    test: /\.scss$/, 
-                    loaders: [
-                        {
-                            loader: MiniCssExtractPlugin.loader
-                        },
-                        {
-                            loader: 'css-loader'
-                        },
-                        {
-                            loader: 'sass-loader'
-                        },
-                        {
-                            loader: semiThemeLoader
-                        }
-                    ] 
-                },
+                }
             ]
         },
         optimization: {
@@ -73,11 +53,6 @@ module.exports = function getWebpackConfig({ minimize }){
             }),
             new CaseSensitivePathsPlugin(),
             new webpack.HashedModuleIdsPlugin(),
-            new MiniCssExtractPlugin({
-                // Options similar to the same options in webpackOptions.output
-                // both options are optional
-                filename: minimize ? 'css/semi-icons.min.css' : 'css/semi-icons.css',
-            })
         ],
         resolve: {
             extensions: ['.ts', '.tsx', '.js', '.jsx', '.json']
