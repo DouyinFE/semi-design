@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Table, Avatar } from '@douyinfe/semi-ui';
 import { IconMore } from '@douyinfe/semi-icons';
 
@@ -127,4 +127,8 @@ function App() {
     return <Table columns={columns} dataSource={data} rowSelection={rowSelection} pagination={pagination} />;
 }
 
-render(App);
+App.parameters = {
+    chromatic: { disableSnapshot: true },
+};
+
+export default App;

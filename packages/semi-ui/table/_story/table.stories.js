@@ -593,3 +593,5 @@ PerfRenderDemo.parameters = {
   chromatic: { disableSnapshot: true },
 }
 export const RenderPaginationDemo = () => <RenderPagination />;
+
+export { default as FixSelectAll325 } from './Demos/rowSelection'; 

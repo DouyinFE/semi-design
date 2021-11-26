@@ -240,11 +240,17 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
                 this.cachedFilteredSortedRowKeys = filteredSortedRowKeys;
                 this.cachedFilteredSortedRowKeysSet = new Set(filteredSortedRowKeys);
             },
+            setCachedAllDisabledRowKeys: cachedAllDisabledRowKeys => {
+                this.cachedAllDisabledRowKeys = cachedAllDisabledRowKeys;
+                this.cachedAllDisabledRowKeysSet = new Set(cachedAllDisabledRowKeys);
+            },
             getCurrentPage: () => get(this.state, 'pagination.currentPage', 1),
             getCurrentPageSize: () => get(this.state, 'pagination.pageSize', numbers.DEFAULT_PAGE_SIZE),
             getCachedFilteredSortedDataSource: () => this.cachedFilteredSortedDataSource,
             getCachedFilteredSortedRowKeys: () => this.cachedFilteredSortedRowKeys,
             getCachedFilteredSortedRowKeysSet: () => this.cachedFilteredSortedRowKeysSet,
+            getCachedAllDisabledRowKeys: () => this.cachedAllDisabledRowKeys,
+            getCachedAllDisabledRowKeysSet: () => this.cachedAllDisabledRowKeysSet,
             notifyFilterDropdownVisibleChange: (visible, dataIndex) =>
                 this._invokeColumnFn(dataIndex, 'onFilterDropdownVisibleChange', visible),
             notifyChange: (...args) => this.props.onChange(...args),
@@ -346,6 +352,14 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
     cachedFilteredSortedDataSource: RecordType[];
     cachedFilteredSortedRowKeys: BaseRowKeyType[];
     cachedFilteredSortedRowKeysSet: Set<string | number>;
+    /**
+     * Disabled row keys in sorted and filtered data
+     */
+    cachedAllDisabledRowKeys: BaseRowKeyType[];
+    /**
+     * Disabled row keys set in sorted and filtered data
+     */
+    cachedAllDisabledRowKeysSet: Set<BaseRowKeyType>;
     store: Store;
     lastScrollTop!: number;
     lastScrollLeft!: number;
@@ -385,7 +399,10 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
              */
             groups: null,
             allRowKeys: [], // row keys after paging
-            disabledRowKeys: [], // disabled row keys after paging
+            /**
+             * disabled row keys after paging, used in BodyTable
+             */
+            disabledRowKeys: [],
             disabledRowKeysSet: new Set(),
             headWidths: [], // header cell width
             bodyHasScrollBar: false,
@@ -408,6 +425,8 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
         this.cachedFilteredSortedDataSource = [];
         this.cachedFilteredSortedRowKeys = [];
         this.cachedFilteredSortedRowKeysSet = new Set();
+        this.cachedAllDisabledRowKeys = [];
+        this.cachedAllDisabledRowKeysSet = new Set();
     }
 
     static getDerivedStateFromProps(props: NormalTableProps, state: NormalTableState) {
@@ -536,7 +555,9 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             // Temporarily use _dataSource=[...dataSource] for processing
             const _dataSource = [...dataSource];
             const filteredSortedDataSource = this.foundation.getFilteredSortedDataSource(_dataSource, stateQueries);
+            const allDataDisabledRowKeys = this.foundation.getAllDisabledRowKeys(filteredSortedDataSource);
             this.foundation.setCachedFilteredSortedDataSource(filteredSortedDataSource);
+            this.foundation.setCachedAllDisabledRowKeys(allDataDisabledRowKeys);
             states.dataSource = filteredSortedDataSource;
 
             if (pagination === prevProps.pagination) {
@@ -777,7 +798,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
     };
 
     renderSelection = (record: RecordType = {} as RecordType, inHeader = false): React.ReactNode => {
-        const { rowSelection, disabledRowKeysSet } = this.state;
+        const { rowSelection } = this.state;
 
         if (rowSelection && typeof rowSelection === 'object') {
             const { selectedRowKeys = [], selectedRowKeysSet = new Set(), getCheckboxProps, disabled } = rowSelection;
@@ -786,7 +807,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
                 const columnKey = get(rowSelection, 'key', strings.DEFAULT_KEY_COLUMN_SELECTION);
                 const allRowKeys = this.cachedFilteredSortedRowKeys;
                 const allRowKeysSet = this.cachedFilteredSortedRowKeysSet;
-                const allIsSelected = this.foundation.allIsSelected(selectedRowKeysSet, disabledRowKeysSet, allRowKeys);
+                const allIsSelected = this.foundation.allIsSelected(selectedRowKeysSet, this.cachedAllDisabledRowKeysSet, allRowKeys);
                 const hasRowSelected = this.foundation.hasRowSelected(selectedRowKeys, allRowKeysSet);
                 return (
                     <ColumnSelection
