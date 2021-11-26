@@ -1033,12 +1033,12 @@ class CustomRender extends React.Component {
     };
   }
 
-  renderCustomOption(item) {
-    let optionStyle = {
+  renderCustomOption(item, index) {
+    const optionStyle = {
       display: 'flex',
     };
     return (
-      <Option value={item.name} style={optionStyle} showTick={false} {...item}>
+      <Option key={index} value={item.name} style={optionStyle} showTick={false} {...item}>
         <Avatar color={item.color} size="small">
           {item.abbr}
         </Avatar>
@@ -1098,7 +1098,7 @@ class CustomRender extends React.Component {
     };
   }
 
-  renderMultipleWithoutTag(optionNode, { onClose, index }) {
+  renderMultipleWithoutTag(optionNode) {
     let content = (
       <div>
         <Avatar color={optionNode.color} size="small">
@@ -1125,7 +1125,7 @@ class CustomRender extends React.Component {
           defaultValue={'夏可漫'}
           renderSelectedItem={this.renderSelectedItem}
         >
-          {list.map(item => this.renderCustomOption(item))}
+          {list.map((item, index) => this.renderCustomOption(item, index))}
         </Select>
         <Select
           style={{
@@ -1138,7 +1138,7 @@ class CustomRender extends React.Component {
           multiple
           renderSelectedItem={this.renderMultipleSelectedItem}
         >
-          {list.map(item => this.renderCustomOption(item))}
+          {list.map((item, index) => this.renderCustomOption(item, index))}
         </Select>
         <Select
           style={{
@@ -1151,7 +1151,7 @@ class CustomRender extends React.Component {
           multiple
           renderSelectedItem={this.renderMultipleWithoutTag}
         >
-          {list.map(item => this.renderCustomOption(item))}
+          {list.map((item, index) => this.renderCustomOption(item, index))}
         </Select>
       </React.Fragment>
     );
@@ -2122,15 +2122,15 @@ class OptionGroupDemo extends React.Component {
     });
   }
 
-  renderGroup(group) {
-    let options = group.children.map(option => (
-      <Select.Option value={option.value} label={option.label} key={option.label}></Select.Option>
+  renderGroup(group, index) {
+    const options = group.children.map(option => (
+      <Select.Option value={option.value} label={option.label} key={option.label} />
     ));
-    return <Select.OptGroup label={group.label}>{options}</Select.OptGroup>;
+    return <Select.OptGroup key={`${index}-${group.label}`} label={group.label}>{options}</Select.OptGroup>;
   }
 
   render() {
-    let { groups } = this.state;
+    const { groups } = this.state;
     return (
       <>
         <Select
@@ -2142,14 +2142,14 @@ class OptionGroupDemo extends React.Component {
           onSearch={this.handleSearch}
           remote
         >
-          {groups.map(group => this.renderGroup(group))}
+          {groups.map((group, index) => this.renderGroup(group, index))}
         </Select>
       </>
     );
   }
 }
 
-export const SelectOptionGroup = () => <OptionGroupDemo></OptionGroupDemo>;
+export const SelectOptionGroup = () => <OptionGroupDemo />;
 
 SelectOptionGroup.story = {
   name: 'Select OptionGroup',

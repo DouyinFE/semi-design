@@ -883,7 +883,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                     </Tag>
                 );
             } else {
-                return content;
+                return <Fragment key={value}>{content}</Fragment>;
             }
         });
 
