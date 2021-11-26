@@ -11,7 +11,8 @@
   "license": "MIT",
   "files": [
     "lib",
-    "src"
+    "src",
+    "dist"
   ],
   "sideEffects": [
     "lib/es/index.js"
