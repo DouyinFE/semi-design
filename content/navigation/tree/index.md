@@ -55,20 +55,20 @@ import { Tree } from '@douyinfe/semi-ui';
             value: 'North America',
             key: '1',
         }
-    ]
+    ];
     const style = {
         width: 260,
         height: 420,
         border: '1px solid var(--semi-color-border)'
-    }
+    };
     return (
         <Tree
             treeData={treeData}
             defaultExpandAll
             style={style}
         />
-    )
-}
+    );
+};
 ```
 
 ### 多选
@@ -144,7 +144,7 @@ import { Tree } from '@douyinfe/semi-ui';
         width: 260,
         height: 420,
         border: '1px solid var(--semi-color-border)'
-    }
+    };
     return (
         <Tree
             treeData={treeData}
@@ -152,8 +152,8 @@ import { Tree } from '@douyinfe/semi-ui';
             defaultExpandAll
             style={style}
         />
-    )
-}
+    );
+};
 ```
 
 ### 可搜索的
@@ -166,10 +166,10 @@ import { Tree, Switch } from '@douyinfe/semi-ui';
 
 class Demo extends React.Component {
     constructor() {
-        super()
+        super();
         this.state = {
             showFilteredOnly: false,
-        }
+        };
         this.onChange = this.onChange.bind(this);
     }
     onChange(showFilteredOnly) {
@@ -230,12 +230,12 @@ class Demo extends React.Component {
                     }
                 ]
             }
-        ]
+        ];
         const style = {
             width: 260,
             height: 420,
             border: '1px solid var(--semi-color-border)'
-        }
+        };
         const { showFilteredOnly } = this.state;
         return (
             <>
@@ -254,7 +254,7 @@ class Demo extends React.Component {
                     style={style}
                 />
             </>
-        )
+        );
     }
 }
 ```
@@ -267,29 +267,29 @@ import React from 'react';
 import { Tree } from '@douyinfe/semi-ui';
 
 () => {
-  const json = {
-    "Node1": {
-      "Child Node1": '0-0-1',
-      "Child Node2": '0-0-2',
-    },
-    "Node2": "0-1"
-  }
-  const style = {
-    width: 260,
-    height: 420,
-    border: '1px solid var(--semi-color-border)'
-  }
-  return (
-    <Tree
-      treeDataSimpleJson={json}
-      multiple
-      onChange={e => console.log('当前所有选中项: ', e)}
-      onSelect={e => console.log('当前选项: ', e)}
-      style={style}
-    />
+    const json = {
+        "Node1": {
+            "Child Node1": '0-0-1',
+            "Child Node2": '0-0-2',
+        },
+        "Node2": "0-1"
+    };
+    const style = {
+        width: 260,
+        height: 420,
+        border: '1px solid var(--semi-color-border)'
+    };
+    return (
+        <Tree
+            treeDataSimpleJson={json}
+            multiple
+            onChange={e => console.log('当前所有选中项: ', e)}
+            onSelect={e => console.log('当前选项: ', e)}
+            style={style}
+        />
 
-  )
-}
+    );
+};
 ```
 
 ### 行显示节点
@@ -355,7 +355,7 @@ import { Tree } from '@douyinfe/semi-ui';
                 }
             ]
         }
-    ]
+    ];
     return (
         <div>
             <Tree
@@ -371,8 +371,8 @@ import { Tree } from '@douyinfe/semi-ui';
                 blockNode={false}
             />
         </div>
-    )
-}
+    );
+};
 ```
 
 ### 自定义节点内容
@@ -397,18 +397,18 @@ import { Tree, ButtonGroup, Button } from '@douyinfe/semi-ui';
             <Button
                 onClick={e => {
                     Toast.info(opts);
-                    e.stopPropagation()
+                    e.stopPropagation();
                 }}
             >提示</Button>
             <Button>点击</Button>
         </ButtonGroup>
-    )
+    );
 
     const style = {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center'
-    }
+    };
 
     const treeDataWithNode = [
         {
@@ -448,14 +448,14 @@ import { Tree, ButtonGroup, Button } from '@douyinfe/semi-ui';
         width: 260,
         height: 420,
         border: '1px solid var(--semi-color-border)'
-    }
+    };
     return (
         <Tree
             treeData={treeDataWithNode}
             style={treeStyle}
         />
-    )
-}
+    );
+};
 ```
 
 过长省略。在**v>=1.6.0**的版本中，可以使用 `renderLabel` 来实现文本过长省略的效果。
@@ -465,59 +465,59 @@ import { Tree, Button, Typography } from '@douyinfe/semi-ui';
 import { IconMore } from '@douyinfe/semi-icons';
 
 () => {
-  const renderBtn = (content) => (
-    <Button
-      onClick={e => {
-        Toast.info({ content });
-        e.stopPropagation()
-      }}
-      icon={<IconMore />}
-      size="small"
-    />
-  )
-  const renderLabel = (label, item) => (
-    <div style={{ display: 'flex' }}>
-      <Typography.Text
-        ellipsis={{ showTooltip: true }}
-        style={{ width: 'calc(100% - 48px)' }}
-      >
-        {label}
-      </Typography.Text>
-      {renderBtn(item.key)}
-    </div>
-  );
-  const treeDataWithNode = [
-    {
-      label: '亚洲亚洲亚洲亚洲亚洲亚洲亚洲亚洲',
-      value: 'yazhou',
-      key: 'yazhou',
-      children: [
+    const renderBtn = (content) => (
+        <Button
+            onClick={e => {
+                Toast.info({ content });
+                e.stopPropagation();
+            }}
+            icon={<IconMore />}
+            size="small"
+        />
+    );
+    const renderLabel = (label, item) => (
+        <div style={{ display: 'flex' }}>
+            <Typography.Text
+                ellipsis={{ showTooltip: true }}
+                style={{ width: 'calc(100% - 48px)' }}
+            >
+                {label}
+            </Typography.Text>
+            {renderBtn(item.key)}
+        </div>
+    );
+    const treeDataWithNode = [
         {
-          label: '中国中国中国中国中国中国中国中国',
-          value: 'zhongguo',
-          key: 'zhongguo'
-        },
-        {
-          label: '日本日本日本日本日本日本日本日本',
-          value: 'riben',
-          key: 'riben',
-        },
-      ],
-    }
-  ];
-  const treeStyle = {
-    width: 260,
-    height: 420,
-    border: '1px solid var(--semi-color-border)'
-  }
-  return (
-    <Tree
-      treeData={treeDataWithNode}
-      renderLabel={renderLabel}
-      style={treeStyle}
-    />
-  )
-}
+            label: '亚洲亚洲亚洲亚洲亚洲亚洲亚洲亚洲',
+            value: 'yazhou',
+            key: 'yazhou',
+            children: [
+                {
+                    label: '中国中国中国中国中国中国中国中国',
+                    value: 'zhongguo',
+                    key: 'zhongguo'
+                },
+                {
+                    label: '日本日本日本日本日本日本日本日本',
+                    value: 'riben',
+                    key: 'riben',
+                },
+            ],
+        }
+    ];
+    const treeStyle = {
+        width: 260,
+        height: 420,
+        border: '1px solid var(--semi-color-border)'
+    };
+    return (
+        <Tree
+            treeData={treeDataWithNode}
+            renderLabel={renderLabel}
+            style={treeStyle}
+        />
+    );
+};
 ```
 
 
@@ -530,40 +530,40 @@ import { Tree } from '@douyinfe/semi-ui';
 import { IconMapPin } from '@douyinfe/semi-icons';
 
 () => {
-  const treeData = [
-    {
-      label: 'Asia',
-      value: 'Asia',
-      key: '0',
-      icon: (<IconMapPin style={{ color: 'var(--semi-color-text-2)' }} />),
-      children: [
+    const treeData = [
         {
-          label: 'China',
-          value: 'China',
-          key: '0-0',
-          icon: (<IconMapPin style={{ color: 'var(--semi-color-text-2)' }} />)
-        },
-        {
-          label: 'Japan',
-          value: 'Japan',
-          key: '0-1',
-          icon: (<IconMapPin style={{ color: 'var(--semi-color-text-2)' }} />)
-        },
-      ],
-    }
-  ]
-  const style = {
-    width: 260,
-    height: 420,
-    border: '1px solid var(--semi-color-border)'
-  }
-  return (
-    <Tree
-      treeData={treeData}
-      style={style}
-    />
-  )
-}
+            label: 'Asia',
+            value: 'Asia',
+            key: '0',
+            icon: (<IconMapPin style={{ color: 'var(--semi-color-text-2)' }} />),
+            children: [
+                {
+                    label: 'China',
+                    value: 'China',
+                    key: '0-0',
+                    icon: (<IconMapPin style={{ color: 'var(--semi-color-text-2)' }} />)
+                },
+                {
+                    label: 'Japan',
+                    value: 'Japan',
+                    key: '0-1',
+                    icon: (<IconMapPin style={{ color: 'var(--semi-color-text-2)' }} />)
+                },
+            ],
+        }
+    ];
+    const style = {
+        width: 260,
+        height: 420,
+        border: '1px solid var(--semi-color-border)'
+    };
+    return (
+        <Tree
+            treeData={treeData}
+            style={style}
+        />
+    );
+};
 ```
 
 ### 目录树模式
@@ -629,20 +629,20 @@ import { Tree } from '@douyinfe/semi-ui';
                 }
             ]
         }
-    ]
+    ];
     const style = {
         width: 260,
         height: 420,
         border: '1px solid var(--semi-color-border)'
-    }
+    };
     return (
         <Tree
             treeData={treeData}
             directory
             style={style}
         />
-    )
-}
+    );
+};
 ```
 
 ### 禁用
@@ -710,12 +710,12 @@ import { Tree } from '@douyinfe/semi-ui';
                 }
             ]
         }
-    ]
+    ];
     const style = {
         width: 260,
         height: 420,
         border: '1px solid var(--semi-color-border)'
-    }
+    };
     return (
         <Tree
             treeData={treeData}
@@ -724,8 +724,8 @@ import { Tree } from '@douyinfe/semi-ui';
             disableStrictly
             style={style}
         />
-    )
-}
+    );
+};
 ```
 
 ### 默认展开
@@ -764,7 +764,7 @@ import { Tree, Button } from '@douyinfe/semi-ui';
     };
     const [tree, setTree] = useState(json);
     const handleClick = () => {
-        setTree(json2)
+        setTree(json2);
     };
     return (
         <>
@@ -791,7 +791,7 @@ import { Tree, Button } from '@douyinfe/semi-ui';
             </div>
         </>
     );
-}
+};
 
 ```
 
@@ -804,13 +804,13 @@ import { Tree } from '@douyinfe/semi-ui';
 
 class Demo extends React.Component {
     constructor() {
-        super()
+        super();
         this.state = {
             value: 'Shanghai'
         };
     }
     onChange(value) {
-        this.setState({value})
+        this.setState({value});
     }
     render() {
         const treeData = [
@@ -848,7 +848,7 @@ class Demo extends React.Component {
             width: 260,
             height: 420,
             border: '1px solid var(--semi-color-border)'
-        }
+        };
         return (
             <Tree
                 treeData={treeData}
@@ -856,7 +856,7 @@ class Demo extends React.Component {
                 onChange={value => this.onChange(value)}
                 style={style}
             />
-        )
+        );
     }
 }
 ```
@@ -915,7 +915,7 @@ class Demo extends React.Component {
             width: 260,
             height: 420,
             border: '1px solid var(--semi-color-border)'
-        }
+        };
         return (
             <>
                 <div>
@@ -930,7 +930,7 @@ class Demo extends React.Component {
                     style={style}
                 />
             </>
-        )
+        );
     }
 }
 ```
@@ -955,7 +955,7 @@ class Demo extends React.Component {
         this.state = {
             gData: [],
             total: 0,
-        }
+        };
         this.onGen = this.onGen.bind(this);
     }
 
@@ -1006,7 +1006,7 @@ class Demo extends React.Component {
         const style = {
             width: 260,
             border: '1px solid var(--semi-color-border)'
-        }
+        };
         return (
             <div style={{ padding: '0 20px' }}>
                 <Button onClick={this.onGen}>生成数据: </Button>
@@ -1040,14 +1040,14 @@ import { Tree, Button } from '@douyinfe/semi-ui';
 
 class Demo extends React.Component {
     constructor() {
-        super()
+        super();
         this.state = {
             treeData: [{
                 key: '0',
                 label: 'item-0',
                 value: '0'
             }],
-        }
+        };
         this.add = this.add.bind(this);
     }
     add() {
@@ -1059,7 +1059,7 @@ class Demo extends React.Component {
                     key: `${i}-${ci}`,
                     label: `Leaf-${i}-${ci}`,
                     value: `${i}-${ci}`
-                }
+                };
                 return child;
             });
             const item = {
@@ -1069,7 +1069,7 @@ class Demo extends React.Component {
                 children
             };
             return item;
-        })
+        });
         this.setState({ treeData });
     }
     render() {
@@ -1078,7 +1078,7 @@ class Demo extends React.Component {
             width: 260,
             height: 420,
             border: '1px solid var(--semi-color-border)'
-        }
+        };
         return (
             <div style={style}>
                 <Tree
@@ -1089,7 +1089,7 @@ class Demo extends React.Component {
                     动态改变数据
                 </Button>
             </div>
-        )
+        );
     }
 }
 ```
@@ -1250,43 +1250,43 @@ import { Tree } from '@douyinfe/semi-ui';
             data.forEach((item, ind, arr) => {
                 if (item.key === key) return callback(item, ind, arr);
                 if (item.children) return loop(item.children, key, callback);
-            })
-        }
+            });
+        };
         let dragObj;
         loop(data, dragKey, (item, ind, arr) => {
             arr.splice(ind, 1);
             dragObj = item;
-        })
+        });
 
         if (!dropToGap) {
             // inset into the dropPosition
             loop(data, dropKey, (item, ind, arr) => {
                 item.children = item.children || [];
-                item.children.push(dragObj)
-            })
+                item.children.push(dragObj);
+            });
         } else if (dropPosition === 1 && node.children && node.expanded) {
             // has children && expanded and drop into the node bottom gap
             // insert to the top 
             loop(data, dropKey, item => {
                 item.children = item.children || [];
-                item.children.unshift(dragObj)
-            })
+                item.children.unshift(dragObj);
+            });
         } else {
             let dropNodeInd;
             let dropNodePosArr;
             loop(data, dropKey, (item, ind, arr) => {
                 dropNodePosArr = arr;
                 dropNodeInd = ind;
-            })
+            });
             if (dropPosition === -1) {
                 // insert to top
-                dropNodePosArr.splice(dropNodeInd, 0, dragObj)
+                dropNodePosArr.splice(dropNodeInd, 0, dragObj);
             } else {
                 // insert to bottom
-                dropNodePosArr.splice(dropNodeInd + 1, 0, dragObj)
+                dropNodePosArr.splice(dropNodeInd + 1, 0, dragObj);
             }
         }
-        setTreeData(data)
+        setTreeData(data);
     }
 
     return <Tree
@@ -1343,109 +1343,7 @@ import { Tree, Checkbox } from '@douyinfe/semi-ui';
                 </div> : null}
                 <span>{label}</span>
             </li>
-        )
-    }
-
-    const treeData = [
-        {
-            label: 'Asia',
-            value: 'Asia',
-            key: '0',
-            children: [
-                {
-                    label: 'China',
-                    value: 'China',
-                    key: '0-0',
-                    children: [
-                        {
-                            label: 'Beijing',
-                            value: 'Beijing',
-                            key: '0-0-0',
-                        },
-                        {
-                            label: 'Shanghai',
-                            value: 'Shanghai',
-                            key: '0-0-1',
-                        },
-                    ],
-                },
-                {
-                    label: 'Japan',
-                    value: 'Japan',
-                    key: '0-1',
-                    children: [
-                        {
-                            label: 'Osaka',
-                            value: 'Osaka',
-                            key: '0-1-0'
-                        }
-                    ]
-                },
-            ],
-        },
-        {
-            label: 'North America',
-            value: 'North America',
-            key: '1',
-            children: [
-                {
-                    label: 'United States',
-                    value: 'United States',
-                    key: '1-0'
-                },
-                {
-                    label: 'Canada',
-                    value: 'Canada',
-                    key: '1-1'
-                }
-            ]
-        }
-    ]
-
-    const treeStyle = {
-        width: 260,
-        height: 420,
-        border: '1px solid var(--semi-color-border)'
-    }
-    return (
-        <Tree
-            treeData={treeData}
-            renderFullLabel={renderLabel}
-            multiple
-            leafOnly
-            style={treeStyle}
-        />
-    )
-}
-```
-
-第二个是针对 “希望只有叶子节点可以单选，父节点只起到分组作用” 的场景。  
-- 你只需要点击父节点时不触发选中，点击叶子节点触发。
-
-```jsx live=true
-import React from 'react';
-import { Tree } from '@douyinfe/semi-ui';
-
-() => {
-    const renderLabel = ({
-        className,
-        onExpand,
-        onClick,
-        data,
-        expandIcon,
-    }) => {
-        const { label } = data;
-        const isLeaf = !(data.children && data.children.length);
-        return (
-            <li
-                className={className}
-                role="treenode"
-                onClick={isLeaf ? onClick : onExpand}
-            >
-                {isLeaf ? null : expandIcon}
-                <span>{label}</span>
-            </li>
-        )
+        );
     };
 
     const treeData = [
@@ -1508,7 +1406,109 @@ import { Tree } from '@douyinfe/semi-ui';
         width: 260,
         height: 420,
         border: '1px solid var(--semi-color-border)'
-    }
+    };
+    return (
+        <Tree
+            treeData={treeData}
+            renderFullLabel={renderLabel}
+            multiple
+            leafOnly
+            style={treeStyle}
+        />
+    );
+};
+```
+
+第二个是针对 “希望只有叶子节点可以单选，父节点只起到分组作用” 的场景。  
+- 你只需要点击父节点时不触发选中，点击叶子节点触发。
+
+```jsx live=true
+import React from 'react';
+import { Tree } from '@douyinfe/semi-ui';
+
+() => {
+    const renderLabel = ({
+        className,
+        onExpand,
+        onClick,
+        data,
+        expandIcon,
+    }) => {
+        const { label } = data;
+        const isLeaf = !(data.children && data.children.length);
+        return (
+            <li
+                className={className}
+                role="treenode"
+                onClick={isLeaf ? onClick : onExpand}
+            >
+                {isLeaf ? null : expandIcon}
+                <span>{label}</span>
+            </li>
+        );
+    };
+
+    const treeData = [
+        {
+            label: 'Asia',
+            value: 'Asia',
+            key: '0',
+            children: [
+                {
+                    label: 'China',
+                    value: 'China',
+                    key: '0-0',
+                    children: [
+                        {
+                            label: 'Beijing',
+                            value: 'Beijing',
+                            key: '0-0-0',
+                        },
+                        {
+                            label: 'Shanghai',
+                            value: 'Shanghai',
+                            key: '0-0-1',
+                        },
+                    ],
+                },
+                {
+                    label: 'Japan',
+                    value: 'Japan',
+                    key: '0-1',
+                    children: [
+                        {
+                            label: 'Osaka',
+                            value: 'Osaka',
+                            key: '0-1-0'
+                        }
+                    ]
+                },
+            ],
+        },
+        {
+            label: 'North America',
+            value: 'North America',
+            key: '1',
+            children: [
+                {
+                    label: 'United States',
+                    value: 'United States',
+                    key: '1-0'
+                },
+                {
+                    label: 'Canada',
+                    value: 'Canada',
+                    key: '1-1'
+                }
+            ]
+        }
+    ];
+
+    const treeStyle = {
+        width: 260,
+        height: 420,
+        border: '1px solid var(--semi-color-border)'
+    };
     return (
         <Tree
             treeData={treeData}
@@ -1517,7 +1517,7 @@ import { Tree } from '@douyinfe/semi-ui';
             onChange={(...args) => console.log('change', ...args)}
         />
     );
-}
+};
 ```
 
 第三个是针对 “单选选中父节点同时也高亮子节点” 的场景。
@@ -1576,7 +1576,7 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
                 }
             ]
         }
-    ]
+    ];
     const findDescendantKeys = (node) => {
         let res = [node.key];
         const findChild = item => {
@@ -1592,12 +1592,12 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
         };
         findChild(node);
         return res;
-    }
+    };
     const handleSelect = (key, bool, node) => {
         setSelected(new Set([key]));
         const descendantKeys = findDescendantKeys(node);
         setSelectedThroughParent(new Set(descendantKeys));
-    }
+    };
     const renderLabel = ({
         className,
         data,
@@ -1611,7 +1611,7 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
                 ? 'rgba(var(--semi-blue-0), 1)'
                 : selectedThroughParent.has(key)
                     ? 'rgba(var(--semi-blue-0), .5)' : 'transparent'
-        }
+        };
         return (
             <li
                 className={className}
@@ -1623,14 +1623,14 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
                 {icon}
                 <span>{label}</span>
             </li>
-        )
-    }
+        );
+    };
 
     const treeStyle = {
         width: 260,
         height: 420,
         border: '1px solid var(--semi-color-border)'
-    }
+    };
 
     return (
         <Tree
@@ -1640,8 +1640,8 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
             style={treeStyle}
             defaultExpandAll
         />
-    )
-}
+    );
+};
 ```
 
 ### 可拖拽的高级定制
@@ -1703,7 +1703,7 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
                 }
             ]
         }
-    ]
+    ];
     const [treeData, setTreeData] = useState(defaultTreeData);
 
     const onDrop = (info) => {
@@ -1718,40 +1718,40 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
             data.forEach((item, ind, arr) => {
                 if (item.key === key) return callback(item, ind, arr);
                 if (item.children) return loop(item.children, key, callback);
-            })
-        }
+            });
+        };
 
         let dragObj;
         loop(data, dragKey, (item, ind, arr) => {
             arr.splice(ind, 1);
             dragObj = item;
-        })
+        });
 
         if (!dropToGap) {
             loop(data, dropKey, (item, ind, arr) => {
                 item.children = item.children || [];
-                item.children.push(dragObj)
-            })
+                item.children.push(dragObj);
+            });
         } else if (dropPosition === 1 && node.children && node.expanded) {
             loop(data, dropKey, item => {
                 item.children = item.children || [];
-                item.children.unshift(dragObj)
-            })
+                item.children.unshift(dragObj);
+            });
         } else {
             let dropNodeInd;
             let dropNodePosArr;
             loop(data, dropKey, (item, ind, arr) => {
                 dropNodePosArr = arr;
                 dropNodeInd = ind;
-            })
+            });
             if (dropPosition === -1) {
-                dropNodePosArr.splice(dropNodeInd, 0, dragObj)
+                dropNodePosArr.splice(dropNodeInd, 0, dragObj);
             } else {
-                dropNodePosArr.splice(dropNodeInd + 1, 0, dragObj)
+                dropNodePosArr.splice(dropNodeInd + 1, 0, dragObj);
             }
         }
-        setTreeData(data)
-    }
+        setTreeData(data);
+    };
 
     const findDescendantKeys = (node) => {
         const res = [node.key];
@@ -1768,13 +1768,13 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
         };
         findChild(node);
         return res;
-    }
+    };
 
     const handleSelect = (key, bool, node) => {
         setSelected(new Set([key]));
         const descendantKeys = findDescendantKeys(node);
         setSelectedThroughParent(new Set(descendantKeys));
-    }
+    };
 
     const renderLabel = ({
         className,
@@ -1789,7 +1789,7 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
                 ? 'rgba(var(--semi-blue-0), 1)'
                 : selectedThroughParent.has(key)
                     ? 'rgba(var(--semi-blue-0), .5)' : 'transparent'
-        }
+        };
         return (
             <li
                 className={className}
@@ -1801,14 +1801,14 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
                 {icon}
                 <span>{label}</span>
             </li>
-        )
-    }
+        );
+    };
 
     const treeStyle = {
         width: 260,
         height: 420,
         border: '1px solid var(--semi-color-border)'
-    }
+    };
 
 
     return <Tree

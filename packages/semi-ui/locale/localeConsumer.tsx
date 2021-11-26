@@ -7,13 +7,13 @@ import ConfigContext from '../configProvider/context';
 import DefaultLocale from './source/zh_CN';
 import { Locale } from './interface';
 
-type ChildrenRender = (componentLocal: Locale[keyof Locale], localeCode: string, dateFnsLocale: dateFns) => React.ReactNode;
-export interface LocaleConsumerProps {
+type ChildrenRender<T> = (componentLocal: T, localeCode: string, dateFnsLocale: dateFns) => React.ReactNode;
+export interface LocaleConsumerProps<T> {
     componentName: string;
-    children?: ChildrenRender;
+    children?: ChildrenRender<T>;
 }
 
-export default class LocaleConsumer extends Component<LocaleConsumerProps> {
+export default class LocaleConsumer<T> extends Component<LocaleConsumerProps<T>> {
     static propTypes = {
         componentName: PropTypes.string.isRequired,
         children: PropTypes.any,
@@ -23,7 +23,7 @@ export default class LocaleConsumer extends Component<LocaleConsumerProps> {
         componentName: '',
     };
 
-    renderChildren(localeData: Locale, children: ChildrenRender) {
+    renderChildren(localeData: Locale, children: ChildrenRender<T>) {
         const { componentName } = this.props;
         let locale = localeData;
         if (!localeData?.code) {

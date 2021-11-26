@@ -2,7 +2,7 @@ import React from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
 // eslint-disable-next-line max-len
-import CalendarFoundation, { ParsedEvents, CalendarAdapter, RangeData, ParsedRangeEvent } from '@douyinfe/semi-foundation/calendar/foundation';
+import CalendarFoundation, { ParsedEvents, CalendarAdapter, RangeData, ParsedRangeEvent, ParsedEventsType } from '@douyinfe/semi-foundation/calendar/foundation';
 import LocaleConsumer from '../locale/localeConsumer';
 import localeContext from '../locale/context';
 import { cssClasses } from '@douyinfe/semi-foundation/calendar/constants';
@@ -90,8 +90,8 @@ export default class RangeCalendar extends BaseComponent<RangeCalendarProps, Ran
             updateScrollHeight: scrollHeight => {
                 this.setState({ scrollHeight });
             },
-            setParsedEvents: (parsedEvents: ParsedEvents) => {
-                this.setState({ parsedEvents });
+            setParsedEvents: (parsedEvents: ParsedEventsType) => {
+                this.setState({ parsedEvents: parsedEvents as ParsedEvents });
             },
             cacheEventKeys: cachedKeys => {
                 this.setState({ cachedKeys });

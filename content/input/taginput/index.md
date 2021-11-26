@@ -28,7 +28,7 @@ import { TagInput } from '@douyinfe/semi-ui';
         placeholder='请输入...'
         onChange={v => console.log(v)}
     />
-)
+);
 ```
 
 ### 批量添加
@@ -53,7 +53,7 @@ import { TagInput } from '@douyinfe/semi-ui';
             onChange={v => console.log(v)}
         />
     </>
-)
+);
 ```
 
 ### 批量删除
@@ -71,7 +71,7 @@ import { TagInput } from '@douyinfe/semi-ui';
         placeholder='请输入...'
         onChange={v => console.log(v)}
     />
-)
+);
 ```
 
 ### 禁用
@@ -87,7 +87,7 @@ import { TagInput } from '@douyinfe/semi-ui';
         defaultValue={['抖音','火山','西瓜视频']} 
         placeholder='请输入...'
     />
-)
+);
 ```
 
 ### 尺寸大小
@@ -106,7 +106,7 @@ import { TagInput } from '@douyinfe/semi-ui';
         <br/><br/>
         <TagInput size='large' placeholder='large'/>
     </>
-)
+);
 ```
 
 ### 不同校验状态样式
@@ -125,7 +125,7 @@ import { TagInput } from '@douyinfe/semi-ui';
         <br/><br/>
         <TagInput placeholder='error' validateStatus='error'/>
     </>
-)
+);
 ``` 
 
 ### 前缀 / 后缀
@@ -148,7 +148,7 @@ import { IconVigoLogo, IconGift } from '@douyinfe/semi-icons';
         <br/><br/>
         <TagInput suffix="Suffix" />
     </>
-)
+);
 ``` 
 
 ### 失焦后自动创建标签
@@ -166,7 +166,7 @@ import { TagInput } from '@douyinfe/semi-ui';
         placeholder='请输入...'
         onChange={v => console.log(v)}
     />
-)
+);
 ```
 
 ### 过滤重复标签
@@ -184,7 +184,7 @@ import { TagInput } from '@douyinfe/semi-ui';
         placeholder='请输入...'
         onChange={v => console.log(v)}
     />
-)
+);
 ```
 
 ### 输入限制
@@ -219,7 +219,7 @@ import { TagInput } from '@douyinfe/semi-ui';
             }} 
         />
     </>
-)
+);
 ```
 
 ### 限制标签展示数量
@@ -238,7 +238,7 @@ import { TagInput } from '@douyinfe/semi-ui';
         defaultValue={['抖音','火山','西瓜视频']}
         onChange={v => console.log(v)}
     />
-)
+);
 ```
 
 ### 标签受控
@@ -266,7 +266,7 @@ class TagInputDemo extends React.Component {
                 value={this.state.value}
                 onChange={value => {this.onChange(value);}}
             />
-        )
+        );
     }
 }
 ```
@@ -284,10 +284,10 @@ class TagInputDemo extends React.Component {
         super();
         this.state = {
             value: 'abc'
-        }
+        };
     }
     handleInputChange(value, event) {
-      this.setState({ value });
+        this.setState({ value });
     }
     render() {
         return (
@@ -295,7 +295,7 @@ class TagInputDemo extends React.Component {
                 inputValue={this.state.value}
                 onInputChange={(v,e) => this.handleInputChange(v,e)}
             />
-        )
+        );
     }
 }
 ```
@@ -318,7 +318,7 @@ import { TagInput } from '@douyinfe/semi-ui';
         onRemove={(v,i) => {console.log(`onRemove，移除：${v}, 序号：${i}`);}} 
         onInputChange={(input,e) => {console.log(`onInputChange，当前输入内容：${input}`);}} 
     />
-)
+);
 ```
 
 ### 焦点管理
@@ -348,7 +348,7 @@ class TagInputDemo extends React.Component {
                     点击按钮聚焦
                 </Button>
             </>
-        )
+        );
     }
 }
 ```
@@ -366,13 +366,13 @@ class CustomRender extends React.Component {
         super(props);
         this.state = {
             value : ['夏可漫']
-        }
+        };
         this.list = [
             { "name": "夏可漫", "avatar":  "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"},
             { "name": "申悦",  "avatar":  "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg"},
             { "name": "曲晨一", "avatar":  "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dbf7351bb779433d17c4f50478cf42f7.jpg"},
             { "name": "文嘉茂", "avatar":  "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/7abf810ff060ac3387bd027ead92c4e0.jpg"},
-        ]
+        ];
         this.mapList = new Map(this.list.map( item => [item.name,item]));
     }
 
@@ -391,7 +391,7 @@ class CustomRender extends React.Component {
                     {`${value}@semi.com`}
                 </span>
             </div>
-        )
+        );
     }
 
     render() {
@@ -442,6 +442,7 @@ class CustomRender extends React.Component {
 |onFocus      |输入框获取焦点时的回调                                |(e:React.MouseEvent<HTMLInputElement\>) => void               | -        |1.19.0|
 |onInputChange|输入框内容变化时的回调                                |(value:string,e: React.KeyboardEvent<HTMLInputElement\>) => void)  | -        |1.19.0|
 |onInputExceed|超过 maxLength 时的回调                             |(value:string) => void          | -        |1.19.0|
+|onKeyDown    |keydown 回调                             |(e: React.KeyboardEvent<HTMLInputElement\>) => void          | -        |2.1.0|
 |onRemove     |移除标签时的回调                                     |(removedValue: string, idx: number) => void     | -        |1.19.0|
 ## 方法
 

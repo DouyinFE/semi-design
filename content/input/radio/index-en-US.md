@@ -29,7 +29,7 @@ import { Radio } from '@douyinfe/semi-ui';
 
 () => (
     <Radio>Radio</Radio>
-)
+);
 
 ```
 
@@ -48,7 +48,7 @@ import { Radio } from '@douyinfe/semi-ui';
     <Radio extra="Semi Design is a design system developed and maintained by IES Front-end Team and UED Team">
         Semi Design
     </Radio>
-)
+);
 ```
 
 ### Disabled
@@ -367,7 +367,7 @@ class App extends React.Component {
 | extra | Extra information displayed <br/>**provided after v0.25.0** | ReactNode | - |
 | mode | In advanced mode, options can be clicked to uncheck, one of `advanced` | string | - |
 | style | Inline style | CSSProperties |  |
-| value | Compared based on value to determine whether the option is selected | any | - |
+| value | Compared based on value to determine whether the option is selected | string \| number | - |
 | onChange | Callback function when the selected option changes | Function (e: Event) | - |
 | onMouseEnter | The callback function when the mouse moves into the option   | function(e:Event) | -   |
 | onMouseLeave | The callback function when the mouse moves out the option   | function(e:Event) | -   |
@@ -377,14 +377,14 @@ class App extends React.Component {
 | --- | --- | --- | --- |
 | buttonSize | The size of the button type radio， one of `small`、`middle`、`large` <br/>**Provided after v1.26.0** | string | `middle` |
 | className | Class name | string |  |
-| defaultValue | Options selected by default | any | - |
+| defaultValue | Options selected by default | string \| number | - |
 | direction | Arrangement direction of Radio, optional 'horizontal' / 'vertical', <br/>**provided after v0.31.0** | string | 'horizontal' |
 | disabled | Disable the entire group | boolean | false |
 | mode | In advanced mode, options can be clicked to uncheck, one of `advanced`<br/>**provided after v1.9.0** | string | - |
 | name | The `name` attribute for all `input[type="radio"]` in RadioGroup | string | - |
 | options | Set child options through configuration | Array | - |
 | style | Inline style | CSSProperties |  |
-| value | Used to set the currently selected value | any | - |
+| value | Used to set the currently selected value | string \| number | - |
 | type | Set the type of radio, one of `default`, `button`, `card`, `pureCard` <br/>**This api is provided after v1.26.0, and card and pureCard are in v1.30.0 Provided after ** | string | `default` |
 | onChange | Callback function when the selected option changes | Function (e: Event) | - |
 ## Method

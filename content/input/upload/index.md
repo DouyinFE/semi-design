@@ -25,10 +25,10 @@ import { Upload, Button } from '@douyinfe/semi-ui';
 import { IconUpload } from '@douyinfe/semi-icons';
 
 <Upload action="https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859">
-    <Button icon={<IconUpload />} theme="light">
+        <Button icon={<IconUpload />} theme="light">
         点击上传
     </Button>
-</Upload>
+    </Upload>;
 ```
 
 ### 添加提示文本
@@ -191,8 +191,8 @@ import { IconCamera } from '@douyinfe/semi-icons';
         >
             <Avatar src={url} style={{ margin: 4 }} hoverMask={hoverMask} />
         </Upload>
-    )
-}
+    );
+};
 ```
 
 ```css
@@ -336,7 +336,7 @@ import { IconUpload } from '@douyinfe/semi-icons';
     let action = 'https:https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
     let limit = 1;
     let onChange = props => {
-        console.log(props.fileList)
+        console.log(props.fileList);
     };
     return (
         <Upload
@@ -575,7 +575,7 @@ import { IconUpload } from '@douyinfe/semi-icons';
         console.log(currentFile);
         let newFileList = [...fileList]; // spread to get new array
         updateList(newFileList);
-    }
+    };
 
     return (
         <Upload
@@ -588,8 +588,8 @@ import { IconUpload } from '@douyinfe/semi-icons';
                 点击上传
             </Button>
         </Upload>
-    )
-}
+    );
+};
 ```
 
 ### 照片墙
@@ -741,7 +741,7 @@ import { IconBolt } from '@douyinfe/semi-icons';
     dragMainText={'点击上传文件或拖拽文件到这里'}
     dragSubText="仅支持jpeg、pdf"
     style={{ marginTop: 10 }}
-></Upload>
+></Upload>;
 ```
 
 还可以通过 `children` 传入 ReactNode，完全自定义拖拽区的显示
@@ -776,8 +776,8 @@ import { IconBolt } from '@douyinfe/semi-icons';
             Wow, you can really dance.
         </div>
     </div>
-    </Upload>
-)
+</Upload>
+);
 ```
 
 Scss 样式如下

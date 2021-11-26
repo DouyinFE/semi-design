@@ -26,170 +26,7 @@ import React from 'react';
 import { Tree } from '@douyinfe/semi-ui';
 
 () => {
-  const treeData = [
-    {
-        label: 'Asia',
-        value: 'Asia',
-        key: '0',
-        children: [
-            {
-                label: 'China',
-                value: 'China',
-                key: '0-0',
-                children: [
-                    {
-                        label: 'Beijing',
-                        value: 'Beijing',
-                        key: '0-0-0',
-                    },
-                    {
-                        label: 'Shanghai',
-                        value: 'Shanghai',
-                        key: '0-0-1',
-                    },
-                ],
-            },
-            {
-                label: 'Japan',
-                value: 'Japan',
-                key: '0-1',
-                children: [
-                    {
-                        label: 'Osaka',
-                        value: 'Osaka',
-                        key: '0-1-0'
-                    }
-                ]
-            },
-        ],
-    },
-    {
-        label: 'North America',
-        value: 'North America',
-        key: '1',
-        children: [
-            {
-                label: 'United States',
-                value: 'United States',
-                key: '1-0'
-            },
-            {
-                label: 'Canada',
-                value: 'Canada',
-                key: '1-1'
-            }
-        ]
-    }
-  ]
-  const style = {
-      width: 260,
-      height: 420,
-      border: '1px solid var(--semi-color-border)'
-  }
-  return (
-    <Tree treeData={treeData} defaultExpandAll style={style} />
-  )
-}
-```
-
-### Multi-choice
-
-You could use `multiple` to set mode to multi-choice. When all child items are selected, the parent item will be selected.
-
-```jsx live=true
-import React from 'react';
-import { Tree } from '@douyinfe/semi-ui';
-
-() => {
-  const treeData = [
-    {
-        label: 'Asia',
-        value: 'Asia',
-        key: '0',
-        children: [
-            {
-                label: 'China',
-                value: 'China',
-                key: '0-0',
-                children: [
-                    {
-                        label: 'Beijing',
-                        value: 'Beijing',
-                        key: '0-0-0',
-                    },
-                    {
-                        label: 'Shanghai',
-                        value: 'Shanghai',
-                        key: '0-0-1',
-                    },
-                ],
-            },
-            {
-                label: 'Japan',
-                value: 'Japan',
-                key: '0-1',
-                children: [
-                    {
-                        label: 'Osaka',
-                        value: 'Osaka',
-                        key: '0-1-0'
-                    }
-                ]
-            },
-        ],
-    },
-    {
-        label: 'North America',
-        value: 'North America',
-        key: '1',
-        children: [
-            {
-                label: 'United States',
-                value: 'United States',
-                key: '1-0'
-            },
-            {
-                label: 'Canada',
-                value: 'Canada',
-                key: '1-1'
-            }
-        ]
-    }
-  ]
-  const style = {
-      width: 260,
-      height: 420,
-      border: '1px solid var(--semi-color-border)'
-  }
-  return (
-      <Tree treeData={treeData} multiple defaultExpandAll style={style} />
-  )
-}
-```
-
-### Searchable
-
-Use `filterTreeNode` to support search input. By default it searches the `label` property of the data. You can use `treeNodeFilterProp` to set another property to search or pass in a function to `filterTreeNode` to customize search behavior.
-
-You could also use `showFilteredOnly` if you prefer to display filtered results only.
-
-```jsx live=true
-import React from 'react';
-import { Tree, Switch } from '@douyinfe/semi-ui';
-
-class Demo extends React.Component {
-    constructor() {
-        super()
-        this.state = {
-            showFilteredOnly: false,
-        }
-        this.onChange = this.onChange.bind(this);
-    }
-    onChange(showFilteredOnly) {
-        this.setState({ showFilteredOnly });
-    }
-    render() {
-        const treeData = [
+    const treeData = [
         {
             label: 'Asia',
             value: 'Asia',
@@ -243,31 +80,194 @@ class Demo extends React.Component {
                 }
             ]
         }
-    ]
+    ];
     const style = {
         width: 260,
         height: 420,
         border: '1px solid var(--semi-color-border)'
-    }
-    const { showFilteredOnly } = this.state;
+    };
     return (
-        <>
-        <span>showFilteredOnly</span>
-        <Switch
-            checked={showFilteredOnly}
-            onChange={this.onChange}
-            size="small"
-        />
-        <br/>
-        <Tree
-            treeData={treeData}
-            multiple
-            filterTreeNode
-            showFilteredOnly={showFilteredOnly}
-            style={style}
-        />
-        </>
-    )
+        <Tree treeData={treeData} defaultExpandAll style={style} />
+    );
+};
+```
+
+### Multi-choice
+
+You could use `multiple` to set mode to multi-choice. When all child items are selected, the parent item will be selected.
+
+```jsx live=true
+import React from 'react';
+import { Tree } from '@douyinfe/semi-ui';
+
+() => {
+    const treeData = [
+        {
+            label: 'Asia',
+            value: 'Asia',
+            key: '0',
+            children: [
+                {
+                    label: 'China',
+                    value: 'China',
+                    key: '0-0',
+                    children: [
+                        {
+                            label: 'Beijing',
+                            value: 'Beijing',
+                            key: '0-0-0',
+                        },
+                        {
+                            label: 'Shanghai',
+                            value: 'Shanghai',
+                            key: '0-0-1',
+                        },
+                    ],
+                },
+                {
+                    label: 'Japan',
+                    value: 'Japan',
+                    key: '0-1',
+                    children: [
+                        {
+                            label: 'Osaka',
+                            value: 'Osaka',
+                            key: '0-1-0'
+                        }
+                    ]
+                },
+            ],
+        },
+        {
+            label: 'North America',
+            value: 'North America',
+            key: '1',
+            children: [
+                {
+                    label: 'United States',
+                    value: 'United States',
+                    key: '1-0'
+                },
+                {
+                    label: 'Canada',
+                    value: 'Canada',
+                    key: '1-1'
+                }
+            ]
+        }
+    ];
+    const style = {
+        width: 260,
+        height: 420,
+        border: '1px solid var(--semi-color-border)'
+    };
+    return (
+        <Tree treeData={treeData} multiple defaultExpandAll style={style} />
+    );
+};
+```
+
+### Searchable
+
+Use `filterTreeNode` to support search input. By default it searches the `label` property of the data. You can use `treeNodeFilterProp` to set another property to search or pass in a function to `filterTreeNode` to customize search behavior.
+
+You could also use `showFilteredOnly` if you prefer to display filtered results only.
+
+```jsx live=true
+import React from 'react';
+import { Tree, Switch } from '@douyinfe/semi-ui';
+
+class Demo extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            showFilteredOnly: false,
+        };
+        this.onChange = this.onChange.bind(this);
+    }
+    onChange(showFilteredOnly) {
+        this.setState({ showFilteredOnly });
+    }
+    render() {
+        const treeData = [
+            {
+                label: 'Asia',
+                value: 'Asia',
+                key: '0',
+                children: [
+                    {
+                        label: 'China',
+                        value: 'China',
+                        key: '0-0',
+                        children: [
+                            {
+                                label: 'Beijing',
+                                value: 'Beijing',
+                                key: '0-0-0',
+                            },
+                            {
+                                label: 'Shanghai',
+                                value: 'Shanghai',
+                                key: '0-0-1',
+                            },
+                        ],
+                    },
+                    {
+                        label: 'Japan',
+                        value: 'Japan',
+                        key: '0-1',
+                        children: [
+                            {
+                                label: 'Osaka',
+                                value: 'Osaka',
+                                key: '0-1-0'
+                            }
+                        ]
+                    },
+                ],
+            },
+            {
+                label: 'North America',
+                value: 'North America',
+                key: '1',
+                children: [
+                    {
+                        label: 'United States',
+                        value: 'United States',
+                        key: '1-0'
+                    },
+                    {
+                        label: 'Canada',
+                        value: 'Canada',
+                        key: '1-1'
+                    }
+                ]
+            }
+        ];
+        const style = {
+            width: 260,
+            height: 420,
+            border: '1px solid var(--semi-color-border)'
+        };
+        const { showFilteredOnly } = this.state;
+        return (
+            <>
+                <span>showFilteredOnly</span>
+                <Switch
+                    checked={showFilteredOnly}
+                    onChange={this.onChange}
+                    size="small"
+                />
+                <br/>
+                <Tree
+                    treeData={treeData}
+                    multiple
+                    filterTreeNode
+                    showFilteredOnly={showFilteredOnly}
+                    style={style}
+                />
+            </>
+        );
     }
 }
 ```
@@ -281,29 +281,29 @@ import React from 'react';
 import { Tree } from '@douyinfe/semi-ui';
 
 () => {
-  const json = {
-      "Node1": {
-        "Child Node1": '0-0-1',
-        "Child Node2": '0-0-2',
-    },
-    "Node2": "0-1"
-  }
-  const style = {
-      width: 260,
-      height: 420,
-      border: '1px solid var(--semi-color-border)'
-  }
-  return (
-    <Tree
-        treeDataSimpleJson={json}
-        multiple
-        onChange={e => console.log('All selected values: ',e)}
-        onSelect={e => console.log('Current item: ',e)}
-        style={style}
-    />
+    const json = {
+        "Node1": {
+            "Child Node1": '0-0-1',
+            "Child Node2": '0-0-2',
+        },
+        "Node2": "0-1"
+    };
+    const style = {
+        width: 260,
+        height: 420,
+        border: '1px solid var(--semi-color-border)'
+    };
+    return (
+        <Tree
+            treeDataSimpleJson={json}
+            multiple
+            onChange={e => console.log('All selected values: ',e)}
+            onSelect={e => console.log('Current item: ',e)}
+            style={style}
+        />
 
-  )
-}
+    );
+};
 ```
 
 ### BlockNode
@@ -315,78 +315,78 @@ import React from 'react';
 import { Tree } from '@douyinfe/semi-ui';
 
 () => {
-  const treeData = [
-    {
-        label: 'Asia',
-        value: 'Asia',
-        key: '0',
-        children: [
-            {
-                label: 'China',
-                value: 'China',
-                key: '0-0',
-                children: [
-                    {
-                        label: 'Beijing',
-                        value: 'Beijing',
-                        key: '0-0-0',
-                    },
-                    {
-                        label: 'Shanghai',
-                        value: 'Shanghai',
-                        key: '0-0-1',
-                    },
-                ],
-            },
-            {
-                label: 'Japan',
-                value: 'Japan',
-                key: '0-1',
-                children: [
-                    {
-                        label: 'Osaka',
-                        value: 'Osaka',
-                        key: '0-1-0'
-                    }
-                ]
-            },
-        ],
-    },
-    {
-        label: 'North America',
-        value: 'North America',
-        key: '1',
-        children: [
-            {
-                label: 'United States',
-                value: 'United States',
-                key: '1-0'
-            },
-            {
-                label: 'Canada',
-                value: 'Canada',
-                key: '1-1'
-            }
-        ]
-    }
-  ]
-  return (
-    <div>
-    <Tree
-        treeData={treeData}
-        defaultValue='Shanghai'
-        blockNode={false}
-    />
-    <br/>
-    <Tree
-        treeData={treeData}
-        defaultValue='Shanghai'
-        multiple
-        blockNode={false}
-    />
-    </div>
-  )
-}
+    const treeData = [
+        {
+            label: 'Asia',
+            value: 'Asia',
+            key: '0',
+            children: [
+                {
+                    label: 'China',
+                    value: 'China',
+                    key: '0-0',
+                    children: [
+                        {
+                            label: 'Beijing',
+                            value: 'Beijing',
+                            key: '0-0-0',
+                        },
+                        {
+                            label: 'Shanghai',
+                            value: 'Shanghai',
+                            key: '0-0-1',
+                        },
+                    ],
+                },
+                {
+                    label: 'Japan',
+                    value: 'Japan',
+                    key: '0-1',
+                    children: [
+                        {
+                            label: 'Osaka',
+                            value: 'Osaka',
+                            key: '0-1-0'
+                        }
+                    ]
+                },
+            ],
+        },
+        {
+            label: 'North America',
+            value: 'North America',
+            key: '1',
+            children: [
+                {
+                    label: 'United States',
+                    value: 'United States',
+                    key: '1-0'
+                },
+                {
+                    label: 'Canada',
+                    value: 'Canada',
+                    key: '1-1'
+                }
+            ]
+        }
+    ];
+    return (
+        <div>
+            <Tree
+                treeData={treeData}
+                defaultValue='Shanghai'
+                blockNode={false}
+            />
+            <br/>
+            <Tree
+                treeData={treeData}
+                defaultValue='Shanghai'
+                multiple
+                blockNode={false}
+            />
+        </div>
+    );
+};
 ```
 
 ### Custom TreeNode Label
@@ -398,78 +398,78 @@ import React from 'react';
 import { Tree, ButtonGroup, Button } from '@douyinfe/semi-ui';
 
 () => {
-  let opts = {
-    content: 'Hi, Bytedance dance dance',
-    duration: 3,
-  };
+    let opts = {
+        content: 'Hi, Bytedance dance dance',
+        duration: 3,
+    };
 
-  const button = (
-      <ButtonGroup
-        size="small"
-        theme="borderless"
-    >
-        <Button
-            onClick={e => {
-                Toast.info(opts);
-                e.stopPropagation()
-            }}
-        >Alert</Button>
-        <Button>Click</Button>
-    </ButtonGroup>
-  )
+    const button = (
+        <ButtonGroup
+            size="small"
+            theme="borderless"
+        >
+            <Button
+                onClick={e => {
+                    Toast.info(opts);
+                    e.stopPropagation();
+                }}
+            >Alert</Button>
+            <Button>Click</Button>
+        </ButtonGroup>
+    );
 
-  const style = {
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center'
-  }
+    const style = {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+    };
 
-  const treeDataWithNode = [
-    {
-        label: (
-            <div style={style}>
-                <span>Asia</span>
-                {button}
-            </div>
-        ),
-        value: 'Asia',
-        key: 'Asia',
-        children: [
-            {
-                label: (
-                    <div style={style}>
-                        <span>China</span>
-                        {button}
-                    </div>
-                ),
-                value: 'China',
-                key: 'China'
-            },
-            {
-                label: (
-                    <div style={style}>
-                        <span>Japan</span>
-                        {button}
-                    </div>
-                ),
-                value: 'Japan',
-                key: 'Japan',
-            },
-        ],
-    }
-];
-  const treeStyle = {
-    width: 260,
-    height: 420,
-    border: '1px solid var(--semi-color-border)'
-  }
-  return (
-    <Tree
-        treeData={treeDataWithNode}
-        style={treeStyle}
-    />
-  )
-}
+    const treeDataWithNode = [
+        {
+            label: (
+                <div style={style}>
+                    <span>Asia</span>
+                    {button}
+                </div>
+            ),
+            value: 'Asia',
+            key: 'Asia',
+            children: [
+                {
+                    label: (
+                        <div style={style}>
+                            <span>China</span>
+                            {button}
+                        </div>
+                    ),
+                    value: 'China',
+                    key: 'China'
+                },
+                {
+                    label: (
+                        <div style={style}>
+                            <span>Japan</span>
+                            {button}
+                        </div>
+                    ),
+                    value: 'Japan',
+                    key: 'Japan',
+                },
+            ],
+        }
+    ];
+    const treeStyle = {
+        width: 260,
+        height: 420,
+        border: '1px solid var(--semi-color-border)'
+    };
+    return (
+        <Tree
+            treeData={treeDataWithNode}
+            style={treeStyle}
+        />
+    );
+};
 ```
 
 ### Custom Icon
@@ -482,40 +482,40 @@ import { Tree } from '@douyinfe/semi-ui';
 import { IconMapPin } from '@douyinfe/semi-icons';
 
 () => {
-  const treeData = [
-    {
-        label: 'Asia',
-        value: 'Asia',
-        key: '0',
-        icon: (<IconMapPin style={{color: 'var(--semi-color-text-2)'}}/>),
-        children: [
-            {
-                label: 'China',
-                value: 'China',
-                key: '0-0',
-                icon: (<IconMapPin style={{color: 'var(--semi-color-text-2)'}}/>)
-            },
-            {
-                label: 'Japan',
-                value: 'Japan',
-                key: '0-1',
-                icon: (<IconMapPin style={{color: 'var(--semi-color-text-2)'}}/>)
-            },
-        ],
-    }
-  ]
-  const style = {
-    width: 260,
-    height: 420,
-    border: '1px solid var(--semi-color-border)'
- }
-  return (
-    <Tree
-        treeData={treeData}
-        style={style}
-    />
-  )
-}
+    const treeData = [
+        {
+            label: 'Asia',
+            value: 'Asia',
+            key: '0',
+            icon: (<IconMapPin style={{color: 'var(--semi-color-text-2)'}}/>),
+            children: [
+                {
+                    label: 'China',
+                    value: 'China',
+                    key: '0-0',
+                    icon: (<IconMapPin style={{color: 'var(--semi-color-text-2)'}}/>)
+                },
+                {
+                    label: 'Japan',
+                    value: 'Japan',
+                    key: '0-1',
+                    icon: (<IconMapPin style={{color: 'var(--semi-color-text-2)'}}/>)
+                },
+            ],
+        }
+    ];
+    const style = {
+        width: 260,
+        height: 420,
+        border: '1px solid var(--semi-color-border)'
+    };
+    return (
+        <Tree
+            treeData={treeData}
+            style={style}
+        />
+    );
+};
 ```
 
 ### Directory
@@ -527,74 +527,74 @@ import React from 'react';
 import { Tree } from '@douyinfe/semi-ui';
 
 () => {
-  const treeData = [
-    {
-        label: 'Asia',
-        value: 'Asia',
-        key: '0',
-        children: [
-            {
-                label: 'China',
-                value: 'China',
-                key: '0-0',
-                children: [
-                    {
-                        label: 'Beijing',
-                        value: 'Beijing',
-                        key: '0-0-0',
-                    },
-                    {
-                        label: 'Shanghai',
-                        value: 'Shanghai',
-                        key: '0-0-1',
-                    },
-                ],
-            },
-            {
-                label: 'Japan',
-                value: 'Japan',
-                key: '0-1',
-                children: [
-                    {
-                        label: 'Osaka',
-                        value: 'Osaka',
-                        key: '0-1-0'
-                    }
-                ]
-            },
-        ],
-    },
-    {
-        label: 'North America',
-        value: 'North America',
-        key: '1',
-        children: [
-            {
-                label: 'United States',
-                value: 'United States',
-                key: '1-0'
-            },
-            {
-                label: 'Canada',
-                value: 'Canada',
-                key: '1-1'
-            }
-        ]
-    }
-  ]
-  const style = {
-      width: 260,
-      height: 420,
-      border: '1px solid var(--semi-color-border)'
-  }
-  return (
-    <Tree
-        treeData={treeData}
-        directory
-        style={style}
-    />
-  )
-}
+    const treeData = [
+        {
+            label: 'Asia',
+            value: 'Asia',
+            key: '0',
+            children: [
+                {
+                    label: 'China',
+                    value: 'China',
+                    key: '0-0',
+                    children: [
+                        {
+                            label: 'Beijing',
+                            value: 'Beijing',
+                            key: '0-0-0',
+                        },
+                        {
+                            label: 'Shanghai',
+                            value: 'Shanghai',
+                            key: '0-0-1',
+                        },
+                    ],
+                },
+                {
+                    label: 'Japan',
+                    value: 'Japan',
+                    key: '0-1',
+                    children: [
+                        {
+                            label: 'Osaka',
+                            value: 'Osaka',
+                            key: '0-1-0'
+                        }
+                    ]
+                },
+            ],
+        },
+        {
+            label: 'North America',
+            value: 'North America',
+            key: '1',
+            children: [
+                {
+                    label: 'United States',
+                    value: 'United States',
+                    key: '1-0'
+                },
+                {
+                    label: 'Canada',
+                    value: 'Canada',
+                    key: '1-1'
+                }
+            ]
+        }
+    ];
+    const style = {
+        width: 260,
+        height: 420,
+        border: '1px solid var(--semi-color-border)'
+    };
+    return (
+        <Tree
+            treeData={treeData}
+            directory
+            style={style}
+        />
+    );
+};
 ```
 
 ### Disabled
@@ -606,78 +606,78 @@ import React from 'react';
 import { Tree } from '@douyinfe/semi-ui';
 
 () => {
-  const treeData = [
-    {
-        label: 'Asia',
-        value: 'Asia',
-        key: '0',
-        children: [
-            {
-                label: 'China',
-                value: 'China',
-                key: '0-0',
-                children: [
-                    {
-                        label: 'Beijing',
-                        value: 'Beijing',
-                        key: '0-0-0',
-                        disabled: true,
-                    },
-                    {
-                        label: 'Shanghai',
-                        value: 'Shanghai',
-                        key: '0-0-1',
-                        disabled: true,
-                    },
-                ],
-            },
-            {
-                label: 'Japan',
-                value: 'Japan',
-                key: '0-1',
-                children: [
-                    {
-                        label: 'Osaka',
-                        value: 'Osaka',
-                        key: '0-1-0'
-                    }
-                ]
-            },
-        ],
-    },
-    {
-        label: 'North America',
-        value: 'North America',
-        key: '1',
-        children: [
-            {
-                label: 'United States',
-                value: 'United States',
-                key: '1-0'
-            },
-            {
-                label: 'Canada',
-                value: 'Canada',
-                key: '1-1'
-            }
-        ]
-    }
-  ]
-  const style = {
-      width: 260,
-      height: 420,
-      border: '1px solid var(--semi-color-border)'
-  }
-  return (
-    <Tree
-        treeData={treeData}
-        defaultValue='Shanghai'
-        multiple
-        style={style}
-        disableStrictly
-    />
-  )
-}
+    const treeData = [
+        {
+            label: 'Asia',
+            value: 'Asia',
+            key: '0',
+            children: [
+                {
+                    label: 'China',
+                    value: 'China',
+                    key: '0-0',
+                    children: [
+                        {
+                            label: 'Beijing',
+                            value: 'Beijing',
+                            key: '0-0-0',
+                            disabled: true,
+                        },
+                        {
+                            label: 'Shanghai',
+                            value: 'Shanghai',
+                            key: '0-0-1',
+                            disabled: true,
+                        },
+                    ],
+                },
+                {
+                    label: 'Japan',
+                    value: 'Japan',
+                    key: '0-1',
+                    children: [
+                        {
+                            label: 'Osaka',
+                            value: 'Osaka',
+                            key: '0-1-0'
+                        }
+                    ]
+                },
+            ],
+        },
+        {
+            label: 'North America',
+            value: 'North America',
+            key: '1',
+            children: [
+                {
+                    label: 'United States',
+                    value: 'United States',
+                    key: '1-0'
+                },
+                {
+                    label: 'Canada',
+                    value: 'Canada',
+                    key: '1-1'
+                }
+            ]
+        }
+    ];
+    const style = {
+        width: 260,
+        height: 420,
+        border: '1px solid var(--semi-color-border)'
+    };
+    return (
+        <Tree
+            treeData={treeData}
+            defaultValue='Shanghai'
+            multiple
+            style={style}
+            disableStrictly
+        />
+    );
+};
 ```
 
 ### Default Expand All
@@ -716,7 +716,7 @@ import { Tree, Button } from '@douyinfe/semi-ui';
     };
     const [tree, setTree] = useState(json);
     const handleClick = () => {
-        setTree(json2)
+        setTree(json2);
     };
     return (
         <>
@@ -743,7 +743,7 @@ import { Tree, Button } from '@douyinfe/semi-ui';
             </div>
         </>
     );
-}
+};
 
 ```
 
@@ -757,75 +757,75 @@ import { Tree } from '@douyinfe/semi-ui';
 
 class Demo extends React.Component {
     constructor() {
-        super()
+        super();
         this.state = {
             value: 'Shanghai'
         };
     }
     onChange(value) {
-        this.setState({value})
+        this.setState({value});
     }
     render() {
-const treeData = [
-    {
-        label: 'Asia',
-        value: 'Asia',
-        key: '0',
-        children: [
+        const treeData = [
             {
-                label: 'China',
-                value: 'China',
-                key: '0-0',
+                label: 'Asia',
+                value: 'Asia',
+                key: '0',
                 children: [
                     {
-                        label: 'Beijing',
-                        value: 'Beijing',
-                        key: '0-0-0',
+                        label: 'China',
+                        value: 'China',
+                        key: '0-0',
+                        children: [
+                            {
+                                label: 'Beijing',
+                                value: 'Beijing',
+                                key: '0-0-0',
+                            },
+                            {
+                                label: 'Shanghai',
+                                value: 'Shanghai',
+                                key: '0-0-1',
+                            },
+                        ],
                     },
                     {
-                        label: 'Shanghai',
-                        value: 'Shanghai',
-                        key: '0-0-1',
+                        label: 'Japan',
+                        value: 'Japan',
+                        key: '0-1',
+                        children: [
+                            {
+                                label: 'Osaka',
+                                value: 'Osaka',
+                                key: '0-1-0'
+                            }
+                        ]
                     },
                 ],
             },
             {
-                label: 'Japan',
-                value: 'Japan',
-                key: '0-1',
+                label: 'North America',
+                value: 'North America',
+                key: '1',
                 children: [
                     {
-                        label: 'Osaka',
-                        value: 'Osaka',
-                        key: '0-1-0'
+                        label: 'United States',
+                        value: 'United States',
+                        key: '1-0'
+                    },
+                    {
+                        label: 'Canada',
+                        value: 'Canada',
+                        key: '1-1'
                     }
                 ]
-            },
-        ],
-    },
-    {
-        label: 'North America',
-        value: 'North America',
-        key: '1',
-        children: [
-            {
-                label: 'United States',
-                value: 'United States',
-                key: '1-0'
-            },
-            {
-                label: 'Canada',
-                value: 'Canada',
-                key: '1-1'
             }
-        ]
-    }
-  ]
+        ];
         const style = {
             width: 260,
             height: 420,
             border: '1px solid var(--semi-color-border)'
-        }
+        };
         return (
             <Tree
                 treeData={treeData}
@@ -833,7 +833,7 @@ const treeData = [
                 onChange={value => this.onChange(value)}
                 style={style}
             />
-        )
+        );
     }
 }
 ```
@@ -893,7 +893,7 @@ class Demo extends React.Component {
             width: 260,
             height: 420,
             border: '1px solid var(--semi-color-border)'
-        }
+        };
         return (
             <Tree
                 autoExpandParent
@@ -902,7 +902,7 @@ class Demo extends React.Component {
                 expandedKeys={this.state.expandedKeys}
                 style={style}
             />
-        )
+        );
     }
 }
 ```
@@ -927,7 +927,7 @@ class Demo extends React.Component {
         this.state = {
             gData: [],
             total: 0,
-        }
+        };
         this.onGen = this.onGen.bind(this);
     }
 
@@ -981,28 +981,28 @@ class Demo extends React.Component {
             width: 260,
             // height: 360,
             border: '1px solid var(--semi-color-border)'
-        }
-      return (
-        <div style={{ padding: '0 20px' }}>
-          <Button onClick={this.onGen}>Generate Data: </Button>
-          <span>In total: {this.state.total}</span>
-          <br/>
-          <br/>
-          {this.state.gData.length ? (
-                <Tree
-                  treeData={this.state.gData}
-                  filterTreeNode
-                  style={style}
-                  showFilteredOnly
-                  virtualize={{
-                    // if set height for tree, it will fill 100%
-                    height: 300,
-                    itemSize: 28,                    
-                  }}
-            />
-          ) : null}
-        </div>
-      );
+        };
+        return (
+            <div style={{ padding: '0 20px' }}>
+                <Button onClick={this.onGen}>Generate Data: </Button>
+                <span>In total: {this.state.total}</span>
+                <br/>
+                <br/>
+                {this.state.gData.length ? (
+                    <Tree
+                        treeData={this.state.gData}
+                        filterTreeNode
+                        style={style}
+                        showFilteredOnly
+                        virtualize={{
+                            // if set height for tree, it will fill 100%
+                            height: 300,
+                            itemSize: 28,                    
+                        }}
+                    />
+                ) : null}
+            </div>
+        );
     }
 }
 ```
@@ -1015,14 +1015,14 @@ import { Tree, Button } from '@douyinfe/semi-ui';
 
 class Demo extends React.Component {
     constructor() {
-        super()
+        super();
         this.state = {
             treeData: [{
                 key: '0',
                 label: 'item-0',
                 value: '0'
             }],
-        }
+        };
         this.add = this.add.bind(this);
     }
     add() {
@@ -1034,7 +1034,7 @@ class Demo extends React.Component {
                     key: `${i}-${ci}`,
                     label: `Leaf-${i}-${ci}`,
                     value: `${i}-${ci}`
-                }
+                };
                 return child;
             });
             let item = {
@@ -1044,7 +1044,7 @@ class Demo extends React.Component {
                 children
             };
             return item;
-        })
+        });
         this.setState({ treeData });
     }
     render() {
@@ -1053,7 +1053,7 @@ class Demo extends React.Component {
             width: 260,
             height: 420,
             border: '1px solid var(--semi-color-border)'
-        }
+        };
         return (
             <div style={style}>
                 <Tree
@@ -1064,7 +1064,7 @@ class Demo extends React.Component {
                     Update Data
                 </Button>
             </div>
-        )
+        );
     }
 }
 ```
@@ -1076,24 +1076,24 @@ import React, { useState } from 'react';
 import { Tree } from '@douyinfe/semi-ui';
 
 () => {
-const initialData = [
-    {
-        label: 'Expand to load',
-        value: '0',
-        key: '0',
-    },
-    {
-        label: 'Expand to load',
-        value: '1',
-        key: '1',
-    },
-    {
-        label: 'Leaf Node',
-        value: '2',
-        key: '2',
-        isLeaf: true,
-    },
-];
+    const initialData = [
+        {
+            label: 'Expand to load',
+            value: '0',
+            key: '0',
+        },
+        {
+            label: 'Expand to load',
+            value: '1',
+            key: '1',
+        },
+        {
+            label: 'Leaf Node',
+            value: '2',
+            key: '2',
+            isLeaf: true,
+        },
+    ];
     const [treeData, setTreeData] = useState(initialData);
 
     function updateTreeData(list, key, children) {
@@ -1223,51 +1223,51 @@ import { Tree } from '@douyinfe/semi-ui';
             data.forEach((item, ind, arr) => {
                 if (item.key === key) return callback(item, ind, arr);
                 if (item.children) return loop(item.children, key, callback);
-            })
-        }
+            });
+        };
 
         let dragObj;
         loop(data, dragKey, (item, ind, arr) => {
             arr.splice(ind, 1);
             dragObj = item;
-        })
+        });
 
         if (!dropToGap) {
             // inset into the dropPosition
             loop(data, dropKey, (item, ind, arr) => {
                 item.children = item.children || [];
-                item.children.push(dragObj)
-            })
+                item.children.push(dragObj);
+            });
         } else if (dropPosition === 1 && node.children && node.expanded) {
             // has children && expanded and drop into the node bottom gap
             // could insert anywhere. Here we insert to the top.
             loop(data, dropKey, item => {
                 item.children = item.children || [];
-                item.children.unshift(dragObj)
-            })
+                item.children.unshift(dragObj);
+            });
         } else {
             let dropNodeInd;
             let dropNodePosArr;
             loop(data, dropKey, (item, ind, arr) => {
                 dropNodePosArr = arr;
                 dropNodeInd = ind;
-            })
+            });
             if (dropPosition === -1) {
                 // insert to top
-                dropNodePosArr.splice(dropNodeInd, 0, dragObj)
+                dropNodePosArr.splice(dropNodeInd, 0, dragObj);
             } else {
                 // insert to bottom
-                dropNodePosArr.splice(dropNodeInd + 1, 0, dragObj)
+                dropNodePosArr.splice(dropNodeInd + 1, 0, dragObj);
             }
         }
-        setTreeData(data)
+        setTreeData(data);
     }
 
     return <Tree
-                treeData={treeData}
-                draggable
-                onDrop={onDrop}
-            />;
+        treeData={treeData}
+        draggable
+        onDrop={onDrop}
+    />;
 };
 ```
 
@@ -1300,100 +1300,100 @@ import { Tree, Checkbox } from '@douyinfe/semi-ui';
         checkStatus,
         expandIcon,
     }) => {
-      const { label } = data;
-      const isLeaf = !(data.children && data.children.length);
-      return (
-          <li
-            className={className}
-            role="treenode"
-            onClick={isLeaf ? onCheck : onExpand}
-            onContextMenu={onContextMenu}
-            onDoubleClick={onDoubleClick}
-        >
-            {isLeaf ? null : expandIcon}
-            {isLeaf ? <div onClick={onCheck}>
-                <Checkbox
-                indeterminate={checkStatus.halfChecked}
-                checked={checkStatus.checked}
-                style={{marginRight: 8}}
-                />
-            </div> : null}
-            <span>{label}</span>
-        </li>
-      )
-    }
+        const { label } = data;
+        const isLeaf = !(data.children && data.children.length);
+        return (
+            <li
+                className={className}
+                role="treenode"
+                onClick={isLeaf ? onCheck : onExpand}
+                onContextMenu={onContextMenu}
+                onDoubleClick={onDoubleClick}
+            >
+                {isLeaf ? null : expandIcon}
+                {isLeaf ? <div onClick={onCheck}>
+                    <Checkbox
+                        indeterminate={checkStatus.halfChecked}
+                        checked={checkStatus.checked}
+                        style={{marginRight: 8}}
+                    />
+                </div> : null}
+                <span>{label}</span>
+            </li>
+        );
+    };
     
-  const treeData = [
-    {
-        label: 'Asia',
-        value: 'Asia',
-        key: '0',
-        children: [
-            {
-                label: 'China',
-                value: 'China',
-                key: '0-0',
-                children: [
-                    {
-                        label: 'Beijing',
-                        value: 'Beijing',
-                        key: '0-0-0',
-                    },
-                    {
-                        label: 'Shanghai',
-                        value: 'Shanghai',
-                        key: '0-0-1',
-                    },
-                ],
-            },
-            {
-                label: 'Japan',
-                value: 'Japan',
-                key: '0-1',
-                children: [
-                    {
-                        label: 'Osaka',
-                        value: 'Osaka',
-                        key: '0-1-0'
-                    }
-                ]
-            },
-        ],
-    },
-    {
-        label: 'North America',
-        value: 'North America',
-        key: '1',
-        children: [
-            {
-                label: 'United States',
-                value: 'United States',
-                key: '1-0'
-            },
-            {
-                label: 'Canada',
-                value: 'Canada',
-                key: '1-1'
-            }
-        ]
-    }
-  ]
+    const treeData = [
+        {
+            label: 'Asia',
+            value: 'Asia',
+            key: '0',
+            children: [
+                {
+                    label: 'China',
+                    value: 'China',
+                    key: '0-0',
+                    children: [
+                        {
+                            label: 'Beijing',
+                            value: 'Beijing',
+                            key: '0-0-0',
+                        },
+                        {
+                            label: 'Shanghai',
+                            value: 'Shanghai',
+                            key: '0-0-1',
+                        },
+                    ],
+                },
+                {
+                    label: 'Japan',
+                    value: 'Japan',
+                    key: '0-1',
+                    children: [
+                        {
+                            label: 'Osaka',
+                            value: 'Osaka',
+                            key: '0-1-0'
+                        }
+                    ]
+                },
+            ],
+        },
+        {
+            label: 'North America',
+            value: 'North America',
+            key: '1',
+            children: [
+                {
+                    label: 'United States',
+                    value: 'United States',
+                    key: '1-0'
+                },
+                {
+                    label: 'Canada',
+                    value: 'Canada',
+                    key: '1-1'
+                }
+            ]
+        }
+    ];
 
-  const treeStyle = {
-    width: 260,
-    height: 420,
-    border: '1px solid var(--semi-color-border)'
-  }
-  return ( 
-    <Tree
-        treeData={treeData}
-        renderFullLabel={renderLabel}
-        multiple
-        leafOnly
-        style={treeStyle}
-    />
-  )
-}
+    const treeStyle = {
+        width: 260,
+        height: 420,
+        border: '1px solid var(--semi-color-border)'
+    };
+    return ( 
+        <Tree
+            treeData={treeData}
+            renderFullLabel={renderLabel}
+            multiple
+            leafOnly
+            style={treeStyle}
+        />
+    );
+};
 ```
 
 The second is for the scenario of "I hope that only leaf nodes can be single-selected, and the parent node only plays a role in grouping".
@@ -1422,7 +1422,7 @@ import { Tree } from '@douyinfe/semi-ui';
                 {isLeaf ? null : expandIcon}
                 <span>{label}</span>
             </li>
-        )
+        );
     };
 
     const treeData = [
@@ -1485,7 +1485,7 @@ import { Tree } from '@douyinfe/semi-ui';
         width: 260,
         height: 420,
         border: '1px solid var(--semi-color-border)'
-    }
+    };
     return (
         <Tree
             treeData={treeData}
@@ -1494,7 +1494,7 @@ import { Tree } from '@douyinfe/semi-ui';
             onChange={(...args) => console.log('change', ...args)}
         />
     );
-}
+};
 ```
 
 Third is for the scenario when selecting Parent node also highlighting child node.
@@ -1505,56 +1505,56 @@ import { Tree } from '@douyinfe/semi-ui';
 import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSectionStroked, IconComponentStroked } from '@douyinfe/semi-icons';
 
 () => {
-  const [selected, setSelected] = useState(new Set());
-  const [selectedThroughParent, setSelectedThroughParent] = useState(new Set());
-  const treeData = [
-      {
-          label: 'Fixed Black Button',
-          icon: <IconFixedStroked style={{ marginRight: 8, color: 'var(--semi-color-text-2)' }} />,
-          key: 'fix-btn-0'
-      },
-    {
-        label: 'Module',
-        key: 'module-0',
-        icon: <IconSectionStroked style={{ marginRight: 8, color: 'var(--semi-color-text-2)' }} />,
-        children: [
-            {
-                label: 'Free Components',
-                icon: <IconAbsoluteStroked style={{ marginRight: 8, color: 'var(--semi-color-text-2)' }} />,
-                key: 'free-compo-0',
-            },
-            {
-                label: 'Split Container',
-                icon: <IconInnerSectionStroked style={{ marginRight: 8, color: 'var(--semi-color-text-2)' }} />,
-                key: 'split-col-0',
-                children: [
-                    {
-                        label: 'Button',
-                        icon: <IconComponentStroked style={{ marginRight: 8, color: 'var(--semi-color-text-2)' }} />,
-                        key: 'btn-0'
-                    },
-                    {
-                        label: 'Button',
-                        icon: <IconComponentStroked style={{ marginRight: 8, color: 'var(--semi-color-text-2)' }} />,
-                        key: 'btn-1'
-                    }
-                ]
-            },
-        ],
-    },
-    {
-        label: 'Module',
-        icon: <IconSectionStroked style={{ marginRight: 8, color: 'var(--semi-color-text-2)' }} />,
-        key: 'module-1',
-        children: [
-            {
-                label: 'Custom Component',
-                icon: <IconComponentStroked style={{ marginRight: 8, color: 'var(--semi-color-text-2)' }} />,
-                key: 'cus-0'
-            }
-        ]
-    }
-  ]
+    const [selected, setSelected] = useState(new Set());
+    const [selectedThroughParent, setSelectedThroughParent] = useState(new Set());
+    const treeData = [
+        {
+            label: 'Fixed Black Button',
+            icon: <IconFixedStroked style={{ marginRight: 8, color: 'var(--semi-color-text-2)' }} />,
+            key: 'fix-btn-0'
+        },
+        {
+            label: 'Module',
+            key: 'module-0',
+            icon: <IconSectionStroked style={{ marginRight: 8, color: 'var(--semi-color-text-2)' }} />,
+            children: [
+                {
+                    label: 'Free Components',
+                    icon: <IconAbsoluteStroked style={{ marginRight: 8, color: 'var(--semi-color-text-2)' }} />,
+                    key: 'free-compo-0',
+                },
+                {
+                    label: 'Split Container',
+                    icon: <IconInnerSectionStroked style={{ marginRight: 8, color: 'var(--semi-color-text-2)' }} />,
+                    key: 'split-col-0',
+                    children: [
+                        {
+                            label: 'Button',
+                            icon: <IconComponentStroked style={{ marginRight: 8, color: 'var(--semi-color-text-2)' }} />,
+                            key: 'btn-0'
+                        },
+                        {
+                            label: 'Button',
+                            icon: <IconComponentStroked style={{ marginRight: 8, color: 'var(--semi-color-text-2)' }} />,
+                            key: 'btn-1'
+                        }
+                    ]
+                },
+            ],
+        },
+        {
+            label: 'Module',
+            icon: <IconSectionStroked style={{ marginRight: 8, color: 'var(--semi-color-text-2)' }} />,
+            key: 'module-1',
+            children: [
+                {
+                    label: 'Custom Component',
+                    icon: <IconComponentStroked style={{ marginRight: 8, color: 'var(--semi-color-text-2)' }} />,
+                    key: 'cus-0'
+                }
+            ]
+        }
+    ];
 
     const findDescendantKeys = (node) => {
         let res = [node.key];
@@ -1571,58 +1571,58 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
         };
         findChild(node);
         return res;
-    }  
+    };  
     
     const handleSelect = (key, bool, node) => {
         setSelected(new Set([key]));
         const descendantKeys = findDescendantKeys(node);
         setSelectedThroughParent(new Set(descendantKeys));
-     }
+    };
 
-     const renderLabel = ({
+    const renderLabel = ({
         className,
         data,
         onClick,
         expandIcon
     }) => {
-      const { label, icon, key } = data;
-      const isLeaf = !(data.children && data.children.length);
-      const style = {
-          backgroundColor: selected.has(key) 
-            ? 'rgba(var(--semi-blue-0), 1)' 
-            : selectedThroughParent.has(key) 
-                ? 'rgba(var(--semi-blue-0), .5)' : 'transparent'
-      }
-      return (
-          <li
-            className={className}
-            role="treenode"
-            onClick={onClick}
-            style={style}
-        >
-            {isLeaf ? <span style={{width: 24}}></span> : expandIcon}
-            {icon}
-            <span>{label}</span>
-        </li>
-      )
-    }
+        const { label, icon, key } = data;
+        const isLeaf = !(data.children && data.children.length);
+        const style = {
+            backgroundColor: selected.has(key) 
+                ? 'rgba(var(--semi-blue-0), 1)' 
+                : selectedThroughParent.has(key) 
+                    ? 'rgba(var(--semi-blue-0), .5)' : 'transparent'
+        };
+        return (
+            <li
+                className={className}
+                role="treenode"
+                onClick={onClick}
+                style={style}
+            >
+                {isLeaf ? <span style={{width: 24}}></span> : expandIcon}
+                {icon}
+                <span>{label}</span>
+            </li>
+        );
+    };
 
-  const treeStyle = {
-    width: 260,
-    height: 420,
-    border: '1px solid var(--semi-color-border)'
-  }
+    const treeStyle = {
+        width: 260,
+        height: 420,
+        border: '1px solid var(--semi-color-border)'
+    };
   
-  return ( 
-    <Tree
-        treeData={treeData}
-        renderFullLabel={renderLabel}
-        onSelect={handleSelect}
-        style={treeStyle}
-        defaultExpandAll
-    />
-  )
-}
+    return ( 
+        <Tree
+            treeData={treeData}
+            renderFullLabel={renderLabel}
+            onSelect={handleSelect}
+            style={treeStyle}
+            defaultExpandAll
+        />
+    );
+};
 ```
 
 
@@ -1700,40 +1700,40 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
             data.forEach((item, ind, arr) => {
                 if (item.key === key) return callback(item, ind, arr);
                 if (item.children) return loop(item.children, key, callback);
-            })
-        }
+            });
+        };
 
         let dragObj;
         loop(data, dragKey, (item, ind, arr) => {
             arr.splice(ind, 1);
             dragObj = item;
-        })
+        });
 
         if (!dropToGap) {
             loop(data, dropKey, (item, ind, arr) => {
                 item.children = item.children || [];
-                item.children.push(dragObj)
-            })
+                item.children.push(dragObj);
+            });
         } else if (dropPosition === 1 && node.children && node.expanded) {
             loop(data, dropKey, item => {
                 item.children = item.children || [];
-                item.children.unshift(dragObj)
-            })
+                item.children.unshift(dragObj);
+            });
         } else {
             let dropNodeInd;
             let dropNodePosArr;
             loop(data, dropKey, (item, ind, arr) => {
                 dropNodePosArr = arr;
                 dropNodeInd = ind;
-            })
+            });
             if (dropPosition === -1) {
-                dropNodePosArr.splice(dropNodeInd, 0, dragObj)
+                dropNodePosArr.splice(dropNodeInd, 0, dragObj);
             } else {
-                dropNodePosArr.splice(dropNodeInd + 1, 0, dragObj)
+                dropNodePosArr.splice(dropNodeInd + 1, 0, dragObj);
             }
         }
-        setTreeData(data)
-    }
+        setTreeData(data);
+    };
 
     const findDescendantKeys = (node) => {
         let res = [node.key];
@@ -1750,13 +1750,13 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
         };
         findChild(node);
         return res;
-    }
+    };
 
     const handleSelect = (key, bool, node) => {
         setSelected(new Set([key]));
         const descendantKeys = findDescendantKeys(node);
         setSelectedThroughParent(new Set(descendantKeys));
-    }
+    };
 
     const renderLabel = ({
         className,
@@ -1771,7 +1771,7 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
                 ? 'rgba(var(--semi-blue-0), 1)'
                 : selectedThroughParent.has(key)
                     ? 'rgba(var(--semi-blue-0), .5)' : 'transparent'
-        }
+        };
         return (
             <li
                 className={className}
@@ -1783,14 +1783,14 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
                 {icon}
                 <span>{label}</span>
             </li>
-        )
-    }
+        );
+    };
 
     const treeStyle = {
         width: 260,
         height: 420,
         border: '1px solid var(--semi-color-border)'
-    }
+    };
 
 
     return <Tree

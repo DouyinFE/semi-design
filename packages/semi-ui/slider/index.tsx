@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import cls from 'classnames';
 import { cssClasses } from '@douyinfe/semi-foundation/slider/constants';
 import BaseComponent from '../_base/baseComponent';
-import SliderFoundation, { SliderAdapter, SliderProps as BasicSliceProps, SliderState } from '@douyinfe/semi-foundation/slider/foundation';
+import SliderFoundation, { SliderAdapter, SliderProps as BasicSliceProps, SliderState, tipFormatterBasicType } from '@douyinfe/semi-foundation/slider/foundation';
 import Tooltip from '../tooltip/index';
 import '@douyinfe/semi-foundation/slider/slider.scss';
 import { isEqual, noop } from 'lodash-es';
@@ -61,7 +61,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
         min: 0,
         range: false, // Whether both sides
         step: 1,
-        tipFormatter: (value: number) => value,
+        tipFormatter: (value: tipFormatterBasicType | tipFormatterBasicType[]) => value,
         vertical: false,
         showBoundary: false,
         onAfterChange: (value: number | number[]) => {

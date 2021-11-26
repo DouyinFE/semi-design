@@ -94,7 +94,6 @@ export { default as IconCodeStroked } from './IconCodeStroked';
 export { default as IconCoinMoneyStroked } from './IconCoinMoneyStroked';
 export { default as IconColorPalette } from './IconColorPalette';
 export { default as IconColumnsStroked } from './IconColumnsStroked';
-export { default as IconColumusStroked } from './IconColumusStroked';
 export { default as IconCommand } from './IconCommand';
 export { default as IconComment } from './IconComment';
 export { default as IconCommentStroked } from './IconCommentStroked';

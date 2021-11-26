@@ -30,7 +30,7 @@ import { Pagination } from '@douyinfe/semi-ui';
         <Pagination total={200} style={{ marginBottom: 12 }}></Pagination>
         <Pagination total={80} pageSize={30} style={{ marginBottom: 12 }}></Pagination>
     </div>
-)
+);
 ```
 
 ### 总页数显示
@@ -46,7 +46,7 @@ import { Pagination } from '@douyinfe/semi-ui';
         <Pagination total={80} showTotal style={{ marginBottom: 12 }}></Pagination>
         <Pagination total={200} showTotal style={{ marginBottom: 12 }}></Pagination>
     </div>
-)
+);
 ```
 
 ### 指定当前页码
@@ -61,7 +61,7 @@ import { Pagination } from '@douyinfe/semi-ui';
     <div>
         <Pagination total={80} showTotal defaultCurrentPage={3}></Pagination>
     </div>
-)
+);
 ```
 
 ### 每页容量切换
@@ -77,7 +77,7 @@ import { Pagination } from '@douyinfe/semi-ui';
         <Pagination total={80} showSizeChanger style={{ marginBottom: 12 }}></Pagination>
         <Pagination total={300} showSizeChanger></Pagination>
     </div>
-)
+);
 ```
 
 ### 快速跳转至某页
@@ -95,7 +95,7 @@ import { Pagination } from '@douyinfe/semi-ui';
         <Pagination total={80} showQuickJumper style={{ marginBottom: 12 }}></Pagination>
         <Pagination total={300} showQuickJumper></Pagination>
     </div>
-)
+);
 ```
 ### 页码受控
 
@@ -117,7 +117,7 @@ import { Pagination } from '@douyinfe/semi-ui';
             onPageChange={onPageChange}>
         </Pagination>
     );
-}
+};
 ```
 
 ### 预设每页容量可选值
@@ -142,7 +142,7 @@ import { Pagination } from '@douyinfe/semi-ui';
             pageSizeOpts={[10, 20, 50, 200]}>
         </Pagination>
     </div>
-)
+);
 ```
 
 ### 迷你版本
@@ -155,7 +155,7 @@ import { Pagination } from '@douyinfe/semi-ui';
 
 () => (
     <Pagination total={90} size="small"></Pagination>
-)
+);
 ```
 
 开启 hoverShowPageSelect，可以 hover 页码快速切换（v1.27.0后提供）
@@ -166,7 +166,7 @@ import { Pagination } from '@douyinfe/semi-ui';
 
 () => (
     <Pagination total={90} size="small" hoverShowPageSelect></Pagination>
-)
+);
 
 ```
 ## API 参考

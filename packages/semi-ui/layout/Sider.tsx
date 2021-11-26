@@ -67,7 +67,7 @@ class Sider extends React.PureComponent<SiderProps> {
 
     componentDidMount(): void {
         const { breakpoint } = this.props;
-        const matchBpt: Array<keyof ResponsiveMap> = Object.keys(responsiveMap).filter((item: keyof ResponsiveMap) => breakpoint && breakpoint.indexOf(item) !== -1) as any;
+        const matchBpt: Array<keyof ResponsiveMap> = (Object.keys(responsiveMap) as (keyof ResponsiveMap)[]).filter((item) => breakpoint && breakpoint.indexOf(item) !== -1) as any;
         const unRegisters = matchBpt.map(screen => registerMediaQuery(responsiveMap[screen], {
             match: () => {
                 this.responsiveHandler(screen, true);

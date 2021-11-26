@@ -30,6 +30,7 @@ import TagInput from '../tagInput';
 import { Motion } from '../_base/base';
 import { isSemiIcon } from '../_utils';
 
+export { CascaderType, ShowNextType } from '@douyinfe/semi-foundation/cascader/foundation';
 export { CascaderData, Entity, Data, CascaderItemProps } from './item';
 
 export interface ScrollPanelProps extends BasicScrollPanelProps {
@@ -389,7 +390,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                     const formatValuePath: (string | number)[][] = [];
                     normallizedValue.forEach((valueItem: SimpleValueType[]) => {
                         const formatItem: (string | number)[] = onChangeWithObject ?
-                            valueItem.map((i: CascaderData) => i.value) :
+                            (valueItem as CascaderData[]).map(i => i.value) :
                             valueItem as (string | number)[];
                         formatValuePath.push(formatItem);
                     });
@@ -728,11 +729,17 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
     };
 
     renderCustomTrigger = () => {
-        const { disabled, triggerRender } = this.props;
-        const { selectedKeys, inputValue, inputPlaceHolder } = this.state;
+        const { disabled, triggerRender, multiple, autoMergeValue } = this.props;
+        const { selectedKeys, inputValue, inputPlaceHolder, mergedCheckedKeys, checkedKeys } = this.state;
+        let realValue;
+        if (multiple) {
+            realValue = autoMergeValue ? mergedCheckedKeys : checkedKeys;
+        } else {
+            realValue = [...selectedKeys][0];
+        }
         return (
             <Trigger
-                value={[...selectedKeys][0]}
+                value={realValue}
                 inputValue={inputValue}
                 onChange={this.handleInputChange}
                 onClear={this.handleClear}

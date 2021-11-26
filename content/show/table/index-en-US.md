@@ -2140,7 +2140,7 @@ const ChildrenDataSelectedDemo = () => {
             pagination={false}
         />
     );
-}
+};
 
 render(ChildrenDataSelectedDemo);
 ```
@@ -4488,28 +4488,33 @@ function App() {
 > Also in `column.onCell` `column.onHeaderCell` Properties or events supported by td / th can also be returned.
 
 ```jsx noInline=true
-<Table
-    onRow={(record, index) => {
-        return {
-            onClick: event => {},
-            onMouseEnter: event => {},
-            onMouseLeave: event => {},
-            className: '',
+import React from 'react';
+import { Table } from '@douyinfe/semi-ui';
+
+() => (
+    <Table
+        onRow={(record, index) => {
+            return {
+                onClick: event => {},
+                onMouseEnter: event => {},
+                onMouseLeave: event => {},
+                className: '',
             // ...
             // Other attributes or events that can be applied to tr
-        };
-    }}
-    onHeaderRow={(columns, index) => {
-        return {
-            onClick: event => {},
-            onMouseEnter: event => {},
-            onMouseLeave: event => {},
-            className: '',
+            };
+        }}
+        onHeaderRow={(columns, index) => {
+            return {
+                onClick: event => {},
+                onMouseEnter: event => {},
+                onMouseLeave: event => {},
+                className: '',
             // ...
             // Other attributes or events that can be applied to th
-        };
-    }}
-/>
+            };
+        }}
+    />
+);
 ```
 
 ## Column
@@ -4649,9 +4654,10 @@ function Demo() {
 ## FAQ
 - **Why is the table data not updated?**  
     At present, all parameters of the table component are shallow comparison. That is to say, if the parameter value type is an array or object, you need to manually change its reference to trigger the update. Similarly, if you don't want to trigger additional updates, try not to use literal values when passing parameters directly or define reference parameter values in the render process:
-    ```jsx
+    ```text
     // ...render() {
-        <Table dataSource={[/*...*/]} columns={[/*...*/]} />}
+        <Table dataSource={[/*...*/]} columns={[/*...*/]} />
+    // }
     ```
     The above writing method will trigger the update of data in the table every time render (the current selected row will be cleared and the row key array will be expanded, etc.). In order to improve performance and avoid some exceptions, please define some reference type parameters outside the render method as far as possible (if hooks are used, please use useMemo or useState for storage).**
 

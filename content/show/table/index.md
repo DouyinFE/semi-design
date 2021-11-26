@@ -2139,7 +2139,7 @@ const ChildrenDataSelectedDemo = () => {
             pagination={false}
         />
     );
-}
+};
 
 render(ChildrenDataSelectedDemo);
 ```
@@ -2311,7 +2311,6 @@ function App() {
                     </div>
                 );
             }
-
         },
         {
             title: '更新日期',
@@ -2949,7 +2948,7 @@ function Demo() {
                         // onMouseLeave: () => {
                         //     console.log(`Grouped row mouse leave: `, group, index);
                         // },
-                        onClick: e => { console.log(`Grouped row clicked: `, group, index) }
+                        onClick: e => { console.log(`Grouped row clicked: `, group, index); }
                     };
                 }}
                 clickGroupedRowToExpand // if you want to click the entire row to expand
@@ -3561,7 +3560,7 @@ class App extends React.Component {
 
             this.setState({ columns });
 
-            if(!checked) {
+            if (!checked) {
                 this.setPage(null, null, []);
             }
         };
@@ -4501,28 +4500,33 @@ function App() {
 `onRow` 中可以返回 tr 支持的属性或者事件
 
 ```jsx
-<Table
-    onRow={(record, index) => {
-        return {
-            onClick: event => {}, // 点击行
-            onMouseEnter: event => {}, // 鼠标移入行
-            onMouseLeave: event => {}, // 鼠标移出行
-            className: '',
-            // ...
-            // 其他可以作用于 tr 的属性或事件
-        };
-    }}
-    onHeaderRow={(columns, index) => {
-        return {
-            onClick: event => {}, // 点击表头行
-            onMouseEnter: event => {}, // 鼠标移入表头行
-            onMouseLeave: event => {}, // 鼠标移出表头行
-            className: '',
-            // ...
-            // 其他可以作用于 th 的属性或事件
-        };
-    }}
-/>
+import React from 'react';
+import { Table } from '@douyinfe/semi-ui';
+
+() => (
+    <Table
+        onRow={(record, index) => {
+            return {
+                onClick: event => {}, // 点击行
+                onMouseEnter: event => {}, // 鼠标移入行
+                onMouseLeave: event => {}, // 鼠标移出行
+                className: '',
+                // ...
+                // 其他可以作用于 tr 的属性或事件
+            };
+        }}
+        onHeaderRow={(columns, index) => {
+            return {
+                onClick: event => {}, // 点击表头行
+                onMouseEnter: event => {}, // 鼠标移入表头行
+                onMouseLeave: event => {}, // 鼠标移出表头行
+                className: '',
+                // ...
+                // 其他可以作用于 th 的属性或事件
+            };
+        }}
+    />
+);
 ```
 
 ## Column
@@ -4666,7 +4670,7 @@ function Demo() {
 
 - **表格数据为何没有更新？**  
     Table 组件目前所有参数都为浅层对比，也就是说如果该参数值类型为一个 Array 或者 Object，你需要手动改变其引用才能触发更新。同理，如果你不想触发额外更新，尽量不要直接在传参的时候使用字面量或是在 render 过程中定义引用型参数值：
-    ```jsx
+    ```text
     // ...render() {
         <Table dataSource={[/*...*/]} columns={[/*...*/]} />}
     ```

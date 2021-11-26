@@ -26,7 +26,7 @@ import { Radio } from '@douyinfe/semi-ui';
 
 () => (
     <Radio>Radio</Radio>
-)
+);
 ```
 
 ### 带辅助文本
@@ -43,7 +43,7 @@ import { Radio } from '@douyinfe/semi-ui';
     <Radio extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统">
         Semi Design
     </Radio>
-)
+);
 ```
 
 ### 禁用
@@ -74,8 +74,8 @@ import { Radio, Button } from '@douyinfe/semi-ui';
                 </Button>
             </div>
         </div>
-    )
-}
+    );
+};
 ```
 
 ### 高级模式
@@ -100,8 +100,8 @@ import { Radio } from '@douyinfe/semi-ui';
         >
             允许取消选择
         </Radio>
-    )
-}
+    );
+};
 ```
 
 ### 单选组合
@@ -117,7 +117,7 @@ import { RadioGroup, Radio } from '@douyinfe/semi-ui';
     const onChange = (e) => {
         console.log('radio checked', e.target.value);
         setValue(e.target.value);
-    } 
+    }; 
     return (
         <RadioGroup onChange={onChange} value={value}>
             <Radio value={1}>A</Radio>
@@ -126,7 +126,7 @@ import { RadioGroup, Radio } from '@douyinfe/semi-ui';
             <Radio value={4}>D</Radio>
         </RadioGroup>
     );
-}
+};
 ```
 
 ### 垂直排列
@@ -144,7 +144,7 @@ import { RadioGroup, Radio } from '@douyinfe/semi-ui';
         <Radio value={3}>C</Radio>
         <Radio value={4}>D</Radio>
     </RadioGroup>
-)
+);
 ```
 
 ### 按钮样式
@@ -178,8 +178,8 @@ import { RadioGroup, Radio, Space } from '@douyinfe/semi-ui';
                 <Radio value={3}>动态推送</Radio>
             </RadioGroup>
         </Space>
-    )
-}
+    );
+};
 ```
 
 ### 卡片样式
@@ -323,7 +323,7 @@ class App extends React.Component {
 | extra          | 副文本，只对type='default'生效<br/>**v0.25.0 后提供**                     | ReactNode         | -      |
 | mode           | 高级和普通模式，高级模式可以在 checked 时点击变成 unchecked，可选值 advanced   | string            | -      |
 | style          | 内联样式                                                                 | CSSProperties    |        |
-| value          | 根据 value 进行比较，判断是否选中                                          | any               | -      |
+| value          | 根据 value 进行比较，判断是否选中                                          | string \| number               | -      |
 | onChange       | 选项变化时的回调函数                                                      | function(e:Event) | -      |
 | onMouseEnter   | 鼠标移入选项时的回调函数                                                   | function(e:Event) | -      |
 | onMouseLeave   | 鼠标移出选项时的回调函数                                                   | function(e:Event) | -      |
@@ -335,14 +335,14 @@ class App extends React.Component {
 | ------------ | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------ |
 |buttonSize|type='button'的radio的尺寸大小，可选值为：`small`、`middle`、`large` <br/>**v1.26.0 后提供** |string|`middle`|
 | className    | 样式类名                                                                                    | string                                                                    |              |
-| defaultValue | 默认选中的值                                                                                | any                                                                       | -            |
+| defaultValue | 默认选中的值                                                                                | string \| number                                                                       | -            |
 | direction    | radio 排列方向, 只对type='default'生效，可选值`horizontal`、`vertical` <br/>**v0.31.0 后提供**                      | string                                                                    | `horizontal` |
 | disabled     | 禁选所有子单选器                                                                            | boolean                                                                   | false        |
 | mode         | 高级和普通模式，可以在 checked 时点击变成 unchecked，可选值 advanced <br/>**v1.9.0 后提供** | string                                                                    | -            |
 | name         | RadioGroup 下所有 `input[type="radio"]` 的 `name` 属性                                      | string                                                                    | -            |
 | options      | 以配置形式设置子元素                                                                        | Array | -            |
 | style        | 内联样式                                                                                    | CSSProperties                                                                    |              |
-| value        | 用于设置当前选中的值                                                                        | any                                                                       | -            |
+| value        | 用于设置当前选中的值                                                                        | string \| number                                                                       | -            |
 |type|设置所有radio的样式类型，可选值为：`default`、`button`、`card`、`pureCard` <br/>**该 api 在 v1.26.0 后提供，其中 card 和 pureCard 在 v1.30.0 后提供**    |string|`default`|
 | onChange     | 选项变化时的回调函数                                                                        | function(e:Event)                                                         | -            |
 

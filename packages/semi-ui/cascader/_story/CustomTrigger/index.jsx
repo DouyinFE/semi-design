@@ -46,12 +46,18 @@ export default function Demo() {
             ],
         },
     ];
-    return (
+    return ( 
         <Cascader
             style={{ width: 300, display: 'inline-block' }}
             treeData={treeData}
             placeholder="请选择所在地区"
-            triggerRender={({ value, placeholder }) => <Button block>{value && value[0] && value[0].displayText || placeholder}</Button>}
+            multiple
+            autoMergeValue={false}
+            triggerRender={triggerRenderProps => {
+                const { value, placeholder } = triggerRenderProps;
+                console.log(value);
+                return <Button block>{value && value[0] && value[0].displayText || placeholder}</Button>;
+            }}
         />
     );
 }

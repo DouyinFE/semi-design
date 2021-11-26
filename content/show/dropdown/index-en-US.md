@@ -136,7 +136,7 @@ function Demo() {
                 visible
                 render={
                     <Dropdown.Menu>
-                        <Dropdown.Item icon={<Icon type="box" />} active>
+                        <Dropdown.Item icon={<IconBox />} active>
                             Menu Item 1
                         </Dropdown.Item>
                         <Dropdown.Item icon={<IconSetting />}>Menu Item 2</Dropdown.Item>

@@ -28,10 +28,10 @@ function Demo(props = {}) {
     const defaultTimestamp = 1581599305265;
     const gmtList = useMemo(() => {
         const list = [];
-        for(let hourOffset = -11; hourOffset <= 14 ; hourOffset++) {
+        for (let hourOffset = -11; hourOffset <= 14 ; hourOffset++) {
             const prefix = hourOffset >= 0 ? '+' : '-';
             const hOffset = Math.abs(parseInt(hourOffset, 10));
-            list.push(`GMT${prefix}${String(hOffset).padStart(2, '0')}:00`)
+            list.push(`GMT${prefix}${String(hOffset).padStart(2, '0')}:00`);
         }
         return list;
     }, []);
@@ -75,7 +75,7 @@ Special components:
 
 ```jsx live=true dir="column" hideInDSM
 import React, { useState } from 'react';
-import { ConfigProvider, ButtonGroup, Button, Row, Col, Spin, Notification, DatePicker, TimePicker, Timeline, Popover, Tag, Tooltip, Badge, Avatar, Steps, Pagination, Modal, Breadcrumb, Rating, Nav, Spin, Cascader, Radio, Select, Input, Typography, TextArea, Checkbox, Switch } from '@douyinfe/semi-ui';
+import { ConfigProvider, ButtonGroup, Button, Row, Col, Notification, DatePicker, TimePicker, Timeline, Popover, Tag, Tooltip, Badge, Avatar, Steps, Pagination, Modal, Breadcrumb, Rating, Nav, Spin, Cascader, Radio, Select, Input, Typography, TextArea, Checkbox, Switch } from '@douyinfe/semi-ui';
 import { IconVigoLogo, IconEdit, IconCamera, IconList, IconSidebar, IconChevronDown } from '@douyinfe/semi-icons';
 import en_GB from '@douyinfe/semi-ui/locale/source/en_GB';
 
@@ -86,56 +86,56 @@ function Demo(props = {}) {
     const titleStyle = {margin: '50px 0 16px 0'};
     const rowStyle = {margin: '16px 10px'};
     const badgeStyle = {
-      width: '42px',
-      height: '42px',
-      borderRadius: '4px',
-      display: 'inline-block',
+        width: '42px',
+        height: '42px',
+        borderRadius: '4px',
+        display: 'inline-block',
     };
     const tagStyle = {marginRight: 8, marginBottom: 8};
     const buttonStyle = {...tagStyle};
     const opts = {
-      title: 'Hi,Bytedance',
-      content: 'ies dance dance dance',
-      duration: 3,
-      direction,
+        title: 'Hi,Bytedance',
+        content: 'ies dance dance dance',
+        duration: 3,
+        direction,
     };
     const treeData = [
         {
-          label: 'Zhejiang',
-          value: 'zhejiang',
-          children: [
-              {
-                  label: 'Hangzhou',
-                  value: 'hangzhou',
-                  children: [
-                      {
-                          label: 'Xihu',
-                          value: 'xihu',
-                      },
-                      {
-                          label: 'Xianhan',
-                          value: 'xiaoshan',
-                      },
-                      {
-                          label: 'Lin’an',
-                          value: 'linan',
-                      },
-                  ],
-              },
-              {
-                  label: 'Ningbo',
-                  value: 'ningbo',
-                  children: [
-                      {
-                          label: 'Haishu',
-                          value: 'haishu',
-                      },
-                      {
-                          label: 'Jiangbei',
-                          value: 'jiangbei',
-                      }
-                  ]
-              },
+            label: 'Zhejiang',
+            value: 'zhejiang',
+            children: [
+                {
+                    label: 'Hangzhou',
+                    value: 'hangzhou',
+                    children: [
+                        {
+                            label: 'Xihu',
+                            value: 'xihu',
+                        },
+                        {
+                            label: 'Xianhan',
+                            value: 'xiaoshan',
+                        },
+                        {
+                            label: 'Lin’an',
+                            value: 'linan',
+                        },
+                    ],
+                },
+                {
+                    label: 'Ningbo',
+                    value: 'ningbo',
+                    children: [
+                        {
+                            label: 'Haishu',
+                            value: 'haishu',
+                        },
+                        {
+                            label: 'Jiangbei',
+                            value: 'jiangbei',
+                        }
+                    ]
+                },
             ],
         }
     ];
@@ -149,79 +149,79 @@ function Demo(props = {}) {
                 </ButtonGroup>
             </div>
             <ConfigProvider direction={direction} locale={en_GB}>
-            <Row>
-                <h3 style={titleStyle}>Buttons</h3>
-            </Row>
-            <Row style={rowStyle}>
-                <Button loading={true} theme="solid" style={{ marginRight: 8 }}>Loading</Button>
-                <Button icon={<IconSidebar />} theme="solid" style={{ marginRight: 8 }}>Collapsing</Button>
-                <Button icon={<IconChevronDown />} theme="solid" iconPosition={"right"} style={{ marginRight: 8 }}>Expand options</Button >
-                <br/><br/>
-                <ButtonGroup>
-                  <Button>Copy</Button>
-                  <Button>Query</Button>
-                  <Button>Cut</Button>
-                </ButtonGroup>
-            </Row>
-            <Row>
-                <h3 style={titleStyle}>Input</h3>
-            </Row>
-            <Row style={rowStyle} gutter={16}>
-                <Col span={12}>
-                    <Input placeholder='Input something'></Input>
+                <Row>
+                    <h3 style={titleStyle}>Buttons</h3>
+                </Row>
+                <Row style={rowStyle}>
+                    <Button loading={true} theme="solid" style={{ marginRight: 8 }}>Loading</Button>
+                    <Button icon={<IconSidebar />} theme="solid" style={{ marginRight: 8 }}>Collapsing</Button>
+                    <Button icon={<IconChevronDown />} theme="solid" iconPosition={"right"} style={{ marginRight: 8 }}>Expand options</Button >
                     <br/><br/>
-                    <Input disabled placeholder='Input something'></Input>
-                    <br/><br/>
-                    <Input prefix="Prefix" showClear></Input>
-                    <br/><br/>
-                    <Input suffix={<Typography.Text strong type='secondary' style={{margin: '0 8px'}}>Suffix</Typography.Text>} showClear></Input>
-                    <br/><br/>
-                    <TextArea placeholder="Input something" maxCount={100} />
-                    <br/><br/>
-                    <div style={flexStyle}>
-                        <Switch style={{marginRight: 8}} defaultChecked={true}></Switch>
-                        <Switch style={{marginRight: 8}}></Switch>
-                        <Switch disabled defaultChecked={true} style={{marginRight: 8}}></Switch>
-                    </div>
-                    <div style={flexStyle}>
-                        <Checkbox style={{marginRight: 8}} defaultChecked>Checkbox</Checkbox>
-                        <Checkbox style={{marginRight: 8}} disabled defaultChecked>Disabled Checkbox</Checkbox>
-                        <Checkbox style={{marginRight: 8}} disabled>Disabled Checkbox</Checkbox>
-                    </div>
-                    <div style={{...flexStyle, marginBottom: 0}}>
-                        <Radio style={{marginRight: 8}} defaultChecked>Radio</Radio>
-                        <Radio style={{marginRight: 8}} disabled defaultChecked>Disabled Radio</Radio>
-                        <Radio style={{marginRight: 8}} disabled>Disabled Radio</Radio>
-                    </div>
-                </Col>
-                <Col span={12}>
-                    <DatePicker onChange={(date, dateString) => console.log(dateString)} style={{width: '100%'}}/>
-                    <br/><br/>
-                    <TimePicker style={{width: '100%'}} />
-                    <br/><br/>
-                    <Select style={{ width: '100%' }} placeholder="Select-single">
-                      <Option value='abc'>Semi</Option>
-                      <Option value='hotsoon'>Hotsoon</Option>
-                      <Option value='pipixia' disabled>Pipixia</Option>
-                      <Option value='xigua'>Xigua</Option>
-                    </Select>
-                    <br/><br/>
-                    <Select disabled style={{ width: '100%' }} placeholder="Select-disabled">
-                      <Option value='abc'>Semi</Option>
-                      <Option value='hotsoon'>Hotsoon</Option>
-                      <Option value='pipixia' disabled>Pipixia</Option>
-                      <Option value='xigua'>Xigua</Option>
-                    </Select>
-                    <br/><br/>
-                    <Select multiple style={{ width: '100%' }} placeholder="Select-mutiple">
-                      <Option value='abc'>Semi</Option>
-                      <Option value='hotsoon'>Hotsoon</Option>
-                      <Option value='pipixia' disabled>Pipixia</Option>
-                      <Option value='xigua'>Xigua</Option>
-                    </Select>
-                    <br/><br/>
-                    <Cascader style={{ width: '100%' }} treeData={treeData} placeholder="Cascader"/>
-                  </Col>
+                    <ButtonGroup>
+                        <Button>Copy</Button>
+                        <Button>Query</Button>
+                        <Button>Cut</Button>
+                    </ButtonGroup>
+                </Row>
+                <Row>
+                    <h3 style={titleStyle}>Input</h3>
+                </Row>
+                <Row style={rowStyle} gutter={16}>
+                    <Col span={12}>
+                        <Input placeholder='Input something'></Input>
+                        <br/><br/>
+                        <Input disabled placeholder='Input something'></Input>
+                        <br/><br/>
+                        <Input prefix="Prefix" showClear></Input>
+                        <br/><br/>
+                        <Input suffix={<Typography.Text strong type='secondary' style={{margin: '0 8px'}}>Suffix</Typography.Text>} showClear></Input>
+                        <br/><br/>
+                        <TextArea placeholder="Input something" maxCount={100} />
+                        <br/><br/>
+                        <div style={flexStyle}>
+                            <Switch style={{marginRight: 8}} defaultChecked={true}></Switch>
+                            <Switch style={{marginRight: 8}}></Switch>
+                            <Switch disabled defaultChecked={true} style={{marginRight: 8}}></Switch>
+                        </div>
+                        <div style={flexStyle}>
+                            <Checkbox style={{marginRight: 8}} defaultChecked>Checkbox</Checkbox>
+                            <Checkbox style={{marginRight: 8}} disabled defaultChecked>Disabled Checkbox</Checkbox>
+                            <Checkbox style={{marginRight: 8}} disabled>Disabled Checkbox</Checkbox>
+                        </div>
+                        <div style={{...flexStyle, marginBottom: 0}}>
+                            <Radio style={{marginRight: 8}} defaultChecked>Radio</Radio>
+                            <Radio style={{marginRight: 8}} disabled defaultChecked>Disabled Radio</Radio>
+                            <Radio style={{marginRight: 8}} disabled>Disabled Radio</Radio>
+                        </div>
+                    </Col>
+                    <Col span={12}>
+                        <DatePicker onChange={(date, dateString) => console.log(dateString)} style={{width: '100%'}}/>
+                        <br/><br/>
+                        <TimePicker style={{width: '100%'}} />
+                        <br/><br/>
+                        <Select style={{ width: '100%' }} placeholder="Select-single">
+                            <Option value='abc'>Semi</Option>
+                            <Option value='hotsoon'>Hotsoon</Option>
+                            <Option value='pipixia' disabled>Pipixia</Option>
+                            <Option value='xigua'>Xigua</Option>
+                        </Select>
+                        <br/><br/>
+                        <Select disabled style={{ width: '100%' }} placeholder="Select-disabled">
+                            <Option value='abc'>Semi</Option>
+                            <Option value='hotsoon'>Hotsoon</Option>
+                            <Option value='pipixia' disabled>Pipixia</Option>
+                            <Option value='xigua'>Xigua</Option>
+                        </Select>
+                        <br/><br/>
+                        <Select multiple style={{ width: '100%' }} placeholder="Select-mutiple">
+                            <Option value='abc'>Semi</Option>
+                            <Option value='hotsoon'>Hotsoon</Option>
+                            <Option value='pipixia' disabled>Pipixia</Option>
+                            <Option value='xigua'>Xigua</Option>
+                        </Select>
+                        <br/><br/>
+                        <Cascader style={{ width: '100%' }} treeData={treeData} placeholder="Cascader"/>
+                    </Col>
                 </Row>
                 <Row>
                     <h3 style={titleStyle}>Navigation</h3>
@@ -267,37 +267,37 @@ function Demo(props = {}) {
                     <h3 style={titleStyle}>Display</h3>
                 </Row>
                 <Row style={rowStyle}>
-                   <div style={{ display: 'flex' }}>
-                      <div style={{ padding: 8 }}>
-                          <Badge count={5} theme='solid' >
-                              <Avatar color='blue' shape='square' style={badgeStyle}>XZ</Avatar>
-                          </Badge>
-                      </div>
-                      <div style={{ padding: 8 }}>
-                          <Badge count={5} theme='light' >
-                              <Avatar color='cyan' shape='square' style={badgeStyle}>YB</Avatar>
-                          </Badge>
-                      </div>
-                      <div style={{ padding: 8 }}>
-                          <Badge count={5} theme='inverted'>
-                              <Avatar color='indigo' shape='square' style={badgeStyle}>LX</Avatar>
-                          </Badge>
-                      </div>
-                      <div style={{ padding: 8 }}>
-                          <Badge dot theme='solid' >
-                              <Avatar color='light-blue' shape='square' style={badgeStyle}>YZ</Avatar>
-                          </Badge>
-                      </div>
-                      <div style={{ padding: 8 }}>
-                          <Badge dot theme='light' >
-                              <Avatar color='teal' shape='square' style={badgeStyle}>HW</Avatar>
-                          </Badge>
-                      </div>
-                      <div style={{ padding: '8px', borderRadius: '4px', backgroundColor: 'var(--semi-color-fill-0)' }}>
-                          <Badge dot theme='inverted'>
-                              <Avatar color='green' shape='square' style={badgeStyle}>XM</Avatar>
-                          </Badge>
-                      </div>
+                    <div style={{ display: 'flex' }}>
+                        <div style={{ padding: 8 }}>
+                            <Badge count={5} theme='solid' >
+                                <Avatar color='blue' shape='square' style={badgeStyle}>XZ</Avatar>
+                            </Badge>
+                        </div>
+                        <div style={{ padding: 8 }}>
+                            <Badge count={5} theme='light' >
+                                <Avatar color='cyan' shape='square' style={badgeStyle}>YB</Avatar>
+                            </Badge>
+                        </div>
+                        <div style={{ padding: 8 }}>
+                            <Badge count={5} theme='inverted'>
+                                <Avatar color='indigo' shape='square' style={badgeStyle}>LX</Avatar>
+                            </Badge>
+                        </div>
+                        <div style={{ padding: 8 }}>
+                            <Badge dot theme='solid' >
+                                <Avatar color='light-blue' shape='square' style={badgeStyle}>YZ</Avatar>
+                            </Badge>
+                        </div>
+                        <div style={{ padding: 8 }}>
+                            <Badge dot theme='light' >
+                                <Avatar color='teal' shape='square' style={badgeStyle}>HW</Avatar>
+                            </Badge>
+                        </div>
+                        <div style={{ padding: '8px', borderRadius: '4px', backgroundColor: 'var(--semi-color-fill-0)' }}>
+                            <Badge dot theme='inverted'>
+                                <Avatar color='green' shape='square' style={badgeStyle}>XM</Avatar>
+                            </Badge>
+                        </div>
                     </div>
                     <br/>
                     <div>
@@ -314,11 +314,11 @@ function Demo(props = {}) {
                     </div>
                     <br/>
                     <div style={{display: 'flex', alignItems: 'center'}}>
-                      <Popover content={'hi semi-design'} style={{padding: 8}}><Tag style={{marginRight: 8}}>I am Popover</Tag></Popover>
-                      <Tooltip content={'hi semi-design'}>
-                          <Tag style={{marginRight: 8}}>I am Tooltip</Tag>
-                      </Tooltip>
-                      <Rating defaultValue={3} size='small' style={{marginRight: 8}} />
+                        <Popover content={'hi semi-design'} style={{padding: 8}}><Tag style={{marginRight: 8}}>I am Popover</Tag></Popover>
+                        <Tooltip content={'hi semi-design'}>
+                            <Tag style={{marginRight: 8}}>I am Tooltip</Tag>
+                        </Tooltip>
+                        <Rating defaultValue={3} size='small' style={{marginRight: 8}} />
                     </div>
                     <br/>
                     <Timeline>
@@ -358,7 +358,7 @@ function Demo(props = {}) {
                     <Button onClick={() => Toast.info(opts)} style={buttonStyle}>Toast of prompt information</Button>
                     <Button type="warning" onClick={() => Toast.warning(opts)} style={buttonStyle}>Toast of waning information</Button>
                     <Button type="danger" onClick={() => Toast.error(opts)} style={buttonStyle}>Toast of failure information</Button>
-                     <br/><br/>
+                    <br/><br/>
                     <Spin tip='I am loading...'>
                         <div style={{
                             backgroundColor: 'var(--semi-color-primary-light-default',
