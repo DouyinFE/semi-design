@@ -9,12 +9,12 @@ export interface Options {
     isMin?: boolean,
 }
 
-const compile = (foundationPath: string, themePath: string, outputPath: string, {isMin = false}: Options = {}) => {
+const compile = (foundationPath: string, themePath: string, outputPath: string, { isMin = false }: Options = {}) => {
     const scssMap = generateScssMap(foundationPath, themePath);
-    const tempDir = writeFile(scssMap)
+    const tempDir = writeFile(scssMap);
     const result = compilerFromScssMap(path.join(tempDir, 'index.scss'), isMin);
     fs.outputFileSync(outputPath, result.css);
-}
+};
 
 
 export {
