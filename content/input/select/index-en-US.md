@@ -165,10 +165,10 @@ import { Select } from '@douyinfe/semi-ui';
     ];
     return (
         <Select placeholder="" style={{ width: 180 }} filter>
-            {data.map(group => (
-                <Select.OptGroup label={group.label} key={group.label}>
-                    {group.children.map(option => (
-                        <Select.Option key={option.value} value={option.value}>
+            {data.map((group, index) => (
+                <Select.OptGroup label={group.label} key={`${index}-${group.label}`}>
+                    {group.children.map((option, index2) => (
+                        <Select.Option value={option.value} key={`${index2}-${group.label}`}>
                             {option.label}
                         </Select.Option>
                     ))}
@@ -713,32 +713,24 @@ But you can customize the rendering of the selection box through the `renderSele
 import React from 'react';
 import { Select, Avatar, Tag } from '@douyinfe/semi-ui';
 
-class CustomRender extends React.Component {
+() => {
+    const list = [
+        { "name": "Keman Xia", "email": "xiakeman@example.com", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg" },
+        { "name": "Yue Shen", "email": "shenyue@example.com", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg" },
+        { "name": "Chenyi Qu", "email": "quchenyi@example.com", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/8bd8224511db085ed74fea37205aede5.jpg" },
+        { "name": "Jiamao Wen", "email": "wenjiamao@example.com", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/6fbafc2d-e3e6-4cff-a1e2-17709c680624.png" },
+    ]
 
-    constructor() {
-        super();
-        this.state = {
-            list: [
-                { "name": "XiaKeMan", "email": "xiakeman@example.com", "avatar":  "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"},
-                { "name": "ShenYue", "email": "shenyue@example.com", "avatar":  "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg"},
-                { "name": "QuChenYi", "email": "quchenyi@example.com", "avatar":  "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/8bd8224511db085ed74fea37205aede5.jpg"},
-                { "name": "WenJiaMao", "email": "wenjiamao@example.com", "avatar":  "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/6fbafc2d-e3e6-4cff-a1e2-17709c680624.png"},
-            ]
-        };
-    }
+    const renderSelectedItem = optionNode => (
+        <div key={optionNode.email} style={{ display: 'flex', alignItems: 'center' }}>
+            <Avatar src={optionNode.avatar} size="small">{optionNode.abbr}</Avatar>
+            <span style={{ marginLeft: 8 }}>{optionNode.email}</span>
+        </div>
+    )
 
-    renderSelectedItem(optionNode) {
-        return (
-            <div key={optionNode.email} style={{display: 'flex', alignItems: 'center'}}>
-                <Avatar src={optionNode.avatar} size="small">{optionNode.abbr}</Avatar>
-                <span style={{ marginLeft: 8 }}>{optionNode.email}</span>
-            </div>
-        );
-    }
-
-    // avatarSrc & avatarShape are supported after 1.6.0
-    renderMultipleWithCustomTag(optionNode, { onClose }) {
-        let content = (
+    // avatarSrc & avatarShape are supported after 1.6.0-beta
+    const renderMultipleWithCustomTag = (optionNode, { onClose }) => {
+        const content = (
             <Tag
                 avatarSrc={optionNode.avatar}
                 avatarShape='circle'
@@ -756,8 +748,8 @@ class CustomRender extends React.Component {
         };
     }
 
-    renderMultipleWithCustomTag2(optionNode, { onClose }) {
-        let content = (
+    const renderMultipleWithCustomTag2 = (optionNode, { onClose }) => {
+        const content = (
             <Tag
                 avatarSrc={optionNode.avatar}
                 avatarShape='square'
@@ -775,67 +767,60 @@ class CustomRender extends React.Component {
         };
     }
 
-    renderCustomOption(item) {
-        let optionStyle = {
+    const renderCustomOption = (item, index) => {
+        const optionStyle = {
             display: 'flex',
             paddingLeft: 24,
             paddingTop: 10,
             paddingBottom: 10
-        };
+        }
         return (
-            <Select.Option value={item.name} style={optionStyle} showTick={true}  {...item} key={item.email}>
+            <Select.Option key={index} value={item.name} style={optionStyle} showTick={true}  {...item} key={item.email}>
                 <Avatar size="small" src={item.avatar} />
                 <div style={{ marginLeft: 8 }}>
                     <div style={{ fontSize: 14 }}>{item.name}</div>
-                    <div style={{ color: 'var(--semi-color-text-2)', fontSize: 12, lineHeight: '16px', fontWeight: 'normal' }}>{item.email}</div>
+                    <div style={{ color: 'var(--color-text-2)', fontSize: 12, lineHeight: '16px', fontWeight: 'normal' }}>{item.email}</div>
                 </div>
             </Select.Option>
-        );
+        )
     }
 
-    render() {
-        const { list } = this.state;
-        return (
-            <React.Fragment>
-                <Select
-                    style={{ width: 280, height: 40 }}
-                    onChange={v=>console.log(v)}
-                    defaultValue={'XiaKeMan'}
-                    renderSelectedItem={this.renderSelectedItem}
-                >
-                    {
-                        list.map(item => this.renderCustomOption(item))
-                    }
-                </Select>
-                <Select
-                    maxTagCount={2}
-                    style={{width: 280, marginTop: 20}}
-                    onChange={v=>console.log(v)}
-                    defaultValue={['XiaKeMan', 'ShenYue']}
-                    multiple
-                    renderSelectedItem={this.renderMultipleWithCustomTag}
-                >
-                    {
-                        list.map(item => this.renderCustomOption(item))
-                    }
-                </Select>
-                <Select
-                    maxTagCount={2}
-                    style={{width: 280, marginTop: 20}}
-                    onChange={v=>console.log(v)}
-                    defaultValue={['XiaKeMan', 'ShenYue']}
-                    multiple
-                    renderSelectedItem={this.renderMultipleWithCustomTag2}
-                >
-                    {
-                        list.map(item => this.renderCustomOption(item))
-                    }
-                </Select>
-            </React.Fragment>
-        );
-    }
+    return (
+        <>
+            <Select
+                placeholder='Please select...'
+                style={{ width: 280, height: 40 }}
+                onChange={v => console.log(v)}
+                defaultValue={'Keman Xia'}
+                renderSelectedItem={renderSelectedItem}
+            >
+                {list.map((item, index) => renderCustomOption(item, index))}
+            </Select>
+            <Select
+                placeholder='Please select...'
+                maxTagCount={2}
+                style={{ width: 280, marginTop: 20 }}
+                onChange={v => console.log(v)}
+                defaultValue={['Keman Xia', 'Yue Shen']}
+                multiple
+                renderSelectedItem={renderMultipleWithCustomTag}
+            >
+                {list.map((item, index) => renderCustomOption(item, index))}
+            </Select>
+            <Select
+                placeholder='Please select...'
+                maxTagCount={2}
+                style={{ width: 280, marginTop: 20 }}
+                onChange={v => console.log(v)}
+                defaultValue={['Keman Xia', 'Yue Shen']}
+                multiple
+                renderSelectedItem={renderMultipleWithCustomTag2}
+            >
+                {list.map((item, index) => renderCustomOption(item, index))}
+            </Select>
+        </>
+    );
 }
-
 ```
 
 ### Custom pop-up layer style
