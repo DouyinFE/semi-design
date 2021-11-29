@@ -42,14 +42,22 @@ class Demo extends React.Component {
 
 > We do not recommend using the built file directly, as this will introduce all components in full and cannot be loaded on demand. But if there is indeed a need for non-construction scenarios, you can quote in the following ways
 
-Use script and link tags to import files directly in the browser, and use the global variable `SemiUI`
+Use script and link tags to import files directly in the browser, and use the global variable `SemiUI`、`SemiIcons`、`SemiIllustrations`
 
 1. Please make sure you have import `react` and `react-dom` in advance
 2. Import the JS file, the following example URL 2.0.0 is the version identifier, if you want to use a different version of Semi, just replace the corresponding value in version (note that the build file is only available after v1.3.0)
-    - min：`https://unpkg.com/@douyinfe/semi-ui@2.0.0/dist/umd/semi-ui-react.min.js`
-    - normal: `https://unpkg.com/@douyinfe/semi-ui@2.0.0/dist/umd/semi-ui-react.js`
+    - semi-ui min：`https://unpkg.com/@douyinfe/semi-ui@2.0.0/dist/umd/semi-ui-react.min.js`
+    - semi-ui normal: `https://unpkg.com/@douyinfe/semi-ui@2.0.0/dist/umd/semi-ui-react.js`
+
+
+    - semi-icons min: `https://unpkg.com/@douyinfe/semi-icons@latest/dist/umd/semi-icons.min.js`
+    - semi-icons normal: `https://unpkg.com/@douyinfe/semi-icons@latest/dist/umd/semi-icons.js`
+
+    - semi-illustrations min: `https://unpkg.com/@douyinfe/semi-illustrations@latest/dist/umd/semi-illustrations.min.js`
+    - semi-illustrations normal: `https://unpkg.com/@douyinfe/semi-illustrations@latest/dist/umd/semi-illustrations.js`
 3. Import the CSS style file of the Semi default theme
-   `https://unpkg.com/@douyinfe/semi-ui@2.0.0/dist/css/semi.css`  
+    - `https://unpkg.com/@douyinfe/semi-ui@2.0.0/dist/css/semi.css`
+    - `https://unpkg.com/@douyinfe/semi-icons@latest/dist/css/semi-icons.css`
 
 ```diff
 <!DOCTYPE html>
@@ -62,9 +70,13 @@ Use script and link tags to import files directly in the browser, and use the gl
 +       <script src="https://unpkg.com/@douyinfe/semi-ui@2.0.0/dist/umd/semi-ui-react.min.js"></script>
 +       <link rel="stylesheet" href="https://unpkg.com/@douyinfe/semi-ui@2.0.0/dist/css/semi.css">
 
++       <script src="https://unpkg.com/@douyinfe/semi-icons@latest/dist/umd/semi-icons.min.js"></script>
++       <link rel="stylesheet" href="https://unpkg.com/@douyinfe/semi-icons@latest/dist/css/semi-icons.css">
++       <script src="https://unpkg.com/@douyinfe/semi-illustrations@latest/dist/umd/semi-illustrations.min.js"></script>
+
     </head>
     <body>
-        <div id="root">1</div>
+        <div id="root"></div>
     </body>
 </html>
 ```
@@ -72,10 +84,14 @@ Use script and link tags to import files directly in the browser, and use the gl
 ```html
 <script type="text/babel">
     const { Input, Button, Toast, Icon, Form } = SemiUI;
+    const { IconHome } = SemiIcons;
+    const { IllustrationConstruction } = SemiIllustrations;
     ReactDOM.render(
     <div>
         <Button onClick={() => Toast.warning({ duration: 0, content: 'Semi Design' })}>test</Button>
         <Input defaultValue="semi" onChange={value => Toast.info('abc')}></Input>
+        <IconHome size="large" />
+        <IllustrationConstruction style={{width: 150, height: 150}} />
     </div>, document.getElementById("root"));
-</script>;
+</script>
 ```
