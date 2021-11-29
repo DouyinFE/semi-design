@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useCallback } from 'react';
-import { get, union, pullAll } from 'lodash-es';
+import { get, union, pullAll } from 'lodash';
 import { Table } from '@douyinfe/semi-ui';
 
 const childrenRecordName = 'children';
