@@ -3,7 +3,6 @@ const webpack = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
-const babelConfig = require('./babel.config');
 
 module.exports = function getWebpackConfig({ minimize }){
     return {
@@ -21,18 +20,6 @@ module.exports = function getWebpackConfig({ minimize }){
         },
         module: {
             rules: [
-                {
-                    test: /\.tsx?$/,
-                    include: [
-                        path.resolve(__dirname, 'src'),
-                    ],
-                    use: [
-                        {
-                            loader: 'babel-loader',
-                            options: babelConfig
-                        }
-                    ]
-                },
                 { 
                     test: /\.css$/, 
                     loaders: [

@@ -2,7 +2,6 @@ const path = require('path');
 const webpack = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
-const babelConfig = require('./babel.config');
 
 module.exports = function getWebpackConfig({ minimize }){
     return {
@@ -17,22 +16,6 @@ module.exports = function getWebpackConfig({ minimize }){
             path: path.join(__dirname, 'dist'),
             library: 'SemiIllustrations',
             libraryTarget: 'umd'
-        },
-        module: {
-            rules: [
-                {
-                    test: /\.tsx?$/,
-                    include: [
-                        path.resolve(__dirname, 'src'),
-                    ],
-                    use: [
-                        {
-                            loader: 'babel-loader',
-                            options: babelConfig
-                        }
-                    ]
-                }
-            ]
         },
         optimization: {
             minimize: !!minimize,

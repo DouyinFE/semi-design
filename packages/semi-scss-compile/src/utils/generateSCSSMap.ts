@@ -15,7 +15,7 @@ const generateComponentsScssMap = (foundationPath: string, iconPath: string) => 
             const scssFileList = fs.readdirSync(componentPath).filter((fileName) => fileName.endsWith('.scss'));
             scssFileList.forEach(scssFileName => {
                 let scssRaw = fs.readFileSync(path.join(componentPath, scssFileName), {encoding: 'utf-8'});
-                scssRaw = `\n\n//----${fileName}/${scssFileName} start-----\n` + scssRaw + `\n\n//----${fileName}/${scssFileName} end-----\n`
+                scssRaw = `\n\n//----${fileName}/${scssFileName} start-----\n` + scssRaw + `\n\n//----${fileName}/${scssFileName} end-----\n`;
                 lodash.set(componentScssMap, [fileName, scssFileName], scssRaw);
             });
         }
@@ -26,9 +26,9 @@ const generateComponentsScssMap = (foundationPath: string, iconPath: string) => 
     const scssFileList = fs.readdirSync(stylePath).filter((fileName) => fileName.endsWith('.scss'));
     scssFileList.forEach(scssFileName => {
         let scssRaw = fs.readFileSync(path.join(stylePath, scssFileName), {encoding: 'utf-8'});
-        scssRaw = `\n\n//----${stylePath}/${scssFileName} start-----\n` + scssRaw + `\n\n//----${stylePath}/${scssFileName} end-----\n`
+        scssRaw = `\n\n//----${stylePath}/${scssFileName} start-----\n` + scssRaw + `\n\n//----${stylePath}/${scssFileName} end-----\n`;
         lodash.set(componentScssMap, ['icons', scssFileName], scssRaw);
-    })
+    });
 
     return componentScssMap;
 };
@@ -51,16 +51,9 @@ const generateThemeScssMap = (themePath: string) => {
 
 const generateScssMap = (foundationPath: string, themePath: string, iconPath: string) => {
     return {
-<<<<<<< HEAD
-        components: generateComponentsScssMap(foundationPath),
-        theme: generateThemeScssMap(themePath)
-    };
-};
-=======
         components: generateComponentsScssMap(foundationPath, iconPath),
         theme: generateThemeScssMap(themePath),
-    }
-}
->>>>>>> feat: scss compile support new icon
+    };
+};
 
 export default generateScssMap;
