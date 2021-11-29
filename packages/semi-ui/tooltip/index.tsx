@@ -622,7 +622,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                 // Keep your own reference
                 (this.triggerEl as any).current = node;
                 // Call the original ref, if any
-                const { ref } = children as React.ComponentPropsWithRef<any>;
+                const { ref } = children as any;
                 // this.log('tooltip render() - get ref', ref);
                 if (typeof ref === 'function') {
                     ref(node);
