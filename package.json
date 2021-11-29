@@ -8,6 +8,7 @@
   ],
   "private": true,
   "scripts": {
+    "install:codesandbox": "npm i lerna && npm run bootstrap",
     "bootstrap": "lerna bootstrap",
     "docsite": "npm run develop",
     "pre-develop": "npm run scripts:changelog && node ./scripts/designToken.js ./static/designToken.json",
