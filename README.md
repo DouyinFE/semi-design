@@ -10,7 +10,7 @@
 <div align="center">
 
 [![NPM][npm-badge]][npm-url] [![FIGMA][figma-badge]][figma-url] [![LICENSE][license-badge]][license-url]
-[![CODECOV][codecov-badge]][codecov-url] [![Chromatic][chromatic-badge]][chromatic-url]
+[![BUILD-JS][build-js-badge]][build-js-url] [![BUILD-CSS][build-css-badge]][build-css-url] [![CODECOV][codecov-badge]][codecov-url] [![Chromatic][chromatic-badge]][chromatic-url]
 
 
 [npm-badge]: https://img.shields.io/npm/v/@douyinfe/semi-ui.svg
@@ -24,6 +24,11 @@
 [codecov-url]: https://app.codecov.io/gh/DouyinFE/semi-design
 [chromatic-badge]: https://img.shields.io/badge/test-chromatic-f52
 [chromatic-url]: https://www.chromatic.com/
+
+[build-js-badge]: https://img.badgesize.io/https:/unpkg.com/@douyinfe/semi-ui/dist/umd/semi-ui.min.js?label=semi.min.js&compression=gzip
+[build-js-url]: https://unpkg.com/browse/@douyinfe/semi-ui@2.1.1/dist/umd/semi-ui.min.js
+[build-css-badge]: https://img.badgesize.io/https:/unpkg.com/@douyinfe/semi-ui/dist/css/semi.min.css?label=semi.min.css&compression=gzip
+[build-css-url]: https://unpkg.com/browse/@douyinfe/semi-ui@2.1.1/dist/css/semi.min.css
 
 </div>
 
