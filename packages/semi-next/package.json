@@ -1,6 +1,6 @@
 {
     "name": "@douyinfe/semi-next",
-    "version": "2.1.1",
+    "version": "2.1.0-next.1",
     "description": "",
     "author": "伍浩威 <wuhaowei.whw@bytedance.com>",
     "homepage": "",
@@ -23,6 +23,6 @@
         "typescript": "^4"
     },
     "dependencies": {
-        "@douyinfe/semi-webpack-plugin": "2.1.1"
+        "@douyinfe/semi-webpack-plugin": "2.1.0-next.1"
     }
 }
