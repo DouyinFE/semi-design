@@ -4,7 +4,7 @@ import { set } from 'lodash';
 
 const lodash = { set };
 
-const generateComponentsScssMap = (foundationPath: string, iconPath: string) => {
+const generateComponentsScssMap = (foundationPath: string, iconPath?: string) => {
     const foundationComponentList = fs.readdirSync(foundationPath);
     const componentScssMap: { [componentName: string]: { [scssFileName: string]: string } } = {};
     foundationComponentList.forEach(fileName => {
@@ -14,21 +14,24 @@ const generateComponentsScssMap = (foundationPath: string, iconPath: string) => 
             const componentPath = fileAbsolutePath;
             const scssFileList = fs.readdirSync(componentPath).filter((fileName) => fileName.endsWith('.scss'));
             scssFileList.forEach(scssFileName => {
-                let scssRaw = fs.readFileSync(path.join(componentPath, scssFileName), {encoding: 'utf-8'});
+                let scssRaw = fs.readFileSync(path.join(componentPath, scssFileName), { encoding: 'utf-8' });
                 scssRaw = `\n\n//----${fileName}/${scssFileName} start-----\n` + scssRaw + `\n\n//----${fileName}/${scssFileName} end-----\n`;
                 lodash.set(componentScssMap, [fileName, scssFileName], scssRaw);
             });
         }
     });
 
-    //for react icon
-    const stylePath = path.join(iconPath, 'src', 'styles');
-    const scssFileList = fs.readdirSync(stylePath).filter((fileName) => fileName.endsWith('.scss'));
-    scssFileList.forEach(scssFileName => {
-        let scssRaw = fs.readFileSync(path.join(stylePath, scssFileName), {encoding: 'utf-8'});
-        scssRaw = `\n\n//----${stylePath}/${scssFileName} start-----\n` + scssRaw + `\n\n//----${stylePath}/${scssFileName} end-----\n`;
-        lodash.set(componentScssMap, ['icons', scssFileName], scssRaw);
-    });
+    if (iconPath) {
+        //for react icon
+        const stylePath = path.join(iconPath, 'src', 'styles');
+        const scssFileList = fs.readdirSync(stylePath).filter((fileName) => fileName.endsWith('.scss'));
+        scssFileList.forEach(scssFileName => {
+            let scssRaw = fs.readFileSync(path.join(stylePath, scssFileName), { encoding: 'utf-8' });
+            scssRaw = `\n\n//----${stylePath}/${scssFileName} start-----\n` + scssRaw + `\n\n//----${stylePath}/${scssFileName} end-----\n`;
+            lodash.set(componentScssMap, ['icons', scssFileName], scssRaw);
+        });
+    }
+
 
     return componentScssMap;
 };
