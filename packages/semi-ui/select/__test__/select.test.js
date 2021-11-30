@@ -1,5 +1,5 @@
 import { Select } from '../../index';
-import { noop } from 'lodash-es';
+import { noop } from 'lodash';
 const Option = Select.Option;
 const OptGroup = Select.OptGroup;
 import { IconClear, IconChevronDown } from '@douyinfe/semi-icons';

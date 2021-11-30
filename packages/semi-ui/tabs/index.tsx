@@ -6,7 +6,7 @@ import { cssClasses, strings } from '@douyinfe/semi-foundation/tabs/constants';
 import isNullOrUndefined from '@douyinfe/semi-foundation/utils/isNullOrUndefined';
 import getDataAttr from '@douyinfe/semi-foundation/utils/getDataAttr';
 import TabsFoundation, { TabsAdapter } from '@douyinfe/semi-foundation/tabs/foundation';
-import { isEqual, omit, pick } from 'lodash-es';
+import { isEqual, pick, omit } from 'lodash';
 import BaseComponent from '../_base/baseComponent';
 import '@douyinfe/semi-foundation/tabs/tabs.scss';
 

@@ -1,6 +1,6 @@
 {
   "name": "@douyinfe/semi-animation-react",
-  "version": "2.1.1",
+  "version": "2.1.0-next.1",
   "description": "motion library for semi-ui-react",
   "keywords": [
     "motion",
@@ -12,7 +12,7 @@
     "README.md"
   ],
   "license": "MIT",
-  "main": "lib/es/index.js",
+  "main": "lib/cjs/index.js",
   "module": "lib/es/index.js",
   "typings": "lib/es/index.d.ts",
   "repository": {
@@ -26,8 +26,8 @@
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.15.4",
-    "@douyinfe/semi-animation": "2.1.1",
-    "@douyinfe/semi-animation-styled": "2.1.1",
+    "@douyinfe/semi-animation": "2.1.0-next.1",
+    "@douyinfe/semi-animation-styled": "2.1.0-next.1",
     "classnames": "^2.2.6"
   },
   "peerDependencies": {

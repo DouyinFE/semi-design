@@ -6,8 +6,6 @@
 import React, { PureComponent, isValidElement, cloneElement, Children } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import '@douyinfe/semi-animation-styled';
-// eslint-disable-next-line @typescript-eslint/no-duplicate-imports
 import { types as styledTypes, loops, delays, speeds } from '@douyinfe/semi-animation-styled';
 import noop from './utils/noop';
 import invokeFns from './utils/invokeFns';

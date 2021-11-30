@@ -8,7 +8,7 @@ import Arrow from './Arrow';
 import '@douyinfe/semi-foundation/popover/popover.scss';
 import { BaseProps } from '../_base/baseComponent';
 import { Motion } from '../_base/base';
-import { noop } from 'lodash-es';
+import { noop } from 'lodash';
 
 export { ArrowProps } from './Arrow';
 declare interface ArrowStyle {

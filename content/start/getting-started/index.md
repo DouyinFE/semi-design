@@ -22,6 +22,8 @@ pnpm add @douyinfe/semi-ui
 
 ## 2、模块化方式使用组件
 
+在 Webpack、create-react-app 或 Vite 项目中使用时，无需进行任何编译项配置，直接使用即可。构建时所有相关资源均会按需打包。
+
 ```jsx
 import React, { Component } from 'react';
 import { Button, Toast } from '@douyinfe/semi-ui';
@@ -39,7 +41,49 @@ class Demo extends React.Component {
 
 > 推荐在项目中引入 [reset.css](https://www.npmjs.com/package/reset-css)，它可以避免引入浏览器自带的默认样式。
 
-## 3、UMD 方式使用组件
+## 3、在 Next.js 中使用
+
+当你在 Next.js 项目中使用时，需要搭配 Semi 提供的编译插件
+
+### Step1
+
+在项目根目录安装 `@douyinfe/semi-next` 。
+
+``` shell
+# 使用 npm
+npm i @douyinfe/semi-next --save-dev
+
+# 使用 yarn
+yarn add @douyinfe/semi-next --dev
+
+# 使用 pnpm
+pnpm add @douyinfe/semi-next --dev
+```
+
+### Step2
+
+在项目根目录创建 `next.config.js`，并进行配置。
+
+```js
+// next.config.js
+const semi = require('@douyinfe/semi-next').default({/* the extension options */});
+module.exports = semi({
+    // your custom Next.js configuration
+});
+```
+
+`@douyinfe/semi-next` 的[详细文档]()。
+
+### Step3
+
+在 `global.css` 中引入全量的 semi css。目前不支持按需引入。
+
+``` css
+/* styles/globals.css */
+@import '~@douyinfe/semi-ui/dist/css/semi.min.css';
+```
+
+## 4、UMD 方式使用组件
 
 > 我们并不推荐直接使用已构建文件，这样会全量引入所有组件，无法实现按需加载。但如果确实有非构建场景的需求，可以通过以下方式引用
 
@@ -93,5 +137,5 @@ class Demo extends React.Component {
         <IconHome size="large" />
         <IllustrationConstruction style={{width: 150, height: 150}} />
     </div>, document.getElementById("root"));
-</script>
+</script>;
 ```

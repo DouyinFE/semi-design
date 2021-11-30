@@ -1,6 +1,6 @@
 {
   "name": "@douyinfe/semi-scss-compile",
-  "version": "2.1.1",
+  "version": "2.1.0-next.1",
   "description": "compile semi scss to css",
   "author": "daiqiang@bytedance.com",
   "license": "MIT",
@@ -18,8 +18,8 @@
     "scss"
   ],
   "scripts": {
-    "build:lib": "tsc",
-    "prepublishOnly": "rm -rf lib && npm run build:lib"
+    "build:lib": "rimraf lib && tsc",
+    "prepublishOnly": "npm run build:lib"
   },
   "dependencies": {
     "arg": "^5.0.1",
@@ -30,6 +30,7 @@
   "devDependencies": {
     "@types/lodash": "^4.14.176",
     "@types/sass": "^1.43.0",
+    "rimraf": "^3.0.2",
     "typescript": "^4.4.4"
   }
 }
