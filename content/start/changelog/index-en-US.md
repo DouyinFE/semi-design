@@ -16,6 +16,10 @@ Version：Major.Minor.Patch
 
 ---
 
+#### 🎉 2.1.3 (2021-11-30)
+- 【Fix】
+  - Fix the bug of replacing source in ImportDeclaration during source code building
+  
 #### 🎉 2.1.2 (2021-11-30)
 - 【Feature】
   - Support Next.js [#153](https://github.com/DouyinFE/semi-design/issues/153)
