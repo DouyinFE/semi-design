@@ -16,11 +16,13 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 ---
 
 #### 🎉 2.1.2 (2021-11-30)
+- 【Feature】
+  - 支持 Next.js [#153](https://github.com/DouyinFE/semi-design/issues/153)
+  - 替换飞书Logo图标
 - 【Fix】
   - 修复 AutoComplete 的样式问题
   - 修复 InputNumber 在编辑器没有 API 语法提示问题 [#327](https://github.com/DouyinFE/semi-design/issues/327)
   - 修复 Input focus 时 hover 态边框颜色错误问题 [#332](https://github.com/DouyinFE/semi-design/issues/332)
-  - 替换飞书Logo图标
 
 #### 🎉 2.1.1 (2021-11-26)
 - 【Fix】

@@ -17,11 +17,13 @@ Version：Major.Minor.Patch
 ---
 
 #### 🎉 2.1.2 (2021-11-30)
+- 【Feature】
+  - Support Next.js [#153](https://github.com/DouyinFE/semi-design/issues/153)
+  - Replace Feishu Logo icon
 - 【Fix】
   - Fix the style problem of AutoComplete
   - Fixed the problem that InputNumber does not have API syntax hints in the editor [#327](https://github.com/DouyinFE/semi-design/issues/327)
   - Fix the wrong color of hover state border when Input focus [#332](https://github.com/DouyinFE/semi-design/issues/332)
-  - Replace Feishu Logo icon
 
 #### 🎉 2.1.1 (2021-11-26)
 - 【Fix】
