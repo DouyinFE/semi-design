@@ -1,6 +1,7 @@
 @import './variables.scss';
 
 $module: #{$prefix}-anchor;
+$test: red;
 
 .#{$module} {
     @include font-size-regular;
