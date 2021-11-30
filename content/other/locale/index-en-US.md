@@ -23,7 +23,7 @@ brief: Internationalized components to provide multilingual support for Semi com
 
 ## Components supported
 
-> Date Picker, Time Picker, Modal, Pagination, Select, Table, Cascader, Tree Select、List、Typography、Transfer
+> DatePicker、TimePicker、Modal、Pagination、Select、Table、Cascader、Calendar、TreeSelect、List、Typography、Transfer、Nav、Upload
 
 ## How to use
 
