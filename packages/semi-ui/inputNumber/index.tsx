@@ -20,7 +20,6 @@ import { isNaN, noop } from 'lodash';
 import { ArrayElement } from '../_base/base';
 
 export interface InputNumberProps extends InputProps {
-    [x: string]: any;
     autofocus?: boolean;
     className?: string;
     defaultValue?: number | string;

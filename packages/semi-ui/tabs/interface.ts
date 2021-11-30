@@ -10,7 +10,7 @@ export interface PlainTab {
     icon?: ReactNode;
     itemKey: string;
     tab?: ReactNode;
-    closable: boolean;
+    closable?: boolean;
 }
 
 
