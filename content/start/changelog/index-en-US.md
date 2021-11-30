@@ -16,6 +16,13 @@ Version：Major.Minor.Patch
 
 ---
 
+#### 🎉 2.1.2 (2021-11-30)
+- 【Fix】
+  - Fix the style problem of AutoComplete
+  - Fixed the problem that InputNumber does not have API syntax hints in the editor [#327](https://github.com/DouyinFE/semi-design/issues/327)
+  - Fix the wrong color of hover state border when Input focus [#332](https://github.com/DouyinFE/semi-design/issues/332)
+  - Replace Feishu Logo icon
+
 #### 🎉 2.1.1 (2021-11-26)
 - 【Fix】
   - Provide UMD products of semi-icons and semi-illustrations to solve the problem that icons cannot be used in UMD scenarios [#215](https://github.com/DouyinFE/semi-design/issues/215)
