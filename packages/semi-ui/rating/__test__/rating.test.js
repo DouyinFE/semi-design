@@ -250,4 +250,16 @@ describe('Rating', () => {
         halfUl.simulate('keyDown', { keyCode: keyCodeRight });
         expect(HalfR.state().value).toEqual(2);
     })
+
+    it('click much times', () => {
+        const R = getRating({});
+        let stars = R.find('div[role="radio"]');
+        const event = {};
+        stars.at(1).simulate('click', event);
+        expect(R.find(`.${BASE_CLASS_PREFIX}-rating-star-full`).length).toEqual(2);
+        stars.at(1).simulate('click', event);
+        expect(R.find(`.${BASE_CLASS_PREFIX}-rating-star-full`).length).toEqual(0);
+        stars.at(1).simulate('click', event);
+        expect(R.find(`.${BASE_CLASS_PREFIX}-rating-star-full`).length).toEqual(2);
+    });
 });

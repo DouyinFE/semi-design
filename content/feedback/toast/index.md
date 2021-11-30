@@ -380,6 +380,8 @@ render(Demo);
 
 ```jsx live=true noInline=true
 import React from 'react';
+import { Button } from '@douyinfe/semi-ui';
+
 function Demo() {
     const ToastInCustomContainer = ToastFactory.create({
         getPopupContainer: () => document.getElementById('custom-toast-container'),

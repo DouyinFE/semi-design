@@ -6,7 +6,7 @@ import MonthFoundation, { MonthAdapter, MonthDayInfo, MonthFoundationProps, Mont
 import { cssClasses, numbers } from '@douyinfe/semi-foundation/datePicker/constants';
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
 import { isBefore, isAfter, isBetween, isSameDay } from '@douyinfe/semi-foundation/datePicker/_utils/index';
-import { noop, stubFalse, isFunction } from 'lodash-es';
+import { noop, stubFalse, isFunction } from 'lodash';
 import { parseISO } from 'date-fns';
 import { Locale } from '../locale/interface';
 

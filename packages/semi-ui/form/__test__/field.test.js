@@ -1,5 +1,5 @@
 import { Form, Select } from '../../index';
-import { noop } from 'lodash-es';
+import { noop } from 'lodash';
 import { func } from 'prop-types';
 import { BASE_CLASS_PREFIX } from '../../../semi-foundation/base/constants';
 
@@ -215,7 +215,7 @@ describe('Form-field', () => {
             expect(formApi.getError('name')).toEqual(undefined);
             expect(form.exists(`.${BASE_CLASS_PREFIX}-form-field-error-message`)).toEqual(false);
             done();
-        }, 400);
+        }, 800);
     });
     it('rules', done => {
         // rules work

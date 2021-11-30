@@ -43,7 +43,7 @@ SemiWebpackPlugin  `yarn add -D @douyinfe/semi-webpack-plugin` or `npm i -D @dou
 new SemiWebpackPlugin({
     theme: `你的主题npm包名称`
     /* ...options */
-})
+});
 ```
 ### 使组件级变量的改动生效
 

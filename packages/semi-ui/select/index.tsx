@@ -8,10 +8,10 @@ import ConfigContext from '../configProvider/context';
 import SelectFoundation, { SelectAdapter } from '@douyinfe/semi-foundation/select/foundation';
 import { cssClasses, strings, numbers } from '@douyinfe/semi-foundation/select/constants';
 import BaseComponent, { ValidateStatus } from '../_base/baseComponent';
-import { isEqual, isString, noop } from 'lodash-es';
+import { isEqual, isString, noop, get, isNumber } from 'lodash';
 import Tag from '../tag/index';
 import TagGroup from '../tag/group';
-import LocaleCosumer from '../locale/localeConsumer';
+import LocaleConsumer from '../locale/localeConsumer';
 import Popover from '../popover/index';
 import { numbers as popoverNumbers } from '@douyinfe/semi-foundation/popover/constants';
 import { FixedSizeList as List } from 'react-window';
@@ -29,7 +29,6 @@ import { isSemiIcon } from '../_utils';
 import warning from '@douyinfe/semi-foundation/utils/warning';
 
 import '@douyinfe/semi-foundation/select/select.scss';
-import '@douyinfe/semi-foundation/select/option.scss';
 import { Locale } from '../locale/interface';
 import { Position, TooltipProps } from '../tooltip';
 
@@ -293,6 +292,8 @@ class Select extends BaseComponent<SelectProps, SelectState> {
     inputRef: React.RefObject<HTMLInputElement>;
     triggerRef: React.RefObject<HTMLDivElement>;
     optionsRef: React.RefObject<any>;
+    virtualizeListRef: React.RefObject<any>;
+    selectOptionListID: string;
     clickOutsideHandler: (e: MouseEvent) => void;
     foundation: SelectFoundation;
 
@@ -312,6 +313,9 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             optionGroups: [],
             isHovering: false,
         };
+        /* Generate random string */
+        this.selectOptionListID = Math.random().toString(36).slice(2);
+        this.virtualizeListRef = React.createRef();
         this.inputRef = React.createRef();
         this.triggerRef = React.createRef();
         this.optionsRef = React.createRef();
@@ -414,7 +418,12 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 let options = [];
                 const { optionList } = this.props;
                 if (optionList && optionList.length) {
-                    options = optionList.map(itemOpt => ({ _show: true, _selected: false, ...itemOpt }));
+                    options = optionList.map((itemOpt, index) => ({ 
+                        _show: true, 
+                        _selected: false, 
+                        _scrollIndex: index,
+                        ...itemOpt 
+                    }));
                     optionGroups[0] = { children: options, label: '' };
                 } else {
                     const result = getOptionsFromGroup(children);
@@ -493,7 +502,26 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 } catch (error) {
 
                 }
-            }
+            },
+            updateScrollTop: () => {
+                // eslint-disable-next-line max-len
+                let destNode = document.querySelector(`#${prefixcls}-${this.selectOptionListID} .${prefixcls}-option-selected`) as HTMLDivElement;
+                if (Array.isArray(destNode)) {
+                    // eslint-disable-next-line prefer-destructuring
+                    destNode = destNode[0];
+                }
+                if (destNode) {
+                    /**
+                     * Scroll the first selected item into view.
+                     * The reason why ScrollIntoView is not used here is that it may cause page to move.
+                     */
+                    const destParent = destNode.parentNode as HTMLDivElement;
+                    destParent.scrollTop = destNode.offsetTop -
+                        destParent.offsetTop -
+                        (destParent.clientHeight / 2) +
+                        (destNode.clientHeight / 2);
+                }
+            },
         };
     }
 
@@ -661,14 +689,14 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                     focused={isFocused}
                     style={style}
                 >
-                    <LocaleCosumer componentName="Select">
+                    <LocaleConsumer<Locale['Select']> componentName="Select" >
                         {(locale: Locale['Select']) => (
                             <>
                                 <span className={`${prefixcls}-create-tips`}>{locale.createText}</span>
                                 {option.value}
                             </>
                         )}
-                    </LocaleCosumer>
+                    </LocaleConsumer>
                 </Option>
             );
             return defaultCreateItem;
@@ -718,6 +746,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
 
         return (
             <List
+                ref={this.virtualizeListRef}
                 height={height || numbers.LIST_HEIGHT}
                 itemCount={visibileOptions.length}
                 itemSize={itemSize}
@@ -761,7 +790,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
 
         const isEmpty = !options.length || !options.some(item => item._show);
         return (
-            <div className={dropdownClassName} style={style}>
+            <div id={`${prefixcls}-${this.selectOptionListID}`} className={dropdownClassName} style={style}>
                 {outerTopSlot}
                 <div
                     style={{ maxHeight: `${maxHeight}px` }}
@@ -892,6 +921,34 @@ class Select extends BaseComponent<SelectProps, SelectState> {
 
     onMouseLeave(e: MouseEvent) {
         this.foundation.handleMouseLeave(e as any);
+    }
+
+    /* Processing logic when popover visible changes */
+    handlePopoverVisibleChange(status) {
+        const { virtualize } = this.props;
+        const { selections } = this.state;
+        if (!status) {
+            return;
+        }
+        if (virtualize) {
+            let minItemIndex = -1;
+            selections.forEach(item => {
+                const itemIndex = get(item, '_scrollIndex');
+                /* When the itemIndex is legal */
+                if (isNumber(itemIndex) && itemIndex >= 0) {
+                    minItemIndex = minItemIndex !== -1 && minItemIndex < itemIndex
+                        ? minItemIndex
+                        : itemIndex;
+                }
+            });
+            if (minItemIndex !== -1) {
+                try {
+                    this.virtualizeListRef.current.scrollToItem(minItemIndex, 'center');
+                } catch (error) { }
+            }
+        } else {
+            this.foundation.updateScrollTop();
+        }
     }
 
     renderSuffix() {
@@ -1053,6 +1110,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 position={position}
                 spacing={spacing}
                 stopPropagation={stopPropagation}
+                onVisibleChange={status => this.handlePopoverVisibleChange(status)}
             >
                 {selection}
             </Popover>

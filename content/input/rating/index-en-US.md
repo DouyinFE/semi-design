@@ -32,7 +32,7 @@ import { Rating } from '@douyinfe/semi-ui';
         <br />
         <Rating size="small" defaultValue={5} />
     </div>
-)
+);
 ```
 
 ### Half Star
@@ -49,7 +49,7 @@ import { Rating } from '@douyinfe/semi-ui';
         <br />
         <Rating allowHalf defaultValue={3.65} />
     </div>
-)
+);
 ```
 
 ### Disabled
@@ -62,7 +62,7 @@ import { Rating } from '@douyinfe/semi-ui';
 
 () => (
     <Rating disabled defaultValue={3} />
-)
+);
 ```
 
 ### Click to Clear
@@ -84,7 +84,7 @@ import { Rating } from '@douyinfe/semi-ui';
         <br />
         <Rating allowClear={false} defaultValue={3} />
     </div>
-)
+);
 ```
 
 ### Text Description
@@ -153,7 +153,7 @@ import { IconLikeHeart } from '@douyinfe/semi-icons';
         <br />
         <Rating Count={10} defaultValue={6} />
     </div>
-)
+);
 ```
 
 ## API Reference

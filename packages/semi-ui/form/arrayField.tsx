@@ -1,7 +1,7 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import { getUuidv4 } from '@douyinfe/semi-foundation/utils/uuid';
-import { cloneDeep, isUndefined } from 'lodash-es';
+import { cloneDeep, isUndefined } from 'lodash';
 import { FormUpdaterContext, ArrayFieldContext } from './context';
 import warning from '@douyinfe/semi-foundation/utils/warning';
 import { ArrayFieldStaff, FormUpdaterContextType } from '@douyinfe/semi-foundation/form/interface';
@@ -9,7 +9,17 @@ import { ArrayFieldStaff, FormUpdaterContextType } from '@douyinfe/semi-foundati
 export interface ArrayFieldProps {
     initValue?: any[];
     field?: string;
-    children?: ({ }) => React.ReactNode;
+    children?: (props: ArrayFieldChildrenProps) => React.ReactNode;
+}
+
+export interface ArrayFieldChildrenProps {
+    arrayFields: {
+        key: string;
+        field: string;
+        remove: () => void;
+    }[];
+    add: () => void;
+    addWithInitValue: (lineObject: Record<string, any>) => void;
 }
 
 export interface ArrayFieldState {

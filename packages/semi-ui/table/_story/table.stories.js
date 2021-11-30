@@ -1,7 +1,6 @@
 import React from 'react';
-import {storiesOf} from '@storybook/react';
-// import { withKnobs, text, boolean } from '@storybook/addon-knobs';
-import {Table} from '@douyinfe/semi-ui';
+
+import { Table } from '@douyinfe/semi-ui';
 
 import JSXColumnsSimple from './JSXColumnsSmiple';
 import JSXColumnsComplex from './JSXColumnsComplex';
@@ -22,413 +21,575 @@ import PaginationDemo from './PagintaionTable';
 import SelectedRowsDemo from './SelectedRows';
 import ChildrenData from './ChildrenData';
 import ChildrenDataSelected from './ChildrenDataSelected';
-import WithSideSheet from './WithSideSheet';
-import InSideSheet from './InSideSheet';
-import GroupedCols from './GroupedCols';
-import GroupedColsFixed from './GroupedColsFixed';
-import GroupedColsFixedJSX from './GroupedColsFixedJSX';
-import GroupedColsFixedVirtualized from './GroupedColsFixedVirtualized';
-import GroupedColsFixedVirtualizedGroups from './GroupedColsFixedVirtualizedGroups';
-import GroupedRows from './GroupedRows';
-import GroupedRowsFixed from './GroupedRowsFixed';
-import FixedGroups from './FixedGroups';
 import FixedExpandedRows from './FixedExpandedRows';
 import FixedTable from './FixedTable';
 import JSXFixedTable from './JSXFixedTable';
 import JSXTitles from './JSXTitles';
-import CustomComponents from './CustomComponents';
-import CustomExpandIcons from './CustomExpandIcons';
 import CustomFilterDropdownItem from './CustomFilterDropdownItem';
-
 import VirtualizedDemo from './virtualized';
-import VirtualizedFixedDemo from './virtualizedFixed';
-import VirtualizedNotFixedDemo from './VirtualizedNotFixed';
-import VirtualizedGroupedRows from './VirtualizedGroupedRows';
-import VirtualizedDataSelected from './VritualizedDataSelected';
-import VirtualizedDynamicData from './VirtualizedDynamicData';
+import VirtualizedNotFixed from './VirtualizedNotFixed';
 import InfiniteScroll from './InfiniteScroll';
-import MassiveColumns from './MassiveColumns';
-import ControlledPagination from './ControlledPagination';
-import FulldRenderDemo from './FullRender';
 import VirtualTableOnCell from './VirtualTableOnCell';
 import {
-    ControlledSelection,
-    PerfComplexRender,
-    PerfContext,
-    PerfOnRow,
-    PerfRender,
-    PerfResizableSelection,
-    PerfVirtualized
+  ControlledSelection,
+  PerfComplexRender,
+  PerfContext,
+  PerfOnRow,
+  PerfRender,
+  PerfResizableSelection,
+  PerfVirtualized,
 } from './Perf';
-import RenderPagination from './RenderPagination'
-import {RTLAlignScrollBar} from './RTL';
-import JSXAsyncData from './JSXAsyncData';
-import ScrollBar from './ScrollBar';
-import TableSpan from './TableSpan';
+import RenderPagination from './RenderPagination';
 import ControlledSortOrder from './ControlledSortOrder';
 import FilterWithNewDataTable from './FilterWithNewDataTable';
-import FixRenderReturnProps from './FixRenderReturnProps';
 import ExpandAllRows from './ExpandAllRows';
 import ExpandAllGroupRows from './ExpandAllGroupRows';
 import ExpandRowByClick from './ExpandRowByClick';
+import FixAllColumnsWithoutWidth from './FixAllColumnsWithoutWidth';
 
-const stories = storiesOf('Table', module);
-// // stories.addDecorator(withKnobs);;
+export default {
+  title: 'Table'
+}
+
+export { default as WithSideSheet } from './WithSideSheet';
+export { default as InSideSheet } from './InSideSheet';
+export { default as GroupedCols } from './GroupedCols';
+export { default as GroupedColsFixed } from './GroupedColsFixed';
+export { default as GroupedColsFixedJSX } from './GroupedColsFixedJSX';
+export { default as GroupedColsFixedVirtualized } from './GroupedColsFixedVirtualized';
+export { default as GroupedColsFixedVirtualizedGroups } from './GroupedColsFixedVirtualizedGroups';
+export { default as GroupedRows } from './GroupedRows';
+export { default as GroupedRowsFixed } from './GroupedRowsFixed';
+export { default as FixedGroups } from './FixedGroups';
+export { default as CustomComponents } from './CustomComponents';
+export { default as CustomExpandIcons } from './CustomExpandIcons';
+export { default as VirtualizedFixedDemo } from './virtualizedFixed';
+export { default as VirtualizedGroupedRows } from './VirtualizedGroupedRows';
+export { default as VirtualizedDataSelected } from './VritualizedDataSelected';
+export { default as VirtualizedDynamicData } from './VirtualizedDynamicData';
+export { default as MassiveColumns } from './MassiveColumns';
+export { default as ControlledPagination } from './ControlledPagination';
+export { default as FulldRenderDemo } from './FullRender';
+export { RTLAlignScrollBar } from './RTL';
+export { default as JSXAsyncData } from './JSXAsyncData';
+export { default as ScrollBar } from './ScrollBar';
+export { default as TableSpan } from './TableSpan';
+export { default as FixRenderReturnProps } from './FixRenderReturnProps';
+export { default as WarnColumnWithoutDataIndex } from './WarnColumnWithoutDataIndex';
 
 // empty table
 
 const emptyColumn = [
-    {
-        title: 'Name',
-        dataIndex: 'name',
-        fixed: 'left',
-        render: text => <a>{text}</a>,
-    },
-    {
-        title: 'Age',
-        dataIndex: 'age',
-    },
-    {
-        title: 'Address',
-        dataIndex: 'address',
-    },
+  {
+    title: 'Name',
+    dataIndex: 'name',
+    fixed: 'left',
+    render: text => <a>{text}</a>,
+  },
+  {
+    title: 'Age',
+    dataIndex: 'age',
+  },
+  {
+    title: 'Address',
+    dataIndex: 'address',
+  },
 ];
 const emptyData = [];
 
-stories.add('empty table', () => <Table autoWidth columns={emptyColumn} dataSource={emptyData}/>);
+export const EmptyTable = () => <Table autoWidth columns={emptyColumn} dataSource={emptyData} />;
+
+EmptyTable.story = {
+  name: 'empty table',
+};
 
 // basic table
 
 const columns = [
-    {
-        title: 'Name',
-        dataIndex: 'name',
-        width: '30%',
-        render: text => <a>{text}</a>,
-    },
-    {
-        title: 'combine',
+  {
+    title: 'Name',
+    dataIndex: 'name',
+    width: '30%',
+    render: text => <a>{text}</a>,
+  },
+  {
+    title: 'combine',
+    width: '20%',
+    dataIndex: 'test',
+    children: [
+      {
+        title: 'Age',
         width: '20%',
-        dataIndex: 'test',
         children: [
-            {
-                title: 'Age',
-                width: '20%',
-                children: [
-                    {
-                        title: 'Age1',
-                        width: '20%',
-                        dataIndex: 'age1',
-                    },
-                    {
-                        title: 'Age2',
-                        width: '20%',
-                        dataIndex: 'age2',
-                    },
-                ],
-            },
-            {
-                title: 'Key',
-                width: '20%',
-                dataIndex: 'key',
-            },
+          {
+            title: 'Age1',
+            width: '20%',
+            dataIndex: 'age1',
+          },
+          {
+            title: 'Age2',
+            width: '20%',
+            dataIndex: 'age2',
+          },
         ],
-    },
-    {
-        title: 'Address',
-        width: '50%',
-        dataIndex: 'address',
-    },
+      },
+      {
+        title: 'Key',
+        width: '20%',
+        dataIndex: 'key',
+      },
+    ],
+  },
+  {
+    title: 'Address',
+    width: '50%',
+    dataIndex: 'address',
+  },
 ];
 const data = [
-    {
-        key: '1',
-        name: 'John Brown',
-        age: 32,
-        age1: 23,
-        age2: 11,
-        address: 'New York No. 1 Lake Park, New York No. 1 Lake Park',
-    },
-    {
-        key: '2',
-        name: 'Jim Green',
-        age: 42,
-        age1: 23,
-        age2: 11,
-        address: 'London No. 1 Lake Park',
-    },
-    {
-        key: '3',
-        name: 'Joe Black',
-        age: 32,
-        age1: 23,
-        age2: 11,
-        address: 'Sidney No. 1 Lake Park',
-    },
-    {
-        key: '4',
-        name: 'Disabled User',
-        age: 99,
-        age1: 23,
-        age2: 11,
-        address: 'Sidney No. 1 Lake Park',
-    },
+  {
+    key: '1',
+    name: 'John Brown',
+    age: 32,
+    age1: 23,
+    age2: 11,
+    address: 'New York No. 1 Lake Park, New York No. 1 Lake Park',
+  },
+  {
+    key: '2',
+    name: 'Jim Green',
+    age: 42,
+    age1: 23,
+    age2: 11,
+    address: 'London No. 1 Lake Park',
+  },
+  {
+    key: '3',
+    name: 'Joe Black',
+    age: 32,
+    age1: 23,
+    age2: 11,
+    address: 'Sidney No. 1 Lake Park',
+  },
+  {
+    key: '4',
+    name: 'Disabled User',
+    age: 99,
+    age1: 23,
+    age2: 11,
+    address: 'Sidney No. 1 Lake Park',
+  },
 ];
 
-stories.add('basic table', () => <Table columns={columns} dataSource={data}/>);
+export const BasicTable = () => <Table columns={columns} dataSource={data} />;
 
-stories.add('simple jsx', () => <JSXColumnsSimple/>);
+BasicTable.story = {
+  name: 'basic table',
+};
 
-stories.add('complex jsx', () => <JSXColumnsComplex/>);
+export const SimpleJsx = () => <JSXColumnsSimple />;
+
+SimpleJsx.story = {
+  name: 'simple jsx',
+};
+
+export const ComplexJsx = () => <JSXColumnsComplex />;
+
+ComplexJsx.story = {
+  name: 'complex jsx',
+};
+
+ComplexJsx.parameters = {
+  chromatic: { disableSnapshot: true },
+}
 
 // selection table
 
 // rowSelection object indicates the need for row selection
 const rowSelection = {
-    onChange: (selectedRowKeys, selectedRows) => {
-        // console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-    },
-    getCheckboxProps: record => ({
-        disabled: record.name === 'Disabled User', // Column configuration not to be checked
-        name: record.name,
-    }),
+  onChange: (selectedRowKeys, selectedRows) => {
+    // console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+  },
+  getCheckboxProps: record => ({
+    disabled: record.name === 'Disabled User', // Column configuration not to be checked
+    name: record.name,
+  }),
 };
-stories.add('filter and update dataSource', () => <FilterWithNewDataTable/>);
-stories.add('selection table', () => <Table rowSelection={rowSelection} columns={columns} dataSource={data}/>);
+export const FilterAndUpdateDataSource = () => <FilterWithNewDataTable />;
+
+FilterAndUpdateDataSource.story = {
+  name: 'filter and update dataSource',
+};
+
+export const SelectionTable = () => (
+  <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
+);
+
+SelectionTable.story = {
+  name: 'selection table',
+};
 
 function ControlledSelectionTable() {
-    const [selected, setSelected] = React.useState([]);
-    const columns = [
-        {
-            title: 'Name',
-            dataIndex: 'name',
-            render: text => text,
-        },
-        {
-            title: 'Age',
-            dataIndex: 'age',
-        },
-        {
-            title: 'Address',
-            dataIndex: 'address',
-        },
-    ];
-    const data = [
-        {
-            key: '1',
-            name: 'John Brown',
-            age: 32,
-            address: 'New York No. 1 Lake Park, New York No. 1 Lake Park',
-        },
-        {
-            key: '2',
-            name: 'Jim Green',
-            age: 42,
-            address: 'London No. 1 Lake Park',
-        },
-        {
-            key: '3',
-            name: 'Joe Black',
-            age: 32,
-            address: 'Sidney No. 1 Lake Park',
-        },
-        {
-            key: '4',
-            name: 'Michael James',
-            age: 99,
-            address: 'Sidney No. 1 Lake Park',
-        },
-    ];
-    const rowSelection = {
-        onChange: (selectedRowKeys, selectedRows) => {
-            setSelected(selectedRowKeys);
-        },
-        getCheckboxProps: record => ({
-            disabled:
-                selected.length === 2 &&
-                selected.findIndex(key => key === record.key) === -1, // Column configuration not to be checked
-            name: record.name,
-        }),
-        selectedRowKeys: selected
-    };
-    return <Table columns={columns} dataSource={data} rowSelection={rowSelection} pagination={false}/>;
+  const [selected, setSelected] = React.useState([]);
+  const columns = [
+    {
+      title: 'Name',
+      dataIndex: 'name',
+      render: text => text,
+    },
+    {
+      title: 'Age',
+      dataIndex: 'age',
+    },
+    {
+      title: 'Address',
+      dataIndex: 'address',
+    },
+  ];
+  const data = [
+    {
+      key: '1',
+      name: 'John Brown',
+      age: 32,
+      address: 'New York No. 1 Lake Park, New York No. 1 Lake Park',
+    },
+    {
+      key: '2',
+      name: 'Jim Green',
+      age: 42,
+      address: 'London No. 1 Lake Park',
+    },
+    {
+      key: '3',
+      name: 'Joe Black',
+      age: 32,
+      address: 'Sidney No. 1 Lake Park',
+    },
+    {
+      key: '4',
+      name: 'Michael James',
+      age: 99,
+      address: 'Sidney No. 1 Lake Park',
+    },
+  ];
+  const rowSelection = {
+    onChange: (selectedRowKeys, selectedRows) => {
+      setSelected(selectedRowKeys);
+    },
+    getCheckboxProps: record => ({
+      disabled: selected.length === 2 && selected.findIndex(key => key === record.key) === -1, // Column configuration not to be checked
+      name: record.name,
+    }),
+    selectedRowKeys: selected,
+  };
+  return (
+    <Table columns={columns} dataSource={data} rowSelection={rowSelection} pagination={false} />
+  );
 }
 
-stories.add('controlled selection table', () => <ControlledSelectionTable/>);
+export const _ControlledSelectionTable = () => <ControlledSelectionTable />;
+
+_ControlledSelectionTable.story = {
+  name: 'controlled selection table',
+};
+_ControlledSelectionTable.parameters = {
+  chromatic: { disableSnapshot: true },
+}
+
 // sortable table
 
 const sortColumns = [
-    {
-        title: 'Name',
-        dataIndex: 'name',
-        filters: [
-            {
-                text: 'XiaoMing',
-                value: 'XiaoMing',
-            },
-            {
-                text: 'ZhangSan',
-                value: 'ZhangSan',
-            },
-            {
-                text: 'SubMenu',
-                value: 'SubMenu',
-                children: [
-                    {
-                        text: 'Yellow',
-                        value: 'Yellow',
-                    },
-                    {
-                        text: 'Pink',
-                        value: 'Pink',
-                    },
-                ],
-            },
+  {
+    title: 'Name',
+    dataIndex: 'name',
+    filters: [
+      {
+        text: 'XiaoMing',
+        value: 'XiaoMing',
+      },
+      {
+        text: 'ZhangSan',
+        value: 'ZhangSan',
+      },
+      {
+        text: 'SubMenu',
+        value: 'SubMenu',
+        children: [
+          {
+            text: 'Yellow',
+            value: 'Yellow',
+          },
+          {
+            text: 'Pink',
+            value: 'Pink',
+          },
         ],
-        onFilter: (value, record) => record.name.indexOf(value) === 0,
-        sorter: (a, b) => a.name.length - b.name.length,
-        sortDirections: ['descend'],
-        sortOrder: 'descend',
-    },
-    {
-        title: 'Age',
-        dataIndex: 'age',
-        defaultSortOrder: 'descend',
-        sorter: (a, b) => a.age - b.age,
-    },
-    {
-        title: 'Address',
-        dataIndex: 'address',
-        filters: [
-            {
-                text: 'BieJing',
-                value: 'BeiJing',
-            },
-            {
-                text: 'ShangHai',
-                value: 'SHangHai',
-            },
-        ],
-        filterMultiple: false,
-        onFilter: (value, record) => record.address.indexOf(value) === 0,
-        sorter: (a, b) => a.address.length - b.address.length,
-        sortDirections: ['descend', 'ascend'],
-    },
+      },
+    ],
+    onFilter: (value, record) => record.name.indexOf(value) === 0,
+    sorter: (a, b) => a.name.length - b.name.length,
+    sortDirections: ['descend'],
+    sortOrder: 'descend',
+  },
+  {
+    title: 'Age',
+    dataIndex: 'age',
+    defaultSortOrder: 'descend',
+    sorter: (a, b) => a.age - b.age,
+  },
+  {
+    title: 'Address',
+    dataIndex: 'address',
+    filters: [
+      {
+        text: 'BieJing',
+        value: 'BeiJing',
+      },
+      {
+        text: 'ShangHai',
+        value: 'SHangHai',
+      },
+    ],
+    filterMultiple: false,
+    onFilter: (value, record) => record.address.indexOf(value) === 0,
+    sorter: (a, b) => a.address.length - b.address.length,
+    sortDirections: ['descend', 'ascend'],
+  },
 ];
 
 const sortData = [
-    {
-        key: '1',
-        name: 'ZhangSan',
-        age: 50,
-        address: 'BeiJing No.1 High School',
-    },
-    {
-        key: '2',
-        name: 'LiSi',
-        age: 60,
-        address: 'BeiJing No.2 High School',
-    },
-    {
-        key: '3',
-        name: 'WangWu',
-        age: 20,
-        address: 'BeiJing No.3 High School',
-    },
-    {
-        key: '4',
-        name: 'XiaoMing',
-        age: 30,
-        address: 'BeiJing No.5 High School',
-    },
+  {
+    key: '1',
+    name: 'ZhangSan',
+    age: 50,
+    address: 'BeiJing No.1 High School',
+  },
+  {
+    key: '2',
+    name: 'LiSi',
+    age: 60,
+    address: 'BeiJing No.2 High School',
+  },
+  {
+    key: '3',
+    name: 'WangWu',
+    age: 20,
+    address: 'BeiJing No.3 High School',
+  },
+  {
+    key: '4',
+    name: 'XiaoMing',
+    age: 30,
+    address: 'BeiJing No.5 High School',
+  },
 ];
 
-stories.add('sort table', () => <Table columns={sortColumns} dataSource={sortData}/>);
-stories.add('controlled sortOrder table', () => <ControlledSortOrder/>);
+export const SortTable = () => <Table columns={sortColumns} dataSource={sortData} />;
 
-stories.add('middle table', () => <Table columns={columns} dataSource={data} size="middle"/>);
+SortTable.story = {
+  name: 'sort table',
+};
 
-stories.add('small table', () => <Table columns={columns} dataSource={data} size="small"/>);
+export const ControlledSortOrderTable = () => <ControlledSortOrder />;
 
-stories.add('expand table', () => <ExpandDemo/>);
+ControlledSortOrderTable.story = {
+  name: 'controlled sortOrder table',
+};
 
-stories.add('resizable columns', () => <ResizableColumns/>);
+export const MiddleTable = () => <Table columns={columns} dataSource={data} size="middle" />;
 
-stories.add('dragable table', () => <DragableTableDemo/>);
-stories.add('fixed table', () => <FixedTable/>);
-stories.add('fixed jsx table', () => <JSXFixedTable/>);
-stories.add(`fixed expanded rows`, () => <FixedExpandedRows/>);
+MiddleTable.story = {
+  name: 'middle table',
+};
 
-stories.add(`jsx titles`, () => <JSXTitles/>);
+export const SmallTable = () => <Table columns={columns} dataSource={data} size="small" />;
 
-stories.add('dynamic table', () => (
-    <div style={{padding: 20}}>
-        <DynamicTableDemo/>
-    </div>
-));
+SmallTable.story = {
+  name: 'small table',
+};
 
-stories.add('linked scroll', () => <LinkedScroll/>);
+export const ExpandTable = () => <ExpandDemo />;
 
-stories.add('modal table', () => <ModalTable/>);
+ExpandTable.story = {
+  name: 'expand table',
+};
 
-stories.add('tabs table', () => <TabsTable/>);
+export const _ResizableColumns = () => <ResizableColumns />;
 
-stories.add('event table', () => <EventTable/>);
+_ResizableColumns.story = {
+  name: 'resizable columns',
+};
 
-stories.add('fn table', () => <FnTable/>);
+export const DragableTable = () => <DragableTableDemo />;
 
-stories.add('dynamic filters', () => <DynamicFilters/>);
+DragableTable.story = {
+  name: 'dragable table',
+};
+DragableTable.parameters = {
+  chromatic: { disableSnapshot: true },
+}
 
-stories.add('resizable table', () => <ResizableTable/>);
+export const _FixedTable = () => <FixedTable />;
 
-stories.add('with pagination', () => <PaginationDemo/>);
-stories.add(`controlled pagination`, () => <ControlledPagination/>);
+_FixedTable.story = {
+  name: 'fixed table',
+};
+_FixedTable.parameters = {
+  chromatic: { disableSnapshot: true },
+}
 
-stories.add('selected rows', () => <SelectedRowsDemo/>);
+export const FixedJsxTable = () => <JSXFixedTable />;
 
-stories.add('children data', () => <ChildrenData/>);
+FixedJsxTable.story = {
+  name: 'fixed jsx table',
+};
 
-stories.add('children data selected rows', () => <ChildrenDataSelected/>);
-stories.add(`with side sheet`, () => <WithSideSheet/>);
-stories.add(`in side sheet`, () => <InSideSheet/>);
-stories.add(`grouped rows`, () => <GroupedRows/>);
-stories.add(`grouped rows fixed`, () => <GroupedRowsFixed/>);
-stories.add(`grouped cols`, () => <GroupedCols/>);
-stories.add(`grouped cols fixed`, () => <GroupedColsFixed/>);
-stories.add(`grouped cols fixed jsx`, () => <GroupedColsFixedJSX/>);
+export const JSXTitlesDemo = () => <JSXTitles />;
+JSXTitlesDemo.story = {
+  name: 'jsx titles'
+};
 
-stories.add(`grouped cols fixed virtualized`, () => <GroupedColsFixedVirtualized/>);
-stories.add(`grouped cols fixed virtualized groups`, () => <GroupedColsFixedVirtualizedGroups/>);
+export const DynamicTable = () => (
+  <div style={{ padding: 20 }}>
+    <DynamicTableDemo />
+  </div>
+);
 
-stories.add(`fixed groups`, () => <FixedGroups/>);
-stories.add(`custom components`, () => <CustomComponents/>);
-stories.add(`custom expand icons`, () => <CustomExpandIcons/>);
-stories.add(`custom filter dropdown item`, () => <CustomFilterDropdownItem/>);
-stories.add(`virtualized`, () => <VirtualizedDemo/>);
-stories.add(`virtualized fixed`, () => <VirtualizedFixedDemo/>);
-stories.add(`virtualized not fixed`, () => <VirtualizedNotFixedDemo/>);
-stories.add(`virtualized data selected`, () => <VirtualizedDataSelected/>);
-stories.add(`virtualized grouped rows`, () => <VirtualizedGroupedRows/>);
-stories.add(`virtualized dynamic data`, () => <VirtualizedDynamicData/>);
-stories.add(`infinite scroll`, () => <InfiniteScroll/>);
-stories.add(`massive columns`, () => <MassiveColumns/>);
-stories.add(`full render`, () => <FulldRenderDemo/>);
-stories.add(`VirtualTableOnCell`, () => <VirtualTableOnCell/>);
-stories.add(`Perf Virtualized`, () => <PerfVirtualized/>);
-stories.add(`Perf Render`, () => <PerfRender/>);
-stories.add(`Perf Complex Render`, () => <PerfComplexRender/>);
-stories.add(`Perf Controlled Selection`, () => <ControlledSelection/>);
-stories.add(`Perf Context`, () => <PerfContext/>);
-stories.add(`Perf Resizable Selection`, () => <PerfResizableSelection/>);
-stories.add(`Perf Render Row Times`, () => <PerfOnRow/>);
-stories.add(`renderPagination`, () => <RenderPagination/>);
-stories.add(`RTL align scroll bar`, () => <RTLAlignScrollBar/>);
-stories.add(`JSX aysnc data`, () => <JSXAsyncData/>);
-stories.add(`JSX column and prop clumns`, () => <JSXColumnPropColumn/>);
-stories.add(`scroll bar`, () => <ScrollBar/>);
-stories.add(`fix table rowSpan/colSpan`, () => <TableSpan/>);
-stories.add(`fix column render return props #1373`, () => <FixRenderReturnProps/>);
-stories.add('expandAllRows', () => <ExpandAllRows/>);
-stories.add('expandAllGroupRows', () => <ExpandAllGroupRows/>);
-stories.add('expandRowByClick', () => <ExpandRowByClick/>);
-stories.add('rowSelection boolean', () => <Table columns={columns} dataSource={data} rowSelection/>);
+DynamicTable.story = {
+  name: 'dynamic table',
+};
+
+export const _LinkedScroll = () => <LinkedScroll />;
+
+_LinkedScroll.story = {
+  name: 'linked scroll',
+};
+
+export const _ModalTable = () => <ModalTable />;
+
+_ModalTable.story = {
+  name: 'modal table',
+};
+
+export const _TabsTable = () => <TabsTable />;
+
+_TabsTable.story = {
+  name: 'tabs table',
+};
+
+export const _EventTable = () => <EventTable />;
+
+_EventTable.story = {
+  name: 'event table',
+};
+
+export const _FnTable = () => <FnTable />;
+
+_FnTable.story = {
+  name: 'fn table',
+};
+
+export const _DynamicFilters = () => <DynamicFilters />;
+
+_DynamicFilters.story = {
+  name: 'dynamic filters',
+};
+
+export const _ResizableTable = () => <ResizableTable />;
+
+_ResizableTable.story = {
+  name: 'resizable table',
+};
+
+export const WithPagination = () => <PaginationDemo />;
+
+WithPagination.story = {
+  name: 'with pagination',
+};
+
+export const SelectedRows = () => <SelectedRowsDemo />;
+
+SelectedRows.story = {
+  name: 'selected rows',
+};
+
+export const _ChildrenData = () => <ChildrenData />;
+
+_ChildrenData.story = {
+  name: 'children data',
+};
+
+export const ChildrenDataSelectedRows = () => <ChildrenDataSelected />;
+
+ChildrenDataSelectedRows.story = {
+  name: 'children data selected rows',
+};
+
+export const _ExpandAllRows = () => <ExpandAllRows />;
+
+_ExpandAllRows.story = {
+  name: 'expandAllRows',
+};
+
+export const _ExpandAllGroupRows = () => <ExpandAllGroupRows />;
+
+_ExpandAllGroupRows.story = {
+  name: 'expandAllGroupRows',
+};
+
+export const _ExpandRowByClick = () => <ExpandRowByClick />;
+
+_ExpandRowByClick.story = {
+  name: 'expandRowByClick',
+};
+
+export const RowSelectionBoolean = () => <Table columns={columns} dataSource={data} rowSelection />;
+
+RowSelectionBoolean.story = {
+  name: 'rowSelection boolean',
+};
+
+export const _FixAllColumnsWithoutWidth = () => <FixAllColumnsWithoutWidth />;
+
+_FixAllColumnsWithoutWidth.story = {
+  name: 'fix all columns without width',
+};
+
+export const JSXColumnPropColumnDemo = () => <JSXColumnPropColumn />;
+
+export const FixedExpandedRowsDemo = () => <FixedExpandedRows />;
+FixedExpandedRowsDemo.parameters = {
+  chromatic: { disableSnapshot: true },
+}
+
+export const CustomFilterDropdownItemDemo = () => <CustomFilterDropdownItem />;
+
+export const Virtualized = () => <VirtualizedDemo />;
+
+export const VirtualizedNotFixedDemo = () => <VirtualizedNotFixed />;
+
+export const InfiniteScrollDemo = () => <InfiniteScroll />;
+export const VirtualTableOnCellDemo = () => <VirtualTableOnCell />;
+export const ControlledSelectionDemo = () => <ControlledSelection />;
+ControlledSelectionDemo.parameters = {
+  chromatic: { disableSnapshot: true },
+}
+export const PerfComplexRenderDemo = () => <PerfComplexRender />;
+PerfComplexRenderDemo.parameters = {
+  chromatic: { disableSnapshot: true },
+}
+export const PerfContextDemo = () => <PerfContext />;
+export const PerfOnRowDemo = () => <PerfOnRow />;
+PerfOnRowDemo.parameters = {
+  chromatic: { disableSnapshot: true },
+}
+export const PerfResizableSelectionDemo = () => <PerfResizableSelection />;
+PerfResizableSelectionDemo.parameters = {
+  chromatic: { disableSnapshot: true },
+}
+export const PerfVirtualizedDemo = () => <PerfVirtualized />;
+export const PerfRenderDemo = () => <PerfRender />;
+PerfRenderDemo.parameters = {
+  chromatic: { disableSnapshot: true },
+}
+export const RenderPaginationDemo = () => <RenderPagination />;

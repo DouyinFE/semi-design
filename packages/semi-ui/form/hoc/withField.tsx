@@ -1,4 +1,3 @@
-/* argus-disable unPkgSensitiveInfo */
 /* eslint-disable max-lines-per-function, react-hooks/rules-of-hooks, prefer-const, max-len */
 import React, { useState, useLayoutEffect, useMemo, useRef, forwardRef } from 'react';
 import classNames from 'classnames';
@@ -13,7 +12,7 @@ import ErrorMessage from '../errorMessage';
 import { isElement } from '../../_base/reactUtils';
 import Label from '../label';
 import { Col } from '../../grid';
-import { CallOpts, withFieldOption } from '@douyinfe/semi-foundation/form/interface';
+import { CallOpts, WithFieldOption } from '@douyinfe/semi-foundation/form/interface';
 import { CommonFieldProps, CommonexcludeType } from '../interface';
 import { Subtract } from 'utility-types';
 
@@ -27,9 +26,10 @@ const prefix = cssClasses.PREFIX;
  */
 
 function withField<
-    C extends React.ComponentType<React.ComponentProps<C>>,
-    T extends React.ComponentType<Subtract<React.ComponentProps<C>, CommonexcludeType> & CommonFieldProps>
->(Component: C, opts?: withFieldOption): T {
+    C extends React.ElementType,
+    T extends Subtract<React.ComponentProps<C>, CommonexcludeType> & CommonFieldProps,
+    R extends React.ComponentType<T>
+>(Component: C, opts?: WithFieldOption): R {
     let SemiField = (props: any, ref: React.MutableRefObject<any>) => {
         let {
             // condition,
@@ -547,7 +547,6 @@ function withField<
             return useMemo(() => FieldComponent, [...shouldUpdate]);
         } else {
             // Some Custom Component with inner state shouldn't be memo, otherwise the component will not updated when the internal state is updated
-            // Fixed issue 328
             return FieldComponent;
         }
     };

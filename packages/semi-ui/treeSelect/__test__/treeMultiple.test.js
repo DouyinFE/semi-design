@@ -626,4 +626,51 @@ describe('TreeSelect', () => {
         clickedNode2.simulate('click', {})
         expect(treeSelect2.find(`.${BASE_CLASS_PREFIX}-tag`).length).toEqual(1);
     });
+
+    it('searchPosition is trigger', () => {
+        const treeSelect = getTreeSelect({
+            searchPosition: 'trigger',
+            filterTreeNode: true,
+            multiple: true,
+        });
+        const input = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-select .${BASE_CLASS_PREFIX}-tagInput .${BASE_CLASS_PREFIX}-input`);
+        const searchValue = '北';
+        const event = { target: { value: searchValue } };
+        input.simulate('change', event);
+        expect(treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option`).length).toEqual(6);
+        expect(treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option-highlight`).length).toEqual(2);
+        expect(treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option-highlight`).at(0).instance().textContent).toEqual('北');
+        expect(treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option-highlight`).at(1).instance().textContent).toEqual('北');
+    });
+
+    it('searchPosition is trigger + leafOnly', () => {
+        const spyOnSelect = sinon.spy(() => { });
+        const treeSelect = getTreeSelect({
+            onSelect: spyOnSelect,
+            searchPosition: 'trigger',
+            filterTreeNode: true,
+            multiple: true,
+            defaultExpandAll: true,
+            leafOnly: true,
+        });
+
+        // Check if leafOnly is working
+        const nodeChina = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-2`).at(0);
+        nodeChina.simulate('click');
+        expect(spyOnSelect.calledOnce).toBe(true);
+        expect(spyOnSelect.calledWithMatch('zhongguo', true, { key: "zhongguo" })).toEqual(true);
+        const tagGroup = treeSelect.find(`.${BASE_CLASS_PREFIX}-tag`);
+        expect(tagGroup.length).toEqual(2);
+
+        // Check if searchPosition='trigger' is working
+        const input = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-select .${BASE_CLASS_PREFIX}-tagInput .${BASE_CLASS_PREFIX}-input`);
+        const searchValue = '北';
+        const event = { target: { value: searchValue } };
+        input.simulate('change', event);
+        expect(treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option`).length).toEqual(6);
+        expect(treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option-highlight`).length).toEqual(2);
+        expect(treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option-highlight`).at(0).instance().textContent).toEqual('北');
+        expect(treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option-highlight`).at(1).instance().textContent).toEqual('北');
+
+    });
 })

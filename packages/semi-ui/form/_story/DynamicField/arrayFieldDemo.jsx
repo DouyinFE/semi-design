@@ -241,13 +241,13 @@ class ArrayFieldDemo extends React.Component {
                     // {},
                     // {},
                     { name: 'sugar', time: '3min' },
-                    { name: 'bacon', time: '6min', key: 'c2' },
+                    // { name: 'bacon', time: '6min', key: 'c2' },
+                    { name: 'bacon', time: '6min' },
                 ],
             },
             flag: true
         };
         this.getFormApi = this.getFormApi.bind(this);
-        this.change = this.change.bind(this);
     }
 
     change = () => {
@@ -257,6 +257,12 @@ class ArrayFieldDemo extends React.Component {
             time: `${i}-time`
         }));
         this.formApi.setValue('effects', newData);
+    }
+
+    clear = () => {
+        // this.formApi.setValues({ number: 3 });
+        // this.formApi.setValues({}, { isOverride: true });
+        this.formApi.setValues({ number: 3 }, { isOverride: true });
     }
 
     getFormApi(formApi) {
@@ -275,6 +281,7 @@ class ArrayFieldDemo extends React.Component {
                             {({ add, arrayFields }) => (
                                 <React.Fragment>
                                     <Button onClick={add} type="primary">Add</Button>
+                                    <Button onClick={this.clear} type="primary">Clear by setValues empty Object</Button>
                                     {
                                         arrayFields.map(({ field, key, remove }, i) => (
                                             <div key={key}>
@@ -294,7 +301,7 @@ class ArrayFieldDemo extends React.Component {
                                 </React.Fragment>
                             )}
                         </ArrayField>
-                        {/* <Form.InputNumber field="number" label="期望个数" /> */}
+                        <Form.InputNumber field="number" label="期望个数" />
                         <Space>
                             <Button onClick={this.change}>改变</Button>
                             <Button htmlType="submit">submit</Button>

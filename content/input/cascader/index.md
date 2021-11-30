@@ -72,7 +72,7 @@ import { Cascader } from '@douyinfe/semi-ui';
             placeholder="请选择所在地区"
         />
     );
-}
+};
 ```
 
 ### 多选
@@ -134,8 +134,8 @@ import { Cascader } from '@douyinfe/semi-ui';
             placeholder="请选择所在地区"
             multiple
         />
-    )
-}
+    );
+};
 ```
 
 ### 可搜索的
@@ -148,48 +148,48 @@ import React, { useState } from 'react';
 import { Cascader, Typography } from '@douyinfe/semi-ui';
 
 () => {
-  const treeData = [
-    {
-        label: '浙江省',
-        value: 'zhejiang',
-        children: [
-            {
-                label: '杭州市',
-                value: 'hangzhou',
-                children: [
-                    {
-                        label: '西湖区',
-                        value: 'xihu',
-                    },
-                    {
-                        label: '萧山区',
-                        value: 'xiaoshan',
-                    },
-                    {
-                        label: '临安区',
-                        value: 'linan',
-                    },
-                ],
-            },
-            {
-                label: '宁波市',
-                value: 'ningbo',
-                children: [
-                    {
-                        label: '海曙区',
-                        value: 'haishu',
-                    },
-                    {
-                        label: '江北区',
-                        value: 'jiangbei',
-                    }
-                ]
-            },
-        ],
-    }
-  ];
-  return (
-    <div>
+    const treeData = [
+        {
+            label: '浙江省',
+            value: 'zhejiang',
+            children: [
+                {
+                    label: '杭州市',
+                    value: 'hangzhou',
+                    children: [
+                        {
+                            label: '西湖区',
+                            value: 'xihu',
+                        },
+                        {
+                            label: '萧山区',
+                            value: 'xiaoshan',
+                        },
+                        {
+                            label: '临安区',
+                            value: 'linan',
+                        },
+                    ],
+                },
+                {
+                    label: '宁波市',
+                    value: 'ningbo',
+                    children: [
+                        {
+                            label: '海曙区',
+                            value: 'haishu',
+                        },
+                        {
+                            label: '江北区',
+                            value: 'jiangbei',
+                        }
+                    ]
+                },
+            ],
+        }
+    ];
+    return (
+        <div>
             <Cascader
                 style={{ width: 300 }}
                 treeData={treeData}
@@ -216,8 +216,8 @@ import { Cascader, Typography } from '@douyinfe/semi-ui';
                 filterLeafOnly={false}
             />
         </div>
-  )
-}
+    );
+};
 ```
 
 ### 可搜索的多选
@@ -232,47 +232,47 @@ import { Cascader } from '@douyinfe/semi-ui';
 
 () => {
     const [value, setValue] = useState(['zhejiang','ningbo','haishu']);
-    const onChange = (val) => { setValue(val) }
+    const onChange = (val) => { setValue(val); };
     const treeData = [
-            {
-                label: '浙江省',
-                value: 'zhejiang',
-                children: [
-                    {
-                        label: '杭州市',
-                        value: 'hangzhou',
-                        children: [
-                            {
-                                label: '西湖区',
-                                value: 'xihu',
-                            },
-                            {
-                                label: '萧山区',
-                                value: 'xiaoshan',
-                            },
-                            {
-                                label: '临安区',
-                                value: 'linan',
-                            },
-                        ],
-                    },
-                    {
-                        label: '宁波市',
-                        value: 'ningbo',
-                        children: [
-                            {
-                                label: '海曙区',
-                                value: 'haishu',
-                            },
-                            {
-                                label: '江北区',
-                                value: 'jiangbei',
-                            }
-                        ]
-                    },
-                ],
-            }
-        ];
+        {
+            label: '浙江省',
+            value: 'zhejiang',
+            children: [
+                {
+                    label: '杭州市',
+                    value: 'hangzhou',
+                    children: [
+                        {
+                            label: '西湖区',
+                            value: 'xihu',
+                        },
+                        {
+                            label: '萧山区',
+                            value: 'xiaoshan',
+                        },
+                        {
+                            label: '临安区',
+                            value: 'linan',
+                        },
+                    ],
+                },
+                {
+                    label: '宁波市',
+                    value: 'ningbo',
+                    children: [
+                        {
+                            label: '海曙区',
+                            value: 'haishu',
+                        },
+                        {
+                            label: '江北区',
+                            value: 'jiangbei',
+                        }
+                    ]
+                },
+            ],
+        }
+    ];
     return (
         <Cascader
             style={{ width: 300 }}
@@ -283,8 +283,8 @@ import { Cascader } from '@douyinfe/semi-ui';
             filterTreeNode
             onChange={e => onChange(e)}
         />
-    )
-}
+    );
+};
 ```
 
 ### 限制标签展示数量
@@ -354,8 +354,8 @@ import { Cascader } from '@douyinfe/semi-ui';
                 ['zhejiang', 'hangzhou', 'xihu']
             ]}
         />
-    )
-}
+    );
+};
 ```
 
 ### 限制选中数量
@@ -422,8 +422,8 @@ import { Cascader, Toast } from '@douyinfe/semi-ui';
             }}
             defaultValue={['zhejiang', 'ningbo', 'haishu']}
         />
-    )
-}
+    );
+};
 ```
 
 ### 选择即改变
@@ -435,66 +435,66 @@ import React from 'react';
 import { Cascader } from '@douyinfe/semi-ui';
 
 () => {
-  const treeData = [
-    {
-        label: '浙江省',
-        value: 'zhejiang',
-        children: [
-            {
-                label: '杭州市',
-                value: 'hangzhou',
-                children: [
-                    {
-                        label: '西湖区',
-                        value: 'xihu',
-                    },
-                    {
-                        label: '萧山区',
-                        value: 'xiaoshan',
-                    },
-                    {
-                        label: '临安区',
-                        value: 'linan',
-                    },
-                ],
-            },
-            {
-                label: '宁波市',
-                value: 'ningbo',
-                children: [
-                    {
-                        label: '海曙区',
-                        value: 'haishu',
-                    },
-                    {
-                        label: '江北区',
-                        value: 'jiangbei',
-                    }
-                ]
-            },
-        ],
-    }
-  ];
-  return (
-    <div>
-    <Cascader
-        style={{ width: 300 }}
-        treeData={treeData}
-        changeOnSelect
-        placeholder="选择即改变"
-    />
-    <br/>
-    <br/>
-    <Cascader
-        style={{ width: 300 }}
-        treeData={treeData}
-        changeOnSelect
-        placeholder="可搜索的选择即改变"
-        filterTreeNode
-    />
-    </div>
-  )
-}
+    const treeData = [
+        {
+            label: '浙江省',
+            value: 'zhejiang',
+            children: [
+                {
+                    label: '杭州市',
+                    value: 'hangzhou',
+                    children: [
+                        {
+                            label: '西湖区',
+                            value: 'xihu',
+                        },
+                        {
+                            label: '萧山区',
+                            value: 'xiaoshan',
+                        },
+                        {
+                            label: '临安区',
+                            value: 'linan',
+                        },
+                    ],
+                },
+                {
+                    label: '宁波市',
+                    value: 'ningbo',
+                    children: [
+                        {
+                            label: '海曙区',
+                            value: 'haishu',
+                        },
+                        {
+                            label: '江北区',
+                            value: 'jiangbei',
+                        }
+                    ]
+                },
+            ],
+        }
+    ];
+    return (
+        <div>
+            <Cascader
+                style={{ width: 300 }}
+                treeData={treeData}
+                changeOnSelect
+                placeholder="选择即改变"
+            />
+            <br/>
+            <br/>
+            <Cascader
+                style={{ width: 300 }}
+                treeData={treeData}
+                changeOnSelect
+                placeholder="可搜索的选择即改变"
+                filterTreeNode
+            />
+        </div>
+    );
+};
 ```
 
 ### 自定义显示
@@ -569,7 +569,7 @@ import { Cascader, Typography } from '@douyinfe/semi-ui';
             />
         </>
     );
-}
+};
 ```
 
 可以通过设置 `displayRender` 可以设定返回格式。
@@ -667,8 +667,8 @@ import { Cascader, Tag, Typography } from '@douyinfe/semi-ui';
                 )}
             />
         </>
-    )
-}
+    );
+};
 ```
 
 ### 禁用
@@ -678,53 +678,53 @@ import React from 'react';
 import { Cascader } from '@douyinfe/semi-ui';
 
 () => {
-  const treeData = [
-    {
-        label: '浙江省',
-        value: 'zhejiang',
-        children: [
-            {
-                label: '杭州市',
-                value: 'hangzhou',
-                children: [
-                    {
-                        label: '西湖区',
-                        value: 'xihu',
-                    },
-                    {
-                        label: '萧山区',
-                        value: 'xiaoshan',
-                    },
-                    {
-                        label: '临安区',
-                        value: 'linan',
-                    },
-                ],
-            }
-        ],
-    }
-  ];
-  return (
-    <div>
-      <Cascader
-          style={{ width: 300 }}
-          treeData={treeData}
-          placeholder="请选择所在地区"
-          disabled
-      />
-      <br />
-      <br />
-      <Cascader
-          style={{ width: 300 }}
-          treeData={treeData}
-          placeholder="请选择所在地区"
-          defaultValue={['zhejiang', 'hangzhou', 'xihu']}
-          filterTreeNode
-          disabled
-      />
-    </div>
-  )
-}
+    const treeData = [
+        {
+            label: '浙江省',
+            value: 'zhejiang',
+            children: [
+                {
+                    label: '杭州市',
+                    value: 'hangzhou',
+                    children: [
+                        {
+                            label: '西湖区',
+                            value: 'xihu',
+                        },
+                        {
+                            label: '萧山区',
+                            value: 'xiaoshan',
+                        },
+                        {
+                            label: '临安区',
+                            value: 'linan',
+                        },
+                    ],
+                }
+            ],
+        }
+    ];
+    return (
+        <div>
+            <Cascader
+                style={{ width: 300 }}
+                treeData={treeData}
+                placeholder="请选择所在地区"
+                disabled
+            />
+            <br />
+            <br />
+            <Cascader
+                style={{ width: 300 }}
+                treeData={treeData}
+                placeholder="请选择所在地区"
+                defaultValue={['zhejiang', 'hangzhou', 'xihu']}
+                filterTreeNode
+                disabled
+            />
+        </div>
+    );
+};
 ```
 
 ### 严格禁用
@@ -740,48 +740,48 @@ import React from 'react';
 import { Cascader } from '@douyinfe/semi-ui';
 
 () => {
-  const treeData = [
-    {
-        label: '浙江省',
-        value: 'zhejiang',
-        children: [
-            {
-                label: '杭州市',
-                value: 'hangzhou',
-                children: [
-                    {
-                        label: '西湖区',
-                        value: 'xihu',
-                    },
-                    {
-                        label: '萧山区',
-                        value: 'xiaoshan',
-                    },
-                    {
-                        label: '临安区',
-                        value: 'linan',
-                    },
-                ],
-            },
-            {
-                label: '宁波市',
-                value: 'ningbo',
-                disabled: true,
-                children: [
-                    {
-                        label: '海曙区',
-                        value: 'haishu',
-                    },
-                    {
-                        label: '江北区',
-                        value: 'jiangbei',
-                    }
-                ]
-            },
-        ],
-    }
-  ];
-  return (
+    const treeData = [
+        {
+            label: '浙江省',
+            value: 'zhejiang',
+            children: [
+                {
+                    label: '杭州市',
+                    value: 'hangzhou',
+                    children: [
+                        {
+                            label: '西湖区',
+                            value: 'xihu',
+                        },
+                        {
+                            label: '萧山区',
+                            value: 'xiaoshan',
+                        },
+                        {
+                            label: '临安区',
+                            value: 'linan',
+                        },
+                    ],
+                },
+                {
+                    label: '宁波市',
+                    value: 'ningbo',
+                    disabled: true,
+                    children: [
+                        {
+                            label: '海曙区',
+                            value: 'haishu',
+                        },
+                        {
+                            label: '江北区',
+                            value: 'jiangbei',
+                        }
+                    ]
+                },
+            ],
+        }
+    ];
+    return (
         <Cascader
             style={{ width: 300 }}
             treeData={treeData}
@@ -789,8 +789,8 @@ import { Cascader } from '@douyinfe/semi-ui';
             placeholder="请选择所在地区"
             disableStrictly
         />
-  )
-}
+    );
+};
 ```
 
 ### 展示子菜单的时机
@@ -804,41 +804,41 @@ import React from 'react';
 import { Cascader } from '@douyinfe/semi-ui';
 
 () => {
-  const treeData = [
-    {
-        label: '浙江省',
-        value: 'zhejiang',
-        children: [
-            {
-                label: '杭州市',
-                value: 'hangzhou',
-                children: [
-                    {
-                        label: '西湖区',
-                        value: 'xihu',
-                    },
-                    {
-                        label: '萧山区',
-                        value: 'xiaoshan',
-                    },
-                    {
-                        label: '临安区',
-                        value: 'linan',
-                    },
-                ],
-            }
-        ],
-    }
-  ];
-  return (
+    const treeData = [
+        {
+            label: '浙江省',
+            value: 'zhejiang',
+            children: [
+                {
+                    label: '杭州市',
+                    value: 'hangzhou',
+                    children: [
+                        {
+                            label: '西湖区',
+                            value: 'xihu',
+                        },
+                        {
+                            label: '萧山区',
+                            value: 'xiaoshan',
+                        },
+                        {
+                            label: '临安区',
+                            value: 'linan',
+                        },
+                    ],
+                }
+            ],
+        }
+    ];
+    return (
         <Cascader
             style={{ width: 300 }}
             treeData={treeData}
             placeholder="请选择所在地区"
             showNext="hover"
         />
-  )
-}
+    );
+};
 ```
 
 ### 在顶部/底部渲染附加项
@@ -850,69 +850,69 @@ import React from 'react';
 import { Cascader, Typography } from '@douyinfe/semi-ui';
 
 () => {
-  const { Text } = Typography;
-  const slotStyle = {
+    const { Text } = Typography;
+    const slotStyle = {
         height: '36px',
         display: 'flex',
         padding: '0 32px',
         alignItems: 'center',
         cursor: 'pointer',
         borderTop: '1px solid var(--semi-color-border)'
-  };
-  const treeData = [
-    {
-        label: '浙江省',
-        value: 'zhejiang',
-        children: [
-            {
-                label: '杭州市',
-                value: 'hangzhou',
-                children: [
-                    {
-                        label: '西湖区',
-                        value: 'xihu',
-                    },
-                    {
-                        label: '萧山区',
-                        value: 'xiaoshan',
-                    },
-                    {
-                        label: '临安区',
-                        value: 'linan',
-                    },
-                ],
-            },
-            {
-                label: '宁波市',
-                value: 'ningbo',
-                children: [
-                    {
-                        label: '海曙区',
-                        value: 'haishu',
-                    },
-                    {
-                        label: '江北区',
-                        value: 'jiangbei',
-                    }
-                ]
-            },
-        ],
-    }
-  ];
-  return (
-    <Cascader
-        style={{ width: 300 }}
-        treeData={treeData}
-        placeholder="请选择所在地区"
-        bottomSlot={
-            <div style={slotStyle}>
-                <Text>找不大相关选项？</Text>
-                <Text link>去新建</Text>
-            </div>
+    };
+    const treeData = [
+        {
+            label: '浙江省',
+            value: 'zhejiang',
+            children: [
+                {
+                    label: '杭州市',
+                    value: 'hangzhou',
+                    children: [
+                        {
+                            label: '西湖区',
+                            value: 'xihu',
+                        },
+                        {
+                            label: '萧山区',
+                            value: 'xiaoshan',
+                        },
+                        {
+                            label: '临安区',
+                            value: 'linan',
+                        },
+                    ],
+                },
+                {
+                    label: '宁波市',
+                    value: 'ningbo',
+                    children: [
+                        {
+                            label: '海曙区',
+                            value: 'haishu',
+                        },
+                        {
+                            label: '江北区',
+                            value: 'jiangbei',
+                        }
+                    ]
+                },
+            ],
         }
-    />
-  )
-}
+    ];
+    return (
+        <Cascader
+            style={{ width: 300 }}
+            treeData={treeData}
+            placeholder="请选择所在地区"
+            bottomSlot={
+                <div style={slotStyle}>
+                    <Text>找不大相关选项？</Text>
+                    <Text link>去新建</Text>
+                </div>
+            }
+        />
+    );
+};
 ```
 
 ### 受控
@@ -925,13 +925,13 @@ import { Cascader } from '@douyinfe/semi-ui';
 
 class Demo extends React.Component {
     constructor() {
-        super()
+        super();
         this.state = {
             value: []
         };
     }
     onChange(value) {
-        this.setState({value})
+        this.setState({value});
     }
     render() {
         const treeData = [
@@ -982,7 +982,7 @@ class Demo extends React.Component {
                 value={this.state.value}
                 onChange={e => this.onChange(e)}
             />
-        )
+        );
     }
 }
 ```
@@ -1058,7 +1058,7 @@ class Demo extends React.Component {
                 autoMergeValue={false}
                 onChange={e => this.onChange(e)}
             />
-        )
+        );
     }
 }
 ```
@@ -1071,10 +1071,10 @@ import { Cascader, Button } from '@douyinfe/semi-ui';
 
 class Demo extends React.Component {
     constructor() {
-        super()
+        super();
         this.state = {
             treeData: [],
-        }
+        };
         this.add = this.add.bind(this);
     }
     add() {
@@ -1086,7 +1086,7 @@ class Demo extends React.Component {
                     key: `${i}-${ci}`,
                     label: `Item-${i}-${ci}`,
                     value: `${i}-${ci}`
-                }
+                };
                 return child;
             });
             let item = {
@@ -1096,7 +1096,7 @@ class Demo extends React.Component {
                 children
             };
             return item;
-        })
+        });
         this.setState({ treeData });
     }
     render() {
@@ -1113,7 +1113,7 @@ class Demo extends React.Component {
                     动态改变数据
                 </Button>
             </>
-        )
+        );
     }
 }
 ```
@@ -1155,7 +1155,7 @@ import { Cascader } from '@douyinfe/semi-ui';
             }
             return node;
         });
-    }
+    };
 
     const onLoadData = selectedOpt => {
         const targetOpt = selectedOpt[selectedOpt.length - 1];
@@ -1170,31 +1170,31 @@ import { Cascader } from '@douyinfe/semi-ui';
                 setData(origin =>
                     updateTreeData(origin, value, [
                         {
-                          label: `${label} - 1`,
-                          value: `${label}-1`,
-                          isLeaf: selectedOpt.length > 1
+                            label: `${label} - 1`,
+                            value: `${label}-1`,
+                            isLeaf: selectedOpt.length > 1
                         },
                         {
-                          label: `${label} - 2`,
-                          value: `${label}-2`,
-                          isLeaf: selectedOpt.length > 1
+                            label: `${label} - 2`,
+                            value: `${label}-2`,
+                            isLeaf: selectedOpt.length > 1
                         },
-                      ]),
+                    ]),
                 );
                 resolve();
-            }, 1000)
-        })
-    }
+            }, 1000);
+        });
+    };
 
     return (
-            <Cascader
-                style={{ width: 300 }}
-                treeData={data}
-                loadData={onLoadData}
-                placeholder="Please select"
-            />
+        <Cascader
+            style={{ width: 300 }}
+            treeData={data}
+            loadData={onLoadData}
+            placeholder="Please select"
+        />
     );
-}
+};
 ```
 
 
@@ -1207,51 +1207,51 @@ import React from 'react';
 import { Cascader } from '@douyinfe/semi-ui';
 
 () => {
-  const treeData = [
-    {
-        label: 'A',
-        value: 'A',
-        children: [
-            {
-                label: 'B',
-                value: 'B',
-                children: [
-                    {
-                        label: 'C',
-                        value: 'C',
-                        children: [
-                            {
-                                label: 'D',
-                                value: 'D',
-                                children: [
-                                    {
-                                        label: 'E',
-                                        value: 'E',
-                                        children: [
-                                            {
-                                                label: 'F',
-                                                value: 'F',
-                                            }
-                                        ]
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                ],
-            }
-        ]
-    }
-  ];
-  return (
-    <Cascader
-        dropdownClassName='components-cascader-demo'
-        style={{ width: 300 }}
-        treeData={treeData}
-        placeholder="请选择所在地区"
-    />
-  )
-}
+    const treeData = [
+        {
+            label: 'A',
+            value: 'A',
+            children: [
+                {
+                    label: 'B',
+                    value: 'B',
+                    children: [
+                        {
+                            label: 'C',
+                            value: 'C',
+                            children: [
+                                {
+                                    label: 'D',
+                                    value: 'D',
+                                    children: [
+                                        {
+                                            label: 'E',
+                                            value: 'E',
+                                            children: [
+                                                {
+                                                    label: 'F',
+                                                    value: 'F',
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                }
+            ]
+        }
+    ];
+    return (
+        <Cascader
+            dropdownClassName='components-cascader-demo'
+            style={{ width: 300 }}
+            treeData={treeData}
+            placeholder="请选择所在地区"
+        />
+    );
+};
 ```
 
 ```css
@@ -1276,10 +1276,10 @@ interface TriggerRenderProps {
     /* 是否禁用 Cascader */
     disabled: boolean;
     /**
-     * 单选时，已选中的 node 在 treeData 中的层级位置，如下例子，
-     * 当选中 浙江省-杭州市-萧山区时，此处 value 为 '0-0-0'
+     * 已选中的 node 在 treeData 中的层级位置，如下例子，
+     * 当选中浙江省-杭州市-萧山区时，此处 value 为 '0-0-0'
      */
-    value?: string;
+    value?: string | Set<string>;
     /* 当前 Input 框的输入值 */
     inputValue: string;
     /**
@@ -1303,45 +1303,45 @@ import { IconClose, IconChevronDown } from '@douyinfe/semi-icons';
 function Demo() {
     const [value, setValue] = useState([]);
     const treeData = useMemo(() => [
-            {
-                label: '浙江省',
-                value: 'zhejiang',
-                children: [
-                    {
-                        label: '杭州市',
-                        value: 'hangzhou',
-                        children: [
-                            {
-                                label: '西湖区',
-                                value: 'xihu',
-                            },
-                            {
-                                label: '萧山区',
-                                value: 'xiaoshan',
-                            },
-                            {
-                                label: '临安区',
-                                value: 'linan',
-                            },
-                        ],
-                    },
-                    {
-                        label: '宁波市',
-                        value: 'ningbo',
-                        children: [
-                            {
-                                label: '海曙区',
-                                value: 'haishu',
-                            },
-                            {
-                                label: '江北区',
-                                value: 'jiangbei',
-                            }
-                        ]
-                    },
-                ],
-            }
-        ], []);
+        {
+            label: '浙江省',
+            value: 'zhejiang',
+            children: [
+                {
+                    label: '杭州市',
+                    value: 'hangzhou',
+                    children: [
+                        {
+                            label: '西湖区',
+                            value: 'xihu',
+                        },
+                        {
+                            label: '萧山区',
+                            value: 'xiaoshan',
+                        },
+                        {
+                            label: '临安区',
+                            value: 'linan',
+                        },
+                    ],
+                },
+                {
+                    label: '宁波市',
+                    value: 'ningbo',
+                    children: [
+                        {
+                            label: '海曙区',
+                            value: 'haishu',
+                        },
+                        {
+                            label: '江北区',
+                            value: 'jiangbei',
+                        }
+                    ]
+                },
+            ],
+        }
+    ], []);
     const onChange = useCallback((val) => {
         setValue(val);
     }, []);
@@ -1355,8 +1355,8 @@ function Demo() {
     }, [value]);
 
     const triggerRender = ({ value: innerStateValue, placeholder, ...rest }) => {
-        console.log(value)
-        console.log(rest)
+        console.log(value);
+        console.log(rest);
         return (
             <Button theme={'light'} icon={closeIcon} iconPosition={'right'}>
                 {value && value.length ? value.join('/') : placeholder}

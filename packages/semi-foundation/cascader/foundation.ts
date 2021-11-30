@@ -1,4 +1,4 @@
-import { isEqual, get, difference, isUndefined, assign, cloneDeep, isEmpty, isNumber, includes } from 'lodash-es';
+import { isEqual, get, difference, isUndefined, assign, cloneDeep, isEmpty, isNumber, includes } from 'lodash';
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import {
     filter,
@@ -77,7 +77,7 @@ export interface BasicTriggerRenderProps {
     /** The hierarchical position of the selected node in treeData,
      * as in the following example, when Zhejiang-Hangzhou-Xiaoshan
      * District is selected, the value here is 0-0-1 */
-    value?: string;
+    value?: string | Set<string>;
     /* The input value of the current input box */
     inputValue: string;
     /* Cascader's placeholder */
@@ -414,9 +414,12 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
 
         if (selectedKeys.length) {
             const selectedKey = selectedKeys[0];
-            const isOptionDisabled = this._isOptionDisabled(selectedKey, keyEntities);
             const selectedItem = keyEntities[selectedKey];
-            if (!isOptionDisabled && (changeOnSelect || this._isLeaf(selectedItem.data))) {
+            /**
+             * When changeOnSelect is turned on, or the target option is a leaf option,
+             * the option is considered to be selected, even if the option is disabled
+             */
+            if (changeOnSelect || this._isLeaf(selectedItem.data)) {
                 updateStates.selectedKeys = new Set([selectedKey]);
                 if (!loadingActive.length) {
                     updateStates.activeKeys = new Set(selectedItem.path);

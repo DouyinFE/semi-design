@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { noop, get } from 'lodash-es';
+import { noop, get } from 'lodash';
 
 import ConfigContext from '../configProvider/context';
 import BaseComponent, { ValidateStatus } from '../_base/baseComponent';
@@ -70,7 +70,7 @@ export type TimePickerProps = {
     position?: Position;
     prefixCls?: string;
     rangeSeparator?: string;
-    scrollItemProps?: ScrollItemProps;
+    scrollItemProps?: ScrollItemProps<any>;
     secondStep?: number;
     showClear?: boolean;
     size?: InputSize;

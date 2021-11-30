@@ -16,9 +16,10 @@
         "experimentalDecorators": true,
         "noImplicitReturns": true,
         "noImplicitThis": false,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "esModuleInterop": true,
         "skipLibCheck": true,
+        "strict": true,
         "declaration": true
     },
     "include": ["**/*.tsx", "**/*.ts"],

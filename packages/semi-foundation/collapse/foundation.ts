@@ -23,7 +23,7 @@ export interface CollapseState{
 }
 
 export interface CollapseAdapter extends DefaultAdapter<CollapseProps, CollapseState>{
-    handleChange: (...args: ArgsType<CollapseProps['onChange']>) => ReturnType<CollapseProps['onChange']>;
+    handleChange: (activeKey: CollapseProps['activeKey'], e: any) => void;
     // getStates: () => CollapseState;
     // getProps: () => CollapseProps;
     addActiveKey: (newSet: CollapseState['activeSet']) => void;

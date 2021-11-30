@@ -163,17 +163,22 @@ import { IconCopy } from '@douyinfe/semi-icons';
     You can prevent the event from bubbling to Collapse.Header in the onClick event callback of the custom element. If the custom element does not provide an event object, wrap a layer of div to prevent bubbling in the div onClick.
 
 ```jsx
-<Collapse>
-    <Collapse.Panel
-        header={
-            <div style={{ display: 'inline-flex' }} onClick={e => e.stopPropagation()}>
-                <span>Panel header</span>
-                <Input />
-            </div>
-        }
-        itemKey="1"
-    >
-        <p>Hi, bytedance dance dance. This is the docsite of Semi UI. </p>
-    </Collapse.Panel>
-</Collapse>
+import React from 'react';
+import { Collapse, Input } from '@douyinfe/semi-ui';
+
+() => (
+    <Collapse>
+        <Collapse.Panel
+            header={
+                <div style={{ display: 'inline-flex' }} onClick={e => e.stopPropagation()}>
+                    <span>Panel header</span>
+                    <Input />
+                </div>
+            }
+            itemKey="1"
+        >
+            <p>Hi, bytedance dance dance. This is the docsite of Semi UI. </p>
+        </Collapse.Panel>
+    </Collapse>
+);
 ```

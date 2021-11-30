@@ -23,6 +23,7 @@ The basic type of Badge is `count`. The `dot` property changes a badge into a sm
 ```jsx live=true
 import React from 'react';
 import { Badge, Avatar } from '@douyinfe/semi-ui';
+import { IconLock } from '@douyinfe/semi-icons';
 
 () => {
     const style = {
@@ -53,7 +54,7 @@ import { Badge, Avatar } from '@douyinfe/semi-ui';
             </Badge>
         </div>
     );
-}
+};
 ```
 
 ### Maximum Value
@@ -93,7 +94,7 @@ import { Badge, Avatar } from '@douyinfe/semi-ui';
             </Badge>
         </div>
     );
-}
+};
 ```
 
 ### Position
@@ -133,7 +134,7 @@ import { Badge, Avatar } from '@douyinfe/semi-ui';
             </Badge>
         </div>
     );
-}
+};
 ```
 
 ### Theming
@@ -189,7 +190,7 @@ import { Badge, Avatar } from '@douyinfe/semi-ui';
             </div>
         </div>
     );
-}
+};
 ```
 
 `type` support the following values: `primary`(default),`secondary`,`tertiary`,`warning` and `danger`.
@@ -243,7 +244,7 @@ import { Badge, Avatar } from '@douyinfe/semi-ui';
             </div>
         </div>
     );
-}
+};
 ```
 
 ### Independent Usage

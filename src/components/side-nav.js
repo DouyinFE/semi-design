@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, Suspense } from 'react';
 import { Nav, Icon } from '@douyinfe/semi-ui';
-import { navigate, withPrefix } from 'gatsby';
+import { withPrefix, Link } from 'gatsby';
 import { getLocale } from 'utils/locale';
 import IconMap from '../images/docIcons';
 
@@ -34,13 +34,31 @@ const SideNav = ({ location = null, type = null, itemsArr, edges, style, hasBann
                     text: node.frontmatter.title,
                     icon: <Icon svg={<IconNode />} size={'extra-large'} /> || '',
                     order: node.frontmatter.order || 0,
+                    // link: `/${node.fields.slug}`,
+                    // linkOptions: {
+                    //     onClick: (e) => {
+                    //         e.preventDefault();
+                    //     }
+                    // },
                     category: navData[categoryIndex].text || navData[categoryIndex].textUs,
                 });
                 navData[categoryIndex].items.sort((a, b) => a.order - b.order);
             }
         });
-
-        return navData;
+        return navData.map(category=>{
+            const { items, ...rest } = category
+            return (
+                <Nav.Sub {...rest} key={rest.itemKey}>
+                    {items.map(item=>{
+                        return (
+                            <Link to={item.itemKey} key={item.itemKey} >
+                                <Nav.Item {...item} />
+                            </Link>
+                        )
+                    })}
+                </Nav.Sub>
+            )
+        })
     }
 
     const computedNavData = useMemo(() => getNavData(itemsArr), [itemsArr, localeCode]);
@@ -69,8 +87,6 @@ const SideNav = ({ location = null, type = null, itemsArr, edges, style, hasBann
 
 
     const onNavSelect = ({ itemKey, selectedKeys }) => {
-        setSelectedKeys([...selectedKeys]);
-        navigate(itemKey);
         window?.__semi__?.Tea?.eventHappened('mainSiteNavClicked', itemKey);
     };
 
@@ -90,12 +106,13 @@ const SideNav = ({ location = null, type = null, itemsArr, edges, style, hasBann
                 subNavMotion={subNavMotion}
                 bodyStyle={{ height: '100%' }}
                 onSelect={onNavSelect}
-                items={computedNavData}
                 selectedKeys={selectedKeys}
                 onOpenChange={onOpenChange}
                 defaultOpenKeys={computedNavData.map(item => item.itemKey)}
                 openKeys={openKeys}
-            />
+            >
+                {computedNavData}
+            </Nav>
         </div>
     );
 };

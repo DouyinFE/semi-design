@@ -7,7 +7,7 @@ import { strings as iconStrings } from '@douyinfe/semi-foundation/icons/constant
 import Button, { Theme, ButtonProps } from '../button/Button';
 import SpinIcon from '../spin/icon';
 import { IconSize } from '@douyinfe/semi-icons';
-import { noop } from 'lodash-es';
+import { noop } from 'lodash';
 import '@douyinfe/semi-foundation/button/iconButton.scss';
 
 const iconSizes = iconStrings.SIZE;
@@ -46,7 +46,6 @@ class IconButton extends PureComponent<IconButtonProps> {
         loading: PropTypes.bool,
         prefixCls: PropTypes.string,
         icon: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.node]),
-        iconType: PropTypes.element,
         iconSize: PropTypes.oneOf(iconSizes),
         noHorizontalPadding: PropTypes.oneOfType([PropTypes.bool, PropTypes.string, PropTypes.array]),
         children: PropTypes.node,

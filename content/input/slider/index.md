@@ -22,25 +22,25 @@ import React from 'react';
 import { Slider } from '@douyinfe/semi-ui';
 
 () => (
-  <div>
     <div>
-        <div>Default</div>
-        <Slider showBoundary={true}></Slider>
+        <div>
+            <div>Default</div>
+            <Slider showBoundary={true}></Slider>
+        </div>
+        <br/>
+        <br/>
+        <div>
+            <div>Range</div>
+            <Slider defaultValue={[20, 60]} range></Slider>
+        </div>
+        <br/>
+        <br/>
+        <div>
+            <div>Disabled</div>
+            <Slider defaultValue={40} disabled></Slider>
+        </div>
     </div>
-    <br/>
-    <br/>
-    <div>
-        <div>Range</div>
-        <Slider defaultValue={[20, 60]} range></Slider>
-    </div>
-    <br/>
-    <br/>
-    <div>
-        <div>Disabled</div>
-        <Slider defaultValue={40} disabled></Slider>
-    </div>
-  </div>
-)
+);
 ```
 
 ### 带输入框的
@@ -50,30 +50,30 @@ import React from 'react';
 import { Slider, InputNumber } from '@douyinfe/semi-ui';
 
 class InputSlider extends React.Component {
-  constructor(props) {
-    super();
-    this.state = { value: 10 };
-    this.getSliderValue = this.getSliderValue.bind(this);
-  }
+    constructor(props) {
+        super();
+        this.state = { value: 10 };
+        this.getSliderValue = this.getSliderValue.bind(this);
+    }
 
-  getSliderValue(value) {
-      if(isNaN(Number(value))){
-          return;
-      }
-      this.setState({ value: value / 1 }); 
-  }
+    getSliderValue(value) {
+        if (isNaN(Number(value))){
+            return;
+        }
+        this.setState({ value: value / 1 }); 
+    }
 
-  render() {
-    const { value } = this.state
-    return (
-      <div>
-          <div style={{ width: 320, marginRight: 15 }}>
-              <Slider step={1} value={value} onChange={(value) => (this.getSliderValue(value))} ></Slider>
-          </div>
-          <InputNumber onChange={(v) => this.getSliderValue(v)} style={{width: 100}} value={value} min={0} max={100} />
-      </div>
-    );
-  }
+    render() {
+        const { value } = this.state;
+        return (
+            <div>
+                <div style={{ width: 320, marginRight: 15 }}>
+                    <Slider step={1} value={value} onChange={(value) => (this.getSliderValue(value))} ></Slider>
+                </div>
+                <InputNumber onChange={(v) => this.getSliderValue(v)} style={{width: 100}} value={value} min={0} max={100} />
+            </div>
+        );
+    }
 }
 ```
 
@@ -84,13 +84,13 @@ import React from 'react';
 import { Slider } from '@douyinfe/semi-ui';
 
 () => (
-  <div>
-    <Slider tipFormatter={v => (`${v}%`)} />
-    <br/>
-    <br/>
-    <Slider tipFormatter={null} />
-  </div>
-)
+    <div>
+        <Slider tipFormatter={v => (`${v}%`)} />
+        <br/>
+        <br/>
+        <Slider tipFormatter={null} />
+    </div>
+);
 ```
 
 ### 带标签的
@@ -100,23 +100,23 @@ import React from 'react';
 import { Slider } from '@douyinfe/semi-ui';
 
 () => (
-  <div>
-    <div>step=10</div>
-    <Slider step={10} marks={{ 0: '0', 10: '10', 20: '20', 30: '30', 40: '40', 50: '50', 100: '100' }} defaultValue={[10, 100]} range={true}></Slider>
-    <br/>
-    <br/>
-    <div>step=0.1</div>
-    <Slider step={0.1} marks={{ 0.1: '0.1', 0.2: '0.2', 0.3: '0.3', 0.4: '0.4', 0.5: '0.5' }} min={0} max={1} defaultValue={[0.1, 0.5]} range={true}></Slider>
-    <br/>
-    <br/>
-    <div>Marks</div>
-    <Slider marks={{ 20: '20c', 40: '40c' }} defaultValue={[0, 100]} range={true} ></Slider>
-    <br/>
-    <br/>
-    <div>Inclued</div>
-    <Slider marks={{ 20: '20c', 40: '40c' }} included={false} defaultValue={[0, 100]} range={true}></Slider>
-  </div>
-)
+    <div>
+        <div>step=10</div>
+        <Slider step={10} marks={{ 0: '0', 10: '10', 20: '20', 30: '30', 40: '40', 50: '50', 100: '100' }} defaultValue={[10, 100]} range={true}></Slider>
+        <br/>
+        <br/>
+        <div>step=0.1</div>
+        <Slider step={0.1} marks={{ 0.1: '0.1', 0.2: '0.2', 0.3: '0.3', 0.4: '0.4', 0.5: '0.5' }} min={0} max={1} defaultValue={[0.1, 0.5]} range={true}></Slider>
+        <br/>
+        <br/>
+        <div>Marks</div>
+        <Slider marks={{ 20: '20c', 40: '40c' }} defaultValue={[0, 100]} range={true} ></Slider>
+        <br/>
+        <br/>
+        <div>Inclued</div>
+        <Slider marks={{ 20: '20c', 40: '40c' }} included={false} defaultValue={[0, 100]} range={true}></Slider>
+    </div>
+);
 ```
 
 ### 分段背景
@@ -126,43 +126,43 @@ import React from 'react';
 import { Slider } from '@douyinfe/semi-ui';
 
 class SegSlider extends React.Component {
-  constructor(props) {
-    super();
-    this.state = { value: [20, 60] };
-    this.changeValue = this.changeValue.bind(this);
-    this.getRailStyle = this.getRailStyle.bind(this);
-  }
-
-  changeValue(value) {
-    this.setState({ value });
-  }
-
-  getRailStyle(range) {
-    // color of second segment inherits from .semi-slider-track
-    const color = ['var(--semi-color-danger)', 'transparent', 'var(--semi-color-success)'];
-    const gradientPos = this.state.value.map(val => 
-      ((val - range[0]) / (range[1] - range[0])).toFixed(2) * 100
-    );
-    const style = {
-      background: `linear-gradient(to right, ${color[0]} ${gradientPos[0]}%, ${color[1]} ${gradientPos[0]}%, ${color[1]} ${gradientPos[1]}%, ${color[2]} ${gradientPos[1]}%)`
+    constructor(props) {
+        super();
+        this.state = { value: [20, 60] };
+        this.changeValue = this.changeValue.bind(this);
+        this.getRailStyle = this.getRailStyle.bind(this);
     }
-    return style;
-  }
 
-  render() {
-    const range = [10, 100];
-    const railStyle = this.getRailStyle(range);
-    return (
-        <Slider
-          range
-          min={range[0]}
-          max={range[1]}
-          onChange={this.changeValue}
-          railStyle={railStyle}
-          defaultValue={this.state.value}
-        />
-    );
-  }
+    changeValue(value) {
+        this.setState({ value });
+    }
+
+    getRailStyle(range) {
+    // color of second segment inherits from .semi-slider-track
+        const color = ['var(--semi-color-danger)', 'transparent', 'var(--semi-color-success)'];
+        const gradientPos = this.state.value.map(val => 
+            ((val - range[0]) / (range[1] - range[0])).toFixed(2) * 100
+        );
+        const style = {
+            background: `linear-gradient(to right, ${color[0]} ${gradientPos[0]}%, ${color[1]} ${gradientPos[0]}%, ${color[1]} ${gradientPos[1]}%, ${color[2]} ${gradientPos[1]}%)`
+        };
+        return style;
+    }
+
+    render() {
+        const range = [10, 100];
+        const railStyle = this.getRailStyle(range);
+        return (
+            <Slider
+                range
+                min={range[0]}
+                max={range[1]}
+                onChange={this.changeValue}
+                railStyle={railStyle}
+                defaultValue={this.state.value}
+            />
+        );
+    }
 }
 ```
 
@@ -173,26 +173,26 @@ import React from 'react';
 import { Slider, Button } from '@douyinfe/semi-ui';
 
 class ControllSlider extends React.Component {
-  constructor(props) {
-    super();
-    this.state = { value: 10 };
-    this.changeValue = this.changeValue.bind(this);
-  }
+    constructor(props) {
+        super();
+        this.state = { value: 10 };
+        this.changeValue = this.changeValue.bind(this);
+    }
 
-  changeValue() {
-    this.setState({ value: this.state.value + 10 });
-  }
+    changeValue() {
+        this.setState({ value: this.state.value + 10 });
+    }
 
-  render() {
-    return (
-      <div>
-        <Button onClick={this.changeValue} style={{ marginRight: 20 }}>点击改变value值</Button>
-        <br/>
-        <br/>
-        <Slider value={this.state.value}></Slider>
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div>
+                <Button onClick={this.changeValue} style={{ marginRight: 20 }}>点击改变value值</Button>
+                <br/>
+                <br/>
+                <Slider value={this.state.value}></Slider>
+            </div>
+        );
+    }
 }
 ```
 
@@ -201,26 +201,29 @@ class ControllSlider extends React.Component {
 import React from 'react';
 import { Slider } from '@douyinfe/semi-ui';
 
-<div>
-  <div style={{height: 300, marginLeft: 30, marginTop: 10, paddingRight: 30, display: 'inline-block'}}>
-      <Slider vertical></Slider>
-  </div>
-  <div style={{height: 300, marginLeft: 30, marginTop: 10, paddingRight: 30, display: 'inline-block'}}>
-      <Slider vertical verticalReverse></Slider>
-  </div>
-  <div style={{height: 300, marginLeft: 30, marginTop: 10, paddingRight: 30, display: 'inline-block'}}>
-      <Slider vertical range defaultValue={[20, 60]}></Slider>
-  </div>
-  <div style={{height: 300, marginLeft: 30, marginTop: 10, paddingRight: 30, display: 'inline-block'}}>
-      <Slider vertical verticalReverse range defaultValue={[20, 60]}></Slider>
-  </div>
-  <div style={{height: 300, marginLeft: 30, marginTop: 10, paddingRight: 30, display: 'inline-block'}}>
-      <Slider vertical range marks={{ 20: '20c', 40: '40c' }} step={10} defaultValue={[20, 60]}></Slider>
-  </div>
-    <div style={{height: 300, marginLeft: 30, marginTop: 10, paddingRight: 30, display: 'inline-block'}}>
-      <Slider vertical verticalReverse range marks={{ 20: '20c', 40: '40c' }} step={10} defaultValue={[20, 60]}></Slider>
+() => (
+    <div>
+        <div style={{height: 300, marginLeft: 30, marginTop: 10, paddingRight: 30, display: 'inline-block'}}>
+            <Slider vertical></Slider>
+        </div>
+        <div style={{height: 300, marginLeft: 30, marginTop: 10, paddingRight: 30, display: 'inline-block'}}>
+            <Slider vertical verticalReverse></Slider>
+        </div>
+        <div style={{height: 300, marginLeft: 30, marginTop: 10, paddingRight: 30, display: 'inline-block'}}>
+            <Slider vertical range defaultValue={[20, 60]}></Slider>
+        </div>
+        <div style={{height: 300, marginLeft: 30, marginTop: 10, paddingRight: 30, display: 'inline-block'}}>
+            <Slider vertical verticalReverse range defaultValue={[20, 60]}></Slider>
+        </div>
+        <div style={{height: 300, marginLeft: 30, marginTop: 10, paddingRight: 30, display: 'inline-block'}}>
+            <Slider vertical range marks={{ 20: '20c', 40: '40c' }} step={10} defaultValue={[20, 60]}></Slider>
+        </div>
+        <div style={{height: 300, marginLeft: 30, marginTop: 10, paddingRight: 30, display: 'inline-block'}}>
+            <Slider vertical verticalReverse range marks={{ 20: '20c', 40: '40c' }} step={10} defaultValue={[20, 60]}></Slider>
+        </div>
     </div>
-</div>
+);
+
 ```
 
 ## API参考

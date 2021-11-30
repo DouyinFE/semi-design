@@ -44,12 +44,12 @@ import { IconSearch } from '@douyinfe/semi-icons';
             result = [];
         }
         setStringData(result);
-    }
+    };
 
     const handleChange = (value) => {
         console.log('onChange', value);
         setValue(value);
-    }
+    };
     return (
         <AutoComplete
             data={stringData}
@@ -61,8 +61,8 @@ import { IconSearch } from '@douyinfe/semi-icons';
             onChange={handleChange}
             style={{ width: 200 }}
         />
-    )
-}
+    );
+};
 ```
 
 ### Custom option rendering
@@ -252,7 +252,7 @@ import { AutoComplete } from '@douyinfe/semi-ui';
             style={{ width: 200 }}
         ></AutoComplete>
     </div>
-)
+);
 ```
 
 ### The position of the drop-down menu
@@ -278,7 +278,7 @@ import { AutoComplete } from '@douyinfe/semi-ui';
             style={{ width: 200, margin: 10 }}
         ></AutoComplete>
     </div>
-)
+);
 ```
 
 ### Disabled
@@ -289,7 +289,7 @@ import { AutoComplete } from '@douyinfe/semi-ui';
 
 () => (
     <AutoComplete data={[1, 2, 3, 4]} placeholder={'Disable drop-down menu'} disabled style={{ width: 200 }}></AutoComplete>
-)
+);
 ```
 
 ### Validate status
@@ -310,7 +310,7 @@ import { AutoComplete } from '@douyinfe/semi-ui';
         <br />
         <AutoComplete defaultValue="ies"></AutoComplete>
     </>
-)
+);
 ```
 
 ### Custom empty content

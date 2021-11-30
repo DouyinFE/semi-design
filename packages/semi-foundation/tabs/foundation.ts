@@ -1,12 +1,14 @@
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
-import { noop } from 'lodash-es';
+import { noop } from 'lodash';
 
 export interface TabsAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     collectPane: () => void;
+    collectActiveKey: () => void;
     notifyTabClick: (activeKey: string, event: any) => void;
     notifyChange: (activeKey: string) => void;
     setNewActiveKey: (activeKey: string) => void;
     getDefaultActiveKeyFromChildren: () => string;
+    notifyTabDelete: (tabKey: string) => void;
 }
 
 class TabsFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<TabsAdapter<P, S>, P, S> {
@@ -20,12 +22,19 @@ class TabsFoundation<P = Record<string, any>, S = Record<string, any>> extends B
 
     destroy = noop;
 
+    _notifyChange(activeKey: string): void {
+        const { activeKey: stateActiveKey } = this.getStates();
+        if (stateActiveKey !== activeKey) {
+            this._adapter.notifyChange(activeKey);
+        }
+    }
+
     handleTabClick(activeKey: string, event: any): void {
         const isControledComponent = this._isInProps('activeKey');
         if (isControledComponent) {
-            this._adapter.notifyChange(activeKey);
+            this._notifyChange(activeKey);
         } else {
-            this._adapter.notifyChange(activeKey);
+            this._notifyChange(activeKey);
             this.handleNewActiveKey(activeKey);
         }
         this._adapter.notifyTabClick(activeKey, event);
@@ -57,14 +66,11 @@ class TabsFoundation<P = Record<string, any>, S = Record<string, any>> extends B
 
     handleTabPanesChange(): void {
         this._adapter.collectPane();
+        this._adapter.collectActiveKey();
+    }
 
-        let activeKey = this.getState('activeKey');
-        if (typeof activeKey === 'undefined') {
-            activeKey = this._adapter.getDefaultActiveKeyFromChildren();
-        }
-        if (typeof activeKey !== 'undefined') {
-            this.handleNewActiveKey(activeKey);
-        }
+    handleTabDelete(tabKey: string): void {
+        this._adapter.notifyTabDelete(tabKey);
     }
 }
 

@@ -13,7 +13,7 @@ import ModalContentFoundation, {
     ModalContentProps,
     ModalContentState
 } from '@douyinfe/semi-foundation/modal/modalContentFoundation';
-import { noop } from 'lodash-es';
+import { noop } from 'lodash';
 import { IconClose } from '@douyinfe/semi-icons';
 
 let uuid = 0;
@@ -23,11 +23,16 @@ export default class ModalContent extends BaseComponent<ModalContentProps, Modal
     static propTypes = {
         close: PropTypes.func,
         getContainerContext: PropTypes.func,
+        contentClassName: PropTypes.string,
+        maskClassName: PropTypes.string,
+        onAnimationEnd: PropTypes.func
     };
 
     static defaultProps = {
         close: noop,
         getContainerContext: noop,
+        contentClassName: '',
+        maskClassName: ''
     };
     dialogId: string;
     private timeoutId: NodeJS.Timeout;
@@ -107,12 +112,12 @@ export default class ModalContent extends BaseComponent<ModalContentProps, Modal
 
     getMaskElement = () => {
         const { ...props } = this.props;
-        const { mask } = props;
+        const { mask, maskClassName } = props;
         if (mask) {
             const className = cls(`${cssClasses.DIALOG}-mask`, {
                 // [`${cssClasses.DIALOG}-mask-hidden`]: !props.visible,
             });
-            return <div key="mask" className={className} style={props.maskStyle} />;
+            return <div key="mask" className={cls(className, maskClassName)} style={props.maskStyle}/>;
         }
         return null;
     };
@@ -124,7 +129,7 @@ export default class ModalContent extends BaseComponent<ModalContentProps, Modal
         } = this.props;
         let closer;
         if (closable) {
-            const iconType = closeIcon || <IconClose />;
+            const iconType = closeIcon || <IconClose/>;
             closer = (
                 <Button
                     className={`${cssClasses.DIALOG}-close`}
@@ -216,8 +221,11 @@ export default class ModalContent extends BaseComponent<ModalContentProps, Modal
                 style={{ ...props.style, ...style }}
                 id={this.dialogId}
             >
-                <div className={cls([`${cssClasses.DIALOG}-content`,
-                    { [`${cssClasses.DIALOG}-content-fullScreen`]: props.isFullScreen }])}>
+                <div
+                    onAnimationEnd={props.onAnimationEnd}
+                    className={cls([`${cssClasses.DIALOG}-content`,
+                        props.contentClassName,
+                        {[`${cssClasses.DIALOG}-content-fullScreen`]: props.isFullScreen }])}>
                     {header}
                     {body}
                     {footer}
@@ -262,6 +270,7 @@ export default class ModalContent extends BaseComponent<ModalContentProps, Modal
 
         // @ts-ignore Unreachable branch
         // eslint-disable-next-line max-len
-        return containerContext && containerContext.Provider ? <containerContext.Provider value={containerContext.value}>{elem}</containerContext.Provider> : elem;
+        return containerContext && containerContext.Provider ?
+            <containerContext.Provider value={containerContext.value}>{elem}</containerContext.Provider> : elem;
     }
 }

@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { get, noop } from 'lodash-es';
+import { get, noop } from 'lodash';
 import classnames from 'classnames';
 
 import ColGroup from './ColGroup';
@@ -11,6 +11,7 @@ import { Fixed, TableComponents, Scroll, BodyScrollEvent, ColumnProps } from './
 export interface HeadTableProps {
     [x: string]: any;
     anyColumnFixed?: boolean;
+    bodyHasScrollBar?: boolean;
     columns?: ColumnProps[];
     components?: TableComponents;
     dataSource?: Record<string, any>[];
@@ -30,6 +31,7 @@ export interface HeadTableProps {
 class HeadTable extends React.PureComponent<HeadTableProps> {
     static propTypes = {
         anyColumnFixed: PropTypes.bool,
+        bodyHasScrollBar: PropTypes.bool,
         columns: PropTypes.array,
         components: PropTypes.object,
         dataSource: PropTypes.array,
@@ -37,7 +39,10 @@ class HeadTable extends React.PureComponent<HeadTableProps> {
         handleBodyScroll: PropTypes.func,
         prefixCls: PropTypes.string,
         forwardedRef: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
-        scroll: PropTypes.object,
+        scroll: PropTypes.shape({
+            x: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.bool]),
+            y: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+        }),
         selectedRowKeysSet: PropTypes.instanceOf(Set).isRequired, // Useful when update is selected
         showHeader: PropTypes.bool,
         onDidUpdate: PropTypes.func,
@@ -63,6 +68,7 @@ class HeadTable extends React.PureComponent<HeadTableProps> {
             onDidUpdate,
             showHeader,
             anyColumnFixed,
+            bodyHasScrollBar
         } = this.props;
 
         if (!showHeader) {
@@ -71,11 +77,15 @@ class HeadTable extends React.PureComponent<HeadTableProps> {
 
         const Table = get(components, 'header.outer', 'table');
         const x = get(scroll, 'x');
-        const headStyle = {};
+        const headStyle: Partial<React.CSSProperties> = {};
         const tableStyle: { width?: number | string } = {};
 
         if (x && !fixed) {
             tableStyle.width = x;
+        }
+
+        if (bodyHasScrollBar) {
+            headStyle.overflowY = 'scroll';
         }
 
         const colgroup = <ColGroup columns={columns} prefixCls={prefixCls} />;

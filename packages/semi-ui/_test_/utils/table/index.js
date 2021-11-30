@@ -11,7 +11,7 @@ function getRandomNumber(end = 100, start = 0) {
 function getData(total = 25) {
     const _data = [];
     for (let i = 0; i < total; i++) {
-        let age = 40 + (Math.random() > 0.5 ? 1 : -1) * Math.ceil(i / 3);
+        let age = (i * 1000) % 149;
         let name = `Edward King ${i}`;
         _data.push({
             key: String(i),
@@ -171,7 +171,7 @@ function getNestColumns() {
 function getNestData(total = 25) {
     const data = [];
     for (let i = 0; i < total; i++) {
-        let age = 40 + (Math.random() > 0.5 ? 1 : -1) * (i % 9);
+        let age = (i * 1000) % 149;
         let name = `Edward King ${i}`;
         data.push({
             key: String(i),

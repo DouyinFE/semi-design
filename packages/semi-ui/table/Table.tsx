@@ -25,7 +25,7 @@ import {
     difference,
     isFunction,
     isObject
-} from 'lodash-es';
+} from 'lodash';
 
 import {
     mergeQueries,
@@ -351,6 +351,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
     lastScrollLeft!: number;
     scrollPosition!: BodyScrollPosition;
     position!: BodyScrollPosition;
+    foundation: TableFoundation<RecordType>;
     constructor(props: NormalTableProps<RecordType>, context: TableContextProps) {
         super(props);
         this.foundation = new TableFoundation<RecordType>(this.adapter);
@@ -554,7 +555,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
                 pagination: statePagination = null,
                 dataSource: stateDataSource = null,
             } = states;
-            const handledProps: Partial<NormalTableState<RecordType>> = this.foundation.getCurrentPageData(stateDataSource, statePagination, stateQueries);
+            const handledProps: Partial<NormalTableState<RecordType>> = this.foundation.getCurrentPageData(stateDataSource, statePagination as TablePaginationProps, stateQueries);
 
             // After the pager is updated, reset allRowKeys of the current page
             this.adapter.setAllRowKeys(handledProps.allRowKeys);
@@ -613,7 +614,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
         }
     };
 
-    _invokeColumnFn = (key: string | number, funcName: string, ...args: any[]) => {
+    _invokeColumnFn = (key: string, funcName: string, ...args: any[]) => {
         if (key && funcName) {
             const column = this.foundation.getQuery(key);
             const func = get(column, funcName, null);
@@ -642,10 +643,15 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
 
     getColumns = (columns: ColumnProps<RecordType>[], children: ReactNode) => (!Array.isArray(columns) || !columns || !columns.length ? getColumns(children) : columns);
 
+    // @ts-ignore
     getCellWidths = (...args: any[]) => this.foundation.getCellWidths(...args);
+    // @ts-ignore
     setHeadWidths = (...args: any[]) => this.foundation.setHeadWidths(...args);
+    // @ts-ignore
     getHeadWidths = (...args: any[]) => this.foundation.getHeadWidths(...args);
+    // @ts-ignore
     mergedRowExpandable = (...args: any[]) => this.foundation.mergedRowExpandable(...args);
+    // @ts-ignore
     setBodyHasScrollbar = (...args: any[]) => this.foundation.setBodyHasScrollbar(...args);
 
     handleWheel = (event: React.WheelEvent<HTMLDivElement>) => {
@@ -857,7 +863,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
         const key =
             typeof groupKey === 'string' || typeof groupKey === 'number' ?
                 groupKey :
-                this.foundation.getRecordKey(record);
+                this.foundation.getRecordKey(record as RecordType);
 
         return (
             <ExpandedIcon
@@ -870,6 +876,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
         );
     };
 
+    // @ts-ignore
     handleRowExpanded = (...args: any[]) => this.foundation.handleRowExpanded(...args);
 
     normalizeExpandColumn = (props: { prefixCls?: string; expandCellFixed?: ArrayElement<typeof strings.FIXED_SET>; expandIcon?: ExpandIcon } = {}) => {
@@ -1074,7 +1081,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
                     key="head"
                     anyColumnFixed={anyColumnFixed}
                     ref={headerRef}
-                    columns={bodyHasScrollBar ? columns : filteredColumns}
+                    columns={filteredColumns}
                     prefixCls={prefixCls}
                     fixed={fixed}
                     handleBodyScroll={this.handleBodyScrollLeft}
@@ -1083,6 +1090,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
                     showHeader={showHeader}
                     selectedRowKeysSet={selectedRowKeysSet}
                     dataSource={dataSource}
+                    bodyHasScrollBar={bodyHasScrollBar}
                 />
             ) : null;
 
@@ -1180,24 +1188,6 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             }
         }
 
-        /**
-          * Whether to insert the scroll shaft in the header
-          * If there is no fixed but there is a vertical scroll axis, the scroll-bar should be inserted in the head
-          */
-        if (isAnyFixedRight(columns) || get(scroll, 'y')) {
-            const scrollbarWidth = measureScrollbar('vertical');
-            if (scrollbarWidth) {
-                const column = this.normalizeScrollbarColumn({ scrollbarWidth });
-
-                const destIndex = findIndex(columns, item => item.key === strings.DEFAULT_KEY_COLUMN_SCROLLBAR);
-                if (destIndex > -1) {
-                    columns[destIndex] = { ...column, ...columns[destIndex] };
-                } else {
-                    columns.push(column);
-                }
-            }
-        }
-
         assignColumnKeys(columns);
 
         return columns;
@@ -1274,13 +1264,11 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
           */
         if (!this.adapter.isAnyColumnUseFullRender(queries)) {
             const rowSelectionUpdate: boolean = propRowSelection && !get(propRowSelection, 'hidden');
-            const scrollbarColumnUpdate: boolean | string | number = isAnyFixedRight(cachedColumns) || get(scroll, 'y');
             columns = this.foundation.memoizedWithFnsColumns(
                 queries,
                 cachedColumns,
                 rowSelectionUpdate,
                 hideExpandedColumn,
-                scrollbarColumnUpdate,
                 // Update the columns after the body scrollbar changes to ensure that the head and body are aligned
                 bodyHasScrollBar
             );

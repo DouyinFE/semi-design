@@ -1,6 +1,6 @@
 {
   "name": "@douyinfe/semi-animation-styled",
-  "version": "2.0.1",
+  "version": "2.1.0-next.1",
   "description": "semi styled animation",
   "keywords": [
     "semi",
@@ -9,7 +9,7 @@
   ],
   "homepage": "",
   "license": "MIT",
-  "main": "lib/es/index.js",
+  "main": "lib/cjs/index.js",
   "module": "lib/es/index.js",
   "typings": "lib/es/index.d.ts",
   "directories": {

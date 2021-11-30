@@ -7,7 +7,7 @@ import BaseComponent from '../_base/baseComponent';
 import Label from '../form/label';
 
 import { noop } from '@douyinfe/semi-foundation/utils/function';
-import { isFunction } from 'lodash-es';
+import { isFunction } from 'lodash';
 
 const prefixCls = cssClasses.PREFIX;
 const sizeSet = strings.SIZE;

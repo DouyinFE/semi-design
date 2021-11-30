@@ -92,6 +92,7 @@ import { List, ButtonGroup, Button, Avatar } from '@douyinfe/semi-ui';
 class ContentList extends React.Component {
     render() {
         const data = [
+            // eslint-disable-next-line react/jsx-key
             <p
                 style={{
                     color: 'var(--semi-color-text-2)',
@@ -102,15 +103,17 @@ class ContentList extends React.Component {
                     textOverflow: 'ellipsis',
                 }}
             >
-                Life's but a walking shadow, a poor player, that struts and frets his hour upon the stage, and then is
-                heard no more; it is a tale told by an idiot, full of sound and fury, signifying nothing.
+                {`Life's but a walking shadow, a poor player, that struts and frets his hour upon the stage, and then is
+                heard no more; it is a tale told by an idiot, full of sound and fury, signifying nothing.`}
             </p>,
+            // eslint-disable-next-line react/jsx-key
             <p style={{ color: 'var(--semi-color-text-2)', margin: '4px 0', width: 500 }}>
                 Come what come may, time and the hour run through the roughest day.
             </p>,
+            // eslint-disable-next-line react/jsx-key
             <p style={{ color: 'var(--semi-color-text-2)', margin: '4px 0', width: 500 }}>
-                Where shall we three meet again in thunder, lightning, or in rain? When the hurlyburly's done, when the
-                battle's lost and won
+                {`Where shall we three meet again in thunder, lightning, or in rain? When the hurlyburly's done, when the
+                battle's lost and won`}
             </p>,
         ];
 
@@ -181,9 +184,9 @@ class LayoutList extends React.Component {
                                 <div>
                                     <span style={{ color: 'var(--semi-color-text-0)', fontWeight: 500 }}>{item.title}</span>
                                     <p style={{ color: 'var(--semi-color-text-2)', margin: '4px 0' }}>
-                                        Life's but a walking shadow, a poor player, that struts and frets his hour upon
+                                        {` Life's but a walking shadow, a poor player, that struts and frets his hour upon
                                         the stage, and then is heard no more; it is a tale told by an idiot, full of
-                                        sound and fury, signifying nothing.
+                                        sound and fury, signifying nothing.`}
                                     </p>
                                 </div>
                             }
@@ -500,7 +503,7 @@ You can integrate [react-infinite-scroller](https://github.com/CassetteRocks/rea
 
 ```jsx live=true dir="column" noInline=true hideInDSM
 import React from 'react';
-import { List, Avatar, Spin } from '@douyinfe/semi-ui';
+import { List, Avatar, Spin, Button } from '@douyinfe/semi-ui';
 import InfiniteScroll from 'react-infinite-scroller';
 
 class ScrollLoad extends React.Component {
@@ -569,7 +572,7 @@ class ScrollLoad extends React.Component {
 
         return (
             <div
-                class
+                className
                 Name="light-scrollbar"
                 style={{ height: 420, overflow: 'auto', border: '1px solid var(--semi-color-border)', padding: 10 }}
             >
@@ -915,6 +918,430 @@ class DraggableList extends React.Component {
 }
 
 render(DraggableList);
+```
+
+
+If you use [react-sortable-hoc](https://github.com/clauderic/react-sortable-hoc), here is also an example
+
+```jsx live=true dir="column" hideInDSM
+import React, { useState } from 'react';
+import { List } from '@douyinfe/semi-ui';
+import { IconHandle } from '@douyinfe/semi-icons';
+import { SortableContainer, SortableElement, sortableHandle } from 'react-sortable-hoc';
+
+() => {
+    const data = [
+        'Siege',
+        'The ordinary world',
+        'Three Body',
+        'Snow in the Snow',
+        'Saharan story',
+        'Those things',
+        'A little monk of Zen',
+        'Dune',
+        'The courage to be hated',
+        'Crime and Punishment',
+        'Moon and sixpence',
+        'The silent majority',
+        'First person singular',
+    ];
+
+    const [list, setList] = useState(data.slice(0, 6));
+
+    const renderItem = (props) => {
+        const { item } = props;
+        const DragHandle = sortableHandle(() => <IconHandle className={`list-item-drag-handler`} style={{ marginRight: 4 }} />);
+        return (
+            <List.Item className='component-list-demo-drag-item list-item'>
+                <DragHandle />
+                {item}
+            </List.Item>
+        );
+    };
+
+    const arrayMove = (array, from, to) => {
+        let newArray = array.slice();
+        newArray.splice(to < 0 ? newArray.length + to : to, 0, newArray.splice(from, 1)[0]);
+        return newArray;
+    };
+
+    const onSortEnd = (callbackProps) => {
+        let { oldIndex, newIndex } = callbackProps;
+        let newList = arrayMove(list, oldIndex, newIndex);
+        setList(newList);
+    };
+    
+    const SortableItem = SortableElement(props => renderItem(props));
+    const SortableList = SortableContainer(
+        ({ items }) => {
+            return (
+                <div className="sortable-list-main">
+                    {items.map((item, index) => (
+                        <SortableItem key={item} index={index} item={item}></SortableItem>
+                    ))}
+                </div>
+            );
+        },
+        { distance: 10 }
+    );
+
+    return (
+        <div>
+            <div style={{ marginRight: 16, width: 280, display: 'flex', flexWrap: 'wrap', border: '1px solid var(--semi-color-border)' }}>
+                <List style={{ width: '100%' }} className='component-list-demo-booklist'>
+                    <SortableList useDragHandle onSortEnd={onSortEnd} items={list}></SortableList>
+                </List>
+            </div>
+
+        </div>
+    );
+};
+```
+
+### With Pagination
+
+You can use Pagination in combination to achieve a paged List
+
+```jsx live=true dir="column" hideInDSM
+import React, { useState } from 'react';
+import { List, Pagination } from '@douyinfe/semi-ui';
+
+() => {
+    const data = [
+        'Siege',
+        'The ordinary world',
+        'Three Body',
+        'Snow in the Snow',
+        'Saharan story',
+        'Those things in the Ming Dynasty',
+        'A little monk of Zen',
+        'Dune',
+        'The courage to be hated',
+        'Crime and Punishment',
+        'Moon and sixpence',
+        'The silent majority',
+        'First person singular',
+    ];
+
+    const [page, onPageChange] = useState(1);
+
+    let pageSize = 4;
+
+    const getData = (page) => {
+        let start = (page - 1) * pageSize;
+        let end = page * pageSize;
+        return data.slice(start, end);
+    };
+
+    return (
+        <div>
+            <div style={{ marginRight: 16, width: 280, display: 'flex', flexWrap: 'wrap' }}>
+                <List
+                    dataSource={getData(page)}
+                    split={false}
+                    size='small'
+                    className='component-list-demo-booklist'
+                    style={{ border: '1px solid var(--semi-color-border)', flexBasis: '100%', flexShrink: 0 }}
+                    renderItem={item => <List.Item className='list-item'>{item}</List.Item>}
+                />
+                <Pagination size='small' style={{ width: '100%', flexBasis: '100%', justifyContent: 'center' }} pageSize={pageSize} total={data.length} currentPage={page} onChange={cPage => onPageChange(cPage)} />
+            </div>
+        </div>
+    );
+};
+```
+
+### With filter
+
+You can use it by assembling Input to filter the List
+
+```jsx live=true dir="column"  hideInDSM
+import React, { useState } from 'react';
+import { List, Input } from '@douyinfe/semi-ui';
+import { IconSearch } from '@douyinfe/semi-icons';
+
+() => {
+    const data = [
+        'Siege',
+        'The ordinary world',
+        'Three Body',
+        'Snow in the Snow',
+        'Saharan story',
+        'Those things in the Ming Dynasty',
+        'A little monk of Zen',
+        'Dune',
+        'The courage to be hated',
+        'Crime and Punishment',
+    ];
+
+    const [list, setList] = useState(data);
+
+    const onSearch = (string) => {
+        let newList;
+        if (string) {
+            newList = data.filter(item => item.includes(string));
+        } else {
+            newList = data;
+        }
+        setList(newList);
+    };
+
+    return (
+        <div>
+            <div style={{ marginRight: 16, width: 280, display: 'flex', flexWrap: 'wrap', border: '1px solid var(--semi-color-border)' }}>
+                <List
+                    className='component-list-demo-booklist'
+                    dataSource={list}
+                    split={false}
+                    header={<Input onCompositionEnd={(v) => onSearch(v.target.value)} onChange={(v) => !v ? onSearch() : null} placeholder='search' prefix={<IconSearch />} />}
+                    size='small'
+                    style={{ flexBasis: '100%', flexShrink: 0, borderBottom: '1px solid var(--semi-color-border)' }}
+                    renderItem={item =>
+                        <List.Item className='list-item'>{item}</List.Item>
+                    }
+                />
+            </div>
+        </div>
+    )
+}
+```
+
+### Add delete item
+
+```jsx live=true dir="column" hideInDSM
+import React, { useState } from 'react';
+import { List, Input, Button } from '@douyinfe/semi-ui';
+import { IconMinusCircle, IconPlusCircle } from '@douyinfe/semi-icons';
+
+() => {
+    const data = [
+        'Siege',
+        'The ordinary world',
+        'Three Body',
+        'Snow in the Snow',
+        'Saharan story',
+        'Those things in the Ming Dynasty',
+        'A little monk of Zen',
+        'Dune',
+        'The courage to be hated',
+        'Crime and Punishment',
+        'Moon and sixpence',
+        'The silent majority',
+        'First person singular',
+    ];
+    
+    const [list, setList] = useState(data.slice(0, 8));
+
+    const updateList = (item) => {
+        let newList;
+        if (item) {
+            newList = list.filter(i => item !== i);
+        } else {
+            newList = list.concat(data.slice(list.length, list.length + 1))
+        }
+        setList(newList);
+    };
+
+    return (
+        <div>
+            <div style={{ marginRight: 16, width: 280, display: 'flex', flexWrap: 'wrap', border: '1px solid var(--semi-color-border)' }}>
+                <List
+                    className='component-list-demo-booklist'
+                    dataSource={list}
+                    split={false}
+                    size='small'
+                    style={{ flexBasis: '100%', flexShrink: 0, borderBottom: '1px solid var(--semi-color-border)' }}
+                    renderItem={item => 
+                        <div style={{ margin: 4 }} className='list-item'>
+                            <Button type='danger' theme='borderless' icon={<IconMinusCircle />} onClick={() => updateList(item)} style={{ marginRight: 4 }} />
+                            {item}
+                        </div>
+                    }
+                />
+                <div style={{ margin: 4, fontSize: 14  }} onClick={() => updateList()}>
+                    <Button theme='borderless'  icon={<IconPlusCircle />}  style={{ marginRight: 4, color: 'var(--semi-color-info)' }}>
+                    </Button>
+                    Add book
+                </div>
+            </div>
+        </div>
+    );
+};
+```
+
+### Single or multiple selection
+
+You can enhance the List into a list selector by combining Radio or Checkbox
+
+```jsx live=true dir="column" hideInDSM
+
+import React, { useState } from 'react';
+import { List, Input, Button, Checkbox, Radio, RadioGroup, CheckboxGroup } from '@douyinfe/semi-ui';
+
+() => {
+    const data = [
+        'Siege',
+        'The ordinary world',
+        'Three Body',
+        'Snow in the Snow',
+        'Saharan story',
+        'Those things in the Ming Dynasty',
+        'A little monk of Zen',
+        'Dune',
+        'The courage to be hated',
+        'Crime and Punishment',
+        'Moon and sixpence',
+        'The silent majority',
+        'First person singular',
+    ];
+
+    const [page, onPageChange] = useState(1);
+    const [checkboxVal, setCV] = useState(data[0]);
+    const [radioVal, setRV] = useState(data[0]);
+
+    let pageSize = 8;
+
+    const getData = (page) => {
+        let start = (page - 1) * pageSize;
+        let end = page * pageSize;
+        return data.slice(start, end);
+    };
+
+    return (
+        <div style={{ display: 'flex' }}>
+            <div style={{ marginRight: 16, width: 280, display: 'flex', flexWrap: 'wrap' }}>
+                <CheckboxGroup value={checkboxVal} onChange={(value) => setCV(value)}>
+                    <List
+                        dataSource={getData(page)}
+                        className='component-list-demo-booklist'
+                        split={false}
+                        size='small'
+                        style={{ border: '1px solid var(--semi-color-border)', flexBasis: '100%', flexShrink: 0 }}
+                        renderItem={item => <List.Item className='list-item'><Checkbox value={item}>{item}</Checkbox></List.Item>}
+                    />
+                </CheckboxGroup>
+            </div>
+            <div style={{ marginRight: 16, width: 280, display: 'flex', flexWrap: 'wrap' }}>
+                <RadioGroup value={radioVal} onChange={(e) => setRV(e.target.value)}>
+                    <List
+                        className='component-list-demo-booklist'
+                        dataSource={getData(page)}
+                        split={false}
+                        size='small'
+                        style={{ border: '1px solid var(--semi-color-border)', flexBasis: '100%', flexShrink: 0 }}
+                        renderItem={item => <List.Item className='list-item'><Radio value={item}>{item}</Radio></List.Item>}
+                    />
+                </RadioGroup>
+            </div>
+        </div>
+    );
+};
+```
+
+### Keyboard events
+
+You can monitor the keyboard events of the corresponding keys by yourself to realize the selection of different items. As in the following example, you can use the up and down arrow keys to select different items
+
+```jsx live=true dir="column" hideInDSM
+import React, { useState, useRef } from 'react';
+import { List, Input, Button } from '@douyinfe/semi-ui';
+
+() => {
+    const data = [
+        'Siege',
+        'The ordinary world',
+        'Three Body',
+        'Snow in the Snow ',
+        'Saharan story',
+        'Those things in the Ming Dynasty',
+        'A little monk of Zen',
+        'Dune',
+        'The courage to be hated',
+        'Crime and Punishment',
+        'Moon and sixpence',
+        'The silent majority',
+        'First person singular',
+    ];
+
+    const [list, setList] = useState(data.slice(0, 10));
+    const [hoverIndex, setHi] = useState(-1);
+    const i = useRef(-1);
+
+    let changeIndex = (offset) => {
+        let currentIndex = i.current;
+        let index = currentIndex + offset;
+        if (index < 0) {
+            index = list.length - 1;
+        }
+        if (index >= list.length) {
+            index = 0;
+        }
+        i.current = index;
+        setHi(index);
+    };
+    useEffect(() => {
+        let keydownHandler = (event) => {
+            let key = event.keyCode;
+            switch (key) {
+                case 38: // KeyCode.UP
+                    event.preventDefault();
+                    changeIndex(-1);
+                    break;
+                case 40: // KeyCode.DOWN
+                    event.preventDefault();
+                    changeIndex(1);
+                    break;
+                default:
+                    break;
+            }
+        };
+        window.addEventListener('keydown', keydownHandler);
+        return () => {
+            window.removeEventListener('keydown', keydownHandler);
+        };
+    }, []);
+
+    return (
+        <div>
+            <div style={{ marginRight: 16, width: 280, display: 'flex', flexWrap: 'wrap', border: '1px solid var(--semi-color-border)' }}>
+                <List
+                    className='component-list-demo-booklist'
+                    dataSource={list}
+                    split={false}
+                    size='small'
+                    style={{ flexBasis: '100%', flexShrink: 0, borderBottom: '1px solid var(--semi-color-border)' }}
+                    renderItem={(item, index) =>
+                        <List.Item className={index === hoverIndex ? 'component-list-demo-booklist-active-item' : ''}>{item}</List.Item>
+                    }
+                />
+            </div>
+        </div>
+    );
+};
+```
+
+The custom styles involved in the Demo of the above book list example are as follows
+
+```scss
+.component-list-demo-booklist {
+    .list-item {
+        &:hover {
+            background-color: var(--semi-color-fill-0);
+        }
+        &:active {
+            background-color: var(--semi-color-fill-1);
+        }
+    }
+}
+
+
+body > .component-list-demo-drag-item {
+    font-size: 14px;
+}
+
+.component-list-demo-booklist-active-item {
+    background-color: var(--semi-color-fill-0);
+}
 ```
 
 ## API reference

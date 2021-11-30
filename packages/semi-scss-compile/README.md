@@ -2,49 +2,68 @@
 
 ## Description
 
-There are mainly the following two usage scenarios: 
+There are mainly the following two usage scenarios:
 
--   For Sever side consumption in Semi Design System.When publishing the theme, call the script on the Node side to compile the custom theme package into a complete semi.css file
--   Before publish `@douyinfe/semi-foundation`,construct a complete semi.css file
-
-## Dependencies
-
--   dart-sass
+- For Sever side consumption in Semi Design System.When publishing the theme, call the script on the Node side to
+  compile the custom theme package into a complete semi.css file
+- Before publish `@douyinfe/semi-foundation`,construct a complete semi.css file
 
 ## Usage
 
-```js
-const SemiThemeCompile = require('../packages/semi-theme-compile');
-const chalk = require('chalk');
-const path = require('path');
-const log = console.log;
+### Command Line
 
-const success = text => chalk.green(text);
-const errors = text => chalk.red(text);
+```shell
+npm i -g @douyinfe/semi-scss-compile
+
+semi-build-scss --foundation="path/to/foundation" --theme="path/to/theme" --icon="path/to/'@douyinfe/semi-icons'" --output="path/to/output.css" --min=true
+
+# or for short
+
+semi-build-scss -f "path/to/foundation" -t "path/to/theme" -i "path/to/'@douyinfe/semi-icons'" -o "path/to/output.css" -m true
+
+```
+
+### JS API
+
+```js
+
+const {compile} = require('@douyinfe/semi-scss-compile');
+const path = require('path');
 
 function resolve(dir) {
-    return path.join(__dirname, '../', dir);
+    return path.join(__dirname, '../..', dir);
 }
 
-const options = {
-    COMPONENT_SCSS_PATH: resolve('packages/semi-foundation/'),
-    OUTPUT_SEMI_SCSS_PATH: resolve('packages/semi-theme-default/semi.scss'),
-    OUTPUT_SEMI_CSS_PATH: resolve('packages/semi-ui/dist/css/semi.css'),
-    OUTPUT_SEMI_CSS_MIN_PATH: resolve('packages/semi-ui/dist/css/semi.min.css'),
-};
+//eg
 
-let compiler = new SemiThemeCompile(options);
-compiler
-    .compile()
-    .then(res => {
-        log(success('compile css success'));
-        process.exitCode = 0;
-    })
-    .catch(error => {
-        log(errors('compile css failed'));
-        log(errors(error));
-        process.exitCode = 1;
-    });
+compile({
+    foundationPath:resolve('semi-foundation/'),
+    themePath:resolve('semi-theme-default/'),
+    iconPath: resolve('node_modules/@douyinfe/semi-icons'),
+    outputPath:resolve('semi-ui/dist/css/semi.min.css'),
+    isMin:true
+})
+
+compile({
+    foundationPath:resolve('semi-foundation/'),
+    themePath:resolve('semi-theme-default/'),
+    iconPath: resolve('node_modules/@douyinfe/semi-icons'),
+    outputPath:resolve('semi-ui/dist/css/semi.css'),
+    isMin:false
+})
+```
+
+### Advanced API
+
+```js
+const {generateScssMap, writeFile, compilerFromScssMap} = require('@douyinfe/semi-scss-compile');
+const fs = require('fs-extra');
+
+const isMin = false;
+const scssMap = generateScssMap("path/to/foundation", "path/to/theme","path/to/'@douyinfe/semi-icons'");
+const tempDir = writeFile(scssMap)
+const result = compilerFromScssMap(path.join(tempDir, 'index.scss'), isMin);
+fs.outputFileSync(outputPath, result.css);
 
 ```
 

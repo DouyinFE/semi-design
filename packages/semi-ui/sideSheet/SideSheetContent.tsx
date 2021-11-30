@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import cls from 'classnames';
 import { cssClasses } from '@douyinfe/semi-foundation/sideSheet/constants';
 import Button from '../iconButton';
-import { noop } from 'lodash-es';
+import { noop } from 'lodash';
 import { IconClose } from '@douyinfe/semi-icons';
 
 let uuid = 0;
@@ -11,7 +11,7 @@ const prefixCls = cssClasses.PREFIX;
 
 
 export interface SideSheetContentProps{
-    onClose?: (e: React.MouseEvent | MouseEvent) => void;
+    onClose?: (e: React.MouseEvent) => void;
     mask?: boolean;
     maskStyle?: CSSProperties;
     maskClosable?: boolean;

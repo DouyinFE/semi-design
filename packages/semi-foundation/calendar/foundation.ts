@@ -83,11 +83,13 @@ export type MonthData = Record<number, DateObj[]>;
 //     cacheEventKeys: (cachedKeys: Array<string>) => void;
 // }
 
+export type ParsedEventsType = ParsedEvents | ParsedEventsWithArray | MonthlyEvent;
+
 export interface CalendarAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     updateCurrPos?: (currPos: number) => void;
     updateShowCurrTime?: () => void;
     updateScrollHeight?: (scrollHeight: number) => void;
-    setParsedEvents?: (parsedEvents: ParsedEvents | ParsedEventsWithArray | MonthlyEvent) => void;
+    setParsedEvents?: (parsedEvents: ParsedEventsType) => void;
     cacheEventKeys?: (cachedKeys: Array<string>) => void;
     setRangeData?: (data: RangeData) => void;
     getRangeData?: () => RangeData;

@@ -6,7 +6,7 @@ import { cssClasses, strings } from '@douyinfe/semi-foundation/typography/consta
 import Typography from './typography';
 import Copyable from './copyable';
 import { IconSize as Size } from '../icons/index';
-import { isUndefined, omit, merge, isString } from 'lodash-es';
+import { isUndefined, omit, merge, isString } from 'lodash';
 import Tooltip from '../tooltip/index';
 import Popover from '../popover/index';
 import getRenderText from './util';

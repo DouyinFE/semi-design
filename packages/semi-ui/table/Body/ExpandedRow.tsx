@@ -2,7 +2,7 @@
 import React, { PureComponent, isValidElement, ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { get, set, isNull } from 'lodash-es';
+import { get, set, isNull } from 'lodash';
 
 import { cssClasses, strings } from '@douyinfe/semi-foundation/table/constants';
 import { arrayAdd, filterColumns } from '@douyinfe/semi-foundation/table/utils';

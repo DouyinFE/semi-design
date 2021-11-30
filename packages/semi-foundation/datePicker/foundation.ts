@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable max-len, max-depth,  */
 import { format, isValid, isSameSecond, isEqual as isDateEqual, isDate } from 'date-fns';
-import { get, isObject, isString, isEqual } from 'lodash-es';
+import { get, isObject, isString, isEqual } from 'lodash';
 
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import { isValidDate, isTimestamp } from './_utils/index';
@@ -282,7 +282,7 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
         if (isValidDate(value)) {
             dateObj = value as Date;
         } else if (isString(value)) {
-            dateObj = compatiableParse(value, this.getProp('format'), undefined, dateFnsLocale);
+            dateObj = compatiableParse(value as string, this.getProp('format'), undefined, dateFnsLocale);
         } else if (isTimestamp(value)) {
             dateObj = new Date(value);
         } else {

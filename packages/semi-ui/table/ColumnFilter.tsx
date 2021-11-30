@@ -2,7 +2,7 @@
 /* eslint-disable eqeqeq */
 import React, { isValidElement } from 'react';
 import cls from 'classnames';
-import { noop } from 'lodash-es';
+import { noop } from 'lodash';
 import { IconFilter } from '@douyinfe/semi-icons';
 
 import { cssClasses } from '@douyinfe/semi-foundation/table/constants';
@@ -137,6 +137,8 @@ export interface ColumnFilterProps {
     filterDropdown?: React.ReactElement;
     renderFilterDropdown?: (props: RenderDropdownProps, options: { iconElem: React.ReactNode }) => React.ReactElement;
     filterDropdownProps?: DropdownProps;
+    onFilterDropdownVisibleChange?: OnFilterDropdownVisibleChange;
+    onSelect?: (data: OnSelectData) => void;
 }
 
 export default function ColumnFilter(props: ColumnFilterProps = {}): React.ReactElement {

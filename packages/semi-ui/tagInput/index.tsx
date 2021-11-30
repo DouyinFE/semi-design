@@ -8,7 +8,7 @@ import {
     isNull,
     isUndefined,
     isFunction
-} from 'lodash-es';
+} from 'lodash';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/tagInput/constants';
 import '@douyinfe/semi-foundation/tagInput/tagInput.scss';
 import TagInputFoundation, { TagInputAdapter } from '@douyinfe/semi-foundation/tagInput/foundation';
@@ -44,11 +44,12 @@ export interface TagInputProps {
     onFocus?: (e: React.MouseEvent<HTMLInputElement>) => void;
     onInputChange?: (value: string, e: React.MouseEvent<HTMLInputElement>) => void;
     onInputExceed?: ((value: string) => void);
+    onKeyDown?: (e: React.MouseEvent<HTMLInputElement>) => void;
     onRemove?: (removedValue: string, idx: number) => void;
     placeholder?: string;
     prefix?: React.ReactNode;
     renderTagItem?: (value: string, index: number) => React.ReactNode;
-    separator?: string | string[];
+    separator?: string | string[] | null;
     showClear?: boolean;
     size?: Size;
     style?: React.CSSProperties;
@@ -97,6 +98,7 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
         onInputExceed: PropTypes.func,
         onAdd: PropTypes.func,
         onRemove: PropTypes.func,
+        onKeyDown: PropTypes.func,
         size: PropTypes.oneOf(strings.SIZE_SET),
         validateStatus: PropTypes.oneOf(strings.STATUS),
         prefix: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
@@ -120,7 +122,8 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
         onExceed: noop,
         onInputExceed: noop,
         onAdd: noop,
-        onRemove: noop
+        onRemove: noop,
+        onKeyDown: noop,
     };
 
     inputRef: React.RefObject<HTMLInputElement>;
@@ -179,7 +182,10 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
             },
             notifyTagRemove: (v: string, idx: number) => {
                 this.props.onRemove(v, idx);
-            }
+            },
+            notifyKeyDown: e => {
+                this.props.onKeyDown(e);
+            },
         };
     }
 

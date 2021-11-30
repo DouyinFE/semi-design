@@ -31,23 +31,23 @@ import { Popconfirm, Button, Toast } from '@douyinfe/semi-ui';
 
 () => {
     const onConfirm = () => {
-      Toast.success('Confirm save!');
+        Toast.success('Confirm save!');
     };
 
     const onCancel = () => {
-      Toast.warning('Cancel save!');
-    }
+        Toast.warning('Cancel save!');
+    };
     return (
-      <Popconfirm
-          title="Are you sure you want to save this modification?"
-          content="This modification will be irreversible"
-          onConfirm={onConfirm}
-          onCancel={onCancel}
-      >
-          <Button>Save</Button>
-      </Popconfirm>
-    )
-}
+        <Popconfirm
+            title="Are you sure you want to save this modification?"
+            content="This modification will be irreversible"
+            onConfirm={onConfirm}
+            onCancel={onCancel}
+        >
+            <Button>Save</Button>
+        </Popconfirm>
+    );
+};
 ```
 
 ### Type collocation
@@ -148,6 +148,6 @@ Please refer to [Use with Tooltip/Popover](/en-US/show/tooltip#Use-with-Popver-o
 | onConfirm          | Click the confirmation button to call back.                                                                                                                           | (e) => void                |                     |
 | onCancel           | Click the Cancel button to call back.                                                                                                                                 | (e) => void                |                     |
 | onVisibleChange    | Bubble box toggle shows hidden callbacks                                                                                                                              | (visible: boolean) => void | () => {}            | **0.19.0**        |
-
+| onClickOutSide     | Callback when the pop-up layer is in the display state and the non-Children, non-floating layer inner area is clicked                                                 | (e: event) => void         |                     | **2.1.0**        |
 ## Design Tokens
 <DesignToken/>

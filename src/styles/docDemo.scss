@@ -469,3 +469,23 @@
         overflow-x: auto;
     }
 }
+
+.component-list-demo-booklist {
+    .list-item {
+        &:hover {
+            background-color: var(--semi-color-fill-0);
+        }
+        &:active {
+            background-color: var(--semi-color-fill-1);
+        }
+    }
+}
+
+
+body > .component-list-demo-drag-item {
+    font-size: 14px;
+}
+
+.component-list-demo-booklist-active-item {
+    background-color: var(--semi-color-fill-0);
+}

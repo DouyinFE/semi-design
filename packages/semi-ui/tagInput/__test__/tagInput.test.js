@@ -1,5 +1,5 @@
 import { Icon, TagInput } from '../../index';
-import { noop } from 'lodash-es';
+import { noop } from 'lodash';
 import { cssClasses } from '@douyinfe/semi-foundation/icons/constants';
 import { BASE_CLASS_PREFIX } from '../../../semi-foundation/base/constants';
 const prefixCls = cssClasses.PREFIX;
@@ -97,6 +97,31 @@ describe('TagInput', () => {
         expect(tags.at(0).getDOMNode().textContent).toEqual('abc');
         expect(tags.at(1).getDOMNode().textContent).toEqual('hotsoon');
         tagInput.unmount();
+
+        /* when separator is null */
+        const props2 = {
+            separator: null,
+            inputValue: 'tiktok-hotsoon'
+        }
+        const tagInput2 = getTagInput(props2);
+        tagInput2.find('input').simulate('keyDown', { keyCode: 13 });
+        const tags2 = tagInput2.find(`.${BASE_CLASS_PREFIX}-tagInput-wrapper .${BASE_CLASS_PREFIX}-tag-content`);
+        expect(tags2.length).toEqual(1);
+        expect(tags2.at(0).getDOMNode().textContent).toEqual('tiktok-hotsoon');
+        tagInput2.unmount();
+
+        /* when separator is number */
+        const props3 = {
+            separator: 1,
+            inputValue: 'tiktok1hotsoon'
+        }
+        const tagInput3 = getTagInput(props3);
+        tagInput3.find('input').simulate('keyDown', { keyCode: 13 });
+        const tags3 = tagInput3.find(`.${BASE_CLASS_PREFIX}-tagInput-wrapper .${BASE_CLASS_PREFIX}-tag-content`);
+        expect(tags3.length).toEqual(2);
+        expect(tags3.at(0).getDOMNode().textContent).toEqual('tiktok');
+        expect(tags3.at(1).getDOMNode().textContent).toEqual('hotsoon');
+        tagInput3.unmount();
     });
 
     
@@ -313,4 +338,15 @@ describe('TagInput', () => {
         tagInput.update();
         expect(tagInput.find('input').getDOMNode().value).toEqual('hotsoon');
     })
+
+    it('TagInput with onKeyDown', () => {
+        const spyOnKeyDown = sinon.spy(value => { });
+        const props = {
+            onKeyDown: spyOnKeyDown,
+        };
+        const tagInput = getTagInput(props);
+        tagInput.find('input').simulate('keyDown', { keyCode: 13 });
+        expect(spyOnKeyDown.callCount).toEqual(1);
+        tagInput.unmount();
+    });
 })
