@@ -15,6 +15,7 @@
     ],
     "node": "14",
     "sandboxes": [
+        "/.codesandbox/examples/pr-story",
         "oubej"
     ]
 }
