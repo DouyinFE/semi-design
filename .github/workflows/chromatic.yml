@@ -16,7 +16,7 @@ on:
       - '!packages/**/*.test.[tj]sx?'
       - '!packages/**/*.md'
   push:
-    branches: [ test-chromatic ]
+    branches: [ main, release, test-chromatic ]
     paths:
       - 'packages/**/*.scss'
       - '!packages/**/*.md'
