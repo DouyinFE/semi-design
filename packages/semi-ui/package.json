@@ -5,11 +5,6 @@
     "main": "lib/cjs/index.js",
     "module": "lib/es/index.js",
     "typings": "lib/es/index.d.ts",
-    "files": [
-        "lib",
-        "dist",
-        "README.md"
-    ],
     "scripts": {
         "clean": "rimraf dist lib",
         "build:lib": "node ./scripts/compileLib.js",
