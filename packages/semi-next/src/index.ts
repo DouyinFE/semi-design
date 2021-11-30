@@ -22,6 +22,8 @@ export default function(options: SemiNextOptions = {}) {
                         typeof config.externals[0] === 'function'
                     ) {
                         const [ origin ] = config.externals;
+                        // Because css is referenced in SemiUI and SemiIcons, 
+                        // an error will be reported at the ssg or ssr stage because the code will be executed in Node.
                         config.externals = [
                             (context: any) => {
                                 return new Promise((resolve) => {
