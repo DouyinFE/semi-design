@@ -99,6 +99,8 @@ $module: #{$prefix}-upload;
             display: flex;
             flex-wrap: wrap;
             flex-shrink: 0;
+            gap: $spacing-upload_picture_file_card-gap;
+            margin-bottom: $spacing-upload_picture_file_card-marginBottom;
 
             p {
                 @include ver-center;
@@ -130,8 +132,6 @@ $module: #{$prefix}-upload;
         justify-content: space-between;
         height: $height-upload_file_card;
         width: $width-upload_file_card;
-        margin-right: $spacing-tight;
-        margin-bottom: $spacing-tight;
         background-color: $color-upload_card-bg;
         cursor: pointer;
 
@@ -292,21 +292,21 @@ $module: #{$prefix}-upload;
             flex-direction: column;
 
             .#{$module}-prompt {
-                order: 2;
+                order: 1;
             }
 
             .#{$module}-add {
-                order: 1;
+                order: 0;
             }
         }
 
         &[x-prompt-pos="right"] {
             .#{$module}-prompt {
-                order: 2;
+                order: 1;
             }
 
             .#{$module}-add {
-                order: 1;
+                order: 0;
             }
         }
 
@@ -353,11 +353,14 @@ $module: #{$prefix}-upload;
         }
 
         &-file-card {
+            display: flex;
+            align-items: center;
+            justify-content: center;
             height: $height-upload_file_pic_card;
             width: $width-upload_file_pic_card;
+            border-radius: $radius-upload_picture_file_card_img;
             position: relative;
-            margin-right: $spacing-upload_picture_file_card-marginRight;
-            margin-bottom: $spacing-upload_picture_file_card-marginBottom;
+            overflow: hidden;
 
             img {
                 height: $width-upload_picture_file_card_img;
@@ -429,6 +432,22 @@ $module: #{$prefix}-upload;
                 color: $color-upload_replace-text;
                 transform: translate3D(-50%, -50%, 0);
             }
+            &-pic-info {
+                display: inline-flex;
+                box-sizing: border-box;
+                justify-content: space-between;
+                align-items: center;
+                position: absolute;
+                width: 100%;
+                height: 24px;
+                padding: 0 10px;
+                bottom: 0;
+                left: 0;
+                color: $color-upload_picture_file_card_pic_info-text;
+                font-size: $font-upload_picture_file_card_pic_info-fontSize;
+                font-weight: $font-upload_picture_file_card_pic_info-fontWeight;
+                background: linear-gradient(0deg, rgba(22, 22, 26, 0.3) 0%, rgba(22, 22, 26, 0) 77.08%);
+            }
 
             &-icon-loading,
             &-icon-error {
@@ -444,6 +463,10 @@ $module: #{$prefix}-upload;
 
             &-show-pointer {
                 cursor: pointer;
+            }
+
+            &-error {
+                outline: 1px solid $color-upload_picture_file_card_error-border;
             }
         }
     }

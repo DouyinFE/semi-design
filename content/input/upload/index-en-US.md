@@ -1102,7 +1102,10 @@ import { IconUpload } from '@douyinfe/semi-icons';
 |prompt | Custom slot, which can be used to insert prompt text. Different from writing directly in `children`, the content of `prompt` will not trigger upload when clicked.<br/>(In the picture wall mode, the incoming prompt is only supported after v1.3.0) | ReactNode | | |
 |promptPosition | The position of the prompt text. When the listType is list, the reference object is the children element; when the listType is picture, the reference object is the picture list. Optional values ​​`left`, `right`, `bottom`<br/> (In picture wall mode, promptPosition is only supported after v1.3.0) | string |'right' | |
 |renderFileItem | Custom rendering of fileCard | (renderProps: RenderFileItemProps) => ReactNode | | 1.0.0 |
+|renderPicInfo| Custom photo wall information, only valid in photo wall mode| (renderProps: RenderFileItemProps)=>ReactNode | |  |
+|renderThumbnail| Custom picture wall preview, only valid in photo wall mode| (renderProps: RenderFileItemProps)=>ReactNode | |  |
 |showClear | When limit is not 1 and the current number of uploaded files is greater than 1, whether to show the clear button | boolean | true | 1.0.0 |
+|showPicInfo| Whether to display picture information, only valid in photo wall mode | boolean| false | |
 |showReplace | When the upload is successful, whether to display the replace button inside the fileCard | boolean | false | 1.21.0 |
 |showRetry | When uploading fails, whether to display the retry button inside the fileCard | boolean | true | 1.0.0 |
 |showUploadList | Whether to display the file list | boolean | true | |
@@ -1141,6 +1144,12 @@ interface FileItem {
 }
 ```
 
+## Methods
+|Name | Description | Type | Version|
+|----|----|----|----|
+| insert | Upload file, when index is passed, it will be inserted at the specified position, if not passed, it will be inserted at the end | (files: Array<File\>, index?: number) => void |  |
+| upload | Start upload manually, use with uploadTrigger="custom" | () => void | |
+
 ## Design Tokens
 <DesignToken/>
 
@@ -1156,9 +1165,3 @@ interface FileItem {
     - If you set `accept`, you can try to remove the accept attribute, and then see if the modified method is called. After removing it, the method is called to explain that the file type obtained by accept in the current environment does not match the set accept, and the upload behavior is terminated early. You can make a breakpoint to upload/foundation.js checkFileFormat function to see if the actual value of file.type obtained meets expectations.
 
 <Notice title={"About the progress bar"}>The progress bar indicates the upload progress. The upload progress is divided into two parts: data upload and server return. If all the data has been sent, but the server does not return a response, the progress bar will stay at 90%. The user upload is not completed. At this time, the request in the developer tool will be pending, which is normal. </Notice>
-
-<!-- ## Related Material
-
-```material
-82
-``` -->
