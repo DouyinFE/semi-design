@@ -11,9 +11,9 @@ import PropTypes from 'prop-types';
 import { noop } from 'lodash';
 import '@douyinfe/semi-foundation/modal/modal.scss';
 import BaseComponent from '../_base/baseComponent';
-import confirm, { withConfirm, withError, withInfo, withSuccess, withWarning } from '../modal/confirm';
+import confirm, { withConfirm, withError, withInfo, withSuccess, withWarning } from './confirm';
 import { Locale } from '../locale/interface';
-import useModal from '../modal/useModal';
+import useModal from './useModal';
 import { ButtonProps } from '../button/Button';
 
 export const destroyFns: any[] = [];
