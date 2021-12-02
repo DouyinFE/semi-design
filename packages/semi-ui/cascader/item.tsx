@@ -104,6 +104,9 @@ export default class Item extends PureComponent<CascaderItemProps> {
         const { onItemCheckboxClick } = this.props;
         // Prevent Checkbox's click event bubbling to trigger the li click event
         e.stopPropagation();
+        if (e.nativeEvent && typeof e.nativeEvent.stopImmediatePropagation === 'function') {
+            e.nativeEvent.stopImmediatePropagation();
+        }
         onItemCheckboxClick(item);
     };
 
