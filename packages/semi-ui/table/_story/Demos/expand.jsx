@@ -84,12 +84,12 @@ const expandData = [
     { key: '安全等级', value: '3级' },
     { key: '垂类标签', value: <Tag style={{ margin: 0 }}>电商</Tag> },
     { key: '认证状态', value: '未认证' },
-]
+];
 
 function App() {
 
     const expandRowRender = (record, index) => {
-        return <Descriptions align="justify" data={expandData} />
+        return <Descriptions align="justify" data={expandData} />;
     };
 
     const rowSelection = {

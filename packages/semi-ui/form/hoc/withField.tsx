@@ -30,7 +30,7 @@ function withField<
     T extends Subtract<React.ComponentProps<C>, CommonexcludeType> & CommonFieldProps,
     R extends React.ComponentType<T>
 >(Component: C, opts?: WithFieldOption): R {
-    let SemiField = (props: any, ref: React.MutableRefObject<any>) => {
+    let SemiField = (props: any, ref: React.MutableRefObject<any> | ((instance: any) => void)) => {
         let {
             // condition,
             field,

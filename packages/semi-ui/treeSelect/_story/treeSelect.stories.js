@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Icon, Button, Form, Popover, Tag } from '../../index';
 import TreeSelect from '../index';
-import { flattenDeep } from 'lodash-es';
+import { flattenDeep } from 'lodash';
 import CustomTrigger from './CustomTrigger';
 import { IconCreditCard } from '@douyinfe/semi-icons';
 const TreeNode = TreeSelect.TreeNode;

@@ -9,7 +9,7 @@ import { format as formatFn, addMonths, isSameDay } from 'date-fns';
 import MonthsGridFoundation, { MonthInfo, MonthsGridAdapter, MonthsGridDateAdapter, MonthsGridFoundationProps, MonthsGridFoundationState, MonthsGridRangeAdapter, PanelType } from '@douyinfe/semi-foundation/datePicker/monthsGridFoundation';
 import { strings, numbers, cssClasses } from '@douyinfe/semi-foundation/datePicker/constants';
 import { compatiableParse } from '@douyinfe/semi-foundation/datePicker/_utils/parser';
-import { noop, stubFalse } from 'lodash-es';
+import { noop, stubFalse } from 'lodash';
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
 import Navigation from './navigation';
 import Month from './month';

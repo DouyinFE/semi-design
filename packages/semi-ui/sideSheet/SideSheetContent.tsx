@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import cls from 'classnames';
 import { cssClasses } from '@douyinfe/semi-foundation/sideSheet/constants';
 import Button from '../iconButton';
-import { noop } from 'lodash-es';
+import { noop } from 'lodash';
 import { IconClose } from '@douyinfe/semi-icons';
 
 let uuid = 0;

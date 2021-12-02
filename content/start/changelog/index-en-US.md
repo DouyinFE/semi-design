@@ -16,6 +16,33 @@ Version：Major.Minor.Patch
 
 ---
 
+#### 🎉 2.1.3 (2021-11-30)
+- 【Fix】
+  - Fix the bug of replacing source in ImportDeclaration during source code building
+  
+#### 🎉 2.1.2 (2021-11-30)
+- 【Feature】
+  - Support Next.js [#153](https://github.com/DouyinFE/semi-design/issues/153)
+  - Replace Feishu Logo icon
+- 【Fix】
+  - Fix the style problem of AutoComplete
+  - Fixed the problem that InputNumber does not have API syntax hints in the editor [#327](https://github.com/DouyinFE/semi-design/issues/327)
+  - Fix the wrong color of hover state border when Input focus [#332](https://github.com/DouyinFE/semi-design/issues/332)
+
+#### 🎉 2.1.1 (2021-11-26)
+- 【Fix】
+  - Provide UMD products of semi-icons and semi-illustrations to solve the problem that icons cannot be used in UMD scenarios [#215](https://github.com/DouyinFE/semi-design/issues/215)
+
+#### 🎉 2.1.0 (2021-11-26)
+- 【Fix】
+  - Fix the issue that the Collapsible component is stuck when expanding/retracting when the content has a margin [@ChelesteWang](https://github.com/ChelesteWang)
+- 【Style】
+  - Timeline adds $color-timeline_item_content-text-default Sass variable, which is used to configure the timeline title text color
+- 【Docs】
+  - Add a demo example of applying dark mode and bright mode to some modules [#301](https://github.com/DouyinFE/semi-design/issues/301)
+  - Update the Table sample, use sample code that is more suitable for the usage scenario, and add notes to some common problems [#315](https://github.com/DouyinFE/semi-design/issues/315)
+  - Added demo examples for use with Checkbox, Radio, Input, Pagination; added demo examples for drag sorting; added demo examples for keyboard response events
+
 #### 🎉 2.1.0-beta.3 (2021-11-24)
 - 【Fix】
   - Update the ts type definitions of some components, and fix the problem that the build report error when strict: true is enabled and skipLibCheck is false in tscofnig.json [#283](https://github.com/DouyinFE/semi-design/issues/283)

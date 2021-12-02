@@ -9,7 +9,7 @@ import { cssClasses } from '@douyinfe/semi-foundation/calendar/constants';
 import BaseComponent from '../_base/baseComponent';
 import DayCol from './dayCol';
 import TimeCol from './timeCol';
-import { isEqual } from 'lodash-es';
+import { isEqual } from 'lodash';
 import { calcRowHeight } from '@douyinfe/semi-foundation/calendar/eventUtil';
 import '@douyinfe/semi-foundation/calendar/calendar.scss';
 import { RangeCalendarProps } from './interface';

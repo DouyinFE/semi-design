@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
-import { isEqual, isString, isEmpty, noop, get, isFunction } from 'lodash-es';
+import { isEqual, isString, isEmpty, noop, get, isFunction } from 'lodash';
 import TreeSelectFoundation, {
     Size,
     BasicTriggerRenderProps,
@@ -27,7 +27,7 @@ import {
 } from '@douyinfe/semi-foundation/tree/treeUtil';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/treeSelect/constants';
 import { numbers as popoverNumbers } from '@douyinfe/semi-foundation/popover/constants';
-import { FixedSizeList as VirtualList } from 'react-window';
+import { FixedSizeList as VirtualList, ListItemKeySelector } from 'react-window';
 import '@douyinfe/semi-foundation/tree/tree.scss';
 import '@douyinfe/semi-foundation/treeSelect/treeSelect.scss';
 import BaseComponent, { ValidateStatus } from '../_base/baseComponent';
@@ -1166,7 +1166,8 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                         itemSize={virtualize.itemSize}
                         height={height}
                         width={width}
-                        itemKey={this.itemKey}
+                        // @ts-ignore avoid strict check of itemKey
+                        itemKey={this.itemKey as ListItemKeySelector<TreeNodeData>}
                         itemData={flattenNodes as any}
                         className={`${prefixTree}-virtual-list`}
                         style={{ direction }}

@@ -9,24 +9,37 @@ const sass = require('gulp-sass')(require('sass'));
 const replace = require('gulp-replace');
 const del = require('del');
 const tsConfig = require('./tsconfig.json');
-const babelConfig = require('./babel.config');
+const getBabelConfig = require('./getBabelConfig');
 
 gulp.task('cleanLib', function cleanLib() {
     return del(['lib/**/*']);
 });
 
-gulp.task('compileTSX', function compileTSX() {
+function compileTSX(isESM) {
+    const targetDir = isESM ? 'lib/es' : 'lib/cjs';
     const tsStream = gulp.src(['src/**/*.tsx', 'src/**/*.ts'])
         .pipe(gulpTS({
             ...tsConfig.compilerOptions,
             rootDir: path.join(__dirname, '..')
         }));
     const jsStream = tsStream.js
-        .pipe(gulpBabel(babelConfig))
+        .pipe(gulpBabel(getBabelConfig({ isESM })))
+        .pipe(replace(/(require\(['"])([^'"]+)(\.scss)(['"]\))/g, '$1$2.css$4'))
         .pipe(replace(/(import\s+)['"]([^'"]+)(\.scss)['"]/, '$1\'$2.css\''))
-        .pipe(gulp.dest('lib/es'));
-    const dtsStream = tsStream.dts.pipe(gulp.dest('lib/es'));
+        .pipe(gulp.dest(targetDir));
+    const dtsStream = tsStream.dts
+        .pipe(replace(/(require\(['"])([^'"]+)(\.scss)(['"]\))/g, '$1$2.css$4'))
+        .pipe(replace(/(import\s+)['"]([^'"]+)(\.scss)['"]/, '$1\'$2.css\''))
+        .pipe(gulp.dest(targetDir));
     return merge2([jsStream, dtsStream]);
+}
+
+gulp.task('compileTSXForESM', function compileTSXForESM() {
+    return compileTSX(true);
+});
+
+gulp.task('compileTSXForCJS', function compileTSXForCJS() {
+    return compileTSX(false);
 });
 
 gulp.task('compileScss', function compileScss() {
@@ -42,13 +55,14 @@ gulp.task('compileScss', function compileScss() {
             }
         ))
         .pipe(sass().on('error', sass.logError))
+        .pipe(gulp.dest('lib/cjs'))
         .pipe(gulp.dest('lib/es'));
 });
 
 gulp.task('moveScss', function moveScss() {
     return gulp.src(['src/**/*.scss'])
+        .pipe(gulp.dest('lib/cjs'))
         .pipe(gulp.dest('lib/es'));
 });
 
-gulp.task('compileLib', gulp.series(['cleanLib', 'compileScss', 'compileTSX', 'moveScss']));
-
+gulp.task('compileLib', gulp.series(['cleanLib', 'compileScss', 'moveScss', gulp.parallel('compileTSXForESM', 'compileTSXForCJS')]));

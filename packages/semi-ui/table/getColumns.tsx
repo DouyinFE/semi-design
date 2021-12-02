@@ -1,6 +1,6 @@
 import React from 'react';
 import Column from './Column';
-import { get, omit } from 'lodash-es';
+import { get, omit } from 'lodash';
 import { ColumnProps } from './interface';
 
 /**

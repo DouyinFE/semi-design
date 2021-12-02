@@ -96,7 +96,7 @@ function Demo() {
                         // onMouseLeave: () => {
                         //     console.log(`Grouped row mouse leave: `, group, index);
                         // },
-                        onClick: e => { console.log(`Grouped row clicked: `, group, index) }
+                        onClick: e => { console.log(`Grouped row clicked: `, group, index); }
                     };
                 }}
                 clickGroupedRowToExpand // if you want to click the entire row to expand

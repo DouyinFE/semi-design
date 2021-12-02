@@ -128,4 +128,4 @@ function Demo() {
     );
 }
 
-render(Demo)
+render(Demo);

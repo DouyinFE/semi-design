@@ -25,7 +25,7 @@ import TagInput from '../tagInput/index';
 import { FormCheckboxType, FormRadioType, FormSelectType } from './interface';
 
 const FormInput = withField(Input, { maintainCursor: true });
-const FormInputNumber = withField(InputNumber as any, { maintainCursor: true });
+const FormInputNumber = withField(InputNumber, { maintainCursor: true });
 const FormTextArea = withField(TextArea, { maintainCursor: true });
 
 const FormSelect = withField(Select) as typeof FormSelectType;

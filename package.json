@@ -8,6 +8,7 @@
   ],
   "private": true,
   "scripts": {
+    "install:codesandbox": "npm i lerna && npm run bootstrap",
     "bootstrap": "lerna bootstrap",
     "docsite": "npm run develop",
     "pre-develop": "npm run scripts:changelog && node ./scripts/designToken.js ./static/designToken.json",
@@ -37,7 +38,7 @@
   "dependencies": {
     "@douyinfe/semi-site-banner": "0.0.1",
     "@douyinfe/semi-site-doc-style": "0.0.1",
-    "@douyinfe/semi-site-header": "0.0.2",
+    "@douyinfe/semi-site-header": "0.0.3",
     "@douyinfe/semi-site-markdown-blocks": "0.0.1",
     "@mdx-js/react": "^1.6.22",
     "@svgr/core": "^5.5.0",

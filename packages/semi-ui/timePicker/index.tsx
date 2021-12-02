@@ -4,7 +4,7 @@ import BaseTimePicker, { TimePickerProps as BasePickerProps, BaseValueType } fro
 import { ValidateStatus } from '../_base/baseComponent';
 import { ScrollItemProps } from '../scrollList/scrollItem';
 import ConfigContext from '../configProvider/context';
-import { get } from 'lodash-es';
+import { get } from 'lodash';
 import { Locale } from '../locale/interface';
 
 export { TimeInputProps } from './TimeInput';
@@ -14,7 +14,7 @@ export {
     BaseValueType,
     ScrollItemProps,
     ValidateStatus
-}
+};
 
 export type LocalePickerProps = BasePickerProps;
 

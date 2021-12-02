@@ -20,17 +20,17 @@ const columns = [
             if (index === 0) {
                 renderObject.props = {
                     colSpan: 4,
-                }
+                };
             }
             if (index === 1) {
                 renderObject.props = {
                     rowSpan: 2,
-                }
+                };
             }
             if (index === 2) {
                 renderObject.props = {
                     rowSpan: 0,
-                }
+                };
             }
             return renderObject;
         },
@@ -45,7 +45,7 @@ const columns = [
                     props: {
                         colSpan: 0,
                     }
-                }
+                };
             }
             if (index === 1) {
                 return {
@@ -53,7 +53,7 @@ const columns = [
                     props: {
                         rowSpan: 2,
                     }
-                }
+                };
             }
             if (index === 2) {
                 return {
@@ -61,7 +61,7 @@ const columns = [
                     props: {
                         rowSpan: 0,
                     }
-                }
+                };
             }
             return `${text} KB`;
         }
@@ -82,7 +82,7 @@ const columns = [
                     props: {
                         colSpan: 0,
                     }
-                }
+                };
             }
             return children;
         }
@@ -99,7 +99,7 @@ const columns = [
                     props: {
                         colSpan: 0
                     }
-                }
+                };
             }
             if (index === 1) {
                 return {
@@ -107,7 +107,7 @@ const columns = [
                     props: {
                         rowSpan: 2
                     }
-                }
+                };
             }
             if (index === 2) {
                 return {
@@ -115,7 +115,7 @@ const columns = [
                     props: {
                         rowSpan: 0
                     }
-                }
+                };
             }
             return children;
         }

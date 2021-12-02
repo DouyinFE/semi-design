@@ -1,5 +1,5 @@
 import React from 'react';
-import { cloneDeepWith, isPlainObject } from 'lodash-es';
+import { cloneDeepWith, isPlainObject } from 'lodash';
 
 export function cloneDeep(treeNodeList: any) {
     return cloneDeepWith(treeNodeList, val => {
