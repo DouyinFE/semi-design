@@ -122,6 +122,19 @@ export const ButtonGroupDemo = () => (
       </Button>
     </ButtonGroup>
     <br />
+    <div>ButtonGroup children 不是合法元素的情况:</div>
+    <ButtonGroup>
+      {false}
+      {123}
+      {null}
+      {undefined}
+      text
+      <span>span</span>
+      {true && <Button>拷贝</Button>}
+      <Button>查询</Button>
+      <Button>剪切</Button>
+    </ButtonGroup>
+    <br />
   </div>
 );
 
