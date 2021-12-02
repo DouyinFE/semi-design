@@ -327,10 +327,13 @@ import { CheckboxGroup, Checkbox } from '@douyinfe/semi-ui';
         <Checkbox value={'1'} disabled extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{width:280}}>
             单选框标题
         </Checkbox>
-        <Checkbox value={'2'} extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{width:280}}>
+        <Checkbox value={'2'} disabled extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{width:280}}>
             单选框标题
         </Checkbox>
         <Checkbox value={'3'} extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{width:280}}>
+            单选框标题
+        </Checkbox>
+        <Checkbox value={'4'} extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{width:280}}>
             单选框标题
         </Checkbox>
     </CheckboxGroup>

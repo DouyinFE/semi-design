@@ -19,9 +19,13 @@ $color-checkbox_checked-border-default: var(--semi-color-primary); // 选框选�
 $color-checkbox_checked-border-hover: var(--semi-color-primary-hover); // 选框选中态描边颜色 - 悬浮
 $color-checkbox_checked-border-active: var(--semi-color-primary-active); // 选框选中态描边颜色 - 按下
 $color-checkbox_cardType_checked-bg: var(--semi-color-primary-light-default); // 卡片类型复选框选中时的背景颜色 - 默认
+$color-checkbox_cardType_checked_disabled-bg: var(--semi-color-primary-light-default); // 卡片类型复选框选中且禁用时的背景颜色 - 默认
 $color-checkbox_cardType-bg-hover: var(--semi-color-fill-0); // 卡片类型复选框选中时的背景颜色 - 悬浮
 $color-checkbox_cardType-bg-active: var(--semi-color-fill-1); // 卡片类型复选框选中时的背景颜色 - 按下
-$color-checkbox_cardType_checked_border-default: var(--semi-color-focus-border); //卡片类型复选框选中时的边框颜色 - 默认
+$color-checkbox_cardType_checked_border-default: var(--semi-color-primary); //卡片类型复选框选中时的边框颜色 - 默认
+$color-checkbox_cardType_checked_border-hover: var(--semi-color-primary-hover); //卡片类型复选框选中时的边框颜色 - 悬浮
+$color-checkbox_cardType_checked_border-active: var(--semi-color-primary-active); //卡片类型复选框选中时的边框颜色 - 按下
+$color-checkbox_cardType_checked_disabled_border-default: var(--semi-color-primary-disabled); //卡片类型复选框选中且禁用时的边框颜色 - 默认
 $color-checkbox_cardType_addon-text-default: var(--semi-color-text-0); // 卡片类型复选框 addon 的文字颜色 - 默认
 $color-checkbox_cardType_extra-text-default: var(--semi-color-text-2); // 卡片类型复选框 extra 的文字颜色 - 默认
 $color-checkbox_cardType_inner-bg-hover: var(--semi-color-white); // 卡片类型复选框 inner 的背景颜色 - 悬浮
@@ -37,6 +41,7 @@ $size-checkbox_inner-shadow: $border-thickness-control; // 选框内描边宽度
 $width-checkbox_inner: $width-icon-medium; // 选框对勾 icon 宽度
 $height-checkbox_inner: 20px; // 选框对勾 icon 高度
 $width-checkbox_cardType_checked-border: 1px; // 卡片类型复选框的边框宽度
+$width-checkbox_cardType_checked_disabled-border: 1px; // 卡片类型复选框选中且禁用的边框宽度
 
 $radius-checkbox_cardType: 3px; // 卡片类型复选框的圆角大小
 $radius-checkbox_inner: var(--semi-border-radius-extra-small); // 选框圆角

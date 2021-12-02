@@ -342,10 +342,13 @@ import { CheckboxGroup, Checkbox } from '@douyinfe/semi-ui';
         <Checkbox value={'1'} disabled extra='Checkbox Description' style={{width:280}}>
             Checkbox Title
         </Checkbox>
-        <Checkbox value={'2'} extra='Checkbox Description' style={{width:280}}>
+        <Checkbox value={'2'} disabled extra='Checkbox Description' style={{width:280}}>
             Checkbox Title
         </Checkbox>
         <Checkbox value={'3'} extra='Checkbox Description' style={{width:280}}>
+            Checkbox Title
+        </Checkbox>
+        <Checkbox value={'4'} extra='Checkbox Description' style={{width:280}}>
             Checkbox Title
         </Checkbox>
     </CheckboxGroup>
