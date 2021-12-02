@@ -193,7 +193,14 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
         this.replaceInputRef = React.createRef<HTMLInputElement>();
     }
 
-    static getDerivedStateFromProps(props: UploadProps): Partial<UploadState> | null {
+    /**
+     * Notes: 
+     *   The input parameter and return value here do not declare the type, otherwise tsc may report an error in form/fields.tsx when wrap after withField
+     *   `The types of the parameters "props" and "nextProps" are incompatible.
+           The attribute "action" is missing in the type "Readonly<any>", but it is required in the type "UploadProps".`
+     *   which seems to be a bug, remove props type declare here
+     */
+    static getDerivedStateFromProps(props) {
         const { fileList } = props;
         if ('fileList' in props) {
             return {

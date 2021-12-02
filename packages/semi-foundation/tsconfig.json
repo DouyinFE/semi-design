@@ -18,7 +18,8 @@
         "strictNullChecks": false,
         "esModuleInterop": true,
         "skipLibCheck": true,
-        "declaration": true
+        "declaration": true,
+        "strict": true
     },
     "include": ["**/*.ts"],
     "exclude": ["node_modules"]

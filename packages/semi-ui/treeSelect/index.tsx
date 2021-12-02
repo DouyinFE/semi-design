@@ -1166,6 +1166,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                         itemSize={virtualize.itemSize}
                         height={height}
                         width={width}
+                        // @ts-ignore avoid strict check of itemKey
                         itemKey={this.itemKey as ListItemKeySelector<TreeNodeData>}
                         itemData={flattenNodes as any}
                         className={`${prefixTree}-virtual-list`}
