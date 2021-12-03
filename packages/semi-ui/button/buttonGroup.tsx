@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { isValidElement, cloneElement } from 'react';
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
 import PropTypes from 'prop-types';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/button/constants';
@@ -38,9 +38,11 @@ export default class ButtonGroup extends BaseComponent<ButtonGroupProps> {
         let inner;
 
         if (children) {
-            inner = ((Array.isArray(children) ? children : [children]) as React.ReactElement[]).map((itm, index) =>
-                React.cloneElement(itm, { disabled, size, type, ...itm.props, ...rest, key: index })
-            );
+            inner = ((Array.isArray(children) ? children : [children])).map((itm, index) => (
+                isValidElement(itm)
+                    ? cloneElement(itm, { disabled, size, type, ...itm.props, ...rest, key: index })
+                    : itm
+            ));
         }
         return <div className={`${prefixCls}-group`}>{inner}</div>;
     }
