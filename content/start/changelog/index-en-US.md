@@ -16,6 +16,17 @@ Version：Major.Minor.Patch
 
 ---
 
+#### 🎉 2.1.4 (2021-12-03)
+- 【Fix】
+  - Add nativeEvent.stopImmediatePropagation to the event input parameter of Checkbox onChange callback [#343](https://github.com/DouyinFE/semi-design/issues/343)
+  - Fix the problem that when Cascader is multi-selected, clicking Checkbox will trigger bubbling in some scenarios [#343](https://github.com/DouyinFE/semi-design/issues/343)
+  - Fix that ButtonGroup children are not ReactElement report errors [#318](https://github.com/DouyinFE/semi-design/issues/318) 
+  - Fix Rating component half star ui error, when parent element set line-height [#346](https://github.com/DouyinFE/semi-design/issues/346)
+  - Checkbox/Radio
+    - Fix the style of the state switching of the mouse when the mouse is moved in/out of the checked button [#319](https://github.com/DouyinFE/semi-design/issues/319) 
+    - Fix the border of the checked button will appear when the checked button is hover/active [#319](https://github.com/DouyinFE/semi-design/issues/319) 
+    - Optimize the style of the checked+disabled state of the card/pureCard type [#319](https://github.com/DouyinFE/semi-design/issues/319) 
+
 #### 🎉 2.1.3 (2021-11-30)
 - 【Fix】
   - Fix the bug of replacing source in ImportDeclaration during source code building

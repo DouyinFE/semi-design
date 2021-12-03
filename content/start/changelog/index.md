@@ -14,6 +14,16 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 -   修订版本号（patch）：bugfix
 
 ---
+#### 🎉 2.1.4 (2021-12-03)
+- 【Fix】
+  - Checkbox onChange 回调的入参 event 增加 nativeEvent.stopImmediatePropagation [#343](https://github.com/DouyinFE/semi-design/issues/343)
+  - 修复 Cascader 多选时点击 Checkbox 在某些场景下触发冒泡 [#343](https://github.com/DouyinFE/semi-design/issues/343)
+  - 修复 ButtonGroup 的 children 不是 ReactElement 报错的问题 [#318](https://github.com/DouyinFE/semi-design/issues/318) 
+  - 修复 Rating 组件当父级设置 line-height 时半星展示错误 [#346](https://github.com/DouyinFE/semi-design/issues/346)
+  - Checkbox/Radio
+    - 修复鼠标移入/移出选中按钮过程中，鼠标出现状态切换的样式问题 [#319](https://github.com/DouyinFE/semi-design/issues/319) 
+    - 修复选中态 hover/active 时选中按钮会出现外边框的问题 [#319](https://github.com/DouyinFE/semi-design/issues/319) 
+    - 优化卡片类型 selected+disabled 态的样式 [#319](https://github.com/DouyinFE/semi-design/issues/319) 
 
 #### 🎉 2.1.3 (2021-11-30)
 - 【Fix】
