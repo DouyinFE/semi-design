@@ -193,6 +193,7 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
             [`${prefix}-cardRadioGroup`]: isCardRadioGroup,
             [`${prefix}-cardRadioGroup_disabled`]: isDisabled && isCardRadioGroup,
             [`${prefix}-cardRadioGroup_checked`]: isCardRadioGroup && realChecked && !isDisabled,
+            [`${prefix}-cardRadioGroup_checked_disabled`]: isCardRadioGroup && realChecked && isDisabled,
             [`${prefix}-cardRadioGroup_hover`]: isCardRadioGroup && !realChecked && isHover && !isDisabled,
             [className]: Boolean(className),
         });

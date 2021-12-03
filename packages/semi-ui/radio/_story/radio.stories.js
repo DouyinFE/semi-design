@@ -481,10 +481,10 @@ export const RadioGroupCardStyle = () => (
     <br />
     <div>radio disabled</div>
     <RadioGroup type="card" defaultValue={1}>
-      <Radio value={1} disabled extra="Semi Design" style={{ width: 280 }}>
+      <Radio value={1} disabled extra="disabled+checked" style={{ width: 280 }}>
         多选框标题
       </Radio>
-      <Radio value={2} extra="Semi Design" style={{ width: 280 }}>
+      <Radio value={2} disabled extra="disabled+unchecked" style={{ width: 280 }}>
         多选框标题
       </Radio>
       <Radio value={3} extra="Semi Design" style={{ width: 280 }}>
@@ -495,13 +495,13 @@ export const RadioGroupCardStyle = () => (
     <br />
     <div>radioGroup disabled</div>
     <RadioGroup type="card" disabled defaultValue={1}>
-      <Radio value={1} extra="Semi Design" style={{ width: 280 }}>
+      <Radio value={1} extra="disabled+checked" style={{ width: 280 }}>
         多选框标题
       </Radio>
-      <Radio value={2} extra="Semi Design" style={{ width: 280 }}>
+      <Radio value={2} extra="disabled+unchecked" style={{ width: 280 }}>
         多选框标题
       </Radio>
-      <Radio value={3} extra="Semi Design" style={{ width: 280 }}>
+      <Radio value={3} extra="disabled+unchecked" style={{ width: 280 }}>
         多选框标题
       </Radio>
     </RadioGroup>
@@ -678,10 +678,10 @@ export const RadioGroupPureCardStyle = () => (
     <br />
     <div>radio disabled</div>
     <RadioGroup type="pureCard" defaultValue={1}>
-      <Radio value={1} disabled extra="Semi Design" style={{ width: 280 }}>
+      <Radio value={1} disabled extra="disabled+checked" style={{ width: 280 }}>
         多选框标题
       </Radio>
-      <Radio value={2} extra="Semi Design" style={{ width: 280 }}>
+      <Radio value={2} disabled extra="disabled+unchecked" style={{ width: 280 }}>
         多选框标题
       </Radio>
       <Radio value={3} extra="Semi Design" style={{ width: 280 }}>
@@ -692,13 +692,13 @@ export const RadioGroupPureCardStyle = () => (
     <br />
     <div>radioGroup disabled</div>
     <RadioGroup type="pureCard" disabled defaultValue={1}>
-      <Radio value={1} extra="Semi Design" style={{ width: 280 }}>
+      <Radio value={1} extra="disabled+checked" style={{ width: 280 }}>
         多选框标题
       </Radio>
-      <Radio value={2} extra="Semi Design" style={{ width: 280 }}>
+      <Radio value={2} extra="disabled+unchecked" style={{ width: 280 }}>
         多选框标题
       </Radio>
-      <Radio value={3} extra="Semi Design" style={{ width: 280 }}>
+      <Radio value={3} extra="disabled+unchecked" style={{ width: 280 }}>
         多选框标题
       </Radio>
     </RadioGroup>
