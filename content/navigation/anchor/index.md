@@ -31,7 +31,7 @@ import { Anchor } from '@douyinfe/semi-ui';
         <Anchor.Link href="#物料平台" title="物料平台" />
         <Anchor.Link href="#主题商店" title="主题商店" />
     </Anchor>  
-)
+);
 ```
 
 ### 综合使用
@@ -47,12 +47,13 @@ import { Anchor } from '@douyinfe/semi-ui';
 -   偏移距离：`offsetTop` 可以在滚动内容距离容器顶部达到指定偏移量时触发当前 Link 切换。
 
 ```jsx
+import React from 'react';
 import { Anchor } from '@douyinfe/semi-ui';
 
 () =>  {
     const getContainer = () => {
         return document.querySelector('window');
-    }
+    };
     return (
         <div>
             <span>请看右侧固定的 Anchor </span>
@@ -74,8 +75,8 @@ import { Anchor } from '@douyinfe/semi-ui';
                 </Anchor.Link>
             </Anchor>
         </div>
-    )
-}
+    );
+};
 ```
 
 ### 尺寸
@@ -93,7 +94,7 @@ import { Anchor } from '@douyinfe/semi-ui';
         <Anchor.Link href="#物料平台" title="物料平台" />
         <Anchor.Link href="#主题商店" title="主题商店" />
     </Anchor>
-)
+);
 ```
 
 ```jsx live=true
@@ -107,7 +108,7 @@ import { Anchor } from '@douyinfe/semi-ui';
         <Anchor.Link href="#物料平台" title="物料平台" />
         <Anchor.Link href="#主题商店" title="主题商店" />
     </Anchor>
-)
+);
 ```
 
 ### 滑轨主题
@@ -121,7 +122,7 @@ import { Anchor } from '@douyinfe/semi-ui';
 () => {
     const getContainer = () => {
         return document.querySelector('window');
-    }
+    };
     return (
         <div>
             <Anchor
@@ -137,8 +138,8 @@ import { Anchor } from '@douyinfe/semi-ui';
                 <Anchor.Link href="#主题商店" title="主题商店" />
             </Anchor>
         </div>
-    )
-}
+    );
+};
 ```
 
 ```jsx live=true
@@ -148,7 +149,7 @@ import { Anchor } from '@douyinfe/semi-ui';
 () => {
     const getContainer = () => {
         return document.querySelector('window');
-    }
+    };
     return (
         <div>
             <Anchor
@@ -164,8 +165,8 @@ import { Anchor } from '@douyinfe/semi-ui';
                 <Anchor.Link href="#主题商店" title="主题商店" />
             </Anchor>
         </div>
-    )
-}
+    );
+};
 ```
 
 ```jsx live=true
@@ -175,7 +176,7 @@ import { Anchor } from '@douyinfe/semi-ui';
 () => {
     const getContainer = () => {
         return document.querySelector('window');
-    }
+    };
     return (
         <div>
             <Anchor
@@ -191,8 +192,8 @@ import { Anchor } from '@douyinfe/semi-ui';
                 <Anchor.Link href="#主题商店" title="主题商店" />
             </Anchor>
         </div>
-    )
-}
+    );
+};
 ```
 
 ### 动态展示
@@ -206,28 +207,28 @@ import { Anchor } from '@douyinfe/semi-ui';
 () => {
     const getContainer = () => {
         return document.querySelector('window');
-    }
+    };
     return (
         <div>
-        <Anchor
-            autoCollapse={true}
-            getContainer={getContainer}
-            targetOffset={60}
-            offsetTop={100}>
-            <Anchor.Link href="#动态展示" title="1. 动态展示">
-                <Anchor.Link href="#组件" title="1.1 组件">
-                    <Anchor.Link href="#头像" title="1.1.1 Avatar" />
-                    <Anchor.Link href="#按钮" title="1.1.2 Button" />
-                    <Anchor.Link href="#图标" title="1.1.3 Icon" />
+            <Anchor
+                autoCollapse={true}
+                getContainer={getContainer}
+                targetOffset={60}
+                offsetTop={100}>
+                <Anchor.Link href="#动态展示" title="1. 动态展示">
+                    <Anchor.Link href="#组件" title="1.1 组件">
+                        <Anchor.Link href="#头像" title="1.1.1 Avatar" />
+                        <Anchor.Link href="#按钮" title="1.1.2 Button" />
+                        <Anchor.Link href="#图标" title="1.1.3 Icon" />
+                    </Anchor.Link>
+                    <Anchor.Link href="#物料" title="1.2 物料" />
+                    <Anchor.Link href="#主题商店" title="1.3 主题商店" />
                 </Anchor.Link>
-                <Anchor.Link href="#物料" title="1.2 物料" />
-                <Anchor.Link href="#主题商店" title="1.3 主题商店" />
-            </Anchor.Link>
-            <Anchor.Link href="#设计语言" title="2. 设计语言" />
-        </Anchor>
+                <Anchor.Link href="#设计语言" title="2. 设计语言" />
+            </Anchor>
         </div>
-    )
-}
+    );
+};
 ```
 
 ```jsx live=true
@@ -237,28 +238,28 @@ import { Anchor } from '@douyinfe/semi-ui';
 () => {
     const getContainer = () => {
         return document.querySelector('window');
-    }
+    };
     return (
         <div>
-        <Anchor
-            autoCollapse={false}
-            getContainer={getContainer}
-            targetOffset={60}
-            offsetTop={100}>
-            <Anchor.Link href="#动态展示" title="1. 动态展示">
-                <Anchor.Link href="#组件" title="1.1 组件">
-                    <Anchor.Link href="#头像" title="1.1.1 Avatar" />
-                    <Anchor.Link href="#按钮" title="1.1.2 Button" />
-                    <Anchor.Link href="#图标" title="1.1.3 Icon" />
+            <Anchor
+                autoCollapse={false}
+                getContainer={getContainer}
+                targetOffset={60}
+                offsetTop={100}>
+                <Anchor.Link href="#动态展示" title="1. 动态展示">
+                    <Anchor.Link href="#组件" title="1.1 组件">
+                        <Anchor.Link href="#头像" title="1.1.1 Avatar" />
+                        <Anchor.Link href="#按钮" title="1.1.2 Button" />
+                        <Anchor.Link href="#图标" title="1.1.3 Icon" />
+                    </Anchor.Link>
+                    <Anchor.Link href="#物料" title="1.2 物料" />
+                    <Anchor.Link href="#主题商店" title="1.3 主题商店" />
                 </Anchor.Link>
-                <Anchor.Link href="#物料" title="1.2 物料" />
-                <Anchor.Link href="#主题商店" title="1.3 主题商店" />
-            </Anchor.Link>
-            <Anchor.Link href="#设计语言" title="2. 设计语言" />
-        </Anchor>
+                <Anchor.Link href="#设计语言" title="2. 设计语言" />
+            </Anchor>
         </div>
-    )
-}
+    );
+};
 ```
 
 ### 显示工具提示
@@ -272,7 +273,7 @@ import { Anchor } from '@douyinfe/semi-ui';
 () => {
     const getContainer = () => {
         return document.querySelector('window');
-    }
+    };
     return (
         <div>
             <Anchor
@@ -288,8 +289,8 @@ import { Anchor } from '@douyinfe/semi-ui';
                 <Anchor.Link href="#主题商店" title="主题商店" />
             </Anchor>
         </div>
-    )
-}
+    );
+};
 ```
 
 ### 工具提示位置
@@ -303,7 +304,7 @@ import { Anchor } from '@douyinfe/semi-ui';
 () => {
     const getContainer = () => {
         return document.querySelector('window');
-    }
+    };
     return (
         <div>
             <Anchor
@@ -320,8 +321,8 @@ import { Anchor } from '@douyinfe/semi-ui';
                 <Anchor.Link href="#主题商店" title="主题商店" />
             </Anchor>
         </div>
-    )
-}
+    );
+};
 ```
 
 ## API 参考
@@ -367,7 +368,10 @@ import { Anchor } from '@douyinfe/semi-ui';
     - 不可以，说明 href 有问题，检查文档中是否存在该 id；
     - 可以，可能是滚动容器设置不正确，确保文档内容被包裹在滚动容器内。滚动容器默认为 window，如果你的容器是 .my-container 的 div，则应该将滚动容器设置为该 div。
     
-    ```jsx
+    ```text
+    import React from 'react';
+    import { Anchor } from '@douyinfe/semi-ui';
+
     function() {
         // 此容器不是 Anchor 组件的容器，是文档内容的容器，因为要根据文档容器去计算当前是哪个 id 在容器上方
         const getContainer = () => {

@@ -1,4 +1,4 @@
-import { omit } from 'lodash-es';
+import { omit } from 'lodash';
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import { BasicValue as BasicTreeValue } from '../tree/foundation';
 import { strings } from './constants';

@@ -1,6 +1,8 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import Button from '../../button';
 import Popover from '../../popover';
+import Tag from '../../tag';
+import Cascader from '../../cascader';
 import Checkbox from '../index';
 import CheckboxGroup from '../checkboxGroup';
 import { Col, Input, Row } from '../../index';
@@ -572,12 +574,12 @@ export const CheckboxGroupCardStyle = () => (
     </CheckboxGroup>
     <br />
     <br />
-    <div>radio disabled</div>
+    <div>Checkbox disabled</div>
     <CheckboxGroup type="card" direction="horizontal" defaultValue={['1']}>
-      <Checkbox value="1" disabled extra="Semi Design" style={{ width: 280 }}>
+      <Checkbox value="1" disabled extra="disabled+checked" style={{ width: 280 }}>
         多选框标题
       </Checkbox>
-      <Checkbox value="2" extra="Semi Design" style={{ width: 280 }}>
+      <Checkbox value="2" disabled extra="disabled+unchecked" style={{ width: 280 }}>
         多选框标题
       </Checkbox>
       <Checkbox value="3" extra="Semi Design" style={{ width: 280 }}>
@@ -765,12 +767,12 @@ export const CheckboxGroupPureCardStyle = () => (
     </CheckboxGroup>
     <br />
     <br />
-    <div>radio disabled</div>
+    <div>Checkbox disabled</div>
     <CheckboxGroup type="pureCard" defaultValue={['1']}>
-      <Checkbox value="1" disabled extra="Semi Design" style={{ width: 280 }}>
+      <Checkbox value="1" disabled extra="disabled+checked" style={{ width: 280 }}>
         多选框标题
       </Checkbox>
-      <Checkbox value="2" extra="Semi Design" style={{ width: 280 }}>
+      <Checkbox value="2" disabled extra="disabled+unchecked" style={{ width: 280 }}>
         多选框标题
       </Checkbox>
       <Checkbox value="3" extra="Semi Design" style={{ width: 280 }}>
@@ -941,3 +943,73 @@ export const CheckboxGroupPureCardStyle = () => (
     </CheckboxGroup>
   </>
 );
+
+export const CheckboxOnChangeEvent = () =>  (
+  <div style={{marginLeft: 100}}>
+      <div>查看 onChange 入参</div>
+      <Checkbox onChange={e => console.log(e)}>
+          Apple
+      </Checkbox>
+      <div style={{marginTop: 30}}>Popover 内套 Popover, 且 content 为 checkbox</div>
+      <Popover
+          trigger={'click'}
+          onClickOutSide={e => console.log('onClickOutSide')}
+          content={
+              <Popover
+                  trigger='click'
+                  content={
+                      <Checkbox
+                          onChange={e => {
+                              console.log('checkbox onChange', e);
+                              e.stopPropagation();
+                              e.nativeEvent && e.nativeEvent.stopImmediatePropagation();
+                          }}
+                      >
+                          Semi Design
+                      </Checkbox>
+                  }
+              >
+                  trigger
+              </Popover>
+          }
+      >
+          <Tag>点击此处</Tag>
+      </Popover>
+      <div style={{marginTop: 30}}>Popover 内套 Cascader 多选</div>
+      <Popover
+          trigger={'click'}
+          content={
+              <Cascader
+                  defaultValue={['zhejiang', 'ningbo', 'jiangbei']}
+                  style={{ width: 300 }}
+                  treeData={[
+                      {
+                          label: '浙江省',
+                          value: 'zhejiang',
+                          children: [
+                              {
+                                  label: '杭州市',
+                                  value: 'hangzhou',
+                                  children: [
+                                      {
+                                          label: '西湖区',
+                                          value: 'xihu',
+                                      },
+                                  ],
+                              },
+                          ],
+                      }
+                  ]}
+                  placeholder="请选择所在地区"
+                  multiple
+              />
+          }
+      >
+          <Tag>点击此处</Tag>
+      </Popover>
+  </div>
+);
+
+CheckboxOnChangeEvent.story = {
+  name: 'checkbox onChange event',
+};

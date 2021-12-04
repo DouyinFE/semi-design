@@ -1,5 +1,5 @@
 import { Icon, TagInput } from '../../index';
-import { noop } from 'lodash-es';
+import { noop } from 'lodash';
 import { cssClasses } from '@douyinfe/semi-foundation/icons/constants';
 import { BASE_CLASS_PREFIX } from '../../../semi-foundation/base/constants';
 const prefixCls = cssClasses.PREFIX;
@@ -338,4 +338,15 @@ describe('TagInput', () => {
         tagInput.update();
         expect(tagInput.find('input').getDOMNode().value).toEqual('hotsoon');
     })
+
+    it('TagInput with onKeyDown', () => {
+        const spyOnKeyDown = sinon.spy(value => { });
+        const props = {
+            onKeyDown: spyOnKeyDown,
+        };
+        const tagInput = getTagInput(props);
+        tagInput.find('input').simulate('keyDown', { keyCode: 13 });
+        expect(spyOnKeyDown.callCount).toEqual(1);
+        tagInput.unmount();
+    });
 })

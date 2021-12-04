@@ -8,6 +8,7 @@ import Arrow from './Arrow';
 import '@douyinfe/semi-foundation/popover/popover.scss';
 import { BaseProps } from '../_base/baseComponent';
 import { Motion } from '../_base/base';
+import { noop } from 'lodash';
 
 export { ArrowProps } from './Arrow';
 declare interface ArrowStyle {
@@ -28,6 +29,7 @@ export interface PopoverProps extends BaseProps {
     trigger?: Trigger;
     contentClassName?: string | any[];
     onVisibleChange?: (visible: boolean) => void;
+    onClickOutSide?: (e: React.MouseEvent) => void;
     showArrow?: boolean;
     spacing?: number;
     stopPropagation?: boolean | string;
@@ -61,6 +63,7 @@ class Popover extends React.PureComponent<PopoverProps, PopoverState> {
         trigger: PropTypes.oneOf(triggerSet).isRequired,
         contentClassName: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
         onVisibleChange: PropTypes.func,
+        onClickOutSide: PropTypes.func,
         style: PropTypes.object,
         spacing: PropTypes.number,
         zIndex: PropTypes.number,
@@ -86,14 +89,8 @@ class Popover extends React.PureComponent<PopoverProps, PopoverState> {
         okText: 'Yes',
         position: 'bottom',
         prefixCls: cssClasses.PREFIX,
+        onClickOutSide: noop,
     };
-
-    constructor(props: PopoverProps) {
-        super(props);
-        this.state = {
-            popConfirmVisible: false,
-        };
-    }
 
     renderPopCard() {
         const { content, contentClassName, prefixCls } = this.props;

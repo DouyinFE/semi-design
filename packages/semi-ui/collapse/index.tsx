@@ -12,7 +12,7 @@ import BaseComponent from '../_base/baseComponent';
 import CollapsePanel from './item';
 import '@douyinfe/semi-foundation/collapse/collapse.scss';
 import { noop } from '@douyinfe/semi-foundation/utils/function';
-import { isEqual } from 'lodash-es';
+import { isEqual } from 'lodash';
 import CollapseContext from './collapse-context';
 
 export { CollapsePanelProps } from './item';
@@ -63,7 +63,7 @@ class Collapse extends BaseComponent<CollapseReactProps, CollapseState> {
     get adapter(): CollapseAdapter {
         return {
             ...super.adapter,
-            handleChange: (...args: ArgsType<CollapseReactProps['onChange']>) => this.props.onChange(...args),
+            handleChange: (activeKey: CollapseProps['activeKey'], e: React.MouseEvent) => this.props.onChange(activeKey, e),
             addActiveKey: (activeSet: CollapseState['activeSet']) => this.setState({ activeSet }),
         };
     }

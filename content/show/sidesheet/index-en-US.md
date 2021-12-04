@@ -201,7 +201,7 @@ Use `title`, `footer`(v>=1.3.0) and other Semi Components, you could create cust
 
 ```jsx live=true hideInDSM
 import React from 'react';
-import { SideSheet, Button, Typography, Banner } from '@douyinfe/semi-ui';
+import { SideSheet, Button, Typography, Banner, Form } from '@douyinfe/semi-ui';
 
 class Demo extends React.Component {
     constructor() {

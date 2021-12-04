@@ -73,10 +73,12 @@ $module: #{$prefix}-input;
 
         &:hover {
             background-color: $color-input_default-bg-focus;
+            border-color: $color-input_default-border-focus;
         }
 
         &:active {
             background-color: $color-input_default-bg-focus;
+            border-color: $color-input_default-border-focus;
         }
     }
 

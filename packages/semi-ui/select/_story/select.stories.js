@@ -2439,7 +2439,7 @@ class VirtualizeClassDemo extends React.Component {
   constructor(props) {
     super(props);
     // this.handleSearch = this.handleSearch.bind(this);
-    let newOptions = Array.from({ length: 1000 }, (v, i) => ({ label: `option-${i}`, value: i }));
+    let newOptions = Array.from({ length: 1000 }, (v, i) => ({ label: `o-${i}`, value: `v-${v}-${i}` }));
     this.state = {
       optionList: newOptions,
     };
@@ -2807,50 +2807,44 @@ _Highlight.story = {
 };
 
 export const ScrollIntoView = () => (
-  <>
-    <div>
+  <div>
       <p>single selection</p>
-      <Select defaultValue="option-11" defaultOpen style={{ marginBottom: 300, width: 120 }}>
-        {new Array(50).fill(null).map((item, idx) => (
-          <Option value={`${idx}`} key={idx}>{`option-${idx}`}</Option>
-        ))}
+      <Select defaultValue='v-11' defaultOpen style={{ width: 120, marginBottom: 300 }}>
+          {new Array(50).fill(null).map((item, idx) => (
+              <Option value={`v-${idx}`} key={idx}>{`option-${idx}`}</Option>
+          ))}
       </Select>
       <p>single selection with no selected item</p>
       <Select style={{ marginBottom: 300, width: 120 }}>
-        {new Array(50).fill(null).map((item, idx) => (
-          <Option value={`${idx}`} key={idx}>{`option-${idx}`}</Option>
-        ))}
+          {new Array(50).fill(null).map((item, idx) => (
+              <Option value={`v-${idx}`} key={idx}>{`option-${idx}`}</Option>
+          ))}
       </Select>
       <p>The selected node is the last</p>
-      <Select defaultValue="option-49" defaultOpen style={{ marginBottom: 300, width: 120 }}>
-        {new Array(50).fill(null).map((item, idx) => (
-          <Option value={`${idx}`} key={idx}>{`option-${idx}`}</Option>
-        ))}
+      <Select defaultValue='v-49' defaultOpen style={{ marginBottom: 300, width: 120 }}>
+          {new Array(50).fill(null).map((item, idx) => (
+              <Option value={`v-${idx}`} key={idx}>{`option-${idx}`}</Option>
+          ))}
       </Select>
       <p>The selected node is the first</p>
-      <Select defaultValue="option-0" style={{ marginBottom: 300, width: 120 }}>
-        {new Array(50).fill(null).map((item, idx) => (
-          <Option value={`${idx}`} key={idx}>{`option-${idx}`}</Option>
-        ))}
+      <Select defaultValue='v-0' style={{ marginBottom: 300, width: 120 }}>
+          {new Array(50).fill(null).map((item, idx) => (
+              <Option value={`v-${idx}`} key={idx}>{`option-${idx}`}</Option>
+          ))}
       </Select>
       <p>multiple selection</p>
-      <Select
-        defaultValue={['option-25', 'option-9']}
-        multiple
-        style={{ marginBottom: 300, width: 220 }}
-      >
-        {new Array(30).fill(null).map((item, idx) => (
-          <Option value={`${idx}`} key={idx}>{`option-${idx}`}</Option>
-        ))}
+      <Select defaultValue={['v-25', 'v-9']} multiple style={{ marginBottom: 300, width: 220 }}>
+          {new Array(30).fill(null).map((item, idx) => (
+              <Option value={`v-${idx}`} key={idx}>{`option-${idx}`}</Option>
+          ))}
       </Select>
       <p>multiple selection with no selected item</p>
       <Select multiple style={{ marginBottom: 300, width: 220 }}>
-        {new Array(30).fill(null).map((item, idx) => (
-          <Option value={`${idx}`} key={idx}>{`option-${idx}`}</Option>
-        ))}
+          {new Array(30).fill(null).map((item, idx) => (
+              <Option value={`v-${idx}`} key={idx}>{`option-${idx}`}</Option>
+          ))}
       </Select>
-    </div>
-  </>
+  </div>
 );
 
 ScrollIntoView.story = {

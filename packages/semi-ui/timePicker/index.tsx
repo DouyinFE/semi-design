@@ -4,7 +4,7 @@ import BaseTimePicker, { TimePickerProps as BasePickerProps, BaseValueType } fro
 import { ValidateStatus } from '../_base/baseComponent';
 import { ScrollItemProps } from '../scrollList/scrollItem';
 import ConfigContext from '../configProvider/context';
-import { get } from 'lodash-es';
+import { get } from 'lodash';
 import { Locale } from '../locale/interface';
 
 export { TimeInputProps } from './TimeInput';
@@ -14,7 +14,7 @@ export {
     BaseValueType,
     ScrollItemProps,
     ValidateStatus
-}
+};
 
 export type LocalePickerProps = BasePickerProps;
 
@@ -26,7 +26,7 @@ export default class LocaleTimePicker extends React.PureComponent<LocalePickerPr
         const { type } = this.props;
         return (
             <ConfigContext.Consumer>
-                {({ timeZone }: { timeZone: string | number }) => (
+                {({ timeZone }: { timeZone?: string | number }) => (
                     <LocaleConsumer componentName="TimePicker">
                         {(locale: Locale['TimePicker'], localeCode: string, dateFnsLocale: Locale['dateFnsLocale']) => (
                             <BaseTimePicker

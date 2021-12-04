@@ -46,7 +46,7 @@ import { Progress } from '@douyinfe/semi-ui';
         <br/>
         <Progress percent={80} style={{ height: '8px' }}/>
     </div>
-)
+);
 ```
 
 ### Show percentage text
@@ -68,7 +68,7 @@ import { Progress } from '@douyinfe/semi-ui';
         <br/>
         <Progress percent={50} showInfo={true} format={percent => (percent*10) + '‰'}/>
     </div>
-)
+);
 ```
 
 ### Vertical progress bar
@@ -88,7 +88,7 @@ import { Progress } from '@douyinfe/semi-ui';
         <Progress percent={80} direction='vertical' size='large' />
         <Progress percent={80} direction='vertical' style={{ width: '8px' }}/>
     </div>
-)
+);
 ```
 
 ### Circular progress bar
@@ -106,7 +106,7 @@ import { Progress } from '@douyinfe/semi-ui';
         <Progress percent={50} type='circle' style={{ margin: 5 }} />
         <Progress percent={80} type='circle' style={{ margin: 5 }} />
     </div>
-)
+);
 ```
 
 You can modify it's `width` to control the size of the circular progress bar.
@@ -124,7 +124,7 @@ import { Progress } from '@douyinfe/semi-ui';
             <Progress percent={100} type='circle' width={100} style={{ margin: 5 }} stroke='#f93920' />
         </div>
     </React.Fragment>
-)
+);
 ```
 
 ### Small circular progress bar
@@ -142,14 +142,14 @@ import { Progress } from '@douyinfe/semi-ui';
         <Progress percent={50} type='circle' size='small' style={{ margin: 5 }} />
         <Progress percent={80} type='circle' size='small' style={{ margin: 5 }} />
     </React.Fragment>
-)
+);
 ```
 
 ### Dynamic change percent
 
 ```jsx live=true
 import React from 'react';
-import { Progress } from '@douyinfe/semi-ui';
+import { Progress, Button } from '@douyinfe/semi-ui';
 import { IconChevronLeft, IconChevronRight } from '@douyinfe/semi-icons';
 
 () => {
@@ -158,18 +158,18 @@ import { IconChevronLeft, IconChevronRight } from '@douyinfe/semi-icons';
         <>
             <div>
                 <Progress percent={percent} showInfo/>
-                <Button icon={<IconChevronLeft />} theme="light" onClick={()=> {setPercent(percent - 10)}} disabled={percent === 0} />
-                <Button icon={<IconChevronRight />} theme="light" onClick={()=> {setPercent(percent + 10)}} disabled={percent >=100 } />
+                <Button icon={<IconChevronLeft />} theme="light" onClick={()=> {setPercent(percent - 10);}} disabled={percent === 0} />
+                <Button icon={<IconChevronRight />} theme="light" onClick={()=> {setPercent(percent + 10);}} disabled={percent >=100 } />
             </div>
 
         </>
-    )
-}
+    );
+};
 ```
 
 ```jsx live=true
 import React from 'react';
-import { Progress } from '@douyinfe/semi-ui';
+import { Progress, Button } from '@douyinfe/semi-ui';
 import { IconChevronLeft, IconChevronRight } from '@douyinfe/semi-icons';
 
 () => {
@@ -177,11 +177,11 @@ import { IconChevronLeft, IconChevronRight } from '@douyinfe/semi-icons';
     return (
         <div>
             <div><Progress percent={cirPerc} type='circle'/></div>
-            <Button icon={<IconChevronLeft />} theme="light" onClick={()=> {setCirPerc(cirPerc - 10)}} disabled={cirPerc === 0}/>
-            <Button icon={<IconChevronRight />} theme="light" onClick={()=> {setCirPerc(cirPerc + 10)}} disabled={cirPerc >=100 }/>
+            <Button icon={<IconChevronLeft />} theme="light" onClick={()=> {setCirPerc(cirPerc - 10);}} disabled={cirPerc === 0}/>
+            <Button icon={<IconChevronRight />} theme="light" onClick={()=> {setCirPerc(cirPerc + 10);}} disabled={cirPerc >=100 }/>
         </div>
-    )
-}
+    );
+};
 ```
 
 ### Custom central text content
@@ -197,9 +197,9 @@ import { Progress } from '@douyinfe/semi-ui';
     <React.Fragment>
         <Progress percent={75} showInfo type='circle' format={(per) => per + 'Days'} style={{ margin:10 }}/>
         <Progress percent={100} showInfo type='circle' format={(per) => 'Done'} style={{ margin:10 }}/>
-        <Progress percent={50} showInfo type='circle' showInfo={false} style={{ margin:10 }}/>
+        <Progress percent={50} type='circle' showInfo={false} style={{ margin:10 }}/>
     </React.Fragment>
-)
+);
 ```
 
 ### Round / square edges
@@ -215,7 +215,7 @@ import { Progress } from '@douyinfe/semi-ui';
         <Progress percent={50} strokeLinecap='round' type='circle' style={{ margin: 10 }} />
         <Progress percent={50} strokeLinecap='square' type='circle' style={{ margin:10 }} />
     </React.Fragment>
-)
+);
 ```
 
 ## API Reference

@@ -3,7 +3,7 @@
  * https://github.com/react-component/tree
  */
 
-import { isUndefined, difference, pick, cloneDeep, get } from 'lodash-es';
+import { isUndefined, difference, pick, cloneDeep, get } from 'lodash';
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import {
     flattenTreeData,
@@ -212,7 +212,7 @@ export interface BasicTreeProps {
     onDragOver?: (dragProps: BasicDragProps) => void;
     onDragStart?: (dragProps: BasicDragProps) => void;
     onDrop?: (onDragProps: BasicOnDragProps) => void;
-    onExpand?: (expandedKeys: string[], expanedOtherProps: BasicExpandedOtherProps) => void;
+    onExpand?: (expandedKeys: string[], expandedOtherProps: BasicExpandedOtherProps) => void;
     onLoad?: (loadedKeys?: Set<string>, treeNode?: BasicTreeNodeData) => void;
     onContextMenu?: (e: any, node: BasicTreeNodeData) => void;
     onSearch?: (sunInput: string) => void;

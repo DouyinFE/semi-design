@@ -1,4 +1,4 @@
-import React, { cloneElement, Children, useMemo } from 'react';
+import React, { cloneElement, Children, useMemo, isValidElement, ReactElement } from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
 import { stepsClasses as css } from '@douyinfe/semi-foundation/steps/constants';
@@ -35,7 +35,7 @@ const Steps = (props: BasicStepsProps) => {
         onChange,
     } = props;
     const inner = useMemo(() => {
-        const filteredChildren = Children.toArray(children).filter(c => Boolean(c));
+        const filteredChildren = Children.toArray(children).filter(c => isValidElement(c)) as Array<ReactElement>;
         const content = Children.map(filteredChildren, (child: React.ReactElement, index) => {
             if (!child) {
                 return null;

@@ -2,7 +2,7 @@
 /* eslint-disable max-len */
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import KeyCode from '../utils/keyCode';
-import { isNumber, isString, isEqual } from 'lodash-es';
+import { isNumber, isString, isEqual, omit } from 'lodash';
 import warning from '../utils/warning';
 import isNullOrUndefined from '../utils/isNullOrUndefined';
 import { BasicOptionProps } from './optionFoundation';
@@ -45,8 +45,9 @@ export interface SelectAdapter<P = Record<string, any>, S = Record<string, any>>
     updateHovering(isHover: boolean): void;
     updateScrollTop(): void;
 }
-type PropValue = string | number | Record<string, any>;
 
+type LabelValue = string | number;
+type PropValue = LabelValue | Record<string, any>;
 export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
 
     constructor(adapter: SelectAdapter) {
@@ -230,9 +231,9 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
             selections.set(optionExist.label, optionExist);
         } else if (noMatchOptionInList) {
             // If the current value does not have a corresponding item in the optionList, construct an option and update it to the selection. However, it does not need to be inserted into the list
-            let optionNotExist = { value: propValue, label: propValue, _notExist: true };
+            let optionNotExist = { value: propValue, label: propValue, _notExist: true, _scrollIndex: -1 } as BasicOptionProps;
             if (onChangeWithObject) {
-                optionNotExist = { ...propValue as BasicOptionProps, _notExist: true } as any;
+                optionNotExist = { ...propValue as BasicOptionProps, _notExist: true, _scrollIndex: -1 };
             }
             selections.set(optionNotExist.label, optionNotExist);
         }
@@ -258,11 +259,11 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
 
         // When onChangeWithObject is true
         if (onChangeWithObject && propValueIsArray) {
-            selectedValues = propValue.map((item: BasicOptionProps) => item.value) as any;
+            selectedValues = (propValue as BasicOptionProps[]).map(item => item.value);
         }
 
         if (propValueIsArray && selectedValues.length) {
-            selectedValues.forEach((selectedValue: string, i: number) => {
+            (selectedValues as LabelValue[]).forEach((selectedValue, i: number) => {
                 // The current value exists in the current optionList
                 const index = originalOptions.findIndex(option => option.value === selectedValue);
                 if (index !== -1) {
@@ -277,7 +278,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
                         // The current value does not exist in the current optionList or the list before the change. Construct an option and update it to the selection
                         let optionNotExist = { value: selectedValue, label: selectedValue, _notExist: true };
                         onChangeWithObject ? (optionNotExist = { ...propValue[i] as any, _notExist: true }) : null;
-                        selections.set(optionNotExist.label, optionNotExist);
+                        selections.set(optionNotExist.label, { ...optionNotExist, _scrollIndex: -1 });
                     }
                 }
             });
@@ -409,7 +410,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
             this._notifyDeselect(value, { value, label, ...rest });
             selections.delete(label);
         } else if (maxLimit && selections.size === maxLimit) {
-            this._adapter.notifyMaxLimit({ value, label, ...rest });
+            this._adapter.notifyMaxLimit({ value, label, ...omit(rest, '_scrollIndex') });
             return;
         } else {
             this._notifySelect(value, { value, label, ...rest });
@@ -787,6 +788,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
         delete option._parentGroup;
         delete option._show;
         delete option._selected;
+        delete option._scrollIndex;
         if ('_keyInOptionList' in option) {
             option.key = option._keyInOptionList;
             delete option._keyInOptionList;

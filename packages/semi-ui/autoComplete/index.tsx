@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
-import { isEqual, noop } from 'lodash-es';
+import { isEqual, noop } from 'lodash';
 
 import { strings, cssClasses } from '@douyinfe/semi-foundation/autoComplete/constants';
 import AutoCompleteFoundation, { AutoCompleteAdapter, StateOptionItem, DataItem } from '@douyinfe/semi-foundation/autoComplete/foundation';
@@ -36,15 +36,17 @@ export interface BaseDataItem extends DataItem {
     label?: React.ReactNode;
 }
 
-export interface AutoCompleteProps<Item extends BaseDataItem = BaseDataItem> {
+export type AutoCompleteItems = BaseDataItem | string | number;
+
+export interface AutoCompleteProps<T extends AutoCompleteItems> {
     autoAdjustOverflow?: boolean;
     autoFocus?: boolean;
     className?: string;
     children?: React.ReactNode;
-    data?: Array<string | Item | number>;
+    data?: T[];
     disabled?: boolean;
     defaultOpen?: boolean;
-    defaultValue?: string | number | Item;
+    defaultValue?: T;
     defaultActiveFirstOption?: boolean;
     dropdownMatchSelectWidth?: boolean;
     dropdownClassName?: string;
@@ -61,7 +63,7 @@ export interface AutoCompleteProps<Item extends BaseDataItem = BaseDataItem> {
     onBlur?: (e: React.FocusEvent) => void;
     onChange?: (value: string | number) => void;
     onSearch?: (inputValue: string) => void;
-    onSelect?: (value: string | Item | number) => void;
+    onSelect?: (value: T) => void;
     onClear?: () => void;
     onChangeWithObject?: boolean;
     onSelectWithObject?: boolean;
@@ -69,8 +71,8 @@ export interface AutoCompleteProps<Item extends BaseDataItem = BaseDataItem> {
     prefix?: React.ReactNode;
     placeholder?: string;
     position?: Position;
-    renderItem?: (option: Item | string) => React.ReactNode;
-    renderSelectedItem?: (option: Item) => string;
+    renderItem?: (option: T) => React.ReactNode;
+    renderSelectedItem?: (option: T) => string;
     size?: 'small' | 'default' | 'large';
     style?: React.CSSProperties;
     suffix?: React.ReactNode;
@@ -97,7 +99,7 @@ interface AutoCompleteState {
     keyboardEventSet?: KeyboardEventType;
 }
 
-class AutoComplete extends BaseComponent<AutoCompleteProps, AutoCompleteState> {
+class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoCompleteProps<T>, AutoCompleteState> {
     static propTypes = {
         autoFocus: PropTypes.bool,
         autoAdjustOverflow: PropTypes.bool,
@@ -143,7 +145,7 @@ class AutoComplete extends BaseComponent<AutoCompleteProps, AutoCompleteState> {
 
     static Option = Option;
 
-    static defaultProps: Partial<AutoCompleteProps> = {
+    static defaultProps = {
         stopPropagation: true,
         motion: true,
         zIndex: popoverNumbers.DEFAULT_Z_INDEX,
@@ -176,7 +178,7 @@ class AutoComplete extends BaseComponent<AutoCompleteProps, AutoCompleteState> {
 
     private clickOutsideHandler: () => void | null;
 
-    constructor(props: AutoCompleteProps) {
+    constructor(props: AutoCompleteProps<T>) {
         super(props);
         this.foundation = new AutoCompleteFoundation(this.adapter);
         const initRePosKey = 1;
@@ -207,7 +209,7 @@ class AutoComplete extends BaseComponent<AutoCompleteProps, AutoCompleteState> {
         );
     }
 
-    get adapter(): AutoCompleteAdapter<AutoCompleteProps, AutoCompleteState> {
+    get adapter(): AutoCompleteAdapter<AutoCompleteProps<T>, AutoCompleteState> {
         const keyboardAdapter = {
             registerKeyDown: (cb: any): void => {
                 const keyboardEventSet = {
@@ -250,8 +252,8 @@ class AutoComplete extends BaseComponent<AutoCompleteProps, AutoCompleteState> {
             notifyChange: value => {
                 this.props.onChange(value);
             },
-            notifySelect: (option: StateOptionItem | string): void => {
-                this.props.onSelect(option);
+            notifySelect: (option: StateOptionItem | string | number): void => {
+                this.props.onSelect(option as T);
             },
             notifyDropdownVisibleChange: (isVisible: boolean): void => {
                 this.props.onDropdownVisibleChange(isVisible);
@@ -281,7 +283,7 @@ class AutoComplete extends BaseComponent<AutoCompleteProps, AutoCompleteState> {
         this.foundation.destroy();
     }
 
-    componentDidUpdate(prevProps: AutoCompleteProps, prevState: AutoCompleteState) {
+    componentDidUpdate(prevProps: AutoCompleteProps<T>, prevState: AutoCompleteState) {
         if (!isEqual(this.props.data, prevProps.data)) {
             this.foundation.handleDataChange(this.props.data);
         }

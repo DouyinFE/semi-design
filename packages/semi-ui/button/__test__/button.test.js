@@ -1,4 +1,5 @@
 import Button from '../index';
+import ButtonGroup from '../index';
 import { mount } from 'enzyme';
 import { BASE_CLASS_PREFIX } from '../../../semi-foundation/base/constants';
 import { IconEdit } from '@douyinfe/semi-icons';
@@ -45,5 +46,19 @@ describe('Button', () => {
         const elem = mount(<Button icon={<IconEdit />} children={'text'} iconPosition={'right'} />);
         expect(elem.find(`.${BASE_CLASS_PREFIX}-button-content-left`).length).toBe(1);
         expect(elem.find(`.${BASE_CLASS_PREFIX}-button-content-right`).length).toBe(0);
+    });
+
+    it(`button group with invalid child`, () => {
+        const buttonGroup = mount(
+            <ButtonGroup>
+                {false}
+                {null}
+                {undefined}
+                {1}
+                <Button>查询</Button>
+                <Button>剪切</Button>
+            </ButtonGroup>
+        );
+        expect(buttonGroup.getDOMNode().textContent).toEqual('1查询剪切');
     });
 });

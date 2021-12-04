@@ -2,74 +2,20 @@
 import React, { ReactNode, CSSProperties, RefObject, ChangeEvent, DragEvent } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
-import { noop } from 'lodash-es';
+import { noop } from 'lodash';
 import UploadFoundation, { BaseFileItem, UploadAdapter, BeforeUploadObjectResult, AfterUploadResult } from '@douyinfe/semi-foundation/upload/foundation';
 import { strings, cssClasses } from '@douyinfe/semi-foundation/upload/constants';
 import FileCard from './fileCard';
 import BaseComponent, { ValidateStatus } from '../_base/baseComponent';
 import LocaleConsumer from '../locale/localeConsumer';
 import { IconUpload } from '@douyinfe/semi-icons';
-import { ArrayElement } from '../_base/base';
+import { FileItem, RenderFileItemProps, UploadListType, PromptPositionType, BeforeUploadProps, AfterUploadProps, OnChangeProps, customRequestArgs, CustomError } from './interface';
 import { Locale } from '../locale/interface';
 import '@douyinfe/semi-foundation/upload/upload.scss';
 
 const prefixCls = cssClasses.PREFIX;
 
-export { BeforeUploadObjectResult, AfterUploadResult };
-
-export interface FileItem extends BaseFileItem {
-    validateMessage?: ReactNode;
-}
-
-export type UploadListType = ArrayElement<typeof strings.LIST_TYPE>;
-export type PromptPositionType = ArrayElement<typeof strings.PROMPT_POSITION>;
-export interface RenderFileItemProps extends FileItem {
-    previewFile: (fileItem: FileItem) => ReactNode;
-    listType: UploadListType;
-    onRemove: () => void;
-    onRetry: () => void;
-    onReplace: () => void;
-    key: string;
-    showRetry: boolean;
-    showReplace: boolean;
-    style: CSSProperties;
-    disabled: boolean;
-    onPreviewClick: () => void;
-}
-
-export interface BeforeUploadProps {
-    file: FileItem;
-    fileList: Array<FileItem>;
-}
-
-export interface AfterUploadProps {
-    file: FileItem;
-    fileList: Array<FileItem>;
-    response: any;
-}
-
-export interface OnChangeProps {
-    fileList: Array<FileItem>;
-    currentFile: FileItem;
-}
-
-export interface customRequestArgs {
-    fileName: string; // Current file name
-    data: Record<string, any>; // User-set props.data
-    file: FileItem;
-    fileInstance: File; // Original File Object which extends to the blob, the file object actually acquired by the browser (https://developer.mozilla.org/zh-CN/docs/Web/API/File)
-    onProgress: (event: { total: number; loaded: number }) => any; // The function that should be called during the upload process, the event needs to contain the total and loaded attributes
-    onError: (userXhr: { status?: number }, e: Event) => any; // Functions to call in case of upload error
-    onSuccess: (response: any, e: Event) => any; // The function that should be called after the upload is successful, the response is the request result after the upload is successful
-    withCredentials: boolean; // User-set props.with Credentials
-    action: string; // User-set props.action
-}
-
-export interface CustomError extends Error {
-    status: number;
-    method: string;
-    url: string;
-}
+export { FileItem, RenderFileItemProps, UploadListType, PromptPositionType, BeforeUploadProps, AfterUploadProps, OnChangeProps, customRequestArgs, CustomError, BeforeUploadObjectResult, AfterUploadResult };
 
 export interface UploadProps {
     accept?: string;
@@ -114,7 +60,7 @@ export interface UploadProps {
     onRetry?: (fileItem: FileItem) => void;
     onSizeError?: (file: File, fileList: Array<FileItem>) => void;
     onSuccess?: (responseBody: any, file: File, fileList: Array<FileItem>) => void;
-    previewFile?: (fileItem: FileItem) => ReactNode;
+    previewFile?: (renderFileItemProps: RenderFileItemProps) => ReactNode;
     prompt?: ReactNode;
     promptPosition?: PromptPositionType;
     renderFileItem?: (renderFileItemProps: RenderFileItemProps) => ReactNode;
@@ -247,7 +193,14 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
         this.replaceInputRef = React.createRef<HTMLInputElement>();
     }
 
-    static getDerivedStateFromProps(props: UploadProps): Partial<UploadState> | null {
+    /**
+     * Notes: 
+     *   The input parameter and return value here do not declare the type, otherwise tsc may report an error in form/fields.tsx when wrap after withField
+     *   `The types of the parameters "props" and "nextProps" are incompatible.
+           The attribute "action" is missing in the type "Readonly<any>", but it is required in the type "UploadProps".`
+     *   which seems to be a bug, remove props type declare here
+     */
+    static getDerivedStateFromProps(props) {
         const { fileList } = props;
         if ('fileList' in props) {
             return {

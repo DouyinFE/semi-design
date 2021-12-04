@@ -8,6 +8,7 @@
   ],
   "private": true,
   "scripts": {
+    "install:codesandbox": "npm i lerna && npm run bootstrap",
     "bootstrap": "lerna bootstrap",
     "docsite": "npm run develop",
     "pre-develop": "npm run scripts:changelog && node ./scripts/designToken.js ./static/designToken.json",
@@ -37,7 +38,7 @@
   "dependencies": {
     "@douyinfe/semi-site-banner": "0.0.1",
     "@douyinfe/semi-site-doc-style": "0.0.1",
-    "@douyinfe/semi-site-header": "0.0.2",
+    "@douyinfe/semi-site-header": "0.0.3",
     "@douyinfe/semi-site-markdown-blocks": "0.0.1",
     "@mdx-js/react": "^1.6.22",
     "@svgr/core": "^5.5.0",
@@ -148,6 +149,7 @@
     "eslint-config-jest-enzyme": "^7.1.2",
     "eslint-plugin-import": "^2.24.0",
     "eslint-plugin-jest": "^24.4.0",
+    "eslint-plugin-markdown": "^2.2.1",
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "fs-extra": "^8.1.0",
@@ -194,10 +196,10 @@
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx}": [
-      "eslint --ext '.js,.jsx,.ts,.tsx'"
+      "eslint --ext '.js,.jsx,.ts,.tsx' --fix"
     ],
     "packages/**/*.{js,jsx,ts,tsx}": [
-      "eslint --ext '.js,.jsx,.ts,.tsx'"
+      "eslint --ext '.js,.jsx,.ts,.tsx' --fix"
     ],
     "*.{scss,css}": [
       "stylelint"

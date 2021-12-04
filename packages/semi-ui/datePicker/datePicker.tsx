@@ -2,7 +2,7 @@
 import React from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
-import { noop, stubFalse, isDate, get, isFunction } from 'lodash-es';
+import { noop, stubFalse, isDate, get, isFunction } from 'lodash';
 import ConfigContext from '../configProvider/context';
 import DatePickerFoundation, { DatePickerAdapter, DatePickerFoundationProps, DatePickerFoundationState, DayStatusType, PresetType, Type } from '@douyinfe/semi-foundation/datePicker/foundation';
 import { cssClasses, strings, numbers } from '@douyinfe/semi-foundation/datePicker/constants';

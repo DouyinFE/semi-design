@@ -2,7 +2,7 @@
 import React from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
-import { noop, get } from 'lodash-es';
+import { noop, get } from 'lodash';
 import { cssClasses, numbers } from '@douyinfe/semi-foundation/popconfirm/constants';
 import PopconfirmFoundation, { PopconfirmAdapter } from '@douyinfe/semi-foundation/popconfirm/popconfirmFoundation';
 import { IconClose, IconAlertTriangle } from '@douyinfe/semi-icons';
@@ -38,6 +38,7 @@ export interface PopconfirmProps extends PopoverProps {
     onCancel?: (e: React.MouseEvent) => void;
     onConfirm?: (e: React.MouseEvent) => void;
     onVisibleChange?: (visible: boolean) => void;
+    onClickOutSide?: (e: React.MouseEvent) => void;
 }
 
 export interface PopconfirmState {
@@ -65,13 +66,14 @@ export default class Popconfirm extends BaseComponent<PopconfirmProps, Popconfir
         cancelType: PropTypes.string,
         onCancel: PropTypes.func,
         onConfirm: PropTypes.func,
-        zIndex: PropTypes.number,
+        onClickOutSide: PropTypes.func,
         onVisibleChange: PropTypes.func,
         visible: PropTypes.bool,
         defaultVisible: PropTypes.bool,
         okButtonProps: PropTypes.object,
         cancelButtonProps: PropTypes.object,
         stopPropagation: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+        zIndex: PropTypes.number,
         // private
         trigger: PropTypes.string,
         position: PropTypes.string,
@@ -90,6 +92,7 @@ export default class Popconfirm extends BaseComponent<PopconfirmProps, Popconfir
         zIndex: numbers.DEFAULT_Z_INDEX,
         onCancel: noop,
         onConfirm: noop,
+        onClickOutSide: noop,
     };
 
     constructor(props: PopconfirmProps) {
@@ -120,6 +123,7 @@ export default class Popconfirm extends BaseComponent<PopconfirmProps, Popconfir
             notifyConfirm: (e: React.MouseEvent): void => this.props.onConfirm(e),
             notifyCancel: (e: React.MouseEvent): void => this.props.onCancel(e),
             notifyVisibleChange: (visible: boolean): void => this.props.onVisibleChange(visible),
+            notifyClickOutSide: (e: React.MouseEvent) => this.props.onClickOutSide(e),
         };
     }
 
@@ -128,6 +132,8 @@ export default class Popconfirm extends BaseComponent<PopconfirmProps, Popconfir
     handleConfirm = (e: React.MouseEvent): void => this.foundation.handleConfirm(e && e.nativeEvent);
 
     handleVisibleChange = (visible: boolean): void => this.foundation.handleVisibleChange(visible);
+
+    handleClickOutSide = (e: React.MouseEvent) => this.foundation.handleClickOutSide(e);
 
     stopImmediatePropagation = (e: React.SyntheticEvent): void => e && e.nativeEvent && e.nativeEvent.stopImmediatePropagation();
 
@@ -211,6 +217,7 @@ export default class Popconfirm extends BaseComponent<PopconfirmProps, Popconfir
         const popProps: PopProps = {
             onVisibleChange: this.handleVisibleChange,
             className: cssClasses.POPOVER,
+            onClickOutSide: this.handleClickOutSide,
         };
 
         if (this.isControlled('visible')) {

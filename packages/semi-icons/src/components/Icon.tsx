@@ -1,7 +1,7 @@
-import React, { ReactNode, ReactElement, CSSProperties, DetailedHTMLProps, Ref, ComponentType, ForwardRefExoticComponent } from 'react';
+import React, { ReactNode, Ref, CSSProperties, DetailedHTMLProps, ComponentType } from 'react';
 import { BASE_CLASS_PREFIX } from '../env';
 import cls from 'classnames';
-import '../styles/icon.scss';
+import '../styles/icons.scss';
 
 export type IconSize = 'extra-small' | 'small' | 'default' | 'large' | 'extra-large';
 
@@ -14,7 +14,7 @@ export interface IconProps extends DetailedHTMLProps<React.HTMLAttributes<HTMLSp
     type?: string;
 }
 
-const Icon: ForwardRefExoticComponent<IconProps> & { elementType?: string } = React.forwardRef((props: IconProps, ref: Ref<HTMLSpanElement>): ReactElement => {
+const Icon = React.forwardRef<HTMLSpanElement, IconProps>((props, ref) => {
     const { svg, spin = false, rotate, style, className, prefixCls = BASE_CLASS_PREFIX, type, size = 'default', ...restProps } = props;
     const classes = cls(`${prefixCls}-icon`, {
         [`${prefixCls}-icon-extra-small`]: size === 'extra-small', // 8x8
@@ -34,11 +34,15 @@ const Icon: ForwardRefExoticComponent<IconProps> & { elementType?: string } = Re
     return <span role="img" ref={ref} className={classes} style={outerStyle} {...restProps}>{svg}</span>;
 });
 
+// @ts-ignore used to judge whether it is a semi-icon in semi-ui
+// custom icon case
 Icon.elementType = 'Icon';
 
-const convertIcon = (Svg: ComponentType, iconType: string): ForwardRefExoticComponent<Omit<IconProps, 'svg' | 'type'>> & { elementType?: string } => {
-    const InnerIcon: ForwardRefExoticComponent<Omit<IconProps, 'svg' | 'type'>> & { elementType?: string } = React.forwardRef((props: Omit<IconProps, 'svg' | 'type'>, ref: Ref<HTMLSpanElement>): ReactElement =>
-        <Icon svg={React.createElement(Svg)} type={iconType} ref={ref} {...props} />);
+const convertIcon = (Svg: ComponentType, iconType: string) => {
+    const InnerIcon = React.forwardRef<HTMLSpanElement, Omit<IconProps, 'svg' | 'type'>>((props, ref) =>
+        <Icon svg={React.createElement(Svg)} type={iconType} ref={ref as any} {...props} />);
+    // @ts-ignore used to judge whether it is a semi-icon in semi-ui 
+    // builtin icon case
     InnerIcon.elementType = 'Icon';
     return InnerIcon;
 };

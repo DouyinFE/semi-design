@@ -28,7 +28,7 @@ import { Breadcrumb } from '@douyinfe/semi-ui';
         <Breadcrumb.Item>Breadcrumb</Breadcrumb.Item>
         <Breadcrumb.Item>Default</Breadcrumb.Item>
     </Breadcrumb>
-)
+);
 ```
 
 ### With Icons
@@ -44,7 +44,7 @@ import { IconHome, IconArticle } from '@douyinfe/semi-icons';
         <Breadcrumb.Item icon={<IconArticle />}>Breadcrumb</Breadcrumb.Item>
         <Breadcrumb.Item>With Icon</Breadcrumb.Item>
     </Breadcrumb>
-)
+);
 ```
 
 ### Size
@@ -70,7 +70,7 @@ import { IconHome } from '@douyinfe/semi-icons';
             <Breadcrumb.Item>Loose</Breadcrumb.Item>
         </Breadcrumb>
     </div>
-)
+);
 ```
 
 ### Custom Separator
@@ -79,7 +79,7 @@ Default separator is `/`.
 
 ```jsx live=true
 import React from 'react';
-import { Breadcrumb } from '@douyinfe/semi-ui';
+import { Breadcrumb, Tag } from '@douyinfe/semi-ui';
 import { IconArrowRight } from '@douyinfe/semi-icons';
 
 () => (
@@ -95,7 +95,7 @@ import { IconArrowRight } from '@douyinfe/semi-icons';
             <Breadcrumb.Item>Breadcrumb</Breadcrumb.Item>
             <Breadcrumb.Item>Default</Breadcrumb.Item>
         </Breadcrumb>
-        <Tag>v>=1.16.0</Tag>
+        <Tag>{`v>=1.16.0`}</Tag>
         <br/>
         <Breadcrumb size={'small'} >
             <Breadcrumb.Item separator=":">Semi-ui</Breadcrumb.Item>
@@ -103,7 +103,7 @@ import { IconArrowRight } from '@douyinfe/semi-icons';
             <Breadcrumb.Item>Default</Breadcrumb.Item>
         </Breadcrumb>
     </div>
-)
+);
 ```
 
 ### Truncated Logic
@@ -147,8 +147,8 @@ import { Breadcrumb, Typography } from '@douyinfe/semi-ui';
                 routes={routes}
             />
         </>
-    )
-}
+    );
+};
 ```
 
 When the path exceeds 4 levels, the second level to the penultimate one will be replaced by ellipsis. You can click the ellipsis to reveal all levels.
@@ -168,7 +168,7 @@ import { Breadcrumb } from '@douyinfe/semi-ui';
         <Breadcrumb.Item>Penultimate</Breadcrumb.Item>
         <Breadcrumb.Item>Detail</Breadcrumb.Item>
     </Breadcrumb>
-)
+);
 ```
 
 ### Custom Ellipsis
@@ -189,7 +189,7 @@ import { Breadcrumb } from '@douyinfe/semi-ui';
         <Breadcrumb.Item>Penultimate</Breadcrumb.Item>
         <Breadcrumb.Item>Detail</Breadcrumb.Item>
     </Breadcrumb>
-)
+);
 ```
 
 If you want to customize other forms of rendering for the ellipsis area, you can use the `renderMore()` method.
@@ -217,7 +217,7 @@ function Demo() {
                     ))
                 }
             </>
-        )
+        );
         return (
             <Popover
                 content={content}
@@ -290,7 +290,7 @@ import { IconHome, IconArticle } from '@douyinfe/semi-icons';
             routes={['Index', 'This is a very long level', 'Detail']}
         />
     </div>
-)
+);
 ```
 
 ## API reference

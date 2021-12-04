@@ -1,11 +1,11 @@
-import React, { PureComponent, createRef, ReactNode } from 'react';
+import React, { createRef, PureComponent, ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
 import { cssClasses } from '@douyinfe/semi-foundation/tabs/constants';
 import getDataAttr from '@douyinfe/semi-foundation/utils/getDataAttr';
 import TabsContext from './tabs-context';
 import TabPaneTransition from './TabPaneTransition';
-import { TabPaneProps, PlainTab } from './interface';
+import { PlainTab, TabPaneProps } from './interface';
 
 class TabPane extends PureComponent<TabPaneProps> {
     static isTabPane = true;
@@ -19,6 +19,7 @@ class TabPane extends PureComponent<TabPaneProps> {
         itemKey: PropTypes.string,
         tab: PropTypes.node,
         icon: PropTypes.node,
+        closable: PropTypes.bool
     };
 
     lastActiveKey: string = null;

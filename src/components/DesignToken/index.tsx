@@ -57,7 +57,7 @@ const JumpLink = ({ value, availableKeySet }: {value: string;availableKeySet: Se
     }
 };
 
-const TokenTable = ({ tokenList, designToken, currentTab }: {tokenList: TokenMayWithColor[];designToken: DesignToken; currentTab: string; }): React.ReactElement => {
+const TokenTable = ({ tokenList, designToken, currentTab,mode='light' }: {mode?:'light'|'dark',tokenList: TokenMayWithColor[];designToken: DesignToken; currentTab?: string; }): React.ReactElement => {
     const intl = useIntl();
     const globalTokenJumpAvailableSet = useMemo(() => {
         const global = designToken?.global;
@@ -76,7 +76,7 @@ const TokenTable = ({ tokenList, designToken, currentTab }: {tokenList: TokenMay
                         <div data-token={lodash.trim(text, '$')} style={{ fontWeight: 600 }}> <div style={{
                             width: 16, height: 16, display: 'inline-block', borderRadius: 3, backgroundColor: color,
                             transform: 'translateY(0.3rem)', marginRight: 8
-                        }}
+                        }} className={mode==='dark'?'semi-always-dark':'semi-always-light'}
                         /> {text}
                         </div>
                     );
@@ -98,7 +98,7 @@ const TokenTable = ({ tokenList, designToken, currentTab }: {tokenList: TokenMay
                 <div>{text || intl.formatMessage({ id: 'designToken.WIP' })}</div>
         },
 
-    ], [intl.locale]);
+    ], [intl.locale,mode]);
     if (!tokenList) {
         return null;
     }
@@ -120,7 +120,7 @@ const TokenTab = ({ designToken, componentName }: {designToken: DesignToken;comp
     return (
         <div>
             <Tabs tabList={tabList} onChange={(key: string): void => setCurrentTab(key)}>
-                <TokenTable designToken={designToken} tokenList={tokenList} currentTab={currentTab} />
+                <TokenTable designToken={designToken} tokenList={tokenList} currentTab={currentTab as string} />
             </Tabs>
         </div>
     );
@@ -128,7 +128,7 @@ const TokenTab = ({ designToken, componentName }: {designToken: DesignToken;comp
 
 const GlobalTokenTab = ({ designToken, isColorPalette = false, reg }: {designToken: DesignToken;isColorPalette?: boolean;reg: RegExp}): React.ReactElement => {
     const { global, palette, normal } = designToken.global;
-    const [currentTab, setCurrentTab] = useState('light');
+    const [currentTab, setCurrentTab] = useState<'light'|'dark'>('light');
     const [hasTab, setHasTab] = useState(true);
     const tokenList: TokenMayWithColor[] = useMemo(() => {
         if (!isColorPalette) {
@@ -151,10 +151,10 @@ const GlobalTokenTab = ({ designToken, isColorPalette = false, reg }: {designTok
     return (
         <>
             {hasTab ? (
-                <Tabs defaultActiveKey={'light'} tabList={[{ tab: 'Light', itemKey: 'light' }, { tab: 'Dark', itemKey: 'dark' }]} onChange={(key: string): void => setCurrentTab(key)}>
-                    <TokenTable designToken={designToken} tokenList={tokenList} />
+                <Tabs defaultActiveKey={'light'} tabList={[{ tab: 'Light', itemKey: 'light' }, { tab: 'Dark', itemKey: 'dark' }]} onChange={(key:typeof currentTab): void => setCurrentTab(key)}>
+                    <TokenTable designToken={designToken} tokenList={tokenList} mode={currentTab}/>
                 </Tabs>
-            ) : <TokenTable designToken={designToken} tokenList={tokenList} />}
+            ) : <TokenTable designToken={designToken} tokenList={tokenList} mode={currentTab} />}
         </>
     );
 };

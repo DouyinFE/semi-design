@@ -1064,4 +1064,35 @@ describe('Cascader', () => {
         const states = cascaderWithMultiple.state()
         cascaderWithMultiple.unmount();
     })
+
+    it('triggerRender', () => {
+        const spyTriggerRender = sinon.spy(() => <span>123</span>);
+        const cascaderAutoMerge = render({
+            multiple: true,
+            triggerRender: spyTriggerRender,
+            defaultValue: 'Yazhou'
+        });
+        cascaderAutoMerge.simulate('click');
+        const firstCall = spyTriggerRender.getCall(0);
+        const args = firstCall.args[0]; 
+        /* check arguments of triggerRender */
+        expect(args.value.size).toEqual(1);
+        expect(args.value).toEqual(new Set('0'));
+        cascaderAutoMerge.unmount();
+
+        const spyTriggerRender2 = sinon.spy(() => <span>123</span>);
+        const cascaderNoAutoMerge = render({
+            multiple: true,
+            triggerRender: spyTriggerRender2,
+            defaultValue: 'Yazhou',
+            autoMergeValue: false,
+        });
+        cascaderNoAutoMerge.simulate('click');
+        const firstCall2 = spyTriggerRender2.getCall(0);
+        const args2 = firstCall2.args[0]; 
+        /* check arguments of triggerRender */
+        expect(args2.value.size).toEqual(4);
+        expect(args2.value).toEqual(new Set(['0','0-0','0-0-1','0-0-0']));
+        cascaderNoAutoMerge.unmount();
+    });
 });

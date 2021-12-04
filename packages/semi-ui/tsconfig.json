@@ -22,10 +22,11 @@
         "experimentalDecorators": true,
         "noImplicitReturns": true,
         "noImplicitThis": false,
-        "strictNullChecks": false,
         "esModuleInterop": true,
         "skipLibCheck": true,
-        "declaration": true
+        "declaration": true,
+        "strictNullChecks": false,
+        "strict": true
     },
     "include": ["**/*.tsx", "**/*.ts"],
     "exclude": ["node_modules", "packages/rollup-plugin-semi-svg"]

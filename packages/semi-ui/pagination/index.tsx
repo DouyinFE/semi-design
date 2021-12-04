@@ -3,7 +3,7 @@ import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { FixedSizeList as List } from 'react-window';
-import { noop } from 'lodash-es';
+import { noop } from 'lodash';
 
 import PaginationFoundation, {
     AdapterPageList,
@@ -286,7 +286,7 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
                     className={`${prefixCls}-quickjump-input-number`}
                     hideButtons
                     disabled={isDisabled}
-                    onBlur={(e: React.MouseEvent) => this.foundation.handleQuickJumpBlur()}
+                    onBlur={(e: React.FocusEvent) => this.foundation.handleQuickJumpBlur()}
                     onEnterPress={(e: React.KeyboardEvent) => this.foundation.handleQuickJumpEnterPress((e.target as any).value)}
                     onChange={(v: string | number) => this.foundation.handleQuickJumpNumberChange(v)}
                 />

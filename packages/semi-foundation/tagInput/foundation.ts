@@ -5,7 +5,7 @@ import {
     isNumber,
     isFunction,
     isUndefined
-} from 'lodash-es';
+} from 'lodash';
 import getSplitedArray from './utils/getSplitedArray';
 
 export type TagInputChangeEvent = any;
@@ -24,6 +24,7 @@ export interface TagInputAdapter extends DefaultAdapter {
     notifyTagChange: (v: string[]) => void;
     notifyTagAdd: (v: string[]) => void;
     notifyTagRemove: (v: string, idx: number) => void;
+    notifyKeyDown: (e: TagInputMouseEvent) => void;
 }
 
 class TagInputFoundation extends BaseFoundation<TagInputAdapter> {
@@ -90,6 +91,7 @@ class TagInputFoundation extends BaseFoundation<TagInputAdapter> {
             const removedTag = tagsArray[length - 1];
             this._onRemove(newTagList, removedTag, length - 1);
         }
+        this._adapter.notifyKeyDown(e);
     };
 
     _handleAddTags(e: TagInputChangeEvent) {

@@ -15,7 +15,7 @@ import {
     includes,
     toString,
     isFunction
-} from 'lodash-es';
+} from 'lodash';
 import { strings, numbers } from './constants';
 import isNullOrUndefined from '../utils/isNullOrUndefined';
 import Logger from '../utils/Logger';
@@ -166,7 +166,7 @@ export function isSelectionColumn(column: Record<string, any>) {
     return get(column, 'key') === strings.DEFAULT_KEY_COLUMN_SELECTION;
 }
 
-export function filterColumns(columns: Record<string, any>[], ignoreKeys = [strings.DEFAULT_KEY_COLUMN_SCROLLBAR]) {
+export function filterColumns(columns: Record<string, any>[], ignoreKeys = [strings.DEFAULT_KEY_COLUMN_SCROLLBAR as string]) {
     return filter(columns, col => !ignoreKeys.includes(col.key));
 }
 

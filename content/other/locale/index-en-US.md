@@ -23,14 +23,15 @@ brief: Internationalized components to provide multilingual support for Semi com
 
 ## Components supported
 
-> Date Picker, Time Picker, Modal, Pagination, Select, Table, Cascader, Tree Select、List、Typography、Transfer
+> DatePicker、TimePicker、Modal、Pagination、Select、Table、Cascader、Calendar、TreeSelect、List、Typography、Transfer、Nav、Upload
 
 ## How to use
 
 `LocaleProvider` uses the context feature of React, and you only need to wrap the periphery of the application once to take effect globally.  
 When you need to switch the language, you can directly switch the locale passed in by the props.
 
-```js
+```jsx
+import React from 'react';
 import zh_CN from '@douyinfe/semi-ui/lib/es/locale/source/zh_CN';
 import en_GB from '@douyinfe/semi-ui/lib/es/locale/source/en_GB';
 import en_US from '@douyinfe/semi-ui/lib/es/locale/source/en_US';
@@ -51,7 +52,8 @@ import { LocaleProvider } from '@douyinfe/semi-ui';
 
 return (
     <LocaleProvider locale={en_GB}>
-        <App/>
+        {/* eslint-disable-next-line react/jsx-no-undef */}
+        <App />
     </LocaleProvider>
 );
 ```
@@ -107,13 +109,15 @@ import zh_TW from '@douyinfe/semi-ui/lib/es/locale/source/zh_TW';
 import ar from '@douyinfe/semi-ui/lib/es/locale/source/ar';
 import { LocaleProvider, ConfigProvider, Pagination, Modal, Button, Select, Cascader, DatePicker, TreeSelect, Table, TimePicker, List, Calendar, Typography } from '@douyinfe/semi-ui';
 
+const { Option } = Select;
+
 class I18nDemo extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             locale: en_GB,
             localeCode: 'en_GB',
-        }
+        };
         this.onLanguageChange = this.onLanguageChange.bind(this);
     }
 
@@ -130,8 +134,8 @@ class I18nDemo extends React.Component {
             'ms_MY': ms_MY,
             'th_TH': th_TH,
             'tr_TR': tr_TR,
-        }
-        this.setState({ locale: language[code], localeCode: code })
+        };
+        this.setState({ locale: language[code], localeCode: code });
     }
 
     render() {
@@ -206,10 +210,10 @@ class I18nDemo extends React.Component {
                             visible={modalVisible}
                             onOk={() => setModalVisible(false)}
                             onCancel={() => setModalVisible(false)}
-                            >
+                        >
                             <p>This is the content of a basic modal.</p>
                             <p>More content...</p>
-                    </Modal>
+                        </Modal>
                     </div>
                     <h5>Select & Cascader</h5>
                     <div style={style}>
@@ -270,7 +274,7 @@ class I18nDemo extends React.Component {
                     </ConfigProvider>
                 </LocaleProvider>
             </>
-        )
+        );
     }
 }
 ```

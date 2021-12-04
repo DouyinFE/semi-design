@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
-import { isEqual, isString, isEmpty, noop, get, isFunction } from 'lodash-es';
+import { isEqual, isString, isEmpty, noop, get, isFunction } from 'lodash';
 import TreeSelectFoundation, {
     Size,
     BasicTriggerRenderProps,
@@ -27,7 +27,7 @@ import {
 } from '@douyinfe/semi-foundation/tree/treeUtil';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/treeSelect/constants';
 import { numbers as popoverNumbers } from '@douyinfe/semi-foundation/popover/constants';
-import { FixedSizeList as VirtualList } from 'react-window';
+import { FixedSizeList as VirtualList, ListItemKeySelector } from 'react-window';
 import '@douyinfe/semi-foundation/tree/tree.scss';
 import '@douyinfe/semi-foundation/treeSelect/treeSelect.scss';
 import BaseComponent, { ValidateStatus } from '../_base/baseComponent';
@@ -80,20 +80,7 @@ export type RenderSelectedItemInMultiple = (
     content: React.ReactNode;
 };
 
-export interface RenderSelectedItem {
-    (treeNode: TreeNodeData): React.ReactNode;
-    (
-        treeNode: TreeNodeData,
-        otherProps: {
-            index: number | string;
-            onClose: (tagContent: any, e: React.MouseEvent) => void;
-        }
-    ):
-    {
-        isRenderInTag: boolean;
-        content: React.ReactNode;
-    };
-}
+export type RenderSelectedItem = RenderSelectedItemInSingle | RenderSelectedItemInMultiple;
 
 export type OverrideCommonProps =
 'renderFullLabel'
@@ -501,6 +488,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 const clickOutsideHandler = (e: Event) => {
                     const optionInstance = this.optionsRef && this.optionsRef.current as React.ReactInstance;
                     const triggerDom = this.triggerRef && this.triggerRef.current;
+                    // eslint-disable-next-line
                     const optionsDom = ReactDOM.findDOMNode(optionInstance);
                     const target = e.target as Element;
                     if (
@@ -698,7 +686,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 this.removeTag(key);
             };
             const { content, isRenderInTag } = (treeNodeLabelProp in item && item) ?
-                renderSelectedItem(item, { index: key, onClose }) :
+                (renderSelectedItem as RenderSelectedItemInMultiple)(item, { index: key, onClose }) :
                 null;
             if (!content) {
                 return;
@@ -948,7 +936,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         const nodeHaveData = !isEmpty(nodes) && !isEmpty(nodes[0]);
         const isDisableStrictlyNode = disableStrictly && nodeHaveData && disabledKeys.has(nodes[0].key);
         const closable = nodeHaveData && !nodes[0].disabled && !disabled && !isDisableStrictlyNode;
-        const onClose = (tagChildren: string, e: React.MouseEvent) => {
+        const onClose = (tagChildren: React.ReactNode, e: React.MouseEvent) => {
             // When value has not changed, prevent clicking tag closeBtn to close tag
             e.preventDefault();
             this.removeTag(key);
@@ -969,7 +957,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             });
         if (isFunction(renderSelectedItem)) {
             const { content, isRenderInTag } = treeNodeLabelProp in item && item ?
-                renderSelectedItem(item, { index: idx, onClose }) :
+                (renderSelectedItem as RenderSelectedItemInMultiple)(item, { index: idx, onClose }):
                 null;
             if (isRenderInTag) {
                 return <Tag {...tagProps}>{content}</Tag>;
@@ -1178,7 +1166,8 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                         itemSize={virtualize.itemSize}
                         height={height}
                         width={width}
-                        itemKey={this.itemKey}
+                        // @ts-ignore avoid strict check of itemKey
+                        itemKey={this.itemKey as ListItemKeySelector<TreeNodeData>}
                         itemData={flattenNodes as any}
                         className={`${prefixTree}-virtual-list`}
                         style={{ direction }}

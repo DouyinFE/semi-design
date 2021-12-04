@@ -1,4 +1,3 @@
-/* argus-disable unPkgSensitiveInfo */
 /* eslint-disable max-lines-per-function, react-hooks/rules-of-hooks, prefer-const, max-len */
 import React, { useState, useLayoutEffect, useMemo, useRef, forwardRef } from 'react';
 import classNames from 'classnames';
@@ -27,10 +26,11 @@ const prefix = cssClasses.PREFIX;
  */
 
 function withField<
-    C extends React.ComponentType<React.ComponentProps<C>>,
-    T extends React.ComponentType<Subtract<React.ComponentProps<C>, CommonexcludeType> & CommonFieldProps>
->(Component: C, opts?: WithFieldOption): T {
-    let SemiField = (props: any, ref: React.MutableRefObject<any>) => {
+    C extends React.ElementType,
+    T extends Subtract<React.ComponentProps<C>, CommonexcludeType> & CommonFieldProps,
+    R extends React.ComponentType<T>
+>(Component: C, opts?: WithFieldOption): R {
+    let SemiField = (props: any, ref: React.MutableRefObject<any> | ((instance: any) => void)) => {
         let {
             // condition,
             field,
@@ -547,7 +547,6 @@ function withField<
             return useMemo(() => FieldComponent, [...shouldUpdate]);
         } else {
             // Some Custom Component with inner state shouldn't be memo, otherwise the component will not updated when the internal state is updated
-            // Fixed issue 328
             return FieldComponent;
         }
     };

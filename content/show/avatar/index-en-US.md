@@ -208,7 +208,7 @@ function Demo() {
                     {`+${restNumber}`}
                 </Avatar>
             </Popover>
-        )
+        );
     };
 
     return (
@@ -219,7 +219,7 @@ function Demo() {
             <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>ZL</Avatar>
             <Avatar style={{ backgroundColor: '#87d068' }} >YZ</Avatar>
         </AvatarGroup>
-    )
+    );
 }
 ```
 

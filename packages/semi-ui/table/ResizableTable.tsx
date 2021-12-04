@@ -4,7 +4,7 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable max-lines-per-function */
 import React, { useState, useEffect, useMemo } from 'react';
-import { merge, get, find, noop } from 'lodash-es';
+import { merge, get, find, noop } from 'lodash';
 
 import { addClass, removeClass } from '@douyinfe/semi-foundation/utils/classnames';
 import { strings, numbers } from '@douyinfe/semi-foundation/table/constants';
@@ -16,7 +16,7 @@ import getColumns from './getColumns';
 import ResizableHeaderCell from './ResizableHeaderCell';
 import { TableProps, ColumnProps } from './interface';
 
-const ResizableTable = (props: TableProps = {}, ref: React.MutableRefObject<Table<any>>) => {
+const ResizableTable = (props: TableProps = {}, ref: React.MutableRefObject<Table<any>> | ((instance: Table<any>) => void)) => {
     const { components: propComponents, columns: propColumns, resizable, ...restProps } = props;
 
     const childrenColumnName = 'children';

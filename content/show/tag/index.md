@@ -27,16 +27,16 @@ import React from 'react';
 import { Tag, Space } from '@douyinfe/semi-ui';
 
 () => (
-  <div>
-    <Space>
-      <Tag> default tag </Tag>
-      <Tag closable> Closable Tag </Tag>
-      <Tag closable onClose={(value, e) => e.preventDefault()}>
-        Closable Tag, Prevent Default
-      </Tag>
-    </Space>
-  </div>
-)
+    <div>
+        <Space>
+            <Tag> default tag </Tag>
+            <Tag closable> Closable Tag </Tag>
+            <Tag closable onClose={(value, e) => e.preventDefault()}>
+                Closable Tag, Prevent Default
+            </Tag>
+        </Space>
+    </div>
+);
 ```
 
 ### 尺寸
@@ -48,11 +48,11 @@ import React from 'react';
 import { Tag, Space } from '@douyinfe/semi-ui';
 
 () => (
-  <Space>
-    <Tag size='small'> small tag </Tag>
-    <Tag size='large'> large tag </Tag>
-  </Space>
-)
+    <Space>
+        <Tag size='small'> small tag </Tag>
+        <Tag size='large'> large tag </Tag>
+    </Space>
+);
 ```
 
 ### 颜色
@@ -64,16 +64,16 @@ import React from 'react';
 import { Tag, Space } from '@douyinfe/semi-ui';
 
 () => (
-  <Space wrap>
-    <Tag color='grey'> grey tag </Tag>
-    <Tag color='blue'> blue tag </Tag>
-    <Tag color='red'> red tag </Tag>
-    <Tag color='green'> green tag </Tag>
-    <Tag color='orange'> orange tag </Tag>
-    <Tag color='teal'> teal tag </Tag>
-    <Tag color='violet'> violet tag </Tag>
-    <Tag color='white'> white tag </Tag>
-  </Space>
+    <Space wrap>
+        <Tag color='grey'> grey tag </Tag>
+        <Tag color='blue'> blue tag </Tag>
+        <Tag color='red'> red tag </Tag>
+        <Tag color='green'> green tag </Tag>
+        <Tag color='orange'> orange tag </Tag>
+        <Tag color='teal'> teal tag </Tag>
+        <Tag color='violet'> violet tag </Tag>
+        <Tag color='white'> white tag </Tag>
+    </Space>
 );
 ```
 
@@ -86,12 +86,12 @@ import React from 'react';
 import { Tag, Space } from '@douyinfe/semi-ui';
 
 () => (
-  <Space>
-    <Tag color='blue' type='light'> light tag </Tag>
-    <Tag color='blue' type='ghost'> ghost tag </Tag>
-    <Tag color='blue' type='solid'> solid tag </Tag>
-  </Space>
-)
+    <Space>
+        <Tag color='blue' type='light'> light tag </Tag>
+        <Tag color='blue' type='ghost'> ghost tag </Tag>
+        <Tag color='blue' type='solid'> solid tag </Tag>
+    </Space>
+);
 ```
 
 ### 头像标签
@@ -103,7 +103,7 @@ import React from 'react';
 import { Tag, Space } from '@douyinfe/semi-ui';
 
 function Demo() {
-    const src = 'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg'
+    const src = 'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg';
     return (
         <Space vertical align='start'>
             <Tag avatarSrc={src}>焦锐志</Tag>
@@ -126,19 +126,19 @@ import React, { useState } from 'react';
 import { Tag, Button } from '@douyinfe/semi-ui';
 
 () => {
-  const [visible, setVisible] = useState(false);
-  const toggleVisible = () => {
-    setVisible(!visible);
-  };
-  return (
-    <div>
-      <Button onClick={toggleVisible}>{visible ? 'Hide Tag': 'Show Tag'}</Button>
-      <div style={{marginTop:10}}>
-        <Tag visible={visible}>Invisible tag </Tag>
-      </div>
-    </div>
-  )
-}
+    const [visible, setVisible] = useState(false);
+    const toggleVisible = () => {
+        setVisible(!visible);
+    };
+    return (
+        <div>
+            <Button onClick={toggleVisible}>{visible ? 'Hide Tag': 'Show Tag'}</Button>
+            <div style={{marginTop:10}}>
+                <Tag visible={visible}>Invisible tag </Tag>
+            </div>
+        </div>
+    );
+};
   
 ```
 
@@ -152,56 +152,56 @@ import React from 'react';
 import { TagGroup } from '@douyinfe/semi-ui';
 
 () => {
-  const tagList = [
-    { color: 'white', children:'抖音'},
-    { color: 'white', children:'火山小视频'},
-    { color: 'white', children:'剪映'},
-    { color: 'white', children:'皮皮虾'},
-  ];
-  const src = 'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg'
-  const tagList2 = [
-    { color: 'white', children:'Douyin', avatarSrc:src},
-    { color: 'white', children:'Hotsoon', avatarSrc:src},
-    { color: 'white', children:'Capcut', avatarSrc:src},
-    { color: 'white', children:'Pipixia', avatarSrc:src},
-  ];
-  const divStyle = {
-    backgroundColor: 'var(--semi-color-fill-0)',
-    height: 35,
-    width: 300,
-    display: 'flex',
-    alignItems: 'center',
-    padding: '0 10px',
-    marginBottom: 30,
-  };
-  const tagGroupStyle = {
-    display: 'flex',
-    alignItems: 'center',
-    width: 350,
-  };
-  return (
-    <>
-      <div style={divStyle}>
-        <TagGroup
-          maxTagCount={3}
-          style={tagGroupStyle}
-          tagList={tagList}
-          size='large'
-        />
-      </div>
-      <div style={divStyle}>
-        <TagGroup
-          maxTagCount={2}
-          style={tagGroupStyle}
-          tagList={tagList2}
-          size='large'
-          avatarShape='circle'
-          showPopover
-        />
-      </div>
-    </>
-  )
-}
+    const tagList = [
+        { color: 'white', children:'抖音'},
+        { color: 'white', children:'火山小视频'},
+        { color: 'white', children:'剪映'},
+        { color: 'white', children:'皮皮虾'},
+    ];
+    const src = 'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg';
+    const tagList2 = [
+        { color: 'white', children:'Douyin', avatarSrc:src},
+        { color: 'white', children:'Hotsoon', avatarSrc:src},
+        { color: 'white', children:'Capcut', avatarSrc:src},
+        { color: 'white', children:'Pipixia', avatarSrc:src},
+    ];
+    const divStyle = {
+        backgroundColor: 'var(--semi-color-fill-0)',
+        height: 35,
+        width: 300,
+        display: 'flex',
+        alignItems: 'center',
+        padding: '0 10px',
+        marginBottom: 30,
+    };
+    const tagGroupStyle = {
+        display: 'flex',
+        alignItems: 'center',
+        width: 350,
+    };
+    return (
+        <>
+            <div style={divStyle}>
+                <TagGroup
+                    maxTagCount={3}
+                    style={tagGroupStyle}
+                    tagList={tagList}
+                    size='large'
+                />
+            </div>
+            <div style={divStyle}>
+                <TagGroup
+                    maxTagCount={2}
+                    style={tagGroupStyle}
+                    tagList={tagList2}
+                    size='large'
+                    avatarShape='circle'
+                    showPopover
+                />
+            </div>
+        </>
+    );
+};
 
 ```
 

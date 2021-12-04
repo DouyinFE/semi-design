@@ -23,7 +23,7 @@ class Button extends React.PureComponent<ButtonProps> {
     }
     render() {
         const props = { ...this.props };
-        const hasIcon = Boolean(props.icon || (props as any).iconType); // TODO: iconType needs to be confirmed
+        const hasIcon = Boolean(props.icon); 
         const isLoading = Boolean(props.loading);
         const isDisabled = Boolean(props.disabled);
 

@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "target": "es5",
+        "target": "es6",
         "baseUrl": "./",
         "outDir": "lib",
         "sourceMap": true,
@@ -8,6 +8,7 @@
         "module": "commonjs",
         "lib": ["es7", "dom"],
         "moduleResolution": "node",
+        "declaration": true,
         "noImplicitAny": true,
         "suppressImplicitAnyIndexErrors": true,
         "forceConsistentCasingInFileNames": true,

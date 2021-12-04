@@ -9,32 +9,50 @@ const sass = require('gulp-sass')(require('sass'));
 const replace = require('gulp-replace');
 const del = require('del');
 const tsConfig = require('./tsconfig.json');
-const babelConfig = require('./babel.config');
+const getBabelConfig = require('./getBabelConfig');
 
 gulp.task('cleanLib', function cleanLib() {
     return del(['lib/**/*']);
 });
 
-gulp.task('compileTSX', function compileTSX() {
+gulp.task('compileTSXForESM', function compileTSXForESM() {
     const tsStream = gulp.src(['**/*.tsx', '**/*.ts', '!**/node_modules/**/*.*', '!**/_story/**/*.*'])
         .pipe(gulpTS({
             ...tsConfig.compilerOptions,
             rootDir: path.join(__dirname, '..')
         }));
     const jsStream = tsStream.js
-        .pipe(gulpBabel(babelConfig))
+        .pipe(gulpBabel(getBabelConfig({ isESM: true })))
         .pipe(replace(/(import\s+)['"]@douyinfe\/semi-foundation\/([^'"]+)['"]/g, '$1\'@douyinfe/semi-foundation/lib/es/$2\''))
-        .pipe(replace(/(import\s+.+from\s+)['"]@douyinfe\/semi-foundation\/([^'"]+)['"]/g, '$1\'@douyinfe/semi-foundation/lib/es/$2\''))
+        .pipe(replace(/((?:import|export)\s+.+from\s+)['"]@douyinfe\/semi-foundation\/([^'"]+)['"]/g, '$1\'@douyinfe/semi-foundation/lib/es/$2\''))
         .pipe(replace(/(import\s+)['"]([^'"]+)(\.scss)['"]/g, '$1\'$2.css\''))
-        .pipe(replace(/(export\s+.+from\s+)['"]@douyinfe\/semi-foundation\/([^'"]+)['"]/g, '$1\'@douyinfe/semi-foundation/lib/es/$2\''))
         .pipe(gulp.dest('lib/es'));
     const dtsStream = tsStream.dts
         .pipe(replace(/(import\s+)['"]@douyinfe\/semi-foundation\/([^'"]+)['"]/g, '$1\'@douyinfe/semi-foundation/lib/es/$2\''))
-        .pipe(replace(/(import\s+.+from\s+)['"]@douyinfe\/semi-foundation\/([^'"]+)['"]/g, '$1\'@douyinfe/semi-foundation/lib/es/$2\''))
+        .pipe(replace(/((?:import|export)\s+.+from\s+)['"]@douyinfe\/semi-foundation\/([^'"]+)['"]/g, '$1\'@douyinfe/semi-foundation/lib/es/$2\''))
         .pipe(replace(/(import\(['"])@douyinfe\/semi-foundation\/(.+)/g, '$1@douyinfe/semi-foundation/lib/es/$2'))
-        .pipe(replace(/(export\s+.+from\s+)['"]@douyinfe\/semi-foundation\/([^'"]+)['"]/g, '$1\'@douyinfe/semi-foundation/lib/es/$2\''))
         .pipe(replace(/(import\s+)['"]([^'"]+)(\.scss)['"]/g, '$1\'$2.css\''))
         .pipe(gulp.dest('lib/es'));
+    return merge2([jsStream, dtsStream]);
+});
+
+gulp.task('compileTSXForCJS', function compileTSXForCJS() {
+    const tsStream = gulp.src(['**/*.tsx', '**/*.ts', '!**/node_modules/**/*.*', '!**/_story/**/*.*'])
+        .pipe(gulpTS({
+            ...tsConfig.compilerOptions,
+            rootDir: path.join(__dirname, '..')
+        }));
+    const jsStream = tsStream.js
+        .pipe(gulpBabel(getBabelConfig({ isESM: false })))
+        .pipe(replace(/(require\(['"])@douyinfe\/semi-foundation\/([^'"]+)(['"]\))/g, '$1@douyinfe/semi-foundation/lib/cjs/$2$3'))
+        .pipe(replace(/(require\(['"])([^'"]+)(\.scss)(['"]\))/g, '$1$2.css$4'))
+        .pipe(gulp.dest('lib/cjs'));
+    const dtsStream = tsStream.dts
+        .pipe(replace(/(import\s+)['"]@douyinfe\/semi-foundation\/([^'"]+)['"]/g, '$1\'@douyinfe/semi-foundation/lib/cjs/$2\''))
+        .pipe(replace(/((?:import|export)\s+.+from\s+)['"]@douyinfe\/semi-foundation\/([^'"]+)['"]/g, '$1\'@douyinfe/semi-foundation/lib/cjs/$2\''))
+        .pipe(replace(/(import\(['"])@douyinfe\/semi-foundation\/(.+)/g, '$1@douyinfe/semi-foundation/lib/cjs/$2'))
+        .pipe(replace(/(import\s+)['"]([^'"]+)(\.scss)['"]/g, '$1\'$2.css\''))
+        .pipe(gulp.dest('lib/cjs'));
     return merge2([jsStream, dtsStream]);
 });
 
@@ -65,14 +83,34 @@ gulp.task('compileScss', function compileScss() {
                 return { url: realUrl };
             }
         }).on('error', sass.logError))
-        .pipe(gulp.dest('lib/es'));
+        .pipe(gulp.dest('lib/es'))
+        .pipe(gulp.dest('lib/cjs'));
 });
 
-gulp.task('moveScss', function moveScss() {
+function moveScss(isESM) {
+    const moduleTarget = isESM ? 'es' : 'cjs';
+    const targetDir = isESM ? 'lib/es' : 'lib/cjs';
     return gulp.src(['**/*.scss', '!**/node_modules/**/*.*', '!**/_story/**/*.scss'])
-        .pipe(replace(/(@import\s+['"]~)(@douyinfe\/semi-foundation\/)/g, '$1@douyinfe/semi-foundation/lib/es/'))
-        .pipe(gulp.dest('lib/es'));
+        .pipe(replace(/(@import\s+['"]~)(@douyinfe\/semi-foundation\/)/g, `$1@douyinfe/semi-foundation/lib/${moduleTarget}/`))
+        .pipe(gulp.dest(targetDir));
+}
+
+gulp.task('moveScssForESM', function moveScssForESM() {
+    return moveScss(true);
 });
 
-gulp.task('compileLib', gulp.series(['cleanLib', 'compileScss', 'moveScss', 'compileTSX']));
+gulp.task('moveScssForCJS', function moveScssForCJS() {
+    return moveScss(false);
+});
+
+gulp.task('compileLib', 
+    gulp.series(
+        [
+            'cleanLib', 
+            'compileScss', 
+            gulp.parallel('moveScssForESM', 'moveScssForCJS'),
+            gulp.parallel('compileTSXForESM', 'compileTSXForCJS')
+        ]
+    )
+);
 

@@ -3,7 +3,7 @@ import React, { isValidElement, cloneElement } from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import { throttle, noop, get, omit, each, isEmpty } from 'lodash-es';
+import { throttle, noop, get, omit, each, isEmpty } from 'lodash';
 
 import { BASE_CLASS_PREFIX } from '@douyinfe/semi-foundation/base/constants';
 import warning from '@douyinfe/semi-foundation/utils/warning';
@@ -51,6 +51,7 @@ export interface TooltipProps extends BaseProps {
     content?: React.ReactNode;
     prefixCls?: string;
     onVisibleChange?: (visible: boolean) => void;
+    onClickOutSide?: (e: React.MouseEvent) => void;
     spacing?: number;
     showArrow?: boolean | React.ReactNode;
     zIndex?: number;
@@ -106,6 +107,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         content: PropTypes.node,
         prefixCls: PropTypes.string,
         onVisibleChange: PropTypes.func,
+        onClickOutSide: PropTypes.func,
         spacing: PropTypes.number,
         showArrow: PropTypes.oneOfType([PropTypes.bool, PropTypes.node]),
         zIndex: PropTypes.number,
@@ -131,6 +133,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         mouseEnterDelay: numbers.MOUSE_ENTER_DELAY,
         mouseLeaveDelay: numbers.MOUSE_LEAVE_DELAY,
         onVisibleChange: noop,
+        onClickOutSide: noop,
         spacing: numbers.SPACING,
         showArrow: true,
         arrowBounding: numbers.ARROW_BOUNDING,
@@ -298,7 +301,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                 if (this.clickOutsideHandler) {
                     this.adapter.unregisterClickOutsideHandler();
                 }
-                this.clickOutsideHandler = (e: MouseEvent): any => {
+                this.clickOutsideHandler = (e: React.MouseEvent): any => {
                     if (!this.mounted) {
                         return false;
                     }
@@ -310,6 +313,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                         (el && !(el as any).contains(e.target) && popupEl && !(popupEl as any).contains(e.target)) ||
                         this.props.clickTriggerToHide
                     ) {
+                        this.props.onClickOutSide(e);
                         cb();
                     }
                 };
@@ -618,7 +622,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                 // Keep your own reference
                 (this.triggerEl as any).current = node;
                 // Call the original ref, if any
-                const { ref } = children as React.ComponentPropsWithRef<any>;
+                const { ref } = children as any;
                 // this.log('tooltip render() - get ref', ref);
                 if (typeof ref === 'function') {
                     ref(node);
