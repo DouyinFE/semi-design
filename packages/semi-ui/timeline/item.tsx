@@ -67,7 +67,7 @@ export default class Item extends PureComponent<TimelineItemProps> {
                 </div>
                 <div className={`${prefixCls}-content`}>
                     {children}
-                    {extra ? <div className={`${prefixCls}-content-extra`}>{extra}</div> : null}
+                    {extra && <div className={`${prefixCls}-content-extra`}>{extra}</div>}
                     {time && <div className={`${prefixCls}-content-time`}>{time}</div>}
                 </div>
             </li>
