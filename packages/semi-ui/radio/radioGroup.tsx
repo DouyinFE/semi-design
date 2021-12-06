@@ -69,6 +69,7 @@ class RadioGroup extends BaseComponent<RadioGroupProps, RadioGroupState> {
         buttonSize: 'middle'
     };
 
+    foundation: RadioGroupFoundation;
     constructor(props: RadioGroupProps) {
         super(props);
         this.state = {

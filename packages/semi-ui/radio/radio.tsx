@@ -82,6 +82,7 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
 
     radioEntity: RadioInner;
     context!: RadioContextValue;
+    foundation: RadioFoundation;
 
     constructor(props: RadioProps) {
         super(props);
