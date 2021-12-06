@@ -1,11 +1,12 @@
 /* argus-disable unPkgSensitiveInfo */
 /* eslint-disable max-len */
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
-import KeyCode from '../utils/keyCode';
+import KeyCode, { ENTER_KEY } from '../utils/keyCode';
 import { isNumber, isString, isEqual } from 'lodash-es';
 import warning from '../utils/warning';
 import isNullOrUndefined from '../utils/isNullOrUndefined';
 import { BasicOptionProps } from './optionFoundation';
+import isEnterPress from '../utils/isEnterPress';
 
 export interface SelectAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     getTriggerWidth(): number;
@@ -649,6 +650,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
                 this._handleEnterKeyDown(event);
                 break;
             case KeyCode.ESC:
+            case KeyCode.TAB:
                 this.close(event);
                 break;
             default:
@@ -865,6 +867,18 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
         this.clearSelected();
         // prevent this click open dropdown
         e.stopPropagation();
+    }
+
+    handleKeyPress(e: KeyboardEvent) {
+        if (e && e.key === ENTER_KEY) {
+            this.handleClick(e);
+        }
+    }
+
+    handleClearBtnEnterPress(e: KeyboardEvent) {
+        if (isEnterPress(e)) {
+            this.handleClearClick(e as any);
+        }
     }
 
     handleOptionMouseEnter(optionIndex: number) {

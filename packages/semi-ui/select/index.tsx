@@ -326,6 +326,8 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         this.onMouseEnter = this.onMouseEnter.bind(this);
         this.onMouseLeave = this.onMouseLeave.bind(this);
         this.renderOption = this.renderOption.bind(this);
+        this.onKeyPress = this.onKeyPress.bind(this);
+        this.onClearBtnEnterPress = this.onClearBtnEnterPress.bind(this);
 
         this.foundation = new SelectFoundation(this.adapter);
 
@@ -622,6 +624,10 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         this.foundation.handleClearClick(e as any);
     }
 
+    onClearBtnEnterPress(e: React.KeyboardEvent) {
+        this.foundation.handleClearBtnEnterPress(e as any);
+    }
+
     renderEmpty() {
         return <Option empty={true} emptyContent={this.props.emptyContent} />;
     }
@@ -701,7 +707,8 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         const customCreateItem = renderCreateItem(option.value, isFocused);
 
         return (
-            <div onClick={e => this.onSelect(option, optionIndex, e)} key={new Date().valueOf()}>
+            // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/interactive-supports-focus
+            <div role="button" aria-label="Use the input box to create an optional item" onClick={e => this.onSelect(option, optionIndex, e)} key={new Date().valueOf()}>
                 {customCreateItem}
             </div>
         );
@@ -767,6 +774,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             innerBottomSlot,
             loading,
             virtualize,
+            multiple,
         } = this.props;
 
         // Do a filter first, instead of directly judging in forEach, so that the focusIndex can correspond to
@@ -792,6 +800,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                     style={{ maxHeight: `${maxHeight}px` }}
                     className={optionListCls}
                     role="listbox"
+                    aria-multiselectable={multiple}
                     onScroll={e => this.foundation.handleListScroll(e)}
                 >
                     {innerTopSlot}
@@ -919,6 +928,10 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         this.foundation.handleMouseLeave(e as any);
     }
 
+    onKeyPress(e: React.KeyboardEvent) {
+        this.foundation.handleKeyPress(e as any);
+    }
+
     /* Processing logic when popover visible changes */
     handlePopoverVisibleChange(status) {
         const { virtualize } = this.props;
@@ -1036,7 +1049,14 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 </Fragment>,
                 <Fragment key="clearicon">
                     {showClear ? (
-                        <div className={cls(`${prefixcls}-clear`)} onClick={this.onClear}>
+                        <div
+                            role="button"
+                            aria-label="Clear selected value"
+                            tabIndex={0}
+                            className={cls(`${prefixcls}-clear`)}
+                            onClick={this.onClear}
+                            onKeyPress={this.onClearBtnEnterPress}
+                        >
                             <IconClear />
                         </div>
                     ) : arrowContent}
@@ -1048,6 +1068,12 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         const tabIndex = disabled ? null : 0;
         return (
             <div
+                role="combobox"
+                aria-disabled={disabled}
+                aria-expanded={isOpen}
+                aria-controls={`${prefixcls}-${this.selectOptionListID}`}
+                aria-haspopup="listbox"
+                aria-label="select value"
                 className={selectionCls}
                 ref={ref => ((this.triggerRef as any).current = ref)}
                 onClick={e => this.foundation.handleClick(e)}
@@ -1057,6 +1083,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 onMouseLeave={this.onMouseLeave}
                 // onFocus={e => this.foundation.handleTriggerFocus(e)}
                 onBlur={e => this.foundation.handleTriggerBlur(e as any)}
+                onKeyPress={this.onKeyPress}
                 {...keyboardEventSet}
             >
                 {inner}

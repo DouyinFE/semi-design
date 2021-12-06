@@ -134,6 +134,7 @@ class Option extends PureComponent<OptionProps> {
             }
         };
         return (
+            // eslint-disable-next-line jsx-a11y/interactive-supports-focus,jsx-a11y/click-events-have-key-events
             <div
                 className={optionClassName}
                 onClick={e => {
@@ -141,6 +142,8 @@ class Option extends PureComponent<OptionProps> {
                 }}
                 onMouseEnter={e => onMouseEnter && onMouseEnter(e)}
                 role="option"
+                aria-selected={selected ? "true" : "false"}
+                aria-disabled={disabled ? "true" : "false"}
                 style={style}
             >
                 {showTick ? (
