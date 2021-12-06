@@ -47,8 +47,8 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         closable: PropTypes.bool,
         centered: PropTypes.bool,
         visible: PropTypes.bool,
-        width: PropTypes.number,
-        height: PropTypes.number,
+        width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        height:  PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         confirmLoading: PropTypes.bool,
         cancelLoading: PropTypes.bool,
         okText: PropTypes.string,
@@ -264,9 +264,9 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         if (!visible && !hidden) {
             this.foundation.toggleHidden(true, () => this.foundation.afterClose());
         } else if (visible && this.state.hidden) {
-            this.foundation.toggleHidden(false)
+            this.foundation.toggleHidden(false);
         }
-    }
+    };
 
     renderFooter = (): ReactNode => {
         const {
