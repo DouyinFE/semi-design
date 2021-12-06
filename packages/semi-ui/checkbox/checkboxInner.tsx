@@ -15,6 +15,8 @@ export interface CheckboxInnerProps {
     name?: string;
     isPureCardType?: boolean;
     ref?: React.MutableRefObject<CheckboxInner> | ((ref: CheckboxInner) => void);
+    addonId?: string;
+    extraId?: string;
 }
 
 class CheckboxInner extends PureComponent<CheckboxInnerProps> {
@@ -28,6 +30,8 @@ class CheckboxInner extends PureComponent<CheckboxInnerProps> {
         grouped: PropTypes.bool,
         value: PropTypes.any,
         isPureCardType: PropTypes.bool,
+        addonId: PropTypes.string,
+        extraId: PropTypes.string,
     };
 
     static defaultProps = {
@@ -44,7 +48,7 @@ class CheckboxInner extends PureComponent<CheckboxInnerProps> {
     }
 
     render() {
-        const { indeterminate, checked, disabled, prefixCls, name, isPureCardType } = this.props;
+        const { indeterminate, checked, disabled, prefixCls, name, isPureCardType, addonId, extraId } = this.props;
         const prefix = prefixCls || css.PREFIX;
 
         const wrapper = classnames(
@@ -69,6 +73,8 @@ class CheckboxInner extends PureComponent<CheckboxInnerProps> {
         return (
             <span className={wrapper}>
                 <input
+                    aria-hidden={true}
+                    tabIndex={-1}
                     ref={ref => {
                         this.inputEntity = ref;
                     }}

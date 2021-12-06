@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { checkboxGroupClasses as css, strings } from '@douyinfe/semi-foundation/checkbox/constants';
-import CheckboxGroupFoudation, { CheckboxGroupAdapter } from '@douyinfe/semi-foundation/checkbox/checkboxGroupFoundation';
+import CheckboxGroupFoundation, { CheckboxGroupAdapter } from '@douyinfe/semi-foundation/checkbox/checkboxGroupFoundation';
 import BaseComponent from '../_base/baseComponent';
 import { Context } from './context';
 import { isEqual } from 'lodash-es';
@@ -68,12 +68,13 @@ class CheckboxGroup extends BaseComponent<CheckboxGroupProps, CheckboxGroupState
         };
     }
 
+    foundation: CheckboxGroupFoundation;
     constructor(props: CheckboxGroupProps) {
         super(props);
         this.state = {
             value: props.value || props.defaultValue,
         };
-        this.foundation = new CheckboxGroupFoudation(this.adapter);
+        this.foundation = new CheckboxGroupFoundation(this.adapter);
         this.onChange = this.onChange.bind(this);
     }
 
@@ -96,7 +97,7 @@ class CheckboxGroup extends BaseComponent<CheckboxGroupProps, CheckboxGroupState
     }
 
     render() {
-        const { children, options, prefixCls, direction, className, style, type } = this.props;
+        const { children, options, prefixCls, direction, className, style, type, disabled } = this.props;
 
         const isPureCardType = type === strings.TYPE_PURECARD;
         const isCardType = type === strings.TYPE_CARD || isPureCardType;
@@ -148,7 +149,13 @@ class CheckboxGroup extends BaseComponent<CheckboxGroupProps, CheckboxGroupState
         }
 
         return (
-            <div className={prefixClsDisplay} style={style}>
+            <div
+                role="listbox"
+                aria-label="Checkbox group"
+                aria-disabled={disabled}
+                className={prefixClsDisplay} 
+                style={style}
+            >
                 <Context.Provider
                     value={{
                         checkboxGroup: {
