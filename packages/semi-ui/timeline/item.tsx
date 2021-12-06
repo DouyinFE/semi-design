@@ -6,7 +6,7 @@ import '@douyinfe/semi-foundation/timeline/timeline.scss';
 
 export interface TimelineItemProps {
     color?: string;
-    time?: string;
+    time?: React.ReactNode;
     type?: 'default' | 'ongoing' | 'success' | 'warning' | 'error';
     dot?: React.ReactNode;
     extra?: React.ReactNode;
@@ -20,7 +20,7 @@ const prefixCls = cssClasses.ITEM;
 export default class Item extends PureComponent<TimelineItemProps> {
     static propTypes = {
         color: PropTypes.string,
-        time: PropTypes.string,
+        time: PropTypes.node,
         type: PropTypes.oneOf(strings.ITEM_TYPE),
         dot: PropTypes.node,
         extra: PropTypes.node,
@@ -67,8 +67,8 @@ export default class Item extends PureComponent<TimelineItemProps> {
                 </div>
                 <div className={`${prefixCls}-content`}>
                     {children}
-                    {extra ? <div className={`${prefixCls}-content-extra`}>{extra}</div> : null}
-                    <div className={`${prefixCls}-content-time`}>{time}</div>
+                    {extra && <div className={`${prefixCls}-content-extra`}>{extra}</div>}
+                    {time && <div className={`${prefixCls}-content-time`}>{time}</div>}
                 </div>
             </li>
         );
