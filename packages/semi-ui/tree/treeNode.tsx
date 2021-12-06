@@ -75,7 +75,6 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
 
     onContextMenu = (e: React.MouseEvent) => {
         const { onNodeRightClick } = this.context;
-        e.stopPropagation();
         e.nativeEvent.stopImmediatePropagation();
         onNodeRightClick(e, this.props);
     };
