@@ -637,6 +637,36 @@ import { IconPlus } from '@douyinfe/semi-icons';
 };
 ```
 
+Set `showPicInfo`, you can view the basic information of the picture
+
+```jsx live=true width=48%
+import React from 'react';
+import { Upload } from '@douyinfe/semi-ui';
+import { IconPlus } from '@douyinfe/semi-icons';
+
+() => {
+    let action = '//semi.design/api/upload';
+    const defaultFileList = [
+        {
+            uid: '1',
+            name: 'jiafang.png',
+            status: 'success',
+            size: '130KB',
+            preview: true,
+            url:
+                'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/e82f3b261133d2b20d85e8483c203112.jpg',
+        },
+    ];
+    return (
+        <>
+            <Upload action={action} listType="picture" showPicInfo accept="image/*" multiple defaultFileList={defaultFileList}>
+                <IconPlus size="extra-large" />
+            </Upload>
+        </>
+    );
+};
+```
+
 ### Disabled
 
 ```jsx live=true width=48%
@@ -1102,10 +1132,10 @@ import { IconUpload } from '@douyinfe/semi-icons';
 |prompt | Custom slot, which can be used to insert prompt text. Different from writing directly in `children`, the content of `prompt` will not trigger upload when clicked.<br/>(In the picture wall mode, the incoming prompt is only supported after v1.3.0) | ReactNode | | |
 |promptPosition | The position of the prompt text. When the listType is list, the reference object is the children element; when the listType is picture, the reference object is the picture list. Optional values ​​`left`, `right`, `bottom`<br/> (In picture wall mode, promptPosition is only supported after v1.3.0) | string |'right' | |
 |renderFileItem | Custom rendering of fileCard | (renderProps: RenderFileItemProps) => ReactNode | | 1.0.0 |
-|renderPicInfo| Custom photo wall information, only valid in photo wall mode| (renderProps: RenderFileItemProps)=>ReactNode | |  |
-|renderThumbnail| Custom picture wall preview, only valid in photo wall mode| (renderProps: RenderFileItemProps)=>ReactNode | |  |
+|renderPicInfo| Custom photo wall information, only valid in photo wall mode| (renderProps: RenderFileItemProps)=>ReactNode | | 2.2.0 |
+|renderThumbnail| Custom picture wall thumb, only valid in photo wall mode| (renderProps: RenderFileItemProps)=>ReactNode | | 2.2.0 |
 |showClear | When limit is not 1 and the current number of uploaded files is greater than 1, whether to show the clear button | boolean | true | 1.0.0 |
-|showPicInfo| Whether to display picture information, only valid in photo wall mode | boolean| false | |
+|showPicInfo| Whether to display picture information, only valid in photo wall mode | boolean| false | 2.2.0 |
 |showReplace | When the upload is successful, whether to display the replace button inside the fileCard | boolean | false | 1.21.0 |
 |showRetry | When uploading fails, whether to display the retry button inside the fileCard | boolean | true | 1.0.0 |
 |showUploadList | Whether to display the file list | boolean | true | |
@@ -1147,7 +1177,7 @@ interface FileItem {
 ## Methods
 |Name | Description | Type | Version|
 |----|----|----|----|
-| insert | Upload file, when index is passed, it will be inserted at the specified position, if not passed, it will be inserted at the end | (files: Array<File\>, index?: number) => void |  |
+| insert | Upload file, when index is passed, it will be inserted at the specified position, if not passed, it will be inserted at the end | (files: Array<File\>, index?: number) => void | 2.2.0 |
 | upload | Start upload manually, use with uploadTrigger="custom" | () => void | |
 
 ## Design Tokens

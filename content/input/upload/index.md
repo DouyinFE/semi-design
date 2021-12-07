@@ -624,6 +624,36 @@ import { IconPlus } from '@douyinfe/semi-icons';
 };
 ```
 
+设置 `showPicInfo`，可以查看图片基础信息
+
+```jsx live=true width=48%
+import React from 'react';
+import { Upload } from '@douyinfe/semi-ui';
+import { IconPlus } from '@douyinfe/semi-icons';
+
+() => {
+    let action = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
+    const defaultFileList = [
+        {
+            uid: '1',
+            name: 'jiafang.png',
+            status: 'success',
+            size: '130KB',
+            preview: true,
+            url:
+                'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/e82f3b261133d2b20d85e8483c203112.jpg',
+        },
+    ];
+    return (
+        <>
+            <Upload action={action} listType="picture" showPicInfo accept="image/*" multiple defaultFileList={defaultFileList}>
+                <IconPlus size="extra-large" />
+            </Upload>
+        </>
+    );
+};
+```
+
 ### 禁用
 
 ```jsx live=true width=48%
@@ -1089,10 +1119,10 @@ import { IconUpload } from '@douyinfe/semi-icons';
 |prompt | 自定义插槽，可用于插入提示文本。与直接在 `children` 中写的区别时，`prompt` 的内容在点击时不会触发上传<br/>（图片墙模式下，v1.3.0 后才支持传入 prompt） | ReactNode |  |  |
 |promptPosition | 提示文本的位置，当 listType 为 list 时，参照物为 children 元素；当 listType 为 picture 时，参照物为图片列表。可选值 `left`、`right`、`bottom`<br/>（图片墙模式下，v1.3.0 后才支持使用 promptPosition） | string | 'right' |  |
 |renderFileItem | fileCard 的自定义渲染 | (renderProps: RenderFileItemProps) => ReactNode |  | 1.0.0 |
-|renderPicInfo| 自定义照片墙信息，只在照片墙模式下有效| (renderProps: RenderFileItemProps)=>ReactNode | |  |
-|renderThumbnail| 自定义图片墙预览图，只在照片墙模式下有效| (renderProps: RenderFileItemProps)=>ReactNode | |  |
+|renderPicInfo| 自定义照片墙信息，只在照片墙模式下有效| (renderProps: RenderFileItemProps)=>ReactNode | | 2.2.0 |
+|renderThumbnail| 自定义图片墙缩略图，只在照片墙模式下有效| (renderProps: RenderFileItemProps)=>ReactNode | | 2.2.0 |
 |showClear | 在 limit 不为 1 且当前已上传文件数大于 1 时，是否展示清空按钮 | boolean | true | 1.0.0 |
-|showPicInfo| 是否显示图片信息，只在照片墙模式下有效| boolean| false | |
+|showPicInfo| 是否显示图片信息，只在照片墙模式下有效| boolean| false | 2.2.0 |
 |showReplace | 上传成功时，是否展示在 fileCard 内部展示替换按钮 | boolean | false | 1.21.0 |
 |showRetry | 上传失败时，是否展示在 fileCard 内部展示重试按钮 | boolean | true | 1.0.0 |
 |showUploadList | 是否显示文件列表 | boolean | true |  |
@@ -1134,7 +1164,7 @@ interface FileItem {
 ## Methods
 |名称 | 描述 | 类型 | 版本 |
 |----|----|----|----|
-| insert | 上传文件，当index传入时，会插入到指定位置，不传则插入到最后 | (files: Array<File\>, index?: number) => void | |
+| insert | 上传文件，当index传入时，会插入到指定位置，不传则插入到最后 | (files: Array<File\>, index?: number) => void | 2.2.0 |
 | upload | 手动开始上传，配合uploadTrigger="custom"使用 | () => void | |
 
 ## 设计变量
