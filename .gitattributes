@@ -1,1 +1,2 @@
-*.js linguist-language=Typescript；*.jsx linguist-language=Typescript；
+*  linguist-detectable=false；
+packages/* linguist-detectable=true；
