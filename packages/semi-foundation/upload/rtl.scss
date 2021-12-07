@@ -22,8 +22,6 @@ $module: #{$prefix}-upload;
         }
 
         &-file-card {
-            margin-right: 0;
-            margin-left: $spacing-upload_picture_file_card-marginRight;
 
             &-info {
 
@@ -53,8 +51,6 @@ $module: #{$prefix}-upload;
         &-picture {
 
             &-file-card {
-                margin-right: 0;
-                margin-left: $spacing-upload_picture_file_card-marginRight;
 
                 &-close {
                     right: auto;

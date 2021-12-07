@@ -16,7 +16,7 @@ export default function SemiThemeLoader(source: string) {
     let componentVariables: string | boolean;
     try {
         componentVariables = resolve.sync(this.context, `${theme}/scss/local.scss`);
-    } catch(e) {}
+    } catch (e) {}
 
     if (query.include || query.variables || componentVariables) {
         let localImport = '';
