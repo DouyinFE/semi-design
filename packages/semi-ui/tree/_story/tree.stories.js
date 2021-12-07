@@ -251,7 +251,7 @@ export const SimpleTree = () => (
     // onExpand={(e, { expanded, node }) => console.log('expand', e, expanded, node)}
     // onSelect={(e, bool, node) => console.log('select', e, bool, node)}
     // onChange={e => console.log('change', e)}
-    onRightClick={(e, node) => console.log(e.currentTarget, node)}
+    onContextMenu={(e, node) => console.log(e.currentTarget, node)}
     onDoubleClick={(e, node) => console.log(e, node)}
     motion={true}
   />
@@ -268,7 +268,7 @@ export const MultipleTree = () => (
     labelInValue
     // onExpand={(e, { expanded, node }) => console.log('expand', e, expanded, node)}
     // onSelect={(e, bool) => console.log('select', e, bool)}
-    onRightClick={(e, node) => console.log(e, node)}
+    onContextMenu={(e, node) => console.log(e, node)}
     onDoubleClick={(e, node) => console.log(e, node)}
     onChange={e => console.log('change', e)}
   />
