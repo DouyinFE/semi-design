@@ -118,6 +118,8 @@ class Toast extends BaseComponent<ToastReactProps, ToastState> {
         const btnSize = 'small';
         return (
             <div
+                role='alert'
+                aria-label={`${type ? type : 'default'} type`}
                 className={toastCls}
                 style={style}
                 onMouseEnter={this.clearCloseTimer}
