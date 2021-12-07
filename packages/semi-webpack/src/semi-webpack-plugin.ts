@@ -39,7 +39,7 @@ export default class SemiWebpackPlugin {
                         if (this.options.prefixCls) {
                             this.customPrefix(module, this.options.prefixCls);
                         }
-                    })
+                    });
                 } else {
                     compilation.hooks.normalModuleLoader.tap('SemiPlugin', (context: any, module: any) => {
                         if (this.options.omitCss) {
@@ -50,7 +50,7 @@ export default class SemiWebpackPlugin {
                         if (this.options.prefixCls) {
                             this.customPrefix(module, this.options.prefixCls);
                         }
-                    })
+                    });
                 }
             }
         });

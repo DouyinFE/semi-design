@@ -264,7 +264,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         if (!visible && !hidden) {
             this.foundation.toggleHidden(true, () => this.foundation.afterClose());
         } else if (visible && this.state.hidden) {
-            this.foundation.toggleHidden(false)
+            this.foundation.toggleHidden(false);
         }
     }
 

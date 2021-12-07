@@ -3,7 +3,7 @@ import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/upload/constants';
 import { getFileSize } from '@douyinfe/semi-foundation/upload/utils';
-import { BaseFileItem } from '@douyinfe/semi-foundation/upload/foundation';
+import { IconAlertCircle, IconClose, IconFile, IconRefresh } from '@douyinfe/semi-icons';
 import LocaleConsumer from '../locale/localeConsumer';
 import { Locale } from '../locale/interface';
 
@@ -13,7 +13,6 @@ import Tooltip from '../tooltip/index';
 import Spin from '../spin/index';
 import { isElement } from '../_base/reactUtils';
 import { RenderFileItemProps } from './interface';
-import { IconAlertCircle, IconClose, IconFile, IconRefresh } from '@douyinfe/semi-icons';
 
 const prefixCls = cssClasses.PREFIX;
 
@@ -69,6 +68,7 @@ class FileCard extends PureComponent<FileCardProps> {
         style: PropTypes.object,
         url: PropTypes.string,
         validateMessage: PropTypes.node,
+        index: PropTypes.number
     };
 
     static defaultProps = {
@@ -92,10 +92,10 @@ class FileCard extends PureComponent<FileCardProps> {
         let content = null;
         switch (true) {
             case typeof validateMessage === 'string' && status === strings.FILE_STATUS_VALIDATING:
-                content = (<><Spin size="small" wrapperClassName={`${prefixCls }-file-card-icon-loading`} />{validateMessage}</>);
+                content = (<><Spin size="small" wrapperClassName={`${prefixCls}-file-card-icon-loading`} />{validateMessage}</>);
                 break;
             case typeof validateMessage === 'string':
-                content = (<><IconAlertCircle className={`${prefixCls }-file-card-icon-error`} />{validateMessage}</>);
+                content = (<><IconAlertCircle className={`${prefixCls}-file-card-icon-error`} />{validateMessage}</>);
                 break;
             case isElement(validateMessage):
                 content = validateMessage;
@@ -111,10 +111,10 @@ class FileCard extends PureComponent<FileCardProps> {
         let icon = null;
         switch (true) {
             case validateMessage && status === strings.FILE_STATUS_VALIDATING:
-                icon = (<Spin size="small" wrapperClassName={`${prefixCls }-picture-file-card-icon-loading`} />);
+                icon = (<Spin size="small" wrapperClassName={`${prefixCls}-picture-file-card-icon-loading`} />);
                 break;
             case validateMessage && (status === strings.FILE_STATUS_VALID_FAIL || status === strings.FILE_STATUS_UPLOAD_FAIL):
-                icon = (<div className={`${prefixCls }-picture-file-card-icon-error`}><ErrorSvg /></div>);
+                icon = (<div className={`${prefixCls}-picture-file-card-icon-error`}><ErrorSvg /></div>);
                 break;
             default:
                 break;
@@ -123,44 +123,124 @@ class FileCard extends PureComponent<FileCardProps> {
     }
 
     renderPic(locale: Locale['Upload']): ReactNode {
-        const { url, percent, status, disabled, style, onPreviewClick } = this.props;
-        const filePicCardCls = cls({
-            [`${prefixCls }-picture-file-card`]: true,
-            [`${prefixCls }-picture-file-card-disabled`]: disabled,
-            [`${prefixCls }-picture-file-card-show-pointer`]: typeof onPreviewClick !== 'undefined',
-        });
+        const { url, percent, status, disabled, style, onPreviewClick, showPicInfo, renderPicInfo, renderThumbnail, name, index } = this.props;
         const showProgress = status === strings.FILE_STATUS_UPLOADING && percent !== 100;
         const showRetry = status === strings.FILE_STATUS_UPLOAD_FAIL && this.props.showRetry;
         const showReplace = status === strings.FILE_STATUS_SUCCESS && this.props.showReplace;
-        const closeCls = `${prefixCls }-picture-file-card-close`;
+        const filePicCardCls = cls({
+            [`${prefixCls}-picture-file-card`]: true,
+            [`${prefixCls}-picture-file-card-disabled`]: disabled,
+            [`${prefixCls}-picture-file-card-show-pointer`]: typeof onPreviewClick !== 'undefined',
+            [`${prefixCls}-picture-file-card-error`]: status === strings.FILE_STATUS_UPLOAD_FAIL,
+            [`${prefixCls}-picture-file-card-uploading`]: showProgress
+        });
+        const closeCls = `${prefixCls}-picture-file-card-close`;
         const retry = (
             <div
-                className={`${prefixCls }-picture-file-card-retry`} onClick={e => this.onRetry(e)}>
-                <IconRefresh className={`${prefixCls }-picture-file-card-icon-retry`} />
+                className={`${prefixCls}-picture-file-card-retry`} onClick={e => this.onRetry(e)}>
+                <IconRefresh className={`${prefixCls}-picture-file-card-icon-retry`} />
             </div>
         );
         const replace = (
             <Tooltip trigger="hover" position="top" content={locale.replace} showArrow={false} spacing={4}>
                 <div
-                    className={`${prefixCls }-picture-file-card-replace`} onClick={(e): void => this.onReplace(e)}>
-                    <ReplaceSvg className={`${prefixCls }-picture-file-card-icon-replace`} />
+                    className={`${prefixCls}-picture-file-card-replace`} onClick={(e): void => this.onReplace(e)}>
+                    <ReplaceSvg className={`${prefixCls}-picture-file-card-icon-replace`} />
                 </div>
             </Tooltip>
 
         );
 
+        const picInfo = typeof renderPicInfo === 'function' ? renderPicInfo(this.props) : (
+            <div className={`${prefixCls }-picture-file-card-pic-info`}>{index + 1}</div>
+        );
+
+        const thumbnail = typeof renderThumbnail === 'function' ? renderThumbnail(this.props) : <img src={url} alt={`picture of ${name}`} />;
+
         return (
             <div className={filePicCardCls} style={style} onClick={onPreviewClick}>
-                <img src={url} />
+                {thumbnail}
                 {showProgress ? <Progress percent={percent} type="circle" size="small" orbitStroke={'#FFF'} /> : null}
                 {showRetry ? retry : null}
                 {showReplace && replace}
-                {disabled ? null : (
-                    <div className={closeCls} onClick={e => this.onRemove(e)}>
-                        <IconClose size="extra-small" />
+                {showPicInfo && picInfo}
+                {!disabled && (
+                    <div className={closeCls}>
+                        <IconClose size="extra-small" onClick={e => this.onRemove(e)} />
                     </div>
                 )}
                 {this.renderPicValidateMsg()}
+            </div>
+        );
+    }
+
+    renderFile(locale: Locale["Upload"]) {
+        const { name, size, percent, url, showRetry: propsShowRetry, showReplace: propsShowReplace, preview, previewFile, status, style, onPreviewClick } = this.props;
+        const fileCardCls = cls({
+            [`${prefixCls}-file-card`]: true,
+            [`${prefixCls}-file-card-fail`]: status === strings.FILE_STATUS_VALID_FAIL || status === strings.FILE_STATUS_UPLOAD_FAIL,
+            [`${prefixCls}-file-card-show-pointer`]: typeof onPreviewClick !== 'undefined',
+        });
+        const previewCls = cls({
+            [`${prefixCls}-file-card-preview`]: true,
+            [`${prefixCls}-file-card-preview-placeholder`]: !preview || previewFile
+        });
+        const infoCls = `${prefixCls}-file-card-info`;
+        const closeCls = `${prefixCls}-file-card-close`;
+        const replaceCls = `${prefixCls}-file-card-replace`;
+        const showProgress = !(percent === 100 || typeof percent === 'undefined') && status === strings.FILE_STATUS_UPLOADING;
+        // only show retry when upload fail & showRetry is true, no need to show during validate fail
+        const showRetry = status === strings.FILE_STATUS_UPLOAD_FAIL && propsShowRetry;
+        const showReplace = status === strings.FILE_STATUS_SUCCESS && propsShowReplace;
+        const fileSize = this.transSize(size);
+        let previewContent: ReactNode = preview ? (<img src={url} />) : (<IconFile size="large" />);
+        if (previewFile) {
+            previewContent = previewFile(this.props);
+        }
+        return (
+            <div className={fileCardCls} style={style} onClick={onPreviewClick}>
+                <div className={previewCls}>
+                    {previewContent}
+                </div>
+                <div className={`${infoCls}-main`}>
+                    <div className={`${infoCls}-main-text`}>
+                        <span className={`${infoCls}-name`}>
+                            {name}
+                        </span>
+                        <span>
+                            <span className={`${infoCls}-size`}>{fileSize}</span>
+                            {showReplace && (
+                                <Tooltip trigger="hover" position="top" showArrow={false} content={locale.replace}>
+                                    <IconButton
+                                        onClick={e => this.onReplace(e)}
+                                        type="tertiary"
+                                        theme="borderless"
+                                        size="small"
+                                        icon={<DirectorySvg />}
+                                        className={replaceCls}
+                                    />
+                                </Tooltip>
+                            )}
+
+                        </span>
+
+                    </div>
+                    {showProgress ? (<Progress percent={percent} style={{ width: '100%' }} />) : null}
+                    <div className={`${infoCls}-main-control`}>
+                        <span className={`${infoCls}-validate-message`}>
+                            {this.renderValidateMessage()}
+                        </span>
+                        {showRetry ? <span className={`${infoCls}-retry`} onClick={e => this.onRetry(e)}>{locale.retry}</span> : null}
+                    </div>
+                </div>
+                <IconButton
+                    onClick={e => this.onRemove(e)}
+                    type="tertiary"
+                    icon={<IconClose />}
+                    theme="borderless"
+                    size="small"
+                    className={closeCls}
+                />
             </div>
         );
     }
@@ -181,89 +261,24 @@ class FileCard extends PureComponent<FileCardProps> {
     }
 
     render() {
-        const { name, size, percent, url, listType, preview, previewFile, status, style, onPreviewClick } = this.props;
-        const fileCardCls = cls({
-            [`${prefixCls}-file-card`]: true,
-            [`${prefixCls}-file-card-fail`]: status === strings.FILE_STATUS_VALID_FAIL || status === strings.FILE_STATUS_UPLOAD_FAIL,
-            [`${prefixCls}-file-card-show-pointer`]: typeof onPreviewClick !== 'undefined',
-        });
-        const previewCls = cls({
-            [`${prefixCls}-file-card-preview`]: true,
-            [`${prefixCls}-file-card-preview-placeholder`]: !preview || previewFile
-        });
-        const infoCls = `${prefixCls}-file-card-info`;
-        const closeCls = `${prefixCls}-file-card-close`;
-        const replaceCls = `${prefixCls}-file-card-replace`;
-        const showProgress = !(percent === 100 || typeof percent === 'undefined') && status === strings.FILE_STATUS_UPLOADING;
-        // only show retry when upload fail & showRetry is true, no need to show during validate fail
-        const showRetry = status === strings.FILE_STATUS_UPLOAD_FAIL && this.props.showRetry;
-        const showReplace = status === strings.FILE_STATUS_SUCCESS && this.props.showReplace;
-
+        const { listType } = this.props;
         if (listType === strings.FILE_LIST_PIC) {
             return (
                 <LocaleConsumer componentName="Upload">
-                    {(locale: Locale['Upload']): ReactNode => (this.renderPic(locale))}
+                    {(locale: Locale["Upload"]) => (this.renderPic(locale))}
                 </LocaleConsumer>
             );
         }
 
-        const fileSize = this.transSize(size);
-        let previewContent: ReactNode = preview ? (<img src={url} />) : (<IconFile size="large" />);
-        if (previewFile) {
-            previewContent = previewFile(this.props);
+        if (listType === strings.FILE_LIST_DEFAULT) {
+            return (
+                <LocaleConsumer componentName="Upload">
+                    {(locale: Locale["Upload"]) => (this.renderFile(locale))}
+                </LocaleConsumer>
+            );
         }
-        return (
-            <LocaleConsumer componentName="Upload">
-                {(locale: Locale['Upload']): ReactNode => (
-                    <div className={fileCardCls} style={style} onClick={onPreviewClick}>
-                        {/* <a target='_blank' href={url} className={infoCls} rel="noopener noreferrer"> */}
-                        <div className={previewCls}>
-                            {previewContent}
-                        </div>
-                        <div className={`${infoCls}-main`}>
-                            <div className={`${infoCls}-main-text`}>
-                                <span className={`${infoCls}-name`}>
-                                    {name}
-                                </span>
-                                <span>
-                                    <span className={`${infoCls}-size`}>{fileSize}</span>
-                                    {showReplace && (
-                                        <Tooltip trigger="hover" position="top" showArrow={false} content={locale.replace}>
-                                            <IconButton
-                                                onClick={(e): void => this.onReplace(e)}
-                                                type="tertiary"
-                                                theme="borderless"
-                                                size="small"
-                                                icon={<DirectorySvg />}
-                                                className={replaceCls}
-                                            />
-                                        </Tooltip>
-                                    )}
 
-                                </span>
-
-                            </div>
-                            {showProgress ? (<Progress percent={percent} style={{ width: '100%' }} />) : null}
-                            <div className={`${infoCls}-main-control`}>
-                                <span className={`${infoCls}-validate-message`}>
-                                    {this.renderValidateMessage()}
-                                </span>
-                                {showRetry ? <span className={`${infoCls}-retry`} onClick={e => this.onRetry(e)}>{locale.retry}</span> : null}
-                            </div>
-                        </div>
-                        {/* </a> */}
-                        <IconButton
-                            onClick={(e): void => this.onRemove(e)}
-                            type="tertiary"
-                            icon={<IconClose />}
-                            theme="borderless"
-                            size="small"
-                            className={closeCls}
-                        />
-                    </div>
-                )}
-            </LocaleConsumer>
-        );
+        return null;
     }
 }
 

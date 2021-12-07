@@ -869,7 +869,7 @@ describe('Upload', () => {
             beforeClear: () => Promise.reject(),
             onChange: spyOnChangeReject,
             onClear: spyOnClearReject,
-        })
+        });
 
         const clearBtn = upload.find(`.${BASE_CLASS_PREFIX}-upload-file-list-title-clear`).at(0);
         const clearBtnPass = uploadPass.find(`.${BASE_CLASS_PREFIX}-upload-file-list-title-clear`).at(0);
@@ -892,5 +892,54 @@ describe('Upload', () => {
             expect(spyOnChangeReject.callCount).toEqual(0);
             expect(spyOnClearReject.callCount).toEqual(0);
         });
+    });
+
+    it('insert method', () => {
+        const props = {
+            defaultFileList: [],
+        };
+        const upload = getUpload(props);
+        const uploadInstance = upload.instance();
+
+        const file_0 = new File([new ArrayBuffer(1024)], 'chucknorris_0.png', { type: 'image/png' });
+        const file_1 = new File([new ArrayBuffer(1024)], 'chucknorris_1.png', { type: 'image/png' });
+        const file_2 = new File([new ArrayBuffer(1024)], 'chucknorris_2.png', { type: 'image/png' });
+
+        expect(uploadInstance instanceof Upload).toEqual(true);
+        expect(Object.prototype.hasOwnProperty.call(uploadInstance, 'insert')).toEqual(true);
+
+        /**
+         * test fileList state should be [] => [file_0] => [file_1, file_0] => [file_1, file_2, file_0]
+         */
+        upload.instance().insert([file_0]);
+        upload.instance().insert([file_1], 0);
+        upload.instance().insert([file_2], 1);
+
+        expect(Array.isArray(upload.state('fileList'))).toEqual(true);
+        expect(upload.state('fileList').length).toEqual(3);
+        expect(upload.state('fileList')[0].name).toEqual('chucknorris_1.png');
+        expect(upload.state('fileList')[1].name).toEqual('chucknorris_2.png');
+        expect(upload.state('fileList')[2].name).toEqual('chucknorris_0.png');
+    });
+
+    it('showPicInfo works', () => {
+        const props = {
+            listType: 'picture',
+            defaultFileList: [
+                {
+                    uid: '1',
+                    name: 'jiafang1.jpeg',
+                    status: 'success',
+                    size: '130kb',
+                    url: 'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg',
+                },
+            ],
+            showPicInfo: true,
+        };
+        const upload = getUpload(props);
+
+        expect(upload.exists(`.${BASE_CLASS_PREFIX}-upload`)).toEqual(true);
+        expect(upload.exists(`.${BASE_CLASS_PREFIX}-upload-file-list-main`)).toEqual(true);
+        expect(upload.exists(`.${BASE_CLASS_PREFIX}-upload-picture-file-card-pic-info`)).toEqual(true);
     });
 });

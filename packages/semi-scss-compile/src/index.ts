@@ -15,7 +15,7 @@ export interface Options {
 
 const compile = ({foundationPath, themePath, iconPath, outputPath, isMin = false}: Options) => {
     const scssMap = generateScssMap(foundationPath, themePath, iconPath);
-    const tempDir = writeFile(scssMap)
+    const tempDir = writeFile(scssMap);
     const result = compilerFromScssMap(path.join(tempDir, 'index.scss'), isMin);
     fs.outputFileSync(outputPath, result.css);
 };
