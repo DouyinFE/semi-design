@@ -115,6 +115,7 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
 
     titleRef: React.RefObject<HTMLDivElement>;
     itemRef: React.RefObject<HTMLLIElement>;
+    foundation: SubNavFoundation;
     constructor(props: SubNavProps) {
         super(props);
         this.state = {
@@ -170,6 +171,10 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
     handleClick = (e: React.MouseEvent) => {
         this.foundation.handleClick(e && e.nativeEvent, this.titleRef && this.titleRef.current);
     };
+
+    handleKeyPress = (e: React.KeyboardEvent) => {
+        this.foundation.handleKeyPress(e && e.nativeEvent, this.titleRef && this.titleRef.current);
+    }
 
     handleDropdownVisible = (visible: boolean) => this.foundation.handleDropdownVisibleChange(visible);
 
@@ -239,7 +244,14 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
         }
 
         const titleDiv = (
-            <div ref={this.setTitleRef as any} className={titleCls} onClick={this.handleClick}>
+            <div
+                role="menuitem"
+                tabIndex={-1}
+                ref={this.setTitleRef as any} 
+                className={titleCls} 
+                onClick={this.handleClick}
+                onKeyPress={this.handleKeyPress}
+            >
                 <div className={`${prefixCls}-item-inner`}>
                     {placeholderIcons}
                     {this.context.toggleIconPosition === strings.TOGGLE_ICON_LEFT && this.renderIcon(toggleIconType, strings.ICON_POS_RIGHT, withTransition, true, 'key-toggle-position-left')}

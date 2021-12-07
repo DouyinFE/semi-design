@@ -1,4 +1,5 @@
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
+import isEnterPress from '../utils/isEnterPress';
 
 const addKeys = function addKeys(originKeys: (string | number)[] = [], ...willAddKeys: (string | number)[]) {
     const keySet = new Set(originKeys);
@@ -119,5 +120,16 @@ export default class SubNavFoundation<P = Record<string, any>, S = Record<string
         }
         this._adapter.notifyGlobalOpenChange(cbVal);
         this._adapter.notifyGlobalOnClick(cbVal);
+    }
+
+    /**
+     * A11y: simulate sub nav click
+     * @param e 
+     * @param titleRef 
+     */
+    handleKeyPress(e: any, titleRef: any) {
+        if (isEnterPress(e)) {
+            this.handleClick(e, titleRef);
+        }
     }
 }
