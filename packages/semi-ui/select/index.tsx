@@ -78,6 +78,7 @@ export type RenderMultipleSelectedItemFn = (optionNode: Record<string, any>, mul
 export type RenderSelectedItemFn = RenderSingleSelectedItemFn | RenderMultipleSelectedItemFn;
 
 export type SelectProps = {
+    id?: string;
     autoFocus?: boolean;
     arrowIcon?: React.ReactNode;
     defaultValue?: string | number | any[] | Record<string, any>;
@@ -981,6 +982,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             multiple,
             filter,
             style,
+            id,
             size,
             className,
             validateStatus,
@@ -1063,6 +1065,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 ref={ref => ((this.triggerRef as any).current = ref)}
                 onClick={e => this.foundation.handleClick(e)}
                 style={style}
+                id={id}
                 tabIndex={tabIndex}
                 onMouseEnter={this.onMouseEnter}
                 onMouseLeave={this.onMouseLeave}
