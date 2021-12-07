@@ -7,6 +7,7 @@ import { IconCaretup, IconCaretdown } from '@douyinfe/semi-icons';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/table/constants';
 
 import { SortOrder } from './interface';
+import isEnterPress from '@douyinfe/semi-foundation/utils/isEnterPress';
 
 export interface ColumnSorterProps {
     className?: string;
@@ -43,9 +44,25 @@ export default class ColumnSorter extends PureComponent<ColumnSorterProps> {
         const downCls = cls(`${prefixCls}-column-sorter-down`, {
             on: sortOrder === strings.SORT_DIRECTIONS[1],
         });
+        const ariaProps = {
+            /**
+             * Set 'aria-sort' to aria-columnheader is difficult, so set 'aria-label' about sort info to sorter
+             * reference: https://developer.mozilla.org/en-US/docs/Web/API/Element/ariaSort
+             */
+            'aria-label': `Current sort order is ${sortOrder ? `${sortOrder}ing` : 'none'}`,
+            'aria-roledescription': 'Sort data with this column',
+        };
 
         return (
-            <div style={style} className={`${prefixCls}-column-sorter`} onClick={onClick}>
+            <div
+                role='button'
+                {...ariaProps}
+                tabIndex={-1}
+                style={style}
+                className={`${prefixCls}-column-sorter`}
+                onClick={onClick}
+                onKeyPress={e => isEnterPress(e) && onClick(e as any)}
+            >
                 <span className={`${upCls}`}>
                     <IconCaretup size={iconBtnSize} />
                 </span>

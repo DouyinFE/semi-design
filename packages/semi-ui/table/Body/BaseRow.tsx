@@ -238,7 +238,7 @@ export default class TableRow extends BaseComponent<BaseRowProps, Record<string,
             }
 
             if (isExpandedColumn(column) && !displayExpandedColumn) {
-                cells.push(<TableCell key={columnIndex} isSection={isSection} />);
+                cells.push(<TableCell key={columnIndex} colIndex={columnIndex} isSection={isSection} />);
             } else if (!isScrollbarColumn(column)) {
                 const diyProps: { width?: number } = {};
 
@@ -248,6 +248,7 @@ export default class TableRow extends BaseComponent<BaseRowProps, Record<string,
 
                 cells.push(
                     <TableCell
+                        colIndex={columnIndex}
                         {...expandableProps}
                         {...diyProps}
                         hideExpandedColumn={hideExpandedColumn}
@@ -318,6 +319,10 @@ export default class TableRow extends BaseComponent<BaseRowProps, Record<string,
             record,
             hovered,
             expanded,
+            expandableRow,
+            level,
+            expandedRow,
+            isSection
         } = this.props;
 
         const BodyRow: any = components.body.row;
@@ -341,9 +346,28 @@ export default class TableRow extends BaseComponent<BaseRowProps, Record<string,
                     },
                     customClassName
                 );
+        const ariaProps = {};
+        if (typeof index === 'number') {
+            ariaProps['aria-rowindex'] = index + 1;
+        }
+        if (expandableRow) {
+            ariaProps['aria-expanded'] = expanded;
+        }
+        // if row is expandedRow, set it's level to 2 
+        if (expanded || expandedRow) {
+            ariaProps['aria-level'] = 2;
+        }
+        if (typeof level === 'number') {
+            ariaProps['aria-level'] = level + 1;
+        }
+        if (isSection) {
+            ariaProps['aria-level'] = 1;
+        }
 
         return (
             <BodyRow
+                role="row"
+                {...ariaProps}
                 {...rowProps}
                 style={baseRowStyle}
                 className={rowCls}

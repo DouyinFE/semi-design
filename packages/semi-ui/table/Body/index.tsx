@@ -3,7 +3,7 @@
 /* eslint-disable max-len */
 import React, { ReactNode } from 'react';
 import PropTypes from 'prop-types';
-import { get, size, isMap, each, isEqual, pick, isNull } from 'lodash-es';
+import { get, size, isMap, each, isEqual, pick, isNull, isFunction } from 'lodash-es';
 import classnames from 'classnames';
 import { VariableSizeList as List } from 'react-window';
 
@@ -15,7 +15,8 @@ import {
     isDisabled,
     getRecord,
     genExpandedRowKey,
-    getDefaultVirtualizedRowConfig
+    getDefaultVirtualizedRowConfig,
+    isTreeTable
 } from '@douyinfe/semi-foundation/table/utils';
 import BodyFoundation, { BodyAdapter, FlattenData, GroupFlattenData } from '@douyinfe/semi-foundation/table/bodyFoundation';
 import { strings } from '@douyinfe/semi-foundation/table/constants';
@@ -730,6 +731,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
             dataSource,
             onScroll,
             groups,
+            expandedRowRender,
         } = this.props;
 
         const x = get(scroll, 'x');
@@ -775,6 +777,9 @@ class Body extends BaseComponent<BodyProps, BodyState> {
                 onScroll={handleBodyScroll}
             >
                 <Table
+                    role={ isMap(groups) || isFunction(expandedRowRender) || isTreeTable({ dataSource }) ? 'treegrid' : 'grid'}
+                    aria-rowcount={dataSource && dataSource.length}
+                    aria-colcount={columns && columns.length}
                     style={tableStyle}
                     className={classnames(prefixCls, {
                         [`${prefixCls}-fixed`]: anyColumnFixed,

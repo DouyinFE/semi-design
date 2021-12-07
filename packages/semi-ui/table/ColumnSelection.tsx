@@ -20,6 +20,7 @@ export interface TableSelectionCellProps {
     indeterminate?: boolean; // Intermediate state, shown as a solid horizontal line
     prefixCls?: string;
     className?: string;
+    ariaLabel?: string;
 }
 
 /**
@@ -36,6 +37,7 @@ export default class TableSelectionCell extends BaseComponent<TableSelectionCell
         indeterminate: PropTypes.bool,
         prefixCls: PropTypes.string,
         className: PropTypes.string,
+        ariaLabel: PropTypes.string,
     };
 
     static defaultProps = {
@@ -59,7 +61,7 @@ export default class TableSelectionCell extends BaseComponent<TableSelectionCell
     handleChange = (e: CheckboxEvent) => this.foundation.handleChange(e);
 
     render() {
-        const { selected, getCheckboxProps, indeterminate, disabled, prefixCls, className } = this.props;
+        const { selected, getCheckboxProps, indeterminate, disabled, prefixCls, className, ariaLabel } = this.props;
         let checkboxProps = {
             onChange: this.handleChange,
             disabled,
@@ -81,7 +83,7 @@ export default class TableSelectionCell extends BaseComponent<TableSelectionCell
 
         return (
             <span className={wrapCls}>
-                <Checkbox {...checkboxProps} />
+                <Checkbox ariaLabel={ariaLabel} {...checkboxProps} />
             </span>
         );
     }

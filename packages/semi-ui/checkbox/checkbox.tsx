@@ -19,6 +19,7 @@ export interface CheckboxProps extends BaseCheckboxProps {
     onMouseEnter?: React.MouseEventHandler<HTMLSpanElement>;
     onMouseLeave?: React.MouseEventHandler<HTMLSpanElement>;
     extra?: React.ReactNode;
+    ariaLabel?: string;
 }
 interface CheckboxState {
     checked: boolean;
@@ -47,6 +48,7 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
         addonId: PropTypes.string, // A11y aria-labelledby
         extraId: PropTypes.string, // A11y aria-describedby
         index: PropTypes.number,
+        ariaLabel: PropTypes.string,
     };
 
     static defaultProps = {
@@ -130,7 +132,8 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
             extra,
             value,
             addonId,
-            extraId
+            extraId,
+            ariaLabel
         } = this.props;
         const { checked } = this.state;
         const props: Record<string, any> = {
@@ -182,6 +185,7 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
             <span
                 role='checkbox'
                 tabIndex={disabled ? -1 : 0}
+                aria-label={ariaLabel}
                 aria-disabled={props.checked}
                 aria-checked={props.checked}
                 aria-labelledby={addonId}

@@ -164,7 +164,13 @@ export default function ColumnFilter(props: ColumnFilterProps = {}): React.React
     } else {
         iconElem = (
             <div className={finalCls}>
-                <IconFilter size="small" />
+                <IconFilter
+                    role="button"
+                    aria-label="Filter data with this column"
+                    aria-haspopup="listbox"
+                    tabIndex={-1}
+                    size="small"
+                />
             </div>
         );
     }
