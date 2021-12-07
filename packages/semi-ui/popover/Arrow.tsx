@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { get } from 'lodash-es';
+import { get } from 'lodash';
 import { numbers, cssClasses, strings } from '@douyinfe/semi-foundation/popover/constants';
 
 export interface ArrowProps {
@@ -55,7 +55,7 @@ const Arrow: React.FC<ArrowProps> = (props = {}) => {
             <path d="M0 0L1 0C1 4, 2 5.5, 4 7.5S7,10 7,12S6 14.5, 4 16.5S1,20 1,24L0 24L0 0z" fill={bgColor} />
         </svg>
     );
-}
+};
 
 Arrow.propTypes = {
     position: PropTypes.string,

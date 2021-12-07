@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import { format, parse } from 'date-fns';
-import { toNumber } from 'lodash-es';
+import { toNumber } from 'lodash';
 import { strings } from '../constants';
 import isNullOrUndefined from '../../utils/isNullOrUndefined';
 import { zhCN as defaultLocale } from 'date-fns/locale';

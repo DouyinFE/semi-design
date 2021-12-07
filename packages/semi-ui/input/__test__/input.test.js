@@ -2,7 +2,7 @@ import Input, { Input as BaseInput } from '../index';
 import Icon from '../../icons/index';
 import { BASE_CLASS_PREFIX } from '../../../semi-foundation/base/constants';
 import GraphemeSplitter from 'grapheme-splitter';
-import { isString, isFunction } from 'lodash-es';
+import { isString, isFunction } from 'lodash';
 
 function getValueLength(str) {
   if (isString(str)) {

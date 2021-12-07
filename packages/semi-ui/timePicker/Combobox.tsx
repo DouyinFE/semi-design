@@ -3,7 +3,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { format as dateFnsFormat } from 'date-fns';
-import { noop } from 'lodash-es';
+import { noop } from 'lodash';
 
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
 import { strings } from '@douyinfe/semi-foundation/timePicker/constants';

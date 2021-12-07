@@ -2,7 +2,6 @@ const path = require('path');
 const webpack = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
-const babelConfig = require('./babel.config');
 
 module.exports = function getWebpackConfig({ minimize }){
     return {
@@ -10,37 +9,13 @@ module.exports = function getWebpackConfig({ minimize }){
         bail: true,
         devtool: 'source-map',
         entry: {
-            index: ['./src/index.ts']
+            index: ['./lib/es/index.js']
         },
         output: {
             filename: minimize ? 'umd/semi-illustrations.min.js' : 'umd/semi-illustrations.js',
             path: path.join(__dirname, 'dist'),
             library: 'SemiIllustrations',
             libraryTarget: 'umd'
-        },
-        module: {
-            rules: [
-                {
-                    test: /\.tsx?$/,
-                    include: [
-                        path.resolve(__dirname, 'src'),
-                    ],
-                    use: [
-                        {
-                            loader: 'babel-loader',
-                            options: babelConfig
-                        },
-                        {
-                            loader: 'ts-loader',
-                            options: {
-                                transpileOnly: true,
-                                happyPackMode: false,
-                                appendTsSuffixTo: []
-                            }
-                        }
-                    ]
-                }
-            ]
         },
         optimization: {
             minimize: !!minimize,

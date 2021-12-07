@@ -8,7 +8,7 @@ import {
     isNull,
     isUndefined,
     isFunction
-} from 'lodash-es';
+} from 'lodash';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/tagInput/constants';
 import '@douyinfe/semi-foundation/tagInput/tagInput.scss';
 import TagInputFoundation, { TagInputAdapter } from '@douyinfe/semi-foundation/tagInput/foundation';

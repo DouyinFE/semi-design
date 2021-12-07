@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
-import { noop } from 'lodash-es';
+import { noop } from 'lodash';
 import { IconCaretup, IconCaretdown } from '@douyinfe/semi-icons';
 
 import { cssClasses, strings } from '@douyinfe/semi-foundation/table/constants';

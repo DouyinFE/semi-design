@@ -8,12 +8,12 @@ import Portal from '../_portal';
 import LocaleConsumer from '../locale/localeConsumer';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
-import { noop } from 'lodash-es';
+import { noop } from 'lodash';
 import '@douyinfe/semi-foundation/modal/modal.scss';
 import BaseComponent from '../_base/baseComponent';
-import confirm, { withConfirm, withError, withInfo, withSuccess, withWarning } from '../modal/confirm';
+import confirm, { withConfirm, withError, withInfo, withSuccess, withWarning } from './confirm';
 import { Locale } from '../locale/interface';
-import useModal from '../modal/useModal';
+import useModal from './useModal';
 import { ButtonProps } from '../button/Button';
 
 export const destroyFns: any[] = [];
@@ -264,7 +264,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         if (!visible && !hidden) {
             this.foundation.toggleHidden(true, () => this.foundation.afterClose());
         } else if (visible && this.state.hidden) {
-            this.foundation.toggleHidden(false)
+            this.foundation.toggleHidden(false);
         }
     }
 

@@ -2,7 +2,7 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { Transition } from '@douyinfe/semi-animation-react';
 import PropTypes from 'prop-types';
-import { noop } from 'lodash-es';
+import { noop } from 'lodash';
 import { cssClasses } from '@douyinfe/semi-foundation/collapsible/constants';
 import getMotionObjFromProps from '@douyinfe/semi-foundation/utils/getMotionObjFromProps';
 

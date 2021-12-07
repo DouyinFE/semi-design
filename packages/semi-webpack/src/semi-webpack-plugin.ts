@@ -1,12 +1,17 @@
 import path from 'path';
 import { transformPath } from './utils';
-const NormalModule = require('webpack/lib/NormalModule');
+const _NormalModule_ = require('webpack/lib/NormalModule');
 
+export interface WebpackContext {
+    NormalModule?: any;
+}
 export interface SemiWebpackPluginOptions {
     theme?: string | SemiThemeOptions;
     prefixCls?: string;
     variables?: {[key: string]: string | number};
     include?: string;
+    omitCss?: boolean;
+    webpackContext?: WebpackContext
 }
 
 export interface SemiThemeOptions {
@@ -21,36 +26,55 @@ export default class SemiWebpackPlugin {
     }
 
     apply(compiler: any) {
+        const NormalModule = this.options.webpackContext?.NormalModule || _NormalModule_;
         compiler.hooks.compilation.tap('SemiPlugin', (compilation: any) => {
-            if (this.options.theme || this.options.prefixCls) {
+            if (this.options.theme || this.options.prefixCls || this.options.omitCss) {
                 if (NormalModule.getCompilationHooks) {
                     NormalModule.getCompilationHooks(compilation).loader.tap('SemiPlugin', (context: any, module: any) => {
+                        if (this.options.omitCss) {
+                            this.omitCss(module);
+                            return;
+                        }
                         this.customTheme(module);
                         if (this.options.prefixCls) {
                             this.customPrefix(module, this.options.prefixCls);
                         }
-                    })
+                    });
                 } else {
                     compilation.hooks.normalModuleLoader.tap('SemiPlugin', (context: any, module: any) => {
+                        if (this.options.omitCss) {
+                            this.omitCss(module);
+                            return;
+                        }
                         this.customTheme(module);
                         if (this.options.prefixCls) {
                             this.customPrefix(module, this.options.prefixCls);
                         }
-                    })
+                    });
                 }
             }
         });
     }
 
+    omitCss(module: any) {
+        const compatiblePath = transformPath(module.resource);
+        if (/@douyinfe\/semi-(ui|icons)\/lib\/.+\.js$/.test(compatiblePath)) {
+            module.loaders = module.loaders || [];
+            module.loaders.push({
+                loader: path.join(__dirname, 'semi-omit-css-loader')
+            });
+        }
+    }
+
     customTheme(module: any) {
         const compatiblePath = transformPath(module.resource);
-        if (/@douyinfe\/semi-(ui|icons)\/.+\.js$/.test(compatiblePath)) {
+        if (/@douyinfe\/semi-(ui|icons)\/lib\/.+\.js$/.test(compatiblePath)) {
             module.loaders = module.loaders || [];
             module.loaders.push({
                 loader: path.join(__dirname, 'semi-source-suffix-loader')
             });
         }
-        if (/@douyinfe\/semi-(ui|icons|foundation)\/.+\.scss$/.test(compatiblePath)) {
+        if (/@douyinfe\/semi-(ui|icons|foundation)\/lib\/.+\.scss$/.test(compatiblePath)) {
             const scssLoader = require.resolve('sass-loader');
             const cssLoader = require.resolve('css-loader');
             const styleLoader = require.resolve('style-loader');

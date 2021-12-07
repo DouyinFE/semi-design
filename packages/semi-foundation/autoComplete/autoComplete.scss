@@ -1,7 +1,8 @@
-$module: #{$prefix}-autocomplete;
-
 @import "./variables.scss";
 @import "../select/option.scss";
+
+$module: #{$prefix}-autocomplete;
+
 .#{$module} {
     cursor: text;
     display: inline-flex;

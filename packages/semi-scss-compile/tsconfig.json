@@ -7,10 +7,9 @@
     "esModuleInterop":true,
     "moduleResolution": "Node",
     "declaration": true,
-      "outDir": "./lib",
-      "rootDir": "./src",
+    "outDir": "./lib",
+    "rootDir": "./src",
     "types": []
-
   },
   "include": [
     "src/**/*"

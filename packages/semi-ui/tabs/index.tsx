@@ -6,7 +6,7 @@ import { cssClasses, strings } from '@douyinfe/semi-foundation/tabs/constants';
 import isNullOrUndefined from '@douyinfe/semi-foundation/utils/isNullOrUndefined';
 import getDataAttr from '@douyinfe/semi-foundation/utils/getDataAttr';
 import TabsFoundation, { TabsAdapter } from '@douyinfe/semi-foundation/tabs/foundation';
-import { isEqual, omit, pick } from 'lodash-es';
+import { isEqual, pick, omit } from 'lodash';
 import BaseComponent from '../_base/baseComponent';
 import '@douyinfe/semi-foundation/tabs/tabs.scss';
 
@@ -117,8 +117,8 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
                         return undefined;
                     });
                 }
-                if(panes.findIndex(p => p.itemKey === activeKey) === -1){
-                    if(panes.length>0){
+                if (panes.findIndex(p => p.itemKey === activeKey) === -1){
+                    if (panes.length>0){
                         this.setState({activeKey: panes[0].itemKey});
                     } else {
                         this.setState({activeKey: ''});

@@ -2,7 +2,7 @@
 import React, { ReactNode, CSSProperties, RefObject, ChangeEvent, DragEvent } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
-import { noop } from 'lodash-es';
+import { noop } from 'lodash';
 import UploadFoundation, { CustomFile, UploadAdapter, BeforeUploadObjectResult, AfterUploadResult } from '@douyinfe/semi-foundation/upload/foundation';
 import { strings, cssClasses } from '@douyinfe/semi-foundation/upload/constants';
 import FileCard from './fileCard';
@@ -200,7 +200,14 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
         this.replaceInputRef = React.createRef<HTMLInputElement>();
     }
 
-    static getDerivedStateFromProps(props: UploadProps): Partial<UploadState> | null {
+    /**
+     * Notes: 
+     *   The input parameter and return value here do not declare the type, otherwise tsc may report an error in form/fields.tsx when wrap after withField
+     *   `The types of the parameters "props" and "nextProps" are incompatible.
+           The attribute "action" is missing in the type "Readonly<any>", but it is required in the type "UploadProps".`
+     *   which seems to be a bug, remove props type declare here
+     */
+    static getDerivedStateFromProps(props) {
         const { fileList } = props;
         if ('fileList' in props) {
             return {

@@ -1,4 +1,4 @@
-import * as _ from 'lodash-es';
+import * as _ from 'lodash';
 import { spy } from 'sinon';
 import { BASE_CLASS_PREFIX } from '@douyinfe/semi-foundation/base/constants';
 

@@ -6,9 +6,9 @@ import getDataAttr from '@douyinfe/semi-foundation/utils/getDataAttr';
 import OverflowList from '../overflowList';
 import Dropdown from '../dropdown';
 import Button from '../button';
-import { PlainTab, TabBarProps } from './interface';
-import { isEmpty } from 'lodash-es';
-import { IconChevronLeft, IconChevronRight, IconClose } from '@douyinfe/semi-icons';
+import { TabBarProps, PlainTab } from './interface';
+import { isEmpty } from 'lodash';
+import { IconChevronRight, IconChevronLeft, IconClose } from '@douyinfe/semi-icons';
 import { getUuidv4 } from '@douyinfe/semi-foundation/utils/uuid';
 
 export interface TabBarState {
@@ -91,7 +91,7 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
     renderTabItem = (panel: PlainTab): ReactNode => {
         const { size, type, deleteTabItem } = this.props;
         const panelIcon = panel.icon ? this.renderIcon(panel.icon) : null;
-        const closableIcon = (type === 'card' && panel.closable) ? <IconClose className={`${cssClasses.TABS_TAB}-icon-close`} onClick={(e: React.MouseEvent<HTMLSpanElement>) => deleteTabItem(panel.itemKey, e)} /> : null
+        const closableIcon = (type === 'card' && panel.closable) ? <IconClose className={`${cssClasses.TABS_TAB}-icon-close`} onClick={(e: React.MouseEvent<HTMLSpanElement>) => deleteTabItem(panel.itemKey, e)} /> : null;
         let events = {};
         const key = panel.itemKey;
         if (!panel.disabled) {

@@ -15,7 +15,7 @@ import {
     includes,
     toString,
     isFunction
-} from 'lodash-es';
+} from 'lodash';
 import { strings, numbers } from './constants';
 import isNullOrUndefined from '../utils/isNullOrUndefined';
 import Logger from '../utils/Logger';

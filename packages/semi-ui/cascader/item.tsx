@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/cascader/constants';
-import { includes } from 'lodash-es';
+import { includes } from 'lodash';
 import ConfigContext from '../configProvider/context';
 import LocaleConsumer from '../locale/localeConsumer';
 import { IconChevronRight, IconTick } from '@douyinfe/semi-icons';
@@ -104,6 +104,9 @@ export default class Item extends PureComponent<CascaderItemProps> {
         const { onItemCheckboxClick } = this.props;
         // Prevent Checkbox's click event bubbling to trigger the li click event
         e.stopPropagation();
+        if (e.nativeEvent && typeof e.nativeEvent.stopImmediatePropagation === 'function') {
+            e.nativeEvent.stopImmediatePropagation();
+        }
         onItemCheckboxClick(item);
     };
 

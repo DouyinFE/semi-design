@@ -1,4 +1,4 @@
-import { merge } from 'lodash-es';
+import { merge } from 'lodash';
 import Logger from '@douyinfe/semi-foundation/utils/Logger';
 import { numbers } from '@douyinfe/semi-foundation/table/constants';
 import { cloneDeep } from '../_utils';

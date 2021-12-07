@@ -1,10 +1,9 @@
 import loaderUtils from 'loader-utils';
-import { get } from 'lodash';
 import resolve from 'enhanced-resolve';
 
 export default function SemiThemeLoader(source: string) {
     const query = loaderUtils.getOptions ? loaderUtils.getOptions(this) : loaderUtils.parseQuery(this.query);
-    const theme = get(query, 'name', '@douyinfe/semi-theme-default');
+    const theme = query.name || '@douyinfe/semi-theme-default';
     // always inject
     const scssVarStr = `@import "~${theme}/scss/index.scss";\n`;
     // inject once
@@ -17,17 +16,17 @@ export default function SemiThemeLoader(source: string) {
     let componentVariables: string | boolean;
     try {
         componentVariables = resolve.sync(this.context, `${theme}/scss/local.scss`);
-    } catch(e) {}
+    } catch (e) {}
 
-    if (get(query, 'include') || get(query, 'variables') || componentVariables) {
+    if (query.include || query.variables || componentVariables) {
         let localImport = '';
         if (componentVariables) {
             localImport += `\n@import "~${theme}/scss/local.scss";`;
         }
-        if (get(query, 'include')) {
+        if (query.include) {
             localImport += `\n@import "${query.include}";`;
         }
-        if (get(query, 'variables')) {
+        if (query.variables) {
             localImport += `\n${query.variables}`;
         }
         try {
@@ -41,7 +40,7 @@ export default function SemiThemeLoader(source: string) {
     }
 
     // inject prefix
-    const prefixCls = get(query, 'prefixCls', 'semi');
+    const prefixCls = query.prefixCls || 'semi';
 
     const prefixClsStr = `$prefix: '${prefixCls}';\n`;
 
