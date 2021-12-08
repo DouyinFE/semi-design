@@ -53,7 +53,7 @@ import { IconHome, IconEmoji, IconSpin } from '@douyinfe/semi-icons';
 可以改变`font-size`来更改图标大小
 >
 
-Icon组件封装了size属性，可以更方便地定义图标尺寸，支持 `extra-small` (8x8)，`small` (12x12)， `default` (16x16)， `large` (20x20)， `extra-large` (24x24)。
+Icon组件封装了size属性，可以更方便地定义图标尺寸，支持 `extra-small` (8x8)，`small` (12x12)， `default` (16x16)， `large` (20x20)， `extra-large` (24x24)，当size指定为`inherit`时，图标大小继承当前上下文字体大小
 
 
 ```jsx live=true
@@ -155,7 +155,7 @@ import StarIcon from './star.svg';
 | onMouseMove | 移动鼠标的回调事件 >=v1.21 | (e: Event) => void | 无    |
 | onMouseUp | 鼠标按钮抬起的回调事件 >=v1.21 | (e: Event) => void | 无    |
 | rotate | 旋转度数 | number |   |
-| size | 尺寸，支持`extra-small`，`small`， `default`， `large`， `extra-large` | string | `default`  |
+| size | 尺寸，支持`inherit`，`extra-small`，`small`， `default`， `large`， `extra-large` | string | `default`  |
 | spin | 旋转动画 | boolean |   |
 | style | 图标样式 | CSSProperties | 无    |
 | svg | 图标内容 | ReactNode | 无    |
