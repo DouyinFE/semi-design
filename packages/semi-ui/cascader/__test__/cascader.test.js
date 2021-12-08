@@ -997,9 +997,10 @@ describe('Cascader', () => {
         ).toEqual('美国');
     });
 
-    it('multiple select leaf option checked', () => {
+    it('multiple select enableLeafClick', () => {
         const cascaderWithMultiple = render({
             multiple: true,
+            enableLeafClick: true,
             treeData: [
                 {
                     label: '北美洲',
@@ -1062,6 +1063,59 @@ describe('Cascader', () => {
             .simulate('click')
         expect(cascaderWithMultiple.state().checkedKeys.size).toEqual(1);
         const states = cascaderWithMultiple.state()
+        cascaderWithMultiple.unmount();
+    })
+
+    it('multiple select disable enableLeafClick', () => {
+        const cascaderWithMultiple = render({
+            multiple: true,
+            treeData: [
+                {
+                    label: '北美洲',
+                    value: 'Beimeizhou',
+                    key: 'beimeizhou',
+                    children: [
+                        {
+                            label: '美国',
+                            value: 'Meiguo',
+                            key: 'meiguo',
+                        },
+                        {
+                            label: '加拿大',
+                            value: 'Jianada',
+                            key: 'jianada',
+                        },
+                    ],
+                },
+                {
+                    label: '美国',
+                    value: 'Meiguo',
+                    key: 'meiguo',
+                }
+            ]
+        })
+        const selectBox = cascaderWithMultiple.find(`.${BASE_CLASS_PREFIX}-cascader-selection`).at(0);
+        selectBox.simulate('click');
+        // click checkbox
+        cascaderWithMultiple
+            .find(`.${BASE_CLASS_PREFIX}-cascader-option-list`)
+            .at(0)
+            .find(`.${BASE_CLASS_PREFIX}-cascader-option`)
+            .at(1)
+            .find(`.${BASE_CLASS_PREFIX}-cascader-option-label`)
+            .at(0)
+            .find(`.${BASE_CLASS_PREFIX}-checkbox`)
+            .at(0)
+            .simulate('click');
+        expect(cascaderWithMultiple.state().checkedKeys.size).toEqual(1);
+        // click option can't cancel checked
+        cascaderWithMultiple
+            .find(`.${BASE_CLASS_PREFIX}-cascader-option-list`)
+            .at(0)
+            .find(`.${BASE_CLASS_PREFIX}-cascader-option`)
+            .at(1)
+            .simulate('click')
+        expect(cascaderWithMultiple.state().checkedKeys.size).toEqual(1);
         cascaderWithMultiple.unmount();
     })
 

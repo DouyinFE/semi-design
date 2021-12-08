@@ -649,7 +649,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
     }
 
     handleSingleSelect(e: any, item: BasicEntity | BasicData) {
-        const { changeOnSelect: allowChange, filterLeafOnly, multiple } = this.getProps();
+        const { changeOnSelect: allowChange, filterLeafOnly, multiple, enableLeafClick } = this.getProps();
         const { keyEntities, selectedKeys, isSearching } = this.getStates();
         const filterable = this._isFilterable();
         const { data, key } = item;
@@ -667,8 +667,8 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         }
         if (multiple) {
             this._adapter.updateStates({ activeKeys: new Set(activeKeys) });
-            if (isLeaf) {
-                this.onItemCheckboxClick(item)
+            if (isLeaf && enableLeafClick) {
+                this.onItemCheckboxClick(item);
             }
         } else {
             this._adapter.notifySelect(data.value);
