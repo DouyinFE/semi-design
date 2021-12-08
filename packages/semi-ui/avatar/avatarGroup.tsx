@@ -76,6 +76,6 @@ export default class AvatarGroup extends PureComponent<AvatarGroupProps> {
 
         }
 
-        return <div className={groupCls}>{inner}</div>;
+        return <div className={groupCls} aria-label="avatar group">{inner}</div>;
     }
 }

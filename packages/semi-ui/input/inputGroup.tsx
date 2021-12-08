@@ -4,7 +4,7 @@ import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/input/constants';
 import BaseComponent from '../_base/baseComponent';
-import Label from '../form/label';
+import Label, { LabelProps } from '../form/label';
 
 import { noop } from '@douyinfe/semi-foundation/utils/function';
 import { isFunction } from 'lodash';
@@ -21,7 +21,7 @@ export interface InputGroupProps {
     style?: Record<string, any>;
     onBlur?: (e: React.FocusEvent<HTMLSpanElement>) => void;
     onFocus?: (e: React.FocusEvent<HTMLSpanElement>) => void;
-    label?: Record<string, any>;
+    label?: LabelProps;
     labelPosition?: string;
     disabled?: boolean;
 }
@@ -64,10 +64,12 @@ export default class inputGroup extends BaseComponent<InputGroupProps, InputGrou
             }
         );
         // const labelCls = cls(label.className, '');
+        const defaultName = 'input-group';
         return (
-            <div className={groupWrapperCls}>
-                {label && label.text ? <Label {...label} /> : null}
+            <div role="group" aria-label="Input group" aria-disabled={this.props.disabled} className={groupWrapperCls}>
+                {label && label.text ? <Label name={defaultName} {...label} /> : null}
                 <span
+                    id={label && label.name || defaultName}
                     className={groupCls}
                     style={this.props.style}
                     onFocus={this.props.onFocus}
@@ -107,6 +109,9 @@ export default class inputGroup extends BaseComponent<InputGroupProps, InputGrou
 
         return (
             <span
+                role="group"
+                aria-label="Input group"
+                aria-disabled={this.props.disabled}
                 className={groupCls}
                 style={style}
                 onFocus={this.props.onFocus}

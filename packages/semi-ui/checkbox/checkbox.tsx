@@ -19,6 +19,7 @@ export interface CheckboxProps extends BaseCheckboxProps {
     onMouseEnter?: React.MouseEventHandler<HTMLSpanElement>;
     onMouseLeave?: React.MouseEventHandler<HTMLSpanElement>;
     extra?: React.ReactNode;
+    ariaLabel?: string;
 }
 interface CheckboxState {
     checked: boolean;
@@ -44,6 +45,10 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
         onMouseEnter: PropTypes.func,
         onMouseLeave: PropTypes.func,
         extra: PropTypes.node,
+        addonId: PropTypes.string, // A11y aria-labelledby
+        extraId: PropTypes.string, // A11y aria-describedby
+        index: PropTypes.number,
+        ariaLabel: PropTypes.string,
     };
 
     static defaultProps = {
@@ -74,6 +79,7 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
         };
     }
 
+    foundation: CheckboxFoundation;
     constructor(props: CheckboxProps) {
         super(props);
 
@@ -111,6 +117,8 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
 
     handleChange: React.MouseEventHandler<HTMLSpanElement> = e => this.foundation.handleChange(e);
 
+    handleEnterPress = (e: React.KeyboardEvent<HTMLSpanElement>) => this.foundation.handleEnterPress(e);
+
     render() {
         const {
             disabled,
@@ -123,6 +131,9 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
             onMouseLeave,
             extra,
             value,
+            addonId,
+            extraId,
+            ariaLabel
         } = this.props;
         const { checked } = this.state;
         const props: Record<string, any> = {
@@ -130,7 +141,8 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
             disabled,
         };
 
-        if (this.isInGroup()) {
+        const inGroup = this.isInGroup();
+        if (inGroup) {
             if (this.context.checkboxGroup.value) {
                 const realChecked = (this.context.checkboxGroup.value || []).includes(value);
                 props.checked = realChecked;
@@ -161,21 +173,29 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
             [`${prefix}-cardType_extra_noChildren`]: props.isCardType && !children,
         });
 
-        const name = this.isInGroup() && this.context.checkboxGroup.name;
+        const name = inGroup && this.context.checkboxGroup.name;
 
         const renderContent = () => (
             <>
-                {children ? <span className={`${prefix}-addon`}>{children}</span> : null}
-                {extra ? <div className={extraCls}>{extra}</div> : null}
+                {children ? <span id={addonId} className={`${prefix}-addon`}>{children}</span> : null}
+                {extra ? <div id={extraId} className={extraCls}>{extra}</div> : null}
             </>
         );
         return (
             <span
+                role='checkbox'
+                tabIndex={disabled ? -1 : 0}
+                aria-label={ariaLabel}
+                aria-disabled={props.checked}
+                aria-checked={props.checked}
+                aria-labelledby={addonId}
+                aria-describedby={extraId}
                 style={style}
                 className={wrapper}
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
                 onClick={this.handleChange}
+                onKeyPress={this.handleEnterPress}
             >
                 <CheckboxInner
                     {...this.props}

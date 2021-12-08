@@ -377,6 +377,8 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
         return (
             <div className={suffixChildrenCls}>
                 <span
+                    role="button"
+                    tabIndex={-1}
                     className={upClassName}
                     onMouseDown={notAllowedUp ? noop : this.handleUpClick}
                     onMouseUp={this.handleMouseUp}
@@ -385,6 +387,8 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
                     <IconChevronUp size="extra-small" />
                 </span>
                 <span
+                    role="button"
+                    tabIndex={-1}
                     className={downClassName}
                     onMouseDown={notAllowedDown ? noop : this.handleDownClick}
                     onMouseUp={this.handleMouseUp}
@@ -433,13 +437,26 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
             keepFocus,
             ...rest
         } = this.props;
-        const { value } = this.state;
+        const { value, number } = this.state;
 
         const inputNumberCls = classnames(className, `${prefixCls}-number`, {
             [`${prefixCls}-number-size-${size}`]: size,
         });
 
         const buttons = this.renderButtons();
+        const ariaProps = {
+            'aria-disabled': disabled,
+            step,
+        };
+        if (number) {
+            ariaProps['aria-valuenow'] = number;
+        }
+        if (max !== Infinity) {
+            ariaProps['aria-valuemax'] = max;
+        }
+        if (min !== -Infinity) {
+            ariaProps['aria-valuemin'] = min;
+        }
 
         const input = (
             <div
@@ -450,6 +467,8 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
                 onMouseLeave={e => this.handleInputMouseLeave(e)}
             >
                 <Input
+                    role="spinbutton"
+                    {...ariaProps}
                     {...rest}
                     size={size}
                     disabled={disabled}

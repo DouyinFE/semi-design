@@ -44,6 +44,7 @@ class RadioInner extends BaseComponent<RadioInnerProps, RadioInnerState> {
 
 
     inputEntity!: HTMLInputElement;
+    foundation: RadioInnerFoundation;
     constructor(props: RadioInnerProps) {
         super(props);
         this.state = {
@@ -114,6 +115,7 @@ class RadioInner extends BaseComponent<RadioInnerProps, RadioInnerState> {
                     ref={ref => {
                         this.inputEntity = ref;
                     }}
+                    // eslint-disable-next-line jsx-a11y/no-autofocus
                     autoFocus={autoFocus}
                     type={mode === 'advanced' ? 'checkbox' : 'radio'}
                     checked={Boolean(checked)}

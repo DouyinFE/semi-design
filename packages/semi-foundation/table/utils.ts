@@ -485,3 +485,20 @@ export function warnIfNoDataIndex(column: Record<string, any>) {
         }
     }
 }
+
+/**
+ * Whether is tree table
+ */
+export function isTreeTable({ dataSource, childrenRecordName = 'children' }: { dataSource: Record<string, any>; childrenRecordName?: string; }) {
+    let flag = false;
+    if (Array.isArray(dataSource)) {
+        for (const data of dataSource) {
+            const children = get(data, childrenRecordName);
+            if (Array.isArray(children) && children.length) {
+                flag = true;
+                break;
+            }
+        }
+    }
+    return flag;
+}

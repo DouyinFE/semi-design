@@ -1,4 +1,5 @@
 import BaseFoundation, { DefaultAdapter, noopFunction } from '../base/foundation';
+import isEnterPress from '../utils/isEnterPress';
 
 export interface BasicTargetObject {
     [x: string]: any;
@@ -28,7 +29,7 @@ class CheckboxFoundation<P = Record<string, any>, S = Record<string, any>> exten
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     init() {}
 
-    getEvent(checked: boolean, e: MouseEvent) {
+    getEvent(checked: boolean, e: any) {
         const props = this.getProps();
         const cbValue = {
             target: {
@@ -45,12 +46,12 @@ class CheckboxFoundation<P = Record<string, any>, S = Record<string, any>> exten
         return cbValue;
     }
 
-    notifyChange(checked: boolean, e: MouseEvent) {
+    notifyChange(checked: boolean, e: any) {
         const cbValue = this.getEvent(checked, e);
         this._adapter.notifyChange(cbValue);
     }
 
-    handleChange(e: MouseEvent) {
+    handleChange(e: any) {
         const disabled = this.getProp('disabled');
 
         if (disabled) {
@@ -78,7 +79,7 @@ class CheckboxFoundation<P = Record<string, any>, S = Record<string, any>> exten
         }
     }
 
-    handleChangeInGroup(e: MouseEvent) {
+    handleChangeInGroup(e: any) {
         const { value } = this.getProps();
         const groupValue = this._adapter.getGroupValue();
         const checked = groupValue.includes(value);
@@ -86,6 +87,12 @@ class CheckboxFoundation<P = Record<string, any>, S = Record<string, any>> exten
         const event = this.getEvent(newChecked, e);
         this._adapter.notifyChange(event);
         this._adapter.notifyGroupChange(event);
+    }
+
+    handleEnterPress(e: any) {
+        if (isEnterPress(e)) {
+            this.handleChange(e);
+        }
     }
 
     setChecked(checked: boolean) {
@@ -110,6 +117,8 @@ export interface BaseCheckboxProps {
     onMouseEnter?: (e: any) => void;
     onMouseLeave?: (e: any) => void;
     extra?: any;
+    addonId?: string;
+    extraId?: string;
 }
 
 export default CheckboxFoundation;
