@@ -123,6 +123,7 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
             onMouseLeave,
             extra,
             value,
+            id,
         } = this.props;
         const { checked } = this.state;
         const props: Record<string, any> = {
@@ -174,6 +175,7 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
             <span
                 style={style}
                 className={wrapper}
+                id={id}
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
                 onClick={this.handleChange}

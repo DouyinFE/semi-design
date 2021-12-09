@@ -107,6 +107,7 @@ class CheckboxFoundation<P = Record<string, any>, S = Record<string, any>> exten
 }
 
 export interface BaseCheckboxProps {
+    id?: string;
     autoFocus?: boolean;
     checked?: boolean;
     defaultChecked?: boolean;
