@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Button from '../../button';
 import Space from '../../space';
 
-import { Radio, RadioGroup } from '../../index';
+import { Radio, RadioGroup, Form, Tooltip } from '../../index';
 import { Row, Col } from '../../grid';
 import './radio.scss';
 
@@ -855,3 +855,14 @@ export const RadioGroupPureCardStyle = () => (
 RadioGroupPureCardStyle.story = {
   name: 'radioGroup pureCard style'
 }
+
+export const FixWithFieldLossRef = () => {
+  return (
+    <Form>
+        <Tooltip visible trigger="custom" content={'hi bytedance'}>
+            <Form.Radio>Semi</Form.Radio>
+        </Tooltip>
+    </Form>
+  );
+}
+FixWithFieldLossRef.storyName = '修复 Form Field 丢失 ref 问题 #384';
