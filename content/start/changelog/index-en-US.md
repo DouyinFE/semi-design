@@ -16,6 +16,15 @@ Version：Major.Minor.Patch
 
 ---
 
+#### 🎉 2.1.5 (2021-12-10)
+
+- 【Fix】
+  - Timeline.time ts definition supports ReactNode type [#359](https://github.com/DouyinFE/semi-design/issues/359) [@chenc041](https://github.com/chenc041)
+  - Fix the problem of Tree component onContextMenu preventing bubbling [#364](https://github.com/DouyinFE/semi-design/issues/364) [@Nctdtman](https://github.com/Nctdtman)
+  - Fix the missing id of Select/Checkbox/Button [#353](https://github.com/DouyinFE/semi-design/issues/353)
+  - Fix the problem that the definitions of Nav footer and header dts are reversed
+  - Fix the problem that the z-index of Table fixed cell is too small, adjusted from 1 to 101 [#391](https://github.com/DouyinFE/semi-design/issues/391)
+
 #### 🎉 2.1.4 (2021-12-03)
 - 【Fix】
   - Add nativeEvent.stopImmediatePropagation to the event input parameter of Checkbox onChange callback [#343](https://github.com/DouyinFE/semi-design/issues/343)

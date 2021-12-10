@@ -9,10 +9,11 @@ order: 7
 
 
 
-
-#### About the release time
-
-Semi team will release the official minor version every two Fridays, and the minor beta will be released on the middle Friday
+#### What is the relationship between Semi 2.x (open source version) and Semi 1.x?
+ - The Semi v2.0 version is refactored based on v1.x using ts, which brings a better ts experience and a more out-of-the-box engineering solution, which solves the coexistence of multi-component libraries in the micro front-end scenario Style conflict issues, etc. All subsequent long-term work of the Semi team will be based on the v2.x version
+ - At present, v2.0 and v1.x will still be maintained in parallel for a period of time. Feature addition on v1.x will be gradually stopped in the future, and only necessary bug fix changes will be provided.
+ - For new projects, we recommend that you directly use 2.x [@douyin/semi-ui](https://semi.design) for development. For existing projects, we also recommend that you upgrade as soon as possible. In order to reduce the cost of upgrading, we provide a cli tool one-click migration (@ies/semi-codemod-v2) that can help you automatically complete up to 90% of the migration and modification (limited by the AST implementation principle, there are still a small number of cases that require manual labor review modification, but not much 😉)
+ - Upgrade from Semi 1.x to Semi 2.x for detailed operation steps [From v1 to v2](https://semi.design/zh-CN/start/update-to-v2)
 
 #### Relationship between versions
 
