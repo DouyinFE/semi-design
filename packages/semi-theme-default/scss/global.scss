@@ -80,7 +80,7 @@ body, body[theme-mode="dark"] .semi-always-light {
     --semi-color-border: rgba(var(--semi-grey-9), .08); // 默认描边颜色
     --semi-color-nav-bg: rgba(var(--semi-white), 1); // 导航背景色
 
-    --semi-overlay-bg: rgba(22, 22, 26, .6); // 蒙层背景色
+    --semi-color-overlay-bg: rgba(22, 22, 26, .6); // 蒙层背景色
 
     --semi-color-fill-0: rgba(var(--semi-grey-8), .05); // 填充色 - 默认态
     --semi-color-fill-1: rgba(var(--semi-grey-8), .09); // 填充色 - 悬浮态
@@ -168,7 +168,7 @@ body[theme-mode="dark"], body .semi-always-dark {
     --semi-color-link-visited: rgba(var(--semi-blue-5), 1);
     --semi-color-nav-bg: rgba(35, 36, 41, 1);
     --semi-shadow-elevated: inset 0 0 0 1px rgba(255, 255, 255, .1), 0 4px 14px rgba(0, 0, 0, .25);
-    --semi-overlay-bg: rgba(22, 22, 26, .6);
+    --semi-color-overlay-bg: rgba(22, 22, 26, .6);
     --semi-color-fill-0: rgba(var(--semi-white), .05);
     --semi-color-fill-1: rgba(var(--semi-white), .09);
     --semi-color-fill-2: rgba(var(--semi-white), .13);
