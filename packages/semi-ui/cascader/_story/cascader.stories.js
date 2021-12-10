@@ -275,6 +275,25 @@ export const _Cascader = () => {
       <br />
       <Cascader
         style={{ width: 300 }}
+        treeData={treeData1}
+        placeholder="Multiple select"
+        multiple
+        motion={false}
+      />
+      <br />
+      <br />
+      <Cascader
+        style={{ width: 300 }}
+        treeData={treeData1}
+        placeholder="Multiple select enableLeafClick"
+        multiple
+        enableLeafClick
+        motion={false}
+      />
+      <br />
+      <br />
+      <Cascader
+        style={{ width: 300 }}
         treeData={[]}
         motion={false}
         placeholder="Please select"
