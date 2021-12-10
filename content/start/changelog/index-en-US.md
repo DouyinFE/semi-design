@@ -24,7 +24,9 @@ Version：Major.Minor.Patch
   - Fix the missing id of Select/Checkbox/Button [#353](https://github.com/DouyinFE/semi-design/issues/353)
   - Fix the problem that the definitions of Nav footer and header dts are reversed
   - Fix the problem that the z-index of Table fixed cell is too small, adjusted from 1 to 101 [#391](https://github.com/DouyinFE/semi-design/issues/391)
-
+  - Fixed Form Field losing ref bug when it is not given filed prop
+- 【Style】
+  - Fix the problem that the naming of --overlay-bg token is not standardized. Modified to --color-overlay-bg
 #### 🎉 2.1.4 (2021-12-03)
 - 【Fix】
   - Add nativeEvent.stopImmediatePropagation to the event input parameter of Checkbox onChange callback [#343](https://github.com/DouyinFE/semi-design/issues/343)

@@ -23,7 +23,9 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
   - 修复 Select/Checkbox/Button 缺少 id 的问题 [#353](https://github.com/DouyinFE/semi-design/issues/353)
   - 修复 Nav  footer、header dts定义相反了的问题
   - 修复 Table fixed 单元格 z-index 过小问题，从 1 调整为 101 [#391](https://github.com/DouyinFE/semi-design/issues/391)
-
+  - 修复 Form Field 在未声明 field 属性时使用时下丢失 ref 的问题
+- 【Style】
+  - 修复 --overlay-bg token 命名不规范的问题。 修改为 --color-overlay-bg
 #### 🎉 2.1.4 (2021-12-03)
 
 - 【Fix】
