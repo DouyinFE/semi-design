@@ -61,7 +61,7 @@
       "type": "git",
       "url": "https://github.com/DouyinFE"
     },
-  "_unpkg": true,
+    "_unpkg": true,
     "unpkgFiles": [
         "dist/css",
         "dist/umd/*.js"
