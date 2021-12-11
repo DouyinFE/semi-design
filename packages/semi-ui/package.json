@@ -53,7 +53,15 @@
         "pc component",
         "dark mode"
     ],
-    "_unpkg": true,
+    "homepage": "https://semi.desig",
+    "bugs": {
+      "url": "https://github.com/DouyinFE/semi-design/issues"
+    },
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/DouyinFE"
+    },
+  "_unpkg": true,
     "unpkgFiles": [
         "dist/css",
         "dist/umd/*.js"
