@@ -14,7 +14,7 @@ import BaseComponent from '../_base/baseComponent';
 
 export { ListItemProps } from './item';
 
-export interface ListProps {
+export interface ListProps<T> {
     style?: React.CSSProperties;
     className?: string;
     bordered?: boolean;
@@ -24,8 +24,8 @@ export interface ListProps {
     size?: 'small' | 'large' | 'default';
     split?: boolean;
     emptyContent?: React.ReactNode;
-    dataSource?: any[];
-    renderItem?: (item: any, ind: number) => React.ReactNode;
+    dataSource?: T[];
+    renderItem?: (item: T, ind: number) => React.ReactNode;
     grid?: Grid;
     loading?: boolean;
     loadMore?: React.ReactNode;
@@ -35,7 +35,7 @@ export interface ListProps {
 
 const prefixCls = cssClasses.PREFIX;
 
-class List extends BaseComponent<ListProps> {
+class List<T = any> extends BaseComponent<ListProps<T>> {
     static Item = ListItem;
 
     static propTypes = {
