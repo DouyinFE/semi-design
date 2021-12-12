@@ -24,6 +24,10 @@ $module: #{$prefix}-descriptions;
         vertical-align: top;
     }
 
+    & tr:last-child &-item {
+        padding-bottom: 0;
+    }
+
     &-key {
         font-weight: normal;
         @include font-size-regular;
