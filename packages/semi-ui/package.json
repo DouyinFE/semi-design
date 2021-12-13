@@ -53,6 +53,14 @@
         "pc component",
         "dark mode"
     ],
+    "homepage": "https://semi.design",
+    "bugs": {
+      "url": "https://github.com/DouyinFE/semi-design/issues"
+    },
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/DouyinFE"
+    },
     "_unpkg": true,
     "unpkgFiles": [
         "dist/css",
