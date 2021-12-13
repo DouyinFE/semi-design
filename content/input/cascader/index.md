@@ -1426,6 +1426,7 @@ function Demo() {
 | validateStatus | trigger 的校验状态，仅影响展示样式。可选: default、error、warning | string | `default` | - |
 | value       | （受控）选中的条目                                                                   | string\|number\|TreeNode\|(string\|number\|TreeNode)[]                                                                           | -                                | -      |
 | zIndex | 下拉菜单的 zIndex | number | 1030 | - |
+| enableLeafClick | 多选时，是否启动点击叶子节点选项触发勾选 | boolean | false | 2.2.0 |
 | onBlur | 失焦 Cascader 的回调 | (e: MouseEvent) => void | - | - |
 | onChange           | 选中树节点时调用此函数，默认返回选中项 path 的 value 数组                            | (value: string\|number\|TreeNode\|(string\|number\|TreeNode)[]) => void                                                                         | -                                | -      |
 | onChangeWithObject | 是否将选中项 option 的其他属性作为回调。设为 true 时，onChange 的入参类型会从 string/number 变为 TreeNode。此时如果是受控，也需要把 value 设置成 TreeNode 类型，且必须含有 value 的键值，defaultValue 同理 | boolean | false | 1.16.0 |
