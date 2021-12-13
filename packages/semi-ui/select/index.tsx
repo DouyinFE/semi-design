@@ -115,6 +115,7 @@ export type SelectProps = {
     suffix?: React.ReactNode;
     prefix?: React.ReactNode;
     insetLabel?: React.ReactNode;
+    inputProps?: Record<string, any>;
     showClear?: boolean;
     showArrow?: boolean;
     renderSelectedItem?: RenderSelectedItemFn;
@@ -200,6 +201,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         dropdownStyle: PropTypes.object,
         outerTopSlot: PropTypes.node,
         innerTopSlot: PropTypes.node,
+        inputProps: PropTypes.object,
         outerBottomSlot: PropTypes.node,
         innerBottomSlot: PropTypes.node, // Options slot
         optionList: PropTypes.array,
@@ -558,18 +560,20 @@ class Select extends BaseComponent<SelectProps, SelectState> {
     handleInputChange = (value: string) => this.foundation.handleInputChange(value);
 
     renderInput() {
-        const { size, multiple, disabled } = this.props;
+        const { size, multiple, disabled, inputProps } = this.props;
+        const inputPropsCls = get(inputProps, 'className');
         const inputcls = cls(`${prefixcls}-input`, {
             [`${prefixcls}-input-single`]: !multiple,
             [`${prefixcls}-input-multiple`]: multiple,
-        });
+        }, inputPropsCls);
         const { inputValue } = this.state;
 
-        const inputProps: Record<string, any> = {
+        const selectInputProps: Record<string, any> = {
             value: inputValue,
             disabled,
             className: inputcls,
             onChange: this.handleInputChange,
+            ...inputProps,
         };
 
         let style = {};
@@ -578,18 +582,18 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             style = {
                 width: inputValue ? `${inputValue.length * 16}px` : '2px',
             };
-            inputProps.style = style;
+            selectInputProps.style = style;
         }
         return (
             <Input
                 ref={this.inputRef as any}
                 size={size}
-                {...inputProps}
                 onFocus={(e: React.FocusEvent<HTMLInputElement>) => {
                     // prevent event bubbling which will fire trigger onFocus event
                     e.stopPropagation();
                     // e.nativeEvent.stopImmediatePropagation();
                 }}
+                {...selectInputProps}
             />
         );
     }

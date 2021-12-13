@@ -719,14 +719,14 @@ import { Select, Avatar, Tag } from '@douyinfe/semi-ui';
         { "name": "Yue Shen", "email": "shenyue@example.com", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg" },
         { "name": "Chenyi Qu", "email": "quchenyi@example.com", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/8bd8224511db085ed74fea37205aede5.jpg" },
         { "name": "Jiamao Wen", "email": "wenjiamao@example.com", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/6fbafc2d-e3e6-4cff-a1e2-17709c680624.png" },
-    ]
+    ];
 
     const renderSelectedItem = optionNode => (
         <div key={optionNode.email} style={{ display: 'flex', alignItems: 'center' }}>
             <Avatar src={optionNode.avatar} size="small">{optionNode.abbr}</Avatar>
             <span style={{ marginLeft: 8 }}>{optionNode.email}</span>
         </div>
-    )
+    );
 
     // avatarSrc & avatarShape are supported after 1.6.0-beta
     const renderMultipleWithCustomTag = (optionNode, { onClose }) => {
@@ -746,7 +746,7 @@ import { Select, Avatar, Tag } from '@douyinfe/semi-ui';
             isRenderInTag: false,
             content
         };
-    }
+    };
 
     const renderMultipleWithCustomTag2 = (optionNode, { onClose }) => {
         const content = (
@@ -765,7 +765,7 @@ import { Select, Avatar, Tag } from '@douyinfe/semi-ui';
             isRenderInTag: false,
             content
         };
-    }
+    };
 
     const renderCustomOption = (item, index) => {
         const optionStyle = {
@@ -773,17 +773,17 @@ import { Select, Avatar, Tag } from '@douyinfe/semi-ui';
             paddingLeft: 24,
             paddingTop: 10,
             paddingBottom: 10
-        }
+        };
         return (
-            <Select.Option key={index} value={item.name} style={optionStyle} showTick={true}  {...item} key={item.email}>
+            <Select.Option value={item.name} style={optionStyle} showTick={true}  {...item} key={item.email}>
                 <Avatar size="small" src={item.avatar} />
                 <div style={{ marginLeft: 8 }}>
                     <div style={{ fontSize: 14 }}>{item.name}</div>
                     <div style={{ color: 'var(--color-text-2)', fontSize: 12, lineHeight: '16px', fontWeight: 'normal' }}>{item.email}</div>
                 </div>
             </Select.Option>
-        )
-    }
+        );
+    };
 
     return (
         <>
@@ -820,7 +820,7 @@ import { Select, Avatar, Tag } from '@douyinfe/semi-ui';
             </Select>
         </>
     );
-}
+};
 ```
 
 ### Custom pop-up layer style
@@ -1298,7 +1298,8 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | emptyContent | Content displayed when there is no result. When set to null, the drop-down list will not be displayed | string | ReactNode |  |
 | filter | Whether searchable or not, the default is false. When `true` is passed, it means turn on search ability, default filtering policy is whether the label matches search input<br/>When the input type is function, the function arguments are searchInput, option. It should return true when the option meets the filtering conditions, otherwise it returns false. | false | boolean\|function |  |
 | getPopupContainer | Specifies the parent DOM, and the popup layer will be rendered to the DOM, you need to set 'position: relative`| function(): HTMLElement | () => document.body |
-| innerTopSlot | Render at the top of the pop-up layer, custom slot inside the optionList <br/>** supported after v1.6.0 ** | ReactNode |  |
+| inputProps | When filter is true, the additional configuration parameters of the input, please refer to the Input component for specific configurable properties (note: please do not pass in `value`, `ref`, `onChange`, `onFocus`, otherwise it will override Select related callbacks and affect component behavior) <br/>**supported after v2.2.0** | object | 
+| innerTopSlot | Render at the top of the pop-up layer, custom slot inside the optionList | ReactNode |  |
 | innerBottomSlot | Render at the bottom of the pop-up layer, custom slot inside the optionList | ReactNode |  |
 | insetLabel | Same to `prefix`, just an alias | ReactNode |  |
 | loading | Does the drop-down list show the loading animation | boolean | false |
@@ -1321,7 +1322,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | spacing | Spacing between popup layer and trigger | number | 4 |
 | style | Inline Style | object |  |
 | suffix | An input helper rendered after | ReactNode |  |
-| triggerRender | Custom DOM of trigger <br/>**supported after v0.34.0** | function |  |
+| triggerRender | Custom DOM of trigger | function |  |
 | virtualize | List virtualization, used to optimize performance in the case of a large number of nodes, composed of height, width, and itemSize <br/>** supported after v0.37.0 ** | object |  |
 | validateStatus | Verification result, optional `warning`, `error`, `default` (only affect the style background color) | string | 'default' |
 | value | The currently selected value is passed as a controlled component, used in conjunction with `onchange` | string\|number\|array |  |
