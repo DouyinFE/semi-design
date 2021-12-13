@@ -44,7 +44,7 @@ Semi 目前支持 14 种语言，具体使用可以查阅 [Semi·LocaleProvider]
 
 #### Semi 的默认的主题风格跟我们系统的定位不符，可以配置另外的主题吗？
 
-具体请参考 [定制主题](/zh-CN/start/customize-theme) 。在我们的 [主题管理平台](/dsm) 里可以进行样式的配置，你只需要在 webpack.config.js 里指定使用的主题包名即可完成接入（需接入 Semi 插件）。
+具体请参考 [定制主题](/zh-CN/start/customize-theme) 。在[Semi DSM](/dsm) 里可以进行样式的配置，你只需要在 webpack.config.js 里指定使用的主题包名即可完成接入（需接入 Semi 插件）。
 
 #### 为什么 Tooltip、Typography 不默认配置 word-break 样式？
 

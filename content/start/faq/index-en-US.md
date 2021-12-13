@@ -25,12 +25,6 @@ order: 7
 Property like `defaultValue`, `defaultXXX` will only be consumed once when the component mount. If your `defaultXXX` property is updated asynchronously later, the component will not reconsume the value. If necessary, you should use controlled `value`, controlled `XXX`.
 Or force React to remount the component by passing in a different `key`.
 
-#### this._adapter.xxx is not a function
-
-This situation generally occurs when semi-ui-react does not match the semi-ui version of the dependency. It is more common when users lock the semi-ui-react version in package.json (that is, remove ^), but In some cases, package-lock.json and node_modules were deleted, and install was executed again
-Please check the version of semi-ui and semi-ui-react through package-lock.json in your project. It is recommended that if the version is locked, either lock both. Either don't lock both of them, and directly use the package-lock.json mechanism to ensure that the versions used are consistent.
-
-
 #### Does Semi support i18n?
 As of 2021-10, Semi supports 14 languages. See [Semi·LocaleProvider](/en-US/other/locale) for details.
 
@@ -48,7 +42,7 @@ Our style is based on Scss, and we also use CSS Variable as the color wheel vari
 
 #### Semi's default theme style does not match the positioning of our system. Can i configure another theme?
 
-Please refer to [Custom theme](/en-US/start/customize-theme) . In our [DSM](/dsm) You can configure the style. You only need to specify the theme package name in `webpack.config.js` to complete the access.
+Please refer to [Custom theme](/en-US/start/customize-theme) . In [Semi DSM](/dsm) You can configure the style. You only need to specify the theme package name in `webpack.config.js` to complete the access.
 
 #### Why Tooltip、Typography does not set style word-break to all or word?  
    Content in difference languages (e.g. English, Chinese, combination of English and Chinese) may require different styles in terms of word-break, so Semi does not use a default setting. You could use corresponding CSS styles to your own needs.
