@@ -671,6 +671,69 @@ import { Cascader, Tag, Typography } from '@douyinfe/semi-ui';
 };
 ```
 
+### 自定义分隔符
+
+版本: >=2.2.0
+
+可以使用 `separator` 设置分隔符, 包括：搜索时显示在下拉框的内容以及单选时回显到 Trigger 的内容的分隔符。
+
+```jsx live=true
+import React from 'react';
+import { Cascader } from '@douyinfe/semi-ui';
+
+() => {
+    const treeData = [
+        {
+            label: '浙江省',
+            value: 'zhejiang',
+            children: [
+                {
+                    label: '杭州市',
+                    value: 'hangzhou',
+                    children: [
+                        {
+                            label: '西湖区',
+                            value: 'xihu',
+                        },
+                        {
+                            label: '萧山区',
+                            value: 'xiaoshan',
+                        },
+                        {
+                            label: '临安区',
+                            value: 'linan',
+                        },
+                    ],
+                },
+                {
+                    label: '宁波市',
+                    value: 'ningbo',
+                    children: [
+                        {
+                            label: '海曙区',
+                            value: 'haishu',
+                        },
+                        {
+                            label: '江北区',
+                            value: 'jiangbei',
+                        }
+                    ]
+                },
+            ],
+        }
+    ];
+    return (
+        <Cascader
+            style={{ width: 300 }}
+            treeData={treeData}
+            defaultValue={['zhejiang', 'ningbo', 'jiangbei']}
+            filterTreeNode
+            separator=' > '
+        />
+    );
+};
+```
+
 ### 禁用
 
 ```jsx live=true
@@ -1411,6 +1474,7 @@ function Demo() {
 | prefix             | 前缀标签                                                                             | ReactNode                                                                        | -                                | 0.28.0 |
 |restTagsPopoverProps |Popover 的配置属性，可以控制 position、zIndex、trigger 等，具体参考[Popover](/zh-CN/show/popover#API%20%E5%8F%82%E8%80%83)           |PopoverProps     | {}        |1.28.0|
 | searchPlaceholder  | 搜索框默认文字                                                                       | string                                                                           | -                                | -      |
+| separator  | 自定义分隔符，包括：搜索时显示在下拉框的内容以及单选时回显到 Trigger 的内容的分隔符    | string                                                                           | ' / '                                | 2.2.0      |
 | showClear       |  是否展示清除按钮   | boolean    | false    | 0.35.0    |
 | showNext| 设置展开 Dropdown 子菜单的方式，可选: `click`、`hover` | string |`click`|1.29.0|
 | showRestTagsPopover| 当超过 maxTagCount，hover 到 +N 时，是否通过 Popover 显示剩余内容| boolean |false|1.28.0|
