@@ -89,7 +89,16 @@ function Demo() {
 ```jsx live=true
 import React from 'react';
 import { Dropdown, Button } from '@douyinfe/semi-ui';
-import { IconBox, IconSimilarity, IconSetting, IconForward, IconColorPalette, IconRefresh, IconSearch, IconBranch } from '@douyinfe/semi-icons';
+import {
+    IconBox,
+    IconSimilarity,
+    IconSetting,
+    IconForward,
+    IconColorPalette,
+    IconRefresh,
+    IconSearch,
+    IconBranch,
+} from '@douyinfe/semi-icons';
 
 function Demo() {
     return (
@@ -341,9 +350,7 @@ class DropdownEvents extends React.Component {
 
 ### 分组组合
 
-使用 `Dropdown.Divider` 可以插入分割线
-使用 `Dropdown.Title` 可以插入分组名
-组合使用 `Dropdown.Title`、`Dropdown.Divider`、`Dropdown.Item`。
+使用 `Dropdown.Divider` 可以插入分割线使用 `Dropdown.Title` 可以插入分组名组合使用 `Dropdown.Title`、`Dropdown.Divider`、`Dropdown.Item`。
 
 ```jsx live=true
 import React from 'react';
@@ -389,7 +396,7 @@ class DropdownEvents extends React.Component {
 
 ### Json 用法
 
-可以通过menu属性，传入JSON Array快速配置出下拉框菜单
+可以通过 menu 属性，传入 JSON Array 快速配置出下拉框菜单
 
 ```jsx live=true
 import React from 'react';
@@ -418,28 +425,29 @@ function DropdownEvents() {
 
 ### Dropdown
 
-| 属性               | 说明                                                                                                          | 类型                       | 默认值              | 版本              |
-| ------------------ | ------------------------------------------------------------------------------------------------------------- | -------------------------- | ------------------- | ----------------- |
-| autoAdjustOverflow | 弹出层被遮挡时是否自动调整方向                                                                                  | boolean                    | true                |                   |
-| className          | 下拉弹层外层样式类名                                                                                          | string                     |                     |                   |
-| children           | 触发弹出层的Trigger元素                                                                                          | ReactNode                  |                     |                   |
-| clickToHide        | 在弹出层内点击时是否自动关闭弹出层                                                                           | boolean                    |                     | **0.24.0**        |
-| contentClassName   | 下拉菜单根元素类名                                                                                            | string                     |                     |                   |
-| getPopupContainer  | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 `position: relative`                                    | function():HTMLElement     | () => document.body |                   |
-| mouseEnterDelay    | 鼠标移入Trigger后，延迟显示的时间，单位毫秒（仅当 trigger 为 hover/focus 时生效）                                     | number                     | 50                    |                   |
-| mouseLeaveDelay    | 鼠标移出弹出层后，延迟消失的时间，单位毫秒（仅当 trigger 为 hover/focus 时生效）                                      | number                     | 50                 |                   |
-| menu               | 通过传入JSON Array来快速配置Dropdown内容                                                                           | Array<DropdownMenuItem\>   | []                  | **1.12.0**        |
-| position           | 弹出菜单的位置，常用："bottom", "bottomLeft", "bottomRight"，更多详见[Tooltip 位置](https://semi.design/zh-CN/show/tooltip#%E4%BD%8D%E7%BD%AE) | string                     | "bottom"            |                   |
-| render             | 弹出层的内容，由 `Dropdown.Menu` 及 `Dropdown.Item`、`Dropdown.Title` 构成                                    | ReactNode                  |                     |                   |
-| rePosKey           | 可以更新该项值手动触发弹出层的重新定位                              | string \| number                |                     |                   |
-| spacing            | 弹出层与 Trigger元素（即Dropdown children）的距离，单位px                                                                                | number                     | 4                   |                   |
-| style              | 弹出层内联样式                                                                                            | object                     |                     |                   |
-| showTick           | 是否自动在 active 的 Dropdown.Item 项左侧展示表示选中的勾                                                     | boolean                    | false               | **0.26.0**        |
-| stopPropagation    | 是否阻止弹出层上的点击事件冒泡                                                                                  | boolean                    | false               | **0.34.0** |
-| trigger            | 触发下拉的行为，可选 "hover", "focus", "click", "custom"                                                      | string                     | "hover"             |                   |
-| visible            | 是否显示菜单，需配合trigger custom使用                                       | boolean                    | 无                  |                   |
-| zIndex             | 弹出层 z-index 值                                                                                             | number                     | 1050                |                   |
-| onVisibleChange    | 弹出层显示状态改变时的回调                                                                                      | function(visible: boolean) |                     |                   |
+| 属性 | 说明 | 类型 | 默认值 | 版本 |
+| --- | --- | --- | --- | --- |
+| autoAdjustOverflow | 弹出层被遮挡时是否自动调整方向 | boolean | true |  |
+| className | 下拉弹层外层样式类名 | string |  |  |
+| children | 触发弹出层的 Trigger 元素 | ReactNode |  |  |
+| clickToHide | 在弹出层内点击时是否自动关闭弹出层 | boolean |  | **0.24.0** |
+| contentClassName | 下拉菜单根元素类名 | string |  |  |
+| getPopupContainer | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 `position: relative` | function():HTMLElement | () => document.body |  |
+| mouseEnterDelay | 鼠标移入 Trigger 后，延迟显示的时间，单位毫秒（仅当 trigger 为 hover/focus 时生效） | number | 50 |  |
+| mouseLeaveDelay | 鼠标移出弹出层后，延迟消失的时间，单位毫秒（仅当 trigger 为 hover/focus 时生效） | number | 50 |  |
+| menu | 通过传入 JSON Array 来快速配置 Dropdown 内容 | Array<DropdownMenuItem\> | [] | **1.12.0** |
+| position | 弹出菜单的位置，常用："bottom", "bottomLeft", "bottomRight"，更多详见[Tooltip 位置](https://semi.design/zh-CN/show/tooltip#%E4%BD%8D%E7%BD%AE) | string | "bottom" |  |
+| render | 弹出层的内容，由 `Dropdown.Menu` 及 `Dropdown.Item`、`Dropdown.Title` 构成 | ReactNode |  |  |
+| rePosKey | 可以更新该项值手动触发弹出层的重新定位 | string \| number |  |  |
+| spacing | 弹出层与 Trigger 元素（即 Dropdown children）的距离，单位 px | number | 4 |  |
+| style | 弹出层内联样式 | object |  |  |
+| showTick | 是否自动在 active 的 Dropdown.Item 项左侧展示表示选中的勾 | boolean | false | **0.26.0** |
+| stopPropagation | 是否阻止弹出层上的点击事件冒泡 | boolean | false | **0.34.0** |
+| trigger | 触发下拉的行为，可选 "hover", "focus", "click", "custom" | string | "hover" |  |
+| visible | 是否显示菜单，需配合 trigger custom 使用 | boolean | 无 |  |
+| zIndex | 弹出层 z-index 值 | number | 1050 |  |
+| onClickOutSide | 当弹出层处于展示状态，点击非Children、非弹出层内部区域时的回调（仅trigger为custom、click时有效）| function(e:event) |  | **2.1.0** |
+| onVisibleChange | 弹出层显示状态改变时的回调 | function(visible: boolean) |  |  |
 
 ### Dropdown.Menu
 
@@ -451,18 +459,18 @@ function DropdownEvents() {
 
 ### Dropdown.Item
 
-| 属性          | 说明                                                                                                                                                | 类型     | 默认值     | 版本           |
-| ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ---------- | -------------- |
-| active        | 当前项是否处于激活态，激活态时左侧有 √，字体加粗，颜色加深。当 Dropdown 的 showTick 为 false 时，即使 Dropdown.Item 的 active 为 true，√ 也不会展示 | bool     | false      |                |
-| className     | 样式类名                                                                                                                                            | string   |            |                |
-| disabled      | 是否禁用菜单                                                                                                                                        | boolean  | false      |                |
-| icon          | 图标                                                                                                                          | ReactNode  |       |      **1.16.0**          |
-| style         | 内联样式                                                                                                                                            | object   |            |                |
-| type          | 类型，可选值："primary"、"secondary"、"tertiary"、"warning"、"danger"                                                                               | string   | "tertiary" |                |
-| onClick       | 单击触发的回调事件                                                                                                                                  | function | 无         |                |
-| onMouseEnter  | MouseEnter 触发的回调事件                                                                                                                           | function | 无         |                |
-| onMouseLeave  | MouseLeave 触发的回调事件                                                                                                                           | function | 无         |                |
-| onContextMenu | 点击鼠标右键触发的回调事件                                                                                                                          | function | 无         | **1.6.0** |
+| 属性 | 说明 | 类型 | 默认值 | 版本 |
+| --- | --- | --- | --- | --- |
+| active | 当前项是否处于激活态，激活态时左侧有 √，字体加粗，颜色加深。当 Dropdown 的 showTick 为 false 时，即使 Dropdown.Item 的 active 为 true，√ 也不会展示 | bool | false |  |
+| className | 样式类名 | string |  |  |
+| disabled | 是否禁用菜单 | boolean | false |  |
+| icon | 图标 | ReactNode |  | **1.16.0** |
+| style | 内联样式 | object |  |  |
+| type | 类型，可选值："primary"、"secondary"、"tertiary"、"warning"、"danger" | string | "tertiary" |  |
+| onClick | 单击触发的回调事件 | function | 无 |  |
+| onMouseEnter | MouseEnter 触发的回调事件 | function | 无 |  |
+| onMouseLeave | MouseLeave 触发的回调事件 | function | 无 |  |
+| onContextMenu | 点击鼠标右键触发的回调事件 | function | 无 | **1.6.0** |
 
 ### Dropdown.Title
 
@@ -480,9 +488,10 @@ function DropdownEvents() {
 | 其他属性与 Title、Item、Divider 属性对应 |                                            |        |        |
 
 ## 设计变量
+
 <DesignToken/>
 
-<!-- 
+<!--
 ## 相关物料
 
 ```material

@@ -82,3 +82,6 @@ $shadow-table_right: 3px 0 0 0 $color-table_shadow-bg-default; // 表格滚动�
 $border-table: #{$width-table_base_border} #{$border-table_base-borderStyle} $color-table-border-default; // 表格默认描边
 $border-table_head-bottom: #{$width-table_header_border} #{$border-table_base-borderStyle} $color-table_th-border-default; // 表头单元格描边 - 底部
 $border-table_resizer: $width-table_resizer_border solid $color-table_resizer-bg-default; // 表格拉伸标识描边
+
+$z-table-fixed: 101!default; // fixed列的zIndex值
+$z-table_fixed_column: $z-table-fixed; // fixed列的zIndex值

@@ -9,10 +9,11 @@ order: 7
 
 
 
-
-#### About the release time
-
-Semi team will release the official minor version every two Fridays, and the minor beta will be released on the middle Friday
+#### What is the relationship between Semi 2.x (open source version) and Semi 1.x?
+ - The Semi v2.0 version is refactored based on v1.x using ts, which brings a better ts experience and a more out-of-the-box engineering solution, which solves the coexistence of multi-component libraries in the micro front-end scenario Style conflict issues, etc. All subsequent long-term work of the Semi team will be based on the v2.x version
+ - At present, v2.0 and v1.x will still be maintained in parallel for a period of time. Feature addition on v1.x will be gradually stopped in the future, and only necessary bug fix changes will be provided.
+ - For new projects, we recommend that you directly use 2.x [@douyin/semi-ui](https://semi.design) for development. For existing projects, we also recommend that you upgrade as soon as possible. In order to reduce the cost of upgrading, we provide a cli tool one-click migration (@ies/semi-codemod-v2) that can help you automatically complete up to 90% of the migration and modification (limited by the AST implementation principle, there are still a small number of cases that require manual labor review modification, but not much 😉)
+ - Upgrade from Semi 1.x to Semi 2.x for detailed operation steps [From v1 to v2](https://semi.design/zh-CN/start/update-to-v2)
 
 #### Relationship between versions
 
@@ -23,12 +24,6 @@ Semi team will release the official minor version every two Fridays, and the min
 
 Property like `defaultValue`, `defaultXXX` will only be consumed once when the component mount. If your `defaultXXX` property is updated asynchronously later, the component will not reconsume the value. If necessary, you should use controlled `value`, controlled `XXX`.
 Or force React to remount the component by passing in a different `key`.
-
-#### this._adapter.xxx is not a function
-
-This situation generally occurs when semi-ui-react does not match the semi-ui version of the dependency. It is more common when users lock the semi-ui-react version in package.json (that is, remove ^), but In some cases, package-lock.json and node_modules were deleted, and install was executed again
-Please check the version of semi-ui and semi-ui-react through package-lock.json in your project. It is recommended that if the version is locked, either lock both. Either don't lock both of them, and directly use the package-lock.json mechanism to ensure that the versions used are consistent.
-
 
 #### Does Semi support i18n?
 As of 2021-10, Semi supports 14 languages. See [Semi·LocaleProvider](/en-US/other/locale) for details.
@@ -47,7 +42,7 @@ Our style is based on Scss, and we also use CSS Variable as the color wheel vari
 
 #### Semi's default theme style does not match the positioning of our system. Can i configure another theme?
 
-Please refer to [Custom theme](/en-US/start/customize-theme) . In our [DSM](/dsm) You can configure the style. You only need to specify the theme package name in `webpack.config.js` to complete the access.
+Please refer to [Custom theme](/en-US/start/customize-theme) . In [Semi DSM](/dsm) You can configure the style. You only need to specify the theme package name in `webpack.config.js` to complete the access.
 
 #### Why Tooltip、Typography does not set style word-break to all or word?  
    Content in difference languages (e.g. English, Chinese, combination of English and Chinese) may require different styles in terms of word-break, so Semi does not use a default setting. You could use corresponding CSS styles to your own needs.

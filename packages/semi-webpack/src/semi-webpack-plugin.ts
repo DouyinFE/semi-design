@@ -5,13 +5,19 @@ const _NormalModule_ = require('webpack/lib/NormalModule');
 export interface WebpackContext {
     NormalModule?: any;
 }
+
+export interface ExtractCssOptions {
+    loader: string;
+    loaderOptions?: any;
+}
 export interface SemiWebpackPluginOptions {
     theme?: string | SemiThemeOptions;
     prefixCls?: string;
     variables?: {[key: string]: string | number};
     include?: string;
     omitCss?: boolean;
-    webpackContext?: WebpackContext
+    webpackContext?: WebpackContext;
+    extractCssOptions?: ExtractCssOptions;
 }
 
 export interface SemiThemeOptions {
@@ -82,10 +88,14 @@ export default class SemiWebpackPlugin {
                 name: this.options.theme
             };
             if (!this.hasSemiThemeLoader(module.loaders)) {
+                const lastLoader = this.options.extractCssOptions ? {
+                    loader: this.options.extractCssOptions.loader,
+                    options: this.options.extractCssOptions.loaderOptions || {}
+                } : {
+                    loader: styleLoader
+                };
                 module.loaders = [
-                    {
-                        loader: styleLoader
-                    },
+                    lastLoader,
                     {
                         loader: cssLoader
                     }, {

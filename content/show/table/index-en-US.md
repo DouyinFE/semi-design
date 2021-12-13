@@ -4574,7 +4574,7 @@ type Filter = {
 | selectedRowKeys  | Specifies the key array of the selected item, which needs to work with onChange | string []                                                                                    |           |                    |
 | title            | Custom List Selection Box Title                                                 | string                                                                                       | ReactNode |                    |
 | width            | Custom list selection box width                                                 | string                                                                                       | number    |                    |
-| onChange         | A callback in the event of a change in the selected item                        | (selectedRowKeys: number[]\|string[], selectedRows: RecordType[]) => void                        |           |                    |
+| onChange         | A callback in the event of a change in the selected item. The first parameter will save the row keys selected last time, even if you do paging control or update the dataSource [FAQ](#faq) | (selectedRowKeys: number[]\|string[], selectedRows: RecordType[]) => void                        |           |                    |
 | onSelect         | Callback when the user manually clicks the selection box of a row               | (record: RecordType, selected: boolean, selectedRows: RecordType[], nativeEvent: MouseEvent) => void |           |                    |
 | onSelectAll      | The user manually clicks the callback of the header selection box, and all optional rows in the dataSource will be selected/unselected                        | (selected: boolean, selectedRows: RecordType[], changedRows: RecordType[]) => void                   |           |                    |
 
@@ -4676,6 +4676,10 @@ function Demo() {
 - **How to style the table cell?**
     
     It can be controlled by column.onHeaderCell and column.onCell.
+
+- **Why cache the previously selected keys for the first parameter of `rowSelection` `onChange`?**
+    
+    This is for the scenario where the selected row keys are lost when data is selected on the first page during paging, and then the data is selected on the second page. If you don't want to use the cached keys, you can filter it from the current dataSource or use the second parameter of `rowSelection` `onChange`.
 
 - **How is Table implemented, I want to know more details?**
 

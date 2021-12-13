@@ -388,7 +388,7 @@ import { IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, IconHistogram, I
                     ]}
                     header={{
                         logo: <img src="//lf1-cdn-tos.bytescm.com/obj/ttfe/ies/semi/webcast_logo.svg" />,
-                        text: '直播运营后台',
+                        text: 'Semi 运营后台',
                     }}
                     footer={{
                         collapseButton: true,

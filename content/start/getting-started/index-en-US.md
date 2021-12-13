@@ -52,19 +52,23 @@ class Demo extends React.Component {
 Use script and link tags to import files directly in the browser, and use the global variable `SemiUI`、`SemiIcons`、`SemiIllustrations`
 
 1. Please make sure you have import `react` and `react-dom` in advance
-2. Import the JS file, the following example URL 2.0.0 is the version identifier, if you want to use a different version of Semi, just replace the corresponding value in version (note that the build file is only available after v1.3.0)
-    - semi-ui min：`https://unpkg.com/@douyinfe/semi-ui@2.0.0/dist/umd/semi-ui-react.min.js`
-    - semi-ui normal: `https://unpkg.com/@douyinfe/semi-ui@2.0.0/dist/umd/semi-ui-react.js`
+2. Import the JS file, the following example URL 2.1.4 is the version identifier, if you want to use a different version of Semi, just replace the corresponding value in version
 
+| Resource | URL |
+| --- | --- |
+| semi-ui (min) | https://unpkg.com/@douyinfe/semi-ui@2.1.4/dist/umd/semi-ui.min.js |
+| semi-icons (min) | https://unpkg.com/@douyinfe/semi-icons@latest/dist/umd/semi-icons.min.js |
+| semi-illustrations (min) | https://unpkg.com/@douyinfe/semi-illustrations@latest/dist/umd/semi-illustrations.min.js |
+| semi-ui (normal) | https://unpkg.com/@douyinfe/semi-ui@2.1.4/dist/umd/semi-ui.js |
+| semi-icons (normal) | https://unpkg.com/@douyinfe/semi-icons@latest/dist/umd/semi-icons.js |
+| semi-illustrations (normal) | https://unpkg.com/@douyinfe/semi-illustrations@latest/dist/umd/semi-illustrations.js |
 
-    - semi-icons min: `https://unpkg.com/@douyinfe/semi-icons@latest/dist/umd/semi-icons.min.js`
-    - semi-icons normal: `https://unpkg.com/@douyinfe/semi-icons@latest/dist/umd/semi-icons.js`
-
-    - semi-illustrations min: `https://unpkg.com/@douyinfe/semi-illustrations@latest/dist/umd/semi-illustrations.min.js`
-    - semi-illustrations normal: `https://unpkg.com/@douyinfe/semi-illustrations@latest/dist/umd/semi-illustrations.js`
 3. Import the CSS style file of the Semi default theme
-    - `https://unpkg.com/@douyinfe/semi-ui@2.0.0/dist/css/semi.css`
-    - `https://unpkg.com/@douyinfe/semi-icons@latest/dist/css/semi-icons.css`
+
+| Resource | URL |
+| --- | --- |
+| semi.css | https://unpkg.com/@douyinfe/semi-ui@2.1.4/dist/css/semi.css |
+| semi-icons.css | https://unpkg.com/@douyinfe/semi-icons@latest/dist/css/semi-icons.css |
 
 ```diff
 <!DOCTYPE html>
@@ -74,8 +78,8 @@ Use script and link tags to import files directly in the browser, and use the gl
 +       <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
 +       <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
 
-+       <script src="https://unpkg.com/@douyinfe/semi-ui@2.0.0/dist/umd/semi-ui-react.min.js"></script>
-+       <link rel="stylesheet" href="https://unpkg.com/@douyinfe/semi-ui@2.0.0/dist/css/semi.css">
++       <script src="https://unpkg.com/@douyinfe/semi-ui@2.1.4/dist/umd/semi-ui-react.min.js"></script>
++       <link rel="stylesheet" href="https://unpkg.com/@douyinfe/semi-ui@2.1.4/dist/css/semi.css">
 
 +       <script src="https://unpkg.com/@douyinfe/semi-icons@latest/dist/umd/semi-icons.min.js"></script>
 +       <link rel="stylesheet" href="https://unpkg.com/@douyinfe/semi-icons@latest/dist/css/semi-icons.css">

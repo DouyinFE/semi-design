@@ -16,6 +16,28 @@ Version：Major.Minor.Patch
 
 ---
 
+#### 🎉 2.1.5 (2021-12-10)
+
+- 【Fix】
+  - Timeline.time ts definition supports ReactNode type [#359](https://github.com/DouyinFE/semi-design/issues/359) [@chenc041](https://github.com/chenc041)
+  - Fix the problem of Tree component onContextMenu preventing bubbling [#364](https://github.com/DouyinFE/semi-design/issues/364) [@Nctdtman](https://github.com/Nctdtman)
+  - Fix the missing id of Select/Checkbox/Button [#353](https://github.com/DouyinFE/semi-design/issues/353)
+  - Fix the problem that the definitions of Nav footer and header dts are reversed
+  - Fix the problem that the z-index of Table fixed cell is too small, adjusted from 1 to 101 [#391](https://github.com/DouyinFE/semi-design/issues/391)
+  - Fixed Form Field losing ref bug when it is not given filed prop
+- 【Style】
+  - Fix the problem that the naming of --overlay-bg token is not standardized. Modified to --color-overlay-bg
+#### 🎉 2.1.4 (2021-12-03)
+- 【Fix】
+  - Add nativeEvent.stopImmediatePropagation to the event input parameter of Checkbox onChange callback [#343](https://github.com/DouyinFE/semi-design/issues/343)
+  - Fix the problem that when Cascader is multi-selected, clicking Checkbox will trigger bubbling in some scenarios [#343](https://github.com/DouyinFE/semi-design/issues/343)
+  - Fix that ButtonGroup children are not ReactElement report errors [#318](https://github.com/DouyinFE/semi-design/issues/318) 
+  - Fix Rating component half star ui error, when parent element set line-height [#346](https://github.com/DouyinFE/semi-design/issues/346)
+  - Checkbox/Radio
+    - Fix the style of the state switching of the mouse when the mouse is moved in/out of the checked button [#319](https://github.com/DouyinFE/semi-design/issues/319) 
+    - Fix the border of the checked button will appear when the checked button is hover/active [#319](https://github.com/DouyinFE/semi-design/issues/319) 
+    - Optimize the style of the checked+disabled state of the card/pureCard type [#319](https://github.com/DouyinFE/semi-design/issues/319) 
+
 #### 🎉 2.1.3 (2021-11-30)
 - 【Fix】
   - Fix the bug of replacing source in ImportDeclaration during source code building
