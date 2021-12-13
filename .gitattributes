@@ -1,5 +1,5 @@
 src/*  -linguist-detectable
-**/_story/* -linguist-detectable
+packages/**/_story/* -linguist-detectable
 packages/* linguist-detectable
 *.tsx linguist-language=TypeScript
 *.jsx linguist-language=JavaScript
