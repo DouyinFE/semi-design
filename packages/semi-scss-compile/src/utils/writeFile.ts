@@ -1,8 +1,8 @@
 import fs from 'fs-extra';
 import path from 'path';
 import os from 'os';
-import generateScssMap from "./generateSCSSMap";
-import { cloneDeep, omit } from "lodash";
+import generateScssMap from './generateSCSSMap';
+import { cloneDeep, omit } from 'lodash';
 
 const lodash = { cloneDeep, omit };
 
@@ -22,7 +22,7 @@ const writeThemeScss = (scssMap: (ReturnType<typeof generateScssMap>)['theme'], 
     fs.emptyDirSync(themeDirPath);
 
     for (const scssFileName of Object.keys(scssMap)) {
-        fs.writeFileSync(path.join(themeDirPath, scssFileName), scssMap[scssFileName as keyof typeof scssMap] as string, { encoding: "utf8" });
+        fs.writeFileSync(path.join(themeDirPath, scssFileName), scssMap[scssFileName as keyof typeof scssMap] as string, { encoding: 'utf8' });
     }
     return;
 };
@@ -52,11 +52,11 @@ const preProcessScssMap = (scssMapOrigin: ReturnType<typeof generateScssMap>) =>
 
 
     //----- inject component token file local.scss to component's variables.scss -----
-    const themeLocalRaw = scssMap.theme["local.scss"];
+    const themeLocalRaw = scssMap.theme['local.scss'];
     if (themeLocalRaw) {
         for (const componentName of Object.keys(scssMap['components'])) {
-            if (scssMap["components"][componentName]['variables.scss']) {
-                scssMap["components"][componentName]['variables.scss'] += `\n\n\n\n//inject custom theme variables\n${themeLocalRaw}`;
+            if (scssMap['components'][componentName]['variables.scss']) {
+                scssMap['components'][componentName]['variables.scss'] += `\n\n\n\n//inject custom theme variables\n${themeLocalRaw}`;
             }
         }
     }
@@ -64,7 +64,7 @@ const preProcessScssMap = (scssMapOrigin: ReturnType<typeof generateScssMap>) =>
 
     return {
         ...{
-            components: scssMap["components"],
+            components: scssMap['components'],
             theme: lodash.omit(scssMap['theme'], 'local.scss')
         },
         index: compilerEntryContent
@@ -76,10 +76,10 @@ const writeFile = (scssMap: ReturnType<typeof generateScssMap>, tempDir: string 
     fs.emptyDirSync(tempDir);
 
     const finalScssMapWaitForCompiling = preProcessScssMap(scssMap);
-    writeComponentScss(finalScssMapWaitForCompiling["components"], tempDir);
+    writeComponentScss(finalScssMapWaitForCompiling['components'], tempDir);
     writeThemeScss(finalScssMapWaitForCompiling['theme'], tempDir);
     //write compile entry
-    fs.writeFileSync(path.join(tempDir, 'index.scss'), finalScssMapWaitForCompiling['index'], { encoding: "utf8" });
+    fs.writeFileSync(path.join(tempDir, 'index.scss'), finalScssMapWaitForCompiling['index'], { encoding: 'utf8' });
     return tempDir;
 };
 
