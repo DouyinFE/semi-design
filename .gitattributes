@@ -1,4 +1,4 @@
 *  linguist-detectable=false；
 packages/* linguist-detectable=true；
-*.tsx linguist-language=ts
-*.jsx linguist-language=js
+*.tsx linguist-language=TypeScript
+*.jsx linguist-language=JavaScript
