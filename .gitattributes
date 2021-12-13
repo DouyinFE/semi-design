@@ -1,2 +1,4 @@
 *  linguist-detectable=false；
 packages/* linguist-detectable=true；
+*.tsx linguist-language=ts
+*.jsx linguist-language=js
