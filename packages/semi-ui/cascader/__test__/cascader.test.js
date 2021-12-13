@@ -1020,9 +1020,9 @@ describe('Cascader', () => {
                     ],
                 },
                 {
-                    label: '美国',
-                    value: 'Meiguo',
-                    key: 'meiguo',
+                    label: '南美洲',
+                    value: 'Nanmeiguo',
+                    key: 'Nanmeiguo',
                 }
             ]
         })
@@ -1088,9 +1088,9 @@ describe('Cascader', () => {
                     ],
                 },
                 {
-                    label: '美国',
-                    value: 'Meiguo',
-                    key: 'meiguo',
+                    label: '南美洲',
+                    value: 'Nanmeiguo',
+                    key: 'Nanmeiguo',
                 }
             ]
         })
