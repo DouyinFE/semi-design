@@ -85,12 +85,21 @@ function Demo() {
 
 By configuing `disabled` for `Dropdown.Item`, you can disabled an item.  
 By configuring `type` on `Dropdown.Item`, you can display text in different colors.  
-By configuring `icon` on `Dropdown.Item` (`icon` needs to be ReactNode), you can quickly configured icon of item.  
+By configuring `icon` on `Dropdown.Item` (`icon` needs to be ReactNode), you can quickly configured icon of item.
 
 ```jsx live=true
 import React from 'react';
 import { Dropdown, Button } from '@douyinfe/semi-ui';
-import { IconBox, IconSimilarity, IconSetting, IconForward, IconColorPalette, IconRefresh, IconSearch, IconBranch } from '@douyinfe/semi-icons';
+import {
+    IconBox,
+    IconSimilarity,
+    IconSetting,
+    IconForward,
+    IconColorPalette,
+    IconRefresh,
+    IconSearch,
+    IconBranch,
+} from '@douyinfe/semi-icons';
 
 function Demo() {
     return (
@@ -440,6 +449,7 @@ function DropdownEvents() {
 | trigger | The act of triggering a drop-down, optional 'hover', 'focus', 'click', 'custom' | string | 'hover' |  |
 | visible | Display the menu or not, need to be used with trigger custom | boolean |  |  |
 | zIndex | Pop-up layer z-index value | number | 1050 |  |
+| onClickOutSide  | Callback when the pop-up layer is in the display state and the non-Children, non-floating layer inner area is clicked (only valid when trigger is custom, click)  | (e:event) => void | | **2.1.0** |
 | onVisibleChange | Callback when the pop-up layer display state changes | function |  |  |
 
 ### Dropdown.Menu
@@ -457,7 +467,7 @@ function DropdownEvents() {
 | active | Whether the current item is in the active state, there is a tick on the left when the active state is activated, the font is bold, and the color is deepened. When the `showTick` is false, even if the `active` is true, the tick will not be displayed | boolean | false |  |
 | className | Style class name | string |  |  |
 | disabled | Do you disable the menu? | boolean | false |  |
-| icon | Icon of DropdownItem, will be displayed on the left  | ReactNode |  | **1.16.0** |
+| icon | Icon of DropdownItem, will be displayed on the left | ReactNode |  | **1.16.0** |
 | style | Inline style | object |  |  |
 | type | Type, optional values: "primary","secondary", "tertiary", "warning", "danger" | string | "tertiary" |  |
 | onClick | Click the trigger callback event | function |  |  |
