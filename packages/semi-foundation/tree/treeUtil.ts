@@ -427,7 +427,7 @@ export function normalizedArr(val: any) {
 }
 
 export function normalizeKeyList(keyList: any, keyEntities: KeyEntities, leafOnly = false) {
-    let res: string[] = [];
+    const res: string[] = [];
     const keyListSet = new Set(keyList);
     if (!leafOnly) {
         keyList.forEach((key: string) => {
@@ -441,7 +441,11 @@ export function normalizeKeyList(keyList: any, keyEntities: KeyEntities, leafOnl
             res.push(key);
         });
     } else {
-        res = (Array.from(keyList) as string[]).filter(key => keyEntities[key] && !isValid(keyEntities[key].children));
+        keyList.forEach(key => {
+            if (keyEntities[key] && !isValid(keyEntities[key].children)) {
+                res.push(key);
+            }
+        });
     }
     return res;
 }

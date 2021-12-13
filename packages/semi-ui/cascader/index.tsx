@@ -14,10 +14,10 @@ import CascaderFoundation, {
 } from '@douyinfe/semi-foundation/cascader/foundation';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/cascader/constants';
 import { numbers as popoverNumbers } from '@douyinfe/semi-foundation/popover/constants';
-import { isEqual, isString, isEmpty, isFunction, isNumber, noop } from 'lodash';
+import { isEqual, isString, isEmpty, isFunction, isNumber, noop, flatten } from 'lodash';
 import '@douyinfe/semi-foundation/cascader/cascader.scss';
 import { IconClear, IconChevronDown } from '@douyinfe/semi-icons';
-import { findKeysForValues, convertDataToEntities } from '@douyinfe/semi-foundation/cascader/util';
+import { findKeysForValues, convertDataToEntities, calcMergeType } from '@douyinfe/semi-foundation/cascader/util';
 import { calcCheckedKeys, normalizeKeyList, calcDisabledKeys } from '@douyinfe/semi-foundation/tree/treeUtil';
 import ConfigContext from '../configProvider/context';
 import BaseComponent, { ValidateStatus } from '../_base/baseComponent';
@@ -149,9 +149,11 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         onLoad: PropTypes.func,
         loadedKeys: PropTypes.array,
         disableStrictly: PropTypes.bool,
+        leafOnly: PropTypes.bool,
     };
 
     static defaultProps = {
+        leafOnly: false,
         arrowIcon: <IconChevronDown />,
         stopPropagation: true,
         motion: true,
@@ -185,6 +187,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
     triggerRef: React.RefObject<HTMLDivElement>;
     optionsRef: React.RefObject<any>;
     clickOutsideHandler: any;
+    mergeType: string;
 
     constructor(props: CascaderProps) {
         super(props);
@@ -215,8 +218,8 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
             checkedKeys: new Set([]),
             /* Key of half checked node, when multiple */
             halfCheckedKeys: new Set([]),
-            /* Auto merged checkedKeys, when multiple */
-            mergedCheckedKeys: new Set([]),
+            /* Auto merged checkedKeys or leaf checkedKeys, when multiple */
+            resolvedCheckedKeys: new Set([]),
             /* Keys of loaded item */
             loadedKeys: new Set(),
             /* Keys of loading item */
@@ -226,6 +229,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         };
         this.options = {};
         this.isEmpty = false;
+        this.mergeType = calcMergeType(props.autoMergeValue, props.leafOnly);
         this.inputRef = React.createRef();
         this.triggerRef = React.createRef();
         this.optionsRef = React.createRef();
@@ -346,7 +350,9 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
             multiple,
             value,
             defaultValue,
-            onChangeWithObject
+            onChangeWithObject,
+            leafOnly,
+            autoMergeValue,
         } = props;
         const { prevProps } = prevState;
         let keyEntities = prevState.keyEntities || {};
@@ -402,21 +408,18 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                     });
                     realKeys = formatKeys;
                 }
-                let checkedKeys = new Set([]);
-                let halfCheckedKeys = new Set([]);
-                realKeys.forEach(v => {
-                    const calRes = calcCheckedKeys(v, keyEntities);
-                    checkedKeys = new Set([...checkedKeys, ...calRes.checkedKeys]);
-                    halfCheckedKeys = new Set([...halfCheckedKeys, ...calRes.halfCheckedKeys]);
-                });
+                const calRes = calcCheckedKeys(flatten(realKeys as string[]), keyEntities);
+                const checkedKeys = new Set(calRes.checkedKeys);
+                const halfCheckedKeys = new Set(calRes.halfCheckedKeys);
                 // disableStrictly
                 if (props.disableStrictly) {
                     newState.disabledKeys = calcDisabledKeys(keyEntities);
                 }
+                const isLeafOnlyMerge = calcMergeType(autoMergeValue, leafOnly) === strings.LEAF_ONLY_MERGE_TYPE;
                 newState.prevProps = props;
                 newState.checkedKeys = checkedKeys;
                 newState.halfCheckedKeys = halfCheckedKeys;
-                newState.mergedCheckedKeys = new Set(normalizeKeyList(checkedKeys, keyEntities));
+                newState.resolvedCheckedKeys = new Set(normalizeKeyList(checkedKeys, keyEntities, isLeafOnlyMerge));
             }
         }
         return newState;
@@ -493,7 +496,6 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         const {
             size,
             disabled,
-            autoMergeValue,
             placeholder,
             maxTagCount,
             showRestTagsPopover,
@@ -503,11 +505,13 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
             inputValue,
             checkedKeys,
             keyEntities,
-            mergedCheckedKeys
+            resolvedCheckedKeys
         } = this.state;
         const tagInputcls = cls(`${prefixcls}-tagInput-wrapper`);
         const tagValue: Array<Array<string>> = [];
-        const realKeys = autoMergeValue ? mergedCheckedKeys : checkedKeys;
+        const realKeys = this.mergeType === strings.NONE_MERGE_TYPE
+            ? checkedKeys
+            : resolvedCheckedKeys;
         [...realKeys].forEach(checkedKey => {
             if (!isEmpty(keyEntities[checkedKey])) {
                 tagValue.push(keyEntities[checkedKey].valuePath);
@@ -658,8 +662,10 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
 
     renderMultipleTags = () => {
         const { autoMergeValue, maxTagCount } = this.props;
-        const { checkedKeys, mergedCheckedKeys } = this.state;
-        const realKeys = autoMergeValue ? mergedCheckedKeys : checkedKeys;
+        const { checkedKeys, resolvedCheckedKeys } = this.state;
+        const realKeys = this.mergeType === strings.NONE_MERGE_TYPE
+            ? checkedKeys
+            : resolvedCheckedKeys;
         const displayTag: Array<ReactNode> = [];
         const hiddenTag: Array<ReactNode> = [];
         [...realKeys].forEach((checkedKey, idx) => {
@@ -729,11 +735,15 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
     };
 
     renderCustomTrigger = () => {
-        const { disabled, triggerRender, multiple, autoMergeValue } = this.props;
-        const { selectedKeys, inputValue, inputPlaceHolder, mergedCheckedKeys, checkedKeys } = this.state;
+        const { disabled, triggerRender, multiple } = this.props;
+        const { selectedKeys, inputValue, inputPlaceHolder, resolvedCheckedKeys, checkedKeys } = this.state;
         let realValue;
         if (multiple) {
-            realValue = autoMergeValue ? mergedCheckedKeys : checkedKeys;
+            if (this.mergeType === strings.NONE_MERGE_TYPE) {
+                realValue = checkedKeys;
+            } else {
+                realValue = resolvedCheckedKeys;
+            }
         } else {
             realValue = [...selectedKeys][0];
         }
