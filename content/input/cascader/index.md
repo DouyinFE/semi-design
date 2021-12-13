@@ -993,74 +993,67 @@ class Demo extends React.Component {
 在多选（multiple=true）场景中，当我们选中祖先节点时，如果希望 value 不包含它对应的子孙节点，则可以通过 `autoMergeValue` 来设置，默认为 true。当 autoMergeValue 和 leafOnly 同时开启时，后者优先级更高。
 
 ```jsx live=true
-import React from 'react';
+import React, { useState } from 'react';
 import { Cascader } from '@douyinfe/semi-ui';
 
-class Demo extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            value: []
-        };
-    }
-    onChange(value) {
+() => {
+    const [value, setValue] = useState([]);
+    const onChange = value => {
         console.log(value);
-        this.setState({value});
-    }
-    render() {
-        const treeData = [
-            {
-                label: '浙江省',
-                value: 'zhejiang',
-                children: [
-                    {
-                        label: '杭州市',
-                        value: 'hangzhou',
-                        children: [
-                            {
-                                label: '西湖区',
-                                value: 'xihu',
-                            },
-                            {
-                                label: '萧山区',
-                                value: 'xiaoshan',
-                            },
-                            {
-                                label: '临安区',
-                                value: 'linan',
-                            },
-                        ],
-                    },
-                    {
-                        label: '宁波市',
-                        value: 'ningbo',
-                        children: [
-                            {
-                                label: '海曙区',
-                                value: 'haishu',
-                            },
-                            {
-                                label: '江北区',
-                                value: 'jiangbei',
-                            }
-                        ]
-                    },
-                ],
-            }
-        ];
-        return (
-            <Cascader
-                style={{ width: 300 }}
-                treeData={treeData}
-                placeholder="autoMergeValue 为 false"
-                value={this.state.value}
-                multiple
-                autoMergeValue={false}
-                onChange={e => this.onChange(e)}
-            />
-        );
-    }
-}
+        setValue(value);
+    };
+    const treeData = [
+        {
+            label: '浙江省',
+            value: 'zhejiang',
+            children: [
+                {
+                    label: '杭州市',
+                    value: 'hangzhou',
+                    children: [
+                        {
+                            label: '西湖区',
+                            value: 'xihu',
+                        },
+                        {
+                            label: '萧山区',
+                            value: 'xiaoshan',
+                        },
+                        {
+                            label: '临安区',
+                            value: 'linan',
+                        },
+                    ],
+                },
+                {
+                    label: '宁波市',
+                    value: 'ningbo',
+                    children: [
+                        {
+                            label: '海曙区',
+                            value: 'haishu',
+                        },
+                        {
+                            label: '江北区',
+                            value: 'jiangbei',
+                        }
+                    ]
+                },
+            ],
+        }
+    ];
+    return (
+        <Cascader
+            style={{ width: 300 }}
+            treeData={treeData}
+            placeholder="autoMergeValue 为 false"
+            value={value}
+            multiple
+            autoMergeValue={false}
+            onChange={e => onChange(e)}
+        />
+    );
+};
 ```
 
 ### 仅叶子节点
@@ -1069,74 +1062,67 @@ class Demo extends React.Component {
 在多选时，可以通过开启 leafOnly 来设置 value 只包含叶子节点，即显示的 Tag 和 onChange 的参数 value 只包含 value。
 
 ```jsx live=true
-import React from 'react';
+import React, { useState } from 'react';
 import { Cascader } from '@douyinfe/semi-ui';
 
-class Demo extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            value: []
-        };
-    }
-    onChange(value) {
+() => {
+    const [value, setValue] = useState([]);
+    const onChange = value => {
         console.log(value);
-        this.setState({value});
-    }
-    render() {
-        const treeData = [
-            {
-                label: '浙江省',
-                value: 'zhejiang',
-                children: [
-                    {
-                        label: '杭州市',
-                        value: 'hangzhou',
-                        children: [
-                            {
-                                label: '西湖区',
-                                value: 'xihu',
-                            },
-                            {
-                                label: '萧山区',
-                                value: 'xiaoshan',
-                            },
-                            {
-                                label: '临安区',
-                                value: 'linan',
-                            },
-                        ],
-                    },
-                    {
-                        label: '宁波市',
-                        value: 'ningbo',
-                        children: [
-                            {
-                                label: '海曙区',
-                                value: 'haishu',
-                            },
-                            {
-                                label: '江北区',
-                                value: 'jiangbei',
-                            }
-                        ]
-                    },
-                ],
-            }
-        ];
-        return (
-            <Cascader
-                style={{ width: 300 }}
-                treeData={treeData}
-                placeholder="开启 leafOnly"
-                value={this.state.value}
-                multiple
-                leafOnly
-                onChange={e => this.onChange(e)}
-            />
-        );
-    }
-}
+        setValue(value);
+    };
+    const treeData = [
+        {
+            label: '浙江省',
+            value: 'zhejiang',
+            children: [
+                {
+                    label: '杭州市',
+                    value: 'hangzhou',
+                    children: [
+                        {
+                            label: '西湖区',
+                            value: 'xihu',
+                        },
+                        {
+                            label: '萧山区',
+                            value: 'xiaoshan',
+                        },
+                        {
+                            label: '临安区',
+                            value: 'linan',
+                        },
+                    ],
+                },
+                {
+                    label: '宁波市',
+                    value: 'ningbo',
+                    children: [
+                        {
+                            label: '海曙区',
+                            value: 'haishu',
+                        },
+                        {
+                            label: '江北区',
+                            value: 'jiangbei',
+                        }
+                    ]
+                },
+            ],
+        }
+    ];
+    return (
+        <Cascader
+            style={{ width: 300 }}
+            treeData={treeData}
+            placeholder="开启 leafOnly"
+            value={value}
+            multiple
+            leafOnly
+            onChange={e => onChange(e)}
+        />
+    );
+};
 ```
 
 
