@@ -374,6 +374,23 @@ export const Disabled = () => {
         filterTreeNode
         disabled
       />
+      <br /><br />
+      <Cascader
+        defaultValue={['yazhou', 'zhongguo']}
+        style={{ width: 300 }}
+        treeData={treeData2}
+        multiple
+        filterTreeNode
+        disabled
+      />
+      <br /><br />
+      <Cascader
+        defaultValue={['yazhou', 'zhongguo']}
+        style={{ width: 300 }}
+        treeData={treeData2}
+        multiple
+        disabled
+      />
     </div>
   );
 };
@@ -419,6 +436,20 @@ export const DisabledOption = () => {
         treeData={treeData2}
         defaultValue={['yazhou', 'riben']}
         placeholder="Japan node is disabled"
+      />
+      <br />
+      <br />
+      <div>multiple selection + filterTreeNode + defaultValue is disabled option</div>
+      <Cascader
+          filterTreeNode
+          multiple
+          style={{ width: 300 }}
+          treeData={treeData2}
+          defaultValue={[
+              ['yazhou', 'riben'],
+              ['beimeizhou', 'jianada']
+          ]}
+          placeholder="Japan node is disabled"
       />
     </div>
   );
