@@ -1,4 +1,4 @@
-*  -linguist-detectable
+src/*  -linguist-detectable
 packages/* linguist-detectable
 *.tsx linguist-language=TypeScript
 *.jsx linguist-language=JavaScript
