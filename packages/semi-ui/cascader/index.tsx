@@ -74,7 +74,6 @@ export interface CascaderProps extends BasicCascaderProps {
     onBlur?: (e: MouseEvent) => void;
     onFocus?: (e: MouseEvent) => void;
     validateStatus?: ValidateStatus;
-    enableLeafClick?: Boolean;
 }
 
 export interface CascaderState extends BasicCascaderInnerData {

@@ -138,6 +138,7 @@ export interface BasicCascaderProps {
     topSlot?: any;
     showNext?: ShowNextType;
     disableStrictly?: boolean;
+    enableLeafClick?: boolean;
     onClear?: () => void;
     triggerRender?: (props: BasicTriggerRenderProps) => any;
     onListScroll?: (e: any, panel: BasicScrollPanelProps) => void;
