@@ -232,16 +232,17 @@ import { IconAlertTriangle } from '@douyinfe/semi-icons';
 
 ### TimeLine.Item
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| className | 类名 | string | - |
-| color | 自定义的圆圈色值 | string | - |
-| dot | 自定义时间轴点 | ReactNode | - |
-| extra | 自定义辅助内容 | ReactNode | - |
-| position | 自定义节点位置，可以覆盖 TimeLine 的模式选项 | `left`\|`right` | - |
-| style | 样式 | CSSProperties | - |
-| time | 时间文本 | string | - |
-| type | 当前圆圈的模式 | `default`\|`ongoing`\|`success`\|`warning`\|`error` | `default` |
+| 属性 | 说明 | 类型 | 默认值 | 版本 |
+| --- | --- | --- | --- | --- |
+| className | 类名 | string | - | - |
+| color | 自定义的圆圈色值 | string | - | - |
+| dot | 自定义时间轴点 | ReactNode | - | - |
+| extra | 自定义辅助内容 | ReactNode | - | - |
+| position | 自定义节点位置，可以覆盖 TimeLine 的模式选项 | `left`\|`right` | - | - |
+| style | 样式 | CSSProperties | - | - |
+| time | 时间文本 | string | - | - |
+| type | 当前圆圈的模式 | `default`\|`ongoing`\|`success`\|`warning`\|`error` | `default` | - |
+| onClick | 鼠标点击事件的回调 | (e: MouseEvent) => void | - | 2.2.0 |
 
 ## 设计变量
 
