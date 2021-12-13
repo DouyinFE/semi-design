@@ -18,7 +18,7 @@ export class Footer extends Component {
                     <a href="https://github.com/DouyinFE/semi-design" className='github' target="_blank" rel="noreferrer">GitHub</a>
                 </div><img src="https://lf9-static.semi.design/obj/semi-tos/images/a577c310-324e-11ec-8b14-8fb159794ae4.svg" className='divider' />
                 <div className='autoWrapper'>
-                    <div className='icpWrapper'><p className={'a2021SemiDesignAllRi'}>© 2021 Semi Design. All rights reserved. 京 ICP 备16016397</p><img src="https://tosv.byted.org/obj/ies-semi/images/f2a93900-5bfe-11ec-a3e2-111db7c8929a.png" className={'image45'} /><a href="https://beian.miit.gov.cn/" target="_blank" className={'beianText'} rel="noreferrer">京公安网备 110000023049</a></div>
+                    <div className='icpWrapper'><p className={'a2021SemiDesignAllRi'}>© 2021 Semi Design. All rights reserved.</p><a href="https://beian.miit.gov.cn/" target="_blank" className={'beianText'} rel="noreferrer">京ICP备19058139号-13</a></div>
                     <p className='designedDevelopedWit'><span className='designedDevelopedWit_c0c5d39b'>Designed & Developed with love by </span><span className='designedDevelopedWit_6eaa79ba'>Douyin FE</span><span className='designedDevelopedWit_c0c5d39b'> & </span><a href="https://dribbble.com/MetaEnterpriseDesign" className='designedDevelopedWit_6eaa79ba'>MED</a></p>
                 </div>
             </div>
