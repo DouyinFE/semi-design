@@ -13,9 +13,9 @@ const stories = storiesOf('Switch', module);
 
 stories.add('switch', () => (
     <div>
-        <Switch onChange={(v, e) => console.log(v)}>
+        <Switch onChange={(v, e) => console.log(v)} aria-label='power-switch'>
         </Switch>
-        <Switch defaultChecked={true} onChange={(v, e) => console.log(v)}>
+        <Switch defaultChecked={true} onChange={(v, e) => console.log(v)} aria-label='power-switch'>
         </Switch>
     </div>
 ));
@@ -24,24 +24,24 @@ stories.add('switch', () => (
 stories.add('switch size', () => (
     <div>
         <Switch onChange={(v, e) => console.log(v)}></Switch>
-        <Switch onChange={(v, e) => console.log(v)} size='small'></Switch>
-        <Switch onChange={(v, e) => console.log(v)} size='large'></Switch>
+        <Switch onChange={(v, e) => console.log(v)} size='small' aria-label='power-switch'></Switch>
+        <Switch onChange={(v, e) => console.log(v)} size='large' aria-label='power-switch'></Switch>
     </div>
 ));
 
 stories.add('switch checkedText &  uncheckedText', () => (
     <div>
-        <Switch defaultChecked checkedText='开' uncheckedText='关' />
+        <Switch defaultChecked checkedText='开' uncheckedText='关' aria-label='power-switch'/>
         <Switch checkedText={'|'} uncheckedText='〇' />
         <br/><br/>
         <Switch checkedText='开' uncheckedText='关' />
-        <Switch defaultChecked checkText='｜' uncheckedText='〇' />
+        <Switch defaultChecked checkedText='｜' uncheckedText='〇' aria-label='power-switch'/>
         <br/><br/>
-        <Switch checkedText='开' uncheckedText='关' size='large' />
-        <Switch checedkText='｜' uncheckedText='〇' size='large' />
+        <Switch checkedText='开' uncheckedText='关' size='large' aria-label='power-switch'/>
+        <Switch checkedText='｜' uncheckedText='〇' size='large' aria-label='power-switch'/>
         <br/><br/>
-        <Switch defaultChecked checkedText='开' uncheckedText='关' size='large' />
-        <Switch defaultChecked checkedText='｜' uncheckedText='〇' size='large' />
+        <Switch defaultChecked checkedText='开' uncheckedText='关' size='large' aria-label='power-switch'/>
+        <Switch defaultChecked checkedText='｜' uncheckedText='〇' size='large' aria-label='power-switch'/>
     </div>
 ));
 
@@ -51,7 +51,7 @@ stories.add('switch disabled', () => (
             disabled
         </Switch>
 
-        <Switch disabled checked={true} onChange={(v, e) => console.log(v)}>
+        <Switch disabled checked={true} onChange={(v, e) => console.log(v)} aria-label='power-switch'>
         </Switch>
     </>
 ));
@@ -79,8 +79,8 @@ const UnControledSwitch = () => {
 stories.add('switch defaultChecked + onChange', () => <UnControledSwitch/>);
 
 class LoadingDemo extends React.Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props);
         this.state = {
             checked: true,
             loading:false

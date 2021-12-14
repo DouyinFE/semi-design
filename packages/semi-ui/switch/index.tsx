@@ -9,8 +9,9 @@ import '@douyinfe/semi-foundation/switch/switch.scss';
 
 import { noop } from 'lodash';
 import Spin from '../spin';
-
 export interface SwitchProps {
+    'aria-label'?: string | undefined;
+    'aria-labelledby'?: string | undefined;
     defaultChecked?: boolean;
     checked?: boolean;
     disabled?: boolean;
@@ -23,7 +24,7 @@ export interface SwitchProps {
     size?: 'large' | 'default' | 'small';
     checkedText?: React.ReactNode;
     uncheckedText?: React.ReactNode;
-}
+} 
 
 export interface SwitchState {
     nativeControlChecked: boolean;
@@ -32,6 +33,8 @@ export interface SwitchState {
 
 class Switch extends BaseComponent<SwitchProps, SwitchState> {
     static propTypes = {
+        'aria-label': PropTypes.string,
+        'aria-labelledby': PropTypes.string,
         className: PropTypes.string,
         checked: PropTypes.bool,
         checkedText: PropTypes.node,
@@ -103,6 +106,8 @@ class Switch extends BaseComponent<SwitchProps, SwitchState> {
     render() {
         const { nativeControlChecked, nativeControlDisabled } = this.state;
         const { className, style, onMouseEnter, onMouseLeave, size, checkedText, uncheckedText, loading } = this.props;
+        const ariaLabel = this.props['aria-label'];
+        const ariaLabelledBy = this.props['aria-labelledby'];
         const wrapperCls = cls(className, {
             [cssClasses.PREFIX]: true,
             [cssClasses.CHECKED]: nativeControlChecked,
@@ -130,7 +135,7 @@ class Switch extends BaseComponent<SwitchProps, SwitchState> {
                                 size={size === 'default' ? 'middle' : size}
                             />
                         )
-                        : <div className={cssClasses.KNOB} />
+                        : <div className={cssClasses.KNOB} aria-hidden={true} />
                 }
                 {showCheckedText ? (
                     <div className={cssClasses.CHECKED_TEXT}>
@@ -145,6 +150,9 @@ class Switch extends BaseComponent<SwitchProps, SwitchState> {
                 <input
                     {...switchProps}
                     ref={this.switchRef}
+                    aria-labelledby={ariaLabelledBy}
+                    aria-label={ariaLabel}
+                    aria-checked={nativeControlChecked}
                     onChange={e => this.foundation.handleChange(e.target.checked, e)}
                 />
             </div>
