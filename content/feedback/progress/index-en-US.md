@@ -2,13 +2,12 @@
 localeCode: en-US
 order: 63
 category: Feedback
-title:  Progress
+title: Progress
 subTitle: Progress
 icon: doc-progress
 width: 60%
 brief: Show the current progress of the operation.
 ---
-
 
 ## When to use
 
@@ -21,11 +20,13 @@ Display the current progress and state of the operation for the user when the op
 ```jsx
 import { Progress } from '@douyinfe/semi-ui';
 ```
+
 ### Standard progress bar
 
 Use `stroke` Property to control the filling color of the progress bar  
 Use `Percent` Property to control completed progress  
 Use `size` Property control progress bar size  
+Use `aria-label` Property to explain the specific role  
 If the preset size is not satisfied, You can pass height to customize the height of the progress bar through `style` property.
 
 ```jsx live=true
@@ -34,25 +35,24 @@ import { Progress } from '@douyinfe/semi-ui';
 
 () => (
     <div style={{ width: 200 }}>
-        <Progress percent={10} stroke='#fc8800' />
-        <br/>
-        <Progress percent={25} stroke='#f93920' />
-        <br/>
-        <Progress percent={50} />
-        <br/>
-        <Progress percent={80} />
-        <br/>
-        <Progress percent={80} size='large' />
-        <br/>
-        <Progress percent={80} style={{ height: '8px' }}/>
+        <Progress percent={10} stroke="#fc8800" aria-label="disk usage"/>
+        <br />
+        <Progress percent={25} stroke="#f93920" aria-label="disk usage"/>
+        <br />
+        <Progress percent={50} aria-label="disk usage"/>
+        <br />
+        <Progress percent={80} aria-label="disk usage"/>
+        <br />
+        <Progress percent={80} size="large" aria-label="disk usage"/>
+        <br />
+        <Progress percent={80} style={{ height: '8px' }} aria-label="disk usage"/>
     </div>
 );
 ```
 
 ### Show percentage text
 
-You can control whether to show percentage number through the `showInfo` property
-In addition, you can format the percentage text show through `format`.
+You can control whether to show percentage number through the `showInfo` property In addition, you can format the percentage text show through `format`.
 
 ```jsx live=true
 import React from 'react';
@@ -60,21 +60,20 @@ import { Progress } from '@douyinfe/semi-ui';
 
 () => (
     <div style={{ width: 200 }}>
-        <Progress percent={10} stroke='#fc8800' showInfo={true}/>
-        <br/>
-        <Progress percent={25} stroke='#f93920' showInfo={true}/>
-        <br/>
-        <Progress percent={50} showInfo={true}/>
-        <br/>
-        <Progress percent={50} showInfo={true} format={percent => (percent*10) + '‰'}/>
+        <Progress percent={10} stroke="#fc8800" showInfo={true} aria-label="disk usage"/>
+        <br />
+        <Progress percent={25} stroke="#f93920" showInfo={true} aria-label="disk usage"/>
+        <br />
+        <Progress percent={50} showInfo={true} aria-label="disk usage"/>
+        <br />
+        <Progress percent={50} showInfo={true} format={percent => percent * 10 + '‰'} aria-label="disk usage"/>
     </div>
 );
 ```
 
 ### Vertical progress bar
 
-You can use vertical progress bar by setting `direction='vertical'`
-If preset width is not satisfied, you can pass width to customize the width of the vertical progress bar through `style` property.
+You can use vertical progress bar by setting `direction='vertical'` If preset width is not satisfied, you can pass width to customize the width of the vertical progress bar through `style` property.
 
 ```jsx live=true
 import React from 'react';
@@ -82,11 +81,11 @@ import { Progress } from '@douyinfe/semi-ui';
 
 () => (
     <div style={{ height: 100, display: 'flex' }}>
-        <Progress percent={10} direction='vertical'/>
-        <Progress percent={25} direction='vertical' />
-        <Progress percent={50} direction='vertical' />
-        <Progress percent={80} direction='vertical' size='large' />
-        <Progress percent={80} direction='vertical' style={{ width: '8px' }}/>
+        <Progress percent={10} direction="vertical" aria-label="disk usage"/>
+        <Progress percent={25} direction="vertical" aria-label="disk usage"/>
+        <Progress percent={50} direction="vertical" aria-label="disk usage"/>
+        <Progress percent={80} direction="vertical" size="large" aria-label="disk usage"/>
+        <Progress percent={80} direction="vertical" style={{ width: '8px' }} aria-label="disk usage"/>
     </div>
 );
 ```
@@ -101,10 +100,10 @@ import { Progress } from '@douyinfe/semi-ui';
 
 () => (
     <div>
-        <Progress percent={10} type='circle' style={{ margin: 5 }} />
-        <Progress percent={25} type='circle' style={{ margin: 5 }} />
-        <Progress percent={50} type='circle' style={{ margin: 5 }} />
-        <Progress percent={80} type='circle' style={{ margin: 5 }} />
+        <Progress percent={10} type="circle" style={{ margin: 5 }} aria-label="disk usage"/>
+        <Progress percent={25} type="circle" style={{ margin: 5 }} aria-label="disk usage"/>
+        <Progress percent={50} type="circle" style={{ margin: 5 }} aria-label="disk usage"/>
+        <Progress percent={80} type="circle" style={{ margin: 5 }} aria-label="disk usage"/>
     </div>
 );
 ```
@@ -118,10 +117,10 @@ import { Progress } from '@douyinfe/semi-ui';
 () => (
     <React.Fragment>
         <div>
-            <Progress percent={100} type='circle' width={100} style={{ margin: 5 }} />
+            <Progress percent={100} type="circle" width={100} style={{ margin: 5 }} aria-label="disk usage"/>
         </div>
         <div>
-            <Progress percent={100} type='circle' width={100} style={{ margin: 5 }} stroke='#f93920' />
+            <Progress percent={100} type="circle" width={100} style={{ margin: 5 }} stroke="#f93920" aria-label="disk usage"/>
         </div>
     </React.Fragment>
 );
@@ -137,10 +136,10 @@ import { Progress } from '@douyinfe/semi-ui';
 
 () => (
     <React.Fragment>
-        <Progress percent={10} type='circle' size='small' style={{ margin: 5 }} />
-        <Progress percent={25} type='circle' size='small' style={{ margin: 5 }} />
-        <Progress percent={50} type='circle' size='small' style={{ margin: 5 }} />
-        <Progress percent={80} type='circle' size='small' style={{ margin: 5 }} />
+        <Progress percent={10} type="circle" size="small" style={{ margin: 5 }} aria-label="disk usage"/>
+        <Progress percent={25} type="circle" size="small" style={{ margin: 5 }} aria-label="disk usage"/>
+        <Progress percent={50} type="circle" size="small" style={{ margin: 5 }} aria-label="disk usage"/>
+        <Progress percent={80} type="circle" size="small" style={{ margin: 5 }} aria-label="disk usage"/>
     </React.Fragment>
 );
 ```
@@ -157,11 +156,24 @@ import { IconChevronLeft, IconChevronRight } from '@douyinfe/semi-icons';
     return (
         <>
             <div>
-                <Progress percent={percent} showInfo/>
-                <Button icon={<IconChevronLeft />} theme="light" onClick={()=> {setPercent(percent - 10);}} disabled={percent === 0} />
-                <Button icon={<IconChevronRight />} theme="light" onClick={()=> {setPercent(percent + 10);}} disabled={percent >=100 } />
+                <Progress percent={percent} showInfo />
+                <Button
+                    icon={<IconChevronLeft />}
+                    theme="light"
+                    onClick={() => {
+                        setPercent(percent - 10);
+                    }}
+                    disabled={percent === 0}
+                />
+                <Button
+                    icon={<IconChevronRight />}
+                    theme="light"
+                    onClick={() => {
+                        setPercent(percent + 10);
+                    }}
+                    disabled={percent >= 100}
+                />
             </div>
-
         </>
     );
 };
@@ -176,9 +188,25 @@ import { IconChevronLeft, IconChevronRight } from '@douyinfe/semi-icons';
     const [cirPerc, setCirPerc] = useState(40);
     return (
         <div>
-            <div><Progress percent={cirPerc} type='circle'/></div>
-            <Button icon={<IconChevronLeft />} theme="light" onClick={()=> {setCirPerc(cirPerc - 10);}} disabled={cirPerc === 0}/>
-            <Button icon={<IconChevronRight />} theme="light" onClick={()=> {setCirPerc(cirPerc + 10);}} disabled={cirPerc >=100 }/>
+            <div>
+                <Progress percent={cirPerc} type="circle" aria-label="disk usage"/>
+            </div>
+            <Button
+                icon={<IconChevronLeft />}
+                theme="light"
+                onClick={() => {
+                    setCirPerc(cirPerc - 10);
+                }}
+                disabled={cirPerc === 0}
+            />
+            <Button
+                icon={<IconChevronRight />}
+                theme="light"
+                onClick={() => {
+                    setCirPerc(cirPerc + 10);
+                }}
+                disabled={cirPerc >= 100}
+            />
         </div>
     );
 };
@@ -195,9 +223,9 @@ import { Progress } from '@douyinfe/semi-ui';
 
 () => (
     <React.Fragment>
-        <Progress percent={75} showInfo type='circle' format={(per) => per + 'Days'} style={{ margin:10 }}/>
-        <Progress percent={100} showInfo type='circle' format={(per) => 'Done'} style={{ margin:10 }}/>
-        <Progress percent={50} type='circle' showInfo={false} style={{ margin:10 }}/>
+        <Progress percent={75} showInfo type="circle" format={per => per + 'Days'} style={{ margin: 10 }} aria-label="disk usage"/>
+        <Progress percent={100} showInfo type="circle" format={per => 'Done'} style={{ margin: 10 }} aria-label="disk usage"/>
+        <Progress percent={50} type="circle" showInfo={false} style={{ margin: 10 }} aria-label="disk usage"/>
     </React.Fragment>
 );
 ```
@@ -212,8 +240,8 @@ import { Progress } from '@douyinfe/semi-ui';
 
 () => (
     <React.Fragment>
-        <Progress percent={50} strokeLinecap='round' type='circle' style={{ margin: 10 }} />
-        <Progress percent={50} strokeLinecap='square' type='circle' style={{ margin:10 }} />
+        <Progress percent={50} strokeLinecap="round" type="circle" style={{ margin: 10 }} aria-label="disk usage"/>
+        <Progress percent={50} strokeLinecap="square" type="circle" style={{ margin: 10 }} aria-label="disk usage"/>
     </React.Fragment>
 );
 ```
@@ -221,20 +249,46 @@ import { Progress } from '@douyinfe/semi-ui';
 ## API Reference
 
 | PROPERTIES | Instructions | Type | Default |
-|--- | --- | --- | --- |
-|className | style class name | string | |
-|direction | The direction of the bar progress bar `horizontal`, `vertical` | string |'horizontal' |
-|format | Formatting function, the input parameter is the current percentage, the result of return will be directly rendered in the center of the circular progress bar | (percent: number) => ReactNode | (percent) => percent +'%' |
-|orbitStroke | Progress bar track fill color<br/>**provided after v1.0.0** | string |'var(--semi-color-fill-0)' |
-|percent | percentage of progress | number | |
-|showInfo | Whether to display the middle text in the circular progress bar, and whether to display the text on the right side of the bar-shaped progress bar | boolean | false |
-|size | size, optional `default`, `small` (only type=circle is effective), `large` (only type=line is effective) | string |'default' |
-|stroke | Fill color of progress bar | string |'var(--semi-color-success)' |
-|strokeLinecap | round corner `round`/square corner `square` (only effective in type='circle' mode) | string |'round' |
-|strokeWidth | When type is `line`, this property controls the height of the progress bar; when type is `circle`, this property controls the width of the progress bar | number | 4 |
-|style | style | CSSProperties | |
-|type | type, optional `line`, `circle` | string |'line' |
-|width | Width of circular progress bar | number | 72 when size='default', 24 for 'small' |
+| --- | --- | --- | --- |
+| aria-label | [aria-label](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-label_attribute) attribute. Used to add a label description to the current element to improve a11y<br/>**provided after v2.2.0** | string |  |
+| aria-labelledby | [aria-labelledby](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-labelledby_attribute) attribute. Indicates that the id of some element is the label of the current element. It is used to determine the connection between controls or control groups and their labels, to improve a11y<br/>**provided after v2.2.0** | string |  |  |
+| aria-valuetext | [aria-labelledby](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-labelledby_attribute) attribute. Used to improve a11y<br/>**provided after v2.2.0** | string |  |  |
+| className | style class name | string |  |
+| direction | The direction of the bar progress bar `horizontal`, `vertical` | string | 'horizontal' |
+| id | id attribute <br/>**provided after v2.2.0** | string |  |
+| format | Formatting function, the input parameter is the current percentage, the result of return will be directly rendered in the center of the circular progress bar | (percent: number) => ReactNode | (percent) => percent +'%' |
+| orbitStroke | Progress bar track fill color<br/>**provided after v1.0.0** | string | 'var(--semi-color-fill-0)' |
+| percent | percentage of progress | number |  |
+| showInfo | Whether to display the middle text in the circular progress bar, and whether to display the text on the right side of the bar-shaped progress bar | boolean | false |
+| size | size, optional `default`, `small` (only type=circle is effective), `large` (only type=line is effective) | string | 'default' |
+| stroke | Fill color of progress bar | string | 'var(--semi-color-success)' |
+| strokeLinecap | round corner `round`/square corner `square` (only effective in type='circle' mode) | string | 'round' |
+| strokeWidth | When type is `line`, this property controls the height of the progress bar; when type is `circle`, this property controls the width of the progress bar | number | 4 |
+| style | style | CSSProperties |  |
+| type | type, optional `line`, `circle` | string | 'line' |
+| width | Width of circular progress bar | number | 72 when size='default', 24 for 'small' |
 
+## Accessibility
+### Aria
+
+-   Progress has a `progressbar` role to indicate that it is a progress bar component.
+-   Progress will automatically set `aria-valuenow` as the progress percentage (`percent`) passed to the component to ensure that the screen reader can get the correct percentage value. In addition, Progress supports incoming `aria-valuetext`. When you pass in, according to W3C specifications, `aria-valuetext` will be used and consumed by screen readers instead of `aria-valuenow`
+-   Progress support `aria-label`, `aria-labelledby`
+    -   When there is a description element about the role of Progress outside of Progress, you can explicitly specify that the id of certain elements is the label of Progress through `aria-labelledby`
+    -   Otherwise, you should use aria-label to explain the specific meaning of the value represented by Progress
+
+```js
+// good case
+<p id="progressbar-label">Disk Usage</p>
+<Progress aria-labelledby="progressbar-label" percent={80} />
+
+// good case
+<Progress aria-label='Percent of disk usage' percent={80} />
+<Progress aria-label='Percent of file downloaded' percent={80} />
+
+// usage of aria-valuetext
+<Progress aria-label='Percent of disk usage' percent={80} aria-valuetext="Step 2: Copying files... "/> 
+```
 ## Design Tokens
+
 <DesignToken/>
