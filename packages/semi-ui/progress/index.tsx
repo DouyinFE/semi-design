@@ -59,7 +59,7 @@ class Progress extends Component<ProgressProps, ProgressState> {
     static defaultProps = {
         className: '',
         direction: strings.DEFAULT_DIRECTION,
-        format: (text: string): string => `${text }%`,
+        format: (text: string): string => `${text}%`,
         motion: true,
         orbitStroke: 'var(--semi-color-fill-0)',
         percent: 0,
@@ -138,9 +138,9 @@ class Progress extends Component<ProgressProps, ProgressState> {
         const ariaValueText = this.props['aria-valuetext'];
         const { percentNumber } = this.state;
         const classNames = {
-            wrapper: cls(`${prefixCls }-circle`, className, 'test'),
-            svg: cls(`${prefixCls }-circle-ring`),
-            circle: cls(`${prefixCls }-circle-ring-inner`)
+            wrapper: cls(`${prefixCls}-circle`, className),
+            svg: cls(`${prefixCls}-circle-ring`),
+            circle: cls(`${prefixCls}-circle-ring-inner`)
         };
         const perc = this.calcPercent(percent);
         const percNumber = this.calcPercent(percentNumber);
@@ -202,7 +202,7 @@ class Progress extends Component<ProgressProps, ProgressState> {
                         aria-hidden
                     />
                 </svg>
-                {showInfo && size !== 'small' ? (<span className={`${prefixCls }-circle-text`}>{text}</span>) : null}
+                {showInfo && size !== 'small' ? (<span className={`${prefixCls}-circle-text`}>{text}</span>) : null}
             </div>
         );
     }
@@ -226,14 +226,14 @@ class Progress extends Component<ProgressProps, ProgressState> {
         const ariaValueText = this.props['aria-valuetext'];
         const { percentNumber } = this.state;
         const progressWrapperCls = cls(prefixCls, className, {
-            [`${prefixCls }-horizontal`]: direction === strings.DEFAULT_DIRECTION,
-            [`${prefixCls }-vertical`]: direction !== strings.DEFAULT_DIRECTION,
-            [`${prefixCls }-large`]: size === 'large',
+            [`${prefixCls}-horizontal`]: direction === strings.DEFAULT_DIRECTION,
+            [`${prefixCls}-vertical`]: direction !== strings.DEFAULT_DIRECTION,
+            [`${prefixCls}-large`]: size === 'large',
         });
         const progressTrackCls = cls({
-            [`${prefixCls }-track`]: true,
+            [`${prefixCls}-track`]: true,
         });
-        const innerCls = cls(`${prefixCls }-track-inner`);
+        const innerCls = cls(`${prefixCls}-track-inner`);
 
         const perc = this.calcPercent(percent);
         const percNumber = this.calcPercent(percentNumber);
@@ -242,9 +242,9 @@ class Progress extends Component<ProgressProps, ProgressState> {
             backgroundColor: stroke
         };
         if (direction === strings.DEFAULT_DIRECTION) {
-            innerStyle.width = `${perc }%`;
+            innerStyle.width = `${perc}%`;
         } else {
-            innerStyle.height = `${perc }%`;
+            innerStyle.height = `${perc}%`;
         }
 
         const text = format(percNumber);
