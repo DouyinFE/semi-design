@@ -208,7 +208,7 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
             [`${prefixCls}-item-disabled`]: prevDisabled,
         });
         return (
-            <li onClick={e => !prevDisabled && this.foundation.goPrev(e)} className={preClassName} tab-index={0}>
+            <li aria-label="Previous" onClick={e => !prevDisabled && this.foundation.goPrev(e)} className={preClassName} tab-index={0}>
                 {prevText || <IconChevronLeft size="large" />}
             </li>
         );
@@ -223,7 +223,7 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
             [`${prefixCls}-next`]: true,
         });
         return (
-            <li onClick={e => !nextDisabled && this.foundation.goNext(e)} className={nextClassName} tab-index={0}>
+            <li aria-label="Next" onClick={e => !nextDisabled && this.foundation.goNext(e)} className={nextClassName} tab-index={0}>
                 {nextText || <IconChevronRight size="large" />}
             </li>
         );
@@ -315,7 +315,7 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
                     onClick={() => this.foundation.goPage(page, i)}
                     className={pageListClassName}
                     tab-index={0}
-
+                    aria-label={page === '...' ? 'More' : `${page}`}
                 >
                     {page}
                 </li>
@@ -354,6 +354,7 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
                     className={className}
                     onClick={() => this.foundation.goPage(page, index)}
                     style={style}
+                    aria-label={`${page}`}
                 >
                     {page}
                 </div>
