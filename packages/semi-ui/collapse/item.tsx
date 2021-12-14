@@ -125,7 +125,11 @@ export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
                             reCalcKey={reCalcKey}>
                             <div
                                 className={contentCls}
+<<<<<<< Updated upstream
                                 aria-label={'collapse-content'}
+=======
+>>>>>>> Stashed changes
+                                aria-hidden={!active}
                             >
                                 <div className={`${cssClasses.PREFIX}-content-wrapper`}>
                                     {children}
