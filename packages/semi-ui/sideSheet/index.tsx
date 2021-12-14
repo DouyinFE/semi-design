@@ -23,7 +23,7 @@ const defaultHeight = strings.HEIGHT;
 export { SideSheetContentProps } from './SideSheetContent';
 export { SideSheetTransitionProps } from './SideSheetTransition';
 
-export interface SideSheetReactProps extends SideSheetProps{
+export interface SideSheetReactProps extends SideSheetProps {
     bodyStyle?: CSSProperties;
     headerStyle?: CSSProperties;
     maskStyle?: CSSProperties;
@@ -65,7 +65,8 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
         afterVisibleChange: PropTypes.func,
         closeOnEsc: PropTypes.bool,
         footer: PropTypes.node,
-        keepDOM: PropTypes.bool
+        keepDOM: PropTypes.bool,
+        'aria-label': PropTypes.string,
     };
 
     static defaultProps: SideSheetReactProps = {

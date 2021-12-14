@@ -10,7 +10,7 @@ let uuid = 0;
 const prefixCls = cssClasses.PREFIX;
 
 
-export interface SideSheetContentProps{
+export interface SideSheetContentProps {
     onClose?: (e: React.MouseEvent) => void;
     mask?: boolean;
     maskStyle?: CSSProperties;
@@ -24,6 +24,7 @@ export interface SideSheetContentProps{
     bodyStyle?: CSSProperties;
     className: string;
     footer?: React.ReactNode;
+    'aria-label'?: string;
 }
 
 export default class SideSheetContent extends React.PureComponent<SideSheetContentProps> {
@@ -66,6 +67,7 @@ export default class SideSheetContent extends React.PureComponent<SideSheetConte
         if (mask) {
             return (
                 <div
+                    aria-hidden={true}
                     key="mask"
                     className={`${prefixCls}-mask`}
                     style={maskStyle}
@@ -85,7 +87,7 @@ export default class SideSheetContent extends React.PureComponent<SideSheetConte
         let header, closer;
         if (title) {
             header = (
-                <div className={`${prefixCls}-title`}>
+                <div className={`${prefixCls}-title`} aria-label={'sidesheet-title'}>
                     {this.props.title}
                 </div>
             );
@@ -97,14 +99,14 @@ export default class SideSheetContent extends React.PureComponent<SideSheetConte
                     key="close-btn"
                     onClick={this.close}
                     type="tertiary"
-                    icon={<IconClose />}
+                    icon={<IconClose/>}
                     theme="borderless"
                     size="small"
                 />
             );
         }
         return (
-            <div className={`${prefixCls}-header`} style={{ ...headerStyle }}>
+            <div className={`${prefixCls}-header`} role={'heading'} style={{ ...headerStyle }}>
                 {header}
                 {closer}
             </div>
@@ -128,20 +130,20 @@ export default class SideSheetContent extends React.PureComponent<SideSheetConte
         const dialogElement = (
             <div
                 key="dialog-element"
-                role="sidesheet"
+                role="dialog"
                 tabIndex={-1}
                 className={`${prefixCls}-inner ${prefixCls}-inner-wrap`}
                 // onMouseDown={this.onDialogMouseDown}
                 style={{ ...props.style, ...style }}
                 // id={this.dialogId}
             >
-                <div className={`${prefixCls}-content`}>
+                <div className={`${prefixCls}-content`} aria-label={`sidesheet-content`}>
                     {header}
-                    <div className={`${prefixCls}-body`} style={props.bodyStyle}>
+                    <div className={`${prefixCls}-body`} aria-label={`sidesheet-body`} style={props.bodyStyle}>
                         {props.children}
                     </div>
                     {props.footer ? (
-                        <div className={`${prefixCls}-footer`}>
+                        <div className={`${prefixCls}-footer`} aria-label={`sidesheet-footer`}>
                             {props.footer}
                         </div>
                     ) : null}
@@ -165,7 +167,9 @@ export default class SideSheetContent extends React.PureComponent<SideSheetConte
             wrapperStyle.width = width;
         }
         return (
-            <div className={wrapperCls} style={wrapperStyle}>
+            <div className={wrapperCls}
+                style={wrapperStyle}
+                aria-label={this.props['aria-label']}>
                 {this.getMaskElement()}
                 {this.getDialogElement()}
             </div>
