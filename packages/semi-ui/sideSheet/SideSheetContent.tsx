@@ -143,7 +143,7 @@ export default class SideSheetContent extends React.PureComponent<SideSheetConte
                         {props.children}
                     </div>
                     {props.footer ? (
-                        <div className={`${prefixCls}-footer`} aria-label={`Sidesheetfooter`}>
+                        <div className={`${prefixCls}-footer`} aria-label={`Sidesheet footer`}>
                             {props.footer}
                         </div>
                     ) : null}
