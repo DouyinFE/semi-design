@@ -81,8 +81,21 @@ export const Mode = () => (
       }}
     >
       <Timeline mode="alternate">
-        <Timeline.Item time="2015-09-01">创建服务现场</Timeline.Item>
-        <Timeline.Item time="2015-09-01">初步排除网络异常</Timeline.Item>
+        <Timeline.Item time="2015-09-01" dot={<IconAlertTriangle />}>创建服务现场</Timeline.Item>
+        <Timeline.Item time="2015-09-01" dot={<IconAlertTriangle />}>初步排除网络异常</Timeline.Item>
+        <Timeline.Item time="2015-09-01" dot={<IconAlertTriangle />}>技术测试异常</Timeline.Item>
+        <Timeline.Item time="2015-09-01" dot={<IconAlertTriangle />}>网络异常正在修复</Timeline.Item>
+      </Timeline>
+    </div>
+    <br />
+    <div
+      style={{
+        width: '300px',
+      }}
+    >
+      <Timeline mode="right">
+        <Timeline.Item time="2015-09-01" dot={<IconAlertTriangle />}>创建服务现场</Timeline.Item>
+        <Timeline.Item time="2015-09-01" dot={<IconAlertTriangle />}>初步排除网络异常</Timeline.Item>
         <Timeline.Item time="2015-09-01">技术测试异常</Timeline.Item>
         <Timeline.Item time="2015-09-01">网络异常正在修复</Timeline.Item>
       </Timeline>
@@ -93,9 +106,9 @@ export const Mode = () => (
         width: '300px',
       }}
     >
-      <Timeline mode="right">
-        <Timeline.Item time="2015-09-01">创建服务现场</Timeline.Item>
-        <Timeline.Item time="2015-09-01">初步排除网络异常</Timeline.Item>
+      <Timeline mode="left">
+        <Timeline.Item time="2015-09-01" dot={<IconAlertTriangle />}>创建服务现场</Timeline.Item>
+        <Timeline.Item time="2015-09-01" dot={<IconAlertTriangle />}>初步排除网络异常</Timeline.Item>
         <Timeline.Item time="2015-09-01">技术测试异常</Timeline.Item>
         <Timeline.Item time="2015-09-01">网络异常正在修复</Timeline.Item>
       </Timeline>
@@ -108,7 +121,7 @@ export const Mode = () => (
     >
       <Timeline mode="center">
         <Timeline.Item time="2015-09-01">创建服务现场</Timeline.Item>
-        <Timeline.Item time="2015-09-01">初步排除网络异常</Timeline.Item>
+        <Timeline.Item time="2015-09-01" dot={<IconAlertTriangle />}>初步排除网络异常</Timeline.Item>
         <Timeline.Item time="2015-09-01">技术测试异常</Timeline.Item>
         <Timeline.Item time="2015-09-01">网络异常正在修复</Timeline.Item>
       </Timeline>
@@ -152,6 +165,7 @@ const data = [
     time: '2019-05-09 09:12',
     extra: '节点辅助说明信息',
     content: '网络异常正在修复',
+    dot: <IconAlertTriangle />,
     type: 'success',
   },
 ];
