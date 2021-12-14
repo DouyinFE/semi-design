@@ -291,7 +291,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
             return null;
         }
         return (
-            <div className={`${prefixcls }-filter`}>
+            <div role="search" aria-label="transfer-filter" className={`${prefixcls}-filter`}>
                 <Input
                     prefix={<IconSearch />}
                     placeholder={locale.placeholder}
@@ -309,20 +309,21 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
         const { disabled } = this.props;
         const { totalContent, allContent, onAllClick, type, showButton } = headerConfig;
         const headerCls = cls({
-            [`${prefixcls }-header`]: true,
-            [`${prefixcls }-right-header`]: type === 'right',
-            [`${prefixcls }-left-header`]: type === 'left',
+            [`${prefixcls}-header`]: true,
+            [`${prefixcls}-right-header`]: type === 'right',
+            [`${prefixcls}-left-header`]: type === 'left',
         });
         return (
-            <div className={headerCls}>
-                <span className={`${prefixcls }-header-total`}>{totalContent}</span>
+            <div role="status" className={headerCls}>
+                <span aria-label={totalContent} className={`${prefixcls}-header-total`}>{totalContent}</span>
                 {showButton ? (
                     <Button
                         theme="borderless"
                         disabled={disabled}
+                        aria-label={allContent}
                         type="tertiary"
                         size="small"
-                        className={`${prefixcls }-header-all`}
+                        className={`${prefixcls}-header-all`}
                         onClick={onAllClick}
                     >
                         {allContent}
@@ -340,8 +341,8 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
             return renderSourceItem({ ...item, checked, onChange: () => this.onSelectOrRemove(item) });
         }
         const leftItemCls = cls({
-            [`${prefixcls }-item`]: true,
-            [`${prefixcls }-item-disabled`]: item.disabled,
+            [`${prefixcls}-item`]: true,
+            [`${prefixcls}-item-disabled`]: item.disabled,
         });
         return (
             <Checkbox
@@ -438,7 +439,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
         }
 
         return (
-            <section className={`${prefixcls }-left`}>
+            <section className={`${prefixcls}-left`}>
                 {inputCom}
                 {content}
             </section>
@@ -446,9 +447,9 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
     }
 
     renderGroupTitle(group: GroupItem) {
-        const groupCls = cls(`${prefixcls }-group-title`);
+        const groupCls = cls(`${prefixcls}-group-title`);
         return (
-            <div className={groupCls} key={group.title}>
+            <div role="textbox" aria-label={group.title} className={groupCls} key={group.title}>
                 {group.title}
             </div>
         );
@@ -501,7 +502,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
                 content.push(optionContent);
             }
         });
-        return <div className={`${prefixcls }-left-list`}>{content}</div>;
+        return <div className={`${prefixcls}-left-list`}>{content}</div>;
     }
 
     renderRightItem(item: ResolvedDataItem): React.ReactNode {
@@ -513,9 +514,9 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
         }
         const onRemove = () => this.foundation.handleSelectOrRemove(newItem);
         const rightItemCls = cls({
-            [`${prefixcls }-item`]: true,
-            [`${prefixcls }-right-item`]: true,
-            [`${prefixcls }-right-item-draggable`]: draggable
+            [`${prefixcls}-item`]: true,
+            [`${prefixcls}-right-item`]: true,
+            [`${prefixcls}-right-item-draggable`]: draggable
         });
         const shouldShowPath = type === strings.TYPE_TREE_TO_LIST && showPath === true;
 
@@ -526,15 +527,17 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
         }
 
         const DragHandle = SortableHandle(() => (
-            <IconHandle className={`${prefixcls }-right-item-drag-handler`} />
+            <IconHandle className={`${prefixcls}-right-item-drag-handler`} />
         ));
 
         return (
-            <div className={rightItemCls} key={newItem.key}>
+            // https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex
+            <div role="listitem" tabIndex={0} aria-disabled={item.disabled} className={rightItemCls} key={newItem.key}>
                 {draggable ? <DragHandle /> : null}
-                <div className={`${prefixcls}-right-item-text`}>{label}</div>
+                <div aria-label={label} className={`${prefixcls}-right-item-text`}>{label}</div>
                 <IconClose
-                    onClick={onRemove} className={cls(`${prefixcls}-item-close-icon`, {
+                    onClick={onRemove}
+                    className={cls(`${prefixcls}-item-close-icon`, {
                         [`${prefixcls}-item-close-icon-disabled`]: item.disabled
                     })}
                 />
@@ -544,11 +547,11 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
 
     renderEmpty(type: string, emptyText: React.ReactNode) {
         const emptyCls = cls({
-            [`${prefixcls }-empty`]: true,
-            [`${prefixcls }-right-empty`]: type === 'right',
-            [`${prefixcls }-left-empty`]: type === 'left',
+            [`${prefixcls}-empty`]: true,
+            [`${prefixcls}-right-empty`]: type === 'right',
+            [`${prefixcls}-left-empty`]: type === 'left',
         });
-        return <div className={emptyCls}>{emptyText}</div>;
+        return <div aria-label="empty" className={emptyCls}>{emptyText}</div>;
     }
 
     renderRightSortableList(selectedData: Array<ResolvedDataItem>) {
@@ -557,7 +560,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
             (item: ResolvedDataItem) => this.renderRightItem(item)) as React.SFC<ResolvedDataItem>
         );
         const SortableList = SortableContainer(({ items }: { items: Array<ResolvedDataItem> }) => (
-            <div className={`${prefixcls}-right-list`}>
+            <div className={`${prefixcls}-right-list`} role="list">
                 {items.map((item, index: number) => (
                     // sortableElement will take over the property 'key', so use another '_optionKey' to pass
                     <SortableItem key={item.label} index={index} {...item} _optionKey={item.key} />
@@ -597,7 +600,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
         };
         const headerCom = this.renderHeader(headerConfig);
         const emptyCom = this.renderEmpty('right', emptyContent.right ? emptyContent.right : locale.emptyRight);
-        const panelCls = `${prefixcls }-right`;
+        const panelCls = `${prefixcls}-right`;
 
         let content = null;
 
@@ -608,7 +611,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
                 break;
             case selectedData.length && !draggable:
                 const list = (
-                    <div className={`${prefixcls }-right-list`}>
+                    <div className={`${prefixcls}-right-list`} role="list">
                         {selectedData.map(item => this.renderRightItem({ ...item }))}
                     </div>
                 );
@@ -632,14 +635,14 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
     render() {
         const { className, style, disabled, renderSelectedPanel, renderSourcePanel } = this.props;
         const transferCls = cls(prefixcls, className, {
-            [`${prefixcls }-disabled`]: disabled,
-            [`${prefixcls }-custom-panel`]: renderSelectedPanel && renderSourcePanel,
+            [`${prefixcls}-disabled`]: disabled,
+            [`${prefixcls}-custom-panel`]: renderSelectedPanel && renderSourcePanel,
         });
 
         return (
             <LocaleConsumer componentName="Transfer">
                 {(locale: Locale['Transfer']) => (
-                    <div className={transferCls} style={style}>
+                    <div role="" className={transferCls} style={style}>
                         {this.renderLeft(locale)}
                         {this.renderRight(locale)}
                     </div>
