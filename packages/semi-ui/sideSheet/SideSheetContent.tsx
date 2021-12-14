@@ -87,7 +87,7 @@ export default class SideSheetContent extends React.PureComponent<SideSheetConte
         let header, closer;
         if (title) {
             header = (
-                <div className={`${prefixCls}-title`} aria-label={'sidesheet-title'}>
+                <div className={`${prefixCls}-title`} aria-label={'Sidesheet title'}>
                     {this.props.title}
                 </div>
             );
@@ -137,13 +137,13 @@ export default class SideSheetContent extends React.PureComponent<SideSheetConte
                 style={{ ...props.style, ...style }}
                 // id={this.dialogId}
             >
-                <div className={`${prefixCls}-content`} aria-label={`sidesheet-content`}>
+                <div className={`${prefixCls}-content`} aria-label={`Sidesheet content`}>
                     {header}
-                    <div className={`${prefixCls}-body`} aria-label={`sidesheet-body`} style={props.bodyStyle}>
+                    <div className={`${prefixCls}-body`} aria-label={`Sidesheet body`} style={props.bodyStyle}>
                         {props.children}
                     </div>
                     {props.footer ? (
-                        <div className={`${prefixCls}-footer`} aria-label={`sidesheet-footer`}>
+                        <div className={`${prefixCls}-footer`} aria-label={`Sidesheetfooter`}>
                             {props.footer}
                         </div>
                     ) : null}
