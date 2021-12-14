@@ -78,8 +78,7 @@ $rating: #{$prefix}-rating;
         font-weight: $font-form_label-fontWeight;
         color: $color-form_label-text-default;
         margin-bottom: $spacing-form_label-marginBottom;
-        display: flex;
-        align-items: center;
+        display: inline-block;
         vertical-align: middle;
         @include font-size-regular;
         flex-shrink: 0;
@@ -148,7 +147,9 @@ $rating: #{$prefix}-rating;
         // display:
         .#{$field}-label {
             // make sure label height is correct
-            display: block;
+            //display: block;
+            display: flex;
+            align-items: center;
         }
         .#{$checkboxGroup},
         .#{$radioGroup} {
