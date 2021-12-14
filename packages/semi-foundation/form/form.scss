@@ -163,6 +163,10 @@ $rating: #{$prefix}-rating;
         display: flex;
 
         .#{$field}-label {
+
+            display: flex;
+            align-items: center;
+
             margin-bottom: $spacing-form_label_posLeft-marginBottom;
             margin-right: $spacing-form_label_posLeft-marginRight;
             // 增加padding-top：6px以达到与组件的第一行文本水平对齐
