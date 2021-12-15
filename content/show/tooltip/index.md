@@ -433,6 +433,28 @@ function Demo() {
 | zIndex | 弹层层级 | number | 1060 |  |
 | onVisibleChange | 弹出层展示/隐藏时触发的回调 | function(isVisible:boolean) |  |  |
 | onClickOutSide | 当弹出层处于展示状态，点击非Children、非浮层内部区域时的回调（仅trigger为custom、click时有效）| function(e:event) |  | **2.1.0** |
+
+## Accessibility
+
+### Aria
+
+- Tooltip 具有 `tooltip` role，遵循 [WAI-ARIA](https://www.w3.org/TR/wai-aria-practices/#tooltip) 规范中对于 Tooltip 的定义
+- Tooltip 的 content 与 children
+  - 关于 content
+      - 三content 的 wrapper 会被自动添加 id 属性，用于与 children 的 `aria-descriptionby` 匹配，关联 content 与 children
+  - 关于 children
+       - Tooltip 的内容（content）与其触发器（children）之间应当具有显式联系。Tooltip 会自动为 children 元素添加 `aria-descriptionby` 属性，值为 content wraper的 id
+       - 若你 Tooltip的children 是Icon，不包含可见文本，我们推荐你在 children 上添加 `aria-label` 属性进行相应描述
+
+
+```js
+// Good practices, add aria-label to description tooltip children
+<Tooltip content={<p id='description'>Edit your setting</p>}>
+    <IconSetting aria-label='Settings'> 
+    </IconSetting>
+</Tooltip>
+```
+
 ## 设计变量
 
 <DesignToken/>

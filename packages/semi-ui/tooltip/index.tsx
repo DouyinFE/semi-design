@@ -12,6 +12,7 @@ import { ArrayElement } from '@douyinfe/semi-foundation/utils/type';
 import { convertDOMRectToObject, DOMRectLikeType } from '@douyinfe/semi-foundation/utils/dom';
 import TooltipFoundation, { TooltipAdapter, Position, PopupContainerDOMRect } from '@douyinfe/semi-foundation/tooltip/foundation';
 import { strings, cssClasses, numbers } from '@douyinfe/semi-foundation/tooltip/constants';
+import { getUuidv4 } from '@douyinfe/semi-foundation/utils/uuid';
 import '@douyinfe/semi-foundation/tooltip/tooltip.scss';
 
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
@@ -56,6 +57,7 @@ export interface TooltipProps extends BaseProps {
     showArrow?: boolean | React.ReactNode;
     zIndex?: number;
     rePosKey?: string | number;
+    role?: string;
     arrowBounding?: ArrowBounding;
     transformFromCenter?: boolean;
     arrowPointAtCenter?: boolean;
@@ -77,6 +79,7 @@ interface TooltipState {
     isInsert: boolean;
     placement: Position;
     transitionStyle: Record<string, any>;
+    id: string;
 }
 
 const prefix = cssClasses.PREFIX;
@@ -117,26 +120,28 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         arrowPointAtCenter: PropTypes.bool,
         stopPropagation: PropTypes.bool,
         // private
+        role: PropTypes.string,
         wrapWhenSpecial: PropTypes.bool, // when trigger has special status such as "disabled" or "loading", wrap span
     };
 
     static defaultProps = {
-        transformFromCenter: true,
+        arrowBounding: numbers.ARROW_BOUNDING,
+        autoAdjustOverflow: true,
         arrowPointAtCenter: true,
-        wrapWhenSpecial: true,
-        motion: true,
-        zIndex: numbers.DEFAULT_Z_INDEX,
         trigger: 'hover',
+        transformFromCenter: true,
         position: 'top',
         prefixCls: prefix,
-        autoAdjustOverflow: true,
+        role: 'tooltip',
         mouseEnterDelay: numbers.MOUSE_ENTER_DELAY,
         mouseLeaveDelay: numbers.MOUSE_LEAVE_DELAY,
+        motion: true,
         onVisibleChange: noop,
         onClickOutSide: noop,
         spacing: numbers.SPACING,
         showArrow: true,
-        arrowBounding: numbers.ARROW_BOUNDING,
+        wrapWhenSpecial: true,
+        zIndex: numbers.DEFAULT_Z_INDEX,
     };
 
     eventManager: Event;
@@ -167,6 +172,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             isInsert: false,
             placement: props.position || 'top',
             transitionStyle: {},
+            id: getUuidv4(), // auto generate id, will be used by children.aria-descriptionby & content.id, improve a11y
         };
         this.foundation = new TooltipFoundation(this.adapter);
         this.eventManager = new Event();
@@ -489,8 +495,8 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
     };
 
     renderPortal = () => {
-        const { containerStyle = {}, visible, portalEventSet, placement, transitionState } = this.state;
-        const { prefixCls, content, showArrow, style, motion, zIndex } = this.props;
+        const { containerStyle = {}, visible, portalEventSet, placement, transitionState, id } = this.state;
+        const { prefixCls, content, showArrow, style, motion, role, zIndex } = this.props;
         const { className: propClassName } = this.props;
         const direction = this.context.direction;
         const className = classNames(propClassName, {
@@ -517,7 +523,9 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                                 }}
                                 {...portalEventSet}
                                 {...animateEvents}
+                                role={role}
                                 x-placement={placement}
+                                id={id}
                             >
                                 {content}
                                 {icon}
@@ -580,8 +588,8 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
     };
 
     render() {
-        const { isInsert, triggerEventSet } = this.state;
-        const { wrapWhenSpecial } = this.props;
+        const { isInsert, triggerEventSet, visible, id } = this.state;
+        const { wrapWhenSpecial, role } = this.props;
         let { children } = this.props;
         const childrenStyle = { ...get(children, 'props.style') };
         const extraStyle: React.CSSProperties = {};
@@ -605,6 +613,18 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             }
         }
 
+        // eslint-disable-next-line prefer-const
+        let ariaAttribute = {
+            'aria-descriptionby': id,
+        };
+
+        // Take effect when used by Popover component
+        if (role === 'dialog') {
+            ariaAttribute['aria-expanded'] = visible ? 'true' : 'false';
+            ariaAttribute['aria-haspopup'] = 'dialog';
+            ariaAttribute['aria-controls'] = id;
+        }
+
         // The incoming children is a single valid element, otherwise wrap a layer with span
         const newChild = React.cloneElement(children as React.ReactElement, {
             ...(children as React.ReactElement).props,
@@ -615,7 +635,6 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             },
             className: classNames(
                 get(children, 'props.className')
-                // `${prefixCls}-trigger`
             ),
             // to maintain refs with callback
             ref: (node: React.ReactNode) => {
@@ -630,6 +649,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                     ref.current = node;
                 }
             },
+            ...ariaAttribute
         });
 
         // If you do not add a layer of div, in order to bind the events and className in the tooltip, you need to cloneElement children, but this time it may overwrite the children's original ref reference
