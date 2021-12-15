@@ -228,6 +228,7 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
                         }}
                         style={{ ...wrapperStyle }}
                         key={`${prefixCls}-scroll-wrapper`}
+                        role="presentation"
                     >
                         {visible.map(visibleItemRenderer).map((item: ReactElement, ind) => {
                             const { forwardRef, key } = item as any;
@@ -235,6 +236,7 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
                                 ref: (node: any) => this.mergeRef(forwardRef, node, key),
                                 'data-scrollkey': `${key}`,
                                 key,
+                                role: 'listitem'
                             });
                         })}
                     </div>,
@@ -251,6 +253,8 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
             {
                 className: cls(`${prefixCls}`, className),
                 style,
+                role: 'list',
+                "aria-orientation": 'horizontal'
             },
             ...inner
         );
