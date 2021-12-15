@@ -243,7 +243,7 @@ import { IllustrationConstruction } from '@douyinfe/semi-illustrations';
 In 1.x, Semi uses source code publishing. It will not perform precompilation before performing npm publishing. The Scss and jsx/js of the component library will be compiled together with the business code. In 2.0, precompilation was performed before npm publishing. For ordinary users, precompilation can make Semi work out of the box: there is no need for users to compile Semi source files, and there is no need to introduce Semi plug-ins when using them. Since the compiled results are under lib/es, the reference path of the interface and language package has changed, but for component references, you do not need to change the original reference path (because package.json main attribute points to lib/es/index.js).
 
 ### The project wants to upgrade to 2.0, but the Semi material is used in the project. The material is based on 1.x Semi. Can it be used at the same time?
-Since Semi 2.0 does not have the same package name as 1.x, they will actually be two separate packages that do not affect each other.
+No, the css class name of semi2.x is the same as that of semi1.x, and using it at the same time will cause style conflicts. If you encounter similar problems, please initiate an oncall in the Feishu group, and there will be a dedicated person to deal with it.
 
 ### Why do CSS variables add semi prefixes?
 Due to the increasing number of business micro front-end application scenarios, in order to avoid naming conflicts with other library CSS variables and avoid the problem of mutual influence of styles.
