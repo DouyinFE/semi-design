@@ -313,6 +313,13 @@ class App extends React.Component {
 }
 ```
 
+## Accessibility
+
+### Aria
+
+- Steps、Step组件支持传入`aria-label`属性，来表示Steps和Step的描述
+- Step组件具有一个`button` role来表示它可被点击，Step组件具有 aria-current `step` 属性，表示这是步骤条内的一步
+
 ## API 参考
 
 ### Steps
