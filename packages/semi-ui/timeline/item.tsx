@@ -65,10 +65,10 @@ export default class Item extends PureComponent<TimelineItemProps> {
                 >
                     {dot}
                 </div>
-                <div className={`${prefixCls}-content`}>
+                <div className={`${prefixCls}-content`} aria-label="content">
                     {children}
                     {extra ? <div className={`${prefixCls}-content-extra`}>{extra}</div> : null}
-                    <div className={`${prefixCls}-content-time`}>{time}</div>
+                    <div className={`${prefixCls}-content-time`} aria-label="time">{time}</div>
                 </div>
             </li>
         );
