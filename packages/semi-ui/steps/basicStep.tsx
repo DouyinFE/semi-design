@@ -21,6 +21,7 @@ export interface BasicStepProps {
     done?: boolean;
     onChange?: () => void;
     onClick?: React.MouseEventHandler<HTMLDivElement>;
+    "aria-label"?: string;
 }
 export enum stepSizeMapIconSize {
     small = 'large',
@@ -42,7 +43,6 @@ const BasicStep = (props: BasicStepProps) => {
         stepNumber,
         onClick,
         onChange,
-        ...restProps
     } = props;
     const renderIcon = () => {
         let inner, progress;
@@ -92,8 +92,16 @@ const BasicStep = (props: BasicStepProps) => {
         }
         onChange();
     };
+    const handleKeyDown = (e) => {
+        if (e.keyCode === 13) {
+            if (isFunction(onClick)) {
+                onClick(e);
+            }
+            onChange();
+        }
+    };
     return (
-        <div {...restProps} className={classString} style={style} onClick={e => handleClick(e)}>
+        <div role="button" aria-label={props["aria-label"]} tabIndex={0} aria-current="step" className={classString} style={style} onClick={e => handleClick(e)} onKeyDown={handleKeyDown}>
             <div className={`${prefixCls}-container`}>
                 <div className={`${prefixCls}-left`}>{renderIcon()}</div>
                 <div className={`${prefixCls}-content`}>

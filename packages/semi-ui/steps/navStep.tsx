@@ -15,6 +15,7 @@ export interface NavStepProps {
     prefixCls?: string;
     onChange?: () => void;
     onClick?: React.MouseEventHandler<HTMLDivElement>;
+    "aria-label"?: string;
 }
 
 const NavStep = (props: NavStepProps) => {
@@ -28,8 +29,16 @@ const NavStep = (props: NavStepProps) => {
         }
         onChange();
     };
+    const handleKeyDown = (e) => {
+        if (e.keyCode === 13) {
+            if (isFunction(onClick)) {
+                onClick(e);
+            }
+            onChange();
+        }
+    };
     return (
-        <div {...restProps} className={classString} style={style} onClick={e => handleClick(e)}>
+        <div role="button" aria-label={props["aria-label"]} aria-current="step" tabIndex={0} className={classString} style={style} onClick={e => handleClick(e)} onKeyDown={handleKeyDown}>
             <div className={`${prefixCls}-container`}>
                 <div className={`${prefixCls}-content`}>
                     <div className={`${prefixCls}-title`}>

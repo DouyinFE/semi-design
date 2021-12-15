@@ -18,6 +18,7 @@ export interface FillStepProps {
     stepNumber?: string;
     onChange?: () => void;
     onClick?: React.MouseEventHandler<HTMLDivElement>;
+    "aria-label"?: string;
 }
 
 const FillStep = (props: FillStepProps) => {
@@ -51,10 +52,10 @@ const FillStep = (props: FillStepProps) => {
             }
         }
         const cls = classnames({
-            [`${prefixCls }-left`]: true,
-            [`${prefixCls }-icon`]: 'icon' in props,
-            [`${prefixCls }-plain`]: !('icon' in props),
-            [`${prefixCls }-icon-process`]: progress,
+            [`${prefixCls}-left`]: true,
+            [`${prefixCls}-icon`]: 'icon' in props,
+            [`${prefixCls}-plain`]: !('icon' in props),
+            [`${prefixCls}-icon-process`]: progress,
         });
 
         return inner ? <div className={cls}>{inner}</div> : null;
@@ -65,26 +66,39 @@ const FillStep = (props: FillStepProps) => {
         }
         onChange();
     };
+    const handleKeyDown = (e) => {
+        if (e.keyCode === 13) {
+            if (isFunction(onClick)) {
+                onClick(e);
+            }
+            onChange();
+        }
+    };
     return (
         <div
+            role="button"
+            aria-label={props["aria-label"]}
+            aria-current="step"
+            tabIndex={0} 
             className={classnames({
                 [className]: Boolean(className),
                 [prefixCls]: true,
                 [`${prefixCls}-${status}`]: Boolean(status),
-                [`${prefixCls }-clickable`]: onClick,
+                [`${prefixCls}-clickable`]: onClick,
             })}
             style={style}
             onClick={e => {
                 handleClick(e);
             }}
+            onKeyDown={handleKeyDown}
         >
             {renderIcon()}
-            <div className={`${prefixCls }-content`}>
-                <div className={`${prefixCls }-title`} title={typeof title === 'string' ? title : null}>
-                    <span className={`${prefixCls }-title-text`}>{title}</span>
+            <div className={`${prefixCls}-content`}>
+                <div className={`${prefixCls}-title`} title={typeof title === 'string' ? title : null}>
+                    <span className={`${prefixCls}-title-text`}>{title}</span>
                 </div>
                 <div
-                    className={`${prefixCls }-description`}
+                    className={`${prefixCls}-description`}
                     title={typeof description === 'string' ? description : null}
                 >
                     {description}
