@@ -291,7 +291,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
             return null;
         }
         return (
-            <div role="search" aria-label="transfer-filter" className={`${prefixcls}-filter`}>
+            <div role="search" aria-label="Transfer filter" className={`${prefixcls}-filter`}>
                 <Input
                     prefix={<IconSearch />}
                     placeholder={locale.placeholder}
@@ -314,13 +314,12 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
             [`${prefixcls}-left-header`]: type === 'left',
         });
         return (
-            <div role="status" className={headerCls}>
-                <span aria-label={totalContent} className={`${prefixcls}-header-total`}>{totalContent}</span>
+            <div className={headerCls}>
+                <span className={`${prefixcls}-header-total`}>{totalContent}</span>
                 {showButton ? (
                     <Button
                         theme="borderless"
                         disabled={disabled}
-                        aria-label={allContent}
                         type="tertiary"
                         size="small"
                         className={`${prefixcls}-header-all`}
@@ -350,6 +349,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
                 disabled={item.disabled || disabled}
                 className={leftItemCls}
                 checked={checked}
+                role="listitem"
                 onChange={() => this.onSelectOrRemove(item)}
             >
                 {item.label}
@@ -449,7 +449,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
     renderGroupTitle(group: GroupItem) {
         const groupCls = cls(`${prefixcls}-group-title`);
         return (
-            <div role="textbox" aria-label={group.title} className={groupCls} key={group.title}>
+            <div className={groupCls} key={group.title}>
                 {group.title}
             </div>
         );
@@ -502,7 +502,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
                 content.push(optionContent);
             }
         });
-        return <div className={`${prefixcls}-left-list`}>{content}</div>;
+        return <div className={`${prefixcls}-left-list`} role="list" aria-label="Option list">{content}</div>;
     }
 
     renderRightItem(item: ResolvedDataItem): React.ReactNode {
@@ -527,16 +527,17 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
         }
 
         const DragHandle = SortableHandle(() => (
-            <IconHandle className={`${prefixcls}-right-item-drag-handler`} />
+            <IconHandle role="button" aria-label="Drag and sort" className={`${prefixcls}-right-item-drag-handler`} />
         ));
 
         return (
             // https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex
-            <div role="listitem" tabIndex={0} aria-disabled={item.disabled} className={rightItemCls} key={newItem.key}>
+            <div role="listitem" className={rightItemCls} key={newItem.key}>
                 {draggable ? <DragHandle /> : null}
-                <div aria-label={label} className={`${prefixcls}-right-item-text`}>{label}</div>
+                <div className={`${prefixcls}-right-item-text`}>{label}</div>
                 <IconClose
                     onClick={onRemove}
+                    aria-disabled={item.disabled}
                     className={cls(`${prefixcls}-item-close-icon`, {
                         [`${prefixcls}-item-close-icon-disabled`]: item.disabled
                     })}
@@ -560,7 +561,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
             (item: ResolvedDataItem) => this.renderRightItem(item)) as React.SFC<ResolvedDataItem>
         );
         const SortableList = SortableContainer(({ items }: { items: Array<ResolvedDataItem> }) => (
-            <div className={`${prefixcls}-right-list`} role="list">
+            <div className={`${prefixcls}-right-list`} role="list" aria-label="Selected list">
                 {items.map((item, index: number) => (
                     // sortableElement will take over the property 'key', so use another '_optionKey' to pass
                     <SortableItem key={item.label} index={index} {...item} _optionKey={item.key} />
@@ -611,7 +612,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
                 break;
             case selectedData.length && !draggable:
                 const list = (
-                    <div className={`${prefixcls}-right-list`} role="list">
+                    <div className={`${prefixcls}-right-list`} role="list" aria-label="Selected list">
                         {selectedData.map(item => this.renderRightItem({ ...item }))}
                     </div>
                 );
@@ -642,7 +643,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
         return (
             <LocaleConsumer componentName="Transfer">
                 {(locale: Locale['Transfer']) => (
-                    <div role="" className={transferCls} style={style}>
+                    <div className={transferCls} style={style}>
                         {this.renderLeft(locale)}
                         {this.renderRight(locale)}
                     </div>
