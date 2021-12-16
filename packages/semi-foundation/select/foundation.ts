@@ -463,6 +463,21 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
     // Update the selected item in the drop-down box
     updateOptionsActiveStatus(selections: Map<any, any>, options: BasicOptionProps[] = this.getState('options')) {
         const { allowCreate } = this.getProps();
+        const createOptions = allowCreate ?
+            [...selections].reduce((opts, [k, v]) => {
+                if (v._notExist) {
+                    const newOpt = {
+                        _show: true,
+                        _selected: true,
+                        value: k,
+                        label: k,
+                        ...omit(v, '_notExist'),
+                    };
+                    opts.push(newOpt);
+                    return opts;
+                }
+                return opts;
+            }, []) : [];
         const newOptions = options.map(option => {
             if (selections.has(option.label)) {
                 option._selected = true;
@@ -477,7 +492,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
             }
             return option;
         });
-        this._adapter.updateOptions(newOptions);
+        this._adapter.updateOptions([...newOptions, ...createOptions]);
     }
 
     removeTag(item: BasicOptionProps) {
