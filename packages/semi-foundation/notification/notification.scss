@@ -93,23 +93,23 @@ $module: #{$prefix}-notification;
 
         &-light {
             &.#{$module}-notice-warning {
-                background-color: $color-notification_warning_light-bg;
+                background: linear-gradient(0deg, $color-notification_warning_light-bg, $color-notification_warning_light-bg), $color-notification-bg-ambient;
                 border: $width-notification_notice-border solid $color-notification_warning_light-border;
             }
 
             &.#{$module}-notice-success {
-                background-color: $color-notification_success_light-bg;
+                background: linear-gradient(0deg, $color-notification_success_light-bg, $color-notification_success_light-bg), $color-notification-bg-ambient;
                 border: $width-notification_notice-border solid $color-notification_success_light-border;
             }
 
             &.#{$module}-notice-info,
             &.#{$module}-notice-default {
-                background-color: $color-notification_info_light-bg;
+                background: linear-gradient(0deg, $color-notification_info_light-bg, $color-notification_info_light-bg), $color-notification-bg-ambient;
                 border: $width-notification_notice-border solid $color-notification_info_light-border;
             }
 
             &.#{$module}-notice-error {
-                background-color: $color-notification_danger_light-bg;
+                background: linear-gradient(0deg, $color-notification_danger_light-bg, $color-notification_danger_light-bg), $color-notification-bg-ambient;
                 border: $width-notification_notice-border solid $color-notification_danger_light-border;
             }
         }
