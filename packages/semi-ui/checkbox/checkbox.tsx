@@ -123,6 +123,7 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
             onMouseLeave,
             extra,
             value,
+            id,
         } = this.props;
         const { checked } = this.state;
         const props: Record<string, any> = {
@@ -154,6 +155,7 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
             [`${prefix}-cardType_disabled`]: props.disabled && props.isCardType,
             [`${prefix}-cardType_unDisabled`]: !(props.disabled && props.isCardType),
             [`${prefix}-cardType_checked`]: props.isCardType && props.checked && !props.disabled,
+            [`${prefix}-cardType_checked_disabled`]: props.isCardType && props.checked && props.disabled,
             [className]: Boolean(className),
         });
 
@@ -173,6 +175,7 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
             <span
                 style={style}
                 className={wrapper}
+                id={id}
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
                 onClick={this.handleChange}

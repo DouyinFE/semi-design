@@ -25,6 +25,7 @@ export type CheckboxGroupProps = {
     style?: React.CSSProperties;
     className?: string;
     type?: CheckboxType;
+    id?: string;
 };
 
 export type CheckboxGroupState = {
@@ -96,7 +97,7 @@ class CheckboxGroup extends BaseComponent<CheckboxGroupProps, CheckboxGroupState
     }
 
     render() {
-        const { children, options, prefixCls, direction, className, style, type } = this.props;
+        const { children, options, prefixCls, direction, className, id, style, type } = this.props;
 
         const isPureCardType = type === strings.TYPE_PURECARD;
         const isCardType = type === strings.TYPE_CARD || isPureCardType;
@@ -148,7 +149,7 @@ class CheckboxGroup extends BaseComponent<CheckboxGroupProps, CheckboxGroupState
         }
 
         return (
-            <div className={prefixClsDisplay} style={style}>
+            <div className={prefixClsDisplay} style={style} id={id}>
                 <Context.Provider
                     value={{
                         checkboxGroup: {

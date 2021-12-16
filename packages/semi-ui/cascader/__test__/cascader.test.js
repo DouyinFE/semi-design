@@ -997,6 +997,128 @@ describe('Cascader', () => {
         ).toEqual('美国');
     });
 
+    it('multiple select enableLeafClick', () => {
+        const cascaderWithMultiple = render({
+            multiple: true,
+            enableLeafClick: true,
+            treeData: [
+                {
+                    label: '北美洲',
+                    value: 'Beimeizhou',
+                    key: 'beimeizhou',
+                    children: [
+                        {
+                            label: '美国',
+                            value: 'Meiguo',
+                            key: 'meiguo',
+                        },
+                        {
+                            label: '加拿大',
+                            value: 'Jianada',
+                            key: 'jianada',
+                        },
+                    ],
+                },
+                {
+                    label: '南美洲',
+                    value: 'Nanmeiguo',
+                    key: 'Nanmeiguo',
+                }
+            ]
+        })
+        const selectBox = cascaderWithMultiple.find(`.${BASE_CLASS_PREFIX}-cascader-selection`).at(0);
+        selectBox.simulate('click');
+        // click checkbox
+        cascaderWithMultiple
+            .find(`.${BASE_CLASS_PREFIX}-cascader-option-list`)
+            .at(0)
+            .find(`.${BASE_CLASS_PREFIX}-cascader-option`)
+            .at(1)
+            .find(`.${BASE_CLASS_PREFIX}-cascader-option-label`)
+            .at(0)
+            .find(`.${BASE_CLASS_PREFIX}-checkbox`)
+            .at(0)
+            .simulate('click');
+        expect(cascaderWithMultiple.state().checkedKeys.size).toEqual(1);
+        // click option cancel checked
+        cascaderWithMultiple
+            .find(`.${BASE_CLASS_PREFIX}-cascader-option-list`)
+            .at(0)
+            .find(`.${BASE_CLASS_PREFIX}-cascader-option`)
+            .at(1)
+            .simulate('click')
+        expect(cascaderWithMultiple.state().checkedKeys.size).toEqual(0);
+        // click option select
+        cascaderWithMultiple
+            .find(`.${BASE_CLASS_PREFIX}-cascader-option-list`)
+            .at(0)
+            .find(`.${BASE_CLASS_PREFIX}-cascader-option`)
+            .at(0)
+            .simulate('click')
+        cascaderWithMultiple
+            .find(`.${BASE_CLASS_PREFIX}-cascader-option-list`)
+            .at(1)
+            .find(`.${BASE_CLASS_PREFIX}-cascader-option`)
+            .at(0)
+            .simulate('click')
+        expect(cascaderWithMultiple.state().checkedKeys.size).toEqual(1);
+        const states = cascaderWithMultiple.state()
+        cascaderWithMultiple.unmount();
+    })
+
+    it('multiple select disable enableLeafClick', () => {
+        const cascaderWithMultiple = render({
+            multiple: true,
+            treeData: [
+                {
+                    label: '北美洲',
+                    value: 'Beimeizhou',
+                    key: 'beimeizhou',
+                    children: [
+                        {
+                            label: '美国',
+                            value: 'Meiguo',
+                            key: 'meiguo',
+                        },
+                        {
+                            label: '加拿大',
+                            value: 'Jianada',
+                            key: 'jianada',
+                        },
+                    ],
+                },
+                {
+                    label: '南美洲',
+                    value: 'Nanmeiguo',
+                    key: 'Nanmeiguo',
+                }
+            ]
+        })
+        const selectBox = cascaderWithMultiple.find(`.${BASE_CLASS_PREFIX}-cascader-selection`).at(0);
+        selectBox.simulate('click');
+        // click checkbox
+        cascaderWithMultiple
+            .find(`.${BASE_CLASS_PREFIX}-cascader-option-list`)
+            .at(0)
+            .find(`.${BASE_CLASS_PREFIX}-cascader-option`)
+            .at(1)
+            .find(`.${BASE_CLASS_PREFIX}-cascader-option-label`)
+            .at(0)
+            .find(`.${BASE_CLASS_PREFIX}-checkbox`)
+            .at(0)
+            .simulate('click');
+        expect(cascaderWithMultiple.state().checkedKeys.size).toEqual(1);
+        // click option can't cancel checked
+        cascaderWithMultiple
+            .find(`.${BASE_CLASS_PREFIX}-cascader-option-list`)
+            .at(0)
+            .find(`.${BASE_CLASS_PREFIX}-cascader-option`)
+            .at(1)
+            .simulate('click')
+        expect(cascaderWithMultiple.state().checkedKeys.size).toEqual(1);
+        cascaderWithMultiple.unmount();
+    })
+
     it('triggerRender', () => {
         const spyTriggerRender = sinon.spy(() => <span>123</span>);
         const cascaderAutoMerge = render({
@@ -1026,5 +1148,83 @@ describe('Cascader', () => {
         expect(args2.value.size).toEqual(4);
         expect(args2.value).toEqual(new Set(['0','0-0','0-0-1','0-0-0']));
         cascaderNoAutoMerge.unmount();
+    });
+
+    it('autoMergeValue', () => {
+        const cascader = render({
+            multiple: true,
+            autoMergeValue: false,
+            defaultValue: 'Yazhou',
+        });
+        const tags = cascader.find(`.${BASE_CLASS_PREFIX}-cascader-selection .${BASE_CLASS_PREFIX}-tag`)
+        expect(tags.length).toEqual(4);
+        cascader.unmount();
+
+        const cascaderAutoMerge = render({
+            multiple: true,
+            autoMergeValue: true,
+            defaultValue: 'Yazhou',
+        });
+        const tags2 = cascaderAutoMerge.find(`.${BASE_CLASS_PREFIX}-cascader-selection .${BASE_CLASS_PREFIX}-tag`)
+        expect(tags2.length).toEqual(1);
+        expect(
+            tags2
+                .find(`.${BASE_CLASS_PREFIX}-tag-content`)
+                .getDOMNode()
+                .textContent
+        ).toEqual('亚洲');
+        cascaderAutoMerge.unmount();
+    });
+
+    it('leafOnly', () => {
+        /* autoMergeValue and leafOnly are both false */
+        const cascader = render({
+            multiple: true,
+            autoMergeValue: false,
+            leafOnly: false,
+            defaultValue: 'Yazhou',
+        });
+        const tags = cascader.find(`.${BASE_CLASS_PREFIX}-cascader-selection .${BASE_CLASS_PREFIX}-tag`)
+        expect(tags.length).toEqual(4);
+        cascader.unmount();
+
+        /* autoMergeValue and leafOnly are both true */
+        const cascader2 = render({
+            multiple: true,
+            autoMergeValue: true,
+            leafOnly: true,
+            defaultValue: 'Yazhou',
+        });
+        const tags2 = cascader2.find(`.${BASE_CLASS_PREFIX}-cascader-selection .${BASE_CLASS_PREFIX}-tag`)
+        expect(tags2.length).toEqual(2);
+        cascader2.unmount();
+
+        /* autoMergeValue is false, leafOnly is true */
+        const cascader3 = render({
+            multiple: true,
+            autoMergeValue: false,
+            leafOnly: true,
+            defaultValue: 'Yazhou',
+        });
+        const tags3 = cascader3.find(`.${BASE_CLASS_PREFIX}-cascader-selection .${BASE_CLASS_PREFIX}-tag`)
+        expect(tags3.length).toEqual(2);
+        cascader3.unmount();
+
+        /* autoMergeValue is true, leafOnly is false */
+        const cascader4 = render({
+            multiple: true,
+            autoMergeValue: true,
+            leafOnly: false,
+            defaultValue: 'Yazhou',
+        });
+        const tags4 = cascader4.find(`.${BASE_CLASS_PREFIX}-cascader-selection .${BASE_CLASS_PREFIX}-tag`)
+        expect(tags4.length).toEqual(1);
+        expect(
+            tags4
+                .find(`.${BASE_CLASS_PREFIX}-tag-content`)
+                .getDOMNode()
+                .textContent
+        ).toEqual('亚洲');
+        cascader4.unmount();
     });
 });

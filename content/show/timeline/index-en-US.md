@@ -202,5 +202,6 @@ import { IconAlertTriangle } from '@douyinfe/semi-icons';
 | type       | Pattern of dot                                           | `default`\|`ongoing`\|`success`\|`warning`\|`error` | `default` | -         |
 | onClick    | Click event                                              | (e: MouseEvent) => void                             | -         | 2.2.0     |
 
+
 ## Design Tokens
 <DesignToken/>

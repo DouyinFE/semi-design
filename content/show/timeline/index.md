@@ -244,6 +244,7 @@ import { IconAlertTriangle } from '@douyinfe/semi-icons';
 | type | 当前圆圈的模式 | `default`\|`ongoing`\|`success`\|`warning`\|`error` | `default` | - |
 | onClick | 鼠标点击事件的回调 | (e: MouseEvent) => void | - | 2.2.0 |
 
+
 ## 设计变量
 
 <DesignToken/>

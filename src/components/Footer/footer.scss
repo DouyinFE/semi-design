@@ -91,14 +91,17 @@ body[theme-mode='dark'] {
     }
 
     .autoWrapper {
+        width: 1110px;
         display: flex;
         flex-direction: row;
         align-items: center;
+        justify-content: space-between;
     }
-
+    .icpWrapper{
+        display: flex;
+    }
     .a2021SemiDesignAllRi {
-        min-width: 263px;
-        margin: 0px 495px 0px 0px;
+        margin: 0px 8px 0px 0px;
         font-size: 14px;
         font-family: Inter;
         color: #d9dbe1ff;
@@ -107,7 +110,23 @@ body[theme-mode='dark'] {
         text-align: left;
         vertical-align: top;
     }
+    
+    .image45 {
+        width: 20px;
+        height: 20px;
+        margin: 0px 8px 0px 0px;
+    }
 
+    .beianText{
+        min-width: 175px;
+        font-size: 14px;
+        font-family: Inter;
+        color: #d9dbe1ff;
+        line-height: 24px;
+        font-weight: 400;
+        text-align: left;
+        vertical-align: top;
+    }
     .designedDevelopedWit {
         min-width: 352px;
         font-size: 14px;

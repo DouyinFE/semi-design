@@ -14,8 +14,11 @@ import {
     convertDataToEntities,
     findKeysForValues,
     normalizedArr,
-    isValid
+    isValid,
+    calcMergeType
 } from './util';
+import { strings } from './constants';
+
 export interface BasicData {
     data: BasicCascaderData;
     disabled: boolean;
@@ -138,6 +141,8 @@ export interface BasicCascaderProps {
     topSlot?: any;
     showNext?: ShowNextType;
     disableStrictly?: boolean;
+    leafOnly?: boolean;
+    enableLeafClick?: boolean;
     onClear?: () => void;
     triggerRender?: (props: BasicTriggerRenderProps) => any;
     onListScroll?: (e: any, panel: BasicScrollPanelProps) => void;
@@ -168,7 +173,7 @@ export interface BasicCascaderInnerData {
     isHovering: boolean;
     checkedKeys: Set<string>;
     halfCheckedKeys: Set<string>;
-    mergedCheckedKeys: Set<string>;
+    resolvedCheckedKeys: Set<string>;
     loadedKeys: Set<string>;
     loadingKeys: Set<string>;
     loading: boolean;
@@ -649,7 +654,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
     }
 
     handleSingleSelect(e: any, item: BasicEntity | BasicData) {
-        const { changeOnSelect: allowChange, filterLeafOnly, multiple } = this.getProps();
+        const { changeOnSelect: allowChange, filterLeafOnly, multiple, enableLeafClick } = this.getProps();
         const { keyEntities, selectedKeys, isSearching } = this.getStates();
         const filterable = this._isFilterable();
         const { data, key } = item;
@@ -667,6 +672,9 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         }
         if (multiple) {
             this._adapter.updateStates({ activeKeys: new Set(activeKeys) });
+            if (isLeaf && enableLeafClick) {
+                this.onItemCheckboxClick(item);
+            }
         } else {
             this._adapter.notifySelect(data.value);
             if (hasChanged) {
@@ -703,8 +711,8 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
 
     _handleMultipleSelect(item: BasicEntity | BasicData) {
         const { key } = item;
-        const { checkedKeys, keyEntities, mergedCheckedKeys } = this.getStates();
-        const { autoMergeValue, max, disableStrictly } = this.getProps();
+        const { checkedKeys, keyEntities, resolvedCheckedKeys } = this.getStates();
+        const { autoMergeValue, max, disableStrictly, leafOnly } = this.getProps();
         // prev checked status
         const prevCheckedStatus = checkedKeys.has(key);
         // next checked status
@@ -719,18 +727,22 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
             this.calcNonDisabedCheckedKeys(key, curCheckedStatus) :
             this.calcCheckedKeys(key, curCheckedStatus);
 
-        const curMergedCheckedKeys = new Set(normalizeKeyList(curCheckedKeys, keyEntities));
+        const mergeType = calcMergeType(autoMergeValue, leafOnly);
+        const isLeafOnlyMerge = mergeType === strings.LEAF_ONLY_MERGE_TYPE;
+        const isNoneMerge = mergeType === strings.NONE_MERGE_TYPE;
 
-        const curRealCheckedKeys = autoMergeValue ?
-            curMergedCheckedKeys :
-            curCheckedKeys;
+        const curResolvedCheckedKeys = new Set(normalizeKeyList(curCheckedKeys, keyEntities, isLeafOnlyMerge));
+
+        const curRealCheckedKeys = isNoneMerge
+            ? curCheckedKeys
+            : curResolvedCheckedKeys;
 
         if (isNumber(max)) {
-            if (autoMergeValue) {
+            if (!isNoneMerge) {
                 // When it exceeds max, the quantity is allowed to be reduced, and no further increase is allowed
-                if (mergedCheckedKeys.size < curMergedCheckedKeys.size && curMergedCheckedKeys.size > max) {
+                if (resolvedCheckedKeys.size < curResolvedCheckedKeys.size && curResolvedCheckedKeys.size > max) {
                     const checkedEntities: BasicEntity[] = [];
-                    curMergedCheckedKeys.forEach(itemKey => {
+                    curResolvedCheckedKeys.forEach(itemKey => {
                         checkedEntities.push(keyEntities[itemKey]);
                     });
                     this._adapter.notifyOnExceed(checkedEntities);
@@ -752,7 +764,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
             this._adapter.updateStates({
                 checkedKeys: curCheckedKeys,
                 halfCheckedKeys: curHalfCheckedKeys,
-                mergedCheckedKeys: curMergedCheckedKeys
+                resolvedCheckedKeys: curResolvedCheckedKeys
             });
         }
 
@@ -868,7 +880,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
             newState.halfCheckedKeys = new Set([]);
             newState.selectedKeys = new Set([]);
             newState.activeKeys = new Set([]);
-            newState.mergedCheckedKeys = new Set([]);
+            newState.resolvedCheckedKeys = new Set([]);
             this._adapter.notifyChange([]);
         } else {
             // if click clearBtn when not searching, clear selected and active values as well

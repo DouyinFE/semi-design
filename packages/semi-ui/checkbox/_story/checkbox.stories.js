@@ -574,12 +574,12 @@ export const CheckboxGroupCardStyle = () => (
     </CheckboxGroup>
     <br />
     <br />
-    <div>radio disabled</div>
+    <div>Checkbox disabled</div>
     <CheckboxGroup type="card" direction="horizontal" defaultValue={['1']}>
-      <Checkbox value="1" disabled extra="Semi Design" style={{ width: 280 }}>
+      <Checkbox value="1" disabled extra="disabled+checked" style={{ width: 280 }}>
         多选框标题
       </Checkbox>
-      <Checkbox value="2" extra="Semi Design" style={{ width: 280 }}>
+      <Checkbox value="2" disabled extra="disabled+unchecked" style={{ width: 280 }}>
         多选框标题
       </Checkbox>
       <Checkbox value="3" extra="Semi Design" style={{ width: 280 }}>
@@ -767,12 +767,12 @@ export const CheckboxGroupPureCardStyle = () => (
     </CheckboxGroup>
     <br />
     <br />
-    <div>radio disabled</div>
+    <div>Checkbox disabled</div>
     <CheckboxGroup type="pureCard" defaultValue={['1']}>
-      <Checkbox value="1" disabled extra="Semi Design" style={{ width: 280 }}>
+      <Checkbox value="1" disabled extra="disabled+checked" style={{ width: 280 }}>
         多选框标题
       </Checkbox>
-      <Checkbox value="2" extra="Semi Design" style={{ width: 280 }}>
+      <Checkbox value="2" disabled extra="disabled+unchecked" style={{ width: 280 }}>
         多选框标题
       </Checkbox>
       <Checkbox value="3" extra="Semi Design" style={{ width: 280 }}>
