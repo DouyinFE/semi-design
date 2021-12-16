@@ -16,7 +16,7 @@ import Section from './section';
 import Label from './label';
 import ErrorMessage from './errorMessage';
 import FormInputGroup from './group';
-import { noop } from 'lodash-es';
+import { noop } from 'lodash';
 import '@douyinfe/semi-foundation/form/form.scss';
 import { FormInput,
     FormInputNumber,
@@ -122,8 +122,7 @@ class Form extends BaseComponent<BaseFormProps, BaseFormState> {
             formId: getUuidv4(),
         };
         warning(
-            // @ts-ignore special usage
-            props.component && props.render,
+            Boolean(props.component && props.render),
             '[Semi Form] You should not use <Form component> and <Form render> in ths same time; <Form render> will be ignored'
         );
         warning(

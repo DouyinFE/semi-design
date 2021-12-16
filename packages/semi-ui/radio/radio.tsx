@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
-import { noop } from 'lodash-es';
+import { noop } from 'lodash';
 
 import RadioFoundation, { RadioAdapter } from '@douyinfe/semi-foundation/radio/radioFoundation';
 import { RadioChangeEvent } from '@douyinfe/semi-foundation/radio/radioInnerFoundation';
@@ -24,7 +24,7 @@ export type RadioProps = {
     autoFocus?: boolean;
     checked?: boolean;
     defaultChecked?: boolean;
-    value?: any;
+    value?: string | number;
     disabled?: boolean;
     prefixCls?: string;
     displayMode?: RadioDisplayMode;
@@ -193,6 +193,7 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
             [`${prefix}-cardRadioGroup`]: isCardRadioGroup,
             [`${prefix}-cardRadioGroup_disabled`]: isDisabled && isCardRadioGroup,
             [`${prefix}-cardRadioGroup_checked`]: isCardRadioGroup && realChecked && !isDisabled,
+            [`${prefix}-cardRadioGroup_checked_disabled`]: isCardRadioGroup && realChecked && isDisabled,
             [`${prefix}-cardRadioGroup_hover`]: isCardRadioGroup && !realChecked && isHover && !isDisabled,
             [className]: Boolean(className),
         });

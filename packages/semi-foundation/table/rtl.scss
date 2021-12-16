@@ -112,6 +112,7 @@ $module: #{$prefix}-table;
         &-bordered {
             .#{$module}-container {
                 border-left: 0;
+                border-right: $border-table;
             }
 
             .#{$module}-thead > .#{$module}-row > .#{$module}-row-head,
@@ -121,8 +122,16 @@ $module: #{$prefix}-table;
             }
 
             .#{$module}-placeholder {
-                border-left: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
+                border-left: $border-table;
                 border-right: 0;
+            }
+
+            .#{$module}-header {
+
+                &::-webkit-scrollbar {
+                    border-right: 0;
+                    border-left: $border-table;
+                }
             }
         }
 

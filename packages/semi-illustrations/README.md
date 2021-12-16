@@ -1,25 +1,3 @@
-<div style="text-align:center">
-<h3>Semi Illustrations</h3>
-</div>
-
-<table style="display: inline-table; text-align: center;">
-  <tr>
-    <td><img src="./src/svgs/construction.svg" alt="construction" /></td>
-    <td><img src="./src/svgs/failure.svg" alt="failure" /></td>
-    <td><img src="./src/svgs/idle.svg" alt="idle" /></td>
-    <td><img src="./src/svgs/noAccess.svg" alt="noAccess" /></td>
-    
-  </tr>
-  <tr>
-    <td><img src="./src/svgs/noContent.svg" alt="noContent" /></td>
-    <td><img src="./src/svgs/noResult.svg" alt="noResult" /></td>
-    <td><img src="./src/svgs/notFound.svg" alt="notFound" /></td>
-    <td><img src="./src/svgs/success.svg" alt="success" /></td>
-  </tr>
-</table>
-
-</div>
-
 ##  📣 Introduce
 
 Semantic Illustrations design by Semi Team

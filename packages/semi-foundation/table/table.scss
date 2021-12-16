@@ -54,6 +54,12 @@ $module: #{$prefix}-table;
 
     &-header {
         overflow: hidden;
+
+        &::-webkit-scrollbar {
+            background-color: transparent;
+            border-bottom: $border-table_head-bottom;
+        }
+        scrollbar-base-color: transparent;
     }
 
     &-body {
@@ -83,7 +89,7 @@ $module: #{$prefix}-table;
                 color: $color-table_th-text-default;
                 font-weight: $font-weight-bold;
                 text-align: left;
-                border-bottom: #{$width-table_header_border} #{$border-table_base-borderStyle} $color-table_th-border-default;
+                border-bottom: $border-table_head-bottom;
                 padding-left: $spacing-table_row_head-paddingX;
                 padding-right: $spacing-table_row_head-paddingX;
                 padding-top: $spacing-table_row_head-paddingY;
@@ -98,7 +104,7 @@ $module: #{$prefix}-table;
 
                     &-left,
                     &-right {
-                        z-index: 1;
+                        z-index: $z-table_fixed_column;
                         position: sticky;
                         background-color: $color-table-bg-default;
 
@@ -241,7 +247,7 @@ $module: #{$prefix}-table;
 
                 &-left,
                 &-right {
-                    z-index: 1;
+                    z-index: $z-table_fixed_column;;
                     position: sticky;
                     background-color: $color-table-bg-default;
                 }
@@ -420,9 +426,16 @@ $module: #{$prefix}-table;
         }
 
         .#{$module}-container {
-            border: #{$width-table_base_border} #{$border-table_base-borderStyle} $color-table-border-default;
+            border: $border-table;
             border-right: 0;
             border-bottom: 0;
+        }
+
+        .#{$module}-header {
+
+            &::-webkit-scrollbar {
+                border-right: $border-table;
+            }
         }
 
         .#{$module}-footer {
@@ -444,7 +457,7 @@ $module: #{$prefix}-table;
         }
 
         .#{$module}-placeholder {
-            border-right: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
+            border-right: $border-table;
         }
     }
 
@@ -462,6 +475,7 @@ $module: #{$prefix}-table;
 
     &-fixed {
         table-layout: fixed;
+        min-width: 100%;
 
         & > .#{$module}-tbody {
             & > .#{$module}-row-expand > .#{$module}-row-cell > .#{$module}-expand-inner,
@@ -476,6 +490,14 @@ $module: #{$prefix}-table;
                 height: 100%;
                 display: flex;
                 align-items: center;
+            }
+        }
+
+        // when header is fixed, table should use `table-layout: fixed` to avoid align bug
+        &-header {
+
+            table {
+                table-layout: fixed;
             }
         }
     }

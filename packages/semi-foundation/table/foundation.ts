@@ -18,7 +18,7 @@ import {
     isMap,
     slice,
     isEqual
-} from 'lodash-es';
+} from 'lodash';
 import memoizeOne from 'memoize-one';
 
 import { ArrayElement } from '../utils/type';
@@ -107,7 +107,6 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
         cachedColumns: BaseColumnProps<RecordType>[], 
         rowSelectionUpdate: boolean, 
         hideExpandedColumn: boolean,
-        scrollbarColumnUpdate: boolean | string | number,
         bodyHasScrollBar: boolean,
     ) => BaseColumnProps<RecordType>[];
     memoizedFilterColumns: (columns: BaseColumnProps<RecordType>[], ignoreKeys?: string[]) => BaseColumnProps<RecordType>[];

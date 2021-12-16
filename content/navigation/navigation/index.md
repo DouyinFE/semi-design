@@ -137,7 +137,7 @@ class NavApp extends React.Component {
                 onSelect={key => console.log(key)}
                 header={{
                     logo: <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />,
-                    text: '直播运营后台'
+                    text: 'Semi 运营后台'
                 }}
                 footer={{
                     collapseButton: true,
@@ -185,7 +185,7 @@ class NavApp extends React.Component {
                 onSelect={key => console.log(key)}
                 header={{
                     logo: <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />,
-                    text: '直播运营后台'
+                    text: 'Semi 运营后台'
                 }}
                 footer={{
                     collapseButton: true,
@@ -214,7 +214,7 @@ class NavApp extends React.Component {
                 onSelect={data => console.log('trigger onSelect: ', data)}
                 onClick={data => console.log('trigger onClick: ', data)}
             >
-                <Nav.Header logo={<img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />} text={'直播运营后台'} />
+                <Nav.Header logo={<img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />} text={'Semi 运营后台'} />
                 <Nav.Item itemKey={'union'} text={'公会中心'} icon={<IconStar />} />
                 <Nav.Sub itemKey={'user'} text="用户管理" icon={<IconUser />}>
                     <Nav.Item itemKey={'golder'} text={'金主管理'} />
@@ -280,7 +280,7 @@ class NavApp extends React.Component {
                     onSelect={key => console.log(key)}
                     header={{
                         logo: <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />,
-                        text: '直播运营后台'
+                        text: 'Semi 运营后台'
                     }}
                     footer={{
                         collapseButton: true,
@@ -334,7 +334,7 @@ class NavApp extends React.Component {
                     onSelect={key => console.log(key)}
                     header={{
                         logo: <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />,
-                        text: '直播运营后台'
+                        text: 'Semi 运营后台'
                     }}
                     footer={
                         <Dropdown
@@ -412,7 +412,7 @@ class NavApp extends React.Component {
                 onSelect={key => console.log(key)}
                 header={{
                     logo: <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />,
-                    text: '直播运营后台'
+                    text: 'Semi 运营后台'
                 }}
                 footer={
                     <>
@@ -457,8 +457,8 @@ class NavApp extends React.Component {
     render() {
         return (
             <>
-            {this.renderHorizontal()}
-            {this.renderVertical()}
+                {this.renderHorizontal()}
+                {this.renderVertical()}
             </>
         );
     }
@@ -494,7 +494,7 @@ class NavApp extends React.Component {
                 onSelect={key => console.log(key)}
                 header={{
                     logo: <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />,
-                    text: '直播运营后台'
+                    text: 'Semi 运营后台'
                 }}
                 footer={{
                     collapseButton: true,
@@ -528,7 +528,7 @@ class NavApp extends React.Component {
                 defaultOpenKeys={['job']}
                 bodyStyle={{ height: 320 }}
                 items={[
-                    { itemKey: 'user', text: '用户管理', icon: 'user' },
+                    { itemKey: 'user', text: '用户管理', icon: <IconUser /> },
                     {
                         text: '任务平台',
                         icon: <IconSetting />,
@@ -549,7 +549,7 @@ class NavApp extends React.Component {
                 onSelect={key => console.log(key)}
                 header={{
                     logo: <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />,
-                    text: '直播运营后台'
+                    text: 'Semi 运营后台'
                 }}
                 footer={{
                     collapseButton: true,
@@ -600,7 +600,7 @@ class NavApp extends React.Component {
                 ]}
                 header={{
                     logo: <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />,
-                    text: '直播运营后台'
+                    text: 'Semi 运营后台'
                 }}
                 footer={{
                     collapseButton: true
@@ -649,7 +649,7 @@ function NavApp (props = {}) {
 
     const onCollapseChange = isCollapsed => {
         setIsCollapsed(isCollapsed);
-    }
+    };
 
     const items = useMemo(() => [
         { itemKey: 'user', text: '用户管理', icon: <IconUser /> },
@@ -677,7 +677,7 @@ function NavApp (props = {}) {
             items={items}
             header={{
                 logo: <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />,
-                text: '直播运营后台'
+                text: 'Semi 运营后台'
             }}
             footer={{
                 collapseButton: true
@@ -686,7 +686,7 @@ function NavApp (props = {}) {
             onOpenChange={onOpenChange}
             onSelect={onSelect}
         />
-    )
+    );
 }
 ```
 
@@ -730,7 +730,7 @@ function NavApp (props = {}) {
 | icon        | 导航项目图标                             | ReactNode |      |               |
 | indent      | 如果 icon 为空，是否保留其占位，仅对一级导航生效       | boolean           | false  |               |
 | itemKey     | 导航项目唯一 key                                   | string            | ""     |               |
-| level       | 当前项所在嵌套层级，limitIndent 为 true时，用于自定义缩进位置| number | 1.27.0 |
+| level       | 当前项所在嵌套层级，limitIndent 为 true时，用于自定义缩进位置| number | | 1.27.0 | 
 | link        | 导航项 href 链接，传入时导航项整体会包裹一个 a 标签 | string            | -      | 1.0.0 |
 | linkOptions | 透传给 a 标签的参数                                | object            | -      | 1.0.0 |
 | text        | 导航项目文案或元素                                 | string\|ReactNode | ""     |               |
@@ -774,7 +774,7 @@ function NavApp (props = {}) {
 | children       | 子元素                                                                                   | ReactNode                                 |        |                |
 | className      | 最外层样式名                                                                             | string                                    |        |                |
 | collapseButton | 是否展示底部“收起侧边栏”按钮，mode="vertical" 且 Footer 组件的 children 参数为空才有效果 | boolean\|ReactNode                        | false  |                |
-| collapseText   | “收起”按钮的文案                                                                         | (collapsed?:boolean) => string\|ReactNode |        | 0.35.0 |
+| collapseText   | “收起”按钮的文案                                                                         | (collapsed:boolean) => string\|ReactNode |        | 0.35.0 |
 | style          | 最外层样式                                                                               | CSSProperties                                    |        |                |
 
 ## 设计变量

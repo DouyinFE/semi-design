@@ -31,27 +31,27 @@ import React from 'react';
 import { Select } from '@douyinfe/semi-ui';
 
 () => (
-  <>
-    <Select defaultValue='abc' style={{ width: 120 }}>
-        <Select.Option value='abc'>抖音</Select.Option>
-        <Select.Option value='hotsoon'>火山</Select.Option>
-        <Select.Option value='jianying' disabled>剪映</Select.Option>
-        <Select.Option value='xigua'>西瓜视频</Select.Option>
-    </Select>
-    <br/><br/>
-    <Select style={{ width: '180px' }} defaultValue='abc' disabled style={{ width: 120 }}>
-        <Select.Option value='abc'>抖音</Select.Option>
-        <Select.Option value='hotsoon'>火山</Select.Option>
-    </Select>
-    <br/><br/>
-    <Select placeholder='请选择业务线' style={{ width: 120 }}>
-        <Select.Option value='abc'>抖音</Select.Option>
-        <Select.Option value='hotsoon'>火山</Select.Option>
-        <Select.Option value='jianying' disabled>剪映</Select.Option>
-        <Select.Option value='xigua'>西瓜视频</Select.Option>
-    </Select>
-  </>
-)
+    <>
+        <Select defaultValue='abc' style={{ width: 120 }}>
+            <Select.Option value='abc'>抖音</Select.Option>
+            <Select.Option value='hotsoon'>火山</Select.Option>
+            <Select.Option value='jianying' disabled>剪映</Select.Option>
+            <Select.Option value='xigua'>西瓜视频</Select.Option>
+        </Select>
+        <br/><br/>
+        <Select defaultValue='abc' disabled style={{ width: 120 }}>
+            <Select.Option value='abc'>抖音</Select.Option>
+            <Select.Option value='hotsoon'>火山</Select.Option>
+        </Select>
+        <br/><br/>
+        <Select placeholder='请选择业务线' style={{ width: 120 }}>
+            <Select.Option value='abc'>抖音</Select.Option>
+            <Select.Option value='hotsoon'>火山</Select.Option>
+            <Select.Option value='jianying' disabled>剪映</Select.Option>
+            <Select.Option value='xigua'>西瓜视频</Select.Option>
+        </Select>
+    </>
+);
 ```
 
 ### 以数组形式传入 Option
@@ -63,17 +63,17 @@ import React from 'react';
 import { Select } from '@douyinfe/semi-ui';
 
 () => {
-  const list = [
-    { value: 'abc', label: '抖音', otherKey:0 },
-    { value: 'hotsoon', label: '火山小视频', disabled: true, otherKey: 1 },
-    { value: 'jianying', label: '剪映', otherKey: 2 },
-    { value: 'toutiao', label: '今日头条', otherKey: 3 },
-  ];
-  return (
-    <Select placeholder='请选择业务线' style={{ width: 180 }} optionList={list}>
-    </Select>
-  )
-}
+    const list = [
+        { value: 'abc', label: '抖音', otherKey:0 },
+        { value: 'hotsoon', label: '火山小视频', disabled: true, otherKey: 1 },
+        { value: 'jianying', label: '剪映', otherKey: 2 },
+        { value: 'toutiao', label: '今日头条', otherKey: 3 },
+    ];
+    return (
+        <Select placeholder='请选择业务线' style={{ width: 180 }} optionList={list}>
+        </Select>
+    );
+};
 ```
 
 ### 多选
@@ -89,30 +89,30 @@ import React from 'react';
 import { Select } from '@douyinfe/semi-ui';
 
 () => (
-  <>
-    <Select multiple style={{ width: '320px' }} defaultValue={['abc','hotsoon']}>
-      <Select.Option value='abc'>抖音</Select.Option>
-      <Select.Option value='hotsoon'>火山</Select.Option>
-      <Select.Option value='jianying'>剪映</Select.Option>
-      <Select.Option value='xigua'>西瓜视频</Select.Option>
-    </Select>
-    <br/><br/>
-    <Select multiple style={{ width: '320px' }} defaultValue={['abc','hotsoon', 'jianying']} maxTagCount={2}>
-      <Select.Option value='abc'>抖音</Select.Option>
-      <Select.Option value='hotsoon'>火山</Select.Option>
-      <Select.Option value='jianying'>剪映</Select.Option>
-      <Select.Option value='xigua'>西瓜视频</Select.Option>
-    </Select>
+    <>
+        <Select multiple style={{ width: '320px' }} defaultValue={['abc','hotsoon']}>
+            <Select.Option value='abc'>抖音</Select.Option>
+            <Select.Option value='hotsoon'>火山</Select.Option>
+            <Select.Option value='jianying'>剪映</Select.Option>
+            <Select.Option value='xigua'>西瓜视频</Select.Option>
+        </Select>
+        <br/><br/>
+        <Select multiple style={{ width: '320px' }} defaultValue={['abc','hotsoon', 'jianying']} maxTagCount={2}>
+            <Select.Option value='abc'>抖音</Select.Option>
+            <Select.Option value='hotsoon'>火山</Select.Option>
+            <Select.Option value='jianying'>剪映</Select.Option>
+            <Select.Option value='xigua'>西瓜视频</Select.Option>
+        </Select>
 
-    <br/><br/>
-    <Select multiple style={{ width: '320px' }} defaultValue={['abc']} max={2} onExceed={()=>Toast.warning('最多只允许选择两项')}>
-      <Select.Option value='abc'>抖音</Select.Option>
-      <Select.Option value='hotsoon'>火山</Select.Option>
-      <Select.Option value='jianying'>剪映</Select.Option>
-      <Select.Option value='xigua'>西瓜视频</Select.Option>
-    </Select>
-  </>
-)
+        <br/><br/>
+        <Select multiple style={{ width: '320px' }} defaultValue={['abc']} max={2} onExceed={()=>Toast.warning('最多只允许选择两项')}>
+            <Select.Option value='abc'>抖音</Select.Option>
+            <Select.Option value='hotsoon'>火山</Select.Option>
+            <Select.Option value='jianying'>剪映</Select.Option>
+            <Select.Option value='xigua'>西瓜视频</Select.Option>
+        </Select>
+    </>
+);
 ```
 
 ### 分组
@@ -131,20 +131,20 @@ import React from 'react';
 import { Select } from '@douyinfe/semi-ui';
 
 () => (
-  <Select placeholder="" style={{ width: 180 }} filter>
-      <Select.OptGroup label="Asia">
-          <Select.Option value="a-1">China</Select.Option>
-          <Select.Option value="a-2">Koera</Select.Option>
-      </Select.OptGroup>
-      <Select.OptGroup label="Europe">
-          <Select.Option value="b-1">Germany</Select.Option>
-          <Select.Option value="b-2">France</Select.Option>
-      </Select.OptGroup>
-      <Select.OptGroup label="South America">
-          <Select.Option value="c-1">Peru</Select.Option>
-      </Select.OptGroup>
-  </Select>
-)
+    <Select placeholder="" style={{ width: 180 }} filter>
+        <Select.OptGroup label="Asia">
+            <Select.Option value="a-1">China</Select.Option>
+            <Select.Option value="a-2">Koera</Select.Option>
+        </Select.OptGroup>
+        <Select.OptGroup label="Europe">
+            <Select.Option value="b-1">Germany</Select.Option>
+            <Select.Option value="b-2">France</Select.Option>
+        </Select.OptGroup>
+        <Select.OptGroup label="South America">
+            <Select.Option value="c-1">Peru</Select.Option>
+        </Select.OptGroup>
+    </Select>
+);
 ```
 
 ```jsx live=true
@@ -152,46 +152,46 @@ import React from 'react';
 import { Select } from '@douyinfe/semi-ui';
 
 () => {
-  const data = [
-    {
-      label: 'Asia',
-      children: [
-        { value: 'a-1', label: 'China' },
-        { value: 'a-2', label: 'Koera' },
-      ]
-    },
-    {
-      label: 'Europe',
-      children: [
-        { value: 'b-1', label: 'Germany' },
-        { value: 'b-2', label: 'France' },
-      ]
-    },
-    {
-      label: 'South America',
-      children: [
-        { value: 'c-1', label: 'Peru' },
-      ]
-    }
-  ];
-  return (
-    <Select placeholder="" style={{ width: 180 }} filter>
-      {
-        data.map(group => (
-          <Select.OptGroup label={group.label} key={group.label}>
+    const data = [
+        {
+            label: 'Asia',
+            children: [
+                { value: 'a-1', label: 'China' },
+                { value: 'a-2', label: 'Koera' },
+            ]
+        },
+        {
+            label: 'Europe',
+            children: [
+                { value: 'b-1', label: 'Germany' },
+                { value: 'b-2', label: 'France' },
+            ]
+        },
+        {
+            label: 'South America',
+            children: [
+                { value: 'c-1', label: 'Peru' },
+            ]
+        }
+    ];
+    return (
+        <Select placeholder="" style={{ width: 180 }} filter>
             {
-              group.children.map(option => (
-                <Select.Option value={option.value} key={option.value}>
-                  {option.label}
-                </Select.Option>
-              ))
+                data.map((group, index) => (
+                    <Select.OptGroup label={group.label} key={`${index}-${group.label}`}>
+                        {
+                            group.children.map((option, index2) => (
+                                <Select.Option value={option.value} key={`${index2}-${group.label}`}>
+                                    {option.label}
+                                </Select.Option>
+                            ))
+                        }
+                    </Select.OptGroup>
+                ))
             }
-          </Select.OptGroup>
-        ))
-      }
-    </Select>
-  )
-}
+        </Select>
+    );
+};
 
 ```
 
@@ -204,20 +204,20 @@ import React from 'react';
 import { Select } from '@douyinfe/semi-ui';
 
 () => (
-  <>
-    <Select placeholder='请选择业务线' style={{ width: '180px' }} size='small'>
-        <Select.Option value='hotsoon'>火山</Select.Option>
-    </Select>
-    <br/><br/>
-    <Select placeholder='请选择业务线' style={{ width: '180px' }}>
-        <Select.Option value='hotsoon'>火山</Select.Option>
-    </Select>
-    <br/><br/>
-    <Select placeholder='请选择业务线' style={{ width: '180px' }} size='large'>
-        <Select.Option value='hotsoon'>火山</Select.Option>
-    </Select>
-  </>
-)
+    <>
+        <Select placeholder='请选择业务线' style={{ width: '180px' }} size='small'>
+            <Select.Option value='hotsoon'>火山</Select.Option>
+        </Select>
+        <br/><br/>
+        <Select placeholder='请选择业务线' style={{ width: '180px' }}>
+            <Select.Option value='hotsoon'>火山</Select.Option>
+        </Select>
+        <br/><br/>
+        <Select placeholder='请选择业务线' style={{ width: '180px' }} size='large'>
+            <Select.Option value='hotsoon'>火山</Select.Option>
+        </Select>
+    </>
+);
 ```
 
 ### 不同校验状态样式
@@ -230,20 +230,20 @@ import React from 'react';
 import { Select } from '@douyinfe/semi-ui';
 
 () => (
-  <>
-    <Select style={{ width: '180px' }}>
-        <Select.Option value='hotsoon'>火山</Select.Option>
-    </Select>
-    <br/><br/>
-    <Select style={{ width: '180px' }} validateStatus='warning'>
-        <Select.Option value='hotsoon'>火山</Select.Option>
-    </Select>
-    <br/><br/>
-    <Select style={{ width: '180px' }} validateStatus='error'>
-        <Select.Option value='hotsoon'>火山</Select.Option>
-    </Select>
-  </>
-)
+    <>
+        <Select style={{ width: '180px' }}>
+            <Select.Option value='hotsoon'>火山</Select.Option>
+        </Select>
+        <br/><br/>
+        <Select style={{ width: '180px' }} validateStatus='warning'>
+            <Select.Option value='hotsoon'>火山</Select.Option>
+        </Select>
+        <br/><br/>
+        <Select style={{ width: '180px' }} validateStatus='error'>
+            <Select.Option value='hotsoon'>火山</Select.Option>
+        </Select>
+    </>
+);
 ```
 
 ### 配置前缀、后缀、清除按钮
@@ -259,33 +259,33 @@ import { Select } from '@douyinfe/semi-ui';
 import { IconVigoLogo, IconGift } from '@douyinfe/semi-icons';
 
 () => (
-  <>
-    <Select
-      style={{ width: '320px' }}
-      defaultValue={'hotsoon'}
-      prefix={<IconVigoLogo />}
-      showClear={true}
-    >
-      <Select.Option value='abc'>抖音</Select.Option>
-      <Select.Option value='hotsoon'>火山</Select.Option>
-      <Select.Option value='jianying'>剪映</Select.Option>
-      <Select.Option value='xigua'>西瓜视频</Select.Option>
-    </Select>
-    <br/><br/>
-    <Select
-      style={{ width: '320px' }}
-      defaultValue={'hotsoon'}
-      prefix={<IconVigoLogo />}
-      suffix={<IconGift />}
-      showArrow={false}
-    >
-      <Select.Option value='abc'>抖音</Select.Option>
-      <Select.Option value='hotsoon'>火山</Select.Option>
-      <Select.Option value='jianying'>剪映</Select.Option>
-      <Select.Option value='xigua'>西瓜视频</Select.Option>
-    </Select>
-  </>
-)
+    <>
+        <Select
+            style={{ width: '320px' }}
+            defaultValue={'hotsoon'}
+            prefix={<IconVigoLogo />}
+            showClear={true}
+        >
+            <Select.Option value='abc'>抖音</Select.Option>
+            <Select.Option value='hotsoon'>火山</Select.Option>
+            <Select.Option value='jianying'>剪映</Select.Option>
+            <Select.Option value='xigua'>西瓜视频</Select.Option>
+        </Select>
+        <br/><br/>
+        <Select
+            style={{ width: '320px' }}
+            defaultValue={'hotsoon'}
+            prefix={<IconVigoLogo />}
+            suffix={<IconGift />}
+            showArrow={false}
+        >
+            <Select.Option value='abc'>抖音</Select.Option>
+            <Select.Option value='hotsoon'>火山</Select.Option>
+            <Select.Option value='jianying'>剪映</Select.Option>
+            <Select.Option value='xigua'>西瓜视频</Select.Option>
+        </Select>
+    </>
+);
 ```
 
 ### 内嵌标签
@@ -298,25 +298,25 @@ import React from 'react';
 import { Select } from '@douyinfe/semi-ui';
 
 () => {
-  const list = [
-    { value: 'abc', label: '抖音' },
-    { value: 'hotsoon', label: '火山小视频' },
-    { value: 'jianying', label: '剪映' },
-    { value: 'toutiao', label: '今日头条' },
-  ]
-  return (
-    <>
-      <Select style={{ width: 300 }} optionList={list} insetLabel='业务线' defaultValue='abc'>
-      </Select>
-      <br/><br/>
-      <Select
-        style={{ width: 300 }}
-        optionList={list} placeholder='请选择业务线'
-        insetLabel={<span style={{marginRight: 0, marginLeft: 10, color: "var(--semi-color-text-2)"}}>业务线</span>}>
-      </Select>
-    </>
-  )
-}
+    const list = [
+        { value: 'abc', label: '抖音' },
+        { value: 'hotsoon', label: '火山小视频' },
+        { value: 'jianying', label: '剪映' },
+        { value: 'toutiao', label: '今日头条' },
+    ];
+    return (
+        <>
+            <Select style={{ width: 300 }} optionList={list} insetLabel='业务线' defaultValue='abc'>
+            </Select>
+            <br/><br/>
+            <Select
+                style={{ width: 300 }}
+                optionList={list} placeholder='请选择业务线'
+                insetLabel={<span style={{marginRight: 0, marginLeft: 10, color: "var(--semi-color-text-2)"}}>业务线</span>}>
+            </Select>
+        </>
+    );
+};
 ```
 
 ### 在顶部/底部渲染附加项
@@ -334,68 +334,68 @@ import { Select } from '@douyinfe/semi-ui';
 () => {
     let selectStyle = { width: 180, margin: 20 };
     let innerSlotStyle = {
-          backgroundColor: '#FFF',
-          height: '36px',
-          display: 'flex',
-          alignItems: 'center',
-          cursor: 'pointer',
-          marginLeft: 32,
-          borderRadius: '0 0 6px 6px',
-          color: '#0077FA'
+        backgroundColor: '#FFF',
+        height: '36px',
+        display: 'flex',
+        alignItems: 'center',
+        cursor: 'pointer',
+        marginLeft: 32,
+        borderRadius: '0 0 6px 6px',
+        color: '#0077FA'
     };
     let innerSlotNode = (<div style={innerSlotStyle}>
         点击加载更多
     </div>);
     let outSlotStyle = {
-          backgroundColor: 'whitesmoke',
-          height: '36px',
-          display: 'flex',
-          paddingLeft: 32,
-          color: '#0077FA',
-          alignItems: 'center',
-          cursor: 'pointer',
-          borderRadius: '0 0 6px 6px',
+        backgroundColor: 'whitesmoke',
+        height: '36px',
+        display: 'flex',
+        paddingLeft: 32,
+        color: '#0077FA',
+        alignItems: 'center',
+        cursor: 'pointer',
+        borderRadius: '0 0 6px 6px',
     };
     let outSlotNode = (<div style={outSlotStyle}>
         <span style={{color: '#0077FA'}}>未找到应用?</span>
     </div>);
 
     return (
-      <div>
-          <p>outerBottomSlot:</p>
-          <Select
-              style={selectStyle}
-              dropdownStyle={{ width: 180 }}
-              maxHeight={150}
-              outerBottomSlot={outSlotNode}
-              placeholder='自定义外侧底部slot'
-              defaultOpen
-              autoAdjustOverflow={false}
-              position='bottom'
-          >
+        <div>
+            <p>outerBottomSlot:</p>
+            <Select
+                style={selectStyle}
+                dropdownStyle={{ width: 180 }}
+                maxHeight={150}
+                outerBottomSlot={outSlotNode}
+                placeholder='自定义外侧底部slot'
+                defaultOpen
+                autoAdjustOverflow={false}
+                position='bottom'
+            >
                 <Select.Option value='abc'>抖音</Select.Option>
                 <Select.Option value='hotsoon'>火山</Select.Option>
                 <Select.Option value='jianying'>剪映</Select.Option>
                 <Select.Option value='duoshan'>多闪</Select.Option>
                 <Select.Option value='xigua'>西瓜视频</Select.Option>
-          </Select>
-          <p style={{ marginTop: 200 }}>innerBottomSlot:</p>
-          <Select
-              style={selectStyle}
-              dropdownStyle={{ width: 180 }}
-              maxHeight={150}
-              innerBottomSlot={innerSlotNode}
-              placeholder='自定义内侧底部slot'
-          >
+            </Select>
+            <p style={{ marginTop: 200 }}>innerBottomSlot:</p>
+            <Select
+                style={selectStyle}
+                dropdownStyle={{ width: 180 }}
+                maxHeight={150}
+                innerBottomSlot={innerSlotNode}
+                placeholder='自定义内侧底部slot'
+            >
                 <Select.Option value='abc'>抖音</Select.Option>
                 <Select.Option value='hotsoon'>火山</Select.Option>
                 <Select.Option value='jianying'>剪映</Select.Option>
                 <Select.Option value='duoshan'>多闪</Select.Option>
                 <Select.Option value='xigua'>西瓜视频</Select.Option>
-          </Select>
+            </Select>
         </div>
-    )
-}
+    );
+};
 ```
 
 通过 outerTopSlot 将内容插入顶部插槽
@@ -407,79 +407,79 @@ class Demo extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-          key: 'component',
+            key: 'component',
         };
         this.list = {
-          component: [
-              { value: 'select', label: '选择器' },
-              { value: 'tabs', label: '标签' },
-              { value: 'avatar', label: '头像' },
-              { value: 'button', label: '按钮' },
-          ],
-          design: [
-              { value: 'color', label: '颜色' },
-              { value: 'dark', label: '暗色模式' },
-              { value: 'icon', label: '图标' },
-              { value: 'font', label: '字体' },
-          ],
-          feedback: [
-              { value: 'faq', label: '常见问题' },
-              { value: 'join', label: '加入用户群' },
-              { value: 'hornbill', label: '犀鸟反馈问题' },
-          ],
-        }
+            component: [
+                { value: 'select', label: '选择器' },
+                { value: 'tabs', label: '标签' },
+                { value: 'avatar', label: '头像' },
+                { value: 'button', label: '按钮' },
+            ],
+            design: [
+                { value: 'color', label: '颜色' },
+                { value: 'dark', label: '暗色模式' },
+                { value: 'icon', label: '图标' },
+                { value: 'font', label: '字体' },
+            ],
+            feedback: [
+                { value: 'faq', label: '常见问题' },
+                { value: 'join', label: '加入用户群' },
+                { value: 'hornbill', label: '犀鸟反馈问题' },
+            ],
+        };
         this.handleTabClick = this.handleTabClick.bind(this);
     };
 
     handleTabClick(itemKey) {
-      this.setState({key: itemKey});
+        this.setState({key: itemKey});
     };
 
     render() {
         const { key } = this.state;
         const tabStyle = {
-          cursor: 'pointer',
-          marginRight: 12,
-          paddingBottom: 4,
+            cursor: 'pointer',
+            marginRight: 12,
+            paddingBottom: 4,
         };
         const tabActiveStyle = {
-          ...tabStyle,
-          borderBottom: '1px solid var(--semi-color-primary)',
-          fontWeight: 700,
-        }
+            ...tabStyle,
+            borderBottom: '1px solid var(--semi-color-primary)',
+            fontWeight: 700,
+        };
         const tabWrapper = {
-          display: 'flex',
-          paddingTop: 8,
-          paddingLeft: 32,
-          borderBottom: '0.5px solid var(--semi-color-border)'
+            display: 'flex',
+            paddingTop: 8,
+            paddingLeft: 32,
+            borderBottom: '0.5px solid var(--semi-color-border)'
         };
         const tabOptions = [
-          {itemKey: 'component', label: '组件'},
-          {itemKey: 'design', label: '设计'},
-          {itemKey: 'feedback', label: '反馈'},
+            {itemKey: 'component', label: '组件'},
+            {itemKey: 'design', label: '设计'},
+            {itemKey: 'feedback', label: '反馈'},
         ];
         const outerTopSlotNode = (
             <div style={tabWrapper}>
-              {
-                tabOptions.map((item, index) => {
-                    style = item.itemKey === key ? tabActiveStyle : tabStyle;
-                    return (
-                      <div style={style} key={item.itemKey} onClick={() => this.handleTabClick(item.itemKey)}>{item.label}</div>
-                    );
-                })
-              }
+                {
+                    tabOptions.map((item, index) => {
+                        style = item.itemKey === key ? tabActiveStyle : tabStyle;
+                        return (
+                            <div style={style} key={item.itemKey} onClick={() => this.handleTabClick(item.itemKey)}>{item.label}</div>
+                        );
+                    })
+                }
             </div>
         );
 
         return (
             <div>
-               <Select
-                  defaultOpen
-                  autoAdjustOverflow={false}
-                  position='bottom'
-                  style={{width: 200}}
-                  outerTopSlot={outerTopSlotNode}
-                  optionList={this.list[key]}
+                <Select
+                    defaultOpen
+                    autoAdjustOverflow={false}
+                    position='bottom'
+                    style={{width: 200}}
+                    outerTopSlot={outerTopSlotNode}
+                    optionList={this.list[key]}
                 />
             </div>
         );
@@ -496,18 +496,18 @@ import React, { useState } from 'react';
 import { Select } from '@douyinfe/semi-ui';
 
 () => {
-  let [value, setValue] = useState('xigua');
-  return (
-    <>
-      <Select value={value} style={{ width: '300px' }} onChange={setValue} placeholder='受控的Select'>
-        <Select.Option value='abc'>抖音</Select.Option>
-        <Select.Option value='hotsoon'>火山</Select.Option>
-        <Select.Option value='jianying'>剪映</Select.Option>
-        <Select.Option value='xigua'>西瓜视频</Select.Option>
-      </Select>
-    </>
-  )
-}
+    let [value, setValue] = useState('xigua');
+    return (
+        <>
+            <Select value={value} style={{ width: '300px' }} onChange={setValue} placeholder='受控的Select'>
+                <Select.Option value='abc'>抖音</Select.Option>
+                <Select.Option value='hotsoon'>火山</Select.Option>
+                <Select.Option value='jianying'>剪映</Select.Option>
+                <Select.Option value='xigua'>西瓜视频</Select.Option>
+            </Select>
+        </>
+    );
+};
 ```
 
 ### 动态修改 Options
@@ -519,30 +519,30 @@ import React, { useState } from 'react';
 import { Select, Button } from '@douyinfe/semi-ui';
 
 () => {
-  let [options, setOptions] = useState([1, 2, 3, 4]);
-  function add() {
-    let length = Math.ceil(Math.random() * 10);
-    let newOptions = Array.from({length}, (v,i) => i+1);
-    setOptions(newOptions);
-  }
-  return (
-    <>
-      <Select style={{ width: '180px' }} placeholder='请选择' value={4}>
-        {options.map(option => (
-          <Select.Option
-            value={option}
-            key={option}>
-            {option}
-          </Select.Option>
-        ))}
-      </Select>
-      <br/><br/>
-      <Button onClick={add}>
-        changeOptions Dynamic
-      </Button>
-    </>
-  );
-}
+    let [options, setOptions] = useState([1, 2, 3, 4]);
+    function add() {
+        let length = Math.ceil(Math.random() * 10);
+        let newOptions = Array.from({length}, (v,i) => i+1);
+        setOptions(newOptions);
+    }
+    return (
+        <>
+            <Select style={{ width: '180px' }} placeholder='请选择' value={4}>
+                {options.map(option => (
+                    <Select.Option
+                        value={option}
+                        key={option}>
+                        {option}
+                    </Select.Option>
+                ))}
+            </Select>
+            <br/><br/>
+            <Button onClick={add}>
+                changeOptions Dynamic
+            </Button>
+        </>
+    );
+};
 ```
 
 ### 联动
@@ -617,22 +617,22 @@ import React from 'react';
 import { Select } from '@douyinfe/semi-ui';
 
 () => (
-  <>
-    <Select filter style={{ width: 180 }} placeholder='带搜索功能的单选'>
-      <Select.Option value='abc'>抖音</Select.Option>
-      <Select.Option value='hotsoon'>火山</Select.Option>
-      <Select.Option value='jianying'>剪映</Select.Option>
-      <Select.Option value='xigua'>西瓜视频</Select.Option>
-    </Select>
-    <br/><br/>
-    <Select filter multiple style={{ width: 300 }} placeholder='带搜索功能的多选'>
-      <Select.Option value='abc'>抖音</Select.Option>
-      <Select.Option value='hotsoon'>火山</Select.Option>
-      <Select.Option value='jianying'>剪映</Select.Option>
-      <Select.Option value='xigua'>西瓜视频</Select.Option>
-    </Select>
-  </>
-)
+    <>
+        <Select filter style={{ width: 180 }} placeholder='带搜索功能的单选'>
+            <Select.Option value='abc'>抖音</Select.Option>
+            <Select.Option value='hotsoon'>火山</Select.Option>
+            <Select.Option value='jianying'>剪映</Select.Option>
+            <Select.Option value='xigua'>西瓜视频</Select.Option>
+        </Select>
+        <br/><br/>
+        <Select filter multiple style={{ width: 300 }} placeholder='带搜索功能的多选'>
+            <Select.Option value='abc'>抖音</Select.Option>
+            <Select.Option value='hotsoon'>火山</Select.Option>
+            <Select.Option value='jianying'>剪映</Select.Option>
+            <Select.Option value='xigua'>西瓜视频</Select.Option>
+        </Select>
+    </>
+);
 ```
 
 ### 远程搜索
@@ -671,7 +671,7 @@ class SearchDemo extends React.Component {
         this.setState({ loading: true });
         let length = Math.ceil(Math.random()*100);
         let result = Array.from({ length }, (v, i) => {
-            return { value: inputValue + i, label: inputValue + '-新业务线-' + i, type: i + 1 }
+            return { value: inputValue + i, label: inputValue + '-新业务线-' + i, type: i + 1 };
         });
         setTimeout(() => {
             this.setState({ optionList: result, loading: false });
@@ -738,20 +738,20 @@ import React from 'react';
 import { Select } from '@douyinfe/semi-ui';
 
 () => {
-  function searchLabel(sugInput, option) {
-    let label = option.label.toUpperCase();
-    let sug = sugInput.toUpperCase();
-    return label.includes(sug);
-  }
-  return (
-    <Select filter={searchLabel} style={{ width: '180px' }} placeholder='try abc'>
-        <Select.Option value='abc'>ABC</Select.Option>
-        <Select.Option value='hotsoon'>HOTSOON</Select.Option>
-        <Select.Option value='jianying'>PIPIXIA</Select.Option>
-        <Select.Option value='xigua'>XIGUA</Select.Option>
-    </Select>
-  )
-}
+    function searchLabel(sugInput, option) {
+        let label = option.label.toUpperCase();
+        let sug = sugInput.toUpperCase();
+        return label.includes(sug);
+    }
+    return (
+        <Select filter={searchLabel} style={{ width: '180px' }} placeholder='try abc'>
+            <Select.Option value='abc'>ABC</Select.Option>
+            <Select.Option value='hotsoon'>HOTSOON</Select.Option>
+            <Select.Option value='jianying'>PIPIXIA</Select.Option>
+            <Select.Option value='xigua'>XIGUA</Select.Option>
+        </Select>
+    );
+};
 ```
 
 ### 自定义已选项标签渲染
@@ -768,130 +768,111 @@ import { Select } from '@douyinfe/semi-ui';
 import React from 'react';
 import { Select, Avatar, Tag } from '@douyinfe/semi-ui';
 
-class CustomRender extends React.Component {
+() => {
+    const list = [
+        { "name": "夏可漫", "email": "xiakeman@example.com", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg" },
+        { "name": "申悦", "email": "shenyue@example.com", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg" },
+        { "name": "曲晨一", "email": "quchenyi@example.com", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/8bd8224511db085ed74fea37205aede5.jpg" },
+        { "name": "文嘉茂", "email": "wenjiamao@example.com", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/6fbafc2d-e3e6-4cff-a1e2-17709c680624.png" },
+    ]
 
-    constructor() {
-        super();
-        this.state = {
-          list: [
-            { "name": "夏可漫", "email": "xiakeman@example.com", "avatar":  "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"},
-            { "name": "申悦", "email": "shenyue@example.com", "avatar":  "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg"},
-            { "name": "曲晨一", "email": "quchenyi@example.com", "avatar":  "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/8bd8224511db085ed74fea37205aede5.jpg"},
-            { "name": "文嘉茂", "email": "wenjiamao@example.com", "avatar":  "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/6fbafc2d-e3e6-4cff-a1e2-17709c680624.png"},
-          ]
-        };
-    }
-
-    renderSelectedItem(optionNode) {
-        return (
-          <div key={optionNode.email} style={{display: 'flex', alignItems: 'center'}}>
+    const renderSelectedItem = optionNode => (
+        <div style={{ display: 'flex', alignItems: 'center' }}>
             <Avatar src={optionNode.avatar} size="small">{optionNode.abbr}</Avatar>
             <span style={{ marginLeft: 8 }}>{optionNode.email}</span>
-          </div>
-        )
-    }
+        </div>
+    )
 
-    // avatarSrc & avatarShape are supported after 1.6.0
-    renderMultipleWithCustomTag(optionNode, { onClose }) {
-        let content = (
+    // avatarSrc & avatarShape are supported after 1.6.0-beta
+    const renderMultipleWithCustomTag = (optionNode, { onClose }) => {
+        const content = (
             <Tag
                 avatarSrc={optionNode.avatar}
                 avatarShape='circle'
                 closable={true}
                 onClose={onClose}
                 size='large'
-                key={optionNode.name}
-                >
+            >
                 {optionNode.name}
             </Tag>
         );
         return {
-          isRenderInTag: false,
-          content
+            isRenderInTag: false,
+            content
         };
     }
 
-    renderMultipleWithCustomTag2(optionNode, { onClose }) {
-        let content = (
+    const renderMultipleWithCustomTag2 = (optionNode, { onClose }) => {
+        const content = (
             <Tag
                 avatarSrc={optionNode.avatar}
                 avatarShape='square'
                 closable={true}
                 onClose={onClose}
                 size='large'
-                key={optionNode.name}
-                >
+            >
                 {optionNode.name}
             </Tag>
         );
         return {
-          isRenderInTag: false,
-          content
+            isRenderInTag: false,
+            content
         };
     }
 
-    renderCustomOption(item) {
-        let optionStyle = {
+    const renderCustomOption = (item, index) => {
+        const optionStyle = {
             display: 'flex',
             paddingLeft: 24,
             paddingTop: 10,
             paddingBottom: 10
         }
         return (
-            <Select.Option value={item.name} style={optionStyle} showTick={true}  {...item} key={item.email}>
-               <Avatar size="small" src={item.avatar} />
+            <Select.Option key={index} value={item.name} style={optionStyle} showTick={true}  {...item} key={item.email}>
+                <Avatar size="small" src={item.avatar} />
                 <div style={{ marginLeft: 8 }}>
                     <div style={{ fontSize: 14 }}>{item.name}</div>
-                    <div style={{ color: 'var(--semi-color-text-2)', fontSize: 12, lineHeight: '16px', fontWeight: 'normal' }}>{item.email}</div>
+                    <div style={{ color: 'var(--color-text-2)', fontSize: 12, lineHeight: '16px', fontWeight: 'normal' }}>{item.email}</div>
                 </div>
             </Select.Option>
         )
     }
 
-    render() {
-        const { list } = this.state;
-        return (
-            <React.Fragment>
-                <Select
-                    placeholder='请选择'
-                    style={{ width: 280, height: 40 }}
-                    onChange={v=>console.log(v)}
-                    defaultValue={'夏可漫'}
-                    renderSelectedItem={this.renderSelectedItem}
-                >
-                    {
-                      list.map(item => this.renderCustomOption(item))
-                    }
-                </Select>
-                <Select
-                    placeholder='请选择'
-                    maxTagCount={2}
-                    style={{width: 280, marginTop: 20}}
-                    onChange={v=>console.log(v)}
-                    defaultValue={['夏可漫', '申悦']}
-                    multiple
-                    renderSelectedItem={this.renderMultipleWithCustomTag}
-                >
-                    {
-                      list.map(item => this.renderCustomOption(item))
-                    }
-                </Select>
-                <Select
-                    placeholder='请选择'
-                    maxTagCount={2}
-                    style={{width: 280, marginTop: 20}}
-                    onChange={v=>console.log(v)}
-                    defaultValue={['夏可漫', '申悦']}
-                    multiple
-                    renderSelectedItem={this.renderMultipleWithCustomTag2}
-                >
-                    {
-                      list.map(item => this.renderCustomOption(item))
-                    }
-                </Select>
-            </React.Fragment>
-        );
-    }
+    return (
+        <>
+            <Select
+                placeholder='请选择'
+                style={{ width: 280, height: 40 }}
+                onChange={v => console.log(v)}
+                defaultValue={'夏可漫'}
+                renderSelectedItem={renderSelectedItem}
+            >
+                {list.map((item, index) => renderCustomOption(item, index))}
+            </Select>
+            <Select
+                placeholder='请选择'
+                maxTagCount={2}
+                style={{ width: 280, marginTop: 20 }}
+                onChange={v => console.log(v)}
+                defaultValue={['夏可漫', '申悦']}
+                multiple
+                renderSelectedItem={renderMultipleWithCustomTag}
+            >
+                {list.map((item, index) => renderCustomOption(item, index))}
+            </Select>
+            <Select
+                placeholder='请选择'
+                maxTagCount={2}
+                style={{ width: 280, marginTop: 20 }}
+                onChange={v => console.log(v)}
+                defaultValue={['夏可漫', '申悦']}
+                multiple
+                renderSelectedItem={renderMultipleWithCustomTag2}
+            >
+                {list.map((item, index) => renderCustomOption(item, index))}
+            </Select>
+        </>
+    );
 }
 ```
 
@@ -905,13 +886,13 @@ import React from 'react';
 import { Select } from '@douyinfe/semi-ui';
 
 () => (
-  <Select placeholder='自定义弹出层样式的' style={{ width: 180 }} dropdownStyle={{ width: 250 }} dropdownClassName='test'>
-      <Select.Option value='abc'>抖音</Select.Option>
-      <Select.Option value='hotsoon'>火山</Select.Option>
-      <Select.Option value='jianying'>剪映</Select.Option>
-      <Select.Option value='xigua'>西瓜视频</Select.Option>
-  </Select>
-)
+    <Select placeholder='自定义弹出层样式的' style={{ width: 180 }} dropdownStyle={{ width: 250 }} dropdownClassName='test'>
+        <Select.Option value='abc'>抖音</Select.Option>
+        <Select.Option value='hotsoon'>火山</Select.Option>
+        <Select.Option value='jianying'>剪映</Select.Option>
+        <Select.Option value='xigua'>西瓜视频</Select.Option>
+    </Select>
+);
 ```
 
 ### 获取选项的其他属性
@@ -929,56 +910,56 @@ import { Select, TextArea } from '@douyinfe/semi-ui';
 
 () => {
     const list = [
-      { value: 'abc', label: '抖音', type: 1 },
-      { value: 'hotsoon', label: '火山', type: 2 },
-      { value: 'jianying', label: '剪映', type: 3 },
-      { value: 'toutiao', label: '今日头条', type: 4 },
+        { value: 'abc', label: '抖音', type: 1 },
+        { value: 'hotsoon', label: '火山', type: 2 },
+        { value: 'jianying', label: '剪映', type: 3 },
+        { value: 'toutiao', label: '今日头条', type: 4 },
     ];
     const [cbValue, setCbValue] = useState();
     const [multipleCbValue, setMultipleCbValue] = useState();
 
     const onChange = (value) => {
-      setCbValue(value);
-      console.log(value);
+        setCbValue(value);
+        console.log(value);
     };
 
     const onMultipleChange = (value) => {
-      setMultipleCbValue(value);
-      console.log(value);
+        setMultipleCbValue(value);
+        console.log(value);
     };
 
     return (
         <div>
-          <div>
-            <Select
-                style={{ width: 150 }}
-                onChangeWithObject
-                optionList={list}
-                placeholder='单选'
-                defaultValue={list[0]}
-                onChange={onChange}
-            >
-            </Select>
-            <h4>onChange回调:</h4>
-            <TextArea style={{ width: 320, marginBottom: 48 }} autosize value={JSON.stringify(cbValue)} rows={2}/>
-          </div>
-          <div>
-              <Select
-                  style={{ width: 320 }}
-                  onChangeWithObject
-                  multiple
-                  optionList={list}
-                  onChange={onMultipleChange}
-                  placeholder='多选'>
-              >
-              </Select>
-              <h4>onChange回调:</h4>
-              <TextArea style={{ width: 320 }} autosize value={JSON.stringify(multipleCbValue)} />
+            <div>
+                <Select
+                    style={{ width: 150 }}
+                    onChangeWithObject
+                    optionList={list}
+                    placeholder='单选'
+                    defaultValue={list[0]}
+                    onChange={onChange}
+                >
+                </Select>
+                <h4>onChange回调:</h4>
+                <TextArea style={{ width: 320, marginBottom: 48 }} autosize value={JSON.stringify(cbValue)} rows={2}/>
+            </div>
+            <div>
+                <Select
+                    style={{ width: 320 }}
+                    onChangeWithObject
+                    multiple
+                    optionList={list}
+                    onChange={onMultipleChange}
+                    placeholder='多选'
+                >
+                </Select>
+                <h4>onChange回调:</h4>
+                <TextArea style={{ width: 320 }} autosize value={JSON.stringify(multipleCbValue)} />
             </div>
 
         </div>
-    )
-}
+    );
+};
 ```
 
 ### 创建条目
@@ -996,40 +977,40 @@ import React from 'react';
 import { Select } from '@douyinfe/semi-ui';
 
 () => {
-  const optionList = [
-    { value: 'abc', label: '抖音' },
-    { value: 'hotsoon', label: '火山小视频' },
-    { value: 'jianying', label: '剪映' },
-    { value: 'toutiao', label: '今日头条' },
-  ]
-  return (
-    <>
-      <Select
-          style={{ width: 400 }}
-          optionList={optionList}
-          allowCreate={true}
-          multiple={true}
-          filter={true}
-          onChange={v => console.log(v)}
-          defaultActiveFirstOption
-      >
-      </Select>
-      <br/><br/>
-      <Select
-        style={{ width: 400 }}
-        optionList={optionList}
-        allowCreate={true}
-        multiple={true}
-        filter={true}
-        placeholder='With renderCreateItem'
-        renderCreateItem={input => <div style={{padding:10}}>Create Item：{input}</div>}
-        onChange={v => console.log(v)}
-        defaultActiveFirstOption
-      >
-      </Select>
-    </>
-  )
-}
+    const optionList = [
+        { value: 'abc', label: '抖音' },
+        { value: 'hotsoon', label: '火山小视频' },
+        { value: 'jianying', label: '剪映' },
+        { value: 'toutiao', label: '今日头条' },
+    ];
+    return (
+        <>
+            <Select
+                style={{ width: 400 }}
+                optionList={optionList}
+                allowCreate={true}
+                multiple={true}
+                filter={true}
+                onChange={v => console.log(v)}
+                defaultActiveFirstOption
+            >
+            </Select>
+            <br/><br/>
+            <Select
+                style={{ width: 400 }}
+                optionList={optionList}
+                allowCreate={true}
+                multiple={true}
+                filter={true}
+                placeholder='With renderCreateItem'
+                renderCreateItem={input => <div style={{padding:10}}>Create Item：{input}</div>}
+                onChange={v => console.log(v)}
+                defaultActiveFirstOption
+            >
+            </Select>
+        </>
+    );
+};
 ```
 
 ### 虚拟化
@@ -1101,86 +1082,86 @@ import { Select } from '@douyinfe/semi-ui';
 import { IconAppCenter, IconChevronDown } from '@douyinfe/semi-icons';
 
 () => {
-  const [valList, setValList] = useState(['abc', 'hotsoon']);
-  const [val, setVal] = useState('abc');
-  const list = [
-    { value: 'abc', label: '抖音' },
-    { value: 'hotsoon', label: '火山小视频' },
-    { value: 'jianying', label: '剪映' },
-    { value: 'toutiao', label: '今日头条' },
-  ];
-  const triggerRender = ({ value, }) => {
-    return (
-      <div style={{
-        minWidth: '112',
-        backgroundColor: 'var(--semi-color-primary-light-default)',
-        height: 32,
-        display: 'flex',
-        alignItems: 'center',
-        paddingLeft: 12,
-        borderRadius: 3,
-        color: 'var(--semi-color-primary)'
-      }}
-      >
-        <div style={{
-          fontWeight: 600,
-          flexShrink: 0,
-          fontSize: 14,
-        }}>
-          业务线
-        </div>
-        <div style={{ margin: 4, whiteSpace: 'nowrap', textOverflow: 'ellipsis', flexGrow: 1, overflow: 'hidden' }}>
-           {value.map(item => item.label).join(' , ')}
-        </div>
-        <IconAppCenter style={{ marginRight: 8, flexShrink: 0 }} />
-      </div>
-    );
-  };
+    const [valList, setValList] = useState(['abc', 'hotsoon']);
+    const [val, setVal] = useState('abc');
+    const list = [
+        { value: 'abc', label: '抖音' },
+        { value: 'hotsoon', label: '火山小视频' },
+        { value: 'jianying', label: '剪映' },
+        { value: 'toutiao', label: '今日头条' },
+    ];
+    const triggerRender = ({ value, }) => {
+        return (
+            <div style={{
+                minWidth: '112',
+                backgroundColor: 'var(--semi-color-primary-light-default)',
+                height: 32,
+                display: 'flex',
+                alignItems: 'center',
+                paddingLeft: 12,
+                borderRadius: 3,
+                color: 'var(--semi-color-primary)'
+            }}
+            >
+                <div style={{
+                    fontWeight: 600,
+                    flexShrink: 0,
+                    fontSize: 14,
+                }}>
+                    业务线
+                </div>
+                <div style={{ margin: 4, whiteSpace: 'nowrap', textOverflow: 'ellipsis', flexGrow: 1, overflow: 'hidden' }}>
+                    {value.map(item => item.label).join(' , ')}
+                </div>
+                <IconAppCenter style={{ marginRight: 8, flexShrink: 0 }} />
+            </div>
+        );
+    };
 
-  const triggerRender2 = ({ value, ...rest }) => {
-    return (
-      <div style={{
-        minWidth: '112',
-        height: 32,
-        display: 'flex',
-        alignItems: 'center',
-        paddingLeft: 8,
-        borderRadius: 3,
-      }}
-      >
-        <div style={{ margin: 4, whiteSpace: 'nowrap', textOverflow: 'ellipsis', flexGrow: 1, overflow: 'hidden', display: 'flex', alignItems: 'center' }}>
-           {value.map(item => item.label).join(' , ')}
-           <IconChevronDown style={{ margin: '0 8px', flexShrink: 0 }} />
-        </div>
-      </div>
-    );
-  };
+    const triggerRender2 = ({ value, ...rest }) => {
+        return (
+            <div style={{
+                minWidth: '112',
+                height: 32,
+                display: 'flex',
+                alignItems: 'center',
+                paddingLeft: 8,
+                borderRadius: 3,
+            }}
+            >
+                <div style={{ margin: 4, whiteSpace: 'nowrap', textOverflow: 'ellipsis', flexGrow: 1, overflow: 'hidden', display: 'flex', alignItems: 'center' }}>
+                    {value.map(item => item.label).join(' , ')}
+                    <IconChevronDown style={{ margin: '0 8px', flexShrink: 0 }} />
+                </div>
+            </div>
+        );
+    };
 
-  return (
-    <div>
-      <h4>不同背景色的触发器</h4>
-      <Select
-        value={valList}
-        triggerRender={triggerRender}
-        optionList={list}
-        onChange={(value) => setValList(value)}
-        multiple
-        style={{width: 240}}
-      >
-      </Select>
-      <br/><br/>
-      <h4>无边框无背景色的触发器</h4>
-      <Select
-        value={val}
-        onChange={(value) => setVal(value)}
-        triggerRender={triggerRender2}
-        optionList={list}
-        style={{width: 240, marginTop: 20, outline: 0}}
-        >
-      </Select>
-    </div>
-  )
-}
+    return (
+        <div>
+            <h4>不同背景色的触发器</h4>
+            <Select
+                value={valList}
+                triggerRender={triggerRender}
+                optionList={list}
+                onChange={(value) => setValList(value)}
+                multiple
+                style={{width: 240}}
+            >
+            </Select>
+            <br/><br/>
+            <h4>无边框无背景色的触发器</h4>
+            <Select
+                value={val}
+                onChange={(value) => setVal(value)}
+                triggerRender={triggerRender2}
+                optionList={list}
+                style={{width: 240, marginTop: 20, outline: 0}}
+            >
+            </Select>
+        </div>
+    );
+};
 ```
 
 ### 自定义候选项渲染
@@ -1229,14 +1210,14 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
             <div className='option-right'>
                 {label}
             </div>
-        </div>
+        </div>;
     };
 
     const optionList = [
-      { value: 'abc', label: '抖音', otherKey:0 },
-      { value: 'hotsoon', label: '火山小视频', disabled: true, otherKey: 1 },
-      { value: 'jianying', label: '剪映', otherKey: 2 },
-      { value: 'toutiao', label: '今日头条', otherKey: 3 },
+        { value: 'abc', label: '抖音', otherKey:0 },
+        { value: 'hotsoon', label: '火山小视频', disabled: true, otherKey: 1 },
+        { value: 'jianying', label: '剪映', otherKey: 2 },
+        { value: 'toutiao', label: '今日头条', otherKey: 3 },
     ];
 
     return <>
@@ -1259,7 +1240,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
             style={{ width: 320 }}
             renderOptionItem={renderOptionItem}
         />
-    </>
+    </>;
 };
 ```
 

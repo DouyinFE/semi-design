@@ -50,7 +50,7 @@ import { Timeline } from '@douyinfe/semi-ui';
             审核失败
         </Timeline.Item>
     </Timeline>
-)
+);
 ```
 
 ### 自定义节点
@@ -75,7 +75,7 @@ import { IconAlertTriangle } from '@douyinfe/semi-icons';
             <span style={{ fontSize: '18px' }}>自定义节点样式</span>
         </Timeline.Item>
     </Timeline>
-)
+);
 ```
 
 ### 时间轴位置
@@ -103,7 +103,7 @@ import { Timeline } from '@douyinfe/semi-ui';
             第四个节点内容
         </Timeline.Item>
     </Timeline>
-)
+);
 ```
 
 #### 时间节点在左侧
@@ -127,7 +127,7 @@ import { Timeline } from '@douyinfe/semi-ui';
             第四个节点内容
         </Timeline.Item>
     </Timeline>
-)
+);
 ```
 
 #### 交替展现
@@ -151,7 +151,7 @@ import { Timeline } from '@douyinfe/semi-ui';
             第四个节点内容
         </Timeline.Item>
     </Timeline>
-)
+);
 ```
 
 #### 时间轴在右侧
@@ -175,7 +175,7 @@ import { Timeline } from '@douyinfe/semi-ui';
             第四个节点内容
         </Timeline.Item>
     </Timeline>
-)
+);
 ```
 
 ### 使用 dataSource
@@ -216,7 +216,7 @@ import { IconAlertTriangle } from '@douyinfe/semi-icons';
             },
         ]}
     />
-)
+);
 ```
 
 ## API 参考
@@ -240,7 +240,7 @@ import { IconAlertTriangle } from '@douyinfe/semi-icons';
 | extra | 自定义辅助内容 | ReactNode | - |
 | position | 自定义节点位置，可以覆盖 TimeLine 的模式选项 | `left`\|`right` | - |
 | style | 样式 | CSSProperties | - |
-| time | 时间文本 | string | - |
+| time | 时间文本 | ReactNode | - |
 | type | 当前圆圈的模式 | `default`\|`ongoing`\|`success`\|`warning`\|`error` | `default` |
 
 ## 设计变量

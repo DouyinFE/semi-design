@@ -38,7 +38,7 @@ jobs:
           npm config set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
           npm whoami
           DIST_TAG=latest
-          if [ $RELEASE_TYPE == 'beta' ]; then
+          if [[ ${{ github.event.inputs.release_type }} == 'beta' ]]; then
             DIST_TAG=beta
           fi
           echo "$RELEASE_VERSION"

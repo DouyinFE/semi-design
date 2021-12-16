@@ -1,12 +1,15 @@
 import React, { ReactNode, useMemo } from 'react';
 import { storiesOf } from '@storybook/react';
+import { IllustrationConstruction } from '@douyinfe/semi-illustrations';
+
 import { Fixed, ColumnProps, OnRow, OnHeaderRow, OnGroupedRow, RowKey } from '../interface';
 import JSXColumnsNest from './JSXColumnsNest';
 import DefaultSortOrder from './DefaultSortOrder';
+import BetterScrollbar from './BetterScrollbar';
 import Empty from '../../empty';
-import { IllustrationConstruction } from '@douyinfe/semi-illustrations';
-
 import Table from '../index';
+import FixAllColumnsWithoutWidth from './FixAllColumnsWithoutWidth';
+import WarnColumnWithoutDataIndex from './WarnColumnWithoutDataIndex';
 
 const stories = storiesOf('Table', module);
 
@@ -100,7 +103,7 @@ stories.add(`header merge table`, () => {
     const data = useMemo(() => {
         const data = [];
         for (let i = 0; i < 100; i++) {
-            let age = 40 + (Math.random() > 0.5 ? 1 : -1) * (i % 9);
+            let age = (i * 1000) % 149 ;
             let name = `Edward King ${i}`;
             data.push({
                 key: '' + i,
@@ -371,3 +374,9 @@ stories.add('empty', () => {
         <Table columns={columns} dataSource={[]} empty={test} />
     );
 });
+
+stories.add('better scrollbar', () => <BetterScrollbar />);
+
+stories.add('fix all columns without width', () => <FixAllColumnsWithoutWidth />);
+
+stories.add('warn if column without dataIndex', () => <WarnColumnWithoutDataIndex />);

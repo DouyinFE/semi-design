@@ -136,13 +136,45 @@ describe('CheckboxGroup', () => {
     });
 
     it('checkboxGroup card style', () => {
-        const checkbox = getCG({ type: 'card' });
-        expect(checkbox.exists(`.${BASE_CLASS_PREFIX}-checkbox-cardType`)).toEqual(true);
+        const checkboxGroup = getCG({ type: 'card' });
+        expect(checkboxGroup.exists(`.${BASE_CLASS_PREFIX}-checkbox-cardType`)).toEqual(true);
+        checkboxGroup.unmount();
+
+        const disabledCheckboxGroup = getCG({ type: 'card', disabled: true, defaultValue: 'abc' });
+        expect(
+            disabledCheckboxGroup
+            .find(`.${BASE_CLASS_PREFIX}-checkbox-cardType`)
+            .at(0)
+            .exists(`.${BASE_CLASS_PREFIX}-checkbox-cardType_checked_disabled`)
+        ).toEqual(true);
+        expect(
+            disabledCheckboxGroup
+            .find(`.${BASE_CLASS_PREFIX}-checkbox-cardType`)
+            .at(1)
+            .exists(`.${BASE_CLASS_PREFIX}-checkbox-cardType_checked_disabled`)
+        ).toEqual(false);
+        disabledCheckboxGroup.unmount();
     });
 
     it('checkboxGroup pure card style', () => {
-        const checkbox = getCG({ type: 'pureCard' });
-        expect(checkbox.exists(`.${BASE_CLASS_PREFIX}-checkbox-cardType`)).toEqual(true);
-        expect(checkbox.exists(`.${BASE_CLASS_PREFIX}-checkbox-inner-pureCardType`)).toEqual(true);
+        const checkboxGroup = getCG({ type: 'pureCard' });
+        expect(checkboxGroup.exists(`.${BASE_CLASS_PREFIX}-checkbox-cardType`)).toEqual(true);
+        expect(checkboxGroup.exists(`.${BASE_CLASS_PREFIX}-checkbox-inner-pureCardType`)).toEqual(true);
+        checkboxGroup.unmount();
+
+        const disabledCheckboxGroup = getCG({ type: 'pureCard', disabled: true, defaultValue: 'abc' });
+        expect(
+            disabledCheckboxGroup
+            .find(`.${BASE_CLASS_PREFIX}-checkbox-cardType`)
+            .at(0)
+            .exists(`.${BASE_CLASS_PREFIX}-checkbox-cardType_checked_disabled`)
+        ).toEqual(true);
+        expect(
+            disabledCheckboxGroup
+            .find(`.${BASE_CLASS_PREFIX}-checkbox-cardType`)
+            .at(1)
+            .exists(`.${BASE_CLASS_PREFIX}-checkbox-cardType_checked_disabled`)
+        ).toEqual(false);
+        disabledCheckboxGroup.unmount();
     });
 });

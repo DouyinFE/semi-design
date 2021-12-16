@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses } from '@douyinfe/semi-foundation/tree/constants';
-import { debounce, isFunction, isString } from 'lodash-es';
+import { debounce, isFunction, isString } from 'lodash';
 import { IconTreeTriangleDown, IconFile, IconFolder, IconFolderOpen } from '@douyinfe/semi-icons';
 import { Checkbox } from '../checkbox';
 import TreeContext from './treeContext';
@@ -75,8 +75,6 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
 
     onContextMenu = (e: React.MouseEvent) => {
         const { onNodeRightClick } = this.context;
-        e.stopPropagation();
-        e.nativeEvent.stopImmediatePropagation();
         onNodeRightClick(e, this.props);
     };
 

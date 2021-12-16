@@ -8,10 +8,10 @@ import ConfigContext from '../configProvider/context';
 import SelectFoundation, { SelectAdapter } from '@douyinfe/semi-foundation/select/foundation';
 import { cssClasses, strings, numbers } from '@douyinfe/semi-foundation/select/constants';
 import BaseComponent, { ValidateStatus } from '../_base/baseComponent';
-import { isEqual, isString, noop } from 'lodash-es';
+import { isEqual, isString, noop, get, isNumber } from 'lodash';
 import Tag from '../tag/index';
 import TagGroup from '../tag/group';
-import LocaleCosumer from '../locale/localeConsumer';
+import LocaleConsumer from '../locale/localeConsumer';
 import Popover from '../popover/index';
 import { numbers as popoverNumbers } from '@douyinfe/semi-foundation/popover/constants';
 import { FixedSizeList as List } from 'react-window';
@@ -29,7 +29,6 @@ import { isSemiIcon } from '../_utils';
 import warning from '@douyinfe/semi-foundation/utils/warning';
 
 import '@douyinfe/semi-foundation/select/select.scss';
-import '@douyinfe/semi-foundation/select/option.scss';
 import { Locale } from '../locale/interface';
 import { Position, TooltipProps } from '../tooltip';
 
@@ -79,6 +78,7 @@ export type RenderMultipleSelectedItemFn = (optionNode: Record<string, any>, mul
 export type RenderSelectedItemFn = RenderSingleSelectedItemFn | RenderMultipleSelectedItemFn;
 
 export type SelectProps = {
+    id?: string;
     autoFocus?: boolean;
     arrowIcon?: React.ReactNode;
     defaultValue?: string | number | any[] | Record<string, any>;
@@ -419,7 +419,12 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 let options = [];
                 const { optionList } = this.props;
                 if (optionList && optionList.length) {
-                    options = optionList.map(itemOpt => ({ _show: true, _selected: false, ...itemOpt }));
+                    options = optionList.map((itemOpt, index) => ({ 
+                        _show: true, 
+                        _selected: false, 
+                        _scrollIndex: index,
+                        ...itemOpt 
+                    }));
                     optionGroups[0] = { children: options, label: '' };
                 } else {
                     const result = getOptionsFromGroup(children);
@@ -685,14 +690,14 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                     focused={isFocused}
                     style={style}
                 >
-                    <LocaleCosumer componentName="Select">
+                    <LocaleConsumer<Locale['Select']> componentName="Select" >
                         {(locale: Locale['Select']) => (
                             <>
                                 <span className={`${prefixcls}-create-tips`}>{locale.createText}</span>
                                 {option.value}
                             </>
                         )}
-                    </LocaleCosumer>
+                    </LocaleConsumer>
                 </Option>
             );
             return defaultCreateItem;
@@ -878,7 +883,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                     </Tag>
                 );
             } else {
-                return content;
+                return <Fragment key={value}>{content}</Fragment>;
             }
         });
 
@@ -927,13 +932,20 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             return;
         }
         if (virtualize) {
-            let minKey;
-            selections.forEach((v, k) => {
-                const tempKey = Number(String(k).match(/option-(.*)/)[1]);
-                minKey = (typeof minKey === 'number' && minKey < tempKey) ? minKey : tempKey;
+            let minItemIndex = -1;
+            selections.forEach(item => {
+                const itemIndex = get(item, '_scrollIndex');
+                /* When the itemIndex is legal */
+                if (isNumber(itemIndex) && itemIndex >= 0) {
+                    minItemIndex = minItemIndex !== -1 && minItemIndex < itemIndex
+                        ? minItemIndex
+                        : itemIndex;
+                }
             });
-            if (minKey) {
-                this.virtualizeListRef.current.scrollToItem(minKey, 'center');
+            if (minItemIndex !== -1) {
+                try {
+                    this.virtualizeListRef.current.scrollToItem(minItemIndex, 'center');
+                } catch (error) { }
             }
         } else {
             this.foundation.updateScrollTop();
@@ -970,6 +982,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             multiple,
             filter,
             style,
+            id,
             size,
             className,
             validateStatus,
@@ -1052,6 +1065,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 ref={ref => ((this.triggerRef as any).current = ref)}
                 onClick={e => this.foundation.handleClick(e)}
                 style={style}
+                id={id}
                 tabIndex={tabIndex}
                 onMouseEnter={this.onMouseEnter}
                 onMouseLeave={this.onMouseLeave}

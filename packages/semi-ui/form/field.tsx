@@ -25,7 +25,7 @@ import TagInput from '../tagInput/index';
 import { FormCheckboxType, FormRadioType, FormSelectType } from './interface';
 
 const FormInput = withField(Input, { maintainCursor: true });
-const FormInputNumber = withField(InputNumber as any, { maintainCursor: true });
+const FormInputNumber = withField(InputNumber, { maintainCursor: true });
 const FormTextArea = withField(TextArea, { maintainCursor: true });
 
 const FormSelect = withField(Select) as typeof FormSelectType;
@@ -49,28 +49,9 @@ const FormRadio = withField(Radio, {
 const FormDatePicker = withField(DatePicker);
 const FormSwitch = withField(Switch, { valueKey: 'checked' });
 const FormSlider = withField(Slider);
-
-
-/**
- * Reasons for using ts-igonre:
- * 
- * 1. TimePicker: The propTypes of the locale is defined as object (it is not necessary and too troublesome to write a complete shapeOf), 
- * but the interface defines a complete type, the two cannot match, and ts will report an error, so skip it here.
- * 
- * 2. Cascader: treeData { label, value } define in PropTypes.shapeOf alreaady declare isRequired, ts still throw error 
- *    【Property is optional in type “InferProps<{ value: Validator<string | number>; label: Validator<any>; }>” but required in type CascaderData】
- *    skip it here.
- * 3. TreeSelect: value same as cascader, skip it here
- * 
- */
-
-// @ts-ignore-next-line
 const FormTimePicker = withField(TimePicker);
-// @ts-ignore-next-line
 const FormTreeSelect = withField(TreeSelect);
-// @ts-ignore-next-line
 const FormCascader = withField(Cascader);
-
 const FormRating = withField(Rating);
 const FormAutoComplete = withField(AutoComplete, { valueKey: 'value', onKeyChangeFnName: 'onChange' });
 const FormUpload = withField(Upload, { valueKey: 'fileList', valuePath: 'fileList', onKeyChangeFnName: 'onChange' });

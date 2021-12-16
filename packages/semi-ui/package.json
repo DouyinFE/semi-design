@@ -1,15 +1,10 @@
 {
     "name": "@douyinfe/semi-ui",
-    "version": "2.0.4",
+    "version": "2.1.5",
     "description": "",
-    "main": "lib/es/index.js",
+    "main": "lib/cjs/index.js",
     "module": "lib/es/index.js",
     "typings": "lib/es/index.d.ts",
-    "files": [
-        "lib",
-        "dist",
-        "README.md"
-    ],
     "scripts": {
         "clean": "rimraf dist lib",
         "build:lib": "node ./scripts/compileLib.js",
@@ -19,17 +14,18 @@
     },
     "dependencies": {
         "@babel/runtime-corejs3": "^7.15.4",
-        "@douyinfe/semi-animation-react": "2.0.4",
-        "@douyinfe/semi-foundation": "2.0.4",
-        "@douyinfe/semi-icons": "2.0.4",
-        "@douyinfe/semi-illustrations": "2.0.4",
-        "@douyinfe/semi-theme-default": "2.0.4",
+        "@douyinfe/semi-animation-react": "2.1.5",
+        "@douyinfe/semi-foundation": "2.1.5",
+        "@douyinfe/semi-icons": "2.1.5",
+        "@douyinfe/semi-illustrations": "2.1.5",
+        "@douyinfe/semi-theme-default": "2.1.5",
+        "@types/react-window": "^1.8.2",
         "async-validator": "^3.5.0",
         "classnames": "^2.2.6",
         "copy-text-to-clipboard": "^2.1.1",
         "date-fns": "^2.9.0",
         "date-fns-tz": "^1.0.10",
-        "lodash-es": "^4.17.15",
+        "lodash": "^4.17.21",
         "react-resizable": "^1.8.0",
         "react-sortable-hoc": "^1.11.0",
         "react-window": "^1.8.2",
@@ -57,6 +53,14 @@
         "pc component",
         "dark mode"
     ],
+    "homepage": "https://semi.design",
+    "bugs": {
+      "url": "https://github.com/DouyinFE/semi-design/issues"
+    },
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/DouyinFE"
+    },
     "_unpkg": true,
     "unpkgFiles": [
         "dist/css",
@@ -70,9 +74,11 @@
         "@babel/plugin-transform-runtime": "^7.15.8",
         "@babel/preset-env": "^7.15.8",
         "@babel/preset-react": "^7.14.5",
-        "@douyinfe/semi-scss-compile": "2.0.4",
+        "@douyinfe/semi-scss-compile": "2.1.5",
         "@storybook/addon-knobs": "^6.3.1",
+        "@types/lodash": "^4.14.176",
         "babel-loader": "^8.2.2",
+        "babel-plugin-lodash": "^3.3.4",
         "case-sensitive-paths-webpack-plugin": "^2.4.0",
         "del": "^6.0.0",
         "enzyme": "^3.11.0",

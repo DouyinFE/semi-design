@@ -15,11 +15,11 @@ There are mainly the following two usage scenarios:
 ```shell
 npm i -g @douyinfe/semi-scss-compile
 
-semi-build-scss --foundation="path/to/foundation" --theme="path/to/theme" --output="path/to/output.css" --min=true
+semi-build-scss --foundation="path/to/foundation" --theme="path/to/theme" --icon="path/to/'@douyinfe/semi-icons'" --output="path/to/output.css" --min
 
 # or for short
 
-semi-build-scss -f "path/to/foundation" -t "path/to/theme" -o "path/to/output.css" -m true
+semi-build-scss -f "path/to/foundation" -t "path/to/theme" -i "path/to/'@douyinfe/semi-icons'" -o "path/to/output.css" -m
 
 ```
 
@@ -36,9 +36,21 @@ function resolve(dir) {
 
 //eg
 
-compile(resolve('semi-foundation/'), resolve('semi-theme-default/'), resolve('semi-ui/dist/css/semi.min.css'), {isMin: true})
-compile(resolve('semi-foundation/'), resolve('semi-theme-default/'), resolve('semi-ui/dist/css/semi.css'), {isMin: false})
+compile({
+    foundationPath:resolve('semi-foundation/'),
+    themePath:resolve('semi-theme-default/'),
+    iconPath: resolve('node_modules/@douyinfe/semi-icons'),
+    outputPath:resolve('semi-ui/dist/css/semi.min.css'),
+    isMin:true
+})
 
+compile({
+    foundationPath:resolve('semi-foundation/'),
+    themePath:resolve('semi-theme-default/'),
+    iconPath: resolve('node_modules/@douyinfe/semi-icons'),
+    outputPath:resolve('semi-ui/dist/css/semi.css'),
+    isMin:false
+})
 ```
 
 ### Advanced API
@@ -48,7 +60,7 @@ const {generateScssMap, writeFile, compilerFromScssMap} = require('@douyinfe/sem
 const fs = require('fs-extra');
 
 const isMin = false;
-const scssMap = generateScssMap("path/to/foundation", "path/to/theme");
+const scssMap = generateScssMap("path/to/foundation", "path/to/theme","path/to/'@douyinfe/semi-icons'");
 const tempDir = writeFile(scssMap)
 const result = compilerFromScssMap(path.join(tempDir, 'index.scss'), isMin);
 fs.outputFileSync(outputPath, result.css);

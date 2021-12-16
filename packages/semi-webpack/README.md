@@ -136,3 +136,28 @@ The absolute path of the local Scss file.
 Type: `Object`
 
 The key-value pair of Scss token.
+
+##### options.omitCss
+
+Type: `Boolean`
+
+In the compilation phase, whether to exclude css references.Used to solve the problem that Next.js does not support the global introduction of css in third-party code.See this [discussion](https://github.com/vercel/next.js/discussions/27953).
+
+##### options.webpackContext.NormalModule
+
+Type: `webpack NormalModule`
+
+##### options.extractCssOptions.loader
+
+Type: `String`
+
+The path of webpack loader that extract css.
+
+##### options.extractCssOptions.loaderOptions
+
+Type: `Object`
+
+The options of webpack loader that extract css.
+
+
+In webpack@5, some hooks need to be obtained through api `NormalModule.getCompilationHooks`. But in some scenarios, webpack will not be installed, such as Next.js. Therefore, the user is required to pass in NormalModule as a parameter.

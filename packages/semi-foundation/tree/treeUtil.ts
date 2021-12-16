@@ -3,7 +3,7 @@
  * https://github.com/react-component/tree/blob/master/src/util.tsx
  */
 
-import { difference, uniq, max, isObject, isNull, isUndefined, isEmpty, pick, get } from 'lodash-es';
+import { difference, uniq, max, isObject, isNull, isUndefined, isEmpty, pick, get } from 'lodash';
 
 export interface KeyEntities {
     [x: string]: any;
@@ -441,7 +441,7 @@ export function normalizeKeyList(keyList: any, keyEntities: KeyEntities, leafOnl
             res.push(key);
         });
     } else {
-        res = keyList.filter((key: string) => keyEntities[key] && !isValid(keyEntities[key].children));
+        res = (Array.from(keyList) as string[]).filter(key => keyEntities[key] && !isValid(keyEntities[key].children));
     }
     return res;
 }

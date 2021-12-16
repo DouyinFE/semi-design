@@ -16,11 +16,10 @@ import { cssClasses, numbers, strings } from '@douyinfe/semi-foundation/inputNum
 import { IconChevronUp, IconChevronDown } from '@douyinfe/semi-icons';
 
 import '@douyinfe/semi-foundation/inputNumber/inputNumber.scss';
-import { isNaN, noop } from 'lodash-es';
+import { isNaN, noop } from 'lodash';
 import { ArrayElement } from '../_base/base';
 
 export interface InputNumberProps extends InputProps {
-    [x: string]: any;
     autofocus?: boolean;
     className?: string;
     defaultValue?: number | string;

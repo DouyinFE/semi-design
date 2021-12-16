@@ -22,7 +22,7 @@ $color-upload-icon: var(--semi-color-tertiary); // 图片墙上传图标加号�
 $color-upload_pic_add-bg-active: var(--semi-color-fill-2); // 图片墙上传背景色 - 按下
 $color-upload_pic_add-bg-hover: var(--semi-color-fill-1); // 图片墙上传背景色 - 悬浮
 $color-upload_pic_add-bg: var(--semi-color-fill-0); // 图片墙上传背景色 - 默认
-$color-upload_pic_remove-bg: var(--semi-overlay-bg); // 图片墙上传移除图标颜色
+$color-upload_pic_remove-bg: var(--semi-color-overlay-bg); // 图片墙上传移除图标颜色
 $color-upload_picture_file_card_loading_error-icon: var(--semi-color-danger); // 图片墙上传移除图标颜色
 $color-upload_preview-icon: var(--semi-color-text-2); // 上传文件卡片文本颜色
 $color-upload_retry-text: var(--semi-color-primary); // 上传文件卡片重新上传按钮文本颜色

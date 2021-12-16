@@ -26,7 +26,8 @@ export interface NoticeReactProps extends NoticeProps{
 export {
     NoticeState,
     NotificationListProps,
-    NotificationListState
+    NotificationListState,
+    ConfigProps
 };
 
 export type NoticesInPosition = { top: NoticeInstance[];
@@ -176,8 +177,8 @@ class NotificationList extends BaseComponent<NotificationListProps, Notification
 
     add = (noticeOpts: NoticeProps) => this.foundation.addNotice(noticeOpts);
 
-    remove = (id: string) => {
-        this.foundation.removeNotice(id);
+    remove = (id: string | number) => {
+        this.foundation.removeNotice(String(id));
     };
 
     destroyAll = () => this.foundation.destroyAll();

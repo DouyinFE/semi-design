@@ -6,10 +6,10 @@ import PropTypes from 'prop-types';
 import cls from 'classnames';
 import { cssClasses } from '@douyinfe/semi-foundation/slider/constants';
 import BaseComponent from '../_base/baseComponent';
-import SliderFoundation, { SliderAdapter, SliderProps as BasicSliceProps, SliderState } from '@douyinfe/semi-foundation/slider/foundation';
+import SliderFoundation, { SliderAdapter, SliderProps as BasicSliceProps, SliderState, tipFormatterBasicType } from '@douyinfe/semi-foundation/slider/foundation';
 import Tooltip from '../tooltip/index';
 import '@douyinfe/semi-foundation/slider/slider.scss';
-import { isEqual, noop } from 'lodash-es';
+import { isEqual, noop } from 'lodash';
 
 const prefixCls = cssClasses.PREFIX;
 
@@ -61,7 +61,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
         min: 0,
         range: false, // Whether both sides
         step: 1,
-        tipFormatter: (value: number) => value,
+        tipFormatter: (value: tipFormatterBasicType | tipFormatterBasicType[]) => value,
         vertical: false,
         showBoundary: false,
         onAfterChange: (value: number | number[]) => {
@@ -194,7 +194,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                 this._addEventListener(document.body, 'mouseup', this.foundation.onHandleUp, false);
                 this._addEventListener(document.body, 'touchmove', this.foundation.onHandleTouchMove, false);
             },
-            onHandleMove: (mousePos: number, isMin: boolean, stateChangeCallback = noop): boolean | void => {
+            onHandleMove: (mousePos: number, isMin: boolean, stateChangeCallback = noop, clickTrack = false): boolean | void => {
 
                 const sliderDOMIsInRenderTree = this.foundation.checkAndUpdateIsInRenderTreeState();
                 if (!sliderDOMIsInRenderTree) {
@@ -211,7 +211,8 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                 const { currentValue } = this.state;
                 if (!isEqual(this.foundation.outPutValue(currentValue), outPutValue)) {
                     onChange(outPutValue);
-                    if (this.foundation.valueFormatIsCorrect(value)) {
+                    if (!clickTrack && this.foundation.valueFormatIsCorrect(value)) {
+                        // still require afterChangeCallback when click on the track directly, need skip here
                         return false;
                     }
                     this.setState({

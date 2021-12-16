@@ -6,7 +6,7 @@ import { checkboxGroupClasses as css, strings } from '@douyinfe/semi-foundation/
 import CheckboxGroupFoudation, { CheckboxGroupAdapter } from '@douyinfe/semi-foundation/checkbox/checkboxGroupFoundation';
 import BaseComponent from '../_base/baseComponent';
 import { Context } from './context';
-import { isEqual } from 'lodash-es';
+import { isEqual } from 'lodash';
 import Checkbox, { CheckboxEvent } from './checkbox';
 
 export type CheckboxDirection = 'horizontal' | 'vertical';
@@ -25,6 +25,7 @@ export type CheckboxGroupProps = {
     style?: React.CSSProperties;
     className?: string;
     type?: CheckboxType;
+    id?: string;
 };
 
 export type CheckboxGroupState = {
@@ -96,7 +97,7 @@ class CheckboxGroup extends BaseComponent<CheckboxGroupProps, CheckboxGroupState
     }
 
     render() {
-        const { children, options, prefixCls, direction, className, style, type } = this.props;
+        const { children, options, prefixCls, direction, className, id, style, type } = this.props;
 
         const isPureCardType = type === strings.TYPE_PURECARD;
         const isCardType = type === strings.TYPE_CARD || isPureCardType;
@@ -144,11 +145,11 @@ class CheckboxGroup extends BaseComponent<CheckboxGroupProps, CheckboxGroupState
                 }
             });
         } else if (children) {
-            inner = React.Children.toArray(children).map((itm: React.ReactElement, index) => React.cloneElement(itm, { key: index }));
+            inner = (React.Children.toArray(children) as React.ReactElement[]).map((itm, index) => React.cloneElement(itm, { key: index }));
         }
 
         return (
-            <div className={prefixClsDisplay} style={style}>
+            <div className={prefixClsDisplay} style={style} id={id}>
                 <Context.Provider
                     value={{
                         checkboxGroup: {

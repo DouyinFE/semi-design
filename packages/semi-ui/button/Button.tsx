@@ -15,6 +15,7 @@ export type Theme = 'solid' | 'borderless' | 'light';
 export type Type = 'primary' | 'secondary' | 'tertiary' | 'warning' | 'danger';
 
 export interface ButtonProps {
+    id?: string;
     block?: boolean;
     circle?: boolean;
     disabled?: boolean;

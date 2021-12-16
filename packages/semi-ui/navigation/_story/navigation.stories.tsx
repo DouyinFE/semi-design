@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { IconHome, IconHistogram, IconSetting, IconLive, IconUser, IconStar } from '@douyinfe/semi-icons';
+import { IconHome, IconHistogram, IconSetting, IconLive, IconUser, IconStar, IconUserGroup } from '@douyinfe/semi-icons';
 
 import Nav from '..';
 
@@ -15,7 +15,7 @@ stories.add(`default`, () => {
                 <Nav onSelect={(...args: any[]) => console.log(...args)}>
                     <Nav.Header logo={<img src={logo} />} text={'火山运营'} />
                     <Nav.Item itemKey={'1'} text={'Option 1'} icon="mail" link="/mail" />
-                    <Nav.Sub text={'Group 2'} icon="folder" stayWhenClick={true} itemKey={'2'}>
+                    <Nav.Sub text={'Group 2'} icon="folder" itemKey={'2'}>
                         {['2-1', '2-2'].map(k => (
                             <Nav.Item key={k} itemKey={String(k)} text={'Option ' + k} link={`folder/${k}`} />
                         ))}
@@ -27,7 +27,7 @@ stories.add(`default`, () => {
                     </Nav.Sub>
                     <Nav.Item key={3} itemKey={'3'} text={'Option 3'} icon="gift" />
                     <Nav.Item key={4} itemKey={'4'} text={'Option 4'} icon="list" />
-                    <Nav.Sub text={'Group 5'} icon="flag" stayWhenClick={true} itemKey={'5'}>
+                    <Nav.Sub text={'Group 5'} icon="flag" itemKey={'5'}>
                         {['5-1', '5-2'].map(k => (
                             <Nav.Item key={k} itemKey={String(k)} text={'Option ' + k} />
                         ))}
@@ -80,7 +80,7 @@ stories.add(`fix 35`, () => {
                     onSelect={data => console.log('trigger onSelect: ', data)}
                     onClick={data => console.log('trigger onClick: ', data)}
                 >
-                    <Nav.Header logo={<img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />} text={'直播运营后台'} />
+                    <Nav.Header logo={<img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />} text={'Semi 运营后台'} />
                     <Nav.Item itemKey={'union'} text={'公会中心'} icon={<IconStar />} />
                     <Nav.Sub itemKey={'user'} text="用户管理" icon={<IconUser />}>
                         <Nav.Item itemKey={'golder'} text={'金主管理'} />

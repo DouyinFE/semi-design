@@ -24,55 +24,57 @@ Into the header. `columns` And data. `DataSource` To render.
 import React from 'react';
 import { Table } from '@douyinfe/semi-ui';
 
-class App extends React.Component {
-    constructor() {
-        this.columns = [
-            {
-                title: 'Name',
-                Data Index: 'name',
-                render: text => <a>{text}</a>,
-            },
-            {
-                title: 'Age',
-                dataIndex: 'age',
-            },
-            {
-                title: 'Address',
-                dataIndex: 'address',
-            },
-        ];
+function App() {
+    const columns = [
+        {
+            title: 'Title',
+            dataIndex: 'name',
+        },
+        {
+            title: 'Size',
+            dataIndex: 'size',
+        },
+        {
+            title: 'Owner',
+            dataIndex: 'owner',
 
-        this.data = [
-            {
-                key: '1',
-                name: 'John Brown',
-                age: 32,
-                address: 'New York No. 1 Lake Park, New York No. 1 Lake Park',
-            },
-            {
-                key: '2',
-                name: 'Jim Green',
-                age: 42,
-                address: 'London No. 1 Lake Park',
-            },
-            {
-                key: '3',
-                name: 'Joe Black',
-                age: 32,
-                address: 'Sidney No. 1 Lake Park',
-            },
-            {
-                key: '4',
-                name: 'Michael James',
-                age: 99,
-                address: 'Sidney No. 1 Lake Park',
-            },
-        ];
-    }
+        },
+        {
+            title: 'Update',
+            dataIndex: 'updateTime',
+        }
+    ];
+    const data = [
+        {
+            key: '1',
+            name: 'Semi Design design draft.fig',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png',
+            size: '2M',
+            owner: 'Jiang Pengzhi',
+            updateTime: '2020-02-02 05:13',
+            avatarBg: 'grey'
+        },
+        {
+            key: '2',
+            name: 'Semi Design share docs',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
+            size: '2M',
+            owner: 'Hao Xuan',
+            updateTime: '2020-01-17 05:31',
+            avatarBg: 'red'
+        },
+        {
+            key: '3',
+            name: 'Design docs',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
+            size: '34KB',
+            owner: 'Zoey Edwards',
+            updateTime: '2020-01-26 11:01',
+            avatarBg: 'light-blue'
+        },
+    ];
 
-    render() {
-        <Table columns={this.columns} dataSource={this.data} />;
-    }
+    return <Table columns={columns} dataSource={data} pagination={false} />;
 }
 ```
 
@@ -84,59 +86,85 @@ For tables, the two most basic parameters are `dataSource` and `columns`, the fo
 
 ```jsx live=true noInline=true dir="column"
 import React from 'react';
-import { Table } from '@douyinfe/semi-ui';
+import { Table, Avatar } from '@douyinfe/semi-ui';
+import { IconMore } from '@douyinfe/semi-icons';
 
-class App extends React.Component {
-    constructor() {
-        this.columns = [
-            {
-                title: 'Name',
-                dataIndex: 'name',
-                render: (text, record, index) => {
-                    console.log(text, record, index);
-                    return <a>{text}</a>;
-                },
-            },
-            {
-                title: 'Age',
-                dataIndex: 'age',
-            },
-            {
-                title: 'Address',
-                dataIndex: 'address',
-            },
-        ];
-        this.data = [
-            {
-                key: '1',
-                name: 'John Brown',
-                age: 32,
-                address: 'New York No. 1 Lake Park, New York No. 1 Lake Park',
-            },
-            {
-                key: '2',
-                name: 'Jim Green',
-                age: 42,
-                address: 'London No. 1 Lake Park',
-            },
-            {
-                key: '3',
-                name: 'Joe Black',
-                age: 32,
-                address: 'Sidney No. 1 Lake Park',
-            },
-            {
-                key: '4',
-                name: 'Michael James',
-                age: 99,
-                address: 'Sidney No. 1 Lake Park',
-            },
-        ];
-    }
+function App() {
+    const columns = [
+        {
+            title: 'Title',
+            dataIndex: 'name',
+            render: (text, record, index) => {
+                return (
+                    <div>
+                        <Avatar size="small" shape="square" src={record.nameIconSrc} style={{ marginRight: 12 }}></Avatar>
+                        {text}
+                    </div>
+                );
+            }
+        },
+        {
+            title: 'Size',
+            dataIndex: 'size',
+        },
+        {
+            title: 'Owner',
+            dataIndex: 'owner',
+            render: (text, record, index) => {
+                return (
+                    <div>
+                        <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>
+                            {typeof text === 'string' && text.slice(0, 1)}
+                        </Avatar>
+                        {text}
+                    </div>
+                );
+            }
 
-    render() {
-        return <Table columns={this.columns} dataSource={this.data} Pagination={false} />;
-    }
+        },
+        {
+            title: 'Update',
+            dataIndex: 'updateTime',
+        },
+        {
+            title: '',
+            dataIndex: 'operate',
+            render: () => {
+                return <IconMore />;
+            }
+        },
+    ];
+    const data = [
+        {
+            key: '1',
+            name: 'Semi Design design draft.fig',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png',
+            size: '2M',
+            owner: 'Jiang Pengzhi',
+            updateTime: '2020-02-02 05:13',
+            avatarBg: 'grey'
+        },
+        {
+            key: '2',
+            name: 'Semi Design share docs',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
+            size: '2M',
+            owner: 'Hao Xuan',
+            updateTime: '2020-01-17 05:31',
+            avatarBg: 'red'
+        },
+        {
+            key: '3',
+            name: 'Design docs',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
+            size: '34KB',
+            owner: 'Zoey Edwards',
+            updateTime: '2020-01-26 11:01',
+            avatarBg: 'light-blue'
+        },
+    ];
+
+    return <Table columns={columns} dataSource={data} pagination={false} />;
 }
 
 render(App);
@@ -158,119 +186,208 @@ import { Table } from '@douyinfe/semi-ui';
 
 const { Column } = Table;
 
-class App extends React.Component {
-    constructor() {
-        this.data = [
-            {
-                key: '1',
-                name: 'John Brown',
-                age: 32,
-                address: 'New York No. 1 Lake Park, New York No. 1 Lake Park',
-            },
-            {
-                key: '2',
-                name: 'Jim Green',
-                age: 42,
-                address: 'London No. 1 Lake Park',
-            },
-            {
-                key: '3',
-                name: 'Joe Black',
-                age: 32,
-                address: 'Sidney No. 1 Lake Park',
-            },
-            {
-                key: '4',
-                name: 'Michael James',
-                age: 99,
-                address: 'Sidney No. 1 Lake Park',
-            },
-        ];
-    }
+function App() {
+    const data = [
+        {
+            key: '1',
+            name: 'Semi Design design draft.fig',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png',
+            size: '2M',
+            owner: 'Jiang Pengzhi',
+            updateTime: '2020-02-02 05:13',
+            avatarBg: 'grey'
+        },
+        {
+            key: '2',
+            name: 'Semi Design share docs',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
+            size: '2M',
+            owner: 'Hao Xuan',
+            updateTime: '2020-01-17 05:31',
+            avatarBg: 'red'
+        },
+        {
+            key: '3',
+            name: 'Design docs',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
+            size: '34KB',
+            owner: 'Zoey Edwards',
+            updateTime: '2020-01-26 11:01',
+            avatarBg: 'light-blue'
+        },
+    ];
 
-    render() {
+    const renderName = (text, record, index) => {
         return (
-            <Table dataSource={this.data} Pagination={false}>
-                <Column title="Name" dataIndex="name" key="name" render={(text, record, index) => <a>{text}</a>} />
-                <Column title="Age" dataIndex="age" key="age" />
-                <Column title="Address" dataIndex="address" key="address" />
-            </Table>
+            <div>
+                <Avatar size="small" shape="square" src={record.nameIconSrc} style={{ marginRight: 12 }}></Avatar>
+                {text}
+            </div>
         );
-    }
+    };
+
+    const renderOwner = (text, record, index) => {
+        return (
+            <div>
+                <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>
+                    {typeof text === 'string' && text.slice(0, 1)}
+                </Avatar>
+                {text}
+            </div>
+        );
+    };
+
+    return (
+        <Table dataSource={data} pagination={false}>
+            <Column title="Title" dataIndex="name" key="name" render={renderName} />
+            <Column title="Size" dataIndex="size" key="size" />
+            <Column title="Owner" dataIndex="owner" key="owner" render={renderOwner} />
+            <Column title="Update" dataIndex="updateTime" key="updateTime" />
+            <Column title="" dataIndex="operate" key="operate" render={() => <IconMore />} />
+        </Table>
+    );
 }
 
 render(App);
 ```
 
-### Line Selection Operation
+### Row Selection Operation
 
 This feature can be turned on by passing in `rowSelection`.
+
+- Click the selection box in the header, and all rows in the `dataSource` that are not in the state of `disabled` will be selected. The callback function for selecting all rows is `onSelectAll`;
+- Clicking on the row selection box will select the current row. Its callback function is `onSelect`;
 
 > Note: Be sure to provide a "key" for each row of data that is different from other row values, or use the rowKey parameter to specify a property name as the primary key.
 
 ```jsx live=true noInline=true dir="column"
 import React from 'react';
-import { Table } from '@douyinfe/semi-ui';
+import { Table, Avatar } from '@douyinfe/semi-ui';
+import { IconMore } from '@douyinfe/semi-icons';
 
-class App extends React.Component {
-    constructor() {
-        this.columns = [
-            {
-                title: 'Name',
-                dataIndex: 'name',
-                render: text => <a>{text}</a>,
-            },
-            {
-                title: 'Age',
-                dataIndex: 'age',
-            },
-            {
-                title: 'Address',
-                dataIndex: 'address',
-            },
-        ];
-        this.data = [
-            {
-                key: '1',
-                name: 'John Brown',
-                age: 32,
-                address: 'New York No. 1 Lake Park, New York No. 1 Lake Park',
-            },
-            {
-                key: '2',
-                name: 'Jim Green',
-                age: 42,
-                address: 'London No. 1 Lake Park',
-            },
-            {
-                key: '3',
-                name: 'Joe Black',
-                age: 32,
-                address: 'Sidney No. 1 Lake Park',
-            },
-            {
-                key: '4',
-                name: 'Michael James',
-                age: 99,
-                address: 'Sidney No. 1 Lake Park',
-            },
-        ];
-        this.rowSelection = {
-            onChange: (selectedRowKeys, selectedRows) => {
-                console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-            },
-            getCheckboxProps: record => ({
-                disabled: record.name === 'Michael James', // Column configuration not to be checked
-                name: record.name,
-            }),
-        };
-    }
+function App() {
+    const columns = [
+        {
+            title: 'Title',
+            dataIndex: 'name',
+            width: 400,
+            render: (text, record, index) => {
+                return (
+                    <div>
+                        <Avatar size="small" shape="square" src={record.nameIconSrc} style={{ marginRight: 12 }}></Avatar>
+                        {text}
+                    </div>
+                );
+            }
+        },
+        {
+            title: 'Size',
+            dataIndex: 'size',
+        },
+        {
+            title: 'Owner',
+            dataIndex: 'owner',
+            render: (text, record, index) => {
+                return (
+                    <div>
+                        <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>{typeof text === 'string' && text.slice(0, 1)}</Avatar>
+                        {text}
+                    </div>
+                );
+            }
 
-    render() {
-        return (
-            <Table columns={this.columns} dataSource={this.data} rowSelection={this.rowSelection} pagination={false} />
-        );
-    }
+        },
+        {
+            title: 'Update',
+            dataIndex: 'updateTime',
+        },
+        {
+            title: '',
+            dataIndex: 'operate',
+            render: () => {
+                return <IconMore />;
+            }
+        },
+    ];
+    const data = [
+        {
+            key: '1',
+            name: 'Semi Design design draft.fig',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png',
+            size: '2M',
+            owner: 'Jiang Pengzhi',
+            updateTime: '2020-02-02 05:13',
+            avatarBg: 'grey'
+
+        },
+        {
+            key: '2',
+            name: 'Semi Design share docs',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
+            size: '2M',
+            owner: 'Hao Xuan',
+            updateTime: '2020-01-17 05:31',
+            avatarBg: 'red'
+        },
+        {
+            key: '3',
+            name: 'Design docs',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
+            size: '34KB',
+            owner: 'Zoey Edwards',
+            updateTime: '2020-01-26 11:01',
+            avatarBg: 'light-blue'
+        },
+        {
+            key: '4',
+            name: 'Semi Pro design draft.fig',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png',
+            size: '2M',
+            owner: 'Jiang Pengzhi',
+            updateTime: '2020-02-02 05:13',
+            avatarBg: 'grey'
+
+        },
+        {
+            key: '5',
+            name: 'Semi Pro share docs',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
+            size: '2M',
+            owner: 'Hao Xuan',
+            updateTime: '2020-01-17 05:31',
+            avatarBg: 'red'
+        },
+        {
+            key: '6',
+            name: 'Semi Pro Design docs',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
+            size: '34KB',
+            owner: 'Zoey Edwards',
+            updateTime: '2020-01-26 11:01',
+            avatarBg: 'light-blue'
+        },
+    ];
+    const rowSelection = {
+        getCheckboxProps: record => ({
+            disabled: record.name === 'Design docs', // Column configuration not to be checked
+            name: record.name,
+        }),
+        onSelect: (record, selected) => {
+            console.log(`select row: ${selected}`, record);
+        },
+        onSelectAll: (selected, selectedRows) => {
+            console.log(`select all rows: ${selected}`, selectedRows);
+        },
+        onChange: (selectedRowKeys, selectedRows) => {
+            console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+        },
+    };
+
+    const pagination = useMemo(() => ({
+        pageSize: 3
+    }), []);
+
+    return <Table columns={columns} dataSource={data} rowSelection={rowSelection} pagination={pagination} />;
 }
 
 render(App);
@@ -282,103 +399,136 @@ Users can use Column.render to customize the rendering of a column of cells, whi
 
 ```jsx live=true noInline=true dir="column"
 import React from 'react';
-import { Table, Button } from '@douyinfe/semi-ui';
+import { Table, Avatar, Button, Empty, Typography } from '@douyinfe/semi-ui';
 import { IconDelete } from '@douyinfe/semi-icons';
+import { IllustrationNoResult, IllustrationNoResultDark } from '@douyinfe/semi-illustrations';
+const { Text } = Typography;
 
-class TableApp extends React.Component {
-    constructor(props) {
-        super(props);
+const raw = [
+    {
+        key: '1',
+        name: 'Semi Design design draft title may be a bit long Tooltip should be displayed at this time.fig',
+        nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png',
+        size: '2M',
+        owner: 'Jiang Pengzhi',
+        updateTime: '2020-02-02 05:13',
+        avatarBg: 'grey'
 
-        this.raw = [
-            {
-                key: '1',
-                name: 'John Brown',
-                age: 32,
-                address: 'New York No. 1 Lake Park, New York No. 1 Lake Park',
-            },
-            {
-                key: '2',
-                name: 'Jim Green',
-                age: 42,
-                address: 'London No. 1 Lake Park',
-            },
-            {
-                key: '3',
-                name: 'Joe Black',
-                age: 32,
-                address: 'Sidney No. 1 Lake Park',
-            },
-            {
-                key: '4',
-                name: 'Michael James',
-                age: 99,
-                address: 'Sidney No. 1 Lake Park',
-            },
-        ];
-
-        this.state = {
-            dataSource: [...this.raw],
-            columns: [
-                {
-                    title: 'Name',
-                    dataIndex: 'name',
-                    width: 200,
-                    render: text => <a>{text}</a>,
-                },
-                {
-                    width: 90,
-                    title: 'Age',
-                    dataIndex: 'age',
-                },
-                {
-                    title: 'Address',
-                    dataIndex: 'address',
-                },
-                {
-                    title: 'Operation',
-                    width: 150,
-                    render: (text, record) => (
-                        <Button icon={<IconDelete />}theme="borderless" onClick={() => this.removeRecord(record.key)} />
-                    ),
-                },
-            ],
-        };
+    },
+    {
+        key: '2',
+        name: 'Semi Design share docs',
+        nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
+        size: '2M',
+        owner: 'Hao Xuan',
+        updateTime: '2020-01-17 05:31',
+        avatarBg: 'red'
+    },
+    {
+        key: '3',
+        name: 'Design docs',
+        nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
+        size: '34KB',
+        owner: 'Zoey Edwards',
+        updateTime: '2020-01-26 11:01',
+        avatarBg: 'light-blue'
+    },
+    {
+        key: '4',
+        name: 'Semi Pro design draft title may be a bit long Tooltip should be displayed at this time.fig',
+        nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
+        size: '34KB',
+        owner: 'Jiang Qi',
+        updateTime: '2020-01-26 11:01',
+        avatarBg: 'green'
     }
+];
 
-    removeRecord(key) {
-        let dataSource = [...this.state.dataSource];
+function App() {
+    const [dataSource, setData] = useState(raw);
+
+    const removeRecord = (key) => {
+        let newDataSource = [...dataSource];
         if (key != null) {
-            let idx = dataSource.findIndex(data => data.key === key);
-
-            // console.log(key, dataSource, idx);
+            let idx = newDataSource.findIndex(data => data.key === key);
 
             if (idx > -1) {
-                dataSource.splice(idx, 1);
-                this.setState({ dataSource });
+                newDataSource.splice(idx, 1);
+                setData(newDataSource);
             }
         }
-    }
+    };
+    const resetData = () => {
+        const newDataSource = [...raw];
+        setData(newDataSource);
+    };
 
-    resetData() {
-        let dataSource = [...this.raw];
-        this.setState({ dataSource });
-    }
+    const columns = [
+        {
+            title: 'Title',
+            dataIndex: 'name',
+            width: 400,
+            render: (text, record, index) => {
+                return (
+                    <span style={{ display: 'flex', alignItems: 'center' }}>
+                        <Avatar size="small" shape="square" src={record.nameIconSrc} style={{ marginRight: 12 }}></Avatar>
+                        {/* The width calculation method is the cell setting width minus the non-text content width */}
+                        <Text heading={5} ellipsis={{ showTooltip: true }} style={{ width: 'calc(400px - 76px)' }}>
+                            {text}
+                        </Text>
+                    </span>
+                );
+            }
+        },
+        {
+            title: 'Size',
+            dataIndex: 'size',
+            width: 150,
+        },
+        {
+            title: 'Owner',
+            dataIndex: 'owner',
+            width: 300,
+            render: (text, record, index) => {
+                return (
+                    <div>
+                        <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>{typeof text === 'string' && text.slice(0, 1)}</Avatar>
+                        {text}
+                    </div>
+                );
+            }
 
-    render() {
-        let { columns, dataSource } = this.state;
+        },
+        {
+            title: 'Update',
+            dataIndex: 'updateTime',
+            width: 200,
+        },
+        {
+            title: '',
+            dataIndex: 'operate',
+            render: (text, record) => <Button icon={<IconDelete />} theme='borderless' onClick={() => removeRecord(record.key)} />
+        },
+    ];
 
-        return (
-            <>
-                <Button onClick={() => this.resetData()} style={{ marginBottom: 10 }}>
-                    Reset
-                </Button>
-                <Table columns={columns} dataSource={dataSource} pagination={false} />
-            </>
-        );
-    }
+    const empty = (
+        <Empty
+            image={<IllustrationNoResult />}
+            darkModeImage={<IllustrationNoResultDark />}
+            description={'No result'}
+        />
+    );
+
+
+    return (
+        <>
+            <Button onClick={resetData} style={{ marginBottom: 10 }}>Reset</Button>
+            <Table style={{ minHeight: 350 }} columns={columns} dataSource={dataSource} pagination={false} empty={empty} />
+        </>
+    );
 }
 
-render(TableApp);
+render(App);
 ```
 
 ### Table With Pagination
@@ -391,163 +541,240 @@ Table paging currently supports two modes: controlled and uncontrolled.
 > Note: The custom `pagination.total` field passed in uncontrolled conditions is supported only after version 0.25.0.
 
 ```jsx live=true noInline=true dir="column"
-import React from 'react';
-import { Table } from '@douyinfe/semi-ui';
+import React, { useState, useMemo } from 'react';
+import { Table, Avatar } from '@douyinfe/semi-ui';
+import * as dateFns from 'date-fns';
 
-class TableApp extends React.Component {
-    constructor() {
-        this.columns = [
+const figmaIconUrl = 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png';
+const columns = [
+    {
+        title: 'Title',
+        dataIndex: 'name',
+        width: 400,
+        render: (text, record, index) => {
+            return (
+                <div>
+                    <Avatar size="small" shape="square" src={figmaIconUrl} style={{ marginRight: 12 }}></Avatar>
+                    {text}
+                </div>
+            );
+        },
+        filters: [
             {
-                title: 'Name',
-                dataIndex: 'name',
-                width: 150,
-                filters: [
-                    {
-                        text: 'King 3',
-                        value: 'King 3',
-                    },
-                    {
-                        text: 'King 4',
-                        value: 'King 4',
-                    },
-                ],
-                onFilter: (value, record) => record.name.includes(value),
-            },
-            {
-                title: 'Age',
-                dataIndex: 'age',
-                width: 150,
-                sorter: (a, b) => (a.age - b.age > 0 ? 1 : -1),
+                text: 'Semi Design design draft',
+                value: 'Semi Design design draft',
             },
             {
-                title: 'Address',
-                dataIndex: 'address',
+                text: 'Semi Pro design draft',
+                value: 'Semi Pro design draft',
             },
-        ];
-
-        this.data = [];
-
-        this.rowSelection = {
-            onChange: (selectedRowKeys, selectedRows) => {
-                // console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-            },
-            getCheckboxProps: record => ({
-                disabled: record.name === 'Michael James', // Column configuration not to be checked
-                name: record.name,
-            }),
-        };
-
-        for (let i = 0; i < 46; i++) {
-            this.data.push({
-                key: '' + i,
-                name: `Edward King ${i}`,
-                age: 40 + (Math.random() > 0.5 ? 1 : -1) * Math.ceil(i / 3),
-                address: `London, Park Lane no. ${i}`,
-            });
+        ],
+        onFilter: (value, record) => record.name.includes(value),
+    },
+    {
+        title: 'Size',
+        dataIndex: 'size',
+        sorter: (a, b) => a.size - b.size > 0 ? 1 : -1,
+        render: (text) => `${text} KB`
+    },
+    {
+        title: 'Owner',
+        dataIndex: 'owner',
+        render: (text, record, index) => {
+            return (
+                <div>
+                    <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>{typeof text === 'string' && text.slice(0, 1)}</Avatar>
+                    {text}
+                </div>
+            );
         }
 
-        this.scroll = { y: 300 };
+    },
+    {
+        title: 'Update',
+        dataIndex: 'updateTime',
+        sorter: (a, b) => a.updateTime - b.updateTime > 0 ? 1 : -1,
+        render: (value) => {
+            return dateFns.format(new Date(value), 'yyyy-MM-dd');
+        }
     }
+];
 
-    render() {
-        return (
-            <Table
-                columns={this.columns}
-                dataSource={this.data}
-                rowSelection={this.rowSelection}
-                scroll={this.scroll}
-            />
-        );
-    }
+const DAY = 24 * 60 * 60 * 1000;
+
+function App() {
+    const [dataSource, setData] = useState([]);
+
+    const rowSelection = useMemo(() => ({
+        onChange: (selectedRowKeys, selectedRows) => {
+            console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+        },
+        getCheckboxProps: record => ({
+            disabled: record.name === 'Michael James', // Column configuration not to be checked
+            name: record.name,
+        }),
+    }), []);
+    const scroll = useMemo(() => ({ y: 300 }), []);
+
+    const getData = () => {
+        const data = [];
+        for (let i = 0; i < 46; i++) {
+            const isSemiDesign = i % 2 === 0;
+            const randomNumber = (i * 1000) % 199;
+            data.push({
+                key: '' + i,
+                name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi Pro design draft${i}.fig`,
+                owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
+                size: randomNumber,
+                updateTime: new Date().valueOf() + randomNumber * DAY,
+                avatarBg: isSemiDesign ? 'grey' : 'red'
+            });
+        }
+        return data;
+    };
+
+    useEffect(() => {
+        const data = getData();
+        setData(data);
+    }, []);
+
+    return <Table columns={columns} dataSource={dataSource} rowSelection={rowSelection} scroll={scroll} />;
 }
 
-render(TableApp);
+render(App);
 ```
-
-<Notice type="primary" title="Notice">
-    <div>When pagination is an object type, literal is not recommended because it causes the table to render to its original state (it looks like the pager is not working). Please try to define reference type parameters outside the render method. If hooks are used, please use useMemo or useState for storage.</div>
-</Notice>
-
 ### Pull Remote Data
 
 Under normal circumstances, the data is often not obtained at one time. We will retrieve the data from the interface when clicking on the page number, filter or sort button. In this case, please use **Controlled mode** To handle pagination. The user needs to pass in the `pagination.currentPage` field, where the rendering of the pagination component depends entirely on the incoming pagination object.
 
+<Notice type="primary" title="Notice">
+    <div>1. When pagination is an object type, literal is not recommended because it causes the table to render to its original state (it looks like the pager is not working). Please try to define reference type parameters outside the render method. If hooks are used, please use useMemo or useState for storage.</div>
+    <div>2. In the controlled mode, Table will not paginate dataSource, please pass in current page data to dataSource</div>
+</Notice>
+
 ```jsx live=true noInline=true dir="column"
-import React from 'react';
-import { Table } from '@douyinfe/semi-ui';
+import React, { useState, useMemo } from 'react';
+import { Table, Avatar } from '@douyinfe/semi-ui';
+import * as dateFns from 'date-fns';
 
-class App extends React.Component {
-    constructor() {
-        const columns = [
-            {
-                title: 'Name',
-                dataIndex: 'name',
-            },
-            {
-                title: 'Age',
-                dataIndex: 'age',
-            },
-            {
-                title: 'Address',
-                dataIndex: 'address',
-            },
-        ];
+const DAY = 24 * 60 * 60 * 1000;
+const figmaIconUrl = 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png';
+const pageSize = 5;
 
-        const data = [];
-        for (let i = 0; i < 46; i++) {
-            data.push({
-                key: '' + i,
-                name: `Edward King ${i}`,
-                age: 32,
-                address: `London, Park Lane no. ${i}`,
-            });
+const columns = [
+    {
+        title: 'Title',
+        dataIndex: 'name',
+        width: 400,
+        render: (text, record, index) => {
+            return (
+                <div>
+                    <Avatar size="small" shape="square" src={figmaIconUrl} style={{ marginRight: 12 }}></Avatar>
+                    {text}
+                </div>
+            );
+        },
+        filters: [
+            {
+                text: 'Semi Design design draft',
+                value: 'Semi Design design draft',
+            },
+            {
+                text: 'Semi Pro design draft',
+                value: 'Semi Pro design draft',
+            },
+        ],
+        onFilter: (value, record) => record.name.includes(value),
+    },
+    {
+        title: 'Size',
+        dataIndex: 'size',
+        sorter: (a, b) => a.size - b.size > 0 ? 1 : -1,
+        render: (text) => `${text} KB`
+    },
+    {
+        title: 'Owner',
+        dataIndex: 'owner',
+        render: (text, record, index) => {
+            return (
+                <div>
+                    <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>{typeof text === 'string' && text.slice(0, 1)}</Avatar>
+                    {text}
+                </div>
+            );
         }
-        this.data = data;
 
-        this.fetchData = (currentPage = 1) => {
-            // console.log(`FetchData currentPage: `, currentPage);
-            this.setState({ loading: true });
-            let pagination = { ...this.state.pagination, currentPage };
-            return new Promise((res, rej) => {
-                setTimeout(() => {
-                    let dataSource = this.data.slice(
-                        (currentPage - 1) * pagination.pageSize,
-                        currentPage * pagination.pageSize
-                    );
-                    res(dataSource);
-                }, 1500);
-            }).then(dataSource => {
-                // console.log('Request data: ', dataSource);
-                this.setState({
-                    loading: false,
-                    pagination,
-                    dataSource,
-                });
-            });
-        };
+    },
+    {
+        title: 'Update',
+        dataIndex: 'updateTime',
+        sorter: (a, b) => a.updateTime - b.updateTime > 0 ? 1 : -1,
+        render: (value) => {
+            return dateFns.format(new Date(value), 'yyyy-MM-dd');
+        }
+    }
+];
 
-        this.state = {
-            loading: false,
-            columns,
-            pagination: {
-                currentPage: 1,
+const getData = () => {
+    const data = [];
+    for (let i = 0; i < 46; i++) {
+        const isSemiDesign = i % 2 === 0;
+        const randomNumber = (i * 1000) % 199;
+        data.push({
+            key: '' + i,
+            name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi Pro design draft${i}.fig`,
+            owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
+            size: randomNumber,
+            updateTime: new Date().valueOf() + randomNumber * DAY,
+            avatarBg: isSemiDesign ? 'grey' : 'red'
+        });
+    }
+    return data;
+};
+
+const data = getData();
+
+function App() {
+    const [dataSource, setData] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [currentPage, setPage] = useState(1);
+
+    const fetchData = (currentPage = 1) => {
+        setLoading(true);
+        setPage(currentPage);
+        return new Promise((res, rej) => {
+            setTimeout(() => {
+                const data = getData();
+                let dataSource = data.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+                res(dataSource);
+            }, 300);
+        }).then(dataSource => {
+            setLoading(false);
+            setData(dataSource);
+        });
+    };
+
+    const handlePageChange = page => {
+        fetchData(page);
+    };
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    return (
+        <Table
+            columns={columns}
+            dataSource={dataSource}
+            pagination={{
+                currentPage,
                 pageSize: 5,
                 total: data.length,
-                onPageChange: page => this.fetchData(page),
-            },
-            dataSource: [],
-        };
-    }
-
-    componentDidMount() {
-        this.fetchData();
-    }
-
-    render() {
-        let { columns, dataSource, pagination, loading } = this.state;
-
-        return <Table columns={columns} dataSource={dataSource} pagination={pagination} loading={loading} />;
-    }
+                onPageChange: handlePageChange
+            }}
+            loading={loading}
+        />
+    );
 }
 
 render(App);
@@ -555,96 +782,130 @@ render(App);
 
 ### Fixed Column or Head
 
-You can fix the column by setting the Fixed attribute of the column and scoll.x, and fix the header by setting scoll.y.
+You can fix the column by setting the Fixed attribute of the column and scroll.x, and fix the header by setting scroll.y.
 
 > -   Make sure that all elements inside the table do not affect the height of the cells after rendering (e.g. containing unloaded pictures, etc.). In this case, give the stator element a definite height to ensure that the left and right Fixed columns of cells are not deranged.
 > -   If the column header is not aligned with the content or there is a column duplication, specify the width width of the fixed column. If the specified width is not effective, try to recommend leaving a column with no width to accommodate the elastic layout, or check for ultra-long continuous fields to destroy the layout.
 > -   It is recommended to specify scroll.x as a **fixed value** or percentage greater than the width of the table. It is recommended to set a fixed value of `>= the sum of all fixed column widths + the sum of all table column widths`.
 
 ```jsx live=true noInline=true dir="column"
-import React from 'react';
-import { Table, Tooltip, Tag } from '@douyinfe/semi-ui';
+import React, { useState, useMemo } from 'react';
+import { Table, Avatar } from '@douyinfe/semi-ui';
+import { IconMore } from '@douyinfe/semi-icons';
+import * as dateFns from 'date-fns';
 
-class TableApp extends React.Component {
-    constructor() {
-        this.columns = [
-            {
-                title: 'Name',
-                dataIndex: 'name',
-                width: 150,
-                fixed: true,
-                filters: [
-                    {
-                        text: 'King 3',
-                        value: 'King 3',
-                    },
-                    {
-                        text: 'King 4',
-                        value: 'King 4',
-                    },
-                ],
-                onFilter: (value, record) => record.name.includes(value),
-            },
-            {
-                title: 'Age',
-                dataIndex: 'age',
-                width: 150,
-                sorter: (a, b) => (a.age - b.age > 0 ? 1 : -1),
-            },
-            {
-                title: 'Address',
-                width: 200,
-                dataIndex: 'address',
-            },
-            {
-                title: 'Description',
-                // width: 400,
-                dataIndex: 'description',
-            },
-            {
-                fixed: 'right',
-                width: 250,
-                render: (text, record) => (
-                    <Tooltip content={record.description}>
-                        <Tag color="green">Show Info</Tag>
-                    </Tooltip>
-                ),
-            },
-        ];
+const DAY = 24 * 60 * 60 * 1000;
+const figmaIconUrl = 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png';
 
-        this.data = [];
-
-        this.rowSelection = {
-            onChange: (selectedRowKeys, selectedRows) => {
-                // console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+const columns = [
+    {
+        title: 'Title',
+        dataIndex: 'name',
+        fixed: true,
+        width: 250,
+        render: (text, record, index) => {
+            return (
+                <div>
+                    <Avatar size="small" shape="square" src={figmaIconUrl} style={{ marginRight: 12 }}></Avatar>
+                    {text}
+                </div>
+            );
+        },
+        filters: [
+            {
+                text: 'Semi Design design draft',
+                value: 'Semi Design design draft',
             },
-            getCheckboxProps: record => ({
-                disabled: record.name === 'Michael James', // Column configuration not to be checked
-                name: record.name,
-            }),
-        };
-
-        for (let i = 0; i < 46; i++) {
-            let age = 40 + (Math.random() > 0.5 ? 1 : -1) * Math.ceil(i / 3);
-            let name = `Edward King ${i}`;
-            this.data.push({
-                key: '' + i,
-                name,
-                age,
-                address: `London, Park Lane no. ${i}`,
-                description: `My name is ${name}, I am ${age} years old, living in New York No. ${i + 1} Lake Park.`,
-            });
+            {
+                text: 'Semi Pro design draft',
+                value: 'Semi Pro design draft',
+            },
+        ],
+        onFilter: (value, record) => record.name.includes(value),
+    },
+    {
+        title: 'Size',
+        dataIndex: 'size',
+        width: 200,
+        sorter: (a, b) => a.size - b.size > 0 ? 1 : -1,
+        render: (text) => `${text} KB`
+    },
+    {
+        title: 'Owner',
+        dataIndex: 'owner',
+        width: 200,
+        render: (text, record, index) => {
+            return (
+                <div>
+                    <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>{typeof text === 'string' && text.slice(0, 1)}</Avatar>
+                    {text}
+                </div>
+            );
         }
 
-        this.scroll = { y: 300, x: 1500 };
-    }
+    },
+    {
+        title: 'Update',
+        dataIndex: 'updateTime',
+        width: 200,
+        sorter: (a, b) => a.updateTime - b.updateTime > 0 ? 1 : -1,
+        render: (value) => {
+            return dateFns.format(new Date(value), 'yyyy-MM-dd');
+        }
+    },
+    {
+        title: '',
+        dataIndex: 'operate',
+        fixed: 'right',
+        align: 'center',
+        width: 100,
+        render: () => {
+            return <IconMore />;
+        }
+    },
+];
 
-    render() {
-        return <Table columns={this.columns} dataSource={this.data} scroll={this.scroll} />;
-    }
+function App() {
+    const [dataSource, setData] = useState([]);
+
+    const scroll = useMemo(() => ({ y: 300, x: 1200 }), []);
+    const rowSelection = useMemo(() => ({
+        onChange: (selectedRowKeys, selectedRows) => {
+            console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+        },
+        getCheckboxProps: record => ({
+            disabled: record.name === 'Michael James', // Column configuration not to be checked
+            name: record.name,
+        }),
+        fixed: true,
+    }), []);
+
+    const getData = () => {
+        const data = [];
+        for (let i = 0; i < 46; i++) {
+            const isSemiDesign = i % 2 === 0;
+            const randomNumber = (i * 1000) % 199;
+            data.push({
+                key: '' + i,
+                name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi Pro design draft${i}.fig`,
+                owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
+                size: randomNumber,
+                updateTime: new Date().valueOf() + randomNumber * DAY,
+                avatarBg: isSemiDesign ? 'grey' : 'red'
+            });
+        }
+        return data;
+    };
+
+    useEffect(() => {
+        const data = getData();
+        setData(data);
+    }, []);
+
+    return <Table columns={columns} dataSource={dataSource} rowSelection={rowSelection} scroll={scroll} />;
 }
 
-render(TableApp);
+render(App);
 ```
 
 ### Table Header With Sorting and Filtering Function
@@ -654,92 +915,110 @@ Filters and sorting controls are integrated inside the table, and users can pass
 > Note: Be sure to provide a "key" for each row of data that is different from other row values, or use the rowKey parameter to specify a property name as the primary key.
 
 ```jsx live=true noInline=true dir="column"
-import React from 'react';
-import { Table } from '@douyinfe/semi-ui';
+import React, { useState, useMemo } from 'react';
+import { Table, Avatar } from '@douyinfe/semi-ui';
+import * as dateFns from 'date-fns';
 
-class App extends React.Component {
-    constructor() {
-        this.state = {
-            sortColumns: [
-                {
-                    title: 'Name',
-                    dataIndex: 'name',
-                    filters: [
-                        {
-                            text: 'Joe',
-                            value: 'Joe',
-                        },
-                        {
-                            text: 'Jim',
-                            value: 'Jim',
-                        },
-                    ],
-                    onFilter: (value, record) => record.name.indexOf(value) === 0,
-                    sorter: (a, b) => a.name.length - b.name.length,
-                },
-                {
-                    title: 'Age',
-                    dataIndex: 'age',
-                    sorter: (a, b) => (a.age - b.age > 0 ? 1 : -1),
-                },
-                {
-                    title: 'Address',
-                    dataIndex: 'address',
-                    filters: [
-                        {
-                            text: 'London',
-                            value: 'London',
-                        },
-                        {
-                            text: 'New York',
-                            value: 'New York',
-                        },
-                    ],
-                    filterMultiple: false,
-                    onFilter: (value, record) => record.address.indexOf(value) === 0,
-                    sorter: (a, b) => a.address.length - b.address.length,
-                },
-            ],
-            sortData: [
-                {
-                    key: '1',
-                    name: 'John Brown',
-                    age: 32,
-                    address: 'New York No. 1 Lake Park',
-                },
-                {
-                    key: '2',
-                    name: 'Jim Green',
-                    age: 42,
-                    address: 'London No. 1 Lake Park',
-                },
-                {
-                    key: '3',
-                    name: 'Joe Black',
-                    age: 32,
-                    address: 'Sidney No. 1 Lake Park',
-                },
-                {
-                    key: '4',
-                    name: 'Jim Red',
-                    age: 32,
-                    address: 'London No. 2 Lake Park',
-                },
-            ],
-        };
+const DAY = 24 * 60 * 60 * 1000;
+const figmaIconUrl = 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png';
 
-        this.onChange = (...args) => {
-            console.log('Table changed to:', ...args);
-        };
+const columns = [
+    {
+        title: 'Title',
+        dataIndex: 'name',
+        width: 400,
+        render: (text, record, index) => {
+            return (
+                <div>
+                    <Avatar size="small" shape="square" src={figmaIconUrl} style={{ marginRight: 12 }}></Avatar>
+                    {text}
+                </div>
+            );
+        },
+        filters: [
+            {
+                text: 'Semi Design design draft',
+                value: 'Semi Design design draft',
+            },
+            {
+                text: 'Semi Pro design draft',
+                value: 'Semi Pro design draft',
+            },
+        ],
+        onFilter: (value, record) => record.name.includes(value),
+        sorter: (a, b) => a.name.length - b.name.length > 0 ? 1 : -1,
+    },
+    {
+        title: 'Size',
+        dataIndex: 'size',
+        sorter: (a, b) => a.size - b.size > 0 ? 1 : -1,
+        render: (text) => `${text} KB`
+    },
+    {
+        title: 'Owner',
+        dataIndex: 'owner',
+        render: (text, record, index) => {
+            return (
+                <div>
+                    <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>{typeof text === 'string' && text.slice(0, 1)}</Avatar>
+                    {text}
+                </div>
+            );
+        }
+
+    },
+    {
+        title: 'Update',
+        dataIndex: 'updateTime',
+        sorter: (a, b) => a.updateTime - b.updateTime > 0 ? 1 : -1,
+        render: (value) => {
+            return dateFns.format(new Date(value), 'yyyy-MM-dd');
+        }
     }
+];
 
-    render() {
-        return <Table columns={this.state.sortColumns} dataSource={this.state.sortData} onChange={this.onChange} />;
-    }
+function App() {
+    const [dataSource, setData] = useState([]);
+
+    const rowSelection = useMemo(() => ({
+        onChange: (selectedRowKeys, selectedRows) => {
+            console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+        },
+        getCheckboxProps: record => ({
+            disabled: record.name === 'Michael James', // Column configuration not to be checked
+            name: record.name,
+        }),
+    }), []);
+    const scroll = useMemo(() => ({ y: 300 }), []);
+
+    const getData = () => {
+        const data = [];
+        for (let i = 0; i < 46; i++) {
+            const isSemiDesign = i % 2 === 0;
+            const randomNumber = (i * 1000) % 199;
+            data.push({
+                key: '' + i,
+                name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi Pro design draft${i}.fig`,
+                owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
+                size: randomNumber,
+                updateTime: new Date().valueOf() + randomNumber * DAY,
+                avatarBg: isSemiDesign ? 'grey' : 'red'
+            });
+        }
+        return data;
+    };
+
+    useEffect(() => {
+        const data = getData();
+        setData(data);
+    }, []);
+
+    return <Table columns={columns} dataSource={dataSource} rowSelection={rowSelection} scroll={scroll} />;
 }
 
 render(App);
 ```
+
 
 ### Custom Filter Item Rendering
 
@@ -756,97 +1035,125 @@ This method accepts an `Object` input parameter, and the meaning of each attribu
 -   `filterMultiple: boolean` whether the current filter item is multi-select.
 
 ```jsx live=true noInline=true dir="column"
-import React from 'react';
-import { Table, Tag, Tooltip, Dropdown } from '@douyinfe/semi-ui';
+import React, { useState, useMemo } from 'react';
+import { Table, Avatar, Dropdown } from '@douyinfe/semi-ui';
+import * as dateFns from 'date-fns';
 
-class CustomDropdownItem extends React.Component {
-    constructor(props = {}) {
-        super(props);
+const DAY = 24 * 60 * 60 * 1000;
+const figmaIconUrl = 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png';
 
-        this.columns = [
+const columns = [
+    {
+        title: 'Title',
+        dataIndex: 'name',
+        width: 400,
+        render: (text, record, index) => {
+            return (
+                <div>
+                    <Avatar size="small" shape="square" src={figmaIconUrl} style={{ marginRight: 12 }}></Avatar>
+                    {text}
+                </div>
+            );
+        },
+        filters: [
             {
-                title: 'Name',
-                dataIndex: 'name',
-                width: 150,
-                fixed: true,
-                filterMultiple: false,
-                filters: [
-                    {
-                        text: 'Code 45',
-                        value: '45',
-                    },
-                    {
-                        text: 'King 4',
-                        value: 'King 4',
-                    },
-                ],
-                onFilter: (value, record) => record.name.includes(value),
-                renderFilterDropdownItem: ({ text, checked, onChange }) => (
-                    <Dropdown.Item onClick={onChange} active={checked}>
-                        {text}
-                    </Dropdown.Item>
-                ),
-                filterDropdownProps: {
-                    showTick: true,
-                },
+                text: 'Semi Design design draft',
+                value: 'Semi Design design draft',
             },
             {
-                title: 'Age',
-                dataIndex: 'age',
-                width: 150,
-                sorter: (a, b) => (a.age - b.age > 0 ? 1 : -1),
+                text: 'Semi Pro design draft',
+                value: 'Semi Pro design draft',
             },
-            {
-                title: 'Address',
-                width: 200,
-                dataIndex: 'address',
-            },
-            {
-                title: 'Description',
-                dataIndex: 'description',
-            },
-            {
-                fixed: 'right',
-                width: 250,
-                render: (text, record) => (
-                    <Tooltip content={record.description}>
-                        <Tag color="green">Show Info</Tag>
-                    </Tooltip>
-                ),
-            },
-        ];
-
-        this.data = [];
-
-        for (let i = 0; i < 46; i++) {
-            let age = 40 + (Math.random() > 0.5 ? 1 : -1) * Math.ceil(i / 3);
-            let name = `Edward King ${i}`;
-            this.data.push({
-                key: '' + i,
-                name,
-                age,
-                address: `London, Park Lane no. ${i}`,
-                description: `My name is ${name}, I am ${age} years old, living in New York No. ${i + 1} Lake Park.`,
-            });
+        ],
+        onFilter: (value, record) => record.name.includes(value),
+        renderFilterDropdownItem: ({ text, checked, onChange }) => (
+            <Dropdown.Item onClick={onChange} active={checked}>
+                {text}
+            </Dropdown.Item>
+        ),
+        filterDropdownProps: {
+            showTick: true,
+        },
+        sorter: (a, b) => a.name.length - b.name.length > 0 ? 1 : -1,
+    },
+    {
+        title: 'Size',
+        dataIndex: 'size',
+        sorter: (a, b) => a.size - b.size > 0 ? 1 : -1,
+        render: (text) => `${text} KB`
+    },
+    {
+        title: 'Owner',
+        dataIndex: 'owner',
+        render: (text, record, index) => {
+            return (
+                <div>
+                    <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>{typeof text === 'string' && text.slice(0, 1)}</Avatar>
+                    {text}
+                </div>
+            );
         }
 
-        this.scroll = { y: 400, x: '150%' };
+    },
+    {
+        title: 'Update',
+        dataIndex: 'updateTime',
+        sorter: (a, b) => a.updateTime - b.updateTime > 0 ? 1 : -1,
+        render: (value) => {
+            return dateFns.format(new Date(value), 'yyyy-MM-dd');
+        }
     }
+];
 
-    render() {
-        return <Table columns={this.columns} dataSource={this.data} scroll={this.scroll} />;
-    }
+function App() {
+    const [dataSource, setData] = useState([]);
+
+    const rowSelection = useMemo(() => ({
+        onChange: (selectedRowKeys, selectedRows) => {
+            console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+        },
+        getCheckboxProps: record => ({
+            disabled: record.name === 'Michael James', // Column configuration not to be checked
+            name: record.name,
+        }),
+    }), []);
+    const scroll = useMemo(() => ({ y: 300 }), []);
+
+    const getData = () => {
+        const data = [];
+        for (let i = 0; i < 46; i++) {
+            const isSemiDesign = i % 2 === 0;
+            const randomNumber = (i * 1000) % 199;
+            data.push({
+                key: '' + i,
+                name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi Pro design draft${i}.fig`,
+                owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
+                size: randomNumber,
+                updateTime: new Date().valueOf() + randomNumber * DAY,
+                avatarBg: isSemiDesign ? 'grey' : 'red'
+            });
+        }
+        return data;
+    };
+
+    useEffect(() => {
+        const data = getData();
+        setData(data);
+    }, []);
+
+    return <Table columns={columns} dataSource={dataSource} rowSelection={rowSelection} scroll={scroll} />;
 }
 
-render(CustomDropdownItem);
+render(App);
+
 ```
 
 ### A Table That Can Be Expanded
 
-> Notice:
->
-> -   Since version `0.27.0`, the unfold button will be rendered in the same cell as the first column, and you can open a separate column of rendering by passing in `hideExpandedColumn = {false}`.
-> -   Be sure to provide a "key" for each row of data that is different from the other row values, or use the rowKey parameter to specify an attribute name as the primary key.
+<Notice type="primary" title="Note">
+    <div>1.  Since version `0.27.0`, the unfold button will be rendered in the same cell as the first column, and you can open a separate column of rendering by passing in `hideExpandedColumn = {false}`.</div>
+    <div>2. Be sure to provide a "key" for each row of data that is different from the other row values, or use the rowKey parameter to specify an attribute name as the primary key.</div>
+</Notice>
 
 #### A Common Table That Can Be Expanded
 
@@ -857,71 +1164,132 @@ If you need to render a table that can be expanded, in addition to the need to p
 
 ```jsx live=true noInline=true dir="column"
 import React from 'react';
-import { Table } from '@douyinfe/semi-ui';
+import { Table, Avatar, Descriptions, Tag } from '@douyinfe/semi-ui';
+import { IconMore } from '@douyinfe/semi-icons';
 
-class App extends React.Component {
-    constructor() {
-        this.expandColumns = [
-            { title: 'Name', dataIndex: 'name', key: 'name' },
-            { title: 'Age', dataIndex: 'age', key: 'age' },
-            { title: 'Address', dataIndex: 'address', key: 'address' },
-            {
-                title: 'Action',
-                dataIndex: '',
-                key: 'x',
-                render: () => <a>Delete</a>,
-            },
-        ];
-
-        this.rowSelection = {
-            onChange: (selectedRowKeys, selectedRows) => {
-                // console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-            },
-            getCheckboxProps: record => ({
-                disabled: record.name === 'Michael James', // Column configuration not to be checked
-                name: record.name,
-            }),
-        };
-
-        this.expandData = [
-            {
-                name: 'John Brown',
-                age: 32,
-                address: 'New York No. 1 Lake Park',
-                description: 'My name is John Brown, I am 32 years old, living in New York No. 1 Lake Park.',
-            },
-            {
-                name: 'Jim Green',
-                age: 42,
-                address: 'London No. 1 Lake Park',
-                description: 'My name is Jim Green, I am 42 years old, living in London No. 1 Lake Park.',
-            },
-            {
-                name: 'Joe Black',
-                age: 32,
-                address: 'Sidney No. 1 Lake Park',
-                description: 'My name is Joe Black, I am 32 years old, living in Sidney No. 1 Lake Park.',
-            },
-        ];
-
-        this.expandRowRender = (record, index) =>
-            index < 2 ? (
-                <Table columns={this.expandColumns} dataSource={this.expandData} />
-            ) : (
-                <p>{record.description}</p>
+const columns = [
+    {
+        title: 'Title',
+        width: 500,
+        dataIndex: 'name',
+        render: (text, record, index) => {
+            return (
+                <span>
+                    <Avatar size="small" shape="square" src={record.nameIconSrc} style={{ marginRight: 12 }}></Avatar>
+                    {text}
+                </span>
             );
-    }
-    render() {
-        return (
-            <Table
-                rowKey={'name'}
-                columns={this.expandColumns}
-                rowSelection={this.rowSelection}
-                expandedRowRender={this.expandRowRender}
-                dataSource={this.expandData}
-            />
-        );
-    }
+        }
+    },
+    {
+        title: 'Size',
+        dataIndex: 'size',
+    },
+    {
+        title: 'Owner',
+        dataIndex: 'owner',
+        render: (text, record, index) => {
+            return (
+                <div>
+                    <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>
+                        {typeof text === 'string' && text.slice(0, 1)}
+                    </Avatar>
+                    {text}
+                </div>
+            );
+        }
+
+    },
+    {
+        title: 'Update',
+        dataIndex: 'updateTime',
+    },
+    {
+        title: '',
+        dataIndex: 'operate',
+        render: () => {
+            return <IconMore />;
+        }
+    },
+];
+
+const data = [
+    {
+        key: '1',
+        name: 'Semi Design design draft.fig',
+        nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png',
+        size: '2M',
+        owner: 'Jiang Pengzhi',
+        updateTime: '2020-02-02 05:13',
+        avatarBg: 'grey'
+    },
+    {
+        key: '2',
+        name: 'Semi Design share docs',
+        nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
+        size: '2M',
+        owner: 'Hao Xuan',
+        updateTime: '2020-01-17 05:31',
+        avatarBg: 'red'
+    },
+    {
+        key: '3',
+        name: 'Design docs',
+        nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
+        size: '34KB',
+        owner: 'Zoey Edwards',
+        updateTime: '2020-01-26 11:01',
+        avatarBg: 'light-blue'
+    },
+];
+
+const expandData = {
+    '0': [
+        { key: 'DAU', value: '1,480,000' },
+        { key: 'Day7 Retention Ratio', value: '98%' },
+        { key: 'Security Level', value: '3级' },
+        { key: 'Vertical label', value: <Tag style={{ margin: 0 }}>Designer</Tag> },
+        { key: 'Certification', value: 'No Verified' },
+    ],
+    '1': [
+        { key: 'DAU', value: '2,480,000' },
+        { key: 'Day7 Retention Ratio', value: '90%' },
+        { key: 'Security Level', value: '1级' },
+        { key: 'Vertical label', value: <Tag style={{ margin: 0 }}>Template</Tag> },
+        { key: 'Certification', value: 'Verified' },
+    ],
+    '2': [
+        { key: 'DAU', value: '2,920,000' },
+        { key: 'Day7 Retention Ratio', value: '98%' },
+        { key: 'Security Level', value: '2级' },
+        { key: 'Vertical label', value: <Tag style={{ margin: 0 }}>Docs</Tag> },
+        { key: 'Certification', value: 'Verified' },
+    ]
+};
+
+function App() {
+
+    const expandRowRender = (record, index) => {
+        return <Descriptions align="justify" data={expandData[index]} />
+    };
+
+    const rowSelection = {
+        getCheckboxProps: record => ({
+            disabled: record.name === 'Design docs', // Column configuration not to be checked
+            name: record.name,
+        }),
+        onSelect: (record, selected) => {
+            console.log(`select row: ${selected}`, record);
+        },
+        onSelectAll: (selected, selectedRows) => {
+            console.log(`select all rows: ${selected}`, selectedRows);
+        },
+        onChange: (selectedRowKeys, selectedRows) => {
+            console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+        },
+    };
+
+    return <Table rowKey="name" columns={columns} dataSource={data} expandedRowRender={expandRowRender} rowSelection={rowSelection} pagination={false} />;
 }
 
 render(App);
@@ -935,68 +1303,142 @@ By default, the expansion button will be rendered in the same cell as the first 
 
 ```jsx live=true noInline=true dir="column"
 import React from 'react';
-import { Table } from '@douyinfe/semi-ui';
+import { Table, Avatar, Descriptions, Tag } from '@douyinfe/semi-ui';
+import { IconMore } from '@douyinfe/semi-icons';
 
-class App extends React.Component {
-    constructor() {
-        this.expandColumns = [
-            { title: 'Name', dataIndex: 'name', key: 'name' },
-            { title: 'Age', dataIndex: 'age', key: 'age' },
-            { title: 'Address', dataIndex: 'address', key: 'address' },
-            {
-                expandIcon: true,
-                title: 'Action',
-                dataIndex: '',
-                key: 'x',
-                render: () => <a>Delete</a>,
-            },
-        ];
+const columns = [
+    {
+        title: 'Title',
+        width: 500,
+        dataIndex: 'name',
+        render: (text, record, index) => {
+            return (
+                <span>
+                    <Avatar size="small" shape="square" src={record.nameIconSrc} style={{ marginRight: 12 }}></Avatar>
+                    {text}
+                </span>
+            );
+        }
+    },
+    {
+        title: 'Size',
+        dataIndex: 'size',
+    },
+    {
+        title: 'Owner',
+        dataIndex: 'owner',
+        render: (text, record, index) => {
+            return (
+                <div>
+                    <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>
+                        {typeof text === 'string' && text.slice(0, 1)}
+                    </Avatar>
+                    {text}
+                </div>
+            );
+        }
 
-        this.rowSelection = {
-            onChange: (selectedRowKeys, selectedRows) => {
-                // console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-            },
-            getCheckboxProps: record => ({
-                disabled: record.name === 'Michael James', // Column configuration not to be checked
-                name: record.name,
-            }),
-        };
+    },
+    {
+        title: 'Update',
+        dataIndex: 'updateTime',
+    },
+    {
+        title: '',
+        dataIndex: 'operate',
+        render: () => {
+            return <IconMore />;
+        }
+    },
+];
 
-        this.expandData = [
-            {
-                name: 'John Brown',
-                age: 32,
-                address: 'New York No. 1 Lake Park',
-                description: 'My name is John Brown, I am 32 years old, living in New York No. 1 Lake Park.',
-            },
-            {
-                name: 'Jim Green',
-                age: 42,
-                address: 'London No. 1 Lake Park',
-                description: 'My name is Jim Green, I am 42 years old, living in London No. 1 Lake Park.',
-            },
-            {
-                name: 'Joe Black',
-                age: 32,
-                address: 'Sidney No. 1 Lake Park',
-                description: 'My name is Joe Black, I am 32 years old, living in Sidney No. 1 Lake Park.',
-            },
-        ];
+const data = [
+    {
+        key: '1',
+        name: 'Semi Design design draft.fig',
+        nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png',
+        size: '2M',
+        owner: 'Jiang Pengzhi',
+        updateTime: '2020-02-02 05:13',
+        avatarBg: 'grey'
+    },
+    {
+        key: '2',
+        name: 'Semi Design share docs',
+        nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
+        size: '2M',
+        owner: 'Hao Xuan',
+        updateTime: '2020-01-17 05:31',
+        avatarBg: 'red'
+    },
+    {
+        key: '3',
+        name: 'Design docs',
+        nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
+        size: '34KB',
+        owner: 'Zoey Edwards',
+        updateTime: '2020-01-26 11:01',
+        avatarBg: 'light-blue'
+    },
+];
 
-        this.expandRowRender = record => <p>{record.description}</p>;
-    }
-    render() {
-        return (
-            <Table
-                hideExpandedColumn={false}
-                rowKey={'name'}
-                columns={this.expandColumns}
-                rowSelection={this.rowSelection}
-                expandedRowRender={this.expandRowRender}
-                dataSource={this.expandData}
-            />
-        );
-    }
+const expandData = {
+    '0': [
+        { key: 'DAU', value: '1,480,000' },
+        { key: 'Day7 Retention Ratio', value: '98%' },
+        { key: 'Security Level', value: '3级' },
+        { key: 'Vertical label', value: <Tag style={{ margin: 0 }}>Designer</Tag> },
+        { key: 'Certification', value: 'No Verified' },
+    ],
+    '1': [
+        { key: 'DAU', value: '2,480,000' },
+        { key: 'Day7 Retention Ratio', value: '90%' },
+        { key: 'Security Level', value: '1级' },
+        { key: 'Vertical label', value: <Tag style={{ margin: 0 }}>Template</Tag> },
+        { key: 'Certification', value: 'Verified' },
+    ],
+    '2': [
+        { key: 'DAU', value: '2,920,000' },
+        { key: 'Day7 Retention Ratio', value: '98%' },
+        { key: 'Security Level', value: '2级' },
+        { key: 'Vertical label', value: <Tag style={{ margin: 0 }}>Docs</Tag> },
+        { key: 'Certification', value: 'Verified' },
+    ]
+};
+
+function App() {
+
+    const expandRowRender = (record, index) => {
+        return <Descriptions align="justify" data={expandData[index]} />
+    };
+
+    const rowSelection = {
+        getCheckboxProps: record => ({
+            disabled: record.name === 'Design docs', // Column configuration not to be checked
+            name: record.name,
+        }),
+        onSelect: (record, selected) => {
+            console.log(`select row: ${selected}`, record);
+        },
+        onSelectAll: (selected, selectedRows) => {
+            console.log(`select all rows: ${selected}`, selectedRows);
+        },
+        onChange: (selectedRowKeys, selectedRows) => {
+            console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+        },
+    };
+
+    return (
+        <Table
+            rowKey="name"
+            columns={columns}
+            dataSource={data}
+            expandedRowRender={expandRowRender}
+            hideExpandedColumn={false}
+            rowSelection={rowSelection}
+            pagination={false}
+        />
+    );
 }
 
 render(App);
@@ -1010,69 +1452,143 @@ You can pass the row Expandable method, enter the reference as record, and deter
 
 ```jsx live=true noInline=true dir="column"
 import React from 'react';
-import { Table } from '@douyinfe/semi-ui';
+import { Table, Avatar, Descriptions, Tag } from '@douyinfe/semi-ui';
+import { IconMore } from '@douyinfe/semi-icons';
 
-class App extends React.Component {
-    constructor() {
-        this.expandColumns = [
-            { title: 'Name', dataIndex: 'name', key: 'name' },
-            { title: 'Age', dataIndex: 'age', key: 'age' },
-            { title: 'Address', dataIndex: 'address', key: 'address' },
-            {
-                expandIcon: true,
-                title: 'Action',
-                dataIndex: '',
-                key: 'x',
-                render: () => <a>Delete</a>,
-            },
-        ];
+const columns = [
+    {
+        title: 'Title',
+        width: 500,
+        dataIndex: 'name',
+        render: (text, record, index) => {
+            return (
+                <span>
+                    <Avatar size="small" shape="square" src={record.nameIconSrc} style={{ marginRight: 12 }}></Avatar>
+                    {text}
+                </span>
+            );
+        }
+    },
+    {
+        title: 'Size',
+        dataIndex: 'size',
+    },
+    {
+        title: 'Owner',
+        dataIndex: 'owner',
+        render: (text, record, index) => {
+            return (
+                <div>
+                    <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>
+                        {typeof text === 'string' && text.slice(0, 1)}
+                    </Avatar>
+                    {text}
+                </div>
+            );
+        }
 
-        this.rowSelection = {
-            onChange: (selectedRowKeys, selectedRows) => {
-                // console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-            },
-            getCheckboxProps: record => ({
-                disabled: record.name === 'Michael James', // Column configuration not to be checked
-                name: record.name,
-            }),
-        };
+    },
+    {
+        title: 'Update',
+        dataIndex: 'updateTime',
+    },
+    {
+        title: '',
+        dataIndex: 'operate',
+        render: () => {
+            return <IconMore />;
+        }
+    },
+];
 
-        this.expandData = [
-            {
-                name: 'John Brown',
-                age: 32,
-                address: 'New York No. 1 Lake Park',
-                description: 'My name is John Brown, I am 32 years old, living in New York No. 1 Lake Park.',
-            },
-            {
-                name: 'Jim Green',
-                age: 42,
-                address: 'London No. 1 Lake Park',
-                description: 'My name is Jim Green, I am 42 years old, living in London No. 1 Lake Park.',
-            },
-            {
-                name: 'Joe Black',
-                age: 32,
-                address: 'Sidney No. 1 Lake Park',
-                description: 'My name is Joe Black, I am 32 years old, living in Sidney No. 1 Lake Park.',
-            },
-        ];
+const data = [
+    {
+        key: '1',
+        name: 'Semi Design design draft.fig',
+        nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png',
+        size: '2M',
+        owner: 'Jiang Pengzhi',
+        updateTime: '2020-02-02 05:13',
+        avatarBg: 'grey'
+    },
+    {
+        key: '2',
+        name: 'Semi Design share docs',
+        nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
+        size: '2M',
+        owner: 'Hao Xuan',
+        updateTime: '2020-01-17 05:31',
+        avatarBg: 'red'
+    },
+    {
+        key: '3',
+        name: 'Design docs',
+        nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
+        size: '34KB',
+        owner: 'Zoey Edwards',
+        updateTime: '2020-01-26 11:01',
+        avatarBg: 'light-blue'
+    },
+];
 
-        this.expandRowRender = record => <p>{record.description}</p>;
-    }
-    render() {
-        return (
-            <Table
-                hideExpandedColumn={false}
-                rowKey={'name'}
-                columns={this.expandColumns}
-                rowExpandable={record => record.name !== 'Jim Green'}
-                rowSelection={this.rowSelection}
-                expandedRowRender={this.expandRowRender}
-                dataSource={this.expandData}
-            />
-        );
-    }
+const expandData = {
+    '0': [
+        { key: 'DAU', value: '1,480,000' },
+        { key: 'Day7 Retention Ratio', value: '98%' },
+        { key: 'Security Level', value: '3级' },
+        { key: 'Vertical label', value: <Tag style={{ margin: 0 }}>Designer</Tag> },
+        { key: 'Certification', value: 'No Verified' },
+    ],
+    '1': [
+        { key: 'DAU', value: '2,480,000' },
+        { key: 'Day7 Retention Ratio', value: '90%' },
+        { key: 'Security Level', value: '1级' },
+        { key: 'Vertical label', value: <Tag style={{ margin: 0 }}>Template</Tag> },
+        { key: 'Certification', value: 'Verified' },
+    ],
+    '2': [
+        { key: 'DAU', value: '2,920,000' },
+        { key: 'Day7 Retention Ratio', value: '98%' },
+        { key: 'Security Level', value: '2级' },
+        { key: 'Vertical label', value: <Tag style={{ margin: 0 }}>Docs</Tag> },
+        { key: 'Certification', value: 'Verified' },
+    ]
+};
+
+function App() {
+
+    const expandRowRender = (record, index) => {
+        return <Descriptions align="justify" data={expandData[index]} />
+    };
+
+    const rowSelection = {
+        getCheckboxProps: record => ({
+            disabled: record.name === 'Design docs', // Column configuration not to be checked
+            name: record.name,
+        }),
+        onSelect: (record, selected) => {
+            console.log(`select row: ${selected}`, record);
+        },
+        onSelectAll: (selected, selectedRows) => {
+            console.log(`select all rows: ${selected}`, selectedRows);
+        },
+        onChange: (selectedRowKeys, selectedRows) => {
+            console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+        },
+    };
+
+    return (
+        <Table
+            rowKey="name"
+            columns={columns}
+            dataSource={data}
+            expandedRowRender={expandRowRender}
+            rowExpandable={ record => record.name !== 'Design docs' }
+            hideExpandedColumn={false}
+            rowSelection={rowSelection}
+            pagination={false}
+        />
+    );
 }
 
 render(App);
@@ -1092,96 +1608,112 @@ The table supports the display of tree data and is automatically displayed as a 
 import React from 'react';
 import { Table } from '@douyinfe/semi-ui';
 
-const Demo = () => {
+function App() {
     const columns = [
+        {
+            title: 'Key',
+            dataIndex: 'dataKey',
+            key: 'dataKey',
+        },
         {
             title: 'Name',
             dataIndex: 'name',
             key: 'name',
+            width: 200,
         },
         {
-            title: 'Age',
-            dataIndex: 'age',
-            key: 'age',
-            width: 150,
-        },
-        {
-            title: 'Address',
-            dataIndex: 'address',
-            key: 'address',
+            title: 'Data Type',
+            dataIndex: 'type',
+            key: 'type',
             width: 400,
+        },
+        {
+            title: 'Description',
+            dataIndex: 'description',
+            key: 'description',
+        },
+        {
+            title: 'Default',
+            dataIndex: 'default',
+            key: 'default',
+            width: 100,
         },
     ];
 
     const data = [
         {
             key: 1,
-            name: 'John Brown sr.',
-            age: 60,
-            address: 'New York No. 1 Lake Park',
+            dataKey: 'videos_info',
+            name: 'Video Info',
+            type: 'Object',
+            description: 'Meta info of video',
+            default: 'None',
             children: [
                 {
                     key: 11,
-                    name: 'John Brown',
-                    age: 42,
-                    address: 'New York No. 2 Lake Park',
+                    dataKey: 'status',
+                    name: 'Video Status',
+                    type: 'Enum <Integer>',
+                    description: 'Viewable and recommended status of the video',
+                    default: '1',
                 },
                 {
                     key: 12,
-                    name: 'John Brown jr.',
-                    age: 30,
-                    address: 'New York No. 3 Lake Park',
+                    dataKey: 'vid',
+                    name: 'Video ID',
+                    type: 'String',
+                    description: 'Unique ID that identifies the video',
+                    default: 'None',
                     children: [
                         {
-                            key: 121,
-                            name: 'Jimmy Brown',
-                            age: 16,
-                            address: 'New York No. 3 Lake Park',
+                            dataKey: 'video_url',
+                            name: 'Video url',
+                            type: 'String',
+                            description: 'Unique link to the video',
+                            default: 'None',
                         },
                     ],
-                },
-                {
-                    key: 13,
-                    name: 'Jim Green sr.',
-                    age: 72,
-                    address: 'London No. 1 Lake Park',
-                    children: [
-                        {
-                            key: 131,
-                            name: 'Jim Green',
-                            age: 42,
-                            address: 'London No. 2 Lake Park',
-                            children: [
-                                {
-                                    key: 1311,
-                                    name: 'Jim Green jr.',
-                                    age: 25,
-                                    address: 'London No. 3 Lake Park',
-                                },
-                                {
-                                    key: 1312,
-                                    name: 'Jimmy Green sr.',
-                                    age: 18,
-                                    address: 'London No. 4 Lake Park',
-                                },
-                            ],
-                        },
-                    ],
-                },
+                }
             ],
         },
         {
             key: 2,
-            name: 'Joe Black',
-            age: 32,
-            address: 'Sidney No. 1 Lake Park',
+            dataKey: 'text_info',
+            name: 'Text Info',
+            type: 'Object',
+            description: 'Meta info of video',
+            default: 'None',
+            children: [
+                {
+                    key: 21,
+                    dataKey: 'title',
+                    name: 'Video Title',
+                    type: 'String',
+                    description: 'Title of video',
+                    default: 'None',
+                },
+                {
+                    key: 22,
+                    dataKey: 'video_description',
+                    name: 'Video Description',
+                    type: 'String',
+                    description: 'Description of video',
+                    default: 'None',
+                }
+            ],
         },
     ];
 
-    return <Table columns={columns} defaultExpandAllRows dataSource={data} />;
+    return (
+        <Table
+            columns={columns}
+            defaultExpandAllRows
+            dataSource={data}
+        />
+    );
 };
 
-render(Demo);
+render(App);
 ```
 
 #### Rows of Interchangeable Tree Data
@@ -1195,74 +1727,76 @@ import React, { useState } from 'react';
 import { Table, Button } from '@douyinfe/semi-ui';
 import { IconArrowUp, IconArrowDown } from '@douyinfe/semi-icons';
 
-const Demo = () => {
-    const childrenRecordName = 'children';
-    const rowKey = 'key';
+const raw = [
+    {
+        key: 1,
+        dataKey: 'videos_info',
+        name: 'Video Info',
+        type: 'Object',
+        description: 'Meta info of video',
+        default: 'None',
+        children: [
+            {
+                key: 11,
+                dataKey: 'status',
+                name: 'Video Status',
+                type: 'Enum <Integer>',
+                description: 'Viewable and recommended status of the video',
+                default: '1',
+            },
+            {
+                key: 12,
+                dataKey: 'vid',
+                name: 'Video ID',
+                type: 'String',
+                description: 'Unique ID that identifies the video',
+                default: 'None',
+                children: [
+                    {
+                        dataKey: 'video_url',
+                        name: 'Video url',
+                        type: 'String',
+                        description: 'Unique link to the video',
+                        default: 'None',
+                    },
+                ],
+            }
+        ],
+    },
+    {
+        key: 2,
+        dataKey: 'text_info',
+        name: 'Text Info',
+        type: 'Object',
+        description: 'Meta info of video',
+        default: 'None',
+        children: [
+            {
+                key: 21,
+                dataKey: 'title',
+                name: 'Video Title',
+                type: 'String',
+                description: 'Title of video',
+                default: 'None',
+            },
+            {
+                key: 22,
+                dataKey: 'video_description',
+                name: 'Video Description',
+                type: 'String',
+                description: 'Description of video',
+                default: 'None',
+            }
+        ],
+    },
+];
+
+const rowKey= 'key';
+const childrenRecordName= 'children';
+
+function App() {
     const [expandedRowKeys, setExpandedRowKeys] = useState([1, 2]);
-    const [data, setData] = useState([
-        {
-            key: 1,
-            name: 'John Brown sr.',
-            age: 60,
-            address: 'New York No. 1 Lake Park',
-            children: [
-                {
-                    key: 11,
-                    name: 'John Brown',
-                    age: 42,
-                    address: 'New York No. 2 Lake Park',
-                },
-                {
-                    key: 12,
-                    name: 'John Brown jr.',
-                    age: 30,
-                    address: 'New York No. 3 Lake Park',
-                    children: [
-                        {
-                            key: 121,
-                            name: 'Jimmy Brown',
-                            age: 16,
-                            address: 'New York No. 3 Lake Park',
-                        },
-                    ],
-                },
-                {
-                    key: 13,
-                    name: 'Jim Green sr.',
-                    age: 72,
-                    address: 'London No. 1 Lake Park',
-                    children: [
-                        {
-                            key: 131,
-                            name: 'Jim Green',
-                            age: 42,
-                            address: 'London No. 2 Lake Park',
-                            children: [
-                                {
-                                    key: 1311,
-                                    name: 'Jim Green jr.',
-                                    age: 25,
-                                    address: 'London No. 3 Lake Park',
-                                },
-                                {
-                                    key: 1312,
-                                    name: 'Jimmy Green sr.',
-                                    age: 18,
-                                    address: 'London No. 4 Lake Park',
-                                },
-                            ],
-                        },
-                    ],
-                },
-            ],
-        },
-        {
-            key: 2,
-            name: 'Joe Black',
-            age: 32,
-            address: 'Sidney No. 1 Lake Park',
-        },
-    ]);
+    const [data, setData] = useState(raw);
 
     const switchRecord = (key1, key2) => {
         const newData = [...data];
@@ -1336,22 +1870,31 @@ const Demo = () => {
 
     const columns = [
         {
+            title: 'Key',
+            dataIndex: 'dataKey',
+            key: 'dataKey',
+        },
+        {
             title: 'Name',
             dataIndex: 'name',
             key: 'name',
-            width: 300,
+            width: 200,
         },
         {
-            title: 'Age',
-            dataIndex: 'age',
-            key: 'age',
-            width: 150,
+            title: 'Data Type',
+            dataIndex: 'type',
+            key: 'type',
         },
         {
-            title: 'Address',
-            dataIndex: 'address',
-            key: 'address',
-            width: 300,
+            title: 'Description',
+            dataIndex: 'description',
+            key: 'description',
+        },
+        {
+            title: 'Default',
+            dataIndex: 'default',
+            key: 'default',
+            width: 100,
         },
         {
             key: 'operation',
@@ -1388,16 +1931,16 @@ const Demo = () => {
     return (
         <Table
             columns={columns}
+            dataSource={data}
             rowKey={rowKey}
             childrenRecordName={childrenRecordName}
             expandedRowKeys={expandedRowKeys}
             onExpandedRowsChange={rows => setExpandedRowKeys(rows.map(item => item[rowKey]))}
-            dataSource={data}
         />
     );
 };
 
-render(Demo);
+render(App);
 ```
 
 #### Tree Selection
@@ -1407,289 +1950,197 @@ render(Demo);
 By default, the row selection of the table is independent. You can simulate a tree selection by defining selectedRowKeys.
 
 ```jsx live=true noInline=true dir="column"
-import { Table } from '@douyinfe/semi-ui';
 import React, { useMemo, useState, useCallback } from 'react';
-import { get, filter, some, map } from 'lodash-es';
+import { get, union, pullAll } from 'lodash-es';
+import { Table } from '@douyinfe/semi-ui';
 
-const getKey = (record, rowKey) => (typeof rowKey === 'function' ? rowKey(rowKey) : get(record, rowKey));
+const childrenRecordName = 'children';
+const rowKey = 'key';
+const getKey = record => get(record, rowKey, 'key');
 
-const storeKeys = (parent = null, dataSource = [], map = {}, rowKey = 'key', childrenRecordName = 'children') => {
-    if (Array.isArray(dataSource) && dataSource.length) {
-        dataSource.forEach(record => {
-            const key = getKey(record, rowKey);
-            const children = get(record, childrenRecordName);
-
-            if (Array.isArray(children) && children.length) {
-                storeKeys(record, children, map, rowKey, childrenRecordName);
-            }
-
-            if (parent) {
-                if (Array.isArray(map[key])) {
-                    map[key].push(parent);
-                } else {
-                    map[key] = [parent];
-                }
-            }
-        });
-    }
-
-    return map;
-};
-
-const ChildrenDataSelectedDemo = (props = {}) => {
-    const childrenRecordName = 'children';
-    const rowKey = 'key';
-    const [expandedRowKeys, setExpandedRowKeys] = useState([1, 2]);
+const ChildrenDataSelectedDemo = () => {
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-    const getRecordKey = useCallback(record => getKey(record, rowKey), [rowKey]);
-    const disabledRecord = useCallback(
-        record => {
-            const children = get(record, childrenRecordName);
-            return !(Array.isArray(children) && children.length);
-        },
-        [childrenRecordName]
+
+    const columns = useMemo(
+        () => [
+            {
+                title: 'Key',
+                dataIndex: 'dataKey',
+                key: 'dataKey',
+            },
+            {
+                title: 'Name',
+                dataIndex: 'name',
+                key: 'name',
+                width: 200,
+            },
+            {
+                title: 'Data Type',
+                dataIndex: 'type',
+                key: 'type',
+                width: 400,
+            },
+            {
+                title: 'Description',
+                dataIndex: 'description',
+                key: 'description',
+            },
+            {
+                title: 'Default',
+                dataIndex: 'default',
+                key: 'default',
+                width: 100,
+            },
+        ],
+        []
     );
 
     const data = useMemo(
         () => [
             {
                 key: 1,
-                name: 'John Brown sr.',
-                age: 60,
-                address: 'New York No. 1 Lake Park',
+                dataKey: 'videos_info',
+                name: 'Video Info',
+                type: 'Object',
+                description: 'Meta info of video',
+                default: 'None',
                 children: [
                     {
                         key: 11,
-                        name: 'John Brown',
-                        age: 42,
-                        address: 'New York No. 2 Lake Park',
+                        dataKey: 'status',
+                        name: 'Video Status',
+                        type: 'Enum <Integer>',
+                        description: 'Viewable and recommended status of the video',
+                        default: '1',
                     },
                     {
                         key: 12,
-                        name: 'John Brown jr.',
-                        age: 30,
-                        address: 'New York No. 3 Lake Park',
+                        dataKey: 'vid',
+                        name: 'Video ID',
+                        type: 'String',
+                        description: 'Unique ID that identifies the video',
+                        default: 'None',
                         children: [
                             {
                                 key: 121,
-                                name: 'Jimmy Brown',
-                                age: 16,
-                                address: 'New York No. 3 Lake Park',
+                                dataKey: 'video_url',
+                                name: 'Video url',
+                                type: 'String',
+                                description: 'Unique link to the video',
+                                default: 'None',
                             },
                         ],
-                    },
-                    {
-                        key: 13,
-                        name: 'Jim Green sr.',
-                        age: 72,
-                        address: 'London No. 1 Lake Park',
-                        children: [
-                            {
-                                key: 131,
-                                name: 'Jim Green',
-                                age: 42,
-                                address: 'London No. 2 Lake Park',
-                                children: [
-                                    {
-                                        key: 1311,
-                                        name: 'Jim Green jr.',
-                                        age: 25,
-                                        address: 'London No. 3 Lake Park',
-                                    },
-                                    {
-                                        key: 1312,
-                                        name: 'Jimmy Green sr.',
-                                        age: 18,
-                                        address: 'London No. 4 Lake Park',
-                                    },
-                                ],
-                            },
-                            {
-                                key: 132,
-                                name: 'Jack Green',
-                                age: 48,
-                                address: 'London No. 3 Lake Park',
-                                children: [
-                                    {
-                                        key: 1321,
-                                        name: 'Jack Green jr.',
-                                        age: 35,
-                                        address: 'London No. 31 Lake Park',
-                                    },
-                                    {
-                                        key: 1322,
-                                        name: 'Jack Green sr.',
-                                        age: 28,
-                                        address: 'London No. 41 Lake Park',
-                                    },
-                                ],
-                            },
-                        ],
-                    },
+                    }
                 ],
             },
             {
                 key: 2,
-                name: 'Joe Black',
-                age: 32,
-                address: 'Sidney No. 1 Lake Park',
+                dataKey: 'text_info',
+                name: 'Text Info',
+                type: 'Object',
+                description: 'Meta info of video',
+                default: 'None',
+                children: [
+                    {
+                        key: 21,
+                        dataKey: 'title',
+                        name: 'Video Title',
+                        type: 'String',
+                        description: 'Title of video',
+                        default: 'None',
+                    },
+                    {
+                        key: 22,
+                        dataKey: 'video_description',
+                        name: 'Video Description',
+                        type: 'String',
+                        description: 'Description of video',
+                        default: 'None',
+                    }
+                ],
             },
         ],
         []
     );
-    const keysMap = useMemo(() => storeKeys(null, data, {}, rowKey, childrenRecordName), [
-        data,
-        rowKey,
-        childrenRecordName,
-    ]);
 
-    const getCheckboxProps = useCallback(
-        record => {
-            const children = get(record, childrenRecordName);
-            const allChildrenKeys = filter(children, child => !disabledRecord(child)).map(getRecordKey);
-            const checkboxProps = {};
+    const isRecordDisabled = (record) => {
+        return false;
+    };
 
-            if (Array.isArray(children) && children.length) {
-                const hasChildSelected = record => {
-                    if (selectedRowKeys.includes(getRecordKey(record))) {
-                        return true;
-                    }
-
-                    const children = get(record, childrenRecordName);
-                    const validChildren = filter(children, child => !disabledRecord(child));
-
-                    if (!validChildren.length) {
-                        return false;
-                    }
-
-                    if (some(validChildren, child => hasChildSelected(child))) {
-                        return true;
-                    }
-                    return false;
-                };
-
-                const someSelected = some(children, hasChildSelected);
-                const allSelected =
-                    allChildrenKeys.length && allChildrenKeys.every(key => selectedRowKeys.includes(key));
-
-                if (!allSelected && someSelected) {
-                    checkboxProps.indeterminate = true;
-                    checkboxProps.checked = false;
-                }
-            } else {
-                checkboxProps.disabled = true;
+    const traverse = (data, res) => {
+        for (let record of data) {
+            const children = get(record, 'children');
+            const disabled = isRecordDisabled(record);
+            if (!disabled) {
+                const key = getKey(record);
+                res.push(key);
             }
-
-            return checkboxProps;
-        },
-        [selectedRowKeys, disabledRecord, getRecordKey]
-    );
-
-    const doSelect = useCallback(
-        (record, selected) => {
-            const key = getRecordKey(record, rowKey);
-
-            const children = get(record, childrenRecordName, []);
-            const parents = get(keysMap, key);
-            const set = new Set([...selectedRowKeys]);
-
-            if (selected) {
-                set.add(key);
-            } else {
-                set.delete(key);
+            if (Array.isArray(children)) {
+                traverse(children, res);
             }
+        }
+    };
 
-            const selectChildren = (selected = false, children = []) => {
-                if (typeof disabledRecord === 'function') {
-                    children = filter(children, child => !disabledRecord(child));
-                }
-                if (Array.isArray(children) && children.length) {
-                    each(children, child => {
-                        const key = getKey(child, rowKey);
-                        const curChildren = get(child, childrenRecordName);
+    const getAllRowKeys = data => {
+        const allRowKeys = [];
+        traverse(data, allRowKeys);
+        console.log('allRowKeys', allRowKeys);
+        return allRowKeys;
+    };
 
-                        if (selected) {
-                            set.add(key);
-                        } else {
-                            set.delete(key);
-                        }
-                        selectChildren(selected, curChildren);
-                    });
-                }
-            };
+    const findShouldSelectRowKeys = (record, selected) => {
+        let shouldSelectRowKeys;
+        const children = get(record, 'children');
+        let childrenRowKeys = [];
+        if (Array.isArray(children)) {
+            traverse(children, childrenRowKeys);
+        }
 
-            selectChildren(selected, children);
+        const key = getKey(record);
+        if (!selected) {
+            shouldSelectRowKeys = [...selectedRowKeys];
+            pullAll(shouldSelectRowKeys, [key, ...childrenRowKeys]);
+        } else {
+            shouldSelectRowKeys = union(selectedRowKeys, [key, ...childrenRowKeys]);
+        }
+        return shouldSelectRowKeys;
+    };
 
-            each(parents, parent => {
-                const childrenKeys = get(parent, childrenRecordName, [])
-                    .filter(parentChild => !disabledRecord(parentChild))
-                    .map(getRecordKey);
-
-                const allSelected = childrenKeys.length && childrenKeys.every(key => set.has(key));
-                const parentKey = getRecordKey(parent);
-
-                if (allSelected) {
-                    set.add(parentKey);
-                } else {
-                    set.delete(parentKey);
-                }
-                return false;
-            });
-
-            setSelectedRowKeys(Array.from(set));
-        },
-        [selectedRowKeys, keysMap, disabledRecord, rowKey, childrenRecordName]
-    );
+    const doSelect = useCallback((record, selected) => {
+        const rowKeys = findShouldSelectRowKeys(record, selected);
+        setSelectedRowKeys(rowKeys);
+        console.log('select', record, rowKeys);
+    }, [selectedRowKeys, rowKey, childrenRecordName]);
 
     const doSelectAll = useCallback((selected, selectedRows) => {
-        const keys = selected ? map(selectedRows, row => getRecordKey(row, rowKey)) : [];
-        setSelectedRowKeys(keys);
+        console.log(selected);
+        let rowKeys = [];
+        if (selected) {
+            rowKeys = getAllRowKeys(data);
+        }
+        setSelectedRowKeys(rowKeys);
     }, []);
 
     const rowSelection = useMemo(
         () => ({
-            getCheckboxProps,
             selectedRowKeys,
             onSelect: doSelect,
             onSelectAll: doSelectAll,
         }),
-        [selectedRowKeys, getCheckboxProps, doSelect, doSelectAll]
+        [selectedRowKeys, doSelect, doSelectAll]
     );
 
-    const columns = useMemo(
-        () => [
-            {
-                title: 'Name',
-                dataIndex: 'name',
-                key: 'name',
-                width: 300,
-            },
-            {
-                title: 'Age',
-                dataIndex: 'age',
-                key: 'age',
-                width: 150,
-            },
-            {
-                title: 'Address',
-                dataIndex: 'address',
-                key: 'address',
-            },
-        ],
-        []
-    );
     return (
         <Table
             columns={columns}
             rowKey={rowKey}
             childrenRecordName={childrenRecordName}
-            expandedRowKeys={expandedRowKeys}
-            onExpandedRowsChange={rows => setExpandedRowKeys(rows.map(item => item[rowKey]))}
             rowSelection={rowSelection}
             dataSource={data}
+            pagination={false}
         />
     );
-}
+};
 
 render(ChildrenDataSelectedDemo);
 ```
@@ -1707,50 +2158,82 @@ In principle, the properties or events supported on tr / td / th can be defined.
 
 ```jsx live=true noInline=true dir="column"
 import React, { useMemo } from 'react';
-import { Table, Tooltip, Tag } from '@douyinfe/semi-ui/';
+import { Table } from '@douyinfe/semi-ui/';
+import * as dateFns from 'date-fns';
+
+const DAY = 24 * 60 * 60 * 1000;
+const figmaIconUrl = 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png';
 
 function EventTable(props = {}) {
-    const dataTotalSize = 46;
-
     const columns = useMemo(
         () => [
             {
-                title: 'Name',
+                title: 'Title',
                 dataIndex: 'name',
-                width: 150,
+                width: 400,
+                render: (text, record, index) => {
+                    return (
+                        <div>
+                            <Avatar size="small" shape="square" src={figmaIconUrl} style={{ marginRight: 12 }}></Avatar>
+                            {text}
+                        </div>
+                    );
+                },
+                filters: [
+                    {
+                        text: 'Semi Design design draft',
+                        value: 'Semi Design design draft',
+                    },
+                    {
+                        text: 'Semi Pro design draft',
+                        value: 'Semi Pro design draft',
+                    },
+                ],
+                onFilter: (value, record) => record.name.includes(value),
             },
             {
-                title: 'Age',
-                dataIndex: 'age',
-                width: 150,
+                title: 'Size',
+                dataIndex: 'size',
+                sorter: (a, b) => a.size - b.size > 0 ? 1 : -1,
+                render: (text) => `${text} KB`
             },
             {
-                title: 'Address',
-                dataIndex: 'address',
+                title: 'Owner',
+                dataIndex: 'owner',
+                render: (text, record, index) => {
+                    return (
+                        <div>
+                            <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>{typeof text === 'string' && text.slice(0, 1)}</Avatar>
+                            {text}
+                        </div>
+                    );
+                }
+        
             },
             {
-                render: (text, record) => (
-                    <Tooltip content={record.description}>
-                        <Tag color="green">Show Info</Tag>
-                    </Tooltip>
-                ),
-                width: 150,
-            },
+                title: 'Update',
+                dataIndex: 'updateTime',
+                sorter: (a, b) => a.updateTime - b.updateTime > 0 ? 1 : -1,
+                render: (value) => {
+                    return dateFns.format(new Date(value), 'yyyy-MM-dd');
+                }
+            }
         ],
         []
     );
 
     const data = useMemo(() => {
         const _data = [];
-        for (let i = 0; i < dataTotalSize; i++) {
-            let age = 40 + (Math.random() > 0.5 ? 1 : -1) * Math.ceil(i / 3);
-            let name = `Edward King ${i}`;
+        for (let i = 0; i < 46; i++) {
+            const isSemiDesign = i % 2 === 0;
+            const randomNumber = (i * 1000) % 199;
             _data.push({
                 key: '' + i,
-                name,
-                age,
-                address: `London, Park Lane no. ${i} Lake Park`,
-                description: `My name is ${name}, I am ${age} years old, living in New York No. ${i + 1} Lake Park.`,
+                name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi Pro design draft${i}.fig`,
+                owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
+                size: randomNumber,
+                updateTime: new Date().valueOf() + randomNumber * DAY,
+                avatarBg: isSemiDesign ? 'grey' : 'red'
             });
         }
         return _data;
@@ -1797,57 +2280,112 @@ Use `OnRow` to set a background color for each row to create a zebra stripped ta
 
 ```jsx live=true noInline=true dir="column"
 import React from 'react';
-import { Table } from '@douyinfe/semi-ui';
+import { Table, Avatar } from '@douyinfe/semi-ui';
 
 function App() {
     const columns = [
         {
-            title: 'Name',
+            title: 'Title',
             dataIndex: 'name',
+            width: 400,
             render: (text, record, index) => {
-                console.log(text, record, index)
-                return <a>{text}</a>;
-            },
+                return (
+                    <div>
+                        <Avatar size="small" shape="square" src={record.nameIconSrc} style={{ marginRight: 12 }}></Avatar>
+                        {text}
+                    </div>
+                );
+            }
         },
         {
-            title: 'Age',
-            dataIndex: 'age',
+            title: 'Size',
+            dataIndex: 'size',
         },
         {
-            title: 'Address',
-            dataIndex: 'address',
+            title: 'Owner',
+            dataIndex: 'owner',
+            render: (text, record, index) => {
+                return (
+                    <div>
+                        <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>{typeof text === 'string' && text.slice(0, 1)}</Avatar>
+                        {text}
+                    </div>
+                );
+            }
+
+        },
+        {
+            title: 'Update',
+            dataIndex: 'updateTime',
+        },
+        {
+            title: '',
+            dataIndex: 'operate',
+            render: () => {
+                return <IconMore />;
+            }
         },
     ];
-
     const data = [
         {
             key: '1',
-            name: 'John Brown',
-            age: 32,
-            address: 'New York No. 1 Lake Park, New York No. 1 Lake Park',
+            name: 'Semi Design design draft.fig',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png',
+            size: '2M',
+            owner: 'Jiang Pengzhi',
+            updateTime: '2020-02-02 05:13',
+            avatarBg: 'grey'
+
         },
         {
             key: '2',
-            name: 'Jim Green',
-            age: 42,
-            address: 'London No. 1 Lake Park',
+            name: 'Semi Design share docs',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
+            size: '2M',
+            owner: 'Hao Xuan',
+            updateTime: '2020-01-17 05:31',
+            avatarBg: 'red'
         },
         {
             key: '3',
-            name: 'Joe Black',
-            age: 32,
-            address: 'Sidney No. 1 Lake Park',
+            name: 'Design docs',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
+            size: '34KB',
+            owner: 'Zoey Edwards',
+            updateTime: '2020-01-26 11:01',
+            avatarBg: 'light-blue'
         },
         {
             key: '4',
-            name: 'Michael James',
-            age: 99,
-            address: 'Sidney No. 1 Lake Park',
+            name: 'Semi Pro design draft.fig',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png',
+            size: '2M',
+            owner: 'Jiang Pengzhi',
+            updateTime: '2020-02-02 05:13',
+            avatarBg: 'grey'
+
+        },
+        {
+            key: '5',
+            name: 'Semi Pro share docs',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
+            size: '2M',
+            owner: 'Hao Xuan',
+            updateTime: '2020-01-17 05:31',
+            avatarBg: 'red'
+        },
+        {
+            key: '6',
+            name: 'Semi Pro Design docs',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
+            size: '34KB',
+            owner: 'Zoey Edwards',
+            updateTime: '2020-01-26 11:01',
+            avatarBg: 'light-blue'
         },
     ];
 
     const handleRow = (record, index) => {
-        // Set zebra pattern for even rows
         if (index % 2 === 0) {
             return {
                 style: {
@@ -1878,66 +2416,91 @@ But you need to pay attention to some parameters:
 -   `resizable` is set to `true` or an `object`
 -   Any column in `columns` that requires a telescopic function should specify the `width`field (if not passed, the column does not have a telescopic function and its column width will be automatically adjusted by the browser)
 
+> It is not recommended to use with fixed columns at the same time. Fixed columns need to specify `scroll.x`, which stipulates that the table has a width range, and the flexible column will expand the column width, which may cause the table to be misaligned
+
 ```jsx live=true noInline=true dir="column"
-import React from 'react';
-import { Table, Tooltip, Tag } from '@douyinfe/semi-ui';
+import React, { useMemo } from 'react';
+import { Table, Avatar } from '@douyinfe/semi-ui';
+import * as dateFns from 'date-fns';
 
-class ResizableDemo extends React.Component {
-    constructor() {
-        this.columns = [
-            {
-                title: 'Name',
-                dataIndex: 'name',
-                width: 150,
-            },
-            {
-                title: 'Age',
-                dataIndex: 'age',
-                width: 150,
-                sorter: (a, b) => (a.age - b.age > 0 ? 1 : -1),
-            },
-            {
-                title: 'Address',
-                width: 200,
-                dataIndex: 'address',
-            },
-            {
-                render: (text, record) => (
-                    <Tooltip content={record.description}>
-                        <Tag color="green">Show Info</Tag>
-                    </Tooltip>
-                ),
-            },
-        ];
+const DAY = 24 * 60 * 60 * 1000;
+const figmaIconUrl = 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png';
 
-        this.data = [];
-
-        this.rowSelection = {
-            onChange: (selectedRowKeys, selectedRows) => {
-                // console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+function ResizableDemo() {
+    const columns = [
+        {
+            title: 'Title',
+            dataIndex: 'name',
+            width: 400,
+            render: (text, record, index) => {
+                return (
+                    <div>
+                        <Avatar size="small" shape="square" src={figmaIconUrl} style={{ marginRight: 12 }}></Avatar>
+                        {text}
+                    </div>
+                );
             },
-            getCheckboxProps: record => ({
-                disabled: record.name === 'Michael James', // Column configuration not to be checked
-                name: record.name,
-            }),
-        };
+            filters: [
+                {
+                    text: 'Semi Design design draft',
+                    value: 'Semi Design design draft',
+                },
+                {
+                    text: 'Semi Pro design draft',
+                    value: 'Semi Pro design draft',
+                },
+            ],
+            onFilter: (value, record) => record.name.includes(value),
+        },
+        {
+            title: 'Size',
+            dataIndex: 'size',
+            width: 200,
+            sorter: (a, b) => a.size - b.size > 0 ? 1 : -1,
+            render: (text) => `${text} KB`
+        },
+        {
+            title: 'Owner',
+            width: 200,
+            dataIndex: 'owner',
+            render: (text, record, index) => {
+                return (
+                    <div>
+                        <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>{typeof text === 'string' && text.slice(0, 1)}</Avatar>
+                        {text}
+                    </div>
+                );
+            }
 
+        },
+        {
+            title: 'Update',
+            dataIndex: 'updateTime',
+            sorter: (a, b) => a.updateTime - b.updateTime > 0 ? 1 : -1,
+            render: (value) => {
+                return dateFns.format(new Date(value), 'yyyy-MM-dd');
+            }
+        }
+    ];
+
+    const data = useMemo(() => {
+        const _data = [];
         for (let i = 0; i < 46; i++) {
-            let age = 40 + (Math.random() > 0.5 ? 1 : -1) * Math.ceil(i / 3);
-            let name = `Edward King ${i}`;
-            this.data.push({
+            const isSemiDesign = i % 2 === 0;
+            const randomNumber = (i * 1000) % 199;
+            _data.push({
                 key: '' + i,
-                name,
-                age,
-                address: `London, Park Lane no. ${i}`,
-                description: `My name is ${name}, I am ${age} years old, living in New York No. ${i + 1} Lake Park.`,
+                name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi Pro design draft${i}.fig`,
+                owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
+                size: randomNumber,
+                updateTime: new Date().valueOf() + randomNumber * DAY,
+                avatarBg: isSemiDesign ? 'grey' : 'red'
             });
         }
-    }
+        return _data;
+    }, []);
 
-    render() {
-        return <Table columns={this.columns} dataSource={this.data} resizable bordered />;
-    }
+    return <Table columns={columns} dataSource={data} resizable bordered />;
 }
 
 render(ResizableDemo);
@@ -1951,95 +2514,109 @@ render(ResizableDemo);
 -   onResizeStart
 -   onResizeStop
 
-These three callback will be triggered on `changing column width`、`start changing column width` and `stop changing column width` respectively. Developers can choose to modify the column at this time, such as adding a vertical line effect when dragging, as shown below.
+These three callback will be triggered on `changing column width`, `start changing column width` and `stop changing column width` respectively. Developers can choose to modify the column at this time, such as adding a vertical line effect when dragging, as shown below.
 
 ```jsx live=true noInline=true dir="column"
-import React from 'react';
-import { Table, Tooltip, Tag } from '@douyinfe/semi-ui';
-import { addClass, removeClass } from '@douyinfe/semi-foundation/utils';
+import React, { useMemo } from 'react';
+import { Table, Avatar } from '@douyinfe/semi-ui';
+import * as dateFns from 'date-fns';
 
-class ResizableDemo extends React.Component {
-    constructor() {
-        this.columns = [
-            {
-                title: 'Name',
-                dataIndex: 'name',
-                width: 150,
-            },
-            {
-                title: 'Age',
-                dataIndex: 'age',
-                width: 150,
-            },
-            {
-                title: 'Address',
-                width: 200,
-                dataIndex: 'address',
-            },
-            {
-                render: (text, record) => (
-                    <Tooltip content={record.description}>
-                        <Tag color="green">Show Info</Tag>
-                    </Tooltip>
-                ),
-            },
-        ];
+const DAY = 24 * 60 * 60 * 1000;
+const figmaIconUrl = 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png';
+const pagination = { pageSize: 5 };
 
-        this.data = [];
-
-        this.rowSelection = {
-            onChange: (selectedRowKeys, selectedRows) => {
-                // console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+function ResizableDemo() {
+    const columns = [
+        {
+            title: 'Title',
+            dataIndex: 'name',
+            width: 400,
+            render: (text, record, index) => {
+                return (
+                    <div>
+                        <Avatar size="small" shape="square" src={figmaIconUrl} style={{ marginRight: 12 }}></Avatar>
+                        {text}
+                    </div>
+                );
             },
-            getCheckboxProps: record => ({
-                disabled: record.name === 'Michael James', // Column configuration not to be checked
-                name: record.name,
-            }),
-        };
+            filters: [
+                {
+                    text: 'Semi Design design draft',
+                    value: 'Semi Design design draft',
+                },
+                {
+                    text: 'Semi Pro design draft',
+                    value: 'Semi Pro design draft',
+                },
+            ],
+            onFilter: (value, record) => record.name.includes(value),
+        },
+        {
+            title: 'Size',
+            dataIndex: 'size',
+            width: 200,
+            sorter: (a, b) => a.size - b.size > 0 ? 1 : -1,
+            render: (text) => `${text} KB`
+        },
+        {
+            title: 'Owner',
+            width: 200,
+            dataIndex: 'owner',
+            render: (text, record, index) => {
+                return (
+                    <div>
+                        <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>{typeof text === 'string' && text.slice(0, 1)}</Avatar>
+                        {text}
+                    </div>
+                );
+            }
 
+        },
+        {
+            title: 'Update',
+            dataIndex: 'updateTime',
+            sorter: (a, b) => a.updateTime - b.updateTime > 0 ? 1 : -1,
+            render: (value) => {
+                return dateFns.format(new Date(value), 'yyyy-MM-dd');
+            }
+        }
+    ];
+
+    const data = useMemo(() => {
+        const _data = [];
         for (let i = 0; i < 46; i++) {
-            let age = 40 + (Math.random() > 0.5 ? 1 : -1) * Math.ceil(i / 3);
-            let name = `Edward King ${i}`;
-            this.data.push({
+            const isSemiDesign = i % 2 === 0;
+            const randomNumber = (i * 1000) % 199;
+            _data.push({
                 key: '' + i,
-                name,
-                age,
-                address: `London, Park Lane no. ${i}`,
-                description: `My name is ${name}, I am ${age} years old, living in New York No. ${i + 1} Lake Park.`,
+                name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi Pro design draft${i}.fig`,
+                owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
+                size: randomNumber,
+                updateTime: new Date().valueOf() + randomNumber * DAY,
+                avatarBg: isSemiDesign ? 'grey' : 'red'
             });
         }
+        return _data;
+    }, []);
 
-        this.resizable = {
-            onResizeStart: curColumn => {
-                const className = addClass(curColumn.className, 'my-resizing');
+    const resizable = {
+        onResizeStart: curColumn => {
+            const className = addClass(curColumn.className, 'my-resizing');
 
-                return { className };
-            },
-            onResizeStop: curColumn => {
-                const className = removeClass(curColumn.className, 'my-resizing');
+            return { className };
+        },
+        onResizeStop: curColumn => {
+            const className = removeClass(curColumn.className, 'my-resizing');
 
-                return { className };
-            },
-        };
+            return { className };
+        }
+    };
 
-        this.pagination = {
-            pageSize: 5,
-        };
-    }
-
-    render() {
-        return (
-            <div id="components-table-demo-resizable-column">
-                <Table
-                    columns={this.columns}
-                    dataSource={this.data}
-                    resizable={this.resizable}
-                    pagination={this.pagination}
-                    bordered
-                />
-            </div>
-        );
-    }
+    return (
+        <div id="components-table-demo-resizable-column">
+            <Table columns={columns} dataSource={data} resizable={resizable} pagination={pagination} bordered />
+        </div>
+    );
 }
 
 render(ResizableDemo);
@@ -2065,14 +2642,17 @@ The CSS style definition used in this example:
 
 With custom elements, we can integrate `react-dnd` To implement drag and drop sorting.
 
-```jsx live=true dir="column" noInline=true
-import React, { useState, useMemo, useCallback } from 'react';
-import { Table, Tooltip, Tag } from '@douyinfe/semi-ui';
+```jsx live=true dir="column" noInline=true hideInDSM
+import React, { useState, useMemo } from 'react';
+import { Table, Avatar } from '@douyinfe/semi-ui';
 import { DndProvider, DragSource, DropTarget } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
+import * as dateFns from 'date-fns';
 
 let draggingIndex = -1;
 const PAGE_SIZE = 5;
+const DAY = 24 * 60 * 60 * 1000;
+const figmaIconUrl = 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png';
 
 function BodyRow(props) {
     const { isOver, connectDragSource, connectDropTarget, moveRow, currentPage, ...restProps } = props;
@@ -2127,47 +2707,71 @@ const DraggableBodyRow = DropTarget('row', rowTarget, (connect, monitor) => ({
 
 const columns = [
     {
-        title: 'Name',
+        title: 'Title',
         dataIndex: 'name',
-        width: 150,
+        width: 400,
+        render: (text, record, index) => {
+            return (
+                <div>
+                    <Avatar size="small" shape="square" src={figmaIconUrl} style={{ marginRight: 12 }}></Avatar>
+                    {text}
+                </div>
+            );
+        },
         filters: [
             {
-                text: 'King 3',
-                value: 'King 3',
+                text: 'Semi Design design draft',
+                value: 'Semi Design design draft',
             },
             {
-                text: 'King 4',
-                value: 'King 4',
+                text: 'Semi Pro design draft',
+                value: 'Semi Pro design draft',
             },
         ],
         onFilter: (value, record) => record.name.includes(value),
     },
     {
-        title: 'Age',
-        dataIndex: 'age',
-        width: 150,
-        sorter: (a, b) => a.age - b.age > 0 ? 1 : -1,
-    },
-    {
-        title: 'Address',
+        title: 'Size',
+        dataIndex: 'size',
         width: 200,
-        dataIndex: 'address',
+        sorter: (a, b) => a.size - b.size > 0 ? 1 : -1,
+        render: (text) => `${text} KB`
     },
     {
-        render: (text, record) => <Tooltip content={record.description}><Tag color='green'>Show Info</Tag></Tooltip>
+        title: 'Owner',
+        width: 200,
+        dataIndex: 'owner',
+        render: (text, record, index) => {
+            return (
+                <div>
+                    <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>{typeof text === 'string' && text.slice(0, 1)}</Avatar>
+                    {text}
+                </div>
+            );
+        }
+
+    },
+    {
+        title: 'Update',
+        dataIndex: 'updateTime',
+        sorter: (a, b) => a.updateTime - b.updateTime > 0 ? 1 : -1,
+        render: (value) => {
+            return dateFns.format(new Date(value), 'yyyy-MM-dd');
+        }
     }
 ];
 
 const initData = [];
 for (let i = 0; i < 46; i++) {
-    let age = 40 + (Math.random() > 0.5 ? 1 : -1) * Math.ceil(i/3);
-    let name = `Edward King ${i}`;
+    const isSemiDesign = i % 2 === 0;
+    const randomNumber = (i * 1000) % 199;
     initData.push({
         key: '' + i,
-        name,
-        age,
-        address: `London, Park Lane no. ${i}`,
-        description: `My name is ${name}, I am ${age} years old, living in New York No. ${i+1} Lake Park.`,
+        name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi Pro design draft${i}.fig`,
+        owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
+        size: randomNumber,
+        updateTime: new Date().valueOf() + randomNumber * DAY,
+        avatarBg: isSemiDesign ? 'grey' : 'red'
     });
 }
 
@@ -2245,55 +2849,96 @@ For some tables whose data needs to be displayed in groups, you can pass in `gro
 
 ```jsx live=true noInline=true dir="column"
 import React from 'react';
-import { Table } from '@douyinfe/semi-ui';
+import { Table, Avatar } from '@douyinfe/semi-ui';
+import * as dateFns from 'date-fns';
+
+const DAY = 24 * 60 * 60 * 1000;
+const figmaIconUrl = 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png';
+
+const columns = [
+    {
+        title: 'Title',
+        dataIndex: 'name',
+        width: 400,
+        render: (text, record, index) => {
+            return (
+                <div>
+                    <Avatar size="small" shape="square" src={figmaIconUrl} style={{ marginRight: 12 }}></Avatar>
+                    {text}
+                </div>
+            );
+        },
+        filters: [
+            {
+                text: 'Semi Design design draft',
+                value: 'Semi Design design draft',
+            },
+            {
+                text: 'Semi Pro design draft',
+                value: 'Semi Pro design draft',
+            },
+        ],
+        onFilter: (value, record) => record.name.includes(value),
+    },
+    {
+        title: 'Size',
+        dataIndex: 'size',
+        sorter: (a, b) => a.size - b.size > 0 ? 1 : -1,
+        render: (text) => `${text} KB`
+    },
+    {
+        title: 'Owner',
+        dataIndex: 'owner',
+        render: (text, record, index) => {
+            return (
+                <div>
+                    <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>{typeof text === 'string' && text.slice(0, 1)}</Avatar>
+                    {text}
+                </div>
+            );
+        }
+
+    },
+    {
+        title: 'Update',
+        dataIndex: 'updateTime',
+        sorter: (a, b) => a.updateTime - b.updateTime > 0 ? 1 : -1,
+        render: (value) => {
+            return dateFns.format(new Date(value), 'yyyy-MM-dd');
+        }
+    }
+];
+
+const getData = () => {
+    const data = [];
+    for (let i = 0; i < 46; i++) {
+        const isSemiDesign = i % 2 === 0;
+        const randomNumber = i * 1000 % 19 + 100;
+        data.push({
+            key: '' + i,
+            name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi Pro design draft${i}.fig`,
+            owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
+            size: randomNumber,
+            updateTime: new Date().valueOf() + randomNumber * DAY,
+            avatarBg: isSemiDesign ? 'grey' : 'red',
+        });
+    }
+    return data;
+};
+
+const data = getData();
 
 function Demo() {
-    const rowKey = record => `${record.city && record.city.toLowerCase()}-${record.job && record.job.toLowerCase()}`;
-    /**
-     * FE => frontend engineer
-     * BE => backend engineer
-     * Andoird => android engineer
-     * IOS => ios engineer
-     * SE => software engineer
-     */
-    const data = [
-        { city: 'Beijing', job: 'FE', department: 'IES' },
-        { city: 'Beijing', job: 'BE', department: 'IES' },
-        { city: 'Shanghai', job: 'Android', department: 'IES' },
-        { city: 'Tokyo', job: 'Android', department: 'IES' },
-        { city: 'Shanghai', job: 'IOS', department: 'EE' },
-        { city: 'LA', job: 'SE', department: 'EE' },
-        { city: 'Beijing', job: 'Android', department: 'EE' },
-        { city: 'Tokyo', job: 'IOS', department: 'EE' },
-        { city: 'Tokyo', job: 'SE', department: 'DATA' },
-        { city: 'Shanghai', job: 'BE', department: 'DATA' },
-        { city: 'LA', job: 'Android', department: 'DATA' },
-        { city: 'LA', job: 'IOS', department: 'DATA' },
-    ];
-
-    const columns = [
-        { dataIndex: 'city', title: 'City', width: 400, sorter: (a, b) => (a.city > b.city ? 1 : -1) },
-        {
-            dataIndex: 'job',
-            title: 'Job',
-            width: 200,
-            filters: [
-                { text: 'IOS', value: 'IOS' },
-                { text: 'Android', value: 'Android' },
-            ],
-            onFilter: (value, record) => record.job && record.job.indexOf(value) === 0,
-        },
-        { dataIndex: 'department', title: 'Department' },
-    ];
+    const rowKey = record => `${record.owner && record.owner.toLowerCase()}-${record.name && record.name.toLowerCase()}`;
 
     return (
         <div style={{ padding: '20px 0px' }}>
             <Table
                 dataSource={data}
                 rowKey={rowKey}
-                groupBy={'city'}
+                groupBy={'size'}
                 columns={columns}
-                renderGroupSection={groupKey => <strong>Jobs in {groupKey}:</strong>}
+                renderGroupSection={groupKey => <strong>Group by file size {groupKey} KB</strong>}
                 onGroupedRow={(group, index) => {
                     return {
                         // onMouseEnter: () => {
@@ -2302,9 +2947,7 @@ function Demo() {
                         // onMouseLeave: () => {
                         //     console.log(`Grouped row mouse leave: `, group, index);
                         // },
-                        onClick: e => {
-                            console.log(`Grouped row clicked: `, group, index);
-                        },
+                        onClick: e => { console.log(`Grouped row clicked: `, group, index) }
                     };
                 }}
                 clickGroupedRowToExpand // if you want to click the entire row to expand
@@ -2330,83 +2973,107 @@ Virtualization can be used for scenes that need to render large-scale data. You 
 The following is an example of rendering 1000 pieces of data.
 
 ```jsx live=true noInline=true dir="column"
-import React from 'react';
-import { Table, Tag, Tooltip } from '@douyinfe/semi-ui';
+import React, { useRef } from 'react';
+import { Table, Avatar, Button } from '@douyinfe/semi-ui';
+import * as dateFns from 'date-fns';
 
-class VirtualizedFixedDemo extends React.Component {
-    constructor(props = {}) {
-        super(props);
+const DAY = 24 * 60 * 60 * 1000;
 
-        this.columns = [
+const columns = [
+    {
+        title: 'Title',
+        dataIndex: 'name',
+        width: 200,
+        fixed: true,
+        render: (text, record, index) => {
+            return (
+                <div>
+                    {text}
+                </div>
+            );
+        },
+        filters: [
             {
-                title: 'Name',
-                dataIndex: 'name',
-                width: 150,
-                fixed: true,
-                filters: [
-                    {
-                        text: 'Code 45',
-                        value: '45',
-                    },
-                    {
-                        text: 'King 4',
-                        value: 'King 4',
-                    },
-                ],
-                onFilter: (value, record) => record.name.includes(value),
+                text: 'Semi Design design draft',
+                value: 'Semi Design design draft',
             },
             {
-                title: 'Age',
-                dataIndex: 'age',
-                width: 150,
-                sorter: (a, b) => (a.age - b.age > 0 ? 1 : -1),
+                text: 'Semi Pro design draft',
+                value: 'Semi Pro design draft',
             },
-            {
-                title: 'Address',
-                // width: 200,
-                dataIndex: 'address',
-            },
-            {
-                fixed: 'right',
-                width: 250,
-                render: (text, record) => (
-                    <Tooltip content={record.description}>
-                        <Tag color="green">Show Info</Tag>
-                    </Tooltip>
-                ),
-            },
-        ];
-
-        this.data = [];
-
-        for (let i = 0; i < 1000; i++) {
-            let age = 40 + (Math.random() > 0.5 ? 1 : -1) * (i % 9);
-            let name = `Edward King ${i}`;
-            this.data.push({
-                key: '' + i,
-                name,
-                age,
-                address: `London, Park Lane no. ${i}`,
-                description: `My name is ${name}, I am ${age} years old, living in New York No. ${i + 1} Lake Park.`,
-            });
+        ],
+        onFilter: (value, record) => record.name.includes(value),
+    },
+    {
+        title: 'Size',
+        dataIndex: 'size',
+        width: 150,
+        sorter: (a, b) => a.size - b.size > 0 ? 1 : -1,
+        render: (text) => `${text} KB`
+    },
+    {
+        title: 'Owner',
+        dataIndex: 'owner',
+        render: (text, record, index) => {
+            return (
+                <div>
+                    <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>{typeof text === 'string' && text.slice(0, 1)}</Avatar>
+                    {text}
+                </div>
+            );
         }
 
-        this.scroll = { y: 400, x: 1600 };
-        this.style = { width: 750, margin: '0 auto' };
+    },
+    {
+        title: 'Update',
+        dataIndex: 'updateTime',
+        fixed: 'right',
+        width: 150,
+        sorter: (a, b) => a.updateTime - b.updateTime > 0 ? 1 : -1,
+        render: (value) => {
+            return dateFns.format(new Date(value), 'yyyy-MM-dd');
+        }
     }
+];
 
-    render() {
-        return (
+const getData = () => {
+    const data = [];
+    for (let i = 0; i < 1000; i++) {
+        const isSemiDesign = i % 2 === 0;
+        const randomNumber = (i * 1000) % 199;
+        data.push({
+            key: '' + i,
+            name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi Pro design draft${i}.fig`,
+            owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
+            size: randomNumber,
+            updateTime: new Date().valueOf() + randomNumber * DAY,
+            avatarBg: isSemiDesign ? 'grey' : 'red'
+        });
+    }
+    return data;
+};
+
+const data = getData();
+
+function VirtualizedFixedDemo() {
+    let virtualizedListRef = useRef()
+    const scroll = { y: 400, x: 900 };
+    const style = { width: 750, margin: '0 auto' };
+
+    return (
+        <>
+            <Button onClick={() => virtualizedListRef.current.scrollToItem(100)}>Scroll to 100</Button>
             <Table
                 pagination={false}
-                columns={this.columns}
-                dataSource={this.data}
-                scroll={this.scroll}
-                style={this.style}
+                columns={columns}
+                dataSource={data}
+                scroll={scroll}
+                style={style}
                 virtualized
+                getVirtualizedListRef={ref => virtualizedListRef = ref}
             />
-        );
-    }
+        </>
+    );
 }
 
 render(VirtualizedFixedDemo);
@@ -2416,124 +3083,138 @@ render(VirtualizedFixedDemo);
 
 Based on the virtualization feature, we can achieve infinite scroll loading data by passing in `virtualized.onScroll`.
 
-```jsx live=true noInline=true dir="column"
-import React from 'react';
-import { Table, Tag, Tooltip } from '@douyinfe/semi-ui';
+```jsx live=true noInline=true dir="column" hideInDSM
+import React, { useRef } from 'react';
+import { Table, Avatar, Button } from '@douyinfe/semi-ui';
+import * as dateFns from 'date-fns';
 
-class InfiniteScrollDemo extends React.Component {
-    constructor(props = {}) {
-        super(props);
+const DAY = 24 * 60 * 60 * 1000;
 
-        this.state = {
-            data: [],
-        };
-
-        this.columns = [
+const columns = [
+    {
+        title: 'Title',
+        dataIndex: 'name',
+        width: 200,
+        fixed: true,
+        render: (text, record, index) => {
+            return (
+                <div>
+                    {text}
+                </div>
+            );
+        },
+        filters: [
             {
-                title: 'Name',
-                dataIndex: 'name',
-                width: 150,
-                fixed: true,
-                filters: [
-                    {
-                        text: 'Code 45',
-                        value: '45',
-                    },
-                    {
-                        text: 'King 4',
-                        value: 'King 4',
-                    },
-                ],
-                onFilter: (value, record) => record.name.includes(value),
+                text: 'Semi Design design draft',
+                value: 'Semi Design design draft',
             },
             {
-                title: 'Age',
-                dataIndex: 'age',
-                width: 150,
-                sorter: (a, b) => (a.age - b.age > 0 ? 1 : -1),
+                text: 'Semi Pro design draft',
+                value: 'Semi Pro design draft',
             },
-            {
-                title: 'Address',
-                // width: 200,
-                dataIndex: 'address',
-            },
-            {
-                fixed: 'right',
-                width: 250,
-                render: (text, record) => (
-                    <Tooltip content={record.description}>
-                        <Tag color="green">Show Info</Tag>
-                    </Tooltip>
-                ),
-            },
-        ];
+        ],
+        onFilter: (value, record) => record.name.includes(value),
+    },
+    {
+        title: 'Size',
+        dataIndex: 'size',
+        width: 150,
+        sorter: (a, b) => a.size - b.size > 0 ? 1 : -1,
+        render: (text) => `${text} KB`
+    },
+    {
+        title: 'Owner',
+        dataIndex: 'owner',
+        render: (text, record, index) => {
+            return (
+                <div>
+                    <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>{typeof text === 'string' && text.slice(0, 1)}</Avatar>
+                    {text}
+                </div>
+            );
+        }
 
-        this.scroll = { y: 600, x: 1000 };
-        this.style = { width: 750, margin: '0 auto' };
-
-        const itemSize = 56;
-        this.virtualized = {
-            itemSize,
-            onScroll: ({ scrollDirection, scrollOffset, scrollUpdateWasRequested }) => {
-                const { data } = this.state;
-
-                if (
-                    scrollDirection === 'forward' &&
-                    scrollOffset >= (data.length - Math.ceil(this.scroll.y / itemSize) * 1.5) * itemSize &&
-                    !scrollUpdateWasRequested
-                ) {
-                    this.loadMore();
-                }
-            },
-        };
-
-        this.loadMore = this.loadMore.bind(this);
+    },
+    {
+        title: 'Update',
+        dataIndex: 'updateTime',
+        fixed: 'right',
+        width: 150,
+        sorter: (a, b) => a.updateTime - b.updateTime > 0 ? 1 : -1,
+        render: (value) => {
+            return dateFns.format(new Date(value), 'yyyy-MM-dd');
+        }
     }
+];
 
-    loadMore() {
+function InfiniteScrollDemo() {
+    const [data, setData] = useState([]);
+
+    const scroll = { y: 600, x: 1000 };
+    const style = { width: 750, margin: '0 auto' };
+
+    const loadMore = () => {
         const pageSize = 20; // load 20 records every time
-        const data = [...this.state.data];
-        const currentLenght = data.length;
-        for (let i = currentLenght; i < currentLenght + pageSize; i++) {
-            let age = 40 + (Math.random() > 0.5 ? 1 : -1) * (i % 9);
-            let name = `Edward King ${i}`;
-            data.push({
+        const newData = [...data];
+        const currentLength = data.length;
+        for (let i = currentLength; i < currentLength + pageSize; i++) {
+            const isSemiDesign = i % 2 === 0;
+            const randomNumber = (i * 1000) % 199;
+            newData.push({
                 key: '' + i,
-                name,
-                age,
-                address: `London, Park Lane no. ${i}`,
-                description: `My name is ${name}, I am ${age} years old, living in New York No. ${i + 1} Lake Park.`,
+                name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi Pro design draft${i}.fig`,
+                owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
+                size: randomNumber,
+                updateTime: new Date().valueOf() + randomNumber * DAY,
+                avatarBg: isSemiDesign ? 'grey' : 'red'
             });
         }
-        this.setState({ data });
-    }
+        setData(newData);
+    };
 
-    componentDidMount() {
-        this.loadMore();
-    }
+    const itemSize = 56;
+    const virtualized = {
+        itemSize,
+        onScroll: ({ scrollDirection, scrollOffset, scrollUpdateWasRequested }) => {
+            if (
+                scrollDirection === 'forward' &&
+                scrollOffset >= (data.length - Math.ceil(scroll.y / itemSize) * 1.5) * itemSize &&
+                !scrollUpdateWasRequested
+            ) {
+                loadMore();
+            }
+        },
+    };
 
-    render() {
-        return (
-            <Table
-                pagination={false}
-                columns={this.columns}
-                dataSource={this.state.data}
-                scroll={this.scroll}
-                style={this.style}
-                virtualized={this.virtualized}
-            />
-        );
-    }
+    useEffect(() => {
+        loadMore();
+    }, []);
+
+    return (
+        <Table
+            pagination={false}
+            columns={columns}
+            dataSource={data}
+            scroll={scroll}
+            style={style}
+            virtualized={virtualized}
+        />
+    );
 }
 
 render(InfiniteScrollDemo);
+
 ```
 
 ### Controlled Dynamic Tables
 
-```jsx live=true noInline=true dir="column"
+```jsx live=true noInline=true dir="column" hideInDSM
 import React from 'react';
-import { Table, Switch, ButtonGroup, Button, Tooltip, Tag } from '@douyinfe/semi-ui';
+import { Table, Switch, ButtonGroup, Button, Avatar, Space } from '@douyinfe/semi-ui';
+import * as dateFns from 'date-fns';
+
+const DAY = 24 * 60 * 60 * 1000;
+const figmaIconUrl = 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png';
 
 class App extends React.Component {
     constructor(props) {
@@ -2541,41 +3222,76 @@ class App extends React.Component {
         const dataTotalSize = 46;
         const columns = [
             {
-                title: 'Name',
+                title: 'Title',
                 dataIndex: 'name',
-                width: 150,
+                width: 400,
+                render: (text, record, index) => {
+                    return (
+                        <span>
+                            <Avatar size="small" shape="square" src={figmaIconUrl} style={{ marginRight: 12 }}></Avatar>
+                            {text}
+                        </span>
+                    );
+                },
+                filters: [
+                    {
+                        text: 'Semi Design design draft',
+                        value: 'Semi Design design draft',
+                    },
+                    {
+                        text: 'Semi Pro design draft',
+                        value: 'Semi Pro design draft',
+                    },
+                ],
+                onFilter: (value, record) => record.name.includes(value),
             },
             {
-                title: 'Age',
-                dataIndex: 'age',
-                width: 150,
+                title: 'Size',
+                dataIndex: 'size',
+                sorter: (a, b) => a.size - b.size > 0 ? 1 : -1,
+                render: (text) => `${text} KB`
             },
             {
-                title: 'Address',
-                dataIndex: 'address',
+                title: 'Owner',
+                dataIndex: 'owner',
+                render: (text, record, index) => {
+                    return (
+                        <div>
+                            <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>{typeof text === 'string' && text.slice(0, 1)}</Avatar>
+                            {text}
+                        </div>
+                    );
+                }
+        
             },
             {
-                render: (text, record) => (
-                    <Tooltip content={record.description}>
-                        <Tag color="green">Show Info</Tag>
-                    </Tooltip>
-                ),
-                width: 150,
-            },
+                title: 'Update',
+                dataIndex: 'updateTime',
+                sorter: (a, b) => a.updateTime - b.updateTime > 0 ? 1 : -1,
+                render: (value) => {
+                    return dateFns.format(new Date(value), 'yyyy-MM-dd');
+                }
+            }
         ];
 
-        const data = [];
-        for (let i = 0; i < dataTotalSize; i++) {
-            let age = 40 + (Math.random() > 0.5 ? 1 : -1) * Math.ceil(i / 3);
-            let name = `Edward King ${i}`;
-            data.push({
-                key: '' + i,
-                name,
-                age,
-                address: `London, Park Lane no. ${i} Lake Park`,
-                description: `My name is ${name}, I am ${age} years old, living in New York No. ${i + 1} Lake Park.`,
-            });
-        }
+        this.getData = () => {
+            const data = [];
+            for (let i = 0; i < dataTotalSize; i++) {
+                const isSemiDesign = i % 2 === 0;
+                const randomNumber = (i * 1000) % 199;
+                data.push({
+                    key: '' + i,
+                    name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi Pro design draft${i}.fig`,
+                    owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
+                    size: randomNumber,
+                    updateTime: new Date().valueOf() + randomNumber * DAY,
+                    avatarBg: isSemiDesign ? 'grey' : 'red'
+                });
+            }
+            return data;
+        };
+
+        const data = this.getData();
         this.data = data;
 
         this.mergeColumns = (column, columns, keys = ['dataIndex']) => {
@@ -2817,15 +3533,15 @@ class App extends React.Component {
                     if (column.dataIndex === 'name') {
                         column.filters = [
                             {
-                                text: 'Name contains "1"',
+                                text: 'Name contains 1',
                                 value: '1',
                             },
                             {
-                                text: 'Name contains "2"',
+                                text: 'Name contains 2',
                                 value: '2',
                             },
                             {
-                                text: 'Name contains "3"',
+                                text: 'Name contains 3',
                                 value: '3',
                             },
                         ];
@@ -2841,7 +3557,7 @@ class App extends React.Component {
 
             this.setState({ columns });
 
-            if (!checked) {
+            if(!checked) {
                 this.setPage(null, null, []);
             }
         };
@@ -2920,11 +3636,11 @@ class App extends React.Component {
             let pagination = checked
                 ? false
                 : {
-                      currentPage: 1,
-                      pageSize: 8,
-                      total: data.length,
-                      onPageChange: page => this.setPage(page),
-                  };
+                    currentPage: 1,
+                    pageSize: 8,
+                    total: data.length,
+                    onPageChange: page => this.setPage(page),
+                };
 
             this.setState({ pagination });
         };
@@ -3030,30 +3746,30 @@ class App extends React.Component {
 
         return (
             <div>
-                <div style={wrapStyle}>
-                    <TableSwitch text="Fix header:" checked={scroll && scroll.y} onChange={this.toggleFixHeader} />
-                    <TableSwitch text="Hide header:" onChange={this.toggleHideHeader} />
-                    <TableSwitch text="Display title:" onChange={this.toggleTitle} />
-                    <TableSwitch text="Display footer:" onChange={this.toggleFooter} />
-                    <TableSwitch text="Fix columns:" onChange={this.toggleFixColumns} />
-                    <TableSwitch text="Display selection column:" onChange={this.toggleRowSelection} />
-                    <TableSwitch text="Display loading status:" onChange={this.toggleLoading} checked={loading} />
+                <Space style={wrapStyle} wrap>
+                    <TableSwitch text="Fixed Header:" checked={scroll && scroll.y} onChange={this.toggleFixHeader} />
+                    <TableSwitch text="Hidden Header:" onChange={this.toggleHideHeader} />
+                    <TableSwitch text="Show Header:" onChange={this.toggleTitle} />
+                    <TableSwitch text="Show Footer:" onChange={this.toggleFooter} />
+                    <TableSwitch text="Fixed Column:" onChange={this.toggleFixColumns} />
+                    <TableSwitch text="Show Selection Column:" onChange={this.toggleRowSelection} />
+                    <TableSwitch text="Show Loading:" onChange={this.toggleLoading} checked={loading} />
                     <TableSwitch
-                        text="No data:"
+                        text="Empty Content:"
                         onChange={this.toggleDataSource}
                         checked={!dataSource || !dataSource.length}
                     />
-                    <TableSwitch text="Enable sorting:" onChange={this.toggleShowSorter} />
-                    <TableSwitch text="Enable filtering:" onChange={this.toggleShowFilter} />
+                    <TableSwitch text="Column Sorter:" onChange={this.toggleShowSorter} />
+                    <TableSwitch text="Column Filter:" onChange={this.toggleShowFilter} />
                     <TableSwitch
-                        text="Enable row expansion"
+                        text="Row Expandable:"
                         onChange={this.toggleExpandedRowRender}
                         checked={typeof expandedRowRender === 'function'}
                     />
-                    <TableSwitch text="Expand all rows" onChange={this.toggleExpandedRowKeys} />
-                    <TableSwitch text="Display border:" onChange={this.toggleBordered} checked={bordered} />
-                    <TableSwitch text="Enable resizing:" onChange={this.toggleResizable} />
-                    <TableSwitch text="Table pagination:">
+                    <TableSwitch text="Expand All Rows:" onChange={this.toggleExpandedRowKeys} />
+                    <TableSwitch text="Show Border:" onChange={this.toggleBordered} checked={bordered} />
+                    <TableSwitch text="Column Resizable:" onChange={this.toggleResizable} />
+                    <TableSwitch text="Show Pagination:">
                         <ButtonGroup>
                             <Button onClick={() => this.switchPagination('bottom')}>Bottom</Button>
                             <Button onClick={() => this.switchPagination('top')}>Top</Button>
@@ -3061,7 +3777,7 @@ class App extends React.Component {
                             <Button onClick={() => this.switchPagination(false)}>None</Button>
                         </ButtonGroup>
                     </TableSwitch>
-                </div>
+                </Space>
                 <Table
                     defaultExpandedRowKeys={defaultExpandedRowKeys}
                     onExpandedRowsChange={this.onExpandedRowsChange}
@@ -3118,106 +3834,132 @@ The input parameters accepted by `Column.title` are:
 > The example below renders the checkbox and content into the same cell and header.
 
 ```jsx live=true noInline=true dir="column"
-import React, { useState, useCallback, useEffect, useMemo } from 'react';
-import { Table, Button } from '@douyinfe/semi-ui';
+import React, { useState, useEffect, useMemo } from 'react';
+import { Table, Avatar } from '@douyinfe/semi-ui';
+import * as dateFns from 'date-fns';
 
-function Demo(props = {}) {
+const DAY = 24 * 60 * 60 * 1000;
+const figmaIconUrl = 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png';
+
+const columns = [
+    {
+        title: ({ sorter, filter, selection }) => (
+            <span style={{ display: 'inline-flex', alignItems: 'center', paddingLeft: 20 }}>
+                {selection}
+                <span style={{ marginLeft: 8 }}>Name</span>
+                {sorter}
+                {filter}
+            </span>
+        ),
+        dataIndex: 'name',
+        width: 400,
+        render: (text, record, index) => {
+            return (
+                <div>
+                    <Avatar size="small" shape="square" src={figmaIconUrl} style={{ marginRight: 12 }}></Avatar>
+                    {text}
+                </div>
+            );
+        },
+        filters: [
+            {
+                text: 'Semi Design design draft',
+                value: 'Semi Design design draft',
+            },
+            {
+                text: 'Semi Pro design draft',
+                value: 'Semi Pro design draft',
+            },
+        ],
+        onFilter: (value, record) => record.name.includes(value),
+        useFullRender: true,
+        render: (text, record, index, { expandIcon, selection, indentText }) => {
+            return (
+                <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+                    {indentText}
+                    {expandIcon}
+                    {selection}
+                    <span style={{ marginLeft: 8 }}>
+                        <Avatar size="small" shape="square" src={figmaIconUrl} style={{ marginRight: 12 }}></Avatar>
+                        {text}
+                    </span>
+                </span>
+            );
+        },
+    },
+    {
+        title: 'Size',
+        dataIndex: 'size',
+        sorter: (a, b) => a.size - b.size > 0 ? 1 : -1,
+        render: (text) => `${text} KB`
+    },
+    {
+        title: 'Owner',
+        dataIndex: 'owner',
+        render: (text, record, index) => {
+            return (
+                <div>
+                    <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>{typeof text === 'string' && text.slice(0, 1)}</Avatar>
+                    {text}
+                </div>
+            );
+        }
+
+    },
+    {
+        title: 'Update',
+        dataIndex: 'updateTime',
+        sorter: (a, b) => a.updateTime - b.updateTime > 0 ? 1 : -1,
+        render: (value) => {
+            return dateFns.format(new Date(value), 'yyyy-MM-dd');
+        }
+    }
+];
+
+const getData = (total) => {
+    const data = [];
+    for (let i = 0; i < total; i++) {
+        const isSemiDesign = i % 2 === 0;
+        const randomNumber = (i * 1000) % 199;
+        data.push({
+            key: '' + i,
+            name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi Pro design draft${i}.fig`,
+            owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
+            size: randomNumber,
+            updateTime: new Date().valueOf() + randomNumber * DAY,
+            avatarBg: isSemiDesign ? 'grey' : 'red'
+        });
+    }
+    return data;
+};
+
+function Demo() {
     const [dataSource, setDataSource] = useState([]);
-    const [useFullRender, setUseFullRender] = useState(true);
     const total = 46;
-    const scroll = {
-        // x: '160%',
-        // y: 600,
-    };
-    const pagination = {
+    const pagination = useMemo(() => ({
         pageSize: 12,
-    };
+    }), []);
 
     const rowSelection = useMemo(() => {
         return {
-            hidden: useFullRender,
+            hidden: true,
             fixed: 'left',
         };
-    }, [useFullRender]);
+    }, []);
 
     useEffect(() => {
-        const data = [];
-        for (let i = 0; i < total; i++) {
-            const age = 40 + (Math.random() > 0.5 ? 1 : -1) * (i % 9);
-            const name = `Edward King ${i}`;
-            const no = i + 1;
-            data.push({
-                key: i,
-                name,
-                age,
-                address: `Beijing, Zhong Guan Cun No. ${no}`,
-                description: `My name is ${name}, I am ${age} years old, living in Zhong Guan Cun No. ${no}.`,
-            });
-        }
-
+        const data = getData(total);
         setDataSource(data);
     }, [total]);
-
-    const columns = useMemo(() => {
-        const columns = [
-            {
-                title: ({ sorter, filter, selection }) => (
-                    <span style={{ display: 'inline-flex', alignItems: 'center', paddingLeft: 20 }}>
-                        {selection}
-                        <span style={{ marginLeft: 8 }}>Name</span>
-                        {sorter}
-                        {filter}
-                    </span>
-                ),
-                dataIndex: 'name',
-                filters: [
-                    {
-                        text: 'Name contains "1"',
-                        value: '1',
-                    },
-                    {
-                        text: 'Name contains "2"',
-                        value: '2',
-                    },
-                ],
-                onFilter: (value, record) => record.name.indexOf(value) > -1,
-                sorter: (a, b) => a.name.length - b.name.length,
-                useFullRender,
-                render: (text, record, index, { expandIcon, selection, indentText }) => {
-                    return useFullRender ? (
-                        <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
-                            {indentText}
-                            {expandIcon}
-                            {selection}
-                            <span style={{ marginLeft: 8 }}>{text}</span>
-                        </span>
-                    ) : (
-                        text
-                    );
-                },
-                width: 250,
-            },
-            {
-                title: 'Age',
-                dataIndex: 'age',
-            },
-            {
-                title: 'Address',
-                dataIndex: 'address',
-            },
-        ];
-        return columns;
-    }, [useFullRender]);
 
     return (
         <Table
             pagination={pagination}
-            scroll={scroll}
             rowSelection={rowSelection}
             columns={columns}
             dataSource={dataSource}
             onChange={(...args) => console.log(...args)}
-            expandedRowRender={record => <article>{record.description}</article>}
+            expandedRowRender={record => <article>{record.name}</article>}
         />
     );
 }
@@ -3235,90 +3977,120 @@ Users can use the header merge function to group the header. The header merge ca
 
 ```jsx live=true noInline=true dir="column"
 import React, { useMemo } from 'react';
-import { Table } from '@douyinfe/semi-ui';
+import { Table, Avatar } from '@douyinfe/semi-ui';
+import { IconMore } from '@douyinfe/semi-icons';
+import * as dateFns from 'date-fns';
+
+const DAY = 24 * 60 * 60 * 1000;
+const figmaIconUrl = 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png';
+
+const columns = [
+    {
+        title: 'Basic Info',
+        fixed: 'left',
+        children: [
+            {
+                title: 'Title',
+                dataIndex: 'name',
+                width: 300,
+                fixed: true,
+                render: (text, record, index) => {
+                    return (
+                        <span>
+                            <Avatar size="small" shape="square" src={figmaIconUrl} style={{ marginRight: 12 }}></Avatar>
+                            {text}
+                        </span>
+                    );
+                },
+                filters: [
+                    {
+                        text: 'Semi Design design draft',
+                        value: 'Semi Design design draft',
+                    },
+                    {
+                        text: 'Semi Pro design draft',
+                        value: 'Semi Pro design draft',
+                    },
+                ],
+                onFilter: (value, record) => record.name.includes(value),
+            },
+            {
+                title: 'Size',
+                dataIndex: 'size',
+                width: 100,
+                fixed: true,
+                sorter: (a, b) => a.size - b.size > 0 ? 1 : -1,
+                render: (text) => `${text} KB`
+            },
+        ]
+    },
+    {
+        title: 'Others Info',
+        children: [
+            {
+                title: 'Owner',
+                dataIndex: 'owner',
+                render: (text, record, index) => {
+                    return (
+                        <div>
+                            <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>{typeof text === 'string' && text.slice(0, 1)}</Avatar>
+                            {text}
+                        </div>
+                    );
+                }
+        
+            },
+            {
+                title: 'Update',
+                dataIndex: 'updateTime',
+                sorter: (a, b) => a.updateTime - b.updateTime > 0 ? 1 : -1,
+                render: (value) => {
+                    return dateFns.format(new Date(value), 'yyyy-MM-dd');
+                }
+            }
+        ]
+    },
+    {
+        title: 'More',
+        fixed: 'right',
+        width: 100,
+        align: 'center',
+        dataIndex: 'operate',
+        render: () => {
+            return <IconMore />;
+        }
+    },
+];
+
+const getData = (total) => {
+    const data = [];
+    for (let i = 0; i < total; i++) {
+        const isSemiDesign = i % 2 === 0;
+        const randomNumber = (i * 1000) % 199;
+        data.push({
+            key: '' + i,
+            name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi Pro design draft${i}.fig`,
+            owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
+            size: randomNumber,
+            updateTime: new Date().valueOf() + randomNumber * DAY,
+            avatarBg: isSemiDesign ? 'grey' : 'red'
+        });
+    }
+    return data;
+};
 
 function Demo() {
     const data = useMemo(() => {
-        const data = [];
-        for (let i = 0; i < 100; i++) {
-            let age = 40 + (Math.random() > 0.5 ? 1 : -1) * (i % 9);
-            let name = `Edward King ${i}`;
-            data.push({
-                key: '' + i,
-                company: {
-                    name: 'ByteDance',
-                    address: 'No. 48, Zhichun Road',
-                },
-                name,
-                age,
-                address: `No ${i + 1}, Zhongguancun Street`,
-                description: `My name is ${name}, I am ${age} years old, living in No ${i + 1}, Zhongguancun Street`,
-            });
-        }
-        return data;
+        const _data = getData(46);
+        return _data;
     }, []);
-
-    const columns = useMemo(
-        () => [
-            {
-                title: 'Base Information',
-                fixed: 'left',
-                children: [
-                    {
-                        title: 'Name',
-                        dataIndex: 'name',
-                        fixed: 'left',
-                        width: 200,
-                        filters: [
-                            {
-                                text: 'Code 45',
-                                value: '45',
-                            },
-                            {
-                                text: 'King 4',
-                                value: 'King 4',
-                            },
-                        ],
-                        onFilter: (value, record) => record.name.includes(value),
-                    },
-                    {
-                        title: 'Age',
-                        dataIndex: 'age',
-                        fixed: 'left',
-                        width: 100,
-                        sorter: (a, b) => (a.age - b.age > 0 ? 1 : -1),
-                    },
-                ],
-            },
-            {
-                title: 'Company Information',
-                children: [
-                    {
-                        title: 'Company Name',
-                        dataIndex: 'company.name',
-                    },
-                    {
-                        title: 'Company Address',
-                        dataIndex: 'company.address',
-                    },
-                ],
-            },
-            {
-                title: 'Address',
-                width: 250,
-                dataIndex: 'address',
-                fixed: 'right',
-            },
-        ],
-        []
-    );
 
     return (
         <Table
             rowSelection={{ fixed: true }}
-            expandedRowRender={record => <article>{record.description}</article>}
+            expandedRowRender={record => <article>{record.name}</article>}
             dataSource={data}
-            scroll={{ x: '120%', y: 400 }}
+            scroll={{ y: 400 }}
             onChange={(...args) => console.log(...args)}
             columns={columns}
         />
@@ -3332,68 +4104,83 @@ render(Demo);
 
 ```jsx live=true noInline=true dir="column"
 import React, { useMemo } from 'react';
-import { Table } from '@douyinfe/semi-ui';
+import { Table, Avatar } from '@douyinfe/semi-ui';
+import { IconMore } from '@douyinfe/semi-icons';
+import * as dateFns from 'date-fns';
+
+const DAY = 24 * 60 * 60 * 1000;
+const figmaIconUrl = 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png';
+const Column = Table.Column;
+
+const getData = (total) => {
+    const data = [];
+    for (let i = 0; i < total; i++) {
+        const isSemiDesign = i % 2 === 0;
+        const randomNumber = (i * 1000) % 199;
+        data.push({
+            key: '' + i,
+            name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi Pro design draft${i}.fig`,
+            owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
+            size: randomNumber,
+            updateTime: new Date().valueOf() + randomNumber * DAY,
+            avatarBg: isSemiDesign ? 'grey' : 'red'
+        });
+    }
+    return data;
+};
 
 function Demo() {
     const data = useMemo(() => {
-        const data = [];
-        for (let i = 0; i < 100; i++) {
-            let age = 40 + (Math.random() > 0.5 ? 1 : -1) * (i % 9);
-            let name = `Edward King ${i}`;
-            data.push({
-                key: '' + i,
-                company: {
-                    name: 'ByteDance',
-                    address: 'No. 48, Zhichun Road',
-                },
-                name,
-                age,
-                address: `No ${i + 1}, Zhongguancun Street`,
-                description: `My name is ${name}, I am ${age} years old, living in No ${i + 1}, Zhongguancun Street`,
-            });
-        }
-        return data;
+        const _data = getData(46);
+        return _data;
     }, []);
+
+    const nameFilters = [
+        {
+            text: 'Semi Design design draft',
+            value: 'Semi Design design draft',
+        },
+        {
+            text: 'Semi Pro design draft',
+            value: 'Semi Pro design draft',
+        },
+    ];
+
+    const renderName = (text, record, index) => {
+        return (
+            <span>
+                <Avatar size="small" shape="square" src={figmaIconUrl} style={{ marginRight: 12 }}></Avatar>
+                {text}
+            </span>
+        );
+    };
+
+    const renderOwner = (text, record, index) => {
+        return (
+            <div>
+                <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>{typeof text === 'string' && text.slice(0, 1)}</Avatar>
+                {text}
+            </div>
+        );
+    };
 
     return (
         <Table
             rowSelection={{ fixed: true }}
-            expandedRowRender={record => <article>{record.description}</article>}
+            expandedRowRender={record => <article>{record.name}</article>}
             dataSource={data}
-            scroll={{ x: '120%', y: 400 }}
+            scroll={{ y: 400 }}
             onChange={(...args) => console.log(...args)}
         >
-            <Table.Column title={'Base Information'} fixed>
-                <Table.Column
-                    title={'Name'}
-                    dataIndex={'name'}
-                    fixed
-                    width={200}
-                    filters={[
-                        {
-                            text: 'Code 45',
-                            value: '45',
-                        },
-                        {
-                            text: 'King 4',
-                            value: 'King 4',
-                        },
-                    ]}
-                    onFilter={(value, record) => record.name.includes(value)}
-                />
-                <Table.Column
-                    title={'Age'}
-                    dataIndex={'age'}
-                    fixed
-                    width={100}
-                    sorter={(a, b) => (a.age - b.age > 0 ? 1 : -1)}
-                />
-            </Table.Column>
-            <Table.Column title={'Company Information'}>
-                <Table.Column title={'Company Name'} dataIndex={'company.name'} />
-                <Table.Column title={'Company Address'} dataIndex={'company.address'} />
-            </Table.Column>
-            <Table.Column title={'Address'} width={250} fixed={'right'} dataIndex={'address'} />
+            <Column title="Basic Info" fixed="left">
+                <Column title="Title" dataIndex="name" width={300} fixed render={renderName} filters={nameFilters} onFilter={(value, record) => record.name.includes(value)} />
+                <Column title="Size" dataIndex="size" width={100} fixed render={(text) => `${text} KB`} sorter={(a, b) => a.size - b.size > 0 ? 1 : -1} ></Column>
+            </Column>
+            <Column title="Others Info">
+                <Column title="Owner" dataIndex="owner" render={renderOwner} />
+                <Column title="Update" dataIndex="updateTime" sorter={(a, b) => a.updateTime - b.updateTime > 0 ? 1 : -1} render={(value) => dateFns.format(new Date(value), 'yyyy-MM-dd')}></Column>
+            </Column>
+            <Column title="More" dataIndex="operate" fixed="right" width={100} align="center" render={() => <IconMore />} />
         </Table>
     );
 }
@@ -3422,123 +4209,159 @@ interface RenderOptions {
 ```
 
 ```jsx live=true noInline=true dir="column"
-import React, { useMemo } from 'react';
-import { Table } from '@douyinfe/semi-ui';
+import React, { useState, useMemo } from 'react';
+import { Table, Avatar } from '@douyinfe/semi-ui';
+import * as dateFns from 'date-fns';
 
-const App = () => {
-    const renderContent = (value, row, index) => {
-        const obj = {
-            children: value,
-            props: {},
-        };
-        if (index === 4) {
-            obj.props.colSpan = 0;
+const figmaIconUrl = 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png';
+const columns = [
+    {
+        title: 'Title',
+        dataIndex: 'name',
+        width: 400,
+        render: (text, record, index) => {
+            const renderObject = {};
+            const children = (
+                <div>
+                    <Avatar size="small" shape="square" src={figmaIconUrl} style={{ marginRight: 12 }}></Avatar>
+                    {text}
+                </div>
+            );
+            renderObject.children = children;
+            if (index === 0) {
+                renderObject.props = {
+                    colSpan: 4,
+                }
+            }
+            if (index === 1) {
+                renderObject.props = {
+                    rowSpan: 2,
+                }
+            }
+            if (index === 2) {
+                renderObject.props = {
+                    rowSpan: 0,
+                }
+            }
+            return renderObject;
+        },
+    },
+    {
+        title: 'Size',
+        dataIndex: 'size',
+        render: (text, record, index) => {
+            if (index === 0) {
+                return {
+                    children: `${text} KB`,
+                    props: {
+                        colSpan: 0,
+                    }
+                }
+            }
+            if (index === 1) {
+                return {
+                    children: `${text} KB`,
+                    props: {
+                        rowSpan: 2,
+                    }
+                }
+            }
+            if (index === 2) {
+                return {
+                    children: `${text} KB`,
+                    props: {
+                        rowSpan: 0,
+                    }
+                }
+            }
+            return `${text} KB`;
         }
-        return obj;
+    },
+    {
+        title: 'Owner',
+        dataIndex: 'owner',
+        render: (text, record, index) => {
+            const children = (
+                <div>
+                    <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>{typeof text === 'string' && text.slice(0, 1)}</Avatar>
+                    {text}
+                </div>
+            );
+            if (index === 0) {
+                return {
+                    children,
+                    props: {
+                        colSpan: 0,
+                    }
+                }
+            }
+            return children;
+        }
+    },
+    {
+        title: 'Update',
+        dataIndex: 'updateTime',
+        sorter: (a, b) => a.updateTime - b.updateTime > 0 ? 1 : -1,
+        render: (value, record, index) => {
+            const children = dateFns.format(new Date(value), 'yyyy-MM-dd');
+            if (index === 0) {
+                return {
+                    children,
+                    props: {
+                        colSpan: 0
+                    }
+                }
+            }
+            if (index === 1) {
+                return {
+                    children,
+                    props: {
+                        rowSpan: 2
+                    }
+                }
+            }
+            if (index === 2) {
+                return {
+                    children,
+                    props: {
+                        rowSpan: 0
+                    }
+                }
+            }
+            return children;
+        }
+    }
+];
+
+const DAY = 24 * 60 * 60 * 1000;
+
+function App() {
+    const [dataSource, setData] = useState([]);
+
+    const getData = (total) => {
+        const data = [];
+        for (let i = 0; i < total; i++) {
+            const isSemiDesign = i % 2 === 0;
+            const randomNumber = (i * 1000) % 199;
+            data.push({
+                key: '' + i,
+                name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi Pro design draft${i}.fig`,
+                owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
+                size: randomNumber,
+                updateTime: new Date().valueOf() + randomNumber * DAY,
+                avatarBg: isSemiDesign ? 'grey' : 'red'
+            });
+        }
+        return data;
     };
 
-    const columns = [
-        {
-            title: 'Name',
-            dataIndex: 'name',
-            render: (text, row, index) => {
-                if (index < 4) {
-                    return <a>{text}</a>;
-                }
-                return {
-                    children: <a>{text}</a>,
-                    props: {
-                        colSpan: 5,
-                    },
-                };
-            },
-        },
-        {
-            title: 'Age',
-            dataIndex: 'age',
-            render: renderContent,
-        },
-        {
-            title: 'Home phone',
-            colSpan: 2,
-            dataIndex: 'tel',
-            render: (value, row, index) => {
-                const obj = {
-                    children: value,
-                    props: {},
-                };
-                if (index === 2) {
-                    obj.props.rowSpan = 2;
-                }
-                // These two are merged into above cell
-                if (index === 3) {
-                    obj.props.rowSpan = 0;
-                }
-                if (index === 4) {
-                    obj.props.colSpan = 0;
-                }
-                return obj;
-            },
-        },
-        {
-            title: 'Phone',
-            colSpan: 0,
-            dataIndex: 'phone',
-            render: renderContent,
-        },
-        {
-            title: 'Address',
-            dataIndex: 'address',
-            render: renderContent,
-        },
-    ];
+    useEffect(() => {
+        const data = getData(5);
+        setData(data);
+    }, []);
 
-    const data = [
-        {
-            key: '1',
-            name: 'John Brown',
-            age: 32,
-            tel: '0571-22098909',
-            phone: 18889898989,
-            address: 'New York No. 1 Lake Park',
-        },
-        {
-            key: '2',
-            name: 'Jim Green',
-            tel: '0571-22098333',
-            phone: 18889898888,
-            age: 42,
-            address: 'London No. 1 Lake Park',
-        },
-        {
-            key: '3',
-            name: 'Joe Black',
-            age: 32,
-            tel: '0575-22098909',
-            phone: 18900010002,
-            address: 'Sidney No. 1 Lake Park',
-        },
-        {
-            key: '4',
-            name: 'Jim Red',
-            age: 18,
-            tel: '0575-22098909',
-            phone: 18900010002,
-            address: 'London No. 2 Lake Park',
-        },
-        {
-            key: '5',
-            name: 'Jake White',
-            age: 18,
-            tel: '0575-22098909',
-            phone: 18900010002,
-            address: 'Dublin No. 2 Lake Park',
-        },
-    ];
-    return (
-        <Table dataSource={data} columns={columns} />
-    );
-};
+    return <Table columns={columns} dataSource={dataSource} pagination={false} />;
+}
 
 render(App);
 ```
@@ -3665,28 +4488,33 @@ function App() {
 > Also in `column.onCell` `column.onHeaderCell` Properties or events supported by td / th can also be returned.
 
 ```jsx noInline=true
-<Table
-    onRow={(record, index) => {
-        return {
-            onClick: event => {},
-            onMouseEnter: event => {},
-            onMouseLeave: event => {},
-            className: '',
+import React from 'react';
+import { Table } from '@douyinfe/semi-ui';
+
+() => (
+    <Table
+        onRow={(record, index) => {
+            return {
+                onClick: event => {},
+                onMouseEnter: event => {},
+                onMouseLeave: event => {},
+                className: '',
             // ...
             // Other attributes or events that can be applied to tr
-        };
-    }}
-    onHeaderRow={(columns, index) => {
-        return {
-            onClick: event => {},
-            onMouseEnter: event => {},
-            onMouseLeave: event => {},
-            className: '',
+            };
+        }}
+        onHeaderRow={(columns, index) => {
+            return {
+                onClick: event => {},
+                onMouseEnter: event => {},
+                onMouseLeave: event => {},
+                className: '',
             // ...
             // Other attributes or events that can be applied to th
-        };
-    }}
-/>
+            };
+        }}
+    />
+);
 ```
 
 ## Column
@@ -3697,7 +4525,7 @@ function App() {
 | children                      | Settings for sub-columns when the header is merged                                                                                            | Column[]                                                                                          |        |
 | className                     | Column style name                                                                                                                                                                                    | string                                                                                             |         |
 | colSpan                       | When header columns merge, set to 0, do not render                                                                                                                                                   | number                                                                                             |         |
-| dataIndex                     | The key corresponding to the column data in the data item.                                                                                                                                           | string                                                                                             |         |
+| dataIndex                     | The key corresponding to the column data in the data item. It is required when using sorter or filter.                                                                                                                                           | string                                                                                             |         |
 | defaultSortOrder              | The default value of sortOrder, one of 'ascend'\|'descend'\|false                                         | boolean\| string                                                                                          |  false  | **1.31.0**
 | filterChildrenRecord          | Whether the child data needs to be filtered locally. If this function is enabled, if the child meets the filtering criteria, the parent will retain it even if it does not meet the criteria.        | boolean                                                                                            |         | **0.29.0**                         |
 | filterDropdown                | You can customize the filter menu. This function is only responsible for rendering the layer and needs to write a variety of interactions.                                                           | ReactNode                                                                                          |         |
@@ -3746,9 +4574,9 @@ type Filter = {
 | selectedRowKeys  | Specifies the key array of the selected item, which needs to work with onChange | string []                                                                                    |           |                    |
 | title            | Custom List Selection Box Title                                                 | string                                                                                       | ReactNode |                    |
 | width            | Custom list selection box width                                                 | string                                                                                       | number    |                    |
-| onChange         | A callback in the event of a change in the selected item                        | (selectedRowKeys: number[]\|string[], selectedRows: RecordType[]) => void                        |           |                    |
-| onSelect         | The user manually selects / unselects the callback of a line                    | (record: RecordType, selected: boolean, selectedRows: RecordType[], nativeEvent: MouseEvent) => void |           |                    |
-| onSelectAll      | User manually selects / unselects callbacks for all rows                        | (selected: boolean, selectedRows: RecordType[], changedRows: RecordType[]) => void                   |           |                    |
+| onChange         | A callback in the event of a change in the selected item. The first parameter will save the row keys selected last time, even if you do paging control or update the dataSource [FAQ](#faq) | (selectedRowKeys: number[]\|string[], selectedRows: RecordType[]) => void                        |           |                    |
+| onSelect         | Callback when the user manually clicks the selection box of a row               | (record: RecordType, selected: boolean, selectedRows: RecordType[], nativeEvent: MouseEvent) => void |           |                    |
+| onSelectAll      | The user manually clicks the callback of the header selection box, and all optional rows in the dataSource will be selected/unselected                        | (selected: boolean, selectedRows: RecordType[], changedRows: RecordType[]) => void                   |           |                    |
 
 ## scroll
 
@@ -3826,9 +4654,10 @@ function Demo() {
 ## FAQ
 - **Why is the table data not updated?**  
     At present, all parameters of the table component are shallow comparison. That is to say, if the parameter value type is an array or object, you need to manually change its reference to trigger the update. Similarly, if you don't want to trigger additional updates, try not to use literal values when passing parameters directly or define reference parameter values in the render process:
-    ```jsx
+    ```text
     // ...render() {
-        <Table dataSource={[/*...*/]} columns={[/*...*/]} />}
+        <Table dataSource={[/*...*/]} columns={[/*...*/]} />
+    // }
     ```
     The above writing method will trigger the update of data in the table every time render (the current selected row will be cleared and the row key array will be expanded, etc.). In order to improve performance and avoid some exceptions, please define some reference type parameters outside the render method as far as possible (if hooks are used, please use useMemo or useState for storage).**
 
@@ -3848,7 +4677,17 @@ function Demo() {
     
     It can be controlled by column.onHeaderCell and column.onCell.
 
+- **Why cache the previously selected keys for the first parameter of `rowSelection` `onChange`?**
+    
+    This is for the scenario where the selected row keys are lost when data is selected on the first page during paging, and then the data is selected on the second page. If you don't want to use the cached keys, you can filter it from the current dataSource or use the second parameter of `rowSelection` `onChange`.
+
+- **How is Table implemented, I want to know more details?**
+
+    Please click <a href="https://bytedance.feishu.cn/docs/doccnqLgNefWGMZHFz7j70GKqpY" target="_blank">Semi Table component design</a>
+
 See more Table FAQ and demos, please click <a href="https://bytedance.feishu.cn/docs/doccnsYk1qUmsIDP1ihJ9zjG0Ch" target="_blank">Table FAQ</a>
+
+
 
 <!-- ## Related Material
 ```material

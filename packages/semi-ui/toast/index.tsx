@@ -15,7 +15,7 @@ import ToastTransition from './ToastTransition';
 import getUuid from '@douyinfe/semi-foundation/utils/uuid';
 import useToast from './useToast';
 import { ConfigProps, ToastInstance, ToastProps, ToastState } from '@douyinfe/semi-foundation/toast/toastFoundation';
-import { Motion } from '_base/base';
+import { Motion } from '../_base/base';
 
 export { ToastTransitionProps } from './ToastTransition';
 export interface ToastReactProps extends ToastProps{
@@ -25,6 +25,7 @@ export interface ToastReactProps extends ToastProps{
 }
 
 export {
+    ConfigProps,
     ToastListProps,
     ToastListState,
     ToastState
@@ -218,12 +219,12 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
     }
 
 
-}
+};
 
 
 export class ToastFactory {
     static create(config?: ConfigProps): ReturnType<typeof createBaseToast> {
-        const newToast = createBaseToast()
+        const newToast = createBaseToast();
         newToast.useToast = useToast;
         config && newToast.config(config);
         return newToast;

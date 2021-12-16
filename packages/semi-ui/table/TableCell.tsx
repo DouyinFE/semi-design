@@ -3,7 +3,7 @@
 import React, { createRef, Fragment, ReactNode } from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
-import { get, noop, set, omit, isEqual, merge } from 'lodash-es';
+import { get, noop, set, omit, isEqual, merge } from 'lodash';
 
 import { cssClasses, numbers } from '@douyinfe/semi-foundation/table/constants';
 import TableCellFoundation, { TableCellAdapter } from '@douyinfe/semi-foundation/table/cellFoundation';

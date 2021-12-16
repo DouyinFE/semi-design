@@ -3,7 +3,7 @@ import BaseComponent, { BaseProps } from '../_base/baseComponent';
 import React, { Children } from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
-import { noop, get, isEqual } from 'lodash-es';
+import { noop, get, isEqual } from 'lodash';
 
 import NavigationFoundation, { NavigationAdapter } from '@douyinfe/semi-foundation/navigation/foundation';
 import { strings, cssClasses, numbers } from '@douyinfe/semi-foundation/navigation/constants';
@@ -15,7 +15,7 @@ import Header, { NavHeaderProps } from './Header';
 import NavContext from './nav-context';
 import LocaleConsumer from '../locale/localeConsumer';
 import '@douyinfe/semi-foundation/navigation/navigation.scss';
-import { Motion } from '_base/base';
+import { Motion } from '../_base/base';
 
 export { CollapseButtonProps } from './CollapseButton';
 export { NavFooterProps } from './Footer';
@@ -50,8 +50,8 @@ export interface NavProps extends BaseProps {
     defaultIsCollapsed?: boolean;
     defaultOpenKeys?: React.ReactText[];
     defaultSelectedKeys?: React.ReactText[];
-    footer?: React.ReactNode | NavHeaderProps;
-    header?: React.ReactNode | NavFooterProps;
+    footer?: React.ReactNode | NavFooterProps;
+    header?: React.ReactNode | NavHeaderProps;
     isCollapsed?: boolean;
     items?: NavItems;
     limitIndent?: boolean;

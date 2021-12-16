@@ -8,6 +8,9 @@ export interface BasicCheckboxEvent {
     target: BasicTargetObject;
     stopPropagation: () => void;
     preventDefault: () => void;
+    nativeEvent: {
+        stopImmediatePropagation: () => void;
+    }
 }
 export interface CheckboxAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     getIsInGroup: () => boolean;
@@ -28,7 +31,7 @@ class CheckboxFoundation<P = Record<string, any>, S = Record<string, any>> exten
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     init() {}
 
-    getEvent(checked: boolean, e: MouseEvent) {
+    getEvent(checked: boolean, e: any) {
         const props = this.getProps();
         const cbValue = {
             target: {
@@ -41,16 +44,23 @@ class CheckboxFoundation<P = Record<string, any>, S = Record<string, any>> exten
             preventDefault: () => {
                 e.preventDefault();
             },
+            nativeEvent: {
+                stopImmediatePropagation: () => {
+                    if (e.nativeEvent && typeof e.nativeEvent.stopImmediatePropagation === 'function') {
+                        e.nativeEvent.stopImmediatePropagation();
+                    }
+                }
+            },
         };
         return cbValue;
     }
 
-    notifyChange(checked: boolean, e: MouseEvent) {
+    notifyChange(checked: boolean, e: any) {
         const cbValue = this.getEvent(checked, e);
         this._adapter.notifyChange(cbValue);
     }
 
-    handleChange(e: MouseEvent) {
+    handleChange(e: any) {
         const disabled = this.getProp('disabled');
 
         if (disabled) {
@@ -78,7 +88,7 @@ class CheckboxFoundation<P = Record<string, any>, S = Record<string, any>> exten
         }
     }
 
-    handleChangeInGroup(e: MouseEvent) {
+    handleChangeInGroup(e: any) {
         const { value } = this.getProps();
         const groupValue = this._adapter.getGroupValue();
         const checked = groupValue.includes(value);
@@ -97,6 +107,7 @@ class CheckboxFoundation<P = Record<string, any>, S = Record<string, any>> exten
 }
 
 export interface BaseCheckboxProps {
+    id?: string;
     autoFocus?: boolean;
     checked?: boolean;
     defaultChecked?: boolean;

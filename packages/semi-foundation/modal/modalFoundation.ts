@@ -1,4 +1,3 @@
-import { get } from 'lodash-es';
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import { Motion } from '../utils/type';
 
@@ -11,7 +10,7 @@ export interface ModalAdapter extends DefaultAdapter<ModalProps, ModalState> {
     notifyCancel: (e: any) => void;
     notifyOk: (e: any) => void;
     notifyClose: () => void;
-    toggleHidden: (hidden: boolean) => void;
+    toggleHidden: (hidden: boolean, callback?: (hidden: boolean) => void) => void;
     notifyFullScreen: (isFullScreen: boolean) => void;
     getProps: () => ModalProps;
 }
@@ -30,7 +29,7 @@ export interface ModalProps {
     footer?: any;
     hasCancel?: boolean;
     header?: any;
-    height?: number;
+    height?: string | number;
     mask?: boolean;
     maskClosable?: boolean;
     maskStyle?: Record<string, any>;
@@ -44,7 +43,7 @@ export interface ModalProps {
     style?: Record<string, any>;
     title?: any;
     visible?: boolean;
-    width?: number;
+    width?: string | number;
     zIndex?: number;
     icon?: any;
     getPopupContainer?: () => HTMLElement;
@@ -95,8 +94,8 @@ export default class ModalFoundation extends BaseFoundation<ModalAdapter> {
     }
 
 
-    toggleHidden = (hidden: boolean) => {
-        this._adapter.toggleHidden(hidden);
+    toggleHidden = (hidden: boolean, callback?: (hidden: boolean) => void) => {
+        this._adapter.toggleHidden(hidden, callback);
     };
 
     // // eslint-disable-next-line max-len

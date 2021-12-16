@@ -30,17 +30,17 @@ import React from 'react';
 import { Typography } from '@douyinfe/semi-ui';
 
 function Demo() {
-  const { Title } = Typography;
-  return (
-    <div>
-        <Title  style={{margin: '8px 0'}} >h1. Semi Design</Title>
-        <Title with={2} style={{margin: '8px 0'}} >h2. Semi Design</Title>
-        <Title heading={3} style={{margin: '8px 0'}} >h3. Semi Design</Title>
-        <Title heading={4} style={{margin: '8px 0'}} >h4. Semi Design</Title>
-        <Title heading={5} style={{margin: '8px 0'}} >h5. Semi Design</Title>
-        <Title heading={6} style={{margin: '8px 0'}} >h6. Semi Design</Title>
-    </div>
-  );
+    const { Title } = Typography;
+    return (
+        <div>
+            <Title  style={{margin: '8px 0'}} >h1. Semi Design</Title>
+            <Title with={2} style={{margin: '8px 0'}} >h2. Semi Design</Title>
+            <Title heading={3} style={{margin: '8px 0'}} >h3. Semi Design</Title>
+            <Title heading={4} style={{margin: '8px 0'}} >h4. Semi Design</Title>
+            <Title heading={5} style={{margin: '8px 0'}} >h5. Semi Design</Title>
+            <Title heading={6} style={{margin: '8px 0'}} >h6. Semi Design</Title>
+        </div>
+    );
 }
 ```
 
@@ -53,48 +53,48 @@ import React from 'react';
 import { Typography } from '@douyinfe/semi-ui';
 
 function Demo() {
-  const { Text } = Typography;
-  return (
-    <div>
-        <Text>Text</Text>
-        <br />
-        <br />
-        <Text type="secondary">Secondary</Text>
-        <br />
-        <br />
-        <Text type="tertiary">Tertiary v>=1.2.0</Text>
-        <br />
-        <br />
-        <Text type="quaternary">Quaternary v>=1.2.0</Text>
-        <br />
-        <br />
-        <Text type="warning">Warning</Text>
-        <br />
-        <br />
-        <Text type="success">Success v>=1.7.0</Text>
-        <br />
-        <br />
-        <Text type="danger">Danger</Text>
-        <br />
-        <br />
-        <Text disabled>Disabled</Text>
-        <br />
-        <br />
-        <Text mark>Default Mark</Text>
-        <br />
-        <br />
-        <Text code>Example Code</Text>
-        <br />
-        <br />
-        <Text underline>Underline</Text>
-        <br />
-        <br />
-        <Text delete>Deleted</Text>
-        <br />
-        <br />
-        <Text strong>Strong</Text>
-    </div>
-  );
+    const { Text } = Typography;
+    return (
+        <div>
+            <Text>Text</Text>
+            <br />
+            <br />
+            <Text type="secondary">Secondary</Text>
+            <br />
+            <br />
+            <Text type="tertiary">{'Tertiary v>=1.2.0'}</Text>
+            <br />
+            <br />
+            <Text type="quaternary">{'Quaternary v>=1.2.0'}</Text>
+            <br />
+            <br />
+            <Text type="warning">Warning</Text>
+            <br />
+            <br />
+            <Text type="success">{'Success v>=1.7.0'}</Text>
+            <br />
+            <br />
+            <Text type="danger">Danger</Text>
+            <br />
+            <br />
+            <Text disabled>Disabled</Text>
+            <br />
+            <br />
+            <Text mark>Default Mark</Text>
+            <br />
+            <br />
+            <Text code>Example Code</Text>
+            <br />
+            <br />
+            <Text underline>Underline</Text>
+            <br />
+            <br />
+            <Text delete>Deleted</Text>
+            <br />
+            <br />
+            <Text strong>Strong</Text>
+        </div>
+    );
 }
 ```
 
@@ -106,18 +106,18 @@ import { Typography } from '@douyinfe/semi-ui';
 import { IconLink } from '@douyinfe/semi-icons';
 
 function Demo() {
-  const { Text } = Typography;
-  return (
-    <div>
-      <Text link={{ href: 'https://semi.design/' }}>Link</Text>
-      <br />
-      <br />
-      <Text link={{ href: 'https://semi.design/' }}>Open Website</Text>
-      <br />
-      <br />
-      <Text link icon={<IconLink />} underline>Link</Text>
-    </div>
-  )
+    const { Text } = Typography;
+    return (
+        <div>
+            <Text link={{ href: 'https://semi.design/' }}>Link</Text>
+            <br />
+            <br />
+            <Text link={{ href: 'https://semi.design/' }}>Open Website</Text>
+            <br />
+            <br />
+            <Text link icon={<IconLink />} underline>Link</Text>
+        </div>
+    );
 }
 ```
 
@@ -130,20 +130,20 @@ import React from 'react';
 import { Typography } from '@douyinfe/semi-ui';
 
 function Demo() {
-  const { Paragraph, Title } = Typography;
-  return (
-    <div>
-        <Title heading={5}>Default Spacing</Title>
-        <Paragraph>
-            Life's but a walking shadow, a poor player, that struts and frets his hour upon the stage, and then is heard no more; it is a tale told by an idiot, full of sound and fury, signifying nothing.
-        </Paragraph>
-        <br />
-        <Title heading={5}>Extended Spacing</Title>
-        <Paragraph spacing="extended">
-            Life's but a walking shadow, a poor player, that struts and frets his hour upon the stage, and then is heard no more; it is a tale told by an idiot, full of sound and fury, signifying nothing.
-        </Paragraph>
-    </div>
-  );
+    const { Paragraph, Title } = Typography;
+    return (
+        <div>
+            <Title heading={5}>Default Spacing</Title>
+            <Paragraph>
+                {`Life's but a walking shadow, a poor player, that struts and frets his hour upon the stage, and then is heard no more; it is a tale told by an idiot, full of sound and fury, signifying nothing.`}
+            </Paragraph>
+            <br />
+            <Title heading={5}>Extended Spacing</Title>
+            <Paragraph spacing="extended">
+                {`Life's but a walking shadow, a poor player, that struts and frets his hour upon the stage, and then is heard no more; it is a tale told by an idiot, full of sound and fury, signifying nothing.`}
+            </Paragraph>
+        </div>
+    );
 }
 ```
 
@@ -156,20 +156,20 @@ import React from 'react';
 import { Typography } from '@douyinfe/semi-ui';
 
 function Demo() {
-  const { Paragraph, Text } = Typography;
-  return (
-    <div>
-        <Text>Normal</Text>
-        <Paragraph spacing="extended">
-            Life's but a walking shadow, a poor player, that struts and frets his hour upon the stage, and then is heard no more; it is a tale told by an idiot, full of sound and fury, signifying nothing.
-        </Paragraph>
-        <br />
-        <Text size='small'>Small</Text>
-        <Paragraph size='small'>
-            Life's but a walking shadow, a poor player, that struts and frets his hour upon the stage, and then is heard no more; it is a tale told by an idiot, full of sound and fury, signifying nothing.
-        </Paragraph>
-    </div>
-  );
+    const { Paragraph, Text } = Typography;
+    return (
+        <div>
+            <Text>Normal</Text>
+            <Paragraph spacing="extended">
+                {`Life's but a walking shadow, a poor player, that struts and frets his hour upon the stage, and then is heard no more; it is a tale told by an idiot, full of sound and fury, signifying nothing.`}
+            </Paragraph>
+            <br />
+            <Text size='small'>Small</Text>
+            <Paragraph size='small'>
+                {`Life's but a walking shadow, a poor player, that struts and frets his hour upon the stage, and then is heard no more; it is a tale told by an idiot, full of sound and fury, signifying nothing.`}
+            </Paragraph>
+        </div>
+    );
 }
 ```
 
@@ -179,22 +179,22 @@ Copyable text.
 
 ```jsx live=true
 import React from 'react';
-import { Typography } from '@douyinfe/semi-ui';
+import { Typography, TextArea } from '@douyinfe/semi-ui';
 
 function Demo() {
-  const { Paragraph, Text } = Typography;
+    const { Paragraph, Text } = Typography;
 
-  return (
-    <div>
-        <Paragraph copyable>Click the right icon to copy text.</Paragraph>
-        <Paragraph copyable={{ content: 'Hello, Semi Design!' }}>Click to copy text.</Paragraph>
-        <Paragraph copyable={{ onCopy: () => Toast.success({ content: 'Successfully copied.'}) }}>Click the right icon to copy.</Paragraph>
-        <br/>
-        <Text type="secondary">Paste here: </Text>
-        <br/>
-        <TextArea autosize style={{width: 320, marginTop: 4}} rows={3} />
-    </div>
-  );
+    return (
+        <div>
+            <Paragraph copyable>Click the right icon to copy text.</Paragraph>
+            <Paragraph copyable={{ content: 'Hello, Semi Design!' }}>Click to copy text.</Paragraph>
+            <Paragraph copyable={{ onCopy: () => Toast.success({ content: 'Successfully copied.'}) }}>Click the right icon to copy.</Paragraph>
+            <br/>
+            <Text type="secondary">Paste here: </Text>
+            <br/>
+            <TextArea autosize style={{width: 320, marginTop: 4}} rows={3} />
+        </div>
+    );
 }
 ```
 
@@ -208,46 +208,46 @@ import React from 'react';
 import { Typography } from '@douyinfe/semi-ui';
 
 function Demo() {
-  const { Paragraph, Text, Title } = Typography;
+    const { Paragraph, Text, Title } = Typography;
 
-  return (
-    <div>
-        <Title heading={5} ellipsis={{ showTooltip: true }} style={{ width: 250 }}>
-            This is a supercalifragilisticexpialidocious title
-        </Title>
-        <br />
-        <Text 
-          ellipsis={{ 
-            showTooltip:{
-              opts: { content: 'This is a supercalifragilisticexpialidocious tooltip' }
-            }
-          }}
-          style={{ width: 150 }}
-        >
-          Custom tooltip text if you need
-        </Text>
-        <br />
-        <Text link ellipsis={{ showTooltip: true, pos: 'middle' }} style={{ width: 150 }}>
-            This is a supercalifragilisticexpialidocious link
-        </Text>
-        <br/>
-        <Paragraph ellipsis={{ suffix: '-Macbeth' }} style={{ width: 300 }}>
-            With suffix: Life's but a walking shadow, a poor player, that struts and frets his hour upon the stage, and then is heard no more; it is a tale told by an idiot, full of sound and fury, signifying nothing.
-        </Paragraph>
-        <br/>
-        <Paragraph ellipsis={{ rows: 3 }} style={{ width: 300 }}>
-            Multi-line ellipsis: Life's but a walking shadow, a poor player, that struts and frets his hour upon the stage, and then is heard no more; it is a tale told by an idiot, full of sound and fury, signifying nothing.
-        </Paragraph>
-        <br/>
-        <Paragraph ellipsis={{ rows: 3, showTooltip: {type: 'popover', opts: {style: {width: 300}}} }} style={{ width: 300 }}>
-            With Popover: Life's but a walking shadow, a poor player, that struts and frets his hour upon the stage, and then is heard no more; it is a tale told by an idiot, full of sound and fury, signifying nothing.
-        </Paragraph>
-        <br/>
-        <Paragraph ellipsis={{ rows: 3, expandable: true, collapsible: true, collapseText: 'Show Less', onExpand: (bool, e) => console.log(bool, e) }} style={{ width: 300 }}>
-            Expandable and collapsible: Life's but a walking shadow, a poor player, that struts and frets his hour upon the stage, and then is heard no more; it is a tale told by an idiot, full of sound and fury, signifying nothing.
-        </Paragraph>
-    </div>
-  );
+    return (
+        <div>
+            <Title heading={5} ellipsis={{ showTooltip: true }} style={{ width: 250 }}>
+                This is a supercalifragilisticexpialidocious title
+            </Title>
+            <br />
+            <Text 
+                ellipsis={{ 
+                    showTooltip:{
+                        opts: { content: 'This is a supercalifragilisticexpialidocious tooltip' }
+                    }
+                }}
+                style={{ width: 150 }}
+            >
+                Custom tooltip text if you need
+            </Text>
+            <br />
+            <Text link ellipsis={{ showTooltip: true, pos: 'middle' }} style={{ width: 150 }}>
+                This is a supercalifragilisticexpialidocious link
+            </Text>
+            <br/>
+            <Paragraph ellipsis={{ suffix: '-Macbeth' }} style={{ width: 300 }}>
+                {`With suffix: Life's but a walking shadow, a poor player, that struts and frets his hour upon the stage, and then is heard no more; it is a tale told by an idiot, full of sound and fury, signifying nothing.`}
+            </Paragraph>
+            <br/>
+            <Paragraph ellipsis={{ rows: 3 }} style={{ width: 300 }}>
+                {`Multi-line ellipsis: Life's but a walking shadow, a poor player, that struts and frets his hour upon the stage, and then is heard no more; it is a tale told by an idiot, full of sound and fury, signifying nothing.`}
+            </Paragraph>
+            <br/>
+            <Paragraph ellipsis={{ rows: 3, showTooltip: {type: 'popover', opts: {style: {width: 300}}} }} style={{ width: 300 }}>
+                {`With Popover: Life's but a walking shadow, a poor player, that struts and frets his hour upon the stage, and then is heard no more; it is a tale told by an idiot, full of sound and fury, signifying nothing.`}
+            </Paragraph>
+            <br/>
+            <Paragraph ellipsis={{ rows: 3, expandable: true, collapsible: true, collapseText: 'Show Less', onExpand: (bool, e) => console.log(bool, e) }} style={{ width: 300 }}>
+                {`Expandable and collapsible: Life's but a walking shadow, a poor player, that struts and frets his hour upon the stage, and then is heard no more; it is a tale told by an idiot, full of sound and fury, signifying nothing.`}
+            </Paragraph>
+        </div>
+    );
 }
 ```
 
@@ -260,44 +260,44 @@ import React from 'react';
 import { Typography } from '@douyinfe/semi-ui';
 
 function Demo() {
-  const { Text } = Typography;
+    const { Text } = Typography;
 
-  return (
-    <div>
-      <Text 
-        ellipsis={{ 
-          showTooltip:{
-            opts: { content: 'Insfrastructure|Data-inf|bytegraph.cheetah.user_relation' }
-          }
-        }}
-        style={{ width: 150 }}
-      >
-        Customized configuration can be made on demand when long text is truncated
-      </Text>
-      <br />
-      <Text 
-        ellipsis={{ 
-          showTooltip:{
-            opts: { content: 'Insfrastructure|Data-inf|bytegraph.cheetah.user_relation', className: 'components-typography-demo' }
-          }
-        }}
-        style={{ width: 150 }}
-      >
-        Customized configuration can be made on demand when long text is truncated
-      </Text>
-      <br />
-      <Text 
-        ellipsis={{
-          showTooltip:{
-            opts: { content: 'Insfrastructure|Data-inf|bytegraph.cheetah.user_relation', style: { wordBreak: 'break-all' } }
-          }
-        }}
-        style={{ width: 150 }}
-      >
-        Customized configuration can be made on demand when long text is truncated
-      </Text>
-    </div>
-  );
+    return (
+        <div>
+            <Text 
+                ellipsis={{ 
+                    showTooltip:{
+                        opts: { content: 'Insfrastructure|Data-inf|bytegraph.cheetah.user_relation' }
+                    }
+                }}
+                style={{ width: 150 }}
+            >
+                Customized configuration can be made on demand when long text is truncated
+            </Text>
+            <br />
+            <Text 
+                ellipsis={{ 
+                    showTooltip:{
+                        opts: { content: 'Insfrastructure|Data-inf|bytegraph.cheetah.user_relation', className: 'components-typography-demo' }
+                    }
+                }}
+                style={{ width: 150 }}
+            >
+                Customized configuration can be made on demand when long text is truncated
+            </Text>
+            <br />
+            <Text 
+                ellipsis={{
+                    showTooltip:{
+                        opts: { content: 'Insfrastructure|Data-inf|bytegraph.cheetah.user_relation', style: { wordBreak: 'break-all' } }
+                    }
+                }}
+                style={{ width: 150 }}
+            >
+                Customized configuration can be made on demand when long text is truncated
+            </Text>
+        </div>
+    );
 }
 ```
 

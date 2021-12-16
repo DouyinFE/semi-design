@@ -34,10 +34,10 @@ import React from 'react';
 import { Checkbox } from '@douyinfe/semi-ui';
 
 () => (
-  <Checkbox onChange={checked => console.log(checked)}>
-    Semi Design
-  </Checkbox>
-)
+    <Checkbox onChange={checked => console.log(checked)}>
+        Semi Design
+    </Checkbox>
+);
 ```
 
 ```jsx live=true
@@ -45,13 +45,13 @@ import React from 'react';
 import { Checkbox } from '@douyinfe/semi-ui';
 
 () => (
-  <Checkbox
-    defaultChecked
-    onChange={checked => console.log(checked)}
-  >
-    Semi Design
-  </Checkbox>
-)
+    <Checkbox
+        defaultChecked
+        onChange={checked => console.log(checked)}
+    >
+        Semi Design
+    </Checkbox>
+);
 ```
 
 You can use `extra` to add extra information. The extra information usually is longer and even has line changes.
@@ -62,20 +62,20 @@ import { Checkbox } from '@douyinfe/semi-ui';
 
 () => (
     <>
-      <Checkbox
-        extra='Semi Design is a design system developed and maintained by IES Front-end Team and UED Team'
-      >
-        Semi Design
-      </Checkbox>
-      <br/>
-      <Checkbox
-        extra='Semi Design is a design system developed and maintained by IES Front-end Team and UED Team'
-        style={{ width: 400 }}
-      >
-        Semi Design
-      </Checkbox>
+        <Checkbox
+            extra='Semi Design is a design system developed and maintained by IES Front-end Team and UED Team'
+        >
+            Semi Design
+        </Checkbox>
+        <br/>
+        <Checkbox
+            extra='Semi Design is a design system developed and maintained by IES Front-end Team and UED Team'
+            style={{ width: 400 }}
+        >
+            Semi Design
+        </Checkbox>
     </>
-)
+);
 ```
 
 ### Disabled
@@ -85,12 +85,12 @@ import React from 'react';
 import { Checkbox } from '@douyinfe/semi-ui';
 
 () => (
-  <div>
-    <Checkbox Default Checked={false} with>UnChecked Disabled</Checkbox>
-    <br />
-    <Checkbox defaultChecked disabled>Checked Disabled</Checkbox>
-  </div>
-)
+    <div>
+        <Checkbox Default Checked={false} with>UnChecked Disabled</Checkbox>
+        <br />
+        <Checkbox defaultChecked disabled>Checked Disabled</Checkbox>
+    </div>
+);
 ```
 
 ### Checkbox Group in JSX
@@ -104,14 +104,14 @@ import React from 'react';
 import { Checkbox, CheckboxGroup } from '@douyinfe/semi-ui';
 
 () => (
-  <CheckboxGroup style={{ width: '100%' }} defaultValue={['A', 'B']}>
-    <Checkbox value="A">A</Checkbox>
-    <Checkbox value="B">B</Checkbox>
-    <Checkbox value="C">C</Checkbox>
-    <Checkbox value="D">D</Checkbox>
-    <Checkbox value="E">E</Checkbox>
-  </CheckboxGroup>
-)
+    <CheckboxGroup style={{ width: '100%' }} defaultValue={['A', 'B']}>
+        <Checkbox value="A">A</Checkbox>
+        <Checkbox value="B">B</Checkbox>
+        <Checkbox value="C">C</Checkbox>
+        <Checkbox value="D">D</Checkbox>
+        <Checkbox value="E">E</Checkbox>
+    </CheckboxGroup>
+);
 ```
 
 
@@ -125,38 +125,38 @@ import { CheckboxGroup } from '@douyinfe/semi-ui';
 
 class App extends React.Component {
 
-  render() {
-    function onChange(checkedValues) {
-      console.log('checked = ', checkedValues);
-    }
+    render() {
+        function onChange(checkedValues) {
+            console.log('checked = ', checkedValues);
+        }
 
-    const plainOptions = ['semi', 'vigo', 'helo'];
-    const options = [
-      { label: 'Aim for the highest', value: '1', extra: "Raise the bar. Wait for bigger gains. Find the best solutions by widening your perspective. Be attentive. Distill ideas down to their fundamental truths. Keep learning and growing" },
-      { label: 'Be grounded & courageous', value: '2', extra:"Make your own discoveries. Dive deep into facts. Stay level-headed. Focus on impact. Assume ownership, take risks, break the mold. Rapid iterations, multiple possibilities." },
-      { label: 'Be open & humble', value: '3', extra: "Trust yourself, trust each other. Be willing to offer and ask for help. Collaboration creates value. Approach problems with the big picture in mind. Be mindful and check your ego; stay open to different ideas." },
-      { label: 'Be candid & clear', value: '4', extra: "Dare to share your honest opinions. It's okay to make mistakes. Own it when you do. Stick to the facts, identify issues, and avoid \'leader-pleasing.\' Be accurate and forthright; be methodical and focused."}
-    ];
-    const optionsWithDisabled = [
-      { label: 'Photography', value: 'Photography' },
-      { label: 'Movies', value: 'Movies' },
-      { label: 'Running', value: 'Running', disabled: false },
-    ];
-    return (
-      <div>
-        <CheckboxGroup options={plainOptions} defaultValue={['semi']} onChange={onChange} />
-        <br/><br/>
-        <CheckboxGroup options={options} defaultValue={[]} onChange={onChange} />
-        <br/><br/>
-        <CheckboxGroup
-          options={optionsWithDisabled}
-          disabled
-          defaultValue={['Photography']}
-          onChange={onChange}
-        />
-      </div>
-    )
-  }
+        const plainOptions = ['semi', 'vigo', 'helo'];
+        const options = [
+            { label: 'Aim for the highest', value: '1', extra: "Raise the bar. Wait for bigger gains. Find the best solutions by widening your perspective. Be attentive. Distill ideas down to their fundamental truths. Keep learning and growing" },
+            { label: 'Be grounded & courageous', value: '2', extra:"Make your own discoveries. Dive deep into facts. Stay level-headed. Focus on impact. Assume ownership, take risks, break the mold. Rapid iterations, multiple possibilities." },
+            { label: 'Be open & humble', value: '3', extra: "Trust yourself, trust each other. Be willing to offer and ask for help. Collaboration creates value. Approach problems with the big picture in mind. Be mindful and check your ego; stay open to different ideas." },
+            { label: 'Be candid & clear', value: '4', extra: "Dare to share your honest opinions. It's okay to make mistakes. Own it when you do. Stick to the facts, identify issues, and avoid \'leader-pleasing.\' Be accurate and forthright; be methodical and focused."}
+        ];
+        const optionsWithDisabled = [
+            { label: 'Photography', value: 'Photography' },
+            { label: 'Movies', value: 'Movies' },
+            { label: 'Running', value: 'Running', disabled: false },
+        ];
+        return (
+            <div>
+                <CheckboxGroup options={plainOptions} defaultValue={['semi']} onChange={onChange} />
+                <br/><br/>
+                <CheckboxGroup options={options} defaultValue={[]} onChange={onChange} />
+                <br/><br/>
+                <CheckboxGroup
+                    options={optionsWithDisabled}
+                    disabled
+                    defaultValue={['Photography']}
+                    onChange={onChange}
+                />
+            </div>
+        );
+    }
 }
 ```
 
@@ -169,16 +169,16 @@ import React from 'react';
 import { CheckboxGroup } from '@douyinfe/semi-ui';
 
 () => {
-  const options = [
-    { label: 'semi', value: 'semi' },
-    { label: 'hotsoon', value: 'hotsoon' },
-    { label: 'pipixia', value: 'pipixia' },
-    { label: 'toutiao', value: 'toutiao' }
-  ];
-  return (
-    <CheckboxGroup options={options} direction='horizontal' />
-  )
-}
+    const options = [
+        { label: 'semi', value: 'semi' },
+        { label: 'hotsoon', value: 'hotsoon' },
+        { label: 'pipixia', value: 'pipixia' },
+        { label: 'toutiao', value: 'toutiao' }
+    ];
+    return (
+        <CheckboxGroup options={options} direction='horizontal' />
+    );
+};
 ```
 
 ### Controlled Component
@@ -191,63 +191,63 @@ import { Checkbox, Button } from '@douyinfe/semi-ui';
 
 class App extends React.Component {
 
-  constructor() {
-    super();
-    this.state = {
-      checked: true,
-      disabled: false,
+    constructor() {
+        super();
+        this.state = {
+            checked: true,
+            disabled: false,
+        };
+        this.toggleChecked = this.toggleChecked.bind(this);
+        this.toggleDisable = this.toggleDisable.bind(this);
+        this.onChange = this.onChange.bind(this);
     }
-    this.toggleChecked = this.toggleChecked.bind(this);
-    this.toggleDisable = this.toggleDisable.bind(this);
-    this.onChange = this.onChange.bind(this);
-  }
 
-  toggleChecked () {
-    this.setState({ checked: !this.state.checked });
-  };
+    toggleChecked () {
+        this.setState({ checked: !this.state.checked });
+    };
 
-  toggleDisable () {
-    this.setState({ disabled: !this.state.disabled });
-  };
+    toggleDisable () {
+        this.setState({ disabled: !this.state.disabled });
+    };
 
-  onChange (e) {
-    console.log('checked = ', e.target.checked);
-    this.setState({
-      checked: e.target.checked,
-    });
-  };
+    onChange (e) {
+        console.log('checked = ', e.target.checked);
+        this.setState({
+            checked: e.target.checked,
+        });
+    };
 
-  render() {
-    const label = `${this.state.checked ? 'Checked' : 'Unchecked'} ${
-      this.state.disabled ? 'Disabled' : 'Enabled'
-    }`;
-    return (
-      <div>
-        <p style={{ marginBottom: '20px' }}>
-          <Checkbox
-            checked={this.state.checked}
-            disabled={this.state.disabled}
-            onChange={this.onChange}
-          >
-            {label}
-          </Checkbox>
-        </p>
-        <p>
-          <Button type="primary" size="small" onClick={this.toggleChecked}>
-            {!this.state.checked ? 'Check' : 'Uncheck'}
-          </Button>
-          <Button
-            style={{ marginLeft: '10px' }}
-            type="primary"
-            size="small"
-            onClick={this.toggleDisable}
-          >
-            {!this.state.disabled ? 'Disable' : 'Enable'}
-          </Button>
-        </p>
-      </div>
-    );
-  }
+    render() {
+        const label = `${this.state.checked ? 'Checked' : 'Unchecked'} ${
+            this.state.disabled ? 'Disabled' : 'Enabled'
+        }`;
+        return (
+            <div>
+                <p style={{ marginBottom: '20px' }}>
+                    <Checkbox
+                        checked={this.state.checked}
+                        disabled={this.state.disabled}
+                        onChange={this.onChange}
+                    >
+                        {label}
+                    </Checkbox>
+                </p>
+                <p>
+                    <Button type="primary" size="small" onClick={this.toggleChecked}>
+                        {!this.state.checked ? 'Check' : 'Uncheck'}
+                    </Button>
+                    <Button
+                        style={{ marginLeft: '10px' }}
+                        type="primary"
+                        size="small"
+                        onClick={this.toggleDisable}
+                    >
+                        {!this.state.disabled ? 'Disable' : 'Enable'}
+                    </Button>
+                </p>
+            </div>
+        );
+    }
 }
 
 ```
@@ -266,37 +266,37 @@ import { Checkbox, CheckboxGroup } from '@douyinfe/semi-ui';
     const [indeterminate, setIndeterminate] = useState(true);
     const [checkAll, setCheckall] = useState(false);
     const onChange = (checkedList) => {
-      setCheckedList(checkedList);
-      setIndeterminate(!!checkedList.length && checkedList.length < plainOptions.length);
-      setCheckall(checkedList.length === plainOptions.length);
-    }
+        setCheckedList(checkedList);
+        setIndeterminate(!!checkedList.length && checkedList.length < plainOptions.length);
+        setCheckall(checkedList.length === plainOptions.length);
+    };
     const onCheckAllChange = (e) => {
-      console.log(e);
-      setCheckedList(e.target.checked ? plainOptions : []);
-      setIndeterminate(false);
-      setCheckall(e.target.checked);
-    }
+        console.log(e);
+        setCheckedList(e.target.checked ? plainOptions : []);
+        setIndeterminate(false);
+        setCheckall(e.target.checked);
+    };
 
     return (
         <div>
-          <div style={{ paddingBottom: 8, borderBottom: '1px solid var(--semi-color-border)' }}>
-            <Checkbox
-              indeterminate={indeterminate}
-              onChange={onCheckAllChange}
-              checked={checkAll}
-            >
-              Check all
-            </Checkbox>
-          </div>
-          <CheckboxGroup
-            style={{marginTop:6}}
-            options={plainOptions}
-            value={checkedList}
-            onChange={onChange}
-          />
+            <div style={{ paddingBottom: 8, borderBottom: '1px solid var(--semi-color-border)' }}>
+                <Checkbox
+                    indeterminate={indeterminate}
+                    onChange={onCheckAllChange}
+                    checked={checkAll}
+                >
+                    Check all
+                </Checkbox>
+            </div>
+            <CheckboxGroup
+                style={{marginTop:6}}
+                options={plainOptions}
+                value={checkedList}
+                onChange={onChange}
+            />
         </div>
-    )
-}
+    );
+};
 
 ```
 
@@ -342,10 +342,13 @@ import { CheckboxGroup, Checkbox } from '@douyinfe/semi-ui';
         <Checkbox value={'1'} disabled extra='Checkbox Description' style={{width:280}}>
             Checkbox Title
         </Checkbox>
-        <Checkbox value={'2'} extra='Checkbox Description' style={{width:280}}>
+        <Checkbox value={'2'} disabled extra='Checkbox Description' style={{width:280}}>
             Checkbox Title
         </Checkbox>
         <Checkbox value={'3'} extra='Checkbox Description' style={{width:280}}>
+            Checkbox Title
+        </Checkbox>
+        <Checkbox value={'4'} extra='Checkbox Description' style={{width:280}}>
             Checkbox Title
         </Checkbox>
     </CheckboxGroup>
@@ -361,26 +364,26 @@ import React from 'react';
 import { CheckboxGroup, Checkbox, Row, Col } from '@douyinfe/semi-ui';
 
 () => (
-  <CheckboxGroup style={{ width: '100%' }}>
-    <Row>
-      <Col span={8}>
-        <Checkbox value="A">A</Checkbox>
-      </Col>
-      <Col span={8}>
-        <Checkbox value="B">B</Checkbox>
-      </Col>
-      <Col span={8}>
-        <Checkbox value="C">C</Checkbox>
-      </Col>
-      <Col span={8}>
-        <Checkbox value="D">D</Checkbox>
-      </Col>
-      <Col span={8}>
-        <Checkbox value="E">E</Checkbox>
-      </Col>
-    </Row>
-  </CheckboxGroup>
-)
+    <CheckboxGroup style={{ width: '100%' }}>
+        <Row>
+            <Col span={8}>
+                <Checkbox value="A">A</Checkbox>
+            </Col>
+            <Col span={8}>
+                <Checkbox value="B">B</Checkbox>
+            </Col>
+            <Col span={8}>
+                <Checkbox value="C">C</Checkbox>
+            </Col>
+            <Col span={8}>
+                <Checkbox value="D">D</Checkbox>
+            </Col>
+            <Col span={8}>
+                <Checkbox value="E">E</Checkbox>
+            </Col>
+        </Row>
+    </CheckboxGroup>
+);
 ```
 
 ## API Reference

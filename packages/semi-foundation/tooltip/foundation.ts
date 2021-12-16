@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable prefer-destructuring, max-lines-per-function, one-var, max-len, @typescript-eslint/restrict-plus-operands */
 /* argus-disable unPkgSensitiveInfo */
-import { get, isEmpty } from 'lodash-es';
+import { get, isEmpty } from 'lodash';
 import { DOMRectLikeType } from '../utils/dom';
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import { ArrayElement } from '../utils/type';
@@ -92,8 +92,8 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
     }
 
     _bindEvent() {
-        const types = this.getProp('trigger'); // get trigger type
-        const { triggerEventSet, portalEventSet } = this._generateEvent(types);
+        const trigger = this.getProp('trigger'); // get trigger type
+        const { triggerEventSet, portalEventSet } = this._generateEvent(trigger);
         this._bindTriggerEvent(triggerEventSet);
         this._bindPortalEvent(portalEventSet);
         this._bindResizeEvent();
@@ -268,6 +268,8 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         this._adapter.insertPortal(content, position);
 
         if (trigger === 'custom') {
+            // eslint-disable-next-line
+            this._adapter.registerClickOutsideHandler(() => {});
             this._togglePortalVisible(true);
         }
 

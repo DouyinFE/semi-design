@@ -72,7 +72,7 @@ import { Form } from '@douyinfe/semi-ui';
         <Form.Input field='userName' label='UserName' />
         <Form.Input field='password' label='Password' />
     </Form>
-)
+);
 ```
 
 #### Other forms of support
@@ -99,7 +99,7 @@ import { Form } from '@douyinfe/semi-ui';
         </>
     )} layout='horizontal'>
     </Form>
-)
+);
 ```
 
 #### Via children function
@@ -127,7 +127,7 @@ import { Form } from '@douyinfe/semi-ui';
             )
         }
     </Form>
-)
+);
 ```
 
 #### Via props.component
@@ -139,18 +139,18 @@ import React from 'react';
 import { Form } from '@douyinfe/semi-ui';
 
 class Demo extends React.Component {
-  constructor() { super(); }
-  render() {
-      const fields = ({ formState, formApi, values }) => (
-          <>
-              <Form.Input field='Role'/>
-              <Form.Input field='UserName' />
-              <Form.Input field='Password' />
-              <code style={{marginTop: 30}}>{JSON.stringify(formState)}</code>
-          </>
-      );
-      return <Form component={fields} layout='horizontal'/>
-  }
+    constructor() { super(); }
+    render() {
+        const fields = ({ formState, formApi, values }) => (
+            <>
+                <Form.Input field='Role'/>
+                <Form.Input field='UserName' />
+                <Form.Input field='Password' />
+                <code style={{marginTop: 30}}>{JSON.stringify(formState)}</code>
+            </>
+        );
+        return <Form component={fields} layout='horizontal'/>;
+    }
 }
 ```
 
@@ -174,7 +174,7 @@ class BasicDemoWithInit extends React.Component {
         this.getFormApi = this.getFormApi.bind(this);
     }
 
-    getFormApi(formApi) { this.formApi = formApi }
+    getFormApi(formApi) { this.formApi = formApi; }
 
     render() {
         const { Input, InputNumber, AutoComplete, Select, TreeSelect, Cascader, DatePicker, TimePicker, TextArea, CheckboxGroup, Checkbox, RadioGroup, Radio, Slider, Rating, Switch, TagInput } = Form;
@@ -317,7 +317,7 @@ class BasicDemoWithInit extends React.Component {
                 </Row>
                 <Row>
                     <Col span={12}>
-                      <TimePicker field="time" label='End Time（TimePicker）' style={{ width: '90%' }}/>
+                        <TimePicker field="time" label='End Time（TimePicker）' style={{ width: '90%' }}/>
                     </Col>
                     <Col span={12}>
                         <InputNumber field='number' label='Number of applications（InputNumber）' initValue={20} style={style}/>
@@ -325,15 +325,15 @@ class BasicDemoWithInit extends React.Component {
                 </Row>
                 <Row>
                     <Col span={12}>
-                      <Slider field="range" label='Resource usage alarm threshold(%)（Slider）' initValue={10} style={{ width: '90%' }}/>
+                        <Slider field="range" label='Resource usage alarm threshold(%)（Slider）' initValue={10} style={{ width: '90%' }}/>
                     </Col>
                     <Col span={12}>
-                      <Switch field='switch' label='Switch(Switch)'/>
+                        <Switch field='switch' label='Switch(Switch)'/>
                     </Col>
                 </Row>
                 <Row>
                     <Col span={12}>
-                      <Rating field="rating" label='Satisfaction(Rating)' initValue={2} style={{ width: '90%' }}/>
+                        <Rating field="rating" label='Satisfaction(Rating)' initValue={2} style={{ width: '90%' }}/>
                     </Col>
                     <Col span={12}>
                         <TagInput 
@@ -399,7 +399,7 @@ import { Form, Row, Col, Toast, TextArea } from '@douyinfe/semi-ui';
             )
         }
     </Form>
-)
+);
 ```
 
 ### Form layout
@@ -412,28 +412,28 @@ import React from 'react';
 import { Form, Button, Toast } from '@douyinfe/semi-ui';
 
 () => {
- const handleSubmit = (values) => {
-   console.log(values);
-   Toast.info('Submit Success');
- }
- return (
-     <Form onSubmit={values => handleSubmit(values)} style={{width: 400}}>
-        {({formState, values, formApi}) => (
-            <>
-                <Form.Input field='phone' label='PhoneNumber' style={{ width: '100%' }} placeholder='Enter your phone number'></Form.Input>
-                <Form.Input field='password' label='Password' style={{ width: '100%' }} placeholder='Enter your password'></Form.Input>
-                <Form.Checkbox field='agree' noLabel>I have read and agree to the terms of service</Form.Checkbox>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <p>
-                      <span>Or</span><Button theme='borderless' style={{ color: 'rgb(101, 178, 252)', marginLeft: 10, cursor:'pointer' }}>Sign up</Button>
-                  </p>
-                  <Button disabled={!values.agree} htmlType='submit' type="tertiary">Log in</Button>
-                </div>
-            </>
-        )}
-    </Form>
- )
-}
+    const handleSubmit = (values) => {
+        console.log(values);
+        Toast.info('Submit Success');
+    };
+    return (
+        <Form onSubmit={values => handleSubmit(values)} style={{width: 400}}>
+            {({formState, values, formApi}) => (
+                <>
+                    <Form.Input field='phone' label='PhoneNumber' style={{ width: '100%' }} placeholder='Enter your phone number'></Form.Input>
+                    <Form.Input field='password' label='Password' style={{ width: '100%' }} placeholder='Enter your password'></Form.Input>
+                    <Form.Checkbox field='agree' noLabel>I have read and agree to the terms of service</Form.Checkbox>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <p>
+                            <span>Or</span><Button theme='borderless' style={{ color: 'rgb(101, 178, 252)', marginLeft: 10, cursor:'pointer' }}>Sign up</Button>
+                        </p>
+                        <Button disabled={!values.agree} htmlType='submit' type="tertiary">Log in</Button>
+                    </div>
+                </>
+            )}
+        </Form>
+    );
+};
 ```
 
 -   Horizontal Layout: Arrange each field horizontally
@@ -448,7 +448,7 @@ import { Form } from '@douyinfe/semi-ui';
         <Form.Input field='phone' label='PhoneNumber' placeholder='Enter your phone number'></Form.Input>
         <Form.Input field='password' label='Password' placeholder='Enter your password'></Form.Input>
     </Form>
-)
+);
 ```
 
 -   Label Position, Label Align  
@@ -456,7 +456,9 @@ import { Form } from '@douyinfe/semi-ui';
 
 ```jsx live=true dir="column"
 import React from 'react';
-import { Form, Select } from '@douyinfe/semi-ui';
+import { Form, Select, Checkbox, Radio } from '@douyinfe/semi-ui';
+
+const { Option } = Select;
 
 class BasicDemo extends React.Component {
     constructor() {
@@ -474,32 +476,32 @@ class BasicDemo extends React.Component {
     changeLabelPos(labelPosition) {
         let labelWidth;
         labelPosition === 'left' ? labelWidth = '180px' : labelWidth = 'auto';
-        this.setState({ labelPosition, labelWidth })
+        this.setState({ labelPosition, labelWidth });
     }
 
-    changeLabelAlign(labelAlign) { this.setState({ labelAlign }) }
+    changeLabelAlign(labelAlign) { this.setState({ labelAlign }); }
 
     render() {
         const { labelPosition, labelAlign, labelWidth } = this.state;
         return (
             <>
-            <div style={{borderBottom: '1px solid var(--semi-color-text-3)', paddingBottom: 10 }}>
-                <Form.Label style={{ marginLeft: 10 }}>Switch Label Position:</Form.Label>
-                <Select onChange={this.changeLabelPos} value={labelPosition} style={{width: 100}}>
-                    <Select.Option value='top'>top</Select.Option>
-                    <Select.Option value='left'>left</Select.Option>
-                </Select>
-                <Form.Label style={{ marginLeft: 10 }}>Switch Label Text Align</Form.Label>
-                <Select onChange={this.changeLabelAlign} value={labelAlign} style={{width: 100}}>
-                    <Select.Option value='left'>left</Select.Option>
-                    <Select.Option value='right'>right</Select.Option>
-                </Select>
-            </div>
-            <Form
-                labelPosition={labelPosition}
-                labelWidth={labelWidth}
-                labelAlign={labelAlign}
-                style={{ padding: '10px', width: 600 }}>
+                <div style={{borderBottom: '1px solid var(--semi-color-text-3)', paddingBottom: 10 }}>
+                    <Form.Label style={{ marginLeft: 10 }}>Switch Label Position:</Form.Label>
+                    <Select onChange={this.changeLabelPos} value={labelPosition} style={{width: 100}}>
+                        <Select.Option value='top'>top</Select.Option>
+                        <Select.Option value='left'>left</Select.Option>
+                    </Select>
+                    <Form.Label style={{ marginLeft: 10 }}>Switch Label Text Align</Form.Label>
+                    <Select onChange={this.changeLabelAlign} value={labelAlign} style={{width: 100}}>
+                        <Select.Option value='left'>left</Select.Option>
+                        <Select.Option value='right'>right</Select.Option>
+                    </Select>
+                </div>
+                <Form
+                    labelPosition={labelPosition}
+                    labelWidth={labelWidth}
+                    labelAlign={labelAlign}
+                    style={{ padding: '10px', width: 600 }}>
                     <Form.Input
                         field="input"
                         label="PhoneNumber"
@@ -528,7 +530,7 @@ class BasicDemo extends React.Component {
                         <Radio value="1">man</Radio>
                         <Radio value="2">woman</Radio>
                     </Form.RadioGroup>
-            </Form>
+                </Form>
             </>
         );
     }
@@ -606,7 +608,7 @@ import { Form, Row, Col } from '@douyinfe/semi-ui';
             </Col>
         </Row>
     </Form>
-)
+);
 ```
 
 ### wrapper Col / label Col
@@ -633,7 +635,7 @@ import { Form } from '@douyinfe/semi-ui';
             <Form.Select.Option value="ued">Designer</Form.Select.Option>
         </Form.Select>
     </Form>
-)
+);
 ```
 
 ### Remove automatically added Label
@@ -654,7 +656,7 @@ import { Form } from '@douyinfe/semi-ui';
             <Form.Select.Option value="ued">Designer</Form.Select.Option>
         </Form.Select>
     </Form>
-)
+);
 ```
 
 ### Export Label, ErrorMessage use
@@ -703,16 +705,16 @@ class AssistComponent extends React.Component {
                 <Form.ErrorMessage />
                 <Form.Slot label={{ text: 'SlotA' }}>
                     <div style={{display: 'flex', alignItems: 'center', height: '100%'}}>
-                        I'm Semi Form SlotA, a custom ReactNode
+                        {`I'm Semi Form SlotA, a custom ReactNode`}
                     </div>
                 </Form.Slot>
                 <Form.Slot label={{ text: 'SlotB', width: 160, align: 'right' }}>
                     <div style={{display: 'flex', alignItems: 'center', height: '100%'}}>
-                        I'm Semi Form SlotA, i have different labelWidth and textAlign.
+                        {`I'm Semi Form SlotA, i have different labelWidth and textAlign.`}
                     </div>
                 </Form.Slot>
             </Form>
-    )}
+        );}
 }
 ```
 
@@ -735,7 +737,7 @@ import { Form } from '@douyinfe/semi-ui';
         <Form.DatePicker field="date" label='Start Date' style={{ width: '250px' }}>
         </Form.DatePicker>
     </Form>
-)
+);
 ```
 
 ### Using Input Group
@@ -763,7 +765,7 @@ import { Form, Button } from '@douyinfe/semi-ui';
         <Form.Input field='name' trigger='blur' initValue='Semi' label='Name'></Form.Input>
         <Button htmlType='submit'>Submit</Button>
     </Form>
-)
+);
 ```
 
 ### Form in the Modal pop-up layer
@@ -775,12 +777,14 @@ When submitting, use `formApi.validate()` to centrally verify the Field
 import React from 'react';
 import { Form, Modal, Button, Row, Col } from '@douyinfe/semi-ui';
 
+const { Option } = Select;
+
 class ModalFormDemo extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             visible: false,
-        }
+        };
         this.showDialog = this.showDialog.bind(this);
         this.handleOk = this.handleOk.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
@@ -794,15 +798,15 @@ class ModalFormDemo extends React.Component {
     handleOk() {
         this.formApi.validate()
             .then((values) => {
-                console.log(values)
+                console.log(values);
             })
             .catch((errors) => {
-                console.log(errors)
+                console.log(errors);
             });
     }
 
     handleCancel() {
-        this.setState({ visible: false })
+        this.setState({ visible: false });
     }
 
     getFormApi(formApi) {
@@ -908,11 +912,11 @@ class BasicDemoWithInit extends React.Component {
         this.getFormApi = this.getFormApi.bind(this);
     }
 
-    getFormApi(formApi) { this.formApi = formApi }
+    getFormApi(formApi) { this.formApi = formApi; }
 
     render() {
         const { Select, Input } = Form;
-        const style = { width: '100%' }
+        const style = { width: '100%' };
         return (
             <Form initValues={this.state.initValues}>
                 <Input
@@ -933,7 +937,7 @@ class BasicDemoWithInit extends React.Component {
                     <Select.Option value="ued">Designer</Select.Option>
                 </Select>
             </Form>
-        )
+        );
     }
 }
 ```
@@ -1055,7 +1059,7 @@ class FieldLevelValidateDemo extends React.Component {
 
     validateName(val) {
         if (!val) {
-             return '【sync】can\'t be empty';
+            return '【sync】can\'t be empty';
         } else if (val.length <= 5) {
             return '【sync】must more than 5';
         }
@@ -1153,7 +1157,7 @@ import { Form, Button } from '@douyinfe/semi-ui';
             </React.Fragment>
         )}
     </Form>
-)
+);
 ```
 
 #### Add or delete form items dynamically - by use ArrayField
@@ -1172,7 +1176,7 @@ class ArrayFieldDemo extends React.Component {
                 { name: 'Face stickers', type: '2D' },
                 { name: 'Background sticker', type: '3D' },
             ]
-        }
+        };
     }
 
     render() {
@@ -1274,7 +1278,7 @@ class ArrayDemo extends React.Component {
                 </Form.Select>
                 <Button type='danger' onClick={() => this.remove(effect.key)} style={{ margin: 16 }}>Remove</Button>
             </div>
-        ))
+        ));
     }
     render() {
         let { initValues } = this.state;
@@ -1332,7 +1336,7 @@ class UseFromApiDemo extends React.Component {
                 <Form.Input field='name' initValue='mike'></Form.Input>
                 <ComponentUsingFormApi />
             </Form>
-        )
+        );
     }
 }
 ```
@@ -1363,7 +1367,7 @@ class UseFromStateDemo extends React.Component {
                 <ComponentUsingFormState />
             </Form>
         );
-  }
+    }
 }
 ```
 
@@ -1392,7 +1396,7 @@ class UseFieldApiDemo extends React.Component {
                 <Form.Input field='name' initValue='mike'></Form.Input>
                 <ComponentUsingFieldApi />
             </Form>
-        )
+        );
     }
 }
 ```
@@ -1406,26 +1410,26 @@ import React from 'react';
 import { useFieldState, Form } from '@douyinfe/semi-ui';
 
 class UseFieldStateDemo extends React.Component {
-  constructor() { super(); }
-  render() {
-    const ComponentUsingFieldState = props => {
-        const fieldState = useFieldState(props.field);
+    constructor() { super(); }
+    render() {
+        const ComponentUsingFieldState = props => {
+            const fieldState = useFieldState(props.field);
+            return (
+                <>
+                    <span>【{props.field}】FieldState read by 【useFieldState】：</span>
+                    <code>{JSON.stringify(fieldState)}</code>
+                </>
+            );
+        };
         return (
-            <>
-              <span>【{props.field}】FieldState read by 【useFieldState】：</span>
-              <code>{JSON.stringify(fieldState)}</code>
-            </>
+            <Form>
+                <Form.Input field='name' initValue='mike'></Form.Input>
+                <ComponentUsingFieldState field='name' />
+                <Form.Input field='country' initValue='china'></Form.Input>
+                <ComponentUsingFieldState field='country' />
+            </Form>
         );
-    };
-    return (
-       <Form>
-            <Form.Input field='name' initValue='mike'></Form.Input>
-            <ComponentUsingFieldState field='name' />
-            <Form.Input field='country' initValue='china'></Form.Input>
-            <ComponentUsingFieldState field='country' />
-      </Form>
-    )
-  }
+    }
 }
 ```
 
@@ -1516,10 +1520,10 @@ With Field did the following things.
 -   Insert Field's `<Form.Label>`above the field
 -   Insert Field's `<ErrorMessage>` under the field
 
-With Field Options specific configuration can be consulted [withFieldOption](#WithFieldOptions)
+With Field Options specific configuration can be consulted [withFieldOption](#WithFieldOption)
 
 ```jsx
-withField(YourComponent, withFieldOptions);
+withField(YourComponent, withFieldOption);
 ```
 
 ```jsx live=true dir="column"
@@ -1637,6 +1641,9 @@ The table below describes the features available in the formApi.
 -   Via "withFormApi" HOC
 
 ```jsx
+import React from 'react';
+import { Form, Button } from '@douyinfe/semi-ui';
+
 class FormApiDemo extends React.Component {
     constructor() {
         super();
@@ -1656,26 +1663,34 @@ class FormApiDemo extends React.Component {
     }
 
     render() {
-        return
-            (
+        return (
+            <>
                 <Form getFormApi={this.getFormApi} />
                 <Form ref={this.formBRef} />
                 <Button onClick={()=>this.changeValues()}>Change</Button>
-            )
+            </>
+        );
     }
 }
 ```
 
 ```jsx
+import React from 'react';
+import { Form, Button } from '@douyinfe/semi-ui';
+
 () => {
     // functional compoentn usage
     const api = useRef();
 
-    return (<Form getFormApi={formApi => api.current = formApi}>
-        <Form.Input field='a' />
-        <Button onClick={()=>{console.log(api)}}>log</Button>
-    </Form>)
-}
+    return (
+        <>
+            <Form getFormApi={formApi => api.current = formApi}>
+                <Form.Input field='a' />
+                <Button onClick={()=>{console.log(api);}}>log</Button>
+            </Form>
+        </>
+    );
+};
 ```
 ## Field Props
 
@@ -1790,7 +1805,7 @@ const { ErrorMessage } = Form;
 | className  | Classname of ErrorMessage wrapper | string                   |         |
 | style      | Inline style                      | object                   |         |
 
-## withFieldOptions
+## withFieldOption
 
 | key               | Description                                                                                                                                                                                                                                                                                                                                                                 | Default    |
 | ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |

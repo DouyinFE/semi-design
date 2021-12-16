@@ -23,51 +23,51 @@ import React from 'react';
 import { Modal, Button } from '@douyinfe/semi-ui';
 
 class modalDemo extends React.Component {
-  constructor() {
-    super();
-    this.state = {visible: false};
-    this.showDialog = this.showDialog.bind(this);
-    this.handleOk = this.handleOk.bind(this);
-    this.handleCancel = this.handleCancel.bind(this);
-  }
-  showDialog() {
-    this.setState({
-      visible: true
-    });
-  }
-  handleOk(e) {
-    this.setState({
-      visible: false
-    });
-      console.log('Ok button clicked')
-  }
-  handleAfterClose(){
-    console.log('After Close callback executed')
-  }
-  handleCancel(e) {
-    this.setState({
-      visible: false
-    });
-    console.log('Cancel button clicked')
-  }
-  render() {
-    return (
-      <>
-        <Button onClick={this.showDialog}>Open Modal</Button>
-        <Modal
-          title="Basic Modal"
-          visible={this.state.visible}
-          onOk={this.handleOk}
-          afterClose={this.handleAfterClose} // >= 1.16.0
-          onCancel={this.handleCancel}
-        >
-          This is the content of a basic modal.
-          <br/>
-          More content...
-        </Modal>
-      </>
-    );
-  }
+    constructor() {
+        super();
+        this.state = {visible: false};
+        this.showDialog = this.showDialog.bind(this);
+        this.handleOk = this.handleOk.bind(this);
+        this.handleCancel = this.handleCancel.bind(this);
+    }
+    showDialog() {
+        this.setState({
+            visible: true
+        });
+    }
+    handleOk(e) {
+        this.setState({
+            visible: false
+        });
+        console.log('Ok button clicked');
+    }
+    handleAfterClose(){
+        console.log('After Close callback executed');
+    }
+    handleCancel(e) {
+        this.setState({
+            visible: false
+        });
+        console.log('Cancel button clicked');
+    }
+    render() {
+        return (
+            <>
+                <Button onClick={this.showDialog}>Open Modal</Button>
+                <Modal
+                    title="Basic Modal"
+                    visible={this.state.visible}
+                    onOk={this.handleOk}
+                    afterClose={this.handleAfterClose} // >= 1.16.0
+                    onCancel={this.handleCancel}
+                >
+                    This is the content of a basic modal.
+                    <br/>
+                    More content...
+                </Modal>
+            </>
+        );
+    }
 }
 
 ```
@@ -81,45 +81,45 @@ import React from 'react';
 import { Modal, Button } from '@douyinfe/semi-ui';
 
 class modalDemo extends React.Component {
-  constructor() {
-    super();
-    this.state = {visible: false};
-    this.showDialog = this.showDialog.bind(this);
-    this.handleOk = this.handleOk.bind(this);
-    this.handleCancel = this.handleCancel.bind(this);
-  }
-  showDialog() {
-    this.setState({
-      visible: true
-    });
-  }
-  handleOk(e) {
-    this.setState({
-      visible: false
-    });
-  }
-  handleCancel(e) {
-    this.setState({
-      visible: false
-    });
-  }
-  render() {
-    return (
-      <>
-        <Button onClick={this.showDialog}>Mask Not Closable</Button>
-        <Modal
-          title="Modal Title"
-          visible={this.state.visible}
-          onOk={this.handleOk}
-          onCancel={this.handleCancel}
-          maskClosable={false}
-        >
-          <p>This is a modal that cannot be closed by clicking on the mask.</p>
-          <p>More content...</p>
-        </Modal>
-      </>
-    );
-  }
+    constructor() {
+        super();
+        this.state = {visible: false};
+        this.showDialog = this.showDialog.bind(this);
+        this.handleOk = this.handleOk.bind(this);
+        this.handleCancel = this.handleCancel.bind(this);
+    }
+    showDialog() {
+        this.setState({
+            visible: true
+        });
+    }
+    handleOk(e) {
+        this.setState({
+            visible: false
+        });
+    }
+    handleCancel(e) {
+        this.setState({
+            visible: false
+        });
+    }
+    render() {
+        return (
+            <>
+                <Button onClick={this.showDialog}>Mask Not Closable</Button>
+                <Modal
+                    title="Modal Title"
+                    visible={this.state.visible}
+                    onOk={this.handleOk}
+                    onCancel={this.handleCancel}
+                    maskClosable={false}
+                >
+                    <p>This is a modal that cannot be closed by clicking on the mask.</p>
+                    <p>More content...</p>
+                </Modal>
+            </>
+        );
+    }
 }
 ```
 
@@ -134,46 +134,46 @@ import React from 'react';
 import { Modal, Button } from '@douyinfe/semi-ui';
 
 class modalDemo extends React.Component {
-  constructor() {
-    super();
-    this.state = {visible: false};
-    this.showDialog = this.showDialog.bind(this);
-    this.handleOk = this.handleOk.bind(this);
-    this.handleCancel = this.handleCancel.bind(this);
-  }
-  showDialog() {
-    this.setState({
-      visible: true
-    });
-  }
-  handleOk(e) {
-    this.setState({
-      visible: false
-    });
-  }
-  handleCancel(e) {
-    this.setState({
-      visible: false
-    });
-  }
-  render() {
-    return (
-      <>
-        <Button onClick={this.showDialog}>Custom Button Text</Button>
-        <Modal
-          title="Custom Button Text"
-          visible={this.state.visible}
-          onOk={this.handleOk}
-          onCancel={this.handleCancel}
-          okText={'Sounds great!'}
-          cancelText={'No, thanks.'}
-        >
-          <p>This is a modal with customized button texts.</p>
-          <p>More content...</p>
-        </Modal>
-      </>
-    );
-  }
+    constructor() {
+        super();
+        this.state = {visible: false};
+        this.showDialog = this.showDialog.bind(this);
+        this.handleOk = this.handleOk.bind(this);
+        this.handleCancel = this.handleCancel.bind(this);
+    }
+    showDialog() {
+        this.setState({
+            visible: true
+        });
+    }
+    handleOk(e) {
+        this.setState({
+            visible: false
+        });
+    }
+    handleCancel(e) {
+        this.setState({
+            visible: false
+        });
+    }
+    render() {
+        return (
+            <>
+                <Button onClick={this.showDialog}>Custom Button Text</Button>
+                <Modal
+                    title="Custom Button Text"
+                    visible={this.state.visible}
+                    onOk={this.handleOk}
+                    onCancel={this.handleCancel}
+                    okText={'Sounds great!'}
+                    cancelText={'No, thanks.'}
+                >
+                    <p>This is a modal with customized button texts.</p>
+                    <p>More content...</p>
+                </Modal>
+            </>
+        );
+    }
 }
 ```
 
@@ -186,46 +186,46 @@ import React from 'react';
 import { Modal, Button } from '@douyinfe/semi-ui';
 
 class modalDemo extends React.Component {
-  constructor() {
-    super();
-    this.state = {visible: false};
-    this.showDialog = this.showDialog.bind(this);
-    this.handleOk = this.handleOk.bind(this);
-    this.handleCancel = this.handleCancel.bind(this);
-  }
-  showDialog() {
-    this.setState({
-      visible: true
-    });
-  }
-  handleOk(e) {
-    this.setState({
-      visible: false
-    });
-  }
-  handleCancel(e) {
-    this.setState({
-      visible: false
-    });
-  }
-  render() {
-    return (
-      <>
-        <Button onClick={this.showDialog}>Custom Button Properties</Button>
-        <Modal
-          title="Custom Button Properties"
-          visible={this.state.visible}
-          onOk={this.handleOk}
-          onCancel={this.handleCancel}
-          okButtonProps={{size: 'small', type: 'warning'}}
-          cancelButtonProps={{size: 'small', disabled: true}}
-        >
-          <p>This is a modal with customized button props.</p>
-          <p>More content...</p>
-        </Modal>
-      </>
-    );
-  }
+    constructor() {
+        super();
+        this.state = {visible: false};
+        this.showDialog = this.showDialog.bind(this);
+        this.handleOk = this.handleOk.bind(this);
+        this.handleCancel = this.handleCancel.bind(this);
+    }
+    showDialog() {
+        this.setState({
+            visible: true
+        });
+    }
+    handleOk(e) {
+        this.setState({
+            visible: false
+        });
+    }
+    handleCancel(e) {
+        this.setState({
+            visible: false
+        });
+    }
+    render() {
+        return (
+            <>
+                <Button onClick={this.showDialog}>Custom Button Properties</Button>
+                <Modal
+                    title="Custom Button Properties"
+                    visible={this.state.visible}
+                    onOk={this.handleOk}
+                    onCancel={this.handleCancel}
+                    okButtonProps={{size: 'small', type: 'warning'}}
+                    cancelButtonProps={{size: 'small', disabled: true}}
+                >
+                    <p>This is a modal with customized button props.</p>
+                    <p>More content...</p>
+                </Modal>
+            </>
+        );
+    }
 }
 ```
 
@@ -238,49 +238,49 @@ import React from 'react';
 import { Modal, Button } from '@douyinfe/semi-ui';
 
 class modalDemo extends React.Component {
-  constructor() {
-    super();
-    this.state = {visible: false};
-    this.showDialog = this.showDialog.bind(this);
-    this.handleOk = this.handleOk.bind(this);
-    this.handleCancel = this.handleCancel.bind(this);
-  }
-  showDialog() {
-    this.setState({
-      visible: true
-    });
-  }
-  handleOk(e) {
-    this.setState({
-      visible: false
-    });
-  }
-  handleCancel(e) {
-    this.setState({
-      visible: false
-    });
-  }
-  render() {
-    return (
-      <>
-        <Button onClick={this.showDialog}>Customized Footer</Button>
-        <Modal
-          title="Customized Footer"
-          visible={this.state.visible}
-          onOk={this.handleOk}
-          onCancel={this.handleCancel}
-          footer={
-            <Button type="primary" onClick={this.handleOk}>
-              Yes, I Understand
-            </Button>
-          }
-        >
-          <p>This is a modal with a customized footer.</p>
-          <p>More content...</p>
-        </Modal>
-      </>
-    );
-  }
+    constructor() {
+        super();
+        this.state = {visible: false};
+        this.showDialog = this.showDialog.bind(this);
+        this.handleOk = this.handleOk.bind(this);
+        this.handleCancel = this.handleCancel.bind(this);
+    }
+    showDialog() {
+        this.setState({
+            visible: true
+        });
+    }
+    handleOk(e) {
+        this.setState({
+            visible: false
+        });
+    }
+    handleCancel(e) {
+        this.setState({
+            visible: false
+        });
+    }
+    render() {
+        return (
+            <>
+                <Button onClick={this.showDialog}>Customized Footer</Button>
+                <Modal
+                    title="Customized Footer"
+                    visible={this.state.visible}
+                    onOk={this.handleOk}
+                    onCancel={this.handleCancel}
+                    footer={
+                        <Button type="primary" onClick={this.handleOk}>
+                            Yes, I Understand
+                        </Button>
+                    }
+                >
+                    <p>This is a modal with a customized footer.</p>
+                    <p>More content...</p>
+                </Modal>
+            </>
+        );
+    }
 }
 ```
 
@@ -293,53 +293,53 @@ import React from 'react';
 import { Modal, Button } from '@douyinfe/semi-ui';
 
 class modalDemo extends React.Component {
-  constructor() {
-    super();
-    this.state = {visible: false};
-    this.showDialog = this.showDialog.bind(this);
-    this.handleOk = this.handleOk.bind(this);
-    this.handleCancel = this.handleCancel.bind(this);
-  }
-  showDialog() {
-    this.setState({
-      visible: true
-    });
-  }
-  handleOk(e) {
-    this.setState({
-      visible: false
-    });
-  }
-  handleCancel(e) {
-    this.setState({
-      visible: false
-    });
-  }
-  render() {
-    return (
-      <>
-        <Button onClick={this.showDialog}>Custom Style</Button>
-        <Modal
-          title="Custom Style"
-          visible={this.state.visible}
-          onOk={this.handleOk}
-          onCancel={this.handleCancel}
-          centered
-          bodyStyle={{overflow: 'auto', height: 200}}
-        >
-            <p style={{lineHeight: 1.8}}>Semi Design is a design system developed and maintained by IES Front-end Team and UED Team</p>
-            <p style={{lineHeight: 1.8}}>Semi Design create a consistent, good-looking, easy-to-use, and efficient user experience with a user-centric, content-first, and human-friendly design system.
-            </p>
-            <ul>
-              <li><p>Content-first</p></li>
-              <li><p>Customized theming</p></li>
-              <li><p>Internationalized</p></li>
-              <li><p>Humanism</p></li>
-            </ul>
-        </Modal>
-      </>
-    );
-  }
+    constructor() {
+        super();
+        this.state = {visible: false};
+        this.showDialog = this.showDialog.bind(this);
+        this.handleOk = this.handleOk.bind(this);
+        this.handleCancel = this.handleCancel.bind(this);
+    }
+    showDialog() {
+        this.setState({
+            visible: true
+        });
+    }
+    handleOk(e) {
+        this.setState({
+            visible: false
+        });
+    }
+    handleCancel(e) {
+        this.setState({
+            visible: false
+        });
+    }
+    render() {
+        return (
+            <>
+                <Button onClick={this.showDialog}>Custom Style</Button>
+                <Modal
+                    title="Custom Style"
+                    visible={this.state.visible}
+                    onOk={this.handleOk}
+                    onCancel={this.handleCancel}
+                    centered
+                    bodyStyle={{overflow: 'auto', height: 200}}
+                >
+                    <p style={{lineHeight: 1.8}}>Semi Design is a design system developed and maintained by IES Front-end Team and UED Team</p>
+                    <p style={{lineHeight: 1.8}}>Semi Design create a consistent, good-looking, easy-to-use, and efficient user experience with a user-centric, content-first, and human-friendly design system.
+                    </p>
+                    <ul>
+                        <li><p>Content-first</p></li>
+                        <li><p>Customized theming</p></li>
+                        <li><p>Internationalized</p></li>
+                        <li><p>Humanism</p></li>
+                    </ul>
+                </Modal>
+            </>
+        );
+    }
 }
 ```
 
@@ -353,90 +353,90 @@ import { Modal, Button, List } from '@douyinfe/semi-ui';
 import { IconVigoLogo, IconSemiLogo } from '@douyinfe/semi-icons';
 
 class modalDemo extends React.Component {
-  constructor() {
-    super();
-    this.state = {visible: false};
-    this.showDialog = this.showDialog.bind(this);
-    this.handleOk = this.handleOk.bind(this);
-    this.handleCancel = this.handleCancel.bind(this);
-  }
-  showDialog() {
-    this.setState({
-      visible: true
-    });
-  }
-  handleOk(e) {
-    this.setState({
-      visible: false
-    });
-  }
-  handleCancel(e) {
-    this.setState({
-      visible: false
-    });
-  }
-  render() {
-    const data = [
-      {
-        icon: <IconSemiLogo style={{fontSize: 48}} />,
-        title: 'Boost new feature adoption with Integration',
-        content: 'Sample data is prepared for you to demostrate how Integration may be useful for your team'
-      },
-      {
-        icon: <IconVigoLogo style={{fontSize: 48}} />,
-        title: 'Introducing Dark Mode',
-        content: 'Sample data is prepared for you to demostrate how Integration may be useful for your team'
-      },
-      {
-        icon: <IconSemiLogo style={{fontSize: 48}} />,
-        title: 'New List Component',
-        content: 'Sample data is prepared for you to demostrate how Integration may be useful for your team'
-      },
-    ];
-    const btnStyle = {
-      width: 240,
-      margin: '4px 50px',
-    };
-    const footer = (
-      <div style={{textAlign: 'center'}}>
-        <Button type="primary" theme="solid" onClick={this.handleOk} style={btnStyle}>
-          Continue
-        </Button>
-        <Button type="primary" theme="borderless" onClick={this.handleCancel} style={btnStyle}>
-          Learn more features
-        </Button>
-      </div>
-    );
-    return (
-      <>
-        <Button onClick={this.showDialog}>Customized Modal</Button>
-        <Modal
-          header={null}
-          visible={this.state.visible}
-          onOk={this.handleOk}
-          onCancel={this.handleCancel}
-          footer={footer}
-        >
-          <h3 style={{textAlign: 'center', fontSize: 24, margin: 40}}>Semi Design New Features</h3>
-          <List
-            dataSource={data}
-            split={false}
-            renderItem={item => (
-                <List.Item
-                    header={item.icon}
-                    main={
-                        <div>
-                            <h6 style={{margin: 0, fontSize: 16}}>{item.title}</h6>
-                            <p style={{marginTop: 4, color: 'var(--semi-color-text-1)'}}>{item.content}</p>
-                        </div>
-                    }
-                />)
-            }
-          />
-        </Modal>
-      </>
-    );
-  }
+    constructor() {
+        super();
+        this.state = {visible: false};
+        this.showDialog = this.showDialog.bind(this);
+        this.handleOk = this.handleOk.bind(this);
+        this.handleCancel = this.handleCancel.bind(this);
+    }
+    showDialog() {
+        this.setState({
+            visible: true
+        });
+    }
+    handleOk(e) {
+        this.setState({
+            visible: false
+        });
+    }
+    handleCancel(e) {
+        this.setState({
+            visible: false
+        });
+    }
+    render() {
+        const data = [
+            {
+                icon: <IconSemiLogo style={{fontSize: 48}} />,
+                title: 'Boost new feature adoption with Integration',
+                content: 'Sample data is prepared for you to demostrate how Integration may be useful for your team'
+            },
+            {
+                icon: <IconVigoLogo style={{fontSize: 48}} />,
+                title: 'Introducing Dark Mode',
+                content: 'Sample data is prepared for you to demostrate how Integration may be useful for your team'
+            },
+            {
+                icon: <IconSemiLogo style={{fontSize: 48}} />,
+                title: 'New List Component',
+                content: 'Sample data is prepared for you to demostrate how Integration may be useful for your team'
+            },
+        ];
+        const btnStyle = {
+            width: 240,
+            margin: '4px 50px',
+        };
+        const footer = (
+            <div style={{textAlign: 'center'}}>
+                <Button type="primary" theme="solid" onClick={this.handleOk} style={btnStyle}>
+                    Continue
+                </Button>
+                <Button type="primary" theme="borderless" onClick={this.handleCancel} style={btnStyle}>
+                    Learn more features
+                </Button>
+            </div>
+        );
+        return (
+            <>
+                <Button onClick={this.showDialog}>Customized Modal</Button>
+                <Modal
+                    header={null}
+                    visible={this.state.visible}
+                    onOk={this.handleOk}
+                    onCancel={this.handleCancel}
+                    footer={footer}
+                >
+                    <h3 style={{textAlign: 'center', fontSize: 24, margin: 40}}>Semi Design New Features</h3>
+                    <List
+                        dataSource={data}
+                        split={false}
+                        renderItem={item => (
+                            <List.Item
+                                header={item.icon}
+                                main={
+                                    <div>
+                                        <h6 style={{margin: 0, fontSize: 16}}>{item.title}</h6>
+                                        <p style={{marginTop: 4, color: 'var(--semi-color-text-1)'}}>{item.content}</p>
+                                    </div>
+                                }
+                            />)
+                        }
+                    />
+                </Modal>
+            </>
+        );
+    }
 }
 ```
 
@@ -449,26 +449,26 @@ import React from 'react';
 import { Modal, Button } from '@douyinfe/semi-ui';
 
 () => {
-  const [visible, setVisible] = useState(false);
-  const onClose = () => {
-    setVisible(false);
-  }
-  return (
-    <>
-        <Button onClick={() => setVisible(true)}>Open Full Screen Modal</Button>
-        <Modal
-          title="Title of Modal"
-          fullScreen
-          visible={visible}
-          onOk={onClose}
-          onCancel={onClose}
-        >
-          <p>This is a full screen modal</p>
-          <p>More content...</p>
-        </Modal>
-    </>
-  )
-}
+    const [visible, setVisible] = useState(false);
+    const onClose = () => {
+        setVisible(false);
+    };
+    return (
+        <>
+            <Button onClick={() => setVisible(true)}>Open Full Screen Modal</Button>
+            <Modal
+                title="Title of Modal"
+                fullScreen
+                visible={visible}
+                onOk={onClose}
+                onCancel={onClose}
+            >
+                <p>This is a full screen modal</p>
+                <p>More content...</p>
+            </Modal>
+        </>
+    );
+};
 ```
 
 ### Confirm Modal
@@ -481,79 +481,78 @@ import { Modal, Button } from '@douyinfe/semi-ui';
 import { IconSend } from '@douyinfe/semi-icons';
 
 ModalComponent = function(props) {
-  function success() {
-    Modal.success({ 'title': 'This is a success message', 'content': 'bla bla bla...'});
-  }
+    function success() {
+        Modal.success({ 'title': 'This is a success message', 'content': 'bla bla bla...'});
+    }
 
-  function info() {
-      Modal.info({ 'title': 'Here is some info', 'content': 'bla bla bla...' });
-  }
+    function info() {
+        Modal.info({ 'title': 'Here is some info', 'content': 'bla bla bla...' });
+    }
 
-  function error() {
-      Modal.error({ 'title': 'Unfortunately, there is an error', 'content': 'bla bla bla...' });
-  }
+    function error() {
+        Modal.error({ 'title': 'Unfortunately, there is an error', 'content': 'bla bla bla...' });
+    }
 
-  function warning() {
-      Modal.warning({ 'title': 'Warning: be cautious ahead', 'content': 'bla bla bla...' });
-  }
+    function warning() {
+        Modal.warning({ 'title': 'Warning: be cautious ahead', 'content': 'bla bla bla...' });
+    }
 
-  function confirm() {
-      Modal.confirm({ 'title': 'Are you sure ?', 'content': 'bla bla bla...' });
-  }
+    function confirm() {
+        Modal.confirm({ 'title': 'Are you sure ?', 'content': 'bla bla bla...' });
+    }
 
-  function custom() {
-      Modal.info({ 'title': 'This is a custom modal', 'content': 'bla bla bla...', icon: <IconSend />, cancelButtonProps: { theme: 'borderless' }, okButtonProps: { theme: 'solid' }, });
-  }
+    function custom() {
+        Modal.info({ 'title': 'This is a custom modal', 'content': 'bla bla bla...', icon: <IconSend />, cancelButtonProps: { theme: 'borderless' }, okButtonProps: { theme: 'solid' }, });
+    }
 
-  return (
-    <div>
-        <Button onClick={info}>Info</Button>
-        <br/>
-        <br/>
-        <Button onClick={success}>Success</Button>
-        <br/>
-        <br/>
-        <Button onClick={error} type="danger">Error</Button>
-        <br/>
-        <br/>
-        <Button onClick={warning} type="warning">Warning</Button>
-        <br/>
-        <br/>
-        <Button onClick={confirm} type="primary">Confirm</Button>
-        <br/>
-        <br/>
-        <Button onClick={custom}>Custom</Button>
-    </div>
-  )
-}
+    return (
+        <div>
+            <Button onClick={info}>Info</Button>
+            <br/>
+            <br/>
+            <Button onClick={success}>Success</Button>
+            <br/>
+            <br/>
+            <Button onClick={error} type="danger">Error</Button>
+            <br/>
+            <br/>
+            <Button onClick={warning} type="warning">Warning</Button>
+            <br/>
+            <br/>
+            <Button onClick={confirm} type="primary">Confirm</Button>
+            <br/>
+            <br/>
+            <Button onClick={custom}>Custom</Button>
+        </div>
+    );
+};
 ```
 
 ### useModal Hooks
 You could use `Modal.useModal` to create a `contextHolder` that could access context.
 ```jsx live=true hideInDSM
 import React from 'react';
-import { Modal } from '@douyinfe/semi-ui';
 import { ConfigProvider, Modal, Button } from '@douyinfe/semi-ui';
 import en_GB from '@douyinfe/semi-ui/lib/es/locale/source/en_GB';
 
 function Demo(props = {}) {
-  const [modal, contextHolder] = Modal.useModal();
-  const config = { 'title': 'This is a success message', 'content': 'Context consumer' }
+    const [modal, contextHolder] = Modal.useModal();
+    const config = { 'title': 'This is a success message', 'content': 'Context consumer' };
 
-  return (
-      <ConfigProvider locale={en_GB}>
-        <div>
-            <Button
-                onClick={() => {
-                    modal.confirm(config);
-                }}
-            >
-              Confirm Modal
-          </Button>
-        </div>
-        {contextHolder}
-      </ConfigProvider>
-  );
+    return (
+        <ConfigProvider locale={en_GB}>
+            <div>
+                <Button
+                    onClick={() => {
+                        modal.confirm(config);
+                    }}
+                >
+                    Confirm Modal
+                </Button>
+            </div>
+            {contextHolder}
+        </ConfigProvider>
+    );
 }
 ```
 

@@ -1,14 +1,14 @@
 import React from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
-import CalendarFoundation, { CalendarAdapter, EventObject, ParsedEvents, ParsedRangeEvent, WeeklyData } from '@douyinfe/semi-foundation/calendar/foundation';
+import CalendarFoundation, { CalendarAdapter, EventObject, ParsedEvents, ParsedEventsType, ParsedRangeEvent, WeeklyData } from '@douyinfe/semi-foundation/calendar/foundation';
 import LocaleConsumer from '../locale/localeConsumer';
 import localeContext from '../locale/context';
 import { cssClasses } from '@douyinfe/semi-foundation/calendar/constants';
 import BaseComponent from '../_base/baseComponent';
 import DayCol from './dayCol';
 import TimeCol from './timeCol';
-import { isEqual } from 'lodash-es';
+import { isEqual } from 'lodash';
 import { calcRowHeight } from '@douyinfe/semi-foundation/calendar/eventUtil';
 import { WeekCalendarProps } from './interface';
 
@@ -88,8 +88,8 @@ export default class WeekCalendar extends BaseComponent<WeekCalendarProps, WeekC
             updateScrollHeight: scrollHeight => {
                 this.setState({ scrollHeight });
             },
-            setParsedEvents: (parsedEvents: ParsedEvents) => {
-                this.setState({ parsedEvents });
+            setParsedEvents: (parsedEvents: ParsedEventsType) => {
+                this.setState({ parsedEvents: parsedEvents as ParsedEvents });
             },
             cacheEventKeys: cachedKeys => {
                 this.setState({ cachedKeys });

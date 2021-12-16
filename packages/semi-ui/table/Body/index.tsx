@@ -3,7 +3,7 @@
 /* eslint-disable max-len */
 import React, { ReactNode } from 'react';
 import PropTypes from 'prop-types';
-import { get, size, isMap, each, isEqual, pick, isNull } from 'lodash-es';
+import { get, size, isMap, each, isEqual, pick, isNull } from 'lodash';
 import classnames from 'classnames';
 import { VariableSizeList as List } from 'react-window';
 
@@ -22,7 +22,7 @@ import { strings } from '@douyinfe/semi-foundation/table/constants';
 import Store from '@douyinfe/semi-foundation/utils/Store';
 
 import BaseComponent, { BaseProps } from '../../_base/baseComponent';
-import { measureScrollbar, logger } from '../utils';
+import { logger } from '../utils';
 import ColGroup from '../ColGroup';
 import BaseRow from './BaseRow';
 import ExpandedRow from './ExpandedRow';
@@ -126,6 +126,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
     ref: React.MutableRefObject<any>;
     listRef: React.MutableRefObject<any>;
     observer: ResizeObserver;
+    foundation: BodyFoundation;
     constructor(props: BodyProps, context: BodyContext) {
         super(props);
         this.ref = React.createRef();
@@ -159,7 +160,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
             setVirtualizedData: (virtualizedData, cb) => this.setState({ virtualizedData }, cb),
             setCachedExpandBtnShouldInRow: cachedExpandBtnShouldInRow => this.setState({ cachedExpandBtnShouldInRow }),
             setCachedExpandRelatedProps: cachedExpandRelatedProps => this.setState({ cachedExpandRelatedProps }),
-            observeBodyResize: bodyWrapDOM => {
+            observeBodyResize: (bodyWrapDOM: HTMLDivElement) => {
                 const { setBodyHasScrollbar } = this.context;
 
                 // Callback when the size of the body dom content changes, notifying Table.jsx whether the bodyHasScrollBar exists
@@ -176,11 +177,12 @@ class Body extends BaseComponent<BodyProps, BodyState> {
                 // Monitor body dom resize
                 if (bodyWrapDOM) {
                     if (get(window, 'ResizeObserver')) {
-                        // no need to observe many times when ref update
-                        if (!this.observer) {
-                            this.observer = new ResizeObserver(resizeCallback);
-                            this.observer.observe(bodyWrapDOM);
+                        if (this.observer) {
+                            this.observer.unobserve(bodyWrapDOM);
+                            this.observer = null;
                         }
+                        this.observer = new ResizeObserver(resizeCallback);
+                        this.observer.observe(bodyWrapDOM);
                     } else {
                         logger.warn(
                             'The current browser does not support ResizeObserver,' +
@@ -194,17 +196,19 @@ class Body extends BaseComponent<BodyProps, BodyState> {
                 const bodyWrapDOM = this.ref.current;
                 if (this.observer) {
                     this.observer.unobserve(bodyWrapDOM);
+                    this.observer = null;
                 }
             }
         };
     }
 
     componentDidUpdate(prevProps: BodyProps, prevState: BodyState) {
-        if (this.props.virtualized) {
+        const { virtualized, dataSource, expandedRowKeys, columns, scroll  } = this.props;
+        if (virtualized) {
             if (
-                prevProps.dataSource !== this.props.dataSource ||
-                prevProps.expandedRowKeys !== this.props.expandedRowKeys ||
-                prevProps.columns !== this.props.columns
+                prevProps.dataSource !== dataSource ||
+                prevProps.expandedRowKeys !== expandedRowKeys ||
+                prevProps.columns !== columns
             ) {
                 this.foundation.initVirtualizedData();
             }
@@ -214,6 +218,12 @@ class Body extends BaseComponent<BodyProps, BodyState> {
         const newExpandRelatedProps = expandRelatedProps.map(key => get(this.props, key, undefined));
         if (!isEqual(newExpandRelatedProps, prevState.cachedExpandRelatedProps)) {
             this.foundation.initExpandBtnShouldInRow(newExpandRelatedProps);
+        }
+
+        const scrollY = get(scroll, 'y');
+        const bodyWrapDOM = this.ref.current;
+        if (scrollY && scrollY !== get(prevProps, 'scroll.y')) {
+            this.foundation.observeBodyResize(bodyWrapDOM);
         }
     }
 
@@ -289,12 +299,11 @@ class Body extends BaseComponent<BodyProps, BodyState> {
 
     getVirtualizedRowWidth = () => {
         const { getCellWidths } = this.context;
-        const { columns, anyColumnFixed } = this.props;
+        const { columns } = this.props;
         const cellWidths = getCellWidths(columns);
-        const measuredScrollbarWidth = measureScrollbar('vertical');
         const rowWidth = arrayAdd(cellWidths, 0, size(columns));
 
-        return !anyColumnFixed && measuredScrollbarWidth ? rowWidth - measuredScrollbarWidth : rowWidth;
+        return rowWidth;
     };
 
     renderVirtualizedRow = (options: { index?: number; style?: React.CSSProperties; isScrolling?: boolean }) => {
@@ -328,7 +337,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
     };
 
     // virtualized List innerElementType
-    renderTbody = React.forwardRef<HTMLDivElement, any>((props: any = {}, ref: React.MutableRefObject<HTMLDivElement>) => (
+    renderTbody = React.forwardRef<HTMLDivElement, any>((props: any = {}, ref: React.MutableRefObject<HTMLDivElement> | ((instance: HTMLDivElement) => void)) => (
         <div
             {...props}
             onScroll={(...args) => {
@@ -344,7 +353,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
     ));
 
     // virtualized List outerElementType
-    renderOuter = React.forwardRef<HTMLDivElement, any>((props: any, ref: React.MutableRefObject<HTMLDivElement>) => {
+    renderOuter = React.forwardRef<HTMLDivElement, any>((props: any, ref: React.MutableRefObject<HTMLDivElement> | ((instance: HTMLDivElement) => void)) => {
         const { children, ...rest } = props;
         // eslint-disable-next-line react/no-this-in-sfc
         const { handleWheel, prefixCls, emptySlot, dataSource } = this.props;
@@ -386,7 +395,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
         }
     };
 
-    renderVirtualizedBody = (direction: Direction) => {
+    renderVirtualizedBody = (direction?: Direction) => {
         const { scroll, prefixCls, virtualized, anyColumnFixed, columns } = this.props;
         const { virtualizedData } = this.state;
         const { getCellWidths } = this.context;
@@ -395,8 +404,6 @@ class Body extends BaseComponent<BodyProps, BodyState> {
         if (!size(cellWidths)) {
             return null;
         }
-
-        const measuredScrollbarWidth = measureScrollbar('vertical');
 
         const rawY = get(scroll, 'y');
         const yIsNumber = typeof rawY === 'number';
@@ -409,8 +416,8 @@ class Body extends BaseComponent<BodyProps, BodyState> {
         const listStyle = {
             width: '100%',
             height: y,
-            overflowX: anyColumnFixed ? 'scroll' : 'auto',
-            overflowY: measuredScrollbarWidth ? 'scroll' : 'auto',
+            overflowX: 'auto',
+            overflowY: 'auto',
         } as const;
 
         const wrapCls = classnames(`${prefixCls}-body`);
@@ -433,6 +440,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
                 innerElementType={this.renderTbody}
                 outerElementType={this.renderOuter}
                 style={{ ...listStyle, direction }}
+                direction={direction}
             >
                 {this.renderVirtualizedRow}
             </List>
@@ -705,7 +713,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
         return renderedRows;
     }
 
-    renderBody = (direction: Direction) => {
+    renderBody = (direction?: Direction) => {
         const {
             scroll,
             prefixCls,
@@ -799,7 +807,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
         const { virtualized } = this.props;
         return (
             <ConfigContext.Consumer>
-                {({ direction }: { direction: Direction }) => (virtualized ? this.renderVirtualizedBody(direction) : this.renderBody(direction))}
+                {({ direction }: { direction?: Direction }) => (virtualized ? this.renderVirtualizedBody(direction) : this.renderBody(direction))}
             </ConfigContext.Consumer>
         );
     }

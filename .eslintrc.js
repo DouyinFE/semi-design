@@ -10,6 +10,7 @@ module.exports = {
             "version": "detect"
         }
     },
+    extends: ["plugin:markdown/recommended"],
     overrides: [
         {
             files: ['*.js', '*.jsx'],
@@ -27,7 +28,9 @@ module.exports = {
                 'react/prop-types': 'off',
                 'react/prefer-stateless-function': 'off',
                 'operator-linebreak': ['warn', 'after', { 'overrides': { '?': 'before', ':': 'before' } }],
-                'import/no-unresolved': 'off'
+                'import/no-unresolved': 'off',
+                'semi': ['error', 'always'],
+                'keyword-spacing': ["error", { "before": true, "after": true }]
             },
             globals: {
                 "sinon": "readonly",
@@ -35,6 +38,7 @@ module.exports = {
         },
         {
             files: ['*.ts', '*.tsx'],
+            excludedFiles: ['content/**'],
             extends: ['jest-enzyme', 'plugin:@typescript-eslint/recommended', 'plugin:import/typescript', 'plugin:react/recommended'],
             parser: '@typescript-eslint/parser',
             parserOptions: {
@@ -62,7 +66,11 @@ module.exports = {
                 '@typescript-eslint/no-var-requires': 'warn',
                 '@typescript-eslint/no-inferrable-types': 'off',
                 '@typescript-eslint/no-this-alias': 'off',
-                'import/no-unresolved': 'off'
+                 // In scenarios where specific rest props need to be passed, some keys may be taken out first, so set 'no-unused-vars' to off
+                '@typescript-eslint/no-unused-vars': 'off',
+                'import/no-unresolved': 'off',
+                'semi': ['error', 'always'],
+                'keyword-spacing': ["error", { "before": true, "after": true }]
             }
         },
     ],

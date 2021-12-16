@@ -13,10 +13,13 @@ import {
     findIndex,
     some,
     includes,
-    toString
-} from 'lodash-es';
+    toString,
+    isFunction
+} from 'lodash';
 import { strings, numbers } from './constants';
 import isNullOrUndefined from '../utils/isNullOrUndefined';
+import Logger from '../utils/Logger';
+
 
 export function cloneDeep(value: any, customizer?: (v: any) => any) {
     return cloneDeepWith(value, v => {
@@ -163,7 +166,7 @@ export function isSelectionColumn(column: Record<string, any>) {
     return get(column, 'key') === strings.DEFAULT_KEY_COLUMN_SELECTION;
 }
 
-export function filterColumns(columns: Record<string, any>[], ignoreKeys = [strings.DEFAULT_KEY_COLUMN_SCROLLBAR]) {
+export function filterColumns(columns: Record<string, any>[], ignoreKeys = [strings.DEFAULT_KEY_COLUMN_SCROLLBAR as string]) {
     return filter(columns, col => !ignoreKeys.includes(col.key));
 }
 
@@ -265,6 +268,7 @@ export function flattenColumns(cols: Record<string, any>[], childrenColumnName =
             if (Array.isArray(col[childrenColumnName]) && col[childrenColumnName].length) {
                 list.push(...flattenColumns(col[childrenColumnName], childrenColumnName));
             } else {
+                warnIfNoDataIndex(col);
                 list.push(col);
             }
         }
@@ -470,4 +474,14 @@ export interface GetAllDisabledRowKeysProps {
     getCheckboxProps: (record?: Record<string, any>) => any;
     childrenRecordName?: string;
     rowKey?: string | number | ((record: Record<string, any>) => string | number);
+}
+
+export function warnIfNoDataIndex(column: Record<string, any>) {
+    if (typeof column === 'object' && column !== null) {
+        const { filters, sorter, dataIndex } = column;
+        const logger = new Logger('[@douyinfe/semi-ui Table]');
+        if ((Array.isArray(filters) || isFunction(sorter)) && isNullOrUndefined(dataIndex) ) {
+            logger.warn(`The column with sorter or filter must pass the 'dataIndex' prop`);
+        }
+    }
 }

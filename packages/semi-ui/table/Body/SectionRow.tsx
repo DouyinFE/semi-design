@@ -4,7 +4,7 @@
 import React, { PureComponent, isValidElement, ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { get, isSet } from 'lodash-es';
+import { get, isSet } from 'lodash';
 
 import Store from '@douyinfe/semi-foundation/utils/Store';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/table/constants';

@@ -16,7 +16,7 @@ export interface SpinProps {
     spinning?: boolean;
     indicator?: React.ReactNode;
     delay?: number;
-    tip?: string;
+    tip?: React.ReactNode;
     wrapperClassName?: string;
     style?: React.CSSProperties;
     childStyle?: React.CSSProperties;
@@ -34,7 +34,7 @@ class Spin extends BaseComponent<SpinProps, SpinState> {
         children: PropTypes.node,
         indicator: PropTypes.node,
         delay: PropTypes.number,
-        tip: PropTypes.string,
+        tip: PropTypes.node,
         wrapperClassName: PropTypes.string,
         childStyle: PropTypes.object,
         style: PropTypes.object,

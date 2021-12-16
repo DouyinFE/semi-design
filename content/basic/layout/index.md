@@ -388,7 +388,7 @@ import { IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, IconHistogram, I
                     ]}
                     header={{
                         logo: <img src="//lf1-cdn-tos.bytescm.com/obj/ttfe/ies/semi/webcast_logo.svg" />,
-                        text: '直播运营后台',
+                        text: 'Semi 运营后台',
                     }}
                     footer={{
                         collapseButton: true,
@@ -502,15 +502,15 @@ import { IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, IconHistogram, I
 
 ### responsive map
 
-```jsx
+```text
 {
-  xs: '(max-width: 575px)',
-  sm: '(min-width: 576px)',
-  md: '(min-width: 768px)',
-  lg: '(min-width: 992px)',
-  xl: '(min-width: 1200px)',
-  xxl: '(min-width: 1600px)',
-}
+    xs: '(max-width: 575px)',
+    sm: '(min-width: 576px)',
+    md: '(min-width: 768px)',
+    lg: '(min-width: 992px)',
+    xl: '(min-width: 1200px)',
+    xxl: '(min-width: 1600px)',
+};
 ```
 
 <!-- ## 相关物料

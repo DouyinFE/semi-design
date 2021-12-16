@@ -6,6 +6,7 @@ $color-timeline_dot_info-bg-default: var(--semi-color-tertiary-light-active); //
 $color-timeline_tail-border: var(--semi-color-text-3); // 时间轴连线颜色
 $color-timeline_time_default-text-default: var(--semi-color-text-2); // 时间轴文字颜色 - 默认
 $color-timeline_item_head-bg: transparent; // 时间轴头部背景颜色
+$color-timeline_item_content-text-default: var(--semi-color-text-0); // 时间轴标题文字颜色
 
 $spacing-timeline-margin: $spacing-none; // 时间轴整体外边距
 $spacing-timeline-padding: $spacing-tight; // 时间轴整体内边距

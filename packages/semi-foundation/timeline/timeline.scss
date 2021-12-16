@@ -94,6 +94,7 @@ $module: #{$prefix}-timeline;
             position: relative;
             margin: $spacing-none $spacing-none $spacing-none $spacing-timeline_content-marginLeft;
             word-break: break-word;
+            color: $color-timeline_item_content-text-default;
 
             &-extra,
             &-time {
@@ -119,7 +120,11 @@ $module: #{$prefix}-timeline;
             &-head-custom {
                 left: $spacing-timeline_item_head_custom-left;
             }
-
+            &-head{
+                &.#{$module}-item-head-custom{
+                    margin-left: 0;
+                }
+            }
             &-head {
                 margin-left: $spacing-timeline_item_head-marginLeft;
             }

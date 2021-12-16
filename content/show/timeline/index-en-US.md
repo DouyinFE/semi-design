@@ -29,7 +29,7 @@ import { Timeline } from '@douyinfe/semi-ui';
         <Timeline.Item time='2019-06-13 16:17'>Second Node Content</Timeline.Item>
         <Timeline.Item time='2019-05-14 18:34'>Third Node Content</Timeline.Item>
     </Timeline>
-)
+);
 ```
 
 ### Type
@@ -46,7 +46,7 @@ import { Timeline } from '@douyinfe/semi-ui';
         <Timeline.Item time='2019-06-13 16:17' type='success'>Succeed</Timeline.Item>
         <Timeline.Item time='2019-05-14 18:34' type='error'>Failed</Timeline.Item>
     </Timeline>
-)
+);
 ```
 
 ### Custom node
@@ -65,7 +65,7 @@ import { IconAlertTriangle } from '@douyinfe/semi-icons';
         <Timeline.Item time='2019-05-14 18:34' color='pink'>Customized Color</Timeline.Item>
         <Timeline.Item time='2019-04-10 12:20'><span style={{fontSize: '18px'}}>Customized Node Style</span></Timeline.Item>
     </Timeline>
-)
+);
 ```
 
 ### Timeline Position
@@ -85,7 +85,7 @@ import { Timeline } from '@douyinfe/semi-ui';
         <Timeline.Item time='2019-05-14 18:34' extra='Extra Information'>Third Node Content</Timeline.Item>
         <Timeline.Item time='2019-05-09 09:12' extra='Extra Information'>Forth Node Content</Timeline.Item>
     </Timeline>
-)
+);
 ```
 
 #### Center
@@ -101,7 +101,7 @@ import { Timeline } from '@douyinfe/semi-ui';
         <Timeline.Item time='2019-05-14 18:34' extra='Extra Information'>Third Node Content</Timeline.Item>
         <Timeline.Item time='2019-05-09 09:12' extra='Extra Information'>Forth Node Content</Timeline.Item>
     </Timeline>
-)
+);
 ```
 
 #### Alternate
@@ -117,7 +117,7 @@ import { Timeline } from '@douyinfe/semi-ui';
         <Timeline.Item time='2019-05-14 18:34' extra='Extra Information'>Third Node Content</Timeline.Item>
         <Timeline.Item time='2019-05-09 09:12' extra='Extra Information'>Forth Node Content</Timeline.Item>
     </Timeline>
-)
+);
 ```
 
 #### Right
@@ -133,7 +133,7 @@ import { Timeline } from '@douyinfe/semi-ui';
         <Timeline.Item time='2019-05-14 18:34' extra='Extra Information'>Third Node Content</Timeline.Item>
         <Timeline.Item time='2019-05-09 09:12' extra='Extra Information'>Forth Node Content</Timeline.Item>
     </Timeline>
-)
+);
 ```
 
 ### DataSource
@@ -174,7 +174,7 @@ import { IconAlertTriangle } from '@douyinfe/semi-icons';
             }    
         ]} 
     />
-)
+);
 ```
 
 ## API reference
@@ -190,15 +190,15 @@ import { IconAlertTriangle } from '@douyinfe/semi-icons';
 
 ### TimeLine.Item
 
-| Properties | Instruction                                              | type                                                | Default   |
-| ---------- | -------------------------------------------------------- | --------------------------------------------------- | --------- |
-| className  | Class name                                               | string                                              | -         |
-| color      | Color of dot                                             | string                                              | -         |
-| dot        | Custom dot                                               | React Node                                          | -         |
-| extra      | Custom extra content                                     | React Node                                          | -         |
+| Properties | Instruction                                              | type                                              | Default   |
+| ---------- | -------------------------------------------------------- | ------------------------------------------------- | --------- |
+| className  | Class name                                               | string                                            | -         |
+| color      | Color of dot                                             | string                                            | -         |
+| dot        | Custom dot                                               | ReactNode                                         | -         |
+| extra      | Custom extra content                                     | ReactNode                                         | -         |
 | position   | Custom node location to override TimeLine's mode setting | `left`\|`right`                                     | -         |
-| style      | Inline style                                             | CSSProperties                                              | -         |
-| time       | Time value                                               | string                                              | -         |
+| style      | Inline style                                             | CSSProperties                                           | -         |
+| time       | Time value                                               | ReactNode                                              | -         |
 | type       | Pattern of dot                                           | `default`\|`ongoing`\|`success`\|`warning`\|`error` | `default` |
 
 ## Design Tokens

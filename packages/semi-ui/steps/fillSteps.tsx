@@ -1,4 +1,4 @@
-import React, { cloneElement, Children, useMemo } from 'react';
+import React, { cloneElement, Children, useMemo, ReactElement, isValidElement } from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
 import { stepsClasses as css } from '@douyinfe/semi-foundation/steps/constants';
@@ -21,9 +21,9 @@ export interface FillStepsProps {
 const Steps = (props: FillStepsProps) => {
     const { current, status, children, prefixCls, initial, direction, className, style, onChange } = props;
     const inner = useMemo(() => {
-        const filteredChildren = Children.toArray(children).filter(c => Boolean(c));
+        const filteredChildren = Children.toArray(children).filter(c => isValidElement(c)) as Array<ReactElement>;
         const colStyle = direction === 'vertical' ? null : { width: `${100 / filteredChildren.length }%` };
-        const content = Children.map(filteredChildren, (child: React.ReactElement, index) => {
+        const content = Children.map(filteredChildren, (child: ReactElement, index) => {
             if (!child) {
                 return null;
             }
@@ -55,7 +55,7 @@ const Steps = (props: FillStepsProps) => {
             return <Col style={colStyle}>{cloneElement(child, { ...childProps })}</Col>;
         });
         return content;
-    }, [children, initial, prefixCls, direction, status, current]);
+    }, [children, initial, prefixCls, direction, status, current, onChange]);
 
     const wrapperCls = cls(className, {
         [prefixCls]: true,

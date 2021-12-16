@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { strings } from '@douyinfe/semi-foundation/timePicker/constants';
-import { noop } from 'lodash-es';
+import { noop } from 'lodash';
 
 import Input from '../input';
 import BaseComponent, { BaseProps } from '../_base/baseComponent';

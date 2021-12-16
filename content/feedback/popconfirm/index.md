@@ -30,23 +30,23 @@ import { Popconfirm, Button, Toast } from '@douyinfe/semi-ui';
 
 () => {
     const onConfirm = () => {
-      Toast.success('确认保存！');
+        Toast.success('确认保存！');
     };
 
     const onCancel = () => {
-      Toast.warning('取消保存！');
-    }
+        Toast.warning('取消保存！');
+    };
     return (
-      <Popconfirm
-          title="确定是否要保存此修改？"
-          content="此修改将不可逆"
-          onConfirm={onConfirm}
-          onCancel={onCancel}
-      >
-          <Button>保存</Button>
-      </Popconfirm>
-    )
-}
+        <Popconfirm
+            title="确定是否要保存此修改？"
+            content="此修改将不可逆"
+            onConfirm={onConfirm}
+            onCancel={onCancel}
+        >
+            <Button>保存</Button>
+        </Popconfirm>
+    );
+};
 ```
 
 ### 类型搭配
@@ -145,6 +145,7 @@ function TypesConfirmDemo(props = {}) {
 | zIndex             | 浮层 z-index 值                                                                                                                             | number                           | 1030                |
 | onConfirm          | 点击确认按钮回调                                                                                                                            | Function(e)                      |                     |
 | onCancel           | 点击取消按钮回调                                                                                                                            | Function(e)                      |                     |
+| onClickOutSide     | 当弹出层处于展示状态，点击非Children、非浮层内部区域时的回调                                                                                      | Function(e)                      |  **2.1.0**      |
 | onVisibleChange    | 气泡框切换显示隐藏的回调                                                                                                               | Function(visible: boolean): void | () => {}            | **0.19.0**        |
 
 ## 设计变量

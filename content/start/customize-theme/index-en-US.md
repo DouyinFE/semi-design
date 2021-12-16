@@ -6,16 +6,25 @@ localeCode: en-US
 order: 3
 ---
 
+## 定制方式
 
+Semi provides a complete theme configuration process, which not only maintains the uniformity and coherence of colors, fonts, rounded corners, shadows, layouts, etc. in the visual language, but also meets the diversified visual needs of the business and the brand.  
+You can go to [Semi Design System Management Site](https://semi.design/dsm/) (also known as DSM) to choose or create a theme style that meets your needs.
 
-## Customization
+Currently DSM supports global and component-level style customization, and keeps synchronization between Figma and online code. **Use DSM to adapt Semi Design to Any Design**
 
-Semi provides a complete theme configuration process, which not only maintains the uniformity and coherence of colors, fonts, rounded corners, shadows, layouts, etc. in the visual language, but also meets the diversified visual needs of the business and the brand. You can go to [Semi Design System Management Site](https://semi.design/dsm/) to choose or create a theme style that meets your needs. Currently [Semi Design System Management Site](https://semi.design/dsm/) supports the configuration of theme colors, including fonts, rounded corners, etc.
+- 🎨 Global style variable management
+Supports visual editing and previewing of color wheels, rounded corners, font layout, strokes, and shadows
 
+- 🔁 Two-way synchronization of design variables
+Design variables can be synchronized in real time in both directions on the Web side and the Figma plug-in side.
+
+- 🧩 In-depth component style customization
+In-depth customization of the style of a single component, such as the style customization of the height/spacing of the component.
 
 ### Create a theme
 
-You can also start from a published theme, or choose **Create Now** to create a new theme, or you can update a published theme. After selecting the main color, our color algorithm will generate a set of highly available color wheels for you. On this basis, you can modify common variables and produce corresponding theme packages. One-click publishing can be pushed to bnpm.
+You can also start from a published theme, or choose **Create Now** to create a new theme, or you can update a published theme. After selecting the main color, our color algorithm will generate a set of highly available color wheels for you. On this basis, you can modify common variables and produce corresponding theme packages. One-click publishing can be pushed to npm.
 
 ![Theme Creation](https://lf9-static.bytednsdoc.com/obj/eden-cn/nuhpxphk/dsm/dsm_welcome.png)
 
@@ -37,17 +46,19 @@ Then you need to specify the theme to be used in the configuration file.
 
 For users who use webpack, add the `theme` parameter to SemiWebpackPlugin.
 
-SemiWebpackPlugin  `yarn add -D @douyinfe/semi-webpack-plugin` or `npm i -D @douyinfe/semi-webpack-plugin`
+SemiWebpackPlugin `yarn add -D @douyinfe/semi-webpack-plugin` or `npm i -D @douyinfe/semi-webpack-plugin`
 
 ```jsx
 new SemiWebpackPlugin({
-    theme: `Your theme npm package name`
+    theme: `Your theme npm package name`,
     /* ...options */
-})
+});
 ```
+
 ### Make changes to component-level variables take effect
 
 If you modify the component-level variables in the process of customizing the theme, the `theme` field needs to be configured with the following configuration to make the changes take effect:
+
 ```javascript
 {
     theme: {
@@ -56,7 +67,6 @@ If you modify the component-level variables in the process of customizing the th
     }
 }
 ```
-
 
 ## Update theme
 

@@ -26,36 +26,36 @@ import { Banner, Layout, Button } from '@douyinfe/semi-ui';
 () => {
     const [visible, setVisible] = useState(false);
     const changeVisible = () => {
-      setVisible(!visible);
+        setVisible(!visible);
     };
     const { Header, Footer, Content } = Layout;
     const banner = (
-      <Banner 
-          onClose={changeVisible}
-          description="A pre-released version is available"
-      />
+        <Banner 
+            onClose={changeVisible}
+            description="A pre-released version is available"
+        />
     );
     return (
         <>
-          <Layout className='components-layout-demo banner-basic'>
-              <Header>Header</Header>
-              {visible? banner : null}
-              <Content>Content</Content>
-              <Footer>Footer</Footer>
-          </Layout>
-          <Button
-            onClick={changeVisible}
-            style={{
-              display: 'block',
-              width: '120px',
-              margin: '0 auto'
-            }}
-          >
-            { visible ? 'Hide Banner' : 'Show Banner' }
-          </Button>
+            <Layout className='components-layout-demo banner-basic'>
+                <Header>Header</Header>
+                {visible? banner : null}
+                <Content>Content</Content>
+                <Footer>Footer</Footer>
+            </Layout>
+            <Button
+                onClick={changeVisible}
+                style={{
+                    display: 'block',
+                    width: '120px',
+                    margin: '0 auto'
+                }}
+            >
+                { visible ? 'Hide Banner' : 'Show Banner' }
+            </Button>
         </>
-      );
-}
+    );
+};
 ```
 
 ### 不同类型
@@ -67,28 +67,28 @@ import React from 'react';
 import { Banner } from '@douyinfe/semi-ui';
 
 () => (
-  <>
-    <Banner 
-      type="info"
-      description="A pre-released version is available."
-    />
-    <br/>
-    <Banner 
-      type="warning"
-      description="This version of the document is going to expire after 4 days."
-    />
-    <br/>
-    <Banner 
-      type="danger"
-      description="This document was deprecated since Jan 1, 2019."
-    />
-    <br/>
-    <Banner 
-      type="success"
-      description="You are viewing the latest version of this document."
-    />
-  </>
-)
+    <>
+        <Banner 
+            type="info"
+            description="A pre-released version is available."
+        />
+        <br/>
+        <Banner 
+            type="warning"
+            description="This version of the document is going to expire after 4 days."
+        />
+        <br/>
+        <Banner 
+            type="danger"
+            description="This document was deprecated since Jan 1, 2019."
+        />
+        <br/>
+        <Banner 
+            type="success"
+            description="You are viewing the latest version of this document."
+        />
+    </>
+);
 ```
 
 
@@ -101,28 +101,28 @@ import React from 'react';
 import { Banner, Typography } from '@douyinfe/semi-ui';
 
 function Demo() {
-  const { Text } = Typography;
+    const { Text } = Typography;
   
-  return (
-    <div style={{width: 640 }} className="components-banner-demo">
-      <Banner fullMode={false} type="info" bordered icon={null} closeIcon={null}
-        title={<div style={{fontWeight: 600, fontSize: '14px', lineHeight: '20px'}}>不知道 AppKey？</div>}
-        description={<div>你可先联系对应的研发同学，确认是否已在 <Text link={{ href: 'https://semi.design/' }}>应用云平台</Text> 申请了应用，并填写对应的信息。</div>}
-      /><br/>
-      <Banner fullMode={false} type="warning" bordered icon={null} closeIcon={null}
-        title={<div style={{fontWeight: 600, fontSize: '14px', lineHeight: '20px'}}>不知道 AppKey？</div>}
-        description={<div>你可先联系对应的研发同学，确认是否已在 <Text link={{ href: 'https://semi.design/' }}>应用云平台</Text> 申请了应用，并填写对应的信息。</div>}
-      /><br/>
-      <Banner fullMode={false} type="danger" bordered icon={null} closeIcon={null}
-        title={<div style={{fontWeight: 600, fontSize: '14px', lineHeight: '20px'}}>不知道 AppKey？</div>}
-        description={<div>你可先联系对应的研发同学，确认是否已在 <Text link={{ href: 'https://semi.design/' }}>应用云平台</Text> 申请了应用，并填写对应的信息。</div>}
-      /><br/>
-      <Banner fullMode={false} type="success" bordered icon={null} closeIcon={null}
-        title={<div style={{fontWeight: 600, fontSize: '14px', lineHeight: '20px'}}>不知道 AppKey？</div>}
-        description={<div>你可先联系对应的研发同学，确认是否已在 <Text link={{ href: 'https://semi.design/' }}>应用云平台</Text> 申请了应用，并填写对应的信息。</div>}
-      />
-    </div>
-  );
+    return (
+        <div style={{width: 640 }} className="components-banner-demo">
+            <Banner fullMode={false} type="info" bordered icon={null} closeIcon={null}
+                title={<div style={{fontWeight: 600, fontSize: '14px', lineHeight: '20px'}}>不知道 AppKey？</div>}
+                description={<div>你可先联系对应的研发同学，确认是否已在 <Text link={{ href: 'https://semi.design/' }}>应用云平台</Text> 申请了应用，并填写对应的信息。</div>}
+            /><br/>
+            <Banner fullMode={false} type="warning" bordered icon={null} closeIcon={null}
+                title={<div style={{fontWeight: 600, fontSize: '14px', lineHeight: '20px'}}>不知道 AppKey？</div>}
+                description={<div>你可先联系对应的研发同学，确认是否已在 <Text link={{ href: 'https://semi.design/' }}>应用云平台</Text> 申请了应用，并填写对应的信息。</div>}
+            /><br/>
+            <Banner fullMode={false} type="danger" bordered icon={null} closeIcon={null}
+                title={<div style={{fontWeight: 600, fontSize: '14px', lineHeight: '20px'}}>不知道 AppKey？</div>}
+                description={<div>你可先联系对应的研发同学，确认是否已在 <Text link={{ href: 'https://semi.design/' }}>应用云平台</Text> 申请了应用，并填写对应的信息。</div>}
+            /><br/>
+            <Banner fullMode={false} type="success" bordered icon={null} closeIcon={null}
+                title={<div style={{fontWeight: 600, fontSize: '14px', lineHeight: '20px'}}>不知道 AppKey？</div>}
+                description={<div>你可先联系对应的研发同学，确认是否已在 <Text link={{ href: 'https://semi.design/' }}>应用云平台</Text> 申请了应用，并填写对应的信息。</div>}
+            />
+        </div>
+    );
 }
 ```
 
@@ -150,22 +150,22 @@ import React from 'react';
 import { Banner } from '@douyinfe/semi-ui';
 
 () => (
-  <div style={{width: 500, padding: 20, border: '1px solid var(--semi-color-border)' }}>
-    <Banner
-      fullMode={false}
-      title="Title"
-      type="warning"
-      bordered
-      description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
-    >
-        <div className="semi-modal-footer">
-            <button className="semi-button semi-button-tertiary semi-button-light" type="button">No, thanks.</button>
-            <button className="semi-button semi-button-warning" type="button">Sounds great!</button>
-        </div>
-    </Banner>
-    <br/>
-  </div>
-)
+    <div style={{width: 500, padding: 20, border: '1px solid var(--semi-color-border)' }}>
+        <Banner
+            fullMode={false}
+            title="Title"
+            type="warning"
+            bordered
+            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
+        >
+            <div className="semi-modal-footer">
+                <button className="semi-button semi-button-tertiary semi-button-light" type="button">No, thanks.</button>
+                <button className="semi-button semi-button-warning" type="button">Sounds great!</button>
+            </div>
+        </Banner>
+        <br/>
+    </div>
+);
 ```
 
 ## API参考
