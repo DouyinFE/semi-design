@@ -412,6 +412,13 @@ function DropdownEvents() {
 }
 ```
 
+## Accessibility
+
+### ARIA
+
+- Dropdown.Menu `role` 设置为 `menu`，`aria-orientatio` 设置为 `vertical`
+- Dropdown.Item `role` 设置为 `menuitem`
+
 ## API 参考
 
 ### Dropdown
