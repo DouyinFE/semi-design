@@ -150,6 +150,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         loadedKeys: PropTypes.array,
         disableStrictly: PropTypes.bool,
         leafOnly: PropTypes.bool,
+        enableLeafClick: PropTypes.bool,
     };
 
     static defaultProps = {
@@ -179,6 +180,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         onClear: noop,
         onDropdownVisibleChange: noop,
         onListScroll: noop,
+        enableLeafClick: false,
     };
 
     options: any;

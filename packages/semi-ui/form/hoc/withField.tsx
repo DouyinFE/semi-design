@@ -75,7 +75,7 @@ function withField<
         // 无需注入的直接返回，eg：Group内的checkbox、radio
         // Return without injection, eg: <Checkbox> / <Radio> inside CheckboxGroup/RadioGroup
         if (!shouldInject) {
-            return <Component {...rest} />;
+            return <Component {...rest} ref={ref} />;
         }
 
         // grab formState from context

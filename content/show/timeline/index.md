@@ -240,7 +240,7 @@ import { IconAlertTriangle } from '@douyinfe/semi-icons';
 | extra | 自定义辅助内容 | ReactNode | - |
 | position | 自定义节点位置，可以覆盖 TimeLine 的模式选项 | `left`\|`right` | - |
 | style | 样式 | CSSProperties | - |
-| time | 时间文本 | string | - |
+| time | 时间文本 | ReactNode | - |
 | type | 当前圆圈的模式 | `default`\|`ongoing`\|`success`\|`warning`\|`error` | `default` |
 
 ## 设计变量

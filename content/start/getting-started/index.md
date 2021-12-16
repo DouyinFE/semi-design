@@ -49,7 +49,7 @@ class Demo extends React.Component {
 
 在项目根目录安装 `@douyinfe/semi-next` 。
 
-``` shell
+```shell
 # 使用 npm
 npm i @douyinfe/semi-next --save-dev
 
@@ -66,7 +66,9 @@ pnpm add @douyinfe/semi-next --dev
 
 ```js
 // next.config.js
-const semi = require('@douyinfe/semi-next').default({/* the extension options */});
+const semi = require('@douyinfe/semi-next').default({
+    /* the extension options */
+});
 module.exports = semi({
     // your custom Next.js configuration
 });
@@ -78,7 +80,7 @@ module.exports = semi({
 
 在 `global.css` 中引入全量的 semi css。目前不支持按需引入。
 
-``` css
+```css
 /* styles/globals.css */
 @import '~@douyinfe/semi-ui/dist/css/semi.min.css';
 ```
@@ -96,19 +98,24 @@ module.exports = semi({
 
 在浏览器中使用 script 和 link 标签直接引入文件，并使用全局变量 `SemiUI`、`SemiIcons`、`SemiIllustrations`
 
-1. 请确保你已提前引入 react 以及 react-dom
-2. 引入 JS 文件，以下示例 URL 中 2.0.0 为 version 标识，希望使用不同版本 Semi 时，将 version 中对应的值替换即可（注意构建文件仅在 v1.3.0 后开始提供）
-    - semi-ui min：`https://unpkg.com/@douyinfe/semi-ui@2.0.0/dist/umd/semi-ui.min.js`
-    - semi-ui normal: `https://unpkg.com/@douyinfe/semi-ui@2.0.0/dist/umd/semi-ui.js`
+1、 请确保你已提前引入 react 以及 react-dom  
+2、 引入 JS 文件，以下示例 URL 中 2.1.4 为 version 标识，希望使用不同版本 Semi 时，将 version 中对应的值替换即可  
 
-    - semi-icons min: `https://unpkg.com/@douyinfe/semi-icons@latest/dist/umd/semi-icons.min.js`
-    - semi-icons normal: `https://unpkg.com/@douyinfe/semi-icons@latest/dist/umd/semi-icons.js`
+| 资源 | URL |
+| --- | --- |
+| semi-ui (min) | https://unpkg.com/@douyinfe/semi-ui@2.1.4/dist/umd/semi-ui.min.js |
+| semi-icons (min) | https://unpkg.com/@douyinfe/semi-icons@latest/dist/umd/semi-icons.min.js |
+| semi-illustrations (min) | https://unpkg.com/@douyinfe/semi-illustrations@latest/dist/umd/semi-illustrations.min.js |
+| semi-ui (normal) | https://unpkg.com/@douyinfe/semi-ui@2.1.4/dist/umd/semi-ui.js |
+| semi-icons (normal) | https://unpkg.com/@douyinfe/semi-icons@latest/dist/umd/semi-icons.js |
+| semi-illustrations (normal) | https://unpkg.com/@douyinfe/semi-illustrations@latest/dist/umd/semi-illustrations.js |
 
-    - semi-illustrations min: `https://unpkg.com/@douyinfe/semi-illustrations@latest/dist/umd/semi-illustrations.min.js`
-    - semi-illustrations normal: `https://unpkg.com/@douyinfe/semi-illustrations@latest/dist/umd/semi-illustrations.js`
-3. 引入 Semi 默认主题的 CSS 样式文件  
-    - `https://unpkg.com/@douyinfe/semi-ui@2.0.0/dist/css/semi.css`
-    - `https://unpkg.com/@douyinfe/semi-icons@latest/dist/css/semi-icons.css`
+3、 引入 Semi 默认主题的 CSS 样式文件
+
+| 资源 | URL |
+| --- | --- |
+| semi.css | https://unpkg.com/@douyinfe/semi-ui@2.1.4/dist/css/semi.css |
+| semi-icons.css | https://unpkg.com/@douyinfe/semi-icons@latest/dist/css/semi-icons.css |
 
 ```diff
 <!DOCTYPE html>
@@ -118,8 +125,8 @@ module.exports = semi({
 +       <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
 +       <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
 
-+       <script src="https://unpkg.com/@douyinfe/semi-ui@2.0.0/dist/umd/semi-ui.min.js"></script>
-+       <link rel="stylesheet" href="https://unpkg.com/@douyinfe/semi-ui@2.0.0/dist/css/semi.css">
++       <script src="https://unpkg.com/@douyinfe/semi-ui@2.1.4/dist/umd/semi-ui.min.js"></script>
++       <link rel="stylesheet" href="https://unpkg.com/@douyinfe/semi-ui@2.1.4/dist/css/semi.css">
 
 +       <script src="https://unpkg.com/@douyinfe/semi-icons@latest/dist/umd/semi-icons.min.js"></script>
 +       <link rel="stylesheet" href="https://unpkg.com/@douyinfe/semi-icons@latest/dist/css/semi-icons.css">
@@ -138,11 +145,14 @@ module.exports = semi({
     const { IconHome } = SemiIcons;
     const { IllustrationConstruction } = SemiIllustrations;
     ReactDOM.render(
-    <div>
-        <Button onClick={() => Toast.warning({ duration: 0, content: 'Semi Design' })}>test</Button>
-        <Input defaultValue="semi" onChange={value => Toast.info('hello semi')}></Input>
-        <IconHome size="large" />
-        <IllustrationConstruction style={{width: 150, height: 150}} />
-    </div>, document.getElementById("root"));
-</script>;
+        <div>
+            <Button onClick={() => Toast.warning({ duration: 0, content: 'Semi Design' })}>test</Button>
+            <Input defaultValue="semi" onChange={value => Toast.info('hello semi')}></Input>
+            <IconHome size="large" />
+            <IllustrationConstruction style={{ width: 150, height: 150 }} />
+        </div>,
+        document.getElementById('root')
+    );
+</script>
+;
 ```

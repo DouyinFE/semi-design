@@ -1504,6 +1504,7 @@ function Demo() {
 | value       | Selected value (controlled mode)    | string\|number\|TreeNode\|(string\|number\|TreeNode)[][]                                                   | -                               | -       |
 | validateStatus |The validation status of the trigger only affects the display style. Optional: default、error、warning | string | `default` | - |
 | zIndex | zIndex for dropdown menu | number | 1030 | - |
+| enableLeafClick | Multiple mode, click the leaf option enable trigger check | boolean | false | 2.2.0 |
 | onBlur | Out of focus Cascader's callback | (e: MouseEvent) => void | - | - |
 | onChange           | Callback function when the tree node is selected                                                                             | (value: string\|number\|TreeNode\|(string\|number\|TreeNode)[]) => void                                | -                               | -       |
 | onClear| When showClear is true, click the clear button to trigger the callback | () => void |-|1.29.0|
