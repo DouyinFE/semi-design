@@ -1149,4 +1149,82 @@ describe('Cascader', () => {
         expect(args2.value).toEqual(new Set(['0','0-0','0-0-1','0-0-0']));
         cascaderNoAutoMerge.unmount();
     });
+
+    it('autoMergeValue', () => {
+        const cascader = render({
+            multiple: true,
+            autoMergeValue: false,
+            defaultValue: 'Yazhou',
+        });
+        const tags = cascader.find(`.${BASE_CLASS_PREFIX}-cascader-selection .${BASE_CLASS_PREFIX}-tag`)
+        expect(tags.length).toEqual(4);
+        cascader.unmount();
+
+        const cascaderAutoMerge = render({
+            multiple: true,
+            autoMergeValue: true,
+            defaultValue: 'Yazhou',
+        });
+        const tags2 = cascaderAutoMerge.find(`.${BASE_CLASS_PREFIX}-cascader-selection .${BASE_CLASS_PREFIX}-tag`)
+        expect(tags2.length).toEqual(1);
+        expect(
+            tags2
+                .find(`.${BASE_CLASS_PREFIX}-tag-content`)
+                .getDOMNode()
+                .textContent
+        ).toEqual('亚洲');
+        cascaderAutoMerge.unmount();
+    });
+
+    it('leafOnly', () => {
+        /* autoMergeValue and leafOnly are both false */
+        const cascader = render({
+            multiple: true,
+            autoMergeValue: false,
+            leafOnly: false,
+            defaultValue: 'Yazhou',
+        });
+        const tags = cascader.find(`.${BASE_CLASS_PREFIX}-cascader-selection .${BASE_CLASS_PREFIX}-tag`)
+        expect(tags.length).toEqual(4);
+        cascader.unmount();
+
+        /* autoMergeValue and leafOnly are both true */
+        const cascader2 = render({
+            multiple: true,
+            autoMergeValue: true,
+            leafOnly: true,
+            defaultValue: 'Yazhou',
+        });
+        const tags2 = cascader2.find(`.${BASE_CLASS_PREFIX}-cascader-selection .${BASE_CLASS_PREFIX}-tag`)
+        expect(tags2.length).toEqual(2);
+        cascader2.unmount();
+
+        /* autoMergeValue is false, leafOnly is true */
+        const cascader3 = render({
+            multiple: true,
+            autoMergeValue: false,
+            leafOnly: true,
+            defaultValue: 'Yazhou',
+        });
+        const tags3 = cascader3.find(`.${BASE_CLASS_PREFIX}-cascader-selection .${BASE_CLASS_PREFIX}-tag`)
+        expect(tags3.length).toEqual(2);
+        cascader3.unmount();
+
+        /* autoMergeValue is true, leafOnly is false */
+        const cascader4 = render({
+            multiple: true,
+            autoMergeValue: true,
+            leafOnly: false,
+            defaultValue: 'Yazhou',
+        });
+        const tags4 = cascader4.find(`.${BASE_CLASS_PREFIX}-cascader-selection .${BASE_CLASS_PREFIX}-tag`)
+        expect(tags4.length).toEqual(1);
+        expect(
+            tags4
+                .find(`.${BASE_CLASS_PREFIX}-tag-content`)
+                .getDOMNode()
+                .textContent
+        ).toEqual('亚洲');
+        cascader4.unmount();
+    });
 });

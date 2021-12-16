@@ -1009,76 +1009,137 @@ class Demo extends React.Component {
 
 ### Auto Merge Value
 
-In the multi-selection (multiple=true) scenario, when we select the ancestor node, if we want the value not to include its corresponding descendant nodes, we can set it by `autoMergeValue`, and the default is true.
+In the multi-selection (multiple=true) scenario, when we select the ancestor node, if we want the value not to include its corresponding descendant nodes, we can set it by `autoMergeValue`, and the default is true. When `autoMergeValue` and `leafOnly` are turned on at the same time, the latter has a higher priority.
 
 ```jsx live=true
-import React from 'react';
+import React, { useState } from 'react';
 import { Cascader } from '@douyinfe/semi-ui';
 
-class Demo extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            value: ['impressionism','visualArts']
-        };
-    }
-    onChange(value) {
-        this.setState({value});
-    }
-    render() {
-        const treeData = [
-            {
-                label: 'Impressionism',
-                value: 'impressionism',
-                children: [
-                    {
-                        label: 'Visual Arts',
-                        value: 'visualArts',
-                        children: [
-                            {
-                                label: 'Claude Monet',
-                                value: 'Monet',
-                            },
-                            {
-                                label: 'Pierre-Auguste Renoir',
-                                value: 'Renoir',
-                            },
-                            {
-                                label: 'Édouard Manet',
-                                value: 'Manet',
-                            },
-                        ],
-                    },
-                    {
-                        label: 'Music',
-                        value: 'music',
-                        children: [
-                            {
-                                label: 'Claude Debussy',
-                                value: 'Debussy',
-                            },
-                            {
-                                label: 'Maurice Ravel',
-                                value: 'Ravel',
-                            }
-                        ]
-                    }
-                ],
-            }
-        ];
-        return (
-            <Cascader
-                style={{ width: 300 }}
-                treeData={treeData}
-                placeholder="Please select"
-                value={this.state.value}
-                multiple
-                autoMergeValue={false}
-                onChange={e => this.onChange(e)}
-            />
-        );
-    }
-}
+() => {
+    const [value, setValue] = useState(['impressionism','visualArts']);
+    const onChange = value => {
+        setValue(value);
+    };
+    const treeData = [
+        {
+            label: 'Impressionism',
+            value: 'impressionism',
+            children: [
+                {
+                    label: 'Visual Arts',
+                    value: 'visualArts',
+                    children: [
+                        {
+                            label: 'Claude Monet',
+                            value: 'Monet',
+                        },
+                        {
+                            label: 'Pierre-Auguste Renoir',
+                            value: 'Renoir',
+                        },
+                        {
+                            label: 'Édouard Manet',
+                            value: 'Manet',
+                        },
+                    ],
+                },
+                {
+                    label: 'Music',
+                    value: 'music',
+                    children: [
+                        {
+                            label: 'Claude Debussy',
+                            value: 'Debussy',
+                        },
+                        {
+                            label: 'Maurice Ravel',
+                            value: 'Ravel',
+                        }
+                    ]
+                }
+            ],
+        }
+    ];
+    return (
+        <Cascader
+            style={{ width: 300 }}
+            treeData={treeData}
+            placeholder="Please select"
+            value={value}
+            multiple
+            autoMergeValue={false}
+            onChange={e => onChange(e)}
+        />
+    );
+};
+```
+
+### Leaf Only
+version: >=2.2.0
+
+In multiple selection, you can set the value to include only leaf nodes by turning on leafOnly, that is, the displayed Tag and onChange parameter values only include value. 
+
+```jsx live=true
+import React, { useState } from 'react';
+import { Cascader } from '@douyinfe/semi-ui';
+
+() => {
+    const [value, setValue] = useState(['impressionism','visualArts']);
+    const onChange = value => {
+        setValue(value);
+    };
+    const treeData = [
+        {
+            label: 'Impressionism',
+            value: 'impressionism',
+            children: [
+                {
+                    label: 'Visual Arts',
+                    value: 'visualArts',
+                    children: [
+                        {
+                            label: 'Claude Monet',
+                            value: 'Monet',
+                        },
+                        {
+                            label: 'Pierre-Auguste Renoir',
+                            value: 'Renoir',
+                        },
+                        {
+                            label: 'Édouard Manet',
+                            value: 'Manet',
+                        },
+                    ],
+                },
+                {
+                    label: 'Music',
+                    value: 'music',
+                    children: [
+                        {
+                            label: 'Claude Debussy',
+                            value: 'Debussy',
+                        },
+                        {
+                            label: 'Maurice Ravel',
+                            value: 'Ravel',
+                        }
+                    ]
+                }
+            ],
+        }
+    ];
+    return (
+        <Cascader
+            style={{ width: 300 }}
+            treeData={treeData}
+            placeholder="Please select"
+            value={value}
+            multiple
+            leafOnly
+            onChange={e => onChange(e)}
+        />
+    );
+};
 ```
 
 ### Dynamic Update of Data
@@ -1400,7 +1461,7 @@ function Demo() {
 | ------------------ | ---------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- | ------------------------------- | ------- |
 | arrowIcon     | Customize the right drop-down arrow Icon, when the showClear switch is turned on and there is currently a selected value, hover will give priority to the clear icon                                                                                   | ReactNode                                                              |                            | 1.15.0       |
 | autoAdjustOverflow | Whether to automatically adjust the expansion direction of the dropdown for automatic adjustment of the expansion direction during edge occlusion | boolean | true | - |
-| autoMergeValue | Auto merge value. Specifically, after opening, when a parent node is selected, the value will not include the descendants of the node | boolean | true |  1.28.0 |
+| autoMergeValue | Auto merge value. Specifically, after opening, when a parent node is selected, the value will not include the descendants of the node. Does not support dynamic switching | boolean | true |  1.28.0 |
 | bottomSlot | bottom slot | ReactNode | - |  1.27.0 |
 | changeOnSelect     | Toggle whether non-leaf nodes are selectable                                                                                   | boolean                                                              | false                           | -       |
 | className          | ClassName                                                                                                                    | string                                                               | -                               | -       |
@@ -1416,6 +1477,7 @@ function Demo() {
 | filterTreeNode     | Set filter, the value of treeNodeFilterProp is used for searching                | ((inputValue: string, treeNodeString: string) => boolean) \| boolean | false                           | -       |
 | getPopupContainer | Specify the parent DOM, the drop-down box will be rendered into the DOM, the customization needs to set position: relative |() => HTMLElement|() => document.body|-|
 | insetLabel         | Prefix alias, used mainly in Form                                                                                            | ReactNode                                                            | -                               | 0.28.0  |
+| leafOnly         | When multiple selections, the set value only includes leaf nodes, that is, the displayed Tag and onChange value parameters only include leaf nodes. Does not support dynamic switching                             | boolean                                                            | false                               | 2.2.0  |
 | loadData | Load data asynchronously and the return value should be a promise | (selectOptions: TreeNode[]) => Promise< void > |-| 1.8.0|
 | max| In the case of multiple selections, the number of multiple selections is limited, and the onExceed callback will be triggered when max is exceeded | number |-|1.28.0|
 | maxTagCount| When multiple selections, the maximum number of labels to be displayed will be displayed in the form of +N after exceeding| number |-|1.28.0|
