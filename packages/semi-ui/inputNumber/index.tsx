@@ -225,6 +225,7 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
     currentValue!: number | string;
     cursorBefore!: string;
     cursorAfter!: string;
+    foundation: InputNumberFoundation;
     constructor(props: InputNumberProps) {
         super(props);
         this.state = {
@@ -291,7 +292,10 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
                 if (focusing) {
                     if (this.foundation.isValidNumber(parsedNum) && parsedNum !== this.state.number) {
                         const obj: { number?: number; value?: string } = { number: parsedNum };
-                        // Updates input when a button is clicked
+                        /**
+                         * If you are clicking the button, it will automatically format once
+                         * We need to set the status to false after trigger focus event
+                         */
                         if (this.clickUpOrDown) {
                             obj.value = this.foundation.doFormat(valueStr, true);
                         }
