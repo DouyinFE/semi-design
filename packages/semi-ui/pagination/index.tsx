@@ -14,6 +14,7 @@ import { cssClasses, numbers } from '@douyinfe/semi-foundation/pagination/consta
 import '@douyinfe/semi-foundation/pagination/pagination.scss';
 import { numbers as popoverNumbers } from '@douyinfe/semi-foundation/popover/constants';
 import { IconChevronLeft, IconChevronRight } from '@douyinfe/semi-icons';
+import warning from '@douyinfe/semi-foundation/utils/warning';
 
 import ConfigContext from '../configProvider/context';
 import LocaleConsumer from '../locale/localeConsumer';
@@ -127,6 +128,10 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
         this.foundation = new PaginationFoundation(this.adapter);
         this.renderDefaultPage = this.renderDefaultPage.bind(this);
         this.renderSmallPage = this.renderSmallPage.bind(this);
+        warning(
+            Boolean(props.showSizeChanger && props.hideOnSinglePage),
+            '[Semi Pagination] You should not use showSizeChanger and hideOnSinglePage in ths same time. At this time, hideOnSinglePage no longer takes effect, otherwise there may be a problem that the switch entry disappears'
+        );
     }
 
     get adapter(): PaginationAdapter<PaginationProps, PaginationState> {
@@ -377,11 +382,11 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
     }
 
     renderSmallPage(locale: PaginationLocale) {
-        const { className, style, hideOnSinglePage, hoverShowPageSelect } = this.props;
+        const { className, style, hideOnSinglePage, hoverShowPageSelect, showSizeChanger } = this.props;
         const paginationCls = classNames(`${prefixCls}-small`, prefixCls, className);
         const { currentPage, total, pageSize } = this.state;
         const totalPageNum = Math.ceil(total / pageSize);
-        if (totalPageNum < 2 && hideOnSinglePage) {
+        if (totalPageNum < 2 && hideOnSinglePage && !showSizeChanger) {
             return null;
         }
 
@@ -410,11 +415,11 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
 
     renderDefaultPage(locale: PaginationLocale) {
         const { total, pageSize } = this.state;
-        const { showTotal, className, style, hideOnSinglePage } = this.props;
+        const { showTotal, className, style, hideOnSinglePage, showSizeChanger } = this.props;
         const paginationCls = classNames(className, `${prefixCls}`);
         const showTotalCls = `${prefixCls }-total`;
         const totalPageNum = Math.ceil(total / pageSize);
-        if (totalPageNum < 2 && hideOnSinglePage) {
+        if (totalPageNum < 2 && hideOnSinglePage && !showSizeChanger) {
             return null;
         }
         return (

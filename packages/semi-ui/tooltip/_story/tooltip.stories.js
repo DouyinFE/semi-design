@@ -652,7 +652,7 @@ export const ShowArrow = () => {
     return (
       <div>
         <h4>should show content and arrow when click</h4>
-        <Tooltip showArrow trigger="click" content={'hi bytedance'}>
+        <Tooltip style={{ maxWidth: 320 }} showArrow trigger='custom' visible content={'hi semi semi semi semi semi semi semi'} position='right'>
           <Test />
         </Tooltip>
       </div>

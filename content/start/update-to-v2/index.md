@@ -256,7 +256,7 @@ import { IllustrationConstruction } from '@douyinfe/semi-illustrations';
 
 ### 项目希望升级至 2.0，但项目中使用了 Semi 物料，物料基于 1.x Semi，是否可同时使用？
 
-由于 Semi 2.0 的包名与 1.x 并不相同，所以实际上他们会成了两个单独的包，互不影响。
+不可以，semi2.x的css类名与semi1.x的相同，同时使用会导致样式冲突。如遇到类似问题，请在飞书群里发起oncall，会有专人对接处理。
 
 ### CSS 变量添加 semi 前缀的原因？
 
