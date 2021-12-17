@@ -14,6 +14,7 @@ module.exports = {
         optimizationLevel: 3,
       },
     },
+    '@storybook/addon-a11y'
   ],
   webpackFinal: async (config) => {
     const rules =

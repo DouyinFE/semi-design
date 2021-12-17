@@ -3,7 +3,7 @@ import { BASE_CLASS_PREFIX } from '../env';
 import cls from 'classnames';
 import '../styles/icons.scss';
 
-export type IconSize = 'extra-small' | 'small' | 'default' | 'large' | 'extra-large';
+export type IconSize = 'inherit' | 'extra-small' | 'small' | 'default' | 'large' | 'extra-large';
 
 export interface IconProps extends DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement> {
     svg: ReactNode;

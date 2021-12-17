@@ -14,7 +14,7 @@ module.exports = {
     overrides: [
         {
             files: ['*.js', '*.jsx'],
-            extends: ['jest-enzyme', 'plugin:react/recommended', 'plugin:import/recommended', 'plugin:import/errors', 'plugin:import/warnings'],
+            extends: ['jest-enzyme', 'plugin:react/recommended', 'plugin:import/recommended', 'plugin:import/errors', 'plugin:import/warnings', 'plugin:jsx-a11y/recommended'],
             parser: '@babel/eslint-parser',
             plugins: ['react', 'react-hooks', 'jest', 'import'],
             rules: {
