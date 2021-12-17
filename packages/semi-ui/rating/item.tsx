@@ -88,7 +88,7 @@ export default class Item extends PureComponent<RatingItemProps> {
             height: size,
             fontSize: size
         } : {};
-        const iconSize = size === 'small' ? 'default' : 'extra-large';
+        const iconSize = isCustomSize ? 'inherit' : (size === 'small' ? 'default' : 'extra-large');
         const content = character ? character : <IconStar size={iconSize} />;
         return (
             <li className={starCls} style={{ ...sizeStyle }}>
