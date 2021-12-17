@@ -508,6 +508,7 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
         }
 
         if (typeof value === 'string' && value.length) {
+            value = value.replace(/[^0-9]/g,'');
             return needAdjustMaxMin ? this.fetchMinOrMax(toNumber(value)) : toNumber(value);
         }
 
