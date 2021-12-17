@@ -16,6 +16,39 @@ Version：Major.Minor.Patch
 
 ---
 
+#### 🎉 2.2.0-beta.0 (2021-12-17)
+
+- 【Feat】
+    - Timeline.Item supports `onClick` [#402](https://github.com/DouyinFE/semi-design/issues/402)
+    - Cascader
+        - Support only echoing leaf nodes with `leafOnly` API [#256](https://github.com/DouyinFE/semi-design/issues/256)
+        - Support click the leaf node to select it in multiple selection with `enableLeafClick` API [#302](https://github.com/DouyinFE/semi-design/issues/302) [@btea](https://github.com/btea)
+        - Support custom separator with `separator` API [#408](https://github.com/DouyinFE/semi-design/issues/408)
+    - Upload [#342](https://github.com/DouyinFE/semi-design/issues/342)
+        - Support `ref.current.insert` method
+        - Support props `showPicInfo`
+        - Use `gap` to control FileCard interval
+    - Icon [#260](https://github.com/DouyinFE/semi-design/issues/260)
+        - Add `double_chevron_left`, `double_chevron_right` icons
+        - Icon supports following the current context font size
+    - LocaleProvider added `Spanish` language pack [@chenjunxyf](https://github.com/chenjunxyf)
+    - Select added `inputProps`, which is convenient for users to realize some special functions when filter is true. For example, incoming `onCompositionEnd`, `onKeyDown` event monitoring, etc.
+    - DatePicker [#260](https://github.com/DouyinFE/semi-design/issues/260)
+        - Add year switch buttons
+        - Optimize the scope selection interaction logic to avoid scenes where the two panels are the same month
+- 【Fix】
+    - Select
+        - Fixed the issue of key warning when `isRenderInTag` returned by Select `renderSelectedItem` is `false` [#320](https://github.com/DouyinFE/semi-design/issues/320)
+        - Fixed the problem that the `mark` tag `key` is missing when the warning prompts the mark when searching for the highlighted keyword in Select
+    - Fixed that the label style does not match the design draft when Cascader is `multiple`+`disabled` [#400](https://github.com/DouyinFE/semi-design/issues/400)
+    - Fixed the problem of incorrect rendering when the key or itemKey is node when Description `type='plain'` [#406](https://github.com/DouyinFE/semi-design/issues/406)
+    - Fixed the issue that when Pagination uses `hideOnSingePage` and `showSizeChanger` at the same time, when the total number of pages is only 1, the `sizeChanger` will disappear and can no longer be switched [#252](https://github.com/DouyinFE/semi-design/issues/252)
+    - Fixed the issue that the design token of the Select component does not take effect when defining the Select component through Webpack plugin variables [#375](https://github.com/DouyinFE/semi-design/issues/375) [@summerstream](https://github.com/summerstream)
+    - Fixed the UI error after setting the `size` of the Rating component to `number`
+    - Fixed the horizontal alignment of Timeline custom dot [#395](https://github.com/DouyinFE/semi-design/issues/395) [@chenc041](https://github.com/chenc041)
+- 【Docs】
+    - Improve `semi-ui` package.json [@chenc041](https://github.com/chenc041)
+
 #### 🎉 2.1.5 (2021-12-10)
 
 - 【Fix】
