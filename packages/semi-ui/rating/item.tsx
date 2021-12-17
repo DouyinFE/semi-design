@@ -88,10 +88,7 @@ export default class Item extends PureComponent<RatingItemProps> {
             height: size,
             fontSize: size
         } : {};
-        
-        // when set custom size, no need a builtin style for icon, so here wo set iconSize a empty value.
-        const iconSize = isCustomSize ? 'empty-value' : (size === 'small' ? 'default' : 'extra-large');
-        // @ts-ignore 
+        const iconSize = size === 'small' ? 'default' : 'extra-large';
         const content = character ? character : <IconStar size={iconSize} />;
         return (
             <li className={starCls} style={{ ...sizeStyle }}>
