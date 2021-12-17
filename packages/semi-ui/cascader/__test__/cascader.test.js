@@ -1119,6 +1119,27 @@ describe('Cascader', () => {
         cascaderWithMultiple.unmount();
     })
 
+    it('separator', () => {
+        const cascader = render({
+            filterTreeNode: true,
+            defaultValue: ['Yazhou', 'Zhongguo', 'Beijing'],
+            separator: ' > ',
+            defaultOpen: true,
+        });
+        const input = cascader.find(`.${BASE_CLASS_PREFIX}-cascader-selection input`);
+        expect(input.props().placeholder).toEqual('亚洲 > 中国 > 北京'); 
+        const event = { target: { value: '中国' } };
+        input.simulate('change', event);
+        expect(
+            cascader
+            .find(`.${BASE_CLASS_PREFIX}-cascader-option-list li`)
+            .at(0)
+            .getDOMNode()
+            .textContent
+        ).toEqual('亚洲 > 中国 > 北京');
+        cascader.unmount();
+    });
+
     it('triggerRender', () => {
         const spyTriggerRender = sinon.spy(() => <span>123</span>);
         const cascaderAutoMerge = render({

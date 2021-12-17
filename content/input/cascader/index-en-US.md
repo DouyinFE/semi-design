@@ -666,6 +666,68 @@ import { Cascader, Tag, Typography } from '@douyinfe/semi-ui';
 };
 ```
 
+### Custom Separator
+Version: >=2.2.0
+
+You can use `separator` to set the separator, including: the separator of the content displayed in the dropdown during search and displayed in the Trigger during single selection.
+
+```jsx live=true
+import React from 'react';
+import { Cascader } from '@douyinfe/semi-ui';
+
+() => {
+    const treeData = [
+        {
+            label: 'Impressionism',
+            value: 'impressionism',
+            children: [
+                {
+                    label: 'Visual Arts',
+                    value: 'visualArts',
+                    children: [
+                        {
+                            label: 'Claude Monet',
+                            value: 'Monet',
+                        },
+                        {
+                            label: 'Pierre-Auguste Renoir',
+                            value: 'Renoir',
+                        },
+                        {
+                            label: 'Édouard Manet',
+                            value: 'Manet',
+                        },
+                    ],
+                },
+                {
+                    label: 'Music',
+                    value: 'music',
+                    children: [
+                        {
+                            label: 'Claude Debussy',
+                            value: 'Debussy',
+                        },
+                        {
+                            label: 'Maurice Ravel',
+                            value: 'Ravel',
+                        }
+                    ]
+                }
+            ],
+        }
+    ];
+    return (
+        <Cascader
+            style={{ width: 400 }}
+            treeData={treeData}
+            defaultValue={['impressionism', 'visualArts', 'Monet']}
+            filterTreeNode
+            separator=' > '
+        />
+    );
+};
+```
+
 ### Disabled
 
 ```jsx live=true
@@ -1489,6 +1551,7 @@ function Demo() {
 | prefix             | Prefix label                                                                                                                 | ReactNode                                                            | -                               | 0.28.0  |
 |restTagsPopoverProps |The configuration properties of the [Popover](/en-US/show/popover#API%20Reference)     |PopoverProps     | {}        |1.28.0|
 | searchPlaceholder  | Placeholder for search input                                                                                                 | string                                                               | -                               | -       |
+| separator  | Custom separator, including: the separator of the content displayed in the dropdown during search and displayed in the Trigger during single selection        | string                                                               | ' / '                               | 2.2.0       |
 | showClear       |  Toggle whether to show clear button   | boolean    | false    | 0.35.0    |
 | showNext| Set the way to expand the Dropdown submenu, one of: `click`、`hover` | string |`click`|1.29.0|
 | showRestTagsPopover| When the number of tags exceeds maxTagCount and hover reaches +N, whether to display the remaining content through Popover| boolean |false|1.28.0|

@@ -143,6 +143,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         showRestTagsPopover: PropTypes.bool,
         restTagsPopoverProps: PropTypes.object,
         max: PropTypes.number,
+        separator: PropTypes.string,
         onExceed: PropTypes.func,
         onClear: PropTypes.func,
         loadData: PropTypes.func,
@@ -171,6 +172,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         filterLeafOnly: true,
         showRestTagsPopover: false,
         restTagsPopoverProps: {},
+        separator: ' / ',
         size: 'default' as const,
         treeNodeFilterProp: 'label' as const,
         displayProp: 'label' as const,
@@ -598,6 +600,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
             dropdownStyle,
             loadData,
             emptyContent,
+            separator,
             topSlot,
             bottomSlot,
             showNext,
@@ -612,6 +615,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                 <Item
                     activeKeys={activeKeys}
                     selectedKeys={selectedKeys}
+                    separator={separator}
                     loadedKeys={loadedKeys}
                     loadingKeys={loadingKeys}
                     onItemClick={this.handleItemClick}

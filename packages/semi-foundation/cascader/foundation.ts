@@ -102,6 +102,7 @@ export interface BasicScrollPanelProps {
 export interface BasicCascaderProps {
     mouseEnterDelay?: number;
     mouseLeaveDelay?: number;
+    separator?: string;
     arrowIcon?: any;
     changeOnSelect?: boolean;
     multiple?: boolean;
@@ -606,10 +607,11 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
     }
 
     _defaultRenderText(path: any[], displayRender?: BasicCascaderProps['displayRender']) {
+        const separator = this.getProp('separator');
         if (displayRender && typeof displayRender === 'function') {
             return displayRender(path);
         } else {
-            return path.join(' / ');
+            return path.join(separator);
         }
     }
 
