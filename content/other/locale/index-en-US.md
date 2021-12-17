@@ -20,6 +20,7 @@ brief: Internationalized components to provide multilingual support for Semi com
 | v1.11.0     | Vietnamese: vi_VN、Russian: ru_RU、Indonesian: id_ID、Malay: ms_MY、Thai: th_TH、Turkish: tr_TR |
 | v1.17.0     | Portuguese: pt_BR       |
 | v1.28.0     | Traditional Chinese: zh_TW       |
+| v2.2.0     | Spanish: es       |
 
 ## Components supported
 
@@ -46,16 +47,18 @@ import tr_TR from '@douyinfe/semi-ui/lib/es/locale/source/tr_TR';
 import pt_BR from '@douyinfe/semi-ui/lib/es/locale/source/pt_BR';
 import zh_TW from '@douyinfe/semi-ui/lib/es/locale/source/zh_TW';
 import ar from '@douyinfe/semi-ui/lib/es/locale/source/ar';
+import es from '@douyinfe/semi-ui/lib/es/locale/source/es';
 
 import { LocaleProvider } from '@douyinfe/semi-ui';
 
-
-return (
-    <LocaleProvider locale={en_GB}>
-        {/* eslint-disable-next-line react/jsx-no-undef */}
-        <App />
-    </LocaleProvider>
-);
+() => {
+    return (
+        <LocaleProvider locale={en_GB}>
+            {/* eslint-disable-next-line react/jsx-no-undef */}
+            <App />
+        </LocaleProvider>
+    );
+};
 ```
 
 ## Code example
@@ -107,9 +110,8 @@ import tr_TR from '@douyinfe/semi-ui/lib/es/locale/source/tr_TR';
 import pt_BR from '@douyinfe/semi-ui/lib/es/locale/source/pt_BR';
 import zh_TW from '@douyinfe/semi-ui/lib/es/locale/source/zh_TW';
 import ar from '@douyinfe/semi-ui/lib/es/locale/source/ar';
+import es from '@douyinfe/semi-ui/lib/es/locale/source/es';
 import { LocaleProvider, ConfigProvider, Pagination, Modal, Button, Select, Cascader, DatePicker, TreeSelect, Table, TimePicker, List, Calendar, Typography } from '@douyinfe/semi-ui';
-
-const { Option } = Select;
 
 class I18nDemo extends React.Component {
     constructor(props) {
@@ -134,6 +136,7 @@ class I18nDemo extends React.Component {
             'ms_MY': ms_MY,
             'th_TH': th_TH,
             'tr_TR': tr_TR,
+            es,
         };
         this.setState({ locale: language[code], localeCode: code });
     }
@@ -218,9 +221,9 @@ class I18nDemo extends React.Component {
                     <h5>Select & Cascader</h5>
                     <div style={style}>
                         <Select filter style={{ width: '180px' }}>
-                            <Option value='abc'>abc</Option>
-                            <Option value='vigo' disabled>vigo</Option>
-                            <Option value='hotsoon'>hotsoon</Option>
+                            <Select.Option value='abc'>abc</Select.Option>
+                            <Select.Option value='vigo' disabled>vigo</Select.Option>
+                            <Select.Option value='hotsoon'>hotsoon</Select.Option>
                         </Select>
                         <Cascader
                             style={{ width: 300, margin: 10 }}
@@ -255,17 +258,18 @@ class I18nDemo extends React.Component {
             <>
                 <div style={{ borderBottom: '1px solid var(--semi-color-border)', paddingBottom: 20 }}>
                     <Select onChange={this.onLanguageChange} insetLabel='Switch Language' style={{width: 250}} defaultValue='en_GB'>
-                        <Option value='zh_CN'>Chinese</Option>
-                        <Option value='en_GB'>English</Option>
-                        <Option value='ja_JP'>Japanese</Option>
-                        <Option value='ko_KR'>Korean</Option>
-                        <Option value='ar'>Arabic</Option>
-                        <Option value='vi_VN'>Vietnamese</Option>
-                        <Option value='ru_RU'>Russian</Option>
-                        <Option value='id_ID'>Indonesian</Option>
-                        <Option value='ms_MY'>Malay</Option>
-                        <Option value='th_TH'>Thai</Option>
-                        <Option value='tr_TR'>Turkish</Option>
+                        <Select.Option value='zh_CN'>Chinese</Select.Option>
+                        <Select.Option value='en_GB'>English</Select.Option>
+                        <Select.Option value='ja_JP'>Japanese</Select.Option>
+                        <Select.Option value='ko_KR'>Korean</Select.Option>
+                        <Select.Option value='ar'>Arabic</Select.Option>
+                        <Select.Option value='vi_VN'>Vietnamese</Select.Option>
+                        <Select.Option value='ru_RU'>Russian</Select.Option>
+                        <Select.Option value='id_ID'>Indonesian</Select.Option>
+                        <Select.Option value='ms_MY'>Malay</Select.Option>
+                        <Select.Option value='th_TH'>Thai</Select.Option>
+                        <Select.Option value='tr_TR'>Turkish</Select.Option>
+                        <Select.Option value='es'>Spanish</Select.Option>
                     </Select>
                 </div>
                 <LocaleProvider locale={locale}>
