@@ -223,7 +223,7 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
         let currentNumber = this.getState('number');
 
         if (currentNumber != null || (currentValue != null && currentValue !== '')) {
-            const parsedNum = this.doParse(currentValue, false, true, true);
+            const parsedNum = this.doParse(currentValue, false, true, true,true);
 
             let numHasChanged = false;
             let strHasChanged = false;
@@ -470,7 +470,7 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
      * @param {boolean} needAdjustMaxMin
      * @returns {number}
      */
-    doParse(value: string | number, needCheckPrec = true, needAdjustPrec = false, needAdjustMaxMin = false) {
+    doParse(value: string | number, needCheckPrec = true, needAdjustPrec = false, needAdjustMaxMin = false,needFilter=false) {
         if (typeof value === 'number') {
             if (needAdjustMaxMin) {
                 value = this.fetchMinOrMax(value);
@@ -508,6 +508,7 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
         }
 
         if (typeof value === 'string' && value.length) {
+            value = needFilter?value.replace(/[^0-9]/g,''):value;
             return needAdjustMaxMin ? this.fetchMinOrMax(toNumber(value)) : toNumber(value);
         }
 
