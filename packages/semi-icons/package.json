@@ -63,5 +63,6 @@
   "_unpkg": true,
   "unpkgFiles": [
     "*"
-  ]
+  ],
+  "gitHead": "eb34a4f25f002bb4cbcfa51f3df93bed868c831a"
 }

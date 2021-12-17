@@ -24,5 +24,6 @@
     },
     "dependencies": {
         "@douyinfe/semi-webpack-plugin": "2.2.0-beta.0"
-    }
+    },
+    "gitHead": "eb34a4f25f002bb4cbcfa51f3df93bed868c831a"
 }
