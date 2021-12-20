@@ -36,9 +36,9 @@ module.exports = {
             options: {
                 extensions: ['.mdx', '.md'],
                 gatsbyRemarkPlugins: [
-                    {
-                        resolve: require.resolve('./plugins/gatsby-remark-unwrap'),
-                    },
+                    // {
+                    //     resolve: require.resolve('./plugins/gatsby-remark-unwrap'),
+                    // },
                     {
                         resolve: require.resolve('./plugins/gatsby-remark-wrap-in-section'),
                     },
