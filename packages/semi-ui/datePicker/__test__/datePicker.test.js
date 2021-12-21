@@ -870,4 +870,22 @@ describe(`DatePicker`, () => {
         expect(allSeparators[0].textContent.trim()).toBe(rangeSeparator);
         expect(allSeparators[1].textContent.trim()).toBe(rangeSeparator);
     });
+
+    /**
+     * fix https://github.com/DouyinFE/semi-design/issues/422
+     */
+    it('test input year length larger than 4', async () => {
+        const props = {
+            motion: false,
+            defaultOpen: true,
+            defaultValue: '2021-12-21',
+        };
+        const handleChange = sinon.spy();
+        const elem = mount(
+            <DatePicker {...props} onChange={handleChange} />
+        );
+
+        elem.find('input').simulate('change', { target: { value: '20221-12-21' }});
+        expect(handleChange.called).toBeFalsy();
+    });
 });
