@@ -122,6 +122,8 @@ export { default as IconDisc } from './IconDisc';
 export { default as IconDislikeThumb } from './IconDislikeThumb';
 export { default as IconDivide } from './IconDivide';
 export { default as IconDongchediLogo } from './IconDongchediLogo';
+export { default as IconDoubleChevronLeft } from './IconDoubleChevronLeft';
+export { default as IconDoubleChevronRight } from './IconDoubleChevronRight';
 export { default as IconDownCircleStroked } from './IconDownCircleStroked';
 export { default as IconDownload } from './IconDownload';
 export { default as IconDownloadStroked } from './IconDownloadStroked';

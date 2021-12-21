@@ -280,10 +280,12 @@ describe(`DatePicker`, () => {
         const rightPanel = document.querySelector(`.${BASE_CLASS_PREFIX}-datepicker-month-grid-right`);
         const rightNavBtns = rightPanel.querySelectorAll(`.${BASE_CLASS_PREFIX}-datepicker-navigation .${BASE_CLASS_PREFIX}-button`);
 
-        _.get(rightNavBtns, 1).click();
+        // 点击右边面板下一月
+        _.get(rightNavBtns, 2).click();
         await sleep();
 
-        _.times(leftPrevClickTimes).forEach(() => _.first(leftNavBtns).click());
+        // 点击左边面板上一月
+        _.times(leftPrevClickTimes).forEach(() => _.get(leftNavBtns, 1).click());
 
         const leftSecondWeek = leftPanel.querySelectorAll(`.${BASE_CLASS_PREFIX}-datepicker-week`)[1];
         const leftSecondWeekDays = leftSecondWeek.querySelectorAll(`.${BASE_CLASS_PREFIX}-datepicker-day`);
@@ -888,4 +890,67 @@ describe(`DatePicker`, () => {
         elem.find('input').simulate('change', { target: { value: '20221-12-21' }});
         expect(handleChange.called).toBeFalsy();
     });
+
+    it('test click next/prev year buttons', () => {
+        let props = {
+          type: 'dateRange',
+          motion: false,
+          style: { width: 300 },
+          defaultPickerValue: new Date('2021-12-01'),
+          defaultOpen: true,
+        };
+        const elem = mount(<DatePicker {...props} />);
+
+        const leftPanel = document.querySelector(`.semi-datepicker-month-grid-left`);
+        const leftNavBtns = leftPanel.querySelector(`.semi-datepicker-navigation`).children;
+        const rightPanel = document.querySelector(`.semi-datepicker-month-grid-right`);
+        const rightNavBtns = rightPanel.querySelector(`.semi-datepicker-navigation`).children;
+
+        // 点击左边面板上一年
+        _.get(leftNavBtns, 0).click();
+        expect(document.querySelector(`.semi-datepicker-month-grid-left .semi-datepicker-navigation-month`).textContent).toBe('2020年 12月');
+        // 点击左边面板下一年
+        _.get(leftNavBtns, 4).click();
+        expect(document.querySelector(`.semi-datepicker-month-grid-left .semi-datepicker-navigation-month`).textContent).toBe('2021年 12月');
+
+        // 点击右边面板下一年
+        _.get(rightNavBtns, 4).click();
+        expect(document.querySelector(`.semi-datepicker-month-grid-right .semi-datepicker-navigation-month`).textContent).toBe('2023年 1月');
+        // 点击右边面板上一年
+        _.get(rightNavBtns, 0).click();
+        expect(document.querySelector(`.semi-datepicker-month-grid-right .semi-datepicker-navigation-month`).textContent).toBe('2022年 1月');
+    });
+
+    const testMonthSyncChange = type => {
+        let props = {
+            type,
+            motion: false,
+            style: { width: 300 },
+            defaultPickerValue: new Date('2021-12-01'),
+            defaultOpen: true,
+          };
+          const elem = mount(<DatePicker {...props} />);
+  
+          const leftPanel = document.querySelector(`.semi-datepicker-month-grid-left`);
+          const leftNavBtns = leftPanel.querySelector(`.semi-datepicker-navigation`).children;
+          const rightPanel = document.querySelector(`.semi-datepicker-month-grid-right`);
+          const rightNavBtns = rightPanel.querySelector(`.semi-datepicker-navigation`).children;
+  
+          // 点击左边面板下一月，自动切换右面板
+          _.get(leftNavBtns, 3).click();
+          expect(document.querySelector(`.semi-datepicker-month-grid-left .semi-datepicker-navigation-month`).textContent).toBe('2022年 1月');
+          expect(document.querySelector(`.semi-datepicker-month-grid-right .semi-datepicker-navigation-month`).textContent).toBe('2022年 2月');
+          // 点击右边面板上一月，自动切换左面板
+          _.get(rightNavBtns, 1).click();
+          expect(document.querySelector(`.semi-datepicker-month-grid-left .semi-datepicker-navigation-month`).textContent).toBe('2021年 12月');
+          expect(document.querySelector(`.semi-datepicker-month-grid-right .semi-datepicker-navigation-month`).textContent).toBe('2022年 1月');
+  
+          // 点击左边面板上一月，不需要自动切换右面板
+          _.get(leftNavBtns, 1).click();
+          expect(document.querySelector(`.semi-datepicker-month-grid-left .semi-datepicker-navigation-month`).textContent).toBe('2021年 11月');
+          elem.unmount();
+    }
+
+    it('test month sync change dateRange type', () => { testMonthSyncChange('dateRange') });
+    it('test month sync change dateTimeRange type', () => { testMonthSyncChange('dateTimeRange')});
 });

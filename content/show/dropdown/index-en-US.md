@@ -90,16 +90,7 @@ By configuring `icon` on `Dropdown.Item` (`icon` needs to be ReactNode), you can
 ```jsx live=true
 import React from 'react';
 import { Dropdown, Button } from '@douyinfe/semi-ui';
-import {
-    IconBox,
-    IconSimilarity,
-    IconSetting,
-    IconForward,
-    IconColorPalette,
-    IconRefresh,
-    IconSearch,
-    IconBranch,
-} from '@douyinfe/semi-icons';
+import { IconBox, IconSimilarity, IconSetting, IconForward, IconColorPalette, IconRefresh, IconSearch, IconBranch } from '@douyinfe/semi-icons';
 
 function Demo() {
     return (

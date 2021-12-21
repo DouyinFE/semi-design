@@ -6,7 +6,7 @@ name: 'test:chromatic'
 # Event for the workflow
 on:
   pull_request:
-    branches: [ main, release, test-chromatic ]
+    branches: [ main, release, milestone**, test-chromatic ]
     paths:
       - 'packages/**/*.scss'
       - '!packages/**/_story/**'
@@ -16,7 +16,7 @@ on:
       - '!packages/**/*.test.[tj]sx?'
       - '!packages/**/*.md'
   push:
-    branches: [ main, release, test-chromatic ]
+    branches: [ main, release, milestone**, test-chromatic ]
     paths:
       - 'packages/**/*.scss'
       - '!packages/**/*.md'

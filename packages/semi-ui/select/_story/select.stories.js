@@ -2850,3 +2850,28 @@ export const ScrollIntoView = () => (
 ScrollIntoView.story = {
   name: 'scroll into view',
 };
+
+
+export const SelectInputPropsDemo = () => {
+
+  const inputProps = {
+    className: 'ttt',
+    onCompositionEnd: (v) => console.log(v.target.value)
+  };
+
+  return (
+    <Select 
+      // onSearch={(v) => console.log(v)}
+      optionList={list}
+      inputProps={inputProps}
+      multiple
+      filter
+      style={{ width: 200 }}
+    >
+    </Select>
+  )
+};
+SelectInputPropsDemo.story = {
+  name: 'inputProps',
+};
+

@@ -55,8 +55,8 @@
 
     .semi-icons-item-name {
         padding: 8px 16px 0 16px;
-        white-space: normal;
-        word-break: keep-all;
+        white-space: pre-wrap;
+        word-break: break-word;
         text-align: center;
     }
 

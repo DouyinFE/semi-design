@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { Button, Typography, Card, Tooltip, Tag, Avatar, Rating, Nav, Layout } from '../../index';
 import { IconHelpCircle, IconUser, IconStar, IconSetting } from '@douyinfe/semi-icons';
+import SemiA11y from './a11y';
 import './index.scss';
 
 export default {
@@ -8,7 +9,8 @@ export default {
 };
 
 export {
-  TestAlwaysDarkLight
+  TestAlwaysDarkLight,
+  SemiA11y
 };
 
 const TestAlwaysDarkLight = () => {

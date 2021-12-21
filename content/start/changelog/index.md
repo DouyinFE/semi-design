@@ -15,6 +15,39 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 ---
 
+#### 🎉 2.2.0-beta.0 (2021-12-17)
+
+- 【Feat】
+    - Timeline.Item 支持 onClick [#402](https://github.com/DouyinFE/semi-design/issues/402)
+    - Cascader 
+        - 支持仅回显叶子节点，提供 leafOnly API [#256](https://github.com/DouyinFE/semi-design/issues/256)
+        - 支持多选时点击叶子节点即可选中，提供 enableLeafClick API [#302](https://github.com/DouyinFE/semi-design/issues/302) [@btea](https://github.com/btea)
+        - 支持自定义分隔符，提供 separator API [#408](https://github.com/DouyinFE/semi-design/issues/408)
+    - Upload [#342](https://github.com/DouyinFE/semi-design/issues/342)
+        - 支持通过 ref 调用 insert 方法 
+        - 支持 props showPicInfo
+        - 使用 gap 控制 FileCard 间隔
+    - Icon [#260](https://github.com/DouyinFE/semi-design/issues/260)
+        - 添加 double_chevron_left,double_chevron_right 图标
+        - Icon 支持跟随当前上下文字体大小
+    - LocaleProvider 新增西班牙语语言包 [@chenjunxyf](https://github.com/chenjunxyf)
+    - Select 新增 inputProps ，便于用户在 filter 为 true 时可实现一些特殊功能。例如传入 onCompositionEnd，onKeyDown 事件监听等
+    - DatePicker [#260](https://github.com/DouyinFE/semi-design/issues/260)
+        - 新增年份切换按钮
+        - 优化范围选择交互逻辑，避免出现两个面板是相同月份场景
+- 【Fix】
+    - Select
+        - 修复 Select renderSelectedItem 返回的 isRenderInTag 为 false 时会报 key 的 warning 的问题 [#320](https://github.com/DouyinFE/semi-design/issues/320)
+        - 修复 Select 搜索高亮关键字时 warning 提示 mark 标签 key 缺失的问题
+    - 修复 Cascader multiple+disabled 时标签样式与设计稿不符 [#400](https://github.com/DouyinFE/semi-design/issues/400)
+    - 修复 Description type='plain' 时，key 或 itemKey 为 node 时渲染不正确的问题 [#406](https://github.com/DouyinFE/semi-design/issues/406)
+    - 修复 Pagination 同时使用 hideOnSingePage 与 showSizeChanger 时，总页数只有1时，sizeChanger 会消失无法再切换的问题 [#252](https://github.com/DouyinFE/semi-design/issues/252)
+    - 修复 通过 webpack plugin variables 方式定义 Select 组件 Design Token 时不生效的问题 [#375](https://github.com/DouyinFE/semi-design/issues/375) [@summerstream](https://github.com/summerstream)
+    - 修复 Rating 组件设置 size 为 number 后 UI 错误
+    - 修复 Timeline 自定义 dot 水平对齐的问题 [#395](https://github.com/DouyinFE/semi-design/issues/395) [@chenc041](https://github.com/chenc041)
+- 【Docs】
+    - 完善 semi-ui package.json [@chenc041](https://github.com/chenc041)
+
 #### 🎉 2.1.5 (2021-12-10)
 
 - 【Fix】

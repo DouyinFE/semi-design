@@ -183,3 +183,53 @@ export const DataSource = () => (
 DataSource.story = {
   name: 'dataSource',
 };
+
+const dataWithOnClick = [
+  {
+      time: '2019-07-14 10:35',
+      extra: '节点辅助说明信息',
+      content: '创建服务现场',
+      type: 'ongoing',
+      onClick: e => console.log(e, '创建服务现场'),
+  },
+  {
+      time: '2019-06-13 16:17',
+      extra: '节点辅助说明信息',
+      content: <span style={{ fontSize: '18px' }}>初步排除网络异常</span>,
+      color: 'pink',
+      onClick: e => console.log(e, '初步排除网络异常'),
+  },
+  {
+      time: '2019-05-14 18:34',
+      extra: '节点辅助说明信息',
+      dot: <Icon type="alert_triangle" />,
+      content: '技术测试异常',
+      type: 'warning',
+      onClick: e => console.log(e, '技术测试异常'),
+  },
+  {
+      time: '2019-05-09 09:12',
+      extra: '节点辅助说明信息',
+      content: '网络异常正在修复',
+      type: 'success',
+      onClick: e => console.log(e, '网络异常正在修复'),
+  }
+];
+
+export const OnClickDemo = () => (
+  <div style={{ width: '400px' }}>
+    <div style={{ width: '300px' }}>
+        <Timeline mode='center'>
+            <Timeline.Item time='2015-09-01' onClick={e=>console.log(e, '创建服务现场')}>创建服务现场</Timeline.Item>
+            <Timeline.Item time='2015-09-01' onClick={e=>console.log(e, '初步排除网络异常')}>初步排除网络异常</Timeline.Item>
+            <Timeline.Item time='2015-09-01' onClick={e=>console.log(e, '技术测试异常')}>技术测试异常</Timeline.Item>
+            <Timeline.Item time='2015-09-01' onClick={e=>console.log(e, '网络异常正在修复')}>网络异常正在修复</Timeline.Item>
+        </Timeline>
+        <Timeline mode='alternate' dataSource={dataWithOnClick} />
+    </div>
+  </div>
+);
+
+OnClickDemo.story = {
+  name: 'onClick',
+};

@@ -113,6 +113,28 @@ function Demo() {
 }
 ```
 
+### 覆盖特定样式
+
+你可以通过 className、style 为弹出层配置特定样式，例如覆盖默认的 maxWidth （280px）
+```jsx live=true
+import React from 'react';
+import { Tooltip, Tag } from '@douyinfe/semi-ui';
+
+() => {
+    return (
+        <Tooltip
+            style={{
+                maxWidth: 320
+            }}
+            className='another-classname'
+            content={'hi semi semi semi semi semi semi semi'}
+        >
+            <Tag style={{ marginRight: '8px' }}>Custom Style And ClassName</Tag>
+        </Tooltip>
+    );
+};
+```
+
 ### 位置
 
 支持弹出层在不同方向展示，共有 12 个方向
@@ -415,6 +437,7 @@ function Demo() {
 | autoAdjustOverflow | 弹出层被遮挡时是否自动调整方向 | boolean | true |  |
 | arrowPointAtCenter | “小三角”是否指向元素中心，需要同时传入"showArrow=true" | boolean | true | **0.34.0** |
 | content | 弹出层内容 | string\|ReactNode |  |  |
+| className | 弹出层的样式名 | string |  |  |
 | clickToHide | 点击弹出层及内部任一元素时是否自动关闭弹层 | boolean | false | **0.24.0** |
 | getPopupContainer | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 `position: relative` | function():HTMLElement | () => document.body |  |
 | mouseEnterDelay | 鼠标移入后，延迟显示的时间，单位毫秒（仅当 trigger 为 hover/focus 时生效） | number | 50 |  |
@@ -423,6 +446,7 @@ function Demo() {
 | position | 弹出层展示位置，可选值：`top`, `topLeft`, `topRight`, `left`, `leftTop`, `leftBottom`, `right`, `rightTop`, `rightBottom`, `bottom`, `bottomLeft`, `bottomRight` | string | 'top' |  |
 | prefixCls | 弹出层 wrapper div 的 `className` 前缀，设置该项时，弹出层将不再带 Tooltip 的样式 | string | 'semi-tooltip' |  |
 | rePosKey | 可以更新该项值手动触发弹出层的重新定位 | string\|number |  |  |
+| style    | 弹出层的内联样式 | object |  |  |
 | spacing | 弹出层与 `children` 元素的距离，单位 px | number | 8 |  |
 | showArrow | 是否显示箭头三角形 | boolean | true |  |
 | stopPropagation | 是否阻止弹层上的点击事件冒泡 | boolean | false | **0.34.0** |

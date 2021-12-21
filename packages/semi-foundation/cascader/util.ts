@@ -3,6 +3,7 @@ import {
     isUndefined,
     isEqual
 } from 'lodash';
+import { strings } from './constants';
 
 function getPosition(level: any, index: any) {
     return `${level}-${index}`;
@@ -79,4 +80,16 @@ export function findKeysForValues(value: any, keyEntities: any) {
         .filter((item: any) => isEqual(item.valuePath, valuePath))
         .map((item: any) => item.key);
     return res;
+}
+
+export function calcMergeType(autoMergeValue: boolean, leafOnly: boolean): string {
+    let mergeType: string;
+    if (leafOnly) {
+        mergeType = strings.LEAF_ONLY_MERGE_TYPE;
+    } else if (autoMergeValue) {
+        mergeType = strings.AUTO_MERGE_VALUE_MERGE_TYPE;
+    } else {
+        mergeType = strings.NONE_MERGE_TYPE;
+    }
+    return mergeType;
 }
