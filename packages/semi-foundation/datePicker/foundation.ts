@@ -745,7 +745,7 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
         let inputValue;
         if (!this._someDateDisabled(changedDates)) {
             inputValue = this._isMultiple() ? this.formatMultipleDates(dates) : this.formatDates(dates);
-            const isRangeTypeAndInputIncomplete = this._isRangeType() && (isNullOrUndefined(dates[0]) || isNullOrUndefined(dates[1]));
+            const isRangeTypeAndInputIncomplete = this._isRangeType() && !this._isRangeValueComplete(dates);
             /**
              * If the input is incomplete when under control, the notifyChange is not triggered because
              * You need to update the value of the input box, otherwise there will be a problem that a date is selected but the input box does not show the date #1357
@@ -1024,11 +1024,9 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
     };
 
     _isRangeValueComplete = (value: Date[] | Date) => {
-        let result = true;
+        let result = false;
         if (Array.isArray(value)) {
             result = !value.some(date => isNullOrUndefined(date));
-        } else {
-            result = false;
         }
         return result;
     };

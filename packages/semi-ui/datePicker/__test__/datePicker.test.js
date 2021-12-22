@@ -968,4 +968,67 @@ describe(`DatePicker`, () => {
 
     it('test month sync change dateRange type', () => { testMonthSyncChange('dateRange') });
     it('test month sync change dateTimeRange type', () => { testMonthSyncChange('dateTimeRange')});
+    it(`test preset given null`, async () => {
+        const props = {
+            presets: [
+                {
+                    text: 'Today',
+                    start: null,
+                    end: null,
+                }
+            ],
+            defaultValue: baseDate,
+            defaultOpen: true,
+            motion: false,
+            type: 'dateRange'
+        }
+        const handleChange = sinon.spy();
+        const demo = mount(<DatePicker {...props} onChange={handleChange} />);
+        const elem = demo.find(BaseDatePicker);
+
+        const btns = document.querySelectorAll('.semi-datepicker-quick-control-item');
+
+        btns[0].click();
+        expect(handleChange.called).toBeTruthy();
+        const args = handleChange.getCall(0).args;
+        expect(args[0].length).toEqual(0);
+        expect(elem.state('panelShow')).toBeFalsy();
+    });
+
+    it(`test preset given null + needConfirm`, async () => {
+        const props = {
+            presets: [
+                {
+                    text: 'Today',
+                    start: null,
+                    end: null,
+                }
+            ],
+            defaultValue: baseDate,
+            defaultOpen: true,
+            motion: false,
+            type: 'dateTimeRange',
+            needConfirm: true,
+        }
+        const handleChange = sinon.spy();
+        const handleConfirm = sinon.spy();
+        const demo = mount(<DatePicker {...props} onChange={handleChange} onConfirm={handleConfirm} />);
+        const elem = demo.find(BaseDatePicker);
+
+        const btns = document.querySelectorAll('.semi-datepicker-quick-control-item');
+
+        // 点击 preset
+        btns[0].click();
+        expect(handleChange.called).toBe(true);
+        const argsChange = handleChange.getCall(0).args;
+        expect(argsChange[0].length).toBe(0);
+        expect(elem.state('panelShow')).toBe(true);
+        // 点击确定
+        const footerBtns = document.querySelectorAll('.semi-datepicker-footer .semi-button');
+        footerBtns[1].click();
+        expect(handleConfirm.called).toBe(true);
+        const argsConfirm = handleConfirm.getCall(0).args;
+        expect(argsConfirm[0].length).toBe(0);
+        expect(elem.state('panelShow')).toBe(false);
+    });
 });
