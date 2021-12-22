@@ -71,7 +71,8 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
         syncSwitchMonth: PropTypes.bool,
         // Callback function for panel date switching
         onPanelChange: PropTypes.func,
-        focusRecordsRef: PropTypes.object
+        focusRecordsRef: PropTypes.object,
+        triggerRender: PropTypes.func,
     };
 
     static defaultProps = {

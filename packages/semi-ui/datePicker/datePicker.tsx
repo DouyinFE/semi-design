@@ -363,6 +363,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             syncSwitchMonth,
             onPanelChange,
             timeZone,
+            triggerRender
         } = this.props;
         const { value, cachedSelectedValue, motionEnd, rangeInputFocus } = this.state;
 
@@ -408,6 +409,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
                 onPanelChange={onPanelChange}
                 timeZone={timeZone}
                 focusRecordsRef={this.focusRecordsRef}
+                triggerRender={triggerRender}
             />
         );
     }

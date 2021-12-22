@@ -10,7 +10,7 @@ import {
   startOfWeek,
   endOfWeek,
 } from 'date-fns';
-import { Space, ConfigProvider, InputGroup, InputNumber, Form, withField } from '../../index';
+import { Space, ConfigProvider, InputGroup, InputNumber, Form, withField, Button } from '../../index';
 
 // stores
 import NeedConfirmDemo from './NeedConfirm';
@@ -723,3 +723,42 @@ export const FixNeedConfirm = () => {
   )
 }
 FixNeedConfirm.storyName = '修复 needConfirm 取消后输入框显示错误';
+
+/**
+ * fix https://github.com/DouyinFE/semi-design/issues/410
+ */
+export const FixTriggerRenderClosePanel = () => {
+  const [value, setValue] = useState([]);
+
+  const handleChange = v => {
+    console.log('change', v);
+    setValue(v);
+  };
+
+  const formatValue = (dates) => {
+    const dateStrs = dates.map(v => String(v));
+    return dateStrs.join(' ~ ');
+  };
+
+  const showClear = Array.isArray(value) && value.length > 1;
+
+  return (
+    <Space>
+      <DatePicker
+        value={value}
+        type="dateRange"
+        onChange={handleChange}
+        motion={false}
+        triggerRender={({ placeholder }) => (
+            <Button>
+                {(value && formatValue(value)) || placeholder}
+            </Button>
+        )}
+      />
+      {showClear && (
+        <Button onClick={() => setValue([])}>清除</Button>
+      )}
+    </Space>
+  );
+};
+FixTriggerRenderClosePanel.storyName = "fix triggerRender close bug"
