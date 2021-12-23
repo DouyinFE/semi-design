@@ -16,6 +16,16 @@ Version：Major.Minor.Patch
 
 ---
 
+#### 🎉 2.2.0-beta.1 (2021-12-23)
+
+- 【Fix】
+     - Fixed DatePicker input illegal year causing component crash [#422](https://github.com/DouyinFE/semi-design/issues/422)
+     - Fixed the content penetration caused by transparent background color in Notification when `theme='light'` [#430](https://github.com/DouyinFE/semi-design/issues/430)
+     - Fixed the issue of `@charset utf-8` related warning when Vite builds CSS [#403](https://github.com/DouyinFE/semi-design/issues/403)
+     - Fixed the problem that the data in the drop-down list is not displayed correctly after using `backSpace` to delete the selected item in Select multiple selection [#444](https://github.com/DouyinFE/semi-design/issues/444)
+     - Fix Empty display `this.updateMode` `undefined` problem when switching dark mode [#452](https://github.com/DouyinFE/semi-design/issues/452)
+     - Fixed the responsive error reporting issue of `Safari<=13` version [#442](https://github.com/DouyinFE/semi-design/issues/442)
+
 #### 🎉 2.2.0-beta.0 (2021-12-17)
 
 - 【Feat】

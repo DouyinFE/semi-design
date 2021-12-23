@@ -15,6 +15,16 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 ---
 
+#### 🎉 2.2.0-beta.1 (2021-12-23)
+
+- 【Fix】
+    - 修复 DatePicker 输入非法年份导致组件崩溃问题 [#422](https://github.com/DouyinFE/semi-design/issues/422)
+    - 修复 Notification 多色模式下，背景色透明导致的内容穿透 [#430](https://github.com/DouyinFE/semi-design/issues/430)
+    - 修复 Vite 构建 CSS 时抛出 @charset utf-8 相关 warning 的问题 [#403](https://github.com/DouyinFE/semi-design/issues/403)
+    - 修复 Select 多选使用 backSpace 删除已选项后，下拉列表数据显示不正确的问题 [#444](https://github.com/DouyinFE/semi-design/issues/444)
+    - 修复 Empty 在切换暗色模式时显示 this.updateMode 未定义问题 [#452](https://github.com/DouyinFE/semi-design/issues/452)
+    - 修复 Safari<=13 版本的响应式报错问题 [#442](https://github.com/DouyinFE/semi-design/issues/442)
+
 #### 🎉 2.2.0-beta.0 (2021-12-17)
 
 - 【Feat】
