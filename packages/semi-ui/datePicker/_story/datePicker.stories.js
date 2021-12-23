@@ -636,3 +636,29 @@ export const RangeSeparator = () => (
     </div>
   </Space>
 );
+
+/**
+ * 修复输入 '20221-12-20' 类似这种年份的日期会崩溃问题
+ * https://github.com/DouyinFE/semi-design/issues/422
+ * 
+ * 非法日期的来源
+ *  - 用户输入
+ *  - 受控传入
+ * @returns 
+ */
+export const FixParseISOBug = () => (
+  <div>
+    <label>
+      <div>选择一个合法值，然后输入一个非法年份</div>
+      <DatePicker defaultValue={'2021-12-20'} onChange={v => console.log('onChange', v)} />
+    </label>
+    <label>
+      <div>defaultValue='20221-12-20'</div>
+      <DatePicker defaultValue={'20221-12-20'} defaultOpen={true} motion={false} onChange={v => console.log('onChange', v)} />
+    </label>
+  </div>
+);
+FixParseISOBug.storyName = '修复 parseISO bug';
+FixParseISOBug.parameters = {
+  chromatic: { disableSnapshot: false },
+};

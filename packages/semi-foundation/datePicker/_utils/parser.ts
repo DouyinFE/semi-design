@@ -2,7 +2,7 @@
  * @file
  * Various date-related analysis methods
  */
-import { isValid, parseISO, parse } from 'date-fns';
+import { isValid, parseISO, parse, Locale } from 'date-fns';
 
 /**
  * Parsing value to Date object
@@ -11,7 +11,7 @@ export function compatiableParse(
     value: string,
     formatToken?: string,
     baseDate?: Date,
-    locale?: any
+    locale?: Locale
 ): Date | null {
     let result = null;
     if (value) {
@@ -25,7 +25,8 @@ export function compatiableParse(
         if (!isValid(result)) {
             result = new Date(Date.parse(value));
         }
-        if (!isValid(result)) {
+        const yearInvalid = isValid(result) && String(result.getFullYear()).length > 4;
+        if (!isValid(result) || yearInvalid) {
             result = null;
         }
     }
