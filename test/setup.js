@@ -4,6 +4,7 @@ import React from 'react';
 import sinon from 'sinon';
 import enzymeToJson from 'enzyme-to-json';
 import jest from 'jest';
+import cy from 'cypress';
 
 import jsdom from 'jsdom';
 import crypto from 'crypto';
@@ -27,6 +28,7 @@ global.shallow = shallow;
 global.render = render;
 global.mount = mount;
 global.sinon = sinon;
+global.cy = cy;
 
 Object.defineProperty(global.self, 'crypto', {
     value: {
