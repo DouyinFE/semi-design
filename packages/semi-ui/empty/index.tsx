@@ -60,7 +60,7 @@ export default class Empty extends BaseComponent<EmptyProps, EmptyState> {
         this.observer && this.observer.disconnect();
     }
 
-    observe(mutationsList: any): void {
+    observe = (mutationsList: any): void => {
         for (const mutation of mutationsList) {
             if (mutation.type === 'attributes' && mutation.attributeName === 'theme-mode') {
                 this.updateMode();
@@ -68,7 +68,7 @@ export default class Empty extends BaseComponent<EmptyProps, EmptyState> {
         }
     }
 
-    updateMode(): void {
+    updateMode = (): void => {
         const val = this.body.getAttribute('theme-mode');
         if (val !== this.state.mode) {
             this.setState({ mode: val });
