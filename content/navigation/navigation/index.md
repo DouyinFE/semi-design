@@ -761,7 +761,7 @@ function NavApp (props = {}) {
 |-------------|--------------------------------------------------|-------------------|--------|---------------|
 | children    | 子元素                                             | ReactNode         |        |               |
 | className   | 最外层样式名                                       | string            |        |               |
-| link        | 导航向 href 链接，传入时导航项整体会包裹一个 a 标签 | string            | -      | 1.0.0 |
+| link        | 导航项 href 链接，传入时导航项整体会包裹一个 a 标签 | string            | -      | 1.0.0 |
 | linkOptions | 透传给 a 标签的参数                                | object            | -      | 1.0.0 |
 | logo        | Logo                         | ReactNode |        |               |
 | style       | 最外层样式                                         | CSSProperties            |        |               |
