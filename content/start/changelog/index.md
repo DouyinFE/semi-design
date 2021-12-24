@@ -15,6 +15,13 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 ---
 
+#### 🎉 2.2.0 (2021-12-24)
+
+- 【Fix】
+    - 修复 Tabs 在 umd 方式使用时，tabPlane tab props 不接受动态更新的问题
+- 【Docs】
+    - 完善 Navigation  API 文档 [#451](https://github.com/DouyinFE/semi-design/pull/451) [@linjunc](https://github.com/linjunc)
+
 #### 🎉 2.2.0-beta.1 (2021-12-23)
 
 - 【Fix】

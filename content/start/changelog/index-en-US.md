@@ -16,6 +16,13 @@ Version：Major.Minor.Patch
 
 ---
 
+#### 🎉 2.2.0 (2021-12-24)
+
+- 【Fix】
+    - Fix the problem that tabPlane tab props does not accept dynamic updates when Tabs are used in umd mode
+- 【Docs】
+    - Improve Navigation API documentation [#451](https://github.com/DouyinFE/semi-design/pull/451) [@linjunc](https://github.com/linjunc)
+
 #### 🎉 2.2.0-beta.1 (2021-12-23)
 
 - 【Fix】
