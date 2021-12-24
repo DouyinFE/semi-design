@@ -45,12 +45,15 @@ export interface FileItem extends BaseFileItem {
 }
 
 export interface RenderFileItemProps extends FileItem {
+    index?: number;
     previewFile?: (fileItem: RenderFileItemProps) => ReactNode;
     listType: UploadListType;
     onRemove: (props: RenderFileItemProps, e: MouseEvent) => void;
     onRetry: (props: RenderFileItemProps, e: MouseEvent) => void;
     onReplace: (props: RenderFileItemProps, e: MouseEvent) => void;
     key: string;
+    showPicInfo?: boolean;
+    renderPicInfo?: (renderFileItemProps: RenderFileItemProps) => ReactNode;
     showRetry: boolean;
     showReplace: boolean;
     style?: CSSProperties;

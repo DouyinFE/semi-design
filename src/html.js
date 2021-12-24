@@ -166,8 +166,6 @@ export default function HTML(props) {
                 <div key={'body'} id="___gatsby" dangerouslySetInnerHTML={{ __html: props.body }} />
                 {props.postBodyComponents}
             </body>
-            <script src="https://unpkg.com/monaco-editor@0.28.1/min/vs/loader.js"/>
-            <script src="https://unpkg.com/monaco-editor@0.28.1/min/vs/editor/editor.main.js"/>
         </html>
     );
 }

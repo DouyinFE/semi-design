@@ -81,7 +81,8 @@ gulp.task('compileScss', function compileScss() {
                     realUrl = url.replace(/~@douyinfe\/semi-foundation/, semiUIPath);
                 }
                 return { url: realUrl };
-            }
+            },
+            charset: false
         }).on('error', sass.logError))
         .pipe(gulp.dest('lib/es'))
         .pipe(gulp.dest('lib/cjs'));

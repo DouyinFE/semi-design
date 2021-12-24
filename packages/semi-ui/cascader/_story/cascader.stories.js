@@ -275,6 +275,25 @@ export const _Cascader = () => {
       <br />
       <Cascader
         style={{ width: 300 }}
+        treeData={treeData1}
+        placeholder="Multiple select"
+        multiple
+        motion={false}
+      />
+      <br />
+      <br />
+      <Cascader
+        style={{ width: 300 }}
+        treeData={treeData1}
+        placeholder="Multiple select enableLeafClick"
+        multiple
+        enableLeafClick
+        motion={false}
+      />
+      <br />
+      <br />
+      <Cascader
+        style={{ width: 300 }}
         treeData={[]}
         motion={false}
         placeholder="Please select"
@@ -374,6 +393,23 @@ export const Disabled = () => {
         filterTreeNode
         disabled
       />
+      <br /><br />
+      <Cascader
+        defaultValue={['yazhou', 'zhongguo']}
+        style={{ width: 300 }}
+        treeData={treeData2}
+        multiple
+        filterTreeNode
+        disabled
+      />
+      <br /><br />
+      <Cascader
+        defaultValue={['yazhou', 'zhongguo']}
+        style={{ width: 300 }}
+        treeData={treeData2}
+        multiple
+        disabled
+      />
     </div>
   );
 };
@@ -419,6 +455,20 @@ export const DisabledOption = () => {
         treeData={treeData2}
         defaultValue={['yazhou', 'riben']}
         placeholder="Japan node is disabled"
+      />
+      <br />
+      <br />
+      <div>multiple selection + filterTreeNode + defaultValue is disabled option</div>
+      <Cascader
+          filterTreeNode
+          multiple
+          style={{ width: 300 }}
+          treeData={treeData2}
+          defaultValue={[
+              ['yazhou', 'riben'],
+              ['beimeizhou', 'jianada']
+          ]}
+          placeholder="Japan node is disabled"
       />
     </div>
   );
@@ -1211,3 +1261,91 @@ export const OnChangeWithObject = () => (
     />
   </>
 );
+
+export const LeafOnly = () => {
+  const [value, setValue] = useState([])
+  return (
+      <div>
+          <div>autoMergeValue=false,leafOnly=false</div>
+          <Cascader
+              style={{ width: 300 }}
+              treeData={treeData4}
+              placeholder="请选择所在地区"
+              multiple
+              autoMergeValue={false}
+              leafOnly={false}
+              defaultValue={['zhejiang']}
+          />
+          <br />
+          <br />
+          <div>autoMergeValue=false,leafOnly=true, leafOnly生效</div>
+          <Cascader
+              style={{ width: 300 }}
+              treeData={treeData4}
+              placeholder="请选择所在地区"
+              multiple
+              autoMergeValue={false}
+              leafOnly={true}
+              defaultValue={['zhejiang']}
+          />
+          <br />
+          <br />
+          <div>受控，autoMergeValue=false,leafOnly=true, leafOnly生效</div>
+          <Cascader
+              style={{ width: 300 }}
+              treeData={treeData4}
+              placeholder="请选择所在地区"
+              multiple
+              onChange={v=>{
+                  console.log(v);
+                  setValue(v)
+              }}
+              autoMergeValue={false}
+              leafOnly={true}
+              value={value}
+          />
+          <br />
+          <br />
+          <div>受控 onChangeWithObject, autoMergeValue=false,leafOnly=true, leafOnly生效</div>
+          <Cascader
+              style={{ width: 300 }}
+              treeData={treeData4}
+              placeholder="请选择所在地区"
+              multiple
+              onChange={v=>{
+                  console.log(v);
+                  setValue(v)
+              }}
+              onChangeWithObject
+              autoMergeValue={false}
+              leafOnly={true}
+              value={value}
+          />
+          <br />
+          <br />
+          <div>autoMergeValue=true,leafOnly=false</div>
+          <Cascader
+              style={{ width: 300 }}
+              treeData={treeData4}
+              placeholder="请选择所在地区"
+              multiple
+              autoMergeValue={true}
+              leafOnly={false}
+              defaultValue={['zhejiang']}
+          />
+          <br />
+          <br />
+          <br />
+          <div>autoMergeValue=true,leafOnly=true</div>
+          <Cascader
+              style={{ width: 300 }}
+              treeData={treeData4}
+              placeholder="请选择所在地区"
+              multiple
+              autoMergeValue={true}
+              leafOnly={true}
+              defaultValue={['zhejiang']}
+          />
+      </div>
+  );
+}
