@@ -103,9 +103,9 @@ export interface TableAdapter<RecordType> extends DefaultAdapter {
 
 class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType>> {
     memoizedWithFnsColumns: (
-        queries: BaseColumnProps<RecordType>[], 
-        cachedColumns: BaseColumnProps<RecordType>[], 
-        rowSelectionUpdate: boolean, 
+        queries: BaseColumnProps<RecordType>[],
+        cachedColumns: BaseColumnProps<RecordType>[],
+        rowSelectionUpdate: boolean,
         hideExpandedColumn: boolean,
         bodyHasScrollBar: boolean,
     ) => BaseColumnProps<RecordType>[];
@@ -305,7 +305,7 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
      * @returns {Array}
      */
     sortDataSource(dataSource: RecordType[], sorters: BaseSorterInfo<RecordType>[]) {
-        each(sorters, sorterObj => { 
+        each(sorters, sorterObj => {
             // const sorterObj = last(sorters) || {};
             const { sorter, sortOrder, defaultSortOrder, sortChildrenRecord } = sorterObj;
             const currentSortOrder = this.isSortOrderValid(sortOrder) ? sortOrder : defaultSortOrder;
@@ -348,7 +348,7 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
             currentPage,
             pageSize: currentPageSize,
         });
-        if (!this._pagerIsControlled() && currentPage > 0) {
+        if (currentPage > 0) {
             this._adapter.setDisabledRowKeys(disabledRowKeys);
             this._adapter.setAllRowKeys(allRowKeys);
             this._adapter.setPagination(pagination);
@@ -433,7 +433,7 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
         let pageData = dataSource;
         const pageNo = get(pagination, 'currentPage');
 
-        if (this.getProp('pagination') !== false && pageNo && dataSource && pagination && !this._pagerIsControlled()) {
+        if (this.getProp('pagination') !== false && pageNo && dataSource && pagination) {
             const { pageSize = numbers.DEFAULT_PAGE_SIZE } = pagination;
 
             const start = (pageNo - 1) * pageSize;
