@@ -412,7 +412,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
 
     static getDerivedStateFromProps(props: NormalTableProps, state: NormalTableState) {
         const willUpdateStates: Partial<NormalTableState> = {};
-        const { rowSelection, dataSource, childrenRecordName, rowKey } = props;
+        const { rowSelection, dataSource, childrenRecordName, rowKey, pagination } = props;
         props.columns && props.children && logger.warn('columns should not given by object and children at the same time');
 
         if (props.columns && props.columns !== state.cachedColumns) {
@@ -453,6 +453,16 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             willUpdateStates.rowSelection = newSelectionStates;
             willUpdateStates.prePropRowSelection = rowSelection;
         }
+        if (pagination !== state.pagination) {
+            let newPagination: Pagination = {};
+            if (isObject(state.pagination)) {
+                newPagination = { ...newPagination, ...state.pagination };
+            }
+            if (isObject(pagination)) {
+                newPagination = { ...newPagination, ...pagination };
+            }
+            willUpdateStates.pagination = newPagination;
+        }
         return willUpdateStates;
     }
 
@@ -468,7 +478,6 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
     // TODO: Extract the setState operation to the adapter or getDerivedStateFromProps function
     componentDidUpdate(prevProps: NormalTableProps<RecordType>, prevState: NormalTableState<RecordType>) {
         const {
-            pagination,
             dataSource,
             expandedRowKeys,
             expandAllRows,
@@ -478,6 +487,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
         } = this.props;
 
         const {
+            pagination: statePagination = null,
             queries: stateQueries,
             cachedColumns: stateCachedColumns,
             cachedChildren: stateCachedChildren,
@@ -521,11 +531,6 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
         }
 
 
-        // Update pagination
-        if (pagination !== prevProps.pagination) {
-            states.pagination = isObject(pagination) ? { ...pagination } : pagination;
-        }
-
         /**
          * After dataSource is updated || (cachedColumns || cachedChildren updated)
          * 1. Cache filtered sorted data and a collection of data rows, stored in this
@@ -539,9 +544,6 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             this.foundation.setCachedFilteredSortedDataSource(filteredSortedDataSource);
             states.dataSource = filteredSortedDataSource;
 
-            if (pagination === prevProps.pagination) {
-                states.pagination = isObject(pagination) ? { ...pagination } : pagination;
-            }
 
             if (this.props.groupBy) {
                 states.groups = null;
@@ -552,7 +554,6 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             const {
                 // eslint-disable-next-line @typescript-eslint/no-shadow
                 queries: stateQueries = null,
-                pagination: statePagination = null,
                 dataSource: stateDataSource = null,
             } = states;
             const handledProps: Partial<NormalTableState<RecordType>> = this.foundation.getCurrentPageData(stateDataSource, statePagination as TablePaginationProps, stateQueries);
@@ -966,6 +967,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
     /**
      * render pagination
      * @param {object} pagination
+     * @param {object} propRenderPagination
      */
     renderPagination = (pagination: TablePaginationProps, propRenderPagination: RenderPagination) => {
         if (!pagination) {
