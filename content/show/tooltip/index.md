@@ -436,18 +436,19 @@ function Demo() {
 
 ## Accessibility
 
-### Aria
+### ARIA
 
 - Tooltip 具有 `tooltip` role，遵循 [WAI-ARIA](https://www.w3.org/TR/wai-aria-practices/#tooltip) 规范中对于 Tooltip 的定义
 - Tooltip 的 content 与 children
   - 关于 content
-      - content 的 wrapper 会被自动添加 id 属性，用于与 children 的 `aria-descriptionby` 匹配，关联 content 与 children
+      - content 的 wrapper 会被自动添加 id 属性，用于与 children 的 `aria-describedby` 匹配，关联 content 与 children
   - 关于 children
-       - Tooltip 的内容（content）与其触发器（children）之间应当具有显式联系。Tooltip 会自动为 children 元素添加 `aria-descriptionby` 属性，值为 content wraper的 id
+       - Tooltip 的内容（content）与其触发器（children）之间应当具有显式联系。Tooltip 会自动为 children 元素添加 `aria-describedby` 属性，值为 content wraper的 id
        - 若你 Tooltip的children 是Icon，不包含可见文本，我们推荐你在 children 上添加 `aria-label` 属性进行相应描述
 
 ```js
 // Good practices, add aria-label to description tooltip children
+/* eslint-disable */
 <Tooltip content={<p id='description'>Edit your setting</p>}>
     <IconSetting aria-label='Settings'> 
     </IconSetting>

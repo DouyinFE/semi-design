@@ -615,7 +615,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
 
         // eslint-disable-next-line prefer-const
         let ariaAttribute = {
-            'aria-descriptionby': id,
+            'aria-describedby': id,
         };
 
         // Take effect when used by Popover component

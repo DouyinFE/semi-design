@@ -478,7 +478,7 @@ Please refer to [Use with Tooltip/Popconfirm](/en-US/show/tooltip#%E6%90%AD%E9%8
 
 ## Accessibility
 
-### Aria
+### ARIA
 
 -  About role
    - If the trigger is set to `click`、`custom`, the PopoverContent element has role set to `dialog`.
@@ -488,7 +488,7 @@ Please refer to [Use with Tooltip/Popconfirm](/en-US/show/tooltip#%E6%90%AD%E9%8
 - Popover's children 
   - Will be automatically added [aria-expanded](https://www.w3.org/TR/wai-aria-1.1/#aria-expanded) attribute, when Popover is visible, the attribute value is `true`, when invisible Is `false`
   - Will be automatically added [aria-haspopup](https://www.w3.org/TR/wai-aria-1.1/#aria-haspopup) attribute, which is `dialog`
-  - Will be automatically added [aria-controls](https://www.w3.org/TR/wai-aria-1.1/#aria-controls) and `aria-descriptionby` attribute, which is the id of the content wrapper
+  - Will be automatically added [aria-controls](https://www.w3.org/TR/wai-aria-1.1/#aria-controls) and `aria-describedby` attribute, which is the id of the content wrapper
 
 ## Design Tokens
 

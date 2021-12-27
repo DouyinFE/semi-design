@@ -403,18 +403,19 @@ import { Popconfirm, Tooltip, Button } from '@douyinfe/semi-ui';
 
 ## Accessibility
 
-### Aria
+### ARIA
 
 - Tooltip has a tooltip role, following the definition of Tooltip in the [WAI-ARIA](https://www.w3.org/TR/wai-aria-practices/#tooltip) specification
 - Tooltip's content and children
   - about content
-      - The wrapper of content will be automatically added with id attribute to match the `aria-descriptionby` of children and associate content with children
+      - The wrapper of content will be automatically added with id attribute to match the `aria-describedby` of children and associate content with children
   - about children
-       - There should be an explicit connection between the content of the Tooltip and its children. Tooltip will automatically add the aria-descriptionby attribute to the children element, the value is the id of the content wraper. Tooltip will automatically add the `aria-descriptionby` attribute to the children element, the value is the `id` of the content wraper
+       - There should be an explicit connection between the content of the Tooltip and its children. Tooltip will automatically add the `aria-describedby` attribute to the children element, the value is the id of the content wraper. 
        - If the children of your Tooltip are Icon and do not contain visible text, we recommend that you add the `aria-label` attribute to the children to describe accordingly 
 
 ```js
 // Good practices, add aria-label to description tooltip children
+/* eslint-disable */
 <Tooltip content={<p id='description'>Edit your setting</p>}>
     <IconSetting aria-label='Settings'> 
     </IconSetting>
