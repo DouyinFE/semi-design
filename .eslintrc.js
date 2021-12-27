@@ -39,7 +39,7 @@ module.exports = {
         {
             files: ['*.ts', '*.tsx'],
             excludedFiles: ['content/**'],
-            extends: ['jest-enzyme', 'plugin:@typescript-eslint/recommended', 'plugin:import/typescript', 'plugin:react/recommended'],
+            extends: ['jest-enzyme', 'plugin:@typescript-eslint/recommended', 'plugin:import/typescript', 'plugin:react/recommended', 'plugin:jsx-a11y/recommended'],
             parser: '@typescript-eslint/parser',
             parserOptions: {
                 project: ['./tsconfig.eslint.json'],

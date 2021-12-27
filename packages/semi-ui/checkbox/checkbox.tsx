@@ -9,6 +9,7 @@ import BaseComponent from '../_base/baseComponent';
 import '@douyinfe/semi-foundation/checkbox/checkbox.scss';
 import { Context } from './context';
 import { isUndefined, isBoolean, noop } from 'lodash';
+import { getUuidShort } from '@douyinfe/semi-foundation/utils/uuid';
 export type CheckboxEvent = BasicCheckboxEvent;
 export type TargetObject = BasicTargetObject;
 
@@ -19,6 +20,9 @@ export interface CheckboxProps extends BaseCheckboxProps {
     onMouseEnter?: React.MouseEventHandler<HTMLSpanElement>;
     onMouseLeave?: React.MouseEventHandler<HTMLSpanElement>;
     extra?: React.ReactNode;
+    'aria-label'?: React.AriaAttributes['aria-label'];
+    role?: React.HTMLAttributes<HTMLSpanElement>['role']; // a11y: wrapper role
+    tabIndex?: number; // a11y: wrapper tabIndex
 }
 interface CheckboxState {
     checked: boolean;
@@ -44,6 +48,9 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
         onMouseEnter: PropTypes.func,
         onMouseLeave: PropTypes.func,
         extra: PropTypes.node,
+        index: PropTypes.number,
+        'aria-label': PropTypes.string,
+        tabIndex: PropTypes.number,
     };
 
     static defaultProps = {
@@ -74,6 +81,9 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
         };
     }
 
+    foundation: CheckboxFoundation;
+    addonId: string;
+    extraId: string;
     constructor(props: CheckboxProps) {
         super(props);
 
@@ -84,6 +94,8 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
         };
 
         this.checkboxEntity = null;
+        this.addonId = getUuidShort({ prefix: 'addon' });
+        this.extraId = getUuidShort({ prefix: 'extra' });
         this.foundation = new CheckboxFoundation(this.adapter);
     }
 
@@ -111,6 +123,8 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
 
     handleChange: React.MouseEventHandler<HTMLSpanElement> = e => this.foundation.handleChange(e);
 
+    handleEnterPress = (e: React.KeyboardEvent<HTMLSpanElement>) => this.foundation.handleEnterPress(e);
+
     render() {
         const {
             disabled,
@@ -123,7 +137,9 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
             onMouseLeave,
             extra,
             value,
-            id,
+            role,
+            tabIndex,
+            id
         } = this.props;
         const { checked } = this.state;
         const props: Record<string, any> = {
@@ -131,7 +147,8 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
             disabled,
         };
 
-        if (this.isInGroup()) {
+        const inGroup = this.isInGroup();
+        if (inGroup) {
             if (this.context.checkboxGroup.value) {
                 const realChecked = (this.context.checkboxGroup.value || []).includes(value);
                 props.checked = realChecked;
@@ -163,16 +180,20 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
             [`${prefix}-cardType_extra_noChildren`]: props.isCardType && !children,
         });
 
-        const name = this.isInGroup() && this.context.checkboxGroup.name;
+        const name = inGroup && this.context.checkboxGroup.name;
 
         const renderContent = () => (
             <>
-                {children ? <span className={`${prefix}-addon`}>{children}</span> : null}
-                {extra ? <div className={extraCls}>{extra}</div> : null}
+                {children ? <span id={this.addonId} className={`${prefix}-addon`}>{children}</span> : null}
+                {extra ? <div id={this.extraId} className={extraCls}>{extra}</div> : null}
             </>
         );
         return (
+            // label is better than span, however span is here which is to solve gitlab issue #364
+            // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
             <span
+                role={role}
+                tabIndex={tabIndex}
                 style={style}
                 className={wrapper}
                 id={id}
@@ -183,6 +204,8 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
                 <CheckboxInner
                     {...this.props}
                     {...props}
+                    addonId={children && this.addonId}
+                    extraId={extra && this.extraId}
                     name={name}
                     isPureCardType={props.isPureCardType}
                     ref={ref => {

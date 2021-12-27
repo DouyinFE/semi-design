@@ -83,10 +83,12 @@ import { Avatar } from '@douyinfe/semi-ui';
 () => (
     <div>
         <Avatar
+            alt="a cat"
             src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"
             style={{ margin: 4 }}
         />
         <Avatar
+            alt="a cat"
             size="small"
             src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"
             style={{ margin: 4 }}
@@ -252,6 +254,45 @@ import { Avatar, AvatarGroup } from '@douyinfe/semi-ui';
 );
 ```
 
+## Accessibility
+
+- `alt`：When using a picture avatar, please use the `alt` attribute to explain the content of the picture
+
+```jsx
+import React from 'react';
+import { Avatar } from '@douyinfe/semi-ui';
+
+() => {
+    return (
+        <>
+            {/* Good case */ }
+            <Avatar
+                alt="A cut cat"
+                src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"
+                style={{ margin: 4 }}
+            />
+            <Avatar
+                alt="Jiang Pengzhi"
+                src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"
+                style={{ margin: 4 }}
+            />
+            {/* Bad case: empty content */ }
+            <Avatar
+                alt=""
+                src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"
+                style={{ margin: 4 }}
+            />
+            {/* Bad case: no need to include picture or image in alt */ }
+            <Avatar
+                alt="Picture of Jiang Pengzhi"
+                src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"
+                style={{ margin: 4 }}
+            />
+        </>
+    );
+};
+```
+
 ## API Reference
 
 ---
@@ -260,7 +301,7 @@ import { Avatar, AvatarGroup } from '@douyinfe/semi-ui';
 
 | Properties   | Instructions                                                                                                                                                                              | type           | Default  |
 | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- | -------- |
-| alt          | Alternative text when the image cannot be displayed                                                                                                                                       | string         | -        |
+| alt          | Defines an alternative text description of the image.                                                                                                                                       | string         | -        |
 | className    | Class name                                                                                                                                                                                | string         | -        |
 | color        | Color of the avatar, one of `amber`, `blue`, `cyan`, `green`, `grey`, `indigo`, `light-blue`, `light-green`, `lime`, `orange`, `pink`, `rain`, `red`, `teal`, `violet`, `yellow`, `white` | string         | `grey`   |
 | hoverMask    | Avatar content overlay when hover                                                                                                                                                         | ReactNode     | -        |

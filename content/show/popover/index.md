@@ -475,5 +475,20 @@ function Demo() {
 | zIndex             | 弹出层 z-index 值                                                                                                                             | number                     | 1030                                        |            |
 | onVisibleChange    | 弹出层展示/隐藏时触发的回调                                                                                                                 | function(isVisble:boolean) |                                             |            |
 | onClickOutSide     | 当弹出层处于展示状态，点击非Children、非浮层内部区域时的回调（仅trigger为custom、click时有效）| function(e:event) |  | **2.1.0** |
+
+## Accessibility
+
+### ARIA
+
+-  关于 role
+   - 当 Popover 的 trigger 为 click、custom时，Popover的 content 具有 `dialog` role
+   - 当trigger为hover时，Popover的content 具有 `tooltip` role
+- Popover 的 content
+   - content 的 wrapper 会被自动添加 `id` 属性
+- Popover 的 children 
+  - 会被自动添加 [aria-expanded](https://www.w3.org/TR/wai-aria-1.1/#aria-expanded) 属性，当 Popover 可见时，属性值为 `true`，不可见时为 `false`
+  - 会被自动添加 [aria-haspopup](https://www.w3.org/TR/wai-aria-1.1/#aria-haspopup) 属性，为 `dialog`
+  - 会被自动添加 [aria-controls](https://www.w3.org/TR/wai-aria-1.1/#aria-controls) 与 `aria-describedby` 属性，为 content 的 wrapper 的 id
+
 ## 设计变量
 <DesignToken/>

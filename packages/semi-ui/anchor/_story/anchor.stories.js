@@ -15,7 +15,7 @@ const Link = Anchor.Link;
 export const Size = () => (
   <div>
     <div>小号尺寸</div>
-    <Anchor size={'small'}>
+    <Anchor aria-label='小号尺寸' size={'small'}>
       <Link href="#welcome" title="welcome" />
       <Link href="#api" title="api too much to show" />
       <Link href="#contact" title="contact" />

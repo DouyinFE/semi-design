@@ -25,7 +25,7 @@ import React from 'react';
 import { Radio } from '@douyinfe/semi-ui';
 
 () => (
-    <Radio>Radio</Radio>
+    <Radio aria-label="单选示例">Radio</Radio>
 );
 ```
 
@@ -40,7 +40,7 @@ import React from 'react';
 import { Radio } from '@douyinfe/semi-ui';
 
 () => (
-    <Radio extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统">
+    <Radio extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统" aria-label="单选示例">
         Semi Design
     </Radio>
 );
@@ -61,11 +61,11 @@ import { Radio, Button } from '@douyinfe/semi-ui';
     };
     return (
         <div>
-            <Radio defaultChecked={false} disabled={disabled}>
+            <Radio defaultChecked={false} disabled={disabled} aria-label="单选示例">
                 Disabled
             </Radio>
             <br />
-            <Radio defaultChecked disabled={disabled}>
+            <Radio defaultChecked disabled={disabled} aria-label="单选示例">
                 Disabled
             </Radio>
             <div style={{ marginTop: 20 }}>
@@ -97,6 +97,7 @@ import { Radio } from '@douyinfe/semi-ui';
             checked={checked}
             mode="advanced"
             onChange={toggle}
+            aria-label="单选示例"
         >
             允许取消选择
         </Radio>
@@ -119,7 +120,7 @@ import { RadioGroup, Radio } from '@douyinfe/semi-ui';
         setValue(e.target.value);
     }; 
     return (
-        <RadioGroup onChange={onChange} value={value}>
+        <RadioGroup onChange={onChange} value={value} aria-label="单选组合示例">
             <Radio value={1}>A</Radio>
             <Radio value={2}>B</Radio>
             <Radio value={3}>C</Radio>
@@ -138,7 +139,7 @@ import React from 'react';
 import { RadioGroup, Radio } from '@douyinfe/semi-ui';
 
 () => (
-    <RadioGroup direction="vertical">
+    <RadioGroup direction="vertical" aria-label="单选组合示例">
         <Radio value={1}>A</Radio>
         <Radio value={2}>B</Radio>
         <Radio value={3}>C</Radio>
@@ -162,17 +163,17 @@ import { RadioGroup, Radio, Space } from '@douyinfe/semi-ui';
 () => {
     return (
         <Space vertical spacing='loose' align='start'>
-            <RadioGroup type='button' buttonSize='small' defaultValue={1}>
+            <RadioGroup type='button' buttonSize='small' defaultValue={1} aria-label="单选组合示例">
                 <Radio value={1}>即时推送</Radio>
                 <Radio value={2}>定时推送</Radio>
                 <Radio value={3}>动态推送</Radio>
             </RadioGroup>
-            <RadioGroup type='button' buttonSize='middle' defaultValue={1}>
+            <RadioGroup type='button' buttonSize='middle' defaultValue={1} aria-label="单选组合示例">
                 <Radio value={1}>即时推送</Radio>
                 <Radio value={2}>定时推送</Radio>
                 <Radio value={3}>动态推送</Radio>
             </RadioGroup>
-            <RadioGroup type='button' buttonSize='large' defaultValue={1}>
+            <RadioGroup type='button' buttonSize='large' defaultValue={1} aria-label="单选组合示例">
                 <Radio value={1}>即时推送</Radio>
                 <Radio value={2}>定时推送</Radio>
                 <Radio value={3}>动态推送</Radio>
@@ -193,7 +194,7 @@ import React from 'react';
 import { RadioGroup, Radio } from '@douyinfe/semi-ui';
 
 () => (
-    <RadioGroup type='card' defaultValue={2} direction='vertical'>
+    <RadioGroup type='card' defaultValue={2} direction='vertical' aria-label="单选组合示例">
         <Radio value={1} disabled extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{width:280}}>
             单选框标题
         </Radio>
@@ -217,7 +218,7 @@ import React from 'react';
 import { RadioGroup, Radio } from '@douyinfe/semi-ui';
 
 () => (
-    <RadioGroup type='pureCard' defaultValue={2} direction='vertical'>
+    <RadioGroup type='pureCard' defaultValue={2} direction='vertical' aria-label="单选组合示例">
         <Radio value={1} disabled extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{width:280}}>
             单选框标题
         </Radio>
@@ -290,22 +291,37 @@ class App extends React.Component {
                     options={this.plainOptions}
                     onChange={this.onChange1}
                     value={this.state.value1}
+                    aria-label="单选组合示例"
                 />
                 <RadioGroup
                     options={this.optionsWithDisabled}
                     onChange={this.onChange3}
                     value={this.state.value3}
+                    aria-label="单选组合示例"
                 />
                 <RadioGroup
                     options={this.options}
                     onChange={this.onChange2}
                     value={this.state.value2}
+                    aria-label="单选组合示例"
                 />
             </Space>
         );
     }
 }
 ```
+
+## Accessibility
+
+### 键盘和焦点
+
+- 卡片式、按钮式 Radio 组可以通过箭头切换选中
+
+### Aria
+
+- `aria-label`：用于解释 Radio 或 RadioGroup 的作用
+- `aria-labelledby` 默认指向 addon 节点，用于解释 Radio 的内容
+- `aria-describedby` 默认指向 extra 节点，用于补充解释 Radio 的内容
 
 ## API 参考
 
@@ -315,6 +331,7 @@ class App extends React.Component {
 |----------------|-----------------------------------------------------------------------|------------------|--------|
 | addonClassName | 包裹内容容器的样式类名  **v1.16.0 后提供**                                 | string            |       |
 | addonStyle     | 包裹内容容器的内联样式  **v1.16.0 后提供**                                 | CSSProperties     |       |
+| aria-label      | Radio 的 label                                                            | string           | -  |
 | autoFocus      | 自动获取焦点                                                            | boolean           | false  |
 | checked        | 指定当前是否选中                                                         | boolean           | false  |
 | className      | 样式类名                                                                | string            |        |
@@ -333,6 +350,7 @@ class App extends React.Component {
 
 | 属性         | 说明                                                                                        | 类型                                                                      | 默认值       |
 | ------------ | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------ |
+| aria-label      | RadioGroup 的 label                                                            | string           | -  |
 |buttonSize|type='button'的radio的尺寸大小，可选值为：`small`、`middle`、`large` <br/>**v1.26.0 后提供** |string|`middle`|
 | className    | 样式类名                                                                                    | string                                                                    |              |
 | defaultValue | 默认选中的值                                                                                | string \| number                                                                       | -            |

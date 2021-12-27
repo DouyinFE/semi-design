@@ -2,9 +2,9 @@ name: 'lighthouse test'
 
 on:
   pull_request:
-    branches: [ main, release, milestone** ]
+    branches: [ main, release, milestone**, feat/a11y-aria ]
   push:
-    branches: [ main, release, milestone**, feat/a11y-ci ]
+    branches: [ main, release, milestone** ]
 
 jobs:
   lhci:

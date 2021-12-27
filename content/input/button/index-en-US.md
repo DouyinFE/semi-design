@@ -238,25 +238,25 @@ function ButtonDemo() {
     return (
         <div>
             <strong>Default Status: </strong>
-            <Button icon={<IconCamera />}/>
+            <Button icon={<IconCamera />} aria-label="Screenshot" />
             <br/><br/>
             <strong>Disabled Status：</strong>
-            <Button icon={<IconCamera />}/>
+            <Button icon={<IconCamera />} aria-label="Screenshot"/>
             <br/><br/>
             <strong>With Type: </strong>
             <span className="btn-margin-right">
-                <Button type="primary" icon={<IconCamera />}/>
-                <Button type="secondary" icon={<IconCamera />}/>
-                <Button type="warning" icon={<IconCamera />}/>
-                <Button type="danger" icon={<IconCamera />}/>
+                <Button type="primary" icon={<IconCamera />} aria-label="Screenshot"/>
+                <Button type="secondary" icon={<IconCamera />} aria-label="Screenshot"/>
+                <Button type="warning" icon={<IconCamera />} aria-label="Screenshot"/>
+                <Button type="danger" icon={<IconCamera />} aria-label="Screenshot"/>
             </span>
             <br/><br/>
             <strong>Change Theme: </strong>
-            <Button icon={<IconCamera />} theme="solid" style={{ marginRight: 10 }}/>
-            <Button icon={<IconCamera />} theme="light"/>
+            <Button icon={<IconCamera />} theme="solid" style={{ marginRight: 10 }} aria-label="Screenshot"/>
+            <Button icon={<IconCamera />} theme="light" aria-label="Screenshot"/>
             <br/><br/>
             <strong>Change Icon Position: </strong>
-            <Button icon={<IconSidebar />} theme="solid" style={{ marginRight: 10 }}>Collpase</Button>
+            <Button icon={<IconSidebar />} theme="solid" style={{ marginRight: 10 }}>Collapse</Button>
             <Button icon={<IconChevronDown />} theme="solid" iconPosition="right">Expand Options</Button>
             <br/><br/>
         </div>
@@ -365,7 +365,7 @@ function ButtonDemo() {
         <div style={{ display: 'flex' }}>
             {sizes.map(size => (
                 <div style={{ marginRight: 10 }} key={size}>
-                    <ButtonGroup size={size}>
+                    <ButtonGroup size={size} aria-label="Operate button group">
                         <Button>Copy</Button>
                         <Button>Search</Button>
                         <Button>Cut</Button>
@@ -411,7 +411,7 @@ function ButtonDemo() {
         <div style={{ display: 'flex' }}>
             {types.map(type => (
                 <div style={{ marginRight: 10 }} key={type}>
-                    <ButtonGroup type={type}>
+                    <ButtonGroup type={type} aria-label="Operate button group">
                         <Button>Copy</Button>
                         <Button>Search</Button>
                         <Button>Cut</Button>
@@ -463,19 +463,19 @@ function SplitButtonDemo(){
 
     return (
         <div>
-            <SplitButtonGroup style={{marginRight:10}}>
+            <SplitButtonGroup style={{marginRight:10}} aria-label="Project operate button group">
                 <Button theme="solid" type="primary">SplitButton</Button>
                 <Dropdown onVisibleChange={(v)=>handleVisibleChange(1,v)} menu={menu} trigger="click" position="bottomRight">
                     <Button style={btnVisible[1]?{background:'var(--semi-color-primary-hover)',padding:'8px 4px'}:{padding:'8px 4px'}} theme="solid" type="primary" icon={<IconTreeTriangleDown size="small" />}></Button>
                 </Dropdown>
             </SplitButtonGroup>
-            <SplitButtonGroup style={{marginRight:10}}>
+            <SplitButtonGroup style={{marginRight:10}} aria-label="Project operate button group">
                 <Button theme="light" type="primary">SplitButton</Button>
                 <Dropdown onVisibleChange={(v)=>handleVisibleChange(2,v)} menu={menu} trigger="click" position="bottomRight">
                     <Button style={btnVisible[2]?{background:'var(--semi-color-fill-1)',padding:'8px 4px'}:{padding:'8px 4px'}}  theme="light" type="primary" icon={<IconTreeTriangleDown size="small" />}></Button>
                 </Dropdown>
             </SplitButtonGroup>
-            <SplitButtonGroup>
+            <SplitButtonGroup aria-label="Project operate button group">
                 <Button style={btnVisible[3]?{background:'var(--semi-color-fill-0)'}:null} theme="borderless" type="primary">SplitButton</Button>
                 <Dropdown onVisibleChange={(v)=>handleVisibleChange(3,v)} menu={menu} trigger="click" position="bottomRight">
                     <Button style={btnVisible[3]?{background:'var(--semi-color-fill-1)',padding:'8px 4px'}:{padding:'8px 4px'}}  theme="borderless" type="primary" icon={<IconTreeTriangleDown size="small" />}></Button>
@@ -486,12 +486,20 @@ function SplitButtonDemo(){
 }
 ```
 
+## Accessibility
+
+### Aria
+
+- `aria-label` is used to indicate the function of the button. For icon buttons, we recommend using this attribute
+- `aria-disabled` is synchronized with the disabled attribute, indicating that the button is disabled
+
 ## API Reference
 
 ### Button
 
 | Properties          | Instructions                                                                                                                                      | Type                             | Default   |
 | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------- | --------- |
+| aria-label          | Label of the button                                                                                       | string                            | -    |
 | block               | Set the button to the block level button                                                                                                          | boolean                          | false     |
 | className           | Class name                                                                                                                                        | string                           |           |
 | disabled            | Prohibited status                                                                                                                                 | boolean                          | false     |
@@ -514,6 +522,7 @@ function SplitButtonDemo(){
 
 | Properties | Instructions                                                                            | Type    | Default   |
 | ---------- | --------------------------------------------------------------------------------------- | ------- | --------- |
+| aria-label          | Label of the button group                                                                                      | string                            | -    |
 | disabled   | Disabled status                                                                         | boolean | false     |
 | size       | Button size, optional value: `"large"`,`"default"`,`"small"`                            | string  | "default" |
 | type       | Type, optional values: `"primary"`,`"secondary"`, `"tertiary"`, `"warning"`, `"danger"` | string  | "primary" |
@@ -521,6 +530,7 @@ function SplitButtonDemo(){
 ### SplitButtonGroup **V1.12.0**
 | Properties   | Instructions                                                            | Type      | Default     |
 | -----------  | --------------------------------------------------------------  | -------- | --------- |
+| aria-label          | Label of the button group                                                                                       | string                            | -    |
 | style     | Custom style                                  | CSSProperties   |        |
 | className     | Custom class name                                  | string   |        |
 

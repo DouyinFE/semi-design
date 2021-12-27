@@ -31,7 +31,7 @@ import React from 'react';
 import { Checkbox } from '@douyinfe/semi-ui';
 
 () => (
-    <Checkbox onChange={checked => console.log(checked)}>Semi Design</Checkbox>
+    <Checkbox onChange={checked => console.log(checked)} aria-label="Checkbox 示例">Semi Design</Checkbox>
 );
 ```
 
@@ -40,7 +40,7 @@ import React from 'react';
 import { Checkbox } from '@douyinfe/semi-ui';
 
 () => (
-    <Checkbox defaultChecked onChange={checked => console.log(checked)}>Semi Design</Checkbox>
+    <Checkbox defaultChecked onChange={checked => console.log(checked)} aria-label="Checkbox 示例">Semi Design</Checkbox>
 );
 ```
 
@@ -52,11 +52,11 @@ import { Checkbox } from '@douyinfe/semi-ui';
 
 () => (
     <>
-        <Checkbox extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统'>
+        <Checkbox aria-label="Checkbox 示例" extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统'>
             Semi Design
         </Checkbox>
         <br/>
-        <Checkbox extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 400 }}>
+        <Checkbox aria-label="Checkbox 示例" extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 400 }}>
             Semi Design
         </Checkbox>
     </>
@@ -73,9 +73,9 @@ import { Checkbox } from '@douyinfe/semi-ui';
 
 () => (
     <div>
-        <Checkbox defaultChecked={false} disabled>Unchecked Disabled</Checkbox>
+        <Checkbox defaultChecked={false} disabled aria-label="Checkbox 示例">Unchecked Disabled</Checkbox>
         <br />
-        <Checkbox defaultChecked disabled>Checked Disabled</Checkbox>
+        <Checkbox defaultChecked disabled aria-label="Checkbox 示例">Checked Disabled</Checkbox>
     </div>
 );
 ```
@@ -91,7 +91,7 @@ import React from 'react';
 import { CheckboxGroup, Checkbox } from '@douyinfe/semi-ui';
 
 () => (
-    <CheckboxGroup style={{ width: '100%' }} defaultValue={['A', 'B']}>
+    <CheckboxGroup style={{ width: '100%' }} defaultValue={['A', 'B']} aria-label="CheckboxGroup 示例">
         <Checkbox value="A">A</Checkbox>
         <Checkbox value="B">B</Checkbox>
         <Checkbox value="C">C</Checkbox>
@@ -129,15 +129,16 @@ import { CheckboxGroup } from '@douyinfe/semi-ui';
     ];
     return (
         <div>
-            <CheckboxGroup options={plainOptions} defaultValue={['抖音']} onChange={onChange} />
+            <CheckboxGroup options={plainOptions} defaultValue={['抖音']} onChange={onChange} aria-label="CheckboxGroup 示例" />
             <br/><br/>
-            <CheckboxGroup options={options} defaultValue={[]} onChange={onChange} />
+            <CheckboxGroup options={options} defaultValue={[]} onChange={onChange} aria-label="CheckboxGroup 示例" />
             <br/><br/>
             <CheckboxGroup
                 options={optionsWithDisabled}
                 disabled
                 defaultValue={['Photography']}
                 onChange={onChange}
+                aria-label="Checkbox 示例"
             />
         </div>
     );
@@ -161,7 +162,7 @@ import { CheckboxGroup } from '@douyinfe/semi-ui';
         { label: '今日头条', value: 'toutiao' }
     ];
     return (
-        <CheckboxGroup options={options} direction='horizontal' />
+        <CheckboxGroup options={options} direction='horizontal' aria-label="CheckboxGroup 示例" />
     );
 };
 ```
@@ -214,6 +215,7 @@ class App extends React.Component {
                         checked={this.state.checked}
                         disabled={this.state.disabled}
                         onChange={this.onChange}
+                        aria-label="Checkbox 示例"
                     >
                         {label}
                     </Checkbox>
@@ -270,6 +272,7 @@ import { Checkbox, CheckboxGroup } from '@douyinfe/semi-ui';
                     indeterminate={indeterminate}
                     onChange={onCheckAllChange}
                     checked={checkAll}
+                    aria-label="Checkbox 示例"
                 >
                     Check all
                 </Checkbox>
@@ -279,6 +282,7 @@ import { Checkbox, CheckboxGroup } from '@douyinfe/semi-ui';
                 options={plainOptions}
                 value={checkedList}
                 onChange={onChange}
+                aria-label="CheckboxGroup 示例"
             />
         </div>
     );
@@ -296,7 +300,7 @@ import React from 'react';
 import { CheckboxGroup, Checkbox } from '@douyinfe/semi-ui';
 
 () => (
-    <CheckboxGroup type='card' defaultValue={['1', '3']} direction='vertical'>
+    <CheckboxGroup type='card' defaultValue={['1', '3']} direction='vertical' aria-label="CheckboxGroup 示例">
         <Checkbox value={'1'} disabled extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{width:280}}>
             单选框标题
         </Checkbox>
@@ -323,7 +327,7 @@ import React from 'react';
 import { CheckboxGroup, Checkbox } from '@douyinfe/semi-ui';
 
 () => (
-    <CheckboxGroup type='pureCard' defaultValue={['1', '3']} direction='vertical'>
+    <CheckboxGroup type='pureCard' defaultValue={['1', '3']} direction='vertical' aria-label="CheckboxGroup 示例">
         <Checkbox value={'1'} disabled extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{width:280}}>
             单选框标题
         </Checkbox>
@@ -349,7 +353,7 @@ import React from 'react';
 import { Checkbox, CheckboxGroup, Row, Col } from '@douyinfe/semi-ui';
 
 () => (
-    <CheckboxGroup style={{ width: '100%' }}>
+    <CheckboxGroup style={{ width: '100%' }} aria-label="CheckboxGroup 示例">
         <Row>
             <Col span={8}>
                 <Checkbox value="A">A</Checkbox>
@@ -371,12 +375,23 @@ import { Checkbox, CheckboxGroup, Row, Col } from '@douyinfe/semi-ui';
 );
 ```
 
+## Accessibility
+
+### Aria
+- Checkbox 的 role 为 `checkbox`，CheckboxGroup 的 role 为 `list`，它的直接子元素为 `listitem`
+- `aria-label`：单独使用 Checkbox 时，如果 Children 没有文本，建议传入 `aria-label` prop，用一句话描述 Checkbox 的作用，这会让屏幕阅读器读出这个标签的内容。如果你使用的是 Form.Checkbox，可以使用 Form 提供的 label 而无需传入 `aria-label`
+- `aria-labelledby` 指向 `addon` 节点，用于解释当前 Checkbox 的作用
+- `aria-describedby` 指向 `extra` 节点，用于补充解释当前 Checkbox 的作用
+- `aria-disabled` 表示当前的禁用状态，与 `disabled` prop 的值保持一致
+- `aria-checked` 表示当前的选中状态
+
 ## API参考
 
 ### Checkbox
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
+| aria-label | 定义 Checkbox 的作用 | string | - |
 | checked | 指定当前Checkbox是否选中（在Group中使用时无效） | boolean | false |
 | defaultChecked | 初始是否选中（在Group中使用时无效） | boolean | false |
 | disabled | 失效状态 | boolean | false |

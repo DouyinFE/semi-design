@@ -13,181 +13,185 @@ import ContainerPosition from './ContainerPosition';
 import { IconList, IconSidebar, IconEdit } from '@douyinfe/semi-icons';
 
 export default {
-  title: 'Tooltip',
-  parameters: {
-    chromatic: { disableSnapshot: true },
-  },
-}
+    title: 'Tooltip',
+    parameters: {
+        chromatic: { disableSnapshot: true },
+    },
+};
 
 function test(visible) {
-  console.log('visible Change:' + visible);
+    console.log('visible Change:' + visible);
 }
 
 const ScrollDemo = function ScrollDemo(props = {}) {
-  const tops = [
-    ['topLeft', 'TL'],
-    ['top', 'Top'],
-    ['topRight', 'TR'],
-  ];
-  const lefts = [
-    ['leftTop', 'LT'],
-    ['left', 'Left'],
-    ['leftBottom', 'LB'],
-  ];
-  const rights = [
-    ['rightTop', 'RT'],
-    ['right', 'Right'],
-    ['rightBottom', 'RB'],
-  ];
-  const bottoms = [
-    ['bottomLeft', 'BL'],
-    ['bottom', 'Bottom'],
-    ['bottomRight', 'BR'],
-  ];
-  const { tagStyle, ...restProps } = props;
-  return (
-    <div
-      style={{
-        paddingLeft: 40,
-      }}
-    >
-      <div
-        style={{
-          marginLeft: 40,
-          whiteSpace: 'nowrap',
-        }}
-      >
-        {tops.map((pos, index) => (
-          <Tooltip
-            content={
-              <article>
-                <p>hi bytedance</p>
-                <p>hi bytedance</p>
-              </article>
-            }
-            position={Array.isArray(pos) ? pos[0] : pos}
-            key={index}
-            trigger={'click'}
-            {...restProps}
-          >
-            <Tag style={tagStyle}>{Array.isArray(pos) ? pos[1] : pos}</Tag>
-          </Tooltip>
-        ))}
-      </div>
-      <div
-        style={{
-          width: 40,
-          float: 'left',
-        }}
-      >
-        {lefts.map((pos, index) => (
-          <Tooltip
-            content={
-              <article>
-                <p>hi bytedance</p>
-                <p>hi bytedance</p>
-              </article>
-            }
-            position={Array.isArray(pos) ? pos[0] : pos}
-            key={index}
-            trigger={'click'}
-            {...restProps}
-          >
-            <Tag style={tagStyle}>{Array.isArray(pos) ? pos[1] : pos}</Tag>
-          </Tooltip>
-        ))}
-      </div>
-      <div
-        style={{
-          width: 40,
-          marginLeft: 180,
-        }}
-      >
-        {rights.map((pos, index) => (
-          <Tooltip
-            content={
-              <article>
-                <p>hi bytedance</p>
-                <p>hi bytedance</p>
-              </article>
-            }
-            position={Array.isArray(pos) ? pos[0] : pos}
-            key={index}
-            trigger={'click'}
-            {...restProps}
-          >
-            <Tag style={tagStyle}>{Array.isArray(pos) ? pos[1] : pos}</Tag>
-          </Tooltip>
-        ))}
-      </div>
-      <div
-        style={{
-          marginLeft: 40,
-          clear: 'both',
-          whiteSpace: 'nowrap',
-        }}
-      >
-        {bottoms.map((pos, index) => (
-          <Tooltip
-            content={
-              <article>
-                <p>hi bytedance</p>
-                <p>hi bytedance</p>
-              </article>
-            }
-            position={Array.isArray(pos) ? pos[0] : pos}
-            key={index}
-            trigger={'click'}
-            {...restProps}
-          >
-            <Tag style={tagStyle}>{Array.isArray(pos) ? pos[1] : pos}</Tag>
-          </Tooltip>
-        ))}
-      </div>
-    </div>
-  );
+    const tops = [
+        ['topLeft', 'TL'],
+        ['top', 'Top'],
+        ['topRight', 'TR'],
+    ];
+    const lefts = [
+        ['leftTop', 'LT'],
+        ['left', 'Left'],
+        ['leftBottom', 'LB'],
+    ];
+    const rights = [
+        ['rightTop', 'RT'],
+        ['right', 'Right'],
+        ['rightBottom', 'RB'],
+    ];
+    const bottoms = [
+        ['bottomLeft', 'BL'],
+        ['bottom', 'Bottom'],
+        ['bottomRight', 'BR'],
+    ];
+    const { tagStyle, ...restProps } = props;
+    return (
+        <div
+            style={{
+                paddingLeft: 40,
+            }}
+        >
+            <div
+                style={{
+                    marginLeft: 40,
+                    whiteSpace: 'nowrap',
+                }}
+            >
+                {tops.map((pos, index) => (
+                    <Tooltip
+                        content={
+                            <article>
+                                <p>hi bytedance</p>
+                                <p>hi bytedance</p>
+                            </article>
+                        }
+                        position={Array.isArray(pos) ? pos[0] : pos}
+                        key={index}
+                        trigger={'click'}
+                        {...restProps}
+                    >
+                        <Tag style={tagStyle}>{Array.isArray(pos) ? pos[1] : pos}</Tag>
+                    </Tooltip>
+                ))}
+            </div>
+            <div
+                style={{
+                    width: 40,
+                    float: 'left',
+                }}
+            >
+                {lefts.map((pos, index) => (
+                    <Tooltip
+                        content={
+                            <article>
+                                <p>hi bytedance</p>
+                                <p>hi bytedance</p>
+                            </article>
+                        }
+                        position={Array.isArray(pos) ? pos[0] : pos}
+                        key={index}
+                        trigger={'click'}
+                        {...restProps}
+                    >
+                        <Tag style={tagStyle}>{Array.isArray(pos) ? pos[1] : pos}</Tag>
+                    </Tooltip>
+                ))}
+            </div>
+            <div
+                style={{
+                    width: 40,
+                    marginLeft: 180,
+                }}
+            >
+                {rights.map((pos, index) => (
+                    <Tooltip
+                        content={
+                            <article>
+                                <p>hi bytedance</p>
+                                <p>hi bytedance</p>
+                            </article>
+                        }
+                        position={Array.isArray(pos) ? pos[0] : pos}
+                        key={index}
+                        trigger={'click'}
+                        {...restProps}
+                    >
+                        <Tag style={tagStyle}>{Array.isArray(pos) ? pos[1] : pos}</Tag>
+                    </Tooltip>
+                ))}
+            </div>
+            <div
+                style={{
+                    marginLeft: 40,
+                    clear: 'both',
+                    whiteSpace: 'nowrap',
+                }}
+            >
+                {bottoms.map((pos, index) => (
+                    <Tooltip
+                        content={
+                            <article>
+                                <p>hi bytedance</p>
+                                <p>hi bytedance</p>
+                            </article>
+                        }
+                        position={Array.isArray(pos) ? pos[0] : pos}
+                        key={index}
+                        trigger={'click'}
+                        {...restProps}
+                    >
+                        <Tag style={tagStyle}>{Array.isArray(pos) ? pos[1] : pos}</Tag>
+                    </Tooltip>
+                ))}
+            </div>
+        </div>
+    );
 };
 
 export const TooltipOnVisibleChange = () => {
-  const [visible, setVisible] = useState();
-  return (
-    <div className="demo">
-      <div>
-        <label>非受控</label>
-        <Tooltip
-          content={
-            <article>
-              <p>hi bytedance</p>
-              <p>hi bytedance</p>
-            </article>
-          }
-          position="rightBottom"
-          onVisibleChange={test}
-          trigger="click"
-        >
-          <Tag>demo</Tag>
-        </Tooltip>
-      </div>
-      <div>
-        <label>受控</label>
-        <Tooltip
-          content={
-            <article>
-              <p>hi bytedance</p>
-              <p>hi bytedance</p>
-            </article>
-          }
-          position="rightBottom"
-          onVisibleChange={setVisible}
-          trigger="click"
-          visible={visible}
-        >
-          <Tag>demo</Tag>
-        </Tooltip>
-      </div>
-      <br />
-      <br />
-      {/* <Tooltip
+    const [visible, setVisible] = useState(true);
+    return (
+        <div className="demo">
+            <div>
+                <label>受控</label>
+                <Tooltip
+                    content={
+                        <article>
+                            <p>hi bytedance</p>
+                            <p>hi bytedance</p>
+                        </article>
+                    }
+                    position="top"
+                    onVisibleChange={setVisible}
+                    trigger="click"
+                    visible={visible}
+                >
+                    <Tag>demo</Tag>
+                </Tooltip>
+            </div>
+
+            <br />
+            <br />
+            <div>
+                <label>非受控</label>
+                <Tooltip
+                    content={
+                        <article>
+                            <p>hi bytedance</p>
+                            <p>hi bytedance</p>
+                        </article>
+                    }
+                    position="leftTop"
+                    onVisibleChange={test}
+                    trigger="click"
+                >
+                    <Tag>demo</Tag>
+                </Tooltip>
+            </div>
+            <br />
+            <br />
+
+            {/* <Tooltip
        content={
            <article>
                <p>hi bytedance</p>
@@ -231,439 +235,439 @@ export const TooltipOnVisibleChange = () => {
     >
        <Tag>click</Tag>
     </Tooltip> */}
-    </div>
-  );
+        </div>
+    );
 };
 
 TooltipOnVisibleChange.story = {
-  name: 'tooltip onVisibleChange',
+    name: 'tooltip onVisibleChange',
 };
 
 export const GetPopupContainerDemo = () => (
-  <div className="demo">
-    <div className="content-layer" />
-    <Tooltip
-      content={
-        <article>
-          <p>hi bytedance</p> <p>hi bytedance</p>
-        </article>
-      }
-      position="bottom"
-      visible
-      trigger="custom"
-      getPopupContainer={() => document.querySelector('.content-layer')}
-    >
-      <Tag>指定弹出层的容器</Tag>
-      {/* <div className='content'></div> */}
-    </Tooltip>
-    <div>
-      <label>给定容器为window，看是否报错</label>
-      <Tooltip content={'单选'} position="top" getPopupContainer={() => window}>
-        <Radio style={{ display: 'inline-flex' }}>单选</Radio>
-      </Tooltip>
+    <div className="demo">
+        <div className="content-layer" />
+        <Tooltip
+            content={
+                <article>
+                    <p>hi bytedance</p> <p>hi bytedance</p>
+                </article>
+            }
+            position="bottom"
+            visible
+            trigger="custom"
+            getPopupContainer={() => document.querySelector('.content-layer')}
+        >
+            <Tag>指定弹出层的容器</Tag>
+            {/* <div className='content'></div> */}
+        </Tooltip>
+        <div>
+            <label>给定容器为window，看是否报错</label>
+            <Tooltip content={'单选'} position="top" getPopupContainer={() => window}>
+                <Radio style={{ display: 'inline-flex' }}>单选</Radio>
+            </Tooltip>
+        </div>
     </div>
-  </div>
 );
 
 GetPopupContainerDemo.story = {
-  name: 'tooltip指定弹出层的容器',
+    name: 'tooltip指定弹出层的容器',
 };
 
 export const TooltipAll = () => (
-  <div className="demo">
-    <ScrollDemo />
-    <div
-      style={{
-        padding: 120,
-      }}
-    >
-      <ScrollDemo
-        showArrow
-        tagStyle={{
-          height: 80,
-        }}
-      />
+    <div className="demo">
+        <ScrollDemo />
+        <div
+            style={{
+                padding: 120,
+            }}
+        >
+            <ScrollDemo
+                showArrow
+                tagStyle={{
+                    height: 80,
+                }}
+            />
+        </div>
     </div>
-  </div>
 );
 
 TooltipAll.story = {
-  name: 'tooltip All',
+    name: 'tooltip All',
 };
 
 export const NoContent = () => (
-  <div className="demo">
-    <div
-      style={{
-        padding: 120,
-      }}
-    >
-      <ScrollDemo showArrow content={''} />
+    <div className="demo">
+        <div
+            style={{
+                padding: 120,
+            }}
+        >
+            <ScrollDemo showArrow content={''} />
+        </div>
+        <div
+            style={{
+                padding: 120,
+            }}
+        >
+            <ScrollDemo
+                showArrow
+                tagStyle={{
+                    minHeight: 80,
+                    minWidth: 120,
+                }}
+                content={''}
+            />
+        </div>
     </div>
-    <div
-      style={{
-        padding: 120,
-      }}
-    >
-      <ScrollDemo
-        showArrow
-        tagStyle={{
-          minHeight: 80,
-          minWidth: 120,
-        }}
-        content={''}
-      />
-    </div>
-  </div>
 );
 
 NoContent.story = {
-  name: 'no content',
+    name: 'no content',
 };
 
 export const AdjustPosition = () => (
-  <>
-    <div className="adjust">
-      <div className="wrapper">
-        第一个滚动区域
-        <Tooltip
-          content={
-            <article>
-              <p>hi bytedance</p>
-              <p>hi bytedance</p>
-            </article>
-          }
-          position="rightBottom"
-          trigger="click"
-        >
-          {/* <Tag className='topLeft'>topleft</Tag> */}
-          <div>test</div>
-        </Tooltip>
-        <Tooltip
-          content={
-            <article>
-              <p>hi bytedance</p>
-              <p>hi bytedance</p>
-            </article>
-          }
-          position="topRight"
-          trigger="click"
-        >
-          <Tag className="topRight">topRight</Tag>
-        </Tooltip>
-        <Tooltip
-          content={
-            <article>
-              <p>hi bytedance</p>
-              <p>hi bytedance</p>
-            </article>
-          }
-          position="bottomLeft"
-          trigger="click"
-        >
-          <Tag className="bottomLeft">bottomLeft</Tag>
-        </Tooltip>
-        <Tooltip
-          content={
-            <article>
-              <p>hi bytedance</p>
-              <p>hi bytedance</p>
-            </article>
-          }
-          position="bottomRight"
-          trigger="click"
-        >
-          <Tag className="bottomRight">bottomRight</Tag>
-        </Tooltip>
-      </div>
-    </div>
-    <div className="adjust2">
-      <div className="wrapper2">第二个滚动区域</div>
-    </div>
-  </>
+    <>
+        <div className="adjust">
+            <div className="wrapper">
+                第一个滚动区域
+                <Tooltip
+                    content={
+                        <article>
+                            <p>hi bytedance</p>
+                            <p>hi bytedance</p>
+                        </article>
+                    }
+                    position="rightBottom"
+                    trigger="click"
+                >
+                    {/* <Tag className='topLeft'>topleft</Tag> */}
+                    <div>test</div>
+                </Tooltip>
+                <Tooltip
+                    content={
+                        <article>
+                            <p>hi bytedance</p>
+                            <p>hi bytedance</p>
+                        </article>
+                    }
+                    position="topRight"
+                    trigger="click"
+                >
+                    <Tag className="topRight">topRight</Tag>
+                </Tooltip>
+                <Tooltip
+                    content={
+                        <article>
+                            <p>hi bytedance</p>
+                            <p>hi bytedance</p>
+                        </article>
+                    }
+                    position="bottomLeft"
+                    trigger="click"
+                >
+                    <Tag className="bottomLeft">bottomLeft</Tag>
+                </Tooltip>
+                <Tooltip
+                    content={
+                        <article>
+                            <p>hi bytedance</p>
+                            <p>hi bytedance</p>
+                        </article>
+                    }
+                    position="bottomRight"
+                    trigger="click"
+                >
+                    <Tag className="bottomRight">bottomRight</Tag>
+                </Tooltip>
+            </div>
+        </div>
+        <div className="adjust2">
+            <div className="wrapper2">第二个滚动区域</div>
+        </div>
+    </>
 );
 
 AdjustPosition.story = {
-  name: '自适应'
-}
+    name: '自适应',
+};
 
 export const CompositeComponent = () => (
-  <div
-    style={{
-      padding: 50,
-    }}
-  >
-    <Tooltip
-      content={
-        <article>
-          <p>hi bytedance</p> <p>hi bytedance</p>
-        </article>
-      }
-      position="top"
+    <div
+        style={{
+            padding: 50,
+        }}
     >
-      <IconList />
-    </Tooltip>
-    <Tooltip content={'收起'} position="top">
-      <IconButton icon={<IconSidebar />} />
-    </Tooltip>
-    <Tooltip content={'开关'} position="top">
-      <Switch />
-    </Tooltip>
-    <Tooltip content={'选择框'} position="top">
-      <Checkbox
-        style={{
-          display: 'inline-flex',
-        }}
-      >
-        选择框
-      </Checkbox>
-    </Tooltip>
-    <Tooltip content={'单选'} position="top">
-      <Radio
-        style={{
-          display: 'inline-flex',
-        }}
-      >
-        单选
-      </Radio>
-    </Tooltip>
-  </div>
+        <Tooltip
+            content={
+                <article>
+                    <p>hi bytedance</p> <p>hi bytedance</p>
+                </article>
+            }
+            position="top"
+        >
+            <IconList />
+        </Tooltip>
+        <Tooltip content={'收起'} position="top">
+            <IconButton icon={<IconSidebar />} />
+        </Tooltip>
+        <Tooltip content={'开关'} position="top">
+            <Switch />
+        </Tooltip>
+        <Tooltip content={'选择框'} position="top">
+            <Checkbox
+                style={{
+                    display: 'inline-flex',
+                }}
+            >
+                选择框
+            </Checkbox>
+        </Tooltip>
+        <Tooltip content={'单选'} position="top">
+            <Radio
+                style={{
+                    display: 'inline-flex',
+                }}
+            >
+                单选
+            </Radio>
+        </Tooltip>
+    </div>
 );
 
 CompositeComponent.story = {
-  name: '复合组件'
-}
+    name: '复合组件',
+};
 
 export const WrapDisabledElems = () => (
-  <div
-    style={{
-      padding: 50,
-    }}
-  >
-    <Tooltip content="disabled">
-      <IconButton disabled icon={<IconEdit />} />
-    </Tooltip>
-    <Tooltip content="disabled">
-      <IconButton disabled icon={<IconEdit />} block />
-    </Tooltip>
-    <Tooltip content="disabled">
-      <Button disabled block>
-        编辑
-      </Button>
-    </Tooltip>
-    <Tooltip content="disabled">
-      <Button
-        disabled
+    <div
         style={{
-          display: 'block',
+            padding: 50,
         }}
-      >
-        编辑
-      </Button>
-    </Tooltip>
-  </div>
+    >
+        <Tooltip content="disabled">
+            <IconButton disabled icon={<IconEdit />} />
+        </Tooltip>
+        <Tooltip content="disabled">
+            <IconButton disabled icon={<IconEdit />} block />
+        </Tooltip>
+        <Tooltip content="disabled">
+            <Button disabled block>
+                编辑
+            </Button>
+        </Tooltip>
+        <Tooltip content="disabled">
+            <Button
+                disabled
+                style={{
+                    display: 'block',
+                }}
+            >
+                编辑
+            </Button>
+        </Tooltip>
+    </div>
 );
 
 WrapDisabledElems.story = {
-  name: 'wrap disabled elems',
+    name: 'wrap disabled elems',
 };
 
 export const InTable = () => (
-  <div
-    style={{
-      marginTop: 50,
-    }}
-  >
-    <InTableDemo />
-  </div>
+    <div
+        style={{
+            marginTop: 50,
+        }}
+    >
+        <InTableDemo />
+    </div>
 );
 
 InTable.story = {
-  name: 'in table',
+    name: 'in table',
 };
 
 export const _EdgeDemo = () => <EdgeDemo />;
 
 _EdgeDemo.story = {
-  name: 'edge demo',
+    name: 'edge demo',
 };
 
 export const ScrollTooltipDemo = () => <ScrollTooltip />;
 ScrollTooltipDemo.story = {
-  name: 'scroll demo and set popup container'
-}
+    name: 'scroll demo and set popup container',
+};
 export const DangerousHtmlDemo = () => <DangerousHtml />;
 DangerousHtmlDemo.story = {
-  name: 'in dangerous html'
-}
+    name: 'in dangerous html',
+};
 export const ArrowPointAtCenterDemo = () => <ArrowPointAtCenter />;
 ArrowPointAtCenterDemo.story = {
-  name: 'arrow point at center'
-}
+    name: 'arrow point at center',
+};
 export const CustomContainerDemo = () => <CustomContainer />;
 CustomContainerDemo.story = {
-  name: 'custom container'
-}
+    name: 'custom container',
+};
 export const ContainerPositionDemo = () => <ContainerPosition />;
 ContainerPositionDemo.story = {
-  name: 'container observer'
-}
+    name: 'container observer',
+};
 
 export const QuickMoveMouse = () => {
-  /**
-   * mouseEnterDelay, mouseLeaveDelay 默认都为 50
-   * mouseEnterDelay, mouseLeaveDelay 都为 0，快速滑动可能出现两个 tooltip 出现
-   */
-  const Demo = () => {
-    const props = {
-      mouseEnterDelay: 50,
-      mouseLeaveDelay: 0,
+    /**
+     * mouseEnterDelay, mouseLeaveDelay 默认都为 50
+     * mouseEnterDelay, mouseLeaveDelay 都为 0，快速滑动可能出现两个 tooltip 出现
+     */
+    const Demo = () => {
+        const props = {
+            mouseEnterDelay: 50,
+            mouseLeaveDelay: 0,
+        };
+        return (
+            <div className="demo">
+                <div>
+                    <Tooltip content={'1'} {...props}>
+                        aaaaaaaaaaa
+                    </Tooltip>
+                </div>
+                <div>
+                    <Tooltip content={'2'} {...props}>
+                        bbbbbbbbbbb
+                    </Tooltip>
+                </div>
+                <div>
+                    <Tooltip content={'3'} {...props}>
+                        ccccccccccc
+                    </Tooltip>
+                </div>
+                <div>
+                    <Tooltip content={'4'} {...props}>
+                        aaaaaaaaaaa
+                    </Tooltip>
+                </div>
+                <div>
+                    <Tooltip content={'5'} {...props}>
+                        bbbbbbbbbbb
+                    </Tooltip>
+                </div>
+                <div>
+                    <Tooltip content={'6'} {...props}>
+                        ccccccccccc
+                    </Tooltip>
+                </div>
+                <div>
+                    <Tooltip content={'7'} {...props}>
+                        aaaaaaaaaaa
+                    </Tooltip>
+                </div>
+                <div>
+                    <Tooltip content={'8'} {...props}>
+                        bbbbbbbbbbb
+                    </Tooltip>
+                </div>
+                <div>
+                    <Tooltip content={'9'} {...props}>
+                        ccccccccccc
+                    </Tooltip>
+                </div>
+            </div>
+        );
     };
-    return (
-      <div className="demo">
-        <div>
-          <Tooltip content={'1'} {...props}>
-            aaaaaaaaaaa
-          </Tooltip>
-        </div>
-        <div>
-          <Tooltip content={'2'} {...props}>
-            bbbbbbbbbbb
-          </Tooltip>
-        </div>
-        <div>
-          <Tooltip content={'3'} {...props}>
-            ccccccccccc
-          </Tooltip>
-        </div>
-        <div>
-          <Tooltip content={'4'} {...props}>
-            aaaaaaaaaaa
-          </Tooltip>
-        </div>
-        <div>
-          <Tooltip content={'5'} {...props}>
-            bbbbbbbbbbb
-          </Tooltip>
-        </div>
-        <div>
-          <Tooltip content={'6'} {...props}>
-            ccccccccccc
-          </Tooltip>
-        </div>
-        <div>
-          <Tooltip content={'7'} {...props}>
-            aaaaaaaaaaa
-          </Tooltip>
-        </div>
-        <div>
-          <Tooltip content={'8'} {...props}>
-            bbbbbbbbbbb
-          </Tooltip>
-        </div>
-        <div>
-          <Tooltip content={'9'} {...props}>
-            ccccccccccc
-          </Tooltip>
-        </div>
-      </div>
-    );
-  };
 
-  return <Demo />;
+    return <Demo />;
 };
 
 QuickMoveMouse.story = {
-  name: '快速移动鼠标可见性'
-}
+    name: '快速移动鼠标可见性',
+};
 
 export const MotionFalseFix1402 = () => {
-  function Demo() {
-    const Test = React.forwardRef((props, ref) => (
-      <span {...props} ref={ref}>
-        Test
-      </span>
-    ));
-    return (
-      <div>
-        <Tooltip content={'hi bytedance'} motion={false}>
-          <Test />
-        </Tooltip>
-        <br />
-        <br />
-        <Tooltip content={'hi bytedance'}>
-          <Test />
-        </Tooltip>
-      </div>
-    );
-  }
+    function Demo() {
+        const Test = React.forwardRef((props, ref) => (
+            <span {...props} ref={ref}>
+                Test
+            </span>
+        ));
+        return (
+            <div>
+                <Tooltip content={'hi bytedance'} motion={false}>
+                    <Test />
+                </Tooltip>
+                <br />
+                <br />
+                <Tooltip content={'hi bytedance'}>
+                    <Test />
+                </Tooltip>
+            </div>
+        );
+    }
 
-  return <Demo />;
+    return <Demo />;
 };
 
 MotionFalseFix1402.story = {
-  name: 'motion=false fix #1402',
+    name: 'motion=false fix #1402',
 };
 
 export const DisabledWrapperCls = () => (
-  <>
-    <Tooltip wrapperClassName="test" content={'hi bytedance'}>
-      <Button>按钮</Button>
-    </Tooltip>
-    <br />
-    <br />
-    <Tooltip wrapperClassName="test" content={'hi bytedance'}>
-      <Button disabled>禁用的单个按钮</Button>
-    </Tooltip>
-    <br />
-    <br />
-    <Tooltip wrapperClassName="test" content={'hi bytedance'}>
-      <Button>正常的多个按钮</Button>
-      <Button>正常的多个按钮</Button>
-    </Tooltip>
-    <br />
-    <br />
-    <Tooltip wrapperClassName="test" content={'hi bytedance'}>
-      <Select disabled placeholder="请选择业务线" style={{ width: 120 }}>
-        <Select.Option value="abc">抖音</Select.Option>
-        <Select.Option value="hotsoon">火山</Select.Option>
-        <Select.Option value="jianying" disabled>
-          剪映
-        </Select.Option>
-        <Select.Option value="xigua">西瓜视频</Select.Option>
-      </Select>
-    </Tooltip>
-    <br />
-    <br />
-  </>
+    <>
+        <Tooltip wrapperClassName="test" content={'hi bytedance'}>
+            <Button>按钮</Button>
+        </Tooltip>
+        <br />
+        <br />
+        <Tooltip wrapperClassName="test" content={'hi bytedance'}>
+            <Button disabled>禁用的单个按钮</Button>
+        </Tooltip>
+        <br />
+        <br />
+        <Tooltip wrapperClassName="test" content={'hi bytedance'}>
+            <Button>正常的多个按钮</Button>
+            <Button>正常的多个按钮</Button>
+        </Tooltip>
+        <br />
+        <br />
+        <Tooltip wrapperClassName="test" content={'hi bytedance'}>
+            <Select disabled placeholder="请选择业务线" style={{ width: 120 }}>
+                <Select.Option value="abc">抖音</Select.Option>
+                <Select.Option value="hotsoon">火山</Select.Option>
+                <Select.Option value="jianying" disabled>
+                    剪映
+                </Select.Option>
+                <Select.Option value="xigua">西瓜视频</Select.Option>
+            </Select>
+        </Tooltip>
+        <br />
+        <br />
+    </>
 );
 
 DisabledWrapperCls.story = {
-  name: 'disabledWrapperCls',
+    name: 'disabledWrapperCls',
 };
 
 export const ShowArrow = () => {
-  function Demo() {
-    const Test = React.forwardRef((props, ref) => (
-      <Tag {...props} ref={ref}>
-        Test
-      </Tag>
-    ));
-    return (
-      <div>
-        <h4>should show content and arrow when click</h4>
-        <Tooltip style={{ maxWidth: 320 }} showArrow trigger='custom' visible content={'hi semi semi semi semi semi semi semi'} position='right'>
-          <Test />
-        </Tooltip>
-      </div>
-    );
-  }
+    function Demo() {
+        const Test = React.forwardRef((props, ref) => (
+            <Tag {...props} ref={ref}>
+                Test
+            </Tag>
+        ));
+        return (
+            <div>
+                <h4>should show content and arrow when click</h4>
+                <Tooltip showArrow trigger="click" content={'hi bytedance'}>
+                    <Test />
+                </Tooltip>
+            </div>
+        );
+    }
 
-  return <Demo />;
+    return <Demo />;
 };
 
 ShowArrow.story = {
-  name: 'showArrow',
+    name: 'showArrow',
 };
 
 export const OnClickOutSideDemo = () => {
@@ -671,20 +675,20 @@ export const OnClickOutSideDemo = () => {
     let clickOutSide = () => {
         console.log('clickOutSide');
         setV(false);
-    }
+    };
     return (
         <>
-            <Tooltip onClickOutSide={() => clickOutSide()} content={'hi bytedance'} visible={v} trigger='custom'>
+            <Tooltip onClickOutSide={() => clickOutSide()} content={'hi bytedance'} visible={v} trigger="custom">
                 <Button onClick={() => setV(true)}>按钮</Button>
             </Tooltip>
             <br />
             <br />
-            <Tooltip onClickOutSide={() => console.log('clickOutSide')} content={'hi bytedance'} trigger='click'>
-                <Button >单个按钮</Button>
+            <Tooltip onClickOutSide={() => console.log('clickOutSide')} content={'hi bytedance'} trigger="click">
+                <Button>单个按钮</Button>
             </Tooltip>
         </>
     );
-}
+};
 OnClickOutSideDemo.story = {
-  name: 'OnClickOutSide',
+    name: 'OnClickOutSide',
 };

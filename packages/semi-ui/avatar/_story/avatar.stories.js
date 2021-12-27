@@ -11,7 +11,7 @@ export const Basic = () => (
   <div>
     <div>
       <Avatar>U</Avatar>
-      <Avatar size="large">U</Avatar>
+      <Avatar autoFocus size="large" onClick={() => console.log('ok')}>U</Avatar>
       <Avatar size="extra-small">U</Avatar>
       <Avatar size="small">U</Avatar>
       <Avatar size="default">U</Avatar>
@@ -45,9 +45,9 @@ export const CustomAvatar = () => (
     <Avatar color="red" size="default">
       DF
     </Avatar>
-    <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-    <Avatar size="default" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-    <Avatar size="small" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+    <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" alt="a man" />
+    <Avatar size="default" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" alt="a man" />
+    <Avatar size="small" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" alt="a man" />
     <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>U</Avatar>
     <Avatar style={{ backgroundColor: '#87d068' }}>YZ</Avatar>
   </div>

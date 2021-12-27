@@ -298,6 +298,15 @@ class Demo extends React.Component {
 }
 ```
 
+## Accessibility
+
+### Aria
+
+- SideSheet has a `dialog` role to indicate that it is a pop-up component, and the internal header has a `heading` role to indicate that it is a header.
+- SideSheet content title body footer has label to indicate the role of the element.
+- SideSheet supports passing in `aria-label` to indicate the role of the SideSheet
+
+
 ## API Reference
 
 | Properties | Instructions | type | Default | Version |

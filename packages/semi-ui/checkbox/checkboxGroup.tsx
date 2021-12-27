@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { checkboxGroupClasses as css, strings } from '@douyinfe/semi-foundation/checkbox/constants';
-import CheckboxGroupFoudation, { CheckboxGroupAdapter } from '@douyinfe/semi-foundation/checkbox/checkboxGroupFoundation';
+import CheckboxGroupFoundation, { CheckboxGroupAdapter } from '@douyinfe/semi-foundation/checkbox/checkboxGroupFoundation';
 import BaseComponent from '../_base/baseComponent';
 import { Context } from './context';
 import { isEqual } from 'lodash';
@@ -26,6 +26,7 @@ export type CheckboxGroupProps = {
     className?: string;
     type?: CheckboxType;
     id?: string;
+    'aria-label'?: React.AriaAttributes['aria-label'];
 };
 
 export type CheckboxGroupState = {
@@ -69,12 +70,13 @@ class CheckboxGroup extends BaseComponent<CheckboxGroupProps, CheckboxGroupState
         };
     }
 
+    foundation: CheckboxGroupFoundation;
     constructor(props: CheckboxGroupProps) {
         super(props);
         this.state = {
             value: props.value || props.defaultValue,
         };
-        this.foundation = new CheckboxGroupFoudation(this.adapter);
+        this.foundation = new CheckboxGroupFoundation(this.adapter);
         this.onChange = this.onChange.bind(this);
     }
 
@@ -97,7 +99,7 @@ class CheckboxGroup extends BaseComponent<CheckboxGroupProps, CheckboxGroupState
     }
 
     render() {
-        const { children, options, prefixCls, direction, className, id, style, type } = this.props;
+        const { children, options, prefixCls, direction, className, id, style, type, disabled } = this.props;
 
         const isPureCardType = type === strings.TYPE_PURECARD;
         const isCardType = type === strings.TYPE_CARD || isPureCardType;
@@ -119,6 +121,7 @@ class CheckboxGroup extends BaseComponent<CheckboxGroupProps, CheckboxGroupState
                 if (typeof option === 'string') {
                     return (
                         <Checkbox
+                            role="listitem"
                             key={index}
                             disabled={this.props.disabled}
                             value={option}
@@ -130,6 +133,7 @@ class CheckboxGroup extends BaseComponent<CheckboxGroupProps, CheckboxGroupState
                 } else {
                     return (
                         <Checkbox
+                            role="listitem"
                             key={index}
                             disabled={option.disabled || this.props.disabled}
                             value={option.value}
@@ -145,11 +149,17 @@ class CheckboxGroup extends BaseComponent<CheckboxGroupProps, CheckboxGroupState
                 }
             });
         } else if (children) {
-            inner = (React.Children.toArray(children) as React.ReactElement[]).map((itm, index) => React.cloneElement(itm, { key: index }));
+            inner = (React.Children.toArray(children) as React.ReactElement[]).map((itm, index) => React.cloneElement(itm, { key: index, role: 'listitem' }));
         }
 
         return (
-            <div className={prefixClsDisplay} style={style} id={id}>
+            <div
+                id={id}
+                role="list"
+                aria-label={this.props['aria-label']}
+                className={prefixClsDisplay} 
+                style={style}
+            >
                 <Context.Provider
                     value={{
                         checkboxGroup: {

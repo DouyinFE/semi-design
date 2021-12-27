@@ -1,4 +1,5 @@
 import BaseFoundation, { DefaultAdapter, noopFunction } from '../base/foundation';
+import isEnterPress from '../utils/isEnterPress';
 
 export interface BasicTargetObject {
     [x: string]: any;
@@ -98,6 +99,12 @@ class CheckboxFoundation<P = Record<string, any>, S = Record<string, any>> exten
         this._adapter.notifyGroupChange(event);
     }
 
+    handleEnterPress(e: any) {
+        if (isEnterPress(e)) {
+            this.handleChange(e);
+        }
+    }
+
     setChecked(checked: boolean) {
         this._adapter.setNativeControlChecked(checked);
     }
@@ -121,6 +128,8 @@ export interface BaseCheckboxProps {
     onMouseEnter?: (e: any) => void;
     onMouseLeave?: (e: any) => void;
     extra?: any;
+    addonId?: string;
+    extraId?: string;
 }
 
 export default CheckboxFoundation;

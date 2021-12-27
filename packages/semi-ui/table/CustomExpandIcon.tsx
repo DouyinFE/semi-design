@@ -5,6 +5,7 @@ import { noop } from 'lodash';
 
 import { IconChevronRight, IconChevronDown, IconTreeTriangleDown, IconTreeTriangleRight } from '@douyinfe/semi-icons';
 import { cssClasses } from '@douyinfe/semi-foundation/table/constants';
+import isEnterPress from '@douyinfe/semi-foundation/utils/isEnterPress';
 
 import Rotate from '../motions/Rotate';
 
@@ -65,10 +66,14 @@ export default function CustomExpandIcon(props: CustomExpandIconProps) {
 
     return (
         <span
+            role="button"
+            aria-label="Expand this row"
+            tabIndex={-1}
             onClick={handleClick}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
             className={`${prefixCls}-expand-icon`}
+            onKeyPress={e => isEnterPress(e) && handleClick(e as any)}
         >
             {icon}
         </span>
