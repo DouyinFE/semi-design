@@ -1,6 +1,6 @@
 {
     "name": "@douyinfe/semi-ui",
-    "version": "2.1.4-alpha.0",
+    "version": "2.2.0",
     "description": "",
     "main": "lib/cjs/index.js",
     "module": "lib/es/index.js",
@@ -14,11 +14,11 @@
     },
     "dependencies": {
         "@babel/runtime-corejs3": "^7.15.4",
-        "@douyinfe/semi-animation-react": "2.1.3",
-        "@douyinfe/semi-foundation": "2.1.3",
-        "@douyinfe/semi-icons": "2.1.3",
-        "@douyinfe/semi-illustrations": "2.1.3",
-        "@douyinfe/semi-theme-default": "2.1.3",
+        "@douyinfe/semi-animation-react": "2.2.0",
+        "@douyinfe/semi-foundation": "2.2.0",
+        "@douyinfe/semi-icons": "2.2.0",
+        "@douyinfe/semi-illustrations": "2.2.0",
+        "@douyinfe/semi-theme-default": "2.2.0",
         "@types/react-window": "^1.8.2",
         "async-validator": "^3.5.0",
         "classnames": "^2.2.6",
@@ -53,6 +53,14 @@
         "pc component",
         "dark mode"
     ],
+    "homepage": "https://semi.design",
+    "bugs": {
+        "url": "https://github.com/DouyinFE/semi-design/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DouyinFE"
+    },
     "_unpkg": true,
     "unpkgFiles": [
         "dist/css",
@@ -60,13 +68,13 @@
     ],
     "author": "",
     "license": "MIT",
-    "gitHead": "661ac2de772e28c3b6f934f70e4e08efbe2387b2",
+    "gitHead": "eb34a4f25f002bb4cbcfa51f3df93bed868c831a",
     "devDependencies": {
         "@babel/plugin-proposal-decorators": "^7.15.8",
         "@babel/plugin-transform-runtime": "^7.15.8",
         "@babel/preset-env": "^7.15.8",
         "@babel/preset-react": "^7.14.5",
-        "@douyinfe/semi-scss-compile": "2.1.3",
+        "@douyinfe/semi-scss-compile": "2.2.0",
         "@storybook/addon-knobs": "^6.3.1",
         "@types/lodash": "^4.14.176",
         "babel-loader": "^8.2.2",
@@ -91,7 +99,7 @@
         "react-storybook-addon-props-combinations": "^1.1.0",
         "react-virtualized": "^9.22.3",
         "rimraf": "^3.0.2",
-        "sass": "1.32.13",
+        "sass": "1.45.0",
         "sinon": "^6.3.5",
         "terser-webpack-plugin": "^4.2.3",
         "through2": "^4.0.2",

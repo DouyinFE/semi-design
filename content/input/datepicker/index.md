@@ -15,6 +15,7 @@ brief: 日期选择器用于帮助用户选择一个符合要求的、格式化�
 
 ### 如何引入
 
+
 ```jsx import
 import { DatePicker } from '@douyinfe/semi-ui';
 ```
@@ -127,6 +128,8 @@ import { DatePicker } from '@douyinfe/semi-ui';
 version: >= 1.28.0
 
 在范围选择的场景中, 开启 `syncSwitchMonth` 则允许双面板同步切换。默认为 false。
+
+> Note：点击年份按钮也会同步切换两个面板，从滚轮里面切换年月不会同步切换面板，这保证了用户选择非固定间隔月份的能力。
 
 ```jsx live=true
 import React from 'react';

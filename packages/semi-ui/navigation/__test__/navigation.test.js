@@ -36,7 +36,7 @@ describe(`Navigation`, () => {
                 onSelect={key => console.log(key)}
                 header={{
                     logo: <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwzthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />,
-                    text: '直播运营后台',
+                    text: 'Semi 运营后台',
                 }}
                 footer={{
                     collapseButton: true,
@@ -71,7 +71,7 @@ describe(`Navigation`, () => {
                 onSelect={data => console.log('trigger onSelect: ', data)}
                 onClick={data => console.log('trigger onClick: ', data)}
             >
-                <Nav.Header logo={'bytedance_logo'} text={'直播运营后台'} />
+                <Nav.Header logo={'bytedance_logo'} text={'Semi 运营后台'} />
                 <Nav.Item itemKey={'union'} text={'公会中心'} icon={'star'} />
                 <Nav.Sub itemKey={'user'} text="用户管理" icon="user">
                     <Nav.Item itemKey={'golder'} text={'金主管理'} />
@@ -135,7 +135,7 @@ describe(`Navigation`, () => {
                 items={items}
                 header={{
                     logo: 'bytedance_logo',
-                    text: '直播运营后台',
+                    text: 'Semi 运营后台',
                 }}
                 footer={{ collapseButton: true }}
             />
@@ -201,7 +201,7 @@ describe(`Navigation`, () => {
                 onClick={onClick}
                 header={{
                     logo: <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwzthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />,
-                    text: '直播运营后台',
+                    text: 'Semi 运营后台',
                 }}
                 footer={{
                     collapseButton: true,

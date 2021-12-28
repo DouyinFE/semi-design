@@ -1,4 +1,4 @@
-import { get } from 'lodash-es';
+import { get } from 'lodash';
 import { ENTER_KEY } from './keyCode';
 
 function isEnterPress<T extends { key: string }>(e: T) {

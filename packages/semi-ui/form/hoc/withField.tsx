@@ -30,7 +30,7 @@ function withField<
     T extends Subtract<React.ComponentProps<C>, CommonexcludeType> & CommonFieldProps,
     R extends React.ComponentType<T>
 >(Component: C, opts?: WithFieldOption): R {
-    let SemiField = (props: any, ref: React.MutableRefObject<any>) => {
+    let SemiField = (props: any, ref: React.MutableRefObject<any> | ((instance: any) => void)) => {
         let {
             // condition,
             field,
@@ -75,7 +75,7 @@ function withField<
         // 无需注入的直接返回，eg：Group内的checkbox、radio
         // Return without injection, eg: <Checkbox> / <Radio> inside CheckboxGroup/RadioGroup
         if (!shouldInject) {
-            return <Component {...rest} />;
+            return <Component {...rest} ref={ref} />;
         }
 
         // grab formState from context

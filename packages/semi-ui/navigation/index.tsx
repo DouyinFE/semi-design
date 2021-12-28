@@ -50,8 +50,8 @@ export interface NavProps extends BaseProps {
     defaultIsCollapsed?: boolean;
     defaultOpenKeys?: React.ReactText[];
     defaultSelectedKeys?: React.ReactText[];
-    footer?: React.ReactNode | NavHeaderProps;
-    header?: React.ReactNode | NavFooterProps;
+    footer?: React.ReactNode | NavFooterProps;
+    header?: React.ReactNode | NavHeaderProps;
     isCollapsed?: boolean;
     items?: NavItems;
     limitIndent?: boolean;

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getActiveElement } from '../index';
-import { get, isFunction } from 'lodash-es';
+import { get, isFunction } from 'lodash';
 
 export function usePrevFocus() {
     const [prevFocusElement, setPrevFocus] = useState<HTMLElement>(getActiveElement());

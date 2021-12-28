@@ -112,8 +112,8 @@ const Fields: FunctionComponent<FormFCChild> = ({ formState, values, formApi }) 
             label="是否独占资源（Radio）"
             rules={[{ type: 'boolean' }, { required: true, message: '必须选择是否独占 ' }]}
         >
-            <Form.Radio value={true}>是</Form.Radio>
-            <Form.Radio value={false}>否</Form.Radio>
+            <Form.Radio value={1}>是</Form.Radio>
+            <Form.Radio value={0}>否</Form.Radio>
         </Form.RadioGroup>
         <Form.Checkbox field='abc' noLabel>
             我已阅读并清楚相关规定（Checkbox）

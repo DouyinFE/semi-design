@@ -94,6 +94,15 @@ $module: #{$prefix}-datepicker;
                 min-height: $height-datepicker_timepicker_header_min;
             }
         }
+
+        // 为了防止 scrollList 因为 weeks 变化高度发生变化导致年月可能发生滚动
+        // In order to prevent scrollList from scrolling due to changes in the height of weeks, the year and month may be scrolled
+        &[x-panel-yearandmonth-open-type="left"],
+        &[x-panel-yearandmonth-open-type="right"] {
+            .#{$module}-weeks {
+                min-height: 6 * $width-datepicker_day;
+            }
+        }
     }
 
     // 年月选择器
@@ -831,6 +840,15 @@ $module: #{$prefix}-datepicker;
                 .#{$prefix}-scrolllist-shade-post {
                     margin-top: $spacing-datepicker_scrolllist_shade_post_compact-marginTop;
                 }
+            }
+        }
+
+        // 为了防止 scrollList 因为 weeks 变化高度发生变化导致年月可能发生滚动
+        // In order to prevent scrollList from scrolling due to changes in the height of weeks, the year and month may be scrolled
+        &[x-panel-yearandmonth-open-type="left"],
+        &[x-panel-yearandmonth-open-type="right"] {
+            .#{$module}-weeks {
+                min-height: 6 * $width-datepicker_day_compact;
             }
         }
     }

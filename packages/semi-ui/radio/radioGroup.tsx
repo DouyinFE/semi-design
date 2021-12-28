@@ -36,6 +36,7 @@ export type RadioGroupProps = {
     type?: RadioType;
     buttonSize?: RadioGroupButtonSize;
     prefixCls?: string;
+    'aria-label'?: React.AriaAttributes['aria-label'];
 };
 
 export interface RadioGroupState {
@@ -57,7 +58,8 @@ class RadioGroup extends BaseComponent<RadioGroupProps, RadioGroupState> {
         className: PropTypes.string,
         style: PropTypes.object,
         direction: PropTypes.oneOf(strings.DIRECTION_SET),
-        mode: PropTypes.oneOf(strings.MODE)
+        mode: PropTypes.oneOf(strings.MODE),
+        'aria-label': PropTypes.string,
     };
 
     static defaultProps: Partial<RadioGroupProps> = {
@@ -178,7 +180,7 @@ class RadioGroup extends BaseComponent<RadioGroupProps, RadioGroupState> {
         }
 
         return (
-            <div className={prefixClsDisplay} style={style}>
+            <div className={prefixClsDisplay} style={style} aria-label={this.props['aria-label']}>
                 <Context.Provider
                     value={{
                         radioGroup: {

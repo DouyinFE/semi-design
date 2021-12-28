@@ -36,7 +36,7 @@ export default class Item extends PureComponent<DescriptionsItemProps> {
                 <tr className={className} style={style}>
                     <td className={`${prefixCls}-item`}>
                         <span className={keyCls}>
-                            {`${itemKey}:`}
+                            {itemKey}:
                         </span>
                         <span className={valCls}>
                             {typeof children === 'function' ? children() : children}

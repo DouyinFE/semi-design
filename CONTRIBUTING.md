@@ -43,6 +43,7 @@ npm run test:unit
 我们可能会根据情况要求或帮助你修改PR，对于不合适的PR我们会给予解释后关闭
 
 - 为了便于不同地区的开发者都能获取到修改相关上下文，git commit message请统一使用英文描述
+- 如果你的改动涉及样式变更 或 Design Token 变更，请先阅读 [Semi SCSS 变量编写/文件引用规范](https://bytedance.feishu.cn/docx/doxcnQ7uom1zmEtn28dI7G1hopb)
 
 ## 帮助改善文档
 文档站基于 [gatsby](https://www.gatsbyjs.com/) 构建，核心代码在 `src` 目录。

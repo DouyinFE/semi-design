@@ -25,7 +25,8 @@
         "esModuleInterop": true,
         "skipLibCheck": true,
         "declaration": true,
-        "strictNullChecks": false
+        "strictNullChecks": false,
+        "strict": true
     },
     "include": ["**/*.tsx", "**/*.ts"],
     "exclude": ["node_modules", "packages/rollup-plugin-semi-svg"]

@@ -88,7 +88,7 @@ export default class Item extends PureComponent<RatingItemProps> {
             height: size,
             fontSize: size
         } : {};
-        const iconSize = size === 'small' ? 'default' : 'extra-large';
+        const iconSize = isCustomSize ? 'inherit' : (size === 'small' ? 'default' : 'extra-large');
         const content = character ? character : <IconStar size={iconSize} />;
         return (
             <li className={starCls} style={{ ...sizeStyle }}>
@@ -101,6 +101,7 @@ export default class Item extends PureComponent<RatingItemProps> {
                     aria-posinset={index + 1}
                     aria-setsize={count}
                     tabIndex={0}
+                    className={`${prefixCls}-wrapper`}
                 >
                     <div className={`${prefixCls}-first`} style={{ width: `${firstWidth * 100}%` }}>{content}</div>
                     <div className={`${prefixCls}-second`}>{content}</div>
