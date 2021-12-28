@@ -318,7 +318,7 @@ class App extends React.Component {
 ### ARIA
 
 - Steps、Step组件支持传入`aria-label`属性，来表示Steps和Step的描述
-- Step组件具有一个`button` `role` 来表示它可被点击，Step组件具有 `aria-current` `step` 属性，表示这是步骤条内的一步
+- Step组件具有 `aria-current` `step` 属性，表示这是步骤条内的一步
 
 ## API 参考
 
@@ -326,32 +326,35 @@ class App extends React.Component {
 
 整体步骤条。
 
-| 参数      | 说明                                                                          | 类型   | 默认值     | 版本    |
-| --------- | ----------------------------------------------------------------------------- | ------ | ---------- | ------ |
-| className | 类名                                                                          | string |            |    |
-| current   | 指定当前步骤，从 0 开始记数。在子 Step 元素中，可以通过 `status` 属性覆盖状态 | number | 0          |    |
+| 参数      | 说明   | 类型   | 默认值     | 版本    |
+| --------- | ------- | ------ | ----- | ----- |
+| className | 类名  | string |    |   |
+| current   | 指定当前步骤，从 0 开始记数。在子 Step 元素中，可以通过 `status` 属性覆盖状态 | number | 0  |    |
 | direction | 指定步骤条方向。目前支持水平（`horizontal`）和竖直（`vertical`）两种方向      | string | horizontal |    |
-| hasLine   | 步骤条类型为basic时，可控制是否显示连接线                                             | boolean | true       | 1.18.0    |
-| initial   | 起始序号，从 0 开始记数                                                       | number | 0          |    |
-| status    | 指定当前步骤的状态，可选 `wait`、`process`、`finish`、`error`、`warning`           | string | process    |    |
+| hasLine   | 步骤条类型为basic时，可控制是否显示连接线  | boolean | true       | 1.18.0    |
+| initial   | 起始序号，从 0 开始记数   | number | 0   |    |
+| status    | 指定当前步骤的状态，可选 `wait`、`process`、`finish`、`error`、`warning`  | string | process    |    |
 | size      | 对于简单步骤条和导航步骤条，可选尺寸尺寸，值为`small`、`default`   | string  | `default` | 1.18.0  |
-| style     | 样式                                                                          | CSSProperties |            |    |
-| type     | 步骤条类型，可选 `fill`、`basic`、`nav`                                             | string | fill       | 1.18.0    |
-| onChange  | 改变步骤条的回调                                              | (index: number) => void | -       | 1.29.0    |
+| style     | 样式   | CSSProperties |   |    |
+| type     | 步骤条类型，可选 `fill`、`basic`、`nav`  | string | fill | 1.18.0    |
+| onChange  | 改变步骤条的回调 | (index: number) => void | -  | 1.29.0    |
 
 ### Steps.Step
 
 步骤条内的每一个步骤。
 
-| 参数        | 说明                                                                                                          | 类型              | 默认值 | 版本   |
-| ----------- | ------------------------------------------------------------------------------------------------------------- | ----------------- | ------ | ---- |
-| className | 类名                                                                          | string |            |    |
-| description | 步骤的详情描述，可选                                                                                          | ReactNode | -      |    |
-| icon        | 步骤图标的类型，可选                                                                                          | ReactNode | -      |    |
-| status      | 指定状态。当不配置该属性时，会使用 Steps 的 `current` 来自动指定状态。可选：`wait`、`process`、`finish`、`error`、`warning` | string            | wait   |    |
-| style     | 样式                                                                          | CSSProperties |            |    |
-| title       | 标题                                                                                                        | ReactNode | -      |    |
-| onClick     | 点击回调                                                                                                          | function | -      |    |
+| 参数  | 说明  | 类型  | 默认值 | 版本  |
+| ---- | -------| ----- | ----- | ---- |
+| aria-label | 容器aria-label   | React.AriaAttributes["aria-label"] |  |   |
+| className | 类名   | string |  |   |
+| description | 步骤的详情描述，可选  | ReactNode | -  |    |
+| icon      | 步骤图标的类型，可选  | ReactNode | -  |    |
+| role      | 容器role  | React.AriaRole | -  |    |
+| status | 指定状态。当不配置该属性时，会使用 Steps 的 `current` 来自动指定状态。可选：`wait`、`process`、`finish`、`error`、`warning` | string | wait  |  |
+| style  | 样式 | CSSProperties |  |   |
+| title   | 标题  | ReactNode | -  |   |
+| onClick     | 点击回调  | function | -   |    |
+| onKeyDown     | 回车事件回调  | function | -   |    |
 
 ## 设计变量
 <DesignToken/>

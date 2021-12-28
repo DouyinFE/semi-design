@@ -21,7 +21,9 @@ export interface BasicStepProps {
     done?: boolean;
     onChange?: () => void;
     onClick?: React.MouseEventHandler<HTMLDivElement>;
-    "aria-label"?: string;
+    onKeyDown?: React.KeyboardEventHandler<HTMLDivElement>;
+    "role"?: React.AriaRole;
+    "aria-label"?: React.AriaAttributes["aria-label"];
 }
 export enum stepSizeMapIconSize {
     small = 'large',
@@ -43,6 +45,7 @@ const BasicStep = (props: BasicStepProps) => {
         stepNumber,
         onClick,
         onChange,
+        onKeyDown,
     } = props;
     const renderIcon = () => {
         let inner, progress;
@@ -82,10 +85,10 @@ const BasicStep = (props: BasicStepProps) => {
 
         return inner ? <span className={cls}>{inner}</span> : null;
     };
-    const classString = classnames(prefixCls, className, `${prefixCls}-${status}`, {
+    const classString = classnames(prefixCls, `${prefixCls}-${status}`, {
         [`${prefixCls}-active`]: active,
         [`${prefixCls}-done`]: done
-    });
+    }, className);
     const handleClick = (e: React.MouseEvent) => {
         if (isFunction(onClick)) {
             onClick(e);
@@ -93,15 +96,15 @@ const BasicStep = (props: BasicStepProps) => {
         onChange();
     };
     const handleKeyDown = (e) => {
-        if (e.keyCode === 13) {
-            if (isFunction(onClick)) {
-                onClick(e);
+        if (e.key === 'Enter') {
+            if (isFunction(onKeyDown)) {
+                onKeyDown(e);
             }
             onChange();
         }
     };
     return (
-        <div role="button" aria-label={props["aria-label"]} tabIndex={0} aria-current="step" className={classString} style={style} onClick={e => handleClick(e)} onKeyDown={handleKeyDown}>
+        <div role={props["role"]} aria-label={props["aria-label"]} tabIndex={0} aria-current="step" className={classString} style={style} onClick={e => handleClick(e)} onKeyDown={handleKeyDown}>
             <div className={`${prefixCls}-container`}>
                 <div className={`${prefixCls}-left`}>{renderIcon()}</div>
                 <div className={`${prefixCls}-content`}>

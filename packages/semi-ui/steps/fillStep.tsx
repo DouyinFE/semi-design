@@ -18,11 +18,13 @@ export interface FillStepProps {
     stepNumber?: string;
     onChange?: () => void;
     onClick?: React.MouseEventHandler<HTMLDivElement>;
-    "aria-label"?: string;
+    onKeyDown?: React.KeyboardEventHandler<HTMLDivElement>;
+    "role"?: React.AriaRole;
+    "aria-label"?: React.AriaAttributes["aria-label"];
 }
 
 const FillStep = (props: FillStepProps) => {
-    const { prefixCls, className, title, description, status, style, onClick, icon, onChange, stepNumber } = props;
+    const { prefixCls, className, title, description, status, style, onClick, icon, onChange, stepNumber, onKeyDown } = props;
     const renderIcon = () => {
         let inner, progress;
 
@@ -67,25 +69,24 @@ const FillStep = (props: FillStepProps) => {
         onChange();
     };
     const handleKeyDown = (e) => {
-        if (e.keyCode === 13) {
-            if (isFunction(onClick)) {
-                onClick(e);
+        if (e.key === 'Enter') {
+            if (isFunction(onKeyDown)) {
+                onKeyDown(e);
             }
             onChange();
         }
     };
     return (
         <div
-            role="button"
+            role={props["role"]}
             aria-label={props["aria-label"]}
             aria-current="step"
             tabIndex={0} 
             className={classnames({
-                [className]: Boolean(className),
                 [prefixCls]: true,
                 [`${prefixCls}-${status}`]: Boolean(status),
                 [`${prefixCls}-clickable`]: onClick,
-            })}
+            }, className)}
             style={style}
             onClick={e => {
                 handleClick(e);
