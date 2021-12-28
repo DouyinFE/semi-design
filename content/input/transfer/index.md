@@ -907,6 +907,13 @@ import { Transfer } from '@douyinfe/semi-ui';
 };
 ```
 
+## Accessibility
+
+### ARIA
+
+- 搜索框添加 `role` `search`
+- 右侧选中列表添加 `role` `list`，选中项添加 `role` `listitem`
+
 ## API 参考
 
 ### Trasnfer Props
