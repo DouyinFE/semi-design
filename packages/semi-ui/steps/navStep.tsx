@@ -15,21 +15,32 @@ export interface NavStepProps {
     prefixCls?: string;
     onChange?: () => void;
     onClick?: React.MouseEventHandler<HTMLDivElement>;
+    onKeyDown?: React.KeyboardEventHandler<HTMLDivElement>;
+    "role"?: React.AriaRole;
+    "aria-label"?: React.AriaAttributes["aria-label"];
 }
 
 const NavStep = (props: NavStepProps) => {
-    const { prefixCls, className, title, style, active, index, total, onClick, onChange, ...restProps } = props;
-    const classString = classnames(prefixCls, className, {
+    const { prefixCls, className, title, style, active, index, total, onClick, onKeyDown, onChange } = props;
+    const classString = classnames(prefixCls, {
         [`${prefixCls}-active`]: active
-    });
+    }, className);
     const handleClick = (e: React.MouseEvent) => {
         if (isFunction(onClick)) {
             onClick(e);
         }
         onChange();
     };
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            if (isFunction(onKeyDown)) {
+                onKeyDown(e);
+            }
+            onChange();
+        }
+    };
     return (
-        <div {...restProps} className={classString} style={style} onClick={e => handleClick(e)}>
+        <div role={props["role"]} aria-label={props["aria-label"]} aria-current="step" tabIndex={0} className={classString} style={style} onClick={e => handleClick(e)} onKeyDown={handleKeyDown}>
             <div className={`${prefixCls}-container`}>
                 <div className={`${prefixCls}-content`}>
                     <div className={`${prefixCls}-title`}>
