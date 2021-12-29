@@ -191,9 +191,24 @@ describe(`DatePicker`, () => {
         btns[0].click();
         await sleep();
         expect(_.first(elem.state('value')).getDate() === currentValue.getDate()).toBeTruthy();
+        expect(_.isEqual(elem.state('cachedSelectedValue'), [currentValue])).toBe(true);
 
         /**
          * click ensure button
+         */
+        btns[1].click();
+        await sleep();
+        expect(_.first(elem.state('value')).getDate() === currentValue.getDate()).toBe(true);
+
+        /**
+         * re click next day
+         */
+        nextOffsetDayElem.click();
+        await sleep();
+        expect(_.first(elem.state('value')).getDate() === currentValue.getDate()).toBeTruthy();
+
+        /**
+         * re click ensure button
          */
         btns[1].click();
         await sleep();
