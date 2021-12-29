@@ -265,6 +265,8 @@ At the same time, the click callbacks of the "onConfirm" and "onCancel" buttons 
 
 The following example binds three callbacks: `onChange`, `onConfirm` and `onCancel`, and you can open the console to see the difference in print information.
 
+> Note: When opening `needConfirm`, you need to click the cancel button to close the panel, and clicking the blank area will no longer close the panel (v2.2.0)
+
 ```jsx live=true
 import React from 'react';
 import { DatePicker } from '@douyinfe/semi-ui';

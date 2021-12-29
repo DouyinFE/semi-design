@@ -16,6 +16,15 @@ Version：Major.Minor.Patch
 
 ---
 
+#### 🎉 2.2.1 (2021-12-29)
+
+- 【Fix】
+    - Fixed DatePicker input value is back to confirmed value bug when `needConfirm` is true [#457](https://github.com/DouyinFE/semi-design/issues/457)
+    - **Optimize DatePicker interaction details, `needConfirm` mode click outside will no longer close the panel, you need to click cancel to close the panel** [#457](https://github.com/DouyinFE/semi-design/issues/457)
+    - Fixed DatePicker `needConfirm` button margin bug in footer [#457](https://github.com/DouyinFE/semi-design/issues/457)
+    - Fixed DatePicker year button direction bug when `direction='rtl'` [#457](https://github.com/DouyinFE/semi-design/issues/457)
+    - Fixed Table head row paddingY not same with design draft bug and updated to 8px [#460](https://github.com/DouyinFE/semi-design/issues/460)
+
 #### 🎉 2.2.0 (2021-12-24)
 
 - 【Fix】
