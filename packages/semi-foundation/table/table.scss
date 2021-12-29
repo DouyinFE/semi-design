@@ -25,7 +25,6 @@ $module: #{$prefix}-table;
     }
 
     &-middle {
-        .#{$module}-thead > .#{$module}-row > .#{$module}-row-head,
         .#{$module}-tbody > .#{$module}-row > .#{$module}-row-cell {
             padding-top: $spacing-table_middle-paddingY;
             padding-bottom: $spacing-table_middle-paddingY;
@@ -33,7 +32,6 @@ $module: #{$prefix}-table;
     }
 
     &-small {
-        .#{$module}-thead > .#{$module}-row > .#{$module}-row-head,
         .#{$module}-tbody > .#{$module}-row > .#{$module}-row-cell {
             padding-top: $spacing-table_small-paddingY;
             padding-bottom: $spacing-table_small-paddingY;
