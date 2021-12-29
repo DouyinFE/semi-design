@@ -21,6 +21,7 @@ stories.add('default', () => (
             avatar={
               <Avatar 
                 size="default"
+                alt="example"
                 src='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/card-meta-avatar-docs-demo.jpg'
               />
             }
@@ -48,6 +49,7 @@ stories.add('default', () => (
             description="全面、易用、优质" 
             avatar={
               <Avatar 
+                alt="example"
                 size="default"
                 src='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/card-meta-avatar-docs-demo.jpg'
               />
@@ -76,6 +78,7 @@ stories.add('default', () => (
             description="全面、易用、优质" 
             avatar={
               <Avatar 
+                alt='example'
                 size="default"
                 src='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/card-meta-avatar-docs-demo.jpg'
               />
