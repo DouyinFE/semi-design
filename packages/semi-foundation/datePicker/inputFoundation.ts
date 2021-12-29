@@ -89,6 +89,8 @@ export default class InputFoundation extends BaseFoundation<DateInputAdapter> {
     }
 
     handleRangeInputClear(e: any) {
+        // prevent trigger click outside
+        this.stopPropagation(e);
         this._adapter.notifyRangeInputClear(e);
     }
 
