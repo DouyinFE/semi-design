@@ -3,8 +3,20 @@ name: 'test:cypress'
 on:
   pull_request:
     branches: [ main, release, milestone**, test-cypress ]
+    paths:
+      - 'cypress/**'
+      - 'packages/**'
+      - '!packages/**/__test__/**'
+      - '!packages/**/*.test.[tj]sx?'
+      - '!packages/**/*.md'
   push:
     branches: [ main, release, milestone**, test-cypress ]
+    paths:
+      - 'cypress/**'
+      - 'packages/**'
+      - '!packages/**/__test__/**'
+      - '!packages/**/*.test.[tj]sx?'
+      - '!packages/**/*.md'
 
 jobs:
   install:
