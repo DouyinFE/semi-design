@@ -73,6 +73,7 @@ function Demo() {
                     title="Semi Doc" 
                     avatar={
                         <Avatar 
+                            alt='Card meta img'
                             size="default"
                             src='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/card-meta-avatar-docs-demo.jpg'
                         />
@@ -183,6 +184,7 @@ function Demo() {
                     title="Semi Doc" 
                     avatar={
                         <Avatar 
+                            alt='Card meta img'
                             size="default"
                             src='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/card-meta-avatar-docs-demo.jpg'
                         />
@@ -214,6 +216,7 @@ function Demo() {
                     title="Semi Doc" 
                     avatar={
                         <Avatar 
+                            alt='Card meta img'
                             size="default"
                             src='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/card-meta-avatar-docs-demo.jpg'
                         />
@@ -258,6 +261,7 @@ function Demo() {
                     description="Easily manage your project icons and easily upload, update and share a series of project icons." 
                     avatar={
                         <Avatar 
+                            alt='Card meta img'
                             size="default"
                             src='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/card-meta-avatar-docs-demo.jpg'
                         />
@@ -403,6 +407,7 @@ function Demo() {
             <Card 
                 style={{ maxWidth: 360 }}
                 loading={ loading }
+                aria-busy={ loading }
             >
                 <Meta 
                     title="Semi Design" 
@@ -442,6 +447,7 @@ function Demo() {
                                 style={{width:80}}
                                 placeholder={<Title />}
                                 loading={loading}
+                                aria-busy={loading}
                             >
                                 <Typography.Title heading={5}>
                                     Semi Design
@@ -453,6 +459,7 @@ function Demo() {
                                 style={{width:150, marginTop: 12}} 
                                 placeholder={<Paragraph rows={1} />} 
                                 loading={loading}
+                                aria-busy={loading}
                             >
                                 <Typography.Text>
                                     Semi Design is a design system developed and maintained by IES-FE & IES-UED.
@@ -460,8 +467,9 @@ function Demo() {
                             </Skeleton>
                         }
                         avatar={
-                            <Skeleton placeholder={<Skeleton.Avatar />} loading={loading}>
+                            <Skeleton placeholder={<Skeleton.Avatar />} loading={loading} aria-busy={loading}>
                                 <Avatar 
+                                    alt='Card meta img'
                                     size="default"
                                     src='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/card-meta-avatar-docs-demo.jpg'
                                 />
@@ -470,14 +478,14 @@ function Demo() {
                     />
                 }
                 headerExtraContent={
-                    <Skeleton style={{width: 50}} placeholder={<Paragraph rows={1} />} loading={loading}>
+                    <Skeleton style={{width: 50}} placeholder={<Paragraph rows={1} />} loading={loading} aria-busy={loading}>
                         <Typography.Text link>
                             More
                         </Typography.Text>
                     </Skeleton>
                 }
                 cover={ 
-                    <Skeleton style={{maxWidth: '100%', height: 260}} placeholder={<Image />} loading={loading}>
+                    <Skeleton style={{maxWidth: '100%', height: 260}} placeholder={<Image />} loading={loading} aria-busy={loading}>
                         <img 
                             alt="example" 
                             src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/card-cover-docs-demo.jpeg" 
@@ -690,6 +698,10 @@ function Demo() {
 |description|description           |ReactNode    |-       |1.21.0 |
 |style      |Meta style            |CSSProperties|-       |1.21.0 |
 |title      |title                 |ReactNode    |-       |1.21.0 |
+
+## Accessibility
+
+- Card is a container-type component, and any elements inside the card need to follow their respective accessibility guidelines.
 
 ## Design Tokens
 <DesignToken/>

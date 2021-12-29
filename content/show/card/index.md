@@ -73,6 +73,7 @@ function Demo() {
                     title="Semi Doc" 
                     avatar={
                         <Avatar 
+                            alt='Card meta img'
                             size="default"
                             src='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/card-meta-avatar-docs-demo.jpg'
                         />
@@ -183,6 +184,7 @@ function Demo() {
                     title="Semi Doc" 
                     avatar={
                         <Avatar 
+                            alt='Card meta img'
                             size="default"
                             src='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/card-meta-avatar-docs-demo.jpg'
                         />
@@ -214,6 +216,7 @@ function Demo() {
                     title="Semi Doc" 
                     avatar={
                         <Avatar 
+                            alt='Card meta img'
                             size="default"
                             src='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/card-meta-avatar-docs-demo.jpg'
                         />
@@ -258,6 +261,7 @@ function Demo() {
                     description="全面、易用、优质" 
                     avatar={
                         <Avatar 
+                            alt='Card meta img'
                             size="default"
                             src='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/card-meta-avatar-docs-demo.jpg'
                         />
@@ -403,6 +407,7 @@ function Demo() {
             <Card 
                 style={{ maxWidth: 360 }}
                 loading={ loading }
+                aria-busy={ loading }
             >
                 <Meta 
                     title="Semi Doc" 
@@ -442,6 +447,7 @@ function Demo() {
                                 style={{ width:80 }}
                                 placeholder={<Title />}
                                 loading={loading}
+                                aria-busy={loading}
                             >
                                 <Typography.Title heading={5}>
                                     Semi Doc
@@ -452,6 +458,7 @@ function Demo() {
                             <Skeleton 
                                 style={{ width:150, marginTop: 12 }} 
                                 placeholder={<Paragraph rows={1} />} 
+                                aria-busy={loading}
                                 loading={loading}
                             >
                                 <Typography.Text>
@@ -460,8 +467,9 @@ function Demo() {
                             </Skeleton>
                         }
                         avatar={
-                            <Skeleton placeholder={<Skeleton.Avatar />} loading={loading}>
+                            <Skeleton placeholder={<Skeleton.Avatar />} aria-busy={loading} loading={loading}>
                                 <Avatar 
+                                    alt='Card meta img'
                                     size="default"
                                     src='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/card-meta-avatar-docs-demo.jpg'
                                 />
@@ -470,14 +478,14 @@ function Demo() {
                     />
                 }
                 headerExtraContent={
-                    <Skeleton style={{ width: 50 }} placeholder={<Paragraph rows={1} />} loading={loading}>
+                    <Skeleton style={{ width: 50 }} placeholder={<Paragraph rows={1} />} aria-busy={loading} loading={loading}>
                         <Typography.Text link>
                             More
                         </Typography.Text>
                     </Skeleton>
                 }
                 cover={ 
-                    <Skeleton style={{ maxWidth: '100%', height: 220 }} placeholder={<Image />} loading={loading}>
+                    <Skeleton style={{ maxWidth: '100%', height: 220 }} placeholder={<Image />} aria-busy={loading} loading={loading}>
                         <img 
                             alt="example" 
                             src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/card-cover-docs-demo.jpeg" 
@@ -690,6 +698,10 @@ function Demo() {
 |description|描述   |ReactNode    |-     |1.21.0|
 |style      |内联样式|CSSProperties|-     |1.21.0|
 |title      |标题   |ReactNode    |-     |1.21.0|
+
+## Accessibility
+
+- Card 为容器型组件，卡片内部的任何元素需要遵循各自的可访问性指南。
 
 ## 设计变量
 <DesignToken/>

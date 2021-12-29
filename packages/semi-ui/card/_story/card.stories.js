@@ -129,6 +129,7 @@ export function Simple() {
           avatar={
             <Avatar
               size="default"
+              alt="Card meta avatar"
               src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/card-meta-avatar-docs-demo.jpg"
             />
           }
@@ -233,6 +234,7 @@ export const MetaDemo = () => (
         description="全面、易用、优质"
         avatar={
           <Avatar
+            alt="Card meta avatar"
             size="default"
             src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/card-meta-avatar-docs-demo.jpg"
           />
@@ -335,16 +337,18 @@ export function Loading() {
   const { Title, Paragraph, Image } = Skeleton;
   return (
     <Space vertical align="start" spacing="medium">
-      <Switch onChange={v => setLoading(!v)} />
+      <Switch onChange={v => setLoading(!v)} aria-label='switch card loading status'/>
       <Card
         style={{
           width: 360,
         }}
         loading={loading}
+        aria-busy={loading}
       >
         <Meta title="Semi Doc" description="全面、易用、优质" />
       </Card>
       <Card
+        aria-busy={loading}
         style={{
           width: 360,
         }}
@@ -451,6 +455,7 @@ export const Actions = () => (
           avatar={
             <Avatar
               size="default"
+              alt="Card meta avatar"
               src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/card-meta-avatar-docs-demo.jpg"
             />
           }
@@ -485,6 +490,7 @@ export const Actions = () => (
           description="全面、易用、优质"
           avatar={
             <Avatar
+              alt="Card meta avatar"
               size="default"
               src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/card-meta-avatar-docs-demo.jpg"
             />
@@ -515,6 +521,7 @@ export const CardGroupDemo = () => (
             description="全面、易用、优质"
             avatar={
               <Avatar
+                alt="Card meta avatar"
                 size="default"
                 src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/card-meta-avatar-docs-demo.jpg"
               />
