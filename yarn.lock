@@ -3523,6 +3523,18 @@
     react-lifecycles-compat "^3.0.4"
     react-select "^3.2.0"
 
+"@storybook/addon-toolbars@^6.4.9":
+  version "6.4.9"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-toolbars/-/addon-toolbars-6.4.9.tgz#147534d0b185a1782f3381a47c627b4a4193297d"
+  integrity sha512-fep1lLDcyaQJdR8rC/lJTamiiJ8Ilio580d9aXDM651b7uHqhxM0dJvM9hObBU8dOj/R3hIAszgTvdTzYlL2cQ==
+  dependencies:
+    "@storybook/addons" "6.4.9"
+    "@storybook/api" "6.4.9"
+    "@storybook/components" "6.4.9"
+    "@storybook/theming" "6.4.9"
+    core-js "^3.8.2"
+    regenerator-runtime "^0.13.7"
+
 "@storybook/addons@6.4.9":
   version "6.4.9"
   resolved "https://registry.npmjs.org/@storybook/addons/-/addons-6.4.9.tgz#43b5dabf6781d863fcec0a0b293c236b4d5d4433"
@@ -25321,8 +25333,10 @@ watchpack@^1.7.4:
   resolved "https://registry.npmjs.org/watchpack/-/watchpack-1.7.5.tgz#1267e6c55e0b9b5be44c2023aed5437a2c26c453"
   integrity sha512-9P3MWk6SrKjHsGkLT2KHXdQ/9SNkyoJbabxnKOoJepsvJjJG8uYTR3yTPxPQvNDI3w4Nz1xnE0TLHK4RIVe/MQ==
   dependencies:
+    chokidar "^3.4.1"
     graceful-fs "^4.1.2"
     neo-async "^2.5.0"
+    watchpack-chokidar2 "^2.0.1"
   optionalDependencies:
     chokidar "^3.4.1"
     watchpack-chokidar2 "^2.0.1"
