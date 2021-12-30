@@ -725,6 +725,50 @@ export const FixNeedConfirm = () => {
 FixNeedConfirm.storyName = '修复 needConfirm 取消后输入框显示错误';
 
 /**
+ * fix https://github.com/DouyinFE/semi-design/issues/388
+ */
+export const FixPresetsClick = () => {
+  const presets = [
+    {
+      text: '清空',
+      start: '',
+      end: '',
+    },
+    {
+      text: 'Tomorrow',
+      start: new Date(new Date().valueOf() + 1000 * 3600 * 24),
+      end: new Date(new Date().valueOf() + 1000 * 3600 * 24),
+    },
+  ];
+
+  const handleChange = v => {
+    console.log('change', v);
+  };
+
+  const handleConfirm = v => {
+    console.log('confirm', v);
+  }
+
+  return (
+    <div>
+      <div>
+        <label>
+          <span>不设置 needConfirm</span>
+          <DatePicker onChange={console.log} type="dateRange" presets={presets} />
+        </label>
+      </div>
+      <div>
+        <label>
+          <span>设置 needConfirm</span>
+          <DatePicker needConfirm onChange={handleChange} onConfirm={handleConfirm} type="dateTimeRange" presets={presets} />
+        </label>
+      </div>
+    </div>
+  );
+};
+FixPresetsClick.storyName = '修复 presets 点击后不收起问题';
+
+/**
  * fix https://github.com/DouyinFE/semi-design/issues/410
  */
 export const FixTriggerRenderClosePanel = () => {
