@@ -16,7 +16,7 @@ import {
 import { isBefore, isValidDate, getDefaultFormatToken, getFullDateOffset } from './_utils/index';
 import { formatFullDate, WeekStartNumber } from './_utils/getMonthTable';
 import { compatiableParse } from './_utils/parser';
-import { includes, isSet, isEqual } from 'lodash';
+import { includes, isSet, isEqual, isFunction } from 'lodash';
 import { zonedTimeToUtc } from '../utils/date-fns-extra';
 import { getDefaultFormatTokenByType } from './_utils/getDefaultFormatToken';
 import isNullOrUndefined from '../utils/isNullOrUndefined';
@@ -85,6 +85,7 @@ export interface MonthsGridFoundationProps extends MonthsGridElementProps {
     setRangeInputFocus?: (rangeInputFocus: 'rangeStart' | 'rangeEnd') => void;
     isAnotherPanelHasOpened?: (currentRangeInput: 'rangeStart' | 'rangeEnd') => boolean;
     focusRecordsRef?: any;
+    triggerRender?: (props: Record<string, any>) => any;
 }
 
 export interface MonthInfo {
@@ -636,7 +637,7 @@ export default class MonthsGridFoundation extends BaseFoundation<MonthsGridAdapt
 
     handleRangeSelected(day: MonthDayInfo) {
         let { rangeStart, rangeEnd } = this.getStates();
-        const { startDateOffset, endDateOffset, type, dateFnsLocale, rangeInputFocus } = this.getProps();
+        const { startDateOffset, endDateOffset, type, dateFnsLocale, rangeInputFocus, triggerRender } = this._adapter.getProps();
         const { fullDate } = day;
         let rangeStartReset = false;
         let rangeEndReset = false;
@@ -712,7 +713,13 @@ export default class MonthsGridFoundation extends BaseFoundation<MonthsGridAdapt
                     date = [start, end];
                 }
             }
-            this._adapter.notifySelectedChange(date, { needCheckFocusRecord: !(type === 'dateRange' && isDateRangeAndHasOffset) });
+            /**
+             * no need to check focus then
+             *  - dateRange and isDateRangeAndHasOffset
+             *  - dateRange and triggerRender
+             */
+            const needCheckFocusRecord = !(type === 'dateRange' && (isDateRangeAndHasOffset || isFunction(triggerRender)));
+            this._adapter.notifySelectedChange(date, { needCheckFocusRecord });
         }
     }
 
