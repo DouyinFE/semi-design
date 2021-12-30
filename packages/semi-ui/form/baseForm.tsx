@@ -49,6 +49,7 @@ interface BaseFormState {
 }
 class Form extends BaseComponent<BaseFormProps, BaseFormState> {
     static propTypes = {
+        'aria-label': PropTypes.string,
         onSubmit: PropTypes.func,
         onSubmitFail: PropTypes.func,
         /* Triggered from update, including field mount/unmount/value change/blur/verification status change/error prompt change, input parameter is formState, currentField */
@@ -74,6 +75,8 @@ class Form extends BaseComponent<BaseFormProps, BaseFormState> {
         disabled: PropTypes.bool,
         showValidateIcon: PropTypes.bool,
         extraTextPosition: PropTypes.oneOf(strings.EXTRA_POS),
+        id: PropTypes.string,
+        role: PropTypes.string,
     };
 
     static defaultProps = {

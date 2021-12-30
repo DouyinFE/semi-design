@@ -36,6 +36,11 @@ export type BaseValueType = string | number | Date;
 export type Type = 'time' | 'timeRange';
 
 export type TimePickerProps = {
+    'aria-labelledby'?: string;
+    'aria-invalid'?: boolean;
+    'aria-errormessage'?: string;
+    'aria-describedby'?: string;
+    'aria-required'?: boolean;
     autoAdjustOverflow?: boolean;
     autoFocus?: boolean; // TODO: autoFocus did not take effect
     className?: string;
@@ -104,6 +109,11 @@ export interface TimePickerState {
 export default class TimePicker extends BaseComponent<TimePickerProps, TimePickerState> {
     static contextType = ConfigContext;
     static propTypes = {
+        'aria-labelledby': PropTypes.string,
+        'aria-invalid': PropTypes.bool,
+        'aria-errormessage': PropTypes.string,
+        'aria-describedby': PropTypes.string,
+        'aria-required': PropTypes.bool,
         prefixCls: PropTypes.string,
         clearText: PropTypes.string,
         value: TimeShape,

@@ -49,6 +49,11 @@ export type SimpleValueType = string | number | CascaderData;
 export type Value = SimpleValueType | Array<SimpleValueType> | Array<Array<SimpleValueType>>;
 
 export interface CascaderProps extends BasicCascaderProps {
+    'aria-labelledby'?: string;
+    'aria-invalid'?: boolean;
+    'aria-errormessage'?: string;
+    'aria-describedby'?: string;
+    'aria-required'?: boolean;
     arrowIcon?: ReactNode;
     defaultValue?: Value;
     dropdownStyle?: CSSProperties;
@@ -60,6 +65,7 @@ export interface CascaderProps extends BasicCascaderProps {
     value?: Value;
     prefix?: ReactNode;
     suffix?: ReactNode;
+    id?: string;
     insetLabel?: ReactNode;
     style?: CSSProperties;
     bottomSlot?: ReactNode;
@@ -88,6 +94,11 @@ const resetkey = 0;
 class Cascader extends BaseComponent<CascaderProps, CascaderState> {
     static contextType = ConfigContext;
     static propTypes = {
+        'aria-labelledby': PropTypes.string,
+        'aria-invalid': PropTypes.bool,
+        'aria-errormessage': PropTypes.string,
+        'aria-describedby': PropTypes.string,
+        'aria-required': PropTypes.bool,
         arrowIcon: PropTypes.node,
         changeOnSelect: PropTypes.bool,
         defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
@@ -114,6 +125,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         suffix: PropTypes.node,
         prefix: PropTypes.node,
         insetLabel: PropTypes.node,
+        id: PropTypes.string,
         displayProp: PropTypes.string,
         displayRender: PropTypes.func,
         onChange: PropTypes.func,
@@ -825,6 +837,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
             insetLabel,
             triggerRender,
             showClear,
+            id,
         } = this.props;
         const { isOpen, isFocus, isInput, checkedKeys } = this.state;
         const filterable = Boolean(filterTreeNode);
@@ -870,6 +883,13 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                 style={style}
                 ref={this.triggerRef}
                 onClick={e => this.foundation.handleClick(e)}
+                aria-invalid={this.props['aria-invalid']}
+                aria-errormessage={this.props['aria-errormessage']}
+                aria-label={this.props['aria-label']}
+                aria-labelledby={this.props['aria-labelledby']}
+                aria-describedby={this.props["aria-describedby"]}
+                aria-required={this.props['aria-required']}
+                id={id}
                 {...mouseEvent}
             >
                 {inner}

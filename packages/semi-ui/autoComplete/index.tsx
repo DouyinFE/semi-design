@@ -39,6 +39,12 @@ export interface BaseDataItem extends DataItem {
 export type AutoCompleteItems = BaseDataItem | string | number;
 
 export interface AutoCompleteProps<T extends AutoCompleteItems> {
+    'aria-label'?: string;
+    'aria-labelledby'?: string;
+    'aria-invalid'?: boolean;
+    'aria-errormessage'?: string;
+    'aria-describedby'?: string;
+    'aria-required'?: boolean;
     autoAdjustOverflow?: boolean;
     autoFocus?: boolean;
     className?: string;
@@ -54,6 +60,7 @@ export interface AutoCompleteProps<T extends AutoCompleteItems> {
     emptyContent?: React.ReactNode | null;
     getPopupContainer?: () => HTMLElement;
     insetLabel?: React.ReactNode;
+    id?: string;
     loading?: boolean;
     motion?: Motion;
     maxHeight?: string | number;
@@ -101,6 +108,12 @@ interface AutoCompleteState {
 
 class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoCompleteProps<T>, AutoCompleteState> {
     static propTypes = {
+        'aria-label': PropTypes.string,
+        'aria-labelledby': PropTypes.string,
+        'aria-invalid': PropTypes.bool,
+        'aria-errormessage': PropTypes.string,
+        'aria-describedby': PropTypes.string,
+        'aria-required': PropTypes.bool,
         autoFocus: PropTypes.bool,
         autoAdjustOverflow: PropTypes.bool,
         className: PropTypes.string,
@@ -114,6 +127,8 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
         dropdownClassName: PropTypes.string,
         dropdownStyle: PropTypes.object,
         emptyContent: PropTypes.node,
+        id: PropTypes.string,
+        insetLabel: PropTypes.node,
         onSearch: PropTypes.func,
         onSelect: PropTypes.func,
         onClear: PropTypes.func,
@@ -322,7 +337,8 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
             triggerRender,
             validateStatus,
             autoFocus,
-            value
+            value,
+            id,
         } = this.props;
         const { inputValue, keyboardEventSet, selection } = this.state;
 
@@ -341,6 +357,7 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
                 ),
             onClick: this.handleInputClick,
             ref: this.triggerRef,
+            id,
             ...keyboardEventSet,
         };
 
@@ -350,6 +367,11 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
             autofocus: autoFocus,
             onChange: this.onSearch,
             onClear: this.onInputClear,
+            'aria-labelledby': this.props['aria-labelledby'],
+            'aria-invalid': this.props['aria-invalid'],
+            'aria-errormessage': this.props['aria-errormessage'],
+            'aria-describedby': this.props['aria-describedby'],
+            'aria-required': this.props['aria-required'],
             // TODO: remove in next major version
             suffix,
             prefix: prefix || insetLabel,

@@ -85,6 +85,11 @@ export type RenderMultipleSelectedItemFn = (optionNode: Record<string, any>, mul
 export type RenderSelectedItemFn = RenderSingleSelectedItemFn | RenderMultipleSelectedItemFn;
 
 export type SelectProps = {
+    'aria-describedby'?: string;
+    'aria-errormessage'?: string;
+    'aria-invalid'?: boolean;
+    'aria-labelledby'?: string;
+    'aria-required'?: boolean;
     id?: string;
     autoFocus?: boolean;
     arrowIcon?: React.ReactNode;
@@ -180,6 +185,11 @@ class Select extends BaseComponent<SelectProps, SelectState> {
     static OptGroup = OptionGroup;
 
     static propTypes = {
+        'aria-describedby': PropTypes.string,
+        'aria-errormessage': PropTypes.string,
+        'aria-invalid': PropTypes.bool,
+        'aria-labelledby': PropTypes.string,
+        'aria-required': PropTypes.bool,
         autoFocus: PropTypes.bool,
         children: PropTypes.node,
         defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object]),
@@ -1018,6 +1028,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             triggerRender,
             arrowIcon,
         } = this.props;
+
         const { selections, isOpen, keyboardEventSet, inputValue, isHovering, isFocus } = this.state;
         const useCustomTrigger = typeof triggerRender === 'function';
         const filterable = Boolean(filter); // filter（boolean || function）
@@ -1098,6 +1109,11 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 aria-controls={`${prefixcls}-${this.selectOptionListID}`}
                 aria-haspopup="listbox"
                 aria-label="select value"
+                aria-invalid={this.props['aria-invalid']}
+                aria-errormessage={this.props['aria-errormessage']}
+                aria-labelledby={this.props['aria-labelledby']}
+                aria-describedby={this.props['aria-describedby']}
+                aria-required={this.props['aria-required']}
                 className={selectionCls}
                 ref={ref => ((this.triggerRef as any).current = ref)}
                 onClick={e => this.foundation.handleClick(e)}

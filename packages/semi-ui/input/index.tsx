@@ -26,6 +26,12 @@ export type ValidateStatus = "default" | "error" | "warning" | "success";
 
 export interface InputProps extends
     Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'prefix' | 'size' | 'autoFocus' | 'placeholder' | 'onFocus' | 'onBlur'> {
+    'aria-label'?: string;
+    'aria-labelledby'?: string;
+    'aria-invalid'?: boolean;
+    'aria-errormessage'?: string;
+    'aria-describedby'?: string;
+    'aria-required'?: boolean;
     addonBefore?: React.ReactNode;
     addonAfter?: React.ReactNode;
     prefix?: React.ReactNode;
@@ -73,6 +79,12 @@ export interface InputState {
 
 class Input extends BaseComponent<InputProps, InputState> {
     static propTypes = {
+        'aria-label': PropTypes.string,
+        'aria-labelledby': PropTypes.string,
+        'aria-invalid': PropTypes.bool,
+        'aria-errormessage': PropTypes.string,
+        'aria-describedby': PropTypes.string,
+        'aria-required': PropTypes.bool,
         addonBefore: PropTypes.node,
         addonAfter: PropTypes.node,
         prefix: PropTypes.node,

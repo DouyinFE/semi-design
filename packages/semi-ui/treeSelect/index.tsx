@@ -99,6 +99,11 @@ export type OverrideCommonProps =
 */
 // eslint-disable-next-line max-len
 export interface TreeSelectProps extends Omit<BasicTreeSelectProps, OverrideCommonProps | 'validateStatus' | 'searchRender'>, Pick<TreeProps, OverrideCommonProps>{
+    'aria-describedby'?: string;
+    'aria-errormessage'?: string;
+    'aria-invalid'?: boolean;
+    'aria-labelledby'?: string;
+    'aria-required'?: boolean;
     motion?: Motion;
     mouseEnterDelay?: number;
     mouseLeaveDelay?: number;
@@ -164,6 +169,11 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
     static contextType = ConfigContext;
 
     static propTypes = {
+        'aria-describedby': PropTypes.string,
+        'aria-errormessage': PropTypes.string,
+        'aria-invalid': PropTypes.bool,
+        'aria-labelledby': PropTypes.string,
+        'aria-required': PropTypes.bool,
         loadedKeys: PropTypes.arrayOf(PropTypes.string),
         loadData: PropTypes.func,
         onLoad: PropTypes.func,
@@ -909,6 +919,11 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 style={style}
                 ref={this.triggerRef}
                 onClick={this.handleClick}
+                aria-invalid={this.props['aria-invalid']}
+                aria-errormessage={this.props['aria-errormessage']}
+                aria-labelledby={this.props['aria-labelledby']}
+                aria-describedby={this.props['aria-describedby']}
+                aria-required={this.props['aria-required']}
                 {...mouseEvent}
             >
                 {inner}
