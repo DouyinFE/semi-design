@@ -1,7 +1,10 @@
 {
     "compilerOptions": {
       "allowJs": true,
-      "types": ["cypress"]
+      "types": ["cypress"],
+      "baseUrl": "./",
+      "outDir": "dist",
     },
-    "include": ["**/*.*"]
+    "include": ["**/*.spec.js"],
+    "exclude": ["node_modules"]
 }
