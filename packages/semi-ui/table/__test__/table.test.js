@@ -1452,6 +1452,32 @@ describe(`Table`, () => {
         });
         expect(demo.find(BaseTable).state('disabledRowKeys').length).toEqual(2);
     });
+    it('test pagination reset when dataSource change', async () => {
+        const total = 100;
+        const pagination = {
+            pageSize: 10,
+            currentPage: 2,
+        };
+        const newPagination = {
+            currentPage: 1,
+        };
+        const columns = getColumns();
+        const demo = mount(<Table dataSource={getData(total)} columns={columns} pagination={pagination}/>);
+
+        const dataNum = getRandomNumber(100, 40);
+        const newData = getData(dataNum);
+        demo.setProps({
+            dataSource: newData,
+        });
+        await sleep(2000);
+        expect(
+          demo
+            .find(`.${BASE_CLASS_PREFIX}-page .${BASE_CLASS_PREFIX}-page-item`)
+            .at(1)
+            .getDOMNode().innerHTML
+        ).toBe('1');
+
+    });
     it('test pagination changed', async () => {
         const total = 100;
         const pagination = {

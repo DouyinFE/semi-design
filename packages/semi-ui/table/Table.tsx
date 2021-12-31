@@ -453,16 +453,14 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             willUpdateStates.rowSelection = newSelectionStates;
             willUpdateStates.prePropRowSelection = rowSelection;
         }
-        if (pagination !== state.pagination) {
-            let newPagination: Pagination = {};
-            if (isObject(state.pagination)) {
-                newPagination = { ...newPagination, ...state.pagination };
-            }
-            if (isObject(pagination)) {
-                newPagination = { ...newPagination, ...pagination };
-            }
-            willUpdateStates.pagination = newPagination;
+        let newPagination: Pagination = {};
+        if (isObject(state.pagination)) {
+            newPagination = { ...newPagination, ...state.pagination };
         }
+        if (isObject(pagination)) {
+            newPagination = { ...newPagination, ...pagination };
+        }
+        willUpdateStates.pagination = newPagination;
         return willUpdateStates;
     }
 
@@ -487,7 +485,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
         } = this.props;
 
         const {
-            pagination: statePagination = null,
+            pagination,
             queries: stateQueries,
             cachedColumns: stateCachedColumns,
             cachedChildren: stateCachedChildren,
@@ -543,7 +541,11 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             const filteredSortedDataSource = this.foundation.getFilteredSortedDataSource(_dataSource, stateQueries);
             this.foundation.setCachedFilteredSortedDataSource(filteredSortedDataSource);
             states.dataSource = filteredSortedDataSource;
-
+            // when dataSource has change, should reset currentPage
+            states.pagination = isObject(pagination) ? {
+                ...pagination,
+                currentPage: 1
+            } : pagination;
 
             if (this.props.groupBy) {
                 states.groups = null;
@@ -553,6 +555,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
         if (Object.keys(states).length) {
             const {
                 // eslint-disable-next-line @typescript-eslint/no-shadow
+                pagination: statePagination = null,
                 queries: stateQueries = null,
                 dataSource: stateDataSource = null,
             } = states;
