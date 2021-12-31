@@ -60,6 +60,7 @@ export interface AutoCompleteProps<T extends AutoCompleteItems> {
     emptyContent?: React.ReactNode | null;
     getPopupContainer?: () => HTMLElement;
     insetLabel?: React.ReactNode;
+    insetLabelId?: string;
     id?: string;
     loading?: boolean;
     motion?: Motion;
@@ -129,6 +130,7 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
         emptyContent: PropTypes.node,
         id: PropTypes.string,
         insetLabel: PropTypes.node,
+        insetLabelId: PropTypes.string,
         onSearch: PropTypes.func,
         onSelect: PropTypes.func,
         onClear: PropTypes.func,
@@ -328,6 +330,7 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
             size,
             prefix,
             insetLabel,
+            insetLabelId,
             suffix,
             placeholder,
             style,
@@ -375,6 +378,7 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
             // TODO: remove in next major version
             suffix,
             prefix: prefix || insetLabel,
+            insetLabelId,
             showClear,
             validateStatus,
             size,
