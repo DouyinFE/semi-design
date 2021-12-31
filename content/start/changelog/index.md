@@ -15,6 +15,14 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 ---
 
+#### 🎉 2.2.2 (2021-12-31)
+- 【Fix】
+    - 修复 Transfer 在 type 是 groupList 场景下, title 属性传入 ReactElement 类型导致key-warning [@JontyyYang](https://github.com/JontyyYang)
+    - 修复 DatePicker 范围选择 preset 日期设置为 null 或 undefined，选择日期后面板没有关闭问题  [#338](https://github.com/DouyinFE/semi-design/issues/338)
+    - 修复 dateRange 类型 DatePicker，triggerRender 传入时选择完日期面板没有关闭问题  [#422](https://github.com/DouyinFE/semi-design/issues/422)
+    - 修复 InputNumber 精度格式化在受控模式下不正确问题
+    - 修复 IconFastForward 拼写错误 [@clark-cui](https://github.com/clark-cui)
+
 #### 🎉 2.2.1 (2021-12-29)
 
 - 【Fix】

@@ -16,6 +16,14 @@ Version：Major.Minor.Patch
 
 ---
 
+#### 🎉 2.2.2 (2021-12-31)
+- 【Fix】
+    - Fix Transfer In the groupList scenario, the title attribute is passed into the reactElement node, resulting in key-warning [@JontyyYang](https://github.com/JontyyYang)
+    - Fixed DatePicker range selection preset date is set to `null` or `undefined`, the panel does not close after selecting the date  [#338](https://github.com/DouyinFE/semi-design/issues/338)
+    - Fix the issue that the dateRange type DatePicker, when triggerRender is passed in, the panel does not close after selecting the date  [#422](https://github.com/DouyinFE/semi-design/issues/422)
+    - Fixed InputNumber precision format bug in controlled mode
+    - Fix spelling errors in IconFastForward [@clark-cui](https://github.com/clark-cui)
+
 #### 🎉 2.2.1 (2021-12-29)
 
 - 【Fix】
