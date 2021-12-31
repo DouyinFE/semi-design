@@ -29,6 +29,7 @@ export interface InputNumberProps extends InputProps {
     hideButtons?: boolean;
     innerButtons?: boolean;
     insetLabel?: React.ReactNode;
+    insetLabelId?: string;
     keepFocus?: boolean;
     max?: number;
     min?: number;
@@ -77,6 +78,7 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
         hideButtons: PropTypes.bool,
         innerButtons: PropTypes.bool,
         insetLabel: PropTypes.node,
+        insetLabelId: PropTypes.string,
         keepFocus: PropTypes.bool,
         max: PropTypes.number,
         min: PropTypes.number,

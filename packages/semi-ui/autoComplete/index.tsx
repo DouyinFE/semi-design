@@ -39,12 +39,12 @@ export interface BaseDataItem extends DataItem {
 export type AutoCompleteItems = BaseDataItem | string | number;
 
 export interface AutoCompleteProps<T extends AutoCompleteItems> {
-    'aria-label'?: string;
-    'aria-labelledby'?: string;
-    'aria-invalid'?: boolean;
-    'aria-errormessage'?: string;
-    'aria-describedby'?: string;
-    'aria-required'?: boolean;
+    'aria-describedby'?: React.AriaAttributes['aria-describedby'];
+    'aria-errormessage'?: React.AriaAttributes['aria-errormessage'];
+    'aria-invalid'?: React.AriaAttributes['aria-invalid'];
+    'aria-label'?: React.AriaAttributes['aria-label'];
+    'aria-labelledby'?: React.AriaAttributes['aria-labelledby'];
+    'aria-required'?: React.AriaAttributes['aria-required'];
     autoAdjustOverflow?: boolean;
     autoFocus?: boolean;
     className?: string;

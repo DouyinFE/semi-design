@@ -85,11 +85,11 @@ export type RenderMultipleSelectedItemFn = (optionNode: Record<string, any>, mul
 export type RenderSelectedItemFn = RenderSingleSelectedItemFn | RenderMultipleSelectedItemFn;
 
 export type SelectProps = {
-    'aria-describedby'?: string;
-    'aria-errormessage'?: string;
-    'aria-invalid'?: boolean;
-    'aria-labelledby'?: string;
-    'aria-required'?: boolean;
+    'aria-describedby'?: React.AriaAttributes['aria-describedby'];
+    'aria-errormessage'?: React.AriaAttributes['aria-errormessage'];
+    'aria-invalid'?: React.AriaAttributes['aria-invalid'];
+    'aria-labelledby'?: React.AriaAttributes['aria-labelledby'];
+    'aria-required'?: React.AriaAttributes['aria-required'];
     id?: string;
     autoFocus?: boolean;
     arrowIcon?: React.ReactNode;
@@ -127,6 +127,7 @@ export type SelectProps = {
     suffix?: React.ReactNode;
     prefix?: React.ReactNode;
     insetLabel?: React.ReactNode;
+    insetLabelId?: string;
     inputProps?: Subtract<InputProps, ExcludeInputType>;
     showClear?: boolean;
     showArrow?: boolean;
@@ -237,6 +238,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         suffix: PropTypes.node,
         prefix: PropTypes.node,
         insetLabel: PropTypes.node,
+        insetLabelId: PropTypes.string,
         showClear: PropTypes.bool,
         showArrow: PropTypes.bool,
 
@@ -997,7 +999,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
     }
 
     renderPrefix() {
-        const { prefix, insetLabel } = this.props;
+        const { prefix, insetLabel, insetLabelId } = this.props;
         const labelNode = (prefix || insetLabel) as React.ReactElement<any, any>;
 
         const prefixWrapperCls = cls({
@@ -1007,7 +1009,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             [`${prefixcls}-prefix-icon`]: isSemiIcon(labelNode),
         });
 
-        return <div className={prefixWrapperCls}>{labelNode}</div>;
+        return <div className={prefixWrapperCls} id={insetLabelId}>{labelNode}</div>;
     }
 
     renderSelection() {

@@ -10,11 +10,11 @@ import '@douyinfe/semi-foundation/switch/switch.scss';
 import { noop } from 'lodash';
 import Spin from '../spin';
 export interface SwitchProps {
-    'aria-label'?: string | undefined;
-    'aria-labelledby'?: string | undefined;
-    'aria-invalid'?: boolean;
-    'aria-errormessage'?: string;
-    'aria-describedby'?: string;
+    'aria-label'?: React.AriaAttributes['aria-label'];
+    'aria-describedby'?: React.AriaAttributes['aria-describedby'];
+    'aria-errormessage'?: React.AriaAttributes['aria-errormessage'];
+    'aria-invalid'?: React.AriaAttributes['aria-invalid'];
+    'aria-labelledby'?: React.AriaAttributes['aria-labelledby'];
     defaultChecked?: boolean;
     checked?: boolean;
     disabled?: boolean;

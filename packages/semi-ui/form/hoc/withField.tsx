@@ -462,8 +462,10 @@ function withField<
 
             if (mergeLabelPos === 'inset' && !noLabel) {
                 newProps.insetLabel = label || field;
+                newProps.insetLabelId = labelId;
                 if (typeof label === 'object' && !isElement(label)) {
                     newProps.insetLabel = label.text;
+                    newProps.insetLabelId = labelId;
                 }
             }
 

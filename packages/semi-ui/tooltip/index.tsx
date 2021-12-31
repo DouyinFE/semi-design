@@ -614,15 +614,15 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         }
 
         // eslint-disable-next-line prefer-const
-        let ariaAttribute = {
-            'aria-describedby': id,
-        };
+        let ariaAttribute = {};
 
         // Take effect when used by Popover component
         if (role === 'dialog') {
             ariaAttribute['aria-expanded'] = visible ? 'true' : 'false';
             ariaAttribute['aria-haspopup'] = 'dialog';
             ariaAttribute['aria-controls'] = id;
+        } else {
+            ariaAttribute['aria-describedby'] = id;
         }
 
         // The incoming children is a single valid element, otherwise wrap a layer with span

@@ -49,11 +49,11 @@ export type SimpleValueType = string | number | CascaderData;
 export type Value = SimpleValueType | Array<SimpleValueType> | Array<Array<SimpleValueType>>;
 
 export interface CascaderProps extends BasicCascaderProps {
-    'aria-labelledby'?: string;
-    'aria-invalid'?: boolean;
-    'aria-errormessage'?: string;
-    'aria-describedby'?: string;
-    'aria-required'?: boolean;
+    'aria-describedby'?: React.AriaAttributes['aria-describedby'];
+    'aria-errormessage'?: React.AriaAttributes['aria-errormessage'];
+    'aria-invalid'?: React.AriaAttributes['aria-invalid'];
+    'aria-labelledby'?: React.AriaAttributes['aria-labelledby'];
+    'aria-required'?: React.AriaAttributes['aria-required'];
     arrowIcon?: ReactNode;
     defaultValue?: Value;
     dropdownStyle?: CSSProperties;
@@ -67,6 +67,7 @@ export interface CascaderProps extends BasicCascaderProps {
     suffix?: ReactNode;
     id?: string;
     insetLabel?: ReactNode;
+    insetLabelId?: string;
     style?: CSSProperties;
     bottomSlot?: ReactNode;
     topSlot?: ReactNode;
@@ -125,6 +126,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         suffix: PropTypes.node,
         prefix: PropTypes.node,
         insetLabel: PropTypes.node,
+        insetLabelId: PropTypes.string,
         id: PropTypes.string,
         displayProp: PropTypes.string,
         displayRender: PropTypes.func,
@@ -622,7 +624,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         const popoverCls = cls(dropdownClassName, `${prefixcls}-popover`);
         const renderData = this.foundation.getRenderData();
         const content = (
-            <div className={popoverCls} role="list-box" style={dropdownStyle}>
+            <div className={popoverCls} role="listbox" style={dropdownStyle}>
                 {topSlot}
                 <Item
                     activeKeys={activeKeys}
@@ -738,7 +740,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
     };
 
     renderPrefix = () => {
-        const { prefix, insetLabel } = this.props;
+        const { prefix, insetLabel, insetLabelId } = this.props;
         const labelNode: any = prefix || insetLabel;
 
         const prefixWrapperCls = cls({
@@ -749,7 +751,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
             [`${prefixcls}-prefix-icon`]: isSemiIcon(labelNode),
         });
 
-        return <div className={prefixWrapperCls}>{labelNode}</div>;
+        return <div className={prefixWrapperCls} id={insetLabelId}>{labelNode}</div>;
     };
 
     renderCustomTrigger = () => {
@@ -806,7 +808,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         const allowClear = this.showClearBtn();
         if (allowClear) {
             return (
-                <div className={clearCls} onClick={this.handleClear}>
+                <div className={clearCls} onClick={this.handleClear} role='button' tabIndex={0}>
                     <IconClear />
                 </div>
             );
@@ -876,7 +878,10 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                 <Fragment key={'suffix'}>{suffix ? this.renderSuffix() : null}</Fragment>,
                 <Fragment key={'arrow'}>{this.renderArrow()}</Fragment>,
             ];
-
+        /**
+         * Reasons for disabling the a11y eslint rule:
+         * The following attributes(aria-controls,aria-expanded) will be automatically added by Tooltip, no need to declare here
+         */
         return (
             <div
                 className={classNames}
@@ -891,6 +896,9 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                 aria-required={this.props['aria-required']}
                 id={id}
                 {...mouseEvent}
+                // eslint-disable-next-line jsx-a11y/role-has-required-aria-props
+                role='combobox'
+                tabIndex={0}
             >
                 {inner}
             </div>

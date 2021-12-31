@@ -99,11 +99,11 @@ export type OverrideCommonProps =
 */
 // eslint-disable-next-line max-len
 export interface TreeSelectProps extends Omit<BasicTreeSelectProps, OverrideCommonProps | 'validateStatus' | 'searchRender'>, Pick<TreeProps, OverrideCommonProps>{
-    'aria-describedby'?: string;
-    'aria-errormessage'?: string;
-    'aria-invalid'?: boolean;
-    'aria-labelledby'?: string;
-    'aria-required'?: boolean;
+    'aria-describedby'?: React.AriaAttributes['aria-describedby'];
+    'aria-errormessage'?: React.AriaAttributes['aria-errormessage'];
+    'aria-invalid'?: React.AriaAttributes['aria-invalid'];
+    'aria-labelledby'?: React.AriaAttributes['aria-labelledby'];
+    'aria-required'?: React.AriaAttributes['aria-required'];
     motion?: Motion;
     mouseEnterDelay?: number;
     mouseLeaveDelay?: number;
@@ -115,6 +115,7 @@ export interface TreeSelectProps extends Omit<BasicTreeSelectProps, OverrideComm
     dropdownMatchSelectWidth?: boolean;
     dropdownStyle?: React.CSSProperties;
     insetLabel?: React.ReactNode;
+    insetLabelId?: string;
     maxTagCount?: number;
     motionExpand?: boolean;
     optionListStyle?: React.CSSProperties;
@@ -228,6 +229,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         suffix: PropTypes.node,
         prefix: PropTypes.node,
         insetLabel: PropTypes.node,
+        insetLabelId: PropTypes.string,
         zIndex: PropTypes.number,
         getPopupContainer: PropTypes.func,
         dropdownMatchSelectWidth: PropTypes.bool,
@@ -624,7 +626,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
     };
 
     renderPrefix = () => {
-        const { prefix, insetLabel }: any = this.props;
+        const { prefix, insetLabel, insetLabelId }: any = this.props;
         const labelNode = prefix || insetLabel;
         const prefixWrapperCls = cls({
             [`${prefixcls}-prefix`]: true,
@@ -634,7 +636,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             [`${prefixcls}-prefix-icon`]: isSemiIcon(labelNode),
         });
 
-        return <div className={prefixWrapperCls}>{labelNode}</div>;
+        return <div className={prefixWrapperCls} id={insetLabelId}>{labelNode}</div>;
     };
 
     renderContent = () => {
@@ -643,7 +645,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         const style = { minWidth: dropdownMinWidth, ...dropdownStyle };
         const popoverCls = cls(dropdownClassName, `${prefixcls}-popover`);
         return (
-            <div className={popoverCls} role="list-box" style={style}>
+            <div className={popoverCls} role="listbox" style={style}>
                 {this.renderTree()}
             </div>
         );
@@ -822,7 +824,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         const clearCls = cls(`${prefixcls}-clearbtn`);
         if (showClearBtn) {
             return (
-                <div className={clearCls} onClick={this.handleClear}>
+                <div className={clearCls} onClick={this.handleClear} role='button' tabIndex={0}>
                     <IconClear />
                 </div>
             );
@@ -912,7 +914,10 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 <Fragment key={'arrow'}>{this.renderArrow()}</Fragment>,
             ]
         );
-
+        /**
+         * Reasons for disabling the a11y eslint rule:
+         * The following attributes(aria-controls,aria-expanded) will be automatically added by Tooltip, no need to declare here
+         */
         return (
             <div
                 className={classNames}
@@ -925,6 +930,9 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 aria-describedby={this.props['aria-describedby']}
                 aria-required={this.props['aria-required']}
                 {...mouseEvent}
+                // eslint-disable-next-line jsx-a11y/role-has-required-aria-props
+                role='combobox'
+                tabIndex={0}
             >
                 {inner}
             </div>
@@ -1247,7 +1255,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                     labelEllipsis: typeof labelEllipsis === 'undefined' ? virtualize : labelEllipsis,
                 }}
             >
-                <div className={wrapperCls} role="list-box">
+                <div className={wrapperCls} role="listbox">
                     {outerTopSlot}
                     {
                         !outerTopSlot &&

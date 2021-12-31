@@ -2086,12 +2086,13 @@ const { ErrorMessage } = Form;
 
 - [aria-labelledby](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-labelledby)、for
   - Field 组件，会自动添加 label DOM。label 的 `for` 属性与 `props.id` 或 `props.name` 或 `props.field` 相同 ；label 的id 属性由 `props.id` 或 `props.name` 或 `props.field` 决定，值格式为 `${props.field}-label`;
+  - 当 Form 或者 Field 的 props.labelPosition 设置为 inset时，此时不存在 label 标签，而是 div 标签。insetLabel 对应的 div 标签会被自动追加 id，值与上述 label 的 id 相同，对应 Field 组件的 `aria-labelledby`
   - Field 组件会被自动追加 `aria-labelledby`，值与上述 label 的id 相同
 - [aria-required](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-required_attribute)
-  - 当 Field 配置了必填时（即 props.rules中包含 require: true 或 props.label配置了required: true），Field 组件会被自动追加  aria-required = true（Form.Switch 除外）
+  - 当 Field 配置了必填时（即 props.rules中包含 require: true 或 props.label配置了required: true），Field 组件会被自动追加  aria-required = true（Form.Switch、Form.CheckboxGroup 除外）
 - [aria-invalid](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-invalid_attribute) 、[aria-errormessage](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-errormessage) 
-  - 当 Field 校验未通过时，Field 组件会被自动添加  `aria-invalid` = true 属性；
-  - 当 Field 校验未通过时，Field 组件会被自动追加 `aria-errormessage` 属性，值为 errorMessage 所对应DOM元素的 id （格式: `${props.field}-errormessage`）
+  - 当 Field 校验未通过时，Field 组件会被自动添加 `aria-invalid` = true 属性，Form.CheckboxGroup 除外。
+  - 当 Field 校验未通过时，Field 组件会被自动追加 `aria-errormessage` 属性，值为 errorMessage 所对应DOM元素的 id （格式: `${props.field}-errormessage`），Form.CheckboxGroup 除外。
 - [aria-describedby](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-describedby_attribute)
   - 当 Field 配置了 `helpText` 或 `extraText` 时，Field 组件会被自动添加 `aria-describedby` 属性，值为 helpText、extraText 所对应DOM元素的 id （格式：`${props.field}-helpText` 、`${props.field}-extraText`）
 

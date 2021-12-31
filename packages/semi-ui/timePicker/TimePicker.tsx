@@ -36,11 +36,11 @@ export type BaseValueType = string | number | Date;
 export type Type = 'time' | 'timeRange';
 
 export type TimePickerProps = {
-    'aria-labelledby'?: string;
-    'aria-invalid'?: boolean;
-    'aria-errormessage'?: string;
-    'aria-describedby'?: string;
-    'aria-required'?: boolean;
+    'aria-describedby'?: React.AriaAttributes['aria-describedby'];
+    'aria-errormessage'?: React.AriaAttributes['aria-errormessage'];
+    'aria-invalid'?: React.AriaAttributes['aria-invalid'];
+    'aria-labelledby'?: React.AriaAttributes['aria-labelledby'];
+    'aria-required'?: React.AriaAttributes['aria-required'];
     autoAdjustOverflow?: boolean;
     autoFocus?: boolean; // TODO: autoFocus did not take effect
     className?: string;
@@ -61,6 +61,7 @@ export type TimePickerProps = {
     inputReadOnly?: boolean;
     inputStyle?: React.CSSProperties;
     insetLabel?: React.ReactNode;
+    insetLabelId?: string;
     locale?: Locale['TimePicker'];
     localeCode?: string;
     minuteStep?: number;
@@ -104,7 +105,6 @@ export interface TimePickerState {
     showSecond: boolean;
     invalid: boolean;
 }
-
 
 export default class TimePicker extends BaseComponent<TimePickerProps, TimePickerState> {
     static contextType = ConfigContext;
@@ -152,6 +152,7 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
         dateFnsLocale: PropTypes.object,
         zIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         insetLabel: PropTypes.node,
+        insetLabelId: PropTypes.string,
         validateStatus: PropTypes.oneOf(strings.STATUS),
         type: PropTypes.oneOf<TimePickerProps['type']>(strings.TYPES),
         rangeSeparator: PropTypes.string,
@@ -439,6 +440,7 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
             zIndex,
             getPopupContainer,
             insetLabel,
+            insetLabelId,
             inputStyle,
             showClear,
             panelHeader,
@@ -483,6 +485,7 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
             value: inputValue,
             onFocus: this.handleFocus,
             insetLabel,
+            insetLabelId,
             format,
             locale,
             localeCode,
