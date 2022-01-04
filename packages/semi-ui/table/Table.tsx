@@ -95,6 +95,7 @@ export interface NormalTableState<RecordType extends Record<string, any> = Data>
     bodyHasScrollBar?: boolean;
     prePropRowSelection?: TableStateRowSelection<RecordType>;
     tableWidth?: number;
+    prePagination?: Pagination;
 }
 
 export type TableStateRowSelection<RecordType extends Record<string, any> = Data> = (RowSelectionProps<RecordType> & { selectedRowKeysSet?: Set<(string | number)> }) | boolean;
@@ -390,6 +391,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             headWidths: [], // header cell width
             bodyHasScrollBar: false,
             prePropRowSelection: undefined,
+            prePagination: undefined
         };
 
         this.rootWrapRef = createRef();
@@ -453,14 +455,17 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             willUpdateStates.rowSelection = newSelectionStates;
             willUpdateStates.prePropRowSelection = rowSelection;
         }
-        let newPagination: Pagination = {};
-        if (isObject(state.pagination)) {
-            newPagination = { ...newPagination, ...state.pagination };
+        if (pagination !== state.prePagination) {
+            let newPagination: Pagination = {};
+            if (isObject(state.pagination)) {
+                newPagination = { ...newPagination, ...state.pagination };
+            }
+            if (isObject(pagination)) {
+                newPagination = { ...newPagination, ...pagination };
+            }
+            willUpdateStates.pagination = newPagination;
+            willUpdateStates.prePagination = pagination;
         }
-        if (isObject(pagination)) {
-            newPagination = { ...newPagination, ...pagination };
-        }
-        willUpdateStates.pagination = newPagination;
         return willUpdateStates;
     }
 
@@ -482,6 +487,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             expandAllGroupRows,
             virtualized,
             components,
+            pagination: propsPagination
         } = this.props;
 
         const {
@@ -544,7 +550,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             // when dataSource has change, should reset currentPage
             states.pagination = isObject(pagination) ? {
                 ...pagination,
-                currentPage: 1
+                currentPage: isObject(propsPagination) && propsPagination.currentPage ? propsPagination.currentPage : 1,
             } : pagination;
 
             if (this.props.groupBy) {
