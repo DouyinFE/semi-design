@@ -112,6 +112,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
         onDragStart: PropTypes.func,
         onDrop: PropTypes.func,
         labelEllipsis: PropTypes.bool,
+        'aria-label': PropTypes.string,
     };
 
     static defaultProps = {
@@ -511,6 +512,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
                         }
                         return (
                             <Input
+                                aria-label='Filter Tree'
                                 ref={this.inputRef as any}
                                 {...inputProps}
                             />
@@ -739,9 +741,9 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
                     labelEllipsis: typeof labelEllipsis === 'undefined' ? virtualize : labelEllipsis,
                 }}
             >
-                <div className={wrapperCls} role="list-box" style={style}>
+                <div aria-label={this.props['aria-label']} className={wrapperCls} style={style}>
                     {filterTreeNode ? this.renderInput() : null}
-                    <div className={listCls} role="tree">
+                    <div className={listCls} role={noData? 'none' : 'tree'}>
                         {noData ? this.renderEmpty() : this.renderNodeList()}
                     </div>
                 </div>

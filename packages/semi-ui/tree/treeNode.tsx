@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses } from '@douyinfe/semi-foundation/tree/constants';
+import isEnterPress from '@douyinfe/semi-foundation/utils/isEnterPress';
 import { debounce, isFunction, isString } from 'lodash';
 import { IconTreeTriangleDown, IconFile, IconFolder, IconFolderOpen } from '@douyinfe/semi-icons';
 import { Checkbox } from '../checkbox';
@@ -51,19 +52,19 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
         });
     }
 
-    onSelect = (e: React.MouseEvent) => {
+    onSelect = (e: React.MouseEvent | React.KeyboardEvent) => {
         const { onNodeSelect } = this.context;
         onNodeSelect(e, this.props);
     };
 
-    onExpand = (e: React.MouseEvent) => {
+    onExpand = (e: React.MouseEvent | React.KeyboardEvent) => {
         const { onNodeExpand } = this.context;
         e && e.stopPropagation();
         e.nativeEvent.stopImmediatePropagation();
         onNodeExpand(e, this.props);
     };
 
-    onCheck = (e: React.MouseEvent) => {
+    onCheck = (e: React.MouseEvent | React.KeyboardEvent) => {
         if (this.isDisabled()) {
             return;
         }
@@ -73,12 +74,21 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
         onNodeCheck(e, this.props);
     };
 
+    /**
+     * A11y: simulate checkbox click
+     */
+    handleCheckEnterPress = (e: React.KeyboardEvent) => {
+        if (isEnterPress(e)) {
+            this.onCheck(e);
+        }
+    }
+
     onContextMenu = (e: React.MouseEvent) => {
         const { onNodeRightClick } = this.context;
         onNodeRightClick(e, this.props);
     };
 
-    onClick = (e: React.MouseEvent) => {
+    onClick = (e: React.MouseEvent | React.KeyboardEvent) => {
         const { expandAction } = this.context;
         if (expandAction === 'doubleClick') {
             this.debounceSelect(e);
@@ -89,6 +99,15 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
             this.onExpand(e);
         }
     };
+
+    /**
+     * A11y: simulate li click
+     */
+    handleliEnterPress = (e: React.KeyboardEvent) => {
+        if (isEnterPress(e)) {
+            this.onClick(e);
+        }
+    }
 
     onDoubleClick = (e: React.MouseEvent) => {
         const { expandAction, onNodeDoubleClick } = this.context;
@@ -201,8 +220,13 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
         const { checked, halfChecked } = this.props;
         const disabled = this.isDisabled();
         return (
-            <div onClick={this.onCheck}>
+            <div
+                role='none'
+                onClick={this.onCheck} 
+                onKeyPress={this.handleCheckEnterPress}
+            >
                 <Checkbox
+                    aria-label='Toggle the checked state of checkbox'
                     indeterminate={halfChecked}
                     checked={checked}
                     disabled={Boolean(disabled)}
@@ -242,9 +266,9 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
         });
         return (
             <ul className={wrapperCls}>
-                <span className={`${prefixcls}-label ${prefixcls}-label-empty`}>
+                <li className={`${prefixcls}-label ${prefixcls}-label-empty`}>
                     {emptyContent}
-                </span>
+                </li>
             </ul>
         );
     }
@@ -376,9 +400,14 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
         return (
             <li
                 className={nodeCls}
-                role="treenode"
+                role="treeitem"
+                aria-disabled={disabled} 
+                aria-checked={checked}
+                aria-selected={selected}
+                aria-level={level+1}
                 data-key={eventKey}
                 onClick={this.onClick}
+                onKeyPress={this.handleliEnterPress}
                 onContextMenu={this.onContextMenu}
                 onDoubleClick={this.onDoubleClick}
                 ref={this.setRef}

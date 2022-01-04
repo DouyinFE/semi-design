@@ -238,6 +238,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         optionListStyle: PropTypes.object,
         searchRender: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
         renderSelectedItem: PropTypes.func,
+        'aria-label': PropTypes.string,
     };
 
     static defaultProps: Partial<TreeSelectProps> = {
@@ -276,6 +277,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
     onNodeClick: any;
     onNodeDoubleClick: any;
     onMotionEnd: any;
+    treeSelectID: string;
 
     constructor(props: TreeSelectProps) {
         super(props);
@@ -311,6 +313,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         this.optionsRef = React.createRef();
         this.clickOutsideHandler = null;
         this.foundation = new TreeSelectFoundation(this.adapter);
+        this.treeSelectID = Math.random().toString(36).slice(2);
     }
 
     // eslint-disable-next-line max-lines-per-function
@@ -633,7 +636,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         const style = { minWidth: dropdownMinWidth, ...dropdownStyle };
         const popoverCls = cls(dropdownClassName, `${prefixcls}-popover`);
         return (
-            <div className={popoverCls} role="list-box" style={style}>
+            <div className={popoverCls} role="listbox" style={style}>
                 {this.renderTree()}
             </div>
         );
@@ -645,6 +648,10 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
 
     handleClick = (e: React.MouseEvent) => {
         this.foundation.handleClick(e);
+    };
+
+    handleSelectionEnterPress = (e: React.KeyboardEvent<HTMLDivElement>) => {
+        this.foundation.handleSelectionEnterPress(e);
     };
 
     showClearBtn = () => {
@@ -782,6 +789,11 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         this.foundation.handleClear(e);
     };
 
+    handleClearEnterPress = (e: React.KeyboardEvent<HTMLDivElement>) => {
+        e && e.stopPropagation();
+        this.foundation.handleClearEnterPress(e);
+    };
+
     handleMouseOver = (e: React.MouseEvent) => {
         this.foundation.toggleHoverState(true);
     };
@@ -812,7 +824,14 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         const clearCls = cls(`${prefixcls}-clearbtn`);
         if (showClearBtn) {
             return (
-                <div className={clearCls} onClick={this.handleClear}>
+                <div 
+                    role='button'
+                    tabIndex={0} 
+                    aria-label="Clear TreeSelect value" 
+                    className={clearCls} 
+                    onClick={this.handleClear}
+                    onKeyPress={this.handleClearEnterPress}
+                >
                     <IconClear />
                 </div>
             );
@@ -902,13 +921,21 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 <Fragment key={'arrow'}>{this.renderArrow()}</Fragment>,
             ]
         );
-
+        const tabIndex = disabled ? null : 0;
         return (
             <div
+                role='combobox'
+                aria-label='TreeSelect input box'
+                aria-controls={`${prefixcls}-${this.treeSelectID}`}
+                aria-disabled={disabled}
+                aria-expanded={isOpen}
+                aria-haspopup="listbox"
+                tabIndex={tabIndex}
                 className={classNames}
                 style={style}
                 ref={this.triggerRef}
                 onClick={this.handleClick}
+                onKeyPress={this.handleSelectionEnterPress}
                 {...mouseEvent}
             >
                 {inner}
@@ -1054,6 +1081,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                         }
                         return (
                             <Input
+                                aria-label='Filter TreeSelect item'
                                 ref={this.inputRef as any}
                                 autofocus={searchAutoFocus}
                                 placeholder={placeholder}
@@ -1232,7 +1260,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                     labelEllipsis: typeof labelEllipsis === 'undefined' ? virtualize : labelEllipsis,
                 }}
             >
-                <div className={wrapperCls} role="list-box">
+                <div className={wrapperCls} role="listbox">
                     {outerTopSlot}
                     {
                         !outerTopSlot &&
@@ -1265,6 +1293,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         const pos = 'bottomLeft';
         return (
             <Popover
+                aria-label={this.props['aria-label']} 
                 stopPropagation={stopPropagation}
                 getPopupContainer={getPopupContainer}
                 zIndex={zIndex}

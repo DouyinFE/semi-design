@@ -1330,11 +1330,11 @@ import { Tree, Checkbox } from '@douyinfe/semi-ui';
         return (
             <li
                 className={className}
-                role="treenode"
+                role="treeitem"
                 onClick={isLeaf ? onCheck : onExpand}
             >
                 {isLeaf ? null : expandIcon}
-                {isLeaf ? <div onClick={onCheck}>
+                {isLeaf ? <div onClick={onCheck} role='checkbox' tabIndex={0} aria-checked={checkStatus.checked}>
                     <Checkbox
                         indeterminate={checkStatus.halfChecked}
                         checked={checkStatus.checked}
@@ -1439,7 +1439,7 @@ import { Tree } from '@douyinfe/semi-ui';
         return (
             <li
                 className={className}
-                role="treenode"
+                role="treeitem"
                 onClick={isLeaf ? onClick : onExpand}
             >
                 {isLeaf ? null : expandIcon}
@@ -1615,7 +1615,7 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
         return (
             <li
                 className={className}
-                role="treenode"
+                role="treeitem"
                 onClick={onClick}
                 style={style}
             >
@@ -1793,7 +1793,7 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
         return (
             <li
                 className={className}
-                role="treenode"
+                role="treeitem"
                 onClick={onClick}
                 style={style}
             >
@@ -1908,6 +1908,15 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
 | height | 高度值，如果为 string 必须保证有计算高度，即其父节点有 offsetHeight | number\|string | '100%' |
 | itemSize | 每行的treeNode的高度，必传 | number | - |
 | width | 宽度值 | number\|string | '100%' |
+
+## Accessibility
+
+### Aria
+
+- Tree 支持传入 `aria-label` 来表示该 Tree 作用;
+- Tree 会为每个子节点分别设置 `aria-disabled`、`aria-checked`、`aria-selected`、`aria-level` 来表明节点状态及层级;
+- Tree 会为对应部分分别设置 `role` 为 `tree`、`treeitem`;
+- Tree 支持多选时通过按下 Enter 键来选中节点。
 
 ## 设计变量
 <DesignToken/>
