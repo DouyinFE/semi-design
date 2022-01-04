@@ -1493,6 +1493,8 @@ describe(`Table`, () => {
             dataSource: newData,
         });
         await sleep(2000);
+        demo.update();
+        expect(demo.find(`.semi-page .semi-page-item-active`).getDOMNode().innerHTML).toBe('1');
         expect(demo.find(BaseTable).state('pagination')).toHaveProperty('currentPage', 1);
     });
 
