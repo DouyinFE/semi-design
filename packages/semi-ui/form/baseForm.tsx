@@ -76,7 +76,6 @@ class Form extends BaseComponent<BaseFormProps, BaseFormState> {
         showValidateIcon: PropTypes.bool,
         extraTextPosition: PropTypes.oneOf(strings.EXTRA_POS),
         id: PropTypes.string,
-        role: PropTypes.string,
     };
 
     static defaultProps = {

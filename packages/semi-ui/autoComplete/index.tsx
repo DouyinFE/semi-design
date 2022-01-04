@@ -370,6 +370,7 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
             autofocus: autoFocus,
             onChange: this.onSearch,
             onClear: this.onInputClear,
+            'aria-label': this.props['aria-label'],
             'aria-labelledby': this.props['aria-labelledby'],
             'aria-invalid': this.props['aria-invalid'],
             'aria-errormessage': this.props['aria-errormessage'],

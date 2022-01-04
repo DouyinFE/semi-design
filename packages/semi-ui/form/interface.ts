@@ -103,7 +103,7 @@ interface setValuesConfig {
 }
 
 export interface BaseFormProps {
-    'aria-label'?: string;
+    'aria-label'?: React.AriaAttributes['aria-label'];
     onSubmit?: (values: Record<string, any>) => void;
     onSubmitFail?: (errors: Record<string, FieldError>, values: any) => void;
     onReset?: () => void;
@@ -131,5 +131,4 @@ export interface BaseFormProps {
     disabled?: boolean;
     showValidateIcon?: boolean;
     extraTextPosition?: 'middle' | 'bottom';
-    role?: string;
 }

@@ -408,10 +408,11 @@ function withField<
         let mergeExtraPos = extraTextPosition || formProps.extraTextPosition || 'bottom';
 
         // id attribute to improve a11y
-        const labelId = `${field}-label`;
-        const helpTextId = `${field}-helpText`;
-        const extraTextId = `${field}-extraText`;
-        const errorMessageId = `${field}-errormessage`;
+        const a11yId = id ? id : field;
+        const labelId = `${a11yId}-label`;
+        const helpTextId = `${a11yId}-helpText`;
+        const extraTextId = `${a11yId}-extraText`;
+        const errorMessageId = `${a11yId}-errormessage`;
 
         let FieldComponent = (() => {
             // prefer to use validateStatus which pass by user throught props
@@ -426,7 +427,7 @@ function withField<
             const extraContent = extraText ? <div className={extraCls} id={extraTextId}>{extraText}</div> : null;
 
             let newProps: Record<string, any> = {
-                id: id ? id : field,
+                id: a11yId,
                 disabled: formProps.disabled,
                 ...rest,
                 ref,

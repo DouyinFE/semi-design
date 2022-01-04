@@ -42,6 +42,7 @@ export type RadioGroupProps = {
     'aria-invalid'?: React.AriaAttributes['aria-invalid'];
     'aria-labelledby'?: React.AriaAttributes['aria-labelledby'];
     'aria-required'?: React.AriaAttributes['aria-required'];
+    id?: string;
 };
 
 export interface RadioGroupState {
@@ -70,6 +71,7 @@ class RadioGroup extends BaseComponent<RadioGroupProps, RadioGroupState> {
         'aria-invalid': PropTypes.bool,
         'aria-labelledby': PropTypes.string,
         'aria-required': PropTypes.bool,
+        id: PropTypes.string,
     };
 
     static defaultProps: Partial<RadioGroupProps> = {
@@ -134,7 +136,8 @@ class RadioGroup extends BaseComponent<RadioGroupProps, RadioGroupState> {
             style,
             direction,
             type,
-            buttonSize
+            buttonSize,
+            id,
         } = this.props;
 
         const isButtonRadio = type === strings.TYPE_BUTTON;
@@ -193,6 +196,7 @@ class RadioGroup extends BaseComponent<RadioGroupProps, RadioGroupState> {
             <div
                 className={prefixClsDisplay}
                 style={style}
+                id={id}
                 aria-label={this.props['aria-label']}
                 aria-invalid={this.props['aria-invalid']}
                 aria-errormessage={this.props['aria-errormessage']}
