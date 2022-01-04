@@ -1578,5 +1578,12 @@ function Demo() {
 | loading  | 正在加载                | boolean        | -     |
 | value    | 属性值（必填）           | string\|number | -     |
 
+## Accessibility
+
+### Aria
+
+- Cascader 支持传入 `aria-label`、`aria-describedby`、`aria-errormessage`、`aria-invalid`、`aria-labelledby`、`aria-required` 来表示该 Cascader 的相关信息;
+- Cascader 支持通过按下 Enter 键来选中选项、清空选项、展开下拉框
+
 ## 设计变量
 <DesignToken/>

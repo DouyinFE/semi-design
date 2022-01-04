@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/cascader/constants';
+import isEnterPress from '@douyinfe/semi-foundation/utils/isEnterPress';
 import { includes } from 'lodash';
 import ConfigContext from '../configProvider/context';
 import LocaleConsumer from '../locale/localeConsumer';
@@ -43,7 +44,7 @@ export interface CascaderItemProps {
     selectedKeys: Set<string>;
     loadedKeys: Set<string>;
     loadingKeys: Set<string>;
-    onItemClick: (e: React.MouseEvent, item: Entity | Data) => void;
+    onItemClick: (e: React.MouseEvent | React.KeyboardEvent, item: Entity | Data) => void;
     onItemHover: (e: React.MouseEvent, item: Entity) => void;
     showNext: ShowNextType;
     onItemCheckboxClick: (item: Entity | Data) => void;
@@ -84,13 +85,22 @@ export default class Item extends PureComponent<CascaderItemProps> {
         empty: false,
     };
 
-    onClick = (e: React.MouseEvent, item: Entity | Data) => {
+    onClick = (e: React.MouseEvent | React.KeyboardEvent, item: Entity | Data) => {
         const { onItemClick } = this.props;
         if (item.data.disabled || ('disabled' in item && item.disabled)) {
             return;
         }
         onItemClick(e, item);
     };
+
+    /**
+     * A11y: simulate item click
+     */
+    handleItemEnterPress = (keyboardEvent: React.KeyboardEvent, item: Entity | Data) => {
+        if (isEnterPress(keyboardEvent)) {
+            this.onClick(keyboardEvent, item);
+        }
+    }
 
     onHover = (e: React.MouseEvent, item: Entity) => {
         const { showNext, onItemHover } = this.props;
@@ -179,11 +189,13 @@ export default class Item extends PureComponent<CascaderItemProps> {
                     });
                     return (
                         <li
+                            role='none'
                             className={className}
                             key={key}
                             onClick={e => {
                                 this.onClick(e, item);
                             }}
+                            onKeyPress={e => this.handleItemEnterPress(e, item)}
                         >
                             <span className={`${prefixcls}-label`}>
                                 {!multiple && this.renderIcon('empty')}
@@ -228,11 +240,13 @@ export default class Item extends PureComponent<CascaderItemProps> {
                     });
                     return (
                         <li
+                            role='none'
                             className={className}
                             key={key}
                             onClick={e => {
                                 this.onClick(e, item);
                             }}
+                            onKeyPress={e => this.handleItemEnterPress(e, item)}
                             onMouseEnter={e => {
                                 this.onHover(e, item);
                             }}
