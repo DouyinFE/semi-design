@@ -1476,6 +1476,22 @@ describe(`Table`, () => {
         expect(newPaginationProps.pageSize).toEqual(newPagination.pageSize);
         expect(newPaginationProps.currentPage).toEqual(newPagination.currentPage);
     });
+
+    it('test pageSize correctly work at controlled pagination', async () => {
+      const total = 100;
+      const pagination = {
+        pageSize: 10,
+        currentPage: 2,
+      };
+      const columns = getColumns();
+      const demo = mount(<Table dataSource={getData(total)} columns={columns} pagination={pagination}/>);
+      await sleep(2000);
+      const tableBody = demo.find(`.${BASE_CLASS_PREFIX}-table-tbody .${BASE_CLASS_PREFIX}-table-row`);
+      expect(
+        tableBody.length
+      ).toBe(10);
+    });
+
     it(`test grouped data change dataSource`, async () => {
         const data = getGroupData();
         const columns = getGroupColumns();
