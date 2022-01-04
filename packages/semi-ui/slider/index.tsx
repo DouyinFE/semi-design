@@ -78,6 +78,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
     private dragging: boolean[];
     private eventListenerSet: Set<() => void>;
     private chooseMovePos: 'min' | 'max';
+    foundation: SliderFoundation;
 
     constructor(props: SliderProps) {
         super(props);
@@ -281,7 +282,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
     }
 
     renderHandle = () => {
-        const { vertical, range, tooltipVisible, tipFormatter } = this.props;
+        const { vertical, range, tooltipVisible, tipFormatter, 'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, 'aria-valuetext': ariaValueText, getAriaValueText, disabled } = this.props;
         const { chooseMovePos, isDrag, isInRenderTree } = this.state;
         const stylePos = vertical ? 'top' : 'left';
         const percentInfo = this.foundation.getMinAndMaxPercent(this.state.currentValue);
@@ -299,6 +300,15 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
         const maxClass = cls(cssClasses.HANDLE, {
             [`${cssClasses.HANDLE}-clicked`]: chooseMovePos === 'max' && isDrag,
         });
+        const {min, max, currentValue} = this.state;
+
+        const commonAria = {
+            'aria-label': ariaLabel,
+            'aria-labelledby': ariaLabelledby,
+            'aria-disabled': disabled
+        };
+        vertical && Object.assign(commonAria, {'aria-orientation': 'vertical'});
+
         const handleContents = !range ? (
             <Tooltip
                 content={tipChildren.min}
@@ -338,6 +348,14 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                     onTouchEnd={e => {
                         this.foundation.onHandleUp(e);
                     }}
+                    onFocus={e => this.foundation.onFocus(e, 'min')}
+                    role="slider"
+                    tabIndex={0}
+                    {...commonAria}
+                    aria-valuenow={currentValue as number}
+                    aria-valuemax={max}
+                    aria-valuemin={min}
+                    aria-valuetext={getAriaValueText ? getAriaValueText(currentValue as number) : ariaValueText}
                 />
             </Tooltip>
         ) : (
@@ -379,6 +397,14 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                         onTouchEnd={e => {
                             this.foundation.onHandleUp(e);
                         }}
+                        onFocus={e => this.foundation.onFocus(e, 'min')}
+                        role="slider"
+                        tabIndex={0}
+                        {...commonAria}
+                        aria-valuenow={currentValue[0]}
+                        aria-valuetext={getAriaValueText ? getAriaValueText(currentValue[0]) : ariaValueText}
+                        aria-valuemax={currentValue[1]}
+                        aria-valuemin={min}
                     />
                 </Tooltip>
                 <Tooltip
@@ -418,6 +444,14 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                         onTouchEnd={e => {
                             this.foundation.onHandleUp(e);
                         }}
+                        onFocus={e => this.foundation.onFocus(e, 'min')}
+                        role="slider"
+                        tabIndex={0}
+                        {...commonAria}
+                        aria-valuenow={currentValue[1]}
+                        aria-valuetext={getAriaValueText ? getAriaValueText(currentValue[1]) : ariaValueText}
+                        aria-valuemax={max}
+                        aria-valuemin={currentValue[0]}
                     />
                 </Tooltip>
             </React.Fragment>
@@ -440,7 +474,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                 top: range ? `${minPercent * 100}%` : 0,
             };
         trackStyle = included ? trackStyle : {};
-        return (
+        return (// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
             <div className={cssClasses.TRACK} style={trackStyle} onClick={e => this.foundation.handleWrapClick(e)}>
                 {/* {this.renderTrack} */}
             </div>
@@ -522,11 +556,13 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                 onMouseEnter={() => this.foundation.handleWrapperEnter()}
                 onMouseLeave={() => this.foundation.handleWrapperLeave()}
             >
-                <div
-                    className={`${prefixCls}-rail`}
-                    onClick={e => this.foundation.handleWrapClick(e)}
-                    style={this.props.railStyle}
-                />
+                {// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+                    <div
+                        className={`${prefixCls}-rail`}
+                        onClick={e => this.foundation.handleWrapClick(e)}
+                        style={this.props.railStyle}
+                    />
+                }
                 {this.renderTrack()}
                 {this.renderStepDot()}
                 <div>{this.renderHandle()}</div>

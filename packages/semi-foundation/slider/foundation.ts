@@ -31,6 +31,10 @@ export interface SliderProps{
     showBoundary?: boolean;
     railStyle?: Record<string, any>;
     verticalReverse?: boolean;
+    'aria-label'?: string;
+    'aria-labelledby'?: string;
+    'aria-valuetext'?: string;
+    getAriaValueText?: (value: number) => string;
 }
 
 export interface SliderState {
@@ -558,6 +562,9 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
         this._adapter.onHandleUpAfter();
         return true;
     };
+
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    onFocus = (e:any, handler: 'min'| 'max') => {}
 
     handleWrapClick = (e: any) => {
         const { disabled, isDrag } = this._adapter.getStates();
