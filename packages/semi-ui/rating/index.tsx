@@ -280,6 +280,9 @@ export default class Rating extends BaseComponent<RatingProps, RatingState> {
         );
         return (
             <ul
+                aria-label={this.props['aria-label']}
+                aria-labelledby={this.props['aria-labelledby']}
+                aria-describedby={this.props['aria-describedby']}
                 className={listCls}
                 style={style}
                 onMouseLeave={disabled ? null : this.onMouseLeave}
@@ -288,14 +291,7 @@ export default class Rating extends BaseComponent<RatingProps, RatingState> {
                 onBlur={disabled ? null : this.onBlur}
                 onKeyDown={disabled ? null : this.onKeyDown}
                 ref={this.saveRate as any}
-                role='radiogroup'
                 id={id}
-                aria-invalid={this.props['aria-invalid']}
-                aria-errormessage={this.props['aria-errormessage']}
-                aria-label={this.props['aria-label']}
-                aria-labelledby={this.props['aria-labelledby']}
-                aria-describedby={this.props["aria-describedby"]}
-                aria-required={this.props['aria-required']}
             >
                 {itemList}
             </ul>

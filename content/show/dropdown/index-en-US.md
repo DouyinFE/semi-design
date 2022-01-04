@@ -415,6 +415,13 @@ function DropdownEvents() {
 }
 ```
 
+## Accessibility
+
+### ARIA
+
+- Dropdown.Menu `role` is set to `menu`, `aria-orientatio` is set to `vertical`
+- Dropdown.Item `role` is set to `menuitem`
+
 ## API Reference
 
 ### Dropdown

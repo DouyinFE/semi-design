@@ -18,6 +18,7 @@ export interface BasicStepsProps {
     hasLine?: boolean;
     children?: React.ReactNode;
     onChange?: (current: number) => void;
+    "aria-label"?: string;
 }
 
 const Steps = (props: BasicStepsProps) => {
@@ -70,7 +71,7 @@ const Steps = (props: BasicStepsProps) => {
             return cloneElement(child, { ...childProps });
         });
         return content;
-    }, [children, initial, prefixCls, direction, status, current, size]);
+    }, [children, initial, prefixCls, direction, status, current, size, onChange]);
 
     const wrapperCls = cls(className, {
         [`${prefixCls}-basic`]: true,
@@ -80,7 +81,7 @@ const Steps = (props: BasicStepsProps) => {
     });
 
     return (
-        <div className={wrapperCls} style={style}>
+        <div aria-label={props["aria-label"]} className={wrapperCls} style={style}>
             {inner}
         </div>
     );

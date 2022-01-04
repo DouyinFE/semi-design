@@ -384,6 +384,7 @@ class CustomRender extends React.Component {
                 style={{display: 'flex', alignItems: 'center', fontSize: 14, marginRight: 10}}
             >
                 <Avatar 
+                    alt='avatar'
                     src={data?data.avatar:'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg'} 
                     size="extra-small" 
                 />
@@ -451,6 +452,14 @@ class CustomRender extends React.Component {
 |-------|------------|--------|
 |blur() |Remove focus|1.19.0|
 |focus()|Get focus   |1.19.0|
+
+## Accessibility
+
+### Aria
+
+- TagInput supports the input of `aria-label` to indicate the function of the TagInput;
+- TagInput will set `aria-disabled` and `aria-invalid` according to disabled and validateStatus props;
+- Both the input box and the clear button of TagInput have `aria-label` to indicate the function of the element.
 
 ## Design Tokens
 <DesignToken/>

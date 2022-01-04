@@ -33,6 +33,7 @@ module.exports = {
                 'keyword-spacing': ["error", { "before": true, "after": true }],
                 'jsx-a11y/click-events-have-key-events': ['warn'],
                 'jsx-a11y/no-noninteractive-element-interactions': ['warn'],
+                'jsx-a11y/no-autofocus': ['warn'],
             },
             globals: {
                 "sinon": "readonly",
@@ -75,6 +76,7 @@ module.exports = {
                 'keyword-spacing': ["error", { "before": true, "after": true }],
                 'jsx-a11y/click-events-have-key-events': ['warn'],
                 'jsx-a11y/no-noninteractive-element-interactions': ['warn'],
+                'jsx-a11y/no-autofocus': ['warn'],
             }
         },
     ],
