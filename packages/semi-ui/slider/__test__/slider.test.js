@@ -137,7 +137,7 @@ describe('Slider', () => {
         expect(wrapper.exists(`.${BASE_CLASS_PREFIX}-slider-dot`)).toBe(true);
     });
 
-    it.only('marks clickable', () => {
+    it('marks clickable', () => {
         const STYLE = { width: 100, height: 32 }; // it is really hack to mock slider wrapper getBoundingClientRect data
         let slider = mount(<Slider style={STYLE} marks={{ 20: '20c', 40: '40c' }} defaultValue={[0, 100]} range />);
         expect(slider.exists(`.${BASE_CLASS_PREFIX}-slider-dot`)).toBe(true);

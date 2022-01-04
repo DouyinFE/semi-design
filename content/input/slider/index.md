@@ -237,6 +237,7 @@ import { Slider } from '@douyinfe/semi-ui';
 | min | 最小值 | number | 0 |-|
 | railStyle | 滑块轨道的样式 | CSSProperties | - |0.31.0|
 | range | 是否支持两边同时可滑动 | boolean | false |-|
+| showBoundary | 是否在 hover 时展示最大值最小值 | boolean | false |-|
 | step | 步长 | number | 1 |-|
 | tipFormatter | 设置Tooltip的展示格式，默认显示当前选值  | (value: string \| number \| boolean \| (string \| number \| boolean)[]) => any | v => v |-|
 | tooltipVisible | 是否始终显示Tooltip | boolean | 无 |-|
