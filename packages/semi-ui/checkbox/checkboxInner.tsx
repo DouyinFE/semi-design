@@ -17,6 +17,7 @@ export interface CheckboxInnerProps {
     ref?: React.MutableRefObject<CheckboxInner> | ((ref: CheckboxInner) => void);
     addonId?: string;
     extraId?: string;
+    'aria-label'?: React.AriaAttributes['aria-label'];
 }
 
 class CheckboxInner extends PureComponent<CheckboxInnerProps> {
@@ -73,12 +74,15 @@ class CheckboxInner extends PureComponent<CheckboxInnerProps> {
         return (
             <span className={wrapper}>
                 <input
-                    aria-hidden={true}
-                    tabIndex={-1}
+                    type="checkbox"
+                    aria-label={this.props['aria-label']}
+                    aria-disabled={disabled}
+                    aria-checked={checked}
+                    aria-labelledby={addonId}
+                    aria-describedby={extraId}
                     ref={ref => {
                         this.inputEntity = ref;
                     }}
-                    type="checkbox"
                     className={css.INPUT}
                     onChange={noop}
                     checked={checked}

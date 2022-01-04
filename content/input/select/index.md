@@ -177,11 +177,11 @@ import { Select } from '@douyinfe/semi-ui';
     return (
         <Select placeholder="" style={{ width: 180 }} filter>
             {
-                data.map(group => (
-                    <Select.OptGroup label={group.label} key={group.label}>
+                data.map((group, index) => (
+                    <Select.OptGroup label={group.label} key={`${index}-${group.label}`}>
                         {
-                            group.children.map(option => (
-                                <Select.Option value={option.value} key={option.value}>
+                            group.children.map((option, index2) => (
+                                <Select.Option value={option.value} key={`${index2}-${group.label}`}>
                                     {option.label}
                                 </Select.Option>
                             ))
@@ -768,39 +768,30 @@ import { Select } from '@douyinfe/semi-ui';
 import React from 'react';
 import { Select, Avatar, Tag } from '@douyinfe/semi-ui';
 
-class CustomRender extends React.Component {
+() => {
+    const list = [
+        { "name": "夏可漫", "email": "xiakeman@example.com", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg" },
+        { "name": "申悦", "email": "shenyue@example.com", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg" },
+        { "name": "曲晨一", "email": "quchenyi@example.com", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/8bd8224511db085ed74fea37205aede5.jpg" },
+        { "name": "文嘉茂", "email": "wenjiamao@example.com", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/6fbafc2d-e3e6-4cff-a1e2-17709c680624.png" },
+    ];
 
-    constructor() {
-        super();
-        this.state = {
-            list: [
-                { "name": "夏可漫", "email": "xiakeman@example.com", "avatar":  "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"},
-                { "name": "申悦", "email": "shenyue@example.com", "avatar":  "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg"},
-                { "name": "曲晨一", "email": "quchenyi@example.com", "avatar":  "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/8bd8224511db085ed74fea37205aede5.jpg"},
-                { "name": "文嘉茂", "email": "wenjiamao@example.com", "avatar":  "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/6fbafc2d-e3e6-4cff-a1e2-17709c680624.png"},
-            ]
-        };
-    }
+    const renderSelectedItem = optionNode => (
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+            <Avatar src={optionNode.avatar} size="small">{optionNode.abbr}</Avatar>
+            <span style={{ marginLeft: 8 }}>{optionNode.email}</span>
+        </div>
+    );
 
-    renderSelectedItem(optionNode) {
-        return (
-            <div key={optionNode.email} style={{display: 'flex', alignItems: 'center'}}>
-                <Avatar src={optionNode.avatar} size="small">{optionNode.abbr}</Avatar>
-                <span style={{ marginLeft: 8 }}>{optionNode.email}</span>
-            </div>
-        );
-    }
-
-    // avatarSrc & avatarShape are supported after 1.6.0
-    renderMultipleWithCustomTag(optionNode, { onClose }) {
-        let content = (
+    // avatarSrc & avatarShape are supported after 1.6.0-beta
+    const renderMultipleWithCustomTag = (optionNode, { onClose }) => {
+        const content = (
             <Tag
                 avatarSrc={optionNode.avatar}
                 avatarShape='circle'
                 closable={true}
                 onClose={onClose}
                 size='large'
-                key={optionNode.name}
             >
                 {optionNode.name}
             </Tag>
@@ -809,17 +800,16 @@ class CustomRender extends React.Component {
             isRenderInTag: false,
             content
         };
-    }
+    };
 
-    renderMultipleWithCustomTag2(optionNode, { onClose }) {
-        let content = (
+    const renderMultipleWithCustomTag2 = (optionNode, { onClose }) => {
+        const content = (
             <Tag
                 avatarSrc={optionNode.avatar}
                 avatarShape='square'
                 closable={true}
                 onClose={onClose}
                 size='large'
-                key={optionNode.name}
             >
                 {optionNode.name}
             </Tag>
@@ -828,10 +818,10 @@ class CustomRender extends React.Component {
             isRenderInTag: false,
             content
         };
-    }
+    };
 
-    renderCustomOption(item) {
-        let optionStyle = {
+    const renderCustomOption = (item, index) => {
+        const optionStyle = {
             display: 'flex',
             paddingLeft: 24,
             paddingTop: 10,
@@ -842,57 +832,48 @@ class CustomRender extends React.Component {
                 <Avatar size="small" src={item.avatar} />
                 <div style={{ marginLeft: 8 }}>
                     <div style={{ fontSize: 14 }}>{item.name}</div>
-                    <div style={{ color: 'var(--semi-color-text-2)', fontSize: 12, lineHeight: '16px', fontWeight: 'normal' }}>{item.email}</div>
+                    <div style={{ color: 'var(--color-text-2)', fontSize: 12, lineHeight: '16px', fontWeight: 'normal' }}>{item.email}</div>
                 </div>
             </Select.Option>
         );
-    }
+    };
 
-    render() {
-        const { list } = this.state;
-        return (
-            <React.Fragment>
-                <Select
-                    placeholder='请选择'
-                    style={{ width: 280, height: 40 }}
-                    onChange={v=>console.log(v)}
-                    defaultValue={'夏可漫'}
-                    renderSelectedItem={this.renderSelectedItem}
-                >
-                    {
-                        list.map(item => this.renderCustomOption(item))
-                    }
-                </Select>
-                <Select
-                    placeholder='请选择'
-                    maxTagCount={2}
-                    style={{width: 280, marginTop: 20}}
-                    onChange={v=>console.log(v)}
-                    defaultValue={['夏可漫', '申悦']}
-                    multiple
-                    renderSelectedItem={this.renderMultipleWithCustomTag}
-                >
-                    {
-                        list.map(item => this.renderCustomOption(item))
-                    }
-                </Select>
-                <Select
-                    placeholder='请选择'
-                    maxTagCount={2}
-                    style={{width: 280, marginTop: 20}}
-                    onChange={v=>console.log(v)}
-                    defaultValue={['夏可漫', '申悦']}
-                    multiple
-                    renderSelectedItem={this.renderMultipleWithCustomTag2}
-                >
-                    {
-                        list.map(item => this.renderCustomOption(item))
-                    }
-                </Select>
-            </React.Fragment>
-        );
-    }
-}
+    return (
+        <>
+            <Select
+                placeholder='请选择'
+                style={{ width: 280, height: 40 }}
+                onChange={v => console.log(v)}
+                defaultValue={'夏可漫'}
+                renderSelectedItem={renderSelectedItem}
+            >
+                {list.map((item, index) => renderCustomOption(item, index))}
+            </Select>
+            <Select
+                placeholder='请选择'
+                maxTagCount={2}
+                style={{ width: 280, marginTop: 20 }}
+                onChange={v => console.log(v)}
+                defaultValue={['夏可漫', '申悦']}
+                multiple
+                renderSelectedItem={renderMultipleWithCustomTag}
+            >
+                {list.map((item, index) => renderCustomOption(item, index))}
+            </Select>
+            <Select
+                placeholder='请选择'
+                maxTagCount={2}
+                style={{ width: 280, marginTop: 20 }}
+                onChange={v => console.log(v)}
+                defaultValue={['夏可漫', '申悦']}
+                multiple
+                renderSelectedItem={renderMultipleWithCustomTag2}
+            >
+                {list.map((item, index) => renderCustomOption(item, index))}
+            </Select>
+        </>
+    );
+};
 ```
 
 ### 自定义弹出层样式
@@ -1316,10 +1297,10 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------- | --------------------------------- |
 | allowCreate              | 是否允许用户创建新条目，需配合 filter 使用                                                                                                                                                                | boolean                               | false                             |
 | arrowIcon            | 自定义右侧下拉箭头Icon，当showClear开关打开且当前有选中值时，hover会优先显示clear icon <br/>**v1.15.0 后提供**                                                                                                                                                                 | ReactNode     |                             |
-| autoAdjustOverflow       | 浮层被遮挡时是否自动调整方向（暂时仅支持竖直方向，且插入的父级为 body）<br/>**v0.27.0 后提供**                                                                                                             | boolean                               | true                              |
+| autoAdjustOverflow       | 浮层被遮挡时是否自动调整方向（暂时仅支持竖直方向，且插入的父级为 body）                                                                                                            | boolean                               | true                              |
 | autoFocus                | 初始渲染时是否自动 focus                                                                                                                                                                                  | boolean                               | false                             |
 | className                | 类名                                                                                                                                                                                                      | string                                |                                   |
-| clickToHide              | 已展开时，点击选择框是否自动收起下拉列表 <br/>**v0.23.0 后提供**                                                                                                                                           | boolean                               | false                             |
+| clickToHide              | 已展开时，点击选择框是否自动收起下拉列表                                                                                                                                          | boolean                               | false                             |
 | defaultValue             | 初始选中的值                                                                                                                                                                                              | string\|number\|array                 |                                   |
 | defaultOpen              | 是否默认展开下拉列表                                                                                                                                                                                      | boolean                               | false                             |
 | disabled                 | 是否禁用                                                                                                                                                                                                  | boolean                               | false                             |
@@ -1330,46 +1311,47 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | emptyContent             | 无结果时展示的内容。设为 null 时，下拉列表将不展示                                                                                                                                                        | string\|ReactNode                     |                                   |
 | filter                   | 是否可搜索，默认为 false。传入 true 时，代表开启搜索并采用默认过滤策略（label 是否与 sugInput 匹配），传入值为函数时，会接收 sugInput, option 两个参数，当 option 符合筛选条件应返回 true，否则返回 false | boolean \|function(sugInput, option)                    | false                             |
 | getPopupContainer        | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 `position: relative`                                                                                                                                                                     | function():HTMLElement                | () => document.body               |
-| innerTopSlot             | 渲染在弹出层顶部，在 optionList 内部的自定义 slot <br/>**v1.6.0 后提供**                                                                                                                              | ReactNode                             |                                   |
+| inputProps               | filter为true时, input输入框的额外配置参数，具体可配置属性请参考Input组件（注意：请不要传入value、ref、onChange、onFocus，否则会覆盖Select相关回调，影响组件行为） <br/>**v2.2.0 后提供**   | object   |               |
+| innerTopSlot             | 渲染在弹出层顶部，在 optionList 内部的自定义 slot                                                                                                                     | ReactNode                             |                                   |
 | innerBottomSlot          | 渲染在弹出层底部，在 optionList 内部的自定义 slot                                                                                                                                                         | ReactNode                             |                                   |
-| insetLabel               | 同上，与 prefix 区别是 fontWeight 更大 <br/>**v0.23.0 后提供**                                                                                                                                             | ReactNode                             |                                   |
+| insetLabel               | 同上，与 prefix 区别是 fontWeight 更大                                                                                                                                             | ReactNode                             |                                   |
 | loading                  | 下拉列表是否展示加载动画                                                                                                                                                                                  | boolean                               | false                             |
 | maxTagCount              | 多选模式下，已选项超出 maxTagCount 时，后续选项会被渲染成+N 的形式                                                                                                                                        | number                                |                                   |
 | max                      | 最多可选几项，仅在多选模式下生效                                                                                                                                                                          | number                                |                                   |
 | maxHeight                | 下拉菜单中 `optionList` 的最大高度                                                                                                                                                                        | string\|number                        | 300                               |
 | multiple                 | 是否多选                                                                                                                                                                                                  | boolean                               | false                             |
-| outerTopSlot             | 渲染在弹出层顶部，与 optionList 平级的自定义 slot <br/>**v1.6.0 后提供**                                                                                                                              | ReactNode                             |                                   |
+| outerTopSlot             | 渲染在弹出层顶部，与 optionList 平级的自定义 slot                                                                                                                          | ReactNode                             |                                   |
 | outerBottomSlot          | 渲染在弹出层底部，与 optionList 平级的自定义 slot                                                                                                                                                         | ReactNode                             |                                   |
-| onBlur                   | 失去焦点时的回调 <br/>**v0.32.0 后提供**                                                                                                                                                                   | function(event)                       |                                   |
+| onBlur                   | 失去焦点时的回调                                                                                                                                                                 | function(event)                       |                                   |
 | onChange                 | 变化时回调函数                                                                                                                                                                                            | function(value:string\|number\|array) |                                   |
-| onCreate                 | allowCreate 为 true，创建备选项时的回调 <br/>**v0.23.0 后提供**                                                                                                                                            | function(option)                              |                                   |
-| onClear                  | 清除按钮的回调 <br/>**v0.34.0 后提供**                                                                                                                                                                     | function                              |                                   |
+| onCreate                 | allowCreate 为 true，创建备选项时的回调                                                                                                                                          | function(option)                              |                                   |
+| onClear                  | 清除按钮的回调                                                                                                                                                                  | function                              |                                   |
 | onChangeWithObject       | 是否将选中项 option 的其他属性作为回调。设为 true 时，onChange 的入参类型会从 string 变为 object: { value, label, ...rest }                                                                               | boolean                               | false                             |
 | onDropdownVisibleChange  | 下拉菜单展开/收起时的回调                                                                                                                                                                                 | function(visible:boolean)             |                                   |
 | onListScroll             | 候选项列表滚动时的回调                                                                                                                                                                                 | function(e)             |                                   |
 | onSearch                 | input 输入框内容发生改变时回调函数                                                                                                                                                                        | function(sugInput:string)             |                                   |
-| onSelect                 | 被选中时的回调<br/>**v0.26.0 后提供**                                                                                                                                                                      | function(value, option)               |                                   |
-| onDeselect               | 取消选中时的回调，仅在多选时有效<br/>**v0.26.0 后提供**                                                                                                                                                    | function(value, option)               |                                   |
-| onExceed                 | 当试图选择数超出 max 限制时的回调，仅在多选时生效 <br/> **v0.23.0** 后提供；入参在v1.16.0后提供                                                                                                                                   | function(option)                              |                                   |
-| onFocus                  | 获得焦点时的回调 <br/>**v0.32.0 后提供**                                                                                                                                                                   | function(event)                       |                                   |
+| onSelect                 | 被选中时的回调                                                                                                                                                                     | function(value, option)               |                                   |
+| onDeselect               | 取消选中时的回调，仅在多选时有效                                                                                                                                              | function(value, option)               |                                   |
+| onExceed                 | 当试图选择数超出 max 限制时的回调，仅在多选时生效 <br/> 入参在v1.16.0后提供                                                                                                                                   | function(option)                              |                                   |
+| onFocus                  | 获得焦点时的回调                                                                                                                                                                 | function(event)                       |                                   |
 | optionList               | 可以通过该属性传入 Option,请确保数组内每个元素都具备 label、value 属性                                                                                                                                    | array(\[{value, label}\])             |                                   |
 | placeholder              | 选择框默认文字                                                                                                                                                                                            | ReactNode                                |                                   |
 | position                 | 菜单展开的位置，可选项同Tooltip position                                                                                                                  | string                                | 'bottomLeft'                      |
-| prefix                   | 选择框的前缀标签 <br/>**v0.23.0 后提供**                                                                                                                                                                   | ReactNode                             |                                   |
-| renderCreateItem         | allowCreate 为 true 时，可自定义创建标签的渲染 <br/>**v0.23.0 后提供**                                                                                                                                     | function(inputValue:string)           | inputValue => '创建' + inputValue |
-| renderSelectedItem       | 通过 renderSelectedItem 自定义选择框中已选项标签的渲染<br/>**v0.23.0 后提供**                                                                                                                              | function(option)                      |                                   |
-| renderOptionItem         | 通过 renderOptionItem 完全自定义下拉列表中候选项的渲染<br/>**v1.10.0 后提供**                                                                                                                              | function(props) 入参详见Demo                      |                                   |
-| remote                   | 是否开启远程搜索，当 remote 为 true 时，input 内容改变后不会进行本地筛选匹配<br/>**v0.24.0 后提供**                                                                                                        | boolean                               | false                             |
-| size                     | 大小，可选值 `default`/`small`/`large`                                                                                                                                                                    | string                                | 'default'                         |
-| style                    | 样式                                                                                                                                                                                                      | object                                |                                   |
-| suffix                   | 选择框的后缀标签 <br/>**v0.23.0 后提供**                                                                                                                                                                   | ReactNode                             |                                   |
-| showClear                | 是否展示清除按钮 <br/>**v0.23.0 后提供**                                                                                                                                                                   | boolean                               | false                             |
-| showArrow                | 是否展示下拉箭头 <br/>**v0.23.0 后提供**                                                                                                                                                                   | boolean                               | true                              |
-| spacing                  | 浮层与选择器的距离 <br/>**v0.29.0 后提供**                                                                                                                                                                 | number                                | 4                                 |
-| triggerRender            | 自定义触发器渲染 <br/>**v0.34.0 后提供**                                                                                                                                                                   | function                              |                                   |
+| prefix                   | 选择框的前缀标签                                                                                                                                                                | ReactNode                             |                                   |
+| renderCreateItem         | allowCreate 为 true 时，可自定义创建标签的渲染                                                                                                                                 | function(inputValue:string)           | inputValue => '创建' + inputValue |
+| renderSelectedItem       | 通过 renderSelectedItem 自定义选择框中已选项标签的渲染                                                                                                                          | function(option)                      |                                   |
+| renderOptionItem         | 通过 renderOptionItem 完全自定义下拉列表中候选项的渲染                                                                                                                          | function(props) 入参详见Demo                      |                                   |
+| remote                   | 是否开启远程搜索，当 remote 为 true 时，input 内容改变后不会进行本地筛选匹配                                                                                                     | boolean                               | false                             |
+| size                     | 大小，可选值 `default`/`small`/`large`                                                                                                                                                                    | string                                | 'default'       |
+| style                    | 样式                                                                                                                                                                                                      | object                                |                 |
+| suffix                   | 选择框的后缀标签                                                                                                                                                                  | ReactNode                             |                                   |
+| showClear                | 是否展示清除按钮                                                                                                                                                                 | boolean                               | false                             |
+| showArrow                | 是否展示下拉箭头                                                                                                                                                                | boolean                               | true                              |
+| spacing                  | 浮层与选择器的距离                                                                                                                                                             | number                                | 4                                 |
+| triggerRender            | 自定义触发器渲染                                                                                                                                                          | function                              |                                   |
 | value                    | 当前选中的的值,传入该值时将作为受控组件，配合 `onChange` 使用                                                                                                                                             | string\|number\|array                 |                                   |
 | validateStatus           | 校验结果，可选`warning`、`error`、 `default`（只影响样式背景色）                                                                                                                                          | string                                | 'default'                         |
-| virtualize               | 列表虚拟化，用于大量节点的情况优化性能表现，由 height, width, itemSize 组成<br/>**v0.37.0 后提供**                                                                                                         | object                                |                                   |
+| virtualize               | 列表虚拟化，用于大量节点的情况优化性能表现，由 height, width, itemSize 组成                                                                                                   | object                                |                                   |
 | zIndex                   | 弹层的 zIndex                                                                                                                                                                                             | number                                | 1030                              |
 
 

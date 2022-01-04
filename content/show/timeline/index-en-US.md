@@ -190,16 +190,18 @@ import { IconAlertTriangle } from '@douyinfe/semi-icons';
 
 ### TimeLine.Item
 
-| Properties | Instruction                                              | type                                                | Default   |
-| ---------- | -------------------------------------------------------- | --------------------------------------------------- | --------- |
-| className  | Class name                                               | string                                              | -         |
-| color      | Color of dot                                             | string                                              | -         |
-| dot        | Custom dot                                               | React Node                                          | -         |
-| extra      | Custom extra content                                     | React Node                                          | -         |
-| position   | Custom node location to override TimeLine's mode setting | `left`\|`right`                                     | -         |
-| style      | Inline style                                             | CSSProperties                                              | -         |
-| time       | Time value                                               | string                                              | -         |
-| type       | Pattern of dot                                           | `default`\|`ongoing`\|`success`\|`warning`\|`error` | `default` |
+| Properties | Instruction                                              | type                                                | Default   | Version   |
+| ---------- | -------------------------------------------------------- | --------------------------------------------------- | --------- | --------- |
+| className  | Class name                                               | string                                              | -         | -         |
+| color      | Color of dot                                             | string                                              | -         | -         |
+| dot        | Custom dot                                               | React Node                                          | -         | -         |
+| extra      | Custom extra content                                     | React Node                                          | -         | -         |
+| position   | Custom node location to override TimeLine's mode setting | `left`\|`right`                                     | -         | -         |
+| style      | Inline style                                             | CSSProperties                                       | -         | -         |
+| time       | Time value                                               | string                                              | -         | -         |
+| type       | Pattern of dot                                           | `default`\|`ongoing`\|`success`\|`warning`\|`error` | `default` | -         |
+| onClick    | Click event                                              | (e: MouseEvent) => void                             | -         | 2.2.0     |
+
 
 ## Design Tokens
 <DesignToken/>

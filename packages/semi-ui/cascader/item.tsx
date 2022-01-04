@@ -54,6 +54,7 @@ export interface CascaderItemProps {
     emptyContent: React.ReactNode;
     loadData: (selectOptions: CascaderData[]) => Promise<void>;
     data: Array<Data | Entity>;
+    separator: string;
     multiple: boolean;
     checkedKeys: Set<string>;
     halfCheckedKeys: Set<string>;
@@ -75,6 +76,7 @@ export default class Item extends PureComponent<CascaderItemProps> {
         checkedKeys: PropTypes.object,
         halfCheckedKeys: PropTypes.object,
         onItemCheckboxClick: PropTypes.func,
+        separator: PropTypes.string,
         keyword: PropTypes.string
     };
 
@@ -104,6 +106,9 @@ export default class Item extends PureComponent<CascaderItemProps> {
         const { onItemCheckboxClick } = this.props;
         // Prevent Checkbox's click event bubbling to trigger the li click event
         e.stopPropagation();
+        if (e.nativeEvent && typeof e.nativeEvent.stopImmediatePropagation === 'function') {
+            e.nativeEvent.stopImmediatePropagation();
+        }
         onItemCheckboxClick(item);
     };
 
@@ -139,7 +144,7 @@ export default class Item extends PureComponent<CascaderItemProps> {
 
     highlight = (searchText: React.ReactNode[]) => {
         const content: React.ReactNode[] = [];
-        const { keyword } = this.props;
+        const { keyword, separator } = this.props;
         searchText.forEach((item, idx) => {
             if (typeof item === 'string' && includes(item, keyword)) {
                 item.split(keyword).forEach((node, index) => {
@@ -156,7 +161,7 @@ export default class Item extends PureComponent<CascaderItemProps> {
                 content.push(item);
             }
             if (idx !== searchText.length - 1) {
-                content.push(' / ');
+                content.push(separator);
             }
         });
         return content;

@@ -120,7 +120,11 @@ $module: #{$prefix}-timeline;
             &-head-custom {
                 left: $spacing-timeline_item_head_custom-left;
             }
-
+            &-head{
+                &.#{$module}-item-head-custom{
+                    margin-left: 0;
+                }
+            }
             &-head {
                 margin-left: $spacing-timeline_item_head-marginLeft;
             }

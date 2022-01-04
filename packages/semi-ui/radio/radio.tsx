@@ -7,6 +7,7 @@ import { noop } from 'lodash';
 import RadioFoundation, { RadioAdapter } from '@douyinfe/semi-foundation/radio/radioFoundation';
 import { RadioChangeEvent } from '@douyinfe/semi-foundation/radio/radioInnerFoundation';
 import { strings, radioClasses as css } from '@douyinfe/semi-foundation/radio/constants';
+import { getUuidShort } from '@douyinfe/semi-foundation/utils/uuid';
 import '@douyinfe/semi-foundation/radio/radio.scss';
 
 import BaseComponent from '../_base/baseComponent';
@@ -38,6 +39,7 @@ export type RadioProps = {
     addonStyle?: React.CSSProperties;
     addonClassName?: string;
     type?: RadioType;
+    'aria-label'?: React.AriaAttributes['aria-label'];
 };
 
 export interface RadioState {
@@ -67,6 +69,7 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
         addonStyle: PropTypes.object,
         addonClassName: PropTypes.string,
         type: PropTypes.oneOf([strings.TYPE_DEFAULT, strings.TYPE_BUTTON, strings.TYPE_CARD, strings.TYPE_PURECARD]), // Button style type
+        'aria-label': PropTypes.string,
     };
 
     static defaultProps: Partial<RadioProps> = {
@@ -83,6 +86,8 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
     radioEntity: RadioInner;
     context!: RadioContextValue;
     foundation: RadioFoundation;
+    addonId: string;
+    extraId: string;
 
     constructor(props: RadioProps) {
         super(props);
@@ -91,6 +96,8 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
         };
         this.foundation = new RadioFoundation(this.adapter);
         this.radioEntity = null;
+        this.addonId = getUuidShort({ prefix: 'addon' });
+        this.extraId = getUuidShort({ prefix: 'extra' });
     }
 
     get adapter(): RadioAdapter {
@@ -194,6 +201,7 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
             [`${prefix}-cardRadioGroup`]: isCardRadioGroup,
             [`${prefix}-cardRadioGroup_disabled`]: isDisabled && isCardRadioGroup,
             [`${prefix}-cardRadioGroup_checked`]: isCardRadioGroup && realChecked && !isDisabled,
+            [`${prefix}-cardRadioGroup_checked_disabled`]: isCardRadioGroup && realChecked && isDisabled,
             [`${prefix}-cardRadioGroup_hover`]: isCardRadioGroup && !realChecked && isHover && !isDisabled,
             [className]: Boolean(className),
         });
@@ -209,8 +217,8 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
         }, addonClassName);
         const renderContent = () => (
             <>
-                {children ? <span className={addonCls} style={addonStyle}>{children}</span> : null}
-                {extra && !isButtonRadio ? <div className={`${prefix}-extra`}>{extra}</div> : null}
+                {children ? <span className={addonCls} style={addonStyle} id={this.addonId}>{children}</span> : null}
+                {extra && !isButtonRadio ? <div className={`${prefix}-extra`} id={this.extraId}>{extra}</div> : null}
             </>
         );
         return (
@@ -231,6 +239,8 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
                     ref={(ref: RadioInner) => {
                         this.radioEntity = ref;
                     }}
+                    addonId={children && this.addonId}
+                    extraId={extra && this.extraId}
                 />
                 {
                     isCardRadioGroup ?

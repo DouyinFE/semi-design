@@ -13,6 +13,7 @@ export interface NavStepsProps {
     size?: Size;
     children?: React.ReactNode;
     onChange?: (current: number) => void;
+    "aria-label"?: string;
 }
 
 const Steps = (props: NavStepsProps) => {
@@ -38,7 +39,7 @@ const Steps = (props: NavStepsProps) => {
             return cloneElement(child, { ...childProps });
         });
         return content;
-    }, [children, prefixCls, current, size]);
+    }, [children, prefixCls, current, size, initial, onChange]);
 
     const wrapperCls = cls(className, {
         [`${prefixCls}-nav`]: true,
@@ -46,7 +47,7 @@ const Steps = (props: NavStepsProps) => {
     });
 
     return (
-        <div className={wrapperCls} style={style}>
+        <div aria-label={props["aria-label"]} className={wrapperCls} style={style}>
             {inner}
         </div>
     );

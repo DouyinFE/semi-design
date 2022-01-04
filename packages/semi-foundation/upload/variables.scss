@@ -22,8 +22,10 @@ $color-upload-icon: var(--semi-color-tertiary); // 图片墙上传图标加号�
 $color-upload_pic_add-bg-active: var(--semi-color-fill-2); // 图片墙上传背景色 - 按下
 $color-upload_pic_add-bg-hover: var(--semi-color-fill-1); // 图片墙上传背景色 - 悬浮
 $color-upload_pic_add-bg: var(--semi-color-fill-0); // 图片墙上传背景色 - 默认
-$color-upload_pic_remove-bg: var(--semi-overlay-bg); // 图片墙上传移除图标颜色
+$color-upload_pic_remove-bg: var(--semi-color-overlay-bg); // 图片墙上传移除图标颜色
 $color-upload_picture_file_card_loading_error-icon: var(--semi-color-danger); // 图片墙上传移除图标颜色
+$color-upload_picture_file_card_error-border: var(--semi-color-danger); // 图片墙上传移除图标颜色
+$color-upload_picture_file_card_pic_info-text: var(--semi-color-white); // 图片墙图片信息（序号）文字颜色
 $color-upload_preview-icon: var(--semi-color-text-2); // 上传文件卡片文本颜色
 $color-upload_retry-text: var(--semi-color-primary); // 上传文件卡片重新上传按钮文本颜色
 $color-upload_replace-text: var(--semi-color-white); // 上传文件卡片重新替换按钮文本颜色
@@ -56,7 +58,7 @@ $spacing-upload_file_card_info_progress-marginTop: 4px; // 上传文件卡片进
 $spacing-upload_file_card_close-marginLeft: $spacing-tight; // 上传文件卡片删除按钮左侧外边距
 $spacing-upload_file_card_close-marginRight: $spacing-tight; // 上传文件卡片删除按钮右侧外边距
 $spacing-upload_file_card_icon-marginRight: $spacing-super-tight; // 上传文件卡片图标右侧外边距
-$spacing-upload_picture_file_card-marginRight: $spacing-tight; // 图片墙上传卡片右侧外边距
+$spacing-upload_picture_file_card-gap: $spacing-tight; // 图片墙卡片之间边距
 $spacing-upload_picture_file_card-marginBottom: $spacing-tight; // 图片墙上传卡片底部外边距
 $spacing-upload_picture_file_card_close-top: 8px; // 图片墙上传卡片删除按钮顶部位置
 $spacing-upload_picture_file_card_close-right: 8px; // 图片墙上传卡片删除右侧位置
@@ -79,3 +81,5 @@ $radius-upload_drag_area: var(--semi-border-radius-small); // 可拖拽上传拖
 $font-upload_file_card_info_name-fontWeight: $font-weight-bold; // 上传文件卡片文件名字重
 $font-upload_file_card_info_size-fontWeight: $font-weight-regular; // 上传文件卡片文件尺寸字重
 $font-upload_drag_area_tips-fontWeight: 600; // 可拖拽上传提示文本字重
+$font-upload_picture_file_card_pic_info-fontSize: 12px; // 图片墙图片信息字体大小
+$font-upload_picture_file_card_pic_info-fontWeight: 600; // 图片墙图片信息文本字重

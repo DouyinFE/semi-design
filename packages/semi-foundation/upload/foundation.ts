@@ -320,6 +320,87 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
         });
     }
 
+    // 插入多个文件到指定位置
+    // Insert files to the specified location
+    insertFileToList(files: Array<CustomFile>, index:number): void {
+        const { limit, transformFile, accept, uploadTrigger } = this.getProps();
+        const { fileList } = this.getStates();
+
+        const unAcceptFileList = [];
+
+        // 当次选中的文件
+        // current selected file
+        let currentFileList = Array.from(files);
+        if (typeof accept !== 'undefined') {
+            currentFileList = currentFileList.filter(item => {
+                const isValid = this.checkFileFormat(accept, item);
+                if (!isValid) {
+                    unAcceptFileList.push(item);
+                }
+                return isValid;
+            });
+            if (unAcceptFileList.length !== 0) {
+                this._adapter.notifyAcceptInvalid(unAcceptFileList);
+            }
+            if (currentFileList.length === 0) {
+                return;
+            }
+        }
+        currentFileList = currentFileList.map(file => {
+            if (!file.uid) {
+                file.uid = getUuidv4();
+            }
+
+            if (this.checkFileSize(file)) {
+                file._sizeInvalid = true;
+                file.status = FILE_STATUS_VALID_FAIL;
+                this._adapter.notifySizeError(file, fileList);
+            }
+
+            if (transformFile) {
+                file = transformFile(file);
+            }
+            return file;
+        });
+        const total = fileList.length + currentFileList.length;
+        if (typeof limit !== 'undefined') {
+            // 判断是否超出限制
+            // Determine whether the limit is exceeded
+            if (total > limit) {
+                if (limit === 1) {
+                    // 使用最后面的文件对当前文件进行替换
+                    // Use the last file to replace the current file
+                    currentFileList = currentFileList.slice(-1);
+                    this._adapter.notifyFileSelect(currentFileList);
+                    this._adapter.resetInput();
+                    this.replaceFileList(currentFileList);
+                    return;
+                }
+                // 如果超出了限制，则计算还能添加几个文件，将剩余的文件继续上传
+                // If the limit is exceeded, several files can be added to the calculation, and the remaining files will continue to be uploaded
+                const restNum = limit - fileList.length;
+                currentFileList = currentFileList.slice(0, restNum);
+                this._adapter.notifyExceed(currentFileList);
+            }
+        }
+
+        const fileItemList = currentFileList.map(file => this.buildFileItem(file, uploadTrigger));
+        const newFileList = fileList.slice();
+        if (typeof index !== 'undefined') {
+            newFileList.splice(index, 0, ...fileItemList);
+        } else {
+            newFileList.push(...fileItemList);
+        }
+
+        this._adapter.notifyFileSelect(currentFileList);
+        this._adapter.notifyChange({ fileList: newFileList, currentFile: null });
+        this._adapter.updateFileList(newFileList, () => {
+            if (uploadTrigger === TRIGGER_AUTO) {
+                this.startUpload(fileItemList);
+            }
+        });
+    }
+
     manualUpload(): void {
         // find the list of files that have not been uploaded
         const waitToUploadFileList = this.getState('fileList').filter((item: BaseFileItem) => item.status === FILE_STATUS_WAIT_UPLOAD);

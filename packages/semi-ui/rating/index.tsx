@@ -34,6 +34,9 @@ export interface RatingProps {
     autoFocus?: boolean;
     size?: 'small' | 'default' | number;
     tooltips?: string[];
+    'aria-label'?: React.AriaAttributes['aria-label'];
+    'aria-labelledby'?: React.AriaAttributes['aria-labelledby'];
+    'aria-describedby'?: React.AriaAttributes['aria-describedby'];
 }
 
 export interface RatingState {
@@ -266,6 +269,9 @@ export default class Rating extends BaseComponent<RatingProps, RatingState> {
         );
         return (
             <ul
+                aria-label={this.props['aria-label']}
+                aria-labelledby={this.props['aria-labelledby']}
+                aria-describedby={this.props['aria-describedby']}
                 className={listCls}
                 style={style}
                 onMouseLeave={disabled ? null : this.onMouseLeave}
@@ -274,7 +280,6 @@ export default class Rating extends BaseComponent<RatingProps, RatingState> {
                 onBlur={disabled ? null : this.onBlur}
                 onKeyDown={disabled ? null : this.onKeyDown}
                 ref={this.saveRate as any}
-                role="radiogroup"
             >
                 {itemList}
             </ul>

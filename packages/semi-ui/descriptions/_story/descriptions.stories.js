@@ -1,7 +1,6 @@
 import React from 'react';
-// import { withKnobs, text, boolean } from '@storybook/addon-knobs';
-
 import Descriptions from '../index';
+import Tag from '../../tag';
 
 export default {
   title: 'Descriptions',
@@ -93,3 +92,54 @@ export const DescriptionsItem = () => (
   </div>
 );
 
+export const DescriptionsKeyIsNode = () => {
+  const data = [
+      { key: <strong style={{color: 'red'}}>实际用户数量</strong>, value: '1,480,000' },
+      { key: '7天留存', value: '98%' },
+      { key: '安全等级', value: '3级' },
+      { key: '垂类标签', value: <Tag style={{ margin: 0 }}>电商</Tag> },
+      { key: '认证状态', value: '未认证' },
+  ];
+  const style = {
+      boxShadow: 'var(--shadow-elevated)',
+      backgroundColor: 'var(--color-bg-2)',
+      borderRadius: '4px',
+      padding: '10px',
+      margin: '10px',
+      width: '200px',
+  };
+  return (
+    <>
+      <div>data 传入的写法</div>
+      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+        <Descriptions align="center" data={data} style={style} />
+        <Descriptions align="justify" data={data} style={style} />
+        <Descriptions align="left" data={data} style={style} />
+        <Descriptions align="plain" data={data} style={style} />
+      </div>
+      <div>JSX 写法</div>
+      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+        <Descriptions style={style} align="center" >
+          <Descriptions.Item itemKey={<strong style={{ color: 'red' }}>实际用户数量</strong>}>1,480,000</Descriptions.Item>
+          <Descriptions.Item itemKey="7天留存">98%</Descriptions.Item>
+          <Descriptions.Item itemKey="认证状态">未认证</Descriptions.Item>
+        </Descriptions>
+        <Descriptions style={style} align="justify">
+          <Descriptions.Item itemKey={<strong style={{ color: 'red' }}>实际用户数量</strong>}>1,480,000</Descriptions.Item>
+          <Descriptions.Item itemKey="7天留存">98%</Descriptions.Item>
+          <Descriptions.Item itemKey="认证状态">未认证</Descriptions.Item>
+        </Descriptions>
+        <Descriptions style={style} align="left">
+          <Descriptions.Item itemKey={<strong style={{ color: 'red' }}>实际用户数量</strong>}>1,480,000</Descriptions.Item>
+          <Descriptions.Item itemKey="7天留存">98%</Descriptions.Item>
+          <Descriptions.Item itemKey="认证状态">未认证</Descriptions.Item>
+        </Descriptions>
+        <Descriptions style={style} align="plain">
+          <Descriptions.Item itemKey={<strong style={{ color: 'red' }}>实际用户数量</strong>}>1,480,000</Descriptions.Item>
+          <Descriptions.Item itemKey="7天留存">98%</Descriptions.Item>
+          <Descriptions.Item itemKey="认证状态">未认证</Descriptions.Item>
+        </Descriptions>
+      </div>
+    </>
+  );
+};

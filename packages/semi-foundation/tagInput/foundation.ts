@@ -7,6 +7,7 @@ import {
     isUndefined
 } from 'lodash';
 import getSplitedArray from './utils/getSplitedArray';
+import isEnterPress from '../utils/isEnterPress';
 
 export type TagInputChangeEvent = any;
 export type TagInputCursorEvent = any;
@@ -141,6 +142,15 @@ class TagInputFoundation extends BaseFoundation<TagInputAdapter> {
     handleInputFocus(e: TagInputCursorEvent) {
         this._adapter.setFocusing(true);
         this._adapter.notifyFocus(e);
+    }
+
+    /**
+     * A11y: simulate clear button click
+     */
+    handleClearEnterPress(e: TagInputKeyboardEvent) {
+        if (isEnterPress(e)) {
+            this.handleClearBtn(e);
+        }
     }
 
     handleClearBtn(e: TagInputMouseEvent) {

@@ -485,7 +485,6 @@ export function warnIfNoDataIndex(column: Record<string, any>) {
         }
     }
 }
-
 /**
  * Whether is tree table
  */
