@@ -29,6 +29,7 @@ export interface InputNumberProps extends InputProps {
     hideButtons?: boolean;
     innerButtons?: boolean;
     insetLabel?: React.ReactNode;
+    insetLabelId?: string;
     keepFocus?: boolean;
     max?: number;
     min?: number;
@@ -62,6 +63,12 @@ export interface InputNumberState {
 
 class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
     static propTypes = {
+        'aria-label': PropTypes.string,
+        'aria-labelledby': PropTypes.string,
+        'aria-invalid': PropTypes.bool,
+        'aria-errormessage': PropTypes.string,
+        'aria-describedby': PropTypes.string,
+        'aria-required': PropTypes.bool,
         autofocus: PropTypes.bool,
         className: PropTypes.string,
         defaultValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -71,6 +78,7 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
         hideButtons: PropTypes.bool,
         innerButtons: PropTypes.bool,
         insetLabel: PropTypes.node,
+        insetLabelId: PropTypes.string,
         keepFocus: PropTypes.bool,
         max: PropTypes.number,
         min: PropTypes.number,

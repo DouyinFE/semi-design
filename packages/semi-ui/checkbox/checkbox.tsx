@@ -14,6 +14,11 @@ export type CheckboxEvent = BasicCheckboxEvent;
 export type TargetObject = BasicTargetObject;
 
 export interface CheckboxProps extends BaseCheckboxProps {
+    'aria-describedby'?: React.AriaAttributes['aria-describedby'];
+    'aria-errormessage'?: React.AriaAttributes['aria-errormessage'];
+    'aria-invalid'?: React.AriaAttributes['aria-invalid'];
+    'aria-labelledby'?: React.AriaAttributes['aria-labelledby'];
+    'aria-required'?: React.AriaAttributes['aria-required'];
     onChange?: (e: CheckboxEvent) => any;
     // TODO, docs
     style?: React.CSSProperties;
@@ -31,6 +36,11 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
     static contextType = Context;
 
     static propTypes = {
+        'aria-describedby': PropTypes.string,
+        'aria-errormessage': PropTypes.string,
+        'aria-invalid': PropTypes.bool,
+        'aria-labelledby': PropTypes.string,
+        'aria-required': PropTypes.bool,
         // Specifies whether it is currently selected
         checked: PropTypes.bool,
         // Initial check
@@ -200,6 +210,8 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
                 onClick={this.handleChange}
+                onKeyPress={this.handleEnterPress}
+                aria-labelledby={this.props['aria-labelledby']}
             >
                 <CheckboxInner
                     {...this.props}

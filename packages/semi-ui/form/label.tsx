@@ -6,6 +6,7 @@ import { cssClasses } from '@douyinfe/semi-foundation/form/constants';
 const prefixCls = cssClasses.PREFIX;
 
 export interface LabelProps {
+    id?: string;
     /** Whether to display the required * symbol */
     required?: boolean;
     /** Content of label */
@@ -31,6 +32,7 @@ export default class Label extends PureComponent<LabelProps> {
     };
 
     static propTypes = {
+        id: PropTypes.string,
         children: PropTypes.node,
         required: PropTypes.bool,
         text: PropTypes.node,
@@ -44,7 +46,7 @@ export default class Label extends PureComponent<LabelProps> {
     };
 
     render() {
-        const { children, required, text, disabled, name, width, align, style, className, extra } = this.props;
+        const { children, required, text, disabled, name, width, align, style, className, extra, id } = this.props;
 
         const labelCls = classNames(className, {
             [`${prefixCls}-field-label`]: true,
@@ -71,7 +73,7 @@ export default class Label extends PureComponent<LabelProps> {
         );
 
         return (
-            <label className={labelCls} htmlFor={name} style={labelStyle}>
+            <label className={labelCls} htmlFor={name} style={labelStyle} id={id}>
                 {extra ? contentWithExtra : textContent}
             </label>
         );

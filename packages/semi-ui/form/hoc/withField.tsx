@@ -63,6 +63,7 @@ function withField<
             extraText,
             extraTextPosition,
             pure,
+            id,
             rest,
         } = mergeProps(props);
         let { options, shouldInject } = mergeOptions(opts, props);
@@ -406,11 +407,27 @@ function withField<
         let mergeWrapperCol = wrapperCol || formProps.wrapperCol;
         let mergeExtraPos = extraTextPosition || formProps.extraTextPosition || 'bottom';
 
+        // id attribute to improve a11y
+        const a11yId = id ? id : field;
+        const labelId = `${a11yId}-label`;
+        const helpTextId = `${a11yId}-helpText`;
+        const extraTextId = `${a11yId}-extraText`;
+        const errorMessageId = `${a11yId}-errormessage`;
+
         let FieldComponent = (() => {
             // prefer to use validateStatus which pass by user throught props
             let blockStatus = validateStatus ? validateStatus : status;
 
+            const extraCls = classNames(`${prefix}-field-extra`, {
+                [`${prefix}-field-extra-string`]: typeof extraText === 'string',
+                [`${prefix}-field-extra-middle`]: mergeExtraPos === 'middle',
+                [`${prefix}-field-extra-botttom`]: mergeExtraPos === 'bottom',
+            });
+
+            const extraContent = extraText ? <div className={extraCls} id={extraTextId}>{extraText}</div> : null;
+
             let newProps: Record<string, any> = {
+                id: a11yId,
                 disabled: formProps.disabled,
                 ...rest,
                 ref,
@@ -418,7 +435,22 @@ function withField<
                 [options.onKeyChangeFnName]: handleChange,
                 [options.valueKey]: value,
                 validateStatus: blockStatus,
+                'aria-required': required,
+                'aria-labelledby': labelId,
             };
+
+            if (helpText) {
+                newProps['aria-describedby'] = extraText ? `${helpTextId} ${extraTextId}` : helpTextId;
+            }
+            
+            if (extraText) {
+                newProps['aria-describedby'] = helpText ? `${helpTextId} ${extraTextId}` : extraTextId;
+            }
+            
+            if (status === 'error') {
+                newProps['aria-errormessage'] = errorMessageId;
+                newProps['aria-invalid'] = true;
+            }
 
             const fieldCls = classNames({
                 [`${prefix}-field`]: true,
@@ -431,8 +463,10 @@ function withField<
 
             if (mergeLabelPos === 'inset' && !noLabel) {
                 newProps.insetLabel = label || field;
+                newProps.insetLabelId = labelId;
                 if (typeof label === 'object' && !isElement(label)) {
                     newProps.insetLabel = label.text;
+                    newProps.insetLabelId = labelId;
                 }
             }
 
@@ -463,6 +497,7 @@ function withField<
                 labelContent = (
                     <Label
                         text={label || field}
+                        id={labelId}
                         required={required}
                         name={name || field}
                         width={mergeLabelWidth}
@@ -471,14 +506,6 @@ function withField<
                     />
                 );
             }
-
-            const extraCls = classNames(`${prefix}-field-extra`, {
-                [`${prefix}-field-extra-string`]: typeof extraText === 'string',
-                [`${prefix}-field-extra-middle`]: mergeExtraPos === 'middle',
-                [`${prefix}-field-extra-botttom`]: mergeExtraPos === 'bottom',
-            });
-
-            const extraContent = extraText ? <div className={extraCls}>{extraText}</div> : null;
 
             const fieldMainContent = (
                 <div className={fieldMaincls}>
@@ -489,6 +516,8 @@ function withField<
                             error={error}
                             validateStatus={blockStatus}
                             helpText={helpText}
+                            helpTextId={helpTextId}
+                            errorMessageId={errorMessageId}
                             showValidateIcon={formProps.showValidateIcon}
                         />
                     ) : null}

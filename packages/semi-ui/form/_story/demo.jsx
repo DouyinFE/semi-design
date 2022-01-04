@@ -196,6 +196,8 @@ class BasicDemoWithInit extends Component {
                 onValueChange={(v)=>console.log(v)}
                 style={{ padding: '10px', width: 600 }}
                 autoScrollToError
+                aria-label='Demo Form'
+                id='demo-form-id'
                 >
                 <Form.Section text={'基本信息'}>
                     <Row>
@@ -265,13 +267,20 @@ class BasicDemoWithInit extends Component {
                     <Row>
                         <Col span={12}>
                             <Form.TimePicker
-                                treeData={treeData}
                                 field='time'
+                                helpText='原则上应当在 9:00 - 18:00 之间'
                                 label='时间选择'
                             >
-                            </Form.TimePicker>    
+                            </Form.TimePicker>
                         </Col>
-               
+                        <Col span={12}>
+                            <Form.AutoComplete
+                                field='typeData'
+                                label='类型选择'
+                                data={['1', '2' , '3']}
+                            >
+                            </Form.AutoComplete>
+                        </Col>
                     </Row>
                 </Form.Section>
                 <Form.Section text='资源详情'>

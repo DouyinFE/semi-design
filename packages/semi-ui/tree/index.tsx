@@ -739,7 +739,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
                     labelEllipsis: typeof labelEllipsis === 'undefined' ? virtualize : labelEllipsis,
                 }}
             >
-                <div className={wrapperCls} role="list-box" style={style}>
+                <div className={wrapperCls} role="listbox" style={style}>
                     {filterTreeNode ? this.renderInput() : null}
                     <div className={listCls} role="tree">
                         {noData ? this.renderEmpty() : this.renderNodeList()}
