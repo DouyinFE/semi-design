@@ -1452,6 +1452,9 @@ describe(`Table`, () => {
         });
         expect(demo.find(BaseTable).state('disabledRowKeys').length).toEqual(2);
     });
+    /**
+     * 分页受控场景，更新数据后查看分页器是否保持当前页
+     */
     it('test pagination reset when dataSource change', async () => {
         const total = 100;
         const pagination = {
