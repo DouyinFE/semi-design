@@ -491,7 +491,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
         } = this.props;
 
         const {
-            pagination,
+            pagination: statePagination,
             queries: stateQueries,
             cachedColumns: stateCachedColumns,
             cachedChildren: stateCachedChildren,
@@ -548,10 +548,10 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             this.foundation.setCachedFilteredSortedDataSource(filteredSortedDataSource);
             states.dataSource = filteredSortedDataSource;
             // when dataSource has change, should reset currentPage
-            states.pagination = isObject(pagination) ? {
-                ...pagination,
+            states.pagination = isObject(statePagination) ? {
+                ...statePagination,
                 currentPage: isObject(propsPagination) && propsPagination.currentPage ? propsPagination.currentPage : 1,
-            } : pagination;
+            } : statePagination;
 
             if (this.props.groupBy) {
                 states.groups = null;
@@ -561,11 +561,11 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
         if (Object.keys(states).length) {
             const {
                 // eslint-disable-next-line @typescript-eslint/no-shadow
-                pagination: statePagination = null,
+                pagination: mergedStatePagination = null,
                 queries: stateQueries = null,
                 dataSource: stateDataSource = null,
             } = states;
-            const handledProps: Partial<NormalTableState<RecordType>> = this.foundation.getCurrentPageData(stateDataSource, statePagination as TablePaginationProps, stateQueries);
+            const handledProps: Partial<NormalTableState<RecordType>> = this.foundation.getCurrentPageData(stateDataSource, mergedStatePagination as TablePaginationProps, stateQueries);
 
             // After the pager is updated, reset allRowKeys of the current page
             this.adapter.setAllRowKeys(handledProps.allRowKeys);
