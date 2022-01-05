@@ -86,7 +86,6 @@ export default class ListItem extends PureComponent<ListItemProps> {
         }
         let content = (
             <li
-                role="list-item"
                 className={itemCls}
                 style={style}
                 onClick={handleClick}
