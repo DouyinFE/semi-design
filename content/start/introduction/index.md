@@ -26,7 +26,7 @@ Semi Design 始终致力于提升企业应用的体验。通过提炼简洁轻�
 
 ![基于 Semi Design 的多元化产品与团队组件](https://lf9-static.semi.design/obj/semi-tos/images/introduction-showcase.gif)
 
-坚守优质且稳定的默认基础(不变)，并在需要时充分开放自定义的灵活度(多变)，这是 Semi Design 独特的，并将一直遵循的设计原则。
+**坚守优质且稳定的默认基础(不变)，并在需要时充分开放自定义的灵活度(多变)，这是 Semi Design 独特的，并将一直遵循的设计原则。**
 
 ### 主题化 —— 品牌一键定制
 

@@ -1,5 +1,5 @@
 import path from 'path';
-import fs from "fs-extra";
+import fs from 'fs-extra';
 import { set } from 'lodash';
 
 const lodash = { set };
@@ -44,7 +44,7 @@ const generateThemeScssMap = (themePath: string) => {
         const scssAbsolutePath = path.join(themePath, 'scss', fileName);
         if (fs.existsSync(scssAbsolutePath)) {
             //in theme folder
-            themeScssMap[fileName] = fs.readFileSync(scssAbsolutePath, { encoding: "utf8" });
+            themeScssMap[fileName] = fs.readFileSync(scssAbsolutePath, { encoding: 'utf8' });
         }
     }
     // console.log(themeScssMap)

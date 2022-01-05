@@ -29,7 +29,7 @@ export interface ModalProps {
     footer?: any;
     hasCancel?: boolean;
     header?: any;
-    height?: number;
+    height?: string | number;
     mask?: boolean;
     maskClosable?: boolean;
     maskStyle?: Record<string, any>;
@@ -43,7 +43,7 @@ export interface ModalProps {
     style?: Record<string, any>;
     title?: any;
     visible?: boolean;
-    width?: number;
+    width?: string | number;
     zIndex?: number;
     icon?: any;
     getPopupContainer?: () => HTMLElement;

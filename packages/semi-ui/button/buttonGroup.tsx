@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { isValidElement, cloneElement } from 'react';
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
 import PropTypes from 'prop-types';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/button/constants';
@@ -13,6 +13,7 @@ export interface ButtonGroupProps extends BaseProps {
     type?: Type;
     size?: Size;
     theme?: Theme;
+    'aria-label'?: React.AriaAttributes['aria-label'];
 }
 
 const prefixCls = cssClasses.PREFIX;
@@ -25,6 +26,7 @@ export default class ButtonGroup extends BaseComponent<ButtonGroupProps> {
         type: PropTypes.string,
         size: PropTypes.oneOf(btnSizes),
         theme: PropTypes.oneOf(strings.themes),
+        'aria-label': PropTypes.string,
     };
 
     static defaultProps = {
@@ -34,14 +36,16 @@ export default class ButtonGroup extends BaseComponent<ButtonGroupProps> {
     };
 
     render() {
-        const { children, disabled, size, type, ...rest } = this.props;
+        const { children, disabled, size, type, 'aria-label': ariaLabel, ...rest } = this.props;
         let inner;
 
         if (children) {
-            inner = ((Array.isArray(children) ? children : [children]) as React.ReactElement[]).map((itm, index) =>
-                React.cloneElement(itm, { disabled, size, type, ...itm.props, ...rest, key: index })
-            );
+            inner = ((Array.isArray(children) ? children : [children])).map((itm, index) => (
+                isValidElement(itm)
+                    ? cloneElement(itm, { disabled, size, type, ...itm.props, ...rest, key: index })
+                    : itm
+            ));
         }
-        return <div className={`${prefixCls}-group`} role="group" aria-label="button group">{inner}</div>;
+        return <div className={`${prefixCls}-group`} role="group" aria-label={ariaLabel}>{inner}</div>;
     }
 }

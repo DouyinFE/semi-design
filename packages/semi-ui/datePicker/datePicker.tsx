@@ -21,9 +21,15 @@ import { RangeType } from '@douyinfe/semi-foundation/datePicker/inputFoundation'
 import { TimePickerProps } from '../timePicker/TimePicker';
 
 export interface DatePickerProps extends DatePickerFoundationProps {
+    'aria-describedby'?: React.AriaAttributes['aria-describedby'];
+    'aria-errormessage'?: React.AriaAttributes['aria-errormessage'];
+    'aria-invalid'?: React.AriaAttributes['aria-invalid'];
+    'aria-labelledby'?: React.AriaAttributes['aria-labelledby'];
+    'aria-required'?: React.AriaAttributes['aria-required'];
     timePickerOpts?: TimePickerProps;
     bottomSlot?: React.ReactNode;
     insetLabel?: React.ReactNode;
+    insetLabelId?: string;
     prefix?: React.ReactNode;
     topSlot?: React.ReactNode;
     renderDate?: (dayNumber?: number, fullDate?: string) => React.ReactNode;
@@ -42,6 +48,11 @@ export type DatePickerState = DatePickerFoundationState;
 export default class DatePicker extends BaseComponent<DatePickerProps, DatePickerState> {
     static contextType = ConfigContext;
     static propTypes = {
+        'aria-describedby': PropTypes.string,
+        'aria-errormessage': PropTypes.string,
+        'aria-invalid': PropTypes.bool,
+        'aria-labelledby': PropTypes.string,
+        'aria-required': PropTypes.bool,
         type: PropTypes.oneOf(strings.TYPE_SET),
         size: PropTypes.oneOf(strings.SIZE_SET),
         density: PropTypes.oneOf(strings.DENSITY_SET),
@@ -76,6 +87,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
         prefixCls: PropTypes.string,
         prefix: PropTypes.node,
         insetLabel: PropTypes.node,
+        insetLabelId: PropTypes.string,
         zIndex: PropTypes.number,
         position: PropTypes.oneOf(popoverStrings.POSITION_SET),
         getPopupContainer: PropTypes.func,
@@ -447,6 +459,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             disabled,
             showClear,
             insetLabel,
+            insetLabelId,
             placeholder,
             validateStatus,
             inputStyle,
@@ -483,6 +496,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             inputStyle,
             showClear,
             insetLabel,
+            insetLabelId,
             type,
             format,
             multiple,
@@ -637,6 +651,11 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             style,
             className: classnames(className, { [prefixCls]: true }),
             ref: this.setTriggerRef,
+            'aria-invalid': this.props['aria-invalid'],
+            'aria-errormessage': this.props['aria-errormessage'],
+            'aria-labelledby': this.props['aria-labelledby'],
+            'aria-describedby': this.props['aria-describedby'],
+            'aria-required': this.props['aria-required'],
         };
 
         const inner = this.renderInner();

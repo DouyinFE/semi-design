@@ -50,6 +50,8 @@ export interface CardProps {
     style?: CSSProperties;
     /** Title */
     title?: ReactNode;
+    /** aria label */
+    'aria-label'?: string;
 }
 
 
@@ -73,7 +75,8 @@ class Card extends PureComponent<CardProps> {
         loading: PropTypes.bool,
         shadows: PropTypes.oneOf(strings.SHADOWS),
         style: PropTypes.object,
-        title: PropTypes.node
+        title: PropTypes.node,
+        'aria-label': PropTypes.string,
     };
 
     static defaultProps = {
@@ -230,7 +233,7 @@ class Card extends PureComponent<CardProps> {
         });
 
         return (
-            <div {...others} className={cardCls} style={style}>
+            <div {...others} aria-busy={this.props.loading} className={cardCls} style={style}>
                 {this.renderHeader()}
                 {this.renderCover()}
                 {this.renderBody()}

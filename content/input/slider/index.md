@@ -246,5 +246,18 @@ import { Slider } from '@douyinfe/semi-ui';
 | onAfterChange | 与 `onmouseup` 触发时机一致，把当前值作为参数传入 | (value: number \| number[]) => void | 无 |-|
 | onChange | 当 Slider 的值发生改变时的回调 | (value: number \| number[]) => void | 无 |-|
 
+## Accessibility
+
+### ARIA
+
+- Slider 可聚焦的控制元素 role 为 `slider`。
+- 元素的 `aria-valuenow` 属性为当前值的十进制数值。
+- 元素的 `aria-valuemin` 属性为最小允许值的十进制数值。
+- 元素的 `aria-valuemax` 属性为最大允许值的十进制数值。
+- 当 Slider 为纵向时，元素的 `aria-orientation` 属性为 'vertical'。
+- 当 `aria-valuenow` 的值不容易被理解时，支持通过 API `aria-valuetext` 传递一个字符串使其更友好。也可以通过 API `geAriaValueText(value)` 方法得到 `aria-valuetext` 的值。
+- 支持通过 API `aria-label` 或者 `aria-labelledby` 确定 slider 的标签。
+
+
 ## 设计变量
 <DesignToken/>

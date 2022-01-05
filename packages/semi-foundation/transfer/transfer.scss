@@ -93,8 +93,6 @@ $module: #{$prefix}-transfer;
         }
 
         .#{$module}-item-close-icon {
-            width: $width-transfer_item_close-icon;
-            height: $width-transfer_item_close-icon;
             font-size: $width-transfer_item_close-icon;
             cursor: pointer;
             visibility: hidden;

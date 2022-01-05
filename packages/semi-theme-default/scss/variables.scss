@@ -31,6 +31,8 @@ $z-portal: 1; // 抽象插槽，适用于未经特殊定制的所有组件
 $z-affix: 10; // 固定位置的页面元素 z-index
 $z-backtop: 10; // 返回顶部 z-index
 $z-badge: 10; // badge z-index
+// $z-avatar-default: 100;
+$z-table-fixed: 101; // table fixed column
 $z-modal: 1000; // modal z-index
 $z-modal-mask: 1000; // modal 遮罩 z-index
 

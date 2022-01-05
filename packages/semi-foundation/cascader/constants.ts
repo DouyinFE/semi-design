@@ -12,6 +12,10 @@ const strings = {
     IS_VALUE: 'isValue',
     SHOW_NEXT_BY_CLICK: 'click',
     SHOW_NEXT_BY_HOVER: 'hover',
+    /* Merge Type */
+    LEAF_ONLY_MERGE_TYPE: 'leafOnly',
+    AUTO_MERGE_VALUE_MERGE_TYPE: 'autoMergeValue',
+    NONE_MERGE_TYPE: 'none',
 } as const;
 
 const numbers = {};

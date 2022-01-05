@@ -31,7 +31,7 @@ export interface AnchorProps {
     targetOffset?: number;
     onChange?: (currentLink: string, previousLink: string) => void;
     onClick?: (e: React.MouseEvent<HTMLElement>, currentLink: string) => void;
-    ariaLabel?: string;
+    'aria-label'?: React.AriaAttributes['aria-label'];
 }
 
 export interface AnchorState {
@@ -61,6 +61,7 @@ class Anchor extends BaseComponent<AnchorProps, AnchorState> {
         onChange: PropTypes.func,
         onClick: PropTypes.func,
         defaultAnchor: PropTypes.string,
+        'aria-label': PropTypes.string,
     };
 
     static defaultProps = {
@@ -251,8 +252,8 @@ class Anchor extends BaseComponent<AnchorProps, AnchorState> {
             showTooltip,
             position,
             autoCollapse,
-            ariaLabel
         } = this.props;
+        const ariaLabel = this.props['aria-label'];
         const { activeLink, scrollHeight, slideBarTop } = this.state;
         const wrapperCls = cls(prefixCls, className, {
             [`${prefixCls}-size-${size}`]: size,

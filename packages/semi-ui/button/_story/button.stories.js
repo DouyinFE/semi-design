@@ -30,12 +30,12 @@ export const Warning = () => <Button type="warning">hello button</Button>;
 
 export const WithIcon = () => (
   <>
-    <Button icon={<IconTick />}>hello button</Button>
+    <Button aria-label='Button demo' icon={<IconTick />}>hello button</Button>
     <br />
-    <Button icon={<IconEdit />} noHorizontalPadding={false} ghost={false}>
+    <Button aria-label='Button demo' icon={<IconEdit />} noHorizontalPadding={false} ghost={false}>
       Edit me
     </Button>
-    <Button icon={<IconUser />} />
+    <Button aria-label='Button demo' icon={<IconUser />} />
   </>
 );
 
@@ -57,69 +57,82 @@ export const CombinationShow = withPropsCombinations(
 
 export const ButtonGroupDemo = () => (
   <div>
-    <ButtonGroup disabled>
+    <ButtonGroup aria-label='ButtonGroup demo' disabled>
       <Button>复制</Button>
       <Button type="primary">查找</Button>
       <Button type="danger">粘贴</Button>
     </ButtonGroup>
     <br />
+    <ButtonGroup aria-label='ButtonGroup demo'>
+      <Button icon={<IconCopy />} theme={'solid'} />
+      <Button icon={<IconSearch />} theme={'solid'} />
+      <Button icon={<IconPlay />} theme={'solid'} />
+    </ButtonGroup>
+    <br />
+
+    <ButtonGroup size={'large'} aria-label='ButtonGroup demo'>
+      <Button icon={<IconCopy />} theme={'solid'} />
+      <Button icon={<IconSearch />} theme={'solid'} />
+      <Button icon={<IconPlay />} theme={'solid'} />
+    </ButtonGroup>
+    <br />
+
+    <ButtonGroup size={'small'} aria-label='ButtonGroup demo'>
+      <Button icon={<IconCopy />} theme={'solid'} />
+      <Button icon={<IconSearch />} theme={'solid'} />
+      <Button icon={<IconPlay />} theme={'solid'} />
+    </ButtonGroup>
+    <br />
+
+    <ButtonGroup aria-label='ButtonGroup demo'>
+      <Button icon={<IconCopy />} theme={'solid'}>
+        拷贝
+      </Button>
+      <Button icon={<IconSearch />} theme={'solid'}>
+        搜索
+      </Button>
+      <Button icon={<IconPlay />} theme={'solid'}>
+        播放
+      </Button>
+    </ButtonGroup>
+    <br />
+
+    <ButtonGroup size={'large'} aria-label='ButtonGroup demo'>
+      <Button icon={<IconCopy />} theme={'solid'}>
+        拷贝
+      </Button>
+      <Button icon={<IconSearch />} theme={'solid'}>
+        搜索
+      </Button>
+      <Button icon={<IconPlay />} theme={'solid'}>
+        播放
+      </Button>
+    </ButtonGroup>
+    <br />
+
+    <ButtonGroup size={'small'} aria-label='ButtonGroup demo'>
+      <Button icon={<IconCopy />} theme={'solid'}>
+        拷贝
+      </Button>
+      <Button icon={<IconSearch />} theme={'solid'}>
+        搜索
+      </Button>
+      <Button icon={<IconPlay />} theme={'solid'}>
+        播放
+      </Button>
+    </ButtonGroup>
+    <br />
+    <div>ButtonGroup children 不是合法元素的情况:</div>
     <ButtonGroup>
-      <Button icon={<IconCopy />} theme={'solid'} />
-      <Button icon={<IconSearch />} theme={'solid'} />
-      <Button icon={<IconPlay />} theme={'solid'} />
-    </ButtonGroup>
-    <br />
-
-    <ButtonGroup size={'large'}>
-      <Button icon={<IconCopy />} theme={'solid'} />
-      <Button icon={<IconSearch />} theme={'solid'} />
-      <Button icon={<IconPlay />} theme={'solid'} />
-    </ButtonGroup>
-    <br />
-
-    <ButtonGroup size={'small'}>
-      <Button icon={<IconCopy />} theme={'solid'} />
-      <Button icon={<IconSearch />} theme={'solid'} />
-      <Button icon={<IconPlay />} theme={'solid'} />
-    </ButtonGroup>
-    <br />
-
-    <ButtonGroup>
-      <Button icon={<IconCopy />} theme={'solid'}>
-        拷贝
-      </Button>
-      <Button icon={<IconSearch />} theme={'solid'}>
-        搜索
-      </Button>
-      <Button icon={<IconPlay />} theme={'solid'}>
-        播放
-      </Button>
-    </ButtonGroup>
-    <br />
-
-    <ButtonGroup size={'large'}>
-      <Button icon={<IconCopy />} theme={'solid'}>
-        拷贝
-      </Button>
-      <Button icon={<IconSearch />} theme={'solid'}>
-        搜索
-      </Button>
-      <Button icon={<IconPlay />} theme={'solid'}>
-        播放
-      </Button>
-    </ButtonGroup>
-    <br />
-
-    <ButtonGroup size={'small'}>
-      <Button icon={<IconCopy />} theme={'solid'}>
-        拷贝
-      </Button>
-      <Button icon={<IconSearch />} theme={'solid'}>
-        搜索
-      </Button>
-      <Button icon={<IconPlay />} theme={'solid'}>
-        播放
-      </Button>
+      {false}
+      {123}
+      {null}
+      {undefined}
+      text
+      <span>span</span>
+      {true && <Button>拷贝</Button>}
+      <Button>查询</Button>
+      <Button>剪切</Button>
     </ButtonGroup>
     <br />
   </div>

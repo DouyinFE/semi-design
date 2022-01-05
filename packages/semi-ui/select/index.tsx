@@ -18,13 +18,14 @@ import { FixedSizeList as List } from 'react-window';
 import { getOptionsFromGroup } from './utils';
 import VirtualRow from './virtualRow';
 
-import Input from '../input/index';
+import Input, { InputProps } from '../input/index';
 import Option, { OptionProps } from './option';
 import OptionGroup from './optionGroup';
 import Spin from '../spin';
 import Trigger from '../trigger';
 import { IconChevronDown, IconClear } from '@douyinfe/semi-icons';
 import { isSemiIcon } from '../_utils';
+import { Subtract } from 'utility-types';
 
 import warning from '@douyinfe/semi-foundation/utils/warning';
 
@@ -39,6 +40,12 @@ export { VirtualRowProps } from './virtualRow';
 const prefixcls = cssClasses.PREFIX;
 
 const key = 0;
+
+type ExcludeInputType = {
+    value?: InputProps['value'];
+    onFocus?: InputProps['onFocus'];
+    onChange?: InputProps['onChange'];
+}
 
 type OnChangeValueType = string | number | Record<string, any>;
 export interface optionRenderProps {
@@ -78,6 +85,12 @@ export type RenderMultipleSelectedItemFn = (optionNode: Record<string, any>, mul
 export type RenderSelectedItemFn = RenderSingleSelectedItemFn | RenderMultipleSelectedItemFn;
 
 export type SelectProps = {
+    'aria-describedby'?: React.AriaAttributes['aria-describedby'];
+    'aria-errormessage'?: React.AriaAttributes['aria-errormessage'];
+    'aria-invalid'?: React.AriaAttributes['aria-invalid'];
+    'aria-labelledby'?: React.AriaAttributes['aria-labelledby'];
+    'aria-required'?: React.AriaAttributes['aria-required'];
+    id?: string;
     autoFocus?: boolean;
     arrowIcon?: React.ReactNode;
     defaultValue?: string | number | any[] | Record<string, any>;
@@ -114,6 +127,8 @@ export type SelectProps = {
     suffix?: React.ReactNode;
     prefix?: React.ReactNode;
     insetLabel?: React.ReactNode;
+    insetLabelId?: string;
+    inputProps?: Subtract<InputProps, ExcludeInputType>;
     showClear?: boolean;
     showArrow?: boolean;
     renderSelectedItem?: RenderSelectedItemFn;
@@ -171,6 +186,11 @@ class Select extends BaseComponent<SelectProps, SelectState> {
     static OptGroup = OptionGroup;
 
     static propTypes = {
+        'aria-describedby': PropTypes.string,
+        'aria-errormessage': PropTypes.string,
+        'aria-invalid': PropTypes.bool,
+        'aria-labelledby': PropTypes.string,
+        'aria-required': PropTypes.bool,
         autoFocus: PropTypes.bool,
         children: PropTypes.node,
         defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object]),
@@ -199,6 +219,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         dropdownStyle: PropTypes.object,
         outerTopSlot: PropTypes.node,
         innerTopSlot: PropTypes.node,
+        inputProps: PropTypes.object,
         outerBottomSlot: PropTypes.node,
         innerBottomSlot: PropTypes.node, // Options slot
         optionList: PropTypes.array,
@@ -217,6 +238,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         suffix: PropTypes.node,
         prefix: PropTypes.node,
         insetLabel: PropTypes.node,
+        insetLabelId: PropTypes.string,
         showClear: PropTypes.bool,
         showArrow: PropTypes.bool,
 
@@ -559,18 +581,20 @@ class Select extends BaseComponent<SelectProps, SelectState> {
     handleInputChange = (value: string) => this.foundation.handleInputChange(value);
 
     renderInput() {
-        const { size, multiple, disabled } = this.props;
+        const { size, multiple, disabled, inputProps } = this.props;
+        const inputPropsCls = get(inputProps, 'className');
         const inputcls = cls(`${prefixcls}-input`, {
             [`${prefixcls}-input-single`]: !multiple,
             [`${prefixcls}-input-multiple`]: multiple,
-        });
+        }, inputPropsCls);
         const { inputValue } = this.state;
 
-        const inputProps: Record<string, any> = {
+        const selectInputProps: Record<string, any> = {
             value: inputValue,
             disabled,
             className: inputcls,
             onChange: this.handleInputChange,
+            ...inputProps,
         };
 
         let style = {};
@@ -579,18 +603,18 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             style = {
                 width: inputValue ? `${inputValue.length * 16}px` : '2px',
             };
-            inputProps.style = style;
+            selectInputProps.style = style;
         }
         return (
             <Input
                 ref={this.inputRef as any}
                 size={size}
-                {...inputProps}
                 onFocus={(e: React.FocusEvent<HTMLInputElement>) => {
                     // prevent event bubbling which will fire trigger onFocus event
                     e.stopPropagation();
                     // e.nativeEvent.stopImmediatePropagation();
                 }}
+                {...selectInputProps}
             />
         );
     }
@@ -891,7 +915,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                     </Tag>
                 );
             } else {
-                return content;
+                return <Fragment key={value}>{content}</Fragment>;
             }
         });
 
@@ -975,7 +999,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
     }
 
     renderPrefix() {
-        const { prefix, insetLabel } = this.props;
+        const { prefix, insetLabel, insetLabelId } = this.props;
         const labelNode = (prefix || insetLabel) as React.ReactElement<any, any>;
 
         const prefixWrapperCls = cls({
@@ -985,7 +1009,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             [`${prefixcls}-prefix-icon`]: isSemiIcon(labelNode),
         });
 
-        return <div className={prefixWrapperCls}>{labelNode}</div>;
+        return <div className={prefixWrapperCls} id={insetLabelId}>{labelNode}</div>;
     }
 
     renderSelection() {
@@ -994,6 +1018,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             multiple,
             filter,
             style,
+            id,
             size,
             className,
             validateStatus,
@@ -1005,6 +1030,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             triggerRender,
             arrowIcon,
         } = this.props;
+
         const { selections, isOpen, keyboardEventSet, inputValue, isHovering, isFocus } = this.state;
         const useCustomTrigger = typeof triggerRender === 'function';
         const filterable = Boolean(filter); // filter（boolean || function）
@@ -1085,10 +1111,16 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 aria-controls={`${prefixcls}-${this.selectOptionListID}`}
                 aria-haspopup="listbox"
                 aria-label="select value"
+                aria-invalid={this.props['aria-invalid']}
+                aria-errormessage={this.props['aria-errormessage']}
+                aria-labelledby={this.props['aria-labelledby']}
+                aria-describedby={this.props['aria-describedby']}
+                aria-required={this.props['aria-required']}
                 className={selectionCls}
                 ref={ref => ((this.triggerRef as any).current = ref)}
                 onClick={e => this.foundation.handleClick(e)}
                 style={style}
+                id={id}
                 tabIndex={tabIndex}
                 onMouseEnter={this.onMouseEnter}
                 onMouseLeave={this.onMouseLeave}

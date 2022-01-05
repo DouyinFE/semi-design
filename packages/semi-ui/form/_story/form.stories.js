@@ -54,7 +54,6 @@ import { AssistComponent } from './Layout/slotDemo';
 import { ModalFormDemo } from './Layout/modalFormDemo';
 
 import { WithFieldDemo, CustomFieldDemo, NumberRange } from './HOC/withFieldDemo';
-import { WithDisplayName } from './HOC/displayName';
 import {
   CustomValidateDemo,
   ValidateFieldsDemo,
@@ -424,79 +423,6 @@ export const DebugRerenderTwice = () => (
 
 DebugRerenderTwice.story = {
   name: 'Debug-RerenderTwice',
-};
-
-export const FieldDisplayName = () => <WithDisplayName attr="form" />;
-
-FieldDisplayName.story = {
-  name: 'Field displayName',
-};
-
-class ReUseDemo extends React.Component {
-  constructor() {
-    super();
-    this.getFormApi = this.getFormApi.bind(this);
-    this.suppressRankOptions = [
-      { label: '不打压', value: 0 },
-      { label: 'top10以下', value: 10 },
-      { label: 'top30以下', value: 30 },
-    ];
-    this.citySuppressRankOptions = [
-      { label: '不打压', value: 0 },
-      { label: 'top3以下', value: 3 },
-      { label: 'top5以下', value: 5 },
-      { label: 'top10以下', value: 10 },
-    ];
-  }
-
-  getFormApi(formApi) {
-    this.formApi = formApi;
-  }
-
-  render() {
-    return (
-      <Form
-        getFormApi={this.getFormApi}
-        initValues={{ listType: 'online', attr: { suppress_rank: 0, city_suppress_rank: 5 } }}
-        onValueChange={values => console.log(values)}
-        style={{ width: 250 }}
-      >
-        {({ formState }) => (
-          <>
-            <Form.Select
-              field="listType"
-              label="榜单类型"
-              disabled={this.ifUseOld}
-              style={{ width: '100%' }}
-              // onChange={val => this.onChangeListType(val)}
-            >
-              <Option value="online">热点榜</Option>
-              <Option value="riseHot">上升热点榜</Option>
-              <Option value="sameCity">同城热点榜</Option>
-            </Form.Select>
-            {formState.values.listType !== 'sameCity' ? (
-              <Form.Select
-                label="竞品打压类型"
-                field="attr.suppress_rank"
-                optionList={this.suppressRankOptions}
-              />
-            ) : (
-              <Form.Select
-                label="同城竞品打压"
-                field="attr.city_suppress_rank"
-                optionList={this.citySuppressRankOptions}
-              />
-            )}
-          </>
-        )}
-      </Form>
-    );
-  }
-}
-export const SameFieldSwitchCauseReuse = () => <ReUseDemo />;
-
-SameFieldSwitchCauseReuse.story = {
-  name: 'same field switch cause reuse',
 };
 
 export const _ChildDidMount = () => <ChildDidMount />;

@@ -11,8 +11,7 @@ dir: column
 ## 表单(Form)
 
 -   **按需重绘**，避免了不必要的全量渲染, 性能更高
--   简单易用，**结构简洁**，避免了不必要的层级嵌套
-    **无需 Form.create()、无需 Form.item，无需 getFieldDecorator()**
+-   简单易用，**结构极简**，避免了不必要的层级嵌套
 -   在 Form 外部可方便地获取 formState / fieldState  
     提供在外部对表单内部进行操作的方法：formApi / fieldApi
 -   支持将自定义组件封装成表单控件，你可以通过 Form 提供的扩展机制（withField HOC）快捷接入自己团队的组件
@@ -2079,6 +2078,24 @@ const { ErrorMessage } = Form;
 | valuePath         | 值属性在回调函数中第一个参数的路径,如 Radio 的 onChange(e.target.checked)，那么该值需要设为 target.checkd；RadioGroup 的 onChange(e.target.value)，该值为'target.value'；若第一个参数就是值本身，无需再往下取值，该项不需要设                 |            |
 | maintainCursor    | 是否需要保持光标，用于 Input 类组件                                                                                                                                                                                                           | false      |
 | shouldMemo        | 是否需要 memo（用于表单性能优化，避免 Form rerender 时 Field 也被 rerender），对于有内部状态且内部状态可能会更新并影响 UI 的自定义组件，此项应该置为 false <br/>**v0.27.0 后提供** | true       |
+
+
+## Accessibility
+
+### ARIA
+
+- [aria-labelledby](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-labelledby)、for
+  - Field 组件，会自动添加 label DOM。label 的 `for` 属性与 `props.id` 或 `props.name` 或 `props.field` 相同 ；label 的id 属性由 `props.id` 或 `props.name` 或 `props.field` 决定，值格式为 `${props.field}-label`;
+  - 当 Form 或者 Field 的 props.labelPosition 设置为 inset时，此时不存在 label 标签，而是 div 标签。insetLabel 对应的 div 标签会被自动追加 id，值与上述 label 的 id 相同，对应 Field 组件的 `aria-labelledby`
+  - Field 组件会被自动追加 `aria-labelledby`，值与上述 label 的id 相同
+- [aria-required](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-required_attribute)
+  - 当 Field 配置了必填时（即 props.rules中包含 require: true 或 props.label配置了required: true），Field 组件会被自动追加  aria-required = true（Form.Switch、Form.CheckboxGroup 除外）
+- [aria-invalid](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-invalid_attribute) 、[aria-errormessage](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-errormessage) 
+  - 当 Field 校验未通过时，Field 组件会被自动添加 `aria-invalid` = true 属性，Form.CheckboxGroup 除外。
+  - 当 Field 校验未通过时，Field 组件会被自动追加 `aria-errormessage` 属性，值为 errorMessage 所对应DOM元素的 id （格式: `${props.field}-errormessage`），Form.CheckboxGroup 除外。
+- [aria-describedby](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-describedby_attribute)
+  - 当 Field 配置了 `helpText` 或 `extraText` 时，Field 组件会被自动添加 `aria-describedby` 属性，值为 helpText、extraText 所对应DOM元素的 id （格式：`${props.field}-helpText` 、`${props.field}-extraText`）
+
 
 ## 设计变量
 <DesignToken/>

@@ -30,7 +30,10 @@ module.exports = {
                 'operator-linebreak': ['warn', 'after', { 'overrides': { '?': 'before', ':': 'before' } }],
                 'import/no-unresolved': 'off',
                 'semi': ['error', 'always'],
-                'keyword-spacing': ["error", { "before": true, "after": true }]
+                'keyword-spacing': ["error", { "before": true, "after": true }],
+                'jsx-a11y/click-events-have-key-events': ['warn'],
+                'jsx-a11y/no-noninteractive-element-interactions': ['warn'],
+                'jsx-a11y/no-autofocus': ['warn'],
             },
             globals: {
                 "sinon": "readonly",
@@ -70,7 +73,10 @@ module.exports = {
                 '@typescript-eslint/no-unused-vars': 'off',
                 'import/no-unresolved': 'off',
                 'semi': ['error', 'always'],
-                'keyword-spacing': ["error", { "before": true, "after": true }]
+                'keyword-spacing': ["error", { "before": true, "after": true }],
+                'jsx-a11y/click-events-have-key-events': ['warn'],
+                'jsx-a11y/no-noninteractive-element-interactions': ['warn'],
+                'jsx-a11y/no-autofocus': ['warn'],
             }
         },
     ],

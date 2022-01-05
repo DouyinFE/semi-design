@@ -905,6 +905,13 @@ import { Transfer } from '@douyinfe/semi-ui';
 };
 ```
 
+## Accessibility
+
+### ARIA
+
+- Add `role` `search` to the search box
+- Add `role` `list` to the selected list on the right, add `role` `listitem` to the selected item
+
 ## API Reference
 
 ### Trasnfer Props

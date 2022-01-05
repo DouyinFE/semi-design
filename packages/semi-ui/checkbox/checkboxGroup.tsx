@@ -13,6 +13,11 @@ export type CheckboxDirection = 'horizontal' | 'vertical';
 export type CheckboxType = 'default' | 'card' | 'pureCard';
 
 export type CheckboxGroupProps = {
+    'aria-describedby'?: React.AriaAttributes['aria-describedby'];
+    'aria-errormessage'?: React.AriaAttributes['aria-errormessage'];
+    'aria-invalid'?: React.AriaAttributes['aria-invalid'];
+    'aria-labelledby'?: React.AriaAttributes['aria-labelledby'];
+    'aria-required'?: React.AriaAttributes['aria-required'];
     defaultValue?: any[];
     disabled?: boolean;
     name?: string;
@@ -25,6 +30,8 @@ export type CheckboxGroupProps = {
     style?: React.CSSProperties;
     className?: string;
     type?: CheckboxType;
+    id?: string;
+    'aria-label'?: React.AriaAttributes['aria-label'];
 };
 
 export type CheckboxGroupState = {
@@ -33,6 +40,11 @@ export type CheckboxGroupState = {
 class CheckboxGroup extends BaseComponent<CheckboxGroupProps, CheckboxGroupState> {
 
     static propTypes = {
+        'aria-describedby': PropTypes.string,
+        'aria-errormessage': PropTypes.string,
+        'aria-invalid': PropTypes.bool,
+        'aria-labelledby': PropTypes.string,
+        'aria-required': PropTypes.bool,
         defaultValue: PropTypes.array,
         disabled: PropTypes.bool,
         name: PropTypes.string,
@@ -97,7 +109,7 @@ class CheckboxGroup extends BaseComponent<CheckboxGroupProps, CheckboxGroupState
     }
 
     render() {
-        const { children, options, prefixCls, direction, className, style, type, disabled } = this.props;
+        const { children, options, prefixCls, direction, className, id, style, type, disabled } = this.props;
 
         const isPureCardType = type === strings.TYPE_PURECARD;
         const isCardType = type === strings.TYPE_CARD || isPureCardType;
@@ -119,6 +131,7 @@ class CheckboxGroup extends BaseComponent<CheckboxGroupProps, CheckboxGroupState
                 if (typeof option === 'string') {
                     return (
                         <Checkbox
+                            role="listitem"
                             key={index}
                             disabled={this.props.disabled}
                             value={option}
@@ -130,6 +143,7 @@ class CheckboxGroup extends BaseComponent<CheckboxGroupProps, CheckboxGroupState
                 } else {
                     return (
                         <Checkbox
+                            role="listitem"
                             key={index}
                             disabled={option.disabled || this.props.disabled}
                             value={option.value}
@@ -145,16 +159,21 @@ class CheckboxGroup extends BaseComponent<CheckboxGroupProps, CheckboxGroupState
                 }
             });
         } else if (children) {
-            inner = (React.Children.toArray(children) as React.ReactElement[]).map((itm, index) => React.cloneElement(itm, { key: index }));
+            inner = (React.Children.toArray(children) as React.ReactElement[]).map((itm, index) => React.cloneElement(itm, { key: index, role: 'listitem' }));
         }
 
         return (
             <div
-                role="listbox"
-                aria-label="Checkbox group"
-                aria-disabled={disabled}
+                id={id}
+                role="list"
+                aria-label={this.props['aria-label']}
                 className={prefixClsDisplay} 
                 style={style}
+                aria-labelledby={this.props['aria-labelledby']}
+                aria-describedby={this.props['aria-describedby']}
+                // aria-errormessage={this.props['aria-errormessage']}
+                // aria-invalid={this.props['aria-invalid']}
+                // aria-required={this.props['aria-required']}
             >
                 <Context.Provider
                     value={{
