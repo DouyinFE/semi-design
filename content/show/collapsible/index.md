@@ -218,6 +218,14 @@ import { Collapsible, Button } from '@douyinfe/semi-ui';
 | motion | 是否开启动画 | Motion | `true` | - |
 | reCalcKey | 当 reCalcKey 改变时，将重新计算子节点的高度，用于优化动态渲染时的计算 | number \| string | - | 1.5.0 |
 | style | 样式 | CSSProperties | - | 0.34.0 |
+| aria-controls | [aria-controls](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-controls) | string | - | 2.2.0|
+
+## Accessibility
+
+### Aria
+
+-   Collapsible 具有 `'aria-controls'` props，传入的值会被设置为 html 元素的 aria-controls
+
 
 ## FAQ
 

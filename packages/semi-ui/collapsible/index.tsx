@@ -19,7 +19,7 @@ export interface CollapsibleProps {
     style?: React.CSSProperties;
     collapseHeight?: number;
     reCalcKey?: number | string;
-    ariaControls?: React.AriaAttributes['aria-controls'];
+    'aria-controls'?: React.AriaAttributes['aria-controls'];
 }
 
 
@@ -34,7 +34,7 @@ const Collapsible = (props: CollapsibleProps) => {
         style,
         className,
         reCalcKey,
-        ariaControls
+        'aria-controls':ariaControls
     } = props;
 
     const ref = useRef(null);
