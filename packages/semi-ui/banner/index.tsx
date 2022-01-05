@@ -112,6 +112,7 @@ export default class Banner extends BaseComponent<BannerProps, BannerState> {
                 theme="borderless"
                 size="small"
                 type="tertiary"
+                aria-label='Close'
             />
         );
         return closer;
@@ -153,7 +154,7 @@ export default class Banner extends BaseComponent<BannerProps, BannerState> {
             [`${prefixCls}-bordered`]: !fullMode && bordered,
         });
         const banner = visible ? (
-            <div className={wrapper} style={style}>
+            <div className={wrapper} style={style} role="alert">
                 <div className={`${prefixCls}-content-wrapper`}>
                     <div className={`${prefixCls}-content`}>
                         {this.renderIcon()}

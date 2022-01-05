@@ -28,19 +28,19 @@ import { Slider } from '@douyinfe/semi-ui';
     <div>
         <div>
             <div>Default</div>
-            <Slider showBoundary={true}></Slider>
+            <Slider aria-label='Slider default' showBoundary={true}></Slider>
         </div>
         <br/>
         <br/>
         <div>
             <div>Range</div>
-            <Slider defaultValue={[20, 60]} range></Slider>
+            <Slider aria-label='Slider range' defaultValue={[20, 60]} range></Slider>
         </div>
         <br/>
         <br/>
         <div>
             <div>Disabled</div>
-            <Slider defaultValue={40} disabled></Slider>
+            <Slider aria-label='Slider disabled' defaultValue={40} disabled></Slider>
         </div>
     </div>
 );
@@ -258,6 +258,18 @@ import { Slider } from '@douyinfe/semi-ui';
 | verticalReverse | Vertical but reverse direction >=1.29.0| boolean | false |-|
 | onAfterChange  | Triggered when onmouseup is invoked, passed in current value as params                     | (value: number \| number[]) => void      | -       |- |
 | onChange       | Callback function when slider value changes                                                | (value: number \| number[]) => void      | -       |- |
+
+## Accessibility
+
+### ARIA
+
+- The element serving as the focusable slider control has `role` 'slider'.
+- The slider element has the `aria-valuenow` property set to a decimal value representing the current value of the slider.
+- The slider element has the `aria-valuemin` property set to a decimal value representing the minimum allowed value of the slider.
+- The slider element has the `aria-valuemax` property set to a decimal value representing the maximum allowed value of the slider.
+- If the slider is vertically oriented, it has `aria-orientation` set to vertical.
+- If the value of `aria-valuenow` is not user-friendly, e.g., the day of the week is represented by a number, support setting API `aria-valuetext` property to a string that makes the slider value understandable, e.g., "Monday". And you can use API `getAriaValueText(value)` to specify `aria-valuetext`.
+- Supporting API `aria-label` `aria-labelledby` to specify Slider label.
 
 ## Design Tokens
 <DesignToken/>

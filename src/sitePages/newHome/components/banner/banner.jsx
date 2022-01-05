@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import { _t } from "src/utils/locale";
 import { Button } from '@douyinfe/semi-ui';
 import { navigate } from 'gatsby-link';
@@ -23,11 +24,17 @@ function Banner() {
                     </div>
                     <div className={styles.group2835}>
                         <Button onClick={goStart} size="large" theme="solid" className={styles.extraLarge}>{_t("start_using", { }, "开始使用")}</Button>
-                        <div onClick={goGithub} className={styles.buttonSecondarySolid_4427b030}><IconGithubLogo size="extra-large" /><p className={styles.text_bff7eaeb}>GitHub</p>
+                        <div onClick={goGithub} className={styles.buttonSecondarySolid_4427b030} role="button" tabIndex={0}><IconGithubLogo size="extra-large" /><p className={styles.text_bff7eaeb}>GitHub</p>
                         </div>
                     </div>
                 </div>
-                <div className={styles.autoWrapper_4fa00029}><div className={styles.background}></div><img src="https://lf9-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/37361.png" className={styles.group3736} /></div>
+                <div className={styles.autoWrapper_4fa00029}>
+                    <div className={styles.background}></div>
+                    <img
+                        src="https://lf9-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/37361.png"
+                        alt="semi application demo"
+                        className={styles.group3736} />
+                </div>
             </div>
         </div>
     );

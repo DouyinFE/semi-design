@@ -133,6 +133,7 @@ export function mergeProps(props: any) {
         extraText,
         extraTextPosition,
         pure,
+        id,
         ...rest
     }: any = { ...defaultProps, ...props };
     // Form中的任何类型组件，初始值都统一通过initValue字段来传入，同时将可能会导致组件行为错误的props抽取出来，防止透传到组件中
@@ -183,6 +184,7 @@ export function mergeProps(props: any) {
         extraTextPosition,
         pure,
         rest,
+        id
     };
 }
 

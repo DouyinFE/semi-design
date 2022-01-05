@@ -14,6 +14,12 @@ import '@douyinfe/semi-foundation/rating/rating.scss';
 
 export { RatingItemProps } from './item';
 export interface RatingProps {
+    'aria-describedby'?: string;
+    'aria-errormessage'?: string;
+    'aria-invalid'?: boolean;
+    'aria-label'?: string;
+    'aria-labelledby'?: string;
+    'aria-required'?: boolean;
     disabled?: boolean;
     value?: number;
     defaultValue?: number;
@@ -34,9 +40,7 @@ export interface RatingProps {
     autoFocus?: boolean;
     size?: 'small' | 'default' | number;
     tooltips?: string[];
-    'aria-label'?: React.AriaAttributes['aria-label'];
-    'aria-labelledby'?: React.AriaAttributes['aria-labelledby'];
-    'aria-describedby'?: React.AriaAttributes['aria-describedby'];
+    id?: string;
 }
 
 export interface RatingState {
@@ -49,6 +53,12 @@ export interface RatingState {
 export default class Rating extends BaseComponent<RatingProps, RatingState> {
     static contextType = ConfigContext;
     static propTypes = {
+        'aria-describedby': PropTypes.string,
+        'aria-errormessage': PropTypes.string,
+        'aria-invalid': PropTypes.bool,
+        'aria-label': PropTypes.string,
+        'aria-labelledby': PropTypes.string,
+        'aria-required': PropTypes.bool,
         disabled: PropTypes.bool,
         value: PropTypes.number,
         defaultValue: PropTypes.number,
@@ -68,6 +78,7 @@ export default class Rating extends BaseComponent<RatingProps, RatingState> {
         autoFocus: PropTypes.bool,
         size: PropTypes.oneOfType([PropTypes.oneOf(strings.SIZE_SET), PropTypes.number]),
         tooltips: PropTypes.arrayOf(PropTypes.string),
+        id: PropTypes.string,
     };
 
     static defaultProps = {
@@ -228,7 +239,7 @@ export default class Rating extends BaseComponent<RatingProps, RatingState> {
     };
 
     render() {
-        const { count, allowHalf, style, prefixCls, disabled, className, character, tabIndex, size, tooltips } =
+        const { count, allowHalf, style, prefixCls, disabled, className, character, tabIndex, size, tooltips, id } =
             this.props;
         const { value, hoverValue, focused } = this.state;
         const itemList = [...Array(count).keys()].map(ind => {
@@ -280,6 +291,7 @@ export default class Rating extends BaseComponent<RatingProps, RatingState> {
                 onBlur={disabled ? null : this.onBlur}
                 onKeyDown={disabled ? null : this.onKeyDown}
                 ref={this.saveRate as any}
+                id={id}
             >
                 {itemList}
             </ul>
