@@ -234,4 +234,20 @@ describe('Timeline', () => {
         timelineRight.unmount();
     });
 
+  it('Timeline with time type ReactNode',()=>{
+    const timeline=mount(<Timeline>
+      <Timeline.Item time={<span>2019-07-14 10:35</span>}>第一个节点内容</Timeline.Item>
+      <Timeline.Item time="2019-06-13 16:17">第二个节点内容</Timeline.Item>
+    </Timeline>, {
+      attachTo: document.getElementById('container'),
+    });
+    const firstItem = timeline.find(`.${BASE_CLASS_PREFIX}-timeline-item .${BASE_CLASS_PREFIX}-timeline-item-content .${BASE_CLASS_PREFIX}-timeline-item-content-time`).at(0);
+    expect(
+      firstItem
+        .getDOMNode()
+        .innerHTML
+    ).toEqual('<span>2019-07-14 10:35</span>');
+    timeline.unmount();
+  });
+
 });

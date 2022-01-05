@@ -198,22 +198,22 @@ function ButtonDemo() {
     return (
         <div>
             <strong>默认状态：</strong>
-            <Button icon={<IconCamera />}/>
+            <Button icon={<IconCamera />} aria-label="截屏" />
             <br/><br/>
             <strong>禁用状态：</strong>
-            <Button disabled icon={<IconCamera />}/>
+            <Button disabled icon={<IconCamera />} aria-label="截屏"/>
             <br/><br/>
             <strong>复合类型：</strong>
             <span className="btn-margin-right">
-                <Button type="primary" icon={<IconCamera />}/>
-                <Button type="secondary" icon={<IconCamera />}/>
-                <Button type="warning" icon={<IconCamera />}/>
-                <Button type="danger" icon={<IconCamera />}/>
+                <Button type="primary" icon={<IconCamera />} aria-label="截屏"/>
+                <Button type="secondary" icon={<IconCamera />} aria-label="截屏" />
+                <Button type="warning" icon={<IconCamera />} aria-label="截屏" />
+                <Button type="danger" icon={<IconCamera />} aria-label="截屏" />
             </span>
             <br/><br/>
             <strong>更改主题：</strong>
-            <Button icon={<IconCamera />} theme="solid" style={{ marginRight: 10 }}/>
-            <Button icon={<IconCamera />} theme="light"/>
+            <Button icon={<IconCamera />} theme="solid" style={{ marginRight: 10 }} aria-label="截屏" />
+            <Button icon={<IconCamera />} theme="light" aria-label="截屏" />
             <br/><br/>
             <strong>更改图标位置：</strong>
             <Button icon={<IconSidebar />} theme="solid" style={{ marginRight: 10 }}>收起</Button>
@@ -371,7 +371,7 @@ function ButtonDemo() {
         <div style={{ display: 'flex' }}>
             {types.map(type => (
                 <div style={{ marginRight: 10 }} key={type}>
-                    <ButtonGroup type={type}>
+                    <ButtonGroup type={type} aria-label="操作按钮组">
                         <Button>拷贝</Button>
                         <Button>查询</Button>
                         <Button>剪切</Button>
@@ -422,19 +422,19 @@ function SplitButtonDemo(){
 
     return (
         <div>
-            <SplitButtonGroup style={{marginRight:10}}>
+            <SplitButtonGroup style={{marginRight:10}} aria-label="项目操作按钮组">
                 <Button theme="solid" type="primary">分裂按钮</Button>
                 <Dropdown onVisibleChange={(v)=>handleVisibleChange(1,v)} menu={menu} trigger="click" position="bottomRight">
                     <Button style={btnVisible[1]?{background:'var(--semi-color-primary-hover)',padding:'8px 4px'}:{padding:'8px 4px'}} theme="solid" type="primary" icon={<IconTreeTriangleDown />}></Button>
                 </Dropdown>
             </SplitButtonGroup>
-            <SplitButtonGroup style={{marginRight:10}}>
+            <SplitButtonGroup style={{marginRight:10}} aria-label="项目操作按钮组">
                 <Button theme="light" type="primary">分裂按钮</Button>
                 <Dropdown onVisibleChange={(v)=>handleVisibleChange(2,v)} menu={menu} trigger="click" position="bottomRight">
                     <Button style={btnVisible[2]?{background:'var(--semi-color-fill-1)',padding:'8px 4px'}:{padding:'8px 4px'}}  theme="light" type="primary" icon={<IconTreeTriangleDown />}></Button>
                 </Dropdown>
             </SplitButtonGroup>
-            <SplitButtonGroup>
+            <SplitButtonGroup aria-label="项目操作按钮组">
                 <Button style={btnVisible[3]?{background:'var(--semi-color-fill-0)'}:{}} theme="borderless" type="primary">分裂按钮</Button>
                 <Dropdown onVisibleChange={(v)=>handleVisibleChange(3,v)} menu={menu} trigger="click" position="bottomRight">
                     <Button style={btnVisible[3]?{background:'var(--semi-color-fill-1)',padding:'8px 4px'}:{padding:'8px 4px'}}  theme="borderless" type="primary" icon={<IconTreeTriangleDown />}></Button>
@@ -445,12 +445,21 @@ function SplitButtonDemo(){
 }
 ```
 
+## Accessibility
+
+### Aria
+
+- `aria-label` 用于表示按钮的作用，对于图标按钮，我们推荐使用此属性
+- `aria-disabled` 与 disabled 属性同步，表示按钮禁用 
+
+
 ## API 参考
 
 ### Button
 
 | 属性                | 说明                                                                                                       | 类型                            | 默认值    |
 | ------------------- | ---------------------------------------------------------------------------------------------------------- | ------------------------------- | --------- |
+| aria-label          | 按钮的标签                                                                                       | string                            | -    |
 | block               | 将按钮设置为块级按钮                                                                                       | bool                            | false     |
 | className           | 类名                                                                                                       | string                          |           |
 | disabled            | 禁用状态                                                                                                   | boolean                         | false     |
@@ -472,6 +481,7 @@ function SplitButtonDemo(){
 
 | 属性     | 说明                                                                   | 类型    | 默认值    |
 | -------- | ---------------------------------------------------------------------- | ------- | --------- |
+| aria-label          | 按钮组的标签                                                                                       | string                            | -    |
 | disabled | 禁用状态                                                               | boolean | false     |
 | size     | 按钮大小，可选值：`large`、`default`、`small`                          | string  | "default" |
 | theme               | 按钮主题，可选值：`solid`（有背景色）、 `borderless`（无背景色）、 `light`（浅背景色）                     | string                          | "light"   |
@@ -480,6 +490,7 @@ function SplitButtonDemo(){
 ### SplitButtonGroup **V1.12.0新增**
 | 属性          | 说明                                                            | 类型      | 默认值     |
 | -----------  | --------------------------------------------------------------  | -------- | --------- |
+| aria-label          | 分裂按钮组的标签                                                                                       | string                            | -    |
 | style     | 自定义样式                               | CSSProperties   |         |
 | className     | 自定义类名                               | string   |         |
 

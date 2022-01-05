@@ -14,10 +14,10 @@ import CascaderFoundation, {
 } from '@douyinfe/semi-foundation/cascader/foundation';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/cascader/constants';
 import { numbers as popoverNumbers } from '@douyinfe/semi-foundation/popover/constants';
-import { isEqual, isString, isEmpty, isFunction, isNumber, noop } from 'lodash';
+import { isEqual, isString, isEmpty, isFunction, isNumber, noop, flatten } from 'lodash';
 import '@douyinfe/semi-foundation/cascader/cascader.scss';
 import { IconClear, IconChevronDown } from '@douyinfe/semi-icons';
-import { findKeysForValues, convertDataToEntities } from '@douyinfe/semi-foundation/cascader/util';
+import { findKeysForValues, convertDataToEntities, calcMergeType } from '@douyinfe/semi-foundation/cascader/util';
 import { calcCheckedKeys, normalizeKeyList, calcDisabledKeys } from '@douyinfe/semi-foundation/tree/treeUtil';
 import ConfigContext from '../configProvider/context';
 import BaseComponent, { ValidateStatus } from '../_base/baseComponent';
@@ -49,6 +49,11 @@ export type SimpleValueType = string | number | CascaderData;
 export type Value = SimpleValueType | Array<SimpleValueType> | Array<Array<SimpleValueType>>;
 
 export interface CascaderProps extends BasicCascaderProps {
+    'aria-describedby'?: React.AriaAttributes['aria-describedby'];
+    'aria-errormessage'?: React.AriaAttributes['aria-errormessage'];
+    'aria-invalid'?: React.AriaAttributes['aria-invalid'];
+    'aria-labelledby'?: React.AriaAttributes['aria-labelledby'];
+    'aria-required'?: React.AriaAttributes['aria-required'];
     arrowIcon?: ReactNode;
     defaultValue?: Value;
     dropdownStyle?: CSSProperties;
@@ -60,7 +65,9 @@ export interface CascaderProps extends BasicCascaderProps {
     value?: Value;
     prefix?: ReactNode;
     suffix?: ReactNode;
+    id?: string;
     insetLabel?: ReactNode;
+    insetLabelId?: string;
     style?: CSSProperties;
     bottomSlot?: ReactNode;
     topSlot?: ReactNode;
@@ -88,6 +95,11 @@ const resetkey = 0;
 class Cascader extends BaseComponent<CascaderProps, CascaderState> {
     static contextType = ConfigContext;
     static propTypes = {
+        'aria-labelledby': PropTypes.string,
+        'aria-invalid': PropTypes.bool,
+        'aria-errormessage': PropTypes.string,
+        'aria-describedby': PropTypes.string,
+        'aria-required': PropTypes.bool,
         arrowIcon: PropTypes.node,
         changeOnSelect: PropTypes.bool,
         defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
@@ -114,6 +126,8 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         suffix: PropTypes.node,
         prefix: PropTypes.node,
         insetLabel: PropTypes.node,
+        insetLabelId: PropTypes.string,
+        id: PropTypes.string,
         displayProp: PropTypes.string,
         displayRender: PropTypes.func,
         onChange: PropTypes.func,
@@ -143,15 +157,19 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         showRestTagsPopover: PropTypes.bool,
         restTagsPopoverProps: PropTypes.object,
         max: PropTypes.number,
+        separator: PropTypes.string,
         onExceed: PropTypes.func,
         onClear: PropTypes.func,
         loadData: PropTypes.func,
         onLoad: PropTypes.func,
         loadedKeys: PropTypes.array,
         disableStrictly: PropTypes.bool,
+        leafOnly: PropTypes.bool,
+        enableLeafClick: PropTypes.bool,
     };
 
     static defaultProps = {
+        leafOnly: false,
         arrowIcon: <IconChevronDown />,
         stopPropagation: true,
         motion: true,
@@ -168,6 +186,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         filterLeafOnly: true,
         showRestTagsPopover: false,
         restTagsPopoverProps: {},
+        separator: ' / ',
         size: 'default' as const,
         treeNodeFilterProp: 'label' as const,
         displayProp: 'label' as const,
@@ -177,6 +196,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         onClear: noop,
         onDropdownVisibleChange: noop,
         onListScroll: noop,
+        enableLeafClick: false,
     };
 
     options: any;
@@ -185,6 +205,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
     triggerRef: React.RefObject<HTMLDivElement>;
     optionsRef: React.RefObject<any>;
     clickOutsideHandler: any;
+    mergeType: string;
 
     constructor(props: CascaderProps) {
         super(props);
@@ -215,8 +236,8 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
             checkedKeys: new Set([]),
             /* Key of half checked node, when multiple */
             halfCheckedKeys: new Set([]),
-            /* Auto merged checkedKeys, when multiple */
-            mergedCheckedKeys: new Set([]),
+            /* Auto merged checkedKeys or leaf checkedKeys, when multiple */
+            resolvedCheckedKeys: new Set([]),
             /* Keys of loaded item */
             loadedKeys: new Set(),
             /* Keys of loading item */
@@ -226,6 +247,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         };
         this.options = {};
         this.isEmpty = false;
+        this.mergeType = calcMergeType(props.autoMergeValue, props.leafOnly);
         this.inputRef = React.createRef();
         this.triggerRef = React.createRef();
         this.optionsRef = React.createRef();
@@ -346,7 +368,9 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
             multiple,
             value,
             defaultValue,
-            onChangeWithObject
+            onChangeWithObject,
+            leafOnly,
+            autoMergeValue,
         } = props;
         const { prevProps } = prevState;
         let keyEntities = prevState.keyEntities || {};
@@ -402,21 +426,18 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                     });
                     realKeys = formatKeys;
                 }
-                let checkedKeys = new Set([]);
-                let halfCheckedKeys = new Set([]);
-                realKeys.forEach(v => {
-                    const calRes = calcCheckedKeys(v, keyEntities);
-                    checkedKeys = new Set([...checkedKeys, ...calRes.checkedKeys]);
-                    halfCheckedKeys = new Set([...halfCheckedKeys, ...calRes.halfCheckedKeys]);
-                });
+                const calRes = calcCheckedKeys(flatten(realKeys as string[]), keyEntities);
+                const checkedKeys = new Set(calRes.checkedKeys);
+                const halfCheckedKeys = new Set(calRes.halfCheckedKeys);
                 // disableStrictly
                 if (props.disableStrictly) {
                     newState.disabledKeys = calcDisabledKeys(keyEntities);
                 }
+                const isLeafOnlyMerge = calcMergeType(autoMergeValue, leafOnly) === strings.LEAF_ONLY_MERGE_TYPE;
                 newState.prevProps = props;
                 newState.checkedKeys = checkedKeys;
                 newState.halfCheckedKeys = halfCheckedKeys;
-                newState.mergedCheckedKeys = new Set(normalizeKeyList(checkedKeys, keyEntities));
+                newState.resolvedCheckedKeys = new Set(normalizeKeyList(checkedKeys, keyEntities, isLeafOnlyMerge));
             }
         }
         return newState;
@@ -493,7 +514,6 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         const {
             size,
             disabled,
-            autoMergeValue,
             placeholder,
             maxTagCount,
             showRestTagsPopover,
@@ -503,11 +523,13 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
             inputValue,
             checkedKeys,
             keyEntities,
-            mergedCheckedKeys
+            resolvedCheckedKeys
         } = this.state;
         const tagInputcls = cls(`${prefixcls}-tagInput-wrapper`);
         const tagValue: Array<Array<string>> = [];
-        const realKeys = autoMergeValue ? mergedCheckedKeys : checkedKeys;
+        const realKeys = this.mergeType === strings.NONE_MERGE_TYPE
+            ? checkedKeys
+            : resolvedCheckedKeys;
         [...realKeys].forEach(checkedKey => {
             if (!isEmpty(keyEntities[checkedKey])) {
                 tagValue.push(keyEntities[checkedKey].valuePath);
@@ -592,6 +614,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
             dropdownStyle,
             loadData,
             emptyContent,
+            separator,
             topSlot,
             bottomSlot,
             showNext,
@@ -601,11 +624,12 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         const popoverCls = cls(dropdownClassName, `${prefixcls}-popover`);
         const renderData = this.foundation.getRenderData();
         const content = (
-            <div className={popoverCls} role="list-box" style={dropdownStyle}>
+            <div className={popoverCls} role="listbox" style={dropdownStyle}>
                 {topSlot}
                 <Item
                     activeKeys={activeKeys}
                     selectedKeys={selectedKeys}
+                    separator={separator}
                     loadedKeys={loadedKeys}
                     loadingKeys={loadingKeys}
                     onItemClick={this.handleItemClick}
@@ -658,8 +682,10 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
 
     renderMultipleTags = () => {
         const { autoMergeValue, maxTagCount } = this.props;
-        const { checkedKeys, mergedCheckedKeys } = this.state;
-        const realKeys = autoMergeValue ? mergedCheckedKeys : checkedKeys;
+        const { checkedKeys, resolvedCheckedKeys } = this.state;
+        const realKeys = this.mergeType === strings.NONE_MERGE_TYPE
+            ? checkedKeys
+            : resolvedCheckedKeys;
         const displayTag: Array<ReactNode> = [];
         const hiddenTag: Array<ReactNode> = [];
         [...realKeys].forEach((checkedKey, idx) => {
@@ -714,7 +740,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
     };
 
     renderPrefix = () => {
-        const { prefix, insetLabel } = this.props;
+        const { prefix, insetLabel, insetLabelId } = this.props;
         const labelNode: any = prefix || insetLabel;
 
         const prefixWrapperCls = cls({
@@ -725,15 +751,19 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
             [`${prefixcls}-prefix-icon`]: isSemiIcon(labelNode),
         });
 
-        return <div className={prefixWrapperCls}>{labelNode}</div>;
+        return <div className={prefixWrapperCls} id={insetLabelId}>{labelNode}</div>;
     };
 
     renderCustomTrigger = () => {
-        const { disabled, triggerRender, multiple, autoMergeValue } = this.props;
-        const { selectedKeys, inputValue, inputPlaceHolder, mergedCheckedKeys, checkedKeys } = this.state;
+        const { disabled, triggerRender, multiple } = this.props;
+        const { selectedKeys, inputValue, inputPlaceHolder, resolvedCheckedKeys, checkedKeys } = this.state;
         let realValue;
         if (multiple) {
-            realValue = autoMergeValue ? mergedCheckedKeys : checkedKeys;
+            if (this.mergeType === strings.NONE_MERGE_TYPE) {
+                realValue = checkedKeys;
+            } else {
+                realValue = resolvedCheckedKeys;
+            }
         } else {
             realValue = [...selectedKeys][0];
         }
@@ -778,7 +808,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         const allowClear = this.showClearBtn();
         if (allowClear) {
             return (
-                <div className={clearCls} onClick={this.handleClear}>
+                <div className={clearCls} onClick={this.handleClear} role='button' tabIndex={0}>
                     <IconClear />
                 </div>
             );
@@ -809,6 +839,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
             insetLabel,
             triggerRender,
             showClear,
+            id,
         } = this.props;
         const { isOpen, isFocus, isInput, checkedKeys } = this.state;
         const filterable = Boolean(filterTreeNode);
@@ -847,14 +878,27 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                 <Fragment key={'suffix'}>{suffix ? this.renderSuffix() : null}</Fragment>,
                 <Fragment key={'arrow'}>{this.renderArrow()}</Fragment>,
             ];
-
+        /**
+         * Reasons for disabling the a11y eslint rule:
+         * The following attributes(aria-controls,aria-expanded) will be automatically added by Tooltip, no need to declare here
+         */
         return (
             <div
                 className={classNames}
                 style={style}
                 ref={this.triggerRef}
                 onClick={e => this.foundation.handleClick(e)}
+                aria-invalid={this.props['aria-invalid']}
+                aria-errormessage={this.props['aria-errormessage']}
+                aria-label={this.props['aria-label']}
+                aria-labelledby={this.props['aria-labelledby']}
+                aria-describedby={this.props["aria-describedby"]}
+                aria-required={this.props['aria-required']}
+                id={id}
                 {...mouseEvent}
+                // eslint-disable-next-line jsx-a11y/role-has-required-aria-props
+                role='combobox'
+                tabIndex={0}
             >
                 {inner}
             </div>

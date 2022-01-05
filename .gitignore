@@ -26,6 +26,7 @@ packages/semi-theme-default/semi.scss
 public
 storybook-static/
 *.zip
+cypress/videos/
 
 # misc
 .env.local
@@ -99,7 +100,6 @@ coverage
 
 # node-waf configuration
 .lock-wscript
-yarn.lock
 package-lock.json
 
 # Optional npm cache directory

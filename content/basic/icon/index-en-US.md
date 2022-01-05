@@ -54,7 +54,7 @@ import { IconHome, IconEmoji, IconSpin } from '@douyinfe/semi-icons';
 You can change the `font-size` to change the icon size
 >
 
-The Icon component encapsulates the size attribute, which makes it easier to define the icon size. It supports `extra-small` (8x8), `small` (12x12), `default` (16x16), `large` (20x20), `extra-large `(24x24).
+The Icon component encapsulates the size attribute, which makes it easier to define the icon size. It supports `extra-small` (8x8), `small` (12x12), `default` (16x16), `large` (20x20), `extra-large `(24x24), When size is specified as `inherit`, the icon size inherits the current context font size.
 
 
 ```jsx live=true
@@ -156,7 +156,7 @@ import StarIcon from './star.svg';
 | onMouseMove | Callback event of moving the mouse >=v1.21 | (e: Event) => void | None |
 | onMouseUp | Callback event when the mouse button is raised >=v1.21 | (e: Event) => void | None |
 | rotate | degree of rotation | number | |
-| size | Size, supports `extra-small`, `small`, `default`, `large`, `extra-large` | string | `default` |
+| size | Size, supports `inherit`, `extra-small`, `small`, `default`, `large`, `extra-large` | string | `default` |
 | spin | spin animation | boolean | |
 | style | Icon style | CSSProperties | None |
 | svg | Icon content | ReactNode | None |

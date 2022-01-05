@@ -4589,7 +4589,7 @@ type Filter = {
 | selectedRowKeys  | 指定选中项的 key 数组，需要和 onChange 进行配合                         | string[]                                                                                             |        |            |
 | title            | 自定义列表选择框标题                                                    | string\|ReactNode                                                                                    |        |            |
 | width            | 自定义列表选择框宽度                                                    | string\|number                                                                                       |        |            |
-| onChange         | 选中项发生变化时的回调                                                  | (selectedRowKeys: number[]\|string[], selectedRows: RecordType[]) => void                            |        |            |
+| onChange         | 选中项发生变化时的回调。第一个参数会保存上次选中的 row keys，即使你做了分页受控或更新了 dataSource [FAQ](#faq)    | (selectedRowKeys: number[]\|string[], selectedRows: RecordType[]) => void                            |        |            |
 | onSelect         | 用户手动点击某行选择框的回调                                            | (record: RecordType, selected: boolean, selectedRows: RecordType[], nativeEvent: MouseEvent) => void |        |            |
 | onSelectAll      | 用户手动点击表头选择框的回调，会选中/取消选中 dataSource 里的所有可选行 | (selected: boolean, selectedRows: RecordType[], changedRows: RecordType[]) => void                   |        |            |
 
@@ -4691,6 +4691,12 @@ function Demo() {
 - **如何给 table cell 设置样式？**
     
     涉及到单个 cell 需要控制样式的，可以通过 column.onHeaderCell、column.onCell 控制。
+
+
+- **为何 rowSelection onChange 的第一个参数缓存了之前选中的 keys ？**
+    
+    这么做为了在分页受控时，在第一页选中数据后，去第二页选择数据，回到第一页后选择的 row keys 丢失的场景。如果不想用缓存的 keys，可以从当前 dataSource 过滤一遍，或者使用 rowSelection onChange 的第二个参数。
+
 - **Table 是如何实现的，我想了解更多细节？**
 
     查看 <a href="https://bytedance.feishu.cn/docs/doccnqLgNefWGMZHFz7j70GKqpY" target="_blank">Semi Table 组件设计方案</a>了解更多。

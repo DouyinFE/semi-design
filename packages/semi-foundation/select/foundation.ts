@@ -787,15 +787,17 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
     }
 
     _removeInternalKey(option: BasicOptionProps) {
-        delete option._parentGroup;
-        delete option._show;
-        delete option._selected;
-        delete option._scrollIndex;
-        if ('_keyInOptionList' in option) {
-            option.key = option._keyInOptionList;
-            delete option._keyInOptionList;
+        // eslint-disable-next-line
+        let newOption = { ...option };
+        delete newOption._parentGroup;
+        delete newOption._show;
+        delete newOption._selected;
+        delete newOption._scrollIndex;
+        if ('_keyInOptionList' in newOption) {
+            newOption.key = newOption._keyInOptionList;
+            delete newOption._keyInOptionList;
         }
-        return option;
+        return newOption;
     }
 
     _notifySelect(value: BasicOptionProps['value'], option: BasicOptionProps) {

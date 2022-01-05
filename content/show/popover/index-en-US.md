@@ -475,6 +475,21 @@ Please refer to [Use with Tooltip/Popconfirm](/en-US/show/tooltip#%E6%90%AD%E9%8
 | zIndex | Floating layer z-index value | number | 1030 |
 | onVisibleChange | A callback triggered when the pop-up layer is displayed / hidden | (isVisble: boolean) => void |  |
 | onClickOutSide  | Callback when the pop-up layer is in the display state and the non-Children, non-floating layer inner area is clicked (only valid when trigger is custom, click) | (e:event) => void | | **2.1.0** |
+
+## Accessibility
+
+### ARIA
+
+-  About role
+   - If the trigger is set to `click`、`custom`, the PopoverContent element has role set to `dialog`.
+   - If the trigger is set to hover, it has role set to `tooltip`.
+- Popover's content
+   - The content wrapper will be automatically added with the id attribute
+- Popover's children 
+  - Will be automatically added [aria-expanded](https://www.w3.org/TR/wai-aria-1.1/#aria-expanded) attribute, when Popover is visible, the attribute value is `true`, when invisible Is `false`
+  - Will be automatically added [aria-haspopup](https://www.w3.org/TR/wai-aria-1.1/#aria-haspopup) attribute, which is `dialog`
+  - Will be automatically added [aria-controls](https://www.w3.org/TR/wai-aria-1.1/#aria-controls) attribute, which is the id of the content wrapper
+
 ## Design Tokens
 
 <DesignToken/>

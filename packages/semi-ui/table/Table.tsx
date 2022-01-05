@@ -790,7 +790,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
                 const hasRowSelected = this.foundation.hasRowSelected(selectedRowKeys, allRowKeysSet);
                 return (
                     <ColumnSelection
-                        ariaLabel={`${allIsSelected ? 'Deselect' : 'Select'} all rows`}
+                        aria-label={`${allIsSelected ? 'Deselect' : 'Select'} all rows`}
                         disabled={disabled}
                         key={columnKey}
                         selected={allIsSelected}
@@ -807,7 +807,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
 
                 return (
                     <ColumnSelection
-                        ariaLabel={`${selected ? 'Select' : 'Deselect'} this row`}
+                        aria-label={`${selected ? 'Select' : 'Deselect'} this row`}
                         getCheckboxProps={checkboxPropsFn}
                         selected={selected}
                         onChange={(status, e) => this.toggleSelectRow(status, key, e)}

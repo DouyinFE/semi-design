@@ -26,6 +26,12 @@ export type ValidateStatus = "default" | "error" | "warning" | "success";
 
 export interface InputProps extends
     Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'prefix' | 'size' | 'autoFocus' | 'placeholder' | 'onFocus' | 'onBlur'> {
+    'aria-label'?: React.AriaAttributes['aria-label'];
+    'aria-describedby'?: React.AriaAttributes['aria-describedby'];
+    'aria-errormessage'?: React.AriaAttributes['aria-errormessage'];
+    'aria-invalid'?: React.AriaAttributes['aria-invalid'];
+    'aria-labelledby'?: React.AriaAttributes['aria-labelledby'];
+    'aria-required'?: React.AriaAttributes['aria-required'];
     addonBefore?: React.ReactNode;
     addonAfter?: React.ReactNode;
     prefix?: React.ReactNode;
@@ -41,6 +47,7 @@ export interface InputProps extends
     hideSuffix?: boolean;
     placeholder?: React.ReactText;
     insetLabel?: React.ReactNode;
+    insetLabelId?: string;
     size?: InputSize;
     className?: string;
     style?: React.CSSProperties;
@@ -73,6 +80,12 @@ export interface InputState {
 
 class Input extends BaseComponent<InputProps, InputState> {
     static propTypes = {
+        'aria-label': PropTypes.string,
+        'aria-labelledby': PropTypes.string,
+        'aria-invalid': PropTypes.bool,
+        'aria-errormessage': PropTypes.string,
+        'aria-describedby': PropTypes.string,
+        'aria-required': PropTypes.bool,
         addonBefore: PropTypes.node,
         addonAfter: PropTypes.node,
         prefix: PropTypes.node,
@@ -101,6 +114,7 @@ class Input extends BaseComponent<InputProps, InputState> {
         onKeyPress: PropTypes.func,
         onEnterPress: PropTypes.func,
         insetLabel: PropTypes.node,
+        insetLabelId: PropTypes.string,
         inputStyle: PropTypes.object,
         getValueLength: PropTypes.func,
     };
@@ -325,7 +339,7 @@ class Input extends BaseComponent<InputProps, InputState> {
     }
 
     renderPrefix() {
-        const { prefix, insetLabel } = this.props;
+        const { prefix, insetLabel, insetLabelId } = this.props;
         const labelNode = prefix || insetLabel;
         if (!labelNode) {
             return null;
@@ -338,7 +352,7 @@ class Input extends BaseComponent<InputProps, InputState> {
         });
 
         // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-        return <div className={prefixWrapperCls} onMouseDown={this.handlePreventMouseDown} onClick={this.handleClickPrefixOrSuffix}>{labelNode}</div>;
+        return <div className={prefixWrapperCls} onMouseDown={this.handlePreventMouseDown} onClick={this.handleClickPrefixOrSuffix} id={insetLabelId}>{labelNode}</div>;
     }
 
     showClearBtn() {

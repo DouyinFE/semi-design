@@ -118,6 +118,7 @@ class Popover extends React.PureComponent<PopoverProps, PopoverState> {
             arrowBounding,
             position,
             style,
+            trigger,
             ...attr
         } = this.props;
         let { spacing } = this.props;
@@ -136,9 +137,12 @@ class Popover extends React.PureComponent<PopoverProps, PopoverState> {
             spacing = showArrow ? numbers.SPACING_WITH_ARROW : numbers.SPACING;
         }
 
+        const role = trigger === 'click' || trigger === 'custom' ? 'dialog' : 'tooltip';
+
         return (
             <Tooltip
                 {...(attr as any)}
+                trigger={trigger}
                 position={position}
                 style={style}
                 content={popContent}
@@ -146,6 +150,7 @@ class Popover extends React.PureComponent<PopoverProps, PopoverState> {
                 spacing={spacing}
                 showArrow={arrow}
                 arrowBounding={arrowBounding}
+                role={role}
             >
                 {children}
             </Tooltip>

@@ -11,9 +11,9 @@ import PropTypes from 'prop-types';
 import { noop } from 'lodash';
 import '@douyinfe/semi-foundation/modal/modal.scss';
 import BaseComponent from '../_base/baseComponent';
-import confirm, { withConfirm, withError, withInfo, withSuccess, withWarning } from '../modal/confirm';
+import confirm, { withConfirm, withError, withInfo, withSuccess, withWarning } from './confirm';
 import { Locale } from '../locale/interface';
-import useModal from '../modal/useModal';
+import useModal from './useModal';
 import { ButtonProps } from '../button/Button';
 
 export const destroyFns: any[] = [];
@@ -47,8 +47,8 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         closable: PropTypes.bool,
         centered: PropTypes.bool,
         visible: PropTypes.bool,
-        width: PropTypes.number,
-        height: PropTypes.number,
+        width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        height:  PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         confirmLoading: PropTypes.bool,
         cancelLoading: PropTypes.bool,
         okText: PropTypes.string,
@@ -266,7 +266,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         } else if (visible && this.state.hidden) {
             this.foundation.toggleHidden(false);
         }
-    }
+    };
 
     renderFooter = (): ReactNode => {
         const {

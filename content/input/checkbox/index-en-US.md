@@ -34,7 +34,7 @@ import React from 'react';
 import { Checkbox } from '@douyinfe/semi-ui';
 
 () => (
-    <Checkbox onChange={checked => console.log(checked)}>
+    <Checkbox aria-label="Checkbox demo" onChange={checked => console.log(checked)}>
         Semi Design
     </Checkbox>
 );
@@ -48,6 +48,7 @@ import { Checkbox } from '@douyinfe/semi-ui';
     <Checkbox
         defaultChecked
         onChange={checked => console.log(checked)}
+        aria-label="Checkbox demo"
     >
         Semi Design
     </Checkbox>
@@ -64,12 +65,14 @@ import { Checkbox } from '@douyinfe/semi-ui';
     <>
         <Checkbox
             extra='Semi Design is a design system developed and maintained by IES Front-end Team and UED Team'
+            aria-label="Checkbox demo"
         >
             Semi Design
         </Checkbox>
         <br/>
         <Checkbox
             extra='Semi Design is a design system developed and maintained by IES Front-end Team and UED Team'
+            aria-label="Checkbox demo"
             style={{ width: 400 }}
         >
             Semi Design
@@ -86,9 +89,9 @@ import { Checkbox } from '@douyinfe/semi-ui';
 
 () => (
     <div>
-        <Checkbox Default Checked={false} with>UnChecked Disabled</Checkbox>
+        <Checkbox defaultChecked={false} disabled aria-label="Checkbox demo">UnChecked Disabled</Checkbox>
         <br />
-        <Checkbox defaultChecked disabled>Checked Disabled</Checkbox>
+        <Checkbox defaultChecked disabled aria-label="Checkbox demo">Checked Disabled</Checkbox>
     </div>
 );
 ```
@@ -104,7 +107,7 @@ import React from 'react';
 import { Checkbox, CheckboxGroup } from '@douyinfe/semi-ui';
 
 () => (
-    <CheckboxGroup style={{ width: '100%' }} defaultValue={['A', 'B']}>
+    <CheckboxGroup style={{ width: '100%' }} defaultValue={['A', 'B']} aria-label="CheckboxGroup demo">
         <Checkbox value="A">A</Checkbox>
         <Checkbox value="B">B</Checkbox>
         <Checkbox value="C">C</Checkbox>
@@ -144,15 +147,16 @@ class App extends React.Component {
         ];
         return (
             <div>
-                <CheckboxGroup options={plainOptions} defaultValue={['semi']} onChange={onChange} />
+                <CheckboxGroup options={plainOptions} defaultValue={['semi']} onChange={onChange} aria-label="CheckboxGroup demo" />
                 <br/><br/>
-                <CheckboxGroup options={options} defaultValue={[]} onChange={onChange} />
+                <CheckboxGroup options={options} defaultValue={[]} onChange={onChange} aria-label="CheckboxGroup demo" />
                 <br/><br/>
                 <CheckboxGroup
                     options={optionsWithDisabled}
                     disabled
                     defaultValue={['Photography']}
                     onChange={onChange}
+                    aria-label="Checkbox demo"
                 />
             </div>
         );
@@ -176,7 +180,7 @@ import { CheckboxGroup } from '@douyinfe/semi-ui';
         { label: 'toutiao', value: 'toutiao' }
     ];
     return (
-        <CheckboxGroup options={options} direction='horizontal' />
+        <CheckboxGroup options={options} direction='horizontal' aria-label="CheckboxGroup demo" />
     );
 };
 ```
@@ -228,6 +232,7 @@ class App extends React.Component {
                         checked={this.state.checked}
                         disabled={this.state.disabled}
                         onChange={this.onChange}
+                        aria-label="Checkbox demo"
                     >
                         {label}
                     </Checkbox>
@@ -284,6 +289,7 @@ import { Checkbox, CheckboxGroup } from '@douyinfe/semi-ui';
                     indeterminate={indeterminate}
                     onChange={onCheckAllChange}
                     checked={checkAll}
+                    aria-label="Checkbox demo"
                 >
                     Check all
                 </Checkbox>
@@ -293,6 +299,7 @@ import { Checkbox, CheckboxGroup } from '@douyinfe/semi-ui';
                 options={plainOptions}
                 value={checkedList}
                 onChange={onChange}
+                aria-label="CheckboxGroup demo"
             />
         </div>
     );
@@ -311,7 +318,7 @@ import React from 'react';
 import { CheckboxGroup, Checkbox } from '@douyinfe/semi-ui';
 
 () => (
-    <CheckboxGroup type='card' defaultValue={['1', '3']} direction='vertical'>
+    <CheckboxGroup type='card' defaultValue={['1', '3']} direction='vertical' aria-label="Checkbox demo">
         <Checkbox value={'1'} disabled extra='Checkbox Description' style={{width:280}}>
             Checkbox Title
         </Checkbox>
@@ -338,14 +345,17 @@ import React from 'react';
 import { CheckboxGroup, Checkbox } from '@douyinfe/semi-ui';
 
 () => (
-    <CheckboxGroup type='pureCard' defaultValue={['1', '3']} direction='vertical'>
+    <CheckboxGroup type='pureCard' defaultValue={['1', '3']} direction='vertical' aria-label="Checkbox demo">
         <Checkbox value={'1'} disabled extra='Checkbox Description' style={{width:280}}>
             Checkbox Title
         </Checkbox>
-        <Checkbox value={'2'} extra='Checkbox Description' style={{width:280}}>
+        <Checkbox value={'2'} disabled extra='Checkbox Description' style={{width:280}}>
             Checkbox Title
         </Checkbox>
         <Checkbox value={'3'} extra='Checkbox Description' style={{width:280}}>
+            Checkbox Title
+        </Checkbox>
+        <Checkbox value={'4'} extra='Checkbox Description' style={{width:280}}>
             Checkbox Title
         </Checkbox>
     </CheckboxGroup>
@@ -361,7 +371,7 @@ import React from 'react';
 import { CheckboxGroup, Checkbox, Row, Col } from '@douyinfe/semi-ui';
 
 () => (
-    <CheckboxGroup style={{ width: '100%' }}>
+    <CheckboxGroup style={{ width: '100%' }} aria-label="Checkbox demo">
         <Row>
             <Col span={8}>
                 <Checkbox value="A">A</Checkbox>
@@ -383,12 +393,23 @@ import { CheckboxGroup, Checkbox, Row, Col } from '@douyinfe/semi-ui';
 );
 ```
 
+## Accessibility
+
+### Aria
+- The role of Checkbox is `checkbox`, the role of CheckboxGroup is `list`, and its direct child element is `listitem`
+- `aria-label`: When using the Checkbox alone, if Children have no text, it is recommended to pass in the `aria-label` prop to describe the function of the Checkbox in one sentence, which will make the screen reader read out the content of this label. If you are using Form.Checkbox, you can use the label provided by Form without passing in `aria-label`
+- `aria-labelledby` points to the `addon` node, used to explain the role of the current Checkbox
+- `aria-describedby` points to the `extra` node, which is used to supplement the explanation of the current Checkbox
+- `aria-disabled` indicates the current disabled state, which is consistent with the value of the `disabled` prop
+- `aria-checked` indicates the current checked state
+
 ## API Reference
 
 ### Checkbox
 
 | PROPERTIES     | Instructions                                                 | type               | Default |
 | -------------- | ------------------------------------------------------------ | ------------------ | ------- |
+| aria-label     | Define label of the Checkbox  | string | - |
 | checked        | Specify whether the current Checkbox is selected (it is invalid when used in Group)                     | boolean            | false   |
 | defaultChecked | Whether Checked by default (it is invalid when used in Group)                                           | boolean            | false   |
 | disabled       | Disabled state                                               | boolean            | false   |

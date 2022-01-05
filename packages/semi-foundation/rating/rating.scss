@@ -56,6 +56,10 @@ $module: #{$prefix}-rating;
             font-size: $font-rating_item_default-fontSize;
         }
 
+        &-wrapper {
+            position: relative;
+        }
+
         &-first,
         &-second {
             color: $color-rating-bg-default;

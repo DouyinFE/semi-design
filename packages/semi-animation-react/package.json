@@ -1,6 +1,6 @@
 {
   "name": "@douyinfe/semi-animation-react",
-  "version": "2.1.3",
+  "version": "2.2.0",
   "description": "motion library for semi-ui-react",
   "keywords": [
     "motion",
@@ -26,8 +26,8 @@
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.15.4",
-    "@douyinfe/semi-animation": "2.1.3",
-    "@douyinfe/semi-animation-styled": "2.1.3",
+    "@douyinfe/semi-animation": "2.2.0",
+    "@douyinfe/semi-animation-styled": "2.2.0",
     "classnames": "^2.2.6"
   },
   "peerDependencies": {
@@ -51,5 +51,5 @@
     "prop-types": "15.7.2",
     "react-storybook-addon-props-combinations": "^1.1.0"
   },
-  "gitHead": "5344f767711f1677a6113bc7fc38d1853bcc7f5a"
+  "gitHead": "eb34a4f25f002bb4cbcfa51f3df93bed868c831a"
 }

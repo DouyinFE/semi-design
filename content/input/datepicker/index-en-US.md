@@ -143,6 +143,8 @@ version：>= 1.28.0
 
 In the scenario of range selection, turning on `syncSwitchMonth` means to switch the two panels simultaneously. The default is false.
 
+> Note: Clicking the year button will also switch the two panels synchronously. Switching the year and month from the scroll wheel will not switch the panels synchronously. This ensures the user's ability to select months at non-fixed intervals.
+
 ```jsx live=true
 import React from 'react';
 import { DatePicker } from '@douyinfe/semi-ui';

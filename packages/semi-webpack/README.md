@@ -147,4 +147,17 @@ In the compilation phase, whether to exclude css references.Used to solve the pr
 
 Type: `webpack NormalModule`
 
+##### options.extractCssOptions.loader
+
+Type: `String`
+
+The path of webpack loader that extract css.
+
+##### options.extractCssOptions.loaderOptions
+
+Type: `Object`
+
+The options of webpack loader that extract css.
+
+
 In webpack@5, some hooks need to be obtained through api `NormalModule.getCompilationHooks`. But in some scenarios, webpack will not be installed, such as Next.js. Therefore, the user is required to pass in NormalModule as a parameter.

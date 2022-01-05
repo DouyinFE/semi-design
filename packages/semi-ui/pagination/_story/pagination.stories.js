@@ -146,3 +146,14 @@ export const PaginationDynamicUpdatePageSize = () => <DynamicPageSize />;
 PaginationDynamicUpdatePageSize.story = {
   name: 'Pagination dynamic update pageSize',
 };
+
+
+export const HideOnSingePageAndShowChanger = () => {
+  return (
+    <Pagination total={10} hideOnSinglePage showSizeChanger style={{ marginBottom: 12 }}></Pagination>
+  )
+}
+
+HideOnSingePageAndShowChanger.story = {
+  name: 'hideOnSingelePage & showSizeChanger at same time',
+};

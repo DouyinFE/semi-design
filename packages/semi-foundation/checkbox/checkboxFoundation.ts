@@ -9,6 +9,9 @@ export interface BasicCheckboxEvent {
     target: BasicTargetObject;
     stopPropagation: () => void;
     preventDefault: () => void;
+    nativeEvent: {
+        stopImmediatePropagation: () => void;
+    }
 }
 export interface CheckboxAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     getIsInGroup: () => boolean;
@@ -41,6 +44,13 @@ class CheckboxFoundation<P = Record<string, any>, S = Record<string, any>> exten
             },
             preventDefault: () => {
                 e.preventDefault();
+            },
+            nativeEvent: {
+                stopImmediatePropagation: () => {
+                    if (e.nativeEvent && typeof e.nativeEvent.stopImmediatePropagation === 'function') {
+                        e.nativeEvent.stopImmediatePropagation();
+                    }
+                }
             },
         };
         return cbValue;
@@ -104,6 +114,7 @@ class CheckboxFoundation<P = Record<string, any>, S = Record<string, any>> exten
 }
 
 export interface BaseCheckboxProps {
+    id?: string;
     autoFocus?: boolean;
     checked?: boolean;
     defaultChecked?: boolean;

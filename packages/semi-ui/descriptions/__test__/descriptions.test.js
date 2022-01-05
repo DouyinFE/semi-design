@@ -17,6 +17,14 @@ const dataWithHide = [
     { key: '认证状态', value: '未认证' },
 ];
 
+const dataWithKeyIsNode = [
+    { key: <strong>实际用户数量</strong>, value: '1,480,000' },
+    { key: '7天留存', value: '98%' },
+    { key: '安全等级', value: '3级' },
+    { key: '垂类标签', value: <Tag>电商</Tag> },
+    { key: '认证状态', value: '未认证' },
+];
+
 function renderDescriptions(props) {
     const realProps = {
         data,
@@ -134,7 +142,6 @@ describe('Descriptions', () => {
         largeDesc.unmount();
     });
 
-
     it('Descriptions with jsx', () => {
         const desc = mount(
             <Descriptions>
@@ -162,6 +169,25 @@ describe('Descriptions', () => {
                 .getDOMNode()
                 .textContent
         ).toEqual('1,480,000');
+        desc.unmount();
+    });
+
+    it('Descriptions with key is node', () => {
+        const desc = renderDescriptions({ data: dataWithKeyIsNode });
+        expect(
+            desc
+                .find(`.${BASE_CLASS_PREFIX}-descriptions-key strong`)
+                .at(0)
+                .getDOMNode()
+                .textContent
+        ).toEqual('实际用户数量');
+        expect(
+            desc
+                .find(`.${BASE_CLASS_PREFIX}-descriptions-key`)
+                .at(1)
+                .getDOMNode()
+                .textContent
+        ).toEqual('7天留存');
         desc.unmount();
     });
 })

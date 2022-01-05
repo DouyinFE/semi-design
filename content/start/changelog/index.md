@@ -15,11 +15,86 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 ---
 
+#### 🎉 2.2.0 (2021-12-24)
+
+- 【Fix】
+    - 修复 Tabs 在 umd 方式使用时，tabPlane tab props 不接受动态更新的问题
+- 【Docs】
+    - 完善 Navigation  API 文档 [#451](https://github.com/DouyinFE/semi-design/pull/451) [@linjunc](https://github.com/linjunc)
+
+#### 🎉 2.2.0-beta.1 (2021-12-23)
+
+- 【Fix】
+    - 修复 DatePicker 输入非法年份导致组件崩溃问题 [#422](https://github.com/DouyinFE/semi-design/issues/422)
+    - 修复 Notification 多色模式下，背景色透明导致的内容穿透 [#430](https://github.com/DouyinFE/semi-design/issues/430)
+    - 修复 Vite 构建 CSS 时抛出 @charset utf-8 相关 warning 的问题 [#403](https://github.com/DouyinFE/semi-design/issues/403)
+    - 修复 Select 多选使用 backSpace 删除已选项后，下拉列表数据显示不正确的问题 [#444](https://github.com/DouyinFE/semi-design/issues/444)
+    - 修复 Empty 在切换暗色模式时显示 this.updateMode 未定义问题 [#452](https://github.com/DouyinFE/semi-design/issues/452)
+    - 修复 Safari<=13 版本的响应式报错问题 [#442](https://github.com/DouyinFE/semi-design/issues/442)
+
+#### 🎉 2.2.0-beta.0 (2021-12-17)
+
+- 【Feat】
+    - Timeline.Item 支持 onClick [#402](https://github.com/DouyinFE/semi-design/issues/402)
+    - Cascader 
+        - 支持仅回显叶子节点，提供 leafOnly API [#256](https://github.com/DouyinFE/semi-design/issues/256)
+        - 支持多选时点击叶子节点即可选中，提供 enableLeafClick API [#302](https://github.com/DouyinFE/semi-design/issues/302) [@btea](https://github.com/btea)
+        - 支持自定义分隔符，提供 separator API [#408](https://github.com/DouyinFE/semi-design/issues/408)
+    - Upload [#342](https://github.com/DouyinFE/semi-design/issues/342)
+        - 支持通过 ref 调用 insert 方法 
+        - 支持 props showPicInfo
+        - 使用 gap 控制 FileCard 间隔
+    - Icon [#260](https://github.com/DouyinFE/semi-design/issues/260)
+        - 添加 double_chevron_left,double_chevron_right 图标
+        - Icon 支持跟随当前上下文字体大小
+    - LocaleProvider 新增西班牙语语言包 [@chenjunxyf](https://github.com/chenjunxyf)
+    - Select 新增 inputProps ，便于用户在 filter 为 true 时可实现一些特殊功能。例如传入 onCompositionEnd，onKeyDown 事件监听等
+    - DatePicker [#260](https://github.com/DouyinFE/semi-design/issues/260)
+        - 新增年份切换按钮
+        - 优化范围选择交互逻辑，避免出现两个面板是相同月份场景
+- 【Fix】
+    - Select
+        - 修复 Select renderSelectedItem 返回的 isRenderInTag 为 false 时会报 key 的 warning 的问题 [#320](https://github.com/DouyinFE/semi-design/issues/320)
+        - 修复 Select 搜索高亮关键字时 warning 提示 mark 标签 key 缺失的问题
+    - 修复 Cascader multiple+disabled 时标签样式与设计稿不符 [#400](https://github.com/DouyinFE/semi-design/issues/400)
+    - 修复 Description type='plain' 时，key 或 itemKey 为 node 时渲染不正确的问题 [#406](https://github.com/DouyinFE/semi-design/issues/406)
+    - 修复 Pagination 同时使用 hideOnSingePage 与 showSizeChanger 时，总页数只有1时，sizeChanger 会消失无法再切换的问题 [#252](https://github.com/DouyinFE/semi-design/issues/252)
+    - 修复 通过 webpack plugin variables 方式定义 Select 组件 Design Token 时不生效的问题 [#375](https://github.com/DouyinFE/semi-design/issues/375) [@summerstream](https://github.com/summerstream)
+    - 修复 Rating 组件设置 size 为 number 后 UI 错误
+    - 修复 Timeline 自定义 dot 水平对齐的问题 [#395](https://github.com/DouyinFE/semi-design/issues/395) [@chenc041](https://github.com/chenc041)
+- 【Docs】
+    - 完善 semi-ui package.json [@chenc041](https://github.com/chenc041)
+
+#### 🎉 2.1.5 (2021-12-10)
+
+- 【Fix】
+  - Timeline.time ts 定义支持 ReactNode 类型 [#359](https://github.com/DouyinFE/semi-design/issues/359) [@chenc041](https://github.com/chenc041)
+  - 修复 Tree 组件 onContextMenu 阻止冒泡的问题 [#364](https://github.com/DouyinFE/semi-design/issues/364) [@Nctdtman](https://github.com/Nctdtman)
+  - 修复 Select/Checkbox/Button 缺少 id 的问题 [#353](https://github.com/DouyinFE/semi-design/issues/353)
+  - 修复 Nav  footer、header dts定义相反了的问题
+  - 修复 Table fixed 单元格 z-index 过小问题，从 1 调整为 101 [#391](https://github.com/DouyinFE/semi-design/issues/391)
+  - 修复 Form Field 在未声明 field 属性时使用时下丢失 ref 的问题
+- 【Style】
+  - 修复 --overlay-bg token 命名不规范的问题。 修改为 --color-overlay-bg
+#### 🎉 2.1.4 (2021-12-03)
+
+- 【Fix】
+  - Checkbox onChange 回调的入参 event 增加 nativeEvent.stopImmediatePropagation [#343](https://github.com/DouyinFE/semi-design/issues/343)
+  - 修复 Cascader 多选时点击 Checkbox 在某些场景下触发冒泡 [#343](https://github.com/DouyinFE/semi-design/issues/343)
+  - 修复 ButtonGroup 的 children 不是 ReactElement 报错的问题 [#318](https://github.com/DouyinFE/semi-design/issues/318) 
+  - 修复 Rating 组件当父级设置 line-height 时半星展示错误 [#346](https://github.com/DouyinFE/semi-design/issues/346)
+  - Checkbox/Radio
+    - 修复鼠标移入/移出选中按钮过程中，鼠标出现状态切换的样式问题 [#319](https://github.com/DouyinFE/semi-design/issues/319) 
+    - 修复选中态 hover/active 时选中按钮会出现外边框的问题 [#319](https://github.com/DouyinFE/semi-design/issues/319) 
+    - 优化卡片类型 selected+disabled 态的样式 [#319](https://github.com/DouyinFE/semi-design/issues/319) 
+
 #### 🎉 2.1.3 (2021-11-30)
+
 - 【Fix】
   - 修复在源码构建过程中，替换 ImportDeclaration 中 source 的bug
 
 #### 🎉 2.1.2 (2021-11-30)
+
 - 【Feature】
   - 支持 Next.js [#153](https://github.com/DouyinFE/semi-design/issues/153)
   - 替换飞书Logo图标
@@ -29,10 +104,12 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
   - 修复 Input focus 时 hover 态边框颜色错误问题 [#332](https://github.com/DouyinFE/semi-design/issues/332)
 
 #### 🎉 2.1.1 (2021-11-26)
+
 - 【Fix】
   - 提供 semi-icons、semi-illustrations 的 UMD 产物，解决 UMD 场景下无法使用 icon 的问题 [#215](https://github.com/DouyinFE/semi-design/issues/215)
 
 #### 🎉 2.1.0 (2021-11-26)
+
 - 【Fix】
   - 修复 Collapsible 组件在 content 有 margin 时展开/收起卡顿的问题 [@ChelesteWang](https://github.com/ChelesteWang)
 - 【Style】
@@ -43,10 +120,12 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
   - List 增加与 Checkbox、Radio、Input、Pagination 搭配使用的 Demo 示例；增加拖拽排序的Demo示例；增加键盘响应事件的 Demo 示例
 
 #### 🎉 2.1.0-beta.3 (2021-11-24)
+
 - 【Fix】
   - 更新部分组件的ts类型定义，修复 tsconfig.json 开启 strict: true 且 skipLibCheck为false时 build报错的问题 [#283](https://github.com/DouyinFE/semi-design/issues/283)
 
 #### 🎉 2.1.0-beta.1 (2021-11-24)
+
 - 【Fix】
   - Select
     - 修复虚拟化使用崩溃的问题 [#308](https://github.com/DouyinFE/semi-design/issues/308)
@@ -56,6 +135,7 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
   - 修复 Tree 的 interface ExpanedOtherProps 命名不正确的问题，将其修正为 ExpandedOtherProps [297](https://github.com/DouyinFE/semi-design/issues/297)
 
 #### 🎉 2.1.0-beta.0 (2021-11-19)
+
 - 【Feature】
   - Tabs 新增 关闭可选项 closable API [@xieyezi](https://github.com/xieyezi)
   - TagInput 新增 onKeyDown API [#255](https://github.com/DouyinFE/semi-design/issues/255)
@@ -77,10 +157,12 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 
 #### 🎉 2.0.8 (2021-11-11)
+
 - 【Fix】
   - 修复 Modal afterClose 部分场景失效
 
 #### 🎉 2.0.7 (2021-11-10)
+
 - 【Fix】
   - 修复 Icon 包缺少 classnames 依赖问题 [#231](https://github.com/DouyinFE/semi-design/issues/231)
 - 【Style】
@@ -88,11 +170,13 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 
 #### 🎉 2.0.6 (2021-11-10)
+
 - 【Style】
   - Table 移除固定列/固定表头时在表头插入的滚动轴列，使用 overflow-y 方案模拟滚动轴 [#164](https://github.com/DouyinFE/semi-design/issues/164)
 
 
 #### 🎉 2.0.5 (2021-11-09)
+
 - 【Style】
   - 修复 Input 组件 hover 时 border 样式问题 [#204](https://github.com/DouyinFE/semi-design/issues/204)
 - 【Perf】
@@ -108,6 +192,7 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
   - 优化了共建文档 [#224](https://github.com/DouyinFE/semi-design/issues/224) [@btea](https://github.com/btea)
 
 #### 🎉 2.0.3 (2021-11-06)
+
 - 【Fix】
   - 修复 Tree / TreeSelect 在 loading 状态下 item 高度变大的问题 [#181](https://github.com/DouyinFE/semi-design/issues/181)
   - 修复 TagInput 在 separator 不为 string 或 array 时输入值会被清空的问题 [#182](https://github.com/DouyinFE/semi-design/issues/182)
@@ -119,6 +204,7 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 
 #### 🎉 2.0.2 (2021-11-04)
+
 - 【Fix】
   - 修复 Toast 的类型定义 [#166](https://github.com/DouyinFE/semi-design/issues/166)
   - 修复 Radio value / defaultValue 的类型定义，从 string 改正为 string | number [#159](https://github.com/DouyinFE/semi-design/issues/159)
@@ -136,6 +222,7 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 
 #### 🎉 2.0.1 (2021-11-01)
+
 - 【Fix】
   - 修复 TreeSelect 选中节点后会展开其子节点并立即关闭，造成视觉跳闪的感觉 [#78](https://github.com/DouyinFE/semi-design/issues/78)
   - 修复 Progress 组件 size 改变时渲染错误 [#94](https://github.com/DouyinFE/semi-design/issues/94)

@@ -29,6 +29,7 @@ $inner-width: $width-icon-medium;
         width: 100%;
         height: 100%;
         margin: 0;
+        cursor: pointer;
     }
 
     &:hover {
@@ -46,6 +47,7 @@ $inner-width: $width-icon-medium;
         .#{$module}-inner-checked {
             .#{$module}-inner-display {
                 background: $color-radio_primary-bg-hover;
+                border-color: $color-radio_checked-border-hover;
             }
         }
     }
@@ -64,6 +66,7 @@ $inner-width: $width-icon-medium;
         .#{$module}-inner-checked {
             .#{$module}-inner-display {
                 background: $color-radio_primary-bg-active;
+                border-color: $color-radio_checked-border-active;
             }
         }
     }
@@ -135,6 +138,29 @@ $inner-width: $width-icon-medium;
         &_checked {
             background: $color-radio_cardRadioGroup-bg-checked;
             border: $width-radio_cardRadioGroup_checked-border solid $color-radio_cardRadioGroup_border-active;
+
+            &:hover {
+                border: $width-radio_cardRadioGroup_checked-border solid $color-radio_cardRadioGroup_checked_border-hover;
+
+                .#{$module}-inner-checked .#{$module}-inner-display {
+                    border-color: $color-radio_cardRadioGroup_checked_border-hover;
+                }
+            }
+
+            &:active {
+                background: $color-radio_cardRadioGroup-bg-checked;
+                border: $width-radio_cardRadioGroup_checked-border solid $color-radio_cardRadioGroup_checked_border-active;
+
+                .#{$module}-inner-checked {
+                    .#{$module}-inner-display {
+                        border-color: $color-radio_cardRadioGroup_checked_border-active;
+                    }
+
+                    &:hover .#{$module}-inner-display {
+                        background: $color-radio_primary-bg-active;
+                    }
+                }
+            }
         }
 
         &_hover {
@@ -144,6 +170,21 @@ $inner-width: $width-icon-medium;
         &_disabled {
             &:active {
                 background: transparent;
+            }
+        }
+
+        &_checked_disabled.#{$module}-cardRadioGroup  {
+            background: $color-radio_cardRadioGroup_disabled-bg-checked;
+            border: $width-radio_cardRadioGroup_checked_disabled-border solid $color-radio_cardRadioGroup_border_disabled-active;
+
+            .#{$module}-inner-checked .#{$module}-inner-display {
+                border-color: $color-radio_cardRadioGroup_checked_disabled-border-default;
+            }
+            
+            &:hover {
+                .#{$module}-inner-checked .#{$module}-inner-display {
+                    border-color: $color-radio_cardRadioGroup_checked_disabled-border-hover;
+                }
             }
         }
     }
@@ -158,6 +199,7 @@ $inner-width: $width-icon-medium;
         .#{$module}-inner-checked {
             .#{$module}-inner-display {
                 background: $color-radio_checked-bg-disabled;
+                border-color: $color-radio_checked-border-disabled;
             }
         }
     }
@@ -300,7 +342,7 @@ $inner-width: $width-icon-medium;
             &-display {
                 opacity: 0.75;
                 background: $color-radio_disabled-bg-default;
-                border-color: $color-radio_checked-border-disabled;
+                border-color: $color-radio_default-border-disabled;
 
                 &:hover {
                     background: $color-radio_disabled-bg-hover;
@@ -315,6 +357,7 @@ $inner-width: $width-icon-medium;
 
                 &:hover {
                     background: $color-radio_checked-bg-disabled;
+                    border-color: $color-radio_checked-border-disabled;
                 }
             }
         }
