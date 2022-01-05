@@ -279,6 +279,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         expandAction: false,
         clickToHide: true,
         searchAutoFocus: false,
+        'aria-label': 'TreeSelect'
     };
     inputRef: React.RefObject<typeof Input>;
     tagInputRef: React.RefObject<TagInput>;
@@ -648,7 +649,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         const style = { minWidth: dropdownMinWidth, ...dropdownStyle };
         const popoverCls = cls(dropdownClassName, `${prefixcls}-popover`);
         return (
-            <div className={popoverCls} role="listbox" style={style}>
+            <div className={popoverCls} style={style}>
                 {this.renderTree()}
             </div>
         );
@@ -942,9 +943,8 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             <div
                 // eslint-disable-next-line jsx-a11y/role-has-required-aria-props
                 role='combobox'
-                aria-label='TreeSelect input box'
                 aria-disabled={disabled}
-                aria-haspopup="listbox"
+                aria-haspopup="tree"
                 tabIndex={tabIndex}
                 className={classNames}
                 style={style}
@@ -953,6 +953,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 onKeyPress={this.handleSelectionEnterPress}
                 aria-invalid={this.props['aria-invalid']}
                 aria-errormessage={this.props['aria-errormessage']}
+                aria-label={this.props['aria-label']} 
                 aria-labelledby={this.props['aria-labelledby']}
                 aria-describedby={this.props['aria-describedby']}
                 aria-required={this.props['aria-required']}
@@ -1280,7 +1281,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                     labelEllipsis: typeof labelEllipsis === 'undefined' ? virtualize : labelEllipsis,
                 }}
             >
-                <div className={wrapperCls} role="listbox">
+                <div className={wrapperCls}>
                     {outerTopSlot}
                     {
                         !outerTopSlot &&
@@ -1288,7 +1289,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                         isDropdownPositionSearch &&
                         this.renderInput()
                     }
-                    <div className={listCls} role="tree" style={optionListStyle}>
+                    <div className={listCls} role="tree" aria-multiselectable={multiple ? true : false} style={optionListStyle}>
                         {noData ? this.renderEmpty() : this.renderNodeList()}
                     </div>
                     {outerBottomSlot}
@@ -1313,7 +1314,6 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         const pos = 'bottomLeft';
         return (
             <Popover
-                aria-label={this.props['aria-label']} 
                 stopPropagation={stopPropagation}
                 getPopupContainer={getPopupContainer}
                 zIndex={zIndex}

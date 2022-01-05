@@ -1242,7 +1242,6 @@ function Demo() {
 
 - TreeSelect 支持传入 `aria-label`、`aria-describedby`、`aria-errormessage`、`aria-invalid`、`aria-labelledby`、`aria-required` 来表示该 TreeSelect 作用;
 - TreeSelect 会为每个子节点分别设置 `aria-disabled`、`aria-checked`、`aria-selected`、`aria-level` 来表明节点状态及层级;
-- TreeSelect 支持通过按下 Enter 键来展开下拉框以及多选时选中节点。
 
 
 ## 设计变量

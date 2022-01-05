@@ -3,7 +3,7 @@ import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses } from '@douyinfe/semi-foundation/tree/constants';
 import isEnterPress from '@douyinfe/semi-foundation/utils/isEnterPress';
-import { debounce, isFunction, isString } from 'lodash';
+import { debounce, isFunction, isString, get } from 'lodash';
 import { IconTreeTriangleDown, IconFile, IconFolder, IconFolderOpen } from '@douyinfe/semi-icons';
 import { Checkbox } from '../checkbox';
 import TreeContext from './treeContext';
@@ -198,13 +198,15 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
 
     renderArrow() {
         const showIcon = !this.isLeaf();
-        const { loading } = this.props;
+        const { loading, expanded } = this.props;
         if (loading) {
             return <Spin wrapperClassName={`${prefixcls}-spin-icon`} />;
         }
         if (showIcon) {
             return (
                 <IconTreeTriangleDown
+                    role='button'
+                    aria-label={`${expanded ? 'Expand' : 'Collapse'} the tree item`} 
                     className={`${prefixcls}-expand-icon`}
                     size="small"
                     onClick={this.onExpand}
@@ -397,6 +399,8 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
             [`${prefixcls}-drag-over-gap-top`]: !disabled && dragOverGapTop,
             [`${prefixcls}-drag-over-gap-bottom`]: !disabled && dragOverGapBottom,
         });
+        const setsize = get(rest, ['data', 'children', 'length']);
+        const posinset = isString(rest.pos) ? Number(rest.pos.split('-')[level+1]) + 1 : 1;
         return (
             <li
                 className={nodeCls}
@@ -404,6 +408,9 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
                 aria-disabled={disabled} 
                 aria-checked={checked}
                 aria-selected={selected}
+                aria-setsize={setsize}
+                aria-posinset={posinset}
+                aria-expanded={expanded}
                 aria-level={level+1}
                 data-key={eventKey}
                 onClick={this.onClick}

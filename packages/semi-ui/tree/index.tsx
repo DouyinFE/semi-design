@@ -703,6 +703,12 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
         });
         const searchNoRes = Boolean(inputValue) && !filteredKeys.size;
         const noData = isEmpty(keyEntities) || (showFilteredOnly && searchNoRes);
+        const ariaAttr = {
+            role: noData ? 'none' : 'tree'
+        };
+        if (ariaAttr.role === 'tree'){
+            ariaAttr['aria-multiselectable'] = multiple ? true : false;
+        }
         return (
             <TreeContext.Provider
                 value={{
@@ -743,7 +749,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
             >
                 <div aria-label={this.props['aria-label']} className={wrapperCls} style={style}>
                     {filterTreeNode ? this.renderInput() : null}
-                    <div className={listCls} role={noData? 'none' : 'tree'}>
+                    <div className={listCls} {...ariaAttr}>
                         {noData ? this.renderEmpty() : this.renderNodeList()}
                     </div>
                 </div>
