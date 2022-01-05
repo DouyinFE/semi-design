@@ -100,6 +100,7 @@ export default class Navigation extends PureComponent<NavigationProps> {
         return (
             <div className={prefixCls} ref={ref}>
                 <IconButton
+                    aria-label="previous year"
                     key="double-chevron-left"
                     icon={<IconDoubleChevronLeft size={iconBtnSize}/>} 
                     size={buttonSize}
@@ -109,6 +110,7 @@ export default class Navigation extends PureComponent<NavigationProps> {
                     style={leftButtonStyle}
                 />
                 <IconButton
+                    aria-label="previous month"
                     key="chevron-left"
                     icon={<IconChevronLeft size={iconBtnSize} />}
                     size={buttonSize}
@@ -118,11 +120,12 @@ export default class Navigation extends PureComponent<NavigationProps> {
                     style={leftButtonStyle}
                 />
                 <div className={`${prefixCls}-month`}>
-                    <Button onClick={onMonthClick} theme={btnTheme} size={buttonSize}>
+                    <Button aria-label="select year and month" onClick={onMonthClick} theme={btnTheme} size={buttonSize}>
                         <span>{monthText}</span>
                     </Button>
                 </div>
                 <IconButton
+                    aria-label="next month"
                     key="chevron-right"
                     icon={<IconChevronRight size={iconBtnSize} />}
                     size={buttonSize}
@@ -132,6 +135,7 @@ export default class Navigation extends PureComponent<NavigationProps> {
                     style={rightButtonStyle}
                 />
                 <IconButton
+                    aria-label="next year"
                     key="double-chevron-right"
                     icon={<IconDoubleChevronRight size={iconBtnSize}/>} 
                     size={buttonSize}

@@ -579,11 +579,25 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
 
         return (
             <div className={switchCls} ref={current => this.adapter.setCache(`switch-${panelType}`, current)}>
-                <div className={dateCls} onClick={e => this.foundation.showDatePanel(panelType)}>
+                <div 
+                    tabIndex={0}
+                    role="button"
+                    aria-label="select date"
+                    className={dateCls} 
+                    onKeyPress={e => this.foundation.showDatePanel(panelType)}
+                    onClick={e => this.foundation.showDatePanel(panelType)}
+                >
                     {showSwithIcon && <IconCalendar />}
                     <span className={textCls}>{dateText || monthText}</span>
                 </div>
-                <div className={timeCls} onClick={e => this.foundation.showTimePicker(panelType, true)}>
+                <div 
+                    tabIndex={0}
+                    role="button"
+                    aria-label="select time"
+                    className={timeCls} 
+                    onKeyPress={e => this.foundation.showDatePanel(panelType)}
+                    onClick={e => this.foundation.showTimePicker(panelType, true)}
+                >
                     {showSwithIcon && <IconClock />}
                     <span className={textCls}>{timeText}</span>
                 </div>

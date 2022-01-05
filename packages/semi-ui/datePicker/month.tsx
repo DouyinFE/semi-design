@@ -356,9 +356,14 @@ export default class Month extends BaseComponent<MonthProps, MonthState> {
 
         return (
             <div
+                tabIndex={dayStatus.isDisabled ? null : 0}
+                role="button"
+                aria-disabled={dayStatus.isDisabled}
+                aria-label={`${fullDate}`}
                 className={!customRender ? dayCls : cssClasses.DAY}
                 title={fullDate}
                 key={(dayNumber as number) + dayIndex}
+                onKeyPress={e => !dayStatus.isDisabled && this.foundation.handleClick(day)}
                 onClick={e => !dayStatus.isDisabled && this.foundation.handleClick(day)}
                 onMouseEnter={() => this.foundation.handleHover(day)}
                 onMouseLeave={() => this.foundation.handleHover()}
@@ -379,7 +384,7 @@ export default class Month extends BaseComponent<MonthProps, MonthState> {
         const monthCls = classNames(cssClasses.MONTH);
         const ref = forwardRef || this.monthRef;
         return (
-            <div ref={ref} className={monthCls}>
+            <div role="grid" ref={ref} className={monthCls}>
                 {weekday}
                 {weeks}
             </div>

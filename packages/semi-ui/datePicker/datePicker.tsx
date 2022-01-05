@@ -507,6 +507,8 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
 
         return (
             <div
+                tabIndex={0}
+                role="button"
                 onClick={this.handleTriggerWrapperClick}
                 className={inputCls}>
                 {typeof triggerRender === 'function' ? (
@@ -555,7 +557,13 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
         );
 
         return (
-            <div ref={this.panelRef} className={wrapCls} style={dropdownStyle}>
+            <div 
+                role="dialog"
+                aria-modal="true"
+                ref={this.panelRef} 
+                className={wrapCls} 
+                style={dropdownStyle}
+            >
                 {topSlot && <div className={`${cssClasses.PREFIX}-topSlot`}>{topSlot}</div>}
                 {this.adapter.typeIsYearOrMonth() ?
                     this.renderYearMonthPanel(locale, localeCode) :
