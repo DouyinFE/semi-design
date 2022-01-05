@@ -78,6 +78,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
     private dragging: boolean[];
     private eventListenerSet: Set<() => void>;
     private chooseMovePos: 'min' | 'max';
+    foundation: SliderFoundation;
 
     constructor(props: SliderProps) {
         super(props);
@@ -462,6 +463,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                         return activeResult ? (
                             <span
                                 key={mark}
+                                onClick={e => this.foundation.handleWrapClick(e)}
                                 className={markClass}
                                 style={{ [stylePos]: `calc(${markPercent * 100}% - 2px)` }}
                             />
