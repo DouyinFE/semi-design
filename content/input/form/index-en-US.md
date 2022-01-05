@@ -1813,7 +1813,22 @@ const { ErrorMessage } = Form;
 | onKeyChangeFnName | The callback function when the component value changes, generally 'onChange'                                                                                                                                                                                                                                                                                                | 'onChange' |
 | valuePath         | The path of the value attribute to the first parameter in the callback function, such as Radio's onChange (e.target. checked), then the value needs to be set to target .checked; Radio Group's onChange (e.target. value), which is' target .value '; if the first parameter is the value itself, there is no need to take the value down, the item does not need to be set |            |
 | withCursor        | Do you need to maintain a cursor for Input class components                                                                                                                                                                                                                                                                                                                 | false      |
-| shouldMemo        | Do you need memo (for form performance optimization to avoid Field being rerender when Formrerender), for custom components with internal states that may update and affect the UI, this item should be set false                                                 | true       |
+
+## Accessibility
+
+### ARIA
+
+- [aria-labelledby](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-labelledby)、for
+  - Field component will automatically add label DOM. The for attribute of label is the same as `props.id` or `props.name` or `props.field`; the `id` attribute of label is determined by `props.id` or `props.name` or `props.field`, and the value format is `${props.field}-label`;
+  - When the props.labelPosition of the Form or Field is set to `inset`, there is no label tag at this time, but a div tag. The div tag corresponding to insetLabel will be automatically appended with `id`, the value is the same as the id of the above label, corresponding to the `aria-labelledby` of the Field component
+  - The Field component will be automatically appended with `aria-labelledby`, the value is the same as the id of the above label
+- [aria-required](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-required_attribute)
+  - When the Field is configured with required fields (that is, props.rules contains require: true or props.label is configured with required: true), the Field component will be automatically appended with `aria-required = true` (except Form.Switch, Form.CheckboxGroup)
+- [aria-invalid](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-invalid_attribute) 、[aria-errormessage](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-errormessage) 
+  - When the Field check fails, the Field component will be automatically added with the `aria-invalid` = true attribute, except for Form.CheckboxGroup.
+  - When the Field check fails, the Field component will be automatically appended with the `aria-errormessage` attribute, the value of which is the id of the DOM element corresponding to the errorMessage (format like: `${props.field}-errormessage`), except for Form.CheckboxGroup.
+- [aria-describedby](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-describedby_attribute)
+  - When the Field is configured with `helpText` or `extraText`, the Field component will be automatically added with the `aria-describedby` attribute, whose value is the id of the DOM element corresponding to helpText and extraText (format like: `${props.field}-helpText` , `${props.field}-extraText`)
 
 ## Design Tokens
 
