@@ -203,5 +203,15 @@ import { IconAlertTriangle } from '@douyinfe/semi-icons';
 | onClick    | Click event                                              | (e: MouseEvent) => void                             | -         | 2.2.0     |
 
 
+
+## Accessibility
+
+### ARIA
+- The element of dot and line between dots in TimeLine have a `aria-hidden`, indicates that they do not support Accessibility API.
+- Supporting API `aria-label` to specify TimeLine.Item's label.
+```js
+<Timeline.Item aria-label="bug fixed" time="2015-09-01">bug fixed</Timeline.Item>
+```
+
 ## Design Tokens
 <DesignToken/>

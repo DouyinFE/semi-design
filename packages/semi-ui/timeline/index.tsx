@@ -86,7 +86,7 @@ class Timeline extends PureComponent<TimelineProps> {
         const items = childrenList || this.addClassName(children);
 
         return (
-            <ul role="listbox" aria-orientation="vertical" style={style} className={classString}>
+            <ul style={style} className={classString}>
                 {items}
             </ul>
         );

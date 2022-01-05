@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/timeline/constants';
 import '@douyinfe/semi-foundation/timeline/timeline.scss';
 
-export interface TimelineItemProps {
+export interface TimelineItemProps extends Pick<React.AriaAttributes, 'aria-label'>{
     color?: string;
     time?: React.ReactNode;
     type?: 'default' | 'ongoing' | 'success' | 'warning' | 'error';
@@ -63,14 +63,15 @@ export default class Item extends PureComponent<TimelineItemProps> {
         const dotStyle = color ? { style: { backgroundColor: color } } : null;
         return (
             <li className={itemCls} style={style} onClick={onClick}>
-                <div className={`${prefixCls}-tail`} />
+                <div className={`${prefixCls}-tail`} aria-hidden />
                 <div
                     className={dotCls}
+                    aria-hidden
                     {...dotStyle}
                 >
                     {dot}
                 </div>
-                <div className={`${prefixCls}-content`} aria-label="content">
+                <div className={`${prefixCls}-content`} aria-label={this.props['aria-label']}>
                     {children}
                     {extra && <div className={`${prefixCls}-content-extra`}>{extra}</div>}
                     {time && <div className={`${prefixCls}-content-time`}>{time}</div>}

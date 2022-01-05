@@ -11,10 +11,10 @@ export default {
 export const DefaultTimeline = () => (
   <div>
     <Timeline>
-      <Timeline.Item time="2015-09-01">创建服务现场</Timeline.Item>
-      <Timeline.Item time="2015-09-01">初步排除网络异常</Timeline.Item>
-      <Timeline.Item time="2015-09-01">技术测试异常</Timeline.Item>
-      <Timeline.Item time="2015-09-01">网络异常正在修复</Timeline.Item>
+      <Timeline.Item aria-label="创建服务现场" time="2015-09-01">创建服务现场</Timeline.Item>
+      <Timeline.Item aria-label="初步排除网络异常" time="2015-09-01">初步排除网络异常</Timeline.Item>
+      <Timeline.Item aria-label="技术测试异常" time="2015-09-01">技术测试异常</Timeline.Item>
+      <Timeline.Item aria-label="网络异常正在修复" time="2015-09-01">网络异常正在修复</Timeline.Item>
     </Timeline>
   </div>
 );
@@ -191,6 +191,7 @@ const dataWithOnClick = [
       content: '创建服务现场',
       type: 'ongoing',
       onClick: e => console.log(e, '创建服务现场'),
+      "aria-label": "创建服务现场",
   },
   {
       time: '2019-06-13 16:17',
@@ -198,6 +199,7 @@ const dataWithOnClick = [
       content: <span style={{ fontSize: '18px' }}>初步排除网络异常</span>,
       color: 'pink',
       onClick: e => console.log(e, '初步排除网络异常'),
+      "aria-label": "初步排除网络异常",
   },
   {
       time: '2019-05-14 18:34',
@@ -205,6 +207,7 @@ const dataWithOnClick = [
       dot: <Icon type="alert_triangle" />,
       content: '技术测试异常',
       type: 'warning',
+      "aria-label": "技术测试异常",
       onClick: e => console.log(e, '技术测试异常'),
   },
   {
@@ -213,6 +216,7 @@ const dataWithOnClick = [
       content: '网络异常正在修复',
       type: 'success',
       onClick: e => console.log(e, '网络异常正在修复'),
+      "aria-label": "网络异常正在修复",
   }
 ];
 

@@ -244,7 +244,14 @@ import { IconAlertTriangle } from '@douyinfe/semi-icons';
 | type | 当前圆圈的模式 | `default`\|`ongoing`\|`success`\|`warning`\|`error` | `default` | - |
 | onClick | 鼠标点击事件的回调 | (e: MouseEvent) => void | - | 2.2.0 |
 
+## Accessibility
 
+### ARIA
+- 组件中时间点的连线以及时间点本身被设置了 `aria-hidden`，不会响应 Accessibility API
+- 可以通过传入 `aria-label` 设置 TimeLine.Item 的标签，描述时间节点的信息
+```js
+<Timeline.Item aria-label="网络异常正在修复" time="2015-09-01">网络异常正在修复</Timeline.Item>
+```
 ## 设计变量
 
 <DesignToken/>
