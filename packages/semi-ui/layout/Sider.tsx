@@ -41,6 +41,7 @@ export interface SiderProps {
     breakpoint?: Array<keyof ResponsiveMap>;
     onBreakpoint?: (screen: keyof ResponsiveMap, match: boolean) => void;
     'aria-label'?: React.AriaAttributes['aria-label'];
+    'role'?:React.AriaRole
 }
 
 class Sider extends React.PureComponent<SiderProps> {
@@ -50,7 +51,8 @@ class Sider extends React.PureComponent<SiderProps> {
         className: PropTypes.string,
         breakpoint: PropTypes.arrayOf(PropTypes.oneOf(bpt)),
         onBreakpoint: PropTypes.func,
-        'aria-label': PropTypes.string
+        'aria-label': PropTypes.string,
+        role: PropTypes.string,
     };
 
     static defaultProps = {
