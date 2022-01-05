@@ -55,7 +55,7 @@ export interface TagInputProps {
     style?: React.CSSProperties;
     suffix?: React.ReactNode;
     validateStatus?: ValidateStatus;
-    value?: string[];
+    value?: string[] | undefined;
     autoFocus?: boolean;
 }
 
@@ -140,12 +140,18 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
     }
 
     static getDerivedStateFromProps(nextProps: TagInputProps, prevState: TagInputState) {
-        const {
-            value,
-            inputValue,
-        } = nextProps;
+        const { value, inputValue } = nextProps;
+        const { tagsArray: prevTagsArray } = prevState;
+        let tagsArray: string[];
+        if (isArray(value)) {
+            tagsArray = value;
+        } else if ('value' in nextProps && !value) {
+            tagsArray = [];
+        } else {
+            tagsArray = prevTagsArray;
+        }
         return {
-            tagsArray: isArray(value) ? value : prevState.tagsArray,
+            tagsArray,
             inputValue: isString(inputValue) ? inputValue : prevState.inputValue
         };
     }
