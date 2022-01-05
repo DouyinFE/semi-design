@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react';
+import React, { AriaRole, CSSProperties } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/layout/constants';
@@ -40,6 +40,8 @@ export interface SiderProps {
     className?: string;
     breakpoint?: Array<keyof ResponsiveMap>;
     onBreakpoint?: (screen: keyof ResponsiveMap, match: boolean) => void;
+    'aria-label'?: React.AriaAttributes['aria-label'];
+    'role'?:React.AriaRole
 }
 
 class Sider extends React.PureComponent<SiderProps> {
@@ -49,6 +51,8 @@ class Sider extends React.PureComponent<SiderProps> {
         className: PropTypes.string,
         breakpoint: PropTypes.arrayOf(PropTypes.oneOf(bpt)),
         onBreakpoint: PropTypes.func,
+        'aria-label': PropTypes.string,
+        role: PropTypes.string,
     };
 
     static defaultProps = {
@@ -104,7 +108,7 @@ class Sider extends React.PureComponent<SiderProps> {
             [`${prefixCls}-sider`]: true,
         });
         return (
-            <aside className={classString} style={style} {...getDataAttr(others)}>
+            <aside className={classString} aria-label={this.props['aria-label']} style={style} {...getDataAttr(others)}>
                 <div className={`${prefixCls}-sider-children`}>
                     {children}
                 </div>

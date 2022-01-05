@@ -1,4 +1,4 @@
-import React, { CSSProperties, ComponentClass } from 'react';
+import React, { AriaRole, ComponentClass, CSSProperties } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses } from '@douyinfe/semi-foundation/layout/constants';
@@ -15,12 +15,13 @@ const htmlTag = {
     Layout: 'section'
 };
 
-function generator<P extends { type?: string; tagName?: string }>(type: string): (ComponentType: ComponentClass<{ type?: string; tagName?: string } & P>) => ComponentClass<P> {
+function generator<P extends { type?: string; tagName?: string; role?: AriaRole; 'aria-label'?: string }>(type: string): (ComponentType: ComponentClass<{ type?: string; tagName?: string } & P>) => ComponentClass<P> {
     const tagName = htmlTag[type];
     const typeName = type.toLowerCase();
     return (BasicComponent): ComponentClass<P> => class Adapter extends React.PureComponent<P> {
         render() {
-            return <BasicComponent type={typeName} tagName={tagName} {...this.props} />;
+            return <BasicComponent role={this.props.role} aria-label={this.props['aria-label']} type={typeName}
+                tagName={tagName} {...this.props} />;
         }
     };
 }
