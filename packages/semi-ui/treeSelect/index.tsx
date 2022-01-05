@@ -979,6 +979,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             size,
             searchAutoFocus,
             placeholder,
+            maxTagCount,
         } = this.props;
         const {
             keyEntities,
@@ -988,6 +989,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         const keyList = normalizeKeyList(checkedKeys, keyEntities, leafOnly);
         return (
             <TagInput
+                maxTagCount={maxTagCount}
                 disabled={disabled}
                 onInputChange={v => this.search(v)}
                 ref={this.tagInputRef}
