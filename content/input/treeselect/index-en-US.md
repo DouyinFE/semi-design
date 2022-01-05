@@ -1263,7 +1263,7 @@ For custom rendering of input box.
 
 ### Aria
 
-- TreeSelect supports passing in `aria-label` to indicate the role of the TreeSelect;
+- TreeSelect supports passing in  `aria-label`、`aria-describedby`、`aria-errormessage`、`aria-invalid`、`aria-labelledby`、`aria-required` to indicate the role of the TreeSelect;
 - TreeSelect will set `aria-disabled`, `aria-checked`, `aria-selected`, and `aria-level` for each child node to indicate the node status and level;
 - TreeSelect supports pressing the Enter key to expand the drop-down box and selecting nodes when multiple selections are made.
 

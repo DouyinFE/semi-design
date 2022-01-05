@@ -614,19 +614,20 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         }
 
         // eslint-disable-next-line prefer-const
-        let ariaAttribute = {
-            'aria-describedby': id,
-        };
+        let ariaAttribute = {};
 
         // Take effect when used by Popover component
         if (role === 'dialog') {
             ariaAttribute['aria-expanded'] = visible ? 'true' : 'false';
             ariaAttribute['aria-haspopup'] = 'dialog';
             ariaAttribute['aria-controls'] = id;
+        } else {
+            ariaAttribute['aria-describedby'] = id;
         }
 
         // The incoming children is a single valid element, otherwise wrap a layer with span
         const newChild = React.cloneElement(children as React.ReactElement, {
+            ...ariaAttribute,
             ...(children as React.ReactElement).props,
             ...this.mergeEvents((children as React.ReactElement).props, triggerEventSet),
             style: {
@@ -649,7 +650,6 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                     ref.current = node;
                 }
             },
-            ...ariaAttribute
         });
 
         // If you do not add a layer of div, in order to bind the events and className in the tooltip, you need to cloneElement children, but this time it may overwrite the children's original ref reference

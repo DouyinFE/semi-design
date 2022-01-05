@@ -13,6 +13,11 @@ export type CheckboxDirection = 'horizontal' | 'vertical';
 export type CheckboxType = 'default' | 'card' | 'pureCard';
 
 export type CheckboxGroupProps = {
+    'aria-describedby'?: React.AriaAttributes['aria-describedby'];
+    'aria-errormessage'?: React.AriaAttributes['aria-errormessage'];
+    'aria-invalid'?: React.AriaAttributes['aria-invalid'];
+    'aria-labelledby'?: React.AriaAttributes['aria-labelledby'];
+    'aria-required'?: React.AriaAttributes['aria-required'];
     defaultValue?: any[];
     disabled?: boolean;
     name?: string;
@@ -35,6 +40,11 @@ export type CheckboxGroupState = {
 class CheckboxGroup extends BaseComponent<CheckboxGroupProps, CheckboxGroupState> {
 
     static propTypes = {
+        'aria-describedby': PropTypes.string,
+        'aria-errormessage': PropTypes.string,
+        'aria-invalid': PropTypes.bool,
+        'aria-labelledby': PropTypes.string,
+        'aria-required': PropTypes.bool,
         defaultValue: PropTypes.array,
         disabled: PropTypes.bool,
         name: PropTypes.string,
@@ -159,6 +169,11 @@ class CheckboxGroup extends BaseComponent<CheckboxGroupProps, CheckboxGroupState
                 aria-label={this.props['aria-label']}
                 className={prefixClsDisplay} 
                 style={style}
+                aria-labelledby={this.props['aria-labelledby']}
+                aria-describedby={this.props['aria-describedby']}
+                // aria-errormessage={this.props['aria-errormessage']}
+                // aria-invalid={this.props['aria-invalid']}
+                // aria-required={this.props['aria-required']}
             >
                 <Context.Provider
                     value={{

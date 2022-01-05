@@ -103,6 +103,7 @@ interface setValuesConfig {
 }
 
 export interface BaseFormProps {
+    'aria-label'?: React.AriaAttributes['aria-label'];
     onSubmit?: (values: Record<string, any>) => void;
     onSubmitFail?: (errors: Record<string, FieldError>, values: any) => void;
     onReset?: () => void;
@@ -111,6 +112,7 @@ export interface BaseFormProps {
     validateFields?: (values: Record<string, any>) => string | Record<string, any>;
     /** Use this if you want to populate the form with initial values. */
     initValues?: Record<string, any>;
+    id?: string;
     /** getFormApi will be call once when Form mounted, u can save formApi reference in your component  */
     getFormApi?: (formApi: FormApi) => void;
     style?: React.CSSProperties;

@@ -17,6 +17,7 @@ import {
 } from '../../../index';
 const { Input, Select, DatePicker, Switch, Slider, CheckboxGroup, Checkbox, RadioGroup, Radio, TimePicker, InputNumber, InputGroup } = Form;
 
+import { IconPlusCircle, IconMinusCircle } from '@douyinfe/semi-icons';
 
 const SetValueUsingParentPath = () => {
     const { Option } = Form.Select;
@@ -51,7 +52,7 @@ const SetValueUsingParentPath = () => {
                     <React.Fragment>
                         <Button onClick={add} icon="plus_circle" theme="light">新增空白行</Button>
                         <Button
-                            icon="plus_circle" onClick={() => {
+                            icon={<IconPlusCircle></IconPlusCircle>} onClick={() => {
                                 addWithInitValue({ name: '自定义贴纸', type: '2D' });
                             }} style={{ marginLeft: 8 }}>新增带有初始值的行
                         </Button>
@@ -68,7 +69,7 @@ const SetValueUsingParentPath = () => {
                                         label={`素材类型：（${field}.type）`}
                                         style={{ width: 90 }}
                                     />
-                                    <Button type="danger" theme="borderless" icon="minus_circle" onClick={remove} style={{ margin: 12 }} />
+                                    <Button type="danger" theme="borderless" icon={<IconMinusCircle></IconMinusCircle>} onClick={remove} style={{ margin: 12 }} />
                                 </div>
                             ))
                         }

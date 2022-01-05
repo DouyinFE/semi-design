@@ -99,6 +99,11 @@ export type OverrideCommonProps =
 */
 // eslint-disable-next-line max-len
 export interface TreeSelectProps extends Omit<BasicTreeSelectProps, OverrideCommonProps | 'validateStatus' | 'searchRender'>, Pick<TreeProps, OverrideCommonProps>{
+    'aria-describedby'?: React.AriaAttributes['aria-describedby'];
+    'aria-errormessage'?: React.AriaAttributes['aria-errormessage'];
+    'aria-invalid'?: React.AriaAttributes['aria-invalid'];
+    'aria-labelledby'?: React.AriaAttributes['aria-labelledby'];
+    'aria-required'?: React.AriaAttributes['aria-required'];
     motion?: Motion;
     mouseEnterDelay?: number;
     mouseLeaveDelay?: number;
@@ -110,6 +115,7 @@ export interface TreeSelectProps extends Omit<BasicTreeSelectProps, OverrideComm
     dropdownMatchSelectWidth?: boolean;
     dropdownStyle?: React.CSSProperties;
     insetLabel?: React.ReactNode;
+    insetLabelId?: string;
     maxTagCount?: number;
     motionExpand?: boolean;
     optionListStyle?: React.CSSProperties;
@@ -164,6 +170,11 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
     static contextType = ConfigContext;
 
     static propTypes = {
+        'aria-describedby': PropTypes.string,
+        'aria-errormessage': PropTypes.string,
+        'aria-invalid': PropTypes.bool,
+        'aria-labelledby': PropTypes.string,
+        'aria-required': PropTypes.bool,
         loadedKeys: PropTypes.arrayOf(PropTypes.string),
         loadData: PropTypes.func,
         onLoad: PropTypes.func,
@@ -218,6 +229,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         suffix: PropTypes.node,
         prefix: PropTypes.node,
         insetLabel: PropTypes.node,
+        insetLabelId: PropTypes.string,
         zIndex: PropTypes.number,
         getPopupContainer: PropTypes.func,
         dropdownMatchSelectWidth: PropTypes.bool,
@@ -617,7 +629,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
     };
 
     renderPrefix = () => {
-        const { prefix, insetLabel }: any = this.props;
+        const { prefix, insetLabel, insetLabelId }: any = this.props;
         const labelNode = prefix || insetLabel;
         const prefixWrapperCls = cls({
             [`${prefixcls}-prefix`]: true,
@@ -627,7 +639,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             [`${prefixcls}-prefix-icon`]: isSemiIcon(labelNode),
         });
 
-        return <div className={prefixWrapperCls}>{labelNode}</div>;
+        return <div className={prefixWrapperCls} id={insetLabelId}>{labelNode}</div>;
     };
 
     renderContent = () => {
@@ -922,13 +934,16 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             ]
         );
         const tabIndex = disabled ? null : 0;
+        /**
+         * Reasons for disabling the a11y eslint rule:
+         * The following attributes(aria-controls,aria-expanded) will be automatically added by Tooltip, no need to declare here
+         */
         return (
             <div
+                // eslint-disable-next-line jsx-a11y/role-has-required-aria-props
                 role='combobox'
                 aria-label='TreeSelect input box'
-                aria-controls={`${prefixcls}-${this.treeSelectID}`}
                 aria-disabled={disabled}
-                aria-expanded={isOpen}
                 aria-haspopup="listbox"
                 tabIndex={tabIndex}
                 className={classNames}
@@ -936,6 +951,11 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 ref={this.triggerRef}
                 onClick={this.handleClick}
                 onKeyPress={this.handleSelectionEnterPress}
+                aria-invalid={this.props['aria-invalid']}
+                aria-errormessage={this.props['aria-errormessage']}
+                aria-labelledby={this.props['aria-labelledby']}
+                aria-describedby={this.props['aria-describedby']}
+                aria-required={this.props['aria-required']}
                 {...mouseEvent}
             >
                 {inner}

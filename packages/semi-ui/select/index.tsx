@@ -85,6 +85,11 @@ export type RenderMultipleSelectedItemFn = (optionNode: Record<string, any>, mul
 export type RenderSelectedItemFn = RenderSingleSelectedItemFn | RenderMultipleSelectedItemFn;
 
 export type SelectProps = {
+    'aria-describedby'?: React.AriaAttributes['aria-describedby'];
+    'aria-errormessage'?: React.AriaAttributes['aria-errormessage'];
+    'aria-invalid'?: React.AriaAttributes['aria-invalid'];
+    'aria-labelledby'?: React.AriaAttributes['aria-labelledby'];
+    'aria-required'?: React.AriaAttributes['aria-required'];
     id?: string;
     autoFocus?: boolean;
     arrowIcon?: React.ReactNode;
@@ -122,6 +127,7 @@ export type SelectProps = {
     suffix?: React.ReactNode;
     prefix?: React.ReactNode;
     insetLabel?: React.ReactNode;
+    insetLabelId?: string;
     inputProps?: Subtract<InputProps, ExcludeInputType>;
     showClear?: boolean;
     showArrow?: boolean;
@@ -180,6 +186,11 @@ class Select extends BaseComponent<SelectProps, SelectState> {
     static OptGroup = OptionGroup;
 
     static propTypes = {
+        'aria-describedby': PropTypes.string,
+        'aria-errormessage': PropTypes.string,
+        'aria-invalid': PropTypes.bool,
+        'aria-labelledby': PropTypes.string,
+        'aria-required': PropTypes.bool,
         autoFocus: PropTypes.bool,
         children: PropTypes.node,
         defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object]),
@@ -227,6 +238,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         suffix: PropTypes.node,
         prefix: PropTypes.node,
         insetLabel: PropTypes.node,
+        insetLabelId: PropTypes.string,
         showClear: PropTypes.bool,
         showArrow: PropTypes.bool,
 
@@ -987,7 +999,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
     }
 
     renderPrefix() {
-        const { prefix, insetLabel } = this.props;
+        const { prefix, insetLabel, insetLabelId } = this.props;
         const labelNode = (prefix || insetLabel) as React.ReactElement<any, any>;
 
         const prefixWrapperCls = cls({
@@ -997,7 +1009,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             [`${prefixcls}-prefix-icon`]: isSemiIcon(labelNode),
         });
 
-        return <div className={prefixWrapperCls}>{labelNode}</div>;
+        return <div className={prefixWrapperCls} id={insetLabelId}>{labelNode}</div>;
     }
 
     renderSelection() {
@@ -1018,6 +1030,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             triggerRender,
             arrowIcon,
         } = this.props;
+
         const { selections, isOpen, keyboardEventSet, inputValue, isHovering, isFocus } = this.state;
         const useCustomTrigger = typeof triggerRender === 'function';
         const filterable = Boolean(filter); // filter（boolean || function）
@@ -1098,6 +1111,11 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 aria-controls={`${prefixcls}-${this.selectOptionListID}`}
                 aria-haspopup="listbox"
                 aria-label="select value"
+                aria-invalid={this.props['aria-invalid']}
+                aria-errormessage={this.props['aria-errormessage']}
+                aria-labelledby={this.props['aria-labelledby']}
+                aria-describedby={this.props['aria-describedby']}
+                aria-required={this.props['aria-required']}
                 className={selectionCls}
                 ref={ref => ((this.triggerRef as any).current = ref)}
                 onClick={e => this.foundation.handleClick(e)}
