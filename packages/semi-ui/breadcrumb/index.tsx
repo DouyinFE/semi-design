@@ -41,6 +41,7 @@ export interface BreadcrumbProps extends BaseProps {
     renderMore?: (restItem: Array<React.ReactNode>) => React.ReactNode;
     /* Style type for ellipsis area */
     moreType?: MoreType;
+    'aria-label'?: React.AriaAttributes['aria-label'];
 }
 
 interface BreadcrumbState {
@@ -77,6 +78,7 @@ class Breadcrumb extends BaseComponent<BreadcrumbProps, BreadcrumbState> {
 
         /* Type of ellipsis area */
         moreType: propTypes.oneOf(strings.MORE_TYPE),
+        'aria-label': propTypes.string,
     };
     static defaultProps = {
         routes: [] as [],
@@ -91,6 +93,7 @@ class Breadcrumb extends BaseComponent<BreadcrumbProps, BreadcrumbState> {
         autoCollapse: true,
         moreType: 'default',
         maxItemCount: 4,
+        'aria-label': 'Breadcrumb'
     };
 
     constructor(props: BreadcrumbProps) {
@@ -164,8 +167,12 @@ class Breadcrumb extends BaseComponent<BreadcrumbProps, BreadcrumbState> {
             <span className={`${clsPrefix}-collapse`} key={`more-${itemsLen}`}>
                 <span className={`${clsPrefix}-item-wrap`}>
                     <span
+                        role='button'
+                        tabIndex={0}
+                        aria-label='Expand breadcrumb items'
                         className={`${clsPrefix}-item ${clsPrefix}-item-more`}
                         onClick={item => this.foundation.handleExpand(item)}
+                        onKeyPress={e => this.foundation.handleExpandEnterPress(e)}
                     >
                         {hasRenderMore && renderMore(restItem)}
                         {!hasRenderMore && moreType === 'default' && <IconMore />}
@@ -282,7 +289,7 @@ class Breadcrumb extends BaseComponent<BreadcrumbProps, BreadcrumbState> {
                     separator,
                 }}
             >
-                <nav aria-label={`${clsPrefix}`} className={sizeCls} style={style}>
+                <nav aria-label={this.props['aria-label']} className={sizeCls} style={style}>
                     {breadcrumbs}
                 </nav>
             </BreadContext.Provider>
