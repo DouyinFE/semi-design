@@ -252,7 +252,6 @@ class Anchor extends BaseComponent<AnchorProps, AnchorState> {
             showTooltip,
             position,
             autoCollapse,
-            ariaLabel
         } = this.props;
         const ariaLabel = this.props['aria-label'];
         const { activeLink, scrollHeight, slideBarTop } = this.state;
