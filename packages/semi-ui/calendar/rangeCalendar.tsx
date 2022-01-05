@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-to-interactive-role */
 import React from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
@@ -154,12 +155,12 @@ export default class RangeCalendar extends BaseComponent<RangeCalendarProps, Ran
         const { markWeekend, range } = this.props;
         const { month, week } = this.foundation.getRangeData(range[0], dateFnsLocale);
         return (
-            <div className={`${prefixCls}-header`}>
-                <ul className={`${cssClasses.PREFIX}-tag ${prefixCls}-tag ${prefixCls}-sticky-left`}>
-                    <span>{month}</span>
+            <div className={`${prefixCls}-header`} role="presentation">
+                <ul className={`${cssClasses.PREFIX}-tag ${prefixCls}-tag ${prefixCls}-sticky-left`} role="presentation">
+                    <span aria-label={month}>{month}</span>
                 </ul>
-                <div role="gridcell" className={`${prefixCls}-grid`}>
-                    <ul className={`${prefixCls}-grid-row`}>
+                <div role="presentation" className={`${prefixCls}-grid`}>
+                    <ul role="row" className={`${prefixCls}-grid-row`}>
                         {week.map(day => {
                             const { date, dayString, weekday, isToday } = day;
                             const listCls = cls({
@@ -167,7 +168,7 @@ export default class RangeCalendar extends BaseComponent<RangeCalendarProps, Ran
                                 [`${cssClasses.PREFIX}-weekend`]: markWeekend && day.isWeekend,
                             });
                             return (
-                                <li key={`${date.toString()}-weekheader`} className={listCls}>
+                                <li role="columnheader" key={`${date.toString()}-weekheader`} className={listCls}>
                                     <span className={`${cssClasses.PREFIX}-today-date`}>{dayString}</span>
                                     <span>{weekday}</span>
                                 </li>
@@ -247,8 +248,8 @@ export default class RangeCalendar extends BaseComponent<RangeCalendarProps, Ran
         return (
             <LocaleConsumer componentName="Calendar">
                 {(locale: Locale['Calendar'], localeCode: string, dateFnsLocale: Locale['dateFnsLocale']) => (
-                    <div className={weekCls} style={weekStyle} ref={this.dom}>
-                        <div className={`${prefixCls}-sticky-top`}>
+                    <div role="grid" className={weekCls} style={weekStyle} ref={this.dom}>
+                        <div role="presentation" className={`${prefixCls}-sticky-top`}>
                             {header}
                             {this.renderHeader(dateFnsLocale)}
                             {this.renderAllDay(locale)}

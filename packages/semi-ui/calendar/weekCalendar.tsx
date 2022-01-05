@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-to-interactive-role */
 import React from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
@@ -155,12 +156,12 @@ export default class WeekCalendar extends BaseComponent<WeekCalendarProps, WeekC
         const { markWeekend, displayValue } = this.props;
         const { month, week } = this.foundation.getWeeklyData(displayValue, dateFnsLocale);
         return (
-            <div className={`${prefixCls}-header`}>
-                <ul className={`${cssClasses.PREFIX}-tag ${prefixCls}-tag ${prefixCls}-sticky-left`}>
+            <div className={`${prefixCls}-header`} role="presentation">
+                <ul role="presentation" className={`${cssClasses.PREFIX}-tag ${prefixCls}-tag ${prefixCls}-sticky-left`}>
                     <span>{month}</span>
                 </ul>
-                <div role="gridcell" className={`${prefixCls}-grid`}>
-                    <ul className={`${prefixCls}-grid-row`}>
+                <div className={`${prefixCls}-grid`} role="presentation">
+                    <ul role="row" className={`${prefixCls}-grid-row`}>
                         {week.map(day => {
                             const { date, dayString, weekday, isToday } = day;
                             const listCls = cls({
@@ -168,7 +169,7 @@ export default class WeekCalendar extends BaseComponent<WeekCalendarProps, WeekC
                                 [`${cssClasses.PREFIX}-weekend`]: markWeekend && day.isWeekend,
                             });
                             return (
-                                <li key={`${date.toString()}-weekheader`} className={listCls}>
+                                <li role="columnheader" aria-current={isToday ? "date" : false} key={`${date.toString()}-weekheader`} className={listCls}>
                                     <span className={`${cssClasses.PREFIX}-today-date`}>{dayString}</span>
                                     <span>{weekday}</span>
                                 </li>
@@ -217,7 +218,7 @@ export default class WeekCalendar extends BaseComponent<WeekCalendarProps, WeekC
                 <ul className={`${cssClasses.PREFIX}-tag ${allDayCls}-tag ${prefixCls}-sticky-left`}>
                     <span>{locale.allDay}</span>
                 </ul>
-                <div role="gridcell" className={`${cssClasses.PREFIX}-content ${allDayCls}-content`}>
+                <div role="presentation" className={`${cssClasses.PREFIX}-content ${allDayCls}-content`}>
                     <ul className={`${allDayCls}-skeleton`}>
                         {Object.keys(week).map((date, ind) => {
                             const listCls = cls({
@@ -248,8 +249,8 @@ export default class WeekCalendar extends BaseComponent<WeekCalendarProps, WeekC
         return (
             <LocaleConsumer componentName="Calendar">
                 {(locale: Locale['Calendar'], localeCode: string, dateFnsLocale: any) => (
-                    <div className={weekCls} style={weekStyle} ref={this.dom}>
-                        <div className={`${prefixCls}-sticky-top`}>
+                    <div role="grid" className={weekCls} style={weekStyle} ref={this.dom}>
+                        <div className={`${prefixCls}-sticky-top`} role="presentation">
                             {header}
                             {this.renderHeader(dateFnsLocale)}
                             {this.renderAllDay(locale)}
