@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { AriaAttributes } from 'react';
 import BaseComponent from '../_base/baseComponent';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
@@ -26,6 +26,7 @@ export interface ScrollItemProps<T extends Item> {
     motion?: Motion;
     style?: React.CSSProperties;
     type?: string | number; // used to identify the scrollItem, used internally by the semi component, and does not need to be exposed to the user
+    'aria-label'?: AriaAttributes['aria-label'];
 }
 
 export interface ScrollItemState {
@@ -406,15 +407,15 @@ export default class ScrollItem<T extends Item> extends BaseComponent<ScrollItem
             const { transform: itemTrans } = item;
 
             const transform = typeof itemTrans === 'function' ? itemTrans : commonTrans;
-
+            const selected = selectedIndex === index;
             const cls = classnames({
-                [`${cssClasses.PREFIX}-item-sel`]: selectedIndex === index && mode !== wheelMode,
+                [`${cssClasses.PREFIX}-item-sel`]: selected && mode !== wheelMode,
                 [`${cssClasses.PREFIX}-item-disabled`]: Boolean(item.disabled),
             });
 
             let text = '';
 
-            if (selectedIndex === index) {
+            if (selected) {
                 if (typeof transform === 'function') {
                     text = transform(item.value, item.text);
                 } else {
@@ -434,7 +435,14 @@ export default class ScrollItem<T extends Item> extends BaseComponent<ScrollItem
 
             return (
                 // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-                <li key={prefixKey + index} {...events} className={cls}>
+                <li
+                    key={prefixKey + index}
+                    {...events}
+                    className={cls}
+                    role="option"
+                    aria-selected={selected}
+                    aria-disabled={item.disabled}
+                >
                     {text}
                 </li>
             );
@@ -450,7 +458,14 @@ export default class ScrollItem<T extends Item> extends BaseComponent<ScrollItem
 
         return (
             <div style={style} className={wrapperCls} ref={this._cacheWrapperNode}>
-                <ul ref={this._cacheListNode}>{inner}</ul>
+                <ul
+                    role="listbox"
+                    aria-multiselectable={false}
+                    aria-label={this.props['aria-label']}
+                    ref={this._cacheListNode}
+                >
+                    {inner}
+                </ul>
             </div>
         );
     };
@@ -463,13 +478,13 @@ export default class ScrollItem<T extends Item> extends BaseComponent<ScrollItem
         const { prependCount, appendCount } = this.state;
 
         const prependList = times(prependCount).reduce((arr, num) => {
-            const items = this.renderItemList(`pre_${ num }_`);
+            const items = this.renderItemList(`pre_${num}_`);
             arr.unshift(...items);
 
             return arr;
         }, []);
         const appendList = times(appendCount).reduce((arr, num) => {
-            const items = this.renderItemList(`app_${ num }_`);
+            const items = this.renderItemList(`app_${num}_`);
             arr.push(...items);
             return arr;
         }, []);
@@ -493,7 +508,13 @@ export default class ScrollItem<T extends Item> extends BaseComponent<ScrollItem
                 <div className={selectorCls} ref={this._cacheSelectorNode} />
                 <div className={postShadeCls} />
                 <div className={listWrapperCls} ref={this._cacheWrapperNode} onScroll={this.scrollToSelectItem}>
-                    <ul ref={this._cacheListNode} onClick={this.clickToSelectItem}>
+                    <ul
+                        role="listbox"
+                        aria-label={this.props['aria-label']}
+                        aria-multiselectable={false}
+                        ref={this._cacheListNode}
+                        onClick={this.clickToSelectItem}
+                    >
                         {prependList}
                         {inner}
                         {appendList}

@@ -165,6 +165,15 @@ class ScrollListDemo extends React.Component {
 | transform | 该项处于选中状态时的变换，返回值会作为文案进行显示，ScrollItem 组件如果同时传入会优先选择 ItemData 中的 transform 方法 | (value: any, text: string) => string | v => v |
 | value | 每一项的值 | any |  |
 
+
+## Accessibility
+
+### ARIA
+
+- `ScrollItem` 支持传入 `aria-label`, 指定该列标签
+- `ScrollItem` 使用 `aria-disabled` 表示该项目是否被禁用
+- `ScrollItem` 使用 `aria-selected` 表示该项目是否被选中
+
 ## 设计变量
 
 <DesignToken/>
