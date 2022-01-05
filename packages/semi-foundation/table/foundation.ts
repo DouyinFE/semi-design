@@ -345,16 +345,20 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
         const currentPagination = this.getState('pagination');
         const { dataSource, pagination, disabledRowKeys, allRowKeys } = this.getCurrentPageData(null, {
             ...currentPagination,
-            currentPage,
+            /**
+             * if pagination is controlled, the currentPage should use currentPage from props
+             * if pagination is not controlled, the currentPage show use currentPagination.currentPage from state
+             */
+            currentPage: this._pagerIsControlled() ? currentPage : currentPagination.currentPage,
             pageSize: currentPageSize,
         });
-        if (currentPage > 0) {
+        if (!this._pagerIsControlled() && currentPage > 0) {
             this._adapter.setDisabledRowKeys(disabledRowKeys);
             this._adapter.setAllRowKeys(allRowKeys);
-            this._adapter.setPagination(pagination);
-            this._adapter.setDataSource(dataSource);
         }
-
+        // always set dataSource and pagination whatever pagination is controlled or not
+        this._adapter.setPagination(pagination);
+        this._adapter.setDataSource(dataSource);
         this._notifyChange(pagination);
     };
 
@@ -433,6 +437,7 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
         let pageData = dataSource;
         const pageNo = get(pagination, 'currentPage');
 
+        // always slice the datasource whatever pagination is controlled or not
         if (this.getProp('pagination') !== false && pageNo && dataSource && pagination) {
             const { pageSize = numbers.DEFAULT_PAGE_SIZE } = pagination;
 
