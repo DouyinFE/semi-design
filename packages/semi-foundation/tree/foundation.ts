@@ -783,7 +783,7 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
 
         // Update the drag position
         if (dragNode && eventKey === dragOverNodeKey) {
-            const newPos = calcDropRelativePosition(event, treeNode);
+            const newPos = calcDropRelativePosition(e, treeNode);
             if (dropPosition === newPos) {
                 return;
             }
