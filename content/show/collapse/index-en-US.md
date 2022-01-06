@@ -149,6 +149,20 @@ import { IconCopy } from '@douyinfe/semi-icons';
 | reCalcKey | When reCalcKey changes, the height of children will be reset. Used for optimize dynamic content rendering. | string \| number |-| 1.5.0 |
 | style | inline CSS style | CSSProperties | - ||
 
+
+## Accessibility
+
+### ARIA
+
+- The `aria-label` of the component is'Collapse'
+- The button on the right side of the panel header is set to `aria-hidden=true`
+- The extra section `aria-label` of the panel header is set to'Extra of collapse header'
+- Panel header `aria-label` is'Collapse panel'
+- The interactive part of the panel header is set to the `aria-owns` value corresponding to the panel content
+- Panel content `aria-label` is set to'Collapse content'
+- The content of the panel is set with `aria-hidden`, and its value is automatically switched between true and false with the display of the panel content
+
+
 ## Design Tokens
 
 <DesignToken/>
