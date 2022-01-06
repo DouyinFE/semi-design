@@ -240,6 +240,8 @@ import { DatePicker } from '@douyinfe/semi-ui';
 
 下面这个例子绑定了 onChange、onConfirm、onCancel 三种回调，你可以打开控制台查看打印信息的区别。
 
+> 注意：开启确认选择时，需要点击取消按钮关闭面板，点击空白区域不再关闭面板（v2.2.0）
+
 ```jsx live=true
 import React from 'react';
 import { DatePicker } from '@douyinfe/semi-ui';

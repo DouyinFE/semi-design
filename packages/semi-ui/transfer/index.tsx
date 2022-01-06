@@ -445,10 +445,10 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
         );
     }
 
-    renderGroupTitle(group: GroupItem) {
+    renderGroupTitle(group: GroupItem, index: number) {
         const groupCls = cls(`${prefixcls }-group-title`);
         return (
-            <div className={groupCls} key={group.title}>
+            <div className={groupCls} key={`title-${index}`}>
                 {group.title}
             </div>
         );
@@ -493,7 +493,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
                 // group content already insert
                 content.push(optionContent);
             } else if (parentGroup) {
-                const groupContent = this.renderGroupTitle(parentGroup);
+                const groupContent = this.renderGroupTitle(parentGroup, index);
                 groupStatus.set(parentGroup.title, true);
                 content.push(groupContent);
                 content.push(optionContent);

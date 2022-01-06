@@ -6,7 +6,7 @@ localeCode: en-US
 order: 3
 ---
 
-## 定制方式
+## Build your own design system
 
 Semi provides a complete theme configuration process, which not only maintains the uniformity and coherence of colors, fonts, rounded corners, shadows, layouts, etc. in the visual language, but also meets the diversified visual needs of the business and the brand.  
 You can go to [Semi Design System Management Site](https://semi.design/dsm/) (also known as DSM) to choose or create a theme style that meets your needs.

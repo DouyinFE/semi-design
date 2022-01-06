@@ -434,7 +434,7 @@ class CustomRender extends React.Component {
 |style         |Inline style                                     |React.CSSProperties                                               | -        |1.19.0|
 |suffix        |Suffix                                            |ReactNode                                                        |-         |1.19.0|
 |validateStatus|Validate status for styling only, one of  `default`、`warning`、`error`|string                                       |`default` |1.19.0|
-|value         |Controlled tag value                              |string[]                                                         | -        |1.19.0|
+|value         |Controlled tag value                              |string[] \| undefined                                                         | -        |1.19.0|
 |onAdd         |Callback invoked when tags are added             |(addedValue: string[]) => void                                   | -        |1.19.0|
 |onBlur        |Callback invoked when input loses focus          |(e:React.MouseEvent<HTMLInputElement\>) => void                  | -        |1.19.0|
 |onChange      |Callback invoked when tags changes               |(value:string[]) => void                                         | -        |1.19.0|

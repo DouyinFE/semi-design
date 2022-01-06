@@ -1452,6 +1452,52 @@ describe(`Table`, () => {
         });
         expect(demo.find(BaseTable).state('disabledRowKeys').length).toEqual(2);
     });
+    /**
+     * 分页受控场景，更新数据后查看分页器是否保持当前页
+     */
+    it('test controlled pagination reset when dataSource change', async () => {
+        const total = 100;
+        const pagination = {
+            pageSize: 10,
+            currentPage: 2,
+        };
+        const columns = getColumns();
+        const demo = mount(<Table dataSource={getData(total)} columns={columns} pagination={pagination}/>);
+
+        const dataNum = getRandomNumber(100, 40);
+        const newData = getData(dataNum);
+        demo.setProps({
+            dataSource: newData,
+        });
+        await sleep(2000);
+        expect(
+          demo
+            .find(`.${BASE_CLASS_PREFIX}-page .${BASE_CLASS_PREFIX}-page-item-active`)
+            .getDOMNode().innerHTML
+        ).toBe('2');
+    });
+
+    /**
+     * 分页非受控场景，更新数据后查看分页器是否重置
+     */
+    it('test uncontrolled pagination reset when dataSource change', async () => {
+        const total = 100;
+        const columns = getColumns();
+        const demo = mount(<Table dataSource={getData(total)} columns={columns}/>);
+        demo.find(`.${BASE_CLASS_PREFIX}-page .${BASE_CLASS_PREFIX}-page-item`)
+          .at(2)
+          .simulate('click');
+        const dataNum = getRandomNumber(100, 40);
+        const newData = getData(dataNum);
+        demo.setProps({
+            dataSource: newData,
+        });
+        await sleep(2000);
+        demo.update();
+        expect(demo.find(`.semi-page .semi-page-item-active`).getDOMNode().innerHTML).toBe('1');
+        expect(demo.find(BaseTable).state('pagination')).toHaveProperty('currentPage', 1);
+    });
+
     it('test pagination changed', async () => {
         const total = 100;
         const pagination = {

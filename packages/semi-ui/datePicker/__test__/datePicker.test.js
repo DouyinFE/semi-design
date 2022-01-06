@@ -191,9 +191,24 @@ describe(`DatePicker`, () => {
         btns[0].click();
         await sleep();
         expect(_.first(elem.state('value')).getDate() === currentValue.getDate()).toBeTruthy();
+        expect(_.isEqual(elem.state('cachedSelectedValue'), [currentValue])).toBe(true);
 
         /**
          * click ensure button
+         */
+        btns[1].click();
+        await sleep();
+        expect(_.first(elem.state('value')).getDate() === currentValue.getDate()).toBe(true);
+
+        /**
+         * re click next day
+         */
+        nextOffsetDayElem.click();
+        await sleep();
+        expect(_.first(elem.state('value')).getDate() === currentValue.getDate()).toBeTruthy();
+
+        /**
+         * re click ensure button
          */
         btns[1].click();
         await sleep();
@@ -953,4 +968,97 @@ describe(`DatePicker`, () => {
 
     it('test month sync change dateRange type', () => { testMonthSyncChange('dateRange') });
     it('test month sync change dateTimeRange type', () => { testMonthSyncChange('dateTimeRange')});
+
+    it(`test preset given null`, async () => {
+        const props = {
+            presets: [
+                {
+                    text: 'Today',
+                    start: null,
+                    end: null,
+                }
+            ],
+            defaultValue: baseDate,
+            defaultOpen: true,
+            motion: false,
+            type: 'dateRange'
+        }
+        const handleChange = sinon.spy();
+        const demo = mount(<DatePicker {...props} onChange={handleChange} />);
+        const elem = demo.find(BaseDatePicker);
+
+        const btns = document.querySelectorAll('.semi-datepicker-quick-control-item');
+
+        btns[0].click();
+        expect(handleChange.called).toBeTruthy();
+        const args = handleChange.getCall(0).args;
+        expect(args[0].length).toEqual(0);
+        expect(elem.state('panelShow')).toBeFalsy();
+    });
+
+    it(`test preset given null + needConfirm`, async () => {
+        const props = {
+            presets: [
+                {
+                    text: 'Today',
+                    start: null,
+                    end: null,
+                }
+            ],
+            defaultValue: baseDate,
+            defaultOpen: true,
+            motion: false,
+            type: 'dateTimeRange',
+            needConfirm: true,
+        }
+        const handleChange = sinon.spy();
+        const handleConfirm = sinon.spy();
+        const demo = mount(<DatePicker {...props} onChange={handleChange} onConfirm={handleConfirm} />);
+        const elem = demo.find(BaseDatePicker);
+
+        const btns = document.querySelectorAll('.semi-datepicker-quick-control-item');
+
+        // 点击 preset
+        btns[0].click();
+        expect(handleChange.called).toBe(true);
+        const argsChange = handleChange.getCall(0).args;
+        expect(argsChange[0].length).toBe(0);
+        expect(elem.state('panelShow')).toBe(true);
+        // 点击确定
+        const footerBtns = document.querySelectorAll('.semi-datepicker-footer .semi-button');
+        footerBtns[1].click();
+        expect(handleConfirm.called).toBe(true);
+        const argsConfirm = handleConfirm.getCall(0).args;
+        expect(argsConfirm[0].length).toBe(0);
+        expect(elem.state('panelShow')).toBe(false);
+    });
+    
+    it('test dateRange triggerRender', async () => {
+        const elem = mount(
+            <DatePicker
+                motion={false}
+                // defaultOpen
+                type="dateRange"
+                triggerRender={({ placeholder }) => (
+                    <button>
+                        {placeholder}
+                    </button>
+                )}
+            />
+        );
+        const trigger = document.querySelector('button');
+        trigger.click();
+        await sleep();
+        const leftPanel = document.querySelector(`.${BASE_CLASS_PREFIX}-datepicker-month-grid-left`);
+        const leftSecondWeek = leftPanel.querySelectorAll(`.${BASE_CLASS_PREFIX}-datepicker-week`)[1];
+        const leftSecondWeekDays = leftSecondWeek.querySelectorAll(`.${BASE_CLASS_PREFIX}-datepicker-day`);
+        const rightPanel = document.querySelector(`.${BASE_CLASS_PREFIX}-datepicker-month-grid-right`);
+        const rightSecondWeek = rightPanel.querySelectorAll(`.${BASE_CLASS_PREFIX}-datepicker-week`)[1];
+        const rightSecondWeekDays = rightSecondWeek.querySelectorAll(`.${BASE_CLASS_PREFIX}-datepicker-day`);
+        leftSecondWeekDays[0].click();
+        rightSecondWeekDays[0].click();
+
+        const baseElem = elem.find(BaseDatePicker);
+        expect(baseElem.state('panelShow')).toBeFalsy();
+    });
 });

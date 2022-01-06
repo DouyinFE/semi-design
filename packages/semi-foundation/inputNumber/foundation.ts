@@ -126,6 +126,7 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
         }
         this._adapter.recordCursorPosition();
         this._adapter.setFocusing(true, null);
+        this._adapter.setClickUpOrDown(false);
         this._adapter.notifyFocus(e);
     }
 
@@ -425,11 +426,11 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
 
     /**
      * format number to string
-     * @param {number} value
+     * @param {string|number} value
      * @param {boolean} needAdjustPrec
      * @returns {string}
      */
-    doFormat(value = 0, needAdjustPrec = true): string {
+    doFormat(value: string | number = 0, needAdjustPrec = true): string {
         // if (typeof value === 'string') {
         //     return value;
         // }

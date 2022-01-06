@@ -323,10 +323,8 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
      *   2. set cachedSelectedValue using given dates(in needConfirm mode)
      *      - directly closePanel without click confirm will set cachedSelectedValue to state value
      *      - select one date(which means that the selection value is incomplete) and click confirm also set cachedSelectedValue to state value
-     * @param {String} inputValue
-     * @param {Date[]} dates
      */
-    rangeTypeSideEffectsWhenClosePanel(inputValue: string, dates: Date[]) {
+    rangeTypeSideEffectsWhenClosePanel(inputValue: string, willUpdateDates: Date[]) {
         if (this._isRangeType()) {
             this._adapter.setRangeInputFocus(false);
             /**
@@ -334,11 +332,29 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
              * when inputValue is null, picker value will back to last selected value
              */
             this.handleInputBlur(inputValue);
-            const { value, cachedSelectedValue } = this._adapter.getStates();
-            const newCachedSelectedValue = Array.isArray(dates) && dates.length ? dates : value;
-            if (!isEqual(newCachedSelectedValue, cachedSelectedValue)) {
-                this._adapter.updateCachedSelectedValue(newCachedSelectedValue);
-            }
+            this.resetCachedSelectedValue(willUpdateDates);
+        }
+    }
+
+    /**
+     * clear input value when selected date is not confirmed
+     */
+    needConfirmSideEffectsWhenClosePanel(willUpdateDates: Date[] | null | undefined) {
+        if (this._adapter.needConfirm() && !this._isRangeType()) {
+            /**
+             * if `null` input element will show `cachedSelectedValue` formatted value（format in DateInput render）
+             * if `` input element will show `` directly
+             */
+            this._adapter.updateInputValue(null);
+            this.resetCachedSelectedValue(willUpdateDates);
+        }
+    }
+
+    resetCachedSelectedValue(willUpdateDates?: Date[]) {
+        const { value, cachedSelectedValue } = this._adapter.getStates();
+        const newCachedSelectedValue = Array.isArray(willUpdateDates) ? willUpdateDates : value;
+        if (!isEqual(newCachedSelectedValue, cachedSelectedValue)) {
+            this._adapter.updateCachedSelectedValue(newCachedSelectedValue);
         }
     }
 
@@ -354,13 +370,16 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
      * @param {String} inputValue
      * @param {Date[]} dates
      */
-    closePanel(e?: any, inputValue: string = null, dates: Date[] = []) {
+    closePanel(e?: any, inputValue: string = null, dates?: Date[]) {
+        const { value, cachedSelectedValue } = this._adapter.getStates();
+        const willUpdateDates = isNullOrUndefined(dates) ? this._adapter.needConfirm() ? value : cachedSelectedValue : dates;
         if (!this._isControlledComponent('open')) {
             this._adapter.togglePanel(false);
             this._adapter.unregisterClickOutSide();
         }
         // range type picker, closing panel requires the following side effects
-        this.rangeTypeSideEffectsWhenClosePanel(inputValue, dates);
+        this.rangeTypeSideEffectsWhenClosePanel(inputValue, willUpdateDates as Date[]);
+        this.needConfirmSideEffectsWhenClosePanel(willUpdateDates as Date[]);
         this._adapter.notifyOpenChange(false);
         this._adapter.notifyBlur(e);
     }
@@ -416,7 +435,8 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
         if (parsedResult && parsedResult.length) {
             this._updateValueAndInput(parsedResult, input === '');
         } else if (input === '') {
-            this._updateValueAndInput('' as any, true);
+            // if clear input, set input to `''`
+            this._updateValueAndInput('' as any, true, '');
         } else {
             this._updateValueAndInput(stateValue);
         }
@@ -725,7 +745,7 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
         let inputValue;
         if (!this._someDateDisabled(changedDates)) {
             inputValue = this._isMultiple() ? this.formatMultipleDates(dates) : this.formatDates(dates);
-            const isRangeTypeAndInputIncomplete = this._isRangeType() && (isNullOrUndefined(dates[0]) || isNullOrUndefined(dates[1]));
+            const isRangeTypeAndInputIncomplete = this._isRangeType() && !this._isRangeValueComplete(dates);
             /**
              * If the input is incomplete when under control, the notifyChange is not triggered because
              * You need to update the value of the input box, otherwise there will be a problem that a date is selected but the input box does not show the date #1357
@@ -1004,11 +1024,9 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
     };
 
     _isRangeValueComplete = (value: Date[] | Date) => {
-        let result = true;
+        let result = false;
         if (Array.isArray(value)) {
             result = !value.some(date => isNullOrUndefined(date));
-        } else {
-            result = false;
         }
         return result;
     };

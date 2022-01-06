@@ -143,6 +143,7 @@ export { default as IconEyeClosedSolid } from './IconEyeClosedSolid';
 export { default as IconEyeOpened } from './IconEyeOpened';
 export { default as IconFacebook } from './IconFacebook';
 export { default as IconFaceuLogo } from './IconFaceuLogo';
+export { default as IconFastForward } from './IconFastForward';
 export { default as IconFastFoward } from './IconFastFoward';
 export { default as IconFavoriteList } from './IconFavoriteList';
 export { default as IconFeishuLogo } from './IconFeishuLogo';

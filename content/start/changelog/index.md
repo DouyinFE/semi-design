@@ -15,6 +15,30 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 ---
 
+#### 🎉 2.2.2 (2021-12-31)
+- 【Fix】
+    - 修复 Transfer 在 type 是 groupList 场景下, title 属性传入 ReactElement 类型导致key-warning [@JontyyYang](https://github.com/JontyyYang)
+    - 修复 DatePicker 范围选择 preset 日期设置为 null 或 undefined，选择日期后面板没有关闭问题  [#338](https://github.com/DouyinFE/semi-design/issues/338)
+    - 修复 dateRange 类型 DatePicker，triggerRender 传入时选择完日期面板没有关闭问题  [#422](https://github.com/DouyinFE/semi-design/issues/422)
+    - 修复 InputNumber 精度格式化在受控模式下不正确问题
+    - 修复 IconFastForward 拼写错误 [@clark-cui](https://github.com/clark-cui)
+
+#### 🎉 2.2.1 (2021-12-29)
+
+- 【Fix】
+    - 修复 DatePicker 在 needConfirm 模式时，点击取消按钮输入框日期未返回到已选中日期问题 [#457](https://github.com/DouyinFE/semi-design/issues/457)
+    - **优化 DatePicker 交互细节，确认选择模式 click outside 不再关闭面板，需通过点击取消关闭面板** [#457](https://github.com/DouyinFE/semi-design/issues/457)
+    - 修复 DatePicker 确认选择模式 footer 按钮间距不正确问题 [#457](https://github.com/DouyinFE/semi-design/issues/457)
+    - 修复 DatePicker RTL 模式下，年切换按钮方向错误问题 [#457](https://github.com/DouyinFE/semi-design/issues/457)
+    - 修复 Table head row paddingY 与设计稿不符问题，统一调整为 8px [#460](https://github.com/DouyinFE/semi-design/issues/460)
+
+#### 🎉 2.2.0 (2021-12-24)
+
+- 【Fix】
+    - 修复 Tabs 在 umd 方式使用时，tabPlane tab props 不接受动态更新的问题
+- 【Docs】
+    - 完善 Navigation  API 文档 [#451](https://github.com/DouyinFE/semi-design/pull/451) [@linjunc](https://github.com/linjunc)
+
 #### 🎉 2.2.0-beta.1 (2021-12-23)
 
 - 【Fix】

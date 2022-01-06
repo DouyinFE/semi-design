@@ -18,7 +18,10 @@ brief: Assist in the overall layout of a page.
 -   `Content`: Content component, can only be used inside `Layout`.
 -   `Footer`: Footer component, can only be used inside `Layout`.
 
-> Note: Layout components are implemented with Flex layout. Browser compatibility may need to be considered.
+<Notice title='Notice'>
+1、Layout components are implemented with Flex layout. Browser compatibility may need to be considered.  <br/>
+2、The Layout component will only help you implement the layout, but will not include styles such as background color, text color, width and height. You can pass in style according to your actual needs or write a separate css implementation given a specific className
+</Notice>
 
 ## Demos
 

@@ -206,6 +206,9 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
                     this.clickOutSideHandler = null;
                 }
                 this.clickOutSideHandler = e => {
+                    if (this.adapter.needConfirm()) {
+                        return;
+                    }
                     const triggerEl = this.triggerElRef && this.triggerElRef.current;
                     const panelEl = this.panelRef && this.panelRef.current;
                     const isInTrigger = triggerEl && triggerEl.contains(e.target as Node);
@@ -360,6 +363,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             syncSwitchMonth,
             onPanelChange,
             timeZone,
+            triggerRender
         } = this.props;
         const { value, cachedSelectedValue, motionEnd, rangeInputFocus } = this.state;
 
@@ -405,6 +409,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
                 onPanelChange={onPanelChange}
                 timeZone={timeZone}
                 focusRecordsRef={this.focusRecordsRef}
+                triggerRender={triggerRender}
             />
         );
     }

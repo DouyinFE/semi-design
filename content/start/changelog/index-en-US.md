@@ -16,6 +16,30 @@ Version：Major.Minor.Patch
 
 ---
 
+#### 🎉 2.2.2 (2021-12-31)
+- 【Fix】
+    - Fix Transfer In the groupList scenario, the title attribute is passed into the reactElement node, resulting in key-warning [@JontyyYang](https://github.com/JontyyYang)
+    - Fixed DatePicker range selection preset date is set to `null` or `undefined`, the panel does not close after selecting the date  [#338](https://github.com/DouyinFE/semi-design/issues/338)
+    - Fix the issue that the dateRange type DatePicker, when triggerRender is passed in, the panel does not close after selecting the date  [#422](https://github.com/DouyinFE/semi-design/issues/422)
+    - Fixed InputNumber precision format bug in controlled mode
+    - Fix spelling errors in IconFastForward [@clark-cui](https://github.com/clark-cui)
+
+#### 🎉 2.2.1 (2021-12-29)
+
+- 【Fix】
+    - Fixed DatePicker input value is back to confirmed value bug when `needConfirm` is true [#457](https://github.com/DouyinFE/semi-design/issues/457)
+    - **Optimize DatePicker interaction details, `needConfirm` mode click outside will no longer close the panel, you need to click cancel to close the panel** [#457](https://github.com/DouyinFE/semi-design/issues/457)
+    - Fixed DatePicker `needConfirm` button margin bug in footer [#457](https://github.com/DouyinFE/semi-design/issues/457)
+    - Fixed DatePicker year button direction bug when `direction='rtl'` [#457](https://github.com/DouyinFE/semi-design/issues/457)
+    - Fixed Table head row paddingY not same with design draft bug and updated to 8px [#460](https://github.com/DouyinFE/semi-design/issues/460)
+
+#### 🎉 2.2.0 (2021-12-24)
+
+- 【Fix】
+    - Fix the problem that tabPlane tab props does not accept dynamic updates when Tabs are used in umd mode
+- 【Docs】
+    - Improve Navigation API documentation [#451](https://github.com/DouyinFE/semi-design/pull/451) [@linjunc](https://github.com/linjunc)
+
 #### 🎉 2.2.0-beta.1 (2021-12-23)
 
 - 【Fix】
