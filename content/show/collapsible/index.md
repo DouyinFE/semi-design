@@ -231,11 +231,11 @@ import Collapsible from './index';
 
 
 ()=>{
-    const controllerId = 'myCollapsible';
+    const controllerId = 'myCollapsibleController';
     const [visible,setVisible]=useState(false);
     return <>
         <Button onClick={()=>setVisible(!visible)} id={controllerId}>{visible?'hide':'show'}</Button>    
-        <Collapsible isOpen={visible} aria-controls={`controllerId`}>
+        <Collapsible isOpen={visible} aria-controls={`${controllerId}`}>
             <div>hide content</div>
         </Collapsible>
     </>
