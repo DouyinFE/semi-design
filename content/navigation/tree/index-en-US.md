@@ -1305,13 +1305,13 @@ import { Tree, Checkbox } from '@douyinfe/semi-ui';
         return (
             <li
                 className={className}
-                role="treenode"
+                role="treeitem"
                 onClick={isLeaf ? onCheck : onExpand}
                 onContextMenu={onContextMenu}
                 onDoubleClick={onDoubleClick}
             >
                 {isLeaf ? null : expandIcon}
-                {isLeaf ? <div onClick={onCheck}>
+                {isLeaf ? <div onClick={onCheck} role='checkbox' tabIndex={0} aria-checked={checkStatus.checked}>
                     <Checkbox
                         indeterminate={checkStatus.halfChecked}
                         checked={checkStatus.checked}
@@ -1416,7 +1416,7 @@ import { Tree } from '@douyinfe/semi-ui';
         return (
             <li
                 className={className}
-                role="treenode"
+                role="treeitem"
                 onClick={isLeaf ? onClick : onExpand}
             >
                 {isLeaf ? null : expandIcon}
@@ -1596,7 +1596,7 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
         return (
             <li
                 className={className}
-                role="treenode"
+                role="treeitem"
                 onClick={onClick}
                 style={style}
             >
@@ -1775,7 +1775,7 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
         return (
             <li
                 className={className}
-                role="treenode"
+                role="treeitem"
                 onClick={onClick}
                 style={style}
             >
@@ -1893,6 +1893,16 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
 
 ### Ref Method
 - search(sugInput) => void
+
+
+## Accessibility
+
+### Aria
+
+- Tree supports passing in `aria-label` to indicate the role of the Tree;
+- Tree will set `aria-disabled`, `aria-checked`, `aria-selected`, and `aria-level` for each child node to indicate the node status and level;
+- Tree will set `role` to `tree` and `treeitem` for corresponding parts;
+- Tree supports multiple selections by pressing Enter to select nodes.
 
 ## Design Tokens
 <DesignToken/>

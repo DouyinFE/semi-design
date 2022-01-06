@@ -1235,6 +1235,15 @@ function Demo() {
 | key | required且要求唯一 | string | - |
 | isLeaf| 是否为叶子节点 | boolean |-|
 
+
+## Accessibility
+
+### Aria
+
+- TreeSelect 支持传入 `aria-label`、`aria-describedby`、`aria-errormessage`、`aria-invalid`、`aria-labelledby`、`aria-required` 来表示该 TreeSelect 作用;
+- TreeSelect 会为每个子节点分别设置 `aria-disabled`、`aria-checked`、`aria-selected`、`aria-level` 来表明节点状态及层级;
+
+
 ## 设计变量
 <DesignToken/>
 

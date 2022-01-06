@@ -1279,7 +1279,7 @@ const RefSearch = () => {
   ];
   return (
     <div>
-      <Input onChange={v => ref.current.search(v)} />
+      <Input aria-label='filter tree' onChange={v => ref.current.search(v)} />
       <Tree
         treeData={treeData}
         defaultValue="Shanghai"
@@ -1814,7 +1814,7 @@ const MutipleHLTree = () => {
         : 'transparent',
     };
     return (
-      <li className={className} role="treenode" onClick={onClick} style={style}>
+      <li className={className} role="treeitem" onClick={onClick} style={style}>
         {isLeaf ? null : expandIcon}
         {icon ? icon : null}
         <span>{label}</span>
@@ -2141,7 +2141,7 @@ export const RenderFullLabelWithDraggable = () => {
         : 'transparent',
     };
     return (
-      <li className={className} role="treenode" onClick={onClick} style={style}>
+      <li className={className} role="treeitem" onClick={onClick} style={style}>
         {isLeaf ? <span style={{ width: 24 }}></span> : expandIcon}
         {icon ? icon : null}
         <span>{label}</span>
