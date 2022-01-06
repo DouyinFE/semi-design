@@ -52,7 +52,7 @@ export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
             collapseIcon = (<IconChevronUp/>);
         }
         const icon = (
-            <span className={cls([`${cssClasses.PREFIX}-header-icon`,
+            <span aria-hidden='true' className={cls([`${cssClasses.PREFIX}-header-icon`,
                 { [`${cssClasses.PREFIX}-header-iconDisabled`]: !expandIconEnable }])}>
                 {/* eslint-disable-next-line no-nested-ternary */}
                 {expandIconEnable ? (active ? collapseIcon : expandIcon) : expandIcon}
@@ -63,7 +63,7 @@ export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
             return (
                 <>
                     {iconPosLeft ? icon : null}
-                    <span role={'heading'} aria-level={1}>{header}</span>
+                    <span>{header}</span>
                     <span className={`${cssClasses.PREFIX}-header-right`}>
                         <span aria-label={'Extra of collapse header'}>{extra}</span>
                         {iconPosLeft ? null : icon}
