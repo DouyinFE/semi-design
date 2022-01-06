@@ -301,6 +301,15 @@ import { Notification, Button } from '@douyinfe/semi-ui';
 | top | 弹出位置 top | number \| string | - | 0.25.0 |
 | zIndex | 弹层 z-index 值 | number | 1010 | 0.25.0 |
 
+
+## Accessibility
+
+### ARIA
+
+- 组件的 `role` 为 'alert'
+-  通知的 `aria-labelledby` 标记为对应通知标题
+
+
 ## 设计变量
 
 <DesignToken/>
