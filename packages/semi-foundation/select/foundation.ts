@@ -405,7 +405,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
     _handleMultipleSelect({ value, label, ...rest }: BasicOptionProps, event: MouseEvent | KeyboardEvent) {
         const maxLimit = this._adapter.getMaxLimit();
         const selections = this._adapter.getSelections();
-
+        const { autoClearSearchValue } = this.getProps();
         if (selections.has(label)) {
             this._notifyDeselect(value, { value, label, ...rest });
             selections.delete(label);
@@ -420,7 +420,9 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
             // Controlled components, directly notified
             this._notifyChange(selections);
             if (this._isFilterable()) {
-                this.clearInput();
+                if (autoClearSearchValue) {
+                    this.clearInput();
+                }
                 this.focusInput();
             }
         } else {
@@ -431,11 +433,14 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
             let { options } = this.getStates();
             // Searchable filtering, when selected, resets Input
             if (this._isFilterable()) {
-                this.clearInput();
+                // When filter active，if autoClearSearchValue is true，reset input after select
+                if (autoClearSearchValue) {
+                    this.clearInput();
+                    // At the same time, the filtering of options is also cleared, in order to show all candidates
+                    const sugInput = '';
+                    options = this._filterOption(options, sugInput);
+                }
                 this.focusInput();
-                // At the same time, the filtering of options is also cleared, in order to show all candidates
-                const sugInput = '';
-                options = this._filterOption(options, sugInput);
             }
             this.updateOptionsActiveStatus(selections, options);
             this._notifyChange(selections);

@@ -559,6 +559,8 @@ class Link extends React.Component {
 You can turn on the search capability by setting `filter` to true.  
 The default search strategy will include comparison of the input value with the label value of option
 
+By default, the search keywords will be cleared automatically after multiple selection is selected. If you want to keep it, you can turn off the default behavior by setting `autoClearSearchValue` to false (provided after v2.3)
+
 ```jsx live=true
 import React from 'react';
 import { Select } from '@douyinfe/semi-ui';
@@ -573,11 +575,12 @@ import { Select } from '@douyinfe/semi-ui';
         </Select>
         <br />
         <br />
-        <Select filter multiple style={{ width: 350 }} placeholder="Searchable Multiple Select">
-            <Select.Option value="app1">Semi</Select.Option>
-            <Select.Option value="app2">Hotsoon</Select.Option>
-            <Select.Option value="app3">Pipixia</Select.Option>
-            <Select.Option value="app4">BuzzVideo</Select.Option>
+        <Select filter multiple style={{ width: 350 }} placeholder="Searchable Multiple Select" autoClearSearchValue={false}>
+            <Select.Option value='semi-0'>Semi-0</Select.Option>
+            <Select.Option value='semi-1'>Semi-1</Select.Option>
+            <Select.Option value='semi-2'>Semi-2</Select.Option>
+            <Select.Option value='semi-3'>Semi-3</Select.Option>
+            <Select.Option value='semi-4'>Semi-4</Select.Option>
         </Select>
     </>
 );
@@ -1283,8 +1286,9 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | Properties | Instructions | Type | Default |
 | --- | --- | --- | --- |
 | allowCreate | Whether to allow the user to create new entries. Needs to be used with `filter` | boolean | false |
-| arrowIcon | Customize the right drop-down arrow Icon, when the showClear switch is turned on and there is currently a selected value, hover will give priority to the clear icon <br/>**since v1.15.0** | ReactNode |  |
+| arrowIcon | Customize the right drop-down arrow Icon, when the showClear switch is turned on and there is currently a selected value, hover will give priority to the clear icon <br/>**supported after v1.15.0** | ReactNode |  |
 | autoAdjustOverflow | Whether the pop-up layer automatically adjusts the direction when it is obscured (only vertical direction is supported for the time being, and the inserted parent is body) | boolean | true |
+| autoClearSearchValue     |  After selecting the option, whether to automatically clear the search keywords, it will take effect when mutilple and filter are both enabled.<br/>**supported after v2.3.0** | boolean                      | true                                |
 | autoFocus | Whether automatically focus when component mount | boolean | false |
 | className | The CSS class name of the wrapper element | string |  |
 | clickToHide | When expanded, click on the selection box to automatically put away the drop-down list | boolean | false |
@@ -1308,7 +1312,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | maxHeight | Maximum height of `optionList` in the pop-up layer | string | number | 300 |
 | multiple | Whether allow multiple selection | boolean | false |
 | outerBottomSlot | Rendered at the bottom of the pop-up layer, custom slot level with optionList | ReactNode |  |
-| outerTopSlot | Rendered at the top of the pop-up layer, custom slot level with optionList <br/>** supported after v1.6.0 ** |
+| outerTopSlot | Rendered at the top of the pop-up layer, custom slot level with optionList <br/>**supported after v1.6.0** |
 | optionList | You can pass Option through this property, make sure that each element in the array has `label`, `value` properties | Array (\[{value, label}\]) |  |
 | placeholder | placeholder | ReactNode |  |
 | position | Pop-up layer position, refer to [Popover·API reference·position](/en-US/show/popover#API%20Reference) | string | 'bottomLeft' |

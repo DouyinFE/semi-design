@@ -87,6 +87,7 @@ export type RenderSelectedItemFn = RenderSingleSelectedItemFn | RenderMultipleSe
 export type SelectProps = {
     id?: string;
     autoFocus?: boolean;
+    autoClearSearchValue?: boolean;
     arrowIcon?: React.ReactNode;
     defaultValue?: string | number | any[] | Record<string, any>;
     value?: string | number | any[] | Record<string, any>;
@@ -181,6 +182,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
 
     static propTypes = {
         autoFocus: PropTypes.bool,
+        autoClearSearchValue: PropTypes.bool,
         children: PropTypes.node,
         defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object]),
         value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object]),
@@ -292,6 +294,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         showClear: false,
         remote: false,
         autoAdjustOverflow: true,
+        autoClearSearchValue: true,
         arrowIcon: <IconChevronDown />
         // Radio selection is different from the default renderSelectedItem for multiple selection, so it is not declared here
         // renderSelectedItem: (optionNode) => optionNode.label,

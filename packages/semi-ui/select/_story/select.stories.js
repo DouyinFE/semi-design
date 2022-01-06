@@ -2875,3 +2875,32 @@ SelectInputPropsDemo.story = {
   name: 'inputProps',
 };
 
+
+export const AutoClearSearchValue = () => {
+    const [val, setVal] = useState(['semi1']);
+    const optionList = [
+        { label: 'semi1', value: 'semi1' },
+        { label: 'semi2', value: 'semi2' },
+        { label: 'semi3', value: 'semi3' },
+        { label: 'semi4', value: 'semi4' },
+        { label: 'semi5', value: 'semi5' },
+        { label: 'semi6', value: 'semi6' },
+    ];
+
+    return (
+        <>
+            <h4>Controlled mode + multiple</h4>
+            <Select style={{ width: 400 }} multiple optionList={optionList} filter value={val} onChange={value => setVal(value)} autoClearSearchValue={false}></Select>
+            <br />
+            <br />
+            <h4>Uncontrolled mode + multiple</h4>
+            <Select style={{ width: 400 }} multiple optionList={optionList} filter autoClearSearchValue={false}></Select>
+            <h4>Uncontrolled mode + multiple + defaultValue</h4>
+            <Select style={{ width: 400 }}  multiple optionList={optionList} filter defaultValue={['semi2']} autoClearSearchValue={false}></Select>
+        </>
+    )
+}
+
+SelectInputPropsDemo.story = {
+  name: 'AutoClearSearchValue',
+};
