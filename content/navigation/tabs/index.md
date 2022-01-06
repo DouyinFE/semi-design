@@ -596,7 +596,8 @@ closable  | 允许关闭tab **>=2.1.0**| boolean | false |
 - aria-orientation: 表明 TabBar 的方向，有 `vertical` 和 `horizontal` 两种。当传入 tabPosition 为 left 时，aria-orientation 会被设置为 `vertical`，tabPosition 为 top 时，设置为 `horizontal`
 - aria-disabled: 当 TabPane 设置为 disabled 时，对应 Tab 的 aria-disabled 会被设置为 true
 - aria-selected: 表明 Tab 是否被选中
-
+- aria-controls: 指向 Tab 标签所控制的 TabPane
+- aria-labelledby: 指向设置 TabPane 标签的元素
 
 ## 设计变量
 

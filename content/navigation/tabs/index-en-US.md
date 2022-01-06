@@ -572,6 +572,8 @@ closable | whether user can close the tab **>=2.1.0** | boolean | false |
 - aria-orientation: Indicates TabBar's orientation, can be `vertical` or `horizontal`. When tabPosition is `left`, aria-orientation will be `vertical`, when tabPosition is `top`, aria-orientation will be `horizontal`.
 - aria-disabled: When TabPane is disabled, the related Tab's aria-disabled will be set to true.
 - aria-selected: Indicates whether the Tab is selected.
+- aria-controls: Indicates the TabPane controlled by the Tab
+- aria-labelledby: Indicates the element labels the TabPane
 
 ## Design Token
 
