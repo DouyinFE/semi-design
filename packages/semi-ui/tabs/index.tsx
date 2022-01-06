@@ -285,7 +285,6 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
                 >
                     <div
                         ref={this.setContentRef}
-                        role="tabpanel"
                         className={tabContentCls}
                         style={{ ...contentStyle }}
                     >

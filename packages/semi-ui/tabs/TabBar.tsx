@@ -99,8 +99,9 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
                 onClick: (e: MouseEvent<HTMLDivElement>): void => this.handleItemClick(key, e),
             };
         }
+        const isSelected = this._isActive(key);
         const className = cls(cssClasses.TABS_TAB, {
-            [cssClasses.TABS_TAB_ACTIVE]: this._isActive(key),
+            [cssClasses.TABS_TAB_ACTIVE]: isSelected,
             [cssClasses.TABS_TAB_DISABLED]: panel.disabled,
             [`${cssClasses.TABS_TAB}-small`]: size === 'small',
             [`${cssClasses.TABS_TAB}-medium`]: size === 'medium',
@@ -108,8 +109,10 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
         return (
             <div
                 role="tab"
+                id={`semiTab${key}`}
+                aria-controls={`semiTabPanel${key}`}
                 aria-disabled={panel.disabled ? 'true' : 'false'}
-                aria-selected={this._isActive(key) ? 'true' : 'false'}
+                aria-selected={isSelected ? 'true' : 'false'}
                 {...events}
                 className={className}
                 key={this._getItemKey(key)}
