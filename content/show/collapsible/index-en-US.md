@@ -187,7 +187,7 @@ import { Collapsible, Button } from '@douyinfe/semi-ui';
 | motion | Toggle whether to turn on animation | Motion | `true` | - |
 | reCalcKey | When reCalcKey changes, the height of children will be reset. Used for optimize dynamic content rendering. | number \| string | - | 1.5.0 |
 | style | Style object | CSSProperties | - | 0.34.0 |
-| aria-controls | [aria-controls](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-controls) | string |-| 2.2.0|
+| aria-controls | [aria-controls](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-controls) | string |-| 2.3.0|
 
 ## Accessibility
 
