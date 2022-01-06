@@ -193,18 +193,18 @@ import { Collapsible, Button } from '@douyinfe/semi-ui';
 
 ### Aria
 
-- Collapsible has `'aria-controls'` props, the value passed in will be set to the aria-controls of the html element, see usage demo below.
+- Collapsible has `id` props, the value passed in will be set as the id of the wrapper element, which can be used with other components' `aria-controls` to indicate the control relationship, see the usage example below.
 
 ```jsx
 import Collapsible from './index';
 
 
 ()=>{
-    const controllerId = 'myCollapsibleController';
+    const collapseId = 'myCollapsible';
     const [visible,setVisible]=useState(false);
     return <>
-        <Button onClick={()=>setVisible(!visible)} id={controllerId}>{visible?'hide':'show'}</Button>    
-        <Collapsible isOpen={visible} aria-controls={`${controllerId}`}>
+        <Button onClick={()=>setVisible(!visible)} aria-controls={`${collapseId}`}>{visible?'hide':'show'}</Button>
+        <Collapsible isOpen={visible} id={collapseId}>
             <div>hide content</div>
         </Collapsible>
     </>

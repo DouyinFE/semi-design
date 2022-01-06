@@ -19,7 +19,7 @@ export interface CollapsibleProps {
     style?: React.CSSProperties;
     collapseHeight?: number;
     reCalcKey?: number | string;
-    'aria-controls'?: React.AriaAttributes['aria-controls'];
+    id?:string,
 }
 
 
@@ -34,7 +34,7 @@ const Collapsible = (props: CollapsibleProps) => {
         style,
         className,
         reCalcKey,
-        'aria-controls':ariaControls
+        id
     } = props;
 
     const ref = useRef(null);
@@ -92,7 +92,7 @@ const Collapsible = (props: CollapsibleProps) => {
         const wrapperCls = cls(`${cssClasses.PREFIX}-wrapper`, className);
         return (
             <div style={wrapperstyle} className={wrapperCls} ref={ref}>
-                <div ref={setHeight} style={{ overflow: 'hidden' }} aria-controls={ariaControls}>{children}</div>
+                <div ref={setHeight} style={{ overflow: 'hidden' }} id={id}>{children}</div>
             </div>
         );
     };
