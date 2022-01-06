@@ -224,8 +224,24 @@ import { Collapsible, Button } from '@douyinfe/semi-ui';
 
 ### Aria
 
--   Collapsible 具有 `'aria-controls'` props，传入的值会被设置为 html 元素的 aria-controls
+-   Collapsible 具有 `'aria-controls'` props，传入的值会被设置为 html 元素的 aria-controls, 见下方使用示例。
 
+```jsx
+import Collapsible from './index';
+
+
+()=>{
+    const controllerId = 'myCollapsible';
+    const [visible,setVisible]=useState(false);
+    return <>
+        <Button onClick={()=>setVisible(!visible)} id={controllerId}>{visible?'hide':'show'}</Button>    
+        <Collapsible isOpen={visible} aria-controls={`controllerId`}>
+            <div>hide content</div>
+        </Collapsible>
+    </>
+}
+
+```
 
 ## FAQ
 
