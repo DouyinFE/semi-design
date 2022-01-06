@@ -597,7 +597,7 @@ closable  | 允许关闭tab **>=2.1.0**| boolean | false |
 - aria-disabled: 当 TabPane 设置为 disabled 时，对应 Tab 的 aria-disabled 会被设置为 true
 - aria-selected: 表明 Tab 是否被选中
 
-**当使用**
+
 ## 设计变量
 
 <DesignToken/>
