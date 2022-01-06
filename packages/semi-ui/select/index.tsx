@@ -182,6 +182,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
 
     static propTypes = {
         autoFocus: PropTypes.bool,
+        autoClearSearchValue: PropTypes.bool,
         children: PropTypes.node,
         defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object]),
         value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object]),
