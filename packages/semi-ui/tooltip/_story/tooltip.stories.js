@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import Tooltip from '../index';
 import './story.scss';
-import { Tag, Icon, IconButton, Switch, Checkbox, Radio, Button, Select } from '@douyinfe/semi-ui';
+import { Tag, Icon, IconButton, Switch, Checkbox, Radio, Button, Select, InputNumber } from '@douyinfe/semi-ui';
 
 import InTableDemo from './InTable';
 import EdgeDemo from './Edge';
@@ -687,4 +687,48 @@ export const OnClickOutSideDemo = () => {
 }
 OnClickOutSideDemo.story = {
   name: 'OnClickOutSide',
+};
+
+export const AutoAdjustWithSpacing = () => {
+    const [height, setHeight] = useState(84);
+    const [key, setKey] = useState(1);
+    const initSpacing = 8;
+    const [spacing, setSpacing] = useState(initSpacing);
+
+    const change = (height, hasSpace) => {
+        setHeight(height);
+        hasSpace ? setSpacing(initSpacing) : setSpacing(0);
+        setKey(Math.random());
+    };
+
+    return (
+        <div className="demo1">
+            <div>
+                <Tooltip
+                    motion={false}
+                    rePosKey={key}
+                    // spacing={spacing}
+                    content={
+                        <article style={{ boxSizing: 'border-box', height: height }}>
+                            <p>hi bytedance, + padding 20</p>
+                            <p>hi bytedance</p>
+                        </article>
+                    }
+                    position="top"
+                    trigger="custom"
+                    visible={true}
+                >
+                    <Tag>demo</Tag>
+                </Tooltip>
+            </div>
+            <div style={{ marginTop: 200 }}>
+                <Switch onChange={hasSpace => change(height, hasSpace)} checked={spacing === initSpacing ? true : false}></Switch>
+                <InputNumber onChange={height => change(Number(height))} value={height} style={{ width: 200 }} />
+            </div>
+        </div>
+    )
+};
+
+AutoAdjustWithSpacing.story = {
+  name: 'AutoAdjustWithSpacing',
 };
