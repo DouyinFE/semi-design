@@ -1239,6 +1239,51 @@ describe('Select', () => {
         expect(spyOnChange.calledWith(['hotsoon']));
     });
 
+    it('autoClearSearchValue', () => {
+        // default usage
+        let optionList = Array.from({ length: 100 }, (v, i) => ({ label: `option-${i}`, value: i }));
+
+        let props = {
+            multiple: true,
+            optionList: optionList,
+            defaultOpen: true,
+            filter: true,
+        };
+        let select = getSelect(props);
+        select.find(`.${BASE_CLASS_PREFIX}-select`).simulate('click', {});
+        let keyword = 'option';
+        let event = { target: { value: keyword } };
+        select.find('input').simulate('change', event);
+
+        let options = select.find(`.${BASE_CLASS_PREFIX}-select-option-list`).children();
+        const nativeEvent = { nativeEvent: { stopImmediatePropagation: noop } };
+        options.at(0).simulate('click', nativeEvent);
+        let inputValue = select.find('input').getDOMNode().value;
+        expect(inputValue).toEqual('');
+    });
+
+    it('autoClearSearchValue = false', () => {
+        let optionList = Array.from({ length: 100 }, (v, i) => ({ label: `option-${i}`, value: i }));
+
+        let props = {
+            multiple: true,
+            optionList: optionList,
+            defaultOpen: true,
+            autoClearSearchValue: false,
+            filter: true,
+        };
+        let select = getSelect(props);
+        select.find(`.${BASE_CLASS_PREFIX}-select`).simulate('click', {});
+        let keyword = 'option';
+        let event = { target: { value: keyword } };
+        select.find('input').simulate('change', event);
+
+        let options = select.find(`.${BASE_CLASS_PREFIX}-select-option-list`).children();
+        const nativeEvent = { nativeEvent: { stopImmediatePropagation: noop } };
+        options.at(0).simulate('click', nativeEvent);
+        let inputValue = select.find('input').getDOMNode().value;
+        expect(inputValue).toEqual(keyword);
+    });
     // TODO ref selectAll \deselectAll when onChangeWithObject is true
     // TODO when loading is true, do not response any keyborard event
     // TODO can't remove tag when option is diabled
