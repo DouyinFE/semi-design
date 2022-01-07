@@ -1068,6 +1068,15 @@ import { IconUpload } from '@douyinfe/semi-icons';
 };
 ```
 
+## Accessibility
+
+Upload组件是一个可交互的控件，在点击或拖拽时触发文件选择，文件选中后会在文件列表内展示状态。
+
+### ARIA
+
+- 为可点击元素添加 `role="button"`
+- 文件列表添加 `role="list"`，并用 `aria-label` 描述
+
 ## API 参考
 
 ---

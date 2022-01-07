@@ -1081,6 +1081,15 @@ import { IconUpload } from '@douyinfe/semi-icons';
 };
 ```
 
+## Accessibility
+
+The Upload component is an interactive control that can trigger file selection when clicking or dragging. After the file is selected, the status will be displayed in the file list.
+
+### ARIA
+
+- Add `role="button"` to clickable elements
+- Add `role="list"` to the file list and describe it with `aria-label`
+
 ## API Reference
 
 ---

@@ -12,7 +12,7 @@ export interface Data extends TimelineItemProps {
     content: React.ReactNode;
 }
 
-export interface TimelineProps {
+export interface TimelineProps extends Pick<React.AriaAttributes, 'aria-label'> {
     mode?: 'left' | 'right' | 'center' | 'alternate';
     className?: string;
     style?: React.CSSProperties;
@@ -86,7 +86,7 @@ class Timeline extends PureComponent<TimelineProps> {
         const items = childrenList || this.addClassName(children);
 
         return (
-            <ul style={style} className={classString}>
+            <ul aria-label={this.props['aria-label']} style={style} className={classString}>
                 {items}
             </ul>
         );

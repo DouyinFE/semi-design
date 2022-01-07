@@ -17,7 +17,7 @@ import { RenderFileItemProps } from './interface';
 const prefixCls = cssClasses.PREFIX;
 
 const ErrorSvg: FC<SVGProps<SVGSVGElement>> = (props = {}) => (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <svg focusable={false} aria-hidden width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
         <circle cx="7.99992" cy="7.99992" r="6.66667" fill="white" />
         <path
             fillRule="evenodd"
@@ -28,7 +28,7 @@ const ErrorSvg: FC<SVGProps<SVGSVGElement>> = (props = {}) => (
 );
 
 const ReplaceSvg: FC<SVGProps<SVGSVGElement>> = (props = {}) => (
-    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <svg focusable={false} aria-hidden width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
         <circle cx="14" cy="14" r="14" fill="#16161A" fillOpacity="0.6" />
         <path d="M9 10.25V18.25L10.25 13.25H17.875V11.75C17.875 11.4739 17.6511 11.25 17.375 11.25H14L12.75 9.75H9.5C9.22386 9.75 9 9.97386 9 10.25Z" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
         <path d="M18 18.25L19 13.25H10.2031L9 18.25H18Z" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
@@ -36,7 +36,7 @@ const ReplaceSvg: FC<SVGProps<SVGSVGElement>> = (props = {}) => (
 );
 
 const DirectorySvg: FC<SVGProps<SVGSVGElement>> = (props = {}) => (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <svg focusable={false} aria-hidden width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
         <path d="M6 17V7.58824C6 7.26336 6.26863 7 6.6 7H10.5L12 8.76471H16.05C16.3814 8.76471 16.65 9.02806 16.65 9.35294V11.1176H7.5L6 17ZM6 17L7.44375 11.1176H18L16.8 17L6 17Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
 
@@ -136,15 +136,13 @@ class FileCard extends PureComponent<FileCardProps> {
         });
         const closeCls = `${prefixCls}-picture-file-card-close`;
         const retry = (
-            <div
-                className={`${prefixCls}-picture-file-card-retry`} onClick={e => this.onRetry(e)}>
+            <div role="button" tabIndex={0} className={`${prefixCls}-picture-file-card-retry`} onClick={e => this.onRetry(e)}>
                 <IconRefresh className={`${prefixCls}-picture-file-card-icon-retry`} />
             </div>
         );
         const replace = (
             <Tooltip trigger="hover" position="top" content={locale.replace} showArrow={false} spacing={4}>
-                <div
-                    className={`${prefixCls}-picture-file-card-replace`} onClick={(e): void => this.onReplace(e)}>
+                <div role="button" tabIndex={0} className={`${prefixCls}-picture-file-card-replace`} onClick={(e): void => this.onReplace(e)}>
                     <ReplaceSvg className={`${prefixCls}-picture-file-card-icon-replace`} />
                 </div>
             </Tooltip>
@@ -155,18 +153,18 @@ class FileCard extends PureComponent<FileCardProps> {
             <div className={`${prefixCls }-picture-file-card-pic-info`}>{index + 1}</div>
         );
 
-        const thumbnail = typeof renderThumbnail === 'function' ? renderThumbnail(this.props) : <img src={url} alt={`picture of ${name}`} />;
+        const thumbnail = typeof renderThumbnail === 'function' ? renderThumbnail(this.props) : <img src={url} alt={name} />;
 
         return (
-            <div className={filePicCardCls} style={style} onClick={onPreviewClick}>
+            <div role="listitem" className={filePicCardCls} style={style} onClick={onPreviewClick}>
                 {thumbnail}
-                {showProgress ? <Progress percent={percent} type="circle" size="small" orbitStroke={'#FFF'} /> : null}
+                {showProgress ? <Progress percent={percent} type="circle" size="small" orbitStroke={'#FFF'} aria-label="uploading file progress" /> : null}
                 {showRetry ? retry : null}
                 {showReplace && replace}
                 {showPicInfo && picInfo}
                 {!disabled && (
                     <div className={closeCls}>
-                        <IconClose size="extra-small" onClick={e => this.onRemove(e)} />
+                        <IconClose tabIndex={0} role="button" size="extra-small" onClick={e => this.onRemove(e)} />
                     </div>
                 )}
                 {this.renderPicValidateMsg()}
@@ -193,12 +191,12 @@ class FileCard extends PureComponent<FileCardProps> {
         const showRetry = status === strings.FILE_STATUS_UPLOAD_FAIL && propsShowRetry;
         const showReplace = status === strings.FILE_STATUS_SUCCESS && propsShowReplace;
         const fileSize = this.transSize(size);
-        let previewContent: ReactNode = preview ? (<img src={url} />) : (<IconFile size="large" />);
+        let previewContent: ReactNode = preview ? (<img src={url} alt={name} />) : (<IconFile size="large" />);
         if (previewFile) {
             previewContent = previewFile(this.props);
         }
         return (
-            <div className={fileCardCls} style={style} onClick={onPreviewClick}>
+            <div role="listitem" className={fileCardCls} style={style} onClick={onPreviewClick}>
                 <div className={previewCls}>
                     {previewContent}
                 </div>
@@ -225,12 +223,12 @@ class FileCard extends PureComponent<FileCardProps> {
                         </span>
 
                     </div>
-                    {showProgress ? (<Progress percent={percent} style={{ width: '100%' }} />) : null}
+                    {showProgress ? (<Progress percent={percent} style={{ width: '100%' }} aria-label="uploading file progress" />) : null}
                     <div className={`${infoCls}-main-control`}>
                         <span className={`${infoCls}-validate-message`}>
                             {this.renderValidateMessage()}
                         </span>
-                        {showRetry ? <span className={`${infoCls}-retry`} onClick={e => this.onRetry(e)}>{locale.retry}</span> : null}
+                        {showRetry ? <span role="button" tabIndex={0} className={`${infoCls}-retry`} onClick={e => this.onRetry(e)}>{locale.retry}</span> : null}
                     </div>
                 </div>
                 <IconButton
