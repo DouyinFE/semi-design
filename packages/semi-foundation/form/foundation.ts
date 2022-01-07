@@ -258,10 +258,19 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
             });
     }
 
-    // All fields: a[0]、a[1]、b.type、b.name[2]、b.name[0]
-    // input => output:
-    //      a  => a[0]、a[1]
-    //      b  => b.type、b.name[3]、b.name[2]
+    /**
+     * Case A：
+     *      All fields: a[0]、a[1]、b.type、b.name[2]、b.name[0]
+     *      input => output:
+     *           a  => a[0]、a[1]
+     *           b  => b.type、b.name[0]、b.name[2]
+     *
+     * Case B：
+     *      All fields: activity.a[0]、activity.a[1]、activity.c、activity.d、other
+     *      input => output:
+     *           activity.a => activity.a[0]、activity.a[1]
+     *
+     */
     _getNestedField(path: string): Map<string, FieldStaff> {
         const allRegisterField = this.fields;
         const allFieldPath = [...allRegisterField].map(item => item[0]);
@@ -269,7 +278,7 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
         allFieldPath.forEach(item => {
             let itemPath = toPath(item);
             let targetPath = toPath(path);
-            if (itemPath[0] === targetPath[0]) {
+            if (targetPath.every((path, i) => (targetPath[i] === itemPath[i]))) {
                 const realField = allRegisterField.get(item);
                 nestedFieldPath.set(item, realField);
             }
@@ -503,7 +512,8 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
                     nestedFields.forEach(fieldStaff => {
                         let fieldPath = fieldStaff.field;
                         let newFieldVal = ObjectUtil.get(this.data.values, fieldPath);
-                        fieldStaff.fieldApi.setValue(newFieldVal, opts);
+                        let nestedBatchUpdateOpts = { notNotify: true, notUpdate: true };
+                        fieldStaff.fieldApi.setValue(newFieldVal, nestedBatchUpdateOpts);
                     });
                 }
                 // If the reset happens to be, then update the updateKey corresponding to ArrayField to render it again
@@ -524,7 +534,8 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
                     nestedFields.forEach(fieldStaff => {
                         let fieldPath = fieldStaff.field;
                         let newFieldError = ObjectUtil.get(this.data.errors, fieldPath);
-                        fieldStaff.fieldApi.setError(newFieldError, opts);
+                        let nestedBatchUpdateOpts = { notNotify: true, notUpdate: true };
+                        fieldStaff.fieldApi.setError(newFieldError, nestedBatchUpdateOpts);
                     });
                 }
                 if (this.getArrayField(field)) {
@@ -544,7 +555,8 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
                     nestedFields.forEach(fieldStaff => {
                         let fieldPath = fieldStaff.field;
                         let newFieldTouch = ObjectUtil.get(this.data.touched, fieldPath);
-                        fieldStaff.fieldApi.setTouched(newFieldTouch, opts);
+                        let nestedBatchUpdateOpts = { notNotify: true, notUpdate: true };
+                        fieldStaff.fieldApi.setTouched(newFieldTouch, nestedBatchUpdateOpts);
                     });
                 }
                 if (this.getArrayField(field)) {
