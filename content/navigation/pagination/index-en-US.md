@@ -201,6 +201,13 @@ import { Pagination } from '@douyinfe/semi-ui';
 | onPageChange       | A callback function for page number changes                                                                 | function(currentPage: number)                   |                     |              |
 | onPageSize Change  | Callback function when capacity changes per page                                                            | function(pageSize: number)                      |                     |              |
 
+## Accessibility
+
+### ARIA
+
+- `aria-label`: Labels the element such as previous, next, pages in the pagination.
+- `aria-current`: Indicates the current page.
+
 ## Design Tokens
 <DesignToken/>
 
