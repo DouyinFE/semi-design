@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 25
+order: 26
 category: 输入类
 title:  Select 选择器
 icon: doc-select
@@ -1395,6 +1395,16 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | clearInput | 调用时可以手动清空input搜索框的值 | v1.18.0 |
 | deselectAll | 调用时可以手动清空所有已选项 | v1.18.0 |
 | selectAll | 调用时可以选中所有Option | v1.18.0 |
+
+## Accessibility
+
+### ARIA
+
+- Select trigger 的 role 为 combobox，弹出层的 role 为 listbox，可选项的 role 为 option
+- Select trigger 具有 aria-haspopup、aria-expanded、aria-controls 属性，表示 trigger 与弹出层的关系
+- 多选时，listbox aria-multiselectable 为 true，表示当前可以多选
+- Option 选中时，aria-selected 为 true；当 Option 禁用时，aria-disabled 为 true
+
 
 ## 设计变量
 <DesignToken/>

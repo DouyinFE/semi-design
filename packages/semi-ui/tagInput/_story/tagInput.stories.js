@@ -13,7 +13,7 @@ export default {
 
 export const Default = () => (
   <>
-    <TagInput defaultValue={['抖音', '火山', '西瓜视频']} placeholder="请输入..." style={style} />
+    <TagInput aria-label='input tag' defaultValue={['抖音', '火山', '西瓜视频']} placeholder="请输入..." style={style} />
     <TagInput
       maxTagCount={2}
       showRestTagsPopover={true}
@@ -348,7 +348,7 @@ class CustomRender extends React.Component {
           marginRight: 10,
         }}
       >
-        <Avatar src={node.avatar} size="extra-small">
+        <Avatar alt="avatar" src={node.avatar} size="extra-small">
           {node.abbr}
         </Avatar>
         <span

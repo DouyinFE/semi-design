@@ -173,7 +173,7 @@ let divStyle1 = {
 export const VerticalSlider = () => (
   <div>
     <div style={divStyle1}>
-      <Slider vertical range defaultValue={[20, 60]}></Slider>
+      <Slider vertical range defaultValue={[20, 60]} aria-label="slider test"></Slider>
     </div>
   </div>
 );

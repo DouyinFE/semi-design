@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 58
+order: 59
 category: Show
 title:  Timeline
 subTitle: Timeline
@@ -202,6 +202,19 @@ import { IconAlertTriangle } from '@douyinfe/semi-icons';
 | type       | Pattern of dot                                           | `default`\|`ongoing`\|`success`\|`warning`\|`error` | `default` | -         |
 | onClick    | Click event                                              | (e: MouseEvent) => void                             | -         | 2.2.0     |
 
+
+
+## Accessibility
+
+### ARIA
+- The element of dot and line between dots in TimeLine have a `aria-hidden`, indicates that they do not support Accessibility API.
+- Supporting API `aria-label` to specify TimeLine's label.
+```js
+<Timeline aria-label="Accident timeline">
+    <Timeline.Item time="2015-09-01">Accident started</Timeline.Item>
+    <Timeline.Item time="2015-09-01">Process</Timeline.Item>
+</Timeline>
+```
 
 ## Design Tokens
 <DesignToken/>

@@ -233,6 +233,7 @@ export interface BasicTreeProps {
     value?: BasicValue;
     virtualize?: Virtualize;
     icon?: any;
+    'aria-label'?: string;
 }
 
 /* Data maintained internally. At the React framework level, corresponding to state */

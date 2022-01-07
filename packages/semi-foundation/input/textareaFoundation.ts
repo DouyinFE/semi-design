@@ -7,6 +7,7 @@ import {
 } from 'lodash';
 import calculateNodeHeight from './util/calculateNodeHeight';
 import getSizingData from './util/getSizingData';
+import isEnterPress from '../utils/isEnterPress';
 
 export interface TextAreaDefaultAdpter {
     notifyChange: noopFunction;
@@ -171,7 +172,7 @@ export default class TextAreaFoundation extends BaseFoundation<TextAreaAdpter> {
         }
     }
 
-    resizeTextarea = (cb: any) => {
+    resizeTextarea = (cb?: any) => {
         const { height } = this.getStates();
         const { rows } = this.getProps();
         const node = this._adapter.getRef().current;
@@ -231,5 +232,14 @@ export default class TextAreaFoundation extends BaseFoundation<TextAreaAdpter> {
         this._adapter.notifyChange('', e);
         this._adapter.notifyClear(e);
         this.stopPropagation(e);
+    }
+
+    /**
+     * A11y: simulate clear button click
+     */
+    handleClearEnterPress(e: any) {
+        if (isEnterPress(e)) {
+            this.handleClear(e);
+        }
     }
 }

@@ -108,17 +108,17 @@ export default class Empty extends BaseComponent<EmptyProps, EmptyState> {
                 style: { fontWeight: 400 },
             };
         return (
-            <div className={wrapperCls} style={style}>
-                <div className={`${prefixCls}-image`} style={imageStyle}>
+            <div className={wrapperCls} style={style} aria-label="empty placeholder image">
+                <div className={`${prefixCls}-image`} style={imageStyle} >
                     {imageNode}
                 </div>
-                <div className={`${prefixCls}-content`}>
+                <div className={`${prefixCls}-content`} >
                     {title ? (
-                        <Typography.Title {...(titleProps as any)} className={`${prefixCls}-title`}>
+                        <Typography.Title {...(titleProps as any)} className={`${prefixCls}-title`} >
                             {title}
                         </Typography.Title>
                     ) : null}
-                    {description ? <div className={`${prefixCls}-description`}>{description}</div> : null}
+                    {description ? <div className={`${prefixCls}-description`} >{description}</div> : null}
                     {children ? <div className={`${prefixCls}-footer`}>{children}</div> : null}
                 </div>
             </div>

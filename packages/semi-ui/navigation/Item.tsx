@@ -76,6 +76,7 @@ export default class NavItem extends BaseComponent<NavItemProps, NavItemState> {
         disabled: false,
     };
 
+    foundation: ItemFoundation;
     constructor(props: NavItemProps) {
         super(props);
         this.state = {
@@ -108,6 +109,8 @@ export default class NavItem extends BaseComponent<NavItemProps, NavItemState> {
             getIsCollapsed: () => this.props.isCollapsed || Boolean(this.context && this.context.isCollapsed) || false,
             getSelected: () =>
                 Boolean(this.context && this.context.selectedKeys && this.context.selectedKeys.includes(this.props.itemKey)),
+            getIsOpen: () =>
+                Boolean(this.context && this.context.openKeys && this.context.openKeys.includes(this.props.itemKey)),
         };
     }
 
@@ -159,6 +162,7 @@ export default class NavItem extends BaseComponent<NavItemProps, NavItemState> {
     };
 
     handleClick = (e: React.MouseEvent) => this.foundation.handleClick(e);
+    handleKeyPress = (e: React.KeyboardEvent) => this.foundation.handleKeyPress(e);
 
     render() {
         const {
@@ -249,15 +253,26 @@ export default class NavItem extends BaseComponent<NavItemProps, NavItemState> {
                 [`${clsPrefix}-collapsed`]: isCollapsed,
                 [`${clsPrefix}-disabled`]: disabled,
             });
+            const ariaProps = {
+                'aria-disabled': disabled,
+            };
+            if (isSubNav) {
+                const isOpen = this.adapter.getIsOpen();
+                ariaProps['aria-expanded'] = isOpen;
+            }
 
             itemDom = (
                 <li
+                    role="menuitem"
+                    tabIndex={-1}
+                    {...ariaProps}
                     style={style}
                     ref={this.setItemRef}
                     className={popoverItemCls}
                     onClick={this.handleClick}
                     onMouseEnter={onMouseEnter}
                     onMouseLeave={onMouseLeave}
+                    onKeyPress={this.handleKeyPress}
                 >
                     {itemChildren}
                 </li>

@@ -11,6 +11,7 @@ import Tooltip from '../tooltip/index';
 import Popover from '../popover/index';
 import getRenderText from './util';
 import warning from '@douyinfe/semi-foundation/utils/warning';
+import isEnterPress from '@douyinfe/semi-foundation/utils/isEnterPress';
 import LocaleConsumer from '../locale/localeConsumer';
 import { Locale } from '../locale/interface';
 import { Ellipsis, EllipsisPos, ShowTooltip, TypographyBaseSize, TypographyBaseType } from './interface';
@@ -372,13 +373,18 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
         }
         if (!noExpandText || !noCollapseText) {
             return (
+                // TODO: replace `a` tag with `span` in next major version
+                // NOTE: may have effect on style
+                // eslint-disable-next-line jsx-a11y/anchor-is-valid
                 <a
+                    role="button"
+                    tabIndex={0}
                     className={`${prefixCls}-ellipsis-expand`}
                     key="expand"
                     ref={this.expandRef}
                     aria-label={text}
                     onClick={this.toggleOverflow}
-                    // style={{ marginLeft: '8px' }}
+                    onKeyPress={e => isEnterPress(e) && this.toggleOverflow(e as any)}
                 >
                     {text}
                 </a>

@@ -91,7 +91,7 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
     renderTabItem = (panel: PlainTab): ReactNode => {
         const { size, type, deleteTabItem } = this.props;
         const panelIcon = panel.icon ? this.renderIcon(panel.icon) : null;
-        const closableIcon = (type === 'card' && panel.closable) ? <IconClose className={`${cssClasses.TABS_TAB}-icon-close`} onClick={(e: React.MouseEvent<HTMLSpanElement>) => deleteTabItem(panel.itemKey, e)} /> : null;
+        const closableIcon = (type === 'card' && panel.closable) ? <IconClose aria-label="Close" role="button" className={`${cssClasses.TABS_TAB}-icon-close`} onClick={(e: React.MouseEvent<HTMLSpanElement>) => deleteTabItem(panel.itemKey, e)} /> : null;
         let events = {};
         const key = panel.itemKey;
         if (!panel.disabled) {
@@ -99,8 +99,9 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
                 onClick: (e: MouseEvent<HTMLDivElement>): void => this.handleItemClick(key, e),
             };
         }
+        const isSelected = this._isActive(key);
         const className = cls(cssClasses.TABS_TAB, {
-            [cssClasses.TABS_TAB_ACTIVE]: this._isActive(key),
+            [cssClasses.TABS_TAB_ACTIVE]: isSelected,
             [cssClasses.TABS_TAB_DISABLED]: panel.disabled,
             [`${cssClasses.TABS_TAB}-small`]: size === 'small',
             [`${cssClasses.TABS_TAB}-medium`]: size === 'medium',
@@ -108,8 +109,10 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
         return (
             <div
                 role="tab"
+                id={`semiTab${key}`}
+                aria-controls={`semiTabPanel${key}`}
                 aria-disabled={panel.disabled ? 'true' : 'false'}
-                aria-selected={this._isActive(key) ? 'true' : 'false'}
+                aria-selected={isSelected ? 'true' : 'false'}
                 {...events}
                 className={className}
                 key={this._getItemKey(key)}
@@ -182,7 +185,7 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
                 style={dropdownStyle}
                 trigger={'hover'}
             >
-                <div className={arrowCls} onClick={(e): void => this.handleArrowClick(items, pos)}>
+                <div role="presentation" className={arrowCls} onClick={(e): void => this.handleArrowClick(items, pos)}>
                     <Button
                         disabled={disabled}
                         icon={icon}
@@ -233,7 +236,7 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
         const contents = collapsible ? this.renderCollapsedTab() : this.renderTabComponents(list);
 
         return (
-            <div role="tab-list" className={classNames} style={style} {...getDataAttr(restProps)} data-uuid={this.uuid}>
+            <div role="tablist" aria-orientation={tabPosition === "left" ? "vertical" : "horizontal"} className={classNames} style={style} {...getDataAttr(restProps)} data-uuid={this.uuid}>
                 {contents}
                 {extra}
             </div>

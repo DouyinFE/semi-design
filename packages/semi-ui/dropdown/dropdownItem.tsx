@@ -92,7 +92,7 @@ class DropdownItem extends BaseComponent<DropdownItemProps> {
             );
         }
         return (
-            <li {...events} ref={ref => forwardRef(ref)} className={itemclass} style={style}>
+            <li role="menuitem" {...events} ref={ref => forwardRef(ref)} className={itemclass} style={style}>
                 {tick}
                 {iconContent}
                 {children}

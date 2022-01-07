@@ -20,6 +20,9 @@ export interface RadioInnerProps extends BaseProps {
     prefixCls?: string;
     ref?: React.MutableRefObject<RadioInner> | ((instance: RadioInner) => void);
     isPureCardRadioGroup?: boolean;
+    addonId?: string;
+    extraId?: string;
+    'aria-label'?: React.AriaAttributes['aria-label'];
 }
 
 interface RadioInnerState {
@@ -35,6 +38,7 @@ class RadioInner extends BaseComponent<RadioInnerProps, RadioInnerState> {
         isButtonRadio: PropTypes.bool,
         onChange: PropTypes.func,
         mode: PropTypes.oneOf(['advanced', '']),
+        'aria-label': PropTypes.string,
     };
 
     static defaultProps = {
@@ -44,6 +48,7 @@ class RadioInner extends BaseComponent<RadioInnerProps, RadioInnerState> {
 
 
     inputEntity!: HTMLInputElement;
+    foundation: RadioInnerFoundation;
     constructor(props: RadioInnerProps) {
         super(props);
         this.state = {
@@ -92,7 +97,7 @@ class RadioInner extends BaseComponent<RadioInnerProps, RadioInnerState> {
     }
 
     render() {
-        const { disabled, mode, autoFocus, name, isButtonRadio, isPureCardRadioGroup } = this.props;
+        const { disabled, mode, autoFocus, name, isButtonRadio, isPureCardRadioGroup, addonId, extraId, 'aria-label': ariaLabel } = this.props;
         const { checked } = this.state;
 
         const prefix = this.props.prefixCls || css.PREFIX;
@@ -114,12 +119,16 @@ class RadioInner extends BaseComponent<RadioInnerProps, RadioInnerState> {
                     ref={ref => {
                         this.inputEntity = ref;
                     }}
+                    // eslint-disable-next-line jsx-a11y/no-autofocus
                     autoFocus={autoFocus}
                     type={mode === 'advanced' ? 'checkbox' : 'radio'}
                     checked={Boolean(checked)}
                     disabled={disabled}
                     onChange={this.onChange}
                     name={name}
+                    aria-label={ariaLabel}
+                    aria-labelledby={addonId}
+                    aria-describedby={extraId}
                 />
                 <span className={inner}>{checked ? <IconRadio /> : null}</span>
             </span>

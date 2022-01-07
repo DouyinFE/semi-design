@@ -1,5 +1,6 @@
 /* argus-disable unPkgSensitiveInfo */
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
+import isEnterPress from '../utils/isEnterPress';
 
 export interface ItemProps {
     text?: any;
@@ -37,6 +38,7 @@ export interface ItemAdapter<P = Record<string, any>, S = Record<string, any>> e
     notifyMouseLeave(e: any): void;
     getIsCollapsed(): boolean;
     getSelected(): boolean;
+    getIsOpen(): boolean;
 }
 
 export default class ItemFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<ItemAdapter<P, S>, P, S> {
@@ -90,5 +92,14 @@ export default class ItemFoundation<P = Record<string, any>, S = Record<string, 
             this._adapter.notifyGlobalOnClick({ itemKey, text, domEvent: e });
         }
         this._adapter.notifyClick({ itemKey, text, domEvent: e });
+    }
+
+    /**
+     * A11y: simulate item click
+     */
+    handleKeyPress(e: any) {
+        if (isEnterPress(e)) {
+            this.handleClick(e);
+        }
     }
 }

@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 48
+order: 49
 category: 展示类
 title: Dropdown 下拉框
 icon: doc-dropdown
@@ -411,6 +411,13 @@ function DropdownEvents() {
     );
 }
 ```
+
+## Accessibility
+
+### ARIA
+
+- Dropdown.Menu `role` 设置为 `menu`，`aria-orientatio` 设置为 `vertical`
+- Dropdown.Item `role` 设置为 `menuitem`
 
 ## API 参考
 

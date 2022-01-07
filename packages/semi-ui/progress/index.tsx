@@ -9,9 +9,13 @@ import { Motion } from '../_base/base';
 const prefixCls = cssClasses.PREFIX;
 
 export interface ProgressProps {
+    'aria-label'?: string | undefined;
+    'aria-labelledby'?: string | undefined;
+    'aria-valuetext'?: string | undefined;
     className?: string;
     direction?: 'horizontal' | 'vertical';
     format?: (percent: number) => React.ReactNode;
+    id?: string;
     motion?: Motion;
     orbitStroke?: string;
     percent?: number;
@@ -31,9 +35,13 @@ export interface ProgressState {
 
 class Progress extends Component<ProgressProps, ProgressState> {
     static propTypes = {
+        'aria-label': PropTypes.string,
+        'aria-labelledby': PropTypes.string,
+        'aria-valuetext': PropTypes.string,
         className: PropTypes.string,
         direction: PropTypes.oneOf(strings.directions),
         format: PropTypes.oneOfType([PropTypes.func, PropTypes.node]),
+        id: PropTypes.string,
         motion: PropTypes.oneOfType([PropTypes.bool, PropTypes.func, PropTypes.object]),
         orbitStroke: PropTypes.string,
         percent: PropTypes.number,
@@ -51,7 +59,7 @@ class Progress extends Component<ProgressProps, ProgressState> {
     static defaultProps = {
         className: '',
         direction: strings.DEFAULT_DIRECTION,
-        format: (text: string): string => `${text }%`,
+        format: (text: string): string => `${text}%`,
         motion: true,
         orbitStroke: 'var(--semi-color-fill-0)',
         percent: 0,
@@ -124,12 +132,15 @@ class Progress extends Component<ProgressProps, ProgressState> {
     }
 
     renderCircleProgress(): ReactNode {
-        const { strokeLinecap, style, className, strokeWidth, format, size, stroke, showInfo, percent, orbitStroke } = this.props;
+        const { strokeLinecap, style, className, strokeWidth, format, size, stroke, showInfo, percent, orbitStroke, id } = this.props;
+        const ariaLabel = this.props['aria-label'];
+        const ariaLabelledBy = this.props['aria-labelledby'];
+        const ariaValueText = this.props['aria-valuetext'];
         const { percentNumber } = this.state;
         const classNames = {
-            wrapper: cls(`${prefixCls }-circle`, className),
-            svg: cls(`${prefixCls }-circle-ring`),
-            circle: cls(`${prefixCls }-circle-ring-inner`)
+            wrapper: cls(`${prefixCls}-circle`, className),
+            svg: cls(`${prefixCls}-circle-ring`),
+            circle: cls(`${prefixCls}-circle-ring-inner`)
         };
         const perc = this.calcPercent(percent);
         const percNumber = this.calcPercent(percentNumber);
@@ -152,8 +163,19 @@ class Progress extends Component<ProgressProps, ProgressState> {
         const text = format(percNumber);
 
         return (
-            <div className={classNames.wrapper} style={style}>
-                <svg key={size} className={classNames.svg} height={width} width={width}>
+            <div
+                id={id}
+                className={classNames.wrapper} 
+                style={style} 
+                role='progressbar' 
+                aria-valuemin={0} 
+                aria-valuemax={100}
+                aria-valuenow={percNumber}
+                aria-labelledby={ariaLabelledBy}
+                aria-label={ariaLabel}
+                aria-valuetext={ariaValueText}
+            >
+                <svg key={size} className={classNames.svg} height={width} width={width} aria-hidden>
                     <circle
                         strokeDashoffset={0}
                         strokeWidth={strokeWidth}
@@ -164,6 +186,7 @@ class Progress extends Component<ProgressProps, ProgressState> {
                         r={radius}
                         cx={cx}
                         cy={cy}
+                        aria-hidden
                     />
                     <circle
                         className={classNames.circle}
@@ -176,9 +199,10 @@ class Progress extends Component<ProgressProps, ProgressState> {
                         r={radius}
                         cx={cx}
                         cy={cy}
+                        aria-hidden
                     />
                 </svg>
-                {showInfo && size !== 'small' ? (<span className={`${prefixCls }-circle-text`}>{text}</span>) : null}
+                {showInfo && size !== 'small' ? (<span className={`${prefixCls}-circle-text`}>{text}</span>) : null}
             </div>
         );
     }
@@ -196,17 +220,20 @@ class Progress extends Component<ProgressProps, ProgressState> {
     }
 
     renderLineProgress(): ReactNode {
-        const { className, style, stroke, direction, format, showInfo, size, percent, orbitStroke } = this.props;
+        const { className, style, stroke, direction, format, showInfo, size, percent, orbitStroke, id } = this.props;
+        const ariaLabel = this.props['aria-label'];
+        const ariaLabelledBy = this.props['aria-labelledby'];
+        const ariaValueText = this.props['aria-valuetext'];
         const { percentNumber } = this.state;
         const progressWrapperCls = cls(prefixCls, className, {
-            [`${prefixCls }-horizontal`]: direction === strings.DEFAULT_DIRECTION,
-            [`${prefixCls }-vertical`]: direction !== strings.DEFAULT_DIRECTION,
-            [`${prefixCls }-large`]: size === 'large',
+            [`${prefixCls}-horizontal`]: direction === strings.DEFAULT_DIRECTION,
+            [`${prefixCls}-vertical`]: direction !== strings.DEFAULT_DIRECTION,
+            [`${prefixCls}-large`]: size === 'large',
         });
         const progressTrackCls = cls({
-            [`${prefixCls }-track`]: true,
+            [`${prefixCls}-track`]: true,
         });
-        const innerCls = cls(`${prefixCls }-track-inner`);
+        const innerCls = cls(`${prefixCls}-track-inner`);
 
         const perc = this.calcPercent(percent);
         const percNumber = this.calcPercent(percentNumber);
@@ -215,19 +242,30 @@ class Progress extends Component<ProgressProps, ProgressState> {
             backgroundColor: stroke
         };
         if (direction === strings.DEFAULT_DIRECTION) {
-            innerStyle.width = `${perc }%`;
+            innerStyle.width = `${perc}%`;
         } else {
-            innerStyle.height = `${perc }%`;
+            innerStyle.height = `${perc}%`;
         }
 
         const text = format(percNumber);
 
         return (
-            <div className={progressWrapperCls} style={style}>
-                <div className={progressTrackCls} style={orbitStroke ? { backgroundColor: orbitStroke } : {}}>
-                    <div className={innerCls} style={innerStyle} />
+            <div
+                id={id}
+                className={progressWrapperCls}
+                style={style}
+                role='progressbar'
+                aria-valuemin={0}
+                aria-valuemax={100}
+                aria-valuenow={perc}
+                aria-labelledby={ariaLabelledBy}
+                aria-label={ariaLabel}
+                aria-valuetext={ariaValueText}
+            >
+                <div className={progressTrackCls} style={orbitStroke ? { backgroundColor: orbitStroke } : {}} aria-hidden>
+                    <div className={innerCls} style={innerStyle} aria-hidden />
                 </div>
-                {showInfo ? <div className={`${prefixCls }-line-text`}>{text}</div> : null}
+                {showInfo ? <div className={`${prefixCls}-line-text`}>{text}</div> : null}
             </div>
         );
     }

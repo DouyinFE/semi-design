@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 23
+order: 24
 category: Input
 title: Radio
 subTitle: Radio
@@ -28,7 +28,7 @@ import React from 'react';
 import { Radio } from '@douyinfe/semi-ui';
 
 () => (
-    <Radio>Radio</Radio>
+    <Radio aria-label="Radio demo">Radio</Radio>
 );
 
 ```
@@ -45,7 +45,7 @@ import { Radio } from '@douyinfe/semi-ui';
 
 
 () => (
-    <Radio extra="Semi Design is a design system developed and maintained by IES Front-end Team and UED Team">
+    <Radio extra="Semi Design is a design system developed and maintained by IES Front-end Team and UED Team" aria-label="Radio demo">
         Semi Design
     </Radio>
 );
@@ -75,15 +75,15 @@ class App extends React.Component {
     render() {
         return (
             <div>
-                <Radio defaultChecked={false} disabled={this.state.disabled}>
+                <Radio defaultChecked={false} disabled={this.state.disabled} aria-label="Radio demo">
                     Disabled
                 </Radio>
                 <br />
-                <Radio defaultChecked disabled={this.state.disabled}>
+                <Radio defaultChecked disabled={this.state.disabled} aria-label="Radio demo">
                     Disabled
                 </Radio>
                 <div style={{ marginTop: 20 }}>
-                    <Button type="primary" onClick={this.toggleDisabled}>
+                    <Button type="primary" onClick={this.toggleDisabled} aria-label="Radio demo">
                         Toggle disabled
                     </Button>
                 </div>
@@ -120,7 +120,7 @@ class App extends React.Component {
     render() {
         return (
             <div>
-                <Radio checked={this.state.checked} mode="advanced" onChange={this.onChange}>
+                <Radio checked={this.state.checked} mode="advanced" onChange={this.onChange} aria-label="Radio demo">
                     Click Again to Uncheck
                 </Radio>
             </div>
@@ -154,7 +154,7 @@ class App extends React.Component {
 
     render() {
         return (
-            <RadioGroup onChange={this.onChange} value={this.state.value}>
+            <RadioGroup onChange={this.onChange} value={this.state.value} aria-label="RadioGroup demo">
                 <Radio value={1}>A</Radio>
                 <Radio value={2}>B</Radio>
                 <Radio value={3}>C</Radio>
@@ -211,17 +211,17 @@ class App extends React.Component {
     render() {
         return (
             <Space vertical spacing="loose" align="start">
-                <RadioGroup type="button" buttonSize="small" onChange={this.onChange1} value={this.state.value1}>
+                <RadioGroup type="button" buttonSize="small" onChange={this.onChange1} value={this.state.value1} aria-label="RadioGroup demo">
                     <Radio value={1}>Instant push</Radio>
                     <Radio value={2}>Timed push</Radio>
                     <Radio value={3}>Dynamic push</Radio>
                 </RadioGroup>
-                <RadioGroup type="button" buttonSize="middle" onChange={this.onChange2} value={this.state.value2}>
+                <RadioGroup type="button" buttonSize="middle" onChange={this.onChange2} value={this.state.value2} aria-label="RadioGroup demo">
                     <Radio value={1}>Instant push</Radio>
                     <Radio value={2}>Timed push</Radio>
                     <Radio value={3}>Dynamic push</Radio>
                 </RadioGroup>
-                <RadioGroup type="button" buttonSize="large" onChange={this.onChange3} value={this.state.value3}>
+                <RadioGroup type="button" buttonSize="large" onChange={this.onChange3} value={this.state.value3} aria-label="RadioGroup demo">
                     <Radio value={1}>Instant push</Radio>
                     <Radio value={2}>Timed push</Radio>
                     <Radio value={3}>Dynamic push</Radio>
@@ -243,7 +243,7 @@ import React from 'react';
 import { RadioGroup, Radio } from '@douyinfe/semi-ui';
 
 () => (
-    <RadioGroup type='card' defaultValue={1} direction='vertical'>
+    <RadioGroup type='card' defaultValue={1} direction='vertical' aria-label="RadioGroup demo">
         <Radio value={1} extra='Radio description' style={{width:280}}>
             Radio Title
         </Radio>
@@ -269,7 +269,7 @@ import React from 'react';
 import { RadioGroup, Radio } from '@douyinfe/semi-ui';
 
 () => (
-    <RadioGroup type='pureCard' defaultValue={1} direction='vertical'>
+    <RadioGroup type='pureCard' defaultValue={1} direction='vertical' aria-label="RadioGroup demo">
         <Radio value={1} extra='Radio description' style={{width:280}}>
             Radio Title
         </Radio>
@@ -338,18 +338,30 @@ class App extends React.Component {
     render() {
         return (
             <div>
-                <RadioGroup options={this.plainOptions} onChange={this.onChange1} value={this.state.value1} />
+                <RadioGroup options={this.plainOptions} onChange={this.onChange1} value={this.state.value1} aria-label="RadioGroup demo" />
                 <br />
                 <br />
-                <RadioGroup options={this.optionsWithDisabled} onChange={this.onChange3} value={this.state.value3} />
+                <RadioGroup options={this.optionsWithDisabled} onChange={this.onChange3} value={this.state.value3} aria-label="RadioGroup demo" />
                 <br />
                 <br />
-                <RadioGroup options={this.options} onChange={this.onChange2} value={this.state.value2} />
+                <RadioGroup options={this.options} onChange={this.onChange2} value={this.state.value2} aria-label="RadioGroup demo" />
             </div>
         );
     }
 }
 ```
+
+## Accessibility
+
+### Keyboard and Focus
+
+- Card type and button type Radio group can be selected by arrow switch
+
+### ARIA
+
+- `aria-label`: used to explain the role of Radio or RadioGroup
+- `aria-labelledby` points to the addon node, used to explain the content of Radio
+- `aria-describedby` points to the extra node, which is used to explain the content of Radio
 
 ## API Reference
 
@@ -359,6 +371,7 @@ class App extends React.Component {
 | --- | --- | --- | --- |
 | addonClassName | classname of content wrapper<br/>**provided after v1.16.0** | string |  |
 | addonStyle | inline style of content wrapper<br/>**provided after v1.16.0** | object |  |
+| aria-label      | Label of Radio                                                            | string           | -  |
 | autoFocus | Automatically focus the form control when the page is loaded | boolean | false |
 | checked | Specify whether it is currently selected | boolean | false |
 | className | Class name | string |  |
@@ -375,6 +388,7 @@ class App extends React.Component {
 
 | PROPERTIES | Instructions | Type | Default |
 | --- | --- | --- | --- |
+| aria-label      | Label of RadioGroup                                                            | string           | -  |
 | buttonSize | The size of the button type radio， one of `small`、`middle`、`large` <br/>**Provided after v1.26.0** | string | `middle` |
 | className | Class name | string |  |
 | defaultValue | Options selected by default | string \| number | - |
