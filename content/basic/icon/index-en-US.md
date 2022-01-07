@@ -160,3 +160,18 @@ import StarIcon from './star.svg';
 | spin | spin animation | boolean | |
 | style | Icon style | CSSProperties | None |
 | svg | Icon content | ReactNode | None |
+
+## Accessibility
+
+### ARIA
+
+- The Icon component role is img, and its aria-label defaults to the component's file name
+
+```jsx live=true
+import React from 'react';
+import { IconHome } from '@douyinfe/semi-icons';
+
+() => <IconHome aria-label="back to homepage" />;
+```
+
+- The svg element inside Icon is a decorative element, and aria-hidden is set by default to prevent it from being read by screen readers

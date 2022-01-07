@@ -155,5 +155,11 @@ import { IconLikeHeart } from '@douyinfe/semi-icons';
 | tooltips | 自定义每项的提示信息 | string[] | - |
 | value | 当前受控值 | number | - |
 
+## Accessibility
+
+### ARIA
+
+- Rating 具有 aria-checked 表示当前是否选中，aria-posinset 表示在列表的位置，aria-setsize 表示列表的长度
+
 ## 设计变量
 <DesignToken/>

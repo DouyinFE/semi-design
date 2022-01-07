@@ -159,3 +159,19 @@ import StarIcon from './star.svg';
 | spin | 旋转动画 | boolean |   |
 | style | 图标样式 | CSSProperties | 无    |
 | svg | 图标内容 | ReactNode | 无    |
+
+
+## Accessibility
+
+### ARIA
+
+- Icon 组件 role 为 img，它的 aria-label 默认为组件的文件名。例如 IconHome 的 aria-label 为 `home`，如果你有更好的语义化名字，可以通过 aria-label 传入。
+
+```jsx live=true
+import React from 'react';
+import { IconHome } from '@douyinfe/semi-icons';
+
+() => <IconHome aria-label="back to homepage" />;
+```
+
+- Icon 内部的 svg 元素为装饰元素，默认设置了 aria-hidden 以不被屏幕阅读器阅读

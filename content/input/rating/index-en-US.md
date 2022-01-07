@@ -178,5 +178,11 @@ import { IconLikeHeart } from '@douyinfe/semi-icons';
 | tooltips      | Customize prompted information for each item                                          | String[]                | -                                        |
 | value         | Controlled value                                                                      | number                  | -                                        |
 
+##Accessibility
+
+### ARIA
+
+- Rating has aria-checked to indicate whether it is currently selected, aria-posinset to indicate the position in the list, and aria-setsize to indicate the length of the list
+
 ## Design Tokens
 <DesignToken/>

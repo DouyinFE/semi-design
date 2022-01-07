@@ -219,5 +219,13 @@ function Demo () {
 | blur()  | 移出焦点 |
 | focus() | 获取焦点 |
 
+
+## Accessibility
+
+### ARIA
+
+- 增减按钮添加了 button role，以表示是可以点击的按钮
+- 使用 aria-valuenow 表示当前值，aria-valuemax 表示可以接受的最大值，aria-valuemin 表示可以接受的最小值
+
 ## 设计变量
 <DesignToken/>

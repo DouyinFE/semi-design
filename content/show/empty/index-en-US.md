@@ -192,6 +192,12 @@ import { IllustrationIdle, IllustrationIdleDark, IllustrationConstructionDark, I
 | style | Style name | CSSProperties |-|
 | title | Title **v>=1.0.0** | ReactNode |-|
 
+## Accessibility
+
+### ARIA
+
+- aria-hidden for Empty illustrations is true
+
 ## Design Token
 
 <DesignToken/>

@@ -410,6 +410,12 @@ HookToast ( >= 1.2.0 )：
 -   `Toast.useToast()`  
     当你需要使用 Context 时，可以通过 Toast.useToast 创建一个 contextHolder 插入相应的节点中。此时通过 hooks 创建的 Toast 将会得到 contextHolder 所在位置的所有上下文。创建的 toast 对象拥有与以下方法：`info`, `success`, `warning`, `error`, `close`。
 
+## Accessibility
+
+### ARIA
+
+- Toast 的 role 为 alert
+
 ## 设计变量
 
 <DesignToken/>

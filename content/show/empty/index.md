@@ -195,6 +195,12 @@ import { IllustrationIdle, IllustrationIdleDark, IllustrationConstructionDark, I
 | style | 样式名 | CSSProperties | - |
 | title | 标题 **v>=1.0.0** | ReactNode | - |
 
+## Accessibility
+
+### ARIA
+
+- Empty 插图的 aria-hidden 为 true
+
 ## 设计变量
 
 <DesignToken/>
