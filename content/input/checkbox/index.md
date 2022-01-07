@@ -377,7 +377,7 @@ import { Checkbox, CheckboxGroup, Row, Col } from '@douyinfe/semi-ui';
 
 ## Accessibility
 
-### Aria
+### ARIA
 - Checkbox 的 role 为 `checkbox`，CheckboxGroup 的 role 为 `list`，它的直接子元素为 `listitem`
 - `aria-label`：单独使用 Checkbox 时，如果 Children 没有文本，建议传入 `aria-label` prop，用一句话描述 Checkbox 的作用，这会让屏幕阅读器读出这个标签的内容。如果你使用的是 Form.Checkbox，可以使用 Form 提供的 label 而无需传入 `aria-label`
 - `aria-labelledby` 指向 `addon` 节点，用于解释当前 Checkbox 的作用

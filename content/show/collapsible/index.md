@@ -221,7 +221,7 @@ import { Collapsible, Button } from '@douyinfe/semi-ui';
 | id | id | html id string type | - | 2.3.0 |
 ## Accessibility
 
-### Aria
+### ARIA
 
 -   Collapsible 具有 `id` props，传入的值会被设置为 wrapper 元素的id, 可以配合其他组件的 `aria-controls` 指明控制关系, 见下方使用示例。
 

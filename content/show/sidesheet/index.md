@@ -299,7 +299,7 @@ class Demo extends React.Component {
 
 ## Accessibility
 
-### Aria
+### ARIA
 
 - SideSheet 具有 `dialog` role 来表示它是一个弹窗组件， 内部 header 具有 `heading` role 表明是 header。
 - SideSheet content title body footer 均具有 label 来表明元素作用。

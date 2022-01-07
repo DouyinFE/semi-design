@@ -191,7 +191,7 @@ import { Collapsible, Button } from '@douyinfe/semi-ui';
 
 ## Accessibility
 
-### Aria
+### ARIA
 
 - Collapsible has `id` props, the value passed in will be set as the id of the wrapper element, which can be used with other components' `aria-controls` to indicate the control relationship, see the usage example below.
 

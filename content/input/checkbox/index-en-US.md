@@ -395,7 +395,7 @@ import { CheckboxGroup, Checkbox, Row, Col } from '@douyinfe/semi-ui';
 
 ## Accessibility
 
-### Aria
+### ARIA
 - The role of Checkbox is `checkbox`, the role of CheckboxGroup is `list`, and its direct child element is `listitem`
 - `aria-label`: When using the Checkbox alone, if Children have no text, it is recommended to pass in the `aria-label` prop to describe the function of the Checkbox in one sentence, which will make the screen reader read out the content of this label. If you are using Form.Checkbox, you can use the label provided by Form without passing in `aria-label`
 - `aria-labelledby` points to the `addon` node, used to explain the role of the current Checkbox

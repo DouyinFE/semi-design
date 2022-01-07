@@ -488,7 +488,7 @@ function SplitButtonDemo(){
 
 ## Accessibility
 
-### Aria
+### ARIA
 
 - `aria-label` is used to indicate the function of the button. For icon buttons, we recommend using this attribute
 - `aria-disabled` is synchronized with the disabled attribute, indicating that the button is disabled
