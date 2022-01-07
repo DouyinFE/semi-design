@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 11
+order: 12
 category: Basic
 title:  Layout
 subTitle: Layout

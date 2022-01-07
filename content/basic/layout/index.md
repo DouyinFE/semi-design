@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 11
+order: 12
 category: 基础
 title: Layout 布局
 icon: doc-layout

@@ -4,7 +4,7 @@ title: Change Log
 subTitle: Change Log
 icon: doc-changelog
 localeCode: en-US
-order: 5
+order: 6
 brief: About Semi Design For React Optimization and Update
 ---
 
