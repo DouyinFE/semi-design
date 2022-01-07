@@ -1897,7 +1897,7 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
 
 ## Accessibility
 
-### Aria
+### ARIA
 
 - Tree supports passing in `aria-label` to indicate the role of the Tree;
 - Tree will set `aria-disabled`, `aria-checked`, `aria-selected`, and `aria-level` for each child node to indicate the node status and level;

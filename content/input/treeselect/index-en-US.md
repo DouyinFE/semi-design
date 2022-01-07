@@ -1261,7 +1261,7 @@ For custom rendering of input box.
 
 ## Accessibility
 
-### Aria
+### ARIA
 
 - TreeSelect will automatically set `aria-label` to 'TreeSelect', and also support users to set `aria-label` to indicate the function of the TreeSelect;
 - TreeSelect allows users to set `aria-describedby`, `aria-errormessage`, `aria-invalid`, `aria-labelledby`, `aria-required`, in addition, Form will automatically set these properties for Form.TreeSelect;

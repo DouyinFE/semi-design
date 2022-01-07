@@ -317,7 +317,7 @@ class App extends React.Component {
 
 - 卡片式、按钮式 Radio 组可以通过箭头切换选中
 
-### Aria
+### ARIA
 
 - `aria-label`：用于解释 Radio 或 RadioGroup 的作用
 - `aria-labelledby` 默认指向 addon 节点，用于解释 Radio 的内容

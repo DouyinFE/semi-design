@@ -290,7 +290,7 @@ import { Progress } from '@douyinfe/semi-ui';
 
 ## Accessibility
 
-### Aria
+### ARIA
 
 -   Progress 具有 `progressbar` role 来表示它是一个进度条组件。
 -   Progress 会自动将 `aria-valuenow` 设置为传递给组件的进度百分比（`percent`），以确保屏幕阅读器可以获取正确的百分比数值。另外，Progress 支持传入 `aria-valuetext`，当你传入时，根据 W3C 规范，`aria-valuetext` 将优先被屏幕阅读器使用消费，而不是 `aria-valuenow`

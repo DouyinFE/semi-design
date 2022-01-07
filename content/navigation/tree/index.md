@@ -1914,7 +1914,7 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
 
 ## Accessibility
 
-### Aria
+### ARIA
 
 - Tree 支持传入 `aria-label` 来表示该 Tree 作用;
 - Tree 会自动为每个子节点分别设置 `aria-disabled`、`aria-checked`、`aria-selected`、`aria-level` 来表明节点状态及层级;

@@ -269,7 +269,7 @@ import { Progress } from '@douyinfe/semi-ui';
 | width | Width of circular progress bar | number | 72 when size='default', 24 for 'small' |
 
 ## Accessibility
-### Aria
+### ARIA
 
 -   Progress has a `progressbar` role to indicate that it is a progress bar component.
 -   Progress will automatically set `aria-valuenow` as the progress percentage (`percent`) passed to the component to ensure that the screen reader can get the correct percentage value. In addition, Progress supports incoming `aria-valuetext`. When you pass in, according to W3C specifications, `aria-valuetext` will be used and consumed by screen readers instead of `aria-valuenow`

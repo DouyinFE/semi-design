@@ -1242,7 +1242,7 @@ function Demo() {
 
 ## Accessibility
 
-### Aria
+### ARIA
 
 - TreeSelect 会自动设置 `aria-label` 为 'TreeSelect'，也支持用户自行设置 `aria-label` 来表示该 TreeSelect 作用;
 - TreeSelect 允许用户设置 `aria-describedby`、`aria-errormessage`、`aria-invalid`、`aria-labelledby`、`aria-required`，另外，Form 会为 Form.TreeSelect 自动设置这些属性;

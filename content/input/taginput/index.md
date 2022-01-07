@@ -454,7 +454,7 @@ class CustomRender extends React.Component {
 
 ## Accessibility
 
-### Aria
+### ARIA
 
 - TagInput 支持传入 `aria-label` 来表示该 TagInput 作用；
 - TagInput 会依据 disabled 及 validateStatus props 来分别设置 `aria-disabled`、`aria-invalid`；

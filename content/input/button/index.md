@@ -447,7 +447,7 @@ function SplitButtonDemo(){
 
 ## Accessibility
 
-### Aria
+### ARIA
 
 - `aria-label` 用于表示按钮的作用，对于图标按钮，我们推荐使用此属性
 - `aria-disabled` 与 disabled 属性同步，表示按钮禁用 

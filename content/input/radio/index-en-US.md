@@ -357,7 +357,7 @@ class App extends React.Component {
 
 - Card type and button type Radio group can be selected by arrow switch
 
-### Aria
+### ARIA
 
 - `aria-label`: used to explain the role of Radio or RadioGroup
 - `aria-labelledby` points to the addon node, used to explain the content of Radio
