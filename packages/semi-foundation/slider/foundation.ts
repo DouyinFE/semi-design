@@ -320,18 +320,8 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
         } else {
             compareValue = currentValue;
         }
-        if (step !== 1) {
-            // Existence step
-            if (stepValue > compareValue && Math.round(stepValue / step) * step >= stepValue) {
-                // Move right
-                stepValue = Math.round(stepValue / step) * step;
-            } else if (stepValue < compareValue && Math.round(stepValue / step) * step <= stepValue) {
-                // Move left
-                stepValue = Math.round(stepValue / step) * step;
-            } else {
-                // Other moves are invalid, click valid
-                stepValue = compareValue;
-            }
+        if (step !== 1) { // Find nearest step point 
+            stepValue = Math.round(stepValue / step) * step;
         }
         if (range && stepValue !== compareValue) {
             if (vertical && verticalReverse) {

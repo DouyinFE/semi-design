@@ -250,6 +250,7 @@ import { Slider } from '@douyinfe/semi-ui';
 | min            | Minimum value of the slider.                                                               | number        | 0       |- |
 | railStyle | Style for slide rail | CSSProperties | - |0.31.0|
 | range          | Toggle whether it is allow to move slider from both sides                                  | boolean       | false   |- |
+| showBoundary   | Toggle whether show max/min value when hover                                               | boolean       | false   |- |
 | step           | Increment between successive values                                                        | number        | 1       |- |
 | tipFormatter   | Format Tooltip content, by default display current value                                   | (value: string \| number \| boolean \| (string \| number \| boolean)[]) => any      | v => v  |- |
 | tooltipVisible | Toggle whether to display tooltip all the time                                             | boolean       | -       |- |
