@@ -16,6 +16,38 @@ Version：Major.Minor.Patch
 
 ---
 
+#### 🎉 2.3.0-beta.0 (2022-01-07)
+- 【Fix】
+    - Fixed the problem that when Form uses the parent fieldPath in formApi.setValue, setError, and setTouch to perform batch assignment to multiple nested fields, there may be a problem of stuck (affecting versions v1.32~v2.2) Checklist
+    - Fix the inaccurate trigger range of Form formApi.validate partial verification Checklist
+    - Fix the problem that Tooltip did not include spacing when calculating adjustOverflow, which caused the content to exceed (but not exceed 8px) and still not automatically switch the direction.  [#491](https://github.com/DouyinFE/semi-design/issues/491)
+    - Fix Tooltip showing that the default direction of the floating layer is insufficient, and it will flicker when adjustOverflow is triggered to automatically switch the direction.   [#69](https://github.com/DouyinFE/semi-design/issues/69)
+    - Fix Tree handleNodeDragOver internal event parameters are not properly passed  [#345 ](https://github.com/DouyinFE/semi-design/issues/345)
+    - Fix TreeSelect when searchPosition is trigger, maxTagCount does not take effect  [#498 ](https://github.com/DouyinFE/semi-design/issues/498)
+    - Fix TagInput setting value to undefined does not take effect  [#483 ](https://github.com/DouyinFE/semi-design/issues/483)
+    - Fix Slider step marks click not working
+    - Fix Table uncontrolled paging after turning the page, updating state will reset the paging state and jump to the first page  [#348](https://github.com/DouyinFE/semi-design/issues/348) [@chenc041](https://github.com/chenc041)
+- 【Feat】
+    - Select supports autoClearSearchValue, allowing the current search keywords to be retained after selection Checklist
+    - Slider add cursor grabbing style when drag Checklist
+    - 40+ components add accessibility semantic support [#205](https://github.com/DouyinFE/semi-design/issues/205)
+        - Button adds aria-label attribute, when disabled, Button has aria-disabled attribute
+        - The role of Checkbox is checkbox, the role of CheckboxGroup is list, its direct child element is listitem, and the aria-label attribute is added to explain the function of the selection box; aria-disabled means the current disabled state; aria-checked means the current selected state
+        - aria-hidden is true for Empty illustrations
+        - Form adds label and error message accessibility support for Form.Field
+        - Icon component role is img, and its aria-label defaults to the component's file name; the svg element inside Icon is a decorative element, and aria-hidden is set by default to prevent it from being read by screen readers
+        - InputGroup adds a default value of name to Label to associate the corresponding field
+        - Modal adds focus position processing before and after opening, focusing on the pop-up layer after opening, and focusing on the focused position before opening after closing
+        - Radio's aria-labelledby points to the addon node by default, which is used to explain the content of Radio, and aria-describedby points to the extra node by default, which is used to supplement and explain the content of Radio
+        - The roles of the Select trigger and the pop-up layer are combobox and listbox, and the trigger is bound with some aria-* attributes to indicate the relationship with the pop-up layer; Option has aria-selected and aria-disabled attributes to indicate the selected state of the current item
+        - The role of Slider is slider, and attributes such as aria-valuenow are set to describe its current state; aria-orientation is vertical when it is vertical; when the value of aria-valuenow is not easy to understand, it supports passing a string through API aria-valuetext To make it more friendly, you can also get the value of aria-valuetext through the geAriaValueText method. [#490](https://github.com/DouyinFE/semi-design/issues/490)
+        - Added role and aria-* attributes to table rows and cells
+        - Tooltip has a tooltip role, which follows the definition of Tooltip in the WAI-ARIA specification; the content wrapper will be automatically added with an id attribute to match children's aria-describedby and associate content with children
+        - Tree supports passing in aria-label to indicate the role of the Tree, and the corresponding role and aria-* attributes are set for Tree and TreeNode inside the component. [#493](https://github.com/DouyinFE/semi-design/issues/493)
+        - TreeSelect supports passing in attributes such as aria-label and aria-errormessage to indicate the role and current status of TreeSelect, and sets relevant aria-* attributes for child nodes. [#493](https://github.com/DouyinFE/semi-design/issues/493)
+        - When the trigger of the Popover is hover, the content of the Popover has the tooltip role, and when the trigger is click, custom, the content of the Popover has the dialog role
+        - For details of other components, please refer to the documentation of each component, click to view the [accessibility design guide](https://semi.design/zh-CN/start/accessibility)
+
 #### 🎉 2.2.2 (2021-12-31)
 - 【Fix】
     - Fix Transfer In the groupList scenario, the title attribute is passed into the reactElement node, resulting in key-warning [@JontyyYang](https://github.com/JontyyYang)

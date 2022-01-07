@@ -15,6 +15,38 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 ---
 
+#### 🎉 2.3.0-beta.0 (2022-1-7)
+- 【Fix】
+    - 修复 Form 使用 formApi.setValue、setError、setTouch 中用父级fieldPath，对多个嵌套field进行批量赋值时，可能存在卡顿的问题（影响版本 v1.32~v2.2）
+    - 修复Form formApi.validate 局部校验触发范围不准确的问题
+    - 修复 Tooltip 计算 adjustOverflow时未将 spacing纳入，导致内容超出（但未超过8px）后仍未自动切换方向的问题  [#491](https://github.com/DouyinFE/semi-design/issues/491)
+    - 修复 Tooltip 展现浮层默认方向空间不足，触发 adjustOverflow 自动切换方向时会闪烁的问题  [#69](https://github.com/DouyinFE/semi-design/issues/69)
+    - 修复 Tree handleNodeDragOver 内部 event 传参不恰当的问题  [#345 ](https://github.com/DouyinFE/semi-design/issues/345)
+    - 修复 TreeSelect 当 searchPosition 为 trigger 时，maxTagCount 不生效的问题  [#498 ](https://github.com/DouyinFE/semi-design/issues/498)
+    - 修复 TagInput 设置 value 为 undefined 无法生效的问题  [#483 ](https://github.com/DouyinFE/semi-design/issues/483)
+    - 修复 Slider 点击刻度不生效的问题
+    - 修复 Table 非受控分页在翻页之后, 更新 state 会重置分页状态, 跳转到第一页  [#348](https://github.com/DouyinFE/semi-design/issues/348) [@chenc041](https://github.com/chenc041)
+- 【Feat】
+    - Select 支持autoClearSearchValue，允许选中后保留当前搜索关键字
+    - Slider 拖动时添加鼠标 grabbing 样式
+    - 40+ 组件增加无障碍语义化支持 [#205](https://github.com/DouyinFE/semi-design/issues/205)
+        - Button 新增 aria-label 属性，禁用时 Button 具有 aria-disabled 属性
+        - Checkbox 的 role 为 checkbox，CheckboxGroup 的 role 为 list，它的直接子元素为 listitem，新增 aria-label 属性，用于解释选择框的作用；aria-disabled 表示当前的禁用状态；aria-checked 表示当前的选中状态
+        - Empty 插图的 aria-hidden 为 true
+        - Form 为 Form.Field 增加 label 和错误信息无障碍支持
+        - Icon 组件 role 为 img，它的 aria-label 默认为组件的文件名；Icon 内部的 svg 元素为装饰元素，默认设置了 aria-hidden 以不被屏幕阅读器阅读
+        - InputGroup 给 Label 新增 name 默认值，以便关联对应的 field
+        - Modal 增加 open 前后 focus 位置处理，打开后聚焦在弹出层，关闭后聚焦在打开前聚焦的位置
+        - Radio 的 aria-labelledby 默认指向 addon 节点，用于解释 Radio 的内容，aria-describedby 默认指向 extra 节点，用于补充解释 Radio 的内容
+        - Select trigger 与弹出层的 role 为 combobox 和 listbox，trigger 绑定了一些 aria-* 属性表示与弹出层的关系；Option 上具有 aria-selected 和 aria-disabled 属性表示当前项的选中状态
+        - Slider 的 role 为 slider，同时设置了 aria-valuenow 等属性描述它的当前状态；纵向时 aria-orientation 为 vertical；当 aria-valuenow 的值不容易理解时，支持通过 API aria-valuetext 传递一个字符串使其更友好，也可以通过 geAriaValueText 方法得到 aria-valuetext 的值。[#490](https://github.com/DouyinFE/semi-design/issues/490)
+        - Table 的行、单元格添加了 role 和 aria-* 属性
+        - Tooltip 具有 tooltip role，遵循 WAI-ARIA 规范中对于 Tooltip 的定义；content 的 wrapper 会被自动添加 id 属性，用于与 children 的 aria-describedby 匹配，关联 content 与 children
+        - Tree 支持传入 aria-label 来表示该 Tree 作用，同时组件内部为 Tree 和 TreeNode 设置了相应的 role 和 aria-*属性。[#493](https://github.com/DouyinFE/semi-design/issues/493)
+        - TreeSelect 支持传入 aria-label、aria-errormessage 等属性表示 TreeSelect 的作用和当前状态，同时为子节点设置了相关 aria-* 属性。[#493](https://github.com/DouyinFE/semi-design/issues/493)
+        - Popover 的 trigger 为 hover 时，Popover 的 content 具有 tooltip role，trigger 为 click、custom 时，Popover 的 content 具有 dialog role
+        - 其他组件详情请看各组件文档，点击这里查看[无障碍设计指导](https://semi.design/zh-CN/start/accessibility)
+
 #### 🎉 2.2.2 (2021-12-31)
 - 【Fix】
     - 修复 Transfer 在 type 是 groupList 场景下, title 属性传入 ReactElement 类型导致key-warning [@JontyyYang](https://github.com/JontyyYang)
