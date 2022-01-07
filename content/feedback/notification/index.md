@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 61
+order: 62
 category: 反馈类
 title: Notification 通知
 icon: doc-notification

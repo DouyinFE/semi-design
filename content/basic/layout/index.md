@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 11
+order: 12
 category: 基础
 title: Layout 布局
 icon: doc-layout
@@ -523,7 +523,7 @@ import { IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, IconHistogram, I
 
 ## Accessibility
 
-### Aria
+### ARIA
 
 - Sider 可传入 aria-label props，描述该 Sider 作用。
 - Header Content Main Footer 可传入 role aria-label 描述对应元素作用。

@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 31
+order: 32
 category: Input
 title:  TreeSelect
 subTitle: TreeSelect
@@ -1261,10 +1261,19 @@ For custom rendering of input box.
 
 ## Accessibility
 
-### Aria
+### ARIA
 
-- TreeSelect supports passing in  `aria-label`、`aria-describedby`、`aria-errormessage`、`aria-invalid`、`aria-labelledby`、`aria-required` to indicate the role of the TreeSelect;
-- TreeSelect will set `aria-disabled`, `aria-checked`, `aria-selected`, and `aria-level` for each child node to indicate the node status and level.
+- TreeSelect will automatically set `aria-label` to 'TreeSelect', and also support users to set `aria-label` to indicate the function of the TreeSelect;
+- TreeSelect allows users to set `aria-describedby`, `aria-errormessage`, `aria-invalid`, `aria-labelledby`, `aria-required`, in addition, Form will automatically set these properties for Form.TreeSelect;
+- TreeSelect will set `aria-disabled`, `aria-checked`, `aria-selected`, `aria-level` for each child node to indicate node status and level;
+
+Demo:
+```typescript
+    <TreeSelect
+        /* other attributes */
+        aria-label='example treeSelect'
+    />
+```
 
 ## Design Tokens
 <DesignToken/>

@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 46
+order: 47
 category: 展示类
 title: Collapsible 折叠
 icon: doc-collapsible
@@ -218,6 +218,29 @@ import { Collapsible, Button } from '@douyinfe/semi-ui';
 | motion | 是否开启动画 | Motion | `true` | - |
 | reCalcKey | 当 reCalcKey 改变时，将重新计算子节点的高度，用于优化动态渲染时的计算 | number \| string | - | 1.5.0 |
 | style | 样式 | CSSProperties | - | 0.34.0 |
+| id | id | html id string type | - | 2.3.0 |
+## Accessibility
+
+### ARIA
+
+-   Collapsible 具有 `id` props，传入的值会被设置为 wrapper 元素的id, 可以配合其他组件的 `aria-controls` 指明控制关系, 见下方使用示例。
+
+```jsx
+import Collapsible from './index';
+
+
+()=>{
+    const collapseId = 'myCollapsible';
+    const [visible,setVisible]=useState(false);
+    return <>
+        <Button onClick={()=>setVisible(!visible)} aria-controls={`${collapseId}`}>{visible?'hide':'show'}</Button>    
+        <Collapsible isOpen={visible} id={collapseId}>
+            <div>hide content</div>
+        </Collapsible>
+    </>
+}
+
+```
 
 ## FAQ
 

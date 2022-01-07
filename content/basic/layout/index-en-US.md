@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 11
+order: 12
 category: Basic
 title:  Layout
 subTitle: Layout
@@ -509,7 +509,7 @@ import { IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, IconHistogram, I
 
 ## Accessibility
 
-### Aria
+### ARIA
 
 - Sider can pass in aria-label props to describe the function of this Sider.
 - Header Content Main Footer can pass in role aria-label to describe the function of the corresponding element.

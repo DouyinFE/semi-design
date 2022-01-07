@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 46
+order: 47
 category: Show
 title: Collapsible
 subTitle: Collapsible
@@ -187,6 +187,30 @@ import { Collapsible, Button } from '@douyinfe/semi-ui';
 | motion | Toggle whether to turn on animation | Motion | `true` | - |
 | reCalcKey | When reCalcKey changes, the height of children will be reset. Used for optimize dynamic content rendering. | number \| string | - | 1.5.0 |
 | style | Style object | CSSProperties | - | 0.34.0 |
+| aria-controls | [aria-controls](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-controls) | string |-| 2.3.0|
+
+## Accessibility
+
+### ARIA
+
+- Collapsible has `id` props, the value passed in will be set as the id of the wrapper element, which can be used with other components' `aria-controls` to indicate the control relationship, see the usage example below.
+
+```jsx
+import Collapsible from './index';
+
+
+()=>{
+    const collapseId = 'myCollapsible';
+    const [visible,setVisible]=useState(false);
+    return <>
+        <Button onClick={()=>setVisible(!visible)} aria-controls={`${collapseId}`}>{visible?'hide':'show'}</Button>
+        <Collapsible isOpen={visible} id={collapseId}>
+            <div>hide content</div>
+        </Collapsible>
+    </>
+}
+
+```
 
 ## FAQ
 

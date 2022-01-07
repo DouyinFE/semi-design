@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 28
+order: 29
 category: Input
 title: TagInput
 subTitle: TagInput
@@ -455,7 +455,7 @@ class CustomRender extends React.Component {
 
 ## Accessibility
 
-### Aria
+### ARIA
 
 - TagInput supports the input of `aria-label` to indicate the function of the TagInput;
 - TagInput will set `aria-disabled` and `aria-invalid` according to disabled and validateStatus props;

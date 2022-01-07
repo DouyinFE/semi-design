@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 27
+order: 28
 category: 输入类
 title: Switch 开关
 icon: doc-switch
@@ -189,7 +189,7 @@ import { Switch } from '@douyinfe/semi-ui';
 
 ## Accessibility
 
-### Aria
+### ARIA
 
 -   Switch 具有 `switch` role，当 checked 为 true 时，`aria-checked` 将被自动设置为 true，反之亦然.
 -   作为表单控件应该带有 Label，当你使用 Form.Switch 时会自动被带上。

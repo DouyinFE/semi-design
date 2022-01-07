@@ -807,7 +807,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
 
                 return (
                     <ColumnSelection
-                        aria-label={`${selected ? 'Select' : 'Deselect'} this row`}
+                        aria-label={`${selected ? 'Deselect' : 'Select'} this row`}
                         getCheckboxProps={checkboxPropsFn}
                         selected={selected}
                         onChange={(status, e) => this.toggleSelectRow(status, key, e)}

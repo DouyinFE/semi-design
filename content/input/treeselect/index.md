@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 31
+order: 32
 category: 输入类
 title: TreeSelect 树选择器
 icon: doc-treeselect
@@ -1236,17 +1236,26 @@ function Demo() {
 | isLeaf| 是否为叶子节点 | boolean |-|
 
 
+### Method
+- search(sugInput: string)
+如果需要自定义搜索框可以使用该方法。
+
 ## Accessibility
 
-### Aria
+### ARIA
 
-- TreeSelect 支持传入 `aria-label`、`aria-describedby`、`aria-errormessage`、`aria-invalid`、`aria-labelledby`、`aria-required` 来表示该 TreeSelect 作用;
-- TreeSelect 会为每个子节点分别设置 `aria-disabled`、`aria-checked`、`aria-selected`、`aria-level` 来表明节点状态及层级;
+- TreeSelect 会自动设置 `aria-label` 为 'TreeSelect'，也支持用户自行设置 `aria-label` 来表示该 TreeSelect 作用;
+- TreeSelect 允许用户设置 `aria-describedby`、`aria-errormessage`、`aria-invalid`、`aria-labelledby`、`aria-required`，另外，Form 会为 Form.TreeSelect 自动设置这些属性;
+- TreeSelect 会自动为每个子节点分别设置 `aria-disabled`、`aria-checked`、`aria-selected`、`aria-level` 来表明节点状态及层级;
+
+示例:
+```typescript
+    <TreeSelect
+        /* other attributes */
+        aria-label='example treeSelect'
+    />
+```
 
 
 ## 设计变量
 <DesignToken/>
-
-### Method
-- search(sugInput: string)
-如果需要自定义搜索框可以使用该方法。
