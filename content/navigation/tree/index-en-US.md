@@ -1901,8 +1901,15 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
 
 - Tree supports passing in `aria-label` to indicate the role of the Tree;
 - Tree will set `aria-disabled`, `aria-checked`, `aria-selected`, and `aria-level` for each child node to indicate the node status and level;
-- Tree will set `role` to `tree` and `treeitem` for corresponding parts;
-- Tree supports multiple selections by pressing Enter to select nodes.
+- Tree will set `role` to `tree` and `treeitem` for corresponding parts.
+
+Demo:
+```typescript
+    <Tree
+        /* other attributes */
+        aria-label='example tree'
+    />
+```
 
 ## Design Tokens
 <DesignToken/>

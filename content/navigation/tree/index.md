@@ -1909,17 +1909,24 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
 | itemSize | 每行的treeNode的高度，必传 | number | - |
 | width | 宽度值 | number\|string | '100%' |
 
+### Ref 方法
+- search(sugInput) => void
+
 ## Accessibility
 
 ### Aria
 
 - Tree 支持传入 `aria-label` 来表示该 Tree 作用;
-- Tree 会为每个子节点分别设置 `aria-disabled`、`aria-checked`、`aria-selected`、`aria-level` 来表明节点状态及层级;
-- Tree 会为对应部分分别设置 `role` 为 `tree`、`treeitem`;
-- Tree 支持多选时通过按下 Enter 键来选中节点。
+- Tree 会自动为每个子节点分别设置 `aria-disabled`、`aria-checked`、`aria-selected`、`aria-level` 来表明节点状态及层级;
+- Tree 会自动为对应部分分别设置 `role` 为 `tree`、`treeitem`。
+
+示例:
+```typescript
+    <Tree
+        /* other attributes */
+        aria-label='example tree'
+    />
+```
 
 ## 设计变量
 <DesignToken/>
-
-### Ref 方法
-- search(sugInput) => void
