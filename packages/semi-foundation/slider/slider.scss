@@ -63,6 +63,7 @@ $module: #{$prefix}-slider;
 
     &-handle-clicked {
         border: solid $width-slider_handle_clicked $color-slider_handle-border-focus;
+        cursor: grabbing;
     }
 
     &-track {

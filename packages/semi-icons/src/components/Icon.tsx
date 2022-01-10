@@ -31,7 +31,7 @@ const Icon = React.forwardRef<HTMLSpanElement, IconProps>((props, ref) => {
         outerStyle.transform = `rotate(${rotate}deg)`;
     }
     Object.assign(outerStyle, style);
-    return <span role="img" ref={ref} className={classes} style={outerStyle} {...restProps}>{svg}</span>;
+    return <span role="img" ref={ref} aria-label={type} className={classes} style={outerStyle} {...restProps}>{svg}</span>;
 });
 
 // @ts-ignore used to judge whether it is a semi-icon in semi-ui

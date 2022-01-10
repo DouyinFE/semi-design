@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 40
+order: 41
 category: 导航类
 title:  Tree 树形控件
 icon: doc-tree
@@ -1330,11 +1330,11 @@ import { Tree, Checkbox } from '@douyinfe/semi-ui';
         return (
             <li
                 className={className}
-                role="treenode"
+                role="treeitem"
                 onClick={isLeaf ? onCheck : onExpand}
             >
                 {isLeaf ? null : expandIcon}
-                {isLeaf ? <div onClick={onCheck}>
+                {isLeaf ? <div onClick={onCheck} role='checkbox' tabIndex={0} aria-checked={checkStatus.checked}>
                     <Checkbox
                         indeterminate={checkStatus.halfChecked}
                         checked={checkStatus.checked}
@@ -1439,7 +1439,7 @@ import { Tree } from '@douyinfe/semi-ui';
         return (
             <li
                 className={className}
-                role="treenode"
+                role="treeitem"
                 onClick={isLeaf ? onClick : onExpand}
             >
                 {isLeaf ? null : expandIcon}
@@ -1615,7 +1615,7 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
         return (
             <li
                 className={className}
-                role="treenode"
+                role="treeitem"
                 onClick={onClick}
                 style={style}
             >
@@ -1793,7 +1793,7 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
         return (
             <li
                 className={className}
-                role="treenode"
+                role="treeitem"
                 onClick={onClick}
                 style={style}
             >
@@ -1909,8 +1909,24 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
 | itemSize | 每行的treeNode的高度，必传 | number | - |
 | width | 宽度值 | number\|string | '100%' |
 
-## 设计变量
-<DesignToken/>
-
 ### Ref 方法
 - search(sugInput) => void
+
+## Accessibility
+
+### ARIA
+
+- Tree 支持传入 `aria-label` 来表示该 Tree 作用;
+- Tree 会自动为每个子节点分别设置 `aria-disabled`、`aria-checked`、`aria-selected`、`aria-level` 来表明节点状态及层级;
+- Tree 会自动为对应部分分别设置 `role` 为 `tree`、`treeitem`。
+
+示例:
+```typescript
+    <Tree
+        /* other attributes */
+        aria-label='example tree'
+    />
+```
+
+## 设计变量
+<DesignToken/>

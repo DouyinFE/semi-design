@@ -31,6 +31,7 @@ export interface AnchorProps {
     targetOffset?: number;
     onChange?: (currentLink: string, previousLink: string) => void;
     onClick?: (e: React.MouseEvent<HTMLElement>, currentLink: string) => void;
+    'aria-label'?: React.AriaAttributes['aria-label'];
 }
 
 export interface AnchorState {
@@ -60,6 +61,7 @@ class Anchor extends BaseComponent<AnchorProps, AnchorState> {
         onChange: PropTypes.func,
         onClick: PropTypes.func,
         defaultAnchor: PropTypes.string,
+        'aria-label': PropTypes.string,
     };
 
     static defaultProps = {
@@ -251,6 +253,7 @@ class Anchor extends BaseComponent<AnchorProps, AnchorState> {
             position,
             autoCollapse,
         } = this.props;
+        const ariaLabel = this.props['aria-label'];
         const { activeLink, scrollHeight, slideBarTop } = this.state;
         const wrapperCls = cls(prefixCls, className, {
             [`${prefixCls}-size-${size}`]: size,
@@ -282,8 +285,8 @@ class Anchor extends BaseComponent<AnchorProps, AnchorState> {
                     removeLink: this.removeLink,
                 }}
             >
-                <div className={wrapperCls} style={wrapperStyle} id={this.anchorID}>
-                    <div className={slideCls} style={{ height: scrollHeight }}>
+                <div role="navigation" aria-label={ ariaLabel || 'Side navigation'} className={wrapperCls} style={wrapperStyle} id={this.anchorID}>
+                    <div aria-hidden className={slideCls} style={{ height: scrollHeight }}>
                         <span className={slideBarCls} style={{ top: slideBarTop }} />
                     </div>
                     <div className={anchorWrapper}>{children}</div>

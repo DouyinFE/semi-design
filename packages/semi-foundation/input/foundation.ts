@@ -2,7 +2,8 @@ import BaseFoundation, { DefaultAdapter, noopFunction } from '../base/foundation
 import { strings } from './constants';
 import { noop, set, isNumber, isString, isFunction } from 'lodash';
 
-const ENTER_KEY_CODE = 'Enter';
+import isEnterPress from '../utils/isEnterPress';
+import { ENTER_KEY } from './../utils/keyCode';
 
 export interface InputDefaultAdapter {
     notifyChange: noopFunction;
@@ -261,7 +262,7 @@ class InputFoundation extends BaseFoundation<InputAdapter> {
 
     handleKeyPress(e: any) {
         this._adapter.notifyKeyPress(e);
-        if (e.key === ENTER_KEY_CODE) {
+        if (e.key === ENTER_KEY) {
             this._adapter.notifyEnterPress(e);
         }
     }
@@ -292,6 +293,24 @@ class InputFoundation extends BaseFoundation<InputAdapter> {
     handlePreventMouseDown(e: any) {
         if (e && isFunction(e.preventDefault)) {
             e.preventDefault();
+        }
+    }
+
+    /**
+     * A11y: simulate clear button click
+     */
+    handleClearEnterPress(e: any) {
+        if (isEnterPress(e)) {
+            this.handleClear(e);
+        }
+    }
+
+    /**
+     * A11y: simulate password button click
+     */
+    handleModeEnterPress(e: any) {
+        if (isEnterPress(e)) {
+            this.handleClickEye(e);
         }
     }
 }

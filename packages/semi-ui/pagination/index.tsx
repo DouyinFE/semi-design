@@ -1,4 +1,5 @@
 /* eslint-disable max-len */
+/* eslint-disable jsx-a11y/no-noninteractive-element-to-interactive-role */
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
@@ -213,7 +214,7 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
             [`${prefixCls}-item-disabled`]: prevDisabled,
         });
         return (
-            <li onClick={e => !prevDisabled && this.foundation.goPrev(e)} className={preClassName} tab-index={0}>
+            <li role="button" aria-disabled={prevDisabled ? true : false} aria-label="Previous" onClick={e => !prevDisabled && this.foundation.goPrev(e)} className={preClassName}>
                 {prevText || <IconChevronLeft size="large" />}
             </li>
         );
@@ -228,7 +229,7 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
             [`${prefixCls}-next`]: true,
         });
         return (
-            <li onClick={e => !nextDisabled && this.foundation.goNext(e)} className={nextClassName} tab-index={0}>
+            <li role="button" aria-disabled={nextDisabled ? true : false} aria-label="Next" onClick={e => !nextDisabled && this.foundation.goNext(e)} className={nextClassName}>
                 {nextText || <IconChevronRight size="large" />}
             </li>
         );
@@ -257,6 +258,7 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
         return (
             <div className={switchCls}>
                 <Select
+                    aria-label="Page size selector"
                     onChange={newPageSize => this.foundation.changePageSize(newPageSize)}
                     value={pageSize}
                     key={pageSizeText}
@@ -319,8 +321,8 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
                     key={`${page}${i}`}
                     onClick={() => this.foundation.goPage(page, i)}
                     className={pageListClassName}
-                    tab-index={0}
-
+                    aria-label={page === '...' ? 'More' : `Page ${page}`}
+                    aria-current={currentPage === page ? "page" : false}
                 >
                     {page}
                 </li>
@@ -355,10 +357,12 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
             const page = restList[index];
             return (
                 <div
+                    role="listitem"
                     key={`${page}${index}`}
                     className={className}
                     onClick={() => this.foundation.goPage(page, index)}
                     style={style}
+                    aria-label={`${page}`}
                 >
                     {page}
                 </div>
@@ -417,7 +421,7 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
         const { total, pageSize } = this.state;
         const { showTotal, className, style, hideOnSinglePage, showSizeChanger } = this.props;
         const paginationCls = classNames(className, `${prefixCls}`);
-        const showTotalCls = `${prefixCls }-total`;
+        const showTotalCls = `${prefixCls}-total`;
         const totalPageNum = Math.ceil(total / pageSize);
         if (totalPageNum < 2 && hideOnSinglePage && !showSizeChanger) {
             return null;

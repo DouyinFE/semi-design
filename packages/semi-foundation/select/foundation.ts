@@ -1,11 +1,12 @@
 /* argus-disable unPkgSensitiveInfo */
 /* eslint-disable max-len */
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
-import KeyCode from '../utils/keyCode';
 import { isNumber, isString, isEqual, omit } from 'lodash';
+import KeyCode, { ENTER_KEY } from '../utils/keyCode';
 import warning from '../utils/warning';
 import isNullOrUndefined from '../utils/isNullOrUndefined';
 import { BasicOptionProps } from './optionFoundation';
+import isEnterPress from '../utils/isEnterPress';
 
 export interface SelectAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     getTriggerWidth(): number;
@@ -405,7 +406,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
     _handleMultipleSelect({ value, label, ...rest }: BasicOptionProps, event: MouseEvent | KeyboardEvent) {
         const maxLimit = this._adapter.getMaxLimit();
         const selections = this._adapter.getSelections();
-
+        const { autoClearSearchValue } = this.getProps();
         if (selections.has(label)) {
             this._notifyDeselect(value, { value, label, ...rest });
             selections.delete(label);
@@ -420,7 +421,9 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
             // Controlled components, directly notified
             this._notifyChange(selections);
             if (this._isFilterable()) {
-                this.clearInput();
+                if (autoClearSearchValue) {
+                    this.clearInput();
+                }
                 this.focusInput();
             }
         } else {
@@ -431,11 +434,14 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
             let { options } = this.getStates();
             // Searchable filtering, when selected, resets Input
             if (this._isFilterable()) {
-                this.clearInput();
+                // When filter active，if autoClearSearchValue is true，reset input after select
+                if (autoClearSearchValue) {
+                    this.clearInput();
+                    // At the same time, the filtering of options is also cleared, in order to show all candidates
+                    const sugInput = '';
+                    options = this._filterOption(options, sugInput);
+                }
                 this.focusInput();
-                // At the same time, the filtering of options is also cleared, in order to show all candidates
-                const sugInput = '';
-                options = this._filterOption(options, sugInput);
             }
             this.updateOptionsActiveStatus(selections, options);
             this._notifyChange(selections);
@@ -650,6 +656,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
                 this._handleEnterKeyDown(event);
                 break;
             case KeyCode.ESC:
+            case KeyCode.TAB:
                 this.close(event);
                 break;
             default:
@@ -869,6 +876,18 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
         this.clearSelected();
         // prevent this click open dropdown
         e.stopPropagation();
+    }
+
+    handleKeyPress(e: KeyboardEvent) {
+        if (e && e.key === ENTER_KEY) {
+            this.handleClick(e);
+        }
+    }
+
+    handleClearBtnEnterPress(e: KeyboardEvent) {
+        if (isEnterPress(e)) {
+            this.handleClearClick(e as any);
+        }
     }
 
     handleOptionMouseEnter(optionIndex: number) {

@@ -13,8 +13,9 @@ import ModalContentFoundation, {
     ModalContentProps,
     ModalContentState
 } from '@douyinfe/semi-foundation/modal/modalContentFoundation';
-import { noop } from 'lodash';
+import { noop, isFunction, get } from 'lodash';
 import { IconClose } from '@douyinfe/semi-icons';
+import { getActiveElement } from '../_utils';
 
 let uuid = 0;
 
@@ -37,14 +38,17 @@ export default class ModalContent extends BaseComponent<ModalContentProps, Modal
     dialogId: string;
     private timeoutId: NodeJS.Timeout;
 
-
+    modalDialogRef: React.MutableRefObject<HTMLDivElement>;
+    foundation: ModalContentFoundation;
     constructor(props: ModalContentProps) {
         super(props);
         this.state = {
             dialogMouseDown: false,
+            prevFocusElement: getActiveElement(),
         };
         this.foundation = new ModalContentFoundation(this.adapter);
         this.dialogId = `dialog-${uuid++}`;
+        this.modalDialogRef = React.createRef();
     }
 
     get adapter(): ModalContentAdapter {
@@ -75,11 +79,30 @@ export default class ModalContent extends BaseComponent<ModalContentProps, Modal
                 }
             },
             getMouseState: () => this.state.dialogMouseDown,
+            modalDialogFocus: () => {
+                let activeElementInDialog;
+                if (this.modalDialogRef) {
+                    const activeElement = getActiveElement();
+                    activeElementInDialog = this.modalDialogRef.current.contains(activeElement);
+                }
+                if (!activeElementInDialog) {
+                    this.modalDialogRef && this.modalDialogRef.current.focus();
+                }
+            },
+            modalDialogBlur: () => {
+                this.modalDialogRef && this.modalDialogRef.current.blur();
+            },
+            prevFocusElementReFocus: () => {
+                const { prevFocusElement } = this.state;
+                const focus = get(prevFocusElement, 'focus');
+                isFunction(focus) && prevFocusElement.focus();
+            }
         };
     }
 
     componentDidMount() {
         this.foundation.handleKeyDownEventListenerMount();
+        this.foundation.modalDialogFocus();
     }
 
     componentWillUnmount() {
@@ -132,6 +155,7 @@ export default class ModalContent extends BaseComponent<ModalContentProps, Modal
             const iconType = closeIcon || <IconClose/>;
             closer = (
                 <Button
+                    aria-label="close"
                     className={`${cssClasses.DIALOG}-close`}
                     key="close-btn"
                     onClick={this.close}
@@ -162,7 +186,7 @@ export default class ModalContent extends BaseComponent<ModalContentProps, Modal
             (
                 <div className={`${cssClasses.DIALOG}-header`}>
                     {icon}
-                    <Typography.Title heading={5} className={`${cssClasses.DIALOG}-title`}>{title}</Typography.Title>
+                    <Typography.Title heading={5} className={`${cssClasses.DIALOG}-title`} id={`${cssClasses.DIALOG}-title`}>{title}</Typography.Title>
                     {closer}
                 </div>
             );
@@ -181,7 +205,7 @@ export default class ModalContent extends BaseComponent<ModalContentProps, Modal
         const icon = this.renderIcon();
         const hasHeader = title !== null && title !== undefined || 'header' in this.props;
         return hasHeader ?
-            <div className={bodyCls} style={bodyStyle}>{children}</div> :
+            <div className={bodyCls} id={`${cssClasses.DIALOG}-body`} style={bodyStyle}>{children}</div> :
             (
                 <div className={`${cssClasses.DIALOG}-body-wrapper`}>
                     {icon}
@@ -214,6 +238,7 @@ export default class ModalContent extends BaseComponent<ModalContentProps, Modal
         const header = this.renderHeader();
         const footer = props.footer ? <div className={`${cssClasses.DIALOG}-footer`}>{props.footer}</div> : null;
         const dialogElement = (
+            // eslint-disable-next-line jsx-a11y/no-static-element-interactions
             <div
                 key="dialog-element"
                 className={digCls}
@@ -222,6 +247,11 @@ export default class ModalContent extends BaseComponent<ModalContentProps, Modal
                 id={this.dialogId}
             >
                 <div
+                    role="dialog"
+                    ref={this.modalDialogRef}
+                    aria-modal="true"
+                    aria-labelledby={`${cssClasses.DIALOG}-title`}
+                    aria-describedby={`${cssClasses.DIALOG}-body`}
                     onAnimationEnd={props.onAnimationEnd}
                     className={cls([`${cssClasses.DIALOG}-content`,
                         props.contentClassName,
@@ -257,7 +287,7 @@ export default class ModalContent extends BaseComponent<ModalContentProps, Modal
             <div className={classList}>
                 {this.getMaskElement()}
                 <div
-                    role="modal"
+                    role="none"
                     tabIndex={-1}
                     className={`${cssClasses.DIALOG}-wrap`}
                     onClick={maskClosable ? this.onMaskClick : null}

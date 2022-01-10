@@ -17,19 +17,20 @@ const makeAnchorOfToken = data => {
 
 const PageAnchor = props => {
     const { data = [], slug } = props;
+    const skipCondition = ['accessibility'].some(item => slug.includes(item));
 
     let flag = false;
     const makeAnchor = data => {
         let anchorList = [];
         for (let anchorItem of data) {
-            if (anchorItem.title === '代码演示' || anchorItem.title === 'Demos') {
+            if (anchorItem.title === '代码演示' || anchorItem.title === 'Demos' || skipCondition) {
                 flag = true;
             }
             if (!flag) {
                 continue;
             }
             if (Array.isArray(anchorItem.items) && anchorItem.items.length > 0) {
-                if (anchorItem.title === '代码演示' || anchorItem.title === 'Demos') {
+                if (anchorItem.title === '代码演示' || anchorItem.title === 'Demos' || skipCondition) {
                     anchorList.push(makeAnchor(anchorItem.items));
                 } else {
                     anchorList.push(

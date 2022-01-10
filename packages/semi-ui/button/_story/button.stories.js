@@ -30,12 +30,12 @@ export const Warning = () => <Button type="warning">hello button</Button>;
 
 export const WithIcon = () => (
   <>
-    <Button icon={<IconTick />}>hello button</Button>
+    <Button aria-label='Button demo' icon={<IconTick />}>hello button</Button>
     <br />
-    <Button icon={<IconEdit />} noHorizontalPadding={false} ghost={false}>
+    <Button aria-label='Button demo' icon={<IconEdit />} noHorizontalPadding={false} ghost={false}>
       Edit me
     </Button>
-    <Button icon={<IconUser />} />
+    <Button aria-label='Button demo' icon={<IconUser />} />
   </>
 );
 
@@ -57,34 +57,34 @@ export const CombinationShow = withPropsCombinations(
 
 export const ButtonGroupDemo = () => (
   <div>
-    <ButtonGroup disabled>
+    <ButtonGroup aria-label='ButtonGroup demo' disabled>
       <Button>复制</Button>
       <Button type="primary">查找</Button>
       <Button type="danger">粘贴</Button>
     </ButtonGroup>
     <br />
-    <ButtonGroup>
+    <ButtonGroup aria-label='ButtonGroup demo'>
       <Button icon={<IconCopy />} theme={'solid'} />
       <Button icon={<IconSearch />} theme={'solid'} />
       <Button icon={<IconPlay />} theme={'solid'} />
     </ButtonGroup>
     <br />
 
-    <ButtonGroup size={'large'}>
+    <ButtonGroup size={'large'} aria-label='ButtonGroup demo'>
       <Button icon={<IconCopy />} theme={'solid'} />
       <Button icon={<IconSearch />} theme={'solid'} />
       <Button icon={<IconPlay />} theme={'solid'} />
     </ButtonGroup>
     <br />
 
-    <ButtonGroup size={'small'}>
+    <ButtonGroup size={'small'} aria-label='ButtonGroup demo'>
       <Button icon={<IconCopy />} theme={'solid'} />
       <Button icon={<IconSearch />} theme={'solid'} />
       <Button icon={<IconPlay />} theme={'solid'} />
     </ButtonGroup>
     <br />
 
-    <ButtonGroup>
+    <ButtonGroup aria-label='ButtonGroup demo'>
       <Button icon={<IconCopy />} theme={'solid'}>
         拷贝
       </Button>
@@ -97,7 +97,7 @@ export const ButtonGroupDemo = () => (
     </ButtonGroup>
     <br />
 
-    <ButtonGroup size={'large'}>
+    <ButtonGroup size={'large'} aria-label='ButtonGroup demo'>
       <Button icon={<IconCopy />} theme={'solid'}>
         拷贝
       </Button>
@@ -110,7 +110,7 @@ export const ButtonGroupDemo = () => (
     </ButtonGroup>
     <br />
 
-    <ButtonGroup size={'small'}>
+    <ButtonGroup size={'small'} aria-label='ButtonGroup demo'>
       <Button icon={<IconCopy />} theme={'solid'}>
         拷贝
       </Button>

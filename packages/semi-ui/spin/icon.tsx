@@ -29,6 +29,7 @@ function Icon(props: IconProps = {}) {
             viewBox="0 0 36 36"
             version="1.1"
             xmlns="http://www.w3.org/2000/svg"
+            aria-label="spin"
         >
             <defs>
                 <linearGradient x1="0%" y1="100%" x2="100%" y2="100%" id={id}>
@@ -37,11 +38,10 @@ function Icon(props: IconProps = {}) {
                     <stop stopColor="currentColor" offset="100%" />
                 </linearGradient>
             </defs>
-            <g id="Artboard" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-                <rect id="Rectangle" fillOpacity="0.01" fill="#FFFFFF" x="0" y="0" width="36" height="36" />
+            <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+                <rect fillOpacity="0.01" fill="#FFFFFF" x="0" y="0" width="36" height="36" />
                 <path
                     d="M34,18 C34,9.163444 26.836556,2 18,2 C11.6597233,2 6.18078805,5.68784135 3.59122325,11.0354951"
-                    id="Path"
                     stroke={`url(#${id})`}
                     strokeWidth="4"
                     strokeLinecap="round"

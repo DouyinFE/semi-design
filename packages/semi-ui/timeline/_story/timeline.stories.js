@@ -10,7 +10,7 @@ export default {
 
 export const DefaultTimeline = () => (
   <div>
-    <Timeline>
+    <Timeline aria-label="xx事故处理过程时间线">
       <Timeline.Item time="2015-09-01">创建服务现场</Timeline.Item>
       <Timeline.Item time="2015-09-01">初步排除网络异常</Timeline.Item>
       <Timeline.Item time="2015-09-01">技术测试异常</Timeline.Item>

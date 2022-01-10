@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 56
+order: 57
 category: Show
 title: Table
 subTitle: Table
@@ -4365,6 +4365,19 @@ function App() {
 
 render(App);
 ```
+
+## Accessibility
+
+### ARIA
+
+- The role of the table is grid, and the role of the tree table is treegrid
+- the row's role is row, and the cell's role is gridcell
+- Added aria-rowcount and aria-colcount attributes to the table to indicate the number of rows and columns
+- The row has added aria-rowindex to indicate which row it currently belongs to, and the first row is 1
+- The row of the tree table has aria-level representing the tree level of the current row, the first level is 1
+- Expandable table rows have the aria-expanded attribute, indicating whether the current row is expanded
+- The new aria-colindex of the cell indicates which column the current grid belongs to, and the first column is 1
+- Added aria-label to column filter and sort buttons, and added aria-label attribute to row select buttons
 
 ## API Reference
 

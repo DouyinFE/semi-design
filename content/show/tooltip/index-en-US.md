@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 59
+order: 60
 category: Show
 title: Tooltip
 subTitle: Tooltip
@@ -421,9 +421,32 @@ import { Popconfirm, Tooltip, Button } from '@douyinfe/semi-ui';
 | trigger | Timing of triggering display, optional value: `hover`/`focus`/`click`/`custom` | string | 'hover' |  |
 | visible | Whether to show the pop-up layer | boolean |  |  |
 | wrapperClassName | When children are disabled or children are multiple elements, the outer layer will wrap a layer of span elements, and the api is used to set the style class name of this span | string |  | 1.32.0 |
-| zIndex | Bullet levels. | number | 1060 |  |
-| onVisibleChange | A callback triggered when the pop-up layer is displayed/hidden | (isVisble: boolean) => void |  |  |
-| onClickOutSide | Callback when the pop-up layer is in the display state and the non-Children, non-floating layer inner area is clicked (only valid when trigger is custom, click) | (e:event) => void |  | **2.1.0** |
+| zIndex              | Bullet levels.                                                                                                                                                                                                                               | number                      | 1060                |            |
+| onVisibleChange     | A callback triggered when the pop-up layer is displayed/hidden                                                                                                                                                                               | (isVisible: boolean) => void |                     |            |
+| onClickOutSide      | Callback when the pop-up layer is in the display state and the non-Children, non-floating layer inner area is clicked (only valid when trigger is custom, click)                                                                             | (e:event) => void           |                     | **2.1.0** |
+
+
+## Accessibility
+
+### ARIA
+
+- Tooltip has a tooltip role, following the definition of Tooltip in the [WAI-ARIA](https://www.w3.org/TR/wai-aria-practices/#tooltip) specification
+- Tooltip's content and children
+  - about content
+      - The wrapper of content will be automatically added with id attribute to match the `aria-describedby` of children and associate content with children
+  - about children
+       - There should be an explicit connection between the content of the Tooltip and its children. Tooltip will automatically add the `aria-describedby` attribute to the children element, the value is the id of the content wraper. 
+       - If the children of your Tooltip are Icon and do not contain visible text, we recommend that you add the `aria-label` attribute to the children to describe accordingly 
+
+```js
+// Good practices, add aria-label to description tooltip children
+/* eslint-disable */
+<Tooltip content={<p id='description'>Edit your setting</p>}>
+    <IconSetting aria-label='Settings'> 
+    </IconSetting>
+</Tooltip>
+```
+
 
 ## Design Tokens
 

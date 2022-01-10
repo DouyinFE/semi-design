@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 48
+order: 49
 category: Show
 title: Dropdown
 subTitle: Dropdown
@@ -414,6 +414,13 @@ function DropdownEvents() {
     );
 }
 ```
+
+## Accessibility
+
+### ARIA
+
+- Dropdown.Menu `role` is set to `menu`, `aria-orientatio` is set to `vertical`
+- Dropdown.Item `role` is set to `menuitem`
 
 ## API Reference
 

@@ -1,4 +1,4 @@
-/* eslint-disable max-len */
+/* eslint-disable max-len, jsx-a11y/role-supports-aria-props */
 import React from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
@@ -9,8 +9,12 @@ import '@douyinfe/semi-foundation/switch/switch.scss';
 
 import { noop } from 'lodash';
 import Spin from '../spin';
-
 export interface SwitchProps {
+    'aria-label'?: React.AriaAttributes['aria-label'];
+    'aria-describedby'?: React.AriaAttributes['aria-describedby'];
+    'aria-errormessage'?: React.AriaAttributes['aria-errormessage'];
+    'aria-invalid'?: React.AriaAttributes['aria-invalid'];
+    'aria-labelledby'?: React.AriaAttributes['aria-labelledby'];
     defaultChecked?: boolean;
     checked?: boolean;
     disabled?: boolean;
@@ -23,7 +27,8 @@ export interface SwitchProps {
     size?: 'large' | 'default' | 'small';
     checkedText?: React.ReactNode;
     uncheckedText?: React.ReactNode;
-}
+    id?: string;
+} 
 
 export interface SwitchState {
     nativeControlChecked: boolean;
@@ -32,6 +37,11 @@ export interface SwitchState {
 
 class Switch extends BaseComponent<SwitchProps, SwitchState> {
     static propTypes = {
+        'aria-label': PropTypes.string,
+        'aria-labelledby': PropTypes.string,
+        'aria-invalid': PropTypes.bool,
+        'aria-errormessage': PropTypes.string,
+        'aria-describedby': PropTypes.string,
         className: PropTypes.string,
         checked: PropTypes.bool,
         checkedText: PropTypes.node,
@@ -44,6 +54,7 @@ class Switch extends BaseComponent<SwitchProps, SwitchState> {
         style: PropTypes.object,
         size: PropTypes.oneOf<SwitchProps['size']>(strings.SIZE_MAP),
         uncheckedText: PropTypes.node,
+        id: PropTypes.string,
     };
 
     static defaultProps: Partial<SwitchProps> = {
@@ -102,7 +113,7 @@ class Switch extends BaseComponent<SwitchProps, SwitchState> {
 
     render() {
         const { nativeControlChecked, nativeControlDisabled } = this.state;
-        const { className, style, onMouseEnter, onMouseLeave, size, checkedText, uncheckedText, loading } = this.props;
+        const { className, style, onMouseEnter, onMouseLeave, size, checkedText, uncheckedText, loading, id } = this.props;
         const wrapperCls = cls(className, {
             [cssClasses.PREFIX]: true,
             [cssClasses.CHECKED]: nativeControlChecked,
@@ -130,7 +141,7 @@ class Switch extends BaseComponent<SwitchProps, SwitchState> {
                                 size={size === 'default' ? 'middle' : size}
                             />
                         )
-                        : <div className={cssClasses.KNOB} />
+                        : <div className={cssClasses.KNOB} aria-hidden={true} />
                 }
                 {showCheckedText ? (
                     <div className={cssClasses.CHECKED_TEXT}>
@@ -145,6 +156,13 @@ class Switch extends BaseComponent<SwitchProps, SwitchState> {
                 <input
                     {...switchProps}
                     ref={this.switchRef}
+                    id={id}
+                    aria-checked={nativeControlChecked}
+                    aria-invalid={this.props['aria-invalid']}
+                    aria-errormessage={this.props['aria-errormessage']}
+                    aria-label={this.props['aria-label']}
+                    aria-labelledby={this.props['aria-labelledby']}
+                    aria-describedby={this.props["aria-describedby"]}
                     onChange={e => this.foundation.handleChange(e.target.checked, e)}
                 />
             </div>

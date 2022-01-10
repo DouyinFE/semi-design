@@ -839,12 +839,12 @@ export default function SemiA11y() {
                                     </Timeline.Item>
                                 </Timeline>
                                 <div style={{ width: 200 }}>
-                                    <Progress className="mb12" percent={10} stroke="#fc8800" />
-                                    <Progress className="mb12" percent={25} stroke="#f93920" />
-                                    <Progress className="mb12" percent={50} />
-                                    <Progress className="mb12" percent={80} />
-                                    <Progress className="mb12" percent={80} size="large" />
-                                    <Progress className="mb12" percent={80} style={{ height: '8px' }} />
+                                    <Progress className="mb12" percent={10} stroke="#fc8800" aria-label='download progress'/>
+                                    <Progress className="mb12" percent={25} stroke="#f93920" aria-label='download progress'/>
+                                    <Progress className="mb12" percent={50} aria-label='download progress'/>
+                                    <Progress className="mb12" percent={80} aria-label='download progress'/>
+                                    <Progress className="mb12" percent={80} size="large" aria-label='download progress'/>
+                                    <Progress className="mb12" percent={80} style={{ height: '8px' }} aria-label='download progress'/>
                                 </div>
                                 <div className="mb12">
                                     <Skeleton placeholder={placeholder} loading={true} active>

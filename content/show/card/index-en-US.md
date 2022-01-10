@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 44
+order: 45
 category: Show
 title:  Card
 subTitle: Card
@@ -73,6 +73,7 @@ function Demo() {
                     title="Semi Doc" 
                     avatar={
                         <Avatar 
+                            alt='Card meta img'
                             size="default"
                             src='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/card-meta-avatar-docs-demo.jpg'
                         />
@@ -183,6 +184,7 @@ function Demo() {
                     title="Semi Doc" 
                     avatar={
                         <Avatar 
+                            alt='Card meta img'
                             size="default"
                             src='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/card-meta-avatar-docs-demo.jpg'
                         />
@@ -214,6 +216,7 @@ function Demo() {
                     title="Semi Doc" 
                     avatar={
                         <Avatar 
+                            alt='Card meta img'
                             size="default"
                             src='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/card-meta-avatar-docs-demo.jpg'
                         />
@@ -258,6 +261,7 @@ function Demo() {
                     description="Easily manage your project icons and easily upload, update and share a series of project icons." 
                     avatar={
                         <Avatar 
+                            alt='Card meta img'
                             size="default"
                             src='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/card-meta-avatar-docs-demo.jpg'
                         />
@@ -462,6 +466,7 @@ function Demo() {
                         avatar={
                             <Skeleton placeholder={<Skeleton.Avatar />} loading={loading}>
                                 <Avatar 
+                                    alt='Card meta img'
                                     size="default"
                                     src='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/card-meta-avatar-docs-demo.jpg'
                                 />
@@ -690,6 +695,12 @@ function Demo() {
 |description|description           |ReactNode    |-       |1.21.0 |
 |style      |Meta style            |CSSProperties|-       |1.21.0 |
 |title      |title                 |ReactNode    |-       |1.21.0 |
+
+## Accessibility
+
+- Card supports the input of `aria-label` to indicate the function of the Card;
+- When Card loading, `aria-busy` will be turned on;
+- Card is a container-type component, and any elements inside the card need to follow their respective accessibility guidelines.
 
 ## Design Tokens
 <DesignToken/>

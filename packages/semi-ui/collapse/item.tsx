@@ -1,12 +1,13 @@
-import React, { PureComponent, ReactNode, CSSProperties } from 'react';
+import React, { CSSProperties, PureComponent, ReactNode } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses } from '@douyinfe/semi-foundation/collapse/constants';
 import Collapsible from '../collapsible';
 import CollapseContext, { CollapseContextType } from './collapse-context';
 import { IconChevronDown, IconChevronUp } from '@douyinfe/semi-icons';
+import { getUuidShort } from '@douyinfe/semi-foundation/utils/uuid';
 
-export interface CollapsePanelProps{
+export interface CollapsePanelProps {
     itemKey: string;
     extra?: ReactNode;
     header?: ReactNode;
@@ -32,6 +33,8 @@ export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
         ]),
     };
 
+    private ariaID = getUuidShort({});
+
     renderHeader(active: boolean, expandIconEnable = true) {
         const {
             header,
@@ -43,13 +46,13 @@ export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
         } = this.context;
         const { expandIconPosition } = this.context;
         if (typeof expandIcon === 'undefined') {
-            expandIcon = (<IconChevronDown />);
+            expandIcon = (<IconChevronDown/>);
         }
         if (typeof collapseIcon === 'undefined') {
-            collapseIcon = (<IconChevronUp />);
+            collapseIcon = (<IconChevronUp/>);
         }
         const icon = (
-            <span className={cls([`${cssClasses.PREFIX}-header-icon`,
+            <span aria-hidden='true' className={cls([`${cssClasses.PREFIX}-header-icon`,
                 { [`${cssClasses.PREFIX}-header-iconDisabled`]: !expandIconEnable }])}>
                 {/* eslint-disable-next-line no-nested-ternary */}
                 {expandIconEnable ? (active ? collapseIcon : expandIcon) : expandIcon}
@@ -62,7 +65,7 @@ export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
                     {iconPosLeft ? icon : null}
                     <span>{header}</span>
                     <span className={`${cssClasses.PREFIX}-header-right`}>
-                        <span>{extra}</span>
+                        <span aria-label={'Extra of collapse header'}>{extra}</span>
                         {iconPosLeft ? null : icon}
                     </span>
                 </>
@@ -105,7 +108,7 @@ export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
         });
         return (
             <div
-                role="Collapse-panel"
+                aria-label={'Collapse panel'}
                 className={itemCls}
                 {...restProps}
             >
@@ -114,6 +117,7 @@ export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
                     tabIndex={0}
                     className={headerCls}
                     aria-expanded={active ? 'true' : 'false'}
+                    aria-owns={this.ariaID}
                     onClick={e => onClick(itemKey, e)}
                 >
                     {this.renderHeader(active, children !== undefined)}
@@ -125,6 +129,9 @@ export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
                             reCalcKey={reCalcKey}>
                             <div
                                 className={contentCls}
+                                aria-label={'Collapse content'}
+                                aria-hidden={!active}
+                                id={this.ariaID}
                             >
                                 <div className={`${cssClasses.PREFIX}-content-wrapper`}>
                                     {children}

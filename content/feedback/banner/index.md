@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 60
+order: 61
 category: 反馈类
 title:  Banner 通知横幅
 icon: doc-banner
@@ -182,6 +182,13 @@ import { Banner } from '@douyinfe/semi-ui';
 | style | 样式名 | object | - | - |
 | title | 标题 | ReactNode | - | 1.0 |
 | type | 类型，支持 `info`, `success`, `danger`, `warning` | string | `info` | - |
+
+## Accessibility
+
+### ARIA
+
+- 组件的 `role` 为 'alert'
+- 关闭按钮的 `aria-label` 为 'Close'
 
 ## 设计变量
 <DesignToken/>

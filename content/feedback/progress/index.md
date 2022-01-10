@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 63
+order: 64
 category: 反馈类
 title: Progress 进度条
 icon: doc-progress
@@ -25,6 +25,7 @@ import { Progress } from '@douyinfe/semi-ui';
 通过`stroke`属性来控制进度条的填充色  
 通过`percent`属性控制已完成的进度  
 通过`size`属性控制进度条尺寸  
+通过`aria-label`说明进度条具体代表含义  
 如果`size`预设的尺寸不满足，可以通过`style`传入 height 自定义进度条高度
 
 ```jsx live=true
@@ -33,17 +34,17 @@ import { Progress } from '@douyinfe/semi-ui';
 
 () => (
     <div style={{ width: 200 }}>
-        <Progress percent={10} stroke="#fc8800" />
+        <Progress percent={10} stroke="#fc8800" aria-label="disk usage" />
         <br />
-        <Progress percent={25} stroke="#f93920" />
+        <Progress percent={25} stroke="#f93920" aria-label="download progress" />
         <br />
-        <Progress percent={50} />
+        <Progress percent={50} aria-label="disk usage" />
         <br />
-        <Progress percent={80} />
+        <Progress percent={80} aria-label="download progress" />
         <br />
-        <Progress percent={80} size="large" />
+        <Progress percent={80} size="large" aria-label="disk usage" />
         <br />
-        <Progress percent={80} style={{ height: '8px' }} />
+        <Progress percent={80} style={{ height: '8px' }} aria-label="disk usage" />
     </div>
 );
 ```
@@ -58,13 +59,13 @@ import { Progress } from '@douyinfe/semi-ui';
 
 () => (
     <div style={{ width: 200 }}>
-        <Progress percent={10} stroke="#fc8800" showInfo={true} />
+        <Progress percent={10} stroke="#fc8800" showInfo={true} aria-label="disk usage" />
         <br />
-        <Progress percent={25} stroke="#f93920" showInfo={true} />
+        <Progress percent={25} stroke="#f93920" showInfo={true} aria-label="disk usage" />
         <br />
-        <Progress percent={50} showInfo={true} />
+        <Progress percent={50} showInfo={true} aria-label="disk usage" />
         <br />
-        <Progress percent={50} showInfo={true} format={percent => percent * 10 + '‰'} />
+        <Progress percent={50} showInfo={true} format={percent => percent * 10 + '‰'} aria-label="disk usage" />
     </div>
 );
 ```
@@ -79,11 +80,11 @@ import { Progress } from '@douyinfe/semi-ui';
 
 () => (
     <div style={{ height: 100, display: 'flex' }}>
-        <Progress percent={10} direction="vertical" />
-        <Progress percent={25} direction="vertical" />
-        <Progress percent={50} direction="vertical" />
-        <Progress percent={80} direction="vertical" size="large" />
-        <Progress percent={80} direction="vertical" style={{ width: '8px' }} />
+        <Progress percent={10} direction="vertical" aria-label="disk usage" />
+        <Progress percent={25} direction="vertical" aria-label="disk usage" />
+        <Progress percent={50} direction="vertical" aria-label="disk usage" />
+        <Progress percent={80} direction="vertical" size="large" aria-label="disk usage" />
+        <Progress percent={80} direction="vertical" style={{ width: '8px' }} aria-label="disk usage" />
     </div>
 );
 ```
@@ -98,10 +99,10 @@ import { Progress } from '@douyinfe/semi-ui';
 
 () => (
     <div>
-        <Progress percent={10} type="circle" style={{ margin: 5 }} />
-        <Progress percent={25} type="circle" style={{ margin: 5 }} />
-        <Progress percent={50} type="circle" style={{ margin: 5 }} />
-        <Progress percent={80} type="circle" style={{ margin: 5 }} />
+        <Progress percent={10} type="circle" style={{ margin: 5 }} aria-label="disk usage" />
+        <Progress percent={25} type="circle" style={{ margin: 5 }} aria-label="disk usage" />
+        <Progress percent={50} type="circle" style={{ margin: 5 }} aria-label="disk usage" />
+        <Progress percent={80} type="circle" style={{ margin: 5 }} aria-label="disk usage" />
     </div>
 );
 ```
@@ -115,10 +116,17 @@ import { Progress } from '@douyinfe/semi-ui';
 () => (
     <React.Fragment>
         <div>
-            <Progress percent={100} type="circle" width={100} style={{ margin: 5 }} />
+            <Progress percent={100} type="circle" width={100} style={{ margin: 5 }} aria-label="disk usage" />
         </div>
         <div>
-            <Progress percent={100} type="circle" width={100} style={{ margin: 5 }} stroke="#f93920" />
+            <Progress
+                percent={100}
+                type="circle"
+                width={100}
+                style={{ margin: 5 }}
+                stroke="#f93920"
+                aria-label="disk usage"
+            />
         </div>
     </React.Fragment>
 );
@@ -134,10 +142,10 @@ import { Progress } from '@douyinfe/semi-ui';
 
 () => (
     <React.Fragment>
-        <Progress percent={10} type="circle" size="small" style={{ margin: 5 }} />
-        <Progress percent={25} type="circle" size="small" style={{ margin: 5 }} />
-        <Progress percent={50} type="circle" size="small" style={{ margin: 5 }} />
-        <Progress percent={80} type="circle" size="small" style={{ margin: 5 }} />
+        <Progress percent={10} type="circle" size="small" style={{ margin: 5 }} aria-label="disk usage" />
+        <Progress percent={25} type="circle" size="small" style={{ margin: 5 }} aria-label="disk usage" />
+        <Progress percent={50} type="circle" size="small" style={{ margin: 5 }} aria-label="disk usage" />
+        <Progress percent={80} type="circle" size="small" style={{ margin: 5 }} aria-label="disk usage" />
     </React.Fragment>
 );
 ```
@@ -154,7 +162,7 @@ import { IconChevronLeft, IconChevronRight } from '@douyinfe/semi-icons';
     return (
         <>
             <div>
-                <Progress percent={percent} showInfo />
+                <Progress percent={percent} showInfo aria-label="disk usage" />
                 <Button
                     icon={<IconChevronLeft />}
                     theme="light"
@@ -187,7 +195,7 @@ import { IconChevronLeft, IconChevronRight } from '@douyinfe/semi-icons';
     return (
         <div>
             <div>
-                <Progress percent={cirPerc} type="circle" />
+                <Progress percent={cirPerc} type="circle" aria-label="disk usage" />
             </div>
             <Button
                 icon={<IconChevronLeft />}
@@ -221,9 +229,23 @@ import { Progress } from '@douyinfe/semi-ui';
 
 () => (
     <React.Fragment>
-        <Progress percent={75} showInfo type="circle" format={per => per + 'Days'} style={{ margin: 10 }} />
-        <Progress percent={100} showInfo type="circle" format={per => 'Done'} style={{ margin: 10 }} />
-        <Progress percent={50} type="circle" showInfo={false} style={{ margin: 10 }} />
+        <Progress
+            percent={75}
+            showInfo
+            type="circle"
+            format={per => per + 'Days'}
+            style={{ margin: 10 }}
+            aria-label="disk usage"
+        />
+        <Progress
+            percent={100}
+            showInfo
+            type="circle"
+            format={per => 'Done'}
+            style={{ margin: 10 }}
+            aria-label="disk usage"
+        />
+        <Progress percent={50} type="circle" showInfo={false} style={{ margin: 10 }} aria-label="disk usage" />
     </React.Fragment>
 );
 ```
@@ -238,29 +260,56 @@ import { Progress } from '@douyinfe/semi-ui';
 
 () => (
     <React.Fragment>
-        <Progress percent={50} strokeLinecap="round" type="circle" style={{ margin: 10 }} />
-        <Progress percent={50} strokeLinecap="square" type="circle" style={{ margin: 10 }} />
+        <Progress percent={50} strokeLinecap="round" type="circle" style={{ margin: 10 }} aria-label="disk usage" />
+        <Progress percent={50} strokeLinecap="square" type="circle" style={{ margin: 10 }} aria-label="disk usage" />
     </React.Fragment>
 );
 ```
 
 ## API 参考
 
-|属性 | 说明 | 类型 | 默认值 |
-|--- | --- | --- | --- |
-|className | 样式类名 | string |  |
-|direction | 条状进度条方向 `horizontal`、`vertical` | string | 'horizontal' |
-|format | 格式化函数，入参为当前百分比，return 的结果将会直接渲染在圆形进度条中心 | (percent: number) => ReactNode | (percent) => percent + '%' |
-|orbitStroke | 进度条轨道填充色<br/>**v1.0.0 后提供** | string | 'var(--semi-color-fill-0)' |
-|percent | 进度百分比 | number |  |
-|showInfo | 环形进度条是否显示中间文本，条状进度条后右侧是否显示文本 | boolean | false |
-|size | 尺寸,可选`default`、`small`(仅 type=circle 生效)、`large`(仅 type=line 生效) | string | 'default' |
-|stroke | 进度条填充色 | string | 'var(--semi-color-success)' |
-|strokeLinecap | 圆角`round`/方角`square`(仅在 type='circle'模式下生效) | string | 'round' |
-|strokeWidth | type 为`line`时，该属性控制进度条高度; type 为`circle`时，该属性控制进度条宽度 | number | 4 |
-|style | 样式 | CSSProperties |  |
-|type | 类型，可选`line`、`circle` | string | 'line' |
-|width | 环形进度条宽度 | number | size='default'时为 72，'small'为 24 |
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| aria-label | [aria-label](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-label_attribute)属性，用来给当前元素加上的标签描述, 用于提升可访问性<br/>**v2.2.0 后提供** | string |  |
+| aria-labelledby | [aria-labelledby](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-labelledby_attribute)属性，表明某些元素的 id 是当前元素的标签。它被用来确定控件或控件组与它们标签之间的联系, 提升可访问性<br/>**v2.2.0 后提供** | string |  |  |
+| aria-valuetext | [aria-valuetext](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-valuetext_attribute)属性，用于提升可访问性<br/>**v2.2.0 后提供** | string |  |  |
+| className | 样式类名 | string |  |
+| direction | 条状进度条方向 `horizontal`、`vertical` | string | 'horizontal' |
+| format | 格式化函数，入参为当前百分比，return 的结果将会直接渲染在圆形进度条中心 | (percent: number) => ReactNode | (percent) => percent + '%' |
+| id | id 标识<br/>**v2.2.0 后提供** | string |  |
+| orbitStroke | 进度条轨道填充色<br/>**v1.0.0 后提供** | string | 'var(--semi-color-fill-0)' |
+| percent | 进度百分比 | number |  |
+| showInfo | 环形进度条是否显示中间文本，条状进度条后右侧是否显示文本 | boolean | false |
+| size | 尺寸,可选`default`、`small`(仅 type=circle 生效)、`large`(仅 type=line 生效) | string | 'default' |
+| stroke | 进度条填充色 | string | 'var(--semi-color-success)' |
+| strokeLinecap | 圆角`round`/方角`square`(仅在 type='circle'模式下生效) | string | 'round' |
+| strokeWidth | type 为`line`时，该属性控制进度条高度; type 为`circle`时，该属性控制进度条宽度 | number | 4 |
+| style | 样式 | CSSProperties |  |
+| type | 类型，可选`line`、`circle` | string | 'line' |
+| width | 环形进度条宽度 | number | size='default'时为 72，'small'为 24 |
+
+## Accessibility
+
+### ARIA
+
+-   Progress 具有 `progressbar` role 来表示它是一个进度条组件。
+-   Progress 会自动将 `aria-valuenow` 设置为传递给组件的进度百分比（`percent`），以确保屏幕阅读器可以获取正确的百分比数值。另外，Progress 支持传入 `aria-valuetext`，当你传入时，根据 W3C 规范，`aria-valuetext` 将优先被屏幕阅读器使用消费，而不是 `aria-valuenow`
+-   Progress 支持传入 `aria-label`、`aria-labelledby`
+    -   当 Progress 外部存在关于 Progress 作用的描述元素时，你可以通过 aria-labelledby 显式指定某些元素的 id 是 Progress 的标签
+    -   否则你应当通过 aria-label 说明 Progress 所代表的具体数值含义
+
+```js
+// good case
+<p id="progressbar-label">Disk Usage</p>
+<Progress aria-labelledby="progressbar-label" percent={80} />
+
+// good case
+<Progress aria-label='Percent of disk usage' percent={80} />
+<Progress aria-label='Percent of file downloaded' percent={80} />
+
+// usage of aria-valuetext
+<Progress aria-label='Percent of disk usage' percent={80} aria-valuetext="Step 2: Copying files... "/> 
+```
 
 ## 设计变量
 

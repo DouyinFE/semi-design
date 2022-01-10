@@ -42,6 +42,7 @@ export interface TableCellProps extends BaseProps {
     selected?: boolean; // Whether the current row is selected
     expanded?: boolean; // Whether the current line is expanded
     disabled?: boolean;
+    colIndex?: number;
 }
 
 function isInvalidRenderCellText(text: any) {
@@ -82,6 +83,7 @@ export default class TableCell extends BaseComponent<TableCellProps, Record<stri
         height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         selected: PropTypes.bool,
         expanded: PropTypes.bool,
+        colIndex: PropTypes.number,
     };
 
     get adapter(): TableCellAdapter {
@@ -314,6 +316,7 @@ export default class TableCell extends BaseComponent<TableCellProps, Record<stri
             fixedRight,
             lastFixedLeft,
             firstFixedRight,
+            colIndex
         } = this.props;
         const { className } = column;
         const fixedLeftFlag = fixedLeft || typeof fixedLeft === 'number';
@@ -347,7 +350,14 @@ export default class TableCell extends BaseComponent<TableCellProps, Record<stri
         );
 
         return (
-            <BodyCell className={columnCls} onClick={this.handleClick} {...newTdProps} ref={this.setRef}>
+            <BodyCell
+                role="gridcell"
+                aria-colindex={colIndex + 1}
+                className={columnCls}
+                onClick={this.handleClick}
+                {...newTdProps}
+                ref={this.setRef}
+            >
                 {inner}
             </BodyCell>
         );

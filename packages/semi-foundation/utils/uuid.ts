@@ -13,4 +13,26 @@ function getUuidv4() {
     }
 }
 
-export { getUuid, getUuidv4 };
+/**
+ * Get a random id with prefix, it not strictly guarantee id uniqueness
+ * 
+ * Note: the return value of getUuid is too long, we need a short one
+ * 
+ * @example
+ * getUuidShort({ prefix: 'semi' }) => 'semi-46dinzc'
+ * getUuidShort({ prefix: '' }) => '0eer2i0'
+ * getUuidShort({ prefix: 'semi', length: 4 }) => 'semi-8jts'
+ */
+function getUuidShort({ prefix = '', length = 7 }: { prefix?: string; length?: number }) {
+    const characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+    const total = characters.length;
+    let randomId = '';
+    for (let i = 0; i < length; i++) {
+        const random = Math.floor(Math.random() * total);
+        randomId += characters.charAt(random);
+    }
+
+    return prefix ? `${prefix}-${randomId}` : randomId;
+}
+
+export { getUuid, getUuidv4, getUuidShort };

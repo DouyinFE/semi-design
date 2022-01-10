@@ -1,9 +1,10 @@
-import 'reset-css';
-import 'normalize.css';
+// import 'reset-css';
+// import 'normalize.css';
 import React from 'react';
 import { StoryContext } from '@storybook/react';
 
 import { ConfigProvider } from '../../packages/semi-ui/index';
+import { ContextValue } from '../../packages/semi-ui/configProvider/context'
 import zh_CN from '@douyinfe/semi-ui/lib/es/locale/source/zh_CN';
 import en_GB from '@douyinfe/semi-ui/lib/es/locale/source/en_GB';
 import ko_KR from '@douyinfe/semi-ui/lib/es/locale/source/ko_KR';
@@ -77,11 +78,20 @@ const getLocale = code => {
 
 const withConfigProvider = (StoryFn: Function, context: StoryContext) => {
     const { direction, theme, language } = context.globals;
+    const { componentId } = context;
     switchMode(theme);
     const locale = getLocale(language);
+    let configProps: ContextValue = {
+        direction,
+        locale
+    };
+
+    if (['localeprovider'].includes(componentId)) {
+        configProps.locale = null;
+    }
 
     return (
-        <ConfigProvider direction={direction} locale={locale}>
+        <ConfigProvider {...configProps}>
             <StoryFn />
         </ConfigProvider>
     );
