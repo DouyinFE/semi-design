@@ -3,22 +3,22 @@
 import React from 'react';
 import { StoryContext } from '@storybook/react';
 
-import { ConfigProvider } from '../../packages/semi-ui/index';
-import { ContextValue } from '../../packages/semi-ui/configProvider/context'
-import zh_CN from '@douyinfe/semi-ui/lib/es/locale/source/zh_CN';
-import en_GB from '@douyinfe/semi-ui/lib/es/locale/source/en_GB';
-import ko_KR from '@douyinfe/semi-ui/lib/es/locale/source/ko_KR';
-import ja_JP from '@douyinfe/semi-ui/lib/es/locale/source/ja_JP';
-import ar from '@douyinfe/semi-ui/lib/es/locale/source/ar';
-import vi_VN from '@douyinfe/semi-ui/lib/es/locale/source/vi_VN';
-import ru_RU from '@douyinfe/semi-ui/lib/es/locale/source/ru_RU';
-import id_ID from '@douyinfe/semi-ui/lib/es/locale/source/id_ID';
-import ms_MY from '@douyinfe/semi-ui/lib/es/locale/source/ms_MY';
-import th_TH from '@douyinfe/semi-ui/lib/es/locale/source/th_TH';
-import tr_TR from '@douyinfe/semi-ui/lib/es/locale/source/tr_TR';
-import pt_BR from '@douyinfe/semi-ui/lib/es/locale/source/pt_BR';
-import zh_TW from '@douyinfe/semi-ui/lib/es/locale/source/zh_TW';
-import es from '@douyinfe/semi-ui/lib/es/locale/source/es';
+import { ConfigProvider } from '@douyinfe/semi-ui/index';
+import { ContextValue } from '@douyinfe/semi-ui/configProvider/context'
+import zh_CN from '@douyinfe/semi-ui/locale/source/zh_CN';
+import en_GB from '@douyinfe/semi-ui/locale/source/en_GB';
+import ko_KR from '@douyinfe/semi-ui/locale/source/ko_KR';
+import ja_JP from '@douyinfe/semi-ui/locale/source/ja_JP';
+import ar from '@douyinfe/semi-ui/locale/source/ar';
+import vi_VN from '@douyinfe/semi-ui/locale/source/vi_VN';
+import ru_RU from '@douyinfe/semi-ui/locale/source/ru_RU';
+import id_ID from '@douyinfe/semi-ui/locale/source/id_ID';
+import ms_MY from '@douyinfe/semi-ui/locale/source/ms_MY';
+import th_TH from '@douyinfe/semi-ui/locale/source/th_TH';
+import tr_TR from '@douyinfe/semi-ui/locale/source/tr_TR';
+import pt_BR from '@douyinfe/semi-ui/locale/source/pt_BR';
+import zh_TW from '@douyinfe/semi-ui/locale/source/zh_TW';
+import es from '@douyinfe/semi-ui/locale/source/es';
 
 export const globalTypes = {
     direction: {
