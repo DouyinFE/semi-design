@@ -10,7 +10,7 @@ const path = require('path');
 const fs = require('fs');
 const processGraphQLData = require('./search/generator');
 const items = ['basic', 'chart'];
- 
+
 const sha1 = require('sha1');
 const hash = sha1(`${new Date().getTime()}${Math.random()}`);
 const glob = require('glob');
@@ -29,7 +29,7 @@ const addPageDataVersion = async file => {
         fs.writeFileSync(file, result, 'utf8');
     }
 };
- 
+
 function resolve(dir) {
     return path.resolve(__dirname, dir);
 }
@@ -41,7 +41,7 @@ const getLocale = path => {
     }
     return locale;
 };
- 
+
 exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions }) => {
     const isSSR = stage.includes('html');
     const sassLoader = () => 'sass-loader';
@@ -52,15 +52,15 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions }) =>
             ...options,
         },
     });
- 
+
     const semiOptions = { esbuild: true };
     const srcScssModuleUse = [];
     const srcScssUse = [];
     const srcCssUse = [];
     const semiDvScssUse = [];
- 
+
     const semiDvJsxRule = [];
- 
+
     // for semi
     semiOptions.scssUse = [
         loaders.css({
@@ -108,7 +108,7 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions }) =>
             }
         );
     }
- 
+
     actions.setWebpackConfig({
         resolve: {
             alias: {
@@ -176,37 +176,39 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions }) =>
                 }
             ],
         },
-        plugins: [plugins.extractText()],
+        plugins: [plugins.extractText(),plugins.define({
+            'process.env.HEADER_CONFIG_HOST':JSON.stringify(process.env.HEADER_CONFIG_HOST)
+        })],
     });
 };
- 
+
 exports.onCreateNode = ({ node, getNode, actions }) => {
     const { createNodeField } = actions;
- 
+
     if (node.internal.type === 'Mdx') {
         const mdxNode = getNode(node.parent);
         const levels = mdxNode.relativePath.split(path.sep);
- 
+
         const locale = getLocale(mdxNode.name);
- 
+
         createNodeField({
             node,
             name: 'slug',
             value: `${locale}/${levels[0]}/${levels[1]}`, // eg: zh-CN/chart/area
         });
- 
+
         createNodeField({
             node,
             name: 'type',
             value: `${levels[0]}`,
         });
- 
+
         createNodeField({
             node,
             name: 'typeOrder',
             value: items.indexOf(levels[0]),
         });
- 
+
         createNodeField({
             node,
             name: 'locale',
@@ -214,18 +216,18 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
         });
     }
 };
- 
+
 exports.onPreBootstrap = ({ Joi }) => {
     let orderFunc = require('./content/order');
     console.log('starting order mdx');
     orderFunc();
 };
- 
+
 exports.createPages = async ({ actions, graphql, reporter }) => {
     const { createPage } = actions;
- 
+
     const blogPostTemplate = path.resolve('src/templates/postTemplate.js');
- 
+
     // 开始处理搜索数据
     // console.log('building search data.');
     const searchData = await graphql(`
@@ -248,7 +250,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
            }
          }
        }`);
- 
+
     // 在此你可以处理searchData(GraphQL查询的raw数据) 或者传入回调 处理运算后的数据
     processGraphQLData(searchData, processedData => {});
     // 搜索有用到，但是目前没有搜索，先注释掉，不然影响文档站的本地调试
@@ -304,7 +306,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
         reporter.panicOnBuild('Error while running GraphQL query.');
         return;
     }
- 
+
     result.data.allMdx.edges.forEach(({ next, previous, node }) => {
         createPage({
             path: node.fields.slug,
@@ -319,12 +321,12 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
         });
     });
 };
- 
+
 exports.onPostBootstrap = async () => {
     const loader = path.join(__dirname, 'node_modules/gatsby/cache-dir/loader.js');
     await addPageDataVersion(loader);
 };
- 
+
 exports.onPostBuild = async () => {
     const publicPath = path.join(__dirname, 'public');
     const htmlAndJSFiles = glob.sync(`${publicPath}/**/*.{html,js}`);
@@ -332,4 +334,3 @@ exports.onPostBuild = async () => {
         await addPageDataVersion(file);
     }
 };
- 
