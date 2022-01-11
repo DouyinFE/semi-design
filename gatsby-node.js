@@ -112,6 +112,7 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions }) =>
     actions.setWebpackConfig({
         resolve: {
             alias: {
+                'semi-site-header': process.env.SEMI_SITE_HEADER || '@douyinfe/semi-site-header',
                 '@douyinfe/semi-ui': resolve('packages/semi-ui'),
                 '@douyinfe/semi-foundation': resolve('packages/semi-foundation'),
                 '@douyinfe/semi-icons': resolve('packages/semi-icons/src/'),
