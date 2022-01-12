@@ -65,7 +65,7 @@ export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
                     {iconPosLeft ? icon : null}
                     <span>{header}</span>
                     <span className={`${cssClasses.PREFIX}-header-right`}>
-                        <span aria-label={'Extra of collapse header'}>{extra}</span>
+                        <span>{extra}</span>
                         {iconPosLeft ? null : icon}
                     </span>
                 </>
@@ -108,7 +108,6 @@ export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
         });
         return (
             <div
-                aria-label={'Collapse panel'}
                 className={itemCls}
                 {...restProps}
             >
@@ -129,7 +128,6 @@ export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
                             reCalcKey={reCalcKey}>
                             <div
                                 className={contentCls}
-                                aria-label={'Collapse content'}
                                 aria-hidden={!active}
                                 id={this.ariaID}
                             >

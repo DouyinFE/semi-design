@@ -87,7 +87,7 @@ export default class SideSheetContent extends React.PureComponent<SideSheetConte
         let header, closer;
         if (title) {
             header = (
-                <div className={`${prefixCls}-title`} aria-label={'Sidesheet title'}>
+                <div className={`${prefixCls}-title`}>
                     {this.props.title}
                 </div>
             );
@@ -106,7 +106,7 @@ export default class SideSheetContent extends React.PureComponent<SideSheetConte
             );
         }
         return (
-            <div className={`${prefixCls}-header`} role={'heading'} style={{ ...headerStyle }}>
+            <div className={`${prefixCls}-header`} role={'heading'} aria-level={1} style={{ ...headerStyle }}>
                 {header}
                 {closer}
             </div>
@@ -137,13 +137,13 @@ export default class SideSheetContent extends React.PureComponent<SideSheetConte
                 style={{ ...props.style, ...style }}
                 // id={this.dialogId}
             >
-                <div className={`${prefixCls}-content`} aria-label={`Sidesheet content`}>
+                <div className={`${prefixCls}-content`}>
                     {header}
-                    <div className={`${prefixCls}-body`} aria-label={`Sidesheet body`} style={props.bodyStyle}>
+                    <div className={`${prefixCls}-body`} style={props.bodyStyle}>
                         {props.children}
                     </div>
                     {props.footer ? (
-                        <div className={`${prefixCls}-footer`} aria-label={`Sidesheet footer`}>
+                        <div className={`${prefixCls}-footer`}>
                             {props.footer}
                         </div>
                     ) : null}
@@ -167,9 +167,7 @@ export default class SideSheetContent extends React.PureComponent<SideSheetConte
             wrapperStyle.width = width;
         }
         return (
-            <div className={wrapperCls}
-                style={wrapperStyle}
-                aria-label={this.props['aria-label']}>
+            <div className={wrapperCls} style={wrapperStyle}>
                 {this.getMaskElement()}
                 {this.getDialogElement()}
             </div>
