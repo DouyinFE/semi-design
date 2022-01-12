@@ -29,9 +29,9 @@
 
 
 [build-js-badge]: https://img.badgesize.io/https:/unpkg.com/@douyinfe/semi-ui/dist/umd/semi-ui.min.js?label=semi.min.js&compression=gzip
-[build-js-url]: https://unpkg.com/browse/@douyinfe/semi-ui@2.1.1/dist/umd/semi-ui.min.js
+[build-js-url]: https://unpkg.com/browse/@douyinfe/semi-ui/dist/umd/semi-ui.min.js
 [build-css-badge]: https://img.badgesize.io/https:/unpkg.com/@douyinfe/semi-ui/dist/css/semi.min.css?label=semi.min.css&compression=gzip
-[build-css-url]: https://unpkg.com/browse/@douyinfe/semi-ui@2.1.1/dist/css/semi.min.css
+[build-css-url]: https://unpkg.com/browse/@douyinfe/semi-ui/dist/css/semi.min.css
 
 </div>
 
