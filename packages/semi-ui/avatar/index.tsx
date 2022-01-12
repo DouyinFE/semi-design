@@ -136,24 +136,20 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
         );
         let content = children;
         const hoverRender = hoverContent ? (<div className={`${prefixCls}-hover`}>{hoverContent}</div>) : null;
-        let ariaLabel;
         if (isImg) {
             content = (
                 <img src={src} srcSet={srcSet} onError={this.handleError} alt={alt} {...imgAttr} />
             );
-            ariaLabel = 'avatar';
         } else if (typeof children === 'string') {
             content = (
                 <span className={`${prefixCls}-content`}>
                     <span className={`${prefixCls}-label`}>{children}</span>
                 </span>
             );
-            ariaLabel = `avatar of ${children}`;
         }
         return (
             // eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events
             <span
-                aria-label={ariaLabel}
                 {...(others as any)}
                 style={style}
                 className={avatarCls}

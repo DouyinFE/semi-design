@@ -12,7 +12,7 @@ import { ArrayElement } from '@douyinfe/semi-foundation/utils/type';
 import { convertDOMRectToObject, DOMRectLikeType } from '@douyinfe/semi-foundation/utils/dom';
 import TooltipFoundation, { TooltipAdapter, Position, PopupContainerDOMRect } from '@douyinfe/semi-foundation/tooltip/foundation';
 import { strings, cssClasses, numbers } from '@douyinfe/semi-foundation/tooltip/constants';
-import { getUuidv4 } from '@douyinfe/semi-foundation/utils/uuid';
+import { getUuidShort } from '@douyinfe/semi-foundation/utils/uuid';
 import '@douyinfe/semi-foundation/tooltip/tooltip.scss';
 
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
@@ -174,7 +174,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             placement: props.position || 'top',
             transitionStyle: {},
             isPositionUpdated: false,
-            id: getUuidv4(), // auto generate id, will be used by children.aria-descriptionby & content.id, improve a11y
+            id: getUuidShort(), // auto generate id, will be used by children.aria-describedby & content.id, improve a11y
         };
         this.foundation = new TooltipFoundation(this.adapter);
         this.eventManager = new Event();
@@ -540,6 +540,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
 
         return (
             <Portal getPopupContainer={this.props.getPopupContainer} style={{ zIndex }}>
+                {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
                 <div
                     className={`${BASE_CLASS_PREFIX}-portal-inner`}
                     style={portalInnerStyle}

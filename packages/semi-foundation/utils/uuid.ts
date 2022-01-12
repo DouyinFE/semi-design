@@ -23,7 +23,8 @@ function getUuidv4() {
  * getUuidShort({ prefix: '' }) => '0eer2i0'
  * getUuidShort({ prefix: 'semi', length: 4 }) => 'semi-8jts'
  */
-function getUuidShort({ prefix = '', length = 7 }: { prefix?: string; length?: number }) {
+function getUuidShort(options: GetUuidShortOptions = {}) {
+    const { prefix = '', length = 7 } = options;
     const characters = '0123456789abcdefghijklmnopqrstuvwxyz';
     const total = characters.length;
     let randomId = '';
@@ -33,6 +34,11 @@ function getUuidShort({ prefix = '', length = 7 }: { prefix?: string; length?: n
     }
 
     return prefix ? `${prefix}-${randomId}` : randomId;
+}
+
+interface GetUuidShortOptions {
+    prefix?: string;
+    length?: number;
 }
 
 export { getUuid, getUuidv4, getUuidShort };

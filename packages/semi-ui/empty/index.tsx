@@ -108,7 +108,7 @@ export default class Empty extends BaseComponent<EmptyProps, EmptyState> {
                 style: { fontWeight: 400 },
             };
         return (
-            <div className={wrapperCls} style={style} aria-label="empty placeholder image">
+            <div className={wrapperCls} style={style}>
                 <div className={`${prefixCls}-image`} style={imageStyle} >
                     {imageNode}
                 </div>
