@@ -178,7 +178,7 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions }) =>
             ],
         },
         plugins: [plugins.extractText(),plugins.define({
-            'process.env.HEADER_CONFIG_HOST':JSON.stringify(process.env.HEADER_CONFIG_HOST)
+            'process.env.HEADER_CONFIG_HOST':JSON.stringify(process.env.SEMI_SITE_HEADER)
         })],
     });
 };
