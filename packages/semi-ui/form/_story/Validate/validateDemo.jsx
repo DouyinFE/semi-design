@@ -201,7 +201,7 @@ class PartValidAndResetDemo extends Component {
     }
 
     render() {
-        let options = ['a', 'b', 'c', 'd'].map(item => ({ label: item, value: item }));
+        let options = ['a', 'b', 'c', 'd', 'b.name'].map(item => ({ label: item, value: item }));
         return (
             <Form getFormApi={this.getFormApi} autoScrollToError>
                 <Input field="a[1]" validate={this.validate} trigger="blur" />
