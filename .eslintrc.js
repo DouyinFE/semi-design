@@ -30,7 +30,10 @@ module.exports = {
                 'operator-linebreak': ['warn', 'after', { 'overrides': { '?': 'before', ':': 'before' } }],
                 'import/no-unresolved': 'off',
                 'semi': ['error', 'always'],
-                'keyword-spacing': ["error", { "before": true, "after": true }]
+                'keyword-spacing': ["error", { "before": true, "after": true }],
+                'jsx-a11y/click-events-have-key-events': ['warn'],
+                'jsx-a11y/no-noninteractive-element-interactions': ['warn'],
+                'jsx-a11y/no-autofocus': ['warn'],
             },
             globals: {
                 "sinon": "readonly",
@@ -39,7 +42,7 @@ module.exports = {
         {
             files: ['*.ts', '*.tsx'],
             excludedFiles: ['content/**'],
-            extends: ['jest-enzyme', 'plugin:@typescript-eslint/recommended', 'plugin:import/typescript', 'plugin:react/recommended'],
+            extends: ['jest-enzyme', 'plugin:@typescript-eslint/recommended', 'plugin:import/typescript', 'plugin:react/recommended', 'plugin:jsx-a11y/recommended'],
             parser: '@typescript-eslint/parser',
             parserOptions: {
                 project: ['./tsconfig.eslint.json'],
@@ -70,7 +73,10 @@ module.exports = {
                 '@typescript-eslint/no-unused-vars': 'off',
                 'import/no-unresolved': 'off',
                 'semi': ['error', 'always'],
-                'keyword-spacing': ["error", { "before": true, "after": true }]
+                'keyword-spacing': ["error", { "before": true, "after": true }],
+                'jsx-a11y/click-events-have-key-events': ['warn'],
+                'jsx-a11y/no-noninteractive-element-interactions': ['warn'],
+                'jsx-a11y/no-autofocus': ['warn'],
             }
         },
     ],

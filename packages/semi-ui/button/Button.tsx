@@ -33,6 +33,7 @@ export interface ButtonProps {
     onMouseDown?: React.MouseEventHandler<HTMLButtonElement>;
     onMouseEnter?: React.MouseEventHandler<HTMLButtonElement>;
     onMouseLeave?: React.MouseEventHandler<HTMLButtonElement>;
+    'aria-label'?: React.AriaAttributes['aria-label'];
 }
 
 // TODO: icon configuration
@@ -68,6 +69,7 @@ export default class Button extends PureComponent<ButtonProps> {
         className: PropTypes.string,
         onMouseEnter: PropTypes.func,
         onMouseLeave: PropTypes.func,
+        'aria-label': PropTypes.string,
     };
 
     render() {
@@ -107,6 +109,7 @@ export default class Button extends PureComponent<ButtonProps> {
                 className
             ),
             type: htmlType,
+            'aria-disabled': disabled,
         };
 
         return (
@@ -117,6 +120,7 @@ export default class Button extends PureComponent<ButtonProps> {
                 onMouseDown={this.props.onMouseDown}
                 style={style}
             >
+                {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
                 <span className={`${prefixCls}-content`} onClick={e => disabled && e.stopPropagation()}>
                     {children}
                 </span>

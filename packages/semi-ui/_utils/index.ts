@@ -160,3 +160,7 @@ export interface HighLightTextHTMLChunk {
  * @returns boolean
  */
 export const isSemiIcon = (icon: any): boolean => React.isValidElement(icon) && get(icon.type, 'elementType') === 'Icon';
+
+export function getActiveElement() {
+    return document ? document.activeElement as HTMLElement : null;
+}

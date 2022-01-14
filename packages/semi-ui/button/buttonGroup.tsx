@@ -13,6 +13,7 @@ export interface ButtonGroupProps extends BaseProps {
     type?: Type;
     size?: Size;
     theme?: Theme;
+    'aria-label'?: React.AriaAttributes['aria-label'];
 }
 
 const prefixCls = cssClasses.PREFIX;
@@ -25,6 +26,7 @@ export default class ButtonGroup extends BaseComponent<ButtonGroupProps> {
         type: PropTypes.string,
         size: PropTypes.oneOf(btnSizes),
         theme: PropTypes.oneOf(strings.themes),
+        'aria-label': PropTypes.string,
     };
 
     static defaultProps = {
@@ -34,7 +36,7 @@ export default class ButtonGroup extends BaseComponent<ButtonGroupProps> {
     };
 
     render() {
-        const { children, disabled, size, type, ...rest } = this.props;
+        const { children, disabled, size, type, 'aria-label': ariaLabel, ...rest } = this.props;
         let inner;
 
         if (children) {
@@ -44,6 +46,6 @@ export default class ButtonGroup extends BaseComponent<ButtonGroupProps> {
                     : itm
             ));
         }
-        return <div className={`${prefixCls}-group`}>{inner}</div>;
+        return <div className={`${prefixCls}-group`} role="group" aria-label={ariaLabel}>{inner}</div>;
     }
 }

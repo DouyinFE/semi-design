@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 35
+order: 36
 category: 导航类
 title:  Breadcrumb 面包屑
 icon: doc-breadcrumb
@@ -335,6 +335,11 @@ import { IconHome, IconArticle } from '@douyinfe/semi-icons';
 | path | 路由路径       | string            | -      |        |
 
 **v>=1.16.0** 之后 Route 支持 Breadcrumb.Item 上的相应属性。
+
+## Accessibility
+
+- Breadcrumb 支持传入 `aria-label` 来表示该 Breadcrumb 作用
+- Breadcrumb 会对当前项设置 `aria-current='page'`
 
 ## 设计变量
 <DesignToken/>

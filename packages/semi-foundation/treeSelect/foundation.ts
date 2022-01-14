@@ -23,6 +23,7 @@ import {
     BasicExpandedOtherProps
 } from '../tree/foundation';
 import { Motion } from '../utils/type';
+import isEnterPress from '../utils/isEnterPress';
 
 /* Here ValidateStatus is the same as ValidateStatus in baseComponent */
 export type ValidateStatus = 'error' | 'warning' | 'default';
@@ -93,6 +94,7 @@ export interface BasicTreeSelectProps extends Pick<BasicTreeProps,
 | 'onSearch'
 | 'expandAll'
 | 'disableStrictly'
+| 'aria-label'
 > {
     motion?: Motion;
     mouseEnterDelay?: number;
@@ -417,6 +419,15 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         }
     }
 
+    /**
+     * A11y: simulate selection click
+     */
+    handleSelectionEnterPress(e: any) {
+        if (isEnterPress(e)) {
+            this.handleClick(e);
+        }
+    }
+
     handleClear(e: any) {
         const { searchPosition, filterTreeNode } = this.getProps();
         const { inputValue, selectedKeys } = this.getStates();
@@ -442,6 +453,15 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
                     this.clearInput();
                 }
             }
+        }
+    }
+
+    /**
+     * A11y: simulate clear button click
+     */
+    handleClearEnterPress(e: any) {
+        if (isEnterPress(e)) {
+            this.handleClear(e);
         }
     }
 

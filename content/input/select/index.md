@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 25
+order: 26
 category: 输入类
 title:  Select 选择器
 icon: doc-select
@@ -610,7 +610,8 @@ class Link extends React.Component {
 
 ### 开启搜索
 
-将 `filter` 置为 true，开启搜索能力。默认搜索策略将为 input 输入值与 option 的 label 值进行 include 对比
+将 `filter` 置为 true，开启搜索能力。默认搜索策略将为 input 输入值与 option 的 label 值进行 include 对比  
+默认情况下，多选选中后会自动清空搜索关键字。若你希望保留，可以通过 autoClearSearchValue 设为 false 关闭默认行为（v2.3后提供）
 
 ```jsx live=true hideInDSM
 import React from 'react';
@@ -625,11 +626,12 @@ import { Select } from '@douyinfe/semi-ui';
             <Select.Option value='xigua'>西瓜视频</Select.Option>
         </Select>
         <br/><br/>
-        <Select filter multiple style={{ width: 300 }} placeholder='带搜索功能的多选'>
-            <Select.Option value='abc'>抖音</Select.Option>
-            <Select.Option value='hotsoon'>火山</Select.Option>
-            <Select.Option value='jianying'>剪映</Select.Option>
-            <Select.Option value='xigua'>西瓜视频</Select.Option>
+        <Select filter multiple style={{ width: 300 }} placeholder='带搜索功能的多选' autoClearSearchValue={false}>
+            <Select.Option value='semi-0'>Semi-0</Select.Option>
+            <Select.Option value='semi-1'>Semi-1</Select.Option>
+            <Select.Option value='semi-2'>Semi-2</Select.Option>
+            <Select.Option value='semi-3'>Semi-3</Select.Option>
+            <Select.Option value='semi-4'>Semi-4</Select.Option>
         </Select>
     </>
 );
@@ -1298,6 +1300,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | allowCreate              | 是否允许用户创建新条目，需配合 filter 使用                                                                                                                                                                | boolean                               | false                             |
 | arrowIcon            | 自定义右侧下拉箭头Icon，当showClear开关打开且当前有选中值时，hover会优先显示clear icon <br/>**v1.15.0 后提供**                                                                                                                                                                 | ReactNode     |                             |
 | autoAdjustOverflow       | 浮层被遮挡时是否自动调整方向（暂时仅支持竖直方向，且插入的父级为 body）                                                                                                            | boolean                               | true                              |
+| autoClearSearchValue     | 选中选项后，是否自动清空搜索关键字，当mutilple、filter都开启时生效<br/>**v2.3.0 后提供**                                                                                          | boolean                               | true                              |
 | autoFocus                | 初始渲染时是否自动 focus                                                                                                                                                                                  | boolean                               | false                             |
 | className                | 类名                                                                                                                                                                                                      | string                                |                                   |
 | clickToHide              | 已展开时，点击选择框是否自动收起下拉列表                                                                                                                                          | boolean                               | false                             |
@@ -1392,6 +1395,16 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | clearInput | 调用时可以手动清空input搜索框的值 | v1.18.0 |
 | deselectAll | 调用时可以手动清空所有已选项 | v1.18.0 |
 | selectAll | 调用时可以选中所有Option | v1.18.0 |
+
+## Accessibility
+
+### ARIA
+
+- Select trigger 的 role 为 combobox，弹出层的 role 为 listbox，可选项的 role 为 option
+- Select trigger 具有 aria-haspopup、aria-expanded、aria-controls 属性，表示 trigger 与弹出层的关系
+- 多选时，listbox aria-multiselectable 为 true，表示当前可以多选
+- Option 选中时，aria-selected 为 true；当 Option 禁用时，aria-disabled 为 true
+
 
 ## 设计变量
 <DesignToken/>

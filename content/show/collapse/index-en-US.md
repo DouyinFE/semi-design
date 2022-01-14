@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 45
+order: 46
 category: Show
 title: Collapse
 subTitle: Collapse
@@ -148,6 +148,15 @@ import { IconCopy } from '@douyinfe/semi-icons';
 | itemKey | Required and must be unique, used to match `activeKey`, `defaultActiveKey` | string | - ||
 | reCalcKey | When reCalcKey changes, the height of children will be reset. Used for optimize dynamic content rendering. | string \| number |-| 1.5.0 |
 | style | inline CSS style | CSSProperties | - ||
+
+
+## Accessibility
+
+### ARIA
+
+- The button on the right side of the panel header is set to `aria-hidden=true`
+- The interactive part of the panel header is set to the `aria-owns` value corresponding to the panel content
+- The content of the panel is set with `aria-hidden`, and its value is automatically switched between true and false with the display of the panel content
 
 ## Design Tokens
 

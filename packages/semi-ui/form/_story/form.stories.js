@@ -54,7 +54,6 @@ import { AssistComponent } from './Layout/slotDemo';
 import { ModalFormDemo } from './Layout/modalFormDemo';
 
 import { WithFieldDemo, CustomFieldDemo, NumberRange } from './HOC/withFieldDemo';
-import { WithDisplayName } from './HOC/displayName';
 import {
   CustomValidateDemo,
   ValidateFieldsDemo,
@@ -424,12 +423,6 @@ export const DebugRerenderTwice = () => (
 
 DebugRerenderTwice.story = {
   name: 'Debug-RerenderTwice',
-};
-
-export const FieldDisplayName = () => <WithDisplayName attr="form" />;
-
-FieldDisplayName.story = {
-  name: 'Field displayName',
 };
 
 export const _ChildDidMount = () => <ChildDidMount />;

@@ -85,8 +85,14 @@ export type RenderMultipleSelectedItemFn = (optionNode: Record<string, any>, mul
 export type RenderSelectedItemFn = RenderSingleSelectedItemFn | RenderMultipleSelectedItemFn;
 
 export type SelectProps = {
+    'aria-describedby'?: React.AriaAttributes['aria-describedby'];
+    'aria-errormessage'?: React.AriaAttributes['aria-errormessage'];
+    'aria-invalid'?: React.AriaAttributes['aria-invalid'];
+    'aria-labelledby'?: React.AriaAttributes['aria-labelledby'];
+    'aria-required'?: React.AriaAttributes['aria-required'];
     id?: string;
     autoFocus?: boolean;
+    autoClearSearchValue?: boolean;
     arrowIcon?: React.ReactNode;
     defaultValue?: string | number | any[] | Record<string, any>;
     value?: string | number | any[] | Record<string, any>;
@@ -122,6 +128,7 @@ export type SelectProps = {
     suffix?: React.ReactNode;
     prefix?: React.ReactNode;
     insetLabel?: React.ReactNode;
+    insetLabelId?: string;
     inputProps?: Subtract<InputProps, ExcludeInputType>;
     showClear?: boolean;
     showArrow?: boolean;
@@ -180,7 +187,13 @@ class Select extends BaseComponent<SelectProps, SelectState> {
     static OptGroup = OptionGroup;
 
     static propTypes = {
+        'aria-describedby': PropTypes.string,
+        'aria-errormessage': PropTypes.string,
+        'aria-invalid': PropTypes.bool,
+        'aria-labelledby': PropTypes.string,
+        'aria-required': PropTypes.bool,
         autoFocus: PropTypes.bool,
+        autoClearSearchValue: PropTypes.bool,
         children: PropTypes.node,
         defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object]),
         value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object]),
@@ -227,6 +240,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         suffix: PropTypes.node,
         prefix: PropTypes.node,
         insetLabel: PropTypes.node,
+        insetLabelId: PropTypes.string,
         showClear: PropTypes.bool,
         showArrow: PropTypes.bool,
 
@@ -292,6 +306,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         showClear: false,
         remote: false,
         autoAdjustOverflow: true,
+        autoClearSearchValue: true,
         arrowIcon: <IconChevronDown />
         // Radio selection is different from the default renderSelectedItem for multiple selection, so it is not declared here
         // renderSelectedItem: (optionNode) => optionNode.label,
@@ -335,6 +350,8 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         this.onMouseEnter = this.onMouseEnter.bind(this);
         this.onMouseLeave = this.onMouseLeave.bind(this);
         this.renderOption = this.renderOption.bind(this);
+        this.onKeyPress = this.onKeyPress.bind(this);
+        this.onClearBtnEnterPress = this.onClearBtnEnterPress.bind(this);
 
         this.foundation = new SelectFoundation(this.adapter);
 
@@ -638,6 +655,10 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         this.foundation.handleClearClick(e as any);
     }
 
+    onClearBtnEnterPress(e: React.KeyboardEvent) {
+        this.foundation.handleClearBtnEnterPress(e as any);
+    }
+
     renderEmpty() {
         return <Option empty={true} emptyContent={this.props.emptyContent} />;
     }
@@ -717,7 +738,8 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         const customCreateItem = renderCreateItem(option.value, isFocused);
 
         return (
-            <div onClick={e => this.onSelect(option, optionIndex, e)} key={new Date().valueOf()}>
+            // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/interactive-supports-focus
+            <div role="button" aria-label="Use the input box to create an optional item" onClick={e => this.onSelect(option, optionIndex, e)} key={new Date().valueOf()}>
                 {customCreateItem}
             </div>
         );
@@ -783,6 +805,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             innerBottomSlot,
             loading,
             virtualize,
+            multiple,
         } = this.props;
 
         // Do a filter first, instead of directly judging in forEach, so that the focusIndex can correspond to
@@ -808,6 +831,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                     style={{ maxHeight: `${maxHeight}px` }}
                     className={optionListCls}
                     role="listbox"
+                    aria-multiselectable={multiple}
                     onScroll={e => this.foundation.handleListScroll(e)}
                 >
                     {innerTopSlot}
@@ -935,6 +959,10 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         this.foundation.handleMouseLeave(e as any);
     }
 
+    onKeyPress(e: React.KeyboardEvent) {
+        this.foundation.handleKeyPress(e as any);
+    }
+
     /* Processing logic when popover visible changes */
     handlePopoverVisibleChange(status) {
         const { virtualize } = this.props;
@@ -974,7 +1002,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
     }
 
     renderPrefix() {
-        const { prefix, insetLabel } = this.props;
+        const { prefix, insetLabel, insetLabelId } = this.props;
         const labelNode = (prefix || insetLabel) as React.ReactElement<any, any>;
 
         const prefixWrapperCls = cls({
@@ -984,7 +1012,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             [`${prefixcls}-prefix-icon`]: isSemiIcon(labelNode),
         });
 
-        return <div className={prefixWrapperCls}>{labelNode}</div>;
+        return <div className={prefixWrapperCls} id={insetLabelId}>{labelNode}</div>;
     }
 
     renderSelection() {
@@ -1005,6 +1033,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             triggerRender,
             arrowIcon,
         } = this.props;
+
         const { selections, isOpen, keyboardEventSet, inputValue, isHovering, isFocus } = this.state;
         const useCustomTrigger = typeof triggerRender === 'function';
         const filterable = Boolean(filter); // filter（boolean || function）
@@ -1060,7 +1089,14 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 </Fragment>,
                 <Fragment key="clearicon">
                     {showClear ? (
-                        <div className={cls(`${prefixcls}-clear`)} onClick={this.onClear}>
+                        <div
+                            role="button"
+                            aria-label="Clear selected value"
+                            tabIndex={0}
+                            className={cls(`${prefixcls}-clear`)}
+                            onClick={this.onClear}
+                            onKeyPress={this.onClearBtnEnterPress}
+                        >
                             <IconClear />
                         </div>
                     ) : arrowContent}
@@ -1072,6 +1108,17 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         const tabIndex = disabled ? null : 0;
         return (
             <div
+                role="combobox"
+                aria-disabled={disabled}
+                aria-expanded={isOpen}
+                aria-controls={`${prefixcls}-${this.selectOptionListID}`}
+                aria-haspopup="listbox"
+                aria-label="select value"
+                aria-invalid={this.props['aria-invalid']}
+                aria-errormessage={this.props['aria-errormessage']}
+                aria-labelledby={this.props['aria-labelledby']}
+                aria-describedby={this.props['aria-describedby']}
+                aria-required={this.props['aria-required']}
                 className={selectionCls}
                 ref={ref => ((this.triggerRef as any).current = ref)}
                 onClick={e => this.foundation.handleClick(e)}
@@ -1082,6 +1129,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 onMouseLeave={this.onMouseLeave}
                 // onFocus={e => this.foundation.handleTriggerFocus(e)}
                 onBlur={e => this.foundation.handleTriggerBlur(e as any)}
+                onKeyPress={this.onKeyPress}
                 {...keyboardEventSet}
             >
                 {inner}

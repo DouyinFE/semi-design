@@ -57,6 +57,7 @@ export interface TagInputProps {
     validateStatus?: ValidateStatus;
     value?: string[] | undefined;
     autoFocus?: boolean;
+    'aria-label'?: string;
 }
 
 export interface TagInputState {
@@ -102,7 +103,8 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
         size: PropTypes.oneOf(strings.SIZE_SET),
         validateStatus: PropTypes.oneOf(strings.STATUS),
         prefix: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
-        suffix: PropTypes.oneOfType([PropTypes.string, PropTypes.node])
+        suffix: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+        'aria-label': PropTypes.string,
     };
 
     static defaultProps = {
@@ -222,6 +224,10 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
         this.foundation.handleClearBtn(e);
     };
 
+    handleClearEnterPress = (e: React.KeyboardEvent<HTMLDivElement>) => {
+        this.foundation.handleClearEnterPress(e);
+    };
+
     handleTagClose = (idx: number) => {
         this.foundation.handleTagClose(idx);
     };
@@ -242,7 +248,14 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
         });
         if (showClear) {
             return (
-                <div className={clearCls} onClick={e => this.handleClearBtn(e)}>
+                <div 
+                    role="button"
+                    tabIndex={0} 
+                    aria-label="Clear TagInput value" 
+                    className={clearCls} 
+                    onClick={e => this.handleClearBtn(e)}
+                    onKeyPress={e => this.handleClearEnterPress(e)}
+                >
                     <IconClear />
                 </div>
             );
@@ -404,6 +417,9 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
             <div
                 style={style}
                 className={tagInputCls}
+                aria-disabled={disabled}
+                aria-label={this.props['aria-label']}
+                aria-invalid={validateStatus === 'error'}
                 onMouseEnter={e => {
                     this.handleInputMouseEnter(e);
                 }}
@@ -415,6 +431,7 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
                 <div className={wrapperCls}>
                     {this.renderTags()}
                     <Input
+                        aria-label='input value'
                         ref={this.inputRef as any}
                         className={inputCls}
                         disabled={disabled}

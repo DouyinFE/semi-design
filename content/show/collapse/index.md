@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 45
+order: 46
 category: 展示类
 title: Collapse 折叠面板
 icon: doc-accordion
@@ -148,6 +148,15 @@ import { IconCopy } from '@douyinfe/semi-icons';
 | itemKey   | 必填且唯一，选中状态匹配 `activeKey`，`defaultActiveKey`              | string                 | 无     ||
 | reCalcKey | 当 reCalcKey 改变时，将重新计算子节点的高度，用于优化动态渲染时的计算 | string \| number |无| 1.5.0  |
 | style     | 内联 CSS 样式                                                         | CSSProperties                 |  无  |    |
+
+
+## Accessibility
+
+### ARIA
+
+- 面板 header 右侧按钮 设置了 `aria-hidden=true`
+- 面版 header 可交互部分 设置了 `aria-owns` 值为对应面板内容
+- 面版内容 设置了 `aria-hidden` 随面板内容展现隐藏其值在 true 和 false 之间自动切换
 
 ## 设计变量
 

@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 35
+order: 36
 category: Navigation
 title:  Breadcrumb
 subTitle: Breadcrumb
@@ -333,6 +333,11 @@ import { IconHome, IconArticle } from '@douyinfe/semi-icons';
 | path       | Routing path      | string | -         |         |
 
 After **v>=1.16.0**, other props in Breadcrumb.Item are also supported correspondingly.
+
+## Accessibility
+
+- Breadcrumb supports the `aria-label` props to indicate the function of the Breadcrumb
+- Breadcrumb will set `aria-current='page'` for the current item
 
 ## Design Tokens
 <DesignToken/>

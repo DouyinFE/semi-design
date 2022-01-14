@@ -408,7 +408,7 @@ class Nav extends BaseComponent<NavProps, NavState> {
                                 <div className={headerListOuterCls}>
                                     {headers}
                                     <div style={bodyStyle} className={`${prefixCls}-list-wrapper`}>
-                                        <ul className={`${prefixCls}-list`}>
+                                        <ul role="menu" aria-orientation={mode} className={`${prefixCls}-list`}>
                                             {this.adapter.getCache('itemElems')}
                                             {children}
                                         </ul>

@@ -25,9 +25,11 @@ export const Default = () => (
         'breadcrumb',
         'default',
       ]}
+      aria-label='example-1'
       onClick={item => console.log(item)}
     />
     <Breadcrumb
+      aria-label='example-2'
       routes={[
         {
           path: '/home',
@@ -44,6 +46,7 @@ export const Default = () => (
       onClick={item => console.log(item)}
     />
     <Breadcrumb
+      aria-label='example-3'
       routes={[
         {
           path: '/home',
@@ -57,6 +60,7 @@ export const Default = () => (
       separator={'>'}
     />
     <Breadcrumb
+      aria-label='example-4'
       routes={[
         {
           path: '/home',
@@ -70,10 +74,12 @@ export const Default = () => (
       separator={<IconArrowRight size={'small'} />}
     />
     <Breadcrumb
+      aria-label='example-5'
       routes={['首页', '当这个页面标题很长时需要省略', '详情页']}
       onClick={item => console.log(item)}
     />
     <Breadcrumb
+      aria-label='example-6'
       routes={[
         '首页',
         '当层级很多的时候',
@@ -91,6 +97,7 @@ export const Default = () => (
 export const Compact = () => (
   <div>
     <Breadcrumb
+      aria-label='example-1'
       routes={[
         {
           path: '/home',
@@ -103,6 +110,7 @@ export const Compact = () => (
       compact={true}
     />
     <Breadcrumb
+      aria-label='example-2'
       routes={[
         {
           path: '/home',
@@ -119,6 +127,7 @@ export const Compact = () => (
       compact={true}
     />
     <Breadcrumb
+      aria-label='example-3'
       routes={[
         {
           path: '/home',
@@ -133,6 +142,7 @@ export const Compact = () => (
       compact={true}
     />
     <Breadcrumb
+      aria-label='example-4'
       routes={[
         {
           path: '/home',
@@ -147,11 +157,13 @@ export const Compact = () => (
       compact={true}
     />
     <Breadcrumb
+      aria-label='example-5'
       routes={['首页', '当这个页面标题很长时需要省略', '详情页']}
       onClick={item => console.log(item)}
       compact={true}
     />
     <Breadcrumb
+      aria-label='example-6'
       routes={[
         '首页',
         '当层级很多的时候',
@@ -169,32 +181,32 @@ export const Compact = () => (
 
 export const BreadcrumbItemJSX = () => (
   <div>
-    <Breadcrumb onClick={item => console.log(item)}>
+    <Breadcrumb aria-label='example-1' onClick={item => console.log(item)}>
       <Breadcrumb.Item onClick={item => console.log('child', item)}>home</Breadcrumb.Item>
       <Breadcrumb.Item href="#">breadcrumb</Breadcrumb.Item>
       <Breadcrumb.Item>default</Breadcrumb.Item>
     </Breadcrumb>
-    <Breadcrumb onClick={item => console.log(item)}>
+    <Breadcrumb aria-label='example-2' onClick={item => console.log(item)}>
       <Breadcrumb.Item icon={<IconHome />}></Breadcrumb.Item>
       <Breadcrumb.Item>breadcrumb</Breadcrumb.Item>
       <Breadcrumb.Item>default</Breadcrumb.Item>
     </Breadcrumb>
-    <Breadcrumb separator={'>'} onClick={item => console.log(item)}>
+    <Breadcrumb aria-label='example-3' separator={'>'} onClick={item => console.log(item)}>
       <Breadcrumb.Item>home</Breadcrumb.Item>
       <Breadcrumb.Item href="#">breadcrumb</Breadcrumb.Item>
       <Breadcrumb.Item>separator</Breadcrumb.Item>
     </Breadcrumb>
-    <Breadcrumb compact={true} onClick={item => console.log(item)}>
+    <Breadcrumb aria-label='example-4' compact={true} onClick={item => console.log(item)}>
       <Breadcrumb.Item>home</Breadcrumb.Item>
       <Breadcrumb.Item>breadcrumb</Breadcrumb.Item>
       <Breadcrumb.Item>compact</Breadcrumb.Item>
     </Breadcrumb>
-    <Breadcrumb onClick={item => console.log(item)}>
+    <Breadcrumb aria-label='example-5' onClick={item => console.log(item)}>
       <Breadcrumb.Item>首页</Breadcrumb.Item>
       <Breadcrumb.Item>当这个页面标题很长时需要省略</Breadcrumb.Item>
       <Breadcrumb.Item>详情页</Breadcrumb.Item>
     </Breadcrumb>
-    <Breadcrumb onClick={item => console.log(item)}>
+    <Breadcrumb aria-label='example-6' onClick={item => console.log(item)}>
       <Breadcrumb.Item>首页</Breadcrumb.Item>
       <Breadcrumb.Item>当层级很多的时候</Breadcrumb.Item>
       <Breadcrumb.Item>又一层很长需要省略的时候</Breadcrumb.Item>
@@ -209,14 +221,14 @@ export const BreadcrumbItemJSX = () => (
 
 export const Test = () => (
   <div>
-    <Breadcrumb onClick={item => console.log(item)}>
+    <Breadcrumb aria-label='example-1' onClick={item => console.log(item)}>
       <Breadcrumb.Item onClick={item => console.log('child', item)}>home jump</Breadcrumb.Item>
       <Breadcrumb.Item href="#">breadcrumb</Breadcrumb.Item>
       <Breadcrumb.Item>
         <h1>default</h1>
       </Breadcrumb.Item>
     </Breadcrumb>
-    <Breadcrumb>
+    <Breadcrumb aria-label='example-2'>
       <Breadcrumb.Item icon={<IconHome />}></Breadcrumb.Item>
       <Breadcrumb.Item icon={<IconArticle />}>
         <h5>breadcrumb</h5>
@@ -268,6 +280,7 @@ export const RenderMore = () => (
     }}
   >
     <Breadcrumb
+      aria-label='example-1'
       renderMore={restItem => renderMore(restItem)}
       onClick={(item, e) => console.log(item, e)}
     >
@@ -283,6 +296,7 @@ export const RenderMore = () => (
     <br />
     <div>
       <Breadcrumb
+        aria-label='example-2'
         renderMore={restItem => renderMore(restItem)}
         onClick={(item, e) => console.log(item, e)}
         routes={[

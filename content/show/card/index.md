@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 44
+order: 45
 category: 展示类
 title:  Card 卡片
 subTitle: 卡片
@@ -73,6 +73,7 @@ function Demo() {
                     title="Semi Doc" 
                     avatar={
                         <Avatar 
+                            alt='Card meta img'
                             size="default"
                             src='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/card-meta-avatar-docs-demo.jpg'
                         />
@@ -183,6 +184,7 @@ function Demo() {
                     title="Semi Doc" 
                     avatar={
                         <Avatar 
+                            alt='Card meta img'
                             size="default"
                             src='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/card-meta-avatar-docs-demo.jpg'
                         />
@@ -214,6 +216,7 @@ function Demo() {
                     title="Semi Doc" 
                     avatar={
                         <Avatar 
+                            alt='Card meta img'
                             size="default"
                             src='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/card-meta-avatar-docs-demo.jpg'
                         />
@@ -258,6 +261,7 @@ function Demo() {
                     description="全面、易用、优质" 
                     avatar={
                         <Avatar 
+                            alt='Card meta img'
                             size="default"
                             src='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/card-meta-avatar-docs-demo.jpg'
                         />
@@ -462,6 +466,7 @@ function Demo() {
                         avatar={
                             <Skeleton placeholder={<Skeleton.Avatar />} loading={loading}>
                                 <Avatar 
+                                    alt='Card meta img'
                                     size="default"
                                     src='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/card-meta-avatar-docs-demo.jpg'
                                 />
@@ -690,6 +695,12 @@ function Demo() {
 |description|描述   |ReactNode    |-     |1.21.0|
 |style      |内联样式|CSSProperties|-     |1.21.0|
 |title      |标题   |ReactNode    |-     |1.21.0|
+
+## Accessibility
+
+- Card 支持传入 `aria-label` 来表示该 Card 作用；
+- Card loading 时，将开启 `aria-busy`；
+- Card 为容器型组件，卡片内部的任何元素需要遵循各自的可访问性指南。
 
 ## 设计变量
 <DesignToken/>

@@ -168,11 +168,25 @@ export default class TableHeaderRow extends BaseComponent<TableHeaderRowProps, R
                 return null;
             }
 
-            return <HeaderCell {...props} style={cellStyle} key={column.key || column.dataIndex || cellIndex} />;
+            return (
+                <HeaderCell
+                    role="columnheader"
+                    aria-colindex={cellIndex + 1}
+                    {...props}
+                    style={cellStyle} 
+                    key={column.key || column.dataIndex || cellIndex} 
+                />
+            );
         });
 
         return (
-            <HeaderRow {...rowProps} style={style} ref={this.cacheRef}>
+            <HeaderRow
+                role="row"
+                aria-rowindex={index + 1}
+                {...rowProps}
+                style={style}
+                ref={this.cacheRef}
+            >
                 {cells}
             </HeaderRow>
         );

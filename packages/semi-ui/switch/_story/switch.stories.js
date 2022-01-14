@@ -9,8 +9,8 @@ export default {
 
 export const _Switch = () => (
   <div>
-    <Switch onChange={(v, e) => console.log(v)}></Switch>
-    <Switch defaultChecked={true} onChange={(v, e) => console.log(v)}></Switch>
+    <Switch onChange={(v, e) => console.log(v)} aria-label='power-switch'></Switch>
+    <Switch defaultChecked={true} onChange={(v, e) => console.log(v)} aria-label='mode-switch'></Switch>
   </div>
 );
 
@@ -20,9 +20,9 @@ _Switch.story = {
 
 export const SwitchSize = () => (
   <div>
-    <Switch onChange={(v, e) => console.log(v)}></Switch>
-    <Switch onChange={(v, e) => console.log(v)} size="small"></Switch>
-    <Switch onChange={(v, e) => console.log(v)} size="large"></Switch>
+    <Switch onChange={(v, e) => console.log(v)} aria-label='power-switch'></Switch>
+    <Switch onChange={(v, e) => console.log(v)} size="small" aria-label='power-switch'></Switch>
+    <Switch onChange={(v, e) => console.log(v)} size="large" aria-label='power-switch'></Switch>
   </div>
 );
 
@@ -32,20 +32,20 @@ SwitchSize.story = {
 
 export const SwitchCheckedTextUncheckedText = () => (
   <div>
-    <Switch defaultChecked checkedText="开" uncheckedText="关" />
-    <Switch checkedText={'|'} uncheckedText="〇" />
+    <Switch defaultChecked checkedText="开" uncheckedText="关" aria-label='power-switch'/>
+    <Switch checkedText={'|'} uncheckedText="〇" aria-label='power-switch'/>
     <br />
     <br />
-    <Switch checkedText="开" uncheckedText="关" />
-    <Switch defaultChecked checkedText="｜" uncheckedText="〇" />
+    <Switch checkedText="开" uncheckedText="关" aria-label='power-switch'/>
+    <Switch defaultChecked checkedText="｜" uncheckedText="〇" aria-label='power-switch'/>
     <br />
     <br />
-    <Switch checkedText="开" uncheckedText="关" size="large" />
-    <Switch checkedText="｜" uncheckedText="〇" size="large" />
+    <Switch checkedText="开" uncheckedText="关" size="large" aria-label='power-switch'/>
+    <Switch checkedText="｜" uncheckedText="〇" size="large" aria-label='power-switch'/>
     <br />
     <br />
-    <Switch defaultChecked checkedText="开" uncheckedText="关" size="large" />
-    <Switch defaultChecked checkedText="｜" uncheckedText="〇" size="large" />
+    <Switch defaultChecked checkedText="开" uncheckedText="关" size="large" aria-label='power-switch'/>
+    <Switch defaultChecked checkedText="｜" uncheckedText="〇" size="large" aria-label='power-switch'/>
   </div>
 );
 
@@ -55,9 +55,9 @@ SwitchCheckedTextUncheckedText.story = {
 
 export const SwitchDisabled = () => (
   <>
-    <Switch disabled>disabled</Switch>
+    <Switch disabled aria-label='power-switch'>disabled</Switch>
 
-    <Switch disabled checked={true} onChange={(v, e) => console.log(v)}></Switch>
+    <Switch disabled checked={true} onChange={(v, e) => console.log(v)} aria-label='power-switch'></Switch>
   </>
 );
 
@@ -67,7 +67,7 @@ SwitchDisabled.story = {
 
 const ControledSwitch = () => {
   const [checked, onChange] = useState(true);
-  return <Switch checked={checked} onChange={(v, e) => onChange(v)} />;
+  return <Switch checked={checked} onChange={(v, e) => onChange(v)} aria-label='power-switch'/>;
 };
 export const SwitchCheckedOnChange = () => <ControledSwitch />;
 
@@ -82,7 +82,7 @@ const UnControledSwitch = () => {
   return (
     <>
       {/* <Switch onChange={onChange} defaultChecked={false}/> */}
-      <Switch onChange={onChange} defaultChecked={true} />
+      <Switch onChange={onChange} defaultChecked={true} aria-label='power-switch'/>
     </>
   );
 };
@@ -137,15 +137,16 @@ class LoadingDemo extends React.Component {
         <Switch
           checked={this.state.checked}
           onChange={this.onChange}
+          aria-label='power-switch'
           loading={this.state.loading}
         ></Switch>
         <br />
         <br />
         <hr />
-        <Switch loading disabled />
+        <Switch loading disabled aria-label='power-switch'/>
         <br />
         <br />
-        <Switch loading disabled defaultChecked />
+        <Switch loading disabled defaultChecked aria-label='power-switch'/>
         <br />
         <br />
       </>

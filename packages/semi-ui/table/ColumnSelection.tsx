@@ -20,6 +20,7 @@ export interface TableSelectionCellProps {
     indeterminate?: boolean; // Intermediate state, shown as a solid horizontal line
     prefixCls?: string;
     className?: string;
+    'aria-label'?: React.AriaAttributes['aria-label'];
 }
 
 /**
@@ -36,6 +37,7 @@ export default class TableSelectionCell extends BaseComponent<TableSelectionCell
         indeterminate: PropTypes.bool,
         prefixCls: PropTypes.string,
         className: PropTypes.string,
+        'aria-label': PropTypes.string,
     };
 
     static defaultProps = {
@@ -60,6 +62,7 @@ export default class TableSelectionCell extends BaseComponent<TableSelectionCell
 
     render() {
         const { selected, getCheckboxProps, indeterminate, disabled, prefixCls, className } = this.props;
+        const ariaLabel = this.props['aria-label'];
         let checkboxProps = {
             onChange: this.handleChange,
             disabled,
@@ -81,7 +84,7 @@ export default class TableSelectionCell extends BaseComponent<TableSelectionCell
 
         return (
             <span className={wrapCls}>
-                <Checkbox {...checkboxProps} />
+                <Checkbox aria-label={ariaLabel} {...checkboxProps} />
             </span>
         );
     }
