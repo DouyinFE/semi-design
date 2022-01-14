@@ -163,8 +163,8 @@ class FileCard extends PureComponent<FileCardProps> {
                 {showReplace && replace}
                 {showPicInfo && picInfo}
                 {!disabled && (
-                    <div className={closeCls}>
-                        <IconClose tabIndex={0} role="button" size="extra-small" onClick={e => this.onRemove(e)} />
+                    <div className={closeCls} onClick={e => this.onRemove(e)}>
+                        <IconClose tabIndex={0} role="button" size="extra-small" />
                     </div>
                 )}
                 {this.renderPicValidateMsg()}
