@@ -154,16 +154,9 @@ import { IconCopy } from '@douyinfe/semi-icons';
 
 ### ARIA
 
-- 组件的 `aria-label` 为 'Collapse'
 - 面板 header 右侧按钮 设置了 `aria-hidden=true`
-- 面板 header 的 extra 部分  `aria-label` 设置为 'Extra of collapse header'
-- 面板 header `aria-label` 为 'Collapse panel'
 - 面版 header 可交互部分 设置了 `aria-owns` 值为对应面板内容
-- 面板内容 `aria-label`设置为 'Collapse content'
 - 面版内容 设置了 `aria-hidden` 随面板内容展现隐藏其值在 true 和 false 之间自动切换
-
-
-
 
 ## 设计变量
 

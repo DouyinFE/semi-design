@@ -154,14 +154,9 @@ import { IconCopy } from '@douyinfe/semi-icons';
 
 ### ARIA
 
-- The `aria-label` of the component is'Collapse'
 - The button on the right side of the panel header is set to `aria-hidden=true`
-- The extra section `aria-label` of the panel header is set to'Extra of collapse header'
-- Panel header `aria-label` is'Collapse panel'
 - The interactive part of the panel header is set to the `aria-owns` value corresponding to the panel content
-- Panel content `aria-label` is set to'Collapse content'
 - The content of the panel is set with `aria-hidden`, and its value is automatically switched between true and false with the display of the panel content
-
 
 ## Design Tokens
 
