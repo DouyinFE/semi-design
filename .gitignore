@@ -94,6 +94,7 @@ lib-cov
 
 # Coverage directory used by tools like istanbul
 coverage
+cypress-coverage
 
 # nyc test coverage
 .nyc_output

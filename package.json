@@ -29,7 +29,7 @@
     "test:story": "cross-env NODE_ENV=test type=story ./node_modules/.bin/jest --silent --notify --maxWorkers=4",
     "test:coverage": "cross-env TZ=Asia/Shanghai NODE_ENV=test type=unit ./node_modules/.bin/jest --silent --coverage --notify",
     "test:storyUpdate": "cross-env NODE_ENV=test type=story ./node_modules/.bin/jest --silent -u --notify --maxWorkers=4",
-    "test:cy": "npx http-server storybook-static -p 6009 && npx wait-on http://127.0.0.1:6009 && cypress open",
+    "test:cy": "cypress open",
     "build:lib": "lerna run build:lib",
     "build:js": "lerna run build:js",
     "build:css": "lerna run build:css",
@@ -108,6 +108,7 @@
     "@babel/types": "^7.15.4",
     "@commitlint/cli": "^9.1.2",
     "@commitlint/config-conventional": "^7.6.0",
+    "@cypress/code-coverage": "^3.9.12",
     "@octokit/rest": "^18.12.0",
     "@shopify/jest-dom-mocks": "^2.11.7",
     "@storybook/addon-a11y": "^6.4.10",
@@ -138,6 +139,7 @@
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.2.2",
+    "babel-plugin-istanbul": "^6.1.1",
     "babel-plugin-transform-require-context": "^0.1.1",
     "babel-runtime": "^6.26.0",
     "case-sensitive-paths-webpack-plugin": "^2.4.0",
@@ -210,6 +212,9 @@
     "*.{scss,css}": [
       "stylelint"
     ]
+  },
+  "nyc": {
+    "report-dir": "./test/cypress-coverage"
   },
   "license": "MIT"
 }

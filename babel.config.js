@@ -23,5 +23,6 @@ module.exports = {
         '@babel/plugin-proposal-class-properties',
         '@babel/plugin-proposal-object-rest-spread',
         env === 'test' && 'babel-plugin-transform-require-context',
-    ].filter(Boolean)
+        'istanbul'
+    ].filter(Boolean),
 };

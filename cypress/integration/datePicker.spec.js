@@ -11,7 +11,7 @@
  */
 describe('DatePicker', () => {
     it('dateTime needConfirm cancel', () => {
-        cy.visit('http://127.0.0.1:6009/iframe.html?id=datepicker--fix-need-confirm&args=&viewMode=story');
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=datepicker--fix-need-confirm&args=&viewMode=story');
         cy.get('[data-cy=1] .semi-input-wrapper').click();
         cy.get('.semi-datepicker-footer > .semi-button-borderless')
             .then(($btn) => {
@@ -22,7 +22,7 @@ describe('DatePicker', () => {
     });
 
     it('dateTime needConfirm confirm', () => {
-        cy.visit('http://127.0.0.1:6009/iframe.html?id=datepicker--fix-need-confirm&args=&viewMode=story');
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=datepicker--fix-need-confirm&args=&viewMode=story');
         cy.get('[data-cy=1] .semi-input-wrapper').click();
         cy.get('.semi-datepicker-day').contains('15')
             .then($day => {
@@ -36,7 +36,7 @@ describe('DatePicker', () => {
     });
 
     it('dateTime needConfirm select+cancel', () => {
-        cy.visit('http://127.0.0.1:6009/iframe.html?id=datepicker--fix-need-confirm&args=&viewMode=story');
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=datepicker--fix-need-confirm&args=&viewMode=story');
         cy.get('[data-cy=1] .semi-input-wrapper').click();
         cy.get('.semi-datepicker-day').contains('15')
             .then($day => {
@@ -51,7 +51,7 @@ describe('DatePicker', () => {
     });
 
     it('dateTimeRange needConfirm cancel', () => {
-        cy.visit('http://127.0.0.1:6009/iframe.html?id=datepicker--fix-need-confirm&args=&viewMode=story');
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=datepicker--fix-need-confirm&args=&viewMode=story');
         cy.get('[data-cy=3] .semi-datepicker-range-input-wrapper-start .semi-input-wrapper').click();
         cy.get('.semi-datepicker-footer > .semi-button-borderless')
             .then($btn => {
@@ -61,7 +61,7 @@ describe('DatePicker', () => {
     });
 
     it('dateTimeRange needConfirm select+cancel', () => {
-        cy.visit('http://127.0.0.1:6009/iframe.html?id=datepicker--fix-need-confirm&args=&viewMode=story');
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=datepicker--fix-need-confirm&args=&viewMode=story');
         cy.get('[data-cy=3] .semi-datepicker-range-input-wrapper-start .semi-input-wrapper').click();
         cy.get('.semi-datepicker-month-grid-left .semi-datepicker-day').contains('15')
             .then($day => {
@@ -80,7 +80,7 @@ describe('DatePicker', () => {
     });
 
     it('dateTimeRange needConfirm confirm', () => {
-        cy.visit('http://127.0.0.1:6009/iframe.html?id=datepicker--fix-need-confirm&args=&viewMode=story');
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=datepicker--fix-need-confirm&args=&viewMode=story');
         cy.get('[data-cy=3] .semi-datepicker-range-input-wrapper-start .semi-input-wrapper').click();
         cy.get('.semi-datepicker-month-grid-left .semi-datepicker-day').contains('15')
             .then($day => {

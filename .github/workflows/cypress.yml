@@ -65,8 +65,8 @@ jobs:
         with:
           # we have already installed all dependencies above
           install: true
-          start: npx http-server -p 6009 storybook-static
-          wait-on: 'http://localhost:6009'
+          start: npx http-server -p 6006 storybook-static
+          wait-on: 'http://localhost:6006'
           wait-on-timeout: 120
           browser: chrome
           record: true
@@ -102,8 +102,8 @@ jobs:
         with:
           # we have already installed all dependencies above
           install: true
-          start: npx http-server -p 6009 storybook-static
-          wait-on: 'http://localhost:6009'
+          start: npx http-server -p 6006 storybook-static
+          wait-on: 'http://localhost:6006'
           wait-on-timeout: 120
           browser: firefox
           record: true
