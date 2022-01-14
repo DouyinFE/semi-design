@@ -16,6 +16,12 @@ Version：Major.Minor.Patch
 
 ---
 
+#### 🎉 2.3.0 (2022-01-14)
+- 【Fix】
+    - Fixed Notification display collapsing order [#531](https://github.com/DouyinFE/semi-design/pull/531)
+    - Fixed the problem that the edge click of the remove button is not available in Upload when `listType='picture'` [@pdsuwwz](https://github.com/pdsuwwz) [#525](https://github.com/DouyinFE/semi-design/pull/525)
+    - Removed useless `aria-label` in Collapse, SideSheet, Avatar, Spin components [#536](https://github.com/DouyinFE/semi-design/pull/536)
+
 #### 🎉 2.3.0-beta.0 (2022-01-07)
 - 【Fix】
     - Fixed the problem that when Form uses the parent fieldPath in formApi.setValue, setError, and setTouch to perform batch assignment to multiple nested fields, there may be a problem of stuck (affecting versions v1.32~v2.2) Checklist

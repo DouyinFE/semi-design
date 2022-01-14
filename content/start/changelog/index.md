@@ -15,6 +15,14 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 ---
 
+
+#### 🎉 2.3.0 (2022-01-14)
+- 【Fix】
+    - 修复 Notification 显示收起顺序 [#531](https://github.com/DouyinFE/semi-design/pull/531)
+    - 修复 Upload 照片墙模式下移除按钮的边缘点击不可用的问题 [@pdsuwwz](https://github.com/pdsuwwz) [#525](https://github.com/DouyinFE/semi-design/pull/525)
+    - 去除了 Collapse、SideSheet、Avatar、Spin 组件中无效的 aria-label [#536](https://github.com/DouyinFE/semi-design/pull/536)
+
+
 #### 🎉 2.3.0-beta.0 (2022-01-07)
 - 【Fix】
     - 修复 Form 使用 formApi.setValue、setError、setTouch 中用父级fieldPath，对多个嵌套field进行批量赋值时，可能存在卡顿的问题（影响版本 v1.32~v2.2）
