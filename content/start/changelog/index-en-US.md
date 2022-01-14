@@ -360,6 +360,8 @@ Version：Major.Minor.Patch
      - Cascader supports disableStrictly 
      - Tooltip supports wrapperClassName
      - Form formApi.setValue, setError, and setTouched support the use of parent fieldPath to assign values to multiple fields in batches 
+- 【Fix】
+    - **Fixed the problem that when Form ArrayField sets initValue and its subordinate Field also sets initValue, the initial value configured by ArrayField Props has a higher weight than the initial value configured by Field Props. Align the priority rules of Form Props and Field Props, and follow the principle that the sub-level configuration has the highest weight**
 
 #### 🎉 1.31.0 (2021-09-24)
 - 【Fix】

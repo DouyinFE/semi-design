@@ -22,7 +22,6 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
     - 修复 Upload 照片墙模式下移除按钮的边缘点击不可用的问题 [@pdsuwwz](https://github.com/pdsuwwz) [#525](https://github.com/DouyinFE/semi-design/pull/525)
     - 去除了 Collapse、SideSheet、Avatar、Spin 组件中无效的 aria-label [#536](https://github.com/DouyinFE/semi-design/pull/536)
 
-
 #### 🎉 2.3.0-beta.0 (2022-01-07)
 - 【Fix】
     - 修复 Form 使用 formApi.setValue、setError、setTouch 中用父级fieldPath，对多个嵌套field进行批量赋值时，可能存在卡顿的问题（影响版本 v1.32~v2.2）
@@ -379,6 +378,8 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
     - Cascader 支持 disableStrictly 
     - Tooltip 支持 wrapperClassName
     - Form formApi.setValue、setError、setTouched 支持使用父级fieldPath，对多个field进行批量赋值 
+- 【Fix】
+    - **修正 Form ArrayField 设置 initValue，其下属的 Field 也设置initValue时 ，通过ArrayField Props 配置的初始值反而比通过Field Props配置的初始值权重高的问题。对齐Form Props、Field Props的优先级生效规则，遵循子级配置权重最高的原则**
 
 #### 🎉 1.31.0 (2021-09-24)
 - 【Fix】
