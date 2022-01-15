@@ -26,6 +26,7 @@ jobs:
   chromatic-deployment:
     # Operating System
     runs-on: ubuntu-latest
+    if: ${{ github.repository_owner == 'DouyinFE' }}
     # Job steps
     steps:
       - uses: actions/checkout@v1
