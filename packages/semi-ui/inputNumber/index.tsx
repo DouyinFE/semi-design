@@ -447,6 +447,7 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
             style,
             onNumberChange,
             keepFocus,
+            defaultValue,
             ...rest
         } = this.props;
         const { value, number } = this.state;
