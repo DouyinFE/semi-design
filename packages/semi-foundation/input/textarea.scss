@@ -60,7 +60,7 @@ $module: #{$prefix}-input;
     }
 
     &-disabled {
-        cursor: not-allowed;
+        cursor: text;
         // border: $border-thickness-control $color-input_disabled-border-default solid;
         color: $color-input_disabled-text-default;
         background-color: $color-input_disabled-bg-default;
@@ -168,7 +168,7 @@ $module: #{$prefix}-input;
     &-autosize {
         overflow: hidden;
     }
-    
+
     &-counter {
         @include font-size-small;
         display: flex;
