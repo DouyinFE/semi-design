@@ -55,10 +55,6 @@ $module: #{$prefix}-input;
         }
     }
 
-    &-readonly {
-        cursor: default;
-    }
-
     &-disabled, &-readonly {
         cursor: not-allowed;
         // border: $border-thickness-control $color-input_disabled-border-default solid;
