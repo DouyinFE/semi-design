@@ -943,11 +943,15 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
                 titleArr.push(sorter);
             }
 
+            const stateFilteredValue = get(curQuery, 'filteredValue');
+            const defaultFilteredValue = get(curQuery, 'defaultFilteredValue');
+            const filteredValue = stateFilteredValue ? stateFilteredValue : defaultFilteredValue;
             if ((Array.isArray(column.filters) && column.filters.length) || isValidElement(column.filterDropdown)) {
                 const filter = (
                     <ColumnFilter
                         key={strings.DEFAULT_KEY_COLUMN_FILTER}
                         {...curQuery}
+                        filteredValue={filteredValue}
                         onFilterDropdownVisibleChange={(visible: boolean) => this.foundation.toggleShowFilter(dataIndex, visible)}
                         onSelect={(data: OnSelectData) => this.foundation.handleFilterSelect(dataIndex, data)}
                     />
