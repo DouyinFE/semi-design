@@ -352,13 +352,13 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
             currentPage: this._pagerIsControlled() ? currentPage : currentPagination.currentPage,
             pageSize: currentPageSize,
         });
-        if (!this._pagerIsControlled() && currentPage > 0) {
+        // always set dataSource and pagination whatever pagination is controlled or not
+        if (currentPage > 0) {
             this._adapter.setDisabledRowKeys(disabledRowKeys);
             this._adapter.setAllRowKeys(allRowKeys);
+            this._adapter.setPagination(pagination);
+            this._adapter.setDataSource(dataSource);
         }
-        // always set dataSource and pagination whatever pagination is controlled or not
-        this._adapter.setPagination(pagination);
-        this._adapter.setDataSource(dataSource);
         this._notifyChange(pagination);
     };
 
