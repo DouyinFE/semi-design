@@ -24,12 +24,12 @@ You can make a custom theme through [Semi Design System](https://semi.design/dsm
 
 ## Design Token stratification principle
 
-![Theme scheme](https://lf26-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/tech-doc/theme-arch.png "Theme scheme")
+![Theme scheme](https://lf26-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/tech-doc/theme-arch.png)
 
 - No need to switch at runtime, carried by sass variable
 - Need to support runtime switching, such as the color variable related to the dark mode, carried by css variable
 
-![Design Token](https://lf26-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/tech-doc/theme-design-token.png "Design Token")
+![Design Token](https://lf26-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/tech-doc/theme-design-token.png)
 
 ## License
 

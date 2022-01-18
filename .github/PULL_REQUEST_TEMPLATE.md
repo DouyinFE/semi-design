@@ -26,18 +26,21 @@ Fixes #
 
 ### Changelog
 🇨🇳 Chinese
-- 修复 ...
+- Fix: 修复 ...
 
 ---
 
 🇺🇸 English
-- Fix ...
+- Fix: fix ...
 
 
 ### Checklist
 - [ ] Test or no need
 - [ ] Document or no need
 - [ ] Changelog or no need
+
+### Other
+- [ ] Skip Changelog
 
 ### Additional information
 <!-- You can provide screenshot/video or some additional information -->

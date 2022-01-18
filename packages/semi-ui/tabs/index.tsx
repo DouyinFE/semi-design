@@ -15,7 +15,7 @@ import TabPane from './TabPane';
 import TabsContext from './tabs-context';
 import { TabsProps, PlainTab, TabBarProps } from './interface';
 
-const panePickKeys = Object.keys(omit(TabPane.propTypes, ['children']));
+const panePickKeys = ['className', 'style', 'disabled', 'itemKey', 'tab', 'icon'];
 
 export * from './interface';
 
@@ -285,7 +285,6 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
                 >
                     <div
                         ref={this.setContentRef}
-                        role="tab-content"
                         className={tabContentCls}
                         style={{ ...contentStyle }}
                     >

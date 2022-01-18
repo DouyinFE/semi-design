@@ -20,6 +20,7 @@ export interface RatingItemProps {
     disabled: boolean;
     count: number;
     size: number | ArrayElement<typeof strings.SIZE_SET>;
+    'aria-describedby'?: React.AriaAttributes['aria-describedby'];
 }
 
 export default class Item extends PureComponent<RatingItemProps> {
@@ -38,6 +39,7 @@ export default class Item extends PureComponent<RatingItemProps> {
             PropTypes.oneOf(strings.SIZE_SET),
             PropTypes.number,
         ]),
+        'aria-describedby': PropTypes.string,
     };
 
     onHover: React.MouseEventHandler = e => {
@@ -88,7 +90,7 @@ export default class Item extends PureComponent<RatingItemProps> {
             height: size,
             fontSize: size
         } : {};
-        const iconSize = size === 'small' ? 'default' : 'extra-large';
+        const iconSize = isCustomSize ? 'inherit' : (size === 'small' ? 'default' : 'extra-large');
         const content = character ? character : <IconStar size={iconSize} />;
         return (
             <li className={starCls} style={{ ...sizeStyle }}>
@@ -100,6 +102,10 @@ export default class Item extends PureComponent<RatingItemProps> {
                     aria-checked={value > index ? 'true' : 'false'}
                     aria-posinset={index + 1}
                     aria-setsize={count}
+                    aria-disabled={disabled}
+                    aria-label={`Rating ${index + (isHalf ? 0.5 : 1)}`}
+                    aria-labelledby={this.props['aria-describedby']} // screen reader will read labelledby instead of describedby
+                    aria-describedby={this.props['aria-describedby']}
                     tabIndex={0}
                     className={`${prefixCls}-wrapper`}
                 >

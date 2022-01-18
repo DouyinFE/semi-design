@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 60
+order: 61
 category: Feedback
 title:  Banner
 subTitle: Banner
@@ -183,6 +183,13 @@ import { Banner } from '@douyinfe/semi-ui';
 | style | Style | object | - |- |
 | title | Title | ReactNode | - | 1.0 |
 | type | Type of banner, one of `info`, `success`, `danger`, `warning` | string | `info` | - |
+
+## Accessibility
+
+### ARIA
+
+- The component has a `role` of 'alert'.
+- The close icon has a `aria-label` of 'Close'.
 
 ## Design Tokens
 <DesignToken/>

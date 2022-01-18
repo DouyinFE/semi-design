@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 11
+order: 12
 category: Basic
 title:  Layout
 subTitle: Layout
@@ -18,7 +18,10 @@ brief: Assist in the overall layout of a page.
 -   `Content`: Content component, can only be used inside `Layout`.
 -   `Footer`: Footer component, can only be used inside `Layout`.
 
-> Note: Layout components are implemented with Flex layout. Browser compatibility may need to be considered.
+<Notice title='Notice'>
+1、Layout components are implemented with Flex layout. Browser compatibility may need to be considered.  <br/>
+2、The Layout component will only help you implement the layout, but will not include styles such as background color, text color, width and height. You can pass in style according to your actual needs or write a separate css implementation given a specific className
+</Notice>
 
 ## Demos
 
@@ -477,6 +480,8 @@ import { IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, IconHistogram, I
 | className  | Class name                                                                                                                                 | string  | -       |
 | hasSider   | Indicates that there is a Sider in the child element, which is generally not specified. It can be used to avoid style flashing during SSR. | boolean | -       |
 | style      | Style                                                                                                                                      | CSSProperties  | -       |
+| aria-label | [aria-label](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-label_attribute) attribute, used to label the current element Description, improve accessibility | string | | 2.2.0 |
+| role | [role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles) attribute to improve accessibility | string | | 2.2.0 |
 
 ### Layout.Sider
 
@@ -486,6 +491,8 @@ import { IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, IconHistogram, I
 | className    | Class name                                                                             | string                               | -       |
 | style        | Style                                                                                  | CSSProperties                               | -       |
 | onBreakpoint | Callback function when triggering a responsive layout breakpoint                       | (screen: string, broken: bool) => void | -       |
+| aria-label | [aria-label](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-label_attribute) attribute, used to label the current element Description, improve accessibility | string | | 2.2.0 |
+| role | [role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles) attribute to improve accessibility | string | | 2.2.0 |
 
 ### responsive map
 
@@ -499,6 +506,14 @@ import { IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, IconHistogram, I
   xxl: '(min-width: 1600px)',
 }
 ```
+
+## Accessibility
+
+### ARIA
+
+- Sider can pass in aria-label props to describe the function of this Sider.
+- Header Content Main Footer can pass in role aria-label to describe the function of the corresponding element.
+
 
 <!-- ## Related Material
 ```material

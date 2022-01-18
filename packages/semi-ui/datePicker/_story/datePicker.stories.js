@@ -10,7 +10,7 @@ import {
   startOfWeek,
   endOfWeek,
 } from 'date-fns';
-import { Space, ConfigProvider, InputGroup, InputNumber, Form, withField } from '../../index';
+import { Space, ConfigProvider, InputGroup, InputNumber, Form, withField, Button } from '../../index';
 
 // stores
 import NeedConfirmDemo from './NeedConfirm';
@@ -36,6 +36,7 @@ import DatePickerSlot from './DatePickerSlot';
 import DatePickerTimeZone from './DatePickerTimeZone';
 import BetterRangePicker from './BetterRangePicker';
 import SyncSwitchMonth from './SyncSwitchMonth';
+import { YearButton } from './v2';
 
 export default {
   title: 'DatePicker',
@@ -65,7 +66,8 @@ export {
   DatePickerSlot,
   DatePickerTimeZone,
   BetterRangePicker,
-  SyncSwitchMonth
+  SyncSwitchMonth,
+  YearButton
 }
 
 const demoDiv = {
@@ -634,3 +636,173 @@ export const RangeSeparator = () => (
     </div>
   </Space>
 );
+
+/**
+ * 修复输入 '20221-12-20' 类似这种年份的日期会崩溃问题
+ * https://github.com/DouyinFE/semi-design/issues/422
+ * 
+ * 非法日期的来源
+ *  - 用户输入
+ *  - 受控传入
+ * @returns 
+ */
+export const FixParseISOBug = () => (
+  <div>
+    <label>
+      <div>选择一个合法值，然后输入一个非法年份</div>
+      <DatePicker defaultValue={'2021-12-20'} onChange={v => console.log('onChange', v)} />
+    </label>
+    <label>
+      <div>defaultValue='20221-12-20'</div>
+      <DatePicker defaultValue={'20221-12-20'} defaultOpen={true} motion={false} onChange={v => console.log('onChange', v)} />
+    </label>
+  </div>
+);
+FixParseISOBug.storyName = '修复 parseISO bug';
+FixParseISOBug.parameters = {
+  chromatic: { disableSnapshot: false },
+};
+
+export const FixNeedConfirm = () => {
+  const defaultDate = '2021-12-27 10:37:13';
+  const defaultDateRange = ['2021-12-27 10:37:13', '2022-01-28 10:37:13' ];
+  const props = {
+    needConfirm: true,
+    onConfirm: (...args) => {
+      console.log('Confirmed: ', ...args);
+    },
+    onChange: (...args) => {
+      console.log('Changed: ', ...args);
+    },
+    onCancel: (...args) => {
+      console.log('Canceled: ', ...args);
+    },
+  };
+
+  return (
+    <div>
+      <div data-cy="1">
+        <span>dateTime + needConfirm + defaultValue</span>
+        <div>
+          <DatePicker
+            type="dateTime"
+            defaultValue={defaultDate}
+            {...props}
+          />
+        </div>
+      </div>
+      <div data-cy="2">
+        <span>dateTime + needConfirm</span>
+        <div>
+          <DatePicker
+            type="dateTime"
+            {...props}
+          />
+        </div>
+      </div>
+      <div data-cy="3">
+        <span>dateTimeRange + needConfirm + defaultValue</span>
+        <div>
+          <DatePicker
+            type="dateTimeRange"
+            defaultValue={defaultDateRange}
+            {...props}
+          />
+        </div>
+      </div>
+      <div data-cy="4">
+        <span>dateTimeRange + needConfirm</span>
+        <div>
+          <DatePicker
+            type="dateTimeRange"
+            {...props}
+          />
+        </div>
+      </div>
+    </div>
+  )
+}
+FixNeedConfirm.storyName = '修复 needConfirm 取消后输入框显示错误';
+
+/**
+ * fix https://github.com/DouyinFE/semi-design/issues/388
+ */
+export const FixPresetsClick = () => {
+  const presets = [
+    {
+      text: '清空',
+      start: '',
+      end: '',
+    },
+    {
+      text: 'Tomorrow',
+      start: new Date(new Date().valueOf() + 1000 * 3600 * 24),
+      end: new Date(new Date().valueOf() + 1000 * 3600 * 24),
+    },
+  ];
+
+  const handleChange = v => {
+    console.log('change', v);
+  };
+
+  const handleConfirm = v => {
+    console.log('confirm', v);
+  }
+
+  return (
+    <div>
+      <div>
+        <label>
+          <span>不设置 needConfirm</span>
+          <DatePicker onChange={console.log} type="dateRange" presets={presets} />
+        </label>
+      </div>
+      <div>
+        <label>
+          <span>设置 needConfirm</span>
+          <DatePicker needConfirm onChange={handleChange} onConfirm={handleConfirm} type="dateTimeRange" presets={presets} />
+        </label>
+      </div>
+    </div>
+  );
+};
+FixPresetsClick.storyName = '修复 presets 点击后不收起问题';
+
+/**
+ * fix https://github.com/DouyinFE/semi-design/issues/410
+ */
+export const FixTriggerRenderClosePanel = () => {
+  const [value, setValue] = useState([]);
+
+  const handleChange = v => {
+    console.log('change', v);
+    setValue(v);
+  };
+
+  const formatValue = (dates) => {
+    const dateStrs = dates.map(v => String(v));
+    return dateStrs.join(' ~ ');
+  };
+
+  const showClear = Array.isArray(value) && value.length > 1;
+
+  return (
+    <Space>
+      <DatePicker
+        value={value}
+        type="dateRange"
+        onChange={handleChange}
+        motion={false}
+        triggerRender={({ placeholder }) => (
+            <Button>
+                {(value && formatValue(value)) || placeholder}
+            </Button>
+        )}
+      />
+      {showClear && (
+        <Button onClick={() => setValue([])}>清除</Button>
+      )}
+    </Space>
+  );
+};
+FixTriggerRenderClosePanel.storyName = "fix triggerRender close bug"

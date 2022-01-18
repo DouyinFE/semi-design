@@ -16,6 +16,7 @@ export interface FillStepsProps {
     style?: React.CSSProperties;
     children?: React.ReactNode;
     onChange?: (current: number) => void;
+    "aria-label"?: string;
 }
 
 const Steps = (props: FillStepsProps) => {
@@ -66,6 +67,7 @@ const Steps = (props: FillStepsProps) => {
         <div
             className={wrapperCls}
             style={style}
+            aria-label={props["aria-label"]}
         >
             <Row type="flex" justify="start">
                 {inner}

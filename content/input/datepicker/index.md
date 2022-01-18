@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 19
+order: 20
 category: 输入类
 title: DatePicker 日期选择器
 icon: doc-datepicker
@@ -14,6 +14,7 @@ brief: 日期选择器用于帮助用户选择一个符合要求的、格式化�
 ## 代码演示
 
 ### 如何引入
+
 
 ```jsx import
 import { DatePicker } from '@douyinfe/semi-ui';
@@ -128,6 +129,8 @@ version: >= 1.28.0
 
 在范围选择的场景中, 开启 `syncSwitchMonth` 则允许双面板同步切换。默认为 false。
 
+> Note：点击年份按钮也会同步切换两个面板，从滚轮里面切换年月不会同步切换面板，这保证了用户选择非固定间隔月份的能力。
+
 ```jsx live=true
 import React from 'react';
 import { DatePicker } from '@douyinfe/semi-ui';
@@ -236,6 +239,8 @@ import { DatePicker } from '@douyinfe/semi-ui';
 同时支持 “确认”（onConfirm） 和 “取消”（onCancel） 两个按钮的点击回调。
 
 下面这个例子绑定了 onChange、onConfirm、onCancel 三种回调，你可以打开控制台查看打印信息的区别。
+
+> 注意：开启确认选择时，需要点击取消按钮关闭面板，点击空白区域不再关闭面板（v2.2.0）
 
 ```jsx live=true
 import React from 'react';

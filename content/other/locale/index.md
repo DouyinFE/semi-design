@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 68
+order: 69
 category: 其他
 title:  LocaleProvider 多语言
 icon: doc-i18n
@@ -19,6 +19,7 @@ brief: 国际化组件，为 Semi 组件提供多语言支持
 | v1.11.0     | 越南语: vi_VN、俄罗斯语: ru_RU、印尼语: id_ID、马来语: ms_MY、泰语: th_TH、土耳其语: tr_TR |
 | v1.17.0     | 葡萄牙语（巴西）: pt_BR       |
 | v1.28.0     | 繁体中文: zh_TW       |
+| v2.2.0     | 西班牙语: es       |
 ## 已支持组件
 
 > DatePicker、TimePicker、Modal、Pagination、Select、Table、Cascader、Calendar、TreeSelect、List、Typography、Transfer、Nav、Upload
@@ -44,16 +45,19 @@ import tr_TR from '@douyinfe/semi-ui/lib/es/locale/source/tr_TR';
 import pt_BR from '@douyinfe/semi-ui/lib/es/locale/source/pt_BR';
 import zh_TW from '@douyinfe/semi-ui/lib/es/locale/source/zh_TW';
 import ar from '@douyinfe/semi-ui/lib/es/locale/source/ar';
+import es from '@douyinfe/semi-ui/lib/es/locale/source/es';
 
 import { LocaleProvider } from '@douyinfe/semi-ui';
 
 // 在locale中传入相应的语言包即可
-return (
-    <LocaleProvider locale={en_GB}>
-        {/* eslint-disable-next-line react/jsx-no-undef */}
-        <App />
-    </LocaleProvider>
-);
+() => {
+    return (
+        <LocaleProvider locale={en_GB}>
+            {/* eslint-disable-next-line react/jsx-no-undef */}
+            <App />
+        </LocaleProvider>
+    );
+};
 ```
 
 ## 代码示例
@@ -108,6 +112,7 @@ import th_TH from '@douyinfe/semi-ui/lib/es/locale/source/th_TH';
 import tr_TR from '@douyinfe/semi-ui/lib/es/locale/source/tr_TR';
 import pt_BR from '@douyinfe/semi-ui/lib/es/locale/source/pt_BR';
 import zh_TW from '@douyinfe/semi-ui/lib/es/locale/source/zh_TW';
+import es from '@douyinfe/semi-ui/lib/es/locale/source/es';
 import { LocaleProvider, ConfigProvider, Pagination, Modal, Button, Select, Cascader, DatePicker, TreeSelect, Table, TimePicker, List, Calendar, Typography } from '@douyinfe/semi-ui';
 
 class I18nDemo extends React.Component {
@@ -135,6 +140,7 @@ class I18nDemo extends React.Component {
             'tr_TR': tr_TR,
             'pt_BR': pt_BR,
             'zh_TW': zh_TW,
+            'es': es,
         };
         this.setState({ locale: language[code], localeCode: code });
     }
@@ -275,6 +281,7 @@ class I18nDemo extends React.Component {
                         <Select.Option value='tr_TR'>土耳其语</Select.Option>
                         <Select.Option value='pt_BR'>葡萄牙语（巴西）</Select.Option>
                         <Select.Option value='zh_TW'>繁体中文</Select.Option>
+                        <Select.Option value='es'>西班牙语</Select.Option>
                     </Select>
                 </div>
                 <LocaleProvider locale={locale}>

@@ -3,7 +3,7 @@ category: 开始
 title: Change Log 更新日志
 icon: doc-changelog
 localeCode: zh-CN
-order: 5
+order: 6
 brief: 关于 Semi Design For React 优化与更新
 ---
 
@@ -14,6 +14,112 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 -   修订版本号（patch）：bugfix
 
 ---
+
+
+#### 🎉 2.3.0 (2022-01-14)
+- 【Fix】
+    - 修复 Notification 显示收起顺序 [#531](https://github.com/DouyinFE/semi-design/pull/531)
+    - 修复 Upload 照片墙模式下移除按钮的边缘点击不可用的问题 [@pdsuwwz](https://github.com/pdsuwwz) [#525](https://github.com/DouyinFE/semi-design/pull/525)
+    - 去除了 Collapse、SideSheet、Avatar、Spin 组件中无效的 aria-label [#536](https://github.com/DouyinFE/semi-design/pull/536)
+
+#### 🎉 2.3.0-beta.0 (2022-01-07)
+- 【Fix】
+    - 修复 Form 使用 formApi.setValue、setError、setTouch 中用父级fieldPath，对多个嵌套field进行批量赋值时，可能存在卡顿的问题（影响版本 v1.32~v2.2）
+    - 修复Form formApi.validate 局部校验触发范围不准确的问题
+    - 修复 Tooltip 计算 adjustOverflow时未将 spacing纳入，导致内容超出（但未超过8px）后仍未自动切换方向的问题  [#491](https://github.com/DouyinFE/semi-design/issues/491)
+    - 修复 Tooltip 展现浮层默认方向空间不足，触发 adjustOverflow 自动切换方向时会闪烁的问题  [#69](https://github.com/DouyinFE/semi-design/issues/69)
+    - 修复 Tree handleNodeDragOver 内部 event 传参不恰当的问题  [#345 ](https://github.com/DouyinFE/semi-design/issues/345)
+    - 修复 TreeSelect 当 searchPosition 为 trigger 时，maxTagCount 不生效的问题  [#498 ](https://github.com/DouyinFE/semi-design/issues/498)
+    - 修复 TagInput 设置 value 为 undefined 无法生效的问题  [#483 ](https://github.com/DouyinFE/semi-design/issues/483)
+    - 修复 Slider 点击刻度不生效的问题
+    - 修复 Table 非受控分页在翻页之后, 更新 state 会重置分页状态, 跳转到第一页  [#348](https://github.com/DouyinFE/semi-design/issues/348) [@chenc041](https://github.com/chenc041)
+- 【Feat】
+    - Select 支持autoClearSearchValue，允许选中后保留当前搜索关键字
+    - Slider 拖动时添加鼠标 grabbing 样式
+    - 40+ 组件增加无障碍语义化支持 [#205](https://github.com/DouyinFE/semi-design/issues/205)
+        - Button 新增 aria-label 属性，禁用时 Button 具有 aria-disabled 属性
+        - Checkbox 的 role 为 checkbox，CheckboxGroup 的 role 为 list，它的直接子元素为 listitem，新增 aria-label 属性，用于解释选择框的作用；aria-disabled 表示当前的禁用状态；aria-checked 表示当前的选中状态
+        - Empty 插图的 aria-hidden 为 true
+        - Form 为 Form.Field 增加 label 和错误信息无障碍支持
+        - Icon 组件 role 为 img，它的 aria-label 默认为组件的文件名；Icon 内部的 svg 元素为装饰元素，默认设置了 aria-hidden 以不被屏幕阅读器阅读
+        - InputGroup 给 Label 新增 name 默认值，以便关联对应的 field
+        - Modal 增加 open 前后 focus 位置处理，打开后聚焦在弹出层，关闭后聚焦在打开前聚焦的位置
+        - Radio 的 aria-labelledby 默认指向 addon 节点，用于解释 Radio 的内容，aria-describedby 默认指向 extra 节点，用于补充解释 Radio 的内容
+        - Select trigger 与弹出层的 role 为 combobox 和 listbox，trigger 绑定了一些 aria-* 属性表示与弹出层的关系；Option 上具有 aria-selected 和 aria-disabled 属性表示当前项的选中状态
+        - Slider 的 role 为 slider，同时设置了 aria-valuenow 等属性描述它的当前状态；纵向时 aria-orientation 为 vertical；当 aria-valuenow 的值不容易理解时，支持通过 API aria-valuetext 传递一个字符串使其更友好，也可以通过 geAriaValueText 方法得到 aria-valuetext 的值。[#490](https://github.com/DouyinFE/semi-design/issues/490)
+        - Table 的行、单元格添加了 role 和 aria-* 属性
+        - Tooltip 具有 tooltip role，遵循 WAI-ARIA 规范中对于 Tooltip 的定义；content 的 wrapper 会被自动添加 id 属性，用于与 children 的 aria-describedby 匹配，关联 content 与 children
+        - Tree 支持传入 aria-label 来表示该 Tree 作用，同时组件内部为 Tree 和 TreeNode 设置了相应的 role 和 aria-*属性。[#493](https://github.com/DouyinFE/semi-design/issues/493)
+        - TreeSelect 支持传入 aria-label、aria-errormessage 等属性表示 TreeSelect 的作用和当前状态，同时为子节点设置了相关 aria-* 属性。[#493](https://github.com/DouyinFE/semi-design/issues/493)
+        - Popover 的 trigger 为 hover 时，Popover 的 content 具有 tooltip role，trigger 为 click、custom 时，Popover 的 content 具有 dialog role
+        - 其他组件详情请看各组件文档，点击这里查看[无障碍设计指导](https://semi.design/zh-CN/start/accessibility)
+
+#### 🎉 2.2.2 (2021-12-31)
+- 【Fix】
+    - 修复 Transfer 在 type 是 groupList 场景下, title 属性传入 ReactElement 类型导致key-warning [@JontyyYang](https://github.com/JontyyYang)
+    - 修复 DatePicker 范围选择 preset 日期设置为 null 或 undefined，选择日期后面板没有关闭问题  [#338](https://github.com/DouyinFE/semi-design/issues/338)
+    - 修复 dateRange 类型 DatePicker，triggerRender 传入时选择完日期面板没有关闭问题  [#422](https://github.com/DouyinFE/semi-design/issues/422)
+    - 修复 InputNumber 精度格式化在受控模式下不正确问题
+    - 修复 IconFastForward 拼写错误 [@clark-cui](https://github.com/clark-cui)
+
+#### 🎉 2.2.1 (2021-12-29)
+
+- 【Fix】
+    - 修复 DatePicker 在 needConfirm 模式时，点击取消按钮输入框日期未返回到已选中日期问题 [#457](https://github.com/DouyinFE/semi-design/issues/457)
+    - **优化 DatePicker 交互细节，确认选择模式 click outside 不再关闭面板，需通过点击取消关闭面板** [#457](https://github.com/DouyinFE/semi-design/issues/457)
+    - 修复 DatePicker 确认选择模式 footer 按钮间距不正确问题 [#457](https://github.com/DouyinFE/semi-design/issues/457)
+    - 修复 DatePicker RTL 模式下，年切换按钮方向错误问题 [#457](https://github.com/DouyinFE/semi-design/issues/457)
+    - 修复 Table head row paddingY 与设计稿不符问题，统一调整为 8px [#460](https://github.com/DouyinFE/semi-design/issues/460)
+
+#### 🎉 2.2.0 (2021-12-24)
+
+- 【Fix】
+    - 修复 Tabs 在 umd 方式使用时，tabPlane tab props 不接受动态更新的问题
+- 【Docs】
+    - 完善 Navigation  API 文档 [#451](https://github.com/DouyinFE/semi-design/pull/451) [@linjunc](https://github.com/linjunc)
+
+#### 🎉 2.2.0-beta.1 (2021-12-23)
+
+- 【Fix】
+    - 修复 DatePicker 输入非法年份导致组件崩溃问题 [#422](https://github.com/DouyinFE/semi-design/issues/422)
+    - 修复 Notification 多色模式下，背景色透明导致的内容穿透 [#430](https://github.com/DouyinFE/semi-design/issues/430)
+    - 修复 Vite 构建 CSS 时抛出 @charset utf-8 相关 warning 的问题 [#403](https://github.com/DouyinFE/semi-design/issues/403)
+    - 修复 Select 多选使用 backSpace 删除已选项后，下拉列表数据显示不正确的问题 [#444](https://github.com/DouyinFE/semi-design/issues/444)
+    - 修复 Empty 在切换暗色模式时显示 this.updateMode 未定义问题 [#452](https://github.com/DouyinFE/semi-design/issues/452)
+    - 修复 Safari<=13 版本的响应式报错问题 [#442](https://github.com/DouyinFE/semi-design/issues/442)
+
+#### 🎉 2.2.0-beta.0 (2021-12-17)
+
+- 【Feat】
+    - Timeline.Item 支持 onClick [#402](https://github.com/DouyinFE/semi-design/issues/402)
+    - Cascader 
+        - 支持仅回显叶子节点，提供 leafOnly API [#256](https://github.com/DouyinFE/semi-design/issues/256)
+        - 支持多选时点击叶子节点即可选中，提供 enableLeafClick API [#302](https://github.com/DouyinFE/semi-design/issues/302) [@btea](https://github.com/btea)
+        - 支持自定义分隔符，提供 separator API [#408](https://github.com/DouyinFE/semi-design/issues/408)
+    - Upload [#342](https://github.com/DouyinFE/semi-design/issues/342)
+        - 支持通过 ref 调用 insert 方法 
+        - 支持 props showPicInfo
+        - 使用 gap 控制 FileCard 间隔
+    - Icon [#260](https://github.com/DouyinFE/semi-design/issues/260)
+        - 添加 double_chevron_left,double_chevron_right 图标
+        - Icon 支持跟随当前上下文字体大小
+    - LocaleProvider 新增西班牙语语言包 [@chenjunxyf](https://github.com/chenjunxyf)
+    - Select 新增 inputProps ，便于用户在 filter 为 true 时可实现一些特殊功能。例如传入 onCompositionEnd，onKeyDown 事件监听等
+    - DatePicker [#260](https://github.com/DouyinFE/semi-design/issues/260)
+        - 新增年份切换按钮
+        - 优化范围选择交互逻辑，避免出现两个面板是相同月份场景
+- 【Fix】
+    - Select
+        - 修复 Select renderSelectedItem 返回的 isRenderInTag 为 false 时会报 key 的 warning 的问题 [#320](https://github.com/DouyinFE/semi-design/issues/320)
+        - 修复 Select 搜索高亮关键字时 warning 提示 mark 标签 key 缺失的问题
+    - 修复 Cascader multiple+disabled 时标签样式与设计稿不符 [#400](https://github.com/DouyinFE/semi-design/issues/400)
+    - 修复 Description type='plain' 时，key 或 itemKey 为 node 时渲染不正确的问题 [#406](https://github.com/DouyinFE/semi-design/issues/406)
+    - 修复 Pagination 同时使用 hideOnSingePage 与 showSizeChanger 时，总页数只有1时，sizeChanger 会消失无法再切换的问题 [#252](https://github.com/DouyinFE/semi-design/issues/252)
+    - 修复 通过 webpack plugin variables 方式定义 Select 组件 Design Token 时不生效的问题 [#375](https://github.com/DouyinFE/semi-design/issues/375) [@summerstream](https://github.com/summerstream)
+    - 修复 Rating 组件设置 size 为 number 后 UI 错误
+    - 修复 Timeline 自定义 dot 水平对齐的问题 [#395](https://github.com/DouyinFE/semi-design/issues/395) [@chenc041](https://github.com/chenc041)
+- 【Docs】
+    - 完善 semi-ui package.json [@chenc041](https://github.com/chenc041)
 
 #### 🎉 2.1.5 (2021-12-10)
 
@@ -272,6 +378,8 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
     - Cascader 支持 disableStrictly 
     - Tooltip 支持 wrapperClassName
     - Form formApi.setValue、setError、setTouched 支持使用父级fieldPath，对多个field进行批量赋值 
+- 【Fix】
+    - **修正 Form ArrayField 设置 initValue，其下属的 Field 也设置initValue时 ，通过ArrayField Props 配置的初始值反而比通过Field Props配置的初始值权重高的问题。对齐Form Props、Field Props的优先级生效规则，遵循子级配置权重最高的原则**
 
 #### 🎉 1.31.0 (2021-09-24)
 - 【Fix】

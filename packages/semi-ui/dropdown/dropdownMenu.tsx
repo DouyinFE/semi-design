@@ -18,7 +18,7 @@ class DropdownMenu extends BaseComponent<DropdownMenuProps> {
     render() {
         const { children, className, style, ...rest } = this.props;
         return (
-            <ul {...rest} className={classnames(`${prefixCls}-menu`, className)} style={style}>
+            <ul role="menu" aria-orientation="vertical" {...rest} className={classnames(`${prefixCls}-menu`, className)} style={style}>
                 {children}
             </ul>
         );

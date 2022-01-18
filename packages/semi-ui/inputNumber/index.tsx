@@ -29,6 +29,7 @@ export interface InputNumberProps extends InputProps {
     hideButtons?: boolean;
     innerButtons?: boolean;
     insetLabel?: React.ReactNode;
+    insetLabelId?: string;
     keepFocus?: boolean;
     max?: number;
     min?: number;
@@ -62,6 +63,12 @@ export interface InputNumberState {
 
 class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
     static propTypes = {
+        'aria-label': PropTypes.string,
+        'aria-labelledby': PropTypes.string,
+        'aria-invalid': PropTypes.bool,
+        'aria-errormessage': PropTypes.string,
+        'aria-describedby': PropTypes.string,
+        'aria-required': PropTypes.bool,
         autofocus: PropTypes.bool,
         className: PropTypes.string,
         defaultValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -71,6 +78,7 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
         hideButtons: PropTypes.bool,
         innerButtons: PropTypes.bool,
         insetLabel: PropTypes.node,
+        insetLabelId: PropTypes.string,
         keepFocus: PropTypes.bool,
         max: PropTypes.number,
         min: PropTypes.number,
@@ -225,6 +233,7 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
     currentValue!: number | string;
     cursorBefore!: string;
     cursorAfter!: string;
+    foundation: InputNumberFoundation;
     constructor(props: InputNumberProps) {
         super(props);
         this.state = {
@@ -291,7 +300,10 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
                 if (focusing) {
                     if (this.foundation.isValidNumber(parsedNum) && parsedNum !== this.state.number) {
                         const obj: { number?: number; value?: string } = { number: parsedNum };
-                        // Updates input when a button is clicked
+                        /**
+                         * If you are clicking the button, it will automatically format once
+                         * We need to set the status to false after trigger focus event
+                         */
                         if (this.clickUpOrDown) {
                             obj.value = this.foundation.doFormat(valueStr, true);
                         }
@@ -377,6 +389,8 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
         return (
             <div className={suffixChildrenCls}>
                 <span
+                    role="button"
+                    tabIndex={-1}
                     className={upClassName}
                     onMouseDown={notAllowedUp ? noop : this.handleUpClick}
                     onMouseUp={this.handleMouseUp}
@@ -385,6 +399,8 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
                     <IconChevronUp size="extra-small" />
                 </span>
                 <span
+                    role="button"
+                    tabIndex={-1}
                     className={downClassName}
                     onMouseDown={notAllowedDown ? noop : this.handleDownClick}
                     onMouseUp={this.handleMouseUp}
@@ -431,15 +447,29 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
             style,
             onNumberChange,
             keepFocus,
+            defaultValue,
             ...rest
         } = this.props;
-        const { value } = this.state;
+        const { value, number } = this.state;
 
         const inputNumberCls = classnames(className, `${prefixCls}-number`, {
             [`${prefixCls}-number-size-${size}`]: size,
         });
 
         const buttons = this.renderButtons();
+        const ariaProps = {
+            'aria-disabled': disabled,
+            step,
+        };
+        if (number) {
+            ariaProps['aria-valuenow'] = number;
+        }
+        if (max !== Infinity) {
+            ariaProps['aria-valuemax'] = max;
+        }
+        if (min !== -Infinity) {
+            ariaProps['aria-valuemin'] = min;
+        }
 
         const input = (
             <div
@@ -450,6 +480,8 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
                 onMouseLeave={e => this.handleInputMouseLeave(e)}
             >
                 <Input
+                    role="spinbutton"
+                    {...ariaProps}
                     {...rest}
                     size={size}
                     disabled={disabled}

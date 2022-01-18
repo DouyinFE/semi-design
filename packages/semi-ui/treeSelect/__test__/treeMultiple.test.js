@@ -632,7 +632,12 @@ describe('TreeSelect', () => {
             searchPosition: 'trigger',
             filterTreeNode: true,
             multiple: true,
+            maxTagCount: 1,
+            defaultValue: ['Zhongguo', 'Meiguo']
         });
+        const selection = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-select .${BASE_CLASS_PREFIX}-tree-select-selection`);
+        expect(selection.find(`.${BASE_CLASS_PREFIX}-tagInput .${BASE_CLASS_PREFIX}-tag`).length).toEqual(1);
+        expect(selection.find(`.${BASE_CLASS_PREFIX}-tagInput .${BASE_CLASS_PREFIX}-tagInput-wrapper-n`).at(0).getDOMNode().textContent).toEqual('+1');
         const input = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-select .${BASE_CLASS_PREFIX}-tagInput .${BASE_CLASS_PREFIX}-input`);
         const searchValue = '北';
         const event = { target: { value: searchValue } };

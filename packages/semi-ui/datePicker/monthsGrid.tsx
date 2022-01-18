@@ -71,7 +71,8 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
         syncSwitchMonth: PropTypes.bool,
         // Callback function for panel date switching
         onPanelChange: PropTypes.func,
-        focusRecordsRef: PropTypes.object
+        focusRecordsRef: PropTypes.object,
+        triggerRender: PropTypes.func,
     };
 
     static defaultProps = {
@@ -446,6 +447,10 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
         });
     };
 
+    getYAMOpenType = () => {
+        return this.foundation.getYAMOpenType();
+    }
+
     renderTimePicker(panelType: PanelType, panelDetail: MonthInfo) {
         const { type, locale, format, hideDisabledOptions, timePickerOpts, dateFnsLocale } = this.props;
         const { pickerDate } = panelDetail;
@@ -606,8 +611,15 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
         } else if (type === 'year' || type === 'month') {
             content = 'year month';
         }
+        const yearOpenType = this.getYAMOpenType();
+
         return (
-            <div className={monthGridCls} x-type={type} ref={current => this.cacheRefCurrent('monthGrid', current)}>
+            <div
+                className={monthGridCls}
+                x-type={type}
+                x-panel-yearandmonth-open-type={yearOpenType}
+                ref={current => this.cacheRefCurrent('monthGrid', current)}
+            >
                 {content}
             </div>
         );

@@ -52,7 +52,9 @@ gulp.task('compileScss', function compileScss() {
                 cb(null, chunk);
             }
         ))
-        .pipe(sass().on('error', sass.logError))
+        .pipe(sass({
+            charset: false
+        }).on('error', sass.logError))
         .pipe(gulp.dest('lib/es'))
         .pipe(gulp.dest('lib/cjs'));
 });

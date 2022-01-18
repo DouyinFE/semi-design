@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 22
+order: 23
 category: 输入类
 title: InputNumber 数字输入框
 icon: doc-inputnumber
@@ -218,6 +218,14 @@ function Demo () {
 | ------- | -------- |
 | blur()  | 移出焦点 |
 | focus() | 获取焦点 |
+
+
+## Accessibility
+
+### ARIA
+
+- 增减按钮添加了 button role，以表示是可以点击的按钮
+- 使用 aria-valuenow 表示当前值，aria-valuemax 表示可以接受的最大值，aria-valuemin 表示可以接受的最小值
 
 ## 设计变量
 <DesignToken/>

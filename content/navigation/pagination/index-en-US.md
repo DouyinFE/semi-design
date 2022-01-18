@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 37
+order: 38
 category: Navigation
 title:  Pagination
 subTitle: Pagination
@@ -183,7 +183,7 @@ import { Pagination } from '@douyinfe/semi-ui';
 | className          | The CSS class name of the wrapper element                                                                   | string                                          |                     |              |
 | currentPage        | Current page number                                                                                         | number                                          |                     |              |
 | defaultCurrentPage | Default current page number                                                                                 | number                                          |                     |              |
-| hideOnSinglePage   | Whether to hide the page divider automatically when the total number of pages is less than 2                | boolean                                         | false               |              |
+| hideOnSinglePage   | Whether to hide the page divider automatically when the total number of pages is less than 2. When showSizeChanger is true, this switch no longer takes effect                | boolean                                         | false               |              |
 | hoverShowPageSelect  | Whether to show the page select when hover page (only work when size='small')                             | boolean                                         | false               |   1.27.0     |
 | nextText           | Text displayed by the next Page button                                                                      | string\| React Node                             |                     |              |
 | pageSize           | Number of entries per page                                                                                  | number                                          | 10                  |              |
@@ -200,6 +200,13 @@ import { Pagination } from '@douyinfe/semi-ui';
 | onChange           | The callback function when page number or capacity per page changes                                         | function(currentPage: number, pageSize: number) |                     |              |
 | onPageChange       | A callback function for page number changes                                                                 | function(currentPage: number)                   |                     |              |
 | onPageSize Change  | Callback function when capacity changes per page                                                            | function(pageSize: number)                      |                     |              |
+
+## Accessibility
+
+### ARIA
+
+- `aria-label`: Labels the element such as previous, next, pages in the pagination.
+- `aria-current`: Indicates the current page.
 
 ## Design Tokens
 <DesignToken/>

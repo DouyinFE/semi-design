@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 55
+order: 56
 category: 展示类
 title: SideSheet 滑动侧边栏
 icon: doc-sidesheet
@@ -295,6 +295,13 @@ class Demo extends React.Component {
     }
 }
 ```
+
+
+## Accessibility
+
+### ARIA
+
+- SideSheet 具有 `dialog` role 来表示它是一个弹窗组件， 内部 header 具有 `heading` role 表明是 header。
 
 ## API 参考
 

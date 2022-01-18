@@ -1,0 +1,118 @@
+name: 'test:cypress'
+
+on:
+  pull_request:
+    branches: [ main, release, milestone**, test-cypress ]
+    paths:
+      - 'cypress/**'
+      - 'packages/**'
+      - '!packages/**/__test__/**'
+      - '!packages/**/*.test.[tj]sx?'
+      - '!packages/**/*.md'
+  push:
+    branches: [ main, release, milestone**, test-cypress ]
+    paths:
+      - 'cypress/**'
+      - 'packages/**'
+      - '!packages/**/__test__/**'
+      - '!packages/**/*.test.[tj]sx?'
+      - '!packages/**/*.md'
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    container: cypress/browsers:node14.16.0-chrome90-ff88
+    if: ${{ github.repository_owner == 'DouyinFE' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install global packages
+        run: npm i -g lerna yarn
+      - name: Build storybook
+        run: |
+          yarn bootstrap
+          yarn build:lib
+          yarn build-storybook
+      - name: Save build folder
+        uses: actions/upload-artifact@v2
+        with:
+          name: storybook-static
+          if-no-files-found: error
+          path: storybook-static
+      - name: Cypress install
+        uses: cypress-io/github-action@v2
+        with:
+          # Disable running of tests within install job
+          runTests: false
+  chrome-tests:
+    runs-on: ubuntu-latest
+    container: cypress/browsers:node14.16.0-chrome90-ff88
+    needs: install
+    strategy:
+      fail-fast: false
+      matrix:
+        # run copies of the current job in parallel
+        containers: [1, 2, 3, 4, 5]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Download the build folders
+        uses: actions/download-artifact@v2
+        with:
+          name: storybook-static
+          path: storybook-static
+      - name: 'Cypress Tests - Chrome'
+        uses: cypress-io/github-action@v2
+        with:
+          # we have already installed all dependencies above
+          install: true
+          start: npx http-server -p 6009 storybook-static
+          wait-on: 'http://localhost:6009'
+          wait-on-timeout: 120
+          browser: chrome
+          record: true
+          parallel: true
+          group: 'Cypress - Chrome'
+          spec: cypress/integration/*
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          # Recommended: pass the GitHub token lets this action correctly
+          # determine the unique run id necessary to re-run the checks
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  firefox-tests:
+    runs-on: ubuntu-latest
+    container: 
+      image: cypress/browsers:node14.16.0-chrome90-ff88
+      options: --user 1001
+    needs: install
+    strategy:
+      fail-fast: false
+      matrix:
+        # run copies of the current job in parallel
+        containers: [1, 2, 3, 4, 5]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Download the build folders
+        uses: actions/download-artifact@v2
+        with:
+          name: storybook-static
+          path: storybook-static
+      - name: 'Cypress Tests - Firefox'
+        uses: cypress-io/github-action@v2
+        with:
+          # we have already installed all dependencies above
+          install: true
+          start: npx http-server -p 6009 storybook-static
+          wait-on: 'http://localhost:6009'
+          wait-on-timeout: 120
+          browser: firefox
+          record: true
+          parallel: true
+          group: 'Cypress - Firefox'
+          spec: cypress/integration/*
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          # Recommended: pass the GitHub token lets this action correctly
+          # determine the unique run id necessary to re-run the checks
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

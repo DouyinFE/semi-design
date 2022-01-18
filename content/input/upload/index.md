@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 32
+order: 33
 category: 输入类
 title: Upload 上传
 icon: doc-upload
@@ -624,6 +624,36 @@ import { IconPlus } from '@douyinfe/semi-icons';
 };
 ```
 
+设置 `showPicInfo`，可以查看图片基础信息
+
+```jsx live=true width=48%
+import React from 'react';
+import { Upload } from '@douyinfe/semi-ui';
+import { IconPlus } from '@douyinfe/semi-icons';
+
+() => {
+    let action = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
+    const defaultFileList = [
+        {
+            uid: '1',
+            name: 'jiafang.png',
+            status: 'success',
+            size: '130KB',
+            preview: true,
+            url:
+                'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/e82f3b261133d2b20d85e8483c203112.jpg',
+        },
+    ];
+    return (
+        <>
+            <Upload action={action} listType="picture" showPicInfo accept="image/*" multiple defaultFileList={defaultFileList}>
+                <IconPlus size="extra-large" />
+            </Upload>
+        </>
+    );
+};
+```
+
 ### 禁用
 
 ```jsx live=true width=48%
@@ -1038,6 +1068,15 @@ import { IconUpload } from '@douyinfe/semi-icons';
 };
 ```
 
+## Accessibility
+
+Upload组件是一个可交互的控件，在点击或拖拽时触发文件选择，文件选中后会在文件列表内展示状态。
+
+### ARIA
+
+- 为可点击元素添加 `role="button"`
+- 文件列表添加 `role="list"`，并用 `aria-label` 描述
+
 ## API 参考
 
 ---
@@ -1089,7 +1128,10 @@ import { IconUpload } from '@douyinfe/semi-icons';
 |prompt | 自定义插槽，可用于插入提示文本。与直接在 `children` 中写的区别时，`prompt` 的内容在点击时不会触发上传<br/>（图片墙模式下，v1.3.0 后才支持传入 prompt） | ReactNode |  |  |
 |promptPosition | 提示文本的位置，当 listType 为 list 时，参照物为 children 元素；当 listType 为 picture 时，参照物为图片列表。可选值 `left`、`right`、`bottom`<br/>（图片墙模式下，v1.3.0 后才支持使用 promptPosition） | string | 'right' |  |
 |renderFileItem | fileCard 的自定义渲染 | (renderProps: RenderFileItemProps) => ReactNode |  | 1.0.0 |
+|renderPicInfo| 自定义照片墙信息，只在照片墙模式下有效| (renderProps: RenderFileItemProps)=>ReactNode | | 2.2.0 |
+|renderThumbnail| 自定义图片墙缩略图，只在照片墙模式下有效| (renderProps: RenderFileItemProps)=>ReactNode | | 2.2.0 |
 |showClear | 在 limit 不为 1 且当前已上传文件数大于 1 时，是否展示清空按钮 | boolean | true | 1.0.0 |
+|showPicInfo| 是否显示图片信息，只在照片墙模式下有效| boolean| false | 2.2.0 |
 |showReplace | 上传成功时，是否展示在 fileCard 内部展示替换按钮 | boolean | false | 1.21.0 |
 |showRetry | 上传失败时，是否展示在 fileCard 内部展示重试按钮 | boolean | true | 1.0.0 |
 |showUploadList | 是否显示文件列表 | boolean | true |  |
@@ -1128,23 +1170,11 @@ interface FileItem {
 }
 ```
 
-### RenderFileItemProps Interface
-
-```ts
-interface RenderFileItemProps extends FileItem {
-    previewFile: (fileItem: FileItem) => ReactNode; // 自定义预览元素
-    listType: 'picture' | 'list'; // 文件列表展示类型
-    onRemove: () => void; // 移除
-    onRetry: () => void; // 重试
-    onReplace: () => void; // 替换文件
-    key: string; // Item key
-    showRetry: boolean; // 是否展示重试
-    showReplace: boolean; // 是否展示替换
-    style: CSSProperties; // 传入的itemStyle
-    disabled: boolean; // 是否禁用
-    onPreviewClick: () => void; // 点击预览
-}
-```
+## Methods
+|名称 | 描述 | 类型 | 版本 |
+|----|----|----|----|
+| insert | 上传文件，当index传入时，会插入到指定位置，不传则插入到最后 | (files: Array<File\>, index?: number) => void | 2.2.0 |
+| upload | 手动开始上传，配合uploadTrigger="custom"使用 | () => void | |
 
 ## 设计变量
 <DesignToken/>
@@ -1164,10 +1194,3 @@ interface RenderFileItemProps extends FileItem {
     - 如果你设置了 `accept`，可以尝试把 accept 属性去掉，然后再看是否调用了改方法。去掉后调用了该方法说明，accept 在当前环境下获取的 file type 与设置的 accept 不符，上传行为提前终止。可以打个断点到 upload/foundation.js checkFileFormat 函数，看下获取的 file.type 真实值是否符合预期。
 
 <Notice title={"关于进度条"}>进度条表示上传进度，上传进度分为数据上载和服务器返回两部分，如果数据已经全部发出，但是服务器没有返回响应，进度条会停留在90%提示用户上传并没有完成，此时开发者工具中请求会处于 pending, 这是正常现象。仅当服务器返回响应，上传流程才真正结束，上传进度会达到100%</Notice>
-
-
-<!-- ## 相关物料
-
-```material
-82
-``` -->

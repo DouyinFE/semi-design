@@ -6,7 +6,7 @@ import { noop } from 'lodash';
 import IconButton from '../iconButton';
 import Button from '../button';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/datePicker/constants';
-import { IconChevronLeft, IconChevronRight } from '@douyinfe/semi-icons';
+import { IconChevronLeft, IconChevronRight, IconDoubleChevronLeft, IconDoubleChevronRight } from '@douyinfe/semi-icons';
 import { PanelType } from '@douyinfe/semi-foundation/datePicker/monthsGridFoundation';
 
 const prefixCls = cssClasses.NAVIGATION;
@@ -68,6 +68,8 @@ export default class Navigation extends PureComponent<NavigationProps> {
             onMonthClick,
             onNextMonth,
             onPrevMonth,
+            onPrevYear,
+            onNextYear,
             density,
             shouldBimonthSwitch,
             panelType
@@ -77,43 +79,67 @@ export default class Navigation extends PureComponent<NavigationProps> {
         const iconBtnSize = density === 'compact' ? 'default' : 'large';
         const btnNoHorizontalPadding = true;
         const buttonSize = density === 'compact' ? 'small' : 'default';
-        // Enable dual-panel synchronous switching, and the current panel is the left panel
-        const bimonthSwitchWithLeftPanel = shouldBimonthSwitch && panelType === strings.PANEL_TYPE_LEFT;
-        // Enable dual-panel synchronous switching, and the current panel is the right panel
-        const bimonthSwitchWithRightPanel = shouldBimonthSwitch && panelType === strings.PANEL_TYPE_RIGHT;
+        const isLeftPanel = panelType === strings.PANEL_TYPE_LEFT;
+        const isRightPanel =  panelType === strings.PANEL_TYPE_RIGHT;
+
+        // syncSwitchMonth and the current panel is the left
+        const hiddenLeftPanelRightButtons = shouldBimonthSwitch && isLeftPanel;
+        // syncSwitchMonth and the current panel is the right
+        const hiddenRightPanelLeftButtons = shouldBimonthSwitch && isRightPanel;
+        // `visibility: hidden` will keep the icon in position
+        const leftButtonStyle: React.CSSProperties = {};
+        const rightButtonStyle: React.CSSProperties = {};
+        if (hiddenRightPanelLeftButtons) {
+            leftButtonStyle.visibility = 'hidden';
+        }
+        if (hiddenLeftPanelRightButtons) {
+            rightButtonStyle.visibility = 'hidden';
+        }
 
         const ref = forwardRef || this.navRef;
         return (
             <div className={prefixCls} ref={ref}>
-                {
-                    !bimonthSwitchWithRightPanel &&
-                    (
-                        <IconButton
-                            icon={<IconChevronLeft size={iconBtnSize} />}
-                            size={buttonSize}
-                            onClick={onPrevMonth}
-                            theme={btnTheme}
-                            noHorizontalPadding={btnNoHorizontalPadding}
-                        />
-                    )
-                }
+                <IconButton
+                    key="double-chevron-left"
+                    icon={<IconDoubleChevronLeft size={iconBtnSize}/>} 
+                    size={buttonSize}
+                    theme={btnTheme}
+                    noHorizontalPadding={btnNoHorizontalPadding}
+                    onClick={onPrevYear}
+                    style={leftButtonStyle}
+                />
+                <IconButton
+                    key="chevron-left"
+                    icon={<IconChevronLeft size={iconBtnSize} />}
+                    size={buttonSize}
+                    onClick={onPrevMonth}
+                    theme={btnTheme}
+                    noHorizontalPadding={btnNoHorizontalPadding}
+                    style={leftButtonStyle}
+                />
                 <div className={`${prefixCls}-month`}>
                     <Button onClick={onMonthClick} theme={btnTheme} size={buttonSize}>
                         <span>{monthText}</span>
                     </Button>
                 </div>
-                {
-                    !bimonthSwitchWithLeftPanel &&
-                    (
-                        <IconButton
-                            icon={<IconChevronRight size={iconBtnSize} />}
-                            size={buttonSize}
-                            onClick={onNextMonth}
-                            theme={btnTheme}
-                            noHorizontalPadding={btnNoHorizontalPadding}
-                        />
-                    )
-                }
+                <IconButton
+                    key="chevron-right"
+                    icon={<IconChevronRight size={iconBtnSize} />}
+                    size={buttonSize}
+                    onClick={onNextMonth}
+                    theme={btnTheme}
+                    noHorizontalPadding={btnNoHorizontalPadding}
+                    style={rightButtonStyle}
+                />
+                <IconButton
+                    key="double-chevron-right"
+                    icon={<IconDoubleChevronRight size={iconBtnSize}/>} 
+                    size={buttonSize}
+                    theme={btnTheme}
+                    noHorizontalPadding={btnNoHorizontalPadding}
+                    onClick={onNextYear}
+                    style={rightButtonStyle}
+                />
             </div>
         );
     }

@@ -641,3 +641,15 @@ export const FormCustomInput = () => {
 FormCustomInput.story = {
   name: 'Form.CustomInput',
 };
+
+
+export const FixPrecision = () => {
+  const [value, setValue] = useState(5.12);
+  const [value2, setValue2] = useState(5.12);
+  return (
+    <div>
+        <InputNumber onChange={v => setValue(v)} value={value} style={{ width: 190 }} precision={2} />
+        <InputNumber keepFocus onBlur={() => console.log('blur')} onChange={v => setValue2(v)} value={value2} style={{ width: 190 }} precision={2} />
+    </div>
+  );
+}

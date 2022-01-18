@@ -4,7 +4,7 @@ title: Change Log
 subTitle: Change Log
 icon: doc-changelog
 localeCode: en-US
-order: 5
+order: 6
 brief: About Semi Design For React Optimization and Update
 ---
 
@@ -15,6 +15,111 @@ Version：Major.Minor.Patch
 -   Patch version: bug fix
 
 ---
+
+#### 🎉 2.3.0 (2022-01-14)
+- 【Fix】
+    - Fixed Notification display collapsing order [#531](https://github.com/DouyinFE/semi-design/pull/531)
+    - Fixed the problem that the edge click of the remove button is not available in Upload when `listType='picture'` [@pdsuwwz](https://github.com/pdsuwwz) [#525](https://github.com/DouyinFE/semi-design/pull/525)
+    - Removed useless `aria-label` in Collapse, SideSheet, Avatar, Spin components [#536](https://github.com/DouyinFE/semi-design/pull/536)
+
+#### 🎉 2.3.0-beta.0 (2022-01-07)
+- 【Fix】
+    - Fixed the problem that when Form uses the parent fieldPath in formApi.setValue, setError, and setTouch to perform batch assignment to multiple nested fields, there may be a problem of stuck (affecting versions v1.32~v2.2) Checklist
+    - Fix the inaccurate trigger range of Form formApi.validate partial verification Checklist
+    - Fix the problem that Tooltip did not include spacing when calculating adjustOverflow, which caused the content to exceed (but not exceed 8px) and still not automatically switch the direction.  [#491](https://github.com/DouyinFE/semi-design/issues/491)
+    - Fix Tooltip showing that the default direction of the floating layer is insufficient, and it will flicker when adjustOverflow is triggered to automatically switch the direction.   [#69](https://github.com/DouyinFE/semi-design/issues/69)
+    - Fix Tree handleNodeDragOver internal event parameters are not properly passed  [#345 ](https://github.com/DouyinFE/semi-design/issues/345)
+    - Fix TreeSelect when searchPosition is trigger, maxTagCount does not take effect  [#498 ](https://github.com/DouyinFE/semi-design/issues/498)
+    - Fix TagInput setting value to undefined does not take effect  [#483 ](https://github.com/DouyinFE/semi-design/issues/483)
+    - Fix Slider step marks click not working
+    - Fix Table uncontrolled paging after turning the page, updating state will reset the paging state and jump to the first page  [#348](https://github.com/DouyinFE/semi-design/issues/348) [@chenc041](https://github.com/chenc041)
+- 【Feat】
+    - Select supports autoClearSearchValue, allowing the current search keywords to be retained after selection Checklist
+    - Slider add cursor grabbing style when drag Checklist
+    - 40+ components add accessibility semantic support [#205](https://github.com/DouyinFE/semi-design/issues/205)
+        - Button adds aria-label attribute, when disabled, Button has aria-disabled attribute
+        - The role of Checkbox is checkbox, the role of CheckboxGroup is list, its direct child element is listitem, and the aria-label attribute is added to explain the function of the selection box; aria-disabled means the current disabled state; aria-checked means the current selected state
+        - aria-hidden is true for Empty illustrations
+        - Form adds label and error message accessibility support for Form.Field
+        - Icon component role is img, and its aria-label defaults to the component's file name; the svg element inside Icon is a decorative element, and aria-hidden is set by default to prevent it from being read by screen readers
+        - InputGroup adds a default value of name to Label to associate the corresponding field
+        - Modal adds focus position processing before and after opening, focusing on the pop-up layer after opening, and focusing on the focused position before opening after closing
+        - Radio's aria-labelledby points to the addon node by default, which is used to explain the content of Radio, and aria-describedby points to the extra node by default, which is used to supplement and explain the content of Radio
+        - The roles of the Select trigger and the pop-up layer are combobox and listbox, and the trigger is bound with some aria-* attributes to indicate the relationship with the pop-up layer; Option has aria-selected and aria-disabled attributes to indicate the selected state of the current item
+        - The role of Slider is slider, and attributes such as aria-valuenow are set to describe its current state; aria-orientation is vertical when it is vertical; when the value of aria-valuenow is not easy to understand, it supports passing a string through API aria-valuetext To make it more friendly, you can also get the value of aria-valuetext through the geAriaValueText method. [#490](https://github.com/DouyinFE/semi-design/issues/490)
+        - Added role and aria-* attributes to table rows and cells
+        - Tooltip has a tooltip role, which follows the definition of Tooltip in the WAI-ARIA specification; the content wrapper will be automatically added with an id attribute to match children's aria-describedby and associate content with children
+        - Tree supports passing in aria-label to indicate the role of the Tree, and the corresponding role and aria-* attributes are set for Tree and TreeNode inside the component. [#493](https://github.com/DouyinFE/semi-design/issues/493)
+        - TreeSelect supports passing in attributes such as aria-label and aria-errormessage to indicate the role and current status of TreeSelect, and sets relevant aria-* attributes for child nodes. [#493](https://github.com/DouyinFE/semi-design/issues/493)
+        - When the trigger of the Popover is hover, the content of the Popover has the tooltip role, and when the trigger is click, custom, the content of the Popover has the dialog role
+        - For details of other components, please refer to the documentation of each component, click to view the [accessibility design guide](https://semi.design/zh-CN/start/accessibility)
+
+#### 🎉 2.2.2 (2021-12-31)
+- 【Fix】
+    - Fix Transfer In the groupList scenario, the title attribute is passed into the reactElement node, resulting in key-warning [@JontyyYang](https://github.com/JontyyYang)
+    - Fixed DatePicker range selection preset date is set to `null` or `undefined`, the panel does not close after selecting the date  [#338](https://github.com/DouyinFE/semi-design/issues/338)
+    - Fix the issue that the dateRange type DatePicker, when triggerRender is passed in, the panel does not close after selecting the date  [#422](https://github.com/DouyinFE/semi-design/issues/422)
+    - Fixed InputNumber precision format bug in controlled mode
+    - Fix spelling errors in IconFastForward [@clark-cui](https://github.com/clark-cui)
+
+#### 🎉 2.2.1 (2021-12-29)
+
+- 【Fix】
+    - Fixed DatePicker input value is back to confirmed value bug when `needConfirm` is true [#457](https://github.com/DouyinFE/semi-design/issues/457)
+    - **Optimize DatePicker interaction details, `needConfirm` mode click outside will no longer close the panel, you need to click cancel to close the panel** [#457](https://github.com/DouyinFE/semi-design/issues/457)
+    - Fixed DatePicker `needConfirm` button margin bug in footer [#457](https://github.com/DouyinFE/semi-design/issues/457)
+    - Fixed DatePicker year button direction bug when `direction='rtl'` [#457](https://github.com/DouyinFE/semi-design/issues/457)
+    - Fixed Table head row paddingY not same with design draft bug and updated to 8px [#460](https://github.com/DouyinFE/semi-design/issues/460)
+
+#### 🎉 2.2.0 (2021-12-24)
+
+- 【Fix】
+    - Fix the problem that tabPlane tab props does not accept dynamic updates when Tabs are used in umd mode
+- 【Docs】
+    - Improve Navigation API documentation [#451](https://github.com/DouyinFE/semi-design/pull/451) [@linjunc](https://github.com/linjunc)
+
+#### 🎉 2.2.0-beta.1 (2021-12-23)
+
+- 【Fix】
+     - Fixed DatePicker input illegal year causing component crash [#422](https://github.com/DouyinFE/semi-design/issues/422)
+     - Fixed the content penetration caused by transparent background color in Notification when `theme='light'` [#430](https://github.com/DouyinFE/semi-design/issues/430)
+     - Fixed the issue of `@charset utf-8` related warning when Vite builds CSS [#403](https://github.com/DouyinFE/semi-design/issues/403)
+     - Fixed the problem that the data in the drop-down list is not displayed correctly after using `backSpace` to delete the selected item in Select multiple selection [#444](https://github.com/DouyinFE/semi-design/issues/444)
+     - Fix Empty display `this.updateMode` `undefined` problem when switching dark mode [#452](https://github.com/DouyinFE/semi-design/issues/452)
+     - Fixed the responsive error reporting issue of `Safari<=13` version [#442](https://github.com/DouyinFE/semi-design/issues/442)
+
+#### 🎉 2.2.0-beta.0 (2021-12-17)
+
+- 【Feat】
+    - Timeline.Item supports `onClick` [#402](https://github.com/DouyinFE/semi-design/issues/402)
+    - Cascader
+        - Support only echoing leaf nodes with `leafOnly` API [#256](https://github.com/DouyinFE/semi-design/issues/256)
+        - Support click the leaf node to select it in multiple selection with `enableLeafClick` API [#302](https://github.com/DouyinFE/semi-design/issues/302) [@btea](https://github.com/btea)
+        - Support custom separator with `separator` API [#408](https://github.com/DouyinFE/semi-design/issues/408)
+    - Upload [#342](https://github.com/DouyinFE/semi-design/issues/342)
+        - Support `ref.current.insert` method
+        - Support props `showPicInfo`
+        - Use `gap` to control FileCard interval
+    - Icon [#260](https://github.com/DouyinFE/semi-design/issues/260)
+        - Add `double_chevron_left`, `double_chevron_right` icons
+        - Icon supports following the current context font size
+    - LocaleProvider added `Spanish` language pack [@chenjunxyf](https://github.com/chenjunxyf)
+    - Select added `inputProps`, which is convenient for users to realize some special functions when filter is true. For example, incoming `onCompositionEnd`, `onKeyDown` event monitoring, etc.
+    - DatePicker [#260](https://github.com/DouyinFE/semi-design/issues/260)
+        - Add year switch buttons
+        - Optimize the scope selection interaction logic to avoid scenes where the two panels are the same month
+- 【Fix】
+    - Select
+        - Fixed the issue of key warning when `isRenderInTag` returned by Select `renderSelectedItem` is `false` [#320](https://github.com/DouyinFE/semi-design/issues/320)
+        - Fixed the problem that the `mark` tag `key` is missing when the warning prompts the mark when searching for the highlighted keyword in Select
+    - Fixed that the label style does not match the design draft when Cascader is `multiple`+`disabled` [#400](https://github.com/DouyinFE/semi-design/issues/400)
+    - Fixed the problem of incorrect rendering when the key or itemKey is node when Description `type='plain'` [#406](https://github.com/DouyinFE/semi-design/issues/406)
+    - Fixed the issue that when Pagination uses `hideOnSingePage` and `showSizeChanger` at the same time, when the total number of pages is only 1, the `sizeChanger` will disappear and can no longer be switched [#252](https://github.com/DouyinFE/semi-design/issues/252)
+    - Fixed the issue that the design token of the Select component does not take effect when defining the Select component through Webpack plugin variables [#375](https://github.com/DouyinFE/semi-design/issues/375) [@summerstream](https://github.com/summerstream)
+    - Fixed the UI error after setting the `size` of the Rating component to `number`
+    - Fixed the horizontal alignment of Timeline custom dot [#395](https://github.com/DouyinFE/semi-design/issues/395) [@chenc041](https://github.com/chenc041)
+- 【Docs】
+    - Improve `semi-ui` package.json [@chenc041](https://github.com/chenc041)
 
 #### 🎉 2.1.5 (2021-12-10)
 
@@ -255,6 +360,8 @@ Version：Major.Minor.Patch
      - Cascader supports disableStrictly 
      - Tooltip supports wrapperClassName
      - Form formApi.setValue, setError, and setTouched support the use of parent fieldPath to assign values to multiple fields in batches 
+- 【Fix】
+    - **Fixed the problem that when Form ArrayField sets initValue and its subordinate Field also sets initValue, the initial value configured by ArrayField Props has a higher weight than the initial value configured by Field Props. Align the priority rules of Form Props and Field Props, and follow the principle that the sub-level configuration has the highest weight**
 
 #### 🎉 1.31.0 (2021-09-24)
 - 【Fix】

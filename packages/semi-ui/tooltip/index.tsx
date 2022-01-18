@@ -12,6 +12,7 @@ import { ArrayElement } from '@douyinfe/semi-foundation/utils/type';
 import { convertDOMRectToObject, DOMRectLikeType } from '@douyinfe/semi-foundation/utils/dom';
 import TooltipFoundation, { TooltipAdapter, Position, PopupContainerDOMRect } from '@douyinfe/semi-foundation/tooltip/foundation';
 import { strings, cssClasses, numbers } from '@douyinfe/semi-foundation/tooltip/constants';
+import { getUuidShort } from '@douyinfe/semi-foundation/utils/uuid';
 import '@douyinfe/semi-foundation/tooltip/tooltip.scss';
 
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
@@ -56,6 +57,7 @@ export interface TooltipProps extends BaseProps {
     showArrow?: boolean | React.ReactNode;
     zIndex?: number;
     rePosKey?: string | number;
+    role?: string;
     arrowBounding?: ArrowBounding;
     transformFromCenter?: boolean;
     arrowPointAtCenter?: boolean;
@@ -77,6 +79,8 @@ interface TooltipState {
     isInsert: boolean;
     placement: Position;
     transitionStyle: Record<string, any>;
+    isPositionUpdated: boolean;
+    id: string;
 }
 
 const prefix = cssClasses.PREFIX;
@@ -117,26 +121,28 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         arrowPointAtCenter: PropTypes.bool,
         stopPropagation: PropTypes.bool,
         // private
+        role: PropTypes.string,
         wrapWhenSpecial: PropTypes.bool, // when trigger has special status such as "disabled" or "loading", wrap span
     };
 
     static defaultProps = {
-        transformFromCenter: true,
+        arrowBounding: numbers.ARROW_BOUNDING,
+        autoAdjustOverflow: true,
         arrowPointAtCenter: true,
-        wrapWhenSpecial: true,
-        motion: true,
-        zIndex: numbers.DEFAULT_Z_INDEX,
         trigger: 'hover',
+        transformFromCenter: true,
         position: 'top',
         prefixCls: prefix,
-        autoAdjustOverflow: true,
+        role: 'tooltip',
         mouseEnterDelay: numbers.MOUSE_ENTER_DELAY,
         mouseLeaveDelay: numbers.MOUSE_LEAVE_DELAY,
+        motion: true,
         onVisibleChange: noop,
         onClickOutSide: noop,
         spacing: numbers.SPACING,
         showArrow: true,
-        arrowBounding: numbers.ARROW_BOUNDING,
+        wrapWhenSpecial: true,
+        zIndex: numbers.DEFAULT_Z_INDEX,
     };
 
     eventManager: Event;
@@ -167,6 +173,8 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             isInsert: false,
             placement: props.position || 'top',
             transitionStyle: {},
+            isPositionUpdated: false,
+            id: getUuidShort(), // auto generate id, will be used by children.aria-describedby & content.id, improve a11y
         };
         this.foundation = new TooltipFoundation(this.adapter);
         this.eventManager = new Event();
@@ -197,18 +205,15 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                         containerStyle: { ...this.state.containerStyle, ...containerStyle },
                     },
                     () => {
-                        /**
-                         * Dangerous: remove setTimeout from here fix #1301
-                         * setTimeout may emit portalInserted event after hiding portal
-                         * Hiding portal will remove portalInserted event listener(normal process)
-                         * then portal can't hide because _togglePortalVisible(false) will found isVisible=false and nowVisible=false(bug here)
-                         */
-                        this.eventManager.emit('portalInserted');
+                        setTimeout(() => {
+                            // waiting child component mounted
+                            this.eventManager.emit('portalInserted');
+                        }, 0);
                     }
                 );
             },
             removePortal: () => {
-                this.setState({ isInsert: false });
+                this.setState({ isInsert: false, isPositionUpdated: false });
             },
             getEventName: () => ({
                 mouseEnter: 'onMouseEnter',
@@ -275,7 +280,11 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             getDocumentElementBounding: () => document.documentElement.getBoundingClientRect(),
             setPosition: ({ position, ...style }: { position: Position }) => {
                 this.setState(
-                    { containerStyle: { ...this.state.containerStyle, ...style }, placement: position },
+                    { 
+                        containerStyle: { ...this.state.containerStyle, ...style },
+                        placement: position,
+                        isPositionUpdated: true
+                    },
                     () => {
                         this.eventManager.emit('positionUpdated');
                     }
@@ -422,16 +431,10 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         return false;
     };
 
-    willEnter = () => {
-        this.foundation.calcPosition();
-        /**
-         * Dangerous: remove setState in motion fix #1379
-         * because togglePortalVisible callback function will use visible state to notifyVisibleChange
-         * if visible state is old value, then notifyVisibleChange function will not be called
-         * we should ensure that after calling togglePortalVisible, callback function can get right visible value
-         */
-        // this.setState({ visible: true });
-    };
+    // willEnter = () => {
+    // this.foundation.calcPosition();
+    // this.setState({ visible: true });
+    // };
 
     didLeave = () => {
         this.adapter.unregisterClickOutsideHandler();
@@ -489,8 +492,8 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
     };
 
     renderPortal = () => {
-        const { containerStyle = {}, visible, portalEventSet, placement, transitionState } = this.state;
-        const { prefixCls, content, showArrow, style, motion, zIndex } = this.props;
+        const { containerStyle = {}, visible, portalEventSet, placement, transitionState, id, isPositionUpdated } = this.state;
+        const { prefixCls, content, showArrow, style, motion, role, zIndex } = this.props;
         const { className: propClassName } = this.props;
         const direction = this.context.direction;
         const className = classNames(propClassName, {
@@ -502,22 +505,24 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         const icon = this.renderIcon();
         const portalInnerStyle = omit(containerStyle, motion ? ['transformOrigin'] : undefined);
         const transformOrigin = get(containerStyle, 'transformOrigin');
-        const inner = motion ? (
-            <TooltipTransition position={placement} willEnter={this.willEnter} didLeave={this.didLeave} motion={motion}>
+        const inner = motion && isPositionUpdated ? (
+            <TooltipTransition position={placement} didLeave={this.didLeave} motion={motion}>
                 {
                     transitionState === 'enter' ?
                         ({ animateCls, animateStyle, animateEvents }) => (
                             <div
                                 className={classNames(className, animateCls)}
                                 style={{
-                                    visibility: 'visible',
+                                    // visibility: 'visible',
                                     ...animateStyle,
                                     transformOrigin,
                                     ...style,
                                 }}
                                 {...portalEventSet}
                                 {...animateEvents}
+                                role={role}
                                 x-placement={placement}
+                                id={id}
                             >
                                 {content}
                                 {icon}
@@ -535,6 +540,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
 
         return (
             <Portal getPopupContainer={this.props.getPopupContainer} style={{ zIndex }}>
+                {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
                 <div
                     className={`${BASE_CLASS_PREFIX}-portal-inner`}
                     style={portalInnerStyle}
@@ -580,8 +586,8 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
     };
 
     render() {
-        const { isInsert, triggerEventSet } = this.state;
-        const { wrapWhenSpecial } = this.props;
+        const { isInsert, triggerEventSet, visible, id } = this.state;
+        const { wrapWhenSpecial, role } = this.props;
         let { children } = this.props;
         const childrenStyle = { ...get(children, 'props.style') };
         const extraStyle: React.CSSProperties = {};
@@ -605,8 +611,21 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             }
         }
 
+        // eslint-disable-next-line prefer-const
+        let ariaAttribute = {};
+
+        // Take effect when used by Popover component
+        if (role === 'dialog') {
+            ariaAttribute['aria-expanded'] = visible ? 'true' : 'false';
+            ariaAttribute['aria-haspopup'] = 'dialog';
+            ariaAttribute['aria-controls'] = id;
+        } else {
+            ariaAttribute['aria-describedby'] = id;
+        }
+
         // The incoming children is a single valid element, otherwise wrap a layer with span
         const newChild = React.cloneElement(children as React.ReactElement, {
+            ...ariaAttribute,
             ...(children as React.ReactElement).props,
             ...this.mergeEvents((children as React.ReactElement).props, triggerEventSet),
             style: {
@@ -615,7 +634,6 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             },
             className: classNames(
                 get(children, 'props.className')
-                // `${prefixCls}-trigger`
             ),
             // to maintain refs with callback
             ref: (node: React.ReactNode) => {

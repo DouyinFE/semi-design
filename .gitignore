@@ -26,6 +26,7 @@ packages/semi-theme-default/semi.scss
 public
 storybook-static/
 *.zip
+cypress/videos/
 
 # misc
 .env.local

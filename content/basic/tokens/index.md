@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 12
+order: 13
 category: 基础
 title:  Tokens 设计变量
 icon: doc-token

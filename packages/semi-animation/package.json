@@ -1,6 +1,6 @@
 {
   "name": "@douyinfe/semi-animation",
-  "version": "2.1.5",
+  "version": "2.3.0",
   "description": "animation base library for semi-ui",
   "keywords": [
     "animation",
@@ -44,5 +44,5 @@
     "merge2": "^1.4.1",
     "react-storybook-addon-props-combinations": "^1.1.0"
   },
-  "gitHead": "5344f767711f1677a6113bc7fc38d1853bcc7f5a"
+  "gitHead": "eb34a4f25f002bb4cbcfa51f3df93bed868c831a"
 }

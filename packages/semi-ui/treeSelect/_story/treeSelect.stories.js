@@ -299,6 +299,18 @@ export const SearchPosition = () => (
       placeholder="searchAutoFocus"
       searchAutoFocus
     />
+    <br />
+    <br />
+    <TreeSelect
+      searchPosition="trigger"
+      style={{ width: 300 }}
+      dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+      treeData={treeData2}
+      multiple
+      filterTreeNode
+      maxTagCount={1}
+      placeholder="maxTagCount=1"
+    />
   </>
 );
 

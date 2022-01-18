@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 25
+order: 26
 category: Input
 title: Select
 subTitle: Select
@@ -559,6 +559,8 @@ class Link extends React.Component {
 You can turn on the search capability by setting `filter` to true.  
 The default search strategy will include comparison of the input value with the label value of option
 
+By default, the search keywords will be cleared automatically after multiple selection is selected. If you want to keep it, you can turn off the default behavior by setting `autoClearSearchValue` to false (provided after v2.3)
+
 ```jsx live=true
 import React from 'react';
 import { Select } from '@douyinfe/semi-ui';
@@ -573,11 +575,12 @@ import { Select } from '@douyinfe/semi-ui';
         </Select>
         <br />
         <br />
-        <Select filter multiple style={{ width: 350 }} placeholder="Searchable Multiple Select">
-            <Select.Option value="app1">Semi</Select.Option>
-            <Select.Option value="app2">Hotsoon</Select.Option>
-            <Select.Option value="app3">Pipixia</Select.Option>
-            <Select.Option value="app4">BuzzVideo</Select.Option>
+        <Select filter multiple style={{ width: 350 }} placeholder="Searchable Multiple Select" autoClearSearchValue={false}>
+            <Select.Option value='semi-0'>Semi-0</Select.Option>
+            <Select.Option value='semi-1'>Semi-1</Select.Option>
+            <Select.Option value='semi-2'>Semi-2</Select.Option>
+            <Select.Option value='semi-3'>Semi-3</Select.Option>
+            <Select.Option value='semi-4'>Semi-4</Select.Option>
         </Select>
     </>
 );
@@ -719,14 +722,14 @@ import { Select, Avatar, Tag } from '@douyinfe/semi-ui';
         { "name": "Yue Shen", "email": "shenyue@example.com", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg" },
         { "name": "Chenyi Qu", "email": "quchenyi@example.com", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/8bd8224511db085ed74fea37205aede5.jpg" },
         { "name": "Jiamao Wen", "email": "wenjiamao@example.com", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/6fbafc2d-e3e6-4cff-a1e2-17709c680624.png" },
-    ]
+    ];
 
     const renderSelectedItem = optionNode => (
         <div key={optionNode.email} style={{ display: 'flex', alignItems: 'center' }}>
             <Avatar src={optionNode.avatar} size="small">{optionNode.abbr}</Avatar>
             <span style={{ marginLeft: 8 }}>{optionNode.email}</span>
         </div>
-    )
+    );
 
     // avatarSrc & avatarShape are supported after 1.6.0-beta
     const renderMultipleWithCustomTag = (optionNode, { onClose }) => {
@@ -746,7 +749,7 @@ import { Select, Avatar, Tag } from '@douyinfe/semi-ui';
             isRenderInTag: false,
             content
         };
-    }
+    };
 
     const renderMultipleWithCustomTag2 = (optionNode, { onClose }) => {
         const content = (
@@ -765,7 +768,7 @@ import { Select, Avatar, Tag } from '@douyinfe/semi-ui';
             isRenderInTag: false,
             content
         };
-    }
+    };
 
     const renderCustomOption = (item, index) => {
         const optionStyle = {
@@ -773,17 +776,17 @@ import { Select, Avatar, Tag } from '@douyinfe/semi-ui';
             paddingLeft: 24,
             paddingTop: 10,
             paddingBottom: 10
-        }
+        };
         return (
-            <Select.Option key={index} value={item.name} style={optionStyle} showTick={true}  {...item} key={item.email}>
+            <Select.Option value={item.name} style={optionStyle} showTick={true}  {...item} key={item.email}>
                 <Avatar size="small" src={item.avatar} />
                 <div style={{ marginLeft: 8 }}>
                     <div style={{ fontSize: 14 }}>{item.name}</div>
                     <div style={{ color: 'var(--color-text-2)', fontSize: 12, lineHeight: '16px', fontWeight: 'normal' }}>{item.email}</div>
                 </div>
             </Select.Option>
-        )
-    }
+        );
+    };
 
     return (
         <>
@@ -820,7 +823,7 @@ import { Select, Avatar, Tag } from '@douyinfe/semi-ui';
             </Select>
         </>
     );
-}
+};
 ```
 
 ### Custom pop-up layer style
@@ -1283,8 +1286,9 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | Properties | Instructions | Type | Default |
 | --- | --- | --- | --- |
 | allowCreate | Whether to allow the user to create new entries. Needs to be used with `filter` | boolean | false |
-| arrowIcon | Customize the right drop-down arrow Icon, when the showClear switch is turned on and there is currently a selected value, hover will give priority to the clear icon <br/>**since v1.15.0** | ReactNode |  |
+| arrowIcon | Customize the right drop-down arrow Icon, when the showClear switch is turned on and there is currently a selected value, hover will give priority to the clear icon <br/>**supported after v1.15.0** | ReactNode |  |
 | autoAdjustOverflow | Whether the pop-up layer automatically adjusts the direction when it is obscured (only vertical direction is supported for the time being, and the inserted parent is body) | boolean | true |
+| autoClearSearchValue     |  After selecting the option, whether to automatically clear the search keywords, it will take effect when mutilple and filter are both enabled.<br/>**supported after v2.3.0** | boolean                      | true                                |
 | autoFocus | Whether automatically focus when component mount | boolean | false |
 | className | The CSS class name of the wrapper element | string |  |
 | clickToHide | When expanded, click on the selection box to automatically put away the drop-down list | boolean | false |
@@ -1298,7 +1302,8 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | emptyContent | Content displayed when there is no result. When set to null, the drop-down list will not be displayed | string | ReactNode |  |
 | filter | Whether searchable or not, the default is false. When `true` is passed, it means turn on search ability, default filtering policy is whether the label matches search input<br/>When the input type is function, the function arguments are searchInput, option. It should return true when the option meets the filtering conditions, otherwise it returns false. | false | boolean\|function |  |
 | getPopupContainer | Specifies the parent DOM, and the popup layer will be rendered to the DOM, you need to set 'position: relative`| function(): HTMLElement | () => document.body |
-| innerTopSlot | Render at the top of the pop-up layer, custom slot inside the optionList <br/>** supported after v1.6.0 ** | ReactNode |  |
+| inputProps | When filter is true, the additional configuration parameters of the input, please refer to the Input component for specific configurable properties (note: please do not pass in `value`, `ref`, `onChange`, `onFocus`, otherwise it will override Select related callbacks and affect component behavior) <br/>**supported after v2.2.0** | object | 
+| innerTopSlot | Render at the top of the pop-up layer, custom slot inside the optionList | ReactNode |  |
 | innerBottomSlot | Render at the bottom of the pop-up layer, custom slot inside the optionList | ReactNode |  |
 | insetLabel | Same to `prefix`, just an alias | ReactNode |  |
 | loading | Does the drop-down list show the loading animation | boolean | false |
@@ -1307,7 +1312,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | maxHeight | Maximum height of `optionList` in the pop-up layer | string | number | 300 |
 | multiple | Whether allow multiple selection | boolean | false |
 | outerBottomSlot | Rendered at the bottom of the pop-up layer, custom slot level with optionList | ReactNode |  |
-| outerTopSlot | Rendered at the top of the pop-up layer, custom slot level with optionList <br/>** supported after v1.6.0 ** |
+| outerTopSlot | Rendered at the top of the pop-up layer, custom slot level with optionList <br/>**supported after v1.6.0** |
 | optionList | You can pass Option through this property, make sure that each element in the array has `label`, `value` properties | Array (\[{value, label}\]) |  |
 | placeholder | placeholder | ReactNode |  |
 | position | Pop-up layer position, refer to [Popover·API reference·position](/en-US/show/popover#API%20Reference) | string | 'bottomLeft' |
@@ -1321,7 +1326,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | spacing | Spacing between popup layer and trigger | number | 4 |
 | style | Inline Style | object |  |
 | suffix | An input helper rendered after | ReactNode |  |
-| triggerRender | Custom DOM of trigger <br/>**supported after v0.34.0** | function |  |
+| triggerRender | Custom DOM of trigger | function |  |
 | virtualize | List virtualization, used to optimize performance in the case of a large number of nodes, composed of height, width, and itemSize <br/>** supported after v0.37.0 ** | object |  |
 | validateStatus | Verification result, optional `warning`, `error`, `default` (only affect the style background color) | string | 'default' |
 | value | The currently selected value is passed as a controlled component, used in conjunction with `onchange` | string\|number\|array |  |
@@ -1369,6 +1374,15 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | focus       | Manually focus select           | v1.11.0 |
 | open        | Manually open dropdown list     | v0.34.0 |
 | selectAll   | Manually select all options     | v1.18.0 |
+
+## Accessibility
+
+### ARIA
+
+- The role of the Select trigger is combobox, the role of the popup layer is listbox, and the role of the option is option
+- Select trigger has aria-haspopup, aria-expanded, and aria-controls properties, indicating the relationship between trigger and popup layer
+- When multiple selections are made, listbox aria-multiselectable is true, indicating that multiple selections are currently available
+- aria-selected is true when Option is selected; aria-disabled is true when Option is disabled
 
 ## Design Tokens
 

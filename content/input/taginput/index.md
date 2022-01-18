@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 28
+order: 29
 category: 输入类
 title: TagInput 标签输入框
 icon: doc-tagInput
@@ -384,6 +384,7 @@ class CustomRender extends React.Component {
                 style={{display: 'flex', alignItems: 'center', fontSize: 14, marginRight: 10}}
             >
                 <Avatar 
+                    alt='avatar'
                     src={data?data.avatar:'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg'} 
                     size="extra-small" 
                 />
@@ -434,7 +435,7 @@ class CustomRender extends React.Component {
 |style        |内联样式                                          |React.CSSProperties                         | -        |1.19.0|
 |suffix       |后缀标签                                           |ReactNode                      |-         |1.19.0|
 |validateStatus|设置校验状态样式,可选: `default`、`warning`、`error` |string                          |`default` |1.19.0|
-|value        |当前标签，配合 onChange 实现受控                     |string[]                       | -        |1.19.0|
+|value        |当前标签，配合 onChange 实现受控                     |string[] \| undefined                       | -        |1.19.0|
 |onAdd        |添加标签时的回调                                     |(addedValue: string[]) => void     | -        |1.19.0|
 |onBlur       |输入框失去焦点时的回调           |(e:React.MouseEvent<HTMLInputElement\>) => void                 | -        |1.19.0|
 |onChange     |标签变化时的回调                                     |(value:string[]) => void | -        |1.19.0|
@@ -450,6 +451,14 @@ class CustomRender extends React.Component {
 |-------|------|---------|
 |blur() |移出焦点|1.19.0|
 |focus()|获取焦点|1.19.0|
+
+## Accessibility
+
+### ARIA
+
+- TagInput 支持传入 `aria-label` 来表示该 TagInput 作用；
+- TagInput 会依据 disabled 及 validateStatus props 来分别设置 `aria-disabled`、`aria-invalid`；
+- TagInput 的输入框和清空按钮均具有 `aria-label` 来表明元素作用。
 
 ## 设计变量
 <DesignToken/>

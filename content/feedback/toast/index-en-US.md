@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 66
+order: 67
 category: Feedback
 title: Toast
 subTitle: Toast
@@ -408,6 +408,12 @@ HookToast
 
 -   `Toast.useToast` **v>=1.2.0**  
     When you need access Context, you could use `Toast.useToast` to create a `contextHolder` and insert to corresponding DOM tree. Toast created by hooks will be able to access the context where `contextHolder` is inserted. Hook toast has following methods: `info`, `success`, `warning`, `error`, `close`.
+
+## Accessibility
+
+### ARIA
+
+- The role of Toast is alert
 
 ## Design Tokens
 

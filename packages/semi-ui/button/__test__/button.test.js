@@ -29,7 +29,7 @@ describe('Button', () => {
 
     it(`test loading`, () => {
         const elem = mount(<Button icon={<IconEdit />} loading />);
-        expect(elem.find(`#Artboard`).length).toBe(1);
+        expect(elem.find({ 'data-icon': 'spin' }).length).toBe(1);
     });
 
     it('test button type',()=>{

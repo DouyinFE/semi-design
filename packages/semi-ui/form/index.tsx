@@ -19,8 +19,6 @@ import withField from './hoc/withField';
 import withFormState from './hoc/withFormState';
 import withFormApi from './hoc/withFormApi';
 
-export * from './interface';
-
 export {
     Form,
     ArrayField,

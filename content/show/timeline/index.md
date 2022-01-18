@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 58
+order: 59
 category: 展示类
 title: Timeline 时间轴
 icon: doc-timeline
@@ -232,17 +232,31 @@ import { IconAlertTriangle } from '@douyinfe/semi-icons';
 
 ### TimeLine.Item
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| className | 类名 | string | - |
-| color | 自定义的圆圈色值 | string | - |
-| dot | 自定义时间轴点 | ReactNode | - |
-| extra | 自定义辅助内容 | ReactNode | - |
-| position | 自定义节点位置，可以覆盖 TimeLine 的模式选项 | `left`\|`right` | - |
-| style | 样式 | CSSProperties | - |
-| time | 时间文本 | ReactNode | - |
-| type | 当前圆圈的模式 | `default`\|`ongoing`\|`success`\|`warning`\|`error` | `default` |
+| 属性 | 说明 | 类型 | 默认值 | 版本 |
+| --- | --- | --- | --- | --- |
+| className | 类名 | string | - | - |
+| color | 自定义的圆圈色值 | string | - | - |
+| dot | 自定义时间轴点 | ReactNode | - | - |
+| extra | 自定义辅助内容 | ReactNode | - | - |
+| position | 自定义节点位置，可以覆盖 TimeLine 的模式选项 | `left`\|`right` | - | - |
+| style | 样式 | CSSProperties | - | - |
+| time | 时间文本 | string | - | - |
+| type | 当前圆圈的模式 | `default`\|`ongoing`\|`success`\|`warning`\|`error` | `default` | - |
+| onClick | 鼠标点击事件的回调 | (e: MouseEvent) => void | - | 2.2.0 |
 
+## Accessibility
+
+### ARIA
+- 组件中时间点的连线以及时间点本身被设置了 `aria-hidden`，不会响应 Accessibility API
+- 可以通过传入 `aria-label` 设置 TimeLine 组件的标签
+```js
+<Timeline aria-label="xx事故处理过程时间线">
+    <Timeline.Item time="2015-09-01">创建服务现场</Timeline.Item>
+    <Timeline.Item time="2015-09-02">初步排除网络异常</Timeline.Item>
+    <Timeline.Item time="2015-09-03">技术测试异常</Timeline.Item>
+    <Timeline.Item time="2015-09-05">网络异常正在修复</Timeline.Item>
+</Timeline>
+```
 ## 设计变量
 
 <DesignToken/>

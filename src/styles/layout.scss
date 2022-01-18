@@ -35,6 +35,10 @@ body[theme-mode="dark"] {
 code,
 pre {
     font-family: Inconsolata, monospace;
+    background-color: var(--semi-color-fill-1);
+    margin-left: 4px;
+    margin-right: 4px;
+    letter-spacing: -0.01em;
 }
 
 body[theme-mode="dark"] {

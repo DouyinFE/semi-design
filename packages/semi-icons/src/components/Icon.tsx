@@ -3,7 +3,7 @@ import { BASE_CLASS_PREFIX } from '../env';
 import cls from 'classnames';
 import '../styles/icons.scss';
 
-export type IconSize = 'extra-small' | 'small' | 'default' | 'large' | 'extra-large';
+export type IconSize = 'inherit' | 'extra-small' | 'small' | 'default' | 'large' | 'extra-large';
 
 export interface IconProps extends DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement> {
     svg: ReactNode;
@@ -31,7 +31,7 @@ const Icon = React.forwardRef<HTMLSpanElement, IconProps>((props, ref) => {
         outerStyle.transform = `rotate(${rotate}deg)`;
     }
     Object.assign(outerStyle, style);
-    return <span role="img" ref={ref} className={classes} style={outerStyle} {...restProps}>{svg}</span>;
+    return <span role="img" ref={ref} aria-label={type} className={classes} style={outerStyle} {...restProps}>{svg}</span>;
 });
 
 // @ts-ignore used to judge whether it is a semi-icon in semi-ui

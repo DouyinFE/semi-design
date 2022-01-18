@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 59
+order: 60
 category: 展示类
 title: Tooltip 工具提示
 icon: doc-tooltip
@@ -111,6 +111,28 @@ function Demo() {
         </div>
     );
 }
+```
+
+### 覆盖特定样式
+
+你可以通过 className、style 为弹出层配置特定样式，例如覆盖默认的 maxWidth （280px）
+```jsx live=true
+import React from 'react';
+import { Tooltip, Tag } from '@douyinfe/semi-ui';
+
+() => {
+    return (
+        <Tooltip
+            style={{
+                maxWidth: 320
+            }}
+            className='another-classname'
+            content={'hi semi semi semi semi semi semi semi'}
+        >
+            <Tag style={{ marginRight: '8px' }}>Custom Style And ClassName</Tag>
+        </Tooltip>
+    );
+};
 ```
 
 ### 位置
@@ -415,6 +437,7 @@ function Demo() {
 | autoAdjustOverflow | 弹出层被遮挡时是否自动调整方向 | boolean | true |  |
 | arrowPointAtCenter | “小三角”是否指向元素中心，需要同时传入"showArrow=true" | boolean | true | **0.34.0** |
 | content | 弹出层内容 | string\|ReactNode |  |  |
+| className | 弹出层的样式名 | string |  |  |
 | clickToHide | 点击弹出层及内部任一元素时是否自动关闭弹层 | boolean | false | **0.24.0** |
 | getPopupContainer | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 `position: relative` | function():HTMLElement | () => document.body |  |
 | mouseEnterDelay | 鼠标移入后，延迟显示的时间，单位毫秒（仅当 trigger 为 hover/focus 时生效） | number | 50 |  |
@@ -423,6 +446,7 @@ function Demo() {
 | position | 弹出层展示位置，可选值：`top`, `topLeft`, `topRight`, `left`, `leftTop`, `leftBottom`, `right`, `rightTop`, `rightBottom`, `bottom`, `bottomLeft`, `bottomRight` | string | 'top' |  |
 | prefixCls | 弹出层 wrapper div 的 `className` 前缀，设置该项时，弹出层将不再带 Tooltip 的样式 | string | 'semi-tooltip' |  |
 | rePosKey | 可以更新该项值手动触发弹出层的重新定位 | string\|number |  |  |
+| style    | 弹出层的内联样式 | object |  |  |
 | spacing | 弹出层与 `children` 元素的距离，单位 px | number | 8 |  |
 | showArrow | 是否显示箭头三角形 | boolean | true |  |
 | stopPropagation | 是否阻止弹层上的点击事件冒泡 | boolean | false | **0.34.0** |
@@ -433,6 +457,28 @@ function Demo() {
 | zIndex | 弹层层级 | number | 1060 |  |
 | onVisibleChange | 弹出层展示/隐藏时触发的回调 | function(isVisible:boolean) |  |  |
 | onClickOutSide | 当弹出层处于展示状态，点击非Children、非浮层内部区域时的回调（仅trigger为custom、click时有效）| function(e:event) |  | **2.1.0** |
+
+## Accessibility
+
+### ARIA
+
+- Tooltip 具有 `tooltip` role，遵循 [WAI-ARIA](https://www.w3.org/TR/wai-aria-practices/#tooltip) 规范中对于 Tooltip 的定义
+- Tooltip 的 content 与 children
+  - 关于 content
+      - content 的 wrapper 会被自动添加 id 属性，用于与 children 的 `aria-describedby` 匹配，关联 content 与 children
+  - 关于 children
+       - Tooltip 的内容（content）与其触发器（children）之间应当具有显式联系。Tooltip 会自动为 children 元素添加 `aria-describedby` 属性，值为 content wraper的 id
+       - 若你 Tooltip的children 是Icon，不包含可见文本，我们推荐你在 children 上添加 `aria-label` 属性进行相应描述
+
+```js
+// Good practices, add aria-label to description tooltip children
+/* eslint-disable */
+<Tooltip content={<p id='description'>Edit your setting</p>}>
+    <IconSetting aria-label='Settings'> 
+    </IconSetting>
+</Tooltip>
+```
+
 ## 设计变量
 
 <DesignToken/>

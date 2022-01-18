@@ -26,6 +26,12 @@ export type ValidateStatus = "default" | "error" | "warning" | "success";
 
 export interface InputProps extends
     Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'prefix' | 'size' | 'autoFocus' | 'placeholder' | 'onFocus' | 'onBlur'> {
+    'aria-label'?: React.AriaAttributes['aria-label'];
+    'aria-describedby'?: React.AriaAttributes['aria-describedby'];
+    'aria-errormessage'?: React.AriaAttributes['aria-errormessage'];
+    'aria-invalid'?: React.AriaAttributes['aria-invalid'];
+    'aria-labelledby'?: React.AriaAttributes['aria-labelledby'];
+    'aria-required'?: React.AriaAttributes['aria-required'];
     addonBefore?: React.ReactNode;
     addonAfter?: React.ReactNode;
     prefix?: React.ReactNode;
@@ -41,6 +47,7 @@ export interface InputProps extends
     hideSuffix?: boolean;
     placeholder?: React.ReactText;
     insetLabel?: React.ReactNode;
+    insetLabelId?: string;
     size?: InputSize;
     className?: string;
     style?: React.CSSProperties;
@@ -73,6 +80,12 @@ export interface InputState {
 
 class Input extends BaseComponent<InputProps, InputState> {
     static propTypes = {
+        'aria-label': PropTypes.string,
+        'aria-labelledby': PropTypes.string,
+        'aria-invalid': PropTypes.bool,
+        'aria-errormessage': PropTypes.string,
+        'aria-describedby': PropTypes.string,
+        'aria-required': PropTypes.bool,
         addonBefore: PropTypes.node,
         addonAfter: PropTypes.node,
         prefix: PropTypes.node,
@@ -101,6 +114,7 @@ class Input extends BaseComponent<InputProps, InputState> {
         onKeyPress: PropTypes.func,
         onEnterPress: PropTypes.func,
         insetLabel: PropTypes.node,
+        insetLabelId: PropTypes.string,
         inputStyle: PropTypes.object,
         getValueLength: PropTypes.func,
     };
@@ -207,6 +221,10 @@ class Input extends BaseComponent<InputProps, InputState> {
         this.foundation.handleClear(e);
     };
 
+    handleClearEnterPress = (e: React.KeyboardEvent<HTMLDivElement>) => {
+        this.foundation.handleClearEnterPress(e);
+    };
+
     handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
         this.foundation.handleClick(e);
     };
@@ -234,6 +252,10 @@ class Input extends BaseComponent<InputProps, InputState> {
     handleMouseUp = (e: React.MouseEvent<HTMLInputElement>) => {
         this.foundation.handleMouseUp(e);
     };
+
+    handleModeEnterPress = (e: React.KeyboardEvent<HTMLDivElement>) => {
+        this.foundation.handleModeEnterPress(e);
+    }
 
     handleClickPrefixOrSuffix = (e: React.MouseEvent<HTMLInputElement>) => {
         this.foundation.handleClickPrefixOrSuffix(e);
@@ -275,7 +297,14 @@ class Input extends BaseComponent<InputProps, InputState> {
         // use onMouseDown to fix issue 1203
         if (allowClear) {
             return (
-                <div className={clearCls} onMouseDown={this.handleClear}>
+                <div
+                    role="button"
+                    tabIndex={0}
+                    aria-label="Clear input value"
+                    className={clearCls}
+                    onMouseDown={this.handleClear}
+                    onKeyPress={this.handleClearEnterPress}
+                >
                     <IconClear />
                 </div>
             );
@@ -289,9 +318,19 @@ class Input extends BaseComponent<InputProps, InputState> {
         const modeCls = cls(`${prefixCls}-modebtn`);
         const modeIcon = eyeClosed ? <IconEyeClosedSolid /> : <IconEyeOpened />;
         const showModeBtn = mode === 'password' && value && !disabled && (isFocus || isHovering);
+        const ariaLabel = eyeClosed ? 'Show password' : 'Hidden password';
         if (showModeBtn) {
             return (
-                <div className={modeCls} onClick={this.handleClickEye} onMouseDown={this.handleMouseDown} onMouseUp={this.handleMouseUp}>
+                <div
+                    role="button"
+                    tabIndex={0}
+                    aria-label={ariaLabel}
+                    className={modeCls}
+                    onClick={this.handleClickEye}
+                    onMouseDown={this.handleMouseDown}
+                    onMouseUp={this.handleMouseUp}
+                    onKeyPress={this.handleModeEnterPress}
+                >
                     {modeIcon}
                 </div>
             );
@@ -300,7 +339,7 @@ class Input extends BaseComponent<InputProps, InputState> {
     }
 
     renderPrefix() {
-        const { prefix, insetLabel } = this.props;
+        const { prefix, insetLabel, insetLabelId } = this.props;
         const labelNode = prefix || insetLabel;
         if (!labelNode) {
             return null;
@@ -312,7 +351,8 @@ class Input extends BaseComponent<InputProps, InputState> {
             [`${prefixCls}-prefix-icon`]: isSemiIcon(labelNode),
         });
 
-        return <div className={prefixWrapperCls} onMouseDown={this.handlePreventMouseDown} onClick={this.handleClickPrefixOrSuffix}>{labelNode}</div>;
+        // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
+        return <div className={prefixWrapperCls} onMouseDown={this.handlePreventMouseDown} onClick={this.handleClickPrefixOrSuffix} id={insetLabelId}>{labelNode}</div>;
     }
 
     showClearBtn() {
@@ -332,6 +372,7 @@ class Input extends BaseComponent<InputProps, InputState> {
             [`${prefixCls }-suffix-icon`]: isSemiIcon(suffix),
             [`${prefixCls}-suffix-hidden`]: suffixAllowClear && Boolean(hideSuffix),
         });
+        // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
         return <div className={suffixWrapperCls} onMouseDown={this.handlePreventMouseDown} onClick={this.handleClickPrefixOrSuffix}>{suffix}</div>;
     }
 
@@ -417,7 +458,11 @@ class Input extends BaseComponent<InputProps, InputState> {
         if (stateMinLength) {
             inputProps.minLength = stateMinLength;
         }
+        if (validateStatus === 'error') {
+            inputProps['aria-invalid'] = "true";
+        }
         return (
+            // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
             <div
                 className={wrapperCls}
                 style={style}

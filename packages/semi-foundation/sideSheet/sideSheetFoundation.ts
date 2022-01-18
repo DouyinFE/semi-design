@@ -29,13 +29,14 @@ export interface SideSheetProps {
     width?: number | string;
     zIndex?: number;
     children?: any;
+    'aria-label'?: string;
 }
 
-export interface SideSheetState{
+export interface SideSheetState {
     hidden: boolean;
 }
 
-export interface SideSheetAdapter extends DefaultAdapter<SideSheetProps, SideSheetState>{
+export interface SideSheetAdapter extends DefaultAdapter<SideSheetProps, SideSheetState> {
     disabledBodyScroll: () => void;
     enabledBodyScroll: () => void;
     notifyCancel: (e: any) => void;
@@ -44,9 +45,6 @@ export interface SideSheetAdapter extends DefaultAdapter<SideSheetProps, SideShe
     removeKeyDownListener: () => void;
     toggleHidden: (hidden: boolean) => void;
 }
-
-
-
 
 
 export default class SideSheetFoundation extends BaseFoundation<SideSheetAdapter> {

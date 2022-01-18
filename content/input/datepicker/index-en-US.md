@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 19
+order: 20
 category: Input
 title: DatePicker
 subTitle: Date Selector
@@ -143,6 +143,8 @@ version：>= 1.28.0
 
 In the scenario of range selection, turning on `syncSwitchMonth` means to switch the two panels simultaneously. The default is false.
 
+> Note: Clicking the year button will also switch the two panels synchronously. Switching the year and month from the scroll wheel will not switch the panels synchronously. This ensures the user's ability to select months at non-fixed intervals.
+
 ```jsx live=true
 import React from 'react';
 import { DatePicker } from '@douyinfe/semi-ui';
@@ -262,6 +264,8 @@ For the selection of "datetime" (type = "dateTime") or "datetime range" (type = 
 At the same time, the click callbacks of the "onConfirm" and "onCancel" buttons are supported.
 
 The following example binds three callbacks: `onChange`, `onConfirm` and `onCancel`, and you can open the console to see the difference in print information.
+
+> Note: When opening `needConfirm`, you need to click the cancel button to close the panel, and clicking the blank area will no longer close the panel (v2.2.0)
 
 ```jsx live=true
 import React from 'react';

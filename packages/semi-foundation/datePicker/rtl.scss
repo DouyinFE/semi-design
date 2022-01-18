@@ -9,6 +9,18 @@ $module: #{$prefix}-datepicker;
             padding-right: 0;
             padding-left: $spacing-datepicker_footer-paddingRight;
             text-align: left;
+
+            .#{$prefix}-button {
+                &:first-of-type {
+                    margin-left: 0;
+                    margin-right: 0;
+                }
+                // confirm button
+                &:nth-of-type(2) {
+                    margin-right: $spacing-datepicker_footer_cancel_button-marginRight;
+                    margin-left: 0;
+                }
+            }
         }
 
         &-day {
@@ -66,7 +78,9 @@ $module: #{$prefix}-datepicker;
         &-yam {
             // rtl 对箭头进行翻转
             .#{$prefix}-icon-chevron_left,
-            .#{$prefix}-icon-chevron_right {
+            .#{$prefix}-icon-chevron_right,
+            .#{$prefix}-icon-double_chevron_left,
+            .#{$prefix}-icon-double_chevron_right {
                 transform: scaleX(-1);
             }
         }

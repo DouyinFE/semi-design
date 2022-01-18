@@ -76,6 +76,28 @@ describe('TagInput', () => {
         tagInput.unmount();
     });
 
+    it('TagInput with defaultValue and value is undefined', () => {
+        const props = {
+            defaultValue: ['tiktok', 'hotsoon'],
+            value: undefined,
+        };
+        const tagInput = getTagInput(props);
+        const tags = tagInput.find(`.${BASE_CLASS_PREFIX}-tagInput-wrapper .${BASE_CLASS_PREFIX}-tag-content`);
+        expect(tags.length).toEqual(0);
+        tagInput.unmount();
+    });
+
+    it('TagInput with defaultValue and value is null', () => {
+        const props = {
+            defaultValue: ['tiktok', 'hotsoon'],
+            value: null,
+        };
+        const tagInput = getTagInput(props);
+        const tags = tagInput.find(`.${BASE_CLASS_PREFIX}-tagInput-wrapper .${BASE_CLASS_PREFIX}-tag-content`);
+        expect(tags.length).toEqual(0);
+        tagInput.unmount();
+    });
+
     it('TagInput with disabled', () => {
         const disabledTagInput = mount(<TagInput disabled />);
         expect(disabledTagInput.exists(`.${BASE_CLASS_PREFIX}-tagInput-disabled`)).toEqual(true);
@@ -326,6 +348,30 @@ describe('TagInput', () => {
         tagInput.setProps({ value: ['hotsoon'] });
         tagInput.update();
         expect(tagInput.find(`.${BASE_CLASS_PREFIX}-tagInput-wrapper .${BASE_CLASS_PREFIX}-tag-content`).getDOMNode().textContent).toEqual('hotsoon');
+    });
+
+    it('tagInput with set value to null  ', () => {
+        const props = {
+            value: ['tiktok']
+        };
+        const tagInput = getTagInput(props);
+        expect(tagInput.find(`.${BASE_CLASS_PREFIX}-tagInput-wrapper .${BASE_CLASS_PREFIX}-tag-content`).getDOMNode().textContent).toEqual('tiktok');
+        tagInput.setProps({ value: null });
+        tagInput.update();
+        const tags = tagInput.find(`.${BASE_CLASS_PREFIX}-tagInput-wrapper .${BASE_CLASS_PREFIX}-tag-content`);
+        expect(tags.length).toEqual(0);
+    });
+
+    it('tagInput with set value to null  ', () => {
+        const props = {
+            value: ['tiktok']
+        };
+        const tagInput = getTagInput(props);
+        expect(tagInput.find(`.${BASE_CLASS_PREFIX}-tagInput-wrapper .${BASE_CLASS_PREFIX}-tag-content`).getDOMNode().textContent).toEqual('tiktok');
+        tagInput.setProps({ value: undefined });
+        tagInput.update();
+        const tags = tagInput.find(`.${BASE_CLASS_PREFIX}-tagInput-wrapper .${BASE_CLASS_PREFIX}-tag-content`);
+        expect(tags.length).toEqual(0);
     });
 
     it('tagInput with inputValue controlled mode ', () => {

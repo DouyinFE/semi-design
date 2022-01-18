@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 56
+order: 57
 category: 展示类
 title:  Table 表格
 icon: doc-table
@@ -4371,6 +4371,18 @@ function App() {
 render(App);
 ```
 
+## Accessibility
+
+### ARIA
+
+- 表格的 role 为 grid，树形表格的 role 为 treegrid
+- 行的 role 为 row，单元格的 role 为 gridcell
+- 表格新增了 aria-rowcount 和 aria-colcount 属性表示行和列的数量
+- 行新增了 aria-rowindex 表示当前属于第几行，第一行为 1
+- 树形表格的行具有 aria-level 表示当前行的树形层级，第一层为 1
+- 可展开表格行具有 aria-expanded 属性，表示当前行是否展开
+- 单元格的新增了 aria-colindex 表示当前格子属于第几列，第一列为 1
+- 列的筛选和排序按钮添加了 aria-label，行的选择按钮添加了 aria-label 属性
 
 ## API 参考
 
@@ -4415,7 +4427,7 @@ render(App);
 | title                     | 表格标题                                                                                                       | ReactNode<br/>\|(pageData: RecordType[]) => ReactNode                                                           |            |
 | virtualized               | 虚拟化配置                                                                                                     | Virtualized                                                                                                     | false      | **0.33.0**                              |
 | virtualized.itemSize      | 每行的高度                                                                                                     | number\|(index: number) => number                                                                               | 56         | **0.33.0**                              |
-| virtualized.onScroll      | 虚拟化滚动回调方法                                                                                             | ( scrollDirection?: 'foward' \| 'backward', scrollOffset?: number, scrollUpdateWasRequested?: boolean ) => void |            | **0.33.0**                              |
+| virtualized.onScroll      | 虚拟化滚动回调方法                                                                                             | ( scrollDirection?: 'forward' \| 'backward', scrollOffset?: number, scrollUpdateWasRequested?: boolean ) => void |            | **0.33.0**                              |
 | onChange                  | 分页、排序、筛选变化时触发                                                                                     | ({ pagination: TablePaginationProps, <br/>filters: Array<\*>, sorter: object, extra: any }) => void             |            |
 | onExpand                  | 点击行展开图标时进行触发                                                                                       | (expanded: boolean, record: RecordType, DOMEvent: MouseEvent) => void                                           |            | 第三个参数 DOMEvent 需版本 **>=0.28.0** |
 | onExpandedRowsChange      | 展开的行变化时触发                                                                                             | (rows: RecordType[]) => void                                                                                    |            |

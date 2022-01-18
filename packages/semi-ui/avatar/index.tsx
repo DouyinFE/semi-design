@@ -47,6 +47,7 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
         onMouseLeave: PropTypes.func,
     };
 
+    foundation!: AvatarFoundation;
     constructor(props: AvatarProps) {
         super(props);
         this.state = {
@@ -106,12 +107,12 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
         this.foundation.destroy();
     }
 
-    onEnter() {
-        this.foundation.handleEnter();
+    onEnter(e: React.MouseEvent) {
+        this.foundation.handleEnter(e);
     }
 
-    onLeave() {
-        this.foundation.handleLeave();
+    onLeave(e: React.MouseEvent) {
+        this.foundation.handleLeave(e);
     }
 
     handleError() {
@@ -147,6 +148,7 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
             );
         }
         return (
+            // eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events
             <span
                 {...(others as any)}
                 style={style}

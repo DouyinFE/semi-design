@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 17
+order: 18
 category: 输入类
 title:  Cascader 级联选择
 icon: doc-cascader
@@ -671,6 +671,69 @@ import { Cascader, Tag, Typography } from '@douyinfe/semi-ui';
 };
 ```
 
+### 自定义分隔符
+
+版本: >=2.2.0
+
+可以使用 `separator` 设置分隔符, 包括：搜索时显示在下拉框的内容以及单选时回显到 Trigger 的内容的分隔符。
+
+```jsx live=true
+import React from 'react';
+import { Cascader } from '@douyinfe/semi-ui';
+
+() => {
+    const treeData = [
+        {
+            label: '浙江省',
+            value: 'zhejiang',
+            children: [
+                {
+                    label: '杭州市',
+                    value: 'hangzhou',
+                    children: [
+                        {
+                            label: '西湖区',
+                            value: 'xihu',
+                        },
+                        {
+                            label: '萧山区',
+                            value: 'xiaoshan',
+                        },
+                        {
+                            label: '临安区',
+                            value: 'linan',
+                        },
+                    ],
+                },
+                {
+                    label: '宁波市',
+                    value: 'ningbo',
+                    children: [
+                        {
+                            label: '海曙区',
+                            value: 'haishu',
+                        },
+                        {
+                            label: '江北区',
+                            value: 'jiangbei',
+                        }
+                    ]
+                },
+            ],
+        }
+    ];
+    return (
+        <Cascader
+            style={{ width: 300 }}
+            treeData={treeData}
+            defaultValue={['zhejiang', 'ningbo', 'jiangbei']}
+            filterTreeNode
+            separator=' > '
+        />
+    );
+};
+```
+
 ### 禁用
 
 ```jsx live=true
@@ -990,78 +1053,141 @@ class Demo extends React.Component {
 ### 自动合并 value
 版本: >=1.28.0
 
-在多选（multiple=true）场景中，当我们选中祖先节点时，如果希望 value 不包含它对应的子孙节点，则可以通过 `autoMergeValue` 来设置，默认为 true。
+在多选（multiple=true）场景中，当我们选中祖先节点时，如果希望 value 不包含它对应的子孙节点，则可以通过 `autoMergeValue` 来设置，默认为 true。当 autoMergeValue 和 leafOnly 同时开启时，后者优先级更高。
 
 ```jsx live=true
-import React from 'react';
+import React, { useState } from 'react';
 import { Cascader } from '@douyinfe/semi-ui';
 
-class Demo extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            value: ['zhejiang','ningbo']
-        };
-    }
-    onChange(value) {
+() => {
+    const [value, setValue] = useState([]);
+    const onChange = value => {
         console.log(value);
-        this.setState({value});
-    }
-    render() {
-        const treeData = [
-            {
-                label: '浙江省',
-                value: 'zhejiang',
-                children: [
-                    {
-                        label: '杭州市',
-                        value: 'hangzhou',
-                        children: [
-                            {
-                                label: '西湖区',
-                                value: 'xihu',
-                            },
-                            {
-                                label: '萧山区',
-                                value: 'xiaoshan',
-                            },
-                            {
-                                label: '临安区',
-                                value: 'linan',
-                            },
-                        ],
-                    },
-                    {
-                        label: '宁波市',
-                        value: 'ningbo',
-                        children: [
-                            {
-                                label: '海曙区',
-                                value: 'haishu',
-                            },
-                            {
-                                label: '江北区',
-                                value: 'jiangbei',
-                            }
-                        ]
-                    },
-                ],
-            }
-        ];
-        return (
-            <Cascader
-                style={{ width: 300 }}
-                treeData={treeData}
-                placeholder="请选择所在地区"
-                value={this.state.value}
-                multiple
-                autoMergeValue={false}
-                onChange={e => this.onChange(e)}
-            />
-        );
-    }
-}
+        setValue(value);
+    };
+    const treeData = [
+        {
+            label: '浙江省',
+            value: 'zhejiang',
+            children: [
+                {
+                    label: '杭州市',
+                    value: 'hangzhou',
+                    children: [
+                        {
+                            label: '西湖区',
+                            value: 'xihu',
+                        },
+                        {
+                            label: '萧山区',
+                            value: 'xiaoshan',
+                        },
+                        {
+                            label: '临安区',
+                            value: 'linan',
+                        },
+                    ],
+                },
+                {
+                    label: '宁波市',
+                    value: 'ningbo',
+                    children: [
+                        {
+                            label: '海曙区',
+                            value: 'haishu',
+                        },
+                        {
+                            label: '江北区',
+                            value: 'jiangbei',
+                        }
+                    ]
+                },
+            ],
+        }
+    ];
+    return (
+        <Cascader
+            style={{ width: 300 }}
+            treeData={treeData}
+            placeholder="autoMergeValue 为 false"
+            value={value}
+            multiple
+            autoMergeValue={false}
+            onChange={e => onChange(e)}
+        />
+    );
+};
 ```
+
+### 仅叶子节点
+版本: >=2.2.0
+
+在多选时，可以通过开启 leafOnly 来设置 value 只包含叶子节点，即显示的 Tag 和 onChange 的参数 value 只包含 value。
+
+```jsx live=true
+import React, { useState } from 'react';
+import { Cascader } from '@douyinfe/semi-ui';
+
+() => {
+    const [value, setValue] = useState([]);
+    const onChange = value => {
+        console.log(value);
+        setValue(value);
+    };
+    const treeData = [
+        {
+            label: '浙江省',
+            value: 'zhejiang',
+            children: [
+                {
+                    label: '杭州市',
+                    value: 'hangzhou',
+                    children: [
+                        {
+                            label: '西湖区',
+                            value: 'xihu',
+                        },
+                        {
+                            label: '萧山区',
+                            value: 'xiaoshan',
+                        },
+                        {
+                            label: '临安区',
+                            value: 'linan',
+                        },
+                    ],
+                },
+                {
+                    label: '宁波市',
+                    value: 'ningbo',
+                    children: [
+                        {
+                            label: '海曙区',
+                            value: 'haishu',
+                        },
+                        {
+                            label: '江北区',
+                            value: 'jiangbei',
+                        }
+                    ]
+                },
+            ],
+        }
+    ];
+    return (
+        <Cascader
+            style={{ width: 300 }}
+            treeData={treeData}
+            placeholder="开启 leafOnly"
+            value={value}
+            multiple
+            leafOnly
+            onChange={e => onChange(e)}
+        />
+    );
+};
+```
+
 
 ### 动态更新数据
 
@@ -1384,7 +1510,7 @@ function Demo() {
 | ------------------ | ------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------- | -------------------------------- | ------ |
 | arrowIcon     |   自定义右侧下拉箭头 Icon，当 showClear 开关打开且当前有选中值时，hover 会优先显示 clear icon                                                              | ReactNode                                                                          |                             | 1.15.0      |
 | autoAdjustOverflow | 是否自动调整下拉框展开方向，用于边缘遮挡时自动调整展开方向 | boolean | true | - |
-| autoMergeValue | 设置自动合并 value。具体而言是，开启后，当某个父节点被选中时，value 将不包括该节点的子孙节点 | boolean | true |  1.28.0 |
+| autoMergeValue | 设置自动合并 value。具体而言是，开启后，当某个父节点被选中时，value 将不包括该节点的子孙节点。不支持动态切换 | boolean | true |  1.28.0 |
 | bottomSlot | 底部插槽 | ReactNode | - |  1.27.0 |
 | changeOnSelect     | 是否允许选择非叶子节点                                                                   | boolean                                                                          | false                            | -      |
 | className          | 选择框的 className 属性                                                              | string                                                                           | -                                | -      |
@@ -1400,6 +1526,7 @@ function Demo() {
 | filterTreeNode     | 设置筛选，默认用 treeNodeFilterProp 的值作为要筛选的 TreeNode 的属性值 | ((inputValue: string, treeNodeString: string) => boolean) \| boolean | false                            | -      |
 | getPopupContainer | 指定父级 DOM，下拉框将会渲染至该 DOM 中，自定义需要设置 position: relative |() => HTMLElement|() => document.body|-|
 | insetLabel         | 前缀标签别名，主要用于 Form                                                          | ReactNode                                                                        | -                                | 0.28.0 |
+| leafOnly | 多选时设置 value 只包含叶子节点，即显示的 Tag 和 onChange 的 value 参数只包含叶子节点。不支持动态切换 | boolean | false |  2.2.0|
 | loadData | 异步加载数据，需要返回一个Promise | (selectOptions: TreeNode[]) => Promise< void > |- |  1.8.0|
 | max| 多选时，限制多选选中的数量，超出 max 后将触发 onExceed 回调 | number |-|1.28.0|
 | maxTagCount| 多选时，标签的最大展示数量，超出后将以 +N 形式展示| number |-|1.28.0|
@@ -1411,6 +1538,7 @@ function Demo() {
 | prefix             | 前缀标签                                                                             | ReactNode                                                                        | -                                | 0.28.0 |
 |restTagsPopoverProps |Popover 的配置属性，可以控制 position、zIndex、trigger 等，具体参考[Popover](/zh-CN/show/popover#API%20%E5%8F%82%E8%80%83)           |PopoverProps     | {}        |1.28.0|
 | searchPlaceholder  | 搜索框默认文字                                                                       | string                                                                           | -                                | -      |
+| separator  | 自定义分隔符，包括：搜索时显示在下拉框的内容以及单选时回显到 Trigger 的内容的分隔符    | string                                                                           | ' / '                                | 2.2.0      |
 | showClear       |  是否展示清除按钮   | boolean    | false    | 0.35.0    |
 | showNext| 设置展开 Dropdown 子菜单的方式，可选: `click`、`hover` | string |`click`|1.29.0|
 | showRestTagsPopover| 当超过 maxTagCount，hover 到 +N 时，是否通过 Popover 显示剩余内容| boolean |false|1.28.0|
@@ -1426,6 +1554,7 @@ function Demo() {
 | validateStatus | trigger 的校验状态，仅影响展示样式。可选: default、error、warning | string | `default` | - |
 | value       | （受控）选中的条目                                                                   | string\|number\|TreeNode\|(string\|number\|TreeNode)[]                                                                           | -                                | -      |
 | zIndex | 下拉菜单的 zIndex | number | 1030 | - |
+| enableLeafClick | 多选时，是否启动点击叶子节点选项触发勾选 | boolean | false | 2.2.0 |
 | onBlur | 失焦 Cascader 的回调 | (e: MouseEvent) => void | - | - |
 | onChange           | 选中树节点时调用此函数，默认返回选中项 path 的 value 数组                            | (value: string\|number\|TreeNode\|(string\|number\|TreeNode)[]) => void                                                                         | -                                | -      |
 | onChangeWithObject | 是否将选中项 option 的其他属性作为回调。设为 true 时，onChange 的入参类型会从 string/number 变为 TreeNode。此时如果是受控，也需要把 value 设置成 TreeNode 类型，且必须含有 value 的键值，defaultValue 同理 | boolean | false | 1.16.0 |

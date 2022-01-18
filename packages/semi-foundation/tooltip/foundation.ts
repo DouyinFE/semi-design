@@ -270,7 +270,6 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         if (trigger === 'custom') {
             // eslint-disable-next-line
             this._adapter.registerClickOutsideHandler(() => {});
-            this._togglePortalVisible(true);
         }
 
         /**
@@ -571,6 +570,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
     // place the dom correctly
     adjustPosIfNeed(position: Position | string, style: Record<string, any>, triggerRect: DOMRect, wrapperRect: DOMRect, containerRect: PopupContainerDOMRect) {
         const { innerWidth, innerHeight } = window;
+        const { spacing } = this.getProps();
 
         if (wrapperRect.width > 0 && wrapperRect.height > 0) {
             // let clientLeft = left + translateX * wrapperRect.width - containerRect.scrollLeft;
@@ -600,10 +600,10 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
 
             // The wrapperR ect.top|bottom equivalent cannot be directly used here for comparison, which is easy to cause jitter
 
-            const shouldReverseTop = clientTop < wrapperRect.height && restClientBottom > wrapperRect.height;
-            const shouldReverseLeft = clientLeft < wrapperRect.width && restClientRight > wrapperRect.width;
-            const sholdReverseBottom = restClientBottom < wrapperRect.height && clientTop > wrapperRect.height;
-            const shouldReverseRight = restClientRight < wrapperRect.width && clientLeft > wrapperRect.width;
+            const shouldReverseTop = clientTop < wrapperRect.height + spacing && restClientBottom > wrapperRect.height + spacing;
+            const shouldReverseLeft = clientLeft < wrapperRect.width + spacing && restClientRight > wrapperRect.width + spacing;
+            const sholdReverseBottom = restClientBottom < wrapperRect.height + spacing && clientTop > wrapperRect.height + spacing;
+            const shouldReverseRight = restClientRight < wrapperRect.width + spacing && clientLeft > wrapperRect.width + spacing;
 
             const shouldReverseTopSide = restClientTop < wrapperRect.height && clientBottom > wrapperRect.height;
             const shouldReverseBottomSide = clientBottom < wrapperRect.height && restClientTop > wrapperRect.height;

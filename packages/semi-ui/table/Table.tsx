@@ -95,6 +95,7 @@ export interface NormalTableState<RecordType extends Record<string, any> = Data>
     bodyHasScrollBar?: boolean;
     prePropRowSelection?: TableStateRowSelection<RecordType>;
     tableWidth?: number;
+    prePagination?: Pagination;
 }
 
 export type TableStateRowSelection<RecordType extends Record<string, any> = Data> = (RowSelectionProps<RecordType> & { selectedRowKeysSet?: Set<(string | number)> }) | boolean;
@@ -390,6 +391,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             headWidths: [], // header cell width
             bodyHasScrollBar: false,
             prePropRowSelection: undefined,
+            prePagination: undefined
         };
 
         this.rootWrapRef = createRef();
@@ -412,7 +414,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
 
     static getDerivedStateFromProps(props: NormalTableProps, state: NormalTableState) {
         const willUpdateStates: Partial<NormalTableState> = {};
-        const { rowSelection, dataSource, childrenRecordName, rowKey } = props;
+        const { rowSelection, dataSource, childrenRecordName, rowKey, pagination } = props;
         props.columns && props.children && logger.warn('columns should not given by object and children at the same time');
 
         if (props.columns && props.columns !== state.cachedColumns) {
@@ -453,6 +455,17 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             willUpdateStates.rowSelection = newSelectionStates;
             willUpdateStates.prePropRowSelection = rowSelection;
         }
+        if (pagination !== state.prePagination) {
+            let newPagination: Pagination = {};
+            if (isObject(state.pagination)) {
+                newPagination = { ...newPagination, ...state.pagination };
+            }
+            if (isObject(pagination)) {
+                newPagination = { ...newPagination, ...pagination };
+            }
+            willUpdateStates.pagination = newPagination;
+            willUpdateStates.prePagination = pagination;
+        }
         return willUpdateStates;
     }
 
@@ -468,16 +481,17 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
     // TODO: Extract the setState operation to the adapter or getDerivedStateFromProps function
     componentDidUpdate(prevProps: NormalTableProps<RecordType>, prevState: NormalTableState<RecordType>) {
         const {
-            pagination,
             dataSource,
             expandedRowKeys,
             expandAllRows,
             expandAllGroupRows,
             virtualized,
             components,
+            pagination: propsPagination
         } = this.props;
 
         const {
+            pagination: statePagination,
             queries: stateQueries,
             cachedColumns: stateCachedColumns,
             cachedChildren: stateCachedChildren,
@@ -521,11 +535,6 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
         }
 
 
-        // Update pagination
-        if (pagination !== prevProps.pagination) {
-            states.pagination = isObject(pagination) ? { ...pagination } : pagination;
-        }
-
         /**
          * After dataSource is updated || (cachedColumns || cachedChildren updated)
          * 1. Cache filtered sorted data and a collection of data rows, stored in this
@@ -538,10 +547,11 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             const filteredSortedDataSource = this.foundation.getFilteredSortedDataSource(_dataSource, stateQueries);
             this.foundation.setCachedFilteredSortedDataSource(filteredSortedDataSource);
             states.dataSource = filteredSortedDataSource;
-
-            if (pagination === prevProps.pagination) {
-                states.pagination = isObject(pagination) ? { ...pagination } : pagination;
-            }
+            // when dataSource has change, should reset currentPage
+            states.pagination = isObject(statePagination) ? {
+                ...statePagination,
+                currentPage: isObject(propsPagination) && propsPagination.currentPage ? propsPagination.currentPage : 1,
+            } : statePagination;
 
             if (this.props.groupBy) {
                 states.groups = null;
@@ -551,11 +561,11 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
         if (Object.keys(states).length) {
             const {
                 // eslint-disable-next-line @typescript-eslint/no-shadow
+                pagination: mergedStatePagination = null,
                 queries: stateQueries = null,
-                pagination: statePagination = null,
                 dataSource: stateDataSource = null,
             } = states;
-            const handledProps: Partial<NormalTableState<RecordType>> = this.foundation.getCurrentPageData(stateDataSource, statePagination as TablePaginationProps, stateQueries);
+            const handledProps: Partial<NormalTableState<RecordType>> = this.foundation.getCurrentPageData(stateDataSource, mergedStatePagination as TablePaginationProps, stateQueries);
 
             // After the pager is updated, reset allRowKeys of the current page
             this.adapter.setAllRowKeys(handledProps.allRowKeys);
@@ -790,6 +800,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
                 const hasRowSelected = this.foundation.hasRowSelected(selectedRowKeys, allRowKeysSet);
                 return (
                     <ColumnSelection
+                        aria-label={`${allIsSelected ? 'Deselect' : 'Select'} all rows`}
                         disabled={disabled}
                         key={columnKey}
                         selected={allIsSelected}
@@ -806,6 +817,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
 
                 return (
                     <ColumnSelection
+                        aria-label={`${selected ? 'Deselect' : 'Select'} this row`}
                         getCheckboxProps={checkboxPropsFn}
                         selected={selected}
                         onChange={(status, e) => this.toggleSelectRow(status, key, e)}
@@ -966,6 +978,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
     /**
      * render pagination
      * @param {object} pagination
+     * @param {object} propRenderPagination
      */
     renderPagination = (pagination: TablePaginationProps, propRenderPagination: RenderPagination) => {
         if (!pagination) {

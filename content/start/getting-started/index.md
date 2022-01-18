@@ -90,9 +90,9 @@ module.exports = semi({
 [![BUILD-JS][build-js-badge]][build-js-url] [![BUILD-CSS][build-css-badge]][build-css-url]
 
 [build-js-badge]: https://img.badgesize.io/https:/unpkg.com/@douyinfe/semi-ui/dist/umd/semi-ui.min.js?label=semi.min.js&compression=gzip
-[build-js-url]: https://unpkg.com/browse/@douyinfe/semi-ui@2.1.1/dist/umd/semi-ui.min.js
+[build-js-url]: https://unpkg.com/browse/@douyinfe/semi-ui/dist/umd/semi-ui.min.js
 [build-css-badge]: https://img.badgesize.io/https:/unpkg.com/@douyinfe/semi-ui/dist/css/semi.min.css?label=semi.min.css&compression=gzip
-[build-css-url]: https://unpkg.com/browse/@douyinfe/semi-ui@2.1.1/dist/css/semi.min.css
+[build-css-url]: https://unpkg.com/browse/@douyinfe/semi-ui/dist/css/semi.min.css
 
 > 我们并不推荐直接使用已构建文件，这样会全量引入所有组件，无法实现按需加载。但如果确实有非构建场景的需求，可以通过以下方式引用
 

@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 41
+order: 42
 category: 展示类
 title: Avatar 头像
 icon: doc-avatar
@@ -82,10 +82,12 @@ import { Avatar } from '@douyinfe/semi-ui';
 () => (
     <div>
         <Avatar
+            alt="a cat"
             src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"
             style={{ margin: 4 }}
         />
         <Avatar
+            alt="a cat"
             size="small"
             src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"
             style={{ margin: 4 }}
@@ -254,6 +256,44 @@ import { AvatarGroup, Avatar } from '@douyinfe/semi-ui';
 );
 ```
 
+## Accessibility
+
+- `alt`：使用图片头像时，请使用 `alt` 属性解释图片的内容
+
+```jsx
+import React from 'react';
+import { Avatar } from '@douyinfe/semi-ui';
+
+() => {
+    return (
+        <>
+            {/* Good case */ }
+            <Avatar
+                alt="一只可爱的猫咪"
+                src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"
+                style={{ margin: 4 }}
+            />
+            <Avatar
+                alt="姜鹏志"
+                src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"
+                style={{ margin: 4 }}
+            />
+            {/* Bad case */ }
+            <Avatar
+                alt=""
+                src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"
+                style={{ margin: 4 }}
+            />
+            <Avatar
+                alt="姜鹏志的图片"
+                src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"
+                style={{ margin: 4 }}
+            />
+        </>
+    );
+};
+```
+
 ## API 参考
 
 ---
@@ -262,7 +302,7 @@ import { AvatarGroup, Avatar } from '@douyinfe/semi-ui';
 
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| alt | 图像无法显示时的替代文本 | string | - |
+| alt | 图像的替代文本描述 | string | - |
 | className | 类名 | string | - |
 | color | 指定头像的颜色，支持 `amber`、 `blue`、 `cyan`、 `green`、 `grey`、 `indigo`、 `light-blue`、 `light-green`、 `lime`、 `orange`、 `pink`、 `purple`、 `red`、 `teal`、 `violet`、 `yellow` | string | `grey` |
 | hoverMask | hover 时头像内容覆盖层 | ReactNode | - |

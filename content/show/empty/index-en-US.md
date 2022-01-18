@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 49
+order: 50
 category: Show
 title: Empty
 subTitle: Empty
@@ -191,6 +191,12 @@ import { IllustrationIdle, IllustrationIdleDark, IllustrationConstructionDark, I
 | layout | Layout mode, support `vertical`, `horizontal` | string | `vertical` |
 | style | Style name | CSSProperties |-|
 | title | Title **v>=1.0.0** | ReactNode |-|
+
+## Accessibility
+
+### ARIA
+
+- aria-hidden for Empty illustrations is true
 
 ## Design Token
 

@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 61
+order: 62
 category: Feedback
 title:  Notification
 subTitle: Notification
@@ -317,6 +317,13 @@ Hook Notification ( >= 1.2.0 )
 -   `Notification.useNotification`
 
 When you need access Context, you could use ``Notification.useNotification` to create a `contextHolder` and insert to corresponding DOM tree. Notification created by hooks will be able to access the context where `contextHolder` is inserted. Hook Notification has following methods: `info`, `success`, `warning`, `error`, `open`, `close`. For more usage demo, refer to [useToast](/en-US/components/toast#useToast_Hooks)
+
+## Accessibility
+
+### ARIA
+
+- The `role` of the component is'alert'
+- The notification's `aria-labelledby` is marked as the corresponding notification title
 
 ## Design Tokens
 <DesignToken/>

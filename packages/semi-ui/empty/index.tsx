@@ -60,7 +60,7 @@ export default class Empty extends BaseComponent<EmptyProps, EmptyState> {
         this.observer && this.observer.disconnect();
     }
 
-    observe(mutationsList: any): void {
+    observe = (mutationsList: any): void => {
         for (const mutation of mutationsList) {
             if (mutation.type === 'attributes' && mutation.attributeName === 'theme-mode') {
                 this.updateMode();
@@ -68,7 +68,7 @@ export default class Empty extends BaseComponent<EmptyProps, EmptyState> {
         }
     }
 
-    updateMode(): void {
+    updateMode = (): void => {
         const val = this.body.getAttribute('theme-mode');
         if (val !== this.state.mode) {
             this.setState({ mode: val });
@@ -109,16 +109,16 @@ export default class Empty extends BaseComponent<EmptyProps, EmptyState> {
             };
         return (
             <div className={wrapperCls} style={style}>
-                <div className={`${prefixCls}-image`} style={imageStyle}>
+                <div className={`${prefixCls}-image`} style={imageStyle} >
                     {imageNode}
                 </div>
-                <div className={`${prefixCls}-content`}>
+                <div className={`${prefixCls}-content`} >
                     {title ? (
-                        <Typography.Title {...(titleProps as any)} className={`${prefixCls}-title`}>
+                        <Typography.Title {...(titleProps as any)} className={`${prefixCls}-title`} >
                             {title}
                         </Typography.Title>
                     ) : null}
-                    {description ? <div className={`${prefixCls}-description`}>{description}</div> : null}
+                    {description ? <div className={`${prefixCls}-description`} >{description}</div> : null}
                     {children ? <div className={`${prefixCls}-footer`}>{children}</div> : null}
                 </div>
             </div>

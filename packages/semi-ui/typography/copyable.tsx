@@ -9,6 +9,7 @@ import LocaleConsumer from '../locale/localeConsumer';
 import { IconCopy, IconTick } from '@douyinfe/semi-icons';
 import { BaseProps } from '../_base/baseComponent';
 import { Locale } from '../locale/interface';
+import isEnterPress from '@douyinfe/semi-foundation/utils/isEnterPress';
 
 const prefixCls = cssClasses.PREFIX;
 export interface CopyableProps extends BaseProps {
@@ -120,8 +121,16 @@ export class Copyable extends React.PureComponent<CopyableProps, CopyableState> 
                             this.renderSuccessTip()
                         ) : (
                             <Tooltip content={typeof copyTip !== 'undefined' ? copyTip : locale.copy}>
+                                {/* TODO: replace `a` tag with `span` in next major version
+                                NOTE: may have effect on style */}
+                                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                                 <a className={`${prefixCls}-action-copy-icon`}>
-                                    <IconCopy onClick={this.copy} />
+                                    <IconCopy
+                                        role="button"
+                                        tabIndex={0}
+                                        onClick={this.copy}
+                                        onKeyPress={e => isEnterPress(e) && this.copy(e as any)}
+                                    />
                                 </a>
                             </Tooltip>
                         )}

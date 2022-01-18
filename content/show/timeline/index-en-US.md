@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 58
+order: 59
 category: Show
 title:  Timeline
 subTitle: Timeline
@@ -190,16 +190,31 @@ import { IconAlertTriangle } from '@douyinfe/semi-icons';
 
 ### TimeLine.Item
 
-| Properties | Instruction                                              | type                                              | Default   |
-| ---------- | -------------------------------------------------------- | ------------------------------------------------- | --------- |
-| className  | Class name                                               | string                                            | -         |
-| color      | Color of dot                                             | string                                            | -         |
-| dot        | Custom dot                                               | ReactNode                                         | -         |
-| extra      | Custom extra content                                     | ReactNode                                         | -         |
-| position   | Custom node location to override TimeLine's mode setting | `left`\|`right`                                     | -         |
-| style      | Inline style                                             | CSSProperties                                           | -         |
-| time       | Time value                                               | ReactNode                                              | -         |
-| type       | Pattern of dot                                           | `default`\|`ongoing`\|`success`\|`warning`\|`error` | `default` |
+| Properties | Instruction                                              | type                                                | Default   | Version   |
+| ---------- | -------------------------------------------------------- | --------------------------------------------------- | --------- | --------- |
+| className  | Class name                                               | string                                              | -         | -         |
+| color      | Color of dot                                             | string                                              | -         | -         |
+| dot        | Custom dot                                               | React Node                                          | -         | -         |
+| extra      | Custom extra content                                     | React Node                                          | -         | -         |
+| position   | Custom node location to override TimeLine's mode setting | `left`\|`right`                                     | -         | -         |
+| style      | Inline style                                             | CSSProperties                                       | -         | -         |
+| time       | Time value                                               | string                                              | -         | -         |
+| type       | Pattern of dot                                           | `default`\|`ongoing`\|`success`\|`warning`\|`error` | `default` | -         |
+| onClick    | Click event                                              | (e: MouseEvent) => void                             | -         | 2.2.0     |
+
+
+
+## Accessibility
+
+### ARIA
+- The element of dot and line between dots in TimeLine have a `aria-hidden`, indicates that they do not support Accessibility API.
+- Supporting API `aria-label` to specify TimeLine's label.
+```js
+<Timeline aria-label="Accident timeline">
+    <Timeline.Item time="2015-09-01">Accident started</Timeline.Item>
+    <Timeline.Item time="2015-09-01">Process</Timeline.Item>
+</Timeline>
+```
 
 ## Design Tokens
 <DesignToken/>

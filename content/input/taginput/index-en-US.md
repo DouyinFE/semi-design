@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 28
+order: 29
 category: Input
 title: TagInput
 subTitle: TagInput
@@ -384,6 +384,7 @@ class CustomRender extends React.Component {
                 style={{display: 'flex', alignItems: 'center', fontSize: 14, marginRight: 10}}
             >
                 <Avatar 
+                    alt='avatar'
                     src={data?data.avatar:'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg'} 
                     size="extra-small" 
                 />
@@ -434,7 +435,7 @@ class CustomRender extends React.Component {
 |style         |Inline style                                     |React.CSSProperties                                               | -        |1.19.0|
 |suffix        |Suffix                                            |ReactNode                                                        |-         |1.19.0|
 |validateStatus|Validate status for styling only, one of  `default`、`warning`、`error`|string                                       |`default` |1.19.0|
-|value         |Controlled tag value                              |string[]                                                         | -        |1.19.0|
+|value         |Controlled tag value                              |string[] \| undefined                                                         | -        |1.19.0|
 |onAdd         |Callback invoked when tags are added             |(addedValue: string[]) => void                                   | -        |1.19.0|
 |onBlur        |Callback invoked when input loses focus          |(e:React.MouseEvent<HTMLInputElement\>) => void                  | -        |1.19.0|
 |onChange      |Callback invoked when tags changes               |(value:string[]) => void                                         | -        |1.19.0|
@@ -451,6 +452,14 @@ class CustomRender extends React.Component {
 |-------|------------|--------|
 |blur() |Remove focus|1.19.0|
 |focus()|Get focus   |1.19.0|
+
+## Accessibility
+
+### ARIA
+
+- TagInput supports the input of `aria-label` to indicate the function of the TagInput;
+- TagInput will set `aria-disabled` and `aria-invalid` according to disabled and validateStatus props;
+- Both the input box and the clear button of TagInput have `aria-label` to indicate the function of the element.
 
 ## Design Tokens
 <DesignToken/>

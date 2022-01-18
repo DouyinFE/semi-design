@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 11
+order: 12
 category: 基础
 title: Layout 布局
 icon: doc-layout
@@ -16,7 +16,11 @@ brief: 协助进行页面级整体布局。
 -   `Content`：内容部分，其下可嵌套任何元素，只能放在 `Layout` 中。
 -   `Footer`：底部布局，其下可嵌套任何元素，只能放在 `Layout` 中。
 
-> 注意：布局组件采用 Flex 布局实现，需要考虑浏览器兼容性问题。
+<Notice title='注意事项'>
+1、布局组件采用 Flex 布局实现，无法在非现代浏览器中工作  <br/>
+2、Layout 组件仅会帮你实现布局，但不会附带背景色、文本色、宽高度等样式。你可以根据自己实际需求传入 style 或给定特定 className 另行编写css实现
+</Notice>
+
 
 ## 代码演示
 
@@ -490,6 +494,8 @@ import { IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, IconHistogram, I
 | className | 类名                                                               | string  | -      |
 | hasSider  | 表示子元素里有 Sider，一般不用指定。可用于服务端渲染时避免样式闪动 | boolean | -      |
 | style     | 样式                                                               | CSSProperties  | -      |
+| aria-label | [aria-label](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-label_attribute) 属性，用来给当前元素加上的标签描述, 提升可访问性 >=2.3.0 | string | - |
+| role | [role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles) 属性, 提升可访问性 >=2.3.0 | string | - |
 
 ### Layout.Sider
 
@@ -499,6 +505,8 @@ import { IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, IconHistogram, I
 | className | 类名 | string | - |
 | style | 样式 | CSSProperties | - |
 | onBreakpoint | 触发响应式布局断点时的回调 | (screen: string, broken: bool) => void | - |
+| aria-label | [aria-label](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-label_attribute)属性，用来给当前元素加上的标签描述, 提升可访问性 >=2.3.0 | string | - |
+| role | [role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles)属性, 提升可访问性 >=2.3.0  | string | - |
 
 ### responsive map
 
@@ -512,6 +520,13 @@ import { IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, IconHistogram, I
     xxl: '(min-width: 1600px)',
 };
 ```
+
+## Accessibility
+
+### ARIA
+
+- Sider 可传入 aria-label props，描述该 Sider 作用。
+- Header Content Main Footer 可传入 role aria-label 描述对应元素作用。
 
 <!-- ## 相关物料
 

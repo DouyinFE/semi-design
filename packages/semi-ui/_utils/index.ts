@@ -83,7 +83,7 @@ export const getHighLightTextHTML = ({
     const markEle = option.highlightTag || 'mark';
     const highlightClassName = option.highlightClassName || '';
     const highlightStyle = option.highlightStyle || {};
-    return chunks.map((chunk: HighLightTextHTMLChunk) => {
+    return chunks.map((chunk: HighLightTextHTMLChunk, index: number) => {
         const { end, start, highlight } = chunk;
         const text = sourceString.substr(start, end - start);
         if (highlight) {
@@ -92,6 +92,7 @@ export const getHighLightTextHTML = ({
                 {
                     style: highlightStyle,
                     className: highlightClassName,
+                    key: text + index
                 },
                 text
             );
@@ -124,10 +125,14 @@ export const registerMediaQuery = (media: string, { match, unmatch, callInInit =
             }
         }
         callInInit && handlerMediaChange(mediaQueryList);
-        mediaQueryList.addEventListener('change', handlerMediaChange);
-        return (): void => mediaQueryList.removeEventListener('change', handlerMediaChange);
+        if (Object.prototype.hasOwnProperty.call(mediaQueryList, 'addEventListener')) {
+            mediaQueryList.addEventListener('change', handlerMediaChange);
+            return (): void => mediaQueryList.removeEventListener('change', handlerMediaChange);
+        }
+        mediaQueryList.addListener(handlerMediaChange);
+        return (): void => mediaQueryList.removeListener(handlerMediaChange);
     }
-    return null;
+    return () => undefined;
 };
 export interface GetHighLightTextHTMLProps {
     sourceString?: string;
@@ -155,3 +160,7 @@ export interface HighLightTextHTMLChunk {
  * @returns boolean
  */
 export const isSemiIcon = (icon: any): boolean => React.isValidElement(icon) && get(icon.type, 'elementType') === 'Icon';
+
+export function getActiveElement() {
+    return document ? document.activeElement as HTMLElement : null;
+}

@@ -96,6 +96,10 @@
         "category": "Arrow"
     },
     {
+        "name": "double_chevron_left",
+        "category": "Arrow"
+    },
+    {
         "name": "paperclip",
         "category": "Files&Folder"
     },
@@ -165,6 +169,10 @@
     },
     {
         "name": "chevron_right",
+        "category": "Arrow"
+    },
+    {
+        "name": "double_chevron_right",
         "category": "Arrow"
     },
     {
@@ -1072,7 +1080,7 @@
         "category": "Writing"
     },
     {
-        "name": "fast_foward",
+        "name": "fast_forward",
         "category": "Music"
     },
     {

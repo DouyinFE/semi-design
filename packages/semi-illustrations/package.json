@@ -1,6 +1,6 @@
 {
   "name": "@douyinfe/semi-illustrations",
-  "version": "2.1.5",
+  "version": "2.3.0",
   "description": "semi illustrations",
   "keywords": [
     "semi",
@@ -55,5 +55,5 @@
     "build:js": "npm run build:lib && node scripts/compileDist.js",
     "prepublishOnly": "npm run clean && npm run build:js"
   },
-  "gitHead": "5d5893482dd1f4c69333907f01fc66a8125ac9cd"
+  "gitHead": "eb34a4f25f002bb4cbcfa51f3df93bed868c831a"
 }
