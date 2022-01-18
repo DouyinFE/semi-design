@@ -35,9 +35,9 @@ import { Progress } from '@douyinfe/semi-ui';
 
 () => (
     <div style={{ width: 200 }}>
-        <Progress percent={10} stroke="#fc8800" aria-label="disk usage"/>
+       <Progress percent={10} stroke="var(--semi-color-warning)" showInfo={true} aria-label="disk usage" />
         <br />
-        <Progress percent={25} stroke="#f93920" aria-label="disk usage"/>
+        <Progress percent={25} stroke="var(--semi-color-danger)" showInfo={true} aria-label="disk usage" />
         <br />
         <Progress percent={50} aria-label="disk usage"/>
         <br />
@@ -60,9 +60,9 @@ import { Progress } from '@douyinfe/semi-ui';
 
 () => (
     <div style={{ width: 200 }}>
-        <Progress percent={10} stroke="#fc8800" showInfo={true} aria-label="disk usage"/>
+        <Progress percent={10} stroke="var(--semi-color-warning)" showInfo={true} aria-label="disk usage"/>
         <br />
-        <Progress percent={25} stroke="#f93920" showInfo={true} aria-label="disk usage"/>
+        <Progress percent={25} stroke="var(--semi-color-danger)" showInfo={true} aria-label="disk usage"/>
         <br />
         <Progress percent={50} showInfo={true} aria-label="disk usage"/>
         <br />

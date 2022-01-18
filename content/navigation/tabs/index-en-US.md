@@ -67,7 +67,7 @@ class App extends React.Component {
                                 padding: '20px',
                                 border: 'none',
                                 whiteSpace: 'normal',
-                                borderRadius: '6px',
+                                borderRadius: 'var(--semi-border-radius-medium)',
                                 color: 'var(--semi-color-text-1)',
                                 backgroundColor: 'var(--semi-color-fill-0)',
                             }}
