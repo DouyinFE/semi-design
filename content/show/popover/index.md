@@ -437,9 +437,9 @@ function Demo() {
             visible
             showArrow
             style={{
-                backgroundColor: 'rgb(0,119,250)',
-                borderColor: 'rgb(0,98,214)',
-                color: 'rgb(255,255,255)',
+                backgroundColor: 'rgba(var(--semi-blue-4),1)',
+                borderColor: 'rgba(var(--semi-blue-4),1)',
+                color: 'var(--semi-color-white)',
                 borderWidth: 1,
                 borderStyle: 'solid',
             }}

@@ -425,7 +425,7 @@ import { Form, Button, Toast } from '@douyinfe/semi-ui';
                     <Form.Checkbox field='agree' noLabel>I have read and agree to the terms of service</Form.Checkbox>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <p>
-                            <span>Or</span><Button theme='borderless' style={{ color: 'rgb(101, 178, 252)', marginLeft: 10, cursor:'pointer' }}>Sign up</Button>
+                            <span>Or</span><Button theme='borderless' style={{ color: 'var(--semi-color-primary)', marginLeft: 10, cursor:'pointer' }}>Sign up</Button>
                         </p>
                         <Button disabled={!values.agree} htmlType='submit' type="tertiary">Log in</Button>
                     </div>
@@ -458,7 +458,6 @@ import { Form } from '@douyinfe/semi-ui';
 import React from 'react';
 import { Form, Select, Checkbox, Radio } from '@douyinfe/semi-ui';
 
-const { Option } = Select;
 
 class BasicDemo extends React.Component {
     constructor() {
@@ -775,9 +774,8 @@ When submitting, use `formApi.validate()` to centrally verify the Field
 
 ```jsx live=true dir="column"
 import React from 'react';
-import { Form, Modal, Button, Row, Col } from '@douyinfe/semi-ui';
+import { Form, Modal, Select, Button, Row, Col } from '@douyinfe/semi-ui';
 
-const { Option } = Select;
 
 class ModalFormDemo extends React.Component {
     constructor(props) {

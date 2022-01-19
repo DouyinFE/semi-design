@@ -127,7 +127,7 @@ import { IconCamera } from '@douyinfe/semi-icons';
 
 () => {
     const style = {
-        backgroundColor: 'rgba(0,0,0,.4)',
+        backgroundColor: 'var(--semi-color-overlay-bg)',
         height: '100%',
         width: '100%',
         display: 'flex',

@@ -333,6 +333,7 @@ import { Select } from '@douyinfe/semi-ui';
 
 () => {
     let innerSlotStyle = {
+        backgroundColor: 'var(--color-white)',
         height: '36px',
         display: 'flex',
         alignItems: 'center',
@@ -340,24 +341,25 @@ import { Select } from '@douyinfe/semi-ui';
         paddingLeft: 32,
         borderTop: '1px solid var(--semi-color-border)',
         borderRadius: '0 0 6px 6px',
+        color: 'var(--semi-color-link)'
         color: 'var(--semi-color-primary)',
-        backgroundColor: 'var(--semi-color-bg-0)'
     };
     let innerSlotNode = (<div style={innerSlotStyle}>
         点击加载更多
     </div>);
     let outSlotStyle = {
+        backgroundColor: 'var(--semi-color-fill-0)',
         height: '36px',
         display: 'flex',
         paddingLeft: 32,
+        color: 'var(--semi-color-link)',
         alignItems: 'center',
         cursor: 'pointer',
         borderTop: '1px solid var(--semi-color-border)',
         borderRadius: '0 0 6px 6px',
-        backgroundColor: 'var(--semi-color-bg-0)'
     };
     let outSlotNode = (<div style={outSlotStyle}>
-        <span style={{color: '#0077FA'}}>未找到应用?</span>
+        <span style={{color: 'var(--semi-color-link)'}}>未找到应用?</span>
     </div>);
 
     return (
