@@ -347,7 +347,7 @@ import { Select } from '@douyinfe/semi-ui';
         点击加载更多
     </div>);
     let outSlotStyle = {
-        backgroundColor: 'var(--semi-color-fill-1)',
+        backgroundColor: 'var(--semi-color-fill-0)',
         height: '36px',
         display: 'flex',
         paddingLeft: 32,
