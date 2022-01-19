@@ -332,16 +332,17 @@ import React from 'react';
 import { Select } from '@douyinfe/semi-ui';
 
 () => {
-    let selectStyle = { width: 180, margin: 20 };
     let innerSlotStyle = {
         backgroundColor: 'var(--color-white)',
         height: '36px',
         display: 'flex',
         alignItems: 'center',
         cursor: 'pointer',
-        marginLeft: 32,
+        paddingLeft: 32,
+        borderTop: '1px solid var(--semi-color-border)',
         borderRadius: '0 0 6px 6px',
         color: 'var(--semi-color-link)'
+        color: 'var(--semi-color-primary)',
     };
     let innerSlotNode = (<div style={innerSlotStyle}>
         点击加载更多
@@ -354,6 +355,7 @@ import { Select } from '@douyinfe/semi-ui';
         color: 'var(--semi-color-link)',
         alignItems: 'center',
         cursor: 'pointer',
+        borderTop: '1px solid var(--semi-color-border)',
         borderRadius: '0 0 6px 6px',
     };
     let outSlotNode = (<div style={outSlotStyle}>
@@ -364,11 +366,11 @@ import { Select } from '@douyinfe/semi-ui';
         <div>
             <p>outerBottomSlot:</p>
             <Select
-                style={selectStyle}
+                style={{ width: 300 }}
                 dropdownStyle={{ width: 180 }}
                 maxHeight={150}
                 outerBottomSlot={outSlotNode}
-                placeholder='自定义外侧底部slot'
+                placeholder='自定义外侧底部slot，始终显示'
                 defaultOpen
                 autoAdjustOverflow={false}
                 position='bottom'
@@ -381,11 +383,11 @@ import { Select } from '@douyinfe/semi-ui';
             </Select>
             <p style={{ marginTop: 200 }}>innerBottomSlot:</p>
             <Select
-                style={selectStyle}
+                style={{ width: 300 }}
                 dropdownStyle={{ width: 180 }}
                 maxHeight={150}
                 innerBottomSlot={innerSlotNode}
-                placeholder='自定义内侧底部slot'
+                placeholder='自定义内侧底部slot，滚动至底部显示'
             >
                 <Select.Option value='abc'>抖音</Select.Option>
                 <Select.Option value='hotsoon'>火山</Select.Option>
@@ -396,6 +398,7 @@ import { Select } from '@douyinfe/semi-ui';
         </div>
     );
 };
+
 ```
 
 通过 outerTopSlot 将内容插入顶部插槽

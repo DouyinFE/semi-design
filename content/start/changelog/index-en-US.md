@@ -24,8 +24,8 @@ Version：Major.Minor.Patch
 
 #### 🎉 2.3.0-beta.0 (2022-01-07)
 - 【Fix】
-    - Fixed the problem that when Form uses the parent fieldPath in formApi.setValue, setError, and setTouch to perform batch assignment to multiple nested fields, there may be a problem of stuck (affecting versions v1.32~v2.2) Checklist
-    - Fix the inaccurate trigger range of Form formApi.validate partial verification Checklist
+    - Fixed the problem that when Form uses the parent fieldPath in formApi.setValue, setError, and setTouch to perform batch assignment to multiple nested fields, there may be a problem of stuck (affecting versions v1.32~v2.2) 
+    - Fix the inaccurate trigger range of Form formApi.validate partial verification [#510](https://github.com/DouyinFE/semi-design/issues/510)
     - Fix the problem that Tooltip did not include spacing when calculating adjustOverflow, which caused the content to exceed (but not exceed 8px) and still not automatically switch the direction.  [#491](https://github.com/DouyinFE/semi-design/issues/491)
     - Fix Tooltip showing that the default direction of the floating layer is insufficient, and it will flicker when adjustOverflow is triggered to automatically switch the direction.   [#69](https://github.com/DouyinFE/semi-design/issues/69)
     - Fix Tree handleNodeDragOver internal event parameters are not properly passed  [#345 ](https://github.com/DouyinFE/semi-design/issues/345)
