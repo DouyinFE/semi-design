@@ -34,6 +34,10 @@ function Banner() {
                         src="https://lf9-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/37361.png"
                         alt="semi application demo"
                         className={styles.group3736} />
+                    <img
+                        src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/37361-dark.png"
+                        alt="semi application demo"
+                        className={`${styles.group3736dark}`} />
                 </div>
             </div>
         </div>
