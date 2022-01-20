@@ -156,9 +156,9 @@ export default function HTML(props) {
                 <meta httpEquiv="x-ua-compatible" content="ie=edge" />
                 <meta name="viewport" content="width=1440, initial-scale=0, shrink-to-fit=no" />
                 <script src="https://lf1-cdn-tos.bytescm.com/goofy/semi_convenience/semi-analyze.js" />
-                {
-                    THEME_SWITCHER_URL?<script src={THEME_SWITCHER_URL}/>:<script src="https://unpkg.byted-static.com/latest/ies/semi-theme-switcher-opensource/dist/semi-theme-switcher.js"/>
-                }
+                {/*{*/}
+                {/*    THEME_SWITCHER_URL?<script src={THEME_SWITCHER_URL}/>:<script src="https://unpkg.byted-static.com/latest/ies/semi-theme-switcher-opensource/dist/semi-theme-switcher.js"/>*/}
+                {/*}*/}
                 <link rel="icon" href="https://lf9-static.semi.design/obj/semi-tos/images/favicon.ico" />
                 <script dangerouslySetInnerHTML={{ __html: `(${darkmodeProcesser.toString()})()` }} />
                 {props.headComponents}
