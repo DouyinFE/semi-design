@@ -35,7 +35,7 @@ function Banner() {
                         alt="semi application demo"
                         className={styles.group3736} />
                     <img
-                        src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/37361-dark.png"
+                        src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/desk-dark.png"
                         alt="semi application demo"
                         className={`${styles.group3736dark}`} />
                 </div>
