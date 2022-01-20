@@ -116,7 +116,8 @@ export const larkTheme = `/* shadow */
       color: var(--semi-color-link); }
   .semi-typography-icon {
     margin-right: 4px;
-    vertical-align: middle;
+    display: flex;
+    align-items: center;
     color: inherit; }
   .semi-typography-small {
     font-size: 12px;
@@ -1039,7 +1040,7 @@ p.semi-typography-extended,
     background-color: var(--semi-color-fill-0); }
   .semi-page-rest-item:active {
     background-color: var(--semi-color-fill-1); }
-`
+`;
 
 export const douyinTheme = `/* shadow */
 /* sizing */
@@ -1159,7 +1160,8 @@ export const douyinTheme = `/* shadow */
       color: var(--semi-color-link); }
   .semi-typography-icon {
     margin-right: 4px;
-    vertical-align: middle;
+    display: flex;
+    align-items: center;
     color: inherit; }
   .semi-typography-small {
     font-size: 12px;
@@ -2082,7 +2084,7 @@ p.semi-typography-extended,
     background-color: var(--semi-color-fill-0); }
   .semi-page-rest-item:active {
     background-color: var(--semi-color-fill-1); }
-`
+`;
 
 export const huoshanTheme = `/* shadow */
 /* sizing */
@@ -2202,7 +2204,8 @@ export const huoshanTheme = `/* shadow */
       color: var(--semi-color-link); }
   .semi-typography-icon {
     margin-right: 4px;
-    vertical-align: middle;
+    display: flex;
+    align-items: center;
     color: inherit; }
   .semi-typography-small {
     font-size: 12px;
@@ -3125,4 +3128,4 @@ p.semi-typography-extended,
     background-color: var(--semi-color-fill-0); }
   .semi-page-rest-item:active {
     background-color: var(--semi-color-fill-1); }
-`
+`;
