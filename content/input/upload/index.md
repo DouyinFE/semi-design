@@ -24,11 +24,15 @@ import React from 'react';
 import { Upload, Button } from '@douyinfe/semi-ui';
 import { IconUpload } from '@douyinfe/semi-icons';
 
-<Upload action="https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859">
-        <Button icon={<IconUpload />} theme="light">
-        点击上传
-    </Button>
-    </Upload>;
+() => {
+    return (
+        <Upload action="https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859">
+            <Button icon={<IconUpload />} theme="light">
+                点击上传
+            </Button>
+        </Upload>
+    );
+};
 ```
 
 ### 添加提示文本
@@ -96,7 +100,7 @@ import { IconPlus } from '@douyinfe/semi-icons';
         };
         let style = { ...basicStyle, ...marginStyle[pos] };
 
-        return <div style={style}>请上传萌宠认证材料</div>;
+        return <div style={style}>请上传认证材料</div>;
     };
     const defaultFileList = [
         {
@@ -105,14 +109,7 @@ import { IconPlus } from '@douyinfe/semi-icons';
             status: 'success',
             size: '130kb',
             url:
-                'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg',
-        },
-        {
-            uid: '2',
-            name: 'jiafang2.jpeg',
-            size: '222kb',
-            url:
-                'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dbf7351bb779433d17c4f50478cf42f7.jpg',
+                'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png',
         },
         {
             uid: '5',
@@ -120,7 +117,7 @@ import { IconPlus } from '@douyinfe/semi-icons';
             percent: 50,
             size: '222kb',
             url:
-                'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/8bd8224511db085ed74fea37205aede5.jpg',
+                'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/Resso.png',
         },
     ];
     const positions = ['right', 'bottom'];
@@ -333,7 +330,7 @@ import { Upload, Button } from '@douyinfe/semi-ui';
 import { IconUpload } from '@douyinfe/semi-icons';
 
 () => {
-    let action = 'https:https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
+    let action = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
     let limit = 1;
     let onChange = props => {
         console.log(props.fileList);
@@ -358,7 +355,7 @@ import { Upload, Button } from '@douyinfe/semi-ui';
 import { IconUpload } from '@douyinfe/semi-icons';
 
 () => {
-    let action = 'https:https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
+    let action = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
     let [disabled, setDisabled] = useState(false);
     let limit = 2;
     let onChange = props => {
@@ -495,6 +492,11 @@ import { IconUpload, IconFile } from '@douyinfe/semi-icons';
 
 通过 `defaultFileList` 可以展示已上传的文件。当需要预览默认文件的缩略图时，你可以将 `defaultFileList` 内对应 `item` 的 `preview` 属性设为 `true`
 
+<Notice title='注意事项'>
+    defaultFileList中 uid 必须唯一，不可重复
+</Notice>
+
+
 ```jsx live=true width=48%
 import React from 'react';
 import { Upload, Button } from '@douyinfe/semi-ui';
@@ -552,7 +554,7 @@ import { IconUpload } from '@douyinfe/semi-icons';
             status: 'success',
             size: '130KB',
             preview: true,
-            url: 'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/e82f3b261133d2b20d85e8483c203112.jpg',
+            url: 'https://sf6-cdn-tos.douyinstatic.com/img/ee-finolhu/c2a65140483e4a20802d64af5fec1b39~noop.image',
         },
         {
             uid: '2',
@@ -563,7 +565,7 @@ import { IconUpload } from '@douyinfe/semi-icons';
             preview: true,
             fileInstance: new File([new ArrayBuffer(2048)], 'jiafang.jpeg', { type: 'image/jpeg' }),
             url:
-                'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/4a55704fb0b8b85eaccdb4ed22469f57.jpg',
+                'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png',
         },
     ];
 
@@ -611,7 +613,7 @@ import { IconPlus } from '@douyinfe/semi-icons';
             size: '130KB',
             preview: true,
             url:
-                'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/e82f3b261133d2b20d85e8483c203112.jpg',
+                'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png',
         },
     ];
     return (
@@ -636,12 +638,21 @@ import { IconPlus } from '@douyinfe/semi-icons';
     const defaultFileList = [
         {
             uid: '1',
-            name: 'jiafang.png',
+            name: 'music.png',
             status: 'success',
             size: '130KB',
             preview: true,
             url:
-                'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/e82f3b261133d2b20d85e8483c203112.jpg',
+                'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/Resso.png',
+        },
+        {
+            uid: '2',
+            name: 'brand.png',
+            status: 'success',
+            size: '130KB',
+            preview: true,
+            url:
+                'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/Resso.png',
         },
     ];
     return (
@@ -665,19 +676,19 @@ import { IconUpload } from '@douyinfe/semi-icons';
     const defaultFileList = [
         {
             uid: '1',
-            name: 'vigo.png',
+            name: 'first.png',
             status: 'success',
             size: '130KB',
             preview: true,
-            url: 'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/e82f3b261133d2b20d85e8483c203112.jpg',
+            url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png',
         },
         {
             uid: '2',
-            name: 'vigo2.jpeg',
+            name: 'second.png',
             status: 'validateFail',
             size: '222KB',
             preview: true,
-            url: 'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/e82f3b261133d2b20d85e8483c203112.jpg',
+            url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png',
         },
     ];
     let action = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
@@ -792,6 +803,7 @@ import { IconBolt } from '@douyinfe/semi-icons';
         <img
             src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/0f2a32f27eab90a296814fbc26103b2b.jpg"
             height="96"
+            alt='demo img'
             style={{ borderRadius: 4 }}
         />
         <div
