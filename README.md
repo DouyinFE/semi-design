@@ -46,7 +46,7 @@ English | [简体中文](./README-zh_CN.md)
 # 🎉 Features
 
 - 💪 Up to 58 high-quality Components.
-- 💅 Thousands Design Tokens. Powerful Themes Customizing.
+- 💅 2000+ Design Tokens. Flexible custom render structure. Build your own design system.
 - 🌍 Internationalization Support for Dozens of Languages.
 - 👏 Written in Typescript, Friendly Static Type Support.
 - 🥳 SSR (Server Side Rendering) Compatible.
