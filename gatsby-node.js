@@ -176,7 +176,8 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions }) =>
             ],
         },
         plugins: [plugins.extractText(),plugins.define({
-            "THEME_SWITCHER_URL":JSON.stringify(process.env['THEME_SWITCHER_URL'])
+            "THEME_SWITCHER_URL":JSON.stringify(process.env['THEME_SWITCHER_URL']),
+            'process.env.HEADER_CONFIG_HOST':JSON.stringify(process.env.HEADER_CONFIG_HOST)
         })],
     });
 };
