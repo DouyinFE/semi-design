@@ -1676,10 +1676,10 @@
   resolved "https://registry.npmjs.org/@douyinfe/semi-site-doc-style/-/semi-site-doc-style-0.0.1.tgz#c3c803014218ec00441dac32db9a875f6222ed0b"
   integrity sha512-y7Jc1i9q/O2idfaqckSJvghpt4AboQJgZ4iTEK8UMqjQkyWmb5I/NRzVWjOP9S0LEbJNs76OKfZil7DwsOmY/A==
 
-"@douyinfe/semi-site-header@0.0.6-alpha.1":
-  version "0.0.6-alpha.1"
-  resolved "https://registry.yarnpkg.com/@douyinfe/semi-site-header/-/semi-site-header-0.0.6-alpha.1.tgz#39143d6ea703f5916b2a55ba2f9411c6a9a7d8af"
-  integrity sha512-WseGfJry0xa81GrpBDgSRHmPAZdsHOMVO2fwooJHxpMOjGafv0MzeC2lgcdapgYH8f9UDMDqMdGJjTx1fkG2cA==
+"@douyinfe/semi-site-header@0.0.6-alpha.3":
+  version "0.0.6-alpha.3"
+  resolved "https://registry.yarnpkg.com/@douyinfe/semi-site-header/-/semi-site-header-0.0.6-alpha.3.tgz#b3f6943ca340c97556ada9ef1886b52485e21db5"
+  integrity sha512-tRE9AXguPWt6mkkCCgTm0DflnC2k+GrX87DmDUuLrxp1M8c0t5DoLoTONc0Jwme0M+fHVsJqqCC/cto8os71zQ==
   dependencies:
     "@douyinfe/semi-icons" "2.0.0"
     "@douyinfe/semi-ui" "2.0.0"
