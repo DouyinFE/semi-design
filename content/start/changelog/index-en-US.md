@@ -20,8 +20,6 @@ Version：Major.Minor.Patch
 - 【Chore】
     - Fix List component pass the datasource props, the renderItem function params of item missing the type defined [#393](https://github.com/DouyinFE/semi-design/issues/393) [@chenc041](https://github.com/chenc041)
     - Fix Dropdown props menu type definition
-- 【Feat】
-    - Add theme switcher of docsite
 - 【Fix】
     - Fixed warning when InputNumber given defaultValue [#537](https://github.com/DouyinFE/semi-design/issues/537) [@chenc041](https://github.com/chenc041)
 
