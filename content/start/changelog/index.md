@@ -15,6 +15,14 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 ---
 
+#### 🎉 2.3.1 (2022-01-21)
+- 【Chore】
+    - 修复 List 组件传递 datasource 属性时, renderItem 类型丢失 [#393](https://github.com/DouyinFE/semi-design/issues/393) [@chenc041](https://github.com/chenc041)
+    - 修复 Dropdown menu 类型定义异常问题 
+- 【Feat】
+    - 官网新增主题切换器
+- 【Fix】
+    - 修复 InputNumber 传入 defaultValue 时警告问题 [#537](https://github.com/DouyinFE/semi-design/issues/537) [@chenc041](https://github.com/chenc041)
 
 #### 🎉 2.3.0 (2022-01-14)
 - 【Fix】
