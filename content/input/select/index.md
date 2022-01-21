@@ -341,8 +341,7 @@ import { Select } from '@douyinfe/semi-ui';
         paddingLeft: 32,
         borderTop: '1px solid var(--semi-color-border)',
         borderRadius: '0 0 6px 6px',
-        color: 'var(--semi-color-link)'
-        color: 'var(--semi-color-primary)',
+        color: 'var(--semi-color-link)',
     };
     let innerSlotNode = (<div style={innerSlotStyle}>
         点击加载更多

@@ -24,8 +24,8 @@ function Banner() {
                     </div>
                     <div className={styles.group2835}>
                         <Button onClick={goStart} size="large" theme="solid" className={styles.extraLarge}>{_t("start_using", { }, "开始使用")}</Button>
-                        <div onClick={goGithub} className={styles.buttonSecondarySolid_4427b030} role="button" tabIndex={0}><IconGithubLogo size="extra-large" /><p className={styles.text_bff7eaeb}>GitHub</p>
-                        </div>
+                        <Button onClick={goGithub}  size="large" type={'tertiary'} theme="borderless" style={{border:'1px solid var(--semi-color-border)',color:'var(--semi-color-text-0)',marginLeft:'16px'}} className={styles.extraLarge}  icon={<IconGithubLogo size={'large'}/>}>GitHub</Button>
+
                     </div>
                 </div>
                 <div className={styles.autoWrapper_4fa00029}>
@@ -35,7 +35,7 @@ function Banner() {
                         alt="semi application demo"
                         className={styles.group3736} />
                     <img
-                        src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/37361-dark.png"
+                        src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/desk-dark.png"
                         alt="semi application demo"
                         className={`${styles.group3736dark}`} />
                 </div>
