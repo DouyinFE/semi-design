@@ -74,7 +74,7 @@ module.exports = semi({
 });
 ```
 
-`@douyinfe/semi-next` 的[详细文档]()。
+`@douyinfe/semi-next` 的 [详细文档](https://www.npmjs.com/package/@douyinfe/semi-next) 。
 
 ### Step3
 
@@ -84,6 +84,10 @@ module.exports = semi({
 /* styles/globals.css */
 @import '~@douyinfe/semi-ui/dist/css/semi.min.css';
 ```
+
+**在 nextjs 中使用主题包**
+
+请查阅 [此 issue](https://github.com/DouyinFE/semi-design/issues/565) 中的方法
 
 ## 4、UMD 方式使用组件
 
