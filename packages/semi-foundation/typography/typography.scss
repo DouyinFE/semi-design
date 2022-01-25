@@ -45,7 +45,8 @@ $module: #{$prefix}-typography;
     }
 
     &-icon {
-        // display: inline-flex;
+        display: inline-flex;
+        align-items: center;
         margin-right: $spacing-typography_iconPrefix-marginRight;
         vertical-align: middle;
         color: inherit;
