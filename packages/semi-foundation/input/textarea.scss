@@ -55,11 +55,7 @@ $module: #{$prefix}-input;
         }
     }
 
-    &-readonly {
-        cursor: default;
-    }
-
-    &-disabled {
+    &-disabled, &-readonly {
         cursor: not-allowed;
         // border: $border-thickness-control $color-input_disabled-border-default solid;
         color: $color-input_disabled-text-default;
@@ -72,6 +68,10 @@ $module: #{$prefix}-input;
         &::placeholder {
             color: $color-input_disabled-text-default;
         }
+    }
+
+    &-readonly {
+        cursor: text;
     }
 
     &-error {
@@ -151,7 +151,7 @@ $module: #{$prefix}-input;
         padding-right: $spacing-textarea_withShowClear-paddingRight;
     }
 
-    &-disabled {
+    &-disabled, &-readonly {
         cursor: not-allowed;
         color: $color-input_disabled-text-default;
         background-color: transparent;
@@ -165,10 +165,14 @@ $module: #{$prefix}-input;
         }
     }
 
+    &-readonly {
+        cursor: text;
+    }
+
     &-autosize {
         overflow: hidden;
     }
-    
+
     &-counter {
         @include font-size-small;
         display: flex;
