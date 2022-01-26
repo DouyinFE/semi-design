@@ -591,14 +591,13 @@ $module: #{$prefix}-datepicker;
             height: $height-datepicker_range_input-default;
             color: $color-datepicker_range_input-text-default;
             background-color: $color-datepicker_range_input-bg-default;
-
+            border: $width-datepicker_range_input-border solid $color-datepicker_range_input-border-default;
             &-wrapper {
                 box-sizing: border-box;
                 background-color: $color-datepicker_range_input_inputWrapper-bg-default;
                 padding: 0 $spacing-datepicker_range_input-paddingX;
                 height: 100%;
                 width: 100%;
-                border: $width-datepicker_range_input-border solid $color-datepicker_range_input-border-default;
                 border-radius: $radius-datepicker_range_input;
                 display: flex;
                 align-items: center;

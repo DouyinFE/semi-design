@@ -24,14 +24,16 @@ $multiple: #{$module}-multiple;
 
     &:hover {
         background-color: $color-select-bg-hover;
+        border: $width-select-border-hover solid $color-select-border-hover;
     }
 
     &:active {
         background-color: $color-select-bg-active;
+        border: $width-select-border-active solid $color-select-border-active;
     }
 
     &:focus {
-        border: $border-thickness-control-focus solid $color-select_default-border-focus;
+        border: $width-select-border-focus solid $color-select-border-foucs;
         outline: 0;
     }
 
@@ -383,7 +385,7 @@ $multiple: #{$module}-multiple;
 .#{$module}-option-list {
     overflow-x: hidden;
     overflow-y: auto;
-
+    padding: $spacing-select_option_list-paddingTop $spacing-select_option_list-paddingRight $spacing-select_option_list-paddingBottom $spacing-select_option_list-paddingLeft;
     &-chosen {
         .#{$module}-option-icon {
             display: flex;

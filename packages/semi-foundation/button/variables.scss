@@ -76,11 +76,20 @@ $color-button_disabled-bg-hover: var(--semi-color-disabled-bg); // 禁用按钮�
 $color-button_light-bg-default: var(--semi-color-fill-0); // 浅色按钮背景颜色
 $color-button_light-bg-hover: var(--semi-color-fill-1); // 禁用按钮背景颜色 - 悬浮
 $color-button_light-bg-active: var(--semi-color-fill-2); // 禁用按钮背景颜色 - 按下
+$color-button_light-border-default: transparent;
+$color-button_light-border-hover: $color-button_light-border-default;
+$color-button_light-border-active: $color-button_light-border-hover;
+$width-button_light-border: 0;
 
 // borderless
 $color-button_borderless-text-default: var(--semi-color-primary); // 无背景按钮背景颜色
 $color-button_borderless-bg-hover: var(--semi-color-fill-0); // 无背景按钮背景颜色 - 悬浮
 $color-button_borderless-bg-active: var(--semi-color-fill-1); // 无背景按钮背景颜色 - 按下
+$width-button_borderless-border: 0;
+$color-button_borderless-border-default: transparent;
+$color-button_borderless-border-hover: $color-button_borderless-border-default;
+$color-button_borderless-border-active: $color-button_borderless-border-hover;
+$width-button_borderless-border: 0;
 
 // buttongroup
 

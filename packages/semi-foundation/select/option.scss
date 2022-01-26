@@ -13,6 +13,7 @@ $multiple: #{$module}-multiple;
     padding-top: $spacing-select_option-paddingTop;
     padding-bottom: $spacing-select_option-paddingBottom;
     color: $color-select_option_main-text;
+    border-radius: $radius-select_option;
     position: relative;
     display: flex;
     flex-wrap: nowrap;
