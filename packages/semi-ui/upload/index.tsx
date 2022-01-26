@@ -2,7 +2,7 @@
 import React, { ReactNode, CSSProperties, RefObject, ChangeEvent, DragEvent } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
-import { noop } from 'lodash';
+import { noop, pick } from 'lodash';
 import UploadFoundation, { CustomFile, UploadAdapter, BeforeUploadObjectResult, AfterUploadResult } from '@douyinfe/semi-foundation/upload/foundation';
 import { strings, cssClasses } from '@douyinfe/semi-foundation/upload/constants';
 import FileCard from './fileCard';
@@ -39,6 +39,7 @@ export interface UploadProps {
     fileList?: Array<FileItem>;
     fileName?: string;
     headers?: Record<string, any> | ((file: File) => Record<string, string>);
+    hotSpotLocation?: 'start' | 'end';
     itemStyle?: CSSProperties;
     limit?: number;
     listType?: UploadListType;
@@ -66,6 +67,8 @@ export interface UploadProps {
     renderFileItem?: (renderFileItemProps: RenderFileItemProps) => ReactNode;
     renderPicInfo?: (renderFileItemProps: RenderFileItemProps) => ReactNode;
     renderThumbnail?: (renderFileItemProps: RenderFileItemProps) => ReactNode;
+    renderPicPreviewIcon?: (renderFileItemProps: RenderFileItemProps) => ReactNode;
+    renderFileOperation?: (fileItem: RenderFileItemProps) => ReactNode;
     showClear?: boolean;
     showPicInfo?: boolean; // Show pic info in picture wall
     showReplace?: boolean; // Display replacement function
@@ -111,6 +114,7 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
         fileList: PropTypes.array, // files had been uploaded
         fileName: PropTypes.string, // same as name, to avoid props conflict in Form.Upload
         headers: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+        hotSpotLocation: PropTypes.oneOf(['start','end']),
         itemStyle: PropTypes.object,
         limit: PropTypes.number, // 最大允许上传文件个数
         listType: PropTypes.oneOf<UploadProps['listType']>(strings.LIST_TYPE),
@@ -136,6 +140,8 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
         prompt: PropTypes.node,
         promptPosition: PropTypes.oneOf<UploadProps['promptPosition']>(strings.PROMPT_POSITION),
         renderFileItem: PropTypes.func,
+        renderPicPreviewIcon: PropTypes.func,
+        renderFileOperation: PropTypes.func,
         renderPicInfo: PropTypes.func,
         renderThumbnail: PropTypes.func,
         showClear: PropTypes.bool,
@@ -156,6 +162,7 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
         defaultFileList: [],
         disabled: false,
         listType: 'list' as const,
+        hotSpotLocation: 'end',
         multiple: false,
         onAcceptInvalid: noop,
         onChange: noop,
@@ -326,7 +333,7 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
 
     renderFile = (file: FileItem, index: number, locale: Locale['Upload']): ReactNode => {
         const { name, status, validateMessage, _sizeInvalid, uid } = file;
-        const { previewFile, listType, itemStyle, showRetry, showPicInfo, renderPicInfo, renderFileItem, renderThumbnail, disabled, onPreviewClick, showReplace } = this.props;
+        const { previewFile, listType, itemStyle, showPicInfo, renderPicInfo, renderPicPreviewIcon, renderFileOperation, renderFileItem, renderThumbnail, disabled, onPreviewClick } = this.props;
         const onRemove = (): void => this.remove(file);
         const onRetry = (): void => {
             this.foundation.retry(file);
@@ -335,6 +342,7 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
             this.replace(index);
         };
         const fileCardProps = {
+            ...pick(this.props, ['showRetry', 'showReplace', '']),
             ...file,
             previewFile,
             listType,
@@ -342,13 +350,13 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
             onRetry,
             index,
             key: uid || `${name}${index}`,
-            showRetry: typeof file.showRetry !== 'undefined' ? file.showRetry : showRetry,
             style: itemStyle,
             disabled,
             showPicInfo,
             renderPicInfo,
+            renderPicPreviewIcon,
+            renderFileOperation,
             renderThumbnail,
-            showReplace: typeof file.showReplace !== 'undefined' ? file.showReplace : showReplace,
             onReplace,
             onPreviewClick: typeof onPreviewClick !== 'undefined' ? (): void => this.foundation.handlePreviewClick(file) : undefined,
         };
@@ -382,7 +390,7 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
     };
 
     renderFileListPic = () => {
-        const { showUploadList, limit, disabled, children, draggable } = this.props;
+        const { showUploadList, limit, disabled, children, draggable, hotSpotLocation } = this.props;
         const { fileList: stateFileList, dragAreaStatus } = this.state;
         const fileList = this.props.fileList || stateFileList;
         const showAddTriggerInList = limit ? limit > fileList.length : true;
@@ -434,8 +442,9 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
                 {(locale: Locale['Upload']) => (
                     <div {...containerProps}>
                         <div className={mainCls} role="list" aria-label="picture list">
+                            {showAddTriggerInList && hotSpotLocation === 'start' ? addContent : null}
                             {fileList.map((file, index) => this.renderFile(file, index, locale))}
-                            {showAddTriggerInList ? addContent : null}
+                            {showAddTriggerInList && hotSpotLocation === 'end' ? addContent : null}
                         </div>
                     </div>
                 )}

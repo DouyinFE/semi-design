@@ -493,6 +493,41 @@ import { IconUpload, IconFile } from '@douyinfe/semi-icons';
 };
 ```
 
+### Custom list operation area
+
+When `listType` is `list`, you can customize the list operation area by passing in `renderFileOperation`
+
+```jsx live=true width=48%
+import React from 'react';
+import { Upload, Button } from '@douyinfe/semi-ui';
+import { IconUpload, IconDownload, IconEyeOpened } from '@douyinfe/semi-icons';
+
+() => {
+    let action = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
+
+    const defaultFileList = [
+        {
+            uid: '1',
+            name: 'vigo.png',
+            status: 'success',
+            size: '130KB',
+            preview: true,
+            url: 'https://sf6-cdn-tos.douyinstatic.com/img/ee-finolhu/c2a65140483e4a20802d64af5fec1b39~noop.image',
+        }
+    ];
+    const renderFileOperation = (fileItem) => (
+        <div style={{display: 'flex',columnGap: 8, padding: '0 8px'}}>
+            <Button icon={<IconEyeOpened></IconEyeOpened>} type="tertiary" theme="borderless" size="small"></Button>
+            <Button icon={<IconDownload></IconDownload>} type="tertiary" theme="borderless" size="small"></Button>
+            <Button onClick={e=>fileItem.onRemove()} icon={<IconDelete></IconDelete>} type="tertiary" theme="borderless" size="small"></Button>
+        </div>
+    )
+    return <Upload action={action} defaultFileList={defaultFileList} itemStyle={{width: 300}} renderFileOperation={renderFileOperation}>
+            <Button icon={<IconUpload />} theme="light">Upload</Button>
+        </Upload>
+    }
+```
+
 ### Default file list
 
 The uploaded files can be displayed through `defaultFileList`. When you need to preview the thumbnail of the default file, you can set the `preview` attribute of the corresponding `item` in `defaultFileList` to `true`
@@ -660,6 +695,100 @@ import { IconPlus } from '@douyinfe/semi-icons';
     return (
         <>
             <Upload action={action} listType="picture" showPicInfo accept="image/*" multiple defaultFileList={defaultFileList}>
+                <IconPlus size="extra-large" />
+            </Upload>
+        </>
+    );
+};
+```
+
+You can customize the preview icon through `renderPicPreviewIcon`, `onPreviewClick`, when the replacement icon `showReplace` is displayed, the preview icon will no longer be displayed. <br />
+When you need to customize the preview/replacement function, you need to turn off the replacement function and use `renderPicPreviewIcon` to listen for icon click events. <br />
+`onPreviewClick` listens for the click event of the single image container
+
+```jsx live=true width=48%
+import React from 'react';
+import { Upload } from '@douyinfe/semi-ui';
+import { IconPlus, IconEyeOpened } from '@douyinfe/semi-icons';
+
+() => {
+    let action = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
+    const defaultFileList = [
+        {
+            uid: '1',
+            name: 'jiafang.png',
+            status: 'success',
+            size: '130KB',
+            preview: true,
+            url:
+                'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/e82f3b261133d2b20d85e8483c203112.jpg',
+        },
+    ];
+    const handlePreview = (file) => {
+        const feature = "width=300,height=300";
+        window.open(file.url, 'imagePreview', feature);
+    }
+    return (
+        <>
+            <Upload
+                action={action}
+                listType="picture"
+                showPicInfo
+                accept="image/*"
+                multiple
+                defaultFileList={defaultFileList}
+                onPreviewClick={handlePreview}
+                renderPicPreviewIcon={()=><IconEyeOpened style={{color: 'var(--semi-color-white)', fontSize: 24}} />}
+            >
+                <IconPlus size="extra-large" />
+            </Upload>
+        </>
+    );
+};
+```
+
+Set `hotSpotLocation` to customize the order of click hotspots, the default is at the end of the photo wall list
+
+```jsx live=true width=48%
+import React from 'react';
+import { Upload, Select } from '@douyinfe/semi-ui';
+import { IconPlus, IconEyeOpened } from '@douyinfe/semi-icons';
+
+() => {
+    let action = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
+    const defaultFileList = [
+        {
+            uid: '1',
+            name: 'jiafang.png',
+            status: 'success',
+            size: '130KB',
+            preview: true,
+            url:
+                'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/e82f3b261133d2b20d85e8483c203112.jpg',
+        },
+    ];
+    const handlePreview = (file) => {
+        const feature = "width=300,height=300";
+        window.open(file.url, 'imagePreview', feature);
+    };
+    const [hotSpotLocation, $hotSpotLocation] = useState('end');
+    return (
+        <>
+            <Select value={hotSpotLocation} onChange={$hotSpotLocation} style={{ width: 120 }}>
+                <Select.Option value='start'>Start</Select.Option>
+                <Select.Option value='end'>End</Select.Option>
+            </Select>
+            <hr />
+            <Upload
+                action={action}
+                listType="picture"
+                showPicInfo
+                accept="image/*"
+                multiple
+                hotSpotLocation={hotSpotLocation}
+                defaultFileList={defaultFileList}
+                onPreviewClick={handlePreview}
+            >
                 <IconPlus size="extra-large" />
             </Upload>
         </>
@@ -1116,6 +1245,7 @@ The Upload component is an interactive control that can trigger file selection w
 |fileList | A list of uploaded files. When this value is passed in, upload is a controlled component | Array<FileItem\> | | 1.0.0 |
 |fileName | has the same function as name and is mainly used in Form.Upload. In order to avoid conflicts with the props.name of Field, a renamed props is provided here | string | | 1.0.0 |
 |headers | The headers attached to the upload or the method to return the uploaded additional headers| object\|(file: [File](https://developer.mozilla.org/zh-CN/docs/Web/API/File)) = > object | {} | |
+|hotSpotLocation | 照片墙点击热区的放置位置，可选值 `start`, `end` | string | 'end' | 2.5.0 |
 |itemStyle | Inline style of fileCard | CSSProperties | | 1.0.0 |
 |limit | Maximum number of files allowed to be uploaded | number | | |
 |listType | File list display type, optional `picture`, `list` | string |'list' | |
@@ -1141,7 +1271,9 @@ The Upload component is an interactive control that can trigger file selection w
 |prompt | Custom slot, which can be used to insert prompt text. Different from writing directly in `children`, the content of `prompt` will not trigger upload when clicked.<br/>(In the picture wall mode, the incoming prompt is only supported after v1.3.0) | ReactNode | | |
 |promptPosition | The position of the prompt text. When the listType is list, the reference object is the children element; when the listType is picture, the reference object is the picture list. Optional values ​​`left`, `right`, `bottom`<br/> (In picture wall mode, promptPosition is only supported after v1.3.0) | string |'right' | |
 |renderFileItem | Custom rendering of fileCard | (renderProps: RenderFileItemProps) => ReactNode | | 1.0.0 |
+|renderFileOperation | Custom list item operation area | (renderProps: RenderFileItemProps)=>ReactNode | | 2.5.0 |
 |renderPicInfo| Custom photo wall information, only valid in photo wall mode| (renderProps: RenderFileItemProps)=>ReactNode | | 2.2.0 |
+|renderPicPreviewIcon| The preview icon displayed when customizing the photo wall hover, only valid in photo wall mode | (renderProps: RenderFileItemProps)=>ReactNode | | 2.5.0 |
 |renderThumbnail| Custom picture wall thumb, only valid in photo wall mode| (renderProps: RenderFileItemProps)=>ReactNode | | 2.2.0 |
 |showClear | When limit is not 1 and the current number of uploaded files is greater than 1, whether to show the clear button | boolean | true | 1.0.0 |
 |showPicInfo| Whether to display picture information, only valid in photo wall mode | boolean| false | 2.2.0 |
