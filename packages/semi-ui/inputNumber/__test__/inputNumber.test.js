@@ -5,6 +5,7 @@ import sinon from 'sinon';
 import keyCode from '@douyinfe/semi-foundation/utils/keyCode';
 import * as _ from 'lodash';
 import { BASE_CLASS_PREFIX } from '../../../semi-foundation/base/constants';
+import { numbers } from '@douyinfe/semi-foundation/inputNumber/constants';
 import { Form, withField } from '../../index';
 
 const log = (...args) => console.log(...args);
@@ -216,8 +217,8 @@ describe(`InputNumber`, () => {
         const addCount = 3;
         const minusCount = 1;
 
-        _.times(addCount, () => addBtn.simulate('mousedown'));
-        _.times(minusCount, () => minusBtn.simulate('mousedown'));
+        _.times(addCount, () => addBtn.simulate('mousedown', { button: numbers.MOUSE_BUTTON_LEFT }));
+        _.times(minusCount, () => minusBtn.simulate('mousedown', { button: numbers.MOUSE_BUTTON_LEFT }));
 
         expect(inputElem.instance().value).toBe(String(defaultValue + addCount - minusCount));
         expect(onUpClick.called).toBe(true);
@@ -243,8 +244,8 @@ describe(`InputNumber`, () => {
         const addCount = 3;
         const minusCount = 1;
 
-        _.times(addCount, () => addBtn.simulate('mousedown'));
-        _.times(minusCount, () => minusBtn.simulate('mousedown'));
+        _.times(addCount, () => addBtn.simulate('mousedown', { button: numbers.MOUSE_BUTTON_LEFT }));
+        _.times(minusCount, () => minusBtn.simulate('mousedown', { button: numbers.MOUSE_BUTTON_LEFT }));
 
         expect(inputElem.instance().value).toBe(String(defaultValue + addCount - minusCount));
         expect(onUpClick.called).toBe(true);
@@ -283,9 +284,9 @@ describe(`InputNumber`, () => {
         // click button focus
         const addCount = 3;
         const minusCount = 1;
-        _.times(addCount, () => addBtn.simulate('mousedown'));
+        _.times(addCount, () => addBtn.simulate('mousedown', { button: numbers.MOUSE_BUTTON_LEFT }));
         _.times(addCount, () => addBtn.simulate('mouseup'));
-        _.times(minusCount, () => minusBtn.simulate('mousedown'));
+        _.times(minusCount, () => minusBtn.simulate('mousedown', { button: numbers.MOUSE_BUTTON_LEFT }));
         _.times(minusCount, () => minusBtn.simulate('mouseup'));
         expect(inputElem.instance().value).toBe(String(defaultValue + addCount - minusCount));
         expect(inputNumber.find(BaseInputNumber).state('focusing')).toBeTruthy();
@@ -338,7 +339,7 @@ describe(`InputNumber`, () => {
         const btns = inputNumber.find(`.${BASE_CLASS_PREFIX}-input-number-suffix-btns .${BASE_CLASS_PREFIX}-input-number-button`);
         const inputElem = inputNumber.find('input');
         const addBtn = btns.first();
-        addBtn.simulate('mousedown');
+        addBtn.simulate('mousedown', { button: numbers.MOUSE_BUTTON_LEFT });
         expect(inputElem.instance().value).toBe("1");
     })
 
@@ -366,5 +367,32 @@ describe(`InputNumber`, () => {
         inputElem.simulate('change', newEvent);
         expect(onNumberChange.calledOnce).toBe(true);
         expect(inputElem.instance().value).toBe('123');
-    })
+    });
+
+    /**
+     * test buttons right click
+     */
+     it(`right click add/minus button`, async () => {
+        const defaultValue = 1000;
+        const onUpClick = sinon.spy();
+        const onDownClick = sinon.spy();
+        const MOUSE_BUTTON_RIGHT = 2;
+
+        const inputNumber = mount(
+            <InputNumber defaultValue={defaultValue} onUpClick={onUpClick} onDownClick={onDownClick} />
+        );
+        const inputElem = inputNumber.find('input');
+
+        const btns = inputNumber.find(`.${BASE_CLASS_PREFIX}-input-number-suffix-btns .${BASE_CLASS_PREFIX}-input-number-button`);
+
+        const addBtn = btns.first();
+        const minusBtn = btns.last();
+
+        _.times(1, () => addBtn.simulate('mousedown', { button: MOUSE_BUTTON_RIGHT  }));
+        _.times(3, () => minusBtn.simulate('mousedown', { button: MOUSE_BUTTON_RIGHT }));
+
+        expect(inputElem.instance().value).toBe(String(defaultValue));
+        expect(onUpClick.called).toBe(false);
+        expect(onDownClick.called).toBe(false);
+    });
 });

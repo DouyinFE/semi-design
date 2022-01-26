@@ -170,3 +170,21 @@
     margin-left: -30px;
     margin-top: -30px;
 }
+
+.group3736dark {
+    display: none;
+    position: relative;
+    height: 682px;
+    margin-left: -30px;
+    margin-top: -30px;
+}
+
+body[theme-mode='dark'] {
+    .group3736 {
+        display: none;
+    }
+
+    .group3736dark {
+        display: inline;
+    }
+}

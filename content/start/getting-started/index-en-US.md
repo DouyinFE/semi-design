@@ -137,14 +137,19 @@ module.exports = semi({
 });
 ```
 
-[Detailed documentation]() of `@douyinfe/semi-next`.
+[Detailed documentation](https://www.npmjs.com/package/@douyinfe/semi-next) of `@douyinfe/semi-next`.
 
 ### Step3
 
-Introduce the full amount of semi css in `global.css`. Currently, on-demand introduction is not supported.
+Introduce the full amount of semi css in `global.css`. Currently, on-demand import is not supported.
 
 ``` css
 /* styles/globals.css */
 @import '~@douyinfe/semi-ui/dist/css/semi.min.css';
 
 ```
+
+**Using theme in nextjs**
+
+Please refer to [this issue](https://github.com/DouyinFE/semi-design/issues/565)
+

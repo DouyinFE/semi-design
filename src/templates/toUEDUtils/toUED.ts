@@ -51,6 +51,8 @@ const transContent=(site:'main'|'design')=>{
                 try {
                     const data=JSON.parse(e.data);
                     if (data['scrollHeight']){
+                        // @ts-ignore
+                        window.syncThemeToIframe && window.syncThemeToIframe();
                         iframeDOM.style['height']=`${data['scrollHeight']}px`;
                         iframeContainer.style['height']=`${data['scrollHeight']}px`;
                         console.log('height===>',data['scrollHeight']);
