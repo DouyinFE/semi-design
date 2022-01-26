@@ -8,6 +8,8 @@ $color-modal_success-icon: var(--semi-color-success); // 模态框成功图标�
 $color-modal_danger-icon: var(--semi-color-danger); // 模态框危险图标颜色
 $color-modal_warning-icon: var(--semi-color-warning); // 模态框警告图标颜色
 $color-modal_content-border: var(--semi-color-border); // 模态框描边颜色
+$color-modal_header-background: transparent;
+$color-modal_footer-background: transparent;
 
 // Spacing
 $spacing-modal-marginY: 80px; // 模态框距容器顶部外边距
@@ -66,4 +68,5 @@ $color-modal_header-border:transparent;
 $width-modal_header-border:0;
 $color-modal_footer-border:transparent;
 $width-modal_footer-border:0;
+
 
