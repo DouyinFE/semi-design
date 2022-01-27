@@ -116,8 +116,7 @@ export const larkTheme = `/* shadow */
       color: var(--semi-color-link); }
   .semi-typography-icon {
     margin-right: 4px;
-    display: flex;
-    align-items: center;
+    vertical-align: middle;
     color: inherit; }
   .semi-typography-small {
     font-size: 12px;
@@ -1160,8 +1159,7 @@ export const douyinTheme = `/* shadow */
       color: var(--semi-color-link); }
   .semi-typography-icon {
     margin-right: 4px;
-    display: flex;
-    align-items: center;
+    vertical-align: middle;
     color: inherit; }
   .semi-typography-small {
     font-size: 12px;
@@ -2204,8 +2202,7 @@ export const huoshanTheme = `/* shadow */
       color: var(--semi-color-link); }
   .semi-typography-icon {
     margin-right: 4px;
-    display: flex;
-    align-items: center;
+    vertical-align: middle;
     color: inherit; }
   .semi-typography-small {
     font-size: 12px;
