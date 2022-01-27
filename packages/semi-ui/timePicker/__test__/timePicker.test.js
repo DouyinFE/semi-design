@@ -22,11 +22,13 @@ describe(`TimePicker`, () => {
         const defaultMinute = 24;
         const defaultSeconds = 18;
 
-        const onFoucs = sinon.spy();
+        const onFocus = sinon.spy();
+        const onChange = sinon.spy();
 
         const elem = mount(
             <TimePicker
-                onFocus={onFoucs}
+                onChange={onChange}
+                onFocus={onFocus}
                 panelHeader={<strong>Select Time</strong>}
                 locale={Locale.TimePicker}
                 localeCode={Locale.code}
@@ -59,7 +61,7 @@ describe(`TimePicker`, () => {
         // focus
         elem.find(`input`).simulate('focus');
         await sleep(200);
-        expect(onFoucs.calledOnce).toBeTruthy();
+        expect(onFocus.calledOnce).toBeTruthy();
 
         // input value
         const newInputHour = 10;
@@ -82,6 +84,11 @@ describe(`TimePicker`, () => {
 
         await sleep(200);
         expect(elem.state('open')).toBe(false);
+
+        expect(onChange.called).toBeTruthy();
+        const args = onChange.getCall(0).args;
+        expect(args[0] instanceof Date).toBe(true);
+        expect(typeof args[1]).toBe('string');
     });
 
     it(`test controlled value`, async () => {
@@ -279,5 +286,29 @@ describe(`TimePicker`, () => {
         const args = onChange.getCall(0).args;
         expect(args[0]).toBe(undefined);
         expect(args[1]).toBe('');
+    });
+
+    it('test onChangeWithDateFirst=false', async () => {
+        const onChange = sinon.spy();
+        let props = {
+            defaultValue: "10:23:15",
+            onChange,
+            defaultOpen: true,
+            onChangeWithDateFirst: false,
+            autofocus: true,
+            locale: Locale.TimePicker,
+            localeCode: Locale.code
+        };
+        const elem = mount(<TimePicker {...props} />);
+        // click minute
+        const minuteUl = elem.find(`.${BASE_CLASS_PREFIX}-timepicker-panel-list-minute .${BASE_CLASS_PREFIX}-scrolllist-list-outer ul`);
+        const minuteLis = minuteUl.find(`li`);
+
+        minuteUl.simulate('click', { target: minuteLis.at(0).getDOMNode(), nativeEvent: null });
+
+        expect(onChange.called).toBeTruthy();
+        const args = onChange.getCall(0).args;
+        expect(typeof args[0]).toBe('string');
+        expect(args[1] instanceof Date).toBe(true);
     });
 });

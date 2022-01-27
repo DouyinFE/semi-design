@@ -262,3 +262,21 @@ export const ShowClear = () => (
     />
   </>
 );
+
+
+export const TimePickerWithOnChangeWithDateFirst = () => {
+  return (
+    <div>
+      onChangeWithDateFirst=true (default)
+      <TimePicker onChange={(...val) => console.log(...val)} />
+      <br />
+      onChangeWithDateFirst=false
+      <TimePicker onChangeWithDateFirst={false} onChange={(...val) => console.log(...val)} />
+      
+    </div>
+  );
+};
+
+TimePickerWithOnChangeWithDateFirst.story = {
+  name: 'OnChangeWithDateFirst',
+};
