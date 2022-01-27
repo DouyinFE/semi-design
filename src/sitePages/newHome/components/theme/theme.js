@@ -1039,7 +1039,7 @@ p.semi-typography-extended,
     background-color: var(--semi-color-fill-0); }
   .semi-page-rest-item:active {
     background-color: var(--semi-color-fill-1); }
-`;
+`
 
 export const douyinTheme = `/* shadow */
 /* sizing */
@@ -2082,7 +2082,7 @@ p.semi-typography-extended,
     background-color: var(--semi-color-fill-0); }
   .semi-page-rest-item:active {
     background-color: var(--semi-color-fill-1); }
-`;
+`
 
 export const huoshanTheme = `/* shadow */
 /* sizing */
@@ -3125,4 +3125,4 @@ p.semi-typography-extended,
     background-color: var(--semi-color-fill-0); }
   .semi-page-rest-item:active {
     background-color: var(--semi-color-fill-1); }
-`;
+`
