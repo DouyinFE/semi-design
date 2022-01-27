@@ -301,7 +301,7 @@ function Demo(props = {}) {
 | value               | 当前时间                                               | Date\|timeStamp\|String（type="timeRange"时为数组）                               |                                                                   |                    |
 | onBlur              | 失去焦点时的回调                                       | (e: domEvent) => void                                                             | () => {}                                                          | **1.0.0**          |
 | onChange            | 时间发生变化的回调                                     | Function(time: Date, timeString: string): void （type="timeRange"时入参皆为数组） | 无                                                                |                    |
-| onChangeWithDateFirst | 设置为 `true` 时 onChange 的入参顺序为 (string, Date), `false` 时为 (Date, string) | boolean | true | **2.4.0** |
+| onChangeWithDateFirst | 设置为 `true` 时 onChange 的入参顺序为 (Date, string), `false` 时为 (string, Date) | boolean | true | **2.4.0** |
 | onFocus             | 获得焦点时的回调                                       | (e: domEvent) => void                                                             | () => {}                                                          | **1.0.0**          |
 | onOpenChange        | 面板打开/关闭时的回调                                  | Function(isOpen: boolean): void                                                   | 无                                                                |                    |
 
