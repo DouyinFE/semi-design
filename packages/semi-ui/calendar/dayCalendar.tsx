@@ -162,12 +162,12 @@ export default class DayCalendar extends BaseComponent<DayCalendarProps, DayCale
         const { parsedEvents, scrollHeight } = this.state;
         this.isWeekend = markWeekend && this.checkWeekend(displayValue);
         return (
-            <div role="grid" className={dayCls} style={dayStyle} ref={this.dom}>
-                <div role="presentation" className={`${prefixCls}-sticky-top`}>
+            <div className={dayCls} style={dayStyle} ref={this.dom}>
+                <div className={`${prefixCls}-sticky-top`}>
                     {header}
                     {this.renderAllDay(parsedEvents.allDay)}
                 </div>
-                <div role="presentation" className={`${prefixCls}-scroll-wrapper`}>
+                <div className={`${prefixCls}-scroll-wrapper`}>
                     <div className={`${prefixCls}-scroll`} ref={this.scrollDom}>
                         <TimeCol
                             className={`${prefixCls}-sticky-left`}
