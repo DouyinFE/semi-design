@@ -43,9 +43,9 @@ class Demo extends React.Component {
 [![BUILD-JS][build-js-badge]][build-js-url] [![BUILD-CSS][build-css-badge]][build-css-url]
 
 [build-js-badge]: https://img.badgesize.io/https:/unpkg.com/@douyinfe/semi-ui/dist/umd/semi-ui.min.js?label=semi.min.js&compression=gzip
-[build-js-url]: https://unpkg.com/browse/@douyinfe/semi-ui@2.1.1/dist/umd/semi-ui.min.js
+[build-js-url]: https://unpkg.com/browse/@douyinfe/semi-ui/dist/umd/semi-ui.min.js
 [build-css-badge]: https://img.badgesize.io/https:/unpkg.com/@douyinfe/semi-ui/dist/css/semi.min.css?label=semi.min.css&compression=gzip
-[build-css-url]: https://unpkg.com/browse/@douyinfe/semi-ui@2.1.1/dist/css/semi.min.css
+[build-css-url]: https://unpkg.com/browse/@douyinfe/semi-ui/dist/css/semi.min.css
 
 > We do not recommend using the built file directly, as this will introduce all components in full and cannot be loaded on demand. But if there is indeed a need for non-construction scenarios, you can quote in the following ways
 
@@ -137,14 +137,19 @@ module.exports = semi({
 });
 ```
 
-[Detailed documentation]() of `@douyinfe/semi-next`.
+[Detailed documentation](https://www.npmjs.com/package/@douyinfe/semi-next) of `@douyinfe/semi-next`.
 
 ### Step3
 
-Introduce the full amount of semi css in `global.css`. Currently, on-demand introduction is not supported.
+Introduce the full amount of semi css in `global.css`. Currently, on-demand import is not supported.
 
 ``` css
 /* styles/globals.css */
 @import '~@douyinfe/semi-ui/dist/css/semi.min.css';
 
 ```
+
+**Using theme in nextjs**
+
+Please refer to [this issue](https://github.com/DouyinFE/semi-design/issues/565)
+

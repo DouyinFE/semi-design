@@ -16,10 +16,24 @@ Version：Major.Minor.Patch
 
 ---
 
+#### 🎉 2.3.1 (2022-01-21)
+- 【Chore】
+    - Fix List component pass the datasource props, the renderItem function params of item missing the type defined [#393](https://github.com/DouyinFE/semi-design/issues/393) [@chenc041](https://github.com/chenc041)
+    - Fix Dropdown props menu type definition
+- 【Fix】
+    - Fixed warning when InputNumber given defaultValue [#537](https://github.com/DouyinFE/semi-design/issues/537) [@chenc041](https://github.com/chenc041)
+
+
+#### 🎉 2.3.0 (2022-01-14)
+- 【Fix】
+    - Fixed Notification display collapsing order [#531](https://github.com/DouyinFE/semi-design/pull/531)
+    - Fixed the problem that the edge click of the remove button is not available in Upload when `listType='picture'` [@pdsuwwz](https://github.com/pdsuwwz) [#525](https://github.com/DouyinFE/semi-design/pull/525)
+    - Removed useless `aria-label` in Collapse, SideSheet, Avatar, Spin components [#536](https://github.com/DouyinFE/semi-design/pull/536)
+
 #### 🎉 2.3.0-beta.0 (2022-01-07)
 - 【Fix】
-    - Fixed the problem that when Form uses the parent fieldPath in formApi.setValue, setError, and setTouch to perform batch assignment to multiple nested fields, there may be a problem of stuck (affecting versions v1.32~v2.2) Checklist
-    - Fix the inaccurate trigger range of Form formApi.validate partial verification Checklist
+    - Fixed the problem that when Form uses the parent fieldPath in formApi.setValue, setError, and setTouch to perform batch assignment to multiple nested fields, there may be a problem of stuck (affecting versions v1.32~v2.2) 
+    - Fix the inaccurate trigger range of Form formApi.validate partial verification [#510](https://github.com/DouyinFE/semi-design/issues/510)
     - Fix the problem that Tooltip did not include spacing when calculating adjustOverflow, which caused the content to exceed (but not exceed 8px) and still not automatically switch the direction.  [#491](https://github.com/DouyinFE/semi-design/issues/491)
     - Fix Tooltip showing that the default direction of the floating layer is insufficient, and it will flicker when adjustOverflow is triggered to automatically switch the direction.   [#69](https://github.com/DouyinFE/semi-design/issues/69)
     - Fix Tree handleNodeDragOver internal event parameters are not properly passed  [#345 ](https://github.com/DouyinFE/semi-design/issues/345)
@@ -354,6 +368,8 @@ Version：Major.Minor.Patch
      - Cascader supports disableStrictly 
      - Tooltip supports wrapperClassName
      - Form formApi.setValue, setError, and setTouched support the use of parent fieldPath to assign values to multiple fields in batches 
+- 【Fix】
+    - **Fixed the problem that when Form ArrayField sets initValue and its subordinate Field also sets initValue, the initial value configured by ArrayField Props has a higher weight than the initial value configured by Field Props. Align the priority rules of Form Props and Field Props, and follow the principle that the sub-level configuration has the highest weight**
 
 #### 🎉 1.31.0 (2021-09-24)
 - 【Fix】

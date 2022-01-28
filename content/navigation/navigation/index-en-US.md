@@ -786,3 +786,6 @@ function NavApp (props = {}) {
 - **Lost animation in navigation bar?**
 
     When using functional components, you should give items with useState or useMemo, because passing an array directly to items will trigger component rerendering.
+
+- **Lost item when subNav is too height >=999px ?**
+    Please refer to [this issue](https://github.com/DouyinFE/semi-design/issues/563)

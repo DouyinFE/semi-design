@@ -501,7 +501,7 @@ import { Form, Toast, Button } from '@douyinfe/semi-ui';
                     <Form.Checkbox field='agree' noLabel>I have read and agree to the terms of service</Form.Checkbox>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <p>
-                            <span>Or</span><Button theme='borderless' style={{ color: 'rgb(101, 178, 252)', marginLeft: 10, cursor:'pointer' }}>Sign up</Button>
+                            <span>Or</span><Button theme='borderless' style={{ color: 'var(--semi-color-primary)', marginLeft: 10, cursor:'pointer' }}>Sign up</Button>
                         </p>
                         <Button disabled={!values.agree} htmlType='submit' type="tertiary">Log in</Button>
                     </div>
@@ -967,7 +967,7 @@ class HelpAndExtra extends React.Component {
                     extraText={
                         <div 
                             style={{
-                                color: 'rgba(var(--semi-blue-5), 1)',
+                                color: 'var(--semi-color-link)',
                                 fontSize: 14,
                                 userSelect: 'none',
                                 cursor: 'pointer'

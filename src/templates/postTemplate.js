@@ -362,26 +362,26 @@ const components = {
             })
             return dataSource;
         }
-        try {
-            const columns = getColumnsFromFiber(columnsFiber);
-            const dataSource = getDataFromFiber(dataFiber);
-            return (
-                <div className="table-container gatsby-table-container">
-                    {/* <table className="md markdown gatsby-table">{children}</table> */}
-                    <Table
-                        pagination={false}
-                        columns={columns}
-                        dataSource={dataSource}
-                    />
-                </div>
-            );
-        } catch {
+        // try {
+        //     const columns = getColumnsFromFiber(columnsFiber);
+        //     const dataSource = getDataFromFiber(dataFiber);
+        //     return (
+        //         <div className="table-container gatsby-table-container">
+        //             {/* <table className="md markdown gatsby-table">{children}</table> */}
+        //             <Table
+        //                 pagination={false}
+        //                 columns={columns}
+        //                 dataSource={dataSource}
+        //             />
+        //         </div>
+        //     );
+        // } catch {
             return (
                 <div className="table-container gatsby-table-container">
                     <table className="md markdown gatsby-table">{children}</table>
                 </div>
             );
-        }
+        // }
     },
 };
 

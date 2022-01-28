@@ -4,22 +4,20 @@ import { NoticeInstance, NoticePosition, NoticeProps } from '../notification/not
 import { strings } from './constants';
 
 
-
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface NotificationListProps{
+export interface NotificationListProps {
 
 }
 
-export interface NotificationListState{
+export interface NotificationListState {
     notices: NoticeInstance[];
     removedItems: NoticeInstance[];
 }
 
-export interface NotificationListAdapter extends DefaultAdapter<NotificationListProps, NotificationListState>{
+export interface NotificationListAdapter extends DefaultAdapter<NotificationListProps, NotificationListState> {
     updateNotices: (notices: NoticeInstance[], removedItems?: NoticeInstance[]) => void;
     getNotices: () => NoticeInstance[];
 }
-
 
 
 export interface ConfigProps {
@@ -34,8 +32,6 @@ export interface ConfigProps {
 }
 
 
-
-
 export default class NotificationListFoundation extends BaseFoundation<NotificationListAdapter> {
 
     addNotice(opts: NoticeProps) {
@@ -48,7 +44,7 @@ export default class NotificationListFoundation extends BaseFoundation<Notificat
         //         this.removeNotice(opts.id);
         //     }, opts.duration * 1000);
         // }
-        this._adapter.updateNotices([...notices, opts]);
+        this._adapter.updateNotices([opts, ...notices]);
         // return id;
     }
 

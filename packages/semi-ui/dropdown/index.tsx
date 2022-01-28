@@ -25,12 +25,20 @@ export { DropdownDividerProps } from './dropdownDivider';
 export { DropdownItemProps, Type } from './dropdownItem';
 export { DropdownMenuProps } from './dropdownMenu';
 export { DropdownTitleProps } from './dropdownTitle';
-export interface DropDownMenuItemBasic {
-    node: 'title' | 'item' | 'divider';
+
+export interface DropDownMenuItemItem extends DropdownItemProps {
+    node: 'item';
     name?: string;
 }
+export interface DropDownMenuItemDivider extends DropdownDividerProps {
+    node: 'divider'
+}
+export interface DropDownMenuItemTitle extends DropdownTitleProps {
+    node: 'title';
+    name?: string
+}
 
-export type DropDownMenuItem = DropDownMenuItemBasic & DropdownItemProps & DropdownDividerProps & DropdownTitleProps;
+export type DropDownMenuItem = DropDownMenuItemItem | DropDownMenuItemDivider | DropDownMenuItemTitle;
 
 export interface DropdownProps extends TooltipProps {
     render?: React.ReactNode;

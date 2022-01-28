@@ -15,10 +15,23 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 ---
 
+#### 🎉 2.3.1 (2022-01-21)
+- 【Chore】
+    - 修复 List 组件传递 datasource 属性时, renderItem 类型丢失 [#393](https://github.com/DouyinFE/semi-design/issues/393) [@chenc041](https://github.com/chenc041)
+    - 修复 Dropdown menu 类型定义异常问题 
+- 【Fix】
+    - 修复 InputNumber 传入 defaultValue 时警告问题 [#537](https://github.com/DouyinFE/semi-design/issues/537) [@chenc041](https://github.com/chenc041)
+
+#### 🎉 2.3.0 (2022-01-14)
+- 【Fix】
+    - 修复 Notification 显示收起顺序 [#531](https://github.com/DouyinFE/semi-design/pull/531)
+    - 修复 Upload 照片墙模式下移除按钮的边缘点击不可用的问题 [@pdsuwwz](https://github.com/pdsuwwz) [#525](https://github.com/DouyinFE/semi-design/pull/525)
+    - 去除了 Collapse、SideSheet、Avatar、Spin 组件中无效的 aria-label [#536](https://github.com/DouyinFE/semi-design/pull/536)
+
 #### 🎉 2.3.0-beta.0 (2022-01-07)
 - 【Fix】
     - 修复 Form 使用 formApi.setValue、setError、setTouch 中用父级fieldPath，对多个嵌套field进行批量赋值时，可能存在卡顿的问题（影响版本 v1.32~v2.2）
-    - 修复Form formApi.validate 局部校验触发范围不准确的问题
+    - 修复Form formApi.validate 局部校验触发范围不准确的问题 [#510](https://github.com/DouyinFE/semi-design/issues/510)
     - 修复 Tooltip 计算 adjustOverflow时未将 spacing纳入，导致内容超出（但未超过8px）后仍未自动切换方向的问题  [#491](https://github.com/DouyinFE/semi-design/issues/491)
     - 修复 Tooltip 展现浮层默认方向空间不足，触发 adjustOverflow 自动切换方向时会闪烁的问题  [#69](https://github.com/DouyinFE/semi-design/issues/69)
     - 修复 Tree handleNodeDragOver 内部 event 传参不恰当的问题  [#345 ](https://github.com/DouyinFE/semi-design/issues/345)
@@ -371,6 +384,8 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
     - Cascader 支持 disableStrictly 
     - Tooltip 支持 wrapperClassName
     - Form formApi.setValue、setError、setTouched 支持使用父级fieldPath，对多个field进行批量赋值 
+- 【Fix】
+    - **修正 Form ArrayField 设置 initValue，其下属的 Field 也设置initValue时 ，通过ArrayField Props 配置的初始值反而比通过Field Props配置的初始值权重高的问题。对齐Form Props、Field Props的优先级生效规则，遵循子级配置权重最高的原则**
 
 #### 🎉 1.31.0 (2021-09-24)
 - 【Fix】
