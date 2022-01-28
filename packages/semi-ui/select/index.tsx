@@ -739,7 +739,12 @@ class Select extends BaseComponent<SelectProps, SelectState> {
 
         return (
             // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/interactive-supports-focus
-            <div role="button" aria-label="Use the input box to create an optional item" onClick={e => this.onSelect(option, optionIndex, e)} key={new Date().valueOf()}>
+            <div
+                role="button"
+                aria-label="Use the input box to create an optional item"
+                onClick={e => this.onSelect(option, optionIndex, e)}
+                key={option.key || option.label}
+            >
                 {customCreateItem}
             </div>
         );
