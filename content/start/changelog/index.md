@@ -25,6 +25,7 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
     - 修复 Tree 同时使用虚拟化和 renderFullLabel 时，滚动项目发生抖动的问题  [#527](https://github.com/DouyinFE/semi-design/issues/527)
 - 【Style】
     - 修复 TextArea readonly 模式下光标显示为禁用问题 [@chenc041](https://github.com/chenc041)  [#535](https://github.com/DouyinFE/semi-design/issues/535)
+    - 修复 Table 固定列 z-index 层级过高问题
 
 #### 🎉 2.3.1 (2022-01-21)
 - 【Chore】

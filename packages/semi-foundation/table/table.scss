@@ -22,6 +22,10 @@ $module: #{$prefix}-table;
         @include font-size-regular;
         color: $color-table-text-default;
         width: 100%;
+
+        &[data-column-fixed=true] {
+            z-index: 1;
+        }
     }
 
     &-middle {

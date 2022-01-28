@@ -26,6 +26,7 @@ Version：Major.Minor.Patch
     - Fixed the jitter of scrolling items when Tree uses both `virtualize` and `renderFullLabel`  [#527](https://github.com/DouyinFE/semi-design/issues/527)
 - 【Style】
     - Fixed TextArea `readonly` hover cursor style bug [@chenc041](https://github.com/chenc041) [#535](https://github.com/DouyinFE/semi-design/issues/535)
+    - Fixed the problem that the `z-index` level of the fixed column of Table is too high
 
 #### 🎉 2.3.0 (2022-01-14)
 - 【Fix】

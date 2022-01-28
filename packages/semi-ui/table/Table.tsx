@@ -1374,6 +1374,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             <div
                 ref={this.rootWrapRef}
                 className={classnames(className, `${prefixCls}-wrapper`)}
+                data-column-fixed={anyColumnFixed}
                 style={wrapStyle}
                 id={id}
             >
