@@ -2,7 +2,7 @@
 localeCode: zh-CN
 order: 68
 category: 其他
-title:  Configprovider 全局配置
+title:  ConfigProvider 全局配置
 icon: doc-configprovider
 dir: column
 brief: 为组件提供统一的全局化配置。
