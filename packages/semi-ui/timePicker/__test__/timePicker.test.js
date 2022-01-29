@@ -89,6 +89,7 @@ describe(`TimePicker`, () => {
         const args = onChange.getCall(0).args;
         expect(args[0] instanceof Date).toBe(true);
         expect(typeof args[1]).toBe('string');
+        elem.unmount();
     });
 
     it(`test controlled value`, async () => {
@@ -120,6 +121,7 @@ describe(`TimePicker`, () => {
         let currentDate0 = elem0.state('value')[0];
 
         expect(currentDate0.getMinutes()).toBe(defaultMinute);
+        elem0.unmount();
     });
 
     it(`test controlled value with onchange`, async () => {
@@ -156,6 +158,7 @@ describe(`TimePicker`, () => {
 
         let currentDate1 = elem1.state('value')[0];
         expect(currentDate1.getMinutes()).toBe(newInputMinute);
+        elem1.unmount();
     });
 
     it(`test controlled open`, async () => {
@@ -234,6 +237,7 @@ describe(`TimePicker`, () => {
         nextSelectedLi.simulate('click');
         await sleep(200);
         expect(elem.state('value')[0].getHours()).toBe(newHour);
+        elem.unmount();
     });
 
     it('test isTimeFormatLike function', () => {
@@ -286,6 +290,7 @@ describe(`TimePicker`, () => {
         const args = onChange.getCall(0).args;
         expect(args[0]).toBe(undefined);
         expect(args[1]).toBe('');
+        elem.unmount();
     });
 
     it('test onChangeWithDateFirst=false', async () => {
@@ -312,5 +317,6 @@ describe(`TimePicker`, () => {
         const args = onChange.getCall(0).args;
         expect(typeof args[0]).toBe('string');
         expect(args[1] instanceof Date).toBe(true);
+        elem.unmount();
     });
 });
