@@ -297,7 +297,8 @@ describe(`TimePicker`, () => {
             onChangeWithDateFirst: false,
             autofocus: true,
             locale: Locale.TimePicker,
-            localeCode: Locale.code
+            localeCode: Locale.code,
+            scrollItemProps: { cycled: false }
         };
         const elem = mount(<TimePicker {...props} />);
         // click minute
@@ -305,6 +306,7 @@ describe(`TimePicker`, () => {
         const minuteLis = minuteUl.find(`li`);
 
         minuteUl.simulate('click', { target: minuteLis.at(0).getDOMNode(), nativeEvent: null });
+        await sleep(200);
 
         expect(onChange.called).toBeTruthy();
         const args = onChange.getCall(0).args;
