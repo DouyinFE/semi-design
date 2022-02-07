@@ -41,6 +41,7 @@ export default function Demo() {
         defaultOpen: true,
         position: 'bottomLeft',
         autoAdjustOverflow: false,
+        motion: false,
     };
     const singleDefaultValue = new Date('2021-01-08');
     const multipleDefaultValue = [new Date('2021-01-08'), new Date('2021-01-09'), new Date('2021-01-10'), new Date('2021-01-19')];

@@ -86,7 +86,7 @@ export const DatePickerDefault = () => (
     <br />
 
     <span>datePicker默认显示</span>
-    <DatePicker defaultOpen />
+    <DatePicker defaultOpen motion={false} />
     <br />
 
     <span>defaultValue: new Date('2019-07-07')</span>

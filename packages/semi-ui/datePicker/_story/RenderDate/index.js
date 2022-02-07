@@ -19,7 +19,7 @@ export default function Demo() {
     return (
         <div>
             <div>通过 renderDate 可以自定义日期的显示内容</div>
-            <DatePicker defaultValue={defaultValue} defaultOpen renderDate={renderDate} />
+            <DatePicker motion={false} defaultValue={defaultValue} defaultOpen renderDate={renderDate} />
         </div>
     );
 }

@@ -13,6 +13,7 @@ export default function App() {
         autoAdjustOverflow: false,
         defaultPickerValue: defaultValue,
         needConfirm: true,
+        motion: false,
     };
     const spacing = [48, 400];
     // 使用过去的时间，避免当前日变动引入 UI 测试失败

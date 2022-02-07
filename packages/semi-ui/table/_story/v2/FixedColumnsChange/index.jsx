@@ -15,7 +15,7 @@ const getData = () => {
             name: isSemiDesign ? `Semi Design 设计稿${i}.fig` : `Semi Pro 设计稿${i}.fig`,
             owner: isSemiDesign ? '姜鹏志' : '郝宣',
             size: randomNumber,
-            updateTime: new Date().valueOf() + randomNumber * DAY,
+            updateTime: new Date('2022-01-01').valueOf() + randomNumber * DAY,
             avatarBg: isSemiDesign ? 'grey' : 'red'
         });
     }
