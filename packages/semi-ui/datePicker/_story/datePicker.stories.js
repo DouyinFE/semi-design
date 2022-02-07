@@ -75,7 +75,7 @@ const demoDiv = {
 };
 
 export const DatePickerDefault = () => (
-  <div style={demoDiv}>
+  <div style={{...demoDiv, height: '100vh'}}>
     <span>datePicker施工现场</span>
     <DatePicker
       insetLabel={<span>日期</span>}

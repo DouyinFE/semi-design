@@ -17,7 +17,7 @@ export default function Demo() {
         return dayNumber;
     };
     return (
-        <div>
+        <div style={{ height: '100vh' }}>
             <div>通过 renderDate 可以自定义日期的显示内容</div>
             <DatePicker motion={false} defaultValue={defaultValue} defaultOpen renderDate={renderDate} />
         </div>
@@ -26,6 +26,6 @@ export default function Demo() {
 Demo.parameters = {
     chromatic: {
         disableSnapshot: false,
-        delay: 300,
+        delay: 3000,
     },
 };

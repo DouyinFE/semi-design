@@ -48,7 +48,7 @@ export default function Demo() {
     const rangeDefaultValue = [new Date('2021-12-08'), new Date('2021-01-20')];
 
     return (
-        <>
+        <div style={{ height: '100vh' }}>
             <div>
                 通过 renderFullDate 可以自定义日期单元格子的渲染，API 提供日期的当前状态：是否被选中，是否是当前日等。
             </div>  
@@ -66,12 +66,13 @@ export default function Demo() {
                     <DatePicker {...props} style={{ width: '230px' }} type={'dateRange'} renderFullDate={renderFullDate} defaultValue={rangeDefaultValue} />
                 </div>
             </Space>
-        </>
+        </div>
     );
 }
 Demo.parameters = {
     chromatic: {
         disableSnapshot: false,
-        delay: 300,
+        delay: 3000,
+        viewports: [1800]
     },
 };
