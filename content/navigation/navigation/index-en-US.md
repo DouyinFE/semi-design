@@ -523,7 +523,6 @@ class NavApp extends React.Component {
         return (
             <Nav
                 limitIndent={false}
-                toggleIconPosition={'left'}
                 defaultOpenKeys={['job']}
                 bodyStyle={{ height: 320 }}
                 items={[
