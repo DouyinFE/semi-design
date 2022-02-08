@@ -63,7 +63,6 @@ const getRenderText = (
 
     // clean up css overflow
     ellipsisContainer.style.textOverflow = 'clip';
-    ellipsisContainer.style.whiteSpace = 'normal';
     ellipsisContainer.style.webkitLineClamp = 'none';
 
     // Render fake container
