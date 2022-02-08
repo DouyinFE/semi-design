@@ -363,7 +363,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         if (
             treeData &&
             props.motion &&
-            !isEqual(new Set(Object.keys(newState.keyEntities)), new Set(Object.keys(prevState.keyEntities)))
+            !isEqual(Object.keys(newState.keyEntities), Object.keys(prevState.keyEntities))
         ) {
             if (prevProps && props.motion) {
                 newState.motionKeys = new Set([]);
