@@ -705,9 +705,32 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         );
     };
 
+    renderDisplayText = (): ReactNode => {
+        const { displayProp, separator, displayRender } = this.props;
+        const { selectedKeys } = this.state;
+        let displayText: ReactNode = '';
+        if (selectedKeys.size) {
+            const displayPath = this.foundation.getItemPropPath([...selectedKeys][0], displayProp);
+            if (displayRender && typeof displayRender === 'function') {
+                displayText = displayRender(displayPath);
+            } else {
+                displayText = displayPath.map((path: ReactNode, index: number)=>(
+                    <Fragment key={`${path}-${index}`}>
+                        {
+                            index<displayPath.length-1
+                                ? <>{path}{separator}</>
+                                : path
+                        }
+                    </Fragment>
+                ));
+            }
+        }
+        return displayText;
+    }
+
     renderSelectContent = () => {
         const { placeholder, filterTreeNode, multiple } = this.props;
-        const { selectedKeys, checkedKeys } = this.state;
+        const { checkedKeys } = this.state;
         const searchable = Boolean(filterTreeNode);
         if (!searchable) {
             if (multiple) {
@@ -716,9 +739,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                 }
                 return this.renderMultipleTags();
             } else {
-                const displayText = selectedKeys.size ?
-                    this.foundation.renderDisplayText([...selectedKeys][0]) :
-                    '';
+                const displayText = this.renderDisplayText();
                 const spanCls = cls({
                     [`${prefixcls}-selection-placeholder`]: !displayText || !displayText.length,
                 });

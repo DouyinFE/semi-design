@@ -346,37 +346,50 @@ export const Searchable = () => {
         filterLeafOnly={false}
         onChange={e => console.log(e)}
       />
+      <br />
+      <br />
+      <div>fix-1449,当 label 为 ReactNode 时，搜索显示结果[object object]</div>
+      <Cascader
+        style={{ width: 300 }}
+        treeData={treedataWithNodeLabel}
+        placeholder="宁波为 ReactNode"
+        filterTreeNode
+      />
+      <br />
+      <br />
       <div>
-        <br />
-        <br />
-        <div>fix-1449,当 label 为 ReactNode 时，搜索显示结果[object object]</div>
-        <Cascader
-          style={{ width: 300 }}
-          treeData={treedataWithNodeLabel}
-          placeholder="宁波为 ReactNode"
-          filterTreeNode
-        />
-        <div>
-          filterTreeNode=false，且 label 为 ReactNode
-          时，配合displayRender使用，使得回显到input的内容符合预期
+        filterTreeNode=false，且 label 为 ReactNode
+        时，配合displayRender使用，使得回显到input的内容符合预期
+      </div>
+      <Cascader
+        style={{ width: 300 }}
+        treeData={treedataWithNodeLabel}
+        placeholder="自定义回填时显示数据的格式"
+        displayRender={list =>
+          list.map((v, i) => {
+            return list.length - 1 === i ? (
+              <React.Fragment key={i}>{v}</React.Fragment>
+            ) : (
+              <React.Fragment key={i}>{v} / </React.Fragment>
+            );
+          })
+        }
+        defaultValue={['zhejiang', 'ningbo', 'jiangbei']}
+      />
+      <br />
+      <br />
+      <div>
+          v2.5 起，filterTreeNode=false，且 label 为 ReactNode
+          时，无配合displayRender 使用，回显到input的内容也是符合预期
         </div>
         <Cascader
           style={{ width: 300 }}
           treeData={treedataWithNodeLabel}
-          placeholder="自定义回填时显示数据的格式"
-          displayRender={list =>
-            list.map((v, i) => {
-              return list.length - 1 === i ? (
-                <React.Fragment key={i}>{v}</React.Fragment>
-              ) : (
-                <React.Fragment key={i}>{v} / </React.Fragment>
-              );
-            })
-          }
+          placeholder="宁波为 ReactNode"
+          
           defaultValue={['zhejiang', 'ningbo', 'jiangbei']}
         />
       </div>
-    </div>
   );
 };
 Searchable.parameters = {
