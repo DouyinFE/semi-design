@@ -723,7 +723,7 @@ import { Form, Button, Radio } from '@douyinfe/semi-ui';
                     <Radio value="user">自定义有效期</Radio>
                 </RadioGroup>
                 <RadioGroup
-                    field="type"
+                    field="answerTime"
                     label='答案放出时间'
                     direction='vertical'
                     initValue={'always'}
