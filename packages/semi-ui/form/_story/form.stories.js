@@ -158,6 +158,12 @@ FormApiSetValueUsingFieldParentPath.story = {
   name: 'formApi-setValue using field parent path',
 };
 
+export const UseFormApiSetValueUpdateArray = () => <ArrayDemo />;
+
+UseFormApiSetValueUpdateArray.story = {
+  name: 'formApi-setValue set array',
+};
+
 export const DynamicAddRemoveField = () => (
   <Form>
     {({ formState }) => (
@@ -207,12 +213,6 @@ export const _ArrayFieldCollapseDemo = () => <ArrayFieldCollapseDemo />;
 
 _ArrayFieldCollapseDemo.story = {
   name: 'ArrayField-CollapseDemo',
-};
-
-export const ArrayFieldDynamicUpdate = () => <ArrayDemo />;
-
-ArrayFieldDynamicUpdate.story = {
-  name: 'ArrayField-dynamic update',
 };
 
 export const LinkField = () => <LinkFieldForm />;

@@ -410,7 +410,7 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
     }
 
     // update formState value
-    updateStateValue(field: string, value: any, opts: CallOpts): void {
+    updateStateValue(field: string, value: any, opts: CallOpts, callback?: () => void): void {
         const notNotify = opts && opts.notNotify;
         const notUpdate = opts && opts.notUpdate;
         const fieldAllowEmpty = opts && opts.fieldAllowEmpty;
@@ -442,7 +442,7 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
         }
 
         if (!notUpdate) {
-            this._adapter.forceUpdate();
+            this._adapter.forceUpdate(callback);
         }
     }
 
@@ -455,7 +455,7 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
     }
 
     // update formState touched
-    updateStateTouched(field: string, isTouched: boolean, opts?: CallOpts): void {
+    updateStateTouched(field: string, isTouched: boolean, opts?: CallOpts, callback?: () => void): void {
         const notNotify = opts && opts.notNotify;
         const notUpdate = opts && opts.notUpdate;
         ObjectUtil.set(this.data.touched, field, isTouched);
@@ -464,7 +464,7 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
             this._adapter.notifyChange(this.data);
         }
         if (!notUpdate) {
-            this._adapter.forceUpdate();
+            this._adapter.forceUpdate(callback);
         }
     }
 
@@ -477,7 +477,7 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
     }
 
     // update formState error
-    updateStateError(field: string, error: any, opts: CallOpts): void {
+    updateStateError(field: string, error: any, opts: CallOpts, callback?: () => void): void {
         const notNotify = opts && opts.notNotify;
         const notUpdate = opts && opts.notUpdate;
         ObjectUtil.set(this.data.errors, field, error);
@@ -488,7 +488,7 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
         }
 
         if (!notUpdate) {
-            this._adapter.forceUpdate();
+            this._adapter.forceUpdate(callback);
         }
     }
 
@@ -506,16 +506,18 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
                 // At this time, first modify formState directly, then find out the subordinate fields and drive them to update
                 // Eg: peoples: [0, 2, 3]. Each value of the peoples array corresponds to an Input Field
                 // When the user directly calls formA pi.set Value ('peoples', [2,3])
-                this.updateStateValue(field, newValue, opts);
-                let nestedFields = this._getNestedField(field);
-                if (nestedFields.size) {
-                    nestedFields.forEach(fieldStaff => {
-                        let fieldPath = fieldStaff.field;
-                        let newFieldVal = ObjectUtil.get(this.data.values, fieldPath);
-                        let nestedBatchUpdateOpts = { notNotify: true, notUpdate: true };
-                        fieldStaff.fieldApi.setValue(newFieldVal, nestedBatchUpdateOpts);
-                    });
-                }
+                this.updateStateValue(field, newValue, opts, () => {
+                    let nestedFields = this._getNestedField(field);
+                    if (nestedFields.size) {
+                        nestedFields.forEach(fieldStaff => {
+                            let fieldPath = fieldStaff.field;
+                            let newFieldVal = ObjectUtil.get(this.data.values, fieldPath);
+                            let nestedBatchUpdateOpts = { notNotify: true, notUpdate: true };
+                            fieldStaff.fieldApi.setValue(newFieldVal, nestedBatchUpdateOpts);
+                        });
+                    }
+                });
+
                 // If the reset happens to be, then update the updateKey corresponding to ArrayField to render it again
                 if (this.getArrayField(field)) {
                     this.updateArrayField(field, { updateKey: new Date().valueOf() });
@@ -528,16 +530,17 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
             if (fieldApi) {
                 fieldApi.setError(newError, opts);
             } else {
-                this.updateStateError(field, newError, opts);
-                let nestedFields = this._getNestedField(field);
-                if (nestedFields.size) {
-                    nestedFields.forEach(fieldStaff => {
-                        let fieldPath = fieldStaff.field;
-                        let newFieldError = ObjectUtil.get(this.data.errors, fieldPath);
-                        let nestedBatchUpdateOpts = { notNotify: true, notUpdate: true };
-                        fieldStaff.fieldApi.setError(newFieldError, nestedBatchUpdateOpts);
-                    });
-                }
+                this.updateStateError(field, newError, opts, () => {
+                    let nestedFields = this._getNestedField(field);
+                    if (nestedFields.size) {
+                        nestedFields.forEach(fieldStaff => {
+                            let fieldPath = fieldStaff.field;
+                            let newFieldError = ObjectUtil.get(this.data.errors, fieldPath);
+                            let nestedBatchUpdateOpts = { notNotify: true, notUpdate: true };
+                            fieldStaff.fieldApi.setError(newFieldError, nestedBatchUpdateOpts);
+                        });
+                    }
+                });
                 if (this.getArrayField(field)) {
                     this.updateArrayField(field, { updateKey: new Date().valueOf() });
                 }
@@ -549,16 +552,17 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
             if (fieldApi) {
                 fieldApi.setTouched(isTouched, opts);
             } else {
-                this.updateStateTouched(field, isTouched, opts);
-                let nestedFields = this._getNestedField(field);
-                if (nestedFields.size) {
-                    nestedFields.forEach(fieldStaff => {
-                        let fieldPath = fieldStaff.field;
-                        let newFieldTouch = ObjectUtil.get(this.data.touched, fieldPath);
-                        let nestedBatchUpdateOpts = { notNotify: true, notUpdate: true };
-                        fieldStaff.fieldApi.setTouched(newFieldTouch, nestedBatchUpdateOpts);
-                    });
-                }
+                this.updateStateTouched(field, isTouched, opts, () => {
+                    let nestedFields = this._getNestedField(field);
+                    if (nestedFields.size) {
+                        nestedFields.forEach(fieldStaff => {
+                            let fieldPath = fieldStaff.field;
+                            let newFieldTouch = ObjectUtil.get(this.data.touched, fieldPath);
+                            let nestedBatchUpdateOpts = { notNotify: true, notUpdate: true };
+                            fieldStaff.fieldApi.setTouched(newFieldTouch, nestedBatchUpdateOpts);
+                        });
+                    }
+                });
                 if (this.getArrayField(field)) {
                     this.updateArrayField(field, { updateKey: new Date().valueOf() });
                 }
