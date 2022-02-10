@@ -23,7 +23,6 @@ $module: #{$prefix}-input;
         &:hover,
         &:active {
             background-color: $color-input_default-bg-focus;
-            border: $width-input_wrapper_focus-border $color-input_default-border-focus solid;
         }
     }
 
