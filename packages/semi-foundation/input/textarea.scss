@@ -136,16 +136,15 @@ $module: #{$prefix}-input;
     background-color: transparent;
     border: $width-textarea-border solid $color-textarea-border-default;
     vertical-align: bottom;
-    
-    &:hover {
-        border-color: $width-textarea-border-hover;
-    }
-
     width: 100%;
     outline: none;
     cursor: text;
     box-sizing: border-box;
     color: $color-input_default-text-default;
+    
+    &:hover {
+        border-color: $color-textarea-border-hover;
+    }
 
     &::placeholder {
         color: $color-input_placeholder-text-default;
