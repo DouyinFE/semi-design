@@ -84,7 +84,7 @@ $module: #{$prefix}-modal;
         padding: $spacing-modal_header-paddingY $spacing-modal_header-paddingX;
         font-size: $font-modal_header-fontSize;
         font-weight: $font-modal_header-fontWeight;
-        background-color: $color-modal_header-background;
+        background-color: $color-modal_header-bg;
         color: $color-modal_main-text;
         border-bottom: $width-modal_header-border solid $color-modal_header-border;
     }
