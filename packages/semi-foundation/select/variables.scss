@@ -5,7 +5,7 @@ $color-select-bg-active: var(--semi-color-fill-2); // 选择器输入框背景�
 $color-select-border-default: transparent; // 选择器输入框描边颜色
 $color-select-border-hover: $color-select-border-default;  // 选择器输入框描边颜色 - 按下态
 $color-select-border-active: $color-select-bg-hover; // 选择器输入框描边颜色 - 悬停态
-$color-select-border-foucs: $color-select-border-active;// 选择器输入框描边颜色 - 悬停态
+$color-select-border-focus: $color-select-border-active;// 选择器输入框描边颜色 - 悬停态
 $color-select_warning-bg-default: var(--semi-color-warning-light-default); // 警示选择器输入框背景色 - 默认态
 $color-select_warning-border-default: var(--semi-color-warning-light-default); // 警示选择器输入框描边颜色 - 默认态
 $color-select_warning-bg-hover: var(--semi-color-warning-light-hover); // 警示选择器输入框背景色 - 悬停态
