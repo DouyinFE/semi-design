@@ -33,7 +33,7 @@ $multiple: #{$module}-multiple;
     }
 
     &:focus {
-        border: $width-select-border-focus solid $color-select-border-foucs;
+        border: $width-select-border-focus solid $color-select-border-focus;
         outline: 0;
     }
 
