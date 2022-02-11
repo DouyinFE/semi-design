@@ -24,6 +24,7 @@ $module: #{$prefix}-scrolllist;
         &-title {
             padding: $spacing-scrollList_header_title-paddingY $spacing-scrollList_header_title-paddingX;
             font-weight: $font-scrollList_header_title-fontWeight;
+            color: $color-scrollList_header-title;
 
             @include font-size-regular;
         }

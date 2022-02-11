@@ -18,6 +18,7 @@ $module: #{$prefix}-tree-select;
 
     &:hover {
         background-color: $color-treeSelect_default-bg-hover;
+        border: $width-treeSelect_hover-border solid $color-treeSelect_default-border-hover;
     }
 
     &-focus {

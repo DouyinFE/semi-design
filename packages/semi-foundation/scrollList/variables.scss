@@ -1,18 +1,19 @@
 // Color
-$color-scrollList-bg: var(--semi-color-bg-3);
-$color-scrollList-border: var(--semi-color-border);
-$color-scrollList_item-bg: transparent;
-$color-scrollList_item-text: var(--semi-color-text-0);
-$color-scrollList_disabled_item-text: var(--semi-color-disabled-text);
-$color-scrollList_item-text-hover: var(--semi-color-fill-1);
-$color-scrollList_item-bg-active: var(--semi-color-fill-2);
-$color-scrollList_selected_item-bg: var(--semi-color-primary-light-default);
-$color-scrollList_selected_item-text: var(--semi-color-text-0);
-$color-scrollList_selected_item-icon: var(--semi-color-text-2);
-$color-scrollList_footer-border: var(--semi-color-border);
+$color-scrollList-bg: var(--semi-color-bg-3); // 滚动列表背景色
+$color-scrollList-border: var(--semi-color-border); // 滚动列表描边颜色
+$color-scrollList_header-title: var(--semi-color-text-0); // 滚动列表标题颜色
+$color-scrollList_item-bg: transparent; // 滚动列表选项背景色
+$color-scrollList_item-text: var(--semi-color-text-0); // 滚动列表选项文字颜色
+$color-scrollList_disabled_item-text: var(--semi-color-disabled-text); // 滚动列表选项背景色 - 禁用
+$color-scrollList_item-text-hover: var(--semi-color-fill-1); // 滚动列表选项文字颜色 - 悬浮
+$color-scrollList_item-bg-active: var(--semi-color-fill-2); // 滚动列表选项文字颜色 - 选中
+$color-scrollList_selected_item-bg: var(--semi-color-primary-light-default); // 滚动列表选中选项背景颜色
+$color-scrollList_selected_item-text: var(--semi-color-text-0); // 滚动列表选中选项文字颜色
+$color-scrollList_selected_item-icon: var(--semi-color-text-2); // 滚动列表选中选项图标颜色
+$color-scrollList_footer-border: var(--semi-color-border); // 滚动列表底部描边颜色
 
 // Width/Height
-$height-scrollList: 300px;
+$height-scrollList: 300px; 
 $height-scrollList_item: 36px;
 $width-scrollList_item-border: $border-thickness-control;
 $width-scrollList_item_sel_svg: 16px;
