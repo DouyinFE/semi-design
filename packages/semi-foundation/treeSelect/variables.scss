@@ -47,8 +47,8 @@ $radius-treeSelect: var(--semi-border-radius-small); // 树选择器圆角
 $width-treeSelect-border: 1px; // 树选择器描边宽度
 $width-treeSelect_search_wrapper-border: 1px; // 树选择器搜索框描边宽度
 
-$width-treeSelect_hover-border: $border-thickness-control-focus; 
-$width-treeSelect_focus-border: $width-treeSelect_hover-border; // 树选择器选择框描边宽度
+$width-treeSelect_hover-border: $border-thickness-control-focus; // 树选择器选择框描边宽度 - 悬浮
+$width-treeSelect_focus-border: $width-treeSelect_hover-border; // 树选择器选择框描边宽度 - 选中
 
 $width-treeSelect_default: 80px; // 树选择器最小宽度
 $height-treeSelect_default: $height-control-default; // 树选择器选择器高度 - 默认
