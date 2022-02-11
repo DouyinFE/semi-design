@@ -357,6 +357,100 @@ describe('Tree', () => {
         ).toEqual(true);
     });
 
+    it('unRelated', () => {
+        const spyOnChange = sinon.spy(() => { });
+        const tree = getTree({
+            defaultExpandAll: true,
+            onChange: spyOnChange,
+            checkRelation: 'unRelated',
+        });
+        const nodelevel2 = tree.find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-2`);
+        const selectedNode = nodelevel2.at(0);
+        selectedNode.simulate('click');
+        expect(spyOnChange.calledOnce).toBe(true);
+        expect(spyOnChange.calledWithMatch(['Zhongguo'])).toEqual(true);
+        // Note: selectedNode cannot be used directly here. selectedNode is the original node in the unselected state
+        expect(
+            tree
+            .find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-2`)
+            .at(0)
+            .exists(`.${BASE_CLASS_PREFIX}-checkbox-checked`)
+        ).toEqual(true);
+        const nodelevel3 = tree.find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-3`);
+        expect(
+            nodelevel3
+            .exists(`.${BASE_CLASS_PREFIX}-checkbox-unChecked` )
+        ).toEqual(true);
+        expect(
+            nodelevel3
+            .at(1)
+            .exists(`.${BASE_CLASS_PREFIX}-checkbox-unChecked` )
+        ).toEqual(true);  
+    });
+
+    it('unRelated + value', () => {
+        const tree = getTree({
+            defaultExpandAll: true,
+            checkRelation: 'unRelated',
+            value: 'Zhongguo'
+        });
+        expect(
+            tree
+            .find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-2`)
+            .at(0)
+            .exists(`.${BASE_CLASS_PREFIX}-checkbox-checked`)
+        ).toEqual(true);
+        const nodelevel3 = tree.find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-3`);
+        expect(
+            nodelevel3
+            .exists(`.${BASE_CLASS_PREFIX}-checkbox-unChecked` )
+        ).toEqual(true);
+        expect(
+            nodelevel3
+            .at(1)
+            .exists(`.${BASE_CLASS_PREFIX}-checkbox-unChecked` )
+        ).toEqual(true);  
+    });
+
+    it('unRelated + defaultValue', () => {
+        const tree = getTree({
+            defaultExpandAll: true,
+            checkRelation: 'unRelated',
+            defaultValue: 'Zhongguo'
+        });
+        expect(
+            tree
+            .find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-2`)
+            .at(0)
+            .exists(`.${BASE_CLASS_PREFIX}-checkbox-checked`)
+        ).toEqual(true);
+        const nodelevel3 = tree.find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-3`);
+        expect(
+            nodelevel3
+            .exists(`.${BASE_CLASS_PREFIX}-checkbox-unChecked` )
+        ).toEqual(true);
+        expect(
+            nodelevel3
+            .at(1)
+            .exists(`.${BASE_CLASS_PREFIX}-checkbox-unChecked` )
+        ).toEqual(true);  
+    });
+
+    it('unRelated + onSelect', () => {
+        const spyOnSelect = sinon.spy(() => { });
+        const tree = getTree({
+            defaultExpandAll: true,
+            onSelect: spyOnSelect,
+            checkRelation: 'unRelated',
+        });
+        const nodelevel2 = tree.find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-2`);
+        const selectedNode = nodelevel2.at(0);
+        selectedNode.simulate('click');
+        expect(spyOnSelect.calledOnce).toBe(true);
+        // onSelect first args is key, not value
+        expect(spyOnSelect.calledWithMatch('zhongguo')).toEqual(true);
+    });
+
     it('controlled: leaf values show correct', () => {
         let tree = getTree({
             value: 'Beijing'

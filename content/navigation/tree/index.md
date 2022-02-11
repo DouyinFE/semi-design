@@ -728,6 +728,93 @@ import { Tree } from '@douyinfe/semi-ui';
 };
 ```
 
+### 节点选中关系
+版本：>= 2.5.0
+
+多选时，可以使用 `checkRelation` 来设置节点选中关系的类型，可选：'related'（默认）、'unRelated'。当选中关系为 'unRelated'，意味着节点之间的选中互不影响。
+
+```jsx live=true
+import React from 'react';
+import { Tree } from '@douyinfe/semi-ui';
+
+() => {
+    const treeData = [
+        {
+            label: 'Asia',
+            value: 'Asia',
+            key: '0',
+            children: [
+                {
+                    label: 'China',
+                    value: 'China',
+                    key: '0-0',
+                    children: [
+                        {
+                            label: 'Beijing',
+                            value: 'Beijing',
+                            key: '0-0-0',
+                        },
+                        {
+                            label: 'Shanghai',
+                            value: 'Shanghai',
+                            key: '0-0-1',
+                        },
+                        {
+                            label: 'Chengdu',
+                            value: 'Chengdu',
+                            key: '0-0-2',
+                        },
+                    ],
+                },
+                {
+                    label: 'Japan',
+                    value: 'Japan',
+                    key: '0-1',
+                    children: [
+                        {
+                            label: 'Osaka',
+                            value: 'Osaka',
+                            key: '0-1-0'
+                        }
+                    ]
+                },
+            ],
+        },
+        {
+            label: 'North America',
+            value: 'North America',
+            key: '1',
+            children: [
+                {
+                    label: 'United States',
+                    value: 'United States',
+                    key: '1-0'
+                },
+                {
+                    label: 'Canada',
+                    value: 'Canada',
+                    key: '1-1'
+                }
+            ]
+        }
+    ];
+    const style = {
+        width: 260,
+        height: 420,
+        border: '1px solid var(--semi-color-border)'
+    };
+    return (
+        <Tree
+            treeData={treeData}
+            multiple
+            checkRelation='unRelated'
+            defaultExpandAll
+            style={style}
+        />
+    );
+};
+```
+
 ### 默认展开
 
 `defaultExpandAll` 和 `expandAll` 均可以设置 `Tree` 的默认展开/收起状态。二者的区别是，`defaultExpandAll` 只在初始化时生效，而 `expandAll` 不仅会在初始化时生效，当数据(`treeData`/`treeDataSimpleJson`)发生动态更新时，`expandAll` 也仍然生效。
@@ -1833,6 +1920,7 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
 | autoExpandParent | 是否自动展开父节点，默认为 false，当组件初次挂载时为 true | boolean | false | 0.34.0 |
 | autoExpandWhenDragEnter | 是否允许拖拽到节点上时自动展开改节点 | boolean | true | 1.8.0 | 
 | blockNode | 行显示节点 | boolean | true | - |
+| checkRelation | 多选时，节点之间选中状态的关系，可选：'related'、'unRelated' | string | 'related' | 2.5.0 |
 | className | 类名 | string | - | - |
 | defaultExpandAll | 设置在初始化时是否展开所有节点。而如果后续数据(`treeData`/`treeDataSimpleJson`)发生改变，这个 api 是无法影响节点的默认展开情况的，如果有这个需要可以使用 `expandAll` | boolean | false | - |
 | defaultExpandedKeys | 默认展开的节点，显示其直接子级 | string\[] | - | - |
