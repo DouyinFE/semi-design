@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import Tooltip from '../index';
 import './story.scss';
-import { Tag, Icon, IconButton, Switch, Checkbox, Radio, Button, Select, InputNumber } from '@douyinfe/semi-ui';
+import { Tag, Icon, IconButton, Switch, Checkbox, Radio, Button, Select, InputNumber, Space } from '@douyinfe/semi-ui';
 
 import InTableDemo from './InTable';
 import EdgeDemo from './Edge';
@@ -736,3 +736,85 @@ export const AutoAdjustWithSpacing = () => {
 AutoAdjustWithSpacing.story = {
   name: 'AutoAdjustWithSpacing',
 };
+
+/**
+ * Chromatic UI test
+ */
+export const leftTopOverDemo = () => {
+    const [visible, setVisible] = useState(true);
+    const content = (
+        <div style={{ height: 200, width: 200 }}>
+            Semi Design
+        </div>
+    );
+
+    const commonProps = {
+        content,
+        trigger: 'click',
+        showArrow: false,
+        visible,
+        trigger: 'custom',
+        motion: false,
+    };
+    const buttonStyle = {
+        width: 200,
+    };
+
+    return (
+        <div data-cy='wrapper'>
+            <Button onClick={() => setVisible(!visible)}>toggle visible</Button>
+            <div style={{ paddingTop: 200 }}>
+                <Space spacing={80}>
+                    <Tooltip {...commonProps} position='leftTopOver' >
+                        <Button data-cy='leftTopOver' style={buttonStyle}>leftTopOver</Button>
+                    </Tooltip>
+                    <Tooltip {...commonProps} position='leftBottomOver'>
+                        <Button data-cy='leftBottomOver' style={buttonStyle}>leftBottomOver</Button>
+                    </Tooltip>
+                    <Tooltip {...commonProps} position='rightTopOver'>
+                        <Button data-cy='rightTopOver' style={buttonStyle}>rightTopOver</Button>
+                    </Tooltip>
+                    <Tooltip {...commonProps} position='rightBottomOver'>
+                        <Button data-cy='rightBottomOver' style={buttonStyle}>rightBottomOver</Button>
+                    </Tooltip>
+                </Space>
+            </div>
+        </div>
+    )
+};
+leftTopOverDemo.storyName = `leftTopOver visible`;
+leftTopOverDemo.parameters = { 
+    chromatic: {
+        disableSnapshot: false,
+        delay: 3000,
+        viewports: [1200]
+    }
+};
+
+/**
+ * Cypress test
+ */
+export const leftTopOverAutoAdjustOverflow = () => {
+    const content = (
+        <div style={{ height: 200, width: 200 }}>
+            Semi Design
+        </div>
+    );
+
+    const commonProps = {
+        content,
+        trigger: 'click',
+        showArrow: false,
+    };
+
+    return (
+        <div data-cy='wrapper' style={{ width: '200vw', height: '200vw', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div>
+                <Tooltip {...commonProps} position='leftTopOver' >
+                    <Button data-cy='leftTopOver' style={{ width: 200 }}>leftTopOver</Button>
+                </Tooltip>
+            </div>
+        </div>
+    )
+};
+leftTopOverAutoAdjustOverflow.storyName = `leftTopOver autoAdjustOverflow`;
