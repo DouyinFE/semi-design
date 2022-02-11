@@ -385,6 +385,18 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
     }
 
     /**
+     * clear range input focus when open is controlled
+     * fixed github 1375
+     */
+    clearRangeInputFocus = () => {
+        const { type } = this._adapter.getProps();
+        const { rangeInputFocus } = this._adapter.getStates();
+        if (type === 'dateTimeRange' && rangeInputFocus) {
+            this._adapter.setRangeInputFocus(false);
+        }
+    }
+
+    /**
      * Callback when the content of the input box changes
      * Update the date panel if the changed value is a legal date, otherwise only update the input box
      * @param {String} input The value of the input box after the change
