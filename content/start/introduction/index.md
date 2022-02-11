@@ -34,7 +34,7 @@ Semi 是如何在连贯统一的基础上，做到灵活多变的？答案是强
 
 通过对数千个设计变量 (Design Token) 的分层和梳理，设计师和开发者可在全局、乃至组件级别，对 表现层进行深度定制 —— 即使你不了解 CSS，也可以**通过主题编辑器(DSM)，打造符合业务和品牌多样化视觉需求的风格**。开发者则可通过 npm 包一键发布并替换，轻松定制，易于管理。
 
-你可以在[主题商店](https://semi.design/dsm/store)，查看 Semi 在抖音、剪映、飞书、火山引擎等不同品牌场景下的官方示例主题。
+你可以在[Semi DSM](https://semi.design/dsm/store)，查看 Semi 在抖音、剪映、飞书、火山引擎等不同品牌场景下的官方示例主题。
 
 ![全面覆盖的设计变量用例、文档与编辑器](https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/tech-doc/p3.gif)
 
