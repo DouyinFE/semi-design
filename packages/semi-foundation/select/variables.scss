@@ -91,10 +91,10 @@ $spacing-select_tag-marginRight: $spacing-extra-tight; // 多项选择器标签�
 $spacing-select_tag-marginBottom: $spacing-super-tight - 1; // 多项选择器标签底部外边距
 $spacing-select_selection-marginLeft: $spacing-base-tight; // 选择器内容区左侧外边距
 $spacing-select_insetLabel-marginRight: $spacing-base-tight; // 选择器内嵌标签右侧外边距
-$spacing-select_option_list-paddingTop: 0;
-$spacing-select_option_list-paddingRight: 0;
-$spacing-select_option_list-paddingBottom: 0;
-$spacing-select_option_list-paddingLeft: 0;
+$spacing-select_option_list-paddingTop: 0; // 选择器内容区顶部内边距
+$spacing-select_option_list-paddingRight: 0; // 选择器内容区右侧内边距
+$spacing-select_option_list-paddingBottom: 0; // 选择器内容区底部内边距
+$spacing-select_option_list-paddingLeft: 0; // 选择器内容区左侧内边距
 
 // Radius
 $radius-select: var(--semi-border-radius-small); // 选择器输入框圆角
