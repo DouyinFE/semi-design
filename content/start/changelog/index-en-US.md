@@ -16,6 +16,16 @@ Version：Major.Minor.Patch
 
 ---
 
+#### 🎉 2.4.0 (2022-2-11)
+- 【Fix】
+    - TimePicker crash issue  [#585](https://github.com/DouyinFE/semi-design/issues/585)
+    - Fix Nav limitIndent in the collapsed state, when the submenu is displayed in the form of dropdown, it is also consumed, which leads to the problem of redundant blank space
+    - fix Typograph ellipsis error when set whiteSpace 'pre-line' and expandable
+    - Fix TreeSelect When treeData is large, update becomes very slow due to redundant operations of converting to Set  [#521 ](https://github.com/DouyinFE/semi-design/issues/521)
+    - Fix that when TreeSelect is uncontrolled single-selection mode, after treeData is updated, the selected value will be emptied unexpectedly  [#515](https://github.com/DouyinFE/semi-design/issues/515)
+- 【Style】
+    - Update some Sass variables in Button, Input, Modal, Select, ScrollList and TreeSelect components. Extract the default style as a Sass variable to facilitate DSM to modify the default style of these components [#570](https://github.com/DouyinFE/semi-design/pull/570)
+
 #### 🎉 2.4.0-beta.0 (2022-01-28)
 - 【Feat】
     - TimePicker add support for `onChangeWithDateFirst` API  [#555](https://github.com/DouyinFE/semi-design/issues/555)

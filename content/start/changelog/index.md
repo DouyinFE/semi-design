@@ -15,6 +15,16 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 ---
 
+#### 🎉 2.4.0 (2022-02-11)
+- 【Fix】
+    - TimePicker 崩溃问题  [#585](https://github.com/DouyinFE/semi-design/issues/585)
+    - 修复 Nav limitIndent 在折叠态后，子菜单通过 dropdown 形式展示时，也被消费，从而导致了多余的空白间隔的问题
+    - 修复 Typograph 组件截断错误，当设置 whiteSpace 为 'pre-line' 且 expandable
+    - 修复 TreeSelect 当 treeData 较大时，由于多余的转化为 Set 的操作，造成 update 变得很慢  [#521 ](https://github.com/DouyinFE/semi-design/issues/521)
+    - 修复 TreeSelect 在单选且非受控时，treeData 更新后，已选值会被异常清空的问题  [#515](https://github.com/DouyinFE/semi-design/issues/515)
+- 【Style】
+    - 更新了 Button、Input、Modal、Select、ScrollList、TreeSelect 的部分 Sass 变量，抽取了部分默认样式为 Sass 变量以方便 DSM 修改组件默认样式 [#570](https://github.com/DouyinFE/semi-design/pull/570)
+
 #### 🎉 2.4.0-beta.0 (2022-01-28)
 - 【Feat】
     - TimePicker 支持 `onChangeWithDateFirst` API  [#555](https://github.com/DouyinFE/semi-design/issues/555)
