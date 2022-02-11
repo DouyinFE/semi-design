@@ -195,7 +195,7 @@ export default class NavItem extends BaseComponent<NavItemProps, NavItemState> {
             itemChildren = children;
         } else {
             let placeholderIcons = null;
-            if (mode === strings.MODE_VERTICAL && !limitIndent) {
+            if (mode === strings.MODE_VERTICAL && !limitIndent && !isCollapsed) {
                 const iconAmount = (icon && !indent) ? level : level - 1;
                 placeholderIcons = times(iconAmount, () => this.renderIcon(null, strings.ICON_POS_RIGHT, false));
             }

@@ -10,12 +10,12 @@ brief: Semi Design is a design system that defines a set of mid-back design and 
 
 ## What is Semi
 
-Semi Design is a design system designed, developed and maintained by the Douyin front-end team and the MED product design team. As a comprehensive, easy-to-use, and high-quality modern enterprise-level application UI solution, it is refined from the complex scenes of byte beating various business lines, supports nearly a thousand platform products, and serves 100,000+ internal and external users.  
+Semi Design is a design system designed, developed and maintained by the Douyin front-end team and the MED product design team. As a comprehensive, easy-to-use, and high-quality modern enterprise-level application UI solution, it is refined from the complex scenes of Bytedance various business lines, supports nearly a thousand platform products, and serves 100,000+ internal and external users.  
 After nearly two years of iteration, Semi Design has become a cross-departmental infrastructure after various types of business landing verification, and has formed a rich tool chain and ecology around the component library. In order to allow the increasingly mature design system to serve more users and to further explore the usage scenarios, we decided to open source Semi and use the power of the community to continuously improve and expand the capability boundary.
 
 ## Our vision
 
-Semi is mostly used in prefixes or phrases to mean "half"-just like a complete enterprise application, which usually consists of business logic and front-end interface, Semi Design hopes to become an indispensable half of this and provide a solid and high-quality front-end for enterprise applications The basics.  
+Semi is mostly used in prefixes or phrases to mean "half"-just like a complete enterprise application, which usually consists of business logic and front-end interface, Semi Design hopes to become an indispensable half of this and provide a solid and high-quality front-end for enterprise applications The basics. 
 We believe that the real value of the design system lies in reducing the cost of front-end construction, while providing excellent design and engineering standards, fully liberating the productivity of designers and developers, so as to continuously incubate star products.
 
 ### Design -- unchanged and changeable
@@ -26,7 +26,7 @@ In addition, a good design system must be "live", it needs to be able to develop
 
 ![Diversified products and team components based on Semi Design](https://lf9-static.semi.design/obj/semi-tos/images/introduction-showcase.gif)
 
-Adhere to the high-quality and stable default foundation (unchanged), and fully open the flexibility of customization (variable) when needed, this is the unique design principle of Semi Design and will always follow.
+**Adhere to the high-quality and stable default foundation (unchanged), and fully open the flexibility of customization (variable) when needed, this is the unique design principle of Semi Design and will always follow.**
 
 ### Theming —— Brand one-click customization
 
@@ -39,7 +39,7 @@ Within this year, we will also realize real-time synchronization of themes from 
 ### Dark Mode
 
 In order to be compatible with the preferences of more user groups in different production environments, as a supplement to the light color mode, any theme of Semi Design automatically supports the dark mode and can be dynamically switched when the application is running.  
-Not only that, Semi also allows users to enable dark mode in some areas of the app to be compatible with the use scenarios of SDK or plug-in products. Through advanced settings, users can also realize that the application and system themes are automatically consistent. At the same time, in order to further enhance the development experience, we also provide a cli tool for one-click compatibility of unstandardized stock old projects to Semi dark mode, avoiding migration costs in an automated way.
+Not only that, Semi also allows users to enable dark mode in some areas of the app to be compatible with the use scenarios of SDK or plug-in products.    Through advanced settings, users can also realize that the application and system themes are automatically consistent. At the same time, in order to further enhance the development experience, we also provide a cli tool for one-click compatibility of unstandardized stock old projects to Semi dark mode, avoiding migration costs in an automated way.  
 
 ![Application of Semi dark mode](https://lf26-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/tech-doc/p4darkmode.gif)
 
@@ -49,11 +49,20 @@ Semi Design adopts a set of cross web framework technical solutions, F/A layered
 
 ![F/A](https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/tech-doc/engSemi.jpg)
 
-Foundation Foundation contains the business logic that best represents the interaction of Semi Design components, and does not actually reference any DOM elements. Foundation delegates Adapter methods for any logic that requires DOM manipulation.
+#### Foundation 
 
-Adaptor Adapter is an interface that has all the methods required by Foundation to implement Semi Design business logic, and is responsible for 1. Component DOM structure declaration 2. Responsible for all DOM operation/update related logic, usually using framework APIs for setState, getState, addEventListener , RemoveListener and other operations. Adapters can have many implementations, allowing interoperability with different frameworks.
+Foundation contains the business logic that best represents the interaction of Semi Design components, and does not actually reference any DOM elements. Foundation delegates Adapter methods for any logic that requires DOM manipulation.
 
-At present, we have implemented the React version of Adapter. You can use our React components directly by install `semi-ui`. If you are interested in Semi's architecture design, you can read this article for more detail [How to hierarchically design the UI component library so that it has the ability to adapt to multiple mvvm frameworks](https://bytedance.feishu.cn/docs/doccnTgc0iGOVPubHZkwPpxXSNh#)。
+#### Adapter
+
+Adapter is an interface that has all the methods required by Foundation to implement Semi Design business logic, and is responsible for
+ 1. Component DOM structure declaration 
+ 2. Responsible for all DOM operation/update related logic, usually using framework APIs for setState, getState, addEventListener , RemoveListener and other operations.  
+Adapters can have many implementations, allowing interoperability with different frameworks.
+
+At present, we have implemented the React version of Adapter. You can use our React components directly by `npm install @douyinfe/semi-ui`.   
+
+If you are interested in Semi's architecture design, you can read this article for more detail [How to hierarchically design the UI component library so that it has the ability to adapt to multiple mvvm frameworks](https://bytedance.feishu.cn/docs/doccnTgc0iGOVPubHZkwPpxXSNh#)。
 
 ### Internationalization - Diversity and compatibility
 
@@ -87,7 +96,11 @@ Semi always pays attention to Web accessibility. At present, we have achieved so
 
 ### Cross WebFramework
 
-High scalability, as Semi's core design principle, runs through Semi's code architecture design, API design, style layer abstraction and other aspects. Thanks to the Foundation/Adapter architecture design and the principle of layering style files, Semi is very easy to migrate to other front-end frameworks. In version 2.0, we rewrite Semi based on Typescript, hoping to still have a good development experience and quality assurance in the process of multi-frame migration and adaptation. The Foundation layer is also open source based on the MIT protocol, and we will always maintain the framework independence of its code implementation in future iterations. If you expect to bring Semi Design to more platform frameworks, we welcome you to reuse it directly. At this stage, our team will focus on the React system, but WebComponent is also one of the directions we focus on. The timing is right in the future, and we will make more attempts, so stay tuned.
+High scalability, as Semi's core design principle, runs through Semi's code architecture design, API design, style layer abstraction and other aspects. Thanks to the Foundation/Adapter architecture design and the principle of layering style files, Semi is very easy to migrate to other front-end frameworks. In version 2.0, we rewrite Semi based on Typescript, hoping to still have a good development experience and quality assurance in the process of multi-frame migration and adaptation.  
+
+The Foundation layer (`@douyinfe/semi-foundation`、`@douyinfe/semi-theme-default`) is also open source based on the MIT protocol, and we will always maintain the framework independence of its code implementation in future iterations. If you expect to bring `Semi Design` to more platform frameworks, we welcome you to reuse it directly.   
+
+At this stage, our team will focus on the React system, but WebComponent is also one of the directions we focus on. The timing is right in the future, and we will make more attempts, so stay tuned.
 
 ## Design Resources
 
