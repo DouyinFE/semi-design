@@ -29,7 +29,7 @@
     "test:story": "cross-env NODE_ENV=test type=story ./node_modules/.bin/jest --silent --notify --maxWorkers=4",
     "test:coverage": "cross-env TZ=Asia/Shanghai NODE_ENV=test type=unit ./node_modules/.bin/jest --silent --coverage --notify",
     "test:storyUpdate": "cross-env NODE_ENV=test type=story ./node_modules/.bin/jest --silent -u --notify --maxWorkers=4",
-    "test:cy": "npx http-server storybook-static -p 6009 && npx wait-on http://127.0.0.1:6009 && cypress open",
+    "test:cy": "npx wait-on http://127.0.0.1:6006 && ./node_modules/.bin/cypress open",
     "build:lib": "lerna run build:lib",
     "build:js": "lerna run build:js",
     "build:css": "lerna run build:css",

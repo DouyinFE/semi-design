@@ -7,7 +7,7 @@
 
 describe('table', () => {
     it('row selection', () => {
-        cy.visit('http://127.0.0.1:6009/iframe.html?id=table--selection-table&args=&viewMode=story');
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=table--selection-table&args=&viewMode=story');
         cy.get('.semi-table-row-head .semi-checkbox-inner-display').click();
         cy.get('.semi-checkbox-checked').should('have.length', 4);
     });
@@ -17,7 +17,7 @@ describe('table', () => {
      * 即更新 columns 不影响 currentPage
      */
     it('columns change ', () => {
-        cy.visit('http://localhost:6009/iframe.html?id=table--fixed-columns-change&viewMode=story');
+        cy.visit('http://localhost:6006/iframe.html?id=table--fixed-columns-change&viewMode=story');
         cy.get('.semi-page-item').contains('2').click();
         cy.get('.semi-table-tbody .semi-checkbox').eq(1).click()
             .then(() => {
