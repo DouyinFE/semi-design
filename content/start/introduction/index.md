@@ -68,7 +68,7 @@ Semi Design 采用了一套跨前端框架技术方案，F/A 分层设计，将�
 
 Foundation 包含最能代表 Semi Design 组件交互的业务逻辑，包括 UI 行为触发后的各种计算、分支判断等逻辑，它并不直接操作或者引用 DOM，任意需要 DOM 操作，驱动组件渲染更新的部分会委派给 Adapter 执行。
 
-#### Adaptor
+#### Adapter
 
 Adapter 是一个接口，具有 Foundation 实现 Semi Design 业务逻辑所需的所有方法，并负责 1. 组件 DOM 结构声明 2.负责所有跟 DOM 操作/更新相关的逻辑，通常会使用框架 API 进行 setState、getState、addEventListener、removeListener 等操作。适配器可以有许多实现，允许与不同框架的互操作性。
 
