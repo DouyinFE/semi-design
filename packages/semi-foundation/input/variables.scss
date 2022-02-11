@@ -100,7 +100,7 @@ $spacing-textarea_counter-paddingLeft: 12px; // 多行文本字数统计左侧�
 $width-textarea-border: $border-thickness; // 多行文本描边宽度
 $height-textarea_counter: 24px; // 多行文本字数统计最小高度
 $color-textarea-border-default: transparent; // 多行文本描边颜色
-$color-textarea-border-hover: $color-textarea-border-default;
+$color-textarea-border-hover: $color-textarea-border-default; // 多行文本描边颜色 - 悬浮
 
 $color-textarea-icon-default: var(--semi-color-text-2); // 多行文本 clear 图标颜色
 $color-textarea-icon-hover: var(--semi-color-primary-hover); // 多行文本 clear 图标颜色 - 悬浮
