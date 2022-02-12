@@ -548,12 +548,20 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
     handleCancel = (e: React.MouseEvent) => this.foundation.handleCancel();
 
     renderFooter = (locale: Locale['DatePicker'], localeCode: string) => {
+        const {type} = this.props;
+        let isDisabledConfirm = (type === 'dateTimeRange') ? true : false;
+
+        if (this.focusRecordsRef.current.rangeStart && this.focusRecordsRef.current.rangeEnd) {
+            isDisabledConfirm = false;
+        }
+
         if (this.adapter.needConfirm()) {
             return (
                 <Footer
                     {...this.props}
                     locale={locale}
                     localeCode={localeCode}
+                    isDisabledConfirm={isDisabledConfirm}
                     onConfirmClick={this.handleConfirm}
                     onCancelClick={this.handleCancel}
                 />

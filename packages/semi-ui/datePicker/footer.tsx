@@ -8,12 +8,13 @@ interface FooterProps {
     prefixCls?: string;
     locale: Locale['DatePicker'];
     localeCode: string;
+    isDisabledConfirm?: boolean;
     onCancelClick?: React.MouseEventHandler<HTMLButtonElement>;
     onConfirmClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 export default function Footer(props = {} as FooterProps) {
-    const { prefixCls, locale, onCancelClick, onConfirmClick } = props;
+    const { prefixCls, locale, isDisabledConfirm, onCancelClick, onConfirmClick } = props;
     const wrapCls = classnames(`${prefixCls}-footer`);
 
     return (
@@ -21,7 +22,7 @@ export default function Footer(props = {} as FooterProps) {
             <Button theme="borderless" onClick={onCancelClick}>
                 {get(locale, 'footer.cancel', '')}
             </Button>
-            <Button theme="solid" onClick={onConfirmClick}>
+            <Button theme="solid" disabled={isDisabledConfirm} onClick={onConfirmClick}>
                 {get(locale, 'footer.confirm', '')}
             </Button>
         </div>
