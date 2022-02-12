@@ -4,17 +4,16 @@ $module: #{$prefix}-tagInput;
 
 .#{$module} {
     background-color: $color-tagInput_default-bg-default;
-    border: $border-thickness-control-focus $color-textarea-border-default solid;
     border-radius: $radius-tagInput;
     display: inline-flex;
     font-weight: $font-weight-regular;
     width: 100%;
     box-sizing: border-box;
-    
+
     &-hover {
         background-color: $color-tagInput_default-bg-hover;
     }
-    
+
     &-focus {
         background-color: $color-tagInput_default-bg-focus;
         border: $border-thickness-control-focus $color-tagInput_default-border-focus solid;
@@ -43,7 +42,7 @@ $module: #{$prefix}-tagInput;
             background-color: $color-tagInput_danger-bg-hover;
             border-color: $color-tagInput_danger-border-hover;
         }
-        
+
         &.#{$module}-focus {
             background-color: $color-tagInput_danger-bg-focus;
             border-color: $color-tagInput_danger-border-focus;
@@ -71,7 +70,7 @@ $module: #{$prefix}-tagInput;
                 color: $color-tagInput_disabled-text-default;
             }
         }
-        
+
     }
 
     &-wrapper {
@@ -132,7 +131,7 @@ $module: #{$prefix}-tagInput;
             width: min-content;
             min-width: 38px;
             border: none;
-            outline: none; 
+            outline: none;
             background-color: transparent;
             font-size: $font-size-regular;
 
