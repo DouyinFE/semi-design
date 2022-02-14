@@ -13,7 +13,7 @@ $module: #{$prefix}-tagInput;
     
     &-hover {
         background-color: $color-tagInput_default-bg-hover;
-        border: $width-tagInput-border-hover $color-tagInput_default-border-hover solid;
+        border: $width-tagInput-border-hover $color-tagInput-border-hover solid;
     }
     
     &-focus {
