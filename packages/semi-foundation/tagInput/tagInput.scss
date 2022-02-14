@@ -4,7 +4,7 @@ $module: #{$prefix}-tagInput;
 
 .#{$module} {
     background-color: $color-tagInput_default-bg-default;
-    border: $width-tagInput-border-default $color-tagInput_default-border-default solid;
+    border: $width-tagInput-border-default $color-tagInput-border-default solid;
     border-radius: $radius-tagInput;
     display: inline-flex;
     font-weight: $font-weight-regular;
