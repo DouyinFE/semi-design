@@ -13,8 +13,10 @@ import { Motion } from '../_base/base';
 const msPerFrame = 1000 / 60;
 const blankReg = /^\s*$/;
 const wheelMode = 'wheel';
-
-type DebounceSelectFn = (e: React.UIEvent, newSelectedNode: HTMLElement) => void;
+interface DebounceSelectFn {
+    (e: React.UIEvent, newSelectedNode: HTMLElement): void;
+    cancel(): void
+}
 export interface ScrollItemProps<T extends Item> {
     mode?: string;
     cycled?: boolean;
@@ -110,7 +112,12 @@ export default class ScrollItem<T extends Item> extends BaseComponent<ScrollItem
             scrollToCenter: this.scrollToCenter,
         };
     }
-
+    componentWillUnmount(){
+        if (this.props.cycled) {
+            this.throttledAdjustList.cancel();
+            this.debouncedSelect.cancel();
+        }
+    }
     componentDidMount() {
         this.foundation.init();
 

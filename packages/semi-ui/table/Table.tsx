@@ -534,7 +534,6 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             this.foundation.initExpandedRowKeys({ groups: stateGroups });
         }
 
-
         /**
          * After dataSource is updated || (cachedColumns || cachedChildren updated)
          * 1. Cache filtered sorted data and a collection of data rows, stored in this
@@ -547,15 +546,18 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             const filteredSortedDataSource = this.foundation.getFilteredSortedDataSource(_dataSource, stateQueries);
             this.foundation.setCachedFilteredSortedDataSource(filteredSortedDataSource);
             states.dataSource = filteredSortedDataSource;
-            // when dataSource has change, should reset currentPage
-            states.pagination = isObject(statePagination) ? {
-                ...statePagination,
-                currentPage: isObject(propsPagination) && propsPagination.currentPage ? propsPagination.currentPage : 1,
-            } : statePagination;
 
             if (this.props.groupBy) {
                 states.groups = null;
             }
+        }
+
+        // when dataSource has change, should reset currentPage
+        if (dataSource !== prevProps.dataSource) {
+            states.pagination = isObject(statePagination) ? {
+                ...statePagination,
+                currentPage: isObject(propsPagination) && propsPagination.currentPage ? propsPagination.currentPage : 1,
+            } : statePagination;
         }
 
         if (Object.keys(states).length) {
@@ -1372,6 +1374,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             <div
                 ref={this.rootWrapRef}
                 className={classnames(className, `${prefixCls}-wrapper`)}
+                data-column-fixed={anyColumnFixed}
                 style={wrapStyle}
                 id={id}
             >

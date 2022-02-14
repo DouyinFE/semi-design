@@ -90,6 +90,7 @@ export type TimePickerProps = {
     zIndex?: number | string;
     onBlur?: React.FocusEventHandler<HTMLInputElement>;
     onChange?: TimePickerAdapter['notifyChange'];
+    onChangeWithDateFirst?: boolean;
     onFocus?: React.FocusEventHandler<HTMLInputElement>;
     onOpenChange?: (open: boolean) => void;
 };
@@ -187,6 +188,7 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
         onFocus: noop,
         onBlur: noop,
         onChange: noop,
+        onChangeWithDateFirst: true,
         use12Hours: false,
         focusOnOpen: false,
         onKeyDown: noop,
@@ -257,7 +259,7 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
                 }
             },
             notifyOpenChange: (...args) => this.props.onOpenChange(...args),
-            notifyChange: (...args) => this.props.onChange && this.props.onChange(...args),
+            notifyChange: (agr1, arg2) => this.props.onChange && this.props.onChange(agr1, arg2),
             notifyFocus: (...args) => this.props.onFocus && this.props.onFocus(...args),
             notifyBlur: (...args) => this.props.onBlur && this.props.onBlur(...args),
             isRangePicker: () => this.props.type === strings.TYPE_TIME_RANGE_PICKER,

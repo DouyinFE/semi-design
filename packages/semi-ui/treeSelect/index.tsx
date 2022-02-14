@@ -23,7 +23,8 @@ import {
     getValueOrKey,
     normalizeKeyList,
     calcDisabledKeys,
-    normalizeValue
+    normalizeValue,
+    updateKeys,
 } from '@douyinfe/semi-foundation/tree/treeUtil';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/treeSelect/constants';
 import { numbers as popoverNumbers } from '@douyinfe/semi-foundation/popover/constants';
@@ -362,7 +363,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         if (
             treeData &&
             props.motion &&
-            !isEqual(new Set(Object.keys(newState.keyEntities)), new Set(Object.keys(prevState.keyEntities)))
+            !isEqual(Object.keys(newState.keyEntities), Object.keys(prevState.keyEntities))
         ) {
             if (prevProps && props.motion) {
                 newState.motionKeys = new Set([]);
@@ -432,11 +433,15 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 );
             } else if (treeData) {
                 // If `treeData` changed, we also need check it
-                newState.selectedKeys = findKeysForValues(
-                    normalizeValue(props.value, withObject) || '',
-                    valueEntities,
-                    isMultiple
-                );
+                if (props.value) {
+                    newState.selectedKeys = findKeysForValues(
+                        normalizeValue(props.value, withObject) || '',
+                        valueEntities,
+                        isMultiple
+                    );
+                } else {
+                    newState.selectedKeys = updateKeys(prevState.selectedKeys, keyEntities);
+                }
             }
         } else {
             // checkedKeys: multiple mode controlled || data changed
@@ -456,11 +461,15 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 );
             } else if (treeData) {
                 // If `treeData` changed, we also need check it
-                checkedKeyValues = findKeysForValues(
-                    normalizeValue(props.value, withObject) || [],
-                    valueEntities,
-                    isMultiple
-                );
+                if (props.value) {
+                    checkedKeyValues = findKeysForValues(
+                        normalizeValue(props.value, withObject) || [],
+                        valueEntities,
+                        isMultiple
+                    );
+                } else {
+                    checkedKeyValues = updateKeys(prevState.checkedKeys, keyEntities);
+                }
             }
 
             if (checkedKeyValues) {

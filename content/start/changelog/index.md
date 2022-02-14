@@ -15,6 +15,28 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 ---
 
+#### 🎉 2.4.0 (2022-02-11)
+- 【Fix】
+    - TimePicker 崩溃问题  [#585](https://github.com/DouyinFE/semi-design/issues/585)
+    - 修复 Nav limitIndent 在折叠态后，子菜单通过 dropdown 形式展示时，也被消费，从而导致了多余的空白间隔的问题
+    - 修复 Typograph 组件截断错误，当设置 whiteSpace 为 'pre-line' 且 expandable
+    - 修复 TreeSelect 当 treeData 较大时，由于多余的转化为 Set 的操作，造成 update 变得很慢  [#521 ](https://github.com/DouyinFE/semi-design/issues/521)
+    - 修复 TreeSelect 在单选且非受控时，treeData 更新后，已选值会被异常清空的问题  [#515](https://github.com/DouyinFE/semi-design/issues/515)
+- 【Style】
+    - 更新了 Button、Input、Modal、Select、ScrollList、TreeSelect 的部分 Sass 变量，抽取了部分默认样式为 Sass 变量以方便 DSM 修改组件默认样式 [#570](https://github.com/DouyinFE/semi-design/pull/570)
+
+#### 🎉 2.4.0-beta.0 (2022-01-28)
+- 【Feat】
+    - TimePicker 支持 `onChangeWithDateFirst` API  [#555](https://github.com/DouyinFE/semi-design/issues/555)
+- 【Fix】
+    - 修复 Select 使用 renderCreateItem 自定义时，新建选项需要点击两次的问题  [#574](https://github.com/DouyinFE/semi-design/issues/574)
+    - 修复 InputNumber 按钮右键点击时数字自动增/减问题  [#540](https://github.com/DouyinFE/semi-design/issues/540)
+    - 修复 Table columns 变化后分页器返回到第一页问题  [#381](https://github.com/DouyinFE/semi-design/issues/381)
+    - 修复 Tree 同时使用虚拟化和 renderFullLabel 时，滚动项目发生抖动的问题  [#527](https://github.com/DouyinFE/semi-design/issues/527)
+- 【Style】
+    - 修复 TextArea readonly 模式下光标显示为禁用问题 [@chenc041](https://github.com/chenc041)  [#535](https://github.com/DouyinFE/semi-design/issues/535)
+    - 修复 Table 固定列 z-index 层级过高问题
+
 #### 🎉 2.3.1 (2022-01-21)
 - 【Chore】
     - 修复 List 组件传递 datasource 属性时, renderItem 类型丢失 [#393](https://github.com/DouyinFE/semi-design/issues/393) [@chenc041](https://github.com/chenc041)

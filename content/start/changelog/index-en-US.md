@@ -16,13 +16,27 @@ Version：Major.Minor.Patch
 
 ---
 
-#### 🎉 2.3.1 (2022-01-21)
-- 【Chore】
-    - Fix List component pass the datasource props, the renderItem function params of item missing the type defined [#393](https://github.com/DouyinFE/semi-design/issues/393) [@chenc041](https://github.com/chenc041)
-    - Fix Dropdown props menu type definition
+#### 🎉 2.4.0 (2022-2-11)
 - 【Fix】
-    - Fixed warning when InputNumber given defaultValue [#537](https://github.com/DouyinFE/semi-design/issues/537) [@chenc041](https://github.com/chenc041)
+    - TimePicker crash issue  [#585](https://github.com/DouyinFE/semi-design/issues/585)
+    - Fix Nav limitIndent in the collapsed state, when the submenu is displayed in the form of dropdown, it is also consumed, which leads to the problem of redundant blank space
+    - fix Typograph ellipsis error when set whiteSpace 'pre-line' and expandable
+    - Fix TreeSelect When treeData is large, update becomes very slow due to redundant operations of converting to Set  [#521 ](https://github.com/DouyinFE/semi-design/issues/521)
+    - Fix that when TreeSelect is uncontrolled single-selection mode, after treeData is updated, the selected value will be emptied unexpectedly  [#515](https://github.com/DouyinFE/semi-design/issues/515)
+- 【Style】
+    - Update some Sass variables in Button, Input, Modal, Select, ScrollList and TreeSelect components. Extract the default style as a Sass variable to facilitate DSM to modify the default style of these components [#570](https://github.com/DouyinFE/semi-design/pull/570)
 
+#### 🎉 2.4.0-beta.0 (2022-01-28)
+- 【Feat】
+    - TimePicker add support for `onChangeWithDateFirst` API  [#555](https://github.com/DouyinFE/semi-design/issues/555)
+- 【Fix】
+    - Fixed the problem that when Select is customized using `renderCreateItem`, the new option needs to be clicked twice  [#574](https://github.com/DouyinFE/semi-design/issues/574)
+    - Fixed InputNumber button right click bug  [#540](https://github.com/DouyinFE/semi-design/issues/540)
+    - Fixed page back to one when Table `columns` change bug  [#381](https://github.com/DouyinFE/semi-design/issues/381)
+    - Fixed the jitter of scrolling items when Tree uses both `virtualize` and `renderFullLabel`  [#527](https://github.com/DouyinFE/semi-design/issues/527)
+- 【Style】
+    - Fixed TextArea `readonly` hover cursor style bug [@chenc041](https://github.com/chenc041) [#535](https://github.com/DouyinFE/semi-design/issues/535)
+    - Fixed the problem that the `z-index` level of the fixed column of Table is too high
 
 #### 🎉 2.3.0 (2022-01-14)
 - 【Fix】

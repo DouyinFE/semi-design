@@ -37,7 +37,8 @@ export interface TimePickerAdapter<P = Record<string, any>, S = Record<string, a
     setInputValue: (inputValue: string, cb?: () => void) => void;
     unregisterClickOutSide: () => void;
     notifyOpenChange: (open: boolean) => void;
-    notifyChange: (value: Date | Date[], input: string | string[]) => void;
+    notifyChange(value: Date | Date[], input: string | string[]): void;
+    notifyChange(input: string | string[], value: Date | Date[]): void;
     notifyFocus: (e: any) => void;
     notifyBlur: (e: any) => void;
     isRangePicker: () => boolean;
@@ -413,8 +414,12 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
                 str = format(_value, formatToken);
             }
         }
-
-        this._adapter.notifyChange(_value, str);
+        const onChangeWithDateFirst = this.getProp('onChangeWithDateFirst');
+        if (onChangeWithDateFirst) {
+            this._adapter.notifyChange(_value, str);
+        } else {
+            this._adapter.notifyChange(str, _value);
+        }
     }
 
     _hasChanged(dates: Date[] = [], oldDates: Date[] = []) {
