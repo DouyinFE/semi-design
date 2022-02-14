@@ -18,7 +18,7 @@ $module: #{$prefix}-tagInput;
     
     &-focus {
         background-color: $color-tagInput_default-bg-focus;
-        border: $width-tagInput-border-focus $color-tagInput_default-border-focus solid;
+        border: $width-tagInput-border-focus $color-tagInput-border-focus solid;
     }
 
     &-warning {
