@@ -326,11 +326,11 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                         cb();
                     }
                 };
-                document.addEventListener('mousedown', this.clickOutsideHandler, false);
+                document.addEventListener('click', this.clickOutsideHandler, {capture: true});
             },
             unregisterClickOutsideHandler: () => {
                 if (this.clickOutsideHandler) {
-                    document.removeEventListener('mousedown', this.clickOutsideHandler, false);
+                    document.removeEventListener('click', this.clickOutsideHandler, {capture: true});
                     this.clickOutsideHandler = null;
                 }
             },
