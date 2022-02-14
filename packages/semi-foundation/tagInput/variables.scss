@@ -3,6 +3,9 @@ $color-tagInput-maxTagCount-default: var(--semi-color-text-0); // 标签输入�
 $color-tagInput-icon-hover: var(--semi-color-primary-hover); // 标签输入框图标颜色 - 悬浮
 $color-tagInput_disabled-text-default: var(--semi-color-disabled-text); // 标签输入框禁用文字颜色
 $color-tagInput_default-bg-focus: var(--semi-color-fill-0); // 标签输入框背景颜色 - 选中态
+
+$color-tagInput_default-border-default: transparent; // 标签输入框描边颜色 - 默认
+$color-tagInput_default-border-hover: transparent ; // 标签输入框描边颜色 - 悬浮
 $color-tagInput_default-border-focus: var(--semi-color-focus-border); // 标签输入框描边颜色 - 选中态
 $color-tagInput_prefix-default: var(--semi-color-text-2); // 标签输入框 prefix 颜色
 $color-tagInput_suffix-default: var(--semi-color-text-1); // 标签输入框 suffix 颜色
@@ -35,5 +38,8 @@ $height-tagInput-default: $height-control-default; // 默认尺寸标签输入�
 $height-tagInput-small: $height-control-small; // 小尺寸标签输入框高度
 
 $width-tagInput-clear-medium: $width-icon-medium * 2; // 标签输入框清空按钮宽度
+$width-tagInput-border-default: $border-thickness-control; // 标签输入框描边描边宽度 - 默认
+$width-tagInput-border-hover: $width-tagInput-border-default; // 标签输入框描边描边宽度 - 悬浮
+$width-tagInput-border-focus: $border-thickness-control-focus; // 标签输入框描边宽度 - 选中态
 
 $radius-tagInput: var(--semi-border-radius-small); // 标签输入框圆角
