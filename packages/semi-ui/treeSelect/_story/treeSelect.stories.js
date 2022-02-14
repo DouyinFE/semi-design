@@ -1165,3 +1165,245 @@ export const DisabledStrictly = () => (
 DisabledStrictly.story = {
   name: 'disabledStrictly',
 };
+
+
+export const CheckRelationDemo = () => {
+  const treeData = [
+    {
+        label: 'Asia',
+        value: 'Asia',
+        key: '0',
+        children: [
+            {
+                label: 'China',
+                value: 'China',
+                key: '0-0',
+                children: [
+                    {
+                        label: 'Beijing',
+                        value: 'Beijing',
+                        key: '0-0-0',
+                    },
+                    {
+                        label: 'Shanghai',
+                        value: 'Shanghai',
+                        key: '0-0-1',
+                    },
+                    {
+                        label: 'Chengdu',
+                        value: 'Chengdu',
+                        key: '0-0-2',
+                    },
+                ],
+            },
+            {
+                label: 'Japan',
+                value: 'Japan',
+                key: '0-1',
+                children: [
+                    {
+                        label: 'Osaka',
+                        value: 'Osaka',
+                        key: '0-1-0'
+                    }
+                ]
+            },
+        ],
+    },
+    {
+        label: 'North America',
+        value: 'North America',
+        key: '1',
+        children: [
+            {
+                label: 'United States',
+                value: 'United States',
+                key: '1-0'
+            },
+            {
+                label: 'Canada',
+                value: 'Canada',
+                key: '1-1'
+            }
+        ]
+    }
+  ];
+  const [value, setValue] = useState('China');
+  const [value2, setValue2] = useState();
+  const [value3, setValue3] = useState();
+  const style = {
+    width: 300,
+  };
+  const dropdownStyle = {
+    maxHeight: 400,
+    overflow: 'auto'
+  };
+  const handleChange = value => {
+    console.log(value);
+    setValue(value);
+  };
+  const handleChange2 = value => {
+    console.log(value);
+    setValue2(value);
+  };
+  const handleChange3 = value => {
+    console.log(value);
+    setValue3(value);
+  };
+  return (
+    <>
+      <div>checkRelation='unRelated'</div>
+      <TreeSelect
+        dropdownStyle={dropdownStyle}
+        treeData={treeData}
+        multiple
+        checkRelation='unRelated'
+        defaultExpandAll
+        style={style}
+      />
+      <br /><br />
+      <div>checkRelation='unRelated' + maxTagCount=2</div>
+      <TreeSelect
+        dropdownStyle={dropdownStyle}
+        treeData={treeData}
+        multiple
+        maxTagCount={2}
+        checkRelation='unRelated'
+        defaultExpandAll
+        style={style}
+      />
+      <br /><br />
+      <div>checkRelation='unRelated' + maxTagCount=2 + 开启搜索</div>
+      <TreeSelect
+        dropdownStyle={dropdownStyle}
+        treeData={treeData}
+        multiple
+        maxTagCount={2}
+        filterTreeNode
+        checkRelation='unRelated'
+        defaultExpandAll
+        style={style}
+      />
+      <br /><br />
+      <div>checkRelation='unRelated' + maxTagCount=2 + 开启搜索 + searchBox in trigger</div>
+      <TreeSelect
+        dropdownStyle={dropdownStyle}
+        treeData={treeData}
+        multiple
+        maxTagCount={2}
+        filterTreeNode
+        checkRelation='unRelated'
+        searchPosition='trigger'
+        defaultExpandAll
+        style={style}
+      />
+      <br /><br />
+      <div>checkRelation='unRelated' + 中国节点为 disabled</div>
+      <TreeSelect
+        dropdownStyle={dropdownStyle}
+        treeData={treeDataWithoutValue}
+        multiple
+        checkRelation='unRelated'
+        defaultExpandAll
+        style={style}
+      />
+      <br /><br />
+      <div>checkRelation='unRelated' + 中国节点为 disabled + 严格禁用</div>
+      <TreeSelect
+        dropdownStyle={dropdownStyle}
+        treeData={treeDataWithoutValue}
+        multiple
+        checkRelation='unRelated'
+        defaultExpandAll
+        disableStrictly
+        style={style}
+      />
+      <br /><br />
+      <div>checkRelation='unRelated' + defaultValue 为 China</div>
+      <TreeSelect
+        dropdownStyle={dropdownStyle}
+        treeData={treeData}
+        multiple
+        checkRelation='unRelated'
+        defaultExpandAll
+        style={style}
+        defaultValue='China'
+      />
+      <br /><br />
+      <div>checkRelation='unRelated' + defaultValue 为 China + 开启搜索</div>
+      <TreeSelect
+        dropdownStyle={dropdownStyle}
+        treeData={treeData}
+        multiple
+        filterTreeNode
+        checkRelation='unRelated'
+        defaultExpandAll
+        style={style}
+        defaultValue='China'
+      />
+      <br /><br />
+      <div>checkRelation='unRelated' + defaultValue 为 China + 开启搜索 + searchBox in trigger + showClear</div>
+      <TreeSelect
+        dropdownStyle={dropdownStyle}
+        treeData={treeData}
+        multiple
+        filterTreeNode
+        showClear
+        checkRelation='unRelated'
+        defaultExpandAll
+        style={style}
+        searchPosition='trigger'
+        defaultValue='China'
+      />
+      <br /><br />
+      <div>checkRelation='unRelated' + 受控 + value 初始为 China</div>
+      <TreeSelect
+        dropdownStyle={dropdownStyle}
+        treeData={treeData}
+        multiple
+        checkRelation='unRelated'
+        defaultExpandAll
+        style={style}
+        value={value}
+        onChange={handleChange}
+      />
+      <br /><br />
+      <div>checkRelation='unRelated' + 受控 + onChangeWithObject</div>
+      <TreeSelect
+        dropdownStyle={dropdownStyle}
+        treeData={treeData}
+        multiple
+        checkRelation='unRelated'
+        defaultExpandAll
+        style={style}
+        value={value2}
+        onChangeWithObject
+        onChange={handleChange2}
+      />
+      <br /><br />
+      <div>checkRelation='unRelated' + 受控 + leafOnly，此时 leafOnly 失效</div>
+      <TreeSelect
+        dropdownStyle={dropdownStyle}
+        leafOnly
+        treeData={treeData}
+        multiple
+        checkRelation='unRelated'
+        defaultExpandAll
+        style={style}
+        value={value3}
+        onChange={handleChange3}
+      />
+      <br /><br />
+      <div>checkRelation='unRelated' + onSelect </div>
+      <TreeSelect
+        dropdownStyle={dropdownStyle}
+        treeData={treeData}
+        multiple
+        checkRelation='unRelated'
+        defaultExpandAll
+        style={style}
+        onSelect={(value,status,node)=>console.log('select', value, status, node)}
+      />
+    </>
+  );
+};

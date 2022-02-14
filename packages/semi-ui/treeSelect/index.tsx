@@ -251,6 +251,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         optionListStyle: PropTypes.object,
         searchRender: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
         renderSelectedItem: PropTypes.func,
+        checkRelation: PropTypes.string,
         'aria-label': PropTypes.string,
     };
 
@@ -280,6 +281,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         expandAction: false,
         clickToHide: true,
         searchAutoFocus: false,
+        checkRelation: 'related',
         'aria-label': 'TreeSelect'
     };
     inputRef: React.RefObject<typeof Input>;
@@ -308,6 +310,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             selectedKeys: [],
             checkedKeys: new Set(),
             halfCheckedKeys: new Set(),
+            realCheckedKeys: new Set([]),
             disabledKeys: new Set(),
             motionKeys: new Set([]),
             motionType: 'hide',
@@ -473,10 +476,14 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             }
 
             if (checkedKeyValues) {
-                const { checkedKeys, halfCheckedKeys } = calcCheckedKeys(checkedKeyValues, keyEntities);
-
-                newState.checkedKeys = checkedKeys;
-                newState.halfCheckedKeys = halfCheckedKeys;
+                if (props.checkRelation === 'unRelated') {
+                    newState.realCheckedKeys = new Set(checkedKeyValues);
+                } else if (props.checkRelation === 'related'){
+                    const { checkedKeys, halfCheckedKeys } = calcCheckedKeys(checkedKeyValues, keyEntities);
+    
+                    newState.checkedKeys = checkedKeys;
+                    newState.halfCheckedKeys = halfCheckedKeys;
+                }
             }
         }
 
@@ -491,7 +498,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         }
 
         // ================ disableStrictly =================
-        if (treeData && props.disableStrictly) {
+        if (treeData && props.disableStrictly && props.checkRelation === 'related') {
             newState.disabledKeys = calcDisabledKeys(keyEntities);
         }
 
@@ -676,24 +683,39 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         this.foundation.handleSelectionEnterPress(e);
     };
 
+    hasValue = ( ): boolean => {
+        const { multiple, checkRelation } = this.props;
+        const { realCheckedKeys, checkedKeys, selectedKeys } = this.state;
+        let hasValue = false;
+        if (multiple){
+            if (checkRelation==='related'){
+                hasValue = Boolean(checkedKeys.size);
+            } else if (checkRelation==='unRelated'){
+                hasValue = Boolean(realCheckedKeys.size);
+            } 
+        } else {
+            hasValue = Boolean(selectedKeys.length);
+        }
+        return hasValue;
+    }
+
     showClearBtn = () => {
-        const { searchPosition } = this.props;
-        const { inputValue } = this.state;
+        const { showClear, disabled, searchPosition } = this.props;
+        const { inputValue, isOpen, isHovering } = this.state;
         const triggerSearchHasInputValue = searchPosition === strings.SEARCH_POSITION_TRIGGER && inputValue;
-        const { showClear, disabled, multiple } = this.props;
-        const { selectedKeys, checkedKeys, isOpen, isHovering } = this.state;
-        const hasValue = multiple ? Boolean(checkedKeys.size) : Boolean(selectedKeys.length);
-        return showClear && (hasValue || triggerSearchHasInputValue) && !disabled && (isOpen || isHovering);
+        
+        return showClear && (this.hasValue() || triggerSearchHasInputValue) && !disabled && (isOpen || isHovering);
     };
 
     renderTagList = () => {
-        const { checkedKeys, keyEntities, disabledKeys } = this.state;
+        const { checkedKeys, keyEntities, disabledKeys, realCheckedKeys } = this.state;
         const {
             treeNodeLabelProp,
             leafOnly,
             disabled,
             disableStrictly,
             size,
+            checkRelation,
             renderSelectedItem: propRenderSelectedItem
         } = this.props;
         const renderSelectedItem = isFunction(propRenderSelectedItem) ?
@@ -702,7 +724,12 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 isRenderInTag: true,
                 content: get(item, treeNodeLabelProp, null)
             });
-        const renderKeys = normalizeKeyList([...checkedKeys], keyEntities, leafOnly);
+        let renderKeys = [];
+        if (checkRelation==='related'){
+            renderKeys = normalizeKeyList([...checkedKeys], keyEntities, leafOnly);
+        } else if (checkRelation==='unRelated'){
+            renderKeys = [...realCheckedKeys];
+        }
         const tagList: Array<React.ReactNode> = [];
         // eslint-disable-next-line @typescript-eslint/no-shadow
         renderKeys.forEach((key: TreeNodeData['key']) => {
@@ -778,15 +805,13 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             searchPosition,
             filterTreeNode,
         } = this.props;
-        const { selectedKeys, checkedKeys } = this.state;
-        const hasValue = multiple ? Boolean(checkedKeys.size) : Boolean(selectedKeys.length);
         const isTriggerPositionSearch = filterTreeNode && searchPosition === strings.SEARCH_POSITION_TRIGGER;
         // searchPosition = trigger
         if (isTriggerPositionSearch) {
             return multiple ? this.renderTagInput() : this.renderSingleTriggerSearch();
         }
         // searchPosition = dropdown and single seleciton
-        if (!multiple || !hasValue) {
+        if (!multiple || !this.hasValue()) {
             const renderText = this.foundation.getRenderTextInSingle();
             const spanCls = cls({
                 [`${prefixcls}-selection-placeholder`]: !renderText,
@@ -1037,13 +1062,20 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             searchAutoFocus,
             placeholder,
             maxTagCount,
+            checkRelation,
         } = this.props;
         const {
             keyEntities,
             checkedKeys,
-            inputValue
+            inputValue,
+            realCheckedKeys,
         } = this.state;
-        const keyList = normalizeKeyList(checkedKeys, keyEntities, leafOnly);
+        let keyList = [];
+        if (checkRelation==='related'){
+            keyList = normalizeKeyList(checkedKeys, keyEntities, leafOnly);
+        } else if (checkRelation==='unRelated'){
+            keyList = [...realCheckedKeys];
+        }
         return (
             <TagInput
                 maxTagCount={maxTagCount}

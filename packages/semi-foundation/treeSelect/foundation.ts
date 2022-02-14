@@ -95,6 +95,7 @@ export interface BasicTreeSelectProps extends Pick<BasicTreeProps,
 | 'expandAll'
 | 'disableStrictly'
 | 'aria-label'
+| 'checkRelation'
 > {
     motion?: Motion;
     mouseEnterDelay?: number;
@@ -156,6 +157,7 @@ export interface BasicTreeSelectInnerData extends Pick<BasicTreeInnerData,
 | 'disabledKeys'
 | 'loadedKeys'
 | 'loadingKeys'
+| 'realCheckedKeys'
 > {
     inputTriggerFocus: boolean;
     isOpen: boolean;
@@ -272,6 +274,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
             selectedKeys = [],
             checkedKeys = new Set([]),
             halfCheckedKeys = new Set([]),
+            realCheckedKeys= new Set([]),
             keyEntities = {},
             filteredKeys = new Set([]),
             inputValue = '',
@@ -280,19 +283,29 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
             filteredExpandedKeys = new Set([]),
             disabledKeys = new Set([]),
         } = this.getStates();
-        const { treeNodeFilterProp } = this.getProps();
+        const { treeNodeFilterProp, checkRelation } = this.getProps();
         const entity = keyEntities[key];
         const notExist = !entity;
         if (notExist) {
             return null;
+        }
+        // if checkRelation is invalid, the checked status of node will be false
+        let realChecked = false;
+        let realHalfChecked = false;
+        if (checkRelation==='related'){
+            realChecked = checkedKeys.has(key);
+            realHalfChecked = halfCheckedKeys.has(key);
+        } else if (checkRelation==='unRelated') {
+            realChecked = realCheckedKeys.has(key);
+            realHalfChecked = false;
         }
         const isSearching = Boolean(inputValue);
         const treeNodeProps: BasicTreeNodeProps = {
             eventKey: key,
             expanded: isSearching ? filteredExpandedKeys.has(key) : expandedKeys.has(key),
             selected: selectedKeys.includes(key),
-            checked: checkedKeys.has(key),
-            halfChecked: halfCheckedKeys.has(key),
+            checked: realChecked,
+            halfChecked: realHalfChecked,
             pos: String(entity ? entity.pos : ''),
             level: entity.level,
             filtered: filteredKeys.has(key),
@@ -345,8 +358,13 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
 
     _notifyMultipleChange(key: string[], e: any) {
         const { keyEntities } = this.getStates();
-        const { leafOnly } = this.getProps();
-        const keyList = normalizeKeyList(key, keyEntities, leafOnly);
+        const { leafOnly, checkRelation } = this.getProps();
+        let keyList = [];
+        if (checkRelation === 'related') {
+            keyList = normalizeKeyList(key, keyEntities, leafOnly);
+        } else if (checkRelation === 'unRelated') {
+            keyList = key as string[];
+        }
         const nodes = keyList.map(i => keyEntities[i].data);
         if (this.getProp('onChangeWithObject')) {
             this._adapter.notifyChangeWithObject(nodes, e);
@@ -442,6 +460,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
                 selectedKeys: [],
                 checkedKeys: new Set(),
                 halfCheckedKeys: new Set(),
+                realCheckedKeys: new Set([]),
             } as any);
         }
         // When triggerSearch, clicking the clear button will trigger to clear Input
@@ -466,18 +485,29 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
     }
 
     removeTag(eventKey: BasicTreeNodeData['key']) {
-        const { disableStrictly } = this.getProps();
-        const { keyEntities, disabledKeys } = this.getStates();
+        const { disableStrictly, checkRelation } = this.getProps();
+        const { keyEntities, disabledKeys, realCheckedKeys } = this.getStates();
         const item = keyEntities[eventKey].data;
         if (item.disabled || (disableStrictly && disabledKeys.has(eventKey))) {
             return;
         }
-        const { checkedKeys, halfCheckedKeys } = this.calcCheckedKeys(eventKey, false);
-        this._notifyChange([...checkedKeys], null);
-        if (!this._isControlledComponent()) {
-            this._adapter.updateState({ checkedKeys, halfCheckedKeys } as any);
-            this._adapter.rePositionDropdown();
+        if (checkRelation === 'unRelated') {
+            const newRealCheckedKeys = new Set(realCheckedKeys);
+            newRealCheckedKeys.delete(eventKey);
+            this._notifyChange([...newRealCheckedKeys], null);
+            if (!this._isControlledComponent()) {
+                this._adapter.updateState({ realCheckedKeys: newRealCheckedKeys } as any);
+                this._adapter.rePositionDropdown();
+            }
+        } else if (checkRelation === 'related'){
+            const { checkedKeys, halfCheckedKeys } = this.calcCheckedKeys(eventKey, false);
+            this._notifyChange([...checkedKeys], null);
+            if (!this._isControlledComponent()) {
+                this._adapter.updateState({ checkedKeys, halfCheckedKeys } as any);
+                this._adapter.rePositionDropdown();
+            }
         }
+
         this._adapter.notifySelect(eventKey, false, item);
 
         // reposition dropdown when selected values change
@@ -581,24 +611,42 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
     }
 
     handleMultipleSelect(e: any, treeNode: BasicTreeNodeProps) {
-        const { searchPosition, disableStrictly } = this.getProps();
-        const { inputValue } = this.getStates();
+        const { searchPosition, disableStrictly, checkRelation } = this.getProps();
+        const { inputValue, realCheckedKeys } = this.getStates();
         const { checked, eventKey, data } = treeNode;
-        const targetStatus = disableStrictly ?
-            this.calcChekcedStatus(!checked, eventKey) :
-            !checked;
+        if (checkRelation==='related') {
+            const targetStatus = disableStrictly ?
+                this.calcChekcedStatus(!checked, eventKey) :
+                !checked;
 
-        const { checkedKeys, halfCheckedKeys } = disableStrictly ?
-            this.calcNonDisabedCheckedKeys(eventKey, targetStatus) :
-            this.calcCheckedKeys(eventKey, targetStatus);
-        this._adapter.notifySelect(eventKey, targetStatus, data);
-        this._notifyChange([...checkedKeys], e);
+            const { checkedKeys, halfCheckedKeys } = disableStrictly ?
+                this.calcNonDisabedCheckedKeys(eventKey, targetStatus) :
+                this.calcCheckedKeys(eventKey, targetStatus);
+            this._adapter.notifySelect(eventKey, targetStatus, data);
+            this._notifyChange([...checkedKeys], e);
+            if (!this._isControlledComponent()) {
+                this._adapter.updateState({ checkedKeys, halfCheckedKeys } as any);
+                this._adapter.rePositionDropdown();
+            }
+        } else if (checkRelation==='unRelated') {
+            const newRealCheckedKeys: Set<string> = new Set(realCheckedKeys);
+            let targetStatus: boolean;
+            if (realCheckedKeys.has(eventKey)){
+                newRealCheckedKeys.delete(eventKey);
+                targetStatus = false;
+            } else {
+                newRealCheckedKeys.add(eventKey);
+                targetStatus = true;
+            }
+            this._adapter.notifySelect(eventKey, targetStatus, data);
+            this._notifyChange([...newRealCheckedKeys], e);
+            if (!this._isControlledComponent()) {
+                this._adapter.updateState({ realCheckedKeys: newRealCheckedKeys } as any);
+                this._adapter.rePositionDropdown();
+            }
+        }
         if (searchPosition === strings.SEARCH_POSITION_TRIGGER && inputValue !== '') {
             this._adapter.updateState({ inputValue: '' } as any);
-        }
-        if (!this._isControlledComponent()) {
-            this._adapter.updateState({ checkedKeys, halfCheckedKeys } as any);
-            this._adapter.rePositionDropdown();
         }
     }
 
