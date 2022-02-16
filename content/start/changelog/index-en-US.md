@@ -16,6 +16,13 @@ Version：Major.Minor.Patch
 
 ---
 
+#### 🎉 2.4.1 (2022-2-16)
+- 【Fix】
+    - `@douyinfe/semi-ui` Add dependency declaration: `@douyinfe/semi-animation` to avoid the problem of missing dependency declarations that may exist in pnpm scenarios [#626](https://github.com/DouyinFE/semi-design/issues/626)
+    - Avoid waring about passing insetLabelId/onChangeWithDateFirst to origin input/text dom in component Form.Input/TextArea/TimePicker [#624](https://github.com/DouyinFE/semi-design/issues/624)
+- 【Style】
+    - Optimize TagInput component Sass variable reference relationship [@Carlosfengv](https://github.com/Carlosfengv)
+
 #### 🎉 2.4.0 (2022-2-11)
 - 【Fix】
     - TimePicker crash issue  [#585](https://github.com/DouyinFE/semi-design/issues/585)

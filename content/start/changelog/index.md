@@ -15,6 +15,12 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 ---
 
+#### 🎉 2.4.1 (2022-2-16)
+- 【Fix】
+    - @douyinfe/semi-ui 添加 dependency声明：@douyinfe/semi-animation，避免在 pnpm 场景下可能存在的依赖声明缺失问题 [#626](https://github.com/DouyinFE/semi-design/issues/626)
+    - 修复使用 Form.Input/TextArea 且labelPosition设置为inset时，insetLabelId 被意外透传至 input/textarea dom上导致 warning 的问题，修复TimePicker onChangeWithDateFirst 被意外透传至 input dom上导致 warning 的问题 [#624](https://github.com/DouyinFE/semi-design/issues/624)
+- 【Style】
+    - 优化 TagInput 组件样式变量引用关系 [@Carlosfengv](https://github.com/Carlosfengv)
 #### 🎉 2.4.0 (2022-02-11)
 - 【Fix】
     - TimePicker 崩溃问题  [#585](https://github.com/DouyinFE/semi-design/issues/585)
