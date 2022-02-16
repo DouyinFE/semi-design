@@ -14,6 +14,7 @@
     },
     "dependencies": {
         "@babel/runtime-corejs3": "^7.15.4",
+        "@douyinfe/semi-animation": "2.4.0",
         "@douyinfe/semi-animation-react": "2.4.0",
         "@douyinfe/semi-foundation": "2.4.0",
         "@douyinfe/semi-icons": "2.4.0",
