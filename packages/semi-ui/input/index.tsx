@@ -387,6 +387,7 @@ class Input extends BaseComponent<InputProps, InputState> {
             prefix,
             mode,
             insetLabel,
+            insetLabelId,
             validateStatus,
             type,
             readonly,
