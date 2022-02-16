@@ -313,7 +313,7 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
             }
         );
         const itemProps = {
-            ...omit(rest, 'insetLabel', 'getValueLength', 'onClear', 'showClear'),
+            ...omit(rest, 'insetLabel', 'insetLabelId', 'getValueLength', 'onClear', 'showClear'),
             className: itemCls,
             disabled,
             readOnly: readonly,
