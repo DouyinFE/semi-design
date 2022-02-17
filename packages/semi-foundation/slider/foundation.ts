@@ -240,7 +240,7 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
         const scroll = (node: Element) => regex.test(style(node, 'overflow') + style(node, 'overflow-y') + style(node, 'overflow-x'));
 
         const scrollParent = (node: Element): Element => (
-            !node || node === document.body ? document.body : scroll(node) ? node : scrollParent(node.parentNode as Element)
+            !node || (node === document.body || !(node instanceof Element)) ? document.body : scroll(node) ? node : scrollParent(node.parentNode as Element)
         );
 
         return scrollParent(el);
@@ -320,7 +320,7 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
         } else {
             compareValue = currentValue;
         }
-        if (step !== 1) { // Find nearest step point 
+        if (step !== 1) { // Find nearest step point
             stepValue = Math.round(stepValue / step) * step;
         }
         if (range && stepValue !== compareValue) {
