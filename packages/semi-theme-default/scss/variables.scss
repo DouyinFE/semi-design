@@ -5,7 +5,7 @@ $height-control-small: 24px; // 表单项高度 - 小尺寸
 $height-control-default: 32px; // 表单项高度 - 默认尺寸
 $height-control-large: 40px; // 表单项高度 - 大尺寸
 $border-thickness: 0; // 描边宽度 - 零
-$border-thickness-control: 1px; // 描边宽度 - 默认状态（checkbox 等）
+$border-thickness-control: var(--semi-dsm-temp-border-thickness-control); // 描边宽度 - 默认状态（checkbox 等）
 $border-thickness-control-focus: 1px; // 描边宽度 - focus 状态（checkbox 等）
 
 $width-icon-extra-small: 8px; // 图标尺寸 - 超小
@@ -48,7 +48,7 @@ $font-family-regular: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI',
     'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue',
     Helvetica, Arial, sans-serif; // semi 预置字体回退
 $font-size-small: 12px; // 小文本字号
-$font-size-regular: 14px; // 常规文本字号
+$font-size-regular: var(--semi-dsm-temp-font-size-regular); // 常规文本字号
 
 $font-size-header-6: 16px; // 六级标题字号
 $font-size-header-5: 18px; // 五级标题字号
