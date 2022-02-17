@@ -1,4 +1,4 @@
-@import "./variables.scss";
+@import './variables.scss';
 
 $module: #{$prefix}-upload;
 
@@ -47,7 +47,7 @@ $module: #{$prefix}-upload;
         align-items: center;
     }
 
-    &[x-prompt-pos="right"] {
+    &[x-prompt-pos='right'] {
         .#{$module}-add {
             display: inline-flex;
         }
@@ -57,7 +57,7 @@ $module: #{$prefix}-upload;
         }
     }
 
-    &[x-prompt-pos="bottom"] {
+    &[x-prompt-pos='bottom'] {
         .#{$module}-add {
             display: flex;
         }
@@ -72,15 +72,14 @@ $module: #{$prefix}-upload;
         }
     }
 
-    &[x-prompt-pos="left"] {
+    &[x-prompt-pos='left'] {
         .#{$module}-add {
             display: inline-flex;
-            order: 2;
         }
 
         .#{$module}-prompt {
             display: inline-flex;
-            order: 1;
+            order: -1;
         }
 
         .#{$module}-file-list {
@@ -247,7 +246,6 @@ $module: #{$prefix}-upload;
         }
 
         &-icon {
-
             &-loading,
             &-error {
                 font-size: $width-upload_file_card-icon;
@@ -275,7 +273,6 @@ $module: #{$prefix}-upload;
             }
 
             .#{$module}-file-card {
-
                 &-info-validate-message {
                     color: $color-upload_file_card_fail_info-text;
                 }
@@ -288,25 +285,17 @@ $module: #{$prefix}-upload;
     &-picture {
         display: flex;
 
-        &[x-prompt-pos="bottom"] {
+        &[x-prompt-pos='bottom'] {
             flex-direction: column;
 
             .#{$module}-prompt {
                 order: 1;
             }
-
-            .#{$module}-add {
-                order: 0;
-            }
         }
 
-        &[x-prompt-pos="right"] {
+        &[x-prompt-pos='right'] {
             .#{$module}-prompt {
                 order: 1;
-            }
-
-            .#{$module}-add {
-                order: 0;
             }
         }
 
@@ -321,7 +310,6 @@ $module: #{$prefix}-upload;
             border: $width-upload_picture_add-border dashed $color-upload-border;
             color: $color-upload-icon;
             border-radius: $radius-upload_picture_add;
-            order: 2;
             cursor: pointer;
 
             &:hover {
@@ -370,38 +358,32 @@ $module: #{$prefix}-upload;
             }
 
             &-close {
-                width: $width-upload_picture_file_card_close;
-                height: $width-upload_picture_file_card_close;
-                background-color: $color-upload_pic_remove-bg;
+                visibility: hidden;
+                display: inline-flex;
                 position: absolute;
                 top: $spacing-upload_picture_file_card_close-top;
                 right: $spacing-upload_picture_file_card_close-right;
-                @include all-center;
-                display: none;
                 border-radius: $radius-upload_picture_file_card_close;
-                color: white;
                 cursor: pointer;
                 transition: all 0s;
             }
-
-            &:hover {
-                .#{$module}-picture-file-card-close {
-                    display: flex;
-                }
-
-                .#{$module}-picture-file-card-replace {
-                    visibility: visible;
-                }
+            &-icon-close {
+                font-size: $width-upload_picture_file_card_close;
+                color: $color-upload_picture_file_card_close-icon;
             }
 
-            .#{$prefix}-progress-circle {
+            &::before {
+                visibility: hidden;
+                background-color: $color-upload_picture_file_card_hover-bg;
+                content: '';
                 position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
             }
-
             &-retry {
+                visibility: hidden;
                 background-color: $color-upload_file_card_retry-bg;
                 width: $width-upload_file_card_retry;
                 height: $width-upload_file_card_retry;
@@ -416,7 +398,6 @@ $module: #{$prefix}-upload;
                 justify-content: center;
                 cursor: pointer;
             }
-
             &-icon-retry {
                 transform: scale(-1, 1);
                 font-size: $width-upload_file_card_retry-icon;
@@ -432,6 +413,17 @@ $module: #{$prefix}-upload;
                 color: $color-upload_replace-text;
                 transform: translate3D(-50%, -50%, 0);
             }
+
+            &-preview {
+                visibility: hidden;
+                display: inline-flex;
+                position: absolute;
+                cursor: pointer;
+                top: 50%;
+                left: 50%;
+                transform: translate3D(-50%, -50%, 0);
+            }
+
             &-pic-info {
                 display: inline-flex;
                 box-sizing: border-box;
@@ -467,6 +459,39 @@ $module: #{$prefix}-upload;
 
             &-error {
                 outline: 1px solid $color-upload_picture_file_card_error-border;
+            }
+
+            &:hover {
+                &::before {
+                    visibility: visible;
+                }
+
+                .#{$module}-picture-file-card-close {
+                    visibility: visible;
+                }
+                .#{$module}-picture-file-card-replace {
+                    visibility: visible;
+                }
+
+                .#{$module}-picture-file-card-retry {
+                    visibility: visible;
+                }
+                .#{$module}-picture-file-card-preview {
+                    visibility: visible;
+                }
+            }
+
+            &-uploading {
+                &::before {
+                    visibility: visible;
+                }
+            }
+
+            .#{$prefix}-progress-circle {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
             }
         }
     }
@@ -542,4 +567,4 @@ $module: #{$prefix}-upload;
     }
 }
 
-@import "./rtl.scss";
+@import './rtl.scss';

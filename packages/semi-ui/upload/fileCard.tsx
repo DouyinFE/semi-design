@@ -3,11 +3,11 @@ import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/upload/constants';
 import { getFileSize } from '@douyinfe/semi-foundation/upload/utils';
-import { IconAlertCircle, IconClose, IconFile, IconRefresh } from '@douyinfe/semi-icons';
+import { IconAlertCircle, IconClose, IconClear, IconFile, IconRefresh, IconEyeOpened } from '@douyinfe/semi-icons';
 import LocaleConsumer from '../locale/localeConsumer';
 import { Locale } from '../locale/interface';
 
-import IconButton from '../iconButton/index';
+import Button from '../button/index';
 import Progress from '../progress/index';
 import Tooltip from '../tooltip/index';
 import Spin from '../spin/index';
@@ -123,10 +123,11 @@ class FileCard extends PureComponent<FileCardProps> {
     }
 
     renderPic(locale: Locale['Upload']): ReactNode {
-        const { url, percent, status, disabled, style, onPreviewClick, showPicInfo, renderPicInfo, renderThumbnail, name, index } = this.props;
+        const { url, percent, status, disabled, style, onPreviewClick, showPicInfo, renderPicInfo, renderPicPreviewIcon, renderThumbnail, name, index } = this.props;
         const showProgress = status === strings.FILE_STATUS_UPLOADING && percent !== 100;
         const showRetry = status === strings.FILE_STATUS_UPLOAD_FAIL && this.props.showRetry;
         const showReplace = status === strings.FILE_STATUS_SUCCESS && this.props.showReplace;
+        const showPreview = status === strings.FILE_STATUS_SUCCESS && !this.props.showReplace;
         const filePicCardCls = cls({
             [`${prefixCls}-picture-file-card`]: true,
             [`${prefixCls}-picture-file-card-disabled`]: disabled,
@@ -134,7 +135,6 @@ class FileCard extends PureComponent<FileCardProps> {
             [`${prefixCls}-picture-file-card-error`]: status === strings.FILE_STATUS_UPLOAD_FAIL,
             [`${prefixCls}-picture-file-card-uploading`]: showProgress
         });
-        const closeCls = `${prefixCls}-picture-file-card-close`;
         const retry = (
             <div role="button" tabIndex={0} className={`${prefixCls}-picture-file-card-retry`} onClick={e => this.onRetry(e)}>
                 <IconRefresh className={`${prefixCls}-picture-file-card-icon-retry`} />
@@ -146,7 +146,16 @@ class FileCard extends PureComponent<FileCardProps> {
                     <ReplaceSvg className={`${prefixCls}-picture-file-card-icon-replace`} />
                 </div>
             </Tooltip>
-
+        );
+        const preview = (
+            <div className={`${prefixCls}-picture-file-card-preview`}>
+                {typeof renderPicPreviewIcon === 'function'? renderPicPreviewIcon(this.props): null}
+            </div>
+        );
+        const close = (
+            <div role="button" tabIndex={0} className={`${prefixCls}-picture-file-card-close`} onClick={e => this.onRemove(e)}>
+                <IconClear className={`${prefixCls}-picture-file-card-icon-close`} />
+            </div>
         );
 
         const picInfo = typeof renderPicInfo === 'function' ? renderPicInfo(this.props) : (
@@ -161,19 +170,16 @@ class FileCard extends PureComponent<FileCardProps> {
                 {showProgress ? <Progress percent={percent} type="circle" size="small" orbitStroke={'#FFF'} aria-label="uploading file progress" /> : null}
                 {showRetry ? retry : null}
                 {showReplace && replace}
+                {showPreview && preview}
                 {showPicInfo && picInfo}
-                {!disabled && (
-                    <div className={closeCls} onClick={e => this.onRemove(e)}>
-                        <IconClose tabIndex={0} role="button" size="extra-small" />
-                    </div>
-                )}
+                {!disabled && close}
                 {this.renderPicValidateMsg()}
             </div>
         );
     }
 
     renderFile(locale: Locale["Upload"]) {
-        const { name, size, percent, url, showRetry: propsShowRetry, showReplace: propsShowReplace, preview, previewFile, status, style, onPreviewClick } = this.props;
+        const { name, size, percent, url, showRetry: propsShowRetry, showReplace: propsShowReplace, preview, previewFile, status, style, onPreviewClick, renderFileOperation } = this.props;
         const fileCardCls = cls({
             [`${prefixCls}-file-card`]: true,
             [`${prefixCls}-file-card-fail`]: status === strings.FILE_STATUS_VALID_FAIL || status === strings.FILE_STATUS_UPLOAD_FAIL,
@@ -195,6 +201,7 @@ class FileCard extends PureComponent<FileCardProps> {
         if (previewFile) {
             previewContent = previewFile(this.props);
         }
+        const operation = typeof renderFileOperation === 'function'? renderFileOperation(this.props) : <Button onClick={e => this.onRemove(e)} type="tertiary" icon={<IconClose />} theme="borderless" size="small" className={closeCls} />;
         return (
             <div role="listitem" className={fileCardCls} style={style} onClick={onPreviewClick}>
                 <div className={previewCls}>
@@ -209,7 +216,7 @@ class FileCard extends PureComponent<FileCardProps> {
                             <span className={`${infoCls}-size`}>{fileSize}</span>
                             {showReplace && (
                                 <Tooltip trigger="hover" position="top" showArrow={false} content={locale.replace}>
-                                    <IconButton
+                                    <Button
                                         onClick={e => this.onReplace(e)}
                                         type="tertiary"
                                         theme="borderless"
@@ -231,31 +238,24 @@ class FileCard extends PureComponent<FileCardProps> {
                         {showRetry ? <span role="button" tabIndex={0} className={`${infoCls}-retry`} onClick={e => this.onRetry(e)}>{locale.retry}</span> : null}
                     </div>
                 </div>
-                <IconButton
-                    onClick={e => this.onRemove(e)}
-                    type="tertiary"
-                    icon={<IconClose />}
-                    theme="borderless"
-                    size="small"
-                    className={closeCls}
-                />
+                {operation}
             </div>
         );
     }
 
     onRemove(e: MouseEvent): void {
         e.stopPropagation();
-        this.props.onRemove(this.props, e);
+        this.props.onRemove();
     }
 
     onReplace(e: MouseEvent): void {
         e.stopPropagation();
-        this.props.onReplace(this.props, e);
+        this.props.onReplace();
     }
 
     onRetry(e: MouseEvent): void {
         e.stopPropagation();
-        this.props.onRetry(this.props, e);
+        this.props.onRetry();
     }
 
     render() {
