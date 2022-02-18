@@ -4,7 +4,7 @@
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import keyCode from '../utils/keyCode';
 import { numbers } from './constants';
-import { toNumber, toString } from 'lodash';
+import { toNumber, toString, get } from 'lodash';
 import { minus as numberMinus } from '../utils/number';
 
 export interface InputNumberAdapter extends DefaultAdapter {
@@ -286,6 +286,9 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
     }
 
     handleUpClick(event: any) {
+        if (!this._isMouseButtonLeft(event)) {
+            return;
+        }
         this._adapter.setClickUpOrDown(true);
         if (event) {
             event.persist();
@@ -303,6 +306,9 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
     }
 
     handleDownClick(event: any) {
+        if (!this._isMouseButtonLeft(event)) {
+            return;
+        }
         this._adapter.setClickUpOrDown(true);
         if (event) {
             event.persist();
@@ -315,6 +321,14 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
                 this.downClick(event);
             });
         });
+    }
+
+    /**
+     * Whether it is a left mouse button click
+     * @see https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button
+     */
+    _isMouseButtonLeft(event: any) {
+        return get(event, 'button') === numbers.MOUSE_BUTTON_LEFT;
     }
 
     _preventDefault(event: any) {

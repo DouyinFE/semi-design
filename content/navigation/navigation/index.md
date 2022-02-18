@@ -63,6 +63,7 @@ class NavApp extends React.Component {
 
 ```
 
+
 ### 导航缩进
 
 版本：>= 0.16.0
@@ -524,7 +525,6 @@ class NavApp extends React.Component {
         return (
             <Nav
                 limitIndent={false}
-                toggleIconPosition={'left'}
                 defaultOpenKeys={['job']}
                 bodyStyle={{ height: 320 }}
                 items={[
@@ -789,3 +789,6 @@ function NavApp (props = {}) {
 
 -   **导航动画丢失？**  
     在使用函数式组件时，应该用 useState 或者 useMemo 包裹一下 items，原因是 items 直接传一个数组会触发组件重新渲染。
+
+-   **当子菜单高度超过999px，部分导航消失？**
+    请查看 [此 issue](https://github.com/DouyinFE/semi-design/issues/563)

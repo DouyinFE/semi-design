@@ -97,6 +97,26 @@ const treeData2 = [
     }
 ];
 
+const treeData3 = [
+    {
+        label: '亚洲',
+        value: 'Asia',
+        key: '0',
+        children: [
+            {
+                label: '中国',
+                value: 'China',
+                key: '0-0',
+            },
+        ],
+    },
+    {
+        label: '北美洲',
+        value: 'North America',
+        key: '1',
+    }
+];
+
 let commonProps = {
     motion: false,
     motionExpand: false,
@@ -780,4 +800,141 @@ describe('TreeSelect', () => {
             done();
         }, 100);
     });
+
+    it('treeData is updated should not clear value when uncontrolled mode and single selection', () => {
+        const nativeEvent = { nativeEvent: { stopImmediatePropagation: () => { } } }
+        const treeSelect = getTreeSelect({
+            defaultExpandAll: true
+        });
+        treeSelect
+            .find(`.${BASE_CLASS_PREFIX}-tree-option-list .${BASE_CLASS_PREFIX}-tree-option`)
+            .at(2)
+            .simulate('click', nativeEvent);
+        expect(
+            treeSelect
+            .find(`.${BASE_CLASS_PREFIX}-tree-select .${BASE_CLASS_PREFIX}-tree-select-selection span`)
+            .getDOMNode()
+            .textContent
+        ).toEqual('北京');
+        treeSelect.setProps({ treeData: treeChildren});
+        treeSelect.update();
+        expect(
+            treeSelect
+            .find(`.${BASE_CLASS_PREFIX}-tree-select .${BASE_CLASS_PREFIX}-tree-select-selection span`)
+            .getDOMNode()
+            .textContent
+        ).toEqual('北京');
+        treeSelect.setProps({ treeData: treeData2});
+        treeSelect.update();
+        expect(
+            treeSelect
+            .find(`.${BASE_CLASS_PREFIX}-tree-select .${BASE_CLASS_PREFIX}-tree-select-selection span`)
+            .getDOMNode()
+            .textContent
+        ).toEqual('');
+    });
+
+    it('treeData is updated should not clear value when uncontrolled mode and multiple selection', () => {
+        const nativeEvent = { nativeEvent: { stopImmediatePropagation: () => { } } }
+        const treeSelect = getTreeSelect({
+            defaultExpandAll: true,
+            multiple: true,
+        });
+        treeSelect
+            .find(`.${BASE_CLASS_PREFIX}-tree-option-list .${BASE_CLASS_PREFIX}-tree-option`)
+            .at(2)
+            .simulate('click', nativeEvent);
+        expect(
+            treeSelect
+            .find(`.${BASE_CLASS_PREFIX}-tree-select-selection .${BASE_CLASS_PREFIX}-tag-group .${BASE_CLASS_PREFIX}-tag`)
+            .at(0)
+            .find(`.${BASE_CLASS_PREFIX}-tag-content`)
+            .getDOMNode()
+            .textContent
+        ).toEqual('北京');
+        treeSelect.setProps({ treeData: treeChildren});
+        treeSelect.update();
+        expect(
+            treeSelect
+            .find(`.${BASE_CLASS_PREFIX}-tree-select-selection .${BASE_CLASS_PREFIX}-tag-group .${BASE_CLASS_PREFIX}-tag`)
+            .at(0)
+            .find(`.${BASE_CLASS_PREFIX}-tag-content`)
+            .getDOMNode()
+            .textContent
+        ).toEqual('北京');
+        treeSelect.setProps({ treeData: treeData2});
+        treeSelect.update();
+        expect(
+            treeSelect
+            .find(`.${BASE_CLASS_PREFIX}-tree-select-selection .${BASE_CLASS_PREFIX}-tag-group .${BASE_CLASS_PREFIX}-tag`)
+            .at(0)
+            .find(`.${BASE_CLASS_PREFIX}-tag-content`)
+            .length
+        ).toEqual(0);
+    });
+
+    it('treeData is updated should not clear value when controlled mode and single selection', () => {
+        const treeSelect = getTreeSelect({
+            defaultExpandAll: true,
+            value: 'Beijing'
+        });
+        expect(
+            treeSelect
+            .find(`.${BASE_CLASS_PREFIX}-tree-select .${BASE_CLASS_PREFIX}-tree-select-selection span`)
+            .getDOMNode()
+            .textContent
+        ).toEqual('北京');
+        treeSelect.setProps({ treeData: treeChildren});
+        treeSelect.update();
+        expect(
+            treeSelect
+            .find(`.${BASE_CLASS_PREFIX}-tree-select .${BASE_CLASS_PREFIX}-tree-select-selection span`)
+            .getDOMNode()
+            .textContent
+        ).toEqual('北京');
+        treeSelect.setProps({ treeData: treeData3});
+        treeSelect.update();
+        expect(
+            treeSelect
+            .find(`.${BASE_CLASS_PREFIX}-tree-select .${BASE_CLASS_PREFIX}-tree-select-selection span`)
+            .getDOMNode()
+            .textContent
+        ).toEqual('');
+    });
+
+    it('treeData is updated should not clear value when controlled mode and multiple selection', () => {
+        const treeSelect = getTreeSelect({
+            defaultExpandAll: true,
+            multiple: true,
+            value: 'Beijing'
+        });
+        expect(
+            treeSelect
+            .find(`.${BASE_CLASS_PREFIX}-tree-select-selection .${BASE_CLASS_PREFIX}-tag-group .${BASE_CLASS_PREFIX}-tag`)
+            .at(0)
+            .find(`.${BASE_CLASS_PREFIX}-tag-content`)
+            .getDOMNode()
+            .textContent
+        ).toEqual('北京');
+        treeSelect.setProps({ treeData: treeChildren});
+        treeSelect.update();
+        expect(
+            treeSelect
+            .find(`.${BASE_CLASS_PREFIX}-tree-select-selection .${BASE_CLASS_PREFIX}-tag-group .${BASE_CLASS_PREFIX}-tag`)
+            .at(0)
+            .find(`.${BASE_CLASS_PREFIX}-tag-content`)
+            .getDOMNode()
+            .textContent
+        ).toEqual('北京');
+        treeSelect.setProps({ treeData: treeData3});
+        treeSelect.update();
+        expect(
+            treeSelect
+            .find(`.${BASE_CLASS_PREFIX}-tree-select-selection .${BASE_CLASS_PREFIX}-tag-group .${BASE_CLASS_PREFIX}-tag`)
+            .at(0)
+            .find(`.${BASE_CLASS_PREFIX}-tag-content`)
+            .length
+        ).toEqual(0);
+    });
+
 })

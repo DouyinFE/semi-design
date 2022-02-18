@@ -11,4 +11,24 @@ describe('table', () => {
         cy.get('.semi-table-row-head .semi-checkbox-inner-display').click();
         cy.get('.semi-checkbox-checked').should('have.length', 4);
     });
+
+    /**
+     * 测试 columns 为字面量时刷新 Table，页码应保持当前页
+     * 即更新 columns 不影响 currentPage
+     */
+    it('columns change ', () => {
+        cy.visit('http://localhost:6009/iframe.html?id=table--fixed-columns-change&viewMode=story');
+        cy.get('.semi-page-item').contains('2').click();
+        cy.get('.semi-table-tbody .semi-checkbox').eq(1).click()
+            .then(() => {
+                cy.get('.semi-page-item').contains('2').should('have.class', 'semi-page-item-active');
+            });
+    });
+
+    it('jsx columns nested change', () => {
+        cy.visit('http://localhost:6009/iframe.html?id=table--fixed-header-merge&args=&viewMode=story');
+        cy.get('[data-cy=button]').click();
+        cy.contains("Base Information");
+        cy.contains("Company Information");
+    });
 });

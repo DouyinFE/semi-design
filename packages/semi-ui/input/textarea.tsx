@@ -295,7 +295,8 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
             className,
             `${prefixCls}-textarea-wrapper`,
             {
-                [`${prefixCls}-textarea-wrapper-disabled`]: disabled || readonly,
+                [`${prefixCls}-textarea-wrapper-disabled`]: disabled,
+                [`${prefixCls}-textarea-wrapper-readonly`]: readonly,
                 [`${prefixCls}-textarea-wrapper-${validateStatus}`]: Boolean(validateStatus),
                 [`${prefixCls}-textarea-wrapper-focus`]: isFocus,
                 // [`${prefixCls}-textarea-wrapper-resize`]: !autosize && resize,
@@ -305,13 +306,14 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
         const itemCls = cls(
             `${prefixCls}-textarea`,
             {
-                [`${prefixCls}-textarea-disabled`]: disabled || readonly,
+                [`${prefixCls}-textarea-disabled`]: disabled,
+                [`${prefixCls}-textarea-readonly`]: readonly,
                 [`${prefixCls}-textarea-autosize`]: autosize,
                 [`${prefixCls}-textarea-showClear`]: showClear,
             }
         );
         const itemProps = {
-            ...omit(rest, 'insetLabel', 'getValueLength', 'onClear', 'showClear'),
+            ...omit(rest, 'insetLabel', 'insetLabelId', 'getValueLength', 'onClear', 'showClear'),
             className: itemCls,
             disabled,
             readOnly: readonly,

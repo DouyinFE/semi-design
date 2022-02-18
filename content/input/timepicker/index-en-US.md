@@ -316,6 +316,7 @@ function Demo(props = {}) {
 | value | Current time | Date\|timeStamp\|string (array when type = "timeRange") |  |
 | onBlur | Callback when focus is lost | (e: domEvent) => void | () => {} | **1.0.0** |
 | onChange | A callback in time. | (time: Date\|Date[], timeString: string\|string[]) => void |  |
+| onChangeWithDateFirst | Set the order of parameter in `onChange`, `true`: (Date, string); `false`: (string, Date) | boolean | true | **2.4.0** |
 | onFocus | Callback when focus is obtained | (e: domEvent) => void | () => {} | **1.0.0** |
 | onOpenChange | A callback when the panel is on / off | (isOpen: boolean) => void |  |
 

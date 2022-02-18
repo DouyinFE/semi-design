@@ -15,6 +15,40 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 ---
 
+#### 🎉 2.4.1 (2022-2-16)
+- 【Fix】
+    - @douyinfe/semi-ui 添加 dependency声明：@douyinfe/semi-animation，避免在 pnpm 场景下可能存在的依赖声明缺失问题 [#626](https://github.com/DouyinFE/semi-design/issues/626)
+    - 修复使用 Form.Input/TextArea 且labelPosition设置为inset时，insetLabelId 被意外透传至 input/textarea dom上导致 warning 的问题，修复TimePicker onChangeWithDateFirst 被意外透传至 input dom上导致 warning 的问题 [#624](https://github.com/DouyinFE/semi-design/issues/624)
+- 【Style】
+    - 优化 TagInput 组件样式变量引用关系 [@Carlosfengv](https://github.com/Carlosfengv)
+#### 🎉 2.4.0 (2022-02-11)
+- 【Fix】
+    - TimePicker 崩溃问题  [#585](https://github.com/DouyinFE/semi-design/issues/585)
+    - 修复 Nav limitIndent 在折叠态后，子菜单通过 dropdown 形式展示时，也被消费，从而导致了多余的空白间隔的问题
+    - 修复 Typograph 组件截断错误，当设置 whiteSpace 为 'pre-line' 且 expandable
+    - 修复 TreeSelect 当 treeData 较大时，由于多余的转化为 Set 的操作，造成 update 变得很慢  [#521 ](https://github.com/DouyinFE/semi-design/issues/521)
+    - 修复 TreeSelect 在单选且非受控时，treeData 更新后，已选值会被异常清空的问题  [#515](https://github.com/DouyinFE/semi-design/issues/515)
+- 【Style】
+    - 更新了 Button、Input、Modal、Select、ScrollList、TreeSelect 的部分 Sass 变量，抽取了部分默认样式为 Sass 变量以方便 DSM 修改组件默认样式 [#570](https://github.com/DouyinFE/semi-design/pull/570)
+
+#### 🎉 2.4.0-beta.0 (2022-01-28)
+- 【Feat】
+    - TimePicker 支持 `onChangeWithDateFirst` API  [#555](https://github.com/DouyinFE/semi-design/issues/555)
+- 【Fix】
+    - 修复 Select 使用 renderCreateItem 自定义时，新建选项需要点击两次的问题  [#574](https://github.com/DouyinFE/semi-design/issues/574)
+    - 修复 InputNumber 按钮右键点击时数字自动增/减问题  [#540](https://github.com/DouyinFE/semi-design/issues/540)
+    - 修复 Table columns 变化后分页器返回到第一页问题  [#381](https://github.com/DouyinFE/semi-design/issues/381)
+    - 修复 Tree 同时使用虚拟化和 renderFullLabel 时，滚动项目发生抖动的问题  [#527](https://github.com/DouyinFE/semi-design/issues/527)
+- 【Style】
+    - 修复 TextArea readonly 模式下光标显示为禁用问题 [@chenc041](https://github.com/chenc041)  [#535](https://github.com/DouyinFE/semi-design/issues/535)
+    - 修复 Table 固定列 z-index 层级过高问题
+
+#### 🎉 2.3.1 (2022-01-21)
+- 【Chore】
+    - 修复 List 组件传递 datasource 属性时, renderItem 类型丢失 [#393](https://github.com/DouyinFE/semi-design/issues/393) [@chenc041](https://github.com/chenc041)
+    - 修复 Dropdown menu 类型定义异常问题 
+- 【Fix】
+    - 修复 InputNumber 传入 defaultValue 时警告问题 [#537](https://github.com/DouyinFE/semi-design/issues/537) [@chenc041](https://github.com/chenc041)
 
 #### 🎉 2.3.0 (2022-01-14)
 - 【Fix】
@@ -25,7 +59,7 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 #### 🎉 2.3.0-beta.0 (2022-01-07)
 - 【Fix】
     - 修复 Form 使用 formApi.setValue、setError、setTouch 中用父级fieldPath，对多个嵌套field进行批量赋值时，可能存在卡顿的问题（影响版本 v1.32~v2.2）
-    - 修复Form formApi.validate 局部校验触发范围不准确的问题
+    - 修复Form formApi.validate 局部校验触发范围不准确的问题 [#510](https://github.com/DouyinFE/semi-design/issues/510)
     - 修复 Tooltip 计算 adjustOverflow时未将 spacing纳入，导致内容超出（但未超过8px）后仍未自动切换方向的问题  [#491](https://github.com/DouyinFE/semi-design/issues/491)
     - 修复 Tooltip 展现浮层默认方向空间不足，触发 adjustOverflow 自动切换方向时会闪烁的问题  [#69](https://github.com/DouyinFE/semi-design/issues/69)
     - 修复 Tree handleNodeDragOver 内部 event 传参不恰当的问题  [#345 ](https://github.com/DouyinFE/semi-design/issues/345)

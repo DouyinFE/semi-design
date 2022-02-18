@@ -601,7 +601,7 @@ export function normalizeValue(value: any, withObject: boolean) {
     }
 }
 
-export function updateKeys(keySet: Set<string>, keyEntities: KeyEntities) {
+export function updateKeys(keySet: Set<string> | string[], keyEntities: KeyEntities) {
     const keyArr = [...keySet];
     return keyArr.filter(key => key in keyEntities);
 }

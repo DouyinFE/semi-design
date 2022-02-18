@@ -36,7 +36,7 @@ import DatePickerSlot from './DatePickerSlot';
 import DatePickerTimeZone from './DatePickerTimeZone';
 import BetterRangePicker from './BetterRangePicker';
 import SyncSwitchMonth from './SyncSwitchMonth';
-import { YearButton } from './v2';
+export * from './v2';
 
 export default {
   title: 'DatePicker',
@@ -67,7 +67,6 @@ export {
   DatePickerTimeZone,
   BetterRangePicker,
   SyncSwitchMonth,
-  YearButton
 }
 
 const demoDiv = {
@@ -76,7 +75,7 @@ const demoDiv = {
 };
 
 export const DatePickerDefault = () => (
-  <div style={demoDiv}>
+  <div style={{...demoDiv, height: '100vh'}}>
     <span>datePicker施工现场</span>
     <DatePicker
       insetLabel={<span>日期</span>}
@@ -87,14 +86,7 @@ export const DatePickerDefault = () => (
     <br />
 
     <span>datePicker默认显示</span>
-    <DatePicker defaultOpen />
-    <br />
-
-    <span>defaultValue: new Date('2019-07-07')</span>
-    <DatePicker
-      defaultValue={new Date('2019-07-07')}
-      onOpenChange={isOpen => console.log(isOpen)}
-    />
+    <DatePicker />
     <br />
 
     <span>defaultValue: 2019-07-09</span>
@@ -106,8 +98,23 @@ export const DatePickerDefault = () => (
       defaultValue={1569888000000}
       onChange={(input, value) => console.log({ input, value })}
     />
+    <br />
+
+    <span>defaultValue: new Date('2019-07-07')</span>
+    <DatePicker
+      defaultValue={new Date('2019-07-07')}
+      onOpenChange={isOpen => console.log(isOpen)}
+      defaultOpen
+      motion={false}
+    />
   </div>
 );
+DatePickerDefault.parameters = {
+  chromatic: {
+    disableSnapshot: false,
+    delay: 300
+  }
+};
 
 export const DatePickerCallbacks = () => {
   const printArgs = (...args) => console.log(...args);
@@ -806,3 +813,4 @@ export const FixTriggerRenderClosePanel = () => {
   );
 };
 FixTriggerRenderClosePanel.storyName = "fix triggerRender close bug"
+

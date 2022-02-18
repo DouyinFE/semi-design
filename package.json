@@ -40,7 +40,7 @@
   "dependencies": {
     "@douyinfe/semi-site-banner": "0.0.1",
     "@douyinfe/semi-site-doc-style": "0.0.1",
-    "@douyinfe/semi-site-header": "0.0.3",
+    "@douyinfe/semi-site-header": "0.0.6-alpha.3",
     "@douyinfe/semi-site-markdown-blocks": "0.0.1",
     "@mdx-js/react": "^1.6.22",
     "@svgr/core": "^5.5.0",

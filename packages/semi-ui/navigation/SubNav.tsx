@@ -237,7 +237,7 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
         }
 
         let placeholderIcons = null;
-        if (mode === strings.MODE_VERTICAL && !limitIndent) {
+        if (mode === strings.MODE_VERTICAL && !limitIndent && !isCollapsed) {
             /* Different icons' amount means different indents.*/
             const iconAmount = (icon && !indent) ? level : level - 1;
             placeholderIcons = times(iconAmount, index => this.renderIcon(null, strings.ICON_POS_RIGHT, false, undefined, index));

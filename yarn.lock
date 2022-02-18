@@ -1676,13 +1676,14 @@
   resolved "https://registry.npmjs.org/@douyinfe/semi-site-doc-style/-/semi-site-doc-style-0.0.1.tgz#c3c803014218ec00441dac32db9a875f6222ed0b"
   integrity sha512-y7Jc1i9q/O2idfaqckSJvghpt4AboQJgZ4iTEK8UMqjQkyWmb5I/NRzVWjOP9S0LEbJNs76OKfZil7DwsOmY/A==
 
-"@douyinfe/semi-site-header@0.0.3":
-  version "0.0.3"
-  resolved "https://registry.npmjs.org/@douyinfe/semi-site-header/-/semi-site-header-0.0.3.tgz#3cf22161d70101e9191e28738242254601d17e81"
-  integrity sha512-pRDwL701g3KQIueTh5mNg/uUK9JJLUfFzC7g7I8k7MSZ8KxtaqdrNqZkulBJY2Cchd3De7UY1aVi4q8bNp0A4A==
+"@douyinfe/semi-site-header@0.0.6-alpha.3":
+  version "0.0.6-alpha.3"
+  resolved "https://registry.yarnpkg.com/@douyinfe/semi-site-header/-/semi-site-header-0.0.6-alpha.3.tgz#b3f6943ca340c97556ada9ef1886b52485e21db5"
+  integrity sha512-tRE9AXguPWt6mkkCCgTm0DflnC2k+GrX87DmDUuLrxp1M8c0t5DoLoTONc0Jwme0M+fHVsJqqCC/cto8os71zQ==
   dependencies:
     "@douyinfe/semi-icons" "2.0.0"
     "@douyinfe/semi-ui" "2.0.0"
+    axios "^0.23.0"
     chroma-js "^2.1.0"
     classnames "^2.3.1"
     i18next "^21.3.2"
@@ -25260,10 +25261,8 @@ watchpack@^1.7.4:
   resolved "https://registry.npmjs.org/watchpack/-/watchpack-1.7.5.tgz#1267e6c55e0b9b5be44c2023aed5437a2c26c453"
   integrity sha512-9P3MWk6SrKjHsGkLT2KHXdQ/9SNkyoJbabxnKOoJepsvJjJG8uYTR3yTPxPQvNDI3w4Nz1xnE0TLHK4RIVe/MQ==
   dependencies:
-    chokidar "^3.4.1"
     graceful-fs "^4.1.2"
     neo-async "^2.5.0"
-    watchpack-chokidar2 "^2.0.1"
   optionalDependencies:
     chokidar "^3.4.1"
     watchpack-chokidar2 "^2.0.1"

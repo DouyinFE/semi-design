@@ -4,7 +4,7 @@ $module: #{$prefix}-tagInput;
 
 .#{$module} {
     background-color: $color-tagInput_default-bg-default;
-    outline: $border-thickness-control-focus $color-textarea-border-default solid;
+    outline: $width-tagInput-border-default $color-tagInput-border-default solid;
     border-radius: $radius-tagInput;
     display: inline-flex;
     font-weight: $font-weight-regular;
@@ -13,11 +13,12 @@ $module: #{$prefix}-tagInput;
 
     &-hover {
         background-color: $color-tagInput_default-bg-hover;
+        border: $width-tagInput-border-hover $color-tagInput-border-hover solid;
     }
 
     &-focus {
         background-color: $color-tagInput_default-bg-focus;
-        outline: $border-thickness-control-focus $color-tagInput_default-border-focus solid;
+        outline: $width-tagInput-border-focus $color-tagInput-border-focus solid;
     }
 
     &-warning {

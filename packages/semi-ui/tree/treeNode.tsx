@@ -3,7 +3,7 @@ import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses } from '@douyinfe/semi-foundation/tree/constants';
 import isEnterPress from '@douyinfe/semi-foundation/utils/isEnterPress';
-import { debounce, isFunction, isString, get } from 'lodash';
+import { debounce, isFunction, isString, get, isEmpty } from 'lodash';
 import { IconTreeTriangleDown, IconFile, IconFolder, IconFolderOpen } from '@douyinfe/semi-icons';
 import { Checkbox } from '../checkbox';
 import TreeContext from './treeContext';
@@ -392,7 +392,14 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
                     ...dragProps
                 });
             } else {
-                return customLabel;
+                if (isEmpty(style)) {
+                    return customLabel;
+                } else {
+                    // In virtualization, props.style will contain location information
+                    return React.cloneElement(customLabel, {
+                        style: { ...get(customLabel, ['props', 'style']), ...style }
+                    });
+                }
             }
         }
         const labelCls = cls(`${prefixcls}-label`, {

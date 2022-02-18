@@ -16,6 +16,35 @@ Version：Major.Minor.Patch
 
 ---
 
+#### 🎉 2.4.1 (2022-2-16)
+- 【Fix】
+    - `@douyinfe/semi-ui` Add dependency declaration: `@douyinfe/semi-animation` to avoid the problem of missing dependency declarations that may exist in pnpm scenarios [#626](https://github.com/DouyinFE/semi-design/issues/626)
+    - Avoid waring about passing insetLabelId/onChangeWithDateFirst to origin input/text dom in component Form.Input/TextArea/TimePicker [#624](https://github.com/DouyinFE/semi-design/issues/624)
+- 【Style】
+    - Optimize TagInput component Sass variable reference relationship [@Carlosfengv](https://github.com/Carlosfengv)
+
+#### 🎉 2.4.0 (2022-2-11)
+- 【Fix】
+    - TimePicker crash issue  [#585](https://github.com/DouyinFE/semi-design/issues/585)
+    - Fix Nav limitIndent in the collapsed state, when the submenu is displayed in the form of dropdown, it is also consumed, which leads to the problem of redundant blank space
+    - fix Typograph ellipsis error when set whiteSpace 'pre-line' and expandable
+    - Fix TreeSelect When treeData is large, update becomes very slow due to redundant operations of converting to Set  [#521 ](https://github.com/DouyinFE/semi-design/issues/521)
+    - Fix that when TreeSelect is uncontrolled single-selection mode, after treeData is updated, the selected value will be emptied unexpectedly  [#515](https://github.com/DouyinFE/semi-design/issues/515)
+- 【Style】
+    - Update some Sass variables in Button, Input, Modal, Select, ScrollList and TreeSelect components. Extract the default style as a Sass variable to facilitate DSM to modify the default style of these components [#570](https://github.com/DouyinFE/semi-design/pull/570)
+
+#### 🎉 2.4.0-beta.0 (2022-01-28)
+- 【Feat】
+    - TimePicker add support for `onChangeWithDateFirst` API  [#555](https://github.com/DouyinFE/semi-design/issues/555)
+- 【Fix】
+    - Fixed the problem that when Select is customized using `renderCreateItem`, the new option needs to be clicked twice  [#574](https://github.com/DouyinFE/semi-design/issues/574)
+    - Fixed InputNumber button right click bug  [#540](https://github.com/DouyinFE/semi-design/issues/540)
+    - Fixed page back to one when Table `columns` change bug  [#381](https://github.com/DouyinFE/semi-design/issues/381)
+    - Fixed the jitter of scrolling items when Tree uses both `virtualize` and `renderFullLabel`  [#527](https://github.com/DouyinFE/semi-design/issues/527)
+- 【Style】
+    - Fixed TextArea `readonly` hover cursor style bug [@chenc041](https://github.com/chenc041) [#535](https://github.com/DouyinFE/semi-design/issues/535)
+    - Fixed the problem that the `z-index` level of the fixed column of Table is too high
+
 #### 🎉 2.3.0 (2022-01-14)
 - 【Fix】
     - Fixed Notification display collapsing order [#531](https://github.com/DouyinFE/semi-design/pull/531)
@@ -24,8 +53,8 @@ Version：Major.Minor.Patch
 
 #### 🎉 2.3.0-beta.0 (2022-01-07)
 - 【Fix】
-    - Fixed the problem that when Form uses the parent fieldPath in formApi.setValue, setError, and setTouch to perform batch assignment to multiple nested fields, there may be a problem of stuck (affecting versions v1.32~v2.2) Checklist
-    - Fix the inaccurate trigger range of Form formApi.validate partial verification Checklist
+    - Fixed the problem that when Form uses the parent fieldPath in formApi.setValue, setError, and setTouch to perform batch assignment to multiple nested fields, there may be a problem of stuck (affecting versions v1.32~v2.2) 
+    - Fix the inaccurate trigger range of Form formApi.validate partial verification [#510](https://github.com/DouyinFE/semi-design/issues/510)
     - Fix the problem that Tooltip did not include spacing when calculating adjustOverflow, which caused the content to exceed (but not exceed 8px) and still not automatically switch the direction.  [#491](https://github.com/DouyinFE/semi-design/issues/491)
     - Fix Tooltip showing that the default direction of the floating layer is insufficient, and it will flicker when adjustOverflow is triggered to automatically switch the direction.   [#69](https://github.com/DouyinFE/semi-design/issues/69)
     - Fix Tree handleNodeDragOver internal event parameters are not properly passed  [#345 ](https://github.com/DouyinFE/semi-design/issues/345)

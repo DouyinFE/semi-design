@@ -654,7 +654,7 @@ function Demo() {
             justifyContent: 'center',
             width: '80%',
             height: '80%',
-            borderRadius: '50%',
+            borderRadius: 'var(--semi-border-radius-circle)',
         };
 
         return (

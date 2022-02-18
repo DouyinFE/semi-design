@@ -84,6 +84,7 @@ $module: #{$prefix}-modal;
         padding: $spacing-modal_header-paddingY $spacing-modal_header-paddingX;
         font-size: $font-modal_header-fontSize;
         font-weight: $font-modal_header-fontWeight;
+        background-color: $color-modal_header-bg;
         color: $color-modal_main-text;
         border-bottom: $width-modal_header-border solid $color-modal_header-border;
     }
@@ -112,6 +113,7 @@ $module: #{$prefix}-modal;
         text-align: right;
         border-radius: $radius-modal_footer;
         border-top: $width-modal_footer-border solid $color-modal_footer-border;
+        background-color: $color-modal_footer-bg;
         
         .#{$prefix}-button {
             margin-left: $spacing-modal_footer_button-marginLeft;
