@@ -488,6 +488,41 @@ import { IconUpload, IconFile } from '@douyinfe/semi-icons';
 };
 ```
 
+### 自定义列表操作区
+
+`listType` 为 `list` 时，可以通过传入 `renderFileOperation` 来自定义列表操作区
+
+```jsx live=true width=48%
+import React from 'react';
+import { Upload, Button } from '@douyinfe/semi-ui';
+import { IconUpload, IconDownload, IconEyeOpened } from '@douyinfe/semi-icons';
+
+() => {
+    let action = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
+
+    const defaultFileList = [
+        {
+            uid: '1',
+            name: 'vigo.png',
+            status: 'success',
+            size: '130KB',
+            preview: true,
+            url: 'https://sf6-cdn-tos.douyinstatic.com/img/ee-finolhu/c2a65140483e4a20802d64af5fec1b39~noop.image',
+        }
+    ];
+    const renderFileOperation = (fileItem) => (
+        <div style={{display: 'flex',columnGap: 8, padding: '0 8px'}}>
+            <Button icon={<IconEyeOpened></IconEyeOpened>} type="tertiary" theme="borderless" size="small"></Button>
+            <Button icon={<IconDownload></IconDownload>} type="tertiary" theme="borderless" size="small"></Button>
+            <Button onClick={e=>fileItem.onRemove()} icon={<IconDelete></IconDelete>} type="tertiary" theme="borderless" size="small"></Button>
+        </div>
+    )
+    return <Upload action={action} defaultFileList={defaultFileList} itemStyle={{width: 300}} renderFileOperation={renderFileOperation}>
+            <Button icon={<IconUpload />} theme="light">点击上传</Button>
+        </Upload>
+    }
+```
+
 ### 默认文件列表
 
 通过 `defaultFileList` 可以展示已上传的文件。当需要预览默认文件的缩略图时，你可以将 `defaultFileList` 内对应 `item` 的 `preview` 属性设为 `true`
@@ -658,6 +693,101 @@ import { IconPlus } from '@douyinfe/semi-icons';
     return (
         <>
             <Upload action={action} listType="picture" showPicInfo accept="image/*" multiple defaultFileList={defaultFileList}>
+                <IconPlus size="extra-large" />
+            </Upload>
+        </>
+    );
+};
+```
+
+可以通过 `renderPicPreviewIcon`，`onPreviewClick` 来自定义预览图标，当显示替换图标 `showReplace` 时，不会再显示预览图标<br />
+当需要自定义预览/替换功能时，需要关闭替换功能，使用 `renderPicPreviewIcon` 监听图标点击事件即可。<br />
+`onPreviewClick` 监听的是单张图片容器的点击事件
+
+
+```jsx live=true width=48%
+import React from 'react';
+import { Upload } from '@douyinfe/semi-ui';
+import { IconPlus, IconEyeOpened } from '@douyinfe/semi-icons';
+
+() => {
+    let action = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
+    const defaultFileList = [
+        {
+            uid: '1',
+            name: 'jiafang.png',
+            status: 'success',
+            size: '130KB',
+            preview: true,
+            url:
+                'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/e82f3b261133d2b20d85e8483c203112.jpg',
+        },
+    ];
+    const handlePreview = (file) => {
+        const feature = "width=300,height=300";
+        window.open(file.url, 'imagePreview', feature);
+    }
+    return (
+        <>
+            <Upload
+                action={action}
+                listType="picture"
+                showPicInfo
+                accept="image/*"
+                multiple
+                defaultFileList={defaultFileList}
+                onPreviewClick={handlePreview}
+                renderPicPreviewIcon={()=><IconEyeOpened style={{color: 'var(--semi-color-white)', fontSize: 24}} />}
+            >
+                <IconPlus size="extra-large" />
+            </Upload>
+        </>
+    );
+};
+```
+
+设置 `hotSpotLocation` 自定义点击热区的顺序，默认在照片墙列表结尾
+
+```jsx live=true width=48%
+import React from 'react';
+import { Upload, Select } from '@douyinfe/semi-ui';
+import { IconPlus, IconEyeOpened } from '@douyinfe/semi-icons';
+
+() => {
+    let action = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
+    const defaultFileList = [
+        {
+            uid: '1',
+            name: 'jiafang.png',
+            status: 'success',
+            size: '130KB',
+            preview: true,
+            url:
+                'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/e82f3b261133d2b20d85e8483c203112.jpg',
+        },
+    ];
+    const handlePreview = (file) => {
+        const feature = "width=300,height=300";
+        window.open(file.url, 'imagePreview', feature);
+    };
+    const [hotSpotLocation, $hotSpotLocation] = useState('end');
+    return (
+        <>
+            <Select value={hotSpotLocation} onChange={$hotSpotLocation} style={{ width: 120 }}>
+                <Select.Option value='start'>开始</Select.Option>
+                <Select.Option value='end'>结尾</Select.Option>
+            </Select>
+            <hr />
+            <Upload
+                action={action}
+                listType="picture"
+                showPicInfo
+                accept="image/*"
+                multiple
+                hotSpotLocation={hotSpotLocation}
+                defaultFileList={defaultFileList}
+                onPreviewClick={handlePreview}
+            >
                 <IconPlus size="extra-large" />
             </Upload>
         </>
@@ -1115,6 +1245,7 @@ Upload组件是一个可交互的控件，在点击或拖拽时触发文件选�
 |fileList | 已上传的文件列表，传入该值时，upload 即为受控组件 | Array<FileItem\> |  | 1.0.0 |
 |fileName | 作用与 name 相同，主要在 Form.Upload 中使用，为了避免与 Field 的 props.name 冲突，此处另外提供一个重命名的 props | string |  | 1.0.0 |
 |headers | 上传时附带的 headers 或返回上传额外 headers 的方法 | object\|(file: [File](https://developer.mozilla.org/zh-CN/docs/Web/API/File)) => object | {} |  |
+|hotSpotLocation | 照片墙点击热区的放置位置，可选值 `start`, `end` | string | 'end' | 2.5.0 |
 |itemStyle | fileCard 的内联样式 | CSSProperties |  | 1.0.0 |
 |limit | 最大允许上传文件个数 | number |  |  |
 |listType | 文件列表展示类型，可选`picture`、`list` | string | 'list' |  |
@@ -1140,7 +1271,9 @@ Upload组件是一个可交互的控件，在点击或拖拽时触发文件选�
 |prompt | 自定义插槽，可用于插入提示文本。与直接在 `children` 中写的区别时，`prompt` 的内容在点击时不会触发上传<br/>（图片墙模式下，v1.3.0 后才支持传入 prompt） | ReactNode |  |  |
 |promptPosition | 提示文本的位置，当 listType 为 list 时，参照物为 children 元素；当 listType 为 picture 时，参照物为图片列表。可选值 `left`、`right`、`bottom`<br/>（图片墙模式下，v1.3.0 后才支持使用 promptPosition） | string | 'right' |  |
 |renderFileItem | fileCard 的自定义渲染 | (renderProps: RenderFileItemProps) => ReactNode |  | 1.0.0 |
+|renderFileOperation | 自定义列表项操作区 | (renderProps: RenderFileItemProps)=>ReactNode | | 2.5.0 |
 |renderPicInfo| 自定义照片墙信息，只在照片墙模式下有效| (renderProps: RenderFileItemProps)=>ReactNode | | 2.2.0 |
+|renderPicPreviewIcon| 自定义照片墙hover时展示的预览图标，只在照片墙模式下有效 | (renderProps: RenderFileItemProps)=>ReactNode | | 2.5.0 |
 |renderThumbnail| 自定义图片墙缩略图，只在照片墙模式下有效| (renderProps: RenderFileItemProps)=>ReactNode | | 2.2.0 |
 |showClear | 在 limit 不为 1 且当前已上传文件数大于 1 时，是否展示清空按钮 | boolean | true | 1.0.0 |
 |showPicInfo| 是否显示图片信息，只在照片墙模式下有效| boolean| false | 2.2.0 |

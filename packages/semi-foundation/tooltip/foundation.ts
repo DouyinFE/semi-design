@@ -434,6 +434,17 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
                 top = triggerRect.top;
                 translateX = -1;
                 break;
+            case 'leftBottomOver':
+                left = triggerRect.left;
+                top = triggerRect.bottom;
+                translateY = -1;
+                break;
+            case 'rightBottomOver':
+                left = triggerRect.right;
+                top = triggerRect.bottom;
+                translateX = -1;
+                translateY = -1;
+                break;
             default:
                 break;
         }
@@ -602,13 +613,18 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
 
             const shouldReverseTop = clientTop < wrapperRect.height + spacing && restClientBottom > wrapperRect.height + spacing;
             const shouldReverseLeft = clientLeft < wrapperRect.width + spacing && restClientRight > wrapperRect.width + spacing;
-            const sholdReverseBottom = restClientBottom < wrapperRect.height + spacing && clientTop > wrapperRect.height + spacing;
+            const shouldReverseBottom = restClientBottom < wrapperRect.height + spacing && clientTop > wrapperRect.height + spacing;
             const shouldReverseRight = restClientRight < wrapperRect.width + spacing && clientLeft > wrapperRect.width + spacing;
+            const shouldReverseTopOver = restClientTop < wrapperRect.height + spacing && clientBottom > wrapperRect.height + spacing;
+            const shouldReverseBottomOver = clientBottom < wrapperRect.height + spacing && restClientTop > wrapperRect.height + spacing;
 
             const shouldReverseTopSide = restClientTop < wrapperRect.height && clientBottom > wrapperRect.height;
             const shouldReverseBottomSide = clientBottom < wrapperRect.height && restClientTop > wrapperRect.height;
             const shouldReverseLeftSide = restClientLeft < wrapperRect.width && clientRight > wrapperRect.width;
             const shouldReverseRightSide = clientRight < wrapperRect.width && restClientLeft > wrapperRect.width;
+
+            const shouldReverseLeftOver = restClientLeft < wrapperRect.width && clientRight > wrapperRect.width;
+            const shouldReverseRightOver = clientRight < wrapperRect.width && restClientLeft > wrapperRect.width;
 
             switch (position) {
                 case 'top':
@@ -654,12 +670,12 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
                     }
                     break;
                 case 'bottom':
-                    if (sholdReverseBottom) {
+                    if (shouldReverseBottom) {
                         position = this._reversePos(position, true);
                     }
                     break;
                 case 'bottomLeft':
-                    if (sholdReverseBottom) {
+                    if (shouldReverseBottom) {
                         position = this._reversePos(position, true);
                     }
                     if (shouldReverseLeftSide && widthIsBigger) {
@@ -667,7 +683,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
                     }
                     break;
                 case 'bottomRight':
-                    if (sholdReverseBottom) {
+                    if (shouldReverseBottom) {
                         position = this._reversePos(position, true);
                     }
                     if (shouldReverseRightSide && widthIsBigger) {
@@ -693,6 +709,38 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
                     }
                     if (shouldReverseBottomSide && heightIsBigger) {
                         position = this._reversePos(position, true);
+                    }
+                    break;
+                case 'leftTopOver':
+                    if (shouldReverseTopOver) {
+                        position = this._reversePos(position, true);
+                    }
+                    if (shouldReverseLeftOver) {
+                        position = this._reversePos(position);
+                    }
+                    break;
+                case 'leftBottomOver':
+                    if (shouldReverseBottomOver) {
+                        position = this._reversePos(position, true);
+                    }
+                    if (shouldReverseLeftOver) {
+                        position = this._reversePos(position);
+                    }
+                    break;
+                case 'rightTopOver':
+                    if (shouldReverseTopOver) {
+                        position = this._reversePos(position, true);
+                    }
+                    if (shouldReverseRightOver) {
+                        position = this._reversePos(position);
+                    }
+                    break;
+                case 'rightBottomOver':
+                    if (shouldReverseBottomOver) {
+                        position = this._reversePos(position, true);
+                    }
+                    if (shouldReverseRightOver) {
+                        position = this._reversePos(position);
                     }
                     break;
                 default:

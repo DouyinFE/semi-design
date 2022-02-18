@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Upload, Button, Toast, Icon } from '@douyinfe/semi-ui/index';
 import { withField, Form } from '../../form/index';
-import { IconPlus, IconFile, IconUpload } from '@douyinfe/semi-icons';
+import { IconPlus, IconFile, IconUpload, IconEyeOpened, IconDownload, IconDelete } from '@douyinfe/semi-icons';
 
 import FileCard from '../fileCard';
 
@@ -50,7 +50,7 @@ let commonProps = {
     let url = fileItem.url;
     console.log(fileItem);
     window.open(url);
-  },
+  }
 };
 
 export const BasicUsage = () => (
@@ -270,7 +270,7 @@ const defaultFileList = [
       'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg',
   },
   {
-    uid: '5',
+    uid: '3',
     name: 'jiafang3.jpeg',
     status: 'uploading',
     percent: 50,
@@ -279,7 +279,7 @@ const defaultFileList = [
       'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg',
   },
   {
-    uid: '5',
+    uid: '4',
     name: 'jiafang3.jpeg',
     status: 'validateFail',
     validateMessage: '文件过大',
@@ -288,7 +288,7 @@ const defaultFileList = [
       'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg',
   },
   {
-    uid: '4',
+    uid: '5',
     name: 'jiafang4.jpeg',
     status: 'validating',
     validateMessage: '校验中',
@@ -399,11 +399,12 @@ PictureListType.story = {
 export const PictureListTypeWithDefaultFileList = () => (
   <>
     <Upload
-      showReplace
       {...commonProps}
+      showReplace={false}
       action={action}
       listType="picture"
       accept="image/*"
+      renderPicPreviewIcon={()=><IconEyeOpened style={{color: 'var(--semi-color-white)',fontSize: 24}} />}
       defaultFileList={defaultFileList}
     >
       <React.Fragment>
@@ -941,3 +942,18 @@ export const _ForbiddenRemove = () => <ForbiddenRemove />;
 _ForbiddenRemove.story = {
   name: 'forbidden remove',
 };
+
+export const CustomListOperation = () => {
+  const renderFileOperation = (fileItem)=>{
+    return <div style={{display: 'flex',columnGap: 8, padding: '0 8px'}}>
+      <Button icon={<IconEyeOpened></IconEyeOpened>} type="tertiary" theme="borderless" size="small"></Button>
+      <Button icon={<IconDownload></IconDownload>} type="tertiary" theme="borderless" size="small"></Button>
+      <Button onClick={e=>fileItem.onRemove()} icon={<IconDelete></IconDelete>} type="tertiary" theme="borderless" size="small"></Button>
+    </div>
+  }
+  return <Upload defaultFileList={defaultFileList} itemStyle={{width: 300}} renderFileOperation={renderFileOperation}><Button icon={<IconUpload />} theme="light">点击上传</Button></Upload>
+}
+
+CustomListOperation.story = {
+  name: 'custom list operation',
+}

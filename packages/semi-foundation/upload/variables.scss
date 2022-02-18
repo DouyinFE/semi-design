@@ -16,7 +16,7 @@ $color-upload_drag_area_tips-text: var(--semi-color-primary); // 上传可拖拽
 $color-upload_file_card_fail_info-text: var(--semi-color-danger); // 上传文件卡片失败提示信息文本颜色
 $color-upload_file_card_preview_placeholder-bg: rgba(var(--semi-grey-3), 1); // 文件卡片默认预览背景颜色
 $color-upload_file_card_preview_placeholder-text: rgba(var(--semi-white), 1); // 文件卡片默认预览图颜色
-$color-upload_file_card_retry-bg: #fff; // 重新上传按钮背景颜色
+$color-upload_file_card_retry-bg: var(--semi-color-white); // 重新上传按钮背景颜色
 $color-upload_file_card_retry-text: var(--semi-color-primary); // 重新上传按钮文本颜色
 $color-upload-icon: var(--semi-color-tertiary); // 图片墙上传图标加号颜色
 $color-upload_pic_add-bg-active: var(--semi-color-fill-2); // 图片墙上传背景色 - 按下
@@ -26,6 +26,8 @@ $color-upload_pic_remove-bg: var(--semi-color-overlay-bg); // 图片墙上传移
 $color-upload_picture_file_card_loading_error-icon: var(--semi-color-danger); // 图片墙上传移除图标颜色
 $color-upload_picture_file_card_error-border: var(--semi-color-danger); // 图片墙上传移除图标颜色
 $color-upload_picture_file_card_pic_info-text: var(--semi-color-white); // 图片墙图片信息（序号）文字颜色
+$color-upload_picture_file_card_close-icon: var(--semi-color-white); // 图片墙关闭图标颜色
+$color-upload_picture_file_card_hover-bg: var(--semi-color-overlay-bg); // 图片墙预览悬浮背景色
 $color-upload_preview-icon: var(--semi-color-text-2); // 上传文件卡片文本颜色
 $color-upload_retry-text: var(--semi-color-primary); // 上传文件卡片重新上传按钮文本颜色
 $color-upload_replace-text: var(--semi-color-white); // 上传文件卡片重新替换按钮文本颜色

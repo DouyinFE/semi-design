@@ -34,6 +34,7 @@ export interface BaseColumnProps<RecordType> {
     className?: string;
     colSpan?: number;
     dataIndex?: string;
+    defaultFilteredValue?: any[];
     defaultSortOrder?: BaseSortOrder;
     filterChildrenRecord?: boolean;
     filterDropdown?: any;
@@ -200,13 +201,23 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
      */
     getFilteredSortedDataSource(dataSource: RecordType[], queries: BaseColumnProps<RecordType>[]) {
         const filteredDataSource = this.filterDataSource(dataSource, queries.filter(
-            query => (
-                isFunction(query.onFilter) &&
-                Array.isArray(query.filters) &&
-                query.filters.length &&
-                Array.isArray(query.filteredValue) &&
-                query.filteredValue.length
-            )
+            query => {
+                /**
+                 * 这里无需判断 filteredValue 是否为数组，初始化时它是 `undefined`，点击选择空时为 `[]`
+                 * 初始化时我们应该用 `defaultFilteredValue`，点击后我们应该用 `filteredValue`
+                 * 
+                 * There is no need to judge whether `filteredValue` is an array here, because it is `undefined` when initialized, and `[]` when you click to select empty
+                 * When initializing we should use `defaultFilteredValue`, after clicking we should use `filteredValue`
+                 */
+                const currentFilteredValue = query.filteredValue ? query.filteredValue : query.defaultFilteredValue;
+                return (
+                    isFunction(query.onFilter) &&
+                    Array.isArray(query.filters) &&
+                    query.filters.length &&
+                    Array.isArray(currentFilteredValue) &&
+                    currentFilteredValue.length
+                );
+            }
         ));
         const sortedDataSource = this.sortDataSource(filteredDataSource, queries.filter(query => query && isFunction(query.sorter)));
         return sortedDataSource;
@@ -371,8 +382,9 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
         const childrenRecordName = this.getProp('childrenRecordName');
 
         each(filters, filterObj => {
-            const { onFilter, filteredValue, filterChildrenRecord } = filterObj;
-            if (typeof onFilter === 'function' && Array.isArray(filteredValue) && filteredValue.length) {
+            const { onFilter, filteredValue, filterChildrenRecord, defaultFilteredValue } = filterObj;
+            const currentFilteredValue = Array.isArray(filteredValue) ? filteredValue : defaultFilteredValue;
+            if (typeof onFilter === 'function' && Array.isArray(currentFilteredValue) && currentFilteredValue.length) {
                 hasValidFilters = true;
 
                 if (filteredData === null) {
@@ -381,7 +393,7 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
                     dataSource = Array.from(filteredData && filteredData.values());
                     filteredData = new Map();
                 }
-                each(filteredValue, value => {
+                each(currentFilteredValue, value => {
                     each(dataSource, record => {
                         const childrenRecords = get(record, childrenRecordName);
                         const recordKey = this.getRecordKey(record);
@@ -1165,6 +1177,7 @@ export interface BaseChangeInfoFilter<RecordType> {
     filters?: BaseFilter[];
     onFilter?: (filteredValue?: any, record?: RecordType) => boolean;
     filteredValue?: any[];
+    defaultFilteredValue?: any[];
     children?: BaseFilter[];
     filterChildrenRecord?: boolean;
 }

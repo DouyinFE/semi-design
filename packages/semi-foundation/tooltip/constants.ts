@@ -20,6 +20,8 @@ const strings = {
         'bottomRight',
         'leftTopOver',
         'rightTopOver',
+        'leftBottomOver',
+        'rightBottomOver',
     ],
     TRIGGER_SET: ['hover', 'focus', 'click', 'custom'],
     STATUS_DISABLED: 'disabled',
