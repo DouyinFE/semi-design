@@ -38,4 +38,11 @@ describe('table', () => {
         cy.get('.semi-button').contains('toggle change dataSource (46/25)').click();
         cy.contains('显示第 1 条-第 10 条，共 46 条');
     });
+
+    it('jsx columns nested change', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=table--fixed-header-merge&args=&viewMode=story');
+        cy.get('[data-cy=button]').click();
+        cy.contains("Base Information");
+        cy.contains("Company Information");
+    });
 });

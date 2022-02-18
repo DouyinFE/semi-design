@@ -424,11 +424,12 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             willUpdateStates.cachedColumns = props.columns;
             willUpdateStates.cachedChildren = null;
         } else if (props.children && props.children !== state.cachedChildren) {
-            const newFlattenColumns = flattenColumns(getColumns(props.children));
+            const newNestedColumns = getColumns(props.children);
+            const newFlattenColumns = flattenColumns(newNestedColumns);
             const columns = mergeColumns(state.queries, newFlattenColumns, null, false);
             willUpdateStates.flattenColumns = newFlattenColumns;
             willUpdateStates.queries = [...columns];
-            willUpdateStates.cachedColumns = [...columns];
+            willUpdateStates.cachedColumns = [...newNestedColumns];
             willUpdateStates.cachedChildren = props.children;
         }
 
