@@ -29,13 +29,13 @@ export default class OptionFoundation extends BaseFoundation<OptionDefaultAdapte
     destroy() {}
 
     onOptionClick(option: BasicOptionProps) {
-        const isDisbled = this.isDisbled_();
-        if (!isDisbled) {
+        const isDisabled = this._isDisabled();
+        if (!isDisabled) {
             this._adapter.notifyClick(option);
         }
     }
 
-    isDisbled_() {
+    _isDisabled() {
         return this.getProp('disabled');
     }
 }
