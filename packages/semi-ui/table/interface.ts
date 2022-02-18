@@ -79,6 +79,7 @@ export interface ColumnProps<RecordType extends Record<string, any> = any> {
     className?: string;
     colSpan?: number;
     dataIndex?: string;
+    defaultFilteredValue?: any[];
     defaultSortOrder?: SortOrder;
     filterChildrenRecord?: boolean;
     filterDropdown?: React.ReactNode;
