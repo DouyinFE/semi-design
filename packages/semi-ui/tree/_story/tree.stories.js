@@ -2170,3 +2170,172 @@ export const RenderFullLabelWithDraggable = () => {
 RenderFullLabelWithDraggable.story = {
   name: 'renderFullLabel with draggable',
 };
+
+export const CheckRelationDemo = () => {
+  const treeData = [
+    {
+        label: 'Asia',
+        value: 'Asia',
+        key: '0',
+        children: [
+            {
+                label: 'China',
+                value: 'China',
+                key: '0-0',
+                children: [
+                    {
+                        label: 'Beijing',
+                        value: 'Beijing',
+                        key: '0-0-0',
+                    },
+                    {
+                        label: 'Shanghai',
+                        value: 'Shanghai',
+                        key: '0-0-1',
+                    },
+                    {
+                        label: 'Chengdu',
+                        value: 'Chengdu',
+                        key: '0-0-2',
+                    },
+                ],
+            },
+            {
+                label: 'Japan',
+                value: 'Japan',
+                key: '0-1',
+                children: [
+                    {
+                        label: 'Osaka',
+                        value: 'Osaka',
+                        key: '0-1-0'
+                    }
+                ]
+            },
+        ],
+    },
+    {
+        label: 'North America',
+        value: 'North America',
+        key: '1',
+        children: [
+            {
+                label: 'United States',
+                value: 'United States',
+                key: '1-0'
+            },
+            {
+                label: 'Canada',
+                value: 'Canada',
+                key: '1-1'
+            }
+        ]
+    }
+  ];
+  const [value, setValue] = useState('China');
+  const [value2, setValue2] = useState();
+  const [value3, setValue3] = useState();
+  const style = {
+    width: 260,
+    height: 420,
+    border: '1px solid var(--semi-color-border)'
+  };
+  const handleChange = value => {
+    console.log(value);
+    setValue(value);
+  };
+  const handleChange2 = value => {
+    console.log(value);
+    setValue2(value);
+  };
+  const handleChange3 = value => {
+    console.log(value);
+    setValue3(value);
+  };
+  return (
+    <>
+      <div>checkRelation='unRelated'</div>
+      <Tree
+        treeData={treeData}
+        multiple
+        checkRelation='unRelated'
+        defaultExpandAll
+        style={style}
+      />
+      <br /><br />
+      <div>checkRelation='unRelated' + 中国节点为 disabled</div>
+      <Tree
+        treeData={treeData1}
+        multiple
+        checkRelation='unRelated'
+        defaultExpandAll
+        style={style}
+      />
+      <br /><br />
+      <div>checkRelation='unRelated' + 中国节点为 disabled + 严格禁用</div>
+      <Tree
+        treeData={treeData1}
+        multiple
+        checkRelation='unRelated'
+        defaultExpandAll
+        disableStrictly
+        style={style}
+      />
+      <br /><br />
+      <div>checkRelation='unRelated' + defaultValue 为 China</div>
+      <Tree
+        treeData={treeData}
+        multiple
+        checkRelation='unRelated'
+        defaultExpandAll
+        style={style}
+        defaultValue='China'
+      />
+      <br /><br />
+      <div>checkRelation='unRelated' + 受控 + value 初始为 China</div>
+      <Tree
+        treeData={treeData}
+        multiple
+        checkRelation='unRelated'
+        defaultExpandAll
+        style={style}
+        value={value}
+        onChange={handleChange}
+      />
+      <br /><br />
+      <div>checkRelation='unRelated' + 受控 + onChangeWithObject</div>
+      <Tree
+        treeData={treeData}
+        multiple
+        checkRelation='unRelated'
+        defaultExpandAll
+        style={style}
+        value={value2}
+        onChangeWithObject
+        onChange={handleChange2}
+      />
+      <br /><br />
+      <div>checkRelation='unRelated' + 受控 + leafOnly，此时 leafOnly 失效</div>
+      <Tree
+        leafOnly
+        treeData={treeData}
+        multiple
+        checkRelation='unRelated'
+        defaultExpandAll
+        style={style}
+        value={value3}
+        onChange={handleChange3}
+      />
+      <br /><br />
+      <div>checkRelation='unRelated' + onSelect </div>
+      <Tree
+        treeData={treeData}
+        multiple
+        checkRelation='unRelated'
+        defaultExpandAll
+        style={style}
+        onSelect={(value,status,node)=>console.log('select', value, status, node)}
+      />
+    </>
+  );
+};

@@ -112,6 +112,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
         onDragStart: PropTypes.func,
         onDrop: PropTypes.func,
         labelEllipsis: PropTypes.bool,
+        checkRelation: PropTypes.string,
         'aria-label': PropTypes.string,
     };
 
@@ -133,6 +134,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
         disableStrictly: false,
         draggable: false,
         autoExpandWhenDragEnter: true,
+        checkRelation: 'related',
     };
 
     static TreeNode: typeof TreeNode;
@@ -152,6 +154,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
             selectedKeys: [],
             checkedKeys: new Set(),
             halfCheckedKeys: new Set(),
+            realCheckedKeys: new Set([]),
             motionKeys: new Set([]),
             motionType: 'hide',
             expandedKeys: new Set(props.expandedKeys),
@@ -409,10 +412,14 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
             }
 
             if (checkedKeyValues) {
-                const { checkedKeys, halfCheckedKeys } = calcCheckedKeys(checkedKeyValues, keyEntities);
+                if (props.checkRelation === 'unRelated') {
+                    newState.realCheckedKeys = new Set(checkedKeyValues);
+                } else if (props.checkRelation === 'related') {
+                    const { checkedKeys, halfCheckedKeys } = calcCheckedKeys(checkedKeyValues, keyEntities);
 
-                newState.checkedKeys = checkedKeys;
-                newState.halfCheckedKeys = halfCheckedKeys;
+                    newState.checkedKeys = checkedKeys;
+                    newState.halfCheckedKeys = halfCheckedKeys;
+                }
             }
         }
 
@@ -422,7 +429,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
         }
 
         // update disableStrictly
-        if (treeData && props.disableStrictly) {
+        if (treeData && props.disableStrictly && props.checkRelation === 'related') {
             newState.disabledKeys = calcDisabledKeys(keyEntities);
         }
 
@@ -706,7 +713,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
         const ariaAttr = {
             role: noData ? 'none' : 'tree'
         };
-        if (ariaAttr.role === 'tree'){
+        if (ariaAttr.role === 'tree') {
             ariaAttr['aria-multiselectable'] = multiple ? true : false;
         }
         return (
