@@ -84,22 +84,22 @@ export type RenderSelectedItemInMultiple = (
 export type RenderSelectedItem = RenderSelectedItemInSingle | RenderSelectedItemInMultiple;
 
 export type OverrideCommonProps =
-'renderFullLabel'
-| 'renderLabel'
-| 'defaultValue'
-| 'emptyContent'
-| 'filterTreeNode'
-| 'style'
-| 'treeData'
-| 'value'
-| 'onExpand';
+    'renderFullLabel'
+    | 'renderLabel'
+    | 'defaultValue'
+    | 'emptyContent'
+    | 'filterTreeNode'
+    | 'style'
+    | 'treeData'
+    | 'value'
+    | 'onExpand';
 
 /**
 * Type definition description:
 * TreeSelectProps inherits some properties from BasicTreeSelectProps (from foundation) and TreeProps (from semi-ui-react).
 */
 // eslint-disable-next-line max-len
-export interface TreeSelectProps extends Omit<BasicTreeSelectProps, OverrideCommonProps | 'validateStatus' | 'searchRender'>, Pick<TreeProps, OverrideCommonProps>{
+export interface TreeSelectProps extends Omit<BasicTreeSelectProps, OverrideCommonProps | 'validateStatus' | 'searchRender'>, Pick<TreeProps, OverrideCommonProps> {
     'aria-describedby'?: React.AriaAttributes['aria-describedby'];
     'aria-errormessage'?: React.AriaAttributes['aria-errormessage'];
     'aria-invalid'?: React.AriaAttributes['aria-invalid'];
@@ -146,10 +146,10 @@ export interface TreeSelectProps extends Omit<BasicTreeSelectProps, OverrideComm
 }
 
 export type OverrideCommonState =
-'keyEntities'
-| 'treeData'
-| 'disabledKeys'
-| 'flattenNodes';
+    'keyEntities'
+    | 'treeData'
+    | 'disabledKeys'
+    | 'flattenNodes';
 
 // eslint-disable-next-line max-len
 export interface TreeSelectState extends Omit<BasicTreeSelectInnerData, OverrideCommonState | 'prevProps'>, Pick<TreeState, OverrideCommonState> {
@@ -242,7 +242,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         outerBottomSlot: PropTypes.node,
         outerTopSlot: PropTypes.node,
         onVisibleChange: PropTypes.func,
-        expandAction: PropTypes.oneOf(['click' as const, 'doubleClick'  as const, false as const]),
+        expandAction: PropTypes.oneOf(['click' as const, 'doubleClick' as const, false as const]),
         searchPosition: PropTypes.oneOf([strings.SEARCH_POSITION_DROPDOWN, strings.SEARCH_POSITION_TRIGGER]),
         clickToHide: PropTypes.bool,
         renderLabel: PropTypes.func,
@@ -478,9 +478,9 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             if (checkedKeyValues) {
                 if (props.checkRelation === 'unRelated') {
                     newState.realCheckedKeys = new Set(checkedKeyValues);
-                } else if (props.checkRelation === 'related'){
+                } else if (props.checkRelation === 'related') {
                     const { checkedKeys, halfCheckedKeys } = calcCheckedKeys(checkedKeyValues, keyEntities);
-    
+
                     newState.checkedKeys = checkedKeys;
                     newState.halfCheckedKeys = halfCheckedKeys;
                 }
@@ -582,7 +582,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                     this.foundation.handleNodeLoad(loadedKeys, loadingKeys, data, resolve));
             },
             updateState: states => {
-                this.setState({ ...states });
+                this.setState({ ...states } as TreeSelectState);
             },
             openMenu: () => {
                 this.setState({ isOpen: true }, () => {
@@ -623,7 +623,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             toggleHovering: bool => {
                 this.setState({ isHovering: bool });
             },
-            updateInputFocus: bool => {} // eslint-disable-line
+            updateInputFocus: bool => { } // eslint-disable-line
         };
     }
 
@@ -683,16 +683,16 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         this.foundation.handleSelectionEnterPress(e);
     };
 
-    hasValue = ( ): boolean => {
+    hasValue = (): boolean => {
         const { multiple, checkRelation } = this.props;
         const { realCheckedKeys, checkedKeys, selectedKeys } = this.state;
         let hasValue = false;
-        if (multiple){
-            if (checkRelation==='related'){
+        if (multiple) {
+            if (checkRelation === 'related') {
                 hasValue = Boolean(checkedKeys.size);
-            } else if (checkRelation==='unRelated'){
+            } else if (checkRelation === 'unRelated') {
                 hasValue = Boolean(realCheckedKeys.size);
-            } 
+            }
         } else {
             hasValue = Boolean(selectedKeys.length);
         }
@@ -703,7 +703,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         const { showClear, disabled, searchPosition } = this.props;
         const { inputValue, isOpen, isHovering } = this.state;
         const triggerSearchHasInputValue = searchPosition === strings.SEARCH_POSITION_TRIGGER && inputValue;
-        
+
         return showClear && (this.hasValue() || triggerSearchHasInputValue) && !disabled && (isOpen || isHovering);
     };
 
@@ -725,9 +725,9 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 content: get(item, treeNodeLabelProp, null)
             });
         let renderKeys = [];
-        if (checkRelation==='related'){
+        if (checkRelation === 'related') {
             renderKeys = normalizeKeyList([...checkedKeys], keyEntities, leafOnly);
-        } else if (checkRelation==='unRelated'){
+        } else if (checkRelation === 'unRelated') {
             renderKeys = [...realCheckedKeys];
         }
         const tagList: Array<React.ReactNode> = [];
@@ -871,11 +871,11 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         const clearCls = cls(`${prefixcls}-clearbtn`);
         if (showClearBtn) {
             return (
-                <div 
+                <div
                     role='button'
-                    tabIndex={0} 
-                    aria-label="Clear TreeSelect value" 
-                    className={clearCls} 
+                    tabIndex={0}
+                    aria-label="Clear TreeSelect value"
+                    className={clearCls}
                     onClick={this.handleClear}
                     onKeyPress={this.handleClearEnterPress}
                 >
@@ -987,7 +987,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 onKeyPress={this.handleSelectionEnterPress}
                 aria-invalid={this.props['aria-invalid']}
                 aria-errormessage={this.props['aria-errormessage']}
-                aria-label={this.props['aria-label']} 
+                aria-label={this.props['aria-label']}
                 aria-labelledby={this.props['aria-labelledby']}
                 aria-describedby={this.props['aria-describedby']}
                 aria-required={this.props['aria-required']}
@@ -1039,7 +1039,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             });
         if (isFunction(renderSelectedItem)) {
             const { content, isRenderInTag } = treeNodeLabelProp in item && item ?
-                (renderSelectedItem as RenderSelectedItemInMultiple)(item, { index: idx, onClose }):
+                (renderSelectedItem as RenderSelectedItemInMultiple)(item, { index: idx, onClose }) :
                 null;
             if (isRenderInTag) {
                 return <Tag {...tagProps}>{content}</Tag>;
@@ -1071,9 +1071,9 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             realCheckedKeys,
         } = this.state;
         let keyList = [];
-        if (checkRelation==='related'){
+        if (checkRelation === 'related') {
             keyList = normalizeKeyList(checkedKeys, keyEntities, leafOnly);
-        } else if (checkRelation==='unRelated'){
+        } else if (checkRelation === 'unRelated') {
             keyList = [...realCheckedKeys];
         }
         return (

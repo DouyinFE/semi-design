@@ -31,9 +31,9 @@ export type ValidateStatus = 'error' | 'warning' | 'default';
 export type Size = 'small' | 'large' | 'default';
 
 export type BasicRenderSelectedItemInMultiple = (
-    treeNode: BasicTreeNodeData, 
+    treeNode: BasicTreeNodeData,
     otherProps: { index: number | string; onClose: (tagContent: any, e: any) => void }
-)=> {
+) => {
     isRenderInTag: boolean;
     content: any;
 };
@@ -173,7 +173,7 @@ export interface TreeSelectAdapter<P = Record<string, any>, S = Record<string, a
     registerClickOutsideHandler: (cb: (e: any) => void) => void;
     unregisterClickOutsideHandler: () => void;
     rePositionDropdown: () => void;
-    updateState: (states: Pick<S, keyof S>) => void;
+    updateState: (states: Partial<BasicTreeSelectInnerData>) => void;
     notifySelect: (selectedKeys: string, selected: boolean, selectedNode: BasicTreeNodeData) => void;
     notifySearch: (input: string) => void;
     cacheFlattenNodes: (bool: boolean) => void;
@@ -274,7 +274,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
             selectedKeys = [],
             checkedKeys = new Set([]),
             halfCheckedKeys = new Set([]),
-            realCheckedKeys= new Set([]),
+            realCheckedKeys = new Set([]),
             keyEntities = {},
             filteredKeys = new Set([]),
             inputValue = '',
@@ -292,10 +292,10 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         // if checkRelation is invalid, the checked status of node will be false
         let realChecked = false;
         let realHalfChecked = false;
-        if (checkRelation==='related'){
+        if (checkRelation === 'related') {
             realChecked = checkedKeys.has(key);
             realHalfChecked = halfCheckedKeys.has(key);
-        } else if (checkRelation==='unRelated') {
+        } else if (checkRelation === 'unRelated') {
             realChecked = realCheckedKeys.has(key);
             realHalfChecked = false;
         }
@@ -340,7 +340,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
             if (!this._isLoadControlled()) {
                 this._adapter.updateState({
                     loadedKeys: newLoadedKeys,
-                } as any);
+                });
             }
             this._adapter.setState({
                 loadingKeys: newLoadingKeys,
@@ -420,7 +420,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         this._adapter.unregisterClickOutsideHandler();
         this._notifyBlur(e);
         if (this.getProp('motionExpand')) {
-            this._adapter.updateState({ motionKeys: new Set([]) } as any);
+            this._adapter.updateState({ motionKeys: new Set([]) });
         }
     }
 
@@ -461,7 +461,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
                 checkedKeys: new Set(),
                 halfCheckedKeys: new Set(),
                 realCheckedKeys: new Set([]),
-            } as any);
+            });
         }
         // When triggerSearch, clicking the clear button will trigger to clear Input
         if (filterTreeNode && searchPosition === strings.SEARCH_POSITION_TRIGGER) {
@@ -499,11 +499,11 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
                 this._adapter.updateState({ realCheckedKeys: newRealCheckedKeys } as any);
                 this._adapter.rePositionDropdown();
             }
-        } else if (checkRelation === 'related'){
+        } else if (checkRelation === 'related') {
             const { checkedKeys, halfCheckedKeys } = this.calcCheckedKeys(eventKey, false);
             this._notifyChange([...checkedKeys], null);
             if (!this._isControlledComponent()) {
-                this._adapter.updateState({ checkedKeys, halfCheckedKeys } as any);
+                this._adapter.updateState({ checkedKeys, halfCheckedKeys });
                 this._adapter.rePositionDropdown();
             }
         }
@@ -528,7 +528,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
             filteredKeys: new Set([]),
             filteredExpandedKeys: new Set(expandedOptsKeys),
             filteredShownKeys: new Set([])
-        } as any);
+        });
     }
 
     handleInputChange(sugInput: string) {
@@ -564,7 +564,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
             filteredKeys: new Set(filteredOptsKeys),
             filteredExpandedKeys: new Set(expandedOptsKeys),
             filteredShownKeys,
-        } as any);
+        });
     }
 
     handleNodeSelect(e: any, treeNode: BasicTreeNodeProps) {
@@ -589,7 +589,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
             selectedKeys = [eventKey];
             this._notifyChange(eventKey, e);
             if (!this._isControlledComponent()) {
-                this._adapter.updateState({ selectedKeys } as any);
+                this._adapter.updateState({ selectedKeys });
             }
         }
         if (clickToHide && (this._isSelectToClose() || !data.children)) {
@@ -614,7 +614,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         const { searchPosition, disableStrictly, checkRelation } = this.getProps();
         const { inputValue, realCheckedKeys } = this.getStates();
         const { checked, eventKey, data } = treeNode;
-        if (checkRelation==='related') {
+        if (checkRelation === 'related') {
             const targetStatus = disableStrictly ?
                 this.calcChekcedStatus(!checked, eventKey) :
                 !checked;
@@ -625,13 +625,13 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
             this._adapter.notifySelect(eventKey, targetStatus, data);
             this._notifyChange([...checkedKeys], e);
             if (!this._isControlledComponent()) {
-                this._adapter.updateState({ checkedKeys, halfCheckedKeys } as any);
+                this._adapter.updateState({ checkedKeys, halfCheckedKeys });
                 this._adapter.rePositionDropdown();
             }
-        } else if (checkRelation==='unRelated') {
+        } else if (checkRelation === 'unRelated') {
             const newRealCheckedKeys: Set<string> = new Set(realCheckedKeys);
             let targetStatus: boolean;
-            if (realCheckedKeys.has(eventKey)){
+            if (realCheckedKeys.has(eventKey)) {
                 newRealCheckedKeys.delete(eventKey);
                 targetStatus = false;
             } else {
@@ -641,12 +641,12 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
             this._adapter.notifySelect(eventKey, targetStatus, data);
             this._notifyChange([...newRealCheckedKeys], e);
             if (!this._isControlledComponent()) {
-                this._adapter.updateState({ realCheckedKeys: newRealCheckedKeys } as any);
+                this._adapter.updateState({ realCheckedKeys: newRealCheckedKeys });
                 this._adapter.rePositionDropdown();
             }
         }
         if (searchPosition === strings.SEARCH_POSITION_TRIGGER && inputValue !== '') {
-            this._adapter.updateState({ inputValue: '' } as any);
+            this._adapter.updateState({ inputValue: '' });
         }
     }
 
@@ -707,7 +707,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
                 motionType,
             };
 
-            this._adapter.updateState(newState as any);
+            this._adapter.updateState(newState);
         }
 
         this._adapter.notifyExpand(filteredExpandedKeys, {
@@ -751,7 +751,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
                 motionKeys: new Set(motionKeys),
                 motionType,
             };
-            this._adapter.updateState(newState as any);
+            this._adapter.updateState(newState);
         }
 
         this._adapter.notifyExpand(expandedKeys, {
@@ -782,7 +782,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
     handleInputTriggerBlur() {
         this._adapter.updateState({
             inputTriggerFocus: false
-        } as any);
+        });
     }
 
     /**
@@ -792,7 +792,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         this.clearInput();
         this._adapter.updateState({
             inputTriggerFocus: true
-        } as any);
+        });
     }
 
     setLoadKeys(data: BasicTreeNodeData, resolve: (value?: any) => void) {
