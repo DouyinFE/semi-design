@@ -20,6 +20,7 @@ $module: #{$prefix}-cascader;
 
     &:hover {
         background-color: $color-cascader_default-bg-hover;
+        border: $width-cascader_hover-border $color-cascader_default-border-hover solid;
     }
 
     &-small {
