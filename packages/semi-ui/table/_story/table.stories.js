@@ -78,6 +78,7 @@ export { default as FixRenderReturnProps } from './FixRenderReturnProps';
 export { default as WarnColumnWithoutDataIndex } from './WarnColumnWithoutDataIndex';
 export { default as FixedColumnsChange } from './v2/FixedColumnsChange';
 export { default as FixedZIndex } from './v2/FixedZIndex';
+export { default as FixedHeaderMerge } from './v2/FixedHeaderMerge';
 
 // empty table
 
