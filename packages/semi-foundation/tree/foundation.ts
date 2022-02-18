@@ -178,6 +178,8 @@ export interface Virtualize {
     width?: number | string;
 }
 
+export type CheckRelation = 'related' | 'unRelated';
+
 export interface BasicTreeProps {
     autoExpandParent?: boolean;
     autoExpandWhenDragEnter?: boolean;
@@ -233,6 +235,7 @@ export interface BasicTreeProps {
     value?: BasicValue;
     virtualize?: Virtualize;
     icon?: any;
+    checkRelation?: CheckRelation;
     'aria-label'?: string;
 }
 
@@ -252,6 +255,8 @@ export interface BasicTreeInnerData {
     checkedKeys: Set<string>;
     /* Half-selected node when multiple selection */
     halfCheckedKeys: Set<string>;
+    /* real selected nodes in multiple selection */
+    realCheckedKeys: Set<string>;
     /* Animation node */
     motionKeys: Set<string>;
     /* Animation type */
@@ -358,6 +363,7 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
             selectedKeys = [],
             checkedKeys = new Set([]),
             halfCheckedKeys = new Set([]),
+            realCheckedKeys = new Set([]),
             keyEntities = {},
             filteredKeys = new Set([]),
             inputValue = '',
@@ -366,19 +372,29 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
             filteredExpandedKeys = new Set([]),
             disabledKeys = new Set([]),
         } = this.getStates();
-        const { treeNodeFilterProp } = this.getProps();
+        const { treeNodeFilterProp, checkRelation } = this.getProps();
         const entity = keyEntities[key];
         const notExist = !entity;
         if (notExist) {
             return null;
+        }
+        // if checkRelation is invalid, the checked status of node will be false
+        let realChecked = false;
+        let realHalfChecked = false;
+        if (checkRelation === 'related') {
+            realChecked = checkedKeys.has(key);
+            realHalfChecked = halfCheckedKeys.has(key);
+        } else if (checkRelation === 'unRelated') {
+            realChecked = realCheckedKeys.has(key);
+            realHalfChecked = false;
         }
         const isSearching = Boolean(inputValue);
         const treeNodeProps: BasicTreeNodeProps = {
             eventKey: key,
             expanded: isSearching ? filteredExpandedKeys.has(key) : expandedKeys.has(key),
             selected: selectedKeys.includes(key),
-            checked: checkedKeys.has(key),
-            halfChecked: halfCheckedKeys.has(key),
+            checked: realChecked,
+            halfChecked: realHalfChecked,
             pos: String(entity ? entity.pos : ''),
             level: entity.level,
             filtered: filteredKeys.has(key),
@@ -402,11 +418,16 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
         this._adapter.notifyChange(value as BasicValue);
     }
 
-    notifyMultipleChange(key: string[] | string, e: any) {
+    notifyMultipleChange(key: string[], e: any) {
         const { keyEntities } = this.getStates();
-        const { leafOnly } = this.getProps();
+        const { leafOnly, checkRelation } = this.getProps();
         let value;
-        const keyList = normalizeKeyList(key, keyEntities, leafOnly);
+        let keyList = [];
+        if (checkRelation === 'related') {
+            keyList = normalizeKeyList(key, keyEntities, leafOnly);
+        } else if (checkRelation === 'unRelated') {
+            keyList = key;
+        }
         if (this.getProp('onChangeWithObject')) {
             value = keyList.map((itemKey: string) => keyEntities[itemKey].data);
         } else {
@@ -421,7 +442,7 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
         if (this.getProp('treeDataSimpleJson')) {
             this.notifyJsonChange(key, e);
         } else if (isMultiple) {
-            this.notifyMultipleChange(key, e);
+            this.notifyMultipleChange(key as string[], e);
         } else {
             let value;
             if (this.getProp('onChangeWithObject')) {
@@ -565,18 +586,36 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
     * Handle the selection event in the case of multiple selection
     */
     handleMultipleSelect(e: any, treeNode: BasicTreeNodeProps) {
-        const { disableStrictly } = this.getProps();
+        const { disableStrictly, checkRelation } = this.getProps();
+        const { realCheckedKeys } = this.getStates();
         // eventKey: The key value of the currently clicked node
         const { checked, eventKey, data } = treeNode;
-        // Find the checked state of the current node
-        const targetStatus = disableStrictly ? this.calcChekcedStatus(!checked, eventKey) : !checked;
-        const { checkedKeys, halfCheckedKeys } = disableStrictly ?
-            this.calcNonDisabedCheckedKeys(eventKey, targetStatus) :
-            this.calcCheckedKeys(eventKey, targetStatus);
-        this._adapter.notifySelect(eventKey, targetStatus, data);
-        this.notifyChange([...checkedKeys], e);
-        if (!this._isControlledComponent()) {
-            this._adapter.updateState({ checkedKeys, halfCheckedKeys });
+        if (checkRelation === 'related') {
+            // Find the checked state of the current node
+            const targetStatus = disableStrictly ? this.calcChekcedStatus(!checked, eventKey) : !checked;
+            const { checkedKeys, halfCheckedKeys } = disableStrictly ?
+                this.calcNonDisabedCheckedKeys(eventKey, targetStatus) :
+                this.calcCheckedKeys(eventKey, targetStatus);
+            this._adapter.notifySelect(eventKey, targetStatus, data);
+            this.notifyChange([...checkedKeys], e);
+            if (!this._isControlledComponent()) {
+                this._adapter.updateState({ checkedKeys, halfCheckedKeys });
+            }
+        } else if (checkRelation === 'unRelated') {
+            const newRealCheckedKeys: Set<string> = new Set(realCheckedKeys);
+            let targetStatus: boolean;
+            if (realCheckedKeys.has(eventKey)) {
+                newRealCheckedKeys.delete(eventKey);
+                targetStatus = false;
+            } else {
+                newRealCheckedKeys.add(eventKey);
+                targetStatus = true;
+            }
+            this._adapter.notifySelect(eventKey, targetStatus, data);
+            this.notifyChange([...newRealCheckedKeys], e);
+            if (!this._isControlledComponent()) {
+                this._adapter.updateState({ realCheckedKeys: newRealCheckedKeys });
+            }
         }
     }
 

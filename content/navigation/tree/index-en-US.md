@@ -680,6 +680,93 @@ import { Tree } from '@douyinfe/semi-ui';
 };
 ```
 
+### Checked RelationShip
+Version: >= 2.5.0
+
+When multiple selections are made, `checkRelation` can be used to set the type of node selection relationship, optional: 'related' (default), 'unRelated'. When the selection relationship is 'unRelated', it means that selections between nodes do not affect each other.
+
+```jsx live=true
+import React from 'react';
+import { Tree } from '@douyinfe/semi-ui';
+
+() => {
+    const treeData = [
+        {
+            label: 'Asia',
+            value: 'Asia',
+            key: '0',
+            children: [
+                {
+                    label: 'China',
+                    value: 'China',
+                    key: '0-0',
+                    children: [
+                        {
+                            label: 'Beijing',
+                            value: 'Beijing',
+                            key: '0-0-0',
+                        },
+                        {
+                            label: 'Shanghai',
+                            value: 'Shanghai',
+                            key: '0-0-1',
+                        },
+                        {
+                            label: 'Chengdu',
+                            value: 'Chengdu',
+                            key: '0-0-2',
+                        },
+                    ],
+                },
+                {
+                    label: 'Japan',
+                    value: 'Japan',
+                    key: '0-1',
+                    children: [
+                        {
+                            label: 'Osaka',
+                            value: 'Osaka',
+                            key: '0-1-0'
+                        }
+                    ]
+                },
+            ],
+        },
+        {
+            label: 'North America',
+            value: 'North America',
+            key: '1',
+            children: [
+                {
+                    label: 'United States',
+                    value: 'United States',
+                    key: '1-0'
+                },
+                {
+                    label: 'Canada',
+                    value: 'Canada',
+                    key: '1-1'
+                }
+            ]
+        }
+    ];
+    const style = {
+        width: 260,
+        height: 420,
+        border: '1px solid var(--semi-color-border)'
+    };
+    return (
+        <Tree
+            treeData={treeData}
+            multiple
+            checkRelation='unRelated'
+            defaultExpandAll
+            style={style}
+        />
+    );
+};
+```
+
 ### Default Expand All
 
 Both `defaultExpandAll` and `expandAll` can set the default expanded/collapsed state of `Tree`. The difference between the two is that `defaultExpandAll` only takes effect at initialization, while `expandAll` will not only take effect at initialization, but also when the data (`treeData`/`treeDataSimpleJson`) is dynamically updated, `expandAll` will still take effect.
@@ -1815,6 +1902,7 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
 | autoExpandParent | Toggle whether to expand parent node automatically | boolean | false | 0.34.0 |
 | autoExpandWhenDragEnter | Toggle whether allow autoExpand when drag enter node | boolean | true | 1.8.0 | 
 | blockNode           | Toggle whether to display node as row     | boolean                     | true    | - |
+| checkRelation | In multiple, the relationship between the checked states of the nodes, optional: 'related'、'unRelated' | string | 'related' | 2.5.0 |
 | className           | Class name| string                      | -       | - |
 | defaultExpandAll    | Set whether to expand all nodes during initialization. And if the subsequent data (`treeData`/`treeDataSimpleJson`) changes, this api cannot affect the default expansion of the node. If you need this, you can use `expandAll`    | boolean                     | false   | - |
 | defaultExpandedKeys | Keys of default expanded nodes. Direct child nodes will be displayed.     | string\[]                   | -       | - |
