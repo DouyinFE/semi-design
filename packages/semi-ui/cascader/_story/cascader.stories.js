@@ -1349,3 +1349,76 @@ export const LeafOnly = () => {
       </div>
   );
 }
+
+export const DynamicTreeData = () => {
+  const [treeDataDemo1,setTreeData1]=useState(treeData2);
+  const [treeDataDemo2,setTreeData2]=useState(treeData2);
+  const [treeDataDemo3,setTreeData3]=useState(treeData2);
+  const [treeDataDemo4,setTreeData4]=useState(treeData2);
+  const [treeDataDemo5,setTreeData5]=useState(treeData2);
+  const [value3,setValue3]=useState();
+  const [value4,setValue4]=useState();
+  return (
+      <div>
+          <div>多选 + 动态更新 tree</div>
+          <Cascader
+            style={{ width: 300 }}
+            treeData={treeDataDemo1}
+            multiple 
+            placeholder="请选择所在地区"
+          />
+          <Button onClick={()=>{setTreeData1(treeData3)}}>改变treeData</Button>
+          <br />
+          <br />
+          <div>单选 + 动态更新 tree</div>
+          <Cascader
+            style={{ width: 300 }}
+            treeData={treeDataDemo2}
+            placeholder="请选择所在地区"
+          />
+          <Button onClick={()=>{setTreeData2(treeData3)}}>改变treeData</Button>
+          <br />
+          <br />
+          <div>多选 + 动态更新 tree + 受控</div>
+          <Cascader
+            style={{ width: 300 }}
+            treeData={treeDataDemo3}
+            multiple
+            value={value3}
+            onChange={v=>{
+              console.log(v);
+              setValue3(v);
+            }}
+            placeholder="请选择所在地区"
+          />
+          <Button onClick={()=>{setTreeData3(treeData3)}}>改变treeData</Button>
+          <br />
+          <br />
+          <div>单选 + 动态更新 tree + 受控</div>
+          <Cascader
+            style={{ width: 300 }}
+            treeData={treeDataDemo4}
+            value={value4}
+            onChange={v=>{
+              console.log(v);
+              setValue4(v);
+            }}
+            placeholder="请选择所在地区"
+          />
+          <Button onClick={()=>{setTreeData4(treeData3)}}>改变treeData</Button>
+          <br />
+          <br />
+          <div>多选 + 动态更新 tree + defaultValue 为亚洲</div>
+          <Cascader
+            style={{ width: 300 }}
+            treeData={treeDataDemo5}
+            multiple
+            defaultValue='yazhou'
+            placeholder="请选择所在地区"
+          />
+          <Button onClick={()=>{setTreeData5(treeData3)}}>改变treeData</Button>
+          <br />
+          <br />
+      </div>
+  );
+}

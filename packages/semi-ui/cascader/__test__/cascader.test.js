@@ -195,6 +195,30 @@ describe('Cascader', () => {
         // done();
     });
 
+    it('dynamic treeData in multiple and uncontrolled mode', () => {
+        const cascader = render({
+            defaultValue: 'Yazhou',
+            multiple: true,
+        });
+        const opt = document.querySelectorAll(`.${BASE_CLASS_PREFIX}-cascader-selection-multiple .${BASE_CLASS_PREFIX}-tag`);
+        expect(opt.length).toEqual(1);
+        cascader.setProps({ treeData: treeDataWithDisabled });
+        cascader.update();
+        expect(opt.length).toEqual(1);
+    });
+
+    it('dynamic treeData in multiple and controlled mode', () => {
+        const cascader = render({
+            value: 'Yazhou',
+            multiple: true,
+        });
+        const opt = document.querySelectorAll(`.${BASE_CLASS_PREFIX}-cascader-selection-multiple .${BASE_CLASS_PREFIX}-tag`);
+        expect(opt.length).toEqual(1);
+        cascader.setProps({ treeData: treeDataWithDisabled });
+        cascader.update();
+        expect(opt.length).toEqual(1);
+    });
+
     it('getPopupContainer', () => {
         let cascader = render({
             getPopupContainer: getPopupContainer,

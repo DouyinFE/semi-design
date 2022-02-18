@@ -14,7 +14,7 @@ import CascaderFoundation, {
 } from '@douyinfe/semi-foundation/cascader/foundation';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/cascader/constants';
 import { numbers as popoverNumbers } from '@douyinfe/semi-foundation/popover/constants';
-import { isEqual, isString, isEmpty, isFunction, isNumber, noop, flatten } from 'lodash';
+import { isSet, isEqual, isString, isEmpty, isFunction, isNumber, noop, flatten } from 'lodash';
 import '@douyinfe/semi-foundation/cascader/cascader.scss';
 import { IconClear, IconChevronDown } from '@douyinfe/semi-icons';
 import { findKeysForValues, convertDataToEntities, calcMergeType } from '@douyinfe/semi-foundation/cascader/util';
@@ -426,7 +426,10 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                     });
                     realKeys = formatKeys;
                 }
-                const calRes = calcCheckedKeys(flatten(realKeys as string[]), keyEntities);
+                if (isSet(realKeys)) {
+                    realKeys = [...realKeys];
+                }
+                const calRes = calcCheckedKeys(flatten(realKeys), keyEntities);
                 const checkedKeys = new Set(calRes.checkedKeys);
                 const halfCheckedKeys = new Set(calRes.halfCheckedKeys);
                 // disableStrictly
