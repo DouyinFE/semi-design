@@ -112,21 +112,27 @@ $module: #{$prefix}-button;
     }
     &-borderless {
         background-color: transparent;
+        border: $width-button_borderless-border $color-button_borderless-border-default solid;
         &:not(.#{$module}-disabled):hover {
             background-color: $color-button_borderless-bg-hover;
+            border: $width-button_borderless-border $color-button_borderless-border-hover solid;
         }
         &:not(.#{$module}-disabled):active {
             background-color: $color-button_borderless-bg-active;
+            border: $width-button_borderless-border $color-button_borderless-border-active solid;
         }
     }
 
     &-light {
         background-color: $color-button_light-bg-default;
+        border: $width-button_light-border $color-button_light-border-default solid;
         &:not(.#{$module}-disabled):hover {
             background-color: $color-button_light-bg-hover;
+            border: $width-button_light-border $color-button_light-border-hover solid;
         }
         &:not(.#{$module}-disabled):active {
             background-color: $color-button_light-bg-active;
+            border: $width-button_light-border $color-button_light-border-active solid;
         }
     }
     &-size-small {

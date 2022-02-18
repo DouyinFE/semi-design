@@ -179,6 +179,7 @@ class BasicDemoWithInit extends Component {
                 <BasicSelect onChange={this.changeLabelPos} value={labelPosition}>
                     <BasicSelect.Option value='top'>top</BasicSelect.Option>
                     <BasicSelect.Option value='left'>left</BasicSelect.Option>
+                    <BasicSelect.Option value='inset'>inset</BasicSelect.Option>
                 </BasicSelect>
                 <BasicSelect onChange={this.changeLabelAlign} value={labelAlign}>
                     <BasicSelect.Option value='left'>left</BasicSelect.Option>

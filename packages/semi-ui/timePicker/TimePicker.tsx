@@ -449,6 +449,7 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
             panelFooter,
             rangeSeparator,
             onOpenChange,
+            onChangeWithDateFirst,
             popupClassName: propPopupClassName,
             hideDisabledOptions,
             use12Hours,

@@ -58,7 +58,7 @@ export interface TabBarProps {
 export interface TabPaneProps {
     className?: string;
     disabled?: boolean;
-    icon?: string;
+    icon?: ReactNode;
     itemKey?: string;
     style?: CSSProperties;
     tab?: ReactNode;

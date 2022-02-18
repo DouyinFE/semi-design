@@ -280,7 +280,7 @@ import { IconHome, IconArticle } from '@douyinfe/semi-icons';
                     },
                     {
                         path: '/breadcrumb',
-                        href: '/components/breadcrumb',
+                        href: '/zh-CN/navigation/breadcrumb',
                         name: 'breadcrumb',
                         icon: <IconArticle size="small" />
                     },
