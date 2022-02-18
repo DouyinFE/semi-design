@@ -735,6 +735,59 @@ class Demo extends React.Component {
 }
 ```
 
+### 节点选中关系
+版本：>= 2.5.0
+
+多选时，可以使用 `checkRelation` 来设置节点之间选中关系的类型，可选：'related'（默认）、'unRelated'。当选中关系为 'unRelated' 时，意味着节点之间的选中互不影响。
+
+```jsx live=true
+import React from 'react';
+import { TreeSelect } from '@douyinfe/semi-ui';
+() => {
+    const treeData = [
+        {
+            label: '亚洲',
+            value: 'Asia',
+            key: '0',
+            children: [
+                {
+                    label: '中国',
+                    value: 'China',
+                    key: '0-0',
+                    children: [
+                        {
+                            label: '北京',
+                            value: 'Beijing',
+                            key: '0-0-0',
+                        },
+                        {
+                            label: '上海',
+                            value: 'Shanghai',
+                            key: '0-0-1',
+                        },
+                    ],
+                },
+            ],
+        },
+        {
+            label: '北美洲',
+            value: 'North America',
+            key: '1',
+        }
+    ];
+    return (
+        <TreeSelect
+            multiple
+            defaultValue='Asia'
+            checkRelation='unRelated'
+            style={{ width: 300 }}
+            dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+            treeData={treeData}
+        />
+    );
+};
+```
+
 ### 虚拟化
 列表虚拟化，用于大量树节点的情况。开启后，动画效果将被关闭。
 
@@ -1160,6 +1213,7 @@ function Demo() {
 | arrowIcon|自定义右侧下拉箭头Icon，当showClear开关打开且当前有选中值时，hover会优先显示clear icon| ReactNode | | 1.15.0|
 | autoAdjustOverflow|浮层被遮挡时是否自动调整方向（暂时仅支持竖直方向，且插入的父级为 body）|boolean | true| 0.34.0|
 | autoExpandParent | 是否自动展开父节点 | boolean | false | 0.34.0 |
+| checkRelation | 多选时，节点之间选中状态的关系，可选：'related'、'unRelated' | string | 'related' | 2.5.0 |
 | className | 选择框的 `className` 属性 | string | - | - |
 | clickToHide  | 选择后是否自动关闭下拉弹层，仅单选模式有效  | boolean    | true | 1.5.0      |
 | defaultExpandAll | 设置在初始化时是否展开所有节点。而如果后续数据(`treeData`)发生改变，这个 api 是无法影响节点的展开情况的，如果有这个需要可以使用 `expandAll` | boolean | false | 0.32.0 |
