@@ -57,8 +57,8 @@ class Option extends PureComponent<OptionProps> {
 
     onClick({ value, label, children, ...rest }: Partial<OptionProps>, event: React.MouseEvent) {
         const { props } = this;
-        const isDisbled = props.disabled;
-        if (!isDisbled) {
+        const isDisabled = props.disabled;
+        if (!isDisabled) {
             props.onSelect({ ...rest, value, label: label || children }, event);
         }
     }
