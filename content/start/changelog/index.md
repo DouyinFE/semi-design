@@ -14,8 +14,24 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 -   修订版本号（patch）：bugfix
 
 ---
+#### 🎉 2.5.0-beta.0 (2022-02-18)
+- 【Fix】
+    - 修复 slider 在 shadowRoot、WebComponent 或其他 DocumentFragment 下报错的问题
+    - 修复 Table JSX columns 表头合并问题  [#619](https://github.com/DouyinFE/semi-design/issues/619)
+    - 修复 Cascader 在多选时 treeData 更新会异常清空已选值，而该已选值是是存在于新 treeData 中的  [#622 ](https://github.com/DouyinFE/semi-design/issues/622)
+- 【Feat】
+    - Upload组件升级改造 [#556](https://github.com/DouyinFE/semi-design/issues/556)
+        - 照片墙支持显示遮罩，并支持自定义预览图标定制
+        - 照片墙支持点击上传热区移至头部
+        - 文件列表支持自定义操作区
+    - Table 支持 defaultFilteredValue API，用于给定列默认的筛选值
+    - TreeSelect 支持父子节点选中关系脱离  [#522](https://github.com/DouyinFE/semi-design/issues/522)
+    - Tree 支持父子节点选中关系脱离  [#522](https://github.com/DouyinFE/semi-design/issues/522)
+    - Tooltip `leftTopOver` 和 `rightTopOver` 位置支持自动调整位置
+- 【Style】
+    - 更新 Cascader 在 hover 时描边样式变量 [@Carlosfengv](https://github.com/Carlosfengv)
 
-#### 🎉 2.4.1 (2022-2-16)
+#### 🎉 2.4.1 (2022-02-16)
 - 【Fix】
     - @douyinfe/semi-ui 添加 dependency声明：@douyinfe/semi-animation，避免在 pnpm 场景下可能存在的依赖声明缺失问题 [#626](https://github.com/DouyinFE/semi-design/issues/626)
     - 修复使用 Form.Input/TextArea 且labelPosition设置为inset时，insetLabelId 被意外透传至 input/textarea dom上导致 warning 的问题，修复TimePicker onChangeWithDateFirst 被意外透传至 input dom上导致 warning 的问题 [#624](https://github.com/DouyinFE/semi-design/issues/624)

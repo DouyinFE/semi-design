@@ -16,7 +16,24 @@ Version：Major.Minor.Patch
 
 ---
 
-#### 🎉 2.4.1 (2022-2-16)
+#### 🎉 2.5.0-beta.0 (2022-02-18)
+- 【Fix】
+    - fix slider throw error in shadowDOM or other DocumentFragment env
+    - fixed Table header merge bug when using JSX columns  [#619](https://github.com/DouyinFE/semi-design/issues/619)
+    - fix that checked value will be unexpectedly cleared in multiple mode when treeData was updated  [#622 ](https://github.com/DouyinFE/semi-design/issues/622)
+- 【Feat】
+    - Upload component upgrade [#556](https://github.com/DouyinFE/semi-design/issues/556)
+        - photo wall supports display mask and supports custom preview icon customization
+        - upload supports hot area of the photo wall to move to the head
+        - file list supports custom operation area
+    - Table supports the defaultFilteredValue API for the default filtered value for a given column
+    - TreeSelect supports parent-child node selection relationship detachment  [#522](https://github.com/DouyinFE/semi-design/issues/522)
+    - Tree supports parent-child node selection relationship detachment  [#522](https://github.com/DouyinFE/semi-design/issues/522)
+    - Tooltip `leftTopOver` and `rightTopOver` position supports `autoAdjustOverflow`
+- 【Style】
+    - Update hover Sass token in Cascader component [@Carlosfengv](https://github.com/Carlosfengv)
+
+#### 🎉 2.4.1 (2022-02-16)
 - 【Fix】
     - `@douyinfe/semi-ui` Add dependency declaration: `@douyinfe/semi-animation` to avoid the problem of missing dependency declarations that may exist in pnpm scenarios [#626](https://github.com/DouyinFE/semi-design/issues/626)
     - Avoid waring about passing insetLabelId/onChangeWithDateFirst to origin input/text dom in component Form.Input/TextArea/TimePicker [#624](https://github.com/DouyinFE/semi-design/issues/624)
