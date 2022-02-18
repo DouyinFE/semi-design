@@ -187,6 +187,16 @@ $multiple: #{$module}-multiple;
         display: flex;
         align-items: center;
         height: 100%;
+
+        &-collapse {
+            display: inline-flex;
+            flex-shrink: 0;
+            max-width: 100%;
+
+            &>&-tag {
+                background-color: transparent;
+            }
+        }
     }
 
     &-multiple {

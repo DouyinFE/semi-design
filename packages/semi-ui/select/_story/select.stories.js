@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 
 import './select.scss';
-import { Input, Select, Button, Icon, Avatar, Checkbox, Form, withField, Space } from '../../index';
+import { Input, Select, Button, Tag, Avatar, Checkbox, Form, withField, Space } from '../../index';
 import CustomTrigger from './CustomTrigger';
 import classNames from 'classnames';
 import { getHighLightTextHTML } from '../../_utils/index';
@@ -686,6 +686,398 @@ SelectMultiple.story = {
 };
 SelectMultiple.parameters =  {
   chromatic: { disableSnapshot: false },
+};
+
+const RenderSelectedItemWithMaxTagCount = () => {
+  const list = [
+      { "name": "夏可漫", "email": "xiakeman@example.com", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg" },
+      { "name": "申悦", "email": "shenyue@example.com", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg" },
+      { "name": "曲晨一", "email": "quchenyi@example.com", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/8bd8224511db085ed74fea37205aede5.jpg" },
+      { "name": "文嘉茂", "email": "wenjiamao@example.com", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/6fbafc2d-e3e6-4cff-a1e2-17709c680624.png" },
+  ];
+
+  const renderMultipleWithCustomTag = (optionNode, { onClose }) => {
+      const content = (
+          <Tag
+              avatarSrc={optionNode.avatar}
+              avatarShape='circle'
+              closable={true}
+              onClose={onClose}
+              size='large'
+          >
+              {optionNode.email}
+          </Tag>
+      );
+      return {
+          isRenderInTag: false,
+          content
+      };
+  };
+
+  const renderMultipleWithCustomTag2 = (optionNode, { onClose }) => {
+      const content = (
+          <Tag
+              avatarSrc={optionNode.avatar}
+              avatarShape='square'
+              closable={true}
+              onClose={onClose}
+              size='large'
+          >
+              {optionNode.name}
+          </Tag>
+      );
+      return {
+          isRenderInTag: false,
+          content
+      };
+  };
+
+  const renderCustomOption = (item, index) => {
+      const optionStyle = {
+          display: 'flex',
+          paddingLeft: 24,
+          paddingTop: 10,
+          paddingBottom: 10
+      };
+      return (
+          <Select.Option value={item.name} style={optionStyle} showTick={true}  {...item} key={item.email}>
+              <Avatar size="small" src={item.avatar} />
+              <div style={{ marginLeft: 8 }}>
+                  <div style={{ fontSize: 14 }}>{item.email}</div>
+                  <div style={{ color: 'var(--color-text-2)', fontSize: 12, lineHeight: '16px', fontWeight: 'normal' }}>{item.email}</div>
+              </div>
+          </Select.Option>
+      );
+  };
+
+  return (
+      <>
+        renderSelectedItem + maxTagCount=10 + defaultValue.length=2
+        <br />
+        <Select
+            placeholder='请选择'
+            maxTagCount={10}
+            style={{ width: 350, marginTop: 20 }}
+            onChange={v => console.log(v)}
+            defaultValue={['夏可漫', '申悦']}
+            multiple
+            renderSelectedItem={renderMultipleWithCustomTag}
+        >
+            {list.map((item, index) => renderCustomOption(item, index))}
+        </Select>
+        <br />
+        <br />
+        renderSelectedItem + maxTagCount=1 + defaultValue.length=2 + filter
+        <br />
+        <Select
+            placeholder='请选择'
+            maxTagCount={1}
+            filter
+            style={{ width: 350, marginTop: 20 }}
+            onChange={v => console.log(v)}
+            defaultValue={['夏可漫', '申悦']}
+            multiple
+            renderSelectedItem={renderMultipleWithCustomTag2}
+        >
+            {list.map((item, index) => renderCustomOption(item, index))}
+        </Select>
+      </>
+  );
+};
+
+export const SelectMultipleCollapse = () => (
+  <>
+    maxTagCount=2 + defaultValue.length=2 + 没有设置 width
+    <br />
+    <Select
+      multiple
+      maxTagCount={2}
+      defaultValue={[1, 2]}
+    >
+      <Option value={1}>optionitm1</Option>
+      <Option value={2}>optionitm2</Option>
+      <Option value={3}>optionitm3</Option>
+      <Option value="4">optionitm4</Option>
+      <Option value={5}>optionitm5</Option>
+      <Option value={6}>optionitm6</Option>
+      <Option value={7}>optionitm7</Option>
+      <Option value={8}>optionitm8</Option>
+    </Select>
+    <br />
+    <br />
+    maxTagCount=2 + defaultValue.length=7 + 没有设置 width
+    <br />
+    <Select
+      multiple
+      maxTagCount={2}
+      defaultValue={[1, 2, 3, '4', 5, 6, 7]}
+    >
+      <Option value={1}>optionitm1</Option>
+      <Option value={2}>optionitm2</Option>
+      <Option value={3}>optionitm3</Option>
+      <Option value="4">optionitm4</Option>
+      <Option value={5}>optionitm5</Option>
+      <Option value={6}>optionitm6</Option>
+      <Option value={7}>optionitm7</Option>
+      <Option value={8}>optionitm8</Option>
+    </Select>
+    <br />
+    <br />
+    maxTagCount=10 + defaultValue.length=7 + 没有设置 width
+    <br />
+    <Select
+      multiple
+      maxTagCount={10}
+      defaultValue={[1, 2, 3, '4', 5, 6, 7]}
+    >
+      <Option value={1}>optionitm1</Option>
+      <Option value={2}>optionitm2</Option>
+      <Option value={3}>optionitm3</Option>
+      <Option value="4">optionitm4</Option>
+      <Option value={5}>optionitm5</Option>
+      <Option value={6}>optionitm6</Option>
+      <Option value={7}>optionitm7</Option>
+      <Option value={8}>optionitm8</Option>
+    </Select>
+    <br /><br /><hr /><br /><br />
+    maxTagCount=2 + defaultValue.length=2
+    <br />
+    <Select
+      multiple
+      maxTagCount={2}
+      style={{ width: '350px' }}
+      defaultValue={[1, 2]}
+    >
+      <Option value={1}>optionitm1</Option>
+      <Option value={2}>optionitm2</Option>
+      <Option value={3}>optionitm3</Option>
+      <Option value="4">optionitm4</Option>
+      <Option value={5}>optionitm5</Option>
+      <Option value={6}>optionitm6</Option>
+      <Option value={7}>optionitm7</Option>
+      <Option value={8}>optionitm8</Option>
+    </Select>
+    <br />
+    <br />
+    maxTagCount=2 + defaultValue.length=7
+    <br />
+    <Select
+      multiple
+      maxTagCount={2}
+      style={{ width: '350px' }}
+      defaultValue={[1, 2, 3, '4', 5, 6, 7]}
+    >
+      <Option value={1}>optionitm1</Option>
+      <Option value={2}>optionitm2</Option>
+      <Option value={3}>optionitm3</Option>
+      <Option value="4">optionitm4</Option>
+      <Option value={5}>optionitm5</Option>
+      <Option value={6}>optionitm6</Option>
+      <Option value={7}>optionitm7</Option>
+      <Option value={8}>optionitm8</Option>
+    </Select>
+    <br />
+    <br />
+    maxTagCount=10 + defaultValue.length=7
+    <br />
+    <Select
+      multiple
+      maxTagCount={10}
+      style={{ width: '350px' }}
+      defaultValue={[1, 2, 3, '4', 5, 6, 7]}
+    >
+      <Option value={1}>optionitm1</Option>
+      <Option value={2}>optionitm2</Option>
+      <Option value={3}>optionitm3</Option>
+      <Option value="4">optionitm4</Option>
+      <Option value={5}>optionitm5</Option>
+      <Option value={6}>optionitm6</Option>
+      <Option value={7}>optionitm7</Option>
+      <Option value={8}>optionitm8</Option>
+    </Select>
+    <br /><br /><hr /><br /><br />
+    maxTagCount=2 + defaultValue.length=2 + prefix
+    <br />
+    <Select
+      multiple
+      maxTagCount={2}
+      prefix={<IconSearch />}
+      style={{ width: '350px' }}
+      defaultValue={[1, 2]}
+    >
+      <Option value={1}>optionitm1</Option>
+      <Option value={2}>optionitm2</Option>
+      <Option value={3}>optionitm3</Option>
+      <Option value="4">optionitm4</Option>
+      <Option value={5}>optionitm5</Option>
+      <Option value={6}>optionitm6</Option>
+      <Option value={7}>optionitm7</Option>
+      <Option value={8}>optionitm8</Option>
+    </Select>
+    <br />
+    <br />
+    maxTagCount=2 + defaultValue.length=7 + suffix
+    <br />
+    <Select
+      multiple
+      suffix={<IconSearch />}
+      maxTagCount={2}
+      style={{ width: '350px' }}
+      defaultValue={[1, 2, 3, '4', 5, 6, 7]}
+    >
+      <Option value={1}>optionitm1</Option>
+      <Option value={2}>optionitm2</Option>
+      <Option value={3}>optionitm3</Option>
+      <Option value="4">optionitm4</Option>
+      <Option value={5}>optionitm5</Option>
+      <Option value={6}>optionitm6</Option>
+      <Option value={7}>optionitm7</Option>
+      <Option value={8}>optionitm8</Option>
+    </Select>
+    <br />
+    <br />
+    maxTagCount=10 + defaultValue.length=7 + insetLabel
+    <br />
+    <Select
+      multiple
+      insetLabel={<IconSearch />}
+      maxTagCount={10}
+      style={{ width: '350px' }}
+      defaultValue={[1, 2, 3, '4', 5, 6, 7]}
+    >
+      <Option value={1}>optionitm1</Option>
+      <Option value={2}>optionitm2</Option>
+      <Option value={3}>optionitm3</Option>
+      <Option value="4">optionitm4</Option>
+      <Option value={5}>optionitm5</Option>
+      <Option value={6}>optionitm6</Option>
+      <Option value={7}>optionitm7</Option>
+      <Option value={8}>optionitm8</Option>
+    </Select>
+    <br /><br /><hr /><br /><br />
+    maxTagCount=2 + defaultValue.length=2 + filter + 没有设置 width
+    <br />
+    <Select
+      multiple
+      filter
+      maxTagCount={2}
+      defaultValue={[1, 2]}
+    >
+      <Option value={1}>optionitm1</Option>
+      <Option value={2}>optionitm2</Option>
+      <Option value={3}>optionitm3</Option>
+      <Option value="4">optionitm4</Option>
+      <Option value={5}>optionitm5</Option>
+      <Option value={6}>optionitm6</Option>
+      <Option value={7}>optionitm7</Option>
+      <Option value={8}>optionitm8</Option>
+    </Select>
+    <br />
+    <br />
+    maxTagCount=2 + defaultValue.length=7 + filter + 没有设置 width
+    <br />
+    <Select
+      multiple
+      filter
+      maxTagCount={2}
+      defaultValue={[1, 2, 3, '4', 5, 6, 7]}
+    >
+      <Option value={1}>optionitm1</Option>
+      <Option value={2}>optionitm2</Option>
+      <Option value={3}>optionitm3</Option>
+      <Option value="4">optionitm4</Option>
+      <Option value={5}>optionitm5</Option>
+      <Option value={6}>optionitm6</Option>
+      <Option value={7}>optionitm7</Option>
+      <Option value={8}>optionitm8</Option>
+    </Select>
+    <br />
+    <br />
+    maxTagCount=10 + defaultValue.length=7 + filter + 没有设置 width
+    <br />
+    <Select
+      multiple
+      maxTagCount={10}
+      filter
+      defaultValue={[1, 2, 3, '4', 5, 6, 7]}
+    >
+      <Option value={1}>optionitm1</Option>
+      <Option value={2}>optionitm2</Option>
+      <Option value={3}>optionitm3</Option>
+      <Option value="4">optionitm4</Option>
+      <Option value={5}>optionitm5</Option>
+      <Option value={6}>optionitm6</Option>
+      <Option value={7}>optionitm7</Option>
+      <Option value={8}>optionitm8</Option>
+    </Select>
+    <br /><br /><hr /><br /><br />
+    maxTagCount=2 + defaultValue.length=2 + filter
+    <br />
+    <Select
+      multiple
+      filter
+      maxTagCount={2}
+      style={{ width: '350px' }}
+      defaultValue={[1, 2]}
+    >
+      <Option value={1}>optionitm1</Option>
+      <Option value={2}>optionitm2</Option>
+      <Option value={3}>optionitm3</Option>
+      <Option value="4">optionitm4</Option>
+      <Option value={5}>optionitm5</Option>
+      <Option value={6}>optionitm6</Option>
+      <Option value={7}>optionitm7</Option>
+      <Option value={8}>optionitm8</Option>
+    </Select>
+    <br />
+    <br />
+    maxTagCount=2 + defaultValue.length=7 + filter
+    <br />
+    <Select
+      multiple
+      filter
+      maxTagCount={2}
+      style={{ width: '350px' }}
+      defaultValue={[1, 2, 3, '4', 5, 6, 7]}
+    >
+      <Option value={1}>optionitm1</Option>
+      <Option value={2}>optionitm2</Option>
+      <Option value={3}>optionitm3</Option>
+      <Option value="4">optionitm4</Option>
+      <Option value={5}>optionitm5</Option>
+      <Option value={6}>optionitm6</Option>
+      <Option value={7}>optionitm7</Option>
+      <Option value={8}>optionitm8</Option>
+    </Select>
+    <br />
+    <br />
+    maxTagCount=10 + defaultValue.length=7 + filter
+    <br />
+    <Select
+      multiple
+      maxTagCount={10}
+      filter
+      style={{ width: '350px' }}
+      defaultValue={[1, 2, 3, '4', 5, 6, 7]}
+    >
+      <Option value={1}>optionitm1</Option>
+      <Option value={2}>optionitm2</Option>
+      <Option value={3}>optionitm3</Option>
+      <Option value="4">optionitm4</Option>
+      <Option value={5}>optionitm5</Option>
+      <Option value={6}>optionitm6</Option>
+      <Option value={7}>optionitm7</Option>
+      <Option value={8}>optionitm8</Option>
+    </Select>
+    <br /><br /><hr /><br /><br />
+    备注：renderSelectedItem时，超出只会截断整个item，而不会做内部的省略号截断
+    <br /><br />
+    <RenderSelectedItemWithMaxTagCount />
+  </>
+);
+
+SelectMultipleCollapse.story = {
+  name: 'select multiple collapse',
 };
 
 export const SelectDisabled = () => (
