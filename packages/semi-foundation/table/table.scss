@@ -96,7 +96,6 @@ $module: #{$prefix}-table;
                 word-break: break-all;
                 word-wrap: break-word;
                 position: relative;
-                user-select: none;
 
                 &.#{$module}-cell-fixed {
 
@@ -195,11 +194,11 @@ $module: #{$prefix}-table;
                     background-color: $color-table_body-bg-hover;
 
                     &.#{$module}-cell-fixed {
-    
+
                         &-left,
                         &-right {
                             background-color: $color-table_body-bg-default;
-    
+
                             &::before {
                                 background-color: $color-table_body-bg-hover;
                                 content: "";
@@ -323,7 +322,7 @@ $module: #{$prefix}-table;
         &-wrap {
             // inline-flex vertical-align baseline 会导致父元素高度异常
             display: inline-flex;
-            vertical-align: bottom; 
+            vertical-align: bottom;
         }
 
         &-disabled {
