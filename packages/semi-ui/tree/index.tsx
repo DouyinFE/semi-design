@@ -192,6 +192,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
         const newState: Partial<TreeState> = {
             prevProps: props,
         };
+        const isExpandControlled = 'expandedKeys' in props;
 
         // Accept a props field as a parameter to determine whether to update the field
         const needUpdate = (name: string) => {
@@ -239,7 +240,8 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
                 newState.motionType = null;
             }
         }
-        const expandAllWhenDataChange = (needUpdate('treeDataSimpleJson') || needUpdate('treeData')) && props.expandAll;
+        const dataUpdated = needUpdate('treeDataSimpleJson') || needUpdate('treeData');
+        const expandAllWhenDataChange = dataUpdated && props.expandAll;
         if (!isSeaching) {
             // Update expandedKeys
             if (needUpdate('expandedKeys') || (prevProps && needUpdate('autoExpandParent'))) {
@@ -273,7 +275,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
                     props.multiple,
                     valueEntities
                 );
-            } else if (!prevProps && props.value) {
+            } else if ((!prevProps || (!isExpandControlled && dataUpdated)) && props.value) {
                 newState.expandedKeys = calcExpandedKeysForValues(
                     props.value,
                     keyEntities,
