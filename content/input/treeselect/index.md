@@ -788,6 +788,69 @@ import { TreeSelect } from '@douyinfe/semi-ui';
 };
 ```
 
+### 开启搜索的展开受控
+传入 `expandedKeys` 时即为展开受控组件，可以配合 `onExpand` 使用。当展开受控时，如果开启 `filterTreeNode` 并进行搜索是不会再自动展开节点的，此时，节点的展开完全由 `expandedKeys` 来控制。你可以利用 `onSearch` 的入参 `filteredExpandedKeys`（version: >= 2.6.0） 来实现展开受控时的搜索展开效果。
+
+```jsx live=true hideInDSM
+import React, { useState } from 'react';
+import { TreeSelect } from '@douyinfe/semi-ui';
+
+() => {
+    const [expandedKeys, setExpandedKeys] = useState([]);
+    const treeData = [
+        {
+            label: '亚洲',
+            value: 'Asia',
+            key: '0',
+            children: [
+                {
+                    label: '中国',
+                    value: 'China',
+                    key: '0-0',
+                    children: [
+                        {
+                            label: '北京',
+                            value: 'Beijing',
+                            key: '0-0-0',
+                        },
+                        {
+                            label: '上海',
+                            value: 'Shanghai',
+                            key: '0-0-1',
+                        },
+                    ],
+                },
+                {
+                    label: '日本',
+                    value: 'Japan',
+                    key: '0-1',
+                },
+            ],
+        },
+        {
+            label: '北美洲',
+            value: 'North America',
+            key: '1',
+        }
+    ];
+    return (
+        <TreeSelect
+            style={{ width: 300 }}
+            dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+            treeData={treeData}
+            filterTreeNode
+            expandedKeys={expandedKeys}
+            onExpand={expandedKeys => {
+                setExpandedKeys(expandedKeys);
+            }}
+            onSearch={(inputValue, filteredExpandedKeys) => {
+                setExpandedKeys([...filteredExpandedKeys, ...expandedKeys]);
+            }}
+        />
+    );
+};
+```
+
 ### 虚拟化
 列表虚拟化，用于大量树节点的情况。开启后，动画效果将被关闭。
 
@@ -1269,8 +1332,8 @@ function Demo() {
 | onChangeWithObject | 是否将选中项 option 的其他属性作为回调。设为 true 时，onChange 的入参类型Function(node\|node[], e) 此时如果是受控，也需要把 value 设置成 object，且必须含有 value 的键值；defaultValue同理。 | boolean | false | 1.0.0 |
 | onExpand | 展示节点时调用 | function(expandedKeys:array, {expanded: bool, node}) | - | - |
 | onFocus | 聚焦时的回调 | function(event) | - | - |
-| onLoad | 节点加载完毕时触发的回调 | (loadedKeys: Set< string >, treeNode: TreeNode) => void |- |  1.32.0|
-| onSearch | 文本框值变化时回调 | function(sugInput: string) | - | - |
+| onLoad | 节点加载完毕时触发的回调 | (loadedKeys: Set<string\>, treeNode: TreeNode) => void |- |  1.32.0|
+| onSearch | 文本框值变化时回调。 入参 filteredExpandedKeys 表示因为搜索或 value/defaultValue 而展开的节点的 key, 可以配合 expandedKeys 受控时使用 | function(sugInput: string, filteredExpandedKeys: string[]) | - | filteredExpandedKeys 在 2.6.0 中新增 |
 | onSelect | 被选中时调用，返回值为当前事件选项的key值 | function(selectedKey:string, selected: bool, selectedNode: TreeNode) | - | - |
 | onVisibleChange     | 弹出层展示/隐藏时触发的回调   | function(isVisible:boolean) |     |   1.4.0  |
 

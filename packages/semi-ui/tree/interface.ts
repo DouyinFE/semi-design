@@ -131,6 +131,7 @@ export interface NodeListProps {
     motionKeys: Set<string>;
     motionType: string;
     flattenList: FlattenNode[] | undefined;
+    searchTargetIsDeep?: boolean;
     renderTreeNode: (treeNode: FlattenNode, ind?: number, style?: React.CSSProperties) => ReactNode;
 }
 export type TransitionNodes<T> = Array<T | Array<T>>;
