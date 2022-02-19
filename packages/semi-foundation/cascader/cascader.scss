@@ -110,7 +110,7 @@ $module: #{$prefix}-cascader;
         }
 
         &-tag {
-            margin: $spacing-cascader_selection_tag-marginY $spacing-cascader_selection_tag-marginX;
+            margin: $spacing-cascader_selection_tag-marginY $spacing-cascader_selection_tag-marginLeft $spacing-cascader_selection_tag-marginY $spacing-cascader_selection_tag-marginRight;
 
             &:first-child {
                 margin-left: 0;
@@ -119,7 +119,7 @@ $module: #{$prefix}-cascader;
             &-disabled.#{$prefix}-tag {
                 color: $color-cascader_input_disabled-text-default;
                 cursor: not-allowed;
-                
+
                 .#{$prefix}-tag-close {
                     color: $color-cascader_input_disabled-text-default;
                     cursor: not-allowed;
