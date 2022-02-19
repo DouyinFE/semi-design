@@ -110,7 +110,7 @@ $module: #{$prefix}-cascader;
         }
 
         &-tag {
-            margin: $spacing-cascader_selection_tag-marginY $spacing-cascader_selection_tag-marginLeft $spacing-cascader_selection_tag-marginY $spacing-cascader_selection_tag-marginRight;
+            margin: $spacing-cascader_selection_tag-marginY $spacing-cascader_selection_tag-marginRight $spacing-cascader_selection_tag-marginY $spacing-cascader_selection_tag-marginLeft;
 
             &:first-child {
                 margin-left: 0;
