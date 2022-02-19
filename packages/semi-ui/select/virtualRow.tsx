@@ -5,8 +5,8 @@ export interface VirtualRowProps{
     style?: React.CSSProperties;
 }
 const VirtualRow = ({ index, data, style }: VirtualRowProps) => {
-    const { visibileOptions } = data;
-    const option = visibileOptions[index];
+    const { visibleOptions } = data;
+    const option = visibleOptions[index];
     return data.renderOption(option, index, style);
 };
 
