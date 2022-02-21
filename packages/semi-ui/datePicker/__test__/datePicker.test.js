@@ -1024,13 +1024,23 @@ describe(`DatePicker`, () => {
         const argsChange = handleChange.getCall(0).args;
         expect(argsChange[0].length).toBe(0);
         expect(elem.state('panelShow')).toBe(true);
-        // 点击确定
         const footerBtns = document.querySelectorAll('.semi-datepicker-footer .semi-button');
+        const leftPanel = document.querySelector(`.${BASE_CLASS_PREFIX}-datepicker-month-grid-left`);
+        const leftSecondWeek = leftPanel.querySelectorAll(`.${BASE_CLASS_PREFIX}-datepicker-week`)[1];
+        const leftSecondWeekDays = leftSecondWeek.querySelectorAll(`.${BASE_CLASS_PREFIX}-datepicker-day`);
+        // 点击确定
         footerBtns[1].click();
         expect(handleConfirm.called).toBe(false);
-        // const argsConfirm = handleConfirm.getCall(0).args;
-        // expect(argsConfirm[0].length).toBe(0);
-        // expect(elem.state('panelShow')).toBe(false);
+        await sleep();
+        // 选择开始时间
+        leftSecondWeekDays[0].click();
+        footerBtns[1].click();
+        expect(handleConfirm.called).toBe(false);
+        await sleep();
+        // 选择结束时间
+        leftSecondWeekDays[5].click();
+        footerBtns[1].click();
+        expect(handleConfirm.called).toBe(false);
     });
     
     it('test dateRange triggerRender', async () => {
