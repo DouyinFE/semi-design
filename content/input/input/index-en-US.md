@@ -66,6 +66,8 @@ import { Input } from '@douyinfe/semi-ui';
 
 ### Prefix/Suffix
 
+When the content of `prefix` and `suffix` is text or Semi Icon, the left and right margin will be automatically added. If it is a custom ReactNode, the left and right margin will be 0
+
 ```jsx live=true
 import React from 'react';
 import { Input, Typography } from '@douyinfe/semi-ui';
@@ -85,6 +87,8 @@ import { IconSearch } from '@douyinfe/semi-icons';
 ```
 
 ### Addon
+
+When the content of `addonBefore` and `addonAfter` is text or Semi Icon, the left and right margin will be automatically added. If it is a custom ReactNode, the left and right margin will be 0.
 
 ```jsx live=true
 import React from 'react';

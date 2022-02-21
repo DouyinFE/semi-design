@@ -24,4 +24,11 @@ describe('table', () => {
                 cy.get('.semi-page-item').contains('2').should('have.class', 'semi-page-item-active');
             });
     });
+
+    it('jsx columns nested change', () => {
+        cy.visit('http://localhost:6009/iframe.html?id=table--fixed-header-merge&args=&viewMode=story');
+        cy.get('[data-cy=button]').click();
+        cy.contains("Base Information");
+        cy.contains("Company Information");
+    });
 });

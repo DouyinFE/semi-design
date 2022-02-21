@@ -68,7 +68,10 @@ import { Input } from '@douyinfe/semi-ui';
 
 ### 前缀/后缀
 
-在输入框上增加前缀、后缀图标，可以是 ReactNode 。
+在输入框上增加前缀、后缀图标，可以是 ReactNode
+
+当 prefix、suffix 传入的内容为文本或者 Semi Icon 时，会自动带上左右间隔，若为自定义 ReactNode，则左右间隔为 0
+
 
 ```jsx live=true
 import React from 'react';
@@ -91,6 +94,8 @@ import { IconSearch } from '@douyinfe/semi-icons';
 ### 前置/后置标签
 
 在输入框上增加前置/后置标签
+
+当 addonBefore、addonAfter 传入的内容为文本或者 Semi Icon 时，会自动带上左右间隔，若为自定义 ReactNode，则左右间隔为 0
 
 ```jsx live=true
 import React from 'react';
