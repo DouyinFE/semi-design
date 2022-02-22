@@ -281,7 +281,9 @@ export function assignColumnKeys(columns: Record<string, any>[], childrenColumnN
     const sameLevelCols: Record<string, any>[] = [];
     each(columns, (column, index) => {
         if (column.key == null) {
-            column.key = `${level}-${index}`;
+            // if user give column a dataIndex, use it for backup
+            const _index = column.dataIndex || index;
+            column.key = `${level}-${_index}`;
         }
         if (Array.isArray(column[childrenColumnName]) && column[childrenColumnName].length) {
             sameLevelCols.push(...column[childrenColumnName]);

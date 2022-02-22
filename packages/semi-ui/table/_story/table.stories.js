@@ -79,6 +79,7 @@ export { default as WarnColumnWithoutDataIndex } from './WarnColumnWithoutDataIn
 export { default as FixedColumnsChange } from './v2/FixedColumnsChange';
 export { default as FixedZIndex } from './v2/FixedZIndex';
 export { default as FixedHeaderMerge } from './v2/FixedHeaderMerge';
+export { default as FixedResizable } from './v2/FixedResizable';
 
 // empty table
 
