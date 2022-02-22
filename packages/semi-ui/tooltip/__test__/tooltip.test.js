@@ -72,8 +72,8 @@ describe(`Tooltip`, () => {
         expect(elem.state(`visible`)).toBe(true);
 
         // click outside
-        document.body.click();
-        // document.dispatchEvent(new Event('mousedown', { bubbles: true, cancelable: true }));
+        // document.body.click();
+        document.dispatchEvent(new Event('mousedown', { bubbles: true, cancelable: true }));
         // demo.find(`#${triggerId}`)
         //     .at(0)
         //     .simulate(`mouseDown`);
@@ -88,7 +88,8 @@ describe(`Tooltip`, () => {
         // unmount elem
         demo.unmount();
         await sleep(100);
-        document.body.click();
+        // document.body.click();
+        document.dispatchEvent(new Event('mousedown', { bubbles: true, cancelable: true }));
         expect(document.getElementsByClassName(`${BASE_CLASS_PREFIX}-tooltip-wrapper`).length).toBe(0);
     });
 
@@ -165,7 +166,8 @@ describe(`Tooltip`, () => {
         expect(refFn.called).toBeTruthy();
 
         // click outside
-        document.body.click();
+        // document.body.click();
+        document.dispatchEvent(new Event('mousedown', { bubbles: true, cancelable: true }));
         await sleep(100);
         expect(
             demo
@@ -315,7 +317,8 @@ describe(`Tooltip`, () => {
     expect(toolTipElem.state(`visible`)).toBe(true);
 
     // click outside
-    document.body.click();
+    // document.body.click();
+    document.dispatchEvent(new Event('mousedown', { bubbles: true, cancelable: true }));
     toolTipElem.update();
     await sleep(100);
     expect(toolTipElem.state('visible')).toBe(false);
@@ -326,7 +329,7 @@ describe(`Tooltip`, () => {
     await sleep(100);
     expect(toolTipElem.state('visible')).toBe(true);
 
-    document.getElementById(containerId).click();
+    document.getElementById(containerId).dispatchEvent(new Event('mousedown', { bubbles: true, cancelable: true }));
     toolTipElem.update();
     await sleep(100);
     expect(toolTipElem.state('visible')).toBe(false);
