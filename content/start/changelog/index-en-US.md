@@ -40,7 +40,7 @@ Version：Major.Minor.Patch
 - 【Style】
     - Optimize TagInput component Sass variable reference relationship [@Carlosfengv](https://github.com/Carlosfengv)
 
-#### 🎉 2.4.0 (2022-2-11)
+#### 🎉 2.4.0 (2022-02-11)
 - 【Fix】
     - TimePicker crash issue  [#585](https://github.com/DouyinFE/semi-design/issues/585)
     - Fix Nav limitIndent in the collapsed state, when the submenu is displayed in the form of dropdown, it is also consumed, which leads to the problem of redundant blank space
@@ -361,6 +361,10 @@ Version：Major.Minor.Patch
     - In 2.x, section dark mode and bright mode no longer need to configure themeScope attributes in the plug-in, and the default is built-in. The usage method is updated from adding id #semi-ways-xxx to adding class .semi-ways-xxx.
   - Other Changes
     - Due to the adjustment of the Icon, the way of using icons and illustrations for Icon and Empty components is different from before. Please see for [details](/en-US/start/update-to-v2)
+
+#### 🎉 1.33.1 - 1.38.x (2021-10-23)
+- 【Docs】
+  - ByteDance users, if you need to query the changelog changes in this section, please access it through the internal domain and switch to the 1.x documentation site in the Header in the upper right corner. This part of Feature and Fix changes coincide with v2.0 - 2.4, so it will not be listed here again
 
 #### 🎉 1.33.0 (2021-10-22)
 - 【Fix】

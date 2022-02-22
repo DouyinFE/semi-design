@@ -10,15 +10,23 @@ order: 8
 
 
 #### What is the relationship between Semi 2.x (open source version) and Semi 1.x?
- - The Semi v2.0 version is refactored based on v1.x using ts, which brings a better ts experience and a more out-of-the-box engineering solution, which solves the coexistence of multi-component libraries in the micro front-end scenario Style conflict issues, etc. All subsequent long-term work of the Semi team will be based on the v2.x version
- - At present, v2.0 and v1.x will still be maintained in parallel for a period of time. Feature addition on v1.x will be gradually stopped in the future, and only necessary bug fix changes will be provided.
+ - The Semi v2.0 version is refactored based on v1.x using ts, which brings a better ts experience, bettter a11y support and a more out-of-the-box engineering solution, which solves the coexistence of multi-component libraries in the micro front-end scenario Style conflict issues, etc. All subsequent long-term work of the Semi team will be based on the v2.x version
+ - v1.x has stopped iterative maintenance, no more feature additions or complex changes, only necessary bug fix changes are provided.
  - For new projects, we recommend that you directly use 2.x [@douyin/semi-ui](https://semi.design) for development. For existing projects, we also recommend that you upgrade as soon as possible. In order to reduce the cost of upgrading, we provide a cli tool one-click migration (@ies/semi-codemod-v2) that can help you automatically complete up to 90% of the migration and modification (limited by the AST implementation principle, there are still a small number of cases that require manual labor review modification, but not much 😉)
  - Upgrade from Semi 1.x to Semi 2.x for detailed operation steps [From v1 to v2](https://semi.design/zh-CN/start/update-to-v2)
 
 #### Relationship between versions
 
-- The Semi version number follows the Semver specification (major version number-minor version number-revision number). We will add features or components to the minor version. In the patch version, we will only fix bugs and not update new features.
-- Between 2.x versions (that is, when the major version number is the same), the API will remain **forward compatible**, but there may be style adjustments between different minor versions. When you need to upgrade, we recommend you Use the version Diff function on the changelog page to check all changes and whether they really affect your business system.
+- Semi version numbers follow the Semver specification (major version number - minor version number - revision number). We will add features or components in the minor version, and we will only fix bugs in the patch version, but will not update new features. However, there may be style adjustments between different minor versions. When you need to upgrade, we recommend that you use the version diff on the changelog page to check all changes and whether they have an impact on your code.
+- All subsequent new features and components will be developed based on version 2.x. We recommend business parties to keep using the latest version as much as possible
+- Between 2.x versions, the API will remain **forward compatible**
+- The API will also remain **forward compatible** between 1.x versions. When upgrading from 1.x to 2.x, breaking changes will be included, please refer to the documentation for specific upgrade precautions
+- 0.x versions are currently discontinued, and hotfix updates are made if and only if a bugfix has to be done. When upgrading from 0.x to 1.x, breaking changes will be included. For specific upgrade precautions, please refer to the documentation
+
+#### Semi's default theme style does not match the positioning of our system. Can i configure another theme?
+
+- Please refer to [Custom theme](/en-US/start/customize-theme). Semi provides **up to 2300+ Design Tokens to allow users to perform in-depth customization**, whether you are a R&D or a designer, you can easily configure the style layer in [Semi DSM](/dsm), and in code, Figma always keep two-way sync. Based on Semi, you can **customize your own Design System at low cost** 
+- And when using, you only need to specify the theme package name used in webpack.config.js to complete the access (the Semi plugin needs to be connected).
 
 #### Why is defaultValue, default XXX not working?
 
@@ -39,10 +47,6 @@ Welcome to ours [Customer Service Lark Group](https://bytedance.feishu.cn/docs/d
 #### Is the style of Semi based on Scss or Less? Why not use CSS Module?
 
 Our style is based on Scss, and we also use CSS Variable as the color wheel variable. Color variables and common variables are mounted under `body`. CSS Module is not used because we want to have a fixed className and retain the ability to modify / override Semi style for our users(although it is not recommended, it is really needed sometime).
-
-#### Semi's default theme style does not match the positioning of our system. Can i configure another theme?
-
-Please refer to [Custom theme](/en-US/start/customize-theme) . In [Semi DSM](/dsm) You can configure the style. You only need to specify the theme package name in `webpack.config.js` to complete the access.
 
 #### Why Tooltip、Typography does not set style word-break to all or word?  
    Content in difference languages (e.g. English, Chinese, combination of English and Chinese) may require different styles in terms of word-break, so Semi does not use a default setting. You could use corresponding CSS styles to your own needs.

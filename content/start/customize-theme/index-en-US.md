@@ -13,13 +13,13 @@ You can go to [Semi Design System Management Site](https://semi.design/dsm/) (al
 
 Currently DSM supports global and component-level style customization, and keeps synchronization between Figma and online code. **Use DSM to adapt Semi Design to Any Design**
 
-- 🎨 Global style variable management
+- 🎨 Global style variable management  
 Supports visual editing and previewing of color wheels, rounded corners, font layout, strokes, and shadows
 
-- 🔁 Two-way synchronization of design variables
+- 🔁 Two-way synchronization of design variables  
 Design variables can be synchronized in real time in both directions on the Web side and the Figma plug-in side.
 
-- 🧩 In-depth component style customization
+- 🧩 In-depth component style customization  
 In-depth customization of the style of a single component, such as the style customization of the height/spacing of the component.
 
 ### Create a theme
@@ -38,9 +38,7 @@ You can also start from a published theme, or choose **Create Now** to create a 
 
 After the theme is created and downloaded, the Semi plug-in can be used to quickly access the selected theme.
 
-After downloading the theme, publish the npm package by yourself. (Temporary behavior, the platform outsourcing function will be launched soon).
-
-Then you need to specify the theme to be used in the configuration file.
+You need to specify the theme to be used in the configuration file.
 
 ### When using webpack as a build tool
 
@@ -70,4 +68,4 @@ If you modify the component-level variables in the process of customizing the th
 
 ## Update theme
 
-During the development of Semi, it is possible to update or add some common variables for design considerations. If you are using a customized theme, when Semi has released a new universal variable (we will mark it in the update log), we recommend that you go to [Theme Store](https://semi.design/dsm/) to regenerate the theme.
+During the development of Semi, it is possible to update or add some common variables for design considerations. If you are using a customized theme, when Semi has released a new universal variable (we will mark it in the update log), we recommend that you go to [DSM](https://semi.design/dsm/) to regenerate the theme.

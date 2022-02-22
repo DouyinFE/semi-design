@@ -39,7 +39,7 @@ class Demo extends React.Component {
 }
 ```
 
-> 推荐在项目中引入 [reset.css](https://www.npmjs.com/package/reset-css)，它可以避免引入浏览器自带的默认样式。
+> 推荐在项目中引入 [reset.css](https://www.npmjs.com/package/reset-css)，它可以重置浏览器自带的默认样式，避免不同UA之间的样式差异。
 
 ## 3、在 Next.js 中使用
 
