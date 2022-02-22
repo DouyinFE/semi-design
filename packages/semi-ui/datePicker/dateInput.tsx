@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions,jsx-a11y/interactive-supports-focus */
 /* eslint-disable max-lines-per-function */
 /* eslint-disable no-unused-vars */
 import React from 'react';
@@ -40,7 +41,6 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
         value: PropTypes.array,
         disabled: PropTypes.bool,
         type: PropTypes.oneOf(strings.TYPE_SET),
-        multiple: PropTypes.bool,
         showClear: PropTypes.bool,
         format: PropTypes.string, // Attributes not used
         inputStyle: PropTypes.object,
@@ -65,7 +65,6 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
         onBlur: noop,
         onClear: noop,
         onFocus: noop,
-        multiple: false,
         type: 'date',
         inputStyle: {},
         inputReadOnly: false,
@@ -177,9 +176,12 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
         const allowClear = (rangeStart || rangeEnd) && showClear;
         return allowClear && !disabled ? (
             <div
+                role="button"
+                tabIndex={0}
+                aria-label="Clear range input value"
                 className={`${prefixCls}-range-input-clearbtn`}
                 onMouseDown={e => !disabled && this.handleRangeInputClear(e)}>
-                <IconClear />
+                <IconClear aria-hidden />
             </div>
         ) : null;
     }
@@ -293,6 +295,7 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
             validateStatus,
             block,
             prefixCls,
+            multiple, // Whether to allow multiple values for email and file types
             dateFnsLocale, // No need to pass to input
             onBlur,
             onClear,
@@ -310,8 +313,8 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
             rangeSeparator,
             ...rest
         } = this.props;
-        const dateIcon = <IconCalendar />;
-        const dateTimeIcon = <IconCalendarClock />;
+        const dateIcon = <IconCalendar aria-hidden />;
+        const dateTimeIcon = <IconCalendarClock aria-hidden />;
         const suffix = type.includes('Time') ? dateTimeIcon : dateIcon;
         let text = '';
 

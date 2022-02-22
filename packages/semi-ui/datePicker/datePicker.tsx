@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events,jsx-a11y/interactive-supports-focus */
 /* eslint-disable max-len */
 import React from 'react';
 import classnames from 'classnames';
@@ -525,8 +526,12 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
         };
 
         return (
-            // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
             <div
+                // tooltip will mount a11y props to children
+                // eslint-disable-next-line jsx-a11y/role-has-required-aria-props
+                role="combobox"
+                aria-label={Array.isArray(value) && value.length ? "Choose date" : "Change date"}
+                aria-disabled={disabled}
                 onClick={this.handleTriggerWrapperClick}
                 className={inputCls}>
                 {typeof triggerRender === 'function' ? (
