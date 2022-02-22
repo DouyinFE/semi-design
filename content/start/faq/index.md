@@ -8,18 +8,23 @@ order: 8
 
 #### Semi 2.x 与 Semi 1.x 有什么不同？
 
--   Semi v2.0 版本 基于 v1.x 使用 ts 进行了重构，带来了更好的 ts 使用体验、以及更开箱即用的工程化方案，解决了对微前端场景下多组件库共存的样式冲突问题等。Semi 2.x 为开源版本， Semi 团队后续所有长期工作都将基于 v2.x 版本进行
--   目前 v2.0 与 v1.x 仍将并行迭代维护一段时间，后续会逐步停止 v1.x 上的 feature 添加，仅提供必要的 bug fix 变更。
+-   Semi v2.0 版本 基于 v1.x 使用 ts 进行了重构，带来了更好的 ts 使用体验、以及更开箱即用的工程化方案，更好的a11y支持，支持局部启用暗色/亮色模式，解决了对微前端场景下多组件库共存的样式冲突问题等。Semi 2.x 为开源版本， Semi 团队后续所有长期工作都将基于 v2.x 版本进行
+-   v1.x 已停止迭代维护，不再进行feature添加或复杂变更，仅提供必要的 bug fix 变更。
 -   我们建议大家直接使用 2.x [@douyin/semi-ui](https://semi.design) 进行开发。现有旧项目，我们也建议大家尽快进行升级。为减轻升级成本，我们提供了 cli 工具一键迁移（@ies/semi-codemod-v2 ）可帮助大家自动完成高达 90%的迁移修改（受限于 AST 实现原理，仍存在一小部分 case 需人工 review 修改，但不多 😉 ）
 -   Semi 1.x 升级至 Semi 2.x 详细操作步骤请查阅 [从 v1 到 v2](https://semi.design/zh-CN/start/update-to-v2)
 
 #### 各版本之间的关系
 
--   Semi 版本号遵循 Semver 规范（主版本号-次版本号-修订版本号），我们会在 minor 版本新增 feature 或组件，在 patch 版本我们仅会进行 bug 修复，而不会做新功能更新。但不同 minor 版本之间可能存在样式上的调整，当你需要升级时，我们推荐你在 changelog 页面使用版本 Diff 功能，检查所有变更并确实是否对你的业务系统有影响。
+-   Semi 版本号遵循 Semver 规范（主版本号-次版本号-修订版本号），我们会在 minor 版本新增 feature 或组件，在 patch 版本我们仅会进行 bug 修复，而不会做新功能更新。**但不同 minor 版本之间可能存在样式上的调整**，当你需要升级时，我们推荐你在 changelog 页面使用版本 Diff 功能，检查所有变更并确实是否对你的业务系统有影响。
 -   后续所有新 Feature、新组件都会基于 2.x 版本进行开发，我们推荐业务方尽可能地保持使用最新版本
 -   2.x 各版本之间，API 会保持**向前兼容**
--   1.x 各版本之间，API 也会保持**向前兼容**, 1.x 后续会停止迭代。由 1.x 升级到 2.x 时，会包含 breaking change，具体升级注意事项请查阅文档
+-   1.x 各版本之间，API 也会保持**向前兼容**。由 1.x 升级到 2.x 时，会包含 breaking change，具体升级注意事项请查阅文档
 -   0.x 版本目前已停止更新，当且仅当必须进行 bugfix 时才会进行 hotfix 更新。由 0.x 升级至 1.x 时，会包含 breaking change，具体升级注意事项请查阅文档
+
+#### Semi 的默认的主题风格跟我们系统的定位不符，可以配置另外的主题吗？
+
+- 具体请参考 [定制主题](/zh-CN/start/customize-theme) 。Semi 提供**多达 2300+ Design Token 允许用户进行深度定制**，无论你是研发还是设计师，在[Semi DSM](/dsm) 里可以非常方便地进行样式层配置，并在代码、设计稿始终保持双向同步。基于 Semi 你可以**低成本定制属于你自己的 Design System**
+- 并且在使用时，你也只需要在 webpack.config.js 里指定使用的主题包名即可完成接入（需接入 Semi 插件）。
 
 #### Semi 是否支持 Tree Shaking
 
@@ -41,10 +46,6 @@ Semi 目前支持 14 种语言，具体使用可以查阅 [Semi·LocaleProvider]
 #### Semi 的样式是基于 Scss 还是 Less ？为什么不用 CSS Module？
 
 我们的样式基于 Scss，与此我们还使用了 CSS Variable 作为色盘变量。色盘变量和通用变量挂载在 body 下。不使用 CSS Module 是因为我们希望有固定的 className，为业务方保留修改/覆盖 Semi 样式的能力（虽然不提倡，但有些业务场景下确实需要）
-
-#### Semi 的默认的主题风格跟我们系统的定位不符，可以配置另外的主题吗？
-
-具体请参考 [定制主题](/zh-CN/start/customize-theme) 。在[Semi DSM](/dsm) 里可以进行样式的配置，你只需要在 webpack.config.js 里指定使用的主题包名即可完成接入（需接入 Semi 插件）。
 
 #### 为什么 Tooltip、Typography 不默认配置 word-break 样式？
 
