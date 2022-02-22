@@ -34,6 +34,7 @@ module.exports = {
                 'jsx-a11y/click-events-have-key-events': ['warn'],
                 'jsx-a11y/no-noninteractive-element-interactions': ['warn'],
                 'jsx-a11y/no-autofocus': ['warn'],
+                'object-curly-spacing': ['error', 'always'],
             },
             globals: {
                 "sinon": "readonly",
@@ -77,6 +78,7 @@ module.exports = {
                 'jsx-a11y/click-events-have-key-events': ['warn'],
                 'jsx-a11y/no-noninteractive-element-interactions': ['warn'],
                 'jsx-a11y/no-autofocus': ['warn'],
+                'object-curly-spacing': ['error', 'always'],
             }
         },
     ],
