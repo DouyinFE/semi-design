@@ -98,4 +98,26 @@ describe('DatePicker', () => {
         cy.get('[data-cy=3] .semi-datepicker-range-input-wrapper-start .semi-input').should('have.value', '2021-12-15 10:37:13');
         cy.get('[data-cy=3] .semi-datepicker-range-input-wrapper-end .semi-input').should('have.value', '2022-01-20 10:37:13');
     });
+
+    /**
+     * 测试 open 受控时，点击面板内按钮关闭面板后，输入框应该清除 focus 状态
+     */
+    it('input range focus when open is controlled', () => {
+        cy.visit('http://localhost:6009/iframe.html?id=datepicker--fix-input-range-focus&args=&viewMode=story');
+        cy.get('.semi-datepicker-range-input-wrapper-start > .semi-input-wrapper').click();
+        cy.get('.semi-datepicker-day').contains('10')
+            .then($btn => {
+                $btn.trigger('click');
+            });
+        cy.get('.semi-datepicker-day').contains('15')
+            .then($btn => {
+                $btn.trigger('click');
+            });
+        cy.get('.semi-datepicker-bottomSlot .semi-button')
+            .then($btn => {
+                $btn.trigger('click');
+                cy.get('.semi-datepicker-range-input-wrapper-start').should('not.have.class', 'semi-datepicker-range-input-wrapper-active');
+                cy.get('.semi-datepicker-range-input-wrapper-end').should('not.have.class', 'semi-datepicker-range-input-wrapper-active');
+            });
+    });
 });
