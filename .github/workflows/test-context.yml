@@ -1,5 +1,5 @@
 name: Context testing
-on: push
+on: pull_request
 
 jobs:
   dump_contexts_to_log:
@@ -7,6 +7,7 @@ jobs:
     steps:
       - name: Dump GitHub context
         id: github_context_step
+        if: github.event.pull_request.head.repo.full_name == 'DouyinFE/semi-design'
         run: echo '${{ toJSON(github) }}'
       - name: Dump job context
         run: echo '${{ toJSON(job) }}'
@@ -16,5 +17,3 @@ jobs:
         run: echo '${{ toJSON(runner) }}'
       - name: Dump strategy context
         run: echo '${{ toJSON(strategy) }}'
-      - name: Dump matrix context
-        run: echo '${{ toJSON(matrix) }}'
