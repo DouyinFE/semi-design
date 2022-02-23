@@ -92,6 +92,7 @@ class ScrollListDemo extends React.Component {
                         type={1}
                         selectedIndex={this.state.selectIndex1}
                         onSelect={this.onSelectAP}
+                        aria-label="时段"
                     />
                     <ScrollItem
                         {...commonProps}
@@ -99,6 +100,7 @@ class ScrollListDemo extends React.Component {
                         type={2}
                         selectedIndex={this.state.selectIndex2}
                         onSelect={this.onSelectHour}
+                        aria-label="小时"
                     />
                     <ScrollItem
                         {...commonProps}
@@ -106,6 +108,7 @@ class ScrollListDemo extends React.Component {
                         type={3}
                         selectedIndex={this.state.selectIndex3}
                         onSelect={this.onSelectMinute}
+                        aria-label="分钟"
                     />
                 </ScrollList>
             </div>

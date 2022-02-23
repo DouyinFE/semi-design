@@ -43,6 +43,7 @@ class ScrollListDemo extends React.Component {
                     type={1}
                     selectedIndex={this.state.selectIndex1}
                     onSelect={this.onSelect}
+                    aria-label="1"
                 />
                 <ScrollItem
                     mode="normal"
@@ -50,6 +51,7 @@ class ScrollListDemo extends React.Component {
                     type={2}
                     selectedIndex={this.state.selectIndex2}
                     onSelect={this.onSelect}
+                    aria-label="2"
                 />
                 <ScrollItem
                     mode="normal"
@@ -57,6 +59,7 @@ class ScrollListDemo extends React.Component {
                     type={3}
                     selectedIndex={this.state.selectIndex3}
                     onSelect={this.onSelect}
+                    aria-label="3"
                 />
             </ScrollList>
         );
