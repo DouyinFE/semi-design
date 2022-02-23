@@ -530,9 +530,13 @@ class Select extends BaseComponent<SelectProps, SelectState> {
 
                 }
             },
-            updateScrollTop: () => {
+            updateScrollTop: (index?: number) => {
                 // eslint-disable-next-line max-len
-                let destNode = document.querySelector(`#${prefixcls}-${this.selectOptionListID} .${prefixcls}-option-selected`) as HTMLDivElement;
+                let optionClassName = `.${prefixcls}-option-selected`;
+                if (index !== undefined) {
+                    optionClassName = `.${prefixcls}-option:nth-child(${index})`;
+                }
+                let destNode = document.querySelector(`#${prefixcls}-${this.selectOptionListID} ${optionClassName}`) as HTMLDivElement;
                 if (Array.isArray(destNode)) {
                     // eslint-disable-next-line prefer-destructuring
                     destNode = destNode[0];
