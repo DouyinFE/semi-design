@@ -1,12 +1,12 @@
 import { _t } from "src/utils/locale";
 import { navigate } from 'gatsby-link';
 import React from 'react';
-import styles from './dsm.module.scss'
+import styles from './dsm.module.scss';
 
 function Dsm(props) {
     const goDsm = () => {
-        location.href = "https://semi.design/dsm/landing"
-    }
+        location.href = DSM_URL?DSM_URL:"https://semi.design/dsm/landing";
+    };
     return (
         <div {...props} className={styles.frame14293}>
             <div className={styles.frame14291}>
