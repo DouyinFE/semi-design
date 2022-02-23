@@ -34,7 +34,7 @@ jobs:
         with:
           node-version: '14'
       - name: echo context
-        run: echo ${github.event.pull_request.head.repo.full_name}
+        run: echo '${{ github.event.pull_request.head.repo.full_name }}'
       - name: Install dependencies
         run: npx lerna bootstrap
       - name: Pre-build libs
