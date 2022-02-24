@@ -324,24 +324,20 @@ describe('Select', () => {
         const props = {
             multiple: true,
             defaultValue: ['abc', 'hotsoon'],
-            maxTagCount: 2,
+            maxTagCount: 1,
             defaultOpen: true,
         };
         const select = getSelect(props);
-        let targetOption = select
+        const targetOption = select
             .find(`.${BASE_CLASS_PREFIX}-select-option-list`)
             .children()
             .at(3);
         const nativeEvent = { nativeEvent: { stopImmediatePropagation: noop } };
         targetOption.simulate('click', nativeEvent);
-        let selection = select.find(`.${BASE_CLASS_PREFIX}-tag-group`);
-        expect(selection.children().length).toEqual(3);
-        expect(
-            selection
-                .children()
-                .at(2)
-                .getDOMNode().textContent
-        ).toEqual('+1');
+        const tags = select.find(`.${BASE_CLASS_PREFIX}-overflow-list .${BASE_CLASS_PREFIX}-tag`);
+        const n = select.find(`.${BASE_CLASS_PREFIX}-select-content-wrapper-collapse .${BASE_CLASS_PREFIX}-tag`);
+        expect(tags.length).toEqual(1);
+        expect(n.at(1).getDOMNode().textContent).toEqual('+2');
         select.unmount();
     });
 

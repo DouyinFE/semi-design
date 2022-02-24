@@ -8,7 +8,7 @@ import ConfigContext from '../configProvider/context';
 import SelectFoundation, { SelectAdapter } from '@douyinfe/semi-foundation/select/foundation';
 import { cssClasses, strings, numbers } from '@douyinfe/semi-foundation/select/constants';
 import BaseComponent, { ValidateStatus } from '../_base/baseComponent';
-import { isEqual, isString, noop, get, isNumber } from 'lodash';
+import { isEqual, isString, noop, get, isNumber, isFunction } from 'lodash';
 import Tag from '../tag/index';
 import TagGroup from '../tag/group';
 import LocaleConsumer from '../locale/localeConsumer';
@@ -32,6 +32,9 @@ import warning from '@douyinfe/semi-foundation/utils/warning';
 import '@douyinfe/semi-foundation/select/select.scss';
 import { Locale } from '../locale/interface';
 import { Position, TooltipProps } from '../tooltip';
+import OverflowList from '../overflowList';
+import Space from '../space';
+import Text from '../typography/text';
 
 export { OptionProps } from './option';
 export { OptionGroupProps } from './optionGroup';
@@ -175,6 +178,8 @@ export interface SelectState {
     keyboardEventSet: any; // {}
     optionGroups: Array<any>;
     isHovering: boolean;
+    // The number of really-hidden items when maxTagCount is set
+    overflowItemCount: number;
 }
 
 // Notes: Use the label of the option as the identifier, that is, the option in Select, the value is allowed to be the same, but the label must be unique
@@ -337,6 +342,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             keyboardEventSet: {},
             optionGroups: [],
             isHovering: false,
+            overflowItemCount: 0,
         };
         /* Generate random string */
         this.selectOptionListID = Math.random().toString(36).slice(2);
@@ -521,6 +527,9 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             },
             updateFocusState: (isFocus: boolean) => {
                 this.setState({ isFocus });
+            },
+            updateOverflowItemCount: (overflowItemCount: number) => {
+                this.setState({ overflowItemCount });
             },
             focusTrigger: () => {
                 try {
@@ -884,72 +893,137 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         );
     }
 
-    renderMultipleSelection(selections: Map<OptionProps['label'], any>, filterable: boolean) {
-        let { renderSelectedItem } = this.props;
-        const { placeholder, maxTagCount, size } = this.props;
-        const { inputValue } = this.state;
-        const selectDisabled = this.props.disabled;
-        const renderTags = [];
+    renderNTag(n: number, restTags: [React.ReactNode, any][]) {
+        const { size } = this.props;
+        return (
+            <Popover
+                showArrow
+                content={
+                    <Space spacing={2} wrap>
+                        {restTags.map((tag, index)=>(this.renderTag(tag, index)))}
+                    </Space>
+                }
+                trigger='hover'
+                position='top'
+                autoAdjustOverflow
+                key={`_+${n}_Popover`}
+            >
+                <Tag
+                    closable={false}
+                    size={size || 'large'}
+                    color='grey'
+                    className={`${prefixcls}-content-wrapper-collapse-tag`}
+                    key={`_+${n}`}
+                >
+                    +{n}
+                </Tag>
+            </Popover>
+        );
+    }
 
-        const selectedItems = [...selections];
+    renderTag(item: [React.ReactNode, any], i: number, isCollapseItem?: boolean) {
+        const { size, disabled: selectDisabled } = this.props;
+        let { renderSelectedItem } = this.props;
+        const label = item[0];
+        const { value } = item[1];
+        const disabled = item[1].disabled || selectDisabled;
+        const onClose = (tagContent: React.ReactNode, e: MouseEvent) => {
+            if (e && typeof e.preventDefault === 'function') {
+                e.preventDefault(); // make sure that tag will not hidden immediately in controlled mode
+            }
+            this.foundation.removeTag({ label, value });
+        };
 
         if (typeof renderSelectedItem === 'undefined') {
-            renderSelectedItem = (optionNode: OptionProps) => ({
+            renderSelectedItem =  (optionNode: OptionProps) => ({
                 isRenderInTag: true,
                 content: optionNode.label,
             });
         }
 
-        const tags = selectedItems.map((item, i) => {
-            const label = item[0];
-            const { value } = item[1];
-            const disabled = item[1].disabled || selectDisabled;
-            const onClose = (tagContent: React.ReactNode, e: MouseEvent) => {
-                if (e && typeof e.preventDefault === 'function') {
-                    e.preventDefault(); // make sure that tag will not hidden immediately in controlled mode
-                }
-                this.foundation.removeTag({ label, value });
-            };
-            const { content, isRenderInTag } = (renderSelectedItem as RenderMultipleSelectedItemFn)(item[1], { index: i, disabled, onClose });
-            const basic = {
-                disabled,
-                closable: !disabled,
-                onClose,
-            };
-            if (isRenderInTag) {
-                return (
-                    <Tag {...basic} color="white" size={size || 'large'} key={value}>
-                        {content}
-                    </Tag>
-                );
-            } else {
-                return <Fragment key={value}>{content}</Fragment>;
-            }
-        });
+        const { content, isRenderInTag } = (renderSelectedItem as RenderMultipleSelectedItemFn)(item[1], { index: i, disabled, onClose });
+        const basic = {
+            disabled,
+            closable: !disabled,
+            onClose,
+        };
+        const realContent = isCollapseItem && !isFunction(this.props.renderSelectedItem)
+            ? (
+                <Text size='small' ellipsis={{ rows: 1, showTooltip: { type: 'popover', opts: {style: { width: 'auto' }} } }} >
+                    {content}
+                </Text>
+            )
+            : content;
+        if (isRenderInTag) {
+            return (
+                <Tag {...basic} color="white" size={size || 'large'} key={value}>
+                    {realContent}
+                </Tag>
+            );
+        } else {
+            return <Fragment key={value}>{realContent}</Fragment>;
+        }
+    }
+
+    renderOverflow(items: [React.ReactNode, any][], index: number) {
+        const isCollapse = true;
+        return items.length && items[0]
+            ? this.renderTag(items[0], index, isCollapse)
+            : null;
+    }
+
+    handleOverflow(items: [React.ReactNode, any][]){
+        const { overflowItemCount, selections } = this.state;
+        if (items.length > 1 && overflowItemCount !== items.length - 1){
+            this.foundation.updateOverflowItemCount(selections.size, items.length - 1);
+        }
+    }
+
+    renderCollapsedTags(selections: [React.ReactNode, any][], length: number | undefined): React.ReactElement {
+        const { overflowItemCount } = this.state;
+        const normalTags = typeof length === 'number' ? selections.slice(0, length) : selections;
+        return (
+            <div className={`${prefixcls}-content-wrapper-collapse`}>
+                <OverflowList
+                    items={normalTags}
+                    overflowRenderer={overflowItems => this.renderOverflow(overflowItems as [React.ReactNode, any][], length-1)}
+                    onOverflow={overflowItems => this.handleOverflow(overflowItems as [React.ReactNode, any][])}
+                    visibleItemRenderer={(item, index) => this.renderTag(item as [React.ReactNode, any],  index)}
+                />
+                {overflowItemCount>0 && this.renderNTag(overflowItemCount, selections.slice(selections.length - overflowItemCount))}
+            </div>
+        );
+    }
+
+    renderMultipleSelection(selections: Map<OptionProps['label'], any>, filterable: boolean) {
+        const { placeholder, maxTagCount, filter } = this.props;
+        const { inputValue, isOpen } = this.state;
+        const selectedItems = [...selections];
 
         const contentWrapperCls = cls({
             [`${prefixcls}-content-wrapper`]: true,
-            [`${prefixcls}-content-wrapper-one-line`]: maxTagCount,
-            [`${prefixcls}-content-wrapper-empty`]: !tags.length,
+            [`${prefixcls}-content-wrapper-one-line`]: maxTagCount && !(filter && isOpen),
+            [`${prefixcls}-content-wrapper-empty`]: !selectedItems.length,
         });
 
         const spanCls = cls({
             [`${prefixcls}-selection-text`]: true,
-            [`${prefixcls}-selection-placeholder`]: !tags.length,
-            [`${prefixcls}-selection-text-hide`]: tags && tags.length,
+            [`${prefixcls}-selection-placeholder`]: !selectedItems.length,
+            [`${prefixcls}-selection-text-hide`]: selectedItems && selectedItems.length,
             // [prefixcls + '-selection-text-inactive']: !inputValue && !tags.length,
         });
         const placeholderText = placeholder && !inputValue ? <span className={spanCls}>{placeholder}</span> : null;
-        const n = tags.length > maxTagCount ? maxTagCount : undefined;
+        const n = selectedItems.length > maxTagCount ? maxTagCount : undefined;
 
         const NotOneLine = !maxTagCount; // Multiple lines (that is, do not set maxTagCount), do not use TagGroup, directly traverse with Tag, otherwise Input cannot follow the correct position
-
-        const tagContent = NotOneLine ? tags : <TagGroup tagList={tags} maxTagCount={n} size="large" mode="custom" />;
+        const tagContent = NotOneLine || (filter && isOpen)
+            ? selectedItems.map((item, i) => this.renderTag(item, i)) 
+            : this.renderCollapsedTags(selectedItems, n);
 
         return (
             <>
                 <div className={contentWrapperCls}>
-                    {tags && tags.length ? tagContent : placeholderText}
+                    {selectedItems && selectedItems.length ? tagContent : placeholderText}
                     {!filterable ? null : this.renderInput()}
                 </div>
             </>
