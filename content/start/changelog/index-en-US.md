@@ -16,7 +16,7 @@ Version：Major.Minor.Patch
 
 ---
 
-#### 🎉 2.5.0 (2022-2-24)
+#### 🎉 2.5.0 (2022-02-24)
 - 【Fix】
     - Fixed resizable `Table` columns width bug when update `columns`  [#650](https://github.com/DouyinFE/semi-design/issues/650)
     - `Select` component automatically scrolls when the keyboard up and down keys are used to adjust the relative position of the focused option  [#607](https://github.com/DouyinFE/semi-design/issues/607) [@chenzn1](https://github.com/chenzn1)

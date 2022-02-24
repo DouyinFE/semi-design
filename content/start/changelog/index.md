@@ -15,7 +15,7 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 ---
 
-#### 🎉 2.5.0 (2022-2-24)
+#### 🎉 2.5.0 (2022-02-24)
 - 【Fix】
     - 修复 resizable Table 动态删除列时列宽计算错误问题  [#650](https://github.com/DouyinFE/semi-design/issues/650)
     - Select 组件当用键盘上下键操作时，增加自动滚动交互，调整聚焦 option 的相对位置  [#607](https://github.com/DouyinFE/semi-design/issues/607) [@chenzn1](https://github.com/chenzn1)
