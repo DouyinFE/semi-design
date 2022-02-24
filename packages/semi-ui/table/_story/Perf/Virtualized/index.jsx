@@ -9,29 +9,35 @@ class PerfVirtualized extends React.Component {
             {
                 title: 'A',
                 dataIndex: 'key',
+                key: 'a',
                 width: 150,
             },
             {
                 title: 'B',
                 dataIndex: 'key',
+                key: 'b',
             },
             {
                 title: 'C',
                 dataIndex: 'key',
+                key: 'c',
             },
             {
                 title: 'D',
                 dataIndex: 'key',
+                key: 'd',
             },
             {
                 title: 'E',
                 dataIndex: 'key',
                 width: 200,
+                key: 'e',
             },
             {
                 title: 'F',
                 dataIndex: 'key',
                 width: 100,
+                key: 'f'
             },
         ];
 
