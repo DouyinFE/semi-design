@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable max-len */
 import React from 'react';
 import classNames from 'classnames';
@@ -40,7 +41,8 @@ export default class Month extends BaseComponent<MonthProps, MonthState> {
         startDateOffset: PropTypes.func,
         endDateOffset: PropTypes.func,
         rangeInputFocus: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-        focusRecordsRef: PropTypes.object
+        focusRecordsRef: PropTypes.object,
+        multiple: PropTypes.bool,
     };
 
     static defaultProps = {
@@ -275,9 +277,9 @@ export default class Month extends BaseComponent<MonthProps, MonthState> {
         // i18n
         const weekdaysText = weekdays.map(key => locale.weeks[key]);
         return (
-            <div className={weekdayCls}>
+            <div role="row" className={weekdayCls}>
                 {weekdaysText.map((E, i) => (
-                    <div key={E + i} className={weekdayItemCls}>
+                    <div role="columnheader" key={E + i} className={weekdayItemCls}>
                         {E}
                     </div>
                 ))}
@@ -305,7 +307,7 @@ export default class Month extends BaseComponent<MonthProps, MonthState> {
     renderWeek(week: MonthDayInfo[], weekIndex: number) {
         const weekCls = cssClasses.WEEK;
         return (
-            <div className={weekCls} key={weekIndex}>
+            <div role="row" className={weekCls} key={weekIndex}>
                 {week.map((day, dayIndex) => this.renderDay(day, dayIndex))}
             </div>
         );
@@ -317,7 +319,7 @@ export default class Month extends BaseComponent<MonthProps, MonthState> {
         const { fullDate, dayNumber } = day;
         if (!fullDate) {
             return (
-                <div key={(dayNumber as number) + dayIndex} className={cssClasses.DAY}>
+                <div role="cell" tabIndex={-1} key={(dayNumber as number) + dayIndex} className={cssClasses.DAY}>
                     <span />
                 </div>
             );
@@ -356,6 +358,11 @@ export default class Month extends BaseComponent<MonthProps, MonthState> {
 
         return (
             <div
+                role="gridcell"
+                tabIndex={dayStatus.isDisabled ? -1 : 0}
+                aria-disabled={dayStatus.isDisabled}
+                aria-selected={dayStatus.isSelected}
+                aria-label={fullDate}
                 className={!customRender ? dayCls : cssClasses.DAY}
                 title={fullDate}
                 key={(dayNumber as number) + dayIndex}
@@ -373,13 +380,13 @@ export default class Month extends BaseComponent<MonthProps, MonthState> {
     }
 
     render() {
-        const { forwardRef } = this.props;
+        const { forwardRef, multiple } = this.props;
         const weekday = this.renderDayOfWeek();
         const weeks = this.renderWeeks();
         const monthCls = classNames(cssClasses.MONTH);
         const ref = forwardRef || this.monthRef;
         return (
-            <div ref={ref} className={monthCls}>
+            <div role="grid" aria-multiselectable={multiple} ref={ref} className={monthCls} >
                 {weekday}
                 {weeks}
             </div>

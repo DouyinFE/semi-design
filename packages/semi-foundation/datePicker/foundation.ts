@@ -163,8 +163,8 @@ export interface DatePickerFoundationState {
     panelShow: boolean;
     isRange: boolean;
     inputValue: string;
-    value: ValueType;
-    cachedSelectedValue: ValueType;
+    value: Date[];
+    cachedSelectedValue: Date[];
     prevTimeZone: string | number;
     motionEnd: boolean;
     rangeInputFocus: 'rangeStart' | 'rangeEnd' | boolean;
@@ -185,9 +185,9 @@ export interface DatePickerAdapter extends DefaultAdapter<DatePickerFoundationPr
     notifyConfirm: DatePickerFoundationProps['onConfirm'];
     notifyOpenChange: DatePickerFoundationProps['onOpenChange'];
     notifyPresetsClick: DatePickerFoundationProps['onPresetClick'];
-    updateValue: (value: ValueType) => void;
+    updateValue: (value: Date[]) => void;
     updatePrevTimezone: (prevTimeZone: string | number) => void;
-    updateCachedSelectedValue: (cachedSelectedValue: ValueType) => void;
+    updateCachedSelectedValue: (cachedSelectedValue: Date[]) => void;
     updateInputValue: (inputValue: string) => void;
     needConfirm: () => boolean;
     typeIsYearOrMonth: () => boolean;

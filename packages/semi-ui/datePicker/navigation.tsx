@@ -101,7 +101,8 @@ export default class Navigation extends PureComponent<NavigationProps> {
             <div className={prefixCls} ref={ref}>
                 <IconButton
                     key="double-chevron-left"
-                    icon={<IconDoubleChevronLeft size={iconBtnSize}/>} 
+                    aria-label="Previous year"
+                    icon={<IconDoubleChevronLeft aria-hidden size={iconBtnSize} />}
                     size={buttonSize}
                     theme={btnTheme}
                     noHorizontalPadding={btnNoHorizontalPadding}
@@ -110,7 +111,8 @@ export default class Navigation extends PureComponent<NavigationProps> {
                 />
                 <IconButton
                     key="chevron-left"
-                    icon={<IconChevronLeft size={iconBtnSize} />}
+                    aria-label="Previous month"
+                    icon={<IconChevronLeft aria-hidden size={iconBtnSize} />}
                     size={buttonSize}
                     onClick={onPrevMonth}
                     theme={btnTheme}
@@ -124,7 +126,8 @@ export default class Navigation extends PureComponent<NavigationProps> {
                 </div>
                 <IconButton
                     key="chevron-right"
-                    icon={<IconChevronRight size={iconBtnSize} />}
+                    aria-label="Next year"
+                    icon={<IconChevronRight aria-hidden size={iconBtnSize} />}
                     size={buttonSize}
                     onClick={onNextMonth}
                     theme={btnTheme}
@@ -133,7 +136,8 @@ export default class Navigation extends PureComponent<NavigationProps> {
                 />
                 <IconButton
                     key="double-chevron-right"
-                    icon={<IconDoubleChevronRight size={iconBtnSize}/>} 
+                    aria-label="Next month"
+                    icon={<IconDoubleChevronRight aria-hidden size={iconBtnSize} />}
                     size={buttonSize}
                     theme={btnTheme}
                     noHorizontalPadding={btnNoHorizontalPadding}

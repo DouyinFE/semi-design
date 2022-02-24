@@ -208,7 +208,7 @@ class YearAndMonth extends BaseComponent<YearAndMonthProps, YearAndMonthState> {
                     <div className={prefix}>
                         <IconButton
                             noHorizontalPadding={false}
-                            icon={<IconChevronLeft size={iconSize} />}
+                            icon={<IconChevronLeft aria-hidden size={iconSize} />}
                             size={buttonSize}
                             onClick={this.backToMain}
                         >
