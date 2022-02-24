@@ -26,7 +26,7 @@ jobs:
   chromatic-deployment:
     # Operating System
     runs-on: ubuntu-latest
-    if: ${{ github.repository_owner == 'DouyinFE' }}
+    if: github.event_name == 'push' && github.repository_owner == 'DouyinFE' || github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == 'DouyinFE/semi-design'
     # Job steps
     steps:
       - uses: actions/checkout@v1

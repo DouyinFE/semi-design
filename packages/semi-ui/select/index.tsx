@@ -530,9 +530,13 @@ class Select extends BaseComponent<SelectProps, SelectState> {
 
                 }
             },
-            updateScrollTop: () => {
+            updateScrollTop: (index?: number) => {
                 // eslint-disable-next-line max-len
-                let destNode = document.querySelector(`#${prefixcls}-${this.selectOptionListID} .${prefixcls}-option-selected`) as HTMLDivElement;
+                let optionClassName = `.${prefixcls}-option-selected`;
+                if (index !== undefined) {
+                    optionClassName = `.${prefixcls}-option:nth-child(${index})`;
+                }
+                let destNode = document.querySelector(`#${prefixcls}-${this.selectOptionListID} ${optionClassName}`) as HTMLDivElement;
                 if (Array.isArray(destNode)) {
                     // eslint-disable-next-line prefer-destructuring
                     destNode = destNode[0];
@@ -754,31 +758,26 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         this.foundation.handleOptionMouseEnter(optionIndex);
     }
 
-    renderWithGroup(visibileOptions: OptionProps[]) {
+    renderWithGroup(visibleOptions: OptionProps[]) {
         const content: JSX.Element[] = [];
         const groupStatus = new Map();
 
-        visibileOptions.forEach((option, optionIndex) => {
+        visibleOptions.forEach((option, optionIndex) => {
             const parentGroup = option._parentGroup;
             const optionContent = this.renderOption(option, optionIndex);
-            if (parentGroup && groupStatus.has(parentGroup.label)) {
-                // group content already insert
-                content.push(optionContent);
-            } else if (parentGroup) {
+            if (parentGroup && !groupStatus.has(parentGroup.label)) {
+                // when use with OptionGroup and group content not already insert
                 const groupContent = <OptionGroup {...parentGroup} key={parentGroup.label} />;
                 groupStatus.set(parentGroup.label, true);
                 content.push(groupContent);
-                content.push(optionContent);
-            } else {
-                // when not use with OptionGroup
-                content.push(optionContent);
-            }
+            } 
+            content.push(optionContent);
         });
 
         return content;
     }
 
-    renderVirtualizeList(visibileOptions: OptionProps[]) {
+    renderVirtualizeList(visibleOptions: OptionProps[]) {
         const { virtualize } = this.props;
         const { direction } = this.context;
         const { height, width, itemSize } = virtualize;
@@ -787,9 +786,9 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             <List
                 ref={this.virtualizeListRef}
                 height={height || numbers.LIST_HEIGHT}
-                itemCount={visibileOptions.length}
+                itemCount={visibleOptions.length}
                 itemSize={itemSize}
-                itemData={{ visibileOptions, renderOption: this.renderOption }}
+                itemData={{ visibleOptions, renderOption: this.renderOption }}
                 width={width || '100%'}
                 style={{ direction }}
             >
@@ -814,11 +813,11 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         } = this.props;
 
         // Do a filter first, instead of directly judging in forEach, so that the focusIndex can correspond to
-        const visibileOptions = options.filter(item => item._show);
+        const visibleOptions = options.filter(item => item._show);
 
-        let listContent: JSX.Element | JSX.Element[] = this.renderWithGroup(visibileOptions);
+        let listContent: JSX.Element | JSX.Element[] = this.renderWithGroup(visibleOptions);
         if (virtualize) {
-            listContent = this.renderVirtualizeList(visibileOptions);
+            listContent = this.renderVirtualizeList(visibleOptions);
         }
 
         const style = { minWidth: dropdownMinWidth, ...dropdownStyle };

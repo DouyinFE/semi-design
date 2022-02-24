@@ -280,7 +280,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             getDocumentElementBounding: () => document.documentElement.getBoundingClientRect(),
             setPosition: ({ position, ...style }: { position: Position }) => {
                 this.setState(
-                    { 
+                    {
                         containerStyle: { ...this.state.containerStyle, ...style },
                         placement: position,
                         isPositionUpdated: true
@@ -326,11 +326,11 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                         cb();
                     }
                 };
-                document.addEventListener('click', this.clickOutsideHandler, false);
+                document.addEventListener('mousedown', this.clickOutsideHandler, { capture: true });
             },
             unregisterClickOutsideHandler: () => {
                 if (this.clickOutsideHandler) {
-                    document.removeEventListener('click', this.clickOutsideHandler, false);
+                    document.removeEventListener('mousedown', this.clickOutsideHandler, { capture: true });
                     this.clickOutsideHandler = null;
                 }
             },

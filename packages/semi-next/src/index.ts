@@ -9,7 +9,7 @@ export default function(options: SemiNextOptions = {}) {
     return (nextConfig: NextConfig = {}) => {
         const actualConfig: NextConfig = {
             ...nextConfig,
-            webpack(config, { isServer, webpack }) {
+            webpack(config, { isServer, webpack, ...rest }) {
                 config.plugins.push(new SemiWebpackPlugin({
                     omitCss: options.omitCss === undefined ? true : options.omitCss,
                     webpackContext: {
@@ -38,6 +38,9 @@ export default function(options: SemiNextOptions = {}) {
                             }
                         ];
                     }
+                }
+                if (typeof nextConfig.webpack === 'function') {
+                    return nextConfig.webpack(config, { isServer, webpack, ...rest });
                 }
                 return config;
             }

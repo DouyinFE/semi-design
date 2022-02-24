@@ -72,8 +72,8 @@ describe(`Tooltip`, () => {
         expect(elem.state(`visible`)).toBe(true);
 
         // click outside
-        document.body.click();
-        // document.dispatchEvent(new Event('mousedown', { bubbles: true, cancelable: true }));
+        // document.body.click();
+        document.dispatchEvent(new Event('mousedown', { bubbles: true, cancelable: true }));
         // demo.find(`#${triggerId}`)
         //     .at(0)
         //     .simulate(`mouseDown`);
@@ -88,7 +88,8 @@ describe(`Tooltip`, () => {
         // unmount elem
         demo.unmount();
         await sleep(100);
-        document.body.click();
+        // document.body.click();
+        document.dispatchEvent(new Event('mousedown', { bubbles: true, cancelable: true }));
         expect(document.getElementsByClassName(`${BASE_CLASS_PREFIX}-tooltip-wrapper`).length).toBe(0);
     });
 
@@ -165,7 +166,8 @@ describe(`Tooltip`, () => {
         expect(refFn.called).toBeTruthy();
 
         // click outside
-        document.body.click();
+        // document.body.click();
+        document.dispatchEvent(new Event('mousedown', { bubbles: true, cancelable: true }));
         await sleep(100);
         expect(
             demo
@@ -290,6 +292,48 @@ describe(`Tooltip`, () => {
             expect(document.querySelector(`.${BASE_CLASS_PREFIX}-tooltip-wrapper`).getAttribute('x-placement')).toBe(position);
         }
     });
+
+  it(`test click outside handler`, async () => {
+    const containerId = `container`;
+
+    const demo = mount(
+      <div style={{ height: 480, width: 320 }}>
+        <div id={containerId}>Hello Semi</div>
+        <Tooltip
+          content='Content'
+          trigger='click'
+        >
+          <Button >Click here</Button>
+        </Tooltip>
+      </div>
+    );
+
+    const toolTipElem = demo.find(Tooltip);
+    const buttonElem = demo.find(Button);
+    // click inside
+    buttonElem.simulate('click');
+    toolTipElem.update();
+    await sleep(100);
+    expect(toolTipElem.state(`visible`)).toBe(true);
+
+    // click outside
+    // document.body.click();
+    document.dispatchEvent(new Event('mousedown', { bubbles: true, cancelable: true }));
+    toolTipElem.update();
+    await sleep(100);
+    expect(toolTipElem.state('visible')).toBe(false);
+
+    // click button to show tooltip
+    buttonElem.simulate('click');
+    toolTipElem.update();
+    await sleep(100);
+    expect(toolTipElem.state('visible')).toBe(true);
+
+    document.getElementById(containerId).dispatchEvent(new Event('mousedown', { bubbles: true, cancelable: true }));
+    toolTipElem.update();
+    await sleep(100);
+    expect(toolTipElem.state('visible')).toBe(false);
+  });
 });
 
 it('wrapperClassName', () => {

@@ -14,6 +14,15 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 -   修订版本号（patch）：bugfix
 
 ---
+
+#### 🎉 2.5.0 (2022-2-24)
+- 【Fix】
+    - 修复 resizable Table 动态删除列时列宽计算错误问题  [#650](https://github.com/DouyinFE/semi-design/issues/650)
+    - Select 组件当用键盘上下键操作时，增加自动滚动交互，调整聚焦 option 的相对位置  [#607](https://github.com/DouyinFE/semi-design/issues/607) [@chenzn1](https://github.com/chenzn1)
+    - 修复 next.js 项目使用 @douyinfe/semi-next 插件后，webpack.resolve.alias配置失效的问题  [#630](https://github.com/DouyinFE/semi-design/issues/630)
+    - 修复 DatePicker open 受控时关闭面板后输入框聚焦态没有清空问题  [#528](https://github.com/DouyinFE/semi-design/issues/528)
+    - 修复 Tooltip 在 React17 里如果父级有阻止点击事件冒泡弹出层收起会失效 [#593](https://github.com/DouyinFE/semi-design/issues/593) [@chenc041](https://github.com/chenc041)
+
 #### 🎉 2.5.0-beta.0 (2022-02-18)
 - 【Fix】
     - 修复 slider 在 shadowRoot、WebComponent 或其他 DocumentFragment 下报错的问题
