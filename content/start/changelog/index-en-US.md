@@ -16,6 +16,14 @@ Version：Major.Minor.Patch
 
 ---
 
+#### 🎉 2.4.2 (2022-2-24)
+- 【Fix】
+    - Fixed resizable `Table` columns width bug when update `columns`  [#650](https://github.com/DouyinFE/semi-design/issues/650)
+    - `Select` component automatically scrolls when the keyboard up and down keys are used to adjust the relative position of the focused option  [#607](https://github.com/DouyinFE/semi-design/issues/607) [@chenzn1](https://github.com/chenzn1)
+    - Fixed the problem that the configuration of `webpack.resolve.alias` is invalid after the `@douyinfe/semi-next` plugin is used in the `next.js` project  [#630](https://github.com/DouyinFE/semi-design/issues/630)
+    - Fixed the issue that the focus state of the input box was not cleared after closing the panel when `DatePicker` open was controlled  [#528](https://github.com/DouyinFE/semi-design/issues/528)
+    - Fixed `Tooltip` in React17 if the parent prevents the click event from bubbling and the pop-up layer is collapsed will fail  [#593](https://github.com/DouyinFE/semi-design/issues/593) [@chenc041](https://github.com/chenc041)
+
 #### 🎉 2.4.1 (2022-02-16)
 - 【Fix】
     - `@douyinfe/semi-ui` Add dependency declaration: `@douyinfe/semi-animation` to avoid the problem of missing dependency declarations that may exist in pnpm scenarios [#626](https://github.com/DouyinFE/semi-design/issues/626)
