@@ -44,7 +44,7 @@ export interface SelectAdapter<P = Record<string, any>, S = Record<string, any>>
     notifyMouseLeave(event: any): void;
     notifyMouseEnter(event: any): void;
     updateHovering(isHover: boolean): void;
-    updateScrollTop(): void;
+    updateScrollTop(index?: number): void;
 }
 
 type LabelValue = string | number;
@@ -704,7 +704,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
         }
         // console.log('new:' + index);
         this._adapter.updateFocusIndex(index);
-        // TODO requires scrollIntoView
+        this._adapter.updateScrollTop(index);
     }
 
     _handleArrowKeyDown(offset: number) {
@@ -954,4 +954,5 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
     updateScrollTop() {
         this._adapter.updateScrollTop();
     }
+    
 }
