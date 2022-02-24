@@ -207,9 +207,9 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
         if (code === keyCode.UP || code === keyCode.DOWN) {
             this._adapter.setClickUpOrDown(true);
             this._adapter.recordCursorPosition();
-            const formatedVal = code === keyCode.UP ? this.add() : this.minus();
+            const formattedVal = code === keyCode.UP ? this.add() : this.minus();
 
-            this._doInput(formatedVal, event, () => {
+            this._doInput(formattedVal, event, () => {
                 this._adapter.restoreCursor();
             });
 
@@ -360,17 +360,17 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
         const { defaultValue, value } = this.getProps();
 
         const propsValue = this._isControlledComponent('value') ? value : defaultValue;
-        const tmpNumer = this.doParse(toString(propsValue), false, true, true);
+        const tmpNumber = this.doParse(toString(propsValue), false, true, true);
 
         let number = null;
-        if (typeof tmpNumer === 'number' && !isNaN(tmpNumer)) {
-            number = tmpNumer;
+        if (typeof tmpNumber === 'number' && !isNaN(tmpNumber)) {
+            number = tmpNumber;
         }
 
-        const formatedValue = typeof number === 'number' ? this.doFormat(number, true) : '';
+        const formattedValue = typeof number === 'number' ? this.doFormat(number, true) : '';
 
         this._adapter.setNumber(number);
-        this._adapter.setValue(formatedValue);
+        this._adapter.setValue(formattedValue);
     }
 
     add(step?: number, event?: any): string {

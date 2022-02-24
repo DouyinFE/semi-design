@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/no-did-update-set-state */
 /* eslint-disable max-len */
 /* eslint-disable no-nested-ternary */
@@ -8,7 +10,7 @@ import { format as formatFn, addMonths, isSameDay } from 'date-fns';
 
 import MonthsGridFoundation, { MonthInfo, MonthsGridAdapter, MonthsGridDateAdapter, MonthsGridFoundationProps, MonthsGridFoundationState, MonthsGridRangeAdapter, PanelType } from '@douyinfe/semi-foundation/datePicker/monthsGridFoundation';
 import { strings, numbers, cssClasses } from '@douyinfe/semi-foundation/datePicker/constants';
-import { compatiableParse } from '@douyinfe/semi-foundation/datePicker/_utils/parser';
+import { compatibleParse } from '@douyinfe/semi-foundation/datePicker/_utils/parser';
 import { noop, stubFalse } from 'lodash';
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
 import Navigation from './navigation';
@@ -93,13 +95,13 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
         if (!nowDate) {
             nowDate = new Date();
         } else {
-            nowDate = compatiableParse(nowDate as string, validFormat, undefined, props.dateFnsLocale);
+            nowDate = compatibleParse(nowDate as string, validFormat, undefined, props.dateFnsLocale);
         }
         let nextDate = Array.isArray(props.defaultPickerValue) ? props.defaultPickerValue[1] : undefined;
         if (!nextDate) {
             nextDate = addMonths(nowDate, 1);
         } else {
-            nextDate = compatiableParse(nextDate as string, validFormat, undefined, props.dateFnsLocale);
+            nextDate = compatibleParse(nextDate as string, validFormat, undefined, props.dateFnsLocale);
         }
 
         const dateState = {
@@ -479,8 +481,8 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
             rangeStart &&
             rangeEnd &&
             isSameDay(
-                (startDate = compatiableParse(rangeStart, dateFormat, undefined, dateFnsLocale)),
-                (endDate = compatiableParse(rangeEnd, dateFormat, undefined, dateFnsLocale))
+                (startDate = compatibleParse(rangeStart, dateFormat, undefined, dateFnsLocale)),
+                (endDate = compatibleParse(rangeEnd, dateFormat, undefined, dateFnsLocale))
             )
         ) {
             if (panelType === strings.PANEL_TYPE_RIGHT) {
@@ -553,10 +555,10 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
 
         if (panelType === strings.PANEL_TYPE_LEFT) {
             panelDetail = monthLeft;
-            dateText = rangeStart ? formatFn(compatiableParse(rangeStart, dateFormat, undefined, dateFnsLocale), FORMAT_SWITCH_DATE) : '';
+            dateText = rangeStart ? formatFn(compatibleParse(rangeStart, dateFormat, undefined, dateFnsLocale), FORMAT_SWITCH_DATE) : '';
         } else {
             panelDetail = monthRight;
-            dateText = rangeEnd ? formatFn(compatiableParse(rangeEnd, dateFormat, undefined, dateFnsLocale), FORMAT_SWITCH_DATE) : '';
+            dateText = rangeEnd ? formatFn(compatibleParse(rangeEnd, dateFormat, undefined, dateFnsLocale), FORMAT_SWITCH_DATE) : '';
         }
 
         const { isTimePickerOpen, showDate } = panelDetail;
@@ -564,7 +566,7 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
 
         const timeText = showDate ? formatFn(showDate, formatTimePicker) : '';
 
-        const showSwithIcon = ['default'].includes(density);
+        const showSwitchIcon = ['default'].includes(density);
 
         const switchCls = classnames(`${prefixCls}-switch`);
         const dateCls = classnames({
@@ -580,12 +582,12 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
 
         return (
             <div className={switchCls} ref={current => this.adapter.setCache(`switch-${panelType}`, current)}>
-                <div className={dateCls} onClick={e => this.foundation.showDatePanel(panelType)}>
-                    {showSwithIcon && <IconCalendar />}
+                <div className={dateCls} onClick={() => this.foundation.showDatePanel(panelType)}>
+                    {showSwitchIcon && <IconCalendar />}
                     <span className={textCls}>{dateText || monthText}</span>
                 </div>
                 <div className={timeCls} onClick={e => this.foundation.showTimePicker(panelType, true)}>
-                    {showSwithIcon && <IconClock />}
+                    {showSwitchIcon && <IconClock />}
                     <span className={textCls}>{timeText}</span>
                 </div>
             </div>

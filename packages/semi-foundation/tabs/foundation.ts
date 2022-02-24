@@ -30,8 +30,8 @@ class TabsFoundation<P = Record<string, any>, S = Record<string, any>> extends B
     }
 
     handleTabClick(activeKey: string, event: any): void {
-        const isControledComponent = this._isInProps('activeKey');
-        if (isControledComponent) {
+        const isContortedComponent = this._isInProps('activeKey');
+        if (isContortedComponent) {
             this._notifyChange(activeKey);
         } else {
             this._notifyChange(activeKey);

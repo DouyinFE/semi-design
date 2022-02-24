@@ -15,7 +15,7 @@ import {
 } from 'date-fns';
 import { isBefore, isValidDate, getDefaultFormatToken, getFullDateOffset } from './_utils/index';
 import { formatFullDate, WeekStartNumber } from './_utils/getMonthTable';
-import { compatiableParse } from './_utils/parser';
+import { compatibleParse } from './_utils/parser';
 import { includes, isSet, isEqual, isFunction } from 'lodash';
 import { zonedTimeToUtc } from '../utils/date-fns-extra';
 import { getDefaultFormatTokenByType } from './_utils/getDefaultFormatToken';
@@ -147,7 +147,7 @@ export default class MonthsGridFoundation extends BaseFoundation<MonthsGridAdapt
     }
 
     initDefaultPickerValue() {
-        const defaultPickerValue = compatiableParse(this.getProp('defaultPickerValue'));
+        const defaultPickerValue = compatibleParse(this.getProp('defaultPickerValue'));
 
         if (defaultPickerValue && isValidDate(defaultPickerValue)) {
             this._updatePanelDetail(strings.PANEL_TYPE_LEFT, {
@@ -596,7 +596,7 @@ export default class MonthsGridFoundation extends BaseFoundation<MonthsGridAdapt
 
         const dateFormat = this.getValidDateFormat();
         // When passed to the upper layer, it is converted into a Date object to ensure that the input parameter format of initFormDefaultValue is consistent
-        const newSelectedDates = [...newSelected].map(_dateStr => compatiableParse(_dateStr, dateFormat, undefined, dateFnsLocale));
+        const newSelectedDates = [...newSelected].map(_dateStr => compatibleParse(_dateStr, dateFormat, undefined, dateFnsLocale));
 
         this.handleShowDateAndTime(panelType, time);
 
@@ -624,15 +624,15 @@ export default class MonthsGridFoundation extends BaseFoundation<MonthsGridAdapt
     _mergeDateAndTime(date: Date | string, time: Date | string) {
         const dateFnsLocale = this._adapter.getProp('dateFnsLocale');
         const dateStr = format(
-            isValidDate(date) ? date as Date : compatiableParse(date as string, strings.FORMAT_FULL_DATE, undefined, dateFnsLocale),
+            isValidDate(date) ? date as Date : compatibleParse(date as string, strings.FORMAT_FULL_DATE, undefined, dateFnsLocale),
             strings.FORMAT_FULL_DATE
         );
         const timeStr = format(
-            isValidDate(time) ? time as Date : compatiableParse(time as string, strings.FORMAT_TIME_PICKER, undefined, dateFnsLocale),
+            isValidDate(time) ? time as Date : compatibleParse(time as string, strings.FORMAT_TIME_PICKER, undefined, dateFnsLocale),
             strings.FORMAT_TIME_PICKER
         );
         const timeFormat = this.getValidTimeFormat();
-        return compatiableParse(`${dateStr} ${timeStr}`, timeFormat, undefined, dateFnsLocale);
+        return compatibleParse(`${dateStr} ${timeStr}`, timeFormat, undefined, dateFnsLocale);
     }
 
     handleRangeSelected(day: MonthDayInfo) {
@@ -696,8 +696,8 @@ export default class MonthsGridFoundation extends BaseFoundation<MonthsGridAdapt
         // only notify when choose completed
         if (rangeStart || rangeEnd) {
             const [startDate, endDate] = [
-                compatiableParse(rangeStart, dateFormat, undefined, dateFnsLocale),
-                compatiableParse(rangeEnd, dateFormat, undefined, dateFnsLocale),
+                compatibleParse(rangeStart, dateFormat, undefined, dateFnsLocale),
+                compatibleParse(rangeEnd, dateFormat, undefined, dateFnsLocale),
             ];
             let date: [Date, Date] = [startDate, endDate];
 
@@ -808,7 +808,7 @@ export default class MonthsGridFoundation extends BaseFoundation<MonthsGridAdapt
         //     date = pickerDate.getDate();
         // } else
         if (type === 'dateTimeRange' && destRange) {
-            const rangeDate = compatiableParse(destRange, dateFormat, undefined, dateFnsLocale);
+            const rangeDate = compatibleParse(destRange, dateFormat, undefined, dateFnsLocale);
             year = rangeDate.getFullYear();
             monthNo = rangeDate.getMonth();
             date = rangeDate.getDate();
@@ -855,8 +855,8 @@ export default class MonthsGridFoundation extends BaseFoundation<MonthsGridAdapt
         const dateFormat = this.getValidDateFormat();
         // TODO: Modify a time individually
         if (rangeStart && rangeEnd) {
-            let startDate = compatiableParse(rangeStart, dateFormat, undefined, dateFnsLocale);
-            let endDate = compatiableParse(rangeEnd, dateFormat, undefined, dateFnsLocale);
+            let startDate = compatibleParse(rangeStart, dateFormat, undefined, dateFnsLocale);
+            let endDate = compatibleParse(rangeEnd, dateFormat, undefined, dateFnsLocale);
             // console.log('_updateTimeInDateRange()', rangeStart, rangeEnd, startDate, endDate);
 
             if (panelType === strings.PANEL_TYPE_RIGHT) {

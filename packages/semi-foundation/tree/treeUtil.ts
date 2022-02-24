@@ -87,11 +87,11 @@ export function convertJsonToData(treeJson: TreeDataSimpleJson) {
             value: children,
         };
         if (isObject(children)) {
-            const childres: any[] = [];
+            const newChildren: any[] = [];
             Object.entries(children).forEach(c => {
-                traverseNode(c[0], c[1], currPath, childres);
+                traverseNode(c[0], c[1], currPath, newChildren);
             });
-            newNode.children = childres;
+            newNode.children = newChildren;
         }
         res.push(newNode);
     };
@@ -327,8 +327,8 @@ export function calcCheckedKeys(values: any, keyEntities: KeyEntities) {
         visited = [...visited, ...siblingKeys];
         const allChecked = siblingKeys.every((siblingKey: string) => checkedKeys.has(siblingKey));
         if (!allChecked) {
-            const ancesterKeys = findAncestorKeys([key], keyEntities, false);
-            halfCheckedKeys = new Set([...halfCheckedKeys, ...ancesterKeys]);
+            const ancestorKeys = findAncestorKeys([key], keyEntities, false);
+            halfCheckedKeys = new Set([...halfCheckedKeys, ...ancestorKeys]);
         } else {
             checkedKeys.add(parent.key);
             // IMPORTANT! parent level may not exist in original level map; if add to the end directly may destroy the hierarchical order
@@ -358,8 +358,8 @@ export function calcExpandedKeys(keyList: any[] = [], keyEntities: KeyEntities, 
         keyList = [keyList];
     }
     if (autoExpandParent) {
-        const ancesterKeys = findAncestorKeys(keyList, keyEntities, true);
-        return new Set(ancesterKeys);
+        const ancestorKeys = findAncestorKeys(keyList, keyEntities, true);
+        return new Set(ancestorKeys);
     }
     return new Set(keyList);
 }
@@ -482,8 +482,8 @@ export function calcCheckedKeysForChecked(key: string, keyEntities: KeyEntities,
         // eslint-disable-next-line @typescript-eslint/no-shadow
         const allChecked = siblingKeys.every(key => checkedKeys.has(key));
         if (!allChecked) {
-            const ancesterKeys = findAncestorKeys([key], keyEntities, false);
-            halfCheckedKeys = new Set([...halfCheckedKeys, ...ancesterKeys]);
+            const ancestorKeys = findAncestorKeys([key], keyEntities, false);
+            halfCheckedKeys = new Set([...halfCheckedKeys, ...ancestorKeys]);
         } else {
             const par = node.parent;
             checkedKeys.add(par.key);
@@ -525,10 +525,10 @@ export function calcCheckedKeysForUnchecked(key: string, keyEntities: KeyEntitie
         const siblingKeys = findSiblingKeys([key], keyEntities);
         // eslint-disable-next-line @typescript-eslint/no-shadow
         const anyChecked = siblingKeys.some(key => checkedKeys.has(key) || halfCheckedKeys.has(key));
-        const ancesterKeys = findAncestorKeys([key], keyEntities, false);
+        const ancestorKeys = findAncestorKeys([key], keyEntities, false);
         // If there is checked or halfChecked in the sibling node, you need to change the parent node to halfChecked
         if (anyChecked) {
-            ancesterKeys.forEach(itemKey => {
+            ancestorKeys.forEach(itemKey => {
                 if (checkedKeys.has(itemKey)) {
                     checkedKeys.delete(itemKey);
                     halfCheckedKeys.add(itemKey);

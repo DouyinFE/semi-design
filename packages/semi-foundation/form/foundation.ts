@@ -290,7 +290,7 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
     _getOperateFieldMap(fieldPaths?: Array<string>): Map<string, FieldStaff> {
         let targetFields = new Map();
         if (!isUndefined(fieldPaths)) {
-            // reset or validate spcific fields
+            // reset or validate specific fields
             fieldPaths.forEach(path => {
                 const field = this.fields.get(path);
                 // may be undefined, if exists two fields like 'a[0]'、'a[1]', but user directly call reset(['a']) / validate(['a'])
@@ -396,8 +396,8 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
                 this.updateArrayField(path, { updateKey: new Date().valueOf() });
             });
         }
-        // When isOverrid is true, there may be a non-existent field in the values passed in, directly synchronized to formState.values
-        // 当isOverrid为true，传入的values中可能存在不存在的field时，直接将其同步到formState.values中
+        // When isOverride is true, there may be a non-existent field in the values passed in, directly synchronized to formState.values
+        // 当isOverride为true，传入的values中可能存在不存在的field时，直接将其同步到formState.values中
         if (isOverride) {
             this.data.values = _values;
         }
@@ -545,7 +545,7 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
         };
         const setTouched = (field: string, isTouched: boolean, opts: CallOpts) => {
             const fieldApi = this.fields.get(field) ? this.fields.get(field).fieldApi : undefined;
-            // touched is boolean variable, no need to execu deepClone like setValue
+            // touched is boolean variable, no need to exec deepClone like setValue
             if (fieldApi) {
                 fieldApi.setTouched(isTouched, opts);
             } else {
@@ -615,7 +615,7 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
     }
 
     getFormState(needClone = false): FormState {
-        // NOTES：这里如果直接返回this.data，forceUpdae触发Formrerender时，通过context传下去的formState会被认为是同一个对象【应该是浅对比的原因】
+        // NOTES：这里如果直接返回this.data，forceUpdate 触发 Form rerender 时，通过context传下去的formState会被认为是同一个对象【应该是浅对比的原因】
         // 使用了useFormState相关的component都不会触发重新渲染。所以使用...复制一次
 
         /*

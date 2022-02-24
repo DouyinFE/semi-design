@@ -89,7 +89,7 @@ class ComboboxFoundation extends BaseFoundation<DefaultAdapter> {
         if (this._isInProps('format')) {
             return this.getProp('format');
         } else if (this.getProp('use12Hours')) {
-            return strings.DEFAULT_FROMAT_A;
+            return strings.DEFAULT_FORMAT_A;
         } else {
             return strings.DEFAULT_FORMAT;
         }

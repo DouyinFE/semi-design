@@ -7,7 +7,7 @@ import { isValid, parseISO, parse, Locale } from 'date-fns';
 /**
  * Parsing value to Date object
  */
-export function compatiableParse(
+export function compatibleParse(
     value: string,
     formatToken?: string,
     baseDate?: Date,

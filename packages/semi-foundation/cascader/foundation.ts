@@ -408,7 +408,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
             activeKeys,
             loadingKeys,
             loading,
-            keyEntities: keyEntitieState,
+            keyEntities: keyEntityState,
             selectedKeys: selectedKeysState
         } = this.getStates();
         const filterable = this._isFilterable();
@@ -471,7 +471,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         } else if (loading) {
             // Use assign to avoid overwriting the'not-exist- * 'property of keyEntities after asynchronous loading
             // Overwriting'not-exist- * 'will cause selectionContent to be emptied unexpectedly when clicking on a dropDown item
-            updateStates.keyEntities = assign(keyEntitieState, keyEntities);
+            updateStates.keyEntities = assign(keyEntityState, keyEntities);
             this._adapter.updateStates(updateStates);
             return;
         } else {
@@ -719,14 +719,14 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         const prevCheckedStatus = checkedKeys.has(key);
         // next checked status
         const curCheckedStatus = disableStrictly ?
-            this.calcChekcedStatus(!prevCheckedStatus, key) :
+            this.calcCheckedStatus(!prevCheckedStatus, key) :
             !prevCheckedStatus;
         // calculate all key of nodes that are checked or half checked
         const {
             checkedKeys: curCheckedKeys,
             halfCheckedKeys: curHalfCheckedKeys
         } = disableStrictly ?
-            this.calcNonDisabedCheckedKeys(key, curCheckedStatus) :
+            this.calcNonDisabledCheckedKeys(key, curCheckedStatus) :
             this.calcCheckedKeys(key, curCheckedStatus);
 
         const mergeType = calcMergeType(autoMergeValue, leafOnly);
@@ -781,7 +781,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         this._adapter.updateStates({ inputValue: '' });
     }
 
-    calcNonDisabedCheckedKeys(eventKey: string, targetStatus: boolean) {
+    calcNonDisabledCheckedKeys(eventKey: string, targetStatus: boolean) {
         const { keyEntities, disabledKeys } = this.getStates();
         const { checkedKeys } = this.getCopyFromState(['checkedKeys']);
         const descendantKeys = normalizeKeyList(findDescendantKeys([eventKey], keyEntities, false), keyEntities, true);
@@ -797,7 +797,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         return calcCheckedKeys(newCheckedKeys, keyEntities);
     }
 
-    calcChekcedStatus(targetStatus: boolean, eventKey: string) {
+    calcCheckedStatus(targetStatus: boolean, eventKey: string) {
         if (!targetStatus) {
             return targetStatus;
         }

@@ -4,7 +4,7 @@ import { SortableContainer, SortableElement, SortableHandle } from 'react-sortab
 import PropTypes from 'prop-types';
 import { isEqual, noop, omit, isEmpty, isArray } from 'lodash';
 import TransferFoundation, { TransferAdapter, BasicDataItem, OnSortEndProps } from '@douyinfe/semi-foundation/transfer/foundation';
-import { _generateDataByType, _generateSelectedItems } from '@douyinfe/semi-foundation/transfer/transferUtlls';
+import { _generateDataByType, _generateSelectedItems } from '@douyinfe/semi-foundation/transfer/transferUtils';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/transfer/constants';
 import '@douyinfe/semi-foundation/transfer/transfer.scss';
 import BaseComponent from '../_base/baseComponent';

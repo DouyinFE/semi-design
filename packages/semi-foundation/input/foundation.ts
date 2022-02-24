@@ -174,7 +174,7 @@ class InputFoundation extends BaseFoundation<InputAdapter> {
             eventObj = {};
         }
 
-        set(eventObj, strings.CLEARBTN_CLICKED_EVENT_FLAG, true); // this is useful for DateInput
+        set(eventObj, strings.CLEAR_BTN_CLICKED_EVENT_FLAG, true); // this is useful for DateInput
 
         this._adapter.notifyChange(value, eventObj);
         this._adapter.notifyClear(eventObj);
