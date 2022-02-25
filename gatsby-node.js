@@ -112,6 +112,7 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions }) =>
         resolve: {
             alias: {
                 'semi-site-header': process.env.SEMI_SITE_HEADER || '@douyinfe/semi-site-header',
+                'semi-site-banner': process.env.SEMI_SITE_BANNER || '@douyinfe/semi-site-banner',
                 '@douyinfe/semi-ui': resolve('packages/semi-ui'),
                 '@douyinfe/semi-foundation': resolve('packages/semi-foundation'),
                 '@douyinfe/semi-icons': resolve('packages/semi-icons/src/'),
@@ -179,7 +180,8 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions }) =>
         plugins: [plugins.extractText(),plugins.define({
             "THEME_SWITCHER_URL":JSON.stringify(process.env['THEME_SWITCHER_URL']),
             "DSM_URL":JSON.stringify(process.env['DSM_URL']),
-            'process.env.SEMI_SITE_HEADER':JSON.stringify(process.env.SEMI_SITE_HEADER)
+            'process.env.SEMI_SITE_HEADER':JSON.stringify(process.env.SEMI_SITE_HEADER),
+            'process.env.SEMI_SITE_BANNER':JSON.stringify(process.env.SEMI_SITE_BANNER),
         })],
     });
 };
