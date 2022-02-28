@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 37
+order: 38
 category: 导航类
 title:  Pagination 翻页器
 icon: doc-pagination
@@ -193,6 +193,13 @@ import { Pagination } from '@douyinfe/semi-ui';
 | onChange           | 页码、每页容量变化时的回调函数                                                    | function(currentPage: number, pageSize: number) |                     |
 | onPageChange       | 页码变化的回调函数                                                                | function(currentPage: number)                   |                     |
 | onPageSizeChange   | 每页容量变化时的回调函数                                                          | function(pageSize: number)                      |                     |
+
+## Accessibility
+
+### ARIA
+
+- `aria-label`: 描述组件内页码、前一页、后一页等元素的标签
+- `aria-current`: 指向当前页的页码元素
 
 ## 设计变量
 <DesignToken/>

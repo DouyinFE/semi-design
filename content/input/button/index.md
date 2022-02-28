@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 16
+order: 17
 category: 输入类
 title:  Button 按钮
 icon: doc-button
@@ -447,7 +447,7 @@ function SplitButtonDemo(){
 
 ## Accessibility
 
-### Aria
+### ARIA
 
 - `aria-label` 用于表示按钮的作用，对于图标按钮，我们推荐使用此属性
 - `aria-disabled` 与 disabled 属性同步，表示按钮禁用 

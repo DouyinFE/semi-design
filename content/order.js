@@ -3,6 +3,7 @@ const order = [
     'getting-started',
     'customize-theme',
     'dark-mode',
+    'accessibility',
     'changelog',
     'update-to-v2',
     'faq',

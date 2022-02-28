@@ -41,6 +41,7 @@ import { IconLink, IconFile } from '@douyinfe/semi-icons';
 import { Switch, TabPane, Tabs } from '../../packages/semi-ui';
 import DesignPageAnchor from 'components/DesignPageAnchor';
 import transContent, {getAnotherSideUrl, isHaveUedDocs, isJumpToDesignSite} from './toUEDUtils/toUED';
+import ImageBox from 'components/ImageBox';
 import './toUEDUtils/toUED.scss';
 const Text = ({ lang, letterSpacing, size, lineHeight, text }) => {
     letterSpacing = letterSpacing || 'auto';
@@ -71,6 +72,7 @@ const SemiComponents = {
     Checkbox,
     Radio,
     DesignToken,
+    ImageBox
 };
 
 const pre = ({ ...props }) => {
@@ -593,7 +595,7 @@ export default function Template(args) {
                 )}
             </div>
             <div className={'pageAnchor'}>
-                {tabValue==='rd' && (
+                {(tabValue==='rd' || (["Accessibility "].includes(enTitle))) && (
                     <PageAnchor slug={pageContext.slug} data={current.tableOfContents.items} />
                 )}
                 {

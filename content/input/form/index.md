@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 20
+order: 21
 category: 输入类
 title:  Form 表单
 icon: doc-form
@@ -2077,7 +2077,6 @@ const { ErrorMessage } = Form;
 | onKeyChangeFnName | 组件值变化时的回调函数，一般为'onChange'                                                                                                                                                                                                      | 'onChange' |
 | valuePath         | 值属性在回调函数中第一个参数的路径,如 Radio 的 onChange(e.target.checked)，那么该值需要设为 target.checkd；RadioGroup 的 onChange(e.target.value)，该值为'target.value'；若第一个参数就是值本身，无需再往下取值，该项不需要设                 |            |
 | maintainCursor    | 是否需要保持光标，用于 Input 类组件                                                                                                                                                                                                           | false      |
-| shouldMemo        | 是否需要 memo（用于表单性能优化，避免 Form rerender 时 Field 也被 rerender），对于有内部状态且内部状态可能会更新并影响 UI 的自定义组件，此项应该置为 false <br/>**v0.27.0 后提供** | true       |
 
 
 ## Accessibility

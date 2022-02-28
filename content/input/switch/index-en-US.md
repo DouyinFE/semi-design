@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 27
+order: 28
 category: Input
 title: Switch
 subTitle: Switch
@@ -193,7 +193,7 @@ import { Switch } from '@douyinfe/semi-ui';
 | uncheckedText | Content displayed when closed, invalid when size is small | React Node |  | 0.25.0 |
 
 ## Accessibility
-### Aria
+### ARIA
 - Switch has a `switch` role, when checked is true, `aria-checked` will be automatically set to true, and vice versa.
 - As a form field, it should have a Label, which will be automatically brought on when you use Form.Switch.
 - If you use Switch alone, it is recommended to use `aria-label` to describe the current label function.

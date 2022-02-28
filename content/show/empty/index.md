@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 49
+order: 50
 category: 展示类
 title: Empty 空状态
 icon: doc-empty
@@ -194,6 +194,12 @@ import { IllustrationIdle, IllustrationIdleDark, IllustrationConstructionDark, I
 | layout | 布局方式，支持 `vertical`, `horizontal` | string | `vertical` |
 | style | 样式名 | CSSProperties | - |
 | title | 标题 **v>=1.0.0** | ReactNode | - |
+
+## Accessibility
+
+### ARIA
+
+- Empty 插图的 aria-hidden 为 true
 
 ## 设计变量
 

@@ -63,9 +63,10 @@ export default class Item extends PureComponent<TimelineItemProps> {
         const dotStyle = color ? { style: { backgroundColor: color } } : null;
         return (
             <li className={itemCls} style={style} onClick={onClick}>
-                <div className={`${prefixCls}-tail`} />
+                <div className={`${prefixCls}-tail`} aria-hidden />
                 <div
                     className={dotCls}
+                    aria-hidden
                     {...dotStyle}
                 >
                     {dot}

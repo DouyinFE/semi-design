@@ -400,6 +400,7 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
         });
         const mainCls = `${prefixCls}-file-list-main`;
         const addContentProps = {
+            role: 'button',
             className: uploadAddCls,
             onClick: this.onClick,
         };
@@ -432,7 +433,7 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
             <LocaleConsumer componentName="Upload">
                 {(locale: Locale['Upload']) => (
                     <div {...containerProps}>
-                        <div className={mainCls}>
+                        <div className={mainCls} role="list" aria-label="picture list">
                             {fileList.map((file, index) => this.renderFile(file, index, locale))}
                             {showAddTriggerInList ? addContent : null}
                         </div>
@@ -467,14 +468,14 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
                             <div className={titleCls}>
                                 <span className={`${titleCls}-choosen`}>{locale.selectedFiles}</span>
                                 {showClear ? (
-                                    <span onClick={this.clear} className={`${titleCls}-clear`}>
+                                    <span role="button" tabIndex={0} onClick={this.clear} className={`${titleCls}-clear`}>
                                         {locale.clear}
                                     </span>
                                 ) : null}
                             </div>
                         ) : null}
 
-                        <div className={mainCls}>
+                        <div className={mainCls} role="list" aria-label="file list">
                             {fileList.map((file, index) => this.renderFile(file, index, locale))}
                         </div>
                     </div>
@@ -501,7 +502,7 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
     };
 
     renderAddContent = () => {
-        const { draggable, children, listType } = this.props;
+        const { draggable, children, listType, disabled } = this.props;
         const uploadAddCls = cls(`${prefixCls}-add`);
         if (listType === strings.FILE_LIST_PIC) {
             return null;
@@ -510,7 +511,7 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
             return this.renderDragArea();
         }
         return (
-            <div className={uploadAddCls} onClick={this.onClick}>
+            <div role="button" tabIndex={0} aria-disabled={disabled} className={uploadAddCls} onClick={this.onClick}>
                 {children}
             </div>
         );
@@ -518,7 +519,7 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
 
     renderDragArea = (): ReactNode => {
         const { dragAreaStatus } = this.state;
-        const { children, dragIcon, dragMainText, dragSubText } = this.props;
+        const { children, dragIcon, dragMainText, dragSubText, disabled } = this.props;
         const dragAreaBaseCls = `${prefixCls}-drag-area`;
         const dragAreaCls = cls(dragAreaBaseCls, {
             [`${dragAreaBaseCls}-legal`]: dragAreaStatus === strings.DRAG_AREA_LEGAL,
@@ -530,6 +531,9 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
             <LocaleConsumer componentName="Upload">
                 {(locale: Locale['Upload']): ReactNode => (
                     <div
+                        role="button"
+                        tabIndex={0}
+                        aria-disabled={disabled}
                         className={dragAreaCls}
                         onDrop={this.onDrop}
                         onDragOver={this.onDragOver}

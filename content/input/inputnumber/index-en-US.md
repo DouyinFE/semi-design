@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 22
+order: 23
 category: Input
 title:  InputNumber
 subTitle: InputNumber
@@ -239,6 +239,12 @@ function Demo () {
 | ------- | --------------- |
 | blur()  | Move the focus. |
 | focus() | Get the focus.  |
+
+## Accessibility
+### ARIA
+
+- Added button role to the increase and decrease buttons to indicate that it is a button that can be clicked
+- Use aria-valuenow for the current value, aria-valuemax for the maximum acceptable value, and aria-valuemin for the minimum acceptable value
 
 ## Design Tokens
 <DesignToken/>

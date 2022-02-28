@@ -112,6 +112,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
         onDragStart: PropTypes.func,
         onDrop: PropTypes.func,
         labelEllipsis: PropTypes.bool,
+        'aria-label': PropTypes.string,
     };
 
     static defaultProps = {
@@ -511,6 +512,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
                         }
                         return (
                             <Input
+                                aria-label='Filter Tree'
                                 ref={this.inputRef as any}
                                 {...inputProps}
                             />
@@ -701,6 +703,12 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
         });
         const searchNoRes = Boolean(inputValue) && !filteredKeys.size;
         const noData = isEmpty(keyEntities) || (showFilteredOnly && searchNoRes);
+        const ariaAttr = {
+            role: noData ? 'none' : 'tree'
+        };
+        if (ariaAttr.role === 'tree'){
+            ariaAttr['aria-multiselectable'] = multiple ? true : false;
+        }
         return (
             <TreeContext.Provider
                 value={{
@@ -739,9 +747,9 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
                     labelEllipsis: typeof labelEllipsis === 'undefined' ? virtualize : labelEllipsis,
                 }}
             >
-                <div className={wrapperCls} role="listbox" style={style}>
+                <div aria-label={this.props['aria-label']} className={wrapperCls} style={style}>
                     {filterTreeNode ? this.renderInput() : null}
-                    <div className={listCls} role="tree">
+                    <div className={listCls} {...ariaAttr}>
                         {noData ? this.renderEmpty() : this.renderNodeList()}
                     </div>
                 </div>

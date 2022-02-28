@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 25
+order: 26
 category: Input
 title: Select
 subTitle: Select
@@ -1370,6 +1370,15 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | focus       | Manually focus select           | v1.11.0 |
 | open        | Manually open dropdown list     | v0.34.0 |
 | selectAll   | Manually select all options     | v1.18.0 |
+
+## Accessibility
+
+### ARIA
+
+- The role of the Select trigger is combobox, the role of the popup layer is listbox, and the role of the option is option
+- Select trigger has aria-haspopup, aria-expanded, and aria-controls properties, indicating the relationship between trigger and popup layer
+- When multiple selections are made, listbox aria-multiselectable is true, indicating that multiple selections are currently available
+- aria-selected is true when Option is selected; aria-disabled is true when Option is disabled
 
 ## Design Tokens
 

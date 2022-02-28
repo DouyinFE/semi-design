@@ -3,7 +3,7 @@ category: 开始
 title: Change Log 更新日志
 icon: doc-changelog
 localeCode: zh-CN
-order: 5
+order: 6
 brief: 关于 Semi Design For React 优化与更新
 ---
 

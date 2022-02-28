@@ -3,19 +3,20 @@ import React from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
 import ConfigContext from '../configProvider/context';
-import { numbers, cssClasses, strings } from '@douyinfe/semi-foundation/notification/constants';
+import { cssClasses, numbers, strings } from '@douyinfe/semi-foundation/notification/constants';
 import NotificationFoundation, {
     NoticeAdapter,
-    NoticeState,
-    NoticeProps
+    NoticeProps,
+    NoticeState
 } from '@douyinfe/semi-foundation/notification/notificationFoundation';
 import Button from '../iconButton';
 import BaseComponent from '../_base/baseComponent';
 import { isSemiIcon } from '../_utils';
 import { noop } from 'lodash';
-import { IconAlertTriangle, IconInfoCircle, IconTickCircle, IconAlertCircle, IconClose } from '@douyinfe/semi-icons';
+import { IconAlertCircle, IconAlertTriangle, IconClose, IconInfoCircle, IconTickCircle } from '@douyinfe/semi-icons';
+import { getUuidShort } from '@douyinfe/semi-foundation/utils/uuid';
 
-export interface NoticeReactProps extends NoticeProps{
+export interface NoticeReactProps extends NoticeProps {
     style?: React.CSSProperties;
     title?: React.ReactNode;
     content?: React.ReactNode;
@@ -88,15 +89,15 @@ class Notice extends BaseComponent<NoticeReactProps, NoticeState> {
     renderTypeIcon() {
         const { type, icon } = this.props;
         const iconMap = {
-            warning: <IconAlertTriangle size="large" />,
-            success: <IconTickCircle size="large" />,
-            info: <IconInfoCircle size="large" />,
-            error: <IconAlertCircle size="large" />,
+            warning: <IconAlertTriangle size="large"/>,
+            success: <IconTickCircle size="large"/>,
+            info: <IconInfoCircle size="large"/>,
+            error: <IconAlertCircle size="large"/>,
         };
         let iconType = iconMap[type];
         const iconCls = cls({
-            [`${prefixCls }-icon`]: true,
-            [`${prefixCls }-${ type}`]: true,
+            [`${prefixCls}-icon`]: true,
+            [`${prefixCls}-${type}`]: true,
         });
         if (icon) {
             iconType = icon;
@@ -104,7 +105,7 @@ class Notice extends BaseComponent<NoticeReactProps, NoticeState> {
         if (iconType) {
             return (
                 <div className={iconCls}>
-                    {isSemiIcon(iconType) ? React.cloneElement(iconType, {size : iconType.props.size || 'large'}): iconType}
+                    {isSemiIcon(iconType) ? React.cloneElement(iconType, { size: iconType.props.size || 'large' }) : iconType}
                 </div>
             );
         }
@@ -152,25 +153,29 @@ class Notice extends BaseComponent<NoticeReactProps, NoticeState> {
             [`${prefixCls}-${theme}`]: theme === 'light',
             [`${prefixCls}-rtl`]: direction === 'rtl',
         });
+        const titleID = getUuidShort({});
         return (
+            // eslint-disable-next-line jsx-a11y/no-static-element-interactions
             <div
                 className={wrapper}
                 style={style}
                 onMouseEnter={this.clearCloseTimer}
                 onMouseLeave={this.startCloseTimer}
                 onClick={this.notifyClick}
+                aria-labelledby={titleID}
+                role={'alert'}
             >
                 <div>{this.renderTypeIcon()}</div>
                 <div className={`${prefixCls}-inner`}>
                     <div className={`${prefixCls}-content-wrapper`}>
-                        {title ? <div className={`${prefixCls}-title`}>{title}</div> : ''}
+                        {title ? <div id={titleID} className={`${prefixCls}-title`}>{title}</div> : ''}
                         {content ? <div className={`${prefixCls}-content`}>{content}</div> : ''}
                     </div>
                     {showClose && (
                         <Button
                             className={`${prefixCls}-icon-close`}
                             type="tertiary"
-                            icon={<IconClose />}
+                            icon={<IconClose/>}
                             theme="borderless"
                             size="small"
                             onClick={this.close}

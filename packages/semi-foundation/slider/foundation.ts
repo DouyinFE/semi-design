@@ -239,7 +239,7 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
 
         const scroll = (node: Element) => regex.test(style(node, 'overflow') + style(node, 'overflow-y') + style(node, 'overflow-x'));
 
-        const scrollParent = (node: Element): Element | boolean => (
+        const scrollParent = (node: Element): Element => (
             !node || node === document.body ? document.body : scroll(node) ? node : scrollParent(node.parentNode as Element)
         );
 
