@@ -23,6 +23,14 @@ $width-datepicker_quick_control-borderRadius: var(--semi-border-radius-medium); 
 $width-datepicker_slot-border: 1px; // 日期星期分割线宽度
 $width-datepicker_range_input-border: $border-thickness-control-focus;
 $width-datepicker_day_main-border: 1px;
+$height-datepicker_timeType_insetInput_yam: 100%; // 时间面板高度 - 内嵌输入框
+$height-datepicker_timeType_insetInput_tpk: 100%; // 时间面板高度 - 内嵌输入框
+$width-datepicker_insetInput_date_type_wrapper: 284px; // 日期类型内嵌输入框宽度
+$width-datepicker_insetInput_date_range_type_wrapper: $width-datepicker_insetInput_date_type_wrapper * 2; // 范围选择内嵌输入框宽度
+$width-datepicker_insetInput_month_type_wrapper: 204px; // 月份类型内嵌输入框宽度
+$height-datepicker_insetInput_separator: 32px;
+$height-datepicker_month_grid_yearType_insetInput: 312px;
+$height-datepicker_month_grid_timeType_insetInput: 314px;
 
 // Spacing
 $spacing-datepicker_day-marginX: ($width-datepicker_day - $width-datepicker_day_main) / 2; // 日期格子水平外边距
@@ -53,6 +61,14 @@ $spacing-datepicker_range_input_suffix-paddingLeft: 8px;
 $spacing-datepicker_range_input_suffix-paddingRight: 12px;
 $spacing-datepicker_range_input_clearbtn-paddingLeft: 8px;
 $spacing-datepicker_range_input_clearbtn-paddingRight: 12px;
+$spacing-datepicker_navigation_insetInput-paddingY: 8px; // 年月切换 header 垂直内边距 - 内嵌输入框
+$spacing-datepicker_insetInput_wrapper-margin: 8px;
+$spacing-datepicker_insetInput_wrapper-paddingY: 12px;
+$spacing-datepicker_insetInput_wrapper-paddingX: 16px;
+$spacing-datepicker_insetInput_wrapper-paddingBottom: 0;
+$spacing-datepicker_insetInput_separator-paddingY: 0;
+$spacing-datepicker_insetInput_separator-paddingX: 4px;
+
 
 // Color
 $color-datepicker_panel-bg-default: var(--semi-color-bg-3); // 日期选择器背景颜色
@@ -118,6 +134,7 @@ $color-datepicker_range_input_inputWrapper-bg-default: transparent;
 $color-datepicker_range_input_inputWrapper-bg-focus: var(--semi-color-fill-1);
 $color-datepicker_range_input_separator-text-active: var(--semi-color-text-0);
 $color-datepicker_day_main-border: var(--semi-color-primary-active);
+$color-datepicker_insetInput_separator: var(--semi-color-text-3);
 
 // Font
 $font-datepicker_range_input_prefix_suffix_clearbtn-fontWeight: 600;
@@ -144,9 +161,17 @@ $radius-datepicker_range_input_inputWrapper: var(--semi-border-radius-small);
 $height-datepicker_range_input-default: 32px;
 $height-datepicker_range_input-small: 24px;
 $height-datepicker_range_input-large: 40px;
+$width-datepicker_insetInput_date_type_wrapper_compact: 216px;
+$width-datepicker_insetInput_date_range_type_wrapper_compact: $width-datepicker_insetInput_date_type_wrapper_compact * 2;
+$width-datepicker_insetInput_month_type_wrapper_compact: 195px;
+$height-datepicker_insetInput_tpk_compact: 100%;
+$height-datepicker_timeType_insetInput_yam_compact: 100%;
+$height-datepicker_insetInput_wrapper_compact: 28px;
 
 $lineHeight-datepicker_compact: 20px;
 $lineHeight-datepicker_weekday_item_compact: 28px;
+$height-datepicker_insetInput_compact: 26px;
+$fontSize-datepicker_insetInput_compact-fontSize: 12px;
 
 $spacing-datepicker_switch_compact-padding: 6px;
 $spacing-datepicker_day_compact-margin: ($width-datepicker_day_compact - $width-datepicker_day_main_compact) / 2;
@@ -163,6 +188,11 @@ $spacing-datepicker_footer_compact-paddintBottom: 10px;
 $spacing-datepicker_footer_compact-paddintRight: 8px;
 $spacing-datepicker_scrolllist_shade_pre_compact-marginTop: -17px;
 $spacing-datepicker_scrolllist_shade_post_compact-marginTop: 17px;
+$spacing-datepicker_insetInput_wrapper_compact-margin: 4px;
+$spacing-datepicker_insetInput_wrapper_compact-paddingY: 8px;
+$spacing-datepicker_insetInput_wrapper_compact-paddingX: 8px;
+$spacing-datepicker_insetInput_wrapper_compact-paddingBottom: 0;
+$spacing-datepicker_insetInput_wrapper_rangeType_compact-paddingTop: 0;
 
 // Radius
 $radius-datepicker_range_input: var(--semi-border-radius-small);

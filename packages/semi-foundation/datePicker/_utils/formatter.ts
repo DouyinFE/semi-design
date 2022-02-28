@@ -18,9 +18,9 @@ export function formatDateValues(
     values: BaseValueType[],
     formatToken: string,
     {
-        groupInnerSeparator = strings.DEFAULT_SEPARATOR_RANGE,
+        groupInnerSeparator = strings.DEFAULT_SEPARATOR_RANGE as string,
         groupSize = 1,
-        groupSeparator = strings.DEFAULT_SEPARATOR_MULTIPLE,
+        groupSeparator = strings.DEFAULT_SEPARATOR_MULTIPLE as string,
     } = {},
     locale: any
 ) {

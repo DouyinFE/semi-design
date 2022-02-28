@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { forwardStatics } from '@douyinfe/semi-foundation/utils/object';
+import { numbers, strings } from '@douyinfe/semi-foundation/datePicker/constants';
 import DatePicker, { DatePickerProps } from './datePicker';
 import ConfigContext from '../configProvider/context';
 import LocaleConsumer from '../locale/localeConsumer';
@@ -31,6 +32,20 @@ export default forwardStatics(
         // Add spaces at both ends to prevent conflicts with characters in the date when separating
         if (rangeSeparator && typeof rangeSeparator === 'string') {
             propsObj.rangeSeparator = ` ${rangeSeparator.trim()} `;
+        }
+
+        if (propsObj.insetInput) {
+            if (!propsObj.position) {
+                propsObj.position = strings.POSITION_INLINE_INPUT;
+            }
+            /**
+             * When insetInput is `true` and `position` includes `over`, use 1px `spacing` to solve the problem of border-radius leakage in the upper left corner
+             * 
+             * @see https://user-images.githubusercontent.com/26477537/158817185-126a5f33-41f7-414a-8e36-8d1be2dda5cd.png
+             */
+            if (propsObj.position.includes('Over') && !propsObj.spacing) {
+                propsObj.spacing = numbers.SPACING_INSET_INPUT;
+            }
         }
 
         return (
