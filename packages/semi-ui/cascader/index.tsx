@@ -1,4 +1,4 @@
-import React, { Fragment, ReactNode, CSSProperties, MouseEvent } from 'react';
+import React, { Fragment, ReactNode, CSSProperties, MouseEvent, KeyboardEvent } from 'react';
 import ReactDOM from 'react-dom';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
@@ -54,6 +54,7 @@ export interface CascaderProps extends BasicCascaderProps {
     'aria-invalid'?: React.AriaAttributes['aria-invalid'];
     'aria-labelledby'?: React.AriaAttributes['aria-labelledby'];
     'aria-required'?: React.AriaAttributes['aria-required'];
+    'aria-label'?: React.AriaAttributes['aria-label'];
     arrowIcon?: ReactNode;
     defaultValue?: Value;
     dropdownStyle?: CSSProperties;
@@ -100,6 +101,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         'aria-errormessage': PropTypes.string,
         'aria-describedby': PropTypes.string,
         'aria-required': PropTypes.bool,
+        'aria-label': PropTypes.string,
         arrowIcon: PropTypes.node,
         changeOnSelect: PropTypes.bool,
         defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
@@ -197,6 +199,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         onDropdownVisibleChange: noop,
         onListScroll: noop,
         enableLeafClick: false,
+        'aria-label': 'Cascader'
     };
 
     options: any;
@@ -584,7 +587,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         );
     }
 
-    handleItemClick = (e: MouseEvent, item: Entity | Data) => {
+    handleItemClick = (e: MouseEvent | KeyboardEvent, item: Entity | Data) => {
         this.foundation.handleItemClick(e, item);
     };
 
@@ -798,6 +801,14 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         this.foundation.handleClear();
     };
 
+    /**
+     * A11y: simulate clear button click
+     */
+    handleClearEnterPress = (e: KeyboardEvent) => {
+        e && e.stopPropagation();
+        this.foundation.handleClearEnterPress();
+    };
+
     showClearBtn = () => {
         const { showClear, disabled, multiple } = this.props;
         const { selectedKeys, isOpen, isHovering, checkedKeys } = this.state;
@@ -811,7 +822,13 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         const allowClear = this.showClearBtn();
         if (allowClear) {
             return (
-                <div className={clearCls} onClick={this.handleClear} role='button' tabIndex={0}>
+                <div 
+                    className={clearCls}
+                    onClick={this.handleClear} 
+                    onKeyPress={this.handleClearEnterPress}
+                    role='button' 
+                    tabIndex={0}
+                >
                     <IconClear />
                 </div>
             );
@@ -891,6 +908,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                 style={style}
                 ref={this.triggerRef}
                 onClick={e => this.foundation.handleClick(e)}
+                onKeyPress={e => this.foundation.handleSelectionEnterPress(e)}
                 aria-invalid={this.props['aria-invalid']}
                 aria-errormessage={this.props['aria-errormessage']}
                 aria-label={this.props['aria-label']}

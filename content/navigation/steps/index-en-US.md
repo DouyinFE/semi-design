@@ -311,13 +311,6 @@ class App extends React.Component {
 }
 ```
 
-## Accessibility
-
-### ARIA
-
-- Steps and Step components support passing in the `aria-label` attribute to represent the description of Steps and Steps
-- Step component has an `aria-current` `step` attribute, indicating that this is a step in the step bar
-
 ## API reference
 
 ### Steps
@@ -350,6 +343,13 @@ Step in the step bar.
 | title | Title | ReactNode |  | - |  |
 | onClick | Callback of click | function | - |  |
 | onKeyDown     | Callback ok keyDown  | function | -   |    |
+
+## Accessibility
+
+### ARIA
+
+- Steps and Step components support passing in the `aria-label` attribute to represent the description of Steps and Steps
+- Step component has an `aria-current` `step` attribute, indicating that this is a step in the step bar
 
 ## Design Tokens
 

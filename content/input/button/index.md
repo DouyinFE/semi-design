@@ -445,13 +445,6 @@ function SplitButtonDemo(){
 }
 ```
 
-## Accessibility
-
-### ARIA
-
-- `aria-label` 用于表示按钮的作用，对于图标按钮，我们推荐使用此属性
-- `aria-disabled` 与 disabled 属性同步，表示按钮禁用 
-
 
 ## API 参考
 
@@ -493,6 +486,13 @@ function SplitButtonDemo(){
 | aria-label          | 分裂按钮组的标签                                                                                       | string                            | -    |
 | style     | 自定义样式                               | CSSProperties   |         |
 | className     | 自定义类名                               | string   |         |
+
+## Accessibility
+
+### ARIA
+
+- `aria-label` 用于表示按钮的作用，对于图标按钮，我们推荐使用此属性
+- `aria-disabled` 与 disabled 属性同步，表示按钮禁用 
 
 ## 设计变量
 <DesignToken/>

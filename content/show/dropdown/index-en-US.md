@@ -415,13 +415,6 @@ function DropdownEvents() {
 }
 ```
 
-## Accessibility
-
-### ARIA
-
-- Dropdown.Menu `role` is set to `menu`, `aria-orientatio` is set to `vertical`
-- Dropdown.Item `role` is set to `menuitem`
-
 ## API Reference
 
 ### Dropdown
@@ -487,6 +480,14 @@ function DropdownEvents() {
 | node                                           | menu type: `title`,`item`,`divider` | string |
 | name                                           | menu content                        | string |
 | Other Properties refer to Title、Item、Divider |                                     |        |
+
+
+## Accessibility
+
+### ARIA
+
+- Dropdown.Menu `role` is set to `menu`, `aria-orientatio` is set to `vertical`
+- Dropdown.Item `role` is set to `menuitem`
 
 ## Design Tokens
 
