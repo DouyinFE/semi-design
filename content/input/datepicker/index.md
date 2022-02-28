@@ -746,6 +746,16 @@ function Demo() {
 | onPanelChange | 切换面板的年份或者日期时的回调 | (date: DateType\|DateType[], dateStr: StringType\|StringType[])=>void | function | **1.28.0** |
 | onPresetClick | 点击快捷选择按钮的回调 | (item: Object, e: Event) => void | () => {} | **1.24.0** |
 
+## Accessibility
+
+### ARIA
+
+- 未选中日期时，触发器的 `aria-label` 为 `Choose date`，选中日期时，触发器的 `aria-label` 为 `Change date`
+- 日期面板中月的 role 为 `grid`，周的 role 设置为 `row`，日期格子设置为 `gridcell`
+- 日期和时间禁用时对应选项的 `aria-disabled` 为 true
+- 多选时，月的 `aria-multiselectable` 为 true，选中时日期格子的 `aria-selected` 为 true
+- 面板中一些装饰作用的 icon，它们的 `aria-hidden` 为 true
+
 ## 类型定义
 
 ```typescript

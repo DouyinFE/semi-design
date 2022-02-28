@@ -319,7 +319,7 @@ export default class Month extends BaseComponent<MonthProps, MonthState> {
         const { fullDate, dayNumber } = day;
         if (!fullDate) {
             return (
-                <div role="cell" tabIndex={-1} key={(dayNumber as number) + dayIndex} className={cssClasses.DAY}>
+                <div role="gridcell" tabIndex={-1} key={(dayNumber as number) + dayIndex} className={cssClasses.DAY}>
                     <span />
                 </div>
             );

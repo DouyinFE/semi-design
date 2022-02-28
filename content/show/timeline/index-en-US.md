@@ -209,7 +209,7 @@ import { IconAlertTriangle } from '@douyinfe/semi-icons';
 ### ARIA
 - The element of dot and line between dots in TimeLine have a `aria-hidden`, indicates that they do not support Accessibility API.
 - Supporting API `aria-label` to specify TimeLine's label.
-```js
+```text
 <Timeline aria-label="Accident timeline">
     <Timeline.Item time="2015-09-01">Accident started</Timeline.Item>
     <Timeline.Item time="2015-09-01">Process</Timeline.Item>

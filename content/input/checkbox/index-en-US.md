@@ -393,16 +393,6 @@ import { CheckboxGroup, Checkbox, Row, Col } from '@douyinfe/semi-ui';
 );
 ```
 
-## Accessibility
-
-### ARIA
-- The role of Checkbox is `checkbox`, the role of CheckboxGroup is `list`, and its direct child element is `listitem`
-- `aria-label`: When using the Checkbox alone, if Children have no text, it is recommended to pass in the `aria-label` prop to describe the function of the Checkbox in one sentence, which will make the screen reader read out the content of this label. If you are using Form.Checkbox, you can use the label provided by Form without passing in `aria-label`
-- `aria-labelledby` points to the `addon` node, used to explain the role of the current Checkbox
-- `aria-describedby` points to the `extra` node, which is used to supplement the explanation of the current Checkbox
-- `aria-disabled` indicates the current disabled state, which is consistent with the value of the `disabled` prop
-- `aria-checked` indicates the current checked state
-
 ## API Reference
 
 ### Checkbox
@@ -439,6 +429,16 @@ import { CheckboxGroup, Checkbox, Row, Col } from '@douyinfe/semi-ui';
 | ------- | ------------ |
 | blur()  | Remove focus |
 | focus() | Get focus    |
+
+## Accessibility
+
+### ARIA
+- The role of Checkbox is `checkbox`, the role of CheckboxGroup is `list`, and its direct child element is `listitem`
+- `aria-label`: When using the Checkbox alone, if Children have no text, it is recommended to pass in the `aria-label` prop to describe the function of the Checkbox in one sentence, which will make the screen reader read out the content of this label. If you are using Form.Checkbox, you can use the label provided by Form without passing in `aria-label`
+- `aria-labelledby` points to the `addon` node, used to explain the role of the current Checkbox
+- `aria-describedby` points to the `extra` node, which is used to supplement the explanation of the current Checkbox
+- `aria-disabled` indicates the current disabled state, which is consistent with the value of the `disabled` prop
+- `aria-checked` indicates the current checked state
 
 ## Design Tokens
 <DesignToken/>

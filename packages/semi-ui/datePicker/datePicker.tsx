@@ -530,7 +530,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
                 // tooltip will mount a11y props to children
                 // eslint-disable-next-line jsx-a11y/role-has-required-aria-props
                 role="combobox"
-                aria-label={Array.isArray(value) && value.length ? "Choose date" : "Change date"}
+                aria-label={Array.isArray(value) && value.length ? "Change date" : "Choose date"}
                 aria-disabled={disabled}
                 onClick={this.handleTriggerWrapperClick}
                 className={inputCls}>

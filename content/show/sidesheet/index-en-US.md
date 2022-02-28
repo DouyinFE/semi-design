@@ -298,12 +298,6 @@ class Demo extends React.Component {
 }
 ```
 
-## Accessibility
-
-### ARIA
-
-- SideSheet has a `dialog` role to indicate that it is a pop-up component, and the internal header has a `heading` role to indicate that it is a header.
-
 ## API Reference
 
 | Properties | Instructions | type | Default | Version |
@@ -331,6 +325,12 @@ class Demo extends React.Component {
 | width | Width, takes effect when `placement` is set to `left` or `right` | number \| string | 448 | - |
 | zIndex | Z-index value for SideSheet | number | 1000 | 0.29.0 |
 | onCancel | Callback function when clicking cancel button | (e: MouseEvent) => void | - | - |
+
+## Accessibility
+
+### ARIA
+
+- SideSheet has a `dialog` role to indicate that it is a pop-up component, and the internal header has a `heading` role to indicate that it is a header.
 
 ## Design Tokens
 

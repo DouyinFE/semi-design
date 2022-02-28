@@ -1593,7 +1593,7 @@ function Demo() {
 
 ## Accessibility
 
-### Aria
+### ARIA
 
 - Cascader supports importing `aria-label`, `aria-describedby`, `aria-errormessage`, `aria-invalid`, `aria-labelledby`, `aria-required` to indicate the relevant information of the Cascader;
 - Cascader supports selecting options, clearing options, and expanding drop-down box by pressing the Enter key

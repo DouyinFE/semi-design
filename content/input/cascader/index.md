@@ -1580,7 +1580,7 @@ function Demo() {
 
 ## Accessibility
 
-### Aria
+### ARIA
 
 - Cascader 支持传入 `aria-label`、`aria-describedby`、`aria-errormessage`、`aria-invalid`、`aria-labelledby`、`aria-required` 来表示该 Cascader 的相关信息;
 - Cascader 支持通过按下 Enter 键来选中选项、清空选项、展开下拉框

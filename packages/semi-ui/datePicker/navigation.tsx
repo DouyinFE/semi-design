@@ -126,7 +126,7 @@ export default class Navigation extends PureComponent<NavigationProps> {
                 </div>
                 <IconButton
                     key="chevron-right"
-                    aria-label="Next year"
+                    aria-label="Next month"
                     icon={<IconChevronRight aria-hidden size={iconBtnSize} />}
                     size={buttonSize}
                     onClick={onNextMonth}
@@ -136,7 +136,7 @@ export default class Navigation extends PureComponent<NavigationProps> {
                 />
                 <IconButton
                     key="double-chevron-right"
-                    aria-label="Next month"
+                    aria-label="Next year"
                     icon={<IconDoubleChevronRight aria-hidden size={iconBtnSize} />}
                     size={buttonSize}
                     theme={btnTheme}

@@ -791,6 +791,16 @@ function Demo() {
 | onPanelChange      | Callback when the year or date of the panel is switched|(date: DateType\|DateType[], dateStr: StringType\|StringType[])=>void|true|**1.28.0**|
 | onPresetClick      | Callback when click preset button                                                                          | (item: Object, e: Event) => void                                                                                                                                                                                 | () => {}                                               |   **1.24.0**                           |
 
+## Accessibility
+
+### ARIA
+
+- When a date is not selected, the `aria-label` of the trigger is `Choose date`, and when a date is selected, the `aria-label` of the trigger is `Change date`
+- The role of the month in the date panel is `grid`, the role of the week is set to `row`, and the date cell is set to `gridcell`
+- `aria-disabled` is true for the corresponding option when date and time are disabled
+- When multi-selected, `aria-multiselectable` of month is true, and `aria-selected` of date grid is true when selected
+- Some decorative icons in the panel, their `aria-hidden` is true
+
 ## Date and Time Format
 
 Adopted in the semi-ui component library [date-fns(v2.9.0)](https://date-fns.org/v2.9.0/docs/Getting-Started) As a date and time engine, formatting token means the following:
