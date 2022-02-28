@@ -741,7 +741,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
             } else {
                 const displayText = this.renderDisplayText();
                 const spanCls = cls({
-                    [`${prefixcls}-selection-placeholder`]: !displayText || !displayText.length,
+                    [`${prefixcls}-selection-placeholder`]: !displayText,
                 });
                 return <span className={spanCls}>{displayText ? displayText : placeholder}</span>;
             }
