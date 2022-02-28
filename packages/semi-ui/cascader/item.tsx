@@ -146,7 +146,7 @@ export default class Item extends PureComponent<CascaderItemProps> {
             case 'loading':
                 return <Spin wrapperClassName={`${prefixcls}-spin-icon`} />;
             case 'empty':
-                return (<span className={`${prefixcls}-icon ${prefixcls}-icon-empty`} />);
+                return (<span aria-hidden={true} className={`${prefixcls}-icon ${prefixcls}-icon-empty`} />);
             default:
                 return null;
         }
@@ -189,7 +189,7 @@ export default class Item extends PureComponent<CascaderItemProps> {
                     });
                     return (
                         <li
-                            role='none'
+                            role='menuitem'
                             className={className}
                             key={key}
                             onClick={e => {
@@ -223,9 +223,9 @@ export default class Item extends PureComponent<CascaderItemProps> {
         let showChildItem: Entity;
         const ind = content.length;
         content.push(
-            <ul className={`${prefixcls}-list`} key={renderData[0].key} onScroll={e => this.props.onListScroll(e, ind)}>
+            <ul role='menu' className={`${prefixcls}-list`} key={renderData[0].key} onScroll={e => this.props.onListScroll(e, ind)}>
                 {renderData.map(item => {
-                    const { data, key } = item;
+                    const { data, key, parentKey } = item;
                     const { children, label, disabled, isLeaf } = data;
                     const { active, selected, loading } = this.getItemStatus(key);
                     const hasChild = Boolean(children) && children.length;
@@ -240,7 +240,12 @@ export default class Item extends PureComponent<CascaderItemProps> {
                     });
                     return (
                         <li
-                            role='none'
+                            role='menuitem'
+                            id={`cascaderItem-${key}`}
+                            aria-expanded={active}
+                            aria-haspopup={Boolean(showExpand)}
+                            aria-controls={`cascaderItem-${parentKey}`}
+                            aria-disabled={disabled}
                             className={className}
                             key={key}
                             onClick={e => {
