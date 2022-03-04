@@ -8,6 +8,8 @@ $col: #{$form}-col;
 
 $checkboxGroup: #{$prefix}-checkboxGroup;
 $radioGroup: #{$prefix}-radioGroup;
+$buttonRadioGroup: #{$prefix}-radioGroup-buttonRadio;
+
 $switch: #{$prefix}-switch;
 $rating: #{$prefix}-rating;
 
@@ -154,7 +156,6 @@ $rating: #{$prefix}-rating;
             padding-top: $spacing-form_label_posTop-paddingTop;
             padding-bottom: $spacing-form_label_posTop-paddingBottom;
         }
-
     }
 
     &[x-label-pos="left"] {
@@ -172,6 +173,11 @@ $rating: #{$prefix}-rating;
         .#{$radioGroup} {
             padding-top: $spacing-form_label-paddingTop;
             padding-bottom: $spacing-form_label-paddingTop;
+        }
+        // no need to adjust height for button radio, already 32px
+        .#{$buttonRadioGroup} {
+            padding-top: 0;
+            padding-bottom: 0;
         }
         .#{$switch},
         .#{$rating} {

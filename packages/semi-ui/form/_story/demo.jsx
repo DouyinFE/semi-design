@@ -195,7 +195,7 @@ class BasicDemoWithInit extends Component {
                 initValues={formInitValue}
                 onReset={this.handleReset}
                 onValueChange={(v)=>console.log(v)}
-                style={{ padding: '10px', width: 600 }}
+                style={{ padding: '10px', width: 900 }}
                 autoScrollToError
                 aria-label='Demo Form'
                 id='demo-form-id'
@@ -339,6 +339,23 @@ class BasicDemoWithInit extends Component {
                     </Col>
                     <Col span={12}>
                         <Form.Switch field='switch' label='开关(Switch)'/>
+                    </Col>
+                </Row>
+                <Form.CheckboxGroup field="cardCheckbox" label='卡片选择' style={{ width: '90%' }} type='card' initValue={['1', '3']} direction={'horizontal'} aria-label="CheckboxGroup 示例">
+                    <Form.Checkbox value={'1'} disabled extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{width:280}}>
+                        单选框标题
+                    </Form.Checkbox>
+                    <Form.Checkbox value={'2'} disabled extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{width:280}}>
+                        单选框标题
+                    </Form.Checkbox>
+                </Form.CheckboxGroup>
+                <Row>
+                    <Col span={12}>
+                        <Form.RadioGroup field='buttonRadio' type='button' buttonSize='middle' defaultValue={1} aria-label="单选组合示例">
+                            <Radio value={1}>即时推送</Radio>
+                            <Radio value={2}>定时推送</Radio>
+                            <Radio value={3}>动态推送</Radio>
+                        </Form.RadioGroup>
                     </Col>
                 </Row>
                 </Form.Section>
