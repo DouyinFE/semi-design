@@ -494,6 +494,12 @@ function SplitButtonDemo(){
 - `aria-label` 用于表示按钮的作用，对于图标按钮，我们推荐使用此属性
 - `aria-disabled` 与 disabled 属性同步，表示按钮禁用 
 
+### 键盘和焦点
+
+- Button 的焦点管理与原生 button 一致，键盘用户可以使用 Tab 及  Shift + Tab 切换焦点
+- Button 的触发与原生 button 一致，当按钮聚焦时，可以通过 Enter 或 Space 键激活
+- ButtonGroup 中的按钮与单个按钮的焦点管理方式一致，可以通过 Tab 以及 Shift + Tab 进行切换
+
 ## 设计变量
 <DesignToken/>
 
