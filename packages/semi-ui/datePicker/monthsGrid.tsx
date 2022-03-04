@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/interactive-supports-focus,jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/no-did-update-set-state */
 /* eslint-disable max-len */
 /* eslint-disable no-nested-ternary */
@@ -343,7 +344,7 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
 
     renderMonth(month: Date, panelType: PanelType) {
         const { selected, rangeStart, rangeEnd, hoverDay, maxWeekNum, offsetRangeStart, offsetRangeEnd } = this.state;
-        const { weekStartsOn, disabledDate, locale, localeCode, renderDate, renderFullDate, startDateOffset, endDateOffset, density, rangeInputFocus, syncSwitchMonth } = this.props;
+        const { weekStartsOn, disabledDate, locale, localeCode, renderDate, renderFullDate, startDateOffset, endDateOffset, density, rangeInputFocus, syncSwitchMonth, multiple } = this.props;
         let monthText = '';
         // i18n monthText
         if (month) {
@@ -409,6 +410,7 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
                     startDateOffset={startDateOffset}
                     endDateOffset={endDateOffset}
                     focusRecordsRef={this.props.focusRecordsRef}
+                    multiple={multiple}
                 />
             </div>
         );
@@ -580,12 +582,22 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
 
         return (
             <div className={switchCls} ref={current => this.adapter.setCache(`switch-${panelType}`, current)}>
-                <div className={dateCls} onClick={e => this.foundation.showDatePanel(panelType)}>
-                    {showSwithIcon && <IconCalendar />}
+                <div
+                    role="button"
+                    aria-label="Switch to date panel"
+                    className={dateCls}
+                    onClick={e => this.foundation.showDatePanel(panelType)}
+                >
+                    {showSwithIcon && <IconCalendar aria-hidden />}
                     <span className={textCls}>{dateText || monthText}</span>
                 </div>
-                <div className={timeCls} onClick={e => this.foundation.showTimePicker(panelType, true)}>
-                    {showSwithIcon && <IconClock />}
+                <div
+                    role="button"
+                    aria-label="Switch to time panel"
+                    className={timeCls}
+                    onClick={e => this.foundation.showTimePicker(panelType, true)}
+                >
+                    {showSwithIcon && <IconClock aria-hidden />}
                     <span className={textCls}>{timeText}</span>
                 </div>
             </div>

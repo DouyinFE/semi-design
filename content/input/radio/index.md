@@ -311,18 +311,6 @@ class App extends React.Component {
 }
 ```
 
-## Accessibility
-
-### 键盘和焦点
-
-- 卡片式、按钮式 Radio 组可以通过箭头切换选中
-
-### ARIA
-
-- `aria-label`：用于解释 Radio 或 RadioGroup 的作用
-- `aria-labelledby` 默认指向 addon 节点，用于解释 Radio 的内容
-- `aria-describedby` 默认指向 extra 节点，用于补充解释 Radio 的内容
-
 ## API 参考
 
 ### Radio
@@ -372,6 +360,18 @@ class App extends React.Component {
 | ------- | -------- |
 | blur()  | 移除焦点 |
 | focus() | 获取焦点 |
+
+## Accessibility
+
+### 键盘和焦点
+
+- 卡片式、按钮式 Radio 组可以通过箭头切换选中
+
+### ARIA
+
+- `aria-label`：用于解释 Radio 或 RadioGroup 的作用
+- `aria-labelledby` 默认指向 addon 节点，用于解释 Radio 的内容
+- `aria-describedby` 默认指向 extra 节点，用于补充解释 Radio 的内容
 
 <!-- ## 相关物料
 ```material

@@ -18,6 +18,7 @@ import {
     calcMergeType
 } from './util';
 import { strings } from './constants';
+import isEnterPress from '../utils/isEnterPress';
 
 export interface BasicData {
     data: BasicCascaderData;
@@ -602,6 +603,15 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         }
     }
 
+    /**
+     * A11y: simulate selection click
+     */
+    handleSelectionEnterPress(keyboardEvent: any) {
+        if (isEnterPress(keyboardEvent)) {
+            this.handleClick(keyboardEvent);
+        }
+    }
+
     toggleHoverState(bool: boolean) {
         this._adapter.toggleHovering(bool);
     }
@@ -909,6 +919,15 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         this._adapter.updateStates(newState);
         this._adapter.notifyClear();
         this._adapter.rePositionDropdown();
+    }
+
+    /**
+     * A11y: simulate clear button click
+     */
+    handleClearEnterPress(keyboardEvent: any) {
+        if (isEnterPress(keyboardEvent)) {
+            this.handleClear();
+        }
     }
 
     getRenderData() {

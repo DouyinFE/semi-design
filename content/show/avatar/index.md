@@ -256,6 +256,39 @@ import { AvatarGroup, Avatar } from '@douyinfe/semi-ui';
 );
 ```
 
+## API 参考
+
+---
+
+### Avatar
+
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| alt | 图像的替代文本描述 | string | - |
+| className | 类名 | string | - |
+| color | 指定头像的颜色，支持 `amber`、 `blue`、 `cyan`、 `green`、 `grey`、 `indigo`、 `light-blue`、 `light-green`、 `lime`、 `orange`、 `pink`、 `purple`、 `red`、 `teal`、 `violet`、 `yellow` | string | `grey` |
+| hoverMask | hover 时头像内容覆盖层 | ReactNode | - |
+| imgAttr | 原生 img 属性 **>=1.5.0** | React.ImgHTMLAttributes<HTMLImageElement\> | - |
+| shape | 指定头像的形状，支持 `circle`、`square` | string | `circle` |
+| size | 设置头像的大小，支持 `extra-extra-small`、`extra-small`、`small`、`default`、`medium`、`large`、`extra-large` | string | `medium` |
+| src | 图片类头像的资源地址 | string | - |
+| srcSet | 设置图片类头像响应式资源地址 | string | - |
+| style | 样式名 | CSSProperties | - |
+| onClick | 单击头像的回调 | (e: Event) => void | - |
+| onError | 图片加载失败的事件，返回 false 会关闭组件默认的 fallback 行为 | (e: Event) => boolean | - |
+| onMouseEnter | MouseEnter 事件的回调 | (e: Event) => void | - |
+| onMouseLeave | MouseLeave 事件的回调 | (e: Event) => void | - |
+
+### AvatarGroup
+
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| maxCount | 最大数量限制，超出后显示+N | number | - |
+| overlapFrom | 设置头像覆盖方向，支持 `start`, `end` | string | `start` |
+| renderMore | 自定义渲染 more 标签 | (restNumber: number, restAvatars: ReactNode[]) => ReactNode | - |
+| shape | 指定头像的形状，支持`circle`、`square` | string | `circle` |
+| size | 设置头像的大小，支持 `extra-extra-small`, `extra-small`、`small`、`default`、`medium`、`large`、`extra-large` | string | `medium` |
+
 ## Accessibility
 
 - `alt`：使用图片头像时，请使用 `alt` 属性解释图片的内容
@@ -293,39 +326,6 @@ import { Avatar } from '@douyinfe/semi-ui';
     );
 };
 ```
-
-## API 参考
-
----
-
-### Avatar
-
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| alt | 图像的替代文本描述 | string | - |
-| className | 类名 | string | - |
-| color | 指定头像的颜色，支持 `amber`、 `blue`、 `cyan`、 `green`、 `grey`、 `indigo`、 `light-blue`、 `light-green`、 `lime`、 `orange`、 `pink`、 `purple`、 `red`、 `teal`、 `violet`、 `yellow` | string | `grey` |
-| hoverMask | hover 时头像内容覆盖层 | ReactNode | - |
-| imgAttr | 原生 img 属性 **>=1.5.0** | React.ImgHTMLAttributes<HTMLImageElement\> | - |
-| shape | 指定头像的形状，支持 `circle`、`square` | string | `circle` |
-| size | 设置头像的大小，支持 `extra-extra-small`、`extra-small`、`small`、`default`、`medium`、`large`、`extra-large` | string | `medium` |
-| src | 图片类头像的资源地址 | string | - |
-| srcSet | 设置图片类头像响应式资源地址 | string | - |
-| style | 样式名 | CSSProperties | - |
-| onClick | 单击头像的回调 | (e: Event) => void | - |
-| onError | 图片加载失败的事件，返回 false 会关闭组件默认的 fallback 行为 | (e: Event) => boolean | - |
-| onMouseEnter | MouseEnter 事件的回调 | (e: Event) => void | - |
-| onMouseLeave | MouseLeave 事件的回调 | (e: Event) => void | - |
-
-### AvatarGroup
-
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| maxCount | 最大数量限制，超出后显示+N | number | - |
-| overlapFrom | 设置头像覆盖方向，支持 `start`, `end` | string | `start` |
-| renderMore | 自定义渲染 more 标签 | (restNumber: number, restAvatars: ReactNode[]) => ReactNode | - |
-| shape | 指定头像的形状，支持`circle`、`square` | string | `circle` |
-| size | 设置头像的大小，支持 `extra-extra-small`, `extra-small`、`small`、`default`、`medium`、`large`、`extra-large` | string | `medium` |
 
 ## 设计变量
 

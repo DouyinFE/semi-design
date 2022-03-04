@@ -466,7 +466,7 @@ $module: #{$prefix}-table;
         position: relative;
         z-index: 1;
         padding: #{$spacing-table-paddingY} #{$spacing-table-paddingX};
-        color: $color-table_disabled-bg-default;
+        color: $color-table_placeholder-text-default;
         font-size: #{$font-table_base-fontSize};
         text-align: center;
         background: $color-table_pl-bg-default;
