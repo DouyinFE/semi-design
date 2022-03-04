@@ -17,14 +17,14 @@ Version：Major.Minor.Patch
 ---
 
 #### 🎉 2.6.0-beta.0 (2022-03-04)
+- 【Feat】
+    - A11y: Calendar, ScrollList, Cascader, DatePicker accessibility semantic adaptation [#205](https://github.com/DouyinFE/semi-design/issues/205)
 - 【Style】
     - Tweaked default theme's 5 CSS tokens and Table empty text color to better support WCAG standard [#205](https://github.com/DouyinFE/semi-design/issues/205)
     - Fixed the label alignment problem in Cascader when wrapping in multi-select mode [@chenc041](https://github.com/chenc041)
     - Added focus style for Button [#205](https://github.com/DouyinFE/semi-design/issues/205)
 - 【Design Token】
    - Cascader component-level token: remove $spacing-cascader_selection_tag-marginX, add $spacing-cascader_selection_tag-marginLeft and $spacing-cascader_selection_tag-marginRight [#636](https://github.com/DouyinFE/semi-design/issues/636)
-- 【Feat】
-    - A11y: Calendar, ScrollList, Cascader, DatePicker accessibility semantic adaptation [#205](https://github.com/DouyinFE/semi-design/issues/205)
 - 【Fix】
     - Fix `Table` header text does not support selection [#638](https://github.com/DouyinFE/semi-design/issues/638) [@chenc041](https://github.com/chenc041 )
     - Fix the height inconsistency between Form.RadioGroup and RadioGroup when type=button, remove redundant padding [#677](https://github.com/DouyinFE/semi-design/issues/677)
