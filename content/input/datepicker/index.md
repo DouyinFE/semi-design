@@ -114,13 +114,24 @@ import { DatePicker } from '@douyinfe/semi-ui';
 
 ### 日期范围时间选择
 
-将 `type` 设定为 `dateTimeRange`， 可以选择日期时间范围
+将 `type` 设定为 `dateTimeRange`， 可以选择日期时间范围  
+当未传入 defaultValue 或 value时，底部面板默认时间为当前时间。如果你有特殊需求（如指定默认时分秒），可以通过 defaultPickerValue 指定
 
 ```jsx live=true
 import React from 'react';
 import { DatePicker } from '@douyinfe/semi-ui';
 
-() => <DatePicker type="dateTimeRange" style={{ width: 380 }} onChange={console.log} />;
+() => (
+    <>
+        <DatePicker type="dateTimeRange" style={{ width: 380, marginBottom: 8 }} onChange={console.log} />
+        <DatePicker
+            type="dateTimeRange"
+            style={{ width: 380 }}
+            defaultPickerValue={[new Date('2022-08-08 00:00'), new Date('2022-08-09 12:00')]}
+            onChange={console.log}
+        />
+    </>
+);
 ```
 
 ### 同步切换双面板月份

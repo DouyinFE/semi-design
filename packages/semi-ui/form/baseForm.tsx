@@ -160,8 +160,8 @@ class Form extends BaseComponent<BaseFormProps, BaseFormState> {
             notifySubmitFail: (errors: ErrorMsg, values: any) => {
                 this.props.onSubmitFail(errors, values);
             },
-            forceUpdate: () => {
-                this.forceUpdate();
+            forceUpdate: (callback?: () => void) => {
+                this.forceUpdate(callback);
             },
             notifyChange: (formState: FormState) => {
                 this.props.onChange(formState);

@@ -12,7 +12,7 @@ export interface BaseFormAdapter<P = Record<string, any>, S = Record<string, any
     cloneDeep: (val: any, ...rest: any[]) => any;
     notifySubmit: (values: any) => void;
     notifySubmitFail: (errors: Record<string, any>, values: any) => void;
-    forceUpdate: () => void;
+    forceUpdate: (callback?: () => void) => void;
     notifyChange: (formState: FormState) => void;
     notifyValueChange: (values: any, changedValues: any) => void;
     notifyReset: () => void;

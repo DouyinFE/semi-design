@@ -21,8 +21,8 @@ import { IntlProvider } from 'react-intl';
 import { LocaleProvider } from '@douyinfe/semi-ui';
 import semiZhCN from '@douyinfe/semi-ui/locale/source/zh_CN';
 import semiEnUS from '@douyinfe/semi-ui/locale/source/en_US';
-import SemiSiteBanner from '@douyinfe/semi-site-banner';
-import '@douyinfe/semi-site-banner/dist/index.css';
+import SemiSiteBanner from 'semi-site-banner';
+import 'semi-site-banner/dist/index.css';
 
 import appLocaleCN from '../locale/zh-CN';
 import appLocaleUS from '../locale/en-US';
@@ -143,7 +143,7 @@ const AppLayout = ({ type, location, children }) => {
         <>
             <IntlProvider locale={locale} messages={messages}>
                 <LocaleProvider locale={semiLocaleSource}>
-                    <div style={{position: 'fixed', width: '100%', top: 0, zIndex: 999}}>
+                    <div style={{ position: 'fixed', width: '100%', top: 0, zIndex: 999 }}>
                         <SemiSiteBanner ref={bannerRef} type="black" style={{ height: 32 }} icon={null} />
                         {/* ssr, can't use location directly, get location from layout and pass to children */}
                         <Header style={headerStyle} location={location} localeCode={locale} />

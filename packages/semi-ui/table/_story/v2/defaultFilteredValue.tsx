@@ -59,14 +59,6 @@ function App() {
                 );
             }
     
-        },
-        {
-            title: '更新日期',
-            dataIndex: 'updateTime',
-            sorter: (a, b) => a.updateTime - b.updateTime > 0 ? 1 : -1,
-            render: (value) => {
-                return dateFns.format(new Date(value), 'yyyy-MM-dd');
-            }
         }
     ];
 
@@ -80,7 +72,6 @@ function App() {
                 name: isSemiDesign ? `Semi Design 设计稿${i}.fig` : `Semi Pro 设计稿${i}.fig`,
                 owner: isSemiDesign ? '姜鹏志' : '郝宣',
                 size: randomNumber,
-                updateTime: new Date().valueOf() + randomNumber * DAY,
                 avatarBg: isSemiDesign ? 'grey' : 'red'
             });
         }
