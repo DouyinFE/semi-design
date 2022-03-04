@@ -11,7 +11,7 @@
  */
 describe('Form', () => {
     it('formApi-setValue with array field path, 3 -> 2, remove middle line field', () => {
-        cy.visit('http://127.0.0.1:6009/iframe.html?path=/story/form--use-form-api-set-value-update-array');
+        cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/form--use-form-api-set-value-update-array');
         cy.get(':nth-child(3) > .semi-button').click();
         // line 1
         cy.get('[x-field-id="effects[0].name"] > .semi-form-field-main > .semi-input-wrapper > input').should('have.value', '1-name');
