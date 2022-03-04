@@ -382,7 +382,8 @@ $module: #{$prefix}-input;
         // border: $border-thickness-control $color-input_disabled-border-default solid;
         color: $color-input_disabled-text-default;
         background-color: $color-input_disabled-bg-default;
-
+        // fix issue 670 in safari
+        -webkit-text-fill-color: $color-input_disabled-text-default;
         &:hover {
             background-color: $color-input_disabled-bg-default;
         }
