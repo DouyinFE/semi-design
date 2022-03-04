@@ -499,7 +499,7 @@ function withField<
                         text={label || field}
                         id={labelId}
                         required={required}
-                        name={name || field}
+                        name={a11yId || name || field}
                         width={mergeLabelWidth}
                         align={mergeLabelAlign}
                         {...needSpread}
