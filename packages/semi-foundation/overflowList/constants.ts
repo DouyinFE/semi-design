@@ -14,7 +14,7 @@ const MODE_MAP = {
 const BOUNDARY_MAP = {
     START: 'start',
     END: 'end',
-};
+} as const;
 
 const OVERFLOW_DIR = {
     NONE: 0,

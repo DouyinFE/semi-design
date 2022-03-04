@@ -8,6 +8,7 @@ export interface OverflowListAdapter extends DefaultAdapter {
     updateStates: (state: any) => void;
     updateVisibleState: (visible: Map<string, boolean>) => void;
     notifyIntersect: (res: any) => void;
+    getItemSizeMap: ()=>Map<string, number>;
 }
 
 class OverflowListFoundation extends BaseFoundation<OverflowListAdapter> {
@@ -27,6 +28,7 @@ class OverflowListFoundation extends BaseFoundation<OverflowListAdapter> {
         if (!this.isScrollMode()) {
             return overflow;
         }
+
         const visibleStateArr = items.map(({ key }: { key: string }) => Boolean(visibleState.get(key)));
         const visibleStart = visibleStateArr.indexOf(true);
         const visibleEnd = visibleStateArr.lastIndexOf(true);
@@ -83,6 +85,45 @@ class OverflowListFoundation extends BaseFoundation<OverflowListAdapter> {
             }
         }
         this._adapter.updateStates(updateState);
+    }
+
+    handleCollapseOverflow(){
+        const { overflowWidth, containerWidth, pivot: statePivot } = this.getStates();
+        const { items, onOverflow } = this.getProps();
+        let itemWidths = overflowWidth, pivot = 0;
+        let overflowed = false;
+        for (const size of this._adapter.getItemSizeMap().values()) {
+            itemWidths += size;
+            // 触发overflow
+            if (itemWidths > containerWidth) {
+                overflowed = true;
+                break;
+            }
+            // 顺利遍历完整个列表，说明不存在overflow，直接渲染全部
+            if (pivot === items.length - 1) {
+                this._adapter.updateStates({
+                    overflowStatus: "normal",
+                    pivot: items.length - 1,
+                    visible: items,
+                    overflow: []
+                });
+            }
+            pivot++;
+        }
+        if (overflowed) {
+            const visible = items.slice(0, pivot), overflow = items.slice(pivot);
+            this._adapter.updateStates({
+                overflowStatus: "overflowed",
+                pivot,
+                visible,
+                overflow,
+            });
+            // trigger onOverflow
+            if (statePivot !== pivot){
+                onOverflow(overflow);
+            }
+            return;
+        }
     }
 
 }

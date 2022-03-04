@@ -23,8 +23,16 @@ const ITEMS = [
   { href: '#', icon: <IconFolderOpen />, key: 'Photos' },
   { href: '#', icon: <IconFolderOpen />, key: 'Wednesday' },
   { icon: <IconBolt />, key: 'image', current: true },
+  { icon: <IconFolderOpen />, key: 'Users2' },
+  { icon: <IconFolderOpen />, key: 'Users3' },
+  { icon: <IconFolderOpen />, key: 'Users4' },
+  { icon: <IconFolderOpen />, key: 'Users5' },
+  { icon: <IconFolderOpen />, key: 'Users6' },
+  { icon: <IconFolderOpen />, key: 'Users7' },
 ];
-
+const createItems = (length = 10) => {
+  return Array(length).fill().map(()=>({ key: Math.random() }))
+}
 class Demo extends React.Component {
   renderOverflow = items => {
     // console.log('overflow items: ', items);
@@ -40,9 +48,9 @@ class Demo extends React.Component {
   };
   render() {
     return (
-      <div style={{ width: '30%' }}>
+      <div style={{ width: '500px' }}>
         <OverflowList
-          items={ITEMS}
+          items={createItems(80)}
           overflowRenderer={this.renderOverflow}
           visibleItemRenderer={this.renderItem}
         />
@@ -50,8 +58,43 @@ class Demo extends React.Component {
     );
   }
 }
-
-export const ASimpleOverflowList = () => <Demo />;
+export const ASimpleOverflowList = () => {
+  const [width, setWidth] = useState(100)
+  const renderOverflow = (items) => {
+      // console.log('overflow items: ', items);
+      return (items.length ? <Tag style={{ flex: '0 0 auto' }}>+{items.length}</Tag> : null)
+  }
+  const renderItem = (item, ind) => {
+      // console.log('visible item: ', item);
+      return (
+          <Tag color='blue' key={item.key} style={{  flex: '0 0 auto' }}>
+              <Icon type={item.icon} style={{ }}/>
+              {item.key}
+          </Tag>
+      )
+  }
+  const items =  Array.from(new Array(100)).map((i, ind) => ({ icon: "alarm", key: `${ind}-alarm` }))
+      
+  return (
+      <div style={{width:'800px'}}>
+          <Slider step={1} value={width} onChange={(value) => setWidth(value)} />
+          <div><span>.</span></div>
+          <br/>
+          <br/>
+          <div style={{ maxWidth: `${width}%` }}>
+              <OverflowList
+                  items={items}
+                  onOverflow={e=>{
+                    console.log('🚀 ~~~~~~ ASimpleOverflowList ~~~~~~ object', e)
+                  }}
+                  // minVisibleItems={3}
+                  overflowRenderer={renderOverflow}
+                  visibleItemRenderer={renderItem}
+              />
+          </div>
+      </div>
+  );
+};
 
 ASimpleOverflowList.story = {
   name: 'a simple semi overflow list',
