@@ -32,28 +32,28 @@ describe('tooltip', () => {
     it('autoFocusHover', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?id=tooltip--auto-focus-content-demo&args=&viewMode=story');
         const dataSelector = `[data-cy=hover]`;
-        const input = `[data-cy=hoverInput`;
+        const input = `[data-cy=hoverInput]`;
         cy.get(dataSelector).trigger('mouseover');
         cy.get(input).should('be.focused');
     });
     it('autoFocusHoverNoMotion', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?id=tooltip--auto-focus-content-demo&args=&viewMode=story');
         const dataSelector = `[data-cy=hoverNoMotion]`;
-        const input = `[data-cy=hoverNoMotionInput`;
+        const input = `[data-cy=hoverNoMotionInput]`;
         cy.get(dataSelector).trigger('mouseover');
         cy.get(input).should('be.focused');
     });
     it('autoFocusClick', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?id=tooltip--auto-focus-content-demo&args=&viewMode=story');
         const dataSelector = `[data-cy=click]`;
-        const input = `[data-cy=clickInput`;
+        const input = `[data-cy=clickInput]`;
         cy.get(dataSelector).click({ force: true });
         cy.get(input).should('be.focused');
     });
     it('autoFocusClickNoMotion', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?id=tooltip--auto-focus-content-demo&args=&viewMode=story');
         const dataSelector = `[data-cy=clickNoMotion]`;
-        const input = `[data-cy=clickNoMotionInput`;
+        const input = `[data-cy=clickNoMotionInput]`;
         cy.get(dataSelector).click({ force: true });
         cy.get(input).should('be.focused');
     });
@@ -61,7 +61,7 @@ describe('tooltip', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?id=tooltip--auto-focus-content-demo&args=&viewMode=story');
         const trigger = `[data-cy=controlled]`;
         const disableBtn = `[data-cy=controlledDisableBtn]`;
-        const input = `[data-cy=controlledInput`;
+        const input = `[data-cy=controlledInput]`;
 
         // 校验受控功能
         cy.get(disableBtn).click({ force: true });
@@ -74,7 +74,7 @@ describe('tooltip', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?id=tooltip--auto-focus-content-demo&args=&viewMode=story');
         const trigger = `[data-cy=controlledNoMotion]`;
         const disableBtn = `[data-cy=controlledNoMotionDisableBtn]`;
-        const input = `[data-cy=controlledNoMotionInput`;
+        const input = `[data-cy=controlledNoMotionInput]`;
 
         // 校验受控功能
         cy.get(disableBtn).click({ force: true });
