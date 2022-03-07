@@ -513,7 +513,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                             <div
                                 className={classNames(className, animateCls)}
                                 style={{
-                                    // visibility: 'visible',
+                                    visibility: 'visible',
                                     ...animateStyle,
                                     transformOrigin,
                                     ...style,
@@ -532,7 +532,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                 }
             </TooltipTransition>
         ) : (
-            <div className={className} {...portalEventSet} x-placement={placement} style={style}>
+            <div className={className} {...portalEventSet} x-placement={placement} style={{ visibility: motion ? undefined : 'visible', ...style }}>
                 {content}
                 {icon}
             </div>
