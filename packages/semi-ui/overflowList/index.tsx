@@ -265,12 +265,7 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
         let overflow = this.renderOverflow();
         if (!this.isScrollMode() && overflow){
             // TODO, overflow 是数组的情况
-            const child = React.cloneElement(overflow, {
-                style: {
-                    ...overflow.props.style,
-                    visibility: overflowStatus !== 'calculating' ? "visible" : 'hidden'
-                } as CSSProperties,
-            });
+            const child = React.cloneElement(overflow);
             overflow = (<ResizeObserver
                 key={'overflow-items'}
                 onResize={([entry]) => {
@@ -313,12 +308,7 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
                     visible.map((item, idx) => {
                         const { key } = item;
                         const element = visibleItemRenderer(item, idx);
-                        const child = React.cloneElement(element, {
-                            style: {
-                                ...element.props.style,
-                                visibility: idx < pivot ? "visible" : 'hidden'
-                            } as CSSProperties,
-                        });
+                        const child = React.cloneElement(element);
                         return (
                             <ResizeObserver
                                 key={key}
@@ -336,7 +326,9 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
                 className: cls(`${prefixCls}`, className),
                 style: {
                     ...style,
-                    maxWidth: '100%'
+                    maxWidth: '100%',
+                    visibility: this.state.overflowStatus === 'calculating' ? "hidden" : "visible",
+                    // opacity: this.state.overflowStatus === 'calculating' ? 0 : 1,
                 },
             },
             ...inner
