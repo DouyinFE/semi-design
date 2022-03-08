@@ -1,0 +1,7 @@
+$semi-margin-primary:5px;
+$semi-margin-sec:15px;
+.test{
+  .sss{
+    margin: $semi-margin-primary + $semi-margin-sec;
+  }
+}

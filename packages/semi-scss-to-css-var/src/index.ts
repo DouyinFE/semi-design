@@ -1,52 +1,78 @@
 import path from 'path';
 import fs from 'fs-extra';
+import os from 'os';
 import postcss from "postcss";
 import postcssScss from 'postcss-scss';
+import transVarPlugin from "./transVarPlugin";
 
 export interface Options {
-    targetPath: string,
+    sourcePath: string,
     resultPath: string
 }
 
-
-const transScssVariables2CssVariables = ({targetPath, resultPath}: Options) => {
-
-
-    const findScssFiles = (filePath: string): string[] => {
-
-        const isScss = (filePath: string) => path.extname(filePath) === '.scss';
-
-        const stat = fs.statSync(filePath);
-        if (stat.isFile()) {
-            if (isScss(filePath)) {
-                return [filePath];
-            } else {
-                return [];
-            }
-        }
-        const scssFilePaths: string[] = [];
-        const fileList = fs.readdirSync(filePath);
-        fileList.forEach(filename => {
-            const stat = fs.statSync(path.join(filePath, filename));
-            if (stat.isFile()) {
-                if (isScss(filePath)) {
-                    scssFilePaths.push(filePath);
-                }
-            } else {
-                scssFilePaths.push(...findScssFiles(filePath));
-            }
-        });
-        return scssFilePaths;
+const getAllScssFilesInPath = (filePath: string) => {
+    if (!path.isAbsolute(filePath)) {
+        filePath = path.resolve(filePath);
     }
 
-    const scssFileList = findScssFiles(targetPath)
+    const isScss = (filePath: string) => path.extname(filePath) === '.scss';
 
-    console.log(scssFileList);
+    const stat = fs.lstatSync(filePath);
+    if (stat.isSymbolicLink()) {
+        return [];
+    }
+    if (stat.isFile()) {
+        if (isScss(filePath)) {
+            return [filePath];
+        } else {
+            return [];
+        }
+    }
+    const scssFilePaths: string[] = [];
+    const fileList = fs.readdirSync(filePath);
+    fileList.forEach(filename => {
+        const pathOfCurrentFile = path.join(filePath, filename);
+        const stat = fs.lstatSync(pathOfCurrentFile);
+        if (stat.isSymbolicLink()) {
+            return;
+        } else if (stat.isFile()) {
+            if (isScss(pathOfCurrentFile)) {
+                scssFilePaths.push(pathOfCurrentFile);
+            }
+        } else {
+            scssFilePaths.push(...getAllScssFilesInPath(pathOfCurrentFile));
+        }
+    });
+    return scssFilePaths;
+}
 
-    // postcss().process('', {syntax: postcssScss}).
+
+const prepareTransDir = (sourcePath: string) => {
+    const tempDirPath = path.join(os.tmpdir(), `semi_scss_to_css_vars_${Math.random().toString(36).slice(-6)}`);
+    fs.copySync(sourcePath, tempDirPath);
+    return tempDirPath;
+}
 
 
+const transScssToCSSVar=(scssFilePath:string)=>{
+    console.log(scssFilePath)
+    let test='./test/test.scss'
+    const raw=fs.readFileSync(test,{encoding:'utf-8'});
+    const result=postcss([transVarPlugin()]).process(raw, {syntax: postcssScss});
+    console.log(result.css)
+}
+
+
+const transScssVariables2CssVariables = ({sourcePath, resultPath}: Options) => {
+
+    const transDir = prepareTransDir(sourcePath);
+    const scssFileList = getAllScssFilesInPath(transDir);
+    transScssToCSSVar(scssFileList[0])
+    return scssFileList;
 };
+
+
+
 
 
 export {
