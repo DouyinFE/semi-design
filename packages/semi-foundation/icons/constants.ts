@@ -8,7 +8,7 @@ const strings = {
     SIZE: ['extra-small', 'small', 'default', 'large', 'extra-large', 'custom'],
     // use in svg xhref. No need to respond to the change of prefixCls, always constant
     ICON_PREFIX: 'semi-icon-',
-};
+} as const;
 
 const numbers = {};
 

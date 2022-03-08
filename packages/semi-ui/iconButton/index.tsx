@@ -20,7 +20,7 @@ export interface IconButtonProps extends ButtonProps {
     iconSize?: IconSize;
     iconStyle?: React.CSSProperties;
     loading?: boolean;
-    theme?: Theme;
+    // theme?: Theme;
     style?: React.CSSProperties;
     className?: string;
     disabled?: boolean;
