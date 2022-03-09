@@ -1,0 +1,46 @@
+{
+    "nodes": [
+        {
+            "type": "word",
+            "sourceIndex": 0,
+            "sourceEndIndex": 3,
+            "value": "1px"
+        },
+        {
+            "type": "space",
+            "sourceIndex": 3,
+            "sourceEndIndex": 4,
+            "value": " "
+        },
+        {
+            "type": "word",
+            "sourceIndex": 4,
+            "sourceEndIndex": 7,
+            "value": "2px"
+        },
+        {
+            "type": "space",
+            "sourceIndex": 7,
+            "sourceEndIndex": 8,
+            "value": " "
+        },
+        {
+            "type": "word",
+            "sourceIndex": 8,
+            "sourceEndIndex": 11,
+            "value": "2px"
+        },
+        {
+            "type": "space",
+            "sourceIndex": 11,
+            "sourceEndIndex": 12,
+            "value": " "
+        },
+        {
+            "type": "word",
+            "sourceIndex": 12,
+            "sourceEndIndex": 15,
+            "value": "4px"
+        }
+    ]
+}
