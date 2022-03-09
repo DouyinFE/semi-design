@@ -1,0 +1,7 @@
+.test {
+  --semi-margin-primary_cssvar:5px;
+  --semi-margin-sec_cssvar:15px;
+}
+.test .sss {
+  margin-left: var(--semi-margin-primary_cssvar)var(--semi-margin-sec_cssvar);
+}

@@ -1,4 +1,21 @@
 import {AcceptedPlugin, Declaration, Postcss, Root} from "postcss";
+import fs from 'fs-extra';
+import parse from 'postcss-value-parser'
+
+
+
+
+
+const replaceWithCalc=(str:string)=>{
+
+};
+
+
+
+
+
+
+
 
 const transVarPlugin=()=>{
 
@@ -12,7 +29,12 @@ const transVarPlugin=()=>{
           //  console.log(root)
         },
         Declaration(decl:Declaration){
-            console.log(decl.variable,decl.prop,decl.value);
+            console.log(decl.value)
+            let valueRoot=parseSides(decl.value);
+            console.log(valueRoot)
+            console.log('-----')
+            // fs.writeFileSync('./test.json',JSON.stringify(valueRoot,null,'    '),{encoding:'utf-8'})
+            // console.log(parse(decl.value));
         },
     } as AcceptedPlugin
 }

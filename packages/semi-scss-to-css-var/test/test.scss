@@ -1,7 +1,31 @@
-$semi-margin-primary:5px;
-$semi-margin-sec:15px;
+$semi-margin-primary:var(--semi-margin-primary_cssvar);
+$semi-margin-sec:var(--semi-margin-sec_cssvar);
+
 .test{
+  --semi-margin-primary_cssvar:5px;
+  --semi-margin-sec_cssvar:15px;
   .sss{
-    margin: $semi-margin-primary + $semi-margin-sec;
+    margin: 1px 2px 3px $semi-margin-primary + $semi-margin-sec;
   }
 }
+
+
+
+
+xxxxx xxx $a + $b
+
+xxxxx xxx $a + 1 + $b
+
+xxxxx  xxx  $a + $b + 1 xxxxx  $c + $6
+
+
+xxxxx xxx $a - ($b + ($x + $y)+ $c)
+
+xxxxx xxx  (1 + $a - (1 + $c))
+
+
+
+
+
+
+
