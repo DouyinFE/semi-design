@@ -30,6 +30,7 @@ Version：Major.Minor.Patch
     - Fix the height inconsistency between Form.RadioGroup and RadioGroup when type=button, remove redundant padding [#677](https://github.com/DouyinFE/semi-design/issues/677)
     - Fix the problem that the Form component does not meet expectations after assigning an item to the array fieldPath using formApi setValue/setError/setTouched [#604](https://github.com/DouyinFE/semi-design/issues/604)
     - Fixed the problem that disabled text cannot be displayed in safari when the text color of disabled Input is customized by custom CSS or theme, and it is set to some specific color
+    - Fix the problem that the for attribute of the label does not take the id first when the id is configured in the Form Field component [#683](https://github.com/DouyinFE/semi-design/issues/683)
 - 【Docs】
     - A11y: Button adds keyboard and focus behavior description
 #### 🎉 2.5.0 (2022-02-24)

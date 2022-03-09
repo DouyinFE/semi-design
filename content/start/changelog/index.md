@@ -30,10 +30,9 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
     - 修复 Form.RadioGroup 与 RadioGroup 在 type=button 时高度不一致的问题，去除多余padding [#677](https://github.com/DouyinFE/semi-design/issues/677)
     - 修复 Form 组件使用 formApi setValue/setError/setTouched 针对数组型 fieldPath 删除某项后，赋值后不符合预期的问题  [#604](https://github.com/DouyinFE/semi-design/issues/604)
     - 修复 disabled Input 的文本颜色通过自定义 CSS 或者主题定制，将其设定为某些特定颜色时，在 Safari 下无法显示 disabled 文本的问题
+    - 修复 Form Field 组件在已配置 id 的情况下，label 的 for 属性未优先采用 id 的问题 [#683](https://github.com/DouyinFE/semi-design/issues/683)
 -  【Docs】
     - A11y：Button 增加 键盘和焦点 行为说明
-
-
 
 #### 🎉 2.5.0 (2022-02-24)
 - 【Fix】
