@@ -102,7 +102,7 @@ describe('DatePicker', () => {
     /**
      * 测试 open 受控时，点击面板内按钮关闭面板后，输入框应该清除 focus 状态
      */
-    it.only('input range focus when open is controlled', () => {
+    it('input range focus when open is controlled', () => {
         cy.visit('http://localhost:6006/iframe.html?id=datepicker--fix-input-range-focus&args=&viewMode=story');
         cy.get('.semi-datepicker-range-input-wrapper-start > .semi-input-wrapper').click();
         cy.get('.semi-datepicker-day').contains('10')
