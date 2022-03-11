@@ -15,6 +15,16 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 ---
 
+#### 🎉 2.6.0 (2022-03-11)
+- 【Fix】
+    - 修复 Table 展开任意行时其他展开行会重复渲染问题  [#686](https://github.com/DouyinFE/semi-design/issues/686)
+    - 修复 Navigation limitIndent 为 false 时的缺失 key 的警告 [#679](https://github.com/DouyinFE/semi-design/issues/679)
+    - 修复 Tag 有父级包裹时，父元素存在 3px 留白问题 [#518](https://github.com/DouyinFE/semi-design/issues/518) [@yangjiaxin1995](https://github.com/yangjiaxin1995)
+
+#### 🎉 2.5.1 (2022-03-08)
+- 【Fix】
+    - 修复 Tooltip content 中组件无法 autoFocus 的问题 [#675](https://github.com/DouyinFE/semi-design/issues/675)
+
 
 #### 🎉 2.6.0-beta.0 (2022-03-04)
 - 【Feat】

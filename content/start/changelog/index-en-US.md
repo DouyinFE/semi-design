@@ -16,6 +16,16 @@ Version：Major.Minor.Patch
 
 ---
 
+#### 🎉 2.6.0 (2022-03-11)
+- 【Fix】
+    - Fixed the problem that when Table expands any row, other expanded rows will be rendered repeatedly  [#686](https://github.com/DouyinFE/semi-design/issues/686)
+    - Fixed navigation lacking key warning, when limitIndent is false [#679](https://github.com/DouyinFE/semi-design/issues/679)
+    - Fixed the problem that the parent element has 3px blank space when the Tag has a parent package [#518](https://github.com/DouyinFE/semi-design/issues/518) [@yangjiaxin1995](https://github.com/yangjiaxin1995)
+
+#### 🎉 2.5.1 (2022-03-08)
+- 【Fix】
+    - Fixed Tooltip content autoFocus unexpected behavior [#675](https://github.com/DouyinFE/semi-design/issues/675)
+
 #### 🎉 2.6.0-beta.0 (2022-03-04)
 - 【Feat】
     - A11y: Calendar, ScrollList, Cascader, DatePicker accessibility semantic adaptation [#205](https://github.com/DouyinFE/semi-design/issues/205)
