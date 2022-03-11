@@ -89,6 +89,8 @@ export interface BodyState {
 
 export interface BodyContext {
     getVirtualizedListRef: GetVirtualizedListRef;
+    flattenedColumns: ColumnProps[];
+    getCellWidths: (flattenedColumns: ColumnProps[]) => number[];
 }
 
 class Body extends BaseComponent<BodyProps, BodyState> {
@@ -128,6 +130,8 @@ class Body extends BaseComponent<BodyProps, BodyState> {
     listRef: React.MutableRefObject<any>;
     observer: ResizeObserver;
     foundation: BodyFoundation;
+    cellWidths: number[];
+    flattenedColumns: ColumnProps[];
     constructor(props: BodyProps, context: BodyContext) {
         super(props);
         this.ref = React.createRef();
@@ -142,7 +146,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
         };
 
         this.listRef = React.createRef();
-        const { getVirtualizedListRef } = context;
+        const { getVirtualizedListRef, flattenedColumns, getCellWidths } = context;
         if (getVirtualizedListRef) {
             if (props.virtualized) {
                 getVirtualizedListRef(this.listRef);
@@ -152,6 +156,8 @@ class Body extends BaseComponent<BodyProps, BodyState> {
             }
         }
         this.foundation = new BodyFoundation(this.adapter);
+        this.flattenedColumns = flattenedColumns;
+        this.cellWidths = getCellWidths(flattenedColumns);
         this.observer = null;
     }
 
@@ -199,7 +205,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
                     this.observer.unobserve(bodyWrapDOM);
                     this.observer = null;
                 }
-            }
+            },
         };
     }
 
@@ -494,7 +500,12 @@ class Body extends BaseComponent<BodyProps, BodyState> {
         }
 
         const { flattenedColumns, getCellWidths } = this.context;
-        const cellWidths = getCellWidths(flattenedColumns);
+
+        // we use memoized cellWidths to avoid re-render expanded row (fix #686)
+        if (flattenedColumns !== this.flattenedColumns) {
+            this.flattenedColumns = flattenedColumns;
+            this.cellWidths = getCellWidths(flattenedColumns);
+        }
 
         return (
             <ExpandedRow
@@ -508,7 +519,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
                 index={index}
                 virtualized={virtualized}
                 key={genExpandedRowKey(key)}
-                cellWidths={cellWidths}
+                cellWidths={this.cellWidths}
             />
         );
     };
