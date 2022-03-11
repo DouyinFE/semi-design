@@ -143,5 +143,14 @@ class ScrollListDemo extends React.Component {
 | transform  | When the transformation is in the selected state, the return value is displayed as a copy, and if the ScrollItem component is passed at the same time, the transform method in ItemData will be selected first. | (value: any, text: string) => string | v = > v |
 | value      | The value of each item                                                                                                                                                                                          | any       |         |
 
+
+## Accessibility
+
+### ARIA
+
+- `ScrollItem` support `aria-label`, indicates the label of current column.
+- `ScrollItem` uses `aria-disabled` to indicate whether the item is disabled
+- `ScrollItem` uses `aria-selected` to indicate whether the item is selected
+
 ## Design Tokens
 <DesignToken/>

@@ -486,13 +486,6 @@ function SplitButtonDemo(){
 }
 ```
 
-## Accessibility
-
-### ARIA
-
-- `aria-label` is used to indicate the function of the button. For icon buttons, we recommend using this attribute
-- `aria-disabled` is synchronized with the disabled attribute, indicating that the button is disabled
-
 ## API Reference
 
 ### Button
@@ -533,6 +526,19 @@ function SplitButtonDemo(){
 | aria-label          | Label of the button group                                                                                       | string                            | -    |
 | style     | Custom style                                  | CSSProperties   |        |
 | className     | Custom class name                                  | string   |        |
+
+## Accessibility
+
+### ARIA
+
+- `aria-label` is used to indicate the function of the button. For icon buttons, we recommend using this attribute
+- `aria-disabled` is synchronized with the disabled attribute, indicating that the button is disabled
+
+### Keyboard and Focus
+
+- `Button`'s focus management is consistent with native `button`, keyboard users can use `Tab` and `Shift + Tab` to switch focus
+- The trigger of `Button` is the same as the native `button`, when the `button` is focused, it can be activated by `Enter` or `Space` key
+- The buttons in the `ButtonGroup` are managed in the same way as the focus of a single `button`, and can be switched by `Tab` and `Shift + Tab`
 
 ## Design Tokens
 <DesignToken/>

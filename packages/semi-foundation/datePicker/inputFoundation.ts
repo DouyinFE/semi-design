@@ -32,7 +32,6 @@ export interface DateInputFoundationProps extends DateInputElementProps, DateInp
     value?: ValueType;
     disabled?: boolean;
     type?: Type;
-    multiple?: boolean;
     showClear?: boolean;
     format?: string;
     inputStyle?: React.CSSProperties;

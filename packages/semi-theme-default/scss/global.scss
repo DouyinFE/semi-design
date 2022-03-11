@@ -92,7 +92,7 @@ body, body[theme-mode="dark"] .semi-always-light {
     --semi-color-bg-4: rgba(var(--semi-white), 1); // 背景色 - 最上层（特殊）
     --semi-color-text-0: rgba(var(--semi-grey-9), 1); // 文本/图标颜色 - 最主要
     --semi-color-text-1: rgba(var(--semi-grey-9), .8); // 文本/图标颜色 - 稍次要
-    --semi-color-text-2: rgba(var(--semi-grey-9), .6); // 文本/图标颜色 - 次要
+    --semi-color-text-2: rgba(var(--semi-grey-9), .62); // 文本/图标颜色 - 次要
     --semi-color-text-3: rgba(var(--semi-grey-9), .35); // 文本/图标颜色 - 最次要
     --semi-shadow-elevated: 0 0 1px rgba(0, 0, 0, .3), 0 4px 14px rgba(0, 0, 0, .1); // 用于toast, modal, popover等需要提升层级的界面元素
     --semi-border-radius-extra-small: 3px; // 超小圆角，用于 checkbox 内圆角
@@ -169,9 +169,9 @@ body[theme-mode="dark"], body .semi-always-dark {
     --semi-color-nav-bg: rgba(35, 36, 41, 1);
     --semi-shadow-elevated: inset 0 0 0 1px rgba(255, 255, 255, .1), 0 4px 14px rgba(0, 0, 0, .25);
     --semi-color-overlay-bg: rgba(22, 22, 26, .6);
-    --semi-color-fill-0: rgba(var(--semi-white), .05);
-    --semi-color-fill-1: rgba(var(--semi-white), .09);
-    --semi-color-fill-2: rgba(var(--semi-white), .13);
+    --semi-color-fill-0: rgba(var(--semi-white), .12);
+    --semi-color-fill-1: rgba(var(--semi-white), .16);
+    --semi-color-fill-2: rgba(var(--semi-white), .20);
     --semi-color-border: rgba(var(--semi-white), .08);
     --semi-color-shadow: rgba(var(--semi-black), .04);
     --semi-color-bg-0: rgba(22, 22, 26, 1);

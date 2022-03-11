@@ -76,7 +76,7 @@ const TYPE_MAP = {
     styles: 'style',
 };
 
-const SUPPORT_TYPES = new Set(['feature', 'performance', 'style', 'new component', 'chore', 'docs', 'fix', 'refactor', 'breaking change']);
+const SUPPORT_TYPES = new Set(['feature', 'performance', 'style', 'new component', 'chore', 'docs', 'fix', 'refactor', 'breaking change', 'design token']);
 
 const UNKNOWN_COMPONENT_NAME = 'Other';
 const UNKNOWN_TYPE_NAME = 'chore';

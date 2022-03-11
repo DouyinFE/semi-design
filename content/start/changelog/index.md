@@ -15,6 +15,25 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 ---
 
+
+#### 🎉 2.6.0-beta.0 (2022-03-04)
+- 【Feat】
+    - A11y：Calendar、ScrollList、Cascader、DatePicker 无障碍语义化适配  [#205](https://github.com/DouyinFE/semi-design/issues/205)
+- 【Style】
+    - 微调默认主题的 5 个 CSS token 和 Table 空文本颜色以更好地支持 WCAG 标准  [#205](https://github.com/DouyinFE/semi-design/issues/205)
+    - 修复 Cascader 在多选模式换行时标签对齐样问题 [@chenc041](https://github.com/chenc041)
+    - Button 新增焦点样式 [#205](https://github.com/DouyinFE/semi-design/issues/205)
+-  【Design Token】
+   - Cascader组件级Token： 移除 $spacing-cascader_selection_tag-marginX，新增 $spacing-cascader_selection_tag-marginLeft 和 $spacing-cascader_selection_tag-marginRight [#636](https://github.com/DouyinFE/semi-design/issues/636) 
+- 【Fix】
+    - 修复 `Table` 表头文字不支持选中的问题  [#638](https://github.com/DouyinFE/semi-design/issues/638) [@chenc041](https://github.com/chenc041)
+    - 修复 Form.RadioGroup 与 RadioGroup 在 type=button 时高度不一致的问题，去除多余padding [#677](https://github.com/DouyinFE/semi-design/issues/677)
+    - 修复 Form 组件使用 formApi setValue/setError/setTouched 针对数组型 fieldPath 删除某项后，赋值后不符合预期的问题  [#604](https://github.com/DouyinFE/semi-design/issues/604)
+    - 修复 disabled Input 的文本颜色通过自定义 CSS 或者主题定制，将其设定为某些特定颜色时，在 Safari 下无法显示 disabled 文本的问题
+    - 修复 Form Field 组件在已配置 id 的情况下，label 的 for 属性未优先采用 id 的问题 [#683](https://github.com/DouyinFE/semi-design/issues/683)
+-  【Docs】
+    - A11y：Button 增加 键盘和焦点 行为说明
+
 #### 🎉 2.5.0 (2022-02-24)
 - 【Fix】
     - 修复 resizable Table 动态删除列时列宽计算错误问题  [#650](https://github.com/DouyinFE/semi-design/issues/650)

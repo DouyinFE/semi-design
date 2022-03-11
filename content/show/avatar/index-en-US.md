@@ -254,6 +254,39 @@ import { Avatar, AvatarGroup } from '@douyinfe/semi-ui';
 );
 ```
 
+## API Reference
+
+---
+
+### Avatar
+
+| Properties   | Instructions                                                                                                                                                                              | type           | Default  |
+| ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- | -------- |
+| alt          | Defines an alternative text description of the image.                                                                                                                                       | string         | -        |
+| className    | Class name                                                                                                                                                                                | string         | -        |
+| color        | Color of the avatar, one of `amber`, `blue`, `cyan`, `green`, `grey`, `indigo`, `light-blue`, `light-green`, `lime`, `orange`, `pink`, `rain`, `red`, `teal`, `violet`, `yellow`, `white` | string         | `grey`   |
+| hoverMask    | Avatar content overlay when hover                                                                                                                                                         | ReactNode     | -        |
+| imgAttr | Native html img attributes **>=1.5.0**| React.ImgHTMLAttributes<HTMLImageElement\> | - |
+| shape        | Shape of the avatar, one of `circle`, `square`                                                                                                                                            | string         | `circle` |
+| size         | Size of the avatar, one of `extra-extra-small`,`extra-small`, `small`, `default`, `medium`, `large`, `extra-large`                                                                                                       | string         | `medium` |
+| src          | Resource address for imgage avatars                                                                                                                                                       | string         | -        |
+| srcSet       | Set the image avatar responsive resource address                                                                                                                                          | string         | -        |
+| style        | Style name                                                                                                                                                                                | CSSProperties         | -        |
+| onClick      | Click the callback of the avatar.                                                                                                                                                         | (e: Event) => void       | -        |
+| onError      | Image load failed event, returning false closes the default fallback behavior of the component                                                                                            | (e: Event) = > boolean | -        |
+| onMouseEnter | Callback to onMouseEnter event                                                                                                                                                            | (e: Event) => void       | -        |
+| onMouseLeave | Callback to onMouseLeave event                                                                                                                                                            | (e: Event) => void       | -        |
+
+### AvatarGroup
+
+| Properties | Instructions                                                                        | type   | Default  |
+| ---------- | ----------------------------------------------------------------------------------- | ------ | -------- |
+| maxCount | Display +N when the number of avatars exceeds this value | number | - |
+| overlapFrom | Set the coverage direction of the avatars, one of `start`, `end` | string | `start` |
+| renderMore | Customize the more tag  | (restNumber: number, restAvatars: ReactNode[]) => ReactNode | - |
+| shape      | Shape of the avatar, one of `circle`, `square`                                      | string | `circle` |
+| size       | Size of the avatar, one of `extra-extra-small`, `extra-small`, `small`, `default`, `medium`, `large`, `extra-large` | string | `medium` |
+
 ## Accessibility
 
 - `alt`：When using a picture avatar, please use the `alt` attribute to explain the content of the picture
@@ -292,39 +325,6 @@ import { Avatar } from '@douyinfe/semi-ui';
     );
 };
 ```
-
-## API Reference
-
----
-
-### Avatar
-
-| Properties   | Instructions                                                                                                                                                                              | type           | Default  |
-| ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- | -------- |
-| alt          | Defines an alternative text description of the image.                                                                                                                                       | string         | -        |
-| className    | Class name                                                                                                                                                                                | string         | -        |
-| color        | Color of the avatar, one of `amber`, `blue`, `cyan`, `green`, `grey`, `indigo`, `light-blue`, `light-green`, `lime`, `orange`, `pink`, `rain`, `red`, `teal`, `violet`, `yellow`, `white` | string         | `grey`   |
-| hoverMask    | Avatar content overlay when hover                                                                                                                                                         | ReactNode     | -        |
-| imgAttr | Native html img attributes **>=1.5.0**| React.ImgHTMLAttributes<HTMLImageElement\> | - |
-| shape        | Shape of the avatar, one of `circle`, `square`                                                                                                                                            | string         | `circle` |
-| size         | Size of the avatar, one of `extra-extra-small`,`extra-small`, `small`, `default`, `medium`, `large`, `extra-large`                                                                                                       | string         | `medium` |
-| src          | Resource address for imgage avatars                                                                                                                                                       | string         | -        |
-| srcSet       | Set the image avatar responsive resource address                                                                                                                                          | string         | -        |
-| style        | Style name                                                                                                                                                                                | CSSProperties         | -        |
-| onClick      | Click the callback of the avatar.                                                                                                                                                         | (e: Event) => void       | -        |
-| onError      | Image load failed event, returning false closes the default fallback behavior of the component                                                                                            | (e: Event) = > boolean | -        |
-| onMouseEnter | Callback to onMouseEnter event                                                                                                                                                            | (e: Event) => void       | -        |
-| onMouseLeave | Callback to onMouseLeave event                                                                                                                                                            | (e: Event) => void       | -        |
-
-### AvatarGroup
-
-| Properties | Instructions                                                                        | type   | Default  |
-| ---------- | ----------------------------------------------------------------------------------- | ------ | -------- |
-| maxCount | Display +N when the number of avatars exceeds this value | number | - |
-| overlapFrom | Set the coverage direction of the avatars, one of `start`, `end` | string | `start` |
-| renderMore | Customize the more tag  | (restNumber: number, restAvatars: ReactNode[]) => ReactNode | - |
-| shape      | Shape of the avatar, one of `circle`, `square`                                      | string | `circle` |
-| size       | Size of the avatar, one of `extra-extra-small`, `extra-small`, `small`, `default`, `medium`, `large`, `extra-large` | string | `medium` |
 
 ## Design Tokens
 <DesignToken/>

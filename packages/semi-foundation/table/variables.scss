@@ -73,6 +73,7 @@ $color-table_sorter-text-hover: var(--semi-color-text-2); // 表格排序按钮�
 $color-table_page-text-default: var(--semi-color-text-2); // 表格翻页器文本颜色
 $color-table_resizer-bg-default: var(--semi-color-primary); // 表格拉伸标示线颜色
 $color-table_selection-bg-default: rgba(var(--semi-grey-0), 1); // 表格分组背景色
+$color-table_placeholder-text-default: var(--semi-color-text-2); // 表格空数据文本颜色
 
 // Other
 $font-table_base-fontSize: 14px; // 表格默认文本字号

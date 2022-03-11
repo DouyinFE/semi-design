@@ -296,13 +296,6 @@ class Demo extends React.Component {
 }
 ```
 
-
-## Accessibility
-
-### ARIA
-
-- SideSheet 具有 `dialog` role 来表示它是一个弹窗组件， 内部 header 具有 `heading` role 表明是 header。
-
 ## API 参考
 
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
@@ -330,6 +323,12 @@ class Demo extends React.Component {
 | width | 宽度，位置为 `left` 或 `right` 时生效 | number \| string | 448 | - |
 | zIndex | 弹层 z-index 值 | number | 1000 | 0.29.0 |
 | onCancel | 取消面板时的回调函数 | (e: MouseEvent) => void | - | - |
+
+## Accessibility
+
+### ARIA
+
+- SideSheet 具有 `dialog` role 来表示它是一个弹窗组件， 内部 header 具有 `heading` role 表明是 header。
 
 ## 设计变量
 

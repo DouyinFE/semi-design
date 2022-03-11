@@ -412,13 +412,6 @@ function DropdownEvents() {
 }
 ```
 
-## Accessibility
-
-### ARIA
-
-- Dropdown.Menu `role` 设置为 `menu`，`aria-orientatio` 设置为 `vertical`
-- Dropdown.Item `role` 设置为 `menuitem`
-
 ## API 参考
 
 ### Dropdown
@@ -484,6 +477,13 @@ function DropdownEvents() {
 | node                                     | 按钮类型，可选：`title`，`item`，`divider` | string |        |
 | name                                     | 菜单文本，标题或 Item 的内容               | string |        |
 | 其他属性与 Title、Item、Divider 属性对应 |                                            |        |        |
+
+## Accessibility
+
+### ARIA
+
+- Dropdown.Menu `role` 设置为 `menu`，`aria-orientatio` 设置为 `vertical`
+- Dropdown.Item `role` 设置为 `menuitem`
 
 ## 设计变量
 

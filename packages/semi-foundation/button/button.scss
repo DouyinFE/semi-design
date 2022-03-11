@@ -23,6 +23,11 @@ $module: #{$prefix}-button;
     outline: none;
     vertical-align: middle;
     white-space: nowrap;
+
+    &:focus {
+        outline: $width-button-outline solid $color-button_primary-outline-focus;
+    }
+
     &-danger {
         background-color: $color-button_danger-bg-default;
         color: $color-button_danger-text-default;
@@ -35,6 +40,9 @@ $module: #{$prefix}-button;
         &.#{$module}-light,
         &.#{$module}-borderless {
             color: $color-button_danger-bg-default;
+        }
+        &:not(.#{$module}-borderless):not(.#{$module}-light):focus {
+            outline-color: $color-button_danger-outline-focus;
         }
     }
     &-warning {
@@ -49,6 +57,9 @@ $module: #{$prefix}-button;
         &.#{$module}-light,
         &.#{$module}-borderless {
             color: $color-button_warning-bg-default;
+        }
+        &:not(.#{$module}-borderless):not(.#{$module}-light):focus {
+            outline-color: $color-button_warning-outline-focus;
         }
     }
     &-tertiary {
