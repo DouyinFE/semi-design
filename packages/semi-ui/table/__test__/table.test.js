@@ -1930,4 +1930,22 @@ describe(`Table`, () => {
         expect(newExpandedRows.length).toEqual(1);
         expect(table.state(`expandedRowKeys`)).toEqual(['1']);
     });
+
+    it(`test expanded row re-render`, () => {
+        const expandedRowRender = sinon.spy(() => <div>Semi Design</div>);
+        const demo = mount(
+            <Table
+                columns={columns}
+                dataSource={data}
+                expandedRowRender={expandedRowRender}
+            />
+        );
+
+        const table = demo.find(BaseTable);
+
+        const expandIcons = demo.find(`.semi-table-tbody .semi-table-row .semi-table-expand-icon`);
+        expandIcons.at(0).simulate('click');
+        expandIcons.at(1).simulate('click');
+        expect(expandedRowRender.calledTwice).toBeTruthy();
+    });
 });
