@@ -206,7 +206,7 @@ export default class NavItem extends BaseComponent<NavItemProps, NavItemState> {
                 <>
                     {placeholderIcons}
                     {this.context.toggleIconPosition === strings.TOGGLE_ICON_LEFT && this.renderIcon(toggleIcon, strings.ICON_POS_RIGHT, true, 'key-toggle-pos-right')}
-                    {icon || indent || isInSubNav ? this.renderIcon(icon, strings.ICON_POS_LEFT, undefined, 'key-position-left') : null}
+                    {icon || indent || isInSubNav ? this.renderIcon(icon, strings.ICON_POS_LEFT, false, 'key-position-left') : null}
                     {!isNullOrUndefined(text) ? <span className={`${cssClasses.PREFIX}-item-text`}>{text}</span> : ''}
                     {this.context.toggleIconPosition === strings.TOGGLE_ICON_RIGHT && this.renderIcon(toggleIcon, strings.ICON_POS_RIGHT, true, 'key-toggle-pos-right')}
                 </>
