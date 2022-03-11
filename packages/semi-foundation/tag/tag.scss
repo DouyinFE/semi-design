@@ -18,6 +18,7 @@ $types: "ghost", "solid", "light";
     // hidden avatar tag image
     overflow: hidden;
     white-space: nowrap;
+    vertical-align: bottom;
 
     &-default,
     &-small {
