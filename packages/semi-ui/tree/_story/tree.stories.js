@@ -1,12 +1,11 @@
 import React, { useRef, useState } from 'react';
-import Tree from '../index';
-import AutoSizer from '../autoSizer';
-import { Button, ButtonGroup, Input, Popover, Toast } from '../../index';
-import BigTree from './BigData';
-import testData from './data';
 import { cloneDeep, difference, isEqual } from 'lodash';
 import { IconEdit, IconMapPin, IconMore } from '@douyinfe/semi-icons';
-
+import Tree from '../index';
+import AutoSizer from '../autoSizer';
+import { Button, ButtonGroup, Input, Popover, Toast, Space } from '../../index';
+import BigTree from './BigData';
+import testData from './data';
 const TreeNode = Tree.TreeNode;
 
 export default {
@@ -2339,3 +2338,64 @@ export const CheckRelationDemo = () => {
     </>
   );
 };
+
+export const ValueImpactExpansionWithDynamicTreeData = () => {
+  const json = {
+      "Node0": { 
+          "Child Node0-0": '0-0', 
+          "Child Node0-1": '0-1', 
+      },
+      "Node1": { 
+          "Child Node1-0": '1-0', 
+          "Child Node1-1": '1-1', 
+      }
+  }
+  const json2 = {
+      "Updated Node0": { 
+          "Updated Child Node0-0": {
+              'Updated Child Node0-0-0':'0-0'
+          }, 
+          "Updated Child Node0-1": '0-1', 
+      },
+      "Updated Node1": { 
+          "Updated Child Node1-0": '1-0', 
+          "Updated Child Node1-1": '1-1', 
+      }
+  }
+  const style = {
+      width: 260,
+      height: 420,
+      border: '1px solid var(--color-border)'
+  }
+  const [value, setValue] = useState('0-0')
+  const [tree, setTree] = useState(json);
+  const handleValueButtonClick = () => {
+      if (value === '0-0') {
+          setValue('1-0');
+      } else {
+          setValue('0-0');
+      }
+  }
+  const handleTreeDataButtonClick = () => {
+      if(isEqual(tree, json)){
+          setTree(json2);
+      } else {
+          setTree(json);
+      }
+  }
+  return (  
+    <>
+      <div>value 受控时，当 treeData/treeDataSimpleJson 改变时，应该根据 value 自动展开</div>
+      <Tree 
+          value={value}
+          treeDataSimpleJson={tree} 
+          style={style}
+          onChange={v => setValue(v)}
+      />
+      <Space>
+          <Button onClick={handleValueButtonClick}>改变 value</Button>
+          <Button onClick={handleTreeDataButtonClick}>改变 TreeData</Button>    
+      </Space>
+    </>
+  )
+}
