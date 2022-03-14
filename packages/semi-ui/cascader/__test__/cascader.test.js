@@ -229,7 +229,7 @@ describe('Cascader', () => {
 
     it('dynamic treeData in multiple and uncontrolled mode', () => {
         const cascader = render({
-            defaultValue: 'Yazhou',
+            defaultValue: 'Asia',
             multiple: true,
         });
         const opt = document.querySelectorAll(`.${BASE_CLASS_PREFIX}-cascader-selection-multiple .${BASE_CLASS_PREFIX}-tag`);
@@ -241,7 +241,7 @@ describe('Cascader', () => {
 
     it('dynamic treeData in multiple and controlled mode', () => {
         const cascader = render({
-            value: 'Yazhou',
+            value: 'Asia',
             multiple: true,
         });
         const opt = document.querySelectorAll(`.${BASE_CLASS_PREFIX}-cascader-selection-multiple .${BASE_CLASS_PREFIX}-tag`);
