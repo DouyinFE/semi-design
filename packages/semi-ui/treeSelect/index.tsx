@@ -561,8 +561,8 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             notifySelect: ((selectKey, bool, node) => {
                 this.props.onSelect && this.props.onSelect(selectKey, bool, node);
             }),
-            notifySearch: input => {
-                this.props.onSearch && this.props.onSearch(input);
+            notifySearch: (input, filteredExpandedKeys) => {
+                this.props.onSearch && this.props.onSearch(input, filteredExpandedKeys);
             },
             cacheFlattenNodes: bool => {
                 this._flattenNodes = bool ? cloneDeep(this.state.flattenNodes) : null;
@@ -1232,9 +1232,10 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
     };
 
     renderNodeList = () => {
-        const { flattenNodes, motionKeys, motionType } = this.state;
+        const { flattenNodes, motionKeys, motionType, filteredKeys } = this.state;
         const { direction } = this.context;
         const { virtualize, motionExpand } = this.props;
+        const isExpandControlled = 'expandedKeys' in this.props;
         if (!virtualize || isEmpty(virtualize)) {
             return (
                 <NodeList
@@ -1242,6 +1243,13 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                     flattenList={this._flattenNodes}
                     motionKeys={motionExpand ? motionKeys : new Set([])}
                     motionType={motionType}
+                    // When motionKeys is empty, but filteredKeys is not empty (that is, the search hits), this situation should be distinguished from ordinary motionKeys
+                    searchTargetIsDeep={
+                        isExpandControlled &&
+                        motionExpand &&
+                        isEmpty(motionKeys) &&
+                        !isEmpty(filteredKeys)
+                    }
                     onMotionEnd={this.onMotionEnd}
                     renderTreeNode={this.renderTreeNode}
                 />
