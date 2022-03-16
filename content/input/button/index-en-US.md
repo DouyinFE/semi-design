@@ -519,6 +519,7 @@ function SplitButtonDemo(){
 | disabled   | Disabled status                                                                         | boolean | false     |
 | size       | Button size, optional value: `"large"`,`"default"`,`"small"`                            | string  | "default" |
 | type       | Type, optional values: `"primary"`,`"secondary"`, `"tertiary"`, `"warning"`, `"danger"` | string  | "primary" |
+| className     | Custom class name                                  | string   |        |
 
 ### SplitButtonGroup **V1.12.0**
 | Properties   | Instructions                                                            | Type      | Default     |
