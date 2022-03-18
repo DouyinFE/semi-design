@@ -16,6 +16,16 @@ Version：Major.Minor.Patch
 
 ---
 
+#### 🎉 2.7.0-beta.0 (2022-03-18)
+- 【Fix】
+    - Fix the problem where the trigger unexpectedly display [object object] when Cascader was in single-select and non-search mode, and the label was ReactNode.  [#592](https://github.com/DouyinFE/semi-design/issues/592)
+    - ButtonGroup support calssName props  [#704](https://github.com/DouyinFE/semi-design/issues/704) [@yaogengzhu](https://github.com/yaogengzhu)
+    - Fixed that the value of the Tree component will affect the expansion of the node at the beginning, but after updating the treeData, it will no longer affect the expansion of the node  [#257](https://github.com/DouyinFE/semi-design/issues/257)
+    - fix expandedKeys of TreeSelect is not completely controlled  [#328](https://github.com/DouyinFE/semi-design/issues/328)
+- 【Feat】
+    - DatePicker supports inset input in panel  [#294](https://github.com/DouyinFE/semi-design/issues/294)
+    - TreeSelect add filterExpandedKeys parameter for onSearch  [#328](https://github.com/DouyinFE/semi-design/issues/328)
+
 #### 🎉 2.6.0 (2022-03-11)
 - 【Fix】
     - Fixed the problem that when Table expands any row, other expanded rows will be rendered repeatedly  [#686](https://github.com/DouyinFE/semi-design/issues/686)
