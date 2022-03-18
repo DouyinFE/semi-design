@@ -12,10 +12,12 @@ import { getDefaultFormatTokenByType } from './_utils/getDefaultFormatToken';
 import { strings } from './constants';
 import { strings as inputStrings } from '../input/constants';
 
-import { Type, DateInputFoundationProps } from './inputFoundation';
+import { Type, DateInputFoundationProps, InsetInputValue } from './inputFoundation';
 import { MonthsGridFoundationProps } from './monthsGridFoundation';
 import { WeekStartNumber } from './_utils/getMonthTable';
 import { ArrayElement, Motion } from '../utils/type';
+import getInsetInputFormatToken from './_utils/getInsetInputFormatToken';
+import getInsetInputValueFromInsetInputStr from './_utils/getInsetInputValueFromInsetInputStr';
 
 export type ValidateStatus = ArrayElement<typeof strings.STATUS>;
 export type InputSize = ArrayElement<typeof strings.SIZE_SET>;
@@ -92,6 +94,8 @@ export interface RenderProps {
     triggerRender?: TriggerRenderType;
 }
 
+export type RangeType = 'rangeStart' | 'rangeEnd' | false;
+
 export interface EventHandlerProps {
     onCancel?: OnCancelType;
     onChange?: OnChangeType;
@@ -104,7 +108,7 @@ export interface EventHandlerProps {
     // onClear?: React.MouseEventHandler<HTMLDivElement>;
     onClear?: (e: any) => void;
     // onFocus?: React.MouseEventHandler<HTMLInputElement>;
-    onFocus?: (e: any, rangType: 'rangeStart' | 'rangeEnd') => void;
+    onFocus?: (e: any, rangType: RangeType) => void;
     onPresetClick?: OnPresetClickType;
 }
 
@@ -157,6 +161,7 @@ export interface DatePickerFoundationProps extends ElementProps, RenderProps, Ev
     dateFnsLocale?: any;
     localeCode?: string;
     rangeSeparator?: string;
+    insetInput?: boolean;
 }
 
 export interface DatePickerFoundationState {
@@ -167,8 +172,10 @@ export interface DatePickerFoundationState {
     cachedSelectedValue: Date[];
     prevTimeZone: string | number;
     motionEnd: boolean;
-    rangeInputFocus: 'rangeStart' | 'rangeEnd' | boolean;
+    rangeInputFocus: RangeType;
     autofocus: boolean;
+    insetInputValue: InsetInputValue;
+    triggerDisabled: boolean;
 }
 
 export { Type, DateInputFoundationProps };
@@ -195,6 +202,9 @@ export interface DatePickerAdapter extends DefaultAdapter<DatePickerFoundationPr
     setRangeInputFocus: (rangeInputFocus: DatePickerFoundationState['rangeInputFocus']) => void;
     couldPanelClosed: () => boolean;
     isEventTarget: (e: any) => boolean;
+    updateInsetInputValue: (insetInputValue: InsetInputValue) => void;
+    setInsetInputFocus: () => void;
+    setTriggerDisabled: (disabled: boolean) => void;
 }
 
 
@@ -350,6 +360,16 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
         }
     }
 
+    /**
+     * clear inset input value when close panel
+     */
+    clearInsetInputValue() {
+        const { insetInput } = this._adapter.getProps();
+        if (insetInput) {
+            this._adapter.updateInsetInputValue(null);
+        }
+    }
+
     resetCachedSelectedValue(willUpdateDates?: Date[]) {
         const { value, cachedSelectedValue } = this._adapter.getStates();
         const newCachedSelectedValue = Array.isArray(willUpdateDates) ? willUpdateDates : value;
@@ -380,6 +400,7 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
         // range type picker, closing panel requires the following side effects
         this.rangeTypeSideEffectsWhenClosePanel(inputValue, willUpdateDates as Date[]);
         this.needConfirmSideEffectsWhenClosePanel(willUpdateDates as Date[]);
+        this.clearInsetInputValue();
         this._adapter.notifyOpenChange(false);
         this._adapter.notifyBlur(e);
     }
@@ -426,6 +447,37 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
         } else {
             this._adapter.updateInputValue(input);
         }
+    }
+
+    /**
+     * inset input 变化时需要更新以下 state 状态
+     *  - insetInputValue（总是）
+     *  - inputValue（可以解析为合法日期时）
+     *  - value（可以解析为合法日期时）
+     */
+    handleInsetInputChange(options: { insetInputStr: string, format: string, insetInputValue: InsetInputValue }) {
+        const { insetInputStr, format, insetInputValue } = options;
+        const _isMultiple = this._isMultiple();
+        const result = _isMultiple ? this.parseMultipleInput(insetInputStr, format) : this.parseInput(insetInputStr, format);
+        const { value: stateValue } = this.getStates();
+
+        if ((result && result.length)) {
+            const changedDates = this._getChangedDates(result);
+            if (!this._someDateDisabled(changedDates)) {
+                if (this._adapter.needConfirm()) {
+                    this._adapter.updateCachedSelectedValue(result);
+                }
+                if (!isEqual(result, stateValue)) {
+                    if (!this._isControlledComponent()) {
+                        this._adapter.updateValue(result);
+                    }
+                    this._notifyChange(result);
+                }
+                const triggerInput = _isMultiple ? this.formatMultipleDates(result) : this.formatDates(result);
+                this._adapter.updateInputValue(triggerInput);
+            }
+        }
+        this._adapter.updateInsetInputValue(insetInputValue);
     }
 
     /**
@@ -479,7 +531,7 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
         }
     }
 
-    handleSetRangeFocus(rangeInputFocus: boolean | 'rangeStart' | 'rangeEnd') {
+    handleSetRangeFocus(rangeInputFocus: RangeType) {
         this._adapter.setRangeInputFocus(rangeInputFocus);
     }
 
@@ -546,14 +598,14 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
      * @param {string} input
      * @returns  {Date [] | '}
      */
-    parseInput(input = '') {
+    parseInput(input = '', format?: string) {
         let result: Date[] = [];
         // console.log(input);
         const { dateFnsLocale, rangeSeparator } = this.getProps();
 
         if (input && input.length) {
             const type = this.getProp('type');
-            const formatToken = this.getProp('format') || getDefaultFormatTokenByType(type);
+            const formatToken = format || this.getProp('format') || getDefaultFormatTokenByType(type);
             let parsedResult,
                 formatedInput;
             const nowDate = new Date();
@@ -636,13 +688,13 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
      * @param {Date[]} dates
      * @returns {string}
      */
-    formatDates(dates: Date[] = []) {
+    formatDates(dates: Date[] = [], customFormat?: string) {
         let str = '';
         const rangeSeparator = this.getProp('rangeSeparator');
 
         if (Array.isArray(dates) && dates.length) {
             const type = this.getProp('type');
-            const formatToken = this.getProp('format') || getDefaultFormatTokenByType(type);
+            const formatToken = customFormat || this.getProp('format') || getDefaultFormatTokenByType(type);
 
             switch (type) {
                 case 'date':
@@ -679,7 +731,7 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
      * @param {Date[]} dates
      * @returns {string}
      */
-    formatMultipleDates(dates: Date[] = [], separator: string = strings.DEFAULT_SEPARATOR_MULTIPLE) {
+    formatMultipleDates(dates: Date[] = [], separator: string = strings.DEFAULT_SEPARATOR_MULTIPLE, customFormat?: string) {
         const strs = [];
         if (Array.isArray(dates) && dates.length) {
             const type = this.getProp('type');
@@ -688,12 +740,12 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
                 case 'date':
                 case 'dateTime':
                 case 'month':
-                    dates.forEach(date => strs.push(this.formatDates([date])));
+                    dates.forEach(date => strs.push(this.formatDates([date], customFormat)));
                     break;
                 case 'dateRange':
                 case 'dateTimeRange':
                     for (let i = 0; i < dates.length; i += 2) {
-                        strs.push(this.formatDates(dates.slice(i, i + 2)));
+                        strs.push(this.formatDates(dates.slice(i, i + 2), customFormat));
                     }
                     break;
                 default:
@@ -735,7 +787,7 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
      * @param {*} options
      */
     handleSelectedChange(value: Date[], options?: { fromPreset?: boolean; needCheckFocusRecord?: boolean }) {
-        const type = this.getProp('type');
+        const { type, format, rangeSeparator, insetInput } = this._adapter.getProps();
         const { value: stateValue } = this.getStates();
         const controlled = this._isControlledComponent();
         const fromPreset = isObject(options) ? options.fromPreset : options;
@@ -754,9 +806,14 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
         const dates = Array.isArray(value) ? [...value] : value ? [value] : [];
         const changedDates = this._getChangedDates(dates);
 
-        let inputValue;
+        let inputValue, insetInputValue;
         if (!this._someDateDisabled(changedDates)) {
             inputValue = this._isMultiple() ? this.formatMultipleDates(dates) : this.formatDates(dates);
+            if (insetInput) {
+                const insetInputFormatToken = getInsetInputFormatToken({ format, type });
+                const insetInputStr = this._isMultiple() ? this.formatMultipleDates(dates, undefined, insetInputFormatToken) : this.formatDates(dates, insetInputFormatToken);
+                insetInputValue = getInsetInputValueFromInsetInputStr({ inputValue: insetInputStr, type, rangeSeparator  });
+            }
             const isRangeTypeAndInputIncomplete = this._isRangeType() && !this._isRangeValueComplete(dates);
             /**
              * If the input is incomplete when under control, the notifyChange is not triggered because
@@ -769,14 +826,19 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
                 if (isRangeTypeAndInputIncomplete) {
                     // do not change value when selected value is incomplete
                     this._adapter.updateInputValue(inputValue);
+                    this._adapter.updateInsetInputValue(insetInputValue);
                     return;
                 } else {
-                    (!controlled || fromPreset) && this._updateValueAndInput(dates, true, inputValue);
+                    if (!controlled || fromPreset) {
+                        this._updateValueAndInput(dates, true, inputValue);
+                        this._adapter.updateInsetInputValue(insetInputValue);
+                    }
                 }
             }
             if (!controlled && this._adapter.needConfirm()) {
                 // select date only change inputValue when needConfirm is true
                 this._adapter.updateInputValue(inputValue);
+                this._adapter.updateInsetInputValue(insetInputValue);
                 // if inputValue is not complete, don't notifyChange
                 if (isRangeTypeAndInputIncomplete) {
                     return;
@@ -810,7 +872,7 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
     }
 
     handleConfirm() {
-        const { cachedSelectedValue, value } = this.getStates();
+        const { cachedSelectedValue, value } = this._adapter.getStates();
         const isRangeValueComplete = this._isRangeValueComplete(cachedSelectedValue);
         const newValue = isRangeValueComplete ? cachedSelectedValue : value;
         if (this._adapter.needConfirm() && !this._isControlledComponent()) {
@@ -1119,6 +1181,21 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
             }, 0);
         } else {
             this.openPanel();
+        }
+    }
+
+    handlePanelVisibleChange(visible: boolean) {
+        if (visible) {
+            this._adapter.setInsetInputFocus();
+            /**
+             * After the panel is closed, the trigger input is disabled
+             * 面板关闭后，trigger input 禁用
+             */
+            setTimeout(() => {
+                this._adapter.setTriggerDisabled(true);
+            }, 0);
+        } else {
+            this._adapter.setTriggerDisabled(false);
         }
     }
 }

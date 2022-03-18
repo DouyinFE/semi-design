@@ -181,5 +181,13 @@ $module: #{$prefix}-datepicker;
             padding-left: $spacing-datepicker_footer_compact-paddintRight;
             padding-right: auto;
         }
+
+        .#{$module}-inset-input {
+            &-separator {
+                border-right: $width-datepicker-border solid $color-datepicker_border-bg-default;
+                border-left: 0;
+                transform: translateX(-50%);
+            }
+        }
     }
 }
