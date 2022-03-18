@@ -4,7 +4,7 @@ const cssClasses = {
     PREFIX: `${BASE_CLASS_PREFIX}-button`,
 };
 
-const strings: Record<string, any> = {
+const strings = {
     sizes: ['default', 'small', 'large'],
     iconPositions: ['left', 'right'],
     htmlTypes: ['button', 'reset', 'submit'],
@@ -12,7 +12,7 @@ const strings: Record<string, any> = {
     themes: ['solid', 'borderless', 'light'],
     DEFAULT_ICON_SIZE: 'default',
     DEFAULT_ICON_POSITION: 'left',
-};
+} as const;
 
 const numbers = {};
 

@@ -52,6 +52,7 @@ const strings = {
     PANEL_TYPE_RIGHT: 'right',
     STATUS: VALIDATE_STATUS,
     POSITION_SET: POPOVER_STRINGS.POSITION_SET,
+    POSITION_INLINE_INPUT: 'leftTopOver',
     ...formatToken,
 } as const;
 
@@ -59,6 +60,7 @@ const numbers = {
     WEEK_START_ON: 0, // Take the day of the week as the first day of the week, 0 for Sunday, 1 for Monday, and so on
     WEEK_HEIGHT: 36, // Date per line height 36px
     SPACING: popoverNumber.SPACING, // Floating distance trigger interval
+    SPACING_INSET_INPUT: 1,
 } as const;
 
 export { cssClasses, strings, numbers };

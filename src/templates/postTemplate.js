@@ -253,7 +253,9 @@ const components = {
     li: ({ children }) => {
         if (Array.isArray(children)) {
             children = [...children];
-
+            
+            // For convience of adding new feature in different type, we use "if else" group instead of object or map.
+            
             if (children[0] === '【Feature】' || children[0] === '【Feat】') {
                 children[0] = <div className={'changelog-title'}>🎁【Feature】</div>;
             }

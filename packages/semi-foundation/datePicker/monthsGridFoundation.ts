@@ -86,6 +86,7 @@ export interface MonthsGridFoundationProps extends MonthsGridElementProps {
     isAnotherPanelHasOpened?: (currentRangeInput: 'rangeStart' | 'rangeEnd') => boolean;
     focusRecordsRef?: any;
     triggerRender?: (props: Record<string, any>) => any;
+    insetInput: boolean;
 }
 
 export interface MonthInfo {
@@ -218,6 +219,7 @@ export default class MonthsGridFoundation extends BaseFoundation<MonthsGridAdapt
     _initDatePickerFromValue(values: BaseValueType[], refreshPicker = true) {
         const monthLeft = this.getState('monthLeft');
         const newMonthLeft = { ...monthLeft };
+        // REMOVE:
         this._adapter.updateMonthOnLeft(newMonthLeft);
         const newSelected = new Set<string>();
         if (!this._isMultiple()) {
@@ -230,6 +232,7 @@ export default class MonthsGridFoundation extends BaseFoundation<MonthsGridAdapt
         if (refreshPicker) {
             this.handleShowDateAndTime(strings.PANEL_TYPE_LEFT, values[0] || newMonthLeft.pickerDate);
         } else {
+            // FIXME:
             this.handleShowDateAndTime(strings.PANEL_TYPE_LEFT, newMonthLeft.pickerDate);
         }
         this._adapter.updateDaySelected(newSelected);
@@ -534,6 +537,7 @@ export default class MonthsGridFoundation extends BaseFoundation<MonthsGridAdapt
     ) {
         const { multiple, disabledDate } = this.getProps();
         const { selected: selectedSet, rangeStart, rangeEnd } = this.getStates();
+        // FIXME:
         const includeRange = ['dateRange', 'dateTimeRange'].includes(type);
         const options = { closePanel: false };
         if (!multiple && !includeRange && selectedSet.size) {

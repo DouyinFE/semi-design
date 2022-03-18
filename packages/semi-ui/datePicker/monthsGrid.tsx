@@ -1,4 +1,5 @@
 /* eslint-disable jsx-a11y/interactive-supports-focus,jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable react/no-did-update-set-state */
 /* eslint-disable max-len */
 /* eslint-disable no-nested-ternary */
@@ -274,6 +275,7 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
     renderPanel(month: Date, panelType: PanelType) {
         let monthCls = classnames(`${prefixCls}-month-grid-${panelType}`);
         const { monthLeft, monthRight, currentPanelHeight } = this.state;
+        const { insetInput } = this.props;
         const panelDetail = panelType === strings.PANEL_TYPE_RIGHT ? monthRight : monthLeft;
         const { isTimePickerOpen, isYearPickerOpen } = panelDetail;
 
@@ -296,7 +298,7 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
                 style.minWidth = wrap.getBoundingClientRect().width;
             }
 
-            if (this.leftIsYearOrTime() && this.rightIsYearOrTime()) {
+            if (this.leftIsYearOrTime() && this.rightIsYearOrTime() && !insetInput) {
                 /**
                  * left和right同时为tpk时，panel会有一个minHeight
                  * 如果缓存的currentPanelHeight为0，则需要计算滚动列表的高度
@@ -306,7 +308,7 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
                  * When left and right are tpk at the same time, the panel will have a minHeight
                  * If the cached currentPanelHeight is 0, you need to calculate the height of the scrolling list
                  * If there is a cached value, use currentPanelHeight (if this height is less than the actual value, it will affect the number of cycles in the ScrollList to render the list)
-                 * See packages/semi-foundation/scrollList/itemF oundation.js initWheelList function
+                 * See packages/semi-foundation/scrollList/itemFoundation.js initWheelList function
                  */
 
                 style.minHeight = currentPanelHeight ? currentPanelHeight : this.calcScrollListHeight();
@@ -319,8 +321,11 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
             monthCls = classnames(monthCls, `${prefixCls}-yam-showing`);
         }
 
+        const _isDatePanelOpen = !(isYearPickerOpen || isTimePickerOpen);
+        const xOpenType = _isDatePanelOpen ? 'date' : isYearPickerOpen ? 'year' : 'time';
+
         return (
-            <div className={monthCls} key={panelType} style={style}>
+            <div className={monthCls} key={panelType} style={style} x-open-type={xOpenType}>
                 {yearAndMonthLayer}
                 {timePickerLayer}
                 {/* {isYearPickerOpen || isTimePickerOpen ? null : panelContent} */}
@@ -536,9 +541,9 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
 
     renderSwitch(panelType: PanelType) {
         const { rangeStart, rangeEnd, monthLeft, monthRight } = this.state;
-        const { type, locale, disabledTimePicker, density, dateFnsLocale } = this.props;
-        // Type: date, dateRange, year, month, no rendering required
-        if (!type.includes('Time')) {
+        const { type, locale, disabledTimePicker, density, dateFnsLocale, insetInput } = this.props;
+        // Type: date, dateRange, year, month, inset input no rendering required
+        if (!type.includes('Time') || insetInput) {
             return null;
         }
 
@@ -606,7 +611,7 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
 
     render() {
         const { monthLeft, monthRight } = this.state;
-        const { type } = this.props;
+        const { type, insetInput } = this.props;
         const monthGridCls = classnames({
             [`${prefixCls }-month-grid`]: true,
         });
@@ -630,6 +635,8 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
                 className={monthGridCls}
                 x-type={type}
                 x-panel-yearandmonth-open-type={yearOpenType}
+                // FIXME:
+                x-insetInput={insetInput ? "true" : "false"}
                 ref={current => this.cacheRefCurrent('monthGrid', current)}
             >
                 {content}

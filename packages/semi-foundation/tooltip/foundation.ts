@@ -426,22 +426,22 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
                 translateY = -1;
                 break;
             case 'leftTopOver':
-                left = triggerRect.left;
-                top = triggerRect.top;
+                left = triggerRect.left - SPACING;
+                top = triggerRect.top - SPACING;
                 break;
             case 'rightTopOver':
-                left = triggerRect.right;
-                top = triggerRect.top;
+                left = triggerRect.right + SPACING;
+                top = triggerRect.top - SPACING;
                 translateX = -1;
                 break;
             case 'leftBottomOver':
-                left = triggerRect.left;
-                top = triggerRect.bottom;
+                left = triggerRect.left - SPACING;
+                top = triggerRect.bottom + SPACING;
                 translateY = -1;
                 break;
             case 'rightBottomOver':
-                left = triggerRect.right;
-                top = triggerRect.bottom;
+                left = triggerRect.right + SPACING;
+                top = triggerRect.bottom + SPACING;
                 translateX = -1;
                 translateY = -1;
                 break;
