@@ -161,7 +161,7 @@ import { DatePicker } from '@douyinfe/semi-ui';
 function Demo() {
     return (
         <div>
-            <DatePicker type="date" insetInput />
+            <DatePicker type="date" insetInput defaultOpen />
             <br />
             <br />
             <DatePicker type="dateTime" insetInput />
@@ -873,3 +873,7 @@ semi-ui 组件库中采用 [date-fns(v2.9.0)](https://date-fns.org/v2.9.0/docs/G
 
 -   **如何设置面板打开时默认显示的时间？**  
      可通过 defaultPickerValue 属性。
+
+- **日期时间选择、范围日期选择，输入部分日期后，面板没有回显日期？**
+
+    输入框需要输入完整后才会回显到面板上。比如，日期时间选择，完整要求日期和时间都已输入。范围日期选择，完整要求开始日期和结束日期都已输入。

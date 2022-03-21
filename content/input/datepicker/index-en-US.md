@@ -164,7 +164,7 @@ import { DatePicker } from '@douyinfe/semi-ui';
 function Demo() {
     return (
         <div>
-            <DatePicker type="date" insetInput />
+            <DatePicker type="date" insetInput defaultOpen />
             <br />
             <br />
             <DatePicker type="dateTime" insetInput />
@@ -884,3 +884,7 @@ Multiple dates or times are used by default `","` (English comma) separated.
 
 -   **How to set the default display time when the panel is opened?**  
     You can use the defaultPickerValue property.
+
+- **Date time selection, range date selection, after inputting some dates, the panel does not echo the date?**
+
+     The input box needs to be entered completely before it is showed to the panel. For example, for `dateTime` type, the full requested date and time have been entered. For `dateRange` type, full requires start and end dates to be entered.
