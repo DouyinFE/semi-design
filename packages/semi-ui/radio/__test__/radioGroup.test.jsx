@@ -196,4 +196,11 @@ describe('RadioGroup', () => {
         expect(middleRadio.exists(`.${BASE_CLASS_PREFIX}-radio-addon-buttonRadio-middle`)).toEqual(true);
         expect(largeRadio.exists(`.${BASE_CLASS_PREFIX}-radio-addon-buttonRadio-large`)).toEqual(true);
     });
+
+    it('setting RadioGroup value prop to NaN does not cause errors', () => {
+        const radioGroup = mount(
+            createRadioGroup({ value: NaN }),
+        );
+        expect(radioGroup.exists(`${BASE_CLASS_PREFIX}-radio-checked`)).toEqual(false);
+    });
 });

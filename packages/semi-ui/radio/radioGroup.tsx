@@ -11,6 +11,7 @@ import BaseComponent from '../_base/baseComponent';
 import { ArrayElement } from '../_base/base';
 import Radio, { RadioType } from './radio';
 import Context, { RadioGroupButtonSize, RadioMode } from './context';
+import Logger from '@douyinfe/semi-foundation/utils/Logger';
 
 export interface OptionItem {
     label?: React.ReactNode;
@@ -48,6 +49,8 @@ export type RadioGroupProps = {
 export interface RadioGroupState {
     value?: any;
 }
+
+const logger = new Logger('[@douyinfe/semi-ui RadioGroup]');
 
 class RadioGroup extends BaseComponent<RadioGroupProps, RadioGroupState> {
     static propTypes = {
@@ -97,6 +100,10 @@ class RadioGroup extends BaseComponent<RadioGroupProps, RadioGroupState> {
     }
 
     componentDidUpdate(prevProps: RadioGroupProps) {
+        if (isNaN(this.props.value as number)){
+            logger.warn('plase do not use NaN as value');
+            return;
+        }
         if (prevProps.value !== this.props.value) {
             this.foundation.handlePropValueChange(this.props.value);
         }
