@@ -97,6 +97,12 @@ class RadioGroup extends BaseComponent<RadioGroupProps, RadioGroupState> {
     }
 
     componentDidUpdate(prevProps: RadioGroupProps) {
+        if ((typeof prevProps.value === 'number' && isNaN(prevProps.value))
+            || (typeof this.props.value === 'number' && isNaN(this.props.value))) {
+            // `props.value` could be NaN, and `NaN === NaN` returns false
+            // This will fail the next if check, therefore short-circuiting here
+            return;
+        }
         if (prevProps.value !== this.props.value) {
             this.foundation.handlePropValueChange(this.props.value);
         }
