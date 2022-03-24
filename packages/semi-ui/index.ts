@@ -20,6 +20,7 @@ export { default as Collapsible } from './collapsible';
 export { default as ConfigProvider } from './configProvider';
 export { default as DatePicker } from './datePicker';
 export { default as Descriptions } from './descriptions';
+export { default as Divider } from './divider';
 export { default as Empty } from './empty';
 export { default as Modal } from './modal';
 export { default as Dropdown } from './dropdown';

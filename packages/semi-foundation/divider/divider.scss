@@ -1,0 +1,83 @@
+@import './variables.scss';
+
+$module: #{$prefix}-divider;
+
+.#{$module} {
+    margin: $spacing-divider_horizontal-margin;
+    border-bottom: $divider-border-width solid  $color-divider_border-color;
+    color: $color-divider_description-text-default;
+    box-sizing: border-box;
+  
+    &--dashed {
+        border-bottom-style: dashed;
+    }
+  
+    &--horizontal {
+        width: 100%;
+        display: flex;
+    }
+  
+    &--vertical {
+        border-bottom: 0;
+        display: inline-block;
+        margin: $spacing-divider_vertical-margin;
+        border-left: $divider-border-width solid  $color-divider_border-color;
+        height: $divider_vertical-height;
+        vertical-align: middle;
+    }
+  
+    &--with-text {
+        display: flex;
+        border-bottom: 0;
+        white-space: nowrap;
+        align-items: center;
+    
+        .#{$module}__inner-text {
+            font-weight: 500;
+            padding: $spacing-divider_inner-text-padding;
+            display: inline-block;
+        }
+        
+        .#{$module}__inner-text-plain {
+            font-weight: 400;
+        }
+    
+        &::before,
+        &::after {
+            content: "";
+            width: 50%;
+            border-bottom: $divider-border-width solid  $color-divider_border-color;
+        }
+    
+        &-left {
+            &::before {
+                width: 5%;
+            }
+    
+            &::after {
+                width: 95%;
+            }
+        }
+  
+        &-right {
+            &::before {
+                width: 95%;
+            }
+    
+            &::after {
+                width: 5%;
+            }
+        }
+    }
+}
+  
+.#{$module}--dashed {
+    &::before,
+    &::after {
+        border-bottom: $divider-border-width dashed  $color-divider_border-color;
+    }
+}
+  
+.#{$module}--vertical.#{$module}--dashed {
+    border-left: $divider-border-width dashed  $color-divider_border-color;
+}
