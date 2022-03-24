@@ -5,8 +5,6 @@ server/view/
 .expo/
 
 # json
-static/search_data_client.json
-search/data_client.json
 static/changeLog.json
 static/designToken.json
 
