@@ -55,6 +55,7 @@ export default class NodeList extends PureComponent<NodeListProps, NodeListState
     }
 
     onMotionEnd = () => {
+        typeof this.props.onMotionEnd === 'function' && this.props.onMotionEnd();
         this.setState({ transitionNodes: [] });
     };
 
