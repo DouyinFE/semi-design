@@ -331,6 +331,9 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         this.clickOutsideHandler = null;
         this.foundation = new TreeSelectFoundation(this.adapter);
         this.treeSelectID = Math.random().toString(36).slice(2);
+        this.onMotionEnd = () => {
+            this.adapter.rePositionDropdown();
+        };
     }
 
     // eslint-disable-next-line max-lines-per-function

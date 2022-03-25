@@ -866,3 +866,24 @@ export const FixWithFieldLossRef = () => {
   );
 }
 FixWithFieldLossRef.storyName = '修复 Form Field 丢失 ref 问题 #384';
+
+
+export const SwitchValueToNaN = () => {
+  const [val, setVal] = useState(1);
+
+  return (
+    <>
+      <RadioGroup direction="vertical" aria-label="单选组合示例" value={val}>
+          <Radio value={1}>A</Radio>
+          <Radio value={2}>B</Radio>
+          <Radio value={3}>C</Radio>
+          <Radio value={4}>D</Radio>
+      </RadioGroup>
+      <Space>
+        <Button onClick={() => setVal(NaN)}>NaN</Button>
+        <Button onClick={() => setVal(2)}>2</Button>
+      </Space>
+    </>
+  );
+}
+SwitchValueToNaN.storyName = 'SwitchValueToNaN';

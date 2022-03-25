@@ -254,7 +254,7 @@ function Demo() {
             <Text 
                 ellipsis={{ 
                     showTooltip:{
-                        opts: { content: '架构|Data-inf|bytegraph.cheetah.user_relation' }
+                        opts: { content: '架构|Semi-inf|graph.cheet.relation' }
                     }
                 }}
                 style={{ width: 150 }}
@@ -265,7 +265,7 @@ function Demo() {
             <Text 
                 ellipsis={{ 
                     showTooltip:{
-                        opts: { content: '架构|Data-inf|bytegraph.cheetah.user_relation', className: 'components-typography-demo' }
+                        opts: { content: '架构|Semi-inf|graph.cheet.relation', className: 'components-typography-demo' }
                     }
                 }}
                 style={{ width: 150 }}
@@ -276,7 +276,7 @@ function Demo() {
             <Text 
                 ellipsis={{
                     showTooltip:{
-                        opts: { content: '架构|Data-inf|bytegraph.cheetah.user_relation', style: { wordBreak: 'break-all' } }
+                        opts: { content: '架构|Semi-inf|graph.cheet.relation', style: { wordBreak: 'break-all' } }
                     }
                 }}
                 style={{ width: 150 }}
