@@ -161,7 +161,7 @@ import { DatePicker } from '@douyinfe/semi-ui';
 function Demo() {
     return (
         <div>
-            <DatePicker type="date" insetInput defaultOpen />
+            <DatePicker type="date" insetInput />
             <br />
             <br />
             <DatePicker type="dateTime" insetInput />
