@@ -9,6 +9,7 @@
  * Cypress will default scroll element into view
  * @see https://docs.cypress.io/guides/core-concepts/interacting-with-elements#Scrolling
  */
+
 describe('tooltip', () => {
     it('leftTopOver autoAdjustOverflow', () => {
         const viewportWidth = 1200;
@@ -26,9 +27,7 @@ describe('tooltip', () => {
         cy.get(dataSelector).scrollIntoView(rightBottomPosition);
         cy.get('[x-placement="rightBottomOver"]').should('have.length', 1);
     });
-});
 
-describe('tooltip', () => {
     it('autoFocusHover', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?id=tooltip--auto-focus-content-demo&args=&viewMode=story');
         const dataSelector = `[data-cy=hover]`;
