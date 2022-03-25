@@ -21,7 +21,7 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 - 【Chore】
     - useFormApi 增加泛型传入 [@so2liu](https://github.com/so2liu)
 - 【Fix】
-    - RadioGroup value 为 NaN 时，触发 Maximum update depth exceeded  [#712](https://github.com/DouyinFE/semi-design/issues/712) [@oddguan](https://github.com/oddguan)
+    - 修复 RadioGroup value 为 NaN 时，触发 Maximum update depth exceeded 的问题 [#712](https://github.com/DouyinFE/semi-design/issues/712) [@oddguan](https://github.com/oddguan)
     - 修复 TreeSelect 展开节点后若垂直方向剩余空间不足，未自动调整展开方向的问题
 
 

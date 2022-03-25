@@ -22,7 +22,7 @@ Version：Major.Minor.Patch
 - 【Perf】
     - Optimized the number of executions of renderSelectedItem when multiple selection is selected and maxTagCount is configured [#709](https://github.com/DouyinFE/semi-design/issues/709)
 - 【Fix】
-    - when radio-group's value is NaN, "Maimum update depth exceeded" is triggered  [#712](https://github.com/DouyinFE/semi-design/issues/712) [@oddguan](https://github.com/oddguan)
+    - Fixed the problem that when radio-group's value is NaN, "Maimum update depth exceeded" is triggered  [#712](https://github.com/DouyinFE/semi-design/issues/712) [@oddguan](https://github.com/oddguan)
     - Fixed the problem that if the remaining space in the vertical direction is insufficient after TreeSelect expands the node, the expansion direction is not automatically adjusted
 
 #### 🎉 2.7.0-beta.0 (2022-03-18)
