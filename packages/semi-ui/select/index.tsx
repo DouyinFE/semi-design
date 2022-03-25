@@ -898,8 +898,10 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 content: optionNode.label,
             });
         }
+        
+        const mapItems = maxTagCount ? selectedItems.slice(0, maxTagCount) : selectedItems; // no need to render rest tag when maxTagCount is setting
 
-        const tags = selectedItems.map((item, i) => {
+        const tags = mapItems.map((item, i) => {
             const label = item[0];
             const { value } = item[1];
             const disabled = item[1].disabled || selectDisabled;
@@ -939,11 +941,11 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             // [prefixcls + '-selection-text-inactive']: !inputValue && !tags.length,
         });
         const placeholderText = placeholder && !inputValue ? <span className={spanCls}>{placeholder}</span> : null;
-        const n = tags.length > maxTagCount ? maxTagCount : undefined;
+        const n = selectedItems.length > maxTagCount ? maxTagCount : undefined;
 
         const NotOneLine = !maxTagCount; // Multiple lines (that is, do not set maxTagCount), do not use TagGroup, directly traverse with Tag, otherwise Input cannot follow the correct position
 
-        const tagContent = NotOneLine ? tags : <TagGroup tagList={tags} maxTagCount={n} size="large" mode="custom" />;
+        const tagContent = NotOneLine ? tags : <TagGroup tagList={tags} maxTagCount={n} restCount={maxTagCount ? selectedItems.length - maxTagCount : undefined} size="large" mode="custom" />;
 
         return (
             <>

@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 
 import './select.scss';
-import { Input, Select, Button, Icon, Avatar, Checkbox, Form, withField, Space } from '../../index';
+import { Input, Select, Button, Icon, Avatar, Checkbox, Form, withField, Space, Tag } from '../../index';
 import CustomTrigger from './CustomTrigger';
 import classNames from 'classnames';
 import { getHighLightTextHTML } from '../../_utils/index';
@@ -2903,4 +2903,75 @@ export const AutoClearSearchValue = () => {
 
 SelectInputPropsDemo.story = {
   name: 'AutoClearSearchValue',
+};
+
+
+export const RenderSelectedItemCallCount = () => {
+      const list = [
+        { "name": "夏可漫", "email": "xiakeman@example.com", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg" },
+        { "name": "申悦", "email": "shenyue@example.com", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg" },
+        { "name": "曲晨一", "email": "quchenyi@example.com", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/8bd8224511db085ed74fea37205aede5.jpg" },
+        { "name": "文嘉茂", "email": "wenjiamao@example.com", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/6fbafc2d-e3e6-4cff-a1e2-17709c680624.png" },
+        { "name": "文嘉茂2", "email": "wenjiamao@example.com", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/6fbafc2d-e3e6-4cff-a1e2-17709c680624.png" },
+        { "name": "文嘉茂3", "email": "wenjiamao@example.com", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/6fbafc2d-e3e6-4cff-a1e2-17709c680624.png" },
+    ]
+
+    const renderMultipleWithCustomTag = (optionNode, { onClose }) => {
+        console.count('rerender')
+        const content = (
+            <Tag
+                avatarSrc={optionNode.avatar}
+                avatarShape='circle'
+                closable={true}
+                onClose={onClose}
+                size='large'
+            >
+                {optionNode.name}
+            </Tag>
+        );
+        return {
+            isRenderInTag: false,
+            content
+        };
+    }
+
+    const renderCustomOption = (item, index) => {
+        const optionStyle = {
+            display: 'flex',
+            paddingLeft: 24,
+            paddingTop: 10,
+            paddingBottom: 10
+        }
+        return (
+            <Select.Option key={index} value={item.name} style={optionStyle} showTick={true}  {...item} key={item.email}>
+                <Avatar size="small" src={item.avatar} />
+                <div style={{ marginLeft: 8 }}>
+                    <div style={{ fontSize: 14 }}>{item.name}</div>
+                    <div style={{ color: 'var(--color-text-2)', fontSize: 12, lineHeight: '16px', fontWeight: 'normal' }}>{item.email}</div>
+                </div>
+            </Select.Option>
+        )
+    }
+
+    return (
+        <>
+            <Select
+                placeholder='请选择'
+                showClear
+                multiple
+                maxTagCount={2}
+                style={{ width: 280, height: 40 }}
+                onChange={v => console.log(v)}
+                defaultValue={'夏可漫'}
+                renderSelectedItem={renderMultipleWithCustomTag}
+            >
+                {list.map((item, index) => renderCustomOption(item, index))}
+            </Select>
+        </>
+    );
+}
+
+
+RenderSelectedItemCallCount.story = {
+  name: 'RenderSelectedItemCallCount',
 };
