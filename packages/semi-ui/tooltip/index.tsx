@@ -302,7 +302,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                 } else {
                     willUpdateStates.visible = visible;
                 }
-                this.setState(willUpdateStates as TooltipState, () => {
+                this.mounted && this.setState(willUpdateStates as TooltipState, () => {
                     cb();
                 });
             },
