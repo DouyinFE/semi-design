@@ -15,16 +15,26 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 ---
 
+#### 🎉 2.7.0 (2022-03-25)
+- 【Perf】
+    - 优化 Select多选且配置了 maxTagCount时，renderSelectedItem的执行次数 [#709](https://github.com/DouyinFE/semi-design/issues/709)
+- 【Chore】
+    - useFormApi 增加泛型传入 [@so2liu](https://github.com/so2liu)
+- 【Fix】
+    - 修复 RadioGroup value 为 NaN 时，触发 Maximum update depth exceeded 的问题 [#712](https://github.com/DouyinFE/semi-design/issues/712) [@oddguan](https://github.com/oddguan)
+    - 修复 TreeSelect 展开节点后若垂直方向剩余空间不足，未自动调整展开方向的问题
+
+
 #### 🎉 2.7.0-beta.0 (2022-03-18)
+- 【Feat】
+    - DatePicker 支持内嵌样式输入框  [#294](https://github.com/DouyinFE/semi-design/issues/294)
+    - TreeSelect onSearch 新增 filterExpandedKeys 参数  [#328](https://github.com/DouyinFE/semi-design/issues/328)
+    
 - 【Fix】
     - 修复 Cascader 在单选且非搜索模式下，label 为 ReactNode 时，trigger 异常显示 [object object] 的问题。  [#592](https://github.com/DouyinFE/semi-design/issues/592)
     - ButtonGroup 支持 className  [#704](https://github.com/DouyinFE/semi-design/issues/704) [@yaogengzhu](https://github.com/yaogengzhu)
     - 修复 Tree 组件 value 在初始时会影响节点的展开，而更新 treeData后，却不会再影响节点的展开  [#257](https://github.com/DouyinFE/semi-design/issues/257)
     - 修复 TreeSelect 非完全受控问题  [#328](https://github.com/DouyinFE/semi-design/issues/328)
-- 【Feat】
-    - DatePicker 支持内嵌样式输入框  [#294](https://github.com/DouyinFE/semi-design/issues/294)
-    - TreeSelect onSearch 新增 filterExpandedKeys 参数  [#328](https://github.com/DouyinFE/semi-design/issues/328)
-    
 
 #### 🎉 2.6.0 (2022-03-11)
 - 【Fix】

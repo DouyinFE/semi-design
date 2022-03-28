@@ -16,15 +16,24 @@ Version：Major.Minor.Patch
 
 ---
 
+#### 🎉 2.7.0 (2022-03-25)
+- 【Chore】
+    - useFormApi add generic support [@so2liu](https://github.com/so2liu)
+- 【Perf】
+    - Optimized the number of executions of renderSelectedItem when multiple selection is selected and maxTagCount is configured [#709](https://github.com/DouyinFE/semi-design/issues/709)
+- 【Fix】
+    - Fixed the problem that when radio-group's value is NaN, "Maimum update depth exceeded" is triggered  [#712](https://github.com/DouyinFE/semi-design/issues/712) [@oddguan](https://github.com/oddguan)
+    - Fixed the problem that if the remaining space in the vertical direction is insufficient after TreeSelect expands the node, the expansion direction is not automatically adjusted
+
 #### 🎉 2.7.0-beta.0 (2022-03-18)
+- 【Feat】
+    - DatePicker supports inset input in panel  [#294](https://github.com/DouyinFE/semi-design/issues/294)
+    - TreeSelect add filterExpandedKeys parameter for onSearch  [#328](https://github.com/DouyinFE/semi-design/issues/328)
 - 【Fix】
     - Fix the problem where the trigger unexpectedly display [object object] when Cascader was in single-select and non-search mode, and the label was ReactNode.  [#592](https://github.com/DouyinFE/semi-design/issues/592)
     - ButtonGroup support calssName props  [#704](https://github.com/DouyinFE/semi-design/issues/704) [@yaogengzhu](https://github.com/yaogengzhu)
     - Fixed that the value of the Tree component will affect the expansion of the node at the beginning, but after updating the treeData, it will no longer affect the expansion of the node  [#257](https://github.com/DouyinFE/semi-design/issues/257)
     - fix expandedKeys of TreeSelect is not completely controlled  [#328](https://github.com/DouyinFE/semi-design/issues/328)
-- 【Feat】
-    - DatePicker supports inset input in panel  [#294](https://github.com/DouyinFE/semi-design/issues/294)
-    - TreeSelect add filterExpandedKeys parameter for onSearch  [#328](https://github.com/DouyinFE/semi-design/issues/328)
 
 #### 🎉 2.6.0 (2022-03-11)
 - 【Fix】
