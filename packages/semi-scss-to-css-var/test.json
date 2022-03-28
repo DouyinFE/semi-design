@@ -1,10 +1,25 @@
+bin exec
+/var/folders/kv/sf4rhrc97k72hkbsx6wym_1w0000gn/T/semi_scss_to_css_vars_brakpl/_portal/portal.scss
+1 - $a / $b solid red
 {
     "nodes": [
         {
             "type": "word",
             "sourceIndex": 0,
+            "sourceEndIndex": 1,
+            "value": "1"
+        },
+        {
+            "type": "space",
+            "sourceIndex": 1,
+            "sourceEndIndex": 2,
+            "value": " "
+        },
+        {
+            "type": "word",
+            "sourceIndex": 2,
             "sourceEndIndex": 3,
-            "value": "1px"
+            "value": "-"
         },
         {
             "type": "space",
@@ -15,20 +30,22 @@
         {
             "type": "word",
             "sourceIndex": 4,
-            "sourceEndIndex": 7,
-            "value": "2px"
+            "sourceEndIndex": 6,
+            "value": "$a"
         },
         {
-            "type": "space",
-            "sourceIndex": 7,
-            "sourceEndIndex": 8,
-            "value": " "
+            "type": "div",
+            "sourceIndex": 6,
+            "sourceEndIndex": 9,
+            "value": "/",
+            "before": " ",
+            "after": " "
         },
         {
             "type": "word",
-            "sourceIndex": 8,
+            "sourceIndex": 9,
             "sourceEndIndex": 11,
-            "value": "2px"
+            "value": "$b"
         },
         {
             "type": "space",
@@ -39,8 +56,58 @@
         {
             "type": "word",
             "sourceIndex": 12,
-            "sourceEndIndex": 15,
-            "value": "4px"
+            "sourceEndIndex": 17,
+            "value": "solid"
+        },
+        {
+            "type": "space",
+            "sourceIndex": 17,
+            "sourceEndIndex": 18,
+            "value": " "
+        },
+        {
+            "type": "word",
+            "sourceIndex": 18,
+            "sourceEndIndex": 21,
+            "value": "red"
         }
     ]
 }
+-----
+//$semi-margin-primary:var(--semi-margin-primary_cssvar);
+//$semi-margin-sec:var(--semi-margin-sec_cssvar);
+//
+//.test{
+//  --semi-margin-primary_cssvar:5px;
+//  --semi-margin-sec_cssvar:15px;
+//  .sss{
+//    margin: xxxxx rgba(1,1,1,1) xxx cubic-bezier(calc($a - ( $b + ( $x + $y ) + ( $x + $y) - $c)) $z,1,calc( 1 + $z ),1);
+//  }
+//}
+
+//
+//
+//
+//xxxxx xxx $a + $b
+//
+//xxxxx xxx $a + 1 + $b
+//
+//xxxxx  xxx  $a + $b + 1 xxxxx  $c + $6
+//
+//
+//xxxxx xxx $a - ($b + ($x + $y)+ $c)
+//
+//xxxxx xxx  (1 + $a - (1 + $c))
+//
+
+
+
+.body{
+  border: 1 - $a / $b solid red;
+}
+
+
+
+
+
+

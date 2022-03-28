@@ -30,8 +30,8 @@ const transVarPlugin=()=>{
         },
         Declaration(decl:Declaration){
             console.log(decl.value)
-            let valueRoot=parseSides(decl.value);
-            console.log(valueRoot)
+            let valueRoot=parse(decl.value);
+            console.log(JSON.stringify(valueRoot,null,'    '))
             console.log('-----')
             // fs.writeFileSync('./test.json',JSON.stringify(valueRoot,null,'    '),{encoding:'utf-8'})
             // console.log(parse(decl.value));
