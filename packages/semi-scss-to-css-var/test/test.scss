@@ -31,7 +31,7 @@ $c:3px;
 $d:4px;
 
 .body{
-  border:  $a - ($b + ($c + $d)+ $c);
+  border:  $a - (-$b + ($c + $d)+ $c); //test
 }
 
 

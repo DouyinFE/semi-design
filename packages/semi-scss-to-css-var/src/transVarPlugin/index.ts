@@ -1,7 +1,8 @@
-import {AcceptedPlugin, Declaration, Postcss, Root} from "postcss";
+import { AcceptedPlugin, Declaration, Postcss, Root } from "postcss";
 import fs from 'fs-extra';
-import parse from 'postcss-value-parser'
+import parse from 'postcss-value-parser';
 import replaceWithCalc from "../utils/replaceWithCalc";
+import replaceOther from "../utils/replaceOther";
 
 
 
@@ -20,12 +21,18 @@ const transVarPlugin=()=>{
             //console.log(root)
         },
         Once(root:Root){
-          //  console.log(root)
+            //  console.log(root)
         },
         Declaration(decl:Declaration){
+
+            console.log(decl.value);
+
             //@ts-ignore
-            if(!decl.isVisited){
-                decl.value=replaceWithCalc(decl.value);
+            if (!decl.isVisited){
+                let value = decl.value;
+                value = replaceOther(value);
+                value = replaceWithCalc(value);
+                decl.value=value;
                 //@ts-ignore
                 decl.isVisited=true;
             }
@@ -37,8 +44,8 @@ const transVarPlugin=()=>{
             // fs.writeFileSync('./test.json',JSON.stringify(valueRoot,null,'    '),{encoding:'utf-8'})
             // console.log(parse(decl.value));
         },
-    } as AcceptedPlugin
-}
+    } as AcceptedPlugin;
+};
 
 
 transVarPlugin.postcss=true;
