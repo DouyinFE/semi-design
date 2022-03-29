@@ -1,14 +1,8 @@
 import {AcceptedPlugin, Declaration, Postcss, Root} from "postcss";
 import fs from 'fs-extra';
 import parse from 'postcss-value-parser'
+import replaceWithCalc from "../utils/replaceWithCalc";
 
-
-
-
-
-const replaceWithCalc=(str:string)=>{
-
-};
 
 
 
@@ -29,10 +23,17 @@ const transVarPlugin=()=>{
           //  console.log(root)
         },
         Declaration(decl:Declaration){
-            console.log(decl.value)
-            let valueRoot=parse(decl.value);
-            console.log(JSON.stringify(valueRoot,null,'    '))
-            console.log('-----')
+            //@ts-ignore
+            if(!decl.isVisited){
+                decl.value=replaceWithCalc(decl.value);
+                //@ts-ignore
+                decl.isVisited=true;
+            }
+
+            // console.log(decl.value)
+            // let valueRoot=parse(decl.value);
+            // console.log(JSON.stringify(valueRoot,null,'    '))
+            // console.log('-----')
             // fs.writeFileSync('./test.json',JSON.stringify(valueRoot,null,'    '),{encoding:'utf-8'})
             // console.log(parse(decl.value));
         },

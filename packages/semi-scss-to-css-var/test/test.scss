@@ -25,9 +25,13 @@
 //
 
 
+$a:1px;
+$b:2px;
+$c:3px;
+$d:4px;
 
 .body{
-  border: 1 - $a / $b solid red;
+  border:  $a - ($b + ($c + $d)+ $c);
 }
 
 

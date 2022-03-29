@@ -55,11 +55,12 @@ const prepareTransDir = (sourcePath: string) => {
 
 
 const transScssToCSSVar=(scssFilePath:string)=>{
-    console.log(scssFilePath)
     let test='./test/test.scss'
     const raw=fs.readFileSync(test,{encoding:'utf-8'});
     const result=postcss([transVarPlugin()]).process(raw, {syntax: postcssScss});
-    console.log(result.css)
+    const aaa = result.css;
+    console.log('result ---------------------------')
+    console.log(aaa)
 }
 
 

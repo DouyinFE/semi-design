@@ -9,7 +9,7 @@
     "declaration": true,
     "outDir": "./lib",
     "rootDir": "./src",
-    "types": []
+    "types": ["node"],
   },
   "include": [
     "src/**/*"
