@@ -12,6 +12,7 @@ export { default as ButtonGroup } from './button/buttonGroup';
 export { default as Calendar } from './calendar';
 export { default as Card } from './card';
 export { default as CardGroup } from './card/cardGroup';
+export { default as Carousel } from './carousel';
 export { default as Cascader } from './cascader';
 export { default as Checkbox } from './checkbox';
 export { default as CheckboxGroup } from './checkbox/checkboxGroup';
@@ -77,6 +78,7 @@ export { default as TreeSelect } from './treeSelect';
 export { default as Upload } from './upload';
 export { default as Typography } from './typography';
 export { default as Transfer } from './transfer';
+
 
 export { default as LocaleProvider } from './locale/localeProvider';
 
