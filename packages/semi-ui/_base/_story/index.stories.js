@@ -1,19 +1,15 @@
 import React, { useMemo } from 'react';
 import { Button, Typography, Card, Tooltip, Tag, Avatar, Rating, Nav, Layout } from '../../index';
 import { IconHelpCircle, IconUser, IconStar, IconSetting } from '@douyinfe/semi-icons';
-import SemiA11y from './a11y';
 import './index.scss';
 
 export default {
   title: 'Base',
 };
 
-export {
-  TestAlwaysDarkLight,
-  SemiA11y
-};
+export { default as SemiA11y } from './a11y';
 
-const TestAlwaysDarkLight = () => {
+export const TestAlwaysDarkLight = () => {
   function Demo() {
     const { Text } = Typography;
     const { Header, Footer, Sider, Content } = Layout;

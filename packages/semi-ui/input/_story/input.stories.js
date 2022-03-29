@@ -898,3 +898,12 @@ export const InputFocus = () => {
     </>
   );
 };
+
+export const TextAreaAutosize = () => {
+  return (
+    <div style={{ width: 200 }}>
+      <TextArea autosize />
+    </div>
+  )
+};
+TextAreaAutosize.storyName = "textarea autosize";

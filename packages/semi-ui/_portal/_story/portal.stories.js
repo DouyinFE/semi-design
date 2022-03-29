@@ -6,11 +6,7 @@ export default {
   title: 'Portal',
 }
 
-export {
-  Basic
-}
-
-const Basic = () => (
+export const Basic = () => (
   <div>
     <Portal>123</Portal>
   </div>
