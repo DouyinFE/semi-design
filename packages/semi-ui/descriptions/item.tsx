@@ -8,7 +8,7 @@ export interface DescriptionsItemProps {
     hidden?: boolean;
     className?: string;
     style?: React.CSSProperties;
-    itemKey: string | number;
+    itemKey?: React.ReactNode;
 }
 
 const prefixCls = cssClasses.PREFIX;
