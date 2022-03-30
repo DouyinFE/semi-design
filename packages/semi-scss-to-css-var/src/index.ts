@@ -44,31 +44,38 @@ const getAllScssFilesInPath = (filePath: string) => {
         }
     });
     return scssFilePaths;
-}
+};
 
 
-const prepareTransDir = (sourcePath: string) => {
-    const tempDirPath = path.join(os.tmpdir(), `semi_scss_to_css_vars_${Math.random().toString(36).slice(-6)}`);
-    fs.copySync(sourcePath, tempDirPath);
-    return tempDirPath;
-}
+// const prepareTransDir = (sourcePath: string) => {
+//     const tempDirPath = path.join(os.tmpdir(), `semi_scss_to_css_vars_${Math.random().toString(36).slice(-6)}`);
+//     fs.copySync(sourcePath, tempDirPath);
+//     return tempDirPath;
+// }
 
 
-const transScssToCSSVar=(scssFilePath:string)=>{
-    let test='./test/test.scss'
-    const raw=fs.readFileSync(test,{encoding:'utf-8'});
-    const result=postcss([transVarPlugin()]).process(raw, {syntax: postcssScss});
-    const aaa = result.css;
-    console.log('result ---------------------------')
-    console.log(aaa)
-}
+const transScssToCSSVar=(scssFilePathList:string[])=>{
+
+    for (const scssFilePath of scssFilePathList){
+        try {
+            const raw=fs.readFileSync(scssFilePath,{ encoding:'utf-8' });
+            const result=postcss([transVarPlugin()]).process(raw, { syntax: postcssScss });
+            fs.writeFileSync(scssFilePath,result.css,"utf8");
+        } catch (e){
+            console.error(e);
+            console.error(`Error While processing ${scssFilePath}`);
+        }
+
+    }
+
+};
 
 
-const transScssVariables2CssVariables = ({sourcePath, resultPath}: Options) => {
+const transScssVariables2CssVariables = ({ sourcePath, resultPath }: Options) => {
 
-    const transDir = prepareTransDir(sourcePath);
+    const transDir = sourcePath;
     const scssFileList = getAllScssFilesInPath(transDir);
-    transScssToCSSVar(scssFileList[0])
+    transScssToCSSVar(scssFileList);
     return scssFileList;
 };
 

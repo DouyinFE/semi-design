@@ -3,16 +3,16 @@ import fs from 'fs-extra';
 import parse from 'postcss-value-parser';
 import replaceWithCalc from "../utils/replaceWithCalc";
 import replaceOther from "../utils/replaceOther";
+import { trimStart } from "lodash";
 
 
 
-
-
-
-
+//
+// let extraScss="";
 
 
 const transVarPlugin=()=>{
+
 
 
     return {
@@ -25,7 +25,6 @@ const transVarPlugin=()=>{
         },
         Declaration(decl:Declaration){
 
-            console.log(decl.value);
 
             //@ts-ignore
             if (!decl.isVisited){
@@ -33,16 +32,23 @@ const transVarPlugin=()=>{
                 value = replaceOther(value);
                 value = replaceWithCalc(value);
                 decl.value=value;
+
+
+                //inject css variable define
+                if (/\$[\w\d]+$/.test(decl.prop)){
+                    const scssVariable=trimStart(decl.prop,'$');
+                    const cssVariable =`--semi-css-${scssVariable}`;
+                    const cssDeclaration=new Declaration({ prop:cssVariable,value:decl.value });
+                    //@ts-ignore
+                    cssDeclaration.isVisited=true;
+                    decl.after(cssDeclaration);
+                    decl.value=`var(${cssVariable})`;
+                }
                 //@ts-ignore
                 decl.isVisited=true;
             }
 
-            // console.log(decl.value)
-            // let valueRoot=parse(decl.value);
-            // console.log(JSON.stringify(valueRoot,null,'    '))
-            // console.log('-----')
-            // fs.writeFileSync('./test.json',JSON.stringify(valueRoot,null,'    '),{encoding:'utf-8'})
-            // console.log(parse(decl.value));
+
         },
     } as AcceptedPlugin;
 };
