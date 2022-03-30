@@ -3,7 +3,7 @@ import fs from 'fs-extra';
 import os from 'os';
 import postcss from "postcss";
 import postcssScss from 'postcss-scss';
-import transVarPlugin from "./transVarPlugin";
+import { getScssVariableNotUsedInSelectorSetPlugin,transVarPlugin } from "./transVarPlugin";
 
 export interface Options {
     sourcePath: string,
@@ -55,18 +55,29 @@ const getAllScssFilesInPath = (filePath: string) => {
 
 
 const transScssToCSSVar=(scssFilePathList:string[])=>{
-
+    //scssFilePathList=['./test/test.scss'];
+    let allCssDefine:{key:string,value:string}[] =[];
     for (const scssFilePath of scssFilePathList){
         try {
             const raw=fs.readFileSync(scssFilePath,{ encoding:'utf-8' });
-            const result=postcss([transVarPlugin()]).process(raw, { syntax: postcssScss });
+            const scssVariableInSelectorSet = new Set<string>();
+            postcss([getScssVariableNotUsedInSelectorSetPlugin(scssVariableInSelectorSet)]).process(raw, { syntax: postcssScss }).css;
+
+            const cssDefine :{key:string,value:string}[]=[];
+            const result=postcss([transVarPlugin(scssVariableInSelectorSet,cssDefine)]).process(raw, { syntax: postcssScss });
             fs.writeFileSync(scssFilePath,result.css,"utf8");
+            allCssDefine=[...allCssDefine,...cssDefine];
+
         } catch (e){
             console.error(e);
             console.error(`Error While processing ${scssFilePath}`);
         }
 
     }
+
+    fs.writeFileSync('allCSSVar.scss',(()=>{
+        return `.allCSSVar{\n${allCssDefine.map(({ key,value })=>{return `${key}:${value};`;}).join('\n')}\n}`;
+    })(),'utf-8');
 
 };
 

@@ -65,32 +65,68 @@ const getReplaceCalcIndex = (str: string) => {
 
 
     const detectScssVar = (autoJump: boolean = false, variables: 'left' | 'right' = 'right'): [boolean, number] => {
-        let jumpCount = 0;
-        const startIndex = variables === 'left' ? left : right;
-        if (!str[startIndex]) {
-            return [false, 0];
-        }
-        if (str[startIndex] !== '$') {
-            return [false, jumpCount];
-        } else {
-            jumpCount++;
-        }
-        while (true) {
-            const char = str[startIndex + jumpCount];
-            if (char && /[a-zA-Z_\-0-9]/.test(char)) {
+        const detectBucketScssVar=(): [boolean, number]=>{
+            // #{$a} case
+            const startIndex=variables === 'left' ? left : right;
+            if (str.slice(startIndex).startsWith('#{')){
+                let jumpCount=2;
+                while (true){
+                    if (!str[startIndex + jumpCount]){
+                        throw  new Error(`Error: while find '} in ${str} for '#{', reach end.`);
+                    }
+                    if (str[startIndex + jumpCount]==='}'){
+                        jumpCount++;
+                        break;
+                    } else {
+                        jumpCount++;
+                    }
+                }
+                if (autoJump){
+                    if (variables === 'left') {
+                        left += jumpCount;
+                    } else {
+                        right += jumpCount;
+                    }
+                }
+                return [true,jumpCount];
+
+            } else {
+                return [false,0];
+            }
+        };
+        const detectCommonScssVar = (): [boolean, number]=>{
+            let jumpCount = 0;
+            const startIndex = variables === 'left' ? left : right;
+            if (!str[startIndex]) {
+                return [false, 0];
+            }
+            if (str[startIndex] !== '$') {
+                return [false, jumpCount];
+            } else {
                 jumpCount++;
-            } else {
-                break;
             }
-        }
-        if (autoJump) {
-            if (variables === 'left') {
-                left += jumpCount;
-            } else {
-                right += jumpCount;
+            while (true) {
+                const char = str[startIndex + jumpCount];
+                if (char && /[a-zA-Z_\-0-9]/.test(char)) {
+                    jumpCount++;
+                } else {
+                    break;
+                }
             }
+            if (autoJump) {
+                if (variables === 'left') {
+                    left += jumpCount;
+                } else {
+                    right += jumpCount;
+                }
+            }
+            return [true, jumpCount];
+        };
+        const [bucketScssVarFlag,bucketScssVarCount]=detectBucketScssVar();
+        if (bucketScssVarFlag){
+            return [bucketScssVarFlag,bucketScssVarCount];
         }
-        return [true, jumpCount];
+        return detectCommonScssVar();
     };
 
     const detectConst = (autoJump: boolean = false, variable: 'left' | 'right' = 'right'): [boolean, number] => {
@@ -106,7 +142,7 @@ const getReplaceCalcIndex = (str: string) => {
         }
         while (true) {
             const char = str[startIndex + jumpCount];
-            if (char && /\w|\d/.test(char)) {
+            if (char && /\w|\d|\.|%/.test(char)) {
                 jumpCount++;
             } else {
                 break;
@@ -283,7 +319,11 @@ const test_getReplaceCalcIndex = () => {
         "2px $a - ($b + ($x + $y)+ $c)": [{ start: 4, end: 28 }],
         "calc(1vh + 2px) (1 + $a - (1 + $c)) 2px calc(1vh + 3px)": [{ start: 5, end: 13 }, { start: 17, end: 33 }, { start: 45, end: 53 }],
         "$a + 1px + $b solid var(--semi-color-primary)": [{ start: 0, end: 12 }],
-        "$a + $b": [{ start: 0, end: 6 }]
+        "$a + $b": [{ start: 0, end: 6 }],
+        "calc( 1 + #{$a})":[{ start:6,end:14 }],
+        //todo  edge case
+        "($height-scrollList - $height-scrollList_item) / 2":[],
+        "calc(100% - 27px)":[],
     }));
     testUnit(testCase,getReplaceCalcIndex);
 
