@@ -96,3 +96,44 @@ export const _Toast = () => (
 _Toast.story = {
   name: 'toast',
 };
+
+const ReachableContext = React.createContext();
+
+/**
+ * test with cypress
+ * @returns 
+ */
+export const useToastDemo = () => {
+  const [toast, contextHolder] = Toast.useToast();
+  const config = {
+      duration: 0,
+      title: 'This is a success message',
+      content: <ReachableContext.Consumer>{name => `ReachableContext: ${name}`}</ReachableContext.Consumer>,
+  };
+
+  return (
+      <ReachableContext.Provider value="Light">
+          <div>
+              <Button
+                onClick={() => {
+                    toast.success(config);
+                    toast.info(config);
+                    toast.error(config);
+                    toast.warning(config);
+                    const id = toast.open(config);
+
+                    setTimeout(() => {
+                      toast.close(id);
+                    }, 100);
+                }}
+              >
+                  Hook Toast
+              </Button>
+          </div>
+          <div data-cy="context-holder">
+            {contextHolder}
+          </div>
+      </ReachableContext.Provider>
+  );
+};
+useToastDemo.storyName = "useToast";
