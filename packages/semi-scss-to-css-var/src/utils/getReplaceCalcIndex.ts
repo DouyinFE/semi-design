@@ -259,6 +259,8 @@ const getReplaceCalcIndex = (str: string) => {
                     left--;
                     detectSpaceReverse(true, 'left');
                     const [constFlag, constCount] = detectConstReverse(false, 'left');
+                    //todo bucket reverse
+                    const [bucketReverse, detectBucketCount] = detectBucketReverse(false, 'left');
                     //set  right to const
                     right = operatorIndex + 1;
                     left = left - constCount + 1;
