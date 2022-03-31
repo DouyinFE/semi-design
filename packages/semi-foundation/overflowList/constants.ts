@@ -31,7 +31,9 @@ const strings = {
     OVERFLOW_DIR
 };
 
-const numbers = {};
+const numbers = {
+    MINIMUM_HTML_ELEMENT_WIDTH: 4
+};
 
 export {
     cssClasses,
