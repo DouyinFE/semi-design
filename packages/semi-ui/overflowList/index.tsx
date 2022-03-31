@@ -234,7 +234,7 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
             if (Array.isArray(overflow)){
                 overflow = (
                     <>
-                        {...(overflow as React.ReactNode[])}
+                        {overflow}
                     </>
                 );
             }
