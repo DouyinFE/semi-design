@@ -21,7 +21,7 @@ on:
 jobs:
   install:
     runs-on: ubuntu-latest
-    container: cypress/browsers:node14.16.0-chrome90-ff88
+    container: cypress/browsers:node16.5.0-chrome94-ff93
     if: ${{ github.repository_owner == 'DouyinFE' }}
     steps:
       - name: Checkout
@@ -46,7 +46,7 @@ jobs:
           runTests: false
   chrome-tests:
     runs-on: ubuntu-latest
-    container: cypress/browsers:node14.16.0-chrome90-ff88
+    container: cypress/browsers:node16.5.0-chrome94-ff93
     needs: install
     strategy:
       fail-fast: false
@@ -82,7 +82,7 @@ jobs:
   firefox-tests:
     runs-on: ubuntu-latest
     container: 
-      image: cypress/browsers:node14.16.0-chrome90-ff88
+      image: cypress/browsers:node16.5.0-chrome94-ff93
       options: --user 1001
     needs: install
     strategy:
