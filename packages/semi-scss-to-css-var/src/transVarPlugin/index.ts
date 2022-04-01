@@ -47,7 +47,13 @@ const transVarPlugin=(scssVariableInSelectorSet:Set<string>,extraCssVarDefineLis
         Once(root:Root){
             //  console.log(root)
         },
+        Comment(comment){
+
+        },
         Declaration(decl:Declaration){
+            if (decl.source?.input.css.includes('ignore-semi-css-trans')){
+                return;
+            }
             //@ts-ignore
             if (!decl.isVisited){
                 let value = decl.value;
