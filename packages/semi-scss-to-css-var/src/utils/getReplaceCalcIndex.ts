@@ -1,4 +1,4 @@
-import { isEqual } from "lodash";
+import { isEqual, without } from "lodash";
 import testUnit from "./testUnit";
 
 export type ReplaceCalcIndexIndicator ={ start: number, end: number }
@@ -135,7 +135,7 @@ const getReplaceCalcIndex = (str: string) => {
             return [false, 0];
         }
         let jumpCount = 0;
-        if (!/\w|\d/.test(str[startIndex])) {
+        if (!/\w|\d|\.|%/.test(str[startIndex])) {
             return [false, 0];
         } else {
             jumpCount++;
@@ -166,7 +166,7 @@ const getReplaceCalcIndex = (str: string) => {
             return [false, 0];
         }
         let jumpCount = 0;
-        if (!/\w|\d/.test(str[startIndex])) {
+        if (!/\w|\d|\.|%/.test(str[startIndex])) {
             return [false, 0];
         } else {
             jumpCount++;
@@ -174,7 +174,7 @@ const getReplaceCalcIndex = (str: string) => {
         while (true) {
             const char = str[startIndex - jumpCount];
             if (char) {
-                if (/\w|\d/.test(char)) {
+                if (char && /\w|\d|\.|%/.test(char)) {
                     jumpCount++;
                 } else {
                     break;
@@ -217,6 +217,7 @@ const getReplaceCalcIndex = (str: string) => {
     };
 
     const detectBucket = (autoJump: boolean = false): [boolean, number] => {
+        const startIndex = right;
         if (!str[right]) {
             return [false, 0];
         }
@@ -224,25 +225,60 @@ const getReplaceCalcIndex = (str: string) => {
             return [false, 0];
         } else {
             const stack = [];
-            while (true) {
-                let i = right;
-                stack.push(str[i]);
-                while (stack.length > 0) {
-                    i++;
-                    if (str[i] === ')') {
-                        stack.pop();
-                    } else if (str[i] === '(') {
-                        stack.push('(');
-                    }
+
+            let i = right;
+            stack.push(str[i]);
+            while (stack.length > 0) {
+                i++;
+                if (str[i] === ')') {
+                    stack.pop();
+                } else if (str[i] === '(') {
+                    stack.push('(');
                 }
-                // The i is the end of bucket;
-                if (autoJump) {
-                    right = i + 1;
-                }
-                return [true, i + 1];
             }
+            // The i is the end of bucket;
+            if (autoJump) {
+                right = i + 1;
+            }
+            return [true, i + 1 - right ];
+
         }
     };
+
+    const detectBucketReverse = (autoJump: boolean = false,variable:'left'|'right'): [boolean, number] => {
+        const startIndex = variable==='left'?left:right;
+        if (!str[startIndex]) {
+            return [false, 0];
+        }
+        if (str[startIndex] !== ')') {
+            return [false, 0];
+        } else {
+            const stack = [];
+
+            let i = startIndex;
+            stack.push(str[i]);
+            while (stack.length > 0) {
+                i--;
+                if (str[i] === '(') {
+                    stack.pop();
+                } else if (str[i] === ')') {
+                    stack.push(')');
+                }
+            }
+            // The i is the end of bucket;
+            if (autoJump) {
+                if (variable==='left'){
+                    left = i - 1;
+                } else {
+                    right = i-1;
+                }
+
+            }
+            return [true, startIndex - i + 1];
+
+        }
+    };
+
 
     let isInCalc = false;
     while (left < str.length) {
@@ -259,11 +295,11 @@ const getReplaceCalcIndex = (str: string) => {
                     left--;
                     detectSpaceReverse(true, 'left');
                     const [constFlag, constCount] = detectConstReverse(false, 'left');
-                    //todo bucket reverse
-                    const [bucketReverse, detectBucketCount] = detectBucketReverse(false, 'left');
+
+                    const [bucketReverse, detectBucketReverseCount] = detectBucketReverse(false, 'left');
                     //set  right to const
                     right = operatorIndex + 1;
-                    left = left - constCount + 1;
+                    left = left - (constCount + detectBucketReverseCount) + 1;
                     isInCalc = true;
                     continue;
                 } else {
@@ -307,7 +343,20 @@ const getReplaceCalcIndex = (str: string) => {
 
     }
 
-    return injectCalcIndex;
+
+
+    const needRemoveIndex=[];
+    for (const currIndex of injectCalcIndex){
+        for (const index of injectCalcIndex){
+            if (currIndex.start>index.start && currIndex.end < index.end){
+                needRemoveIndex.push(currIndex);
+                break;
+            }
+        }
+    }
+
+
+    return without(injectCalcIndex,...needRemoveIndex);
 
 };
 
@@ -324,8 +373,8 @@ const test_getReplaceCalcIndex = () => {
         "$a + $b": [{ start: 0, end: 6 }],
         "calc( 1 + #{$a})":[{ start:6,end:14 }],
         //todo  edge case
-        "($height-scrollList - $height-scrollList_item) / 2":[],
-        "calc(100% - 27px)":[],
+        "($height-scrollList - $height-scrollList_item) / 2": [{ "start":0,"end":49 }],
+        "calc(100% - 27px)":[{ "start":5,"end":15 }],
     }));
     testUnit(testCase,getReplaceCalcIndex);
 
