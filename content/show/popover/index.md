@@ -523,7 +523,7 @@ import { Button, Input, Popover, Space } from '@douyinfe/semi-ui';
   - 会被自动添加 [aria-haspopup](https://www.w3.org/TR/wai-aria-1.1/#aria-haspopup) 属性，为 `dialog`
   - 会被自动添加 [aria-controls](https://www.w3.org/TR/wai-aria-1.1/#aria-controls) 属性，为 content 的 wrapper 的 id
 
-### Keyboard and Focus
+### 键盘和焦点
 
 - Popover 触发方式设置为 hover 时：鼠标悬浮或聚焦时打开 Popover
 - Popover 触发方式设置为 click 时：点击触发器或聚焦时并使用 Enter 键打开 Popover
