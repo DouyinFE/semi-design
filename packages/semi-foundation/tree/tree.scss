@@ -183,7 +183,7 @@ $module: #{$prefix}-tree;
         &-draggable {
             box-sizing: border-box;
             border-left: $width-tree_option_draggable-border solid transparent;
-            margin-top: -$width-tree_option_draggable-border;
+            margin-top: -1 * $width-tree_option_draggable-border;
 
             .#{$module}-option-label {
                 border-top: $width-tree_option_draggable-border transparent solid;
@@ -224,7 +224,7 @@ $module: #{$prefix}-tree;
                     content: '';
                     position: absolute;
                     top: 0;
-                    left: -$width-tree_option_draggable-border;
+                    left: -1 * $width-tree_option_draggable-border;
                     bottom: 0;
                     right: -1px;
                     border-top: $width-tree_option_draggable-border solid $color-tree_option_draggable_insert-border-default;

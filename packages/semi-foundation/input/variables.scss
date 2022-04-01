@@ -77,13 +77,13 @@ $width-input_wrapper-border: $border-thickness-control-focus; // 输入框描边
 $width-input_wrapper_focus-border: $border-thickness-control-focus; // 输入框描边宽度 - 选中态
 
 $radius-input_wrapper: var(--semi-border-radius-small); // 输入框圆角大小
-$spacing-input_icon-marginLeft: -$spacing-base-tight; // 输入框图标左侧内边距
+$spacing-input_icon-marginLeft: -1 * $spacing-base-tight; // 输入框图标左侧内边距
 $spacing-input-paddingLeft: $spacing-base-tight; // 输入光标距离容器的左侧内边距
 $spacing-input-paddingRight: $spacing-base-tight; // 输入文字距离容器的右侧内边距
 $spacing-input_insetLabel-marginRight: $spacing-base-tight;
 $spacing-input_prefix_icon-marginY: 0; // prefix 图标垂直内边距
 $spacing-input_prefix_icon-marginX: $spacing-tight; // prefix 图标水平内边距
-$spacing-input_clearBtn_withSuffix-marginLeft: -$spacing-base-tight; // 清空按钮左侧内边距
+$spacing-input_clearBtn_withSuffix-marginLeft: -1 * $spacing-base-tight; // 清空按钮左侧内边距
 $spacing-input_prepend-paddingY: 0; // 前置标签垂直内边距
 $spacing-input_prepend-paddingX: $spacing-base-tight; // 前置标签水平内边距
 $spacing-input_group_withTopLabel-marginTop: $spacing-base;

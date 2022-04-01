@@ -20,4 +20,4 @@ $color-inputNumber_button-border-hover: var(--semi-color-fill-2); // 步进器�
 $width-inputNumber_button-border: 1px; // 步进器按钮描边宽度
 
 $spacing-inputNumber_button_inner-marginLeft: $spacing-tight; // 隐藏步进器按钮左侧外边距
-$spacing-inputNumber_clearbtn_suffix-marginLeft: -$spacing-extra-tight; // 清空按钮左侧外边距
+$spacing-inputNumber_clearbtn_suffix-marginLeft: -1 * $spacing-extra-tight; // 清空按钮左侧外边距
