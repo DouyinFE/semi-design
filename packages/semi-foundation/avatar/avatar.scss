@@ -2,8 +2,7 @@
 @import "./mixin.scss";
 
 $module: #{$prefix}-avatar;
-$colors: "amber", "blue", "cyan", "green", "grey", "indigo", "light-blue", "light-green", "lime", "orange", "pink",
-    "purple", "red", "teal", "violet", "yellow";
+$colors: "amber", "blue", "cyan", "green", "grey", "indigo", "light-blue", "light-green", "lime", "orange", "pink", "purple", "red", "teal", "violet", "yellow"; //ignore-semi-css-trans
 
 
 .#{$module} {
