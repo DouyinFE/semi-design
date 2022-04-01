@@ -171,7 +171,7 @@ brief: Semi Design Tokens
 
 阴影通常用来表达界面元素的层级，阴影越重的元素距离用户越近
 
-<DesignToken componentName='global' reg={/\$shadow/}/>
+<DesignToken componentName='global' reg={/--semi-shadow/}/>
 
 ## 尺寸
 

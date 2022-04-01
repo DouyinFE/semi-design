@@ -100,12 +100,12 @@ $module: #{$prefix}-typography;
 
         .#{$module}-link-underline:hover {
             border-bottom: $width-typography_link-border solid $color-typography_link-text-hover;
-            margin-bottom: -$width-typography_link-border;
+            margin-bottom: -1 * $width-typography_link-border;
         }
 
         .#{$module}-link-underline:active {
             border-bottom: $width-typography_link-border solid $color-typography_link-text-active;
-            margin-bottom: -$width-typography_link-border;
+            margin-bottom: -1 * $width-typography_link-border;
         }
     }
 
