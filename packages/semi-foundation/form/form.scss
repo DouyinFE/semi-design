@@ -91,18 +91,18 @@ $rating: #{$prefix}-rating;
         }
 
         &-with-extra {
-            .#{$field}-label-text,
-            .#{$field}-label-extra {
+            .#{$field}-label-text {
                 display: inline-block;
             }
             .#{$field}-label-extra {
+                display: flex;
+                align-items: center;
                 margin-left: $spacing-form_label_extra-marginLeft;
             }
         }
 
         &-required {
             .#{$field}-label-text {
-
                 &::after {
                     content: "*";
                     margin-left: $spacing-form_label_required-marginLeft;
@@ -156,6 +156,11 @@ $rating: #{$prefix}-rating;
             padding-top: $spacing-form_label_posTop-paddingTop;
             padding-bottom: $spacing-form_label_posTop-paddingBottom;
         }
+        .#{$field}-label-with-extra {
+            display: flex;
+            align-items: center;
+        }
+
     }
 
     &[x-label-pos="left"] {
@@ -168,7 +173,10 @@ $rating: #{$prefix}-rating;
             padding-top: $spacing-form_label-paddingTop;
             padding-bottom: $spacing-form_label-paddingTop;
         }
-
+        .#{$field}-label-with-extra {
+            display: flex;
+            align-items: center;
+        }
         .#{$checkboxGroup},
         .#{$radioGroup} {
             padding-top: $spacing-form_label-paddingTop;

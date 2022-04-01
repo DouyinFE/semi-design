@@ -60,17 +60,26 @@ You can also set label` properties for each field, by default is the same as fie
 
 ```jsx live=true dir="column"
 import React from 'react';
-import { Form } from '@douyinfe/semi-ui';
+import { Form, Tooltip } from '@douyinfe/semi-ui';
+import { IconHelpCircle } from '@douyinfe/semi-icons';
 
 () => (
     <Form layout='horizontal'>
-        <Form.Select field="role" label='UserRole' style={{width:120}}>
+        <Form.Select field="role" label='UserRole' style={{ width:120 }}>
             <Form.Select.Option value="admin">Admin</Form.Select.Option>
             <Form.Select.Option value="user">User</Form.Select.Option>
             <Form.Select.Option value="guest">Guest</Form.Select.Option>
         </Form.Select>
         <Form.Input field='userName' label='UserName' />
         <Form.Input field='password' label='Password' />
+        <Form.Input
+            field='password'
+            label={{ 
+                text: 'Password',
+                extra: <Tooltip content='more detail'><IconHelpCircle style={{ color: '--semi-color-text-1' }}/></Tooltip> 
+            }}
+            style={{ width:176 }}
+        />
     </Form>
 );
 ```
