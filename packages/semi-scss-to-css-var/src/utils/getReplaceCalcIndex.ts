@@ -135,14 +135,14 @@ const getReplaceCalcIndex = (str: string) => {
             return [false, 0];
         }
         let jumpCount = 0;
-        if (!/\w|\d|\.|%/.test(str[startIndex])) {
+        if (!/\w|\d|\.|-|%/.test(str[startIndex])) {
             return [false, 0];
         } else {
             jumpCount++;
         }
         while (true) {
             const char = str[startIndex + jumpCount];
-            if (char && /\w|\d|\.|%/.test(char)) {
+            if (char && /\w|\d|\.|-|%/.test(char)) {
                 jumpCount++;
             } else {
                 break;
@@ -166,7 +166,7 @@ const getReplaceCalcIndex = (str: string) => {
             return [false, 0];
         }
         let jumpCount = 0;
-        if (!/\w|\d|\.|%/.test(str[startIndex])) {
+        if (!/\w|\d|\.|-|%/.test(str[startIndex])) {
             return [false, 0];
         } else {
             jumpCount++;
@@ -174,7 +174,7 @@ const getReplaceCalcIndex = (str: string) => {
         while (true) {
             const char = str[startIndex - jumpCount];
             if (char) {
-                if (char && /\w|\d|\.|%/.test(char)) {
+                if (char && /\w|\d|\.|-|%/.test(char)) {
                     jumpCount++;
                 } else {
                     break;
