@@ -150,7 +150,7 @@
     "chromatic": "^6.0.6",
     "crypto": "^1.0.1",
     "css-loader": "^3.6.0",
-    "cypress": "^9.2.1",
+    "cypress": "9.5.2",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.6",
     "enzyme-to-json": "^3.6.2",
