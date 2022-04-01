@@ -223,10 +223,10 @@ export default class MonthsGridFoundation extends BaseFoundation<MonthsGridAdapt
         this._adapter.updateMonthOnLeft(newMonthLeft);
         const newSelected = new Set<string>();
         if (!this._isMultiple()) {
-            newSelected.add(format(values[0] as Date, strings.FORMAT_FULL_DATE));
+            values[0] && newSelected.add(format(values[0] as Date, strings.FORMAT_FULL_DATE));
         } else {
             values.forEach(date => {
-                newSelected.add(format(date as Date, strings.FORMAT_FULL_DATE));
+                date && newSelected.add(format(date as Date, strings.FORMAT_FULL_DATE));
             });
         }
         if (refreshPicker) {

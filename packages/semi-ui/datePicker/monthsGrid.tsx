@@ -168,7 +168,8 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
     componentDidUpdate(prevProps: MonthsGridProps, prevState: MonthsGridState) {
         const { defaultValue, defaultPickerValue, motionEnd } = this.props;
         if (prevProps.defaultValue !== defaultValue) {
-            this.foundation.updateSelectedFromProps(defaultValue, false);
+            // we should always update panel state when value changes
+            this.foundation.updateSelectedFromProps(defaultValue);
         }
 
         if (prevProps.defaultPickerValue !== defaultPickerValue) {

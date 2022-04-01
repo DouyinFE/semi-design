@@ -746,7 +746,7 @@ function Demo() {
 | --- | --- | --- | --- | --- |
 | autoAdjustOverflow | 浮层被遮挡时是否自动调整方向 | boolean | true | **0.34.0** |
 | autoFocus | 自动获取焦点 | boolean | false | **1.10.0** |
-| autoSwitchDate | 传入 false 时，通过面板上方左右按钮、下拉菜单更改年月时，不会自动切换日期 | boolean | true | **1.13.0** |
+| autoSwitchDate | 通过面板上方左右按钮、下拉菜单更改年月时，自动切换日期。仅对 date type 生效。 | boolean | true | **1.13.0** |
 | bottomSlot | 渲染底部额外区域 | ReactNode |  | **1.22.0** |
 | className | 类名 | string | - |  |
 | defaultOpen | 面板默认显示或隐藏 | boolean | false |  |
