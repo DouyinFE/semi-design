@@ -43,7 +43,16 @@ const getAllScssFilesInPath = (filePath: string) => {
             scssFilePaths.push(...getAllScssFilesInPath(pathOfCurrentFile));
         }
     });
-    return scssFilePaths;
+    const ignoreFileList =['components/grid'];
+
+    return scssFilePaths.filter(filepath =>{
+        for(const rule of ignoreFileList){
+            if(filepath.includes(rule)){
+                return false;
+            }
+        }
+        return true;
+    });
 };
 
 
