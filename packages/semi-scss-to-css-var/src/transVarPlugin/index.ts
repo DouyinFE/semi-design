@@ -13,31 +13,31 @@ import { trimStart } from "lodash";
 
 
 
-const getScssVariableNotUsedInSelectorSetPlugin=(scssVariableInSelectorSet:Set<string>)=>{
-    return {
-        postcssPlugin:"semi-scss-get-scss-var-in-selector-plugin",
-        Root(root:Root,postcss:Postcss){
-            //console.log(root)
-        },
-        Once(root:Root){
-            //  console.log(root)
-        },
-        Rule(rule){
-            if (/#\{\$[\w\d]+\}/.test(rule.selector)){
-                const matches=rule.selector.matchAll(/#\{(\$[\w\d]+)\}/g);
-                for (const match of matches){
-                    if (match[1]){
-                        scssVariableInSelectorSet.add(match[1]);
-                    }
-                }
-            }
-        }
+// const getScssVariableNotUsedInSelectorSetPlugin=(scssVariableInSelectorSet:Set<string>)=>{
+//     return {
+//         postcssPlugin:"semi-scss-get-scss-var-in-selector-plugin",
+//         Root(root:Root,postcss:Postcss){
+//             //console.log(root)
+//         },
+//         Once(root:Root){
+//             //  console.log(root)
+//         },
+//         Rule(rule){
+//             if (/#\{\$[\w\d]+\}/.test(rule.selector)){
+//                 const matches=rule.selector.matchAll(/#\{(\$[\w\d]+)\}/g);
+//                 for (const match of matches){
+//                     if (match[1]){
+//                         scssVariableInSelectorSet.add(match[1]);
+//                     }
+//                 }
+//             }
+//         }
+//
+//     } as AcceptedPlugin;
+// };
 
-    } as AcceptedPlugin;
-};
 
-
-const transVarPlugin=(scssVariableInSelectorSet:Set<string>,extraCssVarDefineList:{key:string,value:string}[])=>{
+const transVarPlugin=(replaceScss=false,extraCssVarDefineList:{key:string,value:string}[])=>{
 
     return {
         postcssPlugin:"semi-scss-to-css-var-plugin",
@@ -62,8 +62,7 @@ const transVarPlugin=(scssVariableInSelectorSet:Set<string>,extraCssVarDefineLis
                 decl.value=value;
 
                 //inject css variable define
-                if (/\$[\w\d_-]+$/.test(decl.prop)){
-                    if (!scssVariableInSelectorSet.has(decl.prop)){
+                if (/\$[\w\d_-]+$/.test(decl.prop) && replaceScss){
                         const scssVariable=trimStart(decl.prop,'$');
                         const cssVariable =`--semi-css-${scssVariable}`;
                         // const cssDeclaration=new Declaration({ prop:cssVariable,value:decl.value });
@@ -72,7 +71,6 @@ const transVarPlugin=(scssVariableInSelectorSet:Set<string>,extraCssVarDefineLis
                         // decl.after(cssDeclaration);
                         extraCssVarDefineList.push({ key:cssVariable,value:decl.value });
                         decl.value=`var(${cssVariable})`;
-                    }
                 }
                 //@ts-ignore
                 decl.isVisited=true;
@@ -85,12 +83,12 @@ const transVarPlugin=(scssVariableInSelectorSet:Set<string>,extraCssVarDefineLis
 
 
 transVarPlugin.postcss=true;
-getScssVariableNotUsedInSelectorSetPlugin.postcss=true;
-
+// getScssVariableNotUsedInSelectorSetPlugin.postcss=true;
+//
 
 
 
 export {
     transVarPlugin,
-    getScssVariableNotUsedInSelectorSetPlugin
+   // getScssVariableNotUsedInSelectorSetPlugin
 };
