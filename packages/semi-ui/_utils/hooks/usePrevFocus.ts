@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { getActiveElement } from '../index';
 import { get, isFunction } from 'lodash';
 
+/* istanbul ignore next */
 export function usePrevFocus() {
     const [prevFocusElement, setPrevFocus] = useState<HTMLElement>(getActiveElement());
 

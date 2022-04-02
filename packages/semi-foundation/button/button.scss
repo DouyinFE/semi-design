@@ -24,8 +24,16 @@ $module: #{$prefix}-button;
     vertical-align: middle;
     white-space: nowrap;
 
-    &:focus {
-        outline: $width-button-outline solid $color-button_primary-outline-focus;
+    // the specificity of `.#{$module}:focus-visible`  may lower than `reset.css` default `focus-visible` style
+    // so we add a class at the same level
+    &.#{$module}-primary,
+    &.#{$module}-secondary,
+    &.#{$module}-tertiary,
+    &.#{$module}-warning,
+    &.#{$module}-danger {
+        &:focus-visible {
+            outline: $width-button-outline solid $color-button_primary-outline-focus;
+        }
     }
 
     &-danger {
@@ -41,8 +49,8 @@ $module: #{$prefix}-button;
         &.#{$module}-borderless {
             color: $color-button_danger-bg-default;
         }
-        &:not(.#{$module}-borderless):not(.#{$module}-light):focus {
-            outline-color: $color-button_danger-outline-focus;
+        &:not(.#{$module}-borderless):not(.#{$module}-light):focus-visible {
+            outline: $width-button-outline solid $color-button_danger-outline-focus;
         }
     }
     &-warning {
@@ -58,8 +66,8 @@ $module: #{$prefix}-button;
         &.#{$module}-borderless {
             color: $color-button_warning-bg-default;
         }
-        &:not(.#{$module}-borderless):not(.#{$module}-light):focus {
-            outline-color: $color-button_warning-outline-focus;
+        &:not(.#{$module}-borderless):not(.#{$module}-light):focus-visible {
+            outline: $width-button-outline solid $color-button_warning-outline-focus;
         }
     }
     &-tertiary {

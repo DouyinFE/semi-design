@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Select, Modal, Button, Tooltip, Popover } from '../../index';
+import en_GB from '../../locale/source/en_GB';
+
+import { Select, Modal, Button, Tooltip, Popover, ConfigProvider, Tag, Space } from '../../index';
 import CollapsibleInModal from './CollapsibleInModal';
 import DynamicContextDemo from './DynamicContext';
 
@@ -248,4 +250,94 @@ KeepDomNotLazy.story = {
   name: 'keepDOM && not lazy',
 };
 
+export const UseModalDemo = () => {
+  const [modal, contextHolder] = Modal.useModal();
+  const config = { 'title': 'old title', 'content': 'old content' };
 
+  return (
+      <ConfigProvider locale={en_GB}>
+          <div>
+              <Button
+                  onClick={() => {
+                      const currentModal = modal.confirm(config);
+
+                      setTimeout(() => {
+                        currentModal.update({ title: "new title", content: "new content" });
+                      }, 1000);
+                  }}
+              >
+                  Confirm Modal
+              </Button>
+          </div>
+          {contextHolder}
+      </ConfigProvider>
+  );
+};
+UseModalDemo.storyName = "useModal";
+
+export const UseModalDestroy = () => {
+  const [modal, contextHolder] = Modal.useModal();
+  const config = { 'title': 'old title', 'content': 'old content' };
+
+  return (
+      <ConfigProvider locale={en_GB}>
+          <div>
+              <Button
+                  onClick={() => {
+                      const currentModal = modal.confirm(config);
+
+                      setTimeout(() => {
+                        currentModal.destroy();
+                      }, 1000);
+                  }}
+              >
+                  Confirm Modal
+              </Button>
+          </div>
+          {contextHolder}
+      </ConfigProvider>
+  );
+};
+UseModalDestroy.storyName = "useModal destroy";
+
+export const UseModalAfterClose = () => {
+  const [modal, contextHolder] = Modal.useModal();
+  const [closed, setClosed] = React.useState(false);
+  const [leave, setLeave] = React.useState(false);
+
+  const config = { 
+    title: 'old title', 
+    content: 'old content', 
+    afterClose: () => {
+      setClosed(true);
+    },
+    motion: {
+      didLeave: () => {
+        console.log('didLeave');
+        setLeave(true);
+      }
+    }
+  };
+
+  return (
+      <ConfigProvider locale={en_GB}>
+          <Space>
+              <Button
+                  onClick={() => {
+                      const currentModal = modal.confirm(config);
+
+                      setTimeout(() => {
+                        currentModal.destroy();
+                      }, 0);
+                  }}
+              >
+                  Confirm Modal
+              </Button>
+              <Tag>{`closed: ${closed}`}</Tag>
+              {/* <Tag>{`motion leave: ${leave}`}</Tag> */}
+          </Space>
+          {contextHolder}
+      </ConfigProvider>
+  );
+};
+UseModalAfterClose.storyName = "useModal afterClose";

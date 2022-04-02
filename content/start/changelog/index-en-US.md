@@ -16,6 +16,11 @@ Version：Major.Minor.Patch
 
 ---
 
+#### 🎉 2.7.1 (2022-03-30)
+- 【Fix】
+    - Fixed focus style issue after Button is clicked (Affects 2.5.0 ~ 2.7.0, there is a problem with Safari compatibility, its behavior is the same as before 2.5.0) [#730](https://github.com/DouyinFE/semi-design/pull/730)
+    - Fixed Tooltip still execute `setState` after component unmounted  [#727](https://github.com/DouyinFE/semi-design/issues/727)
+
 #### 🎉 2.7.0 (2022-03-25)
 - 【Chore】
     - useFormApi add generic support [@so2liu](https://github.com/so2liu)
