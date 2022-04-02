@@ -266,4 +266,21 @@ describe('DatePicker', () => {
             cy.get(`${wrapper} .semi-input-wrapper`).should('not.have.class', 'semi-input-wrapper-disabled');
         }
     });
+
+    it('defaultPickerValue is number', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--fix-default-picker-value&viewMode=story');
+        cy.get('[data-cy=dateTime] .semi-input').first().click();
+        cy.get('[x-type=dateTime] .semi-datepicker-switch-text').first().contains('2021-03-15');
+        cy.get('[x-type=dateTime] .semi-datepicker-switch-text').last().contains('00:00:00');
+
+        cy.get('[data-cy=dateTimeRange] .semi-input').first().click();
+        cy.get('[x-type=dateTimeRange] .semi-datepicker-switch-text').eq(0).contains('2021-03-15');
+        cy.get('[x-type=dateTimeRange] .semi-datepicker-switch-text').eq(1).contains('00:00:00');
+        cy.get('[x-type=dateTimeRange] .semi-datepicker-switch-text').eq(2).contains('2021-05-15');
+        cy.get('[x-type=dateTimeRange] .semi-datepicker-switch-text').eq(3).contains('23:59:59');
+
+        cy.get('[data-cy=before-1970] .semi-input').first().click();
+        cy.get('[x-type=dateTime] .semi-datepicker-switch-text').first().contains('1910-01-01');
+        cy.get('[x-type=dateTime] .semi-datepicker-switch-text').last().contains('13:00:00');
+    });
 });
