@@ -1,5 +1,5 @@
 // Modified version based on 'highlight-words-core'
-import { isString,escapeRegExp } from 'lodash';
+import { isString } from 'lodash';
 
 const escapeRegExpFn = (string: string) => string.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
 interface ChunkQuery {
@@ -30,7 +30,7 @@ const findChunks = ({
             if (autoEscape) {
                 searchWord = escapeRegExpFn(searchWord);
             }
-            const regex = new RegExp(escapeRegExp(searchWord), caseSensitive ? 'g' : 'gi');
+            const regex = new RegExp(searchWord, caseSensitive ? 'g' : 'gi');
 
             let match;
             while ((match = regex.exec(sourceString))) {
