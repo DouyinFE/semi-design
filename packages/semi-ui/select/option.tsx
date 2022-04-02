@@ -130,7 +130,6 @@ class Option extends PureComponent<OptionProps> {
             searchWords: inputValue,
             sourceString: children,
             option: {
-                autoEscape: true,
                 highlightClassName: `${prefixCls}-keyword`
             }
         };
