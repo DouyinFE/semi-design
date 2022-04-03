@@ -6,7 +6,7 @@ const cssClasses = {
 
 const strings = {
     SIZE_SET: ['large', 'default', 'small'],
-    STATUS: ["default", "error", "warning"],
+    STATUS: ["success", "default", "error", "warning"],
 } as const;
 
 export {
