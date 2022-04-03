@@ -18,7 +18,7 @@ Version：Major.Minor.Patch
 
 #### 🎉 2.8.0-beta.1 (2022-04-03)
 - 【Fix】
-    - Fixed error throw due to unescaped characters during Select search [#734] [@boenfu](https://github.com/boenfu)
+    - Fixed error throw due to unescaped characters during Select search [#734](https://github.com/DouyinFE/semi-design/issues/734) [@boenfu](https://github.com/boenfu)
 #### 🎉 2.8.0-beta.0 (2022-04-02)
 - 【Fix】
     - fix the problem that useNotification gets the same ID every time
