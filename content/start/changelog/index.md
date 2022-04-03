@@ -14,6 +14,11 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 -   修订版本号（patch）：bugfix
 
 ---
+
+#### 🎉 2.8.0-beta.1 (2022-04-03)
+- 【Fix】
+    - 修复 Select 搜索时因为字符未转义导致报错的问题 [#734] [@boenfu](https://github.com/boenfu)
+
 #### 🎉 2.8.0-beta.0 (2022-04-02)
 - 【Fix】
     - 修复 useNotification 每次获得ID都相同的问题
