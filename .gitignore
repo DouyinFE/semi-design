@@ -25,6 +25,7 @@ public
 storybook-static/
 *.zip
 cypress/videos/
+cypress/screenshots/
 
 # misc
 .env.local
@@ -92,6 +93,7 @@ lib-cov
 
 # Coverage directory used by tools like istanbul
 coverage
+test/merged
 
 # nyc test coverage
 .nyc_output

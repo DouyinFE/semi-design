@@ -15,6 +15,11 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 ---
 
+#### 🎉 2.7.1 (2022-03-30)
+- 【Fix】
+    - 修复 Button 点击后聚焦样式问题（影响2.5.0 ~ 2.7.0，Safari 兼容性有问题，其行为与 2.5.0 之前一致）[#730](https://github.com/DouyinFE/semi-design/pull/730)
+    - 修复 Tooltip 在组件卸载后仍然执行 setState 问题  [#727](https://github.com/DouyinFE/semi-design/issues/727)
+
 #### 🎉 2.7.0 (2022-03-25)
 - 【Perf】
     - 优化 Select多选且配置了 maxTagCount时，renderSelectedItem的执行次数 [#709](https://github.com/DouyinFE/semi-design/issues/709)

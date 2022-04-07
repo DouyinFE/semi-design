@@ -84,7 +84,7 @@ export default function App() {
             </div>
             <Space wrap spacing={spacing}>
                 <DatePicker placeholder='选择单个日期' {...props} />
-                <DatePicker placeholder='选择月' {...props} type='month' />
+                <DatePicker placeholder='选择月' {...props} type='month' defaultOpen={false} />
                 <DatePicker placeholder='选择日期时间' {...props} type='dateTime' needConfirm={needConfirm} />
                 <DatePicker placeholder='选择日期范围' {...props} type='dateRange' />
                 <DatePicker placeholder='选择日期时间范围' {...props} type='dateTimeRange' needConfirm={needConfirm} />
