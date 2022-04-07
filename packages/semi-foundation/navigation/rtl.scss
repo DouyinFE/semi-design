@@ -28,7 +28,7 @@ $module: #{$prefix}-navigation;
 
                 & > &-text:first-child {
                     margin-left: auto;
-                    margin-right: $spacing-base-tight + $width-navigation_icon_left + $width-navigation_icon_text_between;
+                    margin-right: calc($spacing-base-tight + $width-navigation_icon_left + $width-navigation_icon_text_between);
                 }
 
                 & > .#{$module}-item-icon:first-child {

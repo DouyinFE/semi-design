@@ -130,7 +130,7 @@ $module: #{$prefix}-datepicker;
         &[x-panel-yearandmonth-open-type="left"],
         &[x-panel-yearandmonth-open-type="right"] {
             .#{$module}-weeks {
-                min-height: 6 * $width-datepicker_day;
+                min-height: calc(6 * $width-datepicker_day);
             }
         }
     }
@@ -386,7 +386,7 @@ $module: #{$prefix}-datepicker;
         &-selected-start,
         &-offsetrange-start {
             .#{$module}-day-main {
-                width: $width-datepicker_day - $spacing-datepicker_day-marginX;
+                width: calc($width-datepicker_day - $spacing-datepicker_day-marginX);
                 margin-left: $spacing-datepicker_day-marginX;
                 margin-right: 0;
                 border-radius: $width-datepicker_day_main-borderRadius 0 0 $width-datepicker_day_main-borderRadius;
@@ -396,7 +396,7 @@ $module: #{$prefix}-datepicker;
         &-selected-end,
         &-offsetrange-end {
             .#{$module}-day-main {
-                width: $width-datepicker_day - $spacing-datepicker_day-marginX;
+                width: calc($width-datepicker_day - $spacing-datepicker_day-marginX);
                 margin-right: $spacing-datepicker_day-marginX;
                 margin-left: 0;
                 border-radius: 0 $width-datepicker_day_main-borderRadius $width-datepicker_day_main-borderRadius 0;
@@ -583,7 +583,7 @@ $module: #{$prefix}-datepicker;
 
         &-dateRange,
         &-dateTimeRange {
-            max-width: $width-datepicker_monthPanel_max * 2;
+            max-width: calc($width-datepicker_monthPanel_max * 2);
         }
     }
 
@@ -858,7 +858,7 @@ $module: #{$prefix}-datepicker;
         &[x-type="dateTimeRange"] {
             .#{$module}-yam {
                 // 减去底部switch高度
-                height: calc(100% - #{$height-datepicker_switch_compact});
+                height: calc(calc(100% - #{$height-datepicker_switch_compact}));
             }
         }
     
@@ -871,7 +871,7 @@ $module: #{$prefix}-datepicker;
 
 
         .#{$module}-yam-showing {
-            min-height: $height-datepicker_tpk_compact + $height-datepicker_switch_compact;
+            min-height: calc($height-datepicker_tpk_compact + $height-datepicker_switch_compact);
             min-width: $width-datepicker_panel_compact;
         }
 
@@ -924,7 +924,7 @@ $module: #{$prefix}-datepicker;
         &[x-panel-yearandmonth-open-type="left"],
         &[x-panel-yearandmonth-open-type="right"] {
             .#{$module}-weeks {
-                min-height: 6 * $width-datepicker_day_compact;
+                min-height: calc(6 * $width-datepicker_day_compact);
             }
         }
 
@@ -965,7 +965,7 @@ $module: #{$prefix}-datepicker;
     }
 
     .#{$module}-tpk {
-        height: calc(100% - #{$height-datepicker_switch_compact});
+        height: calc(calc(100% - #{$height-datepicker_switch_compact}));
     }
 
     .#{$module}-navigation {
@@ -1005,7 +1005,7 @@ $module: #{$prefix}-datepicker;
 
     .#{$module}-weekday {
         box-sizing: border-box;
-        height: $spacing-tight + $width-datepicker_day_compact;
+        height: calc($spacing-tight + $width-datepicker_day_compact);
         padding-left: $spacing-datepicker_weekday_compact-paddingLeft;
         padding-right: $spacing-datepicker_weekday_compact-paddingRight;
         padding-bottom: $spacing-datepicker_weekday_compact-paddingBottom;
@@ -1073,7 +1073,7 @@ $module: #{$prefix}-datepicker;
         &-selected-start,
         &-offsetrange-start {
             .#{$module}-day-main {
-                width: $width-datepicker_day - $spacing-datepicker_day_compact-margin;
+                width: calc($width-datepicker_day - $spacing-datepicker_day_compact-margin);
                 margin-left: $spacing-datepicker_day_compact-margin;
                 margin-right: 0;
                 border-radius: $width-datepicker_day_compact-borderRadius 0 0 $width-datepicker_day_compact-borderRadius;
@@ -1083,7 +1083,7 @@ $module: #{$prefix}-datepicker;
         &-selected-end,
         &-offsetrange-end {
             .#{$module}-day-main {
-                width: $width-datepicker_day - $spacing-datepicker_day_compact-margin;
+                width: calc($width-datepicker_day - $spacing-datepicker_day_compact-margin);
                 margin-right: $spacing-datepicker_day_compact-margin;
                 margin-left: 0;
                 border-radius: 0 $width-datepicker_day_compact-borderRadius $width-datepicker_day_compact-borderRadius 0;
@@ -1122,7 +1122,7 @@ $module: #{$prefix}-datepicker;
 
         &-dateRange,
         &-dateTimeRange {
-            max-width: $width-datepicker_panel_compact * 2;
+            max-width: calc($width-datepicker_panel_compact * 2);
         }
     }
 
@@ -1183,11 +1183,11 @@ $module: #{$prefix}-datepicker;
         &[x-placement="rightTop"],
         &[x-placement*="BottomOver"] {
             .#{$module} .#{$module}-weeks {
-                min-height: 6 * $width-datepicker_day;
+                min-height: calc(6 * $width-datepicker_day);
             }
 
             .#{$module}-compact .#{$module}-weeks {
-                min-height: 6 * $width-datepicker_day_compact;
+                min-height: calc(6 * $width-datepicker_day_compact);
             }
         }
     }

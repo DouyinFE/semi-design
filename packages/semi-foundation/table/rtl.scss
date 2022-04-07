@@ -141,8 +141,8 @@ $module: #{$prefix}-table;
                 & > .#{$module}-row-section > .#{$module}-row-cell > .#{$module}-section-inner {
                     left: auto;
                     right: 0;
-                    margin-right: -1 * $spacing-table_expand_row-paddingLeft;
-                    margin-left: -1 * $spacing-table_expand_row-paddingRight;
+                    margin-right: calc(-1 * $spacing-table_expand_row-paddingLeft);
+                    margin-left: calc(-1 * $spacing-table_expand_row-paddingRight);
                     padding-right: $spacing-table_expand_row-paddingLeft;
                     padding-left: $spacing-table_expand_row-paddingRight;
                 }

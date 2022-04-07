@@ -1,27 +1,27 @@
 // Color
-$color-anchor_slide_default-bg-default: var(--semi-color-border); // 滑轨背景颜色
-$color-anchor_slide_primary-bg-active: var(--semi-color-primary); // 选中颜色 - Primary
-$color-anchor_slide_tertiary-bg-active: var(--semi-color-tertiary); // 选中颜色 - Tietrary
-$color-anchor_slide_muted-bg-active: var(--semi-color-white); // 选中颜色 - Muted
+$color-anchor_slide_default-bg-default: var(--semi-css-color-anchor_slide_default-bg-default); // 滑轨背景颜色
+$color-anchor_slide_primary-bg-active: var(--semi-css-color-anchor_slide_primary-bg-active); // 选中颜色 - Primary
+$color-anchor_slide_tertiary-bg-active: var(--semi-css-color-anchor_slide_tertiary-bg-active); // 选中颜色 - Tietrary
+$color-anchor_slide_muted-bg-active: var(--semi-css-color-anchor_slide_muted-bg-active); // 选中颜色 - Muted
 
-$color-anchor_title-text-default: var(--semi-color-text-2); // 文字颜色 - 未选中
-$color-anchor_title-text-hover: var(--semi-color-tertiary-hover); // 文字颜色 - 未选中悬浮态
-$color-anchor_title-text-active: var(--semi-color-text-0); // 文字颜色 - 选中
-$color-anchor_title-text-disabled: var(--semi-color-disabled-text); // 文字颜色 - 禁用
+$color-anchor_title-text-default: var(--semi-css-color-anchor_title-text-default); // 文字颜色 - 未选中
+$color-anchor_title-text-hover: var(--semi-css-color-anchor_title-text-hover); // 文字颜色 - 未选中悬浮态
+$color-anchor_title-text-active: var(--semi-css-color-anchor_title-text-active); // 文字颜色 - 选中
+$color-anchor_title-text-disabled: var(--semi-css-color-anchor_title-text-disabled); // 文字颜色 - 禁用
 
 // Spacing
-$spacing-anchor_slide-left: $spacing-none; // 滑轨左侧位置
-$spacing-anchor_slide-top: $spacing-none; // 滑轨顶部位置
-$spacing-anchor_slide_default-Y: $spacing-extra-tight; // 选项间距 - 默认
-$spacing-anchor_slide_small-Y: $spacing-extra-tight; // 选项间距 - 紧凑
-$spacing-anchor_link-paddingLeft: $spacing-tight; // 选项文字左边距
-$spacing-anchor_link_title-paddingTop: $spacing-extra-tight; // 选项文字顶部内边距
-$spacing-anchor_link_title-paddingBottom: $spacing-extra-tight; // 选项文字底部内边距
+$spacing-anchor_slide-left: var(--semi-css-spacing-anchor_slide-left); // 滑轨左侧位置
+$spacing-anchor_slide-top: var(--semi-css-spacing-anchor_slide-top); // 滑轨顶部位置
+$spacing-anchor_slide_default-Y: var(--semi-css-spacing-anchor_slide_default-Y); // 选项间距 - 默认
+$spacing-anchor_slide_small-Y: var(--semi-css-spacing-anchor_slide_small-Y); // 选项间距 - 紧凑
+$spacing-anchor_link-paddingLeft: var(--semi-css-spacing-anchor_link-paddingLeft); // 选项文字左边距
+$spacing-anchor_link_title-paddingTop: var(--semi-css-spacing-anchor_link_title-paddingTop); // 选项文字顶部内边距
+$spacing-anchor_link_title-paddingBottom: var(--semi-css-spacing-anchor_link_title-paddingBottom); // 选项文字底部内边距
 
 // Size
-$width-anchor_slide_default: 2px; // 滑轨宽度
-$height-anchor_slide_default: 20px; // 选项高度 - 默认
-$height-anchor_slide_small: 16px; // 选项高度 - 小尺寸
+$width-anchor_slide_default: var(--semi-css-width-anchor_slide_default); // 滑轨宽度
+$height-anchor_slide_default: var(--semi-css-height-anchor_slide_default); // 选项高度 - 默认
+$height-anchor_slide_small: var(--semi-css-height-anchor_slide_small); // 选项高度 - 小尺寸
 
 // Radius
-$radius-anchor_slide: 1px; // 滑轨圆角
+$radius-anchor_slide: var(--semi-css-radius-anchor_slide); // 滑轨圆角

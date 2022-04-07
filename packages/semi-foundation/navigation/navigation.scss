@@ -91,7 +91,7 @@ $module: #{$prefix}-navigation;
         }
 
         &-indent {
-            width: $width-navigation_icon_text_between + $width-navigation_icon_left;
+            width: calc($width-navigation_icon_text_between + $width-navigation_icon_left);
         }
     }
 
@@ -256,7 +256,7 @@ $module: #{$prefix}-navigation;
             }
 
             & > &-text:first-child {
-                margin-left: $spacing-base-tight + $width-navigation_icon_left + $width-navigation_icon_text_between;
+                margin-left: calc($spacing-base-tight + $width-navigation_icon_left + $width-navigation_icon_text_between);
             }
 
             //& > .#{$module}-item-icon:first-child {

@@ -1,34 +1,34 @@
 // Color
-$color-toast-bg-default: var(--semi-color-bg-3); // 提示背景颜色 - 默认
-$color-toast-text-default: var(--semi-color-text-0); // 提示文字颜色 - 默认
-$color-toast_warning-icon: var(--semi-color-warning); // 警告提示图标颜色
-$color-toast_success-icon: var(--semi-color-success); // 成功提示图标颜色
-$color-toast_info-icon: var(--semi-color-info); // 通知提示图标颜色
-$color-toast_danger-icon: var(--semi-color-danger); // 错误提示图标颜色
-$color-toast_warning_light-bg: var(--semi-color-warning-light-default); // 多色样式 警告提示背景颜色
-$color-toast_warning_light-border: var(--semi-color-warning); // 多色样式 警告提示描边颜色
-$color-toast_success_light-bg: var(--semi-color-success-light-default); // 多色样式 成功提示背景颜色
-$color-toast_success_light-border: var(--semi-color-success); // 多色样式 成功提示描边颜色
-$color-toast_info_light-bg: var(--semi-color-info-light-default); // 多色样式 通知提示背景颜色
-$color-toast_info_light-border: var(--semi-color-info); // 多色样式 通知提示描边颜色
-$color-toast_danger_light-bg: var(--semi-color-danger-light-default); // 多色样式 错误提示背景颜色
-$color-toast_danger_light-border: var(--semi-color-danger); // 多色样式 错误提示描边颜色
+$color-toast-bg-default: var(--semi-css-color-toast-bg-default); // 提示背景颜色 - 默认
+$color-toast-text-default: var(--semi-css-color-toast-text-default); // 提示文字颜色 - 默认
+$color-toast_warning-icon: var(--semi-css-color-toast_warning-icon); // 警告提示图标颜色
+$color-toast_success-icon: var(--semi-css-color-toast_success-icon); // 成功提示图标颜色
+$color-toast_info-icon: var(--semi-css-color-toast_info-icon); // 通知提示图标颜色
+$color-toast_danger-icon: var(--semi-css-color-toast_danger-icon); // 错误提示图标颜色
+$color-toast_warning_light-bg: var(--semi-css-color-toast_warning_light-bg); // 多色样式 警告提示背景颜色
+$color-toast_warning_light-border: var(--semi-css-color-toast_warning_light-border); // 多色样式 警告提示描边颜色
+$color-toast_success_light-bg: var(--semi-css-color-toast_success_light-bg); // 多色样式 成功提示背景颜色
+$color-toast_success_light-border: var(--semi-css-color-toast_success_light-border); // 多色样式 成功提示描边颜色
+$color-toast_info_light-bg: var(--semi-css-color-toast_info_light-bg); // 多色样式 通知提示背景颜色
+$color-toast_info_light-border: var(--semi-css-color-toast_info_light-border); // 多色样式 通知提示描边颜色
+$color-toast_danger_light-bg: var(--semi-css-color-toast_danger_light-bg); // 多色样式 错误提示背景颜色
+$color-toast_danger_light-border: var(--semi-css-color-toast_danger_light-border); // 多色样式 错误提示描边颜色
 
 // Spacing
-$spacing-toast_wrapper-top: 0; // 通知容器顶部位置
-$spacing-toast_content-paddingY: $spacing-base-tight; // 通知内容垂直内边距
-$spacing-toast_content-paddingX: $spacing-tight; // 通知内容水平内边距
-$spacing-toast_content-margin: $spacing-base-tight; // 通知内容外边距
-$spacing-toast_content_close_btn-marginTop: -2px; // 通知关闭按钮顶部外边距
-$spacing-toast_content_text-marginLeft: $spacing-base-tight; // 通知文本左侧外边距
-$spacing-toast_content_text-marginRight: $spacing-base-tight; // 通知文本右侧外边距
+$spacing-toast_wrapper-top: var(--semi-css-spacing-toast_wrapper-top); // 通知容器顶部位置
+$spacing-toast_content-paddingY: var(--semi-css-spacing-toast_content-paddingY); // 通知内容垂直内边距
+$spacing-toast_content-paddingX: var(--semi-css-spacing-toast_content-paddingX); // 通知内容水平内边距
+$spacing-toast_content-margin: var(--semi-css-spacing-toast_content-margin); // 通知内容外边距
+$spacing-toast_content_close_btn-marginTop: var(--semi-css-spacing-toast_content_close_btn-marginTop); // 通知关闭按钮顶部外边距
+$spacing-toast_content_text-marginLeft: var(--semi-css-spacing-toast_content_text-marginLeft); // 通知文本左侧外边距
+$spacing-toast_content_text-marginRight: var(--semi-css-spacing-toast_content_text-marginRight); // 通知文本右侧外边距
 
 // Width/Height
-$width-toast_wrapper: 100%; // 通知容器整体宽度
-$width-toast_light-border: 1px; // 多色样式 通知描边宽度
+$width-toast_wrapper: var(--semi-css-width-toast_wrapper); // 通知容器整体宽度
+$width-toast_light-border: var(--semi-css-width-toast_light-border); // 多色样式 通知描边宽度
 
 // Radius
-$radius-toast_content: var(--semi-border-radius-medium); // 通知圆角
+$radius-toast_content: var(--semi-css-radius-toast_content); // 通知圆角
 
 // Font
-$font-toast_content-fontWeight: $font-weight-bold; // 通知文本字重
+$font-toast_content-fontWeight: var(--semi-css-font-toast_content-fontWeight); // 通知文本字重
