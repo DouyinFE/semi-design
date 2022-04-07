@@ -3,11 +3,11 @@ import fs from 'fs-extra';
 import os from 'os';
 import postcss from "postcss";
 import postcssScss from 'postcss-scss';
-import {transVarPlugin } from "./transVarPlugin";
+import { transVarPlugin } from "./transVarPlugin";
+
 
 export interface Options {
     sourcePath: string,
-    resultPath: string
 }
 
 const getAllScssFilesInPath = (filePath: string) => {
@@ -46,8 +46,8 @@ const getAllScssFilesInPath = (filePath: string) => {
     const ignoreFileList =['semi-foundation/grid'];
 
     return scssFilePaths.filter(filepath =>{
-        for(const rule of ignoreFileList){
-            if(filepath.includes(rule)){
+        for (const rule of ignoreFileList){
+            if (filepath.includes(rule)){
                 return false;
             }
         }
@@ -62,10 +62,19 @@ const getAllScssFilesInPath = (filePath: string) => {
 //     return tempDirPath;
 // }
 
+const trimEnd= (str:string,end:string)=>{
+    str=str.trimEnd();
+    end=end.trimEnd();
+    if (str.slice(str.length-end.length)===end){
+        return str.slice(0,str.length-end.length);
+    } else {
+        return str;
+    }
+};
 
 const transScssToCSSVar=(scssFilePathList:string[])=>{
     //scssFilePathList=['./test/test.scss'];
-    let allCssDefine:{key:string,value:string}[] =[];
+    //   let allCssDefine:{key:string,value:string}[] =[];
     for (const scssFilePath of scssFilePathList){
         try {
             const raw=fs.readFileSync(scssFilePath,{ encoding:'utf-8' });
@@ -75,8 +84,10 @@ const transScssToCSSVar=(scssFilePathList:string[])=>{
             const cssDefine :{key:string,value:string}[]=[];
 
             const result=postcss([transVarPlugin(   scssFilePath.includes('variables.scss'),cssDefine)]).process(raw, { syntax: postcssScss });
-            fs.writeFileSync(scssFilePath,result.css,"utf8");
-            allCssDefine=[...allCssDefine,...cssDefine];
+            const resultSCSS=result.css; //Real call postcss
+            const rawCSSDefine =`.allCSSVar{\n${ cssDefine.map(({ key,value })=>{return `${key}: #{${trimEnd(value,'!default')}};`;}).join('\n')}\n}`;
+            fs.writeFileSync(scssFilePath,resultSCSS+'\n'+rawCSSDefine,"utf8");
+            // allCssDefine=[...allCssDefine,...cssDefine];
 
         } catch (e){
             console.error(e);
@@ -85,14 +96,14 @@ const transScssToCSSVar=(scssFilePathList:string[])=>{
 
     }
 
-    fs.writeFileSync('allCSSVar.scss',(()=>{
-        return `.allCSSVar{\n${allCssDefine.map(({ key,value })=>{return `${key}:${value};`;}).join('\n')}\n}`;
-    })(),'utf-8');
+    // fs.writeFileSync(path.join(resultPath),(()=>{
+    //     return `$prefix:semi;\n.allCSSVar{\n${allCssDefine.map(({ key,value })=>{return `${key}:${value};`;}).join('\n')}\n}`;
+    // })(),'utf-8');
 
 };
 
 
-const transScssVariables2CssVariables = ({ sourcePath, resultPath }: Options) => {
+const transScssVariables2CssVariables = ({ sourcePath }: Options) => {
 
     const transDir = sourcePath;
     const scssFileList = getAllScssFilesInPath(transDir);

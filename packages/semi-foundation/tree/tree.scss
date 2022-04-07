@@ -183,7 +183,7 @@ $module: #{$prefix}-tree;
         &-draggable {
             box-sizing: border-box;
             border-left: $width-tree_option_draggable-border solid transparent;
-            margin-top: calc(-1 * $width-tree_option_draggable-border);
+            margin-top: -$width-tree_option_draggable-border;
 
             .#{$module}-option-label {
                 border-top: $width-tree_option_draggable-border transparent solid;
@@ -224,7 +224,7 @@ $module: #{$prefix}-tree;
                     content: '';
                     position: absolute;
                     top: 0;
-                    left: calc(-1 * $width-tree_option_draggable-border);
+                    left: -$width-tree_option_draggable-border;
                     bottom: 0;
                     right: -1px;
                     border-top: $width-tree_option_draggable-border solid $color-tree_option_draggable_insert-border-default;
@@ -253,7 +253,7 @@ $module: #{$prefix}-tree;
 
     @for $i from 1 through 20 {
         .#{$module}-option-level-#{$i} {
-            padding-left: calc($spacing-tree_option_level-paddingLeft * ($i - 1) + $spacing-tree_option_level1-paddingLeft);
+            padding-left: $spacing-tree_option_level-paddingLeft * ($i - 1) + $spacing-tree_option_level1-paddingLeft;
         }
     }
 

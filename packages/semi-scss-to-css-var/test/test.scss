@@ -1,3 +1,8 @@
-body{
+
+@import "v.scss";
+
+.tttt{
   margin: 1px; //ignore
+
+  --semi-var:#{calc($spacing + 10px)};
 }

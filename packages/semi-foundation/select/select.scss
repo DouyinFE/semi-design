@@ -235,13 +235,13 @@ $multiple: #{$module}-multiple;
 
     &-multiple.#{$module}-large {
         .#{$module}-content-wrapper {
-            min-height: calc($height-select_large - 2);
+            min-height: $height-select_large - 2;
         }
     }
 
     &-multiple.#{$module}-small {
         .#{$module}-content-wrapper {
-            min-height: calc($height-select_small - 2);
+            min-height: $height-select_small - 2;
         }
     }
 

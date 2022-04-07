@@ -45,7 +45,7 @@ $module: #{$prefix}-scrolllist;
                     content: "";
                     display: block;
                     width: 100%;
-                    height: calc(($height-scrollList - $height-scrollList_item) / 2);
+                    height: ($height-scrollList - $height-scrollList_item) / 2;
                 }
             }
         }

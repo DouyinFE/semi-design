@@ -1,105 +1,105 @@
 // Color
-$color-calendar-bg-active: var(--semi-css-color-calendar-bg-active); // 今日标识颜色
-$color-calendar-bg: var(--semi-css-color-calendar-bg); // 日历背景颜色
-$color-calendar-text-active: var(--semi-css-color-calendar-text-active); // 日历文字颜色 - 今日
-$color-calendar_curr-bg: var(--semi-css-color-calendar_curr-bg); // 当前时间标识线颜色
-$color-calendar_curr-border: var(--semi-css-color-calendar_curr-border); // 当前时间标识线颜色
-$color-calendar_currCircle-bg-default: var(--semi-css-color-calendar_currCircle-bg-default); // 当前时间标识原点颜色
-$color-calendar_date-text-default: var(--semi-css-color-calendar_date-text-default); // 日历文字颜色 - 当月
-$color-calendar_day-border: var(--semi-css-color-calendar_day-border); // 日历描边颜色
-$color-calendar_day-text-default: var(--semi-css-color-calendar_day-text-default); // 日历文字颜色 - 非当月
-$color-calendar_sticky-bg: var(--semi-css-color-calendar_sticky-bg); // 日历背景颜色 - 吸顶部分
-$color-calendar_weekend-bg: var(--semi-css-color-calendar_weekend-bg);  // 日历背景颜色 - 非工作日
+$color-calendar-bg-active: var(--semi-color-primary); // 今日标识颜色
+$color-calendar-bg: var(--semi-color-bg-2); // 日历背景颜色
+$color-calendar-text-active: var(--semi-color-bg-1); // 日历文字颜色 - 今日
+$color-calendar_curr-bg: var(--semi-color-danger); // 当前时间标识线颜色
+$color-calendar_curr-border: var(--semi-color-danger); // 当前时间标识线颜色
+$color-calendar_currCircle-bg-default: var(--semi-color-danger); // 当前时间标识原点颜色
+$color-calendar_date-text-default: var(--semi-color-text-0); // 日历文字颜色 - 当月
+$color-calendar_day-border: var(--semi-color-border); // 日历描边颜色
+$color-calendar_day-text-default: var(--semi-color-text-2); // 日历文字颜色 - 非当月
+$color-calendar_sticky-bg: var(--semi-color-bg-2); // 日历背景颜色 - 吸顶部分
+$color-calendar_weekend-bg: var(--semi-color-fill-0);  // 日历背景颜色 - 非工作日
 
 // Width/Height
-$width-calendar_day: var(--semi-css-width-calendar_day);
-$width-calendar_day-minWidth: var(--semi-css-width-calendar_day-minWidth);
-$height-calendar_day_grid: var(--semi-css-height-calendar_day_grid);
-$width-calendar_day_grid: var(--semi-css-width-calendar_day_grid);
-$width-calendar_day_grid-minWidth: var(--semi-css-width-calendar_day_grid-minWidth);
-$height-calendar_time_grid: var(--semi-css-height-calendar_time_grid);
-$height-calendar_allDay: var(--semi-css-height-calendar_allDay);
-$height-calendar_allDay-minHeight: var(--semi-css-height-calendar_allDay-minHeight);
-$width-calendar_currCircle: var(--semi-css-width-calendar_currCircle);
-$width-calendar_tag_col: var(--semi-css-width-calendar_tag_col);
-$width-calendar_tag_col-minWidth: var(--semi-css-width-calendar_tag_col-minWidth);
-$height-calendar_day_allDay: var(--semi-css-height-calendar_day_allDay);
-$height-calendar_month: var(--semi-css-height-calendar_month);
-$height-calendar_month_day: var(--semi-css-height-calendar_month_day);
-$height-calendar_month_week_skeletion: var(--semi-css-height-calendar_month_week_skeletion);
-$height-calendar_month_grid_wrapper: var(--semi-css-height-calendar_month_grid_wrapper);
-$width-calendar_card: var(--semi-css-width-calendar_card);
-$height-calendar_day_gridTime: var(--semi-css-height-calendar_day_gridTime);
-$width-calendar_today_date: var(--semi-css-width-calendar_today_date);
-$height-calendar_today_date: var(--semi-css-height-calendar_today_date);
-$height-calendar_body_li: var(--semi-css-height-calendar_body_li);
-$height-calendar_day_scroll_wrapper: var(--semi-css-height-calendar_day_scroll_wrapper);
-$height-calendar_week_scroll_wrapper: var(--semi-css-height-calendar_week_scroll_wrapper);
-$height-calendar_month_skeletion_li: var(--semi-css-height-calendar_month_skeletion_li);
-$height-calendar_month_grid_col: var(--semi-css-height-calendar_month_grid_col);
-$height-calendar_month_week_row_event_month: var(--semi-css-height-calendar_month_week_row_event_month);
-$width-calendar-border-default: var(--semi-css-width-calendar-border-default);
-$width-calendar-border-thick: var(--semi-css-width-calendar-border-thick);
+$width-calendar_day: 70px;
+$width-calendar_day-minWidth: 70px;
+$height-calendar_day_grid: 60px;
+$width-calendar_day_grid: 130px;
+$width-calendar_day_grid-minWidth: 130px;
+$height-calendar_time_grid: $height-calendar_day_grid / 2;
+$height-calendar_allDay: 26px;
+$height-calendar_allDay-minHeight: 26px;
+$width-calendar_currCircle: 8px;
+$width-calendar_tag_col: 70px;
+$width-calendar_tag_col-minWidth: 70px;
+$height-calendar_day_allDay: 26px;
+$height-calendar_month: 100%;
+$height-calendar_month_day: 24px;
+$height-calendar_month_week_skeletion: 100%;
+$height-calendar_month_grid_wrapper: calc(100% - 27px);
+$width-calendar_card: 220px;
+$height-calendar_day_gridTime: $height-calendar_day_grid / 2;
+$width-calendar_today_date: 24px;
+$height-calendar_today_date: 24px;
+$height-calendar_body_li: 24px;
+$height-calendar_day_scroll_wrapper: calc(100% - 28px);
+$height-calendar_week_scroll_wrapper: calc(100% - 55px);
+$height-calendar_month_skeletion_li: 100%;
+$height-calendar_month_grid_col: 100%;
+$height-calendar_month_week_row_event_month: 1em;
+$width-calendar-border-default: 1px;
+$width-calendar-border-thick: 1px;
 
 // Spacing
-$spacing-calendar_ul_li-padding: var(--semi-css-spacing-calendar_ul_li-padding);
-$spacing-calendar_ul_li-margin: var(--semi-css-spacing-calendar_ul_li-margin);
-$spacing-calendar_sticky_top-top: var(--semi-css-spacing-calendar_sticky_top-top);
-$spacing-calendar_sticky_top-right: var(--semi-css-spacing-calendar_sticky_top-right);
-$spacing-calendar_sticky_top-left: var(--semi-css-spacing-calendar_sticky_top-left);
-$spacing-calendar_sticky_left-left: var(--semi-css-spacing-calendar_sticky_left-left);
-$spacing-calendar_event_day-left: var(--semi-css-spacing-calendar_event_day-left);
-$spacing-calendar_event_day-right: var(--semi-css-spacing-calendar_event_day-right);
-$spacing-calendar_custom_container-top: var(--semi-css-spacing-calendar_custom_container-top);
-$spacing-calendar_custom_container-right: var(--semi-css-spacing-calendar_custom_container-right);
-$spacing-calendar_custom_container-bottom: var(--semi-css-spacing-calendar_custom_container-bottom);
-$spacing-calendar_custom_container-left: var(--semi-css-spacing-calendar_custom_container-left);
-$spacing-calendar_currCircle-marginTop: var(--semi-css-spacing-calendar_currCircle-marginTop);
-$spacing-calendar_currLine-left: var(--semi-css-spacing-calendar_currLine-left);
-$spacing-calendar_currLine-right: var(--semi-css-spacing-calendar_currLine-right);
-$spacing-calendar_allDay_tag-paddingRight: var(--semi-css-spacing-calendar_allDay_tag-paddingRight);
-$spacing-calendar_allDay_content-paddingLeft: var(--semi-css-spacing-calendar_allDay_content-paddingLeft);
-$spacing-calendar_month_event_card_wrapper-paddingTop: var(--semi-css-spacing-calendar_month_event_card_wrapper-paddingTop);
-$spacing-calendar_grid_row_span_child-paddingY: var(--semi-css-spacing-calendar_grid_row_span_child-paddingY);
-$spacing-calendar_grid_row_span_child-paddingX: var(--semi-css-spacing-calendar_grid_row_span_child-paddingX);
-$spacing-calendar_skeleton_li_child-paddingTop: var(--semi-css-spacing-calendar_skeleton_li_child-paddingTop);
-$spacing-calendar_month_event_card_close-marginRight: var(--semi-css-spacing-calendar_month_event_card_close-marginRight);
-$spacing-calendar_header_info_date-marginTop: var(--semi-css-spacing-calendar_header_info_date-marginTop);
-$spacing-calendar_time-paddingRight: var(--semi-css-spacing-calendar_time-paddingRight);
-$spacing-calendar_time_item_span-top: var(--semi-css-spacing-calendar_time_item_span-top);
-$spacing-calendar_tag_child-paddingRight: var(--semi-css-spacing-calendar_tag_child-paddingRight);
-$spacing-calendar_skeletion_grid_row_li-paddingRight: var(--semi-css-spacing-calendar_skeletion_grid_row_li-paddingRight);
-$spacing-calendar_month_event_card_wrapper-right: var(--semi-css-spacing-calendar_month_event_card_wrapper-right);
-$spacing-calendar_month_event_card_content-paddingY: var(--semi-css-spacing-calendar_month_event_card_content-paddingY);
-$spacing-calendar_month_event_card_content-paddingX: var(--semi-css-spacing-calendar_month_event_card_content-paddingX);
-$spacing-calendar_month_event_card_ul_li-margin: var(--semi-css-spacing-calendar_month_event_card_ul_li-margin);
-$spacing-calendar_month_event_card_ul_li-padding: var(--semi-css-spacing-calendar_month_event_card_ul_li-padding);
-$spacing-calendar_header-marginY: var(--semi-css-spacing-calendar_header-marginY);
-$spacing-calendar_header-marginX: var(--semi-css-spacing-calendar_header-marginX);
-$spacing-calendar_body-padingY: var(--semi-css-spacing-calendar_body-padingY);
-$spacing-calendar_body-padingX: var(--semi-css-spacing-calendar_body-padingX);
-$spacing-calendar_event_items-top: var(--semi-css-spacing-calendar_event_items-top);
-$spacing-calendar_event_items-right: var(--semi-css-spacing-calendar_event_items-right);
-$spacing-calendar_event_items-bottom: var(--semi-css-spacing-calendar_event_items-bottom);
-$spacing-calendar_event_items-left: var(--semi-css-spacing-calendar_event_items-left);
-$spacing-calendar_month_skeletion-left: var(--semi-css-spacing-calendar_month_skeletion-left);
-$spacing-calendar_month_skeletion-right: var(--semi-css-spacing-calendar_month_skeletion-right);
-$spacing-calendar_month_date-right: var(--semi-css-spacing-calendar_month_date-right);
+$spacing-calendar_ul_li-padding: 0;
+$spacing-calendar_ul_li-margin: 0;
+$spacing-calendar_sticky_top-top: 0;
+$spacing-calendar_sticky_top-right: 0;
+$spacing-calendar_sticky_top-left: 0;
+$spacing-calendar_sticky_left-left: 0;
+$spacing-calendar_event_day-left: 0;
+$spacing-calendar_event_day-right: 0;
+$spacing-calendar_custom_container-top: 0;
+$spacing-calendar_custom_container-right: 0;
+$spacing-calendar_custom_container-bottom: 0;
+$spacing-calendar_custom_container-left: 0;
+$spacing-calendar_currCircle-marginTop: -4px;
+$spacing-calendar_currLine-left: 0;
+$spacing-calendar_currLine-right: 0;
+$spacing-calendar_allDay_tag-paddingRight: 8px;
+$spacing-calendar_allDay_content-paddingLeft: 0;
+$spacing-calendar_month_event_card_wrapper-paddingTop: 2px;
+$spacing-calendar_grid_row_span_child-paddingY: 0;
+$spacing-calendar_grid_row_span_child-paddingX: 4px;
+$spacing-calendar_skeleton_li_child-paddingTop: 4px;
+$spacing-calendar_month_event_card_close-marginRight: -4px;
+$spacing-calendar_header_info_date-marginTop: 4px;
+$spacing-calendar_time-paddingRight: 8px;
+$spacing-calendar_time_item_span-top: -10px;
+$spacing-calendar_tag_child-paddingRight: 8px;
+$spacing-calendar_skeletion_grid_row_li-paddingRight: 8px;
+$spacing-calendar_month_event_card_wrapper-right: 8px;
+$spacing-calendar_month_event_card_content-paddingY: 12px;
+$spacing-calendar_month_event_card_content-paddingX: 0;
+$spacing-calendar_month_event_card_ul_li-margin: 0;
+$spacing-calendar_month_event_card_ul_li-padding: 0;
+$spacing-calendar_header-marginY: 12px;
+$spacing-calendar_header-marginX: 20px;
+$spacing-calendar_body-padingY: 0;
+$spacing-calendar_body-padingX: 16px;
+$spacing-calendar_event_items-top: 31px;
+$spacing-calendar_event_items-right: 0;
+$spacing-calendar_event_items-bottom: 20px;
+$spacing-calendar_event_items-left: 0;
+$spacing-calendar_month_skeletion-left: 0;
+$spacing-calendar_month_skeletion-right: 0;
+$spacing-calendar_month_date-right: 4px;
 
 // Radius
-$radius-calendar_currCircle: var(--semi-css-radius-calendar_currCircle); // 日历选中日期标识圆角
-$radius-calendar_today_date: var(--semi-css-radius-calendar_today_date); // 日历选中日期标识圆角
+$radius-calendar_currCircle: var(--semi-border-radius-circle); // 日历选中日期标识圆角
+$radius-calendar_today_date: var(--semi-border-radius-circle); // 日历选中日期标识圆角
 
 // Font
-$font-calendar_allDay_tag-lineHeight: var(--semi-css-font-calendar_allDay_tag-lineHeight); // 日历全天标识文字行高
-$font-calendar_today_date-lineHeight: var(--semi-css-font-calendar_today_date-lineHeight);
-$font-calendar_day_allDay-lineHeight: var(--semi-css-font-calendar_day_allDay-lineHeight);
-$font-calendar_day_allDay-fontSize: var(--semi-css-font-calendar_day_allDay-fontSize);
-$font-calendar_month_day-fontSize: var(--semi-css-font-calendar_month_day-fontSize);
+$font-calendar_allDay_tag-lineHeight: $height-calendar_allDay; // 日历全天标识文字行高
+$font-calendar_today_date-lineHeight: 24px;
+$font-calendar_day_allDay-lineHeight: 26px;
+$font-calendar_day_allDay-fontSize: 26px;
+$font-calendar_month_day-fontSize: 24px;
 
 // Other
-$z-calendar_stickyTop: var(--semi-css-z-calendar_stickyTop);
-$z-calendar_item: var(--semi-css-z-calendar_item);
-$z-calendar_stickyLeft: var(--semi-css-z-calendar_stickyLeft);
-$z-calendar_curr: var(--semi-css-z-calendar_curr);
-$z-calendar_line: var(--semi-css-z-calendar_line);
+$z-calendar_stickyTop: 20;
+$z-calendar_item: 5;
+$z-calendar_stickyLeft: 10;
+$z-calendar_curr: 8;
+$z-calendar_line: 3;

@@ -63,14 +63,14 @@ const transVarPlugin=(replaceScss=false,extraCssVarDefineList:{key:string,value:
 
                 //inject css variable define
                 if (/\$[\w\d_-]+$/.test(decl.prop) && replaceScss){
-                        const scssVariable=trimStart(decl.prop,'$');
-                        const cssVariable =`--semi-css-${scssVariable}`;
-                        // const cssDeclaration=new Declaration({ prop:cssVariable,value:decl.value });
-                        // //@ts-ignore
-                        // cssDeclaration.isVisited=true;
-                        // decl.after(cssDeclaration);
-                        extraCssVarDefineList.push({ key:cssVariable,value:decl.value });
-                        decl.value=`var(${cssVariable})`;
+                    const scssVariable=trimStart(decl.prop,'$');
+                    const cssVariable =`--semi-css-${scssVariable}`;
+                    // const cssDeclaration=new Declaration({ prop:cssVariable,value:decl.value });
+                    // //@ts-ignore
+                    // cssDeclaration.isVisited=true;
+                    // decl.after(cssDeclaration);
+                    extraCssVarDefineList.push({ key:cssVariable,value:decl.value });
+                    decl.value=`var(${cssVariable})`;
                 }
                 //@ts-ignore
                 decl.isVisited=true;
@@ -90,5 +90,5 @@ transVarPlugin.postcss=true;
 
 export {
     transVarPlugin,
-   // getScssVariableNotUsedInSelectorSetPlugin
+    // getScssVariableNotUsedInSelectorSetPlugin
 };

@@ -42,7 +42,7 @@ $module: #{$prefix}-tree;
         @for $i from 1 through 20 {
             .#{$module}-option-level-#{$i} {
                 padding-left: 0;
-                padding-right: calc($spacing-tree_option_level-paddingLeft * ($i - 1) + $spacing-tree_option_level1-paddingLeft);
+                padding-right: $spacing-tree_option_level-paddingLeft * ($i - 1) + $spacing-tree_option_level1-paddingLeft;
             }
         }
     

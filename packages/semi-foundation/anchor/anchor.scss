@@ -34,11 +34,11 @@ $module: #{$prefix}-anchor;
             }
 
             &-default {
-                height: calc($height-anchor_slide_default + 2 * $spacing-anchor_slide_default-Y);
+                height: $height-anchor_slide_default + 2 * $spacing-anchor_slide_default-Y;
             }
 
             &-small {
-                height: calc($height-anchor_slide_small + 2 * $spacing-anchor_slide_small-Y);
+                height: $height-anchor_slide_small + 2 * $spacing-anchor_slide_small-Y;
             }
 
             &-primary {

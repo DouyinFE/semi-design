@@ -41,7 +41,7 @@ $module: #{$prefix}-switch;
 
         &:active {
             .#{$module}-knob {
-                transform: translateX(calc($motion-switch_checked-translateX - $width-switch_knob_expand));
+                transform: translateX($motion-switch_checked-translateX - $width-switch_knob_expand);
             }
         }
     }
@@ -82,7 +82,7 @@ $module: #{$prefix}-switch;
     &-knob {
         @include shadow-knob;
         cursor: pointer;
-        border-radius: calc($width-switch_knob_default / 2);
+        border-radius: $width-switch_knob_default / 2;
         background-color: $color-switch_knob-bg-default;
         box-sizing: border-box;
         position: absolute;
@@ -215,7 +215,7 @@ $module: #{$prefix}-switch;
         width: $width-switch_knob_large;
         height: $width-switch_knob_large;
         top: $spacing-switch_knob_large-padding;
-        border-radius: calc($width-switch_knob_large / 2);
+        border-radius: $width-switch_knob_large / 2;
         transform: translateX($motion-switch_unchecked_large-translateX);
     }
     &.#{$module}-checked {
@@ -225,7 +225,7 @@ $module: #{$prefix}-switch;
 
         &:active {
             .#{$module}-knob {
-                transform: translateX(calc($motion-switch_checked_large-translateX - $motion-switch_expand_large-translateX));
+                transform: translateX($motion-switch_checked_large-translateX - $motion-switch_expand_large-translateX);
             }
         }
     }
@@ -250,7 +250,7 @@ $module: #{$prefix}-switch;
         width: $width-switch_knob_large_small;
         height: $width-switch_knob_large_small;
         top: $spacing-switch_knob_small-padding;
-        border-radius: calc($width-switch_knob_large_small / 2);
+        border-radius: $width-switch_knob_large_small / 2;
         transform: translateX($motion-switch_unchecked_small-translateX);
     }
     &.#{$module}-checked {
@@ -260,7 +260,7 @@ $module: #{$prefix}-switch;
 
         &:active {
             .#{$module}-knob {
-                transform: translateX(calc($motion-switch_checked_small-translateX - $motion-switch_expand_small-translateX));
+                transform: translateX($motion-switch_checked_small-translateX - $motion-switch_expand_small-translateX);
             }
         }
     }

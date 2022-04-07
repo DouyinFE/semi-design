@@ -1,15 +1,15 @@
-$font-descriptions-lineHeight: var(--semi-css-font-descriptions-lineHeight); // 文字行高
-$font-descriptions_value-fontWeight: var(--semi-css-font-descriptions_value-fontWeight); // 双行显示 value 文字字重
-$spacing-descriptions_th-paddingRight: var(--semi-css-spacing-descriptions_th-paddingRight); // 普通显示 key 右侧内边距
-$spacing-descriptions_item-paddingBottom: var(--semi-css-spacing-descriptions_item-paddingBottom); // 普通显示 item 底部内边距
-$spacing-descriptions_item_small-paddingRight: var(--semi-css-spacing-descriptions_item_small-paddingRight); // 双行显示 item 右侧内边距 - 小尺寸
-$spacing-descriptions_item_medium-paddingRight: var(--semi-css-spacing-descriptions_item_medium-paddingRight); // 双行显示 item 右侧内边距 - 中尺寸
-$spacing-descriptions_item_large-paddingRight: var(--semi-css-spacing-descriptions_item_large-paddingRight); // 双行显示 item 右侧内边距 - 大尺寸
-$spacing-descriptions_key_medium-paddingBottom: var(--semi-css-spacing-descriptions_key_medium-paddingBottom); // 双行显示 key 底部内边距 - 中尺寸
-$spacing-descriptions_key_large-paddingBottom: var(--semi-css-spacing-descriptions_key_large-paddingBottom); // 双行显示 key 底部内边距 - 大尺寸
+$font-descriptions-lineHeight: 20px; // 文字行高
+$font-descriptions_value-fontWeight: $font-weight-bold; // 双行显示 value 文字字重
+$spacing-descriptions_th-paddingRight: $spacing-loose; // 普通显示 key 右侧内边距
+$spacing-descriptions_item-paddingBottom: $spacing-base-tight; // 普通显示 item 底部内边距
+$spacing-descriptions_item_small-paddingRight: 48px; // 双行显示 item 右侧内边距 - 小尺寸
+$spacing-descriptions_item_medium-paddingRight: 60px; // 双行显示 item 右侧内边距 - 中尺寸
+$spacing-descriptions_item_large-paddingRight: 80px; // 双行显示 item 右侧内边距 - 大尺寸
+$spacing-descriptions_key_medium-paddingBottom: $spacing-extra-tight; // 双行显示 key 底部内边距 - 中尺寸
+$spacing-descriptions_key_large-paddingBottom: $spacing-extra-tight; // 双行显示 key 底部内边距 - 大尺寸
 
-$color-descriptions_key-text-default: var(--semi-css-color-descriptions_key-text-default); // key 文字颜色
-$color-descriptions_value-text-default: var(--semi-css-color-descriptions_value-text-default); // value 文字颜色
+$color-descriptions_key-text-default: var(--semi-color-text-2); // key 文字颜色
+$color-descriptions_value-text-default: var(--semi-color-text-0); // value 文字颜色
 
-$spacing-descriptions_value_plain-paddingLeft: var(--semi-css-spacing-descriptions_value_plain-paddingLeft); // 普通显示 plain 模式下 value 左侧内边距
-$spacing-descriptions_item_double-padding: var(--semi-css-spacing-descriptions_item_double-padding); // 双行显示右侧 item 内边距
+$spacing-descriptions_value_plain-paddingLeft: 8px; // 普通显示 plain 模式下 value 左侧内边距
+$spacing-descriptions_item_double-padding: 0; // 双行显示右侧 item 内边距

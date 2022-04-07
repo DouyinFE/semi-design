@@ -1,45 +1,45 @@
-$color-tagInput-icon-default: var(--semi-css-color-tagInput-icon-default); // 标签输入框图标颜色 - 默认
-$color-tagInput-maxTagCount-default: var(--semi-css-color-tagInput-maxTagCount-default); // 标签输入框限制标签展示数量文字颜色
-$color-tagInput-icon-hover: var(--semi-css-color-tagInput-icon-hover); // 标签输入框图标颜色 - 悬浮
-$color-tagInput_disabled-text-default: var(--semi-css-color-tagInput_disabled-text-default); // 标签输入框禁用文字颜色
-$color-tagInput_default-bg-focus: var(--semi-css-color-tagInput_default-bg-focus); // 标签输入框背景颜色 - 选中态
+$color-tagInput-icon-default: var(--semi-color-text-2); // 标签输入框图标颜色 - 默认
+$color-tagInput-maxTagCount-default: var(--semi-color-text-0); // 标签输入框限制标签展示数量文字颜色
+$color-tagInput-icon-hover: var(--semi-color-primary-hover); // 标签输入框图标颜色 - 悬浮
+$color-tagInput_disabled-text-default: var(--semi-color-disabled-text); // 标签输入框禁用文字颜色
+$color-tagInput_default-bg-focus: var(--semi-color-fill-0); // 标签输入框背景颜色 - 选中态
 
-$color-tagInput-border-default: var(--semi-css-color-tagInput-border-default); // 标签输入框描边颜色 - 默认
-$color-tagInput-border-hover: var(--semi-css-color-tagInput-border-hover); // 标签输入框描边颜色 - 悬浮
-$color-tagInput-border-focus: var(--semi-css-color-tagInput-border-focus); // 标签输入框描边颜色 - 选中态
-$color-tagInput_prefix-default: var(--semi-css-color-tagInput_prefix-default); // 标签输入框 prefix 颜色
-$color-tagInput_suffix-default: var(--semi-css-color-tagInput_suffix-default); // 标签输入框 suffix 颜色
+$color-tagInput-border-default: transparent; // 标签输入框描边颜色 - 默认
+$color-tagInput-border-hover: transparent ; // 标签输入框描边颜色 - 悬浮
+$color-tagInput-border-focus: var(--semi-color-focus-border); // 标签输入框描边颜色 - 选中态
+$color-tagInput_prefix-default: var(--semi-color-text-2); // 标签输入框 prefix 颜色
+$color-tagInput_suffix-default: var(--semi-color-text-1); // 标签输入框 suffix 颜色
 
-$color-tagInput_default-bg-default: var(--semi-css-color-tagInput_default-bg-default); // 标签输入框背景颜色 - 默认
-$color-tagInput_default-bg-hover: var(--semi-css-color-tagInput_default-bg-hover); // 标签输入框背景颜色 - 悬浮
+$color-tagInput_default-bg-default: var(--semi-color-fill-0); // 标签输入框背景颜色 - 默认
+$color-tagInput_default-bg-hover: var(--semi-color-fill-1); // 标签输入框背景颜色 - 悬浮
 // $color-textarea-border-default: transparent; // 标签输入框描边颜色 - 默认，已废弃 deprecated-v2.4
 
-$color-tagInput_warning-bg-default: var(--semi-css-color-tagInput_warning-bg-default); // 警告标签输入框背景颜色 - 默认
-$color-tagInput_warning-border-default: var(--semi-css-color-tagInput_warning-border-default); // 警告标签输入框描边颜色 - 默认
-$color-tagInput_warning-bg-hover: var(--semi-css-color-tagInput_warning-bg-hover); // 警告标签输入框背景颜色 - 悬浮
-$color-tagInput_warning-border-hover: var(--semi-css-color-tagInput_warning-border-hover); // 警告标签输入框描边颜色 - 悬浮
-$color-tagInput_warning-bg-focus: var(--semi-css-color-tagInput_warning-bg-focus); // 警告标签输入框背景颜色 - 选中
-$color-tagInput_warning-border-focus: var(--semi-css-color-tagInput_warning-border-focus); // 警告标签输入框描边颜色 - 选中
+$color-tagInput_warning-bg-default: var(--semi-color-warning-light-default); // 警告标签输入框背景颜色 - 默认
+$color-tagInput_warning-border-default: var(--semi-color-warning-light-default); // 警告标签输入框描边颜色 - 默认
+$color-tagInput_warning-bg-hover: var(--semi-color-warning-light-hover); // 警告标签输入框背景颜色 - 悬浮
+$color-tagInput_warning-border-hover: var(--semi-color-warning-light-hover); // 警告标签输入框描边颜色 - 悬浮
+$color-tagInput_warning-bg-focus: var(--semi-color-warning-light-default); // 警告标签输入框背景颜色 - 选中
+$color-tagInput_warning-border-focus: var(--semi-color-warning); // 警告标签输入框描边颜色 - 选中
 
-$color-tagInput_danger-bg-default: var(--semi-css-color-tagInput_danger-bg-default); // 危险标签输入框背景颜色 - 默认
-$color-tagInput_danger-border-default: var(--semi-css-color-tagInput_danger-border-default); // 危险标签输入框描边颜色 - 默认
-$color-tagInput_danger-bg-hover: var(--semi-css-color-tagInput_danger-bg-hover); // 危险标签输入框背景颜色 - 悬浮
-$color-tagInput_danger-border-hover: var(--semi-css-color-tagInput_danger-border-hover); // 危险标签输入框描边颜色 - 悬浮
-$color-tagInput_danger-bg-focus: var(--semi-css-color-tagInput_danger-bg-focus); // 危险标签输入框背景颜色 - 选中
-$color-tagInput_danger-border-focus: var(--semi-css-color-tagInput_danger-border-focus); // 危险标签输入框描边颜色 - 选中
+$color-tagInput_danger-bg-default: var(--semi-color-danger-light-default); // 危险标签输入框背景颜色 - 默认
+$color-tagInput_danger-border-default: var(--semi-color-danger-light-default); // 危险标签输入框描边颜色 - 默认
+$color-tagInput_danger-bg-hover: var(--semi-color-danger-light-hover); // 危险标签输入框背景颜色 - 悬浮
+$color-tagInput_danger-border-hover: var(--semi-color-danger-light-hover); // 危险标签输入框描边颜色 - 悬浮
+$color-tagInput_danger-bg-focus: var(--semi-color-danger-light-default); // 危险标签输入框背景颜色 - 选中
+$color-tagInput_danger-border-focus: var(--semi-color-danger); // 危险标签输入框描边颜色 - 选中
 
-$spacing-tagInput_small-Y: var(--semi-css-spacing-tagInput_small-Y); // 小尺寸标签输入框标签顶部外边距
-$spacing-tagInput_default-Y: var(--semi-css-spacing-tagInput_default-Y); // 默认尺寸标签输入框标签顶部外边距
-$spacing-tagInput_large-Y: var(--semi-css-spacing-tagInput_large-Y); // 大尺寸标签输入框标签顶部外边距
-$spacing-tagInput_wrapper_n_paddingX: var(--semi-css-spacing-tagInput_wrapper_n_paddingX); //标签输入框标签容器水平内边距
+$spacing-tagInput_small-Y: 1px; // 小尺寸标签输入框标签顶部外边距
+$spacing-tagInput_default-Y: $spacing-super-tight; // 默认尺寸标签输入框标签顶部外边距
+$spacing-tagInput_large-Y: 3px; // 大尺寸标签输入框标签顶部外边距
+$spacing-tagInput_wrapper_n_paddingX: $spacing-tight; //标签输入框标签容器水平内边距
 
-$height-tagInput-large: var(--semi-css-height-tagInput-large); // 大尺寸标签输入框高度
-$height-tagInput-default: var(--semi-css-height-tagInput-default); // 默认尺寸标签输入框高度
-$height-tagInput-small: var(--semi-css-height-tagInput-small); // 小尺寸标签输入框高度
+$height-tagInput-large: $height-control-large; // 大尺寸标签输入框高度
+$height-tagInput-default: $height-control-default; // 默认尺寸标签输入框高度
+$height-tagInput-small: $height-control-small; // 小尺寸标签输入框高度
 
-$width-tagInput-clear-medium: var(--semi-css-width-tagInput-clear-medium); // 标签输入框清空按钮宽度
-$width-tagInput-border-default: var(--semi-css-width-tagInput-border-default); // 标签输入框描边描边宽度 - 默认
-$width-tagInput-border-hover: var(--semi-css-width-tagInput-border-hover); // 标签输入框描边描边宽度 - 悬浮
-$width-tagInput-border-focus: var(--semi-css-width-tagInput-border-focus); // 标签输入框描边宽度 - 选中态
+$width-tagInput-clear-medium: $width-icon-medium * 2; // 标签输入框清空按钮宽度
+$width-tagInput-border-default: $border-thickness-control; // 标签输入框描边描边宽度 - 默认
+$width-tagInput-border-hover: $width-tagInput-border-default; // 标签输入框描边描边宽度 - 悬浮
+$width-tagInput-border-focus: $border-thickness-control-focus; // 标签输入框描边宽度 - 选中态
 
-$radius-tagInput: var(--semi-css-radius-tagInput); // 标签输入框圆角
+$radius-tagInput: var(--semi-border-radius-small); // 标签输入框圆角

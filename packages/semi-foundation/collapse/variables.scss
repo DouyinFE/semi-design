@@ -1,22 +1,22 @@
-$color-collapse_item-border-default: var(--semi-css-color-collapse_item-border-default); // 分割线颜色
-$color-collapse_header-text-default: var(--semi-css-color-collapse_header-text-default); // 标题文字颜色
-$color-collapse_header-icon-default: var(--semi-css-color-collapse_header-icon-default); // 展开箭头图标颜色
-$color-collapse_header-bg-hover: var(--semi-css-color-collapse_header-bg-hover); // 菜单项背景颜色 - 悬浮
-$color-collapse_header-bg-active: var(--semi-css-color-collapse_header-bg-active); // 菜单项背景颜色 - 按下
-$color-collapse_content-text-default: var(--semi-css-color-collapse_content-text-default); // 内容文字颜色
+$color-collapse_item-border-default: var(--semi-color-border); // 分割线颜色
+$color-collapse_header-text-default: var(--semi-color-text-0); // 标题文字颜色
+$color-collapse_header-icon-default: var(--semi-color-text-2); // 展开箭头图标颜色
+$color-collapse_header-bg-hover: var(--semi-color-fill-0); // 菜单项背景颜色 - 悬浮
+$color-collapse_header-bg-active: var(--semi-color-fill-1); // 菜单项背景颜色 - 按下
+$color-collapse_content-text-default: var(--semi-color-text-1); // 内容文字颜色
 
-$font-collapse_header-fontWeight: var(--semi-css-font-collapse_header-fontWeight); // 标题字重
-$spacing-collapse_header-marginX: var(--semi-css-spacing-collapse_header-marginX); // 标题水平外边距
-$spacing-collapse_header-marginY: var(--semi-css-spacing-collapse_header-marginY); // 标题垂直外边距
-$spacing-collapse_header-padding: var(--semi-css-spacing-collapse_header-padding); // 标题内边距
-$spacing-collapse_right-paddingRight: var(--semi-css-spacing-collapse_right-paddingRight); // 图标右侧内边距
-$spacing-collapse_header_iconLeft-marginRight: var(--semi-css-spacing-collapse_header_iconLeft-marginRight);
-$spacing-collapse_content-paddingTop: var(--semi-css-spacing-collapse_content-paddingTop); // 内容顶部内边距
-$spacing-collapse_content-paddingRight: var(--semi-css-spacing-collapse_content-paddingRight); // 内容右侧内边距
-$spacing-collapse_content-paddingBottom: var(--semi-css-spacing-collapse_content-paddingBottom); // 内容底部内边距
-$spacing-collapse_content-paddingLeft: var(--semi-css-spacing-collapse_content-paddingLeft); // 内容左侧内边距
+$font-collapse_header-fontWeight: $font-weight-bold; // 标题字重
+$spacing-collapse_header-marginX: $spacing-tight; // 标题水平外边距
+$spacing-collapse_header-marginY: $spacing-extra-tight; // 标题垂直外边距
+$spacing-collapse_header-padding: $spacing-tight; // 标题内边距
+$spacing-collapse_right-paddingRight: $spacing-tight; // 图标右侧内边距
+$spacing-collapse_header_iconLeft-marginRight: 8px;
+$spacing-collapse_content-paddingTop: $spacing-extra-tight; // 内容顶部内边距
+$spacing-collapse_content-paddingRight: $spacing-base; // 内容右侧内边距
+$spacing-collapse_content-paddingBottom: $spacing-tight; // 内容底部内边距
+$spacing-collapse_content-paddingLeft: $spacing-base; // 内容左侧内边距
 
-$radius-collapse_header: var(--semi-css-radius-collapse_header); // 内容圆角大小
+$radius-collapse_header: var(--semi-border-radius-small); // 内容圆角大小
 
-$width-collapse_item-border: var(--semi-css-width-collapse_item-border); // 分割线宽度
-$size-collapse_icon-default: var(--semi-css-size-collapse_icon-default); // 图标尺寸
+$width-collapse_item-border: 1px; // 分割线宽度
+$size-collapse_icon-default: $width-icon-medium; // 图标尺寸
