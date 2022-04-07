@@ -61,7 +61,7 @@ $font-tabs_bar_extra_large-lineHeight: $height-tabs_bar_extra_large; // 大尺�
 $height-tabs_bar_extra_small: 36px; // 小尺寸页签高度
 $font-tabs_bar_extra_small-lineHeight: $height-tabs_bar_extra_small; // 小尺寸页签文字行高
 
-$spacing-tabs_bar_extra-paddingY: 0; // 附加操作垂直内边距
+$spacing-tabs_bar_extra-paddingY: 0px; // 附加操作垂直内边距
 $spacing-tabs_bar_extra-paddingX: 5px; // 附加操作水平内边距
 $spacing-tabs_tab_icon-marginRight: $spacing-tight; // 附加操作垂直内边距
 $spacing-tabs_tab_icon-top: 3px; // 页签图标顶部位置
@@ -85,8 +85,8 @@ $spacing-tabs_bar_line_tab_medium-paddingBottom: $spacing-base-tight - $width-ta
 $spacing-tabs_bar_line_tab_medium-paddingLeft: $spacing-extra-tight; // 中等尺寸线条式页签左侧内边距
 
 $spacing-tabs_bar_line_tab_left-padding: 12px; // 垂直线条式页签左侧内边距
-$spacing-tabs_bar_line_tab_left_small-padding: $spacing-tight - 2;  // 小尺寸垂直线条式页签左侧内边距
-$spacing-tabs_bar_line_tab_left_medium-padding: $spacing-base-tight - 2; // 中等尺寸垂直线条式页签左侧内边距
+$spacing-tabs_bar_line_tab_left_small-padding: $spacing-tight - 2px;  // 小尺寸垂直线条式页签左侧内边距
+$spacing-tabs_bar_line_tab_left_medium-padding: $spacing-base-tight - 2px; // 中等尺寸垂直线条式页签左侧内边距
 
 $spacing-tabs_content-paddingY: 5px; // 页签内容区垂直方向内边距
 $spacing-tabs_content-paddingX: 0; // 页签内容区水平方向内边距
@@ -96,7 +96,7 @@ $spacing-tabs_content_left-paddingY: 0; // 垂直页签内容区水平方向内�
 
 $spacing-tabs_bar_card_tab-marginRight: $spacing-tight; // 卡片式页签右侧外边距
 $spacing-tabs_bar_card_tab_active-paddingTop: $spacing-tight; // 卡片式选中页签顶部内边距
-$spacing-tabs_bar_card_tab_active-paddingBottom: $spacing-tight - 1; // 卡片式选中页签底部内边距
+$spacing-tabs_bar_card_tab_active-paddingBottom: $spacing-tight - 1px; // 卡片式选中页签底部内边距
 $spacing-tabs_bar_card_tab_active-paddingLeft: $spacing-base-tight; // 卡片式选中页签左侧内边距
 $spacing-tabs_bar_card_tab_active-paddingRight: $spacing-base-tight; // 卡片式选中页签右侧内边距
 $spacing-tabs_bar_card_tab_left-marginBottom: $spacing-tight; // 垂直卡片式页签底部外边距

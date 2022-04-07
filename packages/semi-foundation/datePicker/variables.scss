@@ -45,7 +45,7 @@ $spacing-datepicker_footer_cancel_button-marginRight: 12px; // 确认选择 foot
 $spacing-datepicker_footer_confirm_button-marginRight: 8px; // 确认选择 footer 确认按钮右外边距
 $spacing-datepicker_navigation-paddingY: $spacing-base-tight; // 年月切换 header 垂直内边距
 $spacing-datepicker_navigation-paddingX: $spacing-base; // 年月切换 header 水平内边距
-$spacing-datepicker_month-padding: $spacing-base; 
+$spacing-datepicker_month-padding: $spacing-base;
 $spacing-datepicker_switch_datetime-paddingTop: $spacing-base; // 日期时间切换顶部内边距
 $spacing-datepicker_switch_datetime-paddingBottom: $spacing-base; // 日期时间切换底部内边距
 $spacing-datepicker_switch_text-paddingLeft: $spacing-tight; // 日期时间切换左侧内边距
@@ -176,7 +176,7 @@ $fontSize-datepicker_insetInput_compact-fontSize: 12px;
 $spacing-datepicker_switch_compact-padding: 6px;
 $spacing-datepicker_day_compact-margin: ($width-datepicker_day_compact - $width-datepicker_day_main_compact) / 2;
 $spacing-datepicker_weeks_compact-padding: 10px;
-$spacing-datepicker_weeks_compact-paddingTop: $spacing-tight - 2;
+$spacing-datepicker_weeks_compact-paddingTop: $spacing-tight - 2px;
 $spacing-datepicker_weekday_compact-paddingLeft: 10px;
 $spacing-datepicker_weekday_compact-paddingRight: 10px;
 $spacing-datepicker_weekday_compact-paddingBottom: $spacing-tight;
