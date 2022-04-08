@@ -2389,13 +2389,60 @@
   resolved "https://registry.npmjs.org/@discoveryjs/json-ext/-/json-ext-0.5.6.tgz#d5e0706cf8c6acd8c6032f8d54070af261bbbb2f"
   integrity sha512-ws57AidsDvREKrZKYffXddNkyaF14iHNHm8VQnZH6t99E8gczjNN0GpvcGny0imC80yQ0tHz1xVUKk/KFQSUyA==
 
-"@douyinfe/semi-icons@latest":
+"@douyinfe/semi-animation-react@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.npmjs.org/@douyinfe/semi-animation-react/-/semi-animation-react-2.7.1.tgz#9b3d9804f5bec49d1309165b650aef7fe6a1aa09"
+  integrity sha512-lZNm0H9B9Iht4HSN5RBAyDUGU2zawef1kV1nxwnMRBUxZ0GAN/9gIDz22NJg8fJCV+68ih9ZVF8Zd61m0jLBSg==
+  dependencies:
+    "@babel/runtime-corejs3" "^7.15.4"
+    "@douyinfe/semi-animation" "2.7.1"
+    "@douyinfe/semi-animation-styled" "2.7.1"
+    classnames "^2.2.6"
+
+"@douyinfe/semi-animation-styled@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.npmjs.org/@douyinfe/semi-animation-styled/-/semi-animation-styled-2.7.1.tgz#df52e76a2573fbf64579bedd181f85433c61b0cf"
+  integrity sha512-yMb2TGnURwZTFam7kNtls3ZgTVs2lyLQ4YoJZkwDNeHNfyWzsZcti2jaj8DE5i45v0/DiU2ayeu2wiAqc/r+Hw==
+  dependencies:
+    "@babel/runtime-corejs3" "^7.15.4"
+
+"@douyinfe/semi-animation@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.npmjs.org/@douyinfe/semi-animation/-/semi-animation-2.7.1.tgz#cf7b2c168790ebff966dc45b6154d9ba1db14b2c"
+  integrity sha512-pkq/QrHYVSjdzc4IuJZBxLV6QGe3e8ZXmZOhFsL7msAydHS246nLyMrL6NV0CDZLss9x1DCXOqTr9LAz6hka8Q==
+  dependencies:
+    "@babel/runtime-corejs3" "^7.15.4"
+    bezier-easing "^2.1.0"
+
+"@douyinfe/semi-foundation@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.npmjs.org/@douyinfe/semi-foundation/-/semi-foundation-2.7.1.tgz#076fdc20f62ae8e971a34bec41ff62eeb9c3e508"
+  integrity sha512-oYwq4P/nxxHFoKmesQ9366Wr77EnnWHu1p4cbGmGG4Su5CDfGKD1RHHLT5dsC7jfId+9gr9GHjkDzcOMlsxknw==
+  dependencies:
+    "@babel/runtime-corejs3" "^7.15.4"
+    "@douyinfe/semi-animation" "2.7.1"
+    async-validator "^3.5.0"
+    classnames "^2.2.6"
+    date-fns "^2.9.0"
+    date-fns-tz "^1.0.10"
+    lodash "^4.17.21"
+    memoize-one "^5.2.1"
+    scroll-into-view-if-needed "^2.2.24"
+
+"@douyinfe/semi-icons@2.7.1", "@douyinfe/semi-icons@^2.0.0", "@douyinfe/semi-icons@latest":
   version "2.7.1"
   resolved "https://registry.yarnpkg.com/@douyinfe/semi-icons/-/semi-icons-2.7.1.tgz#c1df33e6f7b2c90e27c5318c2882b1ae8f275f21"
   integrity sha512-SGUMFZgueuVGJrLuqbGY4qRMVL+K8scLzePb6uVLudi2/f3V1A1czvV9f/7NYfzW1+t30i3CPRz69yCJ2/qUYQ==
   dependencies:
     "@babel/runtime-corejs3" "^7.15.4"
     classnames "^2.2.6"
+
+"@douyinfe/semi-illustrations@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.npmjs.org/@douyinfe/semi-illustrations/-/semi-illustrations-2.7.1.tgz#84d9074467a7744d0ace184fc662888c2203816b"
+  integrity sha512-W4H6b24DA9wVrHOSVg/Fa4HakX6gZZ/2JHouMqdV3E3j8kCl5dbWQx/cZ4VBBHXFQc7hB/4gWxzts/h8qDNEAg==
+  dependencies:
+    "@babel/runtime-corejs3" "^7.15.4"
 
 "@douyinfe/semi-site-banner@^0.0.2":
   version "0.0.2"
@@ -2453,7 +2500,14 @@
     monaco-themes "^0.3.3"
     react-live "^2.2.2"
 
-"@douyinfe/semi-ui@latest":
+"@douyinfe/semi-theme-default@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.npmjs.org/@douyinfe/semi-theme-default/-/semi-theme-default-2.7.1.tgz#e7ae330a0fdcc85c16add9d5e16fe9f344c37d11"
+  integrity sha512-fyvF2x2+LPoSAR/V4f35j4sT6YepudpcQG+/QHToBQD0iyMWmJSOO8N/mdjo1lH8XcMfTUcjMckNHOaJ1ZtKZQ==
+  dependencies:
+    glob "^7.1.6"
+
+"@douyinfe/semi-ui@^2.0.0", "@douyinfe/semi-ui@latest":
   version "2.7.1"
   resolved "https://registry.yarnpkg.com/@douyinfe/semi-ui/-/semi-ui-2.7.1.tgz#a7af7c8ce9654209aa33db58ef353732496f52a3"
   integrity sha512-D/2K7mc8chb4BQ7lRMn4h5vxBDp8aX4l3v0UOxvvuKRu1xkUOjrdDxncN1DnmLQmV8fPSyWy7vZ2MVa/erixQw==
@@ -18811,7 +18865,7 @@ min-indent@^1.0.0:
   resolved "https://registry.npmjs.org/min-indent/-/min-indent-1.0.1.tgz#a63f681673b30571fbe8bc25686ae746eefa9869"
   integrity sha512-I9jwMn07Sy/IwOj3zVkVik2JTvgpaykDZEigL6Rx6N9LbMywwUSMtxET+7lVoDLLd3O3IXwJwvuuns8UB/HeAg==
 
-mini-css-extract-plugin@^0.11.2:
+mini-css-extract-plugin@0.11.3, mini-css-extract-plugin@^0.11.2:
   version "0.11.3"
   resolved "https://registry.npmjs.org/mini-css-extract-plugin/-/mini-css-extract-plugin-0.11.3.tgz#15b0910a7f32e62ffde4a7430cfefbd700724ea6"
   integrity sha512-n9BA8LonkOkW1/zn+IbLPQmovsL0wMb9yx75fMJQZf2X1Zoec9yTZtyMePcyu19wPkmFbzZZA6fLTotpFhQsOA==
