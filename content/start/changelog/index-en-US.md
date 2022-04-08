@@ -17,7 +17,7 @@ Version：Major.Minor.Patch
 ---
 
 #### 🎉 2.8.0 (2022-04-08)
-- 【fix】
+- 【Fix】
     - Upgrade the react-sortable-hoc version (v1.11.0 -> v2.0.0) that @douyinfe/semi-ui depends on, to solve the problem of unmeet peerDependency when using react 17 in the pnpm scenario, the react version is not satisfie,  [#747](https://github.com/DouyinFE/semi-design/issues/747)
 
 #### 🎉 2.8.0-beta.1 (2022-04-03)

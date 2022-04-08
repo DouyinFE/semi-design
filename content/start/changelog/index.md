@@ -16,7 +16,7 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 ---
 
 #### 🎉 2.8.0 (2022-04-08)
-- 【fix】
+- 【Fix】
     - 升级 @douyinfe/semi-ui 依赖的react-sortable-hoc版本（v1.11.0 -> v2.0.0），解决 pnpm场景下使用react 17时，由于unmeet peerDependency 中 react版本未满足的报错问题,  [#747](https://github.com/DouyinFE/semi-design/issues/747)
 
 #### 🎉 2.8.0-beta.1 (2022-04-03)
