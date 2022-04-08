@@ -2436,6 +2436,14 @@
   dependencies:
     "@babel/runtime-corejs3" "^7.15.4"
 
+"@douyinfe/semi-icons@latest":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@douyinfe/semi-icons/-/semi-icons-2.7.1.tgz#c1df33e6f7b2c90e27c5318c2882b1ae8f275f21"
+  integrity sha512-SGUMFZgueuVGJrLuqbGY4qRMVL+K8scLzePb6uVLudi2/f3V1A1czvV9f/7NYfzW1+t30i3CPRz69yCJ2/qUYQ==
+  dependencies:
+    "@babel/runtime-corejs3" "^7.15.4"
+    classnames "^2.2.6"
+
 "@douyinfe/semi-illustrations@2.0.0":
   version "2.0.0"
   resolved "https://registry.npmjs.org/@douyinfe/semi-illustrations/-/semi-illustrations-2.0.0.tgz#62e0608af71ea054a2c35a4d58ba6f60c1d5af7b"
@@ -2443,13 +2451,13 @@
   dependencies:
     "@babel/runtime-corejs3" "^7.15.4"
 
-"@douyinfe/semi-site-banner@0.0.1":
-  version "0.0.1"
-  resolved "https://registry.npmjs.org/@douyinfe/semi-site-banner/-/semi-site-banner-0.0.1.tgz#bd579d5e3591a6215cf925c446c622a4a2ee4775"
-  integrity sha512-C5sjAp2CKAraOU4/KdVyPV7mcA+V8+JTvdcCkkEi1OcgMfUOAbDGeDhRpyWizBfCmyb6Us8POwf91gIl97YKRQ==
+"@douyinfe/semi-site-banner@0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@douyinfe/semi-site-banner/-/semi-site-banner-0.0.2.tgz#e0cd338e89659c02e45fb7235374407a1a718576"
+  integrity sha512-UxTlAHEXo4fYZOjRtR5MiydJEPHWnqJvyqflixpawm9dpXRkgbdDgMsMimBe5nx0blvWx+Z4+85BAcWhTKLbEQ==
   dependencies:
-    "@douyinfe/semi-icons" "2.0.0"
-    "@douyinfe/semi-ui" "2.0.0"
+    "@douyinfe/semi-icons" latest
+    "@douyinfe/semi-ui" latest
     axios "^0.23.0"
     lodash-es "^4.17.21"
     prop-types "^15.7.2"
@@ -2523,6 +2531,32 @@
     date-fns "^2.9.0"
     date-fns-tz "^1.0.10"
     lodash-es "^4.17.15"
+    react-resizable "^1.8.0"
+    react-sortable-hoc "^1.11.0"
+    react-window "^1.8.2"
+    resize-observer-polyfill "^1.5.1"
+    scroll-into-view-if-needed "^2.2.24"
+    utility-types "^3.10.0"
+
+"@douyinfe/semi-ui@latest":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@douyinfe/semi-ui/-/semi-ui-2.7.1.tgz#a7af7c8ce9654209aa33db58ef353732496f52a3"
+  integrity sha512-D/2K7mc8chb4BQ7lRMn4h5vxBDp8aX4l3v0UOxvvuKRu1xkUOjrdDxncN1DnmLQmV8fPSyWy7vZ2MVa/erixQw==
+  dependencies:
+    "@babel/runtime-corejs3" "^7.15.4"
+    "@douyinfe/semi-animation" "2.7.1"
+    "@douyinfe/semi-animation-react" "2.7.1"
+    "@douyinfe/semi-foundation" "2.7.1"
+    "@douyinfe/semi-icons" "2.7.1"
+    "@douyinfe/semi-illustrations" "2.7.1"
+    "@douyinfe/semi-theme-default" "2.7.1"
+    "@types/react-window" "^1.8.2"
+    async-validator "^3.5.0"
+    classnames "^2.2.6"
+    copy-text-to-clipboard "^2.1.1"
+    date-fns "^2.9.0"
+    date-fns-tz "^1.0.10"
+    lodash "^4.17.21"
     react-resizable "^1.8.0"
     react-sortable-hoc "^1.11.0"
     react-window "^1.8.2"

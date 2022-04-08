@@ -42,7 +42,7 @@
     "coverage:merge": "npx istanbul-combine -d test/merged -p detail -r lcov -r json cypress/coverage/coverage-final.json test/coverage/coverage-final.json"
   },
   "dependencies": {
-    "@douyinfe/semi-site-banner": "0.0.1",
+    "@douyinfe/semi-site-banner": "0.0.2",
     "@douyinfe/semi-site-doc-style": "0.0.1",
     "@douyinfe/semi-site-header": "^0.0.7",
     "@douyinfe/semi-site-markdown-blocks": "0.0.1",
