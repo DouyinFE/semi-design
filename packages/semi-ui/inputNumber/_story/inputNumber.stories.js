@@ -63,6 +63,10 @@ export const _InputNumber = () => {
         />
         <br />
 
+        <label>小数（没有初始化值）</label>
+        <InputNumber precision={2} onChange={log} />
+        <br />
+
         <label>小数</label>
         <InputNumber defaultValue={10.08} precision={2} onChange={log} />
         <br />

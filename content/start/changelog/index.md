@@ -15,6 +15,21 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 ---
 
+#### 🎉 2.8.0-beta.1 (2022-04-03)
+- 【Fix】
+    - 修复 Select 搜索时因为字符未转义导致报错的问题 [#734](https://github.com/DouyinFE/semi-design/issues/734) [@boenfu](https://github.com/boenfu)
+
+#### 🎉 2.8.0-beta.0 (2022-04-02)
+- 【Fix】
+    - 修复 useNotification 每次获得ID都相同的问题
+    - 修复当inputnumber初始值为空时，如果设置了precision，内容会被初始化为0且进行精度格式化的问题 [@rojer95](https://github.com/rojer95)
+    - 修复 DatePicker defaultPickerValue 传数字时面板渲染错误问题  [#735](https://github.com/DouyinFE/semi-design/issues/735)
+- 【Feat】
+    - Popover 新增 A11y 键盘和焦点适配  [#205](https://github.com/DouyinFE/semi-design/issues/205)
+- 【Style】
+    - Form Label的extra 元素CSS样式调整：display: block -> flex，修复 extra中放置 Icon时未居中对齐的问题 [#324](https://github.com/DouyinFE/semi-design/issues/324)
+
+
 #### 🎉 2.7.1 (2022-03-30)
 - 【Fix】
     - 修复 Button 点击后聚焦样式问题（影响2.5.0 ~ 2.7.0，Safari 兼容性有问题，其行为与 2.5.0 之前一致）[#730](https://github.com/DouyinFE/semi-design/pull/730)
