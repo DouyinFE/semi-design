@@ -489,7 +489,7 @@ Please refer to [Use with Tooltip/Popconfirm](/en-US/show/tooltip#%E6%90%AD%E9%8
 | closeOnEsc | Whether to close the panel by pressing the Esc key in the trigger or popup layer. It does not take effect when visible is under controlled | boolean | true | **2.8.0** |
 | content | Content displayed | string \| ReactNode |  |
 | clickToHide | Whether to automatically close the elastic layer when clicking on the floating layer and any element inside | boolean | false | **0.24.0** |
-| getPopupContainer | Specifies the parent DOM, and the bullet layer will be rendered to the DOM, you need to set 'position: relative` | () => HTMLElement | () => document.body |
+| getPopupContainer | Specifies the parent DOM, and the bullet layer will be rendered to the DOM, you need to set 'position: relative`. When you meet the bullet layer's position problem on scrolling or [dragging](https://codesandbox.io/s/select-and-drag-pnpdcd?file=/src/App.tsx), changing the parent DOM element may soleve the problem. Refererce to [Tooltip related document](https://semi.design/en-US/show/tooltip#Render%20to%20Specified%20DOM) | () => HTMLElement | () => document.body |
 | guardFocus | When the focus is in the popup layer, toggle whether the Tab makes the focus loop in the popup layer | boolean | true | **2.8.0** |
 | mouseEnterDelay | After the mouse is moved in, the display delay time, in milliseconds (only effective when the trigger is hover/focus) | number | 50 |  |
 | mouseLeaveDelay | The time for the delay to disappear after the mouse is moved out, in milliseconds (only effective when the trigger is hover/focus) | number | 50 |  |
