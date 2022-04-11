@@ -35,6 +35,7 @@ const HookModal = ({ afterClose, config, ...props }: PropsWithChildren<HookModal
     }));
 
     const { motion } = props;
+    /* istanbul ignore next */
     const mergedMotion =
         typeof motion === 'undefined' || motion ?
             {

@@ -19,6 +19,7 @@ import Combobox from '../timePicker/Combobox';
 import YearAndMonth from './yearAndMonth';
 import { IconClock, IconCalendar } from '@douyinfe/semi-icons';
 import { getDefaultFormatTokenByType } from '@douyinfe/semi-foundation/datePicker/_utils/getDefaultFormatToken';
+import getDefaultPickerDate from '@douyinfe/semi-foundation/datePicker/_utils/getDefaultPickerDate';
 
 const prefixCls = cssClasses.PREFIX;
 
@@ -90,19 +91,8 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
 
     constructor(props: MonthsGridProps) {
         super(props);
-        let nowDate = Array.isArray(props.defaultPickerValue) ? props.defaultPickerValue[0] : props.defaultPickerValue;
         const validFormat = props.format || getDefaultFormatTokenByType(props.type);
-        if (!nowDate) {
-            nowDate = new Date();
-        } else {
-            nowDate = compatiableParse(nowDate as string, validFormat, undefined, props.dateFnsLocale);
-        }
-        let nextDate = Array.isArray(props.defaultPickerValue) ? props.defaultPickerValue[1] : undefined;
-        if (!nextDate) {
-            nextDate = addMonths(nowDate, 1);
-        } else {
-            nextDate = compatiableParse(nextDate as string, validFormat, undefined, props.dateFnsLocale);
-        }
+        const { nowDate, nextDate } = getDefaultPickerDate({ defaultPickerValue: props.defaultPickerValue, format: validFormat, dateFnsLocale: props.dateFnsLocale });
 
         const dateState = {
             // Direct use of full date string storage, mainly considering the month rendering comparison to save a conversion
@@ -636,7 +626,7 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
                 x-type={type}
                 x-panel-yearandmonth-open-type={yearOpenType}
                 // FIXME:
-                x-insetInput={insetInput ? "true" : "false"}
+                x-insetinput={insetInput ? "true" : "false"}
                 ref={current => this.cacheRefCurrent('monthGrid', current)}
             >
                 {content}

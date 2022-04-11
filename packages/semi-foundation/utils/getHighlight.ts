@@ -152,7 +152,7 @@ const fillInChunks = ({ chunksToHighlight, totalLength }: { chunksToHighlight: C
  */
 
 const findAll = ({
-    autoEscape,
+    autoEscape = true,
     caseSensitive = false,
     searchWords,
     sourceString

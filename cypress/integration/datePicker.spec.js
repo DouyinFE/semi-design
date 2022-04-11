@@ -11,7 +11,7 @@
  */
 describe('DatePicker', () => {
     it('dateTime needConfirm cancel', () => {
-        cy.visit('http://127.0.0.1:6006/iframe.html?id=datepicker--fix-need-confirm&args=&viewMode=story');
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--fix-need-confirm&args=&viewMode=story');
         cy.get('[data-cy=1] .semi-input-wrapper').click();
         cy.get('.semi-datepicker-footer > .semi-button-borderless')
             .then(($btn) => {
@@ -22,7 +22,7 @@ describe('DatePicker', () => {
     });
 
     it('dateTime needConfirm confirm', () => {
-        cy.visit('http://127.0.0.1:6006/iframe.html?id=datepicker--fix-need-confirm&args=&viewMode=story');
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--fix-need-confirm&args=&viewMode=story');
         cy.get('[data-cy=1] .semi-input-wrapper').click();
         cy.get('.semi-datepicker-day').contains('15')
             .then($day => {
@@ -36,7 +36,7 @@ describe('DatePicker', () => {
     });
 
     it('dateTime needConfirm select+cancel', () => {
-        cy.visit('http://127.0.0.1:6006/iframe.html?id=datepicker--fix-need-confirm&args=&viewMode=story');
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--fix-need-confirm&args=&viewMode=story');
         cy.get('[data-cy=1] .semi-input-wrapper').click();
         cy.get('.semi-datepicker-day').contains('15')
             .then($day => {
@@ -51,7 +51,7 @@ describe('DatePicker', () => {
     });
 
     it('dateTimeRange needConfirm cancel', () => {
-        cy.visit('http://127.0.0.1:6006/iframe.html?id=datepicker--fix-need-confirm&args=&viewMode=story');
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--fix-need-confirm&args=&viewMode=story');
         cy.get('[data-cy=3] .semi-datepicker-range-input-wrapper-start .semi-input-wrapper').click();
         cy.get('.semi-datepicker-footer > .semi-button-borderless')
             .then($btn => {
@@ -61,7 +61,7 @@ describe('DatePicker', () => {
     });
 
     it('dateTimeRange needConfirm select+cancel', () => {
-        cy.visit('http://127.0.0.1:6006/iframe.html?id=datepicker--fix-need-confirm&args=&viewMode=story');
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--fix-need-confirm&args=&viewMode=story');
         cy.get('[data-cy=3] .semi-datepicker-range-input-wrapper-start .semi-input-wrapper').click();
         cy.get('.semi-datepicker-month-grid-left .semi-datepicker-day').contains('15')
             .then($day => {
@@ -80,7 +80,7 @@ describe('DatePicker', () => {
     });
 
     it('dateTimeRange needConfirm confirm', () => {
-        cy.visit('http://127.0.0.1:6006/iframe.html?id=datepicker--fix-need-confirm&args=&viewMode=story');
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--fix-need-confirm&args=&viewMode=story');
         cy.get('[data-cy=3] .semi-datepicker-range-input-wrapper-start .semi-input-wrapper').click();
         cy.get('.semi-datepicker-month-grid-left .semi-datepicker-day').contains('15')
             .then($day => {
@@ -140,7 +140,8 @@ describe('DatePicker', () => {
         cy.get('.semi-popover .semi-input-wrapper-focus');
         cy.get('.semi-popover .semi-input').should("have.value", "2021-12");
         cy.get('.semi-popover .semi-input-wrapper-focus').clear();
-        cy.get('.semi-popover .semi-input-wrapper-focus').type('2021-11');
+        // fix https://github.com/DouyinFE/semi-design/runs/5715448296?check_suite_focus=true
+        cy.get('.semi-popover .semi-input-wrapper-focus').clear().type('2021-11');
         cy.get('[data-cy=month] .semi-input').should("have.value", "2021-11");
     });
 
@@ -264,5 +265,22 @@ describe('DatePicker', () => {
             cy.get(wrapper).click({ force: true });
             cy.get(`${wrapper} .semi-input-wrapper`).should('not.have.class', 'semi-input-wrapper-disabled');
         }
+    });
+
+    it('defaultPickerValue is number', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--fix-default-picker-value&viewMode=story');
+        cy.get('[data-cy=dateTime] .semi-input').first().click();
+        cy.get('[x-type=dateTime] .semi-datepicker-switch-text').first().contains('2021-03-15');
+        cy.get('[x-type=dateTime] .semi-datepicker-switch-text').last().contains('00:00:00');
+
+        cy.get('[data-cy=dateTimeRange] .semi-input').first().click();
+        cy.get('[x-type=dateTimeRange] .semi-datepicker-switch-text').eq(0).contains('2021-03-15');
+        cy.get('[x-type=dateTimeRange] .semi-datepicker-switch-text').eq(1).contains('00:00:00');
+        cy.get('[x-type=dateTimeRange] .semi-datepicker-switch-text').eq(2).contains('2021-05-15');
+        cy.get('[x-type=dateTimeRange] .semi-datepicker-switch-text').eq(3).contains('23:59:59');
+
+        cy.get('[data-cy=before-1970] .semi-input').first().click();
+        cy.get('[x-type=dateTime] .semi-datepicker-switch-text').first().contains('1910-01-01');
+        cy.get('[x-type=dateTime] .semi-datepicker-switch-text').last().contains('13:00:00');
     });
 });

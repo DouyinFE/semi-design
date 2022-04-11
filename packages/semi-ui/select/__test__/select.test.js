@@ -504,6 +504,22 @@ describe('Select', () => {
         expect(optionList.at(0).text()).toEqual('Abc');
     });
 
+    it('filter = true,label includes regex special character and key it at first', () => {
+        let props = {
+            filter: true,
+            optionList: [{label: 'label++',value: ''}]
+        };
+        const select = getSelect(props);
+        // click to show input
+        select.find(`.${BASE_CLASS_PREFIX}-select`).simulate('click', {});
+        let inputValue = '+';
+        let event = { target: { value: inputValue } };
+        select.find('input').simulate('change', event);
+        let optionList = select.find(`.${BASE_CLASS_PREFIX}-select-option-list`).children();
+        expect(optionList.length).toEqual(1);
+        expect(optionList.at(0).text()).toEqual('label++');
+    });
+
     it('filter = custom function', () => {
         let customFilter = (sugInput, option) => {
             return option.label == 'Hotsoon';

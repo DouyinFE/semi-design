@@ -46,7 +46,7 @@ $module: #{$prefix}-datepicker;
             min-height: $height-datepicker_dateType_yamShowing_min;
         }
 
-        &[x-insetInput=true] {
+        &[x-insetinput=true] {
             .#{$module}-month-grid-left,
             .#{$module}-month-grid-right {
                 &[x-open-type=year] {
@@ -928,7 +928,7 @@ $module: #{$prefix}-datepicker;
             }
         }
 
-        &[x-insetInput=true] {
+        &[x-insetinput=true] {
             .#{$module}-month-grid-left,
             .#{$module}-month-grid-right {
                 &[x-open-type=year] {

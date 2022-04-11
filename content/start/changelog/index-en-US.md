@@ -16,6 +16,29 @@ Version：Major.Minor.Patch
 
 ---
 
+#### 🎉 2.8.0 (2022-04-08)
+- 【Fix】
+    - Upgrade the react-sortable-hoc version (v1.11.0 -> v2.0.0) that @douyinfe/semi-ui depends on, to solve the problem of unmeet peerDependency when using react 17 in the pnpm scenario, the react version is not satisfie,  [#747](https://github.com/DouyinFE/semi-design/issues/747)
+
+#### 🎉 2.8.0-beta.1 (2022-04-03)
+- 【Fix】
+    - Fixed error throw due to unescaped characters during Select search [#734](https://github.com/DouyinFE/semi-design/issues/734) [@boenfu](https://github.com/boenfu)
+#### 🎉 2.8.0-beta.0 (2022-04-02)
+- 【Fix】
+    - fix the problem that useNotification gets the same ID every time
+    - fix InputNumber value be formated when precision is set and defaultvalue is empty [@rojer95](https://github.com/rojer95)
+    - Fixed the panel rendering error when DatePicker defaultPickerValue passes numbers  [#735](https://github.com/DouyinFE/semi-design/issues/735)
+- 【Feat】
+    - Popover adds A11y keyboard and focus adaptation  [#205](https://github.com/DouyinFE/semi-design/issues/205)
+- 【Style】
+    - Adjust the CSS style of the extra element of Form Label: display: block -> flex, fix the problem of not centering alignment when placing Icon in extra [#324](https://github.com/DouyinFE/semi-design/issues/324)
+
+
+#### 🎉 2.7.1 (2022-03-30)
+- 【Fix】
+    - Fixed focus style issue after Button is clicked (Affects 2.5.0 ~ 2.7.0, there is a problem with Safari compatibility, its behavior is the same as before 2.5.0) [#730](https://github.com/DouyinFE/semi-design/pull/730)
+    - Fixed Tooltip still execute `setState` after component unmounted  [#727](https://github.com/DouyinFE/semi-design/issues/727)
+
 #### 🎉 2.7.0 (2022-03-25)
 - 【Chore】
     - useFormApi add generic support [@so2liu](https://github.com/so2liu)

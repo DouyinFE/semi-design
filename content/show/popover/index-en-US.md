@@ -450,6 +450,32 @@ function Demo() {
 }
 ```
 
+### Initialize the Focus Position of Popup Layer
+
+Popover `content` also supports functions. Its input parameter is an object, which binds `initialFocusRef` to the focusable DOM or component. When the panel is opened, it will automatically focus at that position.
+
+```jsx live=true
+import React from 'react';
+import { Button, Input, Popover, Space } from '@douyinfe/semi-ui';
+() => {
+    const renderContent = ({ initialFocusRef }) => {
+        return (
+            <div style={{ padding: 12 }}>
+                <Space>
+                    <Button>first focusable element</Button>
+                    <Input ref={initialFocusRef} placeholder="focus here" />
+                </Space>
+            </div>
+        );
+    };
+    return (
+        <Popover content={renderContent} trigger="click">
+            <Button>click me</Button>
+        </Popover>
+    );
+};
+```
+
 ### Use with Tooltip or Popconfirm
 
 Please refer to [Use with Tooltip/Popconfirm](/en-US/show/tooltip#%E6%90%AD%E9%85%8D%20Popover%20%E6%88%96%20Popconfirm%20%E4%BD%BF%E7%94%A8)
@@ -460,12 +486,15 @@ Please refer to [Use with Tooltip/Popconfirm](/en-US/show/tooltip#%E6%90%AD%E9%8
 | --- | --- | --- | --- | --- |
 | autoAdjustOverflow | Whether to automatically adjust the expansion direction of the floating layer for automatic adjustment of the expansion direction during edge occlusion | boolean | true |
 | arrowPointAtCenter | Whether the "small triangle" points to the center of the element, you need to pass in "showArrow = true" at the same time | boolean | true | **0.34.0** |
+| closeOnEsc | Whether to close the panel by pressing the Esc key in the trigger or popup layer. It does not take effect when visible is under controlled | boolean | true | **2.8.0** |
 | content | Content displayed | string \| ReactNode |  |
 | clickToHide | Whether to automatically close the elastic layer when clicking on the floating layer and any element inside | boolean | false | **0.24.0** |
 | getPopupContainer | Specifies the parent DOM, and the bullet layer will be rendered to the DOM, you need to set 'position: relative` | () => HTMLElement | () => document.body |
+| guardFocus | When the focus is in the popup layer, toggle whether the Tab makes the focus loop in the popup layer | boolean | true | **2.8.0** |
 | mouseEnterDelay | After the mouse is moved in, the display delay time, in milliseconds (only effective when the trigger is hover/focus) | number | 50 |  |
 | mouseLeaveDelay | The time for the delay to disappear after the mouse is moved out, in milliseconds (only effective when the trigger is hover/focus) | number | 50 |  |
 | rePosKey | You can update the value of this item to manually trigger the repositioning of the pop-up layer | string\|number |  |  |
+| returnFocusOnClose | After pressing the Esc key, whether the focus returns to the trigger, it only takes effect when the trigger is set to click | boolean | true | **2.8.0** |
 | visible | Display popup or not | boolean |  |
 | position | Directions, optional values: `top`, `topLeft`, `topRight`, `leftTop`, `leftBottom`, `rightTop`, `rightTop`, `rightBottom`, `bottomLeft`, `bottomRight`, `bottomRight` | string | "bottom" |
 | spacing | The distance between the out layer and the children element, in px | number | 4(while showArrow=false) 10(while showArrow=true) |  |
@@ -473,8 +502,9 @@ Please refer to [Use with Tooltip/Popconfirm](/en-US/show/tooltip#%E6%90%AD%E9%8
 | trigger | Trigger mode, optional value: `hover`, `focus`, `click`, `custom` | string | 'hover' |
 | stopPropagation | Whether to prevent click events on the bomb layer from bubbling | boolean | false | **0.34.0** |
 | zIndex | Floating layer z-index value | number | 1030 |
-| onVisibleChange | A callback triggered when the pop-up layer is displayed / hidden | (isVisble: boolean) => void |  |
 | onClickOutSide  | Callback when the pop-up layer is in the display state and the non-Children, non-floating layer inner area is clicked (only valid when trigger is custom, click) | (e:event) => void | | **2.1.0** |
+| onEscKeyDown | Called when Esc key is pressed in trigger or popup layer | function(e:event) | | **2.8.0** |
+| onVisibleChange | A callback triggered when the pop-up layer is displayed / hidden | (isVisible: boolean) => void |  |
 
 ## Accessibility
 
@@ -489,6 +519,14 @@ Please refer to [Use with Tooltip/Popconfirm](/en-US/show/tooltip#%E6%90%AD%E9%8
   - Will be automatically added [aria-expanded](https://www.w3.org/TR/wai-aria-1.1/#aria-expanded) attribute, when Popover is visible, the attribute value is `true`, when invisible Is `false`
   - Will be automatically added [aria-haspopup](https://www.w3.org/TR/wai-aria-1.1/#aria-haspopup) attribute, which is `dialog`
   - Will be automatically added [aria-controls](https://www.w3.org/TR/wai-aria-1.1/#aria-controls) attribute, which is the id of the content wrapper
+
+### Keyboard and Focus
+
+- When the Popover trigger method is set to `hover`: Open the Popover when the mouse is hovered or focused
+- When the Popover trigger method is set to `click`: Click the trigger or focus and use the Enter key to open the Popover
+- After the Popover is activated, press the `arrow key` ⬇️ to move the focus to the Popover. At this time, the focus is on the first interactive element in the Popover by default, and the user can also customize the focus position (if there is no interactive element in the Popover, it will appear as No response)
+- Use the `Tab` key when the focus is in the Popover, the focus will cycle in the Popover, and use `Shift + Tab` to move the focus in the opposite direction
+- Keyboard users can close the Popover by pressing `Esc`, after closing the focus returns to the trigger (when the trigger is click)
 
 ## Design Tokens
 
