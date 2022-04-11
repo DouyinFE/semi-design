@@ -10,8 +10,7 @@ import Item from './item';
 export { DescriptionsItemProps } from './item';
 export type DescriptionsSize = 'small' | 'medium' | 'large';
 export interface Data {
-    [x: string]: any;
-    key?: string | number;
+    key?: React.ReactNode;
     value?: (() => React.ReactNode) | React.ReactNode;
     hidden?: boolean;
 }
@@ -26,7 +25,7 @@ export interface DescriptionsProps {
 
 const prefixCls = cssClasses.PREFIX;
 
-class Descriptions extends PureComponent<DescriptionsProps > {
+class Descriptions extends PureComponent<DescriptionsProps> {
     static Item = Item;
 
     static contextType = DescriptionsContext;
@@ -61,8 +60,8 @@ class Descriptions extends PureComponent<DescriptionsProps > {
             [`${prefixCls}-double-${size}`]: row,
         });
         const childrenList = data && data.length ?
-            data.map(item => (
-                isPlainObject(item) ? <Item key={item.key} itemKey={item.key} {...item}>{item.value}</Item> : null
+            data.map((item, index) => (
+                isPlainObject(item) ? <Item itemKey={item.key} {...item} key={index}>{item.value}</Item> : null
             )) :
             children;
         return (
