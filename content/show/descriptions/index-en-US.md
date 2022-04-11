@@ -153,7 +153,7 @@ import { Descriptions } from '@douyinfe/semi-ui';
 
 | Properties   | Instructions                                                      | type                        | Default |
 | ------ | --------------------------------------------------------- | --------------------------- | ------ |
-| key    | Required and unique                                       | ReactNode           | -      |
+| key    | Key value                                       | ReactNode           | -      |
 | value  | Data value                                                | ReactNode \| (() => ReactNode) | -      |
 | hidden | Toggle whether the data should be displayed **v>=1.12.0** | boolean                     | -      |
 
@@ -163,7 +163,7 @@ import { Descriptions } from '@douyinfe/semi-ui';
 
 | Properties | Instructions                                | type              | Default |
 | ---------- | ------------------------------------------- | ----------------- | ------- |
-| itemKey    | Required and unique                         | ReactNode | -       |
+| itemKey    | Key value                         | ReactNode | -       |
 | hidden     | Toggle whether the data should be displayed | boolean           | -       |
 | className  | Classname                                   | string            | -       |
 | style      | Inline style                                | CSSProperties     | -       |
