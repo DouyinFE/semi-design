@@ -1,10 +1,9 @@
 /* argus-disable unPkgSensitiveInfo */
 import React, { useState } from 'react';
-import { Upload, Button, Toast, Icon } from '@douyinfe/semi-ui/index';
+import FileCard from '../fileCard';
+import { Button, Upload, Toast, Icon } from '@douyinfe/semi-ui/index';
 import { withField, Form } from '../../form/index';
 import { IconPlus, IconFile, IconUpload, IconEyeOpened, IconDownload, IconDelete } from '@douyinfe/semi-icons';
-
-import FileCard from '../fileCard';
 
 export default {
   title: 'Upload'
