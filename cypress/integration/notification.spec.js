@@ -9,8 +9,8 @@ describe('notification', () => {
         cy.get('.semi-button').click();
         cy.get('[data-cy=notice-container] .semi-notification-notice').should("have.length", 5);
         // addNotice 返回 id 是固定的，等待代码修改
-        // cy.wait(1000);
-        // cy.get('[data-cy=notice-container] .semi-notification-notice .semi-notification-notice-icon-close').first().click();
-        // cy.get('[data-cy=notice-container] .semi-notification-notice').should("have.length", 4);
+        cy.wait(1000);
+        cy.get('[data-cy=notice-container] .semi-notification-notice .semi-notification-notice-icon-close').first().click();
+        cy.get('[data-cy=notice-container] .semi-notification-notice').should("have.length", 4);
     });
 });

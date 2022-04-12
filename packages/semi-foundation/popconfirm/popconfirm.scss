@@ -1,5 +1,6 @@
 //@import '../theme/variables.scss';
 @import './variables.scss';
+@import '../button/button.scss';
 
 $module: #{$prefix}-popconfirm;
 
@@ -82,6 +83,9 @@ $module: #{$prefix}-popconfirm;
         & > .#{$prefix}-button:first-child:not(:last-child) {
             margin-right: $spacing-popconfirm_footer_btn-marginRight;
         }
+
+        // `focus-visible` doesn't take effect when we call `focus` function of button with javascript, so we use `focus` here
+        @include button-focus-style;
     }
 
     // The border-radius is defined separately in the component, the default value is the same as popover

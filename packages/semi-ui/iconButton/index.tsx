@@ -56,6 +56,20 @@ class IconButton extends PureComponent<IconButtonProps> {
         onMouseLeave: PropTypes.func,
     };
 
+    iconButtonRef: React.RefObject<Button>;
+    constructor(props = {}) {
+        super(props);
+        this.iconButtonRef = React.createRef();
+    }
+
+    focus() {
+        this.iconButtonRef.current.focus();
+    }
+
+    blur() {
+        this.iconButtonRef.current.blur();
+    }
+
     render() {
         const {
             children: originChildren,
@@ -120,7 +134,7 @@ class IconButton extends PureComponent<IconButtonProps> {
             [`${prefixCls}-loading`]: loading,
         });
         return (
-            <Button {...otherProps} className={iconBtnCls} theme={theme} style={style}>
+            <Button {...otherProps} className={iconBtnCls} theme={theme} style={style} ref={this.iconButtonRef}>
                 {finalChildren}
             </Button>
         );

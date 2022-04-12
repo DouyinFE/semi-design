@@ -1007,3 +1007,28 @@ export const autoFocusContentDemo = () => {
     </div>
   );
 };
+
+export const KeyboardAndFocus = () => {
+  // container 需要设置 position: relative
+  const getPopupContainer = () => document.querySelector('#tooltip-container');
+
+  return (
+      <div style={{ width: '100%', height: '100%', overflow: 'hidden', position: 'relative' }} id="tooltip-container">
+          <div style={{ width: '150%', height: '150%', paddingLeft: 50, paddingTop: 50 }}>
+              <br />
+              <Tooltip content={'hi bytedance'} trigger="click" getPopupContainer={getPopupContainer}>
+                  <Button style={{ marginBottom: 20 }}>点击显示</Button>
+              </Tooltip>
+              <br />
+              <Tooltip content={'hi bytedance'} trigger="focus" getPopupContainer={getPopupContainer}>
+                  <Input style={{ width: 100, marginBottom: 20 }} placeholder="聚焦显示" />
+              </Tooltip>
+              <br />
+              <Tooltip content={'hi bytedance'} getPopupContainer={getPopupContainer}>
+                  <Button style={{ marginBottom: 20 }}>悬停显示</Button>
+              </Tooltip>
+          </div>
+      </div>
+  );
+};
+KeyboardAndFocus.storyName = "键盘和焦点";

@@ -241,4 +241,31 @@ $module: #{$prefix}-button;
     }
 }
 
+// use this mixin when override button focus style in semi component
+@mixin button-focus-style {
+    .#{$prefix}-button-initial-focus {
+        &.#{$prefix}-button-primary,
+        &.#{$prefix}-button-secondary,
+        &.#{$prefix}-button-tertiary,
+        &.#{$prefix}-button-warning,
+        &.#{$prefix}-button-danger {
+            &:focus {
+                outline: $width-button-outline solid $color-button_primary-outline-focus;
+            }
+        }
+
+        &.#{$prefix}-button-danger {
+            &:not(.#{$module}-borderless):not(.#{$module}-light):focus {
+                outline: $width-button-outline solid $color-button_danger-outline-focus;
+            }
+        }
+
+        &.#{$prefix}-button-warning {
+            &:not(.#{$module}-borderless):not(.#{$module}-light):focus {
+                outline: $width-button-outline solid $color-button_warning-outline-focus;
+            }
+        }
+    }
+}
+
 @import './rtl.scss';

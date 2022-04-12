@@ -18,9 +18,21 @@ class Button extends React.PureComponent<ButtonProps> {
         ...BaseButton.propTypes,
         ...IconButton.propTypes,
     };
+
+    buttonRef: React.RefObject<IconButton | BaseButton>;
     constructor(props = {}) {
         super(props);
+        this.buttonRef = React.createRef();
     }
+
+    focus() {
+        this.buttonRef.current.focus();
+    }
+
+    blur() {
+        this.buttonRef.current.blur();
+    }
+
     render() {
         const props = { ...this.props };
         const hasIcon = Boolean(props.icon); 
@@ -28,9 +40,9 @@ class Button extends React.PureComponent<ButtonProps> {
         const isDisabled = Boolean(props.disabled);
 
         if (hasIcon || (isLoading && !isDisabled)) {
-            return <IconButton {...props} />;
+            return <IconButton {...this.props} ref={this.buttonRef as React.RefObject<IconButton>} />;
         } else {
-            return <BaseButton {...props} />;
+            return <BaseButton {...this.props} ref={this.buttonRef as React.RefObject<BaseButton>} />;
         }
     }
 }

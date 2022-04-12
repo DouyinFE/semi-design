@@ -314,6 +314,8 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
             this._adapter.togglePortalVisible(isVisible, () => {
                 if (isVisible) {
                     this._adapter.setInitialFocus();
+                } else {
+                    this._focusTrigger();
                 }
                 this._adapter.notifyVisibleChange(isVisible);
             });
@@ -893,7 +895,6 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         const { trigger } = this.getProps();
         if (trigger !== 'custom') {
             this.hide();
-            this._focusTrigger();
         }
         this._adapter.notifyEscKeydown(event);
     }

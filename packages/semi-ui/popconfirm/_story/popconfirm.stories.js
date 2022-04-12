@@ -5,6 +5,7 @@ import Button from '../../button';
 import Input from '../../input';
 import Table from '../../table';
 import Toast from '../../toast';
+import { Space } from '../../index';
 
 import TypesConfrimDemo from './TypesConfirm';
 import DynamicDisableDemo from './DynamicDisable';
@@ -168,3 +169,46 @@ export const ClickOutSideDemo = () => {
 ClickOutSideDemo.story = {
   name: 'ClickOutSideDemo',
 };
+
+export const KeyboardAndFocus = () => {
+  return (
+    <Space>
+      <div data-cy="initial-focus-confirm">
+        <Popconfirm
+            title="确定是否要保存此修改？"
+            content="此修改将不可逆"
+            okButtonProps={{
+              initialFocus: true,
+              type: 'danger',
+              className: 'test-ok',
+            }}
+        >
+            <Button>确认聚焦</Button>
+        </Popconfirm>
+      </div>
+      <div data-cy="initial-focus-cancel">
+        <Popconfirm
+            title="确定是否要保存此修改？"
+            content="此修改将不可逆"
+            cancelButtonProps={{
+              initialFocus: true,
+              className: 'test-cancel',
+            }}
+        >
+            <Button>取消聚焦</Button>
+        </Popconfirm>
+      </div>
+      <div data-cy="initial-focus-content">
+        <Popconfirm
+            title="确定是否要保存此修改？"
+            content={({ initialFocusRef }) => {
+              return (<input ref={initialFocusRef} placeholder="focus here" />);
+            }}
+        >
+            <Button>内容聚焦</Button>
+        </Popconfirm>
+      </div>
+    </Space>
+  );
+};
+KeyboardAndFocus.storyName = "键盘和焦点";

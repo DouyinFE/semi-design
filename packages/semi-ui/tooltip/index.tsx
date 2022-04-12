@@ -36,11 +36,11 @@ export interface ArrowBounding {
     height?: number;
 }
 
-export interface RenderContentProps {
-    initialFocusRef?: React.RefObject<HTMLElement>;
+export interface RenderContentProps<T = HTMLElement> {
+    initialFocusRef?: React.RefObject<T>;
 }
 
-export type RenderContent = (props: RenderContentProps) => React.ReactNode;
+export type RenderContent<T = HTMLElement> = (props: RenderContentProps<T>) => React.ReactNode;
 
 export interface TooltipProps extends BaseProps {
     children?: React.ReactNode;

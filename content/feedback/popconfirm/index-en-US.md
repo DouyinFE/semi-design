@@ -116,6 +116,51 @@ function TypesConfirmDemo(props = {}) {
 }
 ```
 
+### Initialize the Focus Position of Popup Layer
+
+`okButtonProps` and `cancelButtonProps` support passing in the `initialFocus` parameter, which will automatically focus at this position when the panel is opened. Version 2.10.0 supported.
+
+`content` supports function, and its parameter is an object, which binds `initialFocusRef` to the focusable DOM or component, and it will automatically focus at this position when the panel is opened. Version 2.10.0 supported.
+
+```jsx live=true
+import React from 'react';
+import { Button, Popconfirm, Space } from '@douyinfe/semi-ui';
+
+() => {
+    return (
+        <Space>
+            <Popconfirm
+                title="Are you sure you want to save this edit?"
+                content="This modification will be irreversible"
+                okButtonProps={{
+                    initialFocus: true,
+                    type: 'danger',
+                }}
+            >
+                <Button>Confirm focus</Button>
+            </Popconfirm>
+            <Popconfirm
+                title="Are you sure you want to save this edit?"
+                content="This modification will be irreversible"
+                cancelButtonProps={{
+                    initialFocus: true,
+                }}
+            >
+                <Button>Cancel focus</Button>
+            </Popconfirm>
+            <Popconfirm
+                title="Are you sure you want to save this edit?"
+                content={({ initialFocusRef }) => {
+                    return <input ref={initialFocusRef} placeholder="focus here" />;
+                }}
+            >
+                <Button>Content focus</Button>
+            </Popconfirm>
+        </Space>
+    );
+};
+```
+
 ### Use with Tooltip or Popover
 
 Please refer to [Use with Tooltip/Popover](/en-US/show/tooltip#Use-with-Popver-or-Popconfirm)
@@ -128,10 +173,12 @@ Please refer to [Use with Tooltip/Popover](/en-US/show/tooltip#Use-with-Popver-o
 | cancelText         | Cancel button text                                                                                                                                                    | string                     | "Cancel"            |
 | cancelButtonProps  | Properties for cancel button                                                                                                                                          | object                     |                     | **0.29.0**        |
 | cancelType         | Cancel button type                                                                                                                                                    | string                     | "tertiary"          |
-| content            | Content displayed                                                                                                                                                     | string \| ReactNode        |                     |
+| closeOnEsc         | Whether to close the panel by pressing the Esc key in the trigger or popup layer. It does not take effect when visible is under controlled | boolean | true | **2.8.0** |
+| content            | Content displayed (function type, supported in version 2.10.0)                                                                                                         | ReactNode\|({ initialFocusRef }) => ReactNode        |                     |
 | defaultVisible     | Bubble box is displayed by default                                                                                                                                    | boolean                    |                     | **0.19.0**        |
 | disabled           | Click on the Pop confirmation box to see if the bubbles pop up.                                                                                                       | boolean                    | false               |
 | getPopupContainer  | Specify the parent DOM, and the pop-up layer will be rendered into the DOM. Customization needs to set `position: relative`                                                                                                       | Function():HTMLElement           | () => document.body |
+| guardFocus         | When the focus is in the popup layer, toggle whether the Tab makes the focus loop in the popup layer | boolean | true | **2.8.0** |
 | icon               | Custom pop bubble Icon icon                                                                                                                                           |  ReactNode        | <IconAlertTriangle size="extra-large" />    |
 | motion             | Whether there is animation when the drop-down list appears/hidden. You can customize animation by passing in an object that conforms to the structure | boolean\|object | true |
 | position           | Directions, optional values: `top`, `topLeft`, `topRight`, `leftTop`, `leftBottom`, `rightTop`, `rightTop`, `rightBottom`, `bottomLeft`, `bottomRight`, `bottomRight` | string                     | "bottomLeft"        |
@@ -141,6 +188,7 @@ Please refer to [Use with Tooltip/Popover](/en-US/show/tooltip#Use-with-Popver-o
 | showArrow          | Whether to show arrow triangle                                                                                                                         | boolean                          | false               |                   |
 | stopPropagation    | Whether to prevent the click event on the bomb layer from bubbling                                                                                                                | boolean                          | true                | **0.34.0** |
 | position           | Popup layer position，Optional value：`top`,`topLeft`,`topRight`,`left`,`leftTop`,`leftBottom`,<br/>`right`,`rightTop`,`rightBottom`,`bottom`,`bottomLeft`,`bottomRight` | string                           | "bottomLeft"        |
+| returnFocusOnClose | After pressing the Esc key, whether the focus returns to the trigger, it only takes effect when the trigger is set to click | boolean | true | **2.8.0** |
 | title              | Displayed title                                                                                                                                  | string\|ReactNode                |                     |
 | trigger            | Timing to trigger the display, optional value：hover / focus / click / custom                                                                                         | string                |   'click'                  |
 | visible            | Whether the bubble box displays controlled attributes                                                                                                                   | boolean                          |                     | **0.19.0**        |
@@ -148,6 +196,22 @@ Please refer to [Use with Tooltip/Popover](/en-US/show/tooltip#Use-with-Popver-o
 | onConfirm          | Click the confirmation button to call back.                                                                                                                           | (e) => void                |                     |
 | onCancel           | Click the Cancel button to call back.                                                                                                                                 | (e) => void                |                     |
 | onVisibleChange    | Bubble box toggle shows hidden callbacks                                                                                                                              | (visible: boolean) => void | () => {}            | **0.19.0**        |
+| onEscKeyDown | Called when Esc key is pressed in trigger or popup layer | function(e:event) | | **2.8.0** |
 | onClickOutSide     | Callback when the pop-up layer is in the display state and the non-Children, non-floating layer inner area is clicked                                                 | (e: event) => void         |                     | **2.1.0**        |
+
+## Accessibility
+
+### ARIA
+
+For ARIA, please refer to [Popover](https://semi.design/zh-CN/show/popover#ARIA)
+
+### Keyboard and focus
+
+- Popconfirm must have trigger, trigger can be focused, use `Enter` key to open Popconfirm
+- After Popconfirm is activated, press the arrow key ⬇️ to move the focus to Popconfirm. The initial focus of Popconfirm should follow several principles:
+    - If the Popconfirm contains the last step of an irreversible process, such as: deleting data, etc., then this initial focus is preferably on the least destructive interactable element, such as: the cancel button (by passing the `initialFocus` to the object `cancelButtonProps`)
+    - If you only read text in Popconfirm, it is recommended to set the initial focus on the most likely interactive elements, such as: confirm button (implemented by passing `initialFocus` to the object `okButtonProps` )
+- Keyboard users can dismiss Popconfirm by pressing `Esc` and focus should return to the trigger. After the user closes the Pop through the interactive element within the Popconfirm, the focus should also return to the trigger
+
 ## Design Tokens
 <DesignToken/>

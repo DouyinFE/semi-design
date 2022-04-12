@@ -73,6 +73,20 @@ export default class Button extends PureComponent<ButtonProps> {
         'aria-label': PropTypes.string,
     };
 
+    buttonRef: React.RefObject<HTMLButtonElement>;
+    constructor(props = {}) {
+        super(props);
+        this.buttonRef = React.createRef();
+    }
+
+    focus() {
+        this.buttonRef.current.focus();
+    }
+
+    blur() {
+        this.buttonRef.current.blur();
+    }
+
     render() {
         const {
             children,
@@ -120,6 +134,7 @@ export default class Button extends PureComponent<ButtonProps> {
                 onClick={this.props.onClick}
                 onMouseDown={this.props.onMouseDown}
                 style={style}
+                ref={this.buttonRef}
             >
                 {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
                 <span className={`${prefixCls}-content`} onClick={e => disabled && e.stopPropagation()}>
