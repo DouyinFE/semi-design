@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
-import { isNumber, isString } from 'lodash';
+import { isNumber, isString, noop } from 'lodash';
 import ConfigContext from '../configProvider/context';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/badge/constants';
 import '@douyinfe/semi-foundation/badge/badge.scss';
@@ -22,6 +22,9 @@ export interface BadgeProps {
     style?: React.CSSProperties;
     className?: string;
     children?: React.ReactNode;
+    onMouseEnter?: (e: React.MouseEvent) => any;
+    onMouseLeave?: (e: React.MouseEvent) => any;
+    onClick?: (e: React.MouseEvent) => any;
 }
 
 export default class Badge extends PureComponent<BadgeProps> {
@@ -36,6 +39,9 @@ export default class Badge extends PureComponent<BadgeProps> {
         style: PropTypes.object,
         className: PropTypes.string,
         children: PropTypes.node,
+        onClick: PropTypes.func,
+        onMouseEnter: PropTypes.func,
+        onMouseLeave: PropTypes.func,
     };
 
     static defaultProps = {
@@ -43,6 +49,9 @@ export default class Badge extends PureComponent<BadgeProps> {
         type: 'primary',
         theme: 'solid',
         className: '',
+        onClick: () => noop,
+        onMouseEnter: () => noop,
+        onMouseLeave: () => noop,
     };
 
     render() {
@@ -50,7 +59,7 @@ export default class Badge extends PureComponent<BadgeProps> {
         // DefaultPosition here, static can't get this
         const defaultPosition = direction === 'rtl' ? 'leftTop' : 'rightTop';
         // eslint-disable-next-line max-len
-        const { count, dot, type, theme, position = defaultPosition, overflowCount, style, children, className } = this.props;
+        const { count, dot, type, theme, position = defaultPosition, overflowCount, style, children, className, ...rest } = this.props;
         const custom = count && !(isNumber(count) || isString(count));
         const showBadge = count !== null && typeof count !== 'undefined';
         const wrapper = cls(className, {
@@ -69,7 +78,7 @@ export default class Badge extends PureComponent<BadgeProps> {
             content = count;
         }
         return (
-            <span className={prefixCls}>
+            <span className={prefixCls} {...rest}>
                 {children}
                 <span className={wrapper} style={style}>
                     {dot ? null : content}
