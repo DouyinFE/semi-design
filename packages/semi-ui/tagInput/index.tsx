@@ -44,7 +44,7 @@ export interface TagInputProps {
     onFocus?: (e: React.MouseEvent<HTMLInputElement>) => void;
     onInputChange?: (value: string, e: React.MouseEvent<HTMLInputElement>) => void;
     onInputExceed?: ((value: string) => void);
-    onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+    onKeyDown?: (e: React.MouseEvent<HTMLInputElement>) => void;
     onRemove?: (removedValue: string, idx: number) => void;
     placeholder?: string;
     prefix?: React.ReactNode;
