@@ -1,0 +1,109 @@
+---
+localeCode: zh-CN
+order: 0
+category: 基础类 
+title:  Divider 分割线 
+icon: doc-divider 
+brief: 分割线是一个呈线状的轻量化组件，用于有逻辑的组织元素内容和页面结构或区域。
+---
+
+## 代码演示
+
+### 如何引入
+
+```jsx import
+import { Divider } from '@douyinfe/semi-ui';
+```
+
+### 基本用法
+
+```jsx live=true
+import React from 'react';
+import { Divider } from '@douyinfe/semi-ui';
+
+() => {
+
+    return (
+        <div>
+            <h3>水平实线</h3>
+            <span>Top</span>
+            <Divider margin='12px'/>
+            <span>Bottom</span>
+
+            <h3>水平虚线</h3>
+            <span>Top</span>
+            <Divider dashed={true} margin='12px'/>
+            <span>Bottom</span>
+
+            <h3>垂直实线</h3>
+
+            <div>
+                <span>Left</span>
+                <Divider layout="vertical" margin='12px'/>
+                <span>Middle</span>
+                <Divider layout="vertical" margin='12px'/>
+                <span>Right</span>
+            </div>
+
+            <h3>垂直虚线</h3>
+            <div>
+                <span>Left</span>
+                <Divider layout="vertical" dashed={true} margin='12px'/>
+                <span>Middle</span>
+                <Divider layout="vertical" dashed={true} margin='12px'/>
+                <span>Right</span>
+            </div>
+
+        </div>
+    );
+};
+
+```
+
+### 包含内容
+
+```jsx live=true
+import React from 'react';
+import { Divider, Typography } from '@douyinfe/semi-ui';
+
+() => {
+
+    return (
+        <div>
+            <Divider margin='12px' align='left'>
+                这是居左文字
+            </Divider>
+
+            <Divider margin='12px' align='center'>
+                这是居中文字
+            </Divider>
+
+            <Divider margin='12px' align='right'>
+                这是居右文字
+            </Divider>
+
+            <Divider margin='12px'>
+                <IconTiktokLogo/>
+            </Divider>
+        </div>
+    );
+};
+
+
+```
+
+## API参考
+
+| 属性        | 说明                             | 类型          | 默认值     |
+|-----------|--------------------------------|-------------|---------|
+| align     | 带内容时，内容对齐方式                    | left \| center \| right | center      |
+| children  | 内容                             | ReactNode   | 无       | 
+| className | 类名                             | string      | 无       |
+| dashed    | 是否为虚线                          | boolean     | false   |
+| layout    | 分割线方向                          | horizontal \| vertical | horizontal    |
+| margin    | 分割线上下 margin (垂直方向时为左右 margin) | number \| string  | 无        |
+| style     | 自定义样式                          | CSSProperties | 无       |
+
+## 设计变量
+
+<DesignToken/>

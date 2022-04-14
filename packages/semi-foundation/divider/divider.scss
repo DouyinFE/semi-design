@@ -3,81 +3,78 @@
 $module: #{$prefix}-divider;
 
 .#{$module} {
-    margin: $spacing-divider_horizontal-margin;
-    border-bottom: $divider-border-width solid  $color-divider_border-color;
-    color: $color-divider_description-text-default;
+    margin: $spacing-divider_horizontal-marginTop $spacing-divider_horizontal-marginRight $spacing-divider_horizontal-marginBottom $spacing-divider_horizontal-marginLeft;
+    border-bottom: $width-divider-border solid  $color-divider_border-color;
+    color: $color-divider_text-default;
     box-sizing: border-box;
-  
-    &--dashed {
+
+    &-dashed {
         border-bottom-style: dashed;
     }
-  
-    &--horizontal {
+
+    &-horizontal {
         width: 100%;
         display: flex;
     }
-  
-    &--vertical {
+
+    &-vertical {
         border-bottom: 0;
         display: inline-block;
-        margin: $spacing-divider_vertical-margin;
-        border-left: $divider-border-width solid  $color-divider_border-color;
-        height: $divider_vertical-height;
+        margin: $spacing-divider_vertical-marginTop $spacing-divider_vertical-marginRight $spacing-divider_vertical-marginBottom $spacing-divider_vertical-marginLeft;
+        border-left: $width-divider-border solid  $color-divider_border-color;
+        height: $height-divider_vertical;
         vertical-align: middle;
     }
-  
-    &--with-text {
+
+    &-with-text {
         display: flex;
         border-bottom: 0;
         white-space: nowrap;
         align-items: center;
-    
-        .#{$module}__inner-text {
-            font-weight: 500;
-            padding: $spacing-divider_inner-text-padding;
+
+        .#{$module}_inner-text {
+            font-weight: $font-divider_text-weight;
+            padding: $spacing-divider_inner-text-paddingTop $spacing-divider_inner-text-paddingRight $spacing-divider_inner-text-paddingBottom $spacing-divider_inner-text-paddingLeft;
             display: inline-block;
         }
-        
-        .#{$module}__inner-text-plain {
-            font-weight: 400;
-        }
-    
+
+
         &::before,
         &::after {
             content: "";
             width: 50%;
-            border-bottom: $divider-border-width solid  $color-divider_border-color;
+            border-bottom: $width-divider-border solid  $color-divider_border-color;
         }
-    
+
         &-left {
             &::before {
-                width: 5%;
+                width: $spacing-divider_inner-text-left-length;
             }
-    
+
             &::after {
-                width: 95%;
+                flex: 1;
             }
         }
-  
+
         &-right {
             &::before {
-                width: 95%;
+              flex: 1;
             }
-    
+
             &::after {
-                width: 5%;
+                width: $spacing-divider_inner-text-right-length;
             }
         }
     }
 }
-  
-.#{$module}--dashed {
+
+.#{$module}-dashed {
     &::before,
     &::after {
-        border-bottom: $divider-border-width dashed  $color-divider_border-color;
+        border-bottom: $width-divider-border dashed  $color-divider_border-color;
     }
 }
-  
-.#{$module}--vertical.#{$module}--dashed {
-    border-left: $divider-border-width dashed  $color-divider_border-color;
+
+.#{$module}-vertical.#{$module}-dashed {
+    border-left: $width-divider-border dashed  $color-divider_border-color;
 }
