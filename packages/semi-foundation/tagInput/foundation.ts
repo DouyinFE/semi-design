@@ -88,6 +88,7 @@ class TagInputFoundation extends BaseFoundation<TagInputAdapter> {
         }
         const { length } = tagsArray;
         if (code === keyCode.BACKSPACE && inputValue === '' && length > 0) {
+            e.preventDefault();
             const newTagList = tagsArray.slice(0, length - 1);
             const removedTag = tagsArray[length - 1];
             this._onRemove(newTagList, removedTag, length - 1);
