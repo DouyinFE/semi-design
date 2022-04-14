@@ -2,7 +2,7 @@
 localeCode: zh-CN
 order: 10
 category: 基础
-title:  Grid 布局
+title:  Grid 栅格
 icon: doc-grid
 dir: column
 brief: 24 栅格系统。
