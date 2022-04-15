@@ -86,9 +86,9 @@ $spacing-select_option-paddingTop: $spacing-tight; // 选择器菜单项顶部�
 $spacing-select_option-paddingBottom: $spacing-tight; // 选择器菜单项底部内边距
 $spacing-select_option_first-marginTop: $spacing-extra-tight; // 选择器第一个菜单项顶部外边距
 $spacing-select_option_last-marginBottom: $spacing-extra-tight; // 选择器最后一个菜单项顶部外边距
-$spacing-select_tag-marginTop: $spacing-super-tight - 1; // 多项选择器标签顶部外边距
+$spacing-select_tag-marginTop: $spacing-super-tight - 1px; // 多项选择器标签顶部外边距
 $spacing-select_tag-marginRight: $spacing-extra-tight; // 多项选择器标签右侧外边距
-$spacing-select_tag-marginBottom: $spacing-super-tight - 1; // 多项选择器标签底部外边距
+$spacing-select_tag-marginBottom: $spacing-super-tight - 1px; // 多项选择器标签底部外边距
 $spacing-select_selection-marginLeft: $spacing-base-tight; // 选择器内容区左侧外边距
 $spacing-select_insetLabel-marginRight: $spacing-base-tight; // 选择器内嵌标签右侧外边距
 $spacing-select_option_list-paddingTop: 0; // 选择器内容区顶部内边距
