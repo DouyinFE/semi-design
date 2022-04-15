@@ -205,23 +205,23 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                 const { value } = this.props;
                 
 
-                if (outPutValue === undefined) {
+                let finalOutPutValue = outPutValue;
+                if (finalOutPutValue === undefined) {
                     const moveValue = this.foundation.transPosToValue(mousePos, isMin);
                     if (moveValue === false) {
                         return;
                     }
-                    outPutValue = this.foundation.outPutValue(moveValue);
+                    finalOutPutValue = this.foundation.outPutValue(moveValue);
                 }
 
-                // const outPutValue = this.foundation.outPutValue(moveValue);
                 const { currentValue } = this.state;
-                if (!isEqual(this.foundation.outPutValue(currentValue), outPutValue)) {
+                if (!isEqual(this.foundation.outPutValue(currentValue), finalOutPutValue)) {
                     if (!clickTrack && this.foundation.valueFormatIsCorrect(value)) {
                         // still require afterChangeCallback when click on the track directly, need skip here
                         return false;
                     }
                     this.setState({
-                        currentValue: outPutValue,
+                        currentValue: finalOutPutValue,
                     }, stateChangeCallback);
                 }
             },
