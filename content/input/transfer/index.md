@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 31
+order: 32
 category: 输入类
 title: Transfer 穿梭框
 icon: doc-transfer

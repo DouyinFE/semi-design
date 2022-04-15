@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 0
+order: 10
 category: Basic
 title:  Divider
 icon: doc-divider
@@ -24,37 +24,37 @@ import { Divider } from '@douyinfe/semi-ui';
 () => {
 
     return (
+    <div>
+        <h3>Horizontal Solid Line</h3>
+        <span>Semi Design is a design system.</span>
+        <Divider margin='12px'/>
+        <span>It defines a set of components.</span>
+
+        <h3 style={{"marginTop":"40px"}}>Horizontal Dashed Line</h3>
+        <span>Semi Design is a design system.</span>
+        <Divider dashed={true} margin='12px'/>
+        <span>It defines a set of components.</span>
+
+        <h3 style={{"marginTop":"40px"}}>Vertical Solid Line</h3>
+
         <div>
-            <h3>Horizontal Solid Line</h3>
-            <span>Top</span>
-            <Divider margin='12px'/>
-            <span>Bottom</span>
-
-            <h3>Horizontal Dashed Line</h3>
-            <span>Top</span>
-            <Divider dashed={true} margin='12px'/>
-            <span>Bottom</span>
-
-            <h3>Vertical Solid Line</h3>
-
-            <div>
-                <span>Left</span>
-                <Divider layout="vertical" margin='12px'/>
-                <span>Middle</span>
-                <Divider layout="vertical" margin='12px'/>
-                <span>Right</span>
-            </div>
-
-            <h3>Vertical Dashed Line</h3>
-            <div>
-                <span>Left</span>
-                <Divider layout="vertical" dashed={true} margin='12px'/>
-                <span>Middle</span>
-                <Divider layout="vertical" dashed={true} margin='12px'/>
-                <span>Right</span>
-            </div>
-
+            <span>Left</span>
+            <Divider layout="vertical" margin='12px'/>
+            <span>Middle</span>
+            <Divider layout="vertical" margin='12px'/>
+            <span>Right</span>
         </div>
+
+        <h3 style={{"marginTop":"40px"}}>Vertical Dashed Line</h3>
+        <div>
+            <span>Left</span>
+            <Divider layout="vertical" dashed={true} margin='12px'/>
+            <span>Middle</span>
+            <Divider layout="vertical" dashed={true} margin='12px'/>
+            <span>Right</span>
+        </div>
+
+    </div>
     );
 };
 
