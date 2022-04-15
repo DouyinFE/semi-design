@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 10
+order: 0
 category: Basic
 title:  Divider
 icon: doc-divider
