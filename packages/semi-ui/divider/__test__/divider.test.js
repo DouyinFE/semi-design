@@ -2,13 +2,13 @@ import { Divider } from '../../index';
 
 describe('Divider', () => {
     it('Divider-custom className & style', () => {
-        let props = {
+        const props = {
             className: 'test',
             style: {
                 color: 'red',
             },
         };
-        const demo = mount(<Divider {...props}></Divider>);
+        const demo = mount(<Divider {...props}/>);
         expect(demo.exists(`.semi-divider.test`)).toEqual(true);
         expect(demo.find(`.semi-divider`)).toHaveStyle('color', 'red');
     });
@@ -19,7 +19,7 @@ describe('Divider', () => {
     });
 
     it('test align', () => {
-        
+
         const demo = mount(
             <div>
                 Semi-Design
@@ -30,13 +30,13 @@ describe('Divider', () => {
                 <Divider align="right">divider right title</Divider>
             </div>
         );
-        expect(demo.exists(`.semi-divider--with-text-center`)).toBe(true);
-        expect(demo.exists(`.semi-divider--with-text-left`)).toBe(true);
-        expect(demo.exists(`.semi-divider--with-text-right`)).toBe(true);
+        expect(demo.exists(`.semi-divider-with-text-center`)).toBe(true);
+        expect(demo.exists(`.semi-divider-with-text-left`)).toBe(true);
+        expect(demo.exists(`.semi-divider-with-text-right`)).toBe(true);
     });
-   
+
     it('test layout', () => {
-        let props = {
+        const props = {
             layout: 'vertical',
         };
         const demo = mount(
@@ -49,7 +49,24 @@ describe('Divider', () => {
                 <Divider {...props} />
             </div>
         );
-        expect(demo.exists(`.semi-divider--vertical`)).toBe(true);
+        expect(demo.exists(`.semi-divider-vertical`)).toBe(true);
         demo.unmount();
     });
+    it('test dashed',()=>{
+        const props = {
+            dashed:true
+        };
+        const demo = mount(
+            <div>
+                Semi-Design
+                <Divider {...props} />
+                Semi-Design
+                <Divider {...props} />
+                Semi-Design
+                <Divider {...props} />
+            </div>
+        );
+        expect(demo.exists('.semi-divider-dashed')).toBe(true);
+        demo.unmount();
+    })
 });

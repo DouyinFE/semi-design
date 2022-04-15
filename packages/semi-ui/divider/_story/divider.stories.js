@@ -37,12 +37,5 @@ stories.add('Divider title', () => (
         <Divider align='left'>Title</Divider>
         <p>Semi Design </p>
         <Divider align='right'>Title</Divider>
-        <p>Semi Design </p>
-        <Divider plain>Title</Divider>
-        <p>Semi Design </p>
-        <Divider plain align='left'>Title</Divider>
-        <p>Semi Design </p>
-        <Divider plain align='right'>Title</Divider>
-        <p>Semi Design </p>
     </div>
 ));
