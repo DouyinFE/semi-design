@@ -1201,7 +1201,7 @@ import { List, Input, Button, Checkbox, Radio, RadioGroup, CheckboxGroup } from 
     ];
 
     const [page, onPageChange] = useState(1);
-    const [checkboxVal, setCV] = useState(data[0]);
+    const [checkboxVal, setCV] = useState([...data[0]]);
     const [radioVal, setRV] = useState(data[0]);
 
     let pageSize = 8;
