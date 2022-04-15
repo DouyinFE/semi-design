@@ -5,7 +5,7 @@ import React, { Component, isValidElement } from 'react';
 import noop from './utils/noop';
 
 export interface TransitionProps extends AnimationProps {
-    children?: React.ReactNode;
+    children?: React.ReactNode | ((ChildArgus: any) => any);
     from?: Record<string, any>;
     enter?: Record<string, any>;
     leave?: Record<string, any>;
@@ -20,8 +20,8 @@ export interface TransitionProps extends AnimationProps {
 
 export interface TransitionState {
     state: string | boolean;
-    lastChildren: React.ReactNode;
-    currentChildren: React.ReactNode;
+    lastChildren: React.ReactNode | ((ChildArgus: any) => React.ReactNode | any);
+    currentChildren: React.ReactNode | ((ChildArgus: any) => React.ReactNode | any);
 }
 
 export default class Transition extends Component<TransitionProps, TransitionState> {

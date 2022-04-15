@@ -10,7 +10,7 @@ import TableCellFoundation, { TableCellAdapter } from '@douyinfe/semi-foundation
 import { isSelectionColumn, isExpandedColumn } from '@douyinfe/semi-foundation/table/utils';
 
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
-import Context from './table-context';
+import Context, { TableContextProps } from './table-context';
 import { amendTableWidth } from './utils';
 import { Align, ColumnProps } from './interface';
 
@@ -100,6 +100,8 @@ export default class TableCell extends BaseComponent<TableCellProps, Record<stri
     }
 
     ref: React.MutableRefObject<any>;
+    context: TableContextProps;
+
     constructor(props: TableCellProps) {
         super(props);
         this.ref = createRef();

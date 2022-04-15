@@ -2,7 +2,7 @@
 import React, { MouseEvent } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
-import ConfigContext from '../configProvider/context';
+import ConfigContext, { ContextValue } from '../configProvider/context';
 import TreeFoundation, { TreeAdapter } from '@douyinfe/semi-foundation/tree/foundation';
 import {
     convertDataToEntities,
@@ -143,6 +143,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
     dragNode: any;
     onNodeClick: any;
     onMotionEnd: any;
+    context: ContextValue;
 
     constructor(props: TreeProps) {
         super(props);

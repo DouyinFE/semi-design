@@ -300,7 +300,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
         const maxClass = cls(cssClasses.HANDLE, {
             [`${cssClasses.HANDLE}-clicked`]: chooseMovePos === 'max' && isDrag,
         });
-        const {min, max, currentValue} = this.state;
+        const { min, max, currentValue } = this.state;
 
         const commonAria = {
             'aria-label': ariaLabel,

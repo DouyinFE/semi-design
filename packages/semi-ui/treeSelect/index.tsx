@@ -32,7 +32,7 @@ import { FixedSizeList as VirtualList, ListItemKeySelector } from 'react-window'
 import '@douyinfe/semi-foundation/tree/tree.scss';
 import '@douyinfe/semi-foundation/treeSelect/treeSelect.scss';
 import BaseComponent, { ValidateStatus } from '../_base/baseComponent';
-import ConfigContext from '../configProvider/context';
+import ConfigContext, { ContextValue } from '../configProvider/context';
 import TagGroup from '../tag/group';
 import Tag, { TagProps } from '../tag/index';
 import Input, { InputProps } from '../input/index';
@@ -294,6 +294,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
     onNodeDoubleClick: any;
     onMotionEnd: any;
     treeSelectID: string;
+    context: ContextValue;
 
     constructor(props: TreeSelectProps) {
         super(props);
@@ -1177,15 +1178,15 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
 
     onNodeLoad = (data: TreeNodeData) => new Promise(resolve => this.foundation.setLoadKeys(data, resolve));
 
-    onNodeSelect = (e: React.MouseEvent, treeNode: TreeNodeProps) => {
+    onNodeSelect = (e: React.MouseEvent | React.KeyboardEvent, treeNode: TreeNodeProps) => {
         this.foundation.handleNodeSelect(e, treeNode);
     };
 
-    onNodeCheck = (e: React.MouseEvent, treeNode: TreeNodeProps) => {
+    onNodeCheck = (e: React.MouseEvent | React.KeyboardEvent, treeNode: TreeNodeProps) => {
         this.foundation.handleNodeSelect(e, treeNode);
     };
 
-    onNodeExpand = (e: React.MouseEvent, treeNode: TreeNodeProps) => {
+    onNodeExpand = (e: React.MouseEvent | React.KeyboardEvent, treeNode: TreeNodeProps) => {
         this.foundation.handleNodeExpand(e, treeNode);
     };
 

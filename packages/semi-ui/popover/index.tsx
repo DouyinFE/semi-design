@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import ConfigContext from '../configProvider/context';
+import ConfigContext, { ContextValue } from '../configProvider/context';
 import { cssClasses, strings, numbers } from '@douyinfe/semi-foundation/popover/constants';
 import Tooltip, { ArrowBounding, Position, TooltipProps, Trigger, RenderContentProps } from '../tooltip/index';
 import Arrow from './Arrow';
@@ -100,6 +100,8 @@ class Popover extends React.PureComponent<PopoverProps, PopoverState> {
         returnFocusOnClose: true,
         guardFocus: true,
     };
+
+    context: ContextValue;
 
     renderPopCard = ({ initialFocusRef }: { initialFocusRef: RenderContentProps['initialFocusRef'] }) => {
         const { content, contentClassName, prefixCls } = this.props;

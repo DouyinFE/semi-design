@@ -12,7 +12,7 @@ export interface AnimationProps {
     onResume?: Function;
     onStop?: Function;
     onRest?: Function;
-    children?: React.ReactNode;
+    children?: React.ReactNode | ((argus?: any) => React.ReactNode);
     from?: Record<string, any>;
     to?: Record<string, any>;
     reverse?: boolean;

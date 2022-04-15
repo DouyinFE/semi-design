@@ -2,7 +2,7 @@ import React from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses as css, strings } from '@douyinfe/semi-foundation/dropdown/constants';
-import DropdownContext from './context';
+import DropdownContext, { DropdownContextType } from './context';
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
 import { IconTick } from '@douyinfe/semi-icons';
 import { noop } from 'lodash';
@@ -43,6 +43,7 @@ class DropdownItem extends BaseComponent<DropdownItemProps> {
     };
 
     static contextType = DropdownContext;
+    context: DropdownContextType;
 
     static defaultProps = {
         disabled: false,

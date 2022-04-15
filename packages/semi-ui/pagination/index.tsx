@@ -17,7 +17,7 @@ import { numbers as popoverNumbers } from '@douyinfe/semi-foundation/popover/con
 import { IconChevronLeft, IconChevronRight } from '@douyinfe/semi-icons';
 import warning from '@douyinfe/semi-foundation/utils/warning';
 
-import ConfigContext from '../configProvider/context';
+import ConfigContext, { ContextValue } from '../configProvider/context';
 import LocaleConsumer from '../locale/localeConsumer';
 import { Locale } from '../locale/interface';
 import Select from '../select/index';
@@ -134,6 +134,8 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
             '[Semi Pagination] You should not use showSizeChanger and hideOnSinglePage in ths same time. At this time, hideOnSinglePage no longer takes effect, otherwise there may be a problem that the switch entry disappears'
         );
     }
+
+    context: ContextValue;
 
     get adapter(): PaginationAdapter<PaginationProps, PaginationState> {
         return {

@@ -14,7 +14,7 @@ import {
     sliceColumnsByLevel
 } from '@douyinfe/semi-foundation/table/utils';
 import BaseComponent from '../_base/baseComponent';
-import TableContext from './table-context';
+import TableContext, { TableContextProps } from './table-context';
 import { TableComponents, OnHeaderRow, Fixed } from './interface';
 
 export interface TableHeaderRowProps {
@@ -64,6 +64,8 @@ export default class TableHeaderRow extends BaseComponent<TableHeaderRowProps, R
     }
 
     headerNode: HTMLElement;
+    context: TableContextProps;
+    
     constructor(props: TableHeaderRowProps) {
         super(props);
         this.headerNode = null;

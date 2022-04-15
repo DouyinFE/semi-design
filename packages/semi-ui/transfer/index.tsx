@@ -558,7 +558,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
     renderRightSortableList(selectedData: Array<ResolvedDataItem>) {
         // when choose some items && draggable is true
         const SortableItem = SortableElement((
-            (item: ResolvedDataItem) => this.renderRightItem(item)) as React.SFC<ResolvedDataItem>
+            (item: ResolvedDataItem) => this.renderRightItem(item)) as React.FC<ResolvedDataItem>
         );
         const SortableList = SortableContainer(({ items }: { items: Array<ResolvedDataItem> }) => (
             <div className={`${prefixcls}-right-list`} role="list" aria-label="Selected list">

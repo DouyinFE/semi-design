@@ -2,7 +2,7 @@
 import React from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
-import ConfigContext from '../configProvider/context';
+import ConfigContext, { ContextValue } from '../configProvider/context';
 import { cssClasses, numbers, strings } from '@douyinfe/semi-foundation/notification/constants';
 import NotificationFoundation, {
     NoticeAdapter,
@@ -81,6 +81,8 @@ class Notice extends BaseComponent<NoticeReactProps, NoticeState> {
 
         this.foundation = new NotificationFoundation(this.adapter);
     }
+
+    context: ContextValue;
 
     componentWillUnmount() {
         this.foundation.destroy();

@@ -1005,7 +1005,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
         );
     };
 
-    renderTitle = (props: { title?: ReactNode; prefixCls?: string; dataSource?: any[] } = {}) => {
+    renderTitle = (props: { title?: ReactNode | ((dataSource?: RecordType[]) => ReactNode); prefixCls?: string; dataSource?: any[] } = {}) => {
         let { title } = props;
         const { prefixCls, dataSource } = props;
 
@@ -1038,7 +1038,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
         );
     };
 
-    renderFooter = (props: { footer?: ReactNode; prefixCls?: string; dataSource?: RecordType[] } = {}) => {
+    renderFooter = (props: { footer?: ReactNode | ((dataSource?: RecordType[]) => ReactNode); prefixCls?: string; dataSource?: RecordType[] } = {}) => {
         let { footer } = props;
         const { prefixCls, dataSource } = props;
 
