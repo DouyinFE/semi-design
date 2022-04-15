@@ -63,7 +63,11 @@ describe('slider', () => {
             .trigger('mouseup', { force: true });
         
         // left 32% = 247.68px;
-        cy.get(sliderHandleSelector).should('have.css', 'left', '247.68px');
+        // cy.get(sliderHandleSelector).should('have.css', 'left', '247.68px');
+        cy.window().then(window => {
+            const style = window.getComputedStyle(window.document.querySelector(sliderHandleSelector));
+            expect(Math.ceil(parseFloat(style.left))).eq(248);
+        });
     });
 
     it('controlled range slider', () => {
