@@ -14,6 +14,7 @@ export interface CollapsePanelProps {
     className?: string;
     reCalcKey?: number | string;
     style?: CSSProperties;
+    children?: ReactNode;
 }
 
 export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
