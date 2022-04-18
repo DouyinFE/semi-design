@@ -564,41 +564,41 @@ function Demo(props = {}) {
 
 ### Modal
 
-| 属性              | 说明                             | 类型      | 默认值  |
-| ----------------- | -------------------------------- | --------- | ------- |
-| afterClose         | 对话框完全关闭后的回调函数   <br/>**v1.16.0 后提供**           | () => void    | 无      |
-| bodyStyle         | 对话框内容的样式                 | CSSProperties    | 无      |
-| cancelButtonProps | 取消按钮的 props                 | [ButtonProps](/zh-CN/input/button#API参考)    | 无      |
-| cancelText        | 取消按钮的文字                   | string    | 无      |
-| centered          | 是否居中显示                     | boolean   | false   |
-| className         | 可用于设置样式类名               | string    | 无      |
-| closable          | 是否显示右上角的关闭按钮         | boolean   | true    |
-| closeIcon            | 关闭按钮的icon  <br/>**v1.0.0 后提供**                                              | ReactNode            | <IconClose /\>    |
+| 属性              | 说明                             | 类型 | 默认值  |
+| ----------------- | -------------------------------- | -- | ------- |
+| afterClose         | 对话框完全关闭后的回调函数   <br/>**v1.16.0 后提供**           | () => void | 无      |
+| bodyStyle         | 对话框内容的样式                 | CSSProperties | 无      |
+| cancelButtonProps | 取消按钮的 props                 | [ButtonProps](/zh-CN/input/button#API参考) | 无      |
+| cancelText        | 取消按钮的文字                   | string | 无      |
+| centered          | 是否居中显示                     | boolean | false   |
+| className         | 可用于设置样式类名               | string | 无      |
+| closable          | 是否显示右上角的关闭按钮         | boolean | true    |
+| closeIcon            | 关闭按钮的icon  <br/>**v1.0.0 后提供**                                              | ReactNode     | <IconClose /\>    |
 | closeOnEsc              | 允许通过键盘事件Esc触发关闭  <br/>**v1.0.0 后提供**                                               | boolean | false       | 
-| confirmLoading    | 确认按钮 loading                 | boolean   | false   |
-| content            | 对话框内容            | ReactNode         | 无      |
+| confirmLoading    | 确认按钮 loading                 | boolean | false   |
+| content            | 对话框内容            | ReactNode  | 无      |
 | footer            | 对话框底部                       | ReactNode | 无      |
-| fullScreen        | 对话是否是全屏（会覆盖 width height）  <br/>**v1.18.0 后提供**                          | boolean            | false      |
-| getPopupContainer | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 `position: relative` <br/>**v0.33.0 后提供**  | () => HTMLElement  | () => document.body |     
-| hasCancel        | 是否显示取消按钮                  | boolean    | true      |
+| fullScreen        | 对话是否是全屏（会覆盖 width height）  <br/>**v1.18.0 后提供**                          | boolean     | false      |
+| getPopupContainer | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 `position: relative` <br/>**v0.33.0 后提供**  | () => HTMLElement | () => document.body |     
+| hasCancel        | 是否显示取消按钮                  | boolean | true      |
 | header            | 对话框头部                       | ReactNode | 无      |
-| height            | 高度                             | number    | 无      |
+| height            | 高度                             | number | 无      |
 | icon              | 自定义icon       <br/>**v1.1.0 后提供**                                          | ReactNode | -       |
-| keepDOM | 关闭对话框时是否销毁 <br/>**v1.0.0 后提供**  | boolean  | false |
-| lazyRender | 配合 keepDOM 使用，为 true 时挂载时不会渲染对话框组件 <br/>**v1.0.0 后提供**  | boolean  | true |   
-| mask              | 是否显示遮罩                     | boolean   | true    |
-| maskClosable      | 是否允许通过点击遮罩来关闭对话框 | boolean   | true    |
-| maskStyle         | 遮罩的样式                       | CSSProperties    | 无      |
-| motion         | 动画效果开关                      | object\|boolean    | true      |
-| okButtonProps     | 确认按钮的 props                 | [ButtonProps](/zh-CN/input/button#API参考)    | 无      |
-| okText            | 确认按钮的文字                   | string    | 无      |
-| okType            | 确认按钮的类型, 可选: 'primary'、'secondary'、'tertiary'、'warning'、'danger'                   | string    | primary |
-| size | 对话框宽度尺寸，支持 `small`(448px)， `medium`(684px), `large`(920px)，`full-width`(100vw - 64px) <br/>**v1.0.0 后提供**  | string  | 'small' |     
-| style             | 可用于设置样式                   | CSSProperties    | 无      |
-| title             | 对话框的标题                     | ReactNode    | 无      |
-| visible           | 对话框是否可见                   | boolean   | false   |
-| width             | 宽度                             | number    | 448     |
-| zIndex            | 遮罩的 z-index 值                | number    | 1000    |
+| keepDOM | 关闭对话框时是否销毁 <br/>**v1.0.0 后提供**  | boolean | false |
+| lazyRender | 配合 keepDOM 使用，为 true 时挂载时不会渲染对话框组件 <br/>**v1.0.0 后提供**  | boolean | true |   
+| mask              | 是否显示遮罩                     | boolean | true    |
+| maskClosable      | 是否允许通过点击遮罩来关闭对话框 | boolean | true    |
+| maskStyle         | 遮罩的样式                       | CSSProperties | 无      |
+| motion         | 动画效果开关                      | boolean    | true      |
+| okButtonProps     | 确认按钮的 props                 | [ButtonProps](/zh-CN/input/button#API参考) | 无      |
+| okText            | 确认按钮的文字                   | string | 无      |
+| okType            | 确认按钮的类型, 可选: 'primary'、'secondary'、'tertiary'、'warning'、'danger'                   | string | primary |
+| size | 对话框宽度尺寸，支持 `small`(448px)， `medium`(684px), `large`(920px)，`full-width`(100vw - 64px) <br/>**v1.0.0 后提供**  | string | 'small' |     
+| style             | 可用于设置样式                   | CSSProperties | 无      |
+| title             | 对话框的标题                     | ReactNode | 无      |
+| visible           | 对话框是否可见                   | boolean | false   |
+| width             | 宽度                             | number | 448     |
+| zIndex            | 遮罩的 z-index 值                | number | 1000    |
 | onCancel          | 取消对话框时的回调函数           | (e: any) => void \| Promise<any\>  | 无      |
 | onOk              | 点击确认按钮时的回调函数         | (e: any) => void \| Promise<any\>  | 无      |
 
