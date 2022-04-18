@@ -13,7 +13,7 @@ const formatStyle = function formatStyle({ maxHeight, opacity }: { maxHeight: nu
 };
 
 export interface SubNavTransitionProps {
-    children?: React.ReactNode | ((transitionArgus?: any) => React.ReactNode);
+    children?: React.ReactNode | ((transitionProps?: any) => React.ReactNode);
     isCollapsed?: boolean;
     maxHeight?: number;
     motion?: Motion;

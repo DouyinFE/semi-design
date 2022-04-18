@@ -163,9 +163,9 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
             notifyGlobalOpenChange: (...args) => this._invokeContextFunc('onOpenChange', ...args),
             notifyGlobalOnSelect: (...args) => this._invokeContextFunc('onSelect', ...args),
             notifyGlobalOnClick: (...args) => this._invokeContextFunc('onClick', ...args),
-            getIsSelected: itemKey => Boolean(!isNullOrUndefined(itemKey) && get(this.context, 'selectedKeys', []).includes(itemKey as string)),
+            getIsSelected: itemKey => Boolean(!isNullOrUndefined(itemKey) && get(this.context, 'selectedKeys', []).includes(String(itemKey))),
             getIsOpen: () =>
-                Boolean(this.context && this.context.openKeys && this.context.openKeys.includes(this.props.itemKey as string)),
+                Boolean(this.context && this.context.openKeys && this.context.openKeys.includes(String(this.props.itemKey))),
         };
     }
 

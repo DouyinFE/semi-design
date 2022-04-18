@@ -14,7 +14,7 @@ export interface StyledTransitionProps extends StyledAnimationProps {
     state?: string | boolean;
     enter?: string;
     leave?: string;
-    children?: React.ReactNode | ((ChildArgus: ChildFCType) => React.ReactNode | any);
+    children?: React.ReactNode | ((TransitionProps: ChildFCType) => React.ReactNode | any);
     willEnter?: (value: any) => void;
     didEnter?: (value: any) => void;
     willLeave?: (value: any) => void;
@@ -25,8 +25,8 @@ export interface StyledTransitionProps extends StyledAnimationProps {
 
 export interface StyledTransitionState {
     state: string | boolean;
-    lastChildren:  React.ReactNode | ((ChildArgus: ChildFCType) => React.ReactNode | any);
-    currentChildren: React.ReactNode | ((ChildArgus: ChildFCType) => React.ReactNode | any);
+    lastChildren:  React.ReactNode | ((TransitionProps: ChildFCType) => React.ReactNode | any);
+    currentChildren: React.ReactNode | ((TransitionProps: ChildFCType) => React.ReactNode | any);
 }
 
 export default class StyledTransition extends Component<StyledTransitionProps, StyledTransitionState> {
