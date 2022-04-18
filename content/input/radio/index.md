@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 24
+order: 25
 category: 输入类
 title: Radio 单选框
 icon: doc-radio
