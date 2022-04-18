@@ -48,7 +48,7 @@ $module: #{$prefix}-divider;
 
         &-left {
             &::before {
-                width: $spacing-divider_inner-text-left-length;
+                width: $width-divider_inner_text_left_line;
             }
 
             &::after {
@@ -62,7 +62,7 @@ $module: #{$prefix}-divider;
             }
 
             &::after {
-                width: $spacing-divider_inner-text-right-length;
+                width: $width-divider_inner_text_right_line;
             }
         }
     }
