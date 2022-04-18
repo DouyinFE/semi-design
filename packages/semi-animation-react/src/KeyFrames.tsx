@@ -7,6 +7,7 @@ import Animation from './Animation';
 export interface KeyFramesProps {
     frames?: any[];
     loop?: boolean;
+    children?: React.ReactNode | ((KeyFramesProps: any) => React.ReactNode);
     forwardInstance?: (value: any) => void;
     onFrame?: (value: any) => void;
     onKeyRest?: (value: Record<string, any>) => void;
