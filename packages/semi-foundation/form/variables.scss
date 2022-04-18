@@ -1,24 +1,24 @@
-$spacing-form_label-paddingTop: ($height-control-default - 20) / 2; // 水平布局表单标题顶部内边距
-$spacing-form_label_small-paddingTop: ($height-control-default - 24) / 2; // 水平布局 小尺寸表单标题顶部内边距
+$spacing-form_label-paddingTop: ($height-control-default - 20px) / 2; // 水平布局表单标题顶部内边距
+$spacing-form_label_small-paddingTop: ($height-control-default - 24px) / 2; // 水平布局 小尺寸表单标题顶部内边距
 
 $spacing-form_field_horizontal-paddingRight: $spacing-base; // 水平布局表单标题右侧内边距
-$spacing-form_field_group_horizontal-paddingRight: $spacing-base; // 水平布局表单组标题右侧内边距 
+$spacing-form_field_group_horizontal-paddingRight: $spacing-base; // 水平布局表单组标题右侧内边距
 
 $spacing-form_field_vertical-paddingTop: $spacing-base-tight; // 垂直布局表单顶部内边距
 $spacing-form_field_vertical-paddingBottom: $spacing-base-tight; // 垂直布局表单底部内边距
 
-$spacing-form_field_group_vertical-paddingTop: $spacing-base-tight; // 垂直布局表单组顶部内边距 
-$spacing-form_field_group_vertical-paddingBottom: $spacing-base-tight; // 垂直布局表单组底部内边距 
-$spacing-form_section-marginTop: $spacing-super-loose - $spacing-base-tight; // 表单分组顶部内边距 
-$spacing-form_section_text-paddingBottom: $spacing-tight; // 表单分组标题底部内边距 
-$spacing-form_section_text-marginBottom: $spacing-extra-tight; // 表单分组标题底部外边距 
+$spacing-form_field_group_vertical-paddingTop: $spacing-base-tight; // 垂直布局表单组顶部内边距
+$spacing-form_field_group_vertical-paddingBottom: $spacing-base-tight; // 垂直布局表单组底部内边距
+$spacing-form_section-marginTop: $spacing-super-loose - $spacing-base-tight; // 表单分组顶部内边距
+$spacing-form_section_text-paddingBottom: $spacing-tight; // 表单分组标题底部内边距
+$spacing-form_section_text-marginBottom: $spacing-extra-tight; // 表单分组标题底部外边距
 
-$spacing-form_label-paddingRight: $spacing-base; // 表单标题右侧内边距 
-$spacing-form_label-marginBottom: $spacing-extra-tight; // 表单标题底部外边距 
-$spacing-form_label_extra-marginLeft: $spacing-extra-tight; // 表单标题图标左侧内边距 
-$spacing-form_label_required-marginLeft: $spacing-extra-tight; // 表单标题必填标志左侧内边距 
-$spacing-form_label_posLeft-marginRight: 0; // 水平布局表单标题右侧外边距 
-$spacing-form_label_posLeft-marginBottom: 0; // 水平布局表单标题底部外边距 
+$spacing-form_label-paddingRight: $spacing-base; // 表单标题右侧内边距
+$spacing-form_label-marginBottom: $spacing-extra-tight; // 表单标题底部外边距
+$spacing-form_label_extra-marginLeft: $spacing-extra-tight; // 表单标题图标左侧内边距
+$spacing-form_label_required-marginLeft: $spacing-extra-tight; // 表单标题必填标志左侧内边距
+$spacing-form_label_posLeft-marginRight: 0; // 水平布局表单标题右侧外边距
+$spacing-form_label_posLeft-marginBottom: 0; // 水平布局表单标题底部外边距
 $spacing-form_label_posTop-paddingTop: $spacing-extra-tight; // 垂直布局表单标题顶部内边距
 $spacing-form_label_posTop-paddingBottom: $spacing-extra-tight; // 垂直布局表单标题底部内边距
 $spacing-form_label_extra_posMid-marginTop: $spacing-extra-tight; // 表单额外信息辅助文字顶部外边距 - 居中
