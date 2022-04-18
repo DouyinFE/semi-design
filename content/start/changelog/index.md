@@ -15,6 +15,16 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 ---
 
+#### 🎉 2.9.0-beta.0 (2022-04-18)
+- 【Feat】
+    - 新增分割线组件 [#721](https://github.com/DouyinFE/semi-design/issues/721) [@ZeroCodeLin](https://github.com/ZeroCodeLin)
+    - Description 组件的 data 键值支持传入 ReactNode [#734](https://github.com/DouyinFE/semi-design/issues/734) [@oddguan](https://github.com/oddguan)
+- 【Fix】
+    - 更新 Avatar 文本内容居中方式，由绝对定位改为由父级布局居中 [#774](https://github.com/DouyinFE/semi-design/issues/774)
+    - 修复Slider组件受控情况下点击滑轨部分仍然可以触发值变更的问题 [#768](https://github.com/DouyinFE/semi-design/issues/768)
+    - 修复 Badge 不能搭配 Tooltip使用的问题 [#761](https://github.com/DouyinFE/semi-design/issues/761) 
+    - 修复validateStatus类型检查缺少success  [#746](https://github.com/DouyinFE/semi-design/issues/746) [@rojer95](https://github.com/rojer95)
+
 #### 🎉 2.8.0 (2022-04-08)
 - 【Fix】
     - 升级 @douyinfe/semi-ui 依赖的react-sortable-hoc版本（v1.11.0 -> v2.0.0），解决 pnpm场景下使用react 17时，由于unmeet peerDependency 中 react版本未满足的报错问题,  [#747](https://github.com/DouyinFE/semi-design/issues/747)
