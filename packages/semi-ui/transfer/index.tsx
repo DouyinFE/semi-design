@@ -558,18 +558,20 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
     renderRightSortableList(selectedData: Array<ResolvedDataItem>) {
         // when choose some items && draggable is true
         const SortableItem = SortableElement((
-            (item: ResolvedDataItem) => this.renderRightItem(item)) as React.SFC<ResolvedDataItem>
+            (item: ResolvedDataItem) => this.renderRightItem(item)) as React.FC<ResolvedDataItem>
         );
         const SortableList = SortableContainer(({ items }: { items: Array<ResolvedDataItem> }) => (
             <div className={`${prefixcls}-right-list`} role="list" aria-label="Selected list">
                 {items.map((item, index: number) => (
                     // sortableElement will take over the property 'key', so use another '_optionKey' to pass
+                    // @ts-ignore skip SortableItem type check
                     <SortableItem key={item.label} index={index} {...item} _optionKey={item.key} />
                 ))}
             </div>
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore see reasons: https://github.com/clauderic/react-sortable-hoc/issues/206
         ), { distance: 10 });
+        // @ts-ignore skip SortableItem type check
         const sortList = <SortableList useDragHandle onSortEnd={this.onSortEnd} items={selectedData} />;
         return sortList;
     }

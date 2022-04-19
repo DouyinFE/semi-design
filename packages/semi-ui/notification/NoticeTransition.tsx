@@ -9,7 +9,7 @@ export type ArgsType<T> = T extends (...args: infer A) => any ? A : never;
 export interface NoticeTransitionProps{
     position?: NoticePosition;
     motion?: Motion<NoticeTransitionProps>;
-    children?: JSXElementConstructor<any> | React.ReactChildren;
+    children?: React.ReactNode | ((TransitionProps?: any) => React.ReactNode);
 }
 
 type NoticeTransitionFormatFuncType = (styles: { translate: string;opacity: string | number }) => any;

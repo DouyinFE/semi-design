@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { isNumber, isString, noop } from 'lodash';
-import ConfigContext from '../configProvider/context';
+import ConfigContext, { ContextValue } from '../configProvider/context';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/badge/constants';
 import '@douyinfe/semi-foundation/badge/badge.scss';
 
@@ -21,10 +21,10 @@ export interface BadgeProps {
     overflowCount?: number;
     style?: React.CSSProperties;
     className?: string;
-    children?: React.ReactNode;
     onMouseEnter?: (e: React.MouseEvent) => any;
     onMouseLeave?: (e: React.MouseEvent) => any;
     onClick?: (e: React.MouseEvent) => any;
+    children?: React.ReactNode | undefined;
 }
 
 export default class Badge extends PureComponent<BadgeProps> {
@@ -53,6 +53,8 @@ export default class Badge extends PureComponent<BadgeProps> {
         onMouseEnter: () => noop,
         onMouseLeave: () => noop,
     };
+
+    context: ContextValue;
 
     render() {
         const { direction } = this.context;

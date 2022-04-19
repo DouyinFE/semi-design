@@ -24,7 +24,7 @@ export interface UploadProps {
     beforeUpload?: (object: BeforeUploadProps) => BeforeUploadObjectResult | Promise<BeforeUploadObjectResult> | boolean;
     beforeClear?: (fileList: Array<FileItem>) => boolean | Promise<boolean>;
     beforeRemove?: (file: FileItem, fileList: Array<FileItem>) => boolean | Promise<boolean>;
-    capture?: boolean | string | undefined;
+    capture?: boolean | 'user' | 'environment' | undefined;
     children?: ReactNode;
     className?: string;
     customRequest?: (object: customRequestArgs) => void;

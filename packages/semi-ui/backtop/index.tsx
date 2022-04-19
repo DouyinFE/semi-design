@@ -20,6 +20,7 @@ export interface BackTopProps {
     onClick?: (e: React.MouseEvent) => void;
     style?: React.CSSProperties;
     className?: string;
+    children?: React.ReactNode | undefined;
 }
 
 export interface BackTopState {

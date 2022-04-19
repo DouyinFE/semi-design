@@ -1,8 +1,8 @@
 /* eslint-disable max-lines-per-function */
-import React, { MouseEvent } from 'react';
+import React, { MouseEvent, KeyboardEvent } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
-import ConfigContext from '../configProvider/context';
+import ConfigContext, { ContextValue } from '../configProvider/context';
 import TreeFoundation, { TreeAdapter } from '@douyinfe/semi-foundation/tree/foundation';
 import {
     convertDataToEntities,
@@ -143,6 +143,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
     dragNode: any;
     onNodeClick: any;
     onMotionEnd: any;
+    context: ContextValue;
 
     constructor(props: TreeProps) {
         super(props);
@@ -545,7 +546,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
         }
     };
 
-    onNodeSelect = (e: MouseEvent, treeNode: TreeNodeProps) => {
+    onNodeSelect = (e: MouseEvent | KeyboardEvent, treeNode: TreeNodeProps) => {
         this.foundation.handleNodeSelect(e, treeNode);
     };
 
@@ -558,11 +559,11 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
         })
     );
 
-    onNodeCheck = (e: MouseEvent, treeNode: TreeNodeProps) => {
+    onNodeCheck = (e: MouseEvent | KeyboardEvent, treeNode: TreeNodeProps) => {
         this.foundation.handleNodeSelect(e, treeNode);
     };
 
-    onNodeExpand = (e: MouseEvent, treeNode: TreeNodeProps) => {
+    onNodeExpand = (e: MouseEvent | KeyboardEvent, treeNode: TreeNodeProps) => {
         this.foundation.handleNodeExpand(e, treeNode);
     };
 
@@ -574,27 +575,27 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
         this.foundation.handleNodeDoubleClick(e, treeNode);
     };
 
-    onNodeDragStart = (e: React.DragEvent<HTMLDivElement>, treeNode: TreeNodeProps) => {
+    onNodeDragStart = (e: React.DragEvent<HTMLLIElement>, treeNode: TreeNodeProps) => {
         this.foundation.handleNodeDragStart(e, treeNode);
     };
 
-    onNodeDragEnter = (e: React.DragEvent<HTMLDivElement>, treeNode: TreeNodeProps) => {
+    onNodeDragEnter = (e: React.DragEvent<HTMLLIElement>, treeNode: TreeNodeProps) => {
         this.foundation.handleNodeDragEnter(e, treeNode, this.dragNode);
     };
 
-    onNodeDragOver = (e: React.DragEvent<HTMLDivElement>, treeNode: TreeNodeProps) => {
+    onNodeDragOver = (e: React.DragEvent<HTMLLIElement>, treeNode: TreeNodeProps) => {
         this.foundation.handleNodeDragOver(e, treeNode, this.dragNode);
     };
 
-    onNodeDragLeave = (e: React.DragEvent<HTMLDivElement>, treeNode: TreeNodeProps) => {
+    onNodeDragLeave = (e: React.DragEvent<HTMLLIElement>, treeNode: TreeNodeProps) => {
         this.foundation.handleNodeDragLeave(e, treeNode);
     };
 
-    onNodeDragEnd = (e: React.DragEvent<HTMLDivElement>, treeNode: TreeNodeProps) => {
+    onNodeDragEnd = (e: React.DragEvent<HTMLLIElement>, treeNode: TreeNodeProps) => {
         this.foundation.handleNodeDragEnd(e, treeNode);
     };
 
-    onNodeDrop = (e: React.DragEvent<HTMLDivElement>, treeNode: TreeNodeProps) => {
+    onNodeDrop = (e: React.DragEvent<HTMLLIElement>, treeNode: TreeNodeProps) => {
         this.foundation.handleNodeDrop(e, treeNode, this.dragNode);
     };
 

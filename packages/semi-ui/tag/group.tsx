@@ -45,7 +45,7 @@ export default class TagGroup extends PureComponent<TagGroupProps> {
         avatarShape: PropTypes.oneOf(avatarShapeSet),
     };
 
-    renderNTag(n: number, restTags: (Tag | React.ReactNode)[]) {
+    renderNTag(n: number, restTags: React.ReactNode) {
         const { size, showPopover, popoverProps } = this.props;
         let nTag = (
             <Tag
@@ -84,7 +84,7 @@ export default class TagGroup extends PureComponent<TagGroupProps> {
         let renderTags: (Tag | React.ReactNode)[] = tags;
 
         const normalTags: (Tag | React.ReactNode)[] = tags.slice(0, maxTagCount);
-        const restTags = tags.slice(maxTagCount);
+        const restTags = tags.slice(maxTagCount) as  React.ReactNode;
         let nTag = null;
         if (n > 0) {
             nTag = this.renderNTag(n, restTags);
@@ -96,9 +96,9 @@ export default class TagGroup extends PureComponent<TagGroupProps> {
 
     renderAllTags() {
         const { tagList, size, mode, avatarShape } = this.props;
-        const renderTags: (Tag | React.ReactNode)[] = tagList.map((tag, index): (Tag | React.ReactNode) => {
+        const renderTags = tagList.map((tag, index): (Tag | React.ReactNode) => {
             if (mode === 'custom') {
-                return tag;
+                return tag as React.ReactNode;
             }
             if (!(tag as TagProps).size) {
                 (tag as TagProps).size = size;
@@ -122,7 +122,7 @@ export default class TagGroup extends PureComponent<TagGroupProps> {
         }, className);
 
         const tags = this.renderAllTags();
-        const tagContents = typeof maxTagCount === 'undefined' ? tags : this.renderMergeTags(tags);
+        const tagContents = (typeof maxTagCount === 'undefined' ? tags : this.renderMergeTags(tags)) as React.ReactNode;
 
         return (
             <div style={style} className={groupCls}>

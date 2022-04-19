@@ -11,6 +11,7 @@ import { FormUpdaterContext } from './context';
 import { useFormState } from './hooks/index';
 import InputGroup, { InputGroupProps as BacisInputGroupProps } from '../input/inputGroup';
 import { BaseFormProps, FormState } from './interface';
+import { FormUpdaterContextType } from '@douyinfe/semi-foundation/form/interface';
 
 interface GroupErrorProps {
     showValidateIcon?: boolean;
@@ -44,6 +45,7 @@ const GroupError = (props: GroupErrorProps) => {
 
 class FormInputGroup extends Component<InputGroupProps> {
     static contextType = FormUpdaterContext;
+    context: FormUpdaterContextType;
     renderLabel(label: LabelProps, formProps: BaseFormProps) {
         if (label) {
             if (isString(label)) {

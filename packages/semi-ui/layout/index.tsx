@@ -32,6 +32,7 @@ export interface BasicProps {
     className?: string;
     tagName?: keyof HTMLElementTagNameMap;
     type?: string;
+    children?: React.ReactNode | undefined;
 }
 
 class Basic extends React.PureComponent<BasicProps> {
@@ -60,6 +61,7 @@ export interface BasicLayoutProps {
     prefixCls?: string;
     style?: CSSProperties;
     className?: string;
+    children?: React.ReactNode | undefined;
     hasSider?: boolean;
     tagName?: keyof HTMLElementTagNameMap;
 }

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types, max-len */
-import React from 'react';
+import React, { ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
 import { isEqual, noop } from 'lodash';
@@ -48,7 +48,7 @@ export interface AutoCompleteProps<T extends AutoCompleteItems> {
     autoAdjustOverflow?: boolean;
     autoFocus?: boolean;
     className?: string;
-    children?: React.ReactNode;
+    children?: ReactNode | undefined;
     data?: T[];
     disabled?: boolean;
     defaultOpen?: boolean;

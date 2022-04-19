@@ -111,8 +111,8 @@ export interface ArrayFieldStaff {
 export interface FormUpdaterContextType {
     register: (field: string, fieldState: FieldState, fieldStuff: FieldStaff) => void;
     unRegister: (field: string) => void;
-    updateStateValue: (field: string, value: any, opts: CallOpts) => void;
-    updateStateError: (field: string, error: any, opts: CallOpts) => void;
+    updateStateValue: (field: string, value: any, opts?: CallOpts) => void;
+    updateStateError: (field: string, error: any, opts?: CallOpts) => void;
     updateStateTouched: (field: string, isTouched: boolean, opts?: CallOpts) => void;
     getValue: (field?: string | undefined, opts?: CallOpts) => any;
     getError: (field?: string) => any;

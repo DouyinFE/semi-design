@@ -24,6 +24,9 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
     - 修复Slider组件受控情况下点击滑轨部分仍然可以触发值变更的问题 [#768](https://github.com/DouyinFE/semi-design/issues/768)
     - 修复 Badge 不能搭配 Tooltip使用的问题 [#761](https://github.com/DouyinFE/semi-design/issues/761) 
     - 修复validateStatus类型检查缺少success  [#746](https://github.com/DouyinFE/semi-design/issues/746) [@rojer95](https://github.com/rojer95)
+#### 🎉 2.8.1 (2022-04-19)
+- 【Fix】
+    - 更新组件的 ts 类型定义，解决 @types/react v18 移除默认 children 声明后带来的类型检查报错 [#755](https://github.com/DouyinFE/semi-design/issues/755)
 
 #### 🎉 2.8.0 (2022-04-08)
 - 【Fix】

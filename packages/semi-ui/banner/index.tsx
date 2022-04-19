@@ -20,6 +20,7 @@ export type Type = 'info' | 'danger' | 'warning' | 'success';
 export interface BannerProps {
     type?: Type;
     className?: string;
+    children?: React.ReactNode | undefined;
     fullMode?: boolean;
     title?: React.ReactNode;
     description?: React.ReactNode;

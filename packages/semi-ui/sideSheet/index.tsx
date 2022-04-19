@@ -4,7 +4,7 @@ import BaseComponent from '../_base/baseComponent';
 import PropTypes from 'prop-types';
 import Portal from '../_portal';
 import cls from 'classnames';
-import ConfigContext from '../configProvider/context';
+import ConfigContext, { ContextValue } from '../configProvider/context';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/sideSheet/constants';
 import SideSheetTransition from './SideSheetTransition';
 import SideSheetContent from './SideSheetContent';
@@ -32,7 +32,6 @@ export interface SideSheetReactProps extends SideSheetProps {
     footer?: React.ReactNode;
     children?: React.ReactNode;
     onCancel?: (e: React.MouseEvent | React.KeyboardEvent) => void;
-
 }
 
 export {
@@ -92,6 +91,8 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
         this.foundation = new SideSheetFoundation(this.adapter);
         this._active = false;
     }
+
+    context: ContextValue;
 
     get adapter(): SideSheetAdapter {
         return {

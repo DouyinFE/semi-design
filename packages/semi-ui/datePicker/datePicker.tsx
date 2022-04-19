@@ -6,7 +6,7 @@ import React from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import { noop, stubFalse, isDate, get, isFunction, isEqual } from 'lodash';
-import ConfigContext from '../configProvider/context';
+import ConfigContext, { ContextValue } from '../configProvider/context';
 import DatePickerFoundation, { DatePickerAdapter, DatePickerFoundationProps, DatePickerFoundationState, DayStatusType, PresetType, Type, RangeType } from '@douyinfe/semi-foundation/datePicker/foundation';
 import { cssClasses, strings, numbers } from '@douyinfe/semi-foundation/datePicker/constants';
 import { strings as popoverStrings, numbers as popoverNumbers } from '@douyinfe/semi-foundation/popover/constants';
@@ -175,6 +175,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
     _mounted: boolean;
 
     foundation: DatePickerFoundation;
+    context: ContextValue;
 
     constructor(props: DatePickerProps) {
         super(props);

@@ -15,6 +15,7 @@ export interface ButtonGroupProps extends BaseProps {
     size?: Size;
     theme?: Theme;
     className?: string;
+    children?: React.ReactChild;
     'aria-label'?: React.AriaAttributes['aria-label'];
 }
 
@@ -43,7 +44,7 @@ export default class ButtonGroup extends BaseComponent<ButtonGroupProps> {
         const cls = classNames(`${prefixCls}-group`, className);
 
         if (children) {
-            inner = ((Array.isArray(children) ? children : [children])).map((itm, index) => (
+            inner = ((Array.isArray(children) ? children : [children])).map((itm: React.ReactChild, index) => (
                 isValidElement(itm)
                     ? cloneElement(itm, { disabled, size, type, ...itm.props, ...rest, key: index })
                     : itm
