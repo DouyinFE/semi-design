@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
 import BaseComponent from '../_base/baseComponent';
@@ -13,6 +13,7 @@ export interface LinkProps {
     href?: string;
     title?: string | React.ReactNode;
     className?: string;
+    children?: ReactNode | undefined;
     style?: React.CSSProperties;
     disabled?: boolean;
 }

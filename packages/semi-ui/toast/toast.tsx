@@ -2,7 +2,7 @@
 import React, { CSSProperties } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
-import ConfigContext from '../configProvider/context';
+import ConfigContext, { ContextValue } from '../configProvider/context';
 import ToastFoundation, { ToastAdapter, ToastState, ToastProps } from '@douyinfe/semi-foundation/toast/toastFoundation';
 import { numbers, cssClasses, strings } from '@douyinfe/semi-foundation/toast/constants';
 import BaseComponent from '../_base/baseComponent';
@@ -51,6 +51,8 @@ class Toast extends BaseComponent<ToastReactProps, ToastState> {
         this.state = {};
         this.foundation = new ToastFoundation(this.adapter);
     }
+
+    context: ContextValue;
 
     get adapter(): ToastAdapter {
         return {

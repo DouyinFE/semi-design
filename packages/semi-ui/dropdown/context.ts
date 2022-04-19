@@ -1,6 +1,11 @@
 import React from 'react';
 
-const DropdownContext = React.createContext({
+export interface DropdownContextType {
+    level?: number;
+    showTick?: boolean;
+}
+
+const DropdownContext = React.createContext<DropdownContextType>({
     level: 0,
 });
 export default DropdownContext;

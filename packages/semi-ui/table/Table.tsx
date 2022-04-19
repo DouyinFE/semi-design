@@ -353,6 +353,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
     scrollPosition!: BodyScrollPosition;
     position!: BodyScrollPosition;
     foundation: TableFoundation<RecordType>;
+    context: TableContextProps;
     constructor(props: NormalTableProps<RecordType>, context: TableContextProps) {
         super(props);
         this.foundation = new TableFoundation<RecordType>(this.adapter);
@@ -789,7 +790,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
         }
     };
 
-    renderSelection = (record: RecordType = {} as RecordType, inHeader = false): React.ReactNode => {
+    renderSelection = (record = {} as any, inHeader = false): React.ReactNode => {
         const { rowSelection, disabledRowKeysSet } = this.state;
 
         if (rowSelection && typeof rowSelection === 'object') {
@@ -1005,7 +1006,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
         );
     };
 
-    renderTitle = (props: { title?: ReactNode; prefixCls?: string; dataSource?: any[] } = {}) => {
+    renderTitle = (props: { title?: ReactNode | ((dataSource?: RecordType[]) => ReactNode); prefixCls?: string; dataSource?: any[] } = {}) => {
         let { title } = props;
         const { prefixCls, dataSource } = props;
 
@@ -1038,7 +1039,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
         );
     };
 
-    renderFooter = (props: { footer?: ReactNode; prefixCls?: string; dataSource?: RecordType[] } = {}) => {
+    renderFooter = (props: { footer?: ReactNode | ((dataSource?: RecordType[]) => ReactNode); prefixCls?: string; dataSource?: RecordType[] } = {}) => {
         let { footer } = props;
         const { prefixCls, dataSource } = props;
 

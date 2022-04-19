@@ -3,7 +3,7 @@ import React, { CSSProperties } from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
 import { cssClasses } from '@douyinfe/semi-foundation/modal/constants';
-import ConfigContext from '../configProvider/context';
+import ConfigContext, { ContextValue } from '../configProvider/context';
 import Button from '../iconButton';
 import Typography from '../typography';
 import BaseComponent from '../_base/baseComponent';
@@ -19,7 +19,11 @@ import { getActiveElement } from '../_utils';
 
 let uuid = 0;
 
-export default class ModalContent extends BaseComponent<ModalContentProps, ModalContentState> {
+
+export interface ModalContentReactProps extends ModalContentProps {
+    children?: React.ReactNode | undefined;
+}
+export default class ModalContent extends BaseComponent<ModalContentReactProps, ModalContentState> {
     static contextType = ConfigContext;
     static propTypes = {
         close: PropTypes.func,
@@ -40,6 +44,8 @@ export default class ModalContent extends BaseComponent<ModalContentProps, Modal
 
     modalDialogRef: React.MutableRefObject<HTMLDivElement>;
     foundation: ModalContentFoundation;
+    context: ContextValue;
+
     constructor(props: ModalContentProps) {
         super(props);
         this.state = {
@@ -255,7 +261,7 @@ export default class ModalContent extends BaseComponent<ModalContentProps, Modal
                     onAnimationEnd={props.onAnimationEnd}
                     className={cls([`${cssClasses.DIALOG}-content`,
                         props.contentClassName,
-                        {[`${cssClasses.DIALOG}-content-fullScreen`]: props.isFullScreen }])}>
+                        { [`${cssClasses.DIALOG}-content-fullScreen`]: props.isFullScreen }])}>
                     {header}
                     {body}
                     {footer}

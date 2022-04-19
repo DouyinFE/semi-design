@@ -11,7 +11,7 @@ import Popover, { PopoverProps } from '../popover';
 import { Position, Trigger } from '../tooltip';
 import Button, { ButtonProps } from '../button';
 import { Type as ButtonType } from '../button/Button';
-import ConfigContext from '../configProvider/context';
+import ConfigContext, { ContextValue } from '../configProvider/context';
 import LocaleConsumer from '../locale/localeConsumer';
 import { Locale as LocaleObject } from '../locale/interface';
 import '@douyinfe/semi-foundation/popconfirm/popconfirm.scss';
@@ -104,6 +104,8 @@ export default class Popconfirm extends BaseComponent<PopconfirmProps, Popconfir
 
         this.foundation = new PopconfirmFoundation(this.adapter);
     }
+
+    context: ContextValue;
 
     static getDerivedStateFromProps(props: PopconfirmProps, state: PopconfirmState) {
         const willUpdateStates: Partial<PopconfirmState> = {};

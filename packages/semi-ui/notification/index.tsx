@@ -2,7 +2,7 @@ import React, { CSSProperties } from 'react';
 import ReactDOM from 'react-dom';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
-import ConfigContext from '../configProvider/context';
+import ConfigContext, { ContextValue } from '../configProvider/context';
 import NotificationListFoundation, {
     ConfigProps, NotificationListAdapter,
     NotificationListProps,
@@ -74,6 +74,8 @@ class NotificationList extends BaseComponent<NotificationListProps, Notification
 
         this.foundation = new NotificationListFoundation(this.adapter);
     }
+
+    context: ContextValue;
 
     get adapter(): NotificationListAdapter {
         return {

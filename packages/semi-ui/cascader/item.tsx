@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/cascader/constants';
 import isEnterPress from '@douyinfe/semi-foundation/utils/isEnterPress';
 import { includes } from 'lodash';
-import ConfigContext from '../configProvider/context';
+import ConfigContext, { ContextValue } from '../configProvider/context';
 import LocaleConsumer from '../locale/localeConsumer';
 import { IconChevronRight, IconTick } from '@douyinfe/semi-icons';
 import { Locale } from '../locale/interface';
@@ -84,6 +84,8 @@ export default class Item extends PureComponent<CascaderItemProps> {
     static defaultProps = {
         empty: false,
     };
+
+    context: ContextValue;
 
     onClick = (e: React.MouseEvent | React.KeyboardEvent, item: Entity | Data) => {
         const { onItemClick } = this.props;

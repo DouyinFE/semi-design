@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { isNumber, isString } from 'lodash';
-import ConfigContext from '../configProvider/context';
+import ConfigContext, { ContextValue } from '../configProvider/context';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/badge/constants';
 import '@douyinfe/semi-foundation/badge/badge.scss';
 
@@ -21,7 +21,7 @@ export interface BadgeProps {
     overflowCount?: number;
     style?: React.CSSProperties;
     className?: string;
-    children?: React.ReactNode;
+    children?: React.ReactNode | undefined;
 }
 
 export default class Badge extends PureComponent<BadgeProps> {
@@ -44,6 +44,8 @@ export default class Badge extends PureComponent<BadgeProps> {
         theme: 'solid',
         className: '',
     };
+
+    context: ContextValue;
 
     render() {
         const { direction } = this.context;

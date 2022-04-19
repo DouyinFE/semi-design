@@ -16,7 +16,7 @@ import ItemFoundation, {
 import { cssClasses, strings } from '@douyinfe/semi-foundation/navigation/constants';
 
 import Tooltip from '../tooltip';
-import NavContext from './nav-context';
+import NavContext, { NavContextType } from './nav-context';
 import Dropdown from '../dropdown';
 
 const clsPrefix = `${cssClasses.PREFIX}-item`;
@@ -81,6 +81,7 @@ export default class NavItem extends BaseComponent<NavItemProps, NavItemState> {
     };
 
     foundation: ItemFoundation;
+    context: NavContextType;
     constructor(props: NavItemProps) {
         super(props);
         this.state = {
@@ -112,9 +113,9 @@ export default class NavItem extends BaseComponent<NavItemProps, NavItemState> {
             notifyMouseLeave: (...args) => this.props.onMouseLeave(...args),
             getIsCollapsed: () => this.props.isCollapsed || Boolean(this.context && this.context.isCollapsed) || false,
             getSelected: () =>
-                Boolean(this.context && this.context.selectedKeys && this.context.selectedKeys.includes(this.props.itemKey)),
+                Boolean(this.context && this.context.selectedKeys && this.context.selectedKeys.includes(this.props.itemKey as string)),
             getIsOpen: () =>
-                Boolean(this.context && this.context.openKeys && this.context.openKeys.includes(this.props.itemKey)),
+                Boolean(this.context && this.context.openKeys && this.context.openKeys.includes(this.props.itemKey as string)),
         };
     }
 
