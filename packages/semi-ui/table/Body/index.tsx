@@ -272,7 +272,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
 
     itemKey = (index: number, data: Array<FlattenData | GroupFlattenData>) => get(data, [index, 'key'], index);
 
-    handleRowClick = (rowKey: RowKey<any>, e: React.MouseEvent, expand: boolean) => {
+    handleRowClick = (rowKey: RowKey<any>, e: React.MouseEvent<HTMLElement>, expand: boolean) => {
         const { handleRowExpanded } = this.context;
         handleRowExpanded(!expand, rowKey, e);
     };

@@ -790,7 +790,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
         }
     };
 
-    renderSelection = (record: RecordType = {} as RecordType, inHeader = false): React.ReactNode => {
+    renderSelection = (record = {} as any, inHeader = false): React.ReactNode => {
         const { rowSelection, disabledRowKeysSet } = this.state;
 
         if (rowSelection && typeof rowSelection === 'object') {
