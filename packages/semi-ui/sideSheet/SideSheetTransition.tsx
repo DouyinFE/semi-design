@@ -4,7 +4,7 @@ import React, { CSSProperties } from 'react';
 import { Motion } from '../_base/base';
 
 export interface SideSheetTransitionProps{
-    children?: React.ReactNode | ((ChildArgus: any) => React.ReactNode);
+    children?: React.ReactNode | ((TransitionProps: any) => React.ReactNode);
     motion?: Motion<SideSheetTransitionProps>;
     controlled?: boolean;
     visible?: boolean;
