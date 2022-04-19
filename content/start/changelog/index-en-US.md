@@ -16,6 +16,11 @@ Version：Major.Minor.Patch
 
 ---
 
+
+#### 🎉 2.8.1 (2022-04-19)
+- 【Fix】
+    - Update the ts type definition of the component to solve the type check error caused by @types/react v18 removing the default children declaration [#755](https://github.com/DouyinFE/semi-design/issues/755)
+
 #### 🎉 2.8.0 (2022-04-08)
 - 【Fix】
     - Upgrade the react-sortable-hoc version (v1.11.0 -> v2.0.0) that @douyinfe/semi-ui depends on, to solve the problem of unmeet peerDependency when using react 17 in the pnpm scenario, the react version is not satisfie,  [#747](https://github.com/DouyinFE/semi-design/issues/747)

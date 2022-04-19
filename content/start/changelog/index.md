@@ -15,6 +15,10 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 ---
 
+#### 🎉 2.8.1 (2022-04-19)
+- 【Fix】
+    - 更新组件的 ts 类型定义，解决 @types/react v18 移除默认 children 声明后带来的类型检查报错 [#755](https://github.com/DouyinFE/semi-design/issues/755)
+
 #### 🎉 2.8.0 (2022-04-08)
 - 【Fix】
     - 升级 @douyinfe/semi-ui 依赖的react-sortable-hoc版本（v1.11.0 -> v2.0.0），解决 pnpm场景下使用react 17时，由于unmeet peerDependency 中 react版本未满足的报错问题,  [#747](https://github.com/DouyinFE/semi-design/issues/747)
