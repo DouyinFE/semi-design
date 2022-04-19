@@ -7,7 +7,7 @@ import { get, set, isNull } from 'lodash';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/table/constants';
 import { arrayAdd, filterColumns } from '@douyinfe/semi-foundation/table/utils';
 import Store from '@douyinfe/semi-foundation/utils/Store';
-import TableContext from '../table-context';
+import TableContext, { TableContextProps } from '../table-context';
 import TableRow from './BaseRow';
 import { amendTableWidth } from '../utils';
 import { ColumnProps, ExpandIcon, TableComponents, Virtualized, Fixed } from '../interface';
@@ -67,6 +67,8 @@ export default class TableExpandedRow extends PureComponent<TableExpandedRowProp
         record: {},
         prefixCls: cssClasses.PREFIX,
     };
+
+    context: TableContextProps;
 
     render() {
         const {

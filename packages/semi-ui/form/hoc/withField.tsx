@@ -580,7 +580,7 @@ function withField<
         }
     };
     SemiField = forwardRef(SemiField);
-    (SemiField as React.SFC).displayName = getDisplayName(Component);
+    (SemiField as React.FC).displayName = getDisplayName(Component);
     return SemiField as any;
 }
 

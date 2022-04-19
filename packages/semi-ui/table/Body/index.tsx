@@ -30,7 +30,7 @@ import ExpandedRow from './ExpandedRow';
 import SectionRow from './SectionRow';
 import TableHeader from '../TableHeader';
 import ConfigContext from '../../configProvider/context';
-import TableContext from '../table-context';
+import TableContext, { TableContextProps } from '../table-context';
 import {
     ExpandedRowRender,
     Virtualized,
@@ -132,6 +132,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
     foundation: BodyFoundation;
     cellWidths: number[];
     flattenedColumns: ColumnProps[];
+    context: TableContextProps;
     constructor(props: BodyProps, context: BodyContext) {
         super(props);
         this.ref = React.createRef();

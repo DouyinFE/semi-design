@@ -373,6 +373,7 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
         const itemHeight = 32;
         const listHeight = count >= 5 ? itemHeight * 5 : itemHeight * count;
         return (
+            // @ts-ignore skip type check cause react-window not update with @types/react 18
             <List
                 className={`${prefixCls}-rest-list`}
                 itemData={restList}

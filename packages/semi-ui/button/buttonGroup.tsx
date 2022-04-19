@@ -15,6 +15,7 @@ export interface ButtonGroupProps extends BaseProps {
     size?: Size;
     theme?: Theme;
     className?: string;
+    children?: React.ReactChild;
     'aria-label'?: React.AriaAttributes['aria-label'];
 }
 

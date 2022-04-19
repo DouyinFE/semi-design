@@ -61,7 +61,7 @@ export interface BasicLayoutProps {
     prefixCls?: string;
     style?: CSSProperties;
     className?: string;
-    children?: ReactNode | undefined;
+    children?: React.ReactNode | undefined;
     hasSider?: boolean;
     tagName?: keyof HTMLElementTagNameMap;
 }

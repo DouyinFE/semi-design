@@ -353,6 +353,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
     scrollPosition!: BodyScrollPosition;
     position!: BodyScrollPosition;
     foundation: TableFoundation<RecordType>;
+    context: TableContextProps;
     constructor(props: NormalTableProps<RecordType>, context: TableContextProps) {
         super(props);
         this.foundation = new TableFoundation<RecordType>(this.adapter);
