@@ -89,6 +89,8 @@ export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
             children,
             itemKey,
             reCalcKey,
+            header,
+            extra,
             ...restProps
         } = this.props;
         const {
