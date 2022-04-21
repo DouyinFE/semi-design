@@ -115,7 +115,7 @@ $module: #{$prefix}-transfer;
         &-empty {
             height: $height-transfer_left_empty;
         }
-        .#{$prefix}-spin {
+        >.#{$prefix}-spin {
             width: 100%;
             flex-grow: 1;
         }
