@@ -754,7 +754,7 @@ export const CheckboxGroupCardStyle = () => (
       >
         多选框标题
       </Checkbox>
-    </CheckboxGroup> */}
+    </CheckboxGroup>
   </>
 );
 
