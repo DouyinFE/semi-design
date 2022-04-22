@@ -109,6 +109,7 @@ describe(`Table`, () => {
             myCls,
             myClsIndex,
         });
+        demo.unmount();
     });
     it(`test object columns appearance`, async () => {
         const myCls = `my-tr-class`;

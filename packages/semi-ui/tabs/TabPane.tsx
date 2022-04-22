@@ -53,6 +53,7 @@ class TabPane extends PureComponent<TabPaneProps> {
         return false;
     };
 
+    /* istanbul ignore next */
     hideScroll = (): void => {
         if (this.ref && this.ref.current) {
             this.ref.current.style.overflow = 'hidden';
@@ -60,6 +61,7 @@ class TabPane extends PureComponent<TabPaneProps> {
         }
     };
 
+    /* istanbul ignore next */
     autoScroll = (): void => {
         if (this.ref && this.ref.current) {
             this.ref.current.style.overflow = '';

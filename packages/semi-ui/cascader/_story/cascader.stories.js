@@ -697,7 +697,8 @@ export const ShowClear = () => {
       <Cascader
         style={{ marginLeft: 700, width: 300 }}
         treeData={treeData1}
-        placeholder="Please select"
+        placeholder="Please select when multiple"
+        multiple
         showClear
       />
       <br />
@@ -1435,3 +1436,17 @@ export const DynamicTreeData = () => {
       </div>
   );
 }
+
+
+export const SuperLongList = () => {
+    let treeData = new Array(100).fill().map(() => ({ label: '浙江省', value: 'zhejiang' }));
+    treeData.push({ label: '到底啦', value: 'bottom' })
+    return (
+        <Cascader
+            style={{ width: 300 }}
+            treeData={treeData}
+            placeholder="请选择所在地区"
+            onListScroll={()=>{console.log(123)}}
+        />
+    );
+};

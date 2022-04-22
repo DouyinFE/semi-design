@@ -814,3 +814,40 @@ export const FixTriggerRenderClosePanel = () => {
 };
 FixTriggerRenderClosePanel.storyName = "fix triggerRender close bug"
 
+export const A11yKeyboardDemo = () => {
+  const [value, setValue] = useState(new Date('2022-08-08 00:00'));
+  const [rangeValue, setRangeValue] = useState([new Date('2022-08-08 00:00'), new Date('2022-08-09 12:00')]);
+
+  const handleChange = v => {
+    console.log('change', v);
+    setValue(v);
+  };
+
+   const handleRangeChange = v => {
+    console.log('change', v);
+    setRangeValue(v);
+  };
+
+  return (
+    <Space vertical align='start' data-cy="space">
+      <div  data-cy="dateRange">
+        <DatePicker
+          value={rangeValue}
+          type="dateRange"
+          onChange={handleRangeChange}
+          showClear
+        />
+      </div>
+      <div data-cy="date">
+        <DatePicker
+          onChange={handleChange}
+          showClear
+          multiple
+        />
+      </div>
+    </Space>
+  );
+};
+
+A11yKeyboardDemo.storyName = "a11y keyboard demo"
+
