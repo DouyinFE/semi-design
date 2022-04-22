@@ -16,7 +16,11 @@ describe('popover', () => {
         cy.get('[data-cy=pop-focusable-last]').should('be.focused');
     });
 
-    it('trigger=hover + keyboard', () => {
+    /**
+     * electron failed
+     * @see https://github.com/cypress-io/cypress/issues/20878
+     */
+    it.skip('trigger=hover + keyboard', () => {
         cy.visit('http://localhost:6006/iframe.html?id=popover--a-11-y-keyboard&args=&viewMode=story');
         cy.get('[data-cy=hover]').trigger('focus');
         cy.get('[data-cy=hover]').type('{downArrow}');
@@ -27,7 +31,11 @@ describe('popover', () => {
         cy.get('[data-cy=pop-focusable-last]').should('be.focused');
     });
 
-    it('trigger=focus + keyboard', () => {
+    /**
+     * electron failed
+     * @see https://github.com/cypress-io/cypress/issues/20878
+     */
+    it.skip('trigger=focus + keyboard', () => {
         cy.visit('http://localhost:6006/iframe.html?id=popover--a-11-y-keyboard&args=&viewMode=story');
         cy.get('[data-cy=focus]').trigger('focus');
         cy.get('[data-cy=focus]').type('{downArrow}');
@@ -38,7 +46,11 @@ describe('popover', () => {
         cy.get('[data-cy=pop-focusable-last]').should('be.focused');
     });
 
-    it('trigger=custom + keyboard', () => {
+    /**
+     * electron failed
+     * @see https://github.com/cypress-io/cypress/issues/20878
+     */
+    it.skip('trigger=custom + keyboard', () => {
         cy.visit('http://localhost:6006/iframe.html?id=popover--a-11-y-keyboard&args=&viewMode=story');
         cy.get('[data-cy=custom]').trigger('click');
         cy.get('[data-cy=custom]').type('{downArrow}');

@@ -4,22 +4,16 @@ $module: #{$prefix}-avatar;
 .#{$prefix}-portal-rtl {
     .#{$module} {
         direction: rtl;
-        
-        &-content {
-            left: auto;
-            right: 50%;
-            transform: translate(50%, -50%);
-        }
 
         &-extra-extra-small {
             .#{$module}-content {
-                transform: scale(.8) translate(62.5%, -62.5%);
+                transform: scale(0.8);
             }
         }
 
         &-extra-small {
             .#{$module}-content {
-                transform: scale(.8) translate(62.5%, -62.5%);
+                transform: scale(0.8);
             }
         }
 

@@ -24,12 +24,7 @@ $colors: "amber", "blue", "cyan", "green", "grey", "indigo", "light-blue", "ligh
     }
 
     &-content {
-        position: absolute;
         user-select: none;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        transform-origin: center;
     }
 
     &-extra-extra-small {
@@ -38,7 +33,7 @@ $colors: "amber", "blue", "cyan", "green", "grey", "indigo", "light-blue", "ligh
 
         .#{$module}-content {
             transform-origin: center;
-            transform: scale(.8) translate(-62.5%, -62.5%);
+            transform: scale(0.8);
         }
 
         .#{$module}-label {
@@ -53,7 +48,7 @@ $colors: "amber", "blue", "cyan", "green", "grey", "indigo", "light-blue", "ligh
 
         .#{$module}-content {
             transform-origin: center;
-            transform: scale(.8) translate(-62.5%, -62.5%);
+            transform: scale(0.8);
         }
 
         .#{$module}-label {

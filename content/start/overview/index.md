@@ -10,6 +10,7 @@ brief: 基于Semi 设计语言开发，能够在线调试的React UI 桌面端�
 ## 基础
 
 ```overview
+Divider 分割线,
 Grid 布局,
 Icon 图标,
 Layout 布局,

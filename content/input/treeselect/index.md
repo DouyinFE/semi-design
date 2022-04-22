@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 32
+order: 33
 category: 输入类
 title: TreeSelect 树选择器
 icon: doc-treeselect

@@ -16,6 +16,15 @@ Version：Major.Minor.Patch
 
 ---
 
+#### 🎉 2.9.0-beta.0 (2022-04-18)
+- 【Feat】
+    - New Component Divider. [#721](https://github.com/DouyinFE/semi-design/issues/721) [@ZeroCodeLin](https://github.com/ZeroCodeLin)
+    - Added support for ReactNode as key value for Descriptions' data prop [#734](https://github.com/DouyinFE/semi-design/issues/734) [@oddguan](https://github.com/oddguan)
+- 【Fix】
+    - Update the centering method of Avatar text content, from absolute positioning to centering by the parent layout [#774](https://github.com/DouyinFE/semi-design/issues/774)
+    - fix controlled slider component can still trigger value change by clicking track. [#768](https://github.com/DouyinFE/semi-design/issues/768)
+    - Fixed an issue where Badge could not be used with Tooltip [#761](https://github.com/DouyinFE/semi-design/issues/761) 
+    - fix validateStatus type check lack success [#746](https://github.com/DouyinFE/semi-design/issues/746) [@rojer95](https://github.com/rojer95)
 
 #### 🎉 2.8.1 (2022-04-19)
 - 【Fix】
