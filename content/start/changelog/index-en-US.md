@@ -18,6 +18,7 @@ Version：Major.Minor.Patch
 
 #### 🎉 2.9.0 (2022-04-22)
 - 【Fix】
+    - Fix the issue that when TagInput is used in a Form, hitting enter would cause the submit event to be triggered
     - Fix the problem that the useless div is left behind after the Modal imperative call
     - Fix the problem that Collapse DOM has useless attributes
     - Remove Form label `user-select:none`， allow user select

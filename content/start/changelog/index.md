@@ -17,6 +17,7 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 #### 🎉 2.9.0 (2022-04-22)
 - 【Fix】
+    - 修复 TagInput 在 Form 内使用时，敲击回车会导致 submit 事件触发的问题
     - 修复 Modal 命令式调用后遗留无用 div 的问题
     - 修复 Collapse 将部分 props 透传至 DOM 导致存在无用属性 warning 的问题
     - 去除 Form label `user-select:none` 默认样式，允许用户选中
