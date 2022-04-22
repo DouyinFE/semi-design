@@ -83,8 +83,11 @@ class TagInputFoundation extends BaseFoundation<TagInputAdapter> {
             tagsArray
         } = this._adapter.getStates();
         const code = e.keyCode;
-        if (code === keyCode.ENTER && inputValue !== '') {
-            this._handleAddTags(e);
+        if (code === keyCode.ENTER) {
+            e.preventDefault(); // prevent trigger submit when using in form
+            if (inputValue !== '') {
+                this._handleAddTags(e);
+            }
         }
         const { length } = tagsArray;
         if (code === keyCode.BACKSPACE && inputValue === '' && length > 0) {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Toast, Icon, Button, Avatar } from '@douyinfe/semi-ui/';
+import { Toast, Icon, Button, Avatar, Form } from '@douyinfe/semi-ui/';
 import TagInput from '../index';
 import { IconGift, IconVigoLogo } from '@douyinfe/semi-icons';
 const style = {
@@ -411,4 +411,17 @@ export const PrefixSuffix = () => (
 
 PrefixSuffix.story = {
   name: 'prefix / suffix',
+};
+
+
+export const TagInputInForm = () => (
+  <>
+    <Form onSubmit={() => Toast.info('123')}>
+      <TagInput showClear />
+    </Form>
+  </>
+);
+
+PrefixSuffix.story = {
+  name: 'TagInputInForm'
 };
