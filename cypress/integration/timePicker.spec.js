@@ -1,5 +1,5 @@
 describe('timePicker', () => {
-    it('select', () => {
+    it.skip('select', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?id=timepicker--range-picker&args=&viewMode=story');
         cy.get('.semi-input').eq(0).click();
         cy.wait(500);
