@@ -178,6 +178,7 @@ export default class ScrollItem<T extends Item> extends BaseComponent<ScrollItem
 
     _cacheWrapperNode = (wrapper: Element) => this._cacheNode('wrapper', wrapper);
 
+    /* istanbul ignore next */
     _isFirst = (node: Element) => {
         const { list } = this;
 
@@ -191,6 +192,8 @@ export default class ScrollItem<T extends Item> extends BaseComponent<ScrollItem
         return false;
     };
 
+
+    /* istanbul ignore next */
     _isLast = (node: Element) => {
         const { list } = this;
 

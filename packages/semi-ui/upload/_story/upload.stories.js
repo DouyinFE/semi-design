@@ -572,8 +572,8 @@ export const Draggable = () => (
     <Upload
       {...commonProps}
       draggable={true}
-      disabled
-      accept="application/pdf,.jpeg"
+      // disabled
+      accept="application/image/*,.md"
       dragMainText={'点击上传文件或拖拽文件到这里'}
       dragSubText="支持的文件类型：.jpg、.pdf"
     ></Upload>

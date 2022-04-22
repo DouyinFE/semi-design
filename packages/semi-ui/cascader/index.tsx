@@ -828,7 +828,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
      */
     handleClearEnterPress = (e: KeyboardEvent) => {
         e && e.stopPropagation();
-        this.foundation.handleClearEnterPress();
+        this.foundation.handleClearEnterPress(e);
     };
 
     showClearBtn = () => {

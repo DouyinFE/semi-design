@@ -24,6 +24,7 @@ describe(`Typography`, () => {
         const typographyParagraph = mount(<Typography.Paragraph {...props}>Semi Design</Typography.Paragraph>)
         const p = typographyParagraph.find('div.semi-typography-paragraph');
         expect(p.length).toEqual(1);
+        typographyParagraph.unmount();
     });
 
     it('typography copyable', () => {

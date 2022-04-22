@@ -404,6 +404,115 @@ AdjustPosition.story = {
   name: '自适应',
 };
 
+export const AdjustPosIfNeed = () => {
+  const tops = [
+        ['topLeft', 'TL'],
+        ['top', 'Top'],
+        ['topRight', 'TR'],
+    ];
+    const lefts = [
+        ['leftTop', 'LT'],
+        ['left', 'Left'],
+        ['leftBottom', 'LB'],
+    ];
+    const rights = [
+        ['rightTop', 'RT'],
+        ['right', 'Right'],
+        ['rightBottom', 'RB'],
+    ];
+    const bottoms = [
+        ['bottomLeft', 'BL'],
+        ['bottom', 'Bottom'],
+        ['bottomRight', 'BR'],
+    ];
+
+     return (
+        <div style={{ paddingLeft: 40 }}>
+            <div style={{ marginLeft: 40, whiteSpace: 'nowrap' }}>
+                {tops.map((pos, index) => (
+                    <Tooltip
+                        showArrow
+                        arrowPointAtCenter
+                        content={
+                            <article>
+                                Hi ByteDancer, this is a tooltip.
+                                <br /> We have 2 lines.
+                            </article>
+                        }
+                        position={Array.isArray(pos) ? pos[0] : pos}
+                        key={index}
+                    >
+                        <Tag 
+                          style={{ marginRight: '8px' }}
+                          data-cy={Array.isArray(pos) ? pos[0] : pos}
+                        >
+                          {Array.isArray(pos) ? pos[1] : pos}
+                        </Tag>
+                    </Tooltip>
+                ))}
+            </div>
+            <div style={{ width: 40, float: 'left' }}>
+                {lefts.map((pos, index) => (
+                    <Tooltip
+                        showArrow
+                        arrowPointAtCenter
+                        content={
+                            <article>
+                                Hi ByteDancer, this is a tooltip.
+                                <br /> We have 2 lines.
+                            </article>
+                        }
+                        position={Array.isArray(pos) ? pos[0] : pos}
+                        key={index}
+                    >
+                        <Tag data-cy={Array.isArray(pos) ? pos[0] : pos} style={{ marginBottom: '8px' }}>{Array.isArray(pos) ? pos[1] : pos}</Tag>
+                    </Tooltip>
+                ))}
+            </div>
+            <div style={{ width: 40, marginLeft: 180 }}>
+                {rights.map((pos, index) => (
+                    <Tooltip
+                        showArrow
+                        arrowPointAtCenter
+                        content={
+                            <article>
+                                Hi ByteDancer, this is a tooltip.
+                                <br /> We have 2 lines.
+                            </article>
+                        }
+                        position={Array.isArray(pos) ? pos[0] : pos}
+                        key={index}
+                    >
+                        <Tag data-cy={Array.isArray(pos) ? pos[0] : pos} style={{ marginBottom: '8px' }}>{Array.isArray(pos) ? pos[1] : pos}</Tag>
+                    </Tooltip>
+                ))}
+            </div>
+            <div style={{ marginLeft: 40, clear: 'both', whiteSpace: 'nowrap' }}>
+                {bottoms.map((pos, index) => (
+                    <Tooltip
+                        showArrow
+                        arrowPointAtCenter
+                        content={
+                            <article>
+                                Hi ByteDancer, this is a tooltip.
+                                <br /> We have 2 lines.
+                            </article>
+                        }
+                        position={Array.isArray(pos) ? pos[0] : pos}
+                        key={index}
+                    >
+                        <Tag data-cy={Array.isArray(pos) ? pos[0] : pos} position={Array.isArray(pos) ? pos[0] : pos} style={{ marginRight: '8px' }}>{Array.isArray(pos) ? pos[1] : pos}</Tag>
+                    </Tooltip>
+                ))}
+            </div>
+        </div>
+    );
+}
+
+AdjustPosIfNeed.story = {
+  name: '自适应位置',
+};
+
 export const CompositeComponent = () => (
   <div
     style={{
@@ -764,7 +873,7 @@ export const leftTopOverDemo = () => {
     content,
     trigger: 'click',
     showArrow: false,
-    visible,
+    visible:true,
     trigger: 'custom',
     motion: false,
   };
@@ -774,34 +883,37 @@ export const leftTopOverDemo = () => {
 
   return (
     <div data-cy="wrapper">
-      <Button onClick={() => setVisible(!visible)}>toggle visible</Button>
-      <div style={{ paddingTop: 200 }}>
+      <Button onClick={() => setVisible(!visible)} data-cy="toggleVisible">toggle visible</Button>
+      <div style={{ paddingTop: 110 }}>
         <Space spacing={80}>
-          <Tooltip {...commonProps} position="leftTopOver">
-            <Button data-cy="leftTopOver" style={buttonStyle}>
-              leftTopOver
-            </Button>
-          </Tooltip>
-          <Tooltip {...commonProps} position="leftBottomOver">
+          <Tooltip {...commonProps} position="leftBottomOver" trigger="click">
             <Button data-cy="leftBottomOver" style={buttonStyle}>
               leftBottomOver
             </Button>
           </Tooltip>
-          <Tooltip {...commonProps} position="rightTopOver">
-            <Button data-cy="rightTopOver" style={buttonStyle}>
-              rightTopOver
-            </Button>
-          </Tooltip>
-          <Tooltip {...commonProps} position="rightBottomOver">
+          <Tooltip {...commonProps} position="rightBottomOver" trigger="click">
             <Button data-cy="rightBottomOver" style={buttonStyle}>
               rightBottomOver
             </Button>
           </Tooltip>
         </Space>
       </div>
+      <Space spacing={80}>
+        <Tooltip {...commonProps} position="leftTopOver" trigger="click">
+          <Button data-cy="leftTopOver" style={buttonStyle}>
+            leftTopOver
+          </Button>
+        </Tooltip>
+        <Tooltip {...commonProps} position="rightTopOver" trigger="click">
+          <Button data-cy="rightTopOver" style={buttonStyle}>
+            rightTopOver
+          </Button>
+        </Tooltip>
+      </Space>
     </div>
   );
 };
+
 leftTopOverDemo.storyName = `leftTopOver visible`;
 leftTopOverDemo.parameters = {
   chromatic: {

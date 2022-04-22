@@ -192,6 +192,7 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
         this.foundation.handleTabClick(activeKey, event);
     };
 
+    /* istanbul ignore next */
     rePosChildren = (children: ReactElement[], activeKey: string): ReactElement[] => {
         const newChildren: ReactElement[] = [];
 
