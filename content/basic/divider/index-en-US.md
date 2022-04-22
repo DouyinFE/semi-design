@@ -60,7 +60,7 @@ import { Divider } from '@douyinfe/semi-ui';
 
 ```
 
-### 包含内容
+### With Children
 
 ```jsx live=true
 import React from 'react';
@@ -94,15 +94,15 @@ import { Divider, Typography } from '@douyinfe/semi-ui';
 
 ## API Reference
 
-| 属性        | 说明                                                            | 类型          | 默认值     |
-|-----------|---------------------------------------------------------------|-------------|---------|
-| align     | Content Align Mode                                            | left \| center \| right | center      |
-| children  | Content                                                       | ReactNode   | -       | 
-| className | ClassName                                                     | string      | -       |
-| dashed    | Whether is dashed                                             | boolean     | false   |
-| layout    | Divider Direction                                             | horizontal \| vertical | horizontal    |
-| margin    | Vertical (Horizontal if in horizontal mode) margin of divider | number \| string  | -        |
-| style     | Custom Style                                                  | CSSProperties | -       |
+| Properties        | Instructions                                                            | Type          | Default     | Version | 
+|-----------|---------------------------------------------------------------|-------------|---------| --------- | 
+| align     | Content Align Mode                                            | left \| center \| right | center      | 2.9.0 | 
+| children  | Content                                                       | ReactNode   | -       |  2.9.0 | 
+| className | ClassName                                                     | string      | -       | 2.9.0 | 
+| dashed    | Whether is dashed                                             | boolean     | false   | 2.9.0 | 
+| layout    | Divider Direction                                             | horizontal \| vertical | horizontal    | 2.9.0 | 
+| margin    | Vertical (Horizontal if in horizontal mode) margin of divider | number \| string  | -        | 2.9.0 | 
+| style     | Custom Style                                                  | CSSProperties | -       | 2.9.0 | 
 
 ## Design Tokens
 <DesignToken/>
