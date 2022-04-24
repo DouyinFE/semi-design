@@ -17,12 +17,14 @@ on:
       - '!packages/**/__test__/**'
       - '!packages/**/*.test.[tj]sx?'
       - '!packages/**/*.md'
+      - '.github/**/cypress.yml'
 
 jobs:
   install:
     runs-on: ubuntu-latest
     container: 
-      image: cypress/browsers:node14.16.0-chrome90-ff88
+      # https://github.com/cypress-io/cypress-docker-images/tree/master/browsers
+      image: cypress/browsers:node14.17.6-chrome100-ff98
     if: ${{ github.repository_owner == 'DouyinFE' }}
     steps:
       - name: Checkout
@@ -48,7 +50,7 @@ jobs:
   chrome-tests:
     runs-on: ubuntu-latest
     container: 
-      image: cypress/browsers:node14.16.0-chrome90-ff88
+      image: cypress/browsers:node14.17.6-chrome100-ff98
     needs: install
     strategy:
       fail-fast: false
@@ -84,7 +86,7 @@ jobs:
   firefox-tests:
     runs-on: ubuntu-latest
     container: 
-      image: cypress/browsers:node14.16.0-chrome90-ff88
+      image: cypress/browsers:node14.17.6-chrome100-ff98
       options: --user 1001
     needs: install
     strategy:
