@@ -358,6 +358,7 @@ class App extends React.Component {
 | PROPERTIES | Instructions | Type | Default |
 | --- | --- | --- | --- |
 | addonClassName | classname of content wrapper<br/>**provided after v1.16.0** | string |  |
+| addonId | id of addon node, aria-labelledby refers to this id, if not set, it will generate an id randomly  **provided after v2.11.0**                                 | string            |       |
 | addonStyle | inline style of content wrapper<br/>**provided after v1.16.0** | object |  |
 | aria-label      | Label of Radio                                                            | string           | -  |
 | autoFocus | Automatically focus the form control when the page is loaded | boolean | false |
@@ -366,6 +367,7 @@ class App extends React.Component {
 | defaultChecked | Checked by default | boolean | false |
 | disabled | Disable the radio | boolean | false |
 | extra | Extra information displayed <br/>**provided after v0.25.0** | ReactNode | - |
+| extraId        | id of extra node. aria-describedby refers to this id, if not set, it will randomly generate an id <br/>**provided after v2.11.0**                     | ReactNode         | -      |
 | mode | In advanced mode, options can be clicked to uncheck, one of `advanced` | string | - |
 | style | Inline style | CSSProperties |  |
 | value | Compared based on value to determine whether the option is selected | string \| number | - |

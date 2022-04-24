@@ -318,6 +318,7 @@ class App extends React.Component {
 | 属性           | 说明                                                                   | 类型              | 默认值  |
 |----------------|-----------------------------------------------------------------------|------------------|--------|
 | addonClassName | 包裹内容容器的样式类名  **v1.16.0 后提供**                                 | string            |       |
+| addonId | addon 节点 id，aria-labelledby 指向这个 id，若无设置会随机生成一个 id  **v2.11.0 后提供**                                 | string            |       |
 | addonStyle     | 包裹内容容器的内联样式  **v1.16.0 后提供**                                 | CSSProperties     |       |
 | aria-label      | Radio 的 label                                                            | string           | -  |
 | autoFocus      | 自动获取焦点                                                            | boolean           | false  |
@@ -326,6 +327,7 @@ class App extends React.Component {
 | defaultChecked | 初始是否选中                                                             | boolean           | false  |
 | disabled       | 禁选单选框                                                              |boolean            | false    |
 | extra          | 副文本，只对type='default'生效<br/>**v0.25.0 后提供**                     | ReactNode         | -      |
+| extraId        | 副文本的 id，aria-describedby 指向这个 id，若无设置会随机生成一个 id <br/>**v2.11.0 后提供**                     | ReactNode         | -      |
 | mode           | 高级和普通模式，高级模式可以在 checked 时点击变成 unchecked，可选值 advanced   | string            | -      |
 | style          | 内联样式                                                                 | CSSProperties    |        |
 | value          | 根据 value 进行比较，判断是否选中                                          | string \| number               | -      |
