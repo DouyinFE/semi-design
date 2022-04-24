@@ -23,7 +23,7 @@ describe('tabs', () => {
         cy.get('.semi-tabs-content').contains('关于');
     });
 
-    it.only('collapse', () => {
+    it('collapse', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?id=tabs--collapse-tabs&args=&viewMode=story');
         cy.viewport(800, 800);
         cy.get('.semi-tabs-content').eq(0).contains('Content of card tab 0');
