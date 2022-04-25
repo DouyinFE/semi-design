@@ -475,7 +475,7 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
 
         const panelPrefix = classNames({
             [`${prefixCls}-panel`]: true,
-            [`${prefixCls}-panel-${ size}`]: size,
+            [`${prefixCls}-panel-${size}`]: size,
         });
 
         const inputProps = {

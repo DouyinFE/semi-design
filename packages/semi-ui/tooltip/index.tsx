@@ -581,7 +581,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                 }
             </TooltipTransition>
         ) : (
-            <div className={className} {...portalEventSet} x-placement={placement} style={{ visibility: motion ? undefined : 'visible', ...style }}>
+            <div className={className} {...portalEventSet} x-placement={placement} style={{ visibility: motion ? 'hidden' : 'visible', ...style }}>
                 {contentNode}
                 {icon}
             </div>
