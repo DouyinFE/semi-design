@@ -185,7 +185,6 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
             if (this.getState('isAM')[index] !== result.isAM){
                 this.setState({ isAM } as any);
             }
-
             if (!this._isControlledComponent('value')) {
                 const invalid = this.validateDates(value);
                 this.setState({
