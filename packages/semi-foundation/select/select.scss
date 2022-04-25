@@ -54,9 +54,10 @@ $multiple: #{$module}-multiple;
 
         &:hover {
             background-color: $color-select-bg-default;
+            border: $border-thickness-control-focus solid $color-select_default-border-focus;
         }
     }
-    
+
     &-warning {
         background-color: $color-select_warning-bg-default;
         border-color: $color-select_warning-border-default;
