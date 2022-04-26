@@ -30,7 +30,6 @@ import { IconLock } from '@douyinfe/semi-icons';
         width: '42px',
         height: '42px',
         borderRadius: '4px',
-        display: 'inline-block',
     };
     return (
         <div>
@@ -70,7 +69,6 @@ import { Badge, Avatar } from '@douyinfe/semi-ui';
         width: '42px',
         height: '42px',
         borderRadius: '4px',
-        display: 'inline-block',
     };
     return (
         <div>
@@ -110,7 +108,6 @@ import { Badge, Avatar } from '@douyinfe/semi-ui';
         width: '42px',
         height: '42px',
         borderRadius: '4px',
-        display: 'inline-block',
     };
     return (
         <div>
@@ -153,7 +150,6 @@ import { Badge, Avatar } from '@douyinfe/semi-ui';
         width: '42px',
         height: '42px',
         borderRadius: '4px',
-        display: 'inline-block',
     };
     return (
         <div style={{display: 'flex'}}>
@@ -207,7 +203,6 @@ import { Badge, Avatar } from '@douyinfe/semi-ui';
         width: '42px',
         height: '42px',
         borderRadius: '4px',
-        display: 'inline-block',
     };
     return (
         <div style={{display: 'flex'}}>
