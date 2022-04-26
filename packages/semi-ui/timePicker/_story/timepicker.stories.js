@@ -1,6 +1,6 @@
 import React, { Component, useState } from 'react';
 import TimePickerPanel from '../index';
-import { TimePicker as BasicTimePicker, Button } from '../../index';
+import { TimePicker as BasicTimePicker, Button, Form } from '../../index';
 import { strings } from '@douyinfe/semi-foundation/timePicker/constants';
 import { get } from 'lodash';
 
@@ -44,6 +44,12 @@ const init = () => {
 init();
 
 export const TimePickerPanelDefault = () => {
+   const initValues = {
+    testRange: [
+      new Date("2022-04-17T15:00:00"),
+      new Date("2022-04-17T18:00:00"),
+    ],
+  };
   return (
     <div>
       <TimePicker panelHeader={'Time Select'} onChange={val => console.log(val)} />
@@ -53,6 +59,19 @@ export const TimePickerPanelDefault = () => {
         defaultOpen={true}
         scrollItemProps={{ cycled: false }}
       />
+      <TimePicker use12Hours defaultValue={"上午 10:32:33"}/>
+      <br/><br/>
+      <TimePicker type="timeRange" use12Hours format="a h:mm"  defaultValue={["下午 08:11", "上午 11:21"]} />
+      <Form initValues={initValues}>
+      <pre>{JSON.stringify(initValues)}</pre>
+      <Form.TimePicker
+        use12Hours
+        field="testRange"
+        label="Time Range"
+        type="timeRange"
+        format="a hh:mm"
+      />
+    </Form>
     </div>
   );
 };

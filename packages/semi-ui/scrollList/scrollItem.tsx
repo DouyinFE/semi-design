@@ -329,7 +329,7 @@ export default class ScrollItem<T extends Item> extends BaseComponent<ScrollItem
         const { wrapper } = this;
         const wrapperHeight = wrapper.offsetHeight;
         const itemHeight = this.getItmHeight(node);
-        const targetTop = node.offsetTop - (wrapperHeight - itemHeight) / 2;
+        const targetTop =  (node.offsetTop || this.list.children.length * itemHeight / 2 )  - (wrapperHeight - itemHeight) / 2;
 
         this.scrollToPos(targetTop, duration);
     };

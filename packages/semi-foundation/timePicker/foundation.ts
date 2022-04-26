@@ -11,7 +11,7 @@ import {
     isTimeFormatLike
 } from './utils';
 import { split } from 'lodash';
-import { isValid, format } from 'date-fns';
+import { isValid, format, getHours } from 'date-fns';
 import { utcToZonedTime, zonedTimeToUtc } from '../utils/date-fns-extra';
 import isNullOrUndefined from '../utils/isNullOrUndefined';
 
@@ -125,6 +125,11 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
             }
         });
 
+        const isAM = [true, false];
+        parsedValues.map((item, idx)=>{
+            isAM[idx]= getHours(item) < 12;
+        });
+
         if (parsedValues.length === value.length) {
             value = parsedValues;
         } else {
@@ -142,6 +147,7 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
         }
 
         this.setState({
+            isAM,
             value,
             inputValue,
             invalid,
@@ -176,6 +182,9 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
             isAM[index] = panelIsAM;
             const inputValue = this.formatValue(value);
 
+            if (this.getState('isAM')[index] !== result.isAM){
+                this.setState({ isAM } as any);
+            }
             if (!this._isControlledComponent('value')) {
                 const invalid = this.validateDates(value);
                 this.setState({
@@ -307,7 +316,7 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
 
     validateStr(inputValue = '') {
         const dates = this.parseInput(inputValue);
-
+    
         return this.validateDates(dates);
     }
 
