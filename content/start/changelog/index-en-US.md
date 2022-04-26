@@ -16,6 +16,14 @@ Version：Major.Minor.Patch
 
 ---
 
+#### 🎉 2.9.1 (2022-04-26)
+- 【Fix】
+    - Fix the Tooltip flickering when there is a probability that the overlay is opened when there is animation
+    - Fix the problem that pm/am could not be set correctly under the TimePicker component use12Hours [#776](https://github.com/DouyinFE/semi-design/issues/776), fix the problem that the TimePicker component could not return to the expected position after selecting the option upwards and clicking clear
+    - Fix the problem that the old value is used internally in the special case of Form Validate
+- 【Style】
+    - Fix the problem that the border color is not right when Select focus and hover are applied at the same time
+
 #### 🎉 2.9.0 (2022-04-22)
 - 【Fix】
     - Fix the issue that when TagInput is used in a Form, hitting enter would cause the submit event to be triggered

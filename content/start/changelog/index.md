@@ -15,6 +15,14 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 ---
 
+#### 🎉 2.9.1 (2022-04-26)
+- 【Fix】
+    - 修复Tooltip在有动画情况下有概率浮层打开时闪烁
+    - 修复TimePicker组件use12Hours下，pm/am无法正确设置问题 [#776](https://github.com/DouyinFE/semi-design/issues/776), 修复TimePicker组件向上选择选项后点击清除无法回到预期位置问题
+    - 修复 Form Validate 特殊情景下内部使用旧值的问题
+- 【Style】
+    - 修复 Select focus 和 hover 同时应用，border 颜色不正常的问题
+
 #### 🎉 2.9.0 (2022-04-22)
 - 【Fix】
     - 修复 TagInput 在 Form 内使用时，敲击回车会导致 submit 事件触发的问题
