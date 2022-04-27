@@ -43,7 +43,7 @@ class Demo extends React.Component {
 
 ## 3、在 Next.js 中使用
 
-当你在 Next.js 项目中使用时，需要搭配 Semi 提供的编译插件
+当你在 Next.js 项目中使用时，需要搭配 Semi 提供的编译插件（由于 Next.js 不允许 npm 包从 node_modules 中 import 样式文件，需要配合插件将默认的import CSS 语句移除，并且手动引入 CSS）
 
 ### Step1
 
@@ -51,13 +51,13 @@ class Demo extends React.Component {
 
 ```shell
 # 使用 npm
-npm i @douyinfe/semi-next --save-dev
+npm i @douyinfe/semi-next
 
 # 使用 yarn
-yarn add @douyinfe/semi-next --dev
+yarn add @douyinfe/semi-next
 
 # 使用 pnpm
-pnpm add @douyinfe/semi-next --dev
+pnpm add @douyinfe/semi-next
 ```
 
 ### Step2
