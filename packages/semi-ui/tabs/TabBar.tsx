@@ -10,6 +10,9 @@ import { TabBarProps, PlainTab } from './interface';
 import { isEmpty } from 'lodash';
 import { IconChevronRight, IconChevronLeft, IconClose } from '@douyinfe/semi-icons';
 import { getUuidv4 } from '@douyinfe/semi-foundation/utils/uuid';
+import TabsItemFoundation, { TabsItemAdapter } from '@douyinfe/semi-foundation/tabs/itemFoundation';
+import BaseComponent from '../_base/baseComponent';
+
 
 export interface TabBarState {
     endInd: number;
@@ -22,7 +25,7 @@ export interface OverflowItem extends PlainTab {
     active: boolean;
 }
 
-class TabBar extends React.Component<TabBarProps, TabBarState> {
+class TabBar extends BaseComponent<TabBarProps, TabBarState> {
     static propTypes = {
         activeKey: PropTypes.string,
         className: PropTypes.string,
@@ -39,6 +42,17 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
     };
 
     uuid: string;
+    foundation: TabsItemFoundation;
+    // foundation: TabsFoundation;
+    
+    get adapter(): TabsItemAdapter<TabBarProps, TabBarState>  {
+        return {
+            ...super.adapter,
+            notifyClick: (activeKey: string, event: MouseEvent<HTMLDivElement>): void => {
+                this.props.onTabClick(activeKey, event);
+            },
+        };
+    }
 
     constructor(props: TabBarProps) {
         super(props);
@@ -47,6 +61,7 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
             rePosKey: 0,
             startInd: 0,
         };
+        this.foundation = new TabsItemFoundation(this.adapter);
         this.uuid = getUuidv4();
     }
 
@@ -88,6 +103,10 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
         }
     };
 
+    handleKeyDown = (event: React.KeyboardEvent) => {
+        this.foundation.handleKeyDown(event);
+    }
+
     renderTabItem = (panel: PlainTab): ReactNode => {
         const { size, type, deleteTabItem } = this.props;
         const panelIcon = panel.icon ? this.renderIcon(panel.icon) : null;
@@ -113,6 +132,9 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
                 aria-controls={`semiTabPanel${key}`}
                 aria-disabled={panel.disabled ? 'true' : 'false'}
                 aria-selected={isSelected ? 'true' : 'false'}
+                // tabIndex={isSelected ? 0 : -1}
+                tabIndex={0}
+                onKeyDown={this.handleKeyDown}
                 {...events}
                 className={className}
                 key={this._getItemKey(key)}

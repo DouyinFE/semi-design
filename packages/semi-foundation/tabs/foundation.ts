@@ -1,5 +1,6 @@
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
-import { noop } from 'lodash';
+import { get, noop } from 'lodash';
+import keyCode, { ENTER_KEY } from './../utils/keyCode';
 
 export interface TabsAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     collectPane: () => void;
@@ -72,6 +73,7 @@ class TabsFoundation<P = Record<string, any>, S = Record<string, any>> extends B
     handleTabDelete(tabKey: string): void {
         this._adapter.notifyTabDelete(tabKey);
     }
+
 }
 
 export default TabsFoundation;

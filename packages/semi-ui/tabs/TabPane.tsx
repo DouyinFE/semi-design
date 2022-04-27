@@ -91,6 +91,7 @@ class TabPane extends PureComponent<TabPaneProps> {
             <div
                 ref={this.ref}
                 role="tabpanel"
+                tabIndex={0}
                 id={`semiTabPanel${itemKey}`}
                 aria-labelledby={`semiTab${itemKey}`}
                 className={classNames}
