@@ -6,7 +6,7 @@ title:  Calendar
 subTitle: Calendar
 icon: doc-calendar
 dir: column
-brief: A container that displays data in calendar form.
+brief: Calendar component that allows to display corresponding events in day/week/month view
 ---
 
 ## Demos

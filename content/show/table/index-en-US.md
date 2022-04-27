@@ -6,13 +6,8 @@ title: Table
 subTitle: Table
 icon: doc-table
 dir: column
-brief: Show row data.
+brief: Tables are used to present structured data content, usually accompanied by the ability to manipulate the data (sort, search, paginate...).
 ---
-
-## When to Use
-
--   When there is a large amount of structured data to be presented;
--   When complex behaviors such as sorting, searching, paging and customizing data need to be performed.
 
 ## How to Use
 
