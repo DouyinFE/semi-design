@@ -2,6 +2,7 @@ import { BASE_CLASS_PREFIX } from '../base/constants';
 
 const cssClasses = {
     PREFIX: `${BASE_CLASS_PREFIX}-switch`,
+    FOCUS: `${BASE_CLASS_PREFIX}-switch-focus`,
     LARGE: `${BASE_CLASS_PREFIX}-switch-large`,
     SMALL: `${BASE_CLASS_PREFIX}-switch-small`,
     CHECKED: `${BASE_CLASS_PREFIX}-switch-checked`,
