@@ -508,7 +508,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                             this.handleTagRemove(e, keyEntities[nodeKey].valuePath);
                         }}
                     >
-                        {keyEntities[nodeKey].data[displayProp] ?? ''}
+                        {keyEntities[nodeKey].data[displayProp]}
                     </Tag>
                 );
             }
