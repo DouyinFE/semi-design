@@ -85,9 +85,12 @@ module.exports = semi({
 @import '~@douyinfe/semi-ui/dist/css/semi.min.css';
 ```
 
-**在 nextjs 中使用主题包**
-
-请查阅 [此 issue](https://github.com/DouyinFE/semi-design/issues/565) 中的方法
+**如何在 nextjs 中使用主题包**  
+你需要更换 Step3 中 import 语句的路径，将默认主题 CSS 产物更换为你定制的主题包中的 CSS 产物，例如主题包为 `@semi-bot/semi-theme-nyx-c`
+```css
+/* styles/globals.css */
+@import '~@semi-bot/semi-theme-nyx-c/semi.min.css'';
+```
 
 ## 4、UMD 方式使用组件
 
