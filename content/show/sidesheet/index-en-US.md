@@ -11,7 +11,6 @@ brief: An overlay panel that slides out from the edge of the screen, typically u
 ## Demos
 
 ### How to import
-.
 ```jsx import
 import { SideSheet } from '@douyinfe/semi-ui';
 ```
