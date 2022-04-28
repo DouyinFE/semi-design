@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { cssClasses } from '@douyinfe/semi-foundation/dropdown/constants';
 import cls from 'classnames';
-import DropdownContext from './context';
+import DropdownContext, { DropdownContextType } from './context';
 import { BaseProps } from '../_base/baseComponent';
 
 const prefixCls = cssClasses.PREFIX;
@@ -17,6 +17,7 @@ class DropdownTitle extends PureComponent<DropdownTitleProps> {
     };
 
     static contextType = DropdownContext;
+    context: DropdownContextType;
 
     render() {
         const { className, style, children } = this.props;

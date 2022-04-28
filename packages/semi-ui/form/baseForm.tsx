@@ -18,7 +18,8 @@ import ErrorMessage from './errorMessage';
 import FormInputGroup from './group';
 import { noop } from 'lodash';
 import '@douyinfe/semi-foundation/form/form.scss';
-import { FormInput,
+import {
+    FormInput,
     FormInputNumber,
     FormTextArea,
     FormSelect,
@@ -206,7 +207,7 @@ class Form extends BaseComponent<BaseFormProps, BaseFormState> {
             values: formState.values,
         };
         if (component) {
-            return React.createElement(component, props, children);
+            return React.createElement(component, props);
         }
         if (render) {
             return render(props);

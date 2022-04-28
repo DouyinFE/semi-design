@@ -283,4 +283,23 @@ describe('DatePicker', () => {
         cy.get('[x-type=dateTime] .semi-datepicker-switch-text').first().contains('1910-01-01');
         cy.get('[x-type=dateTime] .semi-datepicker-switch-text').last().contains('13:00:00');
     });
+
+    it('input complete', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--a-11-y-keyboard-demo&args=&viewMode=story');
+        cy.get('[data-cy=date] .semi-input-default').type('2022-10-10');
+        cy.get('[data-cy=date] .semi-input-default').trigger('mouseover');
+        cy.get('[data-cy=date] .semi-input-clearbtn').click();
+        cy.get('[data-cy=date] .semi-input-default').should('have.value', '');
+
+        cy.get('[data-cy=date] .semi-input-default').type('2022-10-10,2022-10-11');
+        cy.get('[data-cy=date] .semi-input-default').should('have.value', '2022-10-10,2022-10-11');
+
+        cy.get('[data-cy=dateRange] .semi-datepicker-range-input-wrapper-start').clear();
+        cy.get('[data-cy=dateRange] .semi-datepicker-range-input-wrapper-start').type('2022-07-10');
+        cy.get('[data-cy=dateRange] .semi-datepicker-range-input-wrapper-end').clear();
+        cy.get('[data-cy=dateRange] .semi-datepicker-range-input-wrapper-end').type('2022-10-11');
+        cy.get('[data-cy=dateRange] .semi-datepicker-range-input-wrapper-end').type('{enter}');
+        cy.get('[data-cy=dateRange] .semi-datepicker-range-input-wrapper-start .semi-input').should('have.value', '2022-07-10');
+        cy.get('[data-cy=dateRange] .semi-datepicker-range-input-wrapper-end .semi-input').should('have.value', '2022-10-11');
+    });
 });

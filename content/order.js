@@ -8,6 +8,7 @@ const order = [
     'update-to-v2',
     'faq',
     'overview',
+    'divider',
     'grid',
     'icon',
     'layout',

@@ -59,9 +59,11 @@ const FormSlot = (props: SlotProps) => {
             // do nothing
             break;
         case isString(label) || isNumber(label):
+            // @ts-ignore skip type check, the actual type is already determined
             label = { text: label };
             break;
         case React.isValidElement(label):
+            // @ts-ignore skip type check, the actual type is already determined
             label = { text: label };
             break;
         default:

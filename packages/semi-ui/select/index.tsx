@@ -4,7 +4,7 @@ import React, { Fragment, MouseEvent, ReactInstance } from 'react';
 import ReactDOM from 'react-dom';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
-import ConfigContext from '../configProvider/context';
+import ConfigContext, { ContextValue } from '../configProvider/context';
 import SelectFoundation, { SelectAdapter } from '@douyinfe/semi-foundation/select/foundation';
 import { cssClasses, strings, numbers } from '@douyinfe/semi-foundation/select/constants';
 import BaseComponent, { ValidateStatus } from '../_base/baseComponent';
@@ -321,6 +321,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
     selectOptionListID: string;
     clickOutsideHandler: (e: MouseEvent) => void;
     foundation: SelectFoundation;
+    context: ContextValue;
 
     constructor(props: SelectProps) {
         super(props);

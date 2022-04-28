@@ -13,7 +13,7 @@ import DropdownItem, { DropdownItemProps } from './dropdownItem';
 import DropdownDivider, { DropdownDividerProps } from './dropdownDivider';
 import DropdownTitle, { DropdownTitleProps } from './dropdownTitle';
 
-import DropdownContext from './context';
+import DropdownContext, { DropdownContextType } from './context';
 import '@douyinfe/semi-foundation/dropdown/dropdown.scss';
 import { noop, get } from 'lodash';
 import { Motion } from '../_base/base';
@@ -117,6 +117,8 @@ class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
 
         this.foundation = new Foundation(this.adapter);
     }
+
+    context: DropdownContextType;
 
     get adapter() {
         return {

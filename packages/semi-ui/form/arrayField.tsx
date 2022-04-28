@@ -73,6 +73,7 @@ class ArrayFieldComponent extends Component<ArrayFieldProps, ArrayFieldState> {
     cacheFieldValues: any[];
     shouldUseInitValue: boolean;
     cacheUpdateKey: string;
+    context: FormUpdaterContextType;
 
     constructor(props: ArrayFieldProps, context: FormUpdaterContextType) {
         super(props, context);

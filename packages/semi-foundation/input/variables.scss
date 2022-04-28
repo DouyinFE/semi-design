@@ -56,9 +56,9 @@ $color-input_counter_danger-text-default: var(--semi-color-danger); // 多行文
 
 $color-input_group-border-default: var(--semi-color-border); // 输入框组合分割线颜色
 
-$height-input_large: $height-control-large - 2; // 输入框高度 & 行高 - 大尺寸
-$height-input_small: $height-control-small - 2; // 输入框高度 & 行高 - 小尺寸
-$height-input_default: $height-control-default - 2; // 输入框高度 & 行高 - 默认尺寸
+$height-input_large: $height-control-large - 2px; // 输入框高度 & 行高 - 大尺寸
+$height-input_small: $height-control-small - 2px; // 输入框高度 & 行高 - 小尺寸
+$height-input_default: $height-control-default - 2px; // 输入框高度 & 行高 - 默认尺寸
 $height-input_wrapper_large: $height-control-large;
 $height-input_wrapper_small: $height-control-small;
 $height-input_wrapper_default: $height-control-default;
@@ -72,7 +72,7 @@ $motion-scale_size-inactive: 1;
 
 $width-input_append-border: $border-thickness-control; // 后置标签描边宽度
 $width-input_prepend-border: $border-thickness-control; // 前置标签描边宽度
-$width-input_group_pseudo-border: $border-thickness-control; 
+$width-input_group_pseudo-border: $border-thickness-control;
 $width-input_wrapper-border: $border-thickness-control-focus; // 输入框描边宽度
 $width-input_wrapper_focus-border: $border-thickness-control-focus; // 输入框描边宽度 - 选中态
 

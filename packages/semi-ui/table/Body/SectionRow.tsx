@@ -10,7 +10,7 @@ import Store from '@douyinfe/semi-foundation/utils/Store';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/table/constants';
 import { filterColumns } from '@douyinfe/semi-foundation/table/utils';
 import BaseRow from './BaseRow';
-import TableContext from '../table-context';
+import TableContext, { TableContextProps } from '../table-context';
 import {
     ColumnProps,
     RenderGroupSection,
@@ -78,6 +78,8 @@ class SectionRow extends PureComponent<SectionRowProps> {
             },
         },
     };
+
+    context: TableContextProps;
 
     onRow = (...args: any[]): OnRowReturnObject => {
         const { onGroupedRow, clickGroupedRowToExpand, onExpand, groupKey, expanded } = this.props;

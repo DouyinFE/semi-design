@@ -17,6 +17,7 @@ export interface TimelineProps extends Pick<React.AriaAttributes, 'aria-label'> 
     className?: string;
     style?: React.CSSProperties;
     dataSource?: Data[];
+    children?: React.ReactNode | undefined;
 }
 
 const prefixCls = cssClasses.PREFIX;

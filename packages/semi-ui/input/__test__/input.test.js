@@ -113,9 +113,18 @@ describe('Input', () => {
   });
 
   it('input password mode', () => {
-    const inputMode = mount(<Input mode="password" />);
-    const input = inputMode.find('input');
-    expect(input.instance().type).toEqual('password');
+    const inputMode = mount(<Input />);
+    expect(inputMode.find('input').instance().type).toEqual('text');
+    inputMode.setProps({ mode: 'password' }) ;
+    expect(inputMode.find('input').instance().type).toEqual('password');
+    inputMode.setProps({ mode: '' }) ;
+    expect(inputMode.find('input').instance().type).toEqual('text');
+  });
+
+  it('input password click eyes icon', () => {
+    const inputMode = mount(<Input mode='password' defaultValue="123456" autofocus/>);
+    inputMode.simulate('mouseEnter', {}).find(`.${BASE_CLASS_PREFIX}-input-modebtn`).simulate('click');
+    expect(inputMode.find('input').instance().type).toEqual('text');
   });
 
   it('input controlled mode', () => {

@@ -9,7 +9,8 @@ const formatStyle = function formatStyle({ rotate = 0 }) {
 };
 
 export interface OpenIconTransitionProps {
-    children?: React.ReactNode;
+    children?: React.ReactNode |  ((transitionArgus?: any) => React.ReactNode);
+    isCollapsed?: boolean;
     isOpen?: boolean;
 }
 

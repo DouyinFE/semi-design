@@ -2,11 +2,12 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { cssClasses } from '@douyinfe/semi-foundation/descriptions/constants';
 import '@douyinfe/semi-foundation/descriptions/descriptions.scss';
-import DescriptionsContext from './descriptions-context';
+import DescriptionsContext, { DescriptionsContextValue } from './descriptions-context';
 
 export interface DescriptionsItemProps {
     hidden?: boolean;
     className?: string;
+    children?: React.ReactNode | undefined | (() => React.ReactNode);
     style?: React.CSSProperties;
     itemKey?: React.ReactNode;
 }
@@ -24,6 +25,8 @@ export default class Item extends PureComponent<DescriptionsItemProps> {
     };
 
     static contextType = DescriptionsContext;
+
+    context: DescriptionsContextValue;
 
     render() {
         const { itemKey, hidden, className, style, children } = this.props;

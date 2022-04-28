@@ -6,7 +6,7 @@ import isEnterPress from '@douyinfe/semi-foundation/utils/isEnterPress';
 import { debounce, isFunction, isString, get, isEmpty } from 'lodash';
 import { IconTreeTriangleDown, IconFile, IconFolder, IconFolderOpen } from '@douyinfe/semi-icons';
 import { Checkbox } from '../checkbox';
-import TreeContext from './treeContext';
+import TreeContext, { TreeContextValue } from './treeContext';
 import Spin from '../spin';
 import { TreeNodeProps, TreeNodeState } from './interface';
 
@@ -42,6 +42,7 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
 
     debounceSelect: any;
     refNode: HTMLElement;
+    context: TreeContextValue;
 
     constructor(props: TreeNodeProps) {
         super(props);
@@ -121,7 +122,7 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
         }
     };
 
-    onDragStart = (e: React.DragEvent) => {
+    onDragStart = (e: React.DragEvent<HTMLLIElement>) => {
         const { onNodeDragStart } = this.context;
         e.stopPropagation();
         onNodeDragStart(e, { ...this.props, nodeInstance: this.refNode });
@@ -135,33 +136,33 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
         }
     };
 
-    onDragEnter = (e: React.DragEvent) => {
+    onDragEnter = (e: React.DragEvent<HTMLLIElement>) => {
         const { onNodeDragEnter } = this.context;
         e.preventDefault();
         e.stopPropagation();
         onNodeDragEnter(e, { ...this.props, nodeInstance: this.refNode });
     };
 
-    onDragOver = (e: React.DragEvent) => {
+    onDragOver = (e: React.DragEvent<HTMLLIElement>) => {
         const { onNodeDragOver } = this.context;
         e.preventDefault();
         e.stopPropagation();
         onNodeDragOver(e, { ...this.props, nodeInstance: this.refNode });
     };
 
-    onDragLeave = (e: React.DragEvent) => {
+    onDragLeave = (e: React.DragEvent<HTMLLIElement>) => {
         const { onNodeDragLeave } = this.context;
         e.stopPropagation();
         onNodeDragLeave(e, { ...this.props, nodeInstance: this.refNode });
     };
 
-    onDragEnd = (e: React.DragEvent) => {
+    onDragEnd = (e: React.DragEvent<HTMLLIElement>) => {
         const { onNodeDragEnd } = this.context;
         e.stopPropagation();
         onNodeDragEnd(e, { ...this.props, nodeInstance: this.refNode });
     };
 
-    onDrop = (e: React.DragEvent) => {
+    onDrop = (e: React.DragEvent<HTMLLIElement>) => {
         const { onNodeDrop } = this.context;
         e.preventDefault();
         e.stopPropagation();
@@ -387,6 +388,7 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
         if (renderFullLabel) {
             const customLabel = renderFullLabel({ ...labelProps });
             if (draggable) {
+                // @ts-ignore skip cloneElement type check
                 return React.cloneElement(customLabel, {
                     ref: this.setRef,
                     ...dragProps
@@ -396,6 +398,7 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
                     return customLabel;
                 } else {
                     // In virtualization, props.style will contain location information
+                    // @ts-ignore skip cloneElement type check
                     return React.cloneElement(customLabel, {
                         style: { ...get(customLabel, ['props', 'style']), ...style }
                     });

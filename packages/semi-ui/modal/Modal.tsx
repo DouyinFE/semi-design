@@ -15,6 +15,7 @@ import confirm, { withConfirm, withError, withInfo, withSuccess, withWarning } f
 import { Locale } from '../locale/interface';
 import useModal from './useModal';
 import { ButtonProps } from '../button/Button';
+import { MotionObject } from "@douyinfe/semi-foundation/utils/type";
 
 export const destroyFns: any[] = [];
 export type ConfirmType = 'leftTop' | 'leftBottom' | 'rightTop' | 'rightBottom';
@@ -22,6 +23,7 @@ export type Directions = 'ltr' | 'rtl';
 
 export interface ModalReactProps extends ModalProps {
     cancelButtonProps?: ButtonProps;
+    children?: React.ReactNode | undefined;
     okButtonProps?: ButtonProps;
     bodyStyle?: CSSProperties;
     maskStyle?: CSSProperties;
@@ -155,6 +157,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
                 this.props.onOk(e);
             },
             notifyClose: () => {
+                (this.props.motion as MotionObject)?.didLeave?.();
                 this.props.afterClose();
             },
             toggleHidden: (hidden: boolean, callback?: (hidden: boolean) => void) => {

@@ -15,6 +15,27 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 ---
 
+#### 🎉 2.9.0 (2022-04-22)
+- 【Fix】
+    - 修复 TagInput 在 Form 内使用时，敲击回车会导致 submit 事件触发的问题
+    - 修复 Modal 命令式调用后遗留无用 div 的问题
+    - 修复 Collapse 将部分 props 透传至 DOM 导致存在无用属性 warning 的问题
+    - 去除 Form label `user-select:none` 默认样式，允许用户选中
+    - 修复 Cascader 清除按钮键盘事件不响应问题
+
+#### 🎉 2.9.0-beta.0 (2022-04-18)
+- 【Feat】
+    - 新增分割线组件 [#721](https://github.com/DouyinFE/semi-design/issues/721) [@ZeroCodeLin](https://github.com/ZeroCodeLin)
+    - Description 组件的 data 键值支持传入 ReactNode [#734](https://github.com/DouyinFE/semi-design/issues/734) [@oddguan](https://github.com/oddguan)
+- 【Fix】
+    - 更新 Avatar 文本内容居中方式，由绝对定位改为由父级布局居中 [#774](https://github.com/DouyinFE/semi-design/issues/774)
+    - 修复 Slider 组件受控情况下点击滑轨部分仍然可以触发值变更的问题 [#768](https://github.com/DouyinFE/semi-design/issues/768)
+    - 修复 Badge 不能搭配 Tooltip 使用的问题 [#761](https://github.com/DouyinFE/semi-design/issues/761) 
+    - 修复 validateStatus 类型检查缺少 success [#746](https://github.com/DouyinFE/semi-design/issues/746) [@rojer95](https://github.com/rojer95)
+#### 🎉 2.8.1 (2022-04-19)
+- 【Fix】
+    - 更新组件的 ts 类型定义，解决 @types/react v18 移除默认 children 声明后带来的类型检查报错 [#755](https://github.com/DouyinFE/semi-design/issues/755)
+
 #### 🎉 2.8.0 (2022-04-08)
 - 【Fix】
     - 升级 @douyinfe/semi-ui 依赖的react-sortable-hoc版本（v1.11.0 -> v2.0.0），解决 pnpm场景下使用react 17时，由于unmeet peerDependency 中 react版本未满足的报错问题,  [#747](https://github.com/DouyinFE/semi-design/issues/747)

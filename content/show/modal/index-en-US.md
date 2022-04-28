@@ -560,40 +560,40 @@ function Demo(props = {}) {
 
 ### Modal
 
-| Properties        | Instructions                                       | type      | Default |
-| ----------------- | -------------------------------------------------- | --------- | ------- |
-| afterClose             | Callback function when modal closed completely   <br/>**>= v1.16.0**           | () => void  | -    |
-| bodyStyle         | Content style                                      | CSSProperties    | -       |
-| cancelButtonProps | Properties for cancel button                       | [ButtonProps](/en-US/input/button#API-reference)    | -       |
-| cancelText        | Text for cancel button                             | string    | -       |
-| centered          | Toggle whether to center modal                     | boolean   | false   |
-| closable          | Toggle whether to show close button                | boolean   | true    |
-| closeIcon         | Icon for close button  <br/>**>= v1.0.0** | ReactNode   | <IconClose /\>    |
+| Properties        | Instructions                                       | type | Default |
+| ----------------- | -------------------------------------------------- | -- | ------- |
+| afterClose             | Callback function when modal closed completely   <br/>**>= v1.16.0**           | () => void | -    |
+| bodyStyle         | Content style                                      | CSSProperties | -       |
+| cancelButtonProps | Properties for cancel button                       | [ButtonProps](/en-US/input/button#API-reference) | -       |
+| cancelText        | Text for cancel button                             | string | -       |
+| centered          | Toggle whether to center modal                     | boolean | false   |
+| closable          | Toggle whether to show close button                | boolean | true    |
+| closeIcon         | Icon for close button  <br/>**>= v1.0.0** | ReactNode | <IconClose /\>    |
 | closeOnEsc        | Toggle whether to allow close modal by keyboard event Esc  <br/>**>= v1.0.0** | boolean | false       | 
-| confirmLoading    | Toggle loading state of confirm button             | boolean   | false   |
-| content            | Content            | ReactNode         | -      |
+| confirmLoading    | Toggle loading state of confirm button             | boolean | false   |
+| content            | Content            | ReactNode  | -      |
 | footer            | Footer                                             | ReactNode | -       |
-| fullScreen        | Is modal FullScreen（will override width and height） <br/>**>= v1.18.0**      | boolean            | false      |
+| fullScreen        | Is modal FullScreen（will override width and height） <br/>**>= v1.18.0**      | boolean     | false      |
 | getPopupContainer | Specifies the parent DOM, and the bullet layer will be rendered to the DOM, you need to set 'position: relative` <br/>** >= v0.33.0 **  | () => HTMLElement |() => document.body |   
-| hasCancel        | Toggle whether to show cancal button               | boolean    | true      |
+| hasCancel        | Toggle whether to show cancal button               | boolean | true      |
 | header            | Header                                             | ReactNode | -       |
-| height            | Height                                             | number    | -       |
+| height            | Height                                             | number | -       |
 | icon              | Custom icon       <br/>**v1.1.0**                                          | ReactNode | -       |
-| keepDOM | Keep dom tree when close modal <br/>**>= v1.0.0**  | boolean  | false |
-| lazyRender | Lazy render modal, used with `keepDOM` <br/>**>=v1.0.0**  | boolean  | true |      
-| mask              | Toggle whether to show mask                        | boolean   | true    |
-| maskClosable      | Toggle whether to allow closing when clicking mask | boolean   | true    |
-| maskStyle         | Mask style                                         | CSSProperties    | -       |
-| motion            | animation switch           | object \| boolean | true    |
-| okButtonProps     | Properties for confirm button                      | [ButtonProps](/en-US/input/button#API-reference)    | -       |
-| okText            | Text for confirm button                            | string    | -       |
-| okType            | Type for confirm button, optional: 'primary'、'secondary'、'tertiary'、'warning'、'danger'                            | string    | primary |
-| size | Size of modal, one of `small`(448px), `medium`(684px), `large`(920px), `full-width`(100vw - 64px) <br/>**>= v1.0.0**  | string  | 'small' |
-| style             | Inline style                                       | CSSProperties    | -       |
-| title             | Title                                              | ReactNode    | -       |
-| visible           | Toggle visibility of the modal                     | boolean   | false   |
-| width             | Width                                              | number    | 448     |
-| zIndex            | Z-index value for mask                             | number    | 1000    |
+| keepDOM | Keep dom tree when close modal <br/>**>= v1.0.0**  | boolean | false |
+| lazyRender | Lazy render modal, used with `keepDOM` <br/>**>=v1.0.0**  | boolean | true |      
+| mask              | Toggle whether to show mask                        | boolean | true    |
+| maskClosable      | Toggle whether to allow closing when clicking mask | boolean | true    |
+| maskStyle         | Mask style                                         | CSSProperties | -       |
+| motion            | animation switch           | boolean | true    |
+| okButtonProps     | Properties for confirm button                      | [ButtonProps](/en-US/input/button#API-reference) | -       |
+| okText            | Text for confirm button                            | string | -       |
+| okType            | Type for confirm button, optional: 'primary'、'secondary'、'tertiary'、'warning'、'danger'                            | string | primary |
+| size | Size of modal, one of `small`(448px), `medium`(684px), `large`(920px), `full-width`(100vw - 64px) <br/>**>= v1.0.0**  | string | 'small' |
+| style             | Inline style                                       | CSSProperties | -       |
+| title             | Title                                              | ReactNode | -       |
+| visible           | Toggle visibility of the modal                     | boolean | false   |
+| width             | Width                                              | number | 448     |
+| zIndex            | Z-index value for mask                             | number | 1000    |
 | onCancel          | Callback function when clicking cancel button      | (e: any) => void \| Promise<any\>  | -       |
 | onOk              | Callback function when clicking confirm button     | (e: any) => void \| Promise<any\>  | -       |
 

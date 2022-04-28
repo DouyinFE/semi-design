@@ -19,7 +19,7 @@ import BaseComponent, { BaseProps } from '../_base/baseComponent';
 import { isHTMLElement } from '../_base/reactUtils';
 import { getActiveElement, getFocusableElements, stopPropagation } from '../_utils';
 import Portal from '../_portal/index';
-import ConfigContext from '../configProvider/context';
+import ConfigContext, { ContextValue } from '../configProvider/context';
 import TriangleArrow from './TriangleArrow';
 import TriangleArrowVertical from './TriangleArrowVertical';
 import TooltipTransition from './TooltipStyledTransition';
@@ -173,6 +173,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
     getPopupContainer: () => HTMLElement;
     containerPosition: string;
     foundation: TooltipFoundation;
+    context: ContextValue;
 
     constructor(props: TooltipProps) {
         super(props);

@@ -19,7 +19,7 @@ import '@douyinfe/semi-foundation/cascader/cascader.scss';
 import { IconClear, IconChevronDown } from '@douyinfe/semi-icons';
 import { findKeysForValues, convertDataToEntities, calcMergeType } from '@douyinfe/semi-foundation/cascader/util';
 import { calcCheckedKeys, normalizeKeyList, calcDisabledKeys } from '@douyinfe/semi-foundation/tree/treeUtil';
-import ConfigContext from '../configProvider/context';
+import ConfigContext, { ContextValue } from '../configProvider/context';
 import BaseComponent, { ValidateStatus } from '../_base/baseComponent';
 import Input from '../input/index';
 import Popover, { PopoverProps } from '../popover/index';
@@ -62,7 +62,7 @@ export interface CascaderProps extends BasicCascaderProps {
     motion?: Motion;
     treeData?: Array<CascaderData>;
     restTagsPopoverProps?: PopoverProps;
-    children?: ReactNode;
+    children?: React.ReactNode | undefined;
     value?: Value;
     prefix?: ReactNode;
     suffix?: ReactNode;
@@ -209,6 +209,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
     optionsRef: React.RefObject<any>;
     clickOutsideHandler: any;
     mergeType: string;
+    context: ContextValue;
 
     constructor(props: CascaderProps) {
         super(props);
@@ -827,7 +828,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
      */
     handleClearEnterPress = (e: KeyboardEvent) => {
         e && e.stopPropagation();
-        this.foundation.handleClearEnterPress();
+        this.foundation.handleClearEnterPress(e);
     };
 
     showClearBtn = () => {

@@ -28,6 +28,23 @@ describe('tooltip', () => {
         cy.get('[x-placement="rightBottomOver"]').should('have.length', 1);
     });
 
+    it('position with over autoAdjustOverflow', () => {
+        const viewportWidth = 600;
+        const viewportHeight = 400;
+        const overList = ['leftTopOver', 'rightTopOver', 'rightBottomOver', 'leftBottomOver',];
+
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=tooltip--left-top-over-demo&args=&viewMode=story');
+        cy.viewport(viewportWidth, viewportHeight);
+        const dataSelector = `[data-cy=toggleVisible]`;
+        cy.get(dataSelector).click({ force: true });
+        
+        for (let i=0; i<overList.length; i++){
+            const dataSelector = `[data-cy=`+ overList[i] + `]`;
+            cy.get(dataSelector).click({ force: true });
+            cy.get('[x-placement="'+ overList[overList.length - 1 - i] +'"]').should('have.length', 1);
+        }
+    });
+
     it('autoFocusHover', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?id=tooltip--auto-focus-content-demo&args=&viewMode=story');
         const dataSelector = `[data-cy=hover]`;
@@ -81,5 +98,26 @@ describe('tooltip', () => {
 
         cy.get(trigger).click({ force: true });
         cy.get(input).should('be.focused');
+    });
+
+    it.skip('adjustPosIfNeed', () => {
+        const viewportWidth = 400;
+        const viewportHeight = 200;
+        const topAndLeft = ['topLeft', 'top', 'topRight', 'leftTop', 'left', 'leftBottom'];
+        const bottomAndRight = ['bottomLeft', 'bottom', 'bottomRight', 'rightTop', 'right', 'rightBottom'];
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=tooltip--adjust-pos-if-need&args=&viewMode=story');
+        cy.viewport(viewportWidth, viewportHeight);
+
+        for (let i=0; i<topAndLeft.length; i++){
+            const dataSelector = `[data-cy=`+ topAndLeft[i] + `]`;
+            cy.get(dataSelector).click({ force: true });
+            cy.get('[x-placement="'+ bottomAndRight[i] +'"]').should('have.length', 1);
+        }
+
+        for (let i=bottomAndRight.length-1; i>=0; i--){
+            const dataSelector = `[data-cy=`+ bottomAndRight[i] + `]`;
+            cy.get(dataSelector).click({ force: true });
+            cy.get('[x-placement="'+ topAndLeft[i] +'"]').should('have.length', 1);
+        }
     });
 });

@@ -23,6 +23,7 @@ describe('Anchor', () => {
   it('anchor small size', () => {
     const smallAnchor = mount(<Anchor size="small" />);
     expect(smallAnchor.find(`.${BASE_CLASS_PREFIX}-anchor-size-small`)).toHaveLength(1);
+    smallAnchor.unmount();
   });
 
   it('anchor rail theme', () => {

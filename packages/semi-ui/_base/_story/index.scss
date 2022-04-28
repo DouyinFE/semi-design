@@ -5,7 +5,6 @@ body {
     color: var(--semi-color-text-0);
 }
 
-
 // 给每个组件的 story 区域加个 padding，如果需要更大的 padding 可以在组件内自定义样式
 .sb-show-main.sb-main-padded > #root {
     padding: 20px;

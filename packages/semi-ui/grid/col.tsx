@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { RowContext } from './row';
+import { RowContext, RowContextType } from './row';
 import classnames from 'classnames';
 import { cssClasses } from '@douyinfe/semi-foundation/grid/constants';
 
@@ -58,6 +58,8 @@ class Col extends React.Component<ColProps> {
     static defaultProps = {
         prefixCls: cssClasses.PREFIX,
     };
+
+    context: RowContextType;
 
     render() {
         const { props } = this;

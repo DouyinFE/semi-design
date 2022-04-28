@@ -6,7 +6,7 @@ import React, { CSSProperties } from 'react';
 
 export interface ToastTransitionProps{
     motion?: Motion<ToastTransitionProps>;
-    children?: React.ReactChildren | React.JSXElementConstructor<any>;
+    children?: React.ReactNode | ((TransitionProps: any) => any)
 }
 
 

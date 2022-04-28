@@ -564,6 +564,7 @@ describe('Upload', () => {
         requests[0].respond(200, { 'Content-Type': 'application/json' }, 'success');
         const previewContent = upload.find(`.${BASE_CLASS_PREFIX}-upload-file-card-preview`);
         expect(previewContent.contains(specificContent)).toEqual(true);
+        upload.unmount();
     });
 
     it('afterUpload', () => {
@@ -642,6 +643,7 @@ describe('Upload', () => {
         ).toEqual(true);
         expect(stateFileList.every(item => item.name !== 'remove.jpg')).toEqual(true);
         expect(stateFileList[3].status === 'uploadFail' && stateFileList[3].name === rename).toEqual(true);
+        upload.unmount();
     });
 
     it('uploadTrigger', () => {

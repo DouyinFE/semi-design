@@ -1,4 +1,4 @@
-import { ComponentType, CSSProperties, MouseEvent, ReactNode } from 'react';
+import React, { ComponentType, CSSProperties, MouseEvent, ReactNode } from 'react';
 import { Motion } from '../_base/base';
 
 export type TabType = 'line' | 'card' | 'button';
@@ -57,6 +57,7 @@ export interface TabBarProps {
 
 export interface TabPaneProps {
     className?: string;
+    children?: React.ReactNode | undefined;
     disabled?: boolean;
     icon?: ReactNode;
     itemKey?: string;

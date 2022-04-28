@@ -84,7 +84,6 @@ $rating: #{$prefix}-rating;
         vertical-align: middle;
         @include font-size-regular;
         flex-shrink: 0;
-        user-select: none;
 
         &-disabled {
             color: $color-form_label_disabled-text-default;
