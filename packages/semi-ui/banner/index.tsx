@@ -109,7 +109,7 @@ export default class Banner extends BaseComponent<BannerProps, BannerState> {
             <Button
                 className={`${prefixCls}-close`}
                 onClick={this.remove}
-                icon={closeIcon || <IconClose />}
+                icon={closeIcon || <IconClose aria-hidden={true}/>}
                 theme="borderless"
                 size="small"
                 type="tertiary"
@@ -122,10 +122,10 @@ export default class Banner extends BaseComponent<BannerProps, BannerState> {
     renderIcon() {
         const { type, icon } = this.props;
         const iconMap = {
-            warning: <IconAlertTriangle size="large" />,
-            success: <IconTickCircle size="large" />,
-            info: <IconInfoCircle size="large" />,
-            danger: <IconAlertCircle size="large" />
+            warning: <IconAlertTriangle size="large" aria-label='warning'/>,
+            success: <IconTickCircle size="large" aria-label='success'/>,
+            info: <IconInfoCircle size="large" aria-label='info'/>,
+            danger: <IconAlertCircle size="large" aria-label='danger'/>
         };
         let iconType: React.ReactNode = iconMap[type];
         const iconCls = cls({
