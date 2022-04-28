@@ -9,7 +9,7 @@ import CarouselFoundation, { CarouselAdapter } from '@douyinfe/semi-foundation/c
 import CarouselIndicator from './CarouselIndicator';
 import CarouselArrow from './CarouselArrow';
 import '@douyinfe/semi-foundation/carousel/carousel.scss';
-import { debounce, throttle } from 'lodash';
+import { debounce } from 'lodash';
 import isNullOrUndefined from '@douyinfe/semi-foundation/utils/isNullOrUndefined';
 
 export interface CarouselState {
@@ -211,7 +211,6 @@ class Carousel extends BaseComponent<CarouselProps, CarouselState> {
     renderIndicator = () => {
         const { children, activeIndex } = this.state;
         const { showIndicator, indicatorType, theme, indicatorPosition, indicatorSize, trigger } = this.props;
-        const switchingTime = this.foundation.getSwitchingTime();
 
         const carouselIndicatorCls = cls({
             [cssClasses.CAROUSEL_INDICATOR]: true
@@ -229,7 +228,6 @@ class Carousel extends BaseComponent<CarouselProps, CarouselState> {
                         size={indicatorSize}
                         theme={theme}
                         onIndicatorChange={this.onIndicatorChange}
-
                     />
                 </div>
             );
@@ -274,6 +272,8 @@ class Carousel extends BaseComponent<CarouselProps, CarouselState> {
                 style={style} 
                 onMouseEnter={debounce(this.handleMouseEnter, 400)}
                 onMouseLeave={debounce(this.handleMouseLeave, 400)}
+                // onMouseEnter={this.handleMouseEnter}
+                // onMouseLeave={this.handleMouseLeave}
                 // onKeyDown={e => this.foundation.handleKeyDown(e)}
             >
                 <div 

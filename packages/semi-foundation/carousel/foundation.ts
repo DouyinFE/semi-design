@@ -90,6 +90,7 @@ class CarouselFoundation<P = Record<string, any>, S = Record<string, any>> exten
             this._adapter.setIsInit(false);
         }
         if (stateActiveIndex !== activeIndex) {
+            this._adapter.setPreActiveIndex(stateActiveIndex);
             this._adapter.notifyChange(activeIndex, stateActiveIndex);
         }
     }
@@ -124,7 +125,6 @@ class CarouselFoundation<P = Record<string, any>, S = Record<string, any>> exten
     }
 
     handleKeyDown(event: any): void{
-        console.log(event.key);
         if (event.key === 'ArrowLeft') {
             this.prev();
         }
@@ -146,7 +146,6 @@ class CarouselFoundation<P = Record<string, any>, S = Record<string, any>> exten
     handleNewActiveIndex(activeIndex: number): void {
         const { activeIndex: stateActiveIndex } = this.getStates();
         if (stateActiveIndex !== activeIndex) {
-            this._adapter.setPreActiveIndex(stateActiveIndex);
             this._adapter.setNewActiveIndex(activeIndex);
         }
     }

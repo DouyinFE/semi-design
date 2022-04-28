@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Radio, RadioGroup, Button } from '@douyinfe/semi-ui';
 import { IconArrowLeft, IconArrowRight } from "@douyinfe/semi-icons";
 import Carousel from '../index';
-import { ArrowProps } from '../interface';
 
 export default {
   title: 'Carousel',
@@ -240,7 +239,7 @@ customArrow.story = {
 // 自动播放参数 
 export const autoPlayExample = () => (
    <div>
-      <Carousel style={style} autoPlay={{ hoverToPause: true }}>
+      <Carousel style={style} autoPlay={{ interval: 1000, hoverToPause: true }}>
       <div style={contentPinkStyle}>
         <h3>1</h3>
       </div>
@@ -319,6 +318,7 @@ class ControlledDemo extends React.Component {
         this.ref = React.createRef();
         this.handleNext=this.handleNext.bind(this);
         this.handlePrev=this.handlePrev.bind(this);
+        this.handleGoTo=this.handleGoTo.bind(this);
         this.handlePlay=this.handlePlay.bind(this);
         this.handleStop=this.handleStop.bind(this);
         this.state = {
@@ -332,6 +332,10 @@ class ControlledDemo extends React.Component {
 
     handlePrev(){
         this.ref.current.prev();
+    }
+
+    handleGoTo(){
+        this.ref.current.goTo(2);
     }
 
     handlePlay(){
@@ -369,6 +373,7 @@ class ControlledDemo extends React.Component {
           <br/>
           <Button onClick={this.handlePrev} style={{ marginRight: 10 }}>prev</Button>
           <Button onClick={this.handleNext} style={{ marginRight: 10 }}>next</Button>
+          <Button onClick={this.handleGoTo} style={{ marginRight: 10 }}>goTo3</Button>
           <Button onClick={this.handlePlay} style={{ marginRight: 10 }}>play</Button>
           <Button onClick={this.handleStop} style={{ marginRight: 10 }}>stop</Button>
         </div>
@@ -382,6 +387,92 @@ controlledUsage.story = {
   name: 'controlled usage',
 };
 
+class RefDemo extends React.Component {
+   constructor(props) {
+        super(props);
+        this.ref = React.createRef();
+        this.handleNext=this.handleNext.bind(this);
+        this.handlePrev=this.handlePrev.bind(this);
+        this.handleGoTo=this.handleGoTo.bind(this);
+        this.handlePlay=this.handlePlay.bind(this);
+        this.handleStop=this.handleStop.bind(this);
+    }
+
+    handleNext(){
+        this.ref.current.next();
+    }
+
+    handlePrev(){
+        this.ref.current.prev();
+    }
+
+    handleGoTo(){
+        this.ref.current.goTo(2);
+    }
+
+    handlePlay(){
+        this.ref.current.play();
+    }
+
+    handleStop(){
+        this.ref.current.stop();
+    }
+
+
+     render() {
+       return (
+        <div>
+          <Carousel style={style} animation='slide' ref={this.ref}>
+            <div style={contentPinkStyle}>
+              <h3>1</h3>
+            </div>
+            <div style={contentBlueStyle}>
+              <h3>2</h3>
+            </div>
+            <div style={contentPinkStyle}>
+              <h3>3</h3>
+            </div>
+            <div style={contentBlueStyle}>
+             <h3>4</h3>
+            </div>
+            <div style={contentPinkStyle}>
+              <h3>5</h3>
+           </div>
+          </Carousel>
+          <br/>
+          <Button onClick={this.handlePrev} style={{ marginRight: 10 }}>prev</Button>
+          <Button onClick={this.handleNext} style={{ marginRight: 10 }}>next</Button>
+          <Button onClick={this.handleGoTo} style={{ marginRight: 10 }}>goTo3</Button>
+          <Button onClick={this.handlePlay} style={{ marginRight: 10 }}>play</Button>
+          <Button onClick={this.handleStop} style={{ marginRight: 10 }}>stop</Button>
+        </div>
+        )
+     }
+}
+
+export const refUsage  = () => <RefDemo />;
+
+refUsage.story = {
+  name: 'ref usage',
+};
+
+export const slideDirection = () => (
+    <Carousel style={style} autoPlay={false} slideDirection='right'>
+      <div style={contentPinkStyle}>
+        <h3>index0</h3>
+      </div>
+      <div style={contentPinkStyle}>
+        <h3>index1</h3>
+      </div>
+      <div style={contentPinkStyle}>
+        <h3>index2</h3>
+      </div>
+    </Carousel>
+);
+
+slideDirection.story = {
+  name: 'slide direction',
+};
 
 
 

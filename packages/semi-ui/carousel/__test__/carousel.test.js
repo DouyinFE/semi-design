@@ -1,6 +1,7 @@
 import { Carousel } from '../../index';
 import { BASE_CLASS_PREFIX } from '../../../semi-foundation/base/constants';
 
+
 function getCarousel(carouselProps) {
     const contentStyle = {
         display:'flex',
@@ -23,15 +24,30 @@ function getCarousel(carouselProps) {
     </Carousel>
 }
 
+function getSingleCarousel(carouselProps) {
+    const contentStyle = {
+        display:'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        color: '#fff',
+        background: 'lightBlue',
+    };
+
+    return <Carousel style={{ width: '600px', height: '240px'}} {...carouselProps}>
+      <div style={contentStyle}>
+        <h3>index0</h3>
+      </div>
+    </Carousel>
+}
+
 describe('Carousel', () => {
 
     it('Carousel render basicly', () => {
         let props = {};
         const carousel = mount(getCarousel(props))
-        // render in same time
         expect(carousel.find(`.${BASE_CLASS_PREFIX}-carousel-content`).children().length).toEqual(3);
-        // default active first index
         expect(carousel.find(`.${BASE_CLASS_PREFIX}-carousel-content-item-active`).text()).toEqual('index0');
+        carousel.unmount();
     });
 
     it('Carousel with custom className & style', () => {
@@ -110,13 +126,12 @@ describe('Carousel', () => {
         expect(hide.exists(`.${BASE_CLASS_PREFIX}-carousel-arrow`)).toEqual(false);
         expect(hover.exists(`.${BASE_CLASS_PREFIX}-carousel-arrow-hover`)).toEqual(true);
 
-        // show.find(`.${BASE_CLASS_PREFIX}-carousel-arrow-prev`).simulate('click');
-        // expect(spyOnChange.calledOnce).toBe(true);
-        // expect(show.find(`.${BASE_CLASS_PREFIX}-carousel-content-item-active`).text()).toEqual('index2');
+        show.find(`.${BASE_CLASS_PREFIX}-carousel-arrow-prev`).simulate('click');
+        expect(spyOnChange.calledOnce).toBe(true);
+        expect(show.find(`.${BASE_CLASS_PREFIX}-carousel-content-item-active`).text()).toEqual('index2');
 
-        // show.find(`.${BASE_CLASS_PREFIX}-carousel-arrow-next`).simulate('click');
-        // expect(spyOnChange.calledOnce).toBe(true);
-        // expect(show.find(`.${BASE_CLASS_PREFIX}-carousel-content-item-active`).text()).toEqual('index0');
+        show.find(`.${BASE_CLASS_PREFIX}-carousel-arrow-next`).simulate('click');
+        expect(show.find(`.${BASE_CLASS_PREFIX}-carousel-content-item-active`).text()).toEqual('index0');
         
     });
 
@@ -134,29 +149,11 @@ describe('Carousel', () => {
         expect(carouselHover.find(`.${BASE_CLASS_PREFIX}-carousel-content-item-active`).text()).toEqual('index2');
     });
 
-    // it('ref method', () => {
-    //     let r;
-    //     let props = {
-    //         ref: (ref) => { r = ref },
-    //         activeIndex: 0,
-    //         autoPlay: false
-    //     };
-
-    //     let carousel = mount(getCarousel(props));
-    //     r.prev();
-    //     carousel.update();
-    //     expect(carousel.find(`.${BASE_CLASS_PREFIX}-carousel-content-item-active`).text()).toEqual('index2');
-
-    //     r.next();
-    //     carousel.update();
-    //     expect(carousel.find(`.${BASE_CLASS_PREFIX}-carousel-content-item-active`).text()).toEqual('index0');
-
-    //     r.goTo(2);
-    //     carousel.update();
-    //     expect(carousel.find(`.${BASE_CLASS_PREFIX}-carousel-content-item-active`).text()).toEqual('index2');
-
-    //     carousel.unmount();
-    // });
-
+    it('single index', () => {
+        let carousel = mount(getSingleCarousel({}));
+        expect(carousel.exists(`.${BASE_CLASS_PREFIX}-carousel-indicator`)).toEqual(false);
+        expect(carousel.exists(`.${BASE_CLASS_PREFIX}-carousel-arrow`)).toEqual(false);
+        carousel.unmount();
+    });
 
 })

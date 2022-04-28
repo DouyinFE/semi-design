@@ -573,7 +573,7 @@ import { Carousel, Typography, Space } from '@douyinfe/semi-ui';
 
 ```jsx live=true dir="column"
 import React from 'react';
-import { Carousel, Button, Space, Typography } from '@douyinfe/semi-ui';
+import { Carousel, Space, Typography } from '@douyinfe/semi-ui';
 
 class CarouselDemo extends React.Component {
     constructor(props) {
@@ -654,31 +654,31 @@ class CarouselDemo extends React.Component {
 
 |属性               |说明                                                           |类型               |默认值 |版本   |
 |------------------|---------------------------------------------------------------|------------------|------|------|
-|activeIndex       |受控属性                                                         |number            |-     |2.9.0|
-|animation         |切换动画，可选值：`fade`，`slide`                                  |"fade" \|"slide"  |"slide"|2.9.0|
-|arrowProps        |箭头参数，用于自定义箭头样式和点击事件                                |() => {leftArrow: ArrowButton, rightArrow: ArrowButton;}                                                                              |-     |2.9.0|
-|autoPlay          |是否自动循环展示，或者传入 { interval: 自动切换时间间隔(默认: 2000), hoverToPause: 鼠标悬浮时是否暂停自动切换(默认: true) }                                                                      |boolean ｜function(interval: number, hoverToPause: boolean)                                                                         |true  |2.9.0|
-|className         |样式类名                                                         |string            |-      |2.9.0|
-|defaultActiveIndex|初始化时默认展示的索引                                             |number            |0     |2.9.0|
-|indicatorPosition |指示器位置，可选值有： `left`、`center`、`right`                    |"left" \| "center" \| "right"                                                                                                |"center"|2.9.0|
-|indicatorSize     |指示器尺寸，可选值有： `small`、`medium`                            |"small" \| "medium"|"small"|2.9.0|
-|indicatorType     |指示器类型，可选值有： `dot`、`line`、`columnar`                    |"dot" \| "line" \| "columnar"|"dot"|2.9.0|
-|theme             |指示器和箭头主题，可选值有：  `primary`、`light`、`dark`              |"primary" \| "light" \| "dark" |"light"|2.9.0|
-|onChange          |图片切换时的回调                                                   |(index: number, preIndex:number) => void |-      |2.9.0|
-|arrowType         |箭头展示时机，可选值有：  `hover`、`always`                          |"hover" \| "always"|always |2.9.0|
-|showArrow         |是否展示箭头                                                      |boolean          |true   |2.9.0|
-|showIndicator     |是否展示指示器                                                    |boolean          |true   |2.9.0|
-|slideDirection    |动画效果为`slide`时的滑动的方向，可选值有： `left`、`right`           |"left" \| "right" |"left" |2.9.0|
-|speed             |切换速度，单位ms                                                   |number           |300    |2.9.0|
-|style             |内联样式                                                          |CSSProperties    |-       |2.9.0|
-|trigger           |指示器触发的时机，可选值有： `hover`、`click`                         |"hover" \|"click"|-     |2.9.0|
+|activeIndex       |受控属性                                                         |number            |-     |2.10.0|
+|animation         |切换动画，可选值：`fade`，`slide`                                  |"fade" \|"slide"  |"slide"|2.10.0|
+|arrowProps        |箭头参数，用于自定义箭头样式和点击事件                                |() => {leftArrow: ArrowButton, rightArrow: ArrowButton;}                                                                              |-     |2.10.0|
+|autoPlay          |是否自动循环展示，或者传入 { interval: 自动切换时间间隔(默认: 2000), hoverToPause: 鼠标悬浮时是否暂停自动切换(默认: true) }                                                                      |boolean ｜function(interval: number, hoverToPause: boolean)                                                                         |true  |2.10.0|
+|className         |样式类名                                                         |string            |-      |2.10.0|
+|defaultActiveIndex|初始化时默认展示的索引                                             |number            |0     |2.10.0|
+|indicatorPosition |指示器位置，可选值有： `left`、`center`、`right`                    |"left" \| "center" \| "right"                                                                                                |"center"|2.10.0|
+|indicatorSize     |指示器尺寸，可选值有： `small`、`medium`                            |"small" \| "medium"|"small"|2.10.0|
+|indicatorType     |指示器类型，可选值有： `dot`、`line`、`columnar`                    |"dot" \| "line" \| "columnar"|"dot"|2.10.0|
+|theme             |指示器和箭头主题，可选值有：  `primary`、`light`、`dark`              |"primary" \| "light" \| "dark" |"light"|2.10.0|
+|onChange          |图片切换时的回调                                                   |(index: number, preIndex:number) => void |-      |2.10.0|
+|arrowType         |箭头展示时机，可选值有：  `hover`、`always`                          |"hover" \| "always"|always |2.10.0|
+|showArrow         |是否展示箭头                                                      |boolean          |true   |2.10.0|
+|showIndicator     |是否展示指示器                                                    |boolean          |true   |2.10.0|
+|slideDirection    |动画效果为`slide`时的滑动的方向，可选值有： `left`、`right`           |"left" \| "right" |"left" |2.10.0|
+|speed             |切换速度，单位ms                                                   |number           |300    |2.10.0|
+|style             |内联样式                                                          |CSSProperties    |-       |2.10.0|
+|trigger           |指示器触发的时机，可选值有： `hover`、`click`                         |"hover" \|"click"|-     |2.10.0|
 
 **ArrowButton**
 
 |属性               |说明                                                           |类型               |默认值 |版本   |
 |------------------|---------------------------------------------------------------|------------------|------|------|
-|props             |箭头Div上的可传参数，包括style, onClick事件等                                                  | React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement\>, HTMLDivElement\>       |-     |2.9.0|
-|children          |箭头自定义Icon                                                   |React.ReactNode      |-     |2.9.0|
+|props             |箭头div上的可传参数，包括style, onClick事件等                                                  | React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement\>, HTMLDivElement\>       |-     |2.10.0|
+|children          |箭头自定义Icon                                                   |React.ReactNode      |-     |2.10.0|
 
 ## 设计变量
 

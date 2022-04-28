@@ -574,7 +574,7 @@ import { Carousel, Typography, Space } from '@douyinfe/semi-ui';
 
 ```jsx live=true dir="column"
 import React from 'react';
-import { Carousel, Button, Space, Typography } from '@douyinfe/semi-ui';
+import { Carousel, Space, Typography } from '@douyinfe/semi-ui';
 
 class CarouselDemo extends React.Component {
     constructor(props) {
@@ -655,31 +655,31 @@ class CarouselDemo extends React.Component {
 
 |PROPERTIES        |INSTRUCTIONS                                                                         |TYPE              |DEFAULT |VERSION|
 |------------------|-------------------------------------------------------------------------------------|------------------|--------|-------|
-|activeIndex       |Controlled property                                                                  |number            |-     |2.9.0|
-|animation        |Animation, optional:`fade`, `slide`                                                   |       "fade" \|"slide"  |"slide"|2.9.0|
-|arrowProps        |Arrow parameters for custom arrow styles and click events                            |            () => {leftArrow: ArrowButton, rightArrow:ArrowButton}|-     |2.9.0|
-|autoPlay          |Whether to automatically display in a loop, or pass in { interval: Auto switch time interval(default: 2000), hoverToPause: Whether to pause automatic switching when the mouse is hovering(default: true) }|boolean ｜function(interval: number, hoverToPause:boolean) |true  |2.9.0|
-|className         |The className of Carousel container                                                   |string            |-      |2.9.0|
-|defaultActiveIndex|The index displayed by default when initializing                                      |number            |0     |2.9.0|
-|indicatorPosition |Indicator position, optional values are: `left`、`center`、`right`                    |       "left" \| "center" \| "right"|"center"|2.9.0|
-|indicatorSize     |Indicator size, optional values are: `small`、`medium`                                |      "small" \| "medium"|"small"|2.9.0|
-|indicatorType     |Indicator type, optional values are: `dot`、`line`、`columnar`                        |        "dot" \| "line" \| "columnar"|"dot"|2.9.0|
-|theme             |Indicator and arrow theme, optional values are:  `primary`、`light`、`dark`           |    "primary" \| "light" \| "dark" |"light"|2.9.0|
-|onChange          |Callback when image is switched                                                     |        (index: number, preIndex:number) => void |-      |2.9.0|
-|arrowType         |Arrow display timing, optional values are:  `hover`、`always`                        |       "hover" \| "always"|always |2.9.0|
-|showArrow         |Whether to show arrows                                                             |boolean          |true   |2.9.0|
-|showIndicator     |Whether to show the indicator                                                        |boolean          |true   |2.9.0|
-|slideDirection    |The direction of the slide when the animation effect is `slide`, optional: `left`、 `right` |"left" \| "right" |"left" |2.9.0|
-|speed             |Switching speed                                                                      |number            |300    |2.9.0|
-|style             |Carousel style                                                                        |CSSProperties     |-       |2.9.0|
-|trigger           |When the indicator is triggered, the optional values are: `hover`、`click`            |      "hover" \|"click" |-     |2.9.0|
+|activeIndex       |Controlled property                                                                  |number            |-     |2.10.0|
+|animation        |Animation, optional:`fade`, `slide`                                                   |       "fade" \|"slide"  |"slide"|2.10.0|
+|arrowProps        |Arrow parameters for custom arrow styles and click events                            |            () => {leftArrow: ArrowButton, rightArrow:ArrowButton}|-     |2.10.0|
+|autoPlay          |Whether to automatically display in a loop, or pass in { interval: Auto switch time interval(default: 2000), hoverToPause: Whether to pause automatic switching when the mouse is hovering(default: true) }|boolean ｜function(interval: number, hoverToPause:boolean) |true  |2.10.0|
+|className         |The className of Carousel container                                                   |string            |-      |2.10.0|
+|defaultActiveIndex|The index displayed by default when initializing                                      |number            |0     |2.10.0|
+|indicatorPosition |Indicator position, optional values are: `left`、`center`、`right`                    |       "left" \| "center" \| "right"|"center"|2.10.0|
+|indicatorSize     |Indicator size, optional values are: `small`、`medium`                                |      "small" \| "medium"|"small"|2.10.0|
+|indicatorType     |Indicator type, optional values are: `dot`、`line`、`columnar`                        |        "dot" \| "line" \| "columnar"|"dot"|2.10.0|
+|theme             |Indicator and arrow theme, optional values are:  `primary`、`light`、`dark`           |    "primary" \| "light" \| "dark" |"light"|2.10.0|
+|onChange          |Callback when image is switched                                                     |        (index: number, preIndex:number) => void |-      |2.10.0|
+|arrowType         |Arrow display timing, optional values are:  `hover`、`always`                        |       "hover" \| "always"|always |2.10.0|
+|showArrow         |Whether to show arrows                                                             |boolean          |true   |2.10.0|
+|showIndicator     |Whether to show the indicator                                                        |boolean          |true   |2.10.0|
+|slideDirection    |The direction of the slide when the animation effect is `slide`, optional: `left`、 `right` |"left" \| "right" |"left" |2.10.0|
+|speed             |Switching speed                                                                      |number            |300    |2.10.0|
+|style             |Carousel style                                                                        |CSSProperties     |-       |2.10.0|
+|trigger           |When the indicator is triggered, the optional values are: `hover`、`click`            |      "hover" \|"click" |-     |2.10.0|
 
 **ArrowButton**
 
 |PROPERTIES        |INSTRUCTIONS                                                   |TYPE             |DEFAULT|VERSION|
 |------------------|---------------------------------------------------------------|------------------|------|------|
-|props           |Parameters on the arrow Div, including style, onClick events, etc                                      |DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement\>, HTMLDivElement\>         |-     |2.9.0|
-|children         |Arrow custom icon                                              |React.ReactNode      |-     |2.9.0|
+|props           |Parameters on the arrow div, including style, onClick events, etc                                      |DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement\>, HTMLDivElement\>         |-     |2.10.0|
+|children         |Arrow custom icon                                              |React.ReactNode      |-     |2.10.0|
 
 
 ## Design Tokens
