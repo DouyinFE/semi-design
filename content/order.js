@@ -45,6 +45,7 @@ const order = [
     'badge',
     'calendar',
     'card',
+    'carousel',
     'collapse',
     'collapsible',
     'descriptions',
