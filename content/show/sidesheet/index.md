@@ -4,7 +4,7 @@ order: 57
 category: 展示类
 title: SideSheet 滑动侧边栏
 icon: doc-sidesheet
-brief: 屏幕边缘滑出的浮层面板。
+brief: 可从屏幕边沿滑出的浮层面板，通常用于承载二级操作页面
 ---
 
 ## 代码演示

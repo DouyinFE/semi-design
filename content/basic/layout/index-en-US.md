@@ -6,7 +6,7 @@ title:  Layout
 subTitle: Layout
 icon: doc-layout
 dir: column
-brief: Assist in the overall layout of a page.
+brief: Used to quickly divide the overall layout of the page
 ---
 
 

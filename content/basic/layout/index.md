@@ -5,7 +5,7 @@ category: 基础
 title: Layout 布局
 icon: doc-layout
 dir: column
-brief: 协助进行页面级整体布局。
+brief: 用于快捷划分页面整体布局
 ---
 
 ## 概述

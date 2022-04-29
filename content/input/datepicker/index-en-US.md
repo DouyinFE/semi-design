@@ -8,10 +8,6 @@ icon: doc-datepicker
 brief: The date selector is used to help the user select a compliant, formatted date (time) or date (time) range.
 ---
 
-## When to Use
-
-When the user needs to enter a date, you can click on the standard input box and pop up the date panel to select.
-
 ## Demos
 
 ### How to import

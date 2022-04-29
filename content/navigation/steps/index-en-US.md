@@ -6,12 +6,8 @@ title: Steps
 subTitle: Steps
 icon: doc-steps
 dir: column
-brief: When a long process needs to be step by step, use the step component to let the user know its current progress
+brief: Decompose complex tasks or tasks with prior relationships, use step components to guide users to operate according to the prescribed process, and let them know their current progress
 ---
-
-## When to use
-
-When the task is complex or has a sequential relationship, it is broken down into a series of steps to simplify the task.
 
 ## Demos
 

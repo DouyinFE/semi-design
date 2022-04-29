@@ -8,10 +8,6 @@ icon: doc-timepicker
 brief: Users can easily select a compliant, formatted point of time using the time selector.
 ---
 
-## When to Use
-
-When users need to enter a time, they can click on the standard input box and pop up the time panel to select.
-
 ## Demos
 
 ### How to import

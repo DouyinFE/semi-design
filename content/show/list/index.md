@@ -6,12 +6,8 @@ title: List 列表
 icon: doc-list
 dir: column
 noInline: true
-brief: 基础列表组件。
+brief: 基础列表组件
 ---
-
-## 使用场景
-
-最基础的列表展示，可展现文字、列表、图片、段落等，常用于后台数据展示页面。
 
 ## 代码演示
 

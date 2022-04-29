@@ -6,12 +6,8 @@ title: List
 subTitle: List
 icon: doc-list
 dir: column
-brief: Lists display a set of related contents.
+brief: Lists display a set of related contents
 ---
-
-## When to Use
-
-Lists display a set of texts, lists, images, paragraphs, etc. It is commonly used in data display pages.
 
 ## Demos
 

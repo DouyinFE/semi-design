@@ -65,6 +65,7 @@ import { Divider } from '@douyinfe/semi-ui';
 ```jsx live=true
 import React from 'react';
 import { Divider, Typography } from '@douyinfe/semi-ui';
+import { IconSemiLogo } from '@douyinfe/semi-icons';
 
 () => {
 
@@ -83,7 +84,7 @@ import { Divider, Typography } from '@douyinfe/semi-ui';
             </Divider>
 
             <Divider margin='12px'>
-                <IconTiktokLogo/>
+                <IconSemiLogo />
             </Divider>
         </div>
     );

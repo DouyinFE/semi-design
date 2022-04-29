@@ -4,13 +4,8 @@ order: 33
 category: 输入类
 title: TreeSelect 树选择器
 icon: doc-treeselect
-brief: 树型选择组件。
+brief: 树选择器用于多层级树形数据的结构化展示 & 选取，例如显示文件夹与文件的列表、显示组织架构成员列表等等。
 ---
-
-## 何时使用
-
-类似 Select 的选择控件，可选择的数据结构是一个树形结构时，可以使用 TreeSelect，例如公司层级、学科系统、分类目录等等。
-
 
 ## 代码演示
 

@@ -5,7 +5,8 @@ category: Input
 title:  TreeSelect
 subTitle: TreeSelect
 icon: doc-treeselect
-brief: A tree view component for selection.
+brief: TreeSelector is used for structured display & selection of multi-level tree data, such as displaying a list of folders and files, displaying a list of organizational structure members, and so on.
+---
 ---
 
 
