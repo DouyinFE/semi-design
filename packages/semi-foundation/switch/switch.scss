@@ -28,6 +28,10 @@ $module: #{$prefix}-switch;
         }
     }
 
+    &-focus {
+        outline: $width-switch-outline solid $color-switch_primary-outline-focus;
+    }
+
     &-checked {
         background-color: $color-switch_checked-bg-default;
 
