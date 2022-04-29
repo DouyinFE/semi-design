@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 46
+order: 47
 category: Show
 title: Carousel
 subTitle: Carousel
@@ -55,13 +55,13 @@ import { Carousel, Typography, Space } from '@douyinfe/semi-ui';
     ];
 
     const textList = [
-        ['Semi Design Management System', 'from Semi Design, to Any Design', 'quickly customize your design system and apply it in design drafts and code'],
-        ['Semi Material', 'customized components for business scenarios, support online preview and debugging', 'content co-authored by Semi Design users'],
-        ['Semi Pro (In development)', 'based on 40+ real component code design', 'one-click conversion of massive page template front-end code'],
+        ['Semi Design System Management', 'From Semi Design, To Any Design', 'Quickly define your design system and apply it to design drafts and code'],
+        ['Semi Material', 'Customized components for business scenarios, support online preview and debugging', 'Content co-authored by Semi Design users'],
+        ['Semi Pro (In development)', 'Based on 40+ real component code design', 'One-click conversion of massive page template front-end code'],
     ];
 
     return (
-        <Carousel style={style} theme='dark'>
+        <Carousel style={style} theme='dark' autoPlay={false}>
             {
                 imgList.map((src, index) => {
                     return (
@@ -123,9 +123,9 @@ import { Carousel, RadioGroup, Radio, Space, Typography } from '@douyinfe/semi-u
     ];
 
     const textList = [
-        ['Semi Design Management System', 'from Semi Design, to Any Design', 'quickly customize your design system and apply it in design drafts and code'],
-        ['Semi Material', 'customized components for business scenarios, support online preview and debugging', 'content co-authored by Semi Design users'],
-        ['Semi Pro (In development)', 'based on 40+ real component code design', 'one-click conversion of massive page template front-end code'],
+        ['Semi Design System Management', 'From Semi Design, To Any Design', 'Quickly define your design system and apply it to design drafts and code'],
+        ['Semi Material', 'Customized components for business scenarios, support online preview and debugging', 'Content co-authored by Semi Design users'],
+        ['Semi Pro (In development)', 'Based on 40+ real component code design', 'One-click conversion of massive page template front-end code'],
     ];
     
     return (
@@ -207,9 +207,9 @@ import { Carousel, RadioGroup, Radio, Space, Typography } from '@douyinfe/semi-u
     ];
 
     const textList = [
-        ['Semi Design Management System', 'from Semi Design, to Any Design', 'quickly customize your design system and apply it in design drafts and code'],
-        ['Semi Material', 'customized components for business scenarios, support online preview and debugging', 'content co-authored by Semi Design users'],
-        ['Semi Pro (In development)', 'based on 40+ real component code design', 'one-click conversion of massive page template front-end code'],
+        ['Semi Design System Management', 'From Semi Design, To Any Design', 'Quickly define your design system and apply it to design drafts and code'],
+        ['Semi Material', 'Customized components for business scenarios, support online preview and debugging', 'Content co-authored by Semi Design users'],
+        ['Semi Pro (In development)', 'Based on 40+ real component code design', 'One-click conversion of massive page template front-end code'],
     ];
 
     return (
@@ -305,9 +305,9 @@ import { Carousel, RadioGroup, Radio, Space, Typography } from '@douyinfe/semi-u
     ];
 
     const textList = [
-        ['Semi Design Management System', 'from Semi Design, to Any Design', 'quickly customize your design system and apply it in design drafts and code'],
-        ['Semi Material', 'customized components for business scenarios, support online preview and debugging', 'content co-authored by Semi Design users'],
-        ['Semi Pro (In development)', 'based on 40+ real component code design', 'one-click conversion of massive page template front-end code'],
+        ['Semi Design System Management', 'From Semi Design, To Any Design', 'Quickly define your design system and apply it to design drafts and code'],
+        ['Semi Material', 'Customized components for business scenarios, support online preview and debugging', 'Content co-authored by Semi Design users'],
+        ['Semi Pro (In development)', 'Based on 40+ real component code design', 'One-click conversion of massive page template front-end code'],
     ];
 
     return (
@@ -369,9 +369,9 @@ class CarouselDemo extends React.Component {
             'https://lf3-static.bytednsdoc.com/obj/eden-cn/hjeh7pldnulm/SemiDocs/bg-3.png',
         ];
         this.textList = [
-            ['Semi Design Management System', 'from Semi Design, to Any Design', 'quickly customize your design system and apply it in design drafts and code'],
-            ['Semi Material', 'customized components for business scenarios, support online preview and debugging', 'content co-authored by Semi Design users'],
-            ['Semi Pro (In development)', 'based on 40+ real component code design', 'one-click conversion of massive page template front-end code'],
+            ['Semi Design System Management', 'From Semi Design, To Any Design', 'Quickly define your design system and apply it to design drafts and code'],
+            ['Semi Material', 'Customized components for business scenarios, support online preview and debugging', 'Content co-authored by Semi Design users'],
+            ['Semi Pro (In development)', 'Based on 40+ real component code design', 'One-click conversion of massive page template front-end code'],
         ];
         this.arrowProps = {
             leftArrow: { children: <IconArrowLeft size='large'/> },
@@ -470,9 +470,9 @@ import { Carousel, Typography, Space } from '@douyinfe/semi-ui';
     ];
 
     const textList = [
-        ['Semi Design Management System', 'from Semi Design, to Any Design', 'quickly customize your design system and apply it in design drafts and code'],
-        ['Semi Material', 'customized components for business scenarios, support online preview and debugging', 'content co-authored by Semi Design users'],
-        ['Semi Pro (In development)', 'based on 40+ real component code design', 'one-click conversion of massive page template front-end code'],
+        ['Semi Design System Management', 'From Semi Design, To Any Design', 'Quickly define your design system and apply it to design drafts and code'],
+        ['Semi Material', 'Customized components for business scenarios, support online preview and debugging', 'Content co-authored by Semi Design users'],
+        ['Semi Pro (In development)', 'Based on 40+ real component code design', 'One-click conversion of massive page template front-end code'],
     ];
 
     return (
@@ -540,9 +540,9 @@ import { Carousel, Typography, Space } from '@douyinfe/semi-ui';
     ];
 
     const textList = [
-        ['Semi Design Management System', 'from Semi Design, to Any Design', 'quickly customize your design system and apply it in design drafts and code'],
-        ['Semi Material', 'customized components for business scenarios, support online preview and debugging', 'content co-authored by Semi Design users'],
-        ['Semi Pro (In development)', 'based on 40+ real component code design', 'one-click conversion of massive page template front-end code'],
+        ['Semi Design System Management', 'From Semi Design, To Any Design', 'Quickly define your design system and apply it to design drafts and code'],
+        ['Semi Material', 'Customized components for business scenarios, support online preview and debugging', 'Content co-authored by Semi Design users'],
+        ['Semi Pro (In development)', 'Based on 40+ real component code design', 'One-click conversion of massive page template front-end code'],
     ];
 
     return (
@@ -585,9 +585,9 @@ class CarouselDemo extends React.Component {
             'https://lf3-static.bytednsdoc.com/obj/eden-cn/hjeh7pldnulm/SemiDocs/bg-3.png',
         ];
         this.textList = [
-            ['Semi Design Management System', 'from Semi Design, to Any Design', 'quickly customize your design system and apply it in design drafts and code'],
-            ['Semi Material', 'customized components for business scenarios, support online preview and debugging', 'content co-authored by Semi Design users'],
-            ['Semi Pro (In development)', 'based on 40+ real component code design', 'one-click conversion of massive page template front-end code'],
+            ['Semi Design System Management', 'From Semi Design, To Any Design', 'Quickly define your design system and apply it to design drafts and code'],
+            ['Semi Material', 'Customized components for business scenarios, support online preview and debugging', 'Content co-authored by Semi Design users'],
+            ['Semi Pro (In development)', 'Based on 40+ real component code design', 'One-click conversion of massive page template front-end code'],
         ];
         this.state = {
             activeIndex: 0,
@@ -656,23 +656,23 @@ class CarouselDemo extends React.Component {
 |PROPERTIES        |INSTRUCTIONS                                                                         |TYPE              |DEFAULT |VERSION|
 |------------------|-------------------------------------------------------------------------------------|------------------|--------|-------|
 |activeIndex       |Controlled property                                                                  |number            |-     |2.10.0|
-|animation        |Animation, optional:`fade`, `slide`                                                   |       "fade" \|"slide"  |"slide"|2.10.0|
-|arrowProps        |Arrow parameters for custom arrow styles and click events                            |            () => {leftArrow: ArrowButton, rightArrow:ArrowButton}|-     |2.10.0|
-|autoPlay          |Whether to automatically display in a loop, or pass in { interval: Auto switch time interval(default: 2000), hoverToPause: Whether to pause automatic switching when the mouse is hovering(default: true) }|boolean ｜function(interval: number, hoverToPause:boolean) |true  |2.10.0|
+|animation        |Animation, optional:`fade`, `slide`                                                   |       "fade" \| "slide"  |"slide"|2.10.0|
+|arrowProps        |Arrow parameters for custom arrow styles and click events                            |            () => { leftArrow: ArrowButton, rightArrow:ArrowButton }|-     |2.10.0|
+|autoPlay          |Whether to automatically display in a loop, or pass in { interval: Auto switch time interval(default: 2000), hoverToPause: Whether to pause automatic switching when the mouse is hovering(default: true) }|boolean ｜ { interval?: number, hoverToPause?: boolean }          |true  |2.10.0|
 |className         |The className of Carousel container                                                   |string            |-      |2.10.0|
 |defaultActiveIndex|The index displayed by default when initializing                                      |number            |0     |2.10.0|
 |indicatorPosition |Indicator position, optional values are: `left`、`center`、`right`                    |       "left" \| "center" \| "right"|"center"|2.10.0|
 |indicatorSize     |Indicator size, optional values are: `small`、`medium`                                |      "small" \| "medium"|"small"|2.10.0|
 |indicatorType     |Indicator type, optional values are: `dot`、`line`、`columnar`                        |        "dot" \| "line" \| "columnar"|"dot"|2.10.0|
 |theme             |Indicator and arrow theme, optional values are:  `primary`、`light`、`dark`           |    "primary" \| "light" \| "dark" |"light"|2.10.0|
-|onChange          |Callback when image is switched                                                     |        (index: number, preIndex:number) => void |-      |2.10.0|
+|onChange          |Callback when image is switched                                                     |        (index: number, preIndex: number) => void |-      |2.10.0|
 |arrowType         |Arrow display timing, optional values are:  `hover`、`always`                        |       "hover" \| "always"|always |2.10.0|
 |showArrow         |Whether to show arrows                                                             |boolean          |true   |2.10.0|
 |showIndicator     |Whether to show the indicator                                                        |boolean          |true   |2.10.0|
 |slideDirection    |The direction of the slide when the animation effect is `slide`, optional: `left`、 `right` |"left" \| "right" |"left" |2.10.0|
 |speed             |Switching speed                                                                      |number            |300    |2.10.0|
 |style             |Carousel style                                                                        |CSSProperties     |-       |2.10.0|
-|trigger           |When the indicator is triggered, the optional values are: `hover`、`click`            |      "hover" \|"click" |-     |2.10.0|
+|trigger           |When the indicator is triggered, the optional values are: `hover`、`click`            |      "hover" \| "click" |-     |2.10.0|
 
 **ArrowButton**
 
