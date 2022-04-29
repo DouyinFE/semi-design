@@ -15,6 +15,17 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 ---
 
+#### 🎉 2.10.0-beta.0 (2022-04-29)
+- 【New Component】
+    - 新组件轮播图  [#678](https://github.com/DouyinFE/semi-design/issues/678)
+- 【Fix】
+    - 修复cascader在多选时，设定displayProp非value/label时候出错问题
+- 【Feat】
+    - Switch 新增 A11y 键盘和焦点适配  [#205](https://github.com/DouyinFE/semi-design/issues/205)
+    - Banner 新增 A11y 键盘和焦点适配  [#205](https://github.com/DouyinFE/semi-design/issues/205)
+- 【Chore】
+  - @douyinfe/semi-icons、@douyinfe/semi-illustrations 更新 peerDependency中的react版本声明：16/17 -> 16/17/18
+
 #### 🎉 2.9.1 (2022-04-26)
 - 【Fix】
     - 修复Tooltip在有动画情况下有概率浮层打开时闪烁

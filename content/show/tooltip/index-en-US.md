@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 61
+order: 62
 category: Show
 title: Tooltip
 subTitle: Tooltip

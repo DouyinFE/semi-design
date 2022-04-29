@@ -16,6 +16,17 @@ Version：Major.Minor.Patch
 
 ---
 
+#### 🎉 2.10.0-beta.0 (2022-4-29)
+- 【New Component】
+    - new component Carousel  [#678](https://github.com/DouyinFE/semi-design/issues/678)
+- 【Fix】
+    - fix cascader's displayProp error when mutiple selection
+- 【Feat】
+    - Switch adds A11y keyboard and focus adaptation  [#205](https://github.com/DouyinFE/semi-design/issues/205)
+    - Banner adds A11y keyboard and focus adaptation  [#205](https://github.com/DouyinFE/semi-design/issues/205)
+- 【Chore】
+  - @douyinfe/semi-icons, @douyinfe/semi-illustrations update react version statement in peerDependency: 16/17 -> 16/17/18
+
 #### 🎉 2.9.1 (2022-04-26)
 - 【Fix】
     - Fix the Tooltip flickering when there is a probability that the overlay is opened when there is animation
