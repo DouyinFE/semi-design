@@ -164,6 +164,10 @@ $module: #{$prefix}-tabs;
                 &:hover {
                     border-bottom: $width-tabs_bar_line_tab-border solid $color-tabs_tab_line_default-border-hover;
                 }
+
+                &:focus-visible {
+                    outline: $width-tabs-outline solid $color-tabs_tab-outline-focus;
+                }
                 
                 &:active {
                     border-bottom: $width-tabs_bar_line_tab-border solid $color-tabs_tab_line_default-border-active;
@@ -201,6 +205,10 @@ $module: #{$prefix}-tabs;
                 &:hover {
                     border-left: $width-tabs_bar_line_tab-border solid $color-tabs_tab_line_default-border-hover;
                     background-color: $color-tabs_tab_line_vertical-bg-hover;
+                }
+
+                &:focus-visible {
+                    outline: $width-tabs-outline solid $color-tabs_tab-outline-focus;
                 }
                 
                 &:active {
@@ -263,6 +271,10 @@ $module: #{$prefix}-tabs;
                     border-bottom: none;
                 }
                 
+                &:focus-visible {
+                    outline: $width-tabs-outline solid $color-tabs_tab-outline-focus;
+                }
+                
                 &:not(:last-of-type) {
                     margin-right: $spacing-tabs_bar_card_tab-marginRight;
                 }
@@ -291,6 +303,10 @@ $module: #{$prefix}-tabs;
                 
                 &:hover {
                     border-right: none;
+                }
+
+                &:focus-visible {
+                    outline: $width-tabs-outline solid $color-tabs_tab-outline-focus;
                 }
                 
                 &:not(:last-of-type) {
@@ -328,6 +344,10 @@ $module: #{$prefix}-tabs;
                 background: $color-tabs_tab_card-bg-hover;
             }
             
+            &:focus-visible {
+                outline: $width-tabs-outline solid $color-tabs_tab-outline-focus;
+            }
+
             &:active {
                 background: $color-tabs_tab_card-bg-active;
             }
@@ -365,6 +385,10 @@ $module: #{$prefix}-tabs;
                 border: none;
                 background-color: $color-tabs_tab_button-bg-hover;
             }
+
+            &:focus-visible {
+                outline: $width-tabs-outline solid $color-tabs_tab-outline-focus;
+            }
             
             &:active {
                 background-color: $color-tabs_tab_button-bg-active;
@@ -400,6 +424,10 @@ $module: #{$prefix}-tabs;
         // position: absolute;
         // flex-shrink: 0;
         // position: absolute;
+
+        &:focus-visible {
+            outline: $width-tabs-outline solid $color-tabs_tab-outline-focus;
+        }
     }
     
     &-pane-inactive,

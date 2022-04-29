@@ -867,3 +867,37 @@ export const TabListChange = () => <TabListChangeDemo />;
 TabListChange.story = {
   name: 'tablist change',
 };
+
+class CloseableDemo extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            tabList: [
+                {tab: '文档', itemKey:'1', text:'文档', closable:true},
+                {tab: '快速起步', itemKey:'2', text:'快速起步', closable:true},
+                {tab: '帮助', itemKey:'3', text:'帮助'},
+            ]
+        }
+    }
+    close(key){
+        const newTabList = [...this.state.tabList];
+        const closeIndex = newTabList.findIndex(t=>t.itemKey===key);
+        newTabList.splice(closeIndex, 1);
+        this.setState({tabList:newTabList});
+    }
+    render() {
+        return (
+            <Tabs type="card" defaultActiveKey="1" onTabClose={this.close.bind(this)}>
+                {
+                    this.state.tabList.map(t=><TabPane closable={t.closable} tab={t.tab} itemKey={t.itemKey} key={t.itemKey}>{t.text}</TabPane>)
+                }
+            </Tabs>
+        );
+    }
+}
+
+export const Close = () => <CloseableDemo />;
+
+Close.story = {
+  name: 'close',
+};

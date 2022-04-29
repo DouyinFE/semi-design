@@ -1,4 +1,5 @@
 $color-tabs_tab_line_default-border-default: var(--semi-color-border); // 线条式页签描边颜色默认
+$color-tabs_tab-outline-focus: var(--semi-color-primary-light-active); // 页签轮廓 - 聚焦
 
 $color-tabs_tab_line_default-bg-default: transparent; // 线条式页签背景颜色 - 默认
 $color-tabs_tab_line_default-text-default: var(--semi-color-text-2); // 线条式页签文本颜色 - 默认
@@ -54,6 +55,8 @@ $width-tabs_bar_line-border: $border-thickness-control; // 线条式页签底部
 $width-tabs_bar_line_tab-border: 2px; // 页签标示线宽度
 
 $width-tabs_bar_card-border: $border-thickness-control; // 卡片式页签底部分割线宽度
+$width-tabs-outline: 2px; // 页签轮廓宽度
+
 
 $height-tabs_bar_extra_large: 50px; // 大尺寸页签高度
 $font-tabs_bar_extra_large-lineHeight: $height-tabs_bar_extra_large; // 大尺寸页签文字行高

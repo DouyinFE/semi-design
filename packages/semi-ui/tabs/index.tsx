@@ -225,6 +225,10 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
         this.foundation.handleTabDelete(tabKey);
     }
 
+    handleKeyDown = (event: React.KeyboardEvent, index: number, closable: boolean) => {
+        this.foundation.handleKeyDown(event, index, closable);
+    }
+
     render(): ReactNode {
         const {
             children,
@@ -266,7 +270,8 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
             tabBarExtraContent,
             tabPosition,
             type,
-            deleteTabItem: this.deleteTabItem
+            deleteTabItem: this.deleteTabItem,
+            handleKeyDown: (event, index, closable) => this.handleKeyDown(event, index, closable)
         } as TabBarProps;
 
         const tabBar = renderTabBar ? renderTabBar(tabBarProps, TabBar) : <TabBar {...tabBarProps} />;

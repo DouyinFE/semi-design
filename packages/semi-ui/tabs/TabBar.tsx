@@ -10,7 +10,6 @@ import { TabBarProps, PlainTab } from './interface';
 import { isEmpty } from 'lodash';
 import { IconChevronRight, IconChevronLeft, IconClose } from '@douyinfe/semi-icons';
 import { getUuidv4 } from '@douyinfe/semi-foundation/utils/uuid';
-import TabsItemFoundation, { TabsItemAdapter } from '@douyinfe/semi-foundation/tabs/itemFoundation';
 import BaseComponent from '../_base/baseComponent';
 
 
@@ -42,17 +41,6 @@ class TabBar extends BaseComponent<TabBarProps, TabBarState> {
     };
 
     uuid: string;
-    foundation: TabsItemFoundation;
-    // foundation: TabsFoundation;
-    
-    get adapter(): TabsItemAdapter<TabBarProps, TabBarState>  {
-        return {
-            ...super.adapter,
-            notifyClick: (activeKey: string, event: MouseEvent<HTMLDivElement>): void => {
-                this.props.onTabClick(activeKey, event);
-            },
-        };
-    }
 
     constructor(props: TabBarProps) {
         super(props);
@@ -61,7 +49,6 @@ class TabBar extends BaseComponent<TabBarProps, TabBarState> {
             rePosKey: 0,
             startInd: 0,
         };
-        this.foundation = new TabsItemFoundation(this.adapter);
         this.uuid = getUuidv4();
     }
 
@@ -103,11 +90,11 @@ class TabBar extends BaseComponent<TabBarProps, TabBarState> {
         }
     };
 
-    handleKeyDown = (event: React.KeyboardEvent) => {
-        this.foundation.handleKeyDown(event);
+    handleKeyDown = (event: React.KeyboardEvent, index: number, closable: boolean) => {
+        this.props.handleKeyDown(event, index, closable);
     }
 
-    renderTabItem = (panel: PlainTab): ReactNode => {
+    renderTabItem = (panel: PlainTab, index: number): ReactNode => {
         const { size, type, deleteTabItem } = this.props;
         const panelIcon = panel.icon ? this.renderIcon(panel.icon) : null;
         const closableIcon = (type === 'card' && panel.closable) ? <IconClose aria-label="Close" role="button" className={`${cssClasses.TABS_TAB}-icon-close`} onClick={(e: React.MouseEvent<HTMLSpanElement>) => deleteTabItem(panel.itemKey, e)} /> : null;
@@ -132,9 +119,8 @@ class TabBar extends BaseComponent<TabBarProps, TabBarState> {
                 aria-controls={`semiTabPanel${key}`}
                 aria-disabled={panel.disabled ? 'true' : 'false'}
                 aria-selected={isSelected ? 'true' : 'false'}
-                // tabIndex={isSelected ? 0 : -1}
-                tabIndex={0}
-                onKeyDown={this.handleKeyDown}
+                tabIndex={isSelected ? 0 : -1}
+                onKeyDown={e => this.handleKeyDown(e, index, panel.closable)}
                 {...events}
                 className={className}
                 key={this._getItemKey(key)}
@@ -146,7 +132,7 @@ class TabBar extends BaseComponent<TabBarProps, TabBarState> {
         );
     };
 
-    renderTabComponents = (list: Array<PlainTab>): Array<ReactNode> => list.map(panel => this.renderTabItem(panel));
+    renderTabComponents = (list: Array<PlainTab>): Array<ReactNode> => list.map((panel, index) => this.renderTabItem(panel, index));
 
     handleArrowClick = (items: Array<OverflowItem>, pos: 'start' | 'end'): void => {
         const inline = pos === 'start' ? 'end' : 'start';
