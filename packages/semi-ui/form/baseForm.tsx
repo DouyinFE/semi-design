@@ -122,7 +122,7 @@ class Form extends BaseComponent<BaseFormProps, BaseFormState> {
     constructor(props: BaseFormProps) {
         super(props);
         this.state = {
-            formId: getUuidv4(),
+            formId: '',
         };
         warning(
             Boolean(props.component && props.render),
@@ -143,6 +143,12 @@ class Form extends BaseComponent<BaseFormProps, BaseFormState> {
         if (this.props.getFormApi) {
             this.props.getFormApi(this.formApi);
         }
+    }
+
+    componentDidMount() {
+        this.setState({
+            formId: getUuidv4()
+        });
     }
 
     componentWillUnmount() {
