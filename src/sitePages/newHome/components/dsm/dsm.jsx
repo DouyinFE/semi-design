@@ -11,9 +11,7 @@ function Dsm(props) {
         <div {...props} className={styles.frame14293}>
             <div className={styles.frame14291}>
                 <div className={styles.autoWrapper}>
-                    <div className={styles.tag}>
-                        <p className={styles.text}>BETA</p>
-                    </div>
+
                     <p className={styles.semiDSM}>Semi DSM</p>
                 </div>
                 <p className={styles.text_86d8f999}>{_t("powerful_theme_editor__real_time_effect__one_click_synchronization_of_design_too_d77f5776bf126331e801d6d6aa0146f2", { }, "强大的主题编辑器，实时生效，设计工具一键同步")}</p>
