@@ -20,6 +20,7 @@ export interface BaseFormAdapter<P = Record<string, any>, S = Record<string, any
     getFormProps: (keys: undefined | string | Array<string>) => any;
     getAllErrorDOM: () => NodeList;
     getFieldDOM: (field: string) => Node;
+    initFormId: () => void;
 }
 
 export interface FormState<T extends Record<string, any> = any> {
