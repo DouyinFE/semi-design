@@ -1,5 +1,5 @@
 /**
- * Whether null or undenfined
+ * Whether null or undefined
  * @param {*} value
  * @returns  {boolean}
  */

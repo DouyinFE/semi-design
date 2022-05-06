@@ -544,7 +544,7 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
     /*
     * Compute the checked state of the node
     */
-    calcChekcedStatus(targetStatus: boolean, eventKey: string) {
+    calcCheckedStatus(targetStatus: boolean, eventKey: string) {
         // From checked to unchecked, you can change it directly
         if (!targetStatus) {
             return targetStatus;
@@ -566,7 +566,7 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
     /*
     * In strict disable mode, calculate the nodes of checked and halfCheckedKeys and return their corresponding keys
     */
-    calcNonDisabedCheckedKeys(eventKey: string, targetStatus: boolean) {
+    calcNonDisabledCheckedKeys(eventKey: string, targetStatus: boolean) {
         const { keyEntities, disabledKeys } = this.getStates();
         const { checkedKeys } = this.getCopyFromState(['checkedKeys']);
         const descendantKeys = normalizeKeyList(findDescendantKeys([eventKey], keyEntities, false), keyEntities, true);
@@ -592,9 +592,9 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
         const { checked, eventKey, data } = treeNode;
         if (checkRelation === 'related') {
             // Find the checked state of the current node
-            const targetStatus = disableStrictly ? this.calcChekcedStatus(!checked, eventKey) : !checked;
+            const targetStatus = disableStrictly ? this.calcCheckedStatus(!checked, eventKey) : !checked;
             const { checkedKeys, halfCheckedKeys } = disableStrictly ?
-                this.calcNonDisabedCheckedKeys(eventKey, targetStatus) :
+                this.calcNonDisabledCheckedKeys(eventKey, targetStatus) :
                 this.calcCheckedKeys(eventKey, targetStatus);
             this._adapter.notifySelect(eventKey, targetStatus, data);
             this.notifyChange([...checkedKeys], e);

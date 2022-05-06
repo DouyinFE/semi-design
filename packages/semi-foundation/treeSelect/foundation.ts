@@ -622,11 +622,11 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         const { checked, eventKey, data } = treeNode;
         if (checkRelation === 'related') {
             const targetStatus = disableStrictly ?
-                this.calcChekcedStatus(!checked, eventKey) :
+                this.calcCheckedStatus(!checked, eventKey) :
                 !checked;
 
             const { checkedKeys, halfCheckedKeys } = disableStrictly ?
-                this.calcNonDisabedCheckedKeys(eventKey, targetStatus) :
+                this.calcNonDisabledCheckedKeys(eventKey, targetStatus) :
                 this.calcCheckedKeys(eventKey, targetStatus);
             this._adapter.notifySelect(eventKey, targetStatus, data);
             this._notifyChange([...checkedKeys], e);
@@ -656,7 +656,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         }
     }
 
-    calcNonDisabedCheckedKeys(eventKey: string, targetStatus: boolean) {
+    calcNonDisabledCheckedKeys(eventKey: string, targetStatus: boolean) {
         const { keyEntities, disabledKeys } = this.getStates();
         const { checkedKeys } = this.getCopyFromState(['checkedKeys']);
         const descendantKeys = normalizeKeyList(findDescendantKeys([eventKey], keyEntities, false), keyEntities, true);
@@ -671,7 +671,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         return calcCheckedKeys(newCheckedKeys, keyEntities);
     }
 
-    calcChekcedStatus(targetStatus: boolean, eventKey: string) {
+    calcCheckedStatus(targetStatus: boolean, eventKey: string) {
         if (!targetStatus) {
             return targetStatus;
         }

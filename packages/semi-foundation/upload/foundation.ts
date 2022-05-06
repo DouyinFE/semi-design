@@ -124,11 +124,11 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
     checkFileSize(file: File): boolean {
         const { size } = file;
         const { maxSize, minSize } = this.getProps();
-        let isIlligal = false;
+        let isIllegal = false;
         if (size > maxSize * byteKB || size < minSize * byteKB) {
-            isIlligal = true;
+            isIllegal = true;
         }
-        return isIlligal;
+        return isIllegal;
     }
 
     /**
@@ -425,7 +425,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
             const { fileList } = this.getStates();
             const buResult = this._adapter.notifyBeforeUpload({ file, fileList });
             switch (true) {
-                // sync valiate - boolean
+                // sync validate - boolean
                 case buResult === true: {
                     this.post(file);
                     break;
@@ -438,11 +438,11 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
                 // async validate
                 case buResult && isPromise(buResult): {
                     Promise.resolve(buResult as Promise<BeforeUploadObjectResult>).then(
-                        resloveData => {
+                        resolveData => {
                             let newResult = { shouldUpload: true };
-                            const typeOfResloveData = Object.prototype.toString.call(resloveData).slice(8, -1);
-                            if (typeOfResloveData === 'Object') {
-                                newResult = { ...newResult, ...resloveData };
+                            const typeOfResolveData = Object.prototype.toString.call(resolveData).slice(8, -1);
+                            if (typeOfResolveData === 'Object') {
+                                newResult = { ...newResult, ...resolveData };
                             }
                             this.handleBeforeUploadResultInObject(newResult, file);
                         },

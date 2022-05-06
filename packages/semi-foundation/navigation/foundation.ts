@@ -118,7 +118,7 @@ export default class NavigationFoundation<P = Record<string, any>, S = Record<st
     init(lifecycle: string) {
         const { defaultSelectedKeys, selectedKeys } = this.getProps();
         let willSelectedKeys = selectedKeys || defaultSelectedKeys || [];
-        const { itemKeysMap, willOpenKeys, formatedItems } = this.getCalcState();
+        const { itemKeysMap, willOpenKeys, formattedItems } = this.getCalcState();
         const parentSelectKeys = this.selectLevelZeroParentKeys(itemKeysMap, willSelectedKeys);
         willSelectedKeys = willSelectedKeys.concat(parentSelectKeys);
 
@@ -127,13 +127,13 @@ export default class NavigationFoundation<P = Record<string, any>, S = Record<st
                 selectedKeys: willSelectedKeys,
                 itemKeysMap,
                 openKeys: willOpenKeys,
-                items: formatedItems,
+                items: formattedItems,
             };
         } else {
             this._adapter.updateSelectedKeys(willSelectedKeys);
             this._adapter.setItemKeysMap(itemKeysMap);
             this._adapter.updateOpenKeys(willOpenKeys);
-            this._adapter.updateItems(formatedItems);
+            this._adapter.updateItems(formattedItems);
             this._adapter.setItemsChanged(true);
         }
         return undefined;
@@ -143,22 +143,22 @@ export default class NavigationFoundation<P = Record<string, any>, S = Record<st
      * Get the state to be calculated
      */
     getCalcState() {
-        const { itemKeysMap, formatedItems } = this.getFormatedItems();
+        const { itemKeysMap, formattedItems } = this.getFormattedItems();
         const willOpenKeys = this.getWillOpenKeys(itemKeysMap);
-        return { itemKeysMap, willOpenKeys, formatedItems };
+        return { itemKeysMap, willOpenKeys, formattedItems };
     }
 
     /**
      * Calculate formatted items and itemsKeyMap
      */
-    getFormatedItems() {
+    getFormattedItems() {
         const { items, children } = this.getProps();
-        const formatedItems = this.formatItems(items);
-        const willHandleItems = Array.isArray(items) && items.length ? formatedItems : children;
+        const formattedItems = this.formatItems(items);
+        const willHandleItems = Array.isArray(items) && items.length ? formattedItems : children;
         const itemKeysMap = NavigationFoundation.buildItemKeysMap(willHandleItems);
         return {
             itemKeysMap,
-            formatedItems
+            formattedItems
         };
     }
 
@@ -229,11 +229,11 @@ export default class NavigationFoundation<P = Record<string, any>, S = Record<st
     }
 
     formatItems(items: ItemProps[] = []) {
-        const formatedItems = [];
+        const formattedItems = [];
         for (const item of items) {
-            formatedItems.push(new NavItem(item));
+            formattedItems.push(new NavItem(item));
         }
-        return formatedItems;
+        return formattedItems;
     }
 
     handleSelect(data: OnSelectData) {

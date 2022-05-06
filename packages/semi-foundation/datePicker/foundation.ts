@@ -7,7 +7,7 @@ import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import { isValidDate, isTimestamp } from './_utils/index';
 import isNullOrUndefined from '../utils/isNullOrUndefined';
 import { utcToZonedTime, zonedTimeToUtc } from '../utils/date-fns-extra';
-import { compatiableParse } from './_utils/parser';
+import { compatibleParse } from './_utils/parser';
 import { getDefaultFormatTokenByType } from './_utils/getDefaultFormatToken';
 import { strings } from './constants';
 import { strings as inputStrings } from '../input/constants';
@@ -292,7 +292,7 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
         if (isValidDate(value)) {
             dateObj = value as Date;
         } else if (isString(value)) {
-            dateObj = compatiableParse(value as string, this.getProp('format'), undefined, dateFnsLocale);
+            dateObj = compatibleParse(value as string, this.getProp('format'), undefined, dateFnsLocale);
         } else if (isTimestamp(value)) {
             dateObj = new Date(value);
         } else {
@@ -613,7 +613,7 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
                 case 'date':
                 case 'dateTime':
                 case 'month':
-                    parsedResult = input ? compatiableParse(input, formatToken, nowDate, dateFnsLocale) : '';
+                    parsedResult = input ? compatibleParse(input, formatToken, nowDate, dateFnsLocale) : '';
                     formatedInput = parsedResult && isValid(parsedResult) && this.localeFormat(parsedResult as Date, formatToken);
                     if (parsedResult && formatedInput === input) {
                         result = [parsedResult as Date];
@@ -626,7 +626,7 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
                     parsedResult =
                         values &&
                         values.reduce((arr, cur) => {
-                            const parsedVal = cur && compatiableParse(cur, formatToken, nowDate, dateFnsLocale);
+                            const parsedVal = cur && compatibleParse(cur, formatToken, nowDate, dateFnsLocale);
                             parsedVal && arr.push(parsedVal);
                             return arr;
                         }, []);
