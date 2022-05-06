@@ -19,7 +19,7 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 - 【New Component】
     - 新组件轮播图  [#678](https://github.com/DouyinFE/semi-design/issues/678)
 - 【Fix】
-    - 修复cascader在多选时，设定displayProp非value/label时候出错问题
+    - 修复 Cascader 在多选时，设定 displayProp 非value/label时候出错问题
 - 【Feat】
     - Switch 新增 A11y 键盘和焦点适配  [#205](https://github.com/DouyinFE/semi-design/issues/205)
     - Banner 新增 A11y 键盘和焦点适配  [#205](https://github.com/DouyinFE/semi-design/issues/205)
@@ -28,23 +28,24 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 #### 🎉 2.9.1 (2022-04-26)
 - 【Fix】
-    - 修复Tooltip在有动画情况下有概率浮层打开时闪烁
-    - 修复TimePicker组件use12Hours下，pm/am无法正确设置问题 [#776](https://github.com/DouyinFE/semi-design/issues/776), 修复TimePicker组件向上选择选项后点击清除无法回到预期位置问题
-    - 修复 Form Validate 特殊情景下内部使用旧值的问题
+    - 修复 Tooltip 在有动画情况下有概率浮层打开时闪烁
+    - 修复 TimePicker 组件 use12Hours 下，pm/am无法正确设置问题 [#776](https://github.com/DouyinFE/semi-design/issues/776), 修复TimePicker组件向上选择选项后点击清除无法回到预期位置问题
+    - 修复 Form Field validate 特殊情景下内部使用旧值的问题 [#796](https://github.com/DouyinFE/semi-design/issues/796)
 - 【Style】
     - 修复 Select focus 和 hover 同时应用，border 颜色不正常的问题
 
 #### 🎉 2.9.0 (2022-04-22)
 - 【Fix】
-    - 修复 TagInput 在 Form 内使用时，敲击回车会导致 submit 事件触发的问题
+    - 修复 TagInput 在 Form 内使用时，敲击回车会导致 submit 事件触发的问题 [#767](https://github.com/DouyinFE/semi-design/issues/767)
     - 修复 Modal 命令式调用后遗留无用 div 的问题
     - 修复 Collapse 将部分 props 透传至 DOM 导致存在无用属性 warning 的问题
     - 去除 Form label `user-select:none` 默认样式，允许用户选中
     - 修复 Cascader 清除按钮键盘事件不响应问题
 
 #### 🎉 2.9.0-beta.0 (2022-04-18)
-- 【Feat】
+- 【New Component】
     - 新增分割线组件 [#721](https://github.com/DouyinFE/semi-design/issues/721) [@ZeroCodeLin](https://github.com/ZeroCodeLin)
+- 【Feat】
     - Description 组件的 data 键值支持传入 ReactNode [#734](https://github.com/DouyinFE/semi-design/issues/734) [@oddguan](https://github.com/oddguan)
 - 【Fix】
     - 修复 Slider 组件受控情况下点击滑轨部分仍然可以触发值变更的问题 [#768](https://github.com/DouyinFE/semi-design/issues/768)

@@ -20,7 +20,7 @@ Version：Major.Minor.Patch
 - 【New Component】
     - new component Carousel  [#678](https://github.com/DouyinFE/semi-design/issues/678)
 - 【Fix】
-    - fix cascader's displayProp error when mutiple selection
+    - fix cascader's displayProp error when multiple selection
 - 【Feat】
     - Switch adds A11y keyboard and focus adaptation  [#205](https://github.com/DouyinFE/semi-design/issues/205)
     - Banner adds A11y keyboard and focus adaptation  [#205](https://github.com/DouyinFE/semi-design/issues/205)
@@ -31,21 +31,22 @@ Version：Major.Minor.Patch
 - 【Fix】
     - Fix the Tooltip flickering when there is a probability that the overlay is opened when there is animation
     - Fix the problem that pm/am could not be set correctly under the TimePicker component use12Hours [#776](https://github.com/DouyinFE/semi-design/issues/776), fix the problem that the TimePicker component could not return to the expected position after selecting the option upwards and clicking clear
-    - Fix the problem that the old value is used internally in the special case of Form Validate
+    - Fix the problem that the old value is used internally in the special case of Form Field validate [#796](https://github.com/DouyinFE/semi-design/issues/796)
 - 【Style】
     - Fix the problem that the border color is not right when Select focus and hover are applied at the same time
 
 #### 🎉 2.9.0 (2022-04-22)
 - 【Fix】
-    - Fix the issue that when TagInput is used in a Form, hitting enter would cause the submit event to be triggered
+    - Fix the issue that when TagInput is used in a Form, hitting enter would cause the submit event to be triggered  [#767](https://github.com/DouyinFE/semi-design/issues/767)
     - Fix the problem that the useless div is left behind after the Modal imperative call
     - Fix the problem that Collapse DOM has useless attributes
     - Remove Form label `user-select:none`， allow user select
     - Fix Cascader clear button keyboard event not responding
 
 #### 🎉 2.9.0-beta.0 (2022-04-18)
-- 【Feat】
+- 【New Component】
     - New Component Divider. [#721](https://github.com/DouyinFE/semi-design/issues/721) [@ZeroCodeLin](https://github.com/ZeroCodeLin)
+- 【Feat】
     - Added support for ReactNode as key value for Descriptions' data prop [#734](https://github.com/DouyinFE/semi-design/issues/734) [@oddguan](https://github.com/oddguan)
 - 【Fix】
     - Fix controlled slider component can still trigger value change by clicking track. [#768](https://github.com/DouyinFE/semi-design/issues/768)
