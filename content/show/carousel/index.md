@@ -60,7 +60,7 @@ import { Carousel, Typography, Space } from '@douyinfe/semi-ui';
     ];
 
     return (
-        <Carousel style={style} theme='dark' autoPlay={false}>
+        <Carousel style={style} theme='dark'>
             {
                 imgList.map((src, index) => {
                     return (
@@ -476,7 +476,7 @@ import { Carousel, Typography, Space } from '@douyinfe/semi-ui';
 
     return (
         <div>
-            <Carousel style={style} autoPlay={{ interval: 1500, hoverToPause: false }} theme='dark'>
+            <Carousel style={style} autoPlay={{ interval: 1500, hoverToPause: true }} theme='dark'>
                 {
                     imgList.map((src, index) => {
                         return (
@@ -679,6 +679,16 @@ class CarouselDemo extends React.Component {
 |------------------|---------------------------------------------------------------|------------------|------|------|
 |props             |箭头div上的可传参数，包括style, onClick事件等                                                  | React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement\>, HTMLDivElement\>       |-     |2.10.0|
 |children          |箭头自定义Icon                                                   |React.ReactNode      |-     |2.10.0|
+
+**Method()**
+
+| 方法               | 说明                        | 版本    |
+| ----------------- | --------------------------  | ------ |
+| play()            | 播放                        | 2.10.0 |
+| stop()            | 停止播放                     | 2.10.0 |
+| goTo(targetIndex) | 切换到指定位置                | 2.10.0 |
+| prev()            | 切换到上一位置                | 2.10.0 |
+| next()            | 切换到下一位置                | 2.10.0 |
 
 ## 设计变量
 

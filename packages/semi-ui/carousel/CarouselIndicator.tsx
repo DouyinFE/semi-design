@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/carousel/constants';
 import { CarouselIndicatorProps } from "./interface";
 import getDataAttr from "@douyinfe/semi-foundation/utils/getDataAttr";
-import { throttle } from 'lodash';
 
 class CarouselIndicator extends React.PureComponent<CarouselIndicatorProps> {
     static propTypes = {
