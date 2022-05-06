@@ -379,12 +379,24 @@ function withField<
                 return () => {};
             }
             // log('register: ' + field);
-            updater.register(field, fieldState, {
+
+            // field value may change after field component mounted, we use ref value here to get changed value
+            const refValue = getVal();
+            updater.register(
                 field,
-                fieldApi,
-                keepState,
-                allowEmpty: allowEmpty || allowEmptyString,
-            });
+                {
+                    value: refValue,
+                    error,
+                    touched,
+                    status,
+                },
+                {
+                    field,
+                    fieldApi,
+                    keepState,
+                    allowEmpty: allowEmpty || allowEmptyString,
+                }
+            );
             // return unRegister cb
             return () => {
                 updater.unRegister(field);

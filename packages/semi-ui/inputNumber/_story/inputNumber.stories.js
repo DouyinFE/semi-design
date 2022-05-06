@@ -4,6 +4,7 @@ import './inputNumber.scss';
 import InputNumber from '../index';
 import Button from '../../button/index';
 import { withField, Form } from '../../index';
+import { useFormApi } from '../../form';
 
 export default {
   title: 'InputNumber',
@@ -657,3 +658,44 @@ export const FixPrecision = () => {
     </div>
   );
 }
+
+/**
+ * 受控传超出 min value 的值，需要触发 onChange
+ * 不然在 Form 中使用可能会导致 Form State 与 InputNumber 展示的值不同问题
+ */
+export const FixMinValue = () => {
+  const [value, setValue] = useState();
+  const formRef = useFormApi();
+  return (
+      <div style={{ width: 280 }}>
+          <Button onClick={() => setValue(0)}>min=1, setValue=0</Button>
+          <InputNumber
+            min={1}
+            value={value} 
+            onChange={(v, e) => {
+              console.log('inputNumber1 change', `'${v}'`, e);
+              setValue(v);
+            }} 
+          />
+          <InputNumber
+            min={1}
+            value={0} 
+            onChange={(v, e) => {
+              console.log('inputNumber2 change', v, e);
+            }}
+          />
+          <Form initValues={{ minControlled: 0 }}>
+            <Form.InputNumber
+              field='minControlled'
+              min={1}
+              onChange={(v, e) => {
+                console.log('form inputNumber change', v, e);
+              }}
+            />
+          </Form>
+          <Button onClick={() => formRef.current.setValue('minControlled', 0) }>set form value</Button>
+          <Button onClick={() => { console.log('form value', JSON.stringify(formRef.current.getValues()))}}>get form values</Button>
+      </div>
+  );
+}
+FixMinValue.storyName = 'fix min value';
