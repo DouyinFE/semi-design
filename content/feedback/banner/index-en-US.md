@@ -191,5 +191,7 @@ import { Banner } from '@douyinfe/semi-ui';
 - The component has a `role` of 'alert'.
 - The close icon has a `aria-label` of 'Close'.
 
+### Keyboard and Focus
+- The close button of the Banner can be focused with the `Tab` key. After the button is focused, hit the `Enter` key or the `Space` key to close the banner.
 ## Design Tokens
 <DesignToken/>
