@@ -5,7 +5,7 @@ import {
 
 const cssClasses = {
     PREFIX: `${BASE_CLASS_PREFIX}-tree-select`,
-    PREFIXTREE: `${BASE_CLASS_PREFIX}-tree`,
+    PREFIX_TREE: `${BASE_CLASS_PREFIX}-tree`,
     PREFIX_OPTION: `${BASE_CLASS_PREFIX}-tree-select-option`
 };
 

@@ -163,7 +163,7 @@ export interface TreeSelectState extends Omit<BasicTreeSelectInnerData, Override
 }
 
 const prefixcls = cssClasses.PREFIX;
-const prefixTree = cssClasses.PREFIXTREE;
+const prefixTree = cssClasses.PREFIX_TREE;
 
 const key = 0;
 

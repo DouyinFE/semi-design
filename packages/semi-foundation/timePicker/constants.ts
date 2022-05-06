@@ -21,7 +21,7 @@ const strings = {
     DEFAULT_MULTIPLE_SEPARATOR,
     SIZE: inputStrings.SIZE,
     DEFAULT_FORMAT: 'HH:mm:ss',
-    DEFAULT_FROMAT_A: 'a h:mm:ss',
+    DEFAULT_FORMAT_A: 'a h:mm:ss',
     STATUS: VALIDATE_STATUS,
     DEFAULT_POSITION: {
         [TYPE_TIME_PICKER]: 'bottomLeft',

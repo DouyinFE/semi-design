@@ -215,9 +215,9 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
         if (code === keyCode.UP || code === keyCode.DOWN) {
             this._adapter.setClickUpOrDown(true);
             this._adapter.recordCursorPosition();
-            const formatedVal = code === keyCode.UP ? this.add() : this.minus();
+            const formattedVal = code === keyCode.UP ? this.add() : this.minus();
 
-            this._doInput(formatedVal, event, () => {
+            this._doInput(formattedVal, event, () => {
                 this._adapter.restoreCursor();
             });
 
