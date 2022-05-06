@@ -146,9 +146,7 @@ class Form extends BaseComponent<BaseFormProps, BaseFormState> {
     }
 
     componentDidMount() {
-        this.setState({
-            formId: getUuidv4()
-        });
+        this.foundation.init();
     }
 
     componentWillUnmount() {
@@ -178,6 +176,11 @@ class Form extends BaseComponent<BaseFormProps, BaseFormState> {
             },
             notifyReset: () => {
                 this.props.onReset();
+            },
+            initFormId: () => {
+                this.setState({
+                    formId: getUuidv4()
+                });
             },
             getInitValues: () => this.props.initValues,
             getFormProps: (keys: undefined | string | Array<string>) => {
