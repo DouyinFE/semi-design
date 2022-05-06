@@ -699,3 +699,16 @@ export const FixMinValue = () => {
   );
 }
 FixMinValue.storyName = 'fix min value';
+
+/**
+ * fix InputNumber precision 删除后，输入非法字符显示 0.00
+ * https://github.com/DouyinFE/semi-design/issues/786
+ */
+export const FixPrecision786 = () => {
+  return (
+    <div data-cy="fix-precision-786">
+        <InputNumber defaultValue={10.00} precision={2} />
+    </div>
+  );
+}
+FixPrecision786.storyName = 'fix precision 删除后输入非法值会显示 0.00';
