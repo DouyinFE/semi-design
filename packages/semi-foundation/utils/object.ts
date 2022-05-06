@@ -35,8 +35,8 @@ function isEmptyObject(target: ObjectType) {
  *  }
  *  the result of JSON.stringify(a/b/d) are same: '{}'
  *  We can use the above features to remove keys with empty values in Form
- *  But we cannot use JSON.stringify() directly, because if the input parameter of JSON.stringify includes fiberNode, it will cause an TypeError: 'Convering circular structure to JSON'
- *  So we have to mock it's behavihor, also, the form value cannot have Symbol or function type, it can be ignored
+ *  But we cannot use JSON.stringify() directly, because if the input parameter of JSON.stringify includes fiberNode, it will cause an TypeError: 'Converting circular structure to JSON'
+ *  So we have to mock it's behavior, also, the form value cannot have Symbol or function type, it can be ignored
  */
     if (!isObject(target)) {
         return false;

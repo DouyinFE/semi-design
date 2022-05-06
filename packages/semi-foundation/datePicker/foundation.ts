@@ -408,7 +408,7 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
         // Enter a valid date or empty
         if ((result && result.length) || input === '') {
             // If you click the clear button
-            if (get(e, inputStrings.CLEAR_BTN_CLICKED_EVENT_FLAG) && this._isControlledComponent('value')) {
+            if (get(e, inputStrings.CLEARBTN_CLICKED_EVENT_FLAG) && this._isControlledComponent('value')) {
                 this._notifyChange(result);
                 return;
             }

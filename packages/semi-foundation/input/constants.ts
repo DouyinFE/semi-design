@@ -8,7 +8,7 @@ const strings = {
     SIZE: ['small', 'large', 'default'],
     DEFAULT_SIZE: 'default',
     STATUS: ['default', 'error', 'warning', 'success'],
-    CLEAR_BTN_CLICKED_EVENT_FLAG: '__fromClearBtn',
+    CLEARBTN_CLICKED_EVENT_FLAG: '__fromClearBtn',
     MODE: ['password'],
 } as const;
 
