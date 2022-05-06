@@ -4,7 +4,7 @@
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import keyCode from '../utils/keyCode';
 import { numbers } from './constants';
-import { toNumber, toString, get } from 'lodash';
+import { toNumber, toString, get, isString } from 'lodash';
 import { minus as numberMinus } from '../utils/number';
 
 export interface InputNumberAdapter extends DefaultAdapter {
@@ -26,6 +26,14 @@ export interface InputNumberAdapter extends DefaultAdapter {
     restoreCursor: (str?: string) => boolean;
     fixCaret: (start: number, end: number) => void;
     setClickUpOrDown: (clicked: boolean) => void;
+    updateStates: (states: BaseInputNumberState, callback?: () => void) => void;
+}
+
+export interface BaseInputNumberState {
+    value?: number | string;
+    number?: number | null;
+    focusing?: boolean;
+    hovering?: boolean;
 }
 
 class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
@@ -360,17 +368,21 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
         const { defaultValue, value } = this.getProps();
 
         const propsValue = this._isControlledComponent('value') ? value : defaultValue;
-        const tmpNumer = this.doParse(toString(propsValue), false, true, true);
+        const tmpNumber = this.doParse(toString(propsValue), false, true, true);
 
         let number = null;
-        if (typeof tmpNumer === 'number' && !isNaN(tmpNumer)) {
-            number = tmpNumer;
+        if (typeof tmpNumber === 'number' && !isNaN(tmpNumber)) {
+            number = tmpNumber;
         }
 
-        const formatedValue = typeof number === 'number' ? this.doFormat(number, true) : '';
+        const formattedValue = typeof number === 'number' ? this.doFormat(number, true) : '';
 
         this._adapter.setNumber(number);
-        this._adapter.setValue(formatedValue);
+        this._adapter.setValue(formattedValue);
+
+        if (isString(formattedValue) && formattedValue !== String(propsValue)) {
+            this.notifyChange(formattedValue, null);
+        }
     }
 
     add(step?: number, event?: any): string {
@@ -615,6 +627,10 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
         if (this.isValidNumber(value) && value !== number) {
             this._adapter.notifyNumberChange(value, e);
         }
+    }
+
+    updateStates(states: BaseInputNumberState, callback?: () => void) {
+        this._adapter.updateStates(states, callback);
     }
 }
 
