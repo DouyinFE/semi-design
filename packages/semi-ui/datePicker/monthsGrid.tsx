@@ -29,6 +29,7 @@ export interface MonthsGridProps extends MonthsGridFoundationProps, BaseProps {
     renderDate?: () => React.ReactNode;
     renderFullDate?: () => React.ReactNode;
     focusRecordsRef?: React.RefObject<{ rangeStart: boolean; rangeEnd: boolean }>;
+    insetInput?: boolean;
 }
 
 export type MonthsGridState = MonthsGridFoundationState;
@@ -583,7 +584,7 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
                     className={dateCls}
                     onClick={e => this.foundation.showDatePanel(panelType)}
                 >
-                    {showSwithIcon && <IconCalendar aria-hidden />}
+                    {showSwitchIcon && <IconCalendar aria-hidden />}
                     <span className={textCls}>{dateText || monthText}</span>
                 </div>
                 <div
@@ -592,7 +593,7 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
                     className={timeCls}
                     onClick={e => this.foundation.showTimePicker(panelType, true)}
                 >
-                    {showSwithIcon && <IconClock aria-hidden />}
+                    {showSwitchIcon && <IconClock aria-hidden />}
                     <span className={textCls}>{timeText}</span>
                 </div>
             </div>
