@@ -61,7 +61,7 @@ import { Carousel, Typography, Space } from '@douyinfe/semi-ui';
     ];
 
     return (
-        <Carousel style={style} theme='dark' autoPlay={false}>
+        <Carousel style={style} theme='dark'>
             {
                 imgList.map((src, index) => {
                     return (
@@ -680,6 +680,16 @@ class CarouselDemo extends React.Component {
 |------------------|---------------------------------------------------------------|------------------|------|------|
 |props           |Parameters on the arrow div, including style, onClick events, etc                                      |DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement\>, HTMLDivElement\>         |-     |2.10.0|
 |children         |Arrow custom icon                                              |React.ReactNode      |-     |2.10.0|
+
+**Method()**
+
+| Method             | Instructions                    | Version |
+| ------------------ | ------------------------------- | ------- |
+| play()             | Play                            | 2.10.0 |
+| stop()             | Stop                            | 2.10.0 |
+| goTo(targetIndex)  | Go to target index              | 2.10.0 |
+| prev()             | Go to previous index            | 2.10.0 |
+| next()             | Go to next index                | 2.10.0 |
 
 
 ## Design Tokens

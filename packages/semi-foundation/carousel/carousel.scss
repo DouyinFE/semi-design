@@ -381,7 +381,7 @@ $module: #{$prefix}-carousel;
 @keyframes #{$module}-content-item-keyframe-slide-in {
 
     from {
-        transform: translateX(-100%);
+        transform: translateX(100%);
     }
     
     to {
@@ -396,14 +396,14 @@ $module: #{$prefix}-carousel;
     }
     
     to {
-        transform: translateX(100%);
+        transform: translateX(-100%);
     }
 }
 
 @keyframes #{$module}-content-item-keyframe-slide-in-reverse {
 
     from {
-        transform: translateX(100%);
+        transform: translateX(-100%);
     }
   
     to {
@@ -418,7 +418,7 @@ $module: #{$prefix}-carousel;
     }
   
     to {
-        transform: translateX(-100%);
+        transform: translateX(100%);
     }
 }
 

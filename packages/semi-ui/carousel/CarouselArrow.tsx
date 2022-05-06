@@ -5,7 +5,7 @@ import cls from 'classnames';
 import { cssClasses } from '@douyinfe/semi-foundation/carousel/constants';
 import { CarouselArrowProps } from "./interface";
 import { IconChevronLeft, IconChevronRight } from "@douyinfe/semi-icons";
-import { get, throttle } from 'lodash';
+import { get } from 'lodash';
 
 class CarouselArrow extends React.PureComponent<CarouselArrowProps> {
     renderLeftIcon = () => {
@@ -17,7 +17,7 @@ class CarouselArrow extends React.PureComponent<CarouselArrowProps> {
     }
 
     render(): ReactNode {
-        const { type, theme, prev, next, timing } = this.props;
+        const { type, theme, prev, next } = this.props;
         const classNames = cls( {
             [cssClasses.CAROUSEL_ARROW]: true,
             [`${cssClasses.CAROUSEL_ARROW}-${theme}`]: theme,
@@ -39,7 +39,7 @@ class CarouselArrow extends React.PureComponent<CarouselArrowProps> {
                 <div 
                     // role='button'
                     className={leftClassNames} 
-                    onClick={throttle(prev, timing)}
+                    onClick={prev}
                     {...get(this.props, 'arrowProps.leftArrow.props')}
                 >
                     {this.renderLeftIcon()}
@@ -48,7 +48,7 @@ class CarouselArrow extends React.PureComponent<CarouselArrowProps> {
                     // role='button'
                     // tabIndex={0} 
                     className={rightClassNames} 
-                    onClick={throttle(next, timing)}
+                    onClick={next}
                     {...get(this.props, 'arrowProps.rightArrow.props')}
                 >
                     {this.renderRightIcon()}

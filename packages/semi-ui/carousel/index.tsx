@@ -155,7 +155,7 @@ class Carousel extends BaseComponent<CarouselProps, CarouselState> {
     }
 
     onIndicatorChange = (activeIndex: number): void => {
-        return this.foundation.throttleChange(activeIndex);
+        return this.foundation.onIndicatorChange(activeIndex);
     };
 
     getChildren  = (): (ReactChild | ReactFragment | ReactPortal)[] => {
@@ -238,7 +238,6 @@ class Carousel extends BaseComponent<CarouselProps, CarouselState> {
     renderArrow = () => {
         const { children } = this.state;
         const { showArrow, arrowType, theme, arrowProps } = this.props;
-        const timing = this.foundation.getSwitchingTime();
 
         if (showArrow && children.length > 1){
             return (
@@ -247,7 +246,6 @@ class Carousel extends BaseComponent<CarouselProps, CarouselState> {
                     theme={theme} 
                     prev={this.prev} 
                     next={this.next}
-                    timing={timing}
                     arrowProps={arrowProps}
                 />
             );

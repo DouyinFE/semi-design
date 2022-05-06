@@ -12,11 +12,9 @@ export interface CarouselAdapter<P = Record<string, any>, S = Record<string, any
 }
 
 class CarouselFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<CarouselAdapter<P, S>, P, S> {
-    throttleChange: any;
 
     constructor(adapter: CarouselAdapter<P, S>) {
         super({ ...adapter });
-        this.throttleChange = throttle(this.onIndicatorChange, this.getSwitchingTime()); 
     }
 
     _interval = null;

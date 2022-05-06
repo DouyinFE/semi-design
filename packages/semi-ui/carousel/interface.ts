@@ -4,7 +4,7 @@ import { strings } from '@douyinfe/semi-foundation/carousel/constants';
 export interface CarouselMethod {
     next?: () => void;
     prev?: () => void;
-    goTo?: () => void;
+    goTo?: (tagetIndex: number) => void;
     play?: () => void;
     stop?: () => void;
 }
@@ -51,7 +51,6 @@ export interface CarouselArrowProps {
     prev?: () => void;
     next?: () => void;
     arrowProps?: ArrowProps;
-    timing: number;
 }
 
 export interface ArrowButton {
