@@ -308,7 +308,7 @@ class App extends React.Component {
             <Tabs style={{ width: '60%', margin: '20px' }} type="card" collapsible>
                 {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((item, index) => (
                     <TabPane tab={`Tab-${item}`} itemKey={`Tab-${item}`} key={item}>
-                        Content of card tab {i}
+                        Content of card tab {index}
                     </TabPane>
                 ))}
             </Tabs>
@@ -578,3 +578,13 @@ closable | whether user can close the tab **>=2.1.0** | boolean | false |
 ## Design Token
 
 <DesignToken/>
+
+## FAQ
+
+-   **Why typography with ellipses in Tabs doesn't work?**
+
+    Because when Tabs renders TabPane, the default is to render display: none. At this point these components cannot get the correct width or height values. It is recommended to enable lazyRender in version 1.x, or disable keepDOM. Version 0.x needs to use tabList notation.
+
+-   **Why are the height or width values ​​wrong when using components such as Collapse/Collapsible/Resizable Table in Tabs?**
+
+    The reason is the same as above. In addition, if the collapse does not need animation, you can also turn off the animation effect by setting motion={false}. There is no need to get the height of the component at this point。
