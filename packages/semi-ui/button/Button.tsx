@@ -1,5 +1,5 @@
 /* eslint-disable react/destructuring-assignment */
-import React, { PureComponent } from 'react';
+import React, { PureComponent, ReactNode } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/button/constants';
@@ -18,6 +18,7 @@ export interface ButtonProps {
     id?: string;
     block?: boolean;
     circle?: boolean;
+    children?: ReactNode | undefined;
     disabled?: boolean;
     className?: string;
     icon?: React.ReactNode;

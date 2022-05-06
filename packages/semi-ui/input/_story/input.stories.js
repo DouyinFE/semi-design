@@ -885,3 +885,25 @@ export const ClearButton = () => {
 ClearButton.story = {
   name: 'clear button',
 };
+
+export const InputFocus = () => {
+  const ref = React.useRef();
+  const handleClick = () => {
+    ref.current.focus();
+  };
+  return (
+    <>
+      <Button onClick={handleClick}>focus input</Button>
+      <Input ref={ref} onChange={() => console.log('ref', ref) } onFocus={() => console.log('focus')} />
+    </>
+  );
+};
+
+export const TextAreaAutosize = () => {
+  return (
+    <div style={{ width: 200 }}>
+      <TextArea autosize />
+    </div>
+  )
+};
+TextAreaAutosize.storyName = "textarea autosize";

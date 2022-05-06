@@ -8,7 +8,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const path = require('path');
 const fs = require('fs');
-const processGraphQLData = require('./search/generator');
 const items = ['basic', 'chart'];
 const sha1 = require('sha1');
 const hash = sha1(`${new Date().getTime()}${Math.random()}`);
@@ -112,6 +111,7 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions }) =>
         resolve: {
             alias: {
                 'semi-site-header': process.env.SEMI_SITE_HEADER || '@douyinfe/semi-site-header',
+                'semi-site-banner': process.env.SEMI_SITE_BANNER || '@douyinfe/semi-site-banner',
                 '@douyinfe/semi-ui': resolve('packages/semi-ui'),
                 '@douyinfe/semi-foundation': resolve('packages/semi-foundation'),
                 '@douyinfe/semi-icons': resolve('packages/semi-icons/src/'),
@@ -178,8 +178,10 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions }) =>
         },
         plugins: [plugins.extractText(),plugins.define({
             "THEME_SWITCHER_URL":JSON.stringify(process.env['THEME_SWITCHER_URL']),
+            "SEMI_SEARCH_URL":JSON.stringify(process.env['SEMI_SEARCH_URL']),
             "DSM_URL":JSON.stringify(process.env['DSM_URL']),
-            'process.env.SEMI_SITE_HEADER':JSON.stringify(process.env.SEMI_SITE_HEADER)
+            'process.env.SEMI_SITE_HEADER':JSON.stringify(process.env.SEMI_SITE_HEADER),
+            'process.env.SEMI_SITE_BANNER':JSON.stringify(process.env.SEMI_SITE_BANNER),
         })],
     });
 };
@@ -230,35 +232,6 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
 
     const blogPostTemplate = path.resolve('src/templates/postTemplate.js');
 
-    // 开始处理搜索数据
-    // console.log('building search data.');
-    const searchData = await graphql(`
-       query MyQuery {
-         allMdx {
-           nodes {
-             id
-             fields {
-               slug
-               type
-               typeOrder
-             }
-             frontmatter {
-             brief
-               localeCode
-               title
-             }
-             tableOfContents
-             mdxAST
-           }
-         }
-       }`);
-
-    // 在此你可以处理searchData(GraphQL查询的raw数据) 或者传入回调 处理运算后的数据
-    processGraphQLData(searchData, processedData => {});
-    // 搜索有用到，但是目前没有搜索，先注释掉，不然影响文档站的本地调试
-    // fs.copyFileSync('./search/data_client.json', './static/search_data_client.json');
-    //   console.log('building search data success.')
-    // 搜索数据处理结束
     const result = await graphql(`
          query {
              allMdx(

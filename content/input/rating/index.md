@@ -1,10 +1,10 @@
 ---
 localeCode: zh-CN
-order: 25
+order: 26
 category: 输入类
 title:  Rating 评分
 icon: doc-rating
-brief: 展示评分的组件。
+brief: 展示评分的组件
 ---
 
 

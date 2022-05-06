@@ -8,6 +8,8 @@ $col: #{$form}-col;
 
 $checkboxGroup: #{$prefix}-checkboxGroup;
 $radioGroup: #{$prefix}-radioGroup;
+$buttonRadioGroup: #{$prefix}-radioGroup-buttonRadio;
+
 $switch: #{$prefix}-switch;
 $rating: #{$prefix}-rating;
 
@@ -82,25 +84,24 @@ $rating: #{$prefix}-rating;
         vertical-align: middle;
         @include font-size-regular;
         flex-shrink: 0;
-        user-select: none;
 
         &-disabled {
             color: $color-form_label_disabled-text-default;
         }
 
         &-with-extra {
-            .#{$field}-label-text,
-            .#{$field}-label-extra {
+            .#{$field}-label-text {
                 display: inline-block;
             }
             .#{$field}-label-extra {
+                display: flex;
+                align-items: center;
                 margin-left: $spacing-form_label_extra-marginLeft;
             }
         }
 
         &-required {
             .#{$field}-label-text {
-
                 &::after {
                     content: "*";
                     margin-left: $spacing-form_label_required-marginLeft;
@@ -154,6 +155,10 @@ $rating: #{$prefix}-rating;
             padding-top: $spacing-form_label_posTop-paddingTop;
             padding-bottom: $spacing-form_label_posTop-paddingBottom;
         }
+        .#{$field}-label-with-extra {
+            display: flex;
+            align-items: center;
+        }
 
     }
 
@@ -167,11 +172,19 @@ $rating: #{$prefix}-rating;
             padding-top: $spacing-form_label-paddingTop;
             padding-bottom: $spacing-form_label-paddingTop;
         }
-
+        .#{$field}-label-with-extra {
+            display: flex;
+            align-items: center;
+        }
         .#{$checkboxGroup},
         .#{$radioGroup} {
             padding-top: $spacing-form_label-paddingTop;
             padding-bottom: $spacing-form_label-paddingTop;
+        }
+        // no need to adjust height for button radio, already 32px
+        .#{$buttonRadioGroup} {
+            padding-top: 0;
+            padding-bottom: 0;
         }
         .#{$switch},
         .#{$rating} {

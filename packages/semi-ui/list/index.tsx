@@ -17,6 +17,7 @@ export { ListItemProps } from './item';
 export interface ListProps<T> {
     style?: React.CSSProperties;
     className?: string;
+    children?: React.ReactNode | undefined;
     bordered?: boolean;
     footer?: React.ReactNode;
     header?: React.ReactNode;

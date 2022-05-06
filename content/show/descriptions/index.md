@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 48
+order: 49
 category: 展示类
 title: Descriptions 描述列表
 icon: doc-descriptions
@@ -155,7 +155,7 @@ import { Descriptions } from '@douyinfe/semi-ui';
 
 | 属性   | 说明                             | 类型                        | 默认值 |
 | ------ | -------------------------------- | --------------------------- | ------ |
-| key    | required 且要求唯一，键值        | string \| number           | -      |
+| key    | 键值        | ReactNode           | -      |
 | value  | 属性值                           | ReactNode \| (() => ReactNode) | -      |
 | hidden | 该数据是否需要展示 **v>=1.12.0** | boolean                     | -      |
 
@@ -165,7 +165,7 @@ import { Descriptions } from '@douyinfe/semi-ui';
 
 | 属性      | 说明                      | 类型              | 默认值 |
 | --------- | ------------------------- | ----------------- | ------ |
-| itemKey   | required 且要求唯一，键值 | string \| number | -      |
+| itemKey   | 键值 | ReactNode | -      |
 | hidden    | 该数据是否需要展示        | boolean           | -      |
 | className | 类名                      | string            | -     |
 | style     | 列表的样式                | CSSProperties            | -     |

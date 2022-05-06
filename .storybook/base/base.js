@@ -1,22 +1,44 @@
 
 const path = require('path');
 const _ = require('lodash');
+const chalk = require('chalk').default;
+
+const utils = require('./utils');
 
 function resolve(...dirs) {
     return path.join(__dirname, '../..', ...dirs);
 }
 
+/**
+ * 当我们想获取 Cypress 代码覆盖率时，需要将 TEST_ENV 设置为 true。
+ * 
+ * 这时会打开 babel-loader 配置，去掉 esbuild 配置，并在 babel plugin 中注入 babel-plugin-istanbul
+ * 
+ * @see https://github.com/istanbuljs/babel-plugin-istanbul
+ */
+function getAddons() {
+    let addons = [
+        '@storybook/addon-a11y',
+        '@storybook/addon-toolbars',
+    ];
+    
+    if (!utils.isTest()) {
+
+        console.log(chalk.yellow(`if you want to get cypress code coverage, set TEST_ENV=test, now it is '${process.env.TEST_ENV}'`));
+
+        addons.unshift({
+            name: "storybook-addon-turbo-build",
+            options: {
+              optimizationLevel: 3,
+            },
+        });
+    }
+
+    return addons;
+}
+
 module.exports = {
-  "addons": [
-    {
-      name: "storybook-addon-turbo-build",
-      options: {
-        optimizationLevel: 3,
-      },
-    },
-    '@storybook/addon-a11y',
-    '@storybook/addon-toolbars',
-  ],
+  addons: getAddons(),
   webpackFinal: async (config) => {
     const rules =
         (config.module.rules &&
@@ -28,24 +50,24 @@ module.exports = {
                 return true;
             })) ||
         [];
-    rules.unshift({
-        test: /\.tsx/,
-        exclude: /node_modules/,
-        loader: 'esbuild-loader',
-        options: {
-            loader: 'tsx',
-            target: 'es2015'
-        }
-    });
-    rules.unshift({
-        test: /\.ts/,
-        exclude: /node_modules/,
-        loader: 'esbuild-loader',
-        options: {
-            loader: 'ts',
-            target: 'es2015'
-        }
-    });
+    // rules.unshift({
+    //     test: /\.tsx/,
+    //     exclude: /node_modules/,
+    //     loader: 'esbuild-loader',
+    //     options: {
+    //         loader: 'tsx',
+    //         target: 'es2015'
+    //     }
+    // });
+    // rules.unshift({
+    //     test: /\.ts/,
+    //     exclude: /node_modules/,
+    //     loader: 'esbuild-loader',
+    //     options: {
+    //         loader: 'ts',
+    //         target: 'es2015'
+    //     }
+    // });
     rules.push(
         {
             test: /\.css$/,

@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 48
+order: 49
 category: Show
 title: Description
 subTitle: Descriptions
@@ -153,7 +153,7 @@ import { Descriptions } from '@douyinfe/semi-ui';
 
 | Properties   | Instructions                                                      | type                        | Default |
 | ------ | --------------------------------------------------------- | --------------------------- | ------ |
-| key    | Required and unique                                       | string \| number           | -      |
+| key    | Key value                                       | ReactNode           | -      |
 | value  | Data value                                                | ReactNode \| (() => ReactNode) | -      |
 | hidden | Toggle whether the data should be displayed **v>=1.12.0** | boolean                     | -      |
 
@@ -163,7 +163,7 @@ import { Descriptions } from '@douyinfe/semi-ui';
 
 | Properties | Instructions                                | type              | Default |
 | ---------- | ------------------------------------------- | ----------------- | ------- |
-| itemKey    | Required and unique                         | string \| number | -       |
+| itemKey    | Key value                         | ReactNode | -       |
 | hidden     | Toggle whether the data should be displayed | boolean           | -       |
 | className  | Classname                                   | string            | -       |
 | style      | Inline style                                | CSSProperties     | -       |

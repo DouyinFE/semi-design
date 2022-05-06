@@ -37,7 +37,7 @@ export interface BaseFileItem {
     percent?: number;
     _sizeInvalid?: boolean;
     preview?: boolean;
-    validateMessage?: unknown;
+    validateMessage?: any;
     shouldUpload?: boolean;
     [key: string]: any;
 }

@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 40
+order: 41
 category: 导航类
 title: Tabs 标签栏
 icon: doc-tabs
@@ -602,3 +602,13 @@ closable  | 允许关闭tab **>=2.1.0**| boolean | false |
 ## 设计变量
 
 <DesignToken/>
+
+## FAQ
+
+-   **为什么在Tabs中使用 Typography 的省略 ellipsis 失效？**
+
+    因为Tabs渲染TabPane时，默认是全部渲染display: none。此时这些组件无法获取到正确的宽度或高度值。建议1.x的版本开启lazyRender，或者关闭keepDOM。0.x的版本需要使用tabList的写法。
+
+-   **为什么在Tabs中使用Collapse/Collapsible/Resizable Table等组件的高度或宽度值不对？**
+
+    原因同上，另外如果 collapse 不需要动画，也可以通过设置 motion={false} 来关闭动画效果。此时无需获取组件的高度。

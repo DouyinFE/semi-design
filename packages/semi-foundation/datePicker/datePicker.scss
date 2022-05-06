@@ -6,6 +6,7 @@ $module: #{$prefix}-datepicker;
 .#{$module} {
     box-sizing: border-box;
     display: inline-block;
+    vertical-align: top;
 
     // 双月网格
 
@@ -43,6 +44,34 @@ $module: #{$prefix}-datepicker;
 
         &[x-type='date'] .#{$module}-yam-showing {
             min-height: $height-datepicker_dateType_yamShowing_min;
+        }
+
+        &[x-insetinput=true] {
+            .#{$module}-month-grid-left,
+            .#{$module}-month-grid-right {
+                &[x-open-type=year] {
+                    min-height: $height-datepicker_month_grid_yearType_insetInput;
+                }
+                &[x-open-type=time] {
+                    min-height: $height-datepicker_month_grid_timeType_insetInput;
+                }
+            }
+
+            .#{$module}-navigation {
+                padding-top: $spacing-datepicker_navigation_insetInput-paddingY;
+                padding-bottom: $spacing-datepicker_navigation_insetInput-paddingY;
+            }
+
+            .#{$module}-tpk {
+                min-height: $height-datepicker_timeType_insetInput_tpk;
+            }
+
+            &[x-type=dateTime],
+            &[x-type=dateTimeRange] {
+                .#{$module}-yam {
+                    height: $height-datepicker_timeType_insetInput_yam;
+                }
+            }
         }
 
         // 年月选择返回主面板
@@ -92,6 +121,7 @@ $module: #{$prefix}-datepicker;
 
                 @include font-size-regular;
                 min-height: $height-datepicker_timepicker_header_min;
+                line-height: $height-datepicker_timepicker_header_min;
             }
         }
 
@@ -581,6 +611,41 @@ $module: #{$prefix}-datepicker;
         cursor: pointer;
     }
 
+    &-inset-input {
+        &-wrapper {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+            box-sizing: border-box;
+            column-gap: $spacing-datepicker_insetInput_wrapper-margin;
+            padding: $spacing-datepicker_insetInput_wrapper-paddingY $spacing-datepicker_insetInput_wrapper-paddingX;
+            padding-bottom: $spacing-datepicker_insetInput_wrapper-paddingBottom;
+
+            width: $width-datepicker_insetInput_date_type_wrapper;
+            &[x-type=dateRange],
+            &[x-type=dateTimeRange] {
+                width: $width-datepicker_insetInput_date_range_type_wrapper;
+            }
+            &[x-type=month] {
+                width: $width-datepicker_insetInput_month_type_wrapper;
+            }
+
+            .#{$prefix}-input-wrapper {
+                flex: 1;
+                flex-shrink: 0;
+            }
+        }
+
+        &-separator {
+            flex-grow: 0;
+            flex-shrink: 0;
+            height: $height-datepicker_insetInput_separator;
+            line-height: $height-datepicker_insetInput_separator;
+            padding: $spacing-datepicker_insetInput_separator-paddingY $spacing-datepicker_insetInput_separator-paddingX;
+            color: $color-datepicker_insetInput_separator;
+        }
+    }
+
     &-range {
 
         &-input {
@@ -862,6 +927,33 @@ $module: #{$prefix}-datepicker;
                 min-height: 6 * $width-datepicker_day_compact;
             }
         }
+
+        &[x-insetinput=true] {
+            .#{$module}-month-grid-left,
+            .#{$module}-month-grid-right {
+                &[x-open-type=year] {
+                    min-height: $height-datepicker_tpk_compact;
+                }
+                &[x-open-type=time] {
+                    min-height: $height-datepicker_tpk_compact;
+                }
+            }
+
+            .#{$module}-yam-showing {
+                min-height: $height-datepicker_tpk_compact;
+            }
+
+            .#{$module}-tpk {
+                min-height: $height-datepicker_insetInput_tpk_compact;
+            }
+
+            &[x-type=dateTime],
+            &[x-type=dateTimeRange] {
+                .#{$module}-yam {
+                    height: $height-datepicker_timeType_insetInput_yam_compact;
+                }
+            }
+        }
     }
 
     // 年月选择器
@@ -1039,6 +1131,46 @@ $module: #{$prefix}-datepicker;
         padding-right: $spacing-datepicker_footer_compact-paddintRight;
         padding-bottom: $spacing-datepicker_footer_compact-paddintBottom;
     }
+
+    .#{$module}-inset-input {
+        &-wrapper {
+            column-gap: $spacing-datepicker_insetInput_wrapper_compact-margin;
+            padding: $spacing-datepicker_insetInput_wrapper_compact-paddingY $spacing-datepicker_insetInput_wrapper_compact-paddingX;
+            padding-bottom: $spacing-datepicker_insetInput_wrapper_compact-paddingBottom;
+
+            width: $width-datepicker_insetInput_date_type_wrapper_compact;
+            &[x-type=dateRange],
+            &[x-type=dateTimeRange] {
+                width: $width-datepicker_insetInput_date_range_type_wrapper_compact;
+                padding-top: $spacing-datepicker_insetInput_wrapper_rangeType_compact-paddingTop;
+
+                .#{$prefix}-input-wrapper {
+                    margin-top: $spacing-datepicker_insetInput_wrapper_compact-paddingY;
+                }
+            }
+            &[x-type=month] {
+                width: $width-datepicker_insetInput_month_type_wrapper_compact;
+            }
+
+            .#{$prefix}-input-wrapper {
+                height: $height-datepicker_insetInput_wrapper_compact;
+                box-sizing: border-box;
+
+                .#{$prefix}-input {
+                    font-size: $fontSize-datepicker_insetInput_compact-fontSize;
+                    line-height: $height-datepicker_insetInput_compact;
+                    height: $height-datepicker_insetInput_compact;
+                    vertical-align: top;
+                }
+            }
+        }
+
+        &-separator {
+            border-left: $width-datepicker-border solid $color-datepicker_border-bg-default;
+            transform: translateX(50%);
+            height: auto;
+        }
+    }
 }
 
 // 向上弹出时固定高度为6周 #1042
@@ -1046,8 +1178,10 @@ $module: #{$prefix}-datepicker;
 
     &-wrapper {
 
-        &[x-placement*="top"],
-        &[x-placement*="Top"] {
+        &[x-placement^="top"],
+        &[x-placement="leftTop"],
+        &[x-placement="rightTop"],
+        &[x-placement*="BottomOver"] {
             .#{$module} .#{$module}-weeks {
                 min-height: 6 * $width-datepicker_day;
             }
@@ -1056,7 +1190,6 @@ $module: #{$prefix}-datepicker;
                 min-height: 6 * $width-datepicker_day_compact;
             }
         }
-        
     }
 }
 

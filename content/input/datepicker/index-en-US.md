@@ -1,16 +1,12 @@
 ---
 localeCode: en-US
-order: 20
+order: 21
 category: Input
 title: DatePicker
 subTitle: Date Selector
 icon: doc-datepicker
 brief: The date selector is used to help the user select a compliant, formatted date (time) or date (time) range.
 ---
-
-## When to Use
-
-When the user needs to enter a date, you can click on the standard input box and pop up the date panel to select.
 
 ## Demos
 
@@ -132,8 +128,56 @@ import { DatePicker } from '@douyinfe/semi-ui';
 
 class App extends React.Component {
     render() {
-        return <DatePicker type="dateTimeRange" style={{ width: 380 }} onChange={console.log} />;
+        return <DatePicker type="dateTimeRange" style={{ width: 400 }} onChange={console.log} />;
     }
+}
+```
+
+### Input in Panel
+
+Use `insetInput` to control whether the date panel is inset with the input box, the default is `false`. Supported since `v2.7.0`. Inset input boxes are suitable for the following scenarios:
+
+- Date and time selection, you can directly input the time through the embedded input box, no need to select the time through the scroll wheel
+- When `triggerRender`+ range selection, use the inset input box to modify the start and end dates independently
+
+After `insetInput` is turned on, it includes the following functions:
+
+- After clicking the trigger, the panel will pop up in the original position by default. You can customize the popup position by `position`
+- Click the embedded date input box, the panel switches to date selection; click the embedded time input box, the panel switches to time selection
+- Consistent with the external input box, if an illegal date is entered, the date will return to the previous legal date after the panel is closed
+
+<Notice type="primary" title="Notes">
+     <div>Note that some adjustments and restrictions will be made to the components after opening insetInput:</div>
+     <div>1. Trigger style: the trigger is read-only when the panel is not open, and the trigger is disabled when it is open</div>
+     <div>2. Panel style: when type includes time, hide the toggle button at the bottom</div>
+     <div>3. After insetInput is enabled, the `format` API only supports the `dateFormat[ timeFormat]` format. Using other formats will affect the display of the inset input box placeholder and trigger text</div>
+</Notice>
+
+```jsx live=true
+import React from 'react';
+import { DatePicker } from '@douyinfe/semi-ui';
+
+function Demo() {
+    return (
+        <div>
+            <DatePicker type="date" insetInput />
+            <br />
+            <br />
+            <DatePicker type="dateTime" insetInput />
+            <br />
+            <br />
+            <DatePicker type="dateRange" insetInput style={{ width: 260 }} />
+            <br />
+            <br />
+            <DatePicker type="dateTimeRange" insetInput style={{ width: 400 }} />
+            <br />
+            <br />
+            <DatePicker type="month" placeholder="please input month" insetInput style={{ width: 140 }} />
+            <br />
+            <br />
+            <DatePicker type="dateTime" format="yyyy-MM-dd HH:mm" insetInput />
+        </div>
+    );
 }
 ```
 
@@ -155,7 +199,7 @@ class App extends React.Component {
             <DatePicker
                 syncSwitchMonth={true}
                 type="dateTimeRange"
-                style={{ width: 380 }}
+                style={{ width: 400 }}
             />
         );
     }
@@ -178,7 +222,7 @@ class App extends React.Component {
             <DatePicker
                 syncSwitchMonth={true}
                 type="dateTimeRange"
-                style={{ width: 380 }}
+                style={{ width: 400 }}
                 onPanelChange={(date, dateString) => console.log(date, dateString)}
             />
         );
@@ -418,7 +462,7 @@ function Demo() {
             <DatePicker 
                 type="dateTimeRange"
                 bottomSlot={<BottomSlot />}
-                style={{ width: 380 }}
+                style={{ width: 400 }}
                 placeholder="Please select a time range"
             />
         </div>
@@ -519,7 +563,7 @@ class App extends React.Component {
                         type="dateTimeRange"
                         hideDisabledOptions={false}
                         disabledTime={this.disabledTime2}
-                        style={{ width: 380 }}
+                        style={{ width: 400 }}
                     />
                 </div>
                 <div>
@@ -528,7 +572,7 @@ class App extends React.Component {
                         type="dateTimeRange"
                         disabledDate={this.disabledDate}
                         defaultPickerValue={this.nextValidMonth()}
-                        style={{ width: 380 }}
+                        style={{ width: 400 }}
                     />
                 </div>
             </div>
@@ -667,7 +711,7 @@ function Demo() {
 
 `dayStatus` is this status of current date box. The included keys are as follows.
 
-```tsx
+```md
 type DayStatusType = {
     isToday?: boolean,
     isSelected?: boolean,
@@ -757,6 +801,7 @@ function Demo() {
 | format             | Date string format displayed in the input box                                                                                                                                             | string                                                                                                                                                                                                    | Corresponding to type: For details, see [Date and Time Format](#Date%20and%20Time%20Format) |                           |
 | getPopupContainer | Specifies the parent DOM, and the bullet layer will be rendered to the DOM, you need to set 'position: relative` | function():HTMLElement | () = > document.body |
 | inputReadOnly      | Is the text box readonly                                                                                                                                                                  | boolean                                                                                                                                                                                                   | false                                                                                 |                           |
+| insetInput        | Whether the input box is embedded in the panel                                                                                                                                            | boolean                                                                                                                                                                                                   | false                                                                                 | **2.7.0**                          |
 | inputStyle         | Input box style                                                                                                                                                                           | object                                                                                                                                                                                                    |                                                                                       |                           |
 | insetLabel         | Prefix label, lower priority than `prefix`                                                                                                                                                | string\|ReactNode                                                                                                                                                                                         |                                                                                       |                           |
 | max                | When multiple is set to true, the number of selected, non-pass or value is null\|undefined, unlimited.                                                                                     | number                                                                                                                                                                                                    | -                                                                                     |                           |
@@ -790,6 +835,16 @@ function Demo() {
 | onOpenChange       | Panel displays or hides callbacks to state switches                                                                                                                                       | (status: boolean) => void                                                                                                                                                                                 |                                                                                       |                           |
 | onPanelChange      | Callback when the year or date of the panel is switched|(date: DateType\|DateType[], dateStr: StringType\|StringType[])=>void|true|**1.28.0**|
 | onPresetClick      | Callback when click preset button                                                                          | (item: Object, e: Event) => void                                                                                                                                                                                 | () => {}                                               |   **1.24.0**                           |
+
+## Accessibility
+
+### ARIA
+
+- When a date is not selected, the `aria-label` of the trigger is `Choose date`, and when a date is selected, the `aria-label` of the trigger is `Change date`
+- The role of the month in the date panel is `grid`, the role of the week is set to `row`, and the date cell is set to `gridcell`
+- `aria-disabled` is true for the corresponding option when date and time are disabled
+- When multi-selected, `aria-multiselectable` of month is true, and `aria-selected` of date grid is true when selected
+- Some decorative icons in the panel, their `aria-hidden` is true
 
 ## Date and Time Format
 
@@ -825,3 +880,7 @@ Multiple dates or times are used by default `","` (English comma) separated.
 
 -   **How to set the default display time when the panel is opened?**  
     You can use the defaultPickerValue property.
+
+- **Date time selection, range date selection, after inputting some dates, the panel does not echo the date?**
+
+     The input box needs to be entered completely before it is showed to the panel. For example, for `dateTime` type, the full requested date and time have been entered. For `dateRange` type, full requires start and end dates to be entered.

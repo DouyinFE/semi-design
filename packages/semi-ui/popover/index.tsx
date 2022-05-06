@@ -1,14 +1,14 @@
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import ConfigContext from '../configProvider/context';
+import ConfigContext, { ContextValue } from '../configProvider/context';
 import { cssClasses, strings, numbers } from '@douyinfe/semi-foundation/popover/constants';
-import Tooltip, { ArrowBounding, Position, Trigger } from '../tooltip/index';
+import Tooltip, { ArrowBounding, Position, TooltipProps, Trigger, RenderContentProps } from '../tooltip/index';
 import Arrow from './Arrow';
 import '@douyinfe/semi-foundation/popover/popover.scss';
 import { BaseProps } from '../_base/baseComponent';
 import { Motion } from '../_base/base';
-import { noop } from 'lodash';
+import { isFunction, noop } from 'lodash';
 
 export { ArrowProps } from './Arrow';
 declare interface ArrowStyle {
@@ -19,7 +19,7 @@ declare interface ArrowStyle {
 
 export interface PopoverProps extends BaseProps {
     children?: React.ReactNode;
-    content?: React.ReactNode;
+    content?: TooltipProps['content'];
     visible?: boolean;
     autoAdjustOverflow?: boolean;
     motion?: Motion;
@@ -40,6 +40,10 @@ export interface PopoverProps extends BaseProps {
     rePosKey?: string | number;
     getPopupContainer?: () => HTMLElement;
     zIndex?: number;
+    closeOnEsc?: TooltipProps['closeOnEsc'];
+    guardFocus?: TooltipProps['guardFocus'];
+    returnFocusOnClose?: TooltipProps['returnFocusOnClose'];
+    onEscKeyDown?: TooltipProps['onEscKeyDown'];
 }
 
 export interface PopoverState {
@@ -52,7 +56,7 @@ class Popover extends React.PureComponent<PopoverProps, PopoverState> {
     static contextType = ConfigContext;
     static propTypes = {
         children: PropTypes.node,
-        content: PropTypes.node,
+        content: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
         visible: PropTypes.bool,
         autoAdjustOverflow: PropTypes.bool,
         motion: PropTypes.oneOfType([PropTypes.bool, PropTypes.object, PropTypes.func]),
@@ -76,6 +80,7 @@ class Popover extends React.PureComponent<PopoverProps, PopoverState> {
         arrowPointAtCenter: PropTypes.bool,
         arrowBounding: PropTypes.object,
         prefixCls: PropTypes.string,
+        guardFocus: PropTypes.bool,
     };
 
     static defaultProps = {
@@ -90,9 +95,15 @@ class Popover extends React.PureComponent<PopoverProps, PopoverState> {
         position: 'bottom',
         prefixCls: cssClasses.PREFIX,
         onClickOutSide: noop,
+        onEscKeyDown: noop,
+        closeOnEsc: true,
+        returnFocusOnClose: true,
+        guardFocus: true,
     };
 
-    renderPopCard() {
+    context: ContextValue;
+
+    renderPopCard = ({ initialFocusRef }: { initialFocusRef: RenderContentProps['initialFocusRef'] }) => {
         const { content, contentClassName, prefixCls } = this.props;
         const { direction } = this.context;
         const popCardCls = classNames(
@@ -102,12 +113,19 @@ class Popover extends React.PureComponent<PopoverProps, PopoverState> {
                 [`${prefixCls}-rtl`]: direction === 'rtl',
             }
         );
+        const contentNode = this.renderContentNode({ initialFocusRef, content });
         return (
             <div className={popCardCls}>
-                <div className={`${prefixCls}-content`}>{content}</div>
+                <div className={`${prefixCls}-content`}>{contentNode}</div>
             </div>
         );
     }
+
+    renderContentNode = (props: { content: TooltipProps['content'], initialFocusRef: RenderContentProps['initialFocusRef'] }) => {
+        const { initialFocusRef, content } = props;
+        const contentProps = { initialFocusRef };
+        return !isFunction(content) ? content : content(contentProps);
+    };
 
     render() {
         const {
@@ -122,7 +140,6 @@ class Popover extends React.PureComponent<PopoverProps, PopoverState> {
             ...attr
         } = this.props;
         let { spacing } = this.props;
-        const popContent = this.renderPopCard();
 
         const arrowProps = {
             position,
@@ -141,11 +158,12 @@ class Popover extends React.PureComponent<PopoverProps, PopoverState> {
 
         return (
             <Tooltip
+                guardFocus
                 {...(attr as any)}
                 trigger={trigger}
                 position={position}
                 style={style}
-                content={popContent}
+                content={this.renderPopCard}
                 prefixCls={prefixCls}
                 spacing={spacing}
                 showArrow={arrow}

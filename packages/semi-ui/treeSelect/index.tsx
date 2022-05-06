@@ -32,7 +32,7 @@ import { FixedSizeList as VirtualList, ListItemKeySelector } from 'react-window'
 import '@douyinfe/semi-foundation/tree/tree.scss';
 import '@douyinfe/semi-foundation/treeSelect/treeSelect.scss';
 import BaseComponent, { ValidateStatus } from '../_base/baseComponent';
-import ConfigContext from '../configProvider/context';
+import ConfigContext, { ContextValue } from '../configProvider/context';
 import TagGroup from '../tag/group';
 import Tag, { TagProps } from '../tag/index';
 import Input, { InputProps } from '../input/index';
@@ -294,6 +294,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
     onNodeDoubleClick: any;
     onMotionEnd: any;
     treeSelectID: string;
+    context: ContextValue;
 
     constructor(props: TreeSelectProps) {
         super(props);
@@ -331,6 +332,9 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         this.clickOutsideHandler = null;
         this.foundation = new TreeSelectFoundation(this.adapter);
         this.treeSelectID = Math.random().toString(36).slice(2);
+        this.onMotionEnd = () => {
+            this.adapter.rePositionDropdown();
+        };
     }
 
     // eslint-disable-next-line max-lines-per-function
@@ -561,8 +565,8 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             notifySelect: ((selectKey, bool, node) => {
                 this.props.onSelect && this.props.onSelect(selectKey, bool, node);
             }),
-            notifySearch: input => {
-                this.props.onSearch && this.props.onSearch(input);
+            notifySearch: (input, filteredExpandedKeys) => {
+                this.props.onSearch && this.props.onSearch(input, filteredExpandedKeys);
             },
             cacheFlattenNodes: bool => {
                 this._flattenNodes = bool ? cloneDeep(this.state.flattenNodes) : null;
@@ -1174,15 +1178,15 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
 
     onNodeLoad = (data: TreeNodeData) => new Promise(resolve => this.foundation.setLoadKeys(data, resolve));
 
-    onNodeSelect = (e: React.MouseEvent, treeNode: TreeNodeProps) => {
+    onNodeSelect = (e: React.MouseEvent | React.KeyboardEvent, treeNode: TreeNodeProps) => {
         this.foundation.handleNodeSelect(e, treeNode);
     };
 
-    onNodeCheck = (e: React.MouseEvent, treeNode: TreeNodeProps) => {
+    onNodeCheck = (e: React.MouseEvent | React.KeyboardEvent, treeNode: TreeNodeProps) => {
         this.foundation.handleNodeSelect(e, treeNode);
     };
 
-    onNodeExpand = (e: React.MouseEvent, treeNode: TreeNodeProps) => {
+    onNodeExpand = (e: React.MouseEvent | React.KeyboardEvent, treeNode: TreeNodeProps) => {
         this.foundation.handleNodeExpand(e, treeNode);
     };
 
@@ -1232,9 +1236,10 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
     };
 
     renderNodeList = () => {
-        const { flattenNodes, motionKeys, motionType } = this.state;
+        const { flattenNodes, motionKeys, motionType, filteredKeys } = this.state;
         const { direction } = this.context;
         const { virtualize, motionExpand } = this.props;
+        const isExpandControlled = 'expandedKeys' in this.props;
         if (!virtualize || isEmpty(virtualize)) {
             return (
                 <NodeList
@@ -1242,6 +1247,13 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                     flattenList={this._flattenNodes}
                     motionKeys={motionExpand ? motionKeys : new Set([])}
                     motionType={motionType}
+                    // When motionKeys is empty, but filteredKeys is not empty (that is, the search hits), this situation should be distinguished from ordinary motionKeys
+                    searchTargetIsDeep={
+                        isExpandControlled &&
+                        motionExpand &&
+                        isEmpty(motionKeys) &&
+                        !isEmpty(filteredKeys)
+                    }
                     onMotionEnd={this.onMotionEnd}
                     renderTreeNode={this.renderTreeNode}
                 />

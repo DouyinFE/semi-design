@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 33
+order: 34
 category: Input
 title: Upload
 icon: doc-upload
@@ -1196,15 +1196,6 @@ import { IconUpload } from '@douyinfe/semi-icons';
 };
 ```
 
-## Accessibility
-
-The Upload component is an interactive control that can trigger file selection when clicking or dragging. After the file is selected, the status will be displayed in the file list.
-
-### ARIA
-
-- Add `role="button"` to clickable elements
-- Add `role="list"` to the file list and describe it with `aria-label`
-
 ## API Reference
 
 ---
@@ -1271,6 +1262,15 @@ The Upload component is an interactive control that can trigger file selection w
 |uploadTrigger | Trigger upload timing, optional values ​​`auto`, `custom` | string |'auto' | |
 |validateMessage | Upload the overall error message | ReactNode | | 1.0.0 |
 |withCredentials | Whether to bring cookie information | boolean | false | |
+
+## Accessibility
+
+The Upload component is an interactive control that can trigger file selection when clicking or dragging. After the file is selected, the status will be displayed in the file list.
+
+### ARIA
+
+- Add `role="button"` to clickable elements
+- Add `role="list"` to the file list and describe it with `aria-label`
 
 ## Interfaces
 

@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 21
+order: 22
 category: 输入类
 title:  Form 表单
 icon: doc-form
@@ -65,7 +65,7 @@ Semi Form 同时支持多种写法
 
 ```jsx live=true dir="column"
 import React from 'react';
-import { Form } from '@douyinfe/semi-ui';
+import { Form, Tooltip } from '@douyinfe/semi-ui';
 import { IconHelpCircle } from '@douyinfe/semi-icons';
 
 () => {
@@ -73,13 +73,20 @@ import { IconHelpCircle } from '@douyinfe/semi-icons';
 
     return (
         <Form layout='horizontal'  onValueChange={values=>console.log(values)}>
-            <Form.Select field="Role" label='角色' style={{width:176}}>
+            <Form.Select field="Role" label='角色' style={{ width:176 }}>
                 <Option value="admin">管理员</Option>
                 <Option value="user">普通用户</Option>
                 <Option value="guest">访客</Option>
             </Form.Select>
-            <Form.Input field='UserName' label='用户名' style={{width:80}}/>
-            <Form.Input field='Password' label={{ text: '密码', extra: <IconHelpCircle /> }} style={{width:176}}/>
+            <Form.Input field='UserName' label='用户名' style={{ width:80 }}/>
+            <Form.Input
+                field='Password'
+                label={{ 
+                    text: '密码',
+                    extra: <Tooltip content='详情'><IconHelpCircle style={{ color: '--semi-color-text-1' }}/></Tooltip> 
+                }}
+                style={{ width:176 }}
+            />
         </Form>
     );
 };

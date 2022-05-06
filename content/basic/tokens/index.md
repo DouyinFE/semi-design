@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 13
+order: 14
 category: 基础
 title:  Tokens 设计变量
 icon: doc-token
@@ -171,7 +171,7 @@ brief: Semi Design Tokens
 
 阴影通常用来表达界面元素的层级，阴影越重的元素距离用户越近
 
-<DesignToken componentName='global' reg={/\$shadow/}/>
+<DesignToken componentName='global' reg={/--semi-shadow/}/>
 
 ## 尺寸
 

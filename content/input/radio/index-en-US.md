@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 24
+order: 25
 category: Input
 title: Radio
 subTitle: Radio
@@ -351,18 +351,6 @@ class App extends React.Component {
 }
 ```
 
-## Accessibility
-
-### Keyboard and Focus
-
-- Card type and button type Radio group can be selected by arrow switch
-
-### ARIA
-
-- `aria-label`: used to explain the role of Radio or RadioGroup
-- `aria-labelledby` points to the addon node, used to explain the content of Radio
-- `aria-describedby` points to the extra node, which is used to explain the content of Radio
-
 ## API Reference
 
 ### Radio
@@ -409,6 +397,18 @@ class App extends React.Component {
 | ------- | ------------ |
 | blur()  | Remove focus |
 | focus() | Get focus    |
+
+## Accessibility
+
+### Keyboard and Focus
+
+- Card type and button type Radio group can be selected by arrow switch
+
+### ARIA
+
+- `aria-label`: used to explain the role of Radio or RadioGroup
+- `aria-labelledby` points to the addon node, used to explain the content of Radio
+- `aria-describedby` points to the extra node, which is used to explain the content of Radio
 
 <!-- ## Related Material
 

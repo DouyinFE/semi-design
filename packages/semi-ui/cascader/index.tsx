@@ -1,4 +1,4 @@
-import React, { Fragment, ReactNode, CSSProperties, MouseEvent } from 'react';
+import React, { Fragment, ReactNode, CSSProperties, MouseEvent, KeyboardEvent } from 'react';
 import ReactDOM from 'react-dom';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
@@ -19,7 +19,7 @@ import '@douyinfe/semi-foundation/cascader/cascader.scss';
 import { IconClear, IconChevronDown } from '@douyinfe/semi-icons';
 import { findKeysForValues, convertDataToEntities, calcMergeType } from '@douyinfe/semi-foundation/cascader/util';
 import { calcCheckedKeys, normalizeKeyList, calcDisabledKeys } from '@douyinfe/semi-foundation/tree/treeUtil';
-import ConfigContext from '../configProvider/context';
+import ConfigContext, { ContextValue } from '../configProvider/context';
 import BaseComponent, { ValidateStatus } from '../_base/baseComponent';
 import Input from '../input/index';
 import Popover, { PopoverProps } from '../popover/index';
@@ -54,6 +54,7 @@ export interface CascaderProps extends BasicCascaderProps {
     'aria-invalid'?: React.AriaAttributes['aria-invalid'];
     'aria-labelledby'?: React.AriaAttributes['aria-labelledby'];
     'aria-required'?: React.AriaAttributes['aria-required'];
+    'aria-label'?: React.AriaAttributes['aria-label'];
     arrowIcon?: ReactNode;
     defaultValue?: Value;
     dropdownStyle?: CSSProperties;
@@ -61,7 +62,7 @@ export interface CascaderProps extends BasicCascaderProps {
     motion?: Motion;
     treeData?: Array<CascaderData>;
     restTagsPopoverProps?: PopoverProps;
-    children?: ReactNode;
+    children?: React.ReactNode | undefined;
     value?: Value;
     prefix?: ReactNode;
     suffix?: ReactNode;
@@ -100,6 +101,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         'aria-errormessage': PropTypes.string,
         'aria-describedby': PropTypes.string,
         'aria-required': PropTypes.bool,
+        'aria-label': PropTypes.string,
         arrowIcon: PropTypes.node,
         changeOnSelect: PropTypes.bool,
         defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
@@ -197,6 +199,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         onDropdownVisibleChange: noop,
         onListScroll: noop,
         enableLeafClick: false,
+        'aria-label': 'Cascader'
     };
 
     options: any;
@@ -206,6 +209,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
     optionsRef: React.RefObject<any>;
     clickOutsideHandler: any;
     mergeType: string;
+    context: ContextValue;
 
     constructor(props: CascaderProps) {
         super(props);
@@ -504,8 +508,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                             this.handleTagRemove(e, keyEntities[nodeKey].valuePath);
                         }}
                     >
-                        {displayProp === 'label' && keyEntities[nodeKey].data.label}
-                        {displayProp === 'value' && keyEntities[nodeKey].data.value}
+                        {keyEntities[nodeKey].data[displayProp]}
                     </Tag>
                 );
             }
@@ -584,7 +587,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         );
     }
 
-    handleItemClick = (e: MouseEvent, item: Entity | Data) => {
+    handleItemClick = (e: MouseEvent | KeyboardEvent, item: Entity | Data) => {
         this.foundation.handleItemClick(e, item);
     };
 
@@ -708,9 +711,32 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         );
     };
 
+    renderDisplayText = (): ReactNode => {
+        const { displayProp, separator, displayRender } = this.props;
+        const { selectedKeys } = this.state;
+        let displayText: ReactNode = '';
+        if (selectedKeys.size) {
+            const displayPath = this.foundation.getItemPropPath([...selectedKeys][0], displayProp);
+            if (displayRender && typeof displayRender === 'function') {
+                displayText = displayRender(displayPath);
+            } else {
+                displayText = displayPath.map((path: ReactNode, index: number)=>(
+                    <Fragment key={`${path}-${index}`}>
+                        {
+                            index<displayPath.length-1
+                                ? <>{path}{separator}</>
+                                : path
+                        }
+                    </Fragment>
+                ));
+            }
+        }
+        return displayText;
+    }
+
     renderSelectContent = () => {
         const { placeholder, filterTreeNode, multiple } = this.props;
-        const { selectedKeys, checkedKeys } = this.state;
+        const { checkedKeys } = this.state;
         const searchable = Boolean(filterTreeNode);
         if (!searchable) {
             if (multiple) {
@@ -719,11 +745,9 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                 }
                 return this.renderMultipleTags();
             } else {
-                const displayText = selectedKeys.size ?
-                    this.foundation.renderDisplayText([...selectedKeys][0]) :
-                    '';
+                const displayText = this.renderDisplayText();
                 const spanCls = cls({
-                    [`${prefixcls}-selection-placeholder`]: !displayText || !displayText.length,
+                    [`${prefixcls}-selection-placeholder`]: !displayText,
                 });
                 return <span className={spanCls}>{displayText ? displayText : placeholder}</span>;
             }
@@ -798,6 +822,14 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         this.foundation.handleClear();
     };
 
+    /**
+     * A11y: simulate clear button click
+     */
+    handleClearEnterPress = (e: KeyboardEvent) => {
+        e && e.stopPropagation();
+        this.foundation.handleClearEnterPress(e);
+    };
+
     showClearBtn = () => {
         const { showClear, disabled, multiple } = this.props;
         const { selectedKeys, isOpen, isHovering, checkedKeys } = this.state;
@@ -811,7 +843,13 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         const allowClear = this.showClearBtn();
         if (allowClear) {
             return (
-                <div className={clearCls} onClick={this.handleClear} role='button' tabIndex={0}>
+                <div 
+                    className={clearCls}
+                    onClick={this.handleClear} 
+                    onKeyPress={this.handleClearEnterPress}
+                    role='button' 
+                    tabIndex={0}
+                >
                     <IconClear />
                 </div>
             );
@@ -891,6 +929,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                 style={style}
                 ref={this.triggerRef}
                 onClick={e => this.foundation.handleClick(e)}
+                onKeyPress={e => this.foundation.handleSelectionEnterPress(e)}
                 aria-invalid={this.props['aria-invalid']}
                 aria-errormessage={this.props['aria-errormessage']}
                 aria-label={this.props['aria-label']}

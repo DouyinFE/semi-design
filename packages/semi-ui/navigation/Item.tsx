@@ -4,15 +4,19 @@ import BaseComponent, { BaseProps } from '../_base/baseComponent';
 import React from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
-import { times, noop } from 'lodash';
+import { noop, times } from 'lodash';
 
 import isNullOrUndefined from '@douyinfe/semi-foundation/utils/isNullOrUndefined';
 import { cloneDeep, isSemiIcon } from '../_utils';
-import ItemFoundation, { ItemProps, SelectedItemProps, ItemAdapter } from '@douyinfe/semi-foundation/navigation/itemFoundation';
-import { strings, cssClasses } from '@douyinfe/semi-foundation/navigation/constants';
+import ItemFoundation, {
+    ItemAdapter,
+    ItemProps,
+    SelectedItemProps
+} from '@douyinfe/semi-foundation/navigation/itemFoundation';
+import { cssClasses, strings } from '@douyinfe/semi-foundation/navigation/constants';
 
 import Tooltip from '../tooltip';
-import NavContext from './nav-context';
+import NavContext, { NavContextType } from './nav-context';
 import Dropdown from '../dropdown';
 
 const clsPrefix = `${cssClasses.PREFIX}-item`;
@@ -77,6 +81,7 @@ export default class NavItem extends BaseComponent<NavItemProps, NavItemState> {
     };
 
     foundation: ItemFoundation;
+    context: NavContextType;
     constructor(props: NavItemProps) {
         super(props);
         this.state = {
@@ -108,13 +113,13 @@ export default class NavItem extends BaseComponent<NavItemProps, NavItemState> {
             notifyMouseLeave: (...args) => this.props.onMouseLeave(...args),
             getIsCollapsed: () => this.props.isCollapsed || Boolean(this.context && this.context.isCollapsed) || false,
             getSelected: () =>
-                Boolean(this.context && this.context.selectedKeys && this.context.selectedKeys.includes(this.props.itemKey)),
+                Boolean(this.context && this.context.selectedKeys && this.context.selectedKeys.includes(this.props.itemKey as string)),
             getIsOpen: () =>
-                Boolean(this.context && this.context.openKeys && this.context.openKeys.includes(this.props.itemKey)),
+                Boolean(this.context && this.context.openKeys && this.context.openKeys.includes(this.props.itemKey as string)),
         };
     }
 
-    renderIcon(icon: React.ReactNode, pos: string, isToggleIcon = false) {
+    renderIcon(icon: React.ReactNode, pos: string, isToggleIcon = false, key: number | string = 0) {
         if (this.props.isSubNav) {
             return null;
         }
@@ -134,8 +139,8 @@ export default class NavItem extends BaseComponent<NavItemProps, NavItemState> {
         });
 
         return (
-            <i className={className}>
-                {isSemiIcon(icon) ? React.cloneElement((icon as React.ReactElement), {size: (icon as React.ReactElement).props.size || iconSize}) : icon}
+            <i className={className} key={key}>
+                {isSemiIcon(icon) ? React.cloneElement((icon as React.ReactElement), { size: (icon as React.ReactElement).props.size || iconSize }) : icon}
             </i>
         );
     }
@@ -189,7 +194,6 @@ export default class NavItem extends BaseComponent<NavItemProps, NavItemState> {
         const selected = this.adapter.getSelected();
 
 
-
         let itemChildren = null;
         if (!isNullOrUndefined(children)) {
             itemChildren = children;
@@ -197,15 +201,15 @@ export default class NavItem extends BaseComponent<NavItemProps, NavItemState> {
             let placeholderIcons = null;
             if (mode === strings.MODE_VERTICAL && !limitIndent && !isCollapsed) {
                 const iconAmount = (icon && !indent) ? level : level - 1;
-                placeholderIcons = times(iconAmount, () => this.renderIcon(null, strings.ICON_POS_RIGHT, false));
+                placeholderIcons = times(iconAmount, (index) => this.renderIcon(null, strings.ICON_POS_RIGHT, false, index));
             }
             itemChildren = (
                 <>
                     {placeholderIcons}
-                    {this.context.toggleIconPosition === strings.TOGGLE_ICON_LEFT && this.renderIcon(toggleIcon, strings.ICON_POS_RIGHT, true)}
-                    {icon || indent || isInSubNav ? this.renderIcon(icon, strings.ICON_POS_LEFT) : null}
+                    {this.context.toggleIconPosition === strings.TOGGLE_ICON_LEFT && this.renderIcon(toggleIcon, strings.ICON_POS_RIGHT, true, 'key-toggle-pos-right')}
+                    {icon || indent || isInSubNav ? this.renderIcon(icon, strings.ICON_POS_LEFT, false, 'key-position-left') : null}
                     {!isNullOrUndefined(text) ? <span className={`${cssClasses.PREFIX}-item-text`}>{text}</span> : ''}
-                    {this.context.toggleIconPosition === strings.TOGGLE_ICON_RIGHT && this.renderIcon(toggleIcon, strings.ICON_POS_RIGHT, true)}
+                    {this.context.toggleIconPosition === strings.TOGGLE_ICON_RIGHT && this.renderIcon(toggleIcon, strings.ICON_POS_RIGHT, true, 'key-toggle-pos-right')}
                 </>
             );
         }
@@ -246,7 +250,7 @@ export default class NavItem extends BaseComponent<NavItemProps, NavItemState> {
             );
         } else {
             // Items are divided into normal and sub-wrap
-            const popoverItemCls = cls(`${className || `${clsPrefix }-normal`}`, {
+            const popoverItemCls = cls(`${className || `${clsPrefix}-normal`}`, {
                 [clsPrefix]: true,
                 [`${clsPrefix}-sub`]: isSubNav,
                 [`${clsPrefix}-selected`]: selected && !isSubNav,

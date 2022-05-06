@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 37
+order: 38
 category: Navigation
 title:  Navigation
 subTitle: Navigation
@@ -9,11 +9,6 @@ width: 650px
 dir: column
 brief: A menu list that provides navigation for pages and features.
 ---
-
-
-## When to Use
-
-The navigation menu is the soul of a website, and users rely on navigation to jump in various pages. It is generally divided into top navigation and side navigation, top navigation provides global categories and functions, and side navigation provides a multi-level structure to accommodate and arrange the website architecture.
 
 ## Demos
 

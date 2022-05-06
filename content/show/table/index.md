@@ -1,17 +1,12 @@
 ---
 localeCode: zh-CN
-order: 57
+order: 58
 category: 展示类
 title:  Table 表格
 icon: doc-table
-brief: 展示行列数据。
+brief: 表格用于呈现结构化的数据内容，通常会伴随提供对数据进行操作（排序、搜素、分页……）的能力。
 ---
 
-
-## 何时使用
-
--   当有大量结构化的数据需要展现时；
--   当需要对数据进行排序、搜索、分页、自定义操作等复杂行为时。
 
 ## 如何使用
 
@@ -4371,19 +4366,6 @@ function App() {
 render(App);
 ```
 
-## Accessibility
-
-### ARIA
-
-- 表格的 role 为 grid，树形表格的 role 为 treegrid
-- 行的 role 为 row，单元格的 role 为 gridcell
-- 表格新增了 aria-rowcount 和 aria-colcount 属性表示行和列的数量
-- 行新增了 aria-rowindex 表示当前属于第几行，第一行为 1
-- 树形表格的行具有 aria-level 表示当前行的树形层级，第一层为 1
-- 可展开表格行具有 aria-expanded 属性，表示当前行是否展开
-- 单元格的新增了 aria-colindex 表示当前格子属于第几列，第一列为 1
-- 列的筛选和排序按钮添加了 aria-label，行的选择按钮添加了 aria-label 属性
-
 ## API 参考
 
 ## Table
@@ -4675,6 +4657,20 @@ function Demo() {
 | 名称                 | 描述                                                                                                          | 版本   |
 | -------------------- | ------------------------------------------------------------------------------------------------------------- | ------ |
 | getCurrentPageData() | 返回当前页的数据对象：{ dataSource: RecordType[], groups: Map<{groupKey: string, recordKeys: Set<string\>}> } | 0.37.0 |
+
+
+## Accessibility
+
+### ARIA
+
+- 表格的 role 为 grid，树形表格的 role 为 treegrid
+- 行的 role 为 row，单元格的 role 为 gridcell
+- 表格新增了 aria-rowcount 和 aria-colcount 属性表示行和列的数量
+- 行新增了 aria-rowindex 表示当前属于第几行，第一行为 1
+- 树形表格的行具有 aria-level 表示当前行的树形层级，第一层为 1
+- 可展开表格行具有 aria-expanded 属性，表示当前行是否展开
+- 单元格的新增了 aria-colindex 表示当前格子属于第几列，第一列为 1
+- 列的筛选和排序按钮添加了 aria-label，行的选择按钮添加了 aria-label 属性
 
 ## 设计变量
 <DesignToken/>

@@ -119,9 +119,9 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
                 }
                 if (panes.findIndex(p => p.itemKey === activeKey) === -1){
                     if (panes.length>0){
-                        this.setState({activeKey: panes[0].itemKey});
+                        this.setState({ activeKey: panes[0].itemKey });
                     } else {
-                        this.setState({activeKey: ''});
+                        this.setState({ activeKey: '' });
                     }
                 }
                 
@@ -192,6 +192,7 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
         this.foundation.handleTabClick(activeKey, event);
     };
 
+    /* istanbul ignore next */
     rePosChildren = (children: ReactElement[], activeKey: string): ReactElement[] => {
         const newChildren: ReactElement[] = [];
 

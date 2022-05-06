@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 33
+order: 34
 category: 输入类
 title: Upload 上传
 icon: doc-upload
@@ -1210,15 +1210,6 @@ import { IconUpload } from '@douyinfe/semi-icons';
 };
 ```
 
-## Accessibility
-
-Upload组件是一个可交互的控件，在点击或拖拽时触发文件选择，文件选中后会在文件列表内展示状态。
-
-### ARIA
-
-- 为可点击元素添加 `role="button"`
-- 文件列表添加 `role="list"`，并用 `aria-label` 描述
-
 ## API 参考
 
 ---
@@ -1320,6 +1311,15 @@ interface FileItem {
 |----|----|----|----|
 | insert | 上传文件，当index传入时，会插入到指定位置，不传则插入到最后 | (files: Array<File\>, index?: number) => void | 2.2.0 |
 | upload | 手动开始上传，配合uploadTrigger="custom"使用 | () => void | |
+
+## Accessibility
+
+Upload组件是一个可交互的控件，在点击或拖拽时触发文件选择，文件选中后会在文件列表内展示状态。
+
+### ARIA
+
+- 为可点击元素添加 `role="button"`
+- 文件列表添加 `role="list"`，并用 `aria-label` 描述
 
 ## 设计变量
 <DesignToken/>

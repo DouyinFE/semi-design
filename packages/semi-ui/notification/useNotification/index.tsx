@@ -59,8 +59,8 @@ export default function useNotification() {
     const [elements, patchElement] = usePatchElement();
     const noticeRef = new Map<string, { close: () => void } & ReactElement>();
 
-    const id = getUuid('semi_notice_');
     const addNotice = (config: NoticeProps) => {
+        const id = getUuid('semi_notice_');
         const mergeConfig = {
             ...config,
             id,

@@ -1,11 +1,12 @@
 ---
 localeCode: en-US
-order: 32
+order: 33
 category: Input
 title:  TreeSelect
 subTitle: TreeSelect
 icon: doc-treeselect
-brief: A tree view component for selection.
+brief: TreeSelector is used for structured display & selection of multi-level tree data, such as displaying a list of folders and files, displaying a list of organizational structure members, and so on.
+---
 ---
 
 
@@ -824,6 +825,62 @@ import { TreeSelect } from '@douyinfe/semi-ui';
 };
 ```
 
+### Controlled Expansion with Search
+When `expandedKeys` is passed in, it is a controlled expansion component, which can be used with `onExpand`. When the expansion is controlled, if the `filterTreeNode` is turned on and the search is performed, the node will no longer be automatically expanded. At this time, the expansion of the node is completely controlled by the `expandedKeys`. You can use the parameter `filteredExpandedKeys` (version: >= 2.6.0) of `onSearch` to realize the search expansion effect when the expansion is controlled.
+
+```jsx live=true hideInDSM
+import React, { useState } from 'react';
+import { TreeSelect } from '@douyinfe/semi-ui';
+
+() => {
+    const [expandedKeys, setExpandedKeys] = useState([]);
+    const treeData = [
+        {
+            label: 'Asia',
+            value: 'Asia',
+            key: '0',
+            children: [
+                {
+                    label: 'China',
+                    value: 'China',
+                    key: '0-0',
+                    children: [
+                        {
+                            label: 'Beijing',
+                            value: 'Beijing',
+                            key: '0-0-0',
+                        },
+                        {
+                            label: 'Shanghai',
+                            value: 'Shanghai',
+                            key: '0-0-1',
+                        },
+                    ],
+                },
+            ],
+        },
+        {
+            label: 'North America',
+            value: 'North America',
+            key: '1',
+        }
+    ];
+    return (
+        <TreeSelect
+            style={{ width: 300 }}
+            dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+            treeData={treeData}
+            filterTreeNode
+            expandedKeys={expandedKeys}
+            onExpand={expandedKeys => setExpandedKeys(expandedKeys)}
+            onSearch={(inputValue, filteredExpandedKeys) => {
+                setExpandedKeys([...filteredExpandedKeys, ...expandedKeys]);
+            }}
+        />
+    );
+};
+```
+
 ### Virtualized TreeSelect
 If you need to render large sets of tree structured data, you could use virtualized tree. In virtualized mode, animation / motion is disabled for better performance. 
 
@@ -1289,8 +1346,8 @@ function Demo() {
 | onChange                 | Callback function when the tree node is selected, return the value property of data | Function                           | -           | -       |
 | onChangeWithObject        | Toggle whether to return all properties in an option as a return value. When set to true, onChange turn to Function(node, e)   | boolean                     | false   | 1.0.0 |
 | onExpand                 | Callback function when expand or collapse a node                                    | function(expandedKeys:array, {expanded: bool, node})              | -           | -       |
-| onLoad | Callback function when a node is loaded | (loadedKeys: Set< string >, treeNode: TreeNode) => void | - | 1.32.0|
-| onSearch                 | Callback function when search value changes                                         | function(sugInput: string)                                        | -           | -       |
+| onLoad | Callback function when a node is loaded | (loadedKeys: Set<string\>, treeNode: TreeNode) => void | - | 1.32.0|
+| onSearch                 | Callback function when search value changes. `filteredExpandedKeys` represents the key of the node expanded due to search or value/defaultValue, which can be used when expandedKeys is controlled                                         | function(sugInput: string, filteredExpandedKeys: string[])                                        | -           | filteredExpandedKeys is supported in 2.6.0       |
 | onSelect                 | Callback function when selected, return the key property of data                    | function(selectedKey:string, selected: bool, selectedNode: TreeNode)                      | -           | -       |
 | onVisibleChange     | A callback triggered when the pop-up layer is displayed/hidden   | function(isVisible:boolean) |     |   1.4.0  |
 

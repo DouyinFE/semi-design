@@ -11,14 +11,12 @@
         "editor.formatOnPaste": false
     },
     "[javascriptreact]": {
-        "editor.defaultFormatter": "carlsirce.vscode-eden-plugin",
         "editor.defaultFormatter": "dbaeumer.vscode-eslint"
     },
     "[less]": {
         "editor.defaultFormatter": "michelemelluso.code-beautifier"
     },
     "[typescriptreact]": {
-        "editor.defaultFormatter": "carlsirce.vscode-eden-plugin",
         "editor.defaultFormatter": "dbaeumer.vscode-eslint"
     },
     "typescript.updateImportsOnFileMove.enabled": "always",

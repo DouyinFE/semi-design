@@ -30,6 +30,7 @@ export type RadioGroupProps = {
     value?: string | number;
     onChange?: (event: RadioChangeEvent) => void;
     className?: string;
+    children?: React.ReactNode | undefined;
     style?: React.CSSProperties;
     direction?: ArrayElement<typeof strings.DIRECTION_SET>;
     mode?: RadioMode;
@@ -97,6 +98,15 @@ class RadioGroup extends BaseComponent<RadioGroupProps, RadioGroupState> {
     }
 
     componentDidUpdate(prevProps: RadioGroupProps) {
+        if (typeof prevProps.value === 'number'
+            && isNaN(prevProps.value)
+            && typeof this.props.value === 'number'
+            && isNaN(this.props.value)
+        ) {
+            // `NaN === NaN` returns false, and this will fail the next if check
+            // therefore triggering an infinite loop
+            return;
+        }
         if (prevProps.value !== this.props.value) {
             this.foundation.handlePropValueChange(this.props.value);
         }

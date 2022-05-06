@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 18
+order: 19
 category: Input
 title:  Cascader
 subTitle: Cascade
@@ -1590,6 +1590,13 @@ function Demo() {
 | label      | Text to be displayed (required)| ReactNode      | -       |
 | loading    | loading                        | boolean        | -       |
 | value      | Value property (required)      | string\|number | -       |
+
+## Accessibility
+
+### ARIA
+
+- Cascader supports importing `aria-label`, `aria-describedby`, `aria-errormessage`, `aria-invalid`, `aria-labelledby`, `aria-required` to indicate the relevant information of the Cascader;
+- Cascader supports selecting options, clearing options, and expanding drop-down box by pressing the Enter key
 
 ## Design Tokens
 <DesignToken/>

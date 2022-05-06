@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 17
+order: 18
 category: 输入类
 title:  Button 按钮
 icon: doc-button
@@ -445,13 +445,6 @@ function SplitButtonDemo(){
 }
 ```
 
-## Accessibility
-
-### ARIA
-
-- `aria-label` 用于表示按钮的作用，对于图标按钮，我们推荐使用此属性
-- `aria-disabled` 与 disabled 属性同步，表示按钮禁用 
-
 
 ## API 参考
 
@@ -486,6 +479,7 @@ function SplitButtonDemo(){
 | size     | 按钮大小，可选值：`large`、`default`、`small`                          | string  | "default" |
 | theme               | 按钮主题，可选值：`solid`（有背景色）、 `borderless`（无背景色）、 `light`（浅背景色）                     | string                          | "light"   |
 | type     | 类型，可选值：`primary`、`secondary`、`tertiary`、`warning`、 `danger` | string  | "primary" |
+| className     | 自定义类名                               | string   |         |
 
 ### SplitButtonGroup **V1.12.0新增**
 | 属性          | 说明                                                            | 类型      | 默认值     |
@@ -493,6 +487,19 @@ function SplitButtonDemo(){
 | aria-label          | 分裂按钮组的标签                                                                                       | string                            | -    |
 | style     | 自定义样式                               | CSSProperties   |         |
 | className     | 自定义类名                               | string   |         |
+
+## Accessibility
+
+### ARIA
+
+- `aria-label` 用于表示按钮的作用，对于图标按钮，我们推荐使用此属性
+- `aria-disabled` 与 disabled 属性同步，表示按钮禁用 
+
+### 键盘和焦点
+
+- Button 的焦点管理与原生 button 一致，键盘用户可以使用 Tab 及  Shift + Tab 切换焦点
+- Button 的触发与原生 button 一致，当按钮聚焦时，可以通过 Enter 或 Space 键激活
+- ButtonGroup 中的按钮与单个按钮的焦点管理方式一致，可以通过 Tab 以及 Shift + Tab 进行切换
 
 ## 设计变量
 <DesignToken/>

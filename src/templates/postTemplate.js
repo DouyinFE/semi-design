@@ -37,7 +37,7 @@ import '../styles/docDemo.scss';
 import '../styles/index.scss';
 import '../styles/doc.scss';
 import cls from 'classnames';
-import { IconLink, IconFile } from '@douyinfe/semi-icons';
+import { IconLink, IconFile, IconHelpCircle } from '@douyinfe/semi-icons';
 import { Switch, TabPane, Tabs } from '../../packages/semi-ui';
 import DesignPageAnchor from 'components/DesignPageAnchor';
 import transContent, {getAnotherSideUrl, isHaveUedDocs, isJumpToDesignSite} from './toUEDUtils/toUED';
@@ -181,6 +181,27 @@ const components = {
         return (
             <h2 className="md markdown gatsby-h2" id={makeAnchorId(children)}>
                 {children}
+                {
+                    children === '设计变量'?
+                        <Tooltip content={
+                            <span>
+                                如何使用可查阅：
+                                <a href='https://bytedance.feishu.cn/docx/doxcnVROZf61ey1zFzlErtJfL2d' target="_blank">Semi DSM 手册</a>
+                            </span>}
+                        >
+                            <IconHelpCircle size='large' type="help_circle" style={{ color: ' --semi-color-tertiary-light-default', marginLeft: 4 }}/>
+                        </Tooltip>
+                    : null
+                }
+                {
+                    children === 'Design Tokens' ? <Tooltip content={
+                        <span>
+                            How to use: Refer to
+                            <a href='https://bytedance.feishu.cn/docx/doxcnVROZf61ey1zFzlErtJfL2d' target="_blank">DSM Playbook</a>
+                        </span>}>
+                        <IconHelpCircle size='large' type="help_circle" style={{ color: ' --semi-color-tertiary-light-default', marginLeft: 4 }} />
+                    </Tooltip> : null
+                }
                 <IconLink
                     className={'anchor-link-button-icon'}
                     onClick={() => {
@@ -253,7 +274,9 @@ const components = {
     li: ({ children }) => {
         if (Array.isArray(children)) {
             children = [...children];
-
+            
+            // For convience of adding new feature in different type, we use "if else" group instead of object or map.
+            
             if (children[0] === '【Feature】' || children[0] === '【Feat】') {
                 children[0] = <div className={'changelog-title'}>🎁【Feature】</div>;
             }
@@ -288,6 +311,10 @@ const components = {
 
             if (children[0] === '【Breaking Change】') {
                 children[0] = <div className={'changelog-title'}>💥【Breaking Change】</div>;
+            }
+
+            if (children[0] === '【Design Token】') {
+                children[0] = <div className={'changelog-title'}>✨【Design Token】</div>;
             }
         }
 

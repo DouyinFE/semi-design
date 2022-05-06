@@ -323,7 +323,7 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
                 index,
                 isNullOrUndefined(panelHeader) ? get(defaultHeaderMap, index, null) : panelHeader
             );
-            panelProps.panelFooter = get(panels, index, panelFooter);
+            panelProps.panelFooter = get(panels, index, panelFooter) as React.ReactNode;
         }
 
         return panelProps;
@@ -475,7 +475,7 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
 
         const panelPrefix = classNames({
             [`${prefixCls}-panel`]: true,
-            [`${prefixCls}-panel-${ size}`]: size,
+            [`${prefixCls}-panel-${size}`]: size,
         });
 
         const inputProps = {

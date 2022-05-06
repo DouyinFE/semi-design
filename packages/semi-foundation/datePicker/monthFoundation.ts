@@ -28,6 +28,7 @@ export interface MonthFoundationProps {
     focusRecordsRef: any;
     locale: any;
     localeCode: string;
+    multiple: boolean;
 }
 
 export type MonthDayInfo = {

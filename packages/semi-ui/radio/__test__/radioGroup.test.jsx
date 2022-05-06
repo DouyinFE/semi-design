@@ -196,4 +196,12 @@ describe('RadioGroup', () => {
         expect(middleRadio.exists(`.${BASE_CLASS_PREFIX}-radio-addon-buttonRadio-middle`)).toEqual(true);
         expect(largeRadio.exists(`.${BASE_CLASS_PREFIX}-radio-addon-buttonRadio-large`)).toEqual(true);
     });
+
+    it('does not trigger Maximum update exceeded when setting radio-group\'s value to NaN', () => {
+        const radioGroup = mount(
+            createRadioGroup({ value: NaN }),
+        );
+
+        expect(radioGroup.exists(`${BASE_CLASS_PREFIX}-radio-checked`)).toEqual(false);
+    });
 });

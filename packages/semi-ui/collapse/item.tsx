@@ -12,6 +12,7 @@ export interface CollapsePanelProps {
     extra?: ReactNode;
     header?: ReactNode;
     className?: string;
+    children?: React.ReactNode | undefined;
     reCalcKey?: number | string;
     style?: CSSProperties;
 }
@@ -34,6 +35,8 @@ export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
     };
 
     private ariaID = getUuidShort({});
+
+    context: CollapseContextType;
 
     renderHeader(active: boolean, expandIconEnable = true) {
         const {
@@ -86,6 +89,8 @@ export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
             children,
             itemKey,
             reCalcKey,
+            header,
+            extra,
             ...restProps
         } = this.props;
         const {

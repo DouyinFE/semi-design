@@ -55,13 +55,14 @@ export default class NodeList extends PureComponent<NodeListProps, NodeListState
     }
 
     onMotionEnd = () => {
+        typeof this.props.onMotionEnd === 'function' && this.props.onMotionEnd();
         this.setState({ transitionNodes: [] });
     };
 
     render() {
-        const { flattenNodes, motionType, renderTreeNode } = this.props;
+        const { flattenNodes, motionType, searchTargetIsDeep, renderTreeNode } = this.props;
         const { transitionNodes } = this.state;
-        const mapData = transitionNodes.length ? transitionNodes : flattenNodes;
+        const mapData = transitionNodes.length && !searchTargetIsDeep ? transitionNodes : flattenNodes;
         const options = mapData.map(treeNode => {
             const isMotionNode = Array.isArray(treeNode);
             if (isMotionNode && !(treeNode as FlattenNode[]).length) {

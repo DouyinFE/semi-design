@@ -1,10 +1,13 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events,jsx-a11y/interactive-supports-focus */
 /* eslint-disable max-len */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
-import { noop, stubFalse, isDate, get, isFunction } from 'lodash';
-import ConfigContext from '../configProvider/context';
-import DatePickerFoundation, { DatePickerAdapter, DatePickerFoundationProps, DatePickerFoundationState, DayStatusType, PresetType, Type } from '@douyinfe/semi-foundation/datePicker/foundation';
+import { noop, stubFalse, isDate, get, isFunction, isEqual } from 'lodash';
+import ConfigContext, { ContextValue } from '../configProvider/context';
+import DatePickerFoundation, { DatePickerAdapter, DatePickerFoundationProps, DatePickerFoundationState, DayStatusType, PresetType, Type, RangeType } from '@douyinfe/semi-foundation/datePicker/foundation';
 import { cssClasses, strings, numbers } from '@douyinfe/semi-foundation/datePicker/constants';
 import { strings as popoverStrings, numbers as popoverNumbers } from '@douyinfe/semi-foundation/popover/constants';
 import BaseComponent from '../_base/baseComponent';
@@ -17,8 +20,8 @@ import Trigger from '../trigger';
 import YearAndMonth, { YearAndMonthProps } from './yearAndMonth';
 import '@douyinfe/semi-foundation/datePicker/datePicker.scss';
 import { Locale } from '../locale/interface';
-import { RangeType } from '@douyinfe/semi-foundation/datePicker/inputFoundation';
 import { TimePickerProps } from '../timePicker/TimePicker';
+import { InsetInputValue, InsetInputChangeProps } from '@douyinfe/semi-foundation/datePicker/inputFoundation';
 
 export interface DatePickerProps extends DatePickerFoundationProps {
     'aria-describedby'?: React.AriaAttributes['aria-describedby'];
@@ -159,6 +162,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
         autoSwitchDate: true,
         syncSwitchMonth: false,
         rangeSeparator: strings.DEFAULT_SEPARATOR_RANGE,
+        insetInput: false,
     };
 
     triggerElRef: React.MutableRefObject<HTMLElement>;
@@ -171,6 +175,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
     _mounted: boolean;
 
     foundation: DatePickerFoundation;
+    context: ContextValue;
 
     constructor(props: DatePickerProps) {
         super(props);
@@ -183,7 +188,9 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             prevTimeZone: null,
             motionEnd: false, // Monitor if popover animation ends
             rangeInputFocus: undefined, // Optional'rangeStart ',' rangeEnd ', false
-            autofocus: props.autoFocus || (this.isRangeType(props.type, props.triggerRender) && (props.open || props.defaultOpen))
+            autofocus: props.autoFocus || (this.isRangeType(props.type, props.triggerRender) && (props.open || props.defaultOpen)),
+            insetInputValue: null,
+            triggerDisabled: undefined,
         };
 
         this.adapter.setCache('cachedSelectedValue', null);
@@ -254,6 +261,12 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             updateInputValue: inputValue => {
                 this.setState({ inputValue });
             },
+            updateInsetInputValue: (insetInputValue: InsetInputValue) => {
+                const { insetInput } = this.props;
+                if (insetInput && !isEqual(insetInputValue, this.state.insetInputValue)) {
+                    this.setState({ insetInputValue });
+                }
+            },
             needConfirm: () =>
                 ['dateTime', 'dateTimeRange'].includes(this.props.type) && this.props.needConfirm === true,
             typeIsYearOrMonth: () => ['month', 'year'].includes(this.props.type),
@@ -309,6 +322,27 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             },
             couldPanelClosed: () => this.focusRecordsRef.current.rangeStart && this.focusRecordsRef.current.rangeEnd,
             isEventTarget: e => e && e.target === e.currentTarget,
+            setInsetInputFocus: () => {
+                const { rangeInputFocus } = this.state;
+                switch (rangeInputFocus) {
+                    case 'rangeEnd':
+                        if (document.activeElement !== this.rangeInputEndRef.current) {
+                            const inputEndNode = get(this, 'rangeInputEndRef.current');
+                            inputEndNode && inputEndNode.focus();
+                        }
+                        break;
+                    case 'rangeStart':
+                    default:
+                        if (document.activeElement !== this.rangeInputStartRef.current) {
+                            const inputStartNode = get(this, 'rangeInputStartRef.current');
+                            inputStartNode && inputStartNode.focus();
+                        }
+                        break;
+                }
+            },
+            setTriggerDisabled: (disabled: boolean) => {
+                this.setState({ triggerDisabled: disabled });
+            }
         };
     }
 
@@ -378,7 +412,8 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             syncSwitchMonth,
             onPanelChange,
             timeZone,
-            triggerRender
+            triggerRender,
+            insetInput
         } = this.props;
         const { value, cachedSelectedValue, motionEnd, rangeInputFocus } = this.state;
 
@@ -425,6 +460,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
                 timeZone={timeZone}
                 focusRecordsRef={this.focusRecordsRef}
                 triggerRender={triggerRender}
+                insetInput={insetInput}
             />
         );
     }
@@ -442,6 +478,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
 
     handleOpenPanel = () => this.foundation.openPanel();
     handleInputChange: DatePickerFoundation['handleInputChange'] = (...args) => this.foundation.handleInputChange(...args);
+    handleInsetInputChange = (options: InsetInputChangeProps) => this.foundation.handleInsetInputChange(options);
     handleInputComplete: DatePickerFoundation['handleInputComplete'] = v => this.foundation.handleInputComplete(v);
     handleInputBlur: DateInputProps['onBlur'] = e => this.foundation.handleInputBlur(get(e, 'nativeEvent.target.value'), e);
     handleInputFocus: DatePickerFoundation['handleInputFocus'] = (...args) => this.foundation.handleInputFocus(...args);
@@ -458,6 +495,25 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             return this.focusRecordsRef.current.rangeStart;
         }
     };
+    handleInsetDateFocus = (e: React.FocusEvent, rangeType: 'rangeStart' | 'rangeEnd') => {
+        const monthGridFoundation = get(this, 'monthGrid.current.foundation');
+        if (monthGridFoundation) {
+            monthGridFoundation.showDatePanel(strings.PANEL_TYPE_LEFT);
+            monthGridFoundation.showDatePanel(strings.PANEL_TYPE_RIGHT);
+        }
+        this.handleInputFocus(e, rangeType);
+    }
+
+    handleInsetTimeFocus = () => {
+        const monthGridFoundation = get(this, 'monthGrid.current.foundation');
+        if (monthGridFoundation) {
+            monthGridFoundation.showTimePicker(strings.PANEL_TYPE_LEFT);
+            monthGridFoundation.showTimePicker(strings.PANEL_TYPE_RIGHT);
+        }
+    }
+    handlePanelVisibleChange = (visible: boolean) => {
+        this.foundation.handlePanelVisibleChange(visible);
+    }
 
     renderInner(extraProps?: Partial<DatePickerProps>) {
         const {
@@ -477,16 +533,18 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             triggerRender,
             size,
             inputReadOnly,
-            rangeSeparator
+            rangeSeparator,
+            insetInput,
         } = this.props;
-        const { value, inputValue, rangeInputFocus } = this.state;
+        const { value, inputValue, rangeInputFocus, triggerDisabled } = this.state;
         // This class is not needed when triggerRender is function
         const isRangeType = this.isRangeType(type, triggerRender);
+        const inputDisabled = disabled || insetInput && triggerDisabled;
         const inputCls = classnames(`${cssClasses.PREFIX}-input`, {
             [`${cssClasses.PREFIX}-range-input`]: isRangeType,
             [`${cssClasses.PREFIX}-range-input-${size}`]: isRangeType && size,
-            [`${cssClasses.PREFIX}-range-input-active`]: isRangeType && rangeInputFocus && !disabled,
-            [`${cssClasses.PREFIX}-range-input-disabled`]: isRangeType && disabled,
+            [`${cssClasses.PREFIX}-range-input-active`]: isRangeType && rangeInputFocus && !inputDisabled,
+            [`${cssClasses.PREFIX}-range-input-disabled`]: isRangeType && inputDisabled,
             [`${cssClasses.PREFIX}-range-input-${validateStatus}`]: isRangeType && validateStatus,
         });
         const phText = placeholder || locale.placeholder[type]; // i18n
@@ -494,9 +552,9 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
         const props = {
             ...extraProps,
             placeholder: phText,
-            disabled,
+            disabled: inputDisabled,
             inputValue,
-            value,
+            value: value as Date[],
             onChange: this.handleInputChange,
             onEnterPress: this.handleInputComplete,
             // TODO: remove in next major version
@@ -509,7 +567,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             format,
             multiple,
             validateStatus,
-            inputReadOnly,
+            inputReadOnly: inputReadOnly || insetInput,
             // onClick: this.handleOpenPanel,
             onBlur: this.handleInputBlur,
             onFocus: this.handleInputFocus,
@@ -518,18 +576,22 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             size,
             autofocus: this.state.autofocus,
             dateFnsLocale,
-            rangeInputStartRef: this.rangeInputStartRef,
-            rangeInputEndRef: this.rangeInputEndRef,
             rangeInputFocus,
             rangeSeparator,
             onRangeBlur: this.handleRangeInputBlur,
             onRangeClear: this.handleRangeInputClear,
             onRangeEndTabPress: this.handleRangeEndTabPress,
+            rangeInputStartRef: insetInput ? null :  this.rangeInputStartRef,
+            rangeInputEndRef: insetInput ? null : this.rangeInputEndRef,
         };
 
         return (
-            // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
             <div
+                // tooltip will mount a11y props to children
+                // eslint-disable-next-line jsx-a11y/role-has-required-aria-props
+                role="combobox"
+                aria-label={Array.isArray(value) && value.length ? "Change date" : "Choose date"}
+                aria-disabled={disabled}
                 onClick={this.handleTriggerWrapperClick}
                 className={inputCls}>
                 {typeof triggerRender === 'function' ? (
@@ -567,7 +629,8 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
     };
 
     renderPanel = (locale: Locale['DatePicker'], localeCode: string, dateFnsLocale: Locale['dateFnsLocale']) => {
-        const { dropdownClassName, dropdownStyle, density, topSlot, bottomSlot } = this.props;
+        const { dropdownClassName, dropdownStyle, density, topSlot, bottomSlot, insetInput, type, format, rangeSeparator } = this.props;
+        const { insetInputValue, value } = this.state;
         const wrapCls = classnames(
             cssClasses.PREFIX,
             {
@@ -577,9 +640,25 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             dropdownClassName
         );
 
+        const insetInputProps = {
+            dateFnsLocale,
+            format,
+            insetInputValue,
+            rangeSeparator,
+            type,
+            value: value as Date[],
+            handleInsetDateFocus: this.handleInsetDateFocus,
+            handleInsetTimeFocus: this.handleInsetTimeFocus,
+            onInsetInputChange: this.handleInsetInputChange,
+            rangeInputStartRef: this.rangeInputStartRef,
+            rangeInputEndRef: this.rangeInputEndRef,
+            density,
+        };
+
         return (
             <div ref={this.panelRef} className={wrapCls} style={dropdownStyle}>
                 {topSlot && <div className={`${cssClasses.PREFIX}-topSlot`}>{topSlot}</div>}
+                {insetInput && <DateInput {...insetInputProps} insetInput={true} />}
                 {this.adapter.typeIsYearOrMonth() ?
                     this.renderYearMonthPanel(locale, localeCode) :
                     this.renderMonthGrid(locale, localeCode, dateFnsLocale)}
@@ -648,6 +727,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
                 visible={panelShow}
                 stopPropagation={stopPropagation}
                 spacing={spacing}
+                onVisibleChange={this.handlePanelVisibleChange}
             >
                 {children}
             </Popover>

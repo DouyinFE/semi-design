@@ -1,11 +1,11 @@
 ---
 localeCode: en-US
-order: 23
+order: 24
 category: Input
 title:  InputNumber
 subTitle: InputNumber
 icon: doc-inputnumber
-brief: Enter values within range through a mouse or keyboard.
+brief: Through the mouse or keyboard, input the value in the range. Unlike Input, it has a stepper operation area for digital scenes, and it can display more complex content formats when used with Parser.
 ---
 
 

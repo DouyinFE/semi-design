@@ -8,6 +8,7 @@ describe('Button', () => {
     it('button with custom className & style', () => {
         const wrapper = mount(<Button className="test" style={{ color: 'red' }} />);
         expect(wrapper.hasClass('test')).toEqual(true);
+        expect(wrapper.find('button').getDOMNode().style.color).toBe('red');
     });
 
     it(`button with icon`, () => {
@@ -60,5 +61,11 @@ describe('Button', () => {
             </ButtonGroup>
         );
         expect(buttonGroup.getDOMNode().textContent).toEqual('1查询剪切');
+    });
+
+    it('button group with custom className & style', () => {
+        const wrapper = mount(<ButtonGroup className="test" style={{ color: 'red' }} />);
+        expect(wrapper.hasClass('test')).toEqual(true);
+        expect(wrapper.find('button').getDOMNode().style.color).toBe('red');
     });
 });

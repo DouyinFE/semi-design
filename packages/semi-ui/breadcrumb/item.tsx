@@ -5,8 +5,8 @@ import { cssClasses } from '@douyinfe/semi-foundation/breadcrumb/constants';
 import BreadcrumbItemFoundation, { BreadcrumbItemAdapter, BreadcrumbItemInfo, Route } from '@douyinfe/semi-foundation/breadcrumb/itemFoundation';
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
 import { noop } from '@douyinfe/semi-foundation/utils/function';
-import BreadContext from './bread-context';
-import Typography from '../typography';
+import BreadContext, { BreadContextType } from './bread-context';
+import Typography, { EllipsisPos, ShowTooltip as ShowTooltipType } from '../typography';
 import { merge, isUndefined, isNull } from 'lodash';
 
 const clsPrefix = cssClasses.PREFIX;
@@ -29,6 +29,12 @@ export interface BreadcrumbItemProps extends BaseProps {
 
 type BreadcrumbItemState = Record<string, never>;
 
+interface GetTooltipOptType {
+    width: number;
+    ellipsisPos: EllipsisPos;
+    opts?: ShowTooltipType['opts'];
+}
+
 export default class BreadcrumbItem extends BaseComponent<BreadcrumbItemProps, BreadcrumbItemState> {
     static isBreadcrumbItem = true;
     static contextType = BreadContext;
@@ -49,6 +55,8 @@ export default class BreadcrumbItem extends BaseComponent<BreadcrumbItemProps, B
         onClick: noop,
         shouldRenderSeparator: true
     };
+
+    context: BreadContextType;
 
     get adapter(): BreadcrumbItemAdapter<BreadcrumbItemProps, BreadcrumbItemState> {
         return {
@@ -129,7 +137,7 @@ export default class BreadcrumbItem extends BaseComponent<BreadcrumbItemProps, B
         const showTooltip = this.getTooltipOpt();
         const icon = this.renderIcon();
         if (Boolean(children) && typeof children === 'string') {
-            const { opts, ellipsisPos, width } = showTooltip;
+            const { opts, ellipsisPos, width } = showTooltip as GetTooltipOptType;
             return (
                 <Fragment>
                     {icon}

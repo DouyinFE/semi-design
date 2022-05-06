@@ -1,16 +1,16 @@
 ---
 localeCode: zh-CN
-order: 24
+order: 25
 category: 输入类
 title: Radio 单选框
 icon: doc-radio
 brief: 用户使用单选框来从少量的选项集合中选择单个选项
 ---
 
-## 何时使用
+## 使用场景
 
--   用于在多个备选项中选中单个状态。
--   和 Select 的区别是，Radio 所有选项默认可见，方便用户在比较中选择，因此选项不宜过多。
+单选框(Radio)也叫单选按钮，它允许用户在一组选项中选择其中一个。  
+当选项很多时，单选下拉菜单（Select）可能比较适合，因为它所占用的画面空间比单选按钮来得要少。
 
 ## 代码演示
 ### 如何引入
@@ -311,18 +311,6 @@ class App extends React.Component {
 }
 ```
 
-## Accessibility
-
-### 键盘和焦点
-
-- 卡片式、按钮式 Radio 组可以通过箭头切换选中
-
-### ARIA
-
-- `aria-label`：用于解释 Radio 或 RadioGroup 的作用
-- `aria-labelledby` 默认指向 addon 节点，用于解释 Radio 的内容
-- `aria-describedby` 默认指向 extra 节点，用于补充解释 Radio 的内容
-
 ## API 参考
 
 ### Radio
@@ -372,6 +360,18 @@ class App extends React.Component {
 | ------- | -------- |
 | blur()  | 移除焦点 |
 | focus() | 获取焦点 |
+
+## Accessibility
+
+### 键盘和焦点
+
+- 卡片式、按钮式 Radio 组可以通过箭头切换选中
+
+### ARIA
+
+- `aria-label`：用于解释 Radio 或 RadioGroup 的作用
+- `aria-labelledby` 默认指向 addon 节点，用于解释 Radio 的内容
+- `aria-describedby` 默认指向 extra 节点，用于补充解释 Radio 的内容
 
 <!-- ## 相关物料
 ```material

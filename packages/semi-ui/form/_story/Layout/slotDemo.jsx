@@ -98,7 +98,7 @@ class AssistComponent extends React.Component {
                             我是Semi Form SlotB, 我的Label Align、Width与众不同
                         </div>
                     </Form.Slot>
-                </Form>,
+                </Form>
                 <Form.Slot
                     label={{
                         text: 'SlotB',
@@ -117,7 +117,7 @@ class AssistComponent extends React.Component {
                     >
                         我是Slot，我并没有被Form包裹，我是单独使用的
                     </div>
-                </Form.Slot>,
+                </Form.Slot>
             </>
         );
     }

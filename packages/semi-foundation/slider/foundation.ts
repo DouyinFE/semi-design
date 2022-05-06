@@ -83,7 +83,7 @@ export interface SliderAdapter extends DefaultAdapter<SliderProps, SliderState>{
     getMinHandleEl: () => { current: HTMLElement };
     getMaxHandleEl: () => { current: HTMLElement };
     onHandleDown: (e: any) => any;
-    onHandleMove: (mousePos: number, isMin: boolean, stateChangeCallback?: () => void, clickTrack?: boolean) => boolean | void;
+    onHandleMove: (mousePos: number, isMin: boolean, stateChangeCallback?: () => void, clickTrack?: boolean, outPutValue?: number | number[]) => boolean | void;
     setEventDefault: (e: any) => void;
     setStateVal: (state: keyof SliderState, value: any) => void;
     onHandleEnter: (position: SliderState['focusPos']) => void;
@@ -406,6 +406,14 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
 
     checkAndUpdateIsInRenderTreeState = () => this._adapter.checkAndUpdateIsInRenderTreeState();
 
+    calculateOutputValue = (position: number, isMin: boolean): undefined | number | number[] => {
+        const moveValue = this.transPosToValue(position, isMin);
+        if (moveValue === false) {
+            return undefined;
+        }
+        return this.outPutValue(moveValue);
+    }
+
     /**
      *
      *
@@ -487,7 +495,16 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
         let pagePos = vertical ? mousePos.y : mousePos.x;
         pagePos = pagePos - this._dragOffset;
         if ((chooseMovePos === 'min' && dragging[0]) || (chooseMovePos === 'max' && dragging[1])) {
-            this._adapter.onHandleMove(pagePos, chooseMovePos === 'min');
+            const outPutValue = this.calculateOutputValue(pagePos, chooseMovePos === 'min' );
+            
+            if (outPutValue === undefined) {
+                return false;
+            }
+            
+            this._adapter.notifyChange(outPutValue);
+
+            // allow drag for controlled component, so no _isControlledComponent check
+            this._adapter.onHandleMove(pagePos, chooseMovePos === 'min', undefined, false, outPutValue);
         }
         return true;
     };
@@ -565,7 +582,22 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
         const mousePos = this.handleMousePos(e.pageX, e.pageY);
         const position = vertical ? mousePos.y : mousePos.x;
         const isMin = this.checkWhichHandle(position);
-        this.setHandlePos(position, isMin, true);
+
+        const outPutValue = this.calculateOutputValue(position, isMin);
+        if (outPutValue === undefined) {
+            return;
+        }
+
+        this._adapter.notifyChange(outPutValue);
+
+        // check if is controlled component
+        if (this._isControlledComponent()) {
+            // only perform callback ops, skip UI update
+            return;
+        }
+
+        // trigger UI state update
+        this.setHandlePos(position, isMin, true, outPutValue);
     };
 
     /**
@@ -573,8 +605,8 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
      *
      * @memberof SliderFoundation
      */
-    setHandlePos = (position: number, isMin: boolean, clickTrack = false) => {
-        this._adapter.onHandleMove(position, isMin, () => this._adapter.onHandleUpAfter(), clickTrack);
+    setHandlePos = (position: number, isMin: boolean, clickTrack = false, outPutValue: number | number[]) => {
+        this._adapter.onHandleMove(position, isMin, () => this._adapter.onHandleUpAfter(), clickTrack, outPutValue);
     };
 
     /**

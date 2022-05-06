@@ -45,4 +45,26 @@ describe('table', () => {
         cy.contains("Base Information");
         cy.contains("Company Information");
     });
+
+    it('scroll', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=table--scroll-bar&args=&viewMode=story');
+     
+        cy.get('.semi-table-body').scrollTo('bottom');
+        cy.get('.semi-table-body').scrollTo('top');
+        cy.get('.semi-table-body').scrollTo('left');
+        cy.get('.semi-table-body').scrollTo('right');
+    });
+
+    it('resizable header', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=table--resizable-columns&args=&viewMode=story');
+        
+        cy.get('.react-resizable-handle').eq(0)
+            .trigger('mousedown', { which: 1, pageX: 0, pageY: 100 })
+            .trigger('mousemove', { which: 1, pageX: 600, pageY: 100 })
+            .trigger('mouseup');
+        cy.get('.react-resizable-handle').eq(1)
+            .trigger('mousedown', { which: 1, pageX: 300, pageY: 100 })
+            .trigger('mousemove', { which: 1, pageX: -300, pageY: 100 })
+            .trigger('mouseup');
+    });
 });

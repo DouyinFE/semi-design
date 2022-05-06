@@ -1,22 +1,15 @@
 ---
 localeCode: en-US
-order: 63
+order: 64
 category: Feedback
 title:  Popconfirm
 subTitle: Popconfirm
 icon: doc-popconfirm
-brief: Click on the element to pop up the bubble confirmation box.
+brief: Used when the operation of the target element requires further confirmation from the user. Compared with Popover, it has a built-in series of configurable action buttons. Compared with Modal, it does not force full-screen centering, and the interaction is lighter.
 ---
 
 
-## When to Use
-
-When the operation of the target element requires further confirmation by the user, a floating layer prompt pops up near the target element to ask the user.
-
-and `Modal.confirm` Compared with the pop-up full-screen centered mode dialog box, the interactive form is lighter.
-
 ## Demos
-
 
 ### How to import
 

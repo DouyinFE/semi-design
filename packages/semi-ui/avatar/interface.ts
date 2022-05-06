@@ -22,7 +22,7 @@ export type AvatarColor =
     | 'yellow';
 
 export interface AvatarProps extends BaseProps {
-    children?: React.ReactNode;
+    children?: React.ReactNode | undefined;
     color?: AvatarColor;
     shape?: AvatarShape;
     size?: AvatarSize;
@@ -42,7 +42,7 @@ export type AvatarGroupSize = 'extra-extra-small' | 'extra-small' | 'small' | 'm
 export type AvatarGroupOverlapFrom = 'start' | 'end';
 
 export interface AvatarGroupProps {
-    children?: React.ReactNode;
+    children?: React.ReactNode | undefined;
     shape?: AvatarGroupShape;
     size?: AvatarGroupSize;
     overlapFrom?: AvatarGroupOverlapFrom;

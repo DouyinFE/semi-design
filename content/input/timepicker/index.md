@@ -1,16 +1,12 @@
 ---
 localeCode: zh-CN
-order: 30
+order: 31
 category: 输入类
 title: TimePicker 时间选择器
 icon: doc-timepicker
 brief: 用户使用时间选择器可以方便地选择某一符合要求的、格式化的时间点
 ---
 
-
-## 何时使用
-
-当用户需要输入一个时间，可以点击标准输入框，弹出时间面板进行选择。
 
 ## 代码演示
 

@@ -1,16 +1,11 @@
 ---
 localeCode: zh-CN
-order: 23
+order: 24
 category: 输入类
 title: InputNumber 数字输入框
 icon: doc-inputnumber
-brief: 通过鼠标或键盘，输入范围内的数值。
+brief: 通过鼠标或键盘，输入范围内的数值，与 Input 不同的是它带有针对数字场景的步进器操作区，配合 Parser 使用可以展示更复杂的内容格式
 ---
-
-
-## 何时使用
-
-当需要获取标准数值时。
 
 ## 代码演示
 

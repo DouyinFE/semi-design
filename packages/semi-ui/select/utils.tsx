@@ -68,7 +68,7 @@ const getOptionsFromGroup = (selectChildren: React.ReactNode) => {
         }
     });
     if (type === 'option') {
-        optionGroups = [emptyGroup];
+        optionGroups = [emptyGroup] as OptionGroupProps[];
     }
     return { optionGroups, options };
 };

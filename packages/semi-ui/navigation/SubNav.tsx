@@ -14,7 +14,7 @@ import { IconChevronDown, IconChevronUp, IconChevronRight } from '@douyinfe/semi
 
 import NavItem from './Item';
 import Dropdown, { DropdownProps } from '../dropdown';
-import NavContext from './nav-context';
+import NavContext, { NavContextType } from './nav-context';
 
 import { times, get } from 'lodash';
 
@@ -116,6 +116,7 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
     titleRef: React.RefObject<HTMLDivElement>;
     itemRef: React.RefObject<HTMLLIElement>;
     foundation: SubNavFoundation;
+    context: NavContextType;
     constructor(props: SubNavProps) {
         super(props);
         this.state = {
@@ -162,9 +163,9 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
             notifyGlobalOpenChange: (...args) => this._invokeContextFunc('onOpenChange', ...args),
             notifyGlobalOnSelect: (...args) => this._invokeContextFunc('onSelect', ...args),
             notifyGlobalOnClick: (...args) => this._invokeContextFunc('onClick', ...args),
-            getIsSelected: itemKey => Boolean(!isNullOrUndefined(itemKey) && get(this.context, 'selectedKeys', []).includes(itemKey)),
+            getIsSelected: itemKey => Boolean(!isNullOrUndefined(itemKey) && get(this.context, 'selectedKeys', []).includes(String(itemKey))),
             getIsOpen: () =>
-                Boolean(this.context && this.context.openKeys && this.context.openKeys.includes(this.props.itemKey)),
+                Boolean(this.context && this.context.openKeys && this.context.openKeys.includes(String(this.props.itemKey))),
         };
     }
 
@@ -240,15 +241,15 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
         if (mode === strings.MODE_VERTICAL && !limitIndent && !isCollapsed) {
             /* Different icons' amount means different indents.*/
             const iconAmount = (icon && !indent) ? level : level - 1;
-            placeholderIcons = times(iconAmount, index => this.renderIcon(null, strings.ICON_POS_RIGHT, false, undefined, index));
+            placeholderIcons = times(iconAmount, index => this.renderIcon(null, strings.ICON_POS_RIGHT, false, false, index));
         }
 
         const titleDiv = (
             <div
                 role="menuitem"
                 tabIndex={-1}
-                ref={this.setTitleRef as any} 
-                className={titleCls} 
+                ref={this.setTitleRef as any}
+                className={titleCls}
                 onClick={this.handleClick}
                 onKeyPress={this.handleKeyPress}
             >
@@ -256,7 +257,7 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
                     {placeholderIcons}
                     {this.context.toggleIconPosition === strings.TOGGLE_ICON_LEFT && this.renderIcon(toggleIconType, strings.ICON_POS_RIGHT, withTransition, true, 'key-toggle-position-left')}
                     {icon || indent || (isInSubNav && mode !== strings.MODE_HORIZONTAL)
-                        ? this.renderIcon(icon, strings.ICON_POS_LEFT, undefined, undefined, 'key-inSubNav-position-left')
+                        ? this.renderIcon(icon, strings.ICON_POS_LEFT, false, false, 'key-inSubNav-position-left')
                         : null}
                     <span className={`${prefixCls}-item-text`}>{text}</span>
                     {this.context.toggleIconPosition === strings.TOGGLE_ICON_RIGHT && this.renderIcon(toggleIconType, strings.ICON_POS_RIGHT, withTransition, true, 'key-toggle-position-right')}

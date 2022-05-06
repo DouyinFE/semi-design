@@ -1,15 +1,11 @@
 ---
 localeCode: zh-CN
-order: 20
+order: 21
 category: 输入类
 title: DatePicker 日期选择器
 icon: doc-datepicker
 brief: 日期选择器用于帮助用户选择一个符合要求的、格式化的日期（时间）或日期（时间）范围
 ---
-
-## 何时使用
-
-当用户需要输入一个日期，可以点击标准输入框，弹出日期面板进行选择。
 
 ## 代码演示
 
@@ -114,13 +110,75 @@ import { DatePicker } from '@douyinfe/semi-ui';
 
 ### 日期范围时间选择
 
-将 `type` 设定为 `dateTimeRange`， 可以选择日期时间范围
+将 `type` 设定为 `dateTimeRange`， 可以选择日期时间范围  
+当未传入 defaultValue 或 value时，底部面板默认时间为当前时间。如果你有特殊需求（如指定默认时分秒），可以通过 defaultPickerValue 指定
 
 ```jsx live=true
 import React from 'react';
 import { DatePicker } from '@douyinfe/semi-ui';
 
-() => <DatePicker type="dateTimeRange" style={{ width: 380 }} onChange={console.log} />;
+() => (
+    <>
+        <DatePicker type="dateTimeRange" style={{ width: 400, marginBottom: 8 }} onChange={console.log} />
+        <DatePicker
+            type="dateTimeRange"
+            style={{ width: 400 }}
+            defaultPickerValue={[new Date('2022-08-08 00:00'), new Date('2022-08-09 12:00')]}
+            onChange={console.log}
+        />
+    </>
+);
+```
+
+### 内嵌输入框
+
+使用 insetInput 可以控制日期面板是否展示内嵌输入框，默认为 false。v2.7.0 后支持。内嵌输入框适用于以下场景：
+
+- 日期时间选择，可以直接通过内嵌输入框单独修改时间，无须通过滚轮选择时间
+- 自定义触发器时 + 范围选择，使用内嵌输入框可以单独对开始和结束日期进行修改
+
+insetInput 开启后包括以下功能：
+
+- 点击触发器后，面板默认在原有位置弹出。你可以通过 position 自定义弹出位置
+- 点击内嵌日期输入框，面板切换到日期选择；点击内嵌时间输入框，面板切换到时间选择
+- 和外部的输入框一致，如果输入了非法日期，面板关闭后日期会回到之前的合法日期
+
+<Notice type="primary" title="注意事项">
+    <div>注意，开启后会对组件做一些调整和限制：</div>
+    <div>1. 触发器样式：未打开面板时触发器只读，打开时触发器禁用</div>
+    <div>2. 面板样式：type 包括 time 时，隐藏底部的切换按钮</div>
+    <div>3. 开启 insetInput 后 format 只支持 `dateFormat[ timeFormat]` 格式，使用其他格式会影响内嵌输入框 placeholder 和触发器文本的展示</div>
+</Notice>
+
+```jsx live=true
+import React from 'react';
+import { DatePicker } from '@douyinfe/semi-ui';
+
+function Demo() {
+    return (
+        <div>
+            <DatePicker type="date" insetInput />
+            <br />
+            <br />
+            <DatePicker type="dateTime" insetInput />
+            <br />
+            <br />
+            <DatePicker type="dateRange" insetInput style={{ width: 260 }} />
+            <br />
+            <br />
+            <DatePicker type="dateTimeRange" insetInput style={{ width: 400 }} />
+            <br />
+            <br />
+            <DatePicker type="month" placeholder="请选择年月" insetInput style={{ width: 140 }} />
+            <br />
+            <br />
+            <DatePicker type="date" position="bottomLeft" insetInput />
+            <br />
+            <br />
+            <DatePicker type="dateTime" format="yyyy-MM-dd HH:mm" insetInput />
+        </div>
+    );
+}
 ```
 
 ### 同步切换双面板月份
@@ -140,7 +198,7 @@ import { DatePicker } from '@douyinfe/semi-ui';
         // 双面板同步切换
         syncSwitchMonth={true}
         type="dateTimeRange"
-        style={{ width: 380 }}
+        style={{ width: 400 }}
     />
 );
 ```
@@ -159,7 +217,7 @@ import { DatePicker } from '@douyinfe/semi-ui';
     <DatePicker
         syncSwitchMonth={true}
         type="dateTimeRange"
-        style={{ width: 380 }}
+        style={{ width: 400 }}
         onPanelChange={(date, dateString) => console.log(date, dateString)}
     />
 );
@@ -383,7 +441,7 @@ function Demo() {
             />
             <br />
             <br />
-            <DatePicker type="dateTimeRange" bottomSlot={<BottomSlot />} style={{ width: 380 }} />
+            <DatePicker type="dateTimeRange" bottomSlot={<BottomSlot />} style={{ width: 400 }} />
             <br />
             <br />
         </div>
@@ -479,7 +537,7 @@ class App extends React.Component {
                         type="dateTimeRange"
                         hideDisabledOptions={false}
                         disabledTime={this.disabledTime2}
-                        style={{ width: 380 }}
+                        style={{ width: 400 }}
                     />
                 </div>
                 <div>
@@ -488,7 +546,7 @@ class App extends React.Component {
                         type="dateTimeRange"
                         disabledDate={this.disabledDate}
                         defaultPickerValue={this.nextValidMonth()}
-                        style={{ width: 380 }}
+                        style={{ width: 400 }}
                     />
                 </div>
             </div>
@@ -617,7 +675,7 @@ function Demo() {
 
 `dayStatus` 表示当前格子的状态，包括的 `key` 有：
 
-```tsx
+```md
 type DayStatusType = {
     isToday?: boolean; // 当前日
     isSelected?: boolean; // 被选中
@@ -705,6 +763,7 @@ function Demo() {
 | format | 在输入框内展现的日期串格式 | string | 与 type 对应：详见[日期时间格式](#日期时间格式) |  |
 | getPopupContainer | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 `position: relative` | function():HTMLElement | () => document.body |  |
 | hideDisabledOptions | 隐藏禁止选择的时间 | boolean | false |  |
+| insetInput | 面板中是否嵌入输入框 | boolean | false |  | **2.7.0**
 | inputReadOnly | 文本框是否 readonly | boolean | false |  |
 | inputStyle | 输入框样式 | object |  |  |
 | insetLabel | 前缀标签，优先级低于 `prefix` | string\|ReactNode |  |  |
@@ -745,6 +804,16 @@ function Demo() {
 | onOpenChange | 面板显示或隐藏状态切换的回调 | (status: boolean) => void |  |  |
 | onPanelChange | 切换面板的年份或者日期时的回调 | (date: DateType\|DateType[], dateStr: StringType\|StringType[])=>void | function | **1.28.0** |
 | onPresetClick | 点击快捷选择按钮的回调 | (item: Object, e: Event) => void | () => {} | **1.24.0** |
+
+## Accessibility
+
+### ARIA
+
+- 未选中日期时，触发器的 `aria-label` 为 `Choose date`，选中日期时，触发器的 `aria-label` 为 `Change date`
+- 日期面板中月的 role 为 `grid`，周的 role 设置为 `row`，日期格子设置为 `gridcell`
+- 日期和时间禁用时对应选项的 `aria-disabled` 为 true
+- 多选时，月的 `aria-multiselectable` 为 true，选中时日期格子的 `aria-selected` 为 true
+- 面板中一些装饰作用的 icon，它们的 `aria-hidden` 为 true
 
 ## 类型定义
 
@@ -800,3 +869,7 @@ semi-ui 组件库中采用 [date-fns(v2.9.0)](https://date-fns.org/v2.9.0/docs/G
 
 -   **如何设置面板打开时默认显示的时间？**  
      可通过 defaultPickerValue 属性。
+
+- **日期时间选择、范围日期选择，输入部分日期后，面板没有回显日期？**
+
+    输入框需要输入完整后才会回显到面板上。比如，日期时间选择，完整要求日期和时间都已输入。范围日期选择，完整要求开始日期和结束日期都已输入。

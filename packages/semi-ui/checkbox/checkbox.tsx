@@ -7,7 +7,7 @@ import CheckboxFoundation, { CheckboxAdapter, BasicCheckboxEvent, BasicTargetObj
 import CheckboxInner from './checkboxInner';
 import BaseComponent from '../_base/baseComponent';
 import '@douyinfe/semi-foundation/checkbox/checkbox.scss';
-import { Context } from './context';
+import { Context, CheckboxContextType } from './context';
 import { isUndefined, isBoolean, noop } from 'lodash';
 import { getUuidShort } from '@douyinfe/semi-foundation/utils/uuid';
 export type CheckboxEvent = BasicCheckboxEvent;
@@ -19,6 +19,7 @@ export interface CheckboxProps extends BaseCheckboxProps {
     'aria-invalid'?: React.AriaAttributes['aria-invalid'];
     'aria-labelledby'?: React.AriaAttributes['aria-labelledby'];
     'aria-required'?: React.AriaAttributes['aria-required'];
+    children?: React.ReactNode | undefined;
     onChange?: (e: CheckboxEvent) => any;
     // TODO, docs
     style?: React.CSSProperties;
@@ -71,6 +72,7 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
         onMouseLeave: noop,
     };
     checkboxEntity: CheckboxInner;
+    context: CheckboxContextType;
 
     get adapter(): CheckboxAdapter<CheckboxProps, CheckboxState> {
         return {
@@ -120,7 +122,7 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
     }
 
     isInGroup() {
-        return this.context && this.context.checkboxGroup;
+        return Boolean(this.context && this.context.checkboxGroup);
     }
 
     focus() {

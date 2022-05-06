@@ -15,6 +15,7 @@ import { Col } from '../../grid';
 import { CallOpts, WithFieldOption } from '@douyinfe/semi-foundation/form/interface';
 import { CommonFieldProps, CommonexcludeType } from '../interface';
 import { Subtract } from 'utility-types';
+import { noop } from "lodash";
 
 const prefix = cssClasses.PREFIX;
 
@@ -121,6 +122,7 @@ function withField<
         const [status, setStatus] = useState(validateStatus); // use props.validateStatus to init
 
         const rulesRef = useRef(rules);
+        const validateRef = useRef(validate);
 
         // notNotify is true means that the onChange of the Form does not need to be triggered
         // notUpdate is true means that this operation does not need to trigger the forceUpdate
@@ -221,7 +223,7 @@ function withField<
                 let maybePromisedErrors;
                 // let errorThrowSync;
                 try {
-                    maybePromisedErrors = validate(val, values);
+                    maybePromisedErrors = validateRef.current(val, values);
                 } catch (err) {
                     // error throw by syncValidate
                     maybePromisedErrors = err;
@@ -258,7 +260,7 @@ function withField<
             if (transform) {
                 finalVal = transform(val);
             }
-            if (validate) {
+            if (validateRef.current) {
                 return _validate(finalVal, updater.getValue(), callOpts);
             } else if (latestRules) {
                 return _validateInternal(finalVal, callOpts);
@@ -357,7 +359,8 @@ function withField<
         // avoid hooks capture value, fixed issue 346
         useLayoutEffect(() => {
             rulesRef.current = rules;
-        }, [rules]);
+            validateRef.current = validate;
+        }, [rules, validate]);
 
         // exec validate once when trigger inlcude 'mount'
         useLayoutEffect(() => {
@@ -376,12 +379,24 @@ function withField<
                 return () => {};
             }
             // log('register: ' + field);
-            updater.register(field, fieldState, {
+
+            // field value may change after field component mounted, we use ref value here to get changed value
+            const refValue = getVal();
+            updater.register(
                 field,
-                fieldApi,
-                keepState,
-                allowEmpty: allowEmpty || allowEmptyString,
-            });
+                {
+                    value: refValue,
+                    error,
+                    touched,
+                    status,
+                },
+                {
+                    field,
+                    fieldApi,
+                    keepState,
+                    allowEmpty: allowEmpty || allowEmptyString,
+                }
+            );
             // return unRegister cb
             return () => {
                 updater.unRegister(field);
@@ -442,11 +457,11 @@ function withField<
             if (helpText) {
                 newProps['aria-describedby'] = extraText ? `${helpTextId} ${extraTextId}` : helpTextId;
             }
-            
+
             if (extraText) {
                 newProps['aria-describedby'] = helpText ? `${helpTextId} ${extraTextId}` : extraTextId;
             }
-            
+
             if (status === 'error') {
                 newProps['aria-errormessage'] = errorMessageId;
                 newProps['aria-invalid'] = true;
@@ -499,7 +514,7 @@ function withField<
                         text={label || field}
                         id={labelId}
                         required={required}
-                        name={name || field}
+                        name={a11yId || name || field}
                         width={mergeLabelWidth}
                         align={mergeLabelAlign}
                         {...needSpread}
@@ -580,7 +595,7 @@ function withField<
         }
     };
     SemiField = forwardRef(SemiField);
-    (SemiField as React.SFC).displayName = getDisplayName(Component);
+    (SemiField as React.FC).displayName = getDisplayName(Component);
     return SemiField as any;
 }
 

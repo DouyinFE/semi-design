@@ -795,3 +795,75 @@ export const TabSize = () => <TabSizeDemo />;
 TabSize.story = {
   name: 'tab size',
 };
+
+class TabListChangeDemo extends React.Component {
+   constructor() {
+    super();
+    this.state = {
+      itemKey: '1',
+      tabList:[
+      {
+        tab: '文档',
+        itemKey: '1',
+      },
+      {
+        tab: '快速起步',
+        itemKey: '2',
+      },
+      {
+        tab: '帮助',
+        itemKey: '3',
+      },
+      {
+        tab: '关于',
+        itemKey: '4',
+      },
+      {
+        tab: '资源工具',
+        itemKey: '5',
+      },
+    ]
+    };
+    this.onTabClick = this.onTabClick.bind(this);
+  }
+
+  onTabClick(itemKey, type) {
+    this.setState({
+      [type]: itemKey,
+      tabList: [{
+        tab: '文档',
+        itemKey: '1',
+      }]
+    });
+  }
+
+  render() {
+    const contentList = [
+      <div>文档</div>,
+      <div>快速起步</div>,
+      <div>帮助</div>,
+      <div>关于</div>,
+      <div>资源工具</div>,
+    ];
+    return (
+      <Tabs
+        style={style}
+        type="line"
+        tabList={this.state.tabList}
+        onTabClick={itemKey => {
+          this.onTabClick(itemKey, 'itemKey');
+        }}
+      >
+        {contentList[this.state.itemKey]}
+        <span>test</span>
+        <span>test2</span>
+      </Tabs>
+    );
+  }
+}
+
+export const TabListChange = () => <TabListChangeDemo />;
+
+TabListChange.story = {
+  name: 'tablist change',
+};
