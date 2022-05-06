@@ -29,7 +29,6 @@ export interface MonthsGridProps extends MonthsGridFoundationProps, BaseProps {
     renderDate?: () => React.ReactNode;
     renderFullDate?: () => React.ReactNode;
     focusRecordsRef?: React.RefObject<{ rangeStart: boolean; rangeEnd: boolean }>;
-    insetInput?: boolean;
 }
 
 export type MonthsGridState = MonthsGridFoundationState;
