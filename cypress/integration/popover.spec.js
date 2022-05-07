@@ -91,4 +91,14 @@ describe('popover', () => {
         cy.get('[data-cy=pop-focusable-first]').type('{esc}', { force: true });
         cy.get('[data-cy=returnFocusOnClose-false]').should('not.be.focused');
     });
+
+    it('click select option in popover ', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=popover--fix-nested-popover&args=&viewMode=story');
+        cy.get('[data-cy=fix-nested-popover] .semi-tag').click();
+        cy.get('[data-cy=select-in-popover] .semi-select').click();
+        cy.get('[data-cy=select-in-popover] .semi-select').click();
+        cy.get('.semi-select-option').contains('西瓜视频').click();
+        cy.get('[data-cy=select-in-popover] .semi-select').should('be.visible');
+        cy.get('.semi-select-option').contains('西瓜视频').should('be.not.exist')
+    })
 });

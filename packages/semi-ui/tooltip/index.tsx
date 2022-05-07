@@ -343,11 +343,11 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                         cb();
                     }
                 };
-                document.addEventListener('mousedown', this.clickOutsideHandler, { capture: true });
+                window.addEventListener('mousedown', this.clickOutsideHandler);
             },
             unregisterClickOutsideHandler: () => {
                 if (this.clickOutsideHandler) {
-                    document.removeEventListener('mousedown', this.clickOutsideHandler, { capture: true });
+                    window.removeEventListener('mousedown', this.clickOutsideHandler);
                     this.clickOutsideHandler = null;
                 }
             },
@@ -528,6 +528,12 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         }
     };
 
+    handlePortalMouseDown = (e: React.MouseEvent) => {
+        if (this.props.stopPropagation) {
+            stopPropagation(e);
+        }
+    }
+
     handlePortalInnerKeyDown = (e: React.KeyboardEvent) => {
         this.foundation.handleContainerKeydown(e);
     }
@@ -595,6 +601,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                     style={portalInnerStyle}
                     ref={this.setContainerEl}
                     onClick={this.handlePortalInnerClick}
+                    onMouseDown={this.handlePortalMouseDown}
                     onKeyDown={this.handlePortalInnerKeyDown}
                 >
                     {inner}
