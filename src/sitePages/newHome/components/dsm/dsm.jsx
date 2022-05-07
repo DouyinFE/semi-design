@@ -22,7 +22,7 @@ function Dsm(props) {
                 <a onClick={goDsm} className={styles.buttonSecondarySolid} style={{marginRight:'20px'}} href='/dsm'>
                     <p className={styles.text_8f6c2dc2}>{_t("learn_more", { }, "了解更多")}</p>
                 </a>
-                <a onClick={goThemeStore} className={styles.buttonSecondarySolid} href="/theme_store">
+                <a onClick={goThemeStore} className={styles.buttonSecondarySolid} href="/dsm_store">
                     <p className={styles.text_8f6c2dc2} style={{color:'var(--semi-color-primary)'}}>{_t("theme_store", { }, "主题商店")}</p>
                 </a>
                 </div>
