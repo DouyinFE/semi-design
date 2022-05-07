@@ -19,7 +19,7 @@ Version：Major.Minor.Patch
 #### 🎉 2.10.0 (2022-05-07)
 - 【Fix】
     - Fixed the error that `x-form-id` does not match on the server side and the client side when the Form component is used in `Nextjs`  [#808](https://github.com/DouyinFE/semi-design/issues/808) [@xuerzong](https://github.com/xuerzong)
-    - Fixed the problem that when InputNumber is configured with precision, the input illegal characters will not be blank [@MuxinFeng](https://github.com/MuxinFeng)
+    - Fixed the problem that when InputNumber is configured with precision, the input illegal characters will not be blank [#786](https://github.com/DouyinFE/semi-design/issues/786) [@MuxinFeng](https://github.com/MuxinFeng)
     - Fixed an issue where clicking the arrow switch or the indicator switch did not respond instantly when Carousel autoplayed
     - Fix InputNumber controlled use and set the minimum value, the problem of not notifyChange when formatting the incoming value into the range  [#812](https://github.com/DouyinFE/semi-design/issues/812)
     - Fix the problem of ts type checking error when ButtonGroup passes in multiple children [#811](https://github.com/DouyinFE/semi-design/issues/811)

@@ -19,7 +19,7 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 #### 🎉 2.10.0 (2022-05-07)
 - 【Fix】
     - 修复Form组件在`Nextjs`中使用时，`x-form-id`在服务端和客户端不匹配的报错问题  [#808](https://github.com/DouyinFE/semi-design/issues/808) [@xuerzong](https://github.com/xuerzong)
-    - 修复 InputNumber 在有 precision 配置时，输入非法字符不会置空的问题 [@MuxinFeng](https://github.com/MuxinFeng)
+    - 修复 InputNumber 在有 precision 配置时，输入非法字符不会置空的问题 [#786](https://github.com/DouyinFE/semi-design/issues/786) [@MuxinFeng](https://github.com/MuxinFeng)
     - 修复 Carousel 自动播放时点击箭头切换或指示器切换不能即时响应问题
     - 修复 InputNumber 受控使用且设置最小值，格式化传入的值到范围内时未 notifyChange 问题  [#812](https://github.com/DouyinFE/semi-design/issues/812)
     - 修复 ButtonGroup 传入 多个children 时 ts 类型检查报错的问题 [#811](https://github.com/DouyinFE/semi-design/issues/811)
