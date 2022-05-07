@@ -15,25 +15,48 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 ---
 
+
+#### 🎉 2.10.0 (2022-05-07)
+- 【Fix】
+    - 修复Form组件在`Nextjs`中使用时，`x-form-id`在服务端和客户端不匹配的报错问题  [#808](https://github.com/DouyinFE/semi-design/issues/808) [@xuerzong](https://github.com/xuerzong)
+    - 修复 InputNumber 在有 precision 配置时，输入非法字符不会置空的问题 [#786](https://github.com/DouyinFE/semi-design/issues/786) [@MuxinFeng](https://github.com/MuxinFeng)
+    - 修复 Carousel 自动播放时点击箭头切换或指示器切换不能即时响应问题
+    - 修复 InputNumber 受控使用且设置最小值，格式化传入的值到范围内时未 notifyChange 问题  [#812](https://github.com/DouyinFE/semi-design/issues/812)
+    - 修复 ButtonGroup 传入 多个children 时 ts 类型检查报错的问题 [#811](https://github.com/DouyinFE/semi-design/issues/811)
+- 【Docs】
+    - A11y：Switch、Bannner 增加 键盘和焦点 行为说明
+    - 更新 Tabs 组件 FAQ
+#### 🎉 2.10.0-beta.0 (2022-04-29)
+- 【New Component】
+    - 新组件轮播图  [#678](https://github.com/DouyinFE/semi-design/issues/678)
+- 【Fix】
+    - 修复 Cascader 在多选时，设定 displayProp 非value/label时候出错问题
+- 【Feat】
+    - Switch 新增 A11y 键盘和焦点适配  [#205](https://github.com/DouyinFE/semi-design/issues/205)
+    - Banner 新增 A11y 键盘和焦点适配  [#205](https://github.com/DouyinFE/semi-design/issues/205)
+- 【Chore】
+  - @douyinfe/semi-icons、@douyinfe/semi-illustrations 更新 peerDependency中的react版本声明：16/17 -> 16/17/18
+
 #### 🎉 2.9.1 (2022-04-26)
 - 【Fix】
-    - 修复Tooltip在有动画情况下有概率浮层打开时闪烁
-    - 修复TimePicker组件use12Hours下，pm/am无法正确设置问题 [#776](https://github.com/DouyinFE/semi-design/issues/776), 修复TimePicker组件向上选择选项后点击清除无法回到预期位置问题
-    - 修复 Form Validate 特殊情景下内部使用旧值的问题
+    - 修复 Tooltip 在有动画情况下有概率浮层打开时闪烁
+    - 修复 TimePicker 组件 use12Hours 下，pm/am无法正确设置问题 [#776](https://github.com/DouyinFE/semi-design/issues/776), 修复TimePicker组件向上选择选项后点击清除无法回到预期位置问题
+    - 修复 Form Field validate 特殊情景下内部使用旧值的问题 [#796](https://github.com/DouyinFE/semi-design/issues/796)
 - 【Style】
     - 修复 Select focus 和 hover 同时应用，border 颜色不正常的问题
 
 #### 🎉 2.9.0 (2022-04-22)
 - 【Fix】
-    - 修复 TagInput 在 Form 内使用时，敲击回车会导致 submit 事件触发的问题
+    - 修复 TagInput 在 Form 内使用时，敲击回车会导致 submit 事件触发的问题 [#767](https://github.com/DouyinFE/semi-design/issues/767)
     - 修复 Modal 命令式调用后遗留无用 div 的问题
     - 修复 Collapse 将部分 props 透传至 DOM 导致存在无用属性 warning 的问题
     - 去除 Form label `user-select:none` 默认样式，允许用户选中
     - 修复 Cascader 清除按钮键盘事件不响应问题
 
 #### 🎉 2.9.0-beta.0 (2022-04-18)
-- 【Feat】
+- 【New Component】
     - 新增分割线组件 [#721](https://github.com/DouyinFE/semi-design/issues/721) [@ZeroCodeLin](https://github.com/ZeroCodeLin)
+- 【Feat】
     - Description 组件的 data 键值支持传入 ReactNode [#734](https://github.com/DouyinFE/semi-design/issues/734) [@oddguan](https://github.com/oddguan)
 - 【Fix】
     - 修复 Slider 组件受控情况下点击滑轨部分仍然可以触发值变更的问题 [#768](https://github.com/DouyinFE/semi-design/issues/768)

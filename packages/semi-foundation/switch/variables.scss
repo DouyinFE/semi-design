@@ -37,6 +37,7 @@ $color-switch_unchecked-text-default: var(--semi-color-text-2); // 关闭态开�
 $color-switch_loading_spin-default: var(--semi-color-white); // 加载态开关loading图标颜色
 $color-switch_spin_checked-bg-default: var(--semi-color-success-hover); // 已开启开关加载态loading背景颜色
 $color-switch_spin_unchecked-bg-default: var(--semi-color-fill-1); // 已关闭开关加载态loading背景颜色
+$color-switch_primary-outline-focus: var(--semi-color-primary-light-active); // 开关轮廓 - 聚焦
 
 // Width/Height
 $width-switch: 40px; // 开关宽度
@@ -57,6 +58,7 @@ $width-switch_checked_unchecked_text: 26px; // 开关按钮文字宽度
 $width-switch_spin-small: 10px; // 小尺寸开关加载 spin 宽度
 $width-switch_spin-default: 18px; // 默认尺寸开关加载 spin 宽度
 $width-switch_spin-large: 28px; // 大尺寸开关加载 spin 宽度
+$width-switch-outline: 2px; // 开关轮廓宽度
 
 
 // Spacing

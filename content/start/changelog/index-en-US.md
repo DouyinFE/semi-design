@@ -16,25 +16,47 @@ Version：Major.Minor.Patch
 
 ---
 
+#### 🎉 2.10.0 (2022-05-07)
+- 【Fix】
+    - Fixed the error that `x-form-id` does not match on the server side and the client side when the Form component is used in `Nextjs`  [#808](https://github.com/DouyinFE/semi-design/issues/808) [@xuerzong](https://github.com/xuerzong)
+    - Fixed the problem that when InputNumber is configured with precision, the input illegal characters will not be blank [#786](https://github.com/DouyinFE/semi-design/issues/786) [@MuxinFeng](https://github.com/MuxinFeng)
+    - Fixed an issue where clicking the arrow switch or the indicator switch did not respond instantly when Carousel autoplayed
+    - Fix InputNumber controlled use and set the minimum value, the problem of not notifyChange when formatting the incoming value into the range  [#812](https://github.com/DouyinFE/semi-design/issues/812)
+    - Fix the problem of ts type checking error when ButtonGroup passes in multiple children [#811](https://github.com/DouyinFE/semi-design/issues/811)
+- 【Docs】
+    - A11y：Switch, Banner added keyboard and focus behavior description
+    - Update Tabs component FAQ
+#### 🎉 2.10.0-beta.0 (2022-4-29)
+- 【New Component】
+    - new component Carousel  [#678](https://github.com/DouyinFE/semi-design/issues/678)
+- 【Fix】
+    - fix cascader's displayProp error when multiple selection
+- 【Feat】
+    - Switch adds A11y keyboard and focus adaptation  [#205](https://github.com/DouyinFE/semi-design/issues/205)
+    - Banner adds A11y keyboard and focus adaptation  [#205](https://github.com/DouyinFE/semi-design/issues/205)
+- 【Chore】
+  - @douyinfe/semi-icons, @douyinfe/semi-illustrations update react version statement in peerDependency: 16/17 -> 16/17/18
+
 #### 🎉 2.9.1 (2022-04-26)
 - 【Fix】
     - Fix the Tooltip flickering when there is a probability that the overlay is opened when there is animation
     - Fix the problem that pm/am could not be set correctly under the TimePicker component use12Hours [#776](https://github.com/DouyinFE/semi-design/issues/776), fix the problem that the TimePicker component could not return to the expected position after selecting the option upwards and clicking clear
-    - Fix the problem that the old value is used internally in the special case of Form Validate
+    - Fix the problem that the old value is used internally in the special case of Form Field validate [#796](https://github.com/DouyinFE/semi-design/issues/796)
 - 【Style】
     - Fix the problem that the border color is not right when Select focus and hover are applied at the same time
 
 #### 🎉 2.9.0 (2022-04-22)
 - 【Fix】
-    - Fix the issue that when TagInput is used in a Form, hitting enter would cause the submit event to be triggered
+    - Fix the issue that when TagInput is used in a Form, hitting enter would cause the submit event to be triggered  [#767](https://github.com/DouyinFE/semi-design/issues/767)
     - Fix the problem that the useless div is left behind after the Modal imperative call
     - Fix the problem that Collapse DOM has useless attributes
     - Remove Form label `user-select:none`， allow user select
     - Fix Cascader clear button keyboard event not responding
 
 #### 🎉 2.9.0-beta.0 (2022-04-18)
-- 【Feat】
+- 【New Component】
     - New Component Divider. [#721](https://github.com/DouyinFE/semi-design/issues/721) [@ZeroCodeLin](https://github.com/ZeroCodeLin)
+- 【Feat】
     - Added support for ReactNode as key value for Descriptions' data prop [#734](https://github.com/DouyinFE/semi-design/issues/734) [@oddguan](https://github.com/oddguan)
 - 【Fix】
     - Fix controlled slider component can still trigger value change by clicking track. [#768](https://github.com/DouyinFE/semi-design/issues/768)

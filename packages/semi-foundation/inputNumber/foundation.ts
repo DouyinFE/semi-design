@@ -444,7 +444,7 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
 
     _adjustPrec(num: string | number) {
         const precision = this.getProp('precision');
-        if (typeof precision === 'number' && num !== '') {
+        if (typeof precision === 'number' && num !== '' && num !== null && !Number.isNaN(Number(num))) {
             num = Number(num).toFixed(precision);
         }
         return toString(num);

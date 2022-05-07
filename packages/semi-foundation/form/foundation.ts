@@ -75,6 +75,10 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
         this.scrollToField = this.scrollToField.bind(this);
     }
 
+    init() {
+        this._adapter.initFormId();
+    }
+
     getField(field: string): FieldStaff | undefined {
         const targetField = this.fields.get(field);
         return targetField;

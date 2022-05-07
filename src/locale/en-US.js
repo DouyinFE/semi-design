@@ -145,7 +145,9 @@ const appLocale = {
         "uniform_style_and_high_fidelity_prototype_facilitate_communication_with_front_en_95d0c0ccece05c104b98ac0dae9fb53b": "It’s fluent to communicate with front-end devs because of the uniform style.",
         "user": "User",
         "video_compression_algorithm": "Video compression algorithm",
-        "volcano_little_helper": "Volcano Little"
+        "volcano_little_helper": "Volcano Little",
+        "theme_store":'Theme Store',
+        'semi_dsm':'Semi DSM'
     },
 };
 
