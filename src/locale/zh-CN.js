@@ -140,7 +140,9 @@ const appLocale = {
         "send": "发送",
         "sender": "发信人",
         "private_message_content": "私信内容",
-        "time_of_dispatch": "发信时间"
+        "time_of_dispatch": "发信时间",
+        "theme_store":'主题商店',
+        'semi_dsm':'Semi 设计系统管理'
     },
 };
 
