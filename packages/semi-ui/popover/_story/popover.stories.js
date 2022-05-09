@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 
 import Popover from '../index';
 import { strings } from '@douyinfe/semi-foundation/tooltip/constants';
-import { Button, Input, Table, IconButton, Modal, Tag, Space } from '@douyinfe/semi-ui';
+import { Button, Input, Table, IconButton, Modal, Tag, Space, Select } from '@douyinfe/semi-ui';
 import SelectInPopover from './SelectInPopover';
 import BtnClose from './BtnClose';
 import PopRight from './PopRight';
 import NestedPopover from './NestedPopover';
 import ArrowPointAtCenter from './ArrowPointAtCenter';
 import { IconDelete } from '@douyinfe/semi-icons';
+
+const Option = Select.Option;
 
 export default {
   title: 'Popover',
@@ -646,3 +648,37 @@ export const A11yKeyboard = () => {
   );
 };
 A11yKeyboard.storyName = "a11y keyboard and focus";
+
+/**
+ * fix 嵌套 popover 的弹出层会导致外部 popover 关闭问题
+ * 
+ * @see https://github.com/DouyinFE/semi-design/issues/818
+ * @see https://github.com/facebook/react/issues/4335#issuecomment-421705171
+ */
+export const FixNestedPopover = () => {
+    return (
+        <div data-cy="fix-nested-popover" style={{ paddingLeft: 100 }}>
+            <Popover
+                content={(
+                    <div data-cy="select-in-popover" style={{ padding: 20 }}>
+                        <Select
+                            defaultValue="abc"
+                            style={{ width: 120 }}
+                        >
+                            <Option value="abc">抖音</Option>
+                            <Option value="hotsoon">火山</Option>
+                            <Option value="pipixia" disabled>
+                                皮皮虾
+                            </Option>
+                            <Option value="xigua">西瓜视频</Option>
+                        </Select>
+                    </div>
+                )}
+                trigger="click"
+                showArrow
+            >
+                <Tag>点击此处</Tag>
+            </Popover>
+        </div>
+    );
+}
