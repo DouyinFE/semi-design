@@ -113,16 +113,17 @@ export default class Button extends PureComponent<ButtonProps> {
             'aria-disabled': disabled,
         };
 
+        const xSemiProps = {};
+
+        if (!(className && className.includes('-with-icon'))) {
+            xSemiProps['x-semi-prop'] = 'children';
+        }
+
         return (
             // eslint-disable-next-line react/button-has-type
-            <button
-                {...baseProps}
-                onClick={this.props.onClick}
-                onMouseDown={this.props.onMouseDown}
-                style={style}
-            >
+            <button {...baseProps} onClick={this.props.onClick} onMouseDown={this.props.onMouseDown} style={style}>
                 {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-                <span className={`${prefixCls}-content`} onClick={e => disabled && e.stopPropagation()} x-semi-prop="children">
+                <span className={`${prefixCls}-content`} onClick={e => disabled && e.stopPropagation()} {...xSemiProps}>
                     {children}
                 </span>
             </button>

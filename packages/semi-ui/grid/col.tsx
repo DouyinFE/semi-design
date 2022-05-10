@@ -125,7 +125,7 @@ class Col extends React.Component<ColProps> {
         };
 
         return (
-            <div {...others} style={style} className={classes}>
+            <div {...others} style={style} className={classes} x-semi-prop="children">
                 {children}
             </div>
         );

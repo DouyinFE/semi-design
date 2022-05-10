@@ -1015,7 +1015,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
         }
 
         return isValidElement(title) || typeof title === 'string' ? (
-            <div className={`${prefixCls}-title`}>{title}</div>
+            <div className={`${prefixCls}-title`} x-semi-prop="title">{title}</div>
         ) : null;
     };
 
@@ -1032,7 +1032,9 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             <LocaleConsumer componentName="Table" key={'emptyText'}>
                 {(locale: TableLocale, localeCode: string) => (
                     <div className={wrapCls}>
-                        <div className={`${prefixCls}-empty`}>{empty || locale.emptyText}</div>
+                        <div className={`${prefixCls}-empty`} x-semi-prop="empty">
+                            {empty || locale.emptyText}
+                        </div>
                     </div>
                 )}
             </LocaleConsumer>
@@ -1048,7 +1050,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
         }
 
         return isValidElement(footer) || typeof footer === 'string' ? (
-            <div className={`${prefixCls}-footer`} key="footer">
+            <div className={`${prefixCls}-footer`} key="footer" x-semi-prop="footer">
                 {footer}
             </div>
         ) : null;

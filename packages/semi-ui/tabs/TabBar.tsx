@@ -70,7 +70,7 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
         if (tabBarExtraContent) {
             const tabBarStyle = { ...tabBarExtraContentDefaultStyle, ...tabBarExtraContentStyle };
             return (
-                <div className={extraCls} style={tabBarStyle}>
+                <div className={extraCls} style={tabBarStyle} x-semi-prop="tabBarExtraContent">
                     {tabBarExtraContent}
                 </div>
             );

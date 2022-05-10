@@ -167,7 +167,7 @@ class Row extends React.Component<RowProps, RowState> {
                     gutters,
                 }}
             >
-                <div {...otherProps} className={classes} style={rowStyle}>
+                <div {...otherProps} className={classes} style={rowStyle} x-semi-prop="children">
                     {children}
                 </div>
             </RowContext.Provider>

@@ -92,7 +92,14 @@ const Collapsible = (props: CollapsibleProps) => {
         const wrapperCls = cls(`${cssClasses.PREFIX}-wrapper`, className);
         return (
             <div style={wrapperstyle} className={wrapperCls} ref={ref}>
-                <div ref={setHeight} style={{ overflow: 'hidden' }} id={id}>{children}</div>
+                <div
+                    ref={setHeight}
+                    style={{ overflow: 'hidden' }} 
+                    id={id}
+                    x-semi-prop="children"
+                >
+                    {children}
+                </div>
             </div>
         );
     };
