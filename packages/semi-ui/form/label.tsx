@@ -61,7 +61,7 @@ export default class Label extends PureComponent<LabelProps> {
         width ? labelStyle.width = width : null;
 
         const textContent = (
-            <div className={`${prefixCls}-field-label-text`}>
+            <div className={`${prefixCls}-field-label-text`} x-semi-prop="label">
                 {typeof text !== 'undefined' ? text : children}
             </div>
         );

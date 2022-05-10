@@ -105,7 +105,11 @@ class Option extends PureComponent<OptionProps> {
             }
             return (
                 <LocaleConsumer<Locale['Select']> componentName="Select">
-                    {(locale: Locale['Select']) => <div className={optionClassName}>{emptyContent || locale.emptyText}</div>}
+                    {(locale: Locale['Select']) => (
+                        <div className={optionClassName} x-semi-prop="emptyContent">
+                            {emptyContent || locale.emptyText}
+                        </div>
+                    )}
                 </LocaleConsumer>
             );
         }

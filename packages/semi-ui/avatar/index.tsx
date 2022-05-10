@@ -135,7 +135,7 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
             className
         );
         let content = children;
-        const hoverRender = hoverContent ? (<div className={`${prefixCls}-hover`}>{hoverContent}</div>) : null;
+        const hoverRender = hoverContent ? (<div className={`${prefixCls}-hover`} x-semi-prop="hoverContent">{hoverContent}</div>) : null;
         if (isImg) {
             content = (
                 <img src={src} srcSet={srcSet} onError={this.handleError} alt={alt} {...imgAttr} />
@@ -143,7 +143,7 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
         } else if (typeof children === 'string') {
             content = (
                 <span className={`${prefixCls}-content`}>
-                    <span className={`${prefixCls}-label`}>{children}</span>
+                    <span className={`${prefixCls}-label`} x-semi-prop="children">{children}</span>
                 </span>
             );
         }

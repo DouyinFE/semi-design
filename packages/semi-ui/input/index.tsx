@@ -141,7 +141,7 @@ class Input extends BaseComponent<InputProps, InputState> {
         onKeyUp: noop,
         onKeyPress: noop,
         onEnterPress: noop,
-        validateStatus: 'default'
+        validateStatus: 'default',
     };
 
     inputRef!: React.RefObject<HTMLInputElement>;
@@ -195,7 +195,7 @@ class Input extends BaseComponent<InputProps, InputState> {
             notifyClear: (e: React.MouseEvent<HTMLDivElement>) => this.props.onClear(e),
             setPaddingLeft: (paddingLeft: string) => this.setState({ paddingLeft }),
             setMinLength: (minLength: number) => this.setState({ minLength }),
-            isEventTarget: (e: React.MouseEvent) => e && e.target === e.currentTarget
+            isEventTarget: (e: React.MouseEvent) => e && e.target === e.currentTarget,
         };
     }
 
@@ -255,7 +255,7 @@ class Input extends BaseComponent<InputProps, InputState> {
 
     handleModeEnterPress = (e: React.KeyboardEvent<HTMLDivElement>) => {
         this.foundation.handleModeEnterPress(e);
-    }
+    };
 
     handleClickPrefixOrSuffix = (e: React.MouseEvent<HTMLInputElement>) => {
         this.foundation.handleClickPrefixOrSuffix(e);
@@ -273,7 +273,11 @@ class Input extends BaseComponent<InputProps, InputState> {
                 [`${prefixCls}-prepend-text`]: addonBefore && isString(addonBefore),
                 [`${prefixCls}-prepend-icon`]: isSemiIcon(addonBefore),
             });
-            return <div className={prefixWrapperCls}>{addonBefore}</div>;
+            return (
+                <div className={prefixWrapperCls} x-semi-prop="addonBefore">
+                    {addonBefore}
+                </div>
+            );
         }
         return null;
     }
@@ -286,7 +290,11 @@ class Input extends BaseComponent<InputProps, InputState> {
                 [`${prefixCls}-append-text`]: addonAfter && isString(addonAfter),
                 [`${prefixCls}-append-icon`]: isSemiIcon(addonAfter),
             });
-            return <div className={prefixWrapperCls}>{addonAfter}</div>;
+            return (
+                <div className={prefixWrapperCls} x-semi-prop="addonAfter">
+                    {addonAfter}
+                </div>
+            );
         }
         return null;
     }
@@ -352,7 +360,17 @@ class Input extends BaseComponent<InputProps, InputState> {
         });
 
         // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-        return <div className={prefixWrapperCls} onMouseDown={this.handlePreventMouseDown} onClick={this.handleClickPrefixOrSuffix} id={insetLabelId}>{labelNode}</div>;
+        return (
+            <div
+                className={prefixWrapperCls}
+                onMouseDown={this.handlePreventMouseDown}
+                onClick={this.handleClickPrefixOrSuffix}
+                id={insetLabelId}
+                x-semi-prop="prefix,insetLabel"
+            >
+                {labelNode}
+            </div>
+        );
     }
 
     showClearBtn() {
@@ -367,13 +385,22 @@ class Input extends BaseComponent<InputProps, InputState> {
             return null;
         }
         const suffixWrapperCls = cls({
-            [`${prefixCls }-suffix`]: true,
-            [`${prefixCls }-suffix-text`]: suffix && isString(suffix),
-            [`${prefixCls }-suffix-icon`]: isSemiIcon(suffix),
+            [`${prefixCls}-suffix`]: true,
+            [`${prefixCls}-suffix-text`]: suffix && isString(suffix),
+            [`${prefixCls}-suffix-icon`]: isSemiIcon(suffix),
             [`${prefixCls}-suffix-hidden`]: suffixAllowClear && Boolean(hideSuffix),
         });
         // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-        return <div className={suffixWrapperCls} onMouseDown={this.handlePreventMouseDown} onClick={this.handleClickPrefixOrSuffix}>{suffix}</div>;
+        return (
+            <div
+                className={suffixWrapperCls}
+                onMouseDown={this.handlePreventMouseDown}
+                onClick={this.handleClickPrefixOrSuffix}
+                x-semi-prop="suffix"
+            >
+                {suffix}
+            </div>
+        );
     }
 
     render() {
@@ -460,7 +487,7 @@ class Input extends BaseComponent<InputProps, InputState> {
             inputProps.minLength = stateMinLength;
         }
         if (validateStatus === 'error') {
-            inputProps['aria-invalid'] = "true";
+            inputProps['aria-invalid'] = 'true';
         }
         return (
             // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions

@@ -82,7 +82,7 @@ export default class Badge extends PureComponent<BadgeProps> {
         return (
             <span className={prefixCls} {...rest}>
                 {children}
-                <span className={wrapper} style={style}>
+                <span className={wrapper} style={style} x-semi-prop="count">
                     {dot ? null : content}
                 </span>
             </span>

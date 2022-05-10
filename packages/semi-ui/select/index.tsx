@@ -877,7 +877,11 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         return (
             <>
                 <div className={contentWrapperCls}>
-                    {<span className={spanCls}>{renderText || renderText === 0 ? renderText : placeholder}</span>}
+                    {
+                        <span className={spanCls} x-semi-prop="placeholder">
+                            {renderText || renderText === 0 ? renderText : placeholder}
+                        </span>
+                    }
                     {filterable && showInput ? this.renderInput() : null}
                 </div>
             </>
@@ -1005,7 +1009,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             [`${prefixcls}-suffix-text`]: suffix && isString(suffix),
             [`${prefixcls}-suffix-icon`]: isSemiIcon(suffix),
         });
-        return <div className={suffixWrapperCls}>{suffix}</div>;
+        return <div className={suffixWrapperCls} x-semi-prop="suffix">{suffix}</div>;
     }
 
     renderPrefix() {
@@ -1019,7 +1023,11 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             [`${prefixcls}-prefix-icon`]: isSemiIcon(labelNode),
         });
 
-        return <div className={prefixWrapperCls} id={insetLabelId}>{labelNode}</div>;
+        return (
+            <div className={prefixWrapperCls} id={insetLabelId} x-semi-prop="prefix,insetLabel">
+                {labelNode}
+            </div>
+        );
     }
 
     renderSelection() {
@@ -1066,7 +1074,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
       (selections.size || inputValue) && !disabled && (isHovering || isOpen);
 
         const arrowContent = showArrow ? (
-            <div className={`${prefixcls}-arrow`}>
+            <div className={`${prefixcls}-arrow`} x-semi-prop="arrowIcon">
                 {arrowIcon}
             </div>
         ) : (

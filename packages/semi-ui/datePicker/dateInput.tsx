@@ -166,6 +166,7 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
             <div
                 className={`${prefixCls}-range-input-prefix`}
                 onClick={e => !disabled && !rangeInputFocus && this.handleRangeStartFocus(e)}
+                x-semi-prop="prefix,insetLabel"
             >
                 {labelNode}
             </div>
