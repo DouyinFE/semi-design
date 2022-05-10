@@ -81,7 +81,7 @@ const ConfirmModal = (props: ConfirmProps) => {
             visible={visible}
             {...rest}
         >
-            <div className={contentCls}>{content}</div>
+            <div className={contentCls} x-semi-prop="content">{content}</div>
         </Modal>
     );
 };

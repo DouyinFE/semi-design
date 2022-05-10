@@ -216,7 +216,14 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
             [`${prefixCls}-item-disabled`]: prevDisabled,
         });
         return (
-            <li role="button" aria-disabled={prevDisabled ? true : false} aria-label="Previous" onClick={e => !prevDisabled && this.foundation.goPrev(e)} className={preClassName}>
+            <li
+                role="button"
+                aria-disabled={prevDisabled ? true : false}
+                aria-label="Previous"
+                onClick={e => !prevDisabled && this.foundation.goPrev(e)}
+                className={preClassName}
+                x-semi-prop="prevText"
+            >
                 {prevText || <IconChevronLeft size="large" />}
             </li>
         );
@@ -231,7 +238,14 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
             [`${prefixCls}-next`]: true,
         });
         return (
-            <li role="button" aria-disabled={nextDisabled ? true : false} aria-label="Next" onClick={e => !nextDisabled && this.foundation.goNext(e)} className={nextClassName}>
+            <li
+                role="button"
+                aria-disabled={nextDisabled ? true : false}
+                aria-label="Next"
+                onClick={e => !nextDisabled && this.foundation.goNext(e)}
+                className={nextClassName}
+                x-semi-prop="prevText"
+            >
                 {nextText || <IconChevronRight size="large" />}
             </li>
         );

@@ -220,10 +220,13 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
             [`${prefix}-cardType_extra_noChildren`]: props.isCardType && !children,
         });
 
+        const name = inGroup && this.context.checkboxGroup.name;
+        const xSemiPropChildren = this.props['x-semi-children-alias'] || 'children';
+
         const renderContent = () => (
             <>
                 {children ? (
-                    <span id={this.addonId} className={`${prefix}-addon`} x-semi-prop="children">
+                    <span id={this.addonId} className={`${prefix}-addon`} x-semi-prop={xSemiPropChildren}>
                         {children}
                     </span>
                 ) : null}

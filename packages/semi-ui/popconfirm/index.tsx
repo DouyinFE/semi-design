@@ -174,12 +174,20 @@ export default class Popconfirm extends BaseComponent<PopconfirmProps, Popconfir
             <div className={popCardCls} onClick={this.stopImmediatePropagation} style={style}>
                 <div className={`${prefixCls}-inner`}>
                     <div className={`${prefixCls}-header`}>
-                        <i className={`${prefixCls}-header-icon`}>
+                        <i className={`${prefixCls}-header-icon`} x-semi-prop="icon">
                             {React.isValidElement(icon) ? icon : null}
                         </i>
                         <div className={`${prefixCls}-header-body`}>
-                            {showTitle ? <div className={`${prefixCls}-header-title`}>{title}</div> : null}
-                            {showContent ? <div className={`${prefixCls}-header-content`}>{content}</div> : null}
+                            {showTitle ? (
+                                <div className={`${prefixCls}-header-title`} x-semi-prop="title">
+                                    {title}
+                                </div>
+                            ) : null}
+                            {showContent ? (
+                                <div className={`${prefixCls}-header-content`} x-semi-prop="content">
+                                    {content}
+                                </div>
+                            ) : null}
                         </div>
                         <Button
                             className={`${prefixCls}-btn-close`}

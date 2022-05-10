@@ -97,7 +97,7 @@ class IconButton extends PureComponent<IconButtonProps> {
             [`${prefixCls}-content-right`]: iconPosition === 'left',
         });
 
-        const children = originChildren != null ? <span className={btnTextCls}>{originChildren}</span> : null;
+        const children = originChildren != null ? <span className={btnTextCls} x-semi-prop="children">{originChildren}</span> : null;
 
         if (iconPosition === 'left') {
             finalChildren = (

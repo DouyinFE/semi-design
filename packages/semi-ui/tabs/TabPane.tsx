@@ -98,6 +98,7 @@ class TabPane extends PureComponent<TabPaneProps> {
                 aria-hidden={active ? 'false' : 'true'}
                 tabIndex={0}
                 {...getDataAttr(restProps)}
+                x-semi-prop="children"
             >
                 {motion ? (
                     <TabPaneTransition
@@ -107,14 +108,18 @@ class TabPane extends PureComponent<TabPaneProps> {
                         state={active ? 'enter' : 'leave'}
                     >
                         {(transitionStyle): ReactNode => (
-                            <div className={`${cssClasses.TABS_PANE_MOTION_OVERLAY}`} style={{ ...transitionStyle }}>
+                            <div
+                                className={`${cssClasses.TABS_PANE_MOTION_OVERLAY}`}
+                                style={{ ...transitionStyle }}
+                                x-semi-prop="children"
+                            >
                                 {shouldRender ? children : null}
                             </div>
                         )}
                     </TabPaneTransition>
-                ) : (
-                    shouldRender ? children : null
-                )}
+                ) : shouldRender ? (
+                    children
+                ) : null}
             </div>
         );
     }

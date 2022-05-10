@@ -269,7 +269,7 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
         });
         return (
             <ul className={wrapperCls}>
-                <li className={`${prefixcls}-label ${prefixcls}-label-empty`}>
+                <li className={`${prefixcls}-label ${prefixcls}-label-empty`} x-semi-prop="emptyContent">
                     {emptyContent}
                 </li>
             </ul>

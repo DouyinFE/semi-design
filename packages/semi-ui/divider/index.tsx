@@ -60,10 +60,14 @@ const Divider: React.FC<DividerProps> = props => {
 
     return (
         <div {...rest} className={dividerClassNames} style={{ ...overrideDefaultStyle, ...style }}>
-            {(children && layout === 'horizontal') ? (
-                typeof children === 'string' ? <span className={`${prefixCls}-divider_inner-text`}>
-                    {children}
-                </span> : children
+            {children && layout === 'horizontal' ? (
+                typeof children === 'string' ? (
+                    <span className={`${prefixCls}-divider_inner-text`} x-semi-prop="children">
+                        {children}
+                    </span>
+                ) : (
+                    children
+                )
             ) : null}
         </div>
     );
