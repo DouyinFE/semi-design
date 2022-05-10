@@ -454,6 +454,7 @@ function Demo() {
 | trigger | 触发展示的时机，可选值：`hover` / `focus` / `click` / `custom` | string | 'hover' |  |
 | visible | 是否展示弹出层 | boolean |  |  |
 | wrapperClassName | 当 children 为 disabled ，或者 children 为多个元素时，外层将会包裹一层 span 元素，该 api 用于设置此 span 的样式类名 | string |  | **1.32.0** |
+| wrapperId | 弹出层 wrapper 节点的 id，trigger 的 aria 属性指向此 id，若不设置组件会随机生成一个 id | string |  | 2.11.0  |
 | zIndex | 弹层层级 | number | 1060 |  |
 | onVisibleChange | 弹出层展示/隐藏时触发的回调 | function(isVisible:boolean) |  |  |
 | onClickOutSide | 当弹出层处于展示状态，点击非Children、非浮层内部区域时的回调（仅trigger为custom、click时有效）| function(e:event) |  | **2.1.0** |

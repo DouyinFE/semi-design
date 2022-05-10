@@ -21,6 +21,8 @@ export interface CheckboxAdapter<P = Record<string, any>, S = Record<string, any
     setNativeControlChecked: (checked: boolean) => void;
     getState: noopFunction;
     notifyChange: (event: BasicCheckboxEvent) => void;
+    setAddonId: () => void;
+    setExtraId: () => void;
 }
 
 class CheckboxFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<CheckboxAdapter<P, S>, P, S> {
@@ -29,8 +31,15 @@ class CheckboxFoundation<P = Record<string, any>, S = Record<string, any>> exten
         super({ ...adapter });
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    init() {}
+    init() {
+        const { children, extra, extraId, addonId } = this.getProps();
+        if (children && !addonId) {
+            this._adapter.setAddonId();
+        }
+        if (extra && !extraId) {
+            this._adapter.setExtraId();
+        }
+    }
 
     getEvent(checked: boolean, e: any) {
         const props = this.getProps();

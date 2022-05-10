@@ -41,10 +41,14 @@ export type RadioProps = {
     addonClassName?: string;
     type?: RadioType;
     'aria-label'?: React.AriaAttributes['aria-label'];
+    addonId?: string;
+    extraId?: string;
 };
 
 export interface RadioState {
     hover?: boolean;
+    addonId?: string;
+    extraId?: string;
 }
 
 export { RadioChangeEvent };
@@ -94,11 +98,11 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
         super(props);
         this.state = {
             hover: false,
+            addonId: props.addonId,
+            extraId: props.extraId,
         };
         this.foundation = new RadioFoundation(this.adapter);
         this.radioEntity = null;
-        this.addonId = getUuidShort({ prefix: 'addon' });
-        this.extraId = getUuidShort({ prefix: 'extra' });
     }
 
     get adapter(): RadioAdapter {
@@ -106,6 +110,12 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
             ...super.adapter,
             setHover: (hover: boolean) => {
                 this.setState({ hover });
+            },
+            setAddonId: () => {
+                this.setState({ addonId: getUuidShort({ prefix: 'addon' }) });
+            },
+            setExtraId: () => {
+                this.setState({ extraId: getUuidShort({ prefix: 'extra' }) });
             }
         };
     }
@@ -168,7 +178,7 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
             isButtonRadioComponent,
             buttonSize,
             realPrefixCls;
-        const isHover = this.state.hover;
+        const { hover: isHover, addonId, extraId } = this.state;
         let props = {};
 
         if (this.isInGroup()) {
@@ -218,8 +228,8 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
         }, addonClassName);
         const renderContent = () => (
             <>
-                {children ? <span className={addonCls} style={addonStyle} id={this.addonId}>{children}</span> : null}
-                {extra && !isButtonRadio ? <div className={`${prefix}-extra`} id={this.extraId}>{extra}</div> : null}
+                {children ? <span className={addonCls} style={addonStyle} id={addonId}>{children}</span> : null}
+                {extra && !isButtonRadio ? <div className={`${prefix}-extra`} id={extraId}>{extra}</div> : null}
             </>
         );
         return (
@@ -240,8 +250,8 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
                     ref={(ref: RadioInner) => {
                         this.radioEntity = ref;
                     }}
-                    addonId={children && this.addonId}
-                    extraId={extra && this.extraId}
+                    addonId={children && addonId}
+                    extraId={extra && extraId}
                 />
                 {
                     isCardRadioGroup ?

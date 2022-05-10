@@ -399,11 +399,13 @@ import { CheckboxGroup, Checkbox, Row, Col } from '@douyinfe/semi-ui';
 
 | PROPERTIES     | Instructions                                                 | type               | Default |
 | -------------- | ------------------------------------------------------------ | ------------------ | ------- |
+| addonId | id of addon node, aria-labelledby refers to this id, if not set, it will generate an id randomly  **provided after v2.11.0**                                 | string            |       |
 | aria-label     | Define label of the Checkbox  | string | - |
 | checked        | Specify whether the current Checkbox is selected (it is invalid when used in Group)                     | boolean            | false   |
 | defaultChecked | Whether Checked by default (it is invalid when used in Group)                                           | boolean            | false   |
 | disabled       | Disabled state                                               | boolean            | false   |
 | extra          | Provide extra information <br/>**>= v0.25.0**                | ReactNode          | -       |
+| extraId        | id of extra node. aria-describedby refers to this id, if not set, it will randomly generate an id <br/>**provided after v2.11.0**                     | ReactNode         | -      |
 | value          | The value that the checkbox represents in the CheckboxGroup  | any | - |
 | indeterminate  | Set to indeterminate state, style control only               | boolean            | false   |
 | onChange       | Callback function when change                                | function(e: Event) | -       |

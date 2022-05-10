@@ -68,6 +68,7 @@ export interface TooltipAdapter<P = Record<string, any>, S = Record<string, any>
     setInitialFocus(): void;
     notifyEscKeydown(event: any): void;
     getTriggerNode(): any;
+    setId(): void;
 }
 
 export type Position = ArrayElement<typeof strings.POSITION_SET>;
@@ -87,10 +88,14 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
     }
 
     init() {
+        const { wrapperId } = this.getProps();
         this._mounted = true;
         this._bindEvent();
         this._shouldShow();
         this._initContainerPosition();
+        if (!wrapperId) {
+            this._adapter.setId();
+        }
     }
 
     destroy() {
