@@ -273,7 +273,7 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
             // eslint-disable-next-line max-len
             [`${prefixCls}-prefix-icon`]: React.isValidElement(prefix) && !(prefix && isString(prefix)),
         });
-        return <div className={prefixWrapperCls}>{prefix}</div>;
+        return <div className={prefixWrapperCls} x-semi-prop="prefix">{prefix}</div>;
     }
 
     renderSuffix() {
@@ -286,7 +286,7 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
             // eslint-disable-next-line max-len
             [`${prefixCls}-suffix-icon`]: React.isValidElement(suffix) && !(suffix && isString(suffix)),
         });
-        return <div className={suffixWrapperCls}>{suffix}</div>;
+        return <div className={suffixWrapperCls} x-semi-prop="suffix">{suffix}</div>;
     }
 
     renderTags() {
