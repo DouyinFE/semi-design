@@ -291,7 +291,7 @@ export default class Item extends PureComponent<CascaderItemProps> {
             <LocaleConsumer componentName="Cascader">
                 {(locale: Locale['Cascader']) => (
                     <ul className={`${prefixcls} ${prefixcls}-empty`} key={'empty-list'}>
-                        <span className={`${prefixcls}-label`}>
+                        <span className={`${prefixcls}-label`} x-semi-prop="emptyContent">
                             {emptyContent || locale.emptyText}
                         </span>
                     </ul>

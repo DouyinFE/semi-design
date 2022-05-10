@@ -122,7 +122,7 @@ export default class Button extends PureComponent<ButtonProps> {
                 style={style}
             >
                 {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-                <span className={`${prefixCls}-content`} onClick={e => disabled && e.stopPropagation()}>
+                <span className={`${prefixCls}-content`} onClick={e => disabled && e.stopPropagation()} x-semi-prop="children">
                     {children}
                 </span>
             </button>

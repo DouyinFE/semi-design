@@ -646,7 +646,11 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             [`${prefixcls}-suffix-text`]: suffix && isString(suffix),
             [`${prefixcls}-suffix-icon`]: isSemiIcon(suffix),
         });
-        return <div className={suffixWrapperCls}>{suffix}</div>;
+        return (
+            <div className={suffixWrapperCls} x-semi-prop="suffix">
+                {suffix}
+            </div>
+        );
     };
 
     renderPrefix = () => {
@@ -660,7 +664,11 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             [`${prefixcls}-prefix-icon`]: isSemiIcon(labelNode),
         });
 
-        return <div className={prefixWrapperCls} id={insetLabelId}>{labelNode}</div>;
+        return (
+            <div className={prefixWrapperCls} id={insetLabelId} x-semi-prop="prefix,insetLabel">
+                {labelNode}
+            </div>
+        );
     };
 
     renderContent = () => {
@@ -869,7 +877,11 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         if (showClearBtn) {
             return null;
         }
-        return arrowIcon ? <div className={cls(`${prefixcls}-arrow`)}>{arrowIcon}</div> : null;
+        return arrowIcon ? (
+            <div className={cls(`${prefixcls}-arrow`)} x-semi-prop="arrowIcon">
+                {arrowIcon}
+            </div>
+        ) : null;
     };
 
     renderClearBtn = () => {

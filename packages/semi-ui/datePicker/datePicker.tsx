@@ -653,13 +653,21 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
 
         return (
             <div ref={this.panelRef} className={wrapCls} style={dropdownStyle}>
-                {topSlot && <div className={`${cssClasses.PREFIX}-topSlot`}>{topSlot}</div>}
+                {topSlot && (
+                    <div className={`${cssClasses.PREFIX}-topSlot`} x-semi-prop="topSlot">
+                        {topSlot}
+                    </div>
+                )}
                 {insetInput && <DateInput {...insetInputProps} insetInput={true} />}
-                {this.adapter.typeIsYearOrMonth() ?
-                    this.renderYearMonthPanel(locale, localeCode) :
-                    this.renderMonthGrid(locale, localeCode, dateFnsLocale)}
+                {this.adapter.typeIsYearOrMonth()
+                    ? this.renderYearMonthPanel(locale, localeCode)
+                    : this.renderMonthGrid(locale, localeCode, dateFnsLocale)}
                 {this.renderQuickControls()}
-                {bottomSlot && <div className={`${cssClasses.PREFIX}-bottomSlot`}>{bottomSlot}</div>}
+                {bottomSlot && (
+                    <div className={`${cssClasses.PREFIX}-bottomSlot`} x-semi-prop="bottomSlot">
+                        {bottomSlot}
+                    </div>
+                )}
                 {this.renderFooter(locale, localeCode)}
             </div>
         );
