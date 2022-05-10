@@ -106,7 +106,7 @@ class Notice extends BaseComponent<NoticeReactProps, NoticeState> {
         }
         if (iconType) {
             return (
-                <div className={iconCls}>
+                <div className={iconCls} x-semi-prop="icon">
                     {isSemiIcon(iconType) ? React.cloneElement(iconType, { size: iconType.props.size || 'large' }) : iconType}
                 </div>
             );
@@ -170,14 +170,26 @@ class Notice extends BaseComponent<NoticeReactProps, NoticeState> {
                 <div>{this.renderTypeIcon()}</div>
                 <div className={`${prefixCls}-inner`}>
                     <div className={`${prefixCls}-content-wrapper`}>
-                        {title ? <div id={titleID} className={`${prefixCls}-title`}>{title}</div> : ''}
-                        {content ? <div className={`${prefixCls}-content`}>{content}</div> : ''}
+                        {title ? (
+                            <div id={titleID} className={`${prefixCls}-title`} x-semi-prop="title">
+                                {title}
+                            </div>
+                        ) : (
+                            ''
+                        )}
+                        {content ? (
+                            <div className={`${prefixCls}-content`} x-semi-prop="content">
+                                {content}
+                            </div>
+                        ) : (
+                            ''
+                        )}
                     </div>
                     {showClose && (
                         <Button
                             className={`${prefixCls}-icon-close`}
                             type="tertiary"
-                            icon={<IconClose/>}
+                            icon={<IconClose />}
                             theme="borderless"
                             size="small"
                             onClick={this.close}

@@ -55,7 +55,6 @@ export interface CardProps {
     'aria-label'?: string;
 }
 
-
 class Card extends PureComponent<CardProps> {
     static Meta = Meta;
 
@@ -149,16 +148,17 @@ class Card extends PureComponent<CardProps> {
         } = this.props;
         const coverCls = cls(`${prefixcls}-cover`);
 
-        return cover && <div className={coverCls}>{cover}</div>;
+        return (
+            cover && (
+                <div className={coverCls} x-semi-prop="cover">
+                    {cover}
+                </div>
+            )
+        );
     };
 
     renderBody = (): ReactNode => {
-        const {
-            bodyStyle,
-            children,
-            actions,
-            loading
-        } = this.props;
+        const { bodyStyle, children, actions, loading } = this.props;
         const bodyCls = cls(`${prefixcls}-body`);
         const actionsCls = cls(`${prefixcls}-body-actions`);
         const actionsItemCls = cls(`${prefixcls}-body-actions-item`);
@@ -202,7 +202,13 @@ class Card extends PureComponent<CardProps> {
             [`${prefixcls}-footer-bordered`]: footerLine
         });
 
-        return footer && <div style={footerStyle} className={footerCls}>{footer}</div>;
+        return (
+            footer && (
+                <div style={footerStyle} className={footerCls} x-semi-prop="footer">
+                    {footer}
+                </div>
+            )
+        );
     };
 
     render(): ReactNode {

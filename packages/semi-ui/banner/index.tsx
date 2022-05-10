@@ -137,7 +137,7 @@ export default class Banner extends BaseComponent<BannerProps, BannerState> {
         }
         if (iconType) {
             return (
-                <div className={iconCls}>
+                <div className={iconCls} x-semi-prop="icon">
                     {iconType}
                 </div>
             );
@@ -166,7 +166,7 @@ export default class Banner extends BaseComponent<BannerProps, BannerState> {
                     </div>
                     {this.renderCloser()}
                 </div>
-                {children ? <div className={`${prefixCls}-extra`}>{children}</div> : null}
+                {children ? <div className={`${prefixCls}-extra`} x-semi-prop="children">{children}</div> : null}
             </div>
         ) : null;
         return banner;

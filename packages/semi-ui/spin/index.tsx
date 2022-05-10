@@ -95,14 +95,18 @@ class Spin extends BaseComponent<SpinProps, SpinState> {
             [`${prefixCls}-animate`]: loading,
         });
 
-        return (
-            loading ? (
-                <div className={`${prefixCls}-wrapper`}>
-                    {indicator ? <div className={spinIconCls}>{indicator}</div> : <SpinIcon />}
-                    {tip ? <div>{tip}</div> : null}
-                </div>
-            ) : null
-        );
+        return loading ? (
+            <div className={`${prefixCls}-wrapper`}>
+                {indicator ? (
+                    <div className={spinIconCls} x-semi-prop="indicator">
+                        {indicator}
+                    </div>
+                ) : (
+                    <SpinIcon />
+                )}
+                {tip ? <div x-semi-prop="tip">{tip}</div> : null}
+            </div>
+        ) : null;
     }
 
     render() {
@@ -122,7 +126,9 @@ class Spin extends BaseComponent<SpinProps, SpinState> {
         return (
             <div className={spinCls} style={style}>
                 {this.renderSpin()}
-                <div className={`${prefixCls}-children`} style={childStyle}>{children}</div>
+                <div className={`${prefixCls}-children`} style={childStyle} x-semi-prop="children">
+                    {children}
+                </div>
             </div>
         );
     }

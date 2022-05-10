@@ -279,6 +279,7 @@ class Carousel extends BaseComponent<CarouselProps, CarouselState> {
                         [`${cssClasses.CAROUSEL_CONTENT}`]: true,
                         [`${cssClasses.CAROUSEL_CONTENT}-reverse`]: slideDirection === 'left' ? isReverse : !isReverse,
                     })}
+                    x-semi-prop="children"
                 >
                     {this.renderChildren()}
                 </div>
