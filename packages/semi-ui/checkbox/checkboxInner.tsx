@@ -81,26 +81,31 @@ class CheckboxInner extends PureComponent<CheckboxInnerProps> {
             <IconCheckboxIndeterminate />
         ) : null;
 
+        const inputProps: React.InputHTMLAttributes<HTMLInputElement>  = {
+            type: "checkbox",
+            'aria-label': this.props['aria-label'],
+            'aria-disabled': disabled,
+            'aria-checked': checked,
+            'aria-labelledby': addonId,
+            'aria-describedby':extraId || this.props['aria-describedby'],
+            'aria-invalid': this.props['aria-invalid'],
+            'aria-errormessage': this.props['aria-errormessage'],
+            'aria-required': this.props['aria-required'],
+            className: css.INPUT,
+            onChange: noop,
+            checked: checked,
+            disabled: disabled,
+        };
+        
+        name && (inputProps['name'] = name);
+
         return (
             <span className={wrapper}>
                 <input
-                    type="checkbox"
-                    aria-label={this.props['aria-label']}
-                    aria-disabled={disabled}
-                    aria-checked={checked}
-                    aria-labelledby={addonId}
-                    aria-describedby={extraId || this.props['aria-describedby']}
-                    aria-invalid={this.props['aria-invalid']}
-                    aria-errormessage={this.props['aria-errormessage']}
-                    aria-required={this.props['aria-required']}
+                    {...inputProps}
                     ref={ref => {
                         this.inputEntity = ref;
                     }}
-                    className={css.INPUT}
-                    onChange={noop}
-                    checked={checked}
-                    disabled={disabled}
-                    name={name}
                 />
                 <span className={inner}>{icon}</span>
             </span>

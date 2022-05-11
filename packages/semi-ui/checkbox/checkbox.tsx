@@ -171,6 +171,7 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
             const { isCardType, isPureCardType } = this.context.checkboxGroup;
             props.isCardType = isCardType;
             props.isPureCardType = isPureCardType;
+            props['name'] = this.context.checkboxGroup.name;
         }
 
         const prefix = prefixCls || css.PREFIX;
@@ -191,8 +192,6 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
         const extraCls = classnames(`${prefix}-extra`, {
             [`${prefix}-cardType_extra_noChildren`]: props.isCardType && !children,
         });
-
-        const name = inGroup && this.context.checkboxGroup.name;
 
         const renderContent = () => (
             <>
@@ -220,7 +219,6 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
                     {...props}
                     addonId={children && this.addonId}
                     extraId={extra && this.extraId}
-                    name={name}
                     isPureCardType={props.isPureCardType}
                     ref={ref => {
                         this.checkboxEntity = ref;
