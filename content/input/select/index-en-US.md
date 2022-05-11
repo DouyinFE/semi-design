@@ -381,88 +381,80 @@ Using outerTopSlot to insert content
 import React from 'react';
 import { Select } from '@douyinfe/semi-ui';
 
-class Demo extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            key: 'component',
-        };
-        this.list = {
-            component: [
-                { value: 'select', label: 'Select' },
-                { value: 'tabs', label: 'Tabs' },
-                { value: 'avatar', label: 'Avatar' },
-                { value: 'button', label: 'Button' },
-            ],
-            design: [
-                { value: 'color', label: 'Color' },
-                { value: 'dark', label: 'Dark Mode' },
-                { value: 'icon', label: 'Icon' },
-                { value: 'font', label: 'Topography' },
-            ],
-            feedback: [
-                { value: 'faq', label: 'FAQ' },
-                { value: 'join', label: 'Join Chat Group' },
-                { value: 'hornbill', label: 'Hornbill' },
-            ],
-        };
-        this.handleTabClick = this.handleTabClick.bind(this);
-    }
+() => {
+    const list = {
+        component: [
+            { value: 'select', label: 'Select' },
+            { value: 'tabs', label: 'Tabs' },
+            { value: 'avatar', label: 'Avatar' },
+            { value: 'button', label: 'Button' },
+        ],
+        design: [
+            { value: 'color', label: 'Color' },
+            { value: 'dark', label: 'Dark Mode' },
+            { value: 'icon', label: 'Icon' },
+            { value: 'font', label: 'Topography' },
+        ],
+        feedback: [
+            { value: 'faq', label: 'FAQ' },
+            { value: 'join', label: 'Join Chat Group' },
+            { value: 'hornbill', label: 'Hornbill' },
+        ],
+    };
 
-    handleTabClick(itemKey) {
-        this.setState({ key: itemKey });
-    }
+    const [key, setKey] = useState('component');
+    const [value, setValue] = useState({ value: 'faq', label: 'FAQ' },);
+    const handleTabClick = (itemKey) => {
+        setKey(itemKey);
+    };
 
-    render() {
-        const { key } = this.state;
-        const tabStyle = {
-            cursor: 'pointer',
-            marginRight: 12,
-            paddingBottom: 4,
-        };
-        const tabActiveStyle = {
-            ...tabStyle,
-            borderBottom: '1px solid var(--semi-color-primary)',
-            fontWeight: 700,
-        };
-        const tabWrapper = {
-            display: 'flex',
-            paddingTop: 8,
-            paddingLeft: 32,
-            borderBottom: '0.5px solid var(--semi-color-border)',
-        };
-        const tabOptions = [
-            { itemKey: 'component', label: 'Components' },
-            { itemKey: 'design', label: 'Design' },
-            { itemKey: 'feedback', label: 'Feedback' },
-        ];
-        const outerTopSlotNode = (
-            <div style={tabWrapper}>
-                {tabOptions.map((item, index) => {
+    const tabStyle = {
+        cursor: 'pointer',
+        marginRight: 12,
+        paddingBottom: 4,
+    };
+    const tabActiveStyle = {
+        ...tabStyle,
+        borderBottom: '1px solid var(--semi-color-primary)',
+        fontWeight: 700,
+    };
+    const tabWrapper = {
+        display: 'flex',
+        paddingTop: 8,
+        paddingLeft: 32,
+        borderBottom: '0.5px solid var(--semi-color-border)'
+    };
+    const tabOptions = [
+        { itemKey: 'component', label: '组件' },
+        { itemKey: 'design', label: '设计' },
+        { itemKey: 'feedback', label: '反馈' },
+    ];
+
+    const outerTopSlotNode = (
+        <div style={tabWrapper}>
+            {
+                tabOptions.map((item, index) => {
                     style = item.itemKey === key ? tabActiveStyle : tabStyle;
                     return (
-                        <div style={style} key={item.itemKey} onClick={() => this.handleTabClick(item.itemKey)}>
-                            {item.label}
-                        </div>
+                        <div style={style} key={item.itemKey} onClick={() => handleTabClick(item.itemKey)}>{item.label}</div>
                     );
-                })}
-            </div>
-        );
-
-        return (
-            <div>
-                <Select
-                    style={{ width: 300 }}
-                    defaultOpen
-                    autoAdjustOverflow={false}
-                    position="bottom"
-                    outerTopSlot={outerTopSlotNode}
-                    optionList={this.list[key]}
-                />
-            </div>
-        );
-    }
-}
+                })
+            }
+        </div>
+    );
+    return (
+        <Select
+            defaultOpen
+            autoAdjustOverflow={false}
+            value={value}
+            onChangeWithObject
+            onChange={obj => setValue(obj)}
+            style={{ width: 200 }}
+            outerTopSlot={outerTopSlotNode}
+            optionList={list[key]}
+        />
+    );
+};
 ```
 
 ### Controlled component

@@ -312,7 +312,7 @@ import { Select } from '@douyinfe/semi-ui';
             <Select
                 style={{ width: 300 }}
                 optionList={list} placeholder='请选择业务线'
-                insetLabel={<span style={{marginRight: 0, marginLeft: 10, color: "var(--semi-color-text-2)"}}>业务线</span>}>
+                insetLabel={<span style={{ marginRight: 0, marginLeft: 10, color: "var(--semi-color-text-2)" }}>业务线</span>}>
             </Select>
         </>
     );
@@ -358,7 +358,7 @@ import { Select } from '@douyinfe/semi-ui';
         borderRadius: '0 0 6px 6px',
     };
     let outSlotNode = (<div style={outSlotStyle}>
-        <span style={{color: 'var(--semi-color-link)'}}>未找到应用?</span>
+        <span style={{ color: 'var(--semi-color-link)' }}>未找到应用?</span>
     </div>);
 
     return (
@@ -405,88 +405,80 @@ import { Select } from '@douyinfe/semi-ui';
 import React from 'react';
 import { Select } from '@douyinfe/semi-ui';
 
-class Demo extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            key: 'component',
-        };
-        this.list = {
-            component: [
-                { value: 'select', label: '选择器' },
-                { value: 'tabs', label: '标签' },
-                { value: 'avatar', label: '头像' },
-                { value: 'button', label: '按钮' },
-            ],
-            design: [
-                { value: 'color', label: '颜色' },
-                { value: 'dark', label: '暗色模式' },
-                { value: 'icon', label: '图标' },
-                { value: 'font', label: '字体' },
-            ],
-            feedback: [
-                { value: 'faq', label: '常见问题' },
-                { value: 'join', label: '加入用户群' },
-                { value: 'hornbill', label: '犀鸟反馈问题' },
-            ],
-        };
-        this.handleTabClick = this.handleTabClick.bind(this);
+() => {
+    const list = {
+        component: [
+            { value: 'select', label: '选择器' },
+            { value: 'tabs', label: '标签' },
+            { value: 'avatar', label: '头像' },
+            { value: 'button', label: '按钮' },
+        ],
+        design: [
+            { value: 'color', label: '颜色' },
+            { value: 'dark', label: '暗色模式' },
+            { value: 'icon', label: '图标' },
+            { value: 'font', label: '字体' },
+        ],
+        feedback: [
+            { value: 'faq', label: '常见问题' },
+            { value: 'join', label: '加入用户群' },
+            { value: 'hornbill', label: '犀鸟反馈问题' },
+        ],
     };
 
-    handleTabClick(itemKey) {
-        this.setState({key: itemKey});
+    const [key, setKey] = useState('component');
+    const [value, setValue] = useState({ value: 'faq', label: '常见问题' },);
+    const handleTabClick = (itemKey) => {
+        setKey(itemKey);
     };
 
-    render() {
-        const { key } = this.state;
-        const tabStyle = {
-            cursor: 'pointer',
-            marginRight: 12,
-            paddingBottom: 4,
-        };
-        const tabActiveStyle = {
-            ...tabStyle,
-            borderBottom: '1px solid var(--semi-color-primary)',
-            fontWeight: 700,
-        };
-        const tabWrapper = {
-            display: 'flex',
-            paddingTop: 8,
-            paddingLeft: 32,
-            borderBottom: '0.5px solid var(--semi-color-border)'
-        };
-        const tabOptions = [
-            {itemKey: 'component', label: '组件'},
-            {itemKey: 'design', label: '设计'},
-            {itemKey: 'feedback', label: '反馈'},
-        ];
-        const outerTopSlotNode = (
-            <div style={tabWrapper}>
-                {
-                    tabOptions.map((item, index) => {
-                        style = item.itemKey === key ? tabActiveStyle : tabStyle;
-                        return (
-                            <div style={style} key={item.itemKey} onClick={() => this.handleTabClick(item.itemKey)}>{item.label}</div>
-                        );
-                    })
-                }
-            </div>
-        );
-
-        return (
-            <div>
-                <Select
-                    defaultOpen
-                    autoAdjustOverflow={false}
-                    position='bottom'
-                    style={{width: 200}}
-                    outerTopSlot={outerTopSlotNode}
-                    optionList={this.list[key]}
-                />
-            </div>
-        );
+    const tabStyle = {
+        cursor: 'pointer',
+        marginRight: 12,
+        paddingBottom: 4,
     };
-}
+    const tabActiveStyle = {
+        ...tabStyle,
+        borderBottom: '1px solid var(--semi-color-primary)',
+        fontWeight: 700,
+    };
+    const tabWrapper = {
+        display: 'flex',
+        paddingTop: 8,
+        paddingLeft: 32,
+        borderBottom: '0.5px solid var(--semi-color-border)'
+    };
+    const tabOptions = [
+        { itemKey: 'component', label: '组件' },
+        { itemKey: 'design', label: '设计' },
+        { itemKey: 'feedback', label: '反馈' },
+    ];
+
+    const outerTopSlotNode = (
+        <div style={tabWrapper}>
+            {
+                tabOptions.map((item, index) => {
+                    style = item.itemKey === key ? tabActiveStyle : tabStyle;
+                    return (
+                        <div style={style} key={item.itemKey} onClick={() => handleTabClick(item.itemKey)}>{item.label}</div>
+                    );
+                })
+            }
+        </div>
+    );
+    return (
+        <Select
+            defaultOpen
+            autoAdjustOverflow={false}
+            value={value}
+            onChangeWithObject
+            onChange={obj => setValue(obj)}
+            style={{ width: 200 }}
+            outerTopSlot={outerTopSlotNode}
+            optionList={list[key]}
+        />
+    );
+};
 ```
 
 ### 受控组件
@@ -524,7 +516,7 @@ import { Select, Button } from '@douyinfe/semi-ui';
     let [options, setOptions] = useState([1, 2, 3, 4]);
     function add() {
         let length = Math.ceil(Math.random() * 10);
-        let newOptions = Array.from({length}, (v,i) => i+1);
+        let newOptions = Array.from({ length }, (v,i) => i+1);
         setOptions(newOptions);
     }
     return (
@@ -1007,7 +999,7 @@ import { Select } from '@douyinfe/semi-ui';
                 multiple={true}
                 filter={true}
                 placeholder='With renderCreateItem'
-                renderCreateItem={input => <div style={{padding:10}}>Create Item：{input}</div>}
+                renderCreateItem={input => <div style={{ padding:10 }}>Create Item：{input}</div>}
                 onChange={v => console.log(v)}
                 defaultActiveFirstOption
             >
@@ -1150,7 +1142,7 @@ import { IconAppCenter, IconChevronDown } from '@douyinfe/semi-icons';
                 optionList={list}
                 onChange={(value) => setValList(value)}
                 multiple
-                style={{width: 240}}
+                style={{ width: 240 }}
             >
             </Select>
             <br/><br/>
@@ -1160,7 +1152,7 @@ import { IconAppCenter, IconChevronDown } from '@douyinfe/semi-icons';
                 onChange={(value) => setVal(value)}
                 triggerRender={triggerRender2}
                 optionList={list}
-                style={{width: 240, marginTop: 20, outline: 0}}
+                style={{ width: 240, marginTop: 20, outline: 0 }}
             >
             </Select>
         </div>
