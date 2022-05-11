@@ -16,6 +16,11 @@ Version：Major.Minor.Patch
 
 ---
 
+
+#### 🎉 2.10.1 (2022-05-10)
+- 【Fix】
+    - Fix the problem that when Select is inside the Popover, clicking Option will cause the outer Popover to be collapsed (the issue affects v2.5-v2.10) [#818](https://github.com/DouyinFE/semi-design/issues/818)
+
 #### 🎉 2.10.0 (2022-05-07)
 - 【Fix】
     - Fixed the error that `x-form-id` does not match on the server side and the client side when the Form component is used in `Nextjs`  [#808](https://github.com/DouyinFE/semi-design/issues/808) [@xuerzong](https://github.com/xuerzong)
@@ -26,6 +31,9 @@ Version：Major.Minor.Patch
 - 【Docs】
     - A11y：Switch, Banner added keyboard and focus behavior description
     - Update Tabs component FAQ
+- 【Chore】
+    - Update the typo problem of some function names in `@douyinfe/semi-foundation`, which has no effect on users [#660](https://github.com/DouyinFE/semi-design/pull/660)
+
 #### 🎉 2.10.0-beta.0 (2022-4-29)
 - 【New Component】
     - new component Carousel  [#678](https://github.com/DouyinFE/semi-design/issues/678)

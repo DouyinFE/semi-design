@@ -584,12 +584,12 @@ import { IconUpload } from '@douyinfe/semi-icons';
         },
         {
             uid: '2',
-            name: 'jiafang2.jpeg',
+            name: 'dy.jpeg',
             status: 'uploading',
             size: '222KB',
             percent: 50,
             preview: true,
-            fileInstance: new File([new ArrayBuffer(2048)], 'jiafang2.jpeg', { type: 'image/jpeg' }),
+            fileInstance: new File([new ArrayBuffer(2048)], 'dy2.jpeg', { type: 'image/jpeg' }),
             url:
                 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png',
         },
@@ -634,7 +634,7 @@ import { IconPlus } from '@douyinfe/semi-icons';
     const defaultFileList = [
         {
             uid: '1',
-            name: 'jiafang.png',
+            name: 'dy.png',
             status: 'success',
             size: '130KB',
             preview: true,
@@ -702,12 +702,12 @@ import { IconPlus, IconEyeOpened } from '@douyinfe/semi-icons';
     const defaultFileList = [
         {
             uid: '1',
-            name: 'jiafang.png',
+            name: 'dy.png',
             status: 'success',
             size: '130KB',
             preview: true,
             url:
-                'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/e82f3b261133d2b20d85e8483c203112.jpg',
+                'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png',
         },
     ];
     const handlePreview = (file) => {
@@ -745,12 +745,12 @@ import { IconPlus, IconEyeOpened } from '@douyinfe/semi-icons';
     const defaultFileList = [
         {
             uid: '1',
-            name: 'jiafang.png',
+            name: 'dy.png',
             status: 'success',
             size: '130KB',
             preview: true,
             url:
-                'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/e82f3b261133d2b20d85e8483c203112.jpg',
+                'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png',
         },
     ];
     const handlePreview = (file) => {

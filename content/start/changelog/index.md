@@ -16,6 +16,10 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 ---
 
 
+#### 🎉 2.10.1 (2022-05-10)
+- 【Fix】
+    - 修复 Select 位于 Popover内时，点击 Option 会导致外层 Popover 也收起的问题（问题影响范围 v2.5- v2.10） [#818](https://github.com/DouyinFE/semi-design/issues/818)
+
 #### 🎉 2.10.0 (2022-05-07)
 - 【Fix】
     - 修复Form组件在`Nextjs`中使用时，`x-form-id`在服务端和客户端不匹配的报错问题  [#808](https://github.com/DouyinFE/semi-design/issues/808) [@xuerzong](https://github.com/xuerzong)
@@ -26,6 +30,9 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 - 【Docs】
     - A11y：Switch、Bannner 增加 键盘和焦点 行为说明
     - 更新 Tabs 组件 FAQ
+- 【Chore】
+    - 更新 @douyinfe/semi-foundation 中部分函数名称拼写错误问题，对用户无影响 [#660](https://github.com/DouyinFE/semi-design/pull/660)
+
 #### 🎉 2.10.0-beta.0 (2022-04-29)
 - 【New Component】
     - 新组件轮播图  [#678](https://github.com/DouyinFE/semi-design/issues/678)
@@ -148,7 +155,7 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
     - Select 组件当用键盘上下键操作时，增加自动滚动交互，调整聚焦 option 的相对位置  [#607](https://github.com/DouyinFE/semi-design/issues/607) [@chenzn1](https://github.com/chenzn1)
     - 修复 next.js 项目使用 @douyinfe/semi-next 插件后，webpack.resolve.alias配置失效的问题  [#630](https://github.com/DouyinFE/semi-design/issues/630)
     - 修复 DatePicker open 受控时关闭面板后输入框聚焦态没有清空问题  [#528](https://github.com/DouyinFE/semi-design/issues/528)
-    - 修复 Tooltip 在 React17 里如果父级有阻止点击事件冒泡弹出层收起会失效 [#593](https://github.com/DouyinFE/semi-design/issues/593) [@chenc041](https://github.com/chenc041)
+    - 修复 Tooltip 在 React17 里如果父级有阻止点击事件冒泡弹出层收起会失效 (Tooltip、Popover 对 clickOutSide 行为监听的事件判断由 click 变更为 mousedown ) [#593](https://github.com/DouyinFE/semi-design/issues/593) [@chenc041](https://github.com/chenc041)
 
 #### 🎉 2.5.0-beta.0 (2022-02-18)
 - 【Fix】

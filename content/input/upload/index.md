@@ -105,7 +105,7 @@ import { IconPlus } from '@douyinfe/semi-icons';
     const defaultFileList = [
         {
             uid: '1',
-            name: 'jiafang1.jpeg',
+            name: 'dy.jpeg',
             status: 'success',
             size: '130kb',
             url:
@@ -113,7 +113,7 @@ import { IconPlus } from '@douyinfe/semi-icons';
         },
         {
             uid: '5',
-            name: 'jiafang3.jpeg',
+            name: 'resso.jpeg',
             percent: 50,
             size: '222kb',
             url:
@@ -593,12 +593,12 @@ import { IconUpload } from '@douyinfe/semi-icons';
         },
         {
             uid: '2',
-            name: 'jiafang.jpeg',
+            name: 'dy.jpeg',
             status: 'uploading',
             size: '222KB',
             percent: 50,
             preview: true,
-            fileInstance: new File([new ArrayBuffer(2048)], 'jiafang.jpeg', { type: 'image/jpeg' }),
+            fileInstance: new File([new ArrayBuffer(2048)], 'dy.jpeg', { type: 'image/jpeg' }),
             url:
                 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png',
         },
@@ -643,7 +643,7 @@ import { IconPlus } from '@douyinfe/semi-icons';
     const defaultFileList = [
         {
             uid: '1',
-            name: 'jiafang.png',
+            name: 'dy.png',
             status: 'success',
             size: '130KB',
             preview: true,
@@ -715,12 +715,12 @@ import { IconPlus, IconEyeOpened } from '@douyinfe/semi-icons';
     const defaultFileList = [
         {
             uid: '1',
-            name: 'jiafang.png',
+            name: 'resso.png',
             status: 'success',
             size: '130KB',
             preview: true,
             url:
-                'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/e82f3b261133d2b20d85e8483c203112.jpg',
+                'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/Resso.png',
         },
     ];
     const handlePreview = (file) => {
@@ -737,7 +737,7 @@ import { IconPlus, IconEyeOpened } from '@douyinfe/semi-icons';
                 multiple
                 defaultFileList={defaultFileList}
                 onPreviewClick={handlePreview}
-                renderPicPreviewIcon={()=><IconEyeOpened style={{color: 'var(--semi-color-white)', fontSize: 24}} />}
+                renderPicPreviewIcon={()=><IconEyeOpened style={{color: 'var(--semi-color-white)', fontSize: 24 }} />}
             >
                 <IconPlus size="extra-large" />
             </Upload>
@@ -758,12 +758,12 @@ import { IconPlus, IconEyeOpened } from '@douyinfe/semi-icons';
     const defaultFileList = [
         {
             uid: '1',
-            name: 'jiafang.png',
+            name: 'resso.png',
             status: 'success',
             size: '130KB',
             preview: true,
             url:
-                'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/e82f3b261133d2b20d85e8483c203112.jpg',
+                'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/Resso.png',
         },
     ];
     const handlePreview = (file) => {
@@ -773,7 +773,7 @@ import { IconPlus, IconEyeOpened } from '@douyinfe/semi-icons';
     const [hotSpotLocation, $hotSpotLocation] = useState('end');
     return (
         <>
-            <Select value={hotSpotLocation} onChange={$hotSpotLocation} style={{ width: 120 }}>
+            <Select value={hotSpotLocation} insetLabel='hotSpotLocation' onChange={$hotSpotLocation} style={{ width: 250 }}>
                 <Select.Option value='start'>开始</Select.Option>
                 <Select.Option value='end'>结尾</Select.Option>
             </Select>
