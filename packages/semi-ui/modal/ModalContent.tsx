@@ -158,7 +158,7 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
         } = this.props;
         let closer;
         if (closable) {
-            const iconType = closeIcon || <IconClose/>;
+            const iconType = closeIcon || <IconClose x-semi-prop="closeIcon" />;
             closer = (
                 <Button
                     aria-label="close"
@@ -187,15 +187,20 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
         const { title } = this.props;
         const closer = this.renderCloseBtn();
         const icon = this.renderIcon();
-        return (title === null || title === undefined) ?
-            null :
-            (
-                <div className={`${cssClasses.DIALOG}-header`}>
-                    {icon}
-                    <Typography.Title heading={5} className={`${cssClasses.DIALOG}-title`} id={`${cssClasses.DIALOG}-title`}>{title}</Typography.Title>
-                    {closer}
-                </div>
-            );
+        return title === null || title === undefined ? null : (
+            <div className={`${cssClasses.DIALOG}-header`}>
+                {icon}
+                <Typography.Title
+                    heading={5}
+                    className={`${cssClasses.DIALOG}-title`}
+                    id={`${cssClasses.DIALOG}-title`}
+                    x-semi-prop="title"
+                >
+                    {title}
+                </Typography.Title>
+                {closer}
+            </div>
+        );
     };
 
     renderBody = () => {

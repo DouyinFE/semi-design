@@ -137,7 +137,7 @@ class Toast extends BaseComponent<ToastReactProps, ToastState> {
                             <Button
                                 onClick={e => this.close(e)}
                                 type="tertiary"
-                                icon={<IconClose />}
+                                icon={<IconClose x-semi-prop="icon" />}
                                 theme={btnTheme}
                                 size={btnSize}
                             />

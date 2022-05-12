@@ -114,7 +114,7 @@ export default class Empty extends BaseComponent<EmptyProps, EmptyState> {
                 </div>
                 <div className={`${prefixCls}-content`}>
                     {title ? (
-                        <Typography.Title {...(titleProps as any)} className={`${prefixCls}-title`}>
+                        <Typography.Title {...(titleProps as any)} className={`${prefixCls}-title`} x-semi-prop="title">
                             {title}
                         </Typography.Title>
                     ) : null}

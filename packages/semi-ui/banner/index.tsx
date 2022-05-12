@@ -109,7 +109,7 @@ export default class Banner extends BaseComponent<BannerProps, BannerState> {
             <Button
                 className={`${prefixCls}-close`}
                 onClick={this.remove}
-                icon={closeIcon || <IconClose aria-hidden={true}/>}
+                icon={closeIcon || <IconClose x-semi-prop="closeIcon" aria-hidden={true}/>}
                 theme="borderless"
                 size="small"
                 type="tertiary"
@@ -160,8 +160,8 @@ export default class Banner extends BaseComponent<BannerProps, BannerState> {
                     <div className={`${prefixCls}-content`}>
                         {this.renderIcon()}
                         <div className={`${prefixCls}-content-body`}>
-                            {title ? <Typography.Title heading={5} className={`${prefixCls}-title`} component="div">{title}</Typography.Title> : null}
-                            {description ? <Typography.Paragraph className={`${prefixCls}-description`} component="div">{description}</Typography.Paragraph> : null}
+                            {title ? <Typography.Title heading={5} className={`${prefixCls}-title`} component="div" x-semi-prop="title">{title}</Typography.Title> : null}
+                            {description ? <Typography.Paragraph className={`${prefixCls}-description`} component="div" x-semi-prop="description">{description}</Typography.Paragraph> : null}
                         </div>
                     </div>
                     {this.renderCloser()}

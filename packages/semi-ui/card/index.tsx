@@ -105,37 +105,33 @@ class Card extends PureComponent<CardProps> {
         if (header || headerExtraContent || title) {
             return (
                 <div style={headerStyle} className={headerCls}>
-                    {
-                        header || ( // Priority of header over title and headerExtraContent
-                            <div className={headerWrapperCls}>
-                                {headerExtraContent &&
-                                    (
-                                        <div className={`${prefixcls}-header-wrapper-extra`}>
-                                            {headerExtraContent}
-                                        </div>
-                                    )
-                                }
-                                {title &&
-                                    (
-                                        <div className={titleCls}>
-                                            {
-                                                isString(title) ?
-                                                    (
-                                                        <Typography.Title
-                                                            heading={6}
-                                                            ellipsis={{ showTooltip: true, rows: 1 }}
-                                                        >
-                                                            {title}
-                                                        </Typography.Title>
-                                                    ) :
-                                                    title
-                                            }
-                                        </div>
-                                    )
-                                }
-                            </div>
-                        )
-                    }
+                    {header || ( // Priority of header over title and headerExtraContent
+                        <div className={headerWrapperCls}>
+                            {headerExtraContent && (
+                                <div
+                                    className={`${prefixcls}-header-wrapper-extra`}
+                                    x-semi-prop="headerExtraContent"
+                                >
+                                    {headerExtraContent}
+                                </div>
+                            )}
+                            {title && (
+                                <div className={titleCls}>
+                                    {isString(title) ? (
+                                        <Typography.Title
+                                            heading={6}
+                                            ellipsis={{ showTooltip: true, rows: 1 }}
+                                            x-semi-prop="title"
+                                        >
+                                            {title}
+                                        </Typography.Title>
+                                    ) : (
+                                        title
+                                    )}
+                                </div>
+                            )}
+                        </div>
+                    )}
                 </div>
             );
         }
@@ -182,7 +178,7 @@ class Card extends PureComponent<CardProps> {
                         <div className={actionsCls}>
                             <Space spacing={12}>
                                 {actions.map((item, idx) => (
-                                    <div key={idx} className={actionsItemCls}>{item}</div>
+                                    <div key={idx} className={actionsItemCls} x-semi-prop={`actions.${idx}`}>{item}</div>
                                 ))}
                             </Space>
                         </div>
