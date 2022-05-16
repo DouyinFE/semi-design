@@ -840,8 +840,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                     onScroll={e => this.foundation.handleListScroll(e)}
                 >
                     {innerTopSlot}
-                    {!loading ? listContent : this.renderLoading()}
-                    {isEmpty && !loading ? this.renderEmpty() : null}
+                    {loading ? this.renderLoading() : isEmpty ? this.renderEmpty() : listContent}
                     {innerBottomSlot}
                 </div>
                 {outerBottomSlot}
