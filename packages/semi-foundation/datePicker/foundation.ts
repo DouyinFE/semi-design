@@ -392,7 +392,7 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
      */
     closePanel(e?: any, inputValue: string = null, dates?: Date[]) {
         const { value } = this._adapter.getStates();
-        const willUpdateDates = isNullOrUndefined(dates) ? dates : value;
+        const willUpdateDates = isNullOrUndefined(dates) ? value : dates;
         if (!this._isControlledComponent('open')) {
             this._adapter.togglePanel(false);
             this._adapter.unregisterClickOutSide();

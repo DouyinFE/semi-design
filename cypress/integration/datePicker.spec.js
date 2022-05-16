@@ -532,4 +532,44 @@ describe('DatePicker', () => {
         cy.get('.semi-popover .semi-datepicker-day-selected-start').contains('8');
         cy.get('.semi-popover .semi-datepicker-day-selected-end').contains('9');
     });
+
+    it('cashedSelectedValue after selected date', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--cashed-selected-value&viewMode=story');
+        cy.get('[data-cy=date] .semi-input').first().click();
+        cy.get('.semi-datepicker-day').contains("5").click();
+        cy.get('[data-cy=date] .semi-input').first().click();
+        cy.get('.semi-popover .semi-datepicker-day-selected').contains('5');
+
+        cy.get('[data-cy=dateTime] .semi-input').first().click();
+        cy.get('.semi-datepicker-day').contains("5").click();
+        cy.get('[data-cy=dateTime] .semi-input').first().click();
+        cy.get('.semi-popover .semi-datepicker-day-selected').contains('5');
+
+        cy.get('[data-cy=dateRange] .semi-input').eq(0).click();
+        cy.get('.semi-datepicker-day').contains("5").click();
+        cy.get('[data-cy=dateRange] .semi-input').eq(1).click();
+        cy.get('.semi-datepicker-day').contains("20").click();
+        cy.get('[data-cy=dateRange] .semi-input').eq(0).click();
+        cy.get('.semi-popover .semi-datepicker-day-selected-start').contains('5');
+        cy.get('.semi-popover .semi-datepicker-day-selected-end').contains('20');
+    });
+
+    it('cashedSelectedValue after click outside', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--cashed-selected-value&viewMode=story');
+        cy.get('[data-cy=date] .semi-input').first().click();
+        cy.get('[data-cy=date]').click({ force: true });
+        cy.get('[data-cy=date] .semi-input').first().click();
+        cy.get('.semi-popover .semi-datepicker-day-selected').contains('8');
+
+        cy.get('[data-cy=dateTime] .semi-input').first().click();
+        cy.get('[data-cy=dateTime]').click({ force: true });
+        cy.get('[data-cy=dateTime] .semi-input').first().click();
+        cy.get('.semi-popover .semi-datepicker-day-selected').contains('8');
+
+        cy.get('[data-cy=dateRange] .semi-input').first().click();
+        cy.get('[data-cy=dateRange]').click({ force: true });
+        cy.get('[data-cy=dateRange] .semi-input').first().click();
+        cy.get('.semi-popover .semi-datepicker-day-selected-start').contains('8');
+        cy.get('.semi-popover .semi-datepicker-day-selected-end').contains('9');
+    });
 });
