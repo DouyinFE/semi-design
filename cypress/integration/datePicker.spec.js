@@ -522,4 +522,14 @@ describe('DatePicker', () => {
         cy.get('[data-cy=dateTimeRange] .semi-input').eq(0).should('have.value', '2021-03-15 00:01');
         cy.get('[data-cy=dateTimeRange] .semi-input').eq(1).should('have.value', '2021-03-20 23:59');
     });
+
+    it('cashedSelectedValue return to last selected when needConfirm & input invalid', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--need-confirm-delete&args=&viewMode=story');
+        cy.get('[data-cy=dateTimeRange] .semi-input').first().click();
+        cy.get('[data-cy=dateTimeRange] .semi-input').eq(0).clear().type('2021-0');
+        cy.get('.semi-datepicker-footer .semi-button').eq(0).click();
+        cy.get('[data-cy=dateTimeRange] .semi-input').first().click();
+        cy.get('.semi-popover .semi-datepicker-day-selected-start').contains('8');
+        cy.get('.semi-popover .semi-datepicker-day-selected-end').contains('9');
+    });
 });

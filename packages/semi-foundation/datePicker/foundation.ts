@@ -391,8 +391,8 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
      * @param {Date[]} dates
      */
     closePanel(e?: any, inputValue: string = null, dates?: Date[]) {
-        const { value, cachedSelectedValue } = this._adapter.getStates();
-        const willUpdateDates = isNullOrUndefined(dates) ? this._adapter.needConfirm() ? value : cachedSelectedValue : dates;
+        const { value } = this._adapter.getStates();
+        const willUpdateDates = isNullOrUndefined(dates) ? dates : value;
         if (!this._isControlledComponent('open')) {
             this._adapter.togglePanel(false);
             this._adapter.unregisterClickOutSide();
@@ -680,6 +680,7 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
      * parseInputLoose('2022-03-15 ~ '); // [Date, null]
      * parseInputLoose(' ~ 2022-03-15 '); // [null, Date]
      * parseInputLoose(''); // []
+     * parseInputLoose('2022-03- ~ 2022-0'); // [null, null]
      * ```
      */
     parseInputLoose(input = ''): Array<Date | null> {

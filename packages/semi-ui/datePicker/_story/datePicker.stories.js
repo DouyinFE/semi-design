@@ -849,5 +849,20 @@ export const A11yKeyboardDemo = () => {
   );
 };
 
-A11yKeyboardDemo.storyName = "a11y keyboard demo"
+A11yKeyboardDemo.storyName = "a11y keyboard demo";
 
+/**
+ * test with cypress
+ */
+export const NeedConfirmDelete = () => {
+  return (
+    <div data-cy="dateTimeRange">
+      <DatePicker
+        value={[new Date('2022-08-08 00:00'), new Date('2022-08-09 12:00')]}
+        type="dateTimeRange"
+        needConfirm
+      />
+    </div>
+  );
+};
+NeedConfirmDelete.storyName = "cashedSelectedValue return to last selected when needConfirm & input invalid";
