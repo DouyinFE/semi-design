@@ -13,9 +13,9 @@ import ModalContentFoundation, {
     ModalContentProps,
     ModalContentState
 } from '@douyinfe/semi-foundation/modal/modalContentFoundation';
-import { noop, isFunction, get } from 'lodash';
+import { get, isFunction, noop } from 'lodash';
 import { IconClose } from '@douyinfe/semi-icons';
-import { getActiveElement } from '../_utils';
+import FocusTrapHandle from "@douyinfe/semi-foundation/utils/FocusHandle";
 
 let uuid = 0;
 
@@ -23,6 +23,7 @@ let uuid = 0;
 export interface ModalContentReactProps extends ModalContentProps {
     children?: React.ReactNode;
 }
+
 export default class ModalContent extends BaseComponent<ModalContentReactProps, ModalContentState> {
     static contextType = ConfigContext;
     static propTypes = {
@@ -45,12 +46,13 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
     modalDialogRef: React.MutableRefObject<HTMLDivElement>;
     foundation: ModalContentFoundation;
     context: ContextValue;
+    focusTrapHandle: FocusTrapHandle;
 
     constructor(props: ModalContentProps) {
         super(props);
         this.state = {
             dialogMouseDown: false,
-            prevFocusElement: getActiveElement(),
+            prevFocusElement: FocusTrapHandle.getActiveElement(),
         };
         this.foundation = new ModalContentFoundation(this.adapter);
         this.dialogId = `dialog-${uuid++}`;
@@ -88,15 +90,18 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
             modalDialogFocus: () => {
                 let activeElementInDialog;
                 if (this.modalDialogRef) {
-                    const activeElement = getActiveElement();
+                    const activeElement = FocusTrapHandle.getActiveElement();
                     activeElementInDialog = this.modalDialogRef.current.contains(activeElement);
+                    this.focusTrapHandle?.destroy();
+                    this.focusTrapHandle = new FocusTrapHandle(this.modalDialogRef.current);
                 }
                 if (!activeElementInDialog) {
-                    this.modalDialogRef && this.modalDialogRef.current.focus();
+                    this.modalDialogRef?.current?.focus();
                 }
             },
             modalDialogBlur: () => {
-                this.modalDialogRef && this.modalDialogRef.current.blur();
+                this.modalDialogRef?.current.blur();
+                this.focusTrapHandle?.destroy();
             },
             prevFocusElementReFocus: () => {
                 const { prevFocusElement } = this.state;
@@ -192,7 +197,8 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
             (
                 <div className={`${cssClasses.DIALOG}-header`}>
                     {icon}
-                    <Typography.Title heading={5} className={`${cssClasses.DIALOG}-title`} id={`${cssClasses.DIALOG}-title`}>{title}</Typography.Title>
+                    <Typography.Title heading={5} className={`${cssClasses.DIALOG}-title`}
+                        id={`${cssClasses.DIALOG}-title`}>{title}</Typography.Title>
                     {closer}
                 </div>
             );
@@ -255,6 +261,7 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
                 <div
                     role="dialog"
                     ref={this.modalDialogRef}
+                    tabIndex={-1}
                     aria-modal="true"
                     aria-labelledby={`${cssClasses.DIALOG}-title`}
                     aria-describedby={`${cssClasses.DIALOG}-body`}
@@ -304,7 +311,6 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
             </div>
         );
 
-        // @ts-ignore Unreachable branch
         // eslint-disable-next-line max-len
         return containerContext && containerContext.Provider ?
             <containerContext.Provider value={containerContext.value}>{elem}</containerContext.Provider> : elem;
