@@ -50,7 +50,7 @@ type ExcludeInputType = {
 type OnChangeValueType = string | number | Record<string, any>;
 export interface optionRenderProps {
     key?: any;
-    label?: string | React.ReactNode | number;
+    label?: React.ReactNode;
     value?: string | number;
     style?: React.CSSProperties;
     className?: string;
@@ -446,11 +446,11 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 let options = [];
                 const { optionList } = this.props;
                 if (optionList && optionList.length) {
-                    options = optionList.map((itemOpt, index) => ({ 
-                        _show: true, 
-                        _selected: false, 
+                    options = optionList.map((itemOpt, index) => ({
+                        _show: true,
+                        _selected: false,
                         _scrollIndex: index,
-                        ...itemOpt 
+                        ...itemOpt
                     }));
                     optionGroups[0] = { children: options, label: '' };
                 } else {
@@ -771,7 +771,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 const groupContent = <OptionGroup {...parentGroup} key={parentGroup.label} />;
                 groupStatus.set(parentGroup.label, true);
                 content.push(groupContent);
-            } 
+            }
             content.push(optionContent);
         });
 
@@ -899,7 +899,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 content: optionNode.label,
             });
         }
-        
+
         const mapItems = maxTagCount ? selectedItems.slice(0, maxTagCount) : selectedItems; // no need to render rest tag when maxTagCount is setting
 
         const tags = mapItems.map((item, i) => {

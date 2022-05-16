@@ -7,7 +7,7 @@ import '@douyinfe/semi-foundation/timeline/timeline.scss';
 
 export interface TimelineItemProps {
     color?: string;
-    children?: React.ReactNode | undefined;
+    children?: React.ReactNode;
     time?: React.ReactNode;
     type?: 'default' | 'ongoing' | 'success' | 'warning' | 'error';
     dot?: React.ReactNode;

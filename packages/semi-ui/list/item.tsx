@@ -12,7 +12,7 @@ export interface ListItemProps {
     main?: React.ReactNode;
     align?: 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch';
     className?: string;
-    children?: React.ReactNode | undefined;
+    children?: React.ReactNode;
     style?: React.CSSProperties;
     onClick?: React.MouseEventHandler<HTMLLIElement>;
     onRightClick?: React.MouseEventHandler<HTMLLIElement>;

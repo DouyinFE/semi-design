@@ -21,7 +21,7 @@ let uuid = 0;
 
 
 export interface ModalContentReactProps extends ModalContentProps {
-    children?: React.ReactNode | undefined;
+    children?: React.ReactNode;
 }
 export default class ModalContent extends BaseComponent<ModalContentReactProps, ModalContentState> {
     static contextType = ConfigContext;

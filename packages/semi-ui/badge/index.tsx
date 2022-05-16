@@ -24,7 +24,7 @@ export interface BadgeProps {
     onMouseEnter?: (e: React.MouseEvent) => any;
     onMouseLeave?: (e: React.MouseEvent) => any;
     onClick?: (e: React.MouseEvent) => any;
-    children?: React.ReactNode | undefined;
+    children?: React.ReactNode;
 }
 
 export default class Badge extends PureComponent<BadgeProps> {

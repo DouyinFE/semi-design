@@ -7,7 +7,7 @@ import { IconAlertTriangle, IconAlertCircle } from '@douyinfe/semi-icons';
 
 const prefix = cssClasses.PREFIX;
 
-export type ReactFieldError = boolean | string | Array<any> | React.ReactNode | undefined;
+export type ReactFieldError = Array<any> | React.ReactNode;
 
 export interface ErrorMessageProps {
     error?: ReactFieldError;

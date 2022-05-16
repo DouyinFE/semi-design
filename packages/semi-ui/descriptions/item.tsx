@@ -7,7 +7,7 @@ import DescriptionsContext, { DescriptionsContextValue } from './descriptions-co
 export interface DescriptionsItemProps {
     hidden?: boolean;
     className?: string;
-    children?: React.ReactNode | undefined | (() => React.ReactNode);
+    children?: React.ReactNode | (() => React.ReactNode);
     style?: React.CSSProperties;
     itemKey?: React.ReactNode;
 }

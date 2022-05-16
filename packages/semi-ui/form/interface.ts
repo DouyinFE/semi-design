@@ -21,7 +21,7 @@ export type CommonFieldProps = {
     /** Field is required (except Form. Checkbox within the Group, Form. Radio) */
     field: string;
     /** The label text of the form control is the same name as the field by default when it is not passed */
-    label?: string | LabelProps | React.ReactNode | number;
+    label?: LabelProps | React.ReactNode;
     labelPosition?: 'top' | 'left' | 'inset';
     labelAlign?: 'left' | 'right';
     labelWidth?: number | string;

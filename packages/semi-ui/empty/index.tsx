@@ -23,7 +23,7 @@ export interface EmptyProps {
     darkModeImage?: React.ReactNode | SVGNode;
     style?: React.CSSProperties;
     className?: string;
-    children?: React.ReactNode | undefined;
+    children?: React.ReactNode;
 }
 
 interface EmptyState {
