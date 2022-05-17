@@ -19,12 +19,14 @@ function usePatchElement(): ([ReactNode[], (element: ReactNode) => () => void]) 
     return [elements, patchElement];
 }
 
+type UseModalReturnHooksType = (config: ModalReactProps) => { destroy: () => void, update: (newConfig: ConfirmProps) => void };
+
 export default function useModal(): [{
-    info: (config: ModalReactProps) => { destroy: () => void, update: (newConfig: ConfirmProps) => void },
-    success: (config: ModalReactProps) => { destroy: () => void, update: (newConfig: ConfirmProps) => void },
-    error: (config: ModalReactProps) => { destroy: () => void, update: (newConfig: ConfirmProps) => void },
-    warning: (config: ModalReactProps) => { destroy: () => void, update: (newConfig: ConfirmProps) => void },
-    confirm: (config: ModalReactProps) => { destroy: () => void, update: (newConfig: ConfirmProps) => void }
+    info: UseModalReturnHooksType,
+    success: UseModalReturnHooksType,
+    error:UseModalReturnHooksType,
+    warning: UseModalReturnHooksType,
+    confirm: UseModalReturnHooksType
 }, ReactNode] {
     const [elements, patchElement] = usePatchElement();
 
