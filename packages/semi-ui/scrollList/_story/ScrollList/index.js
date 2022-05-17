@@ -11,7 +11,7 @@ class ScrollListDemo extends React.Component {
         };
 
         this.list = new Array(20).fill(0).map((itm, index) => {
-            return { value: index, disabled: Math.random() + 0.2 > 1 };
+            return { value: index };
         });
     }
 
