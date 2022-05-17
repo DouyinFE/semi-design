@@ -291,6 +291,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
                         loading={cancelLoading}
                         type="tertiary"
                         {...this.props.cancelButtonProps}
+                        x-semi-children-alias="cancelText"
                     >
                         {cancelText || locale.cancel}
                     </Button>
@@ -310,6 +311,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
                             loading={confirmLoading}
                             onClick={this.handleOk}
                             {...this.props.okButtonProps}
+                            x-semi-children-alias="okText"
                         >
                             {okText || locale.confirm}
                         </Button>
