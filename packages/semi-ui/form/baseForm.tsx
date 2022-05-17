@@ -151,7 +151,6 @@ class Form extends BaseComponent<BaseFormProps, BaseFormState> {
 
     componentWillUnmount() {
         this.foundation.destroy();
-        this.foundation = null;
         this.formApi = null;
     }
 
