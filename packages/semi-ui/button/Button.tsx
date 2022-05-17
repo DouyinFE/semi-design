@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/button/constants';
 import '@douyinfe/semi-foundation/button/button.scss';
 import { noop } from '@douyinfe/semi-foundation/utils/function';
+import { omit } from 'lodash';
 
 const btnSizes = strings.sizes;
 const { htmlTypes, btnTypes } = strings;
@@ -93,7 +94,7 @@ export default class Button extends PureComponent<ButtonProps> {
 
         const baseProps = {
             disabled,
-            ...attr,
+            ...omit(attr, ['x-semi-children-alias']),
             className: classNames(
                 prefixCls,
                 {
@@ -116,7 +117,7 @@ export default class Button extends PureComponent<ButtonProps> {
         const xSemiProps = {};
 
         if (!(className && className.includes('-with-icon'))) {
-            xSemiProps['x-semi-prop'] = 'children';
+            xSemiProps['x-semi-prop'] = this.props['x-semi-children-alias'] || 'children';
         }
 
         return (

@@ -247,12 +247,12 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
         const renderContent = () => (
             <>
                 {children ? (
-                    <span className={addonCls} style={addonStyle} id={this.addonId} x-semi-prop="children">
+                    <span className={addonCls} style={addonStyle} id={addonId} x-semi-prop="children">
                         {children}
                     </span>
                 ) : null}
                 {extra && !isButtonRadio ? (
-                    <div className={`${prefix}-extra`} id={this.extraId} x-semi-prop="extra">
+                    <div className={`${prefix}-extra`} id={extraId} x-semi-prop="extra">
                         {extra}
                     </div>
                 ) : null}

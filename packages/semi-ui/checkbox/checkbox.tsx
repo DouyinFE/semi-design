@@ -226,12 +226,12 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
         const renderContent = () => (
             <>
                 {children ? (
-                    <span id={this.addonId} className={`${prefix}-addon`} x-semi-prop={xSemiPropChildren}>
+                    <span id={addonId} className={`${prefix}-addon`} x-semi-prop={xSemiPropChildren}>
                         {children}
                     </span>
                 ) : null}
                 {extra ? (
-                    <div id={this.extraId} className={extraCls} x-semi-prop="extra">
+                    <div id={extraId} className={extraCls} x-semi-prop="extra">
                         {extra}
                     </div>
                 ) : null}
