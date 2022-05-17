@@ -86,6 +86,12 @@ export default class Animation extends PureComponent<AnimationProps> {
 
         const { forwardInstance } = this.props;
 
+        if (this.animation === null) {
+            // didmount/willUnmount may be called twice when React.StrictMode is true in React 18, we need to ensure that this.animation is correct
+            this.initAnimation();
+            this.bindEvents();
+        }
+
         if (typeof forwardInstance === 'function') {
             forwardInstance(this.animation);
         }
