@@ -184,7 +184,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             isRange: false,
             inputValue: null, // Staging input values
             value: [], // The currently selected date, each date is a Date object
-            cachedSelectedValue: null, // Save last selected date
+            cachedSelectedValue: null, // Save last selected date, maybe include null
             prevTimeZone: null,
             motionEnd: false, // Monitor if popover animation ends
             rangeInputFocus: undefined, // Optional'rangeStart ',' rangeEnd ', false
@@ -415,16 +415,9 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             triggerRender,
             insetInput
         } = this.props;
-        const { value, cachedSelectedValue, motionEnd, rangeInputFocus } = this.state;
+        const { cachedSelectedValue, motionEnd, rangeInputFocus } = this.state;
 
-        // const cachedSelectedValue = this.adapter.getCache('cachedSelectedValue');
-
-        let defaultValue = value;
-
-        if (this.adapter.needConfirm()) {
-            defaultValue = cachedSelectedValue;
-        }
-
+        const defaultValue = cachedSelectedValue;
         return (
             <MonthsGrid
                 ref={this.monthGrid}
@@ -535,6 +528,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             inputReadOnly,
             rangeSeparator,
             insetInput,
+            defaultPickerValue
         } = this.props;
         const { value, inputValue, rangeInputFocus, triggerDisabled } = this.state;
         // This class is not needed when triggerRender is function
@@ -555,6 +549,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             disabled: inputDisabled,
             inputValue,
             value: value as Date[],
+            defaultPickerValue,
             onChange: this.handleInputChange,
             onEnterPress: this.handleInputComplete,
             // TODO: remove in next major version
@@ -629,7 +624,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
     };
 
     renderPanel = (locale: Locale['DatePicker'], localeCode: string, dateFnsLocale: Locale['dateFnsLocale']) => {
-        const { dropdownClassName, dropdownStyle, density, topSlot, bottomSlot, insetInput, type, format, rangeSeparator } = this.props;
+        const { dropdownClassName, dropdownStyle, density, topSlot, bottomSlot, insetInput, type, format, rangeSeparator, defaultPickerValue } = this.props;
         const { insetInputValue, value } = this.state;
         const wrapCls = classnames(
             cssClasses.PREFIX,
@@ -653,6 +648,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             rangeInputStartRef: this.rangeInputStartRef,
             rangeInputEndRef: this.rangeInputEndRef,
             density,
+            defaultPickerValue
         };
 
         return (

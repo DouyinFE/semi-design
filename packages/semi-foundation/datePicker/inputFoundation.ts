@@ -1,13 +1,17 @@
 /* eslint-disable max-len */
-import { cloneDeep, isObject, set } from 'lodash';
+import { cloneDeep, isObject, set, get } from 'lodash';
+import { format as formatFn } from 'date-fns';
 
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
-import { BaseValueType, ValidateStatus } from './foundation';
+import { BaseValueType, ValidateStatus, ValueType } from './foundation';
 import { formatDateValues } from './_utils/formatter';
 import { getDefaultFormatTokenByType } from './_utils/getDefaultFormatToken';
 import getInsetInputFormatToken from './_utils/getInsetInputFormatToken';
 import getInsetInputValueFromInsetInputStr from './_utils/getInsetInputValueFromInsetInputStr';
 import { strings } from './constants';
+import getDefaultPickerDate from './_utils/getDefaultPickerDate';
+import { compatibleParse } from '@douyinfe/semi-foundation/datePicker/_utils/parser';
+import { isValidDate } from './_utils';
 
 const KEY_CODE_ENTER = 'Enter';
 const KEY_CODE_TAB = 'Tab';
@@ -50,6 +54,7 @@ export interface DateInputFoundationProps extends DateInputElementProps, DateInp
     insetInput?: boolean;
     insetInputValue?: InsetInputValue;
     density?: typeof strings.DENSITY_SET[number];
+    defaultPickerValue?: ValueType;
 }
 
 export interface InsetInputValue {
@@ -175,9 +180,50 @@ export default class InputFoundation extends BaseFoundation<DateInputAdapter> {
         const { value, valuePath, insetInputValue } = options;
         const { format, type } = this._adapter.getProps();
         const insetFormatToken = getInsetInputFormatToken({ type, format });
-        const newInsetInputValue = set(cloneDeep(insetInputValue), valuePath, value);
+        let newInsetInputValue = set(cloneDeep(insetInputValue), valuePath, value);
+        newInsetInputValue = this._autoFillTimeToInsetInputValue({ insetInputValue: newInsetInputValue, valuePath, format: insetFormatToken });
         const newInputValue = this.concatInsetInputValue({ insetInputValue: newInsetInputValue });
         this._adapter.notifyInsetInputChange({ insetInputValue: newInsetInputValue, format: insetFormatToken, insetInputStr: newInputValue });
+    }
+
+    _autoFillTimeToInsetInputValue(options: { insetInputValue: InsetInputValue; format: string; valuePath: string;}) {
+        const { valuePath, insetInputValue, format } = options;
+        const { type, defaultPickerValue, dateFnsLocale } = this._adapter.getProps();
+        const insetInputValueWithTime = cloneDeep(insetInputValue);
+        const { nowDate, nextDate } = getDefaultPickerDate({ defaultPickerValue, format, dateFnsLocale  });
+
+        if (type.includes('Time')) {
+            let timeStr = '';
+            const dateFormatToken = get(format.split(' '), '0', strings.FORMAT_FULL_DATE);
+            const timeFormatToken = get(format.split(' '), '1', strings.FORMAT_TIME_PICKER);
+            
+            switch (valuePath) {
+                case 'monthLeft.dateInput':
+                    const dateLeftStr = insetInputValueWithTime.monthLeft.dateInput;
+                    if (!insetInputValueWithTime.monthLeft.timeInput && dateLeftStr.length === dateFormatToken.length) {
+                        const dateLeftParsed = compatibleParse(insetInputValueWithTime.monthLeft.dateInput, dateFormatToken);
+                        if (isValidDate(dateLeftParsed)) {
+                            timeStr = formatFn(nowDate, timeFormatToken);
+                            insetInputValueWithTime.monthLeft.timeInput = timeStr;
+                        }
+                    }
+                    break;
+                case 'monthRight.dateInput':
+                    const dateRightStr = insetInputValueWithTime.monthRight.dateInput;
+                    if (!insetInputValueWithTime.monthRight.timeInput && dateRightStr.length === dateFormatToken.length) {
+                        const dateRightParsed = compatibleParse(dateRightStr, dateFormatToken);
+                        if (isValidDate(dateRightParsed)) {
+                            timeStr = formatFn(nextDate, timeFormatToken);
+                            insetInputValueWithTime.monthRight.timeInput = timeStr;
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        return insetInputValueWithTime;
     }
 
     /**
