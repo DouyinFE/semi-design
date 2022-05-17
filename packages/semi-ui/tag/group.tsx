@@ -15,7 +15,7 @@ export interface TagGroupProps<T> {
     className?: string;
     maxTagCount?: number;
     restCount?: number;
-    tagList?: (T extends 'custom' ? (TagProps | React.ReactNode) : TagProps)[];
+    tagList?: (T extends 'custom' ? React.ReactNode : TagProps)[];
     size?: 'small' | 'large';
     showPopover?: boolean;
     popoverProps?: PopoverProps;
