@@ -773,6 +773,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
         if (!disabled) {
             if (directory) {
                 this.handleDirectoryDrop(e);
+                return;
             }
             const files: File[] = Array.from(e.dataTransfer.files);
             this.handleChange(files);
