@@ -10,12 +10,12 @@ const prefixCls = cssClasses.PREFIX;
 const tagSize = strings.TAG_SIZE;
 const avatarShapeSet = strings.AVATAR_SHAPE;
 
-export interface TagGroupProps {
+export interface TagGroupProps<T> {
     style?: React.CSSProperties;
     className?: string;
     maxTagCount?: number;
     restCount?: number;
-    tagList?: (TagProps | React.ReactNode)[];
+    tagList?: (T extends 'custom' ? (TagProps | React.ReactNode) : TagProps)[];
     size?: 'small' | 'large';
     showPopover?: boolean;
     popoverProps?: PopoverProps;
@@ -23,7 +23,7 @@ export interface TagGroupProps {
     mode?: string;
 }
 
-export default class TagGroup extends PureComponent<TagGroupProps> {
+export default class TagGroup<T> extends PureComponent<TagGroupProps<T>> {
     static defaultProps = {
         style: {},
         className: '',
@@ -84,7 +84,7 @@ export default class TagGroup extends PureComponent<TagGroupProps> {
         let renderTags: (Tag | React.ReactNode)[] = tags;
 
         const normalTags: (Tag | React.ReactNode)[] = tags.slice(0, maxTagCount);
-        const restTags = tags.slice(maxTagCount) as  React.ReactNode;
+        const restTags = tags.slice(maxTagCount) as React.ReactNode;
         let nTag = null;
         if (n > 0) {
             nTag = this.renderNTag(n, restTags);

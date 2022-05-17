@@ -446,11 +446,11 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 let options = [];
                 const { optionList } = this.props;
                 if (optionList && optionList.length) {
-                    options = optionList.map((itemOpt, index) => ({ 
-                        _show: true, 
-                        _selected: false, 
+                    options = optionList.map((itemOpt, index) => ({
+                        _show: true,
+                        _selected: false,
                         _scrollIndex: index,
-                        ...itemOpt 
+                        ...itemOpt
                     }));
                     optionGroups[0] = { children: options, label: '' };
                 } else {
@@ -771,7 +771,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 const groupContent = <OptionGroup {...parentGroup} key={parentGroup.label} />;
                 groupStatus.set(parentGroup.label, true);
                 content.push(groupContent);
-            } 
+            }
             content.push(optionContent);
         });
 
@@ -899,7 +899,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 content: optionNode.label,
             });
         }
-        
+
         const mapItems = maxTagCount ? selectedItems.slice(0, maxTagCount) : selectedItems; // no need to render rest tag when maxTagCount is setting
 
         const tags = mapItems.map((item, i) => {
@@ -946,7 +946,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
 
         const NotOneLine = !maxTagCount; // Multiple lines (that is, do not set maxTagCount), do not use TagGroup, directly traverse with Tag, otherwise Input cannot follow the correct position
 
-        const tagContent = NotOneLine ? tags : <TagGroup tagList={tags} maxTagCount={n} restCount={maxTagCount ? selectedItems.length - maxTagCount : undefined} size="large" mode="custom" />;
+        const tagContent = NotOneLine ? tags : <TagGroup<"custom"> tagList={tags} maxTagCount={n} restCount={maxTagCount ? selectedItems.length - maxTagCount : undefined} size="large" mode="custom" />;
 
         return (
             <>
