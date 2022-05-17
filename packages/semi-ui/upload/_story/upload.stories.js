@@ -581,6 +581,7 @@ export const Draggable = () => (
     <Upload
       {...commonProps}
       style={{ marginTop: 10, height: 300 }}
+      // directory 
       draggable={true}
       dragMainText={'点击上传文件或拖拽文件到这里'}
     ></Upload>
