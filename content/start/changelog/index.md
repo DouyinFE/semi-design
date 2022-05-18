@@ -14,7 +14,17 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 -   修订版本号（patch）：bugfix
 
 ---
-
+#### 🎉 2.11.0-beta.0 (2022-05-18)
+- 【Feat】
+    - DatePicker 内嵌输入框输入完整日期后，时间输入框自动填充默认时间  [#294](https://github.com/DouyinFE/semi-design/issues/294)
+    - DatePicker 范围选择支持输入开始日期或结束日期后，面板显示指定日期  [#294](https://github.com/DouyinFE/semi-design/issues/294)
+- 【Fix】
+    - 修复内嵌输入框确认日期选择，输入日期后没有确认也会直接选中日期问题  [#742](https://github.com/DouyinFE/semi-design/issues/742)
+    - 修复 React 18 createRoot + strictMode 严格模式下，使用 Form、Tabs、Nav 、SideSheet 、Table 组件时提示 `can't get properties of undefined` 的问题 #745  [#795 ](https://github.com/DouyinFE/semi-design/issues/795)
+    - 修复Upload组件在directory和draggable为true时上传，上传列表文件不符合预期问题  [#827 ](https://github.com/DouyinFE/semi-design/issues/827)
+    - 修复单个Checkbox使用时因为参数类型问题导致控制台出现warning提示
+    - 修复 Checkbox、Radio、Tooltip ARIA id 在 SSR 时不一致问题  [#719](https://github.com/DouyinFE/semi-design/issues/719)
+    - 规范 TagGroup tagList props 类型
 
 #### 🎉 2.10.1 (2022-05-10)
 - 【Fix】

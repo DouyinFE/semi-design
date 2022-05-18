@@ -15,7 +15,17 @@ Version：Major.Minor.Patch
 -   Patch version: bug fix
 
 ---
-
+#### 🎉 2.11.0-beta.0 (2022-05-18)
+- 【Feat】
+    - After entering the full date in the DatePicker inset input box, the time input box automatically fills the default time  [#294](https://github.com/DouyinFE/semi-design/issues/294)
+    - DatePicker range type supports entering start date or end date, the panel displays the specified date  [#294](https://github.com/DouyinFE/semi-design/issues/294)
+- 【Fix】
+    - Fixed the problem of needConfirm DatePicker that the date will be directly selected without confirmation after entering the date in the inset input box  [#742](https://github.com/DouyinFE/semi-design/issues/742)
+    - Fix the problem that `can't get properties of undefined` is prompted when using Form, Tabs, and Nav components in React 18 createRoot + strictMode strict mode #745  [#795 ](https://github.com/DouyinFE/semi-design/issues/795)
+    - Fix the problem that the upload list file does not meet expectations when the directory and draggable are true for the Upload component  [#827 ](https://github.com/DouyinFE/semi-design/issues/827)
+    - Fixed a warning prompt on the console due to the parameter type problem when using a single Checkbox
+    - Fix Checkbox, Radio, Tooltip ARIA id inconsistency in SSR  [#719](https://github.com/DouyinFE/semi-design/issues/719)
+    - Specification TagGroup tagList props type
 
 #### 🎉 2.10.1 (2022-05-10)
 - 【Fix】
