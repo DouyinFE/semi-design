@@ -207,23 +207,23 @@ class BasicDemoWithInit extends React.Component {
                     },
                     {
                         uid: '2',
-                        name: 'jiafang1.jpeg',
+                        name: 'resso.jpeg',
                         status: 'validateFail',
                         size: '222KB',
                         percent: 50,
                         preview: true,
-                        fileInstance:  new File([new ArrayBuffer(2048)], 'jiafang1.jpeg', { type: 'image/jpeg' }),
-                        url: 'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg'
+                        fileInstance:  new File([new ArrayBuffer(2048)], 'resso.jpeg', { type: 'image/jpeg' }),
+                        url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/Resso.png'
                     },
                     {
                         uid: '3',
-                        name: 'jiafang2.jpeg',
+                        name: 'dy.jpeg',
                         status: 'uploading',
                         size: '222KB',
                         percent: 50,
                         preview: true,
-                        fileInstance:  new File([new ArrayBuffer(2048)], 'jiafang2.jpeg', { type: 'image/jpeg' }),
-                        url: 'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg'
+                        fileInstance:  new File([new ArrayBuffer(2048)], 'dy.jpeg', { type: 'image/jpeg' }),
+                        url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png'
                     }
                 ]
             }
