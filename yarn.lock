@@ -1460,6 +1460,16 @@
   resolved "https://registry.yarnpkg.com/@discoveryjs/json-ext/-/json-ext-0.5.7.tgz#1d572bfbbe14b7704e0ba0f39b74815b84870d70"
   integrity sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==
 
+"@douyinfe/semi-animation-react@2.10.1":
+  version "2.10.1"
+  resolved "https://registry.yarnpkg.com/@douyinfe/semi-animation-react/-/semi-animation-react-2.10.1.tgz#c10da6f8833eeeb3530361b815d3c1345c5739c9"
+  integrity sha512-fsF1JWDfsd4NaeFaFlNWiyOwEipadVddtkgqmE2Gj7psx2z0qnwJwyAsUlmJm7stWPjbdTErhk68CqcGiQlxIw==
+  dependencies:
+    "@babel/runtime-corejs3" "^7.15.4"
+    "@douyinfe/semi-animation" "2.10.1"
+    "@douyinfe/semi-animation-styled" "2.10.1"
+    classnames "^2.2.6"
+
 "@douyinfe/semi-animation-react@2.9.1":
   version "2.9.1"
   resolved "https://registry.yarnpkg.com/@douyinfe/semi-animation-react/-/semi-animation-react-2.9.1.tgz#f2e4c6ef7899729ee6145edf0579598ba195bfdd"
@@ -1546,20 +1556,20 @@
     lodash-es "^4.17.21"
     react-i18next "^11.12.0"
 
-"@douyinfe/semi-site-markdown-blocks@^0.0.5":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@douyinfe/semi-site-markdown-blocks/-/semi-site-markdown-blocks-0.0.5.tgz#7c39ca85bb2d41f5e69dc652dce2b5943c2bb7f1"
-  integrity sha512-NjmhFhF1K85vYdT/mB+sd84442q/MpDYsDwLmdHeDEkaRLoggHPNxSOql5Gx+1KqbQZloKT70ECd5iGipMjvtg==
+"@douyinfe/semi-site-markdown-blocks@^0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@douyinfe/semi-site-markdown-blocks/-/semi-site-markdown-blocks-0.0.6.tgz#b63425a8dc1c480250c32ee02f336bd91e90748e"
+  integrity sha512-IyxwZq8T6jyWTam1cNHgmW2X0Zop85+AZ5U0kWWzYwGSXObq5SI6eJcas+Oa+kGlfu609ZRVFiJwNg/NK9dK5A==
   dependencies:
-    "@douyinfe/semi-site-playground" "0.0.5"
+    "@douyinfe/semi-site-playground" "0.0.6"
     classnames "^2.2.6"
     prism-react-renderer "^1.0.1"
     prop-types "^15.7.2"
 
-"@douyinfe/semi-site-playground@0.0.5":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@douyinfe/semi-site-playground/-/semi-site-playground-0.0.5.tgz#75d31085b0628491dfa46dbc08d4bcfff3ee6700"
-  integrity sha512-sNjRUrj/3M3tOOILly7YiaokHTEMCVcfZ+Ok6EpbltegEqgBmq9daGALjVzFMo0Dc8BgQoz4/g/sh2F6ZcNawQ==
+"@douyinfe/semi-site-playground@0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@douyinfe/semi-site-playground/-/semi-site-playground-0.0.6.tgz#65f13acc91bf6a4b33e2875b2ad4268fca7cc2a4"
+  integrity sha512-OSD2K4Z5npKZDRjo8unbuIZ9dwyYCcDaJGr8FyXnV+aCJB8STmMBEUUpAr8bv5L0qJKZq+0ha5VfqnnHdEmnTg==
   dependencies:
     "@douyinfe/semi-icons" "^2.0.0"
     "@douyinfe/semi-ui" "^2.0.0"
@@ -1577,6 +1587,32 @@
   integrity sha512-uCGr/wcjoApc62kAf8WTe2E7O3IUXbWgM9MJn+OcrWizvTh/qlxY4xHMJ+HgtJFGV4BXSu5I3KB4FEfT31JxoA==
   dependencies:
     glob "^7.1.6"
+
+"@douyinfe/semi-ui@^2.0.0":
+  version "2.10.1"
+  resolved "https://registry.yarnpkg.com/@douyinfe/semi-ui/-/semi-ui-2.10.1.tgz#d2856d6c11989b368a0046cdc0161b26f5fc127d"
+  integrity sha512-oymvFiVOZBUmlNTWffLk8zI1VF97KxyNyZ8cnUMk24fwdg5m2qdQBzOHN4Uz9rXwJxjskV4EobZW51C1L3Ij5w==
+  dependencies:
+    "@babel/runtime-corejs3" "^7.15.4"
+    "@douyinfe/semi-animation" "2.10.1"
+    "@douyinfe/semi-animation-react" "2.10.1"
+    "@douyinfe/semi-foundation" "2.10.1"
+    "@douyinfe/semi-icons" "2.10.1"
+    "@douyinfe/semi-illustrations" "2.10.1"
+    "@douyinfe/semi-theme-default" "2.10.1"
+    "@types/react-window" "^1.8.2"
+    async-validator "^3.5.0"
+    classnames "^2.2.6"
+    copy-text-to-clipboard "^2.1.1"
+    date-fns "^2.9.0"
+    date-fns-tz "^1.0.10"
+    lodash "^4.17.21"
+    react-resizable "^1.8.0"
+    react-sortable-hoc "^2.0.0"
+    react-window "^1.8.2"
+    resize-observer-polyfill "^1.5.1"
+    scroll-into-view-if-needed "^2.2.24"
+    utility-types "^3.10.0"
 
 "@douyinfe/semi-ui@latest":
   version "2.9.1"
