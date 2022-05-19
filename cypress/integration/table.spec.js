@@ -67,4 +67,10 @@ describe('table', () => {
             .trigger('mousemove', { which: 1, pageX: -300, pageY: 100 })
             .trigger('mouseup');
     });
+
+    it('scroll table header click', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=table--fixed-on-header-row&args=&viewMode=story');
+        cy.contains('标题').click();
+        cy.contains('header click').should('be.visible');
+    })
 });
