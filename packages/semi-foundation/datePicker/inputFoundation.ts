@@ -10,7 +10,7 @@ import getInsetInputFormatToken from './_utils/getInsetInputFormatToken';
 import getInsetInputValueFromInsetInputStr from './_utils/getInsetInputValueFromInsetInputStr';
 import { strings } from './constants';
 import getDefaultPickerDate from './_utils/getDefaultPickerDate';
-import { compatibleParse } from '@douyinfe/semi-foundation/datePicker/_utils/parser';
+import { compatibleParse } from './_utils/parser';
 import { isValidDate } from './_utils';
 
 const KEY_CODE_ENTER = 'Enter';
