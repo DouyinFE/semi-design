@@ -16,6 +16,10 @@ Version：Major.Minor.Patch
 
 ---
 
+#### 🎉 2.10.2 (2022-05-20)
+- 【Fix】
+    - Fixed  Table onHeaderRow does not take effect when setting scroll prop  [#849](https://github.com/DouyinFE/semi-design/issues/849)
+    - Fixed Select aria-controls are inconsistent in SSR scenarios  [#840](https://github.com/DouyinFE/semi-design/issues/840)
 
 #### 🎉 2.10.1 (2022-05-10)
 - 【Fix】

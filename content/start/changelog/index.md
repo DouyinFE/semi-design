@@ -15,6 +15,11 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 ---
 
+#### 🎉 2.10.2 (2022-05-20)
+- 【Fix】
+    - 修复 Table onHeaderRow 在配置 scroll 属性时不生效问题  [#849](https://github.com/DouyinFE/semi-design/issues/849)
+    - 修复 Select aria-controls 在 SSR 场景不一致问题  [#840](https://github.com/DouyinFE/semi-design/issues/840)
+
 
 #### 🎉 2.10.1 (2022-05-10)
 - 【Fix】
