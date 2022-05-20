@@ -15,6 +15,10 @@ Version：Major.Minor.Patch
 -   Patch version: bug fix
 
 ---
+
+#### 🎉 2.11.0-beta.1 (2022-05-20)
+- 【Fix】
+  -  Fixed the issue that DatePicker incorrectly referenced the _utils/parse ts source file, resulting in an error
 #### 🎉 2.11.0-beta.0 (2022-05-18)
 - 【Feat】
     - After entering the full date in the DatePicker inset input box, the time input box automatically fills the default time  [#294](https://github.com/DouyinFE/semi-design/issues/294)
