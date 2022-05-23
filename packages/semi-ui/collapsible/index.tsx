@@ -11,7 +11,7 @@ const ease = 'cubicBezier(.25,.1,.25,1)';
 
 export interface CollapsibleProps {
     motion?: Motion;
-    children?: React.ReactNode | undefined;
+    children?: React.ReactNode;
     isOpen?: boolean;
     duration?: number;
     keepDOM?: boolean;

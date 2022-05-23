@@ -57,7 +57,7 @@ export interface AutoCompleteProps<T extends AutoCompleteItems> {
     dropdownMatchSelectWidth?: boolean;
     dropdownClassName?: string;
     dropdownStyle?: React.CSSProperties;
-    emptyContent?: React.ReactNode | null;
+    emptyContent?: React.ReactNode;
     getPopupContainer?: () => HTMLElement;
     insetLabel?: React.ReactNode;
     insetLabelId?: string;
@@ -218,8 +218,8 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
 
         warning(
             'triggerRender' in this.props && typeof this.props.triggerRender === 'function',
-            `[Semi AutoComplete] 
-            - If you are using the following props: 'suffix', 'prefix', 'showClear', 'validateStatus', and 'size', 
+            `[Semi AutoComplete]
+            - If you are using the following props: 'suffix', 'prefix', 'showClear', 'validateStatus', and 'size',
             please notice that they will be removed in the next major version.
             Please use 'componentProps' to retrieve these props instead.
             - If you are using 'onBlur', 'onFocus', please try to avoid using them and look for changes in the future.`

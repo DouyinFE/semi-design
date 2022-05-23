@@ -62,7 +62,7 @@ export interface CascaderProps extends BasicCascaderProps {
     motion?: Motion;
     treeData?: Array<CascaderData>;
     restTagsPopoverProps?: PopoverProps;
-    children?: React.ReactNode | undefined;
+    children?: React.ReactNode;
     value?: Value;
     prefix?: ReactNode;
     suffix?: ReactNode;
@@ -843,11 +843,11 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         const allowClear = this.showClearBtn();
         if (allowClear) {
             return (
-                <div 
+                <div
                     className={clearCls}
-                    onClick={this.handleClear} 
+                    onClick={this.handleClear}
                     onKeyPress={this.handleClearEnterPress}
-                    role='button' 
+                    role='button'
                     tabIndex={0}
                 >
                     <IconClear />

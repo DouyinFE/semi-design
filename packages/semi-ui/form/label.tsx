@@ -20,7 +20,7 @@ export interface LabelProps {
     width?: number | string;
     style?: React.CSSProperties;
     className?: string;
-    children?: React.ReactNode | undefined;
+    children?: React.ReactNode;
     extra?: React.ReactNode;
 }
 

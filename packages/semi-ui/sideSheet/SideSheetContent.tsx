@@ -23,7 +23,7 @@ export interface SideSheetContentProps {
     style: CSSProperties;
     bodyStyle?: CSSProperties;
     className: string;
-    children?: React.ReactNode | undefined;
+    children?: React.ReactNode;
     footer?: React.ReactNode;
     'aria-label'?: string;
 }

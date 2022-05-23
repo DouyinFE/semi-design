@@ -20,15 +20,15 @@ export type Type = 'info' | 'danger' | 'warning' | 'success';
 export interface BannerProps {
     type?: Type;
     className?: string;
-    children?: React.ReactNode | undefined;
+    children?: React.ReactNode;
     fullMode?: boolean;
     title?: React.ReactNode;
     description?: React.ReactNode;
-    icon?: string | React.ReactNode;
-    closeIcon?: string | React.ReactNode;
+    icon?: React.ReactNode;
+    closeIcon?: React.ReactNode;
     style?: React.CSSProperties;
     bordered?: boolean;
-    onClose?: (e: React.MouseEvent) => void;
+    onClose?(e: React.MouseEvent):void;
 }
 
 export interface BannerState {

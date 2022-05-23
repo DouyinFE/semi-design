@@ -9,8 +9,8 @@ const prefix = cssClasses.PREFIX;
 export interface SectionProps {
     className?: string;
     style?: React.CSSProperties;
-    text?: React.ReactNode | string;
-    children?: React.ReactNode | undefined;
+    text?: React.ReactNode;
+    children?: React.ReactNode;
 }
 
 export default class Section extends PureComponent<SectionProps> {

@@ -13,7 +13,7 @@ const prefix = cssClasses.PREFIX;
 export interface SlotProps {
     className?: string;
     style?: React.CSSProperties;
-    label?: LabelProps | React.ReactNode | number | string;
+    label?: LabelProps | React.ReactNode;
     noLabel?: boolean;
     labelPosition?: 'top' | 'left';
     error?: ErrorMessageProps;
