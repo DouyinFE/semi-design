@@ -16,6 +16,10 @@ Version：Major.Minor.Patch
 
 ---
 
+#### 🎉 2.11.0 (2022-05-23)
+- 【Fix】
+    - Fix the problem that the return type of useModal typescript is not strict
+
 #### 🎉 2.11.0-beta.1 (2022-05-20)
 - 【Fix】
   -  Fixed the issue that DatePicker incorrectly referenced the _utils/parse ts source file, resulting in an error
