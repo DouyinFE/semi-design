@@ -870,6 +870,10 @@ class ManulUploadDemo extends React.Component {
 
 `draggable='true'`, you can use the drag and drop function
 
+<Notice type="primary" title="Notice">
+    <div>When the directory is true, because the browser automatically imposes restrictions, it is not allowed to select a single file when clicking upload. When dragging, we think it is more reasonable to allow folders and files to be dragged, so no additional interception processing is performed.</div>
+</Notice>
+
 ```jsx live=true width=48%
 import React from 'react';
 import { Upload } from '@douyinfe/semi-ui';

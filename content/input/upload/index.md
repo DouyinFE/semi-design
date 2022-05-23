@@ -882,6 +882,9 @@ class ManulUploadDemo extends React.Component {
 ### 拖拽上传
 
 `draggable='true'`，可以使用拖拽功能
+<Notice type="primary" title="注意事项">
+    <div>在directory为true的情况下，因为浏览器自动做了限制，所以点击上传时不允许选单个文件，拖拽时我们认为同时允许文件夹、文件都能拖动更合理，所以不做另外的拦截处理。</div>
+</Notice>
 
 ```jsx live=true width=48%
 import React from 'react';
