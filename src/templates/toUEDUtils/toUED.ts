@@ -91,6 +91,7 @@ const isHaveUedDocs=(pathName:string)=>{
 };
 
 const isJumpToDesignSite=(pathName:string)=>{
+    return false;
     const components=['toast','popconfirm','scrolllist','popover','select','dropdown'];
     if (pathName){
         const urlSplitArray=pathName.split('/').filter(v=>v);
