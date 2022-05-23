@@ -18,7 +18,10 @@ Version：Major.Minor.Patch
 
 #### 🎉 2.11.0 (2022-05-23)
 - 【Fix】
-    - Fix the problem that the return type of useModal typescript is not strict
+    - Fix the problem that the return type of useModal typescript is not strict [#833](https://github.com/DouyinFE/semi-design/issues/833)
+    - Fix the problem that the upload list file does not meet expectations when the directory and draggable are true for the Upload component [#827](https://github.com/DouyinFE/semi-design/issues/827)
+- 【Refactor】
+    - Simplify some types [#838](https://github.com/DouyinFE/semi-design/pull/838) [@huruji](https://github.com/huruji)
 
 #### 🎉 2.11.0-beta.1 (2022-05-20)
 - 【Fix】

@@ -17,7 +17,10 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 #### 🎉 2.11.0 (2022-05-23)
 - 【Fix】
-    - 修复 useModal typescript 返回类型不严谨的问题
+    - 修复 useModal typescript 返回类型不严谨的问题 [#833](https://github.com/DouyinFE/semi-design/issues/833)
+    - 修复Upload组件在directory和draggable为true时上传，上传列表文件不符合预期问题 [#827](https://github.com/DouyinFE/semi-design/issues/827)
+- 【Refactor】
+    - 简化类型声明 [#838](https://github.com/DouyinFE/semi-design/pull/838) [@huruji](https://github.com/huruji)
 
 #### 🎉 2.11.0-beta.1 (2022-05-20)
 - 【Fix】
