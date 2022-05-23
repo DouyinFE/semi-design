@@ -75,6 +75,7 @@ export interface TooltipProps extends BaseProps {
     guardFocus?: boolean;
     returnFocusOnClose?: boolean;
     onEscKeyDown?: (e: React.KeyboardEvent) => void;
+    wrapperId?: string;
 }
 interface TooltipState {
     visible: boolean;
@@ -193,7 +194,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             placement: props.position || 'top',
             transitionStyle: {},
             isPositionUpdated: false,
-            id: getUuidShort(), // auto generate id, will be used by children.aria-describedby & content.id, improve a11y
+            id: props.wrapperId, // auto generate id, will be used by children.aria-describedby & content.id, improve a11y
         };
         this.foundation = new TooltipFoundation(this.adapter);
         this.eventManager = new Event();
@@ -428,6 +429,9 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             },
             notifyEscKeydown: (event: React.KeyboardEvent) => {
                 this.props.onEscKeyDown(event);
+            },
+            setId: () => {
+                this.setState({ id: getUuidShort() });
             }
         };
     }

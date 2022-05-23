@@ -263,7 +263,7 @@ import { TagGroup } from '@douyinfe/semi-ui';
 ### TagGroup
 
 | Properties | Instructions | type | Default | Version |
-| --- | --- | --- | --- | --- |
+| --- | --- | --- | -- | --- |
 | avatarShape | Shape of avatar tag, one of `square` and `circle` | string | `square` | 1.6.0 |
 | className | Class name | string |  |  |
 | maxTagCount | Cap number to display, shown as + N when exceeded | number |  |  |
@@ -271,7 +271,7 @@ import { TagGroup } from '@douyinfe/semi-ui';
 | showPopover | When hover to + N, whether to display the remaining content through Popover | boolean | false |  |
 | size | Size, one of `small`, `large` | string | `small` |  |
 | style | Inline style | CSSProperties |  |  |
-| tagList | Label Group data | (TagProps \| React.ReactNode)[] |  |  |
+| tagList | Label Group data | (TagProps)[] |  |  |
 
 ## Design Tokens
 

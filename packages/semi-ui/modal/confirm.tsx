@@ -5,14 +5,14 @@ import ConfirmModal from './ConfirmModal';
 
 import '@douyinfe/semi-foundation/modal/modal.scss';
 import { get } from 'lodash';
-import { IconAlertTriangle, IconInfoCircle, IconTickCircle, IconHelpCircle, IconAlertCircle } from '@douyinfe/semi-icons';
+import { IconAlertCircle, IconAlertTriangle, IconHelpCircle, IconInfoCircle, IconTickCircle } from '@douyinfe/semi-icons';
 import { Motion } from '../_base/base';
 
-export interface ConfirmProps extends ModalReactProps{
+export interface ConfirmProps extends ModalReactProps {
     type: 'success' | 'info' | 'warning' | 'error' | 'confirm';
 }
 
-export default function confirm(props: ConfirmProps) {
+export default function confirm<T>(props: ConfirmProps) {
     // create a dom in adapter?
     const div = document.createElement('div');
     document.body.appendChild(div);
@@ -51,7 +51,7 @@ export default function confirm(props: ConfirmProps) {
     } : false;
 
     function render(renderProps: ConfirmProps) {
-        ReactDOM.render(<ConfirmModal {...renderProps} motion={mergedMotion} />, div);
+        ReactDOM.render(<ConfirmModal {...renderProps} motion={mergedMotion}/>, div);
     }
 
     function close() {
@@ -62,7 +62,7 @@ export default function confirm(props: ConfirmProps) {
         render(currentConfig);
     }
 
-    function update(newConfig: ConfirmProps) {
+    function update(newConfig: T extends { type: Exclude<ConfirmProps['type'], 'confirm'> } ? ModalReactProps : ConfirmProps) {
         currentConfig = {
             ...currentConfig,
             ...newConfig,
@@ -79,11 +79,10 @@ export default function confirm(props: ConfirmProps) {
 }
 
 
-
 export function withInfo(props: ModalReactProps) {
     return {
         type: 'info' as const,
-        icon: <IconInfoCircle />,
+        icon: <IconInfoCircle/>,
         ...props
     };
 }
@@ -91,7 +90,7 @@ export function withInfo(props: ModalReactProps) {
 export function withSuccess(props: ModalReactProps) {
     return {
         type: 'success' as const,
-        icon: <IconTickCircle />,
+        icon: <IconTickCircle/>,
         ...props
     };
 }
@@ -99,7 +98,7 @@ export function withSuccess(props: ModalReactProps) {
 export function withWarning(props: ModalReactProps) {
     return {
         type: 'warning' as const,
-        icon: <IconAlertTriangle />,
+        icon: <IconAlertTriangle/>,
         ...props
     };
 }
@@ -107,7 +106,7 @@ export function withWarning(props: ModalReactProps) {
 export function withError(props: ModalReactProps) {
     return {
         type: 'error' as const,
-        icon: <IconAlertCircle />,
+        icon: <IconAlertCircle/>,
         ...props
     };
 }
@@ -115,7 +114,7 @@ export function withError(props: ModalReactProps) {
 export function withConfirm(props: ModalReactProps) {
     return {
         type: 'confirm' as const,
-        icon: <IconHelpCircle />,
+        icon: <IconHelpCircle/>,
         ...props
     };
 }

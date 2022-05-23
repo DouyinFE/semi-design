@@ -50,7 +50,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         centered: PropTypes.bool,
         visible: PropTypes.bool,
         width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-        height:  PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         confirmLoading: PropTypes.bool,
         cancelLoading: PropTypes.bool,
         okText: PropTypes.string,
@@ -193,23 +193,23 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
 
 
     static info = function (props: ModalReactProps) {
-        return confirm(withInfo(props));
+        return confirm<ReturnType<typeof withInfo>>(withInfo(props));
     };
 
     static success = function (props: ModalReactProps) {
-        return confirm(withSuccess(props));
+        return confirm<ReturnType<typeof withSuccess>>(withSuccess(props));
     };
 
     static error = function (props: ModalReactProps) {
-        return confirm(withError(props));
+        return confirm<ReturnType<typeof withError>>(withError(props));
     };
 
     static warning = function (props: ModalReactProps) {
-        return confirm(withWarning(props));
+        return confirm<ReturnType<typeof withWarning>>(withWarning(props));
     };
 
     static confirm = function (props: ModalReactProps) {
-        return confirm(withConfirm(props));
+        return confirm<ReturnType<typeof withConfirm>>(withConfirm(props));
     };
 
     static destroyAll = function destroyAllFn() {

@@ -29,9 +29,13 @@ export interface CheckboxProps extends BaseCheckboxProps {
     'aria-label'?: React.AriaAttributes['aria-label'];
     role?: React.HTMLAttributes<HTMLSpanElement>['role']; // a11y: wrapper role
     tabIndex?: number; // a11y: wrapper tabIndex
+    addonId?: string;
+    extraId?: string;
 }
 interface CheckboxState {
     checked: boolean;
+    addonId?: string;
+    extraId?: string;
 }
 class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
     static contextType = Context;
@@ -89,7 +93,13 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
             notifyGroupChange: cbContent => {
                 this.context.checkboxGroup.onChange(cbContent);
             },
-            getGroupDisabled: () => (this.context && this.context.checkboxGroup.disabled)
+            getGroupDisabled: () => (this.context && this.context.checkboxGroup.disabled),
+            setAddonId: () => {
+                this.setState({ addonId: getUuidShort({ prefix: 'addon' }) });
+            },
+            setExtraId: () => {
+                this.setState({ extraId: getUuidShort({ prefix: 'extra' }) });
+            }
         };
     }
 
@@ -103,11 +113,11 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
 
         this.state = {
             checked: props.checked || props.defaultChecked || checked,
+            addonId: props.addonId,
+            extraId: props.extraId,
         };
 
         this.checkboxEntity = null;
-        this.addonId = getUuidShort({ prefix: 'addon' });
-        this.extraId = getUuidShort({ prefix: 'extra' });
         this.foundation = new CheckboxFoundation(this.adapter);
     }
 
@@ -153,7 +163,7 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
             tabIndex,
             id
         } = this.props;
-        const { checked } = this.state;
+        const { checked, addonId, extraId } = this.state;
         const props: Record<string, any> = {
             checked,
             disabled,
@@ -195,8 +205,8 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
 
         const renderContent = () => (
             <>
-                {children ? <span id={this.addonId} className={`${prefix}-addon`}>{children}</span> : null}
-                {extra ? <div id={this.extraId} className={extraCls}>{extra}</div> : null}
+                {children ? <span id={addonId} className={`${prefix}-addon`}>{children}</span> : null}
+                {extra ? <div id={extraId} className={extraCls}>{extra}</div> : null}
             </>
         );
         return (

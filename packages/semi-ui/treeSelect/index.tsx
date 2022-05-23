@@ -826,7 +826,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         const tagList = this.renderTagList();
         // mode=custom to return tagList directly
         return (
-            <TagGroup
+            <TagGroup<'custom'>
                 maxTagCount={maxTagCount}
                 tagList={tagList}
                 size="large"

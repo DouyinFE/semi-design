@@ -64,6 +64,12 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
         rangeSeparator: PropTypes.string,
         insetInput: PropTypes.bool,
         insetInputValue: PropTypes.object,
+        defaultPickerValue: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.number,
+            PropTypes.object,
+            PropTypes.array,
+        ]),
     };
 
     static defaultProps = {
@@ -392,6 +398,7 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
             rangeSeparator,
             insetInput,
             insetInputValue,
+            defaultPickerValue,
             ...rest
         } = this.props;
         const dateIcon = <IconCalendar aria-hidden />;
