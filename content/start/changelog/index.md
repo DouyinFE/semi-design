@@ -15,12 +15,15 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 ---
 
+#### 🎉 2.11.1 (2022-05-24)
+- 【Chore】
+    - 修复 Nav.Item 通过 linkOptions 配置 href 属性时，ts类型检查报错的问题 [#856](https://github.com/DouyinFE/semi-design/issues/856) [@SunriseFox](https://github.com/SunriseFox)
+
 #### 🎉 2.11.0 (2022-05-23)
 - 【Fix】
     - 修复 useModal typescript 返回类型不严谨的问题 [#833](https://github.com/DouyinFE/semi-design/issues/833)
-    - 修复Upload组件在directory和draggable为true时上传，上传列表文件不符合预期问题 [#827](https://github.com/DouyinFE/semi-design/issues/827)
-- 【Refactor】
-    - 简化类型声明 [#838](https://github.com/DouyinFE/semi-design/pull/838) [@huruji](https://github.com/huruji)
+- 【Chore】
+    - 简化部分组件的 interface 类型声明 [#838](https://github.com/DouyinFE/semi-design/pull/838) [@huruji](https://github.com/huruji)
 
 #### 🎉 2.11.0-beta.1 (2022-05-20)
 - 【Fix】
@@ -38,8 +41,8 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 - 【Fix】
     - 修复内嵌输入框确认日期选择，输入日期后没有确认也会直接选中日期问题  [#742](https://github.com/DouyinFE/semi-design/issues/742)
     - 修复 React 18 createRoot + strictMode 严格模式下，使用 Form、Tabs、Nav 、SideSheet 、Table 组件时提示 `can't get properties of undefined` 的问题 #745  [#795 ](https://github.com/DouyinFE/semi-design/issues/795)
-    - 修复 Upload 组件在 directory 和 draggable 为true时上传，上传列表文件不符合预期问题  [#827 ](https://github.com/DouyinFE/semi-design/issues/827)
-    - 修复单个 Checkbox使用时因为参数类型问题导致控制台出现warning提示
+    - 修复 Upload 组件在 directory 和 draggable 为true时上传，上传列表文件不符合预期问题  [#827](https://github.com/DouyinFE/semi-design/issues/827)
+    - 修复单个 Checkbox 使用时因为参数类型问题导致控制台出现warning提示
     - 修复 Checkbox、Radio、Tooltip ARIA id 在 SSR 时不一致问题  [#719](https://github.com/DouyinFE/semi-design/issues/719)
     - 规范 TagGroup tagList props 类型
 
