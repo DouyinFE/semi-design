@@ -26,7 +26,7 @@ export interface CardProps {
     bordered?: boolean;
     /** Style class name */
     className?: string;
-    children?: React.ReactNode | undefined;
+    children?: React.ReactNode;
     /** Cover */
     cover?: ReactNode;
     /** Additional additions to the right of the title */

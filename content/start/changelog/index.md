@@ -15,9 +15,21 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 ---
 
+#### 🎉 2.11.0 (2022-05-23)
+- 【Fix】
+    - 修复 useModal typescript 返回类型不严谨的问题 [#833](https://github.com/DouyinFE/semi-design/issues/833)
+    - 修复Upload组件在directory和draggable为true时上传，上传列表文件不符合预期问题 [#827](https://github.com/DouyinFE/semi-design/issues/827)
+    - 简化类型声明 [#838](https://github.com/DouyinFE/semi-design/pull/838) [@huruji](https://github.com/huruji)
+
 #### 🎉 2.11.0-beta.1 (2022-05-20)
 - 【Fix】
   -  修复 DatePicker 错误引用 _utils/parse ts源文件导致报错的问题
+
+#### 🎉 2.10.2 (2022-05-20)
+- 【Fix】
+    - 修复 Table onHeaderRow 在配置 scroll 属性时不生效问题  [#849](https://github.com/DouyinFE/semi-design/issues/849)
+    - 修复 Select aria-controls 在 SSR 场景不一致问题  [#840](https://github.com/DouyinFE/semi-design/issues/840)
+
 #### 🎉 2.11.0-beta.0 (2022-05-18)
 - 【Feat】
     - DatePicker 内嵌输入框输入完整日期后，时间输入框自动填充默认时间  [#294](https://github.com/DouyinFE/semi-design/issues/294)

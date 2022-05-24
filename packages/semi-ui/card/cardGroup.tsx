@@ -11,7 +11,7 @@ export type CardGroupType = 'grid';
 export interface CardGroupProps {
     /** Card group style class name */
     className?: string;
-    children?: React.ReactNode | undefined;
+    children?: React.ReactNode;
     /** Card Spacing */
     spacing?: number | number[];
     /** Card group inline style */

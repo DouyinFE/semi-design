@@ -20,7 +20,7 @@ export { CollapsePanelProps } from './item';
 export interface CollapseReactProps extends CollapseProps{
     expandIcon?: React.ReactNode;
     collapseIcon?: React.ReactNode;
-    children?: React.ReactNode | undefined;
+    children?: React.ReactNode;
     style?: CSSProperties;
     onChange?: (activeKey: CollapseProps['activeKey'], e: React.MouseEvent) => void;
 }

@@ -28,6 +28,7 @@ import { isSemiIcon } from '../_utils';
 import { Subtract } from 'utility-types';
 
 import warning from '@douyinfe/semi-foundation/utils/warning';
+import { getUuidShort } from '@douyinfe/semi-foundation/utils/uuid';
 
 import '@douyinfe/semi-foundation/select/select.scss';
 import { Locale } from '../locale/interface';
@@ -50,7 +51,7 @@ type ExcludeInputType = {
 type OnChangeValueType = string | number | Record<string, any>;
 export interface optionRenderProps {
     key?: any;
-    label?: string | React.ReactNode | number;
+    label?: React.ReactNode;
     value?: string | number;
     style?: React.CSSProperties;
     className?: string;
@@ -340,7 +341,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             isHovering: false,
         };
         /* Generate random string */
-        this.selectOptionListID = Math.random().toString(36).slice(2);
+        this.selectOptionListID = '';
         this.virtualizeListRef = React.createRef();
         this.inputRef = React.createRef();
         this.triggerRef = React.createRef();
@@ -559,6 +560,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
 
     componentDidMount() {
         this.foundation.init();
+        this.selectOptionListID = getUuidShort();
     }
 
     componentWillUnmount() {

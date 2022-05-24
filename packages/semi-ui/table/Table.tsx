@@ -1089,6 +1089,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             components,
             headerRef,
             bodyRef,
+            onHeaderRow,
             rowSelection,
             dataSource,
             bodyHasScrollBar,
@@ -1110,6 +1111,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
                     scroll={scroll}
                     showHeader={showHeader}
                     selectedRowKeysSet={selectedRowKeysSet}
+                    onHeaderRow={onHeaderRow}
                     dataSource={dataSource}
                     bodyHasScrollBar={bodyHasScrollBar}
                 />

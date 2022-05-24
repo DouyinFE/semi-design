@@ -16,9 +16,21 @@ Version：Major.Minor.Patch
 
 ---
 
+#### 🎉 2.11.0 (2022-05-23)
+- 【Fix】
+    - Fix the problem that the return type of useModal typescript is not strict [#833](https://github.com/DouyinFE/semi-design/issues/833)
+    - Fix the problem that the upload list file does not meet expectations when the directory and draggable are true for the Upload component [#827](https://github.com/DouyinFE/semi-design/issues/827)
+    - Simplify some types [#838](https://github.com/DouyinFE/semi-design/pull/838) [@huruji](https://github.com/huruji)
+
 #### 🎉 2.11.0-beta.1 (2022-05-20)
 - 【Fix】
   -  Fixed the issue that DatePicker incorrectly referenced the _utils/parse ts source file, resulting in an error
+
+#### 🎉 2.10.2 (2022-05-20)
+- 【Fix】
+    - Fixed  Table onHeaderRow does not take effect when setting scroll prop  [#849](https://github.com/DouyinFE/semi-design/issues/849)
+    - Fixed Select aria-controls are inconsistent in SSR scenarios  [#840](https://github.com/DouyinFE/semi-design/issues/840)
+
 #### 🎉 2.11.0-beta.0 (2022-05-18)
 - 【Feat】
     - After entering the full date in the DatePicker inset input box, the time input box automatically fills the default time  [#294](https://github.com/DouyinFE/semi-design/issues/294)

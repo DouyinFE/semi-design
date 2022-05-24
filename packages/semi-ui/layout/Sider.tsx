@@ -38,7 +38,7 @@ export interface SiderProps {
     prefixCls?: string;
     style?: CSSProperties;
     className?: string;
-    children?: React.ReactNode | undefined;
+    children?: React.ReactNode;
     breakpoint?: Array<keyof ResponsiveMap>;
     onBreakpoint?: (screen: keyof ResponsiveMap, match: boolean) => void;
     'aria-label'?: React.AriaAttributes['aria-label'];

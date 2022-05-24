@@ -23,7 +23,7 @@ export type Directions = 'ltr' | 'rtl';
 
 export interface ModalReactProps extends ModalProps {
     cancelButtonProps?: ButtonProps;
-    children?: React.ReactNode | undefined;
+    children?: React.ReactNode;
     okButtonProps?: ButtonProps;
     bodyStyle?: CSSProperties;
     maskStyle?: CSSProperties;

@@ -12,7 +12,7 @@ export interface CollapsePanelProps {
     extra?: ReactNode;
     header?: ReactNode;
     className?: string;
-    children?: React.ReactNode | undefined;
+    children?: React.ReactNode;
     reCalcKey?: number | string;
     style?: CSSProperties;
 }

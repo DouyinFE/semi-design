@@ -6,7 +6,7 @@ import classnames from 'classnames';
 
 import ColGroup from './ColGroup';
 import TableHeader from './TableHeader';
-import { Fixed, TableComponents, Scroll, BodyScrollEvent, ColumnProps } from './interface';
+import { Fixed, TableComponents, Scroll, BodyScrollEvent, ColumnProps, OnHeaderRow } from './interface';
 
 export interface HeadTableProps {
     [x: string]: any;
@@ -23,6 +23,7 @@ export interface HeadTableProps {
     selectedRowKeysSet: Set<any>;
     showHeader?: boolean;
     onDidUpdate?: (ref: React.MutableRefObject<any>) => void;
+    onHeaderRow?: OnHeaderRow<any>;
 }
 
 /**
@@ -46,6 +47,7 @@ class HeadTable extends React.PureComponent<HeadTableProps> {
         selectedRowKeysSet: PropTypes.instanceOf(Set).isRequired, // Useful when update is selected
         showHeader: PropTypes.bool,
         onDidUpdate: PropTypes.func,
+        onHeaderRow: PropTypes.func,
     };
 
     static defaultProps = {

@@ -1601,20 +1601,20 @@
     lodash-es "^4.17.21"
     react-i18next "^11.12.0"
 
-"@douyinfe/semi-site-markdown-blocks@^0.0.6":
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/@douyinfe/semi-site-markdown-blocks/-/semi-site-markdown-blocks-0.0.6.tgz#b63425a8dc1c480250c32ee02f336bd91e90748e"
-  integrity sha512-IyxwZq8T6jyWTam1cNHgmW2X0Zop85+AZ5U0kWWzYwGSXObq5SI6eJcas+Oa+kGlfu609ZRVFiJwNg/NK9dK5A==
+"@douyinfe/semi-site-markdown-blocks@^0.0.7":
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/@douyinfe/semi-site-markdown-blocks/-/semi-site-markdown-blocks-0.0.7.tgz#4377224a2e9d2e7ef9bbfaa10430033feb748f63"
+  integrity sha512-LP6wQCyTsA7bE6bFSrnyQS7+VdmbW8llCA23KqqlM9y/LF4NJqoNkLP0K0PeLqMVRdEfgvreNKRwIsBdHFL4+A==
   dependencies:
-    "@douyinfe/semi-site-playground" "0.0.6"
+    "@douyinfe/semi-site-playground" "0.0.7"
     classnames "^2.2.6"
     prism-react-renderer "^1.0.1"
     prop-types "^15.7.2"
 
-"@douyinfe/semi-site-playground@0.0.6":
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/@douyinfe/semi-site-playground/-/semi-site-playground-0.0.6.tgz#65f13acc91bf6a4b33e2875b2ad4268fca7cc2a4"
-  integrity sha512-OSD2K4Z5npKZDRjo8unbuIZ9dwyYCcDaJGr8FyXnV+aCJB8STmMBEUUpAr8bv5L0qJKZq+0ha5VfqnnHdEmnTg==
+"@douyinfe/semi-site-playground@0.0.7":
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/@douyinfe/semi-site-playground/-/semi-site-playground-0.0.7.tgz#5be45ca2d87420200bc52c730cf37a77f5d4d586"
+  integrity sha512-JhzHshDEfLBmc1sxTyGgbvpADIMxLBaq83LnizsPYUfbwmA97j2oJPftyQuktMZIWAl1Yl90cvAX4iIBb7XlhQ==
   dependencies:
     "@douyinfe/semi-icons" "^2.0.0"
     "@douyinfe/semi-ui" "^2.0.0"

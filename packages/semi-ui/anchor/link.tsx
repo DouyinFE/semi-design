@@ -11,9 +11,9 @@ const prefixCls = cssClasses.PREFIX;
 
 export interface LinkProps {
     href?: string;
-    title?: string | React.ReactNode;
+    title?: ReactNode;
     className?: string;
-    children?: ReactNode | undefined;
+    children?: ReactNode;
     style?: React.CSSProperties;
     disabled?: boolean;
 }
