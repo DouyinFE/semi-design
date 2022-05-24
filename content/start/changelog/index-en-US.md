@@ -16,7 +16,7 @@ Version：Major.Minor.Patch
 
 ---
 
-#### 🎉 2.11.1 (2022-05-24)
+#### 🎉 2.11.2 (2022-05-24)
 - 【Chore】
     - Fixed the problem that ts type check reported an error when Nav.Item configures the href attribute through linkOptions [#856](https://github.com/DouyinFE/semi-design/issues/856) [@SunriseFox](https://github.com/SunriseFox)
 

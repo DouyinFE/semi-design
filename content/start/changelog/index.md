@@ -15,7 +15,8 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 ---
 
-#### 🎉 2.11.1 (2022-05-24)
+
+#### 🎉 2.11.2 (2022-05-24)
 - 【Chore】
     - 修复 Nav.Item 通过 linkOptions 配置 href 属性时，ts类型检查报错的问题 [#856](https://github.com/DouyinFE/semi-design/issues/856) [@SunriseFox](https://github.com/SunriseFox)
 
