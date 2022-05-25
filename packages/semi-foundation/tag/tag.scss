@@ -46,7 +46,7 @@ $types: "ghost", "solid", "light";
     &-close {
         @include all-center;
         color: $color-tag_close-icon-default;
-        padding-left: $spacing-tag_close-paddingLeft; 
+        padding-left: $spacing-tag_close-paddingLeft;
         cursor: pointer;
     }
 
@@ -177,6 +177,12 @@ $types: "ghost", "solid", "light";
     background-color: $color-tag_avatar-bg-default;
     border: $width-tag_avatar-border solid $color-tag_avatar-border-default;
     color: $color-tag_avatar-text-default;
+}
+
+.#{$module}-solid {
+  .#{$module}-close {
+    color: $color-tag_close-icon_deep-default;
+  }
 }
 
 @import "./rtl.scss";
