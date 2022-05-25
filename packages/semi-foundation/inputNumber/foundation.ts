@@ -294,7 +294,8 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
     }
 
     handleUpClick(event: any) {
-        if (!this._isMouseButtonLeft(event)) {
+        const { readonly } = this.getProps();
+        if (!this._isMouseButtonLeft(event) || readonly) {
             return;
         }
         this._adapter.setClickUpOrDown(true);
@@ -314,7 +315,8 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
     }
 
     handleDownClick(event: any) {
-        if (!this._isMouseButtonLeft(event)) {
+        const { readonly } = this.getProps();
+        if (!this._isMouseButtonLeft(event) || readonly) {
             return;
         }
         this._adapter.setClickUpOrDown(true);
