@@ -44,6 +44,8 @@ $color-tabs_tab-icon-hover: var(--semi-color-text-0); // 页签图标颜色 - �
 $color-tabs_tab-icon-active: var(--semi-color-text-0); // 页签图标颜色 - 按下
 $color-tabs_tab_selected-icon-default: var(--semi-color-primary); // 页签图标颜色 - 选中
 
+$color-tabs_tab-outline-focus: var(--semi-color-primary-light-active); // 页签轮廓 - 聚焦
+
 
 $font-tabs_tab-fontWeight: $font-weight-regular; // 页签文本字重 - 默认
 $font-tabs_tab_active-fontWeight: $font-weight-bold; // 页签文本字重 - 选中
@@ -54,6 +56,9 @@ $width-tabs_bar_line-border: $border-thickness-control; // 线条式页签底部
 $width-tabs_bar_line_tab-border: 2px; // 页签标示线宽度
 
 $width-tabs_bar_card-border: $border-thickness-control; // 卡片式页签底部分割线宽度
+$width-tabs-outline: 2px; // 聚焦轮廓宽度
+$width-tabs-outline-offset: -2px; // 聚焦轮廓偏移宽度
+$width-tabs_bar_line-outline-offset: -1px; // 线条式页签聚焦轮廓偏移宽度
 
 $height-tabs_bar_extra_large: 50px; // 大尺寸页签高度
 $font-tabs_bar_extra_large-lineHeight: $height-tabs_bar_extra_large; // 大尺寸页签文字行高
