@@ -731,7 +731,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         let renderKeys = [];
         if (checkRelation === 'related') {
             renderKeys = normalizeKeyList([...checkedKeys], keyEntities, leafOnly);
-        } else if (checkRelation === 'unRelated') {
+        } else if (checkRelation === 'unRelated' && Object.keys(keyEntities).length > 0) {
             renderKeys = [...realCheckedKeys];
         }
         const tagList: Array<React.ReactNode> = [];
