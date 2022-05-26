@@ -568,12 +568,28 @@ closable | whether user can close the tab **>=2.1.0** | boolean | false |
   - TabBar has a role of `tablist`
   - Tab in TabBar has a role of `tab`
   - TabPane has a role of `tabpanel`
-
-- aria-orientation: Indicates TabBar's orientation, can be `vertical` or `horizontal`. When tabPosition is `left`, aria-orientation will be `vertical`, when tabPosition is `top`, aria-orientation will be `horizontal`.
+- aria-orientation: Indicates TabBar's orientation, can be `vertical` or `horizontal`. When tabPosition is `left`,aria-orientation will be `vertical`, when tabPosition is `top`, aria-orientation will be `horizontal`.
 - aria-disabled: When TabPane is disabled, the related Tab's aria-disabled will be set to true.
 - aria-selected: Indicates whether the Tab is selected.
 - aria-controls: Indicates the TabPane controlled by the Tab
 - aria-labelledby: Indicates the element labels the TabPane
+
+### Keyboard and Focus
+WAI-ARIA: https://www.w3.org/WAI/ARIA/apg/patterns/tabpanel/
+- Tabs can be given focus, except for disabled tabs
+- Keyboard users can use the `Tab` key to move the focus to the tab panel of the selected tab element
+- Use `left and right arrows` to toggle options when focus is on a tab element in a horizontal tab list
+- Use `up and down arrows` to toggle options when focus is on a tab element in a vertical tab list
+- When the focus is on an inactive tab element in the tab list, the `Space` or `Enter` keys can be used to activate the tab
+- When keyboard users want to focus directly on the last tab element in the tab list:
+  - Mac users: `fn` + `right arrow`
+  - Windows users: `End`
+- When keyboard users want to focus directly on the first tab element in the tab list:
+  - Mac users: `fn` + `left arrow`
+  - Windows users: `Home`
+- When a tab is allowed to be deleted:
+  - Mac users can use `fn` + `Delete` keys to delete tabs, Windows users use `Delete` keys
+  - After deletion, the focus is transferred to the next element of the deleted tab element; if the deleted element has no subsequent element, it is transferred to the previous element
 
 ## Design Token
 
