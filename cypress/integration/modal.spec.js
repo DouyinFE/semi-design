@@ -32,4 +32,10 @@ describe('modal', () => {
         cy.get(".semi-modal").should("not.exist");
         cy.get(".semi-tag").first().contains("true");
     });
+
+    it('useModal FocusTrap',()=>{
+        cy.visit("http://localhost:6006/?path=/story/modal--default");
+        cy.get(".semi-button").click();
+        cy.get('input').should('eq',document.activeElement);
+    });
 });

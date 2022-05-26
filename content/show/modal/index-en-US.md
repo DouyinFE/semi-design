@@ -651,6 +651,22 @@ You could use Modal.destroyAll() to destroy Modal that created by methods above 
 -   `Modal.useModal` **v>=1.2.0**  
 When you need access Context, you could use `Modal.useModal` to create a `contextHolder` and insert to corresponding DOM tree. Modal created by hooks will be able to access the context where `contextHolder` is inserted. Hook modal shares the same methods with Modal.method.
 
+
+### ARIA
+
+- Modal role set to `dialog`
+- aria-modal is set to true
+- aria-labelledby corresponds to Modal header
+- aria-describedby corresponds to Modal body
+
+### Keyboard and focus
+WAI-ARIA: https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog/
+- Modal automatically gets the focus when it is popped up, and when it is closed, the focus automatically returns to the element before it was opened.
+- Keyboard users can use the `Tab` key and `Shift + Tab` to move the focus within the Modal, including the Modal's own close button and OK cancel button. At this time, the elements behind the Modal cannot be tab-focused.
+- By passing `autoFocus:true` in `okButtonProps` and `cancelButtonProps` to make the focus automatically focus on the confirm or cancel button when Modal is opened.
+- AutoFocus can be added to the form element that needs to be focused in the Modal content to automatically focus on that element when the Modal is opened
+
+
 ## Design Tokens
 <DesignToken/>
 

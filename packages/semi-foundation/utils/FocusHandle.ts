@@ -45,7 +45,7 @@ class FocusTrapHandle {
                 return [];
             }
         })();
-        document.addEventListener('keydown', this.onKeyPress);
+        this.container.addEventListener('keydown', this.onKeyPress);
     }
 
     public addFocusRedirectListener = (listener: FocusRedirectListener) => {
@@ -66,7 +66,7 @@ class FocusTrapHandle {
     }
 
     public destroy = () => {
-        document.removeEventListener('keydown', this.onKeyPress);
+        this.container?.removeEventListener('keydown', this.onKeyPress);
     }
 
     // ---- private func ----
