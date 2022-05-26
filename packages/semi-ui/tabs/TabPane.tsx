@@ -96,7 +96,6 @@ class TabPane extends PureComponent<TabPaneProps> {
                 className={classNames}
                 style={style}
                 aria-hidden={active ? 'false' : 'true'}
-                tabIndex={0}
                 {...getDataAttr(restProps)}
             >
                 {motion ? (
