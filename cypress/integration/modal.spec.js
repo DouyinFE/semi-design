@@ -33,9 +33,19 @@ describe('modal', () => {
         cy.get(".semi-tag").first().contains("true");
     });
 
-    it('useModal FocusTrap',()=>{
-        cy.visit("http://localhost:6006/?path=/story/modal--default");
+    it.only('useModal FocusTrap',()=>{
+        cy.visit("http://localhost:6006/iframe.html?id=modal--default&viewMode=story");
         cy.get(".semi-button").click();
-        cy.get('input').should('eq',document.activeElement);
+        cy.get('input').should('be.focused');
+
+        cy.get('input').tab();
+        cy.contains('hide dialog').should('be.focused');
+        cy.contains('确定').focus();
+        cy.contains('确定').tab();
+
+        cy.get('button[aria-label=close]').should('be.focused');
+        cy.get('button[aria-label=close]').tab({ shift:true });
+        cy.contains('确定').should('be.focused');
+
     });
 });
