@@ -60,6 +60,7 @@ class modalDemo extends React.Component {
                     onOk={this.handleOk}
                     afterClose={this.handleAfterClose} //>=1.16.0
                     onCancel={this.handleCancel}
+                    closeOnEsc={true}
                 >
                     This is the content of a basic modal.
                     <br/>
@@ -658,19 +659,20 @@ modal.destroy();
 -   `Modal.useModal` **v>=1.2.0**  
 当你需要使用 Context 时，可以通过 Modal.useModal 创建一个 contextHolder 插入相应的节点中。此时通过 hooks 创建的 Modal 将会得到 contextHolder 所在位置的所有上下文。创建的 modal 对象拥有与 [Modal.method](#Modal.method()) 相同的创建通知方法。
 
-### ARIA
+## Accessibility
 
+### ARIA
+WAI-ARIA: https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog/
 - role 设置为 `dialog`
 - aria-modal 设置为 true
 - aria-labelledby 对应 Modal header
 - aria-describedby 对应 Modal body
 
 ### 键盘和焦点
-WAI-ARIA: https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog/
 - Modal 在弹出时自动获得焦点，关闭时焦点自动回归到打开前元素。
 - 键盘用户可以使用 `Tab` 键和 `Shift + Tab`，将焦点在 Modal 内移动，包括 Modal 自带的关闭按钮和确定取消按钮，此时 Modal 背后元素不可被 tab 聚焦。
-- 可通过 `okButtonProps` 和 `cancelButtonProps` 中传入 `autoFocus:true` 来让 Modal 打开时焦点自动聚焦在确认或取消按钮上。
 - 可通过在 Modal 内容中需要聚焦的表单元素上添加 autoFocus 来让 Modal 打开时自动聚焦到该元素
+- 我们建议设置 closeOnEsc 为 true，允许用户通过键盘直接关闭 Modal 带来更好的体验
 
 
 
