@@ -588,7 +588,7 @@ WAI-ARIA: https://www.w3.org/WAI/ARIA/apg/patterns/tabpanel/
   - Mac users: `fn` + `left arrow`
   - Windows users: `Home`
 - When a tab is allowed to be deleted:
-  - Mac users can use `fn` + `Delete` keys to delete tabs, Windows users use `Delete` keys
+  - Users can use `Delete` keys to delete tab
   - After deletion, the focus is transferred to the next element of the deleted tab element; if the deleted element has no subsequent element, it is transferred to the previous element
 
 ## Design Token

@@ -7,11 +7,15 @@ $color-tag_white-border-default: rgba(var(--semi-grey-2), 0.7); // 白色标签�
 $color-tag_white-text-default: var(--semi-color-text-0); // 白色标签文字颜色 - 默认
 $color-tag_white-icon-default: var(--semi-color-text-2); // 白色标签图标颜色 - 默认
 
+$color-tag-outline-focus: var(--semi-color-primary-light-active); // 标签轮廓 - 聚焦
+
 $width-tag_avatar_circle_small: 16px; // 头像标签圆角 - 小尺寸
 $width-tag_avatar_circle_large: 20px; // 头像标签圆角 - 大尺寸
 
 $width-tag-border: 1px; // 标签描边宽度
 $width-tag_avatar-border: $width-tag-border; // 头像标签描边宽度
+
+$width-tag-outline: 2px; // 标签轮廓宽度
 
 $height-tag_small: 20px; // 小尺寸标签高度
 $height-tag_large: 24px; // 大尺寸标签高度

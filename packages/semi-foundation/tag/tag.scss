@@ -25,12 +25,18 @@ $types: "ghost", "solid", "light";
         @include font-size-small;
         height: $height-tag_small;
         padding: $spacing-tag_small-paddingY $spacing-tag_small-paddingX;
+        &:focus-visible {
+            outline: $width-tag-outline solid $color-tag-outline-focus;
+        }
     }
 
     &-large {
         @include font-size-small;
         padding: $spacing-tag_large-paddingY $spacing-tag_large-paddingX;
         height: $height-tag_large;
+        &:focus-visible {
+            outline: $width-tag-outline solid $color-tag-outline-focus;
+        }
     }
 
     &-invisible {
@@ -51,7 +57,8 @@ $types: "ghost", "solid", "light";
     }
 
     &-closable {
-        padding: $spacing-tag_closable-paddingTop $spacing-tag_closable-paddingRight $spacing-tag_closable-paddingBottom $spacing-tag_closable-paddingLeft;
+        padding: $spacing-tag_closable-paddingTop $spacing-tag_closable-paddingRight $spacing-tag_closable-paddingBottom
+            $spacing-tag_closable-paddingLeft;
     }
 
     &-avatar-square,
@@ -62,10 +69,10 @@ $types: "ghost", "solid", "light";
     }
 
     &-avatar-square {
-        padding: $spacing-tag_avatar_square-paddingTop $spacing-tag_avatar_square-paddingRight $spacing-tag_avatar_square-paddingBottom $spacing-tag_avatar_square-paddingLeft;
+        padding: $spacing-tag_avatar_square-paddingTop $spacing-tag_avatar_square-paddingRight
+            $spacing-tag_avatar_square-paddingBottom $spacing-tag_avatar_square-paddingLeft;
 
         .#{$prefix}-avatar {
-
             & > img {
                 background-color: $color-tag_avatar_square_img-bg-default;
             }
@@ -73,10 +80,12 @@ $types: "ghost", "solid", "light";
     }
 
     &-avatar-circle {
-        padding: $spacing-tag_avatar_circle-paddingTop $spacing-tag_avatar_circle-paddingRight $spacing-tag_avatar_circle-paddingBottom $spacing-tag_avatar_circle-paddingLeft;
+        padding: $spacing-tag_avatar_circle-paddingTop $spacing-tag_avatar_circle-paddingRight
+            $spacing-tag_avatar_circle-paddingBottom $spacing-tag_avatar_circle-paddingLeft;
     }
 
-    &-avatar-square.#{$module}-default, &-avatar-square.#{$module}-small {
+    &-avatar-square.#{$module}-default,
+    &-avatar-square.#{$module}-small {
         .#{$prefix}-avatar {
             width: $height-tag_small;
             height: $height-tag_small;
@@ -180,9 +189,9 @@ $types: "ghost", "solid", "light";
 }
 
 .#{$module}-solid {
-  .#{$module}-close {
-    color: $color-tag_close-icon_deep-default;
-  }
+    .#{$module}-close {
+        color: $color-tag_close-icon_deep-default;
+    }
 }
 
-@import "./rtl.scss";
+@import './rtl.scss';

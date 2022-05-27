@@ -90,6 +90,7 @@ class TabsFoundation<P = Record<string, any>, S = Record<string, any>> extends B
             case "ArrowDown":
                 this.determineOrientation(event, tabs);
                 break;
+            case "Backspace":
             case "Delete":
                 this.handleDeleteKeyDown(event, tabs, itemKey, closable);
                 break;

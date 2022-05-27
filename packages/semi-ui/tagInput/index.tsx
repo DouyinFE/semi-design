@@ -328,6 +328,7 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
                         closable={!disabled}
                         key={`${index}${value}`}
                         visible
+                        aria-label={`${!disabled ? 'Closable ' : ''}Tag: ${value}`}
                     >
                         <Paragraph
                             className={typoCls}
