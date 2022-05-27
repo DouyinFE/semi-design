@@ -59,6 +59,7 @@ export interface TextAreaState {
     height: number;
     minLength: number;
     cachedValue?: string;
+    isEdit: boolean;
 }
 
 class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
@@ -111,6 +112,7 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
             isHover: false,
             height: 0,
             minLength: props.minLength,
+            isEdit: false,
         };
         this.focusing = false;
         this.foundation = new TextAreaFoundation(this.adapter);
@@ -130,6 +132,7 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
             getRef: () => this.libRef,
             toggleFocusing: (focusing: boolean) => this.setState({ isFocus: focusing }),
             toggleHovering: (hovering: boolean) => this.setState({ isHover: hovering }),
+            toggleEditing: (editing: boolean) => this.setState({ isEdit: editing }),
             notifyChange: (val: string, e: React.MouseEvent<HTMLTextAreaElement>) => {
                 this.props.onChange(val, e);
             },
@@ -243,12 +246,7 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
                 }
             );
             counter = (
-                <div
-                    aria-label="Textarea value length counter"
-                    aria-valuemax={maxCount}
-                    aria-valuenow={current}
-                    className={countCls}
-                >
+                <div className={countCls}>
                     {current}{total ? '/' : null}{total}
                 </div>
             );

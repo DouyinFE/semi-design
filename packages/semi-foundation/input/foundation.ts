@@ -4,6 +4,7 @@ import { noop, set, isNumber, isString, isFunction } from 'lodash';
 
 import isEnterPress from '../utils/isEnterPress';
 import { ENTER_KEY } from './../utils/keyCode';
+import getSelections from './util/getSelections';
 
 export interface InputDefaultAdapter {
     notifyChange: noopFunction;
@@ -24,6 +25,7 @@ export interface InputAdapter extends Partial<DefaultAdapter>, Partial<InputDefa
     notifyEnterPress(e: any): void;
     setPaddingLeft(paddingLeft: string): void;
     isEventTarget(e: any): boolean;
+    toggleEditing(isEdit: boolean): void;
 }
 
 class InputFoundation extends BaseFoundation<InputAdapter> {
@@ -238,12 +240,19 @@ class InputFoundation extends BaseFoundation<InputAdapter> {
     handleBlur(e: any) {
         const { value } = this.getStates();
         this._adapter.toggleFocusing(false);
+        this._adapter.toggleEditing(false);
         this._adapter.notifyBlur(value, e);
     }
 
     handleFocus(e: any) {
         const { value } = this.getStates();
         this._adapter.toggleFocusing(true);
+        const selections = getSelections(e);
+        if (selections && selections.selectionStart === selections.selectionEnd) {
+            this._adapter.toggleEditing(true);
+        } else {
+            this._adapter.toggleEditing(false);
+        }
         // this.checkAllowClear(this.getState('value'), true);
         this._adapter.notifyFocus(value, e);
     }
@@ -272,9 +281,9 @@ class InputFoundation extends BaseFoundation<InputAdapter> {
     }
 
     isAllowClear() {
-        const { value, isFocus, isHovering } = this._adapter.getStates();
+        const { value, isEdit, isHovering } = this._adapter.getStates();
         const { showClear, disabled } = this._adapter.getProps();
-        const allowClear = value && showClear && !disabled && (isFocus || isHovering);
+        const allowClear = value && showClear && !disabled && (isEdit || isHovering);
         return allowClear;
     }
 

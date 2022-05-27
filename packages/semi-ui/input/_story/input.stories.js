@@ -22,6 +22,7 @@ import {
   Switch,
   Form,
   Space,
+  Radio
 } from '../../index';
 import './input.scss';
 import RTLWrapper from '../../configProvider/_story/RTLDirection/RTLWrapper';
@@ -907,3 +908,29 @@ export const TextAreaAutosize = () => {
   )
 };
 TextAreaAutosize.storyName = "textarea autosize";
+
+export const InputA11y = () => {
+  return (
+    <div style={{ width: 300 }}>
+      <Input prefix="search" value="Semi Design" showClear />
+      <br/><br/>
+      <Input prefix="search" value="Semi Design" showClear suffix="semi" />
+      <br/><br/>
+      <Input value="Semi Design" mode="password" showClear />
+      <br/><br/>
+      <Input value="Semi Design" mode="password" showClear suffix="semi" />
+      <br/><br/>
+      <Input value='semi' validateStatus='warning' showClear></Input>
+      <br/><br/>
+      <Input value='semi' validateStatus='error' showClear></Input>
+      <br/><br/>
+      <TextArea defaultValue='semi' showClear />
+      <textarea defaultValue='semi' />
+      <InputGroup label={{ text: '成绩信息' }}>
+          <Input placeholder="Name" style={{ width: 100 }} />
+          <Input placeholder="Score" style={{ width: 140 }} />
+      </InputGroup>
+    </div>
+  );
+}
+InputA11y.storyName = "input a11y";

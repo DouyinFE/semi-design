@@ -76,6 +76,7 @@ export interface InputState {
     isHovering: boolean;
     eyeClosed: boolean;
     minLength: number;
+    isEdit: boolean;
 }
 
 class Input extends BaseComponent<InputProps, InputState> {
@@ -161,6 +162,7 @@ class Input extends BaseComponent<InputProps, InputState> {
             isHovering: false,
             eyeClosed: props.mode === 'password',
             minLength: props.minLength,
+            isEdit: false,
         };
         this.inputRef = React.createRef();
         this.prefixRef = React.createRef();
@@ -183,6 +185,12 @@ class Input extends BaseComponent<InputProps, InputState> {
                 this.setState({ isFocus });
             },
             toggleHovering: (isHovering: boolean) => this.setState({ isHovering }),
+            toggleEditing: (isEdit: boolean) => {
+                const { isEdit: stateIsEdit } = this.state;
+                if (isEdit !== stateIsEdit) {
+                    this.setState({ isEdit });
+                }
+            },
             getIfFocusing: () => this.state.isFocus,
             notifyChange: (cbValue: string, e: React.ChangeEvent<HTMLInputElement>) => this.props.onChange(cbValue, e),
             notifyBlur: (val: string, e: React.FocusEvent<HTMLInputElement>) => this.props.onBlur(e),
@@ -313,11 +321,11 @@ class Input extends BaseComponent<InputProps, InputState> {
     }
 
     renderModeBtn() {
-        const { value, isFocus, isHovering, eyeClosed } = this.state;
+        const { value, isEdit, isHovering, eyeClosed } = this.state;
         const { mode, disabled } = this.props;
         const modeCls = cls(`${prefixCls}-modebtn`);
         const modeIcon = eyeClosed ? <IconEyeClosedSolid /> : <IconEyeOpened />;
-        const showModeBtn = mode === 'password' && value && !disabled && (isFocus || isHovering);
+        const showModeBtn = mode === 'password' && value && !disabled && (isEdit || isHovering);
         const ariaLabel = eyeClosed ? 'Show password' : 'Hidden password';
         if (showModeBtn) {
             return (
@@ -356,9 +364,9 @@ class Input extends BaseComponent<InputProps, InputState> {
     }
 
     showClearBtn() {
-        const { value, isFocus, isHovering } = this.state;
+        const { value, isEdit, isHovering } = this.state;
         const { disabled, showClear } = this.props;
-        return Boolean(value) && showClear && !disabled && (isFocus || isHovering);
+        return Boolean(value) && showClear && !disabled && (isEdit || isHovering);
     }
 
     renderSuffix(suffixAllowClear: boolean) {

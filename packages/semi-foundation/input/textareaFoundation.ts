@@ -8,6 +8,7 @@ import {
 import calculateNodeHeight from './util/calculateNodeHeight';
 import getSizingData from './util/getSizingData';
 import isEnterPress from '../utils/isEnterPress';
+import getSelections from './util/getSelections';
 
 export interface TextAreaDefaultAdapter {
     notifyChange: noopFunction;
@@ -19,6 +20,7 @@ export interface TextAreaDefaultAdapter {
     notifyEnterPress: noopFunction;
     toggleHovering(hovering: boolean): void;
     notifyClear(e: any): void;
+    toggleEditing(editing: boolean): void;
 }
 
 export interface TextAreaAdapter extends Partial<DefaultAdapter>, Partial<TextAreaDefaultAdapter> {
@@ -155,13 +157,20 @@ export default class TextAreaFoundation extends BaseFoundation<TextAreaAdapter> 
 
     handleFocus(e: any) {
         const { value } = this.getStates();
+        const selections = getSelections(e);
         this._adapter.toggleFocusing(true);
+        if (selections && selections.selectionStart === selections.selectionEnd) {
+            this._adapter.toggleEditing(true);
+        } else {
+            this._adapter.toggleEditing(false);
+        }
         this._adapter.notifyFocus(value, e);
     }
 
     handleBlur(e: any) {
         const { value } = this.getStates();
         this._adapter.toggleFocusing(false);
+        this._adapter.toggleEditing(false);
         this._adapter.notifyBlur(value, e);
     }
 
@@ -208,9 +217,10 @@ export default class TextAreaFoundation extends BaseFoundation<TextAreaAdapter> 
     }
 
     isAllowClear() {
-        const { value, isFocus, isHover } = this._adapter.getStates();
+        const { value, isEdit, isHover } = this._adapter.getStates();
         const { showClear, disabled, readonly } = this._adapter.getProps();
-        const allowClear = value && showClear && !disabled && (isFocus || isHover) && !readonly;
+        const allowClear = value && showClear && !disabled && (isEdit || isHover) && !readonly;
+        console.log('allowClear', allowClear, isEdit, isHover);
         return allowClear;
     }
 
