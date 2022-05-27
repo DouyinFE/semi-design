@@ -1858,4 +1858,10 @@ const { ErrorMessage } = Form;
 
     If the field has no initial value, `getValues` cannot get this item. You can set `initValues`/`initValue` or set the `allowEmpty` attribute to the form.
 
+-   **Why does hitting enter on the input box trigger the form's submit?**
+
+    This is standard HTML behavior. We do not plan to intervene and we will remain the same as the HTML. If there is really only one input element in the form, and you don't want to trigger the submit callback when you press Enter, it is recommended to use preventDefault for the enter of the keydown event of input to prevent the default behavior.
+
+    Click <a href="https://github.com/DouyinFE/semi-design/issues/767" target="_blank">#767</a> for background and content.
+
 -   **[🔍 🧾 More FAQ](https://bytedance.feishu.cn/docs/doccnNKaGhZMqyu0FufD1JGHOjf)**

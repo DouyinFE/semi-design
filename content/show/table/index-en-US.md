@@ -4690,9 +4690,14 @@ function Demo() {
     
     This is for the scenario where the selected row keys are lost when data is selected on the first page during paging, and then the data is selected on the second page. If you don't want to use the cached keys, you can filter it from the current dataSource or use the second parameter of `rowSelection` `onChange`.
 
+- **Does it support single row selection?**
+
+    Table currently does not support single-row selection function, and users can implement single selection in a custom way. Please check the FAQ.
+
 - **How is Table implemented, I want to know more details?**
 
     Please click <a href="https://bytedance.feishu.cn/docs/doccnqLgNefWGMZHFz7j70GKqpY" target="_blank">Semi Table component design</a>
+
 
 See more Table FAQ and demos, please click <a href="https://bytedance.feishu.cn/docs/doccnsYk1qUmsIDP1ihJ9zjG0Ch" target="_blank">Table FAQ</a>
 
