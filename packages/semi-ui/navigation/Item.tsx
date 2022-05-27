@@ -29,7 +29,7 @@ export interface NavItemProps extends ItemProps, BaseProps {
     itemKey?: React.ReactText;
     level?: number;
     link?: string;
-    linkOptions?: React.HTMLAttributes<HTMLLinkElement>;
+    linkOptions?: React.AnchorHTMLAttributes<HTMLAnchorElement>;
     text?: React.ReactNode;
     tooltipHideDelay?: number;
     tooltipShowDelay?: number;
