@@ -612,7 +612,7 @@ WAI-ARIA: https://www.w3.org/WAI/ARIA/apg/patterns/tabpanel/
     - Mac 用户：`fn` + `左箭头`
     - Windows 用户：`Home`
 - 当选项卡允许被删除时：
-    - Mac 用户可以使用 `fn` + `Delete` 键删除选项卡，Windows 用户使用 `Delete` 键
+    - 用户可以使用 `Delete` 键删除选项卡
     - 删除后，焦点转移到被删除选项卡元素的后一个元素上；若被删除元素无后一个元素则转移到前一个元素上
 
 
