@@ -479,7 +479,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
             };
         trackStyle = included ? trackStyle : {};
         return (// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
-            <div className={cssClasses.TRACK} style={trackStyle} onClick={e => this.foundation.handleWrapClick(e)}>
+            <div className={cssClasses.TRACK} style={trackStyle} onClick={this.foundation.handleWrapClick}>
                 {/* {this.renderTrack} */}
             </div>
         );
@@ -501,7 +501,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                             // eslint-disable-next-line jsx-a11y/no-static-element-interactions
                             <span
                                 key={mark}
-                                onClick={e => this.foundation.handleWrapClick(e)}
+                                onClick={this.foundation.handleWrapClick}
                                 className={markClass}
                                 style={{ [stylePos]: `calc(${markPercent * 100}% - 2px)` }}
                             />
@@ -522,10 +522,12 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                         const activeResult = this.foundation.isMarkActive(Number(mark));
                         const markPercent = (Number(mark) - min) / (max - min);
                         return activeResult ? (
+                            // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
                             <span
                                 key={mark}
                                 className={cls(`${prefixCls}-mark${(vertical && verticalReverse) ? '-reverse' : ''}`)}
                                 style={{ [stylePos]: `${markPercent * 100}%` }}
+                                onClick={this.foundation.handleWrapClick}
                             >
                                 {marks[mark]}
                             </span>
@@ -565,7 +567,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                 {// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
                     <div
                         className={`${prefixCls}-rail`}
-                        onClick={e => this.foundation.handleWrapClick(e)}
+                        onClick={this.foundation.handleWrapClick}
                         style={this.props.railStyle}
                     />
                 }
