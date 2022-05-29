@@ -239,7 +239,7 @@ class Progress extends Component<ProgressProps, ProgressState> {
         const percNumber = this.calcPercent(percentNumber);
 
         const innerStyle: Record<string, any> = {
-            backgroundColor: stroke
+            background: stroke
         };
         if (direction === strings.DEFAULT_DIRECTION) {
             innerStyle.width = `${perc}%`;
