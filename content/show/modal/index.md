@@ -575,7 +575,7 @@ function Demo(props = {}) {
 | className         | 可用于设置样式类名               | string | 无      |
 | closable          | 是否显示右上角的关闭按钮         | boolean | true    |
 | closeIcon            | 关闭按钮的icon  <br/>**v1.0.0 后提供**                                              | ReactNode     | <IconClose /\>    |
-| closeOnEsc              | 允许通过键盘事件Esc触发关闭  <br/>**v1.0.0 后提供**                                               | boolean | false       | 
+| closeOnEsc              | 允许通过键盘事件Esc触发关闭  <br/>**v1.0.0 后提供**                                               | boolean | true       | 
 | confirmLoading    | 确认按钮 loading                 | boolean | false   |
 | content            | 对话框内容            | ReactNode  | 无      |
 | footer            | 对话框底部                       | ReactNode | 无      |

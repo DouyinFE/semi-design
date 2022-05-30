@@ -570,7 +570,7 @@ function Demo(props = {}) {
 | centered          | Toggle whether to center modal                     | boolean | false   |
 | closable          | Toggle whether to show close button                | boolean | true    |
 | closeIcon         | Icon for close button  <br/>**>= v1.0.0** | ReactNode | <IconClose /\>    |
-| closeOnEsc        | Toggle whether to allow close modal by keyboard event Esc  <br/>**>= v1.0.0** | boolean | false       | 
+| closeOnEsc        | Toggle whether to allow close modal by keyboard event Esc  <br/>**>= v1.0.0** | boolean | true       | 
 | confirmLoading    | Toggle loading state of confirm button             | boolean | false   |
 | content            | Content            | ReactNode  | -      |
 | footer            | Footer                                             | ReactNode | -       |
