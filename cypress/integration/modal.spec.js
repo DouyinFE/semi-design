@@ -33,10 +33,11 @@ describe('modal', () => {
         cy.get(".semi-tag").first().contains("true");
     });
 
-    it.only('useModal FocusTrap',()=>{
+    it('useModal FocusTrap',()=>{
         cy.visit("http://localhost:6006/iframe.html?id=modal--default&viewMode=story");
         cy.get(".semi-button").click();
-        cy.get('input').should('be.focused');
+        cy.contains('取消').should('be.focused');
+        cy.get('input').click();
 
         cy.get('input').tab();
         cy.contains('hide dialog').should('be.focused');
