@@ -14,7 +14,7 @@ export type Size = 'default' | 'small' | 'large';
 export type Theme = 'solid' | 'borderless' | 'light';
 export type Type = 'primary' | 'secondary' | 'tertiary' | 'warning' | 'danger';
 
-export interface ButtonProps extends Omit<React.InputHTMLAttributes<HTMLButtonElement>, 'onChange' | 'prefix' | 'size' | 'placeholder' | 'onFocus' | 'onBlur'>{
+export interface ButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>,'type'>{
     id?: string;
     block?: boolean;
     circle?: boolean;
