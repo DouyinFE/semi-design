@@ -60,6 +60,7 @@ class modalDemo extends React.Component {
                     onOk={this.handleOk}
                     afterClose={this.handleAfterClose} // >= 1.16.0
                     onCancel={this.handleCancel}
+                    closeOnEsc={true}
                 >
                     This is the content of a basic modal.
                     <br/>
@@ -650,6 +651,23 @@ You could use Modal.destroyAll() to destroy Modal that created by methods above 
 
 -   `Modal.useModal` **v>=1.2.0**  
 When you need access Context, you could use `Modal.useModal` to create a `contextHolder` and insert to corresponding DOM tree. Modal created by hooks will be able to access the context where `contextHolder` is inserted. Hook modal shares the same methods with Modal.method.
+
+
+## Accessibility
+
+### ARIA
+WAI-ARIA: https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog/
+- Modal role set to `dialog`
+- aria-modal is set to true
+- aria-labelledby corresponds to Modal header
+- aria-describedby corresponds to Modal body
+
+### Keyboard and focus
+- Modal automatically gets the focus when it is popped up, and when it is closed, the focus automatically returns to the element before it was opened.
+- Keyboard users can use the `Tab` key and `Shift + Tab` to move the focus within the Modal, including the Modal's own close button and OK cancel button. At this time, the elements behind the Modal cannot be tab-focused.
+- When Modal is opened, the focus is on the cancel button by default, which can be controlled by passing autoFocus in cancelButtonProps or okButtonProps.
+- By adding autoFocus to the form element that needs to be focused in the Modal content, the Modal can automatically focus on the element when it is opened (the autoFocus of cancelButtonProps needs to be set to false at the same time).
+- Modify the default value of closeOnEsc to true, allowing users to directly close Modal through the keyboard for a better experience
 
 ## Design Tokens
 <DesignToken/>
