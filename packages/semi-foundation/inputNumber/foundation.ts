@@ -382,7 +382,7 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
         this._adapter.setNumber(number);
         this._adapter.setValue(formattedValue);
 
-        if (isString(formattedValue) && formattedValue !== String(propsValue)) {
+        if (isString(formattedValue) && formattedValue !== String(propsValue ?? '')) {
             this.notifyChange(formattedValue, null);
         }
     }
