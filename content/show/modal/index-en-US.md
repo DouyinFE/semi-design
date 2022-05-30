@@ -663,10 +663,11 @@ WAI-ARIA: https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog/
 - aria-describedby corresponds to Modal body
 
 ### Keyboard and focus
-- Modal automatically gets the focus when it pops up, and automatically returns to the element before it was opened when it is closed.
+- Modal automatically gets the focus when it is popped up, and when it is closed, the focus automatically returns to the element before it was opened.
 - Keyboard users can use the `Tab` key and `Shift + Tab` to move the focus within the Modal, including the Modal's own close button and OK cancel button. At this time, the elements behind the Modal cannot be tab-focused.
-- AutoFocus can be added to the form element that needs to be focused in the Modal content to automatically focus on that element when the Modal is opened
-- We recommend setting closeOnEsc to true, allowing users to close Modal directly through the keyboard for a better experience
+- When Modal is opened, the focus is on the cancel button by default, which can be controlled by passing autoFocus in cancelButtonProps or okButtonProps.
+- By adding autoFocus to the form element that needs to be focused in the Modal content, the Modal can automatically focus on the element when it is opened (the autoFocus of cancelButtonProps needs to be set to false at the same time).
+- Modify the default value of closeOnEsc to true, allowing users to directly close Modal through the keyboard for a better experience
 
 ## Design Tokens
 <DesignToken/>
