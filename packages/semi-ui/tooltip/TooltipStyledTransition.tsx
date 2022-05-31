@@ -20,7 +20,7 @@ const TooltipTransition: React.FC<TooltipTransitionProps> = (props = {}) => {
 
     //  add fillMode forwards to fix issue 715, tooltip close will flashing under react 18
     return (
-        <StyledTransition {...props} enter={enterCls} leave={leaveCls} duration={'1000ms'} {...motion} fillMode='forwards'>
+        <StyledTransition {...props} enter={enterCls} leave={leaveCls} duration={'100ms'} {...motion} fillMode='forwards'>
             {typeof children === 'function' ?
                 ({ animateCls, animateEvents, animateStyle }: any) => children({ animateCls, animateEvents, animateStyle }) :
                 children}
