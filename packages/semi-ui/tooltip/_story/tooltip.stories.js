@@ -1012,14 +1012,16 @@ export const autoFocusContentDemo = () => {
 
 export const FlashWithReact18 = () => {
   const [visible, setV] = useState(false);
+
+  const change = () => {
+    setV(false);
+  }
+
   return (<>
-    {/* <Tooltip content='test work with react 18' position='bottom' motion={false}>
-      <Button>semi with react 18 motion=false, all normal</Button>
-    </Tooltip> */}
     <Tooltip content='test work with react 18' position='bottom' trigger='custom' visible={visible}>
       <Button style={{ marginLeft: 10 }} onClick={() => setV(true)}>show, semi with react 18 motion=true, abnormal</Button>
     </Tooltip>
-    <Button style={{ marginLeft: 10 }} onClick={() => setV(false)}>hide</Button>
+    <Button style={{ marginLeft: 10 }} onClick={() => change()}>hide</Button>
 
   </>);
 }
@@ -1029,46 +1031,59 @@ export const FlashWithReact18 = () => {
 
 export const Transition = () => {
 
-  const [transitionState, setT] = useState('enter');
+  const [transitionState, setT] = useState('');
 
-  const [insert, setI] = useState(true);
+  const [insert, setInsert] = useState(false);
 
   const handleLeave = () => {
-    setI(false);
+    console.log('set insert false')
+    setInsert(false);
   }
 
-  const transitionDOM = (
-      <TooltipTransition didLeave={() => handleLeave()}>
-            {
-                transitionState === 'enter' ?
-                    ({ animateCls, animateStyle, animateEvents }) => {
-                        return (
-                        <div
-                            className={animateCls}
-                            style={{
-                                ...animateStyle,
-                            }}
-                            {...animateEvents}
-                        >
-                            {'我是content'}
-                        </div>
-                    )
-                } :
-                    null
-            }
-      </TooltipTransition>
-  );
+  const CommonDOM = () => {
+    const enterCls = `semi-tooltip-bounceIn`;
+    const leaveCls = `semi-tooltip-zoomOut`;
+    const animateStyle = {
+      animationDirection: 'normal',
+      animationName: transitionState === 'enter' ? enterCls : leaveCls,
+      animationDuration: '1000ms',
+    }
+
+    const handleEnd = () => {
+      if (transitionState === 'enter') {
+        console.log('animation end of show');
+      } else if (transitionState === 'leave') {
+        console.log('animation end of hide');
+        handleLeave();
+      }
+    }
+     
+    return <div style={{ ...animateStyle }} onAnimationEnd={handleEnd}>test</div>
+  };
+
+  const toggleShow = (insert) => {
+    if (!transitionState) {
+      setT('enter');
+      setInsert(insert);
+    } else if (transitionState === 'enter') {
+      setT('leave');
+    } else if (transitionState === 'leave') {
+      setT('enter');
+      setInsert(insert);
+    }
+  };
 
   return (
     <>
       <div style={{ width: 200, height: 90, border: '1px solid var(--semi-color-text-1)' }}>
-      {
-        insert ? (
-          transitionDOM
-        ) : null
-      }
+        {
+          insert ? (
+            <CommonDOM></CommonDOM>
+            ): null
+        }
       </div>
-      <Button onClick={() => setT(transitionState === 'enter' ? 'leave' : 'enter')}>change</Button>
+      <Button onClick={() => toggleShow(true)}>show</Button>
+      <Button onClick={() => toggleShow(false)}>hide</Button>
     </>
   )
 }
