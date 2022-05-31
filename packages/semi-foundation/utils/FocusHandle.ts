@@ -1,5 +1,5 @@
 import { isHTMLElement } from "@douyinfe/semi-foundation/utils/dom";
-import { without } from "lodash-es";
+import { without } from "lodash";
 
 
 type FocusRedirectListener = (element: HTMLElement) => boolean;
