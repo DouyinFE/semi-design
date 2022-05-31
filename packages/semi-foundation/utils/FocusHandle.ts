@@ -1,4 +1,4 @@
-import { isHTMLElement } from "@douyinfe/semi-foundation/utils/dom";
+import { isHTMLElement } from "./dom";
 import { without } from "lodash";
 
 
