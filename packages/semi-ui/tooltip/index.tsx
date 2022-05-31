@@ -234,13 +234,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                 );
             },
             removePortal: () => {
-                // fix issue 715, avoid flashing under react 18
-                // try {
-                //     ReactDOM.flushSync(() => {
                 this.setState({ isInsert: false, isPositionUpdated: false });
-                //     });                    
-                // } catch (error) {
-                // }
             },
             getEventName: () => ({
                 mouseEnter: 'onMouseEnter',
