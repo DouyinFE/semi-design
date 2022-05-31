@@ -19,7 +19,7 @@ const TooltipTransition: React.FC<TooltipTransitionProps> = (props = {}) => {
     const motion = getMotionObjFromProps(props);
 
     return (
-        <StyledTransition {...props} enter={enterCls} leave={leaveCls} duration={'100ms'} {...motion}>
+        <StyledTransition {...props} enter={enterCls} leave={leaveCls} duration={'100ms'} {...motion} fillMode='forward'>
             {typeof children === 'function' ?
                 ({ animateCls, animateEvents, animateStyle }: any) => children({ animateCls, animateEvents, animateStyle }) :
                 children}
