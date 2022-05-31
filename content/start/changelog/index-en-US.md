@@ -16,6 +16,11 @@ Version：Major.Minor.Patch
 
 ---
 
+#### 🎉 2.12.0-beta.1 (2022-05-31)
+- 【Fix】
+    - Fix the problem that Tooltip, Popover, Select and other components with floating layers will flicker when they are used under React 1 [#715](https://github.com/DouyinFE/semi-design/issues/715)
+
+
 #### 🎉 2.12.0-beta.0 (2022-05-30)
 - 【Feat】
     - `Modal` adds A11y keyboard and focus adaptation.  [#205](https://github.com/DouyinFE/semi-design/issues/205)
