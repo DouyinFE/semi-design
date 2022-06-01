@@ -47,6 +47,8 @@ export interface TagInputProps {
     onKeyDown?: (e: React.MouseEvent<HTMLInputElement>) => void;
     onRemove?: (removedValue: string, idx: number) => void;
     placeholder?: string;
+    insetLabel?: React.ReactNode;
+    insetLabelId?: string;
     prefix?: React.ReactNode;
     renderTagItem?: (value: string, index: number) => React.ReactNode;
     separator?: string | string[] | null;
@@ -129,6 +131,8 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
     };
 
     inputRef: React.RefObject<HTMLInputElement>;
+    foundation: TagInputFoundation;
+
     constructor(props: TagInputProps) {
         super(props);
         this.foundation = new TagInputFoundation(this.adapter);
@@ -169,6 +173,15 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
             },
             setFocusing: (focusing: boolean) => {
                 this.setState({ focusing });
+            },
+            toggleFocusing: (isFocus: boolean) => {
+                const input = this.inputRef && this.inputRef.current;
+                if (isFocus) {
+                    input && input.focus();
+                } else {
+                    input && input.blur();
+                }
+                this.setState({ focusing: isFocus });
             },
             setHovering: (hovering: boolean) => {
                 this.setState({ hovering });
@@ -240,6 +253,15 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
         this.foundation.handleInputMouseEnter();
     };
 
+    handleClickPrefixOrSuffix = (e: React.MouseEvent<HTMLInputElement>) => {
+        this.foundation.handleClickPrefixOrSuffix(e);
+    };
+
+    handlePreventMouseDown = (e: React.MouseEvent<HTMLInputElement>) => {
+        this.foundation.handlePreventMouseDown(e);
+    };
+
+
     renderClearBtn() {
         const { hovering, tagsArray, inputValue } = this.state;
         const { showClear, disabled } = this.props;
@@ -248,11 +270,11 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
         });
         if (showClear) {
             return (
-                <div 
+                <div
                     role="button"
-                    tabIndex={0} 
-                    aria-label="Clear TagInput value" 
-                    className={clearCls} 
+                    tabIndex={0}
+                    aria-label="Clear TagInput value"
+                    className={clearCls}
                     onClick={e => this.handleClearBtn(e)}
                     onKeyPress={e => this.handleClearEnterPress(e)}
                 >
@@ -264,16 +286,19 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
     }
 
     renderPrefix() {
-        const { prefix } = this.props;
-        if (isNull(prefix) || isUndefined(prefix)) {
+        const { prefix, insetLabel, insetLabelId } = this.props;
+        const labelNode = prefix || insetLabel;
+        if (isNull(labelNode) || isUndefined(labelNode)) {
             return null;
         }
         const prefixWrapperCls = cls(`${prefixCls}-prefix`, {
-            [`${prefixCls}-prefix-text`]: prefix && isString(prefix),
+            [`${prefixCls}-inset-label`]: insetLabel,
+            [`${prefixCls}-prefix-text`]: labelNode && isString(labelNode),
             // eslint-disable-next-line max-len
             [`${prefixCls}-prefix-icon`]: React.isValidElement(prefix) && !(prefix && isString(prefix)),
         });
-        return <div className={prefixWrapperCls}>{prefix}</div>;
+        // eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events
+        return <div className={prefixWrapperCls} onMouseDown={this.handlePreventMouseDown} onClick={this.handleClickPrefixOrSuffix} id={insetLabelId}>{labelNode}</div>;
     }
 
     renderSuffix() {
@@ -286,7 +311,8 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
             // eslint-disable-next-line max-len
             [`${prefixCls}-suffix-icon`]: React.isValidElement(suffix) && !(suffix && isString(suffix)),
         });
-        return <div className={suffixWrapperCls}>{suffix}</div>;
+        // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
+        return <div className={suffixWrapperCls} onMouseDown={this.handlePreventMouseDown} onClick={this.handleClickPrefixOrSuffix}>{suffix}</div>;
     }
 
     renderTags() {
