@@ -13,6 +13,7 @@ import { cssClasses, strings } from '@douyinfe/semi-foundation/tagInput/constant
 import '@douyinfe/semi-foundation/tagInput/tagInput.scss';
 import TagInputFoundation, { TagInputAdapter } from '@douyinfe/semi-foundation/tagInput/foundation';
 import { ArrayElement } from '../_base/base';
+import { isSemiIcon } from '../_utils';
 import BaseComponent from '../_base/baseComponent';
 import Tag from '../tag';
 import Input from '../input';
@@ -295,7 +296,7 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
             [`${prefixCls}-inset-label`]: insetLabel,
             [`${prefixCls}-prefix-text`]: labelNode && isString(labelNode),
             // eslint-disable-next-line max-len
-            [`${prefixCls}-prefix-icon`]: React.isValidElement(prefix) && !(prefix && isString(prefix)),
+            [`${prefixCls}-prefix-icon`]: isSemiIcon(labelNode),
         });
         // eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events
         return <div className={prefixWrapperCls} onMouseDown={this.handlePreventMouseDown} onClick={this.handleClickPrefixOrSuffix} id={insetLabelId}>{labelNode}</div>;
@@ -309,7 +310,7 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
         const suffixWrapperCls = cls(`${prefixCls}-suffix`, {
             [`${prefixCls}-suffix-text`]: suffix && isString(suffix),
             // eslint-disable-next-line max-len
-            [`${prefixCls}-suffix-icon`]: React.isValidElement(suffix) && !(suffix && isString(suffix)),
+            [`${prefixCls}-suffix-icon`]: isSemiIcon(suffix),
         });
         // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
         return <div className={suffixWrapperCls} onMouseDown={this.handlePreventMouseDown} onClick={this.handleClickPrefixOrSuffix}>{suffix}</div>;
