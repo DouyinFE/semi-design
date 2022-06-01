@@ -58,6 +58,8 @@ export interface DropdownProps extends TooltipProps {
     onVisibleChange?: (visible: boolean) => void;
     rePosKey?: string | number;
     showTick?: boolean;
+    closeOnEsc?: TooltipProps['closeOnEsc'];
+    onEscKeyDown?: TooltipProps['onEscKeyDown'];
 }
 
 interface DropdownState {
@@ -106,6 +108,8 @@ class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
         position: 'bottom',
         mouseLeaveDelay: strings.DEFAULT_LEAVE_DELAY,
         showTick: false,
+        closeOnEsc: true,
+        onEscKeyDown: noop,
     };
 
     constructor(props: DropdownProps) {
@@ -240,6 +244,9 @@ class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
                         className: classnames(get(children, 'props.className'), {
                             [`${prefixCls}-showing`]: popVisible,
                         }),
+                        'aria-haspopup': true,
+                        'aria-expanded': popVisible,
+                        onKeyDown: e => this.foundation.handleKeyDown(e),
                     }) :
                     children}
             </Tooltip>

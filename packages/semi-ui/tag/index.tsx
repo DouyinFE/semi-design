@@ -123,7 +123,7 @@ export default class Tag extends Component<TagProps, TagState> {
         const { children, size, color, closable, visible, onClose, onClick, className, type, avatarSrc, avatarShape, ...attr } = this.props;
         const { visible: isVisible } = this.state;
         const clickable = onClick !== Tag.defaultProps.onClick || closable;
-        const a11yProps = { role: 'button', tabIndex: 0, onKeyDown: this.handleKeyDown };
+        const a11yProps = { role: 'button', tabIndex: 0, onKeyDown: this.props.onKeyDown || this.handleKeyDown };
         const baseProps = {
             ...attr,
             onClick,

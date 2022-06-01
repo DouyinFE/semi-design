@@ -50,6 +50,9 @@ $module: #{$prefix}-dropdown;
         &:not(.#{$module}-item-active):active {
             background-color: $color-dropdown_item-bg-active;
         }
+        &:focus-visible {
+            outline: $width-dropdown_item-outline solid $color-dropdown_item_outline-focus;
+        }
         &-icon {
             display: inline-flex;
             align-items: center;

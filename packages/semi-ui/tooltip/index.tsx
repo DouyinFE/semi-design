@@ -712,7 +712,8 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                     ref.current = node;
                 }
             },
-            tabIndex: trigger === 'hover' ? 0 : undefined, // a11y keyboard
+            tabIndex: 0, // a11y keyboard
+            'data-trigger': trigger
         });
 
         // If you do not add a layer of div, in order to bind the events and className in the tooltip, you need to cloneElement children, but this time it may overwrite the children's original ref reference

@@ -24,6 +24,7 @@ $color-dropdown_item_tertiary-text-default: var(--semi-color-tertiary); // 第�
 $color-dropdown_item_primary-text-default: var(--semi-color-primary); // 主要菜单项文字颜色
 $color-dropdown_item_disabled-text-default: var(--semi-color-disabled-text); // 禁用菜单项文字颜色
 $color-dropdown_item_disabled-bg-default: transparent; // 禁用菜单项背景颜色
+$color-dropdown_item_outline-focus: var(--semi-color-primary-light-active); // 下拉菜单项轮廓 - 聚焦
 $color-dropdown_seperator-bg-default: var(--semi-color-border); // 菜单项分隔线颜色
 
 $spacing-dropdown_icon-marginRight: 9px; // 菜单项分隔线颜色
@@ -31,6 +32,7 @@ $spacing-dropdown_seperator-marginY: $spacing-extra-tight; // 菜单项分隔线
 $spacing-dropdown_seperator-marginX: 0; // 菜单项分隔线水平内边距
 
 $width-dropdown: 280px; // 菜单最大宽度
+$width-dropdown_item-outline: 2px; // 菜单项轮廓宽度
 $size-dropdown-icon-width: 12px; // 菜单项图标宽度
 $size-dropdown-icon-height: 12px; // 菜单项图标高度
 $height-dropdown_seperator: 1px; // 菜单项分隔线宽度
