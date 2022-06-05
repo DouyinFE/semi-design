@@ -48,7 +48,7 @@ module.exports = {
             parserOptions: {
                 project: ['./tsconfig.eslint.json'],
             },
-            plugins: ['react', 'jest', 'react-hooks', 'import', '@typescript-eslint'],
+            plugins: ['react', 'jest', 'react-hooks', 'import', '@typescript-eslint', 'semi-design'],
             rules: {
                 // 因为历史原因，现有项目基本全部是4个空格
                 indent: 'off',
@@ -79,6 +79,7 @@ module.exports = {
                 'jsx-a11y/no-noninteractive-element-interactions': ['warn'],
                 'jsx-a11y/no-autofocus': ['warn'],
                 'object-curly-spacing': ['error', 'always'],
+                'semi-design/no-import': 'error'
             }
         },
     ],
