@@ -1227,8 +1227,38 @@ import { Tree } from '@douyinfe/semi-ui';
 
 ### Draggable Tree
 You could use `draggable` along with `onDrop` to achieve a draggable Tree.
-**Virtualized not supported at this moment**
-**v>=1.8.0**
+
+<Notice title='Notice'>
+    Drag and drop is available since v 1.8.0. Simultaneous use with virtualization is currently not supported
+</Notice>
+
+The callback input parameters of the drag event are as follows:
+```
+- onDragEnd: function({ event, node:treeNode })
+- onDragEnter:function({ event, node:treeNode, expandedKeys:string[] })
+- onDragLeave:function({ event, node:treeNode })
+- onDragOver:function({ event, node:treeNode })
+- onDragStart: function({ event, node })
+- onDrop:function({ event, node, dragNode:treeNode, dragNodesKeys:string[], dropPosition:number, dropToGap:Boolean })
+```
+
+The node, in addition to the original data originalData, also contains:
+```
+treeNode {
+    expanded: Boolean,
+    pos: string
+    value?: string | number;
+    label?: React.ReactNode;
+    disabled?: boolean;
+    isLeaf?: boolean;
+    [key: string]: any;
+}
+```
+
+- `pos` refers to the positional relationship of the current node in the entire treeData, such as the 0th node of the 2nd node of the 1st node of the 0th layer: '0-1-2-0'
+- `dropPosition` refers to the position where the dragged node is dropped in the current hierarchy. If it is inserted before the 0th node of the same level, it will be -1, and after the 0th node, it will be 1, and it will fall on it. is 0, and so on. With dropToGap, a more complete judgment can be obtained.
+- `dropToGap` refers to whether the dragged node is dropped between nodes, if false, it is dropped above a node
+
 ```jsx live=true
 import React, { useState } from 'react';
 import { Tree } from '@douyinfe/semi-ui';
@@ -1363,14 +1393,38 @@ import { Tree } from '@douyinfe/semi-ui';
 
 You could use `renderFullLabel` for advanced rendering to render the entire option on you own.
 
+```
+{
+    onClick: Function, // Click the callback of the entire row to control the expansion behavior and selection
+    onContextMenu: Function, // Callback for right-clicking the entire row
+    onDoubleClick: Function,  // Callback for double-clicking the entire row
+    className: strings, // Class name, including built-in styles such as indent, expand button, filter, disable, check, etc.
+    onExpand: Function, // Expand callback
+    data: object, // The original data of the row
+    level: number, // The level where the line is located, which can be used to customize the indentation value
+    style: object, // The style required for virtualization, if virtualization is used, the style must be assigned to the DOM element
+    onCheck: Function, // Multiple selection click callback
+    expandIcon: ReactNode, // Expand button
+    checkStatus: {
+        checked: Boolean, // Whether it is selected in the multi-select state
+        halfChecked: Boolean, // Whether half-selected in multi-select state
+    },
+    expandStatus: {
+        expanded,
+        loading,
+    },
+}
+```
+
 <Notice type="primary" title="Important">
 <div>If virtualized is set to true, be sure to apply `style` to targeted ReactNode to correctly render virtualized list.</div>
 </Notice>
 
 Here are some demos.
 
-First is to render Parent node as separator and only allow leaf nodes to be selected.
-⚠️：renderFullLabel only takes care of the UI rendering and won't affect inside data logic. But you could choose info to your needs and use it with controlled mode for advanced usage.
+First is to render Parent node as separator and only allow leaf nodes to be selected.  
+renderFullLabel only takes care of the UI rendering and won't affect inside data logic. But you could choose info to your needs and use it with controlled mode for advanced usage.
+
 ```jsx live=true
 import React from 'react';
 import { Tree, Checkbox } from '@douyinfe/semi-ui';
