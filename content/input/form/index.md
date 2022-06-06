@@ -2132,5 +2132,11 @@ const { ErrorMessage } = Form;
 
     field 没有初始值的话，`getValues` 获取不到这一项。可以设置 `initValues`/`initValue` 或者给 form 设置 `allowEmpty` 属性。
 
+-   **为什么在输入框上敲击 enter 触发了 Form 的 submit？**
+
+    这个是标准 HTML 行为，我们不计划进行干预，会与原生保持一致。如果表单内确实只有一个 Input 元素，又不想回车时触发 submit 回调，建议对 Input 的 keydown 事件的 enter 采取 preventDefault 阻止默认行为。
+
+    点击 <a href="https://github.com/DouyinFE/semi-design/issues/767" target="_blank">#767</a> 查看相关背景和内容。
+
 -   **[🔍 🧾 更多Form FAQ补充 & 问题自查手册](https://bytedance.feishu.cn/docs/doccnNKaGhZMqyu0FufD1JGHOjf)** 
     

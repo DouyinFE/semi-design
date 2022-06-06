@@ -1,5 +1,5 @@
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
-import { noop } from 'lodash';
+import { get, noop } from 'lodash';
 
 export interface TabsAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     collectPane: () => void;
@@ -71,6 +71,95 @@ class TabsFoundation<P = Record<string, any>, S = Record<string, any>> extends B
 
     handleTabDelete(tabKey: string): void {
         this._adapter.notifyTabDelete(tabKey);
+    }
+
+    handlePrevent = (event: any) => {
+        event.stopPropagation();
+        event.preventDefault();
+    }
+
+    handleKeyDown = (event: any, itemKey: string, closable: boolean) => {
+        const tabs = [...event.target.parentNode.childNodes].filter(item => {
+            return get(item, 'attributes.data-tabkey.value', '').includes('semiTab') && item.ariaDisabled!=="true";
+        });
+
+        switch (event.key) {
+            case "ArrowLeft":
+            case "ArrowRight":
+            case "ArrowUp":
+            case "ArrowDown":
+                this.determineOrientation(event, tabs);
+                break;
+            case "Backspace":
+            case "Delete":
+                this.handleDeleteKeyDown(event, tabs, itemKey, closable);
+                break;
+            case "Enter":
+            case " ":
+                this.handleTabClick(itemKey, event);
+                this.handlePrevent(event);
+                break;
+            case "Home":
+                tabs[0].focus(); // focus first tab
+                this.handlePrevent(event);
+                break;
+            case "End":
+                tabs[tabs.length - 1].focus(); // focus last tab
+                this.handlePrevent(event);
+                break;
+        }
+    }
+
+    determineOrientation(event: any, tabs: HTMLElement[]): void {
+        const { tabPosition } = this.getProps();
+        const isVertical = tabPosition === 'left';
+
+        if (isVertical) {
+            if (event.key ===  "ArrowUp" || event.key ===  "ArrowDown") {
+                this.switchTabOnArrowPress(event, tabs);
+                this.handlePrevent(event);
+            }
+        } else {
+            if (event.key ===  "ArrowLeft" || event.key === "ArrowRight") {
+                this.switchTabOnArrowPress(event, tabs);
+                this.handlePrevent(event);
+            }
+        }
+    }
+
+    handleDeleteKeyDown(event:any, tabs: HTMLElement[], itemKey: string, closable: boolean): void {
+        if (closable) {
+            this.handleTabDelete(itemKey);
+            const index = tabs.indexOf(event.target);
+            // Move focus to next element after deletion
+            // If the element is the last removable tab, focus to its previous tab
+            if (tabs.length !== 1 ){
+                tabs[index + 1 >= tabs.length ? index - 1 : index + 1].focus();   
+            }
+        }
+    }
+
+    switchTabOnArrowPress(event: any, tabs: HTMLElement[]): void {
+        const index = tabs.indexOf(event.target);
+
+        const direction = {
+            "ArrowLeft": -1,
+            "ArrowUp": -1,
+            "ArrowRight": 1,
+            "ArrowDown": 1,
+        };
+
+        if (direction[event.key]) {
+            if (index !== undefined) {
+                if (tabs[index + direction[event.key]]) {
+                    tabs[index+ direction[event.key]].focus();
+                } else if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+                    tabs[tabs.length - 1].focus(); // focus last tab
+                } else if (event.key ===  "ArrowRight" || event.key == "ArrowDown") {
+                    tabs[0].focus(); // focus first tab
+                }
+            }
+        }
     }
 }
 

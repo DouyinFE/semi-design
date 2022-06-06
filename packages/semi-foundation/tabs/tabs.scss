@@ -124,6 +124,11 @@ $module: #{$prefix}-tabs;
                     width: 0;
                     height: 0;
                 }
+
+                &:focus-visible {
+                    outline: $width-tabs-outline solid $color-tabs_tab-outline-focus;
+                    outline-offset: $width-tabs-outline-offset;
+                }
             }
         }
         
@@ -164,6 +169,11 @@ $module: #{$prefix}-tabs;
                 &:hover {
                     border-bottom: $width-tabs_bar_line_tab-border solid $color-tabs_tab_line_default-border-hover;
                 }
+
+                &:focus-visible {
+                    outline: $width-tabs-outline solid $color-tabs_tab-outline-focus;
+                    outline-offset: $width-tabs_bar_line-outline-offset;
+                }
                 
                 &:active {
                     border-bottom: $width-tabs_bar_line_tab-border solid $color-tabs_tab_line_default-border-active;
@@ -201,6 +211,11 @@ $module: #{$prefix}-tabs;
                 &:hover {
                     border-left: $width-tabs_bar_line_tab-border solid $color-tabs_tab_line_default-border-hover;
                     background-color: $color-tabs_tab_line_vertical-bg-hover;
+                }
+
+                &:focus-visible {
+                    outline: $width-tabs-outline solid $color-tabs_tab-outline-focus;
+                    outline-offset: $width-tabs-outline-offset;
                 }
                 
                 &:active {
@@ -327,6 +342,11 @@ $module: #{$prefix}-tabs;
             &:hover {
                 background: $color-tabs_tab_card-bg-hover;
             }
+
+            &:focus-visible {
+                outline: $width-tabs-outline solid $color-tabs_tab-outline-focus;
+                outline-offset: $width-tabs-outline-offset;
+            }
             
             &:active {
                 background: $color-tabs_tab_card-bg-active;
@@ -365,6 +385,11 @@ $module: #{$prefix}-tabs;
                 border: none;
                 background-color: $color-tabs_tab_button-bg-hover;
             }
+
+            &:focus-visible {
+                outline: $width-tabs-outline solid $color-tabs_tab-outline-focus;
+                outline-offset: $width-tabs-outline-offset;
+            }
             
             &:active {
                 background-color: $color-tabs_tab_button-bg-active;
@@ -393,13 +418,17 @@ $module: #{$prefix}-tabs;
         height: 100%;
         padding: $spacing-tabs_content_left-paddingY $spacing-tabs_content_left-paddingX;
     }
-    
+
     &-pane {
         width: 100%;
         overflow: hidden;
         // position: absolute;
         // flex-shrink: 0;
         // position: absolute;
+
+        &:focus-visible {
+            outline: $width-tabs-outline solid $color-tabs_tab-outline-focus;
+        }
     }
     
     &-pane-inactive,

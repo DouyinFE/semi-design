@@ -33,6 +33,7 @@ export interface TagProps {
     className?: string;
     avatarSrc?: string;
     avatarShape?: AvatarShape;
+    'aria-label'?: React.AriaAttributes['aria-label'];
 }
 
 export interface TagGroupProps {

@@ -152,6 +152,7 @@
     "crypto": "^1.0.1",
     "css-loader": "^3.6.0",
     "cypress": "9.5.2",
+    "cypress-plugin-tab": "^1.0.5",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.6",
     "enzyme-to-json": "^3.6.2",

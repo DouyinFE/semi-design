@@ -236,6 +236,18 @@ import { TagGroup } from '@douyinfe/semi-ui';
 | style | 样式 | CSSProperties |    | |
 | tagList | 标签组  | (TagProps)[] |     | |
 
+## Accessibility
+
+### ARIA
+
+- `aria-label` 用于表示 `Tag` 的作用，对于可删除或者可点击的 `Tag` ，我们推荐使用此属性
+
+### 键盘和焦点
+
+- 如果当前 `Tag` 可交互，那么这个 `Tag` 可被聚焦到。如：
+    - 使用了 `onClick` 属性时，键盘用户可以通过 `Enter` 键激活此 `Tag`
+    - `closable` 属性为 `true` 时，键盘用户可以通过 `Delete` 键删除此 `Tag`
+    - `Tag` 被聚焦时，键盘用户可以通过 `Esc` 键使当前聚焦 `Tag` 失焦
 ## 设计变量
 <DesignToken/>
 

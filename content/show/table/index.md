@@ -4701,14 +4701,18 @@ function Demo() {
     
     涉及到单个 cell 需要控制样式的，可以通过 column.onHeaderCell、column.onCell 控制。
 
-
 - **为何 rowSelection onChange 的第一个参数缓存了之前选中的 keys ？**
     
     这么做为了在分页受控时，在第一页选中数据后，去第二页选择数据，回到第一页后选择的 row keys 丢失的场景。如果不想用缓存的 keys，可以从当前 dataSource 过滤一遍，或者使用 rowSelection onChange 的第二个参数。
 
+- **支持单行选择吗**
+
+    Table 暂不支持单行选则功能，用户可以通过自定义方式实现单选。实现方式移步 Table FAQ 文档。
+
 - **Table 是如何实现的，我想了解更多细节？**
 
     查看 <a href="https://bytedance.feishu.cn/docs/doccnqLgNefWGMZHFz7j70GKqpY" target="_blank">Semi Table 组件设计方案</a>了解更多。
+    
 
 查看更多 Table FAQ 和用例，点击 <a href="https://bytedance.feishu.cn/docs/doccnsYk1qUmsIDP1ihJ9zjG0Ch" target="_blank">Table FAQ</a>
 

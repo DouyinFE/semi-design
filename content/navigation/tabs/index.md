@@ -592,12 +592,29 @@ closable  | 允许关闭tab **>=2.1.0**| boolean | false |
   - TabBar 对应的 role 为 `tablist`
   - TabBar 中的 Tab 对应的 role 为 `tab`
   - TabPane 对应的 role 为 `tabpanel`
-
-- aria-orientation: 表明 TabBar 的方向，有 `vertical` 和 `horizontal` 两种。当传入 tabPosition 为 left 时，aria-orientation 会被设置为 `vertical`，tabPosition 为 top 时，设置为 `horizontal`
+- aria-orientation: 表明 TabBar 的方向，有 `vertical` 和 `horizontal` 两种。当传入 tabPosition 为 left 时, aria-orientation 会被设置为 `vertical`，tabPosition 为 top 时，设置为 `horizontal`
 - aria-disabled: 当 TabPane 设置为 disabled 时，对应 Tab 的 aria-disabled 会被设置为 true
 - aria-selected: 表明 Tab 是否被选中
 - aria-controls: 指向 Tab 标签所控制的 TabPane
 - aria-labelledby: 指向设置 TabPane 标签的元素
+
+### 键盘和焦点
+WAI-ARIA: https://www.w3.org/WAI/ARIA/apg/patterns/tabpanel/
+- 选项卡可以被获取到焦点，但禁用的选项卡除外
+- 键盘用户可以使用 `Tab` 键，将焦点移动到已被选择的选项卡元素的选项卡面板上
+- 当焦点位于水平选项卡列表中的选项卡元素上时，使用 `左右箭头` 来切换选项
+- 当焦点位于垂直选项卡列表中的选项卡元素上时，使用 `上下箭头` 来切换选项
+- 当焦点位于选项卡列表中的未被激活的选项卡元素上时，可以使用 `Space` 或 `Enter` 键来激活该选项卡
+- 当键盘用户想要直接将焦点聚焦到选项卡列表中的最后一个选项卡元素时：
+    - Mac 用户：`fn` + `右箭头`
+    - Windows 用户：`End`
+- 当键盘用户想要直接将焦点聚焦到选项卡列表中的第一个选项卡元素时：
+    - Mac 用户：`fn` + `左箭头`
+    - Windows 用户：`Home`
+- 当选项卡允许被删除时：
+    - 用户可以使用 `Delete` 键删除选项卡
+    - 删除后，焦点转移到被删除选项卡元素的后一个元素上；若被删除元素无后一个元素则转移到前一个元素上
+
 
 ## 设计变量
 

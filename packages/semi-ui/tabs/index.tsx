@@ -266,7 +266,8 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
             tabBarExtraContent,
             tabPosition,
             type,
-            deleteTabItem: this.deleteTabItem
+            deleteTabItem: this.deleteTabItem,
+            handleKeyDown: this.foundation.handleKeyDown
         } as TabBarProps;
 
         const tabBar = renderTabBar ? renderTabBar(tabBarProps, TabBar) : <TabBar {...tabBarProps} />;

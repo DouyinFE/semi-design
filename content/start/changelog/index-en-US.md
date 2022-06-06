@@ -16,6 +16,24 @@ Version：Major.Minor.Patch
 
 ---
 
+#### 🎉 2.12.0-beta.5 (2022-05-31)
+- 【Fix】
+    - Fix the problem that Tooltip, Popover, Select and other components with floating layers will flicker when they are used under React 1 [#715](https://github.com/DouyinFE/semi-design/issues/715)
+    - Fixed FocusHandle referencing lodash-es error (effects v2.12.0-beta.0 - v2.12.0-beta.2)
+
+#### 🎉 2.12.0-beta.0 (2022-05-30)
+- 【Feat】
+    - `Modal` adds A11y keyboard and focus adaptation.  [#205](https://github.com/DouyinFE/semi-design/issues/205)
+    - `Tabs` add A11y keyboard and focus adaptation  [#205](https://github.com/DouyinFE/semi-design/issues/205)
+    - `Tag` add A11y keyboard and focus adaptation  [#205](https://github.com/DouyinFE/semi-design/issues/205)
+    - `Progress` stroke support linear color  [#456](https://github.com/DouyinFE/semi-design/issues/456) [@vecpeng](https://github.com/vecpeng)
+    - `Slider` supports clicking `marks` to change the slider position  [#618](https://github.com/DouyinFE/semi-design/issues/618) [@huruji](https://github.com/huruji)
+- 【Fix】
+    - Fixed `TreeSelect` TypeError when `checkRelation` is `unRelated` and `treeData` is `[]`
+    - Fixed `InputNumber` `value` can be changed via stepper in `readonly` mode [@zwlafk](https://github.com/zwlafk)
+- 【Design Token】
+    - `Tag` solid `closable` icon token `$color-tag_close-icon_deep-default`
+
 #### 🎉 2.11.2 (2022-05-24)
 - 【Chore】
     - Fixed the problem that ts type check reported an error when Nav.Item configures the href attribute through linkOptions [#856](https://github.com/DouyinFE/semi-design/issues/856) [@SunriseFox](https://github.com/SunriseFox)

@@ -53,6 +53,7 @@ export interface TabBarProps {
     dropdownStyle?: CSSProperties;
     closable?: boolean;
     deleteTabItem?: (tabKey: string, event: MouseEvent<Element>) => void;
+    handleKeyDown?:  (event: React.KeyboardEvent, itemKey: string, closable: boolean) => void;
 }
 
 export interface TabPaneProps {

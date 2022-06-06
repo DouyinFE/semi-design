@@ -273,6 +273,19 @@ import { TagGroup } from '@douyinfe/semi-ui';
 | style | Inline style | CSSProperties |  |  |
 | tagList | Label Group data | (TagProps)[] |  |  |
 
+## Accessibility
+
+### ARIA
+
+- `aria-label` is used to indicate the role of `Tag`, for deleteable or clickable `Tag` , we recommend using this attribute
+
+### Keyboard and Focus
+
+- If the current `Tag` is interactive, then this `Tag` can be focused. Such as:
+   - When the `onClick` attribute is used, the keyboard user can activate this `Tag` with the `Enter` keys
+   - When the `closable` property is `true`, keyboard users can delete this `Tag` by pressing the `Delete` key
+   - When a `Tag` is focused, keyboard users can use the `Esc` key to defocus the currently focused `Tag`
+   
 ## Design Tokens
 
 <DesignToken/>

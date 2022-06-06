@@ -60,6 +60,7 @@ class modalDemo extends React.Component {
                     onOk={this.handleOk}
                     afterClose={this.handleAfterClose} //>=1.16.0
                     onCancel={this.handleCancel}
+                    closeOnEsc={true}
                 >
                     This is the content of a basic modal.
                     <br/>
@@ -574,7 +575,7 @@ function Demo(props = {}) {
 | className         | 可用于设置样式类名               | string | 无      |
 | closable          | 是否显示右上角的关闭按钮         | boolean | true    |
 | closeIcon            | 关闭按钮的icon  <br/>**v1.0.0 后提供**                                              | ReactNode     | <IconClose /\>    |
-| closeOnEsc              | 允许通过键盘事件Esc触发关闭  <br/>**v1.0.0 后提供**                                               | boolean | false       | 
+| closeOnEsc              | 允许通过键盘事件Esc触发关闭  <br/>**v1.0.0 后提供**                                               | boolean | true       | 
 | confirmLoading    | 确认按钮 loading                 | boolean | false   |
 | content            | 对话框内容            | ReactNode  | 无      |
 | footer            | 对话框底部                       | ReactNode | 无      |
@@ -657,6 +658,24 @@ modal.destroy();
 
 -   `Modal.useModal` **v>=1.2.0**  
 当你需要使用 Context 时，可以通过 Modal.useModal 创建一个 contextHolder 插入相应的节点中。此时通过 hooks 创建的 Modal 将会得到 contextHolder 所在位置的所有上下文。创建的 modal 对象拥有与 [Modal.method](#Modal.method()) 相同的创建通知方法。
+
+## Accessibility
+
+### ARIA
+WAI-ARIA: https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog/
+- role 设置为 `dialog`
+- aria-modal 设置为 true
+- aria-labelledby 对应 Modal header
+- aria-describedby 对应 Modal body
+
+### 键盘和焦点
+- Modal 在弹出时自动获得焦点，关闭时焦点自动回归到打开前元素。
+- 键盘用户可以使用 `Tab` 键和 `Shift + Tab`，将焦点在 Modal 内移动，包括 Modal 自带的关闭按钮和确定取消按钮，此时 Modal 背后元素不可被 tab 聚焦。
+- Modal 打开时默认聚焦到取消按钮, 可通过在 cancelButtonProps 或 okButtonProps 传入 autoFocus 来控制该行为。
+- 可通过在 Modal 内容中需要聚焦的表单元素上添加 autoFocus 来让 Modal 打开时自动聚焦到该元素 (需同时设置 cancelButtonProps 的 autoFocus 为 false)。
+- 修改 closeOnEsc 默认值为 true，允许用户通过键盘直接关闭 Modal 带来更好的体验
+
+
 
 ## 设计变量
 <DesignToken/>
