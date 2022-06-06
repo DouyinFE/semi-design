@@ -16,6 +16,10 @@ Version：Major.Minor.Patch
 
 ---
 
+#### 🎉 2.12.0 (2022-06-06)
+- 【Fix】
+    - Fix the issue that the last item style is abnormal when Timeline is nested [#865](https://github.com/DouyinFE/semi-design/issues/865)
+
 #### 🎉 2.12.0-beta.5 (2022-05-31)
 - 【Fix】
     - Fix the problem that Tooltip, Popover, Select and other components with floating layers will flicker when they are used under React 1 [#715](https://github.com/DouyinFE/semi-design/issues/715)
