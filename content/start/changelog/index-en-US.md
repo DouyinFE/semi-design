@@ -19,6 +19,7 @@ Version：Major.Minor.Patch
 #### 🎉 2.12.0 (2022-06-06)
 - 【Fix】
     - Fix the issue that the last item style is abnormal when Timeline is nested [#865](https://github.com/DouyinFE/semi-design/issues/865)
+    - Fix the problem that the height of emptyContent is incorrect when Select is virtualized and there is no data [#839](https://github.com/DouyinFE/semi-design/pull/839)
 
 #### 🎉 2.12.0-beta.5 (2022-05-31)
 - 【Fix】
