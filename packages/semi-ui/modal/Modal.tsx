@@ -34,8 +34,8 @@ export interface ModalReactProps extends ModalProps {
     content?: ReactNode;
     footer?: ReactNode;
     header?: ReactNode;
-    onCancel?: (e?: React.MouseEvent) => void | Promise<any>;
-    onOk?: (e?: React.MouseEvent) => void | Promise<any>;
+    onCancel?: (e: React.MouseEvent) => void | Promise<any>;
+    onOk?: (e: React.MouseEvent) => void | Promise<any>;
 }
 
 export {
