@@ -12,5 +12,24 @@ describe('inputNumber', () => {
         cy.get('[data-cy=fix-precision-786] .semi-input').type('aaa');
         cy.get('[data-cy=fix-precision-786] .semi-input').blur();
         cy.get('[data-cy=fix-precision-786] .semi-input').should('have.value', '');
-    })
+    });
+
+    it('a11y', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=inputnumber--input-number-a-11-y&args=&viewMode=story');
+        cy.get('input[data-cy=default]').click();
+        cy.get('input[data-cy=default]').type('{upArrow}');
+        cy.get('input[data-cy=default]').should('have.value', '1');
+        cy.get('input[data-cy=default]').trigger('keydown', { eventConstructor: 'KeyboardEvent', key: 'upArrow', keyCode: 38, shiftKey: true });
+        cy.get('input[data-cy=default]').should('have.value', '11');
+        cy.get('input[data-cy=default]').type('{downArrow}');
+        cy.get('input[data-cy=default]').should('have.value', '10');
+
+        cy.get('input[data-cy=step]').click();
+        cy.get('input[data-cy=step]').type('{upArrow}');
+        cy.get('input[data-cy=step]').should('have.value', '5');
+        cy.get('input[data-cy=step]').trigger('keydown', { eventConstructor: 'KeyboardEvent', key: 'upArrow', keyCode: 38, shiftKey: true });
+        cy.get('input[data-cy=step]').should('have.value', '105');
+        cy.get('input[data-cy=step]').trigger('keydown', { eventConstructor: 'KeyboardEvent', key: 'downArrow', keyCode: 40, shiftKey: true });
+        cy.get('input[data-cy=step]').should('have.value', '5');
+    });
 });
