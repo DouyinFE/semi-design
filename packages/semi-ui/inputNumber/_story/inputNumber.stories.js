@@ -712,3 +712,32 @@ export const FixPrecision786 = () => {
   );
 }
 FixPrecision786.storyName = 'fix precision 删除后输入非法值会显示 0.00';
+
+
+ export const FixFormValidate = () => {
+  return (
+      <div data-cy="fix-precision-786">
+          <Form  >
+              <Form.InputNumber
+                  field="inputnumber"
+                  label='inputnumber' 
+                  rules={[
+                      {
+                          required: true,
+                      },
+                  ]}
+              />
+              <Form.Input
+                  field="input"
+                  label='input'
+                  rules={[
+                      {
+                          required: true,
+                      },
+                  ]}
+              />
+          </Form>
+      </div>
+  );
+}
+FixFormValidate.storyName = 'fix form validate';
