@@ -10,13 +10,13 @@ body:
     options:
     - label: I have searched the existing issues
       required: true
-- type: textarea
+- type: input
   attributes:
     label: Which Component
     description: Which component are you having trouble using.
   validations:
     required: false
-- type: textarea
+- type: input
   attributes:
     label: Semi Version
     description: The version number of semi you are using.
