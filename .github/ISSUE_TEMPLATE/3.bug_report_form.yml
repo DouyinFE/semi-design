@@ -1,0 +1,67 @@
+name: Bug Report
+description: File a bug report
+title: "[Bug]: "
+labels: ["bug", "triage"]
+assignees:
+  - octocat
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+  - type: input
+    id: component
+    attributes:
+      label: Which Component
+      description: 
+      placeholder: Tell us which component has bug
+    validations:
+      required: true
+  - type: input
+    id: semi-version
+    attributes:
+      label: Semi Version
+      description: 
+      placeholder: Which version you using 
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      placeholder: Tell us what you see!
+      value: "something wrong"
+    validations:
+      required: true
+   - type: textarea
+    id: expected-result
+    attributes:
+      label: Expected result
+      description: What did you expect to happen?
+      value: "should work fine"
+    validations:
+      required: true
+  - type: dropdown
+    id: browsers
+    attributes:
+      label: What browsers are you seeing the problem on?
+      multiple: true
+      options:
+        - Firefox
+        - Chrome
+        - Safari
+        - Microsoft Edge
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log output
+      description: Please copy and paste any relevant log output. 这将自动格式化为代码，因此无需背板。
+      render: shell
+  - type: checkboxes
+    id: has-demos
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our [Code of Conduct](https://example.com)
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true
