@@ -49,6 +49,8 @@ body:
   attributes:
     label: ReproducibleCode
     placeholder: |
+      You can paste a minimal reproducible code, preferably runnable in the code editing area of Semi official website
+      Or you can also use Codesandbox to create a minimal reproduction code
       import { Button } from '@douyinfe/semi-ui';
       () => {
         return （<Button>bug</Button>);
