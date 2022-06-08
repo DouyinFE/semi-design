@@ -1,15 +1,13 @@
 name: Bug Report
 description: File a bug report
-title: "[Bug]: "
-labels: ["bug", "triage"]
-assignees:
-  - octocat
+title: "[Bug]: <title>"
+labels: ["bug"]
 body:
-  - type: markdown
+- type: markdown
     attributes:
       value: |
         Thanks for taking the time to fill out this bug report!
-  - type: input
+- type: input
     id: component
     attributes:
       label: Which Component
@@ -17,7 +15,7 @@ body:
       placeholder: Tell us which component has bug
     validations:
       required: true
-  - type: input
+- type: input
     id: semi-version
     attributes:
       label: Semi Version
@@ -25,7 +23,7 @@ body:
       placeholder: Which version you using 
     validations:
       required: true
-  - type: textarea
+- type: textarea
     id: what-happened
     attributes:
       label: What happened?
@@ -33,7 +31,7 @@ body:
       value: "something wrong"
     validations:
       required: true
-   - type: textarea
+- type: textarea
     id: expected-result
     attributes:
       label: Expected result
@@ -41,7 +39,7 @@ body:
       value: "should work fine"
     validations:
       required: true
-  - type: dropdown
+- type: dropdown
     id: browsers
     attributes:
       label: What browsers are you seeing the problem on?
@@ -51,17 +49,3 @@ body:
         - Chrome
         - Safari
         - Microsoft Edge
-  - type: textarea
-    id: logs
-    attributes:
-      label: Relevant log output
-      description: Please copy and paste any relevant log output. 这将自动格式化为代码，因此无需背板。
-      render: shell
-  - type: checkboxes
-    id: has-demos
-    attributes:
-      label: Code of Conduct
-      description: By submitting this issue, you agree to follow our [Code of Conduct](https://example.com)
-      options:
-        - label: I agree to follow this project's Code of Conduct
-          required: true
