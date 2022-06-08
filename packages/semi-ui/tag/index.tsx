@@ -1,6 +1,4 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable no-unused-vars */
-/* eslint-disable max-len */
 import React, { Component } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
@@ -94,7 +92,7 @@ export default class Tag extends Component<TagProps, TagState> {
     }
 
     handleKeyDown(event: any) {
-        const { closable, onClick } = this.props;
+        const { closable, onClick, onKeyDown } = this.props;
         switch (event.key) {
             case "Backspace":
             case "Delete":
@@ -111,6 +109,7 @@ export default class Tag extends Component<TagProps, TagState> {
             default:
                 break;
         }
+        onKeyDown && onKeyDown(event);
     }
 
     renderAvatar() {
@@ -123,7 +122,7 @@ export default class Tag extends Component<TagProps, TagState> {
         const { children, size, color, closable, visible, onClose, onClick, className, type, avatarSrc, avatarShape, ...attr } = this.props;
         const { visible: isVisible } = this.state;
         const clickable = onClick !== Tag.defaultProps.onClick || closable;
-        const a11yProps = { role: 'button', tabIndex: 0, onKeyDown: this.props.onKeyDown || this.handleKeyDown };
+        const a11yProps = { role: 'button', tabIndex: 0, onKeyDown: this.handleKeyDown };
         const baseProps = {
             ...attr,
             onClick,

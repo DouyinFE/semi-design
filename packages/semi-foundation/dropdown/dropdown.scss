@@ -51,7 +51,8 @@ $module: #{$prefix}-dropdown;
             background-color: $color-dropdown_item-bg-active;
         }
         &:focus-visible {
-            outline: $width-dropdown_item-outline solid $color-dropdown_item_outline-focus;
+            background-color: $color-dropdown_item-bg-hover;
+            outline: 0;
         }
         &-icon {
             display: inline-flex;

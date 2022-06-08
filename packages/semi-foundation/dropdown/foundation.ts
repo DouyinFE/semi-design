@@ -1,5 +1,5 @@
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
-import { handlePrevent } from '@douyinfe/semi-foundation/utils/a11y';
+import { handlePrevent, setFocusToFirstItem, setFocusToLastItem } from '../utils/a11y';
 
 export interface DropdownAdapter extends Partial<DefaultAdapter> {
     setPopVisible(visible: boolean): void;
@@ -12,31 +12,21 @@ export default class DropdownFoundation extends BaseFoundation<DropdownAdapter> 
         this._adapter.notifyVisibleChange(visible);
     }
 
-    getMenuItemNodes(target: any): NodeListOf<Element> {
-        console.log(target);
-        const id = target.attributes['aria-describedby'].value;
+    getMenuItemNodes(target: any): HTMLElement[] {
+        const id = target.attributes['data-popupId'].value;
         const menuWrapper = document.getElementById(id);
         // if has dropdown item, the item must wrapped by li
-        return menuWrapper ? menuWrapper.querySelectorAll(`li[aria-disabled="false"]`) : null;
+        return menuWrapper ? Array.from(menuWrapper.getElementsByTagName('li')).filter(item => item.ariaDisabled === "false") : null;
     }
 
     setFocusToFirstMenuItem(target: any): void {
         const menuItemNodes = this.getMenuItemNodes(target);
-        menuItemNodes && menuItemNodes.length !== 0 && (menuItemNodes[0] as HTMLAnchorElement).focus();
+        menuItemNodes && setFocusToFirstItem(menuItemNodes);
     }
 
     setFocusToLastMenuItem(target: any): void {
         const menuItemNodes = this.getMenuItemNodes(target);
-        menuItemNodes && menuItemNodes.length !== 0 && (menuItemNodes[menuItemNodes.length - 1] as HTMLAnchorElement).focus();
-    }
-
-    isExpandedMenu(target: any): boolean {
-        console.log('target', target);
-        if (target && target.attributes['aria-describedby']){
-            const menuItemNodes = this.getMenuItemNodes(target);
-            return menuItemNodes ? true : false; 
-        }
-        return false;
+        menuItemNodes && setFocusToLastItem(menuItemNodes);
     }
 
     handleKeyDown(event: any): void {

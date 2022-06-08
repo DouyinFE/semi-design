@@ -491,7 +491,7 @@ function DropdownEvents() {
     - 触发方式设置为 click 时：点击触发器或聚焦时使用 `Enter` 或 `Space` 键可以打开 Dropdown，此时焦点自动聚焦到 Dropdown 中的第一个非禁用项上
 - 当焦点位于 Dropdown 内的菜单项上时：
     - 键盘用户可以使用键盘 `上箭头` 或 `下箭头` 切换可交互元素
-    - 使用 `Enter` 键 或 `Space` 键可以激活聚焦的菜单项
+    - 使用 `Enter` 键 或 `Space` 键可以激活聚焦的菜单项, 若菜单项绑定了onClick，事件会被触发
 - 键盘用户可以通过按 `Esc` 关闭 Dropdown，关闭后焦点返回到触发器上
 
 ## 设计变量

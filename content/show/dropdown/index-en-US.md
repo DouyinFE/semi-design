@@ -496,7 +496,7 @@ function DropdownEvents() {
     - When the trigger method is set to click: Use the `Enter` or `Space` key to open the Dropdown when clicking the trigger or focusing, and the focus will automatically focus on the first non-disabled item in the Dropdown
 - When the focus is on the menu item inside the Dropdown:
     - Keyboard users can use the keyboard `Up Arrow` or `Down Arrow` to switch between interactable elements
-    - Use the `Enter` key or the `Space` key to activate the focused menu item
+    - Use the `Enter` key or the `Space` key to activate the focused menu item, if the menu item is bound to onClick, the event will be fired
 - Keyboard users can close the Dropdown by pressing `Esc`, after which the focus returns to the trigger
 
 ## Design Tokens

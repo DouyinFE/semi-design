@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { cssClasses as css, strings } from '@douyinfe/semi-foundation/dropdown/constants';
 import DropdownContext, { DropdownContextType } from './context';
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
-import Foundation from '@douyinfe/semi-foundation/dropdown/menuItemFoudation';
 import { IconTick } from '@douyinfe/semi-icons';
 import { noop } from 'lodash';
 
@@ -26,17 +25,6 @@ export interface DropdownItemProps extends BaseProps {
 const prefixCls = css.PREFIX;
 
 class DropdownItem extends BaseComponent<DropdownItemProps> {
-    constructor(props: DropdownItemProps) {
-        super(props);
-
-        this.foundation = new Foundation(this.adapter);
-    }
-
-    get adapter() {
-        return {
-            ...super.adapter,
-        };
-    }
 
     static propTypes = {
         children: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
@@ -106,7 +94,7 @@ class DropdownItem extends BaseComponent<DropdownItemProps> {
             );
         }
         return (
-            <li role="menuitem" tabIndex={-1} aria-disabled={disabled} {...events} ref={ref => forwardRef(ref)} className={itemclass} style={style} onKeyDown={e => this.foundation.onMenuItemKeydown(e)}>
+            <li role="menuitem" tabIndex={-1} aria-disabled={disabled} {...events} ref={ref => forwardRef(ref)} className={itemclass} style={style}>
                 {tick}
                 {iconContent}
                 {children}

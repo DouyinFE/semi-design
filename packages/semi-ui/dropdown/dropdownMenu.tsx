@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { cssClasses } from '@douyinfe/semi-foundation/dropdown/constants';
 import Foundation from '@douyinfe/semi-foundation/dropdown/menuFoundation';
+import DropdownContext from './context';
 
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
 
@@ -15,6 +16,8 @@ class DropdownMenu extends BaseComponent<DropdownMenuProps> {
         className: PropTypes.string,
         style: PropTypes.object,
     };
+
+    static contextType = DropdownContext;
 
     menuRef: React.RefObject<HTMLUListElement>
 
@@ -38,7 +41,7 @@ class DropdownMenu extends BaseComponent<DropdownMenuProps> {
     render() {
         const { children, className, style, ...rest } = this.props;
         return (
-            <ul role="menu" aria-orientation="vertical" ref={this.menuRef} {...rest} className={classnames(`${prefixCls}-menu`, className)} style={style}>
+            <ul role="menu" aria-orientation="vertical" ref={this.menuRef} {...rest} className={classnames(`${prefixCls}-menu`, className)} style={style} onKeyDown={e => this.foundation.onMenuKeydown(e)}>
                 {children}
             </ul>
         );

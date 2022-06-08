@@ -76,6 +76,7 @@ export interface TooltipProps extends BaseProps {
     returnFocusOnClose?: boolean;
     onEscKeyDown?: (e: React.KeyboardEvent) => void;
     wrapperId?: string;
+    onKeyDown?: (e: React.KeyboardEvent) => void;
 }
 interface TooltipState {
     visible: boolean;
@@ -160,6 +161,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         guardFocus: false,
         returnFocusOnClose: false,
         onEscKeyDown: noop,
+        onKeyDown: noop,
     };
 
     eventManager: Event;
@@ -615,7 +617,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
     };
 
     wrapSpan = (elem: React.ReactNode | React.ReactElement) => {
-        const { wrapperClassName } = this.props;
+        const { wrapperClassName, onKeyDown } = this.props;
         const display = get(elem, 'props.style.display');
         const block = get(elem, 'props.block');
 
@@ -627,7 +629,8 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             style.width = '100%';
         }
 
-        return <span className={wrapperClassName} style={style}>{elem}</span>;
+        // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+        return <span className={wrapperClassName} style={style} onKeyDown={onKeyDown}>{elem}</span>;
     };
 
     mergeEvents = (rawEvents: Record<string, any>, events: Record<string, any>) => {
@@ -713,7 +716,8 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                 }
             },
             tabIndex: 0, // a11y keyboard
-            'data-trigger': trigger
+            'data-trigger': trigger,
+            'data-id': id
         });
 
         // If you do not add a layer of div, in order to bind the events and className in the tooltip, you need to cloneElement children, but this time it may overwrite the children's original ref reference

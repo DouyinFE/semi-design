@@ -135,10 +135,10 @@ class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
     handleVisibleChange = (visible: boolean) => this.foundation.handleVisibleChange(visible);
 
     renderContent() {
-        const { render, menu, contentClassName, style, showTick, prefixCls } = this.props;
+        const { render, menu, contentClassName, style, showTick, prefixCls, trigger } = this.props;
         const className = classnames(prefixCls, contentClassName);
         const { level = 0 } = this.context;
-        const contextValue = { showTick, level: level + 1 };
+        const contextValue = { showTick, level: level + 1, trigger };
         let content = null;
         if (React.isValidElement(render)) {
             content = render;
@@ -237,7 +237,9 @@ class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
                 trigger={trigger}
                 onVisibleChange={this.handleVisibleChange}
                 showArrow={false}
+                // returnFocusOnClose={true}
                 {...attr}
+                onKeyDown={e => this.foundation.handleKeyDown(e)}
             >
                 {React.isValidElement(children) ?
                     React.cloneElement(children, {
@@ -246,7 +248,7 @@ class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
                         }),
                         'aria-haspopup': true,
                         'aria-expanded': popVisible,
-                        onKeyDown: e => this.foundation.handleKeyDown(e),
+                        onKeyDown: e => this.foundation.handleKeyDown(e)
                     }) :
                     children}
             </Tooltip>
