@@ -23,6 +23,8 @@ export interface CheckboxAdapter<P = Record<string, any>, S = Record<string, any
     notifyChange: (event: BasicCheckboxEvent) => void;
     setAddonId: () => void;
     setExtraId: () => void;
+    setFocusVisible: (focusVisible: boolean) => void;
+    focusCheckboxEntity: () => void;
 }
 
 class CheckboxFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<CheckboxAdapter<P, S>, P, S> {
@@ -77,6 +79,8 @@ class CheckboxFoundation<P = Record<string, any>, S = Record<string, any>> exten
             return;
         }
 
+        this._adapter.focusCheckboxEntity();
+
         const isInGroup = this._adapter.getIsInGroup();
 
         if (isInGroup) {
@@ -116,6 +120,21 @@ class CheckboxFoundation<P = Record<string, any>, S = Record<string, any>> exten
 
     setChecked(checked: boolean) {
         this._adapter.setNativeControlChecked(checked);
+    }
+
+    handleFocusVisible = (event: any) => {
+        const { target } = event;
+        try {
+            if (target.matches(':focus-visible')) {
+                this._adapter.setFocusVisible(true);
+            }
+        } catch (error){
+            console.warn('The current browser does not support the focus-visible');
+        }
+    }
+
+    handleBlur = () => {
+        this._adapter.setFocusVisible(false);
     }
 
     // eslint-disable-next-line @typescript-eslint/no-empty-function
