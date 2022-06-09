@@ -1,70 +1,70 @@
 // primary
 $color-button_primary-bg-default: var(--semi-color-primary); // 主要按钮背景颜色
 $color-button_primary-border-default: transparent; // 主要按钮描边颜色
-$color-button_primary-text-default: rgb(var(--semi-white)); // 主要按钮文字颜色
+$color-button_primary-text-default: rgba(var(--semi-white), 1); // 主要按钮文字颜色
 
 $color-button_primary-bg-hover: var(--semi-color-primary-hover); // 主要按钮背景颜色 - 悬浮
 $color-button_primary-border-hover: var(--semi-color-primary-hover); // 主要按钮描边颜色 - 悬浮
-$color-button_primary-text-hover: rgb(var(--semi-white)); // 主要按钮文字颜色 - 悬浮
+$color-button_primary-text-hover: rgba(var(--semi-white), 1); // 主要按钮文字颜色 - 悬浮
 
 $color-button_primary-bg-active: var(--semi-color-primary-active); // 主要按钮背景颜色 - 按下
 $color-button_primary-border-active: var(--semi-color-primary-active); // 主要按钮描边颜色 - 按下
-$color-button_primary-text-active: rgb(var(--semi-white)); // 主要按钮文字颜色 - 按下
+$color-button_primary-text-active: rgba(var(--semi-white), 1); // 主要按钮文字颜色 - 按下
 $color-button_primary-outline-focus: var(--semi-color-primary-light-active); // 主要按钮轮廓 - 聚焦
 
 // secondary
 $color-button_secondary-bg-default: var(--semi-color-secondary); // 次要按钮背景颜色
 $color-button_secondary-border-default: var(--semi-color-secondary); // 次要按钮描边颜色
-$color-button_secondary-text-default: rgb(var(--semi-white)); // 次要按钮文字颜色
+$color-button_secondary-text-default: rgba(var(--semi-white), 1); // 次要按钮文字颜色
 
 $color-button_secondary-bg-hover: var(--semi-color-secondary-hover); // 次要按钮背景颜色 - 悬浮
 $color-button_secondary-border-hover: var(--semi-color-secondary-hover); // 次要按钮描边颜色 - 悬浮
-$color-button_secondary-text-hover: rgb(var(--semi-white)); // 次要按钮文字颜色 - 悬浮
+$color-button_secondary-text-hover: rgba(var(--semi-white), 1); // 次要按钮文字颜色 - 悬浮
 
 $color-button_secondary-bg-active: var(--semi-color-secondary-active); // 次要按钮背景颜色 - 按下
 $color-button_secondary-border-active: var(--semi-color-secondary-active); // 次要按钮描边颜色 - 按下
-$color-button_secondary-text-active: rgb(var(--semi-white)); // 次要按钮文字颜色 - 按下
+$color-button_secondary-text-active: rgba(var(--semi-white), 1); // 次要按钮文字颜色 - 按下
 
 // danger
 $color-button_danger-bg-default: var(--semi-color-danger); // 危险按钮背景颜色
 $color-button_danger-border-default: var(--semi-color-danger); // 危险按钮描边颜色
-$color-button_danger-text-default: rgb(var(--semi-white)); // 危险按钮文字颜色
+$color-button_danger-text-default: rgba(var(--semi-white), 1); // 危险按钮文字颜色
 
 $color-button_danger-bg-hover: var(--semi-color-danger-hover); // 危险按钮背景颜色 - 悬浮
 $color-button_danger-border-hover: var(--semi-color-danger); // 危险按钮描边颜色 - 悬浮
-$color-button_danger-text-hover: rgb(var(--semi-white)); // 危险按钮文字颜色 - 悬浮
+$color-button_danger-text-hover: rgba(var(--semi-white), 1); // 危险按钮文字颜色 - 悬浮
 
 $color-button_danger-bg-active: var(--semi-color-danger-active); // 危险按钮背景颜色 - 按下
 $color-button_danger-border-active: var(--semi-color-danger-active); // 危险按钮描边颜色 - 按下
-$color-button_danger-text-active: rgb(var(--semi-white)); // 危险按钮文字颜色 - 按下
+$color-button_danger-text-active: rgba(var(--semi-white), 1); // 危险按钮文字颜色 - 按下
 $color-button_danger-outline-focus: var(--semi-color-danger-light-active); // 危险按钮轮廓 - 聚焦
 
 // warning
 $color-button_warning-bg-default: var(--semi-color-warning); // 警告按钮背景颜色
 $color-button_warning-border-default: var(--semi-color-warning); // 警告按钮描边颜色
-$color-button_warning-text-default: rgb(var(--semi-white)); // 警告按钮文字颜色
+$color-button_warning-text-default: rgba(var(--semi-white), 1); // 警告按钮文字颜色
 
 $color-button_warning-bg-hover: var(--semi-color-warning-hover); // 警告按钮背景颜色 - 悬浮
 $color-button_warning-border-hover: var(--semi-color-warning-hover); // 警告按钮描边颜色 - 悬浮
-$color-button_warning-text-hover: rgb(var(--semi-white)); // 警告按钮文字颜色 - 悬浮
+$color-button_warning-text-hover: rgba(var(--semi-white), 1); // 警告按钮文字颜色 - 悬浮
 
 $color-button_warning-bg-active: var(--semi-color-warning-active); // 警告按钮背景颜色 - 按下
 $color-button_warning-border-active: var(--semi-color-warning-active); // 警告按钮描边颜色 - 按下
-$color-button_warning-text-active: rgb(var(--semi-white)); // 警告按钮文字颜色 - 按下
+$color-button_warning-text-active: rgba(var(--semi-white), 1); // 警告按钮文字颜色 - 按下
 $color-button_warning-outline-focus: var(--semi-color-warning-light-active); // 警告按钮轮廓 - 聚焦
 
 // tertiary
 $color-button_tertiary-bg-default: var(--semi-color-tertiary); // 第三按钮背景颜色
 $color-button_tertiary-border-default: var(--semi-color-tertiary); // 第三按钮描边颜色
-$color-button_tertiary-text-default: rgb(var(--semi-white)); // 第三按钮文字颜色
+$color-button_tertiary-text-default: rgba(var(--semi-white), 1); // 第三按钮文字颜色
 
 $color-button_tertiary-bg-hover: var(--semi-color-tertiary-hover); // 第三按钮背景颜色 - 悬浮
 $color-button_tertiary-border-hover: var(--semi-color-tertiary-hover); // 第三按钮描边颜色 - 悬浮
-$color-button_tertiary-text-hover: rgb(var(--semi-white)); // 第三按钮文字颜色 - 悬浮
+$color-button_tertiary-text-hover: rgba(var(--semi-white), 1); // 第三按钮文字颜色 - 悬浮
 
 $color-button_tertiary-bg-active: var(--semi-color-tertiary-active); // 第三按钮背景颜色 - 按下
 $color-button_tertiary-border-active: var(--semi-color-tertiary-active); // 第三按钮描边颜色 - 按下
-$color-button_tertiary-text-active: rgb(var(--semi-white)); // 第三按钮文字颜色 - 按下
+$color-button_tertiary-text-active: rgba(var(--semi-white), 1); // 第三按钮文字颜色 - 按下
 
 $color-button_tertiary_solid-text-default: var(--semi-color-text-1); // 浅色第三按钮文字颜色
 

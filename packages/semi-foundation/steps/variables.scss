@@ -4,7 +4,7 @@ $color-steps-bg-default: var(--semi-color-text-2); // 未到达步骤条图标�
 $color-steps-bg-hover: var(--semi-color-fill-0); // 步骤条背景 - 悬浮态
 $color-steps-border-default: transparent; // 步骤条描边 - 默认
 $color-steps-icon-default: var(--semi-color-text-2); // 未到达步骤条图标背景
-$color-steps-text-default: rgb(var(--semi-white)); // 步骤条图标默认文本颜色
+$color-steps-text-default: rgba(var(--semi-white), 1); // 步骤条图标默认文本颜色
 $color-steps_danger-text-active: var(--semi-color-danger-active); // 错误步骤条文本颜色 - 按下态
 $color-steps_danger-text-default: var(--semi-color-danger); // 错误步骤条文本颜色 - 默认态
 $color-steps_danger-text-hover: var(--semi-color-danger-hover); // 错误步骤条文本颜色 - 悬浮态
