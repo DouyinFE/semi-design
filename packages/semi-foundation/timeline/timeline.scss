@@ -105,7 +105,7 @@ $module: #{$prefix}-timeline;
         }
 
         &:last-child {
-            .#{$module}-item-tail {
+            & > .#{$module}-item-tail {
                 border-left: none;
             }
         }

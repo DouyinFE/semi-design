@@ -103,7 +103,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         onOk: noop,
         afterClose: noop,
         maskFixed: false,
-        closeOnEsc: false,
+        closeOnEsc: true,
         size: 'small',
         keepDOM: false,
         lazyRender: true,
@@ -290,6 +290,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
                         onClick={this.handleCancel}
                         loading={cancelLoading}
                         type="tertiary"
+                        autoFocus={true}
                         {...this.props.cancelButtonProps}
                         x-semi-children-alias="cancelText"
                     >

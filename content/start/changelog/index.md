@@ -15,6 +15,30 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 ---
 
+#### 🎉 2.12.0 (2022-06-06)
+- 【Fix】
+    - 修复 Timeline 嵌套使用时最后一项样式异常的问题 [#865](https://github.com/DouyinFE/semi-design/issues/865)
+    - 修复 Select 开启虚拟化且无数据时 emptyContent 高度不对的问题 [#839](https://github.com/DouyinFE/semi-design/pull/839) [@tianenpang](https://github.com/tianenpang)
+
+#### 🎉 2.12.0-beta.5 (2022-05-31)
+- 【Fix】
+    - 修复 Tooltip、Popover、Select等带浮层组件，在 React 18 下使用，关闭时会闪烁的问题 [#715](https://github.com/DouyinFE/semi-design/issues/715)
+    - 修复 FocusHandle 错误引用了 lodash-es 导致的报错问题（问题影响范围 v2.12.0-beta.0 - v2.12.0-beta.2）
+
+#### 🎉 2.12.0-beta.0 (2022-05-30)
+
+- 【Feat】
+    - Modal 新增 A11y 键盘和焦点适配 [#205](https://github.com/DouyinFE/semi-design/issues/205)
+    - Tabs 新增 A11y 键盘和焦点适配 [#205](https://github.com/DouyinFE/semi-design/issues/205)
+    - Tag 新增 A11y 键盘和焦点适配   [#205](https://github.com/DouyinFE/semi-design/issues/205)
+    - Progress stroke 支持传入渐变色  [#456](https://github.com/DouyinFE/semi-design/issues/456) [@vecpeng](https://github.com/vecpeng)
+    - Slider 支持点击 marks 改变滑块位置 [#618](https://github.com/DouyinFE/semi-design/issues/618) [@huruji](https://github.com/huruji)
+- 【Fix】
+    - 修复 TreeSelect 在参数 checkRelation 为 unRelated，treeData 为 `[]` 时的 TypeError
+    - 修复 InputNumber 在 readonly 模式下可以用过步进器修改 value [@zwlafk](https://github.com/zwlafk)
+- 【Design Token】
+    - Tag solid 模式关闭按钮新增颜色 token `$color-tag_close-icon_deep-default`
+
 
 #### 🎉 2.11.2 (2022-05-24)
 - 【Chore】
