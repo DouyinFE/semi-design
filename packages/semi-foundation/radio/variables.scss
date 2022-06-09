@@ -13,7 +13,7 @@ $color-radio_primary-bg-hover: var(--semi-color-primary-hover); // 选中项悬�
 $color-radio_primary-bg-active: var(--semi-color-primary-active); // 选中项按下态背景颜色
 $color-radio_primary-border-default: var(--semi-color-primary); // 选中项描边颜色
 $color-radio_primary-bg-default: var(--semi-color-primary); // 选中项背景颜色
-$color-radio_primary-text-default: rgb(var(--semi-white)); // 选中项原点颜色
+$color-radio_primary-text-default: rgba(var(--semi-white), 1); // 选中项原点颜色
 
 $color-radio_checked-bg-disabled: var(--semi-color-primary-disabled); // 选中项禁用态背景颜色
 $color-radio_default-border-disabled: var(--semi-color-border); // 禁用态描边颜色
