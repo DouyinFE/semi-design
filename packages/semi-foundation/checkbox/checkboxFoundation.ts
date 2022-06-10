@@ -131,7 +131,7 @@ class CheckboxFoundation<P = Record<string, any>, S = Record<string, any>> exten
     handleFocusVisible = (event: any) => {
         const { target } = event;
         try {
-            if( this.clickState ) {
+            if (this.clickState) {
                 this.clickState = false;
                 return;
             } 

@@ -3,9 +3,9 @@ describe('checkbox', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?id=checkbox--checkbox-group-demo&args=&viewMode=story');
         cy.get('.semi-checkbox').eq(0).click();
         cy.focused().tab();
-        cy.get('.semi-checkbox-focus').type('{backspace}');
+        cy.focused().type('{backspace}');
         cy.get('.semi-checkbox').eq(1).get('.semi-checkbox-checked');
-        cy.get('.semi-checkbox-focus').type('{backspace}');
+        cy.focused().type('{backspace}');
         cy.get('.semi-checkbox').eq(1).get('.semi-checkbox-unChecked');
     });
 
