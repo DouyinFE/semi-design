@@ -33,6 +33,8 @@ class CheckboxFoundation<P = Record<string, any>, S = Record<string, any>> exten
         super({ ...adapter });
     }
 
+    clickState = false;
+
     init() {
         const { children, extra, extraId, addonId } = this.getProps();
         if (children && !addonId) {
@@ -77,6 +79,10 @@ class CheckboxFoundation<P = Record<string, any>, S = Record<string, any>> exten
 
         if (disabled) {
             return;
+        }
+
+        if (e?.type === 'click') {
+            this.clickState = true;
         }
 
         this._adapter.focusCheckboxEntity();
@@ -125,6 +131,10 @@ class CheckboxFoundation<P = Record<string, any>, S = Record<string, any>> exten
     handleFocusVisible = (event: any) => {
         const { target } = event;
         try {
+            if( this.clickState ) {
+                this.clickState = false;
+                return;
+            } 
             if (target.matches(':focus-visible')) {
                 this._adapter.setFocusVisible(true);
             }
