@@ -252,12 +252,8 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
                         this.checkboxEntity = ref;
                     }}
                     focusInner={focusVisible && !focusOuter}
-                    onInputFocus={e => {
-                        this.handleFocusVisible(e);
-                    }}
-                    onInputBlur={e => {
-                        this.handleBlur(e);
-                    }}
+                    onInputFocus={this.handleFocusVisible}
+                    onInputBlur={this.handleBlur}
                 />
                 {
                     props.isCardType ?
