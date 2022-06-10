@@ -442,6 +442,12 @@ import { CheckboxGroup, Checkbox, Row, Col } from '@douyinfe/semi-ui';
 - `aria-disabled` indicates the current disabled state, which is consistent with the value of the `disabled` prop
 - `aria-checked` indicates the current checked state
 
+### Keyboard and focus
+- Checkbox can be focused, keyboard users can use Tab and Shift + Tab to switch focus.
+- The Checkbox that gets the focus can switch the selected and unselected states through Space.
+- The click area of ​​Checkbox is larger than the box itself and contains the text behind the box; for checkboxes with auxiliary text, the auxiliary text is also included in the click area.
+- Disabled Checkbox is not focusable.
+
 ## Design Tokens
 <DesignToken/>
 

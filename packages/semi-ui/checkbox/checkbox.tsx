@@ -36,6 +36,7 @@ interface CheckboxState {
     checked: boolean;
     addonId?: string;
     extraId?: string;
+    focusVisible?: boolean;
 }
 class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
     static contextType = Context;
@@ -99,7 +100,13 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
             },
             setExtraId: () => {
                 this.setState({ extraId: getUuidShort({ prefix: 'extra' }) });
-            }
+            },
+            setFocusVisible: (focusVisible: boolean): void => {
+                this.setState({ focusVisible });
+            },
+            focusCheckboxEntity: () => {
+                this.focus();
+            },
         };
     }
 
@@ -115,6 +122,7 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
             checked: props.checked || props.defaultChecked || checked,
             addonId: props.addonId,
             extraId: props.extraId,
+            focusVisible: false
         };
 
         this.checkboxEntity = null;
@@ -147,6 +155,14 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
 
     handleEnterPress = (e: React.KeyboardEvent<HTMLSpanElement>) => this.foundation.handleEnterPress(e);
 
+    handleFocusVisible = (event: React.FocusEvent) => {
+        this.foundation.handleFocusVisible(event);
+    }
+
+    handleBlur = (event: React.FocusEvent) => {
+        this.foundation.handleBlur();
+    }
+
     render() {
         const {
             disabled,
@@ -163,7 +179,7 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
             tabIndex,
             id
         } = this.props;
-        const { checked, addonId, extraId } = this.state;
+        const { checked, addonId, extraId, focusVisible } = this.state;
         const props: Record<string, any> = {
             checked,
             disabled,
@@ -186,6 +202,8 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
 
         const prefix = prefixCls || css.PREFIX;
 
+        const focusOuter = props.isCardType || props.isPureCardType;
+
         const wrapper = classnames(prefix, {
             [`${prefix}-disabled`]: props.disabled,
             [`${prefix}-indeterminate`]: indeterminate,
@@ -197,6 +215,7 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
             [`${prefix}-cardType_checked`]: props.isCardType && props.checked && !props.disabled,
             [`${prefix}-cardType_checked_disabled`]: props.isCardType && props.checked && props.disabled,
             [className]: Boolean(className),
+            [`${prefix}-focus`]: focusVisible && focusOuter,
         });
 
         const extraCls = classnames(`${prefix}-extra`, {
@@ -211,7 +230,6 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
         );
         return (
             // label is better than span, however span is here which is to solve gitlab issue #364
-            // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
             <span
                 role={role}
                 tabIndex={tabIndex}
@@ -227,12 +245,15 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
                 <CheckboxInner
                     {...this.props}
                     {...props}
-                    addonId={children && this.addonId}
-                    extraId={extra && this.extraId}
+                    addonId={children && addonId}
+                    extraId={extra && extraId}
                     isPureCardType={props.isPureCardType}
                     ref={ref => {
                         this.checkboxEntity = ref;
                     }}
+                    focusInner={focusVisible && !focusOuter}
+                    onInputFocus={this.handleFocusVisible}
+                    onInputBlur={this.handleBlur}
                 />
                 {
                     props.isCardType ?
