@@ -47,6 +47,8 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
         super({ ...adapter });
     }
 
+    isPanelOpen = false;
+
     init(): void {
         this._setDropdownWidth();
 
@@ -97,12 +99,17 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
     handleInputClick(e?: MouseEvent): void {
         const { options } = this.getStates();
         const { disabled } = this.getProps();
-        if (options.length && !disabled) {
-            this.openDropdown();
+        if (!disabled) {
+            if (this.isPanelOpen) {
+                this.closeDropdown();
+            } else {
+                this.openDropdown();
+            }
         }
     }
 
     openDropdown(): void {
+        this.isPanelOpen = true;
         this._adapter.toggleListVisible(true);
         this._setDropdownWidth();
         // this._adapter.registerClickOutsideHandler(e => this.closeDropdown(e));
@@ -112,6 +119,7 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
     }
 
     closeDropdown(e?: any): void {
+        this.isPanelOpen = false;
         this._adapter.toggleListVisible(false);
         // this._adapter.unregisterClickOutsideHandler();
         this._adapter.notifyDropdownVisibleChange(false);
@@ -387,7 +395,6 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
 
     handleFocus(e: FocusEvent) {
         this._adapter.notifyFocus(e);
-        this.openDropdown();
     }
 
     handleBlur(e: FocusEvent) {
