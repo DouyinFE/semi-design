@@ -111,8 +111,6 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
     }
 
     foundation: CheckboxFoundation;
-    addonId: string;
-    extraId: string;
     constructor(props: CheckboxProps) {
         super(props);
 
