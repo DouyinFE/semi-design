@@ -144,6 +144,7 @@ class CheckboxFoundation<P = Record<string, any>, S = Record<string, any>> exten
     }
 
     handleBlur = () => {
+        this.clickState = false;
         this._adapter.setFocusVisible(false);
     }
 
