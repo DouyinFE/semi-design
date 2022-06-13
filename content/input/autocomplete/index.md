@@ -130,6 +130,9 @@ class CustomOptionDemo extends React.Component {
                 renderItem={this.renderOption}
                 onSearch={this.search.bind(this)}
                 onSelect={v => console.log(v)}
+                isOptionEqualToValue={(option, value) => {
+                    return option.email === value;
+                }}
             ></AutoComplete>
         );
     }
@@ -391,6 +394,7 @@ import { IllustrationNoContent } from '@douyinfe/semi-illustrations';
 | onFocus | 获得焦点时的回调 | Function(event) | |
 | onSearch | 输入变化时的回调 | Function(value: string) | |
 | onSelect | 下拉菜单候选项被选中时的回调 | Function(item: string\|number\|Item) | |
+| isOptionEqualToValue | 用于判断选项是否是被选中项，选项背景高亮需要依赖此函数。如果候选项的数据源为数字或者字符串数组，则不需要设置此项；如果候选项的数据源对象数组，并且通过renderSelectedItem自定义了输入框中的渲染内容，则需要设置此参数 | （option: string\|Item) => boolean | |2.13.0
 
 ## 设计变量
 <DesignToken/>
