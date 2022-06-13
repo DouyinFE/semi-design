@@ -505,6 +505,15 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
 
     clearInput() {
         this._adapter.updateInputValue('');
+        this._adapter.notifySearch('');
+        // reset options filter
+        const { options } = this.getStates();
+        const { remote } = this.getProps();
+        let optionsAfterFilter = options;
+        if (!remote) {
+            optionsAfterFilter = this._filterOption(options, '');
+        }
+        this._adapter.updateOptions(optionsAfterFilter);
     }
 
     focusInput() {
@@ -871,8 +880,10 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
     }
 
     handleClearClick(e: MouseEvent) {
-        this.clearInput();
-        // TODO
+        const { filter } = this.getProps();
+        if (filter) {
+            this.clearInput();
+        }
         this.clearSelected();
         // prevent this click open dropdown
         e.stopPropagation();
@@ -946,6 +957,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
             const { defaultValue, value } = currentProps;
             const selectedValues = value || defaultValue;
             if (!isNullOrUndefined(selectedValues) && !Array.isArray(selectedValues)) {
+                /* istanbul ignore next */
                 warning(true, '[Semi Select] defaultValue/value should be array type in multiple mode');
             }
         }
