@@ -397,8 +397,6 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
         return (
             <div className={suffixChildrenCls}>
                 <span
-                    role="button"
-                    tabIndex={-1}
                     className={upClassName}
                     onMouseDown={notAllowedUp ? noop : this.handleUpClick}
                     onMouseUp={this.handleMouseUp}
@@ -407,8 +405,6 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
                     <IconChevronUp size="extra-small" />
                 </span>
                 <span
-                    role="button"
-                    tabIndex={-1}
                     className={downClassName}
                     onMouseDown={notAllowedDown ? noop : this.handleDownClick}
                     onMouseUp={this.handleMouseUp}

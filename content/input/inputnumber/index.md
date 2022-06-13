@@ -55,16 +55,12 @@ import { InputNumber } from '@douyinfe/semi-ui';
         <InputNumber defaultValue={2} disabled />
         <br/><br/>
 
-        <label>自动获得焦点 autofocus=true </label>
-        <InputNumber defaultValue={3} autofocus />
-        <br/><br/>
-
         <label>设置了小数位数 precision=2 </label>
         <InputNumber precision={2} defaultValue={1.234} />
         <br/><br/>
 
         <label>设置了 innerButtons=true </label>
-        <InputNumber innerButtons={true} suffix={'小时'} defaultValue={1} style={{ width: 190}} />
+        <InputNumber innerButtons={true} suffix={'小时'} defaultValue={1} style={{ width: 190 }} />
         <br/>
     </div>
 );
@@ -80,7 +76,7 @@ import React from 'react';
 import { InputNumber } from '@douyinfe/semi-ui';
 
 () => (
-    <InputNumber innerButtons style={{ width: 190}} />
+    <InputNumber innerButtons style={{ width: 190 }} />
 );
 ```
 
@@ -91,7 +87,7 @@ import React from 'react';
 import { InputNumber } from '@douyinfe/semi-ui';
 
 () => (
-    <InputNumber hideButtons style={{ width: 190}} />
+    <InputNumber hideButtons style={{ width: 190 }} />
 );
 ```
 
@@ -195,7 +191,7 @@ function Demo () {
 | prefixCls    | 前缀内容                                                       | string\|ReactNode                 |           |           |
 | pressInterval| 长按按钮时，多久触发一次点击事件，单位毫秒                                   | number                 |   250        |           |
 | pressTimeout | 长按按钮时，延迟多久后触发点击事件，单位毫秒                                                      | number                 |     250      |           |
-| shiftStep    | 按住 shift 键每次改变步数，可以为小数                           | number                            | 1         | **1.5.0** |
+| shiftStep    | 按住 shift 键每次改变步数，可以为小数，v2.13 默认值由 1 调整为 10                           | number                            | 10         | **1.5.0** |
 | showClear    | 是否显示清除按钮                                               | boolean                           | false     | **0.35.0**   |
 | size         | 输入框大小，可选值："default"\|"small"\|"large"                | string                            | 'default' |           |
 | step         | 每次改变步数，可以为小数                                       | number                            | 1         |           |
@@ -217,10 +213,19 @@ function Demo () {
 
 ## Accessibility
 
+参考标准：https://www.w3.org/WAI/ARIA/apg/patterns/spinbutton/
+
 ### ARIA
 
-- 增减按钮添加了 button role，以表示是可以点击的按钮
-- 使用 aria-valuenow 表示当前值，aria-valuemax 表示可以接受的最大值，aria-valuemin 表示可以接受的最小值
+- 数字输入框具有 spinbutton role
+- spinbutton 使用 aria-valuenow 表示当前值，aria-valuemax 表示可以接受的最大值，aria-valuemin 表示可以接受的最小值
+- 当 InputNumber 在 Form 中使用时，输入框的 aria-labeledby 指向 Field label
+
+### 键盘和焦点
+
+- InputNumber 可被获取焦点，键盘用户可以使用 Tab 及 Shift + Tab 切换焦点（增加/减少按钮不可以被键盘聚焦）
+- 键盘用户可以按上键 ⬆️ 或下键 ⬇️ ，输入值将增加或减少 step（默认值为 1）
+- 按住 Shift + 上键 ⬆️ 或下键 ⬇️ ，输入值将增加或减少 shiftStep（默认值为 10）
 
 ## 设计变量
 <DesignToken/>
