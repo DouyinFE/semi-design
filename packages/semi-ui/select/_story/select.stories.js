@@ -759,7 +759,9 @@ export const SelectFilterSingle = () => (
         width: '250px',
         margin: 10,
       }}
+      showClear
       autoFocus
+      onSearch={(val) => console.log(`onSearch:${val}`)}
       onFocus={() => console.log('onFocus')}
       onBlur={() => console.log('onBlur')}
     >
@@ -783,7 +785,9 @@ export const SelectFilterSingle = () => (
         margin: 10,
       }}
       filter={filter}
+      showClear
       onBlur={() => console.log('onBlur')}
+      onSearch={val => console.log(val)}
       onFocus={() => console.log('onFocus')}
     >
       <Option value={1}>opt1(value:1)</Option>
@@ -797,11 +801,13 @@ export const SelectFilterSingle = () => (
         width: '250px',
         margin: 10,
       }}
+      showClear
       filter={customFilter}
       onChange={v => console.log(v)}
       insetLabel="insetLabel"
       onFocus={() => console.log('onFocus')}
       onBlur={() => console.log('onBlur')}
+      onSearch={(val) => console.log(val)}
     >
       {colorOptions.map(option => (
         <Option value={option.value} key={option.value}>
@@ -1553,6 +1559,7 @@ const SearchDemo1 = () => {
         optionList={optionList}
         value={value}
         loading={loading}
+        showClear
         onChange={onChange}
       ></Select>
       非受控：
@@ -1561,6 +1568,7 @@ const SearchDemo1 = () => {
           width: '150px',
         }}
         filter
+        showClear
         onSearch={v => handleSearch(v)}
         optionList={optionList}
         loading={loading}
@@ -1571,6 +1579,7 @@ const SearchDemo1 = () => {
         style={{
           width: '150px',
         }}
+        showClear
         filter
         multiple
         onSearch={v => handleSearch(v)}
@@ -1662,6 +1671,7 @@ class SearchDemo2 extends React.Component {
           style={{
             width: 150,
           }}
+          showClear
           filter
           labelInValue
           onSearch={this.handleSearch}
@@ -1677,6 +1687,7 @@ class SearchDemo2 extends React.Component {
             width: 180,
           }}
           filter // labelInValue
+          showClear
           multiple
           value={value}
           renderSelectedItem={this.customRender}

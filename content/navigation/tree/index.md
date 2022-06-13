@@ -1254,9 +1254,39 @@ import { Tree } from '@douyinfe/semi-ui';
 ```
 
 ### 可拖拽的Tree
-**v>=1.8.0**  
+
 通过设置 draggable 配合 onDrop 可以实现 Tree 节点的拖拽。
-**目前不支持虚拟化**
+
+<Notice title='注意'>
+    拖拽功能于 v 1.8.0 后开始提供。目前不支持与虚拟化同时使用
+</Notice>
+
+拖拽事件的回调入参如下：
+```
+- onDragEnd: function({ event, node: treeNode })
+- onDragEnter:function({ event, node: treeNode, expandedKeys: string[] })
+- onDragLeave:function({ event, node: treeNode })
+- onDragOver:function({ event, node :treeNode })
+- onDragStart: function({ event, node })
+- onDrop:function({ event, node, dragNode:treeNode, dragNodesKeys:string[], dropPosition:number, dropToGap:Boolean })
+```
+
+其中node，除了原有数据originalData外，还包含:
+```
+treeNode {
+    expanded: Boolean,
+    pos: string
+    value?: string | number;
+    label?: React.ReactNode;
+    disabled?: boolean;
+    isLeaf?: boolean;
+    [key: string]: any;
+}
+```
+- `pos` 指的是当前节点在整个 treeData 中的位置关系，如第0层第1个节点的第2个节点的第0个节点：'0-1-2-0'
+- `dropPosition` 指的是被拖拽节点在当前层级中被 drop 的位置，如插入在同级的第0个节点前则为 -1，在第0个节点后则为 1，落在其上则为 0，以此类推。配合 dropToGap 可以得到更完整的判断。
+- `dropToGap` 指的是被拖拽节点是否被 drop 在节点之间的位置，如果为 false 则是 drop 在某个节点上方
+
 
 ```jsx live=true hideInDSM
 import React, { useState } from 'react';
