@@ -170,7 +170,6 @@ class CustomOptionDemo extends Component {
           style={{
             width: '250px',
           }}
-          optionLabelProp="value"
           onSearch={this.search}
         ></AutoComplete>
         <br />
