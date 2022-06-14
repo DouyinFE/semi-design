@@ -8,7 +8,7 @@ import { noop } from 'lodash';
 import { cssClasses } from '@douyinfe/semi-foundation/table/constants';
 import TableSelectionCellFoundation, { TableSelectionCellAdapter, TableSelectionCellEvent } from '@douyinfe/semi-foundation/table/tableSelectionCellFoundation';
 
-import { Checkbox, CheckboxEvent, CheckboxProps } from '../checkbox';
+import Checkbox, { CheckboxEvent, CheckboxProps } from '../checkbox';
 
 export interface TableSelectionCellProps {
     columnTitle?: string; // TODO: future api

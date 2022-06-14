@@ -5,7 +5,7 @@ import { cssClasses } from '@douyinfe/semi-foundation/tree/constants';
 import isEnterPress from '@douyinfe/semi-foundation/utils/isEnterPress';
 import { debounce, isFunction, isString, get, isEmpty } from 'lodash';
 import { IconTreeTriangleDown, IconFile, IconFolder, IconFolderOpen } from '@douyinfe/semi-icons';
-import { Checkbox } from '../checkbox';
+import Checkbox from '../checkbox';
 import TreeContext, { TreeContextValue } from './treeContext';
 import Spin from '../spin';
 import { TreeNodeProps, TreeNodeState } from './interface';

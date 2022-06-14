@@ -10,7 +10,7 @@ import { cssClasses } from '@douyinfe/semi-foundation/table/constants';
 import Dropdown, { DropdownProps } from '../dropdown';
 import { Trigger, Position } from '../tooltip';
 import { Radio } from '../radio';
-import { Checkbox } from '../checkbox';
+import Checkbox from '../checkbox';
 import {
     FilterIcon,
     Filter,

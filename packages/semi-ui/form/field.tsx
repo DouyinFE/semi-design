@@ -7,7 +7,7 @@ import Input from '../input/index';
 import TextArea from '../input/textarea';
 import InputNumber from '../inputNumber/index';
 import Select from '../select/index';
-import { Checkbox } from '../checkbox/index';
+import Checkbox from '../checkbox/index';
 import CheckboxGroup from '../checkbox/checkboxGroup';
 import { Radio } from '../radio/index';
 import RadioGroup from '../radio/radioGroup';

@@ -10,7 +10,7 @@ import '@douyinfe/semi-foundation/transfer/transfer.scss';
 import BaseComponent from '../_base/baseComponent';
 import LocaleConsumer from '../locale/localeConsumer';
 import { Locale } from '../locale/interface';
-import { Checkbox } from '../checkbox/index';
+import Checkbox from '../checkbox';
 import Input, { InputProps } from '../input/index';
 import Spin from '../spin';
 import Button from '../button';
