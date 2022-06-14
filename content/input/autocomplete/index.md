@@ -264,22 +264,36 @@ import { AutoComplete } from '@douyinfe/semi-ui';
 import React from 'react';
 import { AutoComplete } from '@douyinfe/semi-ui';
 
-() => (
-    <div>
-        <AutoComplete
-            data={[1, 2, 3, 4]}
-            position="top"
-            placeholder="选项菜单在上方显示"
-            style={{ width: 200, margin: 10 }}
-        ></AutoComplete>
-        <AutoComplete
-            data={[1, 2, 3, 4]}
-            position="rightTop"
-            placeholder="选项菜单在右侧显示"
-            style={{ width: 200, margin: 10 }}
-        ></AutoComplete>
-    </div>
-);
+() => {
+    const [data, setData] = useState([]);
+
+    const change = (input) => {
+        let newData = ['gmail.com', '163.com', 'qq.com'].map(domain => `${input}@${domain}`);
+        if (!input) {
+            newData = [];
+        }
+        setData(newData);
+    }
+    return (
+        <div>
+            <AutoComplete
+                data={data}
+                position="top"
+                onSearch={change}
+                placeholder="选项菜单在上方显示"
+                style={{ width: 200, margin: 10 }}
+            ></AutoComplete>
+            <AutoComplete
+                data={data}
+                position="rightTop"
+                onSearch={change}
+                placeholder="选项菜单在右侧显示"
+                style={{ width: 200, margin: 10 }}
+            ></AutoComplete>
+        </div>
+    )
+};
+
 ```
 
 ### 禁用
