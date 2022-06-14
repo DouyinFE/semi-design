@@ -129,9 +129,6 @@ class CustomOptionDemo extends React.Component {
                 renderItem={this.renderOption}
                 onSearch={this.search.bind(this)}
                 onSelect={v => console.log(v)}
-                isOptionEqualToValue={(option, value) => {
-                    return option.email === value;
-                }}
             ></AutoComplete>
         );
     }
@@ -393,7 +390,6 @@ import { IllustrationNoContent } from '@douyinfe/semi-illustrations';
 | onFocus | The callback when the focus is obtained | Function(event) | |
 | onSearch | Callback when input changes | Function(value: string) | |
 | onSelect | Callback when the drop-down menu candidate is selected | Function(item: string\|number\|Item) | |
-| isOptionEqualToValue | It is used to judge whether the option is the selected item. The background highlight of the option needs to rely on this function. If the data source of the candidate item is an array of numbers or strings, you do not need to set this parameter; if the data source of the candidate item is an array of objects and the rendered content of the input box is customized through renderSelectedItem, you need to set this parameter | （option: string\|Item) => boolean | |2.13.0
 
 ## Design Token
 <DesignToken/>

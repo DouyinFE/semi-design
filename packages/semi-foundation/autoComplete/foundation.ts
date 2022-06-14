@@ -217,7 +217,7 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
     }
 
     handleValueChange(propValue: any) {
-        let { data, defaultActiveFirstOption, isOptionEqualToValue } = this.getProps();
+        let { data, defaultActiveFirstOption } = this.getProps();
         let selectedValue = '';
         if (this._backwardLabelInValue() && Object.prototype.toString.call(propValue) === '[object Object]') {
             selectedValue = propValue.value;
@@ -229,10 +229,10 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
 
         const options = this._generateList(data);
         // Get the option whose value match from options
-        let selectedOption: StateOptionItem | Array<StateOptionItem> = options.filter(option => isOptionEqualToValue(option, selectedValue));
+        let selectedOption: StateOptionItem | Array<StateOptionItem> = options.filter(option => renderSelectedItem(option) === selectedValue);
         const canMatchInData = selectedOption.length;
 
-        const selectedOptionIndex = options.findIndex(option => isOptionEqualToValue(option, selectedValue));
+        const selectedOptionIndex = options.findIndex(option => renderSelectedItem(option) === selectedValue);
 
         let inputValue = '';
         if (canMatchInData) {
@@ -254,11 +254,13 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
     _modifyFocusIndex(searchValue) {
         let { focusIndex } = this.getStates();
 
-        let { data, defaultActiveFirstOption, isOptionEqualToValue } = this.getProps();
+        let { data, defaultActiveFirstOption } = this.getProps();
+
+        let renderSelectedItem = this._getRenderSelectedItem();
 
         const options = this._generateList(data);
 
-        const selectedOptionIndex = options.findIndex(option => isOptionEqualToValue(option, searchValue));
+        const selectedOptionIndex = options.findIndex(option => renderSelectedItem(option) === searchValue);
 
         if (selectedOptionIndex === -1 && defaultActiveFirstOption) {
             if (focusIndex !== 0) {
@@ -280,7 +282,7 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
         let { renderSelectedItem } = this.getProps();
 
         if (typeof renderSelectedItem === 'undefined') {
-            renderSelectedItem = (option: any) => option.label;
+            renderSelectedItem = (option: any) => option.value;
         } else if (renderSelectedItem && typeof renderSelectedItem === 'function') {
             // do nothing
         }

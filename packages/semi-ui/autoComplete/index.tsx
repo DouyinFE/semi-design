@@ -90,7 +90,6 @@ export interface AutoCompleteProps<T extends AutoCompleteItems> {
     value?: string | number;
     validateStatus?: ValidateStatus;
     zIndex?: number;
-    isOptionEqualToValue?: (option: T, value: string | number) => boolean; 
 }
 
 interface KeyboardEventType {
@@ -159,7 +158,6 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
         value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         validateStatus: PropTypes.oneOf(statusSet),
         zIndex: PropTypes.number,
-        isOptionEqualToValue: PropTypes.func,
     };
 
     static Option = Option;
@@ -190,9 +188,6 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
         emptyContent: null as null,
         // onPressEnter: () => undefined,
         // defaultOpen: false,
-        isOptionEqualToValue: (option: any, value: string) => {
-            return option?.value === value;
-        }
     };
 
     triggerRef: React.RefObject<HTMLDivElement> | null;
