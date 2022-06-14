@@ -22,7 +22,7 @@
 [license-url]: https://github.com/DouyinFE/semi-design/blob/main/LICENSE
 [codecov-badge]: https://img.shields.io/codecov/c/gh/DouyinFE/semi-design
 [codecov-url]: https://app.codecov.io/gh/DouyinFE/semi-design
-[chromatic-badge]: https://img.shields.io/badge/test-chromatic-f52
+[chromatic-badge]: https://img.shields.io/badge/test-chromatic-brightgreen
 [chromatic-url]: https://www.chromatic.com/
 [cypress-badge]: https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/simple/k83u7j&style=flat&logo=cypress
 [cypress-url]: https://dashboard.cypress.io/projects/k83u7j/runs
