@@ -23,6 +23,7 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
     - 修复 Select filter 、showClear 为 true 时，点击 clear icon时，只触发 onClear，未触发 onSearch 的问题及通过 clear icon 清除搜索项后，未重置候选Option列表的问题  [#867](https://github.com/DouyinFE/semi-design/issues/867)
     - 修复 Select filter 为true，失去焦点，input 输入被自动重置时，未触发 onSearch 的问题  [#867](https://github.com/DouyinFE/semi-design/issues/867)
     - 修复 InputNumber 如果设置了必填验证, 在表单中初始化时会触发验证，行为与其他表单不一致的问题 [@rojer95](https://github.com/rojer95)
+    - 修复 AutoComplete defaultActiveFirstOption 某些场景不生效的问题 [#892](https://github.com/DouyinFE/semi-design/issues/892)
 - 【Breaking Change】
     - InputNumber 调整 shiftStep 默认值，由 1 调整为 10
 - 【Design Token】

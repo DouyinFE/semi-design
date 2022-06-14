@@ -24,6 +24,7 @@ Version：Major.Minor.Patch
     - Fixed the problem that when Select filter and showClear are true, when clicking the clear icon, only onClear is triggered, but onSearch is not triggered, and after clearing the search item through the clear icon, the candidate Option list is not reset  [#867](https://github.com/DouyinFE/semi-design/issues/867)
     - Fix the problem that onSearch is not triggered when Select filter is true, lose focus, and input input is reset automatically  [#867](https://github.com/DouyinFE/semi-design/issues/867)
     - Fixed the issue that if InputNumber is set to require validation, validation will be triggered when it is initialized in the form, and the behavior is inconsistent with other field component [@rojer95](https://github.com/rojer95)
+    - Fixed AutoComplete defaultActiveFirstOption not taking effect in some scenarios [#892](https://github.com/DouyinFE/semi-design/issues/892)
 - 【Breaking Change】
     - Adjust the default value of `InputNumber` shiftStep, from 1 to 10
 - 【Design Token】
