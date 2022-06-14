@@ -16,7 +16,7 @@ Version：Major.Minor.Patch
 
 ---
 
-#### 🎉 2.13.0-beta.0 (2022-6-14)
+#### 🎉 2.13.0-beta.0 (2022-06-14)
 - 【Feat】
     - `InputNumber` adds A11y keyboard and focus adaptation. which supports holding shift and up and down arrows at the same time in the input box to adjust a larger number range [#205](https://github.com/DouyinFE/semi-design/issues/205)
     - `Checkbox` add A11y keyboard and focus adaptation  [#205](https://github.com/DouyinFE/semi-design/issues/205)

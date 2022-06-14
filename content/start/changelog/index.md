@@ -15,10 +15,10 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 ---
 
-#### 🎉 2.13.0-beta.0 (2022-6-14)
+#### 🎉 2.13.0-beta.0 (2022-06-14)
 - 【Feat】
-    - InputNumber 新增 A11y 键盘适配，支持在输入框同时按住 shift 和上下箭头调整较大的数字范围
-    - Checkbox 新增 A11y 键盘和焦点适配  [#205](https://github.com/DouyinFE/semi-design/issues/205)
+    - InputNumber 新增 A11y 键盘适配。支持在输入框同时按住 shift 和上下箭头调整较大的数字范围
+    - Checkbox 新增 A11y 键盘和焦点适配 [#205](https://github.com/DouyinFE/semi-design/issues/205)
 - 【Fix】
     - 修复 Select filter 、showClear 为 true 时，点击 clear icon时，只触发 onClear，未触发 onSearch 的问题及通过 clear icon 清除搜索项后，未重置候选Option列表的问题  [#867](https://github.com/DouyinFE/semi-design/issues/867)
     - 修复 Select filter 为true，失去焦点，input 输入被自动重置时，未触发 onSearch 的问题  [#867](https://github.com/DouyinFE/semi-design/issues/867)
