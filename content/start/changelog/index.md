@@ -15,6 +15,21 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 ---
 
+#### 🎉 2.13.0-beta.0 (2022-6-14)
+- 【Feat】
+    - InputNumber 新增 A11y 键盘适配，支持在输入框同时按住 shift 和上下箭头调整较大的数字范围
+    - Checkbox 新增 A11y 键盘和焦点适配  [#205](https://github.com/DouyinFE/semi-design/issues/205)
+- 【Fix】
+    - 修复 Select filter 、showClear 为 true 时，点击 clear icon时，只触发 onClear，未触发 onSearch 的问题及通过 clear icon 清除搜索项后，未重置候选Option列表的问题  [#867](https://github.com/DouyinFE/semi-design/issues/867)
+    - 修复 Select filter 为true，失去焦点，input 输入被自动重置时，未触发 onSearch 的问题  [#867](https://github.com/DouyinFE/semi-design/issues/867)
+    - 修复 InputNumber 如果设置了必填验证, 在表单中初始化时会触发验证，行为与其他表单不一致的问题 [@rojer95](https://github.com/rojer95)
+- 【Breaking Change】
+    - InputNumber 调整 shiftStep 默认值，由 1 调整为 10
+- 【Design Token】
+    - 更新 Avatar、Button、Radio、Steps、Switch、Tag 等组件样式文件中的 color white 为 --semi-white
+    - Button 组件新增 borderless 模式下文字颜色 token [#898](https://github.com/DouyinFE/semi-design/pull/898)
+
+
 #### 🎉 2.12.0 (2022-06-06)
 - 【Fix】
     - 修复 Timeline 嵌套使用时最后一项样式异常的问题 [#865](https://github.com/DouyinFE/semi-design/issues/865)
@@ -284,7 +299,7 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 - 【Feat】
     - Select 支持autoClearSearchValue，允许选中后保留当前搜索关键字
     - Slider 拖动时添加鼠标 grabbing 样式
-    - 40+ 组件增加无障碍语义化支持 [#205](https://github.com/DouyinFE/semi-design/issues/205)
+    - A11y: 40+ 组件增加无障碍语义化支持 [#205](https://github.com/DouyinFE/semi-design/issues/205)
         - Button 新增 aria-label 属性，禁用时 Button 具有 aria-disabled 属性
         - Checkbox 的 role 为 checkbox，CheckboxGroup 的 role 为 list，它的直接子元素为 listitem，新增 aria-label 属性，用于解释选择框的作用；aria-disabled 表示当前的禁用状态；aria-checked 表示当前的选中状态
         - Empty 插图的 aria-hidden 为 true
