@@ -16,7 +16,7 @@ npm install @douyinfe/semi-animation
 
 `semi-animation` provides a class called  `Animation` . It has a complete life cycle hook and control method to support operating animation like audio and video.
 
--   Use in JS
+-  Use in JS
 
 ```js
 import { Animation } from '@douyinfe/semi-animation';
