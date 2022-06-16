@@ -7,6 +7,17 @@ order: 5
 brief: Accessible design is about making it easy for everyone to interact with products, including those with disabilities, to provide a better experience for everyone. The Semi design system is designed to remove barriers and create inclusive product experiences that work for all.
 ---
 
+## Accessibility-specific themes
+Semi has customized a set of accessibility friendly themes [@semi-bot/semi-theme-a11y](https://semi.design/dsm_store/theme?dsmID=2243)  
+Compared with the default theme, the A11y theme increases the contrast of each color of the basic color wheel, and increases the font size of the font token. If there is a higher requirement for contrast, this theme is recommended.   
+
+```
+// install
+npm i @semi-bot/semi-theme-a11y
+```
+
+Access steps for reference [Customized Themes](https://semi.design/en-US/start/customize-theme#When%20using%20webpack%20as%20a%20build%20tool)
+
 ## Understand user needs
 
 To design and develop inclusive products, you first need to understand the different needs of different users and consider the aids and methods they use.
