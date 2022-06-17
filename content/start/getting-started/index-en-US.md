@@ -154,5 +154,5 @@ Introduce the full amount of semi css in `global.css`. Currently, on-demand impo
 You need to replace the path of the import statement in Step3, and replace the default theme CSS product with the CSS product in your customized theme package, for example, the theme package is `@semi-bot/semi-theme-nyx-c`
 ```css
 /* styles/globals.css */
-@import '~@semi-bot/semi-theme-nyx-c/semi.min.css'';
+@import '~@semi-bot/semi-theme-nyx-c/semi.min.css';
 ```
