@@ -299,6 +299,7 @@ class InputFoundation extends BaseFoundation<InputAdapter> {
      * A11y: simulate password button click
      */
     handleModeEnterPress(e: any) {
+        // trigger by Enter or Space key
         if (['Enter', ' '].includes(e?.key)) {
             this.handlePreventMouseDown(e);
             this.handleClickEye(e);

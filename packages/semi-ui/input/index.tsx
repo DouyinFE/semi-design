@@ -314,12 +314,12 @@ class Input extends BaseComponent<InputProps, InputState> {
     }
 
     renderModeBtn() {
-        const { value, eyeClosed } = this.state;
+        const { eyeClosed } = this.state;
         const { mode, disabled } = this.props;
         const modeCls = cls(`${prefixCls}-modebtn`);
         const modeIcon = eyeClosed ? <IconEyeClosedSolid /> : <IconEyeOpened />;
         // alway show password button for a11y
-        const showModeBtn = mode === 'password' && value && !disabled;
+        const showModeBtn = mode === 'password' && !disabled;
         const ariaLabel = eyeClosed ? 'Show password' : 'Hidden password';
         if (showModeBtn) {
             return (
@@ -353,8 +353,8 @@ class Input extends BaseComponent<InputProps, InputState> {
             [`${prefixCls}-prefix-icon`]: isSemiIcon(labelNode),
         });
 
-        // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
         return (
+            // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
             <div
                 className={prefixWrapperCls}
                 onMouseDown={this.handlePreventMouseDown}
@@ -384,8 +384,8 @@ class Input extends BaseComponent<InputProps, InputState> {
             [`${prefixCls}-suffix-icon`]: isSemiIcon(suffix),
             [`${prefixCls}-suffix-hidden`]: suffixAllowClear && Boolean(hideSuffix),
         });
-        // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
         return (
+            // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
             <div
                 className={suffixWrapperCls}
                 onMouseDown={this.handlePreventMouseDown}

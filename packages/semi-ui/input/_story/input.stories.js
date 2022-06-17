@@ -864,8 +864,7 @@ export const ClearButton = () => {
             Suffix
           </Typography.Text>
         }
-        showClear
-      ></Input>
+      />
       <Input showClear defaultValue="semi" />
       <Input showClear mode="password" defaultValue="semi" />
       <Input mode="password" defaultValue="semi" />
@@ -928,6 +927,11 @@ export const InputA11y = () => {
           <Input placeholder="Name" style={{ width: 100 }} />
           <Input placeholder="Score" style={{ width: 140 }} />
       </InputGroup>
+      <br/><br/>
+      <Form onSubmit={() => alert('submit')}>
+        <button>submit</button>
+        <Form.Input field="password" label="密码按钮上敲击 Enter 测试是否会触发 Form submit" mode="password" />
+      </Form>
     </div>
   );
 }
