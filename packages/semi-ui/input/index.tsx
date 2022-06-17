@@ -221,11 +221,6 @@ class Input extends BaseComponent<InputProps, InputState> {
         this.foundation.handleClear(e);
     };
 
-    /* istanbul ignore next */
-    handleClearEnterPress = (e: React.KeyboardEvent<HTMLDivElement>) => {
-        this.foundation.handleClearEnterPress(e);
-    };
-
     handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
         this.foundation.handleClick(e);
     };
@@ -306,13 +301,10 @@ class Input extends BaseComponent<InputProps, InputState> {
         // use onMouseDown to fix issue 1203
         if (allowClear) {
             return (
+                // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
                 <div
-                    role="button"
-                    tabIndex={0}
-                    aria-label="Clear input value"
                     className={clearCls}
                     onMouseDown={this.handleClear}
-                    onKeyPress={this.handleClearEnterPress}
                 >
                     <IconClear />
                 </div>
@@ -322,11 +314,12 @@ class Input extends BaseComponent<InputProps, InputState> {
     }
 
     renderModeBtn() {
-        const { value, isFocus, isHovering, eyeClosed } = this.state;
+        const { value, eyeClosed } = this.state;
         const { mode, disabled } = this.props;
         const modeCls = cls(`${prefixCls}-modebtn`);
         const modeIcon = eyeClosed ? <IconEyeClosedSolid /> : <IconEyeOpened />;
-        const showModeBtn = mode === 'password' && value && !disabled && (isFocus || isHovering);
+        // alway show password button for a11y
+        const showModeBtn = mode === 'password' && value && !disabled;
         const ariaLabel = eyeClosed ? 'Show password' : 'Hidden password';
         if (showModeBtn) {
             return (
@@ -411,6 +404,7 @@ class Input extends BaseComponent<InputProps, InputState> {
             autofocus,
             className,
             disabled,
+            defaultValue,
             placeholder,
             prefix,
             mode,

@@ -66,9 +66,11 @@ export default class inputGroup extends BaseComponent<InputGroupProps, InputGrou
         // const labelCls = cls(label.className, '');
         const defaultName = 'input-group';
         return (
-            <div role="group" aria-label="Input group" aria-disabled={this.props.disabled} className={groupWrapperCls}>
+            <div className={groupWrapperCls}>
                 {label && label.text ? <Label name={defaultName} {...label} /> : null}
                 <span
+                    role="group"
+                    aria-disabled={this.props.disabled}
                     id={label && label.name || defaultName}
                     className={groupCls}
                     style={this.props.style}
