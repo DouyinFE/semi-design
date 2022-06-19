@@ -272,6 +272,163 @@ class Demo extends React.Component {
 }
 ```
 
+After setting the `filterTreeNode` property to enable search, you can customize the rendering method of the search box by setting `searchRender`. When set to `false`, the search box can be hidden.
+```jsx live=true
+import React from 'react';
+import { Tree } from '@douyinfe/semi-ui';
+
+() => {
+  const treeData = [
+            {
+                label: 'Asia',
+                value: 'Asia',
+                key: '0',
+                children: [
+                    {
+                        label: 'China',
+                        value: 'China',
+                        key: '0-0',
+                        children: [
+                            {
+                                label: 'Beijing',
+                                value: 'Beijing',
+                                key: '0-0-0',
+                            },
+                            {
+                                label: 'Shanghai',
+                                value: 'Shanghai',
+                                key: '0-0-1',
+                            },
+                        ],
+                    },
+                    {
+                        label: 'Japan',
+                        value: 'Japan',
+                        key: '0-1',
+                        children: [
+                            {
+                                label: 'Osaka',
+                                value: 'Osaka',
+                                key: '0-1-0'
+                            }
+                        ]
+                    },
+                ],
+            },
+            {
+                label: 'North America',
+                value: 'North America',
+                key: '1',
+                children: [
+                    {
+                        label: 'United States',
+                        value: 'United States',
+                        key: '1-0'
+                    },
+                    {
+                        label: 'Canada',
+                        value: 'Canada',
+                        key: '1-1'
+                    }
+                ]
+            }
+        ];
+
+  return (
+    <Tree
+      filterTreeNode
+      searchRender={({ prefix, ...restProps }) => (
+        <Input
+          prefix='Search'
+          {...restProps}
+        />
+      )}
+      treeData={treeData}
+    />
+  );
+};
+
+```
+
+### Trigger search manually
+Use ref to get tree instance，you can call `search` method of tree to trigger search manually. Note that you need to set `filterTreeNode` to enable search at the same time.If the search box is outside the tree, you can hide the search box inside the tree by setting `searchRender=false`.
+```jsx live=true
+import React from 'react';
+import { Tree } from '@douyinfe/semi-ui';
+
+() => {
+  const ref = useRef();
+  const treeData = [
+    {
+      label: 'Asia',
+      value: 'Asia',
+      key: '0',
+      children: [
+        {
+          label: 'China',
+          value: 'China',
+          key: '0-0',
+          children: [
+            {
+              label: 'Beijing',
+              value: 'Beijing',
+              key: '0-0-0',
+            },
+            {
+              label: 'Shanghai',
+              value: 'Shanghai',
+              key: '0-0-1',
+            },
+          ],
+        },
+        {
+          label: 'Japan',
+          value: 'Japan',
+          key: '0-1',
+          children: [
+            {
+              label: 'Osaka',
+              value: 'Osaka',
+              key: '0-1-0',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      label: 'North America',
+      value: 'North America',
+      key: '1',
+      children: [
+        {
+          label: 'United States',
+          value: 'United States',
+          key: '1-0',
+        },
+        {
+          label: 'Canada',
+          value: 'Canada',
+          key: '1-1',
+        },
+      ],
+    },
+  ];
+  return (
+    <div>
+      <Input aria-label='filter tree' prefix="Search" showClear onChange={v => ref.current.search(v)} />
+      <div style={{ marginTop: 20}}>search result：</div>
+      <Tree
+        ref={ref}
+        filterTreeNode
+        searchRender={false}
+        treeData={treeData}
+        blockNode={false}
+      />
+    </div>
+  );
+};
+```
+
 ### JSON TreeData
 
 You could use `treeDataSimpleJson` to pass in `treeNodes` data in JSON format. In this case, key will be used as `key` and `label`, and value will be used as `value` correspondingly. Return value includes JSON data in selected nodes.
@@ -2033,8 +2190,10 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
 | itemSize | Height for each line of treeNode, required | number | - |
 | width | Width | number\|string | '100%' |
 
-### Ref Method
-- search(sugInput) => void
+### Methods
+|Name | Description | Type 
+|----|----|----|
+| search | Trigger search manually | (value: string) => void |
 
 
 ## Accessibility

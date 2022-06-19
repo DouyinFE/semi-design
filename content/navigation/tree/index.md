@@ -259,6 +259,163 @@ class Demo extends React.Component {
 }
 ```
 
+设置 `filterTreeNode` 属性开启搜索后，可以通过设置 `searchRender` 自定义搜索框的渲染方法，设置为`false`时可以隐藏搜索框。
+```jsx live=true
+import React from 'react';
+import { Tree } from '@douyinfe/semi-ui';
+
+() => {
+  const treeData = [
+            {
+                label: 'Asia',
+                value: 'Asia',
+                key: '0',
+                children: [
+                    {
+                        label: 'China',
+                        value: 'China',
+                        key: '0-0',
+                        children: [
+                            {
+                                label: 'Beijing',
+                                value: 'Beijing',
+                                key: '0-0-0',
+                            },
+                            {
+                                label: 'Shanghai',
+                                value: 'Shanghai',
+                                key: '0-0-1',
+                            },
+                        ],
+                    },
+                    {
+                        label: 'Japan',
+                        value: 'Japan',
+                        key: '0-1',
+                        children: [
+                            {
+                                label: 'Osaka',
+                                value: 'Osaka',
+                                key: '0-1-0'
+                            }
+                        ]
+                    },
+                ],
+            },
+            {
+                label: 'North America',
+                value: 'North America',
+                key: '1',
+                children: [
+                    {
+                        label: 'United States',
+                        value: 'United States',
+                        key: '1-0'
+                    },
+                    {
+                        label: 'Canada',
+                        value: 'Canada',
+                        key: '1-1'
+                    }
+                ]
+            }
+        ];
+
+  return (
+    <Tree
+      filterTreeNode
+      searchRender={({ prefix, ...restProps }) => (
+        <Input
+          prefix='Search'
+          {...restProps}
+        />
+      )}
+      treeData={treeData}
+    />
+  );
+};
+
+```
+
+### 手动触发搜索
+可以通过ref的方式获取tree的实例，调用tree的`search`方法进行搜索。注意需要同时设置`filterTreeNode`开启搜索，如果搜索框在tree外部，可以通过设置`searchRender=false`隐藏tree内部的搜索框。
+```jsx live=true
+import React from 'react';
+import { Tree } from '@douyinfe/semi-ui';
+
+() => {
+  const ref = useRef();
+  const treeData = [
+    {
+      label: 'Asia',
+      value: 'Asia',
+      key: '0',
+      children: [
+        {
+          label: 'China',
+          value: 'China',
+          key: '0-0',
+          children: [
+            {
+              label: 'Beijing',
+              value: 'Beijing',
+              key: '0-0-0',
+            },
+            {
+              label: 'Shanghai',
+              value: 'Shanghai',
+              key: '0-0-1',
+            },
+          ],
+        },
+        {
+          label: 'Japan',
+          value: 'Japan',
+          key: '0-1',
+          children: [
+            {
+              label: 'Osaka',
+              value: 'Osaka',
+              key: '0-1-0',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      label: 'North America',
+      value: 'North America',
+      key: '1',
+      children: [
+        {
+          label: 'United States',
+          value: 'United States',
+          key: '1-0',
+        },
+        {
+          label: 'Canada',
+          value: 'Canada',
+          key: '1-1',
+        },
+      ],
+    },
+  ];
+  return (
+    <div>
+      <Input aria-label='filter tree' prefix="Search" showClear onChange={v => ref.current.search(v)} />
+      <div style={{ marginTop: 20}}>搜索结果如下：</div>
+      <Tree
+        ref={ref}
+        filterTreeNode
+        searchRender={false}
+        treeData={treeData}
+        blockNode={false}
+      />
+    </div>
+  );
+};
+```
+
 ### 简单 JSON 格式的数据
 可以通过 `treeDataSimpleJson` 传入 JSON 形式的 `treeNodes` 数据。此时 key-value 键值对中的 key 值将作为 `treeNode` 的 `key` 和 `label`，`value` 值将作为 `treeNode` 的 `value`。返回值为包含选中节点的 JSON 数据。
 
@@ -2027,8 +2184,11 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
 | itemSize | 每行的treeNode的高度，必传 | number | - |
 | width | 宽度值 | number\|string | '100%' |
 
-### Ref 方法
-- search(sugInput) => void
+### Methods
+
+|名称 | 描述 | 类型
+|----|----|----|
+| search | 手动触发搜索 | (value: string) => void |
 
 ## Accessibility
 
