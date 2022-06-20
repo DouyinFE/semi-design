@@ -1276,6 +1276,27 @@ export const OnChangeWithObject = () => (
   </>
 );
 
+export const undefinedValueWhileMutipleAndOnChangeWithObject = () => {
+  const [value, setValue] = useState(undefined);
+  
+  return (
+    <>
+      <div>多选 + onChangeWithObject + value 为 undefined</div>
+      <Cascader
+        multiple
+        onChangeWithObject
+        style={{ width: 300 }}
+        treeData={treeData2}
+        placeholder="请选择所在地区"
+        value={value}
+        onChange={(v)=>{
+          setValue(v);
+        }}
+      />
+    </>
+  )
+}
+
 export const LeafOnly = () => {
   const [value, setValue] = useState([])
   return (
