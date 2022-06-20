@@ -333,7 +333,7 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
         const typoCls = cls(`${prefixCls}-wrapper-typo`, {
             [`${prefixCls}-wrapper-typo-disabled`]: disabled
         });
-        const spanNotWithPopoverCls = cls(`${prefixCls}-wrapper-n`, {
+        const restTagsCls = cls(`${prefixCls}-wrapper-n`, {
             [`${prefixCls}-wrapper-n-disabled`]: disabled
         });
         const restTags: Array<React.ReactNode> = [];
@@ -372,13 +372,18 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
                 tags.push(item);
             }
         });
+
+        const restTagsContent = (
+            <span className={restTagsCls}>+{tagsArray.length - maxTagCount}</span>
+        );
+
         return (
             <>
                 {tags}
                 {
                     restTags.length > 0 &&
                     (
-                        showRestTagsPopover && !disabled ?
+                        showRestTagsPopover ?
                             (
                                 <Popover
                                     content={restTags}
@@ -388,16 +393,9 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
                                     autoAdjustOverflow
                                     {...restTagsPopoverProps}
                                 >
-                                    <span className={cls(`${prefixCls}-wrapper-n`)}>
-                                        +{tagsArray.length - maxTagCount}
-                                    </span>
+                                    {restTagsContent}
                                 </Popover>
-                            ) :
-                            (
-                                <span className={spanNotWithPopoverCls}>
-                                    {`+${tagsArray.length - maxTagCount}`}
-                                </span>
-                            )
+                            ) : restTagsContent
                     )
                 }
             </>

@@ -78,18 +78,18 @@ module.exports = semi({
 
 ### Step3
 
-在 `global.css` 中引入全量的 semi css。目前不支持按需引入。
+在 `global.css` 中引入全量的 semi css。目前在 Next.js 中不支持按需引入。
 
 ```css
 /* styles/globals.css */
 @import '~@douyinfe/semi-ui/dist/css/semi.min.css';
 ```
 
-**如何在 nextjs 中使用主题包**  
+**如何在 Next.js 中使用主题包**  
 你需要更换 Step3 中 import 语句的路径，将默认主题 CSS 产物更换为你定制的主题包中的 CSS 产物，例如主题包为 `@semi-bot/semi-theme-nyx-c`
 ```css
 /* styles/globals.css */
-@import '~@semi-bot/semi-theme-nyx-c/semi.min.css'';
+@import '~@semi-bot/semi-theme-nyx-c/semi.min.css';
 ```
 
 ## 4、UMD 方式使用组件

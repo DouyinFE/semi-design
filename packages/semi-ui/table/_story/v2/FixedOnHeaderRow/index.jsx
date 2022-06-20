@@ -3,6 +3,9 @@ import { Table, Avatar, Toast } from '@douyinfe/semi-ui';
 import * as dateFns from 'date-fns';
 
 App.storyName = 'fix onHeaderRow';
+App.parameters = {
+    chromatic: { disableSnapshot: true },
+};
 
 /**
  * test with cypress
