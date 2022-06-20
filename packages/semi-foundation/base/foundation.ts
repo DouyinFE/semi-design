@@ -25,6 +25,7 @@ export interface DefaultAdapter<P = Record<string, any>, S = Record<string, any>
 
 class BaseFoundation<T extends Partial<DefaultAdapter<P, S>>, P = Record<string, any>, S = Record<string, any>> {
     /** @return enum{css className} */
+    /* istanbul ignore next */
     static get cssClasses() {
         // Classes extending Foundation should implement this method to return an object which exports every
         // CSS class the foundation class needs as a property. e.g. {ACTIVE: 'component--active'}
@@ -32,6 +33,7 @@ class BaseFoundation<T extends Partial<DefaultAdapter<P, S>>, P = Record<string,
     }
 
     /** @return enum{strings} */
+    /* istanbul ignore next */
     static get strings() {
         // Classes extending Foundation should implement this method to return an object which exports all
         // semantic strings as constants. e.g. {ARIA_ROLE: 'tablist'}
@@ -39,6 +41,7 @@ class BaseFoundation<T extends Partial<DefaultAdapter<P, S>>, P = Record<string,
     }
 
     /** @return enum{numbers} */
+    /* istanbul ignore next */
     static get numbers() {
         // Classes extending Foundation should implement this method to return an object which exports all
         // of its semantic numbers as constants. e.g. {ANIMATION_DELAY_MS: 350}
@@ -91,10 +94,12 @@ class BaseFoundation<T extends Partial<DefaultAdapter<P, S>>, P = Record<string,
         return this._adapter.getContext(key);
     }
 
+    /* istanbul ignore next */
     getContexts() {
         return this._adapter.getContexts();
     }
 
+    /* istanbul ignore next */
     getCaches() {
         return this._adapter.getCaches();
     }
@@ -132,6 +137,7 @@ class BaseFoundation<T extends Partial<DefaultAdapter<P, S>>, P = Record<string,
         // Subclasses should override this method to perform de-initialization routines (de-registering events, etc.)
     }
 
+    /* istanbul ignore next */
     log(text: string, ...rest: any) {
         log(text, ...rest);
     }

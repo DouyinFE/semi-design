@@ -1,5 +1,6 @@
 import { isSet } from 'lodash';
 
+/* istanbul ignore next */
 export function copySet<T = unknown>(setA: Iterable<T>) {
     return new Set(setA);
 }
