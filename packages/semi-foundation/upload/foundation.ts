@@ -401,6 +401,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
         });
     }
 
+    /* istanbul ignore next */
     manualUpload(): void {
         // find the list of files that have not been uploaded
         const waitToUploadFileList = this.getState('fileList').filter((item: BaseFileItem) => item.status === FILE_STATUS_WAIT_UPLOAD);
@@ -739,6 +740,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
         return /(webp|svg|png|gif|jpg|jpeg|bmp|dpg)$/i.test(file.type);
     }
 
+    /* istanbul ignore next */
     isMultiple(): boolean {
         return Boolean(this.getProp('multiple'));
     }
