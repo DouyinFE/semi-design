@@ -16,6 +16,19 @@ Version：Major.Minor.Patch
 
 ---
 
+#### 🎉 2.13.0 (2022-06-20)
+- 【Fix】
+    - Fixed the problem that Cascader crashes when the value passed in is undefined after setting onChange WithObject, multiple,  [#905](https://github.com/DouyinFE/semi-design/issues/905)
+    - Fix the issue that scroll bar style is invalid in some scenes
+- 【Style】
+    - Modal, TanPane, Upload add color text declaration to solve the problem of insufficient text color contrast in dark mode when color is not uniformly declared in the body container
+    - Solve TimePicker range mode, border-radius is not displayed correctly in dark mode
+    - The disabled TagInput can display the content of the +N part of the popover
+- 【Design Token】
+    - Tabs adds $color-tabs_tab-pane-text-default, Upload adds several tokens such as $color-upload_drag_area_main-text
+- 【Docs】
+    - Added example of searchRender API and search method
+
 #### 🎉 2.13.0-beta.0 (2022-06-14)
 - 【Feat】
     - `InputNumber` adds A11y keyboard and focus adaptation. which supports holding shift and up and down arrows at the same time in the input box to adjust a larger number range [#205](https://github.com/DouyinFE/semi-design/issues/205)

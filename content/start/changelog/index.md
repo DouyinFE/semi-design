@@ -15,6 +15,19 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 ---
 
+#### 🎉 2.13.0 (2022-06-20)
+- 【Fix】
+    - 修复当设置onChangeWithObject，mutiple后，value传入的值为undefined时时，Cascader 崩溃的问题。（影响范围 v2.0.4 - v 2.12.0）[#905](https://github.com/DouyinFE/semi-design/issues/905)
+    - 修复 esm / cjs 构建产物，滚动条样式部分场景失效的问题
+- 【Style】
+    - Modal、TanPane、Upload 增加 color text 声明，解决暗色模式下，当未在 body 容器统一声明 color时，文本颜色对比度不足的问题
+    - 解决 TimePicker range 模式，在暗色模式下 border-radius 显示不正确的问题
+    - disabled的TagInput可以显示+N部分popover的内容
+- 【Design Token】
+    - Tabs 增加 $color-tabs_tab-pane-text-default，Upload 增加 $color-upload_drag_area_main-text 等若干Token
+- 【Docs】
+    - 增加searchRender API 和 search方法的示例
+
 #### 🎉 2.13.0-beta.0 (2022-06-14)
 - 【Feat】
     - InputNumber 新增 A11y 键盘适配。支持在输入框同时按住 shift 和上下箭头调整较大的数字范围
