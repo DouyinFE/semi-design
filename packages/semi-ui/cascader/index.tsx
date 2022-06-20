@@ -412,13 +412,15 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                             realValue as SimpleValueType[][] :
                             [realValue] as SimpleValueType[][];
                     } else {
-                        normallizedValue = [[realValue]];
+                        if (realValue !==  undefined) {
+                            normallizedValue = [[realValue]];
+                        }
                     }
                     // formatValuePath is used to save value of valuePath
                     const formatValuePath: (string | number)[][] = [];
                     normallizedValue.forEach((valueItem: SimpleValueType[]) => {
                         const formatItem: (string | number)[] = onChangeWithObject ?
-                            (valueItem as CascaderData[]).map(i => i.value) :
+                            (valueItem as CascaderData[]).map(i => i?.value) :
                             valueItem as (string | number)[];
                         formatValuePath.push(formatItem);
                     });
