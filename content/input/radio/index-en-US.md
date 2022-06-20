@@ -379,7 +379,7 @@ class App extends React.Component {
 | addonId | id of addon node, aria-labelledby refers to this id, if not set, it will generate an id randomly  **provided after v2.11.0**                                 | string            |       |
 | addonStyle | inline style of content wrapper<br/>**provided after v1.16.0** | object |  |
 | aria-label      | Label of Radio                                                            | string           | -  |
-| name         | The `name` attribute passed to `input[type="radio"]` in the Radio component  | string         | -  |
+| name         | The `name` attribute passed to `input[type="radio"]` in the Radio component, Radios with the same `name` belong to the same RadioGroup,The `name` attribute can refer to [MDN Radio](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input/radio#value)   | string         | -  |
 | autoFocus | Automatically focus the form control when the page is loaded | boolean | false |
 | checked | Specify whether it is currently selected | boolean | false |
 | className | Class name | string |  |
@@ -428,12 +428,14 @@ class App extends React.Component {
 - `aria-describedby` points to the extra node, which is used to explain the content of Radio
 
 ### Keyboard and focus
+WAI-ARIA: https://www.w3.org/WAI/ARIA/apg/patterns/radiobutton/
 
 - RadioGroup can be focused, the initial focus acquisition rules are as follows：
   - When there is no selected item in the RadioGroup, the initial focus is on the first Radio item;
   - When there are selected items in the RadioGroup, the initial focus is on the selected Radio item.
-- Use `Right arrow` or `Down arrow` to move the focus to the next Radio item, uncheck the previously focused Radio item, and select the currently focused Radio item;
-- Use `Left Arrow` or `Up Arrow` to move the focus to the previous Radio item, at the same time uncheck the previously focused Radio item, and select the currently focused Radio item;
+- For radios belonging to the same radiogroup:
+  - You can use `Right arrow` or `Down arrow` to move the focus to the next Radio item, uncheck the previously focused Radio item, and select the currently focused Radio item;
+  - You can Use `Left Arrow` or `Up Arrow` to move the focus to the previous Radio item, at the same time uncheck the previously focused Radio item, and select the currently focused Radio item.
 - If there is no item selected in the RadioGroup, you can use the `Space` key to select the initial focus.
 
 <!-- ## Related Material

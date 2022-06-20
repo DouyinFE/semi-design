@@ -325,7 +325,7 @@ class App extends React.Component {
 | addonId | addon 节点 id，aria-labelledby 指向这个 id，若无设置会随机生成一个 id  **v2.11.0 后提供**                                 | string            |       |
 | addonStyle     | 包裹内容容器的内联样式  **v1.16.0 后提供**                                 | CSSProperties     |       |
 | aria-label      | Radio 的 label                                                            | string           | -  |
-| name         | Radio组件中`input[type="radio"]`的`name`属性                               | string         | -  |
+| name         | Radio组件中`input[type="radio"]`的`name`属性，具有相同`name`的Radio属于同一个RadioGroup，`name`属性可参考[MDN Radio](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/Input/radio#%E5%80%BC)                              | string         | -  |
 | autoFocus      | 自动获取焦点                                                            | boolean           | false  |
 | checked        | 指定当前是否选中                                                         | boolean           | false  |
 | className      | 样式类名                                                                | string            |        |
@@ -377,12 +377,14 @@ class App extends React.Component {
 - `aria-describedby` 默认指向 extra 节点，用于补充解释 Radio 的内容
 
 ### 键盘和焦点
+WAI-ARIA: https://www.w3.org/WAI/ARIA/apg/patterns/radiobutton/
 
 - RadioGroup 可以被获取焦点，初始焦点设置：
   - 当 RadioGroup 中没有被选择项时，初始焦点为第一个 Radio 项上；
   - 当 RadioGroup 中有选中项时，初始焦点为选中的 Radio 项上。
-- 通过 `右箭头` 或 `下箭头` 将焦点移动到下一个 Radio 项上，同时取消先前的 Radio 项的选中状态，并选中当前聚焦的 Radio 项；
-- 通过 `左箭头` 或 `上箭头` 将焦点移动到上一个 Radio 项上，同时取消先前的 Radio 项的选中状态，并选中当前聚焦的 Radio 项；
+- 在同一个 radiogroup 内
+  - 可以通过 `右箭头` 或 `下箭头` 将焦点移动到下一个 Radio 项上，同时取消先前的 Radio 项的选中状态，并选中当前聚焦的 Radio 项；
+  - 可以通过 `左箭头` 或 `上箭头` 将焦点移动到上一个 Radio 项上，同时取消先前的 Radio 项的选中状态，并选中当前聚焦的 Radio 项。
 - 若 RadioGroup 中没有选中项，可以 `Space` 键选中初始焦点。
 
 <!-- ## 相关物料
