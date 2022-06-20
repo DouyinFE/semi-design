@@ -8,6 +8,7 @@ $module: #{$prefix}-modal;
     position: relative;
     // width: 600px;
     margin: $spacing-modal-marginY $spacing-modal-marginX;
+    color: $color-modal_main-text;
     
     &-mask {
         position: fixed;
