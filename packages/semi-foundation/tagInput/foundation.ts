@@ -18,6 +18,7 @@ export interface TagInputAdapter extends DefaultAdapter {
     setInputValue: (inputValue: string) => void;
     setTagsArray: (tagsArray: string[]) => void;
     setFocusing: (focusing: boolean) => void;
+    toggleFocusing(focused: boolean): void;
     setHovering: (hovering: boolean) => void;
     notifyBlur: (e: TagInputCursorEvent) => void;
     notifyFocus: (e: TagInputCursorEvent) => void;
@@ -183,6 +184,19 @@ class TagInputFoundation extends BaseFoundation<TagInputAdapter> {
         this._adapter.setHovering(false);
     }
 
+    handleClickPrefixOrSuffix(e: any) {
+        const { disabled } = this._adapter.getProps();
+        const { isFocus } = this._adapter.getStates();
+        if (!disabled && !isFocus) {
+            this._adapter.toggleFocusing(true);
+        }
+    }
+
+    handlePreventMouseDown(e: any) {
+        if (e && isFunction(e.preventDefault)) {
+            e.preventDefault();
+        }
+    }
     /**
      * handler of delete tag
      */

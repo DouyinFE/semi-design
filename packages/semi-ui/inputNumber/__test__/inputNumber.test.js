@@ -412,9 +412,8 @@ describe(`InputNumber`, () => {
             <InputNumber min={1} value={value} onChange={spyChange} />
         );
         inputNumber.setProps({ value: 0 });
-        expect(spyChange.calledTwice).toBe(true);
-        expect(spyChange.getCall(0).args[0]).toEqual('');
-        expect(spyChange.getCall(1).args[0]).toEqual(1);
+        expect(spyChange.calledOnce).toBe(true);
+        expect(spyChange.getCall(0).args[0]).toEqual(1);
     });
 
     it('fix controlled min value form field', () => {

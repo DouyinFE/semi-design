@@ -36,12 +36,14 @@ $color-checkbox_disabled-bg-default: var(--semi-color-disabled-fill); // 选框�
 $color-checkbox_disabled-border-default: var(--semi-color-border); // 选框禁用态描边颜色 - 默认
 $color-checkbox_checked-bg-disabled: var(--semi-color-primary-disabled); // 选框选中 + 禁用态背景颜色
 $color-checkbox_checked-icon-disabled: var(--semi-color-white); // 选框禁用态对勾颜色
+$color-checkbox_primary-outline-focus: var(--semi-color-primary-light-active); // 复选框轮廓-聚焦颜色
 
 $size-checkbox_inner-shadow: $border-thickness-control; // 选框内描边宽度
 $width-checkbox_inner: $width-icon-medium; // 选框对勾 icon 宽度
 $height-checkbox_inner: 20px; // 选框对勾 icon 高度
 $width-checkbox_cardType_checked-border: 1px; // 卡片类型复选框的边框宽度
 $width-checkbox_cardType_checked_disabled-border: 1px; // 卡片类型复选框选中且禁用的边框宽度
+$width-checkbox-outline: 2px; // 复选框轮廓宽度
 
 $radius-checkbox_cardType: 3px; // 卡片类型复选框的圆角大小
 $radius-checkbox_inner: var(--semi-border-radius-extra-small); // 选框圆角

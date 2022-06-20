@@ -23,6 +23,9 @@ export interface CheckboxInnerProps {
     addonId?: string;
     extraId?: string;
     'aria-label'?: React.AriaAttributes['aria-label'];
+    focusInner?: boolean;
+    onInputFocus?: (e: any) => void;
+    onInputBlur?: (e: any) => void;
 }
 
 class CheckboxInner extends PureComponent<CheckboxInnerProps> {
@@ -43,6 +46,9 @@ class CheckboxInner extends PureComponent<CheckboxInnerProps> {
         isPureCardType: PropTypes.bool,
         addonId: PropTypes.string,
         extraId: PropTypes.string,
+        focusInner: PropTypes.bool,
+        onInputFocus: PropTypes.func,
+        onInputBlur: PropTypes.func,
     };
 
     static defaultProps = {
@@ -59,7 +65,7 @@ class CheckboxInner extends PureComponent<CheckboxInnerProps> {
     }
 
     render() {
-        const { indeterminate, checked, disabled, prefixCls, name, isPureCardType, addonId, extraId } = this.props;
+        const { indeterminate, checked, disabled, prefixCls, name, isPureCardType, addonId, extraId, focusInner, onInputFocus, onInputBlur } = this.props;
         const prefix = prefixCls || css.PREFIX;
 
         const wrapper = classnames(
@@ -73,6 +79,8 @@ class CheckboxInner extends PureComponent<CheckboxInnerProps> {
 
         const inner = classnames({
             [`${prefix}-inner-display`]: true,
+            [`${prefix}-focus`]: focusInner,
+            [`${prefix}-focus-border`]:  focusInner && !checked,
         });
 
         const icon = checked ? (
@@ -95,6 +103,8 @@ class CheckboxInner extends PureComponent<CheckboxInnerProps> {
             onChange: noop,
             checked: checked,
             disabled: disabled,
+            onFocus: onInputFocus,
+            onBlur: onInputBlur,
         };
         
         name && (inputProps['name'] = name);

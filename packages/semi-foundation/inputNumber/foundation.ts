@@ -215,7 +215,7 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
         if (code === keyCode.UP || code === keyCode.DOWN) {
             this._adapter.setClickUpOrDown(true);
             this._adapter.recordCursorPosition();
-            const formattedVal = code === keyCode.UP ? this.add() : this.minus();
+            const formattedVal = code === keyCode.UP ? this.add(null, event) : this.minus(null, event);
 
             this._doInput(formattedVal, event, () => {
                 this._adapter.restoreCursor();
@@ -382,7 +382,7 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
         this._adapter.setNumber(number);
         this._adapter.setValue(formattedValue);
 
-        if (isString(formattedValue) && formattedValue !== String(propsValue)) {
+        if (isString(formattedValue) && formattedValue !== String(propsValue ?? '')) {
             this.notifyChange(formattedValue, null);
         }
     }

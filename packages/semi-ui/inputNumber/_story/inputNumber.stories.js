@@ -5,6 +5,7 @@ import InputNumber from '../index';
 import Button from '../../button/index';
 import { withField, Form } from '../../index';
 import { useFormApi } from '../../form';
+import { Space } from '../../index';
 
 export default {
   title: 'InputNumber',
@@ -712,3 +713,55 @@ export const FixPrecision786 = () => {
   );
 }
 FixPrecision786.storyName = 'fix precision 删除后输入非法值会显示 0.00';
+
+
+ export const FixFormValidate = () => {
+  return (
+      <div data-cy="fix-precision-786">
+          <Form  >
+              <Form.InputNumber
+                  field="inputnumber"
+                  label='inputnumber' 
+                  rules={[
+                      {
+                          required: true,
+                      },
+                  ]}
+              />
+              <Form.Input
+                  field="input"
+                  label='input'
+                  rules={[
+                      {
+                          required: true,
+                      },
+                  ]}
+              />
+          </Form>
+      </div>
+  );
+}
+FixFormValidate.storyName = 'fix form validate';
+
+export const InputNumberA11y = () => {
+  return (
+    <Space vertical align="start" data-cy="a11y">
+      <label for="default">
+        step=1, shiftStep=10
+      </label>
+      <InputNumber id="default" data-cy="default" />
+      <label for="step">
+        step=5, shiftStep=100
+      </label>
+      <InputNumber id="step" data-cy="step" step={5} shiftStep={100} />
+      <label for="max">
+        step=1, shiftStep=10, max=10
+      </label>
+      <InputNumber id="max" data-cy="max" max={10} />
+      <Form>
+        <Form.InputNumber field="test" label="item number" />
+      </Form>
+    </Space>
+  );
+}
+InputNumberA11y.storyName = "inputNumber a11y";

@@ -16,6 +16,21 @@ Version：Major.Minor.Patch
 
 ---
 
+#### 🎉 2.13.0-beta.0 (2022-06-14)
+- 【Feat】
+    - `InputNumber` adds A11y keyboard and focus adaptation. which supports holding shift and up and down arrows at the same time in the input box to adjust a larger number range [#205](https://github.com/DouyinFE/semi-design/issues/205)
+    - `Checkbox` add A11y keyboard and focus adaptation  [#205](https://github.com/DouyinFE/semi-design/issues/205)
+- 【Fix】
+    - Fixed the problem that when Select filter and showClear are true, when clicking the clear icon, only onClear is triggered, but onSearch is not triggered, and after clearing the search item through the clear icon, the candidate Option list is not reset  [#867](https://github.com/DouyinFE/semi-design/issues/867)
+    - Fix the problem that onSearch is not triggered when Select filter is true, lose focus, and input input is reset automatically  [#867](https://github.com/DouyinFE/semi-design/issues/867)
+    - Fixed the issue that if InputNumber is set to require validation, validation will be triggered when it is initialized in the form, and the behavior is inconsistent with other field component [@rojer95](https://github.com/rojer95)
+    - Fixed AutoComplete defaultActiveFirstOption not taking effect in some scenarios [#892](https://github.com/DouyinFE/semi-design/issues/892)
+- 【Breaking Change】
+    - Adjust the default value of `InputNumber` shiftStep, from 1 to 10
+- 【Design Token】
+    - Update the color white in the style files of Avatar, Button, Radio, Steps, Switch, Tag and other components to --semi-white
+    - Button component adds text color token in borderless mode [#898](https://github.com/DouyinFE/semi-design/pull/898)
+
 #### 🎉 2.12.0 (2022-06-06)
 - 【Fix】
     - Fix the issue that the last item style is abnormal when Timeline is nested [#865](https://github.com/DouyinFE/semi-design/issues/865)
@@ -274,7 +289,7 @@ Version：Major.Minor.Patch
 - 【Feat】
     - Select supports autoClearSearchValue, allowing the current search keywords to be retained after selection Checklist
     - Slider add cursor grabbing style when drag Checklist
-    - 40+ components add accessibility semantic support [#205](https://github.com/DouyinFE/semi-design/issues/205)
+    - A11y: 40+ components add accessibility semantic support [#205](https://github.com/DouyinFE/semi-design/issues/205)
         - Button adds aria-label attribute, when disabled, Button has aria-disabled attribute
         - The role of Checkbox is checkbox, the role of CheckboxGroup is list, its direct child element is listitem, and the aria-label attribute is added to explain the function of the selection box; aria-disabled means the current disabled state; aria-checked means the current selected state
         - aria-hidden is true for Empty illustrations

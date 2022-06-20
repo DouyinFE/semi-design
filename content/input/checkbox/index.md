@@ -424,6 +424,12 @@ import { Checkbox, CheckboxGroup, Row, Col } from '@douyinfe/semi-ui';
 - `aria-disabled` 表示当前的禁用状态，与 `disabled` prop 的值保持一致
 - `aria-checked` 表示当前的选中状态
 
+### 键盘和焦点
+- Checkbox 可被获取焦点，键盘用户可以使用 Tab 及 Shift  + Tab 切换焦点。
+- 当前获取的焦点为 Checkbox 时，可以通过 Space 切换选中和未选状态。
+- Checkbox 的点击区域大于框本身，包含了框后的文案；带辅助文本的 checkbox，辅助文本也包含在点击区域内。
+- 禁用的 Checkbox 不可获取焦点。
+
 ## 设计变量
 <DesignToken/>
 

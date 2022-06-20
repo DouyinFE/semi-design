@@ -28,7 +28,7 @@ export default function App() {
         enter={{ opacity: 1, scale: 1 }}
         leave={{ opacity: 0, scale: 0 }}
       >
-        {({scale, opacity}: any) => (
+        {({ scale, opacity }: any) => (
           <h2 style={{transform: `scale(${scale})`, opacity}}>
             Toggle to see some animation happen!
           </h2>
