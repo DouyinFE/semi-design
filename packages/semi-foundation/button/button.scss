@@ -47,7 +47,7 @@ $module: #{$prefix}-button;
         }
         &.#{$module}-light,
         &.#{$module}-borderless {
-            color: $color-button_danger-bg-default;
+            color: $color-button_danger_borderless-text-default;
         }
         &:not(.#{$module}-borderless):not(.#{$module}-light):focus-visible {
             outline: $width-button-outline solid $color-button_danger-outline-focus;
@@ -64,7 +64,7 @@ $module: #{$prefix}-button;
         }
         &.#{$module}-light,
         &.#{$module}-borderless {
-            color: $color-button_warning-bg-default;
+            color: $color-button_warning_borderless-text-default;
         }
         &:not(.#{$module}-borderless):not(.#{$module}-light):focus-visible {
             outline: $width-button-outline solid $color-button_warning-outline-focus;
@@ -96,7 +96,7 @@ $module: #{$prefix}-button;
 
         &.#{$module}-light,
         &.#{$module}-borderless {
-            color: $color-button_primary-bg-default;
+            color: $color-button_primary_borderless-text-default;
         }
     }
     &-secondary {
@@ -112,7 +112,7 @@ $module: #{$prefix}-button;
 
         &.#{$module}-light,
         &.#{$module}-borderless {
-            color: $color-button_secondary-bg-default;
+            color: $color-button_secondary_borderless-text-default;
         }
     }
     &-disabled {

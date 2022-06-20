@@ -44,6 +44,7 @@ export interface PopoverProps extends BaseProps {
     guardFocus?: TooltipProps['guardFocus'];
     returnFocusOnClose?: TooltipProps['returnFocusOnClose'];
     onEscKeyDown?: TooltipProps['onEscKeyDown'];
+    clickToHide?:TooltipProps['clickToHide']
 }
 
 export interface PopoverState {
@@ -175,5 +176,4 @@ class Popover extends React.PureComponent<PopoverProps, PopoverState> {
         );
     }
 }
-
 export default Popover;

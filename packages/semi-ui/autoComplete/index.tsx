@@ -179,7 +179,7 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
         onChange: noop,
         onSelectWithObject: false,
         onDropdownVisibleChange: noop,
-        defaultActiveFirstOption: true,
+        defaultActiveFirstOption: false,
         dropdownMatchSelectWidth: true,
         loading: false,
         maxHeight: 300,

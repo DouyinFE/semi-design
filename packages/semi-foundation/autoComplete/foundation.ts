@@ -47,6 +47,8 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
         super({ ...adapter });
     }
 
+    isPanelOpen = false;
+
     init(): void {
         this._setDropdownWidth();
 
@@ -62,7 +64,7 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
         }
 
         // When both defaultValue and value exist, finally the value of value will be taken as initValue
-        let initValue = '';
+        let initValue: string;
         if (typeof defaultValue !== 'undefined') {
             initValue = defaultValue;
         }
@@ -97,20 +99,27 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
     handleInputClick(e?: MouseEvent): void {
         const { options } = this.getStates();
         const { disabled } = this.getProps();
-        if (options.length && !disabled) {
-            this.openDropdown();
+        if (!disabled) {
+            if (this.isPanelOpen) {
+                this.closeDropdown();
+            } else {
+                this.openDropdown();
+            }
         }
     }
 
     openDropdown(): void {
+        this.isPanelOpen = true;
         this._adapter.toggleListVisible(true);
         this._setDropdownWidth();
         // this._adapter.registerClickOutsideHandler(e => this.closeDropdown(e));
         this._adapter.notifyDropdownVisibleChange(true);
         this.bindKeyBoardEvent();
+        this._modifyFocusIndexOnPanelOpen();
     }
 
     closeDropdown(e?: any): void {
+        this.isPanelOpen = false;
         this._adapter.toggleListVisible(false);
         // this._adapter.unregisterClickOutsideHandler();
         this._adapter.notifyDropdownVisibleChange(false);
@@ -143,6 +152,7 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
         this._adapter.updateInputValue(inputValue);
         this._adapter.notifySearch(inputValue);
         this._adapter.notifyChange(inputValue);
+        this._modifyFocusIndex(inputValue);
     }
 
     handleSelect(option: StateOptionItem, optionIndex?: number): void {
@@ -156,7 +166,7 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
                 'Warning: [Semi AutoComplete] renderSelectedItem must return string, please check your function return'
             );
         } else {
-            newInputValue = option.label;
+            newInputValue = option.value;
         }
 
         // 1. trigger onSelect
@@ -207,7 +217,7 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
     }
 
     handleValueChange(propValue: any) {
-        let { data } = this.getProps();
+        let { data, defaultActiveFirstOption } = this.getProps();
         let selectedValue = '';
         if (this._backwardLabelInValue() && Object.prototype.toString.call(propValue) === '[object Object]') {
             selectedValue = propValue.value;
@@ -219,10 +229,10 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
 
         const options = this._generateList(data);
         // Get the option whose value match from options
-        let selectedOption: StateOptionItem | Array<StateOptionItem> = options.filter(option => option.value === selectedValue);
+        let selectedOption: StateOptionItem | Array<StateOptionItem> = options.filter(option => renderSelectedItem(option) === selectedValue);
         const canMatchInData = selectedOption.length;
 
-        const selectedOptionIndex = options.findIndex(option => option.value === selectedValue);
+        const selectedOptionIndex = options.findIndex(option => renderSelectedItem(option) === selectedValue);
 
         let inputValue = '';
         if (canMatchInData) {
@@ -234,15 +244,45 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
         }
         this._adapter.updateInputValue(inputValue);
         this.updateSelection(canMatchInData ? selectedOption : null);
-        this._adapter.updateFocusIndex(selectedOptionIndex);
+        if (selectedOptionIndex === -1 && defaultActiveFirstOption) {
+            this._adapter.updateFocusIndex(0);
+        } else {
+            this._adapter.updateFocusIndex(selectedOptionIndex);
+        }
     }
 
+    _modifyFocusIndex(searchValue) {
+        let { focusIndex } = this.getStates();
+
+        let { data, defaultActiveFirstOption } = this.getProps();
+
+        let renderSelectedItem = this._getRenderSelectedItem();
+
+        const options = this._generateList(data);
+
+        const selectedOptionIndex = options.findIndex(option => renderSelectedItem(option) === searchValue);
+
+        if (selectedOptionIndex === -1 && defaultActiveFirstOption) {
+            if (focusIndex !== 0) {
+                this._adapter.updateFocusIndex(0);
+            }
+        } else {
+            if (selectedOptionIndex !== focusIndex) {
+                this._adapter.updateFocusIndex(selectedOptionIndex);
+            }
+        }
+    }
+
+    _modifyFocusIndexOnPanelOpen() {
+        let { inputValue } = this.getStates();
+        this._modifyFocusIndex(inputValue);
+    }
 
     _getRenderSelectedItem() {
         let { renderSelectedItem } = this.getProps();
 
         if (typeof renderSelectedItem === 'undefined') {
-            renderSelectedItem = (option: any) => option.label;
+            renderSelectedItem = (option: any) => option.value;
         } else if (renderSelectedItem && typeof renderSelectedItem === 'function') {
             // do nothing
         }
@@ -345,7 +385,7 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
         if (focusIndex !== -1 && options.length !== 0) {
             const visibleOptions = options.filter((item: StateOptionItem) => item.show);
             const selectedOption = visibleOptions[focusIndex];
-            this.handleSelect(selectedOption);
+            this.handleSelect(selectedOption, focusIndex);
         } else if (visible) {
             // this.close();
         }
@@ -357,7 +397,6 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
 
     handleFocus(e: FocusEvent) {
         this._adapter.notifyFocus(e);
-        this.openDropdown();
     }
 
     handleBlur(e: FocusEvent) {
