@@ -95,7 +95,7 @@ describe('table', () => {
         cy.get('div[role="row"]').contains('Edward King 0');
     });
 
-    it('scrollToFirstRowOnChange', () => {
+    it.skip('scrollToFirstRowOnChange', () => {
         cy.visit('http://localhost:6006/iframe.html?id=table--virtualized&args=&viewMode=story');
         cy.get('.semi-table-body').scrollTo(0, 150);
         cy.get('div[role="button"]').click();

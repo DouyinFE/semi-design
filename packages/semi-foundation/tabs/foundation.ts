@@ -80,7 +80,7 @@ class TabsFoundation<P = Record<string, any>, S = Record<string, any>> extends B
 
     handleKeyDown = (event: any, itemKey: string, closable: boolean) => {
         const tabs = [...event.target.parentNode.childNodes].filter(item => {
-            return get(item, 'attributes.data-tabkey.value', '').includes('semiTab') && item.ariaDisabled!=="true";
+            return get(item, 'attributes.data-tabkey.value', '').includes('semiTab') && get(item, 'attributes.aria-disabled.value', '') !== "true";
         });
 
         switch (event.key) {
