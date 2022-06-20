@@ -53,6 +53,7 @@ export default class NavigationFoundation<P = Record<string, any>, S = Record<st
         super({ ...adapter });
     }
 
+    /* istanbul ignore next */
     static getZeroParentKeys(itemKeysMap = {}, ...itemKeys: (string | number)[]) {
         const willAddKeys = [];
         if (itemKeys.length) {
@@ -240,6 +241,7 @@ export default class NavigationFoundation<P = Record<string, any>, S = Record<st
         this._adapter.notifySelect(data);
     }
 
+    /* istanbul ignore next */
     judgeIfOpen(openKeys: (string | number)[], items: NavItemType[]): boolean {
         let shouldBeOpen = false;
 

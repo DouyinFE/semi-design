@@ -957,3 +957,155 @@ export const CustomListOperation = () => {
 CustomListOperation.story = {
   name: 'custom list operation',
 }
+
+
+export const TestReplaceFunc = () => (
+  <>
+    <Upload
+      {...commonProps}
+      action={action}
+      accept=".md,image/*,video/*"
+      maxSize={mb1}
+      minSize={0}
+      transformFile={(fileInstance)=>{return fileInstance;}}
+    >
+      <Button icon={<IconUpload />} theme="light">
+        点击上传（最小0kB，最大1MB）
+      </Button>
+    </Upload>
+    <Upload
+      {...commonProps}
+      action={action}
+      accept="image/*"
+      maxSize={mb1}
+      minSize={0}
+      transformFile={(fileInstance)=>{return fileInstance;}}
+    >
+      <Button icon={<IconUpload />} theme="light">
+        只接受image点击上传（最小0kB，最大1MB）
+      </Button>
+    </Upload>
+    <Upload
+      {...commonProps}
+      action={action}
+      accept=".md,image/*,video/*"
+      maxSize={mb1}
+      minSize={kb2}
+      transformFile={(fileInstance)=>{return fileInstance;}}
+    >
+      <Button icon={<IconUpload />} theme="light">
+        点击上传（最小200kB，最大1MB）
+      </Button>
+    </Upload>
+  </>
+);
+
+TestReplaceFunc.story = {
+  name: 'test replace func',
+};
+
+
+class InsertUpload extends React.Component {
+   constructor() {
+        super();
+        this.onFileChange = this.onFileChange.bind(this);
+        this.insert1 = this.insert1.bind(this);
+        this.insert2 = this.insert2.bind(this);
+        this.insert3 = this.insert3.bind(this);
+        this.uploadRef1 = React.createRef();
+        this.uploadRef2 = React.createRef();
+        this.uploadRef3 = React.createRef();
+        this.file = null;
+    }
+
+    onFileChange(file) {
+      delete file[0].uid;
+      this.file = file;
+    }
+
+    insert1() {
+      // test file number limit
+      this.uploadRef1.current.insert(this.file, 0);
+    }
+
+    insert2() {
+      this.uploadRef2.current.insert(this.file, 0);
+    }
+
+    insert3() {
+      // test size limit
+      this.uploadRef3.current.insert(this.file, 0);
+    }
+
+    render() {
+        let action = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
+        return (
+            <div>
+                <Upload
+                    action={action}
+                    ref={this.uploadRef1}
+                    accept=".md,image/*,video/*"
+                    onSuccess={(...v) => console.log(...v)}
+                    onError={(...v) => console.log(...v)}
+                    onFileChange={this.onFileChange}
+                    maxSize={mb1}
+                    minSize={0}
+                    limit={1}
+                    transformFile={(fileInstance)=>{return fileInstance;}}
+                >
+                    <Button icon={<IconPlus />} theme="light" style={{ marginRight: 8 }}>
+                        选择文件 limit 1
+                    </Button>
+                </Upload>
+                <Upload
+                    action={action}
+                    ref={this.uploadRef2}
+                    accept=".md,image/*,video/*"
+                    onSuccess={(...v) => console.log(...v)}
+                    onError={(...v) => console.log(...v)}
+                    onFileChange={this.onFileChange}
+                    maxSize={mb1}
+                    minSize={0}
+                    limit={2}
+                    transformFile={(fileInstance)=>{return fileInstance;}}
+                >
+                    <Button icon={<IconPlus />} theme="light" style={{ marginRight: 8 }}>
+                        选择文件 limit 2
+                    </Button>
+                </Upload>
+                <Upload
+                    {...commonProps}
+                    action={action}
+                    ref={this.uploadRef3}
+                    accept=".md,image/*,video/*"
+                    onSuccess={(...v) => console.log(...v)}
+                    onError={(...v) => console.log(...v)}
+                    onFileChange={this.onFileChange}
+                    maxSize={mb1}
+                    minSize={kb2}
+                    limit={1}
+                    transformFile={(fileInstance)=>{return fileInstance;}}
+                >
+                    <Button icon={<IconPlus />} theme="light" style={{ marginRight: 8 }}>
+                        选择文件 size 限制
+                    </Button>
+                </Upload>
+                <Button icon={<IconUpload />} theme="light" onClick={this.insert1}>
+                  插入首项上传1
+                </Button>
+                <Button icon={<IconUpload />} theme="light" onClick={this.insert2}>
+                  插入首项上传2
+                </Button>
+                <Button icon={<IconUpload />} theme="light" onClick={this.insert3}>
+                  插入首项上传3
+                </Button>
+            </div>
+        );
+    }
+}
+
+export const Insert = () => <InsertUpload></InsertUpload>;
+
+Insert.story = {
+  name: 'insert',
+};

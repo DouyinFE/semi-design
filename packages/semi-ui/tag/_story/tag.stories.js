@@ -155,7 +155,7 @@ export const TagAvatar = () => {
     'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg';
   return (
     <div style={{ margin: 10 }}>
-      <Tag avatarSrc={avatarSrc} avatarShape={'square'}>
+      <Tag avatarSrc={avatarSrc} avatarShape={'square'} onClick={()=>{console.log('如果能重来，我要做李白')}}>
         李白
       </Tag>
       <br />
