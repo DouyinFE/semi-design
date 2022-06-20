@@ -73,14 +73,14 @@ gulp.task('compileScss', function compileScss() {
             }
         ))
         .pipe(sass({
-            importer: (url, prev) => {
+            importer: (url, prev, done) => {
                 const rootPath = path.join(__dirname, '../../');
                 let realUrl = url;
                 if (/~@douyinfe\/semi-foundation/.test(url)) {
                     const semiUIPath = path.join(rootPath, 'packages/semi-foundation');
                     realUrl = url.replace(/~@douyinfe\/semi-foundation/, semiUIPath);
                 }
-                return { url: realUrl };
+                done({ file:realUrl });
             },
             charset: false
         }).on('error', sass.logError))
@@ -104,11 +104,11 @@ gulp.task('moveScssForCJS', function moveScssForCJS() {
     return moveScss(false);
 });
 
-gulp.task('compileLib', 
+gulp.task('compileLib',
     gulp.series(
         [
-            'cleanLib', 
-            'compileScss', 
+            'cleanLib',
+            'compileScss',
             gulp.parallel('moveScssForESM', 'moveScssForCJS'),
             gulp.parallel('compileTSXForESM', 'compileTSXForCJS')
         ]
