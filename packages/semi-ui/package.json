@@ -1,6 +1,6 @@
 {
     "name": "@douyinfe/semi-ui",
-    "version": "2.10.2",
+    "version": "2.10.3",
     "description": "",
     "main": "lib/cjs/index.js",
     "module": "lib/es/index.js",
