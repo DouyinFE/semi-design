@@ -422,10 +422,10 @@ $module: #{$prefix}-tabs;
     &-pane {
         width: 100%;
         overflow: hidden;
+        color: $color-tabs_tab-pane-text-default;
         // position: absolute;
         // flex-shrink: 0;
         // position: absolute;
-
         &:focus-visible {
             outline: $width-tabs-outline solid $color-tabs_tab-outline-focus;
         }
