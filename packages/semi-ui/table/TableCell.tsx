@@ -288,11 +288,13 @@ export default class TableCell extends BaseComponent<TableCellProps, Record<stri
         if (useFullRender) {
             inner = text;
         } else {
-            inner = [
-                <Fragment key={'indentText'}>{indentText}</Fragment>,
-                <Fragment key={'expandIcon'}>{expandIcon ? realExpandIcon : null}</Fragment>,
-                <Fragment key={'text'}>{text}</Fragment>,
-            ];
+            inner = (
+                <div className={classnames(`${prefixCls}-cell-inner`)}>
+                    <Fragment key={'indentText'}>{indentText}</Fragment>
+                    <Fragment key={'expandIcon'}>{expandIcon ? realExpandIcon : null}</Fragment>
+                    <Fragment key={'text'}>{text}</Fragment>
+                </div>
+            );
         }
 
         if (isSection) {
