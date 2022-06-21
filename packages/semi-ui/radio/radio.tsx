@@ -43,12 +43,14 @@ export type RadioProps = {
     'aria-label'?: React.AriaAttributes['aria-label'];
     addonId?: string;
     extraId?: string;
+    name?: string;
 };
 
 export interface RadioState {
     hover?: boolean;
     addonId?: string;
     extraId?: string;
+    focusVisible?: boolean;
 }
 
 export { RadioChangeEvent };
@@ -116,7 +118,10 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
             },
             setExtraId: () => {
                 this.setState({ extraId: getUuidShort({ prefix: 'extra' }) });
-            }
+            },
+            setFocusVisible: (focusVisible: boolean): void => {
+                this.setState({ focusVisible });
+            },
         };
     }
 
@@ -152,6 +157,14 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
         this.foundation.setHover(false);
     };
 
+    handleFocusVisible = (event: React.FocusEvent) => {
+        this.foundation.handleFocusVisible(event);
+    }
+
+    handleBlur = (event: React.FocusEvent) => {
+        this.foundation.handleBlur();
+    }
+
     render() {
         const {
             addonClassName,
@@ -166,7 +179,8 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
             extra,
             mode,
             type,
-            value: propValue
+            value: propValue,
+            name
         } = this.props;
 
         let realChecked,
@@ -178,7 +192,7 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
             isButtonRadioComponent,
             buttonSize,
             realPrefixCls;
-        const { hover: isHover, addonId, extraId } = this.state;
+        const { hover: isHover, addonId, extraId, focusVisible } = this.state;
         let props = {};
 
         if (this.isInGroup()) {
@@ -202,6 +216,8 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
 
         const prefix = realPrefixCls || css.PREFIX;
 
+        const focusOuter = isCardRadioGroup || isPureCardRadioGroup || isButtonRadio;
+
         const wrapper = cls(prefix, {
             [`${prefix}-disabled`]: isDisabled,
             [`${prefix}-checked`]: realChecked,
@@ -215,9 +231,10 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
             [`${prefix}-cardRadioGroup_checked_disabled`]: isCardRadioGroup && realChecked && isDisabled,
             [`${prefix}-cardRadioGroup_hover`]: isCardRadioGroup && !realChecked && isHover && !isDisabled,
             [className]: Boolean(className),
+            [`${prefix}-focus`]: focusVisible && (isCardRadioGroup || isPureCardRadioGroup),
         });
 
-        const name = this.isInGroup() && this.context.radioGroup.name;
+        const groupName = this.isInGroup() && this.context.radioGroup.name;
         const addonCls = cls({
             [`${prefix}-addon`]: !isButtonRadio,
             [`${prefix}-addon-buttonRadio`]: isButtonRadio,
@@ -225,6 +242,7 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
             [`${prefix}-addon-buttonRadio-disabled`]: isButtonRadio && isDisabled,
             [`${prefix}-addon-buttonRadio-hover`]: isButtonRadio && !realChecked && !isDisabled && isHover,
             [`${prefix}-addon-buttonRadio-${buttonSize}`]: isButtonRadio && buttonSize,
+            [`${prefix}-focus`]: focusVisible && isButtonRadio,
         }, addonClassName);
         const renderContent = () => (
             <>
@@ -232,6 +250,7 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
                 {extra && !isButtonRadio ? <div className={`${prefix}-extra`} id={extraId}>{extra}</div> : null}
             </>
         );
+
         return (
             <label
                 style={style}
@@ -243,7 +262,7 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
                     {...this.props}
                     {...props}
                     mode={realMode}
-                    name={name}
+                    name={name ?? groupName}
                     isButtonRadio={isButtonRadio}
                     isPureCardRadioGroup={isPureCardRadioGroup}
                     onChange={this.onChange}
@@ -252,6 +271,9 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
                     }}
                     addonId={children && addonId}
                     extraId={extra && extraId}
+                    focusInner={focusVisible && !focusOuter}
+                    onInputFocus={this.handleFocusVisible}
+                    onInputBlur={this.handleBlur}
                 />
                 {
                     isCardRadioGroup ?

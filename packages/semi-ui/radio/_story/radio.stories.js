@@ -34,13 +34,14 @@ _Radio.story = {
 export const RadioWithExtra = () => {
   return (
     <>
-      <Radio value="1" extra="这是辅助的文本，同厂辅助文本会更长一些，甚至还可能换行">
+      <Radio value="1" extra="这是辅助的文本，同厂辅助文本会更长一些，甚至还可能换行" name="demo-radio-1">
         示例文本
       </Radio>
       <Radio
         style={{ width: 200 }}
         value="1"
         extra="这是辅助的文本，同厂辅助文本会更长一些，甚至还可能换行"
+        name="demo-radio-2"
       >
         示例文本
       </Radio>
@@ -227,13 +228,13 @@ export const _RadioGroup = () => {
   return (
     <div>
       value=1
-      <RadioGroup name="pie" value="1" onChange={onChange}>
+      <RadioGroup name="pie1" value="1" onChange={onChange}>
         <Radio value="1">111</Radio>
         <Radio value="2">222</Radio>
       </RadioGroup>
       <br />
       defaultValue=1
-      <RadioGroup name="pie" defaultValue="1" onChange={onChange}>
+      <RadioGroup name="pie2" defaultValue="1" onChange={onChange}>
         <Radio value="1">111</Radio>
         <Radio value="2">222</Radio>
       </RadioGroup>
@@ -316,6 +317,8 @@ const RadioWithAdvancedMode = () => {
         onChange={e => {
           console.log(e);
           setChecked(e.target.checked);
+          e.stopPropagation();
+          e.preventDefault();
         }}
       >
         111
@@ -434,19 +437,19 @@ export const RadioGroupButtonStyle = () => {
     };
     return (
       <Space vertical spacing="loose" align="start">
-        <RadioGroup type="button" buttonSize="small" onChange={onChange1} value={value1}>
+        <RadioGroup type="button" buttonSize="small" onChange={onChange1} value={value1} name="demo-radio-button-1">
           <Radio value={1}>semi</Radio>
           <Radio value={2}>pipixia</Radio>
           <Radio value={3}>hotsoon</Radio>
           <Radio value={4}>toutiao</Radio>
         </RadioGroup>
-        <RadioGroup type="button" buttonSize="middle" onChange={onChange2} value={value2}>
+        <RadioGroup type="button" buttonSize="middle" onChange={onChange2} value={value2} name="demo-radio-button-2">
           <Radio value={1}>semi</Radio>
           <Radio value={2}>pipixia</Radio>
           <Radio value={3}>hotsoon</Radio>
           <Radio value={4}>toutiao</Radio>
         </RadioGroup>
-        <RadioGroup type="button" buttonSize="large" onChange={onChange3} value={value3}>
+        <RadioGroup type="button" buttonSize="large" onChange={onChange3} value={value3} name="demo-radio-button-3">
           <Radio value={1}>semi</Radio>
           <Radio value={2}>pipixia</Radio>
           <Radio value={3}>hotsoon</Radio>
