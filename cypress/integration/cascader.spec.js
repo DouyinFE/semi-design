@@ -65,4 +65,12 @@ describe('cascader', () => {
         cy.get('.semi-button-content').contains('Toggle').click();
         cy.get('.semi-input-default').should('have.attr', 'placeholder', 'Search something');
     });
+
+    it('multiple onChangeWithObject value=undefined', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=cascader--undefined-value-while-mutiple-and-on-change-with-object&args=&viewMode=story');
+        cy.get('.semi-cascader-selection-placeholder').contains('请选择所在地区');
+        cy.get('.semi-cascader').click();
+        cy.get('.semi-checkbox').eq(0).click();
+        cy.get('.semi-tag-content').contains('亚洲');
+    })
 });
