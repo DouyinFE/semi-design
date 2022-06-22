@@ -100,7 +100,7 @@ describe('tooltip', () => {
         cy.get(input).should('be.focused');
     });
 
-    it('adjustPosIfNeed', () => {
+    it.skip('adjustPosIfNeed', () => {
         const viewportWidth = 400;
         const viewportHeight = 200;
         const topAndLeft = ['topLeft', 'top', 'topRight', 'leftTop', 'left', 'leftBottom'];
