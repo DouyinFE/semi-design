@@ -151,6 +151,7 @@ class TagInputFoundation extends BaseFoundation<TagInputAdapter> {
     /**
      * A11y: simulate clear button click
      */
+    /* istanbul ignore next */
     handleClearEnterPress(e: TagInputKeyboardEvent) {
         if (isEnterPress(e)) {
             this.handleClearBtn(e);

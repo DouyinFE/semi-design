@@ -827,6 +827,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
     /**
      * A11y: simulate clear button click
      */
+    /* istanbul ignore next */
     handleClearEnterPress = (e: KeyboardEvent) => {
         e && e.stopPropagation();
         this.foundation.handleClearEnterPress(e);

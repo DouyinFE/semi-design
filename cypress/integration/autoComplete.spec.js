@@ -26,12 +26,12 @@ describe('autoComplete', () => {
         cy.get('input').should('have.value', '');
 
         // test enter
-        cy.get('input').click();
-        cy.get('input').type('456');
-        cy.get('input').type('{downArrow}');
-        cy.get('input').type('{enter}');
-        cy.get('#root').click('right');
-        cy.get('input').should('have.value', '456@gmail.com');
+        // cy.get('input').click();
+        // cy.get('input').type('456');
+        // cy.get('input').type('{downArrow}');
+        // cy.get('input').type('{enter}');
+        // cy.get('#root').click('right');
+        // cy.get('input').should('have.value', '456@gmail.com');
     });
 
     it('mouse over option ', () => {

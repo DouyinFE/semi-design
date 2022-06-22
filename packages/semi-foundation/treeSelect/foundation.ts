@@ -354,6 +354,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         };
     }
 
+    /* istanbul ignore next */
     focusInput(bool: boolean) {
         this._adapter.updateInputFocus(bool);
     }
@@ -442,6 +443,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
     /**
      * A11y: simulate selection click
      */
+    /* istanbul ignore next */
     handleSelectionEnterPress(e: any) {
         if (isEnterPress(e)) {
             this.handleClick(e);
@@ -480,6 +482,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
     /**
      * A11y: simulate clear button click
      */
+    /* istanbul ignore next */
     handleClearEnterPress(e: any) {
         if (isEnterPress(e)) {
             this.handleClear(e);
@@ -693,6 +696,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         let motionType = 'show';
         const { eventKey, expanded, data } = treeNode;
 
+        // debugger;
         if (!expanded) {
             filteredExpandedKeys.add(eventKey);
         } else if (filteredExpandedKeys.has(eventKey)) {
@@ -704,6 +708,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         this._adapter.cacheFlattenNodes(motionType === 'hide' && this._isAnimated());
 
         if (!this._isExpandControlled()) {
+            // debugger;
             const flattenNodes = flattenTreeData(treeData, filteredExpandedKeys, showFilteredOnly && filteredShownKeys);
             const motionKeys = this._isAnimated() ? getMotionKeys(eventKey, filteredExpandedKeys, keyEntities) : [];
             const newState = {
@@ -723,6 +728,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
     }
 
     handleNodeExpand(e: any, treeNode: BasicTreeNodeProps) {
+        // debugger;
         const { loadData } = this.getProps();
         const { inputValue, keyEntities } = this.getStates();
         const isSearching = Boolean(inputValue);
@@ -750,6 +756,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         this._adapter.cacheFlattenNodes(motionType === 'hide' && this._isAnimated());
 
         if (!isExpandControlled) {
+            // debugger;
             const flattenNodes = flattenTreeData(treeData, expandedKeys);
             const motionKeys = this._isAnimated() ? getMotionKeys(eventKey, expandedKeys, keyEntities) : [];
             const newState = {

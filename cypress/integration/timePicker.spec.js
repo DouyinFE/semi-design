@@ -47,4 +47,16 @@ describe('timePicker', () => {
         cy.get('.semi-timepicker-panel-list-hour .semi-scrolllist-list-outer').scrollTo('top');
         cy.get('#root').trigger('mousedown','right');
     });
+
+    it('blur', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=timepicker--time-picker-panel-default&args=&viewMode=story');
+        cy.get('.semi-input-default').eq(1).click();
+        cy.get('body').click('right');
+        cy.get('.semi-input-default').eq(1).should('have.value', '10:24:18');
+
+        cy.get('.semi-input-default').eq(1).type('10:24:181');
+        // cy.get('.semi-input-wrapper-error');
+        cy.get('body').click('right');
+        cy.get('.semi-input-default').eq(1).should('have.value', '10:24:18');
+    });
 });

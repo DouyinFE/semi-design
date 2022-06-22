@@ -238,6 +238,7 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
         this.foundation.handleClearBtn(e);
     };
 
+    /* istanbul ignore next */
     handleClearEnterPress = (e: React.KeyboardEvent<HTMLDivElement>) => {
         this.foundation.handleClearEnterPress(e);
     };
