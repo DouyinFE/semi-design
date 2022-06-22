@@ -895,6 +895,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
         }
     }
 
+    /* istanbul ignore next */
     handleClearBtnEnterPress(e: KeyboardEvent) {
         if (isEnterPress(e)) {
             this.handleClearClick(e as any);

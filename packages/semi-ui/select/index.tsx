@@ -662,6 +662,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         this.foundation.handleClearClick(e as any);
     }
 
+    /* istanbul ignore next */
     onClearBtnEnterPress(e: React.KeyboardEvent) {
         this.foundation.handleClearBtnEnterPress(e as any);
     }

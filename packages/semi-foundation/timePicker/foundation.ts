@@ -259,6 +259,7 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
         this._adapter.notifyBlur(e);
     }
 
+    /* istanbul ignore next */
     handleVisibleChange(visible: boolean) {
         if (!this._isControlledComponent('open')) {
             this._adapter.togglePanel(visible);
@@ -305,6 +306,7 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
         }
     }
 
+    /* istanbul ignore next */
     doValidate(args: string | Array<Date>) {
         if (typeof args === 'string') {
             return this.validateStr(args);
@@ -414,7 +416,6 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
 
         if (this.isValidTimeZone() && _value) {
             const formatToken = this.getValidFormat();
-
             if (Array.isArray(_value)) {
                 _value = _value.map(v => zonedTimeToUtc(v, timeZone));
                 str = _value.map(v => format(v, formatToken));

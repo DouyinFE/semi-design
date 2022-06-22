@@ -683,6 +683,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         this.foundation.handleClick(e);
     };
 
+    /* istanbul ignore next */
     handleSelectionEnterPress = (e: React.KeyboardEvent<HTMLDivElement>) => {
         this.foundation.handleSelectionEnterPress(e);
     };
@@ -840,6 +841,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         this.foundation.handleClear(e);
     };
 
+    /* istanbul ignore next */
     handleClearEnterPress = (e: React.KeyboardEvent<HTMLDivElement>) => {
         e && e.stopPropagation();
         this.foundation.handleClearEnterPress(e);

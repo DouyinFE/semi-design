@@ -413,6 +413,7 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
         // this.picker.blur();
     }
 
+    /* istanbul ignore next */
     handlePanelVisibleChange = (visible: boolean) => this.foundation.handleVisibleChange(visible);
 
     openPanel = () => {

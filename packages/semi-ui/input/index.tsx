@@ -221,6 +221,7 @@ class Input extends BaseComponent<InputProps, InputState> {
         this.foundation.handleClear(e);
     };
 
+    /* istanbul ignore next */
     handleClearEnterPress = (e: React.KeyboardEvent<HTMLDivElement>) => {
         this.foundation.handleClearEnterPress(e);
     };
