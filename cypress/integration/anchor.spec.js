@@ -1,5 +1,5 @@
 describe('anchor', () => {
-    it('show tooltip', () => {
+    it.skip('show tooltip', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?id=anchor--show-tooltip&args=&viewMode=story');
         cy.get('.semi-anchor-link').contains('工具提示是一个有用的工具').trigger('mouseover');
         cy.get('.semi-portal').contains('工具提示是一个有用的工具');
