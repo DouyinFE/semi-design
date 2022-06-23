@@ -46,7 +46,7 @@ jobs:
       - name: Serve storybook
         run: nohup npx http-server -p 6006 storybook-static &
       - name: Run Cypress test
-        run: npx wait-on http://127.0.0.1:6006 && ./node_modules/.bin/cypress run -s cypress/**/checkbox*
+        run: npx wait-on http://127.0.0.1:6006 && ./node_modules/.bin/cypress run
       - name: Archive Cypress coverage
         uses: actions/upload-artifact@v3
         with:
