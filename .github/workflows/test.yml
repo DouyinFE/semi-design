@@ -70,6 +70,6 @@ jobs:
         run: |
           tree output
           npx istanbul-merge --out output/coverage-final.json output/jest/coverage-final.json output/cypress/coverage-final.json
-          tree test/merged
+          tree output
       - name: Run codecov
-        run: npx codecov --token=${{ secrets.CODECOV_TOKEN }} --file=test/merged/coverage-final.json
+        run: npx codecov --token=${{ secrets.CODECOV_TOKEN }} --file=output/coverage-final.json
