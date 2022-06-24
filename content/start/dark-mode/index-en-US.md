@@ -9,7 +9,21 @@ order: 4
 
 ## Dark mode
 
-Semi's default theme and custom themes configured through Theme Store come with both light and dark modes, which can be easily switched. Semi also supports the use of dark mode in a partial area of the page.
+🤩  Semi's default theme or custom themes configured through [Semi DSM](/dsm) come with both light and dark modes, which can be easily switched.   
+🌒 Semi also supports the use of dark mode in a partial area of the page.  
+
+
+## Recommended settings
+Semi will automatically mount the global color palette on the body element. We have built in some commonly used CSS Tokens. For detailed Token details, please refer to [Design Variables](/en-US/basic/tokens)
+We recommend that you configure `color` and `background-color` on the body, your business components can automatically inherit the default background color and text color from the body, and adaptive light/dark color switching
+
+````css
+// css
+body {
+     color: 'var(--semi-color-text-0)';
+     background-color: 'var( --semi-color-bg-0)';
+}
+````
 
 ## How to switch
 To use Dark Mode, you could simply add `[theme-mode='dark']` to `body` in any way you prefer. Here is a quick idea:
