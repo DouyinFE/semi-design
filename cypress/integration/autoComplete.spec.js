@@ -41,7 +41,7 @@ describe('autoComplete', () => {
         cy.get('#root').click('right');
         cy.get('input').should('have.value', '');
 
-        // // test enter
+        // test enter
         // cy.get('input').click();
         // cy.get('input').type('456');
         // cy.get('input').type('{downArrow}');
