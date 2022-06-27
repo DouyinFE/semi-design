@@ -120,7 +120,7 @@ class Toast extends BaseComponent<ToastReactProps, ToastState> {
         const btnSize = 'small';
         return (
             <div
-                role='alert'
+                role="alert"
                 aria-label={`${type ? type : 'default'} type`}
                 className={toastCls}
                 style={style}
@@ -129,7 +129,7 @@ class Toast extends BaseComponent<ToastReactProps, ToastState> {
             >
                 <div className={`${prefixCls}-content`}>
                     {this.renderIcon()}
-                    <span className={`${prefixCls}-content-text`} style={textStyle}>
+                    <span className={`${prefixCls}-content-text`} style={textStyle} x-semi-prop="content">
                         {content}
                     </span>
                     {showClose && (
@@ -137,7 +137,7 @@ class Toast extends BaseComponent<ToastReactProps, ToastState> {
                             <Button
                                 onClick={e => this.close(e)}
                                 type="tertiary"
-                                icon={<IconClose />}
+                                icon={<IconClose x-semi-prop="icon" />}
                                 theme={btnTheme}
                                 size={btnSize}
                             />

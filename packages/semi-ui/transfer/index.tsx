@@ -353,6 +353,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
                 checked={checked}
                 role="listitem"
                 onChange={() => this.onSelectOrRemove(item)}
+                x-semi-children-alias={`dataSource[${index}].label`}
             >
                 {item.label}
             </Checkbox>
