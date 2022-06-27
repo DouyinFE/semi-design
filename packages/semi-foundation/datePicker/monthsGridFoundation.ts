@@ -40,10 +40,14 @@ const dateCalcFns = {
 type Type = ArrayElement<typeof strings.TYPE_SET>;
 
 interface MonthsGridElementProps {
-    navPrev?: React.ReactNode;
-    navNext?: React.ReactNode;
-    renderDate?: () => React.ReactNode;
-    renderFullDate?: () => React.ReactNode;
+    // navPrev?: React.ReactNode;
+    navPrev?: any;
+    // navNext?: React.ReactNode;
+    navNext?: any;
+    // renderDate?: () => React.ReactNode;
+    renderDate?: () => any;
+    // renderFullDate?: () => React.ReactNode;
+    renderFullDate?: () => any;
 }
 
 export type PanelType = 'left' | 'right';
