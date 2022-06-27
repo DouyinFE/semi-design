@@ -78,7 +78,7 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
 
     destroy(): void {
         // this._adapter.unregisterClickOutsideHandler();
-        this.unBindKeyBoardEvent();
+        // this.unBindKeyBoardEvent();
     }
 
     _setDropdownWidth(): void {
@@ -301,11 +301,11 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
         this._adapter.registerKeyDown(this._keydownHandler);
     }
 
-    unBindKeyBoardEvent() {
-        if (this._keydownHandler) {
-            this._adapter.unregisterKeyDown(this._keydownHandler);
-        }
-    }
+    // unBindKeyBoardEvent() {
+    //     if (this._keydownHandler) {
+    //         this._adapter.unregisterKeyDown(this._keydownHandler);
+    //     }
+    // }
 
     _handleKeyDown(event: KeyboardEvent) {
         const key = event.keyCode;
