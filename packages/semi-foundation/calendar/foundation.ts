@@ -41,7 +41,8 @@ export interface EventObject {
     allDay?: boolean;
     start?: Date;
     end?: Date;
-    children?: React.ReactNode;
+    // children?: React.ReactNode;
+    children?: any;
 }
 
 export interface ParsedEventsWithArray {

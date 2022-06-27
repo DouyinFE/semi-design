@@ -10935,10 +10935,10 @@ eslint-plugin-react@^7.20.6, eslint-plugin-react@^7.24.0:
     semver "^6.3.0"
     string.prototype.matchall "^4.0.6"
 
-eslint-plugin-semi-design@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-semi-design/-/eslint-plugin-semi-design-0.0.1.tgz#e918a43e5b633a4352e173086c150e5e59b800e7"
-  integrity sha512-Gtd4rNrb/hPmn+/SimRTjOZ3d3NoR2SzW8t1uS6/uHjf7pcXOISUqY4709qOwF0EeU7FJHRIJyB4mFOUUs3/jw==
+eslint-plugin-semi-design@latest:
+  version "2.13.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-semi-design/-/eslint-plugin-semi-design-2.13.0.tgz#63440c65f5430849c338291ace0f31b90074fdc7"
+  integrity sha512-qqXwnJ1yupZyLzR86pkxp16BeMx7UtvKYyTTQ/prlyyZMW6C4MVbyD1f3LWIsGiWAMjtgS8q5XE/z3enTRx6HQ==
 
 eslint-rule-composer@^0.3.0:
   version "0.3.0"
