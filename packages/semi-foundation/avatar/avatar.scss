@@ -16,6 +16,20 @@ $colors: "amber", "blue", "cyan", "green", "grey", "indigo", "light-blue", "ligh
     text-align: center;
     vertical-align: middle;
 
+    &:focus-visible {
+        outline: $width-avatar-outline solid $color-avatar-outline-focus;
+    }
+
+    &-focus {
+        outline: $width-avatar-outline solid $color-avatar-outline-focus;
+    }
+
+    &-remove-default-focus-visible {
+        &:focus-visible {
+            outline: none;
+        }
+    }
+
     .#{$module}-label {
         display: flex;
         align-items: center;
