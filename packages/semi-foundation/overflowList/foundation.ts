@@ -16,6 +16,8 @@ class OverflowListFoundation extends BaseFoundation<OverflowListAdapter> {
         super({ ...adapter });
     }
 
+    previousY = undefined;
+
     isScrollMode = (): boolean => {
         const { renderMode } = this.getProps();
         return renderMode === 'scroll';
@@ -47,6 +49,24 @@ class OverflowListFoundation extends BaseFoundation<OverflowListAdapter> {
             res[itemKey] = entry;
             visibleState.set(itemKey, visible);
         });
+        let someItemVisible = false;
+        for (const value of visibleState.values()) {
+            if (value) {
+                someItemVisible = true;
+                break;
+            }
+        }
+        // Any item is visible, indicating that the List is visible
+        const wholeListVisible = someItemVisible;
+        // If scrolling in the vertical direction makes the List invisible, no processing is required. 
+        // If this.previousY is undefined, it means that the List is mounted for the first time and will not be processed.
+        const [entry1] = entries;
+        const currentY = entry1.boundingClientRect.y;
+        if (!wholeListVisible && this.previousY !== undefined && currentY !== this.previousY) {
+            this.previousY = currentY;
+            return;
+        }
+        this.previousY = currentY;
         this._adapter.updateVisibleState(visibleState);
         this._adapter.notifyIntersect(res);
     }
