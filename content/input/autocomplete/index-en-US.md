@@ -399,6 +399,6 @@ import { IllustrationNoContent } from '@douyinfe/semi-illustrations';
 - If the drop-down menu is open:
    - Use `Esc` to close the menu
    - Use `Up Arrow` or `Down Arrow` to toggle options
-   - The focused option can be selected with the `Enter` key and the panel is collapsed
+   - The focused option can be selected with the `Enter` key and the panel will be collapsed
 ## Design Token
 <DesignToken/>
