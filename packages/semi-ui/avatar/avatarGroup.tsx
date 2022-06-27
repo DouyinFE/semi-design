@@ -28,7 +28,10 @@ export default class AvatarGroup extends PureComponent<AvatarGroupProps> {
 
     getAllAvatars() {
         const { children } = this.props;
-        return Array.isArray(children) ? children : [children];
+        if (children) {
+            return Array.isArray(children) ? React.Children.toArray(children) : [children];
+        }
+        return [];
     }
 
     getMergeAvatars(avatars: React.ReactNode[]) {

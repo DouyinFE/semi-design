@@ -1,4 +1,5 @@
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
+import warning from '../utils/warning';
 
 export interface AvatarAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     notifyImgState(isImgExist: boolean): void;
@@ -40,7 +41,7 @@ export default class AvatarFoundation<P = Record<string, any>, S = Record<string
                 this._adapter.setFocusVisible(true);
             }
         } catch (error){
-            console.warn('The current browser does not support the focus-visible');
+            warning(true, 'Warning: [Semi Avatar] The current browser does not support the focus-visible');
         }
     }
 

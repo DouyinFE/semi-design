@@ -1,4 +1,5 @@
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
+import warning from '../utils/warning';
 
 export interface RadioAdapter extends DefaultAdapter {
     setHover: (hover: boolean) => void;
@@ -27,7 +28,7 @@ export default class RadioFoundation extends BaseFoundation<RadioAdapter> {
                 this._adapter.setFocusVisible(true);
             }
         } catch (error){
-            console.warn('The current browser does not support the focus-visible');
+            warning(true, 'Warning: [Semi Radio] The current browser does not support the focus-visible');
         }
     }
 

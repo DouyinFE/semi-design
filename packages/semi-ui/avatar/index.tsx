@@ -170,7 +170,7 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
                 onError: this.handleError,
                 ...imgAttr,
                 className: cls({
-                    [`${prefixCls}-remove-default-focus-visible`]: clickable,
+                    [`${prefixCls}-no-focus-visible`]: clickable,
                 }),
             };
             const imgProps = clickable ? { ...imgBasicProps, ...a11yFocusProps } : imgBasicProps;
@@ -185,7 +185,7 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
                 'aria-label': finalAlt,
                 className:  cls(`${prefixCls}-label`,
                     {
-                        [`${prefixCls}-remove-default-focus-visible`]: clickable,
+                        [`${prefixCls}-no-focus-visible`]: clickable,
                     }
                 ),
             };

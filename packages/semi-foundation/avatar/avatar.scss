@@ -24,7 +24,7 @@ $colors: "amber", "blue", "cyan", "green", "grey", "indigo", "light-blue", "ligh
         outline: $width-avatar-outline solid $color-avatar-outline-focus;
     }
 
-    &-remove-default-focus-visible {
+    &-no-focus-visible {
         &:focus-visible {
             outline: none;
         }
