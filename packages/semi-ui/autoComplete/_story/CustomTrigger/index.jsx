@@ -98,7 +98,7 @@ export default class ObjectDemo extends React.Component {
                     renderItem={this.renderItem}
                     renderSelectedItem={this.renderSelectedItem}
                     onSelect={this.handleSelect}
-                    triggerRender={({ value, inputValue }) => <Button>{inputValue}</Button>}
+                    triggerRender={({ value, inputValue, onFocus }) => <Button onFocus={onFocus}>{inputValue}</Button>}
                 />
             </div>
         );
