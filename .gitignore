@@ -26,6 +26,8 @@ storybook-static/
 *.zip
 cypress/videos/
 cypress/screenshots/
+runner-results
+multi-reporter-config.json
 
 # misc
 .env.local
