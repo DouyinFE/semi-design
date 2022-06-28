@@ -238,6 +238,7 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
         this.foundation.handleClearBtn(e);
     };
 
+    /* istanbul ignore next */
     handleClearEnterPress = (e: React.KeyboardEvent<HTMLDivElement>) => {
         this.foundation.handleClearEnterPress(e);
     };
@@ -298,8 +299,17 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
             // eslint-disable-next-line max-len
             [`${prefixCls}-prefix-icon`]: isSemiIcon(labelNode),
         });
-        // eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events
-        return <div className={prefixWrapperCls} onMouseDown={this.handlePreventMouseDown} onClick={this.handleClickPrefixOrSuffix} id={insetLabelId}>{labelNode}</div>;
+        return (
+            // eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events
+            <div 
+                className={prefixWrapperCls} 
+                onMouseDown={this.handlePreventMouseDown} 
+                onClick={this.handleClickPrefixOrSuffix} 
+                id={insetLabelId} x-semi-prop="prefix"
+            >
+                {labelNode}
+            </div>
+        );
     }
 
     renderSuffix() {
@@ -312,8 +322,17 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
             // eslint-disable-next-line max-len
             [`${prefixCls}-suffix-icon`]: isSemiIcon(suffix),
         });
-        // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-        return <div className={suffixWrapperCls} onMouseDown={this.handlePreventMouseDown} onClick={this.handleClickPrefixOrSuffix}>{suffix}</div>;
+        return (
+            // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
+            <div
+                className={suffixWrapperCls}
+                onMouseDown={this.handlePreventMouseDown}
+                onClick={this.handleClickPrefixOrSuffix}
+                x-semi-prop="suffix"
+            >
+                {suffix}
+            </div>
+        );
     }
 
     renderTags() {

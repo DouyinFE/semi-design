@@ -16,7 +16,8 @@ const rule: Rule.RuleModule = {
             unexpected: "Unexpected import statement, semi ui should not be used as a dependency of semi foundation",
             unexpectedLodashES: "Unexpected import statement, please use lodash instead of lodash-es.",
             unexpectedRelativeImport: "Unexpected import statement, please use module name instead of relative path.",
-            unexpectedImportSelf: 'Unexpected import statement, please use relative paths to import modules in the same package.'
+            unexpectedImportSelf: 'Unexpected import statement, please use relative paths to import modules in the same package.',
+            unexpectedReactImport: "Unexpected import statement, React should not be used as a dependency of semi foundation"
         },
         schema: [],
     },
@@ -33,6 +34,9 @@ const rule: Rule.RuleModule = {
                 if (isFoundationFile) {
                     if (importName.includes('semi-ui')) {
                         context.report({ node, messageId: "unexpected" });
+                    }
+                    if (importName.includes('react') || importName.includes('react-dom')) {
+                        context.report({ node, messageId: "unexpectedReactImport" });
                     }
                 }
 

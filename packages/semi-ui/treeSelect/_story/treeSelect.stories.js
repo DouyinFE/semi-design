@@ -1343,11 +1343,24 @@ export const CheckRelationDemo = () => {
         defaultValue='China'
       />
       <br /><br />
-      <div>checkRelation='unRelated' + defaultValue 为 China + 开启搜索 + searchBox in trigger + showClear</div>
+      <div>多选 + checkRelation='unRelated' + defaultValue 为 China + 开启搜索 + searchBox in trigger + showClear</div>
       <TreeSelect
         dropdownStyle={dropdownStyle}
         treeData={treeData}
         multiple
+        filterTreeNode
+        showClear
+        checkRelation='unRelated'
+        defaultExpandAll
+        style={style}
+        searchPosition='trigger'
+        defaultValue={['China', 'Japan']}
+      />
+      <br /><br />
+      <div>单选 + checkRelation='unRelated' + defaultValue 为 China + 开启搜索 + searchBox in trigger + showClear</div>
+      <TreeSelect
+        dropdownStyle={dropdownStyle}
+        treeData={treeData}
         filterTreeNode
         showClear
         checkRelation='unRelated'
@@ -1459,4 +1472,150 @@ export const SearchableAndExpandedKeys = () => {
           />
       </>
   )
+}
+
+export const loadData = () => {
+    const initialData = [
+        {
+            label: 'Expand to load',
+            value: '0',
+            key: '0',
+        },
+        {
+            label: 'Expand to load',
+            value: '1',
+            key: '1',
+        },
+        {
+            label: 'Leaf Node',
+            value: '2',
+            key: '2',
+            isLeaf: true,
+        },
+    ];
+    const [treeData, setTreeData] = useState(initialData);
+    const [loadedKeys, setLoadedKeys] = useState(['2']);
+
+    function updateTreeData(list, key, children) {
+        return list.map(node => {
+            if (node.key === key) {
+                return { ...node, children };
+            }
+            if (node.children) {
+                return { ...node, children: updateTreeData(node.children, key, children) };
+            }
+            return node;
+        });
+    }
+
+    function onLoadData({ key, children }) {
+        return new Promise(resolve => {
+            if (children) {
+                resolve();
+                return;
+            }
+            setTimeout(() => {
+                setTreeData(origin =>
+                    updateTreeData(origin, key, [
+                        {
+                            label: 'Child Node',
+                            key: `${key}-0`,
+                        },
+                        {
+                            label: 'Child Node',
+                            key: `${key}-1`,
+                        },
+                    ]),
+                );
+                resolve();
+            }, 1000);
+        });
+    }
+    return (
+        <TreeSelect
+            loadData={onLoadData}
+            filterTreeNode
+            treeData={treeData}
+            style={{ width: 300 }}
+            placeholder="请选择"
+        />
+    );
+}
+
+
+export const loadDataAndLoadedkeys = () => {
+    const initialData = [
+        {
+            label: 'Expand to load',
+            value: '0',
+            key: '0',
+        },
+        {
+            label: 'Expand to load',
+            value: '1',
+            key: '1',
+        },
+        {
+            label: 'Leaf Node',
+            value: '2',
+            key: '2',
+            isLeaf: true,
+        },
+    ];
+    const [treeData, setTreeData] = useState(initialData);
+    const [loadedKeys, setLoadedKeys] = useState(['2']);
+
+    function updateTreeData(list, key, children) {
+        return list.map(node => {
+            if (node.key === key) {
+                return { ...node, children };
+            }
+            if (node.children) {
+                return { ...node, children: updateTreeData(node.children, key, children) };
+            }
+            return node;
+        });
+    }
+
+    function updateLoadedKeys(key) {
+        if(!loadedKeys.includes(key)){
+          setLoadedKeys([...loadedKeys, key]);
+          console.log('[...loadedKeys, key]', [...loadedKeys, key]);
+        }
+    }
+
+    function onLoadData({ key, children }) {
+        return new Promise(resolve => {
+            if (children) {
+                resolve();
+                return;
+            }
+            setTimeout(() => {
+                setTreeData(origin =>
+                    updateTreeData(origin, key, [
+                        {
+                            label: 'Child Node',
+                            key: `${key}-0`,
+                        },
+                        {
+                            label: 'Child Node',
+                            key: `${key}-1`,
+                        },
+                    ]),
+                );
+                // updateLoadedKeys(key);
+                resolve();
+            }, 1000);
+        });
+    }
+    return (
+        <TreeSelect
+            loadData={onLoadData}
+            filterTreeNode
+            // loadedKeys={loadedKeys}
+            treeData={treeData}
+            style={{ width: 300 }}
+            placeholder="请选择"
+        />
+    );
 }

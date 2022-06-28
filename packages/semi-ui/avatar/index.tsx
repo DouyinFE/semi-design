@@ -192,7 +192,7 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
             const finalProps = clickable ? { ...props, ...a11yFocusProps } : props;
             content = (
                 <span className={`${prefixCls}-content`}>
-                    <span {...finalProps}>{children}</span>
+                    <span {...finalProps}  x-semi-prop="children">{children}</span>
                 </span>
             );
         }
@@ -215,7 +215,8 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
             },
             className
         );
-        const hoverRender = hoverContent ? (<div className={`${prefixCls}-hover`}>{hoverContent}</div>) : null;
+
+        const hoverRender = hoverContent ? (<div className={`${prefixCls}-hover`} x-semi-prop="hoverContent">{hoverContent}</div>) : null;
         
         return (
             <span

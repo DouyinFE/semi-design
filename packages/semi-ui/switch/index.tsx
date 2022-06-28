@@ -146,23 +146,18 @@ class Switch extends BaseComponent<SwitchProps, SwitchState> {
         const showUncheckedText = uncheckedText && !nativeControlChecked && size !== 'small';
         return (
             <div className={wrapperCls} style={style} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-                {
-                    loading
-                        ? (
-                            <Spin
-                                wrapperClassName={cssClasses.LOADING_SPIN}
-                                size={size === 'default' ? 'middle' : size}
-                            />
-                        )
-                        : <div className={cssClasses.KNOB} aria-hidden={true} />
-                }
+                {loading ? (
+                    <Spin wrapperClassName={cssClasses.LOADING_SPIN} size={size === 'default' ? 'middle' : size} />
+                ) : (
+                    <div className={cssClasses.KNOB} aria-hidden={true} />
+                )}
                 {showCheckedText ? (
-                    <div className={cssClasses.CHECKED_TEXT}>
+                    <div className={cssClasses.CHECKED_TEXT} x-semi-prop="checkedText">
                         {checkedText}
                     </div>
                 ) : null}
                 {showUncheckedText ? (
-                    <div className={cssClasses.UNCHECKED_TEXT}>
+                    <div className={cssClasses.UNCHECKED_TEXT} x-semi-prop="uncheckedText">
                         {uncheckedText}
                     </div>
                 ) : null}
@@ -170,13 +165,13 @@ class Switch extends BaseComponent<SwitchProps, SwitchState> {
                     {...switchProps}
                     ref={this.switchRef}
                     id={id}
-                    role='switch'
+                    role="switch"
                     aria-checked={nativeControlChecked}
                     aria-invalid={this.props['aria-invalid']}
                     aria-errormessage={this.props['aria-errormessage']}
                     aria-label={this.props['aria-label']}
                     aria-labelledby={this.props['aria-labelledby']}
-                    aria-describedby={this.props["aria-describedby"]}
+                    aria-describedby={this.props['aria-describedby']}
                     aria-disabled={this.props['disabled']}
                     onChange={e => this.foundation.handleChange(e.target.checked, e)}
                     onFocus={e => this.handleFocusVisible(e)}

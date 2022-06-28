@@ -48,7 +48,7 @@ class Skeleton extends PureComponent<SkeletonProps> {
         let content;
         if (loading) {
             content = (
-                <div className={skCls} style={style} {...others}>
+                <div className={skCls} style={style} {...others} x-semi-prop="placeholder">
                     {placeholder}
                 </div>
             );

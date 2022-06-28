@@ -299,6 +299,7 @@ class InputFoundation extends BaseFoundation<InputAdapter> {
     /**
      * A11y: simulate clear button click
      */
+    /* istanbul ignore next */
     handleClearEnterPress(e: any) {
         if (isEnterPress(e)) {
             this.handleClear(e);

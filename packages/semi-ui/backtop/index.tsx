@@ -101,13 +101,17 @@ export default class BackTop extends BaseComponent<BackTopProps, BackTopState> {
             className
         );
         const backtopBtn = children ? children : this.renderDefault();
-        const content = visible ?
-            (
-                <div {...others} className={preCls} style={style} onClick={e => this.handleClick(e)}>
-                    {backtopBtn}
-                </div>
-            ) :
-            null;
+        const content = visible ? (
+            <div
+                {...others} 
+                className={preCls} 
+                style={style} 
+                onClick={e => this.handleClick(e)} 
+                x-semi-prop="children"
+            >
+                {backtopBtn}
+            </div>
+        ) : null;
         return content;
     }
 }

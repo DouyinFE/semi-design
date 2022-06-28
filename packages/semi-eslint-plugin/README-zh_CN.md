@@ -50,6 +50,15 @@ import { Button } from '@douyinfe/semi-ui';
 import Button from '../button';
 ```
 
+### ✅ 不能在 semi-foundation 引用 React 或 ReactDOM
+
+```javascript
+// ❌ 
+// packages/semi-foundation/input/foundation.ts
+import React from 'react';
+import ReactDOM from 'react-dom';
+```
+
 ## 相关资料
 
 - eslint plugin 文档：https://eslint.org/docs/developer-guide/working-with-plugins

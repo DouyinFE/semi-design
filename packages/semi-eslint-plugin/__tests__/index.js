@@ -40,5 +40,15 @@ ruleTester.run('no-import', rule['no-import'], {
             filename: 'packages/semi-ui/inputNumber/index.tsx',
             errors: [{ message: messages.unexpectedImportSelf }]
         },
+        {
+            code: "import React from 'react'",
+            filename: 'packages/semi-foundation/input/foundation.ts',
+            errors: [{ message: messages.unexpectedReactImport }]
+        },
+        {
+            code: "import React from 'react-dom'",
+            filename: 'packages/semi-foundation/input/foundation.ts',
+            errors: [{ message: messages.unexpectedReactImport }]
+        },
     ]
 });

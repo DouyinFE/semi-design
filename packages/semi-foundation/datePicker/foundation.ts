@@ -125,12 +125,12 @@ export interface DatePickerFoundationProps extends ElementProps, RenderProps, Ev
     disabledDate?: DisabledDateType;
     disabledTime?: DisabledTimeType;
     dropdownClassName?: string;
-    dropdownStyle?: React.CSSProperties;
+    dropdownStyle?: Record<string, any>;
     endDateOffset?: DateOffsetType;
     format?: string;
     getPopupContainer?: () => HTMLElement;
     inputReadOnly?: boolean;
-    inputStyle?: React.CSSProperties;
+    inputStyle?: Record<string, any>;
     max?: number;
     motion?: Motion;
     multiple?: boolean;
@@ -146,7 +146,7 @@ export interface DatePickerFoundationProps extends ElementProps, RenderProps, Ev
     spacing?: number;
     startDateOffset?: DateOffsetType;
     stopPropagation?: boolean | string;
-    style?: React.CSSProperties;
+    style?: Record<string, any>;
     timePickerOpts?: any; // TODO import timePicker props
     timeZone?: string | number;
     type?: Type;
