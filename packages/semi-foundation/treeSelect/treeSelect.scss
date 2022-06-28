@@ -228,6 +228,9 @@ $module: #{$prefix}-tree-select;
     &-large {
         min-height: $height-treeSelect_large;
         line-height: $font-treeSelect_large-lineHeight;
+        .#{$module}-selection {
+            @include font-size-header-6;
+        }
     }
 
     &-arrow {
