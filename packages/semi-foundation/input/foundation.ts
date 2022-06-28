@@ -2,7 +2,6 @@ import BaseFoundation, { DefaultAdapter, noopFunction } from '../base/foundation
 import { strings } from './constants';
 import { noop, set, isNumber, isString, isFunction } from 'lodash';
 
-import isEnterPress from '../utils/isEnterPress';
 import { ENTER_KEY } from './../utils/keyCode';
 
 export interface InputDefaultAdapter {
@@ -297,20 +296,12 @@ class InputFoundation extends BaseFoundation<InputAdapter> {
     }
 
     /**
-     * A11y: simulate clear button click
-     */
-    /* istanbul ignore next */
-    handleClearEnterPress(e: any) {
-        if (isEnterPress(e)) {
-            this.handleClear(e);
-        }
-    }
-
-    /**
      * A11y: simulate password button click
      */
     handleModeEnterPress(e: any) {
-        if (isEnterPress(e)) {
+        // trigger by Enter or Space key
+        if (['Enter', ' '].includes(e?.key)) {
+            this.handlePreventMouseDown(e);
             this.handleClickEye(e);
         }
     }
