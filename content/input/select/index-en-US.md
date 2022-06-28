@@ -1316,6 +1316,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | showClear | Whether to show the clear button | boolean | false |
 | size | Size, optional value `default` / `small` / `large` | string | 'default' |
 | spacing | Spacing between popup layer and trigger | number | 4 |
+| stopPropagation | Whether to prevent click events on the popup layer from bubbling | boolean | true | |
 | style | Inline Style | object |  |
 | suffix | An input helper rendered after | ReactNode |  |
 | triggerRender | Custom DOM of trigger | function |  |
