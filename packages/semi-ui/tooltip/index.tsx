@@ -664,7 +664,10 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                 }
 
                 children = cloneElement(children as React.ReactElement, { style: childrenStyle });
-                children = this.wrapSpan(children);
+                if (trigger !== 'custom') {
+                    // no need to wrap span when trigger is custom, cause it don't need bind event
+                    children = this.wrapSpan(children);
+                }
                 this.isWrapped = true;
             } else if (!isValidElement(children)) {
                 children = this.wrapSpan(children);
