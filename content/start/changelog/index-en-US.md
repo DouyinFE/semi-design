@@ -33,6 +33,8 @@ Version：Major.Minor.Patch
 - 【Feat】
     - `InputNumber` adds A11y keyboard and focus adaptation. which supports holding shift and up and down arrows at the same time in the input box to adjust a larger number range [#205](https://github.com/DouyinFE/semi-design/issues/205)
     - `Checkbox` add A11y keyboard and focus adaptation  [#205](https://github.com/DouyinFE/semi-design/issues/205)
+    - TagInput Click prefix, suffix to automatically focus to the internal Input [#874](https://github.com/DouyinFE/semi-design/issues/874) [@yykoypj](https://github.com/yykoypj)
+    - Form.TagInput supports labelPosition: 'inset' inline label [#874](https://github.com/DouyinFE/semi-design/issues/874) [@yykoypj](https://github.com/yykoypj)
 - 【Fix】
     - Fixed the problem that when Select filter and showClear are true, when clicking the clear icon, only onClear is triggered, but onSearch is not triggered, and after clearing the search item through the clear icon, the candidate Option list is not reset  [#867](https://github.com/DouyinFE/semi-design/issues/867)
     - Fix the problem that onSearch is not triggered when Select filter is true, lose focus, and input input is reset automatically  [#867](https://github.com/DouyinFE/semi-design/issues/867)
