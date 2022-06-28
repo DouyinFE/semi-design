@@ -3,26 +3,6 @@
 $module: #{$prefix}-tree;
 
 .#{$module} {
-    box-sizing: border-box;
-    border-radius: $radius-tree;
-    border: 1px solid $color-tree_default-border-default;
-    height: $height-tree_default;
-    line-height: $height-tree_default;
-    font-weight: $font-tree_default-fontWeight;
-    background-color: $color-tree_default-bg-default;
-    display: inline-block;
-    vertical-align: middle;
-    position: relative;
-    cursor: pointer;
-
-    &:hover {
-        background-color: $color-tree_default-bg-hover;
-    }
-
-    &-focus {
-        border: $width-tree_focus-border solid $color-tree_default-border-focus;
-        outline: 0;
-    }
 
     &-search-wrapper {
         padding: $spacing-tree_search_wrapper-paddingY $spacing-tree_search_wrapper-paddingX;
