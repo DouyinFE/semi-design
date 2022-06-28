@@ -2138,7 +2138,7 @@ const { ErrorMessage } = Form;
 
     点击 <a href="https://github.com/DouyinFE/semi-design/issues/767" target="_blank">#767</a> 查看相关背景和内容。
     
--   **表单会自动保存历史输入项，不想要这个功能怎么办？**
+-   **表单会自动保存历史输入项，不想要这个功能怎么办？**    
     在 v2.3 之前，Form 并没有严格按照 A11y 无障碍标准为输入控件配置`for`、`name`、`id` 等属性，因此在之前的版本并没有该功能。v2.3 后我们严格按照 W3C 标准进行了实现。如果你不希望浏览器自动保存历史输入项，也可以通过在 Form 级别或者 Field 级别设置 `autocomplete=off` 关掉
 
 -   **[🔍 🧾 更多Form FAQ补充 & 问题自查手册](https://bytedance.feishu.cn/docs/doccnNKaGhZMqyu0FufD1JGHOjf)** 
