@@ -17,6 +17,14 @@ export default class DropdownMenuFoundation extends BaseFoundation<Partial<Defau
         }
     }
 
+    handleEscape(menu: Element): void {
+        const trigger = this._adapter.getContext('trigger');
+        if (trigger === 'custom'){
+            const menuButton = menu && getMenuButton(document.querySelectorAll(`[data-popupId]`), menu.id); 
+            menuButton.focus();
+        }
+    }
+
     setFocusByFirstCharacter(curItem: any, char: string): void {
         const index = findIndexByCharacter(this.menuItemNodes, curItem, this.firstChars, char);
         
@@ -27,7 +35,6 @@ export default class DropdownMenuFoundation extends BaseFoundation<Partial<Defau
 
     onMenuKeydown(event: any): void {
         const menu = getAncestorNodeByRole(event.target, 'tooltip');
-        const menuButton = menu && getMenuButton(document.querySelectorAll(`[data-trigger]`), menu.id);
         
         if (!this.menuItemNodes){
             this.menuItemNodes = [...(event.target.parentNode).getElementsByTagName('li')].filter(item => item.ariaDisabled !== "true");
@@ -49,8 +56,7 @@ export default class DropdownMenuFoundation extends BaseFoundation<Partial<Defau
                 handlePrevent(event);
                 break;
             case 'Escape':
-                // todo: if there can use the function onEscKeyDown in tooltip, do not need to get menuButton
-                menuButton.focus();
+                this.handleEscape(menu);
                 break;
             case 'ArrowUp':
                 setFocusToPreviousMenuItem(this.menuItemNodes, curItem);

@@ -237,7 +237,7 @@ class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
                 trigger={trigger}
                 onVisibleChange={this.handleVisibleChange}
                 showArrow={false}
-                // returnFocusOnClose={true}
+                returnFocusOnClose={true}
                 {...attr}
                 onKeyDown={e => this.foundation.handleKeyDown(e)}
             >
