@@ -45,6 +45,9 @@ $multiple: #{$module}-multiple;
     &-large {
         min-height: $height-select_large;
         line-height: $height-select_large;
+        .#{$module}-selection {
+            @include font-size-header-6;
+        }
     }
 
     &-open,
