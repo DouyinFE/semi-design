@@ -1,7 +1,5 @@
-import React from 'react';
-import Avatar from '../index';
-import Popover from '../../popover/index';
-import AvatarGroup from '../avatarGroup';
+import React, {useState} from 'react';
+import { Avatar,Popover, AvatarGroup, RadioGroup, Radio } from '../../index';
 
 export default {
   title: 'Avatar',
@@ -189,3 +187,62 @@ export const ExtraExtraSmallOverlap = () => (
     </AvatarGroup>
   </div>
 );
+
+export const focusTest = () => {
+  return (
+    <>
+      <div id='initial_focus_point' tabindex={0} style={{width: 10, height: 10}}></div>
+      <Avatar
+        alt="a cat 1"
+        src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"
+        style={{ margin: 4 }}
+        onClick={()=>{
+            console.log('click avatar 1');
+        }}
+      />
+      <Avatar
+        alt="a cat 2"
+        size="small"
+        src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"
+        style={{ margin: 4 }}
+        onClick={()=>{
+            console.log('click avatar 2');
+        }}
+      />
+    </>
+  );
+}
+
+const srcGroup = {
+  'successSrc1': 'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg',
+  'successSrc2': 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+  'errorSrc': 'https://xxx.png',
+}
+
+export const srcChange = () => {
+  const [src, setSrc] = useState('successSrc1');
+
+  const onChange = (e) => {
+    setSrc(e.target.value);
+  } 
+
+  return (
+    <>
+      <div>点击选择src类型</div>
+      <RadioGroup onChange={onChange} value={src} aria-label="单选组合示例">
+        <Radio value={'successSrc1'}>成功的src</Radio>
+        <Radio value={'successSrc2'}>成功的src</Radio>
+        <Radio value={'errorSrc'}>失败的src</Radio>
+      </RadioGroup>
+      <br />
+      <Avatar
+        alt="test image"
+        src={srcGroup[src]}
+        style={{ margin: 4 }}
+        onError={() => {
+          console.log('loading error');
+        }}
+      />
+    </>
+  )
+}

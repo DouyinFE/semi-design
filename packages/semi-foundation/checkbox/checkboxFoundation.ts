@@ -1,5 +1,6 @@
 import BaseFoundation, { DefaultAdapter, noopFunction } from '../base/foundation';
 import isEnterPress from '../utils/isEnterPress';
+import warning from '../utils/warning';
 
 export interface BasicTargetObject {
     [x: string]: any;
@@ -139,7 +140,7 @@ class CheckboxFoundation<P = Record<string, any>, S = Record<string, any>> exten
                 this._adapter.setFocusVisible(true);
             }
         } catch (error){
-            console.warn('The current browser does not support the focus-visible');
+            warning(true, 'Warning: [Semi Checkbox] The current browser does not support the focus-visible');
         }
     }
 
