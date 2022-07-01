@@ -1,5 +1,6 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
+import { isString, isNumber } from 'lodash';
 
 /**
  * The logic of JS for text truncation is referenced from antd typography
@@ -136,5 +137,26 @@ const getRenderText = (
     ellipsisContainer.innerHTML = '';
     return resText;
 };
+
+const isSingleNode = (child: React.ReactNode) => {
+    return isString(child) || isNumber(child);
+};
+
+  
+export function mergedToString(children: any): string {
+    const mergedResult = [''];
+    React.Children.forEach(children, (child) => {
+        const prevIndex = mergedResult.length - 1;
+        const prevChild = mergedResult[prevIndex];
+  
+        if (isSingleNode(child) && isSingleNode(prevChild)) {
+            mergedResult[prevIndex] = `${prevChild}${child}`;
+        } else if (child?.props?.children) {
+            mergedResult.push(mergedToString(child.props.children));
+        }
+    });
+  
+    return mergedResult.join('');
+}
 
 export default getRenderText;

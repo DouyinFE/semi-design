@@ -9,7 +9,7 @@ import { IconSize as Size } from '../icons/index';
 import { isUndefined, omit, merge, isString } from 'lodash';
 import Tooltip from '../tooltip/index';
 import Popover from '../popover/index';
-import getRenderText from './util';
+import getRenderText, { mergedToString } from './util';
 import warning from '@douyinfe/semi-foundation/utils/warning';
 import isEnterPress from '@douyinfe/semi-foundation/utils/isEnterPress';
 import LocaleConsumer from '../locale/localeConsumer';
@@ -490,27 +490,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
         if (!copyable) {
             return null;
         }
-        let copyContent: string;
-        let hasObject = false;
-        if (Array.isArray(children)) {
-            copyContent = '';
-            children.forEach(value => {
-                if (typeof value === 'object') {
-                    hasObject = true;
-                }
-                copyContent += String(value);
-            });
-        } else if (typeof children !== 'object') {
-            copyContent = String(children);
-        } else {
-            hasObject = true;
-            copyContent = String(children);
-        }
-
-        warning(
-            hasObject,
-            'Children in Typography is a object, it will case a [object Object] mistake when copy to clipboard.'
-        );
+        const copyContent: string = mergedToString(children);
         const copyConfig = {
             content: copyContent,
             duration: 3,
