@@ -15,6 +15,12 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 ---
 
+#### 🎉 2.14.0 (2022-07-01)
+- 【Fix】
+  - 修复 Spin 组件在暗色模式下个别场景内容物有黑色矩形的问题
+- 【Chore】
+    - 优化 Form interface BaseFormApi 类型定义 [#933](https://github.com/DouyinFE/semi-design/issues/933)
+
 #### 🎉 2.14.0-beta.0 (2022-06-28)
 - 【Feat】
     - Input 新增 A11y 键盘适配  [#205](https://github.com/DouyinFE/semi-design/issues/205)
