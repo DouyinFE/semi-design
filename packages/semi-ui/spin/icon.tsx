@@ -40,7 +40,7 @@ function Icon(props: IconProps = {}) {
                 </linearGradient>
             </defs>
             <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-                <rect fillOpacity="0.01" fill="#FFFFFF" x="0" y="0" width="36" height="36" />
+                <rect fillOpacity="0.01" fill="none" x="0" y="0" width="36" height="36" />
                 <path
                     d="M34,18 C34,9.163444 26.836556,2 18,2 C11.6597233,2 6.18078805,5.68784135 3.59122325,11.0354951"
                     stroke={`url(#${id})`}
