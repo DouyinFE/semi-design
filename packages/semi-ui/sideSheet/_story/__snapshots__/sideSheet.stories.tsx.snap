@@ -1,0 +1,133 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SideSheet 1`] = `
+<Demo>
+  <Button
+    onClick={[Function]}
+  >
+    <Button
+      block={false}
+      disabled={false}
+      htmlType="button"
+      onClick={[Function]}
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      prefixCls="semi-button"
+      size="default"
+      theme="light"
+      type="primary"
+    >
+      <button
+        aria-disabled={false}
+        className="semi-button semi-button-primary semi-button-light"
+        disabled={false}
+        onClick={[Function]}
+        onMouseDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        type="button"
+      >
+        <span
+          className="semi-button-content"
+          onClick={[Function]}
+        >
+          Open SideSheet
+        </span>
+      </button>
+    </Button>
+  </Button>
+  <SideSheet
+    afterVisibleChange={[Function]}
+    closable={true}
+    closeOnEsc={false}
+    disableScroll={true}
+    footer={null}
+    keepDOM={false}
+    lazyRender={false}
+    mask={true}
+    maskClosable={true}
+    motion={true}
+    onCancel={[Function]}
+    placement="right"
+    size="small"
+    title="滑动侧边栏"
+    visible={false}
+    zIndex={1000}
+  >
+    <Portal
+      prefixCls="semi-portal"
+      style={
+        Object {
+          "zIndex": 1000,
+        }
+      }
+    >
+      <Portal
+        containerInfo={
+          <div
+            class="semi-portal"
+            style="z-index: 1000;"
+          />
+        }
+      >
+        <SideSheetTransition
+          controlled={false}
+          motion={
+            Object {
+              "didEnter": [Function],
+              "didLeave": [Function],
+            }
+          }
+          placement="right"
+          visible={false}
+        >
+          <Transition
+            config={
+              Object {
+                "duration": 200,
+                "easing": "linear",
+                "friction": 14,
+                "tension": 170,
+              }
+            }
+            didEnter={[Function]}
+            didLeave={[Function]}
+            enter={
+              Object {
+                "opacity": Object {
+                  "duration": 180,
+                  "val": 1,
+                },
+                "translate": 0,
+              }
+            }
+            from={
+              Object {
+                "opacity": Object {
+                  "duration": 180,
+                  "val": 0,
+                },
+                "translate": 100,
+              }
+            }
+            leave={
+              Object {
+                "opacity": Object {
+                  "duration": 180,
+                  "val": 0,
+                },
+                "translate": 100,
+              }
+            }
+            onRest={[Function]}
+            onStart={[Function]}
+            willEnter={[Function]}
+            willLeave={[Function]}
+          />
+        </SideSheetTransition>
+      </Portal>
+    </Portal>
+  </SideSheet>
+</Demo>
+`;

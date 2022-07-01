@@ -311,6 +311,7 @@ class Demo extends React.Component {
 | headerStyle | 面板头部的样式 | CSSProperties | - | 1.0.0 |
 | height | 高度，位置为 `top` 或 `bottom` 时生效 | number \| string | 400 | - |
 | keepDOM | 关闭 SideSheet 时是否保留内部组件不销毁 | boolean | false | 1.18.0|
+| lazyRender | 配合 keepDOM 使用，为 true 时挂载时不会渲染对话框组件 | boolean | false | TODO|
 | mask | 是否显示遮罩，在 `0.29.0` 版本之后，当 `mask={false}` 时允许对外部区域进行操作 | boolean | true | - |
 | maskClosable | 是否允许通过点击遮罩来关闭面板 | boolean | true | - |
 | maskStyle | 遮罩的样式 | CSSProperties | - | - |
