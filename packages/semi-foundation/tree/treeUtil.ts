@@ -233,6 +233,7 @@ export function findChildKeys(keys: string[], options: any, omitKeys: any[] = []
     return res;
 }
 
+/* istanbul ignore next */
 export function findLeafKeys(keys: string[], options: any) {
     const res: any[] = [];
     const findChild = (item: any) => {

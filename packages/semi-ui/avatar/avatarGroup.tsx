@@ -1,4 +1,4 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { PureComponent, Fragment, ReactElement } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { get as lodashGet, isFunction, isNumber } from 'lodash';
@@ -28,7 +28,10 @@ export default class AvatarGroup extends PureComponent<AvatarGroupProps> {
 
     getAllAvatars() {
         const { children } = this.props;
-        return Array.isArray(children) ? children : [children];
+        if (children) {
+            return Array.isArray(children) ? React.Children.toArray(children) : [children];
+        }
+        return [];
     }
 
     getMergeAvatars(avatars: React.ReactNode[]) {
@@ -50,7 +53,16 @@ export default class AvatarGroup extends PureComponent<AvatarGroupProps> {
     renderMoreAvatar(restNumber: number, restAvatars: React.ReactNode[]) {
         const { renderMore } = this.props;
         const moreCls = cls(`${prefixCls}-item-more`);
-        let moreAvatar = <Avatar className={moreCls} key="_+n">{`+${restNumber}`}</Avatar>;
+        const restAvatarAlt = restAvatars?.reduce((pre, cur) => {
+            const { children, alt } = (cur as ReactElement).props;
+            const avatarInfo = alt ?? ((typeof children === 'string') ? children : '');
+            if (avatarInfo.length === 0) {
+                return pre;
+            }
+            return (pre as string).length > 0 ? `${pre},${avatarInfo}` : avatarInfo;
+        }, '');
+        const finalAlt = ` Number of remaining Avatars：${restNumber},${restAvatarAlt}`;
+        let moreAvatar = <Avatar className={moreCls} key="_+n" alt={finalAlt}>{`+${restNumber}`}</Avatar>;
         if (isFunction(renderMore)) {
             moreAvatar = <Fragment key="_+n">{renderMore(restNumber, restAvatars)}</Fragment>;
         }
@@ -76,6 +88,6 @@ export default class AvatarGroup extends PureComponent<AvatarGroupProps> {
 
         }
 
-        return <div className={groupCls}>{inner}</div>;
+        return <div className={groupCls} role='list'>{inner}</div>;
     }
 }

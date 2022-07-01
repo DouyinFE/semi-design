@@ -138,14 +138,21 @@ interface IProps {
 interface IState {
     visible: boolean;
 }
+
+interface FData {
+    test: boolean;
+    test2: boolean;
+    test3: string;
+    // [x: string]: unknown;
+}
 class Demo extends React.Component<IProps, IState> {
     constructor(props:any) {
       super(props);
       this.state = { visible: false};
     }
 
-    getFormApi(formApi: FormApi) {
-
+    getFormApi(formApi: FormApi<FData>) {
+        formApi.getValue()
     }
 
     render() {

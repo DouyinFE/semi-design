@@ -391,5 +391,14 @@ import { IllustrationNoContent } from '@douyinfe/semi-illustrations';
 | onSearch | Callback when input changes | Function(value: string) | |
 | onSelect | Callback when the drop-down menu candidate is selected | Function(item: string\|number\|Item) | |
 
+## Accessibility
+### Keyboard and Focus
+- AutoComplete's input box can be focused, and once focused, keyboard users can use `Up Arrow` or `Down Arrow` to open the options panel (if there is a panel)
+- AutoComplete also supports opening and closing panels via `Enter` key
+- If the user sets the defaultActiveFirstOption property to true, the first option is highlighted by default when the options panel is opened
+- If the drop-down menu is open:
+   - Use `Esc` to close the menu
+   - Use `Up Arrow` or `Down Arrow` to toggle options
+   - The focused option can be selected with the `Enter` key and the panel will be collapsed
 ## Design Token
 <DesignToken/>

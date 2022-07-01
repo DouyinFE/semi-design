@@ -141,7 +141,7 @@ class Input extends BaseComponent<InputProps, InputState> {
         onKeyUp: noop,
         onKeyPress: noop,
         onEnterPress: noop,
-        validateStatus: 'default'
+        validateStatus: 'default',
     };
 
     inputRef!: React.RefObject<HTMLInputElement>;
@@ -195,7 +195,7 @@ class Input extends BaseComponent<InputProps, InputState> {
             notifyClear: (e: React.MouseEvent<HTMLDivElement>) => this.props.onClear(e),
             setPaddingLeft: (paddingLeft: string) => this.setState({ paddingLeft }),
             setMinLength: (minLength: number) => this.setState({ minLength }),
-            isEventTarget: (e: React.MouseEvent) => e && e.target === e.currentTarget
+            isEventTarget: (e: React.MouseEvent) => e && e.target === e.currentTarget,
         };
     }
 
@@ -219,10 +219,6 @@ class Input extends BaseComponent<InputProps, InputState> {
 
     handleClear = (e: React.MouseEvent<HTMLInputElement>) => {
         this.foundation.handleClear(e);
-    };
-
-    handleClearEnterPress = (e: React.KeyboardEvent<HTMLDivElement>) => {
-        this.foundation.handleClearEnterPress(e);
     };
 
     handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -255,7 +251,7 @@ class Input extends BaseComponent<InputProps, InputState> {
 
     handleModeEnterPress = (e: React.KeyboardEvent<HTMLDivElement>) => {
         this.foundation.handleModeEnterPress(e);
-    }
+    };
 
     handleClickPrefixOrSuffix = (e: React.MouseEvent<HTMLInputElement>) => {
         this.foundation.handleClickPrefixOrSuffix(e);
@@ -273,7 +269,11 @@ class Input extends BaseComponent<InputProps, InputState> {
                 [`${prefixCls}-prepend-text`]: addonBefore && isString(addonBefore),
                 [`${prefixCls}-prepend-icon`]: isSemiIcon(addonBefore),
             });
-            return <div className={prefixWrapperCls}>{addonBefore}</div>;
+            return (
+                <div className={prefixWrapperCls} x-semi-prop="addonBefore">
+                    {addonBefore}
+                </div>
+            );
         }
         return null;
     }
@@ -286,7 +286,11 @@ class Input extends BaseComponent<InputProps, InputState> {
                 [`${prefixCls}-append-text`]: addonAfter && isString(addonAfter),
                 [`${prefixCls}-append-icon`]: isSemiIcon(addonAfter),
             });
-            return <div className={prefixWrapperCls}>{addonAfter}</div>;
+            return (
+                <div className={prefixWrapperCls} x-semi-prop="addonAfter">
+                    {addonAfter}
+                </div>
+            );
         }
         return null;
     }
@@ -297,13 +301,10 @@ class Input extends BaseComponent<InputProps, InputState> {
         // use onMouseDown to fix issue 1203
         if (allowClear) {
             return (
+                // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
                 <div
-                    role="button"
-                    tabIndex={0}
-                    aria-label="Clear input value"
                     className={clearCls}
                     onMouseDown={this.handleClear}
-                    onKeyPress={this.handleClearEnterPress}
                 >
                     <IconClear />
                 </div>
@@ -313,11 +314,12 @@ class Input extends BaseComponent<InputProps, InputState> {
     }
 
     renderModeBtn() {
-        const { value, isFocus, isHovering, eyeClosed } = this.state;
+        const { eyeClosed } = this.state;
         const { mode, disabled } = this.props;
         const modeCls = cls(`${prefixCls}-modebtn`);
         const modeIcon = eyeClosed ? <IconEyeClosedSolid /> : <IconEyeOpened />;
-        const showModeBtn = mode === 'password' && value && !disabled && (isFocus || isHovering);
+        // alway show password button for a11y
+        const showModeBtn = mode === 'password' && !disabled;
         const ariaLabel = eyeClosed ? 'Show password' : 'Hidden password';
         if (showModeBtn) {
             return (
@@ -351,8 +353,18 @@ class Input extends BaseComponent<InputProps, InputState> {
             [`${prefixCls}-prefix-icon`]: isSemiIcon(labelNode),
         });
 
-        // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-        return <div className={prefixWrapperCls} onMouseDown={this.handlePreventMouseDown} onClick={this.handleClickPrefixOrSuffix} id={insetLabelId}>{labelNode}</div>;
+        return (
+            // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
+            <div
+                className={prefixWrapperCls}
+                onMouseDown={this.handlePreventMouseDown}
+                onClick={this.handleClickPrefixOrSuffix}
+                id={insetLabelId}
+                x-semi-prop="prefix,insetLabel"
+            >
+                {labelNode}
+            </div>
+        );
     }
 
     showClearBtn() {
@@ -367,13 +379,22 @@ class Input extends BaseComponent<InputProps, InputState> {
             return null;
         }
         const suffixWrapperCls = cls({
-            [`${prefixCls }-suffix`]: true,
-            [`${prefixCls }-suffix-text`]: suffix && isString(suffix),
-            [`${prefixCls }-suffix-icon`]: isSemiIcon(suffix),
+            [`${prefixCls}-suffix`]: true,
+            [`${prefixCls}-suffix-text`]: suffix && isString(suffix),
+            [`${prefixCls}-suffix-icon`]: isSemiIcon(suffix),
             [`${prefixCls}-suffix-hidden`]: suffixAllowClear && Boolean(hideSuffix),
         });
-        // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-        return <div className={suffixWrapperCls} onMouseDown={this.handlePreventMouseDown} onClick={this.handleClickPrefixOrSuffix}>{suffix}</div>;
+        return (
+            // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
+            <div
+                className={suffixWrapperCls}
+                onMouseDown={this.handlePreventMouseDown}
+                onClick={this.handleClickPrefixOrSuffix}
+                x-semi-prop="suffix"
+            >
+                {suffix}
+            </div>
+        );
     }
 
     render() {
@@ -383,6 +404,7 @@ class Input extends BaseComponent<InputProps, InputState> {
             autofocus,
             className,
             disabled,
+            defaultValue,
             placeholder,
             prefix,
             mode,
@@ -460,7 +482,7 @@ class Input extends BaseComponent<InputProps, InputState> {
             inputProps.minLength = stateMinLength;
         }
         if (validateStatus === 'error') {
-            inputProps['aria-invalid'] = "true";
+            inputProps['aria-invalid'] = 'true';
         }
         return (
             // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions

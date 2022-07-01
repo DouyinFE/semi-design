@@ -2,6 +2,7 @@ $z-avatar-default: 100; // 头像 z-index
 // color
 $color-avatar_default-border-default: var(--semi-color-bg-1); // 头像描边颜色
 $color-avatar_more_default-bg-default: rgba(var(--semi-grey-5), 1); // 「更多」描边颜色
+$color-avatar-outline-focus: var(--semi-color-primary-light-active); // 头像聚焦轮廓颜色
 
 
 $width-avatar_extra_extra_small: 20px; // 头像尺寸 - 极小
@@ -43,3 +44,5 @@ $spacing-avatar_extra_small-marginLeft: -10px; // 头像左侧外边距 - 超小
 
 $width-avatar_extra_extra_small-border: 1px; // 头像描边尺寸 - 极小
 $spacing-avatar_extra_extra_small-marginLeft: -4px; // 头像左侧外边距 - 极小
+
+$width-avatar-outline: 2px; //头像聚焦轮廓宽度

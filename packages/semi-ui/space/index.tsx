@@ -85,7 +85,7 @@ class Space extends PureComponent<SpaceProps> {
         });
         const childrenNodes = flatten(children);
         return (
-            <div className={classNames} style={realStyle}>
+            <div className={classNames} style={realStyle} x-semi-prop="children">
                 {childrenNodes}
             </div>
         );

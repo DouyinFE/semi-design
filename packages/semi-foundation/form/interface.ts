@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable max-len */
 import { DefaultAdapter } from '../base/foundation';
 import { Options as scrollIntoViewOptions } from 'scroll-into-view-if-needed';
@@ -31,7 +32,9 @@ export interface FormState<T extends Record<string, any> = any> {
 export interface setValuesConfig {
     isOverride: boolean;
 }
-export interface BaseFormApi<T extends Record<string, unknown> = any> {
+
+// use object replace Record<string, any>, fix issue 933
+export interface BaseFormApi<T extends object = any> {
     /** get value of field */
     getValue: <K extends keyof T>(field?: K) => T[K];
     /** set value of field */
@@ -47,7 +50,7 @@ export interface BaseFormApi<T extends Record<string, unknown> = any> {
     /** judge field exist */
     getFieldExist: <K extends keyof T>(field: K) => boolean;
     /** get formState of form */
-    getFormState: () => FormState<T extends Record<string, unknown> ? T : Record<string, unknown>>;
+    getFormState: () => FormState<T extends object ? T : object>;
     /** submit form manual */
     submitForm: () => void;
     /** reset form manual */

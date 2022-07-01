@@ -1,3 +1,4 @@
+/* istanbul ignore next */
 class Store<T = Record<string, any>> {
     _state: T;
     _listeners: any[];

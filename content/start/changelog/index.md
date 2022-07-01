@@ -15,6 +15,24 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 ---
 
+#### 🎉 2.14.0-beta.0 (2022-06-28)
+- 【Feat】
+    - Input 新增 A11y 键盘适配  [#205](https://github.com/DouyinFE/semi-design/issues/205)
+    - Avatar 新增 A11y 焦点及键盘适配  [#205](https://github.com/DouyinFE/semi-design/issues/205)
+    - Radio 新增 A11y 焦点及键盘适配 [#205](https://github.com/DouyinFE/semi-design/issues/205)
+    - AutoComplete A11y 优化键盘适配  [#205](https://github.com/DouyinFE/semi-design/issues/205)
+- 【Fix】
+    - 修复 Input 传 defaultValue 会报错问题 [#537](https://github.com/DouyinFE/semi-design/issues/537)
+    - 修复设置collapsible = true时，Tabs滚动到视窗外时TabBar出现箭头
+    - 修复部分组件 foundation 中包含 React 相关类型定义问题  [#923](https://github.com/DouyinFE/semi-design/issues/923)
+    - Tooltip/Popover trigger=custom 时，对 disabled 元素不再自动包裹 span [#919](https://github.com/DouyinFE/semi-design/issues/919)
+- 【Breaking Change】
+    - Input 中的密码按钮改为常显，之前是 hover 或 focus 输入框时显示  [#205](https://github.com/DouyinFE/semi-design/issues/205)
+- 【Style】
+    - 修复 TagInput suffix 文本颜色，从 --semi-color-text-1 修改为 --semi-color-text-2
+    - 更新了 secondary 全局颜色变量，将引用的色阶由 blue 改为 light-blue，修改前 secondary 颜色变量与 primary 相同，修改后视觉上对比度弱于 primary。Button、Badge、Steps、Dropdown 组件受影响。
+    - 更新 Select、Cascader、TreeSelect size='large' 时 placeholder与单选的文字大小，14px -> 16px。与 Input 组件对齐 [#859](https://github.com/DouyinFE/semi-design/issues/859)
+
 #### 🎉 2.13.0 (2022-06-20)
 - 【Fix】
     - 修复当设置onChangeWithObject，mutiple后，value传入的值为undefined时时，Cascader 崩溃的问题。（影响范围 v2.0.4 - v 2.12.0）[#905](https://github.com/DouyinFE/semi-design/issues/905)

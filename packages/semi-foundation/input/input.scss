@@ -173,6 +173,12 @@ $module: #{$prefix}-input;
                 color: $color-input-icon-hover;
             }
         }
+
+        &:focus-visible {
+            border-radius: $radius-input_wrapper;
+            outline: $width-input_icon-outline solid $color-input_icon-outline;
+            outline-offset: $width-input_icon-outlineOffset;
+        }
     }
 
     &__with-suffix-icon.#{$module}-wrapper-clearable:not(.#{$module}-wrapper__with-suffix-hidden) {

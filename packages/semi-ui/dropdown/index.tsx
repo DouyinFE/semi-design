@@ -144,7 +144,7 @@ class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
         return (
             <DropdownContext.Provider value={contextValue}>
                 <div className={className} style={style}>
-                    <div className={`${prefixCls}-content`}>{content}</div>
+                    <div className={`${prefixCls}-content`} x-semi-prop="render">{content}</div>
                 </div>
             </DropdownContext.Provider>
         );

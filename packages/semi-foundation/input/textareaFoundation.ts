@@ -233,13 +233,4 @@ export default class TextAreaFoundation extends BaseFoundation<TextAreaAdapter> 
         this._adapter.notifyClear(e);
         this.stopPropagation(e);
     }
-
-    /**
-     * A11y: simulate clear button click
-     */
-    handleClearEnterPress(e: any) {
-        if (isEnterPress(e)) {
-            this.handleClear(e);
-        }
-    }
 }

@@ -317,7 +317,12 @@ class Combobox extends BaseComponent<ComboboxProps, ComboboxState> {
         return (
             <LocaleConsumer componentName="TimePicker">
                 {(locale: Locale['TimePicker'], localeCode: Locale['code']) => (
-                    <ScrollList header={panelHeader} footer={panelFooter}>
+                    <ScrollList
+                        header={panelHeader}
+                        footer={panelFooter} 
+                        x-semi-header-alias="panelHeader"
+                        x-semi-footer-alias="panelFooter"
+                    >
                         {this.renderAMPMSelect(locale, localeCode)}
                         {this.renderHourSelect(value.getHours(), locale)}
                         {this.renderMinuteSelect(value.getMinutes(), locale)}

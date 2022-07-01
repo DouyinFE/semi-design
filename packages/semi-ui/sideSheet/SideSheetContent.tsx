@@ -88,7 +88,7 @@ export default class SideSheetContent extends React.PureComponent<SideSheetConte
         let header, closer;
         if (title) {
             header = (
-                <div className={`${prefixCls}-title`}>
+                <div className={`${prefixCls}-title`} x-semi-prop="title">
                     {this.props.title}
                 </div>
             );
@@ -140,11 +140,11 @@ export default class SideSheetContent extends React.PureComponent<SideSheetConte
             >
                 <div className={`${prefixCls}-content`}>
                     {header}
-                    <div className={`${prefixCls}-body`} style={props.bodyStyle}>
+                    <div className={`${prefixCls}-body`} style={props.bodyStyle} x-semi-prop="children">
                         {props.children}
                     </div>
                     {props.footer ? (
-                        <div className={`${prefixCls}-footer`}>
+                        <div className={`${prefixCls}-footer`} x-semi-prop="footer">
                             {props.footer}
                         </div>
                     ) : null}

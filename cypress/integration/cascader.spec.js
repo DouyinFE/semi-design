@@ -2,6 +2,7 @@ describe('cascader', () => {
     it('clear when single choose', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?id=cascader--show-clear&args=&viewMode=story');
         cy.viewport(1500, 1000);
+
         cy.get('input').eq(0).click();
         cy.get('span').contains('Node1').click();
         cy.get('span').contains('Child Node2').click();
@@ -9,6 +10,17 @@ describe('cascader', () => {
         cy.get('input').eq(0).trigger('mouseover');
         cy.get('.semi-cascader-clearbtn').click();
         cy.get('input').should('have.value', '');
+
+        // clear when search
+        cy.get('input').eq(0).click();
+        // wait the panel open
+        cy.wait(100);
+        cy.get('span').contains('Node1').click();
+        cy.get('span').contains('Child Node2').click();
+        cy.get('input').eq(0).type('Node1');
+        cy.get('input').eq(0).trigger('mouseover');
+        cy.get('.semi-cascader-clearbtn').click();
+        cy.get('input').should('have.attr', 'placeholder', 'Node1 / Child Node2');
     });
 
     it('clear by key press', () => {
@@ -66,6 +78,43 @@ describe('cascader', () => {
         cy.get('.semi-input-default').should('have.attr', 'placeholder', 'Search something');
     });
 
+    it('load data', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=cascader--load-data&args=&viewMode=story');
+        
+        cy.get('.semi-cascader-selection').eq(0).click();
+        // click to load data
+        cy.contains('Node1').click();
+        cy.wait(1000);
+        // data has be loaded
+        cy.contains('Node1 - 1');
+    });
+
+    it('on exceed', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=cascader--cascader-with-max-on-exceed&args=&viewMode=story');
+        
+        // when autoMergeValue is true
+        cy.get('.semi-cascader-selection').eq(1).click();
+        cy.contains('浙江省').click();
+        cy.contains('杭州市').click();
+        cy.get('input').eq(4).click({ force: true });
+        cy.get('.semi-cascader-selection > div').contains('海曙区');
+        cy.get('.semi-cascader-selection > div').contains('西湖区');
+
+        cy.get('body').click('right');
+
+        // when autoMergeValue is false
+        cy.get('.semi-cascader-selection').eq(2).click();
+        cy.contains('浙江省').click();
+        cy.get('input').eq(2).click({ force: true });
+        cy.get('.semi-cascader-selection').eq(2).contains('海曙区');
+    });
+
+    it('not exit default value', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=cascader--default-value-not-exist&args=&viewMode=story');
+        
+        cy.get('input').should('have.value', 'yazhou not exist');
+    });
+   
     it('multiple onChangeWithObject value=undefined', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?id=cascader--undefined-value-while-mutiple-and-on-change-with-object&args=&viewMode=story');
         cy.get('.semi-cascader-selection-placeholder').contains('请选择所在地区');

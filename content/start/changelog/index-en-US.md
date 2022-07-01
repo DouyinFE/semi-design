@@ -16,6 +16,24 @@ Version：Major.Minor.Patch
 
 ---
 
+#### 🎉 2.14.0-beta.0 (2022-06-28)
+- 【Feat】
+    - Input Added A11y keyboard adaptation  [#205](https://github.com/DouyinFE/semi-design/issues/205)
+    - Avatar adds A11y focus and keyboard adaptation [#205](https://github.com/DouyinFE/semi-design/issues/205)
+    - Radio adds A11y focus and keyboard adaptation [#205](https://github.com/DouyinFE/semi-design/issues/205)
+    - AutoComplete optimize A11y keyboard adaptation  [#205](https://github.com/DouyinFE/semi-design/issues/205)
+- 【Fix】
+    - Fixed Input passing defaultValue will report an error [#537](https://github.com/DouyinFE/semi-design/issues/537)
+    - Fixed when setting collapsible = true, TabBar appears arrow when Tabs is scrolled out of viewport
+    - Fixed some component foundation contains React related type definition problem  [#923](https://github.com/DouyinFE/semi-design/issues/923)
+    - Tooltip and Popover no longer automatically wraps span on disabled elements when trigger is custom [#919](https://github.com/DouyinFE/semi-design/issues/919)
+- 【Breaking Change】
+    - The password button in Input is changed to be always displayed, and it was displayed when the input was hover or focus  [#205](https://github.com/DouyinFE/semi-design/issues/205)
+- 【Style】
+    - Fixed TagInput suffix text color, changed from --semi-color-text-1 to --semi-color-text-2
+    - Updated the secondary global color variable, and changed the referenced color scale from blue to light-blue. Before the modification, the secondary color variable was the same as the primary. After the modification, the visual contrast was weaker than the primary. Button, Badge, Steps, Dropdown components are affected.
+    - Updating Select, Cascader, TreeSelect size='large', placeholder and radio text size, 14px -> 16px. Align with Input component [#859](https://github.com/DouyinFE/semi-design/issues/859)
+
 #### 🎉 2.13.0 (2022-06-20)
 - 【Fix】
     - Fixed the problem that Cascader crashes when the value passed in is undefined after setting onChange WithObject, multiple,  [#905](https://github.com/DouyinFE/semi-design/issues/905)

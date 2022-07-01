@@ -50,6 +50,15 @@ import Button from '../button';
 
 ```
 
+### ✅ Should not import React or ReactDOM in semi-foundation
+
+```javascript
+// ❌ 
+// packages/semi-foundation/input/foundation.ts
+import React from 'react';
+import ReactDOM from 'react-dom';
+```
+
 ## Related docs
 
 - eslint plugin doc：https://eslint.org/docs/developer-guide/working-with-plugins

@@ -406,5 +406,16 @@ import { IllustrationNoContent } from '@douyinfe/semi-illustrations';
 | onSearch | 输入变化时的回调 | Function(value: string) | |
 | onSelect | 下拉菜单候选项被选中时的回调 | Function(item: string\|number\|Item) | |
 
+## Accessibility
+### 键盘和焦点
+
+- AutoComplete 的 input 框可被聚焦，聚焦后，键盘用户可以通过 `上箭头` 或 `下箭头` 打开选项面板（如有）
+- AutoComplete 也支持通过 `Enter` 键打开和收起面板
+- 若用户将 defaultActiveFirstOption 属性设置为 true 时，选项面板打开后默认高亮第一个选项
+- 若下拉菜单打开时：
+  - 使用 `Esc` 可以关闭菜单
+  - 使用 `上箭头` 或 `下箭头` 可以切换选项
+  - 被聚焦的选项可以通过 `Enter` 键选中，并收起面板
+
 ## 设计变量
 <DesignToken/>

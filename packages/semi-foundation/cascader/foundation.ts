@@ -606,6 +606,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
     /**
      * A11y: simulate selection click
      */
+    /* istanbul ignore next */
     handleSelectionEnterPress(keyboardEvent: any) {
         if (isEnterPress(keyboardEvent)) {
             this.handleClick(keyboardEvent);
@@ -924,6 +925,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
     /**
      * A11y: simulate clear button click
      */
+    /* istanbul ignore next */
     handleClearEnterPress(keyboardEvent: any) {
         if (isEnterPress(keyboardEvent)) {
             this.handleClear();
@@ -976,6 +978,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         const { keyEntities } = this.getStates();
         const { disabled } = this.getProps();
         if (disabled) {
+            /* istanbul ignore next */
             return;
         }
         const removedItem = (Object.values(keyEntities) as BasicEntity[])

@@ -110,7 +110,7 @@ export default class Item extends PureComponent<RatingItemProps> {
                     className={`${prefixCls}-wrapper`}
                 >
                     <div className={`${prefixCls}-first`} style={{ width: `${firstWidth * 100}%` }}>{content}</div>
-                    <div className={`${prefixCls}-second`}>{content}</div>
+                    <div className={`${prefixCls}-second`} x-semi-prop="character">{content}</div>
                 </div>
             </li>
         );

@@ -439,7 +439,7 @@ function withField<
                 [`${prefix}-field-extra-botttom`]: mergeExtraPos === 'bottom',
             });
 
-            const extraContent = extraText ? <div className={extraCls} id={extraTextId}>{extraText}</div> : null;
+            const extraContent = extraText ? <div className={extraCls} id={extraTextId} x-semi-prop="extraText">{extraText}</div> : null;
 
             let newProps: Record<string, any> = {
                 id: a11yId,

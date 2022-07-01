@@ -163,7 +163,7 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
         } = this.props;
         let closer;
         if (closable) {
-            const iconType = closeIcon || <IconClose/>;
+            const iconType = closeIcon || <IconClose x-semi-prop="closeIcon" />;
             closer = (
                 <Button
                     aria-label="close"
@@ -182,7 +182,7 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
 
     renderIcon = () => {
         const { icon } = this.props;
-        return icon ? <span className={`${cssClasses.DIALOG}-icon-wrapper`}>{icon}</span> : null;
+        return icon ? <span className={`${cssClasses.DIALOG}-icon-wrapper`} x-semi-prop="icon">{icon}</span> : null;
     };
 
     renderHeader = () => {
@@ -197,8 +197,14 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
             (
                 <div className={`${cssClasses.DIALOG}-header`}>
                     {icon}
-                    <Typography.Title heading={5} className={`${cssClasses.DIALOG}-title`}
-                        id={`${cssClasses.DIALOG}-title`}>{title}</Typography.Title>
+                    <Typography.Title
+                        heading={5}
+                        className={`${cssClasses.DIALOG}-title`}
+                        id={`${cssClasses.DIALOG}-title`}
+                        x-semi-prop="title"
+                    >
+                        {title}
+                    </Typography.Title>
                     {closer}
                 </div>
             );
@@ -216,16 +222,19 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
         const closer = this.renderCloseBtn();
         const icon = this.renderIcon();
         const hasHeader = title !== null && title !== undefined || 'header' in this.props;
-        return hasHeader ?
-            <div className={bodyCls} id={`${cssClasses.DIALOG}-body`} style={bodyStyle}>{children}</div> :
-            (
-                <div className={`${cssClasses.DIALOG}-body-wrapper`}>
-                    {icon}
-                    <div className={bodyCls} style={bodyStyle}>{children}</div>
-                    {closer}
+        return hasHeader ? (
+            <div className={bodyCls} id={`${cssClasses.DIALOG}-body`} style={bodyStyle} x-semi-prop="children">
+                {children}
+            </div>
+        ) : (
+            <div className={`${cssClasses.DIALOG}-body-wrapper`}>
+                {icon}
+                <div className={bodyCls} style={bodyStyle} x-semi-prop="children">
+                    {children}
                 </div>
-            );
-
+                {closer}
+            </div>
+        );
     };
 
     getDialogElement = () => {
@@ -248,7 +257,11 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
         }
         const body = this.renderBody();
         const header = this.renderHeader();
-        const footer = props.footer ? <div className={`${cssClasses.DIALOG}-footer`}>{props.footer}</div> : null;
+        const footer = props.footer ? (
+            <div className={`${cssClasses.DIALOG}-footer`} x-semi-prop="footer">
+                {props.footer}
+            </div>
+        ) : null;
         const dialogElement = (
             // eslint-disable-next-line jsx-a11y/no-static-element-interactions
             <div

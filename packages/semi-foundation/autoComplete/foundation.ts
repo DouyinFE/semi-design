@@ -78,7 +78,7 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
 
     destroy(): void {
         // this._adapter.unregisterClickOutsideHandler();
-        this.unBindKeyBoardEvent();
+        // this.unBindKeyBoardEvent();
     }
 
     _setDropdownWidth(): void {
@@ -114,7 +114,6 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
         this._setDropdownWidth();
         // this._adapter.registerClickOutsideHandler(e => this.closeDropdown(e));
         this._adapter.notifyDropdownVisibleChange(true);
-        this.bindKeyBoardEvent();
         this._modifyFocusIndexOnPanelOpen();
     }
 
@@ -123,7 +122,8 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
         this._adapter.toggleListVisible(false);
         // this._adapter.unregisterClickOutsideHandler();
         this._adapter.notifyDropdownVisibleChange(false);
-        this.unBindKeyBoardEvent();
+        // After closing the panel, you can still open the panel by pressing the enter key
+        // this.unBindKeyBoardEvent();
     }
 
     // props.data => optionList
@@ -301,19 +301,16 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
         this._adapter.registerKeyDown(this._keydownHandler);
     }
 
-    unBindKeyBoardEvent() {
-        if (this._keydownHandler) {
-            this._adapter.unregisterKeyDown(this._keydownHandler);
-        }
-    }
+    // unBindKeyBoardEvent() {
+    //     if (this._keydownHandler) {
+    //         this._adapter.unregisterKeyDown(this._keydownHandler);
+    //     }
+    // }
 
     _handleKeyDown(event: KeyboardEvent) {
         const key = event.keyCode;
         const { visible } = this.getStates();
 
-        if (!visible) {
-            return;
-        }
         switch (key) {
             case KeyCode.UP:
                 // Prevent Input's cursor from following the movement
@@ -326,6 +323,8 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
                 this._handleArrowKeyDown(1);
                 break;
             case KeyCode.ENTER:
+                // when custom trigger, prevent outer open panel again
+                event.preventDefault();
                 this._handleEnterKeyDown();
                 break;
             case KeyCode.ESC:
@@ -377,17 +376,26 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
     }
 
     _handleArrowKeyDown(offset: number): void {
-        this._getEnableFocusIndex(offset);
+        const { visible } = this.getStates();
+        if (!visible){
+            this.openDropdown();
+        } else {
+            this._getEnableFocusIndex(offset);  
+        }
     }
 
     _handleEnterKeyDown() {
         const { visible, options, focusIndex } = this.getStates();
-        if (focusIndex !== -1 && options.length !== 0) {
-            const visibleOptions = options.filter((item: StateOptionItem) => item.show);
-            const selectedOption = visibleOptions[focusIndex];
-            this.handleSelect(selectedOption, focusIndex);
-        } else if (visible) {
-            // this.close();
+        if (!visible){
+            this.openDropdown();
+        } else {
+            if (focusIndex !== undefined  && focusIndex !== -1 && options.length !== 0) {
+                const visibleOptions = options.filter((item: StateOptionItem) => item.show);
+                const selectedOption = visibleOptions[focusIndex];
+                this.handleSelect(selectedOption, focusIndex);
+            } else {
+                this.closeDropdown();
+            }
         }
     }
 
@@ -396,6 +404,9 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
     }
 
     handleFocus(e: FocusEvent) {
+        // If you get the focus through the tab key, you need to manually bind keyboard events
+        // Then you can open the panel by pressing the enter key
+        this.bindKeyBoardEvent();
         this._adapter.notifyFocus(e);
     }
 

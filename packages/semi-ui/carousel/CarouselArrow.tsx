@@ -41,6 +41,7 @@ class CarouselArrow extends React.PureComponent<CarouselArrowProps> {
                     className={leftClassNames} 
                     onClick={prev}
                     {...get(this.props, 'arrowProps.leftArrow.props')}
+                    x-semi-prop="arrowProps.leftArrow.children"
                 >
                     {this.renderLeftIcon()}
                 </div>
@@ -50,6 +51,7 @@ class CarouselArrow extends React.PureComponent<CarouselArrowProps> {
                     className={rightClassNames} 
                     onClick={next}
                     {...get(this.props, 'arrowProps.rightArrow.props')}
+                    x-semi-prop="arrowProps.rightArrow.children"
                 >
                     {this.renderRightIcon()}
                 </div>
