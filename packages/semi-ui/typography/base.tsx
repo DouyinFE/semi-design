@@ -507,8 +507,10 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
             copyContent = String(children);
         }
 
+        // warning should not be shown when user has specified copyable content
+        const passedCopyableContent = typeof copyable === 'object' && !!copyable.content;
         warning(
-            hasObject,
+            hasObject && !passedCopyableContent,
             'Children in Typography is a object, it will case a [object Object] mistake when copy to clipboard.'
         );
         const copyConfig = {
