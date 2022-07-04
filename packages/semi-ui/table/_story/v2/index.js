@@ -7,3 +7,4 @@ export { default as FixedExpandedRow } from './FixedExpandedRow';
 export { default as FixedMemoryLeak  } from './FixedMemoryLeak';
 export { default as FixedOnHeaderRow } from './FixedOnHeaderRow';
 export { default as RadioRowSelection } from './radioRowSelection';
+export { default as FixedVirtualizedEmpty } from './FixedVirtualizedEmpty';
