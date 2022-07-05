@@ -169,7 +169,7 @@ import { IconLikeHeart } from '@douyinfe/semi-icons';
 - Semi 支持自定义 Rating 的语义:
   - 可以使用 `aria-label` 来定制 Rating 的语义化；
   - 若用户传入的 `character` 类型为 string，将使用这个 string 来做 Rating 的语义化；
-  - aira-label的优先级高于string的`character`。
+  - `aria-label`的优先级高于string的`character`。
 
 ## 设计变量
 <DesignToken/>

@@ -192,7 +192,7 @@ import { IconLikeHeart } from '@douyinfe/semi-icons';
 - Semi supports custom Rating semantics
   - Users can use `aria-label` to customize the semantics of Rating;
   - If the type of `character` passed in by the user is string, this string will be used for the semantics of Rating;
-  - `aira-label` has higher priority than string type `character`.
+  - `aria-label` has higher priority than string type `character`.
 
 ## Design Tokens
 <DesignToken/>
