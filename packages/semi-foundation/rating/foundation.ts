@@ -189,12 +189,12 @@ export  class RatingItemFoundation<P = Record<string, any>, S = Record<string, a
         super({ ...RatingItemFoundation.defaultAdapter, ...adapter });
     }
 
-    handleFocusVisible = (event: any, index: number) => {
+    handleFocusVisible = (event: any, star: string) => {
         const { target } = event;
         // when rating 0 is focus visible
         try {
             if (target.matches(':focus-visible')) {
-                if (index === 0) {
+                if (star === 'first') {
                     this._adapter.setFirstStarFocus(true);
                 } else {
                     this._adapter.setSecondStarFocus(true);
@@ -205,9 +205,9 @@ export  class RatingItemFoundation<P = Record<string, any>, S = Record<string, a
         }
     }
 
-    handleBlur = (event: React.FocusEvent, index: number) => {
+    handleBlur = (event: React.FocusEvent, star: string) => {
         const { firstStarFocus, secondStarFocus } = this.getStates();
-        if (index === 0) {
+        if (star === 'first') {
             firstStarFocus && this._adapter.setFirstStarFocus(false);
         } else {
             secondStarFocus && this._adapter.setSecondStarFocus(false);

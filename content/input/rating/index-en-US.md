@@ -182,7 +182,7 @@ import { IconLikeHeart } from '@douyinfe/semi-icons';
 - Initial focus settings for Rating:
   - If there is a selection item in Rating, the initial focus should be set to the last selection item (for example: if 3 🌟 are lit, the initial focus is set on the third lit 🌟);
   - If there is no option for Rating, the initial focus should be on the entire Rating.
-- On a Rating group, you can use the `right arrow` or `down arrow` to select the next focus item of the current focus, and the `left arrow` or `up arrow` to select the previous focus item of the current focus;
+- On a Rating group, you can use the `right arrow` or `up arrow` to select the next focus item of the current focus, and the `left arrow` or `down arrow` to select the previous focus item of the current focus;
     - The user sets the `allowHalf` property, and presses the arrow keys to select or deselect only half a star;
 - A disabled Rating cannot get the focus.
 

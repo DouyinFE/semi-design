@@ -96,16 +96,16 @@ export default class Item extends BaseComponent<RatingItemProps, RatingItemState
         onClick(e, index);
     };
 
-    onFocus =  (e, index) => {
+    onFocus =  (e, star) => {
         const { onFocus } = this.props;
         onFocus && onFocus(e);
-        this.foundation.handleFocusVisible(e, index);
+        this.foundation.handleFocusVisible(e, star);
     } 
 
-    onBlur =  (e, index) => {
+    onBlur =  (e, star) => {
         const { onBlur } = this.props;
         onBlur && onBlur(e);
-        this.foundation.handleBlur(e, index);
+        this.foundation.handleBlur(e, star);
     } 
 
 
@@ -191,10 +191,10 @@ export default class Item extends BaseComponent<RatingItemProps, RatingItemState
             className: cls(`${prefixCls}-first`,`${cssClasses.PREFIX}-no-focus`),
             tabIndex: !disabled && value === index + 0.5 ? 0 : -1,
             onFocus: (e) => {
-                this.onFocus(e, 0);
+                this.onFocus(e, 'first');
             },
             onBlur:(e) => {
-                this.onBlur(e, 0);
+                this.onBlur(e, 'first');
             },
         };
 
@@ -212,10 +212,10 @@ export default class Item extends BaseComponent<RatingItemProps, RatingItemState
             className: cls(`${prefixCls}-second`,`${cssClasses.PREFIX}-no-focus`),
             tabIndex: secondStarTabIndex,
             onFocus: (e) => {
-                this.onFocus(e, 1);
+                this.onFocus(e, 'second');
             },
             onBlur:(e) => {
-                this.onBlur(e, 1);
+                this.onBlur(e, 'second');
             },
         };
        
