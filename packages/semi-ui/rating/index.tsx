@@ -48,6 +48,7 @@ export interface RatingState {
     hoverValue: number;
     focused: boolean;
     clearedValue: number;
+    rating0FocusVisible: boolean;
 }
 
 export default class Rating extends BaseComponent<RatingProps, RatingState> {
@@ -90,7 +91,7 @@ export default class Rating extends BaseComponent<RatingProps, RatingState> {
         prefixCls: cssClasses.PREFIX,
         onChange: noop,
         onHoverChange: noop,
-        tabIndex: 0,
+        tabIndex: -1,
         size: 'default' as const,
     };
 
@@ -108,6 +109,7 @@ export default class Rating extends BaseComponent<RatingProps, RatingState> {
             focused: false,
             hoverValue: undefined,
             clearedValue: null,
+            rating0FocusVisible: false,
         };
 
         this.foundation = new RatingFoundation(this.adapter);
@@ -127,9 +129,11 @@ export default class Rating extends BaseComponent<RatingProps, RatingState> {
         return {
             ...super.adapter,
             focus: () => {
-                const { disabled } = this.props;
+                const { disabled, count } = this.props;
+                const { value } = this.state;
                 if (!disabled) {
-                    this.rate.focus();
+                    const index = Math.ceil(value) - 1;
+                    this.stars[index < 0 ? count : index].starFocus();
                 }
             },
             getStarDOM: (index: number) => {
@@ -179,6 +183,11 @@ export default class Rating extends BaseComponent<RatingProps, RatingState> {
                     focused: false,
                 });
                 onKeyDown && onKeyDown(e);
+            },
+            setRating0FocusVisible: (focusVisible: boolean): void => {
+                this.setState({
+                    rating0FocusVisible: focusVisible, 
+                });
             },
         };
     }
@@ -238,11 +247,31 @@ export default class Rating extends BaseComponent<RatingProps, RatingState> {
         this.rate = node;
     };
 
-    render() {
-        const { count, allowHalf, style, prefixCls, disabled, className, character, tabIndex, size, tooltips, id } =
-            this.props;
+    handleStarFocusVisible = (event: React.FocusEvent) => {
+        this.foundation.handleStarFocusVisible(event);
+    }
+
+    handleStarBlur = (event: React.FocusEvent) => {
+        this.foundation.handleStarBlur(event);
+    }
+
+    getAriaLabelPrefix = () => {
+        if (this.props['aria-label']) {
+            return this.props['aria-label'];
+        }
+        let prefix = 'star';
+        const { character } = this.props;
+        if (typeof character === 'string') {
+            prefix = character;
+        }
+        return prefix;
+    }
+
+    getItemList = (ariaLabelPrefix: string) => {
+        const { count, allowHalf, prefixCls, disabled,  character, size, tooltips } =this.props;
         const { value, hoverValue, focused } = this.state;
-        const itemList = [...Array(count).keys()].map(ind => {
+        // index == count is for Empty rating
+        const itemList = [...Array(count + 1).keys()].map(ind => {
             const content = (
                 <Item
                     ref={this.saveRef(ind)}
@@ -251,13 +280,16 @@ export default class Rating extends BaseComponent<RatingProps, RatingState> {
                     prefixCls={`${prefixCls}-star`}
                     allowHalf={allowHalf}
                     value={hoverValue === undefined ? value : hoverValue}
-                    onClick={this.onClick}
-                    onHover={this.onHover}
+                    onClick={disabled ? null : this.onClick}
+                    onHover={disabled ? null : this.onHover}
                     key={ind}
                     disabled={disabled}
                     character={character}
                     focused={focused}
-                    size={size}
+                    size={ind === count ? 0 : size}
+                    ariaLabelPrefix={ariaLabelPrefix}
+                    onFocus={disabled || count !== ind ? null : this.handleStarFocusVisible}
+                    onBlur={disabled || count !== ind ? null : this.handleStarBlur}
                 />
             );
             if (tooltips) {
@@ -271,16 +303,26 @@ export default class Rating extends BaseComponent<RatingProps, RatingState> {
             }
             return content;
         });
+        return itemList;
+    }
+
+    render() {
+        const { style, prefixCls, disabled, className, id, count, tabIndex } = this.props;
+        const { value, rating0FocusVisible } = this.state;
+        const ariaLabelPrefix = this.getAriaLabelPrefix();
+        const ariaLabel = `Rating: ${value} of ${count} ${ariaLabelPrefix}${value === 1 ? '' : 's'},`;
+        const itemList = this.getItemList(ariaLabelPrefix);
         const listCls = cls(
             prefixCls,
             {
                 [`${prefixCls}-disabled`]: disabled,
+                [`${prefixCls}-focus`]: rating0FocusVisible,
             },
             className
         );
         return (
-            <ul
-                aria-label={this.props['aria-label']}
+            <ul 
+                aria-label={ariaLabel}
                 aria-labelledby={this.props['aria-labelledby']}
                 aria-describedby={this.props['aria-describedby']}
                 className={listCls}

@@ -47,7 +47,7 @@ import { Rating } from '@douyinfe/semi-ui';
     <div>
         <Rating allowHalf defaultValue={3.5}/>
         <br/>
-        <Rating allowHalf defaultValue={3.65}/>
+        <Rating allowHalf defaultValue={3.65} disabled/>
     </div>
 );
 ```
@@ -156,10 +156,20 @@ import { IconLikeHeart } from '@douyinfe/semi-icons';
 | value | 当前受控值 | number | - |
 
 ## Accessibility
+- Rating 的初始焦点设置：
+  - 若 Rating 有选择项时，初始焦点应当设置为最后一个选择项时（如：有 3颗🌟被点亮，则初始焦点设置在第三颗被点亮的🌟上）；
+  - 若 Rating 没有选择项时，初始焦点应当为整个 Rating。
+- 一个 Rating 组上，可以通过 `右箭头` 或 `下箭头` 选中当前焦点的下一个焦点项，`左箭头` 或 `上箭头` 选中当前焦点的上一个焦点项；
+  - 用户设置了 `allowHalf` 属性，按方向键只选中或取消选中半颗星；
+- `disabled`的 Rating 无法被获取到焦点。
 
 ### ARIA
 
-- Rating 具有 aria-checked 表示当前是否选中，aria-posinset 表示在列表的位置，aria-setsize 表示列表的长度
+- Rating 具有 `aria-checked` 表示当前是否选中，`aria-posinset` 表示在列表的位置，`aria-setsize` 表示列表的长度。
+- Semi 支持自定义 Rating 的语义:
+  - 可以使用 `aria-label` 来定制 Rating 的语义化；
+  - 若用户传入的 `character` 类型为 string，将使用这个 string 来做 Rating 的语义化；
+  - aira-label的优先级高于string的`character`。
 
 ## 设计变量
 <DesignToken/>
