@@ -16,6 +16,13 @@ Version：Major.Minor.Patch
 
 ---
 
+#### 🎉 2.14.0 (2022-07-01)
+- 【Fix】
+    - Fix the issue that the Spin component has black rectangles in some scene contents in dark mode
+- 【Chore】
+    - Optimize Form interface BaseFormApi type definetion [#933](https://github.com/DouyinFE/semi-design/issues/933)
+
+
 #### 🎉 2.14.0-beta.0 (2022-06-28)
 - 【Feat】
     - Input Added A11y keyboard adaptation  [#205](https://github.com/DouyinFE/semi-design/issues/205)
