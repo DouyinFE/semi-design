@@ -9,6 +9,7 @@ import { Checkbox } from '../checkbox';
 import TreeContext, { TreeContextValue } from './treeContext';
 import Spin from '../spin';
 import { TreeNodeProps, TreeNodeState } from './interface';
+import { getHighLightTextHTML } from '../_utils/index';
 
 const prefixcls = cssClasses.PREFIX_OPTION;
 
@@ -282,18 +283,14 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
         if (isFunction(renderLabel)) {
             return renderLabel(label, data);
         } else if (isString(label) && filtered && keyword && treeNodeFilterProp === 'label') {
-            const content: React.ReactNode[] = [];
-            label.split(keyword).forEach((node, index) => {
-                if (index > 0) {
-                    content.push(
-                        <span className={`${prefixcls}-highlight`} key={index}>
-                            {keyword}
-                        </span>
-                    );
-                }
-                content.push(node);
-            });
-            return content;
+            return getHighLightTextHTML({
+                sourceString: label,
+                searchWords: [keyword],
+                option: {
+                    highlightTag: 'span',
+                    highlightClassName: `${prefixcls}-highlight`,
+                },
+            } as any);
         } else {
             return label;
         }
