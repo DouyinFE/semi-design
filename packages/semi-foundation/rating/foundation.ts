@@ -11,7 +11,7 @@ export interface RatingAdapter<P = Record<string, any>, S = Record<string, any>>
     notifyFocus: (e: any) => void;
     notifyBlur: (e: any) => void;
     notifyKeyDown: (e: any) => void;
-    setRating0FocusVisible: (focusVisible: boolean) => void;
+    setEmptyStarFocusVisible: (focusVisible: boolean) => void;
 }
 
 export default class RatingFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<RatingAdapter<P, S>, P, S> {
@@ -163,7 +163,7 @@ export default class RatingFoundation<P = Record<string, any>, S = Record<string
         // when rating 0 is focus visible
         try {
             if (target.matches(':focus-visible')) {
-                this._adapter.setRating0FocusVisible(true);
+                this._adapter.setEmptyStarFocusVisible(true);
             }
         } catch (error) {
             warning(true, 'Warning: [Semi Rating] The current browser does not support the focus-visible'); 
@@ -171,9 +171,9 @@ export default class RatingFoundation<P = Record<string, any>, S = Record<string
     }
 
     handleStarBlur = (event: React.FocusEvent) => {
-        const { rating0FocusVisible } = this.getStates();
-        if (rating0FocusVisible) {
-            this._adapter.setRating0FocusVisible(false);
+        const { emptyStarFocusVisible } = this.getStates();
+        if (emptyStarFocusVisible) {
+            this._adapter.setEmptyStarFocusVisible(false);
         } 
     }
 }
@@ -183,7 +183,7 @@ export interface RatingItemAdapter<P = Record<string, any>, S = Record<string, a
     setSecondStarFocus: (value: boolean) => void;
 }
 
-export  class RatingItemFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<RatingItemAdapter<P, S>, P, S> {
+export class RatingItemFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<RatingItemAdapter<P, S>, P, S> {
 
     constructor(adapter: RatingItemAdapter<P, S>) {
         super({ ...RatingItemFoundation.defaultAdapter, ...adapter });

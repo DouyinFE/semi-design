@@ -48,7 +48,7 @@ export interface RatingState {
     hoverValue: number;
     focused: boolean;
     clearedValue: number;
-    rating0FocusVisible: boolean;
+    emptyStarFocusVisible: boolean;
 }
 
 export default class Rating extends BaseComponent<RatingProps, RatingState> {
@@ -109,7 +109,7 @@ export default class Rating extends BaseComponent<RatingProps, RatingState> {
             focused: false,
             hoverValue: undefined,
             clearedValue: null,
-            rating0FocusVisible: false,
+            emptyStarFocusVisible: false,
         };
 
         this.foundation = new RatingFoundation(this.adapter);
@@ -184,9 +184,9 @@ export default class Rating extends BaseComponent<RatingProps, RatingState> {
                 });
                 onKeyDown && onKeyDown(e);
             },
-            setRating0FocusVisible: (focusVisible: boolean): void => {
+            setEmptyStarFocusVisible: (focusVisible: boolean): void => {
                 this.setState({
-                    rating0FocusVisible: focusVisible, 
+                    emptyStarFocusVisible: focusVisible, 
                 });
             },
         };
@@ -280,16 +280,16 @@ export default class Rating extends BaseComponent<RatingProps, RatingState> {
                     prefixCls={`${prefixCls}-star`}
                     allowHalf={allowHalf}
                     value={hoverValue === undefined ? value : hoverValue}
-                    onClick={disabled ? null : this.onClick}
-                    onHover={disabled ? null : this.onHover}
+                    onClick={disabled ? noop : this.onClick}
+                    onHover={disabled ? noop : this.onHover}
                     key={ind}
                     disabled={disabled}
                     character={character}
                     focused={focused}
                     size={ind === count ? 0 : size}
                     ariaLabelPrefix={ariaLabelPrefix}
-                    onFocus={disabled || count !== ind ? null : this.handleStarFocusVisible}
-                    onBlur={disabled || count !== ind ? null : this.handleStarBlur}
+                    onFocus={disabled || count !== ind ? noop : this.handleStarFocusVisible}
+                    onBlur={disabled || count !== ind ? noop : this.handleStarBlur}
                 />
             );
             if (tooltips) {
@@ -308,7 +308,7 @@ export default class Rating extends BaseComponent<RatingProps, RatingState> {
 
     render() {
         const { style, prefixCls, disabled, className, id, count, tabIndex } = this.props;
-        const { value, rating0FocusVisible } = this.state;
+        const { value, emptyStarFocusVisible } = this.state;
         const ariaLabelPrefix = this.getAriaLabelPrefix();
         const ariaLabel = `Rating: ${value} of ${count} ${ariaLabelPrefix}${value === 1 ? '' : 's'},`;
         const itemList = this.getItemList(ariaLabelPrefix);
@@ -316,22 +316,23 @@ export default class Rating extends BaseComponent<RatingProps, RatingState> {
             prefixCls,
             {
                 [`${prefixCls}-disabled`]: disabled,
-                [`${prefixCls}-focus`]: rating0FocusVisible,
+                [`${prefixCls}-focus`]: emptyStarFocusVisible,
             },
             className
         );
         return (
+            // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
             <ul 
                 aria-label={ariaLabel}
                 aria-labelledby={this.props['aria-labelledby']}
                 aria-describedby={this.props['aria-describedby']}
                 className={listCls}
                 style={style}
-                onMouseLeave={disabled ? null : this.onMouseLeave}
+                onMouseLeave={disabled ? noop : this.onMouseLeave}
                 tabIndex={disabled ? -1 : tabIndex}
-                onFocus={disabled ? null : this.onFocus}
-                onBlur={disabled ? null : this.onBlur}
-                onKeyDown={disabled ? null : this.onKeyDown}
+                onFocus={disabled ? noop : this.onFocus}
+                onBlur={disabled ? noop : this.onBlur}
+                onKeyDown={disabled ? noop : this.onKeyDown}
                 ref={this.saveRate as any}
                 id={id}
             >
