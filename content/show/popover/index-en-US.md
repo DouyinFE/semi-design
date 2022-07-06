@@ -494,7 +494,7 @@ Please refer to [Use with Tooltip/Popconfirm](/en-US/show/tooltip#%E6%90%AD%E9%8
 | mouseEnterDelay | After the mouse is moved in, the display delay time, in milliseconds (only effective when the trigger is hover/focus) | number | 50 |  |
 | mouseLeaveDelay | The time for the delay to disappear after the mouse is moved out, in milliseconds (only effective when the trigger is hover/focus) | number | 50 |  |
 | rePosKey | You can update the value of this item to manually trigger the repositioning of the pop-up layer | string\|number |  |  |
-| returnFocusOnClose | After pressing the Esc key, whether the focus returns to the trigger, it only takes effect when the trigger is set to click | boolean | true | **2.8.0** |
+| returnFocusOnClose | After pressing the Esc key, whether the focus returns to the trigger, it only takes effect when the trigger is set to hover, focus, click, etc | boolean | true | **2.8.0** |
 | visible | Display popup or not | boolean |  |
 | position | Directions, optional values: `top`, `topLeft`, `topRight`, `leftTop`, `leftBottom`, `rightTop`, `rightTop`, `rightBottom`, `bottomLeft`, `bottomRight`, `bottomRight` | string | "bottom" |
 | spacing | The distance between the out layer and the children element, in px | number | 4(while showArrow=false) 10(while showArrow=true) |  |

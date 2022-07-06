@@ -497,7 +497,7 @@ import { Button, Input, Popover, Space } from '@douyinfe/semi-ui';
 | mouseEnterDelay    | 鼠标移入后，延迟显示的时间，单位毫秒（仅当 trigger 为 hover/focus 时生效）                                                                  | number                     | 50                                          |            |
 | mouseLeaveDelay    | 鼠标移出后，延迟消失的时间，单位毫秒（仅当 trigger 为 hover/focus 时生效）                                                                  | number                     | 50                                          |            |
 | rePosKey           | 可以更新该项值手动触发弹出层的重新定位                                                                                                         | string\|number             |                                            |             |
-| returnFocusOnClose | 按下 Esc 键后，焦点是否回到 trigger 上，只有设置 trigger 为 click 时生效 | boolean | true  | **2.8.0** |
+| returnFocusOnClose | 按下 Esc 键后，焦点是否回到 trigger 上，设置 trigger 为 hover, focus, click 时生效 | boolean | true  | **2.8.0** |
 | position           | 方向，可选值：`top`,`topLeft`,`topRight`,`left`,`leftTop`,`leftBottom`,`right`,`rightTop`,`rightBottom`,`bottom`,`bottomLeft`,`bottomRight` | string                     | "bottom"                                    |            |
 | spacing            | 弹出层与 children 元素的距离，单位 px                                                                                                       | number                     | 4(showArrow=false 时) 10(showArrow=true 时) |            |
 | showArrow          | 是否显示“小三角”                                                                                                                            | boolean                    |                                             |            |

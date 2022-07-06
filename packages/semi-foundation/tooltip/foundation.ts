@@ -6,6 +6,7 @@ import { DOMRectLikeType } from '../utils/dom';
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import { ArrayElement } from '../utils/type';
 import { strings } from './constants';
+import { handlePrevent } from '../utils/a11y';
 
 const REGS = {
     TOP: /top/i,
@@ -862,6 +863,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         
         switch (event && event.key) {
             case "Escape":
+                handlePrevent(event);
                 closeOnEsc && this._handleEscKeyDown(event);
                 break;
             case "ArrowUp":
@@ -886,7 +888,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
      */
     _focusTrigger() {
         const { trigger, returnFocusOnClose } = this.getProps();
-        if (returnFocusOnClose && trigger === 'click') {
+        if (returnFocusOnClose && trigger !== 'custom') {
             const triggerNode = this._adapter.getTriggerNode();
             if (triggerNode && 'focus' in triggerNode) {
                 triggerNode.focus();
@@ -897,8 +899,10 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
     _handleEscKeyDown(event: any) {
         const { trigger } = this.getProps();
         if (trigger !== 'custom') {
-            this.hide();
+            // Move the focus into the trigger first and then close the pop-up layer 
+            // to avoid the problem of opening the pop-up layer again when the focus returns to the trigger in the case of hover and focus
             this._focusTrigger();
+            this.hide();
         }
         this._adapter.notifyEscKeydown(event);
     }
