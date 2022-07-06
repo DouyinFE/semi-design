@@ -46,6 +46,9 @@ import pt_BR from '@douyinfe/semi-ui/lib/es/locale/source/pt_BR';
 import zh_TW from '@douyinfe/semi-ui/lib/es/locale/source/zh_TW';
 import ar from '@douyinfe/semi-ui/lib/es/locale/source/ar';
 import es from '@douyinfe/semi-ui/lib/es/locale/source/es';
+import it from '@douyinfe/semi-ui/lib/es/locale/source/it';
+import de from '@douyinfe/semi-ui/lib/es/locale/source/de';
+import fr from '@douyinfe/semi-ui/lib/es/locale/source/fr';
 
 import { LocaleProvider } from '@douyinfe/semi-ui';
 
@@ -113,6 +116,9 @@ import tr_TR from '@douyinfe/semi-ui/lib/es/locale/source/tr_TR';
 import pt_BR from '@douyinfe/semi-ui/lib/es/locale/source/pt_BR';
 import zh_TW from '@douyinfe/semi-ui/lib/es/locale/source/zh_TW';
 import es from '@douyinfe/semi-ui/lib/es/locale/source/es';
+import it from '@douyinfe/semi-ui/lib/es/locale/source/it';
+import de from '@douyinfe/semi-ui/lib/es/locale/source/de';
+import fr from '@douyinfe/semi-ui/lib/es/locale/source/fr';
 import { LocaleProvider, ConfigProvider, Pagination, Modal, Button, Select, Cascader, DatePicker, TreeSelect, Table, TimePicker, List, Calendar, Typography } from '@douyinfe/semi-ui';
 
 class I18nDemo extends React.Component {
@@ -141,6 +147,9 @@ class I18nDemo extends React.Component {
             'pt_BR': pt_BR,
             'zh_TW': zh_TW,
             'es': es,
+            de,
+            it,
+            fr
         };
         this.setState({ locale: language[code], localeCode: code });
     }
@@ -282,6 +291,9 @@ class I18nDemo extends React.Component {
                         <Select.Option value='pt_BR'>葡萄牙语（巴西）</Select.Option>
                         <Select.Option value='zh_TW'>繁体中文</Select.Option>
                         <Select.Option value='es'>西班牙语</Select.Option>
+                        <Select.Option value='de'>德语</Select.Option>
+                        <Select.Option value='it'>意大利语</Select.Option>
+                        <Select.Option value='fr'>法语</Select.Option>
                     </Select>
                 </div>
                 <LocaleProvider locale={locale}>
