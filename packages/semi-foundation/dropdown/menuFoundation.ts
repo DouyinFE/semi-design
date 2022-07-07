@@ -1,6 +1,6 @@
 
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
-import { handlePrevent, isPrintableCharacter, findIndexByCharacter, getAncestorNodeByRole, getMenuButton, setFocusToFirstItem, setFocusToItem, setFocusToNextMenuitem, setFocusToPreviousMenuItem } from '@douyinfe/semi-foundation/utils/a11y';
+import { handlePrevent, isPrintableCharacter, findIndexByCharacter, getAncestorNodeByRole, getMenuButton, setFocusToFirstItem, setFocusToItem, setFocusToNextMenuitem, setFocusToPreviousMenuItem } from '../utils/a11y';
 
 
 export default class DropdownMenuFoundation extends BaseFoundation<Partial<DefaultAdapter>> {

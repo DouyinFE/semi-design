@@ -498,6 +498,7 @@ function DropdownEvents() {
     - Keyboard users can use the keyboard `Up Arrow` or `Down Arrow` to switch between interactable elements
     - Use the `Enter` key or the `Space` key to activate the focused menu item, if the menu item is bound to onClick, the event will be fired
 - Keyboard users can close the Dropdown by pressing `Esc`, after which the focus returns to the trigger
+- Keyboard interaction does not yet fully support nested scenes
 
 ## Design Tokens
 
