@@ -7,6 +7,7 @@ import warning from '../utils/warning';
 import isNullOrUndefined from '../utils/isNullOrUndefined';
 import { BasicOptionProps } from './optionFoundation';
 import isEnterPress from '../utils/isEnterPress';
+import { handlePrevent } from '../utils/a11y';
 
 export interface SelectAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     getTriggerWidth(): number;
@@ -45,6 +46,11 @@ export interface SelectAdapter<P = Record<string, any>, S = Record<string, any>>
     notifyMouseEnter(event: any): void;
     updateHovering(isHover: boolean): void;
     updateScrollTop(index?: number): void;
+    getContainer(): any;
+    getFocusableElements(node: any): any[];
+    getActiveElement(): any;
+    setIsFocusInContainer(isFocusInContainer: boolean): void;
+    getIsFocusInContainer(): boolean;
 }
 
 type LabelValue = string | number;
@@ -92,7 +98,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
 
     destroy() {
         this._adapter.unregisterClickOutsideHandler();
-        this.unBindKeyBoardEvent();
+        // this.unBindKeyBoardEvent();
     }
 
     _setDropdownWidth() {
@@ -349,19 +355,20 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
     }
 
     close(e?: any) {
+        // to support A11y, closing the panel trigger does not necessarily lose focus
         const isFilterable = this._isFilterable();
         if (isFilterable) {
-            this.unBindKeyBoardEvent();
+            // this.unBindKeyBoardEvent();
             this.clearInput();
-            this.toggle2SearchInput(false);
+            // this.toggle2SearchInput(false);
         }
 
         this._adapter.closeMenu();
         this._adapter.notifyDropdownVisibleChange(false);
-        this.unBindKeyBoardEvent();
-        this._notifyBlur(e);
+        // this.unBindKeyBoardEvent();
+        // this._notifyBlur(e);
         this._adapter.unregisterClickOutsideHandler();
-        this._adapter.updateFocusState(false);
+        // this._adapter.updateFocusState(false);
     }
 
     onSelect(option: BasicOptionProps, optionIndex: number, event: MouseEvent | KeyboardEvent) {
@@ -378,8 +385,10 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
         const isMultiple = this._isMultiple();
         if (!isMultiple) {
             this._handleSingleSelect(option, event);
+            this._focusTrigger();
         } else {
             this._handleMultipleSelect(option, event);
+            this._isFilterable() && this.focusInput();
         }
         this._adapter.updateFocusIndex(optionIndex);
     }
@@ -638,7 +647,8 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
         const key = event.keyCode;
         const { isOpen } = this.getStates();
         const { loading } = this.getProps();
-        if (!isOpen || loading) {
+
+        if (loading) {
             return;
         }
         switch (key) {
@@ -660,13 +670,29 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
             case KeyCode.ENTER:
                 // internal-issues:302
                 // prevent trigger form’s submit when use in form
-                event.preventDefault();
-                event.stopPropagation();
+                handlePrevent(event);
                 this._handleEnterKeyDown(event);
                 break;
             case KeyCode.ESC:
-            case KeyCode.TAB:
                 this.close(event);
+                break;
+            case KeyCode.TAB:
+                // check if slot have focusable element
+                this._handleTabKeyDown(event);
+                break;
+            default:
+                break;
+        }
+    }
+
+    handleContainerKeyDown(event: any) {
+        // when focus in contanier, handle the key down
+        const key = event.keyCode;
+        const { isOpen } = this.getStates();
+
+        switch (key) {
+            case KeyCode.TAB:
+                isOpen && this._handleTabKeyDown(event);
                 break;
             default:
                 break;
@@ -717,26 +743,86 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
     }
 
     _handleArrowKeyDown(offset: number) {
-        this._getEnableFocusIndex(offset);
+        const { isOpen } = this.getStates();
+        isOpen ? this._getEnableFocusIndex(offset) : this.open();
+    }
+
+    _handleTabKeyDown(event: KeyboardEvent){
+        const { filter, multiple } = this.getProps();
+        const { isOpen } = this.getStates();
+
+        if (isOpen){
+            const container = this._adapter.getContainer();
+            const focusableElements = this._adapter.getFocusableElements(container);
+            const focusableNum = focusableElements.length;
+
+            if (focusableNum > 0){
+                // Shift + Tab will move focus backward
+                if (event.shiftKey) {
+                    this._handlePanelOpenShiftTabKeyDown(focusableElements, event);
+                } else {
+                    this._handlePanelOpenTabKeyDown(focusableElements, event);
+                }
+            } else {
+                this.close();
+            }
+        }
+    }
+
+    _handlePanelOpenTabKeyDown(focusableElements: any[], event: any) {
+        const activeElement = this._adapter.getActiveElement();
+        const isFocusInContainer = this._adapter.getIsFocusInContainer();
+        if (!isFocusInContainer){
+            // focus in trigger, set next focus to the first element in container
+            focusableElements[0].focus();
+            this._adapter.setIsFocusInContainer(true);
+            handlePrevent(event);
+        } else if (activeElement === focusableElements[focusableElements.length - 1]) {
+            // focus in the last element in container, focus back to trigger and close panel
+            this._focusTrigger(); 
+            this._adapter.setIsFocusInContainer(false);
+            this.close();
+            handlePrevent(event);
+        }
+    }
+
+    _handlePanelOpenShiftTabKeyDown(focusableElements: any[], event: any) {
+        const activeElement = this._adapter.getActiveElement();
+        const isFocusInContainer = this._adapter.getIsFocusInContainer();
+
+        if (!isFocusInContainer) {
+            // focus in trigger, close the panel
+            this.close();
+        } else if (activeElement === focusableElements[0]) {
+            // focus in the first element in container, focus back to trigger
+            this._focusTrigger(); 
+            this._adapter.setIsFocusInContainer(false);
+            handlePrevent(event);
+        }
     }
 
     _handleEnterKeyDown(event: KeyboardEvent) {
         const { isOpen, options, focusIndex } = this.getStates();
-        if (focusIndex !== -1) {
-            const visibleOptions = options.filter((item: BasicOptionProps) => item._show);
-            const { length } = visibleOptions;
-            // fix issue 1201
-            if (length <= focusIndex) {
-                return;
-            }
-            if (visibleOptions && length) {
-                const selectedOption = visibleOptions[focusIndex];
-                if (selectedOption.disabled) {
+        if (!isOpen){
+            this.open();
+        } else {
+            if (focusIndex !== -1) {
+                const visibleOptions = options.filter((item: BasicOptionProps) => item._show);
+                const { length } = visibleOptions;
+                // fix issue 1201
+                if (length <= focusIndex) {
                     return;
                 }
-                this.onSelect(selectedOption, focusIndex, event);
+                if (visibleOptions && length) {
+                    const selectedOption = visibleOptions[focusIndex];
+                    if (selectedOption.disabled) {
+                        return;
+                    }
+                    this.onSelect(selectedOption, focusIndex, event);
+                }
+            } else {
+                this.close();
             }
-        } else if (isOpen) {
         }
     }
 
@@ -910,10 +996,10 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
         this._adapter.notifyListScroll(e);
     }
 
-    // handleTriggerFocus(e) {
-    //     console.log('handleTriggerFocus');
-    //     this._adapter.updateFocusState(true);
-    // }
+    handleTriggerFocus(e) {
+        this.bindKeyBoardEvent();
+        this._adapter.updateFocusState(true);
+    }
 
     handleTriggerBlur(e: FocusEvent) {
         this._adapter.updateFocusState(false);
@@ -925,6 +1011,10 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
             // blur when autoFocus & not open dropdown yet
             this._notifyBlur(e);
         }
+    }
+
+    handleInputBlur(e: any) {
+        this.toggle2SearchInput(false);
     }
 
     selectAll() {

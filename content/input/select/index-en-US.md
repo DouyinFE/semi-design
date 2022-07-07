@@ -1286,7 +1286,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | clickToHide | When expanded, click on the selection box to automatically put away the drop-down list | boolean | false |
 | defaultValue | Originally selected value when component mount | string\|number\|array |  |
 | defaultOpen | Whether show dropdown when component mounted | boolean | false |
-| defaultActiveFirstOption | Whether to highlight the first option by default (press Enter to select directly) | boolean | false |
+| defaultActiveFirstOption | Whether to highlight the first option by default (press Enter to select directly) | boolean | true |
 | disabled | Whether disabled component | boolean | false |
 | dropdownClassName | ClassName of the pop-up layer | string |  |
 | dropdownMatchSelectWidth | Is the minimum width of the drop-down menu equal to Select | boolean | true |
@@ -1378,6 +1378,23 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 - When multiple selections are made, listbox aria-multiselectable is true, indicating that multiple selections are currently available
 - aria-selected is true when Option is selected; aria-disabled is true when Option is disabled
 
+### Keyboard and Focus
+**Select without Filter:**
+- After Select is focused, keyboard users can open the dropdown menu with the `Up Arrow` or `Down Arrow` or `Enter` keys and automatically focus on the first option in the dropdown menu (`defaultActiveFirstOption` defaults to true)
+- When the dropdown menu is open:
+  - Use `Esc` key or `Tab` key to close the menu
+  - Use `Up Arrow` or `Down Arrow` to toggle options
+  - The focused option can be selected with the Enter key and the panel is collapsed
+- When the focus is on the dropdown menu and the user uses an `innerBottomSlot` or `outerBottomSlot` attribute with a custom slot with an interactive element:
+  - You can use the `Tab` key to switch to these interactive elements
+  - When the focus is on the first interactive element of the custom slot, use `Shift` + `Tab` to return the focus to the Select box
+
+**Select with Filter function:**
+- When Select is focused, keyboard users can open dropdown menus with `Up Arrow` or `Down Arrow` or `Enter` keys. At this point, the focus is still on the Select box, the user can enter content, and can also use the `up arrow` or `down arrow` to switch options
+- When the dropdown menu is open: the keyboard interaction is the same as Select without the Filter function
+- When the focus is on the Select box, and the user uses an `innerBottomSlot` or `outerBottomSlot` property with a custom slot with an interactive element:
+  - You can use the `Tab` key to switch to these interactive elements
+  - When the focus is on the first interactive element of the custom slot, use `Shift` + `Tab` to return the focus to the Select box
 ## Design Tokens
 
 <DesignToken/>

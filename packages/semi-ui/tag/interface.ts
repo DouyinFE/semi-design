@@ -35,6 +35,7 @@ export interface TagProps {
     avatarShape?: AvatarShape;
     onKeyDown?: React.KeyboardEventHandler<HTMLDivElement>;
     'aria-label'?: React.AriaAttributes['aria-label'];
+    tabIndex?: number;
 }
 
 export interface TagGroupProps {

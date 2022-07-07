@@ -1301,7 +1301,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | defaultValue             | 初始选中的值                                                                                                                                                                                              | string\|number\|array                 |                                   |
 | defaultOpen              | 是否默认展开下拉列表                                                                                                                                                                                      | boolean                               | false                             |
 | disabled                 | 是否禁用                                                                                                                                                                                                  | boolean                               | false                             |
-| defaultActiveFirstOption | 是否默认高亮第一个选项（按回车可直接选中）                                                                                                                                                                | boolean                               | false                             |
+| defaultActiveFirstOption | 是否默认高亮第一个选项（按回车可直接选中）                                                                                                                                                                | boolean                               | true                             |
 | dropdownClassName        | 弹出层的 className                                                                                                                                                                                        | string                                |                                   |
 | dropdownMatchSelectWidth | 下拉菜单最小宽度是否等于 Select                                                                                                                                                                           | boolean                               | true                              |
 | dropdownStyle            | 弹出层的样式                                                                                                                                                                                              | object                                |                                   |
@@ -1393,14 +1393,29 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | selectAll | 调用时可以选中所有Option | v1.18.0 |
 
 ## Accessibility
-
 ### ARIA
-
 - Select trigger 的 role 为 combobox，弹出层的 role 为 listbox，可选项的 role 为 option
 - Select trigger 具有 aria-haspopup、aria-expanded、aria-controls 属性，表示 trigger 与弹出层的关系
 - 多选时，listbox aria-multiselectable 为 true，表示当前可以多选
 - Option 选中时，aria-selected 为 true；当 Option 禁用时，aria-disabled 为 true
 
+### 键盘和焦点
+**不带 Filter 功能的 Select：**  
+- Select 聚焦后，键盘用户可以通过 `上箭头` 或 `下箭头` 或 `Enter` 键打开下拉菜单，并将焦点自动聚焦到下拉菜单中的第一个选项上（`defaultActiveFirstOption` 默认为 true）
+- 当下拉菜单打开时：
+  - 使用 `Esc` 键或 `Tab` 键可以关闭菜单
+  - 使用 `上箭头` 或 `下箭头` 可以切换选项
+  - 被聚焦的选项可以通过 Enter 键选中，并收起面板
+- 当焦点在下拉菜单中，且用户使用的 `innerBottomSlot` 或 `outerBottomSlot` 属性的自定义 slot 中含有可交互元素时：
+  - 可以使用 `Tab` 键切换到这些可交互元素上
+  - 当焦点在自定义 slot 的首个可交互元素上时，使用 `Shift` + `Tab` ，焦点回到 Select 框上
+
+**带 Filter 功能的 Select：**  
+- Select 聚焦后，键盘用户可以通过 `上箭头` 或 `下箭头` 或 `Enter` 键打开下拉菜单。此时焦点仍然处于 Select 框，用户可以输入内容，同时也能使用 `上箭头` 或 `下箭头` 切换选项
+- 当下拉菜单打开时：键盘交互与不带 Filter 功能的 Select 一致
+- 当焦点在 Select 框上，且用户使用的 `innerBottomSlot` 或 `outerBottomSlot` 属性的自定义 slot 中含有可交互元素时：
+  - 可以使用 `Tab` 键切换到这些可交互元素上
+  - 当焦点在自定义 slot 的首个可交互元素上时，使用 `Shift` + `Tab` ，焦点回到 Select 框上
 
 ## 设计变量
 <DesignToken/>
