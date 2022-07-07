@@ -428,6 +428,7 @@ class CustomRender extends React.Component {
 |showContentTooltip |When the tag is too long and truncated, when hovering the tag, whether to display all contents through Tooltip     |boolean    | true        |1.21.0|
 |placeholder   |Content to be appear by default                  |string                                                           | -         |1.19.0|
 |prefix        |Prefix                                           |ReactNode                                                        |-          |1.19.0|
+| preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
 |renderTagItem |Customize the rendering of items                 |(value: string, index: number) => React.ReactNode                | -        |1.19.0|
 |separator     |Customize the separator                          |string\|string[]                                                 |,          |1.19.0,string[] is supported since 1.29.0|
 |showClear     |Whether to show the clear button                 |boolean                                                          |false      |1.19.0|

@@ -1321,6 +1321,7 @@ function Demo() {
 | outerTopSlot| Rendered at the top of the pop-up layer, custom slot level with optionList. If turn on filterTreeNode, it will replace search box as well. You could use static search method to customize instead. |  ReactNode  |  - | 1.9.0|
 | placeholder              | Placeholder for input box                                                           | string                                                            | -           | -       |
 | prefix                   | Prefix                                                                              | ReactNode                                                         | -           | 0.28.0  |
+| preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
 | renderFullLabel | Custom option render function, [Detailed Params and Usage](/en-US/navigation/tree#Advanced%20FullRender) | (obj) => ReactNode | 1.7.0 |
 | renderLabel | Custom label render function | (label:ReactNode, data:TreeNode) => ReactNode | 1.6.0 | 
 | renderSelectedItem | render selected item | Function | - | 1.26.0 | 

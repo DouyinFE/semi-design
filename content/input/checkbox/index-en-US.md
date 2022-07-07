@@ -408,6 +408,7 @@ import { CheckboxGroup, Checkbox, Row, Col } from '@douyinfe/semi-ui';
 | extraId        | id of extra node. aria-describedby refers to this id, if not set, it will randomly generate an id <br/>**provided after v2.11.0**                     | ReactNode         | -      |
 | value          | The value that the checkbox represents in the CheckboxGroup  | any | - |
 | indeterminate  | Set to indeterminate state, style control only               | boolean            | false   |
+| preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
 | onChange       | Callback function when change                                | function(e: Event) | -       |
 
 ### CheckboxGroup

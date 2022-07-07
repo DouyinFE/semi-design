@@ -1302,6 +1302,7 @@ function Demo() {
 | outerTopSlot| 渲染在弹出层顶部，与 optionList 平级的自定义 slot，注意如果开启了 filterTreeNode 会取代搜索框，可以通过 search 方法来自行处理 |  ReactNode  |  - | 1.9.0|
 | placeholder | 选择框默认文字 | string | - | - |
 | prefix | 前缀标签 | ReactNode | - |0.28.0 |
+| preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法 | boolean |  |  |
 | renderFullLabel | 完全自定义label的渲染函数，[入参及用法详见](/zh-CN/navigation/tree#高级定制) | (obj) => ReactNode | - | 1.7.0 | 
 | renderLabel | 自定义label的渲染函数，[入参及用法详见](/zh-CN/navigation/tree#自定义节点内容)  | (label:ReactNode, data:TreeNode) => ReactNode | - | 1.6.0 | 
 | renderSelectedItem | 自定义渲染已选项 | Function | - | 1.26.0 | 

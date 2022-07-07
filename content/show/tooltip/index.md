@@ -445,6 +445,7 @@ function Demo() {
 | motion | 是否展示弹出层动画 | boolean\|object | true |  |
 | position | 弹出层展示位置，可选值：`top`, `topLeft`, `topRight`, `left`, `leftTop`, `leftBottom`, `right`, `rightTop`, `rightBottom`, `bottom`, `bottomLeft`, `bottomRight` | string | 'top' |  |
 | prefixCls | 弹出层 wrapper div 的 `className` 前缀，设置该项时，弹出层将不再带 Tooltip 的样式 | string | 'semi-tooltip' |  |
+| preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法 | boolean |  |  |
 | rePosKey | 可以更新该项值手动触发弹出层的重新定位 | string\|number |  |  |
 | style    | 弹出层的内联样式 | object |  |  |
 | spacing | 弹出层与 `children` 元素的距离，单位 px | number | 8 |  |

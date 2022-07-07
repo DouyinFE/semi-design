@@ -412,6 +412,7 @@ import { Popconfirm, Tooltip, Button } from '@douyinfe/semi-ui';
 | motion | Whether to show the pop-up motion | boolean | true |  |
 | position | Pop-up layer display position, optional value: `top`, `topLeft`, `topRight`, `left`, `leftTop`, `leftBottom`, `right`, `rightTop`, `rightBottom`, `bottom`, `bottomLeft`, `bottomRight` | string | 'top' |  |
 | prefixCls | The `className` prefix of the pop-up layer wrapper div. When this item is set, the pop-up layer will no longer have the style of Tooltip. | string | 'semi-tooltip ' |  |
+| preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
 | rePosKey | This value can be updated to manually trigger the repositioning of the pop-up layer. | string | number |  |
 | style | Pop-up layer inline style | object |  |  |
 | spacing | The distance between the pop-up layer and the `children` element | number |  |  |
