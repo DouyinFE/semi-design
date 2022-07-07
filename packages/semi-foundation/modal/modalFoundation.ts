@@ -54,6 +54,7 @@ export interface ModalProps {
     keepDOM?: boolean;
     direction?: any;
     fullScreen?: boolean;
+    preventScroll?: boolean;
 }
 
 export interface ModalState {

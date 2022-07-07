@@ -26,6 +26,7 @@ export interface CheckboxInnerProps {
     focusInner?: boolean;
     onInputFocus?: (e: any) => void;
     onInputBlur?: (e: any) => void;
+    preventScroll?: boolean;
 }
 
 class CheckboxInner extends PureComponent<CheckboxInnerProps> {
@@ -49,6 +50,7 @@ class CheckboxInner extends PureComponent<CheckboxInnerProps> {
         focusInner: PropTypes.bool,
         onInputFocus: PropTypes.func,
         onInputBlur: PropTypes.func,
+        preventScroll: PropTypes.bool,
     };
 
     static defaultProps = {
@@ -61,7 +63,8 @@ class CheckboxInner extends PureComponent<CheckboxInnerProps> {
     }
 
     focus() {
-        this.inputEntity.focus();
+        const { preventScroll } = this.props;
+        this.inputEntity.focus({ preventScroll });
     }
 
     render() {

@@ -44,6 +44,7 @@ export type RadioProps = {
     addonId?: string;
     extraId?: string;
     name?: string;
+    preventScroll?: boolean;
 };
 
 export interface RadioState {
@@ -77,6 +78,7 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
         addonClassName: PropTypes.string,
         type: PropTypes.oneOf([strings.TYPE_DEFAULT, strings.TYPE_BUTTON, strings.TYPE_CARD, strings.TYPE_PURECARD]), // Button style type
         'aria-label': PropTypes.string,
+        preventScroll: PropTypes.bool,
     };
 
     static defaultProps: Partial<RadioProps> = {

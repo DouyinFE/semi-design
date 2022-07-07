@@ -168,6 +168,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         disableStrictly: PropTypes.bool,
         leafOnly: PropTypes.bool,
         enableLeafClick: PropTypes.bool,
+        preventScroll: PropTypes.bool,
     };
 
     static defaultProps = {
@@ -268,15 +269,16 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                 this.setState({ inputPlaceHolder: value });
             },
             focusInput: () => {
+                const { preventScroll } = this.props;
                 if (this.inputRef && this.inputRef.current) {
                     // TODO: check the reason
-                    (this.inputRef.current as any).focus();
+                    (this.inputRef.current as any).focus({ preventScroll });
                 }
             },
         };
         const cascaderAdapter: Pick<
-            CascaderAdapter,
-            'registerClickOutsideHandler' | 'unregisterClickOutsideHandler' | 'rePositionDropdown'
+        CascaderAdapter,
+        'registerClickOutsideHandler' | 'unregisterClickOutsideHandler' | 'rePositionDropdown'
         > = {
             registerClickOutsideHandler: cb => {
                 const clickOutsideHandler = (e: Event) => {
@@ -869,22 +871,22 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         const classNames = useCustomTrigger
             ? cls(className)
             : cls(prefixcls, className, {
-                  [`${prefixcls}-focus`]: isFocus || (isOpen && !isInput),
-                  [`${prefixcls}-disabled`]: disabled,
-                  [`${prefixcls}-single`]: true,
-                  [`${prefixcls}-filterable`]: filterable,
-                  [`${prefixcls}-error`]: validateStatus === 'error',
-                  [`${prefixcls}-warning`]: validateStatus === 'warning',
-                  [`${prefixcls}-small`]: size === 'small',
-                  [`${prefixcls}-large`]: size === 'large',
-                  [`${prefixcls}-with-prefix`]: prefix || insetLabel,
-                  [`${prefixcls}-with-suffix`]: suffix,
-              });
+                [`${prefixcls}-focus`]: isFocus || (isOpen && !isInput),
+                [`${prefixcls}-disabled`]: disabled,
+                [`${prefixcls}-single`]: true,
+                [`${prefixcls}-filterable`]: filterable,
+                [`${prefixcls}-error`]: validateStatus === 'error',
+                [`${prefixcls}-warning`]: validateStatus === 'warning',
+                [`${prefixcls}-small`]: size === 'small',
+                [`${prefixcls}-large`]: size === 'large',
+                [`${prefixcls}-with-prefix`]: prefix || insetLabel,
+                [`${prefixcls}-with-suffix`]: suffix,
+            });
         const mouseEvent = showClear
             ? {
-                  onMouseEnter: () => this.handleMouseOver(),
-                  onMouseLeave: () => this.handleMouseLeave(),
-              }
+                onMouseEnter: () => this.handleMouseOver(),
+                onMouseLeave: () => this.handleMouseLeave(),
+            }
             : {};
         const sectionCls = cls(`${prefixcls}-selection`, {
             [`${prefixcls}-selection-multiple`]: multiple && !isEmpty(checkedKeys),
@@ -892,14 +894,14 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         const inner = useCustomTrigger
             ? this.renderCustomTrigger()
             : [
-                  <Fragment key={'prefix'}>{prefix || insetLabel ? this.renderPrefix() : null}</Fragment>,
-                  <Fragment key={'selection'}>
-                      <div className={sectionCls}>{this.renderSelectContent()}</div>
-                  </Fragment>,
-                  <Fragment key={'clearbtn'}>{this.renderClearBtn()}</Fragment>,
-                  <Fragment key={'suffix'}>{suffix ? this.renderSuffix() : null}</Fragment>,
-                  <Fragment key={'arrow'}>{this.renderArrow()}</Fragment>,
-              ];
+                <Fragment key={'prefix'}>{prefix || insetLabel ? this.renderPrefix() : null}</Fragment>,
+                <Fragment key={'selection'}>
+                    <div className={sectionCls}>{this.renderSelectContent()}</div>
+                </Fragment>,
+                <Fragment key={'clearbtn'}>{this.renderClearBtn()}</Fragment>,
+                <Fragment key={'suffix'}>{suffix ? this.renderSuffix() : null}</Fragment>,
+                <Fragment key={'arrow'}>{this.renderArrow()}</Fragment>,
+            ];
         /**
          * Reasons for disabling the a11y eslint rule:
          * The following attributes(aria-controls,aria-expanded) will be automatically added by Tooltip, no need to declare here

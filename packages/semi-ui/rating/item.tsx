@@ -27,6 +27,7 @@ export interface RatingItemProps extends BaseProps {
     'aria-describedby'?: React.AriaAttributes['aria-describedby'];
     onFocus?: (e: React.FocusEvent) => void;
     onBlur?: (e: React.FocusEvent) => void;
+    preventScroll?: boolean;
 }
 
 export interface RatingItemState {
@@ -54,6 +55,7 @@ export default class Item extends BaseComponent<RatingItemProps, RatingItemState
         'aria-describedby': PropTypes.string,
         onFocus: PropTypes.func,
         onBlur: PropTypes.func,
+        preventScroll: PropTypes.bool,
     };
 
     foundation: RatingItemFoundation;
@@ -117,11 +119,11 @@ export default class Item extends BaseComponent<RatingItemProps, RatingItemState
     };
 
     starFocus = () => {
-        const { value, index } = this.props;
+        const { value, index, preventScroll } = this.props;
         if (value - index === 0.5) {
-            this.firstStar.focus();
+            this.firstStar.focus({ preventScroll });
         } else {
-            this.secondStar.focus();
+            this.secondStar.focus({ preventScroll });
         }
     }
 

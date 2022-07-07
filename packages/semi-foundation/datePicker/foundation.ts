@@ -162,6 +162,7 @@ export interface DatePickerFoundationProps extends ElementProps, RenderProps, Ev
     localeCode?: string;
     rangeSeparator?: string;
     insetInput?: boolean;
+    preventScroll?: boolean;
 }
 
 export interface DatePickerFoundationState {
