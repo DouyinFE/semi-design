@@ -44,7 +44,7 @@ const local: Locale = {
         year: 'Jahr',
         month: 'Monat',
         day: 'Tag',
-        monthText: '${Monat} ${Jahr}',
+        monthText: '${month} ${year}',
         months: {
             1: 'Jan',
             2: 'Feb',
