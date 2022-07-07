@@ -34,6 +34,7 @@ export interface TagProps {
     avatarSrc?: string;
     avatarShape?: AvatarShape;
     'aria-label'?: React.AriaAttributes['aria-label'];
+    tabIndex?: number;
 }
 
 export interface TagGroupProps {

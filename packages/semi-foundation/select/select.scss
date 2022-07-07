@@ -27,15 +27,15 @@ $multiple: #{$module}-multiple;
         border: $width-select-border-hover solid $color-select-border-hover;
     }
 
-    &:active {
-        background-color: $color-select-bg-active;
-        border: $width-select-border-active solid $color-select-border-active;
-    }
+    // &:active {
+    //     background-color: $color-select-bg-active;
+    //     border: $width-select-border-active solid $color-select-border-active;
+    // }
 
-    &:focus {
-        border: $width-select-border-focus solid $color-select-border-focus;
-        outline: 0;
-    }
+    // &:focus {
+    //     border: $width-select-border-focus solid $color-select-border-focus;
+    //     outline: 0;
+    // }
 
     &-small {
         height: $height-select_small;
@@ -50,7 +50,13 @@ $multiple: #{$module}-multiple;
         }
     }
 
-    &-open,
+    &-open {
+        &:hover {
+            background-color: $color-select-bg-default;
+            border: $border-thickness-control-focus solid $color-select_default-border-focus;
+        }
+    }
+    
     &-focus {
         border: $border-thickness-control-focus solid $color-select_default-border-focus;
         outline: 0;
@@ -111,7 +117,8 @@ $multiple: #{$module}-multiple;
         }
 
         &:focus {
-            border: $border-thickness-control-focus solid $color-select_default-border-focus;
+            // border: $border-thickness-control-focus solid $color-select_default-border-focus;
+            border: $border-thickness-control-focus solid transparent;
         }
 
         .#{$module}-selection,
