@@ -25,6 +25,7 @@ export interface DropdownItemProps extends BaseProps {
 const prefixCls = css.PREFIX;
 
 class DropdownItem extends BaseComponent<DropdownItemProps> {
+
     static propTypes = {
         children: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
         name: PropTypes.string,
@@ -93,7 +94,7 @@ class DropdownItem extends BaseComponent<DropdownItemProps> {
             );
         }
         return (
-            <li role="menuitem" {...events} ref={ref => forwardRef(ref)} className={itemclass} style={style}>
+            <li role="menuitem" tabIndex={-1} aria-disabled={disabled} {...events} ref={ref => forwardRef(ref)} className={itemclass} style={style}>
                 {tick}
                 {iconContent}
                 {children}

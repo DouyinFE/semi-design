@@ -58,6 +58,8 @@ export interface DropdownProps extends TooltipProps {
     onVisibleChange?: (visible: boolean) => void;
     rePosKey?: string | number;
     showTick?: boolean;
+    closeOnEsc?: TooltipProps['closeOnEsc'];
+    onEscKeyDown?: TooltipProps['onEscKeyDown'];
 }
 
 interface DropdownState {
@@ -106,6 +108,8 @@ class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
         position: 'bottom',
         mouseLeaveDelay: strings.DEFAULT_LEAVE_DELAY,
         showTick: false,
+        closeOnEsc: true,
+        onEscKeyDown: noop,
     };
 
     constructor(props: DropdownProps) {
@@ -131,10 +135,10 @@ class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
     handleVisibleChange = (visible: boolean) => this.foundation.handleVisibleChange(visible);
 
     renderContent() {
-        const { render, menu, contentClassName, style, showTick, prefixCls } = this.props;
+        const { render, menu, contentClassName, style, showTick, prefixCls, trigger } = this.props;
         const className = classnames(prefixCls, contentClassName);
         const { level = 0 } = this.context;
-        const contextValue = { showTick, level: level + 1 };
+        const contextValue = { showTick, level: level + 1, trigger };
         let content = null;
         if (React.isValidElement(render)) {
             content = render;
@@ -233,6 +237,7 @@ class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
                 trigger={trigger}
                 onVisibleChange={this.handleVisibleChange}
                 showArrow={false}
+                returnFocusOnClose={true}
                 {...attr}
             >
                 {React.isValidElement(children) ?
@@ -240,6 +245,9 @@ class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
                         className: classnames(get(children, 'props.className'), {
                             [`${prefixCls}-showing`]: popVisible,
                         }),
+                        'aria-haspopup': true,
+                        'aria-expanded': popVisible,
+                        onKeyDown: e => this.foundation.handleKeyDown(e)
                     }) :
                     children}
             </Tooltip>
