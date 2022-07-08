@@ -876,9 +876,9 @@ describe('Select', () => {
         // Since there is no mechanism such as event bubbling in enzyme + jsdom, the blur event can only be triggered manually on the blur element,
         // and the blur of the `a element` cannot be achieved through the focus `b element`.
 
-        // blur usually call when popover close, so use select instance close() method to mock blur click like use in browser
+        // Adapt to A11y requirements, close the panel will not call the onBlur func 
         select.instance().close();
-        expect(spyOnBlur.callCount).toEqual(1);
+        expect(spyOnBlur.callCount).toEqual(0);
         select.unmount();
     });
 
@@ -1076,9 +1076,11 @@ describe('Select', () => {
         };
         let select = getSelect(props);
         // press ⬇️
+        // since the defaultActiveFirstOption default to be true, after ⬇️, the second option focused
         select.find(`.${BASE_CLASS_PREFIX}-select`).simulate('keydown', { keyCode: keyCode.DOWN });
-        expect(select.find(`.${BASE_CLASS_PREFIX}-select-option`).at(0).hasClass(`${BASE_CLASS_PREFIX}-select-option-focused`)).toBe(true);
+        expect(select.find(`.${BASE_CLASS_PREFIX}-select-option`).at(1).hasClass(`${BASE_CLASS_PREFIX}-select-option-focused`)).toBe(true);
         // press ⬆️
+        select.find(`.${BASE_CLASS_PREFIX}-select`).simulate('keydown', { keyCode: keyCode.UP });
         select.find(`.${BASE_CLASS_PREFIX}-select`).simulate('keydown', { keyCode: keyCode.UP });
         expect(select.find(`.${BASE_CLASS_PREFIX}-select-option`).at(defaultList.length-1).hasClass(`${BASE_CLASS_PREFIX}-select-option-focused`)).toBe(true);
         // press ESC
