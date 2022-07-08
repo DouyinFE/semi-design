@@ -65,6 +65,7 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
         closeOnEsc: PropTypes.bool,
         footer: PropTypes.node,
         keepDOM: PropTypes.bool,
+        lazyRender: PropTypes.bool,
         'aria-label': PropTypes.string,
     };
 
@@ -81,6 +82,7 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
         disableScroll: true,
         closeOnEsc: false,
         afterVisibleChange: noop,
+        lazyRender: false,
         keepDOM: false
     };
     private _active: boolean;
@@ -155,7 +157,7 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
     }
 
     componentDidUpdate(prevProps: SideSheetReactProps, prevState: SideSheetState, snapshot: any) {
-        // hide => show
+    // hide => show
         if (!prevProps.visible && this.props.visible) {
             this.foundation.beforeShow();
         }
@@ -194,6 +196,7 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
             zIndex,
             getPopupContainer,
             keepDOM,
+            lazyRender,
             ...props
         } = this.props;
         const { direction } = this.context;
@@ -220,7 +223,7 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
 
         const mergedMotion = this.foundation.getMergedMotion();
         this._active = this._active || visible;
-        const shouldRender = (visible || keepDOM) && this._active;
+        const shouldRender = ((visible || keepDOM) && (!lazyRender || this._active)) || !this.state.hidden;
         if (mergedMotion) {
             return (
                 <SideSheetTransition placement={placement} motion={mergedMotion} controlled={keepDOM} visible={visible}>

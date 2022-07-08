@@ -316,4 +316,42 @@ describe('SideSheet', () => {
         sideSheet.unmount();
     });
 
+   it('keepDOM && not lazy', () => {
+    let com = getSideSheet({ keepDOM: true, placement: 'top'});
+    let sideSheet = mount(com, { attachTo: document.getElementById('container') });
+    // init
+    expect(sideSheet.exists(`div.${BASE_CLASS_PREFIX}-sidesheet`)).toEqual(true);
+    // set true
+    sideSheet.setProps({ visible: true });
+    sideSheet.update(); // 必须调用一次update
+    expect(sideSheet.exists(`.${BASE_CLASS_PREFIX}-sidesheet-top`)).toEqual(true);
+    expect(sideSheet.find(`.${BASE_CLASS_PREFIX}-sidesheet-inner`)).not.toHaveStyle({ transform: 'translateY(-100%)' });
+    expect(document.body.style.overflow).toEqual('hidden');
+
+    // set false but still exist
+    sideSheet.setProps({ visible: false });
+    sideSheet.update(); // 必须调用一次update
+    expect(sideSheet.state().hidden).toEqual(false);
+    expect(sideSheet.exists(`div.${BASE_CLASS_PREFIX}-sidesheet`)).toEqual(true);
+
+  });
+
+  it('keepDOM + lazyRender', () => {
+    let com = getSideSheet({ keepDOM: true, lazyRender: true});
+    let sideSheet = mount(com, { attachTo: document.getElementById('container') });
+    // init
+    expect(sideSheet.exists(`div.${BASE_CLASS_PREFIX}-sidesheet`)).toEqual(false);
+    // set true
+    sideSheet.setProps({ visible: true });
+    sideSheet.update(); // 必须调用一次update
+    expect(sideSheet.exists(`.${BASE_CLASS_PREFIX}-sidesheet-right`)).toEqual(true);
+    expect(document.body.style.overflow).toEqual('hidden');
+
+    // set false but still exist
+    sideSheet.setProps({ visible: false });
+    sideSheet.update(); // 必须调用一次update
+    expect(sideSheet.state().hidden).toEqual(false);
+    expect(sideSheet.exists(`div.${BASE_CLASS_PREFIX}-sidesheet`)).toEqual(true);
+  });
+
 })

@@ -312,6 +312,7 @@ class Demo extends React.Component {
 | headerStyle | Header style | CSSProperties | - | 1.0.0 |
 | height | Height, takes effect when `placement` is set to `top` or `bottom` | number \| string | 400 | - |
 | keepDOM | Keep components inside when closing sideSheet<br/>**v1.18.0 provided** | boolean | false |
+| lazyRender | Lazy render modal, used with `keepDOM` <br/>**v1.18.0 provided**  | boolean | false |
 | mask | Toggle whether to show mask. After `v0.29.0`, when `mask={false}`, you could continue operations outside SideSheet | boolean | true | - |
 | maskClosable | Toggle whether to allow closing when clicking mask | boolean | true | - |
 | maskStyle | Mask style | CSSProperties | - | - |

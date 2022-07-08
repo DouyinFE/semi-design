@@ -307,6 +307,57 @@ SidesheetGetpopupcontanierAndNonBlocking.story = {
   name: 'sidesheet getpopupcontanier and non-blocking',
 };
 
+
+export const KeepDomAndlazyRender = () => {
+  const [visible, setVisible] = useState(false);
+
+  const handleCancel = e => {
+    console.log('cancelling');
+    setVisible(false);
+  };
+
+  return (
+    <React.Fragment>
+      <Button onClick={() => setVisible(true)}>show sideSheet</Button>
+      <SideSheet visible={visible} onCancel={handleCancel} keepDOM lazyRender>
+        keepDOM && lazyRender
+      </SideSheet>
+    </React.Fragment>
+  );
+};
+
+KeepDomAndlazyRender.story = {
+  name: 'keepDOM && lazyRender',
+};
+
+export const KeepDomNotLazy  = () => {
+  const [visible, setVisible] = useState(false);
+
+  const handleCancel = e => {
+    console.log('cancelling');
+    setVisible(false);
+  };
+
+  return (
+    <React.Fragment>
+      <Button onClick={() => setVisible(true)}>show sideSheet</Button>
+      <SideSheet
+        visible={visible}
+        onCancel={handleCancel}
+        lazyRender={false}
+        keepDOM
+      >
+        keepDOM && not lazy
+      </SideSheet>
+    </React.Fragment>
+  );
+};
+
+KeepDomNotLazy.story = {
+  name: 'keepDOM && not lazy',
+};
+
+
 const WithFooter = () => {
   const [visible, setVisible] = useState(false);
   const handleCancel = e => {

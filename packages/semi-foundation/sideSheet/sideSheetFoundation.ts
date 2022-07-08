@@ -16,6 +16,7 @@ export interface SideSheetProps {
     headerStyle?: Record<string, any>;
     height?: number | string;
     keepDOM?: boolean;
+    lazyRender?: boolean;
     mask?: boolean;
     maskClosable?: boolean;
     maskStyle?: Record<string, any>;
