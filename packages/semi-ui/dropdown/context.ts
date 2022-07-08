@@ -1,5 +1,5 @@
 import React from 'react';
-import { TooltipProps } from 'tooltip';
+import { TooltipProps } from '../tooltip/index';
 
 export interface DropdownContextType {
     level?: number;

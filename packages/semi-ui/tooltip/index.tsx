@@ -76,7 +76,6 @@ export interface TooltipProps extends BaseProps {
     returnFocusOnClose?: boolean;
     onEscKeyDown?: (e: React.KeyboardEvent) => void;
     wrapperId?: string;
-    onKeyDown?: (e: React.KeyboardEvent) => void;
 }
 interface TooltipState {
     visible: boolean;
@@ -161,7 +160,6 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         guardFocus: false,
         returnFocusOnClose: false,
         onEscKeyDown: noop,
-        onKeyDown: noop,
     };
 
     eventManager: Event;
@@ -617,7 +615,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
     };
 
     wrapSpan = (elem: React.ReactNode | React.ReactElement) => {
-        const { wrapperClassName, onKeyDown } = this.props;
+        const { wrapperClassName } = this.props;
         const display = get(elem, 'props.style.display');
         const block = get(elem, 'props.block');
 
@@ -630,7 +628,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         }
 
         // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-        return <span className={wrapperClassName} style={style} onKeyDown={onKeyDown}>{elem}</span>;
+        return <span className={wrapperClassName} style={style}>{elem}</span>;
     };
 
     mergeEvents = (rawEvents: Record<string, any>, events: Record<string, any>) => {

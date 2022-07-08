@@ -239,7 +239,6 @@ class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
                 showArrow={false}
                 returnFocusOnClose={true}
                 {...attr}
-                onKeyDown={e => this.foundation.handleKeyDown(e)}
             >
                 {React.isValidElement(children) ?
                     React.cloneElement(children, {
