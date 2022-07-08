@@ -864,6 +864,10 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
     };
 
     search = (value: string) => {
+        const { isOpen } = this.state;
+        if (!isOpen) {
+            this.foundation.open();
+        }
         this.foundation.handleInputChange(value);
     };
 
