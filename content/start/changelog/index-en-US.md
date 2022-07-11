@@ -16,6 +16,21 @@ Version：Major.Minor.Patch
 
 ---
 
+#### 🎉 2.15.0-beta.0 (2022-07-11)
+- 【Feat】
+    - support German, Italian and French [@jacob-lcs](https://github.com/jacob-lcs)
+    - Dropdown add A11y keyboard and focus adaptation  [#205 ](https://github.com/DouyinFE/semi-design/issues/205)
+    - Components such as Cascader add the preventScroll property to prevent the focus method in the component from causing the page to scroll
+    - Rating adds A11y focus and keyboard adaptation
+    - returnFocusOnClose supports trigger hover and focus
+- 【Fix】
+    - fix the problem that when the search box is in the trigger and there is a value in the search box, the second click will cause the search box to collapse and clear the search value.
+    - fix the display error of single selection when setting filterTreeNode & displayRender at the same time
+    - fix list empty padding [@rojer95](https://github.com/rojer95)
+    - Fixed InputGroup setting disabled to false in the child does not take effect
+    - fix the case-sensitive issue of tree search highlighting result
+    - Fixed the virtual list occupying problem when virtualizing Table empty data [#942](https://github.com/DouyinFE/semi-design/issues/942)
+
 #### 🎉 2.14.0 (2022-07-01)
 - 【Fix】
     - Fix the issue that the Spin component has black rectangles in some scene contents in dark mode
