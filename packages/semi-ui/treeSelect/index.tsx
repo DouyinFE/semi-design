@@ -265,7 +265,6 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         motionExpand: true,
         expandAll: false,
         zIndex: popoverNumbers.DEFAULT_Z_INDEX,
-        disabled: false,
         disableStrictly: false,
         multiple: false,
         filterTreeNode: false,
@@ -864,6 +863,10 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
     };
 
     search = (value: string) => {
+        const { isOpen } = this.state;
+        if (!isOpen) {
+            this.foundation.open();
+        }
         this.foundation.handleInputChange(value);
     };
 

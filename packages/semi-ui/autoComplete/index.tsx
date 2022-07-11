@@ -169,7 +169,6 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
         position: 'bottomLeft' as const,
         data: [] as [],
         showClear: false,
-        disabled: false,
         size: 'default' as const,
         onFocus: noop,
         onSearch: noop,

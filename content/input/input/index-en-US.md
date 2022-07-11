@@ -457,7 +457,7 @@ Answers to some questions:
 
 ### InputGroup
 
-Common attributes will be set to the child elements of InputGroup, such as disabled, onFocus, etc. If the child sets the same attribute separately, the child has a higher priority.
+Common attributes will be set to the child elements of InputGroup, such as disabled, onFocus, etc. If you set onFocus, onBlur or disabled on the child, it will override the corresponding property value of InputGroup.
 
 
 | Property      | Instructions                                | Type                                                          | Default |

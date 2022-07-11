@@ -126,7 +126,6 @@ class Input extends BaseComponent<InputProps, InputState> {
         addonAfter: '',
         prefix: '',
         suffix: '',
-        disabled: false,
         readonly: false,
         type: 'text',
         showClear: false,

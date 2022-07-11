@@ -99,7 +99,6 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
     };
 
     static defaultProps: InputNumberProps = {
-        disabled: false,
         forwardedRef: noop,
         innerButtons: false,
         keepFocus: false,

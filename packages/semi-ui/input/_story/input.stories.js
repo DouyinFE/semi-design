@@ -22,7 +22,8 @@ import {
   Switch,
   Form,
   Space,
-  Radio
+  Radio,
+  InputNumber
 } from '../../index';
 import './input.scss';
 import RTLWrapper from '../../configProvider/_story/RTLDirection/RTLWrapper';
@@ -936,3 +937,25 @@ export const InputA11y = () => {
   );
 }
 InputA11y.storyName = "input a11y";
+
+export const FixInputGroup = () => {
+  const groupFocus = () => {
+    console.log('group focus');
+  }
+  const groupBlur = () => {
+    console.log('group blur');
+  }
+  const inputFocus = () => {
+    console.log('input focus');
+  }
+  const inputBlur = () => {
+    console.log('input blur');
+  }
+
+  return (
+    <InputGroup disabled={true} onFocus={groupFocus} onBlur={groupBlur}>
+        <Input disabled={false} onFocus={inputFocus} onBlur={inputBlur} placeholder="Name" style={{ width: 100 }} />
+        <InputNumber placeholder="Score" style={{ width: 140 }} />
+    </InputGroup>
+  );
+}
