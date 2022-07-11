@@ -21,10 +21,10 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
     - Dropdown 新增 A11y 键盘和焦点适配   [#205 ](https://github.com/DouyinFE/semi-design/issues/205)
     - Cascader 等 15 组件新增 preventScroll 属性，用于阻止组件内 focus 方法导致页面滚动
     - Rating 新增 A11y 焦点及键盘适配
-    - returnFocusOnClose 支持trigger hover和focus
+    - Tooltip returnFocusOnClose 支持trigger hover和focus
 - 【Fix】
-    - 修复当搜索框在trigger中且搜索框中有值时，二次点击会导致搜索框收起并清空搜索值的问题。
-    - 修复单选状态下同时设置filterTreeNode & displayRender，选项显示错误问题
+    - 修复 TreeSelect 当搜索框在trigger中且搜索框中有值时，二次点击会导致搜索框收起并清空搜索值的问题。
+    - 修复 Cascader 单选状态下同时设置filterTreeNode & displayRender，选项显示错误问题
     - 修复 List 空状态 Padding 问题 [@rojer95](https://github.com/rojer95)
     - 修复 InputGroup 在子级设置 disabled 为 false 不生效问题
     - 修复Tree搜索结果高亮大小写敏感问题
