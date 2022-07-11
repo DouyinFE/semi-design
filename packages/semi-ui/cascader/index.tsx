@@ -180,7 +180,6 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         showClear: false,
         autoClearSearchValue: true,
         changeOnSelect: false,
-        disabled: false,
         disableStrictly: false,
         autoMergeValue: true,
         multiple: false,
