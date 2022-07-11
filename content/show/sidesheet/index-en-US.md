@@ -300,31 +300,31 @@ class Demo extends React.Component {
 ## API Reference
 
 | Properties | Instructions | type | Default | Version |
-| --- | --- | --- | --- | --- |
-| afterVisibleChange | Callback function when animation of SideSheet ends | (isVisble: boolean) => void | - | 1.0.0 |
-| bodyStyle | Content style | CSSProperties | - | - |
-| className | Class name | string | - | - |
-| closable | Toggle whether to show close button | boolean | true | - |
-| closeOnEsc | oggle whether to allow close modal by keyboard event Esc | boolean | false | 1.0.0 |
-| disableScroll | Toggle whether to add `overflow: hidden` to document.body element. Only works when not setting `getPopupContainer` | boolean | true | - |
-| footer | Footer | ReactNode | null | 1.3.0 |
-| getPopupContainer | Container where to render SideSheet inside, you need to set 'position: relative` | () => HTMLElement | - | 0.29.0 |
-| headerStyle | Header style | CSSProperties | - | 1.0.0 |
-| height | Height, takes effect when `placement` is set to `top` or `bottom` | number \| string | 400 | - |
-| keepDOM | Keep components inside when closing sideSheet<br/>**v1.18.0 provided** | boolean | false |
-| lazyRender | Lazy render modal, used with `keepDOM` <br/>**v1.18.0 provided**  | boolean | false |
-| mask | Toggle whether to show mask. After `v0.29.0`, when `mask={false}`, you could continue operations outside SideSheet | boolean | true | - |
-| maskClosable | Toggle whether to allow closing when clicking mask | boolean | true | - |
-| maskStyle | Mask style | CSSProperties | - | - |
+| --- | --- | --- |---------| --- |
+| afterVisibleChange | Callback function when animation of SideSheet ends | (isVisble: boolean) => void | -       | 1.0.0 |
+| bodyStyle | Content style | CSSProperties | -       | - |
+| className | Class name | string | -       | - |
+| closable | Toggle whether to show close button | boolean | true    | - |
+| closeOnEsc | oggle whether to allow close modal by keyboard event Esc | boolean | false   | 1.0.0 |
+| disableScroll | Toggle whether to add `overflow: hidden` to document.body element. Only works when not setting `getPopupContainer` | boolean | true    | - |
+| footer | Footer | ReactNode | null    | 1.3.0 |
+| getPopupContainer | Container where to render SideSheet inside, you need to set 'position: relative` | () => HTMLElement | -       | 0.29.0 |
+| headerStyle | Header style | CSSProperties | -       | 1.0.0 |
+| height | Height, takes effect when `placement` is set to `top` or `bottom` | number \| string  | 400 | - |
+| keepDOM | Keep components inside when closing sideSheet<br/>**v1.18.0 provided** | boolean | false   |
+| lazyRender | Lazy render modal, used with `keepDOM` <br/>**v2.15.0-beta.0 provided**  | boolean | true    |
+| mask | Toggle whether to show mask. After `v0.29.0`, when `mask={false}`, you could continue operations outside SideSheet | boolean | true    | - |
+| maskClosable | Toggle whether to allow closing when clicking mask | boolean | true    | - |
+| maskStyle | Mask style | CSSProperties | -       | - |
 | motion | Toggle whether to turn on animation | object \| boolean | true | - |
 | placement | Sliding position, one of `top`, `bottom`, `left`, `right` | string | `right` | - |
 | size | Size, one of `small`(400px)， `medium`(684px), `large`(920px), only take effects when placement is set to `left` or `right` | string | `small` | 0.29.0 |
-| style | Inline style | CSSProperties | - | - |
-| title | Title | ReactNode | - | - |
-| visible | Toggle visibility of the SideSheet | boolean | false | - |
-| width | Width, takes effect when `placement` is set to `left` or `right` | number \| string | 448 | - |
-| zIndex | Z-index value for SideSheet | number | 1000 | 0.29.0 |
-| onCancel | Callback function when clicking cancel button | (e: MouseEvent) => void | - | - |
+| style | Inline style | CSSProperties | -       | - |
+| title | Title | ReactNode | -       | - |
+| visible | Toggle visibility of the SideSheet | boolean | false   | - |
+| width | Width, takes effect when `placement` is set to `left` or `right` | number \| string  | 448 | - |
+| zIndex | Z-index value for SideSheet | number | 1000    | 0.29.0 |
+| onCancel | Callback function when clicking cancel button | (e: MouseEvent) => void | -       | - |
 
 ## Accessibility
 
