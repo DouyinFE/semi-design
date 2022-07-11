@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { storiesOf } from '@storybook/react';
-import { Form, useFormState, useFormApi, withField, Input, Button } from '../../index';
+import { Form, useFormState, useFormApi, withField, Input, Button, Upload } from '../../index';
 import { values } from 'lodash';
 const stories = storiesOf('Form', module);
 
@@ -64,40 +64,44 @@ const htmlInput = (props: any) => {
 const FieldB = withField(Input);
 const FieldA = withField(htmlInput, { valueKey: 'value', onKeyChangeFnName: 'onChange', valuePath: 'target.value' });
 
-const Fields: FunctionComponent<FormFCChild> = ({ formState, values, formApi }) => (
+const Fields: FunctionComponent<FormFCChild> = ({ formState, values, formApi }) => {
+    const ref = React.useRef();
+    return (
     <>
-        <Form.Rating field='test' className='fe' count={2} />
+        <Form.Rating field='test' className='fe' count={2} ref={ref}  />
 
-        <Form.Input field='test' />
+        <Form.Input field='test'  ref={ref}  />
         <Input size='default' showClear insetLabel />
         <FieldB insetLabel placeholder='fe' fieldClassName='fefe' field='custom' />
 
         <Button onClick={() => formApi.setValue('fieldA', 'fe')}>set</Button>
-        <Form.Select field='test'>
+        <Form.Select field='test' ref={ref}>
             <Form.Select.Option value="f1"></Form.Select.Option>
             <Form.Select.Option value="f2"></Form.Select.Option>
         </Form.Select>
-        <Form.Input field="UserName" label="用户名"/>
-        <Form.TextArea field="textarea" onKeyDown={(v: any) => console.log(v)} />
+        <Form.Input field="UserName" label="用户名" ref={ref} />
+        <Form.TextArea field="textarea" onKeyDown={(v: any) => console.log(v)}  ref={ref}  />
         <Form.Input field="Password" label="密码" />
-        <Form.InputNumber field="number" />
+        <Form.InputNumber field="number"  ref={ref} />
         <Form.Rating field="rating" />
-        <Form.Switch field="switch" checkedText="on" uncheckedText="off" />
+        <Form.Switch field="switch" checkedText="on" uncheckedText="off"  ref={ref} />
 
         <Form.Cascader
             placeholder="请选择所在地区"
             field="area"
+            ref={ref} 
             label={{ text: '123', required: true, extra: 123 }}
             treeData={treeData}
         ></Form.Cascader>
-        <Form.TimePicker field="time" minuteStep={2} />
+        <Form.TimePicker field="time" minuteStep={2} ref={ref} />
         <Form.AutoComplete field="fe" />
 
-        <Form.TreeSelect field="treeSelect" treeData={treeData} />
-        <Form.Slider field="slider" />
-        <Form.DatePicker field="datepicker" />
+        <Form.TreeSelect field="treeSelect" treeData={treeData} ref={ref} />
+        <Form.Slider field="slider" ref={ref}  />
+        <Form.DatePicker field="datepicker" ref={ref} />
         <Form.CheckboxGroup
             field="type"
+            ref={ref} 
             label="申请类型（CheckboxGroup）"
             initValue={['user', 'admin']}
             rules={[{ required: true }]}
@@ -109,6 +113,7 @@ const Fields: FunctionComponent<FormFCChild> = ({ formState, values, formApi }) 
         </Form.CheckboxGroup>
         <Form.RadioGroup
             field="radio"
+            ref={ref} 
             label="是否独占资源（Radio）"
             rules={[{ type: 'boolean' }, { required: true, message: '必须选择是否独占 ' }]}
         >
@@ -122,11 +127,13 @@ const Fields: FunctionComponent<FormFCChild> = ({ formState, values, formApi }) 
         <Form.ErrorMessage error="errorText" />
         <FieldB field="custom" />
         <FieldA field="cuB" />
-        <Form.Upload fileName='semi' action='https://test.com' field='file' />
+        <Form.TagInput field='tagInput' ref={ref} ></Form.TagInput>
+        <Form.Upload ref={ref} fileName='semi' action='https://test.com' field='file' />
         <Form.Slot />
         <code style={{ marginTop: 30 }}>{JSON.stringify(formState)}</code>
     </>
-);
+    )
+};
 
 stories.add('Form', () => <Form>{Fields}</Form>);
 
@@ -160,6 +167,7 @@ class Demo extends React.Component<IProps, IState> {
       return (
         <>
           <Form getFormApi={this.getFormApi}>
+
           </Form>
         </>
       );
