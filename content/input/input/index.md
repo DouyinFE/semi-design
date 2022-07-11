@@ -464,7 +464,7 @@ import { Input, Typography, Form, TextArea, Button } from '@douyinfe/semi-ui';
 
 ### InputGroup
 
-通用属性将设置到 InputGroup 的子级元素上，例如 disabled、onFocus 等，如果子级单独设置了相同属性，子级的优先级更高。
+通用属性将设置到 InputGroup 的子级元素上，例如 disabled、onFocus 等。
 
 
 | 属性          | 说明                           | 类型                                                          | 默认值    |

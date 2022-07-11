@@ -455,7 +455,7 @@ Answers to some questions:
 
 ### InputGroup
 
-Common attributes will be set to the child elements of InputGroup, such as disabled, onFocus, etc. If the child sets the same attribute separately, the child has a higher priority.
+Common attributes will be set to the child elements of InputGroup, such as disabled, onFocus, etc.
 
 
 | Property      | Instructions                                | Type                                                          | Default |
