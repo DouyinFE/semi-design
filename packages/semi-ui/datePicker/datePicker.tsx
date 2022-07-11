@@ -138,7 +138,6 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
         type: 'date',
         size: 'default',
         density: 'default',
-        disabled: false,
         multiple: false,
         defaultOpen: false,
         disabledHours: noop,
