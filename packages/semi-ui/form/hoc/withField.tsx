@@ -28,7 +28,7 @@ const prefix = cssClasses.PREFIX;
 
 function withField<
     C extends React.ElementType,
-    T extends Subtract<React.ComponentProps<C>, CommonexcludeType> & CommonFieldProps,
+    T extends Subtract<React.ComponentProps<C>, CommonexcludeType> & CommonFieldProps & React.RefAttributes<any>,
     R extends React.ComponentType<T>
 >(Component: C, opts?: WithFieldOption): R {
     let SemiField = (props: any, ref: React.MutableRefObject<any> | ((instance: any) => void)) => {
