@@ -217,6 +217,7 @@ function Demo () {
 | prefixCls    | Prefix content                                                                                  | string\|ReactNode                 |           |            |
 | pressInterval| How often will the click event be triggered when the button is long pressed, in milliseconds                                   | number                 |   250        |           |
 | pressTimeout | When the button is long pressed, how long will the click event be triggered after the delay, in milliseconds                                               | number                 |     250      |           |
+| preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
 | shiftStep    | Step size for pressing the shift key, it can be a decimal. The default value was adjusted from 1 to 10 in v2.13                     | number                            | 10         | **1.5.0** |
 | showClear    | Do you show the clear button?                                                                   | boolean                           | false     | **0.35.0** |
 | size         | Enter box size, optional value: "default"\|"small"\|"large"                                     | string                            | 'default' |            |

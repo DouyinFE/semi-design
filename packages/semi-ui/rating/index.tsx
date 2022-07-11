@@ -41,6 +41,7 @@ export interface RatingProps {
     size?: 'small' | 'default' | number;
     tooltips?: string[];
     id?: string;
+    preventScroll?: boolean;
 }
 
 export interface RatingState {
@@ -80,6 +81,7 @@ export default class Rating extends BaseComponent<RatingProps, RatingState> {
         size: PropTypes.oneOfType([PropTypes.oneOf(strings.SIZE_SET), PropTypes.number]),
         tooltips: PropTypes.arrayOf(PropTypes.string),
         id: PropTypes.string,
+        preventScroll: PropTypes.bool,
     };
 
     static defaultProps = {
@@ -226,9 +228,9 @@ export default class Rating extends BaseComponent<RatingProps, RatingState> {
     };
 
     focus = () => {
-        const { disabled } = this.props;
+        const { disabled, preventScroll } = this.props;
         if (!disabled) {
-            this.rate.focus();
+            this.rate.focus({ preventScroll });
         }
     };
 

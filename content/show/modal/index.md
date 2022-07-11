@@ -594,6 +594,7 @@ function Demo(props = {}) {
 | okButtonProps     | 确认按钮的 props                 | [ButtonProps](/zh-CN/input/button#API参考) | 无      |
 | okText            | 确认按钮的文字                   | string | 无      |
 | okType            | 确认按钮的类型, 可选: 'primary'、'secondary'、'tertiary'、'warning'、'danger'                   | string | primary |
+| preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法，不包含用户传入的组件 | boolean |  |  |
 | size | 对话框宽度尺寸，支持 `small`(448px)， `medium`(684px), `large`(920px)，`full-width`(100vw - 64px) <br/>**v1.0.0 后提供**  | string | 'small' |     
 | style             | 可用于设置样式                   | CSSProperties | 无      |
 | title             | 对话框的标题                     | ReactNode | 无      |

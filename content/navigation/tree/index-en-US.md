@@ -2135,6 +2135,7 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
 | loadedKeys | （Controlled）Mark node as loaded, working with `loadData` | string[] | - | 1.0.0|
 | motion              | Toggle whether to turn on animation| boolean                     | true    | - |
 | multiple            | Toggle whether in multi-choice mode| boolean                     | false   | - |
+| preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
 | renderDraggingNode | Custom render function to render html element of dragImg for dragging node | (nodeInstance: HTMLElement, node: TreeNode) => HTMLElement | - | 1.8.0 | 
 | renderFullLabel | Custom option render function | (data: object) => ReactNode | - | 1.7.0 | 
 | renderLabel | Custom label render function | (label: ReactNode, data: TreeNode) => ReactNode | - | 1.6.0 | 

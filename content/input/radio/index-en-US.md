@@ -388,6 +388,7 @@ class App extends React.Component {
 | extra | Extra information displayed <br/>**provided after v0.25.0** | ReactNode | - |
 | extraId        | id of extra node. aria-describedby refers to this id, if not set, it will randomly generate an id <br/>**provided after v2.11.0**                     | ReactNode         | -      |
 | mode | In advanced mode, options can be clicked to uncheck, one of `advanced` | string | - |
+| preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
 | style | Inline style | CSSProperties |  |
 | value | Compared based on value to determine whether the option is selected | string \| number | - |
 | onChange | Callback function when the selected option changes | Function (e: Event) | - |

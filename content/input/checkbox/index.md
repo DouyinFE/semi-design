@@ -390,6 +390,7 @@ import { Checkbox, CheckboxGroup, Row, Col } from '@douyinfe/semi-ui';
 | extraId        | 副文本的 id，aria-describedby 指向这个 id，若无设置会随机生成一个 id <br/>**v2.11.0 后提供**                     | ReactNode         | -      |
 | value | 该checkbox在CheckboxGroup中代表的value | any | - |
 | indeterminate | 设置 indeterminate 状态，只负责样式控制 | boolean | false |
+| preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法 | boolean |  |  |
 | onChange | 变化时回调函数 | function(e:Event) | - |
 
 ### Checkbox Group

@@ -887,11 +887,11 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
      * 因此 returnFocusOnClose 只支持 click trigger
      */
     _focusTrigger() {
-        const { trigger, returnFocusOnClose } = this.getProps();
+        const { trigger, returnFocusOnClose, preventScroll } = this.getProps();
         if (returnFocusOnClose && trigger !== 'custom') {
             const triggerNode = this._adapter.getTriggerNode();
             if (triggerNode && 'focus' in triggerNode) {
-                triggerNode.focus();
+                triggerNode.focus({ preventScroll });
             }
         }
     }
@@ -908,30 +908,34 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
     }
 
     _handleContainerTabKeyDown(focusableElements: any[], event: any) {
+        const { preventScroll } = this.getProps();
         const activeElement = this._adapter.getActiveElement();
         const isLastCurrentFocus = focusableElements[focusableElements.length - 1] === activeElement;
         if (isLastCurrentFocus) {
-            focusableElements[0].focus();
+            focusableElements[0].focus({ preventScroll });
             event.preventDefault(); // prevent browser default tab move behavior
         }
     }
 
     _handleContainerShiftTabKeyDown(focusableElements: any[], event: any) {
+        const { preventScroll } = this.getProps();
         const activeElement = this._adapter.getActiveElement();
         const isFirstCurrentFocus = focusableElements[0] === activeElement;
         if (isFirstCurrentFocus) {
-            focusableElements[focusableElements.length - 1].focus();
+            focusableElements[focusableElements.length - 1].focus({ preventScroll });
             event.preventDefault(); // prevent browser default tab move behavior
         }
     }
 
     _handleTriggerArrowDownKeydown(focusableElements: any[], event: any) {
-        focusableElements[0].focus();
+        const { preventScroll } = this.getProps();
+        focusableElements[0].focus({ preventScroll });
         event.preventDefault(); // prevent browser default scroll behavior
     }
 
     _handleTriggerArrowUpKeydown(focusableElements: any[], event: any) {
-        focusableElements[focusableElements.length - 1].focus();
+        const { preventScroll } = this.getProps();
+        focusableElements[focusableElements.length - 1].focus({ preventScroll });
         event.preventDefault(); // prevent browser default scroll behavior
     }
 }

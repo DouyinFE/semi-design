@@ -31,7 +31,8 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
         getContainerContext: PropTypes.func,
         contentClassName: PropTypes.string,
         maskClassName: PropTypes.string,
-        onAnimationEnd: PropTypes.func
+        onAnimationEnd: PropTypes.func,
+        preventScroll: PropTypes.bool,
     };
 
     static defaultProps = {
@@ -88,15 +89,16 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
             },
             getMouseState: () => this.state.dialogMouseDown,
             modalDialogFocus: () => {
+                const { preventScroll } = this.props;
                 let activeElementInDialog;
                 if (this.modalDialogRef) {
                     const activeElement = FocusTrapHandle.getActiveElement();
                     activeElementInDialog = this.modalDialogRef.current.contains(activeElement);
                     this.focusTrapHandle?.destroy();
-                    this.focusTrapHandle = new FocusTrapHandle(this.modalDialogRef.current);
+                    this.focusTrapHandle = new FocusTrapHandle(this.modalDialogRef.current, { preventScroll });
                 }
                 if (!activeElementInDialog) {
-                    this.modalDialogRef?.current?.focus();
+                    this.modalDialogRef?.current?.focus({ preventScroll });
                 }
             },
             modalDialogBlur: () => {
@@ -105,8 +107,9 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
             },
             prevFocusElementReFocus: () => {
                 const { prevFocusElement } = this.state;
+                const { preventScroll } = this.props;
                 const focus = get(prevFocusElement, 'focus');
-                isFunction(focus) && prevFocusElement.focus();
+                isFunction(focus) && prevFocusElement.focus({ preventScroll });
             }
         };
     }

@@ -1536,6 +1536,7 @@ function Demo() {
 | multiple | 设置多选 | boolean | false |  1.28.0 |
 | placeholder        | 选择框默认文字                                                                       | string                                                                           | -                                | -      |
 | prefix             | 前缀标签                                                                             | ReactNode                                                                        | -                                | 0.28.0 |
+| preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法 | boolean |  |  |
 |restTagsPopoverProps |Popover 的配置属性，可以控制 position、zIndex、trigger 等，具体参考[Popover](/zh-CN/show/popover#API%20%E5%8F%82%E8%80%83)           |PopoverProps     | {}        |1.28.0|
 | searchPlaceholder  | 搜索框默认文字                                                                       | string                                                                           | -                                | -      |
 | separator  | 自定义分隔符，包括：搜索时显示在下拉框的内容以及单选时回显到 Trigger 的内容的分隔符    | string                                                                           | ' / '                                | 2.2.0      |

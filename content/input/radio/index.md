@@ -334,6 +334,7 @@ class App extends React.Component {
 | extra          | 副文本，只对type='default'生效<br/>**v0.25.0 后提供**                     | ReactNode         | -      |
 | extraId        | 副文本的 id，aria-describedby 指向这个 id，若无设置会随机生成一个 id <br/>**v2.11.0 后提供**                     | ReactNode         | -      |
 | mode           | 高级和普通模式，高级模式可以在 checked 时点击变成 unchecked，可选值 advanced   | string            | -      |
+| preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法 | boolean |  |  |
 | style          | 内联样式                                                                 | CSSProperties    |        |
 | value          | 根据 value 进行比较，判断是否选中                                          | string \| number               | -      |
 | onChange       | 选项变化时的回调函数                                                      | function(e:Event) | -      |

@@ -61,6 +61,7 @@ export interface TagInputProps {
     value?: string[] | undefined;
     autoFocus?: boolean;
     'aria-label'?: string;
+    preventScroll?: boolean;
 }
 
 export interface TagInputState {
@@ -108,6 +109,7 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
         prefix: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
         suffix: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
         'aria-label': PropTypes.string,
+        preventScroll: PropTypes.bool,
     };
 
     static defaultProps = {
@@ -176,9 +178,10 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
                 this.setState({ focusing });
             },
             toggleFocusing: (isFocus: boolean) => {
+                const { preventScroll } = this.props;
                 const input = this.inputRef && this.inputRef.current;
                 if (isFocus) {
-                    input && input.focus();
+                    input && input.focus({ preventScroll });
                 } else {
                     input && input.blur();
                 }
@@ -212,9 +215,9 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
     }
 
     componentDidMount() {
-        const { disabled, autoFocus } = this.props;
+        const { disabled, autoFocus, preventScroll } = this.props;
         if (!disabled && autoFocus) {
-            this.inputRef.current.focus();
+            this.inputRef.current.focus({ preventScroll });
         }
     }
 
@@ -426,7 +429,8 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
     }
 
     focus() {
-        this.inputRef.current.focus();
+        const { preventScroll } = this.props;
+        this.inputRef.current.focus({ preventScroll });
     }
 
     render() {

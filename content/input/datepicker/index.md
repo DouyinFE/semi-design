@@ -776,6 +776,7 @@ function Demo() {
 | position | 浮层位置，可选值同[Popover#API 参考·position 参数](/zh-CN/show/popover#API参考) | string | 'bottomLeft' |  |
 | prefix | 前缀内容 | string\|ReactNode |  |  |
 | presets | 日期时间快捷方式 | Array<{start:BaseValueType, end:BaseValueType, text:string}\| function():{start:BaseValueType, end:BaseValueType, text:string}> | [] |  |
+| preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法 | boolean |  |  |
 | rangeSeparator | 自定义范围类型输入框的日期分隔符 | string | '~' | **1.31.0** |
 | renderDate | 自定义日期显示内容 | (dayNumber, fullDate) => ReactNode | - | **1.4.0** |
 | renderFullDate | 自定义显示日期格子内容 | (dayNumber, fullDate, dayStatus) => ReactNode | - | **1.4.0** |

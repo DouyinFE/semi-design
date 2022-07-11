@@ -589,6 +589,7 @@ function Demo(props = {}) {
 | okButtonProps     | Properties for confirm button                      | [ButtonProps](/en-US/input/button#API-reference) | -       |
 | okText            | Text for confirm button                            | string | -       |
 | okType            | Type for confirm button, optional: 'primary'、'secondary'、'tertiary'、'warning'、'danger'                            | string | primary |
+| preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
 | size | Size of modal, one of `small`(448px), `medium`(684px), `large`(920px), `full-width`(100vw - 64px) <br/>**>= v1.0.0**  | string | 'small' |
 | style             | Inline style                                       | CSSProperties | -       |
 | title             | Title                                              | ReactNode | -       |
@@ -630,9 +631,11 @@ function Demo(props = {}) {
 | title             | Title                                              | ReactNode            | -       |
 | width             | Width                                              | number            | 520     |
 | zIndex            | Z-index value for mask                             | number            | 1000    |
-Creating modal with the above methods will return a reference to the instance. You could use it to update or close the modal.|
 | onCancel          | Callback function when clicking cancel button      | (e: any) => void \| Promise<any\>          | -       |
 | onOk              | Callback function when clicking confirm button     | (e: any) => void \| Promise<any\>          | -       |
+
+Creating modal with the above methods will return a reference to the instance. You could use it to update or close the modal.|
+
 
 ```
 const modal = Modal.info();

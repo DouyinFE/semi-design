@@ -7,6 +7,7 @@ type FocusRedirectListener = (element: HTMLElement) => boolean;
 interface HandleOptions {
     enable?: boolean
     onFocusRedirectListener?: FocusRedirectListener | FocusRedirectListener[]
+    preventScroll?: boolean;
 }
 
 /*
@@ -85,7 +86,8 @@ class FocusTrapHandle {
     }
 
     private focusElement = (element: HTMLElement, event: KeyboardEvent) => {
-        element?.focus();
+        const { preventScroll } = this.options;
+        element?.focus({ preventScroll });
         event.preventDefault(); // prevent browser default tab move behavior
     }
 
