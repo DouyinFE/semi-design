@@ -429,13 +429,17 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
 
     handleClick(e: any) {
         const isDisabled = this._isDisabled();
-        const { isOpen } = this.getStates();
+        const { isOpen, inputValue } = this.getStates();
+        const { searchPosition } = this.getProps();
         if (isDisabled) {
             return;
         } else if (!isOpen) {
             this.open();
             this._notifyFocus(e);
         } else if (isOpen) {
+            if (searchPosition === 'trigger' && inputValue) {
+                return;
+            }
             this.close(e);
         }
     }
