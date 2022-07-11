@@ -248,6 +248,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
             loadingKeys: new Set(),
             /* Mark whether this rendering has triggered asynchronous loading of data */
             loading: false,
+            showInput: false,
         };
         this.options = {};
         this.isEmpty = false;
@@ -275,8 +276,8 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
             },
         };
         const cascaderAdapter: Pick<
-            CascaderAdapter,
-            'registerClickOutsideHandler' | 'unregisterClickOutsideHandler' | 'rePositionDropdown'
+        CascaderAdapter,
+        'registerClickOutsideHandler' | 'unregisterClickOutsideHandler' | 'rePositionDropdown'
         > = {
             registerClickOutsideHandler: cb => {
                 const clickOutsideHandler = (e: Event) => {
@@ -363,6 +364,14 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
             },
             notifyOnExceed: data => this.props.onExceed(data),
             notifyClear: () => this.props.onClear(),
+            toggleInputShow: (showInput: boolean, cb: (...args: any) => void) => {
+                this.setState({ showInput }, () => {
+                    cb();
+                });
+            },
+            updateFocusState: (isFocus: boolean) => {
+                this.setState({ isFocus });
+            },
         };
     }
 
@@ -542,20 +551,28 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
     renderInput() {
         const { size, disabled } = this.props;
         const inputcls = cls(`${prefixcls}-input`);
-        const { inputValue, inputPlaceHolder } = this.state;
+        const { inputValue, inputPlaceHolder, showInput } = this.state;
         const inputProps = {
             disabled,
             value: inputValue,
             className: inputcls,
             onChange: this.handleInputChange,
-            placeholder: inputPlaceHolder,
         };
         const wrappercls = cls({
             [`${prefixcls}-search-wrapper`]: true,
         });
+
+        const displayText = this.renderDisplayText();
+        const spanCls = cls({
+            [`${prefixcls}-selection-placeholder`]: !displayText,
+            [`${prefixcls}-selection-text-hide`]: showInput && inputValue,
+            [`${prefixcls}-selection-text-inactive`]: showInput && !inputValue,
+        });
+
         return (
             <div className={wrappercls}>
-                <Input ref={this.inputRef as any} size={size} {...inputProps} />
+                <span className={spanCls}>{displayText ? displayText : inputPlaceHolder}</span>
+                {showInput && <Input ref={this.inputRef as any} size={size} {...inputProps} />}
             </div>
         );
     }
@@ -866,40 +883,40 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         const { isOpen, isFocus, isInput, checkedKeys } = this.state;
         const filterable = Boolean(filterTreeNode);
         const useCustomTrigger = typeof triggerRender === 'function';
-        const classNames = useCustomTrigger
-            ? cls(className)
-            : cls(prefixcls, className, {
-                  [`${prefixcls}-focus`]: isFocus || (isOpen && !isInput),
-                  [`${prefixcls}-disabled`]: disabled,
-                  [`${prefixcls}-single`]: true,
-                  [`${prefixcls}-filterable`]: filterable,
-                  [`${prefixcls}-error`]: validateStatus === 'error',
-                  [`${prefixcls}-warning`]: validateStatus === 'warning',
-                  [`${prefixcls}-small`]: size === 'small',
-                  [`${prefixcls}-large`]: size === 'large',
-                  [`${prefixcls}-with-prefix`]: prefix || insetLabel,
-                  [`${prefixcls}-with-suffix`]: suffix,
-              });
-        const mouseEvent = showClear
-            ? {
-                  onMouseEnter: () => this.handleMouseOver(),
-                  onMouseLeave: () => this.handleMouseLeave(),
-              }
-            : {};
+        const classNames = useCustomTrigger ?
+            cls(className) :
+            cls(prefixcls, className, {
+                [`${prefixcls}-focus`]: isFocus || (isOpen && !isInput),
+                [`${prefixcls}-disabled`]: disabled,
+                [`${prefixcls}-single`]: true,
+                [`${prefixcls}-filterable`]: filterable,
+                [`${prefixcls}-error`]: validateStatus === 'error',
+                [`${prefixcls}-warning`]: validateStatus === 'warning',
+                [`${prefixcls}-small`]: size === 'small',
+                [`${prefixcls}-large`]: size === 'large',
+                [`${prefixcls}-with-prefix`]: prefix || insetLabel,
+                [`${prefixcls}-with-suffix`]: suffix,
+            });
+        const mouseEvent = showClear ?
+            {
+                onMouseEnter: () => this.handleMouseOver(),
+                onMouseLeave: () => this.handleMouseLeave(),
+            } :
+            {};
         const sectionCls = cls(`${prefixcls}-selection`, {
             [`${prefixcls}-selection-multiple`]: multiple && !isEmpty(checkedKeys),
         });
         const inner = useCustomTrigger
             ? this.renderCustomTrigger()
             : [
-                  <Fragment key={'prefix'}>{prefix || insetLabel ? this.renderPrefix() : null}</Fragment>,
-                  <Fragment key={'selection'}>
-                      <div className={sectionCls}>{this.renderSelectContent()}</div>
-                  </Fragment>,
-                  <Fragment key={'clearbtn'}>{this.renderClearBtn()}</Fragment>,
-                  <Fragment key={'suffix'}>{suffix ? this.renderSuffix() : null}</Fragment>,
-                  <Fragment key={'arrow'}>{this.renderArrow()}</Fragment>,
-              ];
+                <Fragment key={'prefix'}>{prefix || insetLabel ? this.renderPrefix() : null}</Fragment>,
+                <Fragment key={'selection'}>
+                    <div className={sectionCls}>{this.renderSelectContent()}</div>
+                </Fragment>,
+                <Fragment key={'clearbtn'}>{this.renderClearBtn()}</Fragment>,
+                <Fragment key={'suffix'}>{suffix ? this.renderSuffix() : null}</Fragment>,
+                <Fragment key={'arrow'}>{this.renderArrow()}</Fragment>,
+            ];
         /**
          * Reasons for disabling the a11y eslint rule:
          * The following attributes(aria-controls,aria-expanded) will be automatically added by Tooltip, no need to declare here

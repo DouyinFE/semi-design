@@ -396,6 +396,28 @@ Searchable.parameters = {
   chromatic: { disableSnapshot: false },
 }
 
+export const filterTreeNodeAndDisplayRender = () => {
+  return (
+    <>
+      <div>
+          filterTreeNode=true，配合displayRender 使用，回显到input的内容也是符合预期
+      </div>
+      <Cascader
+        filterTreeNode
+        style={{ width: 300 }}
+        treeData={treeData4}
+        placeholder="自定义回填时显示数据的格式"
+        defaultValue={['zhejiang', 'ningbo', 'jiangbei']}
+        displayRender={(item) => {
+          console.log('item', item);
+          return <div>
+              {'已选择：' + item.join(' -> ')}
+          </div>;}}
+      />
+    </>
+  );
+};
+
 export const Disabled = () => {
   return (
     <div>
