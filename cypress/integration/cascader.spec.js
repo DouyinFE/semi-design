@@ -2,39 +2,27 @@ describe('cascader', () => {
     it('clear when single choose', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?id=cascader--show-clear&args=&viewMode=story');
         cy.viewport(1500, 1000);
-
-        cy.get('input').eq(0).click();
+        cy.get('.semi-cascader-selection').eq(0).click();
         cy.get('span').contains('Node1').click();
         cy.get('span').contains('Child Node2').click();
-        cy.get('input').should('have.value', 'Node1 / Child Node2');
-        cy.get('input').eq(0).trigger('mouseover');
+        cy.get('.semi-cascader-search-wrapper span').eq(0).contains('Child Node2').should('exist');
+        cy.get('.semi-cascader-selection').eq(0).trigger('mouseover');
         cy.get('.semi-cascader-clearbtn').click();
-        cy.get('input').should('have.value', '');
-
-        // clear when search
-        cy.get('input').eq(0).click();
-        // wait the panel open
-        cy.wait(100);
-        cy.get('span').contains('Node1').click();
-        cy.get('span').contains('Child Node2').click();
-        cy.get('input').eq(0).type('Node1');
-        cy.get('input').eq(0).trigger('mouseover');
-        cy.get('.semi-cascader-clearbtn').click();
-        cy.get('input').should('have.attr', 'placeholder', 'Node1 / Child Node2');
+        cy.get('.semi-cascader-search-wrapper span').eq(0).contains('Child Node2').should('not.exist');
     });
 
     it('clear by key press', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?id=cascader--show-clear&args=&viewMode=story');
         cy.viewport(1500, 1000);
 
-        cy.get('input').eq(0).click();
+        cy.get('.semi-cascader-selection').eq(0).click();
         cy.get('span').contains('Node1').click();
         cy.get('span').contains('Child Node2').click();
-        cy.get('input').should('have.value', 'Node1 / Child Node2');
-        cy.get('input').eq(0).trigger('mouseover');
+        cy.get('.semi-cascader-search-wrapper span').eq(0).contains('Child Node2').should('exist');
+        cy.get('.semi-cascader-selection').eq(0).trigger('mouseover');
         cy.get(".semi-cascader-clearbtn").focus();
         cy.get('.semi-cascader-clearbtn').type('{enter}');
-        cy.get('input').should('have.value', '');
+        cy.get('.semi-cascader-search-wrapper span').eq(0).contains('Child Node2').should('not.exist');;
         cy.get('#root').click('right');
 
         cy.get('.semi-cascader').eq(1).click();
@@ -68,14 +56,7 @@ describe('cascader', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?id=cascader--dynamic-placeholder&args=&viewMode=story');
         cy.get('.semi-cascader-selection-placeholder').contains('Please select');
         cy.get('.semi-button-content').contains('Toggle').click();
-        cy.get('.semi-input-default').should('have.attr', 'placeholder', 'Search something');
-    });
-
-    it('placeholder change', () => {
-        cy.visit('http://127.0.0.1:6006/iframe.html?id=cascader--dynamic-placeholder&args=&viewMode=story');
-        cy.get('.semi-cascader-selection-placeholder').contains('Please select');
-        cy.get('.semi-button-content').contains('Toggle').click();
-        cy.get('.semi-input-default').should('have.attr', 'placeholder', 'Search something');
+        cy.get('.semi-cascader-search-wrapper span').eq(0).contains('Search something').should('exist');
     });
 
     it('load data', () => {
@@ -112,7 +93,7 @@ describe('cascader', () => {
     it('not exit default value', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?id=cascader--default-value-not-exist&args=&viewMode=story');
         
-        cy.get('input').should('have.value', 'yazhou not exist');
+        cy.get('.semi-cascader-search-wrapper span').eq(0).contains('yazhou not exist').should('exist');
     });
    
     it('multiple onChangeWithObject value=undefined', () => {
@@ -121,5 +102,5 @@ describe('cascader', () => {
         cy.get('.semi-cascader').click();
         cy.get('.semi-checkbox').eq(0).click();
         cy.get('.semi-tag-content').contains('亚洲');
-    })
+    });
 });

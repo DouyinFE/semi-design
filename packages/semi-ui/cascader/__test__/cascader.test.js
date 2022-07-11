@@ -427,10 +427,10 @@ describe('Cascader', () => {
         });
         expect(
             cascaderWithSingleFilter
-            .find(`.${BASE_CLASS_PREFIX}-cascader-search-wrapper .${BASE_CLASS_PREFIX}-input`)
+            .find(`.${BASE_CLASS_PREFIX}-cascader-search-wrapper span`)
             .getDOMNode()
-            .getAttribute('value')
-        ).toEqual('亚洲 / 中国');
+            .textContent
+            ).toEqual('亚洲 / 中国');
         cascaderWithSingleFilter.unmount();
 
         const cascaderWithSingleControlled = render({
@@ -550,10 +550,10 @@ describe('Cascader', () => {
         expect(searchWrapper.exists()).toEqual(true);
         expect(
             searchWrapper
-                .find('input')
-                .instance()
-                .getAttribute('placeholder')
-        ).toEqual('placeholder');
+                .find('span')
+                .getDOMNode()
+                .textContent
+            ).toEqual('placeholder');
     });
 
     it('onSearch', () => {
@@ -563,10 +563,11 @@ describe('Cascader', () => {
             filterTreeNode: true,
             onSearch: spyOnSearch,
         });
-        const searchWrapper = cascader.find(`.${BASE_CLASS_PREFIX}-cascader-search-wrapper`);
         let searchValue = '${BASE_CLASS_PREFIX}';
         let event = { target: { value: searchValue } };
-        searchWrapper.find('input').simulate('change', event);
+        cascader.simulate('click');
+        const input = cascader.find(`.${BASE_CLASS_PREFIX}-cascader-selection input`);
+        input.simulate('change', event);
         expect(spyOnSearch.calledOnce).toBe(true);
         expect(spyOnSearch.calledWithMatch(searchValue)).toBe(true);
     });
@@ -1228,8 +1229,10 @@ describe('Cascader', () => {
             separator: ' > ',
             defaultOpen: true,
         });
+        const span = cascader.find(`.${BASE_CLASS_PREFIX}-cascader-selection span`);
+        expect(span.getDOMNode().textContent).toEqual('亚洲 > 中国 > 北京'); 
+        cascader.simulate('click');
         const input = cascader.find(`.${BASE_CLASS_PREFIX}-cascader-selection input`);
-        expect(input.props().placeholder).toEqual('亚洲 > 中国 > 北京'); 
         const event = { target: { value: '中国' } };
         input.simulate('change', event);
         expect(

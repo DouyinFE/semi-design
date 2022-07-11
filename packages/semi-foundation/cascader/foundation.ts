@@ -183,6 +183,7 @@ export interface BasicCascaderInnerData {
     isFocus?: boolean;
     isInput?: boolean;
     disabledKeys?: Set<string>;
+    showInput?: boolean;
 }
 
 export interface CascaderAdapter extends DefaultAdapter<BasicCascaderProps, BasicCascaderInnerData> {
@@ -208,6 +209,8 @@ export interface CascaderAdapter extends DefaultAdapter<BasicCascaderProps, Basi
     notifyOnLoad: (newLoadedKeys: Set<string>, data: BasicCascaderData) => void;
     notifyListScroll: (e: any, panel: BasicScrollPanelProps) => void;
     notifyOnExceed: (data: BasicEntity[]) => void;
+    toggleInputShow: (show: boolean, cb: () => void) => void;
+    updateFocusState: (focus: boolean) => void,
 }
 
 // eslint-disable-next-line max-len
@@ -484,9 +487,11 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
 
     open() {
         const filterable = this._isFilterable();
+        const { multiple } = this.getProps();
         this._adapter.openMenu();
         if (filterable) {
             this._clearInput();
+            !multiple && this.toggle2SearchInput(true);
         }
         if (this._isControlledComponent()) {
             this.reCalcActiveKeys();
@@ -524,8 +529,23 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
                 inputValue = this.renderDisplayText([...selectedKeys][0]);
             }
             this._adapter.updateStates({ inputValue });
+            !multiple && this.toggle2SearchInput(false);
+            !multiple && this._adapter.updateFocusState(false);
         }
         this._notifyBlur(e);
+    }
+
+    toggle2SearchInput(isShow: boolean) {
+        if (isShow) {
+            this._adapter.toggleInputShow(isShow, () => this.focusInput());
+        } else {
+            this._adapter.toggleInputShow(isShow, () => undefined);
+        }
+    }
+
+    focusInput() {
+        this._adapter.focusInput();
+        this._adapter.updateFocusState(true);
     }
 
     getMergedMotion = () => {

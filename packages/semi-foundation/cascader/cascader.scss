@@ -175,6 +175,17 @@ $module: #{$prefix}-cascader;
                 height: $height-cascader_selection_tagInput_input_large;
             }
         }
+
+        &-text {
+
+            &-inactive {
+                color: $color-cascader_selection_text_inactive;
+            }
+
+            &-hide {
+                display: none;
+            }
+        }
     }
 
     &-arrow,
@@ -294,8 +305,17 @@ $module: #{$prefix}-cascader;
     .#{$module}-selection {
         .#{$module}-search-wrapper {
             width: 100%;
+            height: $height-cascader_selection_wrapper;
+            display: flex;
+            align-items: center;
+            position: relative;
 
             .#{$prefix}-input-wrapper {
+                position: absolute;
+                top: 0;
+                left: 0;
+                border: none;
+                background-color: transparent;
                 height: 100%;
                 width: 100%;
                 border: $color-cascader_input-border-default;
