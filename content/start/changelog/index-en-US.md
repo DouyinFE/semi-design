@@ -8,11 +8,11 @@ order: 6
 brief: About Semi Design For React Optimization and Update
 ---
 
-Version：Major.Minor.Patch
+Version：Major.Minor.Patch (follow the **Semver** specification)
 
--   Major version: Significant performance / usage changes
--   Minor version: New component added / new feature
--   Patch version: bug fix
+-   **Major version**: Significant performance / usage changes
+-   **Minor version**: Semi releases a minor version every two weeks, including changes of the following types: new components/features added, or style changes: New component added / new feature
+-   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
 
