@@ -19,7 +19,7 @@ Version：Major.Minor.Patch
 #### 🎉 2.15.0-beta.0 (2022-07-11)
 - 【Feat】
     - Support German, Italian and French [@jacob-lcs](https://github.com/jacob-lcs)
-    - Dropdown add A11y keyboard and focus adaptation  [#205 ](https://github.com/DouyinFE/semi-design/issues/205)
+    - Dropdown add A11y keyboard and focus adaptation  [#205](https://github.com/DouyinFE/semi-design/issues/205)
     - Components such as Cascader add the preventScroll property to prevent the focus method in the component from causing the page to scroll
     - Rating adds A11y focus and keyboard adaptation
     - Tooltip returnFocusOnClose supports trigger hover and focus
@@ -30,6 +30,7 @@ Version：Major.Minor.Patch
     - Fixed InputGroup setting disabled to false in the child does not take effect
     - Fix the case-sensitive issue of tree search highlighting result
     - Fixed the virtual list occupying problem when virtualizing Table empty data [#942](https://github.com/DouyinFE/semi-design/issues/942)
+    - Fixed the ts type check error when some Form Field components (such as Form.Upload, Form.Switch) pass in ref, indicating that there is no ref attribute
 
 #### 🎉 2.14.0 (2022-07-01)
 - 【Fix】

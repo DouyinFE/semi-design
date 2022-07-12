@@ -17,19 +17,19 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 
 #### 🎉 2.15.0-beta.0 (2022-07-11)
 - 【Feat】
-    - LocaleProvider 新增 德语（de）、意大利语（it）、法语（fr） [@jacob-lcs](https://github.com/jacob-lcs)
-    - Dropdown 新增 A11y 键盘和焦点适配   [#205 ](https://github.com/DouyinFE/semi-design/issues/205)
-    - Cascader 等 15 组件新增 preventScroll 属性，用于阻止组件内 focus 方法导致页面滚动
     - Rating 新增 A11y 焦点及键盘适配
+    - Dropdown 新增 A11y 键盘和焦点适配  [#205](https://github.com/DouyinFE/semi-design/issues/205)
+    - LocaleProvider 新增 德语（de）、意大利语（it）、法语（fr） [@jacob-lcs](https://github.com/jacob-lcs)
+    - Cascader 等 15 组件新增 preventScroll 属性，用于阻止组件内 focus 方法导致页面滚动（可用于解决 Safari 浏览器聚焦时可能导致页面异常滚动的问题）
     - Tooltip returnFocusOnClose 支持trigger hover和focus
 - 【Fix】
     - 修复 TreeSelect 当搜索框在trigger中且搜索框中有值时，二次点击会导致搜索框收起并清空搜索值的问题。
     - 修复 Cascader 单选状态下同时设置filterTreeNode & displayRender，选项显示错误问题
     - 修复 List 空状态 Padding 问题 [@rojer95](https://github.com/rojer95)
     - 修复 InputGroup 在子级设置 disabled 为 false 不生效问题
-    - 修复Tree搜索结果高亮大小写敏感问题
+    - 修复 Tree 搜索结果高亮大小写敏感问题
     - 修复虚拟化 Table 空数据时虚拟列表占位问题  [#942](https://github.com/DouyinFE/semi-design/issues/942)
-
+    - 修复部分 Form Field 组件（例如 Form.Upload、Form.Switch）传入 ref 时 ts类型检查报错，提示不存在 ref 属性的问题
 
 #### 🎉 2.14.0 (2022-07-01)
 - 【Fix】
