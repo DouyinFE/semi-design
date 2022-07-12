@@ -1,5 +1,5 @@
 //@import '../theme/variables.scss';
-@import "./variables.scss";
+@import './variables.scss';
 
 $module: #{$prefix}-slider;
 
@@ -29,7 +29,7 @@ $module: #{$prefix}-slider;
         font-variant: tabular-nums;
         line-height: $font-slider_rail-lineHeight;
         list-style: none;
-        font-feature-settings: "tnum";
+        font-feature-settings: 'tnum';
         position: absolute;
         height: $height-slider_rail;
         cursor: pointer;
@@ -54,7 +54,11 @@ $module: #{$prefix}-slider;
         border: none;
         border-radius: 50%;
         cursor: pointer;
-        transition: #fff .3s;
+        transition: #fff 0.3s;
+
+        &:focus-visible {
+            outline: $width-slider_handle-focus solid $color-slider_handle-focus;
+        }
     }
 
     &-handle:hover {
@@ -133,9 +137,7 @@ $module: #{$prefix}-slider;
         text-align: center;
         cursor: pointer;
         transform: translate(-50%, 0) rotate(-180deg);
-
     }
-
 
     &-boundary {
         position: relative;

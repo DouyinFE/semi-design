@@ -692,7 +692,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         }
 
         // The incoming children is a single valid element, otherwise wrap a layer with span
-        const newChild = React.cloneElement(children as React.ReactElement, {
+        const childNewProps = {
             ...ariaAttribute,
             ...(children as React.ReactElement).props,
             ...this.mergeEvents((children as React.ReactElement).props, triggerEventSet),
@@ -716,9 +716,12 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                     ref.current = node;
                 }
             },
-            tabIndex: 0, // a11y keyboard
             'data-popupId': id
-        });
+        };
+        if (trigger === 'hover') {
+            childNewProps['tabIndex'] = 0;
+        }
+        const newChild = React.cloneElement(children as React.ReactElement, childNewProps);
 
         // If you do not add a layer of div, in order to bind the events and className in the tooltip, you need to cloneElement children, but this time it may overwrite the children's original ref reference
         // So if the user adds ref to the content, you need to use callback ref: https://github.com/facebook/react/issues/8873
