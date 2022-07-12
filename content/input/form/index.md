@@ -1393,6 +1393,7 @@ class PartValidAndResetDemo extends React.Component {
     validatePartial(type) {
         let scope = this.formApi.getValue('validateScope');
         !scope ? scope = [] : null;
+        type === 'all' ? scope = ['a', 'b', 'c', 'd', 'b.name'] : null;
         this.formApi.validate(scope)
             .then(values => {
                 console.log(values);
