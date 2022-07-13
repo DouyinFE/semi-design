@@ -20,6 +20,7 @@ export interface LabelProps {
     width?: number | string;
     style?: React.CSSProperties;
     className?: string;
+    children?: React.ReactNode;
     extra?: React.ReactNode;
 }
 
@@ -60,7 +61,7 @@ export default class Label extends PureComponent<LabelProps> {
         width ? labelStyle.width = width : null;
 
         const textContent = (
-            <div className={`${prefixCls}-field-label-text`}>
+            <div className={`${prefixCls}-field-label-text`} x-semi-prop="label">
                 {typeof text !== 'undefined' ? text : children}
             </div>
         );

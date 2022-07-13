@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
 /* eslint-disable max-depth */
@@ -10,13 +11,13 @@ import Input, { InputProps } from '../input';
 import { forwardStatics } from '@douyinfe/semi-foundation/utils/object';
 import isNullOrUndefined from '@douyinfe/semi-foundation/utils/isNullOrUndefined';
 import isBothNaN from '@douyinfe/semi-foundation/utils/isBothNaN';
-import InputNumberFoundation, { InputNumberAdapter } from '@douyinfe/semi-foundation/inputNumber/foundation';
+import InputNumberFoundation, { BaseInputNumberState, InputNumberAdapter } from '@douyinfe/semi-foundation/inputNumber/foundation';
 import BaseComponent from '../_base/baseComponent';
 import { cssClasses, numbers, strings } from '@douyinfe/semi-foundation/inputNumber/constants';
 import { IconChevronUp, IconChevronDown } from '@douyinfe/semi-icons';
 
 import '@douyinfe/semi-foundation/inputNumber/inputNumber.scss';
-import { isNaN, noop } from 'lodash';
+import { isNaN, isString, noop } from 'lodash';
 import { ArrayElement } from '../_base/base';
 
 export interface InputNumberProps extends InputProps {
@@ -54,12 +55,8 @@ export interface InputNumberProps extends InputProps {
     onUpClick?: (value: string, e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-export interface InputNumberState {
-    value?: number | string;
-    number?: number | null; // Current parsed numbers
-    focusing?: boolean;
-    hovering?: boolean;
-}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface InputNumberState extends BaseInputNumberState {}
 
 class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
     static propTypes = {
@@ -87,6 +84,7 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
         prefixCls: PropTypes.string,
         pressInterval: PropTypes.number,
         pressTimeout: PropTypes.number,
+        preventScroll: PropTypes.bool,
         shiftStep: PropTypes.number,
         step: PropTypes.number,
         style: PropTypes.object,
@@ -101,7 +99,6 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
     };
 
     static defaultProps: InputNumberProps = {
-        disabled: false,
         forwardedRef: noop,
         innerButtons: false,
         keepFocus: false,
@@ -222,6 +219,9 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
             },
             setClickUpOrDown: value => {
                 this.clickUpOrDown = value;
+            },
+            updateStates: (states, callback) => {
+                this.setState(states, callback);
             }
         };
     }
@@ -248,15 +248,17 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
     }
 
     componentDidUpdate(prevProps: InputNumberProps) {
-        const { value } = this.props;
+        const { value, preventScroll } = this.props;
         const { focusing } = this.state;
+        let newValue;
         /**
          * To determine whether the front and back are equal
          * NaN need to check whether both are NaN
          */
         if (value !== prevProps.value && !isBothNaN(value, prevProps.value)) {
             if (isNullOrUndefined(value) || value === '') {
-                this.setState({ value: '', number: null });
+                newValue = '';
+                this.foundation.updateStates({ value: newValue, number: null });
             } else {
                 let valueStr = value;
                 if (typeof value === 'number') {
@@ -306,21 +308,29 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
                          */
                         if (this.clickUpOrDown) {
                             obj.value = this.foundation.doFormat(valueStr, true);
+                            newValue = obj.value;
                         }
-                        this.setState(obj, () => this.adapter.restoreCursor());
+                        this.foundation.updateStates(obj, () => this.adapter.restoreCursor());
                     } else if (!isNaN(toNum)) {
                         // Update input content when controlled input is illegal and not NaN
-                        this.setState({ value: this.foundation.doFormat(toNum, false) });
+                        newValue = this.foundation.doFormat(toNum, false);
+                        this.foundation.updateStates({ value: newValue });
                     } else {
                         // Update input content when controlled input NaN
-                        this.setState({ value: this.foundation.doFormat(valueStr, false) });
+                        newValue = this.foundation.doFormat(valueStr, false);
+                        this.foundation.updateStates({ value: newValue });
                     }
                 } else if (this.foundation.isValidNumber(parsedNum)) {
-                    this.setState({ number: parsedNum, value: this.foundation.doFormat(parsedNum) });
+                    newValue = this.foundation.doFormat(parsedNum);
+                    this.foundation.updateStates({ number: parsedNum, value: newValue });
                 } else {
                     // Invalid digital analog blurring effect instead of controlled failure
-                    this.setState({ number: null, value: '' });
+                    newValue = '';
+                    this.foundation.updateStates({ number: null, value: newValue });
                 }
+            }
+            if (isString(newValue) && newValue !== String(this.props.value)) {
+                this.foundation.notifyChange(newValue, null);
             }
         }
 
@@ -330,7 +340,7 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
 
         if (this.props.keepFocus && this.state.focusing) {
             if (document.activeElement !== this.inputNode) {
-                this.inputNode.focus();
+                this.inputNode.focus({ preventScroll });
             }
         }
     }
@@ -389,8 +399,6 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
         return (
             <div className={suffixChildrenCls}>
                 <span
-                    role="button"
-                    tabIndex={-1}
                     className={upClassName}
                     onMouseDown={notAllowedUp ? noop : this.handleUpClick}
                     onMouseUp={this.handleMouseUp}
@@ -399,8 +407,6 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
                     <IconChevronUp size="extra-small" />
                 </span>
                 <span
-                    role="button"
-                    tabIndex={-1}
                     className={downClassName}
                     onMouseDown={notAllowedDown ? noop : this.handleDownClick}
                     onMouseUp={this.handleMouseUp}

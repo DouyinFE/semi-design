@@ -1,3 +1,4 @@
+/* istanbul ignore next */
 export default function isElement(obj: any) {
     try {
         // Using W3 DOM2 (works for FF, Opera and Chrome)

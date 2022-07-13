@@ -151,5 +151,8 @@ Introduce the full amount of semi css in `global.css`. Currently, on-demand impo
 
 **Using theme in nextjs**
 
-Please refer to [this issue](https://github.com/DouyinFE/semi-design/issues/565)
-
+You need to replace the path of the import statement in Step3, and replace the default theme CSS product with the CSS product in your customized theme package, for example, the theme package is `@semi-bot/semi-theme-nyx-c`
+```css
+/* styles/globals.css */
+@import '~@semi-bot/semi-theme-nyx-c/semi.min.css';
+```

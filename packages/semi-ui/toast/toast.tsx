@@ -2,7 +2,7 @@
 import React, { CSSProperties } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
-import ConfigContext from '../configProvider/context';
+import ConfigContext, { ContextValue } from '../configProvider/context';
 import ToastFoundation, { ToastAdapter, ToastState, ToastProps } from '@douyinfe/semi-foundation/toast/toastFoundation';
 import { numbers, cssClasses, strings } from '@douyinfe/semi-foundation/toast/constants';
 import BaseComponent from '../_base/baseComponent';
@@ -51,6 +51,8 @@ class Toast extends BaseComponent<ToastReactProps, ToastState> {
         this.state = {};
         this.foundation = new ToastFoundation(this.adapter);
     }
+
+    context: ContextValue;
 
     get adapter(): ToastAdapter {
         return {
@@ -118,7 +120,7 @@ class Toast extends BaseComponent<ToastReactProps, ToastState> {
         const btnSize = 'small';
         return (
             <div
-                role='alert'
+                role="alert"
                 aria-label={`${type ? type : 'default'} type`}
                 className={toastCls}
                 style={style}
@@ -127,7 +129,7 @@ class Toast extends BaseComponent<ToastReactProps, ToastState> {
             >
                 <div className={`${prefixCls}-content`}>
                     {this.renderIcon()}
-                    <span className={`${prefixCls}-content-text`} style={textStyle}>
+                    <span className={`${prefixCls}-content-text`} style={textStyle} x-semi-prop="content">
                         {content}
                     </span>
                     {showClose && (
@@ -135,7 +137,7 @@ class Toast extends BaseComponent<ToastReactProps, ToastState> {
                             <Button
                                 onClick={e => this.close(e)}
                                 type="tertiary"
-                                icon={<IconClose />}
+                                icon={<IconClose x-semi-prop="icon" />}
                                 theme={btnTheme}
                                 size={btnSize}
                             />

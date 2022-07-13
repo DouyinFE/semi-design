@@ -1,5 +1,6 @@
 import React from 'react';
 import Rating from '../index';
+import Button from '../../button'
 import { IconLikeHeart } from '@douyinfe/semi-icons';
 
 export default {
@@ -25,7 +26,7 @@ export const _Rating = () => (
       <Rating allowClear={false} />
       <br />
       <h5>character</h5>
-      <Rating character={<IconLikeHeart />} />
+      <Rating size="small" character={<IconLikeHeart />} />
       <br />
       <Rating character={'好'} defaultValue={2} disabled />
     </div>
@@ -72,7 +73,7 @@ class Demo extends React.Component {
     const desc = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
     return (
       <div>
-        <span>How was the help you received: {value ? <span>{desc[value - 1]}</span> : ''}</span>
+        <span>How was the help you received: {value ? <span id='rating-result'>{desc[value - 1]}</span> : ''}</span>
         <br />
         <Rating tooltips={desc} onChange={this.handleChange} value={value} />
       </div>
@@ -94,4 +95,14 @@ export const Keydown = () => <KeyDownDemo />;
 
 Keydown.story = {
   name: 'keydown',
+};
+
+const AutoFocusDemo = () => {
+  return <Rating defaultValue={2} autoFocus />;
+}
+
+export const AutoFocus = () => <AutoFocusDemo />;
+
+AutoFocus.story = {
+  name: 'autofocus',
 };

@@ -9,7 +9,7 @@ const prefix = cssClasses.PREFIX;
 export interface SectionProps {
     className?: string;
     style?: React.CSSProperties;
-    text?: React.ReactNode | string;
+    text?: React.ReactNode;
     children?: React.ReactNode;
 }
 

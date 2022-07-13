@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 60
+order: 62
 category: 展示类
 title: Tooltip 工具提示
 icon: doc-tooltip
@@ -445,6 +445,7 @@ function Demo() {
 | motion | 是否展示弹出层动画 | boolean\|object | true |  |
 | position | 弹出层展示位置，可选值：`top`, `topLeft`, `topRight`, `left`, `leftTop`, `leftBottom`, `right`, `rightTop`, `rightBottom`, `bottom`, `bottomLeft`, `bottomRight` | string | 'top' |  |
 | prefixCls | 弹出层 wrapper div 的 `className` 前缀，设置该项时，弹出层将不再带 Tooltip 的样式 | string | 'semi-tooltip' |  |
+| preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法 | boolean |  |  |
 | rePosKey | 可以更新该项值手动触发弹出层的重新定位 | string\|number |  |  |
 | style    | 弹出层的内联样式 | object |  |  |
 | spacing | 弹出层与 `children` 元素的距离，单位 px | number | 8 |  |
@@ -454,6 +455,7 @@ function Demo() {
 | trigger | 触发展示的时机，可选值：`hover` / `focus` / `click` / `custom` | string | 'hover' |  |
 | visible | 是否展示弹出层 | boolean |  |  |
 | wrapperClassName | 当 children 为 disabled ，或者 children 为多个元素时，外层将会包裹一层 span 元素，该 api 用于设置此 span 的样式类名 | string |  | **1.32.0** |
+| wrapperId | 弹出层 wrapper 节点的 id，trigger 的 aria 属性指向此 id，若不设置组件会随机生成一个 id | string |  | 2.11.0  |
 | zIndex | 弹层层级 | number | 1060 |  |
 | onVisibleChange | 弹出层展示/隐藏时触发的回调 | function(isVisible:boolean) |  |  |
 | onClickOutSide | 当弹出层处于展示状态，点击非Children、非浮层内部区域时的回调（仅trigger为custom、click时有效）| function(e:event) |  | **2.1.0** |

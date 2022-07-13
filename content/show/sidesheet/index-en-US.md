@@ -1,17 +1,16 @@
 ---
 localeCode: en-US
-order: 56
+order: 58
 category: Show
 title: SideSheet
 subTitle: SideSheet
 icon: doc-sidesheet
-brief: SideSheet is a panel which slides in from the edge of the screen.
+brief: An overlay panel that slides out from the edge of the screen, typically used to host secondary action pages.
 ---
 
 ## Demos
 
 ### How to import
-
 ```jsx import
 import { SideSheet } from '@douyinfe/semi-ui';
 ```

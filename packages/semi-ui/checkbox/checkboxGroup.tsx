@@ -24,7 +24,7 @@ export type CheckboxGroupProps = {
     options?: any[];
     value?: any[];
     onChange?: (value: any[]) => void;
-    children?: React.ReactNode;
+    children?: React.ReactNode | undefined;
     prefixCls?: string;
     direction?: CheckboxDirection;
     style?: React.CSSProperties;

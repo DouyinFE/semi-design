@@ -1,16 +1,12 @@
 ---
 localeCode: en-US
-order: 30
+order: 31
 category: Input
 title: TimePicker
 subTitle: TimePicker
 icon: doc-timepicker
 brief: Users can easily select a compliant, formatted point of time using the time selector.
 ---
-
-## When to Use
-
-When users need to enter a time, they can click on the standard input box and pop up the time panel to select.
 
 ## Demos
 
@@ -305,6 +301,7 @@ function Demo(props = {}) {
 | popupStyle | Pop-up layer style object | object | - |
 | position | Floating position | string | type="timeRange" => "bottom"<br/>type="time" => "bottomLeft" |
 | prefixCls | Prefix content | string\|ReactNode |  |  |
+| preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
 | rangeSeparator | time range delimiter | string | "~" |
 | scrollItemProps | The props passed through to ScrollItem. The optional values are the same as [ScrollList#API](/zh-CN/show/scrolllist#ScrollItem) | object |  | **0.31.0** |
 | secondStep | Second option interval | number | 1 |

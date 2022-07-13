@@ -283,6 +283,15 @@ class BasicDemoWithInit extends Component {
                             </Form.AutoComplete>
                         </Col>
                     </Row>
+                    <Row>
+                        <Col span={12}>
+                            <Form.TagInput
+                                field='tags'
+                                label='tags'
+                            />
+                        </Col>
+                        
+                    </Row>
                 </Form.Section>
                 <Form.Section text='资源详情'>
 

@@ -11,6 +11,7 @@ brief: Based on Semi design language, React UI desktop component library that ca
 ## Basic
 
 ```overview
+Divider,
 Grid,
 Icon,
 Layout,
@@ -59,6 +60,7 @@ Avatar,
 Badge,
 Calendar,
 Card,
+Carousel,
 Collapse,
 Collapsible,
 Descriptions,

@@ -16,6 +16,20 @@ $colors: "amber", "blue", "cyan", "green", "grey", "indigo", "light-blue", "ligh
     text-align: center;
     vertical-align: middle;
 
+    &:focus-visible {
+        outline: $width-avatar-outline solid $color-avatar-outline-focus;
+    }
+
+    &-focus {
+        outline: $width-avatar-outline solid $color-avatar-outline-focus;
+    }
+
+    &-no-focus-visible {
+        &:focus-visible {
+            outline: none;
+        }
+    }
+
     .#{$module}-label {
         display: flex;
         align-items: center;
@@ -24,12 +38,7 @@ $colors: "amber", "blue", "cyan", "green", "grey", "indigo", "light-blue", "ligh
     }
 
     &-content {
-        position: absolute;
         user-select: none;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        transform-origin: center;
     }
 
     &-extra-extra-small {
@@ -38,7 +47,7 @@ $colors: "amber", "blue", "cyan", "green", "grey", "indigo", "light-blue", "ligh
 
         .#{$module}-content {
             transform-origin: center;
-            transform: scale(.8) translate(-62.5%, -62.5%);
+            transform: scale(0.8);
         }
 
         .#{$module}-label {
@@ -53,7 +62,7 @@ $colors: "amber", "blue", "cyan", "green", "grey", "indigo", "light-blue", "ligh
 
         .#{$module}-content {
             transform-origin: center;
-            transform: scale(.8) translate(-62.5%, -62.5%);
+            transform: scale(0.8);
         }
 
         .#{$module}-label {

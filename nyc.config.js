@@ -15,6 +15,10 @@ module.exports = {
         "packages/**/_story/**",
         "packages/**/getBabelConfig.js",
         "packages/**/gulpfile.js",
-        "packages/**/webpack.config.js"
+        "packages/**/webpack.config.js",
+        "packages/semi-ui/index.ts",
+        'packages/**/_test_/**',
+        'packages/**/dist/**',
+        'packages/semi-ui/locale/**',
     ]
 };

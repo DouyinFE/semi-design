@@ -17,6 +17,7 @@ export { ListItemProps } from './item';
 export interface ListProps<T> {
     style?: React.CSSProperties;
     className?: string;
+    children?: React.ReactNode;
     bordered?: boolean;
     footer?: React.ReactNode;
     header?: React.ReactNode;
@@ -70,7 +71,11 @@ class List<T = any> extends BaseComponent<ListProps<T>> {
     renderEmpty = () => {
         const { emptyContent } = this.props;
         if (emptyContent) {
-            return (<div className={`${cssClasses.PREFIX}-empty`}>{emptyContent}</div>);
+            return (
+                <div className={`${cssClasses.PREFIX}-empty`} x-semi-prop="emptyContent">
+                    {emptyContent}
+                </div>
+            );
         } else {
             return (
                 <LocaleConsumer componentName="List">
@@ -151,19 +156,27 @@ class List<T = any> extends BaseComponent<ListProps<T>> {
         }
         return (
             <div className={wrapperCls} style={style}>
-                {header ? <div className={`${cssClasses.PREFIX}-header`}>{header}</div> : null}
+                {header ? (
+                    <div className={`${cssClasses.PREFIX}-header`} x-semi-prop="header">
+                        {header}
+                    </div>
+                ) : null}
                 <ListContext.Provider
                     value={{
                         grid,
                         onRightClick,
-                        onClick
+                        onClick,
                     }}
                 >
                     <Spin spinning={loading} size="large">
                         {this.wrapChildren(childrenList, children)}
                     </Spin>
                 </ListContext.Provider>
-                {footer ? <div className={`${cssClasses.PREFIX}-footer`}>{footer}</div> : null}
+                {footer ? (
+                    <div className={`${cssClasses.PREFIX}-footer`} x-semi-prop="footer">
+                        {footer}
+                    </div>
+                ) : null}
                 {loadMore ? loadMore : null}
             </div>
         );

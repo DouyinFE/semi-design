@@ -13,7 +13,7 @@ $color-radio_primary-bg-hover: var(--semi-color-primary-hover); // 选中项悬�
 $color-radio_primary-bg-active: var(--semi-color-primary-active); // 选中项按下态背景颜色
 $color-radio_primary-border-default: var(--semi-color-primary); // 选中项描边颜色
 $color-radio_primary-bg-default: var(--semi-color-primary); // 选中项背景颜色
-$color-radio_primary-text-default: white; // 选中项原点颜色
+$color-radio_primary-text-default: rgba(var(--semi-white), 1); // 选中项原点颜色
 
 $color-radio_checked-bg-disabled: var(--semi-color-primary-disabled); // 选中项禁用态背景颜色
 $color-radio_default-border-disabled: var(--semi-color-border); // 禁用态描边颜色
@@ -48,6 +48,8 @@ $color-radio_card-bg-hover: var(--semi-color-white); // 单选圆点颜色
 $color-radio_card-bg-active: var(--semi-color-white); // 单选圆点颜色 - 按下态
 $color-radio_card-bg-default: var(--semi-color-white); // 单选圆点颜色 - 悬浮态
 
+$color-radio_primary-outline-focus: var(--semi-color-primary-light-active); // 轮廓颜色 - 按键聚焦
+
 $radius-radio_cardRadioGroup: var(--semi-border-radius-small); // 卡片式单选圆角大小
 $radius-radio_addon_buttonRadio: var(--semi-border-radius-small); // 按钮式单选圆点圆角大小
 $radius-radio_buttonRadio: var(--semi-border-radius-small); // 按钮式单选圆角大小
@@ -57,6 +59,8 @@ $width-radio_cardRadioGroup_checked_disabled-border: 1px; // 卡片式单选选�
 $width-radio_hover-border: $border-thickness-control; // 描边宽度 - 悬浮态
 $width-radio_disabled-border: $border-thickness-control; // 描边宽度 - 禁用态
 $width-radio_innder-border: $border-thickness-control; // 描边宽度 - 禁用态
+
+$width-radio-outline: 2px; // 单选框轮廓宽度
 
 $height-radio_inner_min: 20px; // 单选按钮高度
 $width-radio_inner: $width-icon-medium; // 单选按钮宽度

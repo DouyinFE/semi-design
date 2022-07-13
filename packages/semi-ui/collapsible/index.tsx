@@ -72,7 +72,7 @@ const Collapsible = (props: CollapsibleProps) => {
         return isOpen || !shouldKeepDOM() && !motion ? 'none' : collapseHeight;
     }, [collapseHeight, motion, isOpen, shouldKeepDOM]);
 
-    const renderChildren = (transitionStyle: Record<string, any>) => {
+    const renderChildren = (transitionStyle: Record<string, any> | null) => {
         const transition =
             transitionStyle && typeof transitionStyle === 'object' ?
                 formatStyle(transitionStyle) :
@@ -92,7 +92,14 @@ const Collapsible = (props: CollapsibleProps) => {
         const wrapperCls = cls(`${cssClasses.PREFIX}-wrapper`, className);
         return (
             <div style={wrapperstyle} className={wrapperCls} ref={ref}>
-                <div ref={setHeight} style={{ overflow: 'hidden' }} id={id}>{children}</div>
+                <div
+                    ref={setHeight}
+                    style={{ overflow: 'hidden' }} 
+                    id={id}
+                    x-semi-prop="children"
+                >
+                    {children}
+                </div>
             </div>
         );
     };

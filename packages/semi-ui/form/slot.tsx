@@ -13,7 +13,7 @@ const prefix = cssClasses.PREFIX;
 export interface SlotProps {
     className?: string;
     style?: React.CSSProperties;
-    label?: LabelProps | React.ReactNode | number | string;
+    label?: LabelProps | React.ReactNode;
     noLabel?: boolean;
     labelPosition?: 'top' | 'left';
     error?: ErrorMessageProps;
@@ -59,9 +59,11 @@ const FormSlot = (props: SlotProps) => {
             // do nothing
             break;
         case isString(label) || isNumber(label):
+            // @ts-ignore skip type check, the actual type is already determined
             label = { text: label };
             break;
         case React.isValidElement(label):
+            // @ts-ignore skip type check, the actual type is already determined
             label = { text: label };
             break;
         default:

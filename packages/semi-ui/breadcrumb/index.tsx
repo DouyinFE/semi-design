@@ -11,7 +11,7 @@ import { noop } from '@douyinfe/semi-foundation/utils/function';
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
 import Popover from '../popover';
 import BreadcrumbItem, { RouteProps, BreadcrumbItemInfo } from './item';
-import BreadContext, { BreadContextProps } from './bread-context';
+import BreadContext, { BreadContextType } from './bread-context';
 import { TooltipProps } from '../tooltip';
 import { IconMore } from '@douyinfe/semi-icons';
 
@@ -49,7 +49,7 @@ interface BreadcrumbState {
 }
 
 class Breadcrumb extends BaseComponent<BreadcrumbProps, BreadcrumbState> {
-    static contextType: React.Context<BreadContextProps> = BreadContext;
+    static contextType: React.Context<BreadContextType> = BreadContext;
 
     static Item: typeof BreadcrumbItem = BreadcrumbItem;
 
@@ -167,9 +167,9 @@ class Breadcrumb extends BaseComponent<BreadcrumbProps, BreadcrumbState> {
             <span className={`${clsPrefix}-collapse`} key={`more-${itemsLen}`}>
                 <span className={`${clsPrefix}-item-wrap`}>
                     <span
-                        role='button'
+                        role="button"
                         tabIndex={0}
-                        aria-label='Expand breadcrumb items'
+                        aria-label="Expand breadcrumb items"
                         className={`${clsPrefix}-item ${clsPrefix}-item-more`}
                         onClick={item => this.foundation.handleExpand(item)}
                         onKeyPress={e => this.foundation.handleExpandEnterPress(e)}
@@ -178,7 +178,9 @@ class Breadcrumb extends BaseComponent<BreadcrumbProps, BreadcrumbState> {
                         {!hasRenderMore && moreType === 'default' && <IconMore />}
                         {!hasRenderMore && moreType === 'popover' && this.renderPopoverMore(restItem)}
                     </span>
-                    <span className={`${clsPrefix}-separator`}>{this.props.separator}</span>
+                    <span className={`${clsPrefix}-separator`} x-semi-prop="separator">
+                        {this.props.separator}
+                    </span>
                 </span>
             </span>
         );

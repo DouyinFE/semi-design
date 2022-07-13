@@ -195,29 +195,33 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                 this._addEventListener(document.body, 'mouseup', this.foundation.onHandleUp, false);
                 this._addEventListener(document.body, 'touchmove', this.foundation.onHandleTouchMove, false);
             },
-            onHandleMove: (mousePos: number, isMin: boolean, stateChangeCallback = noop, clickTrack = false): boolean | void => {
+            onHandleMove: (mousePos: number, isMin: boolean, stateChangeCallback = noop, clickTrack = false, outPutValue): boolean | void => {
 
                 const sliderDOMIsInRenderTree = this.foundation.checkAndUpdateIsInRenderTreeState();
                 if (!sliderDOMIsInRenderTree) {
                     return;
                 }
 
-                const { value, onChange } = this.props;
-                const moveValue = this.foundation.transPosToValue(mousePos, isMin);
-                if (moveValue === false) {
-                    return;
+                const { value } = this.props;
+                
+
+                let finalOutPutValue = outPutValue;
+                if (finalOutPutValue === undefined) {
+                    const moveValue = this.foundation.transPosToValue(mousePos, isMin);
+                    if (moveValue === false) {
+                        return;
+                    }
+                    finalOutPutValue = this.foundation.outPutValue(moveValue);
                 }
 
-                const outPutValue = this.foundation.outPutValue(moveValue);
                 const { currentValue } = this.state;
-                if (!isEqual(this.foundation.outPutValue(currentValue), outPutValue)) {
-                    onChange(outPutValue);
+                if (!isEqual(this.foundation.outPutValue(currentValue), finalOutPutValue)) {
                     if (!clickTrack && this.foundation.valueFormatIsCorrect(value)) {
                         // still require afterChangeCallback when click on the track directly, need skip here
                         return false;
                     }
                     this.setState({
-                        currentValue: outPutValue,
+                        currentValue: finalOutPutValue,
                     }, stateChangeCallback);
                 }
             },
@@ -300,14 +304,14 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
         const maxClass = cls(cssClasses.HANDLE, {
             [`${cssClasses.HANDLE}-clicked`]: chooseMovePos === 'max' && isDrag,
         });
-        const {min, max, currentValue} = this.state;
+        const { min, max, currentValue } = this.state;
 
         const commonAria = {
             'aria-label': ariaLabel,
             'aria-labelledby': ariaLabelledby,
             'aria-disabled': disabled
         };
-        vertical && Object.assign(commonAria, {'aria-orientation': 'vertical'});
+        vertical && Object.assign(commonAria, { 'aria-orientation': 'vertical' });
 
         const handleContents = !range ? (
             <Tooltip
@@ -475,7 +479,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
             };
         trackStyle = included ? trackStyle : {};
         return (// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
-            <div className={cssClasses.TRACK} style={trackStyle} onClick={e => this.foundation.handleWrapClick(e)}>
+            <div className={cssClasses.TRACK} style={trackStyle} onClick={this.foundation.handleWrapClick}>
                 {/* {this.renderTrack} */}
             </div>
         );
@@ -494,9 +498,10 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                         });
                         const markPercent = (Number(mark) - min) / (max - min);
                         return activeResult ? (
+                            // eslint-disable-next-line jsx-a11y/no-static-element-interactions
                             <span
                                 key={mark}
-                                onClick={e => this.foundation.handleWrapClick(e)}
+                                onClick={this.foundation.handleWrapClick}
                                 className={markClass}
                                 style={{ [stylePos]: `calc(${markPercent * 100}% - 2px)` }}
                             />
@@ -517,10 +522,12 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                         const activeResult = this.foundation.isMarkActive(Number(mark));
                         const markPercent = (Number(mark) - min) / (max - min);
                         return activeResult ? (
+                            // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
                             <span
                                 key={mark}
                                 className={cls(`${prefixCls}-mark${(vertical && verticalReverse) ? '-reverse' : ''}`)}
                                 style={{ [stylePos]: `${markPercent * 100}%` }}
+                                onClick={this.foundation.handleWrapClick}
                             >
                                 {marks[mark]}
                             </span>
@@ -560,7 +567,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                 {// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
                     <div
                         className={`${prefixCls}-rail`}
-                        onClick={e => this.foundation.handleWrapClick(e)}
+                        onClick={this.foundation.handleWrapClick}
                         style={this.props.railStyle}
                     />
                 }

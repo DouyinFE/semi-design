@@ -1,17 +1,13 @@
 ---
 localeCode: en-US
-order: 51
+order: 53
 category: Show
 title: List
 subTitle: List
 icon: doc-list
 dir: column
-brief: Lists display a set of related contents.
+brief: Lists display a set of related contents
 ---
-
-## When to Use
-
-Lists display a set of texts, lists, images, paragraphs, etc. It is commonly used in data display pages.
 
 ## Demos
 
@@ -1196,7 +1192,7 @@ import { List, Input, Button, Checkbox, Radio, RadioGroup, CheckboxGroup } from 
     ];
 
     const [page, onPageChange] = useState(1);
-    const [checkboxVal, setCV] = useState(data[0]);
+    const [checkboxVal, setCV] = useState([...data[0]]);
     const [radioVal, setRV] = useState(data[0]);
 
     let pageSize = 8;

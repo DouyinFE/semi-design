@@ -91,6 +91,7 @@ import { SetValuesDemo, SetValuesWithArrayField } from './FormApi/setValuesDemo'
 import { SetValueUsingParentPath } from './FormApi/formApiDemo';
 import { FieldPathWithArrayDemo } from './Debug/bugDemo';
 import ChildDidMount from './Debug/childDidMount';
+export { default as FormSubmit } from './FormSubmit';
 
 export default {
   title: 'Form'

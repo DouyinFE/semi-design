@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 29
+order: 30
 category: 输入类
 title: TagInput 标签输入框
 icon: doc-tagInput
@@ -428,6 +428,7 @@ class CustomRender extends React.Component {
 |showContentTooltip   |当标签长度过长发生截断时，hover 标签的时候，是否通过 Tooltip 显示全部内容     |boolean    | true        |1.21.0|
 |placeholder  |占位默认值                                         |string                         | -         |1.19.0|
 |prefix       |前缀标签                                           |ReactNode                      |-          |1.19.0|
+| preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法 | boolean |  |  |
 |renderTagItem|自定义标签渲染                                      |(value: string, index: number) => React.ReactNode | -        |1.19.0|
 |separator    |设置批量输入时的分隔符                               |string\|string[]                         |,    |1.19.0, string[]是从1.29.0开始支持|
 |showClear    |是否支持一键删除所有标签和输入内容                     |boolean                        |false      |1.19.0|

@@ -542,11 +542,25 @@ $module: #{$prefix}-upload;
             cursor: pointer;
             @include font-size-regular;
             margin-bottom: $spacing-upload_drag_area_main_text-marginBottom;
+            color: $color-upload_drag_area_main-text-default;
+            &:hover {
+                color: $color-upload_drag_area_main-text-hover;
+            }
+            &:active {
+                color: $color-upload_drag_area_main-text-active;
+            }
         }
 
         &-sub-text {
             cursor: pointer;
             @include font-size-small;
+            color: $color-upload_drag_area_sub-text-default;
+            &:hover {
+                color: $color-upload_drag_area_sub-text-hover;
+            }
+            &:active {
+                color: $color-upload_drag_area_sub-text-active;
+            }
         }
 
         &-tips {

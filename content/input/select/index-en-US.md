@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 26
+order: 27
 category: Input
 title: Select
 subTitle: Select
@@ -381,88 +381,80 @@ Using outerTopSlot to insert content
 import React from 'react';
 import { Select } from '@douyinfe/semi-ui';
 
-class Demo extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            key: 'component',
-        };
-        this.list = {
-            component: [
-                { value: 'select', label: 'Select' },
-                { value: 'tabs', label: 'Tabs' },
-                { value: 'avatar', label: 'Avatar' },
-                { value: 'button', label: 'Button' },
-            ],
-            design: [
-                { value: 'color', label: 'Color' },
-                { value: 'dark', label: 'Dark Mode' },
-                { value: 'icon', label: 'Icon' },
-                { value: 'font', label: 'Topography' },
-            ],
-            feedback: [
-                { value: 'faq', label: 'FAQ' },
-                { value: 'join', label: 'Join Chat Group' },
-                { value: 'hornbill', label: 'Hornbill' },
-            ],
-        };
-        this.handleTabClick = this.handleTabClick.bind(this);
-    }
+() => {
+    const list = {
+        component: [
+            { value: 'select', label: 'Select' },
+            { value: 'tabs', label: 'Tabs' },
+            { value: 'avatar', label: 'Avatar' },
+            { value: 'button', label: 'Button' },
+        ],
+        design: [
+            { value: 'color', label: 'Color' },
+            { value: 'dark', label: 'Dark Mode' },
+            { value: 'icon', label: 'Icon' },
+            { value: 'font', label: 'Topography' },
+        ],
+        feedback: [
+            { value: 'faq', label: 'FAQ' },
+            { value: 'join', label: 'Join Chat Group' },
+            { value: 'hornbill', label: 'Hornbill' },
+        ],
+    };
 
-    handleTabClick(itemKey) {
-        this.setState({ key: itemKey });
-    }
+    const [key, setKey] = useState('component');
+    const [value, setValue] = useState({ value: 'faq', label: 'FAQ' },);
+    const handleTabClick = (itemKey) => {
+        setKey(itemKey);
+    };
 
-    render() {
-        const { key } = this.state;
-        const tabStyle = {
-            cursor: 'pointer',
-            marginRight: 12,
-            paddingBottom: 4,
-        };
-        const tabActiveStyle = {
-            ...tabStyle,
-            borderBottom: '1px solid var(--semi-color-primary)',
-            fontWeight: 700,
-        };
-        const tabWrapper = {
-            display: 'flex',
-            paddingTop: 8,
-            paddingLeft: 32,
-            borderBottom: '0.5px solid var(--semi-color-border)',
-        };
-        const tabOptions = [
-            { itemKey: 'component', label: 'Components' },
-            { itemKey: 'design', label: 'Design' },
-            { itemKey: 'feedback', label: 'Feedback' },
-        ];
-        const outerTopSlotNode = (
-            <div style={tabWrapper}>
-                {tabOptions.map((item, index) => {
+    const tabStyle = {
+        cursor: 'pointer',
+        marginRight: 12,
+        paddingBottom: 4,
+    };
+    const tabActiveStyle = {
+        ...tabStyle,
+        borderBottom: '1px solid var(--semi-color-primary)',
+        fontWeight: 700,
+    };
+    const tabWrapper = {
+        display: 'flex',
+        paddingTop: 8,
+        paddingLeft: 32,
+        borderBottom: '0.5px solid var(--semi-color-border)'
+    };
+    const tabOptions = [
+        { itemKey: 'component', label: '组件' },
+        { itemKey: 'design', label: '设计' },
+        { itemKey: 'feedback', label: '反馈' },
+    ];
+
+    const outerTopSlotNode = (
+        <div style={tabWrapper}>
+            {
+                tabOptions.map((item, index) => {
                     style = item.itemKey === key ? tabActiveStyle : tabStyle;
                     return (
-                        <div style={style} key={item.itemKey} onClick={() => this.handleTabClick(item.itemKey)}>
-                            {item.label}
-                        </div>
+                        <div style={style} key={item.itemKey} onClick={() => handleTabClick(item.itemKey)}>{item.label}</div>
                     );
-                })}
-            </div>
-        );
-
-        return (
-            <div>
-                <Select
-                    style={{ width: 300 }}
-                    defaultOpen
-                    autoAdjustOverflow={false}
-                    position="bottom"
-                    outerTopSlot={outerTopSlotNode}
-                    optionList={this.list[key]}
-                />
-            </div>
-        );
-    }
-}
+                })
+            }
+        </div>
+    );
+    return (
+        <Select
+            defaultOpen
+            autoAdjustOverflow={false}
+            value={value}
+            onChangeWithObject
+            onChange={obj => setValue(obj)}
+            style={{ width: 200 }}
+            outerTopSlot={outerTopSlotNode}
+            optionList={list[key]}
+        />
+    );
+};
 ```
 
 ### Controlled component
@@ -1317,6 +1309,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | placeholder | placeholder | ReactNode |  |
 | position | Pop-up layer position, refer to [Popover·API reference·position](/en-US/show/popover#API%20Reference) | string | 'bottomLeft' |
 | prefix | An input helper rendered before | ReactNode |  |
+| preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
 | remote | Whether to turn on remote search, when remote is true, the input content will not be locally filtered and matched | boolean | false |
 | renderCreateItem | When allowCreate is true, you can customize the rendering of the creation label | function(inputValue: string) | InputValue => 'Create' + InputValue |
 | renderSelectedItem | Customize the rendering of selected tabs in the selection box | function(option) |  |
@@ -1324,6 +1317,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | showClear | Whether to show the clear button | boolean | false |
 | size | Size, optional value `default` / `small` / `large` | string | 'default' |
 | spacing | Spacing between popup layer and trigger | number | 4 |
+| stopPropagation | Whether to prevent click events on the popup layer from bubbling | boolean | true | |
 | style | Inline Style | object |  |
 | suffix | An input helper rendered after | ReactNode |  |
 | triggerRender | Custom DOM of trigger | function |  |

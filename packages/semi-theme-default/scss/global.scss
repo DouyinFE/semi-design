@@ -14,13 +14,13 @@ body, body[theme-mode="dark"] .semi-always-light {
     --semi-color-primary-light-hover: rgba(var(--semi-blue-1), 1); // 浅版主要颜色悬浮态
     --semi-color-primary-light-active: rgba(var(--semi-blue-2), 1); // 浅版主要颜色激活态
 
-    --semi-color-secondary: rgba(var(--semi-blue-5), 1); // 次要颜色。强调作用次于主要颜色，但仍然具有强调作用。
-    --semi-color-secondary-hover: rgba(var(--semi-blue-6), 1); // 次要颜色悬浮态
-    --semi-color-secondary-active: rgba(var(--semi-blue-7), 1); // 次要颜色激活态
-    --semi-color-secondary-disabled: rgba(var(--semi-blue-2), 1); // 次要颜色禁用态
-    --semi-color-secondary-light-default: rgba(var(--semi-blue-0), 1); // 浅版次要颜色（多用于背景）。强调作用次于主要颜色，但仍然具有强调作用。
-    --semi-color-secondary-light-hover: rgba(var(--semi-blue-1), 1); // 浅版次要颜色悬浮态
-    --semi-color-secondary-light-active: rgba(var(--semi-blue-2), 1); // 浅版次要颜色激活态
+    --semi-color-secondary: rgba(var(--semi-light-blue-5), 1); // 次要颜色。强调作用次于主要颜色，但仍然具有强调作用。
+    --semi-color-secondary-hover: rgba(var(--semi-light-blue-6), 1); // 次要颜色悬浮态
+    --semi-color-secondary-active: rgba(var(--semi-light-blue-7), 1); // 次要颜色激活态
+    --semi-color-secondary-disabled: rgba(var(--semi-light-blue-2), 1); // 次要颜色禁用态
+    --semi-color-secondary-light-default: rgba(var(--semi-light-blue-0), 1); // 浅版次要颜色（多用于背景）。强调作用次于主要颜色，但仍然具有强调作用。
+    --semi-color-secondary-light-hover: rgba(var(--semi-light-blue-1), 1); // 浅版次要颜色悬浮态
+    --semi-color-secondary-light-active: rgba(var(--semi-light-blue-2), 1); // 浅版次要颜色激活态
 
     --semi-color-tertiary: rgba(var(--semi-grey-5), 1); // 第三颜色，可以在页面上多次使用
     --semi-color-tertiary-hover: rgba(var(--semi-grey-6), 1); // 第三颜色悬浮态
@@ -115,13 +115,13 @@ body[theme-mode="dark"], body .semi-always-dark {
     --semi-color-primary-light-default: rgba(var(--semi-blue-5), .2);
     --semi-color-primary-light-hover: rgba(var(--semi-blue-5), .3);
     --semi-color-primary-light-active: rgba(var(--semi-blue-5), .4);
-    --semi-color-secondary: rgba(var(--semi-blue-5), 1);
-    --semi-color-secondary-hover: rgba(var(--semi-blue-6), 1);
-    --semi-color-secondary-active: rgba(var(--semi-blue-7), 1);
-    --semi-color-secondary-disabled: rgba(var(--semi-blue-2), 1);
-    --semi-color-secondary-light-default: rgba(var(--semi-blue-5), .2);
-    --semi-color-secondary-light-hover: rgba(var(--semi-blue-5), .3);
-    --semi-color-secondary-light-active: rgba(var(--semi-blue-5), .4);
+    --semi-color-secondary: rgba(var(--semi-light-blue-5), 1);
+    --semi-color-secondary-hover: rgba(var(--semi-light-blue-6), 1);
+    --semi-color-secondary-active: rgba(var(--semi-light-blue-7), 1);
+    --semi-color-secondary-disabled: rgba(var(--semi-light-blue-2), 1);
+    --semi-color-secondary-light-default: rgba(var(--semi-light-blue-5), .2);
+    --semi-color-secondary-light-hover: rgba(var(--semi-light-blue-5), .3);
+    --semi-color-secondary-light-active: rgba(var(--semi-light-blue-5), .4);
     --semi-color-tertiary: rgba(var(--semi-grey-5), 1);
     --semi-color-tertiary-hover: rgba(var(--semi-grey-6), 1);
     --semi-color-tertiary-active: rgba(var(--semi-grey-7), 1);

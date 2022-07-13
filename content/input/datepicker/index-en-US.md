@@ -1,16 +1,12 @@
 ---
 localeCode: en-US
-order: 20
+order: 21
 category: Input
 title: DatePicker
 subTitle: Date Selector
 icon: doc-datepicker
 brief: The date selector is used to help the user select a compliant, formatted date (time) or date (time) range.
 ---
-
-## When to Use
-
-When the user needs to enter a date, you can click on the standard input box and pop up the date panel to select.
 
 ## Demos
 
@@ -788,7 +784,7 @@ function Demo() {
 |--------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------|---------|------------|
 | autoAdjustOverflow | Whether the floating layer automatically adjusts its direction when it is blocked                                                                                                         | boolean                                          | true    | **0.34.0** |
 | autoFocus          | Automatic access to focus                                                                                                                                                                 | boolean                                          | false   | **1.10.0** |
-| autoSwitchDate     | When false is passed in, the date will not be automatically switched when the year and year are changed through the left and right buttons on the top of the panel and the drop-down menu | boolean                                          | true    | **1.13.0** |
+| autoSwitchDate     | When the year and month are changed through the left and right buttons and the drop-down menu at the top of the panel, the date is automatically switched. Only valid for `date` type. | boolean                                          | true    | **1.13.0** |
 | bottomSlot         | Render the bottom extra area                                                                                                                                                              | ReactNode                                        |         | **1.22.0** |
 | className          | Class name                                                                                                                                                                                | string                                           | -       |            |
 | defaultOpen        | Panel displays or hides by default                                                                                                                                                        | boolean                                          | false   |            |
@@ -816,6 +812,7 @@ function Demo() {
 | position           | Floating layer position, optional value with [Popover #API Reference · position](/en-US/show/popover#API%20Reference)                                                                 | string                                                                                                                                                                                                    | 'bottomLeft'                                                                          |                           |
 | prefix             | Prefix content                                                                                                                                                                            | string\|ReactNode                                                                                                                                                                                         |                                                                                       |                           |
 | presets            | Date Time Shortcut                                                                                                                                                                        | Array < {start: string\|Date\|number, end: string\|Date\|number, text: string}\| function(): {start: string\|Date\|number, end: string\|Date\|number, text: string} >                                     | []                                                                                    |                           |
+| preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
 | rangeSeparator     | Custom range type picker separator of input trigger | string | '~' | **1.31.0** 
 | renderDate         | Custom date display content                                                                                                                                                               | (dayNumber, fullDate) => ReactNode                                                                                                                                                                        | -                                                                                     | **1.4.0**            |
 | renderFullDate     | Custom display date box                                                                                                                                                                   | (dayNumber, fullDate, dayStatus) => ReactNode                                                                                                                                                             | -                                                                                     | **1.4.0**            |

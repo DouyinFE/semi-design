@@ -6,6 +6,7 @@ import { DOMRectLikeType } from '../utils/dom';
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import { ArrayElement } from '../utils/type';
 import { strings } from './constants';
+import { handlePrevent } from '../utils/a11y';
 
 const REGS = {
     TOP: /top/i,
@@ -46,6 +47,7 @@ export interface TooltipAdapter<P = Record<string, any>, S = Record<string, any>
         click: string;
         focus: string;
         blur: string;
+        keydown: string;
     };
     registerTriggerEvent(...args: any[]): void;
     getTriggerBounding(...args: any[]): DOMRect;
@@ -61,6 +63,13 @@ export interface TooltipAdapter<P = Record<string, any>, S = Record<string, any>
     updateContainerPosition(): void;
     updatePlacementAttr(placement: Position): void;
     getContainerPosition(): string;
+    getFocusableElements(node: any): any[];
+    getActiveElement(): any;
+    getContainer(): any;
+    setInitialFocus(): void;
+    notifyEscKeydown(event: any): void;
+    getTriggerNode(): any;
+    setId(): void;
 }
 
 export type Position = ArrayElement<typeof strings.POSITION_SET>;
@@ -80,10 +89,14 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
     }
 
     init() {
+        const { wrapperId } = this.getProps();
         this._mounted = true;
         this._bindEvent();
         this._shouldShow();
         this._initContainerPosition();
+        if (!wrapperId) {
+            this._adapter.setId();
+        }
     }
 
     destroy() {
@@ -154,7 +167,12 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
 
     _generateEvent(types: ArrayElement<typeof strings.TRIGGER_SET>) {
         const eventNames = this._adapter.getEventName();
-        const triggerEventSet = {};
+        const triggerEventSet = {
+            // bind esc keydown on trigger for a11y
+            [eventNames.keydown]: (event) => {
+                this._handleTriggerKeydown(event);
+            },
+        };
         let portalEventSet = {};
         switch (types) {
             case 'focus':
@@ -186,6 +204,13 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
                     this.delayHide();
                     // this.hide('trigger');
                 };
+                // bind focus to hover trigger for a11y
+                triggerEventSet[eventNames.focus] = () => {
+                    this.delayShow();
+                };
+                triggerEventSet[eventNames.blur] = () => {
+                    this.delayHide();
+                };
 
                 portalEventSet = { ...triggerEventSet };
                 if (this.getProp('clickToHide')) {
@@ -205,7 +230,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
                 break;
             case 'custom':
                 // when trigger type is 'custom', no need to bind eventHandler
-                // show/hide completely depond on props.visible which change by user
+                // show/hide completely depend on props.visible which change by user
                 break;
             default:
                 break;
@@ -292,7 +317,12 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
     _togglePortalVisible(isVisible: boolean) {
         const nowVisible = this.getState('visible');
         if (nowVisible !== isVisible) {
-            this._adapter.togglePortalVisible(isVisible, () => this._adapter.notifyVisibleChange(isVisible));
+            this._adapter.togglePortalVisible(isVisible, () => {
+                if (isVisible) {
+                    this._adapter.setInitialFocus();
+                }
+                this._adapter.notifyVisibleChange(isVisible);
+            });
         }
     }
 
@@ -796,5 +826,116 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
 
     _initContainerPosition() {
         this._adapter.updateContainerPosition();
+    }
+
+    handleContainerKeydown = (event: any) => {
+        const { guardFocus, closeOnEsc } = this.getProps();
+        switch (event && event.key) {
+            case "Escape":
+                closeOnEsc && this._handleEscKeyDown(event);
+                break;
+            case "Tab":
+                if (guardFocus) {
+                    const container = this._adapter.getContainer();
+                    const focusableElements = this._adapter.getFocusableElements(container);
+                    const focusableNum = focusableElements.length;
+    
+                    if (focusableNum) {
+                        // Shift + Tab will move focus backward
+                        if (event.shiftKey) {
+                            this._handleContainerShiftTabKeyDown(focusableElements, event);
+                        } else {
+                            this._handleContainerTabKeyDown(focusableElements, event);
+                        }
+                    }
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    _handleTriggerKeydown(event: any) {
+        const { closeOnEsc } = this.getProps();
+        const container = this._adapter.getContainer();
+        const focusableElements = this._adapter.getFocusableElements(container);
+        const focusableNum = focusableElements.length;
+        
+        switch (event && event.key) {
+            case "Escape":
+                handlePrevent(event);
+                closeOnEsc && this._handleEscKeyDown(event);
+                break;
+            case "ArrowUp":
+                focusableNum && this._handleTriggerArrowUpKeydown(focusableElements, event);
+                break;
+            case "ArrowDown":
+                focusableNum && this._handleTriggerArrowDownKeydown(focusableElements, event);
+                break;
+            default:
+                break;
+        }
+    }
+
+    /**
+     * focus trigger 
+     * 
+     * when trigger is 'focus' or 'hover', onFocus is bind to show popup
+     * if we focus trigger, popup will show again
+     * 
+     * 如果 trigger 是 focus 或者 hover，则它绑定了 onFocus，这里我们如果重新 focus 的话，popup 会再次打开
+     * 因此 returnFocusOnClose 只支持 click trigger
+     */
+    _focusTrigger() {
+        const { trigger, returnFocusOnClose, preventScroll } = this.getProps();
+        if (returnFocusOnClose && trigger !== 'custom') {
+            const triggerNode = this._adapter.getTriggerNode();
+            if (triggerNode && 'focus' in triggerNode) {
+                triggerNode.focus({ preventScroll });
+            }
+        }
+    }
+
+    _handleEscKeyDown(event: any) {
+        const { trigger } = this.getProps();
+        if (trigger !== 'custom') {
+            // Move the focus into the trigger first and then close the pop-up layer 
+            // to avoid the problem of opening the pop-up layer again when the focus returns to the trigger in the case of hover and focus
+            this._focusTrigger();
+            this.hide();
+        }
+        this._adapter.notifyEscKeydown(event);
+    }
+
+    _handleContainerTabKeyDown(focusableElements: any[], event: any) {
+        const { preventScroll } = this.getProps();
+        const activeElement = this._adapter.getActiveElement();
+        const isLastCurrentFocus = focusableElements[focusableElements.length - 1] === activeElement;
+        if (isLastCurrentFocus) {
+            focusableElements[0].focus({ preventScroll });
+            event.preventDefault(); // prevent browser default tab move behavior
+        }
+    }
+
+    _handleContainerShiftTabKeyDown(focusableElements: any[], event: any) {
+        const { preventScroll } = this.getProps();
+        const activeElement = this._adapter.getActiveElement();
+        const isFirstCurrentFocus = focusableElements[0] === activeElement;
+        if (isFirstCurrentFocus) {
+            focusableElements[focusableElements.length - 1].focus({ preventScroll });
+            event.preventDefault(); // prevent browser default tab move behavior
+        }
+    }
+
+    _handleTriggerArrowDownKeydown(focusableElements: any[], event: any) {
+        const { preventScroll } = this.getProps();
+        focusableElements[0].focus({ preventScroll });
+        event.preventDefault(); // prevent browser default scroll behavior
+    }
+
+    _handleTriggerArrowUpKeydown(focusableElements: any[], event: any) {
+        const { preventScroll } = this.getProps();
+        focusableElements[focusableElements.length - 1].focus({ preventScroll });
+        event.preventDefault(); // prevent browser default scroll behavior
     }
 }

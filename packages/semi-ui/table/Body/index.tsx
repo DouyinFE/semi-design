@@ -30,7 +30,7 @@ import ExpandedRow from './ExpandedRow';
 import SectionRow from './SectionRow';
 import TableHeader from '../TableHeader';
 import ConfigContext from '../../configProvider/context';
-import TableContext from '../table-context';
+import TableContext, { TableContextProps } from '../table-context';
 import {
     ExpandedRowRender,
     Virtualized,
@@ -132,6 +132,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
     foundation: BodyFoundation;
     cellWidths: number[];
     flattenedColumns: ColumnProps[];
+    context: TableContextProps;
     constructor(props: BodyProps, context: BodyContext) {
         super(props);
         this.ref = React.createRef();
@@ -271,7 +272,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
 
     itemKey = (index: number, data: Array<FlattenData | GroupFlattenData>) => get(data, [index, 'key'], index);
 
-    handleRowClick = (rowKey: RowKey<any>, e: React.MouseEvent, expand: boolean) => {
+    handleRowClick = (rowKey: RowKey<any>, e: React.MouseEvent<HTMLElement>, expand: boolean) => {
         const { handleRowExpanded } = this.context;
         handleRowExpanded(!expand, rowKey, e);
     };
@@ -422,7 +423,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
 
         const listStyle = {
             width: '100%',
-            height: y,
+            height: virtualizedData?.length ? y : 0,
             overflowX: 'auto',
             overflowY: 'auto',
         } as const;

@@ -18,7 +18,8 @@ import ErrorMessage from './errorMessage';
 import FormInputGroup from './group';
 import { noop } from 'lodash';
 import '@douyinfe/semi-foundation/form/form.scss';
-import { FormInput,
+import {
+    FormInput,
     FormInputNumber,
     FormTextArea,
     FormSelect,
@@ -121,7 +122,7 @@ class Form extends BaseComponent<BaseFormProps, BaseFormState> {
     constructor(props: BaseFormProps) {
         super(props);
         this.state = {
-            formId: getUuidv4(),
+            formId: '',
         };
         warning(
             Boolean(props.component && props.render),
@@ -144,9 +145,12 @@ class Form extends BaseComponent<BaseFormProps, BaseFormState> {
         }
     }
 
+    componentDidMount() {
+        this.foundation.init();
+    }
+
     componentWillUnmount() {
         this.foundation.destroy();
-        this.foundation = null;
         this.formApi = null;
     }
 
@@ -171,6 +175,11 @@ class Form extends BaseComponent<BaseFormProps, BaseFormState> {
             },
             notifyReset: () => {
                 this.props.onReset();
+            },
+            initFormId: () => {
+                this.setState({
+                    formId: getUuidv4()
+                });
             },
             getInitValues: () => this.props.initValues,
             getFormProps: (keys: undefined | string | Array<string>) => {
@@ -206,7 +215,7 @@ class Form extends BaseComponent<BaseFormProps, BaseFormState> {
             values: formState.values,
         };
         if (component) {
-            return React.createElement(component, props, children);
+            return React.createElement(component, props);
         }
         if (render) {
             return render(props);

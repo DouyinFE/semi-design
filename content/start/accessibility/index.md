@@ -7,6 +7,16 @@ order: 5
 brief: 无障碍设计是让所有人都可以轻松地与产品互动，包括那些残障人群，为每个人提供更好的体验。Semi 设计系统旨在消除障碍并创造适合所有人的包容性产品体验。
 ---
 
+## 无障碍专用主题
+Semi 针对无障碍场景，专门定制了一套专用的 A11y 主题 [@semi-bot/semi-theme-a11y](https://semi.design/dsm_store/theme?dsmID=2243)  
+与默认主题相比，A11y 主题增加了基础色盘各个颜色的对比度，并且加大了字体 token 的字号，如果对对比度有更高要求时，建议选用该主题。  
+
+```
+// 安装
+npm i @semi-bot/semi-theme-a11y
+```
+
+接入使用步骤参考 [定制主题](https://semi.design/zh-CN/start/customize-theme#%E6%8E%A5%E5%85%A5%E4%B8%BB%E9%A2%98)
 ## 了解用户需求
 
 要设计开发包容性产品，首先需要了解不同用户的不同需求并考虑他们使用的辅助工具和方法。

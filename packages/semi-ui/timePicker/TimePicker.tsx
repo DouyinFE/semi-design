@@ -75,6 +75,7 @@ export type TimePickerProps = {
     popupStyle?: React.CSSProperties;
     position?: Position;
     prefixCls?: string;
+    preventScroll?: boolean;
     rangeSeparator?: string;
     scrollItemProps?: ScrollItemProps<any>;
     secondStep?: number;
@@ -164,6 +165,7 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
         autoAdjustOverflow: PropTypes.bool,
         ...PanelShape,
         inputStyle: PropTypes.object,
+        preventScroll: PropTypes.bool,
     };
 
     static defaultProps = {
@@ -323,7 +325,7 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
                 index,
                 isNullOrUndefined(panelHeader) ? get(defaultHeaderMap, index, null) : panelHeader
             );
-            panelProps.panelFooter = get(panels, index, panelFooter);
+            panelProps.panelFooter = get(panels, index, panelFooter) as React.ReactNode;
         }
 
         return panelProps;
@@ -413,6 +415,7 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
         // this.picker.blur();
     }
 
+    /* istanbul ignore next */
     handlePanelVisibleChange = (visible: boolean) => this.foundation.handleVisibleChange(visible);
 
     openPanel = () => {
@@ -475,7 +478,7 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
 
         const panelPrefix = classNames({
             [`${prefixCls}-panel`]: true,
-            [`${prefixCls}-panel-${ size}`]: size,
+            [`${prefixCls}-panel-${size}`]: size,
         });
 
         const inputProps = {

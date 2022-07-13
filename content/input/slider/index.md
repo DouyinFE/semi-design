@@ -1,10 +1,10 @@
 ---
 localeCode: zh-CN
-order: 27
+order: 28
 category: 输入类
 title:  Slider 滑动选择器
 icon: doc-slider
-brief: 滑动选择器帮助用户快速输入连续或离散的数值，或由这些数值组成的一段数值范围。
+brief: 滑动选择器，使用拖动交互快速选择数值或数值范围，与 InputNumber 相比更直观
 ---
 
 

@@ -15,6 +15,7 @@ import confirm, { withConfirm, withError, withInfo, withSuccess, withWarning } f
 import { Locale } from '../locale/interface';
 import useModal from './useModal';
 import { ButtonProps } from '../button/Button';
+import { MotionObject } from "@douyinfe/semi-foundation/utils/type";
 
 export const destroyFns: any[] = [];
 export type ConfirmType = 'leftTop' | 'leftBottom' | 'rightTop' | 'rightBottom';
@@ -22,6 +23,7 @@ export type Directions = 'ltr' | 'rtl';
 
 export interface ModalReactProps extends ModalProps {
     cancelButtonProps?: ButtonProps;
+    children?: React.ReactNode;
     okButtonProps?: ButtonProps;
     bodyStyle?: CSSProperties;
     maskStyle?: CSSProperties;
@@ -48,7 +50,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         centered: PropTypes.bool,
         visible: PropTypes.bool,
         width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-        height:  PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         confirmLoading: PropTypes.bool,
         cancelLoading: PropTypes.bool,
         okText: PropTypes.string,
@@ -101,7 +103,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         onOk: noop,
         afterClose: noop,
         maskFixed: false,
-        closeOnEsc: false,
+        closeOnEsc: true,
         size: 'small',
         keepDOM: false,
         lazyRender: true,
@@ -155,6 +157,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
                 this.props.onOk(e);
             },
             notifyClose: () => {
+                (this.props.motion as MotionObject)?.didLeave?.();
                 this.props.afterClose();
             },
             toggleHidden: (hidden: boolean, callback?: (hidden: boolean) => void) => {
@@ -190,23 +193,23 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
 
 
     static info = function (props: ModalReactProps) {
-        return confirm(withInfo(props));
+        return confirm<ReturnType<typeof withInfo>>(withInfo(props));
     };
 
     static success = function (props: ModalReactProps) {
-        return confirm(withSuccess(props));
+        return confirm<ReturnType<typeof withSuccess>>(withSuccess(props));
     };
 
     static error = function (props: ModalReactProps) {
-        return confirm(withError(props));
+        return confirm<ReturnType<typeof withError>>(withError(props));
     };
 
     static warning = function (props: ModalReactProps) {
-        return confirm(withWarning(props));
+        return confirm<ReturnType<typeof withWarning>>(withWarning(props));
     };
 
     static confirm = function (props: ModalReactProps) {
-        return confirm(withConfirm(props));
+        return confirm<ReturnType<typeof withConfirm>>(withConfirm(props));
     };
 
     static destroyAll = function destroyAllFn() {
@@ -287,7 +290,9 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
                         onClick={this.handleCancel}
                         loading={cancelLoading}
                         type="tertiary"
+                        autoFocus={true}
                         {...this.props.cancelButtonProps}
+                        x-semi-children-alias="cancelText"
                     >
                         {cancelText || locale.cancel}
                     </Button>
@@ -307,6 +312,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
                             loading={confirmLoading}
                             onClick={this.handleOk}
                             {...this.props.okButtonProps}
+                            x-semi-children-alias="okText"
                         >
                             {okText || locale.confirm}
                         </Button>

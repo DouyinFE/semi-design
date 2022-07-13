@@ -2,7 +2,7 @@ import React from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses as css, strings } from '@douyinfe/semi-foundation/dropdown/constants';
-import DropdownContext from './context';
+import DropdownContext, { DropdownContextType } from './context';
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
 import { IconTick } from '@douyinfe/semi-icons';
 import { noop } from 'lodash';
@@ -25,6 +25,7 @@ export interface DropdownItemProps extends BaseProps {
 const prefixCls = css.PREFIX;
 
 class DropdownItem extends BaseComponent<DropdownItemProps> {
+
     static propTypes = {
         children: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
         name: PropTypes.string,
@@ -43,6 +44,7 @@ class DropdownItem extends BaseComponent<DropdownItemProps> {
     };
 
     static contextType = DropdownContext;
+    context: DropdownContextType;
 
     static defaultProps = {
         disabled: false,
@@ -92,7 +94,7 @@ class DropdownItem extends BaseComponent<DropdownItemProps> {
             );
         }
         return (
-            <li role="menuitem" {...events} ref={ref => forwardRef(ref)} className={itemclass} style={style}>
+            <li role="menuitem" tabIndex={-1} aria-disabled={disabled} {...events} ref={ref => forwardRef(ref)} className={itemclass} style={style}>
                 {tick}
                 {iconContent}
                 {children}

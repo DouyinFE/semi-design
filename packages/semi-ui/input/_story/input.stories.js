@@ -22,6 +22,8 @@ import {
   Switch,
   Form,
   Space,
+  Radio,
+  InputNumber
 } from '../../index';
 import './input.scss';
 import RTLWrapper from '../../configProvider/_story/RTLDirection/RTLWrapper';
@@ -863,8 +865,7 @@ export const ClearButton = () => {
             Suffix
           </Typography.Text>
         }
-        showClear
-      ></Input>
+      />
       <Input showClear defaultValue="semi" />
       <Input showClear mode="password" defaultValue="semi" />
       <Input mode="password" defaultValue="semi" />
@@ -907,3 +908,54 @@ export const TextAreaAutosize = () => {
   )
 };
 TextAreaAutosize.storyName = "textarea autosize";
+
+export const InputA11y = () => {
+  return (
+    <div style={{ width: 300 }}>
+      <Input prefix="search" defaultValue="Semi Design" showClear />
+      <br/><br/>
+      <Input aria-required prefix="search" defaultValue="Semi Design" showClear suffix="semi" />
+      <br/><br/>
+      <Input data-cy="password" defaultValue="Semi Design" mode="password" />
+      <br/><br/>
+      <Input defaultValue="Semi Design" mode="password" disabled />
+      <br/><br/>
+      <Input defaultValue='this value is too long' validateStatus='error' showClear></Input>
+      <br/><br/>
+      <TextArea defaultValue='semi' showClear />
+      <TextArea aria-required defaultValue='不能为空' showClear />
+      <InputGroup label={{ text: '成绩信息' }}>
+          <Input placeholder="Name" style={{ width: 100 }} />
+          <Input placeholder="Score" style={{ width: 140 }} />
+      </InputGroup>
+      <br/><br/>
+      <Form onSubmit={() => alert('submit')}>
+        <button>submit</button>
+        <Form.Input field="password" label="密码按钮上敲击 Enter 测试是否会触发 Form submit" mode="password" />
+      </Form>
+    </div>
+  );
+}
+InputA11y.storyName = "input a11y";
+
+export const FixInputGroup = () => {
+  const groupFocus = () => {
+    console.log('group focus');
+  }
+  const groupBlur = () => {
+    console.log('group blur');
+  }
+  const inputFocus = () => {
+    console.log('input focus');
+  }
+  const inputBlur = () => {
+    console.log('input blur');
+  }
+
+  return (
+    <InputGroup disabled={true} onFocus={groupFocus} onBlur={groupBlur}>
+        <Input disabled={false} onFocus={inputFocus} onBlur={inputBlur} placeholder="Name" style={{ width: 100 }} />
+        <InputNumber placeholder="Score" style={{ width: 140 }} />
+    </InputGroup>
+  );
+}

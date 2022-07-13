@@ -1,13 +1,13 @@
 ---
 localeCode: zh-CN
-order: 47
+order: 49
 category: 展示类
 title: Collapsible 折叠
 icon: doc-collapsible
 brief: 行为组件，是一个用于展开或折叠内容的容器。
 ---
 
-## 何时使用
+## 使用场景
 
 -   `Collapsible` 是一个行为组件，默认开启动画效果。它被用于 Semi 的各种组件中，如：`Navigation`， `Collapse`, `Tree`， `TreeSelect`，以及 `Typography` 中。
 -   当上述组件不能满足需求或者需要自定义一些折叠行为时，可以使用 `Collapsible` 来包裹需要展开或者折叠的内容。

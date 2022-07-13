@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 61
+order: 63
 category: 反馈类
 title:  Banner 通知横幅
 icon: doc-banner
@@ -189,6 +189,11 @@ import { Banner } from '@douyinfe/semi-ui';
 
 - 组件的 `role` 为 'alert'
 - 关闭按钮的 `aria-label` 为 'Close'
+
+### 键盘和焦点
+
+- Banner 的关闭按钮可以使用 `Tab` 键聚焦，按钮聚焦后，敲击 `Enter` 键或 `Space` 键可以关闭 banner
+
 
 ## 设计变量
 <DesignToken/>

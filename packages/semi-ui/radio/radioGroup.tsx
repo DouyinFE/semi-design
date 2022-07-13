@@ -30,6 +30,7 @@ export type RadioGroupProps = {
     value?: string | number;
     onChange?: (event: RadioChangeEvent) => void;
     className?: string;
+    children?: React.ReactNode;
     style?: React.CSSProperties;
     direction?: ArrayElement<typeof strings.DIRECTION_SET>;
     mode?: RadioMode;

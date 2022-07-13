@@ -145,6 +145,7 @@ export interface BasicCascaderProps {
     disableStrictly?: boolean;
     leafOnly?: boolean;
     enableLeafClick?: boolean;
+    preventScroll?: boolean;
     onClear?: () => void;
     triggerRender?: (props: BasicTriggerRenderProps) => any;
     onListScroll?: (e: any, panel: BasicScrollPanelProps) => void;
@@ -183,6 +184,7 @@ export interface BasicCascaderInnerData {
     isFocus?: boolean;
     isInput?: boolean;
     disabledKeys?: Set<string>;
+    showInput?: boolean;
 }
 
 export interface CascaderAdapter extends DefaultAdapter<BasicCascaderProps, BasicCascaderInnerData> {
@@ -208,6 +210,8 @@ export interface CascaderAdapter extends DefaultAdapter<BasicCascaderProps, Basi
     notifyOnLoad: (newLoadedKeys: Set<string>, data: BasicCascaderData) => void;
     notifyListScroll: (e: any, panel: BasicScrollPanelProps) => void;
     notifyOnExceed: (data: BasicEntity[]) => void;
+    toggleInputShow: (show: boolean, cb: () => void) => void;
+    updateFocusState: (focus: boolean) => void,
 }
 
 // eslint-disable-next-line max-len
@@ -409,7 +413,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
             activeKeys,
             loadingKeys,
             loading,
-            keyEntities: keyEntitieState,
+            keyEntities: keyEntityState,
             selectedKeys: selectedKeysState
         } = this.getStates();
         const filterable = this._isFilterable();
@@ -472,7 +476,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         } else if (loading) {
             // Use assign to avoid overwriting the'not-exist- * 'property of keyEntities after asynchronous loading
             // Overwriting'not-exist- * 'will cause selectionContent to be emptied unexpectedly when clicking on a dropDown item
-            updateStates.keyEntities = assign(keyEntitieState, keyEntities);
+            updateStates.keyEntities = assign(keyEntityState, keyEntities);
             this._adapter.updateStates(updateStates);
             return;
         } else {
@@ -484,9 +488,11 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
 
     open() {
         const filterable = this._isFilterable();
+        const { multiple } = this.getProps();
         this._adapter.openMenu();
         if (filterable) {
             this._clearInput();
+            !multiple && this.toggle2SearchInput(true);
         }
         if (this._isControlledComponent()) {
             this.reCalcActiveKeys();
@@ -524,8 +530,23 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
                 inputValue = this.renderDisplayText([...selectedKeys][0]);
             }
             this._adapter.updateStates({ inputValue });
+            !multiple && this.toggle2SearchInput(false);
+            !multiple && this._adapter.updateFocusState(false);
         }
         this._notifyBlur(e);
+    }
+
+    toggle2SearchInput(isShow: boolean) {
+        if (isShow) {
+            this._adapter.toggleInputShow(isShow, () => this.focusInput());
+        } else {
+            this._adapter.toggleInputShow(isShow, () => undefined);
+        }
+    }
+
+    focusInput() {
+        this._adapter.focusInput();
+        this._adapter.updateFocusState(true);
     }
 
     getMergedMotion = () => {
@@ -606,6 +627,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
     /**
      * A11y: simulate selection click
      */
+    /* istanbul ignore next */
     handleSelectionEnterPress(keyboardEvent: any) {
         if (isEnterPress(keyboardEvent)) {
             this.handleClick(keyboardEvent);
@@ -729,14 +751,14 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         const prevCheckedStatus = checkedKeys.has(key);
         // next checked status
         const curCheckedStatus = disableStrictly ?
-            this.calcChekcedStatus(!prevCheckedStatus, key) :
+            this.calcCheckedStatus(!prevCheckedStatus, key) :
             !prevCheckedStatus;
         // calculate all key of nodes that are checked or half checked
         const {
             checkedKeys: curCheckedKeys,
             halfCheckedKeys: curHalfCheckedKeys
         } = disableStrictly ?
-            this.calcNonDisabedCheckedKeys(key, curCheckedStatus) :
+            this.calcNonDisabledCheckedKeys(key, curCheckedStatus) :
             this.calcCheckedKeys(key, curCheckedStatus);
 
         const mergeType = calcMergeType(autoMergeValue, leafOnly);
@@ -791,7 +813,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         this._adapter.updateStates({ inputValue: '' });
     }
 
-    calcNonDisabedCheckedKeys(eventKey: string, targetStatus: boolean) {
+    calcNonDisabledCheckedKeys(eventKey: string, targetStatus: boolean) {
         const { keyEntities, disabledKeys } = this.getStates();
         const { checkedKeys } = this.getCopyFromState(['checkedKeys']);
         const descendantKeys = normalizeKeyList(findDescendantKeys([eventKey], keyEntities, false), keyEntities, true);
@@ -807,7 +829,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         return calcCheckedKeys(newCheckedKeys, keyEntities);
     }
 
-    calcChekcedStatus(targetStatus: boolean, eventKey: string) {
+    calcCheckedStatus(targetStatus: boolean, eventKey: string) {
         if (!targetStatus) {
             return targetStatus;
         }
@@ -924,6 +946,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
     /**
      * A11y: simulate clear button click
      */
+    /* istanbul ignore next */
     handleClearEnterPress(keyboardEvent: any) {
         if (isEnterPress(keyboardEvent)) {
             this.handleClear();
@@ -976,6 +999,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         const { keyEntities } = this.getStates();
         const { disabled } = this.getProps();
         if (disabled) {
+            /* istanbul ignore next */
             return;
         }
         const removedItem = (Object.values(keyEntities) as BasicEntity[])

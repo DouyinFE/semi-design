@@ -11,7 +11,7 @@ import Popover, { PopoverProps } from '../popover';
 import { Position, Trigger } from '../tooltip';
 import Button, { ButtonProps } from '../button';
 import { Type as ButtonType } from '../button/Button';
-import ConfigContext from '../configProvider/context';
+import ConfigContext, { ContextValue } from '../configProvider/context';
 import LocaleConsumer from '../locale/localeConsumer';
 import { Locale as LocaleObject } from '../locale/interface';
 import '@douyinfe/semi-foundation/popconfirm/popconfirm.scss';
@@ -105,6 +105,8 @@ export default class Popconfirm extends BaseComponent<PopconfirmProps, Popconfir
         this.foundation = new PopconfirmFoundation(this.adapter);
     }
 
+    context: ContextValue;
+
     static getDerivedStateFromProps(props: PopconfirmProps, state: PopconfirmState) {
         const willUpdateStates: Partial<PopconfirmState> = {};
         const { hasOwnProperty } = Object.prototype;
@@ -172,12 +174,20 @@ export default class Popconfirm extends BaseComponent<PopconfirmProps, Popconfir
             <div className={popCardCls} onClick={this.stopImmediatePropagation} style={style}>
                 <div className={`${prefixCls}-inner`}>
                     <div className={`${prefixCls}-header`}>
-                        <i className={`${prefixCls}-header-icon`}>
+                        <i className={`${prefixCls}-header-icon`} x-semi-prop="icon">
                             {React.isValidElement(icon) ? icon : null}
                         </i>
                         <div className={`${prefixCls}-header-body`}>
-                            {showTitle ? <div className={`${prefixCls}-header-title`}>{title}</div> : null}
-                            {showContent ? <div className={`${prefixCls}-header-content`}>{content}</div> : null}
+                            {showTitle ? (
+                                <div className={`${prefixCls}-header-title`} x-semi-prop="title">
+                                    {title}
+                                </div>
+                            ) : null}
+                            {showContent ? (
+                                <div className={`${prefixCls}-header-content`} x-semi-prop="content">
+                                    {content}
+                                </div>
+                            ) : null}
                         </div>
                         <Button
                             className={`${prefixCls}-btn-close`}

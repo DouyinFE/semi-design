@@ -5,7 +5,7 @@ import { navigate } from 'gatsby-link';
 import React from 'react';
 import { getLocale } from '../../../../utils/locale';
 import styles from "./banner.module.scss";
-import {IconGithubLogo} from '@douyinfe/semi-icons';
+import { IconGithubLogo } from '@douyinfe/semi-icons';
 
 function Banner() {
     const goStart = () => {
@@ -19,13 +19,28 @@ function Banner() {
             <div className={styles.autoWrapper}>
                 <div className={styles.content}>
                     <div className={styles.headerCopy}>
-                        <p className={styles.text}>{_t("comprehensive__easy_to_use_and_high_quality", { }, "全面、易用、优质的")}<br />{_t("enterprise_product_design_system", { }, "企业级产品设计系统")}</p>
+                        <p className={styles.text}>
+                            {_t("enterprise_product_design_system", { }, "连接设计师与开发者")}
+                        </p>
                         <p className={styles.text_63fb91b5}><span className={styles.text_70c95f84}>{_t("home.banner.description")}</span></p>
                     </div>
                     <div className={styles.group2835}>
                         <Button onClick={goStart} size="large" theme="solid" className={styles.extraLarge}>{_t("start_using", { }, "开始使用")}</Button>
-                        <Button onClick={goGithub}  size="large" type={'tertiary'} theme="borderless" style={{border:'1px solid var(--semi-color-border)',color:'var(--semi-color-text-0)',marginLeft:'16px'}} className={styles.extraLarge}  icon={<IconGithubLogo size={'large'}/>}>GitHub</Button>
-
+                        <Button
+                            onClick={goGithub} 
+                            size="large"
+                            type={'tertiary'}
+                            theme="borderless"
+                            style={{
+                                border:'1px solid var(--semi-color-border)',
+                                color:'var(--semi-color-text-0)',
+                                marginLeft:'16px'
+                            }}
+                            className={styles.extraLarge} 
+                            icon={<IconGithubLogo size={'large'}/>}
+                        >
+                            GitHub
+                        </Button>
                     </div>
                 </div>
                 <div className={styles.autoWrapper_4fa00029}>

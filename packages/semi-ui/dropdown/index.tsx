@@ -13,7 +13,7 @@ import DropdownItem, { DropdownItemProps } from './dropdownItem';
 import DropdownDivider, { DropdownDividerProps } from './dropdownDivider';
 import DropdownTitle, { DropdownTitleProps } from './dropdownTitle';
 
-import DropdownContext from './context';
+import DropdownContext, { DropdownContextType } from './context';
 import '@douyinfe/semi-foundation/dropdown/dropdown.scss';
 import { noop, get } from 'lodash';
 import { Motion } from '../_base/base';
@@ -58,6 +58,8 @@ export interface DropdownProps extends TooltipProps {
     onVisibleChange?: (visible: boolean) => void;
     rePosKey?: string | number;
     showTick?: boolean;
+    closeOnEsc?: TooltipProps['closeOnEsc'];
+    onEscKeyDown?: TooltipProps['onEscKeyDown'];
 }
 
 interface DropdownState {
@@ -106,6 +108,8 @@ class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
         position: 'bottom',
         mouseLeaveDelay: strings.DEFAULT_LEAVE_DELAY,
         showTick: false,
+        closeOnEsc: true,
+        onEscKeyDown: noop,
     };
 
     constructor(props: DropdownProps) {
@@ -118,6 +122,8 @@ class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
         this.foundation = new Foundation(this.adapter);
     }
 
+    context: DropdownContextType;
+
     get adapter() {
         return {
             ...super.adapter,
@@ -129,10 +135,10 @@ class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
     handleVisibleChange = (visible: boolean) => this.foundation.handleVisibleChange(visible);
 
     renderContent() {
-        const { render, menu, contentClassName, style, showTick, prefixCls } = this.props;
+        const { render, menu, contentClassName, style, showTick, prefixCls, trigger } = this.props;
         const className = classnames(prefixCls, contentClassName);
         const { level = 0 } = this.context;
-        const contextValue = { showTick, level: level + 1 };
+        const contextValue = { showTick, level: level + 1, trigger };
         let content = null;
         if (React.isValidElement(render)) {
             content = render;
@@ -142,7 +148,7 @@ class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
         return (
             <DropdownContext.Provider value={contextValue}>
                 <div className={className} style={style}>
-                    <div className={`${prefixCls}-content`}>{content}</div>
+                    <div className={`${prefixCls}-content`} x-semi-prop="render">{content}</div>
                 </div>
             </DropdownContext.Provider>
         );
@@ -231,6 +237,7 @@ class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
                 trigger={trigger}
                 onVisibleChange={this.handleVisibleChange}
                 showArrow={false}
+                returnFocusOnClose={true}
                 {...attr}
             >
                 {React.isValidElement(children) ?
@@ -238,6 +245,9 @@ class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
                         className: classnames(get(children, 'props.className'), {
                             [`${prefixCls}-showing`]: popVisible,
                         }),
+                        'aria-haspopup': true,
+                        'aria-expanded': popVisible,
+                        onKeyDown: e => this.foundation.handleKeyDown(e)
                     }) :
                     children}
             </Tooltip>

@@ -198,10 +198,6 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
         this.foundation.handleClear(e);
     };
 
-    handleClearEnterPress = (e: React.KeyboardEvent<HTMLDivElement>) => {
-        this.foundation.handleClearEnterPress(e);
-    }
-
     renderClearBtn() {
         const { showClear } = this.props;
         const displayClearBtn = this.foundation.isAllowClear();
@@ -210,13 +206,10 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
         });
         if (showClear) {
             return (
+                // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
                 <div
-                    role="button"
-                    tabIndex={0}
-                    aria-label="Clear textarea value"
                     className={clearCls}
                     onClick={this.handleClear}
-                    onKeyPress={this.handleClearEnterPress}
                 >
                     <IconClear />
                 </div>
@@ -243,12 +236,7 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
                 }
             );
             counter = (
-                <div
-                    aria-label="Textarea value length counter"
-                    aria-valuemax={maxCount}
-                    aria-valuenow={current}
-                    className={countCls}
-                >
+                <div className={countCls}>
                     {current}{total ? '/' : null}{total}
                 </div>
             );

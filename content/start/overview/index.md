@@ -10,6 +10,7 @@ brief: 基于Semi 设计语言开发，能够在线调试的React UI 桌面端�
 ## 基础
 
 ```overview
+Divider 分割线,
 Grid 布局,
 Icon 图标,
 Layout 布局,
@@ -60,6 +61,7 @@ Avatar 头像,
 Badge 徽章,
 Calendar 日历,
 Card 卡片,
+Carousel 轮播图,
 Collapse 折叠面板,
 Collapsible 折叠,
 Descriptions 描述列表,

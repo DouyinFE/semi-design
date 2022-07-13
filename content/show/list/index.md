@@ -1,17 +1,13 @@
 ---
 localeCode: zh-CN
-order: 51
+order: 53
 category: 展示类
 title: List 列表
 icon: doc-list
 dir: column
 noInline: true
-brief: 基础列表组件。
+brief: 基础列表组件
 ---
-
-## 使用场景
-
-最基础的列表展示，可展现文字、列表、图片、段落等，常用于后台数据展示页面。
 
 ## 代码演示
 
@@ -1201,7 +1197,7 @@ import { List, Input, Button, Checkbox, Radio, RadioGroup, CheckboxGroup } from 
     ];
 
     const [page, onPageChange] = useState(1);
-    const [checkboxVal, setCV] = useState(data[0]);
+    const [checkboxVal, setCV] = useState([...data[0]]);
     const [radioVal, setRV] = useState(data[0]);
 
     let pageSize = 8;

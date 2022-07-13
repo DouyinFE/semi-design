@@ -37,7 +37,7 @@ export interface BaseFileItem {
     percent?: number;
     _sizeInvalid?: boolean;
     preview?: boolean;
-    validateMessage?: unknown;
+    validateMessage?: any;
     shouldUpload?: boolean;
     [key: string]: any;
 }
@@ -124,11 +124,11 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
     checkFileSize(file: File): boolean {
         const { size } = file;
         const { maxSize, minSize } = this.getProps();
-        let isIlligal = false;
+        let isIllegal = false;
         if (size > maxSize * byteKB || size < minSize * byteKB) {
-            isIlligal = true;
+            isIllegal = true;
         }
-        return isIlligal;
+        return isIllegal;
     }
 
     /**
@@ -401,6 +401,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
         });
     }
 
+    /* istanbul ignore next */
     manualUpload(): void {
         // find the list of files that have not been uploaded
         const waitToUploadFileList = this.getState('fileList').filter((item: BaseFileItem) => item.status === FILE_STATUS_WAIT_UPLOAD);
@@ -425,7 +426,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
             const { fileList } = this.getStates();
             const buResult = this._adapter.notifyBeforeUpload({ file, fileList });
             switch (true) {
-                // sync valiate - boolean
+                // sync validate - boolean
                 case buResult === true: {
                     this.post(file);
                     break;
@@ -438,11 +439,11 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
                 // async validate
                 case buResult && isPromise(buResult): {
                     Promise.resolve(buResult as Promise<BeforeUploadObjectResult>).then(
-                        resloveData => {
+                        resolveData => {
                             let newResult = { shouldUpload: true };
-                            const typeOfResloveData = Object.prototype.toString.call(resloveData).slice(8, -1);
-                            if (typeOfResloveData === 'Object') {
-                                newResult = { ...newResult, ...resloveData };
+                            const typeOfResolveData = Object.prototype.toString.call(resolveData).slice(8, -1);
+                            if (typeOfResolveData === 'Object') {
+                                newResult = { ...newResult, ...resolveData };
                             }
                             this.handleBeforeUploadResultInObject(newResult, file);
                         },
@@ -739,6 +740,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
         return /(webp|svg|png|gif|jpg|jpeg|bmp|dpg)$/i.test(file.type);
     }
 
+    /* istanbul ignore next */
     isMultiple(): boolean {
         return Boolean(this.getProp('multiple'));
     }
@@ -773,6 +775,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
         if (!disabled) {
             if (directory) {
                 this.handleDirectoryDrop(e);
+                return;
             }
             const files: File[] = Array.from(e.dataTransfer.files);
             this.handleChange(files);

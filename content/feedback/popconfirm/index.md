@@ -1,18 +1,11 @@
 ---
 localeCode: zh-CN
-order: 63
+order: 65
 category: 反馈类
 title:  Popconfirm 气泡确认框
 icon: doc-popconfirm
-brief: 点击元素，弹出气泡式的确认框。
+brief: 目标元素的操作需要用户进一步的确认时使用。与 Popover 相比它内置了一系列可配置的操作按钮，与 Modal 相比它不强制全屏居中显示，交互也更轻量
 ---
-
-
-## 何时使用
-
-目标元素的操作需要用户进一步的确认时，在目标元素附近弹出浮层提示，询问用户。
-
-和 `Modal.confirm` 弹出的全屏居中模态对话框相比，交互形式更轻量。
 
 ## 代码演示
 

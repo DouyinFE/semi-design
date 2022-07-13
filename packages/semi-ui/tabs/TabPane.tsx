@@ -4,6 +4,7 @@ import cls from 'classnames';
 import { cssClasses } from '@douyinfe/semi-foundation/tabs/constants';
 import getDataAttr from '@douyinfe/semi-foundation/utils/getDataAttr';
 import TabsContext from './tabs-context';
+import { TabContextValue } from './interface';
 import TabPaneTransition from './TabPaneTransition';
 import { PlainTab, TabPaneProps } from './interface';
 
@@ -27,6 +28,7 @@ class TabPane extends PureComponent<TabPaneProps> {
     ref = createRef<HTMLDivElement>();
     isAnimating: boolean;
     _active: boolean;
+    context: TabContextValue;
 
     componentDidMount(): void {
         this.lastActiveKey = this.context.activeKey;
@@ -51,6 +53,7 @@ class TabPane extends PureComponent<TabPaneProps> {
         return false;
     };
 
+    /* istanbul ignore next */
     hideScroll = (): void => {
         if (this.ref && this.ref.current) {
             this.ref.current.style.overflow = 'hidden';
@@ -58,6 +61,7 @@ class TabPane extends PureComponent<TabPaneProps> {
         }
     };
 
+    /* istanbul ignore next */
     autoScroll = (): void => {
         if (this.ref && this.ref.current) {
             this.ref.current.style.overflow = '';
@@ -92,7 +96,9 @@ class TabPane extends PureComponent<TabPaneProps> {
                 className={classNames}
                 style={style}
                 aria-hidden={active ? 'false' : 'true'}
+                tabIndex={0}
                 {...getDataAttr(restProps)}
+                x-semi-prop="children"
             >
                 {motion ? (
                     <TabPaneTransition
@@ -102,14 +108,18 @@ class TabPane extends PureComponent<TabPaneProps> {
                         state={active ? 'enter' : 'leave'}
                     >
                         {(transitionStyle): ReactNode => (
-                            <div className={`${cssClasses.TABS_PANE_MOTION_OVERLAY}`} style={{ ...transitionStyle }}>
+                            <div
+                                className={`${cssClasses.TABS_PANE_MOTION_OVERLAY}`}
+                                style={{ ...transitionStyle }}
+                                x-semi-prop="children"
+                            >
                                 {shouldRender ? children : null}
                             </div>
                         )}
                     </TabPaneTransition>
-                ) : (
-                    shouldRender ? children : null
-                )}
+                ) : shouldRender ? (
+                    children
+                ) : null}
             </div>
         );
     }

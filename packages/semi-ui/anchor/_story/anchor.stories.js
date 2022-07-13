@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Button from '../../button';
 import { Anchor } from '../../index';
 
 export default {
@@ -264,3 +265,24 @@ export const FixContainerScrollBug1158 = () => (
     </div>
   </div>
 );
+
+export const AutoCollapse = () => {
+  const [href, setHref] = useState('#设计语言');
+  return (
+      <div>
+        <Anchor autoCollapse>
+          <Anchor.Link href="#动态展示" title="1. 动态展示">
+            <Anchor.Link href="#组件" title="1.1 组件">
+                <Anchor.Link href="#头像" title="1.1.1 Avatar" />
+                <Anchor.Link href="#按钮" title="1.1.2 Button" />
+                <Anchor.Link href="#图标" title="1.1.3 Icon" />
+            </Anchor.Link>
+            <Anchor.Link href="#物料" title="1.2 物料" />
+            <Anchor.Link href="#主题商店" title="1.3 主题商店" />
+          </Anchor.Link>
+          <Anchor.Link href={href} title="2. 设计语言" />
+        </Anchor>
+        <Button onClick={()=>{console.log('sdf');setHref('#我改变啦')}}>setHref</Button>
+      </div>
+  )
+};

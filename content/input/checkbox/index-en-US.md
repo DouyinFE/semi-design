@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 19
+order: 20
 category: Input
 title:  Checkbox
 subTitle: Checkbox
@@ -399,13 +399,16 @@ import { CheckboxGroup, Checkbox, Row, Col } from '@douyinfe/semi-ui';
 
 | PROPERTIES     | Instructions                                                 | type               | Default |
 | -------------- | ------------------------------------------------------------ | ------------------ | ------- |
+| addonId | id of addon node, aria-labelledby refers to this id, if not set, it will generate an id randomly  **provided after v2.11.0**                                 | string            |       |
 | aria-label     | Define label of the Checkbox  | string | - |
 | checked        | Specify whether the current Checkbox is selected (it is invalid when used in Group)                     | boolean            | false   |
 | defaultChecked | Whether Checked by default (it is invalid when used in Group)                                           | boolean            | false   |
 | disabled       | Disabled state                                               | boolean            | false   |
 | extra          | Provide extra information <br/>**>= v0.25.0**                | ReactNode          | -       |
+| extraId        | id of extra node. aria-describedby refers to this id, if not set, it will randomly generate an id <br/>**provided after v2.11.0**                     | ReactNode         | -      |
 | value          | The value that the checkbox represents in the CheckboxGroup  | any | - |
 | indeterminate  | Set to indeterminate state, style control only               | boolean            | false   |
+| preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
 | onChange       | Callback function when change                                | function(e: Event) | -       |
 
 ### CheckboxGroup
@@ -439,6 +442,12 @@ import { CheckboxGroup, Checkbox, Row, Col } from '@douyinfe/semi-ui';
 - `aria-describedby` points to the `extra` node, which is used to supplement the explanation of the current Checkbox
 - `aria-disabled` indicates the current disabled state, which is consistent with the value of the `disabled` prop
 - `aria-checked` indicates the current checked state
+
+### Keyboard and focus
+- Checkbox can be focused, keyboard users can use Tab and Shift + Tab to switch focus.
+- The Checkbox that gets the focus can switch the selected and unselected states through Space.
+- The click area of ​​Checkbox is larger than the box itself and contains the text behind the box; for checkboxes with auxiliary text, the auxiliary text is also included in the click area.
+- Disabled Checkbox is not focusable.
 
 ## Design Tokens
 <DesignToken/>

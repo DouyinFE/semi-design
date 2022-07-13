@@ -1,6 +1,8 @@
 $color-rating-icon-default: rgba(var(--semi-yellow-5), 1); // 评分图标按钮颜色 - 已填
 $color-rating-bg-default: var(--semi-color-fill-0); // 评分图标按钮颜色 - 未填
 
+$color-rating-outline-focus: var(--semi-color-primary-light-active); // 聚焦轮廓颜色
+
 $font-rating-fontSize: 20px; // 评分文本字体大小
 
 $spacing-rating-margin: 0px; // 整体外边距
@@ -12,3 +14,5 @@ $font-rating_item_small-fontSize: $width-rating_item_small; // 小尺寸评分�
 
 $width-rating_item_default: 24px; // 评分项宽度
 $font-rating_item_default-fontSize: $width-rating_item_default; // 评分项文本字体大小
+
+$width-rating-outline-focus: 2px; // 聚焦轮廓宽度

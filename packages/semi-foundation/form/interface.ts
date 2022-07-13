@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable max-len */
 import { DefaultAdapter } from '../base/foundation';
 import { Options as scrollIntoViewOptions } from 'scroll-into-view-if-needed';
@@ -20,6 +21,7 @@ export interface BaseFormAdapter<P = Record<string, any>, S = Record<string, any
     getFormProps: (keys: undefined | string | Array<string>) => any;
     getAllErrorDOM: () => NodeList;
     getFieldDOM: (field: string) => Node;
+    initFormId: () => void;
 }
 
 export interface FormState<T extends Record<string, any> = any> {
@@ -30,7 +32,9 @@ export interface FormState<T extends Record<string, any> = any> {
 export interface setValuesConfig {
     isOverride: boolean;
 }
-export interface BaseFormApi<T extends Record<string, unknown> = any> {
+
+// use object replace Record<string, any>, fix issue 933
+export interface BaseFormApi<T extends object = any> {
     /** get value of field */
     getValue: <K extends keyof T>(field?: K) => T[K];
     /** set value of field */
@@ -46,7 +50,7 @@ export interface BaseFormApi<T extends Record<string, unknown> = any> {
     /** judge field exist */
     getFieldExist: <K extends keyof T>(field: K) => boolean;
     /** get formState of form */
-    getFormState: () => FormState<T extends Record<string, unknown> ? T : Record<string, unknown>>;
+    getFormState: () => FormState<T extends object ? T : object>;
     /** submit form manual */
     submitForm: () => void;
     /** reset form manual */
@@ -111,8 +115,8 @@ export interface ArrayFieldStaff {
 export interface FormUpdaterContextType {
     register: (field: string, fieldState: FieldState, fieldStuff: FieldStaff) => void;
     unRegister: (field: string) => void;
-    updateStateValue: (field: string, value: any, opts: CallOpts) => void;
-    updateStateError: (field: string, error: any, opts: CallOpts) => void;
+    updateStateValue: (field: string, value: any, opts?: CallOpts) => void;
+    updateStateError: (field: string, error: any, opts?: CallOpts) => void;
     updateStateTouched: (field: string, isTouched: boolean, opts?: CallOpts) => void;
     getValue: (field?: string | undefined, opts?: CallOpts) => any;
     getError: (field?: string) => any;

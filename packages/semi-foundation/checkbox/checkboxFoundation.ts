@@ -1,5 +1,6 @@
 import BaseFoundation, { DefaultAdapter, noopFunction } from '../base/foundation';
 import isEnterPress from '../utils/isEnterPress';
+import warning from '../utils/warning';
 
 export interface BasicTargetObject {
     [x: string]: any;
@@ -21,6 +22,10 @@ export interface CheckboxAdapter<P = Record<string, any>, S = Record<string, any
     setNativeControlChecked: (checked: boolean) => void;
     getState: noopFunction;
     notifyChange: (event: BasicCheckboxEvent) => void;
+    setAddonId: () => void;
+    setExtraId: () => void;
+    setFocusVisible: (focusVisible: boolean) => void;
+    focusCheckboxEntity: () => void;
 }
 
 class CheckboxFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<CheckboxAdapter<P, S>, P, S> {
@@ -29,8 +34,17 @@ class CheckboxFoundation<P = Record<string, any>, S = Record<string, any>> exten
         super({ ...adapter });
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    init() {}
+    clickState = false;
+
+    init() {
+        const { children, extra, extraId, addonId } = this.getProps();
+        if (children && !addonId) {
+            this._adapter.setAddonId();
+        }
+        if (extra && !extraId) {
+            this._adapter.setExtraId();
+        }
+    }
 
     getEvent(checked: boolean, e: any) {
         const props = this.getProps();
@@ -67,6 +81,12 @@ class CheckboxFoundation<P = Record<string, any>, S = Record<string, any>> exten
         if (disabled) {
             return;
         }
+
+        if (e?.type === 'click') {
+            this.clickState = true;
+        }
+
+        this._adapter.focusCheckboxEntity();
 
         const isInGroup = this._adapter.getIsInGroup();
 
@@ -109,6 +129,26 @@ class CheckboxFoundation<P = Record<string, any>, S = Record<string, any>> exten
         this._adapter.setNativeControlChecked(checked);
     }
 
+    handleFocusVisible = (event: any) => {
+        const { target } = event;
+        try {
+            if (this.clickState) {
+                this.clickState = false;
+                return;
+            } 
+            if (target.matches(':focus-visible')) {
+                this._adapter.setFocusVisible(true);
+            }
+        } catch (error){
+            warning(true, 'Warning: [Semi Checkbox] The current browser does not support the focus-visible');
+        }
+    }
+
+    handleBlur = () => {
+        this.clickState = false;
+        this._adapter.setFocusVisible(false);
+    }
+
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     destroy() {}
 }
@@ -130,6 +170,7 @@ export interface BaseCheckboxProps {
     extra?: any;
     addonId?: string;
     extraId?: string;
+    preventScroll?: boolean;
 }
 
 export default CheckboxFoundation;

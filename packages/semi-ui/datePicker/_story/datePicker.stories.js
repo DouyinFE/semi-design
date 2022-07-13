@@ -814,3 +814,87 @@ export const FixTriggerRenderClosePanel = () => {
 };
 FixTriggerRenderClosePanel.storyName = "fix triggerRender close bug"
 
+export const A11yKeyboardDemo = () => {
+  const [value, setValue] = useState(new Date('2022-08-08 00:00'));
+  const [rangeValue, setRangeValue] = useState([new Date('2022-08-08 00:00'), new Date('2022-08-09 12:00')]);
+
+  const handleChange = v => {
+    console.log('change', v);
+    setValue(v);
+  };
+
+   const handleRangeChange = v => {
+    console.log('change', v);
+    setRangeValue(v);
+  };
+
+  return (
+    <Space vertical align='start' data-cy="space">
+      <div  data-cy="dateRange">
+        <DatePicker
+          value={rangeValue}
+          type="dateRange"
+          onChange={handleRangeChange}
+          showClear
+        />
+      </div>
+      <div data-cy="date">
+        <DatePicker
+          onChange={handleChange}
+          showClear
+          multiple
+        />
+      </div>
+    </Space>
+  );
+};
+
+A11yKeyboardDemo.storyName = "a11y keyboard demo";
+
+/**
+ * test with cypress
+ */
+export const NeedConfirmDelete = () => {
+  return (
+    <div data-cy="dateTimeRange">
+      <DatePicker
+        value={[new Date('2022-08-08 00:00'), new Date('2022-08-09 12:00')]}
+        type="dateTimeRange"
+        needConfirm
+      />
+    </div>
+  );
+};
+NeedConfirmDelete.storyName = "cashedSelectedValue return to last selected when needConfirm & input invalid";
+
+/**
+ * test with cypress
+ */
+ export const CashedSelectedValue = () => {
+  return (
+    <Space>
+      <div data-cy="date">
+        <DatePicker
+          defaultValue={new Date('2022-08-08')}
+          type="date"
+          motion={false}
+        />
+      </div>
+      <div data-cy="dateTime">
+        <DatePicker
+          defaultValue={new Date('2022-08-08 19:11:00')}
+          type="dateTime"
+          motion={false}
+        />
+      </div>
+      <div data-cy="dateRange">
+        <DatePicker
+          defaultValue={[new Date('2022-08-08'), new Date('2022-08-09')]}
+          type="dateRange"
+          motion={false}
+        />
+      </div>
+    </Space>
+  );
+};
+CashedSelectedValue.storyName = "cashedSelectedValue";

@@ -48,9 +48,17 @@ $module-list: #{$prefix}-scrolllist;
                 border: $width-timePicker_range_panel-border solid $color-timePicker_range_panel-border;
                 border-radius: $radius-timePicker_range_panel;
 
+                // left
+                .#{$prefix}-scrolllist:first-of-type {
+                    border-radius: $radius-timePicker_range_panel 0 0 $radius-timePicker_range_panel;
+                }
+                // right
+                .#{$prefix}-scrolllist:last-of-type {
+                    border-radius: 0 $radius-timePicker_range_panel $radius-timePicker_range_panel 0;
+                }
+
                 & > .#{$prefix}-scrolllist:not(:last-child) {
                     .#{$prefix}-scrolllist {
-
                         &-body {
                             border-right: $width-timePicker_range_panel_scrolllist_body-border solid $color-timePicker_range_picker_panel_split-border;
                         }

@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 66
+order: 68
 category: 反馈类
 title: Spin 加载器
 icon: doc-spin
@@ -143,10 +143,12 @@ import { Spin, Button } from '@douyinfe/semi-ui';
 
 -   **怎么修改 icon 的颜色？**
 
-    可以通过给 .semi-spin-wrapper 类添加 color 属性覆盖原有的颜色。
+    可以通过给 .semi-spin-wrapper 类添加 color 属性覆盖原有的颜色（推荐以更高权重覆盖）
 
     ```
-    .semi-spin-wrapper {
+    <Spin classname='custom' />
+    
+    .custom .semi-spin-wrapper {
       color: red;
     }
     ```

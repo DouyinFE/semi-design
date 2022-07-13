@@ -73,9 +73,9 @@ const appLocale = {
         'icon.list.tab.stroked': '线性图标',
 
         // new  Home
-        "comprehensive__easy_to_use_and_high_quality": "全面、易用、优质的",
-        "enterprise_product_design_system": "企业级产品设计系统",
-        "home.banner.description": "由字节跳动抖音前端与 UED 团队设计、开发并维护，包含设计语言、React 组件、主题等开箱即用的中后台解决方案，帮助设计师与开发者打造高质量产品。",
+        // "comprehensive__easy_to_use_and_high_quality": "全面、易用、优质的",
+        "enterprise_product_design_system": "连接设计师与开发者",
+        "home.banner.description": "由抖音前端与 UED 团队维护，易于定制的现代化设计系统，帮助设计师与开发者打造高质量产品。",
         "start_using": "开始使用",
         "now_serving_100_000": "现已服务 10 万 + 用户",
         "user": "用户",
@@ -140,7 +140,9 @@ const appLocale = {
         "send": "发送",
         "sender": "发信人",
         "private_message_content": "私信内容",
-        "time_of_dispatch": "发信时间"
+        "time_of_dispatch": "发信时间",
+        "theme_store":'主题商店',
+        'semi_dsm':'Semi 设计系统管理'
     },
 };
 

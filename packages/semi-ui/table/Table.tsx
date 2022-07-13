@@ -353,6 +353,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
     scrollPosition!: BodyScrollPosition;
     position!: BodyScrollPosition;
     foundation: TableFoundation<RecordType>;
+    context: TableContextProps;
     constructor(props: NormalTableProps<RecordType>, context: TableContextProps) {
         super(props);
         this.foundation = new TableFoundation<RecordType>(this.adapter);
@@ -789,7 +790,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
         }
     };
 
-    renderSelection = (record: RecordType = {} as RecordType, inHeader = false): React.ReactNode => {
+    renderSelection = (record = {} as any, inHeader = false): React.ReactNode => {
         const { rowSelection, disabledRowKeysSet } = this.state;
 
         if (rowSelection && typeof rowSelection === 'object') {
@@ -1005,7 +1006,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
         );
     };
 
-    renderTitle = (props: { title?: ReactNode; prefixCls?: string; dataSource?: any[] } = {}) => {
+    renderTitle = (props: { title?: ReactNode | ((dataSource?: RecordType[]) => ReactNode); prefixCls?: string; dataSource?: any[] } = {}) => {
         let { title } = props;
         const { prefixCls, dataSource } = props;
 
@@ -1014,7 +1015,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
         }
 
         return isValidElement(title) || typeof title === 'string' ? (
-            <div className={`${prefixCls}-title`}>{title}</div>
+            <div className={`${prefixCls}-title`} x-semi-prop="title">{title}</div>
         ) : null;
     };
 
@@ -1031,14 +1032,16 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             <LocaleConsumer componentName="Table" key={'emptyText'}>
                 {(locale: TableLocale, localeCode: string) => (
                     <div className={wrapCls}>
-                        <div className={`${prefixCls}-empty`}>{empty || locale.emptyText}</div>
+                        <div className={`${prefixCls}-empty`} x-semi-prop="empty">
+                            {empty || locale.emptyText}
+                        </div>
                     </div>
                 )}
             </LocaleConsumer>
         );
     };
 
-    renderFooter = (props: { footer?: ReactNode; prefixCls?: string; dataSource?: RecordType[] } = {}) => {
+    renderFooter = (props: { footer?: ReactNode | ((dataSource?: RecordType[]) => ReactNode); prefixCls?: string; dataSource?: RecordType[] } = {}) => {
         let { footer } = props;
         const { prefixCls, dataSource } = props;
 
@@ -1047,7 +1050,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
         }
 
         return isValidElement(footer) || typeof footer === 'string' ? (
-            <div className={`${prefixCls}-footer`} key="footer">
+            <div className={`${prefixCls}-footer`} key="footer" x-semi-prop="footer">
                 {footer}
             </div>
         ) : null;
@@ -1088,6 +1091,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             components,
             headerRef,
             bodyRef,
+            onHeaderRow,
             rowSelection,
             dataSource,
             bodyHasScrollBar,
@@ -1109,6 +1113,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
                     scroll={scroll}
                     showHeader={showHeader}
                     selectedRowKeysSet={selectedRowKeysSet}
+                    onHeaderRow={onHeaderRow}
                     dataSource={dataSource}
                     bodyHasScrollBar={bodyHasScrollBar}
                 />

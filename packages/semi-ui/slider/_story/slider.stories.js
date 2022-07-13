@@ -254,14 +254,15 @@ SliderInScrollContainer.story = {
 
 class ControlledSlider extends Component {
   state = {
-    value: 50,
-    rangeValue: undefined,
+    value: 30,
+    rangeValue: [10, 30],
   };
   changeValue = () => {
     this.setState({ value: this.state.value + 10 });
+    const [start, end] = this.state.rangeValue;
+    this.setState({ rangeValue: [start - 10, end + 10]})
   };
   changeRangeValue = rangeValue => {
-    console.log('rangeValue' + rangeValue);
     this.setState({ rangeValue: rangeValue });
   };
   render() {
@@ -269,19 +270,40 @@ class ControlledSlider extends Component {
     return (
       <div>
         <Button onClick={() => this.changeValue()}>点击改变value</Button>
-        <div style={{ width: 800, marginLeft: 20, marginTop: 40 }}>
+        <div data-cy="horizontalNoChangeSlider" style={{ width: 800, marginLeft: 20, marginTop: 40 }}>
           <Slider
-            value={value}
+            value={30}
             onChange={value => {
               console.log('value改变了' + value);
             }}
           ></Slider>
         </div>
-        <div style={{ width: 800, marginLeft: 20, marginTop: 40 }}>
+        <div data-cy="horizontalOnChangeSlider" style={{ width: 800, marginLeft: 20, marginTop: 40 }}>
+          <Slider
+            value={value}
+            onChange={value => {
+              console.log('value改变了' + value);
+              this.setState({value: value});
+            }}
+          ></Slider>
+        </div>
+        <div data-cy="horizontalNoChangeRangeSlider" style={{ width: 800, marginLeft: 20, marginTop: 40 }}>
           <Slider
             value={rangeValue}
-            onChange={rangeValue => this.changeRangeValue(rangeValue)}
+            onChange={rangeValue => {
+              console.log('value改变了' + rangeValue);
+            }}
             range
+          ></Slider>
+        </div>
+        <div data-cy="horizontalNoChangeVerticalSlider" style={{ width: 800, marginLeft: 20, marginTop: 40 }}>
+          <Slider
+            value={40}
+            vertical
+            onChange={value => {
+              console.log('value改变了' + value);
+            }}
+            style={{height: '300px'}}
           ></Slider>
         </div>
       </div>

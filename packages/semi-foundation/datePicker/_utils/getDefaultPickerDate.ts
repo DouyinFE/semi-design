@@ -1,6 +1,6 @@
 import { addMonths, Locale as dateFnsLocale } from 'date-fns';
 import isValidDate from './isValidDate';
-import { compatiableParse } from './parser';
+import { compatibleParse } from './parser';
 import isTimestamp from './isTimestamp';
 
 /**
@@ -18,7 +18,7 @@ export default function getDefaultPickerDate(options: GetDefaultPickerValueDateO
             nowDate = new Date(nowDate);
             break;
         case typeof nowDate === 'string':
-            nowDate = compatiableParse(nowDate as string, format, undefined, dateFnsLocale);
+            nowDate = compatibleParse(nowDate as string, format, undefined, dateFnsLocale);
             break;
         default:
             nowDate = new Date();
@@ -32,7 +32,7 @@ export default function getDefaultPickerDate(options: GetDefaultPickerValueDateO
             nextDate = new Date(nextDate);
             break;
         case typeof nextDate === 'string':
-            nextDate = compatiableParse(nextDate as string, format, undefined, dateFnsLocale);
+            nextDate = compatibleParse(nextDate as string, format, undefined, dateFnsLocale);
             break;
         default:
             nextDate = addMonths(nowDate as Date, 1);

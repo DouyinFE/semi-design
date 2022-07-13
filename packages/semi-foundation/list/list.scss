@@ -17,7 +17,7 @@ $module: #{$prefix}-list;
     }
 
     &-empty {
-        padding: $spacing-list_empty-padding;
+        padding: $spacing-list_empty-paddingY $spacing-list_empty-paddingX;
         color: $color-list_empty-text-default;
         width: 100%;
         text-align: center;

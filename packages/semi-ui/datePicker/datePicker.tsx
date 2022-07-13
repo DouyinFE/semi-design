@@ -6,7 +6,7 @@ import React from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import { noop, stubFalse, isDate, get, isFunction, isEqual } from 'lodash';
-import ConfigContext from '../configProvider/context';
+import ConfigContext, { ContextValue } from '../configProvider/context';
 import DatePickerFoundation, { DatePickerAdapter, DatePickerFoundationProps, DatePickerFoundationState, DayStatusType, PresetType, Type, RangeType } from '@douyinfe/semi-foundation/datePicker/foundation';
 import { cssClasses, strings, numbers } from '@douyinfe/semi-foundation/datePicker/constants';
 import { strings as popoverStrings, numbers as popoverNumbers } from '@douyinfe/semi-foundation/popover/constants';
@@ -125,6 +125,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
         // Callback function for panel date switching
         onPanelChange: PropTypes.func,
         rangeSeparator: PropTypes.string,
+        preventScroll: PropTypes.bool,
     };
 
     static defaultProps = {
@@ -138,7 +139,6 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
         type: 'date',
         size: 'default',
         density: 'default',
-        disabled: false,
         multiple: false,
         defaultOpen: false,
         disabledHours: noop,
@@ -175,6 +175,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
     _mounted: boolean;
 
     foundation: DatePickerFoundation;
+    context: ContextValue;
 
     constructor(props: DatePickerProps) {
         super(props);
@@ -183,7 +184,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             isRange: false,
             inputValue: null, // Staging input values
             value: [], // The currently selected date, each date is a Date object
-            cachedSelectedValue: null, // Save last selected date
+            cachedSelectedValue: null, // Save last selected date, maybe include null
             prevTimeZone: null,
             motionEnd: false, // Monitor if popover animation ends
             rangeInputFocus: undefined, // Optional'rangeStart ',' rangeEnd ', false
@@ -271,13 +272,14 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             typeIsYearOrMonth: () => ['month', 'year'].includes(this.props.type),
             setMotionEnd: motionEnd => this.setState({ motionEnd }),
             setRangeInputFocus: rangeInputFocus => {
+                const { preventScroll } = this.props;
                 if (rangeInputFocus !== this.state.rangeInputFocus) {
                     this.setState({ rangeInputFocus });
                 }
                 switch (rangeInputFocus) {
                     case 'rangeStart':
                         const inputStartNode = get(this, 'rangeInputStartRef.current');
-                        inputStartNode && inputStartNode.focus();
+                        inputStartNode && inputStartNode.focus({ preventScroll });
                         /**
                          * 解决选择完startDate，切换到endDate后panel被立马关闭的问题。
                          * 用户打开panel，选了startDate后，会执行setRangeInputFocus('rangeEnd'),focus到endDateInput，
@@ -297,7 +299,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
                         break;
                     case 'rangeEnd':
                         const inputEndNode = get(this, 'rangeInputEndRef.current');
-                        inputEndNode && inputEndNode.focus();
+                        inputEndNode && inputEndNode.focus({ preventScroll });
                         /**
                          * 解决选择完startDate，切换到endDate后panel被立马关闭的问题。
                          * 用户打开panel，选了startDate后，会执行setRangeInputFocus('rangeEnd'),focus到endDateInput，
@@ -322,19 +324,20 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             couldPanelClosed: () => this.focusRecordsRef.current.rangeStart && this.focusRecordsRef.current.rangeEnd,
             isEventTarget: e => e && e.target === e.currentTarget,
             setInsetInputFocus: () => {
+                const { preventScroll } = this.props;
                 const { rangeInputFocus } = this.state;
                 switch (rangeInputFocus) {
                     case 'rangeEnd':
                         if (document.activeElement !== this.rangeInputEndRef.current) {
                             const inputEndNode = get(this, 'rangeInputEndRef.current');
-                            inputEndNode && inputEndNode.focus();
+                            inputEndNode && inputEndNode.focus({ preventScroll });
                         }
                         break;
                     case 'rangeStart':
                     default:
                         if (document.activeElement !== this.rangeInputStartRef.current) {
                             const inputStartNode = get(this, 'rangeInputStartRef.current');
-                            inputStartNode && inputStartNode.focus();
+                            inputStartNode && inputStartNode.focus({ preventScroll });
                         }
                         break;
                 }
@@ -414,16 +417,9 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             triggerRender,
             insetInput
         } = this.props;
-        const { value, cachedSelectedValue, motionEnd, rangeInputFocus } = this.state;
+        const { cachedSelectedValue, motionEnd, rangeInputFocus } = this.state;
 
-        // const cachedSelectedValue = this.adapter.getCache('cachedSelectedValue');
-
-        let defaultValue = value;
-
-        if (this.adapter.needConfirm()) {
-            defaultValue = cachedSelectedValue;
-        }
-
+        const defaultValue = cachedSelectedValue;
         return (
             <MonthsGrid
                 ref={this.monthGrid}
@@ -534,6 +530,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             inputReadOnly,
             rangeSeparator,
             insetInput,
+            defaultPickerValue
         } = this.props;
         const { value, inputValue, rangeInputFocus, triggerDisabled } = this.state;
         // This class is not needed when triggerRender is function
@@ -554,6 +551,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             disabled: inputDisabled,
             inputValue,
             value: value as Date[],
+            defaultPickerValue,
             onChange: this.handleInputChange,
             onEnterPress: this.handleInputComplete,
             // TODO: remove in next major version
@@ -628,7 +626,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
     };
 
     renderPanel = (locale: Locale['DatePicker'], localeCode: string, dateFnsLocale: Locale['dateFnsLocale']) => {
-        const { dropdownClassName, dropdownStyle, density, topSlot, bottomSlot, insetInput, type, format, rangeSeparator } = this.props;
+        const { dropdownClassName, dropdownStyle, density, topSlot, bottomSlot, insetInput, type, format, rangeSeparator, defaultPickerValue } = this.props;
         const { insetInputValue, value } = this.state;
         const wrapCls = classnames(
             cssClasses.PREFIX,
@@ -652,17 +650,26 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             rangeInputStartRef: this.rangeInputStartRef,
             rangeInputEndRef: this.rangeInputEndRef,
             density,
+            defaultPickerValue
         };
 
         return (
             <div ref={this.panelRef} className={wrapCls} style={dropdownStyle}>
-                {topSlot && <div className={`${cssClasses.PREFIX}-topSlot`}>{topSlot}</div>}
+                {topSlot && (
+                    <div className={`${cssClasses.PREFIX}-topSlot`} x-semi-prop="topSlot">
+                        {topSlot}
+                    </div>
+                )}
                 {insetInput && <DateInput {...insetInputProps} insetInput={true} />}
-                {this.adapter.typeIsYearOrMonth() ?
-                    this.renderYearMonthPanel(locale, localeCode) :
-                    this.renderMonthGrid(locale, localeCode, dateFnsLocale)}
+                {this.adapter.typeIsYearOrMonth()
+                    ? this.renderYearMonthPanel(locale, localeCode)
+                    : this.renderMonthGrid(locale, localeCode, dateFnsLocale)}
                 {this.renderQuickControls()}
-                {bottomSlot && <div className={`${cssClasses.PREFIX}-bottomSlot`}>{bottomSlot}</div>}
+                {bottomSlot && (
+                    <div className={`${cssClasses.PREFIX}-bottomSlot`} x-semi-prop="bottomSlot">
+                        {bottomSlot}
+                    </div>
+                )}
                 {this.renderFooter(locale, localeCode)}
             </div>
         );

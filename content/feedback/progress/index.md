@@ -1,17 +1,12 @@
 ---
 localeCode: zh-CN
-order: 64
+order: 66
 category: 反馈类
 title: Progress 进度条
 icon: doc-progress
 width: 60%
-brief: 展示操作的当前进度。
+brief: 用于展示用户操作的当前进度和状态，一般在操作耗时较长时使用。也可用来表示任务/对象的完成度
 ---
-
-## 何时使用
-
-在操作需要较长时间才能完成时，为用户显示该操作的当前进度和状态
-
 ## 代码演示
 
 ### 如何引入

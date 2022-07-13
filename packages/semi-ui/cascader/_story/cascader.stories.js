@@ -396,6 +396,28 @@ Searchable.parameters = {
   chromatic: { disableSnapshot: false },
 }
 
+export const filterTreeNodeAndDisplayRender = () => {
+  return (
+    <>
+      <div>
+          filterTreeNode=true，配合displayRender 使用，回显到input的内容也是符合预期
+      </div>
+      <Cascader
+        filterTreeNode
+        style={{ width: 300 }}
+        treeData={treeData4}
+        placeholder="自定义回填时显示数据的格式"
+        defaultValue={['zhejiang', 'ningbo', 'jiangbei']}
+        displayRender={(item) => {
+          console.log('item', item);
+          return <div>
+              {'已选择：' + item.join(' -> ')}
+          </div>;}}
+      />
+    </>
+  );
+};
+
 export const Disabled = () => {
   return (
     <div>
@@ -697,7 +719,8 @@ export const ShowClear = () => {
       <Cascader
         style={{ marginLeft: 700, width: 300 }}
         treeData={treeData1}
-        placeholder="Please select"
+        placeholder="Please select when multiple"
+        multiple
         showClear
       />
       <br />
@@ -1275,6 +1298,27 @@ export const OnChangeWithObject = () => (
   </>
 );
 
+export const undefinedValueWhileMutipleAndOnChangeWithObject = () => {
+  const [value, setValue] = useState(undefined);
+  
+  return (
+    <>
+      <div>多选 + onChangeWithObject + value 为 undefined</div>
+      <Cascader
+        multiple
+        onChangeWithObject
+        style={{ width: 300 }}
+        treeData={treeData2}
+        placeholder="请选择所在地区"
+        value={value}
+        onChange={(v)=>{
+          setValue(v);
+        }}
+      />
+    </>
+  )
+}
+
 export const LeafOnly = () => {
   const [value, setValue] = useState([])
   return (
@@ -1435,3 +1479,17 @@ export const DynamicTreeData = () => {
       </div>
   );
 }
+
+
+export const SuperLongList = () => {
+    let treeData = new Array(100).fill().map(() => ({ label: '浙江省', value: 'zhejiang' }));
+    treeData.push({ label: '到底啦', value: 'bottom' })
+    return (
+        <Cascader
+            style={{ width: 300 }}
+            treeData={treeData}
+            placeholder="请选择所在地区"
+            onListScroll={()=>{console.log(123)}}
+        />
+    );
+};

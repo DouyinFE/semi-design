@@ -240,7 +240,7 @@ export type RowSelectionOnSelect<RecordType> = (
     nativeEvent?: React.MouseEvent
 ) => void;
 export type RowSelectionOnSelectAll<RecordType> = (selected?: boolean, selectedRows?: RecordType[], changedRows?: RecordType[]) => void;
-export type ExpandIcon = ((expanded?: boolean) => React.ReactNode) | React.ReactNode | boolean;
+export type ExpandIcon = ((expanded?: boolean) => React.ReactNode) | React.ReactNode;
 export type ExpandedRowRender<RecordType> = (record?: RecordType, index?: number, expanded?: boolean) => React.ReactNode;
 export type Footer<RecordType> = ReactNode | ((pageData?: RecordType[]) => React.ReactNode);
 export type FormatPageText = ((pageInfo?: { currentStart?: number; currentEnd?: number; total?: number }) => React.ReactNode) | boolean;

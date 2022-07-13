@@ -1,0 +1,43 @@
+{
+  "name": "eslint-plugin-semi-design",
+  "version": "2.15.0-beta.0",
+  "description": "semi ui eslint plugin",
+  "keywords": [
+    "semi",
+    "eslint"
+  ],
+  "author": "shijia.me <shijia.me@bytedance.com>",
+  "homepage": "https://semi.design",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib",
+    "README.md",
+    "README-zh_CN.md"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DouyinFE/semi-design.git"
+  },
+  "scripts": {
+    "build:lib": "rm -rf lib && tsc",
+    "prepublishOnly": "npm run build:lib",
+    "test": "node __tests__/index.js"
+  },
+  "devDependencies": {
+    "typescript": "^4"
+  },
+  "peerDependencies": {
+    "eslint": ">=0.8.0"
+  },
+  "bugs": {
+    "url": "https://github.com/DouyinFE/semi-design/issues"
+  }
+}

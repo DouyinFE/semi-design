@@ -7,12 +7,12 @@ export interface CheckboxGroupAdapter extends DefaultAdapter{
     notifyChange: (value: any[]) => void;
 }
 class CheckboxGroupFoundation extends BaseFoundation<CheckboxGroupAdapter> {
-    static get checkboxGroupdefaultAdapter() {
+    static get checkboxGroupDefaultAdapter() {
         return {};
     }
 
     constructor(adapter: CheckboxGroupAdapter) {
-        super({ ...CheckboxGroupFoundation.checkboxGroupdefaultAdapter, ...adapter });
+        super({ ...CheckboxGroupFoundation.checkboxGroupDefaultAdapter, ...adapter });
     }
 
     init() {

@@ -1,11 +1,11 @@
 ---
 localeCode: zh-CN
-order: 44
+order: 45
 category: 展示类
 title: Calendar 日历
 icon: doc-calendar
 dir: column
-brief: 按照日历形式展示数据的容器。
+brief: 日历组件，允许以日/周/月视图展示对应事件
 ---
 
 ## 代码演示

@@ -42,7 +42,7 @@ export interface YearScrollItem {
     disabled: boolean;
 }
 
-export default class YearAndMonthFoundataion extends BaseFoundation<YearAndMonthAdapter> {
+export default class YearAndMonthFoundation extends BaseFoundation<YearAndMonthAdapter> {
 
     constructor(adapter: YearAndMonthAdapter) {
         super({ ...adapter });

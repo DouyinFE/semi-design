@@ -1,7 +1,7 @@
 @mixin tag-style($color, $type) {
     @if $type==solid {
         background-color: unquote("rgba(var(--semi-#{$color}-5), 1)");
-        color: white;
+        color: rgba(var(--semi-white), 1);
     }
 
     @else if $type==ghost {

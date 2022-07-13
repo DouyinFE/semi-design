@@ -24,18 +24,22 @@ class Logger {
         }
     }
 
+    /* istanbul ignore next */
     log(...args: any[]) {
         this._baseLog('log', ...args);
     }
 
+    /* istanbul ignore next */
     warn(...args: any[]) {
         this._baseLog('warn', ...args);
     }
 
+    /* istanbul ignore next */
     error(...args: any[]) {
         this._baseLog('error', ...args);
     }
 
+    /* istanbul ignore next */
     info(...args: any[]) {
         this._baseLog('info', ...args);
     }

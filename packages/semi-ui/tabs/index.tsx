@@ -48,6 +48,7 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
         tabPosition: PropTypes.oneOf(strings.POSITION_MAP),
         type: PropTypes.oneOf(strings.TYPE_MAP),
         onTabClose: PropTypes.func,
+        preventScroll: PropTypes.bool,
     };
 
     static defaultProps: TabsProps = {
@@ -119,9 +120,9 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
                 }
                 if (panes.findIndex(p => p.itemKey === activeKey) === -1){
                     if (panes.length>0){
-                        this.setState({activeKey: panes[0].itemKey});
+                        this.setState({ activeKey: panes[0].itemKey });
                     } else {
-                        this.setState({activeKey: ''});
+                        this.setState({ activeKey: '' });
                     }
                 }
                 
@@ -192,6 +193,7 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
         this.foundation.handleTabClick(activeKey, event);
     };
 
+    /* istanbul ignore next */
     rePosChildren = (children: ReactElement[], activeKey: string): ReactElement[] => {
         const newChildren: ReactElement[] = [];
 
@@ -265,7 +267,8 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
             tabBarExtraContent,
             tabPosition,
             type,
-            deleteTabItem: this.deleteTabItem
+            deleteTabItem: this.deleteTabItem,
+            handleKeyDown: this.foundation.handleKeyDown
         } as TabBarProps;
 
         const tabBar = renderTabBar ? renderTabBar(tabBarProps, TabBar) : <TabBar {...tabBarProps} />;

@@ -1,18 +1,13 @@
 ---
 localeCode: en-US
-order: 64
+order: 66
 category: Feedback
 title: Progress
 subTitle: Progress
 icon: doc-progress
 width: 60%
-brief: Show the current progress of the operation.
+brief: Used to display the current progress and status of the user operation, and is generally used when the operation takes a long time. Can also be used to indicate the degree of completion of a task/object
 ---
-
-## When to use
-
-Display the current progress and state of the operation for the user when the operation takes a long time to complete
-
 ## Demos
 
 ### How to import
@@ -35,7 +30,7 @@ import { Progress } from '@douyinfe/semi-ui';
 
 () => (
     <div style={{ width: 200 }}>
-       <Progress percent={10} stroke="var(--semi-color-warning)" aria-label="disk usage" />
+        <Progress percent={10} stroke="var(--semi-color-warning)" aria-label="disk usage" />
         <br />
         <Progress percent={25} stroke="var(--semi-color-danger)" aria-label="disk usage" />
         <br />

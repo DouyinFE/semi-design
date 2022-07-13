@@ -43,7 +43,7 @@ class Demo extends React.Component {
 
 ## 3、在 Next.js 中使用
 
-当你在 Next.js 项目中使用时，需要搭配 Semi 提供的编译插件
+当你在 Next.js 项目中使用时，需要搭配 Semi 提供的编译插件（由于 Next.js 不允许 npm 包从 node_modules 中 import 样式文件，需要配合插件将默认的import CSS 语句移除，并且手动引入 CSS）
 
 ### Step1
 
@@ -51,13 +51,13 @@ class Demo extends React.Component {
 
 ```shell
 # 使用 npm
-npm i @douyinfe/semi-next --save-dev
+npm i @douyinfe/semi-next
 
 # 使用 yarn
-yarn add @douyinfe/semi-next --dev
+yarn add @douyinfe/semi-next
 
 # 使用 pnpm
-pnpm add @douyinfe/semi-next --dev
+pnpm add @douyinfe/semi-next
 ```
 
 ### Step2
@@ -78,16 +78,19 @@ module.exports = semi({
 
 ### Step3
 
-在 `global.css` 中引入全量的 semi css。目前不支持按需引入。
+在 `global.css` 中引入全量的 semi css。目前在 Next.js 中不支持按需引入。
 
 ```css
 /* styles/globals.css */
 @import '~@douyinfe/semi-ui/dist/css/semi.min.css';
 ```
 
-**在 nextjs 中使用主题包**
-
-请查阅 [此 issue](https://github.com/DouyinFE/semi-design/issues/565) 中的方法
+**如何在 Next.js 中使用主题包**  
+你需要更换 Step3 中 import 语句的路径，将默认主题 CSS 产物更换为你定制的主题包中的 CSS 产物，例如主题包为 `@semi-bot/semi-theme-nyx-c`
+```css
+/* styles/globals.css */
+@import '~@semi-bot/semi-theme-nyx-c/semi.min.css';
+```
 
 ## 4、UMD 方式使用组件
 

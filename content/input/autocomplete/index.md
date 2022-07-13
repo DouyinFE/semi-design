@@ -1,13 +1,13 @@
 ---
 localeCode: zh-CN
-order: 16
+order: 17
 category: 输入类
 title: AutoComplete 自动完成
 icon: doc-autocomplete
 brief: 输入框自动填充。
 ---
 
-## 何时使用
+## 使用场景
 
 用于对输入框提供输入建议，进行自动补全的操作
 
@@ -264,22 +264,36 @@ import { AutoComplete } from '@douyinfe/semi-ui';
 import React from 'react';
 import { AutoComplete } from '@douyinfe/semi-ui';
 
-() => (
-    <div>
-        <AutoComplete
-            data={[1, 2, 3, 4]}
-            position="top"
-            placeholder="选项菜单在上方显示"
-            style={{ width: 200, margin: 10 }}
-        ></AutoComplete>
-        <AutoComplete
-            data={[1, 2, 3, 4]}
-            position="rightTop"
-            placeholder="选项菜单在右侧显示"
-            style={{ width: 200, margin: 10 }}
-        ></AutoComplete>
-    </div>
-);
+() => {
+    const [data, setData] = useState([]);
+
+    const change = (input) => {
+        let newData = ['gmail.com', '163.com', 'qq.com'].map(domain => `${input}@${domain}`);
+        if (!input) {
+            newData = [];
+        }
+        setData(newData);
+    }
+    return (
+        <div>
+            <AutoComplete
+                data={data}
+                position="top"
+                onSearch={change}
+                placeholder="选项菜单在上方显示"
+                style={{ width: 200, margin: 10 }}
+            ></AutoComplete>
+            <AutoComplete
+                data={data}
+                position="rightTop"
+                onSearch={change}
+                placeholder="选项菜单在右侧显示"
+                style={{ width: 200, margin: 10 }}
+            ></AutoComplete>
+        </div>
+    )
+};
+
 ```
 
 ### 禁用
@@ -391,6 +405,17 @@ import { IllustrationNoContent } from '@douyinfe/semi-illustrations';
 | onFocus | 获得焦点时的回调 | Function(event) | |
 | onSearch | 输入变化时的回调 | Function(value: string) | |
 | onSelect | 下拉菜单候选项被选中时的回调 | Function(item: string\|number\|Item) | |
+
+## Accessibility
+### 键盘和焦点
+
+- AutoComplete 的 input 框可被聚焦，聚焦后，键盘用户可以通过 `上箭头` 或 `下箭头` 打开选项面板（如有）
+- AutoComplete 也支持通过 `Enter` 键打开和收起面板
+- 若用户将 defaultActiveFirstOption 属性设置为 true 时，选项面板打开后默认高亮第一个选项
+- 若下拉菜单打开时：
+  - 使用 `Esc` 可以关闭菜单
+  - 使用 `上箭头` 或 `下箭头` 可以切换选项
+  - 被聚焦的选项可以通过 `Enter` 键选中，并收起面板
 
 ## 设计变量
 <DesignToken/>

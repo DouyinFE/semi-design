@@ -1,15 +1,11 @@
 ---
 localeCode: zh-CN
-order: 20
+order: 21
 category: 输入类
 title: DatePicker 日期选择器
 icon: doc-datepicker
 brief: 日期选择器用于帮助用户选择一个符合要求的、格式化的日期（时间）或日期（时间）范围
 ---
-
-## 何时使用
-
-当用户需要输入一个日期，可以点击标准输入框，弹出日期面板进行选择。
 
 ## 代码演示
 
@@ -750,7 +746,7 @@ function Demo() {
 | --- | --- | --- | --- | --- |
 | autoAdjustOverflow | 浮层被遮挡时是否自动调整方向 | boolean | true | **0.34.0** |
 | autoFocus | 自动获取焦点 | boolean | false | **1.10.0** |
-| autoSwitchDate | 传入 false 时，通过面板上方左右按钮、下拉菜单更改年月时，不会自动切换日期 | boolean | true | **1.13.0** |
+| autoSwitchDate | 通过面板上方左右按钮、下拉菜单更改年月时，自动切换日期。仅对 date type 生效。 | boolean | true | **1.13.0** |
 | bottomSlot | 渲染底部额外区域 | ReactNode |  | **1.22.0** |
 | className | 类名 | string | - |  |
 | defaultOpen | 面板默认显示或隐藏 | boolean | false |  |
@@ -780,6 +776,7 @@ function Demo() {
 | position | 浮层位置，可选值同[Popover#API 参考·position 参数](/zh-CN/show/popover#API参考) | string | 'bottomLeft' |  |
 | prefix | 前缀内容 | string\|ReactNode |  |  |
 | presets | 日期时间快捷方式 | Array<{start:BaseValueType, end:BaseValueType, text:string}\| function():{start:BaseValueType, end:BaseValueType, text:string}> | [] |  |
+| preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法 | boolean |  |  |
 | rangeSeparator | 自定义范围类型输入框的日期分隔符 | string | '~' | **1.31.0** |
 | renderDate | 自定义日期显示内容 | (dayNumber, fullDate) => ReactNode | - | **1.4.0** |
 | renderFullDate | 自定义显示日期格子内容 | (dayNumber, fullDate, dayStatus) => ReactNode | - | **1.4.0** |

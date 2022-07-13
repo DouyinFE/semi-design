@@ -1,6 +1,6 @@
 {
   "name": "@douyinfe/semi-illustrations",
-  "version": "2.7.1",
+  "version": "2.15.0-beta.0",
   "description": "semi illustrations",
   "keywords": [
     "semi",
@@ -28,7 +28,7 @@
     "@babel/runtime-corejs3": "^7.15.4"
   },
   "peerDependencies": {
-    "react": "^16.8.0 || ^17.0.0"
+    "react": "^16.8.0 || ^17.0.0 || ^18.0.0"
   },
   "devDependencies": {
     "@babel/plugin-proposal-decorators": "^7.15.8",

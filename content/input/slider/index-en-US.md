@@ -1,11 +1,11 @@
 ---
 localeCode: en-US
-order: 27
+order: 28
 category: Input
 title:  Slider
 subTitle: Slider
 icon: doc-slider
-brief: Slider is used to help users quickly enter a numeric value or range.
+brief: Selector to quickly select a number or range of values using drag interaction, more intuitive than InputNumber
 ---
 
 

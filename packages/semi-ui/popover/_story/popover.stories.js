@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 
 import Popover from '../index';
 import { strings } from '@douyinfe/semi-foundation/tooltip/constants';
-import { Button, Input, Table, IconButton, Modal, Tag } from '@douyinfe/semi-ui';
+import { Button, Input, Table, IconButton, Modal, Tag, Space, Select } from '@douyinfe/semi-ui';
 import SelectInPopover from './SelectInPopover';
 import BtnClose from './BtnClose';
 import PopRight from './PopRight';
 import NestedPopover from './NestedPopover';
 import ArrowPointAtCenter from './ArrowPointAtCenter';
 import { IconDelete } from '@douyinfe/semi-icons';
+
+const Option = Select.Option;
 
 export default {
   title: 'Popover',
@@ -571,4 +573,112 @@ NestedPopoverDemo.story = {
 export const ArrowPointAtCenterDemo = () => <ArrowPointAtCenter />;
 ArrowPointAtCenterDemo.story = {
   name: 'arrow point at center'
+}
+
+export const A11yKeyboard = () => {
+  const [visible, setVisible] = React.useState(false);
+  const popStyle = { height: 200, width: 200 };
+
+  const renderContent = ({ initialFocusRef }) => {
+    return (
+      <div style={popStyle} data-cy="pop">
+        <button data-cy="pop-focusable-first">first focusable</button>
+        <a href="https://semi.design">link</a>
+        {/* <input ref={initialFocusRef} placeholder="init focus" /> */}
+        <input placeholder="" defaultValue="semi" />
+        <a href="https://semi.design">link2</a>
+        <button data-cy="pop-focusable-last">last focusable</button>
+      </div>
+    );
+  };
+
+  const noFocusableContent = (
+    <div style={popStyle}>没有可聚焦元素</div>
+  );
+
+  const initFocusContent = ({ initialFocusRef }) => {
+    return (
+      <div style={popStyle} data-cy="pop">
+        <button data-cy="pop-focusable-first">first focusable</button>
+        <input placeholder="" defaultValue="semi" ref={initialFocusRef} data-cy="initial-focus-input" />
+        <button data-cy="pop-focusable-last">last focusable</button>
+      </div>
+    );
+  };
+
+  return (
+      <div style={{ paddingLeft: 100, paddingTop: 100 }}>
+          <Space spacing={100}>
+              <Popover content={renderContent} trigger="click" motion={false}>
+                  <Button data-cy="click">click</Button>
+              </Popover>
+              <Popover content={renderContent} trigger="hover">
+                  <span data-cy="hover">hover</span>
+              </Popover>
+              <Popover content={renderContent} trigger="focus">
+                  <Input data-cy="focus" defaultValue="focus" style={{ width: 150 }} />
+              </Popover>
+              <Popover
+                  content={renderContent}
+                  trigger="custom"
+                  visible={visible}
+                  onEscKeyDown={() => {
+                      console.log('esc key down');
+                      setVisible(false);
+                  }}
+              >
+                  <Button onClick={() => setVisible(!visible)} data-cy="custom">
+                    custom trigger + click me toggle show
+                  </Button>
+              </Popover>
+              <Popover content={noFocusableContent} trigger="click" data-cy="click-pop-contains-no-focusable">
+                  <Button>pop内没有可聚焦元素</Button>
+              </Popover>
+              <Popover content={initFocusContent} trigger="click" motion={false}>
+                  <Button data-cy="initial-focus">custom initialFocus</Button>
+              </Popover>
+              <Popover content={renderContent} trigger="click" motion={false} closeOnEsc={false}>
+                  <Button data-cy="closeOnEsc-false">closeOnEsc=false</Button>
+              </Popover>
+              <Popover content={renderContent} trigger="click" motion={false} returnFocusOnClose={false}>
+                  <Button data-cy="returnFocusOnClose-false">returnFocusOnClose=false</Button>
+              </Popover>
+          </Space>
+      </div>
+  );
+};
+A11yKeyboard.storyName = "a11y keyboard and focus";
+
+/**
+ * fix 嵌套 popover 的弹出层会导致外部 popover 关闭问题
+ * 
+ * @see https://github.com/DouyinFE/semi-design/issues/818
+ * @see https://github.com/facebook/react/issues/4335#issuecomment-421705171
+ */
+export const FixNestedPopover = () => {
+    return (
+        <div data-cy="fix-nested-popover" style={{ paddingLeft: 100 }}>
+            <Popover
+                content={(
+                    <div data-cy="select-in-popover" style={{ padding: 20 }}>
+                        <Select
+                            defaultValue="abc"
+                            style={{ width: 120 }}
+                        >
+                            <Option value="abc">抖音</Option>
+                            <Option value="hotsoon">火山</Option>
+                            <Option value="pipixia" disabled>
+                                皮皮虾
+                            </Option>
+                            <Option value="xigua">西瓜视频</Option>
+                        </Select>
+                    </div>
+                )}
+                trigger="click"
+                showArrow
+            >
+                <Tag>点击此处</Tag>
+            </Popover>
+        </div>
+    );
 }

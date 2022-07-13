@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/anchor/constants';
@@ -17,6 +17,7 @@ export { LinkProps } from './link';
 export interface AnchorProps {
     autoCollapse?: boolean;
     className?: string;
+    children?: ReactNode | undefined;
     defaultAnchor?: string;
     getContainer?: () => HTMLElement | Window;
     maxHeight?: string | number;

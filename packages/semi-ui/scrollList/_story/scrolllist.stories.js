@@ -1,6 +1,7 @@
 import React from 'react';
 import WheelListDemo from './WheelList';
 import ScrollListDemo from './ScrollList';
+import SingleScrollListDemo from './SingleWheelList';
 
 
 export default {
@@ -23,4 +24,10 @@ export const _WheelListDemo = () => <WheelListDemo />;
 
 _WheelListDemo.story = {
   name: 'wheel list demo',
+};
+
+export const SingleScrollList = () => <SingleScrollListDemo />;
+
+SingleScrollList.story = {
+  name: 'single scroll list demo',
 };

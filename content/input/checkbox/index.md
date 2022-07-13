@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 19
+order: 20
 category: 输入类
 title: Checkbox 复选框
 icon: doc-checkbox
@@ -8,10 +8,10 @@ brief: 复选框允许用户选中多个选项
 ---
 
 
-## 何时使用
+## 使用场景
 
-- 在一组可选项中进行多项选择时；
-- 单独使用可以表示两种状态之间的切换，和 Switch 类似。区别在于切换 Switch 会直接触发状态改变，而 Checkbox 一般用于状态标记，需要和提交操作配合。
+- 勾选框可以让用户在两种相反的状态、行为或取值之间选择;
+- 适用于在列表中选择单个或多个选项，开启或关闭某个选项
 
 ## 代码演示
 
@@ -381,13 +381,16 @@ import { Checkbox, CheckboxGroup, Row, Col } from '@douyinfe/semi-ui';
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
+| addonId | addon 节点 id，aria-labelledby 指向这个 id，若无设置会随机生成一个 id  **v2.11.0 后提供**                                 | string            |       |
 | aria-label | 定义 Checkbox 的作用 | string | - |
 | checked | 指定当前Checkbox是否选中（在Group中使用时无效） | boolean | false |
 | defaultChecked | 初始是否选中（在Group中使用时无效） | boolean | false |
 | disabled | 失效状态 | boolean | false |
 | extra | 副文本<br/>__v0.25.0后提供__ | ReactNode | - |
+| extraId        | 副文本的 id，aria-describedby 指向这个 id，若无设置会随机生成一个 id <br/>**v2.11.0 后提供**                     | ReactNode         | -      |
 | value | 该checkbox在CheckboxGroup中代表的value | any | - |
 | indeterminate | 设置 indeterminate 状态，只负责样式控制 | boolean | false |
+| preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法 | boolean |  |  |
 | onChange | 变化时回调函数 | function(e:Event) | - |
 
 ### Checkbox Group
@@ -421,6 +424,12 @@ import { Checkbox, CheckboxGroup, Row, Col } from '@douyinfe/semi-ui';
 - `aria-describedby` 指向 `extra` 节点，用于补充解释当前 Checkbox 的作用
 - `aria-disabled` 表示当前的禁用状态，与 `disabled` prop 的值保持一致
 - `aria-checked` 表示当前的选中状态
+
+### 键盘和焦点
+- Checkbox 可被获取焦点，键盘用户可以使用 Tab 及 Shift  + Tab 切换焦点。
+- 当前获取的焦点为 Checkbox 时，可以通过 Space 切换选中和未选状态。
+- Checkbox 的点击区域大于框本身，包含了框后的文案；带辅助文本的 checkbox，辅助文本也包含在点击区域内。
+- 禁用的 Checkbox 不可获取焦点。
 
 ## 设计变量
 <DesignToken/>

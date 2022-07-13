@@ -4,16 +4,222 @@ title: Change Log 更新日志
 icon: doc-changelog
 localeCode: zh-CN
 order: 6
-brief: 关于 Semi Design For React 优化与更新
+brief: 关于 Semi Design For React 优化与更新。我们提供了版本间的 Changelog Diff，你可以通过 hover 版本号唤出 Diff 控件。如果你想查看单个组件的变更历史，可以通过对应组件文档的 版本对比 按钮查看
 ---
 
-Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号）：
+Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本号）：
+-   主版本号（major）：重大性能/使用变更，允许做 breaking change
+-   次版本号（minor）：Semi 固定每两周发布一个 minor 版本，包括以下类型变更：添加了新组件/新 feature，或者样式变更
+-   修订版本号（patch）：仅会进行 bugfix，发布时间不限
+-   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
--   主版本号（major）：重大性能/使用变更
--   次版本号（minor）：添加了新组件/新 feature
--   修订版本号（patch）：bugfix
 
 ---
+
+#### 🎉 2.15.0-beta.0 (2022-07-11)
+- 【Feat】
+    - Rating 新增 A11y 焦点及键盘适配
+    - Dropdown 新增 A11y 键盘和焦点适配  [#205](https://github.com/DouyinFE/semi-design/issues/205)
+    - LocaleProvider 新增 德语（de）、意大利语（it）、法语（fr） [@jacob-lcs](https://github.com/jacob-lcs)
+    - Cascader 等 15 组件新增 preventScroll 属性，用于阻止组件内 focus 方法导致页面滚动（可用于解决 Safari 浏览器聚焦时可能导致页面异常滚动的问题）
+    - Tooltip returnFocusOnClose 支持trigger hover和focus
+- 【Fix】
+    - 修复 TreeSelect 当搜索框在trigger中且搜索框中有值时，二次点击会导致搜索框收起并清空搜索值的问题。
+    - 修复 Cascader 单选状态下同时设置filterTreeNode & displayRender，选项显示错误问题
+    - 修复 List 空状态 Padding 问题 [@rojer95](https://github.com/rojer95)
+    - 修复 InputGroup 在子级设置 disabled 为 false 不生效问题
+    - 修复 Tree 搜索结果高亮大小写敏感问题
+    - 修复虚拟化 Table 空数据时虚拟列表占位问题  [#942](https://github.com/DouyinFE/semi-design/issues/942)
+    - 修复部分 Form Field 组件（例如 Form.Upload、Form.Switch）传入 ref 时 ts类型检查报错，提示不存在 ref 属性的问题
+
+#### 🎉 2.14.0 (2022-07-01)
+- 【Fix】
+  - 修复 Spin 组件在暗色模式下个别场景内容物有黑色矩形的问题
+- 【Chore】
+    - 优化 Form interface BaseFormApi 类型定义 [#933](https://github.com/DouyinFE/semi-design/issues/933)
+
+#### 🎉 2.14.0-beta.0 (2022-06-28)
+- 【Feat】
+    - Input 新增 A11y 键盘适配  [#205](https://github.com/DouyinFE/semi-design/issues/205)
+    - Avatar 新增 A11y 焦点及键盘适配  [#205](https://github.com/DouyinFE/semi-design/issues/205)
+    - Radio 新增 A11y 焦点及键盘适配 [#205](https://github.com/DouyinFE/semi-design/issues/205)
+    - AutoComplete A11y 优化键盘适配  [#205](https://github.com/DouyinFE/semi-design/issues/205)
+- 【Fix】
+    - 修复 Input 传 defaultValue 会报错问题 [#537](https://github.com/DouyinFE/semi-design/issues/537)
+    - 修复设置collapsible = true时，Tabs滚动到视窗外时TabBar出现箭头
+    - 修复部分组件 foundation 中包含 React 相关类型定义问题  [#923](https://github.com/DouyinFE/semi-design/issues/923)
+    - Tooltip/Popover trigger=custom 时，对 disabled 元素不再自动包裹 span [#919](https://github.com/DouyinFE/semi-design/issues/919)
+- 【Breaking Change】
+    - Input 中的密码按钮改为常显，之前是 hover 或 focus 输入框时显示  [#205](https://github.com/DouyinFE/semi-design/issues/205)
+- 【Style】
+    - 修复 TagInput suffix 文本颜色，从 --semi-color-text-1 修改为 --semi-color-text-2
+    - 更新了 secondary 全局颜色变量，将引用的色阶由 blue 改为 light-blue，修改前 secondary 颜色变量与 primary 相同，修改后视觉上对比度弱于 primary。Button、Badge、Steps、Dropdown 组件受影响。
+    - 更新 Select、Cascader、TreeSelect size='large' 时 placeholder与单选的文字大小，14px -> 16px。与 Input 组件对齐 [#859](https://github.com/DouyinFE/semi-design/issues/859)
+
+#### 🎉 2.13.0 (2022-06-20)
+- 【Fix】
+    - 修复当设置onChangeWithObject，mutiple后，value传入的值为undefined时时，Cascader 崩溃的问题。（影响范围 v2.0.4 - v 2.12.0）[#905](https://github.com/DouyinFE/semi-design/issues/905)
+    - 修复 esm / cjs 构建产物，滚动条样式部分场景失效的问题
+- 【Style】
+    - Modal、TanPane、Upload 增加 color text 声明，解决暗色模式下，当未在 body 容器统一声明 color时，文本颜色对比度不足的问题
+    - 解决 TimePicker range 模式，在暗色模式下 border-radius 显示不正确的问题
+    - disabled的TagInput可以显示+N部分popover的内容
+- 【Design Token】
+    - Tabs 增加 $color-tabs_tab-pane-text-default，Upload 增加 $color-upload_drag_area_main-text 等若干Token
+- 【Docs】
+    - 增加searchRender API 和 search方法的示例
+
+#### 🎉 2.13.0-beta.0 (2022-06-14)
+- 【Feat】
+    - InputNumber 新增 A11y 键盘适配。支持在输入框同时按住 shift 和上下箭头调整较大的数字范围
+    - Checkbox 新增 A11y 键盘和焦点适配 [#205](https://github.com/DouyinFE/semi-design/issues/205)
+    - TagInput 点击 prefix、suffix 自动聚焦至内部 Input [#874](https://github.com/DouyinFE/semi-design/issues/874) [@yykoypj](https://github.com/yykoypj)
+    - Form.TagInput 支持 labelPosition: 'inset' 内嵌标签 [#874](https://github.com/DouyinFE/semi-design/issues/874) [@yykoypj](https://github.com/yykoypj)
+- 【Fix】
+    - 修复 Select filter 、showClear 为 true 时，点击 clear icon时，只触发 onClear，未触发 onSearch 的问题及通过 clear icon 清除搜索项后，未重置候选Option列表的问题  [#867](https://github.com/DouyinFE/semi-design/issues/867)
+    - 修复 Select filter 为true，失去焦点，input 输入被自动重置时，未触发 onSearch 的问题  [#867](https://github.com/DouyinFE/semi-design/issues/867)
+    - 修复 InputNumber 如果设置了必填验证, 在表单中初始化时会触发验证，行为与其他表单不一致的问题 [@rojer95](https://github.com/rojer95)
+    - 修复 AutoComplete defaultActiveFirstOption 某些场景不生效的问题 [#892](https://github.com/DouyinFE/semi-design/issues/892)
+- 【Breaking Change】
+    - InputNumber 调整 shiftStep 默认值，由 1 调整为 10
+- 【Design Token】
+    - 更新 Avatar、Button、Radio、Steps、Switch、Tag 等组件样式文件中的 color white 为 --semi-white
+    - Button 组件新增 borderless 模式下文字颜色 token [#898](https://github.com/DouyinFE/semi-design/pull/898)
+
+
+#### 🎉 2.12.0 (2022-06-06)
+- 【Fix】
+    - 修复 Timeline 嵌套使用时最后一项样式异常的问题 [#865](https://github.com/DouyinFE/semi-design/issues/865)
+    - 修复 Select 开启虚拟化且无数据时 emptyContent 高度不对的问题 [#839](https://github.com/DouyinFE/semi-design/pull/839) [@tianenpang](https://github.com/tianenpang)
+
+#### 🎉 2.12.0-beta.5 (2022-05-31)
+- 【Fix】
+    - 修复 Tooltip、Popover、Select等带浮层组件，在 React 18 下使用，关闭时会闪烁的问题 [#715](https://github.com/DouyinFE/semi-design/issues/715)
+    - 修复 FocusHandle 错误引用了 lodash-es 导致的报错问题（问题影响范围 v2.12.0-beta.0 - v2.12.0-beta.2）
+
+#### 🎉 2.12.0-beta.0 (2022-05-30)
+
+- 【Feat】
+    - Modal 新增 A11y 键盘和焦点适配 [#205](https://github.com/DouyinFE/semi-design/issues/205)
+    - Tabs 新增 A11y 键盘和焦点适配 [#205](https://github.com/DouyinFE/semi-design/issues/205)
+    - Tag 新增 A11y 键盘和焦点适配   [#205](https://github.com/DouyinFE/semi-design/issues/205)
+    - Progress stroke 支持传入渐变色  [#456](https://github.com/DouyinFE/semi-design/issues/456) [@vecpeng](https://github.com/vecpeng)
+    - Slider 支持点击 marks 改变滑块位置 [#618](https://github.com/DouyinFE/semi-design/issues/618) [@huruji](https://github.com/huruji)
+- 【Fix】
+    - 修复 TreeSelect 在参数 checkRelation 为 unRelated，treeData 为 `[]` 时的 TypeError
+    - 修复 InputNumber 在 readonly 模式下可以用过步进器修改 value [@zwlafk](https://github.com/zwlafk)
+- 【Design Token】
+    - Tag solid 模式关闭按钮新增颜色 token `$color-tag_close-icon_deep-default`
+
+
+#### 🎉 2.11.2 (2022-05-24)
+- 【Chore】
+    - 修复 Nav.Item 通过 linkOptions 配置 href 属性时，ts类型检查报错的问题 [#856](https://github.com/DouyinFE/semi-design/issues/856) [@SunriseFox](https://github.com/SunriseFox)
+
+#### 🎉 2.11.0 (2022-05-23)
+- 【Fix】
+    - 修复 useModal typescript 返回类型不严谨的问题 [#833](https://github.com/DouyinFE/semi-design/issues/833)
+- 【Chore】
+    - 简化部分组件的 interface 类型声明 [#838](https://github.com/DouyinFE/semi-design/pull/838) [@huruji](https://github.com/huruji)
+
+#### 🎉 2.11.0-beta.1 (2022-05-20)
+- 【Fix】
+  -  修复 DatePicker 错误引用 _utils/parse ts源文件导致报错的问题
+
+#### 🎉 2.10.2 (2022-05-20)
+- 【Fix】
+    - 修复 Table onHeaderRow 在配置 scroll 属性时不生效问题  [#849](https://github.com/DouyinFE/semi-design/issues/849)
+    - 修复 Select aria-controls 在 SSR 场景不一致问题  [#840](https://github.com/DouyinFE/semi-design/issues/840)
+
+#### 🎉 2.11.0-beta.0 (2022-05-18)
+- 【Feat】
+    - DatePicker 内嵌输入框输入完整日期后，时间输入框自动填充默认时间  [#294](https://github.com/DouyinFE/semi-design/issues/294)
+    - DatePicker 范围选择支持输入开始日期或结束日期后，面板显示指定日期  [#294](https://github.com/DouyinFE/semi-design/issues/294)
+- 【Fix】
+    - 修复内嵌输入框确认日期选择，输入日期后没有确认也会直接选中日期问题  [#742](https://github.com/DouyinFE/semi-design/issues/742)
+    - 修复 React 18 createRoot + strictMode 严格模式下，使用 Form、Tabs、Nav 、SideSheet 、Table 组件时提示 `can't get properties of undefined` 的问题 #745  [#795 ](https://github.com/DouyinFE/semi-design/issues/795)
+    - 修复 Upload 组件在 directory 和 draggable 为true时上传，上传列表文件不符合预期问题  [#827](https://github.com/DouyinFE/semi-design/issues/827)
+    - 修复单个 Checkbox 使用时因为参数类型问题导致控制台出现warning提示
+    - 修复 Checkbox、Radio、Tooltip ARIA id 在 SSR 时不一致问题  [#719](https://github.com/DouyinFE/semi-design/issues/719)
+    - 规范 TagGroup tagList props 类型
+
+#### 🎉 2.10.1 (2022-05-10)
+- 【Fix】
+    - 修复 Select 位于 Popover内时，点击 Option 会导致外层 Popover 也收起的问题（问题影响范围 v2.5- v2.10） [#818](https://github.com/DouyinFE/semi-design/issues/818)
+
+#### 🎉 2.10.0 (2022-05-07)
+- 【Fix】
+    - 修复Form组件在`Nextjs`中使用时，`x-form-id`在服务端和客户端不匹配的报错问题  [#808](https://github.com/DouyinFE/semi-design/issues/808) [@xuerzong](https://github.com/xuerzong)
+    - 修复 InputNumber 在有 precision 配置时，输入非法字符不会置空的问题 [#786](https://github.com/DouyinFE/semi-design/issues/786) [@MuxinFeng](https://github.com/MuxinFeng)
+    - 修复 Carousel 自动播放时点击箭头切换或指示器切换不能即时响应问题
+    - 修复 InputNumber 受控使用且设置最小值，格式化传入的值到范围内时未 notifyChange 问题  [#812](https://github.com/DouyinFE/semi-design/issues/812)
+    - 修复 ButtonGroup 传入 多个children 时 ts 类型检查报错的问题 [#811](https://github.com/DouyinFE/semi-design/issues/811)
+- 【Docs】
+    - A11y：Switch、Bannner 增加 键盘和焦点 行为说明
+    - 更新 Tabs 组件 FAQ
+- 【Chore】
+    - 更新 @douyinfe/semi-foundation 中部分函数名称拼写错误问题，对用户无影响 [#660](https://github.com/DouyinFE/semi-design/pull/660)
+
+#### 🎉 2.10.0-beta.0 (2022-04-29)
+- 【New Component】
+    - 新组件轮播图  [#678](https://github.com/DouyinFE/semi-design/issues/678)
+- 【Fix】
+    - 修复 Cascader 在多选时，设定 displayProp 非value/label时候出错问题
+- 【Feat】
+    - Switch 新增 A11y 键盘和焦点适配  [#205](https://github.com/DouyinFE/semi-design/issues/205)
+    - Banner 新增 A11y 键盘和焦点适配  [#205](https://github.com/DouyinFE/semi-design/issues/205)
+- 【Chore】
+  - @douyinfe/semi-icons、@douyinfe/semi-illustrations 更新 peerDependency中的react版本声明：16/17 -> 16/17/18
+
+#### 🎉 2.9.1 (2022-04-26)
+- 【Fix】
+    - 修复 Tooltip 在有动画情况下有概率浮层打开时闪烁
+    - 修复 TimePicker 组件 use12Hours 下，pm/am无法正确设置问题 [#776](https://github.com/DouyinFE/semi-design/issues/776), 修复TimePicker组件向上选择选项后点击清除无法回到预期位置问题
+    - 修复 Form Field validate 特殊情景下内部使用旧值的问题 [#796](https://github.com/DouyinFE/semi-design/issues/796)
+- 【Style】
+    - 修复 Select focus 和 hover 同时应用，border 颜色不正常的问题
+
+#### 🎉 2.9.0 (2022-04-22)
+- 【Fix】
+    - 修复 TagInput 在 Form 内使用时，敲击回车会导致 submit 事件触发的问题 [#767](https://github.com/DouyinFE/semi-design/issues/767)
+    - 修复 Modal 命令式调用后遗留无用 div 的问题
+    - 修复 Collapse 将部分 props 透传至 DOM 导致存在无用属性 warning 的问题
+    - 去除 Form label `user-select:none` 默认样式，允许用户选中
+    - 修复 Cascader 清除按钮键盘事件不响应问题
+
+#### 🎉 2.9.0-beta.0 (2022-04-18)
+- 【New Component】
+    - 新增分割线组件 [#721](https://github.com/DouyinFE/semi-design/issues/721) [@ZeroCodeLin](https://github.com/ZeroCodeLin)
+- 【Feat】
+    - Description 组件的 data 键值支持传入 ReactNode [#734](https://github.com/DouyinFE/semi-design/issues/734) [@oddguan](https://github.com/oddguan)
+- 【Fix】
+    - 修复 Slider 组件受控情况下点击滑轨部分仍然可以触发值变更的问题 [#768](https://github.com/DouyinFE/semi-design/issues/768)
+    - 修复 Badge 不能搭配 Tooltip 使用的问题 [#761](https://github.com/DouyinFE/semi-design/issues/761) 
+    - 修复 validateStatus 类型检查缺少 success [#746](https://github.com/DouyinFE/semi-design/issues/746) [@rojer95](https://github.com/rojer95)
+- 【Style】
+    - **更新 Avatar 文本内容居中方式，由绝对定位改为由 flex 布局居中。如果你覆盖了 display 为 inline-block，这时文本居中会失效** [#774](https://github.com/DouyinFE/semi-design/issues/774)
+#### 🎉 2.8.1 (2022-04-19)
+- 【Fix】
+    - 更新组件的 ts 类型定义，解决 @types/react v18 移除默认 children 声明后带来的类型检查报错 [#755](https://github.com/DouyinFE/semi-design/issues/755)
+
+#### 🎉 2.8.0 (2022-04-08)
+- 【Fix】
+    - 升级 @douyinfe/semi-ui 依赖的react-sortable-hoc版本（v1.11.0 -> v2.0.0），解决 pnpm场景下使用react 17时，由于unmeet peerDependency 中 react版本未满足的报错问题,  [#747](https://github.com/DouyinFE/semi-design/issues/747)
+
+#### 🎉 2.8.0-beta.1 (2022-04-03)
+- 【Fix】
+    - 修复 Select 搜索时因为字符未转义导致报错的问题 [#734](https://github.com/DouyinFE/semi-design/issues/734) [@boenfu](https://github.com/boenfu)
+
+#### 🎉 2.8.0-beta.0 (2022-04-02)
+- 【Fix】
+    - 修复 useNotification 每次获得ID都相同的问题
+    - 修复当inputnumber初始值为空时，如果设置了precision，内容会被初始化为0且进行精度格式化的问题 [@rojer95](https://github.com/rojer95)
+    - 修复 DatePicker defaultPickerValue 传数字时面板渲染错误问题  [#735](https://github.com/DouyinFE/semi-design/issues/735)
+- 【Feat】
+    - Popover 新增 A11y 键盘和焦点适配  [#205](https://github.com/DouyinFE/semi-design/issues/205)
+- 【Style】
+    - Form Label的extra 元素CSS样式调整：display: block -> flex，修复 extra中放置 Icon时未居中对齐的问题 [#324](https://github.com/DouyinFE/semi-design/issues/324)
+
 
 #### 🎉 2.7.1 (2022-03-30)
 - 【Fix】
@@ -76,7 +282,7 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
     - Select 组件当用键盘上下键操作时，增加自动滚动交互，调整聚焦 option 的相对位置  [#607](https://github.com/DouyinFE/semi-design/issues/607) [@chenzn1](https://github.com/chenzn1)
     - 修复 next.js 项目使用 @douyinfe/semi-next 插件后，webpack.resolve.alias配置失效的问题  [#630](https://github.com/DouyinFE/semi-design/issues/630)
     - 修复 DatePicker open 受控时关闭面板后输入框聚焦态没有清空问题  [#528](https://github.com/DouyinFE/semi-design/issues/528)
-    - 修复 Tooltip 在 React17 里如果父级有阻止点击事件冒泡弹出层收起会失效 [#593](https://github.com/DouyinFE/semi-design/issues/593) [@chenc041](https://github.com/chenc041)
+    - 修复 Tooltip 在 React17 里如果父级有阻止点击事件冒泡弹出层收起会失效 (Tooltip、Popover 对 clickOutSide 行为监听的事件判断由 click 变更为 mousedown ) [#593](https://github.com/DouyinFE/semi-design/issues/593) [@chenc041](https://github.com/chenc041)
 
 #### 🎉 2.5.0-beta.0 (2022-02-18)
 - 【Fix】
@@ -150,7 +356,7 @@ Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号
 - 【Feat】
     - Select 支持autoClearSearchValue，允许选中后保留当前搜索关键字
     - Slider 拖动时添加鼠标 grabbing 样式
-    - 40+ 组件增加无障碍语义化支持 [#205](https://github.com/DouyinFE/semi-design/issues/205)
+    - A11y: 40+ 组件增加无障碍语义化支持 [#205](https://github.com/DouyinFE/semi-design/issues/205)
         - Button 新增 aria-label 属性，禁用时 Button 具有 aria-disabled 属性
         - Checkbox 的 role 为 checkbox，CheckboxGroup 的 role 为 list，它的直接子元素为 listitem，新增 aria-label 属性，用于解释选择框的作用；aria-disabled 表示当前的禁用状态；aria-checked 表示当前的选中状态
         - Empty 插图的 aria-hidden 为 true

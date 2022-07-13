@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types, max-len */
-import React from 'react';
+import React, { ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
 import { isEqual, noop } from 'lodash';
@@ -48,7 +48,7 @@ export interface AutoCompleteProps<T extends AutoCompleteItems> {
     autoAdjustOverflow?: boolean;
     autoFocus?: boolean;
     className?: string;
-    children?: React.ReactNode;
+    children?: ReactNode | undefined;
     data?: T[];
     disabled?: boolean;
     defaultOpen?: boolean;
@@ -57,7 +57,7 @@ export interface AutoCompleteProps<T extends AutoCompleteItems> {
     dropdownMatchSelectWidth?: boolean;
     dropdownClassName?: string;
     dropdownStyle?: React.CSSProperties;
-    emptyContent?: React.ReactNode | null;
+    emptyContent?: React.ReactNode;
     getPopupContainer?: () => HTMLElement;
     insetLabel?: React.ReactNode;
     insetLabelId?: string;
@@ -169,7 +169,6 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
         position: 'bottomLeft' as const,
         data: [] as [],
         showClear: false,
-        disabled: false,
         size: 'default' as const,
         onFocus: noop,
         onSearch: noop,
@@ -179,7 +178,7 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
         onChange: noop,
         onSelectWithObject: false,
         onDropdownVisibleChange: noop,
-        defaultActiveFirstOption: true,
+        defaultActiveFirstOption: false,
         dropdownMatchSelectWidth: true,
         loading: false,
         maxHeight: 300,
@@ -218,8 +217,8 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
 
         warning(
             'triggerRender' in this.props && typeof this.props.triggerRender === 'function',
-            `[Semi AutoComplete] 
-            - If you are using the following props: 'suffix', 'prefix', 'showClear', 'validateStatus', and 'size', 
+            `[Semi AutoComplete]
+            - If you are using the following props: 'suffix', 'prefix', 'showClear', 'validateStatus', and 'size',
             please notice that they will be removed in the next major version.
             Please use 'componentProps' to retrieve these props instead.
             - If you are using 'onBlur', 'onFocus', please try to avoid using them and look for changes in the future.`

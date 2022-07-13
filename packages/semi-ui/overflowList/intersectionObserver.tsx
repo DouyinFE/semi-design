@@ -5,6 +5,7 @@ import { isEqual, isEmpty } from 'lodash';
 export interface ReactIntersectionObserverProps {
     onIntersect?: IntersectionObserverCallback;
     option?: IntersectionObserverInit;
+    children?: React.ReactNode;
     root?: IntersectionObserverInit['root'];
     threshold?: IntersectionObserverInit['threshold'];
     rootMargin?: IntersectionObserverInit['rootMargin'];
@@ -86,7 +87,7 @@ export default class ReactIntersectionObserver extends React.PureComponent<React
         });
     }
 
-    render(): ReactNode {
+    render() {
         const { children } = this.props;
         return children;
     }

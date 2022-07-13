@@ -4,7 +4,7 @@ import React, { Fragment, MouseEvent, ReactInstance } from 'react';
 import ReactDOM from 'react-dom';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
-import ConfigContext from '../configProvider/context';
+import ConfigContext, { ContextValue } from '../configProvider/context';
 import SelectFoundation, { SelectAdapter } from '@douyinfe/semi-foundation/select/foundation';
 import { cssClasses, strings, numbers } from '@douyinfe/semi-foundation/select/constants';
 import BaseComponent, { ValidateStatus } from '../_base/baseComponent';
@@ -28,6 +28,7 @@ import { isSemiIcon } from '../_utils';
 import { Subtract } from 'utility-types';
 
 import warning from '@douyinfe/semi-foundation/utils/warning';
+import { getUuidShort } from '@douyinfe/semi-foundation/utils/uuid';
 
 import '@douyinfe/semi-foundation/select/select.scss';
 import { Locale } from '../locale/interface';
@@ -50,7 +51,7 @@ type ExcludeInputType = {
 type OnChangeValueType = string | number | Record<string, any>;
 export interface optionRenderProps {
     key?: any;
-    label?: string | React.ReactNode | number;
+    label?: React.ReactNode;
     value?: string | number;
     style?: React.CSSProperties;
     className?: string;
@@ -151,6 +152,7 @@ export type SelectProps = {
     onBlur?: (e: React.FocusEvent) => void;
     onListScroll?: (e: React.UIEvent<HTMLDivElement>) => void;
     children?: React.ReactNode;
+    preventScroll?: boolean;
 } & Pick<
 TooltipProps,
 | 'spacing'
@@ -270,6 +272,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         renderOptionItem: PropTypes.func,
         onListScroll: PropTypes.func,
         arrowIcon: PropTypes.node,
+        preventScroll: PropTypes.bool,
     // open: PropTypes.bool,
     // tagClosable: PropTypes.bool,
     };
@@ -321,6 +324,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
     selectOptionListID: string;
     clickOutsideHandler: (e: MouseEvent) => void;
     foundation: SelectFoundation;
+    context: ContextValue;
 
     constructor(props: SelectProps) {
         super(props);
@@ -339,7 +343,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             isHovering: false,
         };
         /* Generate random string */
-        this.selectOptionListID = Math.random().toString(36).slice(2);
+        this.selectOptionListID = '';
         this.virtualizeListRef = React.createRef();
         this.inputRef = React.createRef();
         this.triggerRef = React.createRef();
@@ -394,8 +398,9 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 });
             },
             focusInput: () => {
+                const { preventScroll } = this.props;
                 if (this.inputRef && this.inputRef.current) {
-                    this.inputRef.current.focus();
+                    this.inputRef.current.focus({ preventScroll });
                 }
             },
         };
@@ -445,11 +450,11 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 let options = [];
                 const { optionList } = this.props;
                 if (optionList && optionList.length) {
-                    options = optionList.map((itemOpt, index) => ({ 
-                        _show: true, 
-                        _selected: false, 
+                    options = optionList.map((itemOpt, index) => ({
+                        _show: true,
+                        _selected: false,
                         _scrollIndex: index,
-                        ...itemOpt 
+                        ...itemOpt
                     }));
                     optionGroups[0] = { children: options, label: '' };
                 } else {
@@ -524,8 +529,9 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             },
             focusTrigger: () => {
                 try {
+                    const { preventScroll } = this.props;
                     const el = (this.triggerRef.current) as any;
-                    el.focus();
+                    el.focus({ preventScroll });
                 } catch (error) {
 
                 }
@@ -558,6 +564,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
 
     componentDidMount() {
         this.foundation.init();
+        this.selectOptionListID = getUuidShort();
     }
 
     componentWillUnmount() {
@@ -659,6 +666,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         this.foundation.handleClearClick(e as any);
     }
 
+    /* istanbul ignore next */
     onClearBtnEnterPress(e: React.KeyboardEvent) {
         this.foundation.handleClearBtnEnterPress(e as any);
     }
@@ -770,7 +778,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 const groupContent = <OptionGroup {...parentGroup} key={parentGroup.label} />;
                 groupStatus.set(parentGroup.label, true);
                 content.push(groupContent);
-            } 
+            }
             content.push(optionContent);
         });
 
@@ -839,8 +847,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                     onScroll={e => this.foundation.handleListScroll(e)}
                 >
                     {innerTopSlot}
-                    {!loading ? listContent : this.renderLoading()}
-                    {isEmpty && !loading ? this.renderEmpty() : null}
+                    {loading ? this.renderLoading() : isEmpty ? this.renderEmpty() : listContent}
                     {innerBottomSlot}
                 </div>
                 {outerBottomSlot}
@@ -876,7 +883,11 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         return (
             <>
                 <div className={contentWrapperCls}>
-                    {<span className={spanCls}>{renderText || renderText === 0 ? renderText : placeholder}</span>}
+                    {
+                        <span className={spanCls} x-semi-prop="placeholder">
+                            {renderText || renderText === 0 ? renderText : placeholder}
+                        </span>
+                    }
                     {filterable && showInput ? this.renderInput() : null}
                 </div>
             </>
@@ -898,7 +909,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 content: optionNode.label,
             });
         }
-        
+
         const mapItems = maxTagCount ? selectedItems.slice(0, maxTagCount) : selectedItems; // no need to render rest tag when maxTagCount is setting
 
         const tags = mapItems.map((item, i) => {
@@ -945,7 +956,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
 
         const NotOneLine = !maxTagCount; // Multiple lines (that is, do not set maxTagCount), do not use TagGroup, directly traverse with Tag, otherwise Input cannot follow the correct position
 
-        const tagContent = NotOneLine ? tags : <TagGroup tagList={tags} maxTagCount={n} restCount={maxTagCount ? selectedItems.length - maxTagCount : undefined} size="large" mode="custom" />;
+        const tagContent = NotOneLine ? tags : <TagGroup<"custom"> tagList={tags} maxTagCount={n} restCount={maxTagCount ? selectedItems.length - maxTagCount : undefined} size="large" mode="custom" />;
 
         return (
             <>
@@ -1004,7 +1015,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             [`${prefixcls}-suffix-text`]: suffix && isString(suffix),
             [`${prefixcls}-suffix-icon`]: isSemiIcon(suffix),
         });
-        return <div className={suffixWrapperCls}>{suffix}</div>;
+        return <div className={suffixWrapperCls} x-semi-prop="suffix">{suffix}</div>;
     }
 
     renderPrefix() {
@@ -1018,7 +1029,11 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             [`${prefixcls}-prefix-icon`]: isSemiIcon(labelNode),
         });
 
-        return <div className={prefixWrapperCls} id={insetLabelId}>{labelNode}</div>;
+        return (
+            <div className={prefixWrapperCls} id={insetLabelId} x-semi-prop="prefix,insetLabel">
+                {labelNode}
+            </div>
+        );
     }
 
     renderSelection() {
@@ -1065,7 +1080,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
       (selections.size || inputValue) && !disabled && (isHovering || isOpen);
 
         const arrowContent = showArrow ? (
-            <div className={`${prefixcls}-arrow`}>
+            <div className={`${prefixcls}-arrow`} x-semi-prop="arrowIcon">
                 {arrowIcon}
             </div>
         ) : (

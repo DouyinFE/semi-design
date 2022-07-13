@@ -103,7 +103,12 @@ $module: #{$prefix}-checkbox;
         }
 
         &-pureCardType {
-            display: none;
+            // Reasons to use opacity:0 & width: 0 instead of display: none
+            // The a11y keyboard focus event of the checkbox depends on the implementation of the input focus/blur event
+            // input focus/blur cannot take effect when display: none
+            opacity: 0;
+            width: 0;
+            margin-right: 0 !important;
         }
     }
 
@@ -346,6 +351,14 @@ $module: #{$prefix}-checkbox;
         padding-left: $spacing-checkbox_extra-paddingLeft;
         color: $color-checkbox_extra-text-default;
         margin-top: $spacing-checkbox_extra-marginTop;
+    }
+
+    &-focus {
+        outline: $width-checkbox-outline solid $color-checkbox_primary-outline-focus;
+        
+        &-border {
+            box-shadow: inset 0 0 0 $size-checkbox_inner-shadow $color-checkbox_default-border-hover;
+        }
     }
 }
 

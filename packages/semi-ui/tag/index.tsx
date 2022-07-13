@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable max-len */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { Component } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
@@ -7,7 +6,9 @@ import { cssClasses, strings } from '@douyinfe/semi-foundation/tag/constants';
 import Avatar from '../avatar/index';
 import { IconClose } from '@douyinfe/semi-icons';
 import { TagProps, TagSize, TagColor, TagType } from './interface';
+import { handlePrevent } from '@douyinfe/semi-foundation/utils/a11y';
 import '@douyinfe/semi-foundation/tag/tag.scss';
+import { isString } from 'lodash';
 
 export * from './interface';
 
@@ -50,6 +51,7 @@ export default class Tag extends Component<TagProps, TagState> {
         className: PropTypes.string,
         avatarSrc: PropTypes.string,
         avatarShape: PropTypes.oneOf(avatarShapeSet),
+        'aria-label': PropTypes.string,
     };
 
     constructor(props: TagProps) {
@@ -58,6 +60,7 @@ export default class Tag extends Component<TagProps, TagState> {
             visible: true,
         };
         this.close = this.close.bind(this);
+        this.handleKeyDown = this.handleKeyDown.bind(this);
     }
 
     // any other way to achieve this?
@@ -88,6 +91,27 @@ export default class Tag extends Component<TagProps, TagState> {
         this.setVisible(false);
     }
 
+    handleKeyDown(event: any) {
+        const { closable, onClick, onKeyDown } = this.props;
+        switch (event.key) {
+            case "Backspace":
+            case "Delete":
+                closable && this.close(event, this.props.children);
+                handlePrevent(event);
+                break;
+            case "Enter":
+                onClick(event);
+                handlePrevent(event);
+                break;
+            case 'Escape':
+                event.target.blur();
+                break;
+            default:
+                break;
+        }
+        onKeyDown && onKeyDown(event);
+    }
+
     renderAvatar() {
         const { avatarShape, avatarSrc } = this.props;
         const avatar = <Avatar src={avatarSrc} shape={avatarShape} />;
@@ -95,10 +119,13 @@ export default class Tag extends Component<TagProps, TagState> {
     }
 
     render() {
-        const { children, size, color, closable, visible, onClose, className, type, avatarSrc, avatarShape, ...attr } = this.props;
+        const { children, size, color, closable, visible, onClose, onClick, className, type, avatarSrc, avatarShape, ...attr } = this.props;
         const { visible: isVisible } = this.state;
+        const clickable = onClick !== Tag.defaultProps.onClick || closable;
+        const a11yProps = { role: 'button', tabIndex: 0, onKeyDown: this.handleKeyDown };
         const baseProps = {
             ...attr,
+            onClick,
             className: classNames(
                 prefixCls,
                 {
@@ -114,13 +141,15 @@ export default class Tag extends Component<TagProps, TagState> {
                 className
             ),
         };
+        const wrapProps = clickable ? ({ ...baseProps, ...a11yProps }) : baseProps;
         const closeIcon = closable ? (
+            // eslint-disable-next-line jsx-a11y/click-events-have-key-events
             <div className={`${prefixCls}-close`} onClick={e => this.close(e, children)}>
                 <IconClose size="small" />
             </div>
         ) : null;
         return (
-            <div {...baseProps}>
+            <div aria-label={this.props['aria-label'] || isString(children) ? `${closable ? 'Closable ' : ''}Tag: ${children}` : '' } {...wrapProps}>
                 <div className={`${prefixCls}-content`}>
                     {avatarSrc ? this.renderAvatar() : null}
                     {children}

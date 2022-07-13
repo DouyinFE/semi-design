@@ -116,4 +116,57 @@ describe('TextArea', () => {
         const counter2 = textarea.find(`.${BASE_CLASS_PREFIX}-input-textarea-counter`);
         expect(counter2.hasClass('semi-input-textarea-counter-exceed')).toEqual(false);
     });
+
+    it('test minLength', () => {
+        let inputValue = '💖💖💖';
+        let inputValue1 = '💖💖💖💖';
+        let minLength = 4;
+        let event = { target: { value: inputValue } };
+        let event1 = { target: { value: inputValue1 } };
+
+        let onChange = value => {
+        console.log(value);
+        };
+        let spyOnChange = sinon.spy(onChange);
+        const textArea = mount(<TextArea onChange={spyOnChange} minLength={minLength} getValueLength={getValueLength} />);
+        const textAreaDom = textArea.find('textarea');
+
+        textAreaDom.simulate('change', event);
+        expect(spyOnChange.calledOnce).toBe(true);
+        expect(spyOnChange.calledWithMatch(textAreaDom)).toBe(true);
+        expect(textAreaDom.instance().minLength).toEqual(inputValue.length + (minLength - getValueLength(inputValue)));
+
+        textAreaDom.simulate('change', event1);
+        expect(spyOnChange.calledWithMatch(textAreaDom)).toBe(true);
+        expect(textAreaDom.instance().minLength).toEqual(minLength)
+    });
+
+    it('test maxLength + truncateValue', () => {
+        function truncateValue(inputValue, maxLength, getValueLength) {
+            let event = { target: { value: inputValue } };
+            let onChange = value => {
+                console.log(value);
+            };
+
+            let spyOnChange = sinon.spy(onChange);
+            const textArea = mount(<TextArea onChange={spyOnChange} maxLength={maxLength} getValueLength={getValueLength} />);
+            const textAreaDom = textArea.find('textarea');
+            textAreaDom.simulate('change', event);
+            expect(spyOnChange.calledOnce).toBe(true);
+            return textAreaDom.instance().value;
+        }
+
+        const testCases = [
+        // 自定义valueLength
+            ['Semi', 5, getValueLength, 'Semi'],
+            ['Semi Design', 4, getValueLength, 'Semi'],
+            ['💖💖💖💖💖💖💖💖💖💖👨👩👧👦', 10, getValueLength, '💖💖💖💖💖💖💖💖💖💖'],
+            ['💖', -1, getValueLength, ''],
+            ['🆗', 1, getValueLength, '🆗'],
+        ];
+
+        for (let [value, length, fc, result] of testCases) {
+            expect(truncateValue(value, length, fc)).toBe(result);
+        }
+  })
 })

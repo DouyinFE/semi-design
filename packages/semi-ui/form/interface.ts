@@ -21,7 +21,7 @@ export type CommonFieldProps = {
     /** Field is required (except Form. Checkbox within the Group, Form. Radio) */
     field: string;
     /** The label text of the form control is the same name as the field by default when it is not passed */
-    label?: string | LabelProps | React.ReactNode | number;
+    label?: LabelProps | React.ReactNode;
     labelPosition?: 'top' | 'left' | 'inset';
     labelAlign?: 'left' | 'right';
     labelWidth?: number | string;
@@ -84,7 +84,7 @@ export interface SelectStatic {
     OptGroup: typeof OptGroup;
 }
 
-export class Field<P> extends React.Component<Subtract<P & CommonFieldProps, CommonexcludeType>> {}
+export class Field<P> extends React.Component<Subtract<P & CommonFieldProps, CommonexcludeType> & React.RefAttributes<any>> {}
 export let FormSelectType: React.ComponentType<Subtract<SelectProps & CommonFieldProps, CommonexcludeType>> & SelectStatic;
 export let FormCheckboxType: React.ComponentType<Subtract<CommonFieldProps, RadioCheckboxExcludeProps> & CheckboxProps & RCIncludeType>;
 export let FormRadioType: React.ComponentType<Subtract<CommonFieldProps, RadioCheckboxExcludeProps> & RadioProps & RCIncludeType>;

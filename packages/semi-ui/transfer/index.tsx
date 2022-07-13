@@ -4,7 +4,7 @@ import { SortableContainer, SortableElement, SortableHandle } from 'react-sortab
 import PropTypes from 'prop-types';
 import { isEqual, noop, omit, isEmpty, isArray } from 'lodash';
 import TransferFoundation, { TransferAdapter, BasicDataItem, OnSortEndProps } from '@douyinfe/semi-foundation/transfer/foundation';
-import { _generateDataByType, _generateSelectedItems } from '@douyinfe/semi-foundation/transfer/transferUtlls';
+import { _generateDataByType, _generateSelectedItems } from '@douyinfe/semi-foundation/transfer/transferUtils';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/transfer/constants';
 import '@douyinfe/semi-foundation/transfer/transfer.scss';
 import BaseComponent from '../_base/baseComponent';
@@ -60,6 +60,8 @@ export interface SourcePanelProps {
     filterData: Array<DataItem>;
     /* All items */
     sourceData: Array<DataItem>;
+    /* transfer props' dataSource */
+    propsDataSource: DataSource,
     /* Whether to select all */
     allChecked: boolean;
     /* Number of filtered results */
@@ -351,6 +353,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
                 checked={checked}
                 role="listitem"
                 onChange={() => this.onSelectOrRemove(item)}
+                x-semi-children-alias={`dataSource[${index}].label`}
             >
                 {item.label}
             </Checkbox>
@@ -359,7 +362,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
 
     renderLeft(locale: Locale['Transfer']) {
         const { data, selectedItems, inputValue, searchResult } = this.state;
-        const { loading, type, emptyContent, renderSourcePanel } = this.props;
+        const { loading, type, emptyContent, renderSourcePanel, dataSource } = this.props;
         const totalToken = locale.total;
         const inSearchMode = inputValue !== '';
         const showNumber = inSearchMode ? searchResult.size : data.length;
@@ -423,6 +426,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
             noMatch,
             filterData,
             sourceData: data,
+            propsDataSource: dataSource,
             allChecked: !leftContainesNotInSelected,
             showNumber,
             inputValue,
@@ -558,18 +562,20 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
     renderRightSortableList(selectedData: Array<ResolvedDataItem>) {
         // when choose some items && draggable is true
         const SortableItem = SortableElement((
-            (item: ResolvedDataItem) => this.renderRightItem(item)) as React.SFC<ResolvedDataItem>
+            (item: ResolvedDataItem) => this.renderRightItem(item)) as React.FC<ResolvedDataItem>
         );
         const SortableList = SortableContainer(({ items }: { items: Array<ResolvedDataItem> }) => (
             <div className={`${prefixcls}-right-list`} role="list" aria-label="Selected list">
                 {items.map((item, index: number) => (
                     // sortableElement will take over the property 'key', so use another '_optionKey' to pass
+                    // @ts-ignore skip SortableItem type check
                     <SortableItem key={item.label} index={index} {...item} _optionKey={item.key} />
                 ))}
             </div>
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore see reasons: https://github.com/clauderic/react-sortable-hoc/issues/206
         ), { distance: 10 });
+        // @ts-ignore skip SortableItem type check
         const sortList = <SortableList useDragHandle onSortEnd={this.onSortEnd} items={selectedData} />;
         return sortList;
     }

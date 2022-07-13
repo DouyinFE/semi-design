@@ -153,6 +153,21 @@ export default class TableRow extends BaseComponent<BaseRowProps, Record<string,
         this.foundation = new TableRowFoundation(this.adapter);
     }
 
+    componentDidMount() {
+        // fix #745
+        // didmount/willUnmount may be called twice when React.StrictMode is true in React 18, we need to ensure that this.cache.customRowProps is correct
+        const {
+            onRow,
+            index,
+            record,
+        } = this.props;
+        const customRowProps = this.adapter.getCache('customRowProps');
+        if (typeof customRowProps === 'undefined') {
+            const { className: customClassName, style: customStyle, ...rowProps } = onRow(record, index) || {};
+            this.adapter.setCache('customRowProps', { ...rowProps });
+        }
+    }
+
     shouldComponentUpdate(nextProps: BaseRowProps) {
         /**
           * Shallow comparison of incoming props to simulate PureComponent

@@ -32,7 +32,7 @@ import { FixedSizeList as VirtualList, ListItemKeySelector } from 'react-window'
 import '@douyinfe/semi-foundation/tree/tree.scss';
 import '@douyinfe/semi-foundation/treeSelect/treeSelect.scss';
 import BaseComponent, { ValidateStatus } from '../_base/baseComponent';
-import ConfigContext from '../configProvider/context';
+import ConfigContext, { ContextValue } from '../configProvider/context';
 import TagGroup from '../tag/group';
 import Tag, { TagProps } from '../tag/index';
 import Input, { InputProps } from '../input/index';
@@ -163,7 +163,7 @@ export interface TreeSelectState extends Omit<BasicTreeSelectInnerData, Override
 }
 
 const prefixcls = cssClasses.PREFIX;
-const prefixTree = cssClasses.PREFIXTREE;
+const prefixTree = cssClasses.PREFIX_TREE;
 
 const key = 0;
 
@@ -265,7 +265,6 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         motionExpand: true,
         expandAll: false,
         zIndex: popoverNumbers.DEFAULT_Z_INDEX,
-        disabled: false,
         disableStrictly: false,
         multiple: false,
         filterTreeNode: false,
@@ -294,6 +293,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
     onNodeDoubleClick: any;
     onMotionEnd: any;
     treeSelectID: string;
+    context: ContextValue;
 
     constructor(props: TreeSelectProps) {
         super(props);
@@ -645,7 +645,11 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             [`${prefixcls}-suffix-text`]: suffix && isString(suffix),
             [`${prefixcls}-suffix-icon`]: isSemiIcon(suffix),
         });
-        return <div className={suffixWrapperCls}>{suffix}</div>;
+        return (
+            <div className={suffixWrapperCls} x-semi-prop="suffix">
+                {suffix}
+            </div>
+        );
     };
 
     renderPrefix = () => {
@@ -659,7 +663,11 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             [`${prefixcls}-prefix-icon`]: isSemiIcon(labelNode),
         });
 
-        return <div className={prefixWrapperCls} id={insetLabelId}>{labelNode}</div>;
+        return (
+            <div className={prefixWrapperCls} id={insetLabelId} x-semi-prop="prefix,insetLabel">
+                {labelNode}
+            </div>
+        );
     };
 
     renderContent = () => {
@@ -682,6 +690,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         this.foundation.handleClick(e);
     };
 
+    /* istanbul ignore next */
     handleSelectionEnterPress = (e: React.KeyboardEvent<HTMLDivElement>) => {
         this.foundation.handleSelectionEnterPress(e);
     };
@@ -730,7 +739,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         let renderKeys = [];
         if (checkRelation === 'related') {
             renderKeys = normalizeKeyList([...checkedKeys], keyEntities, leafOnly);
-        } else if (checkRelation === 'unRelated') {
+        } else if (checkRelation === 'unRelated' && Object.keys(keyEntities).length > 0) {
             renderKeys = [...realCheckedKeys];
         }
         const tagList: Array<React.ReactNode> = [];
@@ -825,7 +834,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         const tagList = this.renderTagList();
         // mode=custom to return tagList directly
         return (
-            <TagGroup
+            <TagGroup<'custom'>
                 maxTagCount={maxTagCount}
                 tagList={tagList}
                 size="large"
@@ -839,6 +848,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         this.foundation.handleClear(e);
     };
 
+    /* istanbul ignore next */
     handleClearEnterPress = (e: React.KeyboardEvent<HTMLDivElement>) => {
         e && e.stopPropagation();
         this.foundation.handleClearEnterPress(e);
@@ -853,6 +863,10 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
     };
 
     search = (value: string) => {
+        const { isOpen } = this.state;
+        if (!isOpen) {
+            this.foundation.open();
+        }
         this.foundation.handleInputChange(value);
     };
 
@@ -866,7 +880,11 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         if (showClearBtn) {
             return null;
         }
-        return arrowIcon ? <div className={cls(`${prefixcls}-arrow`)}>{arrowIcon}</div> : null;
+        return arrowIcon ? (
+            <div className={cls(`${prefixcls}-arrow`)} x-semi-prop="arrowIcon">
+                {arrowIcon}
+            </div>
+        ) : null;
     };
 
     renderClearBtn = () => {
@@ -1177,15 +1195,15 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
 
     onNodeLoad = (data: TreeNodeData) => new Promise(resolve => this.foundation.setLoadKeys(data, resolve));
 
-    onNodeSelect = (e: React.MouseEvent, treeNode: TreeNodeProps) => {
+    onNodeSelect = (e: React.MouseEvent | React.KeyboardEvent, treeNode: TreeNodeProps) => {
         this.foundation.handleNodeSelect(e, treeNode);
     };
 
-    onNodeCheck = (e: React.MouseEvent, treeNode: TreeNodeProps) => {
+    onNodeCheck = (e: React.MouseEvent | React.KeyboardEvent, treeNode: TreeNodeProps) => {
         this.foundation.handleNodeSelect(e, treeNode);
     };
 
-    onNodeExpand = (e: React.MouseEvent, treeNode: TreeNodeProps) => {
+    onNodeExpand = (e: React.MouseEvent | React.KeyboardEvent, treeNode: TreeNodeProps) => {
         this.foundation.handleNodeExpand(e, treeNode);
     };
 

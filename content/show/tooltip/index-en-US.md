@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 60
+order: 62
 category: Show
 title: Tooltip
 subTitle: Tooltip
@@ -412,6 +412,7 @@ import { Popconfirm, Tooltip, Button } from '@douyinfe/semi-ui';
 | motion | Whether to show the pop-up motion | boolean | true |  |
 | position | Pop-up layer display position, optional value: `top`, `topLeft`, `topRight`, `left`, `leftTop`, `leftBottom`, `right`, `rightTop`, `rightBottom`, `bottom`, `bottomLeft`, `bottomRight` | string | 'top' |  |
 | prefixCls | The `className` prefix of the pop-up layer wrapper div. When this item is set, the pop-up layer will no longer have the style of Tooltip. | string | 'semi-tooltip ' |  |
+| preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
 | rePosKey | This value can be updated to manually trigger the repositioning of the pop-up layer. | string | number |  |
 | style | Pop-up layer inline style | object |  |  |
 | spacing | The distance between the pop-up layer and the `children` element | number |  |  |
@@ -421,6 +422,7 @@ import { Popconfirm, Tooltip, Button } from '@douyinfe/semi-ui';
 | trigger | Timing of triggering display, optional value: `hover`/`focus`/`click`/`custom` | string | 'hover' |  |
 | visible | Whether to show the pop-up layer | boolean |  |  |
 | wrapperClassName | When children are disabled or children are multiple elements, the outer layer will wrap a layer of span elements, and the api is used to set the style class name of this span | string |  | 1.32.0 |
+| wrapperId | The id of the wrapper node of the popup layer. The aria attribute of the trigger points to this id. | string |  | 2.11.0  |
 | zIndex              | Bullet levels.                                                                                                                                                                                                                               | number                      | 1060                |            |
 | onVisibleChange     | A callback triggered when the pop-up layer is displayed/hidden                                                                                                                                                                               | (isVisible: boolean) => void |                     |            |
 | onClickOutSide      | Callback when the pop-up layer is in the display state and the non-Children, non-floating layer inner area is clicked (only valid when trigger is custom, click)                                                                             | (e:event) => void           |                     | **2.1.0** |

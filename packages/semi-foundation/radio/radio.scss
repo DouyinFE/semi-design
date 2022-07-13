@@ -379,6 +379,14 @@ $inner-width: $width-icon-medium;
         padding-left: $spacing-radio_extra-paddingLeft;
         box-sizing: border-box;
     }
+
+    &-focus {
+        outline: $width-radio-outline solid $color-radio_primary-outline-focus;
+
+        &-border {
+            border: solid $width-radio_hover-border $color-radio_default-border-hover;
+        }
+    }
 }
 
 .#{$module}Group {

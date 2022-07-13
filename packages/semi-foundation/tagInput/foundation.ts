@@ -18,6 +18,7 @@ export interface TagInputAdapter extends DefaultAdapter {
     setInputValue: (inputValue: string) => void;
     setTagsArray: (tagsArray: string[]) => void;
     setFocusing: (focusing: boolean) => void;
+    toggleFocusing(focused: boolean): void;
     setHovering: (hovering: boolean) => void;
     notifyBlur: (e: TagInputCursorEvent) => void;
     notifyFocus: (e: TagInputCursorEvent) => void;
@@ -83,8 +84,11 @@ class TagInputFoundation extends BaseFoundation<TagInputAdapter> {
             tagsArray
         } = this._adapter.getStates();
         const code = e.keyCode;
-        if (code === keyCode.ENTER && inputValue !== '') {
-            this._handleAddTags(e);
+        if (code === keyCode.ENTER) {
+            e.preventDefault(); // prevent trigger submit when using in form
+            if (inputValue !== '') {
+                this._handleAddTags(e);
+            }
         }
         const { length } = tagsArray;
         if (code === keyCode.BACKSPACE && inputValue === '' && length > 0) {
@@ -147,6 +151,7 @@ class TagInputFoundation extends BaseFoundation<TagInputAdapter> {
     /**
      * A11y: simulate clear button click
      */
+    /* istanbul ignore next */
     handleClearEnterPress(e: TagInputKeyboardEvent) {
         if (isEnterPress(e)) {
             this.handleClearBtn(e);
@@ -180,6 +185,19 @@ class TagInputFoundation extends BaseFoundation<TagInputAdapter> {
         this._adapter.setHovering(false);
     }
 
+    handleClickPrefixOrSuffix(e: any) {
+        const { disabled } = this._adapter.getProps();
+        const { isFocus } = this._adapter.getStates();
+        if (!disabled && !isFocus) {
+            this._adapter.toggleFocusing(true);
+        }
+    }
+
+    handlePreventMouseDown(e: any) {
+        if (e && isFunction(e.preventDefault)) {
+            e.preventDefault();
+        }
+    }
     /**
      * handler of delete tag
      */

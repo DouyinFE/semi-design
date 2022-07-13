@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
 import BaseComponent from '../_base/baseComponent';
@@ -11,8 +11,9 @@ const prefixCls = cssClasses.PREFIX;
 
 export interface LinkProps {
     href?: string;
-    title?: string | React.ReactNode;
+    title?: ReactNode;
     className?: string;
+    children?: ReactNode;
     style?: React.CSSProperties;
     disabled?: boolean;
 }

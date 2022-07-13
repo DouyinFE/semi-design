@@ -354,6 +354,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         };
     }
 
+    /* istanbul ignore next */
     focusInput(bool: boolean) {
         this._adapter.updateInputFocus(bool);
     }
@@ -428,13 +429,17 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
 
     handleClick(e: any) {
         const isDisabled = this._isDisabled();
-        const { isOpen } = this.getStates();
+        const { isOpen, inputValue } = this.getStates();
+        const { searchPosition } = this.getProps();
         if (isDisabled) {
             return;
         } else if (!isOpen) {
             this.open();
             this._notifyFocus(e);
         } else if (isOpen) {
+            if (searchPosition === 'trigger' && inputValue) {
+                return;
+            }
             this.close(e);
         }
     }
@@ -442,6 +447,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
     /**
      * A11y: simulate selection click
      */
+    /* istanbul ignore next */
     handleSelectionEnterPress(e: any) {
         if (isEnterPress(e)) {
             this.handleClick(e);
@@ -480,6 +486,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
     /**
      * A11y: simulate clear button click
      */
+    /* istanbul ignore next */
     handleClearEnterPress(e: any) {
         if (isEnterPress(e)) {
             this.handleClear(e);
@@ -622,11 +629,11 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         const { checked, eventKey, data } = treeNode;
         if (checkRelation === 'related') {
             const targetStatus = disableStrictly ?
-                this.calcChekcedStatus(!checked, eventKey) :
+                this.calcCheckedStatus(!checked, eventKey) :
                 !checked;
 
             const { checkedKeys, halfCheckedKeys } = disableStrictly ?
-                this.calcNonDisabedCheckedKeys(eventKey, targetStatus) :
+                this.calcNonDisabledCheckedKeys(eventKey, targetStatus) :
                 this.calcCheckedKeys(eventKey, targetStatus);
             this._adapter.notifySelect(eventKey, targetStatus, data);
             this._notifyChange([...checkedKeys], e);
@@ -656,7 +663,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         }
     }
 
-    calcNonDisabedCheckedKeys(eventKey: string, targetStatus: boolean) {
+    calcNonDisabledCheckedKeys(eventKey: string, targetStatus: boolean) {
         const { keyEntities, disabledKeys } = this.getStates();
         const { checkedKeys } = this.getCopyFromState(['checkedKeys']);
         const descendantKeys = normalizeKeyList(findDescendantKeys([eventKey], keyEntities, false), keyEntities, true);
@@ -671,7 +678,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         return calcCheckedKeys(newCheckedKeys, keyEntities);
     }
 
-    calcChekcedStatus(targetStatus: boolean, eventKey: string) {
+    calcCheckedStatus(targetStatus: boolean, eventKey: string) {
         if (!targetStatus) {
             return targetStatus;
         }
@@ -693,6 +700,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         let motionType = 'show';
         const { eventKey, expanded, data } = treeNode;
 
+        // debugger;
         if (!expanded) {
             filteredExpandedKeys.add(eventKey);
         } else if (filteredExpandedKeys.has(eventKey)) {
@@ -704,6 +712,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         this._adapter.cacheFlattenNodes(motionType === 'hide' && this._isAnimated());
 
         if (!this._isExpandControlled()) {
+            // debugger;
             const flattenNodes = flattenTreeData(treeData, filteredExpandedKeys, showFilteredOnly && filteredShownKeys);
             const motionKeys = this._isAnimated() ? getMotionKeys(eventKey, filteredExpandedKeys, keyEntities) : [];
             const newState = {
@@ -723,6 +732,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
     }
 
     handleNodeExpand(e: any, treeNode: BasicTreeNodeProps) {
+        // debugger;
         const { loadData } = this.getProps();
         const { inputValue, keyEntities } = this.getStates();
         const isSearching = Boolean(inputValue);
@@ -750,6 +760,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         this._adapter.cacheFlattenNodes(motionType === 'hide' && this._isAnimated());
 
         if (!isExpandControlled) {
+            // debugger;
             const flattenNodes = flattenTreeData(treeData, expandedKeys);
             const motionKeys = this._isAnimated() ? getMotionKeys(eventKey, expandedKeys, keyEntities) : [];
             const newState = {

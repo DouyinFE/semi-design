@@ -4,6 +4,8 @@ import './inputNumber.scss';
 import InputNumber from '../index';
 import Button from '../../button/index';
 import { withField, Form } from '../../index';
+import { useFormApi } from '../../form';
+import { Space } from '../../index';
 
 export default {
   title: 'InputNumber',
@@ -61,6 +63,10 @@ export const _InputNumber = () => {
           formatter={value => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
           parser={value => value.replace(/\$\s?|(,*)/g, '')}
         />
+        <br />
+
+        <label>小数（没有初始化值）</label>
+        <InputNumber precision={2} onChange={log} />
         <br />
 
         <label>小数</label>
@@ -653,3 +659,109 @@ export const FixPrecision = () => {
     </div>
   );
 }
+
+/**
+ * 受控传超出 min value 的值，需要触发 onChange
+ * 不然在 Form 中使用可能会导致 Form State 与 InputNumber 展示的值不同问题
+ */
+export const FixMinValue = () => {
+  const [value, setValue] = useState();
+  const formRef = useFormApi();
+  return (
+      <div style={{ width: 280 }}>
+          <Button onClick={() => setValue(0)}>min=1, setValue=0</Button>
+          <InputNumber
+            min={1}
+            value={value} 
+            onChange={(v, e) => {
+              console.log('inputNumber1 change', `'${v}'`, e);
+              setValue(v);
+            }} 
+          />
+          <InputNumber
+            min={1}
+            value={0} 
+            onChange={(v, e) => {
+              console.log('inputNumber2 change', v, e);
+            }}
+          />
+          <Form initValues={{ minControlled: 0 }}>
+            <Form.InputNumber
+              field='minControlled'
+              min={1}
+              onChange={(v, e) => {
+                console.log('form inputNumber change', v, e);
+              }}
+            />
+          </Form>
+          <Button onClick={() => formRef.current.setValue('minControlled', 0) }>set form value</Button>
+          <Button onClick={() => { console.log('form value', JSON.stringify(formRef.current.getValues()))}}>get form values</Button>
+      </div>
+  );
+}
+FixMinValue.storyName = 'fix min value';
+
+/**
+ * fix InputNumber precision 删除后，输入非法字符显示 0.00
+ * https://github.com/DouyinFE/semi-design/issues/786
+ */
+export const FixPrecision786 = () => {
+  return (
+    <div data-cy="fix-precision-786">
+        <InputNumber defaultValue={10.00} precision={2} />
+    </div>
+  );
+}
+FixPrecision786.storyName = 'fix precision 删除后输入非法值会显示 0.00';
+
+
+ export const FixFormValidate = () => {
+  return (
+      <div data-cy="fix-precision-786">
+          <Form  >
+              <Form.InputNumber
+                  field="inputnumber"
+                  label='inputnumber' 
+                  rules={[
+                      {
+                          required: true,
+                      },
+                  ]}
+              />
+              <Form.Input
+                  field="input"
+                  label='input'
+                  rules={[
+                      {
+                          required: true,
+                      },
+                  ]}
+              />
+          </Form>
+      </div>
+  );
+}
+FixFormValidate.storyName = 'fix form validate';
+
+export const InputNumberA11y = () => {
+  return (
+    <Space vertical align="start" data-cy="a11y">
+      <label for="default">
+        step=1, shiftStep=10
+      </label>
+      <InputNumber id="default" data-cy="default" />
+      <label for="step">
+        step=5, shiftStep=100
+      </label>
+      <InputNumber id="step" data-cy="step" step={5} shiftStep={100} />
+      <label for="max">
+        step=1, shiftStep=10, max=10
+      </label>
+      <InputNumber id="max" data-cy="max" max={10} />
+      <Form>
+        <Form.InputNumber field="test" label="item number" />
+      </Form>
+    </Space>
+  );
+}
+InputNumberA11y.storyName = "inputNumber a11y";

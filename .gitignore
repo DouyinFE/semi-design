@@ -221,6 +221,7 @@ fastlane/readme.md
 
 ### VisualStudioCode ###
 # .vscode/
+.history
 
 # metro
 tmp

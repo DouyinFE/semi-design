@@ -70,7 +70,7 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
         if (tabBarExtraContent) {
             const tabBarStyle = { ...tabBarExtraContentDefaultStyle, ...tabBarExtraContentStyle };
             return (
-                <div className={extraCls} style={tabBarStyle}>
+                <div className={extraCls} style={tabBarStyle} x-semi-prop="tabBarExtraContent">
                     {tabBarExtraContent}
                 </div>
             );
@@ -87,6 +87,10 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
             tabItem.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
         }
     };
+
+    handleKeyDown = (event: React.KeyboardEvent, itemKey: string, closable: boolean) => {
+        this.props.handleKeyDown(event, itemKey, closable);
+    }
 
     renderTabItem = (panel: PlainTab): ReactNode => {
         const { size, type, deleteTabItem } = this.props;
@@ -110,9 +114,12 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
             <div
                 role="tab"
                 id={`semiTab${key}`}
+                data-tabkey={`semiTab${key}`}
                 aria-controls={`semiTabPanel${key}`}
                 aria-disabled={panel.disabled ? 'true' : 'false'}
                 aria-selected={isSelected ? 'true' : 'false'}
+                tabIndex={isSelected ? 0 : -1}
+                onKeyDown={e => this.handleKeyDown(e, key, panel.closable)}
                 {...events}
                 className={className}
                 key={this._getItemKey(key)}

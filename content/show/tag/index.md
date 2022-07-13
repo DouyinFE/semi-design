@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 58
+order: 60
 category: 展示类
 title:  Tag 标签
 icon: doc-tag
@@ -226,16 +226,28 @@ import { TagGroup } from '@douyinfe/semi-ui';
 ### TagGroup
 
 | 属性  | 说明        | 类型   | 默认值 | 版本 |
-|-------|-------------|-----------------|--------|--------|
+|-------|-------------|--------------|----|--------|
 | avatarShape | 头像 Tag 形状，可选 `square` 和 `circle` | string |  `square` | 1.6.0 |
-| className | 类名 | string |     | |
-| maxTagCount | 最大数量限制，超出后显示为 +N | number |     | |
+| className | 类名 | string |    | |
+| maxTagCount | 最大数量限制，超出后显示为 +N | number |    | |
 | popoverProps | popover 的配置属性，可以控制 direction, zIndex, trigger 等，具体参考 [Popover](/zh-CN/show/popover#API_参考) | PopoverProps | {} | |
 | showPopover | hover 到 +N 时，是否通过 Popover 显示剩余内容 | boolean | false | |
 | size | 标签的尺寸，可选 `small`、 `large` | string | `small` | |
-| style | 样式 | CSSProperties |     | |
-| tagList | 标签组  | (TagProps \| React.ReactNode)[] |     | |
+| style | 样式 | CSSProperties |    | |
+| tagList | 标签组  | (TagProps)[] |     | |
 
+## Accessibility
+
+### ARIA
+
+- `aria-label` 用于表示 `Tag` 的作用，对于可删除或者可点击的 `Tag` ，我们推荐使用此属性
+
+### 键盘和焦点
+
+- 如果当前 `Tag` 可交互，那么这个 `Tag` 可被聚焦到。如：
+    - 使用了 `onClick` 属性时，键盘用户可以通过 `Enter` 键激活此 `Tag`
+    - `closable` 属性为 `true` 时，键盘用户可以通过 `Delete` 键删除此 `Tag`
+    - `Tag` 被聚焦时，键盘用户可以通过 `Esc` 键使当前聚焦 `Tag` 失焦
 ## 设计变量
 <DesignToken/>
 

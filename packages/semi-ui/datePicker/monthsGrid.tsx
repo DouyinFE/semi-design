@@ -10,7 +10,7 @@ import { format as formatFn, addMonths, isSameDay } from 'date-fns';
 
 import MonthsGridFoundation, { MonthInfo, MonthsGridAdapter, MonthsGridDateAdapter, MonthsGridFoundationProps, MonthsGridFoundationState, MonthsGridRangeAdapter, PanelType } from '@douyinfe/semi-foundation/datePicker/monthsGridFoundation';
 import { strings, numbers, cssClasses } from '@douyinfe/semi-foundation/datePicker/constants';
-import { compatiableParse } from '@douyinfe/semi-foundation/datePicker/_utils/parser';
+import { compatibleParse } from '@douyinfe/semi-foundation/datePicker/_utils/parser';
 import { noop, stubFalse } from 'lodash';
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
 import Navigation from './navigation';
@@ -168,7 +168,8 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
     componentDidUpdate(prevProps: MonthsGridProps, prevState: MonthsGridState) {
         const { defaultValue, defaultPickerValue, motionEnd } = this.props;
         if (prevProps.defaultValue !== defaultValue) {
-            this.foundation.updateSelectedFromProps(defaultValue, false);
+            // we should always update panel state when value changes
+            this.foundation.updateSelectedFromProps(defaultValue);
         }
 
         if (prevProps.defaultPickerValue !== defaultPickerValue) {
@@ -476,8 +477,8 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
             rangeStart &&
             rangeEnd &&
             isSameDay(
-                (startDate = compatiableParse(rangeStart, dateFormat, undefined, dateFnsLocale)),
-                (endDate = compatiableParse(rangeEnd, dateFormat, undefined, dateFnsLocale))
+                (startDate = compatibleParse(rangeStart, dateFormat, undefined, dateFnsLocale)),
+                (endDate = compatibleParse(rangeEnd, dateFormat, undefined, dateFnsLocale))
             )
         ) {
             if (panelType === strings.PANEL_TYPE_RIGHT) {
@@ -550,10 +551,10 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
 
         if (panelType === strings.PANEL_TYPE_LEFT) {
             panelDetail = monthLeft;
-            dateText = rangeStart ? formatFn(compatiableParse(rangeStart, dateFormat, undefined, dateFnsLocale), FORMAT_SWITCH_DATE) : '';
+            dateText = rangeStart ? formatFn(compatibleParse(rangeStart, dateFormat, undefined, dateFnsLocale), FORMAT_SWITCH_DATE) : '';
         } else {
             panelDetail = monthRight;
-            dateText = rangeEnd ? formatFn(compatiableParse(rangeEnd, dateFormat, undefined, dateFnsLocale), FORMAT_SWITCH_DATE) : '';
+            dateText = rangeEnd ? formatFn(compatibleParse(rangeEnd, dateFormat, undefined, dateFnsLocale), FORMAT_SWITCH_DATE) : '';
         }
 
         const { isTimePickerOpen, showDate } = panelDetail;
@@ -561,7 +562,7 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
 
         const timeText = showDate ? formatFn(showDate, formatTimePicker) : '';
 
-        const showSwithIcon = ['default'].includes(density);
+        const showSwitchIcon = ['default'].includes(density);
 
         const switchCls = classnames(`${prefixCls}-switch`);
         const dateCls = classnames({
@@ -583,7 +584,7 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
                     className={dateCls}
                     onClick={e => this.foundation.showDatePanel(panelType)}
                 >
-                    {showSwithIcon && <IconCalendar aria-hidden />}
+                    {showSwitchIcon && <IconCalendar aria-hidden />}
                     <span className={textCls}>{dateText || monthText}</span>
                 </div>
                 <div
@@ -592,7 +593,7 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
                     className={timeCls}
                     onClick={e => this.foundation.showTimePicker(panelType, true)}
                 >
-                    {showSwithIcon && <IconClock aria-hidden />}
+                    {showSwitchIcon && <IconClock aria-hidden />}
                     <span className={textCls}>{timeText}</span>
                 </div>
             </div>

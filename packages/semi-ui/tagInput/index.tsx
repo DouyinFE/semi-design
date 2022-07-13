@@ -13,6 +13,7 @@ import { cssClasses, strings } from '@douyinfe/semi-foundation/tagInput/constant
 import '@douyinfe/semi-foundation/tagInput/tagInput.scss';
 import TagInputFoundation, { TagInputAdapter } from '@douyinfe/semi-foundation/tagInput/foundation';
 import { ArrayElement } from '../_base/base';
+import { isSemiIcon } from '../_utils';
 import BaseComponent from '../_base/baseComponent';
 import Tag from '../tag';
 import Input from '../input';
@@ -47,6 +48,8 @@ export interface TagInputProps {
     onKeyDown?: (e: React.MouseEvent<HTMLInputElement>) => void;
     onRemove?: (removedValue: string, idx: number) => void;
     placeholder?: string;
+    insetLabel?: React.ReactNode;
+    insetLabelId?: string;
     prefix?: React.ReactNode;
     renderTagItem?: (value: string, index: number) => React.ReactNode;
     separator?: string | string[] | null;
@@ -58,6 +61,7 @@ export interface TagInputProps {
     value?: string[] | undefined;
     autoFocus?: boolean;
     'aria-label'?: string;
+    preventScroll?: boolean;
 }
 
 export interface TagInputState {
@@ -105,6 +109,7 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
         prefix: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
         suffix: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
         'aria-label': PropTypes.string,
+        preventScroll: PropTypes.bool,
     };
 
     static defaultProps = {
@@ -129,6 +134,8 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
     };
 
     inputRef: React.RefObject<HTMLInputElement>;
+    foundation: TagInputFoundation;
+
     constructor(props: TagInputProps) {
         super(props);
         this.foundation = new TagInputFoundation(this.adapter);
@@ -170,6 +177,16 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
             setFocusing: (focusing: boolean) => {
                 this.setState({ focusing });
             },
+            toggleFocusing: (isFocus: boolean) => {
+                const { preventScroll } = this.props;
+                const input = this.inputRef && this.inputRef.current;
+                if (isFocus) {
+                    input && input.focus({ preventScroll });
+                } else {
+                    input && input.blur();
+                }
+                this.setState({ focusing: isFocus });
+            },
             setHovering: (hovering: boolean) => {
                 this.setState({ hovering });
             },
@@ -198,9 +215,9 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
     }
 
     componentDidMount() {
-        const { disabled, autoFocus } = this.props;
+        const { disabled, autoFocus, preventScroll } = this.props;
         if (!disabled && autoFocus) {
-            this.inputRef.current.focus();
+            this.inputRef.current.focus({ preventScroll });
         }
     }
 
@@ -224,6 +241,7 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
         this.foundation.handleClearBtn(e);
     };
 
+    /* istanbul ignore next */
     handleClearEnterPress = (e: React.KeyboardEvent<HTMLDivElement>) => {
         this.foundation.handleClearEnterPress(e);
     };
@@ -240,6 +258,15 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
         this.foundation.handleInputMouseEnter();
     };
 
+    handleClickPrefixOrSuffix = (e: React.MouseEvent<HTMLInputElement>) => {
+        this.foundation.handleClickPrefixOrSuffix(e);
+    };
+
+    handlePreventMouseDown = (e: React.MouseEvent<HTMLInputElement>) => {
+        this.foundation.handlePreventMouseDown(e);
+    };
+
+
     renderClearBtn() {
         const { hovering, tagsArray, inputValue } = this.state;
         const { showClear, disabled } = this.props;
@@ -248,11 +275,11 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
         });
         if (showClear) {
             return (
-                <div 
+                <div
                     role="button"
-                    tabIndex={0} 
-                    aria-label="Clear TagInput value" 
-                    className={clearCls} 
+                    tabIndex={0}
+                    aria-label="Clear TagInput value"
+                    className={clearCls}
                     onClick={e => this.handleClearBtn(e)}
                     onKeyPress={e => this.handleClearEnterPress(e)}
                 >
@@ -264,16 +291,28 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
     }
 
     renderPrefix() {
-        const { prefix } = this.props;
-        if (isNull(prefix) || isUndefined(prefix)) {
+        const { prefix, insetLabel, insetLabelId } = this.props;
+        const labelNode = prefix || insetLabel;
+        if (isNull(labelNode) || isUndefined(labelNode)) {
             return null;
         }
         const prefixWrapperCls = cls(`${prefixCls}-prefix`, {
-            [`${prefixCls}-prefix-text`]: prefix && isString(prefix),
+            [`${prefixCls}-inset-label`]: insetLabel,
+            [`${prefixCls}-prefix-text`]: labelNode && isString(labelNode),
             // eslint-disable-next-line max-len
-            [`${prefixCls}-prefix-icon`]: React.isValidElement(prefix) && !(prefix && isString(prefix)),
+            [`${prefixCls}-prefix-icon`]: isSemiIcon(labelNode),
         });
-        return <div className={prefixWrapperCls}>{prefix}</div>;
+        return (
+            // eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events
+            <div 
+                className={prefixWrapperCls} 
+                onMouseDown={this.handlePreventMouseDown} 
+                onClick={this.handleClickPrefixOrSuffix} 
+                id={insetLabelId} x-semi-prop="prefix"
+            >
+                {labelNode}
+            </div>
+        );
     }
 
     renderSuffix() {
@@ -284,9 +323,19 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
         const suffixWrapperCls = cls(`${prefixCls}-suffix`, {
             [`${prefixCls}-suffix-text`]: suffix && isString(suffix),
             // eslint-disable-next-line max-len
-            [`${prefixCls}-suffix-icon`]: React.isValidElement(suffix) && !(suffix && isString(suffix)),
+            [`${prefixCls}-suffix-icon`]: isSemiIcon(suffix),
         });
-        return <div className={suffixWrapperCls}>{suffix}</div>;
+        return (
+            // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
+            <div
+                className={suffixWrapperCls}
+                onMouseDown={this.handlePreventMouseDown}
+                onClick={this.handleClickPrefixOrSuffix}
+                x-semi-prop="suffix"
+            >
+                {suffix}
+            </div>
+        );
     }
 
     renderTags() {
@@ -306,7 +355,7 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
         const typoCls = cls(`${prefixCls}-wrapper-typo`, {
             [`${prefixCls}-wrapper-typo-disabled`]: disabled
         });
-        const spanNotWithPopoverCls = cls(`${prefixCls}-wrapper-n`, {
+        const restTagsCls = cls(`${prefixCls}-wrapper-n`, {
             [`${prefixCls}-wrapper-n-disabled`]: disabled
         });
         const restTags: Array<React.ReactNode> = [];
@@ -328,6 +377,7 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
                         closable={!disabled}
                         key={`${index}${value}`}
                         visible
+                        aria-label={`${!disabled ? 'Closable ' : ''}Tag: ${value}`}
                     >
                         <Paragraph
                             className={typoCls}
@@ -344,13 +394,18 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
                 tags.push(item);
             }
         });
+
+        const restTagsContent = (
+            <span className={restTagsCls}>+{tagsArray.length - maxTagCount}</span>
+        );
+
         return (
             <>
                 {tags}
                 {
                     restTags.length > 0 &&
                     (
-                        showRestTagsPopover && !disabled ?
+                        showRestTagsPopover ?
                             (
                                 <Popover
                                     content={restTags}
@@ -360,16 +415,9 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
                                     autoAdjustOverflow
                                     {...restTagsPopoverProps}
                                 >
-                                    <span className={cls(`${prefixCls}-wrapper-n`)}>
-                                        +{tagsArray.length - maxTagCount}
-                                    </span>
+                                    {restTagsContent}
                                 </Popover>
-                            ) :
-                            (
-                                <span className={spanNotWithPopoverCls}>
-                                    {`+${tagsArray.length - maxTagCount}`}
-                                </span>
-                            )
+                            ) : restTagsContent
                     )
                 }
             </>
@@ -381,7 +429,8 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
     }
 
     focus() {
-        this.inputRef.current.focus();
+        const { preventScroll } = this.props;
+        this.inputRef.current.focus({ preventScroll });
     }
 
     render() {
