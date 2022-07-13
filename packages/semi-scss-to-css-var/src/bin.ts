@@ -9,7 +9,7 @@ import fs from 'fs-extra';
 const main = () => {
     console.log('bin exec');
     const foundationPath = path.resolve("../semi-foundation");
-    const themePath = path.resolve('./semi-theme-default-cssvar');
+    const themePath = path.resolve('./src/semi-theme-default-cssvar');
     const iconPath = path.resolve('../semi-icons');
     const distPath= path.resolve('./dist');
     //const cssVarPath  = path.join(distPath,'allCSSVar.scss');
