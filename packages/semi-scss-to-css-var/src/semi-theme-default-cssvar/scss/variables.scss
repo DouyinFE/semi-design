@@ -66,7 +66,7 @@ $prefix: 'semi';
 }
 
 /* sizing */
-$height-control-small: var(--semi-var-height-control-small); // 表单项高度 - 小尺寸
+$height-control-small: var(--semi-css-height-control-small); // 表单项高度 - 小尺寸
 $height-control-default: var(--semi-css-height-control-default); // 表单项高度 - 默认尺寸
 $height-control-large: var(--semi-css-height-control-large); // 表单项高度 - 大尺寸
 $border-thickness: var(--semi-css-border-thickness); // 描边宽度 - 零
