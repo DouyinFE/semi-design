@@ -101,15 +101,6 @@ $module: #{$prefix}-checkbox;
                 font-size: 16px;
             }
         }
-
-        &-pureCardType {
-            // Reasons to use opacity:0 & width: 0 instead of display: none
-            // The a11y keyboard focus event of the checkbox depends on the implementation of the input focus/blur event
-            // input focus/blur cannot take effect when display: none
-            opacity: 0;
-            width: 0;
-            margin-right: 0 !important;
-        }
     }
 
     &-inner-checked {
@@ -194,6 +185,15 @@ $module: #{$prefix}-checkbox;
             }
             margin-right: $spacing-checkbox_cardType_inner-marginRight;
             flex-shrink: 0;
+        }
+
+        .#{$module}-inner-pureCardType {
+            // Reasons to use opacity:0 & width: 0 instead of display: none
+            // The a11y keyboard focus event of the checkbox depends on the implementation of the input focus/blur event
+            // input focus/blur cannot take effect when display: none
+            opacity: 0;
+            width: 0;
+            margin-right: 0;
         }
 
         .#{$module}-addon {
