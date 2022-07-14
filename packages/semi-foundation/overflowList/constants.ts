@@ -14,7 +14,7 @@ const MODE_MAP = {
 const BOUNDARY_MAP = {
     START: 'start',
     END: 'end',
-};
+} as const;
 
 const OVERFLOW_DIR = {
     NONE: 0,
@@ -31,7 +31,9 @@ const strings = {
     OVERFLOW_DIR
 };
 
-const numbers = {};
+const numbers = {
+    MINIMUM_HTML_ELEMENT_WIDTH: 4
+};
 
 export {
     cssClasses,
