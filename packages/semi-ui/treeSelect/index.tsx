@@ -50,6 +50,7 @@ import { isSemiIcon } from '../_utils';
 import { OptionProps, TreeProps, TreeState, FlattenNode, TreeNodeData, TreeNodeProps } from '../tree/interface';
 import { Motion } from '../_base/base';
 import { IconChevronDown, IconClear, IconSearch } from '@douyinfe/semi-icons';
+import CheckboxGroup from '../checkbox/checkboxGroup';
 
 export type ExpandAction = false | 'click' | 'doubleClick';
 
@@ -1301,7 +1302,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
     };
 
     renderTree = () => {
-        const { keyEntities, motionKeys, motionType, inputValue, filteredKeys, flattenNodes } = this.state;
+        const { keyEntities, motionKeys, motionType, inputValue, filteredKeys, flattenNodes, checkedKeys, realCheckedKeys } = this.state;
         const {
             loadData,
             filterTreeNode,
@@ -1318,6 +1319,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             searchPosition,
             renderLabel,
             renderFullLabel,
+            checkRelation,
         } = this.props;
         const wrapperCls = cls(`${prefixTree}-wrapper`);
         const listCls = cls(`${prefixTree}-option-list`, {
@@ -1362,7 +1364,12 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                         this.renderInput()
                     }
                     <div className={listCls} role="tree" aria-multiselectable={multiple ? true : false} style={optionListStyle}>
-                        {noData ? this.renderEmpty() : this.renderNodeList()}
+                        { noData ? this.renderEmpty() : (multiple ? 
+                            (<CheckboxGroup value={Array.from(checkRelation === 'related' ? checkedKeys : realCheckedKeys)}>
+                                {this.renderNodeList()}
+                            </CheckboxGroup>) : 
+                            this.renderNodeList()
+                        )}
                     </div>
                     {outerBottomSlot}
                 </div>

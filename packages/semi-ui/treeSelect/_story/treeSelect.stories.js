@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Icon, Button, Form, Popover, Tag, Typography } from '../../index';
+import { Icon, Button, Form, Popover, Tag, Typography, CheckboxGroup } from '../../index';
 import TreeSelect from '../index';
 import { flattenDeep } from 'lodash';
 import CustomTrigger from './CustomTrigger';
@@ -151,6 +151,43 @@ const treeDataWithoutValue = [
     ],
   },
 ];
+
+export const TreeSelectWrapper = () => (
+  <div>
+    <div>github issue 750 修改测试用例</div>
+    <CheckboxGroup>
+      <TreeSelect
+        showClear={true}
+        expandAll
+        style={{width: 400}}
+        treeData={[
+            {
+                key: '1',
+                label: '所有节点',
+                value: '1',
+                children: [
+                    { key: '20006251', label: 'Semi', value: 'semi@bytedance.com' },
+                    { key: '20006248', label: 'Design', value: 'design@bytedance.com' },
+                    {
+                        key: '20006205',
+                        label: 'React',
+                        value: 'react@bytedance.com',
+                    },
+                ],
+            },
+            ]}
+        multiple
+        filterTreeNode
+        showFilteredOnly={true}
+        leafOnly
+      />
+  </CheckboxGroup>
+  </div>
+);
+
+TreeSelectWrapper.story = {
+  name: 'treeSelect wrapper',
+};
 
 class SimpleTree extends React.Component {
   render() {
