@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable max-len, max-depth,  */
 import { format, isValid, isSameSecond, isEqual as isDateEqual, isDate } from 'date-fns';
-import { get, isObject, isString, isEqual } from 'lodash';
+import { get, isObject, isString, isEqual, isFunction } from 'lodash';
 
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import { isValidDate, isTimestamp } from './_utils/index';
@@ -245,6 +245,23 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
         this._adapter.updateInputValue(null);
         this._adapter.updateValue(result);
         this.resetCachedSelectedValue(result);
+        this.initRangeInputFocus(result);
+
+        if (this._adapter.needConfirm()) {
+            this._adapter.updateCachedSelectedValue(result);
+        }
+    }
+
+    /**
+     * 如果用户传了一个空的 value，需要把 range input focus 设置为 rangeStart，这样用户可以清除完之后继续从开始选择
+     * 
+     * If the user passes an empty value, you need to set the range input focus to rangeStart, so that the user can continue to select from the beginning after clearing
+     */
+    initRangeInputFocus(result: Date[]) {
+        const { triggerRender } = this.getProps();
+        if (this._isRangeType() && isFunction(triggerRender) && result.length === 0) {
+            this._adapter.setRangeInputFocus('rangeStart');
+        }
     }
 
     parseWithTimezone(value: ValueType, timeZone: string | number, prevTimeZone: string | number) {
@@ -1285,7 +1302,7 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
      * @returns
      */
     handleTriggerWrapperClick(e: any) {
-        const { disabled } = this._adapter.getProps();
+        const { disabled, triggerRender } = this._adapter.getProps();
         const { rangeInputFocus } = this._adapter.getStates();
         if (disabled) {
             return;
@@ -1297,12 +1314,18 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
          * - When type is not range type, Input component will automatically focus in the same case
          * - isEventTarget is used to judge whether the event is a bubbling event
          */
-        if (this._isRangeType() && !rangeInputFocus && this._adapter.isEventTarget(e)) {
-            setTimeout(() => {
-                // using setTimeout get correct state value 'rangeInputFocus'
-                this.handleInputFocus(e, 'rangeStart');
-                this.openPanel();
-            }, 0);
+        if (this._isRangeType() && !rangeInputFocus) {
+            if (this._adapter.isEventTarget(e)) {
+                setTimeout(() => {
+                    // using setTimeout get correct state value 'rangeInputFocus'
+                    this.handleInputFocus(e, 'rangeStart');
+                }, 0);
+            } else if (isFunction(triggerRender)) {
+                // 如果是 triggerRender 场景，因为没有 input，因此打开面板时默认 focus 在 rangeStart
+                // If it is a triggerRender scene, because there is no input, the default focus is rangeStart when the panel is opened
+                this._adapter.setRangeInputFocus('rangeStart');
+            }
+            this.openPanel();
         } else {
             this.openPanel();
         }

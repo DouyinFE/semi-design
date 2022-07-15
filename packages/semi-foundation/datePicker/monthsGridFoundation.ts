@@ -724,9 +724,8 @@ export default class MonthsGridFoundation extends BaseFoundation<MonthsGridAdapt
             /**
              * no need to check focus then
              *  - dateRange and isDateRangeAndHasOffset
-             *  - dateRange and triggerRender
              */
-            const needCheckFocusRecord = !(type === 'dateRange' && (isDateRangeAndHasOffset || isFunction(triggerRender)));
+            const needCheckFocusRecord = !(type === 'dateRange' && isDateRangeAndHasOffset);
             this._adapter.notifySelectedChange(date, { needCheckFocusRecord });
         }
     }

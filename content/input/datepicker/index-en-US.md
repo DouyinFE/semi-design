@@ -629,6 +629,8 @@ class App extends React.Component {
 
 By default we use the `Input` component as the trigger for the `DatePicker` component. You can customize this trigger by passing the `triggerRender` method.
 
+The custom trigger is a complete customization of the trigger, the default clear button will not take effect, if you need clear function, please customize a clear button.
+
 ```jsx live=true
 import React, { useState, useCallback, useMemo } from 'react';
 import * as dateFns from 'date-fns';
@@ -658,6 +660,55 @@ function Demo() {
             triggerRender={({ placeholder }) => (
                 <Button theme={'light'} icon={closeIcon} iconPosition={'right'}>
                     {(date && dateFns.format(date, formatToken)) || placeholder}
+                </Button>
+            )}
+        />
+    );
+}
+```
+
+<Notice type="primary" title="Note">
+    <div>When DatePicker is range type, the default date selected after the panel is opened is the start date, and it will switch to the end date selection after selection. The focus is reset when the panel is closed.</div>
+    <div>We recommend providing a clear button, when you pass null value to DatePicker, DatePicker will also reset focus internally. This allows the user to reselect the date range after clearing. (from v2.14)</div>
+</Notice>
+
+```jsx live=true hideInDSM
+import React, { useState, useCallback, useMemo } from 'react';
+import { DatePicker, Button, Icon } from '@douyinfe/semi-ui';
+import { IconClose, IconChevronDown } from '@douyinfe/semi-icons';
+
+function Demo() {
+    const [date, setDate] = useState();
+    const formatToken = 'yyyy-MM-dd HH:mm:ss';
+    const onChange = useCallback(date => {
+        setDate(date);
+        console.log(date);
+    }, []);
+    const onClear = useCallback(e => {
+        e && e.stopPropagation();
+        setDate();
+    }, []);
+
+    const closeIcon = useMemo(() => {
+        return date ? <IconClose onClick={onClear} /> : <IconChevronDown />;
+    }, [date]);
+
+    const triggerContent = (placeholder) => {
+        if (Array.isArray(date) && date.length) {
+            return `${dateFns.format(date[0], formatToken)} ~ ${dateFns.format(date[1], formatToken)}`;
+        } else {
+            return 'Please select a date range';
+        }
+    };
+
+    return (
+        <DatePicker
+            type='dateTimeRange'
+            onChange={onChange}
+            value={date}
+            triggerRender={({ placeholder }) => (
+                <Button theme={'light'} icon={closeIcon} iconPosition={'right'}>
+                    {triggerContent(placeholder)}
                 </Button>
             )}
         />
