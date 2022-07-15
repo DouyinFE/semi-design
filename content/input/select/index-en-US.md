@@ -1309,6 +1309,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | placeholder | placeholder | ReactNode |  |
 | position | Pop-up layer position, refer to [Popover·API reference·position](/en-US/show/popover#API%20Reference) | string | 'bottomLeft' |
 | prefix | An input helper rendered before | ReactNode |  |
+| preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
 | remote | Whether to turn on remote search, when remote is true, the input content will not be locally filtered and matched | boolean | false |
 | renderCreateItem | When allowCreate is true, you can customize the rendering of the creation label | function(inputValue: string) | InputValue => 'Create' + InputValue |
 | renderSelectedItem | Customize the rendering of selected tabs in the selection box | function(option) |  |

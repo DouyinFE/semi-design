@@ -5,16 +5,39 @@ subTitle: Change Log
 icon: doc-changelog
 localeCode: en-US
 order: 6
-brief: About Semi Design For React Optimization and Update
+brief: About Semi Design For React Optimization and Updat. We provide Changelog Diff between versions, you can call out the Diff control by hovering the version number. If you want to view the change history of a single component, you can view it through the Version Diff button of the corresponding component documentation
 ---
 
-Version：Major.Minor.Patch
+Version：Major.Minor.Patch (follow the **Semver** specification)
 
--   Major version: Significant performance / usage changes
--   Minor version: New component added / new feature
--   Patch version: bug fix
+-   **Major version**: Significant performance / usage changes
+-   **Minor version**: Semi releases a minor version every two weeks, including changes of the following types: new components/features added, or style changes: New component added / new feature
+-   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+
+
+#### 🎉 2.15.0 (2022-07-15)
+- 【Fix】
+    - Fixed the problem that when TreeSelect/Tree in multi-select state is wrapped by CheckboxGroup, clicking any option will cause all options to be displayed as selected [#750](https://github.com/DouyinFE/semi-design/issues/750)
+    - Fix the problem that @douyinfe/semi-illustrations failed to shaking [#961](https://github.com/DouyinFE/semi-design/issues/961)
+    - Fix DatePicker in triggerRender range selection scene to select date interaction issue [#676](https://github.com/DouyinFE/semi-design/issues/676)
+
+#### 🎉 2.15.0-beta.0 (2022-07-11)
+- 【Feat】
+    - Support German, Italian and French [@jacob-lcs](https://github.com/jacob-lcs)
+    - Dropdown add A11y keyboard and focus adaptation  [#205](https://github.com/DouyinFE/semi-design/issues/205)
+    - Components such as Cascader add the preventScroll property to prevent the focus method in the component from causing the page to scroll
+    - Rating adds A11y focus and keyboard adaptation
+    - Tooltip returnFocusOnClose supports trigger hover and focus
+- 【Fix】
+    - Fix the problem that when the TreeSelect search box is in the trigger and there is a value in the search box, the second click will cause the search box to collapse and clear the search value.
+    - Fix the Cascader display error of single selection when setting filterTreeNode & displayRender at the same time
+    - Fix list empty padding [@rojer95](https://github.com/rojer95)
+    - Fix InputGroup setting disabled to false in the child does not take effect
+    - Fix the case-sensitive issue of tree search highlighting result
+    - Fix the virtual list occupying problem when virtualizing Table empty data [#942](https://github.com/DouyinFE/semi-design/issues/942)
+    - Fix the ts type check error when some Form Field components (such as Form.Upload, Form.Switch) pass in ref, indicating that there is no ref attribute
 
 #### 🎉 2.14.0 (2022-07-01)
 - 【Fix】

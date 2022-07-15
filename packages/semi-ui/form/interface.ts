@@ -84,7 +84,7 @@ export interface SelectStatic {
     OptGroup: typeof OptGroup;
 }
 
-export class Field<P> extends React.Component<Subtract<P & CommonFieldProps, CommonexcludeType>> {}
+export class Field<P> extends React.Component<Subtract<P & CommonFieldProps, CommonexcludeType> & React.RefAttributes<any>> {}
 export let FormSelectType: React.ComponentType<Subtract<SelectProps & CommonFieldProps, CommonexcludeType>> & SelectStatic;
 export let FormCheckboxType: React.ComponentType<Subtract<CommonFieldProps, RadioCheckboxExcludeProps> & CheckboxProps & RCIncludeType>;
 export let FormRadioType: React.ComponentType<Subtract<CommonFieldProps, RadioCheckboxExcludeProps> & RadioProps & RCIncludeType>;

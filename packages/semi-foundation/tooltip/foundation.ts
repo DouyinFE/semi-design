@@ -6,6 +6,7 @@ import { DOMRectLikeType } from '../utils/dom';
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import { ArrayElement } from '../utils/type';
 import { strings } from './constants';
+import { handlePrevent } from '../utils/a11y';
 
 const REGS = {
     TOP: /top/i,
@@ -862,6 +863,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         
         switch (event && event.key) {
             case "Escape":
+                handlePrevent(event);
                 closeOnEsc && this._handleEscKeyDown(event);
                 break;
             case "ArrowUp":
@@ -885,11 +887,11 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
      * 因此 returnFocusOnClose 只支持 click trigger
      */
     _focusTrigger() {
-        const { trigger, returnFocusOnClose } = this.getProps();
-        if (returnFocusOnClose && trigger === 'click') {
+        const { trigger, returnFocusOnClose, preventScroll } = this.getProps();
+        if (returnFocusOnClose && trigger !== 'custom') {
             const triggerNode = this._adapter.getTriggerNode();
             if (triggerNode && 'focus' in triggerNode) {
-                triggerNode.focus();
+                triggerNode.focus({ preventScroll });
             }
         }
     }
@@ -897,37 +899,43 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
     _handleEscKeyDown(event: any) {
         const { trigger } = this.getProps();
         if (trigger !== 'custom') {
-            this.hide();
+            // Move the focus into the trigger first and then close the pop-up layer 
+            // to avoid the problem of opening the pop-up layer again when the focus returns to the trigger in the case of hover and focus
             this._focusTrigger();
+            this.hide();
         }
         this._adapter.notifyEscKeydown(event);
     }
 
     _handleContainerTabKeyDown(focusableElements: any[], event: any) {
+        const { preventScroll } = this.getProps();
         const activeElement = this._adapter.getActiveElement();
         const isLastCurrentFocus = focusableElements[focusableElements.length - 1] === activeElement;
         if (isLastCurrentFocus) {
-            focusableElements[0].focus();
+            focusableElements[0].focus({ preventScroll });
             event.preventDefault(); // prevent browser default tab move behavior
         }
     }
 
     _handleContainerShiftTabKeyDown(focusableElements: any[], event: any) {
+        const { preventScroll } = this.getProps();
         const activeElement = this._adapter.getActiveElement();
         const isFirstCurrentFocus = focusableElements[0] === activeElement;
         if (isFirstCurrentFocus) {
-            focusableElements[focusableElements.length - 1].focus();
+            focusableElements[focusableElements.length - 1].focus({ preventScroll });
             event.preventDefault(); // prevent browser default tab move behavior
         }
     }
 
     _handleTriggerArrowDownKeydown(focusableElements: any[], event: any) {
-        focusableElements[0].focus();
+        const { preventScroll } = this.getProps();
+        focusableElements[0].focus({ preventScroll });
         event.preventDefault(); // prevent browser default scroll behavior
     }
 
     _handleTriggerArrowUpKeydown(focusableElements: any[], event: any) {
-        focusableElements[focusableElements.length - 1].focus();
+        const { preventScroll } = this.getProps();
+        focusableElements[focusableElements.length - 1].focus({ preventScroll });
         event.preventDefault(); // prevent browser default scroll behavior
     }
 }

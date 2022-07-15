@@ -1549,6 +1549,7 @@ function Demo() {
 | multiple | Set multiple | boolean | false |  1.28.0 |
 | placeholder        | Placeholder                                                                                                                  | string                                                               | -                               | -       |
 | prefix             | Prefix label                                                                                                                 | ReactNode                                                            | -                               | 0.28.0  |
+| preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
 |restTagsPopoverProps |The configuration properties of the [Popover](/en-US/show/popover#API%20Reference)     |PopoverProps     | {}        |1.28.0|
 | searchPlaceholder  | Placeholder for search input                                                                                                 | string                                                               | -                               | -       |
 | separator  | Custom separator, including: the separator of the content displayed in the dropdown during search and displayed in the Trigger during single selection        | string                                                               | ' / '                               | 2.2.0       |

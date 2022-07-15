@@ -4,16 +4,39 @@ title: Change Log 更新日志
 icon: doc-changelog
 localeCode: zh-CN
 order: 6
-brief: 关于 Semi Design For React 优化与更新
+brief: 关于 Semi Design For React 优化与更新。我们提供了版本间的 Changelog Diff，你可以通过 hover 版本号唤出 Diff 控件。如果你想查看单个组件的变更历史，可以通过对应组件文档的 版本对比 按钮查看
 ---
 
-Semi 版本号遵循**Semver**规范（主版本号-次版本号-修订版本号）：
+Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本号）：
+-   主版本号（major）：重大性能/使用变更，允许做 breaking change
+-   次版本号（minor）：Semi 固定每两周发布一个 minor 版本，包括以下类型变更：添加了新组件/新 feature，或者样式变更
+-   修订版本号（patch）：仅会进行 bugfix，发布时间不限
+-   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
--   主版本号（major）：重大性能/使用变更
--   次版本号（minor）：添加了新组件/新 feature
--   修订版本号（patch）：bugfix
 
 ---
+
+#### 🎉 2.15.0 (2022-07-15)
+- 【Fix】
+    - 修复多选状态下的TreeSelect/Tree被CheckboxGroup包裹后，点击任何选项将所有选项显示为被选中的问题,  [#750](https://github.com/DouyinFE/semi-design/issues/750)
+    - 修复 @douyinfe/semi-illustrations 插画按需加载失效的问题 [#961](https://github.com/DouyinFE/semi-design/issues/961)
+    - 修复 DatePicker 在 triggerRender 范围选择场景选择日期交互问题 [#676](https://github.com/DouyinFE/semi-design/issues/676)
+
+#### 🎉 2.15.0-beta.0 (2022-07-11)
+- 【Feat】
+    - Rating 新增 A11y 焦点及键盘适配
+    - Dropdown 新增 A11y 键盘和焦点适配  [#205](https://github.com/DouyinFE/semi-design/issues/205)
+    - LocaleProvider 新增 德语（de）、意大利语（it）、法语（fr） [@jacob-lcs](https://github.com/jacob-lcs)
+    - Cascader 等 15 组件新增 preventScroll 属性，用于阻止组件内 focus 方法导致页面滚动（可用于解决 Safari 浏览器聚焦时可能导致页面异常滚动的问题）
+    - Tooltip returnFocusOnClose 支持trigger hover和focus
+- 【Fix】
+    - 修复 TreeSelect 当搜索框在trigger中且搜索框中有值时，二次点击会导致搜索框收起并清空搜索值的问题。
+    - 修复 Cascader 单选状态下同时设置filterTreeNode & displayRender，选项显示错误问题
+    - 修复 List 空状态 Padding 问题 [@rojer95](https://github.com/rojer95)
+    - 修复 InputGroup 在子级设置 disabled 为 false 不生效问题
+    - 修复 Tree 搜索结果高亮大小写敏感问题
+    - 修复虚拟化 Table 空数据时虚拟列表占位问题  [#942](https://github.com/DouyinFE/semi-design/issues/942)
+    - 修复部分 Form Field 组件（例如 Form.Upload、Form.Switch）传入 ref 时 ts类型检查报错，提示不存在 ref 属性的问题
 
 #### 🎉 2.14.0 (2022-07-01)
 - 【Fix】

@@ -2129,6 +2129,7 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
 | loadedKeys | （受控）已经加载的节点，配合 loadData 使用 | string[] | - | 1.0.0|
 | motion | 是否开启动画 | boolean | true | - |
 | multiple | 是否支持多选 | boolean | false | - |
+| preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法 | boolean |  |  |
 | renderDraggingNode | 自定义正在拖拽节点的 dragImg 的 Html 元素 | (nodeInstance: HTMLElement, node: TreeNode) => HTMLElement | - | 1.8.0 | 
 | renderFullLabel | 完全自定义label的渲染函数 | (data: object) => ReactNode | - | 1.7.0 | 
 | renderLabel | 自定义label的渲染函数 | (label: ReactNode, data: TreeNode) => ReactNode |- |  1.6.0 | 

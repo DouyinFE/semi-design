@@ -191,6 +191,7 @@ function Demo () {
 | prefixCls    | 前缀内容                                                       | string\|ReactNode                 |           |           |
 | pressInterval| 长按按钮时，多久触发一次点击事件，单位毫秒                                   | number                 |   250        |           |
 | pressTimeout | 长按按钮时，延迟多久后触发点击事件，单位毫秒                                                      | number                 |     250      |           |
+| preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法 | boolean |  |  |
 | shiftStep    | 按住 shift 键每次改变步数，可以为小数，v2.13 默认值由 1 调整为 10                           | number                            | 10         | **1.5.0** |
 | showClear    | 是否显示清除按钮                                               | boolean                           | false     | **0.35.0**   |
 | size         | 输入框大小，可选值："default"\|"small"\|"large"                | string                            | 'default' |           |

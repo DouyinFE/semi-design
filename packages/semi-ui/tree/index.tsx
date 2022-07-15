@@ -115,6 +115,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
         labelEllipsis: PropTypes.bool,
         checkRelation: PropTypes.string,
         'aria-label': PropTypes.string,
+        preventScroll: PropTypes.bool,
     };
 
     static defaultProps = {
@@ -446,8 +447,9 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
                 this.setState({ inputValue: value });
             },
             focusInput: () => {
+                const { preventScroll } = this.props;
                 if (this.inputRef && this.inputRef.current) {
-                    (this.inputRef.current as any).focus();
+                    (this.inputRef.current as any).focus({ preventScroll });
                 }
             },
         };

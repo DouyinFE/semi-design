@@ -79,6 +79,7 @@ class TabsFoundation<P = Record<string, any>, S = Record<string, any>> extends B
     }
 
     handleKeyDown = (event: any, itemKey: string, closable: boolean) => {
+        const { preventScroll } = this.getProps();
         const tabs = [...event.target.parentNode.childNodes].filter(item => {
             return get(item, 'attributes.data-tabkey.value', '').includes('semiTab') && get(item, 'attributes.aria-disabled.value', '') !== "true";
         });
@@ -100,11 +101,11 @@ class TabsFoundation<P = Record<string, any>, S = Record<string, any>> extends B
                 this.handlePrevent(event);
                 break;
             case "Home":
-                tabs[0].focus(); // focus first tab
+                tabs[0].focus({ preventScroll }); // focus first tab
                 this.handlePrevent(event);
                 break;
             case "End":
-                tabs[tabs.length - 1].focus(); // focus last tab
+                tabs[tabs.length - 1].focus({ preventScroll }); // focus last tab
                 this.handlePrevent(event);
                 break;
         }
@@ -128,18 +129,20 @@ class TabsFoundation<P = Record<string, any>, S = Record<string, any>> extends B
     }
 
     handleDeleteKeyDown(event:any, tabs: HTMLElement[], itemKey: string, closable: boolean): void {
+        const { preventScroll } = this.getProps();
         if (closable) {
             this.handleTabDelete(itemKey);
             const index = tabs.indexOf(event.target);
             // Move focus to next element after deletion
             // If the element is the last removable tab, focus to its previous tab
             if (tabs.length !== 1 ){
-                tabs[index + 1 >= tabs.length ? index - 1 : index + 1].focus();   
+                tabs[index + 1 >= tabs.length ? index - 1 : index + 1].focus({ preventScroll });
             }
         }
     }
 
     switchTabOnArrowPress(event: any, tabs: HTMLElement[]): void {
+        const { preventScroll } = this.getProps();
         const index = tabs.indexOf(event.target);
 
         const direction = {
@@ -152,11 +155,11 @@ class TabsFoundation<P = Record<string, any>, S = Record<string, any>> extends B
         if (direction[event.key]) {
             if (index !== undefined) {
                 if (tabs[index + direction[event.key]]) {
-                    tabs[index+ direction[event.key]].focus();
+                    tabs[index+ direction[event.key]].focus({ preventScroll });
                 } else if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
-                    tabs[tabs.length - 1].focus(); // focus last tab
+                    tabs[tabs.length - 1].focus({ preventScroll }); // focus last tab
                 } else if (event.key ===  "ArrowRight" || event.key == "ArrowDown") {
-                    tabs[0].focus(); // focus first tab
+                    tabs[0].focus({ preventScroll }); // focus first tab
                 }
             }
         }

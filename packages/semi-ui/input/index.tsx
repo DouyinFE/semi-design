@@ -64,6 +64,7 @@ export interface InputProps extends
     inputStyle?: React.CSSProperties;
     getValueLength?: (value: string) => number;
     forwardRef?: ((instance: any) => void) | React.MutableRefObject<any> | null;
+    preventScroll?: boolean;
 }
 
 export interface InputState {
@@ -117,6 +118,7 @@ class Input extends BaseComponent<InputProps, InputState> {
         insetLabelId: PropTypes.string,
         inputStyle: PropTypes.object,
         getValueLength: PropTypes.func,
+        preventScroll: PropTypes.bool,
     };
 
     static defaultProps = {
@@ -173,9 +175,10 @@ class Input extends BaseComponent<InputProps, InputState> {
             setValue: (value: string) => this.setState({ value }),
             setEyeClosed: (value: boolean) => this.setState({ eyeClosed: value }),
             toggleFocusing: (isFocus: boolean) => {
+                const { preventScroll } = this.props;
                 const input = this.inputRef && this.inputRef.current;
                 if (isFocus) {
-                    input && input.focus();
+                    input && input.focus({ preventScroll });
                 } else {
                     input && input.blur();
                 }
@@ -423,6 +426,7 @@ class Input extends BaseComponent<InputProps, InputState> {
             forwardRef,
             maxLength,
             getValueLength,
+            preventScroll,
             ...rest
         } = this.props;
         const { value, paddingLeft, isFocus, minLength: stateMinLength } = this.state;

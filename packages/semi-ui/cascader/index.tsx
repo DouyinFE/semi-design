@@ -168,6 +168,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         disableStrictly: PropTypes.bool,
         leafOnly: PropTypes.bool,
         enableLeafClick: PropTypes.bool,
+        preventScroll: PropTypes.bool,
     };
 
     static defaultProps = {
@@ -268,9 +269,10 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                 this.setState({ inputPlaceHolder: value });
             },
             focusInput: () => {
+                const { preventScroll } = this.props;
                 if (this.inputRef && this.inputRef.current) {
                     // TODO: check the reason
-                    (this.inputRef.current as any).focus();
+                    (this.inputRef.current as any).focus({ preventScroll });
                 }
             },
         };

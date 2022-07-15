@@ -423,6 +423,7 @@ function DropdownEvents() {
 | --- | --- | --- | --- | --- |
 | autoAdjustOverflow | Whether the pop-up layer automatically adjusts its direction when it is blocked | boolean | true |  |
 | className | classname of the outer style of the pop-up layer | string |  |  |
+| closeOnEsc | Whether to close the panel by pressing the Esc key in the trigger or popup layer. It does not take effect when visible is under controlled | boolean | true | **2.13.0** |
 | children | Child elements wrapped by the drop layer | ReactNode |  |  |
 | clickToHide | Whether to close the drop-down layer automatically when clicking on the drop-down layer | boolean |  | **0.24.0** |
 | contentClassName | Drop-down menu root element class name | string |  |  |
@@ -441,6 +442,7 @@ function DropdownEvents() {
 | visible | Display the menu or not, need to be used with trigger custom | boolean |  |  |
 | zIndex | Pop-up layer z-index value | number | 1050 |  |
 | onClickOutSide  | Callback when the pop-up layer is in the display state and the non-Children, non-floating layer inner area is clicked (only valid when trigger is custom, click)  | (e:event) => void | | **2.1.0** |
+| onEscKeyDown | Called when Esc key is pressed in trigger or popup layer | function(e:event) | | **2.13.0** |
 | onVisibleChange | Callback when the pop-up layer display state changes | function |  |  |
 
 ### Dropdown.Menu
@@ -485,9 +487,18 @@ function DropdownEvents() {
 ## Accessibility
 
 ### ARIA
-
 - Dropdown.Menu `role` is set to `menu`, `aria-orientatio` is set to `vertical`
 - Dropdown.Item `role` is set to `menuitem`
+
+### Keyboard and Focus
+- Dropdown triggers can be focused, currently supports 3 triggering methods:
+    - When the trigger method is set to hover or focus: the Dropdown is opened when the mouse is hovering or focused. After the Dropdown is opened, the user can use the `Down Arrow` to move the focus to the Dropdown
+    - When the trigger method is set to click: Use the `Enter` or `Space` key to open the Dropdown when clicking the trigger or focusing, and the focus will automatically focus on the first non-disabled item in the Dropdown
+- When the focus is on the menu item inside the Dropdown:
+    - Keyboard users can use the keyboard `Up Arrow` or `Down Arrow` to switch between interactable elements
+    - Use the `Enter` key or the `Space` key to activate the focused menu item, if the menu item is bound to onClick, the event will be fired
+- Keyboard users can close the Dropdown by pressing `Esc`, after which the focus returns to the trigger
+- Keyboard interaction does not yet fully support nested scenes
 
 ## Design Tokens
 

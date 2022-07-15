@@ -125,6 +125,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
         // Callback function for panel date switching
         onPanelChange: PropTypes.func,
         rangeSeparator: PropTypes.string,
+        preventScroll: PropTypes.bool,
     };
 
     static defaultProps = {
@@ -271,13 +272,14 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             typeIsYearOrMonth: () => ['month', 'year'].includes(this.props.type),
             setMotionEnd: motionEnd => this.setState({ motionEnd }),
             setRangeInputFocus: rangeInputFocus => {
+                const { preventScroll } = this.props;
                 if (rangeInputFocus !== this.state.rangeInputFocus) {
                     this.setState({ rangeInputFocus });
                 }
                 switch (rangeInputFocus) {
                     case 'rangeStart':
                         const inputStartNode = get(this, 'rangeInputStartRef.current');
-                        inputStartNode && inputStartNode.focus();
+                        inputStartNode && inputStartNode.focus({ preventScroll });
                         /**
                          * 解决选择完startDate，切换到endDate后panel被立马关闭的问题。
                          * 用户打开panel，选了startDate后，会执行setRangeInputFocus('rangeEnd'),focus到endDateInput，
@@ -297,7 +299,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
                         break;
                     case 'rangeEnd':
                         const inputEndNode = get(this, 'rangeInputEndRef.current');
-                        inputEndNode && inputEndNode.focus();
+                        inputEndNode && inputEndNode.focus({ preventScroll });
                         /**
                          * 解决选择完startDate，切换到endDate后panel被立马关闭的问题。
                          * 用户打开panel，选了startDate后，会执行setRangeInputFocus('rangeEnd'),focus到endDateInput，
@@ -322,19 +324,20 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             couldPanelClosed: () => this.focusRecordsRef.current.rangeStart && this.focusRecordsRef.current.rangeEnd,
             isEventTarget: e => e && e.target === e.currentTarget,
             setInsetInputFocus: () => {
+                const { preventScroll } = this.props;
                 const { rangeInputFocus } = this.state;
                 switch (rangeInputFocus) {
                     case 'rangeEnd':
                         if (document.activeElement !== this.rangeInputEndRef.current) {
                             const inputEndNode = get(this, 'rangeInputEndRef.current');
-                            inputEndNode && inputEndNode.focus();
+                            inputEndNode && inputEndNode.focus({ preventScroll });
                         }
                         break;
                     case 'rangeStart':
                     default:
                         if (document.activeElement !== this.rangeInputStartRef.current) {
                             const inputStartNode = get(this, 'rangeInputStartRef.current');
-                            inputStartNode && inputStartNode.focus();
+                            inputStartNode && inputStartNode.focus({ preventScroll });
                         }
                         break;
                 }

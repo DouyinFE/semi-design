@@ -47,7 +47,7 @@ import { Rating } from '@douyinfe/semi-ui';
     <div>
         <Rating allowHalf defaultValue={3.5} />
         <br />
-        <Rating allowHalf defaultValue={3.65} />
+        <Rating allowHalf defaultValue={3.65} disabled/>
     </div>
 );
 ```
@@ -168,21 +168,33 @@ import { IconLikeHeart } from '@douyinfe/semi-icons';
 | count         | Number of stars or characters                                                         | number                  | 5                                        |
 | defaultValue  | Default value                                                                         | number                  | 0                                        |
 | disabled      | Read-only, disable interaction.                                                       | boolean                 | false                                    |
+| preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
+| size          | Size, one of `default`, `small`, **v >= 0.35.0** could use number for customized size | string\| number         | `default`                                |
+| style         | Inline style                                                                          | object                  | -                                        |
+| tooltips      | Customize prompted information for each item                                          | String[]                | -                                        |
+| value         | Controlled value                                                                      | number                  | -                                        |
 | onBlur        | Callback function when losing focus.                                                  | function()              | -                                        |
 | onChange      | Callback function at the time of selection                                            | function(value: number) | -                                        |
 | onFocus       | Callback function when getting focus                                                  | function()              | -                                        |
 | onHoverChange | Callback function of numerical changes when the mouse hovers                          | function(value: number) | -                                        |
 | onKeyDown     | Callback function when key down                                                       | function(e: event)      | -                                        |
-| size          | Size, one of `default`, `small`, **v >= 0.35.0** could use number for customized size | string\| number         | `default`                                |
-| style         | Inline style                                                                          | object                  | -                                        |
-| tooltips      | Customize prompted information for each item                                          | String[]                | -                                        |
-| value         | Controlled value                                                                      | number                  | -                                        |
 
-##Accessibility
+## Accessibility
 
 ### ARIA
+- Rating has `aria-checked` to indicate whether it is currently selected, `aria-posinset` to indicate the position in the list, and `aria-setsize` to indicate the length of the list.
+- Semi supports custom Rating semantics
+  - Users can use `aria-label` to customize the semantics of Rating;
+  - If the type of `character` passed in by the user is string, this string will be used for the semantics of Rating;
+  - `aria-label` has higher priority than string type `character`.
 
-- Rating has aria-checked to indicate whether it is currently selected, aria-posinset to indicate the position in the list, and aria-setsize to indicate the length of the list
+### Keyboard and Focus
+- Initial focus settings for Rating:
+  - If there is a selection item in Rating, the initial focus should be set to the last selection item (for example: if 3 🌟 are lit, the initial focus is set on the third lit 🌟);
+  - If there is no option for Rating, the initial focus should be on the entire Rating.
+- On a Rating group, you can use the `right arrow` or `up arrow` to select the next focus item of the current focus, and the `left arrow` or `down arrow` to select the previous focus item of the current focus;
+    - The user sets the `allowHalf` property, and presses the arrow keys to select or deselect only half a star;
+- A disabled Rating cannot get the focus.
 
 ## Design Tokens
 <DesignToken/>

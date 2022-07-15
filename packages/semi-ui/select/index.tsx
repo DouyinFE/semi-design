@@ -152,6 +152,7 @@ export type SelectProps = {
     onBlur?: (e: React.FocusEvent) => void;
     onListScroll?: (e: React.UIEvent<HTMLDivElement>) => void;
     children?: React.ReactNode;
+    preventScroll?: boolean;
 } & Pick<
 TooltipProps,
 | 'spacing'
@@ -271,6 +272,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         renderOptionItem: PropTypes.func,
         onListScroll: PropTypes.func,
         arrowIcon: PropTypes.node,
+        preventScroll: PropTypes.bool,
     // open: PropTypes.bool,
     // tagClosable: PropTypes.bool,
     };
@@ -396,8 +398,9 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 });
             },
             focusInput: () => {
+                const { preventScroll } = this.props;
                 if (this.inputRef && this.inputRef.current) {
-                    this.inputRef.current.focus();
+                    this.inputRef.current.focus({ preventScroll });
                 }
             },
         };
@@ -526,8 +529,9 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             },
             focusTrigger: () => {
                 try {
+                    const { preventScroll } = this.props;
                     const el = (this.triggerRef.current) as any;
-                    el.focus();
+                    el.focus({ preventScroll });
                 } catch (error) {
 
                 }

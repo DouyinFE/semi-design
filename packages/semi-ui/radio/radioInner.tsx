@@ -26,6 +26,7 @@ export interface RadioInnerProps extends BaseProps {
     focusInner?: boolean;
     onInputFocus?: (e: any) => void;
     onInputBlur?: (e: any) => void;
+    preventScroll?: boolean;
 }
 
 interface RadioInnerState {
@@ -45,6 +46,7 @@ class RadioInner extends BaseComponent<RadioInnerProps, RadioInnerState> {
         focusInner: PropTypes.bool,
         onInputFocus: PropTypes.func,
         onInputBlur: PropTypes.func,
+        preventScroll: PropTypes.bool,
     };
 
     static defaultProps = {
@@ -95,7 +97,8 @@ class RadioInner extends BaseComponent<RadioInnerProps, RadioInnerState> {
     }
 
     focus() {
-        this.inputEntity.focus();
+        const { preventScroll } = this.props;
+        this.inputEntity.focus({ preventScroll });
     }
 
     onChange(e: React.ChangeEvent<HTMLInputElement>) {
