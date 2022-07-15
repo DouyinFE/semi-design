@@ -807,7 +807,8 @@ import { Form } from '@douyinfe/semi-ui';
 
 ### 隐藏Label
 
-Form 会自动为 Field 控件插入 Label。如果你不需要自动插入 Label 模块, 可以通过在 Field 中设置`noLabel=true`将自动插入 Label 功能关闭
+Form 会自动为 Field 控件插入 Label。如果你不需要自动插入 Label 模块, 可以通过在 Field 中设置`noLabel=true`将自动插入 Label 功能关闭（此时 Field 仍然具备自动展示 ErrorMessage 的能力，因此 DOM 结构与原始控件依然会有区别）  
+如果你希望与原始控件保持 DOM 结构一致，可以使用 pure=true，此时除了数据流被接管外，DOM结构不会有任何变化（你需要自行负责 ErrorMessage的渲染，同时它也无法被 formProps.wrapperCol 属性影响）
 
 ```jsx live=true dir="column"
 import React from 'react';
@@ -816,12 +817,7 @@ import { Form } from '@douyinfe/semi-ui';
 () => (
     <Form onSubmit={(values) => console.log(values)} style={{ width: 400 }}>
         <Form.Input field='name' label='姓名' trigger='blur' noLabel={true} style={{ width: 250 }} placeholder='请输入姓名'/>
-        <Form.Select field="role" label='角色' style={{ width: '250px' }} noLabel={true} placeholder='请选择角色'>
-            <Form.Select.Option value="operate">运营</Form.Select.Option>
-            <Form.Select.Option value="rd">开发</Form.Select.Option>
-            <Form.Select.Option value="pm">产品</Form.Select.Option>
-            <Form.Select.Option value="ued">设计</Form.Select.Option>
-        </Form.Select>
+        <Form.Input field='purename' pure placeholder='DOM结构与普通 Input 组件完全一致'/>
     </Form>
 );
 ```
@@ -1443,9 +1439,6 @@ class PartValidAndResetDemo extends React.Component {
     }
 }
 ```
-
-
-
 ### 表单联动
 
 你可以通过监听 Field 的 onChange 事件，然后使用 formApi 进行相关修改，来使 Field 之间达到联动
@@ -2073,6 +2066,30 @@ import { Form, Button } from '@douyinfe/semi-ui';
 | extraTextPosition     | 控制extraText的显示位置，可选`middle`（垂直方向以Label、extraText、Field主体的顺序显示）、`bottom` (垂直方向以Label、Field主体、extraText的顺序显示)；在Form与Field上同时传入时，以Field props为准<br/>**v1.9.0 开始提供**                                                                          | string                                                                                       | 'bottom'     |
 | ...other              | 组件的其他可配置属性，与上面的属性平级一并传入即可，例如 Input 的 size/placeholder，**Field 会将其透传至组件本身**                                                                                                  |                                                                                               |
 
+
+
+## ArrayField Props
+针对动态增删的数组类表单项，我们提供了 ArrayField 作用域来简化 add/remove 的操作
+
+| 属性                  | 说明                                                              | 类型      | 默认值     |
+| --------------------- | ---------------------------------------------------------------- | -------- | --------- |
+| field                 | 该表单控件的值在 formState.values 中的映射路径<br/>必填，例如存在 ArrayField负责 a[0].name、a[1].name、a[2].name三行渲染，他们的父级为a，此处props.field应为 a                                                                    | string                                                                                        |           |
+| initValue             | ArrayField的初始值，如果同时在 formProps.initValues 与 arrayFieldProps.initValue 中都配置了初始值，后者优先级更高  | Array                        | []
+| children              | ArrayField的内容，类型为 Function，函数入参为 add、addWithInitValue 等操作函数 及 arrayFields，执行后应当返回 ReactNode  | Function(ArrayFieldChildrenProps) => ReactNode  | 
+
+```ts
+interface ArrayFieldChildrenProps {
+    arrayFields: ArrayFieldItem<>;                               // 当前数组表单，可以用来执行map操作渲染出每一行
+    add: () => void;                                             // 新增空白行
+    addWithInitValue: (lineObject: Record<string, any>) => void; // 新增一个带初始值的行
+}
+
+interface ArrayFieldItem {
+    key: string;        // 一个用于标识当前行的key，应当绑定在当前行的 wrapper 上
+    field: string;      // 本行 fieldPath, 它等同于 ArrayFieldProps.field + [index]
+    remove: () => void; // 移除本行的操作函数，调用时将直接删除本行
+}
+```
 
 
 ## Form.Section
