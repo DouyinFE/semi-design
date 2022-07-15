@@ -48,6 +48,7 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
         tabPosition: PropTypes.oneOf(strings.POSITION_MAP),
         type: PropTypes.oneOf(strings.TYPE_MAP),
         onTabClose: PropTypes.func,
+        preventScroll: PropTypes.bool,
     };
 
     static defaultProps: TabsProps = {

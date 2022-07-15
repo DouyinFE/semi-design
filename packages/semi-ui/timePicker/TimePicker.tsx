@@ -75,6 +75,7 @@ export type TimePickerProps = {
     popupStyle?: React.CSSProperties;
     position?: Position;
     prefixCls?: string;
+    preventScroll?: boolean;
     rangeSeparator?: string;
     scrollItemProps?: ScrollItemProps<any>;
     secondStep?: number;
@@ -164,6 +165,7 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
         autoAdjustOverflow: PropTypes.bool,
         ...PanelShape,
         inputStyle: PropTypes.object,
+        preventScroll: PropTypes.bool,
     };
 
     static defaultProps = {

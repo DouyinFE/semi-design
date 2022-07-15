@@ -62,6 +62,7 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
         index: PropTypes.number,
         'aria-label': PropTypes.string,
         tabIndex: PropTypes.number,
+        preventScroll: PropTypes.bool,
     };
 
     static defaultProps = {

@@ -36,6 +36,7 @@ export interface TabsProps {
     tabPosition?: TabPosition;
     type?: TabType;
     onTabClose?: (tabKey: string) => void;
+    preventScroll?: boolean;
 }
 
 export interface TabBarProps {

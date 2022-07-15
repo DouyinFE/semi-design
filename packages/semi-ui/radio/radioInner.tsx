@@ -23,6 +23,10 @@ export interface RadioInnerProps extends BaseProps {
     addonId?: string;
     extraId?: string;
     'aria-label'?: React.AriaAttributes['aria-label'];
+    focusInner?: boolean;
+    onInputFocus?: (e: any) => void;
+    onInputBlur?: (e: any) => void;
+    preventScroll?: boolean;
 }
 
 interface RadioInnerState {
@@ -39,6 +43,10 @@ class RadioInner extends BaseComponent<RadioInnerProps, RadioInnerState> {
         onChange: PropTypes.func,
         mode: PropTypes.oneOf(['advanced', '']),
         'aria-label': PropTypes.string,
+        focusInner: PropTypes.bool,
+        onInputFocus: PropTypes.func,
+        onInputBlur: PropTypes.func,
+        preventScroll: PropTypes.bool,
     };
 
     static defaultProps = {
@@ -89,7 +97,8 @@ class RadioInner extends BaseComponent<RadioInnerProps, RadioInnerState> {
     }
 
     focus() {
-        this.inputEntity.focus();
+        const { preventScroll } = this.props;
+        this.inputEntity.focus({ preventScroll });
     }
 
     onChange(e: React.ChangeEvent<HTMLInputElement>) {

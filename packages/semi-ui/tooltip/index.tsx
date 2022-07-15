@@ -75,6 +75,8 @@ export interface TooltipProps extends BaseProps {
     guardFocus?: boolean;
     returnFocusOnClose?: boolean;
     onEscKeyDown?: (e: React.KeyboardEvent) => void;
+    wrapperId?: string;
+    preventScroll?: boolean;
 }
 interface TooltipState {
     visible: boolean;
@@ -135,6 +137,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         wrapWhenSpecial: PropTypes.bool, // when trigger has special status such as "disabled" or "loading", wrap span
         guardFocus: PropTypes.bool,
         returnFocusOnClose: PropTypes.bool,
+        preventScroll: PropTypes.bool,
     };
 
     static defaultProps = {
@@ -421,9 +424,10 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                 return getActiveElement();
             },
             setInitialFocus: () => {
+                const { preventScroll } = this.props;
                 const focusRefNode = get(this, 'initialFocusRef.current');
                 if (focusRefNode && 'focus' in focusRefNode) {
-                    focusRefNode.focus();
+                    focusRefNode.focus({ preventScroll });
                 } 
             },
             notifyEscKeydown: (event: React.KeyboardEvent) => {

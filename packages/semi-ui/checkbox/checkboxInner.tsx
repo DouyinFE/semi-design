@@ -23,6 +23,10 @@ export interface CheckboxInnerProps {
     addonId?: string;
     extraId?: string;
     'aria-label'?: React.AriaAttributes['aria-label'];
+    focusInner?: boolean;
+    onInputFocus?: (e: any) => void;
+    onInputBlur?: (e: any) => void;
+    preventScroll?: boolean;
 }
 
 class CheckboxInner extends PureComponent<CheckboxInnerProps> {
@@ -43,6 +47,10 @@ class CheckboxInner extends PureComponent<CheckboxInnerProps> {
         isPureCardType: PropTypes.bool,
         addonId: PropTypes.string,
         extraId: PropTypes.string,
+        focusInner: PropTypes.bool,
+        onInputFocus: PropTypes.func,
+        onInputBlur: PropTypes.func,
+        preventScroll: PropTypes.bool,
     };
 
     static defaultProps = {
@@ -55,7 +63,8 @@ class CheckboxInner extends PureComponent<CheckboxInnerProps> {
     }
 
     focus() {
-        this.inputEntity.focus();
+        const { preventScroll } = this.props;
+        this.inputEntity.focus({ preventScroll });
     }
 
     render() {

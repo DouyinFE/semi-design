@@ -130,6 +130,7 @@ export interface BaseCheckboxProps {
     extra?: any;
     addonId?: string;
     extraId?: string;
+    preventScroll?: boolean;
 }
 
 export default CheckboxFoundation;

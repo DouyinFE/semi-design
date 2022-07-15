@@ -168,6 +168,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         disableStrictly: PropTypes.bool,
         leafOnly: PropTypes.bool,
         enableLeafClick: PropTypes.bool,
+        preventScroll: PropTypes.bool,
     };
 
     static defaultProps = {
@@ -268,16 +269,16 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                 this.setState({ inputPlaceHolder: value });
             },
             focusInput: () => {
+                const { preventScroll } = this.props;
                 if (this.inputRef && this.inputRef.current) {
                     // TODO: check the reason
-                    (this.inputRef.current as any).focus();
+                    (this.inputRef.current as any).focus({ preventScroll });
                 }
             },
         };
-        const cascaderAdapter: Pick<CascaderAdapter,
-        'registerClickOutsideHandler'
-        | 'unregisterClickOutsideHandler'
-        | 'rePositionDropdown'
+        const cascaderAdapter: Pick<
+        CascaderAdapter,
+        'registerClickOutsideHandler' | 'unregisterClickOutsideHandler' | 'rePositionDropdown'
         > = {
             registerClickOutsideHandler: cb => {
                 const clickOutsideHandler = (e: Event) => {
@@ -887,9 +888,9 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         const { isOpen, isFocus, isInput, checkedKeys } = this.state;
         const filterable = Boolean(filterTreeNode);
         const useCustomTrigger = typeof triggerRender === 'function';
-        const classNames = useCustomTrigger ?
-            cls(className) :
-            cls(prefixcls, className, {
+        const classNames = useCustomTrigger
+            ? cls(className)
+            : cls(prefixcls, className, {
                 [`${prefixcls}-focus`]: isFocus || (isOpen && !isInput),
                 [`${prefixcls}-disabled`]: disabled,
                 [`${prefixcls}-single`]: true,
@@ -901,18 +902,18 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                 [`${prefixcls}-with-prefix`]: prefix || insetLabel,
                 [`${prefixcls}-with-suffix`]: suffix,
             });
-        const mouseEvent = showClear ?
-            {
+        const mouseEvent = showClear
+            ? {
                 onMouseEnter: () => this.handleMouseOver(),
                 onMouseLeave: () => this.handleMouseLeave(),
-            } :
-            {};
+            }
+            : {};
         const sectionCls = cls(`${prefixcls}-selection`, {
             [`${prefixcls}-selection-multiple`]: multiple && !isEmpty(checkedKeys),
         });
-        const inner = useCustomTrigger ?
-            this.renderCustomTrigger() :
-            [
+        const inner = useCustomTrigger
+            ? this.renderCustomTrigger()
+            : [
                 <Fragment key={'prefix'}>{prefix || insetLabel ? this.renderPrefix() : null}</Fragment>,
                 <Fragment key={'selection'}>
                     <div className={sectionCls}>{this.renderSelectContent()}</div>

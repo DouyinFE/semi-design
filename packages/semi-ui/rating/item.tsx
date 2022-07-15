@@ -21,6 +21,14 @@ export interface RatingItemProps {
     count: number;
     size: number | ArrayElement<typeof strings.SIZE_SET>;
     'aria-describedby'?: React.AriaAttributes['aria-describedby'];
+    onFocus?: (e: React.FocusEvent) => void;
+    onBlur?: (e: React.FocusEvent) => void;
+    preventScroll?: boolean;
+}
+
+export interface RatingItemState {
+    firstStarFocus: boolean,
+    secondStarFocus: boolean,
 }
 
 export default class Item extends PureComponent<RatingItemProps> {
@@ -40,6 +48,9 @@ export default class Item extends PureComponent<RatingItemProps> {
             PropTypes.number,
         ]),
         'aria-describedby': PropTypes.string,
+        onFocus: PropTypes.func,
+        onBlur: PropTypes.func,
+        preventScroll: PropTypes.bool,
     };
 
     onHover: React.MouseEventHandler = e => {
