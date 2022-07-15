@@ -635,7 +635,7 @@ function Demo() {
 
 <Notice type="primary" title="注意事项">
     <div>范围选择时，面板打开后默认选择的日期为开始日期，选择后会切到结束日期选择。面板关闭后焦点会重置。</div>
-    <div>我们建议提供一个清除按钮，当你给 DatePicker 传入空值时，DatePicker 内部也会重置焦点。这样用户可以在清除后重新选择日期范围。（from v2.14）</div>
+    <div>我们建议提供一个清除按钮，当你给 DatePicker 传入空值时，DatePicker 内部也会重置焦点。这样用户可以在清除后重新选择日期范围。（from v2.15）</div>
 </Notice>
 
 ```jsx live=true hideInDSM

@@ -669,7 +669,7 @@ function Demo() {
 
 <Notice type="primary" title="Note">
     <div>When DatePicker is range type, the default date selected after the panel is opened is the start date, and it will switch to the end date selection after selection. The focus is reset when the panel is closed.</div>
-    <div>We recommend providing a clear button, when you pass null value to DatePicker, DatePicker will also reset focus internally. This allows the user to reselect the date range after clearing. (from v2.14)</div>
+    <div>We recommend providing a clear button, when you pass null value to DatePicker, DatePicker will also reset focus internally. This allows the user to reselect the date range after clearing. (from v2.15)</div>
 </Notice>
 
 ```jsx live=true hideInDSM
