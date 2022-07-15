@@ -595,6 +595,8 @@ import { DatePicker } from '@douyinfe/semi-ui';
 
 默认情况下我们使用 `Input` 组件作为 `DatePicker` 组件的触发器，通过传递 `triggerRender` 方法你可以自定义这个触发器。
 
+自定义触发器是对触发器的完全自定义，默认的清除按钮将不生效，如果你需要清除功能，请自定义一个清除按钮。
+
 ```jsx live=true hideInDSM
 import React, { useState, useCallback, useMemo } from 'react';
 import * as dateFns from 'date-fns';
@@ -624,6 +626,56 @@ function Demo() {
             triggerRender={({ placeholder }) => (
                 <Button theme={'light'} icon={closeIcon} iconPosition={'right'}>
                     {(date && dateFns.format(date, formatToken)) || placeholder}
+                </Button>
+            )}
+        />
+    );
+}
+```
+
+<Notice type="primary" title="注意事项">
+    <div>范围选择时，面板打开后默认选择的日期为开始日期，选择后会切到结束日期选择。面板关闭后焦点会重置。</div>
+    <div>我们建议提供一个清除按钮，当你给 DatePicker 传入空值时，DatePicker 内部也会重置焦点。这样用户可以在清除后重新选择日期范围。（from v2.14）</div>
+</Notice>
+
+```jsx live=true hideInDSM
+import React, { useState, useCallback, useMemo } from 'react';
+import { DatePicker, Button, Icon } from '@douyinfe/semi-ui';
+import { IconClose, IconChevronDown } from '@douyinfe/semi-icons';
+
+
+function Demo() {
+    const [date, setDate] = useState();
+    const formatToken = 'yyyy-MM-dd HH:mm:ss';
+    const onChange = useCallback(date => {
+        setDate(date);
+        console.log(date);
+    }, []);
+    const onClear = useCallback(e => {
+        e && e.stopPropagation();
+        setDate();
+    }, []);
+
+    const closeIcon = useMemo(() => {
+        return date ? <IconClose onClick={onClear} /> : <IconChevronDown />;
+    }, [date]);
+
+    const triggerContent = (placeholder) => {
+        if (Array.isArray(date) && date.length) {
+            return `${dateFns.format(date[0], formatToken)} ~ ${dateFns.format(date[1], formatToken)}`;
+        } else {
+            return '请选择日期时间范围';
+        }
+    };
+
+    return (
+        <DatePicker
+            type='dateTimeRange'
+            onChange={onChange}
+            value={date}
+            triggerRender={({ placeholder }) => (
+                <Button theme={'light'} icon={closeIcon} iconPosition={'right'}>
+                    {triggerContent(placeholder)}
                 </Button>
             )}
         />

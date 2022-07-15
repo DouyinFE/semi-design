@@ -1056,6 +1056,7 @@ describe(`DatePicker`, () => {
         const rightSecondWeek = rightPanel.querySelectorAll(`.${BASE_CLASS_PREFIX}-datepicker-week`)[1];
         const rightSecondWeekDays = rightSecondWeek.querySelectorAll(`.${BASE_CLASS_PREFIX}-datepicker-day`);
         leftSecondWeekDays[0].click();
+        await sleep();
         rightSecondWeekDays[0].click();
 
         const baseElem = elem.find(BaseDatePicker);
