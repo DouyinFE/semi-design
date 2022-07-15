@@ -16,6 +16,11 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 ---
 
+#### 🎉 2.15.0 (2022-07-15)
+- 【Fix】
+    - 修复多选状态下的TreeSelect/Tree被CheckboxGroup包裹后，点击任何选项将所有选项显示为被选中的问题,  [#750](https://github.com/DouyinFE/semi-design/issues/750)
+    - 修复 @douyinfe/semi-illustrations 插画按需加载失效的问题 [#961](https://github.com/DouyinFE/semi-design/issues/961)
+
 #### 🎉 2.15.0-beta.0 (2022-07-11)
 - 【Feat】
     - Rating 新增 A11y 焦点及键盘适配
