@@ -20,7 +20,7 @@ Why: In order to be compatible with next, lodash-es only provides the product of
 
 See more [here](https://github.com/vercel/next.js/issues/2259)。
 
-### ✅ Should not use relative paths to import a package under pacakges in semi-ui or semi-foundation
+### ✅ Should not use relative paths to import a package under packages in semi-ui or semi-foundation
 
 For imports between packages under monorepo, use package names instead of relative paths.
 
