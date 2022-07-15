@@ -129,9 +129,9 @@ export default class Rating extends BaseComponent<RatingProps, RatingState> {
         return {
             ...super.adapter,
             focus: () => {
-                const { disabled } = this.props;
+                const { disabled, preventScroll } = this.props;
                 if (!disabled) {
-                    this.rate.focus();
+                    this.rate.focus({ preventScroll });
                 }
             },
             getStarDOM: (index: number) => {
