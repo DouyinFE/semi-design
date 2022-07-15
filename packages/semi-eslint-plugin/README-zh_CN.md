@@ -20,7 +20,7 @@ semi-ui 不应该作为 semi-foundation 的依赖。
 
 点击查看[详情](https://github.com/vercel/next.js/issues/2259)。
 
-### ✅ 不能在 semi-ui 或 semi-foundation 使用相对路径引用 pacakges 下的包
+### ✅ 不能在 semi-ui 或 semi-foundation 使用相对路径引用 packages 下的包
 
 monorepo 下各个包之间的 import 请使用包名而不是相对路径。
 
