@@ -5,6 +5,7 @@ import { transScssVariables2CssVariables } from './index';
 import { generateScssMap, writeFile, compilerFromScssMap } from '@douyinfe/semi-scss-compile';
 import path from 'path';
 import fs from 'fs-extra';
+import CleanCSS from 'clean-css';
 
 const main = () => {
     console.log('bin exec');
@@ -20,7 +21,18 @@ const main = () => {
     // scssMap.theme["index.scss"]=scssMap.theme["index.scss"]+`\n@import "${cssVarPath}";\n`;
     const tempDir = writeFile(scssMap);
     const result = compilerFromScssMap(path.join(tempDir, 'index.scss'), isMin);
-    fs.outputFileSync(path.join(distPath,'semi.cssvar.css'), result.css);
+
+    const out = new CleanCSS({
+        level:{
+            2:{
+                all:false,
+                removeDuplicateRules:true,
+            },
+        },
+        format:false
+    }).minify(result.css).styles;
+
+    fs.outputFileSync(path.join(distPath,'semi.cssvar.css'), out);
 
 };
 
