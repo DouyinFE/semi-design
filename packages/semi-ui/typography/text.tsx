@@ -4,8 +4,12 @@ import { strings } from '@douyinfe/semi-foundation/typography/constants';
 import Base from './base';
 import { Ellipsis, TypographyBaseSize, TypographyBaseType, OmitTypographyProps } from './interface';
 import { CopyableConfig, LinkType } from './title';
+import cls from 'classnames';
+import { cssClasses } from '@douyinfe/semi-foundation/typography/constants';
 
 type OmitTextProps = OmitTypographyProps;
+
+const prefixCls = cssClasses.PREFIX;
 
 export interface TextProps extends Omit<React.HTMLAttributes<HTMLSpanElement>, OmitTextProps> {
     children?: React.ReactNode;
@@ -63,6 +67,10 @@ export default class Text extends PureComponent<TextProps> {
     };
 
     render() {
-        return <Base component={'span'} {...this.props} />;
+        const className = cls(this.props.className, {
+            [`${prefixCls}-text`]: true,
+            [`${prefixCls}-text-icon`]: this.props.icon,
+        });
+        return <Base component={'span'} {...this.props} className={className} />;
     }
 }
