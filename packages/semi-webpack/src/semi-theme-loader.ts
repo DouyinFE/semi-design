@@ -8,7 +8,7 @@ export default function SemiThemeLoader(source: string) {
     const scssVarStr = `@import "~${theme}/scss/index.scss";\n`;
     // inject once
     const cssVarStr = `@import "~${theme}/scss/global.scss";\n`;
-
+    const animationStr = `@import "~${theme}/scss/animation.scss";\n`;
     const shouldInject = source.includes('semi-base');
 
     let fileStr = source;
@@ -45,7 +45,7 @@ export default function SemiThemeLoader(source: string) {
     const prefixClsStr = `$prefix: '${prefixCls}';\n`;
 
     if (shouldInject) {
-        return `${cssVarStr}${scssVarStr}${prefixClsStr}${fileStr}`;
+        return `${animationStr}${cssVarStr}${scssVarStr}${prefixClsStr}${fileStr}`;
     } else {
         return `${scssVarStr}${prefixClsStr}${fileStr}`;
     }
