@@ -13,7 +13,7 @@ export default class DropdownFoundation extends BaseFoundation<DropdownAdapter> 
     }
 
     getMenuItemNodes(target: any): HTMLElement[] {
-        const id = target.attributes['data-popupId'].value;
+        const id = target.attributes['data-popupid'].value;
         const menuWrapper = document.getElementById(id);
         // if has dropdown item, the item must wrapped by li
         return menuWrapper ? Array.from(menuWrapper.getElementsByTagName('li')).filter(item => item.ariaDisabled === "false") : null;
