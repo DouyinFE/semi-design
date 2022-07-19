@@ -8,6 +8,8 @@ order: 8
 ---
 
 
+#### Semi now offers Figma UI Kit, will Sketch or other design tool based versions be available in the future?
+- There is no plan in this regard, please refer to [Issue 74](https://github.com/DouyinFE/semi-design/issues/74)
 
 #### What is the relationship between Semi 2.x (open source version) and Semi 1.x?
  - The Semi v2.0 version is refactored based on v1.x using ts, which brings a better ts experience, bettter a11y support and a more out-of-the-box engineering solution, which solves the coexistence of multi-component libraries in the micro front-end scenario Style conflict issues, etc. All subsequent long-term work of the Semi team will be based on the v2.x version

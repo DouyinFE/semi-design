@@ -20,7 +20,6 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 #### 🎉 2.15.0 (2022-07-15)
 - 【Fix】
     - Fixed the problem that when TreeSelect/Tree in multi-select state is wrapped by CheckboxGroup, clicking any option will cause all options to be displayed as selected [#750](https://github.com/DouyinFE/semi-design/issues/750)
-    - Fix the problem that @douyinfe/semi-illustrations failed to shaking [#961](https://github.com/DouyinFE/semi-design/issues/961)
     - Fix DatePicker in triggerRender range selection scene to select date interaction issue [#676](https://github.com/DouyinFE/semi-design/issues/676)
 
 #### 🎉 2.15.0-beta.0 (2022-07-11)
