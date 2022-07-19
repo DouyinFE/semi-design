@@ -20,7 +20,7 @@ export default class DropdownMenuFoundation extends BaseFoundation<Partial<Defau
     handleEscape(menu: Element): void {
         const trigger = this._adapter.getContext('trigger');
         if (trigger === 'custom'){
-            const menuButton = menu && getMenuButton(document.querySelectorAll(`[data-popupId]`), menu.id); 
+            const menuButton = menu && getMenuButton(document.querySelectorAll(`[data-popupid]`), menu.id); 
             menuButton.focus();
         }
     }

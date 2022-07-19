@@ -717,7 +717,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                 }
             },
             tabIndex: 0, // a11y keyboard
-            'data-popupId': id
+            'data-popupid': id
         });
 
         // If you do not add a layer of div, in order to bind the events and className in the tooltip, you need to cloneElement children, but this time it may overwrite the children's original ref reference
