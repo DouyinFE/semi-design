@@ -1,6 +1,6 @@
 {
   "name": "@douyinfe/semi-illustrations",
-  "version": "2.15.0-alpha.0",
+  "version": "2.15.1",
   "description": "semi illustrations",
   "keywords": [
     "semi",
@@ -28,14 +28,14 @@
     "case-sensitive-paths-webpack-plugin": "2.4.0",
     "del": "^6.0.0",
     "gulp": "^4.0.2",
+    "gulp-esbuild": "0.10.4",
     "gulp-replace": "^1.1.3",
     "gulp-typescript": "^6.0.0-alpha.1",
     "merge2": "^1.4.1",
     "rimraf": "^3.0.2",
     "terser-webpack-plugin": "^4.2.3",
     "ts-loader": "^5.4.5",
-    "webpack": "^4.46.0",
-    "gulp-esbuild": "0.10.4"
+    "webpack": "^4.46.0"
   },
   "scripts": {
     "clean": "rimraf dist lib",
