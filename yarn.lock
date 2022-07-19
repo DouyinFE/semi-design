@@ -1516,6 +1516,13 @@
     "@babel/runtime-corejs3" "^7.15.4"
     classnames "^2.2.6"
 
+"@douyinfe/semi-illustrations@2.15.0":
+  version "2.15.0"
+  resolved "https://registry.yarnpkg.com/@douyinfe/semi-illustrations/-/semi-illustrations-2.15.0.tgz#a99a58a739b59ea34d5dcfb38f2abb72b6a01608"
+  integrity sha512-8gajbeKZwJTk7G79tK7qPg8s3V1UUxjg8oA8X/11kim+rt0vzRqCXclyR65JMWIayZIIj+VftqjCHcTc6ozI0A==
+  dependencies:
+    "@babel/runtime-corejs3" "^7.15.4"
+
 "@douyinfe/semi-illustrations@2.9.1":
   version "2.9.1"
   resolved "https://registry.yarnpkg.com/@douyinfe/semi-illustrations/-/semi-illustrations-2.9.1.tgz#1a448d1854ee1beeba57ea612da052b549ea105f"
