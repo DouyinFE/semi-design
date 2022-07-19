@@ -1,6 +1,6 @@
 {
   "name": "@douyinfe/semi-illustrations",
-  "version": "2.15.0",
+  "version": "2.15.0-alpha.0",
   "description": "semi illustrations",
   "keywords": [
     "semi",
@@ -20,9 +20,6 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/DouyinFE/semi-design"
-  },
-  "dependencies": {
-    "@babel/runtime-corejs3": "^7.15.4"
   },
   "peerDependencies": {
     "react": "^16.8.0 || ^17.0.0 || ^18.0.0"
