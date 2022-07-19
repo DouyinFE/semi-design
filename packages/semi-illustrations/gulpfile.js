@@ -1,11 +1,10 @@
 const path = require('path');
 const gulp = require('gulp');
 const gulpTS = require('gulp-typescript');
-const gulpBabel = require('gulp-babel');
 const merge2 = require('merge2');
 const del = require('del');
 const tsConfig = require('./tsconfig.json');
-const getBabelConfig = require('./getBabelConfig');
+const gulpEsBuild = require('gulp-esbuild');
 
 gulp.task('cleanLib', function cleanLib() {
     return del(['lib/**/*']);
@@ -13,15 +12,24 @@ gulp.task('cleanLib', function cleanLib() {
 
 function compileTSX(isESM) {
     const targetDir = isESM ? 'lib/es' : 'lib/cjs';
-    const tsStream = gulp.src(['src/**/*.tsx', 'src/**/*.ts'])
+    const format = isESM ? 'esm' : 'cjs';
+    const src = ['src/**/*.tsx', 'src/**/*.ts'];
+    const tsStream = gulp.src(src)
         .pipe(gulpTS({
             ...tsConfig.compilerOptions,
             rootDir: path.join(__dirname, '..')
         }));
-    const jsStream = tsStream.js
-        .pipe(gulpBabel(getBabelConfig(isESM)))
-        .pipe(gulp.dest(targetDir));
     const dtsStream = tsStream.dts.pipe(gulp.dest(targetDir));
+
+    const jsStream = gulp.src(src)
+        .pipe(gulpEsBuild({
+            loader: {
+                '.tsx': 'tsx',
+            },
+            format,
+        }))
+        .pipe(gulp.dest(targetDir));
+
     return merge2([jsStream, dtsStream]);
 }
 
