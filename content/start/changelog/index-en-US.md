@@ -18,6 +18,7 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 
 #### 🎉 2.15.1 (2022-07-19)
+- 【Fix】
     - Fix the problem that @douyinfe/semi-illustrations failed to shaking [#961](https://github.com/DouyinFE/semi-design/issues/961)
     - Fix the warning that the name of the custom attribute data-popupId is not lowercase [#969](https://github.com/DouyinFE/semi-design/issues/969)（影响范围 2.15.0）
 
