@@ -6,9 +6,8 @@ $inner-width: $width-icon-medium;
 .#{$module} {
     @include box-sizing;
     @include font-size-regular;
-    position: relative;
     display: inline-flex;
-    flex-wrap: wrap;
+    column-gap: $spacing-radio_addon-paddingLeft;
 
     &.#{$module}-vertical {
         display: block;
@@ -78,6 +77,8 @@ $inner-width: $width-icon-medium;
     }
 
     &-buttonRadioGroup {
+        // Button needs to be positioned relative to parent
+        position: relative;
         padding: $spacing-radio_buttonRadioGroup_middle-padding;
         border-radius: $radius-radio_buttonRadio;
         line-height: $font-radio_buttonRadioGroup_middle-lineHeight;
@@ -106,7 +107,6 @@ $inner-width: $width-icon-medium;
         border: $width-radio_cardRadioGroup_checked-border solid transparent;
 
         .#{$module}-inner {
-            position: relative;
             &-display {
                 background: $color-radio_card-bg-default;
             }
@@ -205,19 +205,19 @@ $inner-width: $width-icon-medium;
     }
 
     &-inner {
-        position: absolute;
-        display: inline-block;
-        top: 2px;
-        left: 0;
+        display: inline-flex;
+        margin-top: 2px;
+        // WARN: The absolute positioning used by the input does not occupy space, and relative cannot be removed here.
+        position: relative;
         width: $width-radio_inner;
         height: $width-radio_inner;
         vertical-align: sub;
         user-select: none; // prevent text under it will be selected when double click
 
         &-display {
-            position: absolute;
-            left: 0;
-            top: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             @include box-sizing;
             width: $width-radio_inner;
             height: $width-radio_inner;
@@ -226,12 +226,16 @@ $inner-width: $width-icon-medium;
             background: $color-radio_default-bg-default;
 
             .#{$prefix}-icon {
-                position: absolute;
                 width: 100%;
                 height: 100%;
                 font-size: 14px;
             }
         }
+    }
+
+    &-content {
+        display: flex;
+        flex-direction: column;
     }
 
     &:hover {
@@ -248,8 +252,6 @@ $inner-width: $width-icon-medium;
 
     &-addon {
         user-select: none;
-        padding-left: $spacing-radio_addon-paddingLeft;
-        margin-left: $spacing-radio_addon-marginLeft;
         color: $color-radio_default-text-default;
         display: inline-flex;
         align-items: center;
@@ -372,11 +374,7 @@ $inner-width: $width-icon-medium;
     }
 
     &-extra {
-        flex-grow: 1;
-        flex-basis: 100%;
-        flex-shrink: 0;
         color: $color-radio_extra-text-default;
-        padding-left: $spacing-radio_extra-paddingLeft;
         box-sizing: border-box;
     }
 
@@ -393,37 +391,25 @@ $inner-width: $width-icon-medium;
     @include font-size-regular;
 
     &-vertical {
-        .#{$module} {
-            &:last-of-type {
-                margin-bottom: 0;
-            }
-        }
+        display: flex;
+        flex-direction: column;
+        row-gap: $spacing-radio_group_vertical-marginBottom;
+
         &-default {
             .#{$module} {
-                display: block;
-                margin-bottom: $spacing-radio_group_vertical-marginBottom;
-
+                display: flex;
             }
         }
         &-card {
             .#{$module} {
                 display: flex;
-                margin-bottom: $spacing-radio_card_group_vertical-marginBottom;
             }
         }
     }
 
     &-horizontal {
-        .#{$module} {
-            margin-right: $spacing-radio_group_horizontal-marginRight;
-
-            &:last-of-type {
-                margin-right: 0;
-            }
-        }
-        &-default {
-            display: inline-block;
-        }
+        display: inline-flex;
+        column-gap: $spacing-radio_group_horizontal-marginRight;
     }
 
     &-buttonRadio {

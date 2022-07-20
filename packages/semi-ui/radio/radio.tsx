@@ -285,11 +285,9 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
                     onInputFocus={this.handleFocusVisible}
                     onInputBlur={this.handleBlur}
                 />
-                {
-                    isCardRadioGroup ?
-                        <div className={`${prefix}-isCardRadioGroup_content`}>{renderContent()}</div> :
-                        renderContent()
-                }
+                <div className={cls([`${prefix}-content`, { [`${prefix}-isCardRadioGroup_content`]: isCardRadioGroup }])}>
+                    {renderContent()}
+                </div>
             </label>
         );
     }
