@@ -166,6 +166,35 @@ TransferDraggable.story = {
   name: 'Transfer draggable',
 };
 
+export const TransferDraggableAndDisabled = () => {
+  const data = Array.from({ length: 30 }, (v, i) => {
+      return {
+          label: `选项名称 ${i}`,
+          value: i,
+          key: i,
+          disabled: true,
+      };
+  });
+  return (
+    <>
+      <div>Transfer设置draggable, 并且左侧面板中的选项disabled </div>
+      <div>符合预期的行为： 右侧面板hover不会出现删除按钮，因此不可以点击删除，但是可以拖拽 </div>
+      <Transfer
+          style={{ width: 568, height: 416 }}
+          dataSource={data}
+          defaultValue={[2, 4]}
+          draggable
+          onChange={(values, items) => console.log(values, items)}
+      />
+    </>
+  );
+};
+
+TransferDraggableAndDisabled.story = {
+  name: 'transfer draggable and disabled',
+}
+
+
 const ControledTransfer = () => {
   const [value, setValue] = useState([2, 3]);
 
