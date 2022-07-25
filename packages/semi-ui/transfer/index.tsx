@@ -102,6 +102,12 @@ export interface ResolvedDataItem extends DataItem {
     _optionKey?: string | number;
 }
 
+export interface DraggableResolvedDataItem {
+    key?: string | number;
+    index?: number;
+    item?: ResolvedDataItem;
+}
+
 export type DataSource = Array<DataItem> | Array<GroupItem> | Array<TreeItem>;
 
 interface HeaderConfig {
@@ -511,12 +517,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
 
     renderRightItem(item: ResolvedDataItem): React.ReactNode {
         const { renderSelectedItem, draggable, type, showPath } = this.props;
-        let newItem = item;
-        if (draggable) {
-            newItem = { ...item, key: item._optionKey };
-            delete newItem._optionKey;
-        }
-        const onRemove = () => this.foundation.handleSelectOrRemove(newItem);
+        const onRemove = () => this.foundation.handleSelectOrRemove(item);
         const rightItemCls = cls({
             [`${prefixcls}-item`]: true,
             [`${prefixcls}-right-item`]: true,
@@ -536,7 +537,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
 
         return (
             // https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex
-            <div role="listitem" className={rightItemCls} key={newItem.key}>
+            <div role="listitem" className={rightItemCls} key={item.key}>
                 {draggable ? <DragHandle /> : null}
                 <div className={`${prefixcls}-right-item-text`}>{label}</div>
                 <IconClose
@@ -562,14 +563,13 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
     renderRightSortableList(selectedData: Array<ResolvedDataItem>) {
         // when choose some items && draggable is true
         const SortableItem = SortableElement((
-            (item: ResolvedDataItem) => this.renderRightItem(item)) as React.FC<ResolvedDataItem>
+            (props: DraggableResolvedDataItem) => this.renderRightItem(props.item)) as React.FC<DraggableResolvedDataItem>
         );
         const SortableList = SortableContainer(({ items }: { items: Array<ResolvedDataItem> }) => (
             <div className={`${prefixcls}-right-list`} role="list" aria-label="Selected list">
                 {items.map((item, index: number) => (
-                    // sortableElement will take over the property 'key', so use another '_optionKey' to pass
                     // @ts-ignore skip SortableItem type check
-                    <SortableItem key={item.label} index={index} {...item} _optionKey={item.key} />
+                    <SortableItem key={item.label} index={index} item={item} />
                 ))}
             </div>
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment

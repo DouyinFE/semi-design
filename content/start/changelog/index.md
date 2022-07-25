@@ -16,10 +16,14 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 ---
 
+#### 🎉 2.15.1 (2022-07-19)
+- 【Fix】
+    - 修复 @douyinfe/semi-illustrations 插画按需加载失效的问题 [#961](https://github.com/DouyinFE/semi-design/issues/961)
+    - 修复自定义属性data-popupId名称没有小写导致的warning[#969](https://github.com/DouyinFE/semi-design/issues/969)（影响范围 2.15.0）
+
 #### 🎉 2.15.0 (2022-07-15)
 - 【Fix】
     - 修复多选状态下的TreeSelect/Tree被CheckboxGroup包裹后，点击任何选项将所有选项显示为被选中的问题,  [#750](https://github.com/DouyinFE/semi-design/issues/750)
-    - 修复 @douyinfe/semi-illustrations 插画按需加载失效的问题 [#961](https://github.com/DouyinFE/semi-design/issues/961)
     - 修复 DatePicker 在 triggerRender 范围选择场景选择日期交互问题 [#676](https://github.com/DouyinFE/semi-design/issues/676)
 
 #### 🎉 2.15.0-beta.0 (2022-07-11)
