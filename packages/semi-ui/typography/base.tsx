@@ -72,7 +72,7 @@ const wrapperDecorations = (props: BaseTypographyProps, content: React.ReactNode
     wrap(strong, 'strong');
     wrap(props.delete, 'del');
     wrap(link, disabled ? 'span' : 'a');
-    // When the cotent is not wrapped, and there is more than one element in the conent (one of which is an icon), 
+    // When the content is not wrapped, and there is more than one element in the content (one of which is an icon), 
     // use span to wrap the content, so that the content in the span is vertically aligned
     if (wrapped === content && icon) {
         wrap(true, 'span');
