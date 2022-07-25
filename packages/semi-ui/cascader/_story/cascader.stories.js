@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import CustomTrigger from './CustomTrigger';
 import { Button, Typography, Toast, Cascader } from '../../index';
 
@@ -261,6 +261,96 @@ const treedataWithNodeLabel = [
         ],
     }
 ];
+
+export const issue703 = () => {
+    const initialData = [
+        {
+            label: 'Node1',
+            value: '0-0',
+        },
+        {
+            label: 'Node2',
+            value: '0-1',
+        },
+        {
+            label: 'Node3',
+            value: '0-2',
+            isLeaf: true
+        },
+    ];
+    const [data, setData] = useState(initialData);
+    
+    const updateTreeData = (list, value, children) => {
+        return list.map(node => {
+            if (node.value === value) {
+                return { ...node, children };
+            }
+            if (node.children) {
+                return { ...node, children: updateTreeData(node.children, value, children) };
+            }
+            return node;
+        });
+    };
+
+    const onLoadData = selectedOpt => {
+        const targetOpt = selectedOpt[selectedOpt.length - 1];
+        const { label, value } = targetOpt;
+        return new Promise(resolve => {
+            if (targetOpt.children) {
+                resolve();
+                return;
+            }
+
+            setTimeout(() => {
+                setData(origin =>
+                    updateTreeData(origin, value, [
+                        {
+                            label: `${label}-1`,
+                            value: `${label}-1`,
+                            isLeaf: selectedOpt.length > 1
+                        },
+                        {
+                            label: `${label}-2`,
+                            value: `${label}-2`,
+                            isLeaf: selectedOpt.length > 1
+                        },
+                    ]),
+                );
+                resolve();
+            }, 1000);
+        });
+    };
+
+    const [v,setV]=useState([['0-0'], ['0-1', 'Node2-2']]);
+    useEffect(()=>{
+      console.log('data change');
+        setTimeout(()=>setV([['0-0'], ['0-1', 'Node2-2', 'Node2-2-2']]),0);
+    },[data]) 
+
+    return (
+      <>
+        <div>treeData和value动态更新，value中的值在treeData中存在则能够正确显示</div>
+        <Cascader
+            multiple
+            onChange={(a)=>console.log(a)}
+            value={v}
+            style={{ width: 300 }}
+            treeData={data}
+            loadData={onLoadData} 
+            placeholder="Please select"
+        />
+        <div>非受控，动态更新treeData</div>
+        <Cascader
+            multiple
+            onChange={(a)=>console.log(a)}
+            style={{ width: 300 }}
+            treeData={data}
+            loadData={onLoadData} 
+            placeholder="Please select"
+        />
+      </>
+    );
+};
 
 export const _Cascader = () => {
   return (
