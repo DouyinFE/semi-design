@@ -4,6 +4,7 @@
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import touchEventPolyfill from '../utils/touchPolyfill';
 import warning from '../utils/warning';
+import { handlePrevent } from '../utils/a11y';
 
 export interface Marks{
     [key: number]: string;
@@ -515,7 +516,7 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
         const handleMinDom = this._adapter.getMinHandleEl().current;
         const handleMaxDom = this._adapter.getMaxHandleEl().current;
         if (e.target === handleMinDom || e.target === handleMaxDom) {
-            this._handlePrevent(e);
+            handlePrevent(e);
             const touch = touchEventPolyfill(e.touches[0], e);
             this.onHandleDown(touch, handler);
         }
@@ -569,11 +570,6 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
         return true;
     };
 
-    _handlePrevent = (event: any) => {
-        event.stopPropagation();
-        event.preventDefault();
-    }
-
     _handleValueDecreaseWithKeyBoard = (step: number, handler: 'min'| 'max') => {
         const { min, currentValue } = this.getStates();
         const { range } = this.getProps();
@@ -581,8 +577,8 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
             if (range) {
                 let newMinValue = currentValue[0] - step;
                 newMinValue = newMinValue < min ? min : newMinValue;
-                return [newMinValue,  currentValue[1]];
-            } else  {
+                return [newMinValue, currentValue[1]];
+            } else {
                 let newMinValue = currentValue - step;
                 newMinValue = newMinValue < min ? min : newMinValue;
                 return newMinValue;
@@ -590,7 +586,7 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
         } else {
             let newMaxValue = currentValue[1] - step;
             newMaxValue = newMaxValue < currentValue[0] ? currentValue[0] : newMaxValue;
-            return [currentValue[0],  newMaxValue];
+            return [currentValue[0], newMaxValue];
         }
     }
 
@@ -601,16 +597,16 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
             if (range) {
                 let newMinValue = currentValue[0] + step;
                 newMinValue = newMinValue > currentValue[1] ? currentValue[1] : newMinValue;
-                return [newMinValue,  currentValue[1]];
-            } else  {
+                return [newMinValue, currentValue[1]];
+            } else {
                 let newMinValue = currentValue + step;
                 newMinValue = newMinValue > max ? max : newMinValue;
                 return newMinValue;
             }
         } else {
             let newMaxValue = currentValue[1] + step;
-            newMaxValue = newMaxValue > max ? max  : newMaxValue;
-            return [currentValue[0],  newMaxValue];
+            newMaxValue = newMaxValue > max ? max : newMaxValue;
+            return [currentValue[0], newMaxValue];
         }
     }
 
@@ -619,7 +615,7 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
         const { range } = this.getProps();
         if (handler === 'min') {
             if (range) {
-                return [min,  currentValue[1]];
+                return [min, currentValue[1]];
             } else {
                 return min;
             }
@@ -633,7 +629,7 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
         const { range } = this.getProps();
         if (handler === 'min') {
             if (range) {
-                return [currentValue[1],  currentValue[1]];
+                return [currentValue[1], currentValue[1]];
             } else {
                 return max;
             }
@@ -644,7 +640,7 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
 
     handleKeyDown = (event: any, handler: 'min'| 'max') => {
         const { min, max, currentValue } = this.getStates();
-        const { step, range,  } = this.getProps();
+        const { step, range } = this.getProps();
         let outputValue;
         switch (event.key) {
             case "ArrowLeft":
@@ -670,7 +666,7 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
             case 'default':
                 break;
         }
-        if (["ArrowLeft", "ArrowDown", "ArrowRight", "ArrowUp", "PageUp", "PageDown", "Home","End"].includes(event.key)) {
+        if (["ArrowLeft", "ArrowDown", "ArrowRight", "ArrowUp", "PageUp", "PageDown", "Home", "End"].includes(event.key)) {
             let update = true;
             if (Array.isArray(currentValue)) {
                 update = !(currentValue[0] === outputValue[0] && currentValue[1] === outputValue[1]);
@@ -681,17 +677,17 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
                 this._adapter.updateCurrentValue(outputValue);
                 this._adapter.notifyChange(outputValue);
             }
-            this._handlePrevent(event);
+            handlePrevent(event);
         }
     }
 
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     onFocus = (e: any, handler: 'min'| 'max') => {
-        this._handlePrevent(e);
+        handlePrevent(e);
         const { target } = e;
         try {
             if (target.matches(':focus-visible')) {
-                if (handler ===  'min') {
+                if (handler === 'min') {
                     this._adapter.setStateVal('firstDotFocusVisible', true);
                 } else {
                     this._adapter.setStateVal('secondDotFocusVisible', true);
@@ -704,7 +700,7 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
 
     onBlur = (e: any, handler: 'min'| 'max') => {
         const { firstDotFocusVisible, secondDotFocusVisible } = this.getStates();
-        if (handler ===  'min') {
+        if (handler === 'min') {
             firstDotFocusVisible && this._adapter.setStateVal('firstDotFocusVisible', false);
         } else {
             secondDotFocusVisible && this._adapter.setStateVal('secondDotFocusVisible', false);

@@ -716,7 +716,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                     ref.current = node;
                 }
             },
-            'data-popupId': id
+            'data-popupid': id,
         };
         if (trigger === 'hover') {
             childNewProps['tabIndex'] = 0;

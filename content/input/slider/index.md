@@ -78,7 +78,7 @@ class InputSlider extends React.Component {
 ```
 
 ### 自定义提示
-使用 `tipFormatter` 可以设置 Tooltip 的显示的格式。设置 `tipFormatter={null}`，则隐藏 Tooltip。
+使用 `tipFormatter` 可以设置 Tooltip 的显示的格式。设置 `tipFormatter={null}`，则隐藏 Tooltip。`getAriaValueText`用于给滑块的当前值提供一个用户友好的名称，对屏幕阅读器用户很重要。
 ```jsx live=true
 import React from 'react';
 import { Slider } from '@douyinfe/semi-ui';
@@ -260,7 +260,7 @@ import { Slider } from '@douyinfe/semi-ui';
 - 元素的 `aria-valuemin` 属性为最小允许值的十进制数值。
 - 元素的 `aria-valuemax` 属性为最大允许值的十进制数值。
 - 当 Slider 为纵向时，元素的 `aria-orientation` 属性为 'vertical'。
-- 当 `aria-valuenow` 的值不容易被理解时，支持通过 API `aria-valuetext` 传递一个字符串使其更友好。也可以通过 API `geAriaValueText(value, index)` 方法得到 `aria-valuetext` 的值。
+- 当 `aria-valuenow` 的值不容易被理解时，支持通过 API `aria-valuetext` 传递一个字符串使其更友好。也可以通过 API `getAriaValueText(value, index)` 方法得到 `aria-valuetext` 的值。
 - 支持通过 API `aria-label` 或者 `aria-labelledby` 确定 slider 的标签。
 
 ### 键盘和焦点
