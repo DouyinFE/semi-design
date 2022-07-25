@@ -3,7 +3,8 @@
 /* eslint-disable no-nested-ternary */
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import touchEventPolyfill from '../utils/touchPolyfill';
-
+import warning from '../utils/warning';
+import { handlePrevent } from '../utils/a11y';
 
 export interface Marks{
     [key: number]: string;
@@ -34,7 +35,7 @@ export interface SliderProps{
     'aria-label'?: string;
     'aria-labelledby'?: string;
     'aria-valuetext'?: string;
-    getAriaValueText?: (value: number) => string;
+    getAriaValueText?: (value: number, index?: number) => string;
 }
 
 export interface SliderState {
@@ -49,6 +50,8 @@ export interface SliderState {
     clickValue: 0;
     showBoundary: boolean;
     isInRenderTree: boolean;
+    firstDotFocusVisible: boolean;
+    secondDotFocusVisible: boolean;
 }
 
 export interface SliderLengths{
@@ -65,7 +68,6 @@ export interface ScrollParentVal{
 
 export interface OverallVars{
     dragging: boolean[];
-    chooseMovePos: 'min' | 'max';
 }
 
 export interface SliderAdapter extends DefaultAdapter<SliderProps, SliderState>{
@@ -514,8 +516,7 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
         const handleMinDom = this._adapter.getMinHandleEl().current;
         const handleMaxDom = this._adapter.getMaxHandleEl().current;
         if (e.target === handleMinDom || e.target === handleMaxDom) {
-            e.preventDefault();
-            e.stopPropagation();
+            handlePrevent(e);
             const touch = touchEventPolyfill(e.touches[0], e);
             this.onHandleDown(touch, handler);
         }
@@ -564,14 +565,147 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
             this._adapter.setDragging([dragging[0], false]);
         }
         this._adapter.setStateVal('isDrag', false);
-        // this._adapter.setStateVal('chooseMovePos', '');
         this._adapter.onHandleLeave();
         this._adapter.onHandleUpAfter();
         return true;
     };
 
+    _handleValueDecreaseWithKeyBoard = (step: number, handler: 'min'| 'max') => {
+        const { min, currentValue } = this.getStates();
+        const { range } = this.getProps();
+        if (handler === 'min') {
+            if (range) {
+                let newMinValue = currentValue[0] - step;
+                newMinValue = newMinValue < min ? min : newMinValue;
+                return [newMinValue, currentValue[1]];
+            } else {
+                let newMinValue = currentValue - step;
+                newMinValue = newMinValue < min ? min : newMinValue;
+                return newMinValue;
+            }
+        } else {
+            let newMaxValue = currentValue[1] - step;
+            newMaxValue = newMaxValue < currentValue[0] ? currentValue[0] : newMaxValue;
+            return [currentValue[0], newMaxValue];
+        }
+    }
+
+    _handleValueIncreaseWithKeyBoard = (step: number, handler: 'min'| 'max') => {
+        const { max, currentValue } = this.getStates();
+        const { range } = this.getProps();
+        if (handler === 'min') {
+            if (range) {
+                let newMinValue = currentValue[0] + step;
+                newMinValue = newMinValue > currentValue[1] ? currentValue[1] : newMinValue;
+                return [newMinValue, currentValue[1]];
+            } else {
+                let newMinValue = currentValue + step;
+                newMinValue = newMinValue > max ? max : newMinValue;
+                return newMinValue;
+            }
+        } else {
+            let newMaxValue = currentValue[1] + step;
+            newMaxValue = newMaxValue > max ? max : newMaxValue;
+            return [currentValue[0], newMaxValue];
+        }
+    }
+
+    _handleHomeKey = (handler: 'min'| 'max') => {
+        const { min, currentValue } = this.getStates();
+        const { range } = this.getProps();
+        if (handler === 'min') {
+            if (range) {
+                return [min, currentValue[1]];
+            } else {
+                return min;
+            }
+        } else {
+            return [currentValue[0], currentValue[0]];
+        }
+    }
+
+    _handleEndKey = (handler: 'min'| 'max') => {
+        const { max, currentValue } = this.getStates();
+        const { range } = this.getProps();
+        if (handler === 'min') {
+            if (range) {
+                return [currentValue[1], currentValue[1]];
+            } else {
+                return max;
+            }
+        } else {
+            return [currentValue[0], max];
+        }
+    }
+
+    handleKeyDown = (event: any, handler: 'min'| 'max') => {
+        const { min, max, currentValue } = this.getStates();
+        const { step, range } = this.getProps();
+        let outputValue;
+        switch (event.key) {
+            case "ArrowLeft":
+            case "ArrowDown":
+                outputValue = this._handleValueDecreaseWithKeyBoard(step, handler);
+                break;
+            case "ArrowRight":
+            case "ArrowUp":
+                outputValue = this._handleValueIncreaseWithKeyBoard(step, handler);
+                break;
+            case "PageUp":
+                outputValue = this._handleValueIncreaseWithKeyBoard(10 * step, handler);
+                break;
+            case "PageDown":
+                outputValue = this._handleValueDecreaseWithKeyBoard(10 * step, handler);
+                break;
+            case "Home":
+                outputValue = this._handleHomeKey(handler);
+                break;
+            case "End":
+                outputValue = this._handleEndKey(handler);
+                break;
+            case 'default':
+                break;
+        }
+        if (["ArrowLeft", "ArrowDown", "ArrowRight", "ArrowUp", "PageUp", "PageDown", "Home", "End"].includes(event.key)) {
+            let update = true;
+            if (Array.isArray(currentValue)) {
+                update = !(currentValue[0] === outputValue[0] && currentValue[1] === outputValue[1]);
+            } else {
+                update = currentValue !== outputValue;
+            }
+            if (update) {
+                this._adapter.updateCurrentValue(outputValue);
+                this._adapter.notifyChange(outputValue);
+            }
+            handlePrevent(event);
+        }
+    }
+
     // eslint-disable-next-line @typescript-eslint/no-empty-function
-    onFocus = (e:any, handler: 'min'| 'max') => {}
+    onFocus = (e: any, handler: 'min'| 'max') => {
+        handlePrevent(e);
+        const { target } = e;
+        try {
+            if (target.matches(':focus-visible')) {
+                if (handler === 'min') {
+                    this._adapter.setStateVal('firstDotFocusVisible', true);
+                } else {
+                    this._adapter.setStateVal('secondDotFocusVisible', true);
+                }
+            }
+        } catch (error) {
+            warning(true, 'Warning: [Semi Slider] The current browser does not support the focus-visible'); 
+        }
+    }
+
+    onBlur = (e: any, handler: 'min'| 'max') => {
+        const { firstDotFocusVisible, secondDotFocusVisible } = this.getStates();
+        if (handler === 'min') {
+            firstDotFocusVisible && this._adapter.setStateVal('firstDotFocusVisible', false);
+        } else {
+            secondDotFocusVisible && this._adapter.setStateVal('secondDotFocusVisible', false);
+        }
+    }
 
     handleWrapClick = (e: any) => {
         const { disabled, isDrag } = this._adapter.getStates();
@@ -647,7 +781,5 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
         const { x, y } = this.handleMousePos(pos.left + (pos.width * 0.5), pos.top + (pos.height * 0.5));
         return vertical ? y : x;
     }
-
-
 
 }
