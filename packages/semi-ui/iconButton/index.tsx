@@ -80,6 +80,9 @@ class IconButton extends PureComponent<IconButtonProps> {
         } else if (noHorizontalPadding === true) {
             style.paddingLeft = 0;
             style.paddingRight = 0;
+        } else if (typeof noHorizontalPadding === 'string') {
+            noHorizontalPadding === 'left' && (style.paddingLeft = 0);
+            noHorizontalPadding === 'right' && (style.paddingRight = 0);
         }
 
         let finalChildren = null;
