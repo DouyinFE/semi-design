@@ -33,9 +33,10 @@ export default class ButtonGroup extends BaseComponent<ButtonGroupProps> {
     };
 
     static defaultProps = {
+        // There are default values ​​for type and theme in Button. 
+        // In order to allow users to individually customize the type and theme of the Button through the parameters of the Button in the ButtonGroup,
+        // the default value of type and theme is not given in the ButtonGroup。
         size: 'default',
-        type: 'primary',
-        theme: 'light',
     };
 
     render() {
