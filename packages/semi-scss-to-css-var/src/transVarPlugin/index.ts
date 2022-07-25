@@ -51,7 +51,8 @@ const transVarPlugin=(replaceScss=false,extraCssVarDefineList:{key:string,value:
 
         },
         Declaration(decl:Declaration){
-            if (decl.source?.input.css.includes('ignore-semi-css-trans')){
+
+            if ( decl.source?.input.css.split('\n')[(decl.source?.start?.line ?? 1)-1].includes('ignore-semi-css-trans')){
                 return;
             }
             //@ts-ignore
