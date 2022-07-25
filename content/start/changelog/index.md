@@ -16,6 +16,19 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 ---
 
+#### 🎉 2.16.0-beta.0 (2022-07-25)
+- 【Fix】
+    - 修复当Button的noHorizontalPadding参数类型为string时不生效问题
+    - 修复可拖拽的Transfer禁用item后右侧面板中的item仍然能够删除且不可拖动的问题
+    - 修复Text组件通过icon API设置icon时icon和文字不对齐问题
+    - 允许用户通过ButtonGroup中的Button的参数单独定制Button的type和theme
+    - 修复多选时，换行后TreeSelect 箭头宽度不统一问题
+- 【Feat】
+    - Cascader 新增 position API 控制弹层方向
+    - Slider 新增 A11y 焦点及键盘适配
+- 【Docs】
+    - Icon 更新自定义图标示例
+
 #### 🎉 2.15.1 (2022-07-19)
 - 【Fix】
     - 修复 @douyinfe/semi-illustrations 插画按需加载失效的问题 [#961](https://github.com/DouyinFE/semi-design/issues/961)
