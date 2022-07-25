@@ -326,7 +326,7 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
                 onMouseEnter={e => this.foundation.handleMouseEnter(e)}
                 onMouseLeave={e => this.foundation.handleMouseLeave(e)}
             >
-                <textarea {...itemProps} ref={this.setRef} />
+                <textarea style={style} {...itemProps} ref={this.setRef} />
                 {this.renderClearBtn()}
                 {this.renderCounter()}
             </div>
