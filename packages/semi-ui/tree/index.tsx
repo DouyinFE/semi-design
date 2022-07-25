@@ -41,6 +41,7 @@ import {
     KeyEntity,
     OptionProps
 } from './interface';
+import CheckboxGroup from '../checkbox/checkboxGroup';
 
 export * from './interface';
 export { AutoSizerProps } from './autoSizer';
@@ -688,6 +689,8 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
             filteredKeys,
             dragOverNodeKey,
             dropPosition,
+            checkedKeys, 
+            realCheckedKeys,
         } = this.state;
 
         const {
@@ -708,6 +711,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
             renderFullLabel,
             labelEllipsis,
             virtualize,
+            checkRelation,
         } = this.props;
         const wrapperCls = cls(`${prefixcls}-wrapper`, className);
         const listCls = cls(`${prefixcls}-option-list`, {
@@ -762,7 +766,12 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
                 <div aria-label={this.props['aria-label']} className={wrapperCls} style={style}>
                     {filterTreeNode ? this.renderInput() : null}
                     <div className={listCls} {...ariaAttr}>
-                        {noData ? this.renderEmpty() : this.renderNodeList()}
+                        {noData ? this.renderEmpty() : (multiple ? 
+                            (<CheckboxGroup value={Array.from(checkRelation === 'related' ? checkedKeys : realCheckedKeys)}>
+                                {this.renderNodeList()}
+                            </CheckboxGroup>) : 
+                            this.renderNodeList()
+                        )}
                     </div>
                 </div>
             </TreeContext.Provider>
