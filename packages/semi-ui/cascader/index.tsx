@@ -29,7 +29,7 @@ import Tag from '../tag';
 import TagInput from '../tagInput';
 import { Motion } from '../_base/base';
 import { isSemiIcon } from '../_utils';
-import { DropdownProps } from "../dropdown";
+import { Position } from '../tooltip/index';
 
 export { CascaderType, ShowNextType } from '@douyinfe/semi-foundation/cascader/foundation';
 export { CascaderData, Entity, Data, CascaderItemProps } from './item';
@@ -83,8 +83,7 @@ export interface CascaderProps extends BasicCascaderProps {
     onBlur?: (e: MouseEvent) => void;
     onFocus?: (e: MouseEvent) => void;
     validateStatus?: ValidateStatus;
-    position?: DropdownProps['position']
-
+    position?: Position;
 }
 
 export interface CascaderState extends BasicCascaderInnerData {
