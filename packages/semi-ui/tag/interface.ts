@@ -35,7 +35,7 @@ export interface TagProps {
     avatarShape?: AvatarShape;
     onKeyDown?: React.KeyboardEventHandler<HTMLDivElement>;
     'aria-label'?: React.AriaAttributes['aria-label'];
-    tabIndex?: number;
+    tabIndex?: number; // use internal, when tag in taInput, we want to use left arrow and right arrow to control the tag focus, so the tabIndex need to be -1. 
 }
 
 export interface TagGroupProps {

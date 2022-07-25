@@ -648,7 +648,8 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 size={size}
                 aria-activedescendant={focusIndex !== -1 ? `${this.selectID}-option-${focusIndex}`: ''}
                 onFocus={(e: React.FocusEvent<HTMLInputElement>) => {
-                    // if multiple and filter, manual update state isFocus
+                    // if multiple and filter, when use tab key to let select get focus
+                    // need to manual update state isFocus to let the focus style take effect
                     if (multiple && Boolean(filter)){
                         this.setState({ isFocus: true });
                     }

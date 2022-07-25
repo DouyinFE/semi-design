@@ -1301,7 +1301,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | defaultValue             | 初始选中的值                                                                                                                                                                                              | string\|number\|array                 |                                   |
 | defaultOpen              | 是否默认展开下拉列表                                                                                                                                                                                      | boolean                               | false                             |
 | disabled                 | 是否禁用                                                                                                                                                                                                  | boolean                               | false                             |
-| defaultActiveFirstOption | 是否默认高亮第一个选项（按回车可直接选中）                                                                                                                                                                | boolean                               | true                             |
+| defaultActiveFirstOption | 是否默认高亮第一个选项（按回车可直接选中） <br/>**v2.17.0之后默认值从false变为true**                                                                                                                                                               | boolean                               | true                             |
 | dropdownClassName        | 弹出层的 className                                                                                                                                                                                        | string                                |                                   |
 | dropdownMatchSelectWidth | 下拉菜单最小宽度是否等于 Select                                                                                                                                                                           | boolean                               | true                              |
 | dropdownStyle            | 弹出层的样式                                                                                                                                                                                              | object                                |                                   |
@@ -1398,6 +1398,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 - Select trigger 具有 aria-haspopup、aria-expanded、aria-controls 属性，表示 trigger 与弹出层的关系
 - 多选时，listbox aria-multiselectable 为 true，表示当前可以多选
 - Option 选中时，aria-selected 为 true；当 Option 禁用时，aria-disabled 为 true
+- 属性aria-activedescendant
 
 ### 键盘和焦点
 **不带 Filter 功能的 Select：**  

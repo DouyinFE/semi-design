@@ -36,7 +36,6 @@ export default class Tag extends Component<TagProps, TagState> {
         style: {},
         className: '',
         avatarShape: 'square',
-        tabIndex: 0,
     };
 
     static propTypes = {
@@ -123,7 +122,8 @@ export default class Tag extends Component<TagProps, TagState> {
         const { children, size, color, closable, visible, onClose, onClick, className, type, avatarSrc, avatarShape, tabIndex, ...attr } = this.props;
         const { visible: isVisible } = this.state;
         const clickable = onClick !== Tag.defaultProps.onClick || closable;
-        const a11yProps = { role: 'button', tabIndex, onKeyDown: this.handleKeyDown };
+        // only when the Tag is clickable or closable, the value of tabIndex is allowed to be passed in. 
+        const a11yProps = { role: 'button', tabIndex: tabIndex | 0, onKeyDown: this.handleKeyDown };
         const baseProps = {
             ...attr,
             onClick,
