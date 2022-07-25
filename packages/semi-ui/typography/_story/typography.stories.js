@@ -3,7 +3,7 @@ import withPropsCombinations from 'react-storybook-addon-props-combinations';
 
 import Icon from '../../icons';
 import Typography from '../index';
-import { IconLink, IconTick } from '@douyinfe/semi-icons';
+import { IconLink, IconTick, IconPlusCircle } from '@douyinfe/semi-icons';
 
 export default {
   title: 'Typography'
@@ -51,10 +51,22 @@ export const _Text = () => (
     <br />
     <Text link={{ href: 'https://semi.design/' }}>打开网站</Text>
     <br />
+    {/* 用户未通过icon API设置icon，而是通过children传入，则需要手动处理内容的对齐 */}
     <Text link>
-      <IconLink />
-      网页链接
+      <span style={ {display: 'inline-flex', alignItems: 'center' }}  >
+        <IconLink style={{ marginRight: 4 }}/>
+        网页链接
+      </span>
     </Text>
+    <br />
+    <Text link icon={<IconLink />} underline>带下划线的网页链接</Text>
+    <br />
+    <Text icon={<IconLink />} underline>带下划线的内容</Text>
+    <br />
+    <Text icon={<IconPlusCircle />} style={{ color: 'purple'}}>添加条件</Text>
+    <br />
+    <Text icon={<IconPlusCircle />} style={{ color: 'purple'}} size={'small'}>添加条件</Text>
+    <br />
   </div>
 );
 
