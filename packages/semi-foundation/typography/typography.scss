@@ -6,6 +6,14 @@ $module: #{$prefix}-typography;
     color: $color-typography_default-text-default;
     @include font-size-regular;
 
+    &-text {
+        display: inline-block;
+
+        &-icon {
+            display: inline-flex;
+        }
+    }
+
     &.#{$module}-secondary {
         color: $color-typography_secondary-text-default;
     }
@@ -45,7 +53,7 @@ $module: #{$prefix}-typography;
     }
 
     &-icon {
-        // display: inline-flex;
+        display: inline-flex;
         margin-right: $spacing-typography_iconPrefix-marginRight;
         vertical-align: middle;
         color: inherit;

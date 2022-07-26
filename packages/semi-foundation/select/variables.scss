@@ -58,16 +58,16 @@ $width-select_arrow: 32px; // 选择器输入框下拉箭头宽度
 $width-select_arrow_empty: 12px; // 选择器输入框下拉箭头为空时（有suffix icon）宽度
 $width-select_clear-icon: 32px; // 选择器输入框清空按钮宽度
 $width-select_group_top-border: $border-thickness-control; // 选择器菜单分组标题描边宽度
-$height-select_multiple_content_wrapper-minHeight: $height-select_default - 2; // 多项选择器标签组最小宽度
+$height-select_multiple_content_wrapper-minHeight: $height-select_default - 2px; // 多项选择器标签组最小宽度
 $width-select-border-hover: $width-select-border;  // 选择器输入框描边宽度 - 悬浮
 $width-select-border-focus: $width-select-border-hover; // 选择器输入框描边宽度 - 按下
 $width-select-border-active: $width-select-border-focus; // 选择器输入框描边宽度 - 选中
 // Spacing
 $spacing-select_option_tick-marginRight: $spacing-tight; // 选择器菜单选中对勾右侧外边距
 $spacing-select_prefix_suffix_text-marginX: $spacing-base-tight; // 选择器输入框前后缀文本水平内边距
-$spacing-select_prefix_suffix_text-marginY: 0; // 选择器输入框前后缀文本垂直内边距
+$spacing-select_prefix_suffix_text-marginY: 0px; // 选择器输入框前后缀文本垂直内边距
 $spacing-select_prefix_suffix_icon-marginX: $spacing-tight; // 选择器输入框前后缀图标水平内边距
-$spacing-select_prefix_suffix_icon-marginY: 0; // 选择器输入框前后缀图标垂直内边距
+$spacing-select_prefix_suffix_icon-marginY: 0px; // 选择器输入框前后缀图标垂直内边距
 $spacing-select_create_tips-marginRight: $spacing-extra-tight; // 创建新选项右侧外边距
 $spacing-select_group-marginTop: $spacing-extra-tight; // 选择器菜单分组标题顶部外边距
 $spacing-select_group-paddingTop: $spacing-base-tight; // 选择器菜单分组标题顶部内边距
@@ -106,5 +106,5 @@ $font-select_inset_label-fontWeight: 600; // 选择器内嵌标签文本字重
 $font-select_keyword-fontWeight: 600; // 选择器搜索结果命关键词中文本字重
 
 // Other
-$opacity-select_selection_text_inactive: .4;
+$opacity-select_selection_text_inactive: 0.4;
 
