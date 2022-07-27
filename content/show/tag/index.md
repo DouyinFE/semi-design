@@ -103,7 +103,7 @@ import React from 'react';
 import { Tag, Space } from '@douyinfe/semi-ui';
 
 function Demo() {
-    const src = 'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg';
+    const src = 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png';
     return (
         <Space vertical align='start'>
             <Tag avatarSrc={src}>焦锐志</Tag>
@@ -158,7 +158,7 @@ import { TagGroup } from '@douyinfe/semi-ui';
         { color: 'white', children:'剪映'},
         { color: 'white', children:'皮皮虾'},
     ];
-    const src = 'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg';
+    const src = 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png';
     const tagList2 = [
         { color: 'white', children:'Douyin', avatarSrc:src},
         { color: 'white', children:'Hotsoon', avatarSrc:src},

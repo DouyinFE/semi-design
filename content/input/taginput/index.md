@@ -368,7 +368,7 @@ class CustomRender extends React.Component {
             value : ['夏可漫']
         };
         this.list = [
-            { "name": "夏可漫", "avatar":  "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"},
+            { "name": "夏可漫", "avatar":  "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png"},
             { "name": "申悦",  "avatar":  "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg"},
             { "name": "曲晨一", "avatar":  "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dbf7351bb779433d17c4f50478cf42f7.jpg"},
             { "name": "文嘉茂", "avatar":  "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/7abf810ff060ac3387bd027ead92c4e0.jpg"},
@@ -385,7 +385,7 @@ class CustomRender extends React.Component {
             >
                 <Avatar 
                     alt='avatar'
-                    src={data?data.avatar:'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg'} 
+                    src={data?data.avatar:'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png'} 
                     size="extra-small" 
                 />
                 <span style={{ marginLeft: 8 }}>

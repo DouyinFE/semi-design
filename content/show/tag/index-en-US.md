@@ -130,7 +130,7 @@ import { Tag, Space } from '@douyinfe/semi-ui';
 
 function Demo() {
     const src =
-        'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg';
+        'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png';
     return (
         <Space vertical align='start'>
             <Tag avatarSrc={src}>Peter Behrens</Tag>
@@ -196,7 +196,7 @@ import { TagGroup } from '@douyinfe/semi-ui';
         { color: 'white', children: 'Pipixia' },
     ];
     const src =
-        'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg';
+        'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png';
     const tagList2 = [
         { color: 'white', children: 'Abcd', avatarSrc: src },
         { color: 'white', children: 'Hotsoon', avatarSrc: src },

@@ -81,7 +81,7 @@ function CustomRender(props) {
             name: '夏可漫',
             email: 'xiakeman@example.com',
             avatar:
-                'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg',
+                'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png',
         },
         {
             name: '申悦',
