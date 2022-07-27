@@ -83,6 +83,11 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
     }
 
     focus() {
+        this._adapter.registerClickOutsideHandler((e: MouseEvent) => {
+            this.close(e);
+            this._notifyBlur(e);
+            this._adapter.updateFocusState(false);
+        });
         this._focusTrigger();
         const isFilterable = this._isFilterable();
         this._adapter.updateFocusState(true);
@@ -341,15 +346,18 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
 
         this.bindKeyBoardEvent();
 
-        this._adapter.registerClickOutsideHandler((e: MouseEvent) => {
-            this.close(e);
-        });
+        // this._adapter.registerClickOutsideHandler((e: MouseEvent) => {
+        //     this.close(e);
+        //     this._notifyBlur(e);
+        //     this._adapter.updateFocusState(false);
+        // });
     }
 
     toggle2SearchInput(isShow: boolean) {
         if (isShow) {
             this._adapter.toggleInputShow(isShow, () => this.focusInput());
         } else {
+            // only when choose the option and close the panel, the input can be hide
             this._adapter.toggleInputShow(isShow, () => undefined);
         }
     }
@@ -360,14 +368,14 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
         if (isFilterable) {
             // this.unBindKeyBoardEvent();
             this.clearInput();
-            // this.toggle2SearchInput(false);
+            this.toggle2SearchInput(false);
         }
 
         this._adapter.closeMenu();
         this._adapter.notifyDropdownVisibleChange(false);
         // this.unBindKeyBoardEvent();
         // this._notifyBlur(e);
-        this._adapter.unregisterClickOutsideHandler();
+        // this._adapter.unregisterClickOutsideHandler();
         // this._adapter.updateFocusState(false);
     }
 
@@ -388,7 +396,6 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
             this._focusTrigger();
         } else {
             this._handleMultipleSelect(option, event);
-            this._isFilterable() && this.focusInput();
         }
         this._adapter.updateFocusIndex(optionIndex);
     }
@@ -644,9 +651,10 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
     }
 
     _handleKeyDown(event: KeyboardEvent) {
+        console.log('_handleKeyDown', event.key);
         const key = event.keyCode;
         const { isOpen } = this.getStates();
-        const { loading } = this.getProps();
+        const { loading, filter, multiple } = this.getProps();
 
         if (loading) {
             return;
@@ -675,6 +683,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
                 break;
             case KeyCode.ESC:
                 this.close(event);
+                filter && !multiple && this._focusTrigger();
                 break;
             case KeyCode.TAB:
                 // check if slot have focusable element
@@ -748,8 +757,9 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
     }
 
     _handleTabKeyDown(event: KeyboardEvent){
-        const { filter, multiple } = this.getProps();
+        console.log('_handleTabKeyDown');
         const { isOpen } = this.getStates();
+        this._adapter.updateFocusState(false);
 
         if (isOpen){
             const container = this._adapter.getContainer();
@@ -761,7 +771,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
                 if (event.shiftKey) {
                     this._handlePanelOpenShiftTabKeyDown(focusableElements, event);
                 } else {
-                    this._handlePanelOpenTabKeyDown(focusableElements, event);
+                    this._handlePanelOpenTabKeyDown(focusableElements, event);  
                 }
             } else {
                 this.close();
@@ -1002,19 +1012,26 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
     }
 
     handleTriggerBlur(e: FocusEvent) {
-        this._adapter.updateFocusState(false);
         const { filter, autoFocus } = this.getProps();
         const { isOpen, isFocus } = this.getStates();
         // Under normal circumstances, blur will be accompanied by dropdown close, so the notify of blur can be called uniformly in close
         // But when autoFocus, because dropdown is not expanded, you need to listen for the trigger's blur and trigger the notify callback
-        if (autoFocus && isFocus && !isOpen) {
-            // blur when autoFocus & not open dropdown yet
+
+        // when filter is false, the trigger blur stand for the select blur 
+        if (!filter && isFocus) {
             this._notifyBlur(e);
         }
     }
 
     handleInputBlur(e: any) {
-        this.toggle2SearchInput(false);
+        this._adapter.updateFocusState(false);
+        const { filter } = this.getProps();
+        const { isFocus } = this.getStates();
+        // this.toggle2SearchInput(false);
+        // when filter is true, the input blur stand for the select blur 
+        if (filter && isFocus) {
+            this._notifyBlur(e);
+        }
     }
 
     selectAll() {

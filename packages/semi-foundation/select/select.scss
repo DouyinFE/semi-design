@@ -27,15 +27,10 @@ $multiple: #{$module}-multiple;
         border: $width-select-border-hover solid $color-select-border-hover;
     }
 
-    // &:active {
-    //     background-color: $color-select-bg-active;
-    //     border: $width-select-border-active solid $color-select-border-active;
-    // }
-
-    // &:focus {
-    //     border: $width-select-border-focus solid $color-select-border-focus;
-    //     outline: 0;
-    // }
+    &:focus {
+        border: $width-select-border-focus solid $color-select-border-focus;
+        outline: 0;
+    }
 
     &-small {
         height: $height-select_small;
@@ -51,6 +46,7 @@ $multiple: #{$module}-multiple;
     }
 
     &-open {
+        // when select panel have focusable elements in slot, and tab into the panel, the open style should not have focus border style 
         &:hover {
             background-color: $color-select-bg-default;
             border: $border-thickness-control-focus solid $color-select_default-border-focus;
@@ -64,6 +60,12 @@ $multiple: #{$module}-multiple;
         &:hover {
             background-color: $color-select-bg-default;
             border: $border-thickness-control-focus solid $color-select_default-border-focus;
+        }
+
+        // when click the trigger, trigger get the focus state, active style should take effect
+        &:active {
+            background-color: $color-select-bg-active;
+            border: $width-select-border-active solid $color-select-border-active;
         }
     }
 
@@ -118,6 +120,7 @@ $multiple: #{$module}-multiple;
 
         &:focus {
             // border: $border-thickness-control-focus solid $color-select_default-border-focus;
+            // when select is disabled, the border should not have active color
             border: $border-thickness-control-focus solid transparent;
         }
 

@@ -1398,7 +1398,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 - Select trigger 具有 aria-haspopup、aria-expanded、aria-controls 属性，表示 trigger 与弹出层的关系
 - 多选时，listbox aria-multiselectable 为 true，表示当前可以多选
 - Option 选中时，aria-selected 为 true；当 Option 禁用时，aria-disabled 为 true
-- 属性aria-activedescendant
+- 属性aria-activedescendant能够保证在朗读旁白时识别到当前的选择的option(更多用法请参考[Managing Focus in Composites Using aria-activedescendant](https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/#kbd_focus_activedescendant))
 
 ### 键盘和焦点
 **不带 Filter 功能的 Select：**  

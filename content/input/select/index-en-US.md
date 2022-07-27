@@ -1376,7 +1376,8 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 - The role of the Select trigger is combobox, the role of the popup layer is listbox, and the role of the option is option
 - Select trigger has aria-haspopup, aria-expanded, and aria-controls properties, indicating the relationship between trigger and popup layer
 - When multiple selections are made, listbox aria-multiselectable is true, indicating that multiple selections are currently available
-- aria-selected is true when Option is selected; aria-disabled is true when Option is disabled
+- Aria-selected is true when Option is selected; aria-disabled is true when Option is disabled
+- The attribute aria-activedescendant ensures that the currently selected option is recognized when the narration is spoken(for more information, please refer to [Managing Focus in Composites Using aria-activedescendant](https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/#kbd_focus_activedescendant))
 
 ### Keyboard and Focus
 **Select without Filter:**
