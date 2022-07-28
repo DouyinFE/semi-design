@@ -32,12 +32,10 @@
         "react-window": "^1.8.2",
         "resize-observer-polyfill": "^1.5.1",
         "scroll-into-view-if-needed": "^2.2.24",
-        "utility-types": "^3.10.0"
+        "utility-types": "^3.10.0",
+        "prop-types": "^15.7.2"
     },
     "peerDependencies": {
-        "@types/react": ">=16.0.0",
-        "@types/react-dom": ">=16.0.0",
-        "prop-types": "15.7.2",
         "react": ">=16.0.0",
         "react-dom": ">=16.0.0"
     },
