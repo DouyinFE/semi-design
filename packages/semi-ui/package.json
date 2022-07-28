@@ -1,6 +1,6 @@
 {
     "name": "@douyinfe/semi-ui",
-    "version": "2.16.0-beta.0",
+    "version": "2.16.0-beta.1",
     "description": "",
     "main": "lib/cjs/index.js",
     "module": "lib/es/index.js",
@@ -15,11 +15,11 @@
     "dependencies": {
         "@babel/runtime-corejs3": "^7.15.4",
         "@douyinfe/semi-animation": "2.12.0",
-        "@douyinfe/semi-animation-react": "2.16.0-beta.0",
-        "@douyinfe/semi-foundation": "2.16.0-beta.0",
-        "@douyinfe/semi-icons": "2.16.0-beta.0",
+        "@douyinfe/semi-animation-react": "2.16.0-beta.1",
+        "@douyinfe/semi-foundation": "2.16.0-beta.1",
+        "@douyinfe/semi-icons": "2.16.0-beta.1",
         "@douyinfe/semi-illustrations": "2.15.0",
-        "@douyinfe/semi-theme-default": "2.16.0-beta.0",
+        "@douyinfe/semi-theme-default": "2.16.0-beta.1",
         "@types/react-window": "^1.8.2",
         "async-validator": "^3.5.0",
         "classnames": "^2.2.6",
@@ -27,13 +27,13 @@
         "date-fns": "^2.9.0",
         "date-fns-tz": "^1.0.10",
         "lodash": "^4.17.21",
+        "prop-types": "^15.7.2",
         "react-resizable": "^1.8.0",
         "react-sortable-hoc": "^2.0.0",
         "react-window": "^1.8.2",
         "resize-observer-polyfill": "^1.5.1",
         "scroll-into-view-if-needed": "^2.2.24",
-        "utility-types": "^3.10.0",
-        "prop-types": "^15.7.2"
+        "utility-types": "^3.10.0"
     },
     "peerDependencies": {
         "react": ">=16.0.0",
@@ -73,7 +73,7 @@
         "@babel/plugin-transform-runtime": "^7.15.8",
         "@babel/preset-env": "^7.15.8",
         "@babel/preset-react": "^7.14.5",
-        "@douyinfe/semi-scss-compile": "2.16.0-beta.0",
+        "@douyinfe/semi-scss-compile": "2.16.0-beta.1",
         "@storybook/addon-knobs": "^6.3.1",
         "@types/lodash": "^4.14.176",
         "babel-loader": "^8.2.2",
