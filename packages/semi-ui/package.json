@@ -20,7 +20,6 @@
         "@douyinfe/semi-icons": "2.17.0-alpha.0",
         "@douyinfe/semi-illustrations": "2.15.0",
         "@douyinfe/semi-theme-default": "2.17.0-alpha.0",
-        "@types/react-window": "^1.8.2",
         "async-validator": "^3.5.0",
         "classnames": "^2.2.6",
         "copy-text-to-clipboard": "^2.1.1",
@@ -67,7 +66,7 @@
     ],
     "author": "",
     "license": "MIT",
-    "gitHead": "eb34a4f25f002bb4cbcfa51f3df93bed868c831a",
+    "gitHead": "e78045febe3e4645c8afe6d42cfbcb4e97a67923",
     "devDependencies": {
         "@babel/plugin-proposal-decorators": "^7.15.8",
         "@babel/plugin-transform-runtime": "^7.15.8",
@@ -104,6 +103,9 @@
         "through2": "^4.0.2",
         "ts-loader": "^5.4.5",
         "webpack": "^4.46.0",
-        "webpackbar": "^5.0.0-3"
+        "webpackbar": "^5.0.0-3",
+        "@types/react-window": "^1.8.2",
+        "@types/react": ">=16.0.0",
+        "@types/react-dom": ">=16.0.0"
     }
 }
