@@ -15,6 +15,11 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 
 ---
+#### 🎉 2.16.0 (2022-07-29)
+- 【Fix】
+    - 修复Input 按下态颜色错误问题，修复Input和TextArea在validateStatus下按下态颜色不统一问题 [#662](https://github.com/DouyinFE/semi-design/issues/662)
+- 【Chore】
+    - 将 prop-types 移到 dependencies，从 peerDependencies 移除 @types/react 和 @types/react-dom [#993](https://github.com/DouyinFE/semi-design/issues/993)
 
 #### 🎉 2.16.0-beta.0 (2022-07-25)
 - 【Fix】

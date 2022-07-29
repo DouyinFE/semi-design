@@ -16,6 +16,11 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.16.0 (2022-07-29)
+- 【Fix】
+    - fix the problem of wrong color in the pressed state of Input, and fix the problem that the colors of Input and TextArea are not uniform in the pressed state under validateStatus [#662](https://github.com/DouyinFE/semi-design/issues/662)
+- 【Chore】
+    - move prop-types to dependencies and remove @types/react and @types/react-dom [#993](https://github.com/DouyinFE/semi-design/issues/993)
 
 #### 🎉 2.16.0-beta.0 (2022-07-25)
 - 【Fix】
