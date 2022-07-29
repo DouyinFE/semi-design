@@ -77,7 +77,7 @@ $module: #{$prefix}-input;
         }
 
         &:active {
-            background-color: $color-input_default-bg-focus;
+            background-color: $color-input_default-bg-active;
             border-color: $color-input_default-border-focus;
         }
     }
@@ -100,10 +100,10 @@ $module: #{$prefix}-input;
             border-color: $color-input_danger-border-focus;
         }
 
-        // &:active {
-        //     background-color: $color-input_danger-bg-active;
-        //     border-color: $color-input_danger-border-active;
-        // }
+        &:active {
+            background-color: $color-input_danger-bg-active;
+            border-color: $color-input_danger-border-focus;
+        }
     }
 
     &-warning {
@@ -120,10 +120,10 @@ $module: #{$prefix}-input;
             border-color: $color-input_warning-border-focus;
         }
 
-        // &:active {
-        //     background-color: $color-input_warning-bg-active;
-        //     border-color: $color-input_warning-border-active;
-        // }
+        &:active {
+            background-color: $color-input_warning-bg-active;
+            border-color: $color-input_warning-border-focus;
+        }
     }
 
     &__with-prefix {
@@ -288,6 +288,16 @@ $module: #{$prefix}-input;
                 }
             }
 
+            // when have prepend and append, only make the input have active bg color
+            &:active {
+                background-color: $color-input_default-bg-active;
+
+                & + .#{$module}-clearbtn,
+                & ~ .#{$module}-modebtn {
+                    background-color: $color-input_default-bg-active;
+                }
+            }
+
             &-clearbtn,
             &-modebtn,
             &-clearbtn:hover,
@@ -324,6 +334,16 @@ $module: #{$prefix}-input;
                     & + .#{$module}-clearbtn,
                     & + .#{$module}-modebtn {
                         background-color: $color-input_danger-bg-focus;
+                        border-color: $color-input_danger-border-focus;
+                    }
+                }
+
+                &:active {
+                    background-color:  $color-input_danger-bg-active;
+
+                    & + .#{$module}-clearbtn,
+                    & + .#{$module}-modebtn {
+                        background-color: $color-input_danger-bg-active;
                         border-color: $color-input_danger-border-focus;
                     }
                 }
@@ -365,6 +385,16 @@ $module: #{$prefix}-input;
                     & + .#{$module}-clearbtn,
                     & + .#{$module}-modebtn {
                         background-color: $color-input_warning-bg-focus;
+                        border-color: $color-input_warning-border-focus;
+                    }
+                }
+
+                &:active {
+                    background-color:  $color-input_warning-bg-active;
+
+                    & + .#{$module}-clearbtn,
+                    & + .#{$module}-modebtn {
+                        background-color: $color-input_warning-bg-active;
                         border-color: $color-input_warning-border-focus;
                     }
                 }
