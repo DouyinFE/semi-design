@@ -291,6 +291,11 @@ $module: #{$prefix}-input;
             // when have prepend and append, only make the input have active bg color
             &:active {
                 background-color: $color-input_default-bg-active;
+
+                & + .#{$module}-clearbtn,
+                & ~ .#{$module}-modebtn {
+                    background-color: $color-input_default-bg-active;
+                }
             }
 
             &-clearbtn,
@@ -333,6 +338,16 @@ $module: #{$prefix}-input;
                     }
                 }
 
+                &:active {
+                    background-color:  $color-input_danger-bg-active;
+
+                    & + .#{$module}-clearbtn,
+                    & + .#{$module}-modebtn {
+                        background-color: $color-input_danger-bg-active;
+                        border-color: $color-input_danger-border-focus;
+                    }
+                }
+
                 &-clearbtn,
                 &-modebtn,
                 &-clearbtn:hover,
@@ -370,6 +385,16 @@ $module: #{$prefix}-input;
                     & + .#{$module}-clearbtn,
                     & + .#{$module}-modebtn {
                         background-color: $color-input_warning-bg-focus;
+                        border-color: $color-input_warning-border-focus;
+                    }
+                }
+
+                &:active {
+                    background-color:  $color-input_warning-bg-active;
+
+                    & + .#{$module}-clearbtn,
+                    & + .#{$module}-modebtn {
+                        background-color: $color-input_warning-bg-active;
                         border-color: $color-input_warning-border-focus;
                     }
                 }
