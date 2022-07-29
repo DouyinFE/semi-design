@@ -17,20 +17,19 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 ---
 #### 🎉 2.16.0 (2022-07-29)
 - 【Fix】
-    - 修复Input 按下态颜色错误问题，修复Input和TextArea在validateStatus下按下态颜色不统一问题 [#662](https://github.com/DouyinFE/semi-design/issues/662)
+    - 修复 Input 按下态颜色错误问题，修复 Input 和 TextArea 在 validateStatus 下按下态颜色不统一问题 [#662](https://github.com/DouyinFE/semi-design/issues/662)
 - 【Chore】
     - 将 prop-types 移到 dependencies，从 peerDependencies 移除 @types/react 和 @types/react-dom [#993](https://github.com/DouyinFE/semi-design/issues/993)
 
 #### 🎉 2.16.0-beta.0 (2022-07-25)
-- 【Fix】
-    - 修复当Button的noHorizontalPadding参数类型为string时不生效问题
-    - 修复可拖拽的Transfer禁用item后右侧面板中的item仍然能够删除且不可拖动的问题
-    - 修复Text组件通过icon API设置icon时icon和文字不对齐问题
-    - 允许用户通过ButtonGroup中的Button的参数单独定制Button的type和theme
-    - 修复多选时，换行后TreeSelect 箭头宽度不统一问题
 - 【Feat】
     - Cascader 新增 position API 控制弹层方向
-    - Slider 新增 A11y 焦点及键盘适配
+    - Slider 新增 A11y 焦点及键盘适配 [#205](https://github.com/DouyinFE/semi-design/issues/205)
+- 【Fix】
+    - 修复当 Button 的 noHorizontalPadding 参数类型为string时不生效问题
+    - 修复可拖拽的 Transfer 禁用 item 后右侧面板中的 item 仍然能够删除且不可拖动的问题
+    - 允许用户通过 ButtonGroup 中的 Button 的参数单独定制 Button 的 type 和 theme
+    - 修复多选时，换行后 TreeSelect 箭头宽度不统一问题
 - 【Docs】
     - Icon 更新自定义图标示例
 

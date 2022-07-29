@@ -23,15 +23,14 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
     - move prop-types to dependencies and remove @types/react and @types/react-dom [#993](https://github.com/DouyinFE/semi-design/issues/993)
 
 #### 🎉 2.16.0-beta.0 (2022-07-25)
+- 【Feat】
+    - Cascader adds position API to control the direction of the bullet layer
+    - Slider adds A11y focus and keyboard adaptation [#205](https://github.com/DouyinFE/semi-design/issues/205)
 - 【Fix】
     - fix the problem that it does not take effect when the noHorizontalPadding parameter type of Button is string
     - fix the issue that the item in the right panel can still be deleted and cannot be dragged after the item is disabled in the draggable Transfer
-    - fix the problem that the icon and text are not aligned when the Text component sets the icon through the icon API
     - allows users to customize the type and theme of the Button individually through the parameters of the Button in the ButtonGroup
     - fix the problem that the width of TreeSelect arrows is not uniform after wrapping when multiple selections are made
-- 【Feat】
-    - Cascader adds position API to control the direction of the bullet layer
-    - Slider adds A11y focus and keyboard adaptation
 - 【Docs】
     - Icon update custom icon example
 #### 🎉 2.15.1 (2022-07-19)
