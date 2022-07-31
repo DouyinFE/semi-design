@@ -250,7 +250,7 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
         this._adapter.notifyOpenChange(true);
     }
 
-    hanldePanelClose(clickedOutside: boolean, e: any) {
+    handlePanelClose(clickedOutside: boolean, e: any) {
         if (!this._isControlledComponent('open')) {
             this._adapter.unregisterClickOutSide();
             this.setPanel(false);
