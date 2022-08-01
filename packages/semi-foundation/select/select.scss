@@ -45,14 +45,7 @@ $multiple: #{$module}-multiple;
         }
     }
 
-    &-open {
-        // when select panel have focusable elements in slot, and tab into the panel, the open style should not have focus border style 
-        &:hover {
-            background-color: $color-select-bg-default;
-            border: $border-thickness-control-focus solid $color-select_default-border-focus;
-        }
-    }
-    
+    &-open,
     &-focus {
         border: $border-thickness-control-focus solid $color-select_default-border-focus;
         outline: 0;
