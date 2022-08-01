@@ -248,7 +248,7 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
                         this.timePickerRef.current.contains(e.target as Node);
                     if (!isInTimepicker && !isInPanel) {
                         const clickedOutside = true;
-                        this.foundation.hanldePanelClose(clickedOutside, e);
+                        this.foundation.handlePanelClose(clickedOutside, e);
                     }
                 };
                 document.addEventListener('mousedown', this.clickOutSideHandler);
