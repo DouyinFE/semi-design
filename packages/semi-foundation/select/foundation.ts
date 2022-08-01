@@ -959,16 +959,16 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
     }
 
     // Scenes that may trigger blur：
-    //  1、clickOutSide
-    //  2、 tab to next element/ shift tab to previous element
-    //  3、[remove when add a11y] click option / press enter, and then select complete（when multiple is false 
-    //  4、[remove when add a11y] press esc when dropdown list open 
+    // 1、clickOutSide
+    // 2、 tab to next element/ shift tab to previous element
+    // 3、[remove when add a11y] click option / press enter, and then select complete（when multiple is false 
+    // 4、[remove when add a11y] press esc when dropdown list open 
     _notifyBlur(e: FocusEvent) {
         this._adapter.notifyBlur(e);
     }
 
     // Scenes that may trigger focus:
-    //  1、click selection
+    // 1、click selection
     _notifyFocus(e: FocusEvent) {
         this._adapter.notifyFocus(e);
     }
