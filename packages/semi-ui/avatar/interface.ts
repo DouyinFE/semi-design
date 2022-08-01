@@ -38,7 +38,7 @@ export interface AvatarProps extends BaseProps {
 }
 
 export type AvatarGroupShape = 'circle' | 'square';
-export type AvatarGroupSize = 'extra-extra-small' | 'extra-small' | 'small' | 'medium' | 'large' | 'extra-large';
+export type AvatarGroupSize = 'extra-extra-small' | 'extra-small' | 'small' | 'default' | 'medium' | 'large' | 'extra-large';
 export type AvatarGroupOverlapFrom = 'start' | 'end';
 
 export interface AvatarGroupProps {
