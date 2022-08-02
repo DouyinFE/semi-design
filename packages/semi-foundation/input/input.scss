@@ -445,6 +445,11 @@ $module: #{$prefix}-input;
     background-color: transparent;
     box-sizing: border-box;
 
+    &[type="password"]::-ms-reveal, 
+    &[type="password"]::-ms-clear {
+        display: none;
+    }
+
     &::placeholder {
         color: $color-input_placeholder-text-default;
     }
