@@ -45,7 +45,7 @@ const defaultFileList = [
         status: 'success',
         size: '130KB',
         preview: true,
-        url: 'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dbf7351bb779433d17c4f50478cf42f7.jpg',
+        url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bag.jpeg',
     },
     {
         uid: '2',
@@ -53,7 +53,7 @@ const defaultFileList = [
         status: 'uploadFail',
         size: '222KB',
         preview: false,
-        url: 'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dbf7351bb779433d17c4f50478cf42f7.jpg',
+        url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bag.jpeg',
     },
 ];
 
@@ -448,7 +448,7 @@ describe('Upload', () => {
             size: '222KB',
             preview: true,
             fileInstance,
-            url: 'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dbf7351bb779433d17c4f50478cf42f7.jpg',
+            url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bag.jpeg',
         };
         const props = {
             fileList: [file],
@@ -502,7 +502,7 @@ describe('Upload', () => {
             size: '222KB',
             preview: true,
             fileInstance,
-            url: 'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dbf7351bb779433d17c4f50478cf42f7.jpg',
+            url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bag.jpeg',
         };
         let props = {
             defaultFileList: [file],
@@ -535,7 +535,7 @@ describe('Upload', () => {
                     status: 'error',
                     size: '222KB',
                     preview: true,
-                    url: 'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dbf7351bb779433d17c4f50478cf42f7.jpg',
+                    url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bag.jpeg',
                 },
             ],
         };
@@ -756,7 +756,7 @@ describe('Upload', () => {
                     status: 'success',
                     size: '130KB',
                     preview: true,
-                    url: 'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dbf7351bb779433d17c4f50478cf42f7.jpg',
+                    url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bag.jpeg',
                 },
             ],
             showReplace: true,
@@ -786,7 +786,7 @@ describe('Upload', () => {
                     status: 'success',
                     size: '130KB',
                     preview: true,
-                    url: 'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dbf7351bb779433d17c4f50478cf42f7.jpg',
+                    url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bag.jpeg',
                 },
             ],
         };
@@ -839,7 +839,7 @@ describe('Upload', () => {
                     status: 'success',
                     size: '130KB',
                     preview: true,
-                    url: 'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dbf7351bb779433d17c4f50478cf42f7.jpg',
+                    url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bag.jpeg',
                 },
             ],
         };
@@ -933,7 +933,7 @@ describe('Upload', () => {
                     name: 'jiafang1.jpeg',
                     status: 'success',
                     size: '130kb',
-                    url: 'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg',
+                    url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bag.jpeg',
                 },
             ],
             showPicInfo: true,

@@ -368,7 +368,7 @@ class WithUpload extends React.Component {
         status: 'success',
         uid: 'd116a179410eb0ca18e66074509bde93-0',
         url:
-          'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg',
+          'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bag.jpeg',
       },
       {
         preview: false,
@@ -376,7 +376,7 @@ class WithUpload extends React.Component {
         status: 'success',
         uid: 'b7d579069320590ba4b128672eedbae2-1',
         url:
-          'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg',
+          'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bag.jpeg',
       },
       {
         preview: false,
@@ -384,7 +384,7 @@ class WithUpload extends React.Component {
         status: 'success',
         uid: 'b7d579069320590ba4b128672eedbae2-2',
         url:
-          'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg',
+          'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bag.jpeg',
       },
     ];
   }
@@ -410,7 +410,7 @@ class WithUpload extends React.Component {
                 status: 'success',
                 uid: 'd116a179410eb0ca18e66074509bde93-0',
                 url:
-                  'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg',
+                  'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bag.jpeg',
               },
               {
                 preview: false,
@@ -418,7 +418,7 @@ class WithUpload extends React.Component {
                 status: 'success',
                 uid: 'b7d579069320590ba4b128672eedbae2-1',
                 url:
-                  'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg',
+                  'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bag.jpeg',
               },
               {
                 preview: false,
@@ -426,7 +426,7 @@ class WithUpload extends React.Component {
                 status: 'success',
                 uid: 'b7d579069320590ba4b128672eedbae2-2',
                 url:
-                  'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg',
+                  'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bag.jpeg',
               },
             ]}
             dragMainText="点击上传文件或拖拽文件到这里"
