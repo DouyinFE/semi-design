@@ -141,4 +141,69 @@ describe('slider', () => {
             expect($button.position()).deep.equal(handleInitialPos);
         });
     });
+
+    it('keyboard', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=slider--horizontal-slider&args=&viewMode=story');
+        cy.get('.semi-slider-handle').eq(0).click();
+        // test keyboard event: upArrow
+        cy.get('.semi-slider-handle').eq(0).type('{upArrow}');
+        cy.get('.semi-slider-handle').eq(0).should('have.attr', 'aria-valuenow', '1');
+        // test keyboard event: rightArrow
+        cy.get('.semi-slider-handle').eq(0).type('{rightArrow}');
+        cy.get('.semi-slider-handle').eq(0).should('have.attr', 'aria-valuenow', '2');
+        // test keyboard event: downArrow
+        cy.get('.semi-slider-handle').eq(0).type('{downArrow}');
+        cy.get('.semi-slider-handle').eq(0).should('have.attr', 'aria-valuenow', '1');
+        // test keyboard event: leftArrow
+        cy.get('.semi-slider-handle').eq(0).type('{leftArrow}');
+        cy.get('.semi-slider-handle').eq(0).should('have.attr', 'aria-valuenow', '0');
+        // test keyboard event: pageup
+        cy.get('.semi-slider-handle').eq(0).type('{pageup}');
+        cy.get('.semi-slider-handle').eq(0).should('have.attr', 'aria-valuenow', '10');
+        // test keyboard event: pagedown
+        cy.get('.semi-slider-handle').eq(0).type('{pagedown}');
+        cy.get('.semi-slider-handle').eq(0).should('have.attr', 'aria-valuenow', '0');
+        // test keyboard event: End
+        cy.get('.semi-slider-handle').eq(0).type('{end}');
+        cy.get('.semi-slider-handle').eq(0).should('have.attr', 'aria-valuenow', '100');
+        // test keyboard event: Home
+        cy.get('.semi-slider-handle').eq(0).type('{home}');
+        cy.get('.semi-slider-handle').eq(0).should('have.attr', 'aria-valuenow', '0');
+        // test keyboard event: tab
+        cy.get('.semi-slider-handle').eq(0).tab();
+        cy.get('.semi-slider-handle').eq(1).should('be.focused');
+    });
+
+    it('range', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=slider--horizontal-slider&args=&viewMode=story');
+        // click range slider right dot
+        cy.get('.semi-slider-handle').eq(2).click();
+        cy.get('.semi-slider-handle').eq(2).type('{pageup}').type('{pageup}').type('{pageup}').type('{pageup}');
+        cy.get('.semi-slider-handle').eq(2).should('have.attr', 'aria-valuenow', '60');
+        // The value of the left slider cannot exceed the value of the right slider
+        cy.get('.semi-slider-handle').eq(2).type('{pageup}');
+        cy.get('.semi-slider-handle').eq(2).should('have.attr', 'aria-valuenow', '60');
+        cy.get('.semi-slider-handle').eq(2).type('{rightArrow}');
+        cy.get('.semi-slider-handle').eq(2).should('have.attr', 'aria-valuenow', '60');
+        cy.get('.semi-slider-handle').eq(2).type('{End}');
+        cy.get('.semi-slider-handle').eq(2).should('have.attr', 'aria-valuenow', '60');
+        // The value of the right slider cannot be lower than the value of the left slider
+        cy.get('.semi-slider-handle').eq(2).tab();
+        cy.get('.semi-slider-handle').eq(3).type('{pagedown}');
+        cy.get('.semi-slider-handle').eq(3).should('have.attr', 'aria-valuenow', '60');
+        cy.get('.semi-slider-handle').eq(3).type('{leftArrow}');
+        cy.get('.semi-slider-handle').eq(3).should('have.attr', 'aria-valuenow', '60');
+        cy.get('.semi-slider-handle').eq(3).type('{Home}');
+        cy.get('.semi-slider-handle').eq(3).should('have.attr', 'aria-valuenow', '60');
+        cy.get('.semi-slider-handle').eq(3).type('{pageup}');
+        cy.get('.semi-slider-handle').eq(3).should('have.attr', 'aria-valuenow', '70');
+        cy.get('.semi-slider-handle').eq(3).type('{End}');
+        cy.get('.semi-slider-handle').eq(3).should('have.attr', 'aria-valuenow', '100');
+
+        cy.get('.semi-slider-handle').eq(2).click();
+        cy.get('.semi-slider-handle').eq(2).type('{pagedown}');
+        cy.get('.semi-slider-handle').eq(2).should('have.attr', 'aria-valuenow', '50');
+        cy.get('.semi-slider-handle').eq(2).type('{Home}');
+        cy.get('.semi-slider-handle').eq(2).should('have.attr', 'aria-valuenow', '0');
+    });  
 });

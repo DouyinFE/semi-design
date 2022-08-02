@@ -1,6 +1,6 @@
 import { get } from "lodash";
 
-export function handlePrevent(event: any)  {
+export function handlePrevent(event: any) {
     event.stopPropagation();
     event.preventDefault();
 }
@@ -47,7 +47,7 @@ export function setFocusToPreviousMenuItem (itemNodes: HTMLElement[], currentIte
 }
 
 // set focus to the next item in item list
-export function  setFocusToNextMenuitem (itemNodes: HTMLElement[], currentItem: HTMLElement): void {
+export function setFocusToNextMenuitem (itemNodes: HTMLElement[], currentItem: HTMLElement): void {
     let newMenuItem: HTMLElement, index: number;
 
     if (itemNodes.length > 0){
