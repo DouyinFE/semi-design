@@ -1,4 +1,5 @@
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
+import { PresetPosition } from './foundation';
 
 export interface YearAndMonthFoundationProps {
     currentYear?: number;
@@ -12,6 +13,9 @@ export interface YearAndMonthFoundationProps {
     noBackBtn?: boolean;
     disabledDate?: (date: Date) => boolean;
     density?: string;
+    presetPosition?: PresetPosition;
+    renderQuickControls?: JSX.Element;
+    renderDateInput?: JSX.Element;
 }
 
 export interface YearAndMonthFoundationState {

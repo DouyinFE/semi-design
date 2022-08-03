@@ -10,7 +10,7 @@ import {
   startOfWeek,
   endOfWeek,
 } from 'date-fns';
-import { Space, ConfigProvider, InputGroup, InputNumber, Form, withField, Button } from '../../index';
+import { Space, ConfigProvider, InputGroup, InputNumber, Form, withField, Button, RadioGroup, Radio } from '../../index';
 
 // stores
 import NeedConfirmDemo from './NeedConfirm';
@@ -36,6 +36,7 @@ import DatePickerSlot from './DatePickerSlot';
 import DatePickerTimeZone from './DatePickerTimeZone';
 import BetterRangePicker from './BetterRangePicker';
 import SyncSwitchMonth from './SyncSwitchMonth';
+import { Checkbox } from '../../checkbox';
 export * from './v2';
 
 export default {
@@ -190,6 +191,11 @@ const presets = [
     end: addDays(new Date(), 1),
   },
   {
+    text: 'Today After Tomorrow',
+    start: addDays(new Date(), 2),
+    end: addDays(new Date(), 2),
+  },
+  {
     text: 'Next Week',
     start: addWeeks(new Date(), 1),
     end: addWeeks(new Date(), 2),
@@ -214,51 +220,166 @@ const presets = [
     start: addWeeks(new Date(), 1),
     end: addWeeks(new Date(), 2),
   },
-  {
-    text: 'Next Month',
-    start: startOfMonth(addMonths(new Date(), 1)),
-    end: endOfMonth(addMonths(new Date(), 1)),
-  },
 ];
 
 export const DatePickerWithPresets = () => {
   const onPresetClick = (item, e) => {
     console.log('preset click', item, e);
   };
+  const [presetPosition, setPresetPosition] = useState('right');
+  const [insetInput, setInsetInput] = useState(false);
+  const [presetArr, setPresetArr] = useState(presets);
+
+   const BottomSlot = function(props) {
+        const { style } = props;
+        return (
+            <div style={{ padding: '12px 20px', ...style }}>
+                <div strong style={{ color: 'var(--semi-color-text-2)' }}>
+                    定版前请阅读
+                </div>
+                <div link={{ href: 'https://semi.design/', target: '_blank' }}>发版须知</div>
+            </div>
+        );
+    };
   return (
     <div style={demoDiv}>
       <span>带快捷选择的DatePicker</span>
+      <br/>
+      <br/>
+       <RadioGroup onChange={e=>setPresetPosition(e.target.value)} value={presetPosition} aria-label="选择快捷选择面板位置" name="preset-radio-group">
+            <Radio value={'left'}>left</Radio>
+            <Radio value={'right'}>right</Radio>
+            <Radio value={'top'}>top</Radio>
+            <Radio value={'bottom'}>bottom</Radio>
+        </RadioGroup>
+        <Checkbox value={insetInput} onChange={e=>setInsetInput(e.target.checked)}>insetInput</Checkbox>
+        <Checkbox value={presetArr} onChange={e=>setPresetArr(e.target.checked ? [...presets, ...presets, ...presets]:presets)}>more presets</Checkbox>
+       <br/>
+      <div>type="date"</div>
+      <DatePicker
+        type="date"
+        presets={presetArr}
+        insetInput={insetInput}
+        presetPosition={presetPosition}
+        onPresetClick={onPresetClick}
+        onChange={(...args) => console.log(...args)}
+      />
+      <br/>
+      <br/>
+      <div>type="dateTime"</div>
+      <DatePicker
+        type="dateTime"
+        insetInput={insetInput}
+        needConfirm
+        bottomSlot={<BottomSlot/>}
+        presetPosition={presetPosition}
+        presets={presetArr.map(preset => ({
+          text: preset.text,
+          start: preset.start,
+        }))}
+        onPresetClick={onPresetClick}
+        onChange={(...args) => console.log(...args)}
+      />
+      <br/>
+      <br/>
+      <div>type="dateRange"</div>
       <DatePicker
         type="dateRange"
-        presets={presets}
+        presets={presetArr}
+        insetInput={insetInput}
+        presetPosition={presetPosition}
         onPresetClick={onPresetClick}
         onChange={(...args) => console.log(...args)}
       />
+      <br/>
+      <br/>
+      <div>type="dateTimeRange"</div>
       <DatePicker
-        type="dateTime"
-        presets={presets.map(preset => ({
-          text: preset.text,
-          start: preset.start,
-        }))}
+        type="dateTimeRange"
+        presets={presetArr}
+        insetInput={insetInput}
+        presetPosition={presetPosition}
         onPresetClick={onPresetClick}
         onChange={(...args) => console.log(...args)}
       />
-      <DatePicker
-        type="dateTime"
-        needConfirm
-        presets={presets.map(preset => ({
-          text: preset.text,
-          start: preset.start,
-        }))}
-        onPresetClick={onPresetClick}
-        onChange={(...args) => console.log(...args)}
-      />
+      <br/>
+      <br/>
+      <div>type="month"</div>
       <DatePicker
         type="month"
-        presets={presets.map(preset => ({
+        insetInput={insetInput}
+        presetPosition={presetPosition}
+        presets={presetArr.map(preset => ({
           text: preset.text,
           start: preset.start,
         }))}
+        onPresetClick={onPresetClick}
+        onChange={(...args) => console.log(...args)}
+      />
+      <br/>
+      <br/>
+      <div>type="date" density="compact"</div>
+      <DatePicker
+        type="date"
+        presets={presetArr}
+        insetInput={insetInput}
+        density="compact"
+        presetPosition={presetPosition}
+        onPresetClick={onPresetClick}
+        onChange={(...args) => console.log(...args)}
+      />
+      <br/>
+      <br/>
+      <div>type="dateTime" density="compact"</div>
+      <DatePicker
+        type="dateTime"
+        insetInput={insetInput}
+        needConfirm
+        density="compact"
+        presetPosition={presetPosition}
+        presets={presetArr.map(preset => ({
+          text: preset.text,
+          start: preset.start,
+        }))}
+        onPresetClick={onPresetClick}
+        onChange={(...args) => console.log(...args)}
+      />
+      <br/>
+      <br/>
+      <div>type="dateRange" density="compact"</div>
+      <DatePicker
+        type="dateRange"
+        presets={presetArr}
+        density="compact"
+        insetInput={insetInput}
+        presetPosition={presetPosition}
+        onPresetClick={onPresetClick}
+        onChange={(...args) => console.log(...args)}
+      />
+      <br/>
+      <br/>
+      <div>type="dateTimeRange"  density="compact"</div>
+      <DatePicker
+        type="dateTimeRange"
+        density="compact"
+        presets={presetArr}
+        insetInput={insetInput}
+        presetPosition={presetPosition}
+        onPresetClick={onPresetClick}
+        onChange={(...args) => console.log(...args)}
+      />
+      <br/>
+      <br/>
+      <div>type="month" density="compact"</div>
+      <DatePicker
+        type="month"
+        insetInput={insetInput}
+        presetPosition={presetPosition}
+        presets={presetArr.map(preset => ({
+          text: preset.text,
+          start: preset.start,
+        }))}
+        density="compact"
         onPresetClick={onPresetClick}
         onChange={(...args) => console.log(...args)}
       />
