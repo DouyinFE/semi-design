@@ -206,10 +206,12 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
                 };
                 // bind focus to hover trigger for a11y
                 triggerEventSet[eventNames.focus] = () => {
-                    this.delayShow();
+                    const { disableFocusListenerWhenHover } = this.getProps();
+                    !disableFocusListenerWhenHover && this.delayShow();
                 };
                 triggerEventSet[eventNames.blur] = () => {
-                    this.delayHide();
+                    const { disableFocusListenerWhenHover } = this.getProps();
+                    !disableFocusListenerWhenHover && this.delayHide();
                 };
 
                 portalEventSet = { ...triggerEventSet };

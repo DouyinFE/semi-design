@@ -439,6 +439,7 @@ function Demo() {
 | content | 弹出层内容 | string\|ReactNode |  |  |
 | className | 弹出层的样式名 | string |  |  |
 | clickToHide | 点击弹出层及内部任一元素时是否自动关闭弹层 | boolean | false | **0.24.0** |
+| disableFocusListenerWhenHover | trigger为`hover`时，不响应聚焦弹出浮层事件 | boolean | false | **2.17.0** |
 | getPopupContainer | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 `position: relative` | function():HTMLElement | () => document.body |  |
 | mouseEnterDelay | 鼠标移入后，延迟显示的时间，单位毫秒（仅当 trigger 为 hover/focus 时生效） | number | 50 |  |
 | mouseLeaveDelay | 鼠标移出后，延迟消失的时间，单位毫秒（仅当 trigger 为 hove/focus 时生效），不小于 mouseEnterDelay | number | 50 |  |
