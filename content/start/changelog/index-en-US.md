@@ -15,6 +15,12 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+#### 🎉 2.16.1 (2022-08-05)
+- 【Fix】
+    - Fix the problem that letters and numbers cannot be entered when using input class components in Dropdown
+    - Fix the problem of default icon of password input in windows edge browser [@linjunc](https://github.com/linjunc)
+    - Fix click on the edge of the switch can not trigger the change problem [@linjunc](https://github.com/linjunc)
+    - Fix handle misspelling[@linjunc](https://github.com/linjunc)
 
 #### 🎉 2.16.0 (2022-07-29)
 - 【Fix】

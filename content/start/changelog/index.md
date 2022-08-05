@@ -15,6 +15,13 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 
 ---
+#### 🎉 2.16.1 (2022-08-05)
+- 【Fix】
+    - 修复在 Dropdown 中使用输入类组件，无法输入字母和数字问题
+    - 修复 windows edge 浏览器 password input 默认 icon 的问题 [@linjunc](https://github.com/linjunc)
+    - 修复点击 switch 边缘无法触发 change 的问题 [@linjunc](https://github.com/linjunc)
+    - 修正 handle 拼写错误的问题 [@linjunc](https://github.com/linjunc)
+
 #### 🎉 2.16.0 (2022-07-29)
 - 【Fix】
     - 修复 Input 按下态颜色错误问题，修复 Input 和 TextArea 在 validateStatus 下按下态颜色不统一问题 [#662](https://github.com/DouyinFE/semi-design/issues/662)
