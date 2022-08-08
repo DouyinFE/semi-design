@@ -78,6 +78,7 @@ export interface TooltipProps extends BaseProps {
     disableArrowKeyDown?: boolean; 
     wrapperId?: string;
     preventScroll?: boolean;
+    disableFocusListener?: boolean;
 }
 interface TooltipState {
     visible: boolean;
@@ -163,6 +164,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         guardFocus: false,
         returnFocusOnClose: false,
         onEscKeyDown: noop,
+        disableFocusListener: false,
         disableArrowKeyDown: false,
     };
 
