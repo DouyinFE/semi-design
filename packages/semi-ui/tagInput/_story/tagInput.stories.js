@@ -78,6 +78,24 @@ ShowClear.story = {
   name: 'showClear',
 };
 
+export const Draggable = () => (
+  <>
+    <TagInput draggable defaultValue={['抖音', '火山', '西瓜视频', 'AI Lab', '花亦山', '水之月','轻颜','醒图']} showClear style={style} />
+    <br />
+    <TagInput 
+      draggable
+      defaultValue={['抖音', '火山', '西瓜视频', 'AI Lab', '花亦山', '水之月','轻颜','醒图']} 
+      maxTagCount={5} 
+      showClear 
+      style={style} 
+    />
+  </>
+);
+
+Draggable.story = {
+  name: 'draggable',
+};
+
 export const MaxExceed = () => (
   <>
     <TagInput

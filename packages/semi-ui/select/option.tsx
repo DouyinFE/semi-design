@@ -88,6 +88,7 @@ class Option extends PureComponent<OptionProps> {
             prefixCls,
             renderOptionItem,
             inputValue,
+            id,
             ...rest
         } = this.props;
         const optionClassName = classNames(prefixCls, {
@@ -146,6 +147,7 @@ class Option extends PureComponent<OptionProps> {
                 }}
                 onMouseEnter={e => onMouseEnter && onMouseEnter(e)}
                 role="option"
+                id={id}
                 aria-selected={selected ? "true" : "false"}
                 aria-disabled={disabled ? "true" : "false"}
                 style={style}

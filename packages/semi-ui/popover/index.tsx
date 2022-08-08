@@ -83,6 +83,7 @@ class Popover extends React.PureComponent<PopoverProps, PopoverState> {
         arrowBounding: PropTypes.object,
         prefixCls: PropTypes.string,
         guardFocus: PropTypes.bool,
+        disableArrowKeyDown: PropTypes.bool,
     };
 
     static defaultProps = {

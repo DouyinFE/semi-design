@@ -17,7 +17,7 @@ export default {
 export const RegularCollapse = () => (
   <div>
     <Collapse onChange={k => console.log(k)}>
-      <Panel header="This is panel header 1" itemKey="1">
+      <Panel header="This is panel header 1" itemKey="1" showArrow={false}>
         <p>{text}</p>
       </Panel>
       <Panel header="This is panel header 2" itemKey="2">
@@ -32,7 +32,7 @@ export const RegularCollapse = () => (
       <Panel header="This is panel header 1" itemKey="1">
         <p>{text}</p>
       </Panel>
-      <Panel header="This is panel header 2" itemKey="124">
+      <Panel header="This is panel header 2" itemKey="124" disabled>
         <p>{text}</p>
       </Panel>
       <Panel header="This is panel header 3" itemKey="3" disabled>
