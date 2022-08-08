@@ -1451,7 +1451,13 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
             <Option label='abc' value='bytedance' />
           </Select>
         ```
-
+        
+-   **为什么单选选择选项后没有触发blur事件？**
+    - 在V2.17.0前，Select 单选选择后，会触发 Select 的 blur事件。
+    - 在V2.17.0后，Select 增加了A11y支持，不会触发 Select 的 blur事件。
+        - 单选选择中，Select 浮层关闭，依然保持焦点在 trigger（此时可以通过 Enter 回车键再次打开 Select 浮层）
+        - 无论单选或多选，按下 Esc，仅 Select 浮层关闭，trigger 保持焦点（此时可以通过 Enter 回车键再次打开 Select 浮层）
+        
 <!-- ## 相关物料
 
 ```material

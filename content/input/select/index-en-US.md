@@ -1420,7 +1420,15 @@ MinWidth will be given, but width will not be written dead. If necessary, you ca
     allowCreate is mainly used for locally created scenarios. When this item is turned on, it is equivalent to forcibly taking over optionList/children, and will no longer respond to external updates to these two types of values. Otherwise, how the currently created options are combined with the latest props.optionList, and whether the strategy is overwritten or merged depends largely on the business scenario logic, and it is inappropriate to force presets by the component layer.
 
 -   **Why Semi's Select requires that the label must be unique, but not the value?**
+
     First of all, we must need a unique identifier to make a selection judgment. For almost all UI libraries, when using Select.Option, the minimum requirements will only require the two values of label and value to be passed in, instead of requiring a separate key (too cumbersome). Semi continues this setting.    
     So why is label instead of value in semi's select?  
     The label of the option is what the user perceives. From an interactive point of view, if there are two options that are exactly the same on the display, to the user’s perception, they look the same and cannot be distinguished, but the selected effects are different (for example, one value is 0, the other As 1), it is unreasonable. (Users' first reaction is often repeated, and there may be a bug)
 Unique label and repeated value are more common in daily use. For example, a selector that selects the company id based on the app name, value is the company id corresponding to the app, and label is the name of the app.
+
+- **Why is the blur event not fired after a radio selection option?**
+
+    Before V2.17.0, after Select radio is selected, the blur event of Select will be triggered.
+    After V2.17.0, Select has added A11y support, which will not trigger Select's blur event.
+    In single-selection selection, the Select floating layer is closed, and the focus is still on the trigger (at this time, the Select floating layer can be opened again by pressing the Enter key)
+    No matter single selection or multiple selection, press Esc, only the Select floating layer is closed, and the trigger keeps the focus (the Select floating layer can be opened again by pressing the Enter key at this time)

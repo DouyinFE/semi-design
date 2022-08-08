@@ -656,10 +656,10 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
 
     _handleKeyDown(event: KeyboardEvent) {
         const key = event.keyCode;
-        const { loading, filter, multiple } = this.getProps();
+        const { loading, filter, multiple, disabled } = this.getProps();
         const { isOpen } = this.getStates();
 
-        if (loading) {
+        if (loading || disabled) {
             return;
         }
         switch (key) {
