@@ -77,7 +77,7 @@ export interface TooltipProps extends BaseProps {
     onEscKeyDown?: (e: React.KeyboardEvent) => void;
     wrapperId?: string;
     preventScroll?: boolean;
-    disableFocusListenerWhenHover?: boolean;
+    disableFocusListener?: boolean;
 }
 interface TooltipState {
     visible: boolean;
@@ -163,7 +163,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         guardFocus: false,
         returnFocusOnClose: false,
         onEscKeyDown: noop,
-        disableFocusListenerWhenHover: false
+        disableFocusListener: false
     };
 
     eventManager: Event;

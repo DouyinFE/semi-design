@@ -406,7 +406,7 @@ import { Popconfirm, Tooltip, Button } from '@douyinfe/semi-ui';
 | className | Pop-up layer classname | string |  |  |
 | content | Pop-up layer content | string | ReactNode |  |
 | clickToHide | Whether to automatically close the elastic layer when clicking on the floating layer and any element inside | boolean | false | **0.24.0** |
-| disableFocusListenerWhenHover | When trigger is `hover`, does not respond to the focus popup event | boolean | false | **2.17.0** |
+| disableFocusListener | When trigger is `hover`, does not respond to the keyboard focus popup event, see details at [issue#977](https://github.com/DouyinFE/semi-design/issues/977) | boolean | false | **2.17.0** |
 | getPopupContainer | Specifies the parent DOM, and the bullet layer will be rendered to the DOM | () => HTMLElement | () => document.body |
 | mouseEnterDelay | After the mouse is moved in, the display delay time, in milliseconds (only effective when the trigger is hover/focus) | number | 50 |  |
 | mouseLeaveDelay | The time for the delay to disappear after the mouse is moved out, in milliseconds (only effective when the trigger is hover/focus), and is not less than mouseEnterDelay | number | 50 |  |
