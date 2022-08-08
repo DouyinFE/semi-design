@@ -361,7 +361,7 @@ class App extends React.Component {
     }
 
     render() {
-        return <DatePicker type="dateTime" presets={this.presets} />;
+        return <DatePicker type="dateTime" presets={this.presets} presetPosition="left"/>;
     }
 }
 ```
@@ -864,6 +864,7 @@ function Demo() {
 | prefix             | Prefix content                                                                                                                                                                            | string\|ReactNode                                                                                                                                                                                         |                                                                                       |                           |
 | presets            | Date Time Shortcut                                                                                                                                                                        | Array < {start: string\|Date\|number, end: string\|Date\|number, text: string}\| function(): {start: string\|Date\|number, end: string\|Date\|number, text: string} >                                     | []                                                                                    |                           |
 | preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
+| presetPosition     | Date time shortcut panel position, optional 'left', 'right', 'top', 'bottom' | 'bottom' | **2.18.0** |
 | rangeSeparator     | Custom range type picker separator of input trigger | string | '~' | **1.31.0** 
 | renderDate         | Custom date display content                                                                                                                                                               | (dayNumber, fullDate) => ReactNode                                                                                                                                                                        | -                                                                                     | **1.4.0**            |
 | renderFullDate     | Custom display date box                                                                                                                                                                   | (dayNumber, fullDate, dayStatus) => ReactNode                                                                                                                                                             | -                                                                                     | **1.4.0**            |
