@@ -411,8 +411,7 @@ class CustomRender extends React.Component {
 ### 拖拽排序
 
 将 `draggable`设为 true，开启拖拽排序功能。v2.17.0 后支持。拖拽排序下不允许添加相同 Tag， 因此需要将 `allowDuplicates` 设置为 false。
-拖拽功能开启后，点击 TagInput 中除 Tag 的清除 icon， 清除所有 Tag 的清除 icon 外的任一区域将使 TagInput 中的 Tag 变成能够拖拽的 Tag 。
-点击 TagInput 外任意区域，TagInput 中的 Tag 将恢复不可拖拽的状态。
+拖拽功能开启后，点击 TagInput，Tag 可拖拽。点击 TagInput 外任意区域，Tag 不可拖拽。
 
 ```jsx live=true
 import React from 'react';
@@ -422,7 +421,7 @@ import { TagInput } from '@douyinfe/semi-ui';
     <TagInput
         draggable
         allowDuplicates={false}
-        defaultValue={['抖音','火山','西瓜视频']}
+        defaultValue={['抖音', '火山', '西瓜视频']}
         placeholder='请输入...'
         onChange={v => console.log(v)}
     />

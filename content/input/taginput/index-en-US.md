@@ -411,9 +411,8 @@ class CustomRender extends React.Component {
 ### Drag to sort
 
 Set `draggable` to true to enable drag and drop sorting. Supported since v2.17.0. Adding the same Tag is not allowed under drag and drop sorting, 
-so you need to set `allowDuplicates` to false. After the drag and drop function is enabled, clicking any area in TagInput except the 
-clear icon of Tag and the clear icon of clear all Tags will make the Tag in TagInput draggable. Click anywhere outside the TagInput, 
-and the Tag in the TagInput will be restored to not be draggable.
+so you need to set `allowDuplicates` to false. After the drag function is enabled, click TagInput, and the Tag can be dragged. Click anywhere 
+outside the TagInput, the Tag cannot be dragged.
 
 ```jsx live=true
 import React from 'react';
