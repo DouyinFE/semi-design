@@ -32,6 +32,8 @@ $spacing-tagInput_small-Y: 1px; // 小尺寸标签输入框标签顶部外边距
 $spacing-tagInput_default-Y: $spacing-super-tight; // 默认尺寸标签输入框标签顶部外边距
 $spacing-tagInput_large-Y: 3px; // 大尺寸标签输入框标签顶部外边距
 $spacing-tagInput_wrapper_n_paddingX: $spacing-tight; //标签输入框标签容器水平内边距
+$spacing-tagInput_drag_handler-marginRight: 4px; // 拖拽handler icon的右外边距 
+$spacing-tagInput_tag_icon_paddingLeft: 4px; // tag中有handler icon时tag的左内边距
 
 $height-tagInput-large: $height-control-large; // 大尺寸标签输入框高度
 $height-tagInput-default: $height-control-default; // 默认尺寸标签输入框高度

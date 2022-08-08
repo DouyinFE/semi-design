@@ -358,7 +358,7 @@ class BasicDemoWithInit extends React.Component {
                             <TagInput 
                                 field="product"
                                 label='产品（TagInput）'
-                                defaultValue={['abc','ulikeCam']}
+                                initValue={['abc','ulikeCam']}
                                 placeholder='请输入产品'
                                 style={style}
                             />
