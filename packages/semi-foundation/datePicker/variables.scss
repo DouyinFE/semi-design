@@ -32,8 +32,8 @@ $width-datepicker_insetInput_date_type_wrapper: 284px; // 日期类型内嵌输�
 $width-datepicker_insetInput_date_range_type_wrapper: $width-datepicker_insetInput_date_type_wrapper * 2; // 范围选择内嵌输入框宽度
 $width-datepicker_insetInput_month_type_wrapper: 204px; // 月份类型内嵌输入框宽度
 $height-datepicker_insetInput_separator: 32px;
-$height-datepicker_month_grid_yearType_insetInput: 312px;
-$height-datepicker_month_grid_timeType_insetInput: 314px;
+$height-datepicker_month_grid_yearType_insetInput: 317px;
+$height-datepicker_month_grid_timeType_insetInput: 317px;
 
 // Spacing
 $spacing-datepicker_day-marginX: ($width-datepicker_day - $width-datepicker_day_main) / 2; // 日期格子水平外边距
@@ -161,8 +161,8 @@ $width-datepicker_month_compact: $width-datepicker_day_compact * 7 + $spacing-da
 $width-datepicker_nav_compact: 24px;
 $width-datepicker_panel_compact: 216px;
 $height-datepicker_switch_compact: 32px;
-$height-datepicker_tpk_compact: 236px;
-$height-datepicker_yam_panel_compact: 284px;
+$height-datepicker_tpk_compact: 256px;
+$height-datepicker_yam_panel_compact: 256px;
 $height-datepicker_yam_li_compact: 32px;
 $height-datepicker_yam_panel_header_compact: 48px;
 $radius-datepicker_range_input_inputWrapper: var(--semi-border-radius-small);

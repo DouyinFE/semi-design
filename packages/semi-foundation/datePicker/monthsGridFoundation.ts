@@ -92,8 +92,8 @@ export interface MonthsGridFoundationProps extends MonthsGridElementProps {
     triggerRender?: (props: Record<string, any>) => any;
     insetInput: boolean;
     presetPosition?: PresetPosition;
-    renderQuickControls?: JSX.Element;
-    renderDateInput?: JSX.Element;
+    renderQuickControls?: React.ReactNode;
+    renderDateInput?: React.ReactNode;
 }
 
 export interface MonthInfo {

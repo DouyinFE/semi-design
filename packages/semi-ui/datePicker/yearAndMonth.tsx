@@ -39,8 +39,8 @@ class YearAndMonth extends BaseComponent<YearAndMonthProps, YearAndMonthState> {
         disabledDate: PropTypes.func,
         density: PropTypes.string,
         presetPosition: PropTypes.oneOf(strings.PRESET_POSITION_SET),
-        renderQuickControls: PropTypes.object,
-        renderDateInput: PropTypes.object
+        renderQuickControls: PropTypes.node,
+        renderDateInput: PropTypes.node
     };
 
     static defaultProps = {

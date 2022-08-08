@@ -206,19 +206,14 @@ const presets = [
     end: endOfMonth(addMonths(new Date(), 1)),
   },
   {
-    text: 'Today',
-    start: new Date(),
-    end: new Date(),
+    text: 'Next Bimonthly',
+    start: startOfMonth(addMonths(new Date(), 1)),
+    end: endOfMonth(addMonths(new Date(), 2)),
   },
   {
-    text: 'Tomorrow',
-    start: addDays(new Date(), 1),
-    end: addDays(new Date(), 1),
-  },
-  {
-    text: 'Next Week',
-    start: addWeeks(new Date(), 1),
-    end: addWeeks(new Date(), 2),
+    text: 'Next Quarter',
+    start: startOfMonth(addMonths(new Date(), 3)),
+    end: endOfMonth(addMonths(new Date(), 3)),
   },
 ];
 

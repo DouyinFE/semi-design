@@ -14,8 +14,8 @@ export interface YearAndMonthFoundationProps {
     disabledDate?: (date: Date) => boolean;
     density?: string;
     presetPosition?: PresetPosition;
-    renderQuickControls?: JSX.Element;
-    renderDateInput?: JSX.Element;
+    renderQuickControls?: React.ReactNode;
+    renderDateInput?: React.ReactNode;
 }
 
 export interface YearAndMonthFoundationState {

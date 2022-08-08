@@ -77,8 +77,8 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
         focusRecordsRef: PropTypes.object,
         triggerRender: PropTypes.func,
         presetPosition: PropTypes.oneOf(strings.PRESET_POSITION_SET),
-        renderQuickControls: PropTypes.object,
-        renderDateInput: PropTypes.object
+        renderQuickControls: PropTypes.node,
+        renderDateInput: PropTypes.node
     };
 
     static defaultProps = {

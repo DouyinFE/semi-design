@@ -361,7 +361,7 @@ class App extends React.Component {
     }
 
     render() {
-        return <DatePicker type="dateTime" presets={this.presets} />;
+        return <DatePicker type="dateTime" presets={this.presets} presetPosition="left"/>;
     }
 }
 ```

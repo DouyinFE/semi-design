@@ -342,7 +342,7 @@ import { DatePicker } from '@douyinfe/semi-ui';
             end: new Date(new Date().valueOf() + 1000 * 3600 * 24),
         },
     ];
-    return <DatePicker type="dateTime" presets={presets} />;
+    return <DatePicker type="dateTime" presets={presets} presetPosition="left"/>;
 };
 ```
 
