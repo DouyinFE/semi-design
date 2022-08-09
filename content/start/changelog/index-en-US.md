@@ -16,6 +16,11 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.17.0-beta.1 (2022-08-09)
+- 【fix】
+    - Fix the problem that the Empty component is unexpectedly judged as dark mode when the body theme-mode attribute is unexpected
+    - fix the problem that the treeData and value of cascader are dynamically updated, and the selected value is not displayed correctly
+
 #### 🎉 2.17.0-beta.0 (2022-08-09)
 - 【feat】
     - Select add A11y keyboard and focus adaptation  [#205](https://github.com/DouyinFE/semi-design/issues/205)
