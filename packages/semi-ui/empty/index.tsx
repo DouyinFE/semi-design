@@ -79,7 +79,7 @@ export default class Empty extends BaseComponent<EmptyProps, EmptyState> {
         const { className, image, description, style, title, imageStyle, children, layout, darkModeImage } = this.props;
 
         const alt = typeof description === 'string' ? description : 'empty';
-        const imgSrc = this.state.mode && darkModeImage ? darkModeImage : image;
+        const imgSrc = (this.state.mode==='dark') && darkModeImage ? darkModeImage : image;
         let imageNode = null;
         if (typeof imgSrc === 'string') {
             imageNode = <img alt={alt} src={imgSrc} />;
