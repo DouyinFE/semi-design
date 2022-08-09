@@ -16,7 +16,7 @@ import {
     endOfDay,
     startOfDay,
     toDate,
-    Locale
+    Locale,
 } from 'date-fns';
 import { EventObject, ParsedRangeEvent } from './foundation';
 
@@ -96,6 +96,8 @@ export interface DateObj {
     month: string;
 }
 
+export type weeekStartsOnEnum = 0 | 1 | 2 | 3 | 4 | 5 | 6;
+
 export const calcRangeData = (value: Date, start: Date, rangeLen: number, mode: string, locale: Locale) => {
     const today = getCurrDate();
     const arr: Array<DateObj> = [];
@@ -125,8 +127,8 @@ export const calcRangeData = (value: Date, start: Date, rangeLen: number, mode: 
  * @returns {object[]} { date: Date, dayString: string, ind: number, isToday: boolean, isWeekend: boolean, weekday: string }
  * create weekly object array
  */
-export const calcWeekData = (value: Date, mode = 'week', locale: Locale) => {
-    const start = startOfWeek(value);
+export const calcWeekData = (value: Date, mode = 'week', locale: Locale, weekStartsOn: weeekStartsOnEnum) => {
+    const start = startOfWeek(value, { weekStartsOn });
     return calcRangeData(value, start, 7, mode, locale);
 };
 

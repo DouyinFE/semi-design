@@ -55,6 +55,37 @@ import { Calendar } from '@douyinfe/semi-ui';
 );
 ```
 
+### Set week start day
+The day of the week can be set as the first day of the week through weekStartsOn, 0 for Sunday, 1 for Monday, and so on. Default is Sunday.  
+`weekStartsOn` is available since v2.18, and takes effect for month view and week view.
+
+```jsx live=true dir="column"
+import React, { useState } from 'react';
+import { RadioGroup, Calendar, Radio } from '@douyinfe/semi-ui';
+
+() => {
+    const [v, setV] = useState(0);
+    return (
+        <div>
+            <RadioGroup defaultValue={v} aria-label="StartOfWeek" name="demo-radio-group-vertical" onChange={e => setV(e.target.value)}>
+                <Radio value={0}>Sunday</Radio>
+                <Radio value={1}>Mon</Radio>
+                <Radio value={2}>Tue</Radio>
+                <Radio value={3}>Wed</Radio>
+                <Radio value={4}>Thu</Radio>
+                <Radio value={5}>Fri</Radio>
+                <Radio value={6}>Sat</Radio>
+            </RadioGroup>
+            <Calendar
+                mode="month"
+                weekStartsOn={v}
+            ></Calendar>
+        </div>
+    );
+};
+```
+
+
 ### Range Mode
 **>=1.5.0**  
 Range Mode. `range` is required which is a left-closed and right-open interval. 
