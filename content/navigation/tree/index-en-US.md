@@ -2195,6 +2195,7 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
 |Name | Description | Type 
 |----|----|----|
 | search | Trigger search manually | (value: string) => void |
+| scrollTo | In a virtualized Tree, make the specified node scroll to view | （{key: string; align?: 'center' \| 'start' \| 'end' \| 'smart' \| 'auto';}) => void |
 
 
 ## Accessibility

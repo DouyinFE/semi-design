@@ -1,9 +1,9 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useCallback } from 'react';
 import { cloneDeep, difference, isEqual } from 'lodash';
 import { IconEdit, IconMapPin, IconMore } from '@douyinfe/semi-icons';
 import Tree from '../index';
 import AutoSizer from '../autoSizer';
-import { Button, ButtonGroup, Input, Popover, Toast, Space } from '../../index';
+import { Button, ButtonGroup, Input, Popover, Toast, Space, Select, Switch } from '../../index';
 import BigTree from './BigData';
 import testData from './data';
 const TreeNode = Tree.TreeNode;
@@ -2399,3 +2399,152 @@ export const ValueImpactExpansionWithDynamicTreeData = () => {
     </>
   )
 }
+
+class DemoV extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            gData: [],
+            total: 0,
+            align: 'center',
+            scrollKey: '',
+            expandAll: false,
+        };
+        this.onGen = this.onGen.bind(this);
+        this.onScroll = this.onScroll.bind(this);
+        this.onInputChange = this.onInputChange.bind(this);
+        this.onInputBlur = this.onInputBlur.bind(this);
+        this.onSelectChange = this.onSelectChange.bind(this);
+        this.treeRef = React.createRef();
+    }
+
+    generateData(x = 5, y = 4, z = 3, gData = []) {
+        // x：每一级下的节点总数。y：每级节点里有y个节点、存在子节点。z：树的level层级数（0表示一级）
+        function _loop(_level, _preKey, _tns) {
+            const preKey = _preKey || '0';
+            const tns = _tns || gData;
+
+            const children = [];
+            for (let i = 0; i < x; i++) {
+                const key = `${preKey}-${i}`;
+                tns.push({ label: `${key}-标签`, key: `${key}-key`, value: `${key}-value` });
+                if (i < y) {
+                    children.push(key);
+                }
+            }
+            if (_level < 0) {
+                return tns;
+            }
+            const __level = _level - 1;
+            children.forEach((key, index) => {
+                tns[index].children = [];
+                return _loop(__level, key, tns[index].children);
+            });
+
+            return null;
+        }
+        _loop(z);
+
+        function calcTotal(x, y, z) {
+            const rec = n => (n >= 0 ? x * y ** n-- + rec(n) : 0);
+            return rec(z + 1);
+        }
+        return { gData, total: calcTotal(x, y, z) };
+    }
+
+    onGen() {
+        const { gData, total } = this.generateData();
+        this.setState({
+            gData,
+            total
+        });
+    };
+
+    onScroll(scrollKey, align) {
+      this.treeRef?.current.scrollTo({ key: scrollKey, align});
+    }
+
+    onInputChange(value) {
+      this.setState({
+        scrollKey: value,
+      })
+    }
+
+    onInputBlur(e) {
+      const { value } = e.target;
+      this.onScroll(value, this.state.align);
+    }
+
+    onSelectChange(value){
+      this.setState({
+        align: value,
+      })
+      this.onScroll(this.state.scrollKey, value)
+    }
+
+    render() {
+        const style = {
+            width: 260,
+            border: '1px solid var(--semi-color-border)'
+        };
+        return (
+            <div style={{ padding: '0 20px' }}>
+                <Button onClick={this.onGen}>生成数据: </Button>
+                <span>共 {this.state.total} 个节点</span>
+                <br/>
+                <br/>
+                <div style={{ display: 'flex', alignItems: 'center', }}>
+                  <span>defaultExpandAll</span>
+                  <Switch onChange={(value) => {
+                      this.setState({
+                        expandAll: value,
+                      })
+                  }}/>
+                </div>
+                <br/>
+                <span>跳转的key：</span>
+                <Input
+                  placeholder={'输入想要跳转的key'} 
+                  style={{ width: 180, marginRight: 20 }} 
+                  onChange={this.onInputChange}
+                  onBlur={this.onInputBlur}
+                ></Input>
+                <span>scroll align：</span>
+                <Select 
+                  defaultValue='center'
+                  style={{ width: 180 }} 
+                  optionList={['center', 'start', 'end', 'smart', 'auto'].map(item => ({
+                    value: item,
+                    label: item,
+                  }))}
+                  onChange={this.onSelectChange}
+                >
+                </Select>
+                <br />
+                <br />
+                {this.state.gData.length ? (
+                    <Tree
+                        key={`key-${this.state.expandAll}`}
+                        ref={this.treeRef}
+                        defaultExpandAll={this.state.expandAll}
+                        treeData={this.state.gData}
+                        filterTreeNode
+                        showFilteredOnly
+                        style={style}
+                        virtualize={{
+                            // if set height for tree, it will fill 100%
+                            height: 300,
+                            itemSize: 28,
+                        }}
+                    />
+                ) : null}
+            </div>
+        );
+    }
+}
+
+export const virtualizeTree = () => <DemoV />;
+
+virtualizeTree.story = {
+  name: 'virtualize tree',
+};

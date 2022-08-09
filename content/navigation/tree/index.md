@@ -2190,6 +2190,7 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
 |名称 | 描述 | 类型
 |----|----|----|
 | search | 手动触发搜索 | (value: string) => void |
+| scrollTo | 在虚拟化 Tree 中，使得指定结点滚动到视图 | （{key: string; align?: 'center' \| 'start' \| 'end' \| 'smart' \| 'auto';}) => void |
 
 ## Accessibility
 

@@ -39,7 +39,8 @@ import {
     TreeNodeData,
     FlattenNode,
     KeyEntity,
-    OptionProps
+    OptionProps,
+    ScrollData,
 } from './interface';
 import CheckboxGroup from '../checkbox/checkboxGroup';
 
@@ -146,6 +147,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
     onNodeClick: any;
     onMotionEnd: any;
     context: ContextValue;
+    virtualizedListRef: React.RefObject<any>;
 
     constructor(props: TreeProps) {
         super(props);
@@ -179,6 +181,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
         this.optionsRef = React.createRef();
         this.foundation = new TreeFoundation(this.adapter);
         this.dragNode = null;
+        this.virtualizedListRef = React.createRef();
     }
 
     /**
@@ -493,6 +496,15 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
         this.foundation.handleInputChange(value);
     };
 
+    scrollTo = (scrollData: ScrollData) => {
+        const { key, align = 'center' } = scrollData;
+        const { flattenNodes } = this.state;
+        const index = key && flattenNodes?.findIndex((node) => {
+            return node.key === key;
+        });
+        index && (this.virtualizedListRef.current as any)?.scrollToItem(index, align);
+    }
+
     renderInput() {
         const {
             searchClassName,
@@ -664,6 +676,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
             <AutoSizer defaultHeight={virtualize.height} defaultWidth={virtualize.width}>
                 {({ height, width }: { width: string | number; height: string | number }) => (
                     <VirtualList
+                        ref={this.virtualizedListRef}
                         itemCount={flattenNodes.length}
                         itemSize={virtualize.itemSize}
                         height={height}
