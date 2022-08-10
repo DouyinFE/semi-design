@@ -169,7 +169,7 @@ export default function ColumnFilter(props: ColumnFilterProps = {}): React.React
                     aria-label="Filter data with this column"
                     aria-haspopup="listbox"
                     tabIndex={-1}
-                    size="small"
+                    size="default"
                 />
             </div>
         );

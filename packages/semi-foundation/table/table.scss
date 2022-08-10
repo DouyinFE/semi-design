@@ -371,9 +371,14 @@ $module: #{$prefix}-table;
             display: inline-block;
             width: $width-table_column_sorter-icon;
             height: $height-table_column_sorter-icon;
-            cursor: pointer;
             vertical-align: middle;
             text-align: center;
+
+            &-wrapper {
+                display: inline-flex;
+                align-items: center;
+                cursor: pointer;
+            }
 
             &-up,
             &-down {
