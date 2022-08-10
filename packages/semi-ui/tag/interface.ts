@@ -21,13 +21,14 @@ export type TagSize = 'default' | 'small' | 'large';
 export type AvatarShape = 'circle' | 'square';
 
 export interface TagProps {
-    children?: React.ReactNode;
+    children?: React.ReactNode | string | number;
+    tagKey?: string | number;
     size?: TagSize;
     color?: TagColor;
     type?: TagType;
     closable?: boolean;
     visible?: boolean;
-    onClose?: (tagChildren: React.ReactNode, event: React.MouseEvent<HTMLElement>) => void;
+    onClose?: (tagChildren: React.ReactNode, event: React.MouseEvent<HTMLElement>, tagKey: string | number) => void;
     onClick?: React.MouseEventHandler<HTMLDivElement>;
     style?: React.CSSProperties;
     className?: string;
