@@ -17,17 +17,17 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 ---
 
 #### 🎉 2.17.0-beta.1 (2022-08-09)
-- 【fix】
-    - 修复 Empty 组件在 body theme-mode attribute 为非预期值时意外判定为暗色模式的问题
-    - 修复cascader 的treeData和value动态更新，选中值显示不正确的问题
+- 【Fix】
+    - 修复 Empty 组件在 body theme-mode attribute 为非预期值时意外判定为暗色模式的问题 [#1023](https://github.com/DouyinFE/semi-design/issues/1023)
+    - 修复 cascader 的 treeData 和 value 动态更新，选中值显示不正确的问题 [#703](https://github.com/DouyinFE/semi-design/issues/703)
 
 #### 🎉 2.17.0-beta.0 (2022-08-09)
-- 【feat】
-    - Select 新增 A11y 键盘和焦点适配   [#205](https://github.com/DouyinFE/semi-design/issues/205)
-    - DatePicker 快捷选择面板支持方位选择  [#895](https://github.com/DouyinFE/semi-design/issues/895)
+- 【Feat】
+    - Select 新增 A11y 键盘和焦点适配  [#205](https://github.com/DouyinFE/semi-design/issues/205)
+    - DatePicker 快捷选择面板支持方位选择 [#895](https://github.com/DouyinFE/semi-design/issues/895)
     - TagInput 支持拖拽排序。
     - Collapse.Panel 新增API disabled 和 showArrow  [#188](https://github.com/DouyinFE/semi-design/issues/188)
-- 【fix】
+- 【Fix】
     - 修复 Tooltip trigger 为 hover 时，点击children后再点击弹层，弹层会隐藏问题  [#977](https://github.com/DouyinFE/semi-design/issues/977)
 
 #### 🎉 2.16.1 (2022-08-05)
