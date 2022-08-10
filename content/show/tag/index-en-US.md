@@ -258,8 +258,10 @@ import { TagGroup } from '@douyinfe/semi-ui';
 | style | Inline style | object |  |  |
 | type | Style type, one of `ghost`, `solid`, `light` | string | `light` |  |
 | visible | Toggle the visibility of the tag | boolean | true |  |
+| tagKey  | The key required by React, as the unique identifier of each tag, does not allow repetition | string | number | |
 | onClick | Callback function when clicking the tag | (e: MouseEvent) => void | - |  |
 | onClose | Callback function when the tag is closed | (tagChildren: ReactNode, e: MouseEvent) => void | - |  |
+
 ### TagGroup
 
 | Properties | Instructions | type | Default | Version |
@@ -282,10 +284,10 @@ import { TagGroup } from '@douyinfe/semi-ui';
 ### Keyboard and Focus
 
 - If the current `Tag` is interactive, then this `Tag` can be focused. Such as:
-   - When the `onClick` attribute is used, the keyboard user can activate this `Tag` with the `Enter` keys
-   - When the `closable` property is `true`, keyboard users can delete this `Tag` by pressing the `Delete` key
-   - When a `Tag` is focused, keyboard users can use the `Esc` key to defocus the currently focused `Tag`
-   
+  - When the `onClick` attribute is used, the keyboard user can activate this `Tag` with the `Enter` keys
+  - When the `closable` property is `true`, keyboard users can delete this `Tag` by pressing the `Delete` key
+  - When a `Tag` is focused, keyboard users can use the `Esc` key to defocus the currently focused `Tag`
+
 ## Design Tokens
 
 <DesignToken/>

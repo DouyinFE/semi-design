@@ -16,11 +16,10 @@ brief: 标签是图形化标记界面上的元素的组件，达到快速识别�
 import { Tag, TagGroup } from '@douyinfe/semi-ui';
 ```
 
-
 ### 基本用法
 
 基本标签用法，将内容使用 `<Tag>` 标签包裹即可。  
-可以通过添加 `closable` 属性将其变为可关闭标签，此时点击x关闭会触发 onClose 事件，在 onClose 中阻止默认事件可以使其点击后依然显示不隐藏    
+可以通过添加 `closable` 属性将其变为可关闭标签，此时点击x关闭会触发 onClose 事件，在 onClose 中阻止默认事件可以使其点击后依然显示不隐藏
 
 ```jsx live=true
 import React from 'react';
@@ -133,7 +132,7 @@ import { Tag, Button } from '@douyinfe/semi-ui';
     return (
         <div>
             <Button onClick={toggleVisible}>{visible ? 'Hide Tag': 'Show Tag'}</Button>
-            <div style={{marginTop:10}}>
+            <div style={{ marginTop:10 }}>
                 <Tag visible={visible}>Invisible tag </Tag>
             </div>
         </div>
@@ -153,17 +152,17 @@ import { TagGroup } from '@douyinfe/semi-ui';
 
 () => {
     const tagList = [
-        { color: 'white', children:'抖音'},
-        { color: 'white', children:'火山小视频'},
-        { color: 'white', children:'剪映'},
-        { color: 'white', children:'皮皮虾'},
+        { color: 'white', children:'抖音' },
+        { color: 'white', children:'火山小视频' },
+        { color: 'white', children:'剪映' },
+        { color: 'white', children:'皮皮虾' },
     ];
     const src = 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png';
     const tagList2 = [
-        { color: 'white', children:'Douyin', avatarSrc:src},
-        { color: 'white', children:'Hotsoon', avatarSrc:src},
-        { color: 'white', children:'Capcut', avatarSrc:src},
-        { color: 'white', children:'Pipixia', avatarSrc:src},
+        { color: 'white', children:'Douyin', avatarSrc:src },
+        { color: 'white', children:'Hotsoon', avatarSrc:src },
+        { color: 'white', children:'Capcut', avatarSrc:src },
+        { color: 'white', children:'Pipixia', avatarSrc:src },
     ];
     const divStyle = {
         backgroundColor: 'var(--semi-color-fill-0)',
@@ -220,6 +219,7 @@ import { TagGroup } from '@douyinfe/semi-ui';
 | style | 样式 | CSSProperties |     | |
 | type  | 标签的样式类型，可选 `ghost`、 `solid`、 `light` | string  | `light`     | |
 | visible | 标签是否可见 | boolean | true    | |
+| tagKey  | React 需要的 key，作为每个标签的唯一标识，不允许重复 | string | number | |
 | onClick | 单击标签时的回调函数 | (e: MouseEvent) => void | 无   | |
 | onClose | 关闭标签时的回调函数 | (tagChildren: ReactNode, e: MouseEvent) => void | 无    | e于v1.18版本提供 |
 
@@ -245,10 +245,12 @@ import { TagGroup } from '@douyinfe/semi-ui';
 ### 键盘和焦点
 
 - 如果当前 `Tag` 可交互，那么这个 `Tag` 可被聚焦到。如：
-    - 使用了 `onClick` 属性时，键盘用户可以通过 `Enter` 键激活此 `Tag`
-    - `closable` 属性为 `true` 时，键盘用户可以通过 `Delete` 键删除此 `Tag`
-    - `Tag` 被聚焦时，键盘用户可以通过 `Esc` 键使当前聚焦 `Tag` 失焦
+  - 使用了 `onClick` 属性时，键盘用户可以通过 `Enter` 键激活此 `Tag`
+  - `closable` 属性为 `true` 时，键盘用户可以通过 `Delete` 键删除此 `Tag`
+  - `Tag` 被聚焦时，键盘用户可以通过 `Esc` 键使当前聚焦 `Tag` 失焦
+
 ## 设计变量
+
 <DesignToken/>
 
 <!-- ## 相关物料
