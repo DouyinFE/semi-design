@@ -10,7 +10,10 @@ $module: #{$prefix}-tagInput;
     font-weight: $font-weight-regular;
     width: 100%;
     box-sizing: border-box;
-    
+    transition: background-color $transition_duration_tagInput-bg $transition_function-tagInput-bg $transition_delay-tagInput-bg,
+    border $transition_duration-tagInput-border $transition_function-tagInput-border $transition_delay-tagInput-border;
+
+
     &-hover {
         background-color: $color-tagInput_default-bg-hover;
         border: $width-tagInput-border-hover $color-tagInput-border-hover solid;

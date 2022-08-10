@@ -156,6 +156,8 @@ $module: #{$prefix}-tabs;
     &-bar-line {
         &.#{$module}-bar-top {
             border-bottom: $width-tabs_bar_line-border solid $color-tabs_tab_line_default-border-default;
+            transition: border-bottom-color $transition_duration_tabs_tab_line-border $transition_function_tabs_tab_line-border $transition_delay_tabs_tab_line-border,
+            color $transition_duration_tabs_tab_line-text $transition_function_tabs_tab_line-text $transition_delay_tabs_tab_line-text;//线条式tabs的border-color以及color的transition
             
             .#{$module}-tab {
                 padding: $spacing-tabs_bar_line_tab-paddingTop $spacing-tabs_bar_line_tab-paddingRight $spacing-tabs_bar_line_tab-paddingBottom $spacing-tabs_bar_line_tab-paddingLeft;
@@ -338,6 +340,7 @@ $module: #{$prefix}-tabs;
         
         .#{$module}-tab {
             padding: $spacing-tabs_bar_card_tab-paddingY $spacing-tabs_bar_card_tab-paddingX;
+            transition: background-color $transition_duration_tabs_tab_card-bg $transition_function_tabs_tab_card-bg $transition_delay_tabs_tab_card-bg; //卡片式tabs的bg的transition
             
             &:hover {
                 background: $color-tabs_tab_card-bg-hover;
@@ -380,6 +383,7 @@ $module: #{$prefix}-tabs;
             border-radius: $radius-tabs_tab_button;
             color: $color-tabs_tab_button-text-default;
             border: none;
+            transition: background-color $transition_duration_tabs-tab_button-bg $transition_function_tabs_tab_button-bg $transition_delay_tabs_tab_button-bg;//按钮tabs的背景色的transition
             
             &:hover {
                 border: none;

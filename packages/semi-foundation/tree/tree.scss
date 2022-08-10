@@ -53,6 +53,7 @@ $module: #{$prefix}-tree;
         display: flex;
         align-items: center;
         cursor: pointer;
+        transition: background-color $transition_duration_tree_option-bg $transition_function-tree_option-bg $transition_delay-tree_option-bg;
 
         @include font-size-regular;
         word-break: break-word;

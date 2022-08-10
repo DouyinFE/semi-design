@@ -21,4 +21,17 @@ body{
   --semi-transition_delay-faster:0ms;
   --semi-transition_delay-fastest:0ms;
 
+  --semi-transform_scale-small:scale(1.04,1.04);
+  --semi-transform_scale-medium:scale(1.08,1.08);
+  --semi-transform_scale-large:scale(1.12,1.12);
+  --semi-transform_rotate-clockwise90deg:rotate(90deg);
+  --semi-transform_rotate-clockwise180deg:rotate(180deg);
+  --semi-transform_rotate-clockwise270deg:rotate(270deg);
+  --semi-transform_rotate-clockwise360deg:rotate(360deg);
+  --semi-transform_rotate-anticlockwise90deg:rotate(-90deg);
+  --semi-transform_rotate-anticlockwise180deg:rotate(-180deg);
+  --semi-transform_rotate-anticlockwise270deg:rotate(-270deg);
+  --semi-transform_rotate-anticlockwise360deg:rotate(-360deg);
+
+
 }

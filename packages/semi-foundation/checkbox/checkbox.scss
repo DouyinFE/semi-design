@@ -14,6 +14,8 @@ $module: #{$prefix}-checkbox;
     flex-wrap: wrap;
     @include font-size-regular;
     cursor: pointer;
+    transition: background-color $transition_duration-checkbox-bg $transition_function-checkbox-bg $transition_delay-checkbox-bg,
+    border $transition_duration-checkbox-border $transition_function_checkbox-border $transition_delay-checkbox-border;
 
     input[type="checkbox"] {
         position: absolute;
@@ -85,6 +87,8 @@ $module: #{$prefix}-checkbox;
         height: $height-checkbox_inner;
         user-select: none; // prevent text under it will be selected when double click
         cursor: pointer;
+        transition: background-color $transition_duration-checkbox-bg $transition_function-checkbox-bg $transition_delay-checkbox-bg,
+        border $transition_duration-checkbox-border $transition_function-checkbox-border $transition_delay-checkbox-border;
 
         &-display {
             @include box-sizing;
@@ -177,6 +181,7 @@ $module: #{$prefix}-checkbox;
         padding: $spacing-checkbox_cardType-paddingY $spacing-checkbox_cardType-paddingX;
         background: transparent;
         border: $width-checkbox_cardType_checked-border solid transparent;
+
 
         .#{$module}-inner {
             position: relative;

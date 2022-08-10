@@ -166,6 +166,7 @@ $basicType: #{$module}-basic;
         overflow: hidden;
         flex: 1;
         cursor: pointer;
+        transition: color $transition_duration-steps_item_title-text $transition_function-steps_item_title-text $transition_delay-steps_item_title-text; //step文字color的transition变化
 
         &:hover {
 
