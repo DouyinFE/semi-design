@@ -18,8 +18,8 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 #### 🎉 2.17.0-beta.1 (2022-08-09)
 - 【Fix】
-    - Fix the problem that the Empty component is unexpectedly judged as dark mode when the body theme-mode attribute is unexpected
-    - fix the problem that the treeData and value of cascader are dynamically updated, and the selected value is not displayed correctly
+    - Fix the problem that the Empty component is unexpectedly judged as dark mode when the body theme-mode attribute is unexpected [#1023](https://github.com/DouyinFE/semi-design/issues/1023)
+    - fix the problem that the treeData and value of cascader are dynamically updated, and the selected value is not displayed correctly [#703](https://github.com/DouyinFE/semi-design/issues/703)
 
 #### 🎉 2.17.0-beta.0 (2022-08-09)
 - 【Feat】
