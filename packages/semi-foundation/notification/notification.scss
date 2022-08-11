@@ -1,5 +1,5 @@
 //@import '../theme/variables.scss';
-@import "./variables.scss";
+@import './variables.scss';
 
 $module: #{$prefix}-notification;
 
@@ -15,41 +15,40 @@ $module: #{$prefix}-notification;
     z-index: $z-notification;
     pointer-events: none;
 
-    &[placement="topRight"] {
+    &[placement='topRight'] {
         right: 0;
         top: 0;
     }
 
-    &[placement="top"] {
+    &[placement='top'] {
         top: 0;
         left: 50%;
         transform: translateX(-50%);
     }
 
-    &[placement="topLeft"] {
+    &[placement='topLeft'] {
         left: 0;
         top: 0;
     }
 
-    &[placement="bottom"] {
+    &[placement='bottom'] {
         bottom: 0;
         left: 50%;
         transform: translateX(-50%);
     }
 
-    &[placement="bottomRight"] {
+    &[placement='bottomRight'] {
         bottom: 0;
         right: 0;
     }
 
-    &[placement="bottomLeft"] {
+    &[placement='bottomLeft'] {
         bottom: 0;
         left: 0;
     }
 }
 
 .#{$module} {
-
     &-notice {
         @include shadow-elevated;
         border-radius: $radius-notification_notice;
@@ -93,26 +92,42 @@ $module: #{$prefix}-notification;
 
         &-light {
             &.#{$module}-notice-warning {
-                background-image: linear-gradient(0deg, $color-notification_warning_light-bg, $color-notification_warning_light-bg);
+                background-image: linear-gradient(
+                    0deg,
+                    $color-notification_warning_light-bg,
+                    $color-notification_warning_light-bg
+                );
                 background-color: $color-notification_ambient-bg;
                 border: $width-notification_notice-border solid $color-notification_warning_light-border;
             }
 
             &.#{$module}-notice-success {
-                background-image: linear-gradient(0deg, $color-notification_success_light-bg, $color-notification_success_light-bg);
+                background-image: linear-gradient(
+                    0deg,
+                    $color-notification_success_light-bg,
+                    $color-notification_success_light-bg
+                );
                 background-color: $color-notification_ambient-bg;
                 border: $width-notification_notice-border solid $color-notification_success_light-border;
             }
 
             &.#{$module}-notice-info,
             &.#{$module}-notice-default {
-                background-image: linear-gradient(0deg, $color-notification_info_light-bg, $color-notification_info_light-bg);
+                background-image: linear-gradient(
+                    0deg,
+                    $color-notification_info_light-bg,
+                    $color-notification_info_light-bg
+                );
                 background-color: $color-notification_ambient-bg;
                 border: $width-notification_notice-border solid $color-notification_info_light-border;
             }
 
             &.#{$module}-notice-error {
-                background-image: linear-gradient(0deg, $color-notification_danger_light-bg, $color-notification_danger_light-bg);
+                background-image: linear-gradient(
+                    0deg,
+                    $color-notification_danger_light-bg,
+                    $color-notification_danger_light-bg
+                );
                 background-color: $color-notification_ambient-bg;
                 border: $width-notification_notice-border solid $color-notification_danger_light-border;
             }
@@ -169,4 +184,4 @@ $module: #{$prefix}-notification;
     }
 }
 
-@import "./rtl.scss";
+@import './rtl.scss';

@@ -1,0 +1,7 @@
+$transition_duration_scrollList_selected_item-bg: var(
+    --semi-transition_delay-fastest
+); // 滚动列表选中选项-背景颜色-动画持续时间
+$transition_function_scrollList_selected_item-bg: var(
+    --semi-transition_function-easeOut
+); // 滚动列表选中选项-背景颜色-过渡曲线
+$transition_delay_scrollList_selected_item-bg: var(--semi-transition_delay-none); // 滚动列表选中选项-背景颜色-延迟时间

@@ -1,8 +1,9 @@
-@import "./variables.scss";
+@import './variables.scss';
+@import './animation.scss';
+
 $module: #{$prefix}-skeleton;
 
 .#{$module} {
-
     &-avatar,
     &-image,
     &-title,
@@ -96,12 +97,12 @@ $module: #{$prefix}-skeleton;
                 $color-skeleton_default-bg-default 88%
             );
             background-size: 400% 100%;
-            animation: skeleton-loading 1.4s ease infinite;
+            animation: skeleton-loading $transition_duration_skeleton-bg $transition_function_skeleton-bg infinite
+                $transition_delay_skeleton-bg;
         }
     }
 
     @keyframes skeleton-loading {
-
         0% {
             background-position: 100% 50%;
         }
@@ -112,4 +113,4 @@ $module: #{$prefix}-skeleton;
     }
 }
 
-@import "./rtl.scss";
+@import './rtl.scss';

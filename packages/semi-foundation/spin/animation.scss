@@ -1,0 +1,7 @@
+$transition_duration_spin_wrapper-svg: var(--semi-transition_delay-fast); // 加载器-图标容器-动画持续时间
+$transition_function_spin_wrapper-svg: var(--semi-transition_function-linear); // 加载器-图标容器-过渡曲线
+$transition_delay_spin_wrapper-svg: var(--semi-transition_delay-none); // 加载器-图标容器-延迟时间
+
+$transition_duration_spin_wrapper-translate: var(--semi-transition_delay-slower); // 加载器-图标-动画持续时间
+$transition_function_spin_wrapper-translate: var(--semi-transition_function-linear); // 加载器-图标-过渡曲线
+$transition_delay_spin_wrapper-translate: var(--semi-transition_delay-none); // 加载器-图标-延迟时间
