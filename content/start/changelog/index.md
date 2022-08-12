@@ -16,6 +16,12 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 ---
 
+
+#### 2.17.0 (2022-08-12)
+
+- 【Fix】
+  - Fix: 修复 Chromium 104 breakchange fit-content css 导致的 popover 样式问题 [#1022](https://github.com/DouyinFE/semi-design/issues/#1022) [Chromium Issue](https://bugs.chromium.org/p/chromium/issues/detail?id=1350958)
+
 #### 🎉 2.17.0-beta.1 (2022-08-09)
 - 【Fix】
     - 修复 Empty 组件在 body theme-mode attribute 为非预期值时意外判定为暗色模式的问题 [#1023](https://github.com/DouyinFE/semi-design/issues/1023)
