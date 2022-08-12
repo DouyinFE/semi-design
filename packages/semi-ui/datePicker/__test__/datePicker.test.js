@@ -114,7 +114,7 @@ describe(`DatePicker`, () => {
         const demo = mount(<DatePicker presets={presets} motion={motion} open={open} defaultValue={defaultValue} />);
         const elem = demo.find(BaseDatePicker);
 
-        const btns = document.querySelectorAll(`.${BASE_CLASS_PREFIX}-datepicker-quick-control-item`);
+        const btns = document.querySelectorAll(`.${BASE_CLASS_PREFIX}-datepicker-quick-control button`);
 
         /**
          * click next day
@@ -560,7 +560,7 @@ describe(`DatePicker`, () => {
         };
         const demo = mount(<DatePicker {...props} />);
         const elem = demo.find(BaseDatePicker);
-        const btns = document.querySelectorAll(`.${BASE_CLASS_PREFIX}-datepicker-quick-control-item`);
+        const btns = document.querySelectorAll(`.${BASE_CLASS_PREFIX}-datepicker-quick-control button`);
 
         // click disabled date
         btns[0].click();
@@ -675,7 +675,7 @@ describe(`DatePicker`, () => {
         const demo = mount(<DatePicker onPresetClick={handlePresetClick} presets={presets} motion={motion} open={open} defaultValue={defaultValue} />);
         const elem = demo.find(BaseDatePicker);
 
-        const btns = document.querySelectorAll(`.${BASE_CLASS_PREFIX}-datepicker-quick-control-item`);
+        const btns = document.querySelectorAll(`.${BASE_CLASS_PREFIX}-datepicker-quick-control button`);
 
         btns[0].click();
         btns[1].click();
@@ -987,7 +987,7 @@ describe(`DatePicker`, () => {
         const demo = mount(<DatePicker {...props} onChange={handleChange} />);
         const elem = demo.find(BaseDatePicker);
 
-        const btns = document.querySelectorAll('.semi-datepicker-quick-control-item');
+        const btns = document.querySelectorAll('.semi-datepicker-quick-control button');
 
         btns[0].click();
         expect(handleChange.called).toBeTruthy();
@@ -1016,7 +1016,7 @@ describe(`DatePicker`, () => {
         const demo = mount(<DatePicker {...props} onChange={handleChange} onConfirm={handleConfirm} />);
         const elem = demo.find(BaseDatePicker);
 
-        const btns = document.querySelectorAll('.semi-datepicker-quick-control-item');
+        const btns = document.querySelectorAll('.semi-datepicker-quick-control button');
 
         // 点击 preset
         btns[0].click();

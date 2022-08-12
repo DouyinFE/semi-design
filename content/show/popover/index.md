@@ -492,6 +492,7 @@ import { Button, Input, Popover, Space } from '@douyinfe/semi-ui';
 | closeOnEsc         | 在 trigger 或 弹出层按 Esc 键是否关闭面板，受控时不生效 | boolean | true | **2.8.0** |
 | content            | 显示的内容（函数类型，2.8.0 版本支持）                                                                                                                                  | ReactNode \| ({ initialFocusRef }) => ReactNode          |                                             |            |
 | clickToHide        | 点击弹出层及内部任一元素时是否自动关闭弹层                                                                                                  | boolean                    | false                                       | **0.24.0** |
+| disableFocusListener | trigger为`hover`时，不响应键盘聚焦弹出浮层事件，详见[issue#977](https://github.com/DouyinFE/semi-design/issues/977) | boolean | true | **2.17.0** |
 | getPopupContainer  | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 `position: relative`                                                                  | function():HTMLElement     | () => document.body                         |            |
 | guardFocus         | 当焦点处于弹出层内时，切换 Tab 是否让焦点在弹出层内循环 | boolean | true | **2.8.0** |
 | mouseEnterDelay    | 鼠标移入后，延迟显示的时间，单位毫秒（仅当 trigger 为 hover/focus 时生效）                                                                  | number                     | 50                                          |            |

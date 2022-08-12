@@ -12,6 +12,6 @@ $module: #{$prefix}-portal;
     &-inner {
         position: absolute;
         background-color: transparent;
-        min-width: fit-content;
+        min-width: max-content;
     }
 }
