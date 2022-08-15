@@ -97,9 +97,9 @@ $module: #{$prefix}-scrolllist;
 
                     &:not(.disabled):not(.#{$module}-item-disabled):not(.#{$module}-item-sel):not(.#{$module}-item-selected) {
                         cursor: pointer;
-                        transition: background-color $transition_duration_scrollList_selected_item-bg
-                            $transition_function_scrollList_selected_item-bg
-                            $transition_delay_scrollList_selected_item-bg;
+                        transition: background-color $transition_duration-scrollList_selected_item-bg
+                            $transition_function-scrollList_selected_item-bg
+                            $transition_delay-scrollList_selected_item-bg;
 
                         &:hover {
                             background-color: $color-scrollList_item-text-hover;

@@ -108,8 +108,8 @@ $module: #{$prefix}-carousel;
 
                 &-primary {
                     background-color: $color-carousel_indicator_theme_primary-bg-default;
-                    transition: background-color $transition_duration_carousel_indicator-bg
-                        $transition_function_carousel_indicator-bg $transition_delay_carousel_indicator-bg;
+                    transition: background-color $transition_duration-carousel_indicator-bg
+                        $transition_function-carousel_indicator-bg $transition_delay-carousel_indicator-bg;
 
                     &.#{$module}-indicator-item-active {
                         background: $color-carousel_indicator_theme_primary-bg-active;
@@ -126,8 +126,8 @@ $module: #{$prefix}-carousel;
 
                 &-light {
                     background-color: $color-carousel_indicator_theme_light-bg-default;
-                    transition: background-color $transition_duration_carousel_indicator-bg
-                        $transition_function_carousel_indicator-bg $transition_delay_carousel_indicator-bg;
+                    transition: background-color $transition_duration-carousel_indicator-bg
+                        $transition_function-carousel_indicator-bg $transition_delay-carousel_indicator-bg;
 
                     &.#{$module}-indicator-item-active {
                         background: $color-carousel_indicator_theme_light-bg-active;
@@ -144,8 +144,8 @@ $module: #{$prefix}-carousel;
 
                 &-dark {
                     background-color: $color-carousel_indicator_theme_dark-bg-default;
-                    transition: background-color $transition_duration_carousel_indicator-bg
-                        $transition_function_carousel_indicator-bg $transition_delay_carousel_indicator-bg;
+                    transition: background-color $transition_duration-carousel_indicator-bg
+                        $transition_function-carousel_indicator-bg $transition_delay-carousel_indicator-bg;
 
                     &.#{$module}-indicator-item-active {
                         background-color: $color-carousel_indicator_theme_dark-bg-active;
@@ -331,8 +331,8 @@ $module: #{$prefix}-carousel;
 
         &-light {
             color: $color-carousel_arrow_theme_light-bg-default;
-            transition: color $transition_duration_carousel_arrow-bg $transition_funciton_carousel_arrow-bg
-                $transition_delay_carousel_arrow-bg;
+            transition: color $transition_duration-carousel_arrow-bg $transition_funciton_carousel_arrow-bg
+                $transition_delay-carousel_arrow-bg;
 
             &:hover {
                 color: $color-carousel_arrow_theme_light-bg-hover;
@@ -341,8 +341,8 @@ $module: #{$prefix}-carousel;
 
         &-primary {
             color: $color-carousel_arrow_theme_primary-bg-default;
-            transition: color $transition_duration_carousel_arrow-bg $transition_funciton_carousel_arrow-bg
-                $transition_delay_carousel_arrow-bg;
+            transition: color $transition_duration-carousel_arrow-bg $transition_funciton_carousel_arrow-bg
+                $transition_delay-carousel_arrow-bg;
 
             &:hover {
                 color: $color-carousel_arrow_theme_primary-bg-hover;
@@ -351,8 +351,8 @@ $module: #{$prefix}-carousel;
 
         &-dark {
             color: $color-carousel_arrow_theme_dark-bg-default;
-            transition: color $transition_duration_carousel_arrow-bg $transition_funciton_carousel_arrow-bg
-                $transition_delay_carousel_arrow-bg;
+            transition: color $transition_duration-carousel_arrow-bg $transition_funciton_carousel_arrow-bg
+                $transition_delay-carousel_arrow-bg;
 
             &:hover {
                 color: $color-carousel_arrow_theme_dark-bg-hover;

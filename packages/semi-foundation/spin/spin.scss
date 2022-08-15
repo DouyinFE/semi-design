@@ -2,7 +2,6 @@
 @import './variables.scss';
 @import './mixin.scss';
 @import '../keyframes/rotate.scss';
-@import './animation.scss';
 
 $module: #{$prefix}-spin;
 
@@ -20,16 +19,14 @@ $module: #{$prefix}-spin;
         color: $color-spin-bg;
 
         & > svg {
-            animation: $transition_duration_spin_wrapper-svg $transition_function_spin_wrapper-svg
-                $transition_delay_spin_wrapper-svg infinite #{$prefix}-animation-rotate;
+            animation: $motion-spin_wrapper_svg-animationDuration linear infinite #{$prefix}-animation-rotate;
             @include size($width-spin_middle);
         }
     }
 
     &-animate {
         display: inline-flex;
-        animation: $transition_duration_spin_wrapper-translate $transition_function_spin_wrapper-translate
-            $transition_delay_spin_wrapper-translate infinite #{$prefix}-animation-rotate;
+        animation: $motion-spin_animate_svg-animationDuration linear infinite #{$prefix}-animation-rotate;
     }
 
     &-children {

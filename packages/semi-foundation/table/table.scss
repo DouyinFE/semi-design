@@ -260,14 +260,14 @@ $module: #{$prefix}-table;
                 }
 
                 & > * {
-                    transition: background-color $transition_duration_table_body-bg $transition_function_table_body-bg
-                        $transition_delay_table_body-bg;
+                    transition: background-color $transition_duration-table_body-bg $transition_function-table_body-bg
+                        $transition_delay-table_body-bg;
                 }
             }
 
             & > * {
-                transition: background-color $transition_duration_table_body-bg $transition_function_table_body-bg
-                    $transition_delay_table_body-bg;
+                transition: background-color $transition_duration-table_body-bg $transition_function-table_body-bg
+                    $transition_delay-table_body-bg;
             }
         }
 

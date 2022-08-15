@@ -44,8 +44,8 @@ $module: #{$prefix}-dropdown;
         max-width: $width-dropdown;
         display: flex;
         align-items: center;
-        transition: background-color $transition_duration_dropdown_item-bg $transition_function_dropdown_item-bg
-            $transition_delay_dropdown_item-bg;
+        transition: background-color $transition_duration-dropdown_item-bg $transition_function-dropdown_item-bg
+            $transition_delay-dropdown_item-bg;
 
         &:not(.#{$module}-item-active):hover {
             background-color: $color-dropdown_item-bg-hover;
