@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 12
+order: 13
 category: 基础
 title:  Icon 图标
 icon: doc-icons

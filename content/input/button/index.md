@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 18
+order: 19
 category: 输入类
 title:  Button 按钮
 icon: doc-button

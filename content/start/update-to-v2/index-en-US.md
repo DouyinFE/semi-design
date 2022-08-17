@@ -3,7 +3,7 @@ category: Getting Started
 title:  From 1.x to 2.0
 icon: doc-updateV2
 localeCode: en-US
-order: 7
+order: 8
 ---
 
 ## Start upgrade

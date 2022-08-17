@@ -3,7 +3,7 @@ category: 开始
 title: FAQ 常见问题
 icon: doc-faq
 localeCode: zh-CN
-order: 8
+order: 9
 ---
 
 #### Semi 2.x 与 Semi 1.x 有什么不同？

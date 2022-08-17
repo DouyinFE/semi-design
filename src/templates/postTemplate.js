@@ -9,6 +9,7 @@ import * as scopeJSFile from './scope';
 import * as hocs from 'components/Hocs';
 import { MDXProvider } from '@mdx-js/react';
 import Notice from 'components/Notice';
+import { CustomH4, CustomH5 } from 'components/CustomHx';
 import Compare from 'components/Compare';
 import PageAnchor from 'components/PageAnchor';
 import PrevAndNext from 'components/PrevAndNext';
@@ -69,6 +70,8 @@ const SemiComponents = {
         </Tooltip>
     ),
     Notice,
+    CustomH4, 
+    CustomH5,
     Checkbox,
     Radio,
     DesignToken,
@@ -520,6 +523,10 @@ export default function Template(args) {
 
         if (pageContext.slug.indexOf('start/introduction') !== -1) {
             cls.push('introduction');
+        }
+
+        if (pageContext.slug.indexOf('start/content-guidelines') !== -1) {
+            cls.push('content-guidelines');
         }
 
         if (pageContext.slug.indexOf('start/faq') !== -1) {
