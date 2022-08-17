@@ -16,6 +16,11 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 2.17.1 (2022-08-17)
+
+- 【Fix】
+    - Fix: Fix: fixed Table fitler affects original order of data [#1036](https://github.com/DouyinFE/semi-design/issues/1036)
+
 #### 2.17.0 (2022-08-12)
 
 - 【Fix】
