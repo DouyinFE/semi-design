@@ -9,3 +9,4 @@ export { default as FixedOnHeaderRow } from './FixedOnHeaderRow';
 export { default as RadioRowSelection } from './radioRowSelection';
 export { default as FixedVirtualizedEmpty } from './FixedVirtualizedEmpty';
 export { default as FixedFilter } from './FixedFilter';
+export { default as FixedSorter } from './FixedSorter';
