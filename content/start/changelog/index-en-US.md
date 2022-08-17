@@ -19,8 +19,10 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 #### 2.17.0 (2022-08-12)
 
 - 【Fix】
-    - Fix: Fix the popover style issue caused by Chromium 104 breakchange fit-content css [#1022](https://github.com/DouyinFE/semi-design/issues/#1022) [Chromium Issue](https://bugs.chromium.org/p/chromium/issues/detail?id=1350958)
-
+    - Fix: Fix the popover style issue caused by Chromium 104 breakchange fit-content css [#1022](https://github.com/DouyinFE/semi-design/issues/1022) [Chromium Issue](https://bugs.chromium.org/p/chromium/issues/detail?id=1350958)
+    - Fix: fix AvatarGroup component size attribute has no default in TS define [@AnoyiX](https://github.com/AnoyiX)
+    - Fix: Fix TimePicker set to undefined is unresponsive [#918](https://github.com/DouyinFE/semi-design/issues/918) [@linjunc](https://github.com/linjunc)
+    - Fix: fix the problem that Tree's renderFullLabel uses checkbox
 
 #### 🎉 2.17.0-beta.1 (2022-08-09)
 - 【Fix】
