@@ -19,7 +19,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 #### 2.17.1 (2022-08-17)
 
 - 【Fix】
-    - Fix: 修复 Table filter 影响数据原有排序问题 [#1036](https://github.com/DouyinFE/semi-design/issues/1036)
+    - 修复 Table filter 影响数据原有排序问题 [#1036](https://github.com/DouyinFE/semi-design/issues/1036)
 
 
 #### 2.17.0 (2022-08-12)
