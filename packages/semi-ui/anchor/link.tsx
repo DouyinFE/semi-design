@@ -118,9 +118,9 @@ export default class Link extends BaseComponent<LinkProps, {}> {
         const { activeLink, childMap } = this.context;
         const { href, children } = this.props;
         if (!this.context.autoCollapse) {
-            return this.props.children;
+            return <div role="list">{children}</div>;
         }
-        return activeLink === href || (childMap[href] && childMap[href].has(activeLink)) ? children : null;
+        return activeLink === href || (childMap[href] && childMap[href].has(activeLink)) ? <div role="list">{children}</div> : null;
     };
 
     render() {
@@ -134,7 +134,6 @@ export default class Link extends BaseComponent<LinkProps, {}> {
         });
         const ariaProps = {
             'aria-disabled': disabled,
-            'aria-label': href,
         };
         if (active) {
             ariaProps['aria-details'] = 'active';
@@ -144,7 +143,7 @@ export default class Link extends BaseComponent<LinkProps, {}> {
         }
 
         return (
-            <div className={linkCls} style={style}>
+            <div className={linkCls} style={style} role="listitem">
                 <div
                     role="link"
                     tabIndex={0}
