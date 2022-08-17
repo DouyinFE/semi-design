@@ -108,4 +108,13 @@ describe('table', () => {
         cy.get('.semi-switch').eq(0).click();
         cy.get('.semi-table-body').should('have.css', "max-height", "300px");
     });
+
+    it('fix filter', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=table--fixed-filter&args=&viewMode=story');
+        cy.get('.semi-table-column-filter').click();
+        cy.get('.semi-checkbox').contains('Semi Design 设计稿').click();
+        cy.get('.semi-checkbox').contains('Semi Pro 设计稿').click();
+        cy.get('.semi-table-tbody .semi-table-row').eq(0).should('contain', 'Semi Design 设计稿0.fig');
+        cy.get('.semi-table-tbody .semi-table-row').eq(1).should('contain', 'Semi Pro 设计稿1.fig');
+    });
 });
