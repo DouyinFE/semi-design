@@ -40,12 +40,30 @@ class OverflowListFoundation extends BaseFoundation<OverflowListAdapter> {
     }
 
     handleIntersect(entries: Array<IntersectionObserverEntry>): void {
+
+        const INTERSECTION_RATIO = this.getProp('intersectionRatio');
+
         const visibleState = cloneDeep(this.getState('visibleState'));
 
         const res = {};
         entries.forEach(entry => {
             const itemKey = get(entry, 'target.dataset.scrollkey');
-            const visible = entry.isIntersecting;
+            let visible;
+            const { isIntersecting, intersectionRatio } = entry;
+
+            // only use intersectionRatio to judge when props defined
+            if (typeof INTERSECTION_RATIO === 'number') {
+                if (isIntersecting && intersectionRatio >= INTERSECTION_RATIO) {
+                    visible = true;
+                } else if (isIntersecting && intersectionRatio < INTERSECTION_RATIO) {
+                    visible = false;
+                } else {
+                    visible = false;
+                }
+            } else {
+                visible = entry.isIntersecting;
+            }
+
             res[itemKey] = entry;
             visibleState.set(itemKey, visible);
         });

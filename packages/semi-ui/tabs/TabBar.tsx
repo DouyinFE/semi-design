@@ -217,11 +217,15 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
             const { itemKey } = item;
             return { key: this._getItemKey(itemKey), active: this._isActive(itemKey), ...item };
         });
+
         return (
             <OverflowList
                 items={renderedList}
                 overflowRenderer={this.renderOverflow}
                 renderMode="scroll"
+                rootMargin={'40px'}
+                intersectionRatio={0.5}
+                threshold={[0, 0.5, 0.75]}
                 className={`${cssClasses.TABS_BAR}-overflow-list`}
                 visibleItemRenderer={this.renderTabItem as any}
             />

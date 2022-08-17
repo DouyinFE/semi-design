@@ -22,6 +22,7 @@ export type OverflowItem = Record<string, any>;
 
 export interface OverflowListProps {
     className?: string;
+    // 折叠模式下的折叠方向
     collapseFrom?: 'start' | 'end';
     items?: Array<OverflowItem>;
     minVisibleItems?: number;
@@ -30,7 +31,10 @@ export interface OverflowListProps {
     overflowRenderer?: (overflowItems: Array<OverflowItem>) => ReactNode | ReactNode[];
     renderMode?: 'collapse' | 'scroll';
     style?: CSSProperties;
-    threshold?: number;
+    // IntersectionObserver的参数
+    threshold?: number | number[];
+    rootMargin?: IntersectionObserverInit['rootMargin'];
+    intersectionRatio?: number;
     visibleItemRenderer?: (item: OverflowItem, index: number) => ReactElement;
     wrapperClassName?: string;
     wrapperStyle?: CSSProperties;
@@ -52,7 +56,7 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
         minVisibleItems: 0,
         overflowRenderer: (): ReactElement => null,
         renderMode: 'collapse',
-        threshold: 0.75,
+        threshold: 1,
         visibleItemRenderer: (): ReactElement => null,
     };
     static propTypes = {
@@ -61,13 +65,15 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
         collapseFrom: PropTypes.oneOf(strings.BOUNDARY_SET),
         direction: PropTypes.oneOf(strings.POSITION_SET),
         items: PropTypes.array,
+        intersectionRatio: PropTypes.number,
         minVisibleItems: PropTypes.number,
         onIntersect: PropTypes.func,
         onOverflow: PropTypes.func,
         overflowRenderer: PropTypes.func,
         renderMode: PropTypes.oneOf(strings.MODE_SET),
         style: PropTypes.object,
-        threshold: PropTypes.number,
+        rootMargin: PropTypes.number,
+        threshold: PropTypes.oneOfType([PropTypes.array, PropTypes.number]),
         visibleItemRenderer: PropTypes.func,
         wrapperClassName: PropTypes.string,
         wrapperStyle: PropTypes.object,
@@ -76,11 +82,11 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
     constructor(props: OverflowListProps) {
         super(props);
         this.state = {
-            direction: OverflowDirection.GROW,
-            lastOverflowCount: 0,
-            overflow: [],
-            visible: props.items,
-            visibleState: new Map(),
+            direction: OverflowDirection.GROW, 
+            lastOverflowCount: 0,    // 性能优化用
+            overflow: [],            // 记录溢出items
+            visible: props.items,    // 记录可见items
+            visibleState: new Map(), // 记录各个item的可见状态
         };
         this.foundation = new OverflowListFoundation(this.adapter);
         this.previousWidths = new Map();
@@ -143,7 +149,7 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
         // We want this component to always re-render, even when props haven't changed, so that
         // changes in the renderers' behavior can be reflected.
         // The following statement prevents re-rendering only in the case where the state changes
-        // identity (i.e. setState was called), but the state is still the same when
+        // identity (i.e. setState was called), but the stateo is still the same when
         // shallow-compared to the previous state.
         const currState = omit(this.state, 'prevProps');
         const comingState = omit(nextState, 'prevProps');
@@ -152,15 +158,14 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
 
     componentDidUpdate(prevProps: OverflowListProps, prevState: OverflowListState): void {
 
-
         if (!isEqual(prevProps.items, this.props.items)) {
             this.itemRefs = {};
         }
 
-
         if (!isEqual(omit(prevState, 'prevProps'), omit(this.state, 'prevProps'))) {
             this.repartition(false);
         }
+
         const { direction, overflow, lastOverflowCount } = this.state;
         if (
             // if a resize operation has just completed (transition to NONE)
@@ -259,13 +264,15 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
 
     render(): ReactNode {
         const list = this.renderItemList();
-        const { renderMode } = this.props;
+        const { renderMode, rootMargin, threshold } = this.props;
+
         if (renderMode === RenderMode.SCROLL) {
             return (
                 <IntersectionObserver
                     onIntersect={this.reintersect}
                     root={this.scroller}
-                    threshold={this.props.threshold}
+                    rootMargin={rootMargin}
+                    threshold={threshold}
                     items={this.itemRefs}
                 >
                     {list}
