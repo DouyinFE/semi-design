@@ -72,7 +72,7 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
         overflowRenderer: PropTypes.func,
         renderMode: PropTypes.oneOf(strings.MODE_SET),
         style: PropTypes.object,
-        rootMargin: PropTypes.number,
+        rootMargin: PropTypes.string,
         threshold: PropTypes.oneOfType([PropTypes.array, PropTypes.number]),
         visibleItemRenderer: PropTypes.func,
         wrapperClassName: PropTypes.string,
@@ -149,7 +149,7 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
         // We want this component to always re-render, even when props haven't changed, so that
         // changes in the renderers' behavior can be reflected.
         // The following statement prevents re-rendering only in the case where the state changes
-        // identity (i.e. setState was called), but the stateo is still the same when
+        // identity (i.e. setState was called), but the state is still the same when
         // shallow-compared to the previous state.
         const currState = omit(this.state, 'prevProps');
         const comingState = omit(nextState, 'prevProps');

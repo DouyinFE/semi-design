@@ -17,7 +17,7 @@ export default class ReactIntersectionObserver extends React.PureComponent<React
         onIntersect: PropTypes.func,
         option: PropTypes.object,
         root: PropTypes.any,
-        threshold: PropTypes.number,
+        threshold: PropTypes.oneOfType([PropTypes.array, PropTypes.number]),
         rootMargin: PropTypes.string,
         items: PropTypes.object,
     };
