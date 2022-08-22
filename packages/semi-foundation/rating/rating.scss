@@ -37,6 +37,7 @@ $module: #{$prefix}-rating;
         color: inherit;
         cursor: pointer;
         transition: all 0.5s;
+        transform:scale($transform-scale-rating);
 
         &:not(:last-child) {
             margin-right: $spacing-rating_item-marginRight;

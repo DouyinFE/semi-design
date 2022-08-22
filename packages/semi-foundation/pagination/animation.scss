@@ -6,3 +6,6 @@ $transition_duration-pagination_item-text: var(--semi-transition_dulation-faster
 $transition_function-pagination_item-text: var(--semi-transition_function-easeIn);//翻页器页码文本-背景色-过渡曲线
 $transition_delay-pagination_item-text: var(--semi-transition_delay-fastest);//翻页器页码文本-背景色-延迟时间
 
+//transform token
+
+$transform_scale-pagination_item: var(--semi-transform_scale-none);//翻页器item-放大

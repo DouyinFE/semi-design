@@ -21,9 +21,12 @@ body{
   --semi-transition_delay-faster:0ms;
   --semi-transition_delay-fastest:0ms;
 
+  --semi-transform_scale-none:scale(1,1);
   --semi-transform_scale-small:scale(1.04,1.04);
   --semi-transform_scale-medium:scale(1.08,1.08);
   --semi-transform_scale-large:scale(1.12,1.12);
+
+  --semi-transform-rotate-none:rotate(0deg);
   --semi-transform_rotate-clockwise90deg:rotate(90deg);
   --semi-transform_rotate-clockwise180deg:rotate(180deg);
   --semi-transform_rotate-clockwise270deg:rotate(270deg);

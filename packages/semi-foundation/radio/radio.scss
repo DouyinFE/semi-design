@@ -266,7 +266,7 @@ $inner-width: $width-icon-medium;
             color: $color-radio_buttonRadio-text-default;
             font-size: $font-radio_buttonRadio_middle-default-size;
             padding: $spacing-radio_addon_buttonRadio_middle-paddingY $spacing-radio_addon_buttonRadio_middle-paddingX;
-            transition: background-color $transition_duration_radio-bg $transition_function-radio-bg $transition_delay-radio-bg,
+            transition: background-color $transition_duration-radio-bg $transition_function-radio-bg $transition_delay-radio-bg,
             border $transition_duration-radio-border $transition_function-radio-border $transition_delay-radio-border;
 
             &-hover {
