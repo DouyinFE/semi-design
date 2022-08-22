@@ -1,19 +1,23 @@
-$transition_duration_tabs_tab_line-border: var(--semi-transition_dulation-faster);//线条式页签标示线-边框-动画持续时间
-$transition_function_tabs_tab_line-border: var(--semi-transition_function-easeIn);//线条式页签标示线-边框-过渡曲线
-$transition_delay_tabs_tab_line-border: var(--semi-transition_delay-fastest);//线条式页签标示线-边框-延迟时间
+$transition_duration-tabs_tab_line-border: var(--semi-transition_dulation-faster);//线条式标签页标示线-边框-动画持续时间
+$transition_function-tabs_tab_line-border: var(--semi-transition_function-easeIn);//线条式标签页标示线-边框-过渡曲线
+$transition_delay-tabs_tab_line-border: var(--semi-transition_delay-fastest);//线条式标签页标示线-边框-延迟时间
 
-$transition_duration_tabs_tab_line-text: var(--semi-transition_dulation-faster);//线条式页签-文字-动画持续时间
-$transition_function_tabs_tab_line-text: var(--semi-transition_function-easeIn);//线条式页签-文字-过渡曲线
-$transition_delay_tabs_tab_line-text: var(--semi-transition_delay-fastest);//线条式页签-文字-延迟时间
-
-
-$transition_duration_tabs_tab_button-bg: var(--semi-transition_dulation-faster);//按钮式页签-背景色-动画持续时间
-$transition_function_tabs_tab_button-bg: var(--semi-transition_function-easeIn);//按钮式页签-背景色-过渡曲线
-$transition_delay_tabs_tab_button-bg: var(--semi-transition_delay-fastest);//按钮式页签-背景色-延迟时间
+$transition_duration-tabs_tab_line-text: var(--semi-transition_dulation-faster);//线条式标签页-文字-动画持续时间
+$transition_function-tabs_tab_line-text: var(--semi-transition_function-easeIn);//线条式标签页-文字-过渡曲线
+$transition_delay-tabs_tab_line-text: var(--semi-transition_delay-fastest);//线条式标签页-文字-延迟时间
 
 
-$transition_duration_tabs_tab_card-bg: var(--semi-transition_dulation-faster);//卡片式页签文字-背景色-动画持续时间
-$transition_function_tabs_tab_card-bg: var(--semi-transition_function-easeIn);//卡片式页签文字-背景色-过渡曲线
-$transition_delay_tabs_tab_card-bg: var(--semi-transition_delay-fastest);//卡片式页签文字-背景色-延迟时间
+$transition_duration-tabs_tab_button-bg: var(--semi-transition_dulation-faster);//按钮式标签页-背景色-动画持续时间
+$transition_function-tabs_tab_button-bg: var(--semi-transition_function-easeIn);//按钮式标签页-背景色-过渡曲线
+$transition_delay-tabs_tab_button-bg: var(--semi-transition_delay-fastest);//按钮式标签页-背景色-延迟时间
 
 
+$transition_duration-tabs_tab_card-bg: var(--semi-transition_dulation-faster);//卡片式标签页文字-背景色-动画持续时间
+$transition_function-tabs_tab_card-bg: var(--semi-transition_function-easeIn);//卡片式标签页文字-背景色-过渡曲线
+$transition_delay-tabs_tab_card-bg: var(--semi-transition_delay-fastest);//卡片式标签页文字-背景色-延迟时间
+
+//transform token
+
+$transform_scale-tabs_tab_line-item: var(--semi-transform_scale-none);//线条式标签页item 放大
+$transform_scale-tabs_tab_button-item: var(--semi-transform_scale-none);//按钮式标签页item 放大
+$transform_scale-tabs_tab_card-item: var(--semi-transform_scale-none);//线条式标签页item 放大

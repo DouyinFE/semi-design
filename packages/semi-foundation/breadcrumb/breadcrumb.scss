@@ -88,7 +88,8 @@ $module: #{$prefix}-breadcrumb;
         align-items: center;
         column-gap: 4px;
         text-decoration: inherit;
-        transition: color $transition_duration_breadcrumb_link-text $transition_function_breadcrumb_link-text $transition_delay_breadcrumb_link-text;
+        transition: color $transition_duration-breadcrumb_link-text $transition-function_breadcrumb_link-text $transition_delay-breadcrumb_link-text;
+        transform: scale($transform_scale-breadcrumb_link-text);
 
         &:hover {
             color: $color-breadcrumb_default-text-hover;

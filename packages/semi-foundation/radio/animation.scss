@@ -1,8 +1,10 @@
-$transition_duration_radio-bg: var(--semi-transition_dulation-faster);//单选框-背景色-动画持续时间
-$transition_function_radio-bg: var(--semi-transition_function-easeIn);//单选框-背景色-过渡曲线
-$transition_delay_radio-bg: var(--semi-transition_delay-fastest);//单选框-背景色-延迟时间
+$transition_duration-radio-bg: var(--semi-transition_dulation-faster);//单选框-背景色-动画持续时间
+$transition_function-radio-bg: var(--semi-transition_function-easeIn);//单选框-背景色-过渡曲线
+$transition_delay-radio-bg: var(--semi-transition_delay-fastest);//单选框-背景色-延迟时间
 
-$transition_duration_radio-border: var(--semi-transition_dulation-faster);//单选框-边框-动画持续时间
-$transition_function_radio-border: var(--semi-transition_function-easeIn);//单选框-边框-过渡曲线
-$transition_delay_radio-border: var(--semi-transition_delay-fastest);//单选框-边框-延迟时间
+$transition_duration-radio-border: var(--semi-transition_dulation-faster);//单选框-边框-动画持续时间
+$transition_function-radio-border: var(--semi-transition_function-easeIn);//单选框-边框-过渡曲线
+$transition_delay-radio-border: var(--semi-transition_delay-fastest);//单选框-边框-延迟时间
 
+// transform token
+$transform_scale-radio: var(--semi-transform_scale-none);//单选框-变大

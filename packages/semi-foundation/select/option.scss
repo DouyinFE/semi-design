@@ -20,6 +20,7 @@ $multiple: #{$module}-multiple;
     align-items: center;
     cursor: pointer;
     box-sizing: border-box;
+    transition: background-color $transition_duration-select_option-bg $transition_function-select_option-bg $transition_delay-select_option-bg;
 
     &-icon {
         width: $width-select_option_tick;

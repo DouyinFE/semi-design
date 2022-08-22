@@ -39,6 +39,8 @@ $module: #{$prefix}-steps;
         border: $width-steps_item-border solid $color-steps-border-default;
         border-radius: $radius-steps_item;
         padding: $spacing-steps_item-paddingY $spacing-steps_item-paddingX;
+        transition: color $transition_duration-steps_item_title-text $transition_function-steps_item_title-text $transition_delay-steps_item_title-text; // item 字体颜色动效
+        transform:scale($transform_scale-step-item);
 
         .#{$module}-item-title {
             position: relative;
