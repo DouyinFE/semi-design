@@ -16,6 +16,20 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 ---
 
+#### 2.17.1 (2022-08-17)
+
+- 【Fix】
+    - 修复 Table filter 影响数据原有排序问题 [#1036](https://github.com/DouyinFE/semi-design/issues/1036)
+
+
+#### 2.17.0 (2022-08-12)
+
+- 【Fix】
+  - Fix: 修复 Chromium 104 breakchange fit-content css 导致的 popover 样式问题 [#1022](https://github.com/DouyinFE/semi-design/issues/1022) [Chromium Issue](https://bugs.chromium.org/p/chromium/issues/detail?id=1350958)
+  - Fix: 修复 AvatarGroup 组件中 size 属性在 TS 定义中没有值 default [@AnoyiX](https://github.com/AnoyiX)
+  - Fix: 修复 TimePicker 设置为 undefined 是无反应的问题 [#918](https://github.com/DouyinFE/semi-design/issues/918) [@linjunc](https://github.com/linjunc)
+  - Fix: 修复Tree的renderFullLabel使用checkbox出现的问题
+
 #### 🎉 2.17.0-beta.1 (2022-08-09)
 - 【Fix】
     - 修复 Empty 组件在 body theme-mode attribute 为非预期值时意外判定为暗色模式的问题 [#1023](https://github.com/DouyinFE/semi-design/issues/1023)

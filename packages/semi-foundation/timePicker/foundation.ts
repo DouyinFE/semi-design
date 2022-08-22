@@ -203,27 +203,26 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
 
     refreshProps(props: any = {}) {
         const { value, timeZone, __prevTimeZone } = props;
-        if (!isNullOrUndefined(value)) {
-            let dates = this.parseValue(value);
-            const invalid = this.validateDates(dates);
+        
+        let dates = this.parseValue(value);
+        const invalid = this.validateDates(dates);
 
-            if (!invalid) {
-                if (this.isValidTimeZone(timeZone)) {
-                    dates = dates.map(date =>
-                        utcToZonedTime(
-                            this.isValidTimeZone(__prevTimeZone) ? zonedTimeToUtc(date, __prevTimeZone) : date,
-                            timeZone
-                        )
-                    );
-                }
-                const inputValue = this.formatValue(dates);
-
-                this.setState({
-                    value: dates,
-                    invalid,
-                    inputValue,
-                } as any);
+        if (!invalid) {
+            if (this.isValidTimeZone(timeZone)) {
+                dates = dates.map(date =>
+                    utcToZonedTime(
+                        this.isValidTimeZone(__prevTimeZone) ? zonedTimeToUtc(date, __prevTimeZone) : date,
+                        timeZone
+                    )
+                );
             }
+            const inputValue = this.formatValue(dates);
+
+            this.setState({
+                value: dates,
+                invalid,
+                inputValue,
+            } as any);
         }
     }
 

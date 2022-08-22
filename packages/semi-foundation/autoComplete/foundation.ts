@@ -153,6 +153,9 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
         this._adapter.notifySearch(inputValue);
         this._adapter.notifyChange(inputValue);
         this._modifyFocusIndex(inputValue);
+        if (!this.isPanelOpen){
+            this.openDropdown();
+        }
     }
 
     handleSelect(option: StateOptionItem, optionIndex?: number): void {
@@ -389,7 +392,7 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
         if (!visible){
             this.openDropdown();
         } else {
-            if (focusIndex !== undefined  && focusIndex !== -1 && options.length !== 0) {
+            if (focusIndex !== undefined && focusIndex !== -1 && options.length !== 0) {
                 const visibleOptions = options.filter((item: StateOptionItem) => item.show);
                 const selectedOption = visibleOptions[focusIndex];
                 this.handleSelect(selectedOption, focusIndex);
