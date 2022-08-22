@@ -150,6 +150,9 @@ const local: Locale = {
         total: 'Totale ${total} elementi',
         selected: '${total} elementi selezionati',
     },
+    Form: {
+        optional: '(opzionale)',
+    },
 };
 
 // [i18n-Italian]

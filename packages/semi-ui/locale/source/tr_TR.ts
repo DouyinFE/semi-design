@@ -149,7 +149,10 @@ const local: Locale = {
         clearSelectAll: 'Tümünün seçimini kaldır',
         total: 'Toplam ${total} öğe',
         selected: '${total} öğe seçildi'
-    }
+    },
+    Form: {
+        optional: '(isteğe bağlı)',
+    },
 };
 
 // [i18n-Turkish] 

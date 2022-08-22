@@ -1781,6 +1781,7 @@ const { Label } = Form;
 | className  | Classname of label wrapper      | string    |         |
 | style      | Inline style                    | string    |         |
 | width      | Label width                     | number    |         |
+| optional  | Whether to automatically append the "(optional)" text mark after the text (automatically switch the same semantic text according to different languages configured by Locale). When this item is true, the required \* will no longer be displayed.  | boolean    | false | v2.18.0 |
 
 ## Form.Slot
 
