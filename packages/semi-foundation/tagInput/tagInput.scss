@@ -11,6 +11,19 @@ $module: #{$prefix}-tagInput;
     width: 100%;
     box-sizing: border-box;
     
+    &-drag {
+
+        &-item {
+            display: flex;
+            align-items: center;
+        }
+
+        &-handler {
+            margin-right: $spacing-tagInput_drag_handler-marginRight;
+            cursor: move;
+        }
+    }
+
     &-hover {
         background-color: $color-tagInput_default-bg-hover;
         border: $width-tagInput-border-hover $color-tagInput-border-hover solid;
@@ -103,6 +116,10 @@ $module: #{$prefix}-tagInput;
                     margin-top: $spacing-tagInput_large-Y;
                     margin-bottom: $spacing-tagInput_large-Y;
                 }
+            }
+            
+            &-icon {
+                padding-left: $spacing-tagInput_tag_icon_paddingLeft;
             }
         }
 

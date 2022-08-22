@@ -119,10 +119,11 @@ export default class Tag extends Component<TagProps, TagState> {
     }
 
     render() {
-        const { children, size, color, closable, visible, onClose, onClick, className, type, avatarSrc, avatarShape, ...attr } = this.props;
+        const { children, size, color, closable, visible, onClose, onClick, className, type, avatarSrc, avatarShape, tabIndex, ...attr } = this.props;
         const { visible: isVisible } = this.state;
         const clickable = onClick !== Tag.defaultProps.onClick || closable;
-        const a11yProps = { role: 'button', tabIndex: 0, onKeyDown: this.handleKeyDown };
+        // only when the Tag is clickable or closable, the value of tabIndex is allowed to be passed in. 
+        const a11yProps = { role: 'button', tabIndex: tabIndex | 0, onKeyDown: this.handleKeyDown };
         const baseProps = {
             ...attr,
             onClick,

@@ -348,7 +348,7 @@ class BasicDemoWithInit extends React.Component {
                         <TagInput 
                             field="product"
                             label='Product（TagInput）'
-                            defaultValue={['abc','hotsoon']}
+                            initValue={['abc','hotsoon']}
                             style={style}
                         />
                     </Col>

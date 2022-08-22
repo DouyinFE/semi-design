@@ -16,6 +16,40 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 2.17.1 (2022-08-17)
+
+- 【Fix】
+    - fixed Table filter affects original order of data [#1036](https://github.com/DouyinFE/semi-design/issues/1036)
+
+#### 2.17.0 (2022-08-12)
+
+- 【Fix】
+    - Fix: Fix the popover style issue caused by Chromium 104 breakchange fit-content css [#1022](https://github.com/DouyinFE/semi-design/issues/1022) [Chromium Issue](https://bugs.chromium.org/p/chromium/issues/detail?id=1350958)
+    - Fix: fix AvatarGroup component size attribute has no default in TS define [@AnoyiX](https://github.com/AnoyiX)
+    - Fix: Fix TimePicker set to undefined is unresponsive [#918](https://github.com/DouyinFE/semi-design/issues/918) [@linjunc](https://github.com/linjunc)
+    - Fix: fix the problem that Tree's renderFullLabel uses checkbox
+
+#### 🎉 2.17.0-beta.1 (2022-08-09)
+- 【Fix】
+    - Fix the problem that the Empty component is unexpectedly judged as dark mode when the body theme-mode attribute is unexpected [#1023](https://github.com/DouyinFE/semi-design/issues/1023)
+    - fix the problem that the treeData and value of cascader are dynamically updated, and the selected value is not displayed correctly [#703](https://github.com/DouyinFE/semi-design/issues/703)
+
+#### 🎉 2.17.0-beta.0 (2022-08-09)
+- 【Feat】
+    - Select add A11y keyboard and focus adaptation  [#205](https://github.com/DouyinFE/semi-design/issues/205)
+    - DatePicker preset support presetPosition  [#895 ](https://github.com/DouyinFE/semi-design/issues/895)
+    - TagInput supports drag and drop sorting.
+    - Collapse.Panel add two API: disabled and showArrow  [#188 ](https://github.com/DouyinFE/semi-design/issues/188)
+- 【Fix】
+    - fix the problem that when the Tooltip trigger is hover, click on children and then click on the pop-up layer, the pop-up layer will be hidden  [#977 ](https://github.com/DouyinFE/semi-design/issues/977)
+
+#### 🎉 2.16.1 (2022-08-05)
+- 【Fix】
+    - Fix the problem that letters and numbers cannot be entered when using input class components in Dropdown
+    - Fix the problem of default icon of password input in windows edge browser [@linjunc](https://github.com/linjunc)
+    - Fix click on the edge of the switch can not trigger the change problem [@linjunc](https://github.com/linjunc)
+    - Fix handle misspelling[@linjunc](https://github.com/linjunc)
+
 #### 🎉 2.16.0 (2022-07-29)
 - 【Fix】
     - fix the problem of wrong color in the pressed state of Input, and fix the problem that the colors of Input and TextArea are not uniform in the pressed state under validateStatus [#662](https://github.com/DouyinFE/semi-design/issues/662)

@@ -42,7 +42,8 @@ export default class DropdownMenuFoundation extends BaseFoundation<Partial<Defau
 
         if (this.firstChars.length === 0){
             this.menuItemNodes.forEach((item: Element) => {
-                this.firstChars.push(item.textContent.trim()[0].toLowerCase());
+                // the menuItemNodes can be an component and not exit textContent
+                this.firstChars.push(item.textContent.trim()[0]?.toLowerCase());
             });
         }
 
@@ -69,7 +70,8 @@ export default class DropdownMenuFoundation extends BaseFoundation<Partial<Defau
             default:
                 if (isPrintableCharacter(event.key)) {
                     this.setFocusByFirstCharacter(curItem, event.key);
-                    handlePrevent(event);
+                    // it can be an input on Dropdown, handlePrevent may affect the input of the component
+                    // handlePrevent(event); 
                 }
                 break;
         }
