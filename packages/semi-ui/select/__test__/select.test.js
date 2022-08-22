@@ -1186,7 +1186,7 @@ describe('Select', () => {
         expect(singleSelect.state().selections.size).toEqual(0);
     });
 
-    it('props optionList update after choose some option, uncontroled mode', () => {
+    it('props optionList update after choose some option, uncontrolled mode', () => {
 
         let props = {
             defaultActiveFirstOption: true,
@@ -1234,7 +1234,7 @@ describe('Select', () => {
         expect(selections2[0][0]).toEqual('abc');
     });
 
-    it('click tag close when multiple, controled mode', () => {
+    it('click tag close when multiple, controlled mode', () => {
         let spyOnChange = sinon.spy((value) => {
         });
         let spyOnDeselect = sinon.spy((option) => {

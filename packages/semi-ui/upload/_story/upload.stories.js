@@ -311,7 +311,7 @@ DefaultFileList.story = {
   name: 'defaultFileList',
 };
 
-class ControledUpload extends React.Component {
+class ControlledUpload extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -344,7 +344,7 @@ class ControledUpload extends React.Component {
   }
 }
 
-export const ControlledFileList = () => <ControledUpload></ControledUpload>;
+export const ControlledFileList = () => <ControlledUpload></ControlledUpload>;
 
 ControlledFileList.story = {
   name: 'controlled fileList',
