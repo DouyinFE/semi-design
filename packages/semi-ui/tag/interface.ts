@@ -21,7 +21,7 @@ export type TagSize = 'default' | 'small' | 'large';
 export type AvatarShape = 'circle' | 'square';
 
 export interface TagProps {
-    children?: React.ReactNode | string | number;
+    children?: React.ReactNode;
     tagKey?: string | number;
     size?: TagSize;
     color?: TagColor;
