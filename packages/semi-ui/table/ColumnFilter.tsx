@@ -164,6 +164,7 @@ export default function ColumnFilter(props: ColumnFilterProps = {}): React.React
     } else {
         iconElem = (
             <div className={finalCls}>
+                {'\u200b'/* ZWSP(zero-width space) */}
                 <IconFilter
                     role="button"
                     aria-label="Filter data with this column"

@@ -409,7 +409,8 @@ $module: #{$prefix}-table;
             display: inline-flex;
             cursor: pointer;
             color: $color-table_filter-text-default;
-            vertical-align: middle;
+            // vertical-align: middle;
+            align-items: center;
 
             svg {
                 width: $width-table_column_filter-icon;
