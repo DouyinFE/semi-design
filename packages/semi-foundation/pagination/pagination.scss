@@ -1,5 +1,6 @@
 //@import '../theme/variables.scss';
 @import "./variables.scss";
+@import "./animation.scss";
 
 $module: #{$prefix}-page;
 
@@ -36,7 +37,7 @@ $module: #{$prefix}-page;
         display: flex;
         align-items: center;
         justify-content: center;
-        transition: background-color $transition_duration-pagination_item-bg $transition_function-pagination_item-bg $transition_delay-pagination_item-bg，
+        transition: background-color $transition_duration-pagination_item-bg $transition_function-pagination_item-bg $transition_delay-pagination_item-bg,
         color $transition_duration-pagination_item-text $transition_function-pagination_item-text $transition_delay-pagination_item-text;
         transform:scale($transform_scale-pagination_item);
 

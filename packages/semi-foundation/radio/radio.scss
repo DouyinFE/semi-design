@@ -1,4 +1,5 @@
 @import "./variables.scss";
+@import "./animation.scss";
 
 $module: #{$prefix}-radio;
 $inner-width: $width-icon-medium;
@@ -9,7 +10,7 @@ $inner-width: $width-icon-medium;
     position: relative;
     display: inline-flex;
     flex-wrap: wrap;
-    transition: background-color $transition_duration_radio-bg $transition_function-radio-bg $transition_delay-radio-bg,
+    transition: background-color $transition_duration-radio-bg $transition_function-radio-bg $transition_delay-radio-bg,
     border $transition_duration-radio-border $transition_function-radio-border $transition_delay-radio-border;
 
     &.#{$module}-vertical {

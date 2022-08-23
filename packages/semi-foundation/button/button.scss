@@ -170,7 +170,7 @@ $module: #{$prefix}-button;
     &-light {
         background-color: $color-button_light-bg-default;
         border: $width-button_light-border $color-button_light-border-default solid;
-      transition: background-color $transition_duration-button_light-bg $transition_function-button_light-bg $transition_delay-button_light-bg，
+      transition: background-color $transition_duration-button_light-bg $transition_function-button_light-bg $transition_delay-button_light-bg,
       border $transition_duration-button_light-border $transition_function-button_light-border $transition_delay-button_light-border;
       transform:scale(var($transform_scale-button_light));
 

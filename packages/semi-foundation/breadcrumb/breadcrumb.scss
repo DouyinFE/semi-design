@@ -2,6 +2,7 @@
 // @import '../theme/mixin.scss';
 // @import '../theme/_font.scss';
 @import './variables.scss';
+@import "./animation.scss";
 
 $module: #{$prefix}-breadcrumb;
 
