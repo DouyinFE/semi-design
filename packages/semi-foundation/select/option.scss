@@ -24,7 +24,6 @@ $multiple: #{$module}-multiple;
     &-icon {
         width: $width-select_option_tick;
         color: $color-select_option-icon-default;
-        visibility: hidden;
         margin-right: $spacing-select_option_tick-marginRight;
         display: flex;
         justify-content: center;
@@ -77,7 +76,6 @@ $multiple: #{$module}-multiple;
         font-weight: $font-weight-bold;
 
         .#{$module}-option-icon {
-            visibility: visible;
             color: $color-select_option-icon-active;
         }
     }
