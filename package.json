@@ -200,7 +200,8 @@
     "webpack-dev-server": "^3.11.2",
     "webpackbar": "^5.0.0-3",
     "cypress": "9.5.2",
-    "cypress-plugin-tab": "^1.0.5"
+    "cypress-plugin-tab": "^1.0.5",
+    "@cypress/code-coverage": "^3.9.12"
   },
   "husky": {
     "hooks": {
