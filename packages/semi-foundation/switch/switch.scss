@@ -13,7 +13,7 @@ $module: #{$prefix}-switch;
     background-color: $color-switch_default-bg-default;
     // box-shadow: inset 0 0 0 0 $color-switch_default-bg-success;
     //transition: background-color $motion-switch-transitionDuration ease-in-out;
-    transition: background-color $transition_duration_switch-bg $transition_function-switch-bg $transition_delay_switch-bg;
+    transition: background-color $transition_duration-switch-bg $transition_function-switch-bg $transition_delay_switch-bg;
 
     width: $width-switch;
     height: $height-switch;

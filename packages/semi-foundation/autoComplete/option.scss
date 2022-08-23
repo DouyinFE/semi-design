@@ -1,7 +1,5 @@
 $module: #{$prefix}-autoComplete;
-$single: #{$module}-single;
 $filterable: #{$module}-filterable;
-$multiple: #{$module}-multiple;
 
 .#{$module}-option {
     @include font-size-regular;
