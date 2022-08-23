@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Children, PureComponent } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/tag/constants';
@@ -23,16 +23,19 @@ export interface TagGroupProps<T> {
     mode?: string;
 }
 
-export default class TagGroup<T> extends PureComponent<TagGroupProps<T>> {
+export type TagGroupState<T> = Pick<TagGroupProps<T>, 'tagList'>
+export default class TagGroup<T> extends PureComponent<TagGroupProps<T>, TagGroupState<T> > {
     static defaultProps = {
         style: {},
         className: '',
         size: tagSize[0],
         avatarShape: 'square',
+        onClose: () => undefined,
     };
 
     static propTypes = {
         children: PropTypes.node,
+        tagKey: PropTypes.oneOf([PropTypes.string, PropTypes.number]),
         style: PropTypes.object,
         className: PropTypes.string,
         maxTagCount: PropTypes.number,
@@ -40,11 +43,36 @@ export default class TagGroup<T> extends PureComponent<TagGroupProps<T>> {
         tagList: PropTypes.array,
         size: PropTypes.oneOf(tagSize),
         mode: PropTypes.string,
+        onClose: PropTypes.func,
         showPopover: PropTypes.bool,
         popoverProps: PropTypes.object,
         avatarShape: PropTypes.oneOf(avatarShapeSet),
     };
 
+    constructor(props: TagGroupProps<T>) {
+        super(props);
+        this.state = {
+            tagList: this.props.tagList
+        };
+        this.onClose = this.onClose.bind(this);
+    }
+
+    static getDerivedStateFromProps(nextProps, prevState) {
+        // 自定义 TagGroup 需要根据 props 来 rerender, normal TagGroup 根据 state 进行 rerender
+        if (nextProps.mode !== 'custom') {
+            return {
+                tagList: prevState.tagList
+            };
+        }
+        if (prevState.tagList !== nextProps.tagList) {
+            return {
+                tagList: nextProps.tagList
+            };
+        }
+        return null;
+    }
+
+    
     renderNTag(n: number, restTags: React.ReactNode) {
         const { size, showPopover, popoverProps } = this.props;
         let nTag = (
@@ -79,7 +107,9 @@ export default class TagGroup<T> extends PureComponent<TagGroupProps<T>> {
     }
 
     renderMergeTags(tags: (Tag | React.ReactNode)[]) {
-        const { maxTagCount, tagList, restCount } = this.props;
+        const { maxTagCount, restCount } = this.props;
+        const { tagList } = this.state;
+
         const n = restCount ? restCount : tagList.length - maxTagCount;
         let renderTags: (Tag | React.ReactNode)[] = tags;
 
@@ -95,20 +125,37 @@ export default class TagGroup<T> extends PureComponent<TagGroupProps<T>> {
     }
 
     renderAllTags() {
-        const { tagList, size, mode, avatarShape } = this.props;
-        const renderTags = tagList.map((tag, index): (Tag | React.ReactNode) => {
+        const { size, mode, avatarShape } = this.props;
+        const { tagList } = this.state;
+        const renderTags = tagList.map((tag): (Tag | React.ReactNode) => {
             if (mode === 'custom') {
                 return tag as React.ReactNode;
             }
+            
             if (!(tag as TagProps).size) {
                 (tag as TagProps).size = size;
             }
+            
             if (!(tag as TagProps).avatarShape) {
                 (tag as TagProps).avatarShape = avatarShape;
             }
-            return <Tag key={`${index}-tag`} {...(tag as TagProps)} />;
+
+            if (!(tag as TagProps).tagKey) {
+                if (typeof (tag as TagProps).children === 'string' || typeof (tag as TagProps).children === 'number') {
+                    (tag as TagProps).tagKey = (tag as TagProps).children as string | number;
+                } else {
+                    (tag as TagProps).tagKey = Math.random();
+                }
+            }
+            return <Tag {...(tag as TagProps)} key={(tag as TagProps).tagKey} onClose={this.onClose} />;
         });
         return renderTags;
+    }
+
+    onClose(value, e, tagKey) {
+        const { tagList } = this.state;
+        const newTagList = tagList.filter(tag => (tag as TagProps).tagKey !== tagKey);
+        this.setState({ tagList: newTagList });
     }
 
     render() {
