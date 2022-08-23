@@ -2475,11 +2475,11 @@ class DemoV extends React.Component {
       this.onScroll(value, this.state.align);
     }
 
-    onSelectChange(value){
+    onSelectChange(align){
       this.setState({
-        align: value,
+        align: align,
       })
-      this.onScroll(this.state.scrollKey, value)
+      this.onScroll(this.state.scrollKey, align);
     }
 
     render() {
@@ -2504,7 +2504,7 @@ class DemoV extends React.Component {
                 <br/>
                 <span>跳转的key：</span>
                 <Input
-                  placeholder={'输入想要跳转的key'} 
+                  placeholder={'格式：x-x-key'} 
                   style={{ width: 180, marginRight: 20 }} 
                   onChange={this.onInputChange}
                   onBlur={this.onInputBlur}

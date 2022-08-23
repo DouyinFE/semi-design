@@ -499,10 +499,12 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
     scrollTo = (scrollData: ScrollData) => {
         const { key, align = 'center' } = scrollData;
         const { flattenNodes } = this.state;
-        const index = key && flattenNodes?.findIndex((node) => {
-            return node.key === key;
-        });
-        index && (this.virtualizedListRef.current as any)?.scrollToItem(index, align);
+        if (key) {
+            const index = flattenNodes?.findIndex((node) => {
+                return node.key === key;
+            });
+            index >= 0 && (this.virtualizedListRef.current as any)?.scrollToItem(index, align);
+        }
     }
 
     renderInput() {
