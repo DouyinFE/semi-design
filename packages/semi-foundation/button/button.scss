@@ -42,7 +42,7 @@ $module: #{$prefix}-button;
         color: $color-button_danger-text-default;
       transition: background-color $transition_duration-button_danger-bg $transition_function-button_danger-bg $transition_delay-button_danger-bg,
       border $transition_duration-button_danger-border $transition_function-button_danger-border $transition_delay-button_danger-border;
-      transform: scale(var($transform-scale-button_danger));
+      transform: scale($transform-scale-button_danger);
 
 
         &:hover {
@@ -64,7 +64,7 @@ $module: #{$prefix}-button;
         color: $color-button_warning-text-default;
       transition: background-color $transition_duration-button_warning-bg $transition_function-button_warning-bg $transition_delay-button_warning-bg,
       border $transition_duration-button_warning-border $transition_function-button_warning-border $transition_delay-button_warning-border;
-      transform:scale(var($transform_scale-button_warning));
+      transform:scale($transform_scale-button_warning);
 
         &:hover {
             background-color: $color-button_warning-bg-hover;
@@ -85,7 +85,7 @@ $module: #{$prefix}-button;
         color: $color-button_tertiary-text-default;
       transition: background-color $transition_duration-button_tertiary-bg $transition_function-button_tertiary-bg $transition_delay-button_tertiary-bg,
       border $transition_duration-button_tertiary-border $transition_function-button_tertiary-border $transition_delay-button_tertiary-border;
-      transform:scale(var($transform_scale_button_tertiary));
+      transform:scale($transform_scale_button_tertiary);
 
         &:hover {
             background-color: $color-button_tertiary-bg-hover;
@@ -103,7 +103,7 @@ $module: #{$prefix}-button;
         color: $color-button_primary-text-default;
         transition: background-color $transition_duration-button_primary-bg $transition_function-button_primary-bg $transition_delay-button_primary-bg,
         border $transition_duration-button_primary-border $transition_function-button_primary-border $transition_delay-button_primary-border;;
-      transform:scale(var($transform_scale-button_primary));
+      transform:scale($transform_scale-button_primary);
 
         &:not(.#{$module}-borderless):not(.#{$module}-light):hover {
             background-color: $color-button_primary-bg-hover;
@@ -123,7 +123,7 @@ $module: #{$prefix}-button;
         color: $color-button_secondary-text-default;
       transition: background-color $transition_duration-button_secondary-bg $transition_function-button_secondary-bg $transition_delay-button_secondary-bg,
       border $transition_duration-button_secondary-border $transition_function-button_secondary-border $transition_delay-button_secondary-border;
-      transform:scale(var($transform_scale-button_secondary));
+      transform:scale($transform_scale-button_secondary);
 
         &:hover {
             background-color: $color-button_secondary-bg-hover;
@@ -155,7 +155,7 @@ $module: #{$prefix}-button;
         background-color: transparent;
         border: $width-button_borderless-border $color-button_borderless-border-default solid;
       transition:background-color $transition_duration-button_borderless-bg $transition_function-button_borderless-bg $transition_delay-button_borderless-bg;
-      transform:scale(var($transform_scale-button_borderless));
+      transform:scale($transform_scale-button_borderless);
 
         &:not(.#{$module}-disabled):hover {
             background-color: $color-button_borderless-bg-hover;
@@ -172,7 +172,7 @@ $module: #{$prefix}-button;
         border: $width-button_light-border $color-button_light-border-default solid;
       transition: background-color $transition_duration-button_light-bg $transition_function-button_light-bg $transition_delay-button_light-bg,
       border $transition_duration-button_light-border $transition_function-button_light-border $transition_delay-button_light-border;
-      transform:scale(var($transform_scale-button_light));
+      transform:scale($transform_scale-button_light);
 
         &:not(.#{$module}-disabled):hover {
             background-color: $color-button_light-bg-hover;

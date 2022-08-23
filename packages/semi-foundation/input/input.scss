@@ -24,6 +24,12 @@ $module: #{$prefix}-input;
     }
 }
 
+.#{$module}{
+    transition: background-color $transition_duration-input-bg $transition_function-input-bg $transition_delay-input-bg,
+    border $transition_duration-input-border $transition_function-input-border $transition_delay-input-border;
+    transform: scale($transform_scale-input);
+}
+
 .#{$module}-wrapper {
     display: inline-block;
     position: relative;

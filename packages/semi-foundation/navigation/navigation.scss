@@ -83,7 +83,7 @@ $module: #{$prefix}-navigation;
         color: $color-navigation_itemL1-text-default;
         width: 100%;
 
-        transition: background-color $transition_function-navigation_itemL1-bg $transition_function-navigation_itemL1-bg $transition_delay-navigation_itemL1-bg;//nav item的bg transition
+        transition: background-color $transition_duration-navigation_itemL1-bg $transition_function-navigation_itemL1-bg $transition_delay-navigation_itemL1-bg;//nav item的bg transition
 
         &-text {
             overflow: hidden;

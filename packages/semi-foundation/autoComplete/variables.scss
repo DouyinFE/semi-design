@@ -26,12 +26,12 @@ $spacing-autoComplete_option-paddingBottom: $spacing-tight; // 选择器菜单�
 $spacing-autoComplete_option_first-marginTop: $spacing-extra-tight; // 选择器第一个菜单项顶部外边距
 $spacing-autoComplete_option_last-marginBottom: $spacing-extra-tight; // 选择器最后一个菜单项顶部外边距
 
-$spacing-autoComplete_option_list-paddingTop: 0; // 选择器内容区顶部内边距
-$spacing-autoComplete_option_list-paddingRight: 0; // 选择器内容区右侧内边距
-$spacing-autoComplete_option_list-paddingBottom: 0; // 选择器内容区底部内边距
-$spacing-autoComplete_option_list-paddingLeft: 0; // 选择器内容区左侧内边距
+$spacing-autoComplete_option_list-paddingTop: 0px; // 选择器内容区顶部内边距
+$spacing-autoComplete_option_list-paddingRight: 0px; // 选择器内容区右侧内边距
+$spacing-autoComplete_option_list-paddingBottom: 0px; // 选择器内容区底部内边距
+$spacing-autoComplete_option_list-paddingLeft: 0px; // 选择器内容区左侧内边距
 
-$radius-autoComplete_option: 0; // 选择器待选项圆角
+$radius-autoComplete_option: 0px; // 选择器待选项圆角
 
 $color-autoComplete_option_main-text: var(--semi-color-text-0); // 选择器菜单选项文本颜色
 
