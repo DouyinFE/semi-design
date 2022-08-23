@@ -27,6 +27,9 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
     - 修复 Select 勾选 icon 会闪烁的问题 [@linjunc](https://github.com/linjunc)
     - 修复 TagGroup closable 关闭后,  数量指示器不变的问题 [#945](https://github.com/DouyinFE/semi-design/issues/945) [@linjunc](https://github.com/linjunc)
     - 修复 居中 Modal 在少数 1080p 显示器上文字模糊的问题
+- 【Style】
+    - Table 增大排序按钮的点击热区（由仅icon区扩大为包含title和sorting的区域，若title为完全自定义渲染，不受影响）[#1031](https://github.com/DouyinFE/semi-design/pull/1031)
+
 
 #### 🎉2.17.1 (2022-08-17)
 

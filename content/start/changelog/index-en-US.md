@@ -27,6 +27,9 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
     - Fix the issue that the Select check icon will flicker [@linjunc](https://github.com/linjunc)
     - Fixed the problem that the quantity indicator does not change after TagGroup closable is closed [#945](https://github.com/DouyinFE/semi-design/issues/945) [@linjunc](https://github.com/linjunc)
     - Fixed  the problem that centered Modal was blurry on a few 1080p monitors
+- 【Style】
+    - Table increases the click hot area of the sorting button (from the icon area only to the area containing the title and sorting, if the title is fully custom rendered, it will not be affected)[#1031](https://github.com/DouyinFE/semi-design/pull/1031)
+
 
 #### 🎉2.17.1 (2022-08-17)
 
