@@ -8,7 +8,7 @@ $basicType: #{$module}-nav;
 
     .#{$item} {
         @include box-sizing;
-
+        
         &:last-child {
             flex: none;
 

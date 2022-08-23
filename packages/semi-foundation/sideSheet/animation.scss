@@ -1,7 +1,7 @@
 $transition_duration-sideSheet_mask-bg: var(--semi-transition_delay-fastest); // 侧边栏打开后-蒙层颜色-动画持续时间
 $transition_function-sideSheet_mask-bg: var(--semi-transition_function-easeOut); // 侧边栏打开后-蒙层颜色-过渡曲线
-$transition_delay-sideSheet_mask-bg: var(--semi-transition_delay-none); // 侧边栏打开后-蒙层颜色-延迟时间
+$transition_delay-sideSheet_mask-bg: 0ms; // 侧边栏打开后-蒙层颜色-延迟时间
 
 $transition_duration-sideSheet_inner: var(--semi-transition_delay-fastest); // 侧边栏-动画持续时间
 $transition_function-sideSheet_inner: var(--semi-transition_function-easeOut); // 侧边栏-过渡曲线
-$transition_delay-sideSheet_inner: var(--semi-transition_delay-none); // 侧边栏-延迟时间
+$transition_delay-sideSheet_inner: 0ms; // 侧边栏-延迟时间

@@ -280,8 +280,7 @@ $module: #{$prefix}-table;
             }
 
             & > .#{$module}-row-cell:not(.#{$module}-column-selection) {
-                padding: $spacing-table_tbody_rowSelection_rowCell_notSelection-paddingY
-                    $spacing-table_tbody_rowSelection_rowCell_notSelection-paddingX;
+                padding: $spacing-table_tbody_rowSelection_rowCell_notSelection-paddingY $spacing-table_tbody_rowSelection_rowCell_notSelection-paddingX;
             }
 
             .#{$module}-section-inner {
