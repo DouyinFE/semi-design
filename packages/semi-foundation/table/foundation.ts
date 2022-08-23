@@ -393,8 +393,8 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
                     dataSource = Array.from(filteredData && filteredData.values());
                     filteredData = new Map();
                 }
-                each(currentFilteredValue, value => {
-                    each(dataSource, record => {
+                each(dataSource, record => {
+                    each(currentFilteredValue, value => {
                         const childrenRecords = get(record, childrenRecordName);
                         const recordKey = this.getRecordKey(record);
 

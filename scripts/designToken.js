@@ -15,7 +15,7 @@ const getTokenCategory = codeLine => {
 };
 const codeLineSplit = codeLine => {
     const [key, value, comment] = codeLine.split(/:|\/\/|\/\*/).map(code => code.trim()).filter(code => code);
-    return { key, value: lodash.trimEnd(value, ';'), comment, category: getTokenCategory(codeLine), raw: codeLine };
+    return { key, value: lodash.trimEnd(value, ';'), comment:comment && comment.replace("ignore-semi-css-trans", ""), category: getTokenCategory(codeLine), raw: codeLine };
 };
 
 const getGlobalDesignToken = () => {

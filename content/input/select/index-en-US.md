@@ -710,9 +710,9 @@ import { Select, Avatar, Tag } from '@douyinfe/semi-ui';
 
 () => {
     const list = [
-        { "name": "Keman Xia", "email": "xiakeman@example.com", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg" },
+        { "name": "Keman Xia", "email": "xiakeman@example.com", "avatar": "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bag.jpeg" },
         { "name": "Yue Shen", "email": "shenyue@example.com", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg" },
-        { "name": "Chenyi Qu", "email": "quchenyi@example.com", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/8bd8224511db085ed74fea37205aede5.jpg" },
+        { "name": "Chenyi Qu", "email": "quchenyi@example.com", "avatar": "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/Viamaker.png" },
         { "name": "Jiamao Wen", "email": "wenjiamao@example.com", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/6fbafc2d-e3e6-4cff-a1e2-17709c680624.png" },
     ];
 
@@ -1286,7 +1286,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | clickToHide | When expanded, click on the selection box to automatically put away the drop-down list | boolean | false |
 | defaultValue | Originally selected value when component mount | string\|number\|array |  |
 | defaultOpen | Whether show dropdown when component mounted | boolean | false |
-| defaultActiveFirstOption | Whether to highlight the first option by default (press Enter to select directly) | boolean | false |
+| defaultActiveFirstOption | Whether to highlight the first option by default (press Enter to select directly) | boolean | true |
 | disabled | Whether disabled component | boolean | false |
 | dropdownClassName | ClassName of the pop-up layer | string |  |
 | dropdownMatchSelectWidth | Is the minimum width of the drop-down menu equal to Select | boolean | true |
@@ -1376,8 +1376,26 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 - The role of the Select trigger is combobox, the role of the popup layer is listbox, and the role of the option is option
 - Select trigger has aria-haspopup, aria-expanded, and aria-controls properties, indicating the relationship between trigger and popup layer
 - When multiple selections are made, listbox aria-multiselectable is true, indicating that multiple selections are currently available
-- aria-selected is true when Option is selected; aria-disabled is true when Option is disabled
+- Aria-selected is true when Option is selected; aria-disabled is true when Option is disabled
+- The attribute aria-activedescendant ensures that the currently selected option is recognized when the narration is spoken(for more information, please refer to [Managing Focus in Composites Using aria-activedescendant](https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/#kbd_focus_activedescendant))
 
+### Keyboard and Focus
+**Select without Filter:**
+- After Select is focused, keyboard users can open the dropdown menu with the `Up Arrow` or `Down Arrow` or `Enter` keys and automatically focus on the first option in the dropdown menu (`defaultActiveFirstOption` defaults to true)
+- When the dropdown menu is open:
+  - Use `Esc` key or `Tab` key to close the menu
+  - Use `Up Arrow` or `Down Arrow` to toggle options
+  - The focused option can be selected with the Enter key and the panel is collapsed
+- When the focus is on the dropdown menu and the user uses an `innerBottomSlot` or `outerBottomSlot` attribute with a custom slot with an interactive element:
+  - You can use the `Tab` key to switch to these interactive elements
+  - When the focus is on the first interactive element of the custom slot, use `Shift` + `Tab` to return the focus to the Select box
+
+**Select with Filter function:**
+- When Select is focused, keyboard users can open dropdown menus with `Up Arrow` or `Down Arrow` or `Enter` keys. At this point, the focus is still on the Select box, the user can enter content, and can also use the `up arrow` or `down arrow` to switch options
+- When the dropdown menu is open: the keyboard interaction is the same as Select without the Filter function
+- When the focus is on the Select box, and the user uses an `innerBottomSlot` or `outerBottomSlot` property with a custom slot with an interactive element:
+  - You can use the `Tab` key to switch to these interactive elements
+  - When the focus is on the first interactive element of the custom slot, use `Shift` + `Tab` to return the focus to the Select box
 ## Design Tokens
 
 <DesignToken/>
@@ -1402,7 +1420,15 @@ MinWidth will be given, but width will not be written dead. If necessary, you ca
     allowCreate is mainly used for locally created scenarios. When this item is turned on, it is equivalent to forcibly taking over optionList/children, and will no longer respond to external updates to these two types of values. Otherwise, how the currently created options are combined with the latest props.optionList, and whether the strategy is overwritten or merged depends largely on the business scenario logic, and it is inappropriate to force presets by the component layer.
 
 -   **Why Semi's Select requires that the label must be unique, but not the value?**
+
     First of all, we must need a unique identifier to make a selection judgment. For almost all UI libraries, when using Select.Option, the minimum requirements will only require the two values of label and value to be passed in, instead of requiring a separate key (too cumbersome). Semi continues this setting.    
     So why is label instead of value in semi's select?  
     The label of the option is what the user perceives. From an interactive point of view, if there are two options that are exactly the same on the display, to the user’s perception, they look the same and cannot be distinguished, but the selected effects are different (for example, one value is 0, the other As 1), it is unreasonable. (Users' first reaction is often repeated, and there may be a bug)
 Unique label and repeated value are more common in daily use. For example, a selector that selects the company id based on the app name, value is the company id corresponding to the app, and label is the name of the app.
+
+- **Why is the blur event not fired after a radio selection option?**
+
+    Before V2.17.0, after Select radio is selected, the blur event of Select will be triggered.
+    After V2.17.0, Select has added A11y support, which will not trigger Select's blur event.
+    In single-selection selection, the Select floating layer is closed, and the focus is still on the trigger (at this time, the Select floating layer can be opened again by pressing the Enter key)
+    No matter single selection or multiple selection, press Esc, only the Select floating layer is closed, and the trigger keeps the focus (the Select floating layer can be opened again by pressing the Enter key at this time)

@@ -59,7 +59,7 @@ class Demo extends React.Component {
                 </Skeleton>
                 <br/>
                 <Skeleton style={{width: 200, height: 150}} placeholder={(<Skeleton.Image />)} loading={loading}>
-                    <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg" height='150' />
+                    <img src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png" height='150' />
                 </Skeleton>
                 <br/>
                 <Skeleton style={{width: 80}} placeholder={(<Skeleton.Title style={{marginBottom: 10}}/>)} loading={loading}>
@@ -96,7 +96,7 @@ import { Skeleton } from '@douyinfe/semi-ui';
 
     return (
         <Skeleton placeholder={placeholder} loading={true}>
-            <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg" height='150' />
+            <img src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png" height='150' />
             <h4>Semi UI</h4>
         </Skeleton>
     );

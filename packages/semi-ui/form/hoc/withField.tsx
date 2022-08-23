@@ -110,6 +110,7 @@ function withField<
             }
         } catch (err) {}
 
+        // FIXME typeof initVal
         const [value, setValue, getVal] = useStateWithGetter(typeof initVal !== undefined ? initVal : null);
         const validateOnMount = trigger.includes('mount');
 

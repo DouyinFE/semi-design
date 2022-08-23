@@ -1,6 +1,6 @@
 {
   "name": "@douyinfe/semi-illustrations",
-  "version": "2.15.0",
+  "version": "2.17.1",
   "description": "semi illustrations",
   "keywords": [
     "semi",
@@ -14,9 +14,6 @@
     "src",
     "dist"
   ],
-  "sideEffects": [
-    "lib/es/index.js"
-  ],
   "main": "lib/cjs/index.js",
   "module": "lib/es/index.js",
   "typings": "lib/es/index.d.ts",
@@ -24,22 +21,14 @@
     "type": "git",
     "url": "https://github.com/DouyinFE/semi-design"
   },
-  "dependencies": {
-    "@babel/runtime-corejs3": "^7.15.4"
-  },
   "peerDependencies": {
     "react": "^16.8.0 || ^17.0.0 || ^18.0.0"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-decorators": "^7.15.8",
-    "@babel/plugin-transform-runtime": "^7.15.8",
-    "@babel/preset-env": "^7.15.8",
-    "@babel/preset-react": "^7.14.5",
-    "babel-loader": "^8.2.2",
     "case-sensitive-paths-webpack-plugin": "2.4.0",
     "del": "^6.0.0",
     "gulp": "^4.0.2",
-    "gulp-babel": "^8.0.0",
+    "gulp-esbuild": "0.10.4",
     "gulp-replace": "^1.1.3",
     "gulp-typescript": "^6.0.0-alpha.1",
     "merge2": "^1.4.1",

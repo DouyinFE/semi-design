@@ -14,6 +14,18 @@ $module: #{$prefix}-tagInput;
     transition: background-color $transition_duration-tagInput-bg $transition_function-tagInput-bg $transition_delay-tagInput-bg,
     border $transition_duration-tagInput-border $transition_function-tagInput-border $transition_delay-tagInput-border;
 
+    &-drag {
+
+        &-item {
+            display: flex;
+            align-items: center;
+        }
+
+        &-handler {
+            margin-right: $spacing-tagInput_drag_handler-marginRight;
+            cursor: move;
+        }
+    }
 
     &-hover {
         background-color: $color-tagInput_default-bg-hover;
@@ -107,6 +119,10 @@ $module: #{$prefix}-tagInput;
                     margin-top: $spacing-tagInput_large-Y;
                     margin-bottom: $spacing-tagInput_large-Y;
                 }
+            }
+            
+            &-icon {
+                padding-left: $spacing-tagInput_tag_icon_paddingLeft;
             }
         }
 

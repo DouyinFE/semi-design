@@ -318,7 +318,10 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
                 <div
                     role="none"
                     tabIndex={-1}
-                    className={`${cssClasses.DIALOG}-wrap`}
+                    className={cls({
+                        [`${cssClasses.DIALOG}-wrap`]:true,
+                        [`${cssClasses.DIALOG}-wrap-center`]:this.props.centered
+                    })}
                     onClick={maskClosable ? this.onMaskClick : null}
                     onMouseUp={maskClosable ? this.onMaskMouseUp : null}
                 >

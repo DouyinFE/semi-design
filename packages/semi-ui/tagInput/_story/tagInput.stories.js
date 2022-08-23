@@ -78,6 +78,24 @@ ShowClear.story = {
   name: 'showClear',
 };
 
+export const Draggable = () => (
+  <>
+    <TagInput draggable defaultValue={['抖音', '火山', '西瓜视频', 'AI Lab', '花亦山', '水之月','轻颜','醒图']} showClear style={style} />
+    <br />
+    <TagInput 
+      draggable
+      defaultValue={['抖音', '火山', '西瓜视频', 'AI Lab', '花亦山', '水之月','轻颜','醒图']} 
+      maxTagCount={5} 
+      showClear 
+      style={style} 
+    />
+  </>
+);
+
+Draggable.story = {
+  name: 'draggable',
+};
+
 export const MaxExceed = () => (
   <>
     <TagInput
@@ -331,7 +349,7 @@ class CustomRender extends React.Component {
           name: 'semi',
           email: 'semi@byte.com',
           avatar:
-            'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg',
+            'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bag.jpeg',
         },
       ],
     };
@@ -367,7 +385,7 @@ class CustomRender extends React.Component {
       const item = {};
       item.name = v.name || v;
       item.email = `${item.name}@byte.com`;
-      item.avatar = `https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg`;
+      item.avatar = `https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bag.jpeg`;
       return item;
     });
     this.setState({

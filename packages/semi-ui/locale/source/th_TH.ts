@@ -154,6 +154,9 @@ const local: Locale = {
         total: 'รวม ${total} รายการ',
         selected: 'เลือก ${total} รายการ',
     },
+    Form: {
+        optional: '(ไม่จำเป็น)',
+    },
 };
 
 // [i18n-Thai]

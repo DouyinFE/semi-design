@@ -206,10 +206,12 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
                 };
                 // bind focus to hover trigger for a11y
                 triggerEventSet[eventNames.focus] = () => {
-                    this.delayShow();
+                    const { disableFocusListener } = this.getProps();
+                    !disableFocusListener && this.delayShow();
                 };
                 triggerEventSet[eventNames.blur] = () => {
-                    this.delayHide();
+                    const { disableFocusListener } = this.getProps();
+                    !disableFocusListener && this.delayHide();
                 };
 
                 portalEventSet = { ...triggerEventSet };
@@ -856,7 +858,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
     }
 
     _handleTriggerKeydown(event: any) {
-        const { closeOnEsc } = this.getProps();
+        const { closeOnEsc, disableArrowKeyDown } = this.getProps();
         const container = this._adapter.getContainer();
         const focusableElements = this._adapter.getFocusableElements(container);
         const focusableNum = focusableElements.length;
@@ -867,10 +869,11 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
                 closeOnEsc && this._handleEscKeyDown(event);
                 break;
             case "ArrowUp":
-                focusableNum && this._handleTriggerArrowUpKeydown(focusableElements, event);
+                // when disableArrowKeyDown is true, disable tooltip's arrow keyboard event action
+                !disableArrowKeyDown && focusableNum && this._handleTriggerArrowUpKeydown(focusableElements, event);
                 break;
             case "ArrowDown":
-                focusableNum && this._handleTriggerArrowDownKeydown(focusableElements, event);
+                !disableArrowKeyDown && focusableNum && this._handleTriggerArrowDownKeydown(focusableElements, event);
                 break;
             default:
                 break;

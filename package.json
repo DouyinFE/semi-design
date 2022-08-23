@@ -153,7 +153,7 @@
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.6",
     "enzyme-to-json": "^3.6.2",
-    "esbuild": "^0.12.19",
+    "esbuild": "^0.14.47",
     "esbuild-loader": "^2.14.0",
     "eslint": "^7.32.0",
     "eslint-config-jest-enzyme": "^7.1.2",

@@ -58,7 +58,8 @@ Semi Form 同时支持多种写法
 #### 基本写法
 
 从 Form 中导出表单控件，给表单控件添加`field`属性，将其放置于 Form 内部即可  
-还可以给每个表单控件设置`label`属性，不传入时默认与 field 相同
+还可以给每个表单控件设置`label`属性，不传入时默认与 field 相同  
+`label`可以直接传入字符串，亦可以以 object 方式声明，配置 `extra`、`required`、`optional`等属性应对更复杂的场景 
 
 <Notice type='primary' title='注意事项'>
 对于Field级别组件来说，field 属性是必填项!
@@ -73,21 +74,21 @@ import { IconHelpCircle } from '@douyinfe/semi-icons';
     const { Option } = Form.Select;
 
     return (
-        <Form layout='horizontal'  onValueChange={values=>console.log(values)}>
-            <Form.Select field="Role" label='角色' style={{ width:176 }}>
-                <Option value="admin">管理员</Option>
-                <Option value="user">普通用户</Option>
-                <Option value="guest">访客</Option>
-            </Form.Select>
+        <Form layout='horizontal' onValueChange={values=>console.log(values)}>
             <Form.Input field='UserName' label='用户名' style={{ width:80 }}/>
             <Form.Input
                 field='Password'
                 label={{ 
                     text: '密码',
-                    extra: <Tooltip content='详情'><IconHelpCircle style={{ color: '--semi-color-text-1' }}/></Tooltip> 
+                    extra: <Tooltip content='详情'><IconHelpCircle style={{ color: 'var(--semi-color-text-2)' }}/></Tooltip> 
                 }}
                 style={{ width:176 }}
             />
+            <Form.Select field="Role" label={{ text: '角色', optional: true }} style={{ width:176 }}>
+                <Option value="admin">管理员</Option>
+                <Option value="user">普通用户</Option>
+                <Option value="guest">访客</Option>
+            </Form.Select>
         </Form>
     );
 };
@@ -358,7 +359,7 @@ class BasicDemoWithInit extends React.Component {
                             <TagInput 
                                 field="product"
                                 label='产品（TagInput）'
-                                defaultValue={['abc','ulikeCam']}
+                                initValue={['abc','ulikeCam']}
                                 placeholder='请输入产品'
                                 style={style}
                             />
@@ -1899,28 +1900,28 @@ render(WithFieldDemo2);
 | 属性              | 说明                                                                                                                                                                         | 类型                                          | 默认值     |
 | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------- | ---------- |
 | autoScrollToError | 若为 true，submit 或者调用 formApi.validate()校验失败时，将会自动滚动至出错的字段。object 型配置参考[options](https://github.com/stipsan/scroll-into-view-if-needed#options) | boolean\| object                              | false      |
+| allowEmpty        | 是否保留values中为空值的field的key，true时保留key，false时移除key                                     | boolean                                       | false      |
 | className         | form 标签的 classname                                                                                                                                                        | string                                        |
+| component         | 用于声明表单控件，不可与 render、props.children 同时使用                                                                                                                     | ReactNode                                     |            |
+| disabled          | 统一应用在每个 Field 的 disabled 属性                                                                                                            | boolean                                       | false      |
+| extraTextPosition  | 统一应用在每个 Field 上的extraTextPosition属性，控制extraText的显示位置，可选`middle`（垂直方向以Label、extraText、Field主体的顺序显示）、`bottom` (垂直方向以Label、Field主体、extraText的顺序显示)  <br/>**在 v1.9.0 开始提供**                                                                                                                       | string                                       | 'bottom'       |
 | getFormApi        | form mounted 时会回调该函数，将 formAPI 作为参数传入。formApi 可用于修改 form 内部状态（值、校验状态、错误信息）                                                             | function(formApi:object)                      |            |
 | initValues        | 用于统一设置表单初始值（仅会在组件挂载时消费一次），例如{fieldA:'hello', fieldB:['arr1', 'arr2']}                                                                       | object                                        |            |
+| layout            | Form 表单控件间的布局，目前支持水平(horizontal)、垂直(vertical)两种                                                                                                          | string                                        | 'vertical' |
+| labelAlign        | 统一配置label 的 text-align 值                                                                                                                                                       | string                                        | 'left'     |
+| labelCol          | 统一应用在每个 Field 的 label 标签布局，同[Col 组件](/zh-CN/basic/grid#Col)，设置`span`、`offset`值，如{span: 6, offset: 2}                         | object                                        |
+| labelPosition     | 统一配置Field 中 label 的位置，可选'top'、'left'、'inset'(inset 标签内嵌仅部分组件支持)                                                                                              | string                                        | 'top'      |
+| labelWidth        | 统一配置label 宽度                                                                                                                                                                   | string\|number                                |            |
 | onChange          | form 更新时触发，包括表单控件挂载/卸载/值变更/blur/验证状态变更/错误提示变更, 入参为 formState                                                                               | function(formState:object)                    |            |
 | onValueChange     | form 的值被更新时触发，仅在表单控件值发生变化时触发。第一个入参为 formState.values，第二个入参为当前发生变化的 field                                                         | function(values:object, changedValue: object) |            |
 | onReset           | 点击 reset 按钮或调用 `formApi.reset()`时的回调函数                                                                                                                          | function()                                    |            |
 | onSubmit          | 点击 submit 按钮或调用 `formApi.submitForm()`，数据验证成功后的回调函数                                                                                                      | function(values:object)                       |            |
 | onSubmitFail      | 点击 submit 按钮或调用 `formApi.submitForm()`，数据验证失败后的回调函数                                                                                                      | function(errors:object, values:object)        |            |
-| validateFields    | Form 级别的自定义校验函数，submit 时或 formApi.validate 时会被调用（配置Form级别校验器后，Field级别校验器在submit或formApi.validate()时不会再被触发）。支持同步校验、异步校验                                                                                   | function(values)                              |            |
-| component         | 用于声明表单控件，不可与 render、props.children 同时使用                                                                                                                     | ReactNode                                     |            |
 | render            | 用于声明表单控件，不可与 component、props.children 同时使用                                                                                                                  | function                                      |
-| allowEmpty        | 是否保留values中为空值的field的key，true时保留key，false时移除key                                     | boolean                                       | false      |
-| layout            | Form 表单控件间的布局，目前支持水平(horizontal)、垂直(vertical)两种                                                                                                          | string                                        | 'vertical' |
-| labelPosition     | 统一配置Field 中 label 的位置，可选'top'、'left'、'inset'(inset 标签内嵌仅部分组件支持)                                                                                              | string                                        | 'top'      |
-| labelWidth        | 统一配置label 宽度                                                                                                                                                                   | string\|number                                |            |
-| labelAlign        | 统一配置label 的 text-align 值                                                                                                                                                       | string                                        | 'left'     |
-| style             | 可将内联样式传入 form 标签                                                                                                                                                   | object                                        |
-| wrapperCol        | 统一应用在每个 Field 上的布局，同[Col 组件](/zh-CN/basic/grid#Col)，设置`span`、`offset`值，如{span: 20, offset: 4}                                 | object                                        |
-| labelCol          | 统一应用在每个 Field 的 label 标签布局，同[Col 组件](/zh-CN/basic/grid#Col)，设置`span`、`offset`值，如{span: 6, offset: 2}                         | object                                        |
-| disabled          | 统一应用在每个 Field 的 disabled 属性                                                                                                            | boolean                                       | false      |
 | showValidateIcon  | Field 内的校验信息区块否自动添加对应状态的 icon 展示 <br/>**在 v1.0.0 开始提供**                                                                                                                         | boolean                                       | true       |
-| extraTextPosition  | 统一应用在每个 Field 上的extraTextPosition属性，控制extraText的显示位置，可选`middle`（垂直方向以Label、extraText、Field主体的顺序显示）、`bottom` (垂直方向以Label、Field主体、extraText的顺序显示)  <br/>**在 v1.9.0 开始提供**                                                                                                                       | string                                       | 'bottom'       |
+| style             | 可将内联样式传入 form 标签                                                                                                                                                   | object                                        |
+| validateFields    | Form 级别的自定义校验函数，submit 时或 formApi.validate 时会被调用（配置Form级别校验器后，Field级别校验器在submit或formApi.validate()时不会再被触发）。支持同步校验、异步校验                                                                                   | function(values)                              |            |
+| wrapperCol        | 统一应用在每个 Field 上的布局，同[Col 组件](/zh-CN/basic/grid#Col)，设置`span`、`offset`值，如{span: 20, offset: 4}                                 | object                                        |
 
 ## FormState
 
@@ -2039,6 +2040,7 @@ import { Form, Button } from '@douyinfe/semi-ui';
 
 | 属性                  | 说明                                                                                                                                                                                                                | 类型                                                                                          | 默认值    |
 | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------- |
+| convert               | field 值改变后，在 rerender 前，对 filed 的值进行二次更新<br/> 使用示例: (value) => newValue                                                                                                                         | function(fieldValue)                                                                          |           |
 | field                 | 该表单控件的值在 formState.values 中的映射路径，Form 会使用该值来区分内部的表单控件<br/>**必填!!!** 示例：[Bindding Syntax](#表单控件值的绑定)                                                                      | string                                                                                        |           |
 | label                 | 该表单控件的 label 标签文本，不传的时候默认与 field 同名, 传入 object 时会将其透传给 Form.Label，具体配置请参考[Label](#Form.Label)                                                                                 | string\|object                                                                                |
 | labelPosition         | 该表单控件的 label 位置，可选'top'/'left'/'inset'。在Form与Field上同时传入时，以Field props为准                                                                                                                | string                                                                                        |
@@ -2057,7 +2059,6 @@ import { Form, Button } from '@douyinfe/semi-ui';
 | onChange              | 值变化时触发的回调                                                                                                                                                                                                  | function(filedValue: any \| ev: { target: { value: any }}) <br/>（具体参见各组件的 onChange 方法） |
 | onBlur                | 失去焦点时触发的回调                                                                                                                                                                                                | function() （具体参见各组件的 onBlur 方法）                                                   |
 | transform             | 校验前转换字段值，转换后的值仅会在校验时被消费，对 formState 无影响<br/> 使用示例: (value) => Number                                                                                                                 | function(fieldValue)                                                                          |           |
-| convert               | field 值改变后，在 rerender 前，对 filed 的值进行二次更新<br/> 使用示例: (value) => newValue                                                                                                                         | function(fieldValue)                                                                          |           |
 | allowEmptyString      | 是否允许值为空字符串。默认情况下值为''时，该 field 对应的 key 会从 values 中移除，如果你希望保留该 key，那么需要将 allowEmptyString 设为 true                                                                       | boolean                                                                                       | false     |
 | stopValidateWithError | 为 true 时，使用 rules 校验，碰到第一个检验不通过的 rules 后，将不再触发后续 rules 的校验                                                                                                  | boolean                                                                                       | false     |
 | helpText              | 自定义提示信息，与校验信息公用同一区块展示，两者均有值时，优先展示校验信息<br/>**v1.0.0 开始提供**                                                                                                                  | ReactNode                                                                                     |           |
@@ -2123,7 +2124,8 @@ const { Label } = Form;
 | align     | text-align               | string    | 'left' |  |
 | className | 样式类名                 | string    |        |  |
 | style     | 内联样式                 | string    |        |  |
-| width     | label 宽度               | number\/string    |        |  |
+| width     | label 宽度               | number/string    |        |  |
+| optional  | 是否自动在text后追加"（可选）"文字标识（根据Locale配置的不同语言自动切换相同语义文本）。当该项为true时，required的\*号将不再展示。若当表单项多数均为必填时，仅强调可选项会更使得整体视觉更简洁  | boolean    | false | v2.18.0 |
 
 ## Form.Slot
 

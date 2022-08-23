@@ -62,6 +62,52 @@ import { Collapse } from '@douyinfe/semi-ui';
 );
 ```
 
+### Disable Panel
+
+Use `disabled` to disabled panel.
+
+```jsx live=true
+import React from 'react';
+import { Collapse } from '@douyinfe/semi-ui';
+
+() => (
+    <Collapse accordion>
+        <Collapse.Panel header="This is panel header 1" itemKey="1" disabled>
+            <p>Hi, bytedance dance dance. This is the docsite of Semi UI. </p>
+        </Collapse.Panel>
+        <Collapse.Panel header="This is panel header 2" itemKey="2">
+            <p>Hi, bytedance dance dance. This is the docsite of Semi UI. </p>
+        </Collapse.Panel>
+        <Collapse.Panel header="This is panel header 3" itemKey="3">
+            <p>Hi, bytedance dance dance. This is the docsite of Semi UI. </p>
+        </Collapse.Panel>
+    </Collapse>
+);
+```
+
+### Hide The Panel Icon
+
+Use `showArrow` to hide the panel icon.
+
+```jsx live=true
+import React from 'react';
+import { Collapse } from '@douyinfe/semi-ui';
+
+() => (
+    <Collapse accordion>
+        <Collapse.Panel header="This is panel header 1" itemKey="1" showArrow={false}>
+            <p>Hi, bytedance dance dance. This is the docsite of Semi UI. </p>
+        </Collapse.Panel>
+        <Collapse.Panel header="This is panel header 2" itemKey="2">
+            <p>Hi, bytedance dance dance. This is the docsite of Semi UI. </p>
+        </Collapse.Panel>
+        <Collapse.Panel header="This is panel header 3" itemKey="3">
+            <p>Hi, bytedance dance dance. This is the docsite of Semi UI. </p>
+        </Collapse.Panel>
+    </Collapse>
+);
+```
+
 ### Custom Icon
 
 You can use `expandIcon` to set the expanding icon and `collapseIcon` for folded icon.
@@ -143,10 +189,12 @@ import { IconCopy } from '@douyinfe/semi-icons';
 | Properties | Instructions | type | Default |version|
 | --- | --- | --- | --- | --- |
 | className | className of Panel | string | - ||
+| disabled  | If true, the panel is disabled | boolean     |  false  | v2.17.0   |
 | extra | Custom rendering of the auxiliary content in the upper right-hand corner of each panel(only work when header is string) | ReactNode | - ||
 | header | Panel head content | ReactNode | - | - ||
 | itemKey | Required and must be unique, used to match `activeKey`, `defaultActiveKey` | string | - ||
 | reCalcKey | When reCalcKey changes, the height of children will be reset. Used for optimize dynamic content rendering. | string \| number |-| 1.5.0 |
+| showArrow | whether to show arrows icon | boolean                 |  true  | v2.17.0   |
 | style | inline CSS style | CSSProperties | - ||
 
 
@@ -157,6 +205,7 @@ import { IconCopy } from '@douyinfe/semi-icons';
 - The button on the right side of the panel header is set to `aria-hidden=true`
 - The interactive part of the panel header is set to the `aria-owns` value corresponding to the panel content
 - The content of the panel is set with `aria-hidden`, and its value is automatically switched between true and false with the display of the panel content
+- The panel `aria-disabled` is synchronized with the `disabled` property, indicating that the panel is disabled
 
 ## Design Tokens
 
