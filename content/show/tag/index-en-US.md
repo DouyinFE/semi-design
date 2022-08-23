@@ -243,6 +243,64 @@ import { TagGroup } from '@douyinfe/semi-ui';
 };
 ```
 
+If the tags in the TagGroup can be deleted, the user needs to process the `tagList` passed to the TagGroup in `onTagClose`
+
+```jsx live=true
+import React from 'react';
+import { TagGroup } from '@douyinfe/semi-ui';
+
+class TagGroupCloseableDemo extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            tagList: [
+                { tagKey: '1', color: 'white', children: 'douyin',  closable: true,},
+                { tagKey: '2',color: 'white', children: 'hotsoon', closable: true,},
+                { tagKey: '3',color: 'white', children: 'capcut', closable: true,},
+                { tagKey: '4',color: 'white', children: 'pipixia', closable: true,},
+                { tagKey: '5',color: 'white', children: 'dCar', closable: true,},
+            ]
+        };
+        this.tagListClick = this.tagListClick.bind(this);
+    }
+
+    tagListClick(value, e, tagKey){
+        const newTagList = [...this.state.tagList];
+        const closeTagIndex = newTagList.findIndex(t => t.tagKey === tagKey);
+        newTagList.splice(closeTagIndex, 1);
+        this.setState({
+          tagList: newTagList,
+        });
+    }
+
+    render() {
+        return (
+            <div style={ {
+                backgroundColor: 'var(--semi-color-fill-0)',
+                height: 35,
+                width: 300,
+                display: 'flex',
+                alignItems: 'center',
+                padding: '0 10px',
+                marginBottom: 30,
+            }}>
+                <TagGroup
+                    maxTagCount={3}
+                    style={ {
+                        display: 'flex',
+                        alignItems: 'center',
+                        width: 350,
+                    }}
+                    tagList={this.state.tagList}
+                    size='large'
+                    onTagClose={this.tagListClick}
+                />
+            </div>
+        );
+    }
+}
+```
+
 ## API Reference
 
 ### Tag
@@ -260,7 +318,7 @@ import { TagGroup } from '@douyinfe/semi-ui';
 | visible | Toggle the visibility of the tag | boolean | true |  |
 | tagKey  | The key required by React, as the unique identifier of each tag, does not allow repetition | string | number | |
 | onClick | Callback function when clicking the tag | (e: MouseEvent) => void | - |  |
-| onClose | Callback function when the tag is closed | (tagChildren: ReactNode, e: MouseEvent) => void | - |  |
+| onClose | Callback function when the tag is closed | (tagChildren: ReactNode, e: MouseEvent, tagKey: string \| number ) => void | - | e is available in v1.18, tagKey is available in v2.18.0 |
 
 ### TagGroup
 
@@ -274,6 +332,7 @@ import { TagGroup } from '@douyinfe/semi-ui';
 | size | Size, one of `small`, `large` | string | `small` |  |
 | style | Inline style | CSSProperties |  |  |
 | tagList | Label Group data | (TagProps)[] |  |  |
+| onTagClose | The callback function when deleting the Tag in the TagGroup | (tagChildren: ReactNode, e: MouseEvent, tagKey: string \| number ) => void | - |  2.18.0 |
 
 ## Accessibility
 

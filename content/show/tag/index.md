@@ -204,6 +204,64 @@ import { TagGroup } from '@douyinfe/semi-ui';
 
 ```
 
+如果 TagGroup 中的标签可删除，用户需要在 `onTagClose` 中处理传递给 TagGroup 的 `tagList`。
+
+```jsx live=true
+import React from 'react';
+import { TagGroup } from '@douyinfe/semi-ui';
+
+class TagGroupCloseableDemo extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            tagList: [
+                { tagKey: '1', color: 'white', children: '抖音',  closable: true,},
+                { tagKey: '2',color: 'white', children: '火山小视频', closable: true,},
+                { tagKey: '3',color: 'white', children: '剪映', closable: true,},
+                { tagKey: '4',color: 'white', children: '皮皮虾', closable: true,},
+                { tagKey: '5',color: 'white', children: '懂车帝', closable: true,},
+            ]
+        };
+        this.tagListClick = this.tagListClick.bind(this);
+    }
+
+    tagListClick(value, e, tagKey){
+        const newTagList = [...this.state.tagList];
+        const closeTagIndex = newTagList.findIndex(t => t.tagKey === tagKey);
+        newTagList.splice(closeTagIndex, 1);
+        this.setState({
+          tagList: newTagList,
+        });
+    }
+
+    render() {
+        return (
+            <div style={ {
+                backgroundColor: 'var(--semi-color-fill-0)',
+                height: 35,
+                width: 300,
+                display: 'flex',
+                alignItems: 'center',
+                padding: '0 10px',
+                marginBottom: 30,
+            }}>
+                <TagGroup
+                    maxTagCount={3}
+                    style={ {
+                        display: 'flex',
+                        alignItems: 'center',
+                        width: 350,
+                    }}
+                    tagList={this.state.tagList}
+                    size='large'
+                    onTagClose={this.tagListClick}
+                />
+            </div>
+        );
+    }
+}
+```
+
 ## API参考
 
 ### Tag
@@ -221,7 +279,7 @@ import { TagGroup } from '@douyinfe/semi-ui';
 | visible | 标签是否可见 | boolean | true    | |
 | tagKey  | React 需要的 key，作为每个标签的唯一标识，不允许重复 | string | number | |
 | onClick | 单击标签时的回调函数 | (e: MouseEvent) => void | 无   | |
-| onClose | 关闭标签时的回调函数 | (tagChildren: ReactNode, e: MouseEvent) => void | 无    | e于v1.18版本提供 |
+| onClose | 关闭标签时的回调函数 | (tagChildren: ReactNode, e: MouseEvent, tagKey: string \| number ) => void | 无    | e 于 v1.18 版本提供, tagKey 于 v2.18.0 提供 |
 
 ### TagGroup
 
@@ -235,6 +293,7 @@ import { TagGroup } from '@douyinfe/semi-ui';
 | size | 标签的尺寸，可选 `small`、 `large` | string | `small` | |
 | style | 样式 | CSSProperties |    | |
 | tagList | 标签组  | (TagProps)[] |     | |
+| onTagClose | 删除TagGroup中的Tag时候的回调函数 | (tagChildren: ReactNode, e: MouseEvent, tagKey: string \| number ) => void | - |  2.18.0 |
 
 ## Accessibility
 
