@@ -150,6 +150,9 @@ const local: Locale = {
         total: 'Jumlah ${total} item',
         selected: '${total} projek dipilih',
     },
+    Form: {
+        optional: '(pilihan)',
+    },
 };
 
 // [i18n-Malaysia(MY)]

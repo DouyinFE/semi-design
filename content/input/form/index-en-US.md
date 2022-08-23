@@ -56,7 +56,12 @@ Semi Form supports multiple writing at the same time.
 Add `field` property to each field component.
 You can also set label` properties for each field, by default is the same as field
 
-> Note: The field attribute is required props
+`label` can be passed in a string directly, or declared in the form of an object, configure `extra`, `required`, `optional` and other attributes to deal with more complex scenarios
+
+<Notice type='primary' title='Notice'>
+    The field attribute is required props
+</Notice>
+
 
 ```jsx live=true dir="column"
 import React from 'react';
@@ -65,21 +70,26 @@ import { IconHelpCircle } from '@douyinfe/semi-icons';
 
 () => (
     <Form layout='horizontal'>
-        <Form.Select field="role" label='UserRole' style={{ width:120 }}>
-            <Form.Select.Option value="admin">Admin</Form.Select.Option>
-            <Form.Select.Option value="user">User</Form.Select.Option>
-            <Form.Select.Option value="guest">Guest</Form.Select.Option>
-        </Form.Select>
-        <Form.Input field='userName' label='UserName' />
-        <Form.Input field='password' label='Password' />
+        <Form.Input field='username' label='UserName' style={{ width:80 }}/>
         <Form.Input
             field='password'
             label={{ 
                 text: 'Password',
-                extra: <Tooltip content='more detail'><IconHelpCircle style={{ color: '--semi-color-text-1' }}/></Tooltip> 
+                extra: <Tooltip content='More info xxx'><IconHelpCircle style={{ color: 'var(--semi-color-text-2)' }}/></Tooltip> 
             }}
             style={{ width:176 }}
         />
+        <Form.Select
+            field="role"
+            label={{ text: 'Role', optional: true }}
+            style={{ width:176 }}
+            optionList={[
+                { label: 'Admin', value: 'admin' },
+                { label: 'User', value: 'user' },
+                { label: 'Guest', value: 'guest' },
+            ]}
+        >
+        </Form.Select>
     </Form>
 );
 ```
@@ -1781,6 +1791,7 @@ const { Label } = Form;
 | className  | Classname of label wrapper      | string    |         |
 | style      | Inline style                    | string    |         |
 | width      | Label width                     | number    |         |
+| optional  | Whether to automatically append the "(optional)" text mark after the text (automatically switch the same semantic text according to different languages configured by Locale). When this item is true, the required \* will no longer be displayed.  | boolean    | false | v2.18.0 |
 
 ## Form.Slot
 
