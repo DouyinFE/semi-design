@@ -254,11 +254,11 @@ class TagGroupCloseableDemo extends React.Component {
         super(props);
         this.state = {
             tagList: [
-                { tagKey: '1', color: 'white', children: 'douyin',  closable: true,},
-                { tagKey: '2',color: 'white', children: 'hotsoon', closable: true,},
-                { tagKey: '3',color: 'white', children: 'capcut', closable: true,},
-                { tagKey: '4',color: 'white', children: 'pipixia', closable: true,},
-                { tagKey: '5',color: 'white', children: 'dCar', closable: true,},
+                { tagKey: '1', color: 'white', children: '抖音', closable: true, },
+                { tagKey: '2', color: 'white', children: '火山小视频', closable: true, },
+                { tagKey: '3', color: 'white', children: '剪映', closable: true, },
+                { tagKey: '4', color: 'white', children: '皮皮虾', closable: true, },
+                { tagKey: '5', color: 'white', children: '懂车帝', closable: true, },
             ]
         };
         this.tagListClick = this.tagListClick.bind(this);
