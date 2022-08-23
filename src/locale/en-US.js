@@ -83,7 +83,7 @@ const appLocale = {
         "volcengine_theme": "Volce Engine Theme",
         "home.pro.desc": "Design with real code components，convert your deisgn to code with one click",
 
-        "#nezha_s_magic_child_descent_#topic_activity_is_now_open!_according_to_the_rules_e2fe356bd395679eb176daa81ef0d082": "#Nezha's Magic Child Descent #Topic Activity is now open!",
+        "semi_design_share_2code": "#Semi Design2Code# Topic Activity is now open!",
         "access_is_simple_and_easy_to_use;": "Semi is easy to get started; the UI is beautiful and consistent; and the API is comprehensive, too.",
         "apple_account": "Apple Account",
         "as_an_excellent_benchmarking_industry": "As a benchmark among various UI libraries, Semi is doing really well. It also has a good guarantee for the fast respond as well as the efficiency of customer support.",
@@ -91,7 +91,7 @@ const appLocale = {
         "based_on_design_language_development__capable_of_online_debugging": "Based on design language development, capable of online debugging",
         "beautiful_style_and_unified_theme;": "Beautiful style and unified theme;",
         "beijing__china": "Beijing, China",
-        "big_v": "Big V",
+        "big_v": "KOL",
         "build__fully_aligned_design_resources_with_component_library_code__using": "Build, fully aligned design resources with component library code, using",
         "by_bytedance_douyin_front_with": "By ByteDance Douyin Front with",
         "chief_foodie__good_at_algorithms__especially": "Chief foodie, good at algorithms, especially",

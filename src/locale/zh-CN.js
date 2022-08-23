@@ -122,7 +122,7 @@ const appLocale = {
         "douyin_creative_service_theme": "抖音创作服务主题",
         "volcengine_theme": "火山引擎主题",
         "system_notification": "系统通知",
-        "#nezha_s_magic_child_descent_#topic_activity_is_now_open!_according_to_the_rules_e2fe356bd395679eb176daa81ef0d082": "#哪吒之魔童降世# 话题活动开讲啦！根据活动规则，恭喜 13 位...",
+        "semi_design_share_2code": "#Semi Design2Code# 技术分享开讲啦！根据活动规则，恭喜 13 位...",
         "semi_design_share_presentation": "Semi Design 分享演示文稿",
         "beijing__china": "中国 北京",
         "douyin_certification": "官方认证",

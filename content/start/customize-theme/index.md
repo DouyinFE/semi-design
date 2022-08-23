@@ -52,6 +52,9 @@ new SemiWebpackPlugin({
     /* ...options */
 });
 ```
+
+更多工程化方案（如Vite、NextJs）的主题接入，可参考 [DSM 文档](https://semi.design/dsm_manual/zh-CN/web/use#dsm_%E5%A6%82%E4%BD%95%E6%B6%88%E8%B4%B9%E4%B8%BB%E9%A2%98)
+
 ### 使组件级变量的改动生效
 
 如果在定制主题的过程中你修改了组件级别的变量，`theme` 字段需要用如下配置使改动生效：
