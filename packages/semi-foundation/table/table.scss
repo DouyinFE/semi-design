@@ -375,9 +375,14 @@ $module: #{$prefix}-table;
             display: inline-block;
             width: $width-table_column_sorter-icon;
             height: $height-table_column_sorter-icon;
-            cursor: pointer;
             vertical-align: middle;
             text-align: center;
+
+            &-wrapper {
+                display: inline-flex;
+                align-items: center;
+                cursor: pointer;
+            }
 
             &-up,
             &-down {
@@ -408,7 +413,8 @@ $module: #{$prefix}-table;
             display: inline-flex;
             cursor: pointer;
             color: $color-table_filter-text-default;
-            vertical-align: middle;
+            // vertical-align: middle;
+            align-items: center;
 
             svg {
                 width: $width-table_column_filter-icon;
