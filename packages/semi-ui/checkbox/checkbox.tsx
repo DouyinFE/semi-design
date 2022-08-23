@@ -139,7 +139,10 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
     }
 
     isInGroup() {
-        return Boolean(this.context && this.context.checkboxGroup);
+        // Why do we need to determine whether there is a value in props?
+        // If there is no value in the props of the checkbox in the context of the checkboxGroup, 
+        // it will be considered not to belong to the checkboxGroup。
+        return Boolean(this.context && this.context.checkboxGroup && ('value' in this.props));
     }
 
     focus() {

@@ -17,6 +17,8 @@ $module: #{$prefix}-anchor;
         left: $spacing-anchor_slide-left;
         top: $spacing-anchor_slide-top;
         height: 100%;
+        box-sizing: border-box;
+        padding: $width-anchor-outline 0;
 
         &-muted {
             display: none;
@@ -64,6 +66,11 @@ $module: #{$prefix}-anchor;
     &-link {
         padding-left: $spacing-anchor_link-paddingLeft;
 
+        &-wrapper {
+            padding-right: $width-anchor-outline;
+            margin: $width-anchor-outline 0;
+        }
+
         &-title {
             cursor: pointer;
             color: $color-anchor_title-text-default;
@@ -72,6 +79,7 @@ $module: #{$prefix}-anchor;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+            border-radius: $width-anchor-outline_border_radius;
 
             &:hover {
                 color: $color-anchor_title-text-hover;
@@ -79,6 +87,10 @@ $module: #{$prefix}-anchor;
 
             &-active {
                 color: $color-anchor_title-text-active;
+            }
+
+            &:focus-visible {
+                outline: $width-anchor-outline solid $color-anchor_title-outline-focus;
             }
 
             &-disabled {

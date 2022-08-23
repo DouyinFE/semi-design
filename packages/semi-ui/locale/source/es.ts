@@ -155,6 +155,9 @@ const locale: Locale = {
         total: 'Total ${total} objetos',
         selected: '${total} objetos seleccionados',
     },
+    Form: {
+        optional: '(opcional)',
+    },
 };
 
 export default locale;

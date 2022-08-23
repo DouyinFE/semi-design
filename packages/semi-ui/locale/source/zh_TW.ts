@@ -151,6 +151,9 @@ const local: Locale = {
         total: '共 ${total} 項',
         selected: '已選 ${total} 項',
     },
+    Form: {
+        optional: '（可選）',
+    },
 };
 
 // 中文

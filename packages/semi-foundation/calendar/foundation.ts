@@ -31,10 +31,12 @@ import {
     filterEvents,
     parseRangeAllDayEvent,
     DateObj,
-    checkWeekend
+    checkWeekend,
+    weeekStartsOnEnum
 } from './eventUtil';
 
 
+export { weeekStartsOnEnum };
 export interface EventObject {
     [x: string]: any;
     key: string;
@@ -189,7 +191,8 @@ export default class CalendarFoundation<P = Record<string, any>, S = Record<stri
     getWeeklyData(value: Date, dateFnsLocale: Locale) {
         const data = {} as WeeklyData;
         data.month = format(value, 'LLL', { locale: dateFnsLocale });
-        data.week = calcWeekData(value, 'week', dateFnsLocale);
+        const { weekStartsOn } = this.getProps();
+        data.week = calcWeekData(value, 'week', dateFnsLocale, weekStartsOn);
         this._adapter.setWeeklyData(data);
         return data;
     }
@@ -207,9 +210,10 @@ export default class CalendarFoundation<P = Record<string, any>, S = Record<stri
     getMonthlyData(value: Date, dateFnsLocale: Locale) {
         const monthStart = startOfMonth(value);
         const data = {} as MonthData;
+        const { weekStartsOn } = this.getProps();
         const numberOfWeek = getWeeksInMonth(value);
         [...Array(numberOfWeek).keys()].map(ind => {
-            data[ind] = calcWeekData(addDays(monthStart, ind * 7), 'month', dateFnsLocale);
+            data[ind] = calcWeekData(addDays(monthStart, ind * 7), 'month', dateFnsLocale, weekStartsOn);
         });
         this._adapter.setMonthlyData(data);
         return data;

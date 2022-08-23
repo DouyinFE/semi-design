@@ -150,6 +150,9 @@ const local: Locale = {
         total: 'مجموع ${total} العناصر',
         selected: '${total} العناصر المحدد',
     },
+    Form: {
+        optional: '(اختياري)',
+    },
 };
 
 // [i18n-Arabic]

@@ -153,6 +153,9 @@ const local: Locale = {
         total: 'Tổng số ${total} mặt hàng',
         selected: '${total} mục được chọn',
     },
+    Form: {
+        optional: '(không bắt buộc)',
+    },
 };
 
 // [i18n-Vietnam] 越南语
