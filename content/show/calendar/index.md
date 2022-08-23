@@ -308,6 +308,7 @@ import { Calendar } from '@douyinfe/semi-ui';
 | scrollTop | 日视图和周视图模式下，设置展示内容默认的滚动高度 | number | 400 |
 | showCurrTime | 显示当前时间 | boolean | true |
 | width | 日历宽度 | string\|number | - |
+| weekStartsOn | 以周几作为每周第一天，0 代表周日，1 代表周一，以此类推。v2.18后支持 | number | 0 |
 
 ### Event Object
 

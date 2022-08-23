@@ -333,6 +333,7 @@ import { Calendar } from '@douyinfe/semi-ui';
 | scrollTop    | Scroll height for displayed content in day and week mode                                               | number                | 400          |
 | showCurrTime | Toggle whether to show red line of current time                                                        | boolean               | true         |
 | width        | Width                                                                                                  | string\|number        | -            |
+| weekStartsOn | Take the day of the week as the first day of the week, 0 for Sunday, 1 for Monday, and so on. Support after v2.18 | number | 0 |
 
 
 ### Event Object
