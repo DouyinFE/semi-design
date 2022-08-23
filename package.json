@@ -201,10 +201,7 @@
     "webpackbar": "^5.0.0-3"
   },
   "husky": {
-    "hooks": {
-      "commit-msg": "commitlint .commitlintrc.js -E HUSKY_GIT_PARAMS",
-      "pre-commit": "lint-staged"
-    }
+
   },
   "resolutions": {
     "@types/react": "^18.0.5",
