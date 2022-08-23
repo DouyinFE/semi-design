@@ -75,7 +75,7 @@ import { IconHelpCircle } from '@douyinfe/semi-icons';
             field='password'
             label={{ 
                 text: 'Password',
-                extra: <Tooltip content='详情'><IconHelpCircle style={{ color: 'var(--semi-color-text-2)' }}/></Tooltip> 
+                extra: <Tooltip content='More info xxx'><IconHelpCircle style={{ color: 'var(--semi-color-text-2)' }}/></Tooltip> 
             }}
             style={{ width:176 }}
         />
