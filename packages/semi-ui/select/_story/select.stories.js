@@ -1183,7 +1183,7 @@ RenderSelectedItem.parameters =  {
   chromatic: { disableSnapshot: false },
 };
 
-const ControledSelect = () => {
+const ControlledSelect = () => {
   const [value, setValue] = useState('nick');
   const [value2, setValue2] = useState('jerry');
   const [value3, setValue3] = useState();
@@ -1277,13 +1277,13 @@ const ControledSelect = () => {
   );
 };
 
-export const Controlled = () => <ControledSelect></ControledSelect>;
+export const Controlled = () => <ControlledSelect></ControlledSelect>;
 
 Controlled.story = {
   name: 'controlled',
 };
 
-const UnControledSelect = () => {
+const UnControlledSelect = () => {
   const onChange = value => {
     console.log(value);
   };
@@ -1318,8 +1318,8 @@ const UnControledSelect = () => {
   );
 };
 
-export { UnControledSelect };
-UnControledSelect.story = {
+export { UnControlledSelect };
+UnControlledSelect.story = {
   name: '非受控组件'
 };
 
@@ -1800,7 +1800,7 @@ AllowCreateCustomRender.story = {
   name: 'allowCreate custom render',
 };
 
-let AllowCreateControledDemo = () => {
+let AllowCreateControlledDemo = () => {
   let [value, setValue] = useState();
   const optionList = [
     {

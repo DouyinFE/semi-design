@@ -196,7 +196,7 @@ const RadioGroup1 = () => {
     </div>
   );
 };
-class RadioWithControled extends React.Component {
+class RadioWithControlled extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -240,7 +240,7 @@ export const _RadioGroup = () => {
       </RadioGroup>
       <br />
       value+onchange
-      <RadioWithControled />
+      <RadioWithControlled />
       <br />
       联动
       <RadioGroup1 />

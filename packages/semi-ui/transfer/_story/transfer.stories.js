@@ -195,7 +195,7 @@ TransferDraggableAndDisabled.story = {
 }
 
 
-const ControledTransfer = () => {
+const ControlledTransfer = () => {
   const [value, setValue] = useState([2, 3]);
 
   const handleChange = value => {
@@ -209,7 +209,7 @@ const ControledTransfer = () => {
   );
 };
 
-export const ControlledTransfer = () => <ControledTransfer />;
+export const ControlledTransfer = () => <ControlledTransfer />;
 
 ControlledTransfer.story = {
   name: '受控Transfer',
