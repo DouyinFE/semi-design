@@ -40,6 +40,11 @@ $module: #{$prefix}-input;
     box-sizing: border-box;
     color: $color-input_default-text-default;
 
+    transition: background-color $transition_duration-input-bg $transition_function-input-bg $transition_delay-input-bg,
+     border $transition_duration-input-border $transition_function-input-border $transition_delay-input-border;
+
+    transform: scale($transform_scale-input);
+
     &-default {
         height: $height-input_wrapper_default;
         @include font-size-regular;

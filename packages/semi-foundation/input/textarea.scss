@@ -12,6 +12,8 @@ $module: #{$prefix}-input;
     border-radius: $radius-input_wrapper;
     vertical-align: bottom;
     background-color: $color-input_default-bg-default;
+    transition: background-color $transition_duration-input-bg $transition_function-input-bg $transition_delay-input-bg,
+    border $transition_duration-input-border $transition_function-input-border $transition_delay-input-border;
 
     &:hover {
         background-color: $color-input_default-bg-hover;

@@ -72,7 +72,8 @@ $module: #{$prefix}-anchor;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
-
+            transition: color $transition_duration-anchor_title-text $transition_function-anchor_title-text $transition_delay-anchor_title-text;//锚点选项文字的动效
+            transform: scale($transform_scale-anchor_title-text);
             &:hover {
                 color: $color-anchor_title-text-hover;
             }
