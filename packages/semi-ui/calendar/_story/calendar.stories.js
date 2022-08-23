@@ -527,3 +527,34 @@ class EventRenderDemo extends React.Component {
 }
 
 export const EventRender  = () => <EventRenderDemo />;
+
+
+export const WeekStartsOnDemo = () => {
+    const [v, setV] = useState(0);
+    return (
+        <div>
+            <RadioGroup defaultValue={v} aria-label="周起始日" name="demo-radio-group-vertical" onChange={e => setV(e.target.value)}>
+                <Radio value={1}>周一</Radio>
+                <Radio value={2}>周二</Radio>
+                <Radio value={3}>周三</Radio>
+                <Radio value={4}>周四</Radio>
+                <Radio value={5}>周五</Radio>
+                <Radio value={6}>周六</Radio>
+                <Radio value={0}>周日</Radio>
+            </RadioGroup>
+            <Calendar
+                mode="month"
+                weekStartsOn={v}
+                dateGridRender={(dateString, date) => {
+                    console.log(dateString);
+                    if (dateString === new Date(2019, 6, 16).toString()) {
+                    return (
+                        <div style={{ backgroundColor: 'red', height: '100%', width: '100%' }}>123test</div>
+                    );
+                    }
+                    return null;
+                }}
+            ></Calendar>
+      </div>
+    )
+}
