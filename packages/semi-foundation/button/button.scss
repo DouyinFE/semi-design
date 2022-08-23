@@ -1,5 +1,5 @@
 @import './variables.scss';
-@import "./animation.scss";
+@import './animation.scss';
 @import './splitButtonGroup.scss';
 
 $module: #{$prefix}-button;
@@ -40,9 +40,10 @@ $module: #{$prefix}-button;
     &-danger {
         background-color: $color-button_danger-bg-default;
         color: $color-button_danger-text-default;
-      transition: background-color $transition_duration-button_danger-bg $transition_function_button_danger-bg $transition_delay_button_danger-bg;
+        transition: background-color $transition_duration-button_danger-bg $transition_function_button_danger-bg
+            $transition_delay_button_danger-bg;
 
-      &:hover {
+        &:hover {
             background-color: $color-button_danger-bg-hover;
         }
         &:active {
@@ -59,9 +60,10 @@ $module: #{$prefix}-button;
     &-warning {
         background-color: $color-button_warning-bg-default;
         color: $color-button_warning-text-default;
-      transition: background-color $transition_duration-button_warning-bg $transition_function_button_warning-bg $transition_delay_button_warning-bg;
+        transition: background-color $transition_duration-button_warning-bg $transition_function_button_warning-bg
+            $transition_delay_button_warning-bg;
 
-      &:hover {
+        &:hover {
             background-color: $color-button_warning-bg-hover;
         }
         &:active {
@@ -78,9 +80,10 @@ $module: #{$prefix}-button;
     &-tertiary {
         background-color: $color-button_tertiary-bg-default;
         color: $color-button_tertiary-text-default;
-      transition: background-color $transition_duration-button_tertiary-bg $transition_function_button_tertiary-bg $transition_delay_button_tertiary-bg;
+        transition: background-color $transition_duration-button_tertiary-bg $transition_function_button_tertiary-bg
+            $transition_delay_button_tertiary-bg;
 
-      &:hover {
+        &:hover {
             background-color: $color-button_tertiary-bg-hover;
         }
         &:active {
@@ -94,7 +97,8 @@ $module: #{$prefix}-button;
     &-primary {
         background-color: $color-button_primary-bg-default;
         color: $color-button_primary-text-default;
-        transition: background-color $transition_duration-button_primary-bg $transition_function_button_primary-bg $transition_delay_button_primary-bg;
+        transition: background-color $transition_duration-button_primary-bg $transition_function_button_primary-bg
+            $transition_delay_button_primary-bg;
         &:not(.#{$module}-borderless):not(.#{$module}-light):hover {
             background-color: $color-button_primary-bg-hover;
         }
@@ -111,9 +115,10 @@ $module: #{$prefix}-button;
         background-color: $color-button_secondary-bg-default;
         outline-color: $color-button_secondary-border-default;
         color: $color-button_secondary-text-default;
-      transition: background-color $transition_duration-button_secondary-bg $transition_function_button_secondary-bg $transition_delay_button_secondary-bg;
+        transition: background-color $transition_duration-button_secondary-bg $transition_function_button_secondary-bg
+            $transition_delay_button_secondary-bg;
 
-      &:hover {
+        &:hover {
             background-color: $color-button_secondary-bg-hover;
         }
         &:active {
@@ -155,9 +160,10 @@ $module: #{$prefix}-button;
     &-light {
         background-color: $color-button_light-bg-default;
         border: $width-button_light-border $color-button_light-border-default solid;
-      transition: background-color $transition_duration-button_light-bg $transition_function_button_light-bg $transition_delay_button_light-bg;
+        transition: background-color $transition_duration-button_light-bg $transition_function_button_light-bg
+            $transition_delay_button_light-bg;
 
-      &:not(.#{$module}-disabled):hover {
+        &:not(.#{$module}-disabled):hover {
             background-color: $color-button_light-bg-hover;
             border: $width-button_light-border $color-button_light-border-hover solid;
         }

@@ -1,6 +1,6 @@
-$transition_duration-button_primary-bg: var(--semi-transition_dulation-faster);
-$transition_function_button_primary-bg: var(--semi-transition_function-easeIn);
-$transition_delay_button_primary-bg: var(--semi-transition_delay-fastest);
+$transition_duration-button_primary-bg: var(--semi-transition_dulation-faster); // 主要按钮-背景颜色-动画持续时间
+$transition_function_button_primary-bg: var(--semi-transition_function-easeIn); // 主要按钮-背景色-过渡曲线
+$transition_delay_button_primary-bg: var(--semi-transition_delay-fastest); // 主要按钮-背景色-延迟时间
 
 $transition_duration-button_secondary-bg: var(--semi-transition_dulation-faster);
 $transition_function_button_secondary-bg: var(--semi-transition_function-easeIn);
@@ -21,4 +21,3 @@ $transition_delay_button_warning-bg: var(--semi-transition_delay-fastest);
 $transition_duration-button_danger-bg: var(--semi-transition_dulation-faster);
 $transition_function_button_danger-bg: var(--semi-transition_function-easeIn);
 $transition_delay_button_danger-bg: var(--semi-transition_delay-fastest);
-

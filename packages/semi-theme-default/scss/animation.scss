@@ -1,24 +1,27 @@
-body{
-  --semi-transition_dulation-slowest:500ms;
-  --semi-transition_dulation-slower:500ms;
-  --semi-transition_dulation-slow:500ms;
-  --semi-transition_dulation-normal:500ms;
-  --semi-transition_dulation-fast:200ms;
-  --semi-transition_dulation-faster:100ms;
-  --semi-transition_dulation-fastest:50ms;
+body {
+    --semi-transition_dulation-slowest: 2800ms;
+    --semi-transition_dulation-slower: 1800ms;
+    --semi-transition_dulation-slow: 1200ms;
+    --semi-transition_dulation-normal: 800ms;
+    --semi-transition_dulation-fast: 600ms;
+    --semi-transition_dulation-faster: 300ms;
+    --semi-transition_dulation-fastest: 100ms;
 
-  --semi-transition_function-linear:linear;
-  --semi-transition_function-ease:ease;
-  --semi-transition_function-easeIn:ease-in;
-  --semi-transition_function-easeOut:ease-out;
-  --semi-transition_function-easeInIOut:ease-in-out;
+    --semi-transition_function-linear: linear;
+    --semi-transition_function-ease: ease;
+    --semi-transition_function-easeIn: ease-in;
+    --semi-transition_function-easeOut: ease-out;
+    --semi-transition_function-easeInIOut: ease-in-out;
+    --semi-transition_function-backIn: cubic-bezier(0.79, -0.33, 0.79, 0.33);
+    --semi-transition_function-backOut: cubic-bezier(0.15, 0.45, 0.15, 1.35);
+    --semi-transition-function-backInOut: cubic-bezier(0.7, -0.35, 0.3, 1.35);
 
-  --semi-transition_delay-slowest:0ms;
-  --semi-transition_delay-slower:0ms;
-  --semi-transition_delay-slow:0ms;
-  --semi-transition_delay-normal:0ms;
-  --semi-transition_delay-fast:0ms;
-  --semi-transition_delay-faster:0ms;
-  --semi-transition_delay-fastest:0ms;
-
+    --semi-transition_delay-slowest: 2800ms;
+    --semi-transition_delay-slower: 1800ms;
+    --semi-transition_delay-slow: 1200ms;
+    --semi-transition_delay-normal: 800ms;
+    --semi-transition_delay-fast: 600ms;
+    --semi-transition_delay-faster: 300ms;
+    --semi-transition_delay-fastest: 100ms;
+    --semi-transition_delay-none: 0ms;
 }

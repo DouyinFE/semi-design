@@ -1,4 +1,5 @@
-@import "./variables.scss";
+@import './variables.scss';
+@import './animation.scss';
 
 $module: #{$prefix}-sidesheet;
 
@@ -85,6 +86,8 @@ $module: #{$prefix}-sidesheet;
         background-color: $color-sideSheet-bg;
         // background-clip: padding-box;
         border: 0;
+        transition: $transition_duration-sideSheet_inner $transition_function-sideSheet_inner
+            $transition_delay-sideSheet_inner;
     }
 
     &-header {
@@ -115,8 +118,12 @@ $module: #{$prefix}-sidesheet;
         width: 100%;
         height: 100%;
         background-color: $color-sideSheet_mask-bg;
+        opacity: 1;
+        transition: opacity $transition_duration-sideSheet_mask-bg $transition_function-sideSheet_mask-bg
+            $transition_delay-sideSheet_mask-bg;
 
         &-hidden {
+            opacity: 0;
             display: none;
         }
     }
@@ -168,4 +175,4 @@ $module: #{$prefix}-sidesheet;
     display: none;
 }
 
-@import "./rtl.scss";
+@import './rtl.scss';
