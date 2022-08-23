@@ -556,12 +556,6 @@ describe('Select', () => {
         select.unmount();
         // when click clear button, should trigger onSearch
         // TODO
-        let scProps = {
-            showClear: true,
-            filter: true,
-            defaultValue: 'tiktok',
-        };
-        const scSelect = getSelect(props);
     });
 
     it('emptyContent', () => {
