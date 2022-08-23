@@ -198,7 +198,9 @@
     "webpack": "^4.46.0",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.2",
-    "webpackbar": "^5.0.0-3"
+    "webpackbar": "^5.0.0-3",
+    "cypress": "9.5.2",
+    "cypress-plugin-tab": "^1.0.5"
   },
   "husky": {
     "hooks": {
