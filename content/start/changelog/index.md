@@ -16,18 +16,31 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 ---
 
-#### 2.17.1 (2022-08-17)
+#### 🎉2.18.0-beta.0（2022-08-23）
+- 【Feat】
+    - Anchor 新增 A11y 焦点适配  [#205](https://github.com/DouyinFE/semi-design/issues/205)
+    - Form Label 增加 optional 配置项，打开时自动于 Label Text 后追加 （可选）文本标识  [#869](https://github.com/DouyinFE/semi-design/issues/869)
+    - Calendar 提供 weekStartsOn，设置周起始日  [#1020](https://github.com/DouyinFE/semi-design/issues/1020)
+    - Tree 增加支持虚拟化场景下的scrollTo方法  [#1024](https://github.com/DouyinFE/semi-design/issues/1024)
+    - TagGroup 增加 onTagClose 回调
+- 【Fix】
+    - 修复 Select 勾选 icon 会闪烁的问题 [@linjunc](https://github.com/linjunc)
+    - 修复 TagGroup closable 关闭后,  数量指示器不变的问题 [#945](https://github.com/DouyinFE/semi-design/issues/945) [@linjunc](https://github.com/linjunc)
+    - 修复 居中 Modal 在少数 1080p 显示器上文字模糊的问题
+
+#### 🎉2.17.1 (2022-08-17)
 
 - 【Fix】
     - 修复 Table filter 影响数据原有排序问题 [#1036](https://github.com/DouyinFE/semi-design/issues/1036)
+    - 修复 AutoComplete 通过 tab 聚焦或者 autoFocus 聚焦后，输入值改变后不打开面板的问题 (影响范围 v2.14 - 2.17.0)
 
-#### 2.17.0 (2022-08-12)
+#### 🎉2.17.0 (2022-08-12)
 
 - 【Fix】
   - 修复 Chromium 104 breakchange fit-content css 导致的 popover、dropdown 样式问题 [#1022](https://github.com/DouyinFE/semi-design/issues/1022) [Chromium Issue](https://bugs.chromium.org/p/chromium/issues/detail?id=1350958)
   - 修复 AvatarGroup 组件中 size 属性在 TS 定义中没有值 default的问题 [@AnoyiX](https://github.com/AnoyiX)
   - 修复 TimePicker 由有值变化为 undefined 时渲染未更新的问题 [#918](https://github.com/DouyinFE/semi-design/issues/918) [@linjunc](https://github.com/linjunc)
-  - 修复 Tree的renderFullLabel使用 checkbox 选择不中的问题
+  - 修复 Tree的renderFullLabel使用 checkbox 选择不中的问题 （影响范围 v2.15.0 - v2.16.1）
 
 #### 🎉 2.17.0-beta.1 (2022-08-09)
 - 【Fix】

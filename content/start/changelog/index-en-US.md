@@ -16,18 +16,31 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
-#### 2.17.1 (2022-08-17)
+#### 🎉2.18.0-beta.0（2022-08-23）
+- 【Feat】
+    - Anchor add A11y focus adaptation  [#205](https://github.com/DouyinFE/semi-design/issues/205)
+    - Form Label add optional config，if true, will auto append optional mark after label text  [#869](https://github.com/DouyinFE/semi-design/issues/869)
+    - Calendar support weekStartsOn  [#1020](https://github.com/DouyinFE/semi-design/issues/1020)
+    - Tree adds support for scrollTo method in virtualization scenarios  [#1024](https://github.com/DouyinFE/semi-design/issues/1024)
+    - TagGroup adds onTagClose callback
+- 【Fix】
+    - Fix the issue that the Select check icon will flicker [@linjunc](https://github.com/linjunc)
+    - Fixed the problem that the quantity indicator does not change after TagGroup closable is closed [#945](https://github.com/DouyinFE/semi-design/issues/945) [@linjunc](https://github.com/linjunc)
+    - Fixed  the problem that centered Modal was blurry on a few 1080p monitors
+
+#### 🎉2.17.1 (2022-08-17)
 
 - 【Fix】
     - fixed Table filter affects original order of data [#1036](https://github.com/DouyinFE/semi-design/issues/1036)
+    - Fixed the issue that AutoComplete did not open the panel after the input value was changed after focusing by tab or autoFocus (effect version: v2.14 - 2.17)
 
-#### 2.17.0 (2022-08-12)
+#### 🎉2.17.0 (2022-08-12)
 
 - 【Fix】
-    - Fix: Fix the popover style issue caused by Chromium 104 breakchange fit-content css [#1022](https://github.com/DouyinFE/semi-design/issues/1022) [Chromium Issue](https://bugs.chromium.org/p/chromium/issues/detail?id=1350958)
-    - Fix: fix AvatarGroup component size attribute has no default in TS define [@AnoyiX](https://github.com/AnoyiX)
-    - Fix: Fix TimePicker set to undefined is unresponsive [#918](https://github.com/DouyinFE/semi-design/issues/918) [@linjunc](https://github.com/linjunc)
-    - Fix: fix the problem that Tree's renderFullLabel uses checkbox
+    - Fix the popover style issue caused by Chromium 104 breakchange fit-content css [#1022](https://github.com/DouyinFE/semi-design/issues/1022) [Chromium Issue](https://bugs.chromium.org/p/chromium/issues/detail?id=1350958)
+    - Fix AvatarGroup component size attribute has no default in TS define [@AnoyiX](https://github.com/AnoyiX)
+    - Fix TimePicker set to undefined is unresponsive [#918](https://github.com/DouyinFE/semi-design/issues/918) [@linjunc](https://github.com/linjunc)
+    - Fix the problem that Tree's renderFullLabel uses checkbox
 
 #### 🎉 2.17.0-beta.1 (2022-08-09)
 - 【Fix】
