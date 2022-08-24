@@ -213,6 +213,9 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
             realMode = mode;
             isButtonRadioComponent = type === 'button';
             realPrefixCls = prefixCls;
+            isButtonRadioGroup = type === strings.TYPE_BUTTON;
+            isPureCardRadioGroup = type === strings.TYPE_PURECARD;
+            isCardRadioGroup = type === strings.TYPE_CARD || isPureCardRadioGroup;
         }
         const isButtonRadio = typeof isButtonRadioGroup === 'undefined' ? isButtonRadioComponent : isButtonRadioGroup;
 
