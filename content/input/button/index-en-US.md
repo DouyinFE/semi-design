@@ -28,8 +28,6 @@ Buttons support the following types:
 -   Warning button ("warning")
 -   Danger button ("danger")
 
-> Primary and Secondary button have the same colors in Semi's default theme, but you can implement different Primary and Secondary colors by customizing the theme.
-
 ```jsx live=true dir="column"
 import React from 'react';
 import { Button } from '@douyinfe/semi-ui';

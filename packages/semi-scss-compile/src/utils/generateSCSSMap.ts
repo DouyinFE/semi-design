@@ -38,7 +38,7 @@ const generateComponentsScssMap = (foundationPath: string, iconPath?: string) =>
 
 
 const generateThemeScssMap = (themePath: string) => {
-    const fileList = ['_font.scss', '_palette.scss', 'global.scss', 'index.scss', 'local.scss', 'mixin.scss', 'variables.scss'] as const;
+    const fileList = ['_font.scss', '_palette.scss', 'global.scss','animation.scss', 'index.scss', 'local.scss', 'mixin.scss', 'variables.scss'] as const;
     const themeScssMap: { [key in typeof fileList[number]]?: string } = {};
     for (const fileName of fileList) {
         const scssAbsolutePath = path.join(themePath, 'scss', fileName);

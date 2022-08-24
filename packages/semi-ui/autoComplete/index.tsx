@@ -14,7 +14,7 @@ import Popover from '../popover';
 import Input from '../input';
 import Trigger from '../trigger';
 
-import Option from '../select/option';
+import Option from './option';
 import warning from '@douyinfe/semi-foundation/utils/warning';
 import '@douyinfe/semi-foundation/autoComplete/autoComplete.scss';
 import { Motion } from '../_base/base';

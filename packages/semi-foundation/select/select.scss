@@ -1,6 +1,7 @@
 //@import '../theme/variables.scss';
-@import './option.scss';
 @import './variables.scss';
+@import "./animation.scss";
+@import './option.scss';
 @import './mixin.scss';
 
 $module: #{$prefix}-select;
@@ -21,7 +22,9 @@ $multiple: #{$module}-multiple;
     position: relative;
     outline: none;
     cursor: pointer;
-
+    transition: background-color $transition_duration-select-bg $transition_function-select-bg $transition_delay-select-bg,
+    border $transition_duration-select-border $transition_function-select-border $transition_delay-select-border;
+    transform:scale($transform_scale-select);
     &:hover {
         background-color: $color-select-bg-hover;
         border: $width-select-border-hover solid $color-select-border-hover;
@@ -259,6 +262,8 @@ $multiple: #{$module}-multiple;
         width: $width-select_arrow;
         color: $color-select-icon-default;
         flex-shrink: 0;
+        transform: rotate($transform_rotate-select-arrow);
+
 
         &-empty {
             // 不显示arrow时，右侧留出12px空白

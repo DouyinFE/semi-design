@@ -1,4 +1,5 @@
 @import "./variables.scss";
+@import "./animation.scss";
 
 $module: #{$prefix}-radio;
 $inner-width: $width-icon-medium;
@@ -9,6 +10,8 @@ $inner-width: $width-icon-medium;
     position: relative;
     display: inline-flex;
     flex-wrap: wrap;
+    transition: background-color $transition_duration-radio-bg $transition_function-radio-bg $transition_delay-radio-bg,
+    border $transition_duration-radio-border $transition_function-radio-border $transition_delay-radio-border;
 
     &.#{$module}-vertical {
         display: block;
@@ -104,6 +107,8 @@ $inner-width: $width-icon-medium;
         padding: $spacing-radio_cardRadioGroup-paddingY $spacing-radio_cardRadioGroup-paddingX;
         background: transparent;
         border: $width-radio_cardRadioGroup_checked-border solid transparent;
+        transition: background-color $transition_duration_radio-bg $transition_function-radio-bg $transition_delay-radio-bg,
+        border $transition_duration-radio-border $transition_function-radio-border $transition_delay-radio-border;
 
         .#{$module}-inner {
             position: relative;
@@ -224,7 +229,9 @@ $inner-width: $width-icon-medium;
             border: solid $width-radio_innder-border $color-radio_default-border-default;
             border-radius: $width-radio_inner;
             background: $color-radio_default-bg-default;
-
+            transition: background-color $transition_duration-radio-bg $transition_function-radio-bg $transition_delay-radio-bg,
+            border $transition_duration-radio-border $transition_function-radio-border $transition_delay-radio-border;
+        
             .#{$prefix}-icon {
                 position: absolute;
                 width: 100%;
@@ -262,6 +269,8 @@ $inner-width: $width-icon-medium;
             color: $color-radio_buttonRadio-text-default;
             font-size: $font-radio_buttonRadio_middle-default-size;
             padding: $spacing-radio_addon_buttonRadio_middle-paddingY $spacing-radio_addon_buttonRadio_middle-paddingX;
+            transition: background-color $transition_duration-radio-bg $transition_function-radio-bg $transition_delay-radio-bg,
+            border $transition_duration-radio-border $transition_function-radio-border $transition_delay-radio-border;
 
             &-hover {
                 font-weight: $font-radio_buttonRadio-hover-fontWeight;

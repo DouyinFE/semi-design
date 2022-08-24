@@ -39,7 +39,9 @@ const excludeScss = [
     '!**/steps/fillSteps.scss',
     '!**/steps/navSteps.scss',
     '!**/table/operationPanel.scss',
-    '!**/tooltip/arrow.scss'
+    '!**/tooltip/arrow.scss',
+    '!**/autoComplete/option.scss',
+    '!**/select/option.scss',
 ];
 gulp.task('compileScss', function compileScss() {
     return gulp.src(['**/*.scss', '!node_modules/**/*.*', '!**/rtl.scss', '!**/variables.scss', ...excludeScss])
