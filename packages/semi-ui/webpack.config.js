@@ -22,6 +22,7 @@ module.exports = function ({ minimize }) {
             library: 'SemiUI',
             libraryTarget: 'umd'
         },
+        
         module: {
             rules: [
                 {
@@ -45,7 +46,7 @@ module.exports = function ({ minimize }) {
                         }
                     ]
                 },
-                { 
+                {
                     test: /semi-icons\/.+\.css$/,
                     loaders: 'null-loader'
                 },
@@ -66,7 +67,14 @@ module.exports = function ({ minimize }) {
             new HashedModuleIdsPlugin()
         ],
         resolve: {
-            extensions: ['.ts', '.tsx', '.js', '.jsx', '.json']
+            extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
+            alias: {
+                "@douyinfe/semi-foundation": path.resolve(__dirname, "../semi-foundation"),
+                "@douyinfe/semi-icons": path.resolve(__dirname, "../semi-icons"),
+                "@douyinfe/semi-illustrations":path.resolve(__dirname, "../semi-illustrations"),
+                "@douyinfe/semi-animation":path.resolve(__dirname, "../semi-animation"),
+                "@douyinfe/semi-animation-react":path.resolve(__dirname, "../semi-animation-react")
+            },
         },
         externals: {
             react: {
