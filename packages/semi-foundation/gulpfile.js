@@ -44,7 +44,7 @@ const excludeScss = [
     '!**/select/option.scss',
 ];
 gulp.task('compileScss', function compileScss() {
-    return gulp.src(['**/*.scss', '!node_modules/**/*.*', '!**/rtl.scss', '!**/variables.scss', ...excludeScss])
+    return gulp.src(['**/*.scss', '!node_modules/**/*.*', '!**/rtl.scss', '!**/variables.scss', "!**/animation.scss", ...excludeScss])
         .pipe(through2.obj(
             function (chunk, enc, cb) {
                 const rootPath = path.join(__dirname, '../../');
