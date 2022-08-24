@@ -417,5 +417,9 @@ import { IllustrationNoContent } from '@douyinfe/semi-illustrations';
   - 使用 `上箭头` 或 `下箭头` 可以切换选项
   - 被聚焦的选项可以通过 `Enter` 键选中，并收起面板
 
+## 文案规范
+- 需要清晰地展示内容，让用户显而易见地感知到可用的各个选项
+- 限制一次性展示的选项数量
+
 ## 设计变量
 <DesignToken/>

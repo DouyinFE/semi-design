@@ -341,6 +341,9 @@ import { IconHome, IconArticle } from '@douyinfe/semi-icons';
 - Breadcrumb 支持传入 `aria-label` 来表示该 Breadcrumb 作用
 - Breadcrumb 会对当前项设置 `aria-current='page'`
 
+## 文案规范
+- 每个页面链接都应该很简短，并且清楚地反映它链接到的位置或链接的实体；
+- 按句子大小写书写；
 ## 设计变量
 <DesignToken/>
 

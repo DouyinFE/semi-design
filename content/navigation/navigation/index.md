@@ -773,6 +773,21 @@ function NavApp (props = {}) {
 | collapseText   | “收起”按钮的文案                                                                         | (collapsed:boolean) => string\|ReactNode |        | 0.35.0 |
 | style          | 最外层样式                                                                               | CSSProperties                                    |        |                |
 
+
+## 文案规范
+
+<div style={{ border: '1px solid var(--semi-color-border)', padding: 10, marginBottom: 24, display: 'flex', justifyContent: 'center' }}>
+    <img src='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/content_guide/nav-demo.png' style={{ height: 60 }} />
+</div>
+
+- 导航栏菜单使用句子大小写格式
+- 尽量精简
+
+| ✅ 推荐用法 | ❌ 不推荐用法 |   
+| --- | --- | 
+| Appeal center | Appeal Center |
+
+
 ## 设计变量
 <DesignToken/>
 

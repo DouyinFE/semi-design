@@ -201,6 +201,16 @@ import { IllustrationIdle, IllustrationIdleDark, IllustrationConstructionDark, I
 
 - Empty 插图的 aria-hidden 为 true
 
+## 文案规范
+- 标题
+  - 标题应该简洁易懂
+- 正文
+  - 可以展示展示空状态的具体原因，也可以展示后续的操作行为去帮助用户消除空状态
+  - 不要重复标题上的内容
+  - 尽量保持正文在 1-2 句话内
+- 动作按钮
+  - 按钮文案需要足够清晰和容易理解
+  - 使用 动词 + 名词 的格式
 ## 设计变量
 
 <DesignToken/>

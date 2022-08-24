@@ -621,6 +621,12 @@ WAI-ARIA: https://www.w3.org/WAI/ARIA/apg/patterns/tabpanel/
 
 <DesignToken/>
 
+## 文案规范
+- 标签文案需要准确清晰地解释标签内容
+- 用简短的，易区分的标签
+- 尽量保持在一个词以内
+
+
 ## FAQ
 
 -   **为什么在Tabs中使用 Typography 的省略 ellipsis 失效？**

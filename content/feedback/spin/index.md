@@ -139,6 +139,10 @@ import { Spin, Button } from '@douyinfe/semi-ui';
 
 <DesignToken/>
 
+## 文案规范
+- 准确地说明加载状态，使用比如“Loading”, “Submitting”, “Processing”等词
+- 使用尽量少的词汇去描述状态
+
 ## FAQ
 
 -   **怎么修改 icon 的颜色？**

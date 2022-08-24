@@ -415,17 +415,17 @@ function SplitButtonDemo(){
     });
 
     const handleVisibleChange = (key,visible)=>{
-        newBtnVisible = {...btnVisible};
+        newBtnVisible = { ...btnVisible };
         newBtnVisible[key] = visible;
         setBtnVisible(newBtnVisible);
     };
 
     return (
         <div>
-            <SplitButtonGroup style={{marginRight:10}} aria-label="项目操作按钮组">
+            <SplitButtonGroup style={{ marginRight:10 }} aria-label="项目操作按钮组">
                 <Button theme="solid" type="primary">分裂按钮</Button>
                 <Dropdown onVisibleChange={(v)=>handleVisibleChange(1,v)} menu={menu} trigger="click" position="bottomRight">
-                    <Button style={btnVisible[1]?{background:'var(--semi-color-primary-hover)',padding:'8px 4px'}:{padding:'8px 4px'}} theme="solid" type="primary" icon={<IconTreeTriangleDown />}></Button>
+                    <Button style={btnVisible[1] ? { background:'var(--semi-color-primary-hover)',padding:'8px 4px' } : { padding:'8px 4px'}} theme="solid" type="primary" icon={<IconTreeTriangleDown />}></Button>
                 </Dropdown>
             </SplitButtonGroup>
             <SplitButtonGroup style={{marginRight:10}} aria-label="项目操作按钮组">
@@ -500,6 +500,29 @@ function SplitButtonDemo(){
 - Button 的焦点管理与原生 button 一致，键盘用户可以使用 Tab 及  Shift + Tab 切换焦点
 - Button 的触发与原生 button 一致，当按钮聚焦时，可以通过 Enter 或 Space 键激活
 - ButtonGroup 中的按钮与单个按钮的焦点管理方式一致，可以通过 Tab 以及 Shift + Tab 进行切换
+
+
+## 文案规范
+- 按钮需要清晰可预测，用户应该能够预测他们点击按钮时会发生什么；
+- 按钮应该总是以鼓励行动的强动词开头；
+- 为了给用户提供足够的上下文，在按钮上使用 {动词}+{名词} 内容公式；除了常见的动作，如“Done”、“Close”、“Cancel”或“OK”；
+
+| ✅ 推荐用法 | ❌ 不推荐用法 |   
+| --- | --- | 
+| <img src='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/content_guide/button-good.png' style={{ width: 350 }} />| <img src='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/content_guide/button-bad.png' style={{ width: 350 }} /> |
+
+- 当按钮和其他组件一起时候，如果其他组件（比如 Modal 和Sidesheet）已经提供了足够信息的上下文的话，按钮可以只展示 {动词}，如“Add”、“Create”；
+  
+| ✅ 推荐用法 | ❌ 不推荐用法 |   
+| --- | --- | 
+| <img src='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/content_guide/button-good-2.png' style={{ width: 350 }} />| <img src='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/content_guide/button-bad-2.png' style={{ width: 350 }} /> |
+
+- 始终按句子大小写（Sentence case）原则书写
+
+| ✅ 推荐用法 | ❌ 不推荐用法 |   
+| --- | --- | 
+| Create project | Create <br/> Create a project|
+| Edit profile | Edit |
 
 ## 设计变量
 <DesignToken/>

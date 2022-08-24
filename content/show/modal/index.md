@@ -677,6 +677,24 @@ WAI-ARIA: https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog/
 - 修改 closeOnEsc 默认值为 true，允许用户通过键盘直接关闭 Modal 带来更好的体验
 
 
+## 文案规范
+
+- 两种模态对话框的标题使用 动词 + 名词 的格式，无论是陈述句还是问句
+
+| ✅ 推荐用法 | ❌ 不推荐用法 |   
+| --- | --- | 
+| Edit ticket | Edit |
+| Delete form？ | Are you sure you want to delete form? |
+
+- 两种模态对话框的操作按钮在保证标题描述清楚的前提下，只需要使用标题内的动词即可
+
+| ✅ 推荐用法 | ❌ 不推荐用法 |   
+| --- | --- | 
+| Edit | Edit ticket |
+
+- 命令 Model 的正文规范
+  - 对标题进行具体的解释说明，不要重复标题的信息
+  - 确保用户知道在必要时如何采取行动
 
 ## 设计变量
 <DesignToken/>

@@ -170,6 +170,21 @@ import { Descriptions } from '@douyinfe/semi-ui';
 | className | 类名                      | string            | -     |
 | style     | 列表的样式                | CSSProperties            | -     |
 
+
+
+## 文案规范
+
+<div style={{ border: '1px solid var(--semi-color-border)', padding: 10, marginBottom: 24, display: 'flex', justifyContent: 'center' }}>
+    <img src='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/content_guide/description-demo.png' style={{ width: 350 }} />
+</div>
+
+- 字段名和值都按 Sentence case 原则书写大小写
+
+| ✅ 推荐用法 | ❌ 不推荐用法 |   
+| --- | --- | 
+| <img src='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/content_guide/description-good.png' style={{ width: 350 }} />| <img src='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/content_guide/description-bad.png' style={{ width: 350 }} /> |
+
+
 ## 设计变量
 
 <DesignToken/>

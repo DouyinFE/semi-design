@@ -358,8 +358,13 @@ import { Anchor } from '@douyinfe/semi-ui';
 | style     | 样式对象             | object            | -      |        |
 | title     | 文字内容             | string\|ReactNode | -      |        |
 
+## 文案规范
+- 按句子大小写书写
+- 保持简洁，避免换行
+
 ## 设计变量
 <DesignToken/>
+
 
 ## FAQ
 

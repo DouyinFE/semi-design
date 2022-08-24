@@ -2207,5 +2207,9 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
     />
 ```
 
+## 文案规范
+- 尽量使用短语，首字母大写
+- 平级之间保持用语形式一致，例如全是地名或者是国家名
+
 ## 设计变量
 <DesignToken/>

@@ -431,6 +431,28 @@ import { Checkbox, CheckboxGroup, Row, Col } from '@douyinfe/semi-ui';
 - Checkbox 的点击区域大于框本身，包含了框后的文案；带辅助文本的 checkbox，辅助文本也包含在点击区域内。
 - 禁用的 Checkbox 不可获取焦点。
 
+## 文案规范
+
+
+<div style={{ border: '1px solid var(--semi-color-border)', padding: 10, marginBottom: 24 }}>
+    <p style={{ fontWeight: 600, fontSize: 16  }}>Checkbox Content Demo</p>
+    <CheckboxGroup options={[
+        { label: 'Call', value: 'abc' },
+        { label: 'IM', value: 'c' },
+        { label: 'Ticket', value: 'd' },
+        { label: 'Offline', value: 'e' },
+        { label: 'Buzz', value: 'f' }
+    ]} direction='horizontal' aria-label="CheckboxGroup 示例" style={{ marginTop: 10 }}/>
+</div>
+
+- 首字母大写
+- 不使用标点符号
+
+| ✅ 推荐用法 | ❌ 不推荐用法 |   
+| --- | --- | 
+| Call | call |
+| Call | Call; |
+
 ## 设计变量
 <DesignToken/>
 

@@ -4,7 +4,7 @@ import { graphql, Link } from 'gatsby';
 import Blocks from '@douyinfe/semi-site-markdown-blocks';
 import '@douyinfe/semi-site-markdown-blocks/dist/index.css';
 import SearchAllInOne from '../components/SearchAllInOne';
-import { Icon, Row, Col, Tag, Tooltip, Checkbox, Button, Radio, Skeleton, Toast, Table } from '@douyinfe/semi-ui';
+import { Icon, Row, Col, Tag, Tooltip, Checkbox, Button, Radio, Skeleton, Toast, Table, CheckboxGroup, Description } from '@douyinfe/semi-ui';
 import * as scopeJSFile from './scope';
 import * as hocs from 'components/Hocs';
 import { MDXProvider } from '@mdx-js/react';
@@ -370,6 +370,8 @@ const components = {
             );
         }
     },
+    CheckboxGroup: CheckboxGroup,
+    Description: Description,
     table: props => {
         const { children } = props;
         const toArray = value => Array.isArray(value) ? value : [value];

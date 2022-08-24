@@ -393,5 +393,9 @@ WAI-ARIA: https://www.w3.org/WAI/ARIA/apg/patterns/radiobutton/
 123
 ``` -->
 
+## 文案规范
+- 首字母大写
+- 不使用标点符号
+
 ## 设计变量
 <DesignToken/>

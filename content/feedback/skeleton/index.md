@@ -388,6 +388,10 @@ import { Skeleton, Avatar } from '@douyinfe/semi-ui';
 | rows      | 设置段落占位图的行数 | number | 4      |
 | style     | 样式                 | CSSProperties | -      |
 
+## 文案规范
+- 不变的固定内容直接展示固定内容，可变的内容使用骨架屏展示
+
+
 ## 设计变量
 
 <DesignToken/>

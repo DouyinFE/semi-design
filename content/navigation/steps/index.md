@@ -351,5 +351,14 @@ class App extends React.Component {
 | onClick     | 点击回调  | function | -   |    |
 | onKeyDown     | 回车事件回调  | function | -   |    |
 
+
+## 文案规范
+- 步骤标题
+  - 标题应保持简洁，避免截断和换行；
+  - 使用句子大小写书写；
+  - 不要包含标点符号
+- 描述
+  - 为标题补充上下文信息
+  - 不要以标点符号结尾
 ## 设计变量
 <DesignToken/>
