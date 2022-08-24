@@ -5,7 +5,7 @@
     },
     "[javascript]": {
         "editor.formatOnSave": false,
-        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+        "editor.defaultFormatter": "vscode.typescript-language-features"
     },
     "[scss]": {
         "editor.formatOnPaste": false
