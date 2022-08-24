@@ -27,8 +27,6 @@ import { Button, SplitButtonGroup } from '@douyinfe/semi-ui';
 -   警告按钮（"warning"）
 -   危险按钮（"danger"）
 
-> Semi 默认主题的 Primary 与 Secondary 颜色相同，但你可以通过自定义主题来实现不同的 Primary 与 Secondary 颜色。
-
 ```jsx live=true dir="column"
 import React from 'react';
 import { Button } from '@douyinfe/semi-ui';
