@@ -29,7 +29,9 @@ module.exports = function ({ minimize }) {
                     test: /\.tsx?$/,
                     include: [
                         path.join(rootPath, 'packages/semi-ui'),
-                        path.join(rootPath, 'packages/semi-foundation')
+                        path.join(rootPath, 'packages/semi-foundation'),
+                        path.join(rootPath, 'packages/semi-animation'),
+                        path.join(rootPath, 'packages/semi-animation-react')
                     ],
                     use: [
                         {
