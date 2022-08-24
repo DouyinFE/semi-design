@@ -16,8 +16,9 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 ---
 
-#### 🎉2.18.0-beta.0（2022-08-23）
+#### 🎉2.18.0-beta.0（2022-08-24）
 - 【Feat】
+    - Anchor、AutoComplete、Breadcrumb、Carousel、Cascader、Checkbox、DatePicker、Dropdown、Input、InputNumber、Navigation、Pagination、Radio、Rating、ScrollList、Select、SideSheet、Slider、Steps、Switch、Table、Tabs、TagInput、TimePicker、Transfer、Tree  26个组件增加动效相关设计变量 [#984](https://github.com/DouyinFE/semi-design/issues/984)
     - Anchor 新增 A11y 焦点适配  [#205](https://github.com/DouyinFE/semi-design/issues/205)
     - Form Label 增加 optional 配置项，打开时自动于 Label Text 后追加 （可选）文本标识  [#869](https://github.com/DouyinFE/semi-design/issues/869)
     - Calendar 提供 weekStartsOn，设置周起始日  [#1020](https://github.com/DouyinFE/semi-design/issues/1020)

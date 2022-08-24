@@ -16,8 +16,9 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
-#### 🎉2.18.0-beta.0（2022-08-23）
+#### 🎉2.18.0-beta.0（2022-08-24）
 - 【Feat】
+    - Anchor、AutoComplete、Breadcrumb、Carousel、Cascader、Checkbox、DatePicker、Dropdown、Input、InputNumber、Navigation、Pagination、Radio、Rating、ScrollList、Select、SideSheet、Slider、Steps、Switch、Table、Tabs、TagInput、TimePicker、Transfer、Tree add animation token [#984](https://github.com/DouyinFE/semi-design/issues/984)
     - Anchor add A11y focus adaptation  [#205](https://github.com/DouyinFE/semi-design/issues/205)
     - Form Label add optional config，if true, will auto append optional mark after label text  [#869](https://github.com/DouyinFE/semi-design/issues/869)
     - Calendar support weekStartsOn  [#1020](https://github.com/DouyinFE/semi-design/issues/1020)
