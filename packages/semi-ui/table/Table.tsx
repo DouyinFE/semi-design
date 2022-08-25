@@ -933,16 +933,22 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             const stateSortOrder = get(curQuery, 'sortOrder');
             const defaultSortOrder = get(curQuery, 'defaultSortOrder', false);
             const sortOrder = this.foundation.isSortOrderValid(stateSortOrder) ? stateSortOrder : defaultSortOrder;
+            const TitleNode = typeof rawTitle !== 'function' && <React.Fragment key={strings.DEFAULT_KEY_COLUMN_TITLE}>{rawTitle as React.ReactNode}</React.Fragment>;
             if (typeof column.sorter === 'function' || column.sorter === true) {
+                // In order to increase the click hot area of ​​sorting, when sorting is required & useFullRender is false,
+                // both the title and sorting areas are used as the click hot area for sorting。
                 const sorter = (
                     <ColumnSorter
                         key={strings.DEFAULT_KEY_COLUMN_SORTER}
                         sortOrder={sortOrder}
                         onClick={e => this.foundation.handleSort(column, e)}
+                        title={TitleNode}
                     />
                 );
                 useFullRender && (titleMap.sorter = sorter);
                 titleArr.push(sorter);
+            } else {
+                titleArr.push(TitleNode);
             }
 
             const stateFilteredValue = get(curQuery, 'filteredValue');
@@ -964,10 +970,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
 
             const newTitle =
                 typeof rawTitle === 'function' ?
-                    () => rawTitle(titleMap) :
-                    titleArr.unshift(
-                        <React.Fragment key={strings.DEFAULT_KEY_COLUMN_TITLE}>{rawTitle}</React.Fragment>
-                    ) && titleArr;
+                    () => rawTitle(titleMap) : titleArr;
 
             column = { ...column, title: newTitle };
         }
