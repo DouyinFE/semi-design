@@ -372,5 +372,11 @@ function Demo() {
 | successTip | 复制成功的展示内容          | React.node                                     | -      | 0.33.0 |
 | onCopy     | 复制回调                    | Function(e:Event, content:string, res:boolean) | -      | 0.27.0 |
 
+## 文案规范
+- Link
+  - 文字链接需要清晰且可预测，用户应该能够预测他们点击链接时会发生什么；
+  - 切勿通过错误标记链接来误导用户；
+  - 避免使用“Click here”或“Here”作为独立链接；
+
 ## 设计变量
 <DesignToken/>

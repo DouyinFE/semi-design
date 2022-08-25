@@ -310,9 +310,43 @@ import { Notification, Button } from '@douyinfe/semi-ui';
 -  通知的 `aria-labelledby` 标记为对应通知标题
 
 
+## 文案规范
+
+
+<div style={{ border: '1px solid var(--semi-color-border)', padding: 10, marginBottom: 24, justifyContent: 'center', display: 'flex' }}>
+    <NotificationCard
+        type='info'
+        title='Status editing tasks completed'
+        content={
+            <div>
+                400 tasks succeed and 600 failed
+                <div style={{ color: 'var(--semi-color-primary)', marginTop: 4, fontWeight: 600 }}>Check failed tasks</div>
+            </div>
+        }
+    />
+</div>
+
+- 标题
+  - 使用简洁明了的语言进行说明
+  - 避免使用逗号，句号等标点符号
+- 正文
+  - 在信息传递完整的前提下，尽可能地将正文压缩至 1 -2 句话
+  - 对标题进行详尽地描述或者解释，而不是对标题的重复说明
+  - 使用正确的标点符号，句子内使用逗号，句子间使用句号
+- 操作
+  - 文案需要展示操作的具体含义
+
+
+| ✅ 推荐用法 | ❌ 不推荐用法 |   
+| --- | --- | 
+| <NotificationCard type='info' style={{ width: 350}} title='Status editing tasks completed' content={<div> 400 tasks succeed and 600 failed <div style={{ color: 'var(--semi-color-primary)', marginTop: 4, fontWeight: 600 }}>Check failed tasks</div></div>} /> | <NotificationCard type='info' style={{ width: 350}} title='Status editing tasks completed' content={<div> 400 tasks succeed and 600 failed <div style={{ color: 'var(--semi-color-primary)', marginTop: 4, fontWeight: 600 }}>Check</div></div>} /> |
+
+
+
 ## 设计变量
 
 <DesignToken/>
+
 
 全局销毁 ( >= 0.25.0 )：
 

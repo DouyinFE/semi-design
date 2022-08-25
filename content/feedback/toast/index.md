@@ -416,6 +416,32 @@ HookToast ( >= 1.2.0 )：
 
 - Toast 的 role 为 alert
 
+## 文案规范
+
+
+<div style={{ border: '1px solid var(--semi-color-border)', padding: 10, marginBottom: 24, justifyContent: 'center', display: 'flex' }}>
+    <ToastCard type='success' content='Ticket transferred' />
+</div>
+
+
+- 保持简洁
+- 句尾不使用句号
+- 使用 名词 + 动词 的格式进行说明
+
+| ✅ 推荐用法 | ❌ 不推荐用法 |   
+| --- | --- | 
+| Language added | New language has been added successfully |
+| Ticket transfer failed | Can't transfer ticket |
+
+- 提供动作的提示消息
+    - 只提供一个动作
+  - 不使用类似于「已读」类的动作，例如 OK, Got it, Dismiss, Cancel
+
+
+| ✅ 推荐用法 | ❌ 不推荐用法 |   
+| --- | --- | 
+|  <ToastCard type='error' content={<div>Ticket transfer failed <span style={{ color: 'var(--semi-color-primary)', marginLeft: 4, cursor: 'pointer' }}>Retry</span> </div>} /> |  <ToastCard type='error' content={<div>Ticket transfer failed <span style={{ color: 'var(--semi-color-primary)', marginLeft: 4, cursor: 'pointer' }}>Dismiss</span> </div>} /> |
+
 ## 设计变量
 
 <DesignToken/>
