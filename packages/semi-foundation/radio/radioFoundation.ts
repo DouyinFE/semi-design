@@ -3,6 +3,7 @@ import warning from '../utils/warning';
 
 export interface RadioAdapter extends DefaultAdapter {
     setHover: (hover: boolean) => void;
+    setChecked: (checked: boolean) => void;
     setAddonId: () => void;
     setExtraId: () => void;
     setFocusVisible: (focusVisible: boolean) => void;
@@ -19,6 +20,10 @@ export default class RadioFoundation extends BaseFoundation<RadioAdapter> {
     }
     setHover(hover: boolean) {
         this._adapter.setHover(hover);
+    }
+
+    setChecked(checked: boolean) {
+        this._adapter.setChecked(checked);
     }
 
     handleFocusVisible = (event: any) => {
