@@ -65,14 +65,12 @@ import { Tag, Space } from '@douyinfe/semi-ui';
 
 () => (
     <Space wrap>
-        <Tag color='grey'> grey tag </Tag>
-        <Tag color='blue'> blue tag </Tag>
-        <Tag color='red'> red tag </Tag>
-        <Tag color='green'> green tag </Tag>
-        <Tag color='orange'> orange tag </Tag>
-        <Tag color='teal'> teal tag </Tag>
-        <Tag color='violet'> violet tag </Tag>
-        <Tag color='white'> white tag </Tag>
+        {
+            ['amber', 'blue', 'cyan', 'green', 'grey', 'indigo',  
+             'light-blue','light-green', 'lime', 'orange', 'pink',  
+             'purple', 'red', 'teal','violet', 'yellow', 'white'
+            ].map(item => (<Tag color={item}> {item} tag </Tag>))
+        }
     </Space>
 );
 ```
