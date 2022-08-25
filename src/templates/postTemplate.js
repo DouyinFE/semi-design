@@ -4,7 +4,7 @@ import { graphql, Link } from 'gatsby';
 import Blocks from '@douyinfe/semi-site-markdown-blocks';
 import '@douyinfe/semi-site-markdown-blocks/dist/index.css';
 import SearchAllInOne from '../components/SearchAllInOne';
-import { Icon, Row, Col, Tag, Tooltip, Checkbox, Button, Radio, Skeleton, Toast, Table, CheckboxGroup, Description, Dropdown, Form } from '@douyinfe/semi-ui';
+import { Icon, Row, Col, Tag, Tooltip, Checkbox, Button, Radio, Skeleton, Toast, Table, CheckboxGroup, Description, Dropdown, Form, Typography } from '@douyinfe/semi-ui';
 import NotificationCard from '../../packages/semi-ui/notification/notice';
 import ToastCard from '../../packages/semi-ui/toast/toast';
 import * as scopeJSFile from './scope';
@@ -62,6 +62,20 @@ const Text = ({ lang, letterSpacing, size, lineHeight, text }) => {
     );
 };
 
+const PureA = (props) => {
+    return (
+        <a style={{
+            fontWeight: 600,
+            color: 'var(--semi-color-link-visited)',
+            lineHeight: '20px',
+            fontSize: 14,
+            ...props.style
+        }}>
+            {props.children}
+        </a>
+    );
+};
+
 const SemiComponents = {
     Row,
     Col,
@@ -77,7 +91,15 @@ const SemiComponents = {
     Checkbox,
     Radio,
     DesignToken,
-    ImageBox
+    ImageBox,
+    // content guideline demo 
+    CheckboxGroup: CheckboxGroup,
+    Description: Description,
+    NotificationCard,
+    ToastCard,
+    Dropdown,
+    PureA,
+    Typography,
 };
 
 const pre = ({ ...props }) => {
@@ -415,14 +437,7 @@ const components = {
             );
         // }
     },
-    // content guideline demo 
-    CheckboxGroup: CheckboxGroup,
-    Description: Description,
-    NotificationCard,
-    ToastCard,
-    Dropdown,
-    Form,
-    FormInput: Form.Input
+
 };
 
 const getPrevAndNext = pageContext => {
