@@ -352,17 +352,18 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
             [`${prefixcls}-item-disabled`]: item.disabled,
         });
         return (
-            <Checkbox
-                key={index}
-                disabled={item.disabled || disabled}
-                className={leftItemCls}
-                checked={checked}
-                role="listitem"
-                onChange={() => this.onSelectOrRemove(item)}
-                x-semi-children-alias={`dataSource[${index}].label`}
-            >
-                {item.label}
-            </Checkbox>
+            <div className={leftItemCls}>
+                <Checkbox
+                    key={index}
+                    disabled={item.disabled || disabled}
+                    checked={checked}
+                    role="listitem"
+                    onChange={() => this.onSelectOrRemove(item)}
+                    x-semi-children-alias={`dataSource[${index}].label`}
+                >
+                    {item.label}
+                </Checkbox>
+            </div>
         );
     }
 
