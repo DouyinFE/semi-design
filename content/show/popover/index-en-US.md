@@ -536,7 +536,7 @@ Please refer to [Use with Tooltip/Popconfirm](/en-US/show/tooltip#%E6%90%AD%E9%8
 ## FAQ
 
 -   **Why the position of the popover overlay card and the relative position of the overlay trigger are not as expected?**  
-    Popover relies on Tooltip at the bottom. In order to calculate positioning, ToolTip needs to obtain the real DOM elements of children. Therefore, the Popover type currently supports the following two types of children:
+    Popover relies on Tooltip at the bottom. In order to calculate positioning, Tooltip needs to obtain the real DOM elements of children. Therefore, the Popover type currently supports the following two types of children:
     1. The Jsx type of the real dom node, such as span, div, p...
     2. Use the FunctionComponent wrapped by forwardRef to pass props and ref to the real dom node
 

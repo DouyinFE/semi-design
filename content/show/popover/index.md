@@ -538,7 +538,7 @@ import { Button, Input, Popover, Space } from '@douyinfe/semi-ui';
 ## FAQ
 
 -   **为什么 Popover 浮层卡片的位置和浮层的触发器的相对位置不符合预期?**  
-    Popover 底层依赖了 Tooltip，ToolTip 为了计算定位，需要获取到 children 的真实 DOM 元素，因此 Popover 类型目前支持如下两种类型的 children：
+    Popover 底层依赖了 Tooltip，Tooltip 为了计算定位，需要获取到 children 的真实 DOM 元素，因此 Popover 类型目前支持如下两种类型的 children：
     1. 真实 dom 节点的 jsx 类型，如 span，div，p...
     2. 使用 forwardRef 包裹后的函数式组件，将 props 与 ref 透传到真实的 dom 节点上
 
