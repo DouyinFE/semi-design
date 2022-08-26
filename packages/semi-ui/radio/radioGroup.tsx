@@ -177,6 +177,7 @@ class RadioGroup extends BaseComponent<RadioGroupProps, RadioGroupState> {
                             key={index}
                             disabled={this.props.disabled}
                             value={option}
+                            type={type}
                         >
                             {option}
                         </Radio>
@@ -190,6 +191,7 @@ class RadioGroup extends BaseComponent<RadioGroupProps, RadioGroupState> {
                             extra={option.extra}
                             className={option.className}
                             style={option.style}
+                            type={options.type ?? type}
                         >
                             {option.label}
                         </Radio>
