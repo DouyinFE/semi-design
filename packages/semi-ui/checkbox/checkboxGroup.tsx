@@ -136,6 +136,7 @@ class CheckboxGroup extends BaseComponent<CheckboxGroupProps, CheckboxGroupState
                             disabled={this.props.disabled}
                             value={option}
                             prefixCls={prefixCls}
+                            type={type}
                         >
                             {option}
                         </Checkbox>
@@ -152,6 +153,7 @@ class CheckboxGroup extends BaseComponent<CheckboxGroupProps, CheckboxGroupState
                             className={option.className}
                             style={option.style}
                             onChange={option.onChange}
+                            type={type}
                         >
                             {option.label}
                         </Checkbox>

@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-semi-design",
-  "version": "2.18.0-beta.0",
+  "version": "2.19.0-alpha.1",
   "description": "semi ui eslint plugin",
   "keywords": [
     "semi",
@@ -39,5 +39,6 @@
   },
   "bugs": {
     "url": "https://github.com/DouyinFE/semi-design/issues"
-  }
+  },
+  "gitHead": "5f29630c9064a508caf3412ac1a5c9443752d98c"
 }

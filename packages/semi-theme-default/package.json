@@ -1,6 +1,6 @@
 {
     "name": "@douyinfe/semi-theme-default",
-    "version": "2.18.0-beta.0",
+    "version": "2.19.0-alpha.1",
     "description": "semi-theme-default",
     "keywords": [
         "semi-theme",
@@ -13,7 +13,7 @@
     "sideEffects": "*.scss",
     "author": "huangzhijing.pixel@bytedance.com",
     "license": "MIT",
-    "gitHead": "eb34a4f25f002bb4cbcfa51f3df93bed868c831a",
+    "gitHead": "5f29630c9064a508caf3412ac1a5c9443752d98c",
     "dependencies": {
         "glob": "^7.1.6"
     },

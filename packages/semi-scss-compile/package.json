@@ -1,6 +1,6 @@
 {
   "name": "@douyinfe/semi-scss-compile",
-  "version": "2.18.0-beta.0",
+  "version": "2.19.0-alpha.1",
   "description": "compile semi scss to css",
   "author": "daiqiang@bytedance.com",
   "license": "MIT",
@@ -32,5 +32,5 @@
     "rimraf": "^3.0.2",
     "typescript": "^4.4.4"
   },
-  "gitHead": "eb34a4f25f002bb4cbcfa51f3df93bed868c831a"
+  "gitHead": "5f29630c9064a508caf3412ac1a5c9443752d98c"
 }

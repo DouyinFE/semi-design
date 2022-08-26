@@ -1,6 +1,6 @@
 {
     "name": "@douyinfe/semi-foundation",
-    "version": "2.18.0-beta.0",
+    "version": "2.19.0-alpha.1",
     "description": "",
     "scripts": {
         "build:lib": "node ./scripts/compileLib.js",
@@ -24,7 +24,7 @@
         "*.scss",
         "*.css"
     ],
-    "gitHead": "eb34a4f25f002bb4cbcfa51f3df93bed868c831a",
+    "gitHead": "5f29630c9064a508caf3412ac1a5c9443752d98c",
     "devDependencies": {
         "@babel/plugin-proposal-decorators": "^7.15.8",
         "@babel/plugin-transform-runtime": "^7.15.8",
