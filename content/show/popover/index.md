@@ -543,3 +543,6 @@ import { Button, Input, Popover, Space } from '@douyinfe/semi-ui';
     2. 使用 forwardRef 包裹后的函数式组件，将 props 与 ref 透传到真实的 dom 节点上
 
     若以带有前缀的 Semi Input 作为 children，即使设置了 Input 和 Popover content等宽，浮层卡片的位置仍是相对于不包含前缀部分的 input 框进行定位，此时只要在 Input 外层再套一个 div 就能解决问题。
+
+-   **为什么 Popover 浮层卡片在靠近屏幕边界宽度不够时，丢失宽度意外换行?**  
+    在 chromium 104 后 对于屏幕边界文本宽度不够时的换行渲染策略发生变化，详细原因可查看 [issue #1022](https://github.com/DouyinFE/semi-design/issues/1022)，semi侧已经在v2.17.0版本修复了这个问题。
