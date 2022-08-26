@@ -541,3 +541,6 @@ Please refer to [Use with Tooltip/Popconfirm](/en-US/show/tooltip#%E6%90%AD%E9%8
     2. Use the FunctionComponent wrapped by forwardRef to pass props and ref to the real dom node
 
     When Semi Input with prefix is used as children, even if the same width of Input and Popover content are set, the position of the floating card is still positioned relative to the input box that does not contain the prefix part. At this time, just put another div on the outer layer of the children to solve the problem.
+- **Why does the popover layer card lose its width and wrap unexpectedly when the width is not enough near the screen border?**
+
+     After Chromium 104, the wrapping rendering strategy when the width of the screen border text is not enough has changed. For details, see [issue #1022](https://github.com/DouyinFE/semi-design/issues/1022), the semi-side has been This problem was fixed in v2.17.0.
