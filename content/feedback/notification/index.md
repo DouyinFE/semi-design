@@ -316,7 +316,7 @@ import { Notification, Button } from '@douyinfe/semi-ui';
 <div style={{ border: '1px solid var(--semi-color-border)', padding: 10, marginBottom: 24, justifyContent: 'center', display: 'flex' }}>
     <NotificationCard
         type='info'
-        title='Status editing tasks completed'
+        title='Task completed'
         content={
             <div>
                 400 tasks succeed and 600 failed
@@ -339,7 +339,7 @@ import { Notification, Button } from '@douyinfe/semi-ui';
 
 | ✅ 推荐用法 | ❌ 不推荐用法 |   
 | --- | --- | 
-| <NotificationCard type='info' style={{ width: 350}} title='Status editing tasks completed' content={<div> 400 tasks succeed and 600 failed <div style={{ color: 'var(--semi-color-primary)', marginTop: 4, fontWeight: 600 }}>Check failed tasks</div></div>} /> | <NotificationCard type='info' style={{ width: 350}} title='Status editing tasks completed' content={<div> 400 tasks succeed and 600 failed <div style={{ color: 'var(--semi-color-primary)', marginTop: 4, fontWeight: 600 }}>Check</div></div>} /> |
+| <NotificationCard type='info' style={{ width: 350}} title='Task completed' content={<div> 400 tasks succeed and 600 failed <div style={{ color: 'var(--semi-color-primary)', marginTop: 4, fontWeight: 600 }}>Check failed tasks</div></div>} /> | <NotificationCard type='info' style={{ width: 350}} title='Status editing tasks completed' content={<div> 400 tasks succeed and 600 failed <div style={{ color: 'var(--semi-color-primary)', marginTop: 4, fontWeight: 600 }}>Check</div></div>} /> |
 
 
 

@@ -776,10 +776,6 @@ function NavApp (props = {}) {
 
 ## 文案规范
 
-<div style={{ border: '1px solid var(--semi-color-border)', padding: 10, marginBottom: 24, display: 'flex', justifyContent: 'center' }}>
-    <img src='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/content_guide/nav-demo.png' style={{ height: 60 }} />
-</div>
-
 - 导航栏菜单使用句子大小写格式
 - 尽量精简
 

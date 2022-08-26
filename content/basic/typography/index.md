@@ -381,32 +381,32 @@ function Demo() {
 
 | ✅ 推荐用法 | ❌ 不推荐用法 |   
 | --- | --- | 
-| <div className='reset-font-style'>No spaces yet? <PureA> Create space </PureA></div>| <div className='reset-font-style'>No spaces yet? <PureA>Click here</PureA></div> |
+| No spaces yet? <PureA> Create space </PureA>| No spaces yet? <PureA>Click here</PureA> |
 
 - 避免将整个句子作为可点击的文字链接，而是将描述具体去向的文字作为链接内容。
 
 | ✅ 推荐用法 | ❌ 不推荐用法 |   
 | --- | --- | 
-| <div className='reset-font-style'>Views <PureA>user documentation</PureA> for details</div>|<div className='reset-font-style'><PureA>View user documentation for details</PureA></div> |
+| Views <PureA>user documentation</PureA> for details|<PureA>View user documentation for details</PureA> |
 
 - 使用短术语或词作为链接文本会更有利于国际化，以避免由于不同的语言的语法和语序不同，而出现链接文字被拆分的问题
 
 | ✅ 推荐用法 | ❌ 不推荐用法 |   
 | --- | --- | 
-| <div className='reset-font-style'>Manage <PureA>notifications </PureA>to</div>| <PureA>Manage notifications</PureA> to |
+| Manage <PureA>notifications </PureA>to| <PureA>Manage notifications</PureA> to |
 
 - 以文字链接结尾时，不需要跟随标点符号，除了问号“？”
 
 | ✅ 推荐用法 | ❌ 不推荐用法 |   
 | --- | --- | 
-| <div className='reset-font-style'>No spaces yet? <PureA> Create space </PureA></div> | No spaces yet? <PureA>Click here</PureA> |
-| <div className='reset-font-style'><PureA> Forgot password ？</PureA></div> |<PureA>Forgot password</PureA> |
+| No spaces yet? <PureA> Create space </PureA> | No spaces yet? <PureA>Click here</PureA> |
+| <PureA> Forgot password ？</PureA> |<PureA>Forgot password</PureA> |
 
 - 链接文字不要包含冠词“the, a, an”
 
 | ✅ 推荐用法 | ❌ 不推荐用法 |   
 | --- | --- | 
-| <div className='reset-font-style'>View <PureA> user documentation </PureA> for details</div>| View the<PureA> user documentation</PureA> for details |
+| View <PureA> user documentation </PureA> for details| View the<PureA> user documentation</PureA> for details |
 
 ## 设计变量
 <DesignToken/>

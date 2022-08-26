@@ -257,10 +257,6 @@ import { IconAlertTriangle } from '@douyinfe/semi-icons';
     <Timeline.Item time="2015-09-05">网络异常正在修复</Timeline.Item>
 </Timeline>
 ```
-
-## 文案规范
-- 时间选择器至少包括时和分，如：11:30，它在本地化过程中，可以适应为12小时制或者24小时制
-- 当选择12小时制，需要和AM/PM一起搭配使用
 ## 设计变量
 
 <DesignToken/>
