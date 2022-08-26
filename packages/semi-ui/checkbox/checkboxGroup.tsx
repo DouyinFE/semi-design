@@ -6,7 +6,7 @@ import { checkboxGroupClasses as css, strings } from '@douyinfe/semi-foundation/
 import CheckboxGroupFoundation, { CheckboxGroupAdapter } from '@douyinfe/semi-foundation/checkbox/checkboxGroupFoundation';
 import BaseComponent from '../_base/baseComponent';
 import { Context } from './context';
-import { isEqual } from 'lodash';
+import { get, isEqual } from 'lodash';
 import Checkbox, { CheckboxEvent } from './checkbox';
 
 export type CheckboxDirection = 'horizontal' | 'vertical';
@@ -161,7 +161,14 @@ class CheckboxGroup extends BaseComponent<CheckboxGroupProps, CheckboxGroupState
                 }
             });
         } else if (children) {
-            inner = (React.Children.toArray(children) as React.ReactElement[]).map((itm, index) => React.cloneElement(itm, { key: index, role: 'listitem' }));
+            inner = (React.Children.toArray(children) as React.ReactElement[]).map((itm, index) => {
+                const props: Record<string, any> = { key: index, role: 'listitem' };
+                const isCheckboxComp = ['Checkbox', 'CheckboxWithGroup'].some(comp => [get(itm, 'type.displayName'), get(itm, 'type.name')].includes(comp));
+                if (isCheckboxComp) {
+                    props.type = type;
+                }
+                return React.cloneElement(itm, props);
+            });
         }
 
         return (

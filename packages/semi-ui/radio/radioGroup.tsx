@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { noop } from 'lodash';
+import { get, noop } from 'lodash';
 
 import { radioGroupClasses as css, strings } from '@douyinfe/semi-foundation/radio/constants';
 import RadioGroupFoundation, { RadioGroupAdapter } from '@douyinfe/semi-foundation/radio/radioGroupFoundation';
@@ -199,9 +199,18 @@ class RadioGroup extends BaseComponent<RadioGroupProps, RadioGroupState> {
                 }
             });
         } else if (children) {
-            inner = React.Children.map(children, (itm, index) => (React.isValidElement(itm) ?
-                React.cloneElement(itm, { key: index }) :
-                null));
+            inner = React.Children.map(children, (itm, index) => {
+                if (React.isValidElement(itm)) {
+                    const props: Record<string, any> = { key: index };
+                    const isRadioComp = ['Radio', 'RadioWithGroup'].some(comp => [get(itm, 'type.displayName'), get(itm, 'type.name')].includes(comp));
+                    if (isRadioComp) {
+                        props.type = type;
+                    }
+                    return React.cloneElement(itm, props);
+                } else {
+                    return null;
+                }
+            });
         }
 
         return (
