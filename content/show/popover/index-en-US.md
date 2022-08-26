@@ -540,4 +540,4 @@ Please refer to [Use with Tooltip/Popconfirm](/en-US/show/tooltip#%E6%90%AD%E9%8
     1. The Jsx type of the real dom node, such as span, div, p...
     2. Use the FunctionComponent wrapped by forwardRef to pass props and ref to the real dom node
 
-    When using the prefix Semi Input as the children, even if the Input and Popover content are equal in width, the position of the floating card is still positioned relative to the Semi Input without the prefix. At this time, just put another div on the outer layer of the children to solve the problem.
+    When Semi Input with prefix is used as children, even if the same width of Input and Popover content are set, the position of the floating card is still positioned relative to the input box that does not contain the prefix part. At this time, just put another div on the outer layer of the children to solve the problem.

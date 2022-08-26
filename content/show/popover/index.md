@@ -542,4 +542,4 @@ import { Button, Input, Popover, Space } from '@douyinfe/semi-ui';
     1. 真实 dom 节点的 jsx 类型，如 span，div，p...
     2. 使用 forwardRef 包裹后的函数式组件，将 props 与 ref 透传到真实的 dom 节点上
 
-    若以带有前缀 Semi Input 作为 children，即使设置了 Input 和 Popover content等宽，浮层卡片的位置仍是相对于不带前缀 Semi Input 定位，此时只要在 children 外层再套一个 div 就能解决问题。
+    若以带有前缀的 Semi Input 作为 children，即使设置了 Input 和 Popover content等宽，浮层卡片的位置仍是相对于不包含前缀部分的 input 框进行定位，此时只要在 Input 外层再套一个 div 就能解决问题。
