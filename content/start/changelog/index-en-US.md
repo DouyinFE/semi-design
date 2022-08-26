@@ -19,7 +19,7 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 - 【Feat】
     - Add type API for Checkbox & Radio
 - 【Chore】
-    - Remove semi-animation-react's peerDependences : react-dom, react, prop-type; remove semi-next dependence: @types/next
+    - Remove semi-animation-react's peerDependences : react-dom, react, prop-type
 - 【Fix】
     - Fix tabs collapse mode will flush in some screen  [#1039 ](https://github.com/DouyinFE/semi-design/issues/1039)
     - Fix the left of the emptyContent parameter of Transfer does not take effect  [#1068 ](https://github.com/DouyinFE/semi-design/issues/1068)

@@ -20,7 +20,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 - 【Feat】
     - Checkbox & Radio 增加 type API
 - 【Chore】
-    - 移除semi-animation-react 的 peerDependences : react-dom、react、prop-type；移除 semi-next的 dependence: @types/next
+    - 移除semi-animation-react 的 peerDependences : react-dom、react、prop-type
 - 【Fix】
     - 修复 Tabs collapse模式在某些宽度下会反复横跳，导致闪烁不停的问题  [#1039 ](https://github.com/DouyinFE/semi-design/issues/1039)
     - 修复Transfer的emptyContent参数的left不生效  [#1068 ](https://github.com/DouyinFE/semi-design/issues/1068)

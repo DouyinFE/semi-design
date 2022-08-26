@@ -18,6 +18,7 @@
         "prepublishOnly": "npm run build:lib"
     },
     "devDependencies": {
+        "@types/next": "^9.0.0",
         "rimraf": "^3.0.2",
         "typescript": "^4"
     },
