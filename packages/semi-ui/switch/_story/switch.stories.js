@@ -65,17 +65,17 @@ SwitchDisabled.story = {
   name: 'switch disabled',
 };
 
-const ControledSwitch = () => {
+const ControlledSwitch = () => {
   const [checked, onChange] = useState(true);
   return <Switch checked={checked} onChange={(v, e) => onChange(v)} aria-label='power-switch'/>;
 };
-export const SwitchCheckedOnChange = () => <ControledSwitch />;
+export const SwitchCheckedOnChange = () => <ControlledSwitch />;
 
 SwitchCheckedOnChange.story = {
   name: 'switch checked + onChange',
 };
 
-const UnControledSwitch = () => {
+const UnControlledSwitch = () => {
   const onChange = checked => {
     console.log(checked);
   };
@@ -86,7 +86,7 @@ const UnControledSwitch = () => {
     </>
   );
 };
-export const SwitchDefaultCheckedOnChange = () => <UnControledSwitch />;
+export const SwitchDefaultCheckedOnChange = () => <UnControlledSwitch />;
 
 SwitchDefaultCheckedOnChange.story = {
   name: 'switch defaultChecked + onChange',

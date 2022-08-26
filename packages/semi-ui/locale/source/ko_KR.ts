@@ -151,6 +151,9 @@ const local: Locale = {
         total: '총 {total} 개 항목',
         selected: '선택된 {Total} 개 항목',
     },
+    Form: {
+        optional: '(선택 과목)',
+    },
 };
 
 // [i18n-Korea]

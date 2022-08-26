@@ -1,8 +1,7 @@
-@import "./variables.scss";
+@import './variables.scss';
 $module: #{$prefix}-skeleton;
 
 .#{$module} {
-
     &-avatar,
     &-image,
     &-title,
@@ -101,7 +100,6 @@ $module: #{$prefix}-skeleton;
     }
 
     @keyframes skeleton-loading {
-
         0% {
             background-position: 100% 50%;
         }
@@ -112,4 +110,4 @@ $module: #{$prefix}-skeleton;
     }
 }
 
-@import "./rtl.scss";
+@import './rtl.scss';

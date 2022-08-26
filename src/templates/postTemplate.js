@@ -186,7 +186,7 @@ const components = {
                         <Tooltip content={
                             <span>
                                 如何使用可查阅：
-                                <a href='https://bytedance.feishu.cn/docx/doxcnVROZf61ey1zFzlErtJfL2d' target="_blank">Semi DSM 手册</a>
+                                <a href='https://semi.design/dsm_manual/zh-CN/web/componentToken' target="_blank">Semi DSM 手册</a>
                             </span>}
                         >
                             <IconHelpCircle size='large' type="help_circle" style={{ color: ' --semi-color-tertiary-light-default', marginLeft: 4 }}/>

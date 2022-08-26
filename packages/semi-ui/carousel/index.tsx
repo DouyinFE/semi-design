@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import  React, { ReactNode, Children, ReactChild, ReactFragment, ReactPortal } from 'react';
+import React, { ReactNode, Children, ReactChild, ReactFragment, ReactPortal } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
 import BaseComponent from "../_base/baseComponent";
@@ -135,7 +135,7 @@ class Carousel extends BaseComponent<CarouselProps, CarouselState> {
     };
     
     handleAutoPlay = (): void => {
-        if (!this.foundation.getIsControledComponent()){
+        if (!this.foundation.getIsControlledComponent()){
             this.foundation.handleAutoPlay();
         }
     }
@@ -149,7 +149,7 @@ class Carousel extends BaseComponent<CarouselProps, CarouselState> {
 
     handleMouseLeave = (): void => {
         const { autoPlay } = this.props;
-        if ((typeof autoPlay !== 'object' || autoPlay.hoverToPause) && !this.foundation.getIsControledComponent()){
+        if ((typeof autoPlay !== 'object' || autoPlay.hoverToPause) && !this.foundation.getIsControlledComponent()){
             this.foundation.handleAutoPlay();
         }
     }
@@ -158,7 +158,7 @@ class Carousel extends BaseComponent<CarouselProps, CarouselState> {
         return this.foundation.onIndicatorChange(activeIndex);
     };
 
-    getChildren  = (): (ReactChild | ReactFragment | ReactPortal)[] => {
+    getChildren = (): (ReactChild | ReactFragment | ReactPortal)[] => {
         const { children: originChildren } = this.props;
         return Children.toArray(originChildren).filter(child=>{
             return React.isValidElement(child);
@@ -200,7 +200,7 @@ class Carousel extends BaseComponent<CarouselProps, CarouselState> {
                             [`${cssClasses.CAROUSEL_CONTENT}-item`]: true,
                             [`${cssClasses.CAROUSEL_CONTENT}-item-active`]: isCurrent,
                             [`${cssClasses.CAROUSEL_CONTENT}-item-slide-in`]:animation === 'slide' && !isInit && isCurrent,
-                            [`${cssClasses.CAROUSEL_CONTENT}-item-slide-out`]:animation === 'slide'  && !isInit && index === preIndex,
+                            [`${cssClasses.CAROUSEL_CONTENT}-item-slide-out`]:animation === 'slide' && !isInit && index === preIndex,
                         })
                     });
                 })}

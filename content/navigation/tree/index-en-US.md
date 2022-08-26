@@ -2192,9 +2192,10 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
 | width | Width | number\|string | '100%' |
 
 ### Methods
-|Name | Description | Type 
-|----|----|----|
-| search | Trigger search manually | (value: string) => void |
+|Name | Description | Type | Version |
+|----|----|----|----|
+| search | Trigger search manually | (value: string) => void |-|
+| scrollTo | In a virtualized Tree, make the specified node(Which is an expanded node in the tree) scroll to view | （{key: string; align?: 'center' \| 'start' \| 'end' \| 'smart' \| 'auto';}) => void | 2.18.0|
 
 
 ## Accessibility

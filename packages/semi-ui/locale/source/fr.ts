@@ -150,6 +150,9 @@ const local: Locale = {
         total: 'Totale ${total} articles',
         selected: '${total} articles sélectionnés',
     },
+    Form: {
+        optional: '(optionnel)',
+    },
 };
 
 // [i18n-French]

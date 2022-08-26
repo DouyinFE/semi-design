@@ -1,4 +1,5 @@
 @import "./variables.scss";
+@import "./animation.scss";
 
 $module: #{$prefix}-tagInput;
 
@@ -10,7 +11,9 @@ $module: #{$prefix}-tagInput;
     font-weight: $font-weight-regular;
     width: 100%;
     box-sizing: border-box;
-    
+    transition: background-color $transition_duration-tagInput-bg $transition_function-tagInput-bg $transition_delay-tagInput-bg,
+    border $transition_duration-tagInput-border $transition_function-tagInput-border $transition_delay-tagInput-border;
+
     &-drag {
 
         &-item {

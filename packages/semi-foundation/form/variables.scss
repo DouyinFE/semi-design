@@ -32,6 +32,7 @@ $font-form_label-fontWeight: $font-weight-bold; // 表单标题字重
 $font-form_requiredMark-fontWeight: $font-weight-bold; // 表单必填标识字重
 
 $color-form_label-text-default: var(--semi-color-text-0); // 表单标题文字颜色
+$color-form_label_optional-text-default: var(--semi-color-tertiary); // 表单可选标记文字颜色
 $color-form_label_extra-text-default: var(--semi-color-tertiary); // 表单额外信息辅助文字颜色
 
 $color-form_label_disabled-text-default: var(--semi-color-disabled-text); // 禁用表单项标题文字颜色

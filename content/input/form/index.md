@@ -58,7 +58,8 @@ Semi Form 同时支持多种写法
 #### 基本写法
 
 从 Form 中导出表单控件，给表单控件添加`field`属性，将其放置于 Form 内部即可  
-还可以给每个表单控件设置`label`属性，不传入时默认与 field 相同
+还可以给每个表单控件设置`label`属性，不传入时默认与 field 相同  
+`label`可以直接传入字符串，亦可以以 object 方式声明，配置 `extra`、`required`、`optional`等属性应对更复杂的场景 
 
 <Notice type='primary' title='注意事项'>
 对于Field级别组件来说，field 属性是必填项!
@@ -73,21 +74,21 @@ import { IconHelpCircle } from '@douyinfe/semi-icons';
     const { Option } = Form.Select;
 
     return (
-        <Form layout='horizontal'  onValueChange={values=>console.log(values)}>
-            <Form.Select field="Role" label='角色' style={{ width:176 }}>
-                <Option value="admin">管理员</Option>
-                <Option value="user">普通用户</Option>
-                <Option value="guest">访客</Option>
-            </Form.Select>
+        <Form layout='horizontal' onValueChange={values=>console.log(values)}>
             <Form.Input field='UserName' label='用户名' style={{ width:80 }}/>
             <Form.Input
                 field='Password'
                 label={{ 
                     text: '密码',
-                    extra: <Tooltip content='详情'><IconHelpCircle style={{ color: '--semi-color-text-1' }}/></Tooltip> 
+                    extra: <Tooltip content='详情'><IconHelpCircle style={{ color: 'var(--semi-color-text-2)' }}/></Tooltip> 
                 }}
                 style={{ width:176 }}
             />
+            <Form.Select field="Role" label={{ text: '角色', optional: true }} style={{ width:176 }}>
+                <Option value="admin">管理员</Option>
+                <Option value="user">普通用户</Option>
+                <Option value="guest">访客</Option>
+            </Form.Select>
         </Form>
     );
 };
@@ -2123,7 +2124,8 @@ const { Label } = Form;
 | align     | text-align               | string    | 'left' |  |
 | className | 样式类名                 | string    |        |  |
 | style     | 内联样式                 | string    |        |  |
-| width     | label 宽度               | number\/string    |        |  |
+| width     | label 宽度               | number/string    |        |  |
+| optional  | 是否自动在text后追加"（可选）"文字标识（根据Locale配置的不同语言自动切换相同语义文本）。当该项为true时，required的\*号将不再展示。若当表单项多数均为必填时，仅强调可选项会更使得整体视觉更简洁  | boolean    | false | v2.18.0 |
 
 ## Form.Slot
 
