@@ -220,7 +220,8 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
         );
     }
 
-    renderCheckbox() {
+    renderCheckbox(options: { label: React.ReactNode; icon: React.ReactNode }) {
+        const { label, icon } = options;
         const { checked, halfChecked, eventKey } = this.props;
         const disabled = this.isDisabled();
         return (
@@ -235,7 +236,10 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
                     indeterminate={halfChecked}
                     checked={checked}
                     disabled={Boolean(disabled)}
-                />
+                >
+                    {icon}
+                    {label}
+                </Checkbox>
             </div>
         );
     }
@@ -409,6 +413,8 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
         });
         const setsize = get(rest, ['data', 'children', 'length']);
         const posinset = isString(rest.pos) ? Number(rest.pos.split('-')[level+1]) + 1 : 1;
+        const label = this.renderRealLabel();
+        const icon = this.renderIcon();
         return (
             <li
                 className={nodeCls}
@@ -433,9 +439,9 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
                 <span
                     className={labelCls}
                 >
-                    {multiple ? this.renderCheckbox() : null}
-                    {this.renderIcon()}
-                    <span className={`${prefixcls}-label-text`}>{this.renderRealLabel()}</span>
+                    {multiple ? this.renderCheckbox({ label, icon }) : null}
+                    {!multiple && icon}
+                    {!multiple && <span className={`${prefixcls}-label-text`}>{label}</span> }
                 </span>
             </li>
         );

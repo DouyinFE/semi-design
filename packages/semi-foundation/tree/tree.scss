@@ -72,6 +72,10 @@ $module: #{$prefix}-tree;
 
             .#{$prefix}-checkbox {
                 margin-right: $spacing-tree_label_withIcon-marginRight;
+
+                &-addon > .#{$prefix}-icon {
+                    margin-right: $spacing-tree_label_withIcon-marginRight;
+                }
             }
         }
 
@@ -325,9 +329,12 @@ $module: #{$prefix}-tree;
             }
         }
 
+        &-label-text {
+            padding: 0;
+        }
+
         &-label-text,
         .#{$prefix}-checkbox-addon {
-            padding: 0;
             border-radius: $radius-tree_checkbox_addon;
 
             &:hover {
