@@ -15,6 +15,17 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+#### 🎉 2.18.0 (2022-08-26)
+- 【Feat】
+    - Add type API for Checkbox & Radio
+- 【Chore】
+    - Remove semi-animation-react's peerDependences : react-dom, react, prop-type; remove semi-next dependence: @types/next
+- 【Fix】
+    - Fix tabs collapse mode will flush in some screen  [#1039 ](https://github.com/DouyinFE/semi-design/issues/1039)
+    - Fix the left of the emptyContent parameter of Transfer does not take effect  [#1068 ](https://github.com/DouyinFE/semi-design/issues/1068)
+    - Fix use useFormApi to get null value problem under React 18 createRoot + strictMode  [#1063 ](https://github.com/DouyinFE/semi-design/issues/1063)
+- 【Docs】
+    -  Popover / Popconfirm / Dropdown added FAQ
 
 #### 🎉2.18.0-beta.0（2022-08-24）
 - 【Feat】

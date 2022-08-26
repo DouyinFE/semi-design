@@ -16,6 +16,18 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 ---
 
+#### 🎉 2.18.0 (2022-08-26)
+- 【Feat】
+    - Checkbox & Radio 增加 type API
+- 【Chore】
+    - 移除semi-animation-react 的 peerDependences : react-dom、react、prop-type；移除 semi-next的 dependence: @types/next
+- 【Fix】
+    - 修复 Tabs collapse模式在某些宽度下会反复横跳，导致闪烁不停的问题  [#1039 ](https://github.com/DouyinFE/semi-design/issues/1039)
+    - 修复Transfer的emptyContent参数的left不生效  [#1068 ](https://github.com/DouyinFE/semi-design/issues/1068)
+    - 修复 React 18 createRoot + strictMode 严格模式下， 使用 useFormApi 得到空值问题  [#1063 ](https://github.com/DouyinFE/semi-design/issues/1063)
+- 【Docs】
+    -  Popover / Popconfirm / Dropdown 新增 FAQ
+
 #### 🎉2.18.0-beta.0（2022-08-24）
 - 【Feat】
     - Anchor、AutoComplete、Breadcrumb、Carousel、Cascader、Checkbox、DatePicker、Dropdown、Input、InputNumber、Navigation、Pagination、Radio、Rating、ScrollList、Select、SideSheet、Slider、Steps、Switch、Table、Tabs、TagInput、TimePicker、Transfer、Tree  26个组件增加动效相关设计变量 [#984](https://github.com/DouyinFE/semi-design/issues/984)
