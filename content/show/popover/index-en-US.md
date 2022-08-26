@@ -532,3 +532,12 @@ Please refer to [Use with Tooltip/Popconfirm](/en-US/show/tooltip#%E6%90%AD%E9%8
 ## Design Tokens
 
 <DesignToken/>
+
+## FAQ
+
+-   **Why the position of the popover overlay card and the relative position of the overlay trigger are not as expected?**  
+    Popover relies on Tooltip at the bottom. In order to calculate positioning, ToolTip needs to obtain the real DOM elements of children. Therefore, the Popover type currently supports the following two types of children:
+    1. The Jsx type of the real dom node, such as span, div, p...
+    2. Use the FunctionComponent wrapped by forwardRef to pass props and ref to the real dom node
+
+    When using the prefix Semi Input as the children, even if the Input and Popover content are equal in width, the position of the floating card is still positioned relative to the Semi Input without the prefix. At this time, just put another div on the outer layer of the children to solve the problem.
