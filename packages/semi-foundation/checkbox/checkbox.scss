@@ -11,13 +11,14 @@ $module: #{$prefix}-checkbox;
     // box-sizing: border-box;
     position: relative;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     flex-wrap: wrap;
     @include font-size-regular;
     cursor: pointer;
     transition: background-color $transition_duration-checkbox-bg $transition_function-checkbox-bg $transition_delay-checkbox-bg,
     border $transition_duration-checkbox-border $transition_function-checkbox-border $transition_delay-checkbox-border;
     transform: scale($transform_scale-checkbox);
+    column-gap: $spacing-checkbox_label-paddingLeft;
 
     input[type="checkbox"] {
         position: absolute;
@@ -29,11 +30,17 @@ $module: #{$prefix}-checkbox;
         opacity: 0;
     }
 
+    &-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        row-gap: $spacing-checkbox_extra-marginTop;
+    }
+
     &-addon {
         display: flex;
         flex: 1;
         align-items: center;
-        padding-left: $spacing-checkbox_label-paddingLeft;
         color: $color-checkbox_label-text-default;
         line-height: $font-checkbox_label-lineHeight;
         user-select: none;
@@ -359,9 +366,7 @@ $module: #{$prefix}-checkbox;
         flex-grow: 1;
         flex-basis: 100%;
         box-sizing: border-box;
-        padding-left: $spacing-checkbox_extra-paddingLeft;
         color: $color-checkbox_extra-text-default;
-        margin-top: $spacing-checkbox_extra-marginTop;
     }
 
     &-focus {

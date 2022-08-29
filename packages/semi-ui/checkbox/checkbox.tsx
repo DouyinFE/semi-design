@@ -235,8 +235,12 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
         const name = inGroup && this.context.checkboxGroup.name;
         const xSemiPropChildren = this.props['x-semi-children-alias'] || 'children';
 
+        if (!children && !extra) {
+            return null;
+        }
+
         const renderContent = () => (
-            <>
+            <div className={`${prefix}-content`}>
                 {children ? (
                     <span id={addonId} className={`${prefix}-addon`} x-semi-prop={xSemiPropChildren}>
                         {children}
@@ -247,7 +251,7 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
                         {extra}
                     </div>
                 ) : null}
-            </>
+            </div>
         );
         return (
             // label is better than span, however span is here which is to solve gitlab issue #364
@@ -276,11 +280,7 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
                     onInputFocus={this.handleFocusVisible}
                     onInputBlur={this.handleBlur}
                 />
-                {
-                    props.isCardType ?
-                        <div>{renderContent()}</div> :
-                        renderContent()
-                }
+                {renderContent()}
             </span>
         );
     }
