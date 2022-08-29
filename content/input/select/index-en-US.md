@@ -589,83 +589,62 @@ A multi-select example with remote search, request debounce, loading status.
 
 ```jsx live=true
 import React from 'react';
-import { Select } from '@douyinfe/semi-ui';
 import { debounce } from 'lodash-es';
+import { Select } from '@douyinfe/semi-ui';
 
-class SearchDemo extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            Loading: false,
-            optionList: [
-                { value: 'abc', label: 'Semi', type: 1 },
-                { value: 'capcut', label: 'Capcut', type: 2 },
-                { value: 'xigua', label: 'BuzzVideo', type: 4 },
-            ],
-            value: '',
-            multipleValue: [],
-        };
-        this.handleSearch = debounce(this.handleSearch, 800).bind(this);
-        this.onChange = this.onChange.bind(this);
-        this.onMultipleChange = this.onMultipleChange.bind(this);
-    }
+() => {
+    const [loading, setLoading] = useState(false);
+    const optionList = [
+        { value: 'dsm', label: 'Semi DSM', type: 1 },
+        { value: 'd2c', label: 'Semi DesignToCode', type: 2 },
+        { value: 'c2d', label: 'Semi CodeToDesign', type: 3 },
+        { value: 'plugin', label: 'Semi Plugin', type: 4 },
+    ];
+    const [list, setList] = useState(optionList);
+    const [value, setValue] = useState('');
+    
+    const handleMultipleChange = (newValue) => {
+        setValue(newValue);
+    };
 
-    handleSearch(inputValue) {
-        this.setState({ loading: true });
-        let length = Math.ceil(Math.random() * 100);
-        let result = Array.from({ length }, (v, i) => {
-            return { value: inputValue + i, label: inputValue + '-new line-' + i, type: i + 1 };
-        });
-        setTimeout(() => {
-            this.setState({ optionList: result, loading: false });
-        }, 2000);
-    }
+    const handleSearch = (inputValue) => {
+        setLoading(true);
+        let result = [];
+        if (inputValue) {
+            let length = Math.ceil(Math.random()*100);
+            result = Array.from({ length }, (v, i) => {
+                return { value: inputValue + i, label: `Relative: ${inputValue}${i}`, type: i + 1 };
+            });
+            setTimeout(() => {
+                setLoading(false);
+                setList(result);
+            }, 1000);
+        } else {
+            result = Array.from({ length }, (v, i) => {
+                return { value: inputValue + i, label: `Random: ${i}`, type: i + 1 };
+            });
+        }
+    };
 
-    onChange(value) {
-        this.setState({ value });
-    }
-
-    onMultipleChange(multipleValue) {
-        this.setState({ multipleValue });
-    }
-
-    render() {
-        const { loading, optionList, value, multipleValue } = this.state;
-        return (
-            <div>
-                <Select
-                    style={{ width: 300 }}
-                    filter
-                    remote
-                    onChangeWithObject
-                    onSearch={this.handleSearch}
-                    optionList={optionList}
-                    loading={loading}
-                    onChange={this.onChange}
-                    value={value}
-                    emptyContent={null}
-                ></Select>
-                <br />
-                <br />
-                <Select
-                    style={{ width: 300 }}
-                    filter
-                    remote
-                    onChangeWithObject
-                    multiple
-                    value={multipleValue}
-                    onSearch={this.handleSearch}
-                    optionList={optionList}
-                    loading={loading}
-                    onChange={this.onMultipleChange}
-                    placeholder="Multiple Select"
-                    emptyContent={null}
-                ></Select>
-            </div>
-        );
-    }
-}
+    return (
+        <Select
+            style={{ width: 300 }}
+            filter
+            remote
+            onChangeWithObject
+            multiple
+            value={value}
+            onSearch={debounce(handleSearch, 1000)}
+            optionList={list}
+            loading={loading}
+            onChange={handleMultipleChange}
+            emptyContent={null}
+        >
+        </Select>
+    );
+};
 ```
+
 ### Custom search strategy
 
 By default, the user's search input will be compared with the option's label value as a string include.  
