@@ -63,8 +63,7 @@ $module: #{$prefix}-popconfirm;
     }
 
     &-body {
-        // margin-left: $width-popconfirm-icon + $spacing-popconfirm_header_icon-marginRight;
-        // margin-top: 8px;
+        margin-left: $width-popconfirm-icon + $spacing-popconfirm_header_icon-marginRight;
 
         color: $color-popconfirm_body-text;
 
