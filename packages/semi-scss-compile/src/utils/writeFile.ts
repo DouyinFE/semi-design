@@ -34,7 +34,9 @@ const preProcessScssMap = (scssMapOrigin: ReturnType<typeof generateScssMap>) =>
     let compilerEntryContent = '';
     compilerEntryContent += `@import "./theme/index.scss";\n`;
     compilerEntryContent += `@import "./theme/global.scss";\n`;
-    compilerEntryContent += `@import "./theme/animation.scss";\n`;
+    if (fs.existsSync("./theme/animation.scss")) {
+        compilerEntryContent += `@import "./theme/animation.scss";\n`;
+    }
 
     for (const componentName of Object.keys(scssMap['components'])) {
         let scssFileName = `${componentName}.scss`;
