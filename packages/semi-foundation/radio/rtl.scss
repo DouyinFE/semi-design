@@ -17,62 +17,9 @@ $inner-width: $width-icon-medium;
                 padding-left: $spacing-radio_buttonRadioGroup-paddingRight;
             }
         }
-
-        &-inner {
-            left: auto;
-            right: 0;
-
-            &-display {
-                left: auto;
-                right: 0;
-            }
-        }
-
-        &-addon {
-            padding-left: 0;
-            margin-left: 0;
-            padding-right: $spacing-radio_addon-paddingLeft;
-            margin-right: $spacing-radio_addon-marginLeft;
-            
-            &-buttonRadio {
-                margin-right: $spacing-none;
-            }
-        }
-
-        &-extra {
-            padding-left: 0;
-            padding-right: $spacing-radio_extra-paddingLeft;
-        }
-    }
-
-    &-isCardRadioGroup {
-        .#{$module}-inner {
-            margin-right: 0;
-            margin-left: $spacing-radio_cardRadioGroup_inner-marginRight;
-        }
-
-        .#{$module}-addon {
-            margin-right: 0;
-            padding-right: 0;
-        }
-
-        .#{$module}-extra {
-            padding-right: 0;
-        }
     }
 
     .#{$module}Group {
         direction: rtl;
-
-        &-horizontal {
-            .#{$module} {
-                margin-right: 0;
-                margin-left: $spacing-radio_group_horizontal-marginRight;
-
-                &:last-of-type {
-                    margin-left: 0;
-                }
-            }
-        }
     }
 }
