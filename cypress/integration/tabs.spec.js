@@ -27,12 +27,12 @@ describe('tabs', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?id=tabs--collapse-tabs&args=&viewMode=story');
         cy.viewport(800, 800);
         cy.get('.semi-tabs-content').eq(0).contains('Content of card tab 0');
-        cy.get('.semi-button').eq(0).trigger('mouseover');
+        cy.get('.semi-button').eq(1).trigger('mouseover');
         cy.get('.semi-dropdown').contains('Tab-6').click();
         cy.get('.semi-tabs-content').eq(0).contains('Content of card tab 6');
 
         // Tab-10 visible
-        cy.get('.semi-button').eq(0).click();
+        cy.get('.semi-button').eq(0).click({ force: true });
         cy.get('.semi-tabs-tab').contains('Tab-10').click({ force: true });
         cy.get('.semi-tabs-content').eq(0).contains('Content of card tab 10');
     });
