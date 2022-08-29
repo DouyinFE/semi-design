@@ -179,7 +179,7 @@ import { Popconfirm, Button, Toast } from '@douyinfe/semi-ui';
 | visible            | 气泡框是否展示的受控属性                                                                                                                    | boolean                          |                     | **0.19.0**        |
 | zIndex             | 浮层 z-index 值                                                                                                                             | number                           | 1030                |
 | onConfirm          | 点击确认按钮回调,  Promise类型于 v 2.19后支持                                                                                                                          | Function(e): void \| Promise                      |                     |
-| onCancel           | 点击取消按钮回调，Promise类型于 v 2.19后支持                                                                                                                            | Function(e): void | Promise                      |                     |
+| onCancel           | 点击取消按钮回调，Promise类型于 v 2.19后支持                                                                                                                            | Function(e): void \| Promise                      |                     |
 | onClickOutSide     | 当弹出层处于展示状态，点击非Children、非浮层内部区域时的回调                                                                                      | Function(e)                      |  **2.1.0**      |
 | onVisibleChange    | 气泡框切换显示隐藏的回调                                                                                                               | Function(visible: boolean): void | () => {}            | **0.19.0**        |
 
