@@ -10,45 +10,9 @@ $inner-width: $width-icon-medium;
             left: auto;
             right: 0;
         }
-
-        &-addon {
-            padding-left: 0;
-            padding-right: $spacing-checkbox_label-paddingLeft;
-        }
-
-        &-extra {
-            padding-left: 0;
-            padding-right: $spacing-checkbox_extra-paddingLeft;
-        }
-
-        &-cardType {
-            .#{$module}-inner {
-                margin-right: 0;
-                margin-left: $spacing-checkbox_cardType_inner-marginRight;
-            }
-    
-            .#{$module}-addon {
-                margin-right: 0;
-                padding-right: 0;
-            }
-
-            .#{$module}-extra {
-                padding-right: 0;
-            }
-        }
     }
 
     .#{$module}Group {
         direction: rtl;
-
-        &-horizontal {
-            .#{$module} {
-                margin-right: 0;
-                margin-left: $spacing-checkbox_group_horizontal-marginRight;
-                &:last-of-type {
-                    margin-left: 0;
-                }
-            }
-        }
     }
 }
