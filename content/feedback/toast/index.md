@@ -69,7 +69,7 @@ function Demo() {
 
     return (
         <>
-            <Button style={{color:`var(--semi-color-success)`}} onClick={() => Toast.success('Hi,Bytedance dance dance')}>Success</Button>
+            <Button style={{ color:`var(--semi-color-success)` }} onClick={() => Toast.success('Hi,Bytedance dance dance')}>Success</Button>
             <br />
             <br />
             <Button type="warning" onClick={() => Toast.warning(opts)}>
@@ -106,7 +106,7 @@ function Demo() {
             <Button onClick={() => Toast.info(opts)}>Info</Button>
             <br />
             <br />
-            <Button style={{color:`var(--semi-color-success)`}} onClick={() => Toast.success(opts)}>Success</Button>
+            <Button style={{ color:`var(--semi-color-success)` }} onClick={() => Toast.success(opts)}>Success</Button>
             <br />
             <br />
             <Button type="warning" onClick={() => Toast.warning(opts)}>
@@ -434,7 +434,7 @@ HookToast ( >= 1.2.0 )：
 | Ticket transfer failed | Can't transfer ticket |
 
 - 提供动作的提示消息
-    - 只提供一个动作
+  - 只提供一个动作
   - 不使用类似于「已读」类的动作，例如 OK, Got it, Dismiss, Cancel
 
 

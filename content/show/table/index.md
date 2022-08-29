@@ -175,7 +175,8 @@ render(App);
 
 ```jsx live=true noInline=true dir="column"
 import React from 'react';
-import { Table } from '@douyinfe/semi-ui';
+import { Table, Avatar } from '@douyinfe/semi-ui';
+import { IconMore } from '@douyinfe/semi-icons';
 
 const { Column } = Table;
 
@@ -1261,7 +1262,7 @@ const expandData = {
 function App() {
 
     const expandRowRender = (record, index) => {
-        return <Descriptions align="justify" data={expandData[index]} />
+        return <Descriptions align="justify" data={expandData[index]} />;
     };
 
     const rowSelection = {
@@ -1400,7 +1401,7 @@ const expandData = {
 function App() {
 
     const expandRowRender = (record, index) => {
-        return <Descriptions align="justify" data={expandData[index]} />
+        return <Descriptions align="justify" data={expandData[index]} />;
     };
 
     const rowSelection = {
@@ -1549,7 +1550,7 @@ const expandData = {
 function App() {
 
     const expandRowRender = (record, index) => {
-        return <Descriptions align="justify" data={expandData[index]} />
+        return <Descriptions align="justify" data={expandData[index]} />;
     };
 
     const rowSelection = {
@@ -2152,7 +2153,7 @@ render(ChildrenDataSelectedDemo);
 
 ```jsx live=true noInline=true dir="column"
 import React, { useMemo } from 'react';
-import { Table } from '@douyinfe/semi-ui/';
+import { Table, Avatar } from '@douyinfe/semi-ui/';
 import * as dateFns from 'date-fns';
 
 const DAY = 24 * 60 * 60 * 1000;
@@ -2275,6 +2276,7 @@ render(EventTable);
 ```jsx live=true noInline=true dir="column"
 import React from 'react';
 import { Table, Avatar } from '@douyinfe/semi-ui';
+import { IconMore } from '@douyinfe/semi-icons';
 
 function App() {
     const columns = [
@@ -3054,7 +3056,7 @@ const getData = () => {
 const data = getData();
 
 function VirtualizedFixedDemo() {
-    let virtualizedListRef = useRef()
+    let virtualizedListRef = useRef();
     const scroll = { y: 400, x: 900 };
     const style = { width: 750, margin: '0 auto' };
 
@@ -4231,17 +4233,17 @@ const columns = [
             if (index === 0) {
                 renderObject.props = {
                     colSpan: 4,
-                }
+                };
             }
             if (index === 1) {
                 renderObject.props = {
                     rowSpan: 2,
-                }
+                };
             }
             if (index === 2) {
                 renderObject.props = {
                     rowSpan: 0,
-                }
+                };
             }
             return renderObject;
         },
@@ -4256,7 +4258,7 @@ const columns = [
                     props: {
                         colSpan: 0,
                     }
-                }
+                };
             }
             if (index === 1) {
                 return {
@@ -4264,7 +4266,7 @@ const columns = [
                     props: {
                         rowSpan: 2,
                     }
-                }
+                };
             }
             if (index === 2) {
                 return {
@@ -4272,7 +4274,7 @@ const columns = [
                     props: {
                         rowSpan: 0,
                     }
-                }
+                };
             }
             return `${text} KB`;
         }
@@ -4293,7 +4295,7 @@ const columns = [
                     props: {
                         colSpan: 0,
                     }
-                }
+                };
             }
             return children;
         }
@@ -4310,7 +4312,7 @@ const columns = [
                     props: {
                         colSpan: 0
                     }
-                }
+                };
             }
             if (index === 1) {
                 return {
@@ -4318,7 +4320,7 @@ const columns = [
                     props: {
                         rowSpan: 2
                     }
-                }
+                };
             }
             if (index === 2) {
                 return {
@@ -4326,7 +4328,7 @@ const columns = [
                     props: {
                         rowSpan: 0
                     }
-                }
+                };
             }
             return children;
         }

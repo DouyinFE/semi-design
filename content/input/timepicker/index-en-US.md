@@ -324,6 +324,9 @@ function Demo(props = {}) {
 | blur()  | Remove focus  |
 | focus() | Get the focus |
 
+## Content Guidelines
+- The time selector includes at least hours and minutes, such as: 11:30, which can be adapted to 12-hour or 24-hour format during localization
+- When 12-hour clock is selected, it needs to be used together with AM/PM
 ## Design Tokens
 
 <DesignToken/>

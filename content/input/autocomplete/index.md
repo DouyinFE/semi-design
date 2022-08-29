@@ -273,7 +273,7 @@ import { AutoComplete } from '@douyinfe/semi-ui';
             newData = [];
         }
         setData(newData);
-    }
+    };
     return (
         <div>
             <AutoComplete
@@ -291,7 +291,7 @@ import { AutoComplete } from '@douyinfe/semi-ui';
                 style={{ width: 200, margin: 10 }}
             ></AutoComplete>
         </div>
-    )
+    );
 };
 
 ```
@@ -361,7 +361,7 @@ import { IllustrationNoContent } from '@douyinfe/semi-illustrations';
         <AutoComplete
             loading={loading}
             data={data}
-            emptyContent={<Empty style={{ padding: 12, width: 300 }} image={<IllustrationNoContent style={{width: 150, height: 150}}/>} description={'暂无内容'} />}
+            emptyContent={<Empty style={{ padding: 12, width: 300 }} image={<IllustrationNoContent style={{ width: 150, height: 150 }}/>} description={'暂无内容'} />}
             onSearch={fetchData}
         />
     );

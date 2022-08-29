@@ -523,17 +523,17 @@ class App extends React.Component {
         super(props);
         this.state = {
             tabList: [
-                {tab: '文档', itemKey:'1', text:'文档', closable:true},
-                {tab: '快速起步', itemKey:'2', text:'快速起步', closable:true},
-                {tab: '帮助', itemKey:'3', text:'帮助'},
+                { tab: '文档', itemKey:'1', text:'文档', closable:true },
+                { tab: '快速起步', itemKey:'2', text:'快速起步', closable:true },
+                { tab: '帮助', itemKey:'3', text:'帮助' },
             ]
-        }
+        };
     }
     close(key){
         const newTabList = [...this.state.tabList];
         const closeIndex = newTabList.findIndex(t=>t.itemKey===key);
         newTabList.splice(closeIndex, 1);
-        this.setState({tabList:newTabList});
+        this.setState({ tabList:newTabList });
     }
     render() {
         return (

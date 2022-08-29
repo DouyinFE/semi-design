@@ -1378,6 +1378,18 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 - When multiple selections are made, listbox aria-multiselectable is true, indicating that multiple selections are currently available
 - aria-selected is true when Option is selected; aria-disabled is true when Option is disabled
 
+## Content Guidelines
+- selector trigger
+   - Describe in 1-3 words the input that the user needs to make
+   - Use statement writing conventions (first letter uppercase, rest lowercase)
+   - Avoid punctuation and prepositions ("the", "an", "a")
+   - Labels need to be independent statements. Don't let the label be the first half of the statement and the option the second half of the statement.
+   - Use descriptive sentences, not indicative ones. Help text is available under the select box if the option needs more explanation.
+- selector options
+   - If there is no default option, use "Select" as placeholder copy
+   - Options should be in alphabetical order or other logical order to make it easier for users to find options
+   - Use statement writing conventions (first letter uppercase, rest lowercase), avoid commas and semicolons at the end of sentences
+   - Clearly articulate the purpose of the choice indicated by the option
 ## Design Tokens
 
 <DesignToken/>

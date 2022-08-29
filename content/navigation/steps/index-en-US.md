@@ -347,6 +347,15 @@ Step in the step bar.
 - Steps and Step components support passing in the `aria-label` attribute to represent the description of Steps and Steps
 - Step component has an `aria-current` `step` attribute, indicating that this is a step in the step bar
 
+## Content Guidelines
+- Step title
+  - title should be kept concise, avoiding truncation and line breaks
+  - use sentence capitalization
+  - do not include punctuation
+- Step description
+  - supplementary contextual information for the title
+  - don't end with punctuation
+
 ## Design Tokens
 
 <DesignToken/>

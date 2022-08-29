@@ -286,6 +286,11 @@ import { TagGroup } from '@douyinfe/semi-ui';
    - When the `closable` property is `true`, keyboard users can delete this `Tag` by pressing the `Delete` key
    - When a `Tag` is focused, keyboard users can use the `Esc` key to defocus the currently focused `Tag`
    
+
+## Content Guidelines
+- Due to limited space, label text should be as short as possible
+- avoid line breaks
+- use sentence case
 ## Design Tokens
 
 <DesignToken/>

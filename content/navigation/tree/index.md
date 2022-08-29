@@ -262,77 +262,77 @@ class Demo extends React.Component {
 设置 `filterTreeNode` 属性开启搜索后，可以通过设置 `searchRender` 自定义搜索框的渲染方法，设置为`false`时可以隐藏搜索框。
 ```jsx live=true
 import React from 'react';
-import { Tree } from '@douyinfe/semi-ui';
+import { Tree, Input } from '@douyinfe/semi-ui';
 
 () => {
-  const treeData = [
-            {
-                label: 'Asia',
-                value: 'Asia',
-                key: '0',
-                children: [
-                    {
-                        label: 'China',
-                        value: 'China',
-                        key: '0-0',
-                        children: [
-                            {
-                                label: 'Beijing',
-                                value: 'Beijing',
-                                key: '0-0-0',
-                            },
-                            {
-                                label: 'Shanghai',
-                                value: 'Shanghai',
-                                key: '0-0-1',
-                            },
-                        ],
-                    },
-                    {
-                        label: 'Japan',
-                        value: 'Japan',
-                        key: '0-1',
-                        children: [
-                            {
-                                label: 'Osaka',
-                                value: 'Osaka',
-                                key: '0-1-0'
-                            }
-                        ]
-                    },
-                ],
-            },
-            {
-                label: 'North America',
-                value: 'North America',
-                key: '1',
-                children: [
-                    {
-                        label: 'United States',
-                        value: 'United States',
-                        key: '1-0'
-                    },
-                    {
-                        label: 'Canada',
-                        value: 'Canada',
-                        key: '1-1'
-                    }
-                ]
-            }
-        ];
+    const treeData = [
+        {
+            label: 'Asia',
+            value: 'Asia',
+            key: '0',
+            children: [
+                {
+                    label: 'China',
+                    value: 'China',
+                    key: '0-0',
+                    children: [
+                        {
+                            label: 'Beijing',
+                            value: 'Beijing',
+                            key: '0-0-0',
+                        },
+                        {
+                            label: 'Shanghai',
+                            value: 'Shanghai',
+                            key: '0-0-1',
+                        },
+                    ],
+                },
+                {
+                    label: 'Japan',
+                    value: 'Japan',
+                    key: '0-1',
+                    children: [
+                        {
+                            label: 'Osaka',
+                            value: 'Osaka',
+                            key: '0-1-0'
+                        }
+                    ]
+                },
+            ],
+        },
+        {
+            label: 'North America',
+            value: 'North America',
+            key: '1',
+            children: [
+                {
+                    label: 'United States',
+                    value: 'United States',
+                    key: '1-0'
+                },
+                {
+                    label: 'Canada',
+                    value: 'Canada',
+                    key: '1-1'
+                }
+            ]
+        }
+    ];
 
-  return (
-    <Tree
-      filterTreeNode
-      searchRender={({ prefix, ...restProps }) => (
-        <Input
-          prefix='Search'
-          {...restProps}
+    return (
+        <Tree
+            filterTreeNode
+            searchRender={({ prefix, ...restProps }) => (
+                <Input
+                    prefix='Search'
+                    {...restProps}
+                />
+            )}
+            treeData={treeData}
         />
-      )}
-      treeData={treeData}
-    />
-  );
+    );
 };
 
 ```
@@ -341,78 +341,78 @@ import { Tree } from '@douyinfe/semi-ui';
 可以通过ref的方式获取tree的实例，调用tree的`search`方法进行搜索。注意需要同时设置`filterTreeNode`开启搜索，如果搜索框在tree外部，可以通过设置`searchRender=false`隐藏tree内部的搜索框。
 ```jsx live=true
 import React from 'react';
-import { Tree } from '@douyinfe/semi-ui';
+import { Tree, Input } from '@douyinfe/semi-ui';
 
 () => {
-  const ref = useRef();
-  const treeData = [
-    {
-      label: 'Asia',
-      value: 'Asia',
-      key: '0',
-      children: [
+    const ref = useRef();
+    const treeData = [
         {
-          label: 'China',
-          value: 'China',
-          key: '0-0',
-          children: [
-            {
-              label: 'Beijing',
-              value: 'Beijing',
-              key: '0-0-0',
-            },
-            {
-              label: 'Shanghai',
-              value: 'Shanghai',
-              key: '0-0-1',
-            },
-          ],
+            label: 'Asia',
+            value: 'Asia',
+            key: '0',
+            children: [
+                {
+                    label: 'China',
+                    value: 'China',
+                    key: '0-0',
+                    children: [
+                        {
+                            label: 'Beijing',
+                            value: 'Beijing',
+                            key: '0-0-0',
+                        },
+                        {
+                            label: 'Shanghai',
+                            value: 'Shanghai',
+                            key: '0-0-1',
+                        },
+                    ],
+                },
+                {
+                    label: 'Japan',
+                    value: 'Japan',
+                    key: '0-1',
+                    children: [
+                        {
+                            label: 'Osaka',
+                            value: 'Osaka',
+                            key: '0-1-0',
+                        },
+                    ],
+                },
+            ],
         },
         {
-          label: 'Japan',
-          value: 'Japan',
-          key: '0-1',
-          children: [
-            {
-              label: 'Osaka',
-              value: 'Osaka',
-              key: '0-1-0',
-            },
-          ],
+            label: 'North America',
+            value: 'North America',
+            key: '1',
+            children: [
+                {
+                    label: 'United States',
+                    value: 'United States',
+                    key: '1-0',
+                },
+                {
+                    label: 'Canada',
+                    value: 'Canada',
+                    key: '1-1',
+                },
+            ],
         },
-      ],
-    },
-    {
-      label: 'North America',
-      value: 'North America',
-      key: '1',
-      children: [
-        {
-          label: 'United States',
-          value: 'United States',
-          key: '1-0',
-        },
-        {
-          label: 'Canada',
-          value: 'Canada',
-          key: '1-1',
-        },
-      ],
-    },
-  ];
-  return (
-    <div>
-      <Input aria-label='filter tree' prefix="Search" showClear onChange={v => ref.current.search(v)} />
-      <div style={{ marginTop: 20}}>搜索结果如下：</div>
-      <Tree
-        ref={ref}
-        filterTreeNode
-        searchRender={false}
-        treeData={treeData}
-        blockNode={false}
-      />
-    </div>
-  );
+    ];
+    return (
+        <div>
+            <Input aria-label='filter tree' prefix="Search" showClear onChange={v => ref.current.search(v)} />
+            <div style={{ marginTop: 20 }}>搜索结果如下：</div>
+            <Tree
+                ref={ref}
+                filterTreeNode
+                searchRender={false}
+                treeData={treeData}
+                blockNode={false}
+            />
+        </div>
+    );
 };
 ```
 
@@ -1054,7 +1054,7 @@ class Demo extends React.Component {
         };
     }
     onChange(value) {
-        this.setState({value});
+        this.setState({ value });
     }
     render() {
         const treeData = [
@@ -1121,7 +1121,7 @@ class Demo extends React.Component {
         };
     }
     onExpand(value) {
-        this.setState({expandedKeys: value});
+        this.setState({ expandedKeys: value });
     }
     render() {
         const treeData = [

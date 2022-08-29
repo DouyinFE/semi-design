@@ -491,7 +491,7 @@ When `listType` is `list`, you can customize the list operation area by passing 
 ```jsx live=true width=48%
 import React from 'react';
 import { Upload, Button } from '@douyinfe/semi-ui';
-import { IconUpload, IconDownload, IconEyeOpened } from '@douyinfe/semi-icons';
+import { IconUpload, IconDownload, IconEyeOpened, IconDelete } from '@douyinfe/semi-icons';
 
 () => {
     let action = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
@@ -507,16 +507,18 @@ import { IconUpload, IconDownload, IconEyeOpened } from '@douyinfe/semi-icons';
         }
     ];
     const renderFileOperation = (fileItem) => (
-        <div style={{display: 'flex',columnGap: 8, padding: '0 8px'}}>
+        <div style={{ display: 'flex',columnGap: 8, padding: '0 8px' }}>
             <Button icon={<IconEyeOpened></IconEyeOpened>} type="tertiary" theme="borderless" size="small"></Button>
             <Button icon={<IconDownload></IconDownload>} type="tertiary" theme="borderless" size="small"></Button>
             <Button onClick={e=>fileItem.onRemove()} icon={<IconDelete></IconDelete>} type="tertiary" theme="borderless" size="small"></Button>
         </div>
-    )
-    return <Upload action={action} defaultFileList={defaultFileList} itemStyle={{width: 300}} renderFileOperation={renderFileOperation}>
+    );
+    return (
+        <Upload action={action} defaultFileList={defaultFileList} itemStyle={{ width: 300 }} renderFileOperation={renderFileOperation}>
             <Button icon={<IconUpload />} theme="light">Upload</Button>
         </Upload>
-    }
+    );
+};
 ```
 
 ### Default file list
@@ -713,7 +715,7 @@ import { IconPlus, IconEyeOpened } from '@douyinfe/semi-icons';
     const handlePreview = (file) => {
         const feature = "width=300,height=300";
         window.open(file.url, 'imagePreview', feature);
-    }
+    };
     return (
         <>
             <Upload
@@ -724,7 +726,7 @@ import { IconPlus, IconEyeOpened } from '@douyinfe/semi-icons';
                 multiple
                 defaultFileList={defaultFileList}
                 onPreviewClick={handlePreview}
-                renderPicPreviewIcon={()=><IconEyeOpened style={{color: 'var(--semi-color-white)', fontSize: 24}} />}
+                renderPicPreviewIcon={()=><IconEyeOpened style={{ color: 'var(--semi-color-white)', fontSize: 24 }} />}
             >
                 <IconPlus size="extra-large" />
             </Upload>
@@ -924,6 +926,7 @@ import { IconBolt } from '@douyinfe/semi-icons';
         <img
             src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/0f2a32f27eab90a296814fbc26103b2b.jpg"
             height="96"
+            alt="upload"
             style={{ borderRadius: 4 }}
         />
         <div
@@ -1310,6 +1313,16 @@ interface FileItem {
 |----|----|----|----|
 | insert | Upload file, when index is passed, it will be inserted at the specified position, if not passed, it will be inserted at the end | (files: Array<File\>, index?: number) => void | 2.2.0 |
 | upload | Start upload manually, use with uploadTrigger="custom" | () => void | |
+
+## Content Guidelines
+- Upload button
+   - For the copywriting specification of the form button, refer to [The content Guidelines of the Button component]()
+- Help text
+   - The help text is written in sentences, the first letter is capitalized, and periods may not be required
+- Error message
+   - Clearly tell the user why the file cannot be uploaded, and tell the user how to upload it successfully
+   - Help texts are written using sentences, capitalized
+   - Concise language that users can read at a glance, such as `File size must be less than 20MB`, `File type must be .gif, .jpg, .png or .svg`
 
 ## Design Tokens
 <DesignToken/>

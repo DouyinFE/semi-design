@@ -53,6 +53,7 @@ import { Skeleton, Switch, Avatar, Button } from '@douyinfe/semi-ui';
                 <img
                     src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"
                     height="150"
+                    alt="avatar"
                 />
             </Skeleton>
             <br />
@@ -96,6 +97,7 @@ import { Skeleton } from '@douyinfe/semi-ui';
             <img
                 src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"
                 height="150"
+                alt="avatar"
             />
             <h4>Semi UI</h4>
         </Skeleton>
@@ -390,6 +392,8 @@ import { Skeleton, Avatar } from '@douyinfe/semi-ui';
 
 ## 文案规范
 - 不变的固定内容直接展示固定内容，可变的内容使用骨架屏展示
+
+
 
 
 ## 设计变量

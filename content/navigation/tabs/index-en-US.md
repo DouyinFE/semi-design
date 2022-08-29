@@ -499,17 +499,17 @@ class App extends React.Component {
         super(props);
         this.state = {
             tabList: [
-                {tab: 'Doc', itemKey:'1', text:'Doc', closable:true},
-                {tab: 'Quick Start', itemKey:'2', text:'Quick Start', closable:true},
-                {tab: 'Help', itemKey:'3', text:'Help'},
+                { tab: 'Doc', itemKey:'1', text:'Doc', closable:true },
+                { tab: 'Quick Start', itemKey:'2', text:'Quick Start', closable:true },
+                { tab: 'Help', itemKey:'3', text:'Help' },
             ]
-        }
+        };
     }
     close(key){
         const newTabList = [...this.state.tabList];
         const closeIndex = newTabList.findIndex(t=>t.itemKey===key);
         newTabList.splice(closeIndex, 1);
-        this.setState({tabList:newTabList});
+        this.setState({ tabList:newTabList });
     }
     render() {
         return (
@@ -591,6 +591,12 @@ WAI-ARIA: https://www.w3.org/WAI/ARIA/apg/patterns/tabpanel/
 - When a tab is allowed to be deleted:
   - Users can use `Delete` keys to delete tab
   - After deletion, the focus is transferred to the next element of the deleted tab element; if the deleted element has no subsequent element, it is transferred to the previous element
+
+## Content Guidelines
+- Label copy needs to explain the label content accurately and clearly
+- Use short, easily distinguishable labels
+- try to stay within one word
+
 
 ## Design Token
 
