@@ -235,24 +235,27 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
         const name = inGroup && this.context.checkboxGroup.name;
         const xSemiPropChildren = this.props['x-semi-children-alias'] || 'children';
 
-        if (!children && !extra) {
-            return null;
-        }
+        const renderContent = () => {
+            if (!children && !extra) {
+                return null;
+            }
 
-        const renderContent = () => (
-            <div className={`${prefix}-content`}>
-                {children ? (
-                    <span id={addonId} className={`${prefix}-addon`} x-semi-prop={xSemiPropChildren}>
-                        {children}
-                    </span>
-                ) : null}
-                {extra ? (
-                    <div id={extraId} className={extraCls} x-semi-prop="extra">
-                        {extra}
-                    </div>
-                ) : null}
-            </div>
-        );
+            return (
+                <div className={`${prefix}-content`}>
+                    {children ? (
+                        <span id={addonId} className={`${prefix}-addon`} x-semi-prop={xSemiPropChildren}>
+                            {children}
+                        </span>
+                    ) : null}
+                    {extra ? (
+                        <div id={extraId} className={extraCls} x-semi-prop="extra">
+                            {extra}
+                        </div>
+                    ) : null}
+                </div>
+            );
+        };
+
         return (
             // label is better than span, however span is here which is to solve gitlab issue #364
             <span
