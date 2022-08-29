@@ -185,3 +185,8 @@ import { Popconfirm, Button, Toast } from '@douyinfe/semi-ui';
 
 ## 设计变量
 <DesignToken/>
+
+## FAQ
+
+-   **为什么 Popconfirm 浮层在靠近屏幕边界宽度不够时，丢失宽度意外换行?**  
+    在 chromium 104 后 对于屏幕边界文本宽度不够时的换行渲染策略发生变化，详细原因可查看 [issue #1022](https://github.com/DouyinFE/semi-design/issues/1022)，semi侧已经在v2.17.0版本修复了这个问题。
