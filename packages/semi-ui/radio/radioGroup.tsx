@@ -88,7 +88,7 @@ class RadioGroup extends BaseComponent<RadioGroupProps, RadioGroupState> {
     constructor(props: RadioGroupProps) {
         super(props);
         this.state = {
-            value: undefined,
+            value: props.value || props.defaultValue,
         };
         this.foundation = new RadioGroupFoundation(this.adapter);
     }
