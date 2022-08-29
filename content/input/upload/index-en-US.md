@@ -149,7 +149,7 @@ import { Upload, Avatar, Toast } from '@douyinfe/semi-ui';
 import { IconCamera } from '@douyinfe/semi-icons';
 
 () => {
-    const [url, setUrl] = useState('https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg');
+    const [url, setUrl] = useState('https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png');
     const onSuccess = (response, file) => {
         Toast.success('Avatar updated successfully');
         // const url = response.url;
@@ -924,7 +924,7 @@ import { IconBolt } from '@douyinfe/semi-icons';
 >
     <div className="components-upload-demo-drag-area">
         <img
-            src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/0f2a32f27eab90a296814fbc26103b2b.jpg"
+            src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png"
             height="96"
             alt="upload"
             style={{ borderRadius: 4 }}

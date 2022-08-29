@@ -321,13 +321,14 @@ class App extends React.Component {
 
 | 属性           | 说明                                                                   | 类型              | 默认值  |
 |----------------|-----------------------------------------------------------------------|------------------|--------|
-| addonClassName | 包裹内容容器的样式类名  **v1.16.0 后提供**                                 | string            |       |
-| addonId | addon 节点 id，aria-labelledby 指向这个 id，若无设置会随机生成一个 id  **v2.11.0 后提供**                                 | string            |       |
-| addonStyle     | 包裹内容容器的内联样式  **v1.16.0 后提供**                                 | CSSProperties     |       |
+| addonClassName | 包裹内容容器的样式类名  <br/>**v1.16.0 后提供**                                 | string            |       |
+| addonId | addon 节点 id，aria-labelledby 指向这个 id，若无设置会随机生成一个 id  <br/>**v2.11.0 后提供**                                 | string            |       |
+| addonStyle     | 包裹内容容器的内联样式  <br/>**v1.16.0 后提供**                                 | CSSProperties     |       |
 | aria-label      | Radio 的 label                                                            | string           | -  |
 | name         | Radio组件中`input[type="radio"]`的`name`属性，具有相同`name`的Radio属于同一个RadioGroup，`name`属性可参考[MDN Radio](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/Input/radio#%E5%80%BC)                              | string         | -  |
 | autoFocus      | 自动获取焦点                                                            | boolean           | false  |
 | checked        | 指定当前是否选中                                                         | boolean           | false  |
+|type            |设置 radio的样式类型，可选值为：`default`、`button`、`card`、`pureCard` <br/>**该 api 在 v2.18.0 后提供**    |string|`default`|
 | className      | 样式类名                                                                | string            |        |
 | defaultChecked | 初始是否选中                                                             | boolean           | false  |
 | disabled       | 禁选单选框                                                              |boolean            | false    |

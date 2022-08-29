@@ -22,6 +22,7 @@ import getInsetInputValueFromInsetInputStr from './_utils/getInsetInputValueFrom
 export type ValidateStatus = ArrayElement<typeof strings.STATUS>;
 export type InputSize = ArrayElement<typeof strings.SIZE_SET>;
 export type Position = ArrayElement<typeof strings.POSITION_SET>;
+export type PresetPosition = ArrayElement<typeof strings.PRESET_POSITION_SET>;
 
 export type BaseValueType = string | number | Date;
 export type DayStatusType = {
@@ -141,6 +142,7 @@ export interface DatePickerFoundationProps extends ElementProps, RenderProps, Ev
     position?: Position;
     prefixCls?: string;
     presets?: PresetsType;
+    presetPosition?: PresetPosition;
     showClear?: boolean;
     size?: InputSize;
     spacing?: number;

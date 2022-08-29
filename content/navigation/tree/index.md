@@ -2187,10 +2187,10 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
 
 ### Methods
 
-|名称 | 描述 | 类型
-|----|----|----|
-| search | 手动触发搜索 | (value: string) => void |
-
+|名称 | 描述 | 类型 | 版本  |
+|----|----|----|----|
+| search | 手动触发搜索 | (value: string) => void |-|
+| scrollTo | 在虚拟化 Tree 中，使得指定节点（该节点为当前树的已展开节点）滚动到视图 | （{key: string; align?: 'center' \| 'start' \| 'end' \| 'smart' \| 'auto';}) => void | 2.18.0 |
 ## Accessibility
 
 ### ARIA

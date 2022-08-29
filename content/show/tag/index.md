@@ -63,14 +63,12 @@ import { Tag, Space } from '@douyinfe/semi-ui';
 
 () => (
     <Space wrap>
-        <Tag color="grey"> grey tag </Tag>
-        <Tag color="blue"> blue tag </Tag>
-        <Tag color="red"> red tag </Tag>
-        <Tag color="green"> green tag </Tag>
-        <Tag color="orange"> orange tag </Tag>
-        <Tag color="teal"> teal tag </Tag>
-        <Tag color="violet"> violet tag </Tag>
-        <Tag color="white"> white tag </Tag>
+        {
+            ['amber', 'blue', 'cyan', 'green', 'grey', 'indigo',  
+                'light-blue', 'light-green', 'lime', 'orange', 'pink',  
+                'purple', 'red', 'teal', 'violet', 'yellow', 'white'
+            ].map(item => (<Tag color={item} key={item}> {item} tag </Tag>))
+        }
     </Space>
 );
 ```
@@ -110,8 +108,7 @@ import React from 'react';
 import { Tag, Space } from '@douyinfe/semi-ui';
 
 function Demo() {
-    const src =
-        'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg';
+    const src = 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png';
     return (
         <Space vertical align="start">
             <Tag avatarSrc={src}>焦锐志</Tag>
@@ -150,8 +147,8 @@ import { Tag, Button } from '@douyinfe/semi-ui';
     };
     return (
         <div>
-            <Button onClick={toggleVisible}>{visible ? 'Hide Tag' : 'Show Tag'}</Button>
-            <div style={{ marginTop: 10 }}>
+            <Button onClick={toggleVisible}>{visible ? 'Hide Tag': 'Show Tag'}</Button>
+            <div style={{ marginTop:10 }}>
                 <Tag visible={visible}>Invisible tag </Tag>
             </div>
         </div>
@@ -170,18 +167,17 @@ import { TagGroup } from '@douyinfe/semi-ui';
 
 () => {
     const tagList = [
-        { color: 'white', children: '抖音' },
-        { color: 'white', children: '火山小视频' },
-        { color: 'white', children: '剪映' },
-        { color: 'white', children: '皮皮虾' },
+        { color: 'white', children:'抖音' },
+        { color: 'white', children:'火山' },
+        { color: 'white', children:'剪映' },
+        { color: 'white', children:'醒图' },
     ];
-    const src =
-        'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg';
+    const src = 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png';
     const tagList2 = [
-        { color: 'white', children: 'Douyin', avatarSrc: src },
-        { color: 'white', children: 'Hotsoon', avatarSrc: src },
-        { color: 'white', children: 'Capcut', avatarSrc: src },
-        { color: 'white', children: 'Pipixia', avatarSrc: src },
+        { color: 'white', children:'Douyin', avatarSrc:src },
+        { color: 'white', children:'Hotsoon', avatarSrc:src },
+        { color: 'white', children:'Capcut', avatarSrc:src },
+        { color: 'white', children:'Xingtu', avatarSrc:src },
     ];
     const divStyle = {
         backgroundColor: 'var(--semi-color-fill-0)',
@@ -217,36 +213,96 @@ import { TagGroup } from '@douyinfe/semi-ui';
 };
 ```
 
-## API 参考
+如果 TagGroup 中的标签可删除，用户需要在 `onTagClose` 中处理传递给 TagGroup 的 `tagList`。
+
+```jsx live=true
+import React from 'react';
+import { TagGroup } from '@douyinfe/semi-ui';
+
+class TagGroupCloseableDemo extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            tagList: [
+                { tagKey: '1', color: 'white', children: '抖音', closable: true, },
+                { tagKey: '2', color: 'white', children: '火山小视频', closable: true, },
+                { tagKey: '3', color: 'white', children: '剪映', closable: true, },
+                { tagKey: '4', color: 'white', children: '轻颜相机', closable: true, },
+                { tagKey: '5', color: 'white', children: '懂车帝', closable: true, },
+            ]
+        };
+        this.tagListClick = this.tagListClick.bind(this);
+    }
+
+    tagListClick(value, e, tagKey){
+        const newTagList = [...this.state.tagList];
+        const closeTagIndex = newTagList.findIndex(t => t.tagKey === tagKey);
+        newTagList.splice(closeTagIndex, 1);
+        this.setState({
+            tagList: newTagList,
+        });
+    }
+
+    render() {
+        return (
+            <div style={ {
+                backgroundColor: 'var(--semi-color-fill-0)',
+                height: 35,
+                width: 300,
+                display: 'flex',
+                alignItems: 'center',
+                padding: '0 10px',
+                marginBottom: 30,
+            }}>
+                <TagGroup
+                    maxTagCount={3}
+                    style={ {
+                        display: 'flex',
+                        alignItems: 'center',
+                        width: 350,
+                    }}
+                    tagList={this.state.tagList}
+                    size='large'
+                    onTagClose={this.tagListClick}
+                />
+            </div>
+        );
+    }
+}
+```
+
+## API参考
 
 ### Tag
 
-| 属性 | 说明 | 类型 | 默认值 | 版本 |
-| --- | --- | --- | --- | --- |
-| avatarShape | 头像 Tag 形状，可选 `square` 和 `circle` | string | `square` | 1.6.0 |
-| avatarSrc | 头像的资源地址 | string | - | 1.6.0 |
-| className | 类名 | string |  |  |
-| closable | 标签是否可以关闭 | boolean | false |  |
-| color | 标签的颜色，可选 `amber`、 `blue`、 `cyan`、 `green`、 `grey`、 `indigo`、 `light-blue`、 `light-green`、 `lime`、 `orange`、 `pink`、 `purple`、 `red`、 `teal`、 `violet`、 `yellow`、 `white` | string | `grey` |  |
-| size | 标签的尺寸，可选 `small`、 `large` | string | `small` |  |
-| style | 样式 | CSSProperties |  |  |
-| type | 标签的样式类型，可选 `ghost`、 `solid`、 `light` | string | `light` |  |
-| visible | 标签是否可见 | boolean | true |  |
-| onClick | 单击标签时的回调函数 | (e: MouseEvent) => void | 无 |  |
-| onClose | 关闭标签时的回调函数 | (tagChildren: ReactNode, e: MouseEvent) => void | 无 | e 于 v1.18 版本提供 |
+| 属性  | 说明        | 类型   | 默认值 | 版本 |
+|-------|-------------|-----------------|--------|--------|
+| avatarShape | 头像 Tag 形状，可选 `square` 和 `circle` | string |  `square`   | 1.6.0|
+| avatarSrc | 头像的资源地址 | string |  -   | 1.6.0 |
+| className | 类名 | string |     | |
+| closable | 标签是否可以关闭 | boolean  |  false   | |
+| color  | 标签的颜色，可选 `amber`、 `blue`、 `cyan`、 `green`、 `grey`、 `indigo`、 `light-blue`、 `light-green`、 `lime`、 `orange`、 `pink`、 `purple`、 `red`、 `teal`、 `violet`、 `yellow`、 `white` | string  | `grey`| |
+| size | 标签的尺寸，可选 `small`、 `large` | string | `small` | |
+| style | 样式 | CSSProperties |     | |
+| type  | 标签的样式类型，可选 `ghost`、 `solid`、 `light` | string  | `light`     | |
+| visible | 标签是否可见 | boolean | true    | |
+| tagKey  | React 需要的 key，作为每个标签的唯一标识，不允许重复 | string | number | |
+| onClick | 单击标签时的回调函数 | (e: MouseEvent) => void | 无   | |
+| onClose | 关闭标签时的回调函数 | (tagChildren: ReactNode, e: MouseEvent, tagKey: string \| number ) => void | 无    | e 于 v1.18 版本提供, tagKey 于 v2.18.0 提供 |
 
 ### TagGroup
 
-| 属性 | 说明 | 类型 | 默认值 | 版本 |
-| --- | --- | --- | --- | --- |
-| avatarShape | 头像 Tag 形状，可选 `square` 和 `circle` | string | `square` | 1.6.0 |
-| className | 类名 | string |  |  |
-| maxTagCount | 最大数量限制，超出后显示为 +N | number |  |  |
-| popoverProps | popover 的配置属性，可以控制 direction, zIndex, trigger 等，具体参考 [Popover](/zh-CN/show/popover#API_参考) | PopoverProps | {} |  |
-| showPopover | hover 到 +N 时，是否通过 Popover 显示剩余内容 | boolean | false |  |
-| size | 标签的尺寸，可选 `small`、 `large` | string | `small` |  |
-| style | 样式 | CSSProperties |  |  |
-| tagList | 标签组 | (TagProps)[] |  |  |
+| 属性  | 说明        | 类型   | 默认值 | 版本 |
+|-------|-------------|--------------|----|--------|
+| avatarShape | 头像 Tag 形状，可选 `square` 和 `circle` | string |  `square` | 1.6.0 |
+| className | 类名 | string |    | |
+| maxTagCount | 最大数量限制，超出后显示为 +N | number |    | |
+| popoverProps | popover 的配置属性，可以控制 direction, zIndex, trigger 等，具体参考 [Popover](/zh-CN/show/popover#API_参考) | PopoverProps | {} | |
+| showPopover | hover 到 +N 时，是否通过 Popover 显示剩余内容 | boolean | false | |
+| size | 标签的尺寸，可选 `small`、 `large` | string | `small` | |
+| style | 样式 | CSSProperties |    | |
+| tagList | 标签组  | (TagProps)[] |     | |
+| onTagClose | 删除TagGroup中的Tag时候的回调函数 | (tagChildren: ReactNode, e: MouseEvent, tagKey: string \| number ) => void | - |  2.18.0 |
 
 ## Accessibility
 
@@ -256,15 +312,16 @@ import { TagGroup } from '@douyinfe/semi-ui';
 
 ### 键盘和焦点
 
--   如果当前 `Tag` 可交互，那么这个 `Tag` 可被聚焦到。如：
-    -   使用了 `onClick` 属性时，键盘用户可以通过 `Enter` 键激活此 `Tag`
-    -   `closable` 属性为 `true` 时，键盘用户可以通过 `Delete` 键删除此 `Tag`
-    -   `Tag` 被聚焦时，键盘用户可以通过 `Esc` 键使当前聚焦 `Tag` 失焦
+- 如果当前 `Tag` 可交互，那么这个 `Tag` 可被聚焦到。如：
+  - 使用了 `onClick` 属性时，键盘用户可以通过 `Enter` 键激活此 `Tag`
+  - `closable` 属性为 `true` 时，键盘用户可以通过 `Delete` 键删除此 `Tag`
+  - `Tag` 被聚焦时，键盘用户可以通过 `Esc` 键使当前聚焦 `Tag` 失焦
 
 ## 文案规范
 - 由于空间有限，标签文本应尽可能简短
 - 避免换行
 - 使用句子大小写；
+
 
 ## 设计变量
 

@@ -376,12 +376,13 @@ class App extends React.Component {
 | PROPERTIES | Instructions | Type | Default |
 | --- | --- | --- | --- |
 | addonClassName | classname of content wrapper<br/>**provided after v1.16.0** | string |  |
-| addonId | id of addon node, aria-labelledby refers to this id, if not set, it will generate an id randomly  **provided after v2.11.0**                                 | string            |       |
+| addonId | id of addon node, aria-labelledby refers to this id, if not set, it will generate an id randomly  <br/>**provided after v2.11.0**                                 | string            |       |
 | addonStyle | inline style of content wrapper<br/>**provided after v1.16.0** | object |  |
 | aria-label      | Label of Radio                                                            | string           | -  |
 | name         | The `name` attribute passed to `input[type="radio"]` in the Radio component, Radios with the same `name` belong to the same RadioGroup,The `name` attribute can refer to [MDN Radio](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input/radio#value)   | string         | -  |
 | autoFocus | Automatically focus the form control when the page is loaded | boolean | false |
 | checked | Specify whether it is currently selected | boolean | false |
+| type | Set the type of radio, one of `default`, `button`, `card`, `pureCard` <br/>**This api is provided after v2.18.0**| string | `default` |
 | className | Class name | string |  |
 | defaultChecked | Checked by default | boolean | false |
 | disabled | Disable the radio | boolean | false |

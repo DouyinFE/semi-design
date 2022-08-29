@@ -20,6 +20,8 @@ module.exports = {
             rules: {
                 // 因为历史原因，现有项目基本全部是4个空格
                 indent: ['error', 4, { 'SwitchCase': 1 }],
+                'comma-spacing': ["error", { "before": false, "after": true }],
+                'no-multi-spaces': ["error", { ignoreEOLComments: true }],
                 'react/display-name': 'off',
                 'react/jsx-indent': ['error', 4],
                 'react/jsx-indent-props': ['error', 4],
@@ -52,6 +54,8 @@ module.exports = {
             rules: {
                 // 因为历史原因，现有项目基本全部是4个空格
                 indent: 'off',
+                'comma-spacing': ["error", { "before": false, "after": true }],
+                'no-multi-spaces': ["error", { ignoreEOLComments: true }],
                 '@typescript-eslint/indent': ['error', 4],
                 'react/display-name': 'off',
                 'react/jsx-indent': ['error', 4],

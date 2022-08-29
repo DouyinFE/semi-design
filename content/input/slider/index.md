@@ -70,7 +70,7 @@ class InputSlider extends React.Component {
                 <div style={{ width: 320, marginRight: 15 }}>
                     <Slider step={1} value={value} onChange={(value) => (this.getSliderValue(value))} ></Slider>
                 </div>
-                <InputNumber onChange={(v) => this.getSliderValue(v)} style={{width: 100}} value={value} min={0} max={100} />
+                <InputNumber onChange={(v) => this.getSliderValue(v)} style={{ width: 100 }} value={value} min={0} max={100} />
             </div>
         );
     }
@@ -78,14 +78,14 @@ class InputSlider extends React.Component {
 ```
 
 ### 自定义提示
-使用 `tipFormatter` 可以设置 Tooltip 的显示的格式。设置 `tipFormatter={null}`，则隐藏 Tooltip。
+使用 `tipFormatter` 可以设置 Tooltip 的显示的格式。设置 `tipFormatter={null}`，则隐藏 Tooltip。`getAriaValueText`用于给滑块的当前值提供一个用户友好的名称，对屏幕阅读器用户很重要。
 ```jsx live=true
 import React from 'react';
 import { Slider } from '@douyinfe/semi-ui';
 
 () => (
     <div>
-        <Slider tipFormatter={v => (`${v}%`)} />
+        <Slider tipFormatter={v => (`${v}%`)} getAriaValueText={v => (`${v}%`)}/>
         <br/>
         <br/>
         <Slider tipFormatter={null} />
@@ -110,11 +110,11 @@ import { Slider } from '@douyinfe/semi-ui';
         <br/>
         <br/>
         <div>Marks</div>
-        <Slider marks={{ 20: '20c', 40: '40c' }} defaultValue={[0, 100]} range={true} ></Slider>
+        <Slider marks={{ 20: '20°C', 40: '40°C' }} defaultValue={[0, 100]} tipFormatter={v => (`${v}°C`)} range={true} getAriaValueText={(value) => `${value}°C`}></Slider>
         <br/>
         <br/>
         <div>Inclued</div>
-        <Slider marks={{ 20: '20c', 40: '40c' }} included={false} defaultValue={[0, 100]} range={true}></Slider>
+        <Slider marks={{ 20: '20°C', 40: '40°C' }} included={false} defaultValue={[0, 100]} range={true} tipFormatter={v => (`${v}°C`)} getAriaValueText={(value) => `${value}°C`}></Slider>
     </div>
 );
 ```
@@ -203,23 +203,23 @@ import { Slider } from '@douyinfe/semi-ui';
 
 () => (
     <div>
-        <div style={{height: 300, marginLeft: 30, marginTop: 10, paddingRight: 30, display: 'inline-block'}}>
+        <div style={{ height: 300, marginLeft: 30, marginTop: 10, paddingRight: 30, display: 'inline-block' }}>
             <Slider vertical></Slider>
         </div>
-        <div style={{height: 300, marginLeft: 30, marginTop: 10, paddingRight: 30, display: 'inline-block'}}>
+        <div style={{ height: 300, marginLeft: 30, marginTop: 10, paddingRight: 30, display: 'inline-block' }}>
             <Slider vertical verticalReverse></Slider>
         </div>
-        <div style={{height: 300, marginLeft: 30, marginTop: 10, paddingRight: 30, display: 'inline-block'}}>
+        <div style={{ height: 300, marginLeft: 30, marginTop: 10, paddingRight: 30, display: 'inline-block' }}>
             <Slider vertical range defaultValue={[20, 60]}></Slider>
         </div>
-        <div style={{height: 300, marginLeft: 30, marginTop: 10, paddingRight: 30, display: 'inline-block'}}>
+        <div style={{ height: 300, marginLeft: 30, marginTop: 10, paddingRight: 30, display: 'inline-block' }}>
             <Slider vertical verticalReverse range defaultValue={[20, 60]}></Slider>
         </div>
-        <div style={{height: 300, marginLeft: 30, marginTop: 10, paddingRight: 30, display: 'inline-block'}}>
-            <Slider vertical range marks={{ 20: '20c', 40: '40c' }} step={10} defaultValue={[20, 60]}></Slider>
+        <div style={{ height: 300, marginLeft: 30, marginTop: 10, paddingRight: 30, display: 'inline-block' }}>
+            <Slider vertical range marks={{ 20: '20°C', 40: '40°C' }} step={10} defaultValue={[20, 60]}></Slider>
         </div>
-        <div style={{height: 300, marginLeft: 30, marginTop: 10, paddingRight: 30, display: 'inline-block'}}>
-            <Slider vertical verticalReverse range marks={{ 20: '20c', 40: '40c' }} step={10} defaultValue={[20, 60]}></Slider>
+        <div style={{ height: 300, marginLeft: 30, marginTop: 10, paddingRight: 30, display: 'inline-block' }}>
+            <Slider vertical verticalReverse range marks={{ 20: '20°C', 40: '40°C' }} step={10} defaultValue={[20, 60]}></Slider>
         </div>
     </div>
 );
@@ -229,6 +229,9 @@ import { Slider } from '@douyinfe/semi-ui';
 ## API参考
 | 属性  | 说明        | 类型   | 默认值 | 版本 | 
 |-------|-------------|-----------------|--------|-------|
+| aria-label| [aria-label](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label)属性，用来给当前元素加上的标签描述, 提升可访问性 | string |-|-|
+| aria-labelledby | [aria-labelledby](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-labelledby)属性，表明某些元素的 id 是某一对象的标签。它被用来确定控件或控件组与它们标签之间的联系, 提升可访问性 | string |-|-|
+| aria-valuetext| [aria-valuetext](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuetext)属性，为滑块的当前值提供用户友好的名称。| string |-|-|
 | defaultValue | 设置初始取值 | number \| number[] | 0 |-|
 | disabled | 滑块是否禁用 | boolean | false |-|
 | included | `marks` 不为空对象时有效，值为 true 时表示值为包含关系，false 表示并列 | boolean | true |-|
@@ -246,6 +249,7 @@ import { Slider } from '@douyinfe/semi-ui';
 | verticalReverse | 反转垂直方向，即上大下小 >=1.29.0| boolean | false |-|
 | onAfterChange | 与 `onmouseup` 触发时机一致，把当前值作为参数传入 | (value: number \| number[]) => void | 无 |-|
 | onChange | 当 Slider 的值发生改变时的回调 | (value: number \| number[]) => void | 无 |-|
+| getAriaValueText | 用于给滑块的当前值提供一个用户友好的名称，对屏幕阅读器用户很重要，参数value为当前滑块的值，index为当前滑块的顺序 | (value: number, index?: number) => string |-|-|
 
 ## Accessibility
 
@@ -256,8 +260,27 @@ import { Slider } from '@douyinfe/semi-ui';
 - 元素的 `aria-valuemin` 属性为最小允许值的十进制数值。
 - 元素的 `aria-valuemax` 属性为最大允许值的十进制数值。
 - 当 Slider 为纵向时，元素的 `aria-orientation` 属性为 'vertical'。
-- 当 `aria-valuenow` 的值不容易被理解时，支持通过 API `aria-valuetext` 传递一个字符串使其更友好。也可以通过 API `geAriaValueText(value)` 方法得到 `aria-valuetext` 的值。
+- 当 `aria-valuenow` 的值不容易被理解时，支持通过 API `aria-valuetext` 传递一个字符串使其更友好。也可以通过 API `getAriaValueText(value, index)` 方法得到 `aria-valuetext` 的值。
 - 支持通过 API `aria-label` 或者 `aria-labelledby` 确定 slider 的标签。
+
+### 键盘和焦点
+
+- Slider 的滑块可被获取到焦点，并展示当前滑块的提示信息，且这些信息需要被辅助技术读取到。
+- 当用户使用 `range` 属性时，可以使用 `Tab` 及 `Shift`  + `Tab` 切换左右两个滑块的焦点。
+- 键盘用户可以通过 `上箭头` 或 `右箭头` 来增加滑块值，`下箭头` 或 `左箭头` 来减少滑块值。
+- 若想要滑块高于步长的变化量时， slider支持 10*step 的变化量：
+  - Windows 用户： `Page Up` 用于增加，`Page Down` 用于减少；
+  - Mac 用户使用： `Fn` + `上箭头` 用于增加，`Fn` + `下箭头` 用于按键；
+  - 当用户使用 `range` 属性时，前一个滑块的  `Page Up`(`Fn` + `上箭头`) 键仅支持到与后一个滑块相遇，重合后再对前一个滑块使用  Page Up 键则无响应。后一个滑块同理，相遇后，对`Page Down`(`Fn` + `下箭头`) 键无响应。
+- 若想将滑块移动到滑杆的最小值处：
+  - Windows 用户： `Home` ；
+  - Mac 用户： `Fn` + `左箭头`；
+  - 当用户使用 `range` 属性时，后一个滑块的 `Home`(`Fn` + `左箭头`) 键仅支持到与前一个滑块相遇，重合后再次使用 `Home`(`Fn` + `左箭头`) 键无响应。
+- 若想将滑块移动到滑杆的最大值处：
+  - Windows 用户：`End` ；
+  - Mac 用户：`Fn` + `右箭头`；
+  - 当用户使用 `range` 属性时，前一个滑块的 `End`(`Fn` + `右箭头`) 键仅支持到与后一个滑块相遇，重合后再次使用 `End`(`Fn` + `右箭头`) 键无响应。
+
 
 
 ## 设计变量

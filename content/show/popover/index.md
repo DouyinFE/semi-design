@@ -492,6 +492,7 @@ import { Button, Input, Popover, Space } from '@douyinfe/semi-ui';
 | closeOnEsc         | 在 trigger 或 弹出层按 Esc 键是否关闭面板，受控时不生效 | boolean | true | **2.8.0** |
 | content            | 显示的内容（函数类型，2.8.0 版本支持）                                                                                                                                  | ReactNode \| ({ initialFocusRef }) => ReactNode          |                                             |            |
 | clickToHide        | 点击弹出层及内部任一元素时是否自动关闭弹层                                                                                                  | boolean                    | false                                       | **0.24.0** |
+| disableFocusListener | trigger为`hover`时，不响应键盘聚焦弹出浮层事件，详见[issue#977](https://github.com/DouyinFE/semi-design/issues/977) | boolean | true | **2.17.0** |
 | getPopupContainer  | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 `position: relative`                                                                  | function():HTMLElement     | () => document.body                         |            |
 | guardFocus         | 当焦点处于弹出层内时，切换 Tab 是否让焦点在弹出层内循环 | boolean | true | **2.8.0** |
 | mouseEnterDelay    | 鼠标移入后，延迟显示的时间，单位毫秒（仅当 trigger 为 hover/focus 时生效）                                                                  | number                     | 50                                          |            |
@@ -533,3 +534,15 @@ import { Button, Input, Popover, Space } from '@douyinfe/semi-ui';
 
 ## 设计变量
 <DesignToken/>
+
+## FAQ
+
+-   **为什么 Popover 浮层卡片的位置和浮层的触发器的相对位置不符合预期?**  
+    Popover 底层依赖了 Tooltip，Tooltip 为了计算定位，需要获取到 children 的真实 DOM 元素，因此 Popover 类型目前支持如下两种类型的 children：
+    1. 真实 dom 节点的 jsx 类型，如 span，div，p...
+    2. 使用 forwardRef 包裹后的函数式组件，将 props 与 ref 透传到真实的 dom 节点上
+
+    若以带有前缀的 Semi Input 作为 children，即使设置了 Input 和 Popover content等宽，浮层卡片的位置仍是相对于不包含前缀部分的 input 框进行定位，此时只要在 Input 外层再套一个 div 就能解决问题。
+
+-   **为什么 Popover 浮层卡片在靠近屏幕边界宽度不够时，丢失宽度意外换行?**  
+    在 chromium 104 后 对于屏幕边界文本宽度不够时的换行渲染策略发生变化，详细原因可查看 [issue #1022](https://github.com/DouyinFE/semi-design/issues/1022)，semi侧已经在v2.17.0版本修复了这个问题。

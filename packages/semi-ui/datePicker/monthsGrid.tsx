@@ -76,6 +76,9 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
         onPanelChange: PropTypes.func,
         focusRecordsRef: PropTypes.object,
         triggerRender: PropTypes.func,
+        presetPosition: PropTypes.oneOf(strings.PRESET_POSITION_SET),
+        renderQuickControls: PropTypes.node,
+        renderDateInput: PropTypes.node
     };
 
     static defaultProps = {
@@ -600,9 +603,10 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
         );
     }
 
+
     render() {
         const { monthLeft, monthRight } = this.state;
-        const { type, insetInput } = this.props;
+        const { type, insetInput, presetPosition, renderQuickControls, renderDateInput } = this.props;
         const monthGridCls = classnames({
             [`${prefixCls }-month-grid`]: true,
         });
@@ -622,15 +626,23 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
         const yearOpenType = this.getYAMOpenType();
 
         return (
-            <div
-                className={monthGridCls}
-                x-type={type}
-                x-panel-yearandmonth-open-type={yearOpenType}
-                // FIXME:
-                x-insetinput={insetInput ? "true" : "false"}
-                ref={current => this.cacheRefCurrent('monthGrid', current)}
-            >
-                {content}
+            <div style={{ display: 'flex' }}>
+                {presetPosition === "left" && renderQuickControls}
+                <div>
+                    {renderDateInput}
+                    <div
+                        className={monthGridCls}
+                        x-type={type}
+                        x-panel-yearandmonth-open-type={yearOpenType}
+                        // FIXME:
+                        x-insetinput={insetInput ? "true" : "false"}
+                        x-preset-position={renderQuickControls === null ? 'null' : presetPosition}
+                        ref={current => this.cacheRefCurrent('monthGrid', current)}
+                    >
+                        {content}
+                    </div>
+                </div>
+                {presetPosition === "right" && renderQuickControls}
             </div>
         );
     }

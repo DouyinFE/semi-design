@@ -347,12 +347,6 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         let style = styleFromProps;
         const maskStyle = maskStyleFromProps;
         const renderFooter = 'footer' in this.props ? footer : this.renderFooter();
-        if (this.props.centered) {
-            style = {
-                transform: 'translateY(-50%)',
-                top: '50%', ...style,
-            };
-        }
         let wrapperStyle: {
             zIndex?: CSSProperties['zIndex'];
             position?: CSSProperties['position'];

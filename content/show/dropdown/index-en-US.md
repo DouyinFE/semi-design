@@ -516,6 +516,11 @@ function DropdownEvents() {
 
 <DesignToken/>
 
+## FAQ
+- **Why does the Dropdown layer accidentally wrap when the width is not enough near the screen border?**
+
+    After Chromium 104, the wrapping rendering strategy when the width of the screen border text is not enough has changed. For details, see [issue #1022](https://github.com/DouyinFE/semi-design/issues/1022), the semi-side has been This problem was fixed in v2.17.0.
+
 <!-- ## Related Material
 
 ```material

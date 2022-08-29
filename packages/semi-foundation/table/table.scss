@@ -1,6 +1,7 @@
-@import "./variables.scss";
-@import "./mixin.scss";
-@import "./operationPanel.scss";
+@import './variables.scss';
+@import './mixin.scss';
+@import './operationPanel.scss';
+@import './animation.scss';
 
 $module: #{$prefix}-table;
 
@@ -23,7 +24,7 @@ $module: #{$prefix}-table;
         color: $color-table-text-default;
         width: 100%;
 
-        &[data-column-fixed=true] {
+        &[data-column-fixed='true'] {
             z-index: 1;
         }
     }
@@ -76,7 +77,6 @@ $module: #{$prefix}-table;
             display: table-column;
         }
         .#{$module}-column {
-
             &-expand,
             &-selection {
                 width: $width-table_column_selection;
@@ -102,7 +102,6 @@ $module: #{$prefix}-table;
                 position: relative;
 
                 &.#{$module}-cell-fixed {
-
                     &-left,
                     &-right {
                         z-index: $z-table_fixed_column;
@@ -111,7 +110,7 @@ $module: #{$prefix}-table;
 
                         &::before {
                             background-color: $color-table_th-bg-default;
-                            content: "";
+                            content: '';
                             position: absolute;
                             left: 0;
                             top: 0;
@@ -141,7 +140,7 @@ $module: #{$prefix}-table;
 
                         // scroll-bar 列无需有box-shadow
 
-                        &[x-type="column-scrollbar"] {
+                        &[x-type='column-scrollbar'] {
                             box-shadow: none;
                             border-left: transparent;
                         }
@@ -152,7 +151,7 @@ $module: #{$prefix}-table;
                     text-align: center;
                 }
 
-                &[colspan]:not([colspan="1"]) {
+                &[colspan]:not([colspan='1']) {
                     text-align: center;
                 }
 
@@ -198,14 +197,13 @@ $module: #{$prefix}-table;
                     background-color: $color-table_body-bg-hover;
 
                     &.#{$module}-cell-fixed {
-
                         &-left,
                         &-right {
                             background-color: $color-table_body-bg-default;
 
                             &::before {
                                 background-color: $color-table_body-bg-hover;
-                                content: "";
+                                content: '';
                                 position: absolute;
                                 left: 0;
                                 top: 0;
@@ -236,7 +234,6 @@ $module: #{$prefix}-table;
                 }
             }
             &.#{$module}-row {
-
                 &-expand {
                     & > .#{$module}-row-cell {
                         background-color: $color-table_row_expanded-bg-default;
@@ -245,10 +242,9 @@ $module: #{$prefix}-table;
             }
 
             & > .#{$module}-cell-fixed {
-
                 &-left,
                 &-right {
-                    z-index: $z-table_fixed_column;;
+                    z-index: $z-table_fixed_column;
                     position: sticky;
                     background-color: $color-table-bg-default;
                 }
@@ -262,6 +258,16 @@ $module: #{$prefix}-table;
                     border-left: $width-table_cell_fixed_right_first solid $color-table_shadow-border-default;
                     box-shadow: #{$shadow-table_left};
                 }
+
+                & > * {
+                    transition: background-color $transition_duration-table_body-bg $transition_function-table_body-bg
+                        $transition_delay-table_body-bg;
+                }
+            }
+
+            & > * {
+                transition: background-color $transition_duration-table_body-bg $transition_function-table_body-bg
+                    $transition_delay-table_body-bg;
             }
         }
 
@@ -322,7 +328,6 @@ $module: #{$prefix}-table;
     }
 
     .#{$module}-selection {
-
         &-wrap {
             // inline-flex vertical-align baseline 会导致父元素高度异常
             display: inline-flex;
@@ -339,7 +344,6 @@ $module: #{$prefix}-table;
     }
 
     .#{$module}-column {
-
         &-hidden {
             display: none;
         }
@@ -371,9 +375,14 @@ $module: #{$prefix}-table;
             display: inline-block;
             width: $width-table_column_sorter-icon;
             height: $height-table_column_sorter-icon;
-            cursor: pointer;
             vertical-align: middle;
             text-align: center;
+
+            &-wrapper {
+                display: inline-flex;
+                align-items: center;
+                cursor: pointer;
+            }
 
             &-up,
             &-down {
@@ -404,7 +413,8 @@ $module: #{$prefix}-table;
             display: inline-flex;
             cursor: pointer;
             color: $color-table_filter-text-default;
-            vertical-align: middle;
+            // vertical-align: middle;
+            align-items: center;
 
             svg {
                 width: $width-table_column_filter-icon;
@@ -433,7 +443,6 @@ $module: #{$prefix}-table;
         }
 
         .#{$module}-header {
-
             &::-webkit-scrollbar {
                 border-right: $border-table;
             }
@@ -446,7 +455,6 @@ $module: #{$prefix}-table;
         }
 
         .#{$module}-thead > .#{$module}-row > .#{$module}-row-head {
-
             .react-resizable-handle {
                 background-color: transparent;
             }
@@ -496,7 +504,6 @@ $module: #{$prefix}-table;
 
         // when header is fixed, table should use `table-layout: fixed` to avoid align bug
         &-header {
-
             table {
                 table-layout: fixed;
             }
@@ -504,9 +511,7 @@ $module: #{$prefix}-table;
     }
 
     &-scroll {
-
         &-position {
-
             &-left {
                 .#{$module}-tbody,
                 .#{$module}-thead {
@@ -550,4 +555,4 @@ $module: #{$prefix}-table;
     }
 }
 
-@import "./rtl.scss";
+@import './rtl.scss';

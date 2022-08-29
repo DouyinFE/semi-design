@@ -1,5 +1,5 @@
 //@import '../theme/variables.scss';
-@import "./variables.scss";
+@import './variables.scss';
 
 $module: #{$prefix}-notification;
 
@@ -15,41 +15,40 @@ $module: #{$prefix}-notification;
     z-index: $z-notification;
     pointer-events: none;
 
-    &[placement="topRight"] {
+    &[placement='topRight'] {
         right: 0;
         top: 0;
     }
 
-    &[placement="top"] {
+    &[placement='top'] {
         top: 0;
         left: 50%;
         transform: translateX(-50%);
     }
 
-    &[placement="topLeft"] {
+    &[placement='topLeft'] {
         left: 0;
         top: 0;
     }
 
-    &[placement="bottom"] {
+    &[placement='bottom'] {
         bottom: 0;
         left: 50%;
         transform: translateX(-50%);
     }
 
-    &[placement="bottomRight"] {
+    &[placement='bottomRight'] {
         bottom: 0;
         right: 0;
     }
 
-    &[placement="bottomLeft"] {
+    &[placement='bottomLeft'] {
         bottom: 0;
         left: 0;
     }
 }
 
 .#{$module} {
-
     &-notice {
         @include shadow-elevated;
         border-radius: $radius-notification_notice;
@@ -169,4 +168,4 @@ $module: #{$prefix}-notification;
     }
 }
 
-@import "./rtl.scss";
+@import './rtl.scss';

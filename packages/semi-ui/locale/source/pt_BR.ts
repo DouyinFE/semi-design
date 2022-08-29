@@ -158,6 +158,9 @@ const local: Locale = {
         total: 'Total de ${total} itens',
         selected: '${total} itens selecionados',
     },
+    Form: {
+        optional: '(opcional)',
+    },
 };
 
 // 葡萄牙语

@@ -66,7 +66,7 @@ stories.add('Animaiton', () => {
             this.setState({ value });
         };
 
-        invokeHanlderFn = (funcName, ...args) => {
+        invokehandlerFn = (funcName, ...args) => {
             if (
                 funcName
                 && typeof funcName === 'string'
@@ -123,7 +123,7 @@ stories.add('Animaiton', () => {
                                     {['reset', 'reverse', 'pause', 'resume', 'stop', 'end'].map(funcName => (
                                         <button
                                             key={funcName}
-                                            onClick={(...args) => this.invokeHanlderFn(funcName, ...args)}
+                                            onClick={(...args) => this.invokehandlerFn(funcName, ...args)}
                                         >
                                             {funcName}
                                         </button>

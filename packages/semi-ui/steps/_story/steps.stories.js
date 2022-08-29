@@ -199,12 +199,12 @@ class StepsDemo extends React.Component {
   }
 }
 
-export const StepsWithControled = () => {
+export const StepsWithControlled = () => {
   return <StepsDemo></StepsDemo>;
 };
 
-StepsWithControled.story = {
-  name: 'steps with controled',
+StepsWithControlled.story = {
+  name: 'steps with controlled',
 };
 
 class StepsWithonChange extends React.Component {

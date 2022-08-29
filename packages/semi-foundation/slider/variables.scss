@@ -11,9 +11,10 @@ $color-slider_handle_disabled-border-hover: var(--semi-color-white); // 禁用�
 $color-slider_handle_disabled-border: var(--semi-color-border); // 禁用滑动条圆形描边颜色 - 默认态
 $color-slider_mark-text-default: var(--semi-color-text-2); // 滑动条刻度文字颜色
 $color-slider_rail-bg-default: var(--semi-color-fill-0); // 滑动条轨道颜色 - 未填充
-$color-slider_rail: rgba(0, 0, 0, .65);
+$color-slider_rail: rgba(0, 0, 0, 0.65);
 $color-slider_track-bg-default: var(--semi-color-primary); // 滑动条轨道颜色 - 已填充
 $color-slider_track_disabled-bg: var(--semi-color-primary-disabled); // 禁用滑动条轨道颜色 - 已填充
+$color-slider_handle-focus: var(--semi-color-primary-light-active); // 圆形按钮轮廓 - 聚焦
 
 // Spacing
 $spacing-slider-paddingX: 13px; // 滑动条整体水平内边距
@@ -33,7 +34,7 @@ $spacing-slider_boundary_min-left: 0;
 $spacing-slider_boundary_max-right: 0;
 $spacing-slider_vertical_marks-marginTop: -30px; // 垂直滑动条刻度标签顶部外边距
 $spacing-slider_vertical_marks-marginLeft: 29px; // 垂直滑动条刻度标签左侧外边距
-$spacing-slider_vertical_marks-reverse-marginLeft: -26px;// 垂直滑动条刻度标签左侧外边距（标签在左侧时）
+$spacing-slider_vertical_marks-reverse-marginLeft: -26px; // 垂直滑动条刻度标签左侧外边距（标签在左侧时）
 $spacing-slider_vertical_rail-top: 0; // 垂直滑动条轨道顶部距离
 $spacing-slider_vertical_handle-marginTop: 0; // 垂直滑动条原型按钮顶部外边距
 $spacing-slider_vertical_handle-marginLeft: -10px; // 垂直滑动条原型按钮左侧外边距
@@ -41,7 +42,6 @@ $spacing-slider_vertical_handle-marginLeft: -10px; // 垂直滑动条原型按�
 // Radius
 $radius-slider_rail: var(--semi-border-radius-small); // 滚动条未填充轨道圆角
 $radius-slider_track: var(--semi-border-radius-small); // 滚动条已填充轨道圆角
-
 
 // Width/Height
 $height-slider_wrapper: 32px; // 滚动条容器整体高度
@@ -52,7 +52,7 @@ $width-slider_handle_clicked: 1px; // 滚动条圆形按钮按下后描边宽度
 $height-slider_track: 4px; // 滚动条已填充轨道高度
 $width-slider_dot: 4px; // 滚动条圆形刻度点宽度
 $width-slider_handle_border_disabled: 1px; // 禁用滚动条圆形按钮按下后描边宽度
-
+$width-slider_handle-focus: 2px; // 圆形按钮轮廓 - 聚焦
 
 // Font
 $font-slider_rail-fontSize: 14px; // 滚动条轨道文本字号

@@ -290,7 +290,7 @@ class Anchor extends BaseComponent<AnchorProps, AnchorState> {
                     <div aria-hidden className={slideCls} style={{ height: scrollHeight }}>
                         <span className={slideBarCls} style={{ top: slideBarTop }} />
                     </div>
-                    <div className={anchorWrapper}>{children}</div>
+                    <div className={anchorWrapper} role="list">{children}</div>
                 </div>
             </AnchorContext.Provider>
         );

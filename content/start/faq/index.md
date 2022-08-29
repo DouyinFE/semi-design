@@ -6,6 +6,9 @@ localeCode: zh-CN
 order: 9
 ---
 
+#### Semi 提供了 Figma UI Kit，考虑提供 Sketch 或基于其他设计工具的版本吗？
+- 目前没有这方面的计划，具体原因请参考 [Issue 74](https://github.com/DouyinFE/semi-design/issues/74)
+
 #### Semi 2.x 与 Semi 1.x 有什么不同？
 
 -   Semi v2.0 版本 基于 v1.x 使用 ts 进行了重构，带来了更好的 ts 使用体验、以及更开箱即用的工程化方案，更好的a11y支持，支持局部启用暗色/亮色模式，解决了对微前端场景下多组件库共存的样式冲突问题等。Semi 2.x 为开源版本， Semi 团队后续所有长期工作都将基于 v2.x 版本进行

@@ -381,9 +381,10 @@ import { Checkbox, CheckboxGroup, Row, Col } from '@douyinfe/semi-ui';
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| addonId | addon 节点 id，aria-labelledby 指向这个 id，若无设置会随机生成一个 id  **v2.11.0 后提供**                                 | string            |       |
+| addonId | addon 节点 id，aria-labelledby 指向这个 id，若无设置会随机生成一个 id <br/>**v2.11.0 后提供**                                 | string            |       |
 | aria-label | 定义 Checkbox 的作用 | string | - |
 | checked | 指定当前Checkbox是否选中（在Group中使用时无效） | boolean | false |
+| type |设置checkbox 的样式类型，可选值为: `default`、`card`、`pureCard`<br/>**v2.18.0 后提供** |string|`default`|
 | defaultChecked | 初始是否选中（在Group中使用时无效） | boolean | false |
 | disabled | 失效状态 | boolean | false |
 | extra | 副文本<br/>__v0.25.0后提供__ | ReactNode | - |
@@ -402,7 +403,7 @@ import { Checkbox, CheckboxGroup, Row, Col } from '@douyinfe/semi-ui';
 | disabled | 整组失效 | boolean | false |
 | name | CheckboxGroup 下所有 `input[type="checkbox"]` 的 `name` 属性 | string | - |
 | options | 指定可选项 | any\[] | \[] |
-| type |	设置所有 checkbox 的样式类型，可选值为: `default`、`card`、`pureCard` **v1.30.0 后提供**|string|`default`|
+| type |设置所有 checkbox 的样式类型，可选值为: `default`、`card`、`pureCard` <br/>**v1.30.0 后提供**|string|`default`|
 | value | 指定选中的选项 | any\[] | \[] |
 | onChange | 变化时回调函数 | function(checkedValue) | - |
 

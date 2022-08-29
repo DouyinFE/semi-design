@@ -68,30 +68,12 @@ import { Tag, Space } from '@douyinfe/semi-ui';
 () => {
     return (
         <Space wrap>
-            <Tag color="grey" >
-                grey tag
-            </Tag>
-            <Tag color="blue" >
-                blue tag
-            </Tag>
-            <Tag color="red" >
-                red tag
-            </Tag>
-            <Tag color="green" >
-                green tag
-            </Tag>
-            <Tag color="orange" >
-                orange tag
-            </Tag>
-            <Tag color="teal" >
-                teal tag
-            </Tag>
-            <Tag color="violet" >
-                violet tag
-            </Tag>
-            <Tag color="white" >
-                white tag
-            </Tag>
+            {
+                ['amber', 'blue', 'cyan', 'green', 'grey', 'indigo',  
+                    'light-blue', 'light-green', 'lime', 'orange', 'pink',  
+                    'purple', 'red', 'teal', 'violet', 'yellow', 'white'
+                ].map(item => (<Tag color={item} key={item}> {item} tag</Tag>))
+            }
         </Space>
     );
 };
@@ -130,7 +112,7 @@ import { Tag, Space } from '@douyinfe/semi-ui';
 
 function Demo() {
     const src =
-        'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg';
+        'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png';
     return (
         <Space vertical align='start'>
             <Tag avatarSrc={src}>Peter Behrens</Tag>
@@ -196,7 +178,7 @@ import { TagGroup } from '@douyinfe/semi-ui';
         { color: 'white', children: 'Pipixia' },
     ];
     const src =
-        'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg';
+        'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png';
     const tagList2 = [
         { color: 'white', children: 'Abcd', avatarSrc: src },
         { color: 'white', children: 'Hotsoon', avatarSrc: src },
@@ -243,6 +225,64 @@ import { TagGroup } from '@douyinfe/semi-ui';
 };
 ```
 
+If the tags in the TagGroup can be deleted, the user needs to process the `tagList` passed to the TagGroup in `onTagClose`
+
+```jsx live=true
+import React from 'react';
+import { TagGroup } from '@douyinfe/semi-ui';
+
+class TagGroupCloseableDemo extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            tagList: [
+                { tagKey: '1', color: 'white', children: '抖音', closable: true, },
+                { tagKey: '2', color: 'white', children: '火山小视频', closable: true, },
+                { tagKey: '3', color: 'white', children: '剪映', closable: true, },
+                { tagKey: '4', color: 'white', children: '皮皮虾', closable: true, },
+                { tagKey: '5', color: 'white', children: '懂车帝', closable: true, },
+            ]
+        };
+        this.tagListClick = this.tagListClick.bind(this);
+    }
+
+    tagListClick(value, e, tagKey){
+        const newTagList = [...this.state.tagList];
+        const closeTagIndex = newTagList.findIndex(t => t.tagKey === tagKey);
+        newTagList.splice(closeTagIndex, 1);
+        this.setState({
+            tagList: newTagList,
+        });
+    }
+
+    render() {
+        return (
+            <div style={ {
+                backgroundColor: 'var(--semi-color-fill-0)',
+                height: 35,
+                width: 300,
+                display: 'flex',
+                alignItems: 'center',
+                padding: '0 10px',
+                marginBottom: 30,
+            }}>
+                <TagGroup
+                    maxTagCount={3}
+                    style={ {
+                        display: 'flex',
+                        alignItems: 'center',
+                        width: 350,
+                    }}
+                    tagList={this.state.tagList}
+                    size='large'
+                    onTagClose={this.tagListClick}
+                />
+            </div>
+        );
+    }
+}
+```
+
 ## API Reference
 
 ### Tag
@@ -258,8 +298,10 @@ import { TagGroup } from '@douyinfe/semi-ui';
 | style | Inline style | object |  |  |
 | type | Style type, one of `ghost`, `solid`, `light` | string | `light` |  |
 | visible | Toggle the visibility of the tag | boolean | true |  |
+| tagKey  | The key required by React, as the unique identifier of each tag, does not allow repetition | string | number | |
 | onClick | Callback function when clicking the tag | (e: MouseEvent) => void | - |  |
-| onClose | Callback function when the tag is closed | (tagChildren: ReactNode, e: MouseEvent) => void | - |  |
+| onClose | Callback function when the tag is closed | (tagChildren: ReactNode, e: MouseEvent, tagKey: string \| number ) => void | - | e is available in v1.18, tagKey is available in v2.18.0 |
+
 ### TagGroup
 
 | Properties | Instructions | type | Default | Version |
@@ -272,6 +314,7 @@ import { TagGroup } from '@douyinfe/semi-ui';
 | size | Size, one of `small`, `large` | string | `small` |  |
 | style | Inline style | CSSProperties |  |  |
 | tagList | Label Group data | (TagProps)[] |  |  |
+| onTagClose | The callback function when deleting the Tag in the TagGroup | (tagChildren: ReactNode, e: MouseEvent, tagKey: string \| number ) => void | - |  2.18.0 |
 
 ## Accessibility
 
@@ -291,6 +334,7 @@ import { TagGroup } from '@douyinfe/semi-ui';
 - Due to limited space, label text should be as short as possible
 - avoid line breaks
 - use sentence case
+
 ## Design Tokens
 
 <DesignToken/>

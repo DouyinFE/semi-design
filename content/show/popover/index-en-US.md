@@ -489,6 +489,7 @@ Please refer to [Use with Tooltip/Popconfirm](/en-US/show/tooltip#%E6%90%AD%E9%8
 | closeOnEsc | Whether to close the panel by pressing the Esc key in the trigger or popup layer. It does not take effect when visible is under controlled | boolean | true | **2.8.0** |
 | content | Content displayed | string \| ReactNode |  |
 | clickToHide | Whether to automatically close the elastic layer when clicking on the floating layer and any element inside | boolean | false | **0.24.0** |
+| disableFocusListener | When trigger is `hover`, does not respond to the keyboard focus popup event, see details at [issue#977](https://github.com/DouyinFE/semi-design/issues/977) | boolean | true | **2.17.0** |
 | getPopupContainer | Specifies the parent DOM, and the bullet layer will be rendered to the DOM, you need to set 'position: relative` | () => HTMLElement | () => document.body |
 | guardFocus | When the focus is in the popup layer, toggle whether the Tab makes the focus loop in the popup layer | boolean | true | **2.8.0** |
 | mouseEnterDelay | After the mouse is moved in, the display delay time, in milliseconds (only effective when the trigger is hover/focus) | number | 50 |  |
@@ -531,3 +532,15 @@ Please refer to [Use with Tooltip/Popconfirm](/en-US/show/tooltip#%E6%90%AD%E9%8
 ## Design Tokens
 
 <DesignToken/>
+
+## FAQ
+
+-   **Why the position of the popover overlay card and the relative position of the overlay trigger are not as expected?**  
+    Popover relies on Tooltip at the bottom. In order to calculate positioning, Tooltip needs to obtain the real DOM elements of children. Therefore, the Popover type currently supports the following two types of children:
+    1. The Jsx type of the real dom node, such as span, div, p...
+    2. Use the FunctionComponent wrapped by forwardRef to pass props and ref to the real dom node
+
+    When Semi Input with prefix is used as children, even if the same width of Input and Popover content are set, the position of the floating card is still positioned relative to the input box that does not contain the prefix part. At this time, just put another div on the outer layer of the children to solve the problem.
+- **Why does the popover layer card lose its width and wrap unexpectedly when the width is not enough near the screen border?**
+
+     After Chromium 104, the wrapping rendering strategy when the width of the screen border text is not enough has changed. For details, see [issue #1022](https://github.com/DouyinFE/semi-design/issues/1022), the semi-side has been This problem was fixed in v2.17.0.

@@ -61,6 +61,52 @@ import { Collapse } from '@douyinfe/semi-ui';
 );
 ```
 
+### 禁用面板
+
+可以通过设置 `disabled` 禁用面板。
+
+```jsx live=true
+import React from 'react';
+import { Collapse } from '@douyinfe/semi-ui';
+
+() => (
+    <Collapse accordion>
+        <Collapse.Panel header="This is panel header 1" itemKey="1" disabled>
+            <p>Hi, bytedance dance dance. This is the docsite of Semi UI. </p>
+        </Collapse.Panel>
+        <Collapse.Panel header="This is panel header 2" itemKey="2">
+            <p>Hi, bytedance dance dance. This is the docsite of Semi UI. </p>
+        </Collapse.Panel>
+        <Collapse.Panel header="This is panel header 3" itemKey="3">
+            <p>Hi, bytedance dance dance. This is the docsite of Semi UI. </p>
+        </Collapse.Panel>
+    </Collapse>
+);
+```
+
+### 隐藏面板展开/收起图标
+
+可以通过设置 `showArrow` 隐藏面板展开/收起图标。
+
+```jsx live=true
+import React from 'react';
+import { Collapse } from '@douyinfe/semi-ui';
+
+() => (
+    <Collapse accordion>
+        <Collapse.Panel header="This is panel header 1" itemKey="1" showArrow={false}>
+            <p>Hi, bytedance dance dance. This is the docsite of Semi UI. </p>
+        </Collapse.Panel>
+        <Collapse.Panel header="This is panel header 2" itemKey="2">
+            <p>Hi, bytedance dance dance. This is the docsite of Semi UI. </p>
+        </Collapse.Panel>
+        <Collapse.Panel header="This is panel header 3" itemKey="3">
+            <p>Hi, bytedance dance dance. This is the docsite of Semi UI. </p>
+        </Collapse.Panel>
+    </Collapse>
+);
+```
+
 ### 自定义展开图标
 
 可以通过 `expandIcon` 设置展开图标，`collapseIcon` 设置折叠图标。
@@ -143,20 +189,22 @@ import { IconCopy } from '@douyinfe/semi-icons';
 | 属性      | 说明                                                                  | 类型                   | 默认值 |版本|
 | --------- | --------------------------------------------------------------------- | ---------------------- | ------ |--- |
 | className | 样式类名                                                              | string                 |   无     ||
+| disabled  | 面板是否被禁用                                                         | boolean                 |  false  | v2.17.0   |
 | extra     | 自定义渲染每个面板右上角的辅助内容（仅当 header 为 string 时生效）    | ReactNode              | 无     ||
 | header    | 面板头内容                                                            | ReactNode      | 无     ||
 | itemKey   | 必填且唯一，选中状态匹配 `activeKey`，`defaultActiveKey`              | string                 | 无     ||
 | reCalcKey | 当 reCalcKey 改变时，将重新计算子节点的高度，用于优化动态渲染时的计算 | string \| number |无| 1.5.0  |
+| showArrow | 是否展示箭头                                                          | boolean                 |  true  | v2.17.0   |
 | style     | 内联 CSS 样式                                                         | CSSProperties                 |  无  |    |
-
 
 ## Accessibility
 
 ### ARIA
 
 - 面板 header 右侧按钮 设置了 `aria-hidden=true`
-- 面版 header 可交互部分 设置了 `aria-owns` 值为对应面板内容
-- 面版内容 设置了 `aria-hidden` 随面板内容展现隐藏其值在 true 和 false 之间自动切换
+- 面板 header 可交互部分 设置了 `aria-owns` 值为对应面板内容
+- 面板内容 设置了 `aria-hidden` 随面板内容展现隐藏其值在 true 和 false 之间自动切换
+- 面板 `aria-disabled` 与 `disabled` 属性同步，表示面板禁用
 
 ## 文案规范
 折叠面板本质是卡片容器增加了收起和展开的功能，所以折叠面板的文案规范需要和 [卡片文案规范](/zh-CN/show/card#%E6%96%87%E6%A1%88%E8%A7%84%E8%8C%83) 保持一致

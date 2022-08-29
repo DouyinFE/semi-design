@@ -149,12 +149,12 @@ brief: Semi Design Tokens
 ```css
 @font-face {
   font-family: "Inter";
-  src: url("https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/slepweh7nupqpognuhbo/Inter-Regular.ttf") format("ttf");
+  src: url("https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/slepweh7nupqpognuhbo/Inter-Regular.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "Inter-Bold";
-  src: url("https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/slepweh7nupqpognuhbo/Inter-Bold.ttf") format("ttf");
+  src: url("https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/slepweh7nupqpognuhbo/Inter-Bold.ttf") format("truetype");
 }
 
 ```

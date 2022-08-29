@@ -1,5 +1,5 @@
 /* argus-disable unPkgSensitiveInfo */
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import withPropsCombinations from 'react-storybook-addon-props-combinations';
 import { BASE_CLASS_PREFIX } from '../../../semi-foundation/base/constants';
 
@@ -232,3 +232,59 @@ export const AvatarTagGroup = () => <AvatarTagGroupDemo />;
 AvatarTagGroup.story = {
   name: 'avatar tagGroup',
 };
+
+class TagGroupCloseableDemo extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            tagList: [
+                { tagKey: '1', color: 'white', children: '抖音',  closable: true,},
+                { tagKey: '2',color: 'white', children: '火山小视频', closable: true,},
+                { tagKey: '3',color: 'white', children: '剪映', closable: true,},
+                { tagKey: '4',color: 'white', children: '皮皮虾', closable: true,},
+            ]
+        };
+        this.tagListClick = this.tagListClick.bind(this);
+    }
+
+    tagListClick(value, e, tagKey){
+        const newTagList = [...this.state.tagList];
+        const closeTagIndex = newTagList.findIndex(t => t.tagKey === tagKey);
+        newTagList.splice(closeTagIndex, 1);
+        this.setState({
+          tagList: newTagList,
+        });
+    }
+
+    render() {
+        return (
+            <div style={ {
+                backgroundColor: 'var(--semi-color-fill-0)',
+                height: 35,
+                width: 300,
+                display: 'flex',
+                alignItems: 'center',
+                padding: '0 10px',
+                marginBottom: 30,
+            }}>
+                <TagGroup
+                    maxTagCount={3}
+                    style={ {
+                        display: 'flex',
+                        alignItems: 'center',
+                        width: 350,
+                    }}
+                    tagList={this.state.tagList}
+                    size='large'
+                    onTagClose={this.tagListClick}
+                />
+            </div>
+        );
+    }
+}
+
+export const TagGroupCloseable = () => <TagGroupCloseableDemo />;
+
+TagGroupCloseable.story = {
+  name: 'tagGroup closable',
+}

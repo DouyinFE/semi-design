@@ -67,15 +67,23 @@ const ComponentCard = props => {
         return () => observer.disconnect();
     }, []);
     return (
-        <div
-            onClick={() => {
-                navigate(url);
+        <a 
+            href={url} 
+            onClickCapture={(e) => {
+                e.preventDefault();
             }}
-            className="semi-overview-card"
         >
-            <img src={imgUrl} className="semi-overview-card-image" />
-            <div className="semi-overview-card-text">{props.name}</div>
-        </div>
+            <div
+                onClick={(e) => {
+                    navigate(url);
+                    e.stopPropagation();
+                }}
+                className="semi-overview-card"
+            >
+                <img src={imgUrl} className="semi-overview-card-image" />
+                <div className="semi-overview-card-text">{props.name}</div>
+            </div>
+        </a>
     );
 };
 

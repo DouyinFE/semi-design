@@ -399,9 +399,10 @@ import { CheckboxGroup, Checkbox, Row, Col } from '@douyinfe/semi-ui';
 
 | PROPERTIES     | Instructions                                                 | type               | Default |
 | -------------- | ------------------------------------------------------------ | ------------------ | ------- |
-| addonId | id of addon node, aria-labelledby refers to this id, if not set, it will generate an id randomly  **provided after v2.11.0**                                 | string            |       |
+| addonId | id of addon node, aria-labelledby refers to this id, if not set, it will generate an id randomly  <br/>**provided after v2.11.0**                                 | string            |       |
 | aria-label     | Define label of the Checkbox  | string | - |
 | checked        | Specify whether the current Checkbox is selected (it is invalid when used in Group)                     | boolean            | false   |
+| type           | Set the type of checkboxe, one of: `default`、`card`、`pureCard` <br/>**provided after v2.18.0** | string        | `default`  |
 | defaultChecked | Whether Checked by default (it is invalid when used in Group)                                           | boolean            | false   |
 | disabled       | Disabled state                                               | boolean            | false   |
 | extra          | Provide extra information <br/>**>= v0.25.0**                | ReactNode          | -       |
@@ -420,7 +421,7 @@ import { CheckboxGroup, Checkbox, Row, Col } from '@douyinfe/semi-ui';
 | disabled     | Disable the entire group                                                | boolean                | false      |
 | name         | The `name` attribute for all `input[type="checkbox"]` in Checkbox Group | string                 | -          |
 | options      | Specify optional                                                        | any\[]              | \[]        |
-| type         | Set the type of checkboxes, one of: `default`、`card`、`pureCard` **provided after v1.30.0**	| string        | `default`  |
+| type         | Set the type of checkboxes, one of: `default`、`card`、`pureCard` <br/>**provided after v1.30.0**	| string        | `default`  |
 | value        | Specify selected options                                                | any\[]              | \[]        |
 | onChange     | Callback function when selected options change                          | function(checkedValue) | -          |
 

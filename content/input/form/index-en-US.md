@@ -56,7 +56,12 @@ Semi Form supports multiple writing at the same time.
 Add `field` property to each field component.
 You can also set label` properties for each field, by default is the same as field
 
-> Note: The field attribute is required props
+`label` can be passed in a string directly, or declared in the form of an object, configure `extra`, `required`, `optional` and other attributes to deal with more complex scenarios
+
+<Notice type='primary' title='Notice'>
+    The field attribute is required props
+</Notice>
+
 
 ```jsx live=true dir="column"
 import React from 'react';
@@ -65,21 +70,26 @@ import { IconHelpCircle } from '@douyinfe/semi-icons';
 
 () => (
     <Form layout='horizontal'>
-        <Form.Select field="role" label='UserRole' style={{ width:120 }}>
-            <Form.Select.Option value="admin">Admin</Form.Select.Option>
-            <Form.Select.Option value="user">User</Form.Select.Option>
-            <Form.Select.Option value="guest">Guest</Form.Select.Option>
-        </Form.Select>
-        <Form.Input field='userName' label='UserName' />
-        <Form.Input field='password' label='Password' />
+        <Form.Input field='username' label='UserName' style={{ width:80 }}/>
         <Form.Input
             field='password'
             label={{ 
                 text: 'Password',
-                extra: <Tooltip content='more detail'><IconHelpCircle style={{ color: '--semi-color-text-1' }}/></Tooltip> 
+                extra: <Tooltip content='More info xxx'><IconHelpCircle style={{ color: 'var(--semi-color-text-2)' }}/></Tooltip> 
             }}
             style={{ width:176 }}
         />
+        <Form.Select
+            field="role"
+            label={{ text: 'Role', optional: true }}
+            style={{ width:176 }}
+            optionList={[
+                { label: 'Admin', value: 'admin' },
+                { label: 'User', value: 'user' },
+                { label: 'Guest', value: 'guest' },
+            ]}
+        >
+        </Form.Select>
     </Form>
 );
 ```
@@ -348,7 +358,7 @@ class BasicDemoWithInit extends React.Component {
                         <TagInput 
                             field="product"
                             label='Product（TagInput）'
-                            defaultValue={['abc','hotsoon']}
+                            initValue={['abc','hotsoon']}
                             style={style}
                         />
                     </Col>
@@ -1576,28 +1586,28 @@ class CustomFieldDemo extends React.Component {
 
 | Properties        | Instructions                                                                                                                                                                                                                                                                                                        | Type                                            | Default    |
 | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------- | ---------- |
+| autoScrollToError | If setting true，when submit or call formApi.validate () fails verification, it will automatically scroll to the wrong field, object config refer to [options](https://github.com/stipsan/scroll-into-view-if-needed#options)                                                                                       | boolean\| object                                | false      |
+| allowEmpty        | Whether to keep the key of the null field in the values, keep the key when true, and remove the key when false    | boolean                                         | false      |
+| component         | For declaring fields, not used at the same time as render, props.children                                                                                                                                                                                                                                           | ReactNode                                       |
+| className         | Classname for form tag                                                                                                                                                                                                                                                                                              | string                                          |
+| disabled          | If true, all fields inside the form structure will automatically inherit the disabled attribute                                                                                                                                                                                                                     | boolean                                         | false      |
+| extraTextPosition | The extraTextPosition property applied to each Field uniformly controls the display position of extraText. Middle (the vertical direction is displayed in the order of Label, extraText, and Field), bottom (the vertical direction is displayed in the order of Label, Field, and extraText) <br/>**since v1.9.0** | string                                          | 'bottom'   |
 | getFormApi        | This function will be executed once when the form is mounted and returns formApi. <br/>formApi can be used to modify the internal state of the form (value, touched, error)                                                                                                                                         | function (formApi: object)                      |            |
 | initValues        | Used to uniformly set the initial value of the form <br/>(will be consumed only once when form is mount)                                                                                                                                                                                                            | object                                          |            |
+| layout            | The layout of fields, optional `horizontal` or `vertical`                                                                                                                                                                                                                                                           | string                                          | 'vertical' |
+| labelCol          | Uniformly applied to the label label layout of each Field, with [Col Component](/en-US/basic/grid#Col), <br/>set `span`, `span` values, such as {span: 6, selected: 2}                                                                                                                     | object                                          |
+| labelAlign        | Text-align value of label                                                                                                                                                                                                                                                                                           | string                                          | 'left'     |
+| labelPosition     | Location of label in Field, optional 'top', 'left', 'inset' <br/> (inset label only partial component support)                                                                                                                                                                                                      | string                                          | 'top'      |
+| labelWidth        | Width of field'r label                                                                                                                                                                                                                                                                                              | string\|number                                  |            |
 | onChange          | Callback invoked when form update, including Fields mount/unmount / value change / <br/> blur / validation status change / error status change.                                                                                                                                                                     | function (formState: object)                    |            |
 | onValueChange     | Callback invoked when form values update                                                                                                                                                                                                                                                                            | function (values: object, changedValue: object) |
 | onReset           | Callback invoked after clicked on reset button or executed `formApi.reset()`                                                                                                                                                                                                                                        | function ()                                     |            |
 | onSubmit          | Callback invoked after clicked on submit button or executed `formApi.submit()`, <br/>and all validation pass.                                                                                                                                                                                                        | function (values: object)                       |            |
 | onSubmitFail      | Callback invoked after clicked on submit button or executed `formApi.submit()`,<br/> but validate failed.                                                                                                                                                                                                            | function (object, values: object)               |            |
-| validateFields    | Form-level custom validate functions are called at submit or formApi.validate(). <br/>Supported synchronous / asynchronous function                                                                                                                                                                                 | function (values)                               |            |
-| component         | For declaring fields, not used at the same time as render, props.children                                                                                                                                                                                                                                           | ReactNode                                       |
 | render            | For declaring fields, not used at the same time as component, props.children                                                                                                                                                                                                                                        | function                                        |
-| allowEmpty        | Whether to keep the key of the null field in the values, keep the key when true, and remove the key when false    | boolean                                         | false      |
-| layout            | The layout of fields, optional `horizontal` or `vertical`                                                                                                                                                                                                                                                           | string                                          | 'vertical' |
-| labelPosition     | Location of label in Field, optional 'top', 'left', 'inset' <br/> (inset label only partial component support)                                                                                                                                                                                                      | string                                          | 'top'      |
-| labelWidth        | Width of field'r label                                                                                                                                                                                                                                                                                              | string\|number                                  |            |
-| labelAlign        | Text-align value of label                                                                                                                                                                                                                                                                                           | string                                          | 'left'     |
-| className         | Classname for form tag                                                                                                                                                                                                                                                                                              | string                                          |
-| wrapperCol        | Uniformly apply the layout on each Field, with [Col component](/en-US/basic/grid#Col), <br/>set `span`, `span` values, such as {span: 20, selected: 4}                                                                                                                                     | object                                          |
-| labelCol          | Uniformly applied to the label label layout of each Field, with [Col Component](/en-US/basic/grid#Col), <br/>set `span`, `span` values, such as {span: 6, selected: 2}                                                                                                                     | object                                          |
-| autoScrollToError | If setting true，when submit or call formApi.validate () fails verification, it will automatically scroll to the wrong field, object config refer to [options](https://github.com/stipsan/scroll-into-view-if-needed#options)                                                                                       | boolean\| object                                | false      |
-| disabled          | If true, all fields inside the form structure will automatically inherit the disabled attribute                                                                                                                                                                                                                     | boolean                                         | false      |
 | showValidateIcon  | Whether the verification information block in the field automatically adds the corresponding status icon display <br/>**since v1.0.0**                                                                                                                                                                              | boolean                                         | true       |
-| extraTextPosition | The extraTextPosition property applied to each Field uniformly controls the display position of extraText. Middle (the vertical direction is displayed in the order of Label, extraText, and Field), bottom (the vertical direction is displayed in the order of Label, Field, and extraText) <br/>**since v1.9.0** | string                                          | 'bottom'   |
+| validateFields    | Form-level custom validate functions are called at submit or formApi.validate(). <br/>Supported synchronous / asynchronous function                                                                                                                                                                                 | function (values)                               |            |
+| wrapperCol        | Uniformly apply the layout on each Field, with [Col component](/en-US/basic/grid#Col), <br/>set `span`, `span` values, such as {span: 20, selected: 4}                                                                                                                                     | object                                          |
 
 ## FormState
 
@@ -1783,6 +1793,7 @@ const { Label } = Form;
 | className  | Classname of label wrapper      | string    |         |
 | style      | Inline style                    | string    |         |
 | width      | Label width                     | number    |         |
+| optional  | Whether to automatically append the "(optional)" text mark after the text (automatically switch the same semantic text according to different languages configured by Locale). When this item is true, the required \* will no longer be displayed.  | boolean    | false | v2.18.0 |
 
 ## Form.Slot
 

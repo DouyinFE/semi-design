@@ -57,15 +57,15 @@ stories.add('switch disabled', () => (
 ));
 
 
-const ControledSwitch = () => {
+const ControlledSwitch = () => {
     const [checked, onChange] = useState(true);
     return (
         <Switch checked={checked} onChange={(v, e) => onChange(v)} />
     );
 };
-stories.add('switch checked + onChange', () => <ControledSwitch/>);
+stories.add('switch checked + onChange', () => <ControlledSwitch/>);
 
-const UnControledSwitch = () => {
+const UnControlledSwitch = () => {
     const onChange = checked => {
         console.log(checked);
     };
@@ -76,7 +76,7 @@ const UnControledSwitch = () => {
         </>
     );
 };
-stories.add('switch defaultChecked + onChange', () => <UnControledSwitch/>);
+stories.add('switch defaultChecked + onChange', () => <UnControlledSwitch/>);
 
 class LoadingDemo extends React.Component {
     constructor(props) {
