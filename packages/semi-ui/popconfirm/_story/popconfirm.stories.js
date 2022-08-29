@@ -168,3 +168,39 @@ export const ClickOutSideDemo = () => {
 ClickOutSideDemo.story = {
   name: 'ClickOutSideDemo',
 };
+
+export const PromiseCallback = () => {
+  const onConfirm = () => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        console.log('ccc');
+        resolve(1);
+      }, 2000)
+    })
+  };
+
+  const onCancel = () => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        console.log('ccc');
+        reject(1);
+      }, 2000)
+    })
+  };
+
+  return (
+    <Popconfirm
+      title="确定是否要保存此修改？"
+      content="此修改将不可逆"
+      onConfirm={onConfirm}
+      onCancel={onCancel}
+    >
+      <Button>保存</Button>
+    </Popconfirm>
+  );
+};
+
+PromiseCallback.story = {
+  name: 'PromiseCallbackDemo',
+};
+
