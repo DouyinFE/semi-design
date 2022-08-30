@@ -428,11 +428,10 @@ const components = {
             const columns = getColumnsFromFiber(columnsFiber);
             const dataSource = getDataFromFiber(dataFiber);
             let firstColumnTitle = columns[0].title;
-            if (firstColumnTitle.includes('推荐用法') || firstColumnTitle.include('Recommended usage')) {
+            if (firstColumnTitle.includes('推荐用法') || firstColumnTitle.includes('Recommended usage')) {
                 tableCls = 'md markdown gatsby-table same-every-column';
             }
         } catch (error) {
-            
         }
         // try {
         //     const columns = getColumnsFromFiber(columnsFiber);

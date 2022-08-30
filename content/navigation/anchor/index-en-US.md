@@ -356,6 +356,10 @@ import { Anchor } from '@douyinfe/semi-ui';
 | style      | Style object              | object            | -       |
 | title      | The content of hyper link | string\|ReactNode | -       |
 
+## Content Guidelines
+- Write in sentence case
+- Keep it concise and avoid line breaks
+
 ## Design Tokens
 <DesignToken/>
 

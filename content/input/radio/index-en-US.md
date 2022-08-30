@@ -446,6 +446,11 @@ WAI-ARIA: https://www.w3.org/WAI/ARIA/apg/patterns/radiobutton/
 123
 ``` -->
 
+## Content Guidelines
+
+- Capitalize the first letter
+- No punctuation
+
 ## Design Tokens
 
 <DesignToken/>

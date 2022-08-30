@@ -198,6 +198,18 @@ import { IllustrationIdle, IllustrationIdleDark, IllustrationConstructionDark, I
 
 - aria-hidden for Empty illustrations is true
 
+## Content Guidelines
+
+- Title
+  - The title should be concise and easy to understand
+- Text
+  - The specific reasons for displaying the empty state can be displayed, and the subsequent operation behavior can also be displayed to help the user eliminate the empty state
+  - Don't repeat the content on the title
+  - Try to keep the body text within 1-2 sentences
+- Action button
+  - Button copy needs to be clear and easy to understand
+  - Use the verb + noun format
+
 ## Design Token
 
 <DesignToken/>

@@ -421,13 +421,12 @@ HookToast
     <ToastCard type='success' content='Ticket transferred' />
 </div>
 
-
-- keep it simple
+- Keep it simple
 - Do not use periods at the end of sentences
 - Explain using the noun + verb format
 
-| ✅ Recommended usage| ❌ Deprecated usage |   
-| --- | --- | 
+| ✅ Recommended usage | ❌ Deprecated usage |
+| --- | --- |
 | Language added | New language has been added successfully |
 | Ticket transfer failed | Can't transfer ticket |
 
@@ -435,9 +434,8 @@ HookToast
   - only provide one action
   - Don't use actions like "read" like OK, Got it, Dismiss, Cancel
 
-
-| ✅ Recommended usage | ❌ Deprecated usage |   
-| --- | --- | 
+| ✅ Recommended usage | ❌ Deprecated usage |
+| --- | --- |
 |  <ToastCard type='error' content={<div>Ticket transfer failed <span style={{ color: 'var(--semi-color-primary)', marginLeft: 4, cursor: 'pointer' }}>Retry</span> </div>} /> |  <ToastCard type='error' content={<div>Ticket transfer failed <span style={{ color: 'var(--semi-color-primary)', marginLeft: 4, cursor: 'pointer' }}>Dismiss</span> </div>} /> |
 
 ## Design Tokens

@@ -768,6 +768,11 @@ function NavApp (props = {}) {
 | collapseText   | Title of the collapse button                                                                                                      | (collapsed:boolean) => string\|ReactNode |         | 0.35.0  |
 | style          | Outermost style                                                                                                                   | object                                    |         |         |
 
+## Content Guidelines
+
+- Navigation bar menu uses sentence case format
+- Keep it as simple as possible
+
 ## Design Tokens
 <DesignToken/>
 

@@ -168,6 +168,10 @@ import { Descriptions } from '@douyinfe/semi-ui';
 | className  | Classname                                   | string            | -       |
 | style      | Inline style                                | CSSProperties     | -       |
 
+## Content Guidelines
+
+- Field names and values ​​are written in upper and lower case according to the Sentence case principle
+
 ## Design Tokens
 
 <DesignToken/>

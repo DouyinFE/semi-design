@@ -287,5 +287,9 @@ import { Badge } from '@douyinfe/semi-ui';
 | theme         | Badge theme, one of `solid`, `light`, `inverted`                                | string     | `solid`    |
 | type          | Badge type, one of `primary`, `secondary`, `sense`, `danger`, `warning`         | string     | `primary`  |
 
+## Content Guidelines
+
+- Capitalize the first letter
+
 ## Design Tokens
 <DesignToken/>
