@@ -949,3 +949,13 @@ Voice 传达的是品牌独特的观点、视角和认同的价值观，也就�
 > 例：Remove from **Saved**
 
 不建议在表达UI元素时使用（“”）的方式，除非没有办法使用加粗效果。
+
+## 参考文献
+
+- [Accessible-and-inclusive-language](https://polaris.shopify.com/content/accessible-and-inclusive-language#navigation)
+- [Atlassian design: Inclusive language](https://atlassian.design/content/inclusive-writing/)
+- [Clarity Design 通用文案](https://design.teambition.com/doc/copywriting)
+- [Microsoft's brand voice: Above all, simple and human](https://docs.microsoft.com/en-us/style-guide/brand-voice-above-all-simple-human)
+- [Mailchimp Content Style Guide: Voice and Tone](https://styleguide.mailchimp.com/voice-and-tone/)
+- [Hyphen Usage-Rules and Examples](https://www.grammarly.com/blog/hyphen/)
+- [How to define your brand's Tone of Voice: Infigraphics & Examples?](https://www.semrush.com/blog/how-to-define-your-tone-of-voice/?kw=&cmp=AA_SRCH_DSA_Blog_Core_BU_EN&label=dsa_pagefeed&Network=g&Device=c&utm_content=554780680947&kwid=dsa-1439622781591&cmpid=12565136841&agpid=128284736066&BU=Core&extid=203772963843&adpos=&gclid=EAIaIQobChMI-pHB9IHP9QIVDhwrCh1J9QUgEAAYASAAEgLMSvD_BwE)
