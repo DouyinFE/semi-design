@@ -92,6 +92,7 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
         mode: '',
         type: 'default'
     };
+    static elementType: string;
 
     radioEntity: RadioInner;
     context!: RadioContextValue;
@@ -317,5 +318,6 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
         );
     }
 }
+Radio.elementType = 'Radio';
 
 export default Radio;
