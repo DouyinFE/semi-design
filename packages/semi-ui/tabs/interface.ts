@@ -25,7 +25,7 @@ export interface TabsProps {
     lazyRender?: boolean;
     onChange?: (activeKey: string) => void;
     onTabClick?: (activeKey: string, e: MouseEvent<Element>) => void;
-    renderTabBar?: (tabBarProps: TabBarProps, defaultTabBar: ComponentType) => ReactNode;
+    renderTabBar?: (tabBarProps: TabBarProps, defaultTabBar: ComponentType<TabBarProps>) => ReactNode;
     size?: TabSize;
     style?: CSSProperties;
     tabBarClassName?: string;
@@ -54,7 +54,7 @@ export interface TabBarProps {
     dropdownStyle?: CSSProperties;
     closable?: boolean;
     deleteTabItem?: (tabKey: string, event: MouseEvent<Element>) => void;
-    handleKeyDown?:  (event: React.KeyboardEvent, itemKey: string, closable: boolean) => void;
+    handleKeyDown?: (event: React.KeyboardEvent, itemKey: string, closable: boolean) => void;
 }
 
 export interface TabPaneProps {
