@@ -45,7 +45,7 @@ export default class ButtonGroup extends BaseComponent<ButtonGroupProps> {
         let lineCls = `${prefixCls}-group-line`;
         if (inner.length > 1) {
             inner.slice(0, -1).forEach(item => {
-                const isButtonType = [get(item, 'type.displayName'), get(item, 'type.name')].includes('Button');
+                const isButtonType = get(item, 'type.elementType') === 'Button';
                 const buttonProps = get(item, 'props') as ButtonProps;
                 if (buttonProps) {
                     const { type, theme, disabled } = buttonProps;
