@@ -620,9 +620,7 @@ import { Select } from '@douyinfe/semi-ui';
                 setList(result);
             }, 1000);
         } else {
-            result = Array.from({ length }, (v, i) => {
-                return { value: inputValue + i, label: `Random: ${i}`, type: i + 1 };
-            });
+            setLoading(false);
         }
     };
 
