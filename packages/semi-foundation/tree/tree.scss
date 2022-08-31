@@ -254,6 +254,10 @@ $module: #{$prefix}-tree;
         user-select: none;
         cursor: not-allowed;
     }
+
+    .#{$prefix}-checkboxGroup-vertical {
+        row-gap: 0;
+    }
 }
 
 .#{$module}-option-list-block {
