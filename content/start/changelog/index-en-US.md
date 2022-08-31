@@ -15,6 +15,14 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+
+#### 🎉 2.18.2 (2022-08-31)
+
+- 【Fix】
+    - Update @douyinfe/semi-webpack-plugin to fix the error that animation.scss cannot be processed when using a custom theme  [#1072](https://github.com/DouyinFE/semi-design/issues/1072)
+- 【Docs】
+    -  Added [Global content guidelines](/zh-CN/), Component content guidelines
+
 #### 🎉 2.18.0 (2022-08-26)
 - 【Feat】
     - Add type API for Checkbox & Radio
