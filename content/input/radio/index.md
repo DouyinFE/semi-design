@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 25
+order: 26
 category: 输入类
 title: Radio 单选框
 icon: doc-radio
@@ -382,17 +382,21 @@ class App extends React.Component {
 WAI-ARIA: https://www.w3.org/WAI/ARIA/apg/patterns/radiobutton/
 
 - RadioGroup 可以被获取焦点，初始焦点设置：
-  - 当 RadioGroup 中没有被选择项时，初始焦点为第一个 Radio 项上；
-  - 当 RadioGroup 中有选中项时，初始焦点为选中的 Radio 项上。
+  - 当 RadioGroup 中没有被选择项时，初始焦点为第一个 Radio 项上
+  - 当 RadioGroup 中有选中项时，初始焦点为选中的 Radio 项上
 - 在同一个 radiogroup 内
-  - 可以通过 `右箭头` 或 `下箭头` 将焦点移动到下一个 Radio 项上，同时取消先前的 Radio 项的选中状态，并选中当前聚焦的 Radio 项；
-  - 可以通过 `左箭头` 或 `上箭头` 将焦点移动到上一个 Radio 项上，同时取消先前的 Radio 项的选中状态，并选中当前聚焦的 Radio 项。
-- 若 RadioGroup 中没有选中项，可以 `Space` 键选中初始焦点。
+  - 可以通过 `右箭头` 或 `下箭头` 将焦点移动到下一个 Radio 项上，同时取消先前的 Radio 项的选中状态，并选中当前聚焦的 Radio 项
+  - 可以通过 `左箭头` 或 `上箭头` 将焦点移动到上一个 Radio 项上，同时取消先前的 Radio 项的选中状态，并选中当前聚焦的 Radio 项
+- 若 RadioGroup 中没有选中项，可以 `Space` 键选中初始焦点
 
 <!-- ## 相关物料
 ```material
 123
 ``` -->
+
+## 文案规范
+- 首字母大写
+- 不使用标点符号
 
 ## 设计变量
 <DesignToken/>

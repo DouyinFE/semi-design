@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 22
+order: 23
 category: 输入类
 title:  Form 表单
 icon: doc-form
@@ -2188,6 +2188,26 @@ const { ErrorMessage } = Form;
 - [aria-describedby](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-describedby_attribute)
   - 当 Field 配置了 `helpText` 或 `extraText` 时，Field 组件会被自动添加 `aria-describedby` 属性，值为 helpText、extraText 所对应DOM元素的 id （格式：`${props.field}-helpText` 、`${props.field}-extraText`）
 
+
+## 文案规范
+
+- 表单标题
+  - 表单标题需要跟随标题的书写规范
+- 表单标签
+  - 标签是输入框的简短描述。标签不是注释信息（help text），因此不应该是输入框的填写说明
+  - 标签必须要：
+    - 放在输入框的上方或下方
+    - 简短（1-3个词）
+    - 使用语句的大小写规范（首字母大写，其他小写）
+- 帮助文本
+  - 帮助文本使用语句书写规范，首字母大写
+- 表单按钮
+  - 关于表单按钮的文案规范，参考[按钮Button组件的文案规范](/zh-CN/input/button#%E6%96%87%E6%A1%88%E8%A7%84%E8%8C%83) 
+
+
+| ✅ 推荐用法 | ❌ 不推荐用法 |   
+| --- | --- | 
+| <img src='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/content_guide/formdemogood.jpg' style={{ height: 280 }} />| <img src='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/content_guide/formdemobad.jpg' style={{ height: 280 }} /> |
 
 ## 设计变量
 <DesignToken/>

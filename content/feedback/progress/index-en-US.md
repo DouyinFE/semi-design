@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 66
+order: 67
 category: Feedback
 title: Progress
 subTitle: Progress
@@ -284,6 +284,9 @@ import { Progress } from '@douyinfe/semi-ui';
 // usage of aria-valuetext
 <Progress aria-label='Percent of disk usage' percent={80} aria-valuetext="Step 2: Copying files... "/> 
 ```
+
+## Content Guidelines
+- If the progress bar process is complicated, or there is a long waiting time, you can use the help text to explain. This lets the user know what progress is happening.
 ## Design Tokens
 
 <DesignToken/>

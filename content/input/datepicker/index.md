@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 21
+order: 22
 category: 输入类
 title: DatePicker 日期选择器
 icon: doc-datepicker
@@ -889,6 +889,11 @@ type TriggerRenderProps = {
 };
 ```
 
+
+## 文案规范
+- 日期选择器建议搭配标签使用
+- 使用简洁的标签来表明日期选择所指的内容
+- 日期选择器中日期格式请参考[日期与时间](/zh-CN/start/content-guidelines#8.%20%E6%97%A5%E6%9C%9F%E4%B8%8E%E6%97%B6%E9%97%B4)的规范
 ## 设计变量
 
 <DesignToken/>
@@ -915,6 +920,7 @@ semi-ui 组件库中采用 [date-fns(v2.9.0)](https://date-fns.org/v2.9.0/docs/G
 多个日期或时间默认使用 `","` （英文逗号）分隔。
 
 > 更多 token 可以查阅 [date-fns 官网](https://date-fns.org/v2.9.0/docs/Unicode-Tokens)
+
 
 ## FAQ
 

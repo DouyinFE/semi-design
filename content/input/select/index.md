@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 27
+order: 28
 category: 输入类
 title:  Select 选择器
 icon: doc-select
@@ -639,88 +639,62 @@ import { Select } from '@douyinfe/semi-ui';
 通过动态更新`optionList`更新下拉菜单中的备选项  
 使用受控的 value 属性
 
-```jsx live=true hideInDSM
+```jsx live=true
 import React from 'react';
 import { debounce } from 'lodash-es';
 import { Select } from '@douyinfe/semi-ui';
 
-class SearchDemo extends React.Component {
-    constructor(){
-        super();
-        this.state = {
-            loading: false,
-            optionList: [
-                { value: 'abc', label: '抖音', type: 1 },
-                { value: 'hotsoon', label: '火山小视频', type: 2 },
-                { value: 'jianying', label: '剪映', type: 3 },
-                { value: 'toutiao', label: '今日头条', type: 4 },
-            ],
-            value: '',
-            multipleValue: [],
-        };
-        this.handleSearch = debounce(this.handleSearch, 800).bind(this);
-        this.onChange = this.onChange.bind(this);
-        this.onMultipleChange = this.onMultipleChange.bind(this);
-    }
+() => {
+    const [loading, setLoading] = useState(false);
+    const optionList = [
+        { value: 'douyin', label: '抖音', type: 1 },
+        { value: 'xingtu', label: '醒图', type: 2 },
+        { value: 'jianying', label: '剪映', type: 3 },
+        { value: 'toutiao', label: '今日头条', type: 4 },
+    ];
+    const [list, setList] = useState(optionList);
+    const [value, setValue] = useState('');
+    
+    const handleMultipleChange = (newValue) => {
+        setValue(newValue);
+    };
 
-    handleSearch(inputValue) {
-        this.setState({ loading: true });
-        let length = Math.ceil(Math.random()*100);
-        let result = Array.from({ length }, (v, i) => {
-            return { value: inputValue + i, label: inputValue + '-新业务线-' + i, type: i + 1 };
-        });
-        setTimeout(() => {
-            this.setState({ optionList: result, loading: false });
-        }, 2000);
-    }
+    const handleSearch = (inputValue) => {
+        setLoading(true);
+        let result = [];
+        if (inputValue) {
+            let length = Math.ceil(Math.random()*100);
+            result = Array.from({ length }, (v, i) => {
+                return { value: inputValue + i, label: `相近业务 ${inputValue}${i}`, type: i + 1 };
+            });
+            setTimeout(() => {
+                setLoading(false);
+                setList(result);
+            }, 1000);
+        } else {
+            result = Array.from({ length }, (v, i) => {
+                return { value: inputValue + i, label: `随机业务${i}`, type: i + 1 };
+            });
+        }
+    };
 
-    onChange(value) {
-        this.setState({ value });
-    }
-
-    onMultipleChange(multipleValue) {
-        this.setState({ multipleValue });
-    }
-
-    render() {
-        const { loading, optionList, value, multipleValue } = this.state;
-        return (
-            <div>
-                <Select
-                    style={{ width: 300 }}
-                    filter
-                    remote
-                    onChangeWithObject
-                    onSearch={this.handleSearch}
-                    optionList={optionList}
-                    loading={loading}
-                    onChange={this.onChange}
-                    value={value}
-                    placeholder='请选择'
-                    emptyContent={null}
-                >
-                </Select>
-                <br/><br/>
-                <Select
-                    style={{ width: 300 }}
-                    filter
-                    remote
-                    onChangeWithObject
-                    multiple
-                    value={multipleValue}
-                    onSearch={this.handleSearch}
-                    optionList={optionList}
-                    loading={loading}
-                    onChange={this.onMultipleChange}
-                    placeholder='请选择'
-                    emptyContent={null}
-                >
-                </Select>
-            </div>
-        );
-    }
-
-}
+    return (
+        <Select
+            style={{ width: 300 }}
+            filter
+            remote
+            onChangeWithObject
+            multiple
+            value={value}
+            onSearch={debounce(handleSearch, 1000)}
+            optionList={list}
+            loading={loading}
+            onChange={handleMultipleChange}
+            emptyContent={null}
+        >
+        </Select>
+    );
+};
 ```
 
 ### 自定义搜索逻辑
@@ -1419,6 +1393,18 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
   - 可以使用 `Tab` 键切换到这些可交互元素上
   - 当焦点在自定义 slot 的首个可交互元素上时，使用 `Shift` + `Tab` ，焦点回到 Select 框上
 
+## 文案规范
+- 选择器标签
+  - 用1-3个词描述需要用户所做的输入
+  - 使用语句书写规范（首字母大写，其余小写）
+  - 避免使用标点符号和介词（“the”, “an”, “a”）
+  - 标签需是独立语句。不要让标签是前半句语句，选项是后半句语句。
+  - 使用描述性语句，而不是指示性语句。如果选项需要更多解释，可以在选择框下使用帮助文本。
+- 选择器选项
+  - 如果没有默认选项，就使用“Select”做占位文案
+  - 选项要按首字母顺序或者其他有逻辑的排列顺序，使用户更好地找到选项
+  - 使用语句书写规范（首字母大写，其余小写），避免在句尾使用逗号和分号
+  - 清晰表达出选项所表示的选择目的
 ## 设计变量
 <DesignToken/>
 

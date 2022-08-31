@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 62
+order: 63
 category: Show
 title: Tooltip
 subTitle: Tooltip
@@ -450,6 +450,11 @@ import { Popconfirm, Tooltip, Button } from '@douyinfe/semi-ui';
 </Tooltip>
 ```
 
+## Content Guidelines
+
+- Only display information description and guidance, do not display error information
+- Only extra links and buttons not in tooltip
+- Try to simplify the description to one sentence without showing punctuation marks
 
 ## Design Tokens
 
