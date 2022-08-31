@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 54
+order: 55
 category: 展示类
 title:  Modal 模态对话框
 icon: doc-modal
@@ -677,6 +677,24 @@ WAI-ARIA: https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog/
 - 修改 closeOnEsc 默认值为 true，允许用户通过键盘直接关闭 Modal 带来更好的体验
 
 
+## 文案规范
+
+- 命令式 Modal 与 默认 Modal 两种模态对话框的标题使用 动词 + 名词 的格式，无论是陈述句还是问句
+
+| ✅ 推荐用法 | ❌ 不推荐用法 |   
+| --- | --- | 
+| Edit ticket | Edit |
+| Delete form？ | Are you sure you want to delete form? |
+
+- 两种模态对话框的操作按钮在保证标题描述清楚的前提下，只需要使用标题内的动词即可
+
+| ✅ 推荐用法 | ❌ 不推荐用法 |   
+| --- | --- | 
+| Edit | Edit ticket |
+
+- 命令式 Modal 的正文规范
+  - 对标题进行具体的解释说明，不要重复标题的信息
+  - 确保用户知道在必要时如何采取行动
 
 ## 设计变量
 <DesignToken/>
@@ -684,9 +702,9 @@ WAI-ARIA: https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog/
 ## FAQ
 
 -   为什么使用 LocaleProvider 后， Modal.confirm 确认、取消按钮的文本没有国际化？
-    在1.2版本之后，当你需要获取 context 信息，如 ConfigProvider 或者 LocaleProvider 的配置时，可以通过 Modal.useModal 方法来返回 modal 实体以及 contextHolder 节点。将 contextHolder 插入到你需要获取 context 位置即可。  
-    
-    如果是1.2版本之前，或者不想使用 Hooks 的写法，也可以通过 `okText` 和 `cancelText` 这两个属性来设置 i18 的文本。
+    Modal 使用 Portal 将浮层节点插入到 DOM 树中。但这个操作仅能改变节点在 DOM 树中的位置，无法改变节点在 React 节点树中的位置，LocalProvider是基于 Contenxt 机制传递的，必须是从属的 React 子结点才可消费到 Local 相关 Contenxt。因此命令式的 Modal 的内置文本无法自动适配国际化。
+    你可以通过 `okText` 和 `cancelText` 这两个属性来根据 Locale 重新设置 i18 的文本。   
+    在1.2版本之后，你也可以通过 Modal.useModal 方法来返回 modal 实体以及 contextHolder 节点。将 contextHolder 插入到你需要获取 context 位置，即可使 Modal 获取到对应的 Context，如 ConfigProvider 或者 LocaleProvider 的配置。
 
 <!-- ## 相关物料
 ```material

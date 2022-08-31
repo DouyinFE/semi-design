@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 53
+order: 54
 category: 展示类
 title: List 列表
 icon: doc-list
@@ -1398,5 +1398,12 @@ body > .component-list-demo-drag-item {
 | onClick      | 点击回调事件 **v>=1.0.0**                                                                           | (e: event) => void  | -            |
 | onRightClick | 右键点击回调事件 **v>=1.0.0**                                                                       | (e: event) => void  | -            |
 
+
+## 文案规范
+
+- 首字母大写
+- 结尾不跟随标点符号
+- 语法平行：如主动态与被动态、陈述句与祈使句混合使用
+  
 ## 设计变量
 <DesignToken/>

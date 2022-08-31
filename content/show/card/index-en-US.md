@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 46
+order: 47
 category: Show
 title:  Card
 subTitle: Card
@@ -698,9 +698,26 @@ function Demo() {
 
 ## Accessibility
 
-- Card supports the input of `aria-label` to indicate the function of the Card;
-- When Card loading, `aria-busy` will be turned on;
-- Card is a container-type component, and any elements inside the card need to follow their respective accessibility guidelines.
+- Card supports the input of `aria-label` to indicate the function of the Card
+- When Card loading, `aria-busy` will be turned on
+- Card is a container-type component, and any elements inside the card need to follow their respective accessibility guidelines
+
+## Content Guidelines
+
+- Card title
+  - Card titles should be informative and focus on the most important information
+  - try to limit the title to 1 phrase or segment
+  - Card titles should be written in sentence case
+  - do not end with punctuation marks (except question marks)
+- Text
+  - Actionable: Use imperative sentences instead of "you can" to describe the body, which better tells the user what can be done
+  
+| ✅ Recommended usage | ❌ Deprecated usage |   
+| --- | --- | 
+| Get order progress for details | You can get order progress for details |
+
+- Always say the most important information first
+- Use "Need to" instead of "must"
 
 ## Design Tokens
 <DesignToken/>

@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 50
+order: 51
 category: Show
 title: Description
 subTitle: Descriptions
@@ -167,6 +167,10 @@ import { Descriptions } from '@douyinfe/semi-ui';
 | hidden     | Toggle whether the data should be displayed | boolean           | -       |
 | className  | Classname                                   | string            | -       |
 | style      | Inline style                                | CSSProperties     | -       |
+
+## Content Guidelines
+
+- Field names and values ​​are written in upper and lower case according to the Sentence case principle
 
 ## Design Tokens
 

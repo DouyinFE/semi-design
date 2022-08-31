@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 48
+order: 49
 category: Show
 title: Collapse
 subTitle: Collapse
@@ -206,6 +206,10 @@ import { IconCopy } from '@douyinfe/semi-icons';
 - The interactive part of the panel header is set to the `aria-owns` value corresponding to the panel content
 - The content of the panel is set with `aria-hidden`, and its value is automatically switched between true and false with the display of the panel content
 - The panel `aria-disabled` is synchronized with the `disabled` property, indicating that the panel is disabled
+
+## Content Guidelines
+
+The essence of the folding panel is that the card container adds the function of folding and unfolding, so the copywriting specification of the folding panel needs to be the same as the [Card copywriting specification](/zh-CN/show/card#%E6%96%87%E6%A1%88%E8%A7%84%E8%8C%83)
 
 ## Design Tokens
 

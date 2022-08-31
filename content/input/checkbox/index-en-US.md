@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 20
+order: 21
 category: Input
 title:  Checkbox
 subTitle: Checkbox
@@ -449,6 +449,22 @@ import { CheckboxGroup, Checkbox, Row, Col } from '@douyinfe/semi-ui';
 - The Checkbox that gets the focus can switch the selected and unselected states through Space.
 - The click area of ​​Checkbox is larger than the box itself and contains the text behind the box; for checkboxes with auxiliary text, the auxiliary text is also included in the click area.
 - Disabled Checkbox is not focusable.
+
+## Content Guidelines
+
+<div style={{ border: '1px solid var(--semi-color-border)', padding: 10, marginBottom: 24 }}>
+    <p style={{ fontWeight: 600, fontSize: 16  }}>Checkbox Content Demo</p>
+    <CheckboxGroup options={[
+        { label: 'Call', value: 'abc' },
+        { label: 'IM', value: 'c' },
+        { label: 'Ticket', value: 'd' },
+        { label: 'Offline', value: 'e' },
+        { label: 'Buzz', value: 'f' }
+    ]} direction='horizontal' aria-label="CheckboxGroup 示例" style={{ marginTop: 10 }}/>
+</div>
+
+- Capitalize the first letter
+- No punctuation
 
 ## Design Tokens
 <DesignToken/>

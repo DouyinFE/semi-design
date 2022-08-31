@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 27
+order: 28
 category: Input
 title: Select
 subTitle: Select
@@ -1353,7 +1353,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 - The role of the Select trigger is combobox, the role of the popup layer is listbox, and the role of the option is option
 - Select trigger has aria-haspopup, aria-expanded, and aria-controls properties, indicating the relationship between trigger and popup layer
 - When multiple selections are made, listbox aria-multiselectable is true, indicating that multiple selections are currently available
-- Aria-selected is true when Option is selected; aria-disabled is true when Option is disabled
+- aria-selected is true when Option is selected; aria-disabled is true when Option is disabled
 - The attribute aria-activedescendant ensures that the currently selected option is recognized when the narration is spoken(for more information, please refer to [Managing Focus in Composites Using aria-activedescendant](https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/#kbd_focus_activedescendant))
 
 ### Keyboard and Focus
@@ -1373,6 +1373,19 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 - When the focus is on the Select box, and the user uses an `innerBottomSlot` or `outerBottomSlot` property with a custom slot with an interactive element:
   - You can use the `Tab` key to switch to these interactive elements
   - When the focus is on the first interactive element of the custom slot, use `Shift` + `Tab` to return the focus to the Select box
+
+## Content Guidelines
+- Selector trigger
+   - Describe in 1-3 words the input that the user needs to make
+   - Use statement writing conventions (first letter uppercase, rest lowercase)
+   - Avoid punctuation and prepositions ("the", "an", "a")
+   - Labels need to be independent statements. Don't let the label be the first half of the statement and the option the second half of the statement.
+   - Use descriptive sentences, not indicative ones. Help text is available under the select box if the option needs more explanation.
+- Selector options
+   - If there is no default option, use "Select" as placeholder copy
+   - Options should be in alphabetical order or other logical order to make it easier for users to find options
+   - Use statement writing conventions (first letter uppercase, rest lowercase), avoid commas and semicolons at the end of sentences
+   - Clearly articulate the purpose of the choice indicated by the option
 ## Design Tokens
 
 <DesignToken/>

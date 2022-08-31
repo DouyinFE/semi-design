@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 21
+order: 22
 category: Input
 title: DatePicker
 subTitle: Date Selector
@@ -922,6 +922,12 @@ The default date time is formatted to:
 Multiple dates or times are used by default `","` (English comma) separated.
 
 > More token available [Date-fns official website](https://date-fns.org/v2.9.0/docs/Unicode-Tokens)
+
+## Content Guidelines
+
+- Date picker is recommended to be used with tags
+- Use concise labels to indicate what the date selection refers to
+- Please refer to [Date and Time](/en-US/start/content-guidelines#8.%20%E6%97%A5%E6%9C%9F%E4%B8%8E%E6%97%B6%E9%97%B4)
 
 ## Design Tokens
 <DesignToken/>

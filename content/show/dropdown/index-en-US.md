@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 51
+order: 52
 category: Show
 title: Dropdown
 subTitle: Dropdown
@@ -499,6 +499,18 @@ function DropdownEvents() {
     - Use the `Enter` key or the `Space` key to activate the focused menu item, if the menu item is bound to onClick, the event will be fired
 - Keyboard users can close the Dropdown by pressing `Esc`, after which the focus returns to the trigger
 - Keyboard interaction does not yet fully support nested scenes
+
+## Content Guidelines
+- The content of the options in the drop-down box needs to be expressed accurately and contain information to make it easier for users to choose among the options when browsing
+- Use statement-like capitalization and write options concisely and clearly
+- In the case of an action option, use a verb or verb phrase to describe the action that will occur when the user selects the option. For example, "Move", "Log time", or "Hide labels"
+- do not use prepositions
+
+| ✅ Recommended usage| ❌ Deprecated usage |  
+| --- | --- | 
+| <div style={{ height: 150}}><Dropdown visible trigger={'custom'} autoAdjustOverflow={false} position={'bottomLeft'} menu={[{ node: 'item', name: 'Add text' },{ node: 'item', name: 'Add link' },{ node: 'item', name: 'Add image' },{ node: 'item', name: 'Add video' }]} /></div> | <div style={{ height: 150}}><Dropdown visible trigger={'custom'} autoAdjustOverflow={false} position={'bottomLeft'} menu={[{ node: 'item', name: 'Add a text' },{ node: 'item', name: 'Add a link' },{ node: 'item', name: 'Add a image' },{ node: 'item', name: 'Add a video' }]} /></div> |
+
+
 
 ## Design Tokens
 

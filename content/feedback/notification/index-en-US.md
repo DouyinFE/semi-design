@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 64
+order: 65
 category: Feedback
 title:  Notification
 subTitle: Notification
@@ -325,5 +325,31 @@ When you need access Context, you could use ``Notification.useNotification` to c
 - The `role` of the component is'alert'
 - The notification's `aria-labelledby` is marked as the corresponding notification title
 
+## Content Guidelines
+
+<div style={{ border: '1px solid var(--semi-color-border)', padding: 10, marginBottom: 24, justifyContent: 'center', display: 'flex' }}>
+    <NotificationCard
+        type='info'
+        title='Task completed'
+        content={
+            <div>
+                400 tasks succeed and 600 failed
+                <div style={{ color: 'var(--semi-color-primary)', marginTop: 4, fontWeight: 600 }}>Check failed tasks</div>
+            </div>
+        }
+    />
+</div>
+
+- Title
+  - Explain in clear and concise language
+  - Avoid punctuation such as commas, periods, etc.
+- Text
+  - On the premise of complete information transmission, try to compress the text to 1-2 sentences
+  - A detailed description or explanation of the title, rather than a repetition of the title
+  - Use correct punctuation, commas within sentences and periods between sentences
+- Operate
+  - The copy needs to show the specific meaning of the operation
+
 ## Design Tokens
+
 <DesignToken/>

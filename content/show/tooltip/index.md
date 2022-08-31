@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 62
+order: 63
 category: 展示类
 title: Tooltip 工具提示
 icon: doc-tooltip
@@ -481,6 +481,11 @@ function Demo() {
     </IconSetting>
 </Tooltip>
 ```
+
+## 文案规范
+- 只展示信息说明和引导，不展示报错信息
+- 不在 tooltip 里只能是额外的链接和按钮
+- 尽量精简至一句话进行说明，不展示标点符号
 
 ## 设计变量
 
