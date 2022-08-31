@@ -81,6 +81,8 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
         onMouseLeave: noop,
         type: 'default',
     };
+    static elementType: string;
+
     checkboxEntity: CheckboxInner;
     context: CheckboxContextType;
 
@@ -288,6 +290,6 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
         );
     }
 }
-
+Checkbox.elementType = 'Checkbox';
 
 export default Checkbox;
