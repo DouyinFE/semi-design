@@ -8,8 +8,6 @@ $inner-width: $width-icon-medium;
 
         input[type="checkbox"],
         input[type="radio"] {
-            left: auto;
-            right: 0;
         }
 
         &-buttonRadioGroup {
@@ -20,11 +18,8 @@ $inner-width: $width-icon-medium;
 
         &-inner {
             left: auto;
-            right: 0;
 
             &-display {
-                left: auto;
-                right: 0;
             }
         }
 
@@ -33,7 +28,7 @@ $inner-width: $width-icon-medium;
             margin-left: 0;
             padding-right: $spacing-radio_addon-paddingLeft;
             margin-right: $spacing-radio_addon-marginLeft;
-            
+
             &-buttonRadio {
                 margin-right: $spacing-none;
             }
