@@ -806,8 +806,8 @@ function Demo() {
 | defaultValue | 默认值 | ValueType |  |  |
 | density | 面板的尺寸，可选值：`default`, `compact` | string | default | **1.17.0** |
 | disabled | 是否禁用 | boolean | false |  |
-| disabledDate | 日期禁止判断方法，返回为 true 时禁止该日期，options 参数 1.9.0 后支持，rangeEnd 1.29 后支持 | (date: Date, options: { rangeStart: string, rangeEnd: string }) => boolean | () => false |  |
-| disabledTime | 时间禁止配置，返回值将会作为参数透传给 [`TimePicker`](/zh-CN/input/timepicker#API_参考) | (date: Date \| Date[], panelType?: string) => ({ <br/>disabledHours:() => number[], <br/>disabledMinutes: (hour: number) => number[], <br/>disabledSeconds: (hour: number, minute: number) => number[] }) | () => false | **0.36.0** |
+| disabledDate | 日期禁止判断方法，返回为 true 时禁止该日期，options 参数 1.9.0 后支持，rangeEnd 1.29 后支持 | <ApiType detail='(date: Date, options: { rangeStart: string, rangeEnd: string }) => boolean'>(date, options) => boolean</ApiType> | () => false   |
+| disabledTime | 时间禁止配置，返回值将会作为参数透传给 [`TimePicker`](/zh-CN/input/timepicker#API_参考) | <ApiType detail='(date: Date \| Date[], panelType?: string) => ({ disabledHours:() => number[], disabledMinutes: (hour: number) => number[], disabledSeconds: (hour: number, minute: number) => number[] })'>(date, panelType) => object</ApiType> | () => false | **0.36.0** |
 | disabledTimePicker | 是否禁止时间选择 | boolean |  | **0.32.0** |
 | dropdownClassName | 下拉列表的 CSS 类名 | string |  | **1.13.0** |
 | dropdownStyle | 下拉列表的内联样式 | object |  | **1.13.0** |
@@ -827,7 +827,7 @@ function Demo() {
 | placeholder | 输入框提示文字 | string | 'Select date' |  |
 | position | 浮层位置，可选值同[Popover#API 参考·position 参数](/zh-CN/show/popover#API参考) | string | 'bottomLeft' |  |
 | prefix | 前缀内容 | string\|ReactNode |  |  |
-| presets | 日期时间快捷方式 | Array<{start:BaseValueType, end:BaseValueType, text:string}\| function():{start:BaseValueType, end:BaseValueType, text:string}> | [] |  |
+| presets | 日期时间快捷方式 |  <ApiType detail='Array< { start: BaseValueType, end :BaseValueType, text: string } \| () => { start:B aseValueType, end: BaseValueType, text: string }>'>Array</ApiType> | [] |  |
 | preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法 | boolean |  |  |
 | presetPosition | 日期时间快捷方式面板位置, 可选值'left', 'right', 'top', 'bottom' | string |  'bottom' | **2.18.0** |
 | rangeSeparator | 自定义范围类型输入框的日期分隔符 | string | '~' | **1.31.0** |
@@ -836,38 +836,28 @@ function Demo() {
 | showClear | 是否显示清除按钮 | boolean | true | **0.35.0** |
 | size | 尺寸，可选值："small", "default", "large" | string | 'default' |  |
 | spacing | 浮层与 trigger 的距离 | number | 4 | **1.9.0** |
-| startDateOffset | type 为 dateRange 时，设置单击选择范围的开始日期 | (selectedDate?: Date) => Date; | - | **1.10.0** |
+| startDateOffset | type 为 dateRange 时，设置单击选择范围的开始日期 | <ApiType detail='(selectedDate?: Date) => Date '>(selectedDate) => Date </ApiType>| - | **1.10.0** |
 | stopPropagation | 是否阻止弹出层上的点击事件冒泡 | boolean | false |  |
 | style | 自定义样式 | CSSProperties |  |  |
 | syncSwitchMonth | 在范围选择的场景中，支持同步切换双面板的月份 | boolean | false | **1.28.0** |
 | timePickerOpts | 其他可以透传给时间选择器的参数，详见 [TimePicker·API 参考](/zh-CN/input/timepicker#API_参考) |  | object | **1.1.0** |
 | topSlot | 渲染顶部额外区域 | ReactNode |  | **1.22.0** |
-| triggerRender | 自定义触发器渲染方法，第一个参数是个 Object，详情看下方类型定义 | (props: TriggerRenderProps) => ReactNode | - | **0.34.0** |
-| type | 类型，可选值："date", "dateRange", "dateTime", "dateTimeRange", "month" | string | 'date' | type="month" 需要 **0.21.0** |
+| triggerRender | 自定义触发器渲染方法，第一个参数是个 Object，详情看下方类型定义 | (props) => ReactNode| | **0.34.0** |
+| type | 类型，可选值："date", "dateRange", "dateTime", "dateTimeRange", "month" | string | 'date' |  |
 | validateStatus | 校验状态，可选值 default、error、warning，默认 default。仅影响展示样式 | string |  |  |
 | value | 受控的值 | ValueType |  |  |
 | weekStartsOn | 以周几作为每周第一天，0 代表周日，1 代表周一，以此类推 | number | 0 |  |
 | zIndex | 弹出面板的 zIndex | number | 1030 |  |
-| onBlur | 失去焦点时的回调 | (e: domEvent) => void | () => {} | **1.0.0** |
-| onCancel | 取消选择时的回调，入参为上次确认选择的值，仅 type="dateTime"\|"dateTimeRange" 且 needConfirm=true 时有效。 <br/>1.0.0 版本之前为 (dateStr: StringType, date: DateType) => void | (date: DateType, dateStr: StringType) => void |  | **0.18.0** |
-| onChange | 值变化时的回调。 <br/>1.0.0 版本之前为 (dateStr: StringType, date: DateType) => void | (date: DateType, dateStr: StringType) => void |  |  |
+| onBlur | 失去焦点时的回调 | (e: event) => void | () => {} | **1.0.0** |
+| onCancel | 取消选择时的回调，入参为上次确认选择的值，仅 type="dateTime"\|"dateTimeRange" 且 needConfirm=true 时有效。<br/>0.x版本入参顺序与新版有所不同 | <ApiType detail='(date: DateType, dateStr: StringType) => void'>(date, dateString) => void</ApiType> |  | **0.18.0** |
+| onChange | 值变化时的回调。<br/>0.x版本入参顺序与新版有所不同 | <ApiType detail='(date: DateType, dateString: StringType) => void'>(date, dateString) => void</ApiType> |  |  |
 | onChangeWithDateFirst | 0.x 中 onChange(string, Date), 1.0 后(Date, string)。此开关设为 false 时，入参顺序将与 0.x 版本保持一致 | boolean | true | **1.0.0** |
-| onClear | 点击 clear 按钮时触发 | (e: domEvent) => void | () => {} | **1.16.0** |
-| onConfirm | 确认选择时的回调，入参为当前选择的值，仅 type="dateTime"\|"dateTimeRange" 且 needConfirm=true 时有效。 <br/>1.0.0 版本之前为 (dateStr: StringType, date: DateType) => void | ( date: DateType, dateStr: StringType) => void |  | **0.18.0** |
-| onFocus | 获得焦点时的回调 | (e: domEvent) => void | () => {} | **1.0.0** |
-| onOpenChange | 面板显示或隐藏状态切换的回调 | (status: boolean) => void |  |  |
-| onPanelChange | 切换面板的年份或者日期时的回调 | (date: DateType\|DateType[], dateStr: StringType\|StringType[])=>void | function | **1.28.0** |
-| onPresetClick | 点击快捷选择按钮的回调 | (item: Object, e: Event) => void | () => {} | **1.24.0** |
-
-## Accessibility
-
-### ARIA
-
-- 未选中日期时，触发器的 `aria-label` 为 `Choose date`，选中日期时，触发器的 `aria-label` 为 `Change date`
-- 日期面板中月的 role 为 `grid`，周的 role 设置为 `row`，日期格子设置为 `gridcell`
-- 日期和时间禁用时对应选项的 `aria-disabled` 为 true
-- 多选时，月的 `aria-multiselectable` 为 true，选中时日期格子的 `aria-selected` 为 true
-- 面板中一些装饰作用的 icon，它们的 `aria-hidden` 为 true
+| onClear | 点击 clear 按钮时触发 | (e: event) => void | () => {} | **1.16.0** |
+| onConfirm | 确认选择时的回调，入参为当前选择的值，仅 type="dateTime"\|"dateTimeRange" 且 needConfirm=true 时有效。<br/>0.x版本入参顺序与新版有所不同 | <ApiType detail='(date: DateType, dateStr: StringType) => void'>(date, dateString) => void</ApiType>|  | **0.18.0** |
+| onFocus | 获得焦点时的回调 | (e: event) => void | () => {} | **1.0.0** |
+| onOpenChange | 面板显示或隐藏状态切换的回调 | <ApiType detail='(isOpen: boolean) => void'>(isOpen) => void</ApiType> |  |  |
+| onPanelChange | 切换面板的年份或者日期时的回调 | <ApiType detail='(date: DateType \| DateType[], dateStr: StringType \| StringType[])=>void'>(date, dateStr) => void</ApiType> | function | **1.28.0** |
+| onPresetClick | 点击快捷选择按钮的回调 | <ApiType detail='(item: Object, e: Event) => void'>(item, e) => void</ApiType> | () => {}  | **1.24.0** |
 
 ## 类型定义
 
@@ -888,6 +878,18 @@ type TriggerRenderProps = {
     [x: string]: any;
 };
 ```
+
+## Accessibility
+
+### ARIA
+
+- 未选中日期时，触发器的 `aria-label` 为 `Choose date`，选中日期时，触发器的 `aria-label` 为 `Change date`
+- 日期面板中月的 role 为 `grid`，周的 role 设置为 `row`，日期格子设置为 `gridcell`
+- 日期和时间禁用时对应选项的 `aria-disabled` 为 true
+- 多选时，月的 `aria-multiselectable` 为 true，选中时日期格子的 `aria-selected` 为 true
+- 面板中一些装饰作用的 icon，它们的 `aria-hidden` 为 true
+
+
 
 
 ## 文案规范

@@ -4,7 +4,7 @@ import { graphql, Link } from 'gatsby';
 import Blocks from '@douyinfe/semi-site-markdown-blocks';
 import '@douyinfe/semi-site-markdown-blocks/dist/index.css';
 import SearchAllInOne from '../components/SearchAllInOne';
-import { Icon, Row, Col, Tag, Tooltip, Checkbox, Button, Radio, Skeleton, Toast, Table, CheckboxGroup, Description, Dropdown, Form, Typography, Empty } from '@douyinfe/semi-ui';
+import { Icon, Row, Col, Tag, Tooltip, Popover, Checkbox, Button, Radio, Skeleton, Toast, Table, CheckboxGroup, Description, Dropdown, Form, Typography, Empty } from '@douyinfe/semi-ui';
 import { IllustrationNoAccess, IllustrationNoAccessDark } from '@douyinfe/semi-illustrations';
 import NotificationCard from '../../packages/semi-ui/notification/notice';
 import ToastCard from '../../packages/semi-ui/toast/toast';
@@ -22,6 +22,7 @@ import { makeAnchorId } from '../utils';
 import ComponentOverview from 'components/ComponentOverview';
 import { get, isString, capitalize, noop } from 'lodash-es';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
+import ApiType from 'components/ApiType';
 import IconList from 'components/IconList';
 import { getLocale } from '../utils/locale';
 import ReactDOM from 'react-dom';
@@ -454,7 +455,7 @@ const components = {
             );
         // }
     },
-
+    ApiType,
 };
 
 const getPrevAndNext = pageContext => {
