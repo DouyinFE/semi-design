@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 42
+order: 43
 category: Navigation
 title:  Tree
 subTitle: Tree
@@ -275,77 +275,77 @@ class Demo extends React.Component {
 After setting the `filterTreeNode` property to enable search, you can customize the rendering method of the search box by setting `searchRender`. When set to `false`, the search box can be hidden.
 ```jsx live=true
 import React from 'react';
-import { Tree } from '@douyinfe/semi-ui';
+import { Tree, Input } from '@douyinfe/semi-ui';
 
 () => {
-  const treeData = [
-            {
-                label: 'Asia',
-                value: 'Asia',
-                key: '0',
-                children: [
-                    {
-                        label: 'China',
-                        value: 'China',
-                        key: '0-0',
-                        children: [
-                            {
-                                label: 'Beijing',
-                                value: 'Beijing',
-                                key: '0-0-0',
-                            },
-                            {
-                                label: 'Shanghai',
-                                value: 'Shanghai',
-                                key: '0-0-1',
-                            },
-                        ],
-                    },
-                    {
-                        label: 'Japan',
-                        value: 'Japan',
-                        key: '0-1',
-                        children: [
-                            {
-                                label: 'Osaka',
-                                value: 'Osaka',
-                                key: '0-1-0'
-                            }
-                        ]
-                    },
-                ],
-            },
-            {
-                label: 'North America',
-                value: 'North America',
-                key: '1',
-                children: [
-                    {
-                        label: 'United States',
-                        value: 'United States',
-                        key: '1-0'
-                    },
-                    {
-                        label: 'Canada',
-                        value: 'Canada',
-                        key: '1-1'
-                    }
-                ]
-            }
-        ];
+    const treeData = [
+        {
+            label: 'Asia',
+            value: 'Asia',
+            key: '0',
+            children: [
+                {
+                    label: 'China',
+                    value: 'China',
+                    key: '0-0',
+                    children: [
+                        {
+                            label: 'Beijing',
+                            value: 'Beijing',
+                            key: '0-0-0',
+                        },
+                        {
+                            label: 'Shanghai',
+                            value: 'Shanghai',
+                            key: '0-0-1',
+                        },
+                    ],
+                },
+                {
+                    label: 'Japan',
+                    value: 'Japan',
+                    key: '0-1',
+                    children: [
+                        {
+                            label: 'Osaka',
+                            value: 'Osaka',
+                            key: '0-1-0'
+                        }
+                    ]
+                },
+            ],
+        },
+        {
+            label: 'North America',
+            value: 'North America',
+            key: '1',
+            children: [
+                {
+                    label: 'United States',
+                    value: 'United States',
+                    key: '1-0'
+                },
+                {
+                    label: 'Canada',
+                    value: 'Canada',
+                    key: '1-1'
+                }
+            ]
+        }
+    ];
 
-  return (
-    <Tree
-      filterTreeNode
-      searchRender={({ prefix, ...restProps }) => (
-        <Input
-          prefix='Search'
-          {...restProps}
+    return (
+        <Tree
+            filterTreeNode
+            searchRender={({ prefix, ...restProps }) => (
+                <Input
+                    prefix='Search'
+                    {...restProps}
+                />
+            )}
+            treeData={treeData}
         />
-      )}
-      treeData={treeData}
-    />
-  );
+    );
 };
 
 ```
@@ -354,78 +354,78 @@ import { Tree } from '@douyinfe/semi-ui';
 Use ref to get tree instance，you can call `search` method of tree to trigger search manually. Note that you need to set `filterTreeNode` to enable search at the same time.If the search box is outside the tree, you can hide the search box inside the tree by setting `searchRender=false`.
 ```jsx live=true
 import React from 'react';
-import { Tree } from '@douyinfe/semi-ui';
+import { Tree, Input } from '@douyinfe/semi-ui';
 
 () => {
-  const ref = useRef();
-  const treeData = [
-    {
-      label: 'Asia',
-      value: 'Asia',
-      key: '0',
-      children: [
+    const ref = useRef();
+    const treeData = [
         {
-          label: 'China',
-          value: 'China',
-          key: '0-0',
-          children: [
-            {
-              label: 'Beijing',
-              value: 'Beijing',
-              key: '0-0-0',
-            },
-            {
-              label: 'Shanghai',
-              value: 'Shanghai',
-              key: '0-0-1',
-            },
-          ],
+            label: 'Asia',
+            value: 'Asia',
+            key: '0',
+            children: [
+                {
+                    label: 'China',
+                    value: 'China',
+                    key: '0-0',
+                    children: [
+                        {
+                            label: 'Beijing',
+                            value: 'Beijing',
+                            key: '0-0-0',
+                        },
+                        {
+                            label: 'Shanghai',
+                            value: 'Shanghai',
+                            key: '0-0-1',
+                        },
+                    ],
+                },
+                {
+                    label: 'Japan',
+                    value: 'Japan',
+                    key: '0-1',
+                    children: [
+                        {
+                            label: 'Osaka',
+                            value: 'Osaka',
+                            key: '0-1-0',
+                        },
+                    ],
+                },
+            ],
         },
         {
-          label: 'Japan',
-          value: 'Japan',
-          key: '0-1',
-          children: [
-            {
-              label: 'Osaka',
-              value: 'Osaka',
-              key: '0-1-0',
-            },
-          ],
+            label: 'North America',
+            value: 'North America',
+            key: '1',
+            children: [
+                {
+                    label: 'United States',
+                    value: 'United States',
+                    key: '1-0',
+                },
+                {
+                    label: 'Canada',
+                    value: 'Canada',
+                    key: '1-1',
+                },
+            ],
         },
-      ],
-    },
-    {
-      label: 'North America',
-      value: 'North America',
-      key: '1',
-      children: [
-        {
-          label: 'United States',
-          value: 'United States',
-          key: '1-0',
-        },
-        {
-          label: 'Canada',
-          value: 'Canada',
-          key: '1-1',
-        },
-      ],
-    },
-  ];
-  return (
-    <div>
-      <Input aria-label='filter tree' prefix="Search" showClear onChange={v => ref.current.search(v)} />
-      <div style={{ marginTop: 20}}>search result：</div>
-      <Tree
-        ref={ref}
-        filterTreeNode
-        searchRender={false}
-        treeData={treeData}
-        blockNode={false}
-      />
-    </div>
-  );
+    ];
+    return (
+        <div>
+            <Input aria-label='filter tree' prefix="Search" showClear onChange={v => ref.current.search(v)} />
+            <div style={{ marginTop: 20 }}>search result：</div>
+            <Tree
+                ref={ref}
+                filterTreeNode
+                searchRender={false}
+                treeData={treeData}
+                blockNode={false}
+            />
+        </div>
+    );
 };
 ```
 
@@ -644,19 +644,19 @@ import { IconMapPin } from '@douyinfe/semi-icons';
             label: 'Asia',
             value: 'Asia',
             key: '0',
-            icon: (<IconMapPin style={{color: 'var(--semi-color-text-2)'}}/>),
+            icon: (<IconMapPin style={{ color: 'var(--semi-color-text-2)' }}/>),
             children: [
                 {
                     label: 'China',
                     value: 'China',
                     key: '0-0',
-                    icon: (<IconMapPin style={{color: 'var(--semi-color-text-2)'}}/>)
+                    icon: (<IconMapPin style={{ color: 'var(--semi-color-text-2)' }}/>)
                 },
                 {
                     label: 'Japan',
                     value: 'Japan',
                     key: '0-1',
-                    icon: (<IconMapPin style={{color: 'var(--semi-color-text-2)'}}/>)
+                    icon: (<IconMapPin style={{ color: 'var(--semi-color-text-2)' }}/>)
                 },
             ],
         }
@@ -1007,7 +1007,7 @@ class Demo extends React.Component {
         };
     }
     onChange(value) {
-        this.setState({value});
+        this.setState({ value });
     }
     render() {
         const treeData = [
@@ -1099,7 +1099,7 @@ class Demo extends React.Component {
         };
     }
     onExpand(value) {
-        this.setState({expandedKeys: value});
+        this.setState({ expandedKeys: value });
     }
     render() {
         const treeData = [
@@ -1208,7 +1208,7 @@ class Demo extends React.Component {
             const rec = n => (n >= 0 ? x * y ** n-- + rec(n) : 0);
             return rec(z + 1);
         }
-        return {gData, total: calcTotal(x, y, z)};
+        return { gData, total: calcTotal(x, y, z) };
     }
 
       
@@ -1304,7 +1304,7 @@ class Demo extends React.Component {
                     treeData={this.state.treeData}
                 />
                 <br/>
-                <Button onClick={this.add} style={{margin: 20}}>
+                <Button onClick={this.add} style={{ margin: 20 }}>
                     Update Data
                 </Button>
             </div>
@@ -1601,6 +1601,7 @@ import { Tree, Checkbox } from '@douyinfe/semi-ui';
         const { label } = data;
         const isLeaf = !(data.children && data.children.length);
         return (
+            // eslint-disable-next-line jsx-a11y/click-events-have-key-events
             <li
                 className={className}
                 role="treeitem"
@@ -1613,7 +1614,7 @@ import { Tree, Checkbox } from '@douyinfe/semi-ui';
                     <Checkbox
                         indeterminate={checkStatus.halfChecked}
                         checked={checkStatus.checked}
-                        style={{marginRight: 8}}
+                        style={{ marginRight: 8 }}
                     />
                 </div> : null}
                 <span>{label}</span>
@@ -1898,7 +1899,7 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
                 onClick={onClick}
                 style={style}
             >
-                {isLeaf ? <span style={{width: 24}}></span> : expandIcon}
+                {isLeaf ? <span style={{ width: 24 }}></span> : expandIcon}
                 {icon}
                 <span>{label}</span>
             </li>
@@ -2213,6 +2214,12 @@ Demo:
         aria-label='example tree'
     />
 ```
+
+
+## Content Guidelines
+- Try to use phrases, capitalize the first letter
+- Keep the same form of terminology between levels, such as all place names or country names
+
 
 ## Design Tokens
 <DesignToken/>

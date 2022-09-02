@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 54
+order: 55
 category: Show
 title:  Modal
 subTitle: Modal
@@ -671,6 +671,25 @@ WAI-ARIA: https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog/
 - When Modal is opened, the focus is on the cancel button by default, which can be controlled by passing autoFocus in cancelButtonProps or okButtonProps.
 - By adding autoFocus to the form element that needs to be focused in the Modal content, the Modal can automatically focus on the element when it is opened (the autoFocus of cancelButtonProps needs to be set to false at the same time).
 - Modify the default value of closeOnEsc to true, allowing users to directly close Modal through the keyboard for a better experience
+
+## Content Guidelines
+
+- Imperative Modal and Default Modal The title of the two modal dialogs uses the format of verb + noun, whether it is a declarative sentence or a question sentence
+
+| ✅ Recommended usage | ❌ Deprecated usage |   
+| --- | --- | 
+| Edit ticket | Edit |
+| Delete form？ | Are you sure you want to delete form? |
+
+- The operation buttons of the two modal dialog boxes only need to use the verbs in the title under the premise of ensuring that the title description is clear
+
+| ✅ Recommended usage | ❌ Deprecated usage |   
+| --- | --- | 
+| Edit | Edit ticket |
+
+- Text specification for imperative Modal
+  - Give a specific explanation to the title, do not repeat the information of the title
+  - Make sure users know how to act if necessary
 
 ## Design Tokens
 <DesignToken/>

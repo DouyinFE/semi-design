@@ -3,7 +3,7 @@ category: 开始
 title: Change Log 更新日志
 icon: doc-changelog
 localeCode: zh-CN
-order: 6
+order: 7
 brief: 关于 Semi Design For React 优化与更新。我们提供了版本间的 Changelog Diff，你可以通过 hover 版本号唤出 Diff 控件。如果你想查看单个组件的变更历史，可以通过对应组件文档的 版本对比 按钮查看
 ---
 
@@ -15,6 +15,13 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 
 ---
+
+#### 🎉 2.18.2 (2022-08-31)
+
+- 【Fix】
+    - 更新 @douyinfe/semi-webpack-plugin，修复使用自定义主题时，提示无法处理 animation.scss 的报错问题  [#1072](https://github.com/DouyinFE/semi-design/issues/1072)
+- 【Docs】
+    -  新增[全局文案规范](/zh-CN/)、组件级文案规范
 
 #### 🎉 2.18.0 (2022-08-26)
 - 【Feat】

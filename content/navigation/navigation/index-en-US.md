@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 38
+order: 39
 category: Navigation
 title:  Navigation
 subTitle: Navigation
@@ -767,6 +767,11 @@ function NavApp (props = {}) {
 | collapseButton | Do you show the bottom "put away the sidebar" button, mode = "vertical" and the child parameter of the Footer component is empty? | boolean\|ReactNode                        | false   |         |
 | collapseText   | Title of the collapse button                                                                                                      | (collapsed:boolean) => string\|ReactNode |         | 0.35.0  |
 | style          | Outermost style                                                                                                                   | object                                    |         |         |
+
+## Content Guidelines
+
+- Navigation bar menu uses sentence case format
+- Keep it as simple as possible
 
 ## Design Tokens
 <DesignToken/>

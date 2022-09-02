@@ -1,12 +1,11 @@
 ---
 localeCode: zh-CN
-order: 60
+order: 61
 category: 展示类
-title:  Tag 标签
+title: Tag 标签
 icon: doc-tag
 brief: 标签是图形化标记界面上的元素的组件，达到快速识别、分组的目的。
 ---
-
 
 ## 代码演示
 
@@ -19,7 +18,7 @@ import { Tag, TagGroup } from '@douyinfe/semi-ui';
 ### 基本用法
 
 基本标签用法，将内容使用 `<Tag>` 标签包裹即可。  
-可以通过添加 `closable` 属性将其变为可关闭标签，此时点击x关闭会触发 onClose 事件，在 onClose 中阻止默认事件可以使其点击后依然显示不隐藏
+可以通过添加 `closable` 属性将其变为可关闭标签，此时点击 x 关闭会触发 onClose 事件，在 onClose 中阻止默认事件可以使其点击后依然显示不隐藏
 
 ```jsx live=true
 import React from 'react';
@@ -48,8 +47,8 @@ import { Tag, Space } from '@douyinfe/semi-ui';
 
 () => (
     <Space>
-        <Tag size='small'> small tag </Tag>
-        <Tag size='large'> large tag </Tag>
+        <Tag size="small"> small tag </Tag>
+        <Tag size="large"> large tag </Tag>
     </Space>
 );
 ```
@@ -66,9 +65,9 @@ import { Tag, Space } from '@douyinfe/semi-ui';
     <Space wrap>
         {
             ['amber', 'blue', 'cyan', 'green', 'grey', 'indigo',  
-             'light-blue','light-green', 'lime', 'orange', 'pink',  
-             'purple', 'red', 'teal','violet', 'yellow', 'white'
-            ].map(item => (<Tag color={item}> {item} tag </Tag>))
+                'light-blue', 'light-green', 'lime', 'orange', 'pink',  
+                'purple', 'red', 'teal', 'violet', 'yellow', 'white'
+            ].map(item => (<Tag color={item} key={item}> {item} tag </Tag>))
         }
     </Space>
 );
@@ -84,9 +83,18 @@ import { Tag, Space } from '@douyinfe/semi-ui';
 
 () => (
     <Space>
-        <Tag color='blue' type='light'> light tag </Tag>
-        <Tag color='blue' type='ghost'> ghost tag </Tag>
-        <Tag color='blue' type='solid'> solid tag </Tag>
+        <Tag color="blue" type="light">
+            {' '}
+            light tag{' '}
+        </Tag>
+        <Tag color="blue" type="ghost">
+            {' '}
+            ghost tag{' '}
+        </Tag>
+        <Tag color="blue" type="solid">
+            {' '}
+            solid tag{' '}
+        </Tag>
     </Space>
 );
 ```
@@ -102,13 +110,23 @@ import { Tag, Space } from '@douyinfe/semi-ui';
 function Demo() {
     const src = 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png';
     return (
-        <Space vertical align='start'>
+        <Space vertical align="start">
             <Tag avatarSrc={src}>焦锐志</Tag>
-            <Tag avatarSrc={src} size='large'>焦锐志</Tag>
-            <Tag avatarSrc={src} size='large' closable={true}>焦锐志</Tag>
-            <Tag avatarSrc={src} avatarShape='circle'>焦锐志</Tag>
-            <Tag avatarSrc={src} avatarShape='circle' size='large'>焦锐志</Tag>
-            <Tag avatarSrc={src} avatarShape='circle' size='large' closable={true}>焦锐志</Tag>
+            <Tag avatarSrc={src} size="large">
+                焦锐志
+            </Tag>
+            <Tag avatarSrc={src} size="large" closable={true}>
+                焦锐志
+            </Tag>
+            <Tag avatarSrc={src} avatarShape="circle">
+                焦锐志
+            </Tag>
+            <Tag avatarSrc={src} avatarShape="circle" size="large">
+                焦锐志
+            </Tag>
+            <Tag avatarSrc={src} avatarShape="circle" size="large" closable={true}>
+                焦锐志
+            </Tag>
         </Space>
     );
 }
@@ -136,10 +154,9 @@ import { Tag, Button } from '@douyinfe/semi-ui';
         </div>
     );
 };
-  
 ```
 
-### TagGroup使用
+### TagGroup 使用
 
 在 TagGroup 内通过 `tagList` 传入 tags 配置，并且设置 `maxTagCount` 属性, 超出数量限制后，会显示为 +N  
 通过设置 `showPopover` 属性，来控制 hover 到 +N Tag 时，是否通过 Popover 显示剩余内容
@@ -151,16 +168,16 @@ import { TagGroup } from '@douyinfe/semi-ui';
 () => {
     const tagList = [
         { color: 'white', children:'抖音' },
-        { color: 'white', children:'火山小视频' },
+        { color: 'white', children:'火山' },
         { color: 'white', children:'剪映' },
-        { color: 'white', children:'皮皮虾' },
+        { color: 'white', children:'醒图' },
     ];
     const src = 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png';
     const tagList2 = [
         { color: 'white', children:'Douyin', avatarSrc:src },
         { color: 'white', children:'Hotsoon', avatarSrc:src },
         { color: 'white', children:'Capcut', avatarSrc:src },
-        { color: 'white', children:'Pipixia', avatarSrc:src },
+        { color: 'white', children:'Xingtu', avatarSrc:src },
     ];
     const divStyle = {
         backgroundColor: 'var(--semi-color-fill-0)',
@@ -179,27 +196,21 @@ import { TagGroup } from '@douyinfe/semi-ui';
     return (
         <>
             <div style={divStyle}>
-                <TagGroup
-                    maxTagCount={3}
-                    style={tagGroupStyle}
-                    tagList={tagList}
-                    size='large'
-                />
+                <TagGroup maxTagCount={3} style={tagGroupStyle} tagList={tagList} size="large" />
             </div>
             <div style={divStyle}>
                 <TagGroup
                     maxTagCount={2}
                     style={tagGroupStyle}
                     tagList={tagList2}
-                    size='large'
-                    avatarShape='circle'
+                    size="large"
+                    avatarShape="circle"
                     showPopover
                 />
             </div>
         </>
     );
 };
-
 ```
 
 如果 TagGroup 中的标签可删除，用户需要在 `onTagClose` 中处理传递给 TagGroup 的 `tagList`。
@@ -216,7 +227,7 @@ class TagGroupCloseableDemo extends React.Component {
                 { tagKey: '1', color: 'white', children: '抖音', closable: true, },
                 { tagKey: '2', color: 'white', children: '火山小视频', closable: true, },
                 { tagKey: '3', color: 'white', children: '剪映', closable: true, },
-                { tagKey: '4', color: 'white', children: '皮皮虾', closable: true, },
+                { tagKey: '4', color: 'white', children: '轻颜相机', closable: true, },
                 { tagKey: '5', color: 'white', children: '懂车帝', closable: true, },
             ]
         };
@@ -228,7 +239,7 @@ class TagGroupCloseableDemo extends React.Component {
         const closeTagIndex = newTagList.findIndex(t => t.tagKey === tagKey);
         newTagList.splice(closeTagIndex, 1);
         this.setState({
-          tagList: newTagList,
+            tagList: newTagList,
         });
     }
 
@@ -297,7 +308,7 @@ class TagGroupCloseableDemo extends React.Component {
 
 ### ARIA
 
-- `aria-label` 用于表示 `Tag` 的作用，对于可删除或者可点击的 `Tag` ，我们推荐使用此属性
+-   `aria-label` 用于表示 `Tag` 的作用，对于可删除或者可点击的 `Tag` ，我们推荐使用此属性
 
 ### 键盘和焦点
 
@@ -305,6 +316,12 @@ class TagGroupCloseableDemo extends React.Component {
   - 使用了 `onClick` 属性时，键盘用户可以通过 `Enter` 键激活此 `Tag`
   - `closable` 属性为 `true` 时，键盘用户可以通过 `Delete` 键删除此 `Tag`
   - `Tag` 被聚焦时，键盘用户可以通过 `Esc` 键使当前聚焦 `Tag` 失焦
+
+## 文案规范
+- 由于空间有限，标签文本应尽可能简短
+- 避免换行
+- 使用句子大小写；
+
 
 ## 设计变量
 

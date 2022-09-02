@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 44
+order: 45
 category: Show
 title:  Badge
 subTitle: Badge
@@ -286,6 +286,10 @@ import { Badge } from '@douyinfe/semi-ui';
 | style         | style                                                                           | CSSProperties     | -          |
 | theme         | Badge theme, one of `solid`, `light`, `inverted`                                | string     | `solid`    |
 | type          | Badge type, one of `primary`, `secondary`, `sense`, `danger`, `warning`         | string     | `primary`  |
+
+## Content Guidelines
+
+- Capitalize the first letter
 
 ## Design Tokens
 <DesignToken/>

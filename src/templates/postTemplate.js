@@ -4,11 +4,15 @@ import { graphql, Link } from 'gatsby';
 import Blocks from '@douyinfe/semi-site-markdown-blocks';
 import '@douyinfe/semi-site-markdown-blocks/dist/index.css';
 import SearchAllInOne from '../components/SearchAllInOne';
-import { Icon, Row, Col, Tag, Tooltip, Checkbox, Button, Radio, Skeleton, Toast, Table } from '@douyinfe/semi-ui';
+import { Icon, Row, Col, Tag, Tooltip, Popover, Checkbox, Button, Radio, Skeleton, Toast, Table, CheckboxGroup, Description, Dropdown, Form, Typography, Empty } from '@douyinfe/semi-ui';
+import { IllustrationNoAccess, IllustrationNoAccessDark } from '@douyinfe/semi-illustrations';
+import NotificationCard from '../../packages/semi-ui/notification/notice';
+import ToastCard from '../../packages/semi-ui/toast/toast';
 import * as scopeJSFile from './scope';
 import * as hocs from 'components/Hocs';
 import { MDXProvider } from '@mdx-js/react';
 import Notice from 'components/Notice';
+import { CustomH4, CustomH5 } from 'components/CustomHx';
 import Compare from 'components/Compare';
 import PageAnchor from 'components/PageAnchor';
 import PrevAndNext from 'components/PrevAndNext';
@@ -18,6 +22,7 @@ import { makeAnchorId } from '../utils';
 import ComponentOverview from 'components/ComponentOverview';
 import { get, isString, capitalize, noop } from 'lodash-es';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
+import ApiType from 'components/ApiType';
 import IconList from 'components/IconList';
 import { getLocale } from '../utils/locale';
 import ReactDOM from 'react-dom';
@@ -59,6 +64,20 @@ const Text = ({ lang, letterSpacing, size, lineHeight, text }) => {
     );
 };
 
+const PureA = (props) => {
+    return (
+        <a style={{
+            fontWeight: 600,
+            color: 'var(--semi-color-link-visited)',
+            lineHeight: '20px',
+            fontSize: 14,
+            ...props.style
+        }}>
+            {props.children}
+        </a>
+    );
+};
+
 const SemiComponents = {
     Row,
     Col,
@@ -69,10 +88,24 @@ const SemiComponents = {
         </Tooltip>
     ),
     Notice,
+    CustomH4, 
+    CustomH5,
     Checkbox,
     Radio,
     DesignToken,
-    ImageBox
+    ImageBox,
+    // content guideline demo 
+    CheckboxGroup: CheckboxGroup,
+    Description: Description,
+    NotificationCard,
+    ToastCard,
+    Dropdown,
+    PureA,
+    Typography,
+    IllustrationNoAccess,
+    IllustrationNoAccessDark,
+    Empty,
+    Button,
 };
 
 const pre = ({ ...props }) => {
@@ -389,6 +422,18 @@ const components = {
             })
             return dataSource;
         }
+        
+        let tableCls = 'md markdown gatsby-table';
+        
+        try {
+            const columns = getColumnsFromFiber(columnsFiber);
+            const dataSource = getDataFromFiber(dataFiber);
+            let firstColumnTitle = columns[0].title;
+            if (firstColumnTitle.includes('推荐用法') || firstColumnTitle.includes('Recommended usage')) {
+                tableCls = 'md markdown gatsby-table same-every-column';
+            }
+        } catch (error) {
+        }
         // try {
         //     const columns = getColumnsFromFiber(columnsFiber);
         //     const dataSource = getDataFromFiber(dataFiber);
@@ -404,12 +449,13 @@ const components = {
         //     );
         // } catch {
             return (
-                <div className="table-container gatsby-table-container">
-                    <table className="md markdown gatsby-table">{children}</table>
+                <div className='table-container gatsby-table-container'>
+                    <table className={tableCls}>{children}</table>
                 </div>
             );
         // }
     },
+    ApiType,
 };
 
 const getPrevAndNext = pageContext => {
@@ -520,6 +566,10 @@ export default function Template(args) {
 
         if (pageContext.slug.indexOf('start/introduction') !== -1) {
             cls.push('introduction');
+        }
+
+        if (pageContext.slug.indexOf('start/content-guidelines') !== -1) {
+            cls.push('content-guidelines');
         }
 
         if (pageContext.slug.indexOf('start/faq') !== -1) {

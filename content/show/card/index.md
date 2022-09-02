@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 46
+order: 47
 category: 展示类
 title:  Card 卡片
 subTitle: 卡片
@@ -698,9 +698,26 @@ function Demo() {
 
 ## Accessibility
 
-- Card 支持传入 `aria-label` 来表示该 Card 作用；
-- Card loading 时，将开启 `aria-busy`；
-- Card 为容器型组件，卡片内部的任何元素需要遵循各自的可访问性指南。
+- Card 支持传入 `aria-label` 来表示该 Card 作用
+- Card loading 时，将开启 `aria-busy`
+- Card 为容器型组件，卡片内部的任何元素需要遵循各自的可访问性指南
+
+## 文案规范
+
+- 卡片标题
+  - 卡片标题应具有信息描述性，聚焦最重要的信息
+  - 尽量将标题限制在 1 个短语或句段中
+  - 卡片标题应句子大小写书写
+  - 不要以标点符号结尾（除了问号）
+- 正文
+  - 可操作的：使用祈使句而不是“你可以”来描述正文，可以更好的告诉用户可以做什么
+  
+| ✅ 推荐用法 | ❌ 不推荐用法 |   
+| --- | --- | 
+| Get order progress for details | You can get order progress for details |
+
+- 总是优先说最重要的信息
+- 使用 “Need to”而不是”must“
 
 ## 设计变量
 <DesignToken/>
