@@ -388,19 +388,19 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
     outPutValue = (inputValue: SliderProps['value']) => {
         const checkHowManyDecimals = (num:number)=>{
             const reg = /^\d+(\.\d+)?$/;
-            if(reg.test(String(num))){
+            if (reg.test(String(num))){
                 return num.toString().split('.')[1]?.length ?? 0;
             }
             return 0;
-        }
+        };
         const step = this._adapter.getProp('step');
         const transWay = (()=>{
             const decimals = checkHowManyDecimals(step);
-            const multipler = Math.pow(10,decimals);
-            return (value:number)=>{
+            const multipler = Math.pow(10, decimals);
+            return (value: number)=>{
                 return Math.round(value * multipler) / multipler;
-            }
-        })()
+            };
+        })();
         
         if (Array.isArray(inputValue)) {
             return [transWay(inputValue[0]), transWay(inputValue[1])];
