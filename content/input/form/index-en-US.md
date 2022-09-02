@@ -1892,4 +1892,7 @@ const { ErrorMessage } = Form;
 
     Click <a href="https://github.com/DouyinFE/semi-design/issues/767" target="_blank">#767</a> for background and content.
 
+-   **The form will automatically save the historical input items, what should I do if I don't want this function?**    
+    Before v2.3, Form did not configure `for`, `name`, `id` and other attributes for input controls strictly according to the A11y accessibility standard, so this function was not available in previous versions. After v2.3, we implemented it strictly according to the W3C standard. If you don't want the browser to automatically save history input items, you can also turn it off by setting `autoComplete=off` at the Form level or Field level
+
 -   **[🔍 🧾 More FAQ](https://bytedance.feishu.cn/docs/doccnNKaGhZMqyu0FufD1JGHOjf)**
