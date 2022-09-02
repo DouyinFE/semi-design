@@ -153,6 +153,11 @@ const local: Locale = {
     Form: {
         optional: '(opsional)',
     },
+    Image: {
+        preview: 'Pratinjau',
+        loading: 'Memuat',
+        loadError: 'Gagal untuk memuat',
+    },
 };
 
 // [i18n-Indonesia(ID)]

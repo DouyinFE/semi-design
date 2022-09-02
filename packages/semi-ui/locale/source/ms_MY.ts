@@ -153,6 +153,11 @@ const local: Locale = {
     Form: {
         optional: '(pilihan)',
     },
+    Image: {
+        preview: 'Pratonton',
+        loading: 'Memuatkan',
+        loadError: 'Gagal memuatkan',
+    },
 };
 
 // [i18n-Malaysia(MY)]

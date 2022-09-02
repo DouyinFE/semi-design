@@ -153,6 +153,11 @@ const local: Locale = {
     Form: {
         optional: '(Optional)',
     },
+    Image: {
+        preview: 'Vorschau',
+        loading: 'Wird geladen',
+        loadError: 'Laden fehlgeschlagen',
+    },
 };
 
 // [i18n-German]

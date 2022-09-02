@@ -151,5 +151,10 @@ export interface Locale {
     };
     Form: {
         optional: string;
-    }
+    };
+    Image: {
+        preview: string;
+        loading: string;
+        loadError: string;
+    };
 }

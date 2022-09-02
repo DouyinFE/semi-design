@@ -157,6 +157,11 @@ const local: Locale = {
     Form: {
         optional: '(ไม่จำเป็น)',
     },
+    Image: {
+        preview: 'ดูตัวอย่าง',
+        loading: 'กำลังโหลด',
+        loadError: 'โหลดไม่สำเร็จ',
+    },
 };
 
 // [i18n-Thai]

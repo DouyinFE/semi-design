@@ -154,6 +154,11 @@ const local: Locale = {
     Form: {
         optional: '(선택 과목)',
     },
+    Image: {
+        preview: '시사',
+        loading: '로딩 중',
+        loadError: '불러 오지 못했습니다',
+    },
 };
 
 // [i18n-Korea]

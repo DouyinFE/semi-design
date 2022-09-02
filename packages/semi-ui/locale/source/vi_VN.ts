@@ -156,6 +156,11 @@ const local: Locale = {
     Form: {
         optional: '(không bắt buộc)',
     },
+    Image: {
+        preview: 'xem trước',
+        loading: 'Đang tải',
+        loadError: 'Không tải được',
+    },
 };
 
 // [i18n-Vietnam] 越南语

@@ -156,6 +156,11 @@ const local: Locale = {
     Form: {
         optional: '(по желанию)',
     },
+    Image: {
+        preview: 'предварительный просмотр',
+        loading: 'Загрузка',
+        loadError: 'Ошибка загрузки',
+    },
 };
 
 // [i18n-Russia] 俄罗斯语

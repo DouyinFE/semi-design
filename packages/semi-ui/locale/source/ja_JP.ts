@@ -154,6 +154,11 @@ const local: Locale = {
     Form: {
         optional: '(オプション)',
     },
+    Image: {
+        preview: 'プレビュー',
+        loading: '読み込み中',
+        loadError: '読み込みに失敗しました',
+    },
 };
 
 // [i18n-Japan]

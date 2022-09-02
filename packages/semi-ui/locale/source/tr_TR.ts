@@ -153,6 +153,11 @@ const local: Locale = {
     Form: {
         optional: '(isteğe bağlı)',
     },
+    Image: {
+        preview: 'Ön izleme',
+        loading: 'Yükleniyor',
+        loadError: 'Yükleme başarısız',
+    },
 };
 
 // [i18n-Turkish] 

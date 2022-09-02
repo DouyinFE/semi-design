@@ -153,6 +153,11 @@ const local: Locale = {
     Form: {
         optional: '(optionnel)',
     },
+    Image: {
+        preview: 'Aperçu',
+        loading: 'Chargement',
+        loadError: 'Échec du chargement',
+    },
 };
 
 // [i18n-French]

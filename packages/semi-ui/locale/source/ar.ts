@@ -153,6 +153,11 @@ const local: Locale = {
     Form: {
         optional: '(اختياري)',
     },
+    Image: {
+        preview: 'معاينة',
+        loading: 'جار التحميل',
+        loadError: 'فشل في التحميل',
+    },
 };
 
 // [i18n-Arabic]

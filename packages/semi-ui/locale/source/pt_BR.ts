@@ -161,6 +161,11 @@ const local: Locale = {
     Form: {
         optional: '(opcional)',
     },
+    Image: {
+        preview: 'Visualizar',
+        loading: 'Carregando',
+        loadError: 'Falha ao carregar',
+    },
 };
 
 // 葡萄牙语

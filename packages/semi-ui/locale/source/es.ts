@@ -158,6 +158,11 @@ const locale: Locale = {
     Form: {
         optional: '(opcional)',
     },
+    Image: {
+        preview: 'Avance',
+        loading: 'Cargando',
+        loadError: 'Falló al cargar',
+    },
 };
 
 export default locale;

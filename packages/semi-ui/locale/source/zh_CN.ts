@@ -154,6 +154,11 @@ const local: Locale = {
     Form: {
         optional: '（可选）',
     },
+    Image: {
+        preview: '预览',
+        loading: '加载中',
+        loadError: '加载失败',
+    },
 };
 
 // 中文
