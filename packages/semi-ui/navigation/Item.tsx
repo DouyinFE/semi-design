@@ -33,6 +33,7 @@ export interface NavItemProps extends ItemProps, BaseProps {
     text?: React.ReactNode;
     tooltipHideDelay?: number;
     tooltipShowDelay?: number;
+    onNavigate?(link?: string): unknown;
     onClick?(clickItems: SelectedData): void;
     onMouseEnter?: React.MouseEventHandler<HTMLLIElement>;
     onMouseLeave?: React.MouseEventHandler<HTMLLIElement>;
@@ -55,6 +56,7 @@ export default class NavItem extends BaseComponent<NavItemProps, NavItemState> {
         onClick: PropTypes.func,
         onMouseEnter: PropTypes.func,
         onMouseLeave: PropTypes.func,
+        onNavigate: PropTypes.func,
         children: PropTypes.node,
         icon: PropTypes.oneOfType([PropTypes.node]),
         className: PropTypes.string,
@@ -217,7 +219,20 @@ export default class NavItem extends BaseComponent<NavItemProps, NavItemState> {
 
         if (typeof link === 'string') {
             itemChildren = (
-                <a className={`${prefixCls}-item-link`} href={link} {...(linkOptions as any)}>
+                <a
+                    className={`${prefixCls}-item-link`}
+                    href={link}
+                    {...(linkOptions as any)}
+                    onClick={e => {
+                        if (this.props.onNavigate && link) {
+                            e.preventDefault();
+                            this.handleClick(e);
+                            this.props.onNavigate(link);
+                        } else {
+                            this.handleClick(e);
+                        }
+                    }}
+                >
                     {itemChildren}
                 </a>
             );

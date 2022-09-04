@@ -71,6 +71,7 @@ export interface NavProps extends BaseProps {
     onDeselect?: (data?: any) => void;
     onOpenChange?: (data: { itemKey: (string | number); openKeys: (string | number)[]; domEvent: MouseEvent; isOpen: boolean }) => void;
     onSelect?: (data: OnSelectedData) => void;
+    onNavigate?: (link: string) => unknown;
 }
 
 export interface NavState {
@@ -124,6 +125,8 @@ class Nav extends BaseComponent<NavProps, NavState> {
         mode: PropTypes.oneOf([...strings.MODE]),
         // Triggered when selecting a navigation item
         onSelect: PropTypes.func,
+        // Triggered when clicking a navigation item, will prevent default a tag jumping
+        onNavigate: PropTypes.func,
         // Triggered when clicking a navigation item
         onClick: PropTypes.func,
         // SubNav expand/close callback
@@ -271,7 +274,7 @@ class Nav extends BaseComponent<NavProps, NavState> {
                             </SubNav>
                         );
                     } else {
-                        return <Item key={item.itemKey || String(level) + idx} {...item as NavItemPropsWithItems} level={level} />;
+                        return <Item key={item.itemKey || String(level) + idx} {...item as NavItemPropsWithItems} level={level} onNavigate={this.props.onNavigate} />;
                     }
                 })}
             </>

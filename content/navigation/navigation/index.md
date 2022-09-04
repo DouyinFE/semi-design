@@ -2,13 +2,12 @@
 localeCode: zh-CN
 order: 39
 category: 导航类
-title:  Navigation 导航
+title: Navigation 导航
 icon: doc-navigation
 width: 650px
 dir: column
 brief: 为页面和功能提供导航的菜单列表。
 ---
-
 
 ## 代码演示
 
@@ -56,9 +55,7 @@ class NavApp extends React.Component {
         );
     }
 }
-
 ```
-
 
 ### 导航缩进
 
@@ -79,14 +76,14 @@ class NavApp extends React.Component {
         return (
             <Nav
                 bodyStyle={{ height: 320 }}
-                defaultOpenKeys={[ 'job' ]}
+                defaultOpenKeys={['job']}
                 items={[
                     { itemKey: 'user', text: '用户管理' },
                     { itemKey: 'union', text: '公会中心' },
                     {
                         itemKey: 'union-management',
                         text: '公会管理',
-                        items: ['公告设置', '公会查询', '信息录入']
+                        items: ['公告设置', '公会查询', '信息录入'],
                     },
                     {
                         text: '任务平台',
@@ -133,8 +130,10 @@ class NavApp extends React.Component {
                 ]}
                 onSelect={key => console.log(key)}
                 header={{
-                    logo: <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />,
-                    text: 'Semi 运营后台'
+                    logo: (
+                        <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />
+                    ),
+                    text: 'Semi 运营后台',
                 }}
                 footer={{
                     collapseButton: true,
@@ -181,8 +180,10 @@ class NavApp extends React.Component {
                 ]}
                 onSelect={key => console.log(key)}
                 header={{
-                    logo: <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />,
-                    text: 'Semi 运营后台'
+                    logo: (
+                        <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />
+                    ),
+                    text: 'Semi 运营后台',
                 }}
                 footer={{
                     collapseButton: true,
@@ -211,7 +212,12 @@ class NavApp extends React.Component {
                 onSelect={data => console.log('trigger onSelect: ', data)}
                 onClick={data => console.log('trigger onClick: ', data)}
             >
-                <Nav.Header logo={<img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />} text={'Semi 运营后台'} />
+                <Nav.Header
+                    logo={
+                        <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />
+                    }
+                    text={'Semi 运营后台'}
+                />
                 <Nav.Item itemKey={'union'} text={'公会中心'} icon={<IconStar />} />
                 <Nav.Sub itemKey={'user'} text="用户管理" icon={<IconUser />}>
                     <Nav.Item itemKey={'golder'} text={'金主管理'} />
@@ -227,7 +233,6 @@ class NavApp extends React.Component {
         );
     }
 }
-
 ```
 
 ### 导航方向
@@ -265,7 +270,7 @@ class NavApp extends React.Component {
                             itemKey: 'union-management',
                             text: '公会管理',
                             icon: <IconUserGroup />,
-                            items: ['公告设置', '公会查询', '信息录入']
+                            items: ['公告设置', '公会查询', '信息录入'],
                         },
                         {
                             text: '任务平台',
@@ -276,8 +281,10 @@ class NavApp extends React.Component {
                     ]}
                     onSelect={key => console.log(key)}
                     header={{
-                        logo: <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />,
-                        text: 'Semi 运营后台'
+                        logo: (
+                            <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />
+                        ),
+                        text: 'Semi 运营后台',
                     }}
                     footer={{
                         collapseButton: true,
@@ -314,12 +321,9 @@ class NavApp extends React.Component {
                                 {
                                     itemKey: 'operation-management',
                                     text: '运营管理',
-                                    items: [
-                                        '人员管理',
-                                        '人员变更'
-                                    ]
-                                }
-                            ]
+                                    items: ['人员管理', '人员变更'],
+                                },
+                            ],
                         },
                         {
                             text: '任务平台',
@@ -330,8 +334,10 @@ class NavApp extends React.Component {
                     ]}
                     onSelect={key => console.log(key)}
                     header={{
-                        logo: <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />,
-                        text: 'Semi 运营后台'
+                        logo: (
+                            <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />
+                        ),
+                        text: 'Semi 运营后台',
                     }}
                     footer={
                         <Dropdown
@@ -343,7 +349,9 @@ class NavApp extends React.Component {
                                 </Dropdown.Menu>
                             }
                         >
-                            <Avatar size="small" color='light-blue' style={{margin: 4}}>BD</Avatar>
+                            <Avatar size="small" color="light-blue" style={{ margin: 4 }}>
+                                BD
+                            </Avatar>
                             <span>Bytedancer</span>
                         </Dropdown>
                     }
@@ -372,7 +380,7 @@ class NavApp extends React.Component {
                 itemKey: 'union-management',
                 text: '公会管理',
                 icon: <IconUserGroup />,
-                items: ['公告设置', '公会查询', '信息录入']
+                items: ['公告设置', '公会查询', '信息录入'],
             },
             {
                 itemKey: 'approve-management',
@@ -383,12 +391,9 @@ class NavApp extends React.Component {
                     {
                         itemKey: 'operation-management',
                         text: '运营管理',
-                        items: [
-                            '人员管理',
-                            '人员变更'
-                        ]
-                    }
-                ]
+                        items: ['人员管理', '人员变更'],
+                    },
+                ],
             },
             {
                 text: '任务平台',
@@ -408,16 +413,22 @@ class NavApp extends React.Component {
                 mode={'horizontal'}
                 onSelect={key => console.log(key)}
                 header={{
-                    logo: <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />,
-                    text: 'Semi 运营后台'
+                    logo: (
+                        <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />
+                    ),
+                    text: 'Semi 运营后台',
                 }}
                 footer={
                     <>
-                        <Select defaultValue='Chinese' style={{ width: 120, marginRight: 10 }} insetLabel={<IconLanguage />}>
-                            <Select.Option value='Chinese'>中文</Select.Option>
-                            <Select.Option value='English'>English</Select.Option>
-                            <Select.Option value='Korean'>한국어</Select.Option>
-                            <Select.Option value='Japanese'>日本語</Select.Option>
+                        <Select
+                            defaultValue="Chinese"
+                            style={{ width: 120, marginRight: 10 }}
+                            insetLabel={<IconLanguage />}
+                        >
+                            <Select.Option value="Chinese">中文</Select.Option>
+                            <Select.Option value="English">English</Select.Option>
+                            <Select.Option value="Korean">한국어</Select.Option>
+                            <Select.Option value="Japanese">日本語</Select.Option>
                         </Select>
                         <Button style={{ marginRight: 10 }}>切换至海外版</Button>
                         <Dropdown
@@ -429,7 +440,9 @@ class NavApp extends React.Component {
                                 </Dropdown.Menu>
                             }
                         >
-                            <Avatar size="small" color='light-blue' style={{margin: 4}}>BD</Avatar>
+                            <Avatar size="small" color="light-blue" style={{ margin: 4 }}>
+                                BD
+                            </Avatar>
                             <span>Bytedancer</span>
                         </Dropdown>
                     </>
@@ -490,8 +503,10 @@ class NavApp extends React.Component {
                 ]}
                 onSelect={key => console.log(key)}
                 header={{
-                    logo: <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />,
-                    text: 'Semi 运营后台'
+                    logo: (
+                        <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />
+                    ),
+                    text: 'Semi 运营后台',
                 }}
                 footer={{
                     collapseButton: true,
@@ -503,6 +518,7 @@ class NavApp extends React.Component {
 ```
 
 ### 缩进限制
+
 默认无缩进，需要导航项依据层级缩进请将 limitIndent 设置为 false
 
 React Jsx 方式用 Nav.Item 传入导航项时 请手动给 Nav.Item 传入 `level` props。
@@ -529,23 +545,31 @@ class NavApp extends React.Component {
                         text: '任务平台',
                         icon: <IconSetting />,
                         itemKey: 'job',
-                        items: ['任务管理', {
-                            text: '任务1',
-                            icon: <IconSetting />,
-                            itemKey: 'mission1',
-                            items: ['任务2',{
-                                text: '任务3拆解',
+                        items: [
+                            '任务管理',
+                            {
+                                text: '任务1',
                                 icon: <IconSetting />,
-                                itemKey: 'mission3',
-                                items: ['子任务1', '子任务2'],
-                            }, ],
-                        },],
+                                itemKey: 'mission1',
+                                items: [
+                                    '任务2',
+                                    {
+                                        text: '任务3拆解',
+                                        icon: <IconSetting />,
+                                        itemKey: 'mission3',
+                                        items: ['子任务1', '子任务2'],
+                                    },
+                                ],
+                            },
+                        ],
                     },
                 ]}
                 onSelect={key => console.log(key)}
                 header={{
-                    logo: <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />,
-                    text: 'Semi 运营后台'
+                    logo: (
+                        <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />
+                    ),
+                    text: 'Semi 运营后台',
                 }}
                 footer={{
                     collapseButton: true,
@@ -555,7 +579,6 @@ class NavApp extends React.Component {
     }
 }
 ```
-
 
 ### 非受控属性
 
@@ -585,7 +608,7 @@ class NavApp extends React.Component {
                         itemKey: 'union-management',
                         text: '公会管理',
                         icon: <IconUserGroup />,
-                        items: ['公告设置', '公会查询', '信息录入']
+                        items: ['公告设置', '公会查询', '信息录入'],
                     },
                     {
                         text: '任务平台',
@@ -595,17 +618,18 @@ class NavApp extends React.Component {
                     },
                 ]}
                 header={{
-                    logo: <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />,
-                    text: 'Semi 运营后台'
+                    logo: (
+                        <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />
+                    ),
+                    text: 'Semi 运营后台',
                 }}
                 footer={{
-                    collapseButton: true
+                    collapseButton: true,
                 }}
             />
         );
     }
 }
-
 ```
 
 ### 受控属性
@@ -629,7 +653,7 @@ import React, { useMemo, useState } from 'react';
 import { Nav } from '@douyinfe/semi-ui';
 import { IconUser, IconStar, IconUserGroup, IconSetting } from '@douyinfe/semi-icons';
 
-function NavApp (props = {}) {
+function NavApp(props = {}) {
     const [openKeys, setOpenKeys] = useState(['union-management', 'job']);
     const [selectedKeys, setSelectedKeys] = useState(['用户任务查询']);
     const [isCollapsed, setIsCollapsed] = useState(true);
@@ -647,22 +671,25 @@ function NavApp (props = {}) {
         setIsCollapsed(isCollapsed);
     };
 
-    const items = useMemo(() => [
-        { itemKey: 'user', text: '用户管理', icon: <IconUser /> },
-        { itemKey: 'union', text: '公会中心', icon: <IconStar /> },
-        {
-            itemKey: 'union-management',
-            text: '公会管理',
-            icon: <IconUserGroup />,
-            items: ['公告设置', '公会查询', '信息录入']
-        },
-        {
-            text: '任务平台',
-            icon: <IconSetting />,
-            itemKey: 'job',
-            items: ['任务管理', '用户任务查询'],
-        },
-    ], []);
+    const items = useMemo(
+        () => [
+            { itemKey: 'user', text: '用户管理', icon: <IconUser /> },
+            { itemKey: 'union', text: '公会中心', icon: <IconStar /> },
+            {
+                itemKey: 'union-management',
+                text: '公会管理',
+                icon: <IconUserGroup />,
+                items: ['公告设置', '公会查询', '信息录入'],
+            },
+            {
+                text: '任务平台',
+                icon: <IconSetting />,
+                itemKey: 'job',
+                items: ['任务管理', '用户任务查询'],
+            },
+        ],
+        []
+    );
 
     return (
         <Nav
@@ -672,11 +699,13 @@ function NavApp (props = {}) {
             bodyStyle={{ height: 360 }}
             items={items}
             header={{
-                logo: <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />,
-                text: 'Semi 运营后台'
+                logo: (
+                    <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />
+                ),
+                text: 'Semi 运营后台',
             }}
             footer={{
-                collapseButton: true
+                collapseButton: true,
             }}
             onCollapseChange={onCollapseChange}
             onOpenChange={onOpenChange}
@@ -686,105 +715,138 @@ function NavApp (props = {}) {
 }
 ```
 
+### 由第三方库托管路由
+
+大部分 React SPA 都使用了 `react-router-dom` 之类的路由库实现 SPA 内导航。此时，导航都应该由 `react-router-dom` 的 API 实现。
+
+而如果你直接使用 `<NavItem link="/eg" />`，则会渲染一个 `<a href="/eg" />` 标签，点击则会直接跳转，不走 `react-router-dom`，造成页面刷新。
+
+之前解决方案，可以自己渲染 `<NavItem>` 内容，也可以控制 `a` 标签参数让其行为被 `react-router-dom` 代理。（例如监听 `onclick` 事件并在其回调中添加 `e.preventDefault()`）。
+
+现在我们有了新的 API `onNavigate`，其回调函数第一个参数为目标地址，而且当你传入回调函数时，它会自动为你添加 `preventDefault()`。监听此端口即可直接方便地将路由托管给第三方库。
+
+```jsx live=false
+import React from 'react';
+import { Nav } from '@douyinfe/semi-ui';
+import { useNavigate } from 'react-router-dom';
+
+const NavApp = () => {
+    const navigate = useNavigate();
+
+    return (
+        <Nav
+            items={[
+                { itemKey: 'user', text: '用户管理', link: '/eg/1' },
+                { itemKey: 'union', text: '公会中心', link: '/eg/2' },
+            ]}
+            onNavigate={targetLink => navigate(targetLink)}
+        />
+    );
+};
+```
+
+温馨提示：为了提升网页语义化程度、提高 SEO 友好度，建议将目标路径写入 `a` 标签的 `href` 属性中。这就是为什么上述例子中要使用 `href` 配合 `preventDefault()` 而非放弃 `href` 属性并仅监听其 `onclick` 事件。
+
 ## API 参考
 
 ### Nav
 
-| 属性                | 类型                                                                                                                             | 描述                                                                                                                           | 默认值     |
-| ------------------- | -------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ---------- |
-| bodyStyle           | 导航项列表的自定义样式                                                                             | object                                                                                                                           |           |
-| className           | 最外层元素的样式名                                                                               | boolean                                                                                                                          |           |
-| defaultIsCollapsed  | 默认是否处于收起状态，仅 `mode = "vertical"` 时有效                                                    | boolean                                                                                                                          | false     |
-| defaultOpenKeys     | 初始打开的子导航 `itemKey` 数组，仅 `mode = "vertical"` 且侧边栏处于展开状态时有效                               | string[]                                                                                                                         | []        |
-| defaultSelectedKeys | 初始选中的导航项 `itemKey` 数组                                                                   | string[]                                                                                                                         | []        |
-| footer              | 底部区域配置对象或元素，详见 [Nav.Footer](#Nav.Footer)                                                | object\| ReactNode |                      |
-| header              | 头部区域配置对象或元素，详见 [Nav.Header](#Nav.Header)                                                | object\| ReactNode |                      |
-| isCollapsed         | 是否处于收起状态的受控属性，仅 `mode = "vertical"` 时有效                                                 | boolean                                                                                                                          |           |
-| items               | 导航项目列表，每一项可以继续带有 items 属性。如果为 string 数组，则会取每一项作为 text 和 itemKey                         | object\| string[] \| [Item](#Nav.Item)[] \| [Sub](#Nav.Sub)[] |  |
-| limitIndent         | 解除缩进限制，可使用 level 自定义导航项缩进，水平模式只能为true >=1.27.0                                          | boolean                                                                                                                          | true      |
-| mode                | 导航类型，目前支持横向与竖直，可选值：`vertical`\                                                          | `horizontal`                                                                                                                     | string    | `vertical`           |
-| openKeys            | 受控的打开的子导航 `itemKey` 数组，配合 `onOpenChange` 回调控制子导航项展开，仅 `mode = "vertical"` 且侧边栏处于展开状态时有效 | string[]                                                                                                                         |           |
-| prefixCls           | 类名前缀                                                                                    | string                                                                                                                           | `semi`    |
-| selectedKeys        | 受控的导航项 `itemKey` 数组，配合 `onSelect` 回调控制导航项选择                                             | string[]                                                                                                                         |           |
-| style               | 最外层元素的自定义样式                                                                             |         CSSProperties                                                                                                                         |           |
-| subNavCloseDelay    | 子导航浮层关闭的延迟。collapse 为 true 或 mode 为 "horizontal" 时有效，单位为 ms                             | number                                                                                                                           | 100       |
-| subNavMotion        | 子导航折叠动画                                                                                 | boolean                                                                                                                          | true      |
-| subNavOpenDelay     | 子导航浮层显示的延迟。collapse 为 true 或 mode 为 "horizontal" 时有效，单位为 ms                             | number                                                                                                                           | 0         |
-| toggleIconPosition  | 带有子导航项的的父级导航项箭头位置 >=1.27.0                                                              | 'left' \| 'right'   | 'right'              |
-| tooltipHideDelay    | tooltip 隐藏的延迟，collapse 为 true 时有效，单位为 ms                                                | number                                                                                                                           | 100       |
-| tooltipShowDelay    | tooltip 显示的延迟，collapse 为 true 时有效，单位为 ms                                                | number                                                                                                                           | 0         |
-| onClick             | 点击任意导航项时触发                                                                              | ({ itemKey: string, domEvent: MouseEvent, isOpen: boolean }) => {}                                                               | () => {}  |
-| onCollapseChange    | 收起状态变化时的回调                                                                              | (isCollapsed: boolean) => {}                                                                                                     | () => {}  |
-| onOpenChange        | 切换某个子导航项目显隐状态时触发                                                                        | ({ itemKey: string, openKeys: string[], domEvent: MouseEvent, isOpen: boolean }) => {}                                           | () => {}  |
-| onSelect            | 第一次选中某个可选中导航项目时触发，其中 selectedItems 这个字段版本 >= 0.17.0 后才支持 | ({ itemKey: string, selectedKeys: string[], selectedItems: [Item](#Nav.Item)[], domEvent: MouseEvent, isOpen: boolean }) => {} | () => {}  |
+| 属性 | 描述 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| bodyStyle | 导航项列表的自定义样式 | object |  |
+| className | 最外层元素的样式名 | boolean |  |
+| defaultIsCollapsed | 默认是否处于收起状态，仅 `mode = "vertical"` 时有效 | boolean | false |
+| defaultOpenKeys | 初始打开的子导航 `itemKey` 数组，仅 `mode = "vertical"` 且侧边栏处于展开状态时有效 | string[] | [] |
+| defaultSelectedKeys | 初始选中的导航项 `itemKey` 数组 | string[] | [] |
+| footer | 底部区域配置对象或元素，详见 [Nav.Footer](#Nav.Footer) | object\| ReactNode |  |
+| header | 头部区域配置对象或元素，详见 [Nav.Header](#Nav.Header) | object\| ReactNode |  |
+| isCollapsed | 是否处于收起状态的受控属性，仅 `mode = "vertical"` 时有效 | boolean |  |
+| items | 导航项目列表，每一项可以继续带有 items 属性。如果为 string 数组，则会取每一项作为 text 和 itemKey | object\| string[] \| [Item](#Nav.Item)[] \| [Sub](#Nav.Sub)[] |  |
+| limitIndent | 解除缩进限制，可使用 level 自定义导航项缩进，水平模式只能为 true >=1.27.0 | boolean | true |
+| mode | 导航类型，目前支持横向与竖直，可选值：`vertical`\  | `horizontal` | string | `vertical` |
+| openKeys | 受控的打开的子导航 `itemKey` 数组，配合 `onOpenChange` 回调控制子导航项展开，仅 `mode = "vertical"` 且侧边栏处于展开状态时有效 | string[] |  |
+| prefixCls | 类名前缀 | string | `semi` |
+| selectedKeys | 受控的导航项 `itemKey` 数组，配合 `onSelect` 回调控制导航项选择 | string[] |  |
+| style | 最外层元素的自定义样式 | CSSProperties |  |
+| subNavCloseDelay | 子导航浮层关闭的延迟。collapse 为 true 或 mode 为 "horizontal" 时有效，单位为 ms | number | 100 |
+| subNavMotion | 子导航折叠动画 | boolean | true |
+| subNavOpenDelay | 子导航浮层显示的延迟。collapse 为 true 或 mode 为 "horizontal" 时有效，单位为 ms | number | 0 |
+| toggleIconPosition | 带有子导航项的的父级导航项箭头位置 >=1.27.0 | 'left' \| 'right' | 'right' |
+| tooltipHideDelay | tooltip 隐藏的延迟，collapse 为 true 时有效，单位为 ms | number | 100 |
+| tooltipShowDelay | tooltip 显示的延迟，collapse 为 true 时有效，单位为 ms | number | 0 |
+| onClick | 点击任意导航项时触发 | ({ itemKey: string, domEvent: MouseEvent, isOpen: boolean }) => {} | () => {} |
+| onCollapseChange | 收起状态变化时的回调 | (isCollapsed: boolean) => {} | () => {} |
+| onOpenChange | 切换某个子导航项目显隐状态时触发 | ({ itemKey: string, openKeys: string[], domEvent: MouseEvent, isOpen: boolean }) => {} | () => {} |
+| onSelect | 第一次选中某个可选中导航项目时触发，其中 selectedItems 这个字段版本 >= 0.17.0 后才支持 | ({ itemKey: string, selectedKeys: string[], selectedItems: [Item](#Nav.Item)[], domEvent: MouseEvent, isOpen: boolean }) => {} | () => {} |
+| onNavigate | 点击有 `link` 参数的导航项时触发。此值不为空时还会阻止 `a` 标签的自动跳转。会透传给所有子项。 | (link: string) => unknown | |
 
 ### Nav.Item
 
-| 属性        | 描述                                               | 类型              | 默认值 | 版本          |
-|-------------|--------------------------------------------------|-------------------|--------|---------------|
-| disabled    | 是否禁用                                           | boolean | false     | 1.17.0              |
-| icon        | 导航项目图标                             | ReactNode |      |               |
-| indent      | 如果 icon 为空，是否保留其占位，仅对一级导航生效       | boolean           | false  |               |
-| itemKey     | 导航项目唯一 key                                   | string            | ""     |               |
-| level       | 当前项所在嵌套层级，limitIndent 为 true时，用于自定义缩进位置| number | | 1.27.0 | 
-| link        | 导航项 href 链接，传入时导航项整体会包裹一个 a 标签 | string            | -      | 1.0.0 |
-| linkOptions | 透传给 a 标签的参数                                | object            | -      | 1.0.0 |
-| text        | 导航项目文案或元素                                 | string\|ReactNode | ""     |               |
-| onClick     | 点击任意导航项时触发 |function({ itemKey: string, domEvent: MouseEvent, isOpen: boolean }) |  () => {}   | 
-| onMouseEnter| mouse enter 时触发 |function(e) => {} | () => {}   | 
-| onMouseLeave| mouse leave 时触发 |function(e) => {} | () => {}   | 
+| 属性 | 描述 | 类型 | 默认值 | 版本 |
+| --- | --- | --- | --- | --- |
+| disabled | 是否禁用 | boolean | false | 1.17.0 |
+| icon | 导航项目图标 | ReactNode |  |  |
+| indent | 如果 icon 为空，是否保留其占位，仅对一级导航生效 | boolean | false |  |
+| itemKey | 导航项目唯一 key | string | "" |  |
+| level | 当前项所在嵌套层级，limitIndent 为 true 时，用于自定义缩进位置 | number |  | 1.27.0 |
+| link | 导航项 href 链接，传入时导航项整体会包裹一个 a 标签 | string | - | 1.0.0 |
+| linkOptions | 透传给 a 标签的参数 | object | - | 1.0.0 |
+| text | 导航项目文案或元素 | string\|ReactNode | "" |  |
+| onClick | 点击任意导航项时触发 | function({ itemKey: string, domEvent: MouseEvent, isOpen: boolean }) | () => {} |
+| onMouseEnter | mouse enter 时触发 | function(e) => {} | () => {} |
+| onMouseLeave | mouse leave 时触发 | function(e) => {} | () => {} |
+| onNavigate | 若有 `link` 参数，则点击时触发；此值不为空时还会阻止 `a` 标签的自动跳转。 | (link: string) => unknown | |
 
 ### Nav.Sub
 
-| 属性    | 描述                           | 类型              | 默认值 |
-| ------- | ------------------------------ | ----------------- | ------ |
-| disabled    | 是否禁用                                           | boolean | false     | 1.17.0             |
-| dropdownStyle | 弹出层的 style                                           | CSSProperties |     |              |
-| icon    | 导航项目图标       | ReactNode |      |
-| indent  | 如果 icon 为空，是否保留其占位，仅对一级导航生效 | boolean           | false  |
-| isCollapsed         |  是否处于收起状态的受控属性，仅 `mode = "vertical"`      | boolean  |    false        |
-| isOpen         |  是否打开      | boolean  |    false        |
-| itemKey | 导航项目唯一 key               | string            | ""     |
-| level       | 当前项所在嵌套层级，limitIndent 为 true时，用于自定义缩进位置| number | 0 | 1.27.0 |
-| maxHeight       | 最大高度 | number | 999 |
-| text    | 导航项目文案或组件             | string\|ReactNode | ""     |
-| onMouseEnter| mouse enter 时触发 |function(e) => {} | () => {}   | 
-| onMouseLeave| mouse leave 时触发 |function(e) => {} | () => {}   | 
+| 属性          | 描述                                                           | 类型              | 默认值   |
+| ------------- | -------------------------------------------------------------- | ----------------- | -------- |
+| disabled      | 是否禁用                                                       | boolean           | false    | 1.17.0 |
+| dropdownStyle | 弹出层的 style                                                 | CSSProperties     |          |  |
+| icon          | 导航项目图标                                                   | ReactNode         |          |
+| indent        | 如果 icon 为空，是否保留其占位，仅对一级导航生效               | boolean           | false    |
+| isCollapsed   | 是否处于收起状态的受控属性，仅 `mode = "vertical"`             | boolean           | false    |
+| isOpen        | 是否打开                                                       | boolean           | false    |
+| itemKey       | 导航项目唯一 key                                               | string            | ""       |
+| level         | 当前项所在嵌套层级，limitIndent 为 true 时，用于自定义缩进位置 | number            | 0        | 1.27.0 |
+| maxHeight     | 最大高度                                                       | number            | 999      |
+| text          | 导航项目文案或组件                                             | string\|ReactNode | ""       |
+| onMouseEnter  | mouse enter 时触发                                             | function(e) => {} | () => {} |
+| onMouseLeave  | mouse leave 时触发                                             | function(e) => {} | () => {} |
 
 ### Nav.Header
 
-| 属性        | 描述                                               | 类型              | 默认值 | 版本          |
-|-------------|--------------------------------------------------|-------------------|--------|---------------|
-| children    | 子元素                                             | ReactNode         |        |               |
-| className   | 最外层样式名                                       | string            |        |               |
-| link        | 导航项 href 链接，传入时导航项整体会包裹一个 a 标签 | string            | -      | 1.0.0 |
-| linkOptions | 透传给 a 标签的参数                                | object            | -      | 1.0.0 |
-| logo        | Logo                         | ReactNode |        |               |
-| style       | 最外层样式                                         | CSSProperties            |        |               |
-| text        | Logo 文案                       | ReactNode |        |               |
+| 属性        | 描述                                                | 类型          | 默认值 | 版本  |
+| ----------- | --------------------------------------------------- | ------------- | ------ | ----- |
+| children    | 子元素                                              | ReactNode     |        |       |
+| className   | 最外层样式名                                        | string        |        |       |
+| link        | 导航项 href 链接，传入时导航项整体会包裹一个 a 标签 | string        | -      | 1.0.0 |
+| linkOptions | 透传给 a 标签的参数                                 | object        | -      | 1.0.0 |
+| logo        | Logo                                                | ReactNode     |        |       |
+| style       | 最外层样式                                          | CSSProperties |        |       |
+| text        | Logo 文案                                           | ReactNode     |        |       |
 
 ### Nav.Footer
 
-| 属性           | 描述                                                                                     | 类型                                      | 默认值 | 版本           |
-| -------------- | ---------------------------------------------------------------------------------------- | ----------------------------------------- | ------ | -------------- |
-| children       | 子元素                                                                                   | ReactNode                                 |        |                |
-| className      | 最外层样式名                                                                             | string                                    |        |                |
-| collapseButton | 是否展示底部“收起侧边栏”按钮，mode="vertical" 且 Footer 组件的 children 参数为空才有效果 | boolean\|ReactNode                        | false  |                |
-| collapseText   | “收起”按钮的文案                                                                         | (collapsed:boolean) => string\|ReactNode |        | 0.35.0 |
-| style          | 最外层样式                                                                               | CSSProperties                                    |        |                |
-
+| 属性 | 描述 | 类型 | 默认值 | 版本 |
+| --- | --- | --- | --- | --- |
+| children | 子元素 | ReactNode |  |  |
+| className | 最外层样式名 | string |  |  |
+| collapseButton | 是否展示底部“收起侧边栏”按钮，mode="vertical" 且 Footer 组件的 children 参数为空才有效果 | boolean\|ReactNode | false |  |
+| collapseText | “收起”按钮的文案 | (collapsed:boolean) => string\|ReactNode |  | 0.35.0 |
+| style | 最外层样式 | CSSProperties |  |  |
 
 ## 文案规范
 
-- 导航栏菜单使用句子大小写格式
-- 尽量精简
+-   导航栏菜单使用句子大小写格式
+-   尽量精简
 
-| ✅ 推荐用法 | ❌ 不推荐用法 |   
-| --- | --- | 
+| ✅ 推荐用法   | ❌ 不推荐用法 |
+| ------------- | ------------- |
 | Appeal center | Appeal Center |
 
-
 ## 设计变量
+
 <DesignToken/>
 
 <!-- ## 相关物料
@@ -797,5 +859,4 @@ function NavApp (props = {}) {
 -   **导航动画丢失？**  
     在使用函数式组件时，应该用 useState 或者 useMemo 包裹一下 items，原因是 items 直接传一个数组会触发组件重新渲染。
 
--   **当子菜单高度超过999px，部分导航消失？**
-    请查看 [此 issue](https://github.com/DouyinFE/semi-design/issues/563)
+-   **当子菜单高度超过 999px，部分导航消失？** 请查看 [此 issue](https://github.com/DouyinFE/semi-design/issues/563)

@@ -5,6 +5,7 @@ import Switch from '../../switch';
 import AutoOpenDemo from './AutoOpen';
 import ControlledSelectedKeys from './ControlledSelectedKeys';
 import LinkNavDemo from './LinkNav';
+import LinkNavByOnNavigateDemo from './LinkNavByOnNavigate';
 import MountUnmount from './MountUnmount';
 import WithRouter from './WithRouter';
 import WithChildren from './WithChildren';
@@ -297,6 +298,11 @@ AutoOpen.story = {
 export const LinkNav = () => <LinkNavDemo />;
 LinkNav.story = {
   name: 'link nav',
+}
+
+export const LinkNavWithOnNavigate = () => <LinkNavByOnNavigateDemo />;
+LinkNavWithOnNavigate.story = {
+  name: 'link nav with onNavigate',
 }
 
 export const MountUnmountDemo = () => <MountUnmount />;

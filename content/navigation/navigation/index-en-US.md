@@ -2,7 +2,7 @@
 localeCode: en-US
 order: 39
 category: Navigation
-title:  Navigation
+title: Navigation
 subTitle: Navigation
 icon: doc-navigation
 width: 650px
@@ -17,6 +17,7 @@ brief: A menu list that provides navigation for pages and features.
 ```jsx
 import { Nav } from '@douyinfe/semi-ui';
 ```
+
 ### Basic Usage
 
 By passing `items` Parameters, you can quickly get a navigation bar.
@@ -38,7 +39,8 @@ class NavApp extends React.Component {
     render() {
         return (
             <Nav
-                Body Style={{ height: 320 }}
+                Body
+                Style={{ height: 320 }}
                 items={[
                     { itemKey: 'user', text: 'User Management', icon: <IconUser /> },
                     { itemKey: 'union', text: 'Union Center', icon: <IconStar /> },
@@ -76,14 +78,14 @@ class NavApp extends React.Component {
         return (
             <Nav
                 bodyStyle={{ height: 320 }}
-                defaultOpenKeys={[ 'task' ]}
+                defaultOpenKeys={['task']}
                 items={[
                     { itemKey: 'user', text: 'User Management' },
                     { itemKey: 'union', text: 'User Center' },
                     {
                         itemKey: 'union-management',
                         text: 'Union Management',
-                        items: ['Announcement Settings', 'Union Inquiries', 'Entry information']
+                        items: ['Announcement Settings', 'Union Inquiries', 'Entry information'],
                     },
                     {
                         text: 'Task Platform',
@@ -130,8 +132,10 @@ class NavApp extends React.Component {
                 ]}
                 onSelect={key => console.log(key)}
                 header={{
-                    logo: <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />,
-                    text: 'Live Platform'
+                    logo: (
+                        <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />
+                    ),
+                    text: 'Live Platform',
                 }}
                 footer={{
                     collapseButton: true,
@@ -178,8 +182,10 @@ class NavApp extends React.Component {
                 ]}
                 onSelect={key => console.log(key)}
                 header={{
-                    logo: <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />,
-                    text: 'Live Platform'
+                    logo: (
+                        <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />
+                    ),
+                    text: 'Live Platform',
                 }}
                 footer={{
                     collapseButton: true,
@@ -208,7 +214,12 @@ class NavApp extends React.Component {
                 onSelect={data => console.log('trigger onSelect: ', data)}
                 onClick={data => console.log('trigger onClick: ', data)}
             >
-                <Nav.Header logo={<img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />} text={'Live Platform'} />
+                <Nav.Header
+                    logo={
+                        <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />
+                    }
+                    text={'Live Platform'}
+                />
                 <Nav.Item itemKey={'union'} text={'Union Center'} icon={<IconStar />} />
                 <Nav.Sub itemKey={'user'} text="User Management" icon={<IconUser />}>
                     <Nav.Item itemKey={'golder'} text={'Gold Master Management'} />
@@ -224,7 +235,6 @@ class NavApp extends React.Component {
         );
     }
 }
-
 ```
 
 ### Navigation Direction
@@ -262,7 +272,7 @@ class NavApp extends React.Component {
                             itemKey: 'union-management',
                             text: 'Union Management',
                             icon: <IconUserGroup />,
-                            items: ['Announcement Settings', 'Union Query', 'Entry Information']
+                            items: ['Announcement Settings', 'Union Query', 'Entry Information'],
                         },
                         {
                             text: 'Task Platform',
@@ -273,8 +283,10 @@ class NavApp extends React.Component {
                     ]}
                     onSelect={key => console.log(key)}
                     header={{
-                        logo: <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />,
-                        text: 'Live Platform'
+                        logo: (
+                            <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />
+                        ),
+                        text: 'Live Platform',
                     }}
                     footer={{
                         collapseButton: true,
@@ -311,12 +323,9 @@ class NavApp extends React.Component {
                                 {
                                     itemKey: 'operation-management',
                                     text: 'Operations Management',
-                                    items: [
-                                        'Personnel Management',
-                                        'Personnel Change'
-                                    ]
-                                }
-                            ]
+                                    items: ['Personnel Management', 'Personnel Change'],
+                                },
+                            ],
                         },
                         {
                             text: 'Task Platform',
@@ -327,8 +336,10 @@ class NavApp extends React.Component {
                     ]}
                     onSelect={key => console.log(key)}
                     header={{
-                        logo: <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />,
-                        text: 'Live Platform'
+                        logo: (
+                            <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />
+                        ),
+                        text: 'Live Platform',
                     }}
                     footer={
                         <Dropdown
@@ -340,7 +351,9 @@ class NavApp extends React.Component {
                                 </Dropdown.Menu>
                             }
                         >
-                            <Avatar size="small" color='light-blue' style={{margin: 4}}>BD</Avatar>
+                            <Avatar size="small" color="light-blue" style={{ margin: 4 }}>
+                                BD
+                            </Avatar>
                             <span>Bytedancer</span>
                         </Dropdown>
                     }
@@ -369,7 +382,7 @@ class NavApp extends React.Component {
                 itemKey: 'union-management',
                 text: 'Union Management',
                 icon: <IconUserGroup />,
-                items: ['Announcement Settings', 'Union Query', 'Entry Information']
+                items: ['Announcement Settings', 'Union Query', 'Entry Information'],
             },
             {
                 itemKey: 'approve-management',
@@ -380,12 +393,9 @@ class NavApp extends React.Component {
                     {
                         itemKey: 'operation-management',
                         text: 'Operations Management',
-                        items: [
-                            'Personnel Management',
-                            'Personnel Change'
-                        ]
-                    }
-                ]
+                        items: ['Personnel Management', 'Personnel Change'],
+                    },
+                ],
             },
             {
                 text: 'Task Platform',
@@ -405,16 +415,22 @@ class NavApp extends React.Component {
                 mode={'horizontal'}
                 onSelect={key => console.log(key)}
                 header={{
-                    logo: <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />,
-                    text: 'Live Platform'
+                    logo: (
+                        <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />
+                    ),
+                    text: 'Live Platform',
                 }}
                 footer={
                     <>
-                        <Select defaultValue='English' style={{ width: 120, marginRight: 10 }} insetLabel={<IconLanguage />}>
-                            <Select.Option value='Chinese'>中文</Select.Option>
-                            <Select.Option value='English'>English</Select.Option>
-                            <Select.Option value='Korean'>한국어</Select.Option>
-                            <Select.Option value='Japanese'>日本語</Select.Option>
+                        <Select
+                            defaultValue="English"
+                            style={{ width: 120, marginRight: 10 }}
+                            insetLabel={<IconLanguage />}
+                        >
+                            <Select.Option value="Chinese">中文</Select.Option>
+                            <Select.Option value="English">English</Select.Option>
+                            <Select.Option value="Korean">한국어</Select.Option>
+                            <Select.Option value="Japanese">日本語</Select.Option>
                         </Select>
                         <Button style={{ marginRight: 10 }}>Switch to Overseas Version</Button>
                         <Dropdown
@@ -426,7 +442,9 @@ class NavApp extends React.Component {
                                 </Dropdown.Menu>
                             }
                         >
-                            <Avatar size="small" color='light-blue' style={{margin: 4}}>BD</Avatar>
+                            <Avatar size="small" color="light-blue" style={{ margin: 4 }}>
+                                BD
+                            </Avatar>
                             <span>Bytedancer</span>
                         </Dropdown>
                     </>
@@ -476,19 +494,21 @@ class NavApp extends React.Component {
                 defaultOpenKeys={['job']}
                 bodyStyle={{ height: 320 }}
                 items={[
-                    {itemKey:'user', text:'User Management', icon: <IconUser /> },
-                    {itemKey:'union', text:'guild center', icon: <IconStar /> },
+                    { itemKey: 'user', text: 'User Management', icon: <IconUser /> },
+                    { itemKey: 'union', text: 'guild center', icon: <IconStar /> },
                     {
-                        text:'Task platform',
+                        text: 'Task platform',
                         icon: <IconSetting />,
-                        itemKey:'job',
-                        items: ['task management','user task query'],
+                        itemKey: 'job',
+                        items: ['task management', 'user task query'],
                     },
                 ]}
                 onSelect={key => console.log(key)}
                 header={{
-                    logo: <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />,
-                    text:'Live broadcast operation background'
+                    logo: (
+                        <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />
+                    ),
+                    text: 'Live broadcast operation background',
                 }}
                 footer={{
                     collapseButton: true,
@@ -500,6 +520,7 @@ class NavApp extends React.Component {
 ```
 
 ### Indentation limit
+
 No indentation by default. If you need to indent the navigation items according to the level, please set limitIndent to false
 
 When using Nav.Item to pass navigation items in React Jsx mode, please pass level props to Nav.Item manually.
@@ -521,28 +542,36 @@ class NavApp extends React.Component {
                 defaultOpenKeys={['job']}
                 bodyStyle={{ height: 320 }}
                 items={[
-                    {itemKey:'user', text:'User Management', icon: <IconUser /> },
+                    { itemKey: 'user', text: 'User Management', icon: <IconUser /> },
                     {
-                        text:'Task platform',
+                        text: 'Task platform',
                         icon: <IconSetting />,
-                        itemKey:'job',
-                        items: ['Task Management', {
-                            text:'Task 1',
-                            icon: <IconSetting />,
-                            itemKey:'mission1',
-                            items: ['Task 2',{
-                                text:'Task 3 disassembly',
+                        itemKey: 'job',
+                        items: [
+                            'Task Management',
+                            {
+                                text: 'Task 1',
                                 icon: <IconSetting />,
-                                itemKey:'mission3',
-                                items: ['Subtask 1','Subtask 2'],
-                            }, ],
-                        },],
+                                itemKey: 'mission1',
+                                items: [
+                                    'Task 2',
+                                    {
+                                        text: 'Task 3 disassembly',
+                                        icon: <IconSetting />,
+                                        itemKey: 'mission3',
+                                        items: ['Subtask 1', 'Subtask 2'],
+                                    },
+                                ],
+                            },
+                        ],
                     },
                 ]}
                 onSelect={key => console.log(key)}
                 header={{
-                    logo: <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />,
-                    text:'Live broadcast operation background'
+                    logo: (
+                        <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />
+                    ),
+                    text: 'Live broadcast operation background',
                 }}
                 footer={{
                     collapseButton: true,
@@ -552,7 +581,6 @@ class NavApp extends React.Component {
     }
 }
 ```
-
 
 ### Uncontrolled Properties
 
@@ -582,7 +610,7 @@ class NavApp extends React.Component {
                         itemKey: 'union-management',
                         text: 'Union Management',
                         icon: <IconUserGroup />,
-                        items: ['Announcement Settings', 'Union Query', 'Entry Information']
+                        items: ['Announcement Settings', 'Union Query', 'Entry Information'],
                     },
                     {
                         text: 'Task Platform',
@@ -592,17 +620,18 @@ class NavApp extends React.Component {
                     },
                 ]}
                 header={{
-                    logo: <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />,
-                    text: 'Live Platform'
+                    logo: (
+                        <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />
+                    ),
+                    text: 'Live Platform',
                 }}
                 footer={{
-                    collapseButton: true
+                    collapseButton: true,
                 }}
             />
         );
     }
 }
-
 ```
 
 ### Controlled Properties
@@ -626,7 +655,7 @@ import React, { useMemo } from 'react';
 import { Nav } from '@douyinfe/semi-ui';
 import { IconUser, IconStar, IconUserGroup, IconSetting } from '@douyinfe/semi-icons';
 
-function NavApp (props = {}) {
+function NavApp(props = {}) {
     const [openKeys, setOpenKeys] = useState(['union-management', 'job']);
     const [selectedKeys, setSelectedKeys] = useState(['User Task Query']);
     const [isCollapsed, setIsCollapsed] = useState(true);
@@ -644,22 +673,25 @@ function NavApp (props = {}) {
         setIsCollapsed(isCollapsed);
     };
 
-    const items = useMemo(() => [
-        { itemKey: 'user', text: 'User Management', icon: <IconUser /> },
-        { itemKey: 'union', text: 'Union Center', icon: <IconStar /> },
-        {
-            itemKey: 'union-management',
-            text: 'Union Management',
-            icon: <IconUserGroup />,
-            items: ['Announcement Settings', 'Union Query', 'Entry Information']
-        },
-        {
-            text: 'Task Platform',
-            icon: <IconSetting />,
-            itemKey: 'job',
-            items: ['Task Management', 'User Task Query'],
-        },
-    ], []);
+    const items = useMemo(
+        () => [
+            { itemKey: 'user', text: 'User Management', icon: <IconUser /> },
+            { itemKey: 'union', text: 'Union Center', icon: <IconStar /> },
+            {
+                itemKey: 'union-management',
+                text: 'Union Management',
+                icon: <IconUserGroup />,
+                items: ['Announcement Settings', 'Union Query', 'Entry Information'],
+            },
+            {
+                text: 'Task Platform',
+                icon: <IconSetting />,
+                itemKey: 'job',
+                items: ['Task Management', 'User Task Query'],
+            },
+        ],
+        []
+    );
 
     return (
         <Nav
@@ -669,11 +701,13 @@ function NavApp (props = {}) {
             bodyStyle={{ height: 360 }}
             items={items}
             header={{
-                logo: <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />,
-                text: 'Live Platform'
+                logo: (
+                    <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />
+                ),
+                text: 'Live Platform',
             }}
             footer={{
-                collapseButton: true
+                collapseButton: true,
             }}
             onCollapseChange={onCollapseChange}
             onOpenChange={onOpenChange}
@@ -683,97 +717,132 @@ function NavApp (props = {}) {
 }
 ```
 
+### Proxy Routeing by 3P Libs
+
+Most React SPAs use `react-router-dom` to route among inner pages. In this case, all routing actions should be handled by `react-router-dom` APIs.
+
+However, if you just use `<NavItem link="/eg" />`, you will get a `<a href="/eg" />` tag and it will cause your page jump and reload instead of routing inside the APP by `react-router-dom`.
+
+It's true that you can go through this by rendering `<NavItem>` by yourself or pass extra parameters to `a` tag to let `react-router-dom` to proxy it's behavior, but it's too complicated to worth it。
+
+Now introducing the `onNavigate` API. It's an interface for the callback handler triggered when a nav item with `link` property is clicked and it's first parameter will be the target link. And when it's provided, the `preventDefault()` will be automatically added to the `onclick` event handler of the `a` tag rendered. So you can easily integrate any third routing libraries with Semi `Nav` component by just listening this interface.
+
+```jsx live=false
+import React from 'react';
+import { Nav } from '@douyinfe/semi-ui';
+import { useNavigate } from 'react-router-dom';
+
+const NavApp = () => {
+    const navigate = useNavigate();
+
+    return (
+        <Nav
+            items={[
+                { itemKey: 'user', text: 'User mgmt', link: '/eg/1' },
+                { itemKey: 'union', text: 'The union', link: '/eg/2' },
+            ]}
+            onNavigate={targetLink => navigate(targetLink)}
+        />
+    );
+};
+```
+
+By the way, for a better semantic and friendlier SEO, you should add your target link to the `href` property of `a` tag instead of just listen to the `onclick` event without using `href` property. That's why we provide this `onNavigate` API instead of just letting you use `onClick` API.
+
 ## API Reference
 
 ### Nav
 
-| Properties          | Type                                                                                                                                                                                       | Description                                                                                                                      | Default    |
-| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------- | ---------- |
-| bodyStyle           | Custom style for navigation item list                                                                                                                                                      | object                                                                                                                           |            |
-| className           | Style name of outermost element                                                                                                                                                            | boolean                                                                                                                          |            |
-| defaultIsCollapsed  | Whether the default is put away, valid only when `mode = "vertical"`                                                                                                                       | boolean                                                                                                                          | false      |
-| defaultOpenKeys     | Initially open sub navigation `itemKey` array, valid only `mode = "vertical"`and the sidebar is in an expanded state                                                                       | string[]                                                                                                                         | []         |
-| defaultSelectedKeys | Originally selected navigation item `itemKey` array                                                                                                                                        | string[]                                                                                                                         | []         |
-| footer              | The bottom area configure objects or elements, see [Nav.Footer](#Nav.Footer)                                                                                                               | object\|ReactNode                                                                                                                |            |
-| header              | Head area configuration objects or elements, see [Nav.Header](#Nav.Header)                                                                                                                 | object\|ReactNode                                                                                                                |            |
-| isCollapsed         | A controlled attribute of whether it is in a put-away state, valid only when `mode = "vertical"`                                                                                           | boolean                                                                                                                          |            |
-| items               | Navigate the list of items, each item can continue with the items property. If it is a string array, each item is taken as text and itemKey                                                | object\|string[]\|[Item](#Nav.Item)[]\|[Sub](#Nav.Sub)[]                                                                         |            |
-| mode                | Navigation type, currently supports horizontal and vertical, optional value: `vertical`\|`horizontal`                                                                                      | string                                                                                                                           | `vertical` |
-| onClick             | Trigger when clicking on any navigation item                                                                                                                                               | ({ itemKey: string, domEvent: MouseEvent, isOpen: boolean }) => void                                                             | () = > {}  |
-| onCollapseChange    | The callback when the state changes.                                                                                                                                                       | (is Collapsed: boolean) => void                                                                                                  | () = > {}  |
-| onOpenChange        | Triggers when switching the hidden state of a sub navigation project                                                                                                                       | ({ itemKey: string, openKeys: string[], domEvent: MouseEvent, isOpen: boolean }) => void                                         | () = > {}  |
-| onSelect            | Triggers the first time you select an optional navigation project, where the selected Items field version > = 0.17.0 is supported                                                          | ({ itemKey: string, selectedKeys: string[], selectedItems: [Item](#Nav.Item)[], domEvent: MouseEvent, isOpen: boolean }) => void | () = > {}  |
-| openKeys            | Controlled open sub navigation `itemKey` array, expanded with `onOpenChange` callback control sub navigation items, valid only `mode = "vertical"`and the sidebar is in an unfolding state | string[]                                                                                                                         |            |
-| selectedKeys        | Controlled navigation item `itemKey` array, with `onSelect` callback control navigation item selection                                                                                     | string[]                                                                                                                         |            |
-| style               | Custom styles for outermost elements                                                                                                                                                       | object                                                                                                                           |            |
-| subNavCloseDelay    | Delay of sub navigation floating layer closure. Effective when the limit is true or mode is "limit" in MS                                                                                  | number                                                                                                                           | 100        |
-| subNavOpenDelay     | The delay displayed by the sub navigation floating layer. Effective when the input is true or mode is "selected" in MS                                                                     | number                                                                                                                           | 0          |
-| tooltipHideDelay    | The latency hidden by tooltip is valid when it is true in MS                                                                                                                               | number                                                                                                                           | 100        |
-| tooltipShowDelay    | The delay displayed by tooltip is valid when it is true in MS                                                                                                                              | number                                                                                                                           | 0          |
-| limitIndent         | To lift the indentation limit, you can use level to customize the indentation of navigation items. The horizontal mode can only be true >=1.27.0                                           | boolean                                                                                                                          | true       |
-| toggleIconPosition  | Parent navigation item arrow position with child navigation items >=1.27.0                                                                                                                 | 'left' \| 'right'                                                                                                                | 'right'    |
+| Properties | Description | Type | Default |
+| --- | --- | --- | --- |
+| bodyStyle | Custom style for navigation item list | object |  |
+| className | Style name of outermost element | boolean |  |
+| defaultIsCollapsed | Whether the default is put away, valid only when `mode = "vertical"` | boolean | false |
+| defaultOpenKeys | Initially open sub navigation `itemKey` array, valid only `mode = "vertical"`and the sidebar is in an expanded state | string[] | [] |
+| defaultSelectedKeys | Originally selected navigation item `itemKey` array | string[] | [] |
+| footer | The bottom area configure objects or elements, see [Nav.Footer](#Nav.Footer) | object\|ReactNode |  |
+| header | Head area configuration objects or elements, see [Nav.Header](#Nav.Header) | object\|ReactNode |  |
+| isCollapsed | A controlled attribute of whether it is in a put-away state, valid only when `mode = "vertical"` | boolean |  |
+| items | Navigate the list of items, each item can continue with the items property. If it is a string array, each item is taken as text and itemKey | object\|string[]\|[Item](#Nav.Item)[]\|[Sub](#Nav.Sub)[] |  |
+| mode | Navigation type, currently supports horizontal and vertical, optional value: `vertical`\|`horizontal` | string | `vertical` |
+| onClick | Trigger when clicking on any navigation item | ({ itemKey: string, domEvent: MouseEvent, isOpen: boolean }) => void | () = > {} |
+| onCollapseChange | The callback when the state changes. | (is Collapsed: boolean) => void | () = > {} |
+| onOpenChange | Triggers when switching the hidden state of a sub navigation project | ({ itemKey: string, openKeys: string[], domEvent: MouseEvent, isOpen: boolean }) => void | () = > {} |
+| onSelect | Triggers the first time you select an optional navigation project, where the selected Items field version > = 0.17.0 is supported | ({ itemKey: string, selectedKeys: string[], selectedItems: [Item](#Nav.Item)[], domEvent: MouseEvent, isOpen: boolean }) => void | () = > {} |
+| openKeys | Controlled open sub navigation `itemKey` array, expanded with `onOpenChange` callback control sub navigation items, valid only `mode = "vertical"`and the sidebar is in an unfolding state | string[] |  |
+| selectedKeys | Controlled navigation item `itemKey` array, with `onSelect` callback control navigation item selection | string[] |  |
+| style | Custom styles for outermost elements | object |  |
+| subNavCloseDelay | Delay of sub navigation floating layer closure. Effective when the limit is true or mode is "limit" in MS | number | 100 |
+| subNavOpenDelay | The delay displayed by the sub navigation floating layer. Effective when the input is true or mode is "selected" in MS | number | 0 |
+| tooltipHideDelay | The latency hidden by tooltip is valid when it is true in MS | number | 100 |
+| tooltipShowDelay | The delay displayed by tooltip is valid when it is true in MS | number | 0 |
+| limitIndent | To lift the indentation limit, you can use level to customize the indentation of navigation items. The horizontal mode can only be true >=1.27.0 | boolean | true |
+| toggleIconPosition | Parent navigation item arrow position with child navigation items >=1.27.0 | 'left' \| 'right' | 'right' |
+| onNavigate | Triggered when a nav item with `link` property is clicked. The jumping action of `a` tag will be prevented when provided. Will be passed to all sub nav items. | (link: string) => unknown | |
 
 ### Nav.Item
 
-| Properties   | Description                                                                                                       | Type                                                                 | Default  | Version |
-| ------------ | ----------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- | -------- | ------- |
-| disabled     | Disabled state                                                                                                    | boolean                                                              | false    | 1.17.0  |
-| icon         | Navigation project icon name or component                                                                         | ReactNode                                                            |          |         |
-| indent       | If the icon is empty, keep its space or not. Only effective for first level navigation                            | boolean                                                              | false    |         |
-| itemKey      | Navigation project only key                                                                                       | string                                                               | ""       |         |
-| level        | The nesting level of the current item. When limitIndent is true, it is used to customize the indentation position | number                                                               |          | 1.27.0  |
-| link         | Navigation item href link, when imported, the navigation item will be wrapped with an a tag                       | string                                                               | -        | 1.0.0   |
-| linkOptions  | Parameters transparently passed to the a tag                                                                      | object                                                               | -        | 1.0.0   |
-| text         | Navigation project copy or element                                                                                | string \| ReactNode                                                  | ""       |         |
-| onClick      | Callback of click                                                                                                 | function({ itemKey: string, domEvent: MouseEvent, isOpen: boolean }) | () => {} |
-| onMouseEnter | Callback of mouse enter event                                                                                     | function(e) => {}                                                    | () => {} |
-| onMouseLeave | Callback of mouse leave event                                                                                     | function(e) => {}                                                    | () => {} |
+| Properties | Description | Type | Default | Version |
+| --- | --- | --- | --- | --- |
+| disabled | Disabled state | boolean | false | 1.17.0 |
+| icon | Navigation project icon name or component | ReactNode |  |  |
+| indent | If the icon is empty, keep its space or not. Only effective for first level navigation | boolean | false |  |
+| itemKey | Navigation project only key | string | "" |  |
+| level | The nesting level of the current item. When limitIndent is true, it is used to customize the indentation position | number |  | 1.27.0 |
+| link | Navigation item href link, when imported, the navigation item will be wrapped with an a tag | string | - | 1.0.0 |
+| linkOptions | Parameters transparently passed to the a tag | object | - | 1.0.0 |
+| text | Navigation project copy or element | string \| ReactNode | "" |  |
+| onClick | Callback of click | function({ itemKey: string, domEvent: MouseEvent, isOpen: boolean }) | () => {} |
+| onMouseEnter | Callback of mouse enter event | function(e) => {} | () => {} |
+| onMouseLeave | Callback of mouse leave event | function(e) => {} | () => {} |
+| onNavigate | Triggered when it's clicked and has `link` property. The jumping action of `a` tag will be prevented when provided. | (link: string) => unknown | |
 
 ### Nav.Sub
 
-| Properties    | Description                                                                                                       | Type                | Default  |
-| ------------- | ----------------------------------------------------------------------------------------------------------------- | ------------------- | -------- |
-| disabled      | Disabled state                                                                                                    | boolean             | false    | 1.17.0 |
-| dropdownStyle | Style of dropdown layer                                                                                           | CSSProperties       |          |        |
-| icon          | Navigation project icon name or component                                                                         | ReactNode           |          |
-| indent        | If the icon is empty, keep its space or not. Only effective for first level navigation                            | boolean             | false    |
-| isCollapsed   | Whether it is a controlled attribute in the collapsed state, only `mode = "vertical"`                             | boolean             | false    |
-| isOpen        | Control open state                                                                                                | boolean             | false    |
-| itemKey       | Navigation project only key                                                                                       | string              | ""       |
-| level         | The nesting level of the current item. When limitIndent is true, it is used to customize the indentation position | number              | 1.27.0   |
-| maxHeight     | max height                                                                                                        | number              | 999      |
-| text          | Navigation project copy or component                                                                              | string \| ReactNode | ""       |
-| onMouseEnter  | Callback of mouse enter event                                                                                     | function(e) => {}   | () => {} |
-| onMouseLeave  | Callback of mouse leave event                                                                                     | function(e) => {}   | () => {} |
+| Properties | Description | Type | Default |
+| --- | --- | --- | --- |
+| disabled | Disabled state | boolean | false | 1.17.0 |
+| dropdownStyle | Style of dropdown layer | CSSProperties |  |  |
+| icon | Navigation project icon name or component | ReactNode |  |
+| indent | If the icon is empty, keep its space or not. Only effective for first level navigation | boolean | false |
+| isCollapsed | Whether it is a controlled attribute in the collapsed state, only `mode = "vertical"` | boolean | false |
+| isOpen | Control open state | boolean | false |
+| itemKey | Navigation project only key | string | "" |
+| level | The nesting level of the current item. When limitIndent is true, it is used to customize the indentation position | number | 1.27.0 |
+| maxHeight | max height | number | 999 |
+| text | Navigation project copy or component | string \| ReactNode | "" |
+| onMouseEnter | Callback of mouse enter event | function(e) => {} | () => {} |
+| onMouseLeave | Callback of mouse leave event | function(e) => {} | () => {} |
 
 ### Nav.Header
 
-| Properties  | Description                                                                                 | Type                | Default | Version |
-| ----------- | ------------------------------------------------------------------------------------------- | ------------------- | ------- | ------- |
-| children    | Sub element                                                                                 | ReactNode           |         |         |
-| className   | Outermost style name                                                                        | string              |         |         |
-| link        | Navigation item href link, when imported, the navigation item will be wrapped with an a tag | string              | -       | 1.0.0   |
-| linkOptions | Parameters transparently passed to the a tag                                                | object              | -       | 1.0.0   |
-| logo        | Logo, can be a string or component                                                          | string \| ReactNode |         |         |
-| style       | Outermost style                                                                             | object              |         |         |
-| text        | Logo copy, which can be a string or component                                               | string \| ReactNode |         |         |
+| Properties | Description | Type | Default | Version |
+| --- | --- | --- | --- | --- |
+| children | Sub element | ReactNode |  |  |
+| className | Outermost style name | string |  |  |
+| link | Navigation item href link, when imported, the navigation item will be wrapped with an a tag | string | - | 1.0.0 |
+| linkOptions | Parameters transparently passed to the a tag | object | - | 1.0.0 |
+| logo | Logo, can be a string or component | string \| ReactNode |  |  |
+| style | Outermost style | object |  |  |
+| text | Logo copy, which can be a string or component | string \| ReactNode |  |  |
 
 ### Nav.Footer
 
-| Properties     | Description                                                                                                                       | Type                                      | Default | Version |
-| -------------- | --------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------- | ------- | ------- |
-| children       | Sub element                                                                                                                       | ReactNode                                 |         |         |
-| className      | Outermost style name                                                                                                              | string                                    |         |         |
-| collapseButton | Do you show the bottom "put away the sidebar" button, mode = "vertical" and the child parameter of the Footer component is empty? | boolean\|ReactNode                        | false   |         |
-| collapseText   | Title of the collapse button                                                                                                      | (collapsed:boolean) => string\|ReactNode |         | 0.35.0  |
-| style          | Outermost style                                                                                                                   | object                                    |         |         |
+| Properties | Description | Type | Default | Version |
+| --- | --- | --- | --- | --- |
+| children | Sub element | ReactNode |  |  |
+| className | Outermost style name | string |  |  |
+| collapseButton | Do you show the bottom "put away the sidebar" button, mode = "vertical" and the child parameter of the Footer component is empty? | boolean\|ReactNode | false |  |
+| collapseText | Title of the collapse button | (collapsed:boolean) => string\|ReactNode |  | 0.35.0 |
+| style | Outermost style | object |  |  |
 
 ## Content Guidelines
 
-- Navigation bar menu uses sentence case format
-- Keep it as simple as possible
+-   Navigation bar menu uses sentence case format
+-   Keep it as simple as possible
 
 ## Design Tokens
+
 <DesignToken/>
 
 <!-- ## Related Material
@@ -782,9 +851,9 @@ function NavApp (props = {}) {
 ``` -->
 
 ## FAQ
-- **Lost animation in navigation bar?**
+
+-   **Lost animation in navigation bar?**
 
     When using functional components, you should give items with useState or useMemo, because passing an array directly to items will trigger component rerendering.
 
-- **Lost item when subNav is too height >=999px ?**
-    Please refer to [this issue](https://github.com/DouyinFE/semi-design/issues/563)
+-   **Lost item when subNav is too height >=999px ?** Please refer to [this issue](https://github.com/DouyinFE/semi-design/issues/563)
