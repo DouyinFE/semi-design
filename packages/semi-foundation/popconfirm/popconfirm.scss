@@ -51,15 +51,6 @@ $module: #{$prefix}-popconfirm;
             display: inline-flex;
             flex-direction: column;
         }
-
-        &-content {
-            color: $color-popconfirm_body-text;
-
-            & > p {
-                margin: $spacing-popconfirm_header_content_p-margin;
-                padding: $spacing-popconfirm_header_content_p-padding;
-            }
-        }
     }
 
     &-body {
