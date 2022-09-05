@@ -16,6 +16,25 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 ---
 
+#### 🎉 2.19.0-beta.0 (2022-09-05)
+- 【Feat】
+  - Popconfirm onOk、onCancel支持 Promise 类型返回值，异步关闭 [#1056 ](https://github.com/DouyinFE/semi-design/issues/1056)
+- 【Fix】
+  - 修复 Popconfirm 多行内容样式错误 [#868](https://github.com/DouyinFE/semi-design/issues/868)
+  - 修复 DefaultTabBar 类型有误  [#1077](https://github.com/DouyinFE/semi-design/pull/1077)
+  - 修复 Form 级别设置 autoComplete 为 false 出现 TS 报错问题
+  - 修复 Slider 在传入部分 steps 值时定位显示不正确的问题,  [#1043](https://github.com/DouyinFE/semi-design/issues/1043)
+  - 修复 Tag tagKey 类型定义错误问题 [#1081](https://github.com/DouyinFE/semi-design/pull/1081)
+  - 修复 RadioGroup 第一次渲染时 value 不正确问题 [#1060](https://github.com/DouyinFE/semi-design/pull/1060)
+- 【Style】
+  - Sidesheet body 添加 overflow: auto 默认样式，内容超出时不再需要自行通过 props.bodyStyle 添加 overflow相关样式 [#1098](https://github.com/DouyinFE/semi-design/pull/1098)
+- 【Refactor】
+  - 使用 flex 布局和 gap 替换 Checkbox 中的 margin 布局 [#1073](https://github.com/DouyinFE/semi-design/pull/1073)
+  - ButtonGroup 中的分割线使用 span 标签代替 border-right [#1065](https://github.com/DouyinFE/semi-design/pull/1065)
+  - 重构了 Radio 的布局，去掉了一些绝对定位，使用 flex 布局代替 [#1060](https://github.com/DouyinFE/semi-design/pull/1060)
+- 【Breaking Change】
+  - 使用 CheckboxGroup 时，如果给子级 Checkbox 嵌套一层 div 或者 span 等元素，这时 Checkbox 将不带 margin-bottom。单独给每个 Checkbox 嵌套元素样式上不受影响 [#1073](https://github.com/DouyinFE/semi-design/pull/1073)
+
 #### 🎉 2.18.2 (2022-08-31)
 
 - 【Fix】
