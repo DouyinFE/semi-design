@@ -3,26 +3,12 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/tag/constants';
 import Tag from './index';
-import Popover, { PopoverProps } from '../popover/index';
-import { AvatarShape, TagProps } from './interface';
+import Popover from '../popover/index';
+import { AvatarShape, TagProps, TagGroupProps } from './interface';
 
 const prefixCls = cssClasses.PREFIX;
 const tagSize = strings.TAG_SIZE;
 const avatarShapeSet = strings.AVATAR_SHAPE;
-
-export interface TagGroupProps<T> {
-    style?: React.CSSProperties;
-    className?: string;
-    maxTagCount?: number;
-    restCount?: number;
-    tagList?: (T extends 'custom' ? React.ReactNode : TagProps)[];
-    size?: 'small' | 'large';
-    showPopover?: boolean;
-    popoverProps?: PopoverProps;
-    avatarShape?: AvatarShape;
-    mode?: string;
-    onTagClose: (tagChildren: React.ReactNode, event: React.MouseEvent<HTMLElement>, tagKey: string | number) => void;
-}
 
 export default class TagGroup<T> extends PureComponent<TagGroupProps<T>> {
     static defaultProps = {

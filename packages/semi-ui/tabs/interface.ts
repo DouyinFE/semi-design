@@ -1,5 +1,6 @@
 import React, { ComponentType, CSSProperties, MouseEvent, ReactNode } from 'react';
 import { Motion } from '../_base/base';
+import TabBar from './TabBar';
 
 export type TabType = 'line' | 'card' | 'button';
 export type TabSize = 'small' | 'medium' | 'large';
@@ -25,7 +26,7 @@ export interface TabsProps {
     lazyRender?: boolean;
     onChange?: (activeKey: string) => void;
     onTabClick?: (activeKey: string, e: MouseEvent<Element>) => void;
-    renderTabBar?: (tabBarProps: TabBarProps, defaultTabBar: ComponentType) => ReactNode;
+    renderTabBar?: (tabBarProps: TabBarProps, defaultTabBar: typeof TabBar) => ReactNode;
     size?: TabSize;
     style?: CSSProperties;
     tabBarClassName?: string;
@@ -54,7 +55,7 @@ export interface TabBarProps {
     dropdownStyle?: CSSProperties;
     closable?: boolean;
     deleteTabItem?: (tabKey: string, event: MouseEvent<Element>) => void;
-    handleKeyDown?:  (event: React.KeyboardEvent, itemKey: string, closable: boolean) => void;
+    handleKeyDown?: (event: React.KeyboardEvent, itemKey: string, closable: boolean) => void;
 }
 
 export interface TabPaneProps {

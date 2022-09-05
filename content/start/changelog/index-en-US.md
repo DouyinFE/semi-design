@@ -374,7 +374,7 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
     - `Select` component automatically scrolls when the keyboard up and down keys are used to adjust the relative position of the focused option  [#607](https://github.com/DouyinFE/semi-design/issues/607) [@chenzn1](https://github.com/chenzn1)
     - Fixed the problem that the configuration of `webpack.resolve.alias` is invalid after the `@douyinfe/semi-next` plugin is used in the `next.js` project  [#630](https://github.com/DouyinFE/semi-design/issues/630)
     - Fixed the issue that the focus state of the input box was not cleared after closing the panel when `DatePicker` open was controlled  [#528](https://github.com/DouyinFE/semi-design/issues/528)
-    - Fixed `Tooltip` in React17 if the parent prevents the click event from bubbling and the pop-up layer is collapsed will fail  [#593](https://github.com/DouyinFE/semi-design/issues/593) [@chenc041](https://github.com/chenc041)
+    - Fixed `Tooltip` in React17 if the parent prevents the click event from bubbling and the pop-up layer is collapsed will fail **(Tooltip, Popover's event judgment on clickOutSide behavior monitoring is changed from click to mousedown )**  [#593](https://github.com/DouyinFE/semi-design/issues/593) [@chenc041](https://github.com/chenc041)
 
 #### 🎉 2.5.0-beta.0 (2022-02-18)
 - 【Fix】
