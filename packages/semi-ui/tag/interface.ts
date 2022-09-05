@@ -38,15 +38,3 @@ export interface TagProps {
     'aria-label'?: React.AriaAttributes['aria-label'];
     tabIndex?: number; // use internal, when tag in taInput, we want to use left arrow and right arrow to control the tag focus, so the tabIndex need to be -1. 
 }
-
-export interface TagGroupProps {
-    style?: React.CSSProperties;
-    className?: string;
-    maxTagCount?: number;
-    tagList?: (TagProps | React.ReactNode)[];
-    size?: 'small' | 'large';
-    showPopover?: boolean;
-    popoverProps?: any; // TODO: 替换成PopoverProps
-    avatarShape?: AvatarShape;
-    mode?: string; // TODO: check 文档里没有这个api
-}
