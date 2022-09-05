@@ -44,7 +44,7 @@ Simple.story = {
 export const _Button = () => (
   <div>
     <div style={style}>
-      <Popconfirm position="bottomLeft" title="确定是否要保存此修改？" content="此修改将不可逆">
+      <Popconfirm position="bottomLeft" title="确定是否要保存此修改？" content="此修改将不可逆此修改将不可逆此修改将不可逆此修">
         <Button>Save</Button>
       </Popconfirm>
     </div>

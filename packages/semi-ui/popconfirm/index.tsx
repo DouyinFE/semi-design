@@ -168,7 +168,7 @@ export default class Popconfirm extends BaseComponent<PopconfirmProps, Popconfir
             }
         );
         const showTitle = title !== null && typeof title !== 'undefined';
-        const showContent = content !== null || typeof content !== 'undefined';
+        const showContent = !(content === null || typeof content === 'undefined');
 
         return (
             <div className={popCardCls} onClick={this.stopImmediatePropagation} style={style}>
@@ -183,11 +183,6 @@ export default class Popconfirm extends BaseComponent<PopconfirmProps, Popconfir
                                     {title}
                                 </div>
                             ) : null}
-                            {showContent ? (
-                                <div className={`${prefixCls}-header-content`} x-semi-prop="content">
-                                    {content}
-                                </div>
-                            ) : null}
                         </div>
                         <Button
                             className={`${prefixCls}-btn-close`}
@@ -198,6 +193,11 @@ export default class Popconfirm extends BaseComponent<PopconfirmProps, Popconfir
                             onClick={this.handleCancel}
                         />
                     </div>
+                    {showContent ? (
+                        <div className={`${prefixCls}-body`} x-semi-prop="content">
+                            {content}
+                        </div>
+                    ) : null} 
                     <div className={`${prefixCls}-footer`}>{this.renderControls()}</div>
                 </div>
             </div>
