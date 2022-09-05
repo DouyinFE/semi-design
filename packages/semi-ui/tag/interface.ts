@@ -1,3 +1,5 @@
+import { PopoverProps } from '../popover/index';
+
 export type TagColor =
     | 'amber'
     | 'blue'
@@ -37,4 +39,18 @@ export interface TagProps {
     onKeyDown?: React.KeyboardEventHandler<HTMLDivElement>;
     'aria-label'?: React.AriaAttributes['aria-label'];
     tabIndex?: number; // use internal, when tag in taInput, we want to use left arrow and right arrow to control the tag focus, so the tabIndex need to be -1. 
+}
+
+export interface TagGroupProps<T> {
+    style?: React.CSSProperties;
+    className?: string;
+    maxTagCount?: number;
+    restCount?: number;
+    tagList?: (T extends 'custom' ? React.ReactNode : TagProps)[];
+    size?: 'small' | 'large';
+    showPopover?: boolean;
+    popoverProps?: PopoverProps;
+    avatarShape?: AvatarShape;
+    mode?: string;
+    onTagClose: (tagChildren: React.ReactNode, event: React.MouseEvent<HTMLElement>, tagKey: string | number) => void;
 }
