@@ -100,6 +100,7 @@ $module: #{$prefix}-sidesheet;
     &-body {
         padding: $spacing-sideSheet_body-paddingY $spacing-sideSheet_body-paddingX;
         flex: 1;
+        overflow: auto;
     }
 
     &-content {
