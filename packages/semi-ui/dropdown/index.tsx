@@ -247,7 +247,11 @@ class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
                         }),
                         'aria-haspopup': true,
                         'aria-expanded': popVisible,
-                        onKeyDown: e => this.foundation.handleKeyDown(e)
+                        onKeyDown: e => {
+                            this.foundation.handleKeyDown(e);
+                            const childrenKeyDown = get(children, 'props.onKeyDown');
+                            childrenKeyDown && childrenKeyDown();
+                        }
                     }) :
                     children}
             </Tooltip>
