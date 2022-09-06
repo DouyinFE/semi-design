@@ -89,24 +89,25 @@ export default class TagGroup<T> extends PureComponent<TagGroupProps<T>> {
             if (mode === 'custom') {
                 return tag as React.ReactNode;
             }
-            if (!(tag as TagProps).size) {
-                (tag as TagProps).size = size;
+            const newTag = { ...(tag as TagProps) }; 
+            if (!(newTag as TagProps).size) {
+                (newTag as TagProps).size = size;
             }
             
-            if (!(tag as TagProps).avatarShape) {
-                (tag as TagProps).avatarShape = avatarShape;
+            if (!(newTag as TagProps).avatarShape) {
+                (newTag as TagProps).avatarShape = avatarShape;
             }
 
-            if (!(tag as TagProps).tagKey) {
-                if (typeof (tag as TagProps).children === 'string' || typeof (tag as TagProps).children === 'number') {
-                    (tag as TagProps).tagKey = (tag as TagProps).children as string | number;
+            if (!(newTag as TagProps).tagKey) {
+                if (typeof (newTag as TagProps).children === 'string' || typeof (newTag as TagProps).children === 'number') {
+                    (newTag as TagProps).tagKey = (newTag as TagProps).children as string | number;
                 } else {
-                    (tag as TagProps).tagKey = Math.random();
+                    (newTag as TagProps).tagKey = Math.random();
                 }
             }
-            return <Tag {...(tag as TagProps)} key={(tag as TagProps).tagKey} onClose={(tagChildren, e, tagKey) => {
-                if ((tag as TagProps).onClose) {
-                    (tag as TagProps).onClose(tagChildren, e, tagKey);
+            return <Tag {...(newTag as TagProps)} key={(newTag as TagProps).tagKey} onClose={(tagChildren, e, tagKey) => {
+                if ((newTag as TagProps).onClose) {
+                    (newTag as TagProps).onClose(tagChildren, e, tagKey);
                 }
                 onTagClose && onTagClose(tagChildren, e, tagKey);
             }} />;
@@ -115,7 +116,9 @@ export default class TagGroup<T> extends PureComponent<TagGroupProps<T>> {
     }
 
     render() {
-        const { style, className, maxTagCount, size } = this.props;
+        const { style, className, maxTagCount, size, tagList } = this.props;
+
+        console.log('xxx', tagList);
 
         const groupCls = classNames({
             [`${prefixCls}-group`]: true,
