@@ -13,7 +13,6 @@
         "prepublishOnly": "npm run clean && npm run build:lib && npm run build:js && npm run build:css"
     },
     "dependencies": {
-        "@babel/runtime-corejs3": "^7.15.4",
         "@douyinfe/semi-animation": "2.12.0",
         "@douyinfe/semi-animation-react": "2.18.2",
         "@douyinfe/semi-foundation": "2.18.2",
