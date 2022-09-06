@@ -294,7 +294,7 @@ import { IconChevronLeft, IconChevronRight } from '@douyinfe/semi-icons';
                     percent={percent}
                     stroke={strokeArr}
                     showInfo
-                    style={{ margin: '20px 0' }}
+                    style={{ margin: '20px 0 10px' }}
                     aria-label="disk usage"
                 />
             </div>
@@ -375,7 +375,7 @@ import { IconChevronLeft, IconChevronRight } from '@douyinfe/semi-icons';
                     />
                 </div>
             </Space>
-            <div style={{ width: '100%', marginTop: 20 }}>
+            <div style={{ width: '100%', margin: '20px 0 10px' }}>
                 <Progress
                     percent={percent}
                     stroke={strokeArr}
