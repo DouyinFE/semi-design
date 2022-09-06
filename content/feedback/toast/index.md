@@ -238,6 +238,33 @@ function Demo() {
 render(Demo);
 ```
 
+### 更新消息内容
+
+可以通过唯一的 `id` 来更新内容。
+
+```jsx live=true noInline=true hideInDSM
+import React, { useState } from 'react';
+import { Toast, Button } from '@douyinfe/semi-ui';
+
+function Demo() {
+    function show() {
+        const id = 'toastid';
+        Toast.info({ content: 'Update Content By Id', id });
+        setTimeout(() => {
+            Toast.success({ content: 'Id By Content Update', id });
+        }, 1000);
+    }
+
+    return (
+        <Button type="primary" onClick={show}>
+            Update Content By Id
+        </Button>
+    );
+}
+
+render(Demo);
+```
+
 ### Hooks 用法
 
 通过 Toast.useToast 创建支持读取 context 的 contextHolder。此时的 toast 会渲染在 contextHolder 所在的节点处。
@@ -438,8 +465,8 @@ HookToast ( >= 1.2.0 )：
   - 不使用类似于「已读」类的动作，例如 OK, Got it, Dismiss, Cancel
 
 
-| ✅ 推荐用法 | ❌ 不推荐用法 |   
-| --- | --- | 
+| ✅ 推荐用法 | ❌ 不推荐用法 |
+| --- | --- |
 |  <ToastCard type='error' content={<div>Ticket transfer failed <span style={{ color: 'var(--semi-color-primary)', marginLeft: 4, cursor: 'pointer' }}>Retry</span> </div>} /> |  <ToastCard type='error' content={<div>Ticket transfer failed <span style={{ color: 'var(--semi-color-primary)', marginLeft: 4, cursor: 'pointer' }}>Dismiss</span> </div>} /> |
 
 ## 设计变量

@@ -19,6 +19,7 @@ import { Motion } from '../_base/base';
 
 export { ToastTransitionProps } from './ToastTransition';
 export interface ToastReactProps extends ToastProps{
+    id?: string;
     style?: CSSProperties;
     icon?: React.ReactNode;
     content: React.ReactNode;
@@ -55,6 +56,7 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
         this.state = {
             list: [],
             removedItems: [],
+            updatedItems: []
         };
         this.foundation = new ToastListFoundation(this.adapter);
     }
@@ -62,14 +64,14 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
     get adapter(): ToastListAdapter {
         return {
             ...super.adapter,
-            updateToast: (list: ToastInstance[], removedItems: ToastInstance[]) => {
-                this.setState({ list, removedItems });
+            updateToast: (list: ToastInstance[], removedItems: ToastInstance[], updatedItems: ToastInstance[]) => {
+                this.setState({ list, removedItems, updatedItems });
             },
         };
     }
 
     static create(opts: ToastReactProps) {
-        const id = getUuid('toast');
+        const id = opts.id ?? getUuid('toast');
         // this.id = id;
         if (!ToastList.ref) {
             const div = document.createElement('div');
@@ -108,7 +110,11 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
                     node.style[pos] = typeof opts[pos] === 'number' ? `${opts[pos]}px` : opts[pos];
                 }
             });
-            ToastList.ref.add({ ...opts, id });
+            if (ToastList.ref.has(id)) {
+                ToastList.ref.update(id, { ...opts, id });
+            } else {
+                ToastList.ref.add({ ...opts, id });
+            }
         }
         return id;
     }
@@ -178,8 +184,16 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
         }
     }
 
+    has(id: string) {
+        return this.foundation.hasToast(id);
+    }
+
     add(opts: ToastInstance) {
         return this.foundation.addToast(opts);
+    }
+
+    update(id: string, opts: ToastInstance) {
+        return this.foundation.updateToast(id, opts);
     }
 
     remove(id: string) {
@@ -192,8 +206,16 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
 
     render() {
         let { list } = this.state;
-        const { removedItems } = this.state;
+        const { removedItems, updatedItems } = this.state;
         list = Array.from(new Set([...list, ...removedItems]));
+        const updatedIds = updatedItems.map(({ id }) => id);
+
+        const refFn: React.LegacyRef<Toast> = (toast) => {
+            if (toast?.foundation?._id && updatedIds.includes(toast.foundation._id)) {
+                toast.foundation.setState({ duration: toast.props.duration });
+                toast.foundation.restartCloseTimer();
+            }
+        };
 
         return (
             <React.Fragment>
@@ -207,11 +229,12 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
                                         {...item}
                                         style={{ ...transitionStyle, ...item.style }}
                                         close={id => this.remove(id)}
+                                        ref={refFn}
                                     />
                                 )}
                         </ToastTransition>
                     ) : (
-                        <Toast {...item} style={{ ...item.style }} close={id => this.remove(id)} />
+                        <Toast {...item} style={{ ...item.style }} close={id => this.remove(id)} ref={refFn} />
                     ))
                 )}
             </React.Fragment>
