@@ -16,6 +16,25 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.19.0-beta.0 (2022-09-05)
+- 【Feat】
+  - Popconfirm's onOk and onCancel support Promise type return value and close asynchronously [#1056](https://github.com/DouyinFE/semi-design/issues/1056)
+- 【Fix】
+  - Fix Popconfirm multiline content style bug [#868](https://github.com/DouyinFE/semi-design/issues/868)
+  - Fix DefaultTabBar type error [#1077](https://github.com/DouyinFE/semi-design/pull/1077)
+  - Fix the TS error when the Form level is set to autoComplete to false
+  - Fix an issue where Slider was incorrectly positioned when passing in partial steps values [#1043](https://github.com/DouyinFE/semi-design/issues/1043)
+  - Fix Tag tagKey type definition error problem [#1081](https://github.com/DouyinFE/semi-design/pull/1081)
+  - Fix incorrect value when RadioGroup was first rendered [#1060](https://github.com/DouyinFE/semi-design/pull/1060)
+- 【Style】
+  - Add overflow: auto default style to Sidesheet body, you no longer need to add overflow related styles through props.bodyStyle when the content exceeds [#1098](https://github.com/DouyinFE/semi-design/pull/1098)
+- 【Refactor】
+  - Replace margin layout in Checkbox with flex layout and gap [#1073](https://github.com/DouyinFE/semi-design/pull/1073)
+  - Dividers in ButtonGroup use span tags instead of border-right [#1065](https://github.com/DouyinFE/semi-design/pull/1065)
+  - Refactored Radio's layout, removed some absolute positioning, and used flex layout instead [#1060](https://github.com/DouyinFE/semi-design/pull/1060)
+- 【Breaking Change】
+  - When using CheckboxGroup, if the child Checkbox is nested with a layer of elements such as div or span, then the Checkbox will not have margin-bottom. Styling each Checkbox nested element individually is unaffected [#1073](https://github.com/DouyinFE/semi-design/pull/1073)
+  
 #### 🎉 2.18.2 (2022-08-31)
 
 - 【Fix】
@@ -374,7 +393,7 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
     - `Select` component automatically scrolls when the keyboard up and down keys are used to adjust the relative position of the focused option  [#607](https://github.com/DouyinFE/semi-design/issues/607) [@chenzn1](https://github.com/chenzn1)
     - Fixed the problem that the configuration of `webpack.resolve.alias` is invalid after the `@douyinfe/semi-next` plugin is used in the `next.js` project  [#630](https://github.com/DouyinFE/semi-design/issues/630)
     - Fixed the issue that the focus state of the input box was not cleared after closing the panel when `DatePicker` open was controlled  [#528](https://github.com/DouyinFE/semi-design/issues/528)
-    - Fixed `Tooltip` in React17 if the parent prevents the click event from bubbling and the pop-up layer is collapsed will fail  [#593](https://github.com/DouyinFE/semi-design/issues/593) [@chenc041](https://github.com/chenc041)
+    - Fixed `Tooltip` in React17 if the parent prevents the click event from bubbling and the pop-up layer is collapsed will fail **(Tooltip, Popover's event judgment on clickOutSide behavior monitoring is changed from click to mousedown )**  [#593](https://github.com/DouyinFE/semi-design/issues/593) [@chenc041](https://github.com/chenc041)
 
 #### 🎉 2.5.0-beta.0 (2022-02-18)
 - 【Fix】

@@ -16,6 +16,25 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 ---
 
+#### 🎉 2.19.0-beta.0 (2022-09-05)
+- 【Feat】
+  - Popconfirm onOk、onCancel支持 Promise 类型返回值，异步关闭 [#1056 ](https://github.com/DouyinFE/semi-design/issues/1056)
+- 【Fix】
+  - 修复 Popconfirm 多行内容样式错误 [#868](https://github.com/DouyinFE/semi-design/issues/868)
+  - 修复 DefaultTabBar 类型有误  [#1077](https://github.com/DouyinFE/semi-design/pull/1077)
+  - 修复 Form 级别设置 autoComplete 为 false 出现 TS 报错问题
+  - 修复 Slider 在传入部分 steps 值时定位显示不正确的问题,  [#1043](https://github.com/DouyinFE/semi-design/issues/1043)
+  - 修复 Tag tagKey 类型定义错误问题 [#1081](https://github.com/DouyinFE/semi-design/pull/1081)
+  - 修复 RadioGroup 第一次渲染时 value 不正确问题 [#1060](https://github.com/DouyinFE/semi-design/pull/1060)
+- 【Style】
+  - Sidesheet body 添加 overflow: auto 默认样式，内容超出时不再需要自行通过 props.bodyStyle 添加 overflow相关样式 [#1098](https://github.com/DouyinFE/semi-design/pull/1098)
+- 【Refactor】
+  - 使用 flex 布局和 gap 替换 Checkbox 中的 margin 布局 [#1073](https://github.com/DouyinFE/semi-design/pull/1073)
+  - ButtonGroup 中的分割线使用 span 标签代替 border-right [#1065](https://github.com/DouyinFE/semi-design/pull/1065)
+  - 重构了 Radio 的布局，去掉了一些绝对定位，使用 flex 布局代替 [#1060](https://github.com/DouyinFE/semi-design/pull/1060)
+- 【Breaking Change】
+  - 使用 CheckboxGroup 时，如果给子级 Checkbox 嵌套一层 div 或者 span 等元素，这时 Checkbox 将不带 margin-bottom。单独给每个 Checkbox 嵌套元素样式上不受影响 [#1073](https://github.com/DouyinFE/semi-design/pull/1073)
+
 #### 🎉 2.18.2 (2022-08-31)
 
 - 【Fix】
@@ -381,7 +400,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
     - Select 组件当用键盘上下键操作时，增加自动滚动交互，调整聚焦 option 的相对位置  [#607](https://github.com/DouyinFE/semi-design/issues/607) [@chenzn1](https://github.com/chenzn1)
     - 修复 next.js 项目使用 @douyinfe/semi-next 插件后，webpack.resolve.alias配置失效的问题  [#630](https://github.com/DouyinFE/semi-design/issues/630)
     - 修复 DatePicker open 受控时关闭面板后输入框聚焦态没有清空问题  [#528](https://github.com/DouyinFE/semi-design/issues/528)
-    - 修复 Tooltip 在 React17 里如果父级有阻止点击事件冒泡弹出层收起会失效 (Tooltip、Popover 对 clickOutSide 行为监听的事件判断由 click 变更为 mousedown ) [#593](https://github.com/DouyinFE/semi-design/issues/593) [@chenc041](https://github.com/chenc041)
+    - 修复 Tooltip 在 React17 里如果父级有阻止点击事件冒泡弹出层收起会失效 **(Tooltip、Popover 对 clickOutSide 行为监听的事件判断由 click 变更为 mousedown )** [#593](https://github.com/DouyinFE/semi-design/issues/593) [@chenc041](https://github.com/chenc041)
 
 #### 🎉 2.5.0-beta.0 (2022-02-18)
 - 【Fix】

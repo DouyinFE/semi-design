@@ -11,7 +11,16 @@ const Demo = () => {
 
     return (
         <div>
-            <Tabs defaultActiveKey="1"
+            <Tabs 
+                defaultActiveKey="1"
+                renderTabBar={(tabBarProps, DefaultTabBar) => {
+                    return (
+                        <div className="tab-bar-box">
+                            这是二次封装的Tab Bar，当前ActiveKey：{tabBarProps.activeKey}
+                            <DefaultTabBar {...tabBarProps} />
+                        </div>
+                    );
+                }}
                 tabPaneMotion>
                 {
                     tabPaneList.map((item, index) => {
@@ -19,12 +28,12 @@ const Demo = () => {
                             <TabPane tab={item} itemKey={index.toString()} key={item}>
                                 { item + index }
                             </TabPane>
-                        )
+                        );
                     })
                 }
             </Tabs>
         </div>
-    )
-}
+    );
+};
 
-export default Demo
+export default Demo;
