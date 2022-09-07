@@ -13,7 +13,7 @@
         "prepublishOnly": "npm run clean && npm run build:lib && npm run build:js && npm run build:css"
     },
     "dependencies": {
-        "@douyinfe/semi-animation": "2.12.0",
+        "@douyinfe/semi-animation": "2.19.1-alpha.0",
         "@douyinfe/semi-animation-react": "2.19.1-alpha.0",
         "@douyinfe/semi-foundation": "2.19.1-alpha.0",
         "@douyinfe/semi-icons": "2.19.1-alpha.0",
