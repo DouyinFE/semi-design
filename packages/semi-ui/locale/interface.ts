@@ -156,5 +156,13 @@ export interface Locale {
         preview: string;
         loading: string;
         loadError: string;
+        prevTip: string;
+        nextTip: string;
+        zoomInTip: string;
+        zoomOutTip: string;
+        rotateTip: string;
+        downloadTip: string;
+        adaptiveTip: string;
+        originTip: string;
     };
 }

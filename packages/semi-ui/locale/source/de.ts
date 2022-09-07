@@ -157,6 +157,14 @@ const local: Locale = {
         preview: 'Vorschau',
         loading: 'Wird geladen',
         loadError: 'Laden fehlgeschlagen',
+        prevTip: 'Zurück',
+        nextTip: 'Weiter',
+        zoomInTip: 'Vergrößern',
+        zoomOutTip: 'herauszoomen',
+        rotateTip: 'Drehen',
+        downloadTip: 'herunterladen',
+        adaptiveTip: 'An die Seite anpassen',
+        originTip: 'Originalgröße',
     },
 };
 

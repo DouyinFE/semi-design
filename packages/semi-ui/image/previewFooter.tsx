@@ -156,7 +156,7 @@ export default class Footer extends BaseComponent<FooterProps> {
             onClick={!disabledZoomOut ? this.handleMinusClick : undefined} 
             className={disabledZoomOut ? `${prefixCls}-disabled` : ""}
         />;
-        const content = zoomOutTip ?? this.getLocalTextByKey('zoomInTip');
+        const content = zoomOutTip ?? this.getLocalTextByKey("zoomOutTip");
         return this.getFinalIconElement(icon, content);
     }
 
@@ -180,7 +180,12 @@ export default class Footer extends BaseComponent<FooterProps> {
             className={cls(`${footerPrefixCls}-gap`)}
             onClick={this.handleRatioClick}
         />;
-        const content = ratio === "adaptation" ? originTip : adaptiveTip;
+        let content: any;
+        if (ratio === "adaptation") {
+            content = originTip ?? this.getLocalTextByKey("originTip");
+        } else {
+            content = adaptiveTip ?? this.getLocalTextByKey("adaptiveTip");
+        }
         return this.getFinalIconElement(icon, content);
     }
 
@@ -190,7 +195,8 @@ export default class Footer extends BaseComponent<FooterProps> {
             size="large"
             onClick={onRotateLeft}
         />;
-        return this.getFinalIconElement(icon, rotateTip);
+        const content = rotateTip ?? this.getLocalTextByKey("rotateTip");
+        return this.getFinalIconElement(icon, content);
     }
 
     getIconDownload = () => {
@@ -204,7 +210,8 @@ export default class Footer extends BaseComponent<FooterProps> {
                 },
             )}
         />;
-        return this.getFinalIconElement(icon, downloadTip);
+        const content = downloadTip ?? this.getLocalTextByKey("downloadTip");
+        return this.getFinalIconElement(icon, content);
     }
 
 
@@ -244,7 +251,7 @@ export default class Footer extends BaseComponent<FooterProps> {
                     max={max}
                     step={step}
                     tipFormatter={(v): string => `${v}%`}
-                    tooltipVisible={showTooltip}
+                    tooltipVisible={showTooltip ? undefined : false }
                     onChange={this.handleSlideChange}
                 />
                 {this.getIconPlus()}

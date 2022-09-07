@@ -158,6 +158,14 @@ const local: Locale = {
         preview: 'プレビュー',
         loading: '読み込み中',
         loadError: '読み込みに失敗しました',
+        prevTip: '前へ',
+        nextTip: '次へ',
+        zoomInTip: 'ズームイン',
+        zoomOutTip: 'ズームアウト',
+        rotateTip: '回転',
+        downloadTip: 'ダウンロード',
+        adaptiveTip: 'ページに適応',
+        originTip: '元のサイズ',
     },
 };
 

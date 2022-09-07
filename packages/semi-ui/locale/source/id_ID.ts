@@ -157,6 +157,14 @@ const local: Locale = {
         preview: 'Pratinjau',
         loading: 'Memuat',
         loadError: 'Gagal untuk memuat',
+        prevTip: 'Sebelumnya',
+        nextTip: 'Selanjutnya',
+        zoomInTip: 'Memperbesar',
+        zoomOutTip: 'memperkecil',
+        rotateTip: 'Putar',
+        downloadTip: 'unduh',
+        adaptiveTip: 'Beradaptasi dengan halaman',
+        originTip: 'Ukuran asli',
     },
 };
 

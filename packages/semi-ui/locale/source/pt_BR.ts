@@ -165,6 +165,14 @@ const local: Locale = {
         preview: 'Visualizar',
         loading: 'Carregando',
         loadError: 'Falha ao carregar',
+        prevTip: 'Anterior',
+        nextTip: 'Próximo',
+        zoomInTip: 'Ampliar',
+        zoomOutTip: 'reduzir',
+        rotateTip: 'Girar',
+        downloadTip: 'baixar',
+        adaptiveTip: 'Adaptar à página',
+        originTip: 'Tamanho original',
     },
 };
 

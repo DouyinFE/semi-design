@@ -160,6 +160,14 @@ const local: Locale = {
         preview: 'xem trước',
         loading: 'Đang tải',
         loadError: 'Không tải được',
+        prevTip: 'Trước đó',
+        nextTip: 'Next',
+        zoomInTip: 'Phóng to',
+        zoomOutTip: 'thu nhỏ',
+        rotateTip: 'Xoay',
+        downloadTip: 'download',
+        adaptiveTip: 'Thích ứng với trang',
+        originTip: 'Kích thước ban đầu',
     },
 };
 
