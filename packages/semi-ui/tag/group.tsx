@@ -116,7 +116,7 @@ export default class TagGroup<T> extends PureComponent<TagGroupProps<T>> {
     }
 
     render() {
-        const { style, className, maxTagCount, size, tagList } = this.props;
+        const { style, className, maxTagCount, size } = this.props;
 
         const groupCls = classNames({
             [`${prefixCls}-group`]: true,
