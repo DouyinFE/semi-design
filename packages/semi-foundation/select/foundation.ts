@@ -1025,8 +1025,8 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
         const { filter, autoFocus } = this.getProps();
         const { isOpen, isFocus } = this.getStates();
         // Under normal circumstances, blur will be accompanied by clickOutsideHandler, so the notify of blur can be called uniformly in clickOutsideHandler
-        // But when autoFocus, because clickOutsideHandler is not register, you need to listen for the trigger's blur and trigger the notify callback
-        if (autoFocus && isFocus && !isOpen) {
+        // But when autoFocus or the panel is close, because clickOutsideHandler is not register or unregister, you need to listen for the trigger's blur and trigger the notify callback
+        if (isFocus && !isOpen) {
             this._notifyBlur(e);
         }
     }
