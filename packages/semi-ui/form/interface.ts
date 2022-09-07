@@ -102,7 +102,7 @@ interface setValuesConfig {
     isOverride: boolean;
 }
 
-export interface BaseFormProps {
+export interface BaseFormProps extends Omit<React.FormHTMLAttributes<HTMLFormElement>, 'children' | 'onChange'> {
     'aria-label'?: React.AriaAttributes['aria-label'];
     onSubmit?: (values: Record<string, any>) => void;
     onSubmitFail?: (errors: Record<string, FieldError>, values: any) => void;

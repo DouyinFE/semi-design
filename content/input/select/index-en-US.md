@@ -1415,6 +1415,7 @@ MinWidth will be given, but width will not be written dead. If necessary, you ca
     So why is label instead of value in semi's select?  
     The label of the option is what the user perceives. From an interactive point of view, if there are two options that are exactly the same on the display, to the user’s perception, they look the same and cannot be distinguished, but the selected effects are different (for example, one value is 0, the other As 1), it is unreasonable. (Users' first reaction is often repeated, and there may be a bug)
 Unique label and repeated value are more common in daily use. For example, a selector that selects the company id based on the app name, value is the company id corresponding to the app, and label is the name of the app.
+We don't recommend showing the user a duplicate label option, but if you're sure you need to, you can bypass this restriction when you pass a ReactNode type to the label.
 
 - **Why is the blur event not fired after a radio selection option?**
 
