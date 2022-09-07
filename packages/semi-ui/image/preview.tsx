@@ -1,18 +1,18 @@
-import React, { ReactNode } from 'react';
-import { PreviewContext } from './previewContext';
-import BaseComponent from '../_base/baseComponent';
-import PropTypes from 'prop-types';
-import { PreviewProps, PreviewState } from './interface';
-import PreviewInner from './previewInner';
-import PreviewFoundation from '@douyinfe/semi-foundation/image/previewFoundation';
-import { getUuidShort } from '@douyinfe/semi-foundation/utils/uuid';
-import { cssClasses } from '@douyinfe/semi-foundation/image/constants';
+import React, { ReactNode } from "react";
+import { PreviewContext } from "./previewContext";
+import BaseComponent from "../_base/baseComponent";
+import PropTypes from "prop-types";
+import { PreviewProps, PreviewState } from "./interface";
+import PreviewInner from "./previewInner";
+import PreviewFoundation from "@douyinfe/semi-foundation/image/previewFoundation";
+import { getUuidShort } from "@douyinfe/semi-foundation/utils/uuid";
+import { cssClasses } from "@douyinfe/semi-foundation/image/constants";
 
 const prefixCls = cssClasses.PREFIX;
 
 export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
     static propTypes = {
-        srcList: PropTypes.string,
+        srcList: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
         visible: PropTypes.bool,
         onChange: PropTypes.func,
         preview: PropTypes.object,
@@ -35,14 +35,16 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
 
     foundation: PreviewFoundation;
     previewGroupId: string;
+    previewRef: React.RefObject<PreviewInner>;
 
     constructor(props) {
         super(props);
         this.state = {
-            currentIndex: props.defaultCurrentIndex || props.currentIndex || 0,
+            currentIndex: props.currentIndex || props.defaultCurrentIndex || 0,
         };
         this.foundation = new PreviewFoundation(this.adapter);
-        this.previewGroupId = getUuidShort({ prefix: 'semi-preview-group', length: 4 });
+        this.previewGroupId = getUuidShort({ prefix: "semi-image-preview-group", length: 4 });
+        this.previewRef = React.createRef<PreviewInner>();
     }
 
     componentDidMount() {
@@ -72,8 +74,6 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
         }
         return willUpdateStates;
     }
-
-    previewRef = React.createRef<PreviewInner>();
 
     handleVisibleChange = (newVisible : boolean) => {
         this.foundation.handleVisibleChange(newVisible);

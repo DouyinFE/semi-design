@@ -1,4 +1,4 @@
-import BaseFoundation, { DefaultAdapter } from '../base/foundation';
+import BaseFoundation, { DefaultAdapter } from "../base/foundation";
 
 export default class PreviewFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<Partial<DefaultAdapter>> {
     
@@ -8,7 +8,7 @@ export default class PreviewFoundation<P = Record<string, any>, S = Record<strin
     };
 
     handleSwitch = (index: number) => {
-        const { onChange } = this.getProp('preview');
+        const { onChange } = this.getProp("preview");
         onChange && onChange(index);
         this.setState({
             currentIndex: index,

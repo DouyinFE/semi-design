@@ -1,12 +1,10 @@
-import { CSSProperties, ReactNode } from "react";
-import { IndexedAccessType } from "@babel/types";
+import { ReactNode } from "react";
 import { BaseProps } from "_base/baseComponent";
-import React from 'react';
-import TreeNode from "tree/treeNode";
+import React from "react";
 
 export interface ImageStates {
     src: string;
-    loadStatus: 'loading' | 'success' | 'error';
+    loadStatus: "loading" | "success" | "error";
     previewVisible: boolean;
 }
 
@@ -20,10 +18,10 @@ export interface ImageProps extends BaseProps{
     preview?: boolean | PreviewInnerProps;
     onError?: (event: Event) => void;
     onLoad?: (event: Event) => void;
-    crossOrigin?: 'anonymous'| 'use-credentials';
+    crossOrigin?: "anonymous"| "use-credentials";
     children?: ReactNode,
     imageID?: number;
-    title?: string | TreeNode;
+    title?: ReactNode;
 }
 
 export interface PreviewInnerProps extends BaseProps {
@@ -47,8 +45,8 @@ export interface PreviewInnerProps extends BaseProps {
     downloadTip?: string;
     adaptiveTip?: string;
     originTip?: string;
-    lazyLoad?: boolean;
-    lazyLoadGap?: boolean;
+    preLoad?: boolean;
+    preLoadGap?: number;
     animationDuration?: number;
     viewerVisibleDelay?: number;
     disableDownload?: boolean;
@@ -89,16 +87,19 @@ export interface MenuProps {
     onRotateLeft?: () => void,
 }
 
-export type RatioType = 'adaptation' | 'realSize';
+export type RatioType = "adaptation" | "realSize";
 
 export interface PreviewInnerStates {
     imgSrc?: string[];
+    imgLoadStatus?: Map<string, boolean>;
     zoom?: number;
     rotation?: number;
     ratio?: RatioType;
     currentIndex?: number;
     viewerVisible?: boolean;
     visible?: boolean;
+    preloadAfterVisibleChange?: boolean;
+    direction?: string;
 }
 
 export interface SliderProps {
@@ -156,6 +157,8 @@ export interface PreviewImageProps {
     clickZoom?: number;
     setRatio?: (type: RatioType) => void;
     onZoom?: (zoom: number) => void;
+    onLoad?: (src: string) => void;
+    onError?: (src: string) => void;
 }
 
 export interface ImageOffset {

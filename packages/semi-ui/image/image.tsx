@@ -1,19 +1,19 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import React from 'react';
-import BaseComponent from '../_base/baseComponent';
-import { ImageProps, ImageStates } from './interface';
-import PropTypes from 'prop-types';
-import { cssClasses } from '@douyinfe/semi-foundation/image/constants';
-import cls from 'classnames';
-import { IconUploadError, IconEyeOpened } from '@douyinfe/semi-icons';
-import Spin from '../spin';
-import PreviewInner from './previewInner';
-import '@douyinfe/semi-foundation/image/image.scss';
-import { PreviewContext, PreviewContextProps } from './previewContext';
-import ImageFoundation, { ImageAdapter } from '@douyinfe/semi-foundation/image/imageFoundation';
-import LocaleConsumer from '../locale/localeConsumer';
-import { Locale } from '../locale/interface';
+import React from "react";
+import BaseComponent from "../_base/baseComponent";
+import { ImageProps, ImageStates } from "./interface";
+import PropTypes from "prop-types";
+import { cssClasses } from "@douyinfe/semi-foundation/image/constants";
+import cls from "classnames";
+import { IconUploadError, IconEyeOpened } from "@douyinfe/semi-icons";
+import Spin from "../spin";
+import PreviewInner from "./previewInner";
+import "@douyinfe/semi-foundation/image/image.scss";
+import { PreviewContext, PreviewContextProps } from "./previewContext";
+import ImageFoundation, { ImageAdapter } from "@douyinfe/semi-foundation/image/imageFoundation";
+import LocaleConsumer from "../locale/localeConsumer";
+import { Locale } from "../locale/interface";
 
 const prefixCls = cssClasses.PREFIX;
 
@@ -52,8 +52,8 @@ export default class Image extends BaseComponent<ImageProps, ImageStates> {
     constructor(props: ImageProps) {
         super(props);
         this.state = {
-            src: '',
-            loadStatus: 'loading',
+            src: "",
+            loadStatus: "loading",
             previewVisible: false,
         };
 
@@ -65,7 +65,7 @@ export default class Image extends BaseComponent<ImageProps, ImageStates> {
 
         if (props.src !== state.src) {
             willUpdateStates.src = props.src;
-            willUpdateStates.loadStatus = 'loading';
+            willUpdateStates.loadStatus = "loading";
         }
 
         return willUpdateStates;
@@ -97,7 +97,7 @@ export default class Image extends BaseComponent<ImageProps, ImageStates> {
             <div className={cls(prefixClsName, `${prefixClsName}-loading`)}>
                 <div className={cls(`${prefixClsName}-inner`, `${prefixClsName}-inner-loading`)}>
                     <Spin />
-                    <span className={`${prefixClsName}-inner-text`}>{this.getLocalTextByKey('loading')}</span>
+                    <span className={`${prefixClsName}-inner-text`}>{this.getLocalTextByKey("loading")}</span>
                 </div>
             </div>
         );
@@ -108,8 +108,8 @@ export default class Image extends BaseComponent<ImageProps, ImageStates> {
         return (
             <div className={cls(prefixClsName, `${prefixClsName}-error`)}>
                 <div className={cls(`${prefixClsName}-inner`, `${prefixClsName}-inner-error`)}>
-                    <IconUploadError size={'extra-large'} className={`${prefixClsName}-inner-icon`}/>
-                    <span className={`${prefixClsName}-inner-text`}>{this.getLocalTextByKey('loadError')}</span>
+                    <IconUploadError size={"extra-large"} className={`${prefixClsName}-inner-icon`}/>
+                    <span className={`${prefixClsName}-inner-text`}>{this.getLocalTextByKey("loadError")}</span>
                 </div>
             </div>
         );
@@ -130,17 +130,24 @@ export default class Image extends BaseComponent<ImageProps, ImageStates> {
         
         return (
             <div className={`${prefixCls}-overlay`}>
-                {loadStatus === 'error' && this.renderError()}
-                {loadStatus === 'loading' && this.renderLoad()}
+                {loadStatus === "error" && this.renderError()}
+                {loadStatus === "loading" && this.renderLoad()}
             </div>
         );
     }
 
     getLocalTextByKey = (key: string) => (
-        <LocaleConsumer<Locale['Image']> componentName="Image" >
-            {(locale: Locale['Image']) => locale[key]}
+        <LocaleConsumer<Locale["Image"]> componentName="Image" >
+            {(locale: Locale["Image"]) => locale[key]}
         </LocaleConsumer>
     );
+
+    renderMask = () => (<div className={`${prefixCls}-mask`}>
+        <div className={`${prefixCls}-mask-info`}>
+            <IconEyeOpened size="extra-large"/>
+            <span className={`${prefixCls}-mask-info-text`}>{this.getLocalTextByKey("preview")}</span>
+        </div>
+    </div>)
 
     render() {
         const { src, loadStatus, previewVisible } = this.state;
@@ -148,7 +155,8 @@ export default class Image extends BaseComponent<ImageProps, ImageStates> {
         const outerStyle = Object.assign({ width, height }, style);
         const clsPrefix = `${prefixCls}`;
         const outerCls = cls(clsPrefix, className);
-        const canPreview = loadStatus === 'success' && preview && !this.isInGroup();
+        const canPreview = loadStatus === "success" && preview && !this.isInGroup();
+        const showMask = preview && loadStatus === "success";
         return ( 
             // eslint-disable jsx-a11y/no-static-element-interactions
             // eslint-disable jsx-a11y/click-events-have-key-events
@@ -169,13 +177,8 @@ export default class Image extends BaseComponent<ImageProps, ImageStates> {
                     onError={this.handleError}
                     onLoad={this.handleLoaded}
                 />
-                {preview && <div className={`${prefixCls}-mask`}>
-                    <div className={`${prefixCls}-mask-info`}>
-                        <IconEyeOpened size="extra-large"/>
-                        <span className={`${prefixCls}-mask-info-text`}>{this.getLocalTextByKey('preview')}</span>
-                    </div>
-                </div>}
-                {loadStatus !== 'success' && this.renderExtra()}
+                {showMask && this.renderMask()}
+                {loadStatus !== "success" && this.renderExtra()}
                 {canPreview && 
                     <PreviewInner
                         src={src}

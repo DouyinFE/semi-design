@@ -1,17 +1,19 @@
-import React, { ReactNode } from 'react';
-import BaseComponent from '../_base/baseComponent';
-import { IconChevronLeft, IconChevronRight, IconMinus, IconPlus, IconRotate, IconDownload } from '@douyinfe/semi-icons';
-import { throttle } from './utils';
-import { FooterProps, RealSizeSvg, AdaptionSvg } from './interface';
-import PropTypes from 'prop-types';
-import Tooltip from '../tooltip';
-import Divider from '../divider';
-import Slider from '../slider';
-import Icon from '../icons';
-import Button from '../button';
-import { cssClasses } from '@douyinfe/semi-foundation/image/constants';
-import cls from 'classnames';
-import PreviewFooterFoundation, { PreviewFooterAdapter } from '@douyinfe/semi-foundation/image/previewFooterFoundation';
+import React, { ReactNode } from "react";
+import BaseComponent from "../_base/baseComponent";
+import { IconChevronLeft, IconChevronRight, IconMinus, IconPlus, IconRotate, IconDownload } from "@douyinfe/semi-icons";
+import { FooterProps, RealSizeSvg, AdaptionSvg } from "./interface";
+import PropTypes from "prop-types";
+import Tooltip from "../tooltip";
+import Divider from "../divider";
+import Slider from "../slider";
+import Icon from "../icons";
+import Button from "../button";
+import { cssClasses } from "@douyinfe/semi-foundation/image/constants";
+import cls from "classnames";
+import PreviewFooterFoundation, { PreviewFooterAdapter } from "@douyinfe/semi-foundation/image/previewFooterFoundation";
+import LocaleConsumer from "../locale/localeConsumer";
+import { Locale } from "../locale/interface";
+import { throttle } from "lodash";
 
 const prefixCls = cssClasses.PREFIX;
 const footerPrefixCls = `${cssClasses.PREFIX}-preview-footer`;
@@ -52,14 +54,7 @@ export default class Footer extends BaseComponent<FooterProps> {
         max: 500,
         step: 10,
         showTooltip: false,
-        prevTip: '上一张',
-        nextTip: '下一张',
-        zoomInTip: '放大',
-        zoomOutTip: '缩小',
-        rotateTip: '旋转',
-        downloadTip: '下载',
-        adaptiveTip: '适应页面',
-        originTip: '原始尺寸',
+        disableDownload: false,
     }
 
     get adapter(): PreviewFooterAdapter<FooterProps> {
@@ -78,16 +73,16 @@ export default class Footer extends BaseComponent<FooterProps> {
         this.foundation = new PreviewFooterFoundation(this.adapter);
     }
 
-    changeSliderValue = (type): void => {
+    changeSliderValue = (type: string): void => {
         this.foundation.changeSliderValue(type);
     };
 
     handleMinusClick = () => {
-        this.changeSliderValue('Minus');
+        this.changeSliderValue("Minus");
     }
 
     handlePlusClick = () => {
-        this.changeSliderValue('plus');
+        this.changeSliderValue("plus");
     }
 
     handleSlideChange = throttle((value): void => {
@@ -114,6 +109,105 @@ export default class Footer extends BaseComponent<FooterProps> {
         return renderPreviewMenu(props);
     }
 
+    // According to showTooltip in props, decide whether to use Tooltip to pack a layer
+    // 根据props中的showTooltip决定是否使用Tooltip包一层
+    getFinalIconElement = (element: ReactNode, content: ReactNode) => {
+        const { showTooltip } = this.props;
+        return showTooltip ? (
+            <Tooltip content={content}>
+                {element}
+            </Tooltip>
+        ): element;
+    }
+
+    getLocalTextByKey = (key: string) => (
+        <LocaleConsumer<Locale["Image"]> componentName="Image" >
+            {(locale: Locale["Image"]) => locale[key]}
+        </LocaleConsumer>
+    );
+
+    getIconChevronLeft = () => {
+        const { disabledPrev, onPrev, prevTip } = this.props;
+        const icon = <IconChevronLeft
+            size="large"
+            className={disabledPrev ? `${prefixCls}-disabled` : ""}
+            onClick={!disabledPrev ? onPrev : undefined}
+        />;
+        const content = prevTip ?? this.getLocalTextByKey('prevTip');
+        return this.getFinalIconElement(icon, content);
+    }
+
+    getIconChevronRight = () => {
+        const { disabledNext, onNext, nextTip } = this.props;
+        const icon = <IconChevronRight
+            size="large"
+            className={disabledNext ? `${prefixCls}-disabled` : ""}
+            onClick={!disabledNext ? onNext : undefined}
+        />;
+        const content = nextTip ?? this.getLocalTextByKey('nextTip');
+        return this.getFinalIconElement(icon, content);
+    }
+
+    getIconMinus = () => {
+        const { zoomOutTip, zoom, min } = this.props;
+        const disabledZoomOut = zoom === min;
+        const icon = <IconMinus 
+            size="large" 
+            onClick={!disabledZoomOut ? this.handleMinusClick : undefined} 
+            className={disabledZoomOut ? `${prefixCls}-disabled` : ""}
+        />;
+        const content = zoomOutTip ?? this.getLocalTextByKey('zoomInTip');
+        return this.getFinalIconElement(icon, content);
+    }
+
+    getIconPlus = () => {
+        const { zoomInTip, zoom, max } = this.props;
+        const disabledZoomIn = zoom === max;
+        const icon = <IconPlus 
+            size="large" 
+            onClick={!disabledZoomIn ? this.handlePlusClick : undefined}  
+            className={disabledZoomIn ? `${prefixCls}-disabled` : ""}
+        />;
+        const content = zoomInTip ?? this.getLocalTextByKey('zoomInTip');
+        return this.getFinalIconElement(icon, content);
+    }
+
+    getIconRatio = () => {
+        const { ratio, originTip, adaptiveTip } = this.props;
+        const icon = <Icon
+            svg={ratio === "adaptation" ? <RealSizeSvg /> : <AdaptionSvg />}
+            size="large"
+            className={cls(`${footerPrefixCls}-gap`)}
+            onClick={this.handleRatioClick}
+        />;
+        const content = ratio === "adaptation" ? originTip : adaptiveTip;
+        return this.getFinalIconElement(icon, content);
+    }
+
+    getIconRotate = () => {
+        const { rotateTip, onRotateLeft } = this.props;
+        const icon = <IconRotate
+            size="large"
+            onClick={onRotateLeft}
+        />;
+        return this.getFinalIconElement(icon, rotateTip);
+    }
+
+    getIconDownload = () => {
+        const { downloadTip, onDownload, disableDownload } = this.props;
+        const icon = <IconDownload
+            size="large"
+            onClick={!disableDownload ? onDownload : undefined}
+            className={cls(`${footerPrefixCls}-gap`,
+                {
+                    [`${prefixCls}-disabled`] : disableDownload,
+                },
+            )}
+        />;
+        return this.getFinalIconElement(icon, downloadTip);
+    }
+
+
     render() {
         const { 
             min, 
@@ -121,24 +215,8 @@ export default class Footer extends BaseComponent<FooterProps> {
             step,
             curPage,
             totalNum,
-            ratio,
-            prevTip, 
-            nextTip, 
             zoom,
-            zoomInTip, 
-            zoomOutTip, 
-            rotateTip, 
-            downloadTip, 
-            originTip,
-            adaptiveTip,
-            disabledPrev, 
-            disabledNext, 
-            disableDownload,
             showTooltip,
-            onNext,
-            onPrev,
-            onDownload,
-            onRotateLeft,
             className,
             renderPreviewMenu,
         } = this.props;
@@ -151,80 +229,29 @@ export default class Footer extends BaseComponent<FooterProps> {
             ); 
         }
 
-        const disabledZoomIn = zoom === max;
-        const disabledZoomOut = zoom === min;
-
         return (
-            <section className={cls(footerPrefixCls, `${footerPrefixCls}-wrapper`, className,)}>
-                <Tooltip content={prevTip}>
-                    <IconChevronLeft
-                        size="large"
-                        className={disabledPrev ? `${prefixCls}-disabled` : ''}
-                        onClick={!disabledPrev ? onPrev : undefined}
-                    />
-                </Tooltip>
-                <div className={`${prefixCls}-page`}>
+            <section className={cls(footerPrefixCls, `${footerPrefixCls}-wrapper`, className)}>
+                {this.getIconChevronLeft()}
+                <div className={`${footerPrefixCls}-page`}>
                     {curPage}/{totalNum}
                 </div>
-                <Tooltip content={nextTip}>
-                    <IconChevronRight
-                        size="large"
-                        className={disabledNext ? `${prefixCls}-disabled` : ''}
-                        onClick={!disabledNext ? onNext : undefined}
-                    />
-                </Tooltip>
+                {this.getIconChevronRight()}
                 <Divider layout="vertical" />
-                <Tooltip content={zoomOutTip}>
-                    <IconMinus 
-                        size="large" 
-                        onClick={this.handleMinusClick} 
-                        className={disabledZoomOut ? `${prefixCls}-disabled` : ''}
-                    />
-                </Tooltip>
-                <div>
-                    <Slider
-                        value={zoom}
-                        min={min}
-                        max={max}
-                        step={step}
-                        tipFormatter={(v): string => `${v}%`}
-                        tooltipVisible={showTooltip}
-                        onChange={this.handleSlideChange}
-                    />
-                </div>
-                <Tooltip content={zoomInTip}>
-                    <IconPlus 
-                        size="large" 
-                        onClick={this.handlePlusClick} 
-                        className={disabledZoomIn ? `${prefixCls}-disabled` : ''}
-                    />
-                </Tooltip>
-                <Tooltip content={ratio === 'adaptation' ? originTip : adaptiveTip}>
-                    <Icon
-                        svg={ratio === 'adaptation' ? <RealSizeSvg /> : <AdaptionSvg />}
-                        size="large"
-                        style={{ marginLeft: 16 }}
-                        onClick={this.handleRatioClick}
-                    />
-                </Tooltip>
+                {this.getIconMinus()}
+                <Slider
+                    value={zoom}
+                    min={min}
+                    max={max}
+                    step={step}
+                    tipFormatter={(v): string => `${v}%`}
+                    tooltipVisible={showTooltip}
+                    onChange={this.handleSlideChange}
+                />
+                {this.getIconPlus()}
+                {this.getIconRatio()}
                 <Divider layout="vertical" />
-                <span className={`${prefixCls}-operation`}>
-                    <Tooltip content={rotateTip}>
-                        <Button
-                            onClick={onRotateLeft}
-                            icon={<IconRotate size="large" />}
-                            type="tertiary"
-                        />
-                    </Tooltip>
-                    <Tooltip content={downloadTip}>
-                        <Button
-                            type="tertiary"
-                            onClick={onDownload}
-                            icon={<IconDownload size="large" />}
-                            disabled={disableDownload}
-                        />
-                    </Tooltip>
-                </span>
+                {this.getIconRotate()}
+                {this.getIconDownload()}
             </section>
         );
     }

@@ -1,24 +1,21 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import React, { CSSProperties } from 'react';
-import BaseComponent from '../_base/baseComponent';
-import { PreviewInnerProps, PreviewInnerStates, RatioType } from './interface';
-import PropTypes from 'prop-types';
-import { cssClasses } from '@douyinfe/semi-foundation/image/constants';
-import cls from 'classnames';
-import { isEqual, isFunction, isUndefined } from 'lodash';
-import Portal from '../_portal';
-import { IconArrowLeft, IconArrowRight } from '@douyinfe/semi-icons';
-import Header from './previewHeader';
-import Footer from './previewFooter';
-import { downloadImage, isTargetEmit } from './utils';
-import PreviewImage from './previewImage';
-import PreviewInnerFoundation, { PreviewInnerAdapter } from '@douyinfe/semi-foundation/image/previewInnerFoundation';
-import { PreviewContext, PreviewContextProps } from './previewContext';
+import React, { CSSProperties } from "react";
+import BaseComponent from "../_base/baseComponent";
+import { PreviewInnerProps, PreviewInnerStates, RatioType } from "./interface";
+import PropTypes from "prop-types";
+import { cssClasses } from "@douyinfe/semi-foundation/image/constants";
+import cls from "classnames";
+import { isEqual, isFunction } from "lodash";
+import Portal from "../_portal";
+import { IconArrowLeft, IconArrowRight } from "@douyinfe/semi-icons";
+import Header from "./previewHeader";
+import Footer from "./previewFooter";
+import PreviewImage from "./previewImage";
+import PreviewInnerFoundation, { PreviewInnerAdapter } from "@douyinfe/semi-foundation/image/previewInnerFoundation";
+import { PreviewContext, PreviewContextProps } from "./previewContext";
 
 const prefixCls = cssClasses.PREFIX;
 
-const NOT_CLOSE_TARGETS = ['icon', 'footer'];
-const STOP_CLOSE_TARGET = ['icon', 'footer', 'header'];
 let startMouseDown = { x: 0, y: 0 };
 
 let mouseActiveTime: number = null;
@@ -50,8 +47,8 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
         downloadTip: PropTypes.string,
         adaptiveTip:PropTypes.string,
         originTip: PropTypes.string,
-        lazyLoad: PropTypes.bool,
-        lazyLoadGap:  PropTypes.bool,
+        preLoad: PropTypes.bool,
+        preLoadGap:  PropTypes.number,
         animationDuration: PropTypes.number,
         viewerVisibleDelay: PropTypes.number,
         disableDownload:  PropTypes.bool,
@@ -77,20 +74,19 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
         viewerVisibleDelay: 2000,
         infinite: false,
         closeOnEsc: true,
+        preLoad: true, 
+        preLoadGap: 2,
     };
 
     get adapter(): PreviewInnerAdapter<PreviewInnerProps, PreviewInnerStates> {
         return {
             ...super.adapter,
             getIsInGroup: () => this.isInGroup(),
-            downloadImage: (src: string, picName: string) => {
-                downloadImage(src, picName);
-            },
             notifyChange: (index: number) => {
                 const { onChange } = this.props;
                 isFunction(onChange) && onChange(index);
             },
-            notifyZoom: (zoom: number, increase: boolean ) => {
+            notifyZoom: (zoom: number, increase: boolean) => {
                 const { onZoomIn, onZoomOut } = this.props;
                 if (increase) {
                     isFunction(onZoomIn) && onZoomIn(zoom);
@@ -118,17 +114,29 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
                 const { onDownload } = this.props;
                 isFunction(onDownload) && onDownload(src, index);  
             },
-            setOnKeyDownListener: () => {
-                if (window) {
-                    window.addEventListener('keydown', this.handleKeyDown);
-                }
+            registerKeyDownListener: () => {
+                window && window.addEventListener("keydown", this.handleKeyDown);
             },
-            removeKeyDownListener: () => {
-                if (window) {
-                    window.removeEventListener('keydown', this.handleKeyDown);
-                }
+            unregisterKeyDownListener: () => {
+                window && window.removeEventListener("keydown", this.handleKeyDown);
+            },
+            getMouseActiveTime: () => {
+                return mouseActiveTime;
+            },
+            getStopTiming: () => {
+                return stopTiming;
+            },
+            setStopTiming: (value) => {
+                stopTiming = value;
+            },
+            getStartMouseDown: () => {
+                return startMouseDown;
+            },
+            setMouseActiveTime: (time: number) => {
+                mouseActiveTime = time;
             },
         };
+        
     }
 
     timer;
@@ -140,12 +148,15 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
         super(props);
         this.state = {
             imgSrc: [],
+            imgLoadStatus: new Map(),
             zoom: 0.1,
             currentIndex: 0,
-            ratio: 'adaptation',
+            ratio: "adaptation",
             rotation: 0,
             viewerVisible: true,
             visible: false,
+            preloadAfterVisibleChange: true,
+            direction: '',
         }; 
         this.foundation = new PreviewInnerFoundation(this.adapter);
     }
@@ -160,12 +171,16 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
         if (!isEqual(src, state.imgSrc)) {
             willUpdateStates.imgSrc = src;
         }
-        if ( props.visible !== state.visible) {
+        if (props.visible !== state.visible) {
             willUpdateStates.visible = props.visible;
+            if (props.visible) {
+                willUpdateStates.preloadAfterVisibleChange = true;
+            }
         }
-        if ( !isUndefined(props.currentIndex) && props.currentIndex !== state.currentIndex ) {
+        if ('currentIndex' in props && props.currentIndex !== state.currentIndex) {
             willUpdateStates.currentIndex = props.currentIndex;
         }
+        // console.log('willUpdateStates.', willUpdateStates);
         return willUpdateStates;
     }
 
@@ -173,7 +188,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
         if (prevState.visible !== this.props.visible && this.props.visible) {
             mouseActiveTime = new Date().getTime();
             timer && clearInterval(timer);
-            timer = setInterval(this.viewChange, 1000);
+            timer = setInterval(this.viewVisibleChange, 1000);
         }
         // hide => show
         if (!prevProps.visible && this.props.visible) {
@@ -193,13 +208,8 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
         return Boolean(this.context && this.context.isGroup);
     }
 
-    viewChange = () => {
-        const nowTime = new Date().getTime();
-        if (nowTime - mouseActiveTime > this.props.viewerVisibleDelay && !stopTiming) {
-            this.state.viewerVisible && this.setState({
-                viewerVisible: false,
-            });
-        }
+    viewVisibleChange = () => {
+        this.foundation.handleViewVisibleChange();
     }
 
     handleSwitchImage = (direction: string) => {
@@ -227,40 +237,31 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
     }
 
     handleMouseUp = (e): void => {
-        let couldClose = !isTargetEmit(e.nativeEvent, NOT_CLOSE_TARGETS);
-        const { clientX, clientY } = e;
-        const { x, y } = startMouseDown;
-        if (clientX !== x || y !== clientY) {
-            couldClose = false;
-        }
-        if (couldClose) {
-            this.handlePreviewClose();
-        }
+        this.foundation.handleMouseUp(e);
     }
 
     handleMouseMove = (e): void => {
-        mouseActiveTime = new Date().getTime();
-        this.setState({
-            viewerVisible: true,
-        });
+        this.foundation.handleMouseMove(e);
     }
 
-    handleMouseEvent = (e, event) => {
-        const isTarget = isTargetEmit(e.nativeEvent, STOP_CLOSE_TARGET);
-        if (isTarget && event === 'over') {
-            stopTiming = true;
-        } else if (isTarget && event === 'out') {
-            stopTiming = false;
-        }
+    handleMouseEvent = (e, event: string) => {
+        this.foundation.handleMouseMoveEvent(e, event);
     }
 
     handleKeyDown = (e: KeyboardEvent) => {
         this.foundation.handleKeyDown(e);
     };
 
+    onImageError = () => {
+        this.foundation.preloadSingleImage();
+    }
+
+    onImageLoad = (src) => {
+        this.foundation.onImageLoad(src);
+    }    
+
     render() {
         const { 
-            src,
             getPopupContainer, 
             zIndex, 
             visible, 
@@ -283,15 +284,15 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
         } = this.props;
         const { currentIndex, imgSrc, zoom, ratio, rotation, viewerVisible } = this.state;
         let wrapperStyle: {
-            zIndex?: CSSProperties['zIndex'];
-            position?: CSSProperties['position'];
+            zIndex?: CSSProperties["zIndex"];
+            position?: CSSProperties["position"];
         } = {
             zIndex,
         };
         if (getPopupContainer) {
             wrapperStyle = {
                 zIndex,
-                position: 'static',
+                position: "static",
             };
         }
         const previewPrefixCls = `${prefixCls}-preview`;
@@ -302,11 +303,11 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
             },
             className,
         );
-        // const hideViewerCls = !viewerVisible ? `${previewPrefixCls}-hide` : '';
-        const hideViewerCls = '';
+        const hideViewerCls = !viewerVisible ? `${previewPrefixCls}-hide` : "";
         const total = imgSrc.length;
         const showPrev = total !== 1 && (infinite || currentIndex !== 0); 
         const showNext = total !== 1 && (infinite || currentIndex !== total - 1);
+        // console.log("currentIndex", currentIndex, imgSrc[currentIndex]);
         return (
             <Portal 
                 getPopupContainer={getPopupContainer}
@@ -323,8 +324,8 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
                     }}
                     onMouseUp={this.handleMouseUp}
                     onMouseMove={this.handleMouseMove}
-                    onMouseOver={(e): void => this.handleMouseEvent(e, 'over')}
-                    onMouseOut={(e): void => this.handleMouseEvent(e, 'out')}
+                    onMouseOver={(e): void => this.handleMouseEvent(e, "over")}
+                    onMouseOut={(e): void => this.handleMouseEvent(e, "out")}
                 >
                     <Header className={cls(hideViewerCls)} onClose={this.handlePreviewClose} renderHeader={renderHeader}/>
                     <PreviewImage 
@@ -340,12 +341,14 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
                         ratio={ratio}
                         zoomStep={zoomStep}
                         rotation={rotation}
+                        onError={this.onImageError}
+                        onLoad={this.onImageLoad}
                     />
                     {showPrev && (
                         // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
                         <div
                             className={cls(`${previewPrefixCls}-icon`, `${previewPrefixCls}-prev`, hideViewerCls)}
-                            onClick={(): void => this.handleSwitchImage('prev')}
+                            onClick={(): void => this.handleSwitchImage("prev")}
                         >
                             <IconArrowLeft size="large" />
                         </div>
@@ -354,7 +357,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
                         // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
                         <div
                             className={cls(`${previewPrefixCls}-icon`, `${previewPrefixCls}-next`, hideViewerCls)}
-                            onClick={(): void => this.handleSwitchImage('next')}
+                            onClick={(): void => this.handleSwitchImage("next")}
                         >
                             <IconArrowRight size="large" />
                         </div>
@@ -378,8 +381,8 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
                         disableDownload={disableDownload}
                         adaptiveTip={adaptiveTip}
                         originTip={originTip}
-                        onPrev={(): void => this.handleSwitchImage('prev')}
-                        onNext={(): void => this.handleSwitchImage('next')}
+                        onPrev={(): void => this.handleSwitchImage("prev")}
+                        onNext={(): void => this.handleSwitchImage("next")}
                         onZoomIn={this.handleZoomImage}
                         onZoomOut={this.handleZoomImage}
                         onDownload={this.handleDownload}

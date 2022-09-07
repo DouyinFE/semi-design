@@ -1,11 +1,11 @@
-import React, { CSSProperties } from 'react';
-import BaseComponent from '../_base/baseComponent';
-import { cssClasses } from '@douyinfe/semi-foundation/image/constants';
-import { PreviewImageProps, PreviewImageStates } from './interface';
-import PropTypes from 'prop-types';
-import { throttle } from './utils';
-import Spin from '../spin';
-import PreviewImageFoundation, { PreviewImageAdapter } from '@douyinfe/semi-foundation/image/previewImageFoundation';
+import React from "react";
+import BaseComponent from "../_base/baseComponent";
+import { cssClasses } from "@douyinfe/semi-foundation/image/constants";
+import { PreviewImageProps, PreviewImageStates } from "./interface";
+import PropTypes from "prop-types";
+import Spin from "../spin";
+import PreviewImageFoundation, { PreviewImageAdapter } from "@douyinfe/semi-foundation/image/previewImageFoundation";
+import { throttle } from "lodash";
 
 const prefixCls = cssClasses.PREFIX;
 const preViewImgPrefixCls = `${prefixCls}-preview-image`;
@@ -29,6 +29,8 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
         clickZoom: PropTypes.number,
         setRatio: PropTypes.func,
         onZoom: PropTypes.func,
+        onLoad: PropTypes.func,
+        onError: PropTypes.func,
     }
 
     static defaultProps = {
@@ -49,16 +51,23 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
             getContainerRef: () => {
                 return this.containerRef;
             },
-            getImageRef: () => this.imageRef,
+            getImageRef: () => {
+                return this.imageRef;
+            },
             getMouseMove: () => startMouseMove,
             setStartMouseMove: (move: boolean) => { startMouseMove = move; },
             getMouseOffset: () => startMouseOffset,
             setStartMouseOffset: (offset: { x: number; y: number }) => { startMouseOffset = offset; },
+            setLoading: (loading: boolean) => { 
+                this.setState({
+                    loading,
+                });
+            },
         };
     }
 
     containerRef: React.RefObject<HTMLDivElement>;
-    imageRef: React.RefObject<any>;
+    imageRef: React.RefObject<HTMLImageElement>;
     foundation: PreviewImageFoundation;
 
     constructor(props) {
@@ -73,7 +82,7 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
             left: 0,
         };
         this.containerRef = React.createRef<HTMLDivElement>();
-        this.imageRef = React.createRef<any>();
+        this.imageRef = React.createRef<HTMLImageElement>();
         this.foundation = new PreviewImageFoundation(this.adapter);
     }
 
@@ -88,17 +97,15 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
     componentDidUpdate(prevProps: PreviewImageProps, prevStates: PreviewImageStates) {
         // If src changes, start a new loading
         if (this.props.src && this.props.src !== prevProps.src) {
-            this.setState({
-                loading: true,
-            });
+            this.foundation.setLoading(true);
         } 
         // If the incoming zoom changes, other content changes are determined based on the new zoom value
-        if ('zoom' in this.props && this.props.zoom !== prevStates.currZoom) {
+        if ("zoom" in this.props && this.props.zoom !== prevStates.currZoom) {
             this.handleZoomChange(this.props.zoom, null);
         }
-        // When the incoming ratio is changed, if it's adaptation, then resizeImage is triggered to make the image adapt to the page
-        // else if it's adaptation is realSize, then onZoom(1) is called to make the image size the original size;
-        if ('ratio' in this.props && this.props.ratio !== prevProps.ratio) {
+        // When the incoming ratio is changed, if it"s adaptation, then resizeImage is triggered to make the image adapt to the page
+        // else if it"s adaptation is realSize, then onZoom(1) is called to make the image size the original size;
+        if ("ratio" in this.props && this.props.ratio !== prevProps.ratio) {
             if (originImageWidth && originImageHeight) {
                 if (this.props.ratio === "adaptation") {
                     this.resizeImage();
@@ -108,7 +115,7 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
             }
         }
         // When the incoming rotation angle of the image changes, it needs to be resized to make the image fit on the page
-        if ('rotation' in this.props && this.props.rotation !== prevProps.rotation) {
+        if ("rotation" in this.props && this.props.rotation !== prevProps.rotation) {
             this.onWindowResize();
         }
     }
@@ -134,12 +141,34 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
         this.foundation.handleLoad(e);
     }
 
+    handleError = (e): void => {
+        this.foundation.handleError(e);
+    }
+
     resizeImage = () => {
         this.foundation.handleResizeImage();
     }
 
     handleMoveImage = (e): void => {
         this.foundation.handleMoveImage(e);
+    };
+  
+    // 为什么通过ref注册wheel而不是使用onWheel事件？
+    // 因为对于wheel事件，浏览器将 addEventListener 的 passive 默认值更改为 true。如此，事件监听器便不能取消事件，也不会在用户滚动页面时阻止页面呈现。
+    // 这里我们需要保持页面不动，仅放大图片，因此此处需要将 passive 更改设置为 false。
+    // Why register wheel via ref instead of using onWheel event?
+    // Because for wheel events, the browser changes the passive default of addEventListener to true. This way, the event listener cannot cancel the event, nor prevent the page from rendering when the user scrolls.
+    // Here we need to keep the page still and only zoom in on the image, so here we need to set the passive change to false.
+    // https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#improving_scrolling_performance_with_passive_listeners。
+    
+    registryImageRef = (ref): void => {
+        if (this.imageRef && this.imageRef.current) {
+            (this.imageRef as any).removeEventListener("wheel", this.handleWheel);
+        }
+        if (ref) {
+            ref.addEventListener("wheel", this.handleWheel, { passive: false });
+        }
+        this.imageRef = ref;
     };
 
     onImageMouseDown = (e: React.MouseEvent<HTMLImageElement>): void => {
@@ -169,21 +198,21 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
             >
                 {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
                 <img
-                    ref={this.imageRef}
+                    ref={this.registryImageRef}
                     src={src}
-                    alt='previewImag'
+                    alt="previewImag"
                     className={`${preViewImgPrefixCls}-img`}
                     key={src}
                     onMouseMove={this.handleMoveImage}
                     onMouseDown={this.onImageMouseDown}
                     onMouseUp={this.onImageMouseUp}
-                    onWheel={this.handleWheel}
                     onContextMenu={this.handleRightClickImage}
                     onDragStart={(e): void => e.preventDefault()}
                     onLoad={this.handleLoad}
+                    onError={this.handleError}
                     style={imgStyle as React.CSSProperties}
                 />
-                {loading && <Spin size={'large'} wrapperClassName={`${preViewImgPrefixCls}-spin`}/>}
+                {loading && <Spin size={"large"} wrapperClassName={`${preViewImgPrefixCls}-spin`}/>}
             </div>
         );
     }

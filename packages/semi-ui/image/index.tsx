@@ -1,8 +1,6 @@
-import Image from './image';
-import PreviewInner from './previewInner';
-import { ImageProps } from './interface';
-import Preview from './preview';
-
+import Image from "./image";
+import PreviewInner from "./previewInner";
+import Preview from "./preview";
 
 export default Image;
 export {
@@ -15,4 +13,4 @@ export {
     PreviewInnerProps,
     PreviewImageProps,
     PreviewProps,
-} from './interface';
+} from "./interface";

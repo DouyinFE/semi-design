@@ -1,5 +1,5 @@
-import { createContext, ReactNode } from 'react';
-import { PreviewImageProps, PreviewInnerProps } from './interface';
+import { createContext, ReactNode } from "react";
+import { PreviewImageProps, PreviewInnerProps } from "./interface";
 
 export interface PreviewUrl {
     url: string;

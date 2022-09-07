@@ -1,4 +1,4 @@
-import BaseFoundation, { DefaultAdapter } from '../base/foundation';
+import BaseFoundation, { DefaultAdapter } from "../base/foundation";
 
 
 export interface ImageAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
@@ -11,7 +11,7 @@ export default class ImageFoundation<P = Record<string, any>, S = Record<string,
         super({ ...adapter });
     }
 
-    handleClick = (e) => {
+    handleClick = (e: any) => {
         const { imageID, preview } = this.getProps();
         if (this._adapter.getIsInGroup()) {
             const { setCurrentIndex, handleVisibleChange } = this._adapter.getContexts();
@@ -30,19 +30,19 @@ export default class ImageFoundation<P = Record<string, any>, S = Record<string,
         }
     }
 
-    handleLoaded = (e) => {
+    handleLoaded = (e: any) => {
         const { onLoad } = this.getProps();
         onLoad && onLoad(e);
         this.setState ({
-            loadStatus: 'success',
+            loadStatus: "success",
         } as any);
     }
 
-    handleError = (e) => {
+    handleError = (e: any) => {
         const { onError } = this.getProps();
         onError && onError(e);
         this.setState ({
-            loadStatus: 'error',
+            loadStatus: "error",
         } as any);
     }
 

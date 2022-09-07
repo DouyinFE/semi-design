@@ -1,4 +1,5 @@
 @import "./variables.scss";
+// css 动画待优化
 
 $module: #{$prefix}-image;
 
@@ -192,21 +193,19 @@ $module: #{$prefix}-image;
             transform: translateX(-50%);
         }
 
-        .#{$module}-page {
+        &-page {
             color: $color-image_preview_footer_icon;
             @include font-size-header-6;
             margin: $spacing-image_preview_footer_page-marginY $spacing-image_preview_footer_page-marginX;
         }
 
-        .#{$module}-operation {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
         .#{$prefix}-icon {
             color: $color-image_preview_footer_icon;
             cursor: pointer;
+        }
+
+        &-gap {
+            margin-left: 16px;
         }
     
         .#{$prefix}-slider {

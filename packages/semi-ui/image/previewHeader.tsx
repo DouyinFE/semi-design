@@ -1,9 +1,9 @@
-import * as React from 'react';
+import * as React from "react";
 import { IconClose } from "@douyinfe/semi-icons";
-import { cssClasses } from '@douyinfe/semi-foundation/image/constants';
-import cls from 'classnames';
-import { HeaderProps } from './interface';
-import { PreviewContext, PreviewContextProps } from './previewContext';
+import { cssClasses } from "@douyinfe/semi-foundation/image/constants";
+import cls from "classnames";
+import { HeaderProps } from "./interface";
+import { PreviewContext, PreviewContextProps } from "./previewContext";
 
 const prefixCls = `${cssClasses.PREFIX}-preview-header`;
 
@@ -11,7 +11,7 @@ const Header: React.FC<HeaderProps> = ({ onClose, titleStyle, className, renderH
     <PreviewContext.Consumer>
         {({ currentIndex, titles }) => {
             let title;
-            if (titles && typeof currentIndex === 'number') {
+            if (titles && typeof currentIndex === "number") {
                 title = titles[currentIndex];
             }
             return (

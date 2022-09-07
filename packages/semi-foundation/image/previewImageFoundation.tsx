@@ -1,4 +1,4 @@
-import BaseFoundation, { DefaultAdapter } from '../base/foundation';
+import BaseFoundation, { DefaultAdapter } from "../base/foundation";
 
 export interface PreviewImageAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     getOriginImageSize: () => { originImageWidth: number; originImageHeight: number; }; 
@@ -9,6 +9,7 @@ export interface PreviewImageAdapter<P = Record<string, any>, S = Record<string,
     setStartMouseMove: (move: boolean) => void;
     getMouseOffset: () => { x: number; y: number };
     setStartMouseOffset: (offset: { x: number; y: number }) => void;
+    setLoading: (loading: boolean) => void;
 }
 
 export interface DragDirection {
@@ -31,21 +32,19 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
         super({ ...adapter });
     }
 
-    _isImageVertical = (): boolean => this.getProp('rotation') % 180 !== 0;
+    _isImageVertical = (): boolean => this.getProp("rotation") % 180 !== 0;
 
-    // _getImageBounds = (): DOMRect => {
-    _getImageBounds = (): any => {
+    _getImageBounds = (): DOMRect => {
         const imageRef = this._adapter.getImageRef();
-        return imageRef?.current?.getBoundingClientRect();
+        return imageRef?.getBoundingClientRect();
     };
 
-    // _getContainerBounds = (): DOMRect => {
-    _getContainerBounds = (): any => {
+    _getContainerBounds = (): DOMRect => {
         const containerRef = this._adapter.getContainerRef();
         return containerRef?.current?.getBoundingClientRect();
     }
 
-    _getOffset = (e): ImageOffset => {
+    _getOffset = (e: any): ImageOffset => {
         const { left, top } = this._getImageBounds();
         return {
             x: e.clientX - left,
@@ -53,20 +52,24 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
         };
     }
 
+    setLoading = (loading: boolean) => {
+        this._adapter.setLoading(loading);
+    }
+
     handleWindowResize = (): void => {
         const { setRatio } = this.getProps();
         const { ratio } = this.getProps();
         const { originImageWidth, originImageHeight } = this._adapter.getOriginImageSize();
         if (originImageWidth && originImageHeight) {
-            if (ratio !== 'adaptation') {
-                setRatio('adaptation');
+            if (ratio !== "adaptation") {
+                setRatio("adaptation");
             } else {
                 this.handleResizeImage();
             } 
         }
     };
 
-    handleLoad = (e): void => {
+    handleLoad = (e: any): void => {
         if (e.target) {
             const { width: w, height: h } = e.target as any;
             this._adapter.setOriginImageSize({ originImageWidth: w, originImageHeight: h });
@@ -75,6 +78,16 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
             } as any);
             this.handleResizeImage();
         }
+        const { src, onLoad } = this.getProps();
+        onLoad && onLoad(src);
+    }
+
+    handleError = (e: any): void => {
+        const { onError, src } = this.getProps();
+        this.setState({
+            loading: false,
+        } as any);
+        onError && onError(src);
     }
 
     handleResizeImage = () => {
@@ -95,7 +108,7 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
         }
     }
 
-    handleRightClickImage = (e) => {
+    handleRightClickImage = (e: any) => {
         const { disableDownload } = this.getProps();
         if (disableDownload) {
             e.preventDefault();
@@ -143,7 +156,7 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
         };
     };
 
-    handleZoomChange = (newZoom, e): void => {
+    handleZoomChange = (newZoom: number, e: any): void => {
         const imageRef = this._adapter.getImageRef();
         const { originImageWidth, originImageHeight } = this._adapter.getOriginImageSize();
         const { canDragVertical, canDragHorizontal } = this.calcCanDragDirection();
@@ -182,7 +195,7 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
             top: newTop,
             currZoom: newZoom,
         } as any);
-        imageRef && (imageRef.current.style.cursor = canDrag ? "grab" : "default");
+        imageRef && (imageRef.style.cursor = canDrag ? "grab" : "default");
     };
 
     calcExtremeBounds = (): ExtremeBounds => {
@@ -200,7 +213,7 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
         };
     };
 
-    handleMoveImage = (e): void => {
+    handleMoveImage = (e: any): void => {
         const { offset, width, height, left, top } = this.getStates();
         const { rotation } = this.getProps();
         const startMouseMove = this._adapter.getMouseMove();
