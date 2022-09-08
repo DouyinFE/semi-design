@@ -1,5 +1,7 @@
 // 此处主要放置 Semi 组件Demo 中一些特殊的定制样式，一般为通过style不太好实现的自定义样式
 
+
+
 .grid {
 
     .semi-row,
@@ -488,4 +490,8 @@ body > .component-list-demo-drag-item {
 
 .component-list-demo-booklist-active-item {
     background-color: var(--semi-color-fill-0);
+}
+
+.semi-select-option-list > div {
+    will-change: unset!important;
 }

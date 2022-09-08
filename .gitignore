@@ -228,3 +228,6 @@ tmp
 
 # test
 /__snapshots__/
+
+
+.vscode

@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 68
+order: 69
 category: 反馈类
 title: Spin 加载器
 icon: doc-spin
@@ -138,6 +138,10 @@ import { Spin, Button } from '@douyinfe/semi-ui';
 ## 设计变量
 
 <DesignToken/>
+
+## 文案规范
+- 准确地说明加载状态，使用比如“Loading”, “Submitting”, “Processing”等词
+- 使用尽量少的词汇去描述状态
 
 ## FAQ
 

@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 45
+order: 46
 category: Show
 title:  Calendar
 subTitle: Calendar
@@ -54,6 +54,37 @@ import { Calendar } from '@douyinfe/semi-ui';
     <Calendar mode="month"></Calendar>
 );
 ```
+
+### Set week start day
+The day of the week can be set as the first day of the week through weekStartsOn, 0 for Sunday, 1 for Monday, and so on. Default is Sunday.  
+`weekStartsOn` is available since v2.18, and takes effect for month view and week view.
+
+```jsx live=true dir="column"
+import React, { useState } from 'react';
+import { RadioGroup, Calendar, Radio } from '@douyinfe/semi-ui';
+
+() => {
+    const [v, setV] = useState(0);
+    return (
+        <div>
+            <RadioGroup defaultValue={v} aria-label="StartOfWeek" name="demo-radio-group-vertical" onChange={e => setV(e.target.value)}>
+                <Radio value={0}>Sunday</Radio>
+                <Radio value={1}>Mon</Radio>
+                <Radio value={2}>Tue</Radio>
+                <Radio value={3}>Wed</Radio>
+                <Radio value={4}>Thu</Radio>
+                <Radio value={5}>Fri</Radio>
+                <Radio value={6}>Sat</Radio>
+            </RadioGroup>
+            <Calendar
+                mode="month"
+                weekStartsOn={v}
+            ></Calendar>
+        </div>
+    );
+};
+```
+
 
 ### Range Mode
 **>=1.5.0**  
@@ -302,6 +333,7 @@ import { Calendar } from '@douyinfe/semi-ui';
 | scrollTop    | Scroll height for displayed content in day and week mode                                               | number                | 400          |
 | showCurrTime | Toggle whether to show red line of current time                                                        | boolean               | true         |
 | width        | Width                                                                                                  | string\|number        | -            |
+| weekStartsOn | Take the day of the week as the first day of the week, 0 for Sunday, 1 for Monday, and so on. Support after v2.18 | number | 0 |
 
 
 ### Event Object
@@ -320,6 +352,12 @@ By default, when the event is an all day event without start or end time, it wil
 | end        | End time of the event          | Date | -       |
 | key | Required and must be unique. **v>=1.0.0** | string | - |
 | start      | Start time of the event        | Date | -       |
+
+## Content Guidelines
+
+- Both 12-hour and 24-hour clocks can be used when the time needs to be displayed
+- If the 12-hour clock is used, it needs to be used together with AM/PM. For details, please refer to [Time Specification](/en-US/start/content-guidelines#8.%20%E6%97%A5%E6%9C%9F%E4%B8%8E%E6%97%B6%E9%97%B4)
+- For the abbreviation rules for month, week and time, please refer to [Abbreviation Specification](/en-US/start/content-guidelines#1.%20%E7%BC%A9%E5%86%99)
 
 ## Design Tokens
 <DesignToken/>

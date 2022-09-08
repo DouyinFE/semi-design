@@ -29,17 +29,22 @@ describe('Select', () => {
         cy.get('input').eq(0).type('{downArrow}');
         cy.get('input').eq(0).type('{downArrow}');
         cy.get('input').eq(0).type('{enter}');
-        cy.get('.semi-select-selection-text').eq(0).should('have.text', 'opts');
+        cy.get('.semi-select-selection-text').eq(0).should('have.text', 'opt1');
     });
 
     it('clickOutSide, should hide', () => {
-        cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/select--select-filter-single');
+        cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/select--select-filter-single', {
+            onBeforeLoad(win) {
+                cy.stub(win.console, 'log').as('consoleLog');
+            },
+        });
         cy.get('.semi-select').eq(0).click();
         // should show now
         cy.get('.semi-select-option-list').should('exist');
         // should hide after click empty area
         cy.get('h5').eq(0).click();
         cy.get('.semi-select-option-list').should('not.exist');
+        cy.get('@consoleLog').should('be.calledWith', 'onBlur');
     });
 
     // it('should trigger onSearch when click x icon', () => {

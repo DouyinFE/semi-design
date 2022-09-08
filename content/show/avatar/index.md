@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 43
+order: 44
 category: 展示类
 title: Avatar 头像
 icon: doc-avatar
@@ -83,13 +83,13 @@ import { Avatar } from '@douyinfe/semi-ui';
     <div>
         <Avatar
             alt="beautiful cat"
-            src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"
+            src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png"
             style={{ margin: 4 }}
         />
         <Avatar
             alt="cute cat"
             size="small"
-            src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"
+            src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png"
             style={{ margin: 4 }}
         />
     </div>
@@ -304,23 +304,23 @@ import { Avatar } from '@douyinfe/semi-ui';
             {/* Good case */ }
             <Avatar
                 alt="一只可爱的猫咪"
-                src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"
+                src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png"
                 style={{ margin: 4 }}
             />
             <Avatar
                 alt="姜鹏志"
-                src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"
+                src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png"
                 style={{ margin: 4 }}
             />
             {/* Bad case */ }
             <Avatar
                 alt=""
-                src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"
+                src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png"
                 style={{ margin: 4 }}
             />
             <Avatar
                 alt="姜鹏志的图片"
-                src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"
+                src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png"
                 style={{ margin: 4 }}
             />
         </>

@@ -113,7 +113,8 @@ export const HorizontalSlider = () => (
     <div style={divStyle}>
       <div>marks</div>
       <Slider
-        marks={{ 20: '20c', 40: '40c' }}
+        marks={{ 20: '20°C', 40: '40°C' }}
+        getAriaValueText={(value) => `${value}°C`}
         defaultValue={[0, 100]}
         range={true}
         onChange={value => {
@@ -124,7 +125,8 @@ export const HorizontalSlider = () => (
     <div style={divStyle}>
       <div>inclued</div>
       <Slider
-        marks={{ 20: '20c', 40: '40c' }}
+        marks={{ 20: '20°C', 40: '40°C' }}
+        getAriaValueText={(value) => `${value}°C`}
         included={false}
         defaultValue={[0, 100]}
         range={true}

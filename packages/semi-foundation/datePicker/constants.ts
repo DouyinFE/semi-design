@@ -47,6 +47,7 @@ const strings = {
     DEFAULT_SEPARATOR_RANGE: ' ~ ',
     SIZE_SET: ['small', 'default', 'large'],
     TYPE_SET: ['date', 'dateRange', 'year', 'month', 'dateTime', 'dateTimeRange'],
+    PRESET_POSITION_SET: ['left', 'right', 'top', 'bottom'],
     DENSITY_SET: ['default', 'compact'],
     PANEL_TYPE_LEFT: 'left',
     PANEL_TYPE_RIGHT: 'right',

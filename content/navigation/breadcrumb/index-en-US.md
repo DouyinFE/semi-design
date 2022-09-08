@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 37
+order: 38
 category: Navigation
 title:  Breadcrumb
 subTitle: Breadcrumb
@@ -338,6 +338,11 @@ After **v>=1.16.0**, other props in Breadcrumb.Item are also supported correspon
 
 - Breadcrumb supports the `aria-label` props to indicate the function of the Breadcrumb
 - Breadcrumb will set `aria-current='page'` for the current item
+
+## Content Guidelines
+
+- Each page link should be short and clearly reflect the location or entity it links to
+- Write in sentence case
 
 ## Design Tokens
 <DesignToken/>

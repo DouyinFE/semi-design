@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 31
+order: 32
 category: 输入类
 title: TimePicker 时间选择器
 icon: doc-timepicker
@@ -309,5 +309,8 @@ function Demo(props = {}) {
 | blur()  | 移除焦点 |
 | focus() | 获取焦点 |
 
+## 文案规范
+- 时间选择器至少包括时和分，如：11:30，它在本地化过程中，可以适应为12小时制或者24小时制
+- 当选择12小时制，需要和AM/PM一起搭配使用
 ## 设计变量
 <DesignToken/>

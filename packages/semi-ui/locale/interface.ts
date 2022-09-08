@@ -149,4 +149,7 @@ export interface Locale {
         total: string;
         selected: string;
     };
+    Form: {
+        optional: string;
+    }
 }

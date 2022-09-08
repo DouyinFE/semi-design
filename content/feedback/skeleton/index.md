@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 67
+order: 68
 category: 反馈类
 title: Skeleton 骨架屏
 icon: doc-skeleton
@@ -51,8 +51,9 @@ import { Skeleton, Switch, Avatar, Button } from '@douyinfe/semi-ui';
             <br />
             <Skeleton style={{ width: 200, height: 150 }} placeholder={<Skeleton.Image />} loading={loading}>
                 <img
-                    src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"
+                    src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png"
                     height="150"
+                    alt="avatar"
                 />
             </Skeleton>
             <br />
@@ -94,8 +95,9 @@ import { Skeleton } from '@douyinfe/semi-ui';
     return (
         <Skeleton placeholder={placeholder} loading={true}>
             <img
-                src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"
+                src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png"
                 height="150"
+                alt="avatar"
             />
             <h4>Semi UI</h4>
         </Skeleton>
@@ -387,6 +389,12 @@ import { Skeleton, Avatar } from '@douyinfe/semi-ui';
 | className | 类名                 | string | -      |
 | rows      | 设置段落占位图的行数 | number | 4      |
 | style     | 样式                 | CSSProperties | -      |
+
+## 文案规范
+- 不变的固定内容直接展示固定内容，可变的内容使用骨架屏展示
+
+
+
 
 ## 设计变量
 

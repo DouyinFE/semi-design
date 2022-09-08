@@ -150,6 +150,9 @@ const local: Locale = {
         total: 'Total ${total} items',
         selected: '${total} items selected',
     },
+    Form: {
+        optional: '(optional)',
+    },
 };
 
 // [i18n-English(GB)]

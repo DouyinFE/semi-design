@@ -150,6 +150,9 @@ const local: Locale = {
         total: 'Total ${total} proyek',
         selected: '${total} item dipilih',
     },
+    Form: {
+        optional: '(opsional)',
+    },
 };
 
 // [i18n-Indonesia(ID)]

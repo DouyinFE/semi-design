@@ -30,8 +30,8 @@ export default class SwitchFoundation<P = Record<string, any>, S = Record<string
 
     handleChange(checked: boolean, e: any): void {
         const propChecked = this.getProps().checked;
-        const isControledComponent = typeof propChecked !== 'undefined';
-        if (isControledComponent) {
+        const isControlledComponent = typeof propChecked !== 'undefined';
+        if (isControlledComponent) {
             this._adapter.notifyChange(checked, e);
         } else {
             this._adapter.setNativeControlChecked(checked);

@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 38
+order: 39
 category: 导航类
 title:  Navigation 导航
 icon: doc-navigation
@@ -772,6 +772,17 @@ function NavApp (props = {}) {
 | collapseButton | 是否展示底部“收起侧边栏”按钮，mode="vertical" 且 Footer 组件的 children 参数为空才有效果 | boolean\|ReactNode                        | false  |                |
 | collapseText   | “收起”按钮的文案                                                                         | (collapsed:boolean) => string\|ReactNode |        | 0.35.0 |
 | style          | 最外层样式                                                                               | CSSProperties                                    |        |                |
+
+
+## 文案规范
+
+- 导航栏菜单使用句子大小写格式
+- 尽量精简
+
+| ✅ 推荐用法 | ❌ 不推荐用法 |   
+| --- | --- | 
+| Appeal center | Appeal Center |
+
 
 ## 设计变量
 <DesignToken/>

@@ -39,7 +39,10 @@ $module: #{$prefix}-steps;
         border: $width-steps_item-border solid $color-steps-border-default;
         border-radius: $radius-steps_item;
         padding: $spacing-steps_item-paddingY $spacing-steps_item-paddingX;
-
+        transition: color $transition_duration-steps_item_title-text $transition_function-steps_item_title-text $transition_delay-steps_item_title-text; // item 字体颜色动效
+        transform:scale($transform_scale-step-item);
+        transition: background-color $transition_duration-steps_item-backgroundColor $transition_function-steps_item_backgroundColor $transition_delay-steps_item_backgroundColor; //step backgroundColor 的transition变化
+        
         .#{$module}-item-title {
             position: relative;
             // display: inline-block;
@@ -48,6 +51,8 @@ $module: #{$prefix}-steps;
             width: $width-steps_item_title;
             @include text-overflow-hidden;
             color: $color-steps_main-text-default;
+            transition: color $transition_duration-steps_item_title-text $transition_function-steps_item_title-text $transition_delay-steps_item_title-text
+                     
         }
 
         .#{$module}-item-description {

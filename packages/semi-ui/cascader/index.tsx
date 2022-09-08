@@ -29,6 +29,7 @@ import Tag from '../tag';
 import TagInput from '../tagInput';
 import { Motion } from '../_base/base';
 import { isSemiIcon } from '../_utils';
+import { Position } from '../tooltip/index';
 
 export { CascaderType, ShowNextType } from '@douyinfe/semi-foundation/cascader/foundation';
 export { CascaderData, Entity, Data, CascaderItemProps } from './item';
@@ -82,6 +83,7 @@ export interface CascaderProps extends BasicCascaderProps {
     onBlur?: (e: MouseEvent) => void;
     onFocus?: (e: MouseEvent) => void;
     validateStatus?: ValidateStatus;
+    position?: Position;
 }
 
 export interface CascaderState extends BasicCascaderInnerData {
@@ -169,6 +171,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         leafOnly: PropTypes.bool,
         enableLeafClick: PropTypes.bool,
         preventScroll: PropTypes.bool,
+        position:PropTypes.string
     };
 
     static defaultProps = {
@@ -391,6 +394,34 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
             const treeDataHasChange = prevProps && prevProps.treeData !== props.treeData;
             return firstInProps || treeDataHasChange;
         };
+        const getRealKeys = (realValue: Value, keyEntities: Entities) => {
+            // normallizedValue is used to save the value in two-dimensional array format
+            let normallizedValue: SimpleValueType[][] = [];
+            if (Array.isArray(realValue)) {
+                normallizedValue = Array.isArray(realValue[0])
+                    ? (realValue as SimpleValueType[][])
+                    : ([realValue] as SimpleValueType[][]);
+            } else {
+                if (realValue !==  undefined) {
+                    normallizedValue = [[realValue]];
+                }
+            }
+            // formatValuePath is used to save value of valuePath
+            const formatValuePath: (string | number)[][] = [];
+            normallizedValue.forEach((valueItem: SimpleValueType[]) => {
+                const formatItem: (string | number)[] = onChangeWithObject ?
+                    (valueItem as CascaderData[]).map(i => i?.value) :
+                    valueItem as (string | number)[];
+                formatValuePath.push(formatItem);
+            });
+            // formatKeys is used to save key of value
+            const formatKeys: any[] = [];
+            formatValuePath.forEach(v => {
+                const formatKeyItem = findKeysForValues(v, keyEntities);
+                !isEmpty(formatKeyItem) && formatKeys.push(formatKeyItem);
+            });
+            return formatKeys;
+        };
         const needUpdateTreeData = needUpdate('treeData') || needUpdateData();
         const needUpdateValue = needUpdate('value') || (isEmpty(prevProps) && defaultValue);
         if (multiple) {
@@ -405,34 +436,15 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                 let realKeys: Array<string> | Set<string> = prevState.checkedKeys;
                 // when data was updated
                 if (needUpdateValue) {
-                    // normallizedValue is used to save the value in two-dimensional array format
-                    let normallizedValue: SimpleValueType[][] = [];
                     const realValue = needUpdate('value') ? value : defaultValue;
-                    // eslint-disable-next-line max-depth
-                    if (Array.isArray(realValue)) {
-                        normallizedValue = Array.isArray(realValue[0])
-                            ? (realValue as SimpleValueType[][])
-                            : ([realValue] as SimpleValueType[][]);
-                    } else {
-                        if (realValue !==  undefined) {
-                            normallizedValue = [[realValue]];
-                        }
+                    realKeys = getRealKeys(realValue, keyEntities);
+                } else {
+                    // needUpdateValue is false
+                    // if treeData is updated & Cascader is controlled, realKeys should be recalculated
+                    if (needUpdateTreeData && 'value' in props) {
+                        const realValue = value;
+                        realKeys = getRealKeys(realValue, keyEntities);
                     }
-                    // formatValuePath is used to save value of valuePath
-                    const formatValuePath: (string | number)[][] = [];
-                    normallizedValue.forEach((valueItem: SimpleValueType[]) => {
-                        const formatItem: (string | number)[] = onChangeWithObject ?
-                            (valueItem as CascaderData[]).map(i => i?.value) :
-                            valueItem as (string | number)[];
-                        formatValuePath.push(formatItem);
-                    });
-                    // formatKeys is used to save key of value
-                    const formatKeys: any[] = [];
-                    formatValuePath.forEach(v => {
-                        const formatKeyItem = findKeysForValues(v, keyEntities);
-                        !isEmpty(formatKeyItem) && formatKeys.push(formatKeyItem);
-                    });
-                    realKeys = formatKeys;
                 }
                 if (isSet(realKeys)) {
                     realKeys = [...realKeys];
@@ -954,12 +966,13 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
             stopPropagation,
             mouseLeaveDelay,
             mouseEnterDelay,
+            position
         } = this.props;
         const { isOpen, rePosKey } = this.state;
         const { direction } = this.context;
         const content = this.renderContent();
         const selection = this.renderSelection();
-        const pos = direction === 'rtl' ? 'bottomRight' : 'bottomLeft';
+        const pos = position ?? (direction === 'rtl' ? 'bottomRight' : 'bottomLeft');
         const mergedMotion: Motion = this.foundation.getMergedMotion();
         return (
             <Popover

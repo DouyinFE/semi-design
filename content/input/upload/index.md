@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 34
+order: 35
 category: 输入类
 title: Upload 上传
 icon: doc-upload
@@ -154,7 +154,7 @@ import { Upload, Avatar, Toast } from '@douyinfe/semi-ui';
 import { IconCamera } from '@douyinfe/semi-icons';
 
 () => {
-    const [url, setUrl] = useState('https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg');
+    const [url, setUrl] = useState('https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png');
     const onSuccess = (response, file) => {
         Toast.success('头像更新成功');
         setUrl('https://sf6-cdn-tos.douyinstatic.com/obj/ttfe/ies/semi/ttmoment.jpeg');
@@ -934,7 +934,7 @@ import { IconBolt } from '@douyinfe/semi-icons';
 >
     <div className="components-upload-demo-drag-area">
         <img
-            src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/0f2a32f27eab90a296814fbc26103b2b.jpg"
+            src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png"
             height="96"
             alt='demo img'
             style={{ borderRadius: 4 }}
@@ -1323,6 +1323,17 @@ Upload组件是一个可交互的控件，在点击或拖拽时触发文件选�
 
 - 为可点击元素添加 `role="button"`
 - 文件列表添加 `role="list"`，并用 `aria-label` 描述
+
+
+## 文案规范
+- 上传按钮
+  - 关于表单按钮的文案规范，参考[按钮Button组件的文案规范](/zh-CN/input/button#%E6%96%87%E6%A1%88%E8%A7%84%E8%8C%83) 
+- 帮助文本
+  - 帮助文本使用语句书写规范，首字母大写，可以不需要句号
+- 用户出错提示
+  - 清晰地告诉用户为什么文件无法被上传，并且告知用户如何操作能够成功上传
+  - 帮助文本使用语句书写规范，首字母大写
+  - 简洁的用语让用户能够一眼读懂，比如 `File size must be less than 20MB`, `File type must be .gif, .jpg, .png or .svg`
 
 ## 设计变量
 <DesignToken/>

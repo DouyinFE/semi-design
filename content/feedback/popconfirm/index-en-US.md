@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 65
+order: 66
 category: Feedback
 title:  Popconfirm
 subTitle: Popconfirm
@@ -144,3 +144,9 @@ Please refer to [Use with Tooltip/Popover](/en-US/show/tooltip#Use-with-Popver-o
 | onClickOutSide     | Callback when the pop-up layer is in the display state and the non-Children, non-floating layer inner area is clicked                                                 | (e: event) => void         |                     | **2.1.0**        |
 ## Design Tokens
 <DesignToken/>
+
+## FAQ
+
+- **Why does the Popconfirm floating layer lose its width and wrap unexpectedly when the width is not enough near the screen border?**
+
+    After Chromium 104, the wrapping rendering strategy when the width of the screen border text is not enough has changed. For details, see [issue #1022](https://github.com/DouyinFE/semi-design/issues/1022), the semi-side has been This problem was fixed in v2.17.0.

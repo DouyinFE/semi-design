@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 16
+order: 17
 category: 基础
 title:  Typography 版式
 icon: doc-typography
@@ -371,6 +371,42 @@ function Demo() {
 | copyTip    | 复制图标的 tooltip 展示内容 | React.node                                     | -      | 1.0.0  |
 | successTip | 复制成功的展示内容          | React.node                                     | -      | 0.33.0 |
 | onCopy     | 复制回调                    | Function(e:Event, content:string, res:boolean) | -      | 0.27.0 |
+
+
+## 文案规范
+- Link
+  - 文字链接需要清晰且可预测，用户应该能够预测他们点击链接时会发生什么
+  - 切勿通过错误标记链接来误导用户
+  - 避免使用“Click here”或“Here”作为独立链接
+
+| ✅ 推荐用法 | ❌ 不推荐用法 |   
+| --- | --- | 
+| No spaces yet? <PureA> Create space </PureA>| No spaces yet? <PureA>Click here</PureA> |
+
+- 避免将整个句子作为可点击的文字链接，而是将描述具体去向的文字作为链接内容
+
+| ✅ 推荐用法 | ❌ 不推荐用法 |   
+| --- | --- | 
+| Views <PureA>user documentation</PureA> for details|<PureA>View user documentation for details</PureA> |
+
+- 使用短术语或词作为链接文本会更有利于国际化，以避免由于不同的语言的语法和语序不同，而出现链接文字被拆分的问题
+
+| ✅ 推荐用法 | ❌ 不推荐用法 |   
+| --- | --- | 
+| Manage <PureA>notifications </PureA>to| <PureA>Manage notifications</PureA> to |
+
+- 以文字链接结尾时，不需要跟随标点符号，除了问号“？”
+
+| ✅ 推荐用法 | ❌ 不推荐用法 |   
+| --- | --- | 
+| No spaces yet? <PureA> Create space </PureA> | No spaces yet? <PureA>Click here</PureA> |
+| <PureA> Forgot password ？</PureA> |<PureA>Forgot password</PureA> |
+
+- 链接文字不要包含冠词“the, a, an”
+
+| ✅ 推荐用法 | ❌ 不推荐用法 |   
+| --- | --- | 
+| View <PureA> user documentation </PureA> for details| View the<PureA> user documentation</PureA> for details |
 
 ## 设计变量
 <DesignToken/>

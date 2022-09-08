@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 12
+order: 13
 category: Basic
 title: Icon
 subTitle: Icon
@@ -97,7 +97,7 @@ import { IconLikeHeart, IconFlag, IconLock, IconUnlock } from '@douyinfe/semi-ic
 
 ### Custom icon
 You can use custom icons to pass in Icon components
-Icon component supports size, rotate, spinning and other attributes
+Icon component supports size, rotate, spin and other attributes
 
 ```jsx live=true
 import React from 'react';
@@ -105,7 +105,7 @@ import { Icon } from '@douyinfe/semi-ui';
 
 () => {
     function CustomIcon(){
-        return <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        return <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="12" cy="12" r="11" fill="#FBCD2C"/>
             <mask id="mask0" maskType="alpha" maskUnits="userSpaceOnUse" x="1" y="1" width="22" height="22">
                 <circle cx="12" cy="12" r="11" fill="#A2845E"/>

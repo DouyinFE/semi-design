@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 59
+order: 60
 category: 展示类
 title:  Table 表格
 icon: doc-table
@@ -175,7 +175,8 @@ render(App);
 
 ```jsx live=true noInline=true dir="column"
 import React from 'react';
-import { Table } from '@douyinfe/semi-ui';
+import { Table, Avatar } from '@douyinfe/semi-ui';
+import { IconMore } from '@douyinfe/semi-icons';
 
 const { Column } = Table;
 
@@ -1261,7 +1262,7 @@ const expandData = {
 function App() {
 
     const expandRowRender = (record, index) => {
-        return <Descriptions align="justify" data={expandData[index]} />
+        return <Descriptions align="justify" data={expandData[index]} />;
     };
 
     const rowSelection = {
@@ -1400,7 +1401,7 @@ const expandData = {
 function App() {
 
     const expandRowRender = (record, index) => {
-        return <Descriptions align="justify" data={expandData[index]} />
+        return <Descriptions align="justify" data={expandData[index]} />;
     };
 
     const rowSelection = {
@@ -1549,7 +1550,7 @@ const expandData = {
 function App() {
 
     const expandRowRender = (record, index) => {
-        return <Descriptions align="justify" data={expandData[index]} />
+        return <Descriptions align="justify" data={expandData[index]} />;
     };
 
     const rowSelection = {
@@ -2152,7 +2153,7 @@ render(ChildrenDataSelectedDemo);
 
 ```jsx live=true noInline=true dir="column"
 import React, { useMemo } from 'react';
-import { Table } from '@douyinfe/semi-ui/';
+import { Table, Avatar } from '@douyinfe/semi-ui/';
 import * as dateFns from 'date-fns';
 
 const DAY = 24 * 60 * 60 * 1000;
@@ -2275,6 +2276,7 @@ render(EventTable);
 ```jsx live=true noInline=true dir="column"
 import React from 'react';
 import { Table, Avatar } from '@douyinfe/semi-ui';
+import { IconMore } from '@douyinfe/semi-icons';
 
 function App() {
     const columns = [
@@ -3054,7 +3056,7 @@ const getData = () => {
 const data = getData();
 
 function VirtualizedFixedDemo() {
-    let virtualizedListRef = useRef()
+    let virtualizedListRef = useRef();
     const scroll = { y: 400, x: 900 };
     const style = { width: 750, margin: '0 auto' };
 
@@ -4231,17 +4233,17 @@ const columns = [
             if (index === 0) {
                 renderObject.props = {
                     colSpan: 4,
-                }
+                };
             }
             if (index === 1) {
                 renderObject.props = {
                     rowSpan: 2,
-                }
+                };
             }
             if (index === 2) {
                 renderObject.props = {
                     rowSpan: 0,
-                }
+                };
             }
             return renderObject;
         },
@@ -4256,7 +4258,7 @@ const columns = [
                     props: {
                         colSpan: 0,
                     }
-                }
+                };
             }
             if (index === 1) {
                 return {
@@ -4264,7 +4266,7 @@ const columns = [
                     props: {
                         rowSpan: 2,
                     }
-                }
+                };
             }
             if (index === 2) {
                 return {
@@ -4272,7 +4274,7 @@ const columns = [
                     props: {
                         rowSpan: 0,
                     }
-                }
+                };
             }
             return `${text} KB`;
         }
@@ -4293,7 +4295,7 @@ const columns = [
                     props: {
                         colSpan: 0,
                     }
-                }
+                };
             }
             return children;
         }
@@ -4310,7 +4312,7 @@ const columns = [
                     props: {
                         colSpan: 0
                     }
-                }
+                };
             }
             if (index === 1) {
                 return {
@@ -4318,7 +4320,7 @@ const columns = [
                     props: {
                         rowSpan: 2
                     }
-                }
+                };
             }
             if (index === 2) {
                 return {
@@ -4326,7 +4328,7 @@ const columns = [
                     props: {
                         rowSpan: 0
                     }
-                }
+                };
             }
             return children;
         }
@@ -4384,7 +4386,7 @@ render(App);
 | empty                     | 无数据时展示的内容                                                                                             | ReactNode                                                                                                       | '暂无数据' |
 | expandCellFixed           | 展开图标所在列是否固定，与 Column 中的 fixed 取值相同                                                          | boolean\|string                                                                                                 | false      |
 | expandIcon                | 自定义展开按钮，传 `false` 关闭默认的渲染                                                                      | boolean \| ReactNode<br/> \| (expanded: boolean) => ReactNode                                                   |            |
-| expandedRowKeys           | 展开的行，传入此参数时行展开功能将受控                                                                         | (string                                                                                                         | number)[]  |                                         |
+| expandedRowKeys           | 展开的行，传入此参数时行展开功能将受控                                                                         | (string \| number)[]  |                                         |
 | expandedRowRender         | 额外的展开行                                                                                                   | (record: object, index: number, expanded: boolean) => ReactNode                                                 |            |
 | expandAllRows             | 是否展开所有行                                                                                                 | boolean                                                                                                         | false      | **1.30.0**                              |
 | expandAllGroupRows        | 是否展开分组行                                                                                                 | boolean                                                                                                         | false      | **1.30.0**                              |
@@ -4671,6 +4673,20 @@ function Demo() {
 - 可展开表格行具有 aria-expanded 属性，表示当前行是否展开
 - 单元格的新增了 aria-colindex 表示当前格子属于第几列，第一列为 1
 - 列的筛选和排序按钮添加了 aria-label，行的选择按钮添加了 aria-label 属性
+
+
+## 文案规范
+- 表格标题
+  - 表格标题应清晰的让用户感知到表格的目的；
+  - 为复杂表格添加描述，为用户提供更多关于表格的上下文信息；
+  - 使用句子大小写；
+- 列标题
+  - 保持列标题简洁，建议使用 1-2 个词作为列标题；
+  - 当列标题较长时，建议 2 行显示，剩余文字缩略并在 Tooltip 中显示完全；
+  - 采用 Sentence case 的大小写规则；
+  - 列标题使用句子大小写；
+- 表格操作
+  - 可以遵循 [Button 的文案规范](/zh-CN/input/button#%E6%96%87%E6%A1%88%E8%A7%84%E8%8C%83)
 
 ## 设计变量
 <DesignToken/>

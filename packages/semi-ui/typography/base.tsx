@@ -1,4 +1,4 @@
-import React, { Component, ReactElement } from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
@@ -54,15 +54,15 @@ const prefixCls = cssClasses.PREFIX;
 const ELLIPSIS_STR = '...';
 
 const wrapperDecorations = (props: BaseTypographyProps, content: React.ReactNode) => {
-    const { mark, code, underline, strong, link, disabled, icon, } = props;
+    const { mark, code, underline, strong, link, disabled } = props;
     let wrapped = content;
     const wrap = (isNeeded: boolean | LinkType, tag: string) => {
-        let wrapProps = icon ? { style: { display: 'inline-flex', alignItems: 'center' } } : {};
+        let wrapProps = {};
         if (!isNeeded) {
             return;
         }
         if (typeof isNeeded === 'object') {
-            wrapProps = { ...isNeeded } as any;
+            wrapProps = { ...isNeeded };
         }
         wrapped = React.createElement(tag, wrapProps, wrapped);
     };
@@ -72,11 +72,6 @@ const wrapperDecorations = (props: BaseTypographyProps, content: React.ReactNode
     wrap(strong, 'strong');
     wrap(props.delete, 'del');
     wrap(link, disabled ? 'span' : 'a');
-    // When the content is not wrapped, and there is more than one element in the content (one of which is an icon), 
-    // use span to wrap the content, so that the content in the span is vertically aligned
-    if (wrapped === content && icon) {
-        wrap(true, 'span');
-    }
     return wrapped;
 };
 

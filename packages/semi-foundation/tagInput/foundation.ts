@@ -8,11 +8,17 @@ import {
 } from 'lodash';
 import getSplitedArray from './utils/getSplitedArray';
 import isEnterPress from '../utils/isEnterPress';
+import arrayMove from '../utils/arrayMove';
 
 export type TagInputChangeEvent = any;
 export type TagInputCursorEvent = any;
 export type TagInputKeyboardEvent = any;
 export type TagInputMouseEvent = any;
+
+export interface OnSortEndProps {
+    oldIndex: number;
+    newIndex: number;
+}
 
 export interface TagInputAdapter extends DefaultAdapter {
     setInputValue: (inputValue: string) => void;
@@ -20,6 +26,10 @@ export interface TagInputAdapter extends DefaultAdapter {
     setFocusing: (focusing: boolean) => void;
     toggleFocusing(focused: boolean): void;
     setHovering: (hovering: boolean) => void;
+    setActive: (active: boolean) => void;
+    getClickOutsideHandler: () => any;
+    registerClickOutsideHandler: (cb: any) => void;
+    unregisterClickOutsideHandler: () => void;
     notifyBlur: (e: TagInputCursorEvent) => void;
     notifyFocus: (e: TagInputCursorEvent) => void;
     notifyInputChange: (v: string, e: TagInputChangeEvent) => void;
@@ -167,6 +177,8 @@ class TagInputFoundation extends BaseFoundation<TagInputAdapter> {
         if (inputValue.length > 0) {
             this._onInputChange('', e);
         }
+        // Prevent event propagate to TagInput outermost div
+        e.stopPropagation();
     }
 
     handleTagClose(index: number) {
@@ -183,6 +195,23 @@ class TagInputFoundation extends BaseFoundation<TagInputAdapter> {
 
     handleInputMouseLeave() {
         this._adapter.setHovering(false);
+    }
+
+    handleClick(e?: any) {
+        const { disabled } = this.getProps();
+        if (disabled) {
+            return;
+        }
+        const clickOutsideHandler = this._adapter.getClickOutsideHandler();
+        if (!clickOutsideHandler) {
+            this._adapter.setActive(true);
+            this._adapter.registerClickOutsideHandler(e => this.clickOutsideCallBack());
+        } 
+    }
+
+    clickOutsideCallBack() {
+        this._adapter.unregisterClickOutsideHandler();
+        this._adapter.setActive(false);
     }
 
     handleClickPrefixOrSuffix(e: any) {
@@ -226,6 +255,16 @@ class TagInputFoundation extends BaseFoundation<TagInputAdapter> {
     _onInputChange(value: string, e: TagInputChangeEvent) {
         this._adapter.setInputValue(value);
         this._adapter.notifyInputChange(value, e);
+    }
+
+    handleSortEnd(callbackProps: OnSortEndProps) {
+        const { oldIndex, newIndex } = callbackProps;
+        const { tagsArray } = this.getStates();
+        const newTagsArray = arrayMove(tagsArray, oldIndex, newIndex);
+        if (!this._isControlledComponent()) {
+            this._adapter.setTagsArray(newTagsArray);
+        } 
+        this._adapter.notifyTagChange(newTagsArray);
     }
 }
 

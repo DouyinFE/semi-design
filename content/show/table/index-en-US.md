@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 59
+order: 60
 category: Show
 title: Table
 subTitle: Table
@@ -177,7 +177,8 @@ You can also use JSX syntax definitions `columns`, note that Table only supports
 
 ```jsx live=true noInline=true dir="column"
 import React from 'react';
-import { Table } from '@douyinfe/semi-ui';
+import { Table, Avatar } from '@douyinfe/semi-ui';
+import { IconMore } from '@douyinfe/semi-icons';
 
 const { Column } = Table;
 
@@ -1265,7 +1266,7 @@ const expandData = {
 function App() {
 
     const expandRowRender = (record, index) => {
-        return <Descriptions align="justify" data={expandData[index]} />
+        return <Descriptions align="justify" data={expandData[index]} />;
     };
 
     const rowSelection = {
@@ -1404,7 +1405,7 @@ const expandData = {
 function App() {
 
     const expandRowRender = (record, index) => {
-        return <Descriptions align="justify" data={expandData[index]} />
+        return <Descriptions align="justify" data={expandData[index]} />;
     };
 
     const rowSelection = {
@@ -1553,7 +1554,7 @@ const expandData = {
 function App() {
 
     const expandRowRender = (record, index) => {
-        return <Descriptions align="justify" data={expandData[index]} />
+        return <Descriptions align="justify" data={expandData[index]} />;
     };
 
     const rowSelection = {
@@ -2153,7 +2154,7 @@ In principle, the properties or events supported on tr / td / th can be defined.
 
 ```jsx live=true noInline=true dir="column"
 import React, { useMemo } from 'react';
-import { Table } from '@douyinfe/semi-ui/';
+import { Table, Avatar } from '@douyinfe/semi-ui/';
 import * as dateFns from 'date-fns';
 
 const DAY = 24 * 60 * 60 * 1000;
@@ -2276,6 +2277,7 @@ Use `OnRow` to set a background color for each row to create a zebra stripped ta
 ```jsx live=true noInline=true dir="column"
 import React from 'react';
 import { Table, Avatar } from '@douyinfe/semi-ui';
+import { IconMore } from '@douyinfe/semi-icons';
 
 function App() {
     const columns = [
@@ -2942,7 +2944,7 @@ function Demo() {
                         // onMouseLeave: () => {
                         //     console.log(`Grouped row mouse leave: `, group, index);
                         // },
-                        onClick: e => { console.log(`Grouped row clicked: `, group, index) }
+                        onClick: e => { console.log(`Grouped row clicked: `, group, index); }
                     };
                 }}
                 clickGroupedRowToExpand // if you want to click the entire row to expand
@@ -3051,7 +3053,7 @@ const getData = () => {
 const data = getData();
 
 function VirtualizedFixedDemo() {
-    let virtualizedListRef = useRef()
+    let virtualizedListRef = useRef();
     const scroll = { y: 400, x: 900 };
     const style = { width: 750, margin: '0 auto' };
 
@@ -3552,7 +3554,7 @@ class App extends React.Component {
 
             this.setState({ columns });
 
-            if(!checked) {
+            if (!checked) {
                 this.setPage(null, null, []);
             }
         };
@@ -4226,17 +4228,17 @@ const columns = [
             if (index === 0) {
                 renderObject.props = {
                     colSpan: 4,
-                }
+                };
             }
             if (index === 1) {
                 renderObject.props = {
                     rowSpan: 2,
-                }
+                };
             }
             if (index === 2) {
                 renderObject.props = {
                     rowSpan: 0,
-                }
+                };
             }
             return renderObject;
         },
@@ -4251,7 +4253,7 @@ const columns = [
                     props: {
                         colSpan: 0,
                     }
-                }
+                };
             }
             if (index === 1) {
                 return {
@@ -4259,7 +4261,7 @@ const columns = [
                     props: {
                         rowSpan: 2,
                     }
-                }
+                };
             }
             if (index === 2) {
                 return {
@@ -4267,7 +4269,7 @@ const columns = [
                     props: {
                         rowSpan: 0,
                     }
-                }
+                };
             }
             return `${text} KB`;
         }
@@ -4288,7 +4290,7 @@ const columns = [
                     props: {
                         colSpan: 0,
                     }
-                }
+                };
             }
             return children;
         }
@@ -4305,7 +4307,7 @@ const columns = [
                     props: {
                         colSpan: 0
                     }
-                }
+                };
             }
             if (index === 1) {
                 return {
@@ -4313,7 +4315,7 @@ const columns = [
                     props: {
                         rowSpan: 2
                     }
-                }
+                };
             }
             if (index === 2) {
                 return {
@@ -4321,7 +4323,7 @@ const columns = [
                     props: {
                         rowSpan: 0
                     }
-                }
+                };
             }
             return children;
         }
@@ -4378,7 +4380,7 @@ render(App);
 | empty                   | Content displayed when there is no data                                                                                   | ReactNode                                                                                                          | ReactNode  | 'No data yet. '                                                   |
 | expandCellFixed         | Whether the column of the expansion icon is fixed or not, the same value as the fixed value in Column                     | boolean\|string                                                                                                 | false      |
 | expandIcon              | Custom expansion icon, hidden when it is `false`                                                                          | boolean <br/>\|ReactNode <br/>\| (expanded: boolean) => ReactNode                                               |            |
-| expandedRowKeys         | Expanded rows, the row expansion function will be controlled when this parameter is introduced.                           | (string | number)[]                                                                                                 |            |
+| expandedRowKeys         | Expanded rows, the row expansion function will be controlled when this parameter is introduced.                           | (string \| number)[]                                                                                                 |            |
 | expandedRowRender       | Extra unfolding lines                                                                                                     | (record: object, index: number, expanded: boolean) => ReactNode                                                 |            |
 | expandAllRows           | All rows are expanded                                                           | boolean                                                                                                         | false      | **1.30.0**
 | expandAllGroupRows      | All grouped rows are expanded                                                           | boolean                                                                                                         | false      | **1.30.0**
@@ -4657,6 +4659,19 @@ function Demo() {
 - The new aria-colindex of the cell indicates which column the current grid belongs to, and the first column is 1
 - Added aria-label to column filter and sort buttons, and added aria-label attribute to row select buttons
 
+
+## Content Guidelines
+- Table title
+   - The title of the table should clearly make the user perceive the purpose of the table;
+   - Add descriptions to complex tables to provide users with more contextual information about the table;
+   - use sentence case;
+- Column headers
+   - Keep column headings concise, it is recommended to use 1-2 words as column headings;
+   - When the column header is long, it is recommended to display it in 2 lines, and the remaining text is abbreviated and displayed completely in the Tooltip;
+   - Adopt the capitalization rules of Sentence case;
+   - Use sentence case for column headings;
+- Table operation area
+   - You can follow [Button's content Guidelines](/en-US/input/button)
 ## Design Tokens
 <DesignToken/>
 

@@ -3,6 +3,7 @@ import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import { BasicValue as BasicTreeValue } from '../tree/foundation';
 import { strings } from './constants';
 import { _generateGroupedData, _generateTreeData } from './transferUtils';
+import arrayMove from '../utils/arrayMove';
 
 export interface BasicDataItem {
     [x: string]: any;
@@ -217,7 +218,7 @@ export default class TransferFoundation<P = Record<string, any>, S = Record<stri
         const { oldIndex, newIndex } = callbackProps;
         const selectedItems = this._adapter.getSelected();
         let selectedArr = [...selectedItems.values()];
-        selectedArr = this._arrayMove(selectedArr, oldIndex, newIndex);
+        selectedArr = arrayMove(selectedArr, oldIndex, newIndex);
         let newSelectedItems = new Map();
         selectedArr.forEach(option => {
             newSelectedItems = newSelectedItems.set(option.key, option);
@@ -226,9 +227,4 @@ export default class TransferFoundation<P = Record<string, any>, S = Record<stri
         this._notifyChange(newSelectedItems);
     }
 
-    _arrayMove(array: Array<BasicDataItem>, from: number, to: number) {
-        const newArray = array.slice();
-        newArray.splice(to < 0 ? newArray.length + to : to, 0, newArray.splice(from, 1)[0]);
-        return newArray;
-    }
 }

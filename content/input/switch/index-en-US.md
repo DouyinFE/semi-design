@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 29
+order: 30
 category: Input
 title: Switch
 subTitle: Switch
@@ -151,7 +151,7 @@ import { Switch } from '@douyinfe/semi-ui';
         />
     );
 
-}
+};
 ```
 
 ### loading
@@ -201,6 +201,12 @@ import { Switch } from '@douyinfe/semi-ui';
 ### Keyboard and Focus
 - Keyboard users can use `Tab` and `Shift + Tab` to switch focus.
 - When focusing, you can switch on or off by pressing the `Space` key.
+
+## Content Guidelines
+- Switch description
+  - First letter is capitalized, no punctuation is required
+  - Indirectly and explicitly state whether the setting is on or off
+  - If needed, explain to the user what the on and off states represent
 ## Design Tokens
 
 <DesignToken/>
