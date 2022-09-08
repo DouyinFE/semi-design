@@ -3,6 +3,7 @@ import fs from 'fs-extra';
 import postcss from "postcss";
 import postcssScss from 'postcss-scss';
 import { transVarPlugin } from "./transVarPlugin";
+import destroyDeps from "./utils/destroyDeps";
 
 
 export interface Options {
@@ -76,9 +77,13 @@ const transScssToCSSVar = (scssFilePathList: string[]) => {
     //   let allCssDefine:{key:string,value:string}[] =[];
     for (const scssFilePath of scssFilePathList) {
         try {
-            const raw = fs.readFileSync(scssFilePath, { encoding: 'utf-8' });
+            let raw = fs.readFileSync(scssFilePath, { encoding: 'utf-8' });
             // const scssVariableInSelectorSet = new Set<string>();
             // postcss([getScssVariableNotUsedInSelectorSetPlugin(scssVariableInSelectorSet)]).process(raw, { syntax: postcssScss }).css;
+
+            if (scssFilePath.includes('variables.scss')){
+                raw = destroyDeps(raw);
+            }
 
             const cssDefine: { key: string, value: string }[] = [];
 
@@ -108,6 +113,7 @@ const transScssVariables2CssVariables = ({ sourcePath }: Options) => {
 
     const transDir = sourcePath;
     const scssFileList = getAllScssFilesInPath(transDir);
+    //transScssToCSSVar(["/Users/daiqiang/Project/semi-design/packages/semi-foundation/popover/variables.scss"]);
     transScssToCSSVar(scssFileList);
     return scssFileList;
 };
