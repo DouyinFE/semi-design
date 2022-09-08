@@ -101,6 +101,7 @@ test/merged
 # node-waf configuration
 .lock-wscript
 package-lock.json
+yarn.lock
 
 # Optional npm cache directory
 .npm
