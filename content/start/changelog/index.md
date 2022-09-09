@@ -16,6 +16,18 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 ---
 
+#### 🎉 2.19.0 (2022-9-9)
+- 【fix】
+    - 修复 Anchor 间距可触发选中后，键盘聚焦样式被遮挡问题
+    - 修复面板关闭时， Select onblur事件未被触发问题
+    - 修复锚点组件的子节点单行文本前面的空白处，点击不能选中的问题 [@edc-hui](https://github.com/edc-hui)
+    - 修复 Calendar weekStartsOn 改变后，事件渲染的位置没有跟着改变问题
+    - 修复在 DropDown 中使用 Input，Input onEnterPress 事件不生效问题
+    - 修复tagGroup污染传入tagList数据问题  [#1107 ](https://github.com/DouyinFE/semi-design/issues/1107)
+    - 修复 当 datepicker 的type为dateTime时，切换年月会导致时间部分被重置为8点  [@rojer95](https://github.com/rojer95)
+- 【chore】
+    - 移除 semi-foundation 、semi-ui中的 corejs 依赖
+
 #### 🎉 2.19.0-beta.0 (2022-09-05)
 - 【Feat】
   - Popconfirm onOk、onCancel支持 Promise 类型返回值，异步关闭 [#1056 ](https://github.com/DouyinFE/semi-design/issues/1056)
