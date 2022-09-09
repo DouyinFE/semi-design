@@ -31,6 +31,8 @@ export const CheckboxDefault = () => {
       </Checkbox>
       <br />
       <Checkbox indeterminate>indeterminate</Checkbox>
+      <Checkbox onChange={e => console.log(e)} value={1} onChange={v => console.log(v)}>
+      </Checkbox>
     </div>
   );
 };

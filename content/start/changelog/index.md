@@ -16,6 +16,37 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 ---
 
+#### 🎉 2.19.0 (2022-09-09)
+- 【Fix】
+    - 修复 Anchor 间距可触发选中后，键盘聚焦样式被遮挡问题
+    - 修复面板关闭时， Select onblur事件未被触发问题
+    - 修复锚点组件的子节点单行文本前面的空白处，点击不能选中的问题 [@edc-hui](https://github.com/edc-hui)
+    - 修复 Calendar weekStartsOn 改变后，事件渲染的位置没有跟着改变问题
+    - 修复在 DropDown 中使用 Input，Input onEnterPress 事件不生效问题
+    - 修复 tagGroup 污染传入 tagList 数据问题  [#1107 ](https://github.com/DouyinFE/semi-design/issues/1107)
+    - 修复 当 datepicker 的 type 为 dateTime 时，切换年月会导致时间部分被重置为8点  [@rojer95](https://github.com/rojer95)
+- 【Chore】
+    - 移除 semi-foundation 、semi-ui中的 corejs 依赖
+
+#### 🎉 2.19.0-beta.0 (2022-09-05)
+- 【Feat】
+  - Popconfirm onOk、onCancel支持 Promise 类型返回值，异步关闭 [#1056 ](https://github.com/DouyinFE/semi-design/issues/1056)
+- 【Fix】
+  - 修复 Popconfirm 多行内容样式错误 [#868](https://github.com/DouyinFE/semi-design/issues/868)
+  - 修复 DefaultTabBar 类型有误  [#1077](https://github.com/DouyinFE/semi-design/pull/1077)
+  - 修复 Form 级别设置 autoComplete 为 false 出现 TS 报错问题
+  - 修复 Slider 在传入部分 steps 值时定位显示不正确的问题,  [#1043](https://github.com/DouyinFE/semi-design/issues/1043)
+  - 修复 Tag tagKey 类型定义错误问题 [#1081](https://github.com/DouyinFE/semi-design/pull/1081)
+  - 修复 RadioGroup 第一次渲染时 value 不正确问题 [#1060](https://github.com/DouyinFE/semi-design/pull/1060)
+- 【Style】
+  - Sidesheet body 添加 overflow: auto 默认样式，内容超出时不再需要自行通过 props.bodyStyle 添加 overflow相关样式 [#1098](https://github.com/DouyinFE/semi-design/pull/1098)
+- 【Refactor】
+  - 使用 flex 布局和 gap 替换 Checkbox 中的 margin 布局 [#1073](https://github.com/DouyinFE/semi-design/pull/1073)
+  - ButtonGroup 中的分割线使用 span 标签代替 border-right [#1065](https://github.com/DouyinFE/semi-design/pull/1065)
+  - 重构了 Radio 的布局，去掉了一些绝对定位，使用 flex 布局代替 [#1060](https://github.com/DouyinFE/semi-design/pull/1060)
+- 【Breaking Change】
+  - 使用 CheckboxGroup 时，如果给子级 Checkbox 嵌套一层 div 或者 span 等元素，这时 Checkbox 将不带 margin-bottom。单独给每个 Checkbox 嵌套元素样式上不受影响 [#1073](https://github.com/DouyinFE/semi-design/pull/1073)
+
 #### 🎉 2.18.2 (2022-08-31)
 
 - 【Fix】

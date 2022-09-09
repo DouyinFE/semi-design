@@ -16,6 +16,38 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.19.0 (2022-09-09)
+- 【Fix】
+    - fix the issue that the keyboard focus style is blocked after the Anchor spacing can trigger the selection
+    - fixed the issue that the Select onblur event was not triggered when the panel was closed
+    - fix Anchor spacing in front of anchor text cannot trigger selection [@edc-hui](https://github.com/edc-hui)
+    - fix the problem that the location of event rendering did not change after Calendar weekStartsOn was changed
+    - fix the problem that Input onEnterPress event does not take effect when using Input in DropDown
+    - fix the problem that tagGroup pollutes incoming tagList data  [#1107 ](https://github.com/DouyinFE/semi-design/issues/1107)
+    - fix DatePicker time will be set 8:00 when switch month and type is dateTime [@rojer95](https://github.com/rojer95)
+- 【Chore】
+    - Remove corejs deps in semi-foundation semi-ui.
+
+
+#### 🎉 2.19.0-beta.0 (2022-09-05)
+- 【Feat】
+  - Popconfirm's onOk and onCancel support Promise type return value and close asynchronously [#1056](https://github.com/DouyinFE/semi-design/issues/1056)
+- 【Fix】
+  - Fix Popconfirm multiline content style bug [#868](https://github.com/DouyinFE/semi-design/issues/868)
+  - Fix DefaultTabBar type error [#1077](https://github.com/DouyinFE/semi-design/pull/1077)
+  - Fix the TS error when the Form level is set to autoComplete to false
+  - Fix an issue where Slider was incorrectly positioned when passing in partial steps values [#1043](https://github.com/DouyinFE/semi-design/issues/1043)
+  - Fix Tag tagKey type definition error problem [#1081](https://github.com/DouyinFE/semi-design/pull/1081)
+  - Fix incorrect value when RadioGroup was first rendered [#1060](https://github.com/DouyinFE/semi-design/pull/1060)
+- 【Style】
+  - Add overflow: auto default style to Sidesheet body, you no longer need to add overflow related styles through props.bodyStyle when the content exceeds [#1098](https://github.com/DouyinFE/semi-design/pull/1098)
+- 【Refactor】
+  - Replace margin layout in Checkbox with flex layout and gap [#1073](https://github.com/DouyinFE/semi-design/pull/1073)
+  - Dividers in ButtonGroup use span tags instead of border-right [#1065](https://github.com/DouyinFE/semi-design/pull/1065)
+  - Refactored Radio's layout, removed some absolute positioning, and used flex layout instead [#1060](https://github.com/DouyinFE/semi-design/pull/1060)
+- 【Breaking Change】
+  - When using CheckboxGroup, if the child Checkbox is nested with a layer of elements such as div or span, then the Checkbox will not have margin-bottom. Styling each Checkbox nested element individually is unaffected [#1073](https://github.com/DouyinFE/semi-design/pull/1073)
+  
 #### 🎉 2.18.2 (2022-08-31)
 
 - 【Fix】
