@@ -275,9 +275,9 @@ import { IconChevronLeft, IconChevronRight } from '@douyinfe/semi-icons';
     const [percent, setPercent] = useState(10);
     const strokeArr = [
         { percent: 20, color: 'red' },
-        { percent: 40, color: '#b2140c' },
-        { percent: 60, color: 'rgb(0, 99, 167)' },
-        { percent: 80, color: 'hsla(125, 50%, 46% / 1)' },
+        { percent: 40, color: 'orange-9' },
+        { percent: 60, color: 'light-green-8' },
+        { percent: 80, color: 'hsla(125, 50%, 46% / 1)' }
     ];
     return (
         <>
@@ -421,7 +421,7 @@ import { IconChevronLeft, IconChevronRight } from '@douyinfe/semi-icons';
 | percent | 进度百分比 | number |  |
 | showInfo | 环形进度条是否显示中间文本，条状进度条后右侧是否显示文本 | boolean | false |
 | size | 尺寸,可选`default`、`small`(仅 type=circle 生效)、`large`(仅 type=line 生效) | string | 'default' |
-| stroke | 进度条填充色，类型为 `Array<{percent:number; color:string }>` 时，`color` 参数支持颜色类型：`'Hex'` &#124; `'Hsl'` &#124; `'Hsla'` &#124; `'Rgb'` &#124; `'Rgba'` &#124; `'ColorName'` | string &#124; Array<{percent:number; color:string }> | 'var(--semi-color-success)' |
+| stroke | 进度条填充色，类型为 `Array<{percent:number; color:string }>` 时，`color` 参数支持颜色类型：`'Hex'` &#124; `'Hsl'` &#124; `'Hsla'` &#124; `'Rgb'` &#124; `'Rgba'` &#124; `'Semi Design Tokens'` | string &#124; Array<{percent:number; color:string }> | 'var(--semi-color-success)' |
 | strokeGradient | 是否自动生成渐变色补齐区间颜色，需要 `stroke` 设置至少一个颜色区间 | boolean | false |
 | strokeLinecap | 圆角`round`/方角`square`(仅在 type='circle'模式下生效) | string | 'round' |
 | strokeWidth | type 为`line`时，该属性控制进度条高度; type 为`circle`时，该属性控制进度条宽度 | number | 4 |

@@ -58,7 +58,7 @@ describe('Progress', () => {
             stroke: [
                 {
                     percent: 50,
-                    color: 'red',
+                    color: '#fff',
                 },
                 {
                     percent: 52,
@@ -75,7 +75,7 @@ describe('Progress', () => {
             .at(0)
             .getDOMNode()
             .getAttribute('stroke');
-        expect(_stroke).toEqual('#8000007f');
+        expect(_stroke).toEqual('#8080807f');
     });
 
     it('Gradient Accuracy [strokeGradient false & stroke type is Array]', () => {
@@ -83,7 +83,7 @@ describe('Progress', () => {
             stroke: [
                 {
                     percent: 3,
-                    color: 'red',
+                    color: '#fff',
                 },
             ],
             percent: 90,
@@ -95,7 +95,7 @@ describe('Progress', () => {
             .at(0)
             .getDOMNode()
             .getAttribute('stroke');
-        expect(_stroke).toEqual('#ff0000ff');
+        expect(_stroke).toEqual('#ffffffff');
     });
 
     it('Gradient Compatibility [strokeGradient true & stroke type is Array]', () => {

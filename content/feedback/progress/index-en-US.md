@@ -254,9 +254,9 @@ import { IconChevronLeft, IconChevronRight } from '@douyinfe/semi-icons';
     const [percent, setPercent] = useState(10);
     const strokeArr = [
         { percent: 20, color: 'red' },
-        { percent: 40, color: '#b2140c' },
-        { percent: 60, color: 'rgb(0, 99, 167)' },
-        { percent: 80, color: 'hsla(125, 50%, 46% / 1)' },
+        { percent: 40, color: 'orange-9' },
+        { percent: 60, color: 'light-green-8' },
+        { percent: 80, color: 'hsla(125, 50%, 46% / 1)' }
     ];
     return (
         <>
@@ -400,7 +400,7 @@ import { IconChevronLeft, IconChevronRight } from '@douyinfe/semi-icons';
 | percent | percentage of progress | number |  |
 | showInfo | Whether to display the middle text in the circular progress bar, and whether to display the text on the right side of the bar-shaped progress bar | boolean | false |
 | size | size, optional `default`, `small` (only type=circle is effective), `large` (only type=line is effective) | string | 'default' |
-| stroke | Fill color of progress bar, When of type `Array<{percent:number; color:string }>`, the `color` parameter supports the color types: `'Hex'` &#124; `'Hsl'` &#124; `'Hsla'` &#124; `'Rgb'` &#124; `'Rgba'` &#124; `'ColorName'` | string &#124; Array<{percent:number; color:string }> | 'var(--semi-color-success)' |
+| stroke | Fill color of progress bar, When of type `Array<{percent:number; color:string }>`, the `color` parameter supports the color types: `'Hex'` &#124; `'Hsl'` &#124; `'Hsla'` &#124; `'Rgb'` &#124; `'Rgba'` &#124; `'Semi Design Tokens'` | string &#124; Array<{percent:number; color:string }> | 'var(--semi-color-success)' |
 | strokeGradient | Whether to automatically generate gradient colors to fill color intervals, requires `stroke` to set at least one color interval | boolean | false |
 | strokeLinecap | round corner `round`/square corner `square` (only effective in type='circle' mode) | string | 'round' |
 | strokeWidth | When type is `line`, this property controls the height of the progress bar; when type is `circle`, this property controls the width of the progress bar | number | 4 |
