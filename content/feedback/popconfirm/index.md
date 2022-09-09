@@ -108,6 +108,48 @@ function TypesConfirmDemo(props = {}) {
 }
 ```
 
+### 延时关闭
+
+onOk、onCancel 可以通过 return Promise 实现点击后延时关闭 （v2.19后支持）。 onCancel、onOk 被触发时，对应的 Button 会自动切换为 loading: true  
+promise solve 会关闭气泡确认框， promise reject时气泡依然保留，同时 button loading 自动切换为 false
+
+```jsx live=true
+import React from 'react';
+import { Popconfirm, Button, Toast } from '@douyinfe/semi-ui';
+
+() => {
+    const onConfirm = () => {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                console.log('resolve, close popconfirm');
+                resolve();
+            }, 2000);
+        });
+    };
+
+    const onCancel = () => {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                console.log('reject, popconfirm still exist');
+                reject();
+            }, 2000);
+        });
+    };
+
+    return (
+        <Popconfirm
+            title="确定是否要保存此修改？"
+            content="此修改将不可逆"
+            onConfirm={onConfirm}
+            onCancel={onCancel}
+        >
+            <Button>保存</Button>
+        </Popconfirm>
+    );
+};
+```
+
+
 ### 搭配 Tooltip 或 Popover 使用
 
 请参考[搭配使用](/zh-CN/show/tooltip#%E6%90%AD%E9%85%8D-popover-%E6%88%96-popconfirm-%E4%BD%BF%E7%94%A8)
@@ -136,8 +178,8 @@ function TypesConfirmDemo(props = {}) {
 | trigger            | 触发展示的时机，可选值：hover / focus / click / custom                                                                                         | string                |   'click'                  |
 | visible            | 气泡框是否展示的受控属性                                                                                                                    | boolean                          |                     | **0.19.0**        |
 | zIndex             | 浮层 z-index 值                                                                                                                             | number                           | 1030                |
-| onConfirm          | 点击确认按钮回调                                                                                                                            | Function(e)                      |                     |
-| onCancel           | 点击取消按钮回调                                                                                                                            | Function(e)                      |                     |
+| onConfirm          | 点击确认按钮回调,  Promise类型于 v 2.19后支持                                                                                                                          | Function(e): void \| Promise                      |                     |
+| onCancel           | 点击取消按钮回调，Promise类型于 v 2.19后支持                                                                                                                            | Function(e): void \| Promise                      |                     |
 | onClickOutSide     | 当弹出层处于展示状态，点击非Children、非浮层内部区域时的回调                                                                                      | Function(e)                      |  **2.1.0**      |
 | onVisibleChange    | 气泡框切换显示隐藏的回调                                                                                                               | Function(visible: boolean): void | () => {}            | **0.19.0**        |
 

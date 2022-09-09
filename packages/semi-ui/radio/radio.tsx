@@ -92,6 +92,7 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
         mode: '',
         type: 'default'
     };
+    static elementType: string;
 
     radioEntity: RadioInner;
     context!: RadioContextValue;
@@ -268,20 +269,25 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
             [`${prefix}-addon-buttonRadio-${buttonSize}`]: isButtonRadio && buttonSize,
             [`${prefix}-focus`]: focusVisible && isButtonRadio,
         }, addonClassName);
-        const renderContent = () => (
-            <>
-                {children ? (
-                    <span className={addonCls} style={addonStyle} id={addonId} x-semi-prop="children">
-                        {children}
-                    </span>
-                ) : null}
-                {extra && !isButtonRadio ? (
-                    <div className={`${prefix}-extra`} id={extraId} x-semi-prop="extra">
-                        {extra}
-                    </div>
-                ) : null}
-            </>
-        );
+        const renderContent = () => {
+            if (!children && !extra) {
+                return null;
+            }
+            return (
+                <div className={cls([`${prefix}-content`, { [`${prefix}-isCardRadioGroup_content`]: isCardRadioGroup }])}>
+                    {children ? (
+                        <span className={addonCls} style={addonStyle} id={addonId} x-semi-prop="children">
+                            {children}
+                        </span>
+                    ) : null}
+                    {extra && !isButtonRadio ? (
+                        <div className={`${prefix}-extra`} id={extraId} x-semi-prop="extra">
+                            {extra}
+                        </div>
+                    ) : null}
+                </div>
+            );
+        };
 
         return (
             <label
@@ -307,14 +313,11 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
                     onInputFocus={this.handleFocusVisible}
                     onInputBlur={this.handleBlur}
                 />
-                {
-                    isCardRadioGroup ?
-                        <div className={`${prefix}-isCardRadioGroup_content`}>{renderContent()}</div> :
-                        renderContent()
-                }
+                {renderContent()}
             </label>
         );
     }
 }
+Radio.elementType = 'Radio';
 
 export default Radio;

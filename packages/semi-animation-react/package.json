@@ -1,6 +1,6 @@
 {
   "name": "@douyinfe/semi-animation-react",
-  "version": "2.18.2",
+  "version": "2.19.0-beta.0",
   "description": "motion library for semi-ui-react",
   "keywords": [
     "motion",
@@ -25,14 +25,11 @@
     "prepublishOnly": "npm run build:lib"
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.15.4",
     "@douyinfe/semi-animation": "2.12.0",
-    "@douyinfe/semi-animation-styled": "2.18.2",
+    "@douyinfe/semi-animation-styled": "2.19.0-beta.0",
     "classnames": "^2.2.6"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-decorators": "^7.15.8",
-    "@babel/plugin-transform-runtime": "^7.15.8",
     "@babel/preset-env": "^7.15.8",
     "@babel/preset-react": "^7.14.5",
     "@storybook/addon-knobs": "^6.3.1",

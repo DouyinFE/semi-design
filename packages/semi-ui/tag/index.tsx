@@ -40,7 +40,7 @@ export default class Tag extends Component<TagProps, TagState> {
 
     static propTypes = {
         children: PropTypes.node,
-        tagKey: PropTypes.oneOf([PropTypes.string, PropTypes.number]),
+        tagKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         size: PropTypes.oneOf(tagSize),
         color: PropTypes.oneOf(tagColors),
         type: PropTypes.oneOf(tagType),
