@@ -134,6 +134,9 @@ const toHex = {
     },
     SemiDesignToken(color: string): string | undefined {
         // ! Only produces effects when used, the conditions for running need to occur after the real DOM is rendered
+        if (typeof window === 'undefined') {
+            return undefined;
+        }
         const variable = getComputedStyle(document.body).getPropertyValue(`--semi-${color}`);
         if (variable === '') return undefined;
         const rgba = `rgba(${variable}, 1)`;
