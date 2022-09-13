@@ -518,9 +518,9 @@ export default function Template(args) {
 
         try {
             if (hash === '') {
-                window.scrollTo({
-                    top: 0,
-                });
+                // window.scrollTo({
+                //     top: 0,
+                // });
             } else {
                 const id = `#${makeAnchorId(window.decodeURI(hash.slice(1)))}`; // console.log('id', id);
 
@@ -529,7 +529,7 @@ export default function Template(args) {
                     let timer = null;
                     const scrollIntoView = debounce(()=>{
                         window.scroll(0, dom.offsetTop);
-                    },1000)
+                    },100)
                     const messageHandle = (e) => {
                         if (e.data === "oneCodeLoaded") {
                             // dom.scrollIntoView();
