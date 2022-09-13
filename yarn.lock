@@ -1445,16 +1445,6 @@
   resolved "https://registry.yarnpkg.com/@discoveryjs/json-ext/-/json-ext-0.5.7.tgz#1d572bfbbe14b7704e0ba0f39b74815b84870d70"
   integrity sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==
 
-"@douyinfe/semi-animation-react@2.18.2":
-  version "2.18.2"
-  resolved "https://registry.yarnpkg.com/@douyinfe/semi-animation-react/-/semi-animation-react-2.18.2.tgz#e4dc3ff6e56cf92ee318719f202a0470a9c2316f"
-  integrity sha512-OUo5a59vG3L28iKrcAQ/ENjSYHlJKiAWKk8IusR1GldLSgj4PIP8b/sl80tUJQWJSnp6TwSULc0JR8vIH/zs8w==
-  dependencies:
-    "@babel/runtime-corejs3" "^7.15.4"
-    "@douyinfe/semi-animation" "2.12.0"
-    "@douyinfe/semi-animation-styled" "2.18.2"
-    classnames "^2.2.6"
-
 "@douyinfe/semi-animation-react@2.9.1":
   version "2.9.1"
   resolved "https://registry.yarnpkg.com/@douyinfe/semi-animation-react/-/semi-animation-react-2.9.1.tgz#f2e4c6ef7899729ee6145edf0579598ba195bfdd"
@@ -1464,13 +1454,6 @@
     "@douyinfe/semi-animation" "2.9.1"
     "@douyinfe/semi-animation-styled" "2.9.1"
     classnames "^2.2.6"
-
-"@douyinfe/semi-animation-styled@2.18.2":
-  version "2.18.2"
-  resolved "https://registry.yarnpkg.com/@douyinfe/semi-animation-styled/-/semi-animation-styled-2.18.2.tgz#7df86873d933f734c7c0d5d954d186ae8e5bbe77"
-  integrity sha512-y62aVQ0//pObTa8quPBVJtCcZ6XZCppr0h1Ms+xc1mHVd7E7ddWDqaeW3X8/zsfcX9IzT66bM4GBlzQlciLbig==
-  dependencies:
-    "@babel/runtime-corejs3" "^7.15.4"
 
 "@douyinfe/semi-animation-styled@2.9.1":
   version "2.9.1"
@@ -1495,21 +1478,6 @@
     "@babel/runtime-corejs3" "^7.15.4"
     bezier-easing "^2.1.0"
 
-"@douyinfe/semi-foundation@2.18.2":
-  version "2.18.2"
-  resolved "https://registry.yarnpkg.com/@douyinfe/semi-foundation/-/semi-foundation-2.18.2.tgz#c765e2bc15532914a19f250ce180dc523603de37"
-  integrity sha512-r32i0fIL0DYpHRILCN/KJ4B8PEpfjxnoSAkG5RYxUqydLwACUwfBEbYtFvdftEbq1pMSlB2zcxoYCVGJQBa1xQ==
-  dependencies:
-    "@babel/runtime-corejs3" "^7.15.4"
-    "@douyinfe/semi-animation" "2.12.0"
-    async-validator "^3.5.0"
-    classnames "^2.2.6"
-    date-fns "^2.9.0"
-    date-fns-tz "^1.0.10"
-    lodash "^4.17.21"
-    memoize-one "^5.2.1"
-    scroll-into-view-if-needed "^2.2.24"
-
 "@douyinfe/semi-foundation@2.9.1":
   version "2.9.1"
   resolved "https://registry.yarnpkg.com/@douyinfe/semi-foundation/-/semi-foundation-2.9.1.tgz#1300bb97d6ceb92274ca4c9e6c66c5c16dc284ea"
@@ -1524,14 +1492,6 @@
     lodash "^4.17.21"
     memoize-one "^5.2.1"
     scroll-into-view-if-needed "^2.2.24"
-
-"@douyinfe/semi-icons@2.18.2", "@douyinfe/semi-icons@^2.0.0":
-  version "2.18.2"
-  resolved "https://registry.yarnpkg.com/@douyinfe/semi-icons/-/semi-icons-2.18.2.tgz#daea1b5c738926646286b84e163eca59523f0c6a"
-  integrity sha512-d+OBgn34xrGLEhNdKC5kvAhJVpNGD65tG/ibNhxoC7esxW9hhOYpq77r3n+Pv7pDd2mIM9q4JoKWLTlcc/hJcw==
-  dependencies:
-    "@babel/runtime-corejs3" "^7.15.4"
-    classnames "^2.2.6"
 
 "@douyinfe/semi-icons@2.9.1", "@douyinfe/semi-icons@latest":
   version "2.9.1"
@@ -1586,20 +1546,20 @@
     lodash-es "^4.17.21"
     react-i18next "^11.12.0"
 
-"@douyinfe/semi-site-markdown-blocks@^0.0.7":
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/@douyinfe/semi-site-markdown-blocks/-/semi-site-markdown-blocks-0.0.7.tgz#4377224a2e9d2e7ef9bbfaa10430033feb748f63"
-  integrity sha512-LP6wQCyTsA7bE6bFSrnyQS7+VdmbW8llCA23KqqlM9y/LF4NJqoNkLP0K0PeLqMVRdEfgvreNKRwIsBdHFL4+A==
+"@douyinfe/semi-site-markdown-blocks@^0.0.8":
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/@douyinfe/semi-site-markdown-blocks/-/semi-site-markdown-blocks-0.0.8.tgz#692cf395ce399dc544d1c6ab7310b36c47734724"
+  integrity sha512-7OLcwhwGhzyL//lcgYSQ/pxIa193LVixv/QouN1Tf+ulK4fSz1EfDH3uLE+yC4w2LRqtkLNVkE+t5hVpauDseA==
   dependencies:
-    "@douyinfe/semi-site-playground" "0.0.7"
+    "@douyinfe/semi-site-playground" "0.0.8"
     classnames "^2.2.6"
     prism-react-renderer "^1.0.1"
     prop-types "^15.7.2"
 
-"@douyinfe/semi-site-playground@0.0.7":
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/@douyinfe/semi-site-playground/-/semi-site-playground-0.0.7.tgz#5be45ca2d87420200bc52c730cf37a77f5d4d586"
-  integrity sha512-JhzHshDEfLBmc1sxTyGgbvpADIMxLBaq83LnizsPYUfbwmA97j2oJPftyQuktMZIWAl1Yl90cvAX4iIBb7XlhQ==
+"@douyinfe/semi-site-playground@0.0.8":
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/@douyinfe/semi-site-playground/-/semi-site-playground-0.0.8.tgz#faf19a7c3e36d2737148e4dda01ea081e1d9a9f0"
+  integrity sha512-u2EF4GNfW5AsCu1HfczIfkyjdoKYxk+jq30lZqQ04hVv9eD65kKMkG6YIPllemLmf63/dG9XBhFMbGPsYO6smw==
   dependencies:
     "@douyinfe/semi-icons" "^2.0.0"
     "@douyinfe/semi-ui" "^2.0.0"
@@ -1611,45 +1571,12 @@
     monaco-themes "^0.3.3"
     react-live "^2.2.2"
 
-"@douyinfe/semi-theme-default@2.18.2":
-  version "2.18.2"
-  resolved "https://registry.yarnpkg.com/@douyinfe/semi-theme-default/-/semi-theme-default-2.18.2.tgz#33686bc173271ef46d8c5b267152a4580565a2a6"
-  integrity sha512-p64ocgajnetGgsfHPkxTZ2fP36CG3MXuGmvo9L9J6K3bwk5cQITCxYAht84JQtoLPXaeRL7hgBPh7Jtd90WieA==
-  dependencies:
-    glob "^7.1.6"
-
 "@douyinfe/semi-theme-default@2.9.1":
   version "2.9.1"
   resolved "https://registry.yarnpkg.com/@douyinfe/semi-theme-default/-/semi-theme-default-2.9.1.tgz#734113e9783ca58b69afe1769005e7e57e5a4da7"
   integrity sha512-uCGr/wcjoApc62kAf8WTe2E7O3IUXbWgM9MJn+OcrWizvTh/qlxY4xHMJ+HgtJFGV4BXSu5I3KB4FEfT31JxoA==
   dependencies:
     glob "^7.1.6"
-
-"@douyinfe/semi-ui@^2.0.0":
-  version "2.18.2"
-  resolved "https://registry.yarnpkg.com/@douyinfe/semi-ui/-/semi-ui-2.18.2.tgz#3e41d400140792281e1dba7d321ddbadc17f9460"
-  integrity sha512-RFgrFkg1n3Srs6z7y9r2vfn698KgjzxjeIHCSonr8QiVTJR12q/5NcZjvY66iHaDRPP5yHWXp0C+FUIUYBczNA==
-  dependencies:
-    "@babel/runtime-corejs3" "^7.15.4"
-    "@douyinfe/semi-animation" "2.12.0"
-    "@douyinfe/semi-animation-react" "2.18.2"
-    "@douyinfe/semi-foundation" "2.18.2"
-    "@douyinfe/semi-icons" "2.18.2"
-    "@douyinfe/semi-illustrations" "2.15.0"
-    "@douyinfe/semi-theme-default" "2.18.2"
-    async-validator "^3.5.0"
-    classnames "^2.2.6"
-    copy-text-to-clipboard "^2.1.1"
-    date-fns "^2.9.0"
-    date-fns-tz "^1.0.10"
-    lodash "^4.17.21"
-    prop-types "^15.7.2"
-    react-resizable "^1.8.0"
-    react-sortable-hoc "^2.0.0"
-    react-window "^1.8.2"
-    resize-observer-polyfill "^1.5.1"
-    scroll-into-view-if-needed "^2.2.24"
-    utility-types "^3.10.0"
 
 "@douyinfe/semi-ui@latest":
   version "2.9.1"

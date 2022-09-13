@@ -528,7 +528,9 @@ export default function Template(args) {
                     let timer = null;
                     const messageHandle = (e)=>{
                         if(e.data === "oneCodeLoaded"){
-                            dom.scrollIntoView();
+                            // dom.scrollIntoView();
+                            window.scroll(0,dom.offsetTop)
+                            console.log("===>",dom.offsetHeight);
                             clearTimeout(timer);
                             timer = setTimeout(()=>{
                                 window.removeEventListener('message',messageHandle);
