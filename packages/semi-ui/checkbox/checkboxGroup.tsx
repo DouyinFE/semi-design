@@ -120,6 +120,7 @@ class CheckboxGroup extends BaseComponent<CheckboxGroupProps, CheckboxGroupState
             [`${prefix }-wrapper`]: true,
             [`${prefix }-${ direction}`]: direction,
             [`${prefix}-${direction}-cardType`]: direction && isCardType,
+            [`${prefix}-${direction}-pureCardType`]: direction && isPureCardType,
         }, className);
 
         const realValue = this.state.value.slice();

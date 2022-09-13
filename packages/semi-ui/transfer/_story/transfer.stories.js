@@ -209,9 +209,9 @@ const ControlledTransfer = () => {
   );
 };
 
-export const ControlledTransfer = () => <ControlledTransfer />;
+export const ControlledTransferDemo = () => <ControlledTransfer />;
 
-ControlledTransfer.story = {
+ControlledTransferDemo.story = {
   name: '受控Transfer',
 };
 

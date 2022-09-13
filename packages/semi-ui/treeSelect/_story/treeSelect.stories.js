@@ -469,6 +469,9 @@ export const Multiple = () => (
       // value={this.state.value}
       dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
       treeData={treeData2}
+      defaultOpen
+      defaultExpandAll
+      motion={false}
       multiple
       placeholder="Please select"
     />

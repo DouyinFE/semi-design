@@ -1472,6 +1472,8 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
             <Option label='abc' value='bytedance' />
           </Select>
         ```
+    - 分组情况下，重复label并不会造成用户困惑为什么仍要求label必须唯一？
+      - 选择面板打开情况下，确实不会造成用户使用上的困惑，但是选择面板收起后，重复label属于哪个分组对用户而言仍具有迷惑性。
     - 我的数据里确实就有多个 label 一样的选项，无法避免。这个交互能绕过吗？
       - 可以。我们不推荐向用户展示重复的 label option，但如果你确定你需要这么做，当你往 label 传入 ReactNode 类型时，可以绕过这个限制。 
 
