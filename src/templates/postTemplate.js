@@ -187,6 +187,7 @@ const code = ({ ...props }) => {
             delete lodashScope.default;
             newProps.scope = { ...newProps.scope, ...lodashScope, _: { ...lodash_es } };
             setComponent(() => content.default);
+            window.postMessage("oneCodeLoaded")
         }, 0);
         return () => {
             ref.current.mounted = false;
@@ -524,7 +525,18 @@ export default function Template(args) {
 
                 const dom = document.querySelector(id);
                 if (dom) {
-                    setTimeout(()=>dom.scrollIntoView());
+                    let timer = null;
+                    const messageHandle = (e)=>{
+                        if(e.data === "oneCodeLoaded"){
+                            dom.scrollIntoView();
+                            clearTimeout(timer);
+                            timer = setTimeout(()=>{
+                                window.removeEventListener('message',messageHandle);
+                            },5000)
+                        }
+                    }
+                    window.addEventListener('message',messageHandle);
+            
                 }
             }
         } catch (e) {
