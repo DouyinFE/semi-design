@@ -25,6 +25,7 @@ import TriangleArrowVertical from './TriangleArrowVertical';
 import TooltipTransition from './TooltipStyledTransition';
 import ArrowBoundingShape from './ArrowBoundingShape';
 import { Motion } from '../_base/base';
+import CSSAnimation from "@douyinfe/semi-ui/tooltip/CSSAnimation";
 
 export { TooltipTransitionProps } from './TooltipStyledTransition';
 export type Trigger = ArrayElement<typeof strings.TRIGGER_SET>;
@@ -75,7 +76,7 @@ export interface TooltipProps extends BaseProps {
     guardFocus?: boolean;
     returnFocusOnClose?: boolean;
     onEscKeyDown?: (e: React.KeyboardEvent) => void;
-    disableArrowKeyDown?: boolean; 
+    disableArrowKeyDown?: boolean;
     wrapperId?: string;
     preventScroll?: boolean;
     disableFocusListener?: boolean;
@@ -432,7 +433,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                 const focusRefNode = get(this, 'initialFocusRef.current');
                 if (focusRefNode && 'focus' in focusRefNode) {
                     focusRefNode.focus({ preventScroll });
-                } 
+                }
             },
             notifyEscKeydown: (event: React.KeyboardEvent) => {
                 this.props.onEscKeyDown(event);
@@ -572,31 +573,62 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         const portalInnerStyle = omit(containerStyle, motion ? ['transformOrigin'] : undefined);
         const transformOrigin = get(containerStyle, 'transformOrigin');
         const inner = motion && isPositionUpdated ? (
-            <TooltipTransition position={placement} didLeave={this.didLeave} motion={motion}>
+            <CSSAnimation animationState={transitionState as "enter"|"leave"}
+                startClassName={transitionState==='enter'?`${prefixCls}-animation-show`:`${prefixCls}-animation-hide`}
+                onAnimationStart={()=>{console.log('onAnimationStart');}}
+                onAnimationEnd={()=>{
+                    if (transitionState === 'leave'){
+                        this.didLeave();
+                    }
+                }}>
                 {
-                    transitionState === 'enter' ?
-                        ({ animateCls, animateStyle, animateEvents }) => (
-                            <div
-                                className={classNames(className, animateCls)}
-                                style={{
-                                    visibility: 'visible',
-                                    ...animateStyle,
-                                    transformOrigin,
-                                    ...style,
-                                }}
-                                {...portalEventSet}
-                                {...animateEvents}
-                                role={role}
-                                x-placement={placement}
-                                id={id}
-                            >
-                                {contentNode}
-                                {icon}
-                            </div>
-                        ) :
-                        null
+                    ({ animationStyle, animationClassName, animationEventsNeedBind })=>{
+                        return <div
+
+                            className={classNames(className, animationClassName)}
+                            style={{
+                                visibility: 'visible',
+                                ...animationStyle,
+                                transformOrigin,
+                                ...style,
+                            }}
+                            {...portalEventSet}
+                            {...animationEventsNeedBind}
+                            role={role}
+                            x-placement={placement}
+                            id={id}
+                        >
+                            {contentNode}
+                            {icon}
+                        </div>;
+                    }
                 }
-            </TooltipTransition>
+            </CSSAnimation>
+            // <TooltipTransition position={placement} didLeave={this.didLeave} motion={motion}>
+            //     {
+            //         transitionState === 'enter' ?
+            //             ({ animateCls, animateStyle, animateEvents }) => (
+            //                 <div
+            //                     className={classNames(className, animateCls)}
+            //                     style={{
+            //                         visibility: 'visible',
+            //                         ...animateStyle,
+            //                         transformOrigin,
+            //                         ...style,
+            //                     }}
+            //                     {...portalEventSet}
+            //                     {...animateEvents}
+            //                     role={role}
+            //                     x-placement={placement}
+            //                     id={id}
+            //                 >
+            //                     {contentNode}
+            //                     {icon}
+            //                 </div>
+            //             ) :
+            //             null
+            //     }
+            // </TooltipTransition>
         ) : (
             <div className={className} {...portalEventSet} x-placement={placement} style={{ visibility: motion ? 'hidden' : 'visible', ...style }}>
                 {contentNode}
@@ -720,7 +752,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                     ref.current = node;
                 }
             },
-            tabIndex: (children as React.ReactElement).props.tabIndex || 0, // a11y keyboard, in some condition select's tabindex need to -1 or 0 
+            tabIndex: (children as React.ReactElement).props.tabIndex || 0, // a11y keyboard, in some condition select's tabindex need to -1 or 0
             'data-popupid': id
         });
 
