@@ -470,9 +470,10 @@ import { Image, ImagePreview } from '@douyinfe/semi-ui';
 | maskClosable     | Whether the mask can be closed by clicking | Boolean  | true | |
 | closable         | Whether to show the close button   | Boolean | true | |
 | zoomStep         | Image reduction/enlargement ratio each time | number | 0.1 | |
+| lazyLoad         | Whether to enable lazy loading ｜ boolean      | false | |
 | preLoad          | Whether to enable preloading | boolean | true | |
 | preLoadGap       | Preloaded step size      |number         | 2 | |
-| viewerVisibleDelay | The length of time of inactivity before hiding the preview action button | number         | 10000 | |
+| viewerVisibleDelay | The length of time of inactivity before hiding the preview action button | number | 10000 | |
 | disableDownload  | Disable downloads        |boolean        | false | |
 | zIndex           | Preview layer hierarchy  |boolean        | false | |
 | showTooltip      | Whether to display the bottom operation area prompt | boolean | - | |

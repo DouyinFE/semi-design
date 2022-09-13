@@ -84,11 +84,11 @@ export default class Footer extends BaseComponent<FooterProps> {
     }
 
     handleRotateLeft = () => {
-        this.foundation.handleRotate('left');
+        this.foundation.handleRotate("left");
     }
 
     handleRotateRight = () => {
-        this.foundation.handleRotate('right');
+        this.foundation.handleRotate("right");
     }
 
     handleSlideChange = throttle((value): void => {
@@ -138,10 +138,10 @@ export default class Footer extends BaseComponent<FooterProps> {
         const { disabledPrev, onPrev, prevTip } = this.props;
         const icon = <IconChevronLeft
             size="large"
-            className={disabledPrev ? `${prefixCls}-disabled` : ""}
+            className={disabledPrev ? `${footerPrefixCls}-disabled` : ""}
             onClick={!disabledPrev ? onPrev : undefined}
         />;
-        const content = prevTip ?? this.getLocalTextByKey('prevTip');
+        const content = prevTip ?? this.getLocalTextByKey("prevTip");
         return this.getFinalIconElement(icon, content);
     }
 
@@ -149,10 +149,10 @@ export default class Footer extends BaseComponent<FooterProps> {
         const { disabledNext, onNext, nextTip } = this.props;
         const icon = <IconChevronRight
             size="large"
-            className={disabledNext ? `${prefixCls}-disabled` : ""}
+            className={disabledNext ? `${footerPrefixCls}-disabled` : ""}
             onClick={!disabledNext ? onNext : undefined}
         />;
-        const content = nextTip ?? this.getLocalTextByKey('nextTip');
+        const content = nextTip ?? this.getLocalTextByKey("nextTip");
         return this.getFinalIconElement(icon, content);
     }
 
@@ -162,7 +162,7 @@ export default class Footer extends BaseComponent<FooterProps> {
         const icon = <IconMinus 
             size="large" 
             onClick={!disabledZoomOut ? this.handleMinusClick : undefined} 
-            className={disabledZoomOut ? `${prefixCls}-disabled` : ""}
+            className={disabledZoomOut ? `${footerPrefixCls}-disabled` : ""}
         />;
         const content = zoomOutTip ?? this.getLocalTextByKey("zoomOutTip");
         return this.getFinalIconElement(icon, content);
@@ -174,9 +174,9 @@ export default class Footer extends BaseComponent<FooterProps> {
         const icon = <IconPlus 
             size="large" 
             onClick={!disabledZoomIn ? this.handlePlusClick : undefined}  
-            className={disabledZoomIn ? `${prefixCls}-disabled` : ""}
+            className={disabledZoomIn ? `${footerPrefixCls}-disabled` : ""}
         />;
-        const content = zoomInTip ?? this.getLocalTextByKey('zoomInTip');
+        const content = zoomInTip ?? this.getLocalTextByKey("zoomInTip");
         return this.getFinalIconElement(icon, content);
     }
 
@@ -214,7 +214,7 @@ export default class Footer extends BaseComponent<FooterProps> {
             onClick={!disableDownload ? onDownload : undefined}
             className={cls(`${footerPrefixCls}-gap`,
                 {
-                    [`${prefixCls}-disabled`] : disableDownload,
+                    [`${footerPrefixCls}-disabled`] : disableDownload,
                 },
             )}
         />;

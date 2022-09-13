@@ -236,7 +236,7 @@ $module: #{$prefix}-image;
             margin: $spacing-image_preview_footer_divider-marginY $spacing-image_preview_footer_divider-marginX;
         }
         
-        .#{$module}-disabled {
+        .#{$module}-preview-footer-disabled {
             color: $color-image_preview_disabled;
             cursor: default;
             pointer-events: none;

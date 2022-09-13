@@ -161,7 +161,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
             viewerVisible: true,
             visible: false,
             preloadAfterVisibleChange: true,
-            direction: '',
+            direction: "",
         }; 
         this.foundation = new PreviewInnerFoundation(this.adapter);
     }
@@ -182,7 +182,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
                 willUpdateStates.preloadAfterVisibleChange = true;
             }
         }
-        if ('currentIndex' in props && props.currentIndex !== state.currentIndex) {
+        if ("currentIndex" in props && props.currentIndex !== state.currentIndex) {
             willUpdateStates.currentIndex = props.currentIndex;
         }
         return willUpdateStates;

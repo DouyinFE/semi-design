@@ -160,7 +160,7 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
         const { src, style, lazyLoad, ...restProps } = this.props;
         const { currentIndex, visible } = this.state;
         const { srcListInChildren, newChildren, titles } = this.loopImageIndex();
-        const srcArr = Array.isArray(src) ? src : (typeof src === 'string' ? [src] : []);
+        const srcArr = Array.isArray(src) ? src : (typeof src === "string" ? [src] : []);
         const finalSrcList = [...srcArr, ...srcListInChildren];
         return (
             <PreviewContext.Provider

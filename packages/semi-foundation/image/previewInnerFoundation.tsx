@@ -1,6 +1,6 @@
 import BaseFoundation, { DefaultAdapter } from "../base/foundation";
 import KeyCode from "../utils/keyCode";
-import { getPreloadImagArr, downloadImage, isTargetEmit } from './utils';
+import { getPreloadImagArr, downloadImage, isTargetEmit } from "./utils";
 
 export interface PreviewInnerAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     getIsInGroup: () => boolean;
@@ -99,7 +99,7 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
         const { imgSrc, currentIndex: currentIndexInState } = this.getStates();
         const srcLength = imgSrc.length;
         const newIndex = (currentIndexInState + step + srcLength) % srcLength;
-        if ('currentIndex' in this.getProps()) {
+        if ("currentIndex" in this.getProps()) {
             if (this._adapter.getIsInGroup()) {
                 const setCurrentIndex = this._adapter.getContext("setCurrentIndex");
                 setCurrentIndex(newIndex);
@@ -139,7 +139,7 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
 
     handleRotateImage = (direction: string) => {
         const { rotation } = this.getStates();
-        const newRotation = rotation + (direction === 'left' ? 90 : (-90));
+        const newRotation = rotation + (direction === "left" ? 90 : (-90));
         this.setState({
             rotation: newRotation,
         } as any);
@@ -166,7 +166,7 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
         const { preLoad, preLoadGap, infinite, currentIndex } = this.getProps();
 
         const { imgSrc }= this.getStates();
-        if (!preLoad || typeof preLoadGap !== 'number' || preLoadGap < 1){
+        if (!preLoad || typeof preLoadGap !== "number" || preLoadGap < 1){
             return;
         }
 
@@ -200,12 +200,12 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
     preloadSingleImage = () => {
         const { preLoad, preLoadGap, infinite } = this.getProps();
         const { imgSrc, currentIndex, direction, imgLoadStatus } = this.getStates();
-        if (!preLoad || typeof preLoadGap !== 'number' || preLoadGap < 1){
+        if (!preLoad || typeof preLoadGap !== "number" || preLoadGap < 1){
             return;
         }
         // 根据方向决定preload那个index
         // Determine the index of preload according to the direction
-        let preloadIndex = currentIndex + (direction === 'prev' ? -1 : 1) * preLoadGap;
+        let preloadIndex = currentIndex + (direction === "prev" ? -1 : 1) * preLoadGap;
         if (preloadIndex < 0 || preloadIndex >= imgSrc.length) {
             if (infinite) {
                 preloadIndex = (preloadIndex + imgSrc.length) % imgSrc.length;

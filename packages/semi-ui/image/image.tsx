@@ -139,7 +139,7 @@ export default class Image extends BaseComponent<ImageProps, ImageStates> {
     renderError = () => {
         const { fallback } = this.props;
         const prefixClsName = `${prefixCls}-status`;
-        const fallbackNode = typeof fallback === 'string' ? (<img style={{ width: '100%', height: '100%' }}src={fallback} alt='fallback'/>) : fallback;
+        const fallbackNode = typeof fallback === "string" ? (<img style={{ width: "100%", height: "100%" }}src={fallback} alt="fallback"/>) : fallback;
         return (
             fallback ? (
                 <div className={prefixClsName}>
@@ -189,7 +189,7 @@ export default class Image extends BaseComponent<ImageProps, ImageStates> {
                 onClick={this.handleClick}
             >
                 <img
-                    src={this.isInGroup() && this.isLazyLoad() ? '' : src}
+                    src={this.isInGroup() && this.isLazyLoad() ? "" : src}
                     data-src={src}
                     alt={alt}
                     className={`${prefixCls}-img`}

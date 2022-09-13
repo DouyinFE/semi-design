@@ -435,9 +435,9 @@ import { Image, ImagePreview } from '@douyinfe/semi-ui';
 };
 ```
 
-### API 参考
+## API 参考
 
-**Image**
+### Image
 
 | 属性              | 说明                                    | 类型              | 默认值 | 版本 |
 |-------------------|---------------------------------------|-------------------|------|------|
@@ -454,7 +454,7 @@ import { Image, ImagePreview } from '@douyinfe/semi-ui';
 | onError           | 加载错误回调                              | (event: Event) => void | - | |
 | onLoad            | 加载成功回调                              | (event: Event) => void | - | |
 
-**ImagePreview**
+### ImagePreview
 
 | 属性               | 说明                    | 类型              | 默认值 | 版本 |
 |-------------------|-------------------------|------------------|-------|-----|
@@ -470,6 +470,7 @@ import { Image, ImagePreview } from '@douyinfe/semi-ui';
 | maskClosable      | 点击遮罩是否可关闭         | boolean        | true | |
 | closable          | 是否显示关闭按钮           | boolean        | true | |
 | zoomStep          | 图片每次缩小/放大比例       | number        | 0.1 | |
+| lazyLoad          | 是否开启懒加载             ｜ boolean      | false | |
 | preLoad           | 是否开启预加载             | boolean        | true | |
 | preLoadGap        | 预加载的步长               | number         | 2 | |
 | viewerVisibleDelay | 隐藏预览操作按钮前的无操作时长 | number         | 10000 | |
@@ -497,7 +498,7 @@ import { Image, ImagePreview } from '@douyinfe/semi-ui';
 | onNext            | 向后切换图片的回调   | (index: number) => void | - | |
 | onRotateLeft      | 旋转图片的回调      | (angle: number) => void | - | |
 
-**MenuProps**
+### MenuProps
 
 | 属性               | 说明                     | 类型    |
 |-------------------|--------------------------|--------|
