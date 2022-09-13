@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { CSSProperties } from "react";
 import BaseComponent from "../_base/baseComponent";
-import { PreviewInnerProps, PreviewInnerStates, RatioType } from "./interface";
+import { PreviewProps as PreviewInnerProps, PreviewInnerStates, RatioType } from "./interface";
 import PropTypes from "prop-types";
 import { cssClasses } from "@douyinfe/semi-foundation/image/constants";
 import cls from "classnames";
@@ -33,11 +33,11 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
         src: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
         currentIndex: PropTypes.number,
         defaultIndex: PropTypes.number,
-        defaultVisible:  PropTypes.bool,
-        maskClosable:  PropTypes.bool,
-        closable:  PropTypes.bool,
+        defaultVisible: PropTypes.bool,
+        maskClosable: PropTypes.bool,
+        closable: PropTypes.bool,
         zoomStep: PropTypes.number,
-        infinite:  PropTypes.bool,
+        infinite: PropTypes.bool,
         showTooltip: PropTypes.bool,
         closeOnEsc: PropTypes.bool,
         prevTip: PropTypes.string,
@@ -47,11 +47,11 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
         downloadTip: PropTypes.string,
         adaptiveTip:PropTypes.string,
         originTip: PropTypes.string,
+        lazyLoad: PropTypes.bool,
         preLoad: PropTypes.bool,
-        preLoadGap:  PropTypes.number,
-        animationDuration: PropTypes.number,
+        preLoadGap: PropTypes.number,
+        disableDownload: PropTypes.bool,
         viewerVisibleDelay: PropTypes.number,
-        disableDownload:  PropTypes.bool,
         zIndex: PropTypes.number,
         renderHeader: PropTypes.func,
         renderPreviewMenu: PropTypes.func,
@@ -63,19 +63,22 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
         onZoomOut: PropTypes.func,
         onPrev: PropTypes.func,
         onNext: PropTypes.func,
-        onDownload: PropTypes.func,  
-        onRatioChange:  PropTypes.func,  
-        onRotateChange:  PropTypes.func,  
+        onDownload: PropTypes.func,
+        onRatioChange: PropTypes.func,
+        onRotateChange: PropTypes.func,
     }
 
     static defaultProps = {
         showTooltip: false,
         zoomStep: 0.1,
-        viewerVisibleDelay: 2000,
         infinite: false,
         closeOnEsc: true,
+        lazyLoad: false,
         preLoad: true, 
         preLoadGap: 2,
+        zIndex: 1000,
+        maskClosable: true,
+        viewerVisibleDelay: 10000,
     };
 
     get adapter(): PreviewInnerAdapter<PreviewInnerProps, PreviewInnerStates> {
@@ -132,6 +135,9 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
             getStartMouseDown: () => {
                 return startMouseDown;
             },
+            setStartMouseDown: (x: number, y: number) => {
+                startMouseDown = { x, y };
+            },
             setMouseActiveTime: (time: number) => {
                 mouseActiveTime = time;
             },
@@ -142,7 +148,6 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
     timer;
     context: PreviewContextProps;
     foundation: PreviewInnerFoundation;
-
 
     constructor(props: PreviewInnerProps) {
         super(props);
@@ -164,7 +169,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
     static getDerivedStateFromProps(props: PreviewInnerProps, state: PreviewInnerStates) {
         const willUpdateStates: Partial<PreviewInnerStates> = {};
         let src = [];
-        if (props.src) {
+        if (props.visible) {
             // if src in props
             src = Array.isArray(props.src) ? props.src : [props.src];
         } 
@@ -180,7 +185,6 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
         if ('currentIndex' in props && props.currentIndex !== state.currentIndex) {
             willUpdateStates.currentIndex = props.currentIndex;
         }
-        // console.log('willUpdateStates.', willUpdateStates);
         return willUpdateStates;
     }
 
@@ -228,8 +232,8 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
         this.foundation.handleAdjustRatio(type);
     }
 
-    handleRotateImage = () => {
-        this.foundation.handleRotateImage();
+    handleRotateImage = (direction) => {
+        this.foundation.handleRotateImage(direction);
     }
 
     handleZoomImage = (newZoom: number) => {
@@ -258,7 +262,12 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
 
     onImageLoad = (src) => {
         this.foundation.onImageLoad(src);
-    }    
+    }   
+    
+    handleMouseDown = (e): void => {
+        this.foundation.handleMouseDown(e);
+        
+    }
 
     render() {
         const { 
@@ -307,7 +316,6 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
         const total = imgSrc.length;
         const showPrev = total !== 1 && (infinite || currentIndex !== 0); 
         const showNext = total !== 1 && (infinite || currentIndex !== total - 1);
-        // console.log("currentIndex", currentIndex, imgSrc[currentIndex]);
         return (
             <Portal 
                 getPopupContainer={getPopupContainer}
@@ -318,10 +326,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
                 <div 
                     className={previewWrapperCls}
                     style={style}
-                    onMouseDown={(e): void => {
-                        const { clientX, clientY } = e;
-                        startMouseDown = { x: clientX, y: clientY };
-                    }}
+                    onMouseDown={this.handleMouseDown}
                     onMouseUp={this.handleMouseUp}
                     onMouseMove={this.handleMouseMove}
                     onMouseOver={(e): void => this.handleMouseEvent(e, "over")}
@@ -386,7 +391,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
                         onZoomIn={this.handleZoomImage}
                         onZoomOut={this.handleZoomImage}
                         onDownload={this.handleDownload}
-                        onRotateLeft={this.handleRotateImage}
+                        onRotate={this.handleRotateImage}
                         onAdjustRatio={this.handleAdjustRatio}
                         renderPreviewMenu={renderPreviewMenu}
                     />

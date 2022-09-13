@@ -3,7 +3,7 @@ import { IconClose } from "@douyinfe/semi-icons";
 import { cssClasses } from "@douyinfe/semi-foundation/image/constants";
 import cls from "classnames";
 import { HeaderProps } from "./interface";
-import { PreviewContext, PreviewContextProps } from "./previewContext";
+import { PreviewContext } from "./previewContext";
 
 const prefixCls = `${cssClasses.PREFIX}-preview-header`;
 

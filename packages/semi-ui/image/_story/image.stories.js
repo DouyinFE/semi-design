@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import {
     Image,
     Button,
@@ -49,7 +49,18 @@ export const basicImage = () => (
     />
 )
 
-export const ControlledImagePreview = () => {
+export const ShowOperationTooltip = () => (
+    <Image 
+        width={360}
+        height={200}
+        src="https://lf3-static.bytednsdoc.com/obj/eden-cn/9130eh7pltbfnuhog/lion.jpeg"
+        preview={{
+            showTooltip: true,
+        }}
+    />
+)
+
+export const ControlledPreviewSingle = () => {
     const [visible, setVisible] = useState(false);
 
     const handlePreviewVisibleChange = useCallback((v) => {
@@ -62,54 +73,58 @@ export const ControlledImagePreview = () => {
 
     return (
         <>
-            <Button onClick={handleClick}>{visible ? "hide" : "show"}</Button>
+            <Button onClick={handleClick}>{visible ? "hide" : "show single"}</Button>
             <ImagePreview 
-                srcList={srcList1}
+                src={"https://lf3-static.bytednsdoc.com/obj/eden-cn/9130eh7pltbfnuhog/lion.jpeg"}
                 visible={visible}
                 onVisibleChange={handlePreviewVisibleChange}
-
             />
         </>
     )
 }
 
-export const BasicPreview = () => {
+export const ControlledPreviewMultiple = () => {
     const [visible, setVisible] = useState(false);
 
-    const visibleChange = useCallback((v) => {
+    const handlePreviewVisibleChange = useCallback((v) => {
         setVisible(v);
     }, []);
 
+    const handleClick = useCallback(() => {
+        setVisible(!visible);
+    }, [visible])
+
     return (
-        <>  
-            <ImagePreview
+        <>
+            <Button onClick={handleClick}>{visible ? "hide" : "show multiple"}</Button>
+            <ImagePreview 
+                src={srcList1}
                 visible={visible}
-                onVisibleChange={visibleChange}
-            >
-                <div >
-                    {srcList1.map((src, index) => {
-                        return (
-                            <Image 
-                                key={index} 
-                                src={src} 
-                                width={200} 
-                                alt={`lamp${index + 1}`} 
-                                preview={index !== 1} 
-                            />
-                    )})}
-                </div>
-            </ImagePreview>
+                onVisibleChange={handlePreviewVisibleChange}
+            />
         </>
     )
-};
+}
+
+export const BasicPreview = () => (
+    <ImagePreview>
+        {srcList1.map((src, index) => {
+            return (
+                <Image 
+                    key={index} 
+                    src={src} 
+                    width={200} 
+                    alt={`lamp${index + 1}`}
+                />
+        )})}
+    </ImagePreview>
+);
 
 // test all call back function
 export const TestCallBackFunc = () => {
-    const [visible, setVisible] = useState(false);
   
     const visibleChange =  useCallback((v) => {
         console.log("visible change", v);
-        setVisible(v);
     }, []);
 
     const change = useCallback((index) => {
@@ -147,24 +162,21 @@ export const TestCallBackFunc = () => {
     return (
         <>  
             <ImagePreview
-                visible={visible}
                 onVisibleChange={visibleChange}
-                preview = {{
-                    onChange: change,
-                    onClose: close,
-                    onZoomIn: zoomIn,
-                    onZoomOut: zoomOut,
-                    onPrev: prev,
-                    onNext: next,
-                    onRatioChange: ratioChange,
-                    onRotateChange: rotateChange,
-                    onDownload: download,
-                }}
+                onChange={change}
+                onClose={close}
+                onZoomIn={zoomIn}
+                onZoomOut={zoomOut}
+                onPrev={prev}
+                onNext={next}
+                onRatioChange={ratioChange}
+                onRotateChange={rotateChange}
+                onDownload={download}
             >
                 <div >
                     {srcList1.map((src, index) => {
                         return (
-                            <Image key={index} src={src} width={200} alt={`lamp${index + 1}`} preview={index !== 1}/>
+                            <Image key={index} src={src} width={200} alt={`lamp${index + 1}`} />
                     )})}
                 </div>
             </ImagePreview>
@@ -172,74 +184,74 @@ export const TestCallBackFunc = () => {
     )
 };
 
-export const GridImage= () => {
-
-    const [visible, setVisible] = useState(false);
-
-    const visibleChange = useCallback((v) => {
-        setVisible(v);
-    }, []);
-
-    return (
-        <>  
-            <ImagePreview
-                visible={visible}
-                onVisibleChange={visibleChange}
-                preview={{
-                    preLoad: true,
-                    preLoadGap: 3,
-                    infinite: true,
-                }}
-            >
-                <Row style={{ width: 800 }}>
-                    {srcList2.map((src, index) => {
-                        return (
-                            <Col span={6} style={{ height: 200 }} key={`col${index}`}>
-                                <Image key={index} src={src} style={{ width: 200, height: 200 }} width={200} alt={`lamp${index + 1}`} />
-                            </Col>
-                    )})}
-                </Row>
-            </ImagePreview>
-        </>
-    )
-};
+export const GridImage= () => (
+    <>  
+        <ImagePreview
+            preview={{
+                preLoad: true,
+                preLoadGap: 3,
+                infinite: true,
+            }}
+        >
+            <Row style={{ width: 800 }}>
+                {srcList2.map((src, index) => {
+                    return (
+                        <Col span={6} style={{ height: 200 }} key={`col${index}`}>
+                            <Image key={index} src={src} style={{ width: 200, height: 200 }} width={200} alt={`lamp${index + 1}`} />
+                        </Col>
+                )})}
+            </Row>
+        </ImagePreview>
+    </>
+);
 
 export const CustomContainer = () => {
-    const [visible, setVisible] = useState(false);
+    const srcList = useMemo(() => ([
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/9130eh7pltbfnuhog/flower.jpeg",
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/9130eh7pltbfnuhog/duck.jpeg",
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/9130eh7pltbfnuhog/swan.jpeg",
+    ]), []);
 
-    const visibleChange = useCallback((v) => {
-        setVisible(v);
-    }, []);
-
-    return (
-        <>  
-            <ImagePreview
-                visible={visible}
-                onVisibleChange={visibleChange}
-                preview={{
-                    getPopupContainer: () => {
-                        const node = document.getElementById("container");
-                        console.log("custom container node", node);
-                        return node;
-                    }
-                }}
+    return ( 
+        <>
+            <div 
+                id="container" 
+                style={{ 
+                    height: 400, 
+                    position: "relative",
+                }} 
             >
-                {srcList1.map((src, index) => {
-                    return <Image key={index} src={src} width={200} alt={`lamp${index + 1}`} />
-                })}
-            </ImagePreview>
-            <div id="container" style={{ width: 500, height: 500, border: "1px solid black", margin: 20, position: "relative" }} />
+                <ImagePreview
+                    getPopupContainer={() => {
+                        const node = document.getElementById("container");
+                        return node;
+                    }}
+                    style={{
+                        height: '100%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexWrap: 'wrap',
+        
+                    }}
+                >
+                    {srcList.map((src, index) => {
+                        return (
+                            <Image 
+                                key={index} 
+                                src={src} 
+                                width={200} 
+                                alt={`lamp${index + 1}`} 
+                            />
+                        );
+                    })}
+                </ImagePreview>
+            </div>
         </>
-    )
-};
+    );
+}
 
 export const customRenderFooterMenu = () => {
-    const [visible, setVisible] = useState(false);
-
-    const visibleChange = useCallback((v) => {
-        setVisible(v);
-    }, []);
-
     const renderPreviewMenu = useCallback((props) => {
         const {
             ratio,
@@ -313,16 +325,12 @@ export const customRenderFooterMenu = () => {
                 disabled={disableDownload}
             />
     </div>);
-    }, [])
+    }, []);
 
     return (
         <>  
             <ImagePreview
-                visible={visible}
-                onVisibleChange={visibleChange}
-                preview={{
-                    renderPreviewMenu,
-                }}
+                renderPreviewMenu={renderPreviewMenu}
             >
                 {srcList1.map((src, index) => {
                     return <Image key={index} src={src} width={200} alt={`lamp${index + 1}`} />
@@ -332,43 +340,38 @@ export const customRenderFooterMenu = () => {
     );
 }
 
-export const CustomRenderTitle = () => {
-    const [visible, setVisible] = useState(false);
-
-    const visibleChange = useCallback((v) => {
-        setVisible(v);
-    }, []);
-
-    return (
-        <>  
-            <ImagePreview
-                visible={visible}
-                onVisibleChange={visibleChange}
-                preview={
-                   {
-                        renderHeader: (title) => (
-                            <div style={{ background: "green", width:" 100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                                {title}
-                            </div>
-                        )
-                   }
-                }
-            >
-                <div >
-                    {srcList1.map((src, index) => {
-                        return (
-                            <Image 
-                                key={index} 
-                                src={src} 
-                                width={200} 
-                                alt={`lamp${index + 1}`} 
-                                preview={{
-                                    previewTitle: `lamp${index + 1}`,
-                                }} 
-                            />
-                    )})}
+export const CustomRenderTitle = () => (
+    <>  
+        <ImagePreview
+            renderHeader={(title) => (
+                <div
+                    style={{ 
+                        background: "green", 
+                        width: "100%", 
+                        height: "100%", 
+                        display: "flex", 
+                        alignItems: "center", 
+                        justifyContent: "center" 
+                    }}
+                >
+                    {title}
                 </div>
-            </ImagePreview>
-        </>
-    );
-}
+            )}
+        >
+            <div >
+                {srcList1.map((src, index) => {
+                    return (
+                        <Image 
+                            key={index} 
+                            src={src} 
+                            width={200} 
+                            alt={`lamp${index + 1}`} 
+                            preview={{
+                                previewTitle: `lamp${index + 1}`,
+                            }} 
+                        />
+                )})}
+            </div>
+        </ImagePreview>
+    </>
+);

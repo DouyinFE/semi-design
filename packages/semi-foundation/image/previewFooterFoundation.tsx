@@ -32,5 +32,10 @@ export default class PreviewFooterFoundation<P = Record<string, any>, S = Record
         const type = ratio === "adaptation" ? "realSize" : "adaptation";
         onAdjustRatio(type);
     }
+
+    handleRotate = (direction: string): void => {
+        const { onRotate } = this.getProps();
+        onRotate && onRotate(direction);
+    }
     
 }

@@ -1,7 +1,6 @@
 export const isTargetEmit = (event, targetClasses): boolean => {
     // e.path is the event-triggered bubbling path, which stores each node through which bubbling passes.
     // e.path.length-4 is to remove elements above the root node, such as body, html, document, window
-    // console.log('target', event?.path, event);
     const isTarget = event?.path?.slice(0, event.path.length - 4).some((node): boolean => {
         if (node.className && typeof node.className === "string") {
             return targetClasses.some(c => node.className.includes(c));
@@ -83,6 +82,5 @@ export const getPreloadImagArr = (imgSrc: string[], currentIndex: number, preLoa
     }
     const result = crossMerge(leftArr.reverse(), rightArr);
     const duplicateResult = Array.from(new Set(result));
-    // console.log("preload after preview visible change", duplicateResult);
     return duplicateResult;
 };

@@ -1,4 +1,6 @@
 import BaseFoundation, { DefaultAdapter } from "../base/foundation";
+import { handlePrevent } from "../utils/a11y";
+import { throttle } from "lodash";
 
 export interface PreviewImageAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     getOriginImageSize: () => { originImageWidth: number; originImageHeight: number; }; 
@@ -119,7 +121,12 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
         }
     };
 
-    handleWheel = (e: React.WheelEvent<HTMLImageElement>): void => {
+    handleWheel = (e: React.WheelEvent<HTMLImageElement>) => {
+        this.onWheel(e);
+        handlePrevent(e);
+    }
+
+    onWheel = throttle((e: React.WheelEvent<HTMLImageElement>): void => {
         const { onZoom, zoomStep, maxZoom, minZoom } = this.getProps();
         const { currZoom } = this.getStates();
         let _zoom = null;
@@ -137,8 +144,7 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
         if (_zoom !== null) {
             onZoom(_zoom);
         }
-        e.preventDefault();
-    }
+    }, 50);
 
     calcCanDragDirection = (): DragDirection => {
         const { width, height } = this.getStates();

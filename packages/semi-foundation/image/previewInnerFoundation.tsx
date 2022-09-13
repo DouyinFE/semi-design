@@ -17,6 +17,7 @@ export interface PreviewInnerAdapter<P = Record<string, any>, S = Record<string,
     getStopTiming: () => boolean;
     setStopTiming: (value: boolean) => void;
     getStartMouseDown: () => {x: number, y: number};
+    setStartMouseDown: (x: number, y: number) => void;
     setMouseActiveTime: (time: number) => void;
 }
 
@@ -66,15 +67,21 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
     }
 
     handleMouseUp = (e: any) => {
+        const { maskClosable } = this.getProps();
         let couldClose = !isTargetEmit(e.nativeEvent, NOT_CLOSE_TARGETS);
         const { clientX, clientY } = e;
         const { x, y } = this._adapter.getStartMouseDown();
         if (clientX !== x || y !== clientY) {
             couldClose = false;
         }
-        if (couldClose) {
+        if (couldClose && maskClosable) {
             this.handlePreviewClose();
         }
+    }
+
+    handleMouseDown = (e: any) => {
+        const { clientX, clientY } = e;
+        this._adapter.setStartMouseDown(clientX, clientY);
     }
 
     handleKeyDown = (e: any) => {
@@ -97,12 +104,12 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
                 const setCurrentIndex = this._adapter.getContext("setCurrentIndex");
                 setCurrentIndex(newIndex);
             }
-            this._adapter.notifyChange(newIndex);
         } else {
             this.setState({
                 currentIndex: newIndex,
             } as any);
         }
+        this._adapter.notifyChange(newIndex);
         this.setState({
             direction,
             rotation: 0,
@@ -130,10 +137,9 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
         this._adapter.notifyRatioChange(type);
     }
 
-    
-    handleRotateImage = () => {
+    handleRotateImage = (direction: string) => {
         const { rotation } = this.getStates();
-        const newRotation = rotation + 90;
+        const newRotation = rotation + (direction === 'left' ? 90 : (-90));
         this.setState({
             rotation: newRotation,
         } as any);

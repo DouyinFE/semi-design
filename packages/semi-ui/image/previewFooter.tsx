@@ -7,7 +7,6 @@ import Tooltip from "../tooltip";
 import Divider from "../divider";
 import Slider from "../slider";
 import Icon from "../icons";
-import Button from "../button";
 import { cssClasses } from "@douyinfe/semi-foundation/image/constants";
 import cls from "classnames";
 import PreviewFooterFoundation, { PreviewFooterAdapter } from "@douyinfe/semi-foundation/image/previewFooterFoundation";
@@ -48,7 +47,6 @@ export default class Footer extends BaseComponent<FooterProps> {
         onDownload: PropTypes.func,
     }
 
-    // 用户可通过Prop传入，下面的问题就暂时不进行国际化
     static defaultProps = {
         min: 10,
         max: 500,
@@ -78,11 +76,19 @@ export default class Footer extends BaseComponent<FooterProps> {
     };
 
     handleMinusClick = () => {
-        this.changeSliderValue("Minus");
+        this.changeSliderValue("minus");
     }
 
     handlePlusClick = () => {
         this.changeSliderValue("plus");
+    }
+
+    handleRotateLeft = () => {
+        this.foundation.handleRotate('left');
+    }
+
+    handleRotateRight = () => {
+        this.foundation.handleRotate('right');
     }
 
     handleSlideChange = throttle((value): void => {
@@ -95,11 +101,13 @@ export default class Footer extends BaseComponent<FooterProps> {
 
     customRenderViewMenu = (): ReactNode => {
         const { min, max, step, curPage, totalNum, ratio, zoom, disabledPrev, disabledNext, 
-            disableDownload, onNext, onPrev, onDownload, renderPreviewMenu, onRotateLeft } 
+            disableDownload, onNext, onPrev, onDownload, renderPreviewMenu } 
         = this.props;
 
-        const props = { min, max, step, curPage, totalNum, ratio, zoom, onRotateLeft,
+        const props = { min, max, step, curPage, totalNum, ratio, zoom,
             disabledPrev, disabledNext, disableDownload, onNext, onPrev, onDownload,
+            onRotateLeft: this.handleRotateLeft,
+            onRotateRight: this.handleRotateRight,
             disabledZoomIn: zoom === max,
             disabledZoomOut: zoom === min,
             onRatioClick: this.handleRatioClick,
@@ -110,7 +118,7 @@ export default class Footer extends BaseComponent<FooterProps> {
     }
 
     // According to showTooltip in props, decide whether to use Tooltip to pack a layer
-    // 根据props中的showTooltip决定是否使用Tooltip包一层
+    // 根据 props 中的 showTooltip 决定是否使用 Tooltip 包一层
     getFinalIconElement = (element: ReactNode, content: ReactNode) => {
         const { showTooltip } = this.props;
         return showTooltip ? (
@@ -190,10 +198,10 @@ export default class Footer extends BaseComponent<FooterProps> {
     }
 
     getIconRotate = () => {
-        const { rotateTip, onRotateLeft } = this.props;
+        const { rotateTip } = this.props;
         const icon = <IconRotate
             size="large"
-            onClick={onRotateLeft}
+            onClick={this.handleRotateLeft}
         />;
         const content = rotateTip ?? this.getLocalTextByKey("rotateTip");
         return this.getFinalIconElement(icon, content);
@@ -240,7 +248,7 @@ export default class Footer extends BaseComponent<FooterProps> {
             <section className={cls(footerPrefixCls, `${footerPrefixCls}-wrapper`, className)}>
                 {this.getIconChevronLeft()}
                 <div className={`${footerPrefixCls}-page`}>
-                    {curPage}/{totalNum}
+                    <span>{curPage}</span><span>/</span><span>{totalNum}</span>
                 </div>
                 {this.getIconChevronRight()}
                 <Divider layout="vertical" />

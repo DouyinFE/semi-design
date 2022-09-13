@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 53
+order: 54
 category: Show
 title: List
 subTitle: List
@@ -13,7 +13,7 @@ brief: Lists display a set of related contents
 
 ### How to import
 
-```jsx import 
+```jsx import
 import { List } from '@douyinfe/semi-ui';
 ```
 

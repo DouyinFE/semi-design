@@ -133,9 +133,9 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
         this.foundation.handleRightClickImage(e);
     };
 
-    handleWheel = throttle((e: React.WheelEvent<HTMLImageElement>) => {
+    handleWheel = (e) => {
         this.foundation.handleWheel(e);
-    }, 50);
+    }
 
     handleLoad = (e): void => {
         this.foundation.handleLoad(e);
@@ -180,12 +180,12 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
     };
 
     render() {
-        const { src, rotation, ratio } = this.props;
-        const { loading, width, height, offset, top, left } = this.state;
+        const { src, rotation } = this.props;
+        const { loading, width, height, top, left } = this.state;
         const imgStyle = {
             position: "absolute",
             visibility: loading ? "hidden" : "visible",
-            transform: `rotate(-${rotation}deg)`,
+            transform: `rotate(${-rotation}deg)`,
             top,
             left,
             width: loading ? "auto" : `${width}px`,

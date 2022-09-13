@@ -15,18 +15,17 @@ export interface ImageProps extends BaseProps{
     alt?: string;
     placeholder?: ReactNode;
     fallback?: string | ReactNode;
-    preview?: boolean | PreviewInnerProps;
+    preview?: boolean | PreviewProps;
     onError?: (event: Event) => void;
     onLoad?: (event: Event) => void;
     crossOrigin?: "anonymous"| "use-credentials";
     children?: ReactNode,
     imageID?: number;
-    title?: ReactNode;
 }
 
-export interface PreviewInnerProps extends BaseProps {
+export interface PreviewProps extends BaseProps {
     visible?: boolean;
-    src?: string | Array<string>;
+    src?: string | string[];
     previewTitle?: ReactNode;
     currentIndex?: number;
     defaultIndex?: number;
@@ -45,15 +44,15 @@ export interface PreviewInnerProps extends BaseProps {
     downloadTip?: string;
     adaptiveTip?: string;
     originTip?: string;
+    lazyLoad?: boolean;
     preLoad?: boolean;
     preLoadGap?: number;
-    animationDuration?: number;
     viewerVisibleDelay?: number;
     disableDownload?: boolean;
     zIndex?: number;
     children?: ReactNode,
     renderHeader?: (info: any) => ReactNode;
-    renderPreviewMenu?: (operation: MenuProps) => ReactNode;
+    renderPreviewMenu?: (props: MenuProps) => ReactNode;
     getPopupContainer?: () => HTMLElement;
     onVisibleChange?: (visible: boolean) => void;
     onChange?: (index: number) => void
@@ -85,6 +84,7 @@ export interface MenuProps {
     onZoomOut?: () => void,
     onRatioClick?: () => void,
     onRotateLeft?: () => void,
+    onRotateRight?: () => void,
 }
 
 export type RatioType = "adaptation" | "realSize";
@@ -139,9 +139,9 @@ export interface FooterProps extends SliderProps {
     onPrev?: () => void;
     onNext?: () => void;
     onAdjustRatio?: (type: RatioType) => void;
-    onRotateLeft?: () => void;
+    onRotate?: (direction: string) => void;
     onDownload?: () => void;
-    renderPreviewMenu?: (operation: MenuProps) => ReactNode;
+    renderPreviewMenu?: (props: MenuProps) => ReactNode;
 }
 
 export interface PreviewImageProps {
@@ -186,17 +186,9 @@ export interface ExtremeBounds {
     top: number;
 }
 
-export interface PreviewProps extends BaseProps{
-    srcList?: string[];
-    visible?: boolean;
-    preview?: PreviewInnerProps;
-    currentIndex?: number;
-    defaultCurrentIndex?: number;
-    onVisibleChange?: (visible: boolean) => void;
-}
-
 export interface PreviewState {
     currentIndex: number;
+    visible: boolean;
 }
 
 export function RealSizeSvg() {

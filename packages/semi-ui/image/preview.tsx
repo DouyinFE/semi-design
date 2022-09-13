@@ -1,30 +1,61 @@
 import React, { ReactNode } from "react";
 import { PreviewContext } from "./previewContext";
 import BaseComponent from "../_base/baseComponent";
-import PropTypes from "prop-types";
+import PropTypes, { array } from "prop-types";
 import { PreviewProps, PreviewState } from "./interface";
 import PreviewInner from "./previewInner";
 import PreviewFoundation from "@douyinfe/semi-foundation/image/previewFoundation";
 import { getUuidShort } from "@douyinfe/semi-foundation/utils/uuid";
 import { cssClasses } from "@douyinfe/semi-foundation/image/constants";
+import { isObject } from "lodash";
 
 const prefixCls = cssClasses.PREFIX;
 
 export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
     static propTypes = {
-        srcList: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+        style: PropTypes.object,
+        className: PropTypes.string,
         visible: PropTypes.bool,
-        onChange: PropTypes.func,
-        preview: PropTypes.object,
+        src: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
         currentIndex: PropTypes.number,
-        defaultCurrentIndex: PropTypes.number,
+        defaultIndex: PropTypes.number,
+        defaultVisible: PropTypes.bool,
+        maskClosable: PropTypes.bool,
+        closable: PropTypes.bool,
+        zoomStep: PropTypes.number,
+        infinite: PropTypes.bool,
+        showTooltip: PropTypes.bool,
+        closeOnEsc: PropTypes.bool,
+        prevTip: PropTypes.string,
+        nextTip: PropTypes.string,
+        zoomInTip:PropTypes.string,
+        zoomOutTip: PropTypes.string,
+        downloadTip: PropTypes.string,
+        adaptiveTip:PropTypes.string,
+        originTip: PropTypes.string,
+        lazyLoad: PropTypes.bool,
+        preLoad: PropTypes.bool,
+        preLoadGap: PropTypes.number,
+        disableDownload: PropTypes.bool,
+        zIndex: PropTypes.number,
+        renderHeader: PropTypes.func,
+        renderPreviewMenu: PropTypes.func,
+        getPopupContainer: PropTypes.func,
         onVisibleChange: PropTypes.func,
+        onChange: PropTypes.func,
+        onClose: PropTypes.func,
+        onZoomIn: PropTypes.func,
+        onZoomOut: PropTypes.func,
+        onPrev: PropTypes.func,
+        onNext: PropTypes.func,
+        onDownload: PropTypes.func,
+        onRatioChange: PropTypes.func,
+        onRotateChange: PropTypes.func,
     }
 
     static defaultProps = {
         visible: false,
-        srcList: [],
-        preview: {},
+        src: [],
     };
 
     get adapter() {
@@ -41,6 +72,7 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
         super(props);
         this.state = {
             currentIndex: props.currentIndex || props.defaultCurrentIndex || 0,
+            visible: props.visible || props.currentDefaultVisible || false,
         };
         this.foundation = new PreviewFoundation(this.adapter);
         this.previewGroupId = getUuidShort({ prefix: "semi-image-preview-group", length: 4 });
@@ -49,6 +81,7 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
 
     componentDidMount() {
         const allElement = document.querySelectorAll(`.${prefixCls}-img`);
+        // use IntersectionObserver to lazy load image
         const observer = new IntersectionObserver(entries => {
             entries.forEach(item => {
                 const src = (item.target as any).dataset?.src;
@@ -69,8 +102,11 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
 
     static getDerivedStateFromProps(props: PreviewProps, state: PreviewState) {
         const willUpdateStates: Partial<PreviewState> = {};
-        if ( props.currentIndex && (props.currentIndex !== state.currentIndex) ) {
+        if (props.currentIndex && (props.currentIndex !== state.currentIndex)) {
             willUpdateStates.currentIndex = props.currentIndex;
+        }
+        if (props.visible && (props.visible !== state.visible)) {
+            willUpdateStates.visible = props.visible;
         }
         return willUpdateStates;
     }
@@ -79,8 +115,8 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
         this.foundation.handleVisibleChange(newVisible);
     };
 
-    handleSwitch = (index: number) => {
-        this.foundation.handleSwitch(index);
+    handleCurrentIndexChange = (index: number) => {
+        this.foundation.handleCurrentIndexChange(index);
     };
     
     loopImageIndex = () => {
@@ -94,7 +130,8 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
                     if (child.type.isSemiImage) {
                         const { src, preview, alt } = child.props;
                         if (preview) {
-                            srcListInChildren.push(src);
+                            const previewSrc = isObject(preview) ? ((preview as any).src ?? src) : src;
+                            srcListInChildren.push(previewSrc);
                             titles.push(preview?.previewTitle);
                             return React.cloneElement(child, { imageID: index++ });
                         }
@@ -120,10 +157,11 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
     };
 
     render() {
-        const { srcList, visible, preview, style } = this.props;
-        const { currentIndex } = this.state;
+        const { src, style, lazyLoad, ...restProps } = this.props;
+        const { currentIndex, visible } = this.state;
         const { srcListInChildren, newChildren, titles } = this.loopImageIndex();
-        const finalSrcList = [...srcList, ...srcListInChildren];
+        const srcArr = Array.isArray(src) ? src : (typeof src === 'string' ? [src] : []);
+        const finalSrcList = [...srcArr, ...srcListInChildren];
         return (
             <PreviewContext.Provider
                 value={{
@@ -132,7 +170,8 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
                     titles: titles,
                     currentIndex,
                     visible,
-                    setCurrentIndex: this.handleSwitch,
+                    lazyLoad,
+                    setCurrentIndex: this.handleCurrentIndexChange,
                     handleVisibleChange: this.handleVisibleChange,
                 }}
             >
@@ -140,12 +179,12 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
                     {newChildren}
                 </div>
                 <PreviewInner
+                    {...restProps}
                     ref={this.previewRef}
                     src={finalSrcList}
                     currentIndex={currentIndex}
                     visible={visible}
                     onVisibleChange={this.handleVisibleChange}
-                    {...preview}
                 />
             </PreviewContext.Provider>
         );

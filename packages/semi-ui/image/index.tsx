@@ -10,7 +10,6 @@ export {
 
 export {
     ImageProps,
-    PreviewInnerProps,
     PreviewImageProps,
     PreviewProps,
 } from "./interface";

@@ -1,5 +1,5 @@
 @import "./variables.scss";
-// css 动画待优化
+@import "./animation.scss";
 
 $module: #{$prefix}-image;
 
@@ -34,7 +34,7 @@ $module: #{$prefix}-image;
         border-radius: inherit;
         background-color: $color-image_mask-bg;
         opacity: 0;
-        transition: opacity .3s;
+        transition: opacity $transition_duration-image_mask;
 
         &:hover {
             opacity: 1;
@@ -106,12 +106,14 @@ $module: #{$prefix}-image;
 
 .#{$module}-preview {
     position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     z-index: $z-image_preview;
     background-color: var(--semi-color-overlay-bg);
-    transition: opacity 500ms;
-    animation-duration: 500ms;
+    transition: opacity $transition_duration-image_preview;
+    overflow: hidden;
 
     &-popup {
         position: absolute;
@@ -205,7 +207,7 @@ $module: #{$prefix}-image;
         }
 
         &-gap {
-            margin-left: 16px;
+            margin-left: $spacing-image_preview_footer_gap-marginLeft;
         }
     
         .#{$prefix}-slider {
@@ -248,9 +250,8 @@ $module: #{$prefix}-image;
 
         &-img {
             position: absolute;
-            // transition: visibility .2s, width .2s, height .2s;
-            transform: scale3d(1, 1, 1) rotate(0deg);
-            transition: transform 0.3s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
+            transform: scale3d($transform_scale3d-image_preview_image_img) $transform_rotate-image_preview_image_img;
+            transition: transform $transition_duration-image_preview_image_img  $transition_delay-image_preview_image_img;
             z-index: 0;
         }
 
@@ -268,7 +269,10 @@ $module: #{$prefix}-image;
     
     @keyframes spinner {
         to {
-            transform: rotate(360deg);
+            transform: $transform_rotate-image_preview_spinner;
         }
     }
 }
+
+
+@import "./rtl.scss";

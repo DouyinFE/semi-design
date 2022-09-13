@@ -14,6 +14,7 @@ import { PreviewContext, PreviewContextProps } from "./previewContext";
 import ImageFoundation, { ImageAdapter } from "@douyinfe/semi-foundation/image/imageFoundation";
 import LocaleConsumer from "../locale/localeConsumer";
 import { Locale } from "../locale/interface";
+import { isObject } from "lodash";
 
 const prefixCls = cssClasses.PREFIX;
 
@@ -30,6 +31,7 @@ export default class Image extends BaseComponent<ImageProps, ImageStates> {
         placeholder: PropTypes.node,
         fallback: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
         preview: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
+        onLoad: PropTypes.func,
         onError: PropTypes.func,
         crossOrigin: PropTypes.string,
         imageID: PropTypes.number,
@@ -75,6 +77,13 @@ export default class Image extends BaseComponent<ImageProps, ImageStates> {
         return Boolean(this.context && this.context.isGroup);
     }
 
+    isLazyLoad() {
+        if (this.context) {
+            return this.context.lazyLoad;
+        }
+        return false;
+    }
+
     handleClick = (e) => {
         this.foundation.handleClick(e);
     };
@@ -116,18 +125,32 @@ export default class Image extends BaseComponent<ImageProps, ImageStates> {
     };
 
     renderLoad = () => {
+        const prefixClsName = `${prefixCls}-status`;
         const { placeholder } = this.props;
-        return placeholder ?? this.renderDefaultLoading();
+        return (
+            placeholder ? (
+                <div className={prefixClsName}> 
+                    {placeholder}
+                </div>
+            ) : this.renderDefaultLoading()
+        );
     }
 
     renderError = () => {
         const { fallback } = this.props;
-        return fallback ?? this.renderDefaultError();
+        const prefixClsName = `${prefixCls}-status`;
+        const fallbackNode = typeof fallback === 'string' ? (<img style={{ width: '100%', height: '100%' }}src={fallback} alt='fallback'/>) : fallback;
+        return (
+            fallback ? (
+                <div className={prefixClsName}>
+                    {fallbackNode}
+                </div>
+            ) :this.renderDefaultError()
+        );
     }
 
     renderExtra = () => {
         const { loadStatus } = this.state;
-        
         return (
             <div className={`${prefixCls}-overlay`}>
                 {loadStatus === "error" && this.renderError()}
@@ -153,10 +176,10 @@ export default class Image extends BaseComponent<ImageProps, ImageStates> {
         const { src, loadStatus, previewVisible } = this.state;
         const { width, height, alt, style, className, crossOrigin, preview } = this.props;
         const outerStyle = Object.assign({ width, height }, style);
-        const clsPrefix = `${prefixCls}`;
-        const outerCls = cls(clsPrefix, className);
+        const outerCls = cls(prefixCls, className);
         const canPreview = loadStatus === "success" && preview && !this.isInGroup();
         const showMask = preview && loadStatus === "success";
+        const previewSrc = isObject(preview) ? ((preview as any).src ?? src) : src;
         return ( 
             // eslint-disable jsx-a11y/no-static-element-interactions
             // eslint-disable jsx-a11y/click-events-have-key-events
@@ -166,9 +189,8 @@ export default class Image extends BaseComponent<ImageProps, ImageStates> {
                 onClick={this.handleClick}
             >
                 <img
-                    // src={!this.isInGroup() && src}
-                    // data-src={src}
-                    src={src}
+                    src={this.isInGroup() && this.isLazyLoad() ? '' : src}
+                    data-src={src}
                     alt={alt}
                     className={`${prefixCls}-img`}
                     width={width}
@@ -181,7 +203,8 @@ export default class Image extends BaseComponent<ImageProps, ImageStates> {
                 {loadStatus !== "success" && this.renderExtra()}
                 {canPreview && 
                     <PreviewInner
-                        src={src}
+                        {...preview}
+                        src={previewSrc}
                         visible={previewVisible}
                         onVisibleChange={this.handlePreviewVisibleChange}
                     />

@@ -1,29 +1,8 @@
 import { createContext, ReactNode } from "react";
-import { PreviewImageProps, PreviewInnerProps } from "./interface";
-
-export interface PreviewUrl {
-    url: string;
-    preview: boolean;
-}
-
-export type PreviewUrlMap = Map<number, PreviewUrl>;
-
-export type UnRegisterPreviewUrl = (id: number) => void;
-export type UnRegisterPreviewInnerProps = (id: number) => void;
-
-export type RegisterPreviewUrl = (
-    id: number,
-    url: string,
-    preview: boolean
-) => UnRegisterPreviewUrl;
-
-export type RegisterPreviewInnerProps = (
-    id: number,
-    PreviewInnerProps?: Partial<PreviewImageProps>
-) => UnRegisterPreviewInnerProps;
-
+import { PreviewImageProps, PreviewProps } from "./interface";
 export interface PreviewContextProps {
     isGroup: boolean,
+    lazyLoad: boolean,
     previewSrc: string[],
     titles: ReactNode[],
     currentIndex: number;
