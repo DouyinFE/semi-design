@@ -1,4 +1,5 @@
 @import './variables.scss';
+@import './animation.scss';
 @import './splitButtonGroup.scss';
 
 $module: #{$prefix}-button;
@@ -39,6 +40,11 @@ $module: #{$prefix}-button;
     &-danger {
         background-color: $color-button_danger-bg-default;
         color: $color-button_danger-text-default;
+      transition: background-color $transition_duration-button_danger-bg $transition_function-button_danger-bg $transition_delay-button_danger-bg,
+      border $transition_duration-button_danger-border $transition_function-button_danger-border $transition_delay-button_danger-border;
+      transform: scale($transform-scale-button_danger);
+
+
         &:hover {
             background-color: $color-button_danger-bg-hover;
         }
@@ -56,6 +62,10 @@ $module: #{$prefix}-button;
     &-warning {
         background-color: $color-button_warning-bg-default;
         color: $color-button_warning-text-default;
+      transition: background-color $transition_duration-button_warning-bg $transition_function-button_warning-bg $transition_delay-button_warning-bg,
+      border $transition_duration-button_warning-border $transition_function-button_warning-border $transition_delay-button_warning-border;
+      transform:scale($transform_scale-button_warning);
+
         &:hover {
             background-color: $color-button_warning-bg-hover;
         }
@@ -73,6 +83,10 @@ $module: #{$prefix}-button;
     &-tertiary {
         background-color: $color-button_tertiary-bg-default;
         color: $color-button_tertiary-text-default;
+      transition: background-color $transition_duration-button_tertiary-bg $transition_function-button_tertiary-bg $transition_delay-button_tertiary-bg,
+      border $transition_duration-button_tertiary-border $transition_function-button_tertiary-border $transition_delay-button_tertiary-border;
+      transform:scale($transform_scale_button_tertiary);
+
         &:hover {
             background-color: $color-button_tertiary-bg-hover;
         }
@@ -87,6 +101,10 @@ $module: #{$prefix}-button;
     &-primary {
         background-color: $color-button_primary-bg-default;
         color: $color-button_primary-text-default;
+        transition: background-color $transition_duration-button_primary-bg $transition_function-button_primary-bg $transition_delay-button_primary-bg,
+        border $transition_duration-button_primary-border $transition_function-button_primary-border $transition_delay-button_primary-border;;
+      transform:scale($transform_scale-button_primary);
+
         &:not(.#{$module}-borderless):not(.#{$module}-light):hover {
             background-color: $color-button_primary-bg-hover;
         }
@@ -103,6 +121,10 @@ $module: #{$prefix}-button;
         background-color: $color-button_secondary-bg-default;
         outline-color: $color-button_secondary-border-default;
         color: $color-button_secondary-text-default;
+      transition: background-color $transition_duration-button_secondary-bg $transition_function-button_secondary-bg $transition_delay-button_secondary-bg,
+      border $transition_duration-button_secondary-border $transition_function-button_secondary-border $transition_delay-button_secondary-border;
+      transform:scale($transform_scale-button_secondary);
+
         &:hover {
             background-color: $color-button_secondary-bg-hover;
         }
@@ -132,6 +154,9 @@ $module: #{$prefix}-button;
     &-borderless {
         background-color: transparent;
         border: $width-button_borderless-border $color-button_borderless-border-default solid;
+      transition:background-color $transition_duration-button_borderless-bg $transition_function-button_borderless-bg $transition_delay-button_borderless-bg;
+      transform:scale($transform_scale-button_borderless);
+
         &:not(.#{$module}-disabled):hover {
             background-color: $color-button_borderless-bg-hover;
             border: $width-button_borderless-border $color-button_borderless-border-hover solid;
@@ -145,6 +170,10 @@ $module: #{$prefix}-button;
     &-light {
         background-color: $color-button_light-bg-default;
         border: $width-button_light-border $color-button_light-border-default solid;
+      transition: background-color $transition_duration-button_light-bg $transition_function-button_light-bg $transition_delay-button_light-bg,
+      border $transition_duration-button_light-border $transition_function-button_light-border $transition_delay-button_light-border;
+      transform:scale($transform_scale-button_light);
+
         &:not(.#{$module}-disabled):hover {
             background-color: $color-button_light-bg-hover;
             border: $width-button_light-border $color-button_light-border-hover solid;
@@ -173,6 +202,9 @@ $module: #{$prefix}-button;
     }
 
     &-group {
+        display: flex;
+        flex-wrap: wrap;
+
         & > .#{$module} {
             margin: 0;
             padding-left: 0;
@@ -228,14 +260,48 @@ $module: #{$prefix}-button;
                 border-top-left-radius: $radius-button_group;
                 border-bottom-left-radius: $radius-button_group;
             }
-            &:not(:last-child) {
-                .#{$prefix}-button-content {
-                    border-right: $width-button_group-border $color-button_group-border-default solid;
-                }
-            }
             &:last-child {
                 border-top-right-radius: $radius-button_group;
                 border-bottom-right-radius: $radius-button_group;
+            }
+        }
+
+        &-line {
+            display: inline-flex;
+            align-items: center;
+            background-color: $color-button_group-border-default;
+
+            &-primary {
+                background-color: $color-button_primary-bg-default;
+            }
+            &-secondary {
+                background-color: $color-button_secondary-bg-default;
+            }
+            &-tertiary {
+                background-color: $color-button_tertiary-bg-default;
+            }
+            &-warning {
+                background-color: $color-button_warning-bg-default;
+            }
+            &-danger {
+                background-color: $color-button_danger-bg-default;
+            }
+            &-disabled {
+                background-color: $color-button_disabled-bg-default;
+            }
+            &-light {
+                background-color: $color-button_light-bg-default;
+            }
+            &-borderless {
+                background-color: transparent;
+            }
+
+            &::before {
+                display: block;
+                content: '';
+                width: $width-button_group-border;
+                height: $height-button_group_line_default;
+                background-color: $color-button_group-border-default;
             }
         }
     }

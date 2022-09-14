@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 17
+order: 18
 category: 输入类
 title: AutoComplete 自动完成
 icon: doc-autocomplete
@@ -273,7 +273,7 @@ import { AutoComplete } from '@douyinfe/semi-ui';
             newData = [];
         }
         setData(newData);
-    }
+    };
     return (
         <div>
             <AutoComplete
@@ -291,7 +291,7 @@ import { AutoComplete } from '@douyinfe/semi-ui';
                 style={{ width: 200, margin: 10 }}
             ></AutoComplete>
         </div>
-    )
+    );
 };
 
 ```
@@ -361,7 +361,7 @@ import { IllustrationNoContent } from '@douyinfe/semi-illustrations';
         <AutoComplete
             loading={loading}
             data={data}
-            emptyContent={<Empty style={{ padding: 12, width: 300 }} image={<IllustrationNoContent style={{width: 150, height: 150}}/>} description={'暂无内容'} />}
+            emptyContent={<Empty style={{ padding: 12, width: 300 }} image={<IllustrationNoContent style={{ width: 150, height: 150 }}/>} description={'暂无内容'} />}
             onSearch={fetchData}
         />
     );
@@ -416,6 +416,10 @@ import { IllustrationNoContent } from '@douyinfe/semi-illustrations';
   - 使用 `Esc` 可以关闭菜单
   - 使用 `上箭头` 或 `下箭头` 可以切换选项
   - 被聚焦的选项可以通过 `Enter` 键选中，并收起面板
+
+## 文案规范
+- 需要清晰地展示内容，让用户显而易见地感知到可用的各个选项
+- 限制一次性展示的选项数量
 
 ## 设计变量
 <DesignToken/>

@@ -69,9 +69,11 @@ $basicType: #{$module}-basic;
 
             .#{$item}-title {
                 max-width: $width-steps_basic_item_title-maxWidth;
-
+                
                 .#{$item}-title-text {
                     @include text-overflow-hidden;
+                    transition: color $transition_duration-steps_item_title-text $transition_function-steps_item_title-text $transition_delay-steps_item_title-text
+                       
                 }
             }
 
@@ -166,6 +168,10 @@ $basicType: #{$module}-basic;
         overflow: hidden;
         flex: 1;
         cursor: pointer;
+        transition: color $transition_duration-steps_item_title-text $transition_function-steps_item_title-text $transition_delay-steps_item_title-text, //step文字color的transition变化
+        background-color $transition_duration-steps_item-backgroundColor $transition_function-steps_item_backgroundColor $transition_delay-steps_item_backgroundColor; //step backgroundColor 的transition变化
+        
+        transform:scale($transform_scale-step-item);
 
         &:hover {
 
@@ -187,7 +193,7 @@ $basicType: #{$module}-basic;
             justify-content: center;
             align-items: center;
             margin-right: $spacing-steps_basic_item_left-marginRight;
-
+            
 
             .#{$item}-icon {
                 display: flex;
@@ -206,7 +212,7 @@ $basicType: #{$module}-basic;
                 background: $color-steps_item_left_number_icon-bg;
                 border-radius: $radius-steps_basic_item_left_number_icon;
                 color: $color-steps_item_left_number_icon-icon;
-
+                transition: color $transition_duration-steps_item_title-icon $transition_function-steps_item_title-icon $transition_delay-steps_item_title-icon; //step icon color的transition变化
             }
         }
 
@@ -221,6 +227,8 @@ $basicType: #{$module}-basic;
             vertical-align: top;
             padding-right: $spacing-steps_basic_item_title-paddingRight;
             padding-bottom: $spacing-steps_basic_item_title-paddingBottom;
+            transition: color $transition_duration-steps_item_title-text $transition_function-steps_item_title-text $transition_delay-steps_item_title-text; //step文字color的transition变化
+       
         }
 
         // 完成状态的样式

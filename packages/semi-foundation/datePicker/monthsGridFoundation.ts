@@ -20,7 +20,7 @@ import { includes, isSet, isEqual, isFunction } from 'lodash';
 import { zonedTimeToUtc } from '../utils/date-fns-extra';
 import { getDefaultFormatTokenByType } from './_utils/getDefaultFormatToken';
 import isNullOrUndefined from '../utils/isNullOrUndefined';
-import { BaseValueType, ValueType } from './foundation';
+import { BaseValueType, PresetPosition, ValueType } from './foundation';
 import { MonthDayInfo } from './monthFoundation';
 import { ArrayElement } from '../utils/type';
 
@@ -91,6 +91,9 @@ export interface MonthsGridFoundationProps extends MonthsGridElementProps {
     focusRecordsRef?: any;
     triggerRender?: (props: Record<string, any>) => any;
     insetInput: boolean;
+    presetPosition?: PresetPosition;
+    renderQuickControls?: React.ReactNode;
+    renderDateInput?: React.ReactNode;
 }
 
 export interface MonthInfo {
@@ -539,8 +542,8 @@ export default class MonthsGridFoundation extends BaseFoundation<MonthsGridAdapt
         type: YearMonthChangeType,
         targetDate: Date
     ) {
-        const { multiple, disabledDate } = this.getProps();
-        const { selected: selectedSet, rangeStart, rangeEnd } = this.getStates();
+        const { multiple, disabledDate, type: dateType } = this.getProps();
+        const { selected: selectedSet, rangeStart, rangeEnd, monthLeft } = this.getStates();
         // FIXME:
         const includeRange = ['dateRange', 'dateTimeRange'].includes(type);
         const options = { closePanel: false };
@@ -549,7 +552,14 @@ export default class MonthsGridFoundation extends BaseFoundation<MonthsGridAdapt
             const selectedDate = new Date(selectedStr);
             const year = targetDate.getFullYear();
             const month = targetDate.getMonth();
-            const fullDate = set(selectedDate, { year, month });
+            let fullDate = set(selectedDate, { year, month });
+            if (dateType === 'dateTime') {
+                /**
+                 * 如果是 type dateTime 切换月份要读取只取的time
+                 * 无论 monthLeft 还是 monthRight 他们的 time 是不变的，所以只取 monthLeft 即可
+                 */
+                fullDate = this._mergeDateAndTime(fullDate, monthLeft.pickerDate);
+            }
             if (disabledDate(fullDate, { rangeStart, rangeEnd })) {
                 return;
             }

@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 44
+order: 45
 category: 展示类
 title:  Badge 徽章
 icon: doc-badge
@@ -263,7 +263,7 @@ import { Badge } from '@douyinfe/semi-ui';
         <br/>
         <span><Badge dot type='tertiary' /> 信息 info</span>
         <br/>
-        <span><Badge dot style={{ backgroundColor: 'var(--semi-color-success)'}} /> 成功 success</span>
+        <span><Badge dot style={{ backgroundColor: 'var(--semi-color-success)' }} /> 成功 success</span>
         <br/>
         <span><Badge dot type='warning' /> 提醒 warning</span>
         <br/>
@@ -285,5 +285,9 @@ import { Badge } from '@douyinfe/semi-ui';
 | theme | 徽章主题，可选 `solid`、 `light`、 `inverted` | string | `solid` |
 | type | 徽章类型，可选 `primary`、 `secondary`、 `tertiary`、 `danger`、 `warning` | string | `primary`  |
 
+
+## 文案规范
+- Badge内容若为英文时，首字母应大写
 ## 设计变量
 <DesignToken/>
+

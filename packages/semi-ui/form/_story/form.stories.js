@@ -70,6 +70,7 @@ import { HelpAndExtra, ExtraPositionDemo } from './FieldProps/helpAndExtra';
 import { BigNumberFieldDemo } from './FieldProps/bigNumberFieldPath';
 import { UpdateDemo, RuleupdateDemo } from './FieldProps/rulesUpdateDemo';
 import { FieldRefDemo } from './FieldProps/fieldRef';
+import { LableOptionalDemo } from './FieldProps/labelOptional';
 
 // arrayField
 import {
@@ -127,6 +128,12 @@ export const LayoutInsetLabel = () => <InsetLabelDemo />;
 
 LayoutInsetLabel.story = {
   name: 'Layout-insetLabel',
+};
+
+export const LableOptional = () => <LableOptionalDemo></LableOptionalDemo>;
+
+LableOptional.story = {
+  name: 'Layout-label show optional',
 };
 
 export const LayoutSlotErrorMessageLabel = () => <AssistComponent />;

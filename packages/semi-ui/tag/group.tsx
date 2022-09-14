@@ -3,25 +3,12 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/tag/constants';
 import Tag from './index';
-import Popover, { PopoverProps } from '../popover/index';
-import { AvatarShape, TagProps } from './interface';
+import Popover from '../popover/index';
+import { AvatarShape, TagProps, TagGroupProps } from './interface';
 
 const prefixCls = cssClasses.PREFIX;
 const tagSize = strings.TAG_SIZE;
 const avatarShapeSet = strings.AVATAR_SHAPE;
-
-export interface TagGroupProps<T> {
-    style?: React.CSSProperties;
-    className?: string;
-    maxTagCount?: number;
-    restCount?: number;
-    tagList?: (T extends 'custom' ? React.ReactNode : TagProps)[];
-    size?: 'small' | 'large';
-    showPopover?: boolean;
-    popoverProps?: PopoverProps;
-    avatarShape?: AvatarShape;
-    mode?: string;
-}
 
 export default class TagGroup<T> extends PureComponent<TagGroupProps<T>> {
     static defaultProps = {
@@ -29,6 +16,7 @@ export default class TagGroup<T> extends PureComponent<TagGroupProps<T>> {
         className: '',
         size: tagSize[0],
         avatarShape: 'square',
+        onTagClose: () => undefined,
     };
 
     static propTypes = {
@@ -40,6 +28,7 @@ export default class TagGroup<T> extends PureComponent<TagGroupProps<T>> {
         tagList: PropTypes.array,
         size: PropTypes.oneOf(tagSize),
         mode: PropTypes.string,
+        onTagClose: PropTypes.func,
         showPopover: PropTypes.bool,
         popoverProps: PropTypes.object,
         avatarShape: PropTypes.oneOf(avatarShapeSet),
@@ -95,18 +84,33 @@ export default class TagGroup<T> extends PureComponent<TagGroupProps<T>> {
     }
 
     renderAllTags() {
-        const { tagList, size, mode, avatarShape } = this.props;
-        const renderTags = tagList.map((tag, index): (Tag | React.ReactNode) => {
+        const { tagList, size, mode, avatarShape, onTagClose } = this.props;
+        const renderTags = tagList.map((tag): (Tag | React.ReactNode) => {
             if (mode === 'custom') {
                 return tag as React.ReactNode;
             }
-            if (!(tag as TagProps).size) {
-                (tag as TagProps).size = size;
+            const newTag = { ...(tag as TagProps) }; 
+            if (!(newTag as TagProps).size) {
+                (newTag as TagProps).size = size;
             }
-            if (!(tag as TagProps).avatarShape) {
-                (tag as TagProps).avatarShape = avatarShape;
+            
+            if (!(newTag as TagProps).avatarShape) {
+                (newTag as TagProps).avatarShape = avatarShape;
             }
-            return <Tag key={`${index}-tag`} {...(tag as TagProps)} />;
+
+            if (!(newTag as TagProps).tagKey) {
+                if (typeof (newTag as TagProps).children === 'string' || typeof (newTag as TagProps).children === 'number') {
+                    (newTag as TagProps).tagKey = (newTag as TagProps).children as string | number;
+                } else {
+                    (newTag as TagProps).tagKey = Math.random();
+                }
+            }
+            return <Tag {...(newTag as TagProps)} key={(newTag as TagProps).tagKey} onClose={(tagChildren, e, tagKey) => {
+                if ((newTag as TagProps).onClose) {
+                    (newTag as TagProps).onClose(tagChildren, e, tagKey);
+                }
+                onTagClose && onTagClose(tagChildren, e, tagKey);
+            }} />;
         });
         return renderTags;
     }

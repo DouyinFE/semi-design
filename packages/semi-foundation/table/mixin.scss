@@ -1,5 +1,5 @@
 @mixin genResizing() {
-    border-right: $border-table_resizer;
+    border-right: $width-table_resizer_border solid $color-table_resizer-bg-default;
 
     .react-resizable-handle {
 

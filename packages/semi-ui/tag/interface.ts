@@ -1,3 +1,5 @@
+import { PopoverProps } from '../popover/index';
+
 export type TagColor =
     | 'amber'
     | 'blue'
@@ -22,12 +24,13 @@ export type AvatarShape = 'circle' | 'square';
 
 export interface TagProps {
     children?: React.ReactNode;
+    tagKey?: string | number;
     size?: TagSize;
     color?: TagColor;
     type?: TagType;
     closable?: boolean;
     visible?: boolean;
-    onClose?: (tagChildren: React.ReactNode, event: React.MouseEvent<HTMLElement>) => void;
+    onClose?: (tagChildren: React.ReactNode, event: React.MouseEvent<HTMLElement>, tagKey: string | number) => void;
     onClick?: React.MouseEventHandler<HTMLDivElement>;
     style?: React.CSSProperties;
     className?: string;
@@ -35,16 +38,19 @@ export interface TagProps {
     avatarShape?: AvatarShape;
     onKeyDown?: React.KeyboardEventHandler<HTMLDivElement>;
     'aria-label'?: React.AriaAttributes['aria-label'];
+    tabIndex?: number; // use internal, when tag in taInput, we want to use left arrow and right arrow to control the tag focus, so the tabIndex need to be -1. 
 }
 
-export interface TagGroupProps {
+export interface TagGroupProps<T> {
     style?: React.CSSProperties;
     className?: string;
     maxTagCount?: number;
-    tagList?: (TagProps | React.ReactNode)[];
+    restCount?: number;
+    tagList?: (T extends 'custom' ? React.ReactNode : TagProps)[];
     size?: 'small' | 'large';
     showPopover?: boolean;
-    popoverProps?: any; // TODO: 替换成PopoverProps
+    popoverProps?: PopoverProps;
     avatarShape?: AvatarShape;
-    mode?: string; // TODO: check 文档里没有这个api
+    mode?: string;
+    onTagClose: (tagChildren: React.ReactNode, event: React.MouseEvent<HTMLElement>, tagKey: string | number) => void;
 }

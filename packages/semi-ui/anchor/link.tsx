@@ -16,6 +16,8 @@ export interface LinkProps {
     children?: ReactNode;
     style?: React.CSSProperties;
     disabled?: boolean;
+    level?: number;
+    direction?: 'ltr' | 'rtl';
 }
 
 // eslint-disable-next-line @typescript-eslint/ban-types
@@ -38,6 +40,7 @@ export default class Link extends BaseComponent<LinkProps, {}> {
     foundation: LinkFoundation;
 
     context!: AnchorContextType;
+
     constructor(props: LinkProps) {
         super(props);
         this.foundation = new LinkFoundation(this.adapter);
@@ -118,13 +121,15 @@ export default class Link extends BaseComponent<LinkProps, {}> {
         const { activeLink, childMap } = this.context;
         const { href, children } = this.props;
         if (!this.context.autoCollapse) {
-            return this.props.children;
+            return <div role="list">{children}</div>;
         }
-        return activeLink === href || (childMap[href] && childMap[href].has(activeLink)) ? children : null;
+        return activeLink === href || (childMap[href] && childMap[href].has(activeLink)) ? (
+            <div role="list">{children}</div>
+        ) : null;
     };
 
     render() {
-        const { href, className, style, disabled = false, title } = this.props;
+        const { href, className, style, disabled = false, title, level, direction } = this.props;
         const { activeLink, showTooltip } = this.context;
         const active = activeLink === href;
         const linkCls = cls(`${prefixCls}-link`, className);
@@ -132,9 +137,12 @@ export default class Link extends BaseComponent<LinkProps, {}> {
             [`${prefixCls}-link-title-active`]: active,
             [`${prefixCls}-link-title-disabled`]: disabled,
         });
+        const paddingAttributeKey = direction === 'rtl' ? 'paddingRight' : 'paddingLeft';
         const ariaProps = {
             'aria-disabled': disabled,
-            'aria-label': href,
+            style: {
+                [paddingAttributeKey]: 8 * level,
+            },
         };
         if (active) {
             ariaProps['aria-details'] = 'active';
@@ -144,7 +152,7 @@ export default class Link extends BaseComponent<LinkProps, {}> {
         }
 
         return (
-            <div className={linkCls} style={style}>
+            <div className={linkCls} style={style} role="listitem">
                 <div
                     role="link"
                     tabIndex={0}

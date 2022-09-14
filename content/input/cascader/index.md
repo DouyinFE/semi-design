@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 19
+order: 20
 category: 输入类
 title:  Cascader 级联选择
 icon: doc-cascader
@@ -1586,6 +1586,13 @@ function Demo() {
 
 - Cascader 支持传入 `aria-label`、`aria-describedby`、`aria-errormessage`、`aria-invalid`、`aria-labelledby`、`aria-required` 来表示该 Cascader 的相关信息;
 - Cascader 支持通过按下 Enter 键来选中选项、清空选项、展开下拉框
+
+## 文案规范
+- 选择器选项
+  - 如果没有默认选项，就使用“Select”做占位文案
+  - 选项要按首字母顺序或者其他有逻辑的排列顺序，使用户更好地找到选项
+  - 使用语句书写规范（首字母大写，其余小写），避免在句尾使用逗号和分号
+  - 清晰表达出选项所表示的选择目的
 
 ## 设计变量
 <DesignToken/>

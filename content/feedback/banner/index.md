@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 63
+order: 64
 category: 反馈类
 title:  Banner 通知横幅
 icon: doc-banner
@@ -194,6 +194,18 @@ import { Banner } from '@douyinfe/semi-ui';
 
 - Banner 的关闭按钮可以使用 `Tab` 键聚焦，按钮聚焦后，敲击 `Enter` 键或 `Space` 键可以关闭 banner
 
+## 文案规范
+- 全屏 Banner
+  - 尽量保持内容一行展示完全
+  - 使用正确的标点符号，句子内使用逗号，句子间使用句号
+- 非全屏 Banner
+  - 标题
+    - 使用精简的语言进行说明
+    - 标题上尽量避免使用逗号，句号等标点符号，有且只有是疑问句的时候，支持使用问号结尾
+  - 正文
+    - 在信息传递完整的前提下，尽可能地将正文压缩至 1 -2 句话
+    - 对标题进行详尽地描述或者解释，而不是对标题的重复说明
+    - 使用正确的标点符号，句子内使用逗号，句子间使用句号
 
 ## 设计变量
 <DesignToken/>

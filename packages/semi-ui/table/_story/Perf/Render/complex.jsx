@@ -3,7 +3,7 @@ import React from 'react';
 import { Table, Typography, Tag, Popover } from '../../../../index';
 
 const { Text } = Typography;
-const src = 'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg';
+const src = 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bag.jpeg';
 
 class App extends React.Component {
     constructor(props) {

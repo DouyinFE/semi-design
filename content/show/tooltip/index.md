@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 62
+order: 63
 category: 展示类
 title: Tooltip 工具提示
 icon: doc-tooltip
@@ -439,6 +439,7 @@ function Demo() {
 | content | 弹出层内容 | string\|ReactNode |  |  |
 | className | 弹出层的样式名 | string |  |  |
 | clickToHide | 点击弹出层及内部任一元素时是否自动关闭弹层 | boolean | false | **0.24.0** |
+| disableFocusListener | trigger为`hover`时，不响应键盘聚焦弹出浮层事件，详见[issue#977](https://github.com/DouyinFE/semi-design/issues/977) | boolean | false | **2.17.0** |
 | getPopupContainer | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 `position: relative` | function():HTMLElement | () => document.body |  |
 | mouseEnterDelay | 鼠标移入后，延迟显示的时间，单位毫秒（仅当 trigger 为 hover/focus 时生效） | number | 50 |  |
 | mouseLeaveDelay | 鼠标移出后，延迟消失的时间，单位毫秒（仅当 trigger 为 hove/focus 时生效），不小于 mouseEnterDelay | number | 50 |  |
@@ -480,6 +481,11 @@ function Demo() {
     </IconSetting>
 </Tooltip>
 ```
+
+## 文案规范
+- 只展示信息说明和引导，不展示报错信息
+- 不在 tooltip 里只能是额外的链接和按钮
+- 尽量精简至一句话进行说明，不展示标点符号
 
 ## 设计变量
 

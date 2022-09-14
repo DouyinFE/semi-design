@@ -393,7 +393,9 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
         const noMatch = inSearchMode && searchResult.size === 0;
         const emptySearch = emptyContent.search ? emptyContent.search : locale.emptySearch;
         const emptyLeft = emptyContent.left ? emptyContent.left : locale.emptyLeft;
-        const emptyCom = this.renderEmpty('left', inputValue ? emptySearch : emptyLeft);
+        const emptyDataCom = this.renderEmpty('left', emptyLeft);
+        const emptySearchCom = this.renderEmpty('left', emptySearch);
+
         const loadingCom = <Spin />;
 
         let content: React.ReactNode = null;
@@ -402,7 +404,10 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
                 content = loadingCom;
                 break;
             case noMatch:
-                content = emptyCom;
+                content = emptySearchCom;
+                break;
+            case data.length === 0:
+                content = emptyDataCom;
                 break;
             case type === strings.TYPE_TREE_TO_LIST:
                 content = (

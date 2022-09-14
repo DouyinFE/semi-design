@@ -66,13 +66,13 @@ $module: #{$prefix}-datepicker;
             }
         }
 
-        &-quick-control {
+        // &-quick-control {
 
-            &-item {
-                margin-left: 0;
-                margin-right: $spacing-datepicker_quick_control_item-marginRight;
-            }
-        }
+        //     &-item {
+        //         margin-left: 0;
+        //         margin-right: $spacing-datepicker_quick_control_item-marginRight;
+        //     }
+        // }
 
         &-navigation,
         &-yam {

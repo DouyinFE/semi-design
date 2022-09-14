@@ -153,6 +153,9 @@ const local: Locale = {
         total: 'Всего ${total} элементов',
         selected: 'Выбрано ${total} элементов',
     },
+    Form: {
+        optional: '(по желанию)',
+    },
 };
 
 // [i18n-Russia] 俄罗斯语

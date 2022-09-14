@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
-import { noop } from 'lodash';
+import { noop, isUndefined, isBoolean } from 'lodash';
 
 import RadioFoundation, { RadioAdapter } from '@douyinfe/semi-foundation/radio/radioFoundation';
 import { RadioChangeEvent } from '@douyinfe/semi-foundation/radio/radioInnerFoundation';
@@ -52,6 +52,7 @@ export interface RadioState {
     addonId?: string;
     extraId?: string;
     focusVisible?: boolean;
+    checked?: boolean;
 }
 
 export { RadioChangeEvent };
@@ -91,6 +92,7 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
         mode: '',
         type: 'default'
     };
+    static elementType: string;
 
     radioEntity: RadioInner;
     context!: RadioContextValue;
@@ -104,9 +106,20 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
             hover: false,
             addonId: props.addonId,
             extraId: props.extraId,
+            checked: props.checked || props.defaultChecked || false,
         };
         this.foundation = new RadioFoundation(this.adapter);
         this.radioEntity = null;
+    }
+
+    componentDidUpdate(prevProps: RadioProps) {
+        if (this.props.checked !== prevProps.checked) {
+            if (isUndefined(this.props.checked)) {
+                this.foundation.setChecked(false);
+            } else if (isBoolean(this.props.checked)) {
+                this.foundation.setChecked(this.props.checked);
+            }
+        }
     }
 
     get adapter(): RadioAdapter {
@@ -117,6 +130,9 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
             },
             setAddonId: () => {
                 this.setState({ addonId: getUuidShort({ prefix: 'addon' }) });
+            },
+            setChecked: (checked: boolean) => {
+                this.setState({ checked });
             },
             setExtraId: () => {
                 this.setState({ extraId: getUuidShort({ prefix: 'extra' }) });
@@ -146,6 +162,7 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
             const { radioGroup } = this.context;
             radioGroup.onChange && radioGroup.onChange(e);
         }
+        !('checked' in this.props) && this.foundation.setChecked(e.target.checked);
         onChange && onChange(e);
     };
 
@@ -171,7 +188,6 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
         const {
             addonClassName,
             addonStyle,
-            checked,
             disabled,
             style,
             className,
@@ -194,8 +210,11 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
             isButtonRadioComponent,
             buttonSize,
             realPrefixCls;
-        const { hover: isHover, addonId, extraId, focusVisible } = this.state;
-        let props = {};
+        const { hover: isHover, addonId, extraId, focusVisible, checked, } = this.state;
+        const props: Record<string, any> = {
+            checked,
+            disabled,
+        };
 
         if (this.isInGroup()) {
             realChecked = this.context.radioGroup.value === propValue;
@@ -206,13 +225,17 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
             isPureCardRadioGroup = this.context.radioGroup.isPureCardRadio;
             buttonSize = this.context.radioGroup.buttonSize;
             realPrefixCls = prefixCls || this.context.radioGroup.prefixCls;
-            props = { checked: realChecked, disabled: isDisabled };
+            props.checked = realChecked;
+            props.disabled = isDisabled;
         } else {
             realChecked = checked;
             isDisabled = disabled;
             realMode = mode;
             isButtonRadioComponent = type === 'button';
             realPrefixCls = prefixCls;
+            isButtonRadioGroup = type === strings.TYPE_BUTTON;
+            isPureCardRadioGroup = type === strings.TYPE_PURECARD;
+            isCardRadioGroup = type === strings.TYPE_CARD || isPureCardRadioGroup;
         }
         const isButtonRadio = typeof isButtonRadioGroup === 'undefined' ? isButtonRadioComponent : isButtonRadioGroup;
 
@@ -246,20 +269,25 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
             [`${prefix}-addon-buttonRadio-${buttonSize}`]: isButtonRadio && buttonSize,
             [`${prefix}-focus`]: focusVisible && isButtonRadio,
         }, addonClassName);
-        const renderContent = () => (
-            <>
-                {children ? (
-                    <span className={addonCls} style={addonStyle} id={addonId} x-semi-prop="children">
-                        {children}
-                    </span>
-                ) : null}
-                {extra && !isButtonRadio ? (
-                    <div className={`${prefix}-extra`} id={extraId} x-semi-prop="extra">
-                        {extra}
-                    </div>
-                ) : null}
-            </>
-        );
+        const renderContent = () => {
+            if (!children && !extra) {
+                return null;
+            }
+            return (
+                <div className={cls([`${prefix}-content`, { [`${prefix}-isCardRadioGroup_content`]: isCardRadioGroup }])}>
+                    {children ? (
+                        <span className={addonCls} style={addonStyle} id={addonId} x-semi-prop="children">
+                            {children}
+                        </span>
+                    ) : null}
+                    {extra && !isButtonRadio ? (
+                        <div className={`${prefix}-extra`} id={extraId} x-semi-prop="extra">
+                            {extra}
+                        </div>
+                    ) : null}
+                </div>
+            );
+        };
 
         return (
             <label
@@ -285,14 +313,11 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
                     onInputFocus={this.handleFocusVisible}
                     onInputBlur={this.handleBlur}
                 />
-                {
-                    isCardRadioGroup ?
-                        <div className={`${prefix}-isCardRadioGroup_content`}>{renderContent()}</div> :
-                        renderContent()
-                }
+                {renderContent()}
             </label>
         );
     }
 }
+Radio.elementType = 'Radio';
 
 export default Radio;

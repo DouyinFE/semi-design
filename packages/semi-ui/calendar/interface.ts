@@ -1,4 +1,4 @@
-import { EventObject } from '@douyinfe/semi-foundation/calendar/foundation';
+import { EventObject, weeekStartsOnEnum } from '@douyinfe/semi-foundation/calendar/foundation';
 import { strings } from '@douyinfe/semi-foundation/calendar/constants';
 import { ArrayElement } from '../_base/base';
 import { BaseProps } from '../_base/baseComponent';
@@ -10,6 +10,7 @@ export interface CalendarProps extends BaseProps {
     events?: EventObject[];
     mode?: ArrayElement<typeof strings.MODE>;
     showCurrTime?: boolean;
+    weekStartsOn?: weeekStartsOnEnum;
     scrollTop?: number;
     onClick?: (e: React.MouseEvent, value: Date) => void;
     onClose?: (e: React.MouseEvent) => void;

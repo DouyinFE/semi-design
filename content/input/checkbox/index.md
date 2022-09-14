@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 20
+order: 21
 category: 输入类
 title: Checkbox 复选框
 icon: doc-checkbox
@@ -381,9 +381,10 @@ import { Checkbox, CheckboxGroup, Row, Col } from '@douyinfe/semi-ui';
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| addonId | addon 节点 id，aria-labelledby 指向这个 id，若无设置会随机生成一个 id  **v2.11.0 后提供**                                 | string            |       |
+| addonId | addon 节点 id，aria-labelledby 指向这个 id，若无设置会随机生成一个 id <br/>**v2.11.0 后提供**                                 | string            |       |
 | aria-label | 定义 Checkbox 的作用 | string | - |
 | checked | 指定当前Checkbox是否选中（在Group中使用时无效） | boolean | false |
+| type |设置checkbox 的样式类型，可选值为: `default`、`card`、`pureCard`<br/>**v2.18.0 后提供** |string|`default`|
 | defaultChecked | 初始是否选中（在Group中使用时无效） | boolean | false |
 | disabled | 失效状态 | boolean | false |
 | extra | 副文本<br/>__v0.25.0后提供__ | ReactNode | - |
@@ -402,7 +403,7 @@ import { Checkbox, CheckboxGroup, Row, Col } from '@douyinfe/semi-ui';
 | disabled | 整组失效 | boolean | false |
 | name | CheckboxGroup 下所有 `input[type="checkbox"]` 的 `name` 属性 | string | - |
 | options | 指定可选项 | any\[] | \[] |
-| type |	设置所有 checkbox 的样式类型，可选值为: `default`、`card`、`pureCard` **v1.30.0 后提供**|string|`default`|
+| type |设置所有 checkbox 的样式类型，可选值为: `default`、`card`、`pureCard` <br/>**v1.30.0 后提供**|string|`default`|
 | value | 指定选中的选项 | any\[] | \[] |
 | onChange | 变化时回调函数 | function(checkedValue) | - |
 
@@ -430,6 +431,28 @@ import { Checkbox, CheckboxGroup, Row, Col } from '@douyinfe/semi-ui';
 - 当前获取的焦点为 Checkbox 时，可以通过 Space 切换选中和未选状态。
 - Checkbox 的点击区域大于框本身，包含了框后的文案；带辅助文本的 checkbox，辅助文本也包含在点击区域内。
 - 禁用的 Checkbox 不可获取焦点。
+
+## 文案规范
+
+
+<div style={{ border: '1px solid var(--semi-color-border)', padding: 10, marginBottom: 24 }}>
+    <p style={{ fontWeight: 600, fontSize: 16  }}>Checkbox Content Demo</p>
+    <CheckboxGroup options={[
+        { label: 'Call', value: 'abc' },
+        { label: 'IM', value: 'c' },
+        { label: 'Ticket', value: 'd' },
+        { label: 'Offline', value: 'e' },
+        { label: 'Buzz', value: 'f' }
+    ]} direction='horizontal' aria-label="CheckboxGroup 示例" style={{ marginTop: 10 }}/>
+</div>
+
+- 首字母大写
+- 不使用标点符号
+
+| ✅ 推荐用法 | ❌ 不推荐用法 |   
+| --- | --- | 
+| Call | call |
+| Call | Call; |
 
 ## 设计变量
 <DesignToken/>

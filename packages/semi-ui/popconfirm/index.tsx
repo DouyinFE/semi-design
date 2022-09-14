@@ -35,14 +35,16 @@ export interface PopconfirmProps extends PopoverProps {
     zIndex?: number;
     trigger?: Trigger;
     position?: Position;
-    onCancel?: (e: React.MouseEvent) => void;
-    onConfirm?: (e: React.MouseEvent) => void;
+    onCancel?: (e: React.MouseEvent) => Promise<any> | void;
+    onConfirm?: (e: React.MouseEvent) => Promise<any> | void;
     onVisibleChange?: (visible: boolean) => void;
     onClickOutSide?: (e: React.MouseEvent) => void;
 }
 
 export interface PopconfirmState {
     visible: boolean;
+    cancelLoading: boolean;
+    confirmLoading: boolean;
 }
 
 interface PopProps {
@@ -99,6 +101,8 @@ export default class Popconfirm extends BaseComponent<PopconfirmProps, Popconfir
         super(props);
 
         this.state = {
+            cancelLoading: false,
+            confirmLoading: false,
             visible: props.defaultVisible || false,
         };
 
@@ -122,8 +126,10 @@ export default class Popconfirm extends BaseComponent<PopconfirmProps, Popconfir
         return {
             ...super.adapter,
             setVisible: (visible: boolean): void => this.setState({ visible }),
-            notifyConfirm: (e: React.MouseEvent): void => this.props.onConfirm(e),
-            notifyCancel: (e: React.MouseEvent): void => this.props.onCancel(e),
+            updateConfirmLoading: (loading: boolean): void => this.setState({ confirmLoading: loading }),
+            updateCancelLoading: (loading: boolean): void => this.setState({ cancelLoading: loading }),
+            notifyConfirm: (e: React.MouseEvent): Promise<any> | void => this.props.onConfirm(e),
+            notifyCancel: (e: React.MouseEvent): Promise<any> | void => this.props.onCancel(e),
             notifyVisibleChange: (visible: boolean): void => this.props.onVisibleChange(visible),
             notifyClickOutSide: (e: React.MouseEvent) => this.props.onClickOutSide(e),
         };
@@ -141,14 +147,15 @@ export default class Popconfirm extends BaseComponent<PopconfirmProps, Popconfir
 
     renderControls() {
         const { okText, cancelText, okType, cancelType, cancelButtonProps, okButtonProps } = this.props;
+        const { cancelLoading, confirmLoading } = this.state;
         return (
             <LocaleConsumer componentName="Popconfirm">
                 {(locale: LocaleObject['Popconfirm'], localeCode: string) => (
                     <>
-                        <Button type={cancelType} onClick={this.handleCancel} {...cancelButtonProps}>
+                        <Button type={cancelType} onClick={this.handleCancel} loading={cancelLoading} {...cancelButtonProps}>
                             {cancelText || get(locale, 'cancel')}
                         </Button>
-                        <Button type={okType} theme="solid" onClick={this.handleConfirm} {...okButtonProps}>
+                        <Button type={okType} theme="solid" onClick={this.handleConfirm} loading={confirmLoading} {...okButtonProps}>
                             {okText || get(locale, 'confirm')}
                         </Button>
                     </>
@@ -168,9 +175,10 @@ export default class Popconfirm extends BaseComponent<PopconfirmProps, Popconfir
             }
         );
         const showTitle = title !== null && typeof title !== 'undefined';
-        const showContent = content !== null || typeof content !== 'undefined';
+        const showContent = !(content === null || typeof content === 'undefined');
 
         return (
+            // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
             <div className={popCardCls} onClick={this.stopImmediatePropagation} style={style}>
                 <div className={`${prefixCls}-inner`}>
                     <div className={`${prefixCls}-header`}>
@@ -183,11 +191,6 @@ export default class Popconfirm extends BaseComponent<PopconfirmProps, Popconfir
                                     {title}
                                 </div>
                             ) : null}
-                            {showContent ? (
-                                <div className={`${prefixCls}-header-content`} x-semi-prop="content">
-                                    {content}
-                                </div>
-                            ) : null}
                         </div>
                         <Button
                             className={`${prefixCls}-btn-close`}
@@ -198,6 +201,11 @@ export default class Popconfirm extends BaseComponent<PopconfirmProps, Popconfir
                             onClick={this.handleCancel}
                         />
                     </div>
+                    {showContent ? (
+                        <div className={`${prefixCls}-body`} x-semi-prop="content">
+                            {content}
+                        </div>
+                    ) : null} 
                     <div className={`${prefixCls}-footer`}>{this.renderControls()}</div>
                 </div>
             </div>

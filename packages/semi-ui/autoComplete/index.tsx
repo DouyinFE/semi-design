@@ -14,7 +14,7 @@ import Popover from '../popover';
 import Input from '../input';
 import Trigger from '../trigger';
 
-import Option from '../select/option';
+import Option from './option';
 import warning from '@douyinfe/semi-foundation/utils/warning';
 import '@douyinfe/semi-foundation/autoComplete/autoComplete.scss';
 import { Motion } from '../_base/base';
@@ -361,6 +361,8 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
             ref: this.triggerRef,
             id,
             ...keyboardEventSet,
+            // tooltip give tabindex 0 to children by default, autoComplete just need the input get focus, so outer div's tabindex set to -1
+            tabIndex: -1
         };
 
         const innerProps = {

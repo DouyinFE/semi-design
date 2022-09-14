@@ -42,6 +42,10 @@ $module: #{$prefix}-modal;
         z-index: $z-modal;
         -webkit-overflow-scrolling: touch;
         outline: 0;
+        &-center{
+            display: flex;
+            align-items: center;
+        }
     }
     
     &-title {

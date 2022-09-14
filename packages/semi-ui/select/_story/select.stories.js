@@ -1183,7 +1183,7 @@ RenderSelectedItem.parameters =  {
   chromatic: { disableSnapshot: false },
 };
 
-const ControledSelect = () => {
+const ControlledSelect = () => {
   const [value, setValue] = useState('nick');
   const [value2, setValue2] = useState('jerry');
   const [value3, setValue3] = useState();
@@ -1277,13 +1277,13 @@ const ControledSelect = () => {
   );
 };
 
-export const Controlled = () => <ControledSelect></ControledSelect>;
+export const Controlled = () => <ControlledSelect></ControlledSelect>;
 
 Controlled.story = {
   name: 'controlled',
 };
 
-const UnControledSelect = () => {
+const UnControlledSelect = () => {
   const onChange = value => {
     console.log(value);
   };
@@ -1318,8 +1318,8 @@ const UnControledSelect = () => {
   );
 };
 
-export { UnControledSelect };
-UnControledSelect.story = {
+export { UnControlledSelect };
+UnControlledSelect.story = {
   name: '非受控组件'
 };
 
@@ -1800,7 +1800,7 @@ AllowCreateCustomRender.story = {
   name: 'allowCreate custom render',
 };
 
-let AllowCreateControledDemo = () => {
+let AllowCreateControlledDemo = () => {
   let [value, setValue] = useState();
   const optionList = [
     {
@@ -2920,7 +2920,7 @@ SelectInputPropsDemo.story = {
 export const RenderSelectedItemCallCount = () => {
       const list = [
         { "name": "夏可漫", "email": "xiakeman@example.com", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg" },
-        { "name": "申悦", "email": "shenyue@example.com", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg" },
+        { "name": "申悦", "email": "shenyue@example.com", "avatar": "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bag.jpeg" },
         { "name": "曲晨一", "email": "quchenyi@example.com", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/8bd8224511db085ed74fea37205aede5.jpg" },
         { "name": "文嘉茂", "email": "wenjiamao@example.com", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/6fbafc2d-e3e6-4cff-a1e2-17709c680624.png" },
         { "name": "文嘉茂2", "email": "wenjiamao@example.com", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/6fbafc2d-e3e6-4cff-a1e2-17709c680624.png" },

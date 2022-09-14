@@ -24,7 +24,7 @@ import OptionGroup from './optionGroup';
 import Spin from '../spin';
 import Trigger from '../trigger';
 import { IconChevronDown, IconClear } from '@douyinfe/semi-icons';
-import { isSemiIcon } from '../_utils';
+import { isSemiIcon, getFocusableElements, getActiveElement } from '../_utils';
 import { Subtract } from 'utility-types';
 
 import warning from '@douyinfe/semi-foundation/utils/warning';
@@ -177,6 +177,7 @@ export interface SelectState {
     keyboardEventSet: any; // {}
     optionGroups: Array<any>;
     isHovering: boolean;
+    isFocusInContainer: boolean;
 }
 
 // Notes: Use the label of the option as the identifier, that is, the option in Select, the value is allowed to be the same, but the label must be unique
@@ -304,13 +305,13 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         onListScroll: noop,
         maxHeight: 300,
         dropdownMatchSelectWidth: true,
-        defaultActiveFirstOption: false,
+        defaultActiveFirstOption: true, // In order to meet the needs of A11y, change to true
         showArrow: true,
         showClear: false,
         remote: false,
         autoAdjustOverflow: true,
         autoClearSearchValue: true,
-        arrowIcon: <IconChevronDown />
+        arrowIcon: <IconChevronDown aria-label='' />
         // Radio selection is different from the default renderSelectedItem for multiple selection, so it is not declared here
         // renderSelectedItem: (optionNode) => optionNode.label,
         // The default creator rendering is related to i18, so it is not declared here
@@ -319,9 +320,11 @@ class Select extends BaseComponent<SelectProps, SelectState> {
 
     inputRef: React.RefObject<HTMLInputElement>;
     triggerRef: React.RefObject<HTMLDivElement>;
+    optionContainerEl: React.RefObject<HTMLDivElement>;
     optionsRef: React.RefObject<any>;
     virtualizeListRef: React.RefObject<any>;
     selectOptionListID: string;
+    selectID: string;
     clickOutsideHandler: (e: MouseEvent) => void;
     foundation: SelectFoundation;
     context: ContextValue;
@@ -341,13 +344,16 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             keyboardEventSet: {},
             optionGroups: [],
             isHovering: false,
+            isFocusInContainer: false,
         };
         /* Generate random string */
         this.selectOptionListID = '';
+        this.selectID = '';
         this.virtualizeListRef = React.createRef();
         this.inputRef = React.createRef();
         this.triggerRef = React.createRef();
         this.optionsRef = React.createRef();
+        this.optionContainerEl = React.createRef();
         this.clickOutsideHandler = null;
         this.onSelect = this.onSelect.bind(this);
         this.onClear = this.onClear.bind(this);
@@ -355,7 +361,6 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         this.onMouseLeave = this.onMouseLeave.bind(this);
         this.renderOption = this.renderOption.bind(this);
         this.onKeyPress = this.onKeyPress.bind(this);
-        this.onClearBtnEnterPress = this.onClearBtnEnterPress.bind(this);
 
         this.foundation = new SelectFoundation(this.adapter);
 
@@ -369,6 +374,8 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             '[Semi Select] \'labelInValue\' has already been deprecated, please use \'onChangeWithObject\' instead.'
         );
     }
+
+    setOptionContainerEl = (node: HTMLDivElement) => (this.optionContainerEl = { current: node });
 
     get adapter(): SelectAdapter<SelectProps, SelectState> {
         const keyboardAdapter = {
@@ -536,6 +543,21 @@ class Select extends BaseComponent<SelectProps, SelectState> {
 
                 }
             },
+            getContainer: () => {
+                return this.optionContainerEl && this.optionContainerEl.current;
+            },
+            getFocusableElements: (node: HTMLDivElement) => {
+                return getFocusableElements(node);
+            },
+            getActiveElement: () => {
+                return getActiveElement();
+            },
+            setIsFocusInContainer: (isFocusInContainer: boolean) => {
+                this.setState({ isFocusInContainer });
+            },
+            getIsFocusInContainer: () => {
+                return this.state.isFocusInContainer;
+            },
             updateScrollTop: (index?: number) => {
                 // eslint-disable-next-line max-len
                 let optionClassName = `.${prefixcls}-option-selected`;
@@ -565,6 +587,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
     componentDidMount() {
         this.foundation.init();
         this.selectOptionListID = getUuidShort();
+        this.selectID = this.props.id || getUuidShort();
     }
 
     componentWillUnmount() {
@@ -595,13 +618,13 @@ class Select extends BaseComponent<SelectProps, SelectState> {
     handleInputChange = (value: string) => this.foundation.handleInputChange(value);
 
     renderInput() {
-        const { size, multiple, disabled, inputProps } = this.props;
+        const { size, multiple, disabled, inputProps, filter } = this.props;
         const inputPropsCls = get(inputProps, 'className');
         const inputcls = cls(`${prefixcls}-input`, {
             [`${prefixcls}-input-single`]: !multiple,
             [`${prefixcls}-input-multiple`]: multiple,
         }, inputPropsCls);
-        const { inputValue } = this.state;
+        const { inputValue, focusIndex } = this.state;
 
         const selectInputProps: Record<string, any> = {
             value: inputValue,
@@ -623,11 +646,18 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             <Input
                 ref={this.inputRef as any}
                 size={size}
+                aria-activedescendant={focusIndex !== -1 ? `${this.selectID}-option-${focusIndex}`: ''}
                 onFocus={(e: React.FocusEvent<HTMLInputElement>) => {
+                    // if multiple and filter, when use tab key to let select get focus
+                    // need to manual update state isFocus to let the focus style take effect
+                    if (multiple && Boolean(filter)){
+                        this.setState({ isFocus: true });
+                    }
                     // prevent event bubbling which will fire trigger onFocus event
                     e.stopPropagation();
                     // e.nativeEvent.stopImmediatePropagation();
                 }}
+                onBlur={e => this.foundation.handleInputBlur(e)}
                 {...selectInputProps}
             />
         );
@@ -666,10 +696,6 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         this.foundation.handleClearClick(e as any);
     }
 
-    /* istanbul ignore next */
-    onClearBtnEnterPress(e: React.KeyboardEvent) {
-        this.foundation.handleClearBtnEnterPress(e as any);
-    }
 
     renderEmpty() {
         return <Option empty={true} emptyContent={this.props.emptyContent} />;
@@ -712,6 +738,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                     key={option.key || option.label as string + option.value as string + optionIndex}
                     renderOptionItem={renderOptionItem}
                     inputValue={inputValue}
+                    id={`${this.selectID}-option-${optionIndex}`}
                 >
                     {option.label}
                 </Option>
@@ -837,7 +864,14 @@ class Select extends BaseComponent<SelectProps, SelectState> {
 
         const isEmpty = !options.length || !options.some(item => item._show);
         return (
-            <div id={`${prefixcls}-${this.selectOptionListID}`} className={dropdownClassName} style={style}>
+            // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+            <div 
+                id={`${prefixcls}-${this.selectOptionListID}`} 
+                className={dropdownClassName} 
+                style={style} 
+                ref={this.setOptionContainerEl} 
+                onKeyDown={e => this.foundation.handleContainerKeyDown(e)}
+            >
                 {outerTopSlot}
                 <div
                     style={{ maxHeight: `${maxHeight}px` }}
@@ -930,7 +964,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             };
             if (isRenderInTag) {
                 return (
-                    <Tag {...basic} color="white" size={size || 'large'} key={value}>
+                    <Tag {...basic} color="white" size={size || 'large'} key={value} tabIndex={-1}>
                         {content}
                     </Tag>
                 );
@@ -956,7 +990,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
 
         const NotOneLine = !maxTagCount; // Multiple lines (that is, do not set maxTagCount), do not use TagGroup, directly traverse with Tag, otherwise Input cannot follow the correct position
 
-        const tagContent = NotOneLine ? tags : <TagGroup<"custom"> tagList={tags} maxTagCount={n} restCount={maxTagCount ? selectedItems.length - maxTagCount : undefined} size="large" mode="custom" />;
+        const tagContent = NotOneLine ? tags : <TagGroup<"custom"> tagList={tags} maxTagCount={n} restCount={maxTagCount ? selectedItems.length - maxTagCount : undefined} size="large" mode="custom"/>;
 
         return (
             <>
@@ -1055,7 +1089,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             arrowIcon,
         } = this.props;
 
-        const { selections, isOpen, keyboardEventSet, inputValue, isHovering, isFocus } = this.state;
+        const { selections, isOpen, keyboardEventSet, inputValue, isHovering, isFocus, showInput, focusIndex } = this.state;
         const useCustomTrigger = typeof triggerRender === 'function';
         const filterable = Boolean(filter); // filter（boolean || function）
         const selectionCls = useCustomTrigger ?
@@ -1109,32 +1143,31 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                     </div>
                 </Fragment>,
                 <Fragment key="clearicon">
-                    {showClear ? (
-                        <div
-                            role="button"
-                            aria-label="Clear selected value"
-                            tabIndex={0}
-                            className={cls(`${prefixcls}-clear`)}
-                            onClick={this.onClear}
-                            onKeyPress={this.onClearBtnEnterPress}
-                        >
-                            <IconClear />
-                        </div>
-                    ) : arrowContent}
+                    {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+                    {showClear ? ( <div className={cls(`${prefixcls}-clear`)} onClick={this.onClear}><IconClear /></div>) : arrowContent}
                 </Fragment>,
                 <Fragment key="suffix">{suffix ? this.renderSuffix() : null}</Fragment>,
             ]
         );
 
-        const tabIndex = disabled ? null : 0;
+        /**
+         * 
+         * In disabled, searchable single-selection and display input, and searchable multi-selection
+         * make combobox not focusable by tab key
+         * 
+         * 在disabled，可搜索单选且显示input框，以及可搜索多选情况下
+         * 让combobox无法通过tab聚焦
+         */
+        const tabIndex = (disabled || (filterable && showInput) || (filterable && multiple)) ? -1 : 0;
         return (
+            /* eslint-disable-next-line jsx-a11y/aria-activedescendant-has-tabindex */
             <div
                 role="combobox"
                 aria-disabled={disabled}
                 aria-expanded={isOpen}
                 aria-controls={`${prefixcls}-${this.selectOptionListID}`}
                 aria-haspopup="listbox"
-                aria-label="select value"
+                aria-label={selections.size ? 'selected' : ''} // if there is a value, expect the narration to speak selected
                 aria-invalid={this.props['aria-invalid']}
                 aria-errormessage={this.props['aria-errormessage']}
                 aria-labelledby={this.props['aria-labelledby']}
@@ -1144,11 +1177,12 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 ref={ref => ((this.triggerRef as any).current = ref)}
                 onClick={e => this.foundation.handleClick(e)}
                 style={style}
-                id={id}
+                id={this.selectID}
                 tabIndex={tabIndex}
+                aria-activedescendant={focusIndex !== -1 ? `${this.selectID}-option-${focusIndex}`: ''}
                 onMouseEnter={this.onMouseEnter}
                 onMouseLeave={this.onMouseLeave}
-                // onFocus={e => this.foundation.handleTriggerFocus(e)}
+                onFocus={e => this.foundation.handleTriggerFocus(e)}
                 onBlur={e => this.foundation.handleTriggerBlur(e as any)}
                 onKeyPress={this.onKeyPress}
                 {...keyboardEventSet}
@@ -1193,6 +1227,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 position={position}
                 spacing={spacing}
                 stopPropagation={stopPropagation}
+                disableArrowKeyDown={true}
                 onVisibleChange={status => this.handlePopoverVisibleChange(status)}
             >
                 {selection}

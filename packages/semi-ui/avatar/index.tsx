@@ -31,6 +31,7 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
         onMouseLeave: noop,
     };
 
+    static elementType: string;
     static propTypes = {
         children: PropTypes.node,
         color: PropTypes.oneOf(colorSet),
@@ -192,7 +193,7 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
             const finalProps = clickable ? { ...props, ...a11yFocusProps } : props;
             content = (
                 <span className={`${prefixCls}-content`}>
-                    <span {...finalProps}  x-semi-prop="children">{children}</span>
+                    <span {...finalProps} x-semi-prop="children">{children}</span>
                 </span>
             );
         }
@@ -234,3 +235,4 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
         );
     }
 }
+Avatar.elementType = 'Avatar';

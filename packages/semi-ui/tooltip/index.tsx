@@ -75,8 +75,10 @@ export interface TooltipProps extends BaseProps {
     guardFocus?: boolean;
     returnFocusOnClose?: boolean;
     onEscKeyDown?: (e: React.KeyboardEvent) => void;
+    disableArrowKeyDown?: boolean; 
     wrapperId?: string;
     preventScroll?: boolean;
+    disableFocusListener?: boolean;
 }
 interface TooltipState {
     visible: boolean;
@@ -162,6 +164,8 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         guardFocus: false,
         returnFocusOnClose: false,
         onEscKeyDown: noop,
+        disableFocusListener: false,
+        disableArrowKeyDown: false,
     };
 
     eventManager: Event;
@@ -716,7 +720,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                     ref.current = node;
                 }
             },
-            tabIndex: 0, // a11y keyboard
+            tabIndex: (children as React.ReactElement).props.tabIndex || 0, // a11y keyboard, in some condition select's tabindex need to -1 or 0 
             'data-popupid': id
         });
 

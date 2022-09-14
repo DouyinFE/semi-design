@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 41
+order: 42
 category: 导航类
 title: Tabs 标签栏
 icon: doc-tabs
@@ -523,17 +523,17 @@ class App extends React.Component {
         super(props);
         this.state = {
             tabList: [
-                {tab: '文档', itemKey:'1', text:'文档', closable:true},
-                {tab: '快速起步', itemKey:'2', text:'快速起步', closable:true},
-                {tab: '帮助', itemKey:'3', text:'帮助'},
+                { tab: '文档', itemKey:'1', text:'文档', closable:true },
+                { tab: '快速起步', itemKey:'2', text:'快速起步', closable:true },
+                { tab: '帮助', itemKey:'3', text:'帮助' },
             ]
-        }
+        };
     }
     close(key){
         const newTabList = [...this.state.tabList];
         const closeIndex = newTabList.findIndex(t=>t.itemKey===key);
         newTabList.splice(closeIndex, 1);
-        this.setState({tabList:newTabList});
+        this.setState({ tabList:newTabList });
     }
     render() {
         return (
@@ -620,6 +620,12 @@ WAI-ARIA: https://www.w3.org/WAI/ARIA/apg/patterns/tabpanel/
 ## 设计变量
 
 <DesignToken/>
+
+## 文案规范
+- 标签文案需要准确清晰地解释标签内容
+- 用简短的，易区分的标签
+- 尽量保持在一个词以内
+
 
 ## FAQ
 

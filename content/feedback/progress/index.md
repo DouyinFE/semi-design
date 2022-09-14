@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 66
+order: 67
 category: 反馈类
 title: Progress 进度条
 icon: doc-progress
@@ -305,6 +305,10 @@ import { Progress } from '@douyinfe/semi-ui';
 // usage of aria-valuetext
 <Progress aria-label='Percent of disk usage' percent={80} aria-valuetext="Step 2: Copying files... "/> 
 ```
+
+
+## 文案规范
+- 如果进度条过程复杂，或者有很长的等待时间，可以使用帮助文本来做说明。这样可以让用户知道正在发生的进度进展
 
 ## 设计变量
 

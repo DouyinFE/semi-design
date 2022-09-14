@@ -20,7 +20,7 @@ function getOption(list = defaultList) {
 let commonProps = {
     // Select use Popup Layer to show candidate option,
     // but all Popup Layer which extends from Tooltip (eg Popover, Dropdown) have animation and delay.
-    // Turn off animation and delay during testing, to avoid wating (something like setTimeOut/balabala...) in the test code
+    // Turn off animation and delay during testing, to avoid waiting (something like setTimeOut/balabala...) in the test code
     motion: false,
     mouseEnterDelay: 0,
     mouseLeaveDelay: 0,
@@ -467,7 +467,7 @@ describe('Select', () => {
         const props = { disabled: true };
         const select = getSelect(props);
         expect(select.exists(`.${BASE_CLASS_PREFIX}-select-disabled`)).toEqual(true);
-        // Does not respond click events when disbaled is true
+        // Does not respond click events when disabled is true
         select.find(`.${BASE_CLASS_PREFIX}-select`).simulate('click', {});
         expect(select.exists(`.${BASE_CLASS_PREFIX}-select-option-list`)).toEqual(false);
     });
@@ -556,12 +556,6 @@ describe('Select', () => {
         select.unmount();
         // when click clear button, should trigger onSearch
         // TODO
-        let scProps = {
-            showClear: true,
-            filter: true,
-            defaultValue: 'tikok',
-        };
-        const scSelect = getSelect(props);
     });
 
     it('emptyContent', () => {
@@ -718,7 +712,7 @@ describe('Select', () => {
     });
 
     it('onDeselect', () => {
-        // trigger onDeselect when option is deselectd
+        // trigger onDeselect when option is deselected
         let onDeselect = (value, option) => {};
         let spyOnDeselect = sinon.spy(onDeselect);
         let props = {
@@ -876,9 +870,9 @@ describe('Select', () => {
         // Since there is no mechanism such as event bubbling in enzyme + jsdom, the blur event can only be triggered manually on the blur element,
         // and the blur of the `a element` cannot be achieved through the focus `b element`.
 
-        // blur usually call when popover close, so use select instance close() method to mock blur click like use in browser
+        // Adapt to A11y requirements, close the panel will not call the onBlur func 
         select.instance().close();
-        expect(spyOnBlur.callCount).toEqual(1);
+        expect(spyOnBlur.callCount).toEqual(0);
         select.unmount();
     });
 
@@ -916,7 +910,7 @@ describe('Select', () => {
     });
 
     it('【autoFocus】 & onBlur when autoFocus = true', () => {
-        // autoFocus should trigger onBlur when click ohter element directly （dropdown not open）
+        // autoFocus should trigger onBlur when click other element directly （dropdown not open）
         let spyOnBlur = sinon.spy((value, option) => {
         });
         let props = {
@@ -936,7 +930,7 @@ describe('Select', () => {
         expect(spyOnBlur.callCount).toEqual(1);
     });
 
-    it('vitrual', () => {
+    it('virtual', () => {
         let spyOnChange = sinon.spy((value) => {
         });
         let optionList = Array.from({ length: 100 }, (v, i) => ({ label: `option-${i}`, value: i }));
@@ -1048,7 +1042,7 @@ describe('Select', () => {
     it('customTrigger', () => {
         const triggerRender = ({ value, ...rest }) => {
             return (
-              <div className="custom-triger">
+              <div className="custom-trigger">
                 trigger
               </div>
             );
@@ -1057,7 +1051,7 @@ describe('Select', () => {
             triggerRender,
         };
         let select = getSelect(props);
-        let trigger = select.find('.custom-triger');
+        let trigger = select.find('.custom-trigger');
         expect(trigger.length).toEqual(1);
         expect(trigger.at(0).text()).toEqual('trigger');
         trigger.at(0).simulate('click')
@@ -1076,9 +1070,11 @@ describe('Select', () => {
         };
         let select = getSelect(props);
         // press ⬇️
+        // since the defaultActiveFirstOption default to be true, after ⬇️, the second option focused
         select.find(`.${BASE_CLASS_PREFIX}-select`).simulate('keydown', { keyCode: keyCode.DOWN });
-        expect(select.find(`.${BASE_CLASS_PREFIX}-select-option`).at(0).hasClass(`${BASE_CLASS_PREFIX}-select-option-focused`)).toBe(true);
+        expect(select.find(`.${BASE_CLASS_PREFIX}-select-option`).at(1).hasClass(`${BASE_CLASS_PREFIX}-select-option-focused`)).toBe(true);
         // press ⬆️
+        select.find(`.${BASE_CLASS_PREFIX}-select`).simulate('keydown', { keyCode: keyCode.UP });
         select.find(`.${BASE_CLASS_PREFIX}-select`).simulate('keydown', { keyCode: keyCode.UP });
         expect(select.find(`.${BASE_CLASS_PREFIX}-select-option`).at(defaultList.length-1).hasClass(`${BASE_CLASS_PREFIX}-select-option-focused`)).toBe(true);
         // press ESC
@@ -1184,7 +1180,7 @@ describe('Select', () => {
         expect(singleSelect.state().selections.size).toEqual(0);
     });
 
-    it('props optionList update after choose some option, uncontroled mode', () => {
+    it('props optionList update after choose some option, uncontrolled mode', () => {
 
         let props = {
             defaultActiveFirstOption: true,
@@ -1232,7 +1228,7 @@ describe('Select', () => {
         expect(selections2[0][0]).toEqual('abc');
     });
 
-    it('click tag close when multiple, controled mode', () => {
+    it('click tag close when multiple, controlled mode', () => {
         let spyOnChange = sinon.spy((value) => {
         });
         let spyOnDeselect = sinon.spy((option) => {
@@ -1301,8 +1297,8 @@ describe('Select', () => {
         expect(inputValue).toEqual(keyword);
     });
     // TODO ref selectAll \deselectAll when onChangeWithObject is true
-    // TODO when loading is true, do not response any keyborard event
-    // TODO can't remove tag when option is diabled
+    // TODO when loading is true, do not response any keyboard event
+    // TODO can't remove tag when option is disabled
     // it('allowCreate-renderCreateItem', ()=>{})
     // it('autoAdjustOverflow', ()=>{})
     // it('remote', ()=>{})

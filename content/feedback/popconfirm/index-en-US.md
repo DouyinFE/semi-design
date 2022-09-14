@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 65
+order: 66
 category: Feedback
 title:  Popconfirm
 subTitle: Popconfirm
@@ -109,6 +109,48 @@ function TypesConfirmDemo(props = {}) {
 }
 ```
 
+
+### Delay hide
+
+`onOk` and `onCancel` can be closed after click through return Promise (supported after v2.19). When onCancel and onOk are triggered, the corresponding Button will automatically switch to `loading: true`  
+promise solve will close the bubble confirmation box, the bubble will remain when promise reject, and button loading will automatically switch to false  
+
+```jsx live=true
+import React from 'react';
+import { Popconfirm, Button, Toast } from '@douyinfe/semi-ui';
+
+() => {
+    const onConfirm = () => {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                console.log('resolve, close popconfirm');
+                resolve();
+            }, 2000);
+        });
+    };
+
+    const onCancel = () => {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                console.log('reject, popconfirm still exist');
+                reject();
+            }, 2000);
+        });
+    };
+
+    return (
+        <Popconfirm
+            title="Are you sure to save this modification?"
+            content="This modification will be irreversible"
+            onConfirm={onConfirm}
+            onCancel={onCancel}
+        >
+            <Button>Save</Button>
+        </Popconfirm>
+    );
+};
+```
+
 ### Use with Tooltip or Popover
 
 Please refer to [Use with Tooltip/Popover](/en-US/show/tooltip#Use-with-Popver-or-Popconfirm)
@@ -138,9 +180,15 @@ Please refer to [Use with Tooltip/Popover](/en-US/show/tooltip#Use-with-Popver-o
 | trigger            | Timing to trigger the display, optional value：hover / focus / click / custom                                                                                         | string                |   'click'                  |
 | visible            | Whether the bubble box displays controlled attributes                                                                                                                   | boolean                          |                     | **0.19.0**        |
 | zIndex             | Floating layer z-index value                                                                                                                                          | number                     | 1030                |
-| onConfirm          | Click the confirmation button to call back.                                                                                                                           | (e) => void                |                     |
-| onCancel           | Click the Cancel button to call back.                                                                                                                                 | (e) => void                |                     |
+| onConfirm          | Click the confirmation button to call back. Promise support after v2.19                                                                                                                           | (e) => void \| Promise                |                     |
+| onCancel           | Click the Cancel button to call back. Promise support after v2.19                                                                                                                          | (e) => void \| Promise                |                     |
 | onVisibleChange    | Bubble box toggle shows hidden callbacks                                                                                                                              | (visible: boolean) => void | () => {}            | **0.19.0**        |
 | onClickOutSide     | Callback when the pop-up layer is in the display state and the non-Children, non-floating layer inner area is clicked                                                 | (e: event) => void         |                     | **2.1.0**        |
 ## Design Tokens
 <DesignToken/>
+
+## FAQ
+
+- **Why does the Popconfirm floating layer lose its width and wrap unexpectedly when the width is not enough near the screen border?**
+
+    After Chromium 104, the wrapping rendering strategy when the width of the screen border text is not enough has changed. For details, see [issue #1022](https://github.com/DouyinFE/semi-design/issues/1022), the semi-side has been This problem was fixed in v2.17.0.

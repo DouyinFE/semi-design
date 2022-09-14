@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 27
+order: 28
 category: 输入类
 title:  Select 选择器
 icon: doc-select
@@ -34,19 +34,19 @@ import { Select } from '@douyinfe/semi-ui';
     <>
         <Select defaultValue='abc' style={{ width: 120 }}>
             <Select.Option value='abc'>抖音</Select.Option>
-            <Select.Option value='hotsoon'>火山</Select.Option>
+            <Select.Option value='ulikecam'>轻颜相机</Select.Option>
             <Select.Option value='jianying' disabled>剪映</Select.Option>
             <Select.Option value='xigua'>西瓜视频</Select.Option>
         </Select>
         <br/><br/>
         <Select defaultValue='abc' disabled style={{ width: 120 }}>
             <Select.Option value='abc'>抖音</Select.Option>
-            <Select.Option value='hotsoon'>火山</Select.Option>
+            <Select.Option value='ulikecam'>轻颜相机</Select.Option>
         </Select>
         <br/><br/>
         <Select placeholder='请选择业务线' style={{ width: 120 }}>
             <Select.Option value='abc'>抖音</Select.Option>
-            <Select.Option value='hotsoon'>火山</Select.Option>
+            <Select.Option value='ulikecam'>轻颜相机</Select.Option>
             <Select.Option value='jianying' disabled>剪映</Select.Option>
             <Select.Option value='xigua'>西瓜视频</Select.Option>
         </Select>
@@ -65,7 +65,7 @@ import { Select } from '@douyinfe/semi-ui';
 () => {
     const list = [
         { value: 'abc', label: '抖音', otherKey:0 },
-        { value: 'hotsoon', label: '火山小视频', disabled: true, otherKey: 1 },
+        { value: 'ulikecam', label: '轻颜相机', disabled: true, otherKey: 1 },
         { value: 'jianying', label: '剪映', otherKey: 2 },
         { value: 'toutiao', label: '今日头条', otherKey: 3 },
     ];
@@ -90,16 +90,16 @@ import { Select } from '@douyinfe/semi-ui';
 
 () => (
     <>
-        <Select multiple style={{ width: '320px' }} defaultValue={['abc','hotsoon']}>
+        <Select multiple style={{ width: '320px' }} defaultValue={['abc','ulikecam']}>
             <Select.Option value='abc'>抖音</Select.Option>
-            <Select.Option value='hotsoon'>火山</Select.Option>
+            <Select.Option value='ulikecam'>轻颜相机</Select.Option>
             <Select.Option value='jianying'>剪映</Select.Option>
             <Select.Option value='xigua'>西瓜视频</Select.Option>
         </Select>
         <br/><br/>
-        <Select multiple style={{ width: '320px' }} defaultValue={['abc','hotsoon', 'jianying']} maxTagCount={2}>
+        <Select multiple style={{ width: '320px' }} defaultValue={['abc','ulikecam', 'jianying']} maxTagCount={2}>
             <Select.Option value='abc'>抖音</Select.Option>
-            <Select.Option value='hotsoon'>火山</Select.Option>
+            <Select.Option value='ulikecam'>轻颜相机</Select.Option>
             <Select.Option value='jianying'>剪映</Select.Option>
             <Select.Option value='xigua'>西瓜视频</Select.Option>
         </Select>
@@ -107,7 +107,7 @@ import { Select } from '@douyinfe/semi-ui';
         <br/><br/>
         <Select multiple style={{ width: '320px' }} defaultValue={['abc']} max={2} onExceed={()=>Toast.warning('最多只允许选择两项')}>
             <Select.Option value='abc'>抖音</Select.Option>
-            <Select.Option value='hotsoon'>火山</Select.Option>
+            <Select.Option value='ulikecam'>轻颜相机</Select.Option>
             <Select.Option value='jianying'>剪映</Select.Option>
             <Select.Option value='xigua'>西瓜视频</Select.Option>
         </Select>
@@ -206,15 +206,15 @@ import { Select } from '@douyinfe/semi-ui';
 () => (
     <>
         <Select placeholder='请选择业务线' style={{ width: '180px' }} size='small'>
-            <Select.Option value='hotsoon'>火山</Select.Option>
+            <Select.Option value='ulikecam'>轻颜相机</Select.Option>
         </Select>
         <br/><br/>
         <Select placeholder='请选择业务线' style={{ width: '180px' }}>
-            <Select.Option value='hotsoon'>火山</Select.Option>
+            <Select.Option value='ulikecam'>轻颜相机</Select.Option>
         </Select>
         <br/><br/>
         <Select placeholder='请选择业务线' style={{ width: '180px' }} size='large'>
-            <Select.Option value='hotsoon'>火山</Select.Option>
+            <Select.Option value='ulikecam'>轻颜相机</Select.Option>
         </Select>
     </>
 );
@@ -232,15 +232,15 @@ import { Select } from '@douyinfe/semi-ui';
 () => (
     <>
         <Select style={{ width: '180px' }}>
-            <Select.Option value='hotsoon'>火山</Select.Option>
+            <Select.Option value='ulikecam'>轻颜相机</Select.Option>
         </Select>
         <br/><br/>
         <Select style={{ width: '180px' }} validateStatus='warning'>
-            <Select.Option value='hotsoon'>火山</Select.Option>
+            <Select.Option value='ulikecam'>轻颜相机</Select.Option>
         </Select>
         <br/><br/>
         <Select style={{ width: '180px' }} validateStatus='error'>
-            <Select.Option value='hotsoon'>火山</Select.Option>
+            <Select.Option value='ulikecam'>轻颜相机</Select.Option>
         </Select>
     </>
 );
@@ -262,25 +262,25 @@ import { IconVigoLogo, IconGift } from '@douyinfe/semi-icons';
     <>
         <Select
             style={{ width: '320px' }}
-            defaultValue={'hotsoon'}
+            defaultValue={'ulikecam'}
             prefix={<IconVigoLogo />}
             showClear={true}
         >
             <Select.Option value='abc'>抖音</Select.Option>
-            <Select.Option value='hotsoon'>火山</Select.Option>
+            <Select.Option value='ulikecam'>轻颜相机</Select.Option>
             <Select.Option value='jianying'>剪映</Select.Option>
             <Select.Option value='xigua'>西瓜视频</Select.Option>
         </Select>
         <br/><br/>
         <Select
             style={{ width: '320px' }}
-            defaultValue={'hotsoon'}
+            defaultValue={'ulikecam'}
             prefix={<IconVigoLogo />}
             suffix={<IconGift />}
             showArrow={false}
         >
             <Select.Option value='abc'>抖音</Select.Option>
-            <Select.Option value='hotsoon'>火山</Select.Option>
+            <Select.Option value='ulikecam'>轻颜相机</Select.Option>
             <Select.Option value='jianying'>剪映</Select.Option>
             <Select.Option value='xigua'>西瓜视频</Select.Option>
         </Select>
@@ -294,16 +294,28 @@ import { IconVigoLogo, IconGift } from '@douyinfe/semi-icons';
 当传入类型为 ReactNode 时，注意要自行处理 label 与文本之间的间隔
 
 ```jsx live=true
-import React from 'react';
+import React, { useState } from 'react';
 import { Select } from '@douyinfe/semi-ui';
 
 () => {
     const list = [
         { value: 'abc', label: '抖音' },
-        { value: 'hotsoon', label: '火山小视频' },
+        { value: 'ulikecam', label: '轻颜相机' },
         { value: 'jianying', label: '剪映' },
         { value: 'toutiao', label: '今日头条' },
     ];
+    const colorList = ['red', 'light-blue', 'yellow', 'purple', 'pink', 'green'].map(color => {
+        return {
+            value: `rgba(var(--semi-${color}-4), 1)`,
+            label: (
+                <span style={{ 
+                    color: `rgba(var(--semi-${color}-4), 1)`}}>
+                    {`--semi-${color}-4`}
+                </span>
+            )
+        };
+    });
+    const [colorVal, setColotVal] = useState('--semi-light-blue-3');
     return (
         <>
             <Select style={{ width: 300 }} optionList={list} insetLabel='业务线' defaultValue='abc'>
@@ -311,12 +323,31 @@ import { Select } from '@douyinfe/semi-ui';
             <br/><br/>
             <Select
                 style={{ width: 300 }}
-                optionList={list} placeholder='请选择业务线'
-                insetLabel={<span style={{ marginRight: 0, marginLeft: 10, color: "var(--semi-color-text-2)" }}>业务线</span>}>
+                optionList={colorList}
+                value={colorVal}
+                insetLabel={
+                    <div style={{
+                        marginLeft: 12,
+                        display: 'flex'
+                    }} >
+                        <div style={{
+                            display: 'block',
+                            width: 5,
+                            height: 5,
+                            border: 'solid 7px transparent',
+                            borderRadius: '50%',
+                            borderColor: 'rgba(var(--semi-light-blue-3), 1)',
+                        }} >
+                        </div> 
+                        <span style={{ marginLeft: 4 }}>色值</span>
+                    </div>
+                }
+            >
             </Select>
         </>
     );
 };
+
 ```
 
 ### 在顶部/底部渲染附加项
@@ -375,7 +406,7 @@ import { Select } from '@douyinfe/semi-ui';
                 position='bottom'
             >
                 <Select.Option value='abc'>抖音</Select.Option>
-                <Select.Option value='hotsoon'>火山</Select.Option>
+                <Select.Option value='ulikecam'>轻颜相机</Select.Option>
                 <Select.Option value='jianying'>剪映</Select.Option>
                 <Select.Option value='duoshan'>多闪</Select.Option>
                 <Select.Option value='xigua'>西瓜视频</Select.Option>
@@ -389,7 +420,7 @@ import { Select } from '@douyinfe/semi-ui';
                 placeholder='自定义内侧底部slot，滚动至底部显示'
             >
                 <Select.Option value='abc'>抖音</Select.Option>
-                <Select.Option value='hotsoon'>火山</Select.Option>
+                <Select.Option value='ulikecam'>轻颜相机</Select.Option>
                 <Select.Option value='jianying'>剪映</Select.Option>
                 <Select.Option value='duoshan'>多闪</Select.Option>
                 <Select.Option value='xigua'>西瓜视频</Select.Option>
@@ -495,7 +526,7 @@ import { Select } from '@douyinfe/semi-ui';
         <>
             <Select value={value} style={{ width: '300px' }} onChange={setValue} placeholder='受控的Select'>
                 <Select.Option value='abc'>抖音</Select.Option>
-                <Select.Option value='hotsoon'>火山</Select.Option>
+                <Select.Option value='ulikecam'>轻颜相机</Select.Option>
                 <Select.Option value='jianying'>剪映</Select.Option>
                 <Select.Option value='xigua'>西瓜视频</Select.Option>
             </Select>
@@ -615,7 +646,7 @@ import { Select } from '@douyinfe/semi-ui';
     <>
         <Select filter style={{ width: 180 }} placeholder='带搜索功能的单选'>
             <Select.Option value='abc'>抖音</Select.Option>
-            <Select.Option value='hotsoon'>火山</Select.Option>
+            <Select.Option value='ulikecam'>轻颜相机</Select.Option>
             <Select.Option value='jianying'>剪映</Select.Option>
             <Select.Option value='xigua'>西瓜视频</Select.Option>
         </Select>
@@ -639,88 +670,60 @@ import { Select } from '@douyinfe/semi-ui';
 通过动态更新`optionList`更新下拉菜单中的备选项  
 使用受控的 value 属性
 
-```jsx live=true hideInDSM
+```jsx live=true
 import React from 'react';
 import { debounce } from 'lodash-es';
 import { Select } from '@douyinfe/semi-ui';
 
-class SearchDemo extends React.Component {
-    constructor(){
-        super();
-        this.state = {
-            loading: false,
-            optionList: [
-                { value: 'abc', label: '抖音', type: 1 },
-                { value: 'hotsoon', label: '火山小视频', type: 2 },
-                { value: 'jianying', label: '剪映', type: 3 },
-                { value: 'toutiao', label: '今日头条', type: 4 },
-            ],
-            value: '',
-            multipleValue: [],
-        };
-        this.handleSearch = debounce(this.handleSearch, 800).bind(this);
-        this.onChange = this.onChange.bind(this);
-        this.onMultipleChange = this.onMultipleChange.bind(this);
-    }
+() => {
+    const [loading, setLoading] = useState(false);
+    const optionList = [
+        { value: 'douyin', label: '抖音', type: 1 },
+        { value: 'xingtu', label: '醒图', type: 2 },
+        { value: 'jianying', label: '剪映', type: 3 },
+        { value: 'toutiao', label: '今日头条', type: 4 },
+    ];
+    const [list, setList] = useState(optionList);
+    const [value, setValue] = useState('');
+    
+    const handleMultipleChange = (newValue) => {
+        setValue(newValue);
+    };
 
-    handleSearch(inputValue) {
-        this.setState({ loading: true });
-        let length = Math.ceil(Math.random()*100);
-        let result = Array.from({ length }, (v, i) => {
-            return { value: inputValue + i, label: inputValue + '-新业务线-' + i, type: i + 1 };
-        });
-        setTimeout(() => {
-            this.setState({ optionList: result, loading: false });
-        }, 2000);
-    }
+    const handleSearch = (inputValue) => {
+        setLoading(true);
+        let result = [];
+        if (inputValue) {
+            let length = Math.ceil(Math.random()*100);
+            result = Array.from({ length }, (v, i) => {
+                return { value: inputValue + i, label: `相近业务 ${inputValue}${i}`, type: i + 1 };
+            });
+            setTimeout(() => {
+                setLoading(false);
+                setList(result);
+            }, 1000);
+        } else {
+            setLoading(false);
+        }
+    };
 
-    onChange(value) {
-        this.setState({ value });
-    }
-
-    onMultipleChange(multipleValue) {
-        this.setState({ multipleValue });
-    }
-
-    render() {
-        const { loading, optionList, value, multipleValue } = this.state;
-        return (
-            <div>
-                <Select
-                    style={{ width: 300 }}
-                    filter
-                    remote
-                    onChangeWithObject
-                    onSearch={this.handleSearch}
-                    optionList={optionList}
-                    loading={loading}
-                    onChange={this.onChange}
-                    value={value}
-                    placeholder='请选择'
-                    emptyContent={null}
-                >
-                </Select>
-                <br/><br/>
-                <Select
-                    style={{ width: 300 }}
-                    filter
-                    remote
-                    onChangeWithObject
-                    multiple
-                    value={multipleValue}
-                    onSearch={this.handleSearch}
-                    optionList={optionList}
-                    loading={loading}
-                    onChange={this.onMultipleChange}
-                    placeholder='请选择'
-                    emptyContent={null}
-                >
-                </Select>
-            </div>
-        );
-    }
-
-}
+    return (
+        <Select
+            style={{ width: 300 }}
+            filter
+            remote
+            onChangeWithObject
+            multiple
+            value={value}
+            onSearch={debounce(handleSearch, 1000)}
+            optionList={list}
+            loading={loading}
+            onChange={handleMultipleChange}
+            emptyContent={null}
+        >
+        </Select>
+    );
+};
 ```
 
 ### 自定义搜索逻辑
@@ -742,7 +745,7 @@ import { Select } from '@douyinfe/semi-ui';
     return (
         <Select filter={searchLabel} style={{ width: '180px' }} placeholder='try abc'>
             <Select.Option value='abc'>ABC</Select.Option>
-            <Select.Option value='hotsoon'>HOTSOON</Select.Option>
+            <Select.Option value='ulikecam'>HOTSOON</Select.Option>
             <Select.Option value='jianying'>PIPIXIA</Select.Option>
             <Select.Option value='xigua'>XIGUA</Select.Option>
         </Select>
@@ -767,8 +770,8 @@ import { Select, Avatar, Tag } from '@douyinfe/semi-ui';
 () => {
     const list = [
         { "name": "夏可漫", "email": "xiakeman@example.com", "avatar": "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png" },
-        { "name": "申悦", "email": "shenyue@example.com", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg" },
-        { "name": "曲晨一", "email": "quchenyi@example.com", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/8bd8224511db085ed74fea37205aede5.jpg" },
+        { "name": "申悦", "email": "shenyue@example.com", "avatar": "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bag.jpeg" },
+        { "name": "曲晨一", "email": "quchenyi@example.com", "avatar": "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/Viamaker.png" },
         { "name": "文嘉茂", "email": "wenjiamao@example.com", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/6fbafc2d-e3e6-4cff-a1e2-17709c680624.png" },
     ];
 
@@ -840,7 +843,7 @@ import { Select, Avatar, Tag } from '@douyinfe/semi-ui';
                 placeholder='请选择'
                 style={{ width: 280, height: 40 }}
                 onChange={v => console.log(v)}
-                defaultValue={'夏可漫'}
+                defaultValue={'申悦'}
                 renderSelectedItem={renderSelectedItem}
             >
                 {list.map((item, index) => renderCustomOption(item, index))}
@@ -850,7 +853,7 @@ import { Select, Avatar, Tag } from '@douyinfe/semi-ui';
                 maxTagCount={2}
                 style={{ width: 280, marginTop: 20 }}
                 onChange={v => console.log(v)}
-                defaultValue={['夏可漫', '申悦']}
+                defaultValue={['申悦', '曲晨一']}
                 multiple
                 renderSelectedItem={renderMultipleWithCustomTag}
             >
@@ -861,7 +864,7 @@ import { Select, Avatar, Tag } from '@douyinfe/semi-ui';
                 maxTagCount={2}
                 style={{ width: 280, marginTop: 20 }}
                 onChange={v => console.log(v)}
-                defaultValue={['夏可漫', '申悦']}
+                defaultValue={['申悦', '曲晨一']}
                 multiple
                 renderSelectedItem={renderMultipleWithCustomTag2}
             >
@@ -870,6 +873,7 @@ import { Select, Avatar, Tag } from '@douyinfe/semi-ui';
         </>
     );
 };
+
 ```
 
 ### 自定义弹出层样式
@@ -884,7 +888,7 @@ import { Select } from '@douyinfe/semi-ui';
 () => (
     <Select placeholder='自定义弹出层样式的' style={{ width: 180 }} dropdownStyle={{ width: 250 }} dropdownClassName='test'>
         <Select.Option value='abc'>抖音</Select.Option>
-        <Select.Option value='hotsoon'>火山</Select.Option>
+        <Select.Option value='ulikecam'>轻颜相机</Select.Option>
         <Select.Option value='jianying'>剪映</Select.Option>
         <Select.Option value='xigua'>西瓜视频</Select.Option>
     </Select>
@@ -907,7 +911,7 @@ import { Select, TextArea } from '@douyinfe/semi-ui';
 () => {
     const list = [
         { value: 'abc', label: '抖音', type: 1 },
-        { value: 'hotsoon', label: '火山', type: 2 },
+        { value: 'ulikecam', label: '轻颜相机', type: 2 },
         { value: 'jianying', label: '剪映', type: 3 },
         { value: 'toutiao', label: '今日头条', type: 4 },
     ];
@@ -975,7 +979,7 @@ import { Select } from '@douyinfe/semi-ui';
 () => {
     const optionList = [
         { value: 'abc', label: '抖音' },
-        { value: 'hotsoon', label: '火山小视频' },
+        { value: 'ulikecam', label: '轻颜相机' },
         { value: 'jianying', label: '剪映' },
         { value: 'toutiao', label: '今日头条' },
     ];
@@ -1018,6 +1022,19 @@ virtualize 是一个包含下列值的对象：
 -   width: Option 列表宽度值，默认 100%
 -   itemSize: 每行 Option 的高度，必传
  
+<Notice title='注意事项'>
+    Semi Select virtualize 功能是基于 react-window 的封装，虚拟化列表默认会被包裹在 `will-change: transform` 的 div 内部。
+    在某些浏览器（例如 Chrome），某些特定的屏幕尺寸下，屏幕物理像素尺寸与浏览器处理的像素无法对齐时，会自动开启抗锯齿。从而导致虚拟列表中的文本字体可能会在特定场景下存在模糊的情况。
+    will-change 对于复杂元素的渲染会有性能改善，所以我们默认不会对 react-window的样式进行覆盖。如果你希望关闭这个效果，可以通过自行覆盖 CSS，将 will-change 设置为 unset 解决
+</Notice>
+
+```css
+.semi-select-option-list > div {
+    will-change: unset!important; // 由于 react-window自带样式是内联的，所以这里用 important 覆盖
+}
+```
+
+
 ```jsx live=true hideInDSM
 import React from 'react';
 import { Select } from '@douyinfe/semi-ui';
@@ -1078,11 +1095,11 @@ import { Select } from '@douyinfe/semi-ui';
 import { IconAppCenter, IconChevronDown } from '@douyinfe/semi-icons';
 
 () => {
-    const [valList, setValList] = useState(['abc', 'hotsoon']);
+    const [valList, setValList] = useState(['abc', 'ulikecam']);
     const [val, setVal] = useState('abc');
     const list = [
         { value: 'abc', label: '抖音' },
-        { value: 'hotsoon', label: '火山小视频' },
+        { value: 'ulikecam', label: '轻颜相机' },
         { value: 'jianying', label: '剪映' },
         { value: 'toutiao', label: '今日头条' },
     ];
@@ -1211,7 +1228,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 
     const optionList = [
         { value: 'abc', label: '抖音', otherKey:0 },
-        { value: 'hotsoon', label: '火山小视频', disabled: true, otherKey: 1 },
+        { value: 'ulikecam', label: '轻颜相机', disabled: true, otherKey: 1 },
         { value: 'jianying', label: '剪映', otherKey: 2 },
         { value: 'toutiao', label: '今日头条', otherKey: 3 },
     ];
@@ -1301,7 +1318,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | defaultValue             | 初始选中的值                                                                                                                                                                                              | string\|number\|array                 |                                   |
 | defaultOpen              | 是否默认展开下拉列表                                                                                                                                                                                      | boolean                               | false                             |
 | disabled                 | 是否禁用                                                                                                                                                                                                  | boolean                               | false                             |
-| defaultActiveFirstOption | 是否默认高亮第一个选项（按回车可直接选中）                                                                                                                                                                | boolean                               | false                             |
+| defaultActiveFirstOption | 是否默认高亮第一个选项（按回车可直接选中） <br/>**v2.17.0之后默认值从false变为true**                                                                                                                                                               | boolean                               | true                             |
 | dropdownClassName        | 弹出层的 className                                                                                                                                                                                        | string                                |                                   |
 | dropdownMatchSelectWidth | 下拉菜单最小宽度是否等于 Select                                                                                                                                                                           | boolean                               | true                              |
 | dropdownStyle            | 弹出层的样式                                                                                                                                                                                              | object                                |                                   |
@@ -1393,19 +1410,72 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | selectAll | 调用时可以选中所有Option | v1.18.0 |
 
 ## Accessibility
-
 ### ARIA
-
 - Select trigger 的 role 为 combobox，弹出层的 role 为 listbox，可选项的 role 为 option
 - Select trigger 具有 aria-haspopup、aria-expanded、aria-controls 属性，表示 trigger 与弹出层的关系
 - 多选时，listbox aria-multiselectable 为 true，表示当前可以多选
 - Option 选中时，aria-selected 为 true；当 Option 禁用时，aria-disabled 为 true
+- 属性aria-activedescendant能够保证在朗读旁白时识别到当前的选择的option(更多用法请参考[Managing Focus in Composites Using aria-activedescendant](https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/#kbd_focus_activedescendant))
 
+### 键盘和焦点
+**不带 Filter 功能的 Select：**  
+- Select 聚焦后，键盘用户可以通过 `上箭头` 或 `下箭头` 或 `Enter` 键打开下拉菜单，并将焦点自动聚焦到下拉菜单中的第一个选项上（`defaultActiveFirstOption` 默认为 true）
+- 当下拉菜单打开时：
+  - 使用 `Esc` 键或 `Tab` 键可以关闭菜单
+  - 使用 `上箭头` 或 `下箭头` 可以切换选项
+  - 被聚焦的选项可以通过 Enter 键选中，并收起面板
+- 当焦点在下拉菜单中，且用户使用的 `innerBottomSlot` 或 `outerBottomSlot` 属性的自定义 slot 中含有可交互元素时：
+  - 可以使用 `Tab` 键切换到这些可交互元素上
+  - 当焦点在自定义 slot 的首个可交互元素上时，使用 `Shift` + `Tab` ，焦点回到 Select 框上
 
+**带 Filter 功能的 Select：**  
+- Select 聚焦后，键盘用户可以通过 `上箭头` 或 `下箭头` 或 `Enter` 键打开下拉菜单。此时焦点仍然处于 Select 框，用户可以输入内容，同时也能使用 `上箭头` 或 `下箭头` 切换选项
+- 当下拉菜单打开时：键盘交互与不带 Filter 功能的 Select 一致
+- 当焦点在 Select 框上，且用户使用的 `innerBottomSlot` 或 `outerBottomSlot` 属性的自定义 slot 中含有可交互元素时：
+  - 可以使用 `Tab` 键切换到这些可交互元素上
+  - 当焦点在自定义 slot 的首个可交互元素上时，使用 `Shift` + `Tab` ，焦点回到 Select 框上
+
+## 文案规范
+- 选择器标签
+  - 用1-3个词描述需要用户所做的输入
+  - 使用语句书写规范（首字母大写，其余小写）
+  - 避免使用标点符号和介词（“the”, “an”, “a”）
+  - 标签需是独立语句。不要让标签是前半句语句，选项是后半句语句。
+  - 使用描述性语句，而不是指示性语句。如果选项需要更多解释，可以在选择框下使用帮助文本。
+- 选择器选项
+  - 如果没有默认选项，就使用“Select”做占位文案
+  - 选项要按首字母顺序或者其他有逻辑的排列顺序，使用户更好地找到选项
+  - 使用语句书写规范（首字母大写，其余小写），避免在句尾使用逗号和分号
+  - 清晰表达出选项所表示的选择目的
 ## 设计变量
 <DesignToken/>
 
 ## FAQ
+
+-   **为什么Semi的Select要求label必须唯一，而不是value必须唯一?**
+    - 首先，我们一定需要一个唯一标识符用来做选中的判断。几乎所有 UI 库，对 Select.Option 使用时，最低要求都只会要求传入 label、value 两个值，而不会再单独要求传入一个key（过于繁琐）。Semi延续了这个设定
+    - 那么为什么在 Semi 中 用 label 而不是 value 呢？
+      - 以 value 还是 label 作为唯一判断符，**本质上是 用户直觉 vs 研发直觉 的取舍**。以 value 为唯一判断比较符合工程师直觉，但站在用户视角来看，他们能看到的只有 label，对value基本上是无感知的。
+      - label是用户唯一能感知的内容。从交互的角度而言，如果出现两个或多个展示上一模一样的选项，对用户而言，他们看上去是一样的，无法进行区分。用户第一反应往往是重复了，这个系统是不是出 bug 了。其次如果两个option展示上一模一样，但选中的作用又不一样（例如一个value为0，另一个为1，他们的处理逻辑完全不同）的话，也会让用户非常困惑。在现实生活的线下实体表单里，基本不可能出现两个一模一样的选项。
+      - 假如我们以 value 作为判断符，以下例子，用户点击了A进行选中，实际上却看到 A、B、C都被同时选中了。同样也会非常困惑，第一反应也往往是系统出 bug 了。
+        ```
+          <Select placeholder='choose your color'>
+              <Option label='A' value='color' />
+              <Option label='B' value='color' />
+              <Option label='C' value='color' />
+          </Select>
+        ```
+      - label唯一、value重复，在日常使用中会更为常见。例如，一个根据 app 名称选择公司 id 的选择器，value是 app 对应的公司id，label是app的名称。
+        ```
+          <Select placeholder='choose company by app'>
+            <Option label='vigo' value='bytedance' />
+            <Option label='abc' value='bytedance' />
+          </Select>
+        ```
+    - 分组情况下，重复label并不会造成用户困惑为什么仍要求label必须唯一？
+      - 选择面板打开情况下，确实不会造成用户使用上的困惑，但是选择面板收起后，重复label属于哪个分组对用户而言仍具有迷惑性。
+    - 我的数据里确实就有多个 label 一样的选项，无法避免。这个交互能绕过吗？
+      - 可以。我们不推荐向用户展示重复的 label option，但如果你确定你需要这么做，当你往 label 传入 ReactNode 类型时，可以绕过这个限制。 
 
 -   **可搜索的 Select，使用远程数据动态更新`optionList`，为什么在异步请求完成之前有时候会出现暂无数据？**  
      请检查是否设置了`remote={true}`，不设置 remote 的情况下，默认会将 input 框输入值与当前的 optionList 进行一次对比筛选，如果无匹配时，就会显示暂无数据。  
@@ -1423,19 +1493,13 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 
 -   **设置allowCreate后，动态更新optionList或者children不生效**
     - allowCreate主要用于本地创建的场景，开启该项后，相当于强接管了optionList / children，不会再响应外部对这两类值的更新。
-
--   **为什么Semi的Select要求label必须唯一，而不是value必须唯一?**
-    - 首先，我们一定需要一个唯一标识符用来做选中的判断。几乎所有UI库，对Select.Option使用时，最低要求都只会要求传入label、value两个值，而不会再单独要求传入一个key（过于繁琐）。Semi延续了这个设定
-    - 那么为什么在semi的select中是label而不是value呢？
-      - option的label是用户感知的内容。从交互的角度而言，如果出现两个展示上一模一样的选项，对用户感知而言，他们看上去是一样的，无法进行区分，但选中的作用又不一样（例如一个value为0，另一个为1），是不合理的。(用户第一反应往往是重复了，可能出bug了)
-      - label唯一、value重复，在日常使用中会更为常见。例如，一个根据app名称选择公司id的选择器，value是app对应的公司id，label是app的名称。
-        ```
-          <Select placeholder='choose company by app'>
-            <Option label='vigo' value='bytedance' />
-            <Option label='abc' value='bytedance' />
-          </Select>
-        ```
-
+        
+-   **为什么单选选择选项后没有触发blur事件？**
+    - 在V2.17.0前，Select 单选选择后，会触发 Select 的 blur事件。
+    - 在V2.17.0后，Select 增加了A11y支持，不会触发 Select 的 blur事件。
+        - 单选选择中，Select 浮层关闭，依然保持焦点在 trigger（此时可以通过 Enter 回车键再次打开 Select 浮层）
+        - 无论单选或多选，按下 Esc，仅 Select 浮层关闭，trigger 保持焦点（此时可以通过 Enter 回车键再次打开 Select 浮层）
+        
 <!-- ## 相关物料
 
 ```material

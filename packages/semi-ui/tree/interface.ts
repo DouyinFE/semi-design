@@ -140,3 +140,9 @@ export interface NodeListState {
     cachedMotionKeys?: Set<string>;
     cachedData?: FlattenNode[];
 }
+
+export interface ScrollData {
+    key: string;
+    // The align parameter is consistent with react-window
+    align?: 'center' | 'start' | 'end' | 'smart' | 'auto';
+}

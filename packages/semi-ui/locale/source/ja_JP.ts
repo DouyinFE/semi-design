@@ -151,6 +151,9 @@ const local: Locale = {
         total: '合計 ${total} アイテム',
         selected: '選択済み ${total} アイテム',
     },
+    Form: {
+        optional: '(オプション)',
+    },
 };
 
 // [i18n-Japan]

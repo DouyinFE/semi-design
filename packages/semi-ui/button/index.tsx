@@ -18,6 +18,7 @@ class Button extends React.PureComponent<ButtonProps> {
         ...BaseButton.propTypes,
         ...IconButton.propTypes,
     };
+    static elementType: string;
     constructor(props = {}) {
         super(props);
     }
@@ -34,5 +35,6 @@ class Button extends React.PureComponent<ButtonProps> {
         }
     }
 }
+Button.elementType = 'Button';
 
 export default Button;

@@ -1,5 +1,5 @@
 /* argus-disable unPkgSensitiveInfo */
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import withPropsCombinations from 'react-storybook-addon-props-combinations';
 import { BASE_CLASS_PREFIX } from '../../../semi-foundation/base/constants';
 
@@ -231,4 +231,110 @@ export const AvatarTagGroup = () => <AvatarTagGroupDemo />;
 
 AvatarTagGroup.story = {
   name: 'avatar tagGroup',
+};
+
+class TagGroupCloseableDemo extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            tagList: [
+                { tagKey: '1', color: 'white', children: '抖音',  closable: true,},
+                { tagKey: '2',color: 'white', children: '火山小视频', closable: true,},
+                { tagKey: '3',color: 'white', children: '剪映', closable: true,},
+                { tagKey: '4',color: 'white', children: '皮皮虾', closable: true,},
+            ]
+        };
+        this.tagListClick = this.tagListClick.bind(this);
+    }
+
+    tagListClick(value, e, tagKey){
+        const newTagList = [...this.state.tagList];
+        const closeTagIndex = newTagList.findIndex(t => t.tagKey === tagKey);
+        newTagList.splice(closeTagIndex, 1);
+        this.setState({
+          tagList: newTagList,
+        });
+    }
+
+    render() {
+        return (
+            <div style={ {
+                backgroundColor: 'var(--semi-color-fill-0)',
+                height: 35,
+                width: 300,
+                display: 'flex',
+                alignItems: 'center',
+                padding: '0 10px',
+                marginBottom: 30,
+            }}>
+                <TagGroup
+                    maxTagCount={3}
+                    style={ {
+                        display: 'flex',
+                        alignItems: 'center',
+                        width: 350,
+                    }}
+                    tagList={this.state.tagList}
+                    size='large'
+                    onTagClose={this.tagListClick}
+                />
+            </div>
+        );
+    }
+}
+
+export const TagGroupCloseable = () => <TagGroupCloseableDemo />;
+
+TagGroupCloseable.story = {
+  name: 'tagGroup closable',
+}
+
+export const Issue1107 = () => {
+    const src = 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png';
+    const tagList = [
+        { color: 'white', children:'Douyin', avatarSrc:src },
+        { color: 'white', children:'Hotsoon', avatarSrc:src },
+        { color: 'white', children:'Capcut', avatarSrc:src },
+        { color: 'white', children:'Xingtu', avatarSrc:src },
+    ];
+    const divStyle = {
+        backgroundColor: 'var(--semi-color-fill-0)',
+        height: 35,
+        width: 300,
+        display: 'flex',
+        alignItems: 'center',
+        padding: '0 10px',
+        marginBottom: 30,
+    };
+    const tagGroupStyle = {
+        display: 'flex',
+        alignItems: 'center',
+        width: 350,
+    };
+    return (
+        <>
+            <div style={divStyle}>
+                <TagGroup 
+                  maxTagCount={3} 
+                  style={tagGroupStyle} 
+                  tagList={tagList} 
+                  size="small" 
+                />
+            </div>
+            <div style={divStyle}>
+                <TagGroup
+                    maxTagCount={2}
+                    style={tagGroupStyle}
+                    tagList={tagList}
+                    size="large"
+                    avatarShape="circle"
+                    showPopover
+                />
+            </div>
+        </>
+    );
+};
+
+Issue1107.story = {
+  name: 'issue 1107',
 };

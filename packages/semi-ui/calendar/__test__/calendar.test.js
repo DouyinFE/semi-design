@@ -50,8 +50,6 @@ describe('Calendar', () => {
         expect(clickHandler2).toHaveBeenCalledTimes(0)
         monthWrapper.find('.semi-calendar-month-skeleton li').at(0).simulate('click')
         expect(clickHandler2).toHaveBeenCalledTimes(1)
-
-
     })
     
     it('test dateGridRender', ()=>{
@@ -160,4 +158,25 @@ describe('Calendar', () => {
         expect(dailyCalendar.find(`.eventDay`).length).toBe(eventOnJuly23.length)
 
     })
+
+    it('test weekStartsOn', () => {
+        const displayValue = new Date(2022, 7, 1, 8, 32, 0);
+
+        let calendar = mount(<Calendar
+                    height={400}
+                    mode={'month'}
+                    weekStartsOn={3}
+                    displayValue={displayValue}
+                ></Calendar>);
+        let firstHead = calendar.find('.semi-calendar-month-header li').at(0).text();
+        expect(firstHead).toEqual('周三');
+
+        let defaultCalendar = mount(<Calendar
+                    height={400}
+                    mode={'month'}
+                    displayValue={displayValue}
+                ></Calendar>);
+        let defaultFirstHead = defaultCalendar.find('.semi-calendar-month-header li').at(0).text();
+        expect(defaultFirstHead).toEqual('周日');
+    });
 })

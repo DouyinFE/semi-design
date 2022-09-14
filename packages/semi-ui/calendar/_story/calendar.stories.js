@@ -527,3 +527,51 @@ class EventRenderDemo extends React.Component {
 }
 
 export const EventRender  = () => <EventRenderDemo />;
+
+
+export const WeekStartsOnDemo = () => {
+    const [v, setV] = useState(6);
+    const allDayStyle = {
+      borderRadius: '3px',
+      boxSizing: 'border-box',
+      border: 'var(--semi-color-bg-1) 1px solid',
+      padding: '2px 4px',
+      backgroundColor: 'var(--semi-color-primary-light-active)',
+      height: '100%',
+      overflow: 'hidden',
+    };
+    const events = [
+      {
+        key: '0',
+        start: new Date(2022, 8, 5, 14, 45, 0),
+        end: new Date(2022, 8, 6, 6, 18, 0),
+        children: <div style={allDayStyle}>9月5日 14:45 ~ 9月6日 6:18</div>,
+      }
+    ]
+    return (
+        <div>
+            <RadioGroup defaultValue={v} aria-label="周起始日" name="demo-radio-group-vertical" onChange={e => setV(e.target.value)}>
+                <Radio value={1}>周一</Radio>
+                <Radio value={2}>周二</Radio>
+                <Radio value={3}>周三</Radio>
+                <Radio value={4}>周四</Radio>
+                <Radio value={5}>周五</Radio>
+                <Radio value={6}>周六</Radio>
+                <Radio value={0}>周日</Radio>
+            </RadioGroup>
+            <Calendar
+                mode="month"
+                weekStartsOn={1}
+                events={events}
+                dateGridRender={(dateString, date) => {
+                    if (dateString === new Date(2019, 6, 16).toString()) {
+                    return (
+                        <div style={{ backgroundColor: 'red', height: '100%', width: '100%' }}>123test</div>
+                    );
+                    }
+                    return null;
+                }}
+            ></Calendar>
+      </div>
+    )
+}

@@ -1,5 +1,6 @@
 //@import '../theme/variables.scss';
-@import './variables.scss';
+@import "./variables.scss";
+@import "./animation.scss";
 
 $module: #{$prefix}-slider;
 
@@ -54,8 +55,8 @@ $module: #{$prefix}-slider;
         border: none;
         border-radius: 50%;
         cursor: pointer;
-        transition: #fff 0.3s;
-
+        transition: background-color $transition_duration_slider_handle-bg $transition_function-slider-handle-bg $transition_delay-slider_handle-bg;
+        transform: scale($transform_scale-slider_handle);
         &:focus-visible {
             outline: $width-slider_handle-focus solid $color-slider_handle-focus;
         }

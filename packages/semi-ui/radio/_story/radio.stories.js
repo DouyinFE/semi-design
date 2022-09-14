@@ -196,7 +196,7 @@ const RadioGroup1 = () => {
     </div>
   );
 };
-class RadioWithControled extends React.Component {
+class RadioWithControlled extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -240,7 +240,7 @@ export const _RadioGroup = () => {
       </RadioGroup>
       <br />
       value+onchange
-      <RadioWithControled />
+      <RadioWithControlled />
       <br />
       联动
       <RadioGroup1 />
@@ -254,18 +254,18 @@ _RadioGroup.story = {
 
 export const RadioWithVertical = () => {
   return (
-    <Radio.Group>
-      <Radio value="A" displayMode="vertical">
+    <Radio.Group direction="vertical">
+      <Radio value="A">
         无限长的一串字The Storybook webapp UI can be customised with this addon. It can be used to
         change the header, show/hide various UI elements and to enable full-screen mode by default.
       </Radio>
-      <Radio value="C" displayMode="vertical">
+      <Radio value="C">
         C
       </Radio>
-      <Radio value="D" displayMode="vertical">
+      <Radio value="D">
         D
       </Radio>
-      <Radio value="E" displayMode="vertical">
+      <Radio value="E">
         E
       </Radio>
     </Radio.Group>
