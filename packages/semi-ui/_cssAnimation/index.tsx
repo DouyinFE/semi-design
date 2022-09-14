@@ -33,24 +33,11 @@ class CSSAnimation extends React.Component<AnimationProps, AnimationState> {
             currentClassName: this.props.startClassName,
             extraStyle: {}
         };
-        console.log("===>", this.props);
     }
 
     componentDidUpdate(prevProps: Readonly<AnimationProps>, prevState: Readonly<AnimationState>, snapshot?: any) {
         const changedKeys = Object.keys(this.props).filter(key => !isEqual(this.props[key], prevProps[key]));
-        console.log('changedKeys', changedKeys, prevProps, this.props);
         if (changedKeys.includes("animationState")) {
-            // if (this.props.animationState === "enter") {
-            //     this.setState({
-            //         currentClassName: this.props.startClassName,
-            //         extraStyle: {}
-            //     }, this.props.onAnimationStart ?? noop);
-            // } else {
-            //     this.setState({
-            //         currentClassName: this.props.endClassName,
-            //         extraStyle: {}
-            //     }, this.props.onAnimationEnd ?? noop);
-            // }
         }
         if (changedKeys.includes("startClassName")){
             this.setState({
@@ -77,7 +64,6 @@ class CSSAnimation extends React.Component<AnimationProps, AnimationState> {
 
 
     render() {
-        console.log("mount", this.state.currentClassName);
         return this.props.children({
             animationClassName: this.state.currentClassName ?? "",
             animationStyle: this.state.extraStyle,

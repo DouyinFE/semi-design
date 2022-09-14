@@ -22,12 +22,10 @@ import Portal from '../_portal/index';
 import ConfigContext, { ContextValue } from '../configProvider/context';
 import TriangleArrow from './TriangleArrow';
 import TriangleArrowVertical from './TriangleArrowVertical';
-import TooltipTransition from './TooltipStyledTransition';
 import ArrowBoundingShape from './ArrowBoundingShape';
 import { Motion } from '../_base/base';
-import CSSAnimation from "@douyinfe/semi-ui/tooltip/CSSAnimation";
+import CSSAnimation from "../_cssAnimation";
 
-export { TooltipTransitionProps } from './TooltipStyledTransition';
 export type Trigger = ArrayElement<typeof strings.TRIGGER_SET>;
 export type { Position };
 export interface ArrowBounding {
@@ -604,31 +602,6 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                     }
                 }
             </CSSAnimation>
-            // <TooltipTransition position={placement} didLeave={this.didLeave} motion={motion}>
-            //     {
-            //         transitionState === 'enter' ?
-            //             ({ animateCls, animateStyle, animateEvents }) => (
-            //                 <div
-            //                     className={classNames(className, animateCls)}
-            //                     style={{
-            //                         visibility: 'visible',
-            //                         ...animateStyle,
-            //                         transformOrigin,
-            //                         ...style,
-            //                     }}
-            //                     {...portalEventSet}
-            //                     {...animateEvents}
-            //                     role={role}
-            //                     x-placement={placement}
-            //                     id={id}
-            //                 >
-            //                     {contentNode}
-            //                     {icon}
-            //                 </div>
-            //             ) :
-            //             null
-            //     }
-            // </TooltipTransition>
         ) : (
             <div className={className} {...portalEventSet} x-placement={placement} style={{ visibility: motion ? 'hidden' : 'visible', ...style }}>
                 {contentNode}
