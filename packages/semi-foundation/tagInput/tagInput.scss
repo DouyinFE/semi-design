@@ -12,7 +12,7 @@ $module: #{$prefix}-tagInput;
     width: 100%;
     box-sizing: border-box;
     transition: background-color $transition_duration-tagInput-bg $transition_function-tagInput-bg $transition_delay-tagInput-bg,
-    border $transition_duration-tagInput-border $transition_function-tagInput-border $transition_delay-tagInput-border;
+        border $transition_duration-tagInput-border $transition_function-tagInput-border $transition_delay-tagInput-border;
 
     &-drag {
 
@@ -22,6 +22,7 @@ $module: #{$prefix}-tagInput;
         }
 
         &-handler {
+            color: $color-tagInput_handler-icon-default;
             margin-right: $spacing-tagInput_drag_handler-marginRight;
             cursor: move;
         }
