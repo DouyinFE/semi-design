@@ -12,6 +12,10 @@
         "build:css": "node scripts/compileScss.js",
         "prepublishOnly": "npm run clean && npm run build:lib && npm run build:js && npm run build:css"
     },
+    "files": [
+        "dist/*",
+        "lib/*"
+    ],
     "dependencies": {
         "@douyinfe/semi-animation": "2.12.0",
         "@douyinfe/semi-animation-react": "2.19.0",
