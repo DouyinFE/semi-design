@@ -720,7 +720,8 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                     ref.current = node;
                 }
             },
-            tabIndex:  (children as React.ReactElement).props.tabIndex || 0 // a11y keyboard, in some condition select's tabindex need to -1 or 0 
+            tabIndex: (children as React.ReactElement).props.tabIndex || 0, // a11y keyboard, in some condition select's tabindex need to -1 or 0 
+            'data-popupid': id
         });
 
         // If you do not add a layer of div, in order to bind the events and className in the tooltip, you need to cloneElement children, but this time it may overwrite the children's original ref reference
