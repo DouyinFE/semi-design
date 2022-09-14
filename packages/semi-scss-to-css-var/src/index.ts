@@ -87,7 +87,7 @@ const transScssToCSSVar = (scssFilePathList: string[]) => {
 
             const cssDefine: { key: string, value: string }[] = [];
 
-            const result = postcss([transVarPlugin(scssFilePath.includes('variables.scss'), cssDefine)]).process(raw, { syntax: postcssScss });
+            const result = postcss([transVarPlugin(scssFilePath.includes('variables.scss')||scssFilePath.includes('animation.scss'), cssDefine)]).process(raw, { syntax: postcssScss });
             const resultSCSS = result.css; //Real call postcss
             const rawCSSDefine = `.allCSSVar{\n${cssDefine.map(({ key, value }) => {
                 return `${key}: #{${trimEnd(value, '!default')}};`;
