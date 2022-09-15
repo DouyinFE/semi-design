@@ -573,7 +573,6 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         const inner = motion && isPositionUpdated ? (
             <CSSAnimation animationState={transitionState as "enter"|"leave"}
                 startClassName={transitionState==='enter'?`${prefixCls}-animation-show`:`${prefixCls}-animation-hide`}
-                onAnimationStart={()=>{console.log('onAnimationStart');}}
                 onAnimationEnd={()=>{
                     if (transitionState === 'leave'){
                         this.didLeave();

@@ -1,8 +1,37 @@
 @import '../tooltip/variables.scss';
+@import "./animation.scss";
 @import './variables.scss';
 
 $module: #{$prefix}-popover;
 $module-icon: #{$module}-icon-arrow;
+
+
+@keyframes #{$module}-zoomIn {
+    from {
+        opacity: $motion-zoom_opacity-from;
+        transform: scale($motion-zoom_scale-from, $motion-zoom_scale-from);
+    }
+
+    50% {
+        opacity: $motion-zoom_opacity-to;
+    }
+}
+
+@keyframes #{$module}-zoomOut {
+    from {
+        opacity: $motion-zoom_opacity-to;
+    }
+
+    60% {
+        opacity: $motion-zoom_opacity-from;
+        transform: scale($motion-zoom_scale-from, $motion-zoom_scale-from);
+    }
+
+    to {
+        opacity: $motion-zoom_opacity-from;
+    }
+}
+
 
 .#{$module} {
 
@@ -19,7 +48,7 @@ $module-icon: #{$module}-icon-arrow;
         // padding: $spacing-extra-tight $spacing-tight;
         @include font-size-regular;
         visibility: hidden;
-    
+
         &-show {
             visibility: visible;
         }
@@ -47,6 +76,13 @@ $module-icon: #{$module}-icon-arrow;
     &-with-arrow {
         padding: $spacing-popover_withArrow-padding;
         box-sizing: border-box;
+    }
+    &-animation-show{
+        animation: #{$module}-zoomIn $animation_duration-popover-in $animation_function-popover-in;
+    }
+
+    &-animation-hide{
+        animation: #{$module}-zoomOut $animation_duration-popover-out $animation_function-popover-out;
     }
 }
 
