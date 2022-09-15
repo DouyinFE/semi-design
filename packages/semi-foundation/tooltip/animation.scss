@@ -1,3 +1,7 @@
-$animation_duration-tooltip-zoomIn: var(--semi-transition_duration-faster);//标签输入框-背景色-动画持续时间
-$animation_duration-tooltip-zoomOut: var(--semi-transition_duration-faster);//标签输入框-背景色-动画持续时间
+$animation_duration-tooltip-zoomIn: 0.1s;//tooltip-弹出动画-动画持续时间
+$animation_duration-tooltip-zoomOut: 0.1s;//tooltip-收起动画-动画持续时间
+
+
+$animation_function-tooltip-zoomIn: cubic-bezier(0.215, 0.61, 0.355, 1);//tooltip-弹出动画-动画插值函数
+$animation_function-tooltip-zoomOut: cubic-bezier(0.215, 0.61, 0.355, 1);//tooltip-收起动画-动画插值函数
 

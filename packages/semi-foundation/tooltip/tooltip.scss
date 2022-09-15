@@ -1,4 +1,5 @@
 //@import '../theme/variables.scss';
+@import "./animation.scss";
 @import './variables.scss';
 
 $module: #{$prefix}-tooltip;
@@ -89,12 +90,12 @@ $module-icon: #{$module}-icon-arrow;
     }
 
     &-animation-show{
-        animation: #{$module}-zoomIn 0.1s cubic-bezier(0.215, 0.61, 0.355, 1);
-    }
-    &-animation-hide{
-        animation: #{$module}-zoomOut 0.1s cubic-bezier(0.215, 0.61, 0.355, 1);
+        animation: #{$module}-zoomIn $animation_duration-tooltip-zoomIn $animation_function-tooltip-zoomIn;
     }
 
+    &-animation-hide{
+        animation: #{$module}-zoomOut $animation_duration-tooltip-zoomOut $animation_function-tooltip-zoomOut;
+    }
 
 }
 
