@@ -1,7 +1,8 @@
+@import './animation.scss';
 @import './variables.scss';
 @import './mixin.scss';
 @import './operationPanel.scss';
-@import './animation.scss';
+
 
 $module: #{$prefix}-table;
 

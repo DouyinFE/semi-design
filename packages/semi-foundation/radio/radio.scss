@@ -1,5 +1,6 @@
-@import "./variables.scss";
 @import "./animation.scss";
+@import "./variables.scss";
+
 
 $module: #{$prefix}-radio;
 $inner-width: $width-icon-medium;
@@ -182,7 +183,7 @@ $inner-width: $width-icon-medium;
             .#{$module}-inner-checked .#{$module}-inner-display {
                 border-color: $color-radio_cardRadioGroup_checked_disabled-border-default;
             }
-            
+
             &:hover {
                 .#{$module}-inner-checked .#{$module}-inner-display {
                     border-color: $color-radio_cardRadioGroup_checked_disabled-border-hover;
@@ -228,7 +229,7 @@ $inner-width: $width-icon-medium;
             background: $color-radio_default-bg-default;
             transition: background-color $transition_duration-radio-bg $transition_function-radio-bg $transition_delay-radio-bg,
             border $transition_duration-radio-border $transition_function-radio-border $transition_delay-radio-border;
-        
+
             .#{$prefix}-icon {
                 width: 100%;
                 height: 100%;

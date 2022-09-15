@@ -1,5 +1,6 @@
-@import './variables.scss';
 @import "./animation.scss";
+@import './variables.scss';
+
 
 $module: #{$prefix}-switch;
 
@@ -69,7 +70,7 @@ $module: #{$prefix}-switch;
         &:active {
             background-color: $color-switch_disabled-bg-active;
         }
-        
+
         .#{$module}-knob {
             cursor: not-allowed;
             @include shadow-0;

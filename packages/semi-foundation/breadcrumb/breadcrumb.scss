@@ -1,8 +1,8 @@
 //@import '../theme/variables.scss';
 // @import '../theme/mixin.scss';
 // @import '../theme/_font.scss';
-@import './variables.scss';
 @import "./animation.scss";
+@import './variables.scss';
 
 $module: #{$prefix}-breadcrumb;
 
