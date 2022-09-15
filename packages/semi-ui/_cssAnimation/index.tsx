@@ -49,7 +49,7 @@ class CSSAnimation extends React.Component<AnimationProps, AnimationState> {
     }
 
     handleAnimationStart = () => {
-        this.props.onAnimationStart();
+        this.props.onAnimationStart?.();
     }
 
 
@@ -58,7 +58,7 @@ class CSSAnimation extends React.Component<AnimationProps, AnimationState> {
             currentClassName: this.props.endClassName,
             extraStyle: {}
         }, ()=>{
-            this.props.onAnimationEnd();
+            this.props.onAnimationEnd?.();
         });
     }
 
