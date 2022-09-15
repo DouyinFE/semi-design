@@ -189,7 +189,7 @@ export default class Image extends BaseComponent<ImageProps, ImageStates> {
                 onClick={this.handleClick}
             >
                 <img
-                    src={this.isInGroup() && this.isLazyLoad() ? "" : src}
+                    src={this.isInGroup() && this.isLazyLoad() ? undefined : src}
                     data-src={src}
                     alt={alt}
                     className={`${prefixCls}-img`}

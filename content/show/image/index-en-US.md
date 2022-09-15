@@ -20,7 +20,7 @@ import { Image, ImagePreview } from '@douyinfe/semi-ui';
 
 You can get an image with preview function by specifying the image path through `src`, and specify the width and height of the image through `width`, `height`
 
-```jsx live=true
+```jsx live=true dir="column"
 import React from 'react';
 import { Image } from '@douyinfe/semi-ui';
 
@@ -460,23 +460,25 @@ import { Image, ImagePreview } from '@douyinfe/semi-ui';
 |------------------|-------------------------|-----------------|---------|---------|
 | style            | Custom style            | CSSProperties   | - | |
 | className        | Custom style class name | string          | - | |
-| srcList          | Image list information  | string \| string[] | - | |
+| src              | Image list information  | string \| string[] | - | |
 | visible          | Controlled property, whether to preview  | boolean | - | |
-| currentIndex     | Controlled property, the current preview image subscript | string \| string[] | - | |
-| defaultCurrentIndex | First display image subscript | string \| string[] | - | |
+| defaultVisible   | Whether to open the preview for the first time | boolean | - | |
+| currentIndex     | Controlled property, the current preview image subscript | number | - | |
+| defaultCurrentIndex | First display image subscript | string \| number | - | |
 | infinite         | Whether to loop infinitely  | boolean        | - | |
 | closeOnEsc       | Hit esc to close the preview | boolean        | true | |
 | previewTitle     | Custom preview title     | ReactNode      | - | |
 | maskClosable     | Whether the mask can be closed by clicking | Boolean  | true | |
 | closable         | Whether to show the close button   | Boolean | true | |
 | zoomStep         | Image reduction/enlargement ratio each time | number | 0.1 | |
-| lazyLoad         | Whether to enable lazy loading ｜ boolean      | false | |
+| lazyLoad         | Whether to enable lazy loading ｜ boolean      | true | |
+| lazyLoadMargin   | Pass to the rootMargin parameter in options, refer to [Intersection Observer API](https://developer.mozilla.org/zh-CN/docs/Web/API/Intersection_Observer_API#interfaces) | string | "0px 100px 100px 0px" | |
 | preLoad          | Whether to enable preloading | boolean | true | |
-| preLoadGap       | Preloaded step size      |number         | 2 | |
+| preLoadGap       | Preloaded step size      | number         | 2 | |
 | viewerVisibleDelay | The length of time of inactivity before hiding the preview action button | number | 10000 | |
-| disableDownload  | Disable downloads        |boolean        | false | |
-| zIndex           | Preview layer hierarchy  |boolean        | false | |
-| showTooltip      | Whether to display the bottom operation area prompt | boolean | - | |
+| disableDownload  | Disable downloads        | boolean        | false | |
+| zIndex           | Preview layer hierarchy  | number        | 1070 | |
+| showTooltip      | Whether to display the bottom operation area prompt | boolean | false | |
 | prevTip          | Previous operation button prompt   | string  | "Previous" | |
 | nextTip          | Next action button prompt   | string  | "Next" | |
 | zoomInTip        | Zoom in on action button tips | string | "Zoom in" | |
@@ -485,12 +487,12 @@ import { Image, ImagePreview } from '@douyinfe/semi-ui';
 | downloadTip      | Download action button prompt | string  | "Download" | |
 | adaptiveTip      | Adapt to page action button prompts |string  | "Adapt to the page" | |
 | originTip        | Original Size Action Button Tips |string  | "Original size" | |
-| renderHeader     | Custom render preview top info  |(info: any) => ReactNode  | false | |
+| renderHeader     | Custom render preview top info  |(info: reactNode) => ReactNode  | null | |
 | renderPreviewMenu | Custom render preview bottom menu information | (props: MenuProps) => ReactNode; | - | |
 | getPopupContainer | Specify the parent DOM, and the pop-up layer will be rendered into the DOM. For customization, you need to set container `position: relative`|() => HTMLElement;  | () => document.body | |
 | onVisibleChange  | Callback triggered by toggle visible state   | (visible: boolean, preVisible: boolean) => void  | - | |
 | onChange         | Event triggered by switching pictures  | (index: number) => void | - | |
-| onClose          | The callback function when the close button is clicked  | (index: number) => void | - | |
+| onClose          | The callback function when the close button is clicked  | () => void | - | |
 | onZoomIn         | The callback function when the image is zoomed in  | (zoom: number) => void | - | |
 | onZoomOut        | The callback function when the image is zoomed out  | (zoom: number) => void | - | |
 | onDownload       | Image download callback function  | (src: string, index: number) => void | - | |

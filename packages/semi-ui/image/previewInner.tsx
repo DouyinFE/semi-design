@@ -266,7 +266,6 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
     
     handleMouseDown = (e): void => {
         this.foundation.handleMouseDown(e);
-        
     }
 
     render() {

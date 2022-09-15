@@ -36,7 +36,7 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
     static defaultProps = {
         maxZoom: 5,
         minZoom: 0.1,
-        zoomStep: 0.01,
+        zoomStep: 0.1,
         zoom: undefined,
     };
 

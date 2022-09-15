@@ -34,6 +34,7 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
         adaptiveTip:PropTypes.string,
         originTip: PropTypes.string,
         lazyLoad: PropTypes.bool,
+        lazyLoadMargin: PropTypes.string,
         preLoad: PropTypes.bool,
         preLoadGap: PropTypes.number,
         disableDownload: PropTypes.bool,
@@ -56,6 +57,8 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
     static defaultProps = {
         visible: false,
         src: [],
+        lazyLoad: true,
+        lazyLoadMargin: "0px 100px 100px 0px",
     };
 
     get adapter() {
@@ -80,6 +83,7 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
     }
 
     componentDidMount() {
+        const { lazyLoadMargin } = this.props;
         const allElement = document.querySelectorAll(`.${prefixCls}-img`);
         // use IntersectionObserver to lazy load image
         const observer = new IntersectionObserver(entries => {
@@ -93,8 +97,7 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
         },
         {
             root: document.querySelector(`#${this.previewGroupId}`),
-            // 交叉过视图的100，才开始派发事件
-            rootMargin: "0px 0px -100px 0px" 
+            rootMargin: lazyLoadMargin, 
         }
         );
         allElement.forEach(item => observer.observe(item));

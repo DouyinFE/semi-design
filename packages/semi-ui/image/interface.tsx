@@ -45,6 +45,7 @@ export interface PreviewProps extends BaseProps {
     adaptiveTip?: string;
     originTip?: string;
     lazyLoad?: boolean;
+    lazyLoadMargin?: string;
     preLoad?: boolean;
     preLoadGap?: number;
     viewerVisibleDelay?: number;
