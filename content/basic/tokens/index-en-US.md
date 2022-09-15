@@ -197,6 +197,10 @@ It is used to describe the sequence of interface elements
 
 <DesignToken componentName='global' reg={/z-/}/>
 
+## Animation
+
+<DesignToken componentName="global" isAnimation={true} />
+
 ## Variables not yet supported
 
 Currently, Semi does not support global variables in the following categories. If you have related requirements, you can give feedback through issue and describe your expected needs in detail.

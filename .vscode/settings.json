@@ -17,7 +17,7 @@
         "editor.defaultFormatter": "michelemelluso.code-beautifier"
     },
     "[typescriptreact]": {
-        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+        "editor.defaultFormatter": "vscode.typescript-language-features"
     },
     "typescript.updateImportsOnFileMove.enabled": "always",
     "files.autoSave": "onFocusChange",
