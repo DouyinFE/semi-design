@@ -6,7 +6,6 @@ import Portal from '../_portal';
 import cls from 'classnames';
 import ConfigContext, { ContextValue } from '../configProvider/context';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/sideSheet/constants';
-import SideSheetTransition from './SideSheetTransition';
 import SideSheetContent from './SideSheetContent';
 import { noop } from 'lodash';
 import SideSheetFoundation, {
@@ -15,6 +14,7 @@ import SideSheetFoundation, {
     SideSheetState
 } from '@douyinfe/semi-foundation/sideSheet/sideSheetFoundation';
 import '@douyinfe/semi-foundation/sideSheet/sideSheet.scss';
+import CSSAnimation, { mergeAnimationFunction } from "../_cssAnimation";
 
 const prefixCls = cssClasses.PREFIX;
 const defaultWidthList = strings.WIDTH;
@@ -87,7 +87,7 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
 
     constructor(props: SideSheetReactProps) {
         super(props);
-        this.state = { hidden: !this.props.visible };
+        this.state = { hidden: !this.props.visible, shouldRender: false };
         this.foundation = new SideSheetFoundation(this.adapter);
         this._active = false;
     }
@@ -130,6 +130,11 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
                     this.setState({ hidden });
                 }
             },
+            setShouldRender: (shouldRender: boolean) => {
+                if (shouldRender !== this.state.shouldRender) {
+                    this.setState({ shouldRender });
+                }
+            }
         };
     }
 
@@ -221,23 +226,48 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
         const mergedMotion = this.foundation.getMergedMotion();
         this._active = this._active || visible;
         const shouldRender = (visible || keepDOM) && this._active;
-        if (mergedMotion) {
-            return (
-                <SideSheetTransition placement={placement} motion={mergedMotion} controlled={keepDOM} visible={visible}>
-                    {shouldRender ?
-                        transitionStyles => (
-                            <SideSheetContent
-                                {...contentProps}
-                                style={{ ...transitionStyles, ...style }}
-                                maskStyle={{ opacity: transitionStyles.opacity, ...maskStyle }}
-                            >
-                                {children}
-                            </SideSheetContent>
-                        ) : null}
-                </SideSheetTransition>
-            );
+        if (shouldRender === true && !this.state.shouldRender) {
+            this.foundation.setShouldRender(true);
         }
-        if (shouldRender) {
+
+        if (mergedMotion) {
+            return <CSSAnimation animationState={visible ? 'enter' : 'leave'} startClassName={
+                visible ? `${prefixCls}-animation-mask_show` : `${prefixCls}-animation-mask_hide`
+            } onAnimationEnd={() => {
+                this.foundation.setShouldRender(shouldRender);
+            }}>
+                {
+                    ({
+                        animationClassName: maskAnimationClassName,
+                        animationStyle: maskAnimationStyle,
+                        animationEventsNeedBind: maskAnimationEventsNeedBind
+                    }) => {
+                        return <CSSAnimation
+                            animationState={visible ? 'enter' : 'leave'}
+                            startClassName={visible ? `${prefixCls}-animation-content_show_${this.props.placement}` : `${prefixCls}-animation-content_hide_${this.props.placement}`}
+                            onAnimationEnd={() => {
+                                // for no mask case
+                                this.foundation.setShouldRender(shouldRender);
+                            }}
+                        >
+                            {({ animationClassName, animationStyle, animationEventsNeedBind }) => {
+                                return this.state.shouldRender ? <SideSheetContent
+                                    eventHandlers={mergeAnimationFunction([animationEventsNeedBind, maskAnimationEventsNeedBind])}
+                                    {...contentProps}
+                                    dialogClassName={animationClassName}
+                                    maskClassName={maskAnimationClassName}
+                                    style={{ ...animationStyle, ...style }}>
+                                    {children}
+                                </SideSheetContent> : <></>;
+                            }}
+                        </CSSAnimation>;
+
+                    }
+                }
+            </CSSAnimation>;
+        }
+        this.foundation.setShouldRender((visible || keepDOM) && this._active);
+        if (this.state.shouldRender) {
             return (
                 <SideSheetContent {...contentProps} style={style} maskStyle={maskStyle}>
                     {children}

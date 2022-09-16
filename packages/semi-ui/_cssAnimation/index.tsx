@@ -5,6 +5,8 @@ import { isEqual, noop } from "lodash";
 interface AnimationEventsNeedBind {
     onAnimationStart: (e: React.AnimationEvent) => void
     onAnimationEnd: (e: React.AnimationEvent) => void
+
+    [key: string]: (e: any) => void;
 }
 
 interface AnimationProps {
@@ -16,8 +18,8 @@ interface AnimationProps {
         animationEventsNeedBind: AnimationEventsNeedBind
     }) => ReactNode
     animationState: "enter" | "leave"
-    onAnimationEnd?:()=>void;
-    onAnimationStart?:()=>void;
+    onAnimationEnd?: () => void;
+    onAnimationStart?: () => void;
 }
 
 interface AnimationState {
@@ -39,7 +41,7 @@ class CSSAnimation extends React.Component<AnimationProps, AnimationState> {
         const changedKeys = Object.keys(this.props).filter(key => !isEqual(this.props[key], prevProps[key]));
         if (changedKeys.includes("animationState")) {
         }
-        if (changedKeys.includes("startClassName")){
+        if (changedKeys.includes("startClassName")) {
             this.setState({
                 currentClassName: this.props.startClassName,
                 extraStyle: {}
@@ -57,7 +59,7 @@ class CSSAnimation extends React.Component<AnimationProps, AnimationState> {
         this.setState({
             currentClassName: this.props.endClassName,
             extraStyle: {}
-        }, ()=>{
+        }, () => {
             this.props.onAnimationEnd?.();
         });
     }
@@ -73,7 +75,27 @@ class CSSAnimation extends React.Component<AnimationProps, AnimationState> {
             }
         });
     }
-
 }
 
+
+const mergeAnimationFunction = (eventHandleFunctions: AnimationEventsNeedBind[]) => {
+    //merge function in objects
+    const mergedFunction = {};
+    eventHandleFunctions.forEach(eventHandleFunction => {
+        Object.keys(eventHandleFunction).forEach(key => {
+            if (mergedFunction[key]) {
+                const oldFunction = mergedFunction[key];
+                mergedFunction[key] = (e) => {
+                    eventHandleFunction[key](e);
+                    oldFunction(e);
+                };
+            } else {
+                mergedFunction[key] = eventHandleFunction[key];
+            }
+        });
+    });
+    return mergedFunction;
+};
+
+export { mergeAnimationFunction };
 export default CSSAnimation;

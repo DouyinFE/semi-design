@@ -1,7 +1,15 @@
-$transition_duration-sideSheet_mask-bg: var(--semi-transition_delay-fastest); // 侧边栏打开后-蒙层颜色-动画持续时间
-$transition_function-sideSheet_mask-bg: var(--semi-transition_function-easeOut); // 侧边栏打开后-蒙层颜色-过渡曲线
-$transition_delay-sideSheet_mask-bg: 0ms; // 侧边栏打开后-蒙层颜色-延迟时间
+$animation_duration-sideSheet_mask_show: 0.18s; // 侧边栏打开时-蒙层颜色-动画持续时间
+$animation_function-sideSheet_mask_show: cubic-bezier(0.25, 0.46, 0.45, 0.94); // 侧边栏打开时-蒙层颜色-过渡曲线
+$animation_delay-sideSheet_mask_show: 0ms; // 侧边栏打开时-蒙层颜色-延迟时间
 
-$transition_duration-sideSheet_inner: var(--semi-transition_delay-fastest); // 侧边栏-动画持续时间
-$transition_function-sideSheet_inner: var(--semi-transition_function-easeOut); // 侧边栏-过渡曲线
-$transition_delay-sideSheet_inner: 0ms; // 侧边栏-延迟时间
+$animation_duration-sideSheet_mask_hide: 0.18s; // 侧边栏关闭时-蒙层颜色-动画持续时间
+$animation_function-sideSheet_mask_hide: cubic-bezier(0.25, 0.46, 0.45, 0.94); // 侧边栏关闭时-蒙层颜色-过渡曲线
+$animation_delay-sideSheet_mask_hide: 0ms; // 侧边栏关闭时-蒙层颜色-延迟时间
+
+$animation_duration-sideSheet_inner_show: 0.18s; // 侧边栏打开-动画持续时间
+$animation_function-sideSheet_inner_show: cubic-bezier(0.25, 0.46, 0.45, 0.94); // 侧边栏打开-过渡曲线
+$animation_delay-sideSheet_inner_show: 0ms; // 侧边栏打开-延迟时间
+
+$animation_duration-sideSheet_inner_hide: 0.18s; // 侧边栏关闭-动画持续时间
+$animation_function-sideSheet_inner_hide: cubic-bezier(0.25, 0.46, 0.45, 0.94); // 侧边栏关闭-过渡曲线
+$animation_delay-sideSheet_inner_hide: 0ms; // 侧边栏关闭-延迟时间
