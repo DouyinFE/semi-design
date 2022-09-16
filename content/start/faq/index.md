@@ -3,7 +3,7 @@ category: 开始
 title: FAQ 常见问题
 icon: doc-faq
 localeCode: zh-CN
-order: 8
+order: 9
 ---
 
 #### Semi 提供了 Figma UI Kit，考虑提供 Sketch 或基于其他设计工具的版本吗？

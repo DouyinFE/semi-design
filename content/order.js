@@ -4,6 +4,7 @@ const order = [
     'customize-theme',
     'dark-mode',
     'accessibility',
+    'content-guidelines',
     'changelog',
     'update-to-v2',
     'faq',

@@ -1,7 +1,7 @@
 //@import '../theme/variables.scss';
+@import "./animation.scss";
 @import "./variables.scss";
 @import "./mixin.scss";
-@import "./animation.scss";
 
 $module: #{$prefix}-navigation;
 

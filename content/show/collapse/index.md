@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 48
+order: 49
 category: 展示类
 title: Collapse 折叠面板
 icon: doc-accordion
@@ -205,6 +205,9 @@ import { IconCopy } from '@douyinfe/semi-icons';
 - 面板 header 可交互部分 设置了 `aria-owns` 值为对应面板内容
 - 面板内容 设置了 `aria-hidden` 随面板内容展现隐藏其值在 true 和 false 之间自动切换
 - 面板 `aria-disabled` 与 `disabled` 属性同步，表示面板禁用
+
+## 文案规范
+折叠面板本质是卡片容器增加了收起和展开的功能，所以折叠面板的文案规范需要和 [卡片文案规范](/zh-CN/show/card#%E6%96%87%E6%A1%88%E8%A7%84%E8%8C%83) 保持一致
 
 ## 设计变量
 

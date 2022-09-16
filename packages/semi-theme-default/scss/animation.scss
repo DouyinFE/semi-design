@@ -15,6 +15,7 @@ body{
   --semi-transition_function-easeOut:ease-out;
   --semi-transition_function-easeInIOut:ease-in-out;
 
+  --semi-transition_delay-none: 0ms;
   --semi-transition_delay-slowest:0ms;
   --semi-transition_delay-slower:0ms;
   --semi-transition_delay-slow:0ms;
@@ -40,7 +41,7 @@ body{
 
 
   // has animation
- 
+
   // --semi-transition_duration-slowest:500ms;
   // --semi-transition_duration-slower:500ms;
   // --semi-transition_duration-slow:500ms;

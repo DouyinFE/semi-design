@@ -164,6 +164,10 @@ import { Spin, Button } from '@douyinfe/semi-ui';
 
 <DesignToken/>
 
+## Content Guidelines
+- Precisely state the loading status, using words such as "Loading", "Submitting", "Processing", etc.
+- Use as few words as possible to describe the state
+
 ## FAQ
 
 -   **How to modify the color of the spin icon? **

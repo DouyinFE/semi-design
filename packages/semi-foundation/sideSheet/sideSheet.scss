@@ -1,5 +1,6 @@
-@import './variables.scss';
 @import './animation.scss';
+@import './variables.scss';
+
 
 $module: #{$prefix}-sidesheet;
 
@@ -100,6 +101,7 @@ $module: #{$prefix}-sidesheet;
     &-body {
         padding: $spacing-sideSheet_body-paddingY $spacing-sideSheet_body-paddingX;
         flex: 1;
+        overflow: auto;
     }
 
     &-content {

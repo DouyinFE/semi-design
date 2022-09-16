@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 16
+order: 17
 category: Basic
 title:  Typography
 subTitle: Typography
@@ -387,6 +387,42 @@ function Demo() {
 | copyTip    | Tooltip content when hovering over icon | React.node                                     | -       | 1.0.0   |
 | successTip | Successful tip content                  | React.node                                     | -       | 0.33.0  |
 | onCopy     | Callback for copy action                | Function(e:Event, content:string, res:boolean) | -       | 0.27.0  |
+
+## Content Guidelines
+
+- Link
+  - Text links need to be clear and predictable, users should be able to predict what will happen when they click on the link
+  - Do not mislead users by mislabeling links
+  - Avoid using "Click here" or "Here" as stand-alone links
+
+| ✅ Recommended usage | ❌ Deprecated usage |   
+| --- | --- | 
+| No spaces yet? <PureA> Create space </PureA>| No spaces yet? <PureA>Click here</PureA> |
+
+- Avoid using entire sentences as clickable text links, and instead use text that describes where to go as the link content
+
+| ✅ Recommended usage | ❌ Deprecated usage |   
+| --- | --- | 
+| Views <PureA>user documentation</PureA> for details|<PureA>View user documentation for details</PureA> |
+
+- Using short terms or words as link text is more conducive to internationalization, to avoid the problem of link text being split due to different grammar and word order in different languages
+
+| ✅ Recommended usage | ❌ Deprecated usage |   
+| --- | --- | 
+| Manage <PureA>notifications </PureA>to| <PureA>Manage notifications</PureA> to |
+
+- When ending with a text link, there is no need to follow punctuation, except for the question mark "?"
+
+| ✅ Recommended usage | ❌ Deprecated usage |   
+| --- | --- | 
+| No spaces yet? <PureA> Create space </PureA> | No spaces yet? <PureA>Click here</PureA> |
+| <PureA> Forgot password ？</PureA> |<PureA>Forgot password</PureA> |
+
+- Link text does not contain the articles "the, a, an"
+
+| ✅ Recommended usage | ❌ Deprecated usage |   
+| --- | --- | 
+| View <PureA> user documentation </PureA> for details| View the<PureA> user documentation</PureA> for details |
 
 ## Design Tokens
 <DesignToken/>

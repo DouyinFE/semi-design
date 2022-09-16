@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 25
+order: 26
 category: Input
 title: Radio
 subTitle: Radio
@@ -445,6 +445,11 @@ WAI-ARIA: https://www.w3.org/WAI/ARIA/apg/patterns/radiobutton/
 ```material
 123
 ``` -->
+
+## Content Guidelines
+
+- Capitalize the first letter
+- No punctuation
 
 ## Design Tokens
 

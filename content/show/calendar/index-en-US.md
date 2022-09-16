@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 45
+order: 46
 category: Show
 title:  Calendar
 subTitle: Calendar
@@ -352,6 +352,12 @@ By default, when the event is an all day event without start or end time, it wil
 | end        | End time of the event          | Date | -       |
 | key | Required and must be unique. **v>=1.0.0** | string | - |
 | start      | Start time of the event        | Date | -       |
+
+## Content Guidelines
+
+- Both 12-hour and 24-hour clocks can be used when the time needs to be displayed
+- If the 12-hour clock is used, it needs to be used together with AM/PM. For details, please refer to [Time Specification](/en-US/start/content-guidelines#8.%20%E6%97%A5%E6%9C%9F%E4%B8%8E%E6%97%B6%E9%97%B4)
+- For the abbreviation rules for month, week and time, please refer to [Abbreviation Specification](/en-US/start/content-guidelines#1.%20%E7%BC%A9%E5%86%99)
 
 ## Design Tokens
 <DesignToken/>

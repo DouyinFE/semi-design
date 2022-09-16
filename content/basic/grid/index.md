@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 11
+order: 12
 category: 基础
 title:  Grid 栅格
 icon: doc-grid

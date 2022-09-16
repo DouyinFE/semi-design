@@ -17,7 +17,7 @@ const makeAnchorOfToken = data => {
 
 const PageAnchor = props => {
     const { data = [], slug } = props;
-    const skipCondition = ['accessibility', 'dark-mode', 'customize-theme'].some(item => slug.includes(item));
+    const skipCondition = ['accessibility', 'dark-mode', 'customize-theme', 'content-guidelines'].some(item => slug.includes(item));
 
     let flag = false;
     const makeAnchor = data => {
@@ -30,7 +30,15 @@ const PageAnchor = props => {
                 continue;
             }
             if (Array.isArray(anchorItem.items) && anchorItem.items.length > 0) {
-                if (anchorItem.title === '代码演示' || anchorItem.title === 'Demos' || skipCondition) {
+                if (['Voice and Tone', '语法', 'Grammar and Mechanics'].includes(anchorItem.title)) {
+                    anchorList.push(<Anchor.Link
+                        href={`#${makeAnchorId(anchorItem.title)}`}
+                        title={anchorItem.title}
+                        key={anchorItem.title}
+                    > 
+                        {makeAnchor(anchorItem.items)}
+                    </Anchor.Link>);
+                } else if (anchorItem.title === '代码演示' || anchorItem.title === 'Demos' || skipCondition) {
                     anchorList.push(makeAnchor(anchorItem.items));
                 } else {
                     anchorList.push(

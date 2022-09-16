@@ -1391,5 +1391,11 @@ body > .component-list-demo-drag-item {
 | onRightClick | Callback function when right click an item **v>=1.0.0**                                                 | function  | -            |
 | style        | Inline style                                                                                            | CSSProperties    | -            |
 
+## Content Guidelines
+
+- Capitalize the first letter
+- do not follow punctuation at the end
+- Grammatical parallelism: mixed use of active and passive, declarative and imperative sentences
+
 ## Design Tokens
 <DesignToken/>

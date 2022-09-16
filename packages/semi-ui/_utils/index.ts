@@ -47,12 +47,16 @@ export function cloneDeep(value: any, customizer?: (value: any) => void) {
                     set(newArray, key, v[key]);
                 });
                 // internal-issues:887
-                warning(
-                    get(process, 'env.NODE_ENV') !== 'production',
-                    `[Semi] You may use an out-of-bounds array. In some cases, your program may not behave as expected.
+                try {
+                    warning(
+                        get(process, 'env.NODE_ENV') !== 'production',
+                        `[Semi] You may use an out-of-bounds array. In some cases, your program may not behave as expected.
                     The maximum length of an array is 4294967295.
                     Please check whether the array subscript in your data exceeds the maximum value of the JS array subscript`
-                );
+                    );
+                } catch (e){
+
+                }
                 return newArray;
             } else {
                 return undefined;

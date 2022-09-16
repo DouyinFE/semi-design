@@ -192,6 +192,23 @@ import { Banner } from '@douyinfe/semi-ui';
 - The close icon has a `aria-label` of 'Close'.
 
 ### Keyboard and Focus
+
 - The close button of the Banner can be focused with the `Tab` key. After the button is focused, hit the `Enter` key or the `Space` key to close the banner.
+
+## Content Guidelines
+
+- Full screen Banner
+  - Try to keep the content displayed completely on one line
+  - Use correct punctuation, commas within sentences and periods between sentences
+- Non-fullscreen Banner
+  - title
+    - Instructions in condensed language
+    - Try to avoid using commas, periods and other punctuation marks in the title, and support the use of question marks at the end when there are and only interrogative sentences
+  - text
+    - On the premise of complete information transmission, try to compress the text to 1-2 sentences
+    - A detailed description or explanation of the title, rather than a repetition of the title
+    - Use correct punctuation, commas within sentences and periods between sentences
+
 ## Design Tokens
+
 <DesignToken/>

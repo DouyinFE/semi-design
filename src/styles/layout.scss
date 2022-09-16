@@ -459,3 +459,11 @@ $spCol: var(--semi-color-primary);
         display: none;
     }
 }
+
+
+.reset-font-style {
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    letter-spacing: unset;
+    line-height: unset;
+}
