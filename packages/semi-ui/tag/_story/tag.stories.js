@@ -288,3 +288,53 @@ export const TagGroupCloseable = () => <TagGroupCloseableDemo />;
 TagGroupCloseable.story = {
   name: 'tagGroup closable',
 }
+
+export const Issue1107 = () => {
+    const src = 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png';
+    const tagList = [
+        { color: 'white', children:'Douyin', avatarSrc:src },
+        { color: 'white', children:'Hotsoon', avatarSrc:src },
+        { color: 'white', children:'Capcut', avatarSrc:src },
+        { color: 'white', children:'Xingtu', avatarSrc:src },
+    ];
+    const divStyle = {
+        backgroundColor: 'var(--semi-color-fill-0)',
+        height: 35,
+        width: 300,
+        display: 'flex',
+        alignItems: 'center',
+        padding: '0 10px',
+        marginBottom: 30,
+    };
+    const tagGroupStyle = {
+        display: 'flex',
+        alignItems: 'center',
+        width: 350,
+    };
+    return (
+        <>
+            <div style={divStyle}>
+                <TagGroup 
+                  maxTagCount={3} 
+                  style={tagGroupStyle} 
+                  tagList={tagList} 
+                  size="small" 
+                />
+            </div>
+            <div style={divStyle}>
+                <TagGroup
+                    maxTagCount={2}
+                    style={tagGroupStyle}
+                    tagList={tagList}
+                    size="large"
+                    avatarShape="circle"
+                    showPopover
+                />
+            </div>
+        </>
+    );
+};
+
+Issue1107.story = {
+  name: 'issue 1107',
+};

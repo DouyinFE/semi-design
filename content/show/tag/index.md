@@ -167,17 +167,17 @@ import { TagGroup } from '@douyinfe/semi-ui';
 
 () => {
     const tagList = [
-        { color: 'white', children:'抖音' },
-        { color: 'white', children:'火山' },
-        { color: 'white', children:'剪映' },
-        { color: 'white', children:'醒图' },
+        { color: 'white', children: '抖音' },
+        { color: 'white', children: '火山' },
+        { color: 'white', children: '剪映' },
+        { color: 'white', children: '醒图' },
     ];
     const src = 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png';
     const tagList2 = [
-        { color: 'white', children:'Douyin', avatarSrc:src },
-        { color: 'white', children:'Hotsoon', avatarSrc:src },
-        { color: 'white', children:'Capcut', avatarSrc:src },
-        { color: 'white', children:'Xingtu', avatarSrc:src },
+        { color: 'white', children: 'Douyin', avatarSrc: src },
+        { color: 'white', children: 'Hotsoon', avatarSrc: src },
+        { color: 'white', children: 'Capcut', avatarSrc: src },
+        { color: 'white', children: 'Xingtu', avatarSrc: src },
     ];
     const divStyle = {
         backgroundColor: 'var(--semi-color-fill-0)',
