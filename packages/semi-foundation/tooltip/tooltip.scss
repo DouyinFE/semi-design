@@ -90,11 +90,11 @@ $module-icon: #{$module}-icon-arrow;
     }
 
     &-animation-show{
-        animation: #{$module}-zoomIn $animation_duration-tooltip-in $animation_function-tooltip-in;
+        animation: #{$module}-zoomIn $animation_duration-tooltip_in $animation_function-tooltip_in;
     }
 
     &-animation-hide{
-        animation: #{$module}-zoomOut $animation_duration-tooltip-out $animation_function-tooltip-out;
+        animation: #{$module}-zoomOut $animation_duration-tooltip_out $animation_function-tooltip_out;
     }
 
 }

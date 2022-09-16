@@ -15,6 +15,7 @@ export interface SideSheetContentProps {
     mask?: boolean;
     maskStyle?: CSSProperties;
     maskClosable?: boolean;
+    maskClassName?: string;
     title?: React.ReactNode;
     closable?: boolean;
     headerStyle?: CSSProperties;
@@ -23,9 +24,11 @@ export interface SideSheetContentProps {
     style: CSSProperties;
     bodyStyle?: CSSProperties;
     className: string;
+    dialogClassName?:string;
     children?: React.ReactNode;
     footer?: React.ReactNode;
     'aria-label'?: string;
+    eventHandlers?: {[key:string]: React.EventHandler<any>};
 }
 
 export default class SideSheetContent extends React.PureComponent<SideSheetContentProps> {
@@ -70,7 +73,7 @@ export default class SideSheetContent extends React.PureComponent<SideSheetConte
                 <div
                     aria-hidden={true}
                     key="mask"
-                    className={`${prefixCls}-mask`}
+                    className={cls(`${prefixCls}-mask`, this.props.maskClassName ?? "")}
                     style={maskStyle}
                     onClick={maskClosable ? this.onMaskClick : null}
                 />
@@ -133,7 +136,7 @@ export default class SideSheetContent extends React.PureComponent<SideSheetConte
                 key="dialog-element"
                 role="dialog"
                 tabIndex={-1}
-                className={`${prefixCls}-inner ${prefixCls}-inner-wrap`}
+                className={cls(`${prefixCls}-inner`, `${prefixCls}-inner-wrap`, this.props.dialogClassName??"")}
                 // onMouseDown={this.onDialogMouseDown}
                 style={{ ...props.style, ...style }}
                 // id={this.dialogId}
@@ -159,6 +162,7 @@ export default class SideSheetContent extends React.PureComponent<SideSheetConte
             mask,
             className,
             width,
+            eventHandlers = {}
         } = this.props;
         const wrapperCls = cls(className, {
             [`${prefixCls}-fixed`]: !mask,
@@ -168,7 +172,7 @@ export default class SideSheetContent extends React.PureComponent<SideSheetConte
             wrapperStyle.width = width;
         }
         return (
-            <div className={wrapperCls} style={wrapperStyle}>
+            <div className={wrapperCls} style={wrapperStyle} {...eventHandlers}>
                 {this.getMaskElement()}
                 {this.getDialogElement()}
             </div>

@@ -34,6 +34,7 @@ export interface SideSheetProps {
 
 export interface SideSheetState {
     hidden: boolean;
+    shouldRender: boolean;
 }
 
 export interface SideSheetAdapter extends DefaultAdapter<SideSheetProps, SideSheetState> {
@@ -44,7 +45,9 @@ export interface SideSheetAdapter extends DefaultAdapter<SideSheetProps, SideShe
     setOnKeyDownListener: () => void;
     removeKeyDownListener: () => void;
     toggleHidden: (hidden: boolean) => void;
+    setShouldRender: (shouldRender: boolean) => void;
 }
+
 
 
 export default class SideSheetFoundation extends BaseFoundation<SideSheetAdapter> {
@@ -87,6 +90,10 @@ export default class SideSheetFoundation extends BaseFoundation<SideSheetAdapter
             this.handleCancel(e);
             return;
         }
+    }
+
+    setShouldRender(shouldRender: boolean) {
+        this._adapter.setShouldRender(shouldRender);
     }
 
     mergeMotionProp = (motion: any, prop: string, cb: () => void) => {
