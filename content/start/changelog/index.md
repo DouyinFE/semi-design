@@ -26,7 +26,6 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
     - Progress 支持根据进度自动填充渐变颜色，根据进度预设自动切换颜色 [#1092](https://github.com/DouyinFE/semi-design/issues/1092) [@uiuing](https://github.com/uiuing)
     - Toast 支持新增通过 ID 动态修改内容 [#1035](https://github.com/DouyinFE/semi-design/issues/1035) [@gwsbhqt](https://github.com/gwsbhqt)
     - Skeleton.Avatar 支持 shape属性 [#1117](https://github.com/DouyinFE/semi-design/issues/1117) [@MuxinFeng](https://github.com/MuxinFeng)
-
 - 【Chore】
     -  移除 @douyinfe/semi-ui 发包产物中的ts源码，仅保留 lib、dist目录
     -  修改部分组件 scss 的写法，将除法转换为乘法及math.div语法，避免 sass 高版本编译时重复抛出 warning 的问题 
