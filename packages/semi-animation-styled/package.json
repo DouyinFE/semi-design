@@ -30,7 +30,7 @@
     "prepublishOnly": "npm run build:lib"
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.15.4"
+
   },
   "devDependencies": {
     "@babel/plugin-proposal-decorators": "^7.15.8",

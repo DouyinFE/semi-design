@@ -103,7 +103,7 @@
         "react-storybook-addon-props-combinations": "^1.1.0",
         "react-virtualized": "^9.22.3",
         "rimraf": "^3.0.2",
-        "sass": "1.45.0",
+        "sass": "1.54.9",
         "sinon": "^6.3.5",
         "terser-webpack-plugin": "^4.2.3",
         "through2": "^4.0.2",

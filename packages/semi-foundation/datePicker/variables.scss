@@ -36,7 +36,7 @@ $height-datepicker_month_grid_yearType_insetInput: 317px;
 $height-datepicker_month_grid_timeType_insetInput: 317px;
 
 // Spacing
-$spacing-datepicker_day-marginX: ($width-datepicker_day - $width-datepicker_day_main) / 2; // 日期格子水平外边距
+$spacing-datepicker_day-marginX: ($width-datepicker_day - $width-datepicker_day_main) * 0.5; // 日期格子水平外边距
 $spacing-datepicker_yam_header-paddingX: $spacing-base; // 年月选择 header 水平内边距
 $spacing-datepicker_yam_header-paddingY: $spacing-base-tight; // 年月选择 header 垂直内边距
 $spacing-datepicker_scrolllist_header-padding: $spacing-base; // 时间选择 header 内边距
@@ -182,7 +182,7 @@ $height-datepicker_insetInput_compact: 26px;
 $fontSize-datepicker_insetInput_compact-fontSize: 12px;
 
 $spacing-datepicker_switch_compact-padding: 6px;
-$spacing-datepicker_day_compact-margin: ($width-datepicker_day_compact - $width-datepicker_day_main_compact) / 2;
+$spacing-datepicker_day_compact-margin: ($width-datepicker_day_compact - $width-datepicker_day_main_compact) * 0.5;
 $spacing-datepicker_weeks_compact-padding: 10px;
 $spacing-datepicker_weeks_compact-paddingTop: $spacing-tight - 2px;
 $spacing-datepicker_weekday_compact-paddingLeft: 10px;
@@ -234,12 +234,12 @@ $height-datepicker_date_time_panel_compact: $height-datepicker_date_panel_compac
 $height-datepicker_presetPanel_left_and_right_except_content_compact: 20px + $spacing-datepicker_quick_control_header_compact-paddingTop + $spacing-datepicker_quick_control_content_compact-marginTop; // compact，除去content以外的高度，默认48px
 
 $width-datepicker_presetPanel_left_and_right_two_col_button: ($width-datepicker_presetPanel_left_and_right_content - $spacing-datepicker_quick_control_item-margin) * 0.5; // 左右方位快捷选择面板，固定两列，按钮宽度
-$width-datepicker_presetPanel_top_and_bottom_three_col_button: ($width-datepicker_presetPanel_top_and_bottom_content_date - $spacing-datepicker_quick_control_item-margin * 2) / 3; // 上下方位快捷选择面板，固定三列，按钮宽度
+$width-datepicker_presetPanel_top_and_bottom_three_col_button: ($width-datepicker_presetPanel_top_and_bottom_content_date - $spacing-datepicker_quick_control_item-margin * 2) * 0.333; // 上下方位快捷选择面板，固定三列，按钮宽度
 $width-datepicker_presetPanel_top_and_bottom_five_col_button: ($width-datepicker_presetPanel_top_and_bottom_content_range - $spacing-datepicker_quick_control_item-margin * 4) * 0.2; // 上下方位快捷选择面板，固定五列，按钮宽度
 $width-datepicker_presetPanel_top_and_bottom_two_col_button:($width-datepicker_presetPanel_top_and_bottom_content_month - $spacing-datepicker_quick_control_item-margin) * 0.5; // 上下方位快捷选择面板，固定两列，按钮宽度
 
 // compact
-$width-datepicker_presetPanel_top_and_bottom_three_col_button_compact: ($width-datepicker_presetPanel_top_and_bottom_content_date_compact - $spacing-datepicker_quick_control_item-margin * 2) / 3; // 上下方位快捷选择面板，固定三列，按钮宽度
+$width-datepicker_presetPanel_top_and_bottom_three_col_button_compact: ($width-datepicker_presetPanel_top_and_bottom_content_date_compact - $spacing-datepicker_quick_control_item-margin * 2) * 0.333; // 上下方位快捷选择面板，固定三列，按钮宽度
 $width-datepicker_presetPanel_top_and_bottom_five_col_button_compact: ($width-datepicker_presetPanel_top_and_bottom_content_range_compact - $spacing-datepicker_quick_control_item-margin * 4) * 0.2; // 上下方位快捷选择面板，固定五列，按钮宽度
 $width-datepicker_presetPanel_top_and_bottom_two_col_button_compact: ($width-datepicker_presetPanel_top_and_bottom_content_month_compact - $spacing-datepicker_quick_control_item-margin) * 0.5; // 上下方位快捷选择面板，固定两列，按钮宽度
 
