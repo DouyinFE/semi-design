@@ -10,7 +10,7 @@ brief: A placeholder preview of content before the data loaded.
 
 ## Overview
 
--   `Avatar`: Avatar placeholder, by default uses Avatar medium sizing: `width: 48px`, `height: 48px`. Supports Avatar's size and shape attributes after v1.0.
+-   `Avatar`: Avatar placeholder, by default uses Avatar medium sizing: `width: 48px`, `height: 48px`. Supports Avatar's size (after v1.0) and shape attributes (after v2.20)
 -   `Image`: Image placeholder, default size: `width: 100%`, `height: 100%`.
 -   `Title`: Title placeholder, default size: `width: 100%`, `height: 24px`.
 -   `Paragraph`: Content part placeholder, default size: `width: 100%`, `height: 16px`, `margin-bottom: 10px`.
@@ -386,7 +386,7 @@ import { Skeleton, Avatar } from '@douyinfe/semi-ui';
 
 ### Skeleton.Avatar
 
-> `Skeleton.Image`,`Skeleton.Title`，`Skeleton.Button` have same APIs with `Skeleton.Avatar`.
+> `Skeleton.Image`,`Skeleton.Title`，`Skeleton.Button` have same APIs with `Skeleton.Avatar`. `shape` only supported in `Skeleton.Avatar`  
 
 | Property | Instructions | type | Default |
 | --- | --- | --- | --- |

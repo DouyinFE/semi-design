@@ -9,7 +9,7 @@ brief: 在需要等待加载内容的位置提供的占位组件。
 
 ## 概述
 
--   `Avatar`：占位头像，默认为圆形，默认尺寸：Avatar medium: `width: 48px`，`height: 48px`。支持 Avatar 的 size、shape 属性 （**v>=1.0**)
+-   `Avatar`：占位头像，默认为圆形，默认尺寸：Avatar medium: `width: 48px`，`height: 48px`。支持 Avatar 的 size（v1.0后支持)、shape 属性 (v2.20后支持)
 -   `Image`：占位图像，默认尺寸：`width: 100%`，`height: 100%`。
 -   `Title`：占位标题，默认尺寸：`width: 100%`， `height: 24px`。
 -   `Paragraph`：占位内容部分，默认尺寸：`width: 100%`，`height: 16px`，`margin-bottom: 10px`。
@@ -374,7 +374,7 @@ import { Skeleton, Avatar } from '@douyinfe/semi-ui';
 
 ### Skeleton.Avatar
 
-> `Skeleton.Image`，`Skeleton.Title`，`Skeleton.Button` API 与 `Skeleton.Avatar` 相同
+> `Skeleton.Image`，`Skeleton.Title`，`Skeleton.Button` 大部分API 与 `Skeleton.Avatar` 相同。其中 shape 仅 `Skeleton.Avatar支持`
 
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
