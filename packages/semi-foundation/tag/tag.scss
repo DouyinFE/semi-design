@@ -30,6 +30,13 @@ $types: "ghost", "solid", "light";
         }
     }
 
+    &-square {
+        border-radius: $radius-tag;
+    }
+    &-circle {
+        border-radius: $radius-tag_circle;
+    }
+
     &-large {
         @include font-size-small;
         padding: $spacing-tag_large-paddingY $spacing-tag_large-paddingX;

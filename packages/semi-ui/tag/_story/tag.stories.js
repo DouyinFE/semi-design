@@ -4,6 +4,7 @@ import withPropsCombinations from 'react-storybook-addon-props-combinations';
 import { BASE_CLASS_PREFIX } from '../../../semi-foundation/base/constants';
 
 import { Tag, TagGroup } from '../../index';
+import { Space } from '@douyinfe/semi-ui';
 
 export default {
   title: 'Tag'
@@ -337,4 +338,31 @@ export const Issue1107 = () => {
 
 Issue1107.story = {
   name: 'issue 1107',
+};
+
+export const TagShape = () => {
+  return (
+   <div>
+      <Space wrap>
+        {
+          ['amber', 'blue', 'cyan', 'green', 'grey', 'indigo',
+            'light-blue', 'light-green', 'lime', 'orange', 'pink',
+            'purple', 'red', 'teal', 'violet', 'yellow', 'white'
+          ].map(item => (<Tag color={item} key={item} shape='circle'> {item} tag </Tag>))
+        }
+      </Space>
+      <Space wrap>
+        {
+          ['amber', 'blue', 'cyan', 'green', 'grey', 'indigo',
+            'light-blue', 'light-green', 'lime', 'orange', 'pink',
+            'purple', 'red', 'teal', 'violet', 'yellow', 'white'
+          ].map(item => (<Tag color={item} key={item}> {item} tag </Tag>))
+        }
+      </Space>
+   </div>
+  )
+};
+
+TagShape.story = {
+  name: 'tag shape',
 };
