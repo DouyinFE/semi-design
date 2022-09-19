@@ -141,7 +141,7 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
                 _zoom = Number((currZoom - zoomStep).toFixed(2));
             }
         }
-        if (isUndefined(_zoom)) {
+        if (!isUndefined(_zoom)) {
             onZoom(_zoom);
         }
     }, 50);

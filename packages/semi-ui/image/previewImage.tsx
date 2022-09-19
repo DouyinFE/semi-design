@@ -5,7 +5,6 @@ import { PreviewImageProps, PreviewImageStates } from "./interface";
 import PropTypes from "prop-types";
 import Spin from "../spin";
 import PreviewImageFoundation, { PreviewImageAdapter } from "@douyinfe/semi-foundation/image/previewImageFoundation";
-import { throttle } from "lodash";
 
 const prefixCls = cssClasses.PREFIX;
 const preViewImgPrefixCls = `${prefixCls}-preview-image`;

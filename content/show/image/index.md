@@ -1,10 +1,9 @@
 ---
 localeCode: zh-CN
-order: 53
+order: 54
 category: 展示类
 title: Image 图片
-icon: doc-list
-# icon: doc-image
+icon: doc-image
 brief: 用于展示和预览图片。
 ---
 
@@ -28,7 +27,7 @@ import { Image } from '@douyinfe/semi-ui';
     <Image 
         width={360}
         height={200}
-        src="https://lf3-static.bytednsdoc.com/obj/eden-cn/9130eh7pltbfnuhog/semi.png"
+        src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/abstract.jpg"
     />
 );
 ```
@@ -129,10 +128,10 @@ import { Image, ImagePreview } from '@douyinfe/semi-ui';
 
 () => {
     const srcList = useMemo(() => ([
-        "https://lf3-static.bytednsdoc.com/obj/eden-cn/9130eh7pltbfnuhog/flower.jpeg",
-        "https://lf3-static.bytednsdoc.com/obj/eden-cn/9130eh7pltbfnuhog/duck.jpeg",
-        "https://lf3-static.bytednsdoc.com/obj/eden-cn/9130eh7pltbfnuhog/swan.jpeg",
-        "https://lf3-static.bytednsdoc.com/obj/eden-cn/9130eh7pltbfnuhog/road.jpeg",
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/abstract.jpg",
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/sky.jpg",
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/greenleaf.jpg",
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/colorful.jpg",
     ]), []);
 
     return ( 
@@ -163,10 +162,10 @@ import { ImagePreview, Button } from '@douyinfe/semi-ui';
 
 () => {
     const srcList = useMemo(() => ([
-        "https://lf3-static.bytednsdoc.com/obj/eden-cn/9130eh7pltbfnuhog/flower.jpeg",
-        "https://lf3-static.bytednsdoc.com/obj/eden-cn/9130eh7pltbfnuhog/duck.jpeg",
-        "https://lf3-static.bytednsdoc.com/obj/eden-cn/9130eh7pltbfnuhog/swan.jpeg",
-        "https://lf3-static.bytednsdoc.com/obj/eden-cn/9130eh7pltbfnuhog/road.jpeg",
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/abstract.jpg",
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/sky.jpg",
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/greenleaf.jpg",
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/colorful.jpg",
     ]), []);
 
     const [visible1, setVisible1] = useState(false);
@@ -192,7 +191,7 @@ import { ImagePreview, Button } from '@douyinfe/semi-ui';
         <>
             <Button onClick={onButton1Click}>Preview single Image</Button>
             <ImagePreview
-                src={'https://lf3-static.bytednsdoc.com/obj/eden-cn/9130eh7pltbfnuhog/flower.jpeg'}
+                src={"https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/sky.jpg"}
                 visible={visible1}
                 onVisibleChange={visibleChange1}
             />
@@ -218,9 +217,9 @@ import { Image, ImagePreview } from '@douyinfe/semi-ui';
 
 () => {
     const srcList = useMemo(() => ([
-        "https://lf3-static.bytednsdoc.com/obj/eden-cn/9130eh7pltbfnuhog/flower.jpeg",
-        "https://lf3-static.bytednsdoc.com/obj/eden-cn/9130eh7pltbfnuhog/duck.jpeg",
-        "https://lf3-static.bytednsdoc.com/obj/eden-cn/9130eh7pltbfnuhog/swan.jpeg",
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/abstract.jpg",
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/sky.jpg",
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/greenleaf.jpg",
     ]), []);
 
     return ( 
@@ -273,9 +272,9 @@ import { IconChevronLeft, IconChevronRight, IconMinus, IconPlus, IconRotate, Ico
 
 () => {
     const srcList = useMemo(() => ([
-        "https://lf3-static.bytednsdoc.com/obj/eden-cn/9130eh7pltbfnuhog/flower.jpeg",
-        "https://lf3-static.bytednsdoc.com/obj/eden-cn/9130eh7pltbfnuhog/duck.jpeg",
-        "https://lf3-static.bytednsdoc.com/obj/eden-cn/9130eh7pltbfnuhog/swan.jpeg",
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/abstract.jpg",
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/sky.jpg",
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/greenleaf.jpg",
     ]), []);
 
     const renderPreviewMenu = useCallback((props) => {
@@ -377,8 +376,8 @@ import { Image, ImagePreview } from '@douyinfe/semi-ui';
 
 () => {
     const srcList = useMemo(() => ([
-        "https://lf3-static.bytednsdoc.com/obj/eden-cn/9130eh7pltbfnuhog/flower.jpeg",
-        "https://lf3-static.bytednsdoc.com/obj/eden-cn/9130eh7pltbfnuhog/duck.jpeg",
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/abstract.jpg",
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/sky.jpg",
     ]), []);
 
     return (

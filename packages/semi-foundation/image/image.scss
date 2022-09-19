@@ -1,5 +1,5 @@
-@import "./variables.scss";
 @import "./animation.scss";
+@import "./variables.scss";
 
 $module: #{$prefix}-image;
 
@@ -8,10 +8,19 @@ $module: #{$prefix}-image;
     border-radius: $radius-image;
     position: relative;
     display: inline-block;
+    overflow: hidden;
 
     &-img {
         vertical-align: middle;
         border-radius: inherit;
+
+        &-preview {
+            cursor: zoom-in;
+        }
+
+        &-error {
+            opacity: 0;
+        }
     }
 
     &-overlay {
@@ -21,87 +30,17 @@ $module: #{$prefix}-image;
         width: 100%;
         height: 100%;
     }
-
-    &-mask {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        right: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: inherit;
-        background-color: $color-image_mask-bg;
-        opacity: 0;
-        transition: opacity $transition_duration-image_mask;
-
-        &:hover {
-            opacity: 1;
-        }
-
-        &-info {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-
-            &-text {
-                color: $color-image_mask_info_text;
-                margin-top: $spacing-image_mask_info_text-marginTop;
-                @include font-size-small;
-            }
-        }
-    }
 }
 
 .#{$module}-status {
     width: 100%;
     height: 100%;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     border-radius: $radius-image;
-
-    &-loading {
-        background-color: $color-image_status_loading-bg;
-    }
-
-    &-error {
-        background-color: $color-image_status_error-bg;
-        border: $width-image_status_error-border solid $color-image_status_error-border;
-    }
-
-    &-inner {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-
-        &-icon {
-            display: inline-flex;
-            vertical-align: middle;
-            align-items: center;
-            justify-content: center;
-        }
-
-        &-text {
-            margin-top: $spacing-image_status_inner_text-marginTop;
-            font-style: normal;
-            font-weight: $font-size-regular;
-            @include font-size-small;
-        }
-
-        &-loading {
-            color: $color-image_status_inner_loading;
-        }
-
-        &-error {
-            color: $color-image_status_inner_error;
-        }
-    }
-
+    background-color: $color-image_status-bg;
+    color: $color-image_status;
 }
 
 .#{$module}-preview {

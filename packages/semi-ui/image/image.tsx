@@ -7,7 +7,6 @@ import PropTypes from "prop-types";
 import { cssClasses } from "@douyinfe/semi-foundation/image/constants";
 import cls from "classnames";
 import { IconUploadError, IconEyeOpened } from "@douyinfe/semi-icons";
-import Spin from "../spin";
 import PreviewInner from "./previewInner";
 import "@douyinfe/semi-foundation/image/image.scss";
 import { PreviewContext, PreviewContextProps } from "./previewContext";
@@ -15,6 +14,7 @@ import ImageFoundation, { ImageAdapter } from "@douyinfe/semi-foundation/image/i
 import LocaleConsumer from "../locale/localeConsumer";
 import { Locale } from "../locale/interface";
 import { isObject } from "lodash";
+import Skeleton from "../skeleton";
 
 const prefixCls = cssClasses.PREFIX;
 
@@ -101,25 +101,17 @@ export default class Image extends BaseComponent<ImageProps, ImageStates> {
     }
 
     renderDefaultLoading = () => {
-        const prefixClsName = `${prefixCls}-status`;
+        const { width, height } = this.props;
         return (
-            <div className={cls(prefixClsName, `${prefixClsName}-loading`)}>
-                <div className={cls(`${prefixClsName}-inner`, `${prefixClsName}-inner-loading`)}>
-                    <Spin />
-                    <span className={`${prefixClsName}-inner-text`}>{this.getLocalTextByKey("loading")}</span>
-                </div>
-            </div>
+            <Skeleton.Image style={{ width, height }} />
         );
     };
 
     renderDefaultError = () => {
         const prefixClsName = `${prefixCls}-status`;
         return (
-            <div className={cls(prefixClsName, `${prefixClsName}-error`)}>
-                <div className={cls(`${prefixClsName}-inner`, `${prefixClsName}-inner-error`)}>
-                    <IconUploadError size={"extra-large"} className={`${prefixClsName}-inner-icon`}/>
-                    <span className={`${prefixClsName}-inner-text`}>{this.getLocalTextByKey("loadError")}</span>
-                </div>
+            <div className={prefixClsName}>
+                <IconUploadError size={"extra-large"} />
             </div>
         );
     };
@@ -178,7 +170,7 @@ export default class Image extends BaseComponent<ImageProps, ImageStates> {
         const outerStyle = Object.assign({ width, height }, style);
         const outerCls = cls(prefixCls, className);
         const canPreview = loadStatus === "success" && preview && !this.isInGroup();
-        const showMask = preview && loadStatus === "success";
+        const showPreviewCursor = preview && loadStatus === "success";
         const previewSrc = isObject(preview) ? ((preview as any).src ?? src) : src;
         const previewProps = isObject(preview) ? preview : {};
         return ( 
@@ -193,14 +185,16 @@ export default class Image extends BaseComponent<ImageProps, ImageStates> {
                     src={this.isInGroup() && this.isLazyLoad() ? undefined : src}
                     data-src={src}
                     alt={alt}
-                    className={`${prefixCls}-img`}
+                    className={cls(`${prefixCls}-img`, {
+                        [`${prefixCls}-img-preview`]: showPreviewCursor,
+                        [`${prefixCls}-img-error`]: loadStatus === "error",
+                    })}
                     width={width}
                     height={height}
                     crossOrigin={crossOrigin}
                     onError={this.handleError}
                     onLoad={this.handleLoaded}
                 />
-                {showMask && this.renderMask()}
                 {loadStatus !== "success" && this.renderExtra()}
                 {canPreview && 
                     <PreviewInner

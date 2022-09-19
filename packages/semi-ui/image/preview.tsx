@@ -55,7 +55,6 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
     }
 
     static defaultProps = {
-        visible: false,
         src: [],
         lazyLoad: true,
         lazyLoadMargin: "0px 100px 100px 0px",
