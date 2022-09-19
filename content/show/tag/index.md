@@ -53,6 +53,22 @@ import { Tag, Space } from '@douyinfe/semi-ui';
 );
 ```
 
+### 形状
+
+默认定义了两种形状：`square`（默认）、`circle`。
+
+```jsx live=true
+import React from 'react';
+import { Tag, Space } from '@douyinfe/semi-ui';
+
+() => (
+    <Space>
+        <Tag size="small" shape='circle'> small circle tag </Tag>
+        <Tag size="large" shape='circle'> large circle tag </Tag>
+    </Space>
+);
+```
+
 ### 颜色
 
 标签支持默认色板的 16 种颜色和白色，包括：`amber`、 `blue`、 `cyan`、 `green`、 `grey`、 `indigo`、 `light-blue`、 `light-green`、 `lime`、 `orange`、 `pink`、 `purple`、 `red`、 `teal`、 `violet`、 `yellow`、 `white`，也可以通过 style 来自定义颜色样式。
@@ -282,6 +298,7 @@ class TagGroupCloseableDemo extends React.Component {
 | className | 类名 | string |     | |
 | closable | 标签是否可以关闭 | boolean  |  false   | |
 | color  | 标签的颜色，可选 `amber`、 `blue`、 `cyan`、 `green`、 `grey`、 `indigo`、 `light-blue`、 `light-green`、 `lime`、 `orange`、 `pink`、 `purple`、 `red`、 `teal`、 `violet`、 `yellow`、 `white` | string  | `grey`| |
+| shape | 标签的形状，可选 `square`、 `circle` | string | `square` | |
 | size | 标签的尺寸，可选 `small`、 `large` | string | `small` | |
 | style | 样式 | CSSProperties |     | |
 | type  | 标签的样式类型，可选 `ghost`、 `solid`、 `light` | string  | `light`     | |
