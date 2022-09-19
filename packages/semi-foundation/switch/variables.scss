@@ -67,6 +67,6 @@ $spacing-switch_knob_large-padding: 3px; // 大尺寸开关按钮内边距
 $spacing-switch_knob_small-padding: 1px; // 小尺寸开关按钮内边距
 
 // Radius
-$radius-switch: $height-switch / 2; // 开关圆角
-$radius-switch_large: $height-switch_large / 2; // 大尺寸开关圆角
-$radius-switch_small: $height-switch_small / 2; // 小尺寸开关圆角
+$radius-switch: $height-switch * 0.5; // 开关圆角
+$radius-switch_large: $height-switch_large * 0.5; // 大尺寸开关圆角
+$radius-switch_small: $height-switch_small * 0.5; // 小尺寸开关圆角
