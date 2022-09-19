@@ -16,6 +16,19 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.19.0 (2022-09-09)
+- 【Fix】
+    - fix the issue that the keyboard focus style is blocked after the Anchor spacing can trigger the selection
+    - fixed the issue that the Select onblur event was not triggered when the panel was closed
+    - fix Anchor spacing in front of anchor text cannot trigger selection [@edc-hui](https://github.com/edc-hui)
+    - fix the problem that the location of event rendering did not change after Calendar weekStartsOn was changed
+    - fix the problem that Input onEnterPress event does not take effect when using Input in DropDown
+    - fix the problem that tagGroup pollutes incoming tagList data  [#1107 ](https://github.com/DouyinFE/semi-design/issues/1107)
+    - fix DatePicker time will be set 8:00 when switch month and type is dateTime [@rojer95](https://github.com/rojer95)
+- 【Chore】
+    - Remove corejs deps in semi-foundation semi-ui.
+
+
 #### 🎉 2.19.0-beta.0 (2022-09-05)
 - 【Feat】
   - Popconfirm's onOk and onCancel support Promise type return value and close asynchronously [#1056](https://github.com/DouyinFE/semi-design/issues/1056)

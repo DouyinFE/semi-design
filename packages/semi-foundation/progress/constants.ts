@@ -7,12 +7,13 @@ const cssClasses = {
 const strings = {
     types: ['line', 'circle'],
     DEFAULT_TYPE: 'line',
+    STROKE_DEFAULT: 'var(--semi-color-success)',
     strokeLineCap: ['square', 'round'],
     DEFAULT_LINECAP: 'round',
     sizes: ['default', 'small', 'large'],
     DEFAULT_SIZE: 'default',
     directions: ['vertical', 'horizontal'],
-    DEFAULT_DIRECTION: 'horizontal'
+    DEFAULT_DIRECTION: 'horizontal',
 };
 
 const numbers = {};

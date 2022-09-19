@@ -1,7 +1,7 @@
 //@import '../theme/variables.scss';
 // @import '../theme/mixin.scss';
-@import "./variables.scss";
 @import "./animation.scss";
+@import "./variables.scss";
 @import "./mixin.scss";
 
 $module: #{$prefix}-checkbox;
