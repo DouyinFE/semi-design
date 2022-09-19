@@ -310,7 +310,7 @@ class TagGroupCloseableDemo extends React.Component {
 | className | Class name | string |  |  |
 | closable | Toggle whether the tag can be closed | boolean | false |  |
 | color | Color of tags, one of `amber`、 `blue`、 `cyan`、 `green`、 `grey`、 `indigo`、 `light-blue`、 `light-green`、 `lime`、 `orange`、 `pink`、 `purple`、 `red`、 `teal`、 `violet`、 `yellow`、 `white` | string | `grey` |  |
-| shape | Shape of tag, one of `square`、 `circle` | string | `square` | |
+| shape | Shape of tag, one of `square`、 `circle` | string | `square` | 2.20.0 |
 | size | Size, one of `small`, `large` | string | `small` |  |
 | style | Inline style | object |  |  |
 | type | Style type, one of `ghost`, `solid`, `light` | string | `light` |  |
