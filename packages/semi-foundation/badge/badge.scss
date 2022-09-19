@@ -20,7 +20,7 @@ $module: #{$prefix}-badge;
         box-sizing: border-box;
         height: $height-badge_count;
         min-width: $height-badge_count;
-        border-radius: $height-badge_count / 2;
+        border-radius: $height-badge_count * 0.5;
         padding: $spacing-badge_count-paddingY $spacing-badge_count-paddingX;
         background-color: $color-badge_default-bg-default;
         border: $width-badge-border $color-badge_default-border-default solid;
@@ -162,7 +162,7 @@ $module: #{$prefix}-badge;
             color: $color-badge_warning_inverted-text-default;
         }
     }
-    
+
 }
 
 @import "./rtl.scss";
