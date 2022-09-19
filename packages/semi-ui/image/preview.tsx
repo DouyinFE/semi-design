@@ -105,10 +105,10 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
 
     static getDerivedStateFromProps(props: PreviewProps, state: PreviewState) {
         const willUpdateStates: Partial<PreviewState> = {};
-        if (props.currentIndex && (props.currentIndex !== state.currentIndex)) {
+        if (("currentIndex" in props) && (props.currentIndex !== state.currentIndex)) {
             willUpdateStates.currentIndex = props.currentIndex;
         }
-        if (props.visible && (props.visible !== state.visible)) {
+        if (("visible" in props) && (props.visible !== state.visible)) {
             willUpdateStates.visible = props.visible;
         }
         return willUpdateStates;

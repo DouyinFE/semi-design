@@ -180,6 +180,7 @@ export default class Image extends BaseComponent<ImageProps, ImageStates> {
         const canPreview = loadStatus === "success" && preview && !this.isInGroup();
         const showMask = preview && loadStatus === "success";
         const previewSrc = isObject(preview) ? ((preview as any).src ?? src) : src;
+        const previewProps = isObject(preview) ? preview : {};
         return ( 
             // eslint-disable jsx-a11y/no-static-element-interactions
             // eslint-disable jsx-a11y/click-events-have-key-events
@@ -203,7 +204,7 @@ export default class Image extends BaseComponent<ImageProps, ImageStates> {
                 {loadStatus !== "success" && this.renderExtra()}
                 {canPreview && 
                     <PreviewInner
-                        {...preview}
+                        {...previewProps}
                         src={previewSrc}
                         visible={previewVisible}
                         onVisibleChange={this.handlePreviewVisibleChange}

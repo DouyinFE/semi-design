@@ -37,6 +37,12 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
         this._adapter.unregisterKeyDownListener();
     }
 
+    handleRatio(type: string) {
+        this.setState({
+            ratio: type,
+        } as any);
+    }
+
     handleViewVisibleChange = () => {
         const nowTime = new Date().getTime();
         const mouseActiveTime = this._adapter.getMouseActiveTime();
@@ -216,13 +222,9 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
         // 如果图片没有加载成功过，则进行预加载
         // If the image has not been loaded successfully, preload it
         if (!imgLoadStatus[preloadIndex]) {
-            let Img = new Image();
+            const Img = new Image();
             Img.onload = (e) => {
                 this.setLoadSuccessStatus(imgSrc[preloadIndex]);
-                Img = null;
-            };
-            Img.onerror =(e) => {
-                Img = null;
             };
             Img.src = imgSrc[preloadIndex];
         }

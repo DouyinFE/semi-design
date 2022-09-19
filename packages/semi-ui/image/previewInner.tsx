@@ -268,6 +268,10 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
         this.foundation.handleMouseDown(e);
     }
 
+    handleRatio = (type: RatioType): void => {
+        this.foundation.handleRatio(type);
+    }
+
     render() {
         const { 
             getPopupContainer, 
@@ -297,6 +301,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
         } = {
             zIndex,
         };
+
         if (getPopupContainer) {
             wrapperStyle = {
                 zIndex,
@@ -336,11 +341,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
                         src={imgSrc[currentIndex]}
                         onZoom={this.handleZoomImage}
                         disableDownload={disableDownload}
-                        setRatio={(type: RatioType): void => {
-                            this.setState({
-                                ratio: type,
-                            });
-                        }}
+                        setRatio={this.handleRatio}
                         zoom={zoom}
                         ratio={ratio}
                         zoomStep={zoomStep}

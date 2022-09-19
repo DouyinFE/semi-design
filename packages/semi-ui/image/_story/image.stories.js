@@ -14,8 +14,9 @@ import {
     IconPlus,
     IconRotate,
     IconDownload,
+    IconWindowAdaptionStroked,
+    IconRealSizeStroked,
 } from "@douyinfe/semi-icons";
-import { RealSizeSvg, AdaptionSvg} from "../interface";
 
 export default {
     title: "Image",
@@ -305,11 +306,7 @@ export const customRenderFooterMenu = () => {
                 disabled={disableZoomIn}
             />
              <Button
-                icon={<Icon
-                    svg={ratio === "adaptation" ? <RealSizeSvg /> : <AdaptionSvg />}
-                    svg={<RealSizeSvg />}
-                    size="large"
-                />}
+                icon={ratio === "adaptation" ? <IconRealSizeStroked size="large" /> : <IconWindowAdaptionStroked  size="large" />}
                 type="tertiary"
                 onClick={onRatioClick} 
             />

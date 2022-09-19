@@ -1,6 +1,6 @@
 import BaseFoundation, { DefaultAdapter } from "../base/foundation";
 import { handlePrevent } from "../utils/a11y";
-import { throttle } from "lodash";
+import { throttle, isUndefined } from "lodash";
 
 export interface PreviewImageAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     getOriginImageSize: () => { originImageWidth: number; originImageHeight: number; }; 
@@ -93,10 +93,10 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
     }
 
     handleResizeImage = () => {
-        const horizon = !this._isImageVertical();
+        const horizontal = !this._isImageVertical();
         const { originImageWidth, originImageHeight } = this._adapter.getOriginImageSize();
-        const imgWidth = horizon ? originImageWidth : originImageHeight;
-        const imgHeight = horizon ? originImageHeight : originImageWidth;
+        const imgWidth = horizontal ? originImageWidth : originImageHeight;
+        const imgHeight = horizontal ? originImageHeight : originImageWidth;
         const { onZoom } = this.getProps();
         const containerRef = this._adapter.getContainerRef();
         if (containerRef && containerRef.current) {
@@ -129,7 +129,7 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
     onWheel = throttle((e: React.WheelEvent<HTMLImageElement>): void => {
         const { onZoom, zoomStep, maxZoom, minZoom } = this.getProps();
         const { currZoom } = this.getStates();
-        let _zoom = null;
+        let _zoom:number;
         if (e.deltaY < 0) {
             /* zoom in */
             if (currZoom + zoomStep <= maxZoom) {
@@ -141,7 +141,7 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
                 _zoom = Number((currZoom - zoomStep).toFixed(2));
             }
         }
-        if (_zoom !== null) {
+        if (isUndefined(_zoom)) {
             onZoom(_zoom);
         }
     }, 50);
@@ -173,10 +173,10 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
 
         // debugger;
         let _offset;
-        const horizon = !this._isImageVertical();
+        const horizontal = !this._isImageVertical();
         let newTop = 0;
         let newLeft = 0;
-        if (horizon) {
+        if (horizontal) {
             _offset = {
                 x: 0.5 * (containerWidth - newWidth),
                 y: 0.5 * (containerHeight - newHeight),
@@ -249,7 +249,7 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
         }
     };
 
-    handleImageMouseDown = (e: React.MouseEvent<HTMLImageElement>): void => {
+    handleImageMouseDown = (e: any): void => {
         this._adapter.setStartMouseOffset(this._getOffset(e));
         this._adapter.setStartMouseMove(true);
     };

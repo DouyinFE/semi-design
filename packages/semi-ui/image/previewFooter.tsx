@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 import BaseComponent from "../_base/baseComponent";
-import { IconChevronLeft, IconChevronRight, IconMinus, IconPlus, IconRotate, IconDownload } from "@douyinfe/semi-icons";
-import { FooterProps, RealSizeSvg, AdaptionSvg } from "./interface";
+import { IconChevronLeft, IconChevronRight, IconMinus, IconPlus, IconRotate, IconDownload, IconWindowAdaptionStroked, IconRealSizeStroked, IconSize } from "@douyinfe/semi-icons";
+import { FooterProps } from "./interface";
 import PropTypes from "prop-types";
 import Tooltip from "../tooltip";
 import Divider from "../divider";
@@ -182,12 +182,12 @@ export default class Footer extends BaseComponent<FooterProps> {
 
     getIconRatio = () => {
         const { ratio, originTip, adaptiveTip } = this.props;
-        const icon = <Icon
-            svg={ratio === "adaptation" ? <RealSizeSvg /> : <AdaptionSvg />}
-            size="large"
-            className={cls(`${footerPrefixCls}-gap`)}
-            onClick={this.handleRatioClick}
-        />;
+        const props = {
+            size: "large" as IconSize,
+            className: cls(`${footerPrefixCls}-gap`),
+            onClick: this.handleRatioClick,
+        };
+        const icon = ratio === "adaptation" ? <IconRealSizeStroked {...props} /> : <IconWindowAdaptionStroked {...props} />;
         let content: any;
         if (ratio === "adaptation") {
             content = originTip ?? this.getLocalTextByKey("originTip");
