@@ -16,7 +16,7 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
-### 🎉 2.20.0-beta.1 (2022-09-20)
+#### 🎉 2.20.0-beta.1 (2022-09-20)
 - 【Fix】
     - Fix the issue that `@douyinfe/semi-foundation` Image relative file not export
 
