@@ -87,7 +87,7 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
 
     constructor(props: SideSheetReactProps) {
         super(props);
-        this.state = { hidden: !this.props.visible, shouldRender: false };
+        this.state = { hidden: !this.props.visible, shouldRender: this.props.visible };
         this.foundation = new SideSheetFoundation(this.adapter);
     }
 
