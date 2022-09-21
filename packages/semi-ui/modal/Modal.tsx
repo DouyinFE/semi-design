@@ -17,6 +17,7 @@ import useModal from './useModal';
 import { ButtonProps } from '../button/Button';
 import { MotionObject } from "@douyinfe/semi-foundation/utils/type";
 import CSSAnimation from "@douyinfe/semi-ui/_cssAnimation";
+import { SideSheetReactProps } from "@douyinfe/semi-ui/sideSheet";
 
 export const destroyFns: any[] = [];
 export type ConfirmType = 'leftTop' | 'leftBottom' | 'rightTop' | 'rightBottom';
@@ -117,19 +118,21 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
     private bodyOverflow: string;
     private scrollBarWidth: number;
     private originBodyWith: string;
-    private _active: boolean;
+    private _haveRendered: boolean;
 
     constructor(props: ModalReactProps) {
         super(props);
         this.state = {
             hidden: !props.visible,
             isFullScreen: props.fullScreen,
+            shouldRender:this.props.visible || (this.props.keepDOM && !this.props.lazyRender)
         };
         this.foundation = new ModalFoundation(this.adapter);
         this.modalRef = React.createRef();
         this.bodyOverflow = '';
         this.scrollBarWidth = 0;
         this.originBodyWith = '100%';
+
     }
 
     get adapter(): ModalAdapter {
@@ -171,6 +174,11 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
                     this.setState({ isFullScreen });
                 }
             },
+            setShouldRender:(shouldRender)=>{
+                if (shouldRender!==this.state.shouldRender){
+                    this.setState({ shouldRender });
+                }
+            }
         };
     }
 
@@ -179,6 +187,15 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
 
         if (props.fullScreen !== prevState.isFullScreen) {
             newState.isFullScreen = props.fullScreen;
+        }
+
+
+        if (props.visible && prevState.hidden) {
+            newState.hidden = false;
+        }
+
+        if (!props.visible && !props.motion && !prevState.hidden) {
+            newState.hidden = true;
         }
 
 
@@ -233,6 +250,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         }
     }
 
+
     componentDidUpdate(prevProps: ModalReactProps, prevState: ModalState, snapshot: any) {
         // hide => show
         if (!prevProps.visible && this.props.visible) {
@@ -243,8 +261,13 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
             this.foundation.afterHide();
         }
 
+        const shouldRender = this.props.visible || (this.props.keepDOM && (!this.props.lazyRender || this._haveRendered));
+        if (shouldRender === true && this.state.shouldRender === false) {
+            this.foundation.setShouldRender(true);
+        }
+
         if (!this.props.motion) {
-            this.updateHiddenState();
+            this.updateState();
         }
     }
 
@@ -262,14 +285,15 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         this.foundation.handleOk(e);
     };
 
-    updateHiddenState = () => {
+    updateState = () => {
         const { visible } = this.props;
-        const { hidden } = this.state;
-        if (!visible && !hidden) {
-            this.foundation.toggleHidden(true, () => this.foundation.afterClose());
-        } else if (visible && this.state.hidden) {
-            this.foundation.toggleHidden(false);
+        if (!visible) {
+            this.foundation.toggleHidden(!visible);
+        } else if (visible) {
+            this.foundation.toggleHidden(!visible);
         }
+        const shouldRender = this.props.visible || (this.props.keepDOM && (!this.props.lazyRender || this._haveRendered));
+        this.foundation.setShouldRender(shouldRender);
     };
 
     renderFooter = (): ReactNode => {
@@ -362,14 +386,15 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         }
 
         const classList = cls(className, {
-            [`${cssClasses.DIALOG}-displayNone`]: keepDOM && this.state.hidden && !visible,
+            [`${cssClasses.DIALOG}-displayNone`]: keepDOM && this.state.hidden,
         });
         const maskClassName = motion ? cls({
             [`${cssClasses.DIALOG}-mask-animate-hide`]: !visible,
             [`${cssClasses.DIALOG}-mask-animate-show`]: visible
         }) : null;
 
-        if (!motion){
+        if (!motion && this.state.shouldRender){
+            this._haveRendered = true;
             return <ModalContent
                 {...restProps}
                 isFullScreen={this.state.isFullScreen}
@@ -384,13 +409,15 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
 
             />;
         }
-
+        if (this.state.shouldRender){
+            this._haveRendered = true;
+        }
         return (
             <Portal style={wrapperStyle} getPopupContainer={getPopupContainer}>
                 <CSSAnimation animationState={visible?'enter':'leave'}
                     startClassName={visible?`${cssClasses.DIALOG}-content-animate-show`:`${cssClasses.DIALOG}-content-animate-hide`}
                     onAnimationEnd={()=>{
-                        this.updateHiddenState();
+                        this.updateState();
                     }}
                 >
                     {
@@ -398,12 +425,12 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
                             return <CSSAnimation animationState={visible?'enter':'leave'}
                                 startClassName={visible?`${cssClasses.DIALOG}-mask-animate-show`:`${cssClasses.DIALOG}-mask-animate-hide`}
                                 onAnimationEnd={()=>{
-                                    this.updateHiddenState();
+                                    this.updateState();
                                 }}
                             >
                                 {
                                     ({ animationClassName:maskAnimationClassName, animationEventsNeedBind:maskAnimationEventsNeedBind })=>{
-                                        return <ModalContent
+                                        return this.state.shouldRender ? <ModalContent
                                             {...restProps}
                                             contentExtraProps={animationEventsNeedBind}
                                             maskExtraProps={maskAnimationEventsNeedBind}
@@ -418,7 +445,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
                                             footer={renderFooter}
                                             onClose={this.handleCancel}
 
-                                        />;
+                                        />:<></>;
                                     }
                                 }
                             </CSSAnimation>;
@@ -435,13 +462,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
             keepDOM,
             lazyRender,
         } = this.props;
-        this._active = this._active || visible;
-        const shouldRender = ((visible || keepDOM) && (!lazyRender || this._active)) || !this.state.hidden;
-        if (shouldRender) {
-            return this.renderDialog();
-        }
-
-        return null;
+        return this.renderDialog();
     }
 
 
