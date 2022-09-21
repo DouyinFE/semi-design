@@ -14,7 +14,8 @@ import SideSheetFoundation, {
     SideSheetState
 } from '@douyinfe/semi-foundation/sideSheet/sideSheetFoundation';
 import '@douyinfe/semi-foundation/sideSheet/sideSheet.scss';
-import CSSAnimation, { mergeAnimationFunction } from "../_cssAnimation";
+import CSSAnimation from "../_cssAnimation";
+import { executeWhenCallTimesEnough } from "@douyinfe/semi-ui/_utils";
 
 const prefixCls = cssClasses.PREFIX;
 const defaultWidthList = strings.WIDTH;
@@ -89,7 +90,6 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
         super(props);
         this.state = { hidden: !this.props.visible, shouldRender: false };
         this.foundation = new SideSheetFoundation(this.adapter);
-        this._active = false;
     }
 
     context: ContextValue;
@@ -148,14 +148,12 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
         if (!props.visible && !props.motion && !prevState.hidden) {
             newState.hidden = true;
         }
-
         return newState;
     }
 
     componentDidMount() {
         if (this.props.visible) {
             this.foundation.beforeShow();
-            this._active = this._active || this.props.visible;
         }
     }
 
@@ -167,6 +165,20 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
         // show => hide
         if (prevProps.visible && !this.props.visible) {
             this.foundation.afterHide();
+        }
+
+
+        const shouldRender = (this.props.visible || this.props.keepDOM);
+        if (shouldRender === true && this.state.shouldRender === false) {
+            this.foundation.setShouldRender(true);
+        }
+        if (prevState.hidden!==this.state.hidden){
+            this.foundation.onVisibleChange(!this.state.hidden);
+        }
+
+        if (!this.props.motion){
+            // if motion is true, we should set state after animation end, so we don't need to set state here
+            this.updateState();
         }
     }
 
@@ -183,6 +195,12 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
     handleKeyDown = (e: KeyboardEvent) => {
         this.foundation.handleKeyDown(e);
     };
+
+    updateState = ()=>{
+        const shouldRender = (this.props.visible || this.props.keepDOM);
+        this.foundation.setShouldRender(shouldRender);
+        this.foundation.toggleHidden(!this.props.visible);
+    }
 
     renderContent() {
         const {
@@ -223,37 +241,27 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
             onClose: this.handleCancel,
         };
 
-        const mergedMotion = this.foundation.getMergedMotion();
-        this._active = this._active || visible;
-        const shouldRender = (visible || keepDOM) && this._active;
-        if (shouldRender === true && !this.state.shouldRender) {
-            this.foundation.setShouldRender(true);
-        }
+        // Since user could change animate duration , we don't know which animation end first. So we call updateState func twice.
 
-        if (mergedMotion) {
+        if (this.props.motion) {
             return <CSSAnimation animationState={visible ? 'enter' : 'leave'} startClassName={
                 visible ? `${prefixCls}-animation-mask_show` : `${prefixCls}-animation-mask_hide`
-            } onAnimationEnd={() => {
-                this.foundation.setShouldRender(shouldRender);
-            }}>
+            } onAnimationEnd={this.updateState}>
                 {
                     ({
                         animationClassName: maskAnimationClassName,
-                        animationStyle: maskAnimationStyle,
                         animationEventsNeedBind: maskAnimationEventsNeedBind
                     }) => {
                         return <CSSAnimation
                             animationState={visible ? 'enter' : 'leave'}
                             startClassName={visible ? `${prefixCls}-animation-content_show_${this.props.placement}` : `${prefixCls}-animation-content_hide_${this.props.placement}`}
-                            onAnimationEnd={() => {
-                                // for no mask case
-                                this.foundation.setShouldRender(shouldRender);
-                            }}
+                            onAnimationEnd={this.updateState /* for no mask case*/}
                         >
                             {({ animationClassName, animationStyle, animationEventsNeedBind }) => {
                                 return this.state.shouldRender ? <SideSheetContent
-                                    eventHandlers={mergeAnimationFunction([animationEventsNeedBind, maskAnimationEventsNeedBind])}
                                     {...contentProps}
+                                    maskExtraProps={maskAnimationEventsNeedBind}
+                                    wrapperExtraProps={animationEventsNeedBind}
                                     dialogClassName={animationClassName}
                                     maskClassName={maskAnimationClassName}
                                     style={{ ...animationStyle, ...style }}>
@@ -266,7 +274,6 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
                 }
             </CSSAnimation>;
         }
-        this.foundation.setShouldRender((visible || keepDOM) && this._active);
         if (this.state.shouldRender) {
             return (
                 <SideSheetContent {...contentProps} style={style} maskStyle={maskStyle}>
@@ -298,3 +305,4 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
         );
     }
 }
+

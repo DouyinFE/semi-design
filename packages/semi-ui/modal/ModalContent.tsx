@@ -159,7 +159,7 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
             const className = cls(`${cssClasses.DIALOG}-mask`, {
                 // [`${cssClasses.DIALOG}-mask-hidden`]: !props.visible,
             });
-            return <div key="mask" className={cls(className, maskClassName)} style={props.maskStyle}/>;
+            return <div key="mask" {...this.props.maskExtraProps} className={cls(className, maskClassName)} style={props.maskStyle}/>;
         }
         return null;
     };
@@ -327,6 +327,7 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
                     })}
                     onClick={maskClosable ? this.onMaskClick : null}
                     onMouseUp={maskClosable ? this.onMaskMouseUp : null}
+                    {...this.props.contentExtraProps}
                 >
                     {this.getDialogElement()}
                 </div>

@@ -16,6 +16,7 @@ import { Locale } from '../locale/interface';
 import useModal from './useModal';
 import { ButtonProps } from '../button/Button';
 import { MotionObject } from "@douyinfe/semi-foundation/utils/type";
+import CSSAnimation from "@douyinfe/semi-ui/_cssAnimation";
 
 export const destroyFns: any[] = [];
 export type ConfirmType = 'leftTop' | 'leftBottom' | 'rightTop' | 'rightBottom';
@@ -361,34 +362,67 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         const classList = cls(className, {
             [`${cssClasses.DIALOG}-displayNone`]: keepDOM && this.state.hidden && !visible,
         });
-        const contentClassName = motion ? cls({
-            [`${cssClasses.DIALOG}-content-animate-hide`]: !visible,
-            [`${cssClasses.DIALOG}-content-animate-show`]: visible
-        }) : null;
         const maskClassName = motion ? cls({
             [`${cssClasses.DIALOG}-mask-animate-hide`]: !visible,
             [`${cssClasses.DIALOG}-mask-animate-show`]: visible
         }) : null;
 
+        if (!motion){
+            return <ModalContent
+                {...restProps}
+                isFullScreen={this.state.isFullScreen}
+                maskClassName={maskClassName}
+                className={classList}
+                getPopupContainer={getPopupContainer}
+                maskStyle={maskStyle}
+                style={style}
+                ref={this.modalRef}
+                footer={renderFooter}
+                onClose={this.handleCancel}
+
+            />;
+        }
+
         return (
             <Portal style={wrapperStyle} getPopupContainer={getPopupContainer}>
-                <ModalContent
-                    {...restProps}
-                    isFullScreen={this.state.isFullScreen}
-                    contentClassName={contentClassName}
-                    maskClassName={maskClassName}
-                    className={classList}
-                    getPopupContainer={getPopupContainer}
-                    maskStyle={maskStyle}
-                    style={style}
-                    ref={this.modalRef}
-                    onAnimationEnd={() => {
+                <CSSAnimation animationState={visible?'enter':'leave'}
+                    startClassName={visible?`${cssClasses.DIALOG}-content-animate-show`:`${cssClasses.DIALOG}-content-animate-hide`}
+                    onAnimationEnd={()=>{
                         this.updateHiddenState();
                     }}
-                    footer={renderFooter}
-                    onClose={this.handleCancel}
+                >
+                    {
+                        ({ animationClassName, animationEventsNeedBind })=>{
+                            return <CSSAnimation animationState={visible?'enter':'leave'}
+                                startClassName={visible?`${cssClasses.DIALOG}-mask-animate-show`:`${cssClasses.DIALOG}-mask-animate-hide`}
+                                onAnimationEnd={()=>{
+                                    this.updateHiddenState();
+                                }}
+                            >
+                                {
+                                    ({ animationClassName:maskAnimationClassName, animationEventsNeedBind:maskAnimationEventsNeedBind })=>{
+                                        return <ModalContent
+                                            {...restProps}
+                                            contentExtraProps={animationEventsNeedBind}
+                                            maskExtraProps={maskAnimationEventsNeedBind}
+                                            isFullScreen={this.state.isFullScreen}
+                                            contentClassName={animationClassName}
+                                            maskClassName={maskAnimationClassName}
+                                            className={classList}
+                                            getPopupContainer={getPopupContainer}
+                                            maskStyle={maskStyle}
+                                            style={style}
+                                            ref={this.modalRef}
+                                            footer={renderFooter}
+                                            onClose={this.handleCancel}
 
-                />
+                                        />;
+                                    }
+                                }
+                            </CSSAnimation>;
+                        }
+                    }
+                </CSSAnimation>
             </Portal>
         );
     };

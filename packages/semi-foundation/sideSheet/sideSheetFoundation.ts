@@ -19,7 +19,7 @@ export interface SideSheetProps {
     mask?: boolean;
     maskClosable?: boolean;
     maskStyle?: Record<string, any>;
-    motion?: Motion;
+    motion?: boolean;
     onCancel?: (e: any) => void;
     placement?: 'top' | 'bottom' | 'left' | 'right';
     size?: 'small' | 'medium' | 'large';
@@ -96,43 +96,13 @@ export default class SideSheetFoundation extends BaseFoundation<SideSheetAdapter
         this._adapter.setShouldRender(shouldRender);
     }
 
-    mergeMotionProp = (motion: any, prop: string, cb: () => void) => {
-        const mergedMotion = typeof (motion) === 'undefined' || motion ? {
-            ...motion,
-            [prop]: (...args: any) => {
-                const curr = get(motion, prop);
-                if (typeof curr === 'function') {
-                    curr(...args);
-                }
-                cb();
-            },
-        } : false;
-        return mergedMotion;
-    };
+    onVisibleChange(visible: boolean) {
+        this._adapter.notifyVisibleChange(visible);
+    }
 
-    getMergedMotion = () => {
-        const {
-            motion,
-            visible,
-            keepDOM,
-        } = this.getProps();
-        let mergedMotion = this.mergeMotionProp(motion, 'didEnter', (...args) => {
-            const didEnter = get(motion, 'didEnter');
-            if (typeof didEnter === 'function') {
-                didEnter(...args);
-            }
-            this._adapter.notifyVisibleChange(visible);
-        });
-        mergedMotion = this.mergeMotionProp(mergedMotion, 'didLeave', (...args) => {
-            const didLeave = get(motion, 'didLeave');
-            if (typeof didLeave === 'function') {
-                didLeave(...args);
-            }
-            this._adapter.notifyVisibleChange(visible);
-        });
-        if (keepDOM) {
-            mergedMotion = this.mergeMotionProp(mergedMotion, 'didLeave', this._adapter.toggleHidden.bind(this, true));
-        }
-        return mergedMotion;
-    };
+
+    toggleHidden = (hidden:boolean)=>{
+        this._adapter.toggleHidden(hidden);
+    }
+
 }
