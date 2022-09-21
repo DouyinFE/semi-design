@@ -13,6 +13,7 @@ export interface ModalAdapter extends DefaultAdapter<ModalProps, ModalState> {
     toggleHidden: (hidden: boolean, callback?: (hidden: boolean) => void) => void;
     notifyFullScreen: (isFullScreen: boolean) => void;
     getProps: () => ModalProps;
+    setShouldRender:(shouldRender:boolean)=>void;
 }
 
 export interface ModalProps {
@@ -60,6 +61,7 @@ export interface ModalProps {
 export interface ModalState {
     hidden: boolean;
     isFullScreen: boolean;
+    shouldRender:boolean
 }
 
 export default class ModalFoundation extends BaseFoundation<ModalAdapter> {
@@ -88,16 +90,21 @@ export default class ModalFoundation extends BaseFoundation<ModalAdapter> {
 
     afterHide() {
         this._adapter.enabledBodyScroll();
-    }
-
-    afterClose() {
         this._adapter.notifyClose();
     }
+
+    // afterClose() {
+    //     this._adapter.notifyClose();
+    // }
 
 
     toggleHidden = (hidden: boolean, callback?: (hidden: boolean) => void) => {
         this._adapter.toggleHidden(hidden, callback);
     };
+
+    setShouldRender=(shouldRender)=>{
+        this._adapter.setShouldRender(shouldRender);
+    }
 
     // // eslint-disable-next-line max-len
     // mergeMotionProp = (motion: Motion, prop: string, cb: () => void) => {

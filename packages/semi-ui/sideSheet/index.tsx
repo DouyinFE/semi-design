@@ -172,6 +172,7 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
         if (shouldRender === true && this.state.shouldRender === false) {
             this.foundation.setShouldRender(true);
         }
+
         if (prevState.hidden!==this.state.hidden){
             this.foundation.onVisibleChange(!this.state.hidden);
         }

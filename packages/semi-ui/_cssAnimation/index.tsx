@@ -20,6 +20,7 @@ interface AnimationProps {
     animationState: "enter" | "leave"
     onAnimationEnd?: () => void;
     onAnimationStart?: () => void;
+    motion?:boolean;
 }
 
 interface AnimationState {
@@ -31,6 +32,7 @@ interface AnimationState {
 class CSSAnimation extends React.Component<AnimationProps, AnimationState> {
     constructor(props) {
         super(props);
+        
         this.state = {
             currentClassName: this.props.startClassName,
             extraStyle: {}
