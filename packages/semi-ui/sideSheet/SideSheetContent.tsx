@@ -28,7 +28,8 @@ export interface SideSheetContentProps {
     children?: React.ReactNode;
     footer?: React.ReactNode;
     'aria-label'?: string;
-    eventHandlers?: {[key:string]: React.EventHandler<any>};
+    maskExtraProps?: {[key:string]: any};
+    wrapperExtraProps?: {[key:string]: any};
 }
 
 export default class SideSheetContent extends React.PureComponent<SideSheetContentProps> {
@@ -76,6 +77,7 @@ export default class SideSheetContent extends React.PureComponent<SideSheetConte
                     className={cls(`${prefixCls}-mask`, this.props.maskClassName ?? "")}
                     style={maskStyle}
                     onClick={maskClosable ? this.onMaskClick : null}
+                    {...this.props.maskExtraProps}
                 />
             );
         }
@@ -139,6 +141,7 @@ export default class SideSheetContent extends React.PureComponent<SideSheetConte
                 className={cls(`${prefixCls}-inner`, `${prefixCls}-inner-wrap`, this.props.dialogClassName??"")}
                 // onMouseDown={this.onDialogMouseDown}
                 style={{ ...props.style, ...style }}
+                {...this.props.wrapperExtraProps}
                 // id={this.dialogId}
             >
                 <div className={`${prefixCls}-content`}>
@@ -162,7 +165,6 @@ export default class SideSheetContent extends React.PureComponent<SideSheetConte
             mask,
             className,
             width,
-            eventHandlers = {}
         } = this.props;
         const wrapperCls = cls(className, {
             [`${prefixCls}-fixed`]: !mask,
@@ -172,7 +174,7 @@ export default class SideSheetContent extends React.PureComponent<SideSheetConte
             wrapperStyle.width = width;
         }
         return (
-            <div className={wrapperCls} style={wrapperStyle} {...eventHandlers}>
+            <div className={wrapperCls} style={wrapperStyle}>
                 {this.getMaskElement()}
                 {this.getDialogElement()}
             </div>

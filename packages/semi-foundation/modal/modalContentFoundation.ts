@@ -8,7 +8,9 @@ export interface ModalContentProps extends ModalProps {
     isFullScreen?: boolean;
     contentClassName?: string,
     maskClassName?: string;
-    onAnimationEnd?: () => void;
+    onAnimationEnd?: (e:any) => void;
+    maskExtraProps?:Record<string, any>;
+    contentExtraProps?:Record<string, any>;
 }
 
 export interface ModalContentState {

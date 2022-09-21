@@ -1,4 +1,5 @@
 //@import '../theme/variables.scss';
+@import "./animation.scss";
 @import "./variables.scss";
 
 $module: #{$prefix}-modal;
@@ -9,7 +10,7 @@ $module: #{$prefix}-modal;
     // width: 600px;
     margin: $spacing-modal-marginY $spacing-modal-marginX;
     color: $color-modal_main-text;
-    
+
     &-mask {
         position: fixed;
         top: $spacing-modal_mask-top;
@@ -20,18 +21,18 @@ $module: #{$prefix}-modal;
         height: 100%;
         // filter: alpha(opacity=50);
         z-index: $z-modal-mask;
-        
+
         &-hidden {
             display: none;
         }
     }
-    
+
     &-icon-wrapper {
         display: inline-flex;
         margin-right: $spacing-modal_icon_wrapper-marginRight;
         width: $width-icon-extra-large;
     }
-    
+
     &-wrap {
         position: fixed;
         overflow: auto;
@@ -47,7 +48,7 @@ $module: #{$prefix}-modal;
             align-items: center;
         }
     }
-    
+
     &-title {
         display: inline-flex;
         align-items: flex-start;
@@ -55,7 +56,7 @@ $module: #{$prefix}-modal;
         width: $width-modal_title;
         margin: $spacing-modal_title-margin;
     }
-    
+
     &-content {
         position: relative;
         display: flex;
@@ -71,17 +72,17 @@ $module: #{$prefix}-modal;
         overflow: hidden;
         @include shadow-elevated;
     }
-    
+
     &-content-fullScreen {
         border-radius: $radius-modal_content_fullscreen;
         border: none;
     }
-    
+
     // &-close {
     // position: absolute;
     // right: 15px;
     // }
-    
+
     &-header {
         display: flex;
         align-items: flex-start;
@@ -93,24 +94,24 @@ $module: #{$prefix}-modal;
         color: $color-modal_main-text;
         border-bottom: $width-modal_header-border solid $color-modal_header-border;
     }
-    
+
     &-body-wrapper {
         display: flex;
         align-items: flex-start;
         margin: $spacing-modal_body_wrapper-marginY $spacing-modal_body_wrapper-marginX;
     }
-    
+
     &-body {
         flex: 1 1 auto;
         // padding: $spacing-loose;
         margin: $spacing-modal_body-margin;
         padding: $spacing-modal_body-padding;
     }
-    
+
     &-withIcon {
         margin-left: $spacing-modal_content_withicon-marginLeft;
     }
-    
+
     &-footer {
         // padding: $spacing-loose;
         margin: $spacing-modal_footer-marginY $spacing-modal_footer-marginX;
@@ -119,62 +120,62 @@ $module: #{$prefix}-modal;
         border-radius: $radius-modal_footer;
         border-top: $width-modal_footer-border solid $color-modal_footer-border;
         background-color: $color-modal_footer-bg;
-        
+
         .#{$prefix}-button {
             margin-left: $spacing-modal_footer_button-marginLeft;
             margin-right: 0;
         }
     }
-    
+
     &-confirm {
         .#{$module}-header {
             margin-bottom: $spacing-modal_confirm_header-marginBottom;
         }
-        
+
         // &-content-withIcon {
         // margin-left: 36px;
         // }
-        
+
         &-icon-wrapper {
             display: inline-flex;
             margin-right: $spacing-modal_confirm_icon_wrapper-marginRight;
             width: $width-icon-extra-large;
         }
-        
+
         &-icon {
             display: inline-flex;
             color: $color-modal_primary-icon;
         }
     }
-    
+
     &-info-icon {
         color: $color-modal_info-icon;
     }
-    
+
     &-success-icon {
         color: $color-modal_success-icon;
     }
-    
+
     &-error-icon {
         color: $color-modal_danger-icon;
     }
-    
+
     &-warning-icon {
         color: $color-modal_warning-icon;
     }
-    
+
     &-small {
         width: $width-modal_small;
     }
-    
+
     &-medium {
         width: $width-modal_medium;
     }
-    
+
     &-large {
         width: $width-modal_large;
     }
-    
+
     &-full-width {
         width: $width-modal_full_width;
     }
@@ -204,30 +205,33 @@ $module: #{$prefix}-modal;
     display: none;
 }
 
-.#{$module}-content-animate-hide {
-    animation: 90ms #{$module}-content-keyframe-hide ease forwards;
-}
+
 
 .#{$module}-content-animate-show {
-    animation: 120ms #{$module}-content-keyframe-show cubic-bezier(0, 0, 0.26, 1.38) forwards;
+    animation: $animation_duration-modal_show #{$module}-content-keyframe-show $animation_function-modal_show $animation_delay-modal_show forwards;
 }
 
-.#{$module}-mask-animate-hide {
-    animation: 90ms #{$module}-mask-keyframe-hide ease forwards;
+.#{$module}-content-animate-hide {
+    animation: $animation_duration-modal_hide #{$module}-content-keyframe-hide $animation_function-modal_hide $animation_delay-modal_hide forwards;
 }
 
 .#{$module}-mask-animate-show {
-    animation: 90ms #{$module}-mask-keyframe-show ease forwards;
+    animation: $animation_duration-modal_mask_show #{$module}-mask-keyframe-show $animation_function-modal_mask_show $animation_delay-modal_mask_show forwards;
+}
+
+.#{$module}-mask-animate-hide {
+    animation: $animation_duration-modal_mask_hide #{$module}-mask-keyframe-hide $animation_function-modal_mask_hide $animation_delay-modal_mask_hide forwards;
 }
 
 
+
 @keyframes #{$module}-content-keyframe-show {
-    
+
     0% {
-        opacity: 0;
-        transform: scale(0.7);
+        opacity: $animation_opacity-modal_content_open;
+        transform: scale($animation_transform_scale-modal_content-open);
     }
-    
+
     100% {
         opacity: 1;
         transform: scale(1);
@@ -235,38 +239,38 @@ $module: #{$prefix}-modal;
 }
 
 @keyframes #{$module}-content-keyframe-hide {
-    
+
     0% {
         opacity: 1;
         transform: scale(1);
     }
-    
+
     100% {
-        opacity: 0;
-        transform: scale(0.7);
+        opacity: $animation_opacity-modal_content-close;
+        transform: scale($animation_transform_scale-modal_content-close);
     }
 }
 
 
 @keyframes #{$module}-mask-keyframe-show {
-    
+
     0% {
-        opacity: 0;
+        opacity: $animation_opacity-modal_mask-open;
     }
-    
+
     100% {
         opacity: 1;
     }
 }
 
 @keyframes #{$module}-mask-keyframe-hide {
-    
+
     0% {
         opacity: 1;
     }
-    
+
     100% {
-        opacity: 0;
+        opacity: $animation_opacity-modal_mask-close;
     }
 }
 

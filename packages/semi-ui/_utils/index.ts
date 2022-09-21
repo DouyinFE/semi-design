@@ -196,3 +196,4 @@ export function getFocusableElements(node: HTMLElement) {
     const focusableElements = Array.from(node.querySelectorAll<HTMLElement>(focusableSelectorsStr));
     return focusableElements;
 }
+
