@@ -1,12 +1,12 @@
-import React, { createRef, PureComponent, ReactNode } from 'react';
+import React, {createRef, PureComponent, ReactNode} from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
-import { cssClasses } from '@douyinfe/semi-foundation/tabs/constants';
+import {cssClasses} from '@douyinfe/semi-foundation/tabs/constants';
 import getDataAttr from '@douyinfe/semi-foundation/utils/getDataAttr';
 import TabsContext from './tabs-context';
-import { TabContextValue } from './interface';
-import TabPaneTransition from './TabPaneTransition';
-import { PlainTab, TabPaneProps } from './interface';
+import {TabContextValue} from './interface';
+import {PlainTab, TabPaneProps} from './interface';
+import CSSAnimation from "@douyinfe/semi-ui/_cssAnimation";
 
 class TabPane extends PureComponent<TabPaneProps> {
     static isTabPane = true;
@@ -26,9 +26,9 @@ class TabPane extends PureComponent<TabPaneProps> {
     lastActiveKey: string = null;
 
     ref = createRef<HTMLDivElement>();
-    isAnimating: boolean;
     _active: boolean;
     context: TabContextValue;
+    firstRender: boolean = true;
 
     componentDidMount(): void {
         this.lastActiveKey = this.context.activeKey;
@@ -53,33 +53,18 @@ class TabPane extends PureComponent<TabPaneProps> {
         return false;
     };
 
-    /* istanbul ignore next */
-    hideScroll = (): void => {
-        if (this.ref && this.ref.current) {
-            this.ref.current.style.overflow = 'hidden';
-            this.isAnimating = true;
-        }
-    };
-
-    /* istanbul ignore next */
-    autoScroll = (): void => {
-        if (this.ref && this.ref.current) {
-            this.ref.current.style.overflow = '';
-            this.isAnimating = false;
-        }
-    };
 
     shouldRender = (): boolean => {
-        const { itemKey } = this.props;
-        const { activeKey, lazyRender } = this.context;
+        const {itemKey} = this.props;
+        const {activeKey, lazyRender} = this.context;
         const active = activeKey === itemKey;
         this._active = this._active || active;
         return lazyRender ? this._active : true;
     };
 
     render(): ReactNode {
-        const { tabPaneMotion: motion, tabPosition } = this.context;
-        const { className, style, children, itemKey, ...restProps } = this.props;
+        const {tabPaneMotion: motion, tabPosition,isFirstRender} = this.context;
+        const {className, style, children, itemKey, ...restProps} = this.props;
         const active = this.context.activeKey === itemKey;
         const classNames = cls(className, {
             [cssClasses.TABS_PANE_INACTIVE]: !active,
@@ -87,6 +72,7 @@ class TabPane extends PureComponent<TabPaneProps> {
             [cssClasses.TABS_PANE]: true,
         });
         const shouldRender = this.shouldRender();
+        console.log(isFirstRender)
         return (
             <div
                 ref={this.ref}
@@ -100,26 +86,37 @@ class TabPane extends PureComponent<TabPaneProps> {
                 {...getDataAttr(restProps)}
                 x-semi-prop="children"
             >
-                {motion ? (
-                    <TabPaneTransition
-                        direction={this.getDirection(this.context.activeKey, itemKey, this.context.panes)}
-                        motion={motion}
-                        mode={tabPosition === 'top' ? 'horizontal' : 'vertical'}
-                        state={active ? 'enter' : 'leave'}
-                    >
-                        {(transitionStyle): ReactNode => (
-                            <div
-                                className={`${cssClasses.TABS_PANE_MOTION_OVERLAY}`}
-                                style={{ ...transitionStyle }}
+
+                <CSSAnimation motion={motion && active && !isFirstRender} animationState={active ? "enter" : "leave"}
+                              startClassName={(() => {
+                                  const direction = this.getDirection(this.context.activeKey, itemKey, this.context.panes);
+                                  if (tabPosition === 'top') {
+                                      if (direction) {
+                                          return cssClasses.TABS_PANE_ANIMATE_RIGHT_SHOW
+                                      } else {
+                                          return cssClasses.TABS_PANE_ANIMATE_LEFT_SHOW
+                                      }
+                                  } else {
+                                      if (direction) {
+                                          return cssClasses.TABS_PANE_ANIMATE_BOTTOM_SHOW
+                                      } else {
+                                          return cssClasses.TABS_PANE_ANIMATE_TOP_SHOW
+                                      }
+                                  }
+                              })()}>
+                    {
+                        ({animationClassName, animationEventsNeedBind}) => {
+                            console.log("animationClassName", animationClassName)
+                            return <div
+                                className={`${cssClasses.TABS_PANE_MOTION_OVERLAY} ${animationClassName}`}
                                 x-semi-prop="children"
+                                {...animationEventsNeedBind}
                             >
                                 {shouldRender ? children : null}
                             </div>
-                        )}
-                    </TabPaneTransition>
-                ) : shouldRender ? (
-                    children
-                ) : null}
+                        }
+                    }
+                </CSSAnimation>
             </div>
         );
     }
