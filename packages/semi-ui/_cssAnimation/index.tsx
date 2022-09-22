@@ -3,8 +3,8 @@ import { isEqual, noop } from "lodash";
 
 
 interface AnimationEventsNeedBind {
-    onAnimationStart: (e: React.AnimationEvent) => void
-    onAnimationEnd: (e: React.AnimationEvent) => void
+    onAnimationStart?: (e: React.AnimationEvent) => void
+    onAnimationEnd?: (e: React.AnimationEvent) => void
 
     [key: string]: (e: any) => void;
 }
@@ -30,6 +30,11 @@ interface AnimationState {
 
 
 class CSSAnimation extends React.Component<AnimationProps, AnimationState> {
+
+    static defaultProps = {
+        motion:true,
+    }
+
     constructor(props) {
         super(props);
         
@@ -37,6 +42,13 @@ class CSSAnimation extends React.Component<AnimationProps, AnimationState> {
             currentClassName: this.props.startClassName,
             extraStyle: {}
         };
+    }
+
+    componentDidMount(): void {
+        if(!this.props.motion){
+            this.props.onAnimationStart?.();
+            this.props.onAnimationEnd?.();
+        }
     }
 
     componentDidUpdate(prevProps: Readonly<AnimationProps>, prevState: Readonly<AnimationState>, snapshot?: any) {
@@ -49,6 +61,7 @@ class CSSAnimation extends React.Component<AnimationProps, AnimationState> {
                 extraStyle: {}
             }, this.props.onAnimationStart ?? noop);
         }
+    
 
     }
 
@@ -68,36 +81,44 @@ class CSSAnimation extends React.Component<AnimationProps, AnimationState> {
 
 
     render() {
-        return this.props.children({
+        if(this.props.motion){
+           return this.props.children({
             animationClassName: this.state.currentClassName ?? "",
             animationStyle: this.state.extraStyle,
             animationEventsNeedBind: {
                 onAnimationStart: this.handleAnimationStart,
                 onAnimationEnd: this.handleAnimationEnd
             }
-        });
+        }); 
+        }else{
+            return this.props.children({
+                animationClassName: "",
+                animationStyle: {},
+                animationEventsNeedBind: {}
+        })
+      }
     }
 }
 
 
-const mergeAnimationFunction = (eventHandleFunctions: AnimationEventsNeedBind[]) => {
-    //merge function in objects
-    const mergedFunction = {};
-    eventHandleFunctions.forEach(eventHandleFunction => {
-        Object.keys(eventHandleFunction).forEach(key => {
-            if (mergedFunction[key]) {
-                const oldFunction = mergedFunction[key];
-                mergedFunction[key] = (e) => {
-                    eventHandleFunction[key](e);
-                    oldFunction(e);
-                };
-            } else {
-                mergedFunction[key] = eventHandleFunction[key];
-            }
-        });
-    });
-    return mergedFunction;
-};
+// const mergeAnimationFunction = (eventHandleFunctions: AnimationEventsNeedBind[]) => {
+//     //merge function in objects
+//     const mergedFunction = {};
+//     eventHandleFunctions.forEach(eventHandleFunction => {
+//         Object.keys(eventHandleFunction).forEach(key => {
+//             if (mergedFunction[key]) {
+//                 const oldFunction = mergedFunction[key];
+//                 mergedFunction[key] = (e) => {
+//                     eventHandleFunction[key](e);
+//                     oldFunction(e);
+//                 };
+//             } else {
+//                 mergedFunction[key] = eventHandleFunction[key];
+//             }
+//         });
+//     });
+//     return mergedFunction;
+// };
 
-export { mergeAnimationFunction };
+// export { mergeAnimationFunction };
 export default CSSAnimation;

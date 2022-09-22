@@ -161,7 +161,6 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
                 this.props.onOk(e);
             },
             notifyClose: () => {
-                (this.props.motion as MotionObject)?.didLeave?.();
                 this.props.afterClose();
             },
             toggleHidden: (hidden: boolean, callback?: (hidden: boolean) => void) => {
@@ -246,7 +245,6 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         this.originBodyWith = document.body.style.width;
         if (this.props.visible) {
             this.foundation.beforeShow();
-            this._active = this._active || this.props.visible;
         }
     }
 
@@ -264,10 +262,6 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         const shouldRender = this.props.visible || (this.props.keepDOM && (!this.props.lazyRender || this._haveRendered));
         if (shouldRender === true && this.state.shouldRender === false) {
             this.foundation.setShouldRender(true);
-        }
-
-        if (!this.props.motion) {
-            this.updateState();
         }
     }
 
@@ -393,22 +387,6 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
             [`${cssClasses.DIALOG}-mask-animate-show`]: visible
         }) : null;
 
-        if (!motion && this.state.shouldRender){
-            this._haveRendered = true;
-            return <ModalContent
-                {...restProps}
-                isFullScreen={this.state.isFullScreen}
-                maskClassName={maskClassName}
-                className={classList}
-                getPopupContainer={getPopupContainer}
-                maskStyle={maskStyle}
-                style={style}
-                ref={this.modalRef}
-                footer={renderFooter}
-                onClose={this.handleCancel}
-
-            />;
-        }
         if (this.state.shouldRender){
             this._haveRendered = true;
         }
@@ -422,7 +400,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
                 >
                     {
                         ({ animationClassName, animationEventsNeedBind })=>{
-                            return <CSSAnimation animationState={visible?'enter':'leave'}
+                            return <CSSAnimation motion={this.props.motion} animationState={visible?'enter':'leave'}
                                 startClassName={visible?`${cssClasses.DIALOG}-mask-animate-show`:`${cssClasses.DIALOG}-mask-animate-hide`}
                                 onAnimationEnd={()=>{
                                     this.updateState();

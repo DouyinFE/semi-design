@@ -35,7 +35,7 @@ export interface ModalProps {
     maskClosable?: boolean;
     maskStyle?: Record<string, any>;
     maskFixed?: boolean;
-    motion?: Motion;
+    motion?: boolean;
     okButtonProps?: any;
     okText?: string;
     okType?: OKType;
