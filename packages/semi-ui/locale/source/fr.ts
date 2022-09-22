@@ -122,7 +122,7 @@ const local: Locale = {
     Upload: {
         mainText: 'Cliquez pour télécharger le fichier ou faites glisser le fichier vers ici',
         illegalTips: 'Ce type de fichier n\'est pas pris en charge',
-        legalTips: 'Libérer et commencer le téléchargement',
+        legalTips: 'Libérer et commencer le chargement',
         retry: 'Réessayer',
         replace: 'Remplacer le fichier',
         clear: 'Supprimer',
