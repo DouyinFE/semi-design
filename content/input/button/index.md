@@ -478,6 +478,7 @@ function SplitButtonDemo(){
 | theme               | 按钮主题，可选值：`solid`（有背景色）、 `borderless`（无背景色）、 `light`（浅背景色）                     | string                          | "light"   |
 | type     | 类型，可选值：`primary`、`secondary`、`tertiary`、`warning`、 `danger` | string  | "primary" |
 | className     | 自定义类名                               | string   |         |
+| style     | 自定义样式                               | CSSProperties   |         |
 
 ### SplitButtonGroup **V1.12.0新增**
 | 属性          | 说明                                                            | 类型      | 默认值     |
