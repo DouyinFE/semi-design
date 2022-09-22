@@ -382,17 +382,15 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         const classList = cls(className, {
             [`${cssClasses.DIALOG}-displayNone`]: keepDOM && this.state.hidden,
         });
-        const maskClassName = motion ? cls({
-            [`${cssClasses.DIALOG}-mask-animate-hide`]: !visible,
-            [`${cssClasses.DIALOG}-mask-animate-show`]: visible
-        }) : null;
 
         if (this.state.shouldRender){
             this._haveRendered = true;
         }
         return (
             <Portal style={wrapperStyle} getPopupContainer={getPopupContainer}>
-                <CSSAnimation animationState={visible?'enter':'leave'}
+                <CSSAnimation
+                    motion={this.props.motion}
+                    animationState={visible?'enter':'leave'}
                     startClassName={visible?`${cssClasses.DIALOG}-content-animate-show`:`${cssClasses.DIALOG}-content-animate-hide`}
                     onAnimationEnd={()=>{
                         this.updateState();

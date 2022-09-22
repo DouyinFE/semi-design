@@ -223,46 +223,44 @@ $module: #{$prefix}-sidesheet;
 
 
     &-animation-content_show_top{
-        animation: #{$module}-slideShow_top $animation_duration-sideSheet_inner_show $animation_function-sideSheet_inner_show $animation_delay-sideSheet_inner_show;
+        animation: #{$module}-slideShow_top $animation_duration-sideSheet_inner-show $animation_function-sideSheet_inner-show $animation_delay-sideSheet_inner-show;
     }
 
     &-animation-content_hide_top{
-        animation: #{$module}-slideHide_top $animation_duration-sideSheet_inner_hide $animation_function-sideSheet_inner_hide $animation_delay-sideSheet_inner_hide;
+        animation: #{$module}-slideHide_top $animation_duration-sideSheet_inner-hide $animation_function-sideSheet_inner-hide $animation_delay-sideSheet_inner-hide;
     }
 
     &-animation-content_show_bottom{
-        animation: #{$module}-slideShow_bottom $animation_duration-sideSheet_inner_show $animation_function-sideSheet_inner_show $animation_delay-sideSheet_inner_show;
+        animation: #{$module}-slideShow_bottom $animation_duration-sideSheet_inner-show $animation_function-sideSheet_inner-show $animation_delay-sideSheet_inner-show;
     }
 
     &-animation-content_hide_bottom{
-        animation: #{$module}-slideHide_bottom $animation_duration-sideSheet_inner_hide $animation_function-sideSheet_inner_hide $animation_delay-sideSheet_inner_hide;
+        animation: #{$module}-slideHide_bottom $animation_duration-sideSheet_inner-hide $animation_function-sideSheet_inner-hide $animation_delay-sideSheet_inner-hide;
     }
 
     &-animation-content_show_left{
-        animation: #{$module}-slideShow_left $animation_duration-sideSheet_inner_show $animation_function-sideSheet_inner_show $animation_delay-sideSheet_inner_show;
+        animation: #{$module}-slideShow_left $animation_duration-sideSheet_inner-show $animation_function-sideSheet_inner-show $animation_delay-sideSheet_inner-show;
     }
 
     &-animation-content_hide_left{
-        animation: #{$module}-slideHide_left $animation_duration-sideSheet_inner_hide $animation_function-sideSheet_inner_hide $animation_delay-sideSheet_inner_hide;
+        animation: #{$module}-slideHide_left $animation_duration-sideSheet_inner-hide $animation_function-sideSheet_inner-hide $animation_delay-sideSheet_inner-hide;
     }
 
     &-animation-content_show_right{
-        animation: #{$module}-slideShow_right $animation_duration-sideSheet_inner_show $animation_function-sideSheet_inner_show $animation_delay-sideSheet_inner_show;
+        animation: #{$module}-slideShow_right $animation_duration-sideSheet_inner-show $animation_function-sideSheet_inner-show $animation_delay-sideSheet_inner-show;
     }
 
     &-animation-content_hide_right{
-        animation: #{$module}-slideHide_right $animation_duration-sideSheet_inner_hide $animation_function-sideSheet_inner_hide $animation_delay-sideSheet_inner_hide;
+        animation: #{$module}-slideHide_right $animation_duration-sideSheet_inner-hide $animation_function-sideSheet_inner-hide $animation_delay-sideSheet_inner-hide;
     }
 
     &-animation-mask_show{
-        animation: #{$module}-opacityShow $animation_duration-sideSheet_mask_show $animation_function-sideSheet_mask_show $animation_delay-sideSheet_mask_show;
+        animation: #{$module}-opacityShow $animation_duration-sideSheet_mask-show $animation_function-sideSheet_mask-show $animation_delay-sideSheet_mask-show;
     }
 
     &-animation-mask_hide{
-        animation: #{$module}-opacityHide $animation_duration-sideSheet_mask_hide $animation_function-sideSheet_mask_hide $animation_delay-sideSheet_mask_hide;
+        animation: #{$module}-opacityHide $animation_duration-sideSheet_mask-hide $animation_function-sideSheet_mask-hide $animation_delay-sideSheet_mask-hide;
     }
-
-
 
 }
 
