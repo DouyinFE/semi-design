@@ -13,6 +13,7 @@ $module: #{$prefix}-image;
     &-img {
         vertical-align: middle;
         border-radius: inherit;
+        user-select: none;
 
         &-preview {
             cursor: zoom-in;
@@ -60,6 +61,7 @@ $module: #{$prefix}-image;
 
     .#{$module}-preview-hide {
         opacity: 0;
+        display: none;
     }
 
     &-icon {
@@ -135,6 +137,7 @@ $module: #{$prefix}-image;
         }
 
         &-page {
+            user-select: none;
             color: $color-image_preview_footer_icon;
             @include font-size-header-6;
             margin: $spacing-image_preview_footer_page-marginY $spacing-image_preview_footer_page-marginX;
@@ -192,6 +195,7 @@ $module: #{$prefix}-image;
             transform: scale3d($transform_scale3d-image_preview_image_img) $transform_rotate-image_preview_image_img;
             transition: transform $transition_duration-image_preview_image_img  $transition_delay-image_preview_image_img;
             z-index: 0;
+            user-select: none;
         }
 
         &-spin {

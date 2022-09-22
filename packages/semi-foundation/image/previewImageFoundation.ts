@@ -220,16 +220,16 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
     };
 
     handleMoveImage = (e: any): void => {
-        const { offset, width, height, left, top } = this.getStates();
-        const { rotation } = this.getProps();
+        const { offset, width, height } = this.getStates();
         const startMouseMove = this._adapter.getMouseMove();
         const startMouseOffset = this._adapter.getMouseOffset();
         const { canDragVertical, canDragHorizontal } = this.calcCanDragDirection();
         if (startMouseMove && (canDragVertical || canDragHorizontal)) {
-            const { pageX, pageY } = e;
+            const { clientX, clientY } = e;
+            const { left: containerLeft, top: containerTop } = this._getContainerBounds();
             const { left: extremeLeft, top: extremeTop } = this.calcExtremeBounds();
-            let newX = canDragHorizontal ? pageX - startMouseOffset.x : offset.x;
-            let newY = canDragVertical ? pageY - startMouseOffset.y : offset.y;
+            let newX = canDragHorizontal ? clientX - containerLeft - startMouseOffset.x : offset.x;
+            let newY = canDragVertical ? clientY - containerTop - startMouseOffset.y : offset.y;
             if (canDragHorizontal) {
                 newX = newX > 0 ? 0 : newX < extremeLeft ? extremeLeft : newX;
             }

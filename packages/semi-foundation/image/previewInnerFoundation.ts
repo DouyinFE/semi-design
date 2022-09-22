@@ -77,7 +77,11 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
         let couldClose = !isTargetEmit(e.nativeEvent, NOT_CLOSE_TARGETS);
         const { clientX, clientY } = e;
         const { x, y } = this._adapter.getStartMouseDown();
-        if (clientX !== x || y !== clientY) {
+        // 对鼠标移动做容错处理，当 x 和 y 方向在 mouseUp 的时候移动距离都小于等于 5px 时候就可以关闭预览
+        // Error-tolerant processing of mouse movement, when the movement distance in the x and y directions is less than or equal to 5px in mouseUp, the preview can be closed
+        // 不做容错处理的话，直接用 clientX !== x || y !== clientY 做判断，鼠标在用户点击时候无意识的轻微移动无法关闭预览，不符合用户预期
+        // If you do not do fault-tolerant processing, but directly use clientX !== x || y !== clientY to make judgments, the slight movement of the mouse when the user clicks will not be able to close the preview, which does not meet the user's expectations.
+        if (Math.abs(clientX - x) > 5 || Math.abs(y - clientY) > 5) {
             couldClose = false;
         }
         if (couldClose && maskClosable) {
