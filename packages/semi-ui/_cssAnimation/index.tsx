@@ -21,6 +21,7 @@ interface AnimationProps {
     onAnimationEnd?: () => void;
     onAnimationStart?: () => void;
     motion?:boolean;
+    replayKey?:string;
 }
 
 interface AnimationState {
@@ -33,6 +34,7 @@ class CSSAnimation extends React.Component<AnimationProps, AnimationState> {
 
     static defaultProps = {
         motion:true,
+        replayKey:"",
     }
 
     constructor(props) {
@@ -47,9 +49,10 @@ class CSSAnimation extends React.Component<AnimationProps, AnimationState> {
 
     componentDidUpdate(prevProps: Readonly<AnimationProps>, prevState: Readonly<AnimationState>, snapshot?: any) {
         const changedKeys = Object.keys(this.props).filter(key => !isEqual(this.props[key], prevProps[key]));
+        console.log(changedKeys)
         if (changedKeys.includes("animationState")) {
         }
-        if (changedKeys.includes("startClassName")) {
+        if (changedKeys.includes("startClassName") || changedKeys.includes('replayKey') || changedKeys.includes("motion")) {
             this.setState({
                 currentClassName: this.props.startClassName,
                 extraStyle: {}

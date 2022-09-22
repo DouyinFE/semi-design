@@ -451,6 +451,66 @@ $module: #{$prefix}-tabs;
     &-content-no-animated &-pane-inactive {
         display: none;
     }
+
+
+    @keyframes #{$module}-panel-keyframe-leftShow {
+        0% {
+            transform: translateX($animation_transform_translateX-tabs_tabPanel-leftShow);
+            opacity: $animation_opacity-tabs_tabPanel_show;
+        }
+        100% {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+    }
+    @keyframes #{$module}-panel-keyframe-rightShow {
+        0% {
+            transform: translateX($animation_transform_translateX-tabs_tabPanel-rightShow);
+            opacity: $animation_opacity-tabs_tabPanel_show;
+        }
+        100% {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes #{$module}-panel-keyframe-topShow {
+        0% {
+            transform: translateY($animation_transform_translateX-tabs_tabPanel-leftShow);
+            opacity: $animation_opacity-tabs_tabPanel_show;
+        }
+        100% {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+    }
+    @keyframes #{$module}-panel-keyframe-bottomShow {
+        0% {
+            transform: translateY($animation_transform_translateX-tabs_tabPanel-rightShow);
+            opacity: $animation_opacity-tabs_tabPanel_show;
+        }
+        100% {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+
+    &-pane-animate-leftShow{
+        animation: $animation_duration-tabs_tabPanel-show #{$module}-panel-keyframe-leftShow $animation_function-tabs_tabPanel-show $animation_delay-tabs_tabPanel-show;
+    }
+    &-pane-animate-rightShow{
+        animation: $animation_duration-tabs_tabPanel-show #{$module}-panel-keyframe-rightShow $animation_function-tabs_tabPanel-show $animation_delay-tabs_tabPanel-show;
+    }
+
+    &-pane-animate-topShow{
+        animation: $animation_duration-tabs_tabPanel-show #{$module}-panel-keyframe-topShow $animation_function-tabs_tabPanel-show $animation_delay-tabs_tabPanel-show;
+    }
+    &-pane-animate-bottomShow{
+        animation: $animation_duration-tabs_tabPanel-show #{$module}-panel-keyframe-bottomShow $animation_function-tabs_tabPanel-show $animation_delay-tabs_tabPanel-show;
+    }
 }
 
 @import "./rtl.scss";

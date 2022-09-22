@@ -84,4 +84,5 @@ export interface TabContextValue {
     panes?: Array<PlainTab>;
     tabPaneMotion?: boolean;
     tabPosition?: TabPosition;
+    isFirstRender: boolean;
 }
