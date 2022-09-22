@@ -15,7 +15,6 @@ import SideSheetFoundation, {
 } from '@douyinfe/semi-foundation/sideSheet/sideSheetFoundation';
 import '@douyinfe/semi-foundation/sideSheet/sideSheet.scss';
 import CSSAnimation from "../_cssAnimation";
-import {executeWhenCallTimesEnough} from "@douyinfe/semi-ui/_utils";
 
 const prefixCls = cssClasses.PREFIX;
 const defaultWidthList = strings.WIDTH;
