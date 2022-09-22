@@ -208,19 +208,19 @@ $module: #{$prefix}-modal;
 
 
 .#{$module}-content-animate-show {
-    animation: $animation_duration-modal_show #{$module}-content-keyframe-show $animation_function-modal_show $animation_delay-modal_show forwards;
+    animation: $animation_duration-modal-show #{$module}-content-keyframe-show $animation_function-modal-show $animation_delay-modal-show forwards;
 }
 
 .#{$module}-content-animate-hide {
-    animation: $animation_duration-modal_hide #{$module}-content-keyframe-hide $animation_function-modal_hide $animation_delay-modal_hide forwards;
+    animation: $animation_duration-modal-hide #{$module}-content-keyframe-hide $animation_function-modal-hide $animation_delay-modal-hide forwards;
 }
 
 .#{$module}-mask-animate-show {
-    animation: $animation_duration-modal_mask_show #{$module}-mask-keyframe-show $animation_function-modal_mask_show $animation_delay-modal_mask_show forwards;
+    animation: $animation_duration-modal_mask-show #{$module}-mask-keyframe-show $animation_function-modal_mask-show $animation_delay-modal_mask-show forwards;
 }
 
 .#{$module}-mask-animate-hide {
-    animation: $animation_duration-modal_mask_hide #{$module}-mask-keyframe-hide $animation_function-modal_mask_hide $animation_delay-modal_mask_hide forwards;
+    animation: $animation_duration-modal_mask-hide #{$module}-mask-keyframe-hide $animation_function-modal_mask-hide $animation_delay-modal_mask-hide forwards;
 }
 
 

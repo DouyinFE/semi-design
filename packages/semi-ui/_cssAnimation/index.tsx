@@ -44,12 +44,6 @@ class CSSAnimation extends React.Component<AnimationProps, AnimationState> {
         };
     }
 
-    componentDidMount(): void {
-        if(!this.props.motion){
-            this.props.onAnimationStart?.();
-            this.props.onAnimationEnd?.();
-        }
-    }
 
     componentDidUpdate(prevProps: Readonly<AnimationProps>, prevState: Readonly<AnimationState>, snapshot?: any) {
         const changedKeys = Object.keys(this.props).filter(key => !isEqual(this.props[key], prevProps[key]));
@@ -59,7 +53,12 @@ class CSSAnimation extends React.Component<AnimationProps, AnimationState> {
             this.setState({
                 currentClassName: this.props.startClassName,
                 extraStyle: {}
-            }, this.props.onAnimationStart ?? noop);
+            }, ()=>{
+                this.props.onAnimationStart?.();
+                if(!this.props.motion){
+                    this.props.onAnimationEnd?.();
+                }
+            });
         }
     
 
