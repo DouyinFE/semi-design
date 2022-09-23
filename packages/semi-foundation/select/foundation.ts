@@ -544,8 +544,14 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
     handleInputChange(sugInput: string) {
         // Input is a controlled component, so the value needs to be updated
         this._adapter.updateInputValue(sugInput);
-        const { options, isOpen } = this.getStates();
+        const { options, isOpen, focusIndex } = this.getStates();
         const { allowCreate, remote } = this.getProps();
+
+        // Hight first option when search
+        // if last focusIndex isn't first option, change focusIndex to 0(first option);
+        if (focusIndex !== 0) {
+            this._adapter.updateFocusIndex(0);
+        }
 
         let optionsAfterFilter = options;
         if (!remote) {
