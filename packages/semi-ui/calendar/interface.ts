@@ -1,7 +1,7 @@
-import { EventObject, weeekStartsOnEnum } from '@douyinfe/semi-foundation/calendar/foundation';
 import { strings } from '@douyinfe/semi-foundation/calendar/constants';
-import { ArrayElement } from '../_base/base';
-import { BaseProps } from '../_base/baseComponent';
+import type { ArrayElement } from '../_base/base';
+import type { BaseProps } from '../_base/baseComponent';
+import type { EventObject, weeekStartsOnEnum } from '@douyinfe/semi-foundation/calendar/foundation';
 
 export interface CalendarProps extends BaseProps {
     displayValue?: Date;

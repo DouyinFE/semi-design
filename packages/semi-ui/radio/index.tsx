@@ -7,6 +7,6 @@ class RadioWithGroup extends Radio {
 
 export default RadioWithGroup;
 export { RadioWithGroup, Radio };
-export { RadioInnerMode, RadioInnerProps } from './radioInner';
-export { RadioGroupProps, OptionItem } from './radioGroup';
-export { RadioDisplayMode, RadioType, RadioProps, RadioChangeEvent } from './radio';
+export type { RadioInnerMode, RadioInnerProps } from './radioInner';
+export type { RadioGroupProps, OptionItem } from './radioGroup';
+export type { RadioDisplayMode, RadioType, RadioProps, RadioChangeEvent } from './radio';

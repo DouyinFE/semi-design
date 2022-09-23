@@ -7,7 +7,7 @@ import { isPlainObject } from 'lodash';
 import DescriptionsContext, { DescriptionsAlign, DescriptionsContextValue } from './descriptions-context';
 import Item from './item';
 
-export { DescriptionsItemProps } from './item';
+export type { DescriptionsItemProps } from './item';
 export type DescriptionsSize = 'small' | 'medium' | 'large';
 export interface Data {
     key?: React.ReactNode;
