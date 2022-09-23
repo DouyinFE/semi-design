@@ -16,6 +16,16 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 ---
 
+#### 🎉 2.20.0 (2022-09-23)
+- 【Fix】
+  - 修复 Form.InputGroup 不支持 FormProps.wrapperCol 、 labelCol 布局的问题
+  - 修复 Image 预览放大后拖拽问题
+  - 修复 DataPicker 组件 foundation 中包含 React 相关类型定义问题 [@rashagu](https://github.com/rashagu)
+  - 修复 Navigation、Tree组件 foundation 在高版本typescript中报错问题 [@rashagu](https://github.com/rashagu)
+  - 修复受控 Tree 在远程加载数据时展开不成功 [#1124](https://github.com/DouyinFE/semi-design/issues/1124)
+  - 修复 ButtonGroup 未支持 style API 问题
+  - 修复虚拟化 Table 在有左边固定列时，首次渲染左边固定列会有多余的 box-shadow 问题 [#1134](https://github.com/DouyinFE/semi-design/issues/1134)
+
 #### 🎉 2.20.0-beta.1 (2022-09-20)
 - 【Fix】
     - 修复 @douyinfe/semi-foundation Image相关未导出的问题

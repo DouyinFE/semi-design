@@ -16,6 +16,17 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.20.0 (2022-09-23)
+- 【Fix】
+  - fix the issue that Form.InputGroup does not support FormProps.wrapperCol , labelCol layout
+  - fix the drag and drop problem after the Image preview is enlarged
+  - fix DataPicker component foundation contains React related type definitions [@rashagu](https://github.com/rashagu)
+  - fix the problem that the foundation of Navigation and Tree components reports errors in high versions of typescript [@rashagu](https://github.com/rashagu)
+  - fix the expansion of the controlled tree when the data was loaded remotely unsuccessfully [#1124](https://github.com/DouyinFE/semi-design/issues/1124)
+  - fix ButtonGroup does not support style API issue
+  - fix the problem that when the virtualized Table has a fixed column on the left, the first rendering of the fixed column on the left will have an extra box-shadow [#1134](https://github.com/DouyinFE/semi-design/issues/1134)
+
+
 #### 🎉 2.20.0-beta.1 (2022-09-20)
 - 【Fix】
     - Fix the issue that `@douyinfe/semi-foundation` Image relative file not export
