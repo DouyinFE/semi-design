@@ -1,15 +1,12 @@
-// @ts-ignore  currently no type definition for @douyinfe/semi-animation-react
-import { Transition } from '@douyinfe/semi-animation-react';
-import PropTypes from 'prop-types';
-import cls from 'classnames';
-import React, { useRef, useState, useCallback, useMemo } from 'react';
-import { cssClasses } from '@douyinfe/semi-foundation/collapsible/constants';
-import { Motion } from '../_base/base';
-import getMotionObjFromProps from '@douyinfe/semi-foundation/utils/getMotionObjFromProps';
-
-const ease = 'cubicBezier(.25,.1,.25,1)';
-
-export interface CollapsibleProps {
+import React from 'react';
+import type {CollapsibleAdapter, CollapsibleFoundationProps, CollapsibleFoundationState} from "@douyinfe/semi-foundation/collapsible/foundation";
+import BaseComponent from "@douyinfe/semi-ui/_base/baseComponent";
+import {Motion} from "@douyinfe/semi-ui/_base/base";
+import PropTypes from "prop-types";
+import cls from "classnames";
+import {cssClasses} from "@douyinfe/semi-foundation/collapsible/constants";
+import CollapsibleOld from "@douyinfe/semi-ui/collapsible/index.old";
+interface CollapsibleProps extends CollapsibleFoundationProps{
     motion?: Motion;
     children?: React.ReactNode;
     isOpen?: boolean;
@@ -22,124 +19,117 @@ export interface CollapsibleProps {
     id?:string,
 }
 
+interface CollapsibleState extends CollapsibleFoundationState{
+    domInRenderTree:boolean
+    domHeight:number
+}
 
-const Collapsible = (props: CollapsibleProps) => {
-    const {
-        motion,
-        children,
-        isOpen,
-        duration,
-        keepDOM,
-        collapseHeight,
-        style,
-        className,
-        reCalcKey,
-        id
-    } = props;
+class Collapsible extends BaseComponent<CollapsibleProps, CollapsibleState> {
+    static defaultProps = {
+        isOpen: false,
+        duration: 250,
+        motion: true,
+        keepDOM: false,
+        collapseHeight: 0
+    };
 
-    const ref = useRef(null);
-    const [maxHeight, setMaxHeight] = useState(0);
-    const [open, setOpen] = useState(props.isOpen);
-    const [isFirst, setIsFirst] = useState(true);
-    const [transitionImmediate, setTransitionImmediate] = useState(open && isFirst);
-    const [left, setLeft] = useState(!props.isOpen);
-    if (isOpen !== open) {
-        setOpen(isOpen);
-        if (isFirst) {
-            setIsFirst(false);
-            setTransitionImmediate(false);
+    private domRef = React.createRef<HTMLDivElement>();
+    private wrapperRef = React.createRef<HTMLDivElement>();
+    private resizeObserver: ResizeObserver | null;
+    constructor(props: CollapsibleProps) {
+        super(props);
+        this.state = {
+            domInRenderTree:false,
+            domHeight: 0,
         }
-        isOpen && setLeft(!isOpen);
     }
 
-    const setHeight = useCallback(node => {
-        const currHeight = node && node.scrollHeight;
-        if (currHeight && maxHeight !== currHeight) {
-            setMaxHeight(currHeight);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [left, reCalcKey, maxHeight]);
-
-    const resetHeight = () => {
-        ref.current.style.maxHeight = 'none';
-    };
-
-    const formatStyle = ({ maxHeight: maxHeightInTransitionStyle }: any) => ({ maxHeight: maxHeightInTransitionStyle });
-
-    const shouldKeepDOM = () => keepDOM || collapseHeight !== 0;
-
-    const defaultMaxHeight = useMemo(() => {
-        return isOpen || !shouldKeepDOM() && !motion ? 'none' : collapseHeight;
-    }, [collapseHeight, motion, isOpen, shouldKeepDOM]);
-
-    const renderChildren = (transitionStyle: Record<string, any> | null) => {
-        const transition =
-            transitionStyle && typeof transitionStyle === 'object' ?
-                formatStyle(transitionStyle) :
-                {};
-
-        const wrapperstyle = {
-            overflow: 'hidden',
-            maxHeight: defaultMaxHeight,
-            ...style,
-            ...transition,
+    get adapter(): CollapsibleAdapter<CollapsibleProps,CollapsibleState> {
+        return {
+            ...super.adapter,
         };
+    }
 
-        if (isFirst) {
-            wrapperstyle.maxHeight = defaultMaxHeight;
+    componentDidMount() {
+        super.componentDidMount();
+        this.resizeObserver = new ResizeObserver(this.handleResize);
+        this.resizeObserver.observe(this.domRef.current);
+        const domInRenderTree = this.isChildrenInRenderTree();
+        this.setState({domInRenderTree})
+        if(domInRenderTree){
+            this.setState({domHeight:this.domRef.current.scrollHeight})
+        }
+    }
+
+    componentDidUpdate(prevProps: Readonly<CollapsibleProps>, prevState: Readonly<CollapsibleState>, snapshot?: any) {
+        if(prevState.domInRenderTree!==this.state.domInRenderTree){
+            if(this.state.domInRenderTree){
+                this.setState({domHeight:this.domRef.current.scrollHeight})
+            }
+        }
+    }
+
+    handleResize = (entryList:ResizeObserverEntry[]) => {
+        const entry = entryList[0];
+        if(entry){
+            const entryInfo  = Collapsible.getEntryInfo(entry);
+            this.setState({domInRenderTree:entryInfo.isShown,domHeight:entryInfo.height})
+        }
+    }
+
+    static getEntryInfo = (entry:ResizeObserverEntry)=>{
+        //judge whether parent or self display none
+        let inRenderTree:boolean;
+        if(entry.borderBoxSize){
+            inRenderTree= !(entry.borderBoxSize[0].blockSize===0 && entry.borderBoxSize[0].inlineSize===0);
+        }else {
+            inRenderTree = !(entry.contentRect.height===0 && entry.contentRect.width===0);
         }
 
-        const wrapperCls = cls(`${cssClasses.PREFIX}-wrapper`, className);
-        return (
-            <div style={wrapperstyle} className={wrapperCls} ref={ref}>
-                <div
-                    ref={setHeight}
-                    style={{ overflow: 'hidden' }} 
-                    id={id}
-                    x-semi-prop="children"
-                >
-                    {children}
-                </div>
-            </div>
-        );
-    };
-
-    const didLeave = () => {
-        setLeft(true);
-        !shouldKeepDOM() && setMaxHeight(collapseHeight);
-    };
-
-    const renderContent = () => {
-        if (left && !shouldKeepDOM()) {
-            return null;
+        let height = 0;
+        if(entry.borderBoxSize){
+            height = Math.ceil(entry.borderBoxSize[0].blockSize);
+        }else{
+            const target = entry.target as HTMLElement;
+            height = target.clientHeight;
         }
 
-        const mergedMotion = getMotionObjFromProps({
-            didEnter: resetHeight,
-            didLeave,
-            motion,
-        });
+        return {
+            isShown: inRenderTree,height
+        }
 
-        return (
-            <Transition
-                state={isOpen ? 'enter' : 'leave'}
-                immediate={transitionImmediate}
-                from={{ maxHeight: 0 }}
-                enter={{ maxHeight: { val: maxHeight, easing: ease, duration } }}
-                leave={{ maxHeight: { val: collapseHeight, easing: ease, duration } }}
-                {...mergedMotion}
+
+    }
+
+    isChildrenInRenderTree = ()=>{
+        if(this.domRef.current){
+            return this.domRef.current.offsetHeight >0
+        }else{
+            return false
+        }
+    }
+
+    render() {
+        const wrapperStyle:React.CSSProperties = {
+            overflow: 'hidden',
+            height: this.props.isOpen ? this.state.domHeight : 0,
+            transition: `height ${this.props.duration}ms ease-in-out`,
+            ...this.props.style
+        }
+        const wrapperCls = cls(`${cssClasses.PREFIX}-wrapper`, this.props.className);
+        return <div ref={this.wrapperRef} className={wrapperCls} style={wrapperStyle} >
+            <div
+                x-semi-prop="children"
+                ref={this.domRef}
+                style={{ overflow: 'hidden' }}
             >
-                {(transitionStyle: Record<string, any>) =>
-                    renderChildren(motion ? transitionStyle : null)
-                }
-            </Transition>
-        );
-    };
+                {this.props.children}
+            </div>
+        </div>
+    }
+}
 
-    return renderContent();
-};
-
-Collapsible.propType = {
+Collapsible.propTypes = {
     motion: PropTypes.oneOfType([PropTypes.bool, PropTypes.func, PropTypes.object]),
     children: PropTypes.node,
     isOpen: PropTypes.bool,
@@ -152,14 +142,6 @@ Collapsible.propType = {
         PropTypes.string,
         PropTypes.number
     ]),
-};
-
-Collapsible.defaultProps = {
-    isOpen: false,
-    duration: 250,
-    motion: true,
-    keepDOM: false,
-    collapseHeight: 0
 };
 
 export default Collapsible;
