@@ -1,5 +1,5 @@
-@import "./variables.scss";
 @import "./animation.scss";
+@import "./variables.scss";
 
 $module: #{$prefix}-input;
 
@@ -144,7 +144,7 @@ $module: #{$prefix}-input;
     cursor: text;
     box-sizing: border-box;
     color: $color-input_default-text-default;
-    
+
     &:hover {
         border-color: $color-textarea-border-hover;
     }

@@ -20,7 +20,7 @@ const prefixCls = cssClasses.PREFIX;
 const defaultWidthList = strings.WIDTH;
 const defaultHeight = strings.HEIGHT;
 
-export {SideSheetContentProps} from './SideSheetContent';
+export type { SideSheetContentProps } from './SideSheetContent';
 
 export interface SideSheetReactProps extends SideSheetProps {
     bodyStyle?: CSSProperties;
@@ -33,7 +33,7 @@ export interface SideSheetReactProps extends SideSheetProps {
     onCancel?: (e: React.MouseEvent | React.KeyboardEvent) => void;
 }
 
-export {
+export type {
     SideSheetState
 };
 

@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 63
+order: 64
 category: 展示类
 title: Tooltip 工具提示
 icon: doc-tooltip

@@ -15,10 +15,10 @@ Typography.Title = Title;
 Typography.Paragraph = Paragraph;
 
 
-export { BaseTypographyProps } from './base';
-export { CopyableProps } from './copyable';
-export { TitleProps } from './title';
-export { TextProps } from './text';
-export { ParagraphProps } from './paragraph';
+export type { BaseTypographyProps } from './base';
+export type { CopyableProps } from './copyable';
+export type { TitleProps } from './title';
+export type { TextProps } from './text';
+export type { ParagraphProps } from './paragraph';
 export * from './interface';
 export default Typography;

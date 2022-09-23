@@ -81,7 +81,10 @@ const appLocale = {
         "home.theme": "Theming",
         "home.theme.desc": "Create variations of UI Styles that suit your brand with full flexibility",
         "volcengine_theme": "Volce Engine Theme",
-        "home.pro.desc": "Design with real code components，convert your deisgn to code with one click",
+        "home.pro.title": "Semi Design D2C",
+        "home.pro.desc": "Design with real code components，convert your design to code with one click",
+        "home.pro.start": "Get Started",
+        "beta": "Beta",
 
         "semi_design_share_2code": "#Semi Design2Code# Topic Activity is now open!",
         "access_is_simple_and_easy_to_use;": "Semi is easy to get started; the UI is beautiful and consistent; and the API is comprehensive, too.",

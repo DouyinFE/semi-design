@@ -188,7 +188,7 @@ export default class NavigationFoundation<P = Record<string, any>, S = Record<st
         return item;
     }
 
-    getShouldOpenKeys(itemKeysMap: ItemKey2ParentKeysMap = {}, selectedKeys: string | number[] = []) {
+    getShouldOpenKeys(itemKeysMap: ItemKey2ParentKeysMap = {}, selectedKeys: string | number[]= []) {
         const willOpenKeySet = new Set();
 
         if (Array.isArray(selectedKeys) && selectedKeys.length) {

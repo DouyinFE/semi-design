@@ -32,9 +32,9 @@ export {
 };
 
 export * from './interface';
-export { ArrayFieldProps } from './arrayField';
-export { ReactFieldError, ErrorMessageProps } from './errorMessage';
-export { InputGroupProps } from './group';
-export { LabelProps } from './label';
-export { SectionProps } from './section';
-export { SlotProps } from './slot';
+export type { ArrayFieldProps } from './arrayField';
+export type { ReactFieldError, ErrorMessageProps } from './errorMessage';
+export type { InputGroupProps } from './group';
+export type { LabelProps } from './label';
+export type { SectionProps } from './section';
+export type { SlotProps } from './slot';

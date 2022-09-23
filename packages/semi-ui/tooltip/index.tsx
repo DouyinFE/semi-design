@@ -27,7 +27,7 @@ import { Motion } from '../_base/base';
 import CSSAnimation from "../_cssAnimation";
 
 export type Trigger = ArrayElement<typeof strings.TRIGGER_SET>;
-
+export type { Position };
 export interface ArrowBounding {
     offsetX?: number;
     offsetY?: number;
@@ -738,5 +738,3 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         );
     }
 }
-
-export { Position };

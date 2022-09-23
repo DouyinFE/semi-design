@@ -46,9 +46,9 @@ $spacing-navigation_dropdown_item_nav_sub_title-paddingY: $spacing-tight; // 导
 $spacing-navigation_dropdown_item_nav_item-marginTop: 0; // 导航栏下拉菜单项顶部外边距
 $spacing-navigation_dropdown_item_nav_item-marginBottom: 0; // 导航栏下拉菜单项底部外边距
 $spacing-navigation_vertical_nav_item_last-marginBottom: 0; // 侧边导航栏下拉最后一个菜单项底部外边距
-$spacing-navigation_vertical_nav_header-paddingLeft:  ($width-navigation_container_collapsed - $spacing-base-tight - $width-navigation_border - $height-navigation_header_logo_collapsed) / 2; // 侧边导航栏 header 左侧内边距
+$spacing-navigation_vertical_nav_header-paddingLeft:  ($width-navigation_container_collapsed - $spacing-base-tight - $width-navigation_border - $height-navigation_header_logo_collapsed) * 0.5; // 侧边导航栏 header 左侧内边距
 $spacing-navigation_vertical_nav_header-paddingRight: $spacing-tight; // 侧边导航栏 header 右侧内边距
-$spacing-navigation_vertical_nav_header_collapsed-paddingLeft: ($width-navigation_container_collapsed - $spacing-base-tight - $width-navigation_border - $height-navigation_header_logo_collapsed) / 2; // 侧边导航栏收起后 header 左侧内边距
+$spacing-navigation_vertical_nav_header_collapsed-paddingLeft: ($width-navigation_container_collapsed - $spacing-base-tight - $width-navigation_border - $height-navigation_header_logo_collapsed) * 0.5; // 侧边导航栏收起后 header 左侧内边距
 $spacing-navigation_vertical_nav_header_collapsed-paddingRight: 0; // 侧边导航栏收起后 header 右侧内边距
 $spacing-navigation_vertical_footer-paddingLeft: $spacing-tight; // 侧边导航栏 footer 左侧内边距
 $spacing-navigation_vertical_footer-paddingRight: $spacing-tight; // 侧边导航栏 footer 右侧内边距

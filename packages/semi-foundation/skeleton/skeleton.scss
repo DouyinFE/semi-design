@@ -11,7 +11,9 @@ $module: #{$prefix}-skeleton;
     }
 
     &-avatar {
-        border-radius: 50%;
+        &-circle {
+            border-radius: 50%;
+        }
 
         &-extra-extra-small {
             width: $width-skeleton_avatar_extra_extra_small;
