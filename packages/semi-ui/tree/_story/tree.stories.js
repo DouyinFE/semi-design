@@ -2543,6 +2543,80 @@ class DemoV extends React.Component {
     }
 }
 
+export const issue1124 = () => {
+  const [v, setV] = useState(['1']);
+  const initialData = [ 
+      {
+          label: 'Expand to load',
+          value: '0',
+          key: '0',
+      },
+      {
+          label: 'Expand to load',
+          value: '1',
+          key: '1',
+      },
+      {
+          label: 'Leaf Node',
+          value: '2',
+          key: '2',
+          isLeaf: true,
+      },
+  ];
+  const [treeData, setTreeData] = useState(initialData);
+
+  function updateTreeData(list, key, children) {
+      return list.map(node => {
+          if (node.key === key) {
+              return { ...node, children };
+          }
+          if (node.children) {
+              return { ...node, children: updateTreeData(node.children, key, children) };
+          }
+          return node;
+      });
+  }
+
+  const onChange = (value) => {
+    setV(value);
+  }
+
+  function onLoadData({ key, children }) {
+      return new Promise(resolve => {
+          if (children) {
+              resolve();
+              return;
+          }
+          setTimeout(() => {
+              setTreeData(origin =>
+                  updateTreeData(origin, key, [
+                      {
+                          label: `Child Node${key}-0`,
+                          key: `${key}-0`,
+                          value: `${key}-0`,
+                      },
+                      {
+                          label: `Child Node${key}-1`,
+                          key: `${key}-1`,
+                          value: `${key}-1`,
+                      },
+                  ]),
+              );
+              resolve();
+          }, 1000);
+      });
+  }
+  return (
+      <Tree 
+          onChange={onChange}
+          loadData={onLoadData}
+          treeData={[...treeData]}
+          value={v}
+          multiple
+      />
+  );
+}
+
 export const virtualizeTree = () => <DemoV />;
 
 virtualizeTree.story = {

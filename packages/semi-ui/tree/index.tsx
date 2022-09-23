@@ -281,13 +281,28 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
                     props.multiple,
                     valueEntities
                 );
-            } else if ((!prevProps || (!isExpandControlled && dataUpdated)) && props.value) {
+            } else if (!prevProps && props.value) {
                 newState.expandedKeys = calcExpandedKeysForValues(
                     props.value,
                     keyEntities,
                     props.multiple,
                     valueEntities
                 );
+            } else if ((!isExpandControlled && dataUpdated) && props.value) {
+                // 当 treeData 已经设置具体的值，并且设置了 props.loadData ，则认为 treeData 的更新是因为 loadData 导致的
+                // 如果是因为 loadData 导致 treeData改变， 此时在这里重新计算 key 会导致为未选中的展开项目被收起
+                // 所以此时不需要重新计算 expandedKeys，因为在点击展开按钮时候已经把被展开的项添加到 expandedKeys 中
+                // When treeData has a specific value and props.loadData is set, it is considered that the update of treeData is caused by loadData
+                // If the treeData is changed because of loadData, recalculating the key here will cause the unselected expanded items to be collapsed
+                // So there is no need to recalculate expandedKeys at this time, because the expanded item has been added to expandedKeys when the expand button is clicked
+                if (!(prevState.treeData && prevState.treeData?.length > 0 && props.loadData)) {
+                    newState.expandedKeys = calcExpandedKeysForValues(
+                        props.value,
+                        keyEntities,
+                        props.multiple,
+                        valueEntities
+                    );
+                }
             }
 
             if (!newState.expandedKeys) {
