@@ -1,7 +1,9 @@
 export const isTargetEmit = (event, targetClasses): boolean => {
-    // e.path is the event-triggered bubbling path, which stores each node through which bubbling passes.
-    // e.path.length-4 is to remove elements above the root node, such as body, html, document, window
-    const isTarget = event?.path?.slice(0, event.path.length - 4).some((node): boolean => {
+    // event.path usage is discouraged, use event.composedPath() as it's standard and is more future-proof
+    // path is the event-triggered bubbling path, which stores each node through which bubbling passes.
+    // path.length-4 is to remove elements above the root node, such as body, html, document, window
+    const path = event?.composedPath();
+    const isTarget = path?.slice(0, path.length - 4).some((node): boolean => {
         if (node.className && typeof node.className === "string") {
             return targetClasses.some(c => node.className.includes(c));
         }
