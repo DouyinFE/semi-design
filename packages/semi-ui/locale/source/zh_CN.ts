@@ -154,6 +154,19 @@ const local: Locale = {
     Form: {
         optional: '（可选）',
     },
+    Image: {
+        preview: '预览',
+        loading: '加载中',
+        loadError: '加载失败',
+        prevTip: '上一张',
+        nextTip: '下一张',
+        zoomInTip: '放大',
+        zoomOutTip: '缩小',
+        rotateTip: '旋转',
+        downloadTip: '下载',
+        adaptiveTip: '适应页面',
+        originTip: '原始尺寸',
+    },
 };
 
 // 中文

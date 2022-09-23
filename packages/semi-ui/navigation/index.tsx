@@ -17,13 +17,13 @@ import LocaleConsumer from '../locale/localeConsumer';
 import '@douyinfe/semi-foundation/navigation/navigation.scss';
 import { Motion } from '../_base/base';
 
-export { CollapseButtonProps } from './CollapseButton';
-export { NavFooterProps } from './Footer';
-export { NavHeaderProps } from './Header';
-export { NavItemProps } from './Item';
-export { OpenIconTransitionProps } from './OpenIconTransition';
-export { ToggleIcon, SubNavProps } from './SubNav';
-export { SubNavTransitionProps } from './SubNavTransition';
+export type { CollapseButtonProps } from './CollapseButton';
+export type { NavFooterProps } from './Footer';
+export type { NavHeaderProps } from './Header';
+export type { NavItemProps } from './Item';
+export type { OpenIconTransitionProps } from './OpenIconTransition';
+export type { ToggleIcon, SubNavProps } from './SubNav';
+export type { SubNavTransitionProps } from './SubNavTransition';
 export type Mode = 'vertical' | 'horizontal';
 
 export interface OnSelectedData {

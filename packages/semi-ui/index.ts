@@ -95,3 +95,6 @@ export {
     withField,
     ArrayField,
 } from './form';
+
+export { default as Image } from './image'; 
+export { Preview as ImagePreview } from './image';

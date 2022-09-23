@@ -59,5 +59,5 @@ class Calendar extends BaseComponent<CalendarProps, {}> {
     }
 }
 
-export { EventObject };
+export type { EventObject };
 export default Calendar;

@@ -86,6 +86,10 @@ class Toast extends BaseComponent<ToastReactProps, ToastState> {
         this.foundation.startCloseTimer_();
     };
 
+    restartCloseTimer = () => {
+        this.foundation.restartCloseTimer();
+    }
+
     renderIcon() {
         const { type, icon } = this.props;
         const iconMap = {

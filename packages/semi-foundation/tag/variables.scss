@@ -20,6 +20,7 @@ $width-tag-outline: 2px; // 标签轮廓宽度
 $height-tag_small: 20px; // 小尺寸标签高度
 $height-tag_large: 24px; // 大尺寸标签高度
 $radius-tag: var(--semi-border-radius-small); // 标签圆角大小
+$radius-tag_circle: var(--semi-border-radius-full); // 胶囊标签圆角大小
 
 $spacing-tag_small-paddingY: 2px; // 小尺寸标签垂直方向内边距
 $spacing-tag_small-paddingX: $spacing-tight; // 小尺寸标签水平方向内边距

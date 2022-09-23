@@ -6,7 +6,7 @@ import { cssClasses, strings } from '@douyinfe/semi-foundation/timeline/constant
 import ConfigContext from '../configProvider/context';
 import Item, { TimelineItemProps } from './item';
 
-export { TimelineItemProps } from './item';
+export type { TimelineItemProps } from './item';
 
 export interface Data extends TimelineItemProps {
     content: React.ReactNode;

@@ -45,7 +45,7 @@ import {
 import CheckboxGroup from '../checkbox/checkboxGroup';
 
 export * from './interface';
-export { AutoSizerProps } from './autoSizer';
+export type { AutoSizerProps } from './autoSizer';
 
 const prefixcls = cssClasses.PREFIX;
 
