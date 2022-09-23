@@ -11,6 +11,8 @@ brief: 用于展示和预览图片。
 
 ### 如何引入
 
+Image, ImagePreview 从 v2.20.0 版本开始支持
+
 ```jsx import
 import { Image, ImagePreview } from '@douyinfe/semi-ui';
 ```
@@ -73,12 +75,12 @@ import { Image, Button } from '@douyinfe/semi-ui';
     return (  
         <>
             <Image 
-                width={200}
+                width={300}
                 height={200}
-                src={`https://lf3-static.bytednsdoc.com/obj/eden-cn/9130eh7pltbfnuhog/leaf.jpeg?${timestamp}`}
+                src={`https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/abstract-big.png?${timestamp}`}
                 placeholder={<Image 
-                    src='https://lf3-static.bytednsdoc.com/obj/eden-cn/9130eh7pltbfnuhog/leaf-blur.jpeg'
-                    width={200}
+                    src='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/abstract-small.jpeg'
+                    width={300}
                     height={200}
                     preview={false}
                 />}
@@ -106,12 +108,12 @@ import { Image } from '@douyinfe/semi-ui';
 
 () => {
      return ( 
-         <Image 
-             width={200}
+         <Image
+             width={300}
              height={200}
-             src={'https://lf3-static.bytednsdoc.com/obj/eden-cn/9130eh7pltbfnuhog/leaf-blur.jpeg'}
+             src={'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/abstract-small.jpeg'}
              preview={{
-                 src: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/9130eh7pltbfnuhog/leaf.jpeg'
+                 src: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/abstract-big.png'
              }}
          />
      );
@@ -267,7 +269,7 @@ import { Image, ImagePreview } from '@douyinfe/semi-ui';
 
 ```jsx live=true dir="column"
 import React, { useMemo, useCallback } from 'react';
-import { Image, ImagePreview, Button, Icon } from '@douyinfe/semi-ui';
+import { Image, ImagePreview, Button } from '@douyinfe/semi-ui';
 import { IconChevronLeft, IconChevronRight, IconMinus, IconPlus, IconRotate, IconDownload, IconRealSizeStroked, IconWindowAdaptionStroked } from "@douyinfe/semi-icons";
 
 () => {
@@ -417,86 +419,86 @@ import { Image, ImagePreview } from '@douyinfe/semi-ui';
 
 | 属性              | 说明                                    | 类型              | 默认值 | 版本 |
 |-------------------|---------------------------------------|-------------------|------|------|
-| style             | 自定义样式                              | CSSProperties     | - | |
-| className         | 自定义样式类名                           | string            | - | |
-| src               | 图片获取地址                             | string            | - | |
-| width             | 图片显示宽度                             | CSSProperties     | - | |
-| height            | 图片显示高度                             | CSSProperties     | - | |
 | alt               | 图像描述                                | string            | - | |
-| placeholder       | 图片未加载时候的占位内容                   | ReactNode         | - | |
-| fallback          | 加载失败容错地址或者自定义加载失败时的显示内容 | string \| reactNode  | - | |
-| preview           | 预览参数，为 false 时候禁用预览            | boolean \| ImagePreview | - | |
+| className         | 自定义样式类名                           | string            | - | |
 | crossOrigin       | 透传给原生 img 标签的 crossorigin         | 'anonymous'｜'use-credentials'| - | |
+| fallback          | 加载失败容错地址或者自定义加载失败时的显示内容 | ReactNode  | - | |
+| height            | 图片显示高度                             | number            | - | |
 | onError           | 加载错误回调                              | (event: Event) => void | - | |
 | onLoad            | 加载成功回调                              | (event: Event) => void | - | |
+| placeholder       | 图片未加载时候的占位内容                   | ReactNode         | - | |
+| preview           | 预览参数，为 false 时候禁用预览            | boolean \| ImagePreview | - | |
+| src               | 图片获取地址                             | string            | - | |
+| style             | 自定义样式                              | CSSProperties     | - | |
+| width             | 图片显示宽度                             | number            | - | |
 
 ### ImagePreview
 
 | 属性               | 说明                    | 类型              | 默认值 | 版本 |
 |-------------------|-------------------------|------------------|-------|-----|
-| style             | 自定义样式               | CSSProperties    | - | |
+| adaptiveTip       | 适应页面操作按钮提示       | string        | "适应页面" | |
 | className         | 自定义样式类名            | string           | - | |
-| src               | 图片列表信息              | string \| string[] | - | |
-| visible           | 受控属性，是否预览         | boolean         | - | |
-| defaultVisible    | 首次是否开启预览           | boolean         | - | |
+| closable          | 是否显示关闭按钮           | boolean        | true | |
+| closeOnEsc        | 点击 esc 关闭预览         | boolean        | true | |
 | currentIndex      | 受控属性，当前预览图片下标  | number               | - | |
 | defaultCurrentIndex | 首次展示图片下标        | number             | - | |
-| infinite          | 是否无限循环              | boolean       | - | |
-| closeOnEsc        | 点击 esc 关闭预览         | boolean        | true | |
-| previewTitle      | 自定义预览 title          | ReactNode      | - | |
-| maskClosable      | 点击遮罩是否可关闭         | boolean        | true | |
-| closable          | 是否显示关闭按钮           | boolean        | true | |
-| zoomStep          | 图片每次缩小/放大比例       | number        | 0.1 | |
+| defaultVisible    | 首次是否开启预览           | boolean         | - | |
+| disableDownload   | 禁用下载                  | boolean        | false | |
+| downloadTip       | 下载操作按钮提示          | string         | "下载" | |
+| getPopupContainer | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 container `position: relative` | () => HTMLElement  | () => document.body | |
+| infinite          | 是否无限循环              | boolean       | false | |
 | lazyLoad          | 是否开启懒加载             | boolean      | true | |
 | lazyLoadMargin    | 传给 options 中的rootMargin 参数，参考 [Intersection Observer API](https://developer.mozilla.org/zh-CN/docs/Web/API/Intersection_Observer_API#interfaces) | string | "0px 100px 100px 0px" | |
-| preLoad           | 是否开启预加载             | boolean        | true | |
-| preLoadGap        | 预加载的步长               | number         | 2 | |
-| viewerVisibleDelay | 隐藏预览操作按钮前的无操作时长 | number         | 10000 | |
-| disableDownload   | 禁用下载                  | boolean        | false | |
-| zIndex            | 预览层层级                | number        | 1070 | |
-| showTooltip       | 是否展示底部操作区提示      | boolean        | false | |
-| prevTip           | 上一步操作按钮提示         | string         | "上一步" | |
+| maskClosable      | 点击遮罩是否可关闭         | boolean        | true | |
 | nextTip           | 下一步操作按钮提示         | string         | "下一步" | |
-| zoomInTip         | 放大操作按钮提示           | string         | "放大" | |
-| zoomOutTip        | 缩小操作按钮提示           | string        | "缩小" | |
-| rotate            | 旋转                    | string         | "旋转" | |
-| downloadTip       | 下载操作按钮提示          | string         | "下载" | |
-| adaptiveTip       | 适应页面操作按钮提示       | string        | "适应页面" | |
 | originTip         | 原始尺寸操作按钮提示       | string        | "原始尺寸" | |
-| renderHeader      | 自定义渲染预览顶部信息     | (info: ReactNode) => ReactNode  | - | |
-| renderPreviewMenu | 自定义渲染预览底部菜单信息  | (props: MenuProps) => ReactNode;| - | |
-| getPopupContainer | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 container `position: relative` | () => HTMLElement;  | - | |
-| onVisibleChange   | 切换可见状态触发的回调   | (visible: boolean, preVisible: boolean) => void | - | |
 | onChange          | 切换图片触发的事件  | (index: number) => void | - | |
 | onClose           | 点击关闭按钮时的回调函数  | () => void | - | |
+| onDownload        | 图片下载回调函数     | (src: string, index: number) => void | - | |
+| onRotateLeft      | 旋转图片的回调      | (angle: number) => void | - | |
+| onNext            | 向后切换图片的回调   | (index: number) => void | - | |
+| onPrev            | 向前切换图片的回调   | (index: number) => void | - | |
 | onZoomIn          | 图片放大时的回调函数  | (zoom: number) => void | - | |
 | onZoomOut         | 图片缩小时的回调函数  | (zoom: number) => void | - | |
-| onDownload        | 图片下载回调函数     | (src: string, index: number) => void | - | |
-| onPrev            | 向前切换图片的回调   | (index: number) => void | - | |
-| onNext            | 向后切换图片的回调   | (index: number) => void | - | |
-| onRotateLeft      | 旋转图片的回调      | (angle: number) => void | - | |
+| onVisibleChange   | 切换可见状态触发的回调   | (visible: boolean) => void | - | |
+| preLoad           | 是否开启预加载             | boolean        | true | |
+| preLoadGap        | 预加载的步长               | number         | 2 | |
+| previewTitle      | 自定义预览 title          | ReactNode      | - | |
+| prevTip           | 上一步操作按钮提示         | string         | "上一步" | |
+| renderHeader      | 自定义渲染预览顶部信息     | (info: ReactNode) => ReactNode  | - | |
+| renderPreviewMenu | 自定义渲染预览底部菜单信息  | (props: MenuProps) => ReactNode;| - | |
+| rotateTip         | 旋转操作按钮提示                    | string         | "旋转" | |
+| showTooltip       | 是否展示底部操作区提示      | boolean        | false | |
+| src               | 图片列表信息              | string \| string[] | - | |
+| style             | 自定义样式               | CSSProperties    | - | |
+| viewerVisibleDelay | 隐藏预览操作按钮前的无操作时长 | number         | 10000 | |
+| visible           | 受控属性，是否预览         | boolean         | - | |
+| zIndex            | 预览层层级                | number        | 1070 | |
+| zoomInTip         | 放大操作按钮提示           | string         | "放大" | |
+| zoomOutTip        | 缩小操作按钮提示           | string        | "缩小" | |
+| zoomStep          | 图片每次缩小/放大比例       | number        | 0.1 | |
 
 ### MenuProps
 
 | 属性               | 说明                     | 类型    |
 |-------------------|--------------------------|--------|
-| zoom              | 当前图片缩放比例            | number |
-| max               | 图片缩放最大比例            | number |
-| min               | 图片缩放最小比例            | number |
-| step              | 缩放的比例步长              | number |
 | curPage           | 当前图片页下标              | number |
-| totalNum          | 可预览的总图片数            | number |
-| ratio             | 原始尺寸或适应页面按钮状态  | "adaptation" \| "realSize"|
 | disabledPrev      | 是否禁用向左切换按钮         | boolean |
 | disabledNext      | 是否禁用向右切换按钮         | boolean |
 | disableDownload   | 是否禁用下载按钮            | boolean |
+| max               | 图片缩放最大比例            | number |
+| min               | 图片缩放最小比例            | number |
+| onDownload        | 图片下载的调用函数           | () => void |
 | onZoomIn          | 图片放大时的调用函数         | () => void |
 | onZoomOut         | 图片缩小时的调用函数         | () => void |
-| onDownload        | 图片下载的调用函数           | () => void |
 | onPrev            | 向前切换图片的调用函数       | () => void |
 | onNext            | 向后切换图片的调用函数       | () => void |
 | onRotateLeft      | 逆时针旋转图片的调用函数     | () => void |
 | onRotateRight     | 顺时针旋转图片的调用函数     | () => void |
+| ratio             | 原始尺寸或适应页面按钮状态  | "adaptation" \| "realSize"|
+| step              | 缩放的比例步长              | number |
+| totalNum          | 可预览的总图片数            | number |
+| zoom              | 当前图片缩放比例            | number |
 
 ## 设计变量
 
