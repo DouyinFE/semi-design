@@ -34,9 +34,9 @@ import '@douyinfe/semi-foundation/select/select.scss';
 import { Locale } from '../locale/interface';
 import { Position, TooltipProps } from '../tooltip';
 
-export { OptionProps } from './option';
-export { OptionGroupProps } from './optionGroup';
-export { VirtualRowProps } from './virtualRow';
+export type { OptionProps } from './option';
+export type { OptionGroupProps } from './optionGroup';
+export type { VirtualRowProps } from './virtualRow';
 
 const prefixcls = cssClasses.PREFIX;
 

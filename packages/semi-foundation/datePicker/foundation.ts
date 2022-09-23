@@ -12,12 +12,13 @@ import { getDefaultFormatTokenByType } from './_utils/getDefaultFormatToken';
 import { strings } from './constants';
 import { strings as inputStrings } from '../input/constants';
 
-import { Type, DateInputFoundationProps, InsetInputValue } from './inputFoundation';
-import { MonthsGridFoundationProps } from './monthsGridFoundation';
-import { WeekStartNumber } from './_utils/getMonthTable';
-import { ArrayElement, Motion } from '../utils/type';
 import getInsetInputFormatToken from './_utils/getInsetInputFormatToken';
 import getInsetInputValueFromInsetInputStr from './_utils/getInsetInputValueFromInsetInputStr';
+
+import type { ArrayElement, Motion } from '../utils/type';
+import type { Type, DateInputFoundationProps, InsetInputValue } from './inputFoundation';
+import type { MonthsGridFoundationProps } from './monthsGridFoundation';
+import type { WeekStartNumber } from './_utils/getMonthTable';
 
 export type ValidateStatus = ArrayElement<typeof strings.STATUS>;
 export type InputSize = ArrayElement<typeof strings.SIZE_SET>;
@@ -956,7 +957,7 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
             if (insetInput) {
                 const insetInputFormatToken = getInsetInputFormatToken({ format, type });
                 const insetInputStr = this._isMultiple() ? this.formatMultipleDates(dates, undefined, insetInputFormatToken) : this.formatDates(dates, insetInputFormatToken);
-                insetInputValue = getInsetInputValueFromInsetInputStr({ inputValue: insetInputStr, type, rangeSeparator  });
+                insetInputValue = getInsetInputValueFromInsetInputStr({ inputValue: insetInputStr, type, rangeSeparator });
             }
             const isRangeTypeAndInputIncomplete = this._isRangeType() && !this._isRangeValueComplete(dates);
             /**

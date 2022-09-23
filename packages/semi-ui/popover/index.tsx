@@ -10,7 +10,8 @@ import { BaseProps } from '../_base/baseComponent';
 import { Motion } from '../_base/base';
 import { isFunction, noop } from 'lodash';
 
-export { ArrowProps } from './Arrow';
+import type { ArrowProps } from './Arrow';
+export type { ArrowProps };
 declare interface ArrowStyle {
     borderColor?: string;
     backgroundColor?: string;

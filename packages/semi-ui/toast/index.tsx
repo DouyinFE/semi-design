@@ -17,7 +17,7 @@ import useToast from './useToast';
 import { ConfigProps, ToastInstance, ToastProps, ToastState } from '@douyinfe/semi-foundation/toast/toastFoundation';
 import { Motion } from '../_base/base';
 
-export { ToastTransitionProps } from './ToastTransition';
+export type { ToastTransitionProps } from './ToastTransition';
 export interface ToastReactProps extends ToastProps{
     id?: string;
     style?: CSSProperties;
@@ -25,7 +25,7 @@ export interface ToastReactProps extends ToastProps{
     content: React.ReactNode;
 }
 
-export {
+export type {
     ConfigProps,
     ToastListProps,
     ToastListState,

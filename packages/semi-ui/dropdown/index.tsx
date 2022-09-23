@@ -21,10 +21,10 @@ import { Motion } from '../_base/base';
 const positionSet = strings.POSITION_SET;
 const triggerSet = strings.TRIGGER_SET;
 
-export { DropdownDividerProps } from './dropdownDivider';
-export { DropdownItemProps, Type } from './dropdownItem';
-export { DropdownMenuProps } from './dropdownMenu';
-export { DropdownTitleProps } from './dropdownTitle';
+export type { DropdownDividerProps } from './dropdownDivider';
+export type { DropdownItemProps, Type } from './dropdownItem';
+export type { DropdownMenuProps } from './dropdownMenu';
+export type { DropdownTitleProps } from './dropdownTitle';
 
 export interface DropDownMenuItemItem extends DropdownItemProps {
     node: 'item';

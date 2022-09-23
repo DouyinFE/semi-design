@@ -31,8 +31,8 @@ import { Motion } from '../_base/base';
 import { isSemiIcon } from '../_utils';
 import { Position } from '../tooltip/index';
 
-export { CascaderType, ShowNextType } from '@douyinfe/semi-foundation/cascader/foundation';
-export { CascaderData, Entity, Data, CascaderItemProps } from './item';
+export type { CascaderType, ShowNextType } from '@douyinfe/semi-foundation/cascader/foundation';
+export type { CascaderData, Entity, Data, CascaderItemProps } from './item';
 
 export interface ScrollPanelProps extends BasicScrollPanelProps {
     activeNode: CascaderData;
@@ -402,7 +402,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                     ? (realValue as SimpleValueType[][])
                     : ([realValue] as SimpleValueType[][]);
             } else {
-                if (realValue !==  undefined) {
+                if (realValue !== undefined) {
                     normallizedValue = [[realValue]];
                 }
             }
