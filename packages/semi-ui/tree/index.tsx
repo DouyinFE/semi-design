@@ -295,7 +295,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
                 // When treeData has a specific value and props.loadData is set, it is considered that the update of treeData is caused by loadData
                 // If the treeData is changed because of loadData, recalculating the key here will cause the unselected expanded items to be collapsed
                 // So there is no need to recalculate expandedKeys at this time, because the expanded item has been added to expandedKeys when the expand button is clicked
-                if (!(prevState.treeData && props.loadData)) {
+                if (!(prevState.treeData && prevState.treeData?.length > 0 && props.loadData)) {
                     newState.expandedKeys = calcExpandedKeysForValues(
                         props.value,
                         keyEntities,
