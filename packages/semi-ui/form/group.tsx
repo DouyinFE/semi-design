@@ -87,6 +87,12 @@ class FormInputGroup extends Component<InputGroupProps> {
         const labelColCls = labelCol ? `${prefix}-col-${labelAlign}` : '';
 
         const labelContent = this.renderLabel(label, formProps);
+        const inputGroupContent = (
+            <InputGroup {...rest}>
+                {inner}
+            </InputGroup>
+        );
+        const groupErrorContent = (<GroupError fieldSet={groupFieldSet} showValidateIcon={formProps.showValidateIcon} isInInputGroup />);
 
         let content: any;
 
@@ -96,10 +102,8 @@ class FormInputGroup extends Component<InputGroupProps> {
                     <>
                         {labelContent}
                         <div>
-                            <InputGroup {...rest}>
-                                {inner}
-                            </InputGroup>
-                            <GroupError fieldSet={groupFieldSet} showValidateIcon={formProps.showValidateIcon} isInInputGroup />
+                            {inputGroupContent}
+                            {groupErrorContent}
                         </div>
                     </>
                 );
@@ -114,10 +118,8 @@ class FormInputGroup extends Component<InputGroupProps> {
                             </Col>
                         </div>
                         <Col {...wrapperCol}>
-                            <InputGroup {...rest}>
-                                {inner}
-                            </InputGroup>
-                            <GroupError fieldSet={groupFieldSet} showValidateIcon={formProps.showValidateIcon} isInInputGroup />
+                            {inputGroupContent}
+                            {groupErrorContent}
                         </Col>
                     </>
                 );
@@ -129,10 +131,8 @@ class FormInputGroup extends Component<InputGroupProps> {
                             {labelContent}
                         </Col>
                         <Col {...wrapperCol}>
-                            <InputGroup {...rest}>
-                                {inner}
-                            </InputGroup>
-                            <GroupError fieldSet={groupFieldSet} showValidateIcon={formProps.showValidateIcon} isInInputGroup />
+                            {inputGroupContent}
+                            {groupErrorContent}
                         </Col>
                     </>
                 );
