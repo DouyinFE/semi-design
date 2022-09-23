@@ -314,7 +314,7 @@ export function calcCheckedKeys(values: any, keyEntities: KeyEntities) {
     let halfCheckedKeys = new Set([]);
     let visited: any[] = [];
 
-    const levelMap = getSortedKeyList(keyList, keyEntities);
+    const levelMap:{[key:string]: string[]} = getSortedKeyList(keyList, keyEntities);
 
     const calcCurrLevel = (node: any) => {
         const { key, parent, level } = node;
