@@ -49,7 +49,6 @@ class CSSAnimation extends React.Component<AnimationProps, AnimationState> {
 
     componentDidUpdate(prevProps: Readonly<AnimationProps>, prevState: Readonly<AnimationState>, snapshot?: any) {
         const changedKeys = Object.keys(this.props).filter(key => !isEqual(this.props[key], prevProps[key]));
-        console.log(changedKeys)
         if (changedKeys.includes("animationState")) {
         }
         if (changedKeys.includes("startClassName") || changedKeys.includes('replayKey') || changedKeys.includes("motion")) {

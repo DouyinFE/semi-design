@@ -72,7 +72,6 @@ class TabPane extends PureComponent<TabPaneProps> {
             [cssClasses.TABS_PANE]: true,
         });
         const shouldRender = this.shouldRender();
-        console.log(isFirstRender)
         return (
             <div
                 ref={this.ref}
@@ -106,7 +105,6 @@ class TabPane extends PureComponent<TabPaneProps> {
                               })()}>
                     {
                         ({animationClassName, animationEventsNeedBind}) => {
-                            console.log("animationClassName", animationClassName)
                             return <div
                                 className={`${cssClasses.TABS_PANE_MOTION_OVERLAY} ${animationClassName}`}
                                 x-semi-prop="children"
