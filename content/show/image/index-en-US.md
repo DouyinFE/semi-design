@@ -56,11 +56,7 @@ import { Image } from '@douyinfe/semi-ui';
             width={200}
             height={200}
             src="https://load-error.jpeg"
-            fallback={<Empty
-                image={<IllustrationFailure style={{ width: 150, height: 150 }} />}
-                darkModeImage={<IllustrationFailureDark style={{ width: 150, height: 150 }} />}
-                description={'加载失败'}
-            />}
+            fallback={<IconUploadError style={{ fontSize: 50 }} />}
             />
     </div>
 );
