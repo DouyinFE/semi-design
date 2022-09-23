@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import cls from "classnames";
 import {cssClasses} from "@douyinfe/semi-foundation/collapsible/constants";
 import CollapsibleOld from "@douyinfe/semi-ui/collapsible/index.old";
+import {isEqual} from "lodash";
 interface CollapsibleProps extends CollapsibleFoundationProps{
     motion?: Motion;
     children?: React.ReactNode;
@@ -62,10 +63,13 @@ class Collapsible extends BaseComponent<CollapsibleProps, CollapsibleState> {
     }
 
     componentDidUpdate(prevProps: Readonly<CollapsibleProps>, prevState: Readonly<CollapsibleState>, snapshot?: any) {
-        if(prevState.domInRenderTree!==this.state.domInRenderTree){
-            if(this.state.domInRenderTree){
-                this.setState({domHeight:this.domRef.current.scrollHeight})
-            }
+        const changedPropKeys = Object.keys(this.props).filter(key => !isEqual(this.props[key], prevProps[key]));
+        const changedStateKeys = Object.keys(this.state).filter(key => !isEqual(this.state[key], prevState[key]));
+        if(changedPropKeys.includes("reCalcKey")){
+            this.setState({domHeight:this.domRef.current.scrollHeight})
+        }
+        if(changedStateKeys.includes("domInRenderTree") && this.state.domInRenderTree){
+            this.setState({domHeight:this.domRef.current.scrollHeight})
         }
     }
 
@@ -123,7 +127,7 @@ class Collapsible extends BaseComponent<CollapsibleProps, CollapsibleState> {
                 ref={this.domRef}
                 style={{ overflow: 'hidden' }}
             >
-                {this.props.children}
+                {(this.props.keepDOM || this.props.isOpen ) && this.props.children}
             </div>
         </div>
     }
