@@ -72,7 +72,7 @@ export default class ButtonGroup extends BaseComponent<ButtonGroupProps> {
     }
 
     render() {
-        const { children, disabled, size, type, className, 'aria-label': ariaLabel, ...rest } = this.props;
+        const { children, disabled, size, type, className, style, 'aria-label': ariaLabel, ...rest } = this.props;
         let inner: ReactNode[];
         let innerWithLine: ReactNode[] = [];
         const cls = classNames(`${prefixCls}-group`, className);
@@ -85,6 +85,6 @@ export default class ButtonGroup extends BaseComponent<ButtonGroupProps> {
             ));
             innerWithLine = this.getInnerWithLine(inner);
         }
-        return <div className={cls} role="group" aria-label={ariaLabel}>{innerWithLine}</div>;
+        return <div className={cls} style={style} role="group" aria-label={ariaLabel}>{innerWithLine}</div>;
     }
 }
