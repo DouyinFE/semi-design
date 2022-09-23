@@ -508,24 +508,24 @@ function SplitButtonDemo(){
 | onMouseEnter             | Mouse Enter                                                                                                   | Function(MouseEvent)                        |           |
 | onMouseLeave             | Mouse Leave                                                                                                   | Function(MouseEvent)                        |           |
 
-
 ### ButtonGroup
 
-| Properties | Instructions                                                                            | Type    | Default   |
-| ---------- | --------------------------------------------------------------------------------------- | ------- | --------- |
-| aria-label          | Label of the button group                                                                                      | string                            | -    |
-| disabled   | Disabled status                                                                         | boolean | false     |
-| size       | Button size, optional value: `"large"`,`"default"`,`"small"`                            | string  | "default" |
+| Properties | Instructions                | Type    | Default   | Version |
+| ---------- | ----------------------------| ------- | --------- |---------|
+| aria-label | Label of the button group   | string  | - | |
+| className  | Custom class name           | string   | - | |
+| disabled   | Disabled status             | boolean | false | |
+| size       | Button size, optional value: `"large"`,`"default"`,`"small"` | string  | "default" |
+| style      | Custom style                | CSSProperties   | - | 2.20.0 |
+| theme      | Button theme, optional values: `"solid"` (with background color), `"borderless"` (without background color), `"light"` (light background color) | string | "light"  | |
 | type       | Type, optional values: `"primary"`,`"secondary"`, `"tertiary"`, `"warning"`, `"danger"` | string  | "primary" |
-| className     | Custom class name                                  | string   |        |
-| style     | Custom style                                  | CSSProperties   |        |
 
 ### SplitButtonGroup **V1.12.0**
-| Properties   | Instructions                                                            | Type      | Default     |
-| -----------  | --------------------------------------------------------------  | -------- | --------- |
-| aria-label          | Label of the button group                                                                                       | string                            | -    |
-| style     | Custom style                                  | CSSProperties   |        |
-| className     | Custom class name                                  | string   |        |
+| Properties   | Instructions                     | Type     | Default   |
+| -----------  | ---------------------------------| -------- | --------- |
+| aria-label   | Label of the button group        | string   | -    |
+| className    | Custom class name                | string   | - |
+| style        | Custom style                     | CSSProperties | -  |
 
 ## Accessibility
 

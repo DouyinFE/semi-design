@@ -470,29 +470,29 @@ function SplitButtonDemo(){
 
 ### ButtonGroup
 
-| 属性     | 说明                                                                   | 类型    | 默认值    |
-| -------- | ---------------------------------------------------------------------- | ------- | --------- |
-| aria-label          | 按钮组的标签                                                                                       | string                            | -    |
-| disabled | 禁用状态                                                               | boolean | false     |
-| size     | 按钮大小，可选值：`large`、`default`、`small`                          | string  | "default" |
-| theme               | 按钮主题，可选值：`solid`（有背景色）、 `borderless`（无背景色）、 `light`（浅背景色）                     | string                          | "light"   |
-| type     | 类型，可选值：`primary`、`secondary`、`tertiary`、`warning`、 `danger` | string  | "primary" |
-| className     | 自定义类名                               | string   |         |
-| style     | 自定义样式                               | CSSProperties   |         |
+| 属性     | 说明          | 类型    | 默认值      | 版本 |
+| -------- | -------------| ------- | --------- |---- |
+| aria-label | 按钮组的标签 | string  | - | |
+| className  | 自定义类名   | string  | - | |
+| disabled   | 禁用状态     | boolean | false | |
+| size       | 按钮大小，可选值：`large`、`default`、`small` | string  | "default" | |
+| style      | 自定义样式   | CSSProperties   | - | 2.20.0 |
+| theme      | 按钮主题，可选值：`solid`（有背景色）、 `borderless`（无背景色）、 `light`（浅背景色） | string | "light"   | |
+| type     | 类型，可选值：`primary`、`secondary`、`tertiary`、`warning`、 `danger` | string  | "primary" | |
 
 ### SplitButtonGroup **V1.12.0新增**
-| 属性          | 说明                                                            | 类型      | 默认值     |
-| -----------  | --------------------------------------------------------------  | -------- | --------- |
-| aria-label          | 分裂按钮组的标签                                                                                       | string                            | -    |
-| style     | 自定义样式                               | CSSProperties   |         |
-| className     | 自定义类名                               | string   |         |
+| 属性          | 说明                 | 类型      | 默认值     |
+| -----------  | ---------------------| -------- | --------- |
+| aria-label   | 分裂按钮组的标签        | string   | - |
+| className    | 自定义类名             | string   | - |
+| style        | 自定义样式             | CSSProperties   | - |
 
 ## Accessibility
 
 ### ARIA
 
 - `aria-label` 用于表示按钮的作用，对于图标按钮，我们推荐使用此属性
-- `aria-disabled` 与 disabled 属性同步，表示按钮禁用 
+- `aria-disabled` 与 disabled 属性同步，表示按钮禁用
 
 ### 键盘和焦点
 
