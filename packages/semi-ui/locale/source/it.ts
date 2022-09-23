@@ -153,6 +153,19 @@ const local: Locale = {
     Form: {
         optional: '(opzionale)',
     },
+    Image: {
+        preview: 'Anteprima',
+        loading: 'Caricamento in corso',
+        loadError: 'Caricamento fallito',
+        prevTip: 'Precedente',
+        nextTip: 'Avanti',
+        zoomInTip: 'Ingrandisci',
+        zoomOutTip: 'rimpicciolisci',
+        rotateTip: 'Ruota',
+        downloadTip: 'scarica',
+        adaptiveTip: 'Adatta alla pagina',
+        originTip: 'Formato originale',
+    },
 };
 
 // [i18n-Italian]

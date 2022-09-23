@@ -16,10 +16,27 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.20.0-beta.1 (2022-09-20)
+- 【Fix】
+    - Fix the issue that `@douyinfe/semi-foundation` Image relative file not export
+
+#### 🎉 2.20.0-beta.0 (2022-09-19)
+
+- 【New Component】
+    - Add Image Component [#344](https://github.com/DouyinFE/semi-design/issues/344)
+- 【Feat】
+    - Tag add shape property, supports `square`、`circle` [#89](https://github.com/DouyinFE/semi-design/issues/89)
+    - Progress supports automatically filling gradient colors according to progress, and automatically switching colors according to progress presets [#1092](https://github.com/DouyinFE/semi-design/issues/1092) [@uiuing](https://github.com/uiuing)
+    - Toast supports dynamic modification of content by ID [#1035](https://github.com/DouyinFE/semi-design/issues/1035) [@gwsbhqt](https://github.com/gwsbhqt)
+    - Skeleton.Avatar supports shape property [#1117](https://github.com/DouyinFE/semi-design/issues/1117) [@MuxinFeng](https://github.com/MuxinFeng)
+- 【Chore】
+    - Remove the ts source code in the package product of @douyinfe/semi-ui, leaving only the lib and dist directories
+    - Modify the writing of some components scss, convert division into multiplication and math.div syntax, to avoid the problem of repeatedly throwing warnings when compiling higher versions of sass
+  
 #### 🎉 2.19.0 (2022-09-09)
 - 【Fix】
     - fix the issue that the keyboard focus style is blocked after the Anchor spacing can trigger the selection
-    - fixed the issue that the Select onblur event was not triggered when the panel was closed
+    - fix the issue that the Select onblur event was not triggered when the panel was closed
     - fix Anchor spacing in front of anchor text cannot trigger selection [@edc-hui](https://github.com/edc-hui)
     - fix the problem that the location of event rendering did not change after Calendar weekStartsOn was changed
     - fix the problem that Input onEnterPress event does not take effect when using Input in DropDown

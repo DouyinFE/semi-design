@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 61
+order: 62
 category: Show
 title: Tag
 subTitle: Tag
@@ -54,6 +54,22 @@ import { Tag } from '@douyinfe/semi-ui';
         </Tag>
         <Tag size="large"> large tag </Tag>
     </div>
+);
+```
+
+### Shape
+
+Supports two Shape: `square`（default）、`circle`。
+
+```jsx live=true
+import React from 'react';
+import { Tag, Space } from '@douyinfe/semi-ui';
+
+() => (
+    <Space>
+        <Tag size="small" shape='circle'> small circle tag </Tag>
+        <Tag size="large" shape='circle'> large circle tag </Tag>
+    </Space>
 );
 ```
 
@@ -294,6 +310,7 @@ class TagGroupCloseableDemo extends React.Component {
 | className | Class name | string |  |  |
 | closable | Toggle whether the tag can be closed | boolean | false |  |
 | color | Color of tags, one of `amber`、 `blue`、 `cyan`、 `green`、 `grey`、 `indigo`、 `light-blue`、 `light-green`、 `lime`、 `orange`、 `pink`、 `purple`、 `red`、 `teal`、 `violet`、 `yellow`、 `white` | string | `grey` |  |
+| shape | Shape of tag, one of `square`、 `circle` | string | `square` | 2.20.0 |
 | size | Size, one of `small`, `large` | string | `small` |  |
 | style | Inline style | object |  |  |
 | type | Style type, one of `ghost`, `solid`, `light` | string | `light` |  |

@@ -1,5 +1,6 @@
-@import "./variables.scss";
 @import "./animation.scss";
+@import "./variables.scss";
+
 
 $module: #{$prefix}-tagInput;
 
@@ -32,7 +33,7 @@ $module: #{$prefix}-tagInput;
         background-color: $color-tagInput_default-bg-hover;
         border: $width-tagInput-border-hover $color-tagInput-border-hover solid;
     }
-    
+
     &-focus {
         background-color: $color-tagInput_default-bg-focus;
         border: $width-tagInput-border-focus $color-tagInput-border-focus solid;
@@ -61,7 +62,7 @@ $module: #{$prefix}-tagInput;
             background-color: $color-tagInput_danger-bg-hover;
             border-color: $color-tagInput_danger-border-hover;
         }
-        
+
         &.#{$module}-focus {
             background-color: $color-tagInput_danger-bg-focus;
             border-color: $color-tagInput_danger-border-focus;
@@ -89,7 +90,7 @@ $module: #{$prefix}-tagInput;
                 color: $color-tagInput_disabled-text-default;
             }
         }
-        
+
     }
 
     &-wrapper {
@@ -121,7 +122,7 @@ $module: #{$prefix}-tagInput;
                     margin-bottom: $spacing-tagInput_large-Y;
                 }
             }
-            
+
             &-icon {
                 padding-left: $spacing-tagInput_tag_icon_paddingLeft;
             }
@@ -154,7 +155,7 @@ $module: #{$prefix}-tagInput;
             width: min-content;
             min-width: 38px;
             border: none;
-            outline: none; 
+            outline: none;
             background-color: transparent;
             font-size: $font-size-regular;
 

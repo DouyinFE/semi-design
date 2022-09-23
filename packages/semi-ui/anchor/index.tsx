@@ -14,7 +14,7 @@ import ConfigContext, { ContextValue } from '../configProvider/context';
 
 const prefixCls = cssClasses.PREFIX;
 
-export { LinkProps } from './link';
+export type { LinkProps } from './link';
 
 export interface AnchorProps {
     autoCollapse?: boolean;

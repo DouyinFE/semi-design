@@ -1,12 +1,13 @@
 ---
 localeCode: zh-CN
-order: 67
+order: 68
 category: 反馈类
 title: Progress 进度条
 icon: doc-progress
 width: 60%
 brief: 用于展示用户操作的当前进度和状态，一般在操作耗时较长时使用。也可用来表示任务/对象的完成度
 ---
+
 ## 代码演示
 
 ### 如何引入
@@ -261,6 +262,150 @@ import { Progress } from '@douyinfe/semi-ui';
 );
 ```
 
+### 自定义进度条颜色
+
+可通过设置 `stroke` 属性，自定义具体 `percent` 的颜色
+
+```jsx live=true
+import React, { useState } from 'react';
+import { Progress, Button } from '@douyinfe/semi-ui';
+import { IconChevronLeft, IconChevronRight } from '@douyinfe/semi-icons';
+
+() => {
+    const [percent, setPercent] = useState(10);
+    const strokeArr = [
+        { percent: 20, color: 'red' },
+        { percent: 40, color: 'orange-9' },
+        { percent: 60, color: 'light-green-8' },
+        { percent: 80, color: 'hsla(125, 50%, 46% / 1)' }
+    ];
+    return (
+        <>
+            <div>
+                <Progress
+                    percent={percent}
+                    stroke={strokeArr}
+                    showInfo
+                    type="circle"
+                    width={100}
+                    aria-label="disk usage"
+                />
+                <Progress
+                    percent={percent}
+                    stroke={strokeArr}
+                    showInfo
+                    style={{ margin: '20px 0 10px' }}
+                    aria-label="disk usage"
+                />
+            </div>
+            <Button
+                icon={<IconChevronLeft />}
+                theme="light"
+                onClick={() => {
+                    setPercent(percent - 10);
+                }}
+                disabled={percent === 0}
+            />
+            <Button
+                icon={<IconChevronRight />}
+                theme="light"
+                onClick={() => {
+                    setPercent(percent + 10);
+                }}
+                disabled={percent === 100}
+            />
+        </>
+    );
+};
+```
+
+### 自动补齐颜色区间
+
+可通过设置 `strokeGradient` 属性，属性为 `true` 时自动补齐颜色区间，生成渐变色
+
+```jsx live=true
+import React, { useEffect, useState } from 'react';
+import { Space, Progress, Button } from '@douyinfe/semi-ui';
+import { IconChevronLeft, IconChevronRight } from '@douyinfe/semi-icons';
+
+() => {
+    const [percent, setPercent] = useState(65);
+    const [percentInterval, setPercentInterval] = useState(0);
+    useEffect(() => {
+        setTimeout(
+            () => {
+                setPercentInterval(percentInterval > 100 ? 0 : percentInterval + 3);
+            },
+            percentInterval === 0 || percentInterval > 100 ? 1200 : 290 - (percentInterval % 50) * 3
+        );
+    }, [percentInterval]);
+    const strokeArr = [
+        { percent: 0, color: 'rgb(249, 57, 32)' },
+        { percent: 50, color: '#46259E' },
+        { percent: 100, color: 'hsla(125, 50%, 46% / 1)' },
+    ];
+    const strokeArrReverse = [
+        { percent: 0, color: 'hsla(125, 50%, 46% / 1)' },
+        { percent: 50, color: '#46259E' },
+        { percent: 100, color: 'rgb(249, 57, 32)' },
+    ];
+    return (
+        <>
+            <Space spacing={20}>
+                <div>
+                    <Progress
+                        percent={percentInterval}
+                        stroke={strokeArr}
+                        strokeGradient={true}
+                        showInfo
+                        type="circle"
+                        width={100}
+                        aria-label="file download speed"
+                    />
+                </div>
+                <div>
+                    <Progress
+                        percent={percentInterval}
+                        stroke={strokeArrReverse}
+                        strokeGradient={true}
+                        showInfo
+                        type="circle"
+                        width={100}
+                        aria-label="file download speed"
+                    />
+                </div>
+            </Space>
+            <div style={{ width: '100%', margin: '20px 0 10px' }}>
+                <Progress
+                    percent={percent}
+                    stroke={strokeArr}
+                    strokeGradient={true}
+                    showInfo
+                    size="large"
+                    aria-label="file download speed"
+                />
+            </div>
+            <Button
+                icon={<IconChevronLeft />}
+                theme="light"
+                onClick={() => {
+                    setPercent(percent - 5);
+                }}
+                disabled={percent === 0}
+            />
+            <Button
+                icon={<IconChevronRight />}
+                theme="light"
+                onClick={() => {
+                    setPercent(percent + 5);
+                }}
+                disabled={percent === 100}
+            />
+        </>
+    );
+};
+```
+
 ## API 参考
 
 | 属性 | 说明 | 类型 | 默认值 |
@@ -276,7 +421,8 @@ import { Progress } from '@douyinfe/semi-ui';
 | percent | 进度百分比 | number |  |
 | showInfo | 环形进度条是否显示中间文本，条状进度条后右侧是否显示文本 | boolean | false |
 | size | 尺寸,可选`default`、`small`(仅 type=circle 生效)、`large`(仅 type=line 生效) | string | 'default' |
-| stroke | 进度条填充色 | string | 'var(--semi-color-success)' |
+| stroke | 进度条填充色，类型为 `Array<{percent:number; color:string }>` 时，`color` 参数支持颜色类型：`'Hex'` &#124; `'Hsl'` &#124; `'Hsla'` &#124; `'Rgb'` &#124; `'Rgba'` &#124; `'Semi Design Tokens'` | string &#124; Array<{percent:number; color:string }> | 'var(--semi-color-success)' |
+| strokeGradient | 是否自动生成渐变色补齐区间颜色，需要 `stroke` 设置至少一个颜色区间 | boolean | false |
 | strokeLinecap | 圆角`round`/方角`square`(仅在 type='circle'模式下生效) | string | 'round' |
 | strokeWidth | type 为`line`时，该属性控制进度条高度; type 为`circle`时，该属性控制进度条宽度 | number | 4 |
 | style | 样式 | CSSProperties |  |
@@ -303,12 +449,12 @@ import { Progress } from '@douyinfe/semi-ui';
 <Progress aria-label='Percent of file downloaded' percent={80} />
 
 // usage of aria-valuetext
-<Progress aria-label='Percent of disk usage' percent={80} aria-valuetext="Step 2: Copying files... "/> 
+<Progress aria-label='Percent of disk usage' percent={80} aria-valuetext="Step 2: Copying files... "/>
 ```
 
-
 ## 文案规范
-- 如果进度条过程复杂，或者有很长的等待时间，可以使用帮助文本来做说明。这样可以让用户知道正在发生的进度进展
+
+-   如果进度条过程复杂，或者有很长的等待时间，可以使用帮助文本来做说明。这样可以让用户知道正在发生的进度进展
 
 ## 设计变量
 
