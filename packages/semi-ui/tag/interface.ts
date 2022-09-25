@@ -21,6 +21,7 @@ export type TagColor =
 export type TagType = 'ghost' | 'solid' | 'light';
 export type TagSize = 'default' | 'small' | 'large';
 export type AvatarShape = 'circle' | 'square';
+export type TagShape = 'circle' | 'square';
 
 export interface TagProps {
     children?: React.ReactNode;
@@ -36,6 +37,7 @@ export interface TagProps {
     className?: string;
     avatarSrc?: string;
     avatarShape?: AvatarShape;
+    shape?: TagShape;
     onKeyDown?: React.KeyboardEventHandler<HTMLDivElement>;
     'aria-label'?: React.AriaAttributes['aria-label'];
     tabIndex?: number; // use internal, when tag in taInput, we want to use left arrow and right arrow to control the tag focus, so the tabIndex need to be -1. 

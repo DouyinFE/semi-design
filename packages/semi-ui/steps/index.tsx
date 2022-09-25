@@ -8,13 +8,13 @@ import BasicSteps, { BasicStepsProps } from './basicSteps';
 import NavSteps, { NavStepsProps } from './navSteps';
 import Context from './context';
 
-export { Status, Size, BasicStepProps } from './basicStep';
-export { Direction, BasicStepsProps } from './basicSteps';
-export { FillStepProps } from './fillStep';
-export { FillStepsProps } from './fillSteps';
-export { NavStepProps } from './navStep';
-export { NavStepsProps } from './navSteps';
-export { StepProps } from './step';
+export type { Status, Size, BasicStepProps } from './basicStep';
+export type { Direction, BasicStepsProps } from './basicSteps';
+export type { FillStepProps } from './fillStep';
+export type { FillStepsProps } from './fillSteps';
+export type { NavStepProps } from './navStep';
+export type { NavStepsProps } from './navSteps';
+export type { StepProps } from './step';
 
 export interface FillStepsAllProps extends FillStepsProps {
     type?: 'fill';

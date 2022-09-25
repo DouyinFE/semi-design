@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 55
+order: 56
 category: Show
 title:  Modal
 subTitle: Modal
@@ -696,11 +696,15 @@ WAI-ARIA: https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog/
 
 ## FAQ
 
--   Why the button texts in Modal.confirm are not internationalized even when I use LocaleProvider? 
+- #### Why the button texts in Modal.confirm are not internationalized even when I use LocaleProvider? 
     In version >= 1.2.0, you could use `Modal.useModal` to create a `contextHolder` that is accessible to config from ConfigProvider or LocaleProvider.
 
     For version before 1.2 or if you don't want to use Hooks, you could also use `okText` and `cancelText` to set i18 texts at this moment.  
-    
+
+- #### Why is the spacing between title and content different under imperative and non-imperative calls?
+    In the imperative call scenario, the title and content are more closely related, so expressing this strong correlation with a closer distance is in line with expectations. If users don't want this effect, they can do their own style overrides.
+
+
 <!-- ## Related Material
 ```material
 1, 55

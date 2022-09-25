@@ -115,7 +115,10 @@ const appLocale = {
         "excellent_design_of_mid_background_enterprise_applications": "设计出色的中后台企业应用",
         "home.theme": "百变主题",
         "home.theme.desc": "快速克隆或深度定制，灵活调配符合品牌调性的设计风格",
+        "home.pro.title": "Semi Design 设计稿转代码",
         "home.pro.desc": "基于 40+ 真实组件代码设计，海量页面模板前端代码一键转",
+        "home.pro.start": "快速开始",
+        "beta": "公测",
 
         "default": "默认",
         "feishu_universe_design_theme": "飞书 Universe Design 主题",

@@ -17,7 +17,7 @@ const Boundary = strings.BOUNDARY_MAP;
 const OverflowDirection = strings.OVERFLOW_DIR;
 const RenderMode = strings.MODE_MAP;
 
-export { ReactIntersectionObserverProps } from './intersectionObserver';
+export type { ReactIntersectionObserverProps } from './intersectionObserver';
 export type OverflowItem = Record<string, any>;
 
 export interface OverflowListProps {

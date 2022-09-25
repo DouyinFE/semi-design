@@ -18,12 +18,12 @@ import useNotification from './useNotification';
 import { NoticeInstance, NoticePosition, NoticeProps, NoticeState } from '@douyinfe/semi-foundation/notification/notificationFoundation';
 // TODO: Automatic folding + unfolding function when there are more than N
 
-export { NoticeTransitionProps } from './NoticeTransition';
+export type { NoticeTransitionProps } from './NoticeTransition';
 export interface NoticeReactProps extends NoticeProps{
     style?: CSSProperties;
 }
 
-export {
+export type {
     NoticeState,
     NotificationListProps,
     NotificationListState,

@@ -31,11 +31,11 @@ $spacing-scrollList_body-paddingY: 0;
 $spacing-scrollList_body-paddingX: 16px;
 $spacing-scrollList_item_ul-padding: 0;
 $spacing-scrollList_item_ul-margin: 0;
-$spacing-scrollList_item_ul-paddingBottom: ($height-scrollList - $height-scrollList_item) / 2;
+$spacing-scrollList_item_ul-paddingBottom: ($height-scrollList - $height-scrollList_item) * 0.5;
 $spacing-scrollList_item_sel_svg-marginRight: 12px;
-$spacing-scrollList_item_wheel_list_outer-paddingRight: $height-scrollList_item / 2;
-$spacing-scrollList_item_wheel_list_shade_pre-marginTop: -1 * ($height-scrollList_item / 2 + $border-thickness-control);
-$spacing-scrollList_item_wheel_list_shade_post-marginTop: $height-scrollList_item / 2 + $border-thickness-control;
+$spacing-scrollList_item_wheel_list_outer-paddingRight: $height-scrollList_item * 0.5;
+$spacing-scrollList_item_wheel_list_shade_pre-marginTop: -1 * ($height-scrollList_item * 0.5 + $border-thickness-control);
+$spacing-scrollList_item_wheel_list_shade_post-marginTop: $height-scrollList_item * 0.5 + $border-thickness-control;
 $spacing-scrollList_footer-padding: 10px;
 
 // Radius

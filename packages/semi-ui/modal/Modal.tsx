@@ -20,7 +20,7 @@ import { MotionObject } from "@douyinfe/semi-foundation/utils/type";
 export const destroyFns: any[] = [];
 export type ConfirmType = 'leftTop' | 'leftBottom' | 'rightTop' | 'rightBottom';
 export type Directions = 'ltr' | 'rtl';
-
+export type { ModalState };
 export interface ModalReactProps extends ModalProps {
     cancelButtonProps?: ButtonProps;
     children?: React.ReactNode;
@@ -38,9 +38,7 @@ export interface ModalReactProps extends ModalProps {
     onOk?: (e: React.MouseEvent) => void | Promise<any>;
 }
 
-export {
-    ModalState
-};
+
 
 class Modal extends BaseComponent<ModalReactProps, ModalState> {
 

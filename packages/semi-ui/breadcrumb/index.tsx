@@ -17,7 +17,7 @@ import { IconMore } from '@douyinfe/semi-icons';
 
 const clsPrefix = cssClasses.PREFIX;
 
-export { RouteProps, BreadcrumbItemProps, BreadcrumbItemInfo } from './item';
+export type { RouteProps, BreadcrumbItemProps, BreadcrumbItemInfo } from './item';
 export interface showToolTipProps {
     width?: string | number;
     ellipsisPos?: 'end' | 'middle';
