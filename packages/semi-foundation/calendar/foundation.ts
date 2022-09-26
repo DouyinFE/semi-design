@@ -32,9 +32,8 @@ import {
     parseRangeAllDayEvent,
     DateObj,
     checkWeekend,
-    weeekStartsOnEnum
 } from './eventUtil';
-
+import type { weeekStartsOnEnum } from './eventUtil';
 
 export { weeekStartsOnEnum };
 export interface EventObject {

@@ -1,5 +1,6 @@
-@import "./variables.scss";
 @import "./animation.scss";
+@import "./variables.scss";
+
 
 $module: #{$prefix}-transfer;
 
@@ -42,7 +43,7 @@ $module: #{$prefix}-transfer;
         min-width: inherit;
         height: inherit;
     }
-    
+
     &-header {
         @include font-size-small;
         @include ver-center;

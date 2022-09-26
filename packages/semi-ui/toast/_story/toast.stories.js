@@ -77,6 +77,17 @@ export const _Toast = () => (
         After 3s
       </Button>
     </div>
+    <div style={{ margin: '10px' }}>
+      <Button onClick={() => {
+        const id = 'toastid'
+        Toast.error({ id, content: 'error' })
+        setTimeout(() => Toast.info({ id, content: 'info' }), 2000)
+        setTimeout(() => Toast.success({ id, content: 'success' }), 4000)
+        setTimeout(() => Toast.info({ id, content: 'duration 3 -> 0', duration: 0 }), 6000)
+      }}>
+        update content by id
+      </Button>
+    </div>
     <div style={{ width: '300px', height: '300px', background: '#cccccc' }} id="popup-container">
       popup-container
     </div>
@@ -101,7 +112,7 @@ const ReachableContext = React.createContext();
 
 /**
  * test with cypress
- * @returns 
+ * @returns
  */
 export const useToastDemo = () => {
   const [toast, contextHolder] = Toast.useToast();

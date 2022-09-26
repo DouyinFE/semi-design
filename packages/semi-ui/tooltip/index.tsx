@@ -26,9 +26,9 @@ import TooltipTransition from './TooltipStyledTransition';
 import ArrowBoundingShape from './ArrowBoundingShape';
 import { Motion } from '../_base/base';
 
-export { TooltipTransitionProps } from './TooltipStyledTransition';
+export type { TooltipTransitionProps } from './TooltipStyledTransition';
 export type Trigger = ArrayElement<typeof strings.TRIGGER_SET>;
-
+export type { Position };
 export interface ArrowBounding {
     offsetX?: number;
     offsetY?: number;
@@ -734,5 +734,3 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         );
     }
 }
-
-export { Position };

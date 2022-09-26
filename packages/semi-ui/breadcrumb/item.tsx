@@ -11,7 +11,7 @@ import { merge, isUndefined, isNull } from 'lodash';
 
 const clsPrefix = cssClasses.PREFIX;
 
-export { BreadcrumbItemInfo };
+export type { BreadcrumbItemInfo };
 
 export interface RouteProps extends Route {
     icon?: React.ReactNode;

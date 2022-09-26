@@ -35,6 +35,7 @@ export default class Tag extends Component<TagProps, TagState> {
         onClick: () => undefined,
         style: {},
         className: '',
+        shape: 'square',
         avatarShape: 'square',
     };
 
@@ -120,7 +121,7 @@ export default class Tag extends Component<TagProps, TagState> {
     }
 
     render() {
-        const { tagKey, children, size, color, closable, visible, onClose, onClick, className, type, avatarSrc, avatarShape, tabIndex, ...attr } = this.props;
+        const { tagKey, children, size, color, closable, visible, onClose, onClick, className, type, shape, avatarSrc, avatarShape, tabIndex, ...attr } = this.props;
         const { visible: isVisible } = this.state;
         const clickable = onClick !== Tag.defaultProps.onClick || closable;
         // only when the Tag is clickable or closable, the value of tabIndex is allowed to be passed in. 
@@ -134,6 +135,8 @@ export default class Tag extends Component<TagProps, TagState> {
                     [`${prefixCls}-default`]: size === 'default',
                     [`${prefixCls}-small`]: size === 'small',
                     [`${prefixCls}-large`]: size === 'large',
+                    [`${prefixCls}-square`]: shape === 'square',
+                    [`${prefixCls}-circle`]: shape === 'circle',
                     [`${prefixCls}-${type}`]: type,
                     [`${prefixCls}-${color}-${type}`]: color && type,
                     [`${prefixCls}-closable`]: closable,

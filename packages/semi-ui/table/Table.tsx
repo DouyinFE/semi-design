@@ -405,7 +405,6 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             hoveredRowKey: null,
         });
 
-        this.setScrollPosition('left');
         this.debouncedWindowResize = debounce(this.handleWindowResize, 150);
 
         this.cachedFilteredSortedDataSource = [];
@@ -473,6 +472,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
 
     componentDidMount() {
         super.componentDidMount();
+        this.setScrollPosition('left');
 
         if (this.adapter.isAnyColumnFixed() || (this.props.showHeader && this.adapter.useFixedHeader())) {
             this.handleWindowResize();

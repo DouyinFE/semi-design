@@ -92,8 +92,8 @@ export interface MonthsGridFoundationProps extends MonthsGridElementProps {
     triggerRender?: (props: Record<string, any>) => any;
     insetInput: boolean;
     presetPosition?: PresetPosition;
-    renderQuickControls?: React.ReactNode;
-    renderDateInput?: React.ReactNode;
+    renderQuickControls?: any;
+    renderDateInput?: any;
 }
 
 export interface MonthInfo {
@@ -284,7 +284,7 @@ export default class MonthsGridFoundation extends BaseFoundation<MonthsGridAdapt
      * sync change another panel month when change months from the else yam panel
      * call it when
      *  - current change panel targe date month is same with another panel date
-     * 
+     *
      * @example
      *  - panelType=right, target=new Date('2022-09-01') and left panel is in '2022-09' => call it, left panel minus one month to '2022-08'
      *  - panelType=left, target=new Date('2021-12-01') and right panel is in '2021-12' => call it, right panel add one month to '2021-01'
@@ -310,7 +310,7 @@ export default class MonthsGridFoundation extends BaseFoundation<MonthsGridAdapt
         const { monthRight, monthLeft } = this._adapter.getStates();
         const currentDate = panelType === 'left' ? monthLeft.pickerDate : monthRight.pickerDate;
         let target: Date;
-        
+
         switch (switchType) {
             case 'prevMonth':
                 target = addMonths(currentDate, -1);
@@ -335,7 +335,7 @@ export default class MonthsGridFoundation extends BaseFoundation<MonthsGridAdapt
         const { type } = this._adapter.getProps();
         const diff = this._getDiff('month', target, panelType);
         this.handleYearOrMonthChange(diff < 0 ? 'prevMonth' : 'nextMonth', panelType, Math.abs(diff), false);
-    
+
         if (this.isRangeType(type)) {
             this.handleSyncChangeMonths({ panelType, target });
         }
@@ -936,7 +936,7 @@ export default class MonthsGridFoundation extends BaseFoundation<MonthsGridAdapt
 
     /**
      * Get year and month panel open type
-     * 
+     *
      * It is useful info to set minHeight of weeks.
      *  - When yam open type is 'left' or 'right', weeks minHeight should be set
      *    If the minHeight is not set, the change of the number of weeks will cause the scrollList to be unstable

@@ -67,7 +67,7 @@ export interface PaginationState {
 
 export type PaginationLocale = Locale['Pagination'];
 export type PopoverPosition = Position;
-export { PageList };
+export type { PageList };
 
 export default class Pagination extends BaseComponent<PaginationProps, PaginationState> {
     static contextType = ConfigContext;

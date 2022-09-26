@@ -16,17 +16,44 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 ---
 
+#### 🎉 2.20.0 (2022-09-23)
+- 【Fix】
+  - 修复 Form.InputGroup 不支持 FormProps.wrapperCol 、 labelCol 布局的问题
+  - 修复 Image 预览放大后拖拽问题
+  - 修复 DataPicker 组件 foundation 中包含 React 相关类型定义问题 [@rashagu](https://github.com/rashagu)
+  - 修复 Navigation、Tree组件 foundation 在高版本typescript中报错问题 [@rashagu](https://github.com/rashagu)
+  - 修复受控 Tree 在远程加载数据时展开不成功 [#1124](https://github.com/DouyinFE/semi-design/issues/1124)
+  - 修复 ButtonGroup 未支持 style API 问题
+  - 修复虚拟化 Table 在有左边固定列时，首次渲染左边固定列会有多余的 box-shadow 问题 [#1134](https://github.com/DouyinFE/semi-design/issues/1134)
+
+#### 🎉 2.20.0-beta.1 (2022-09-20)
+- 【Fix】
+    - 修复 @douyinfe/semi-foundation Image相关未导出的问题
+
+#### 🎉 2.20.0-beta.0 (2022-09-19)
+
+- 【New Component】
+    - 新增 Image 组件 [#344](https://github.com/DouyinFE/semi-design/issues/344)
+- 【Feat】
+    - Tag 新增 shape 选择，可选 square、circle [#89](https://github.com/DouyinFE/semi-design/issues/89)
+    - Progress 支持根据进度自动填充渐变颜色，根据进度预设自动切换颜色 [#1092](https://github.com/DouyinFE/semi-design/issues/1092) [@uiuing](https://github.com/uiuing)
+    - Toast 支持新增通过 ID 动态修改内容 [#1035](https://github.com/DouyinFE/semi-design/issues/1035) [@gwsbhqt](https://github.com/gwsbhqt)
+    - Skeleton.Avatar 支持 shape属性 [#1117](https://github.com/DouyinFE/semi-design/issues/1117) [@MuxinFeng](https://github.com/MuxinFeng)
+- 【Chore】
+    -  移除 @douyinfe/semi-ui 发包产物中的ts源码，仅保留 lib、dist目录
+    -  修改部分组件 scss 的写法，将除法转换为乘法及math.div语法，避免 sass 高版本编译时重复抛出 warning 的问题 
+
 #### 🎉 2.19.0 (2022-09-09)
 - 【Fix】
-    - 修复 Anchor 间距可触发选中后，键盘聚焦样式被遮挡问题
-    - 修复面板关闭时， Select onblur事件未被触发问题
-    - 修复锚点组件的子节点单行文本前面的空白处，点击不能选中的问题 [@edc-hui](https://github.com/edc-hui)
-    - 修复 Calendar weekStartsOn 改变后，事件渲染的位置没有跟着改变问题
-    - 修复在 DropDown 中使用 Input，Input onEnterPress 事件不生效问题
-    - 修复 tagGroup 污染传入 tagList 数据问题  [#1107 ](https://github.com/DouyinFE/semi-design/issues/1107)
-    - 修复 当 datepicker 的 type 为 dateTime 时，切换年月会导致时间部分被重置为8点  [@rojer95](https://github.com/rojer95)
+    - 修复当 Datepicker 的 type 为 dateTime 时，切换年月会导致时间部分被重置为8点 [#1078](https://github.com/DouyinFE/semi-design/issues/1078) [@rojer95](https://github.com/rojer95)
+    - 修复锚点组件的子节点单行文本前面的空白处，点击不能选中的问题 [#512](https://github.com/DouyinFE/semi-design/issues/512) [@edc-hui](https://github.com/edc-hui)
+    - 修复面板关闭时， Select onblur事件未被触发问题 [#1110](https://github.com/DouyinFE/semi-design/issues/1110)
+    - 修复 Calendar weekStartsOn 改变后，事件渲染的位置没有跟着改变问题 [#1101](https://github.com/DouyinFE/semi-design/issues/1101)
+    - 修复在 DropDown 中使用 Input，Input onEnterPress 事件不生效问题 [#1102](https://github.com/DouyinFE/semi-design/issues/1102)
+    - 修复 TagGroup 污染传入 tagList 数据问题  [#1107](https://github.com/DouyinFE/semi-design/issues/1107)
+    - 修复 Anchor 间距可触发选中后，键盘聚焦样式被遮挡问题 
 - 【Chore】
-    - 移除 semi-foundation 、semi-ui中的 corejs 依赖
+    - 移除 semi-foundation 、semi-ui中的 corejs 依赖 [#1095](https://github.com/DouyinFE/semi-design/issues/1095)
 
 #### 🎉 2.19.0-beta.0 (2022-09-05)
 - 【Feat】

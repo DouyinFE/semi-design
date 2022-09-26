@@ -1,7 +1,7 @@
 import Checkbox, { CheckboxProps, CheckboxEvent } from './checkbox';
 import Group, { CheckboxGroupProps, CheckboxType, CheckboxDirection } from './checkboxGroup';
 
-export { CheckboxInnerProps } from './checkboxInner';
+export type { CheckboxInnerProps } from './checkboxInner';
 class CheckboxWithGroup extends Checkbox {
     static Group = Group;
 }
@@ -9,6 +9,9 @@ class CheckboxWithGroup extends Checkbox {
 export {
     CheckboxWithGroup,
     Checkbox,
+};
+
+export type {
     CheckboxProps,
     CheckboxGroupProps,
     CheckboxEvent,

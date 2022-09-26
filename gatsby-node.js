@@ -182,6 +182,7 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions }) =>
             "DSM_URL":JSON.stringify(process.env['DSM_URL']),
             'process.env.SEMI_SITE_HEADER':JSON.stringify(process.env.SEMI_SITE_HEADER),
             'process.env.SEMI_SITE_BANNER':JSON.stringify(process.env.SEMI_SITE_BANNER),
+            'process.env.D2C_URL': JSON.stringify(process.env.D2C_URL),
         })],
     });
 };

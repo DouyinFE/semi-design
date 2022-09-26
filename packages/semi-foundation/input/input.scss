@@ -1,6 +1,6 @@
 //@import '../theme/variables.scss';
-@import './variables.scss';
 @import "./animation.scss";
+@import './variables.scss';
 
 $module: #{$prefix}-input;
 
@@ -457,7 +457,7 @@ $module: #{$prefix}-input;
     background-color: transparent;
     box-sizing: border-box;
 
-    &[type="password"]::-ms-reveal, 
+    &[type="password"]::-ms-reveal,
     &[type="password"]::-ms-clear {
         display: none;
     }

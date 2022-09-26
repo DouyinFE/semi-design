@@ -5,7 +5,7 @@ import { cssClasses } from '@douyinfe/semi-foundation/skeleton/constants';
 import '@douyinfe/semi-foundation/skeleton/skeleton.scss';
 import { Avatar, Image, Title, Button, Paragraph } from './item';
 
-export { ParagraphProps, AvatarProps, GenericProps } from './item';
+export type { ParagraphProps, AvatarProps, GenericProps } from './item';
 
 const prefixCls = cssClasses.PREFIX;
 

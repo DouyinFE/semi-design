@@ -34,7 +34,7 @@ gulp.task('compileTSForCJS', function compileTSForCJS() {
 });
 
 const excludeScss = [
-    '!**/button/splitButtonGroup.scss', 
+    '!**/button/splitButtonGroup.scss',
     '!**/steps/bacisSteps.scss',
     '!**/steps/fillSteps.scss',
     '!**/steps/navSteps.scss',
@@ -49,8 +49,16 @@ gulp.task('compileScss', function compileScss() {
             function (chunk, enc, cb) {
                 const rootPath = path.join(__dirname, '../../');
                 const scssVarStr = `@import "${rootPath}/packages/semi-theme-default/scss/index.scss";\n`;
-                const scssBuffer = Buffer.from(scssVarStr);
-                chunk.contents = Buffer.concat([scssBuffer, chunk.contents]);
+                let scssRaw = chunk.contents.toString('utf-8');
+                if (scssRaw.startsWith("@use")) {
+                    const scssRawSplit = scssRaw.split("\n");
+                    const codeStartIndex = scssRawSplit.findIndex(item => !item.startsWith("@use"));
+                    scssRawSplit.splice(codeStartIndex, 0, scssVarStr);
+                    scssRaw = scssRawSplit.join("\n");
+                } else {
+                    scssRaw = `${scssVarStr}\n${scssRaw}`;
+                }
+                chunk.contents = Buffer.from(scssRaw, 'utf-8');
                 cb(null, chunk);
             }
         ))
@@ -67,11 +75,11 @@ gulp.task('moveScss', function moveScss() {
         .pipe(gulp.dest('lib/cjs'));
 });
 
-gulp.task('compileLib', 
+gulp.task('compileLib',
     gulp.series(
         [
-            'cleanLib', 'compileScss', 
-            'moveScss', 
+            'cleanLib', 'compileScss',
+            'moveScss',
             gulp.parallel('compileTSForESM', 'compileTSForCJS'),
         ]
     )
