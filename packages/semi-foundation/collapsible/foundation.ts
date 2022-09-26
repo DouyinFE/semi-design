@@ -1,8 +1,4 @@
 import BaseFoundation, {DefaultAdapter} from "../base/foundation";
-import {CollapseAdapter} from "../collapse/foundation";
-import {Motion} from "@douyinfe/semi-ui/_base/base";
-import React from "react";
-
 
 export interface CollapsibleFoundationProps{
     isOpen?: boolean;
@@ -21,16 +17,33 @@ export interface CollapsibleFoundationState{
 
 
 export interface CollapsibleAdapter<P = Record<string, any>, S = Record<string, any>>  extends DefaultAdapter<P, S>{
-
+    setDOMInRenderTree: (isInRenderTree:boolean) => void;
+    setDOMHeight: (domHeight:number) => void;
+    setVisible: (visible:boolean) => void;
 }
 
-class CollapsibleFoundation extends BaseFoundation<CollapsibleAdapter>{
+class CollapsibleFoundation extends BaseFoundation<CollapsibleAdapter,CollapsibleFoundationProps,CollapsibleFoundationState>{
 
-    constructor(adapter: CollapseAdapter) {
+    constructor(adapter: CollapsibleAdapter) {
         super({
             ...adapter
         });
     }
+
+
+    updateDOMInRenderTree = (isInRenderTree) => {
+        this._adapter.setDOMInRenderTree(isInRenderTree);
+    }
+
+    updateDOMHeight = (domHeight:number) => {
+        this._adapter.setDOMHeight(domHeight);
+    }
+
+    updateVisible = (visible:boolean) => {
+        this._adapter.setVisible(visible);
+    }
+
+
 }
 
 
