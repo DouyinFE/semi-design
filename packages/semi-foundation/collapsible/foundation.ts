@@ -11,7 +11,10 @@ export interface CollapsibleFoundationProps{
 }
 
 export interface CollapsibleFoundationState{
-
+    domInRenderTree: boolean
+    domHeight: number
+    visible: boolean
+    isTransitioning: boolean
 }
 
 
@@ -22,9 +25,9 @@ export interface CollapsibleAdapter<P = Record<string, any>, S = Record<string, 
     setVisible: (visible:boolean) => void;
 }
 
-class CollapsibleFoundation extends BaseFoundation<CollapsibleAdapter,CollapsibleFoundationProps,CollapsibleFoundationState>{
+class CollapsibleFoundation extends BaseFoundation<CollapsibleAdapter<CollapsibleFoundationProps,CollapsibleFoundationState>,CollapsibleFoundationProps,CollapsibleFoundationState>{
 
-    constructor(adapter: CollapsibleAdapter) {
+    constructor(adapter: CollapsibleAdapter<CollapsibleFoundationProps,CollapsibleFoundationState>) {
         super({
             ...adapter
         });

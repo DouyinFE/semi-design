@@ -8,7 +8,7 @@ import BaseComponent from "../_base/baseComponent";
 import PropTypes from "prop-types";
 import cls from "classnames";
 import {cssClasses} from "@douyinfe/semi-foundation/collapsible/constants";
-import {isEqual} from "lodash";
+import {debounce, isEqual} from "lodash";
 import CollapsibleFoundation from "@douyinfe/semi-foundation/collapsible/foundation";
 
 interface CollapsibleProps extends CollapsibleFoundationProps {
@@ -28,6 +28,7 @@ interface CollapsibleState extends CollapsibleFoundationState {
     domInRenderTree: boolean
     domHeight: number
     visible: boolean
+    isTransitioning: boolean
 }
 
 class Collapsible extends BaseComponent<CollapsibleProps, CollapsibleState> {
@@ -48,7 +49,8 @@ class Collapsible extends BaseComponent<CollapsibleProps, CollapsibleState> {
         this.state = {
             domInRenderTree: false,
             domHeight: 0,
-            visible: this.props.isOpen
+            visible: this.props.isOpen,
+            isTransitioning:false
         }
         this.foundation = new CollapsibleFoundation(this.adapter);
     }
@@ -70,6 +72,18 @@ class Collapsible extends BaseComponent<CollapsibleProps, CollapsibleState> {
                 if (this.state.visible !== visible) {
                     this.setState({visible})
                 }
+            },
+            getState(key: string): any {
+                return this.state[key];
+            },
+            getProp(key: string): any {
+                return this.props[key];
+            },
+            getStates(): CollapsibleState {
+                return this.state;
+            },
+            getProps(): CollapsibleProps {
+                return this.props;
             }
         };
     }
@@ -83,7 +97,6 @@ class Collapsible extends BaseComponent<CollapsibleProps, CollapsibleState> {
         if (domInRenderTree) {
             this.foundation.updateDOMHeight(this.domRef.current.scrollHeight)
         }
-
     }
 
     componentDidUpdate(prevProps: Readonly<CollapsibleProps>, prevState: Readonly<CollapsibleState>, snapshot?: any) {
@@ -100,6 +113,11 @@ class Collapsible extends BaseComponent<CollapsibleProps, CollapsibleState> {
                 this.foundation.updateVisible(this.props.isOpen)
             }
         }
+
+        if(this.props.motion && (prevProps.isOpen !== this.props.isOpen)){
+            this.setState({isTransitioning:true})
+        }
+
     }
 
     componentWillUnmount() {
@@ -150,16 +168,17 @@ class Collapsible extends BaseComponent<CollapsibleProps, CollapsibleState> {
         const wrapperStyle: React.CSSProperties = {
             overflow: 'hidden',
             height: this.props.isOpen ? (this.props.collapseHeight || this.state.domHeight) : 0,
-            transitionDuration: `${this.props.motion ? this.props.duration : 0}ms`,
+            transitionDuration: `${this.props.motion && this.state.isTransitioning ? this.props.duration : 0}ms`,
             ...this.props.style
         }
         const wrapperCls = cls(`${cssClasses.PREFIX}-wrapper`, {
-            [`${cssClasses.PREFIX}-transition`]: this.props.motion
+            [`${cssClasses.PREFIX}-transition`]: this.props.motion && this.state.isTransitioning
         }, this.props.className);
         return <div className={wrapperCls} style={wrapperStyle} onTransitionEnd={() => {
             if (!this.props.isOpen) {
                 this.foundation.updateVisible(false)
             }
+            this.setState({isTransitioning:false})
         }}>
             <div
                 x-semi-prop="children"
