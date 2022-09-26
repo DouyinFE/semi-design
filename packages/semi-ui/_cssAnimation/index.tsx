@@ -1,5 +1,5 @@
-import React, { CSSProperties, ReactNode } from 'react';
-import { isEqual, noop } from "lodash";
+import React, {CSSProperties, ReactNode} from 'react';
+import {isEqual, noop} from "lodash";
 
 
 interface AnimationEventsNeedBind {
@@ -15,34 +15,37 @@ interface AnimationProps {
     children: ({}: {
         animationClassName: string,
         animationStyle: CSSProperties,
-        animationEventsNeedBind: AnimationEventsNeedBind
+        animationEventsNeedBind: AnimationEventsNeedBind,
+        isAnimating: boolean
     }) => ReactNode
     animationState: "enter" | "leave"
     onAnimationEnd?: () => void;
     onAnimationStart?: () => void;
-    motion?:boolean;
-    replayKey?:string;
+    motion?: boolean;
+    replayKey?: string;
 }
 
 interface AnimationState {
     currentClassName: string
-    extraStyle: CSSProperties
+    extraStyle: CSSProperties,
+    isAnimating: boolean
 }
 
 
 class CSSAnimation extends React.Component<AnimationProps, AnimationState> {
 
     static defaultProps = {
-        motion:true,
-        replayKey:"",
+        motion: true,
+        replayKey: "",
     }
 
     constructor(props) {
         super(props);
-        
+
         this.state = {
             currentClassName: this.props.startClassName,
-            extraStyle: {}
+            extraStyle: {},
+            isAnimating: true
         };
     }
 
@@ -54,15 +57,16 @@ class CSSAnimation extends React.Component<AnimationProps, AnimationState> {
         if (changedKeys.includes("startClassName") || changedKeys.includes('replayKey') || changedKeys.includes("motion")) {
             this.setState({
                 currentClassName: this.props.startClassName,
-                extraStyle: {}
-            }, ()=>{
+                extraStyle: {},
+                isAnimating: true
+            }, () => {
                 this.props.onAnimationStart?.();
-                if(!this.props.motion){
+                if (!this.props.motion) {
                     this.props.onAnimationEnd?.();
                 }
             });
         }
-    
+
 
     }
 
@@ -74,7 +78,8 @@ class CSSAnimation extends React.Component<AnimationProps, AnimationState> {
     handleAnimationEnd = () => {
         this.setState({
             currentClassName: this.props.endClassName,
-            extraStyle: {}
+            extraStyle: {},
+            isAnimating: false
         }, () => {
             this.props.onAnimationEnd?.();
         });
@@ -82,22 +87,24 @@ class CSSAnimation extends React.Component<AnimationProps, AnimationState> {
 
 
     render() {
-        if(this.props.motion){
-           return this.props.children({
-            animationClassName: this.state.currentClassName ?? "",
-            animationStyle: this.state.extraStyle,
-            animationEventsNeedBind: {
-                onAnimationStart: this.handleAnimationStart,
-                onAnimationEnd: this.handleAnimationEnd
-            }
-        }); 
-        }else{
+        if (this.props.motion) {
+            return this.props.children({
+                animationClassName: this.state.currentClassName ?? "",
+                animationStyle: this.state.extraStyle,
+                animationEventsNeedBind: {
+                    onAnimationStart: this.handleAnimationStart,
+                    onAnimationEnd: this.handleAnimationEnd
+                },
+                isAnimating: this.state.isAnimating
+            });
+        } else {
             return this.props.children({
                 animationClassName: "",
                 animationStyle: {},
-                animationEventsNeedBind: {}
-        })
-      }
+                animationEventsNeedBind: {},
+                isAnimating: this.state.isAnimating
+            })
+        }
     }
 }
 
