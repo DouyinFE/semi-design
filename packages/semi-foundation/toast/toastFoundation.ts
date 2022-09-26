@@ -1,6 +1,5 @@
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import { isNumber, noop } from 'lodash';
-import { Motion } from '../utils/type';
 
 
 export type ToastType = 'success' | 'warning' | 'error' | 'info' | 'default';
@@ -33,7 +32,7 @@ export interface ToastProps extends ConfigProps {
 
 export interface ToastInstance extends ToastProps{
     id?: string;
-    motion?: Motion;
+    motion?: boolean;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

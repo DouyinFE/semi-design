@@ -17,9 +17,12 @@ export interface ToastReactProps extends ToastProps {
     style?: CSSProperties;
     icon?: React.ReactNode;
     content: React.ReactNode;
+    onAnimationEnd?: (e:React.AnimationEvent) => void;
+    onAnimationStart?: (e:React.AnimationEvent) => void;
 }
 
 class Toast extends BaseComponent<ToastReactProps, ToastState> {
+
     static contextType = ConfigContext;
     static propTypes = {
         onClose: PropTypes.func,
@@ -130,6 +133,8 @@ class Toast extends BaseComponent<ToastReactProps, ToastState> {
                 style={style}
                 onMouseEnter={this.clearCloseTimer}
                 onMouseLeave={this.startCloseTimer}
+                onAnimationStart={this.props.onAnimationStart}
+                onAnimationEnd={this.props.onAnimationEnd}
             >
                 <div className={`${prefixCls}-content`}>
                     {this.renderIcon()}

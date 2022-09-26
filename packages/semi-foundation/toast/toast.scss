@@ -1,4 +1,4 @@
-//@import '../theme/variables.scss';
+@import "./animation.scss";
 @import "./variables.scss";
 
 $module: #{$prefix}-toast;
@@ -87,6 +87,35 @@ $icon: #{$prefix}-toast-icon;
     .#{$icon}-error {
         color: $color-toast_danger-icon;
     }
+
+    &-animation-show{
+        animation:  $animation_duration-toast-show #{$module}-keyframe-toast-show $animation_delay-toast-show ease-in-out;
+    }
+
+    &-animation-hide{
+        animation: $animation_duration-toast-hide #{$module}-keyframe-toast-hide $animation_delay-toast-hide ease-in-out;
+    }
+
+    @keyframes #{$module}-keyframe-toast-show{
+        0%{
+            opacity: $animation_opacity-toast-show;
+            transform: translateY($animation_transform_translateY-toast-show);
+        }
+        100%{
+            opacity: 1;
+        }
+    }
+
+    @keyframes #{$module}-keyframe-toast-hide{
+        0%{
+            opacity: 1;
+        }
+        100%{
+            opacity: $animation_opacity-toast-hide;
+            transform: translateY($animation_transform_translateY-toast-hide);
+        }
+    }
+
 }
 
 @import "./rtl.scss";
