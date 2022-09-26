@@ -22,6 +22,7 @@ import es from '@douyinfe/semi-ui/locale/source/es';
 import de from '@douyinfe/semi-ui/locale/source/de';
 import it from '@douyinfe/semi-ui/locale/source/it';
 import fr from '@douyinfe/semi-ui/locale/source/fr';
+import ro from '@douyinfe/semi-ui/locale/source/ro';
 
 export const globalTypes = {
     direction: {
@@ -48,7 +49,7 @@ export const globalTypes = {
       defaultValue: 'zh_CN',
       toolbar: {
           icon: 'google',
-          items: ['zh_CN', 'en_GB', 'ko_KR', 'ja_JP', 'ar', 'vi_VN', 'ru_RU', 'id_ID', 'ms_MY', 'th_TH', 'tr_TR', 'pt_BR', 'zh_TW', 'es', 'de', 'it', 'fr'],
+          items: ['zh_CN', 'en_GB', 'ko_KR', 'ja_JP', 'ar', 'vi_VN', 'ru_RU', 'id_ID', 'ms_MY', 'th_TH', 'tr_TR', 'pt_BR', 'zh_TW', 'es', 'de', 'it', 'fr', 'ro'],
       },
     }
 };
@@ -76,7 +77,8 @@ const getLocale = code => {
       es,
       de,
       it,
-      fr
+      fr,
+      ro
   };
 
   return language[code];
