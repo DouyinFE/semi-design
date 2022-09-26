@@ -22,6 +22,8 @@ export interface NoticeReactProps extends NoticeProps {
     content?: React.ReactNode;
     icon?: React.ReactNode;
     onClick?: (e: React.MouseEvent) => void;
+    onAnimationEnd?: (e: React.AnimationEvent) => void;
+    onAnimationStart?: (e: React.AnimationEvent) => void;
 }
 
 const prefixCls = cssClasses.NOTICE;
@@ -166,6 +168,8 @@ class Notice extends BaseComponent<NoticeReactProps, NoticeState> {
                 onClick={this.notifyClick}
                 aria-labelledby={titleID}
                 role={'alert'}
+                onAnimationEnd={this.props.onAnimationEnd}
+                onAnimationStart={this.props.onAnimationStart}
             >
                 <div>{this.renderTypeIcon()}</div>
                 <div className={`${prefixCls}-inner`}>

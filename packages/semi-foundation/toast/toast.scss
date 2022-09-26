@@ -89,11 +89,11 @@ $icon: #{$prefix}-toast-icon;
     }
 
     &-animation-show{
-        animation:  $animation_duration-toast-show #{$module}-keyframe-toast-show $animation_delay-toast-show ease-in-out;
+        animation: $animation_duration-toast-show #{$module}-keyframe-toast-show $animation_function-toast-show $animation_delay-toast-show ;
     }
 
     &-animation-hide{
-        animation: $animation_duration-toast-hide #{$module}-keyframe-toast-hide $animation_delay-toast-hide ease-in-out;
+        animation: $animation_duration-toast-hide #{$module}-keyframe-toast-hide $animation_function-toast-hide $animation_delay-toast-hide ;
     }
 
     @keyframes #{$module}-keyframe-toast-show{

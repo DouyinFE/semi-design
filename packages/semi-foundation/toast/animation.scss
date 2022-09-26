@@ -1,7 +1,7 @@
 $animation_duration-toast-show: 300ms;
 $animation_duration-toast-hide: 300ms;
-$animation_function-toast-show: ease-in-out;
-$animation_function-toast-hide: ease-in-out;
+$animation_function-toast-show: cubic-bezier(.22,.57,.02,1.2);
+$animation_function-toast-hide: cubic-bezier(.22,.57,.02,1.2);
 $animation_delay-toast-show: 0s;
 $animation_delay-toast-hide: 0s;
 
