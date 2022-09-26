@@ -134,13 +134,13 @@ $module: #{$prefix}-sidesheet;
             transform: translateY(-100%);
         }
         to {
-            transform: translateX(0);
+            transform: translateY(0);
         }
     }
 
     @keyframes #{$module}-slideHide_top {
         from {
-            transform: translateX(0);
+            transform: translateY(0);
         }
         to {
             transform: translateY(-100%);
@@ -152,13 +152,13 @@ $module: #{$prefix}-sidesheet;
             transform: translateY(100%);
         }
         to {
-            transform: translateX(0);
+            transform: translateY(0);
         }
     }
 
     @keyframes #{$module}-slideHide_bottom {
         from {
-            transform: translateX(0);
+            transform: translateY(0);
         }
         to {
             transform: translateY(100%);
@@ -219,7 +219,6 @@ $module: #{$prefix}-sidesheet;
         to {
             opacity: 0;
         }
-
     }
 
 

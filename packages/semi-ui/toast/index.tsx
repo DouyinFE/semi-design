@@ -221,7 +221,7 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
         return (
             <React.Fragment>
                 {list.map((item, index) =>{
-                    const isRemoved = removedItems.includes(item);
+                    const isRemoved = removedItems.find(removedItem=>removedItem===item) !== undefined;
                     return <CSSAnimation key={item.id} motion={item.motion} animationState={isRemoved?"leave":"enter"} startClassName={isRemoved?`${cssClasses.PREFIX}-animation-hide`:`${cssClasses.PREFIX}-animation-show`}>
                         {
                             ({animationClassName,animationEventsNeedBind,isAnimating})=>{
