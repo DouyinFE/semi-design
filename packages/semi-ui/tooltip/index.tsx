@@ -77,7 +77,8 @@ export interface TooltipProps extends BaseProps {
     disableArrowKeyDown?: boolean;
     wrapperId?: string;
     preventScroll?: boolean;
-    disableFocusListener?: boolean
+    disableFocusListener?: boolean;
+    afterClose?:()=>void
 }
 interface TooltipState {
     visible: boolean;
@@ -565,10 +566,13 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         const inner =
             <CSSAnimation animationState={transitionState as "enter"|"leave"}
                 motion={motion && isPositionUpdated}
-                startClassName={transitionState==='enter'?`${prefixCls}-animation-show`:`${prefixCls}-animation-hide`}
+                startClassName={transitionState==='enter'?`${prefix}-animation-show`:`${prefix}-animation-hide`}
                 onAnimationEnd={()=>{
                     if (transitionState === 'leave'){
                         this.didLeave();
+                        if (this.props.motion){
+                            this.props.afterClose?.();
+                        }
                     }
                 }}>
                 {
