@@ -1,14 +1,18 @@
 import React from 'react';
-import type {CollapsibleAdapter, CollapsibleFoundationProps, CollapsibleFoundationState} from "@douyinfe/semi-foundation/collapsible/foundation";
-import BaseComponent from "@douyinfe/semi-ui/_base/baseComponent";
-import {Motion} from "@douyinfe/semi-ui/_base/base";
+import type {
+    CollapsibleAdapter,
+    CollapsibleFoundationProps,
+    CollapsibleFoundationState
+} from "@douyinfe/semi-foundation/collapsible/foundation";
+import BaseComponent from "../_base/baseComponent";
 import PropTypes from "prop-types";
 import cls from "classnames";
 import {cssClasses} from "@douyinfe/semi-foundation/collapsible/constants";
-import CollapsibleOld from "@douyinfe/semi-ui/collapsible/index.old";
 import {isEqual} from "lodash";
-interface CollapsibleProps extends CollapsibleFoundationProps{
-    motion?: Motion;
+import CollapsibleFoundation from "@douyinfe/semi-foundation/collapsible/foundation";
+
+interface CollapsibleProps extends CollapsibleFoundationProps {
+    motion?: boolean;
     children?: React.ReactNode;
     isOpen?: boolean;
     duration?: number;
@@ -17,12 +21,13 @@ interface CollapsibleProps extends CollapsibleFoundationProps{
     style?: React.CSSProperties;
     collapseHeight?: number;
     reCalcKey?: number | string;
-    id?:string,
+    id?: string,
 }
 
-interface CollapsibleState extends CollapsibleFoundationState{
-    domInRenderTree:boolean
-    domHeight:number
+interface CollapsibleState extends CollapsibleFoundationState {
+    domInRenderTree: boolean
+    domHeight: number
+    visible: boolean
 }
 
 class Collapsible extends BaseComponent<CollapsibleProps, CollapsibleState> {
@@ -35,19 +40,37 @@ class Collapsible extends BaseComponent<CollapsibleProps, CollapsibleState> {
     };
 
     private domRef = React.createRef<HTMLDivElement>();
-    private wrapperRef = React.createRef<HTMLDivElement>();
     private resizeObserver: ResizeObserver | null;
+    public foundation: CollapsibleFoundation;
+
     constructor(props: CollapsibleProps) {
         super(props);
         this.state = {
-            domInRenderTree:false,
+            domInRenderTree: false,
             domHeight: 0,
+            visible: this.props.isOpen
         }
+        this.foundation = new CollapsibleFoundation(this.adapter);
     }
 
-    get adapter(): CollapsibleAdapter<CollapsibleProps,CollapsibleState> {
+    get adapter(): CollapsibleAdapter<CollapsibleProps, CollapsibleState> {
         return {
             ...super.adapter,
+            setDOMInRenderTree: (domInRenderTree) => {
+                if (this.state.domInRenderTree !== domInRenderTree) {
+                    this.setState({domInRenderTree})
+                }
+            },
+            setDOMHeight: (domHeight) => {
+                if (this.state.domHeight !== domHeight) {
+                    this.setState({domHeight})
+                }
+            },
+            setVisible: (visible) => {
+                if (this.state.visible !== visible) {
+                    this.setState({visible})
+                }
+            }
         };
     }
 
@@ -56,85 +79,104 @@ class Collapsible extends BaseComponent<CollapsibleProps, CollapsibleState> {
         this.resizeObserver = new ResizeObserver(this.handleResize);
         this.resizeObserver.observe(this.domRef.current);
         const domInRenderTree = this.isChildrenInRenderTree();
-        this.setState({domInRenderTree})
-        if(domInRenderTree){
-            this.setState({domHeight:this.domRef.current.scrollHeight})
+        this.foundation.updateDOMInRenderTree(domInRenderTree)
+        if (domInRenderTree) {
+            this.foundation.updateDOMHeight(this.domRef.current.scrollHeight)
         }
+
     }
 
     componentDidUpdate(prevProps: Readonly<CollapsibleProps>, prevState: Readonly<CollapsibleState>, snapshot?: any) {
         const changedPropKeys = Object.keys(this.props).filter(key => !isEqual(this.props[key], prevProps[key]));
         const changedStateKeys = Object.keys(this.state).filter(key => !isEqual(this.state[key], prevState[key]));
-        if(changedPropKeys.includes("reCalcKey")){
-            this.setState({domHeight:this.domRef.current.scrollHeight})
+        if (changedPropKeys.includes("reCalcKey")) {
+            this.foundation.updateDOMHeight(this.domRef.current.scrollHeight)
         }
-        if(changedStateKeys.includes("domInRenderTree") && this.state.domInRenderTree){
-            this.setState({domHeight:this.domRef.current.scrollHeight})
+        if (changedStateKeys.includes("domInRenderTree") && this.state.domInRenderTree) {
+            this.foundation.updateDOMHeight(this.domRef.current.scrollHeight)
+        }
+        if (changedPropKeys.includes("isOpen")) {
+            if (this.props.isOpen || !this.props.motion) {
+                this.foundation.updateVisible(this.props.isOpen)
+            }
         }
     }
 
-    handleResize = (entryList:ResizeObserverEntry[]) => {
+    componentWillUnmount() {
+        super.componentWillUnmount()
+        this.resizeObserver.disconnect();
+    }
+
+    handleResize = (entryList: ResizeObserverEntry[]) => {
         const entry = entryList[0];
-        if(entry){
-            const entryInfo  = Collapsible.getEntryInfo(entry);
-            this.setState({domInRenderTree:entryInfo.isShown,domHeight:entryInfo.height})
+        if (entry) {
+            const entryInfo = Collapsible.getEntryInfo(entry);
+            this.foundation.updateDOMHeight(entryInfo.height);
+            this.foundation.updateDOMInRenderTree(entryInfo.isShown);
         }
     }
 
-    static getEntryInfo = (entry:ResizeObserverEntry)=>{
+    static getEntryInfo = (entry: ResizeObserverEntry) => {
         //judge whether parent or self display none
-        let inRenderTree:boolean;
-        if(entry.borderBoxSize){
-            inRenderTree= !(entry.borderBoxSize[0].blockSize===0 && entry.borderBoxSize[0].inlineSize===0);
-        }else {
-            inRenderTree = !(entry.contentRect.height===0 && entry.contentRect.width===0);
+        let inRenderTree: boolean;
+        if (entry.borderBoxSize) {
+            inRenderTree = !(entry.borderBoxSize[0].blockSize === 0 && entry.borderBoxSize[0].inlineSize === 0);
+        } else {
+            inRenderTree = !(entry.contentRect.height === 0 && entry.contentRect.width === 0);
         }
 
         let height = 0;
-        if(entry.borderBoxSize){
+        if (entry.borderBoxSize) {
             height = Math.ceil(entry.borderBoxSize[0].blockSize);
-        }else{
+        } else {
             const target = entry.target as HTMLElement;
             height = target.clientHeight;
         }
 
         return {
-            isShown: inRenderTree,height
+            isShown: inRenderTree, height
         }
-
-
     }
 
-    isChildrenInRenderTree = ()=>{
-        if(this.domRef.current){
-            return this.domRef.current.offsetHeight >0
-        }else{
+    isChildrenInRenderTree = () => {
+        if (this.domRef.current) {
+            return this.domRef.current.offsetHeight > 0
+        } else {
             return false
         }
     }
 
     render() {
-        const wrapperStyle:React.CSSProperties = {
+        const wrapperStyle: React.CSSProperties = {
             overflow: 'hidden',
-            height: this.props.isOpen ? this.state.domHeight : 0,
-            transition: `height ${this.props.duration}ms ease-in-out`,
+            height: this.props.isOpen ? (this.props.collapseHeight || this.state.domHeight) : 0,
+            transitionDuration: `${this.props.motion ? this.props.duration : 0}ms`,
             ...this.props.style
         }
-        const wrapperCls = cls(`${cssClasses.PREFIX}-wrapper`, this.props.className);
-        return <div ref={this.wrapperRef} className={wrapperCls} style={wrapperStyle} >
+        const wrapperCls = cls(`${cssClasses.PREFIX}-wrapper`, {
+            [`${cssClasses.PREFIX}-transition`]: this.props.motion
+        }, this.props.className);
+        return <div className={wrapperCls} style={wrapperStyle} onTransitionEnd={() => {
+            if (!this.props.isOpen) {
+                this.foundation.updateVisible(false)
+            }
+        }}>
             <div
                 x-semi-prop="children"
                 ref={this.domRef}
-                style={{ overflow: 'hidden' }}
+                style={{overflow: 'hidden'}}
+                id={this.props.id}
             >
-                {(this.props.keepDOM || this.props.isOpen ) && this.props.children}
+                {
+                    (this.props.keepDOM || this.state.visible || this.props.isOpen) && this.props.children
+                }
             </div>
         </div>
     }
 }
 
 Collapsible.propTypes = {
-    motion: PropTypes.oneOfType([PropTypes.bool, PropTypes.func, PropTypes.object]),
+    motion: PropTypes.bool,
     children: PropTypes.node,
     isOpen: PropTypes.bool,
     duration: PropTypes.number,
