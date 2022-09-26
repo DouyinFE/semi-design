@@ -36,22 +36,9 @@ export default function confirm<T>(props: ConfirmProps) {
         }
     };
 
-    const mergedMotion: Motion = typeof (props.motion) === 'undefined' || props.motion ? {
-        ...(props.motion as any),
-        didLeave: (...args: any) => {
-            const didLeave = get(props.motion, 'didLeave');
-
-            if (typeof didLeave === 'function') {
-                didLeave(...args);
-            }
-
-            destroy();
-        }
-
-    } : false;
 
     function render(renderProps: ConfirmProps) {
-        ReactDOM.render(<ConfirmModal {...renderProps} motion={mergedMotion}/>, div);
+        ReactDOM.render(<ConfirmModal {...renderProps} motion={props.motion}/>, div);
     }
 
     function close() {
