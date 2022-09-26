@@ -183,7 +183,7 @@ export default class NavigationFoundation<P = Record<string, any>, S = Record<st
 
     getItemKey(item: string | number, keyPropName = 'itemKey') {
         if (item && typeof item === 'object') {
-            return item[keyPropName];
+            return item![keyPropName];
         }
         return item;
     }

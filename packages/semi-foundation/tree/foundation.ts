@@ -300,7 +300,7 @@ export interface TreeAdapter extends DefaultAdapter<BasicTreeProps, BasicTreeInn
     updateInputValue: (value: string) => void;
     focusInput: () => void;
     updateState: (states: Partial<BasicTreeInnerData>) => void;
-    notifyExpand: (expandedKeys: Set<string>, { expanded: bool, node }: BasicExpandedOtherProps) => void;
+    notifyExpand: (expandedKeys: Set<string>, { expanded, node }: BasicExpandedOtherProps) => void;
     notifySelect: (selectKey: string, bool: boolean, node: BasicTreeNodeData) => void;
     notifyChange: (value: BasicValue) => void;
     notifySearch: (input: string) => void;
