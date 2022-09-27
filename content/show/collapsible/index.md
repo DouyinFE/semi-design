@@ -209,10 +209,11 @@ import { Collapsible, Button } from '@douyinfe/semi-ui';
 ## API 参考
 
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
-| --- | --- | --- | --- | --- |
+| -- | --- | --- | --- | --- |
 | className | 类名 | string | - | 0.34.0 |
 | collapseHeight | 折叠高度 | number | 0 | 1.0.0 |
 | duration | 动画执行的时间 | number | 250 | - |
+| fade | 是否开启淡入淡出 | boolean | false | 2.21.0 |
 | isOpen | 是否展开内容区域 | boolean | `false` | - |
 | keepDOM | 是否保留隐藏的面板 DOM 树，默认销毁 | boolean | `false` | 0.25.0 |
 | motion | 是否开启动画 | Motion | `true` | - |

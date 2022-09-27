@@ -8,6 +8,7 @@ export interface CollapsibleFoundationProps{
     collapseHeight?: number;
     reCalcKey?: number | string;
     id?:string,
+    fade?:boolean
 }
 
 export interface CollapsibleFoundationState{

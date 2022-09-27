@@ -9,7 +9,7 @@ import '@douyinfe/semi-foundation/navigation/navigation.scss';
 
 import isNullOrUndefined from '@douyinfe/semi-foundation/utils/isNullOrUndefined';
 import SubNavFoundation, { SubNavAdapter } from '@douyinfe/semi-foundation/navigation/subNavFoundation';
-import { strings, numbers } from '@douyinfe/semi-foundation/navigation/constants';
+import {strings, numbers, cssClasses} from '@douyinfe/semi-foundation/navigation/constants';
 import { IconChevronDown, IconChevronUp, IconChevronRight } from '@douyinfe/semi-icons';
 
 import NavItem from './Item';
@@ -17,9 +17,8 @@ import Dropdown, { DropdownProps } from '../dropdown';
 import NavContext, { NavContextType } from './nav-context';
 
 import { times, get } from 'lodash';
-
-import SubNavTransition from './SubNavTransition';
-import OpenIconTransition from './OpenIconTransition';
+import Collapsible from "../collapsible"
+import CSSAnimation from "../_cssAnimation";
 
 export interface ToggleIcon {
     open?: string;
@@ -195,9 +194,13 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
         const isOpen = this.adapter.getIsOpen();
 
         const iconElem = React.isValidElement(icon) ? (withTransition ? (
+            <CSSAnimation animationState={isOpen?"enter":"leave"} startClassName={`${cssClasses.PREFIX}-icon-rotate-${isOpen?"0":"180"}`}>
+                {({animationClassName})=>{
+                    // @ts-ignore
+                    return React.cloneElement(icon, { size: iconSize,className:animationClassName })
+                }}
+            </CSSAnimation>
             // @ts-ignore
-            <OpenIconTransition isOpen={isOpen}>{React.cloneElement(icon, { size: iconSize })}</OpenIconTransition>
-            //@ts-ignore
         ) : React.cloneElement(icon, { size: iconSize })) : null;
 
         return <i key={key} className={className}>{iconElem}</i>;
@@ -282,20 +285,16 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
             [`${prefixCls}-sub-popover`]: isCollapsed || isHorizontal,
         });
 
-        const ulWithMotion = (
-            <SubNavTransition motion={subNavMotion} isCollapsed={isCollapsed} maxHeight={maxHeight}>
-                {!isCollapsed && isOpen
-                    ? (transitionStyle: any) => (
-                        <ul
-                            style={{ ...transitionStyle, visibility: isCollapsed ? 'hidden' : 'visible' }}
-                            className={subNavCls}
-                        >
-                            {children}
-                        </ul>
-                    )
-                    : null}
-            </SubNavTransition>
-        );
+        const ulWithMotion = <Collapsible motion={subNavMotion} isOpen={isOpen} keepDOM={false} fade={true}>
+            {
+                !isCollapsed ? <ul
+                    className={subNavCls}
+                >
+                    {children}
+                </ul>: null
+            }
+        </Collapsible>
+
 
         const finalDom = isHorizontal ? null : subNavMotion ? (
             ulWithMotion

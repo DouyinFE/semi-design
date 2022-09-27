@@ -21,9 +21,7 @@ export type { CollapseButtonProps } from './CollapseButton';
 export type { NavFooterProps } from './Footer';
 export type { NavHeaderProps } from './Header';
 export type { NavItemProps } from './Item';
-export type { OpenIconTransitionProps } from './OpenIconTransition';
 export type { ToggleIcon, SubNavProps } from './SubNav';
-export type { SubNavTransitionProps } from './SubNavTransition';
 export type Mode = 'vertical' | 'horizontal';
 
 export interface OnSelectedData {
@@ -61,7 +59,7 @@ export interface NavProps extends BaseProps {
     prefixCls?: string;
     selectedKeys?: React.ReactText[];
     subNavCloseDelay?: number;
-    subNavMotion?: Motion;
+    subNavMotion?: boolean;
     subNavOpenDelay?: number;
     toggleIconPosition?: string;
     tooltipHideDelay?: number;
