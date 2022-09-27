@@ -1,7 +1,7 @@
 /* argus-disable unPkgSensitiveInfo */
 import React, { useState } from 'react';
 import FileCard from '../fileCard';
-import { Button, Upload, Toast, Icon } from '@douyinfe/semi-ui/index';
+import { Button, Upload, Toast, Tag } from '@douyinfe/semi-ui/index';
 import { withField, Form } from '../../form/index';
 import { IconPlus, IconFile, IconUpload, IconEyeOpened, IconDownload, IconDelete } from '@douyinfe/semi-icons';
 
@@ -1108,4 +1108,45 @@ export const Insert = () => <InsertUpload></InsertUpload>;
 
 Insert.story = {
   name: 'insert',
+};
+
+class ClickToOpenUpload extends React.Component {
+  constructor() {
+    super();
+    this.onClick = this.onClick.bind(this);
+    this.uploadRef = React.createRef();
+  }
+
+  onClick() {
+    // open file select dialog
+    this.uploadRef.current.openFileDialog();
+  }
+
+  render() {
+    let action = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
+    return (
+      <div>
+        <Button icon={<IconUpload />} theme="light" onClick={this.onClick}>
+          点我打开文件选择窗口
+        </Button>
+        <div style={{ marginTop: 50 }}>
+          <Tag color="blue" type="light">文件列表</Tag>
+          <Upload
+            {...commonProps}
+            action={action}
+            ref={this.uploadRef}
+            onSuccess={(...v) => console.log(...v)}
+            onError={(...v) => console.log(...v)}
+          >
+          </Upload>
+        </div>
+      </div>
+    );
+  }
+}
+
+export const ClickToOpenUploadDemo = () => <ClickToOpenUpload></ClickToOpenUpload>;
+
+ClickToOpenUploadDemo.story = {
+  name: 'click to open upload demo',
 };
