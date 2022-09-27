@@ -16,6 +16,10 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.20.1 (2022-09-27)
+- 【Style】
+  - Image global variable plus !default is used for theme configuration fault tolerance [#1151](https://github.com/DouyinFE/semi-design/pull/1151)
+
 #### 🎉 2.20.0 (2022-09-23)
 - 【Fix】
   - fix the issue that Form.InputGroup does not support FormProps.wrapperCol , labelCol layout

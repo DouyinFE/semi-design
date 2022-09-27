@@ -16,6 +16,10 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 ---
 
+#### 🎉 2.20.1 (2022-09-27)
+- 【Style】
+  - Image 全局 sass 变量加上 !default 用于主题配置容错 [#1151](https://github.com/DouyinFE/semi-design/pull/1151)
+
 #### 🎉 2.20.0 (2022-09-23)
 - 【Fix】
   - 修复 Form.InputGroup 不支持 FormProps.wrapperCol 、 labelCol 布局的问题
