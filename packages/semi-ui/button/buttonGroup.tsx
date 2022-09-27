@@ -80,7 +80,7 @@ export default class ButtonGroup extends BaseComponent<ButtonGroupProps> {
         if (children) {
             inner = ((Array.isArray(children) ? children : [children])).map((itm: React.ReactNode, index) => (
                 isValidElement(itm)
-                    ? cloneElement(itm, { disabled, size, type, ...itm.props, ...rest, key: itm.props.key ?? index })
+                    ? cloneElement(itm, { disabled, size, type, ...itm.props, ...rest, key: itm.key ?? index })
                     : itm
             ));
             innerWithLine = this.getInnerWithLine(inner);
