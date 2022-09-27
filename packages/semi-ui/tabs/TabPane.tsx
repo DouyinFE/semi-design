@@ -6,7 +6,7 @@ import getDataAttr from '@douyinfe/semi-foundation/utils/getDataAttr';
 import TabsContext from './tabs-context';
 import {TabContextValue} from './interface';
 import {PlainTab, TabPaneProps} from './interface';
-import CSSAnimation from "@douyinfe/semi-ui/_cssAnimation";
+import CSSAnimation from "../_cssAnimation";
 
 class TabPane extends PureComponent<TabPaneProps> {
     static isTabPane = true;
