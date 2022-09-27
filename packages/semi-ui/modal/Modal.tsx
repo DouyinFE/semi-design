@@ -15,9 +15,7 @@ import confirm, { withConfirm, withError, withInfo, withSuccess, withWarning } f
 import { Locale } from '../locale/interface';
 import useModal from './useModal';
 import { ButtonProps } from '../button/Button';
-import { MotionObject } from "@douyinfe/semi-foundation/utils/type";
-import CSSAnimation from "@douyinfe/semi-ui/_cssAnimation";
-import { SideSheetReactProps } from "@douyinfe/semi-ui/sideSheet";
+import CSSAnimation from "../_cssAnimation";
 
 export const destroyFns: any[] = [];
 export type ConfirmType = 'leftTop' | 'leftBottom' | 'rightTop' | 'rightBottom';
