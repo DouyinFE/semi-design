@@ -37,7 +37,8 @@ class Collapsible extends BaseComponent<CollapsibleProps, CollapsibleState> {
         duration: 250,
         motion: true,
         keepDOM: false,
-        collapseHeight: 0
+        collapseHeight: 0,
+        fade:false
     };
 
     private domRef = React.createRef<HTMLDivElement>();
@@ -168,6 +169,7 @@ class Collapsible extends BaseComponent<CollapsibleProps, CollapsibleState> {
         const wrapperStyle: React.CSSProperties = {
             overflow: 'hidden',
             height: this.props.isOpen ? (this.props.collapseHeight || this.state.domHeight) : 0,
+            opacity: (this.props.isOpen || !this.props.fade) ? 1 : 0,
             transitionDuration: `${this.props.motion && this.state.isTransitioning ? this.props.duration : 0}ms`,
             ...this.props.style
         }

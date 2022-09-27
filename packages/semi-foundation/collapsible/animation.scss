@@ -2,5 +2,9 @@ $transition_duration-collapsible-height: 0.25s;//折叠-高度-动画持续时�
 $transition_function-collapsible-height: var(--semi-transition_function-easeIn);//折叠-高度-过渡曲线
 $transition_delay-collapsible-height: var(--semi-transition_delay-fastest);//折叠-高度-延迟时间
 
+$transition_duration-collapsible-opacity: 0.25s;//折叠-透明度-动画持续时间
+$transition_function-collapsible-opacity: var(--semi-transition_function-easeIn);//折叠-透明度-过渡曲线
+$transition_delay-collapsible-opacity: var(--semi-transition_delay-fastest);//折叠-透明度-延迟时间
+
 
 
