@@ -31,6 +31,6 @@ $animation_transform_translateX-tabs_tabPanel-bottomShow: -60px; //下侧展示�
 
 $animation_opacity-tabs_tabPanel_show: 0; //tabPanel的动画开始时透明度
 
-$animation_duration-tabs_tabPanel-show: 0.2s; //tabPanel的展示动画持续时间
+$animation_duration-tabs_tabPanel-show: 200ms; //tabPanel的展示动画持续时间
 $animation_function-tabs_tabPanel-show: ease-in-out; //tabPanel的展示动画曲线
 $animation_delay-tabs_tabPanel-show: 0s; //tabPanel的展示动画延迟时间

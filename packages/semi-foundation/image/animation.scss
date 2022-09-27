@@ -2,7 +2,7 @@ $transform_rotate-image_preview_spinner: var(--semi-transform_rotate-clockwise36
 $transform_scale3d-image_preview_image_img: 1, 1, 1; // 预览图片放大
 $transform_rotate-image_preview_image_img: var(--semi-transform-rotate-none); // 预览图片旋转角度
 
-$transition_duration-image_preview_image_img: 0.3s; // 预览图像动画持续时间
+$transition_duration-image_preview_image_img: 300ms; // 预览图像动画持续时间
 $transition_function-image_preview_image_img: cubic-bezier(0.215, 0.61, 0.355, 1); // 预览图片动画函数
 $transition_delay-image_preview_image_img: 0s; // 预览图片延迟时间
 

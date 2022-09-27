@@ -8,8 +8,9 @@ import BaseComponent from "../_base/baseComponent";
 import PropTypes from "prop-types";
 import cls from "classnames";
 import {cssClasses} from "@douyinfe/semi-foundation/collapsible/constants";
-import {debounce, isEqual} from "lodash";
+import {isEqual} from "lodash";
 import CollapsibleFoundation from "@douyinfe/semi-foundation/collapsible/foundation";
+import "@douyinfe/semi-foundation/collapsible/collapsible.scss";
 
 interface CollapsibleProps extends CollapsibleFoundationProps {
     motion?: boolean;
