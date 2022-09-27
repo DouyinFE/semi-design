@@ -89,6 +89,7 @@ export default class BreadcrumbItem extends BaseComponent<BreadcrumbItemProps, B
         const iconSize = compact ? 'small' : 'default';
         const className = `${clsPrefix}-item-icon`;
         if (React.isValidElement(iconType)) {
+            // @ts-ignore
             return React.cloneElement(iconType, { className, size: iconSize });
         }
         return iconType;
