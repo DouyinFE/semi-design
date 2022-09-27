@@ -45,3 +45,6 @@ $color-image_header_close-bg: rgba(0, 0, 0, 0.75); //图像预览header的关闭
 $color-image_preview_footer-bg: rgba(0, 0, 0, 0.75); // 图像预览footer部分背景色
 $color-image-preview_divider-bg: rgba(255, 255, 255, .5); // 图像预览footer中的分割线背景色
 $color-image_preview_image_spin: #ccc; // 图像预览的加载状态颜色
+
+$z-image_preview: 1070 !default; // Image 组件预览层z-index
+$z-image_preview_header: 1 !default; // Image 组件预览层中 header 部分 z-index
