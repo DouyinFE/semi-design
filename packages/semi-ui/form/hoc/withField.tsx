@@ -1,5 +1,5 @@
 /* eslint-disable max-lines-per-function, react-hooks/rules-of-hooks, prefer-const, max-len */
-import React, { useState, useLayoutEffect, useMemo, useRef, forwardRef } from 'react';
+import React, { useState, useLayoutEffect, useEffect, useMemo, useRef, forwardRef } from 'react';
 import classNames from 'classnames';
 import { cssClasses } from '@douyinfe/semi-foundation/form/constants';
 import { isValid, generateValidatesFromRules, mergeOptions, mergeProps, getDisplayName } from '@douyinfe/semi-foundation/form/utils';
@@ -18,6 +18,10 @@ import { Subtract } from 'utility-types';
 import { noop } from "lodash";
 
 const prefix = cssClasses.PREFIX;
+
+// To avoid useLayoutEffect warning when ssr, refer: https://gist.github.com/gaearon/e7d97cdf38a2907924ea12e4ebdf3c85
+// Fix issue 1140
+const useIsomorphicEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 
 /**
  * withFiled is used to inject components
@@ -358,13 +362,13 @@ function withField<
         };
 
         // avoid hooks capture value, fixed issue 346
-        useLayoutEffect(() => {
+        useIsomorphicEffect(() => {
             rulesRef.current = rules;
             validateRef.current = validate;
         }, [rules, validate]);
 
         // exec validate once when trigger inlcude 'mount'
-        useLayoutEffect(() => {
+        useIsomorphicEffect(() => {
             if (validateOnMount) {
                 fieldValidate(value);
             }
@@ -373,7 +377,7 @@ function withField<
 
         // register when mounted，unregister when unmounted
         // register again when field change
-        useLayoutEffect(() => {
+        useIsomorphicEffect(() => {
             // register
             if (typeof field === 'undefined') {
                 // eslint-disable-next-line @typescript-eslint/no-empty-function
