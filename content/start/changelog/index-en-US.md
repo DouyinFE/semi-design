@@ -34,7 +34,7 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 #### 🎉 2.20.0-beta.0 (2022-09-19)
 
 - 【New Component】
-    - Add Image Component [#344](https://github.com/DouyinFE/semi-design/issues/344)
+    - Add Image Component(Added basic sass, global sass variables, need to republish if using a custom theme) [#344](https://github.com/DouyinFE/semi-design/issues/344)
 - 【Feat】
     - Tag add shape property, supports `square`、`circle` [#89](https://github.com/DouyinFE/semi-design/issues/89)
     - Progress supports automatically filling gradient colors according to progress, and automatically switching colors according to progress presets [#1092](https://github.com/DouyinFE/semi-design/issues/1092) [@uiuing](https://github.com/uiuing)
