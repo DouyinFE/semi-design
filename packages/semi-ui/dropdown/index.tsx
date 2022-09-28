@@ -242,6 +242,7 @@ class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
             >
                 {React.isValidElement(children) ?
                     React.cloneElement(children, {
+                        //@ts-ignore
                         className: classnames(get(children, 'props.className'), {
                             [`${prefixCls}-showing`]: popVisible,
                         }),

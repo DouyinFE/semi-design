@@ -20,7 +20,9 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 - 【Fix】
   - 修复 ButtonGroup 关于 key warning的问题
   - 修复 SSR 场景下 withField、Form Field 相关组件关于  useLayoutEffect warning 的问题 [#1140](https://github.com/DouyinFE/semi-design/pull/1140)
-
+  - 修复 typescript 4.8.3 下部分类型报错的问题
+  - 修改 modal 聚焦逻辑，自动聚焦到弹窗内第一个可被聚焦的元素上
+  
 #### 🎉 2.20.2 (2022-09-27)
 - 【Fix】
   - 修复 @douyinfe/semi-icons 关于 corejs 报错的问题

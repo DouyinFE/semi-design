@@ -38,6 +38,7 @@ function OpenIconTransition(props: OpenIconTransitionProps = {}) {
                 }
                 if (React.isValidElement(children)) {
                     return React.cloneElement(children, {
+                        // @ts-ignore
                         style: {
                             ...(children.props && children.props.style),
                             ...formatedStyle,
