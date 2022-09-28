@@ -409,7 +409,7 @@ If you want to accurately set the time zone of a region, it is recommended to us
 
 ```diff
 # webpack config example: webpack.config.js
-const SemiWebpackPlugin = require('@douyinfe/semi-webpack-plugin');
+const SemiWebpackPlugin = require('@douyinfe/semi-webpack-plugin').default;
 module.exports = {
 +    plugins: [new SemiWebpackPlugin({ prefixCls: 'imes' })],
 }
