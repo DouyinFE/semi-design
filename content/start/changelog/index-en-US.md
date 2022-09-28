@@ -16,6 +16,15 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.20.3 (2022-09-28)
+- 【Fix】
+   - Fix the ButtonGroup key warning problem
+   - Fix SSR setting withField、Form Field related problem with useLayoutEffect warning [#1140](https://github.com/DouyinFE/semi-design/pull/1140)
+
+#### 🎉 2.20.2 (2022-09-27)
+- 【Fix】
+   - Fix warning about corejs in @douyinfe/semi-icons 
+
 #### 🎉 2.20.1 (2022-09-27)
 - 【Style】
   - Image global variable plus !default is used for theme configuration fault tolerance [#1151](https://github.com/DouyinFE/semi-design/pull/1151)

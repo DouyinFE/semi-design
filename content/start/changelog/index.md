@@ -16,6 +16,15 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 ---
 
+#### 🎉 2.20.3 (2022-09-28)
+- 【Fix】
+  - 修复 ButtonGroup 关于 key warning的问题
+  - 修复 SSR 场景下 withField、Form Field 相关组件关于  useLayoutEffect warning 的问题 [#1140](https://github.com/DouyinFE/semi-design/pull/1140)
+
+#### 🎉 2.20.2 (2022-09-27)
+- 【Fix】
+  - 修复 @douyinfe/semi-icons 关于 corejs 报错的问题
+
 #### 🎉 2.20.1 (2022-09-27)
 - 【Style】
   - Image 全局 sass 变量加上 !default 用于主题配置容错 [#1151](https://github.com/DouyinFE/semi-design/pull/1151)
