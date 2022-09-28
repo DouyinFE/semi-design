@@ -346,3 +346,5 @@ export const ControlledValue = () => <ControlledMode />;
 export const CustomTriggerDemo = () => <CustomTrigger />;
 
 export const Disabled = () => <AutoComplete disabled />;
+
+export const KeyDown = () => <AutoComplete onKeyDown={(e) => { console.log('onKeyDown', e.keyCode) }} />;
