@@ -47,7 +47,6 @@ export default class NavFooter extends PureComponent<NavFooterProps> {
                 locale={locale}
                 onClick={onCollapseChange}
                 collapseText={collapseText}
-                {...collapseButton}
             />
         );
     };
