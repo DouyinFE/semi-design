@@ -16,7 +16,7 @@ class SafariDemo extends React.Component {
                     <Select.Option value='xigua'>西瓜视频</Select.Option>
                 </Select>
             </div>
-        )
+        );
     }
 }
 

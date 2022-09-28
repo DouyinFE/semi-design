@@ -67,7 +67,7 @@ import React from 'react';
 import { Steps } from '@douyinfe/semi-ui';
 
 () => (
-    <div style={{ display:'flex',justifyContent:'center' }}>
+    <div style={{ display:'flex', justifyContent:'center' }}>
         <Steps type="nav" current={1} style={{ margin:'auto' }}>
             <Steps.Step title="注册账号" />
             <Steps.Step title="这个项目的文字比较多多多多" />
@@ -101,7 +101,7 @@ import React from 'react';
 import { Steps } from '@douyinfe/semi-ui';
 
 () => (
-    <div style={{ display:'flex',justifyContent:'center' }}>
+    <div style={{ display:'flex', justifyContent:'center' }}>
         <Steps type="nav" size="small" current={1} style={{ margin:'auto' }}>
             <Steps.Step title="注册账号" />
             <Steps.Step title="这个项目的文字比较多多多多" />

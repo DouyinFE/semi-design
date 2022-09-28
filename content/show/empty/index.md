@@ -29,8 +29,8 @@ import { IllustrationConstruction, IllustrationConstructionDark } from '@douyinf
 
 () => (
     <Empty
-        image={<IllustrationConstruction style={{width: 150, height: 150}} />}
-        darkModeImage={<IllustrationConstructionDark style={{width: 150, height: 150}} />}
+        image={<IllustrationConstruction style={{ width: 150, height: 150 }} />}
+        darkModeImage={<IllustrationConstructionDark style={{ width: 150, height: 150 }} />}
         title={'功能建设中'}
         description="当前功能暂未开放，敬请期待。"
     />
@@ -48,8 +48,8 @@ import { IllustrationNoContent, IllustrationNoContentDark } from '@douyinfe/semi
 
 () => (
     <Empty
-        image={<IllustrationNoContent style={{width: 150, height: 150}} />}
-        darkModeImage={<IllustrationNoContentDark style={{width: 150, height: 150}} />}
+        image={<IllustrationNoContent style={{ width: 150, height: 150 }} />}
+        darkModeImage={<IllustrationNoContentDark style={{ width: 150, height: 150 }} />}
         title="空状态标题"
         description="开始创建你的第一个仪表盘吧！"
     >
@@ -96,8 +96,8 @@ import { IllustrationSuccess, IllustrationSuccessDark } from '@douyinfe/semi-ill
 () => (
     <Empty
         title={'创建成功'}
-        image={<IllustrationSuccess style={{width: 150, height: 150}} />}
-        darkModeImage={<IllustrationSuccessDark style={{width: 150, height: 150}} />}
+        image={<IllustrationSuccess style={{ width: 150, height: 150 }} />}
+        darkModeImage={<IllustrationSuccessDark style={{ width: 150, height: 150 }} />}
         layout="horizontal"
         description="这是一段很长的描述文本，当文本过长的时候推荐使用这种布局形式。这是一段很长的描述文本，当文本过长的时候推荐使用这种布局形式。这是一段很长的描述文本，当文本过长的时候推荐使用这种布局形式。"
         style={{ width: 800, margin: '0 auto' }}

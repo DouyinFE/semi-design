@@ -92,7 +92,7 @@ class CheckboxInner extends PureComponent<CheckboxInnerProps> {
             <IconCheckboxIndeterminate />
         ) : null;
 
-        const inputProps: React.InputHTMLAttributes<HTMLInputElement>  = {
+        const inputProps: React.InputHTMLAttributes<HTMLInputElement> = {
             type: "checkbox",
             'aria-label': this.props['aria-label'],
             'aria-disabled': disabled,

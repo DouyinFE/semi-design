@@ -609,7 +609,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             onRangeBlur: this.handleRangeInputBlur,
             onRangeClear: this.handleRangeInputClear,
             onRangeEndTabPress: this.handleRangeEndTabPress,
-            rangeInputStartRef: insetInput ? null :  this.rangeInputStartRef,
+            rangeInputStartRef: insetInput ? null : this.rangeInputStartRef,
             rangeInputEndRef: insetInput ? null : this.rangeInputEndRef,
         };
 

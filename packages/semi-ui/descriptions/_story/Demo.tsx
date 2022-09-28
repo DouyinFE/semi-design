@@ -24,13 +24,13 @@ const Demo = () => {
             key: 'hobby',
             value: 'sleep'
         }
-    ]
+    ];
     return (
         <div>
             <Description data={data} size="large" row />
             <Description data={data} size="large" />
         </div>
-    )
-}
+    );
+};
 
-export default Demo
+export default Demo;

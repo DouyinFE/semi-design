@@ -131,19 +131,19 @@ import { Breadcrumb, Typography } from '@douyinfe/semi-ui';
             <br/>
             <Text size="small">No truncation</Text>
             <Breadcrumb
-                showTooltip={{width: 'auto'}}
+                showTooltip={{ width: 'auto' }}
                 routes={routes}
             />
             <br/>
             <Text size="small">Ellipsis from middle of text</Text>
             <Breadcrumb
-                showTooltip={{ellipsisPos: 'middle'}}
+                showTooltip={{ ellipsisPos: 'middle' }}
                 routes={routes}
             />
             <br/>
             <Text size="small">Customize tooltip</Text>
             <Breadcrumb
-                showTooltip={{opts: {position: 'topLeft'}}}
+                showTooltip={{ opts: { position: 'topLeft' } }}
                 routes={routes}
             />
         </>

@@ -22,10 +22,10 @@ const useCreatePortalInBody = () => {
         document.querySelector('.test').appendChild(wrapper);
         return () => {
             document.querySelector('.test').appendChild(wrapper);
-        }
-    }, [])
+        };
+    }, []);
     return (children => wrapperRef.current && createPortal(children, wrapperRef.current));
-}
+};
 
 const DialogComponent = props => {
     const [visible, setVisible] = useState(false);
@@ -50,7 +50,7 @@ const DialogComponent = props => {
 
 const UseModalDemo = () => {
     const [modal, contextHolder] = Modal.useModal();
-    const config = { 'title': 'This is a success message', 'content': `${ind}` }
+    const config = { 'title': 'This is a success message', 'content': `${ind}` };
     return (
         <ConfigProvider
             getPopupContainer={() => document.getElementById("modal-container")}
@@ -94,7 +94,7 @@ const UseModalDemo = () => {
 
 const UseNotiDemo = () => {
     const [noti, holder] = Notification.useNotification();
-    const config = { 'title': 'This is a success message', position: 'bottomLeft', 'content': `${ind}` }
+    const config = { 'title': 'This is a success message', position: 'bottomLeft', 'content': `${ind}` };
     return (
         <div>
             <div id="noti-container" >{holder}</div>
@@ -103,9 +103,9 @@ const UseNotiDemo = () => {
                     let id = noti.success(config);
                     ind++;
                     setTimeout(() => {
-                        console.log('closing')
-                        noti.close(id)
-                    }, 3000)
+                        console.log('closing');
+                        noti.close(id);
+                    }, 3000);
                 }}
             >
                 useNotification demo - left
@@ -120,13 +120,13 @@ const UseNotiDemo = () => {
             </Button>
         </div>
     );
-}
+};
 
 const UseToastDemo = () => {
     const [toast, holder] = Toast.useToast();
     const createBodyPortal = useCreatePortalInBody();
 
-    const config = { 'content': <ReachableContext.Consumer>{name => `ReachableContext: ${name}-${ind}`}</ReachableContext.Consumer>, duration: 0 }
+    const config = { 'content': <ReachableContext.Consumer>{name => `ReachableContext: ${name}-${ind}`}</ReachableContext.Consumer>, duration: 0 };
     return (
         <ReachableContext.Provider value="Light">
             <div>
@@ -134,11 +134,11 @@ const UseToastDemo = () => {
                 <Button
                     onClick={() => {
                         let id = toast.success(config);
-                        ind++
+                        ind++;
                         setTimeout(() => {
-                            console.log('closing')
-                            toast.close(id)
-                        }, 3000)
+                            console.log('closing');
+                            toast.close(id);
+                        }, 3000);
                     }}
                 >
                     useToast demo
@@ -151,7 +151,7 @@ const UseToastDemo = () => {
             </div>
         </ReachableContext.Provider>
     );
-}
+};
 
 
 
