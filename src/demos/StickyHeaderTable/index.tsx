@@ -115,5 +115,5 @@ export default function App() {
         setData(data);
     }, []);
 
-    return <Table sticky={{ top: 100 }} columns={columns} dataSource={dataSource} rowSelection={rowSelection} scroll={scroll} />;
+    return <Table sticky={{ top: 60 }} columns={columns} dataSource={dataSource} rowSelection={rowSelection} scroll={scroll} />;
 }
