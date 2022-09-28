@@ -248,10 +248,10 @@ class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
                         }),
                         'aria-haspopup': true,
                         'aria-expanded': popVisible,
-                        onKeyDown: e => {
+                        onKeyDown: (e: React.KeyboardEvent) => {
                             this.foundation.handleKeyDown(e);
-                            const childrenKeyDown = get(children, 'props.onKeyDown');
-                            childrenKeyDown && childrenKeyDown();
+                            const childrenKeyDown: (e: React.KeyboardEvent) => void = get(children, 'props.onKeyDown');
+                            childrenKeyDown && childrenKeyDown(e);
                         }
                     }) :
                     children}
