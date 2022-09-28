@@ -63,7 +63,7 @@ import { Anchor } from '@douyinfe/semi-ui';
                 getContainer={getContainer}
                 offsetTop={100}
                 targetOffset={100} // v>=1.9
-                style={{ position: 'fixed', right: '20px', top: '100px', width: '200px', zIndex: 3}} >
+                style={{ position: 'fixed', right: '20px', top: '100px', width: '200px', zIndex: 3 }} >
                 <Anchor.Link href="#Basic_Usage" title="Fixed Anchor" />
                 <Anchor.Link href="#Integrated_Usage" title="Integrated Usage" />
                 <Anchor.Link href="#Size" title="Size" />

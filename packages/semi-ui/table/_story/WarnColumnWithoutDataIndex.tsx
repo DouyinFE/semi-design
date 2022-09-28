@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Tooltip, Tag  } from '../../index';
+import { Table, Tooltip, Tag } from '../../index';
 
 function App() {
     const columns = [

@@ -454,8 +454,8 @@ import { Tree } from '@douyinfe/semi-ui';
         <Tree
             treeDataSimpleJson={json}
             multiple
-            onChange={e => console.log('All selected values: ',e)}
-            onSelect={e => console.log('Current item: ',e)}
+            onChange={e => console.log('All selected values: ', e)}
+            onSelect={e => console.log('Current item: ', e)}
             style={style}
         />
 
@@ -1095,7 +1095,7 @@ class Demo extends React.Component {
     constructor() {
         super();
         this.state = {
-            expandedKeys: ['0','0-0']
+            expandedKeys: ['0', '0-0']
         };
     }
     onExpand(value) {

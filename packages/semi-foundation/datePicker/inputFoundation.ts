@@ -190,7 +190,7 @@ export default class InputFoundation extends BaseFoundation<DateInputAdapter> {
         const { valuePath, insetInputValue, format } = options;
         const { type, defaultPickerValue, dateFnsLocale } = this._adapter.getProps();
         const insetInputValueWithTime = cloneDeep(insetInputValue);
-        const { nowDate, nextDate } = getDefaultPickerDate({ defaultPickerValue, format, dateFnsLocale  });
+        const { nowDate, nextDate } = getDefaultPickerDate({ defaultPickerValue, format, dateFnsLocale });
 
         if (type.includes('Time')) {
             let timeStr = '';

@@ -29,7 +29,7 @@ import React, { useState } from 'react';
 import { Collapsible, Button } from '@douyinfe/semi-ui';
 
 () => {
-    const [isOpen ,setOpen] = useState();
+    const [isOpen, setOpen] = useState();
     const toggle = () => {
         setOpen(!isOpen);
     };
@@ -231,14 +231,14 @@ import Collapsible from './index';
 
 ()=>{
     const collapseId = 'myCollapsible';
-    const [visible,setVisible]=useState(false);
+    const [visible, setVisible]=useState(false);
     return <>
         <Button onClick={()=>setVisible(!visible)} aria-controls={`${collapseId}`}>{visible?'hide':'show'}</Button>    
         <Collapsible isOpen={visible} id={collapseId}>
             <div>hide content</div>
         </Collapsible>
-    </>
-}
+    </>;
+};
 
 ```
 

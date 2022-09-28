@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
-import {Button, Table} from '@douyinfe/semi-ui/';
-import {IconArrowDown, IconArrowUp} from '@douyinfe/semi-icons';
+import React, { useState } from 'react';
+import { Button, Table } from '@douyinfe/semi-ui/';
+import { IconArrowDown, IconArrowUp } from '@douyinfe/semi-icons';
 
 /**
  * Aligned to Ant Design APIs for migration, see [antd-demo](https://codesandbox.io/s/great-mcclintock-14fl7).
@@ -82,8 +82,8 @@ const Demo = () => {
             const item2 = findRecordByKey(key2, newData);
 
             // you have to copy item1 and item2 first
-            const copiedItem1 = {...item1};
-            const copiedItem2 = {...item2};
+            const copiedItem1 = { ...item1 };
+            const copiedItem2 = { ...item2 };
 
             coverRecord(item1, copiedItem2);
             coverRecord(item2, copiedItem1);
@@ -114,7 +114,7 @@ const Demo = () => {
     const coverRecord = (obj, srcObj) => {
         if (obj && typeof obj === 'object' && srcObj && typeof srcObj === 'object') {
             const srcKeys = Object.keys(srcObj);
-            const copied = {...srcObj};
+            const copied = { ...srcObj };
 
             Object.assign(obj, copied);
 
@@ -159,9 +159,9 @@ const Demo = () => {
             width: 150,
             filterChildrenRecord: true,
             filters: [
-                {text: 'age < 30', value: 30},
-                {text: 'age < 20', value: 20},
-                {text: 'age < 10', value: 10},
+                { text: 'age < 30', value: 30 },
+                { text: 'age < 20', value: 20 },
+                { text: 'age < 10', value: 10 },
             ],
             onFilter: (filteredValue, record) => {
                 // console.log(`filteredValue: `, filteredValue, ` record: `, record);

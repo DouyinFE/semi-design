@@ -340,7 +340,7 @@ class NavApp extends React.Component {
                                 </Dropdown.Menu>
                             }
                         >
-                            <Avatar size="small" color='light-blue' style={{margin: 4}}>BD</Avatar>
+                            <Avatar size="small" color='light-blue' style={{ margin: 4 }}>BD</Avatar>
                             <span>Bytedancer</span>
                         </Dropdown>
                     }
@@ -426,7 +426,7 @@ class NavApp extends React.Component {
                                 </Dropdown.Menu>
                             }
                         >
-                            <Avatar size="small" color='light-blue' style={{margin: 4}}>BD</Avatar>
+                            <Avatar size="small" color='light-blue' style={{ margin: 4 }}>BD</Avatar>
                             <span>Bytedancer</span>
                         </Dropdown>
                     </>
@@ -476,13 +476,13 @@ class NavApp extends React.Component {
                 defaultOpenKeys={['job']}
                 bodyStyle={{ height: 320 }}
                 items={[
-                    {itemKey:'user', text:'User Management', icon: <IconUser /> },
-                    {itemKey:'union', text:'guild center', icon: <IconStar /> },
+                    { itemKey:'user', text:'User Management', icon: <IconUser /> },
+                    { itemKey:'union', text:'guild center', icon: <IconStar /> },
                     {
                         text:'Task platform',
                         icon: <IconSetting />,
                         itemKey:'job',
-                        items: ['task management','user task query'],
+                        items: ['task management', 'user task query'],
                     },
                 ]}
                 onSelect={key => console.log(key)}
@@ -521,7 +521,7 @@ class NavApp extends React.Component {
                 defaultOpenKeys={['job']}
                 bodyStyle={{ height: 320 }}
                 items={[
-                    {itemKey:'user', text:'User Management', icon: <IconUser /> },
+                    { itemKey:'user', text:'User Management', icon: <IconUser /> },
                     {
                         text:'Task platform',
                         icon: <IconSetting />,
@@ -530,13 +530,13 @@ class NavApp extends React.Component {
                             text:'Task 1',
                             icon: <IconSetting />,
                             itemKey:'mission1',
-                            items: ['Task 2',{
+                            items: ['Task 2', {
                                 text:'Task 3 disassembly',
                                 icon: <IconSetting />,
                                 itemKey:'mission3',
-                                items: ['Subtask 1','Subtask 2'],
+                                items: ['Subtask 1', 'Subtask 2'],
                             }, ],
-                        },],
+                        }, ],
                     },
                 ]}
                 onSelect={key => console.log(key)}

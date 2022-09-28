@@ -105,21 +105,21 @@ function Demo() {
     const { Text } = Typography;
   
     return (
-        <div style={{width: 640 }} className="components-banner-demo">
+        <div style={{ width: 640 }} className="components-banner-demo">
             <Banner fullMode={false} type="info" bordered icon={null} closeIcon={null}
-                title={<div style={{fontWeight: 600, fontSize: '14px', lineHeight: '20px'}}>{`Don't know AppKey?`}</div>}
+                title={<div style={{ fontWeight: 600, fontSize: '14px', lineHeight: '20px' }}>{`Don't know AppKey?`}</div>}
                 description={<div>You can contact the corresponding R & D students to confirm whether you have applied for an application on <Text link={{ href: 'https://semi.design/' }}>the application cloud platform</Text> , and fill in the corresponding information.</div>}
             /><br/>
             <Banner fullMode={false} type="warning" bordered icon={null} closeIcon={null}
-                title={<div style={{fontWeight: 600, fontSize: '14px', lineHeight: '20px'}}>{`Don't know AppKey?`}</div>}
+                title={<div style={{ fontWeight: 600, fontSize: '14px', lineHeight: '20px' }}>{`Don't know AppKey?`}</div>}
                 description={<div>You can contact the corresponding R & D students to confirm whether you have applied for an application on <Text link={{ href: 'https://semi.design/' }}>the application cloud platform</Text> , and fill in the corresponding information.</div>}
             /><br/>
             <Banner fullMode={false} type="danger" bordered icon={null} closeIcon={null}
-                title={<div style={{fontWeight: 600, fontSize: '14px', lineHeight: '20px'}}>{`Don't know AppKey?`}</div>}
+                title={<div style={{ fontWeight: 600, fontSize: '14px', lineHeight: '20px' }}>{`Don't know AppKey?`}</div>}
                 description={<div>You can contact the corresponding R & D students to confirm whether you have applied for an application on <Text link={{ href: 'https://semi.design/' }}>the application cloud platform</Text> , and fill in the corresponding information.</div>}
             /><br/>
             <Banner fullMode={false} type="success" bordered icon={null} closeIcon={null}
-                title={<div style={{fontWeight: 600, fontSize: '14px', lineHeight: '20px'}}>{`Don't know AppKey?`}</div>}
+                title={<div style={{ fontWeight: 600, fontSize: '14px', lineHeight: '20px' }}>{`Don't know AppKey?`}</div>}
                 description={<div>You can contact the corresponding R & D students to confirm whether you have applied for an application on <Text link={{ href: 'https://semi.design/' }}>the application cloud platform</Text> , and fill in the corresponding information.</div>}
             />
         </div>
@@ -151,7 +151,7 @@ import React from 'react';
 import { Banner } from '@douyinfe/semi-ui';
 
 () => (
-    <div style={{width: 500, padding: 20, border: '1px solid var(--semi-color-border)' }}>
+    <div style={{ width: 500, padding: 20, border: '1px solid var(--semi-color-border)' }}>
         <Banner
             fullMode={false}
             title="Title"

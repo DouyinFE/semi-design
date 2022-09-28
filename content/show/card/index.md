@@ -88,7 +88,7 @@ function Demo() {
                         </article>
                     }
                 >
-                    <IconInfoCircle style={{color:'var(--semi-color-primary)'}}/>
+                    <IconInfoCircle style={{ color:'var(--semi-color-primary)' }}/>
                 </Popover>
             </Card>
         </>
@@ -199,7 +199,7 @@ function Demo() {
                         </article>
                     }
                 >
-                    <IconInfoCircle style={{color:'var(--semi-color-primary)'}}/>
+                    <IconInfoCircle style={{ color:'var(--semi-color-primary)' }}/>
                 </Popover>
             </Card>
             <br/>
@@ -231,7 +231,7 @@ function Demo() {
                         </article>
                     }
                 >
-                    <IconInfoCircle style={{color:'var(--semi-color-primary)'}}/>
+                    <IconInfoCircle style={{ color:'var(--semi-color-primary)' }}/>
                 </Popover>
             </Card>
         </div>
@@ -352,7 +352,7 @@ function Demo() {
                 padding: 20
             }}
         >
-            <Row gutter={[16,16]}>
+            <Row gutter={[16, 16]}>
                 <Col span={8}>
                     <Card title='Card Title' bordered={false} >
                         Card Content
@@ -369,7 +369,7 @@ function Demo() {
                     </Card>
                 </Col>
             </Row>
-            <Row gutter={[16,16]}>
+            <Row gutter={[16, 16]}>
                 <Col span={16}>
                     <Card title='Card Title' bordered={false} >
                         Card Content
@@ -593,7 +593,7 @@ function Demo() {
             <br />
             <CardGroup spacing={spacing}>
                 {
-                    new Array(8).fill(null).map((v,idx)=>(
+                    new Array(8).fill(null).map((v, idx)=>(
                         <Card 
                             key={idx}
                             shadows='hover'
@@ -631,7 +631,7 @@ function Demo() {
     return (
         <CardGroup type='grid'>
             {
-                new Array(7).fill(null).map((v,idx)=>(
+                new Array(7).fill(null).map((v, idx)=>(
                     <Card 
                         key={idx}
                         shadows='hover'

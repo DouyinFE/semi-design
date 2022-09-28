@@ -6,7 +6,7 @@ import isNullOrUndefined from '@douyinfe/semi-foundation/utils/isNullOrUndefined
 import { cssClasses } from '@douyinfe/semi-foundation/navigation/constants';
 import '@douyinfe/semi-foundation/navigation/navigation.scss';
 
-import NavContext, { NavContextType }  from './nav-context';
+import NavContext, { NavContextType } from './nav-context';
 import { BaseProps } from '../_base/baseComponent';
 
 export type Logo = React.ReactNode;

@@ -27,7 +27,7 @@ export interface MergeMotionProps {
  * @param { props: Object } 
  * @returns { motion: Object }
  */
-export default function getMotionObjFromProps(props: MergeMotionProps)  {
+export default function getMotionObjFromProps(props: MergeMotionProps) {
     if (typeof props !== 'object' || props === null) {
         throw new TypeError(`props should be object type, got ${typeof props}`);
     }

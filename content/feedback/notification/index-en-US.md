@@ -58,15 +58,15 @@ import { Notification, Button, ButtonGroup } from '@douyinfe/semi-ui';
     return (
         <>
             <ButtonGroup>
-                <Button onClick={() => Notification.info({...opts, Position: 'top'})}>top</Button>
-                <Button onClick={() => Notification.info({...opts, position: 'topLeft'})}>topLeft</Button>
+                <Button onClick={() => Notification.info({ ...opts, Position: 'top' })}>top</Button>
+                <Button onClick={() => Notification.info({ ...opts, position: 'topLeft' })}>topLeft</Button>
                 <Button onClick={() => Notification.info(opts)}>topRight</Button>
             </ButtonGroup>
             <br/><br/>
             <ButtonGroup>
-                <Button onClick={() => Notification.info({...opts, position: 'bottom'})}>bottom</Button>
-                <Button onClick={() => Notification.info({...opts, position: 'bottomRight'})}>bottomRight</Button>
-                <Button onClick={() => Notification.info({...opts, position: 'bottomLeft'})}>bottomLeft</Button>
+                <Button onClick={() => Notification.info({ ...opts, position: 'bottom' })}>bottom</Button>
+                <Button onClick={() => Notification.info({ ...opts, position: 'bottomRight' })}>bottomRight</Button>
+                <Button onClick={() => Notification.info({ ...opts, position: 'bottomLeft' })}>bottomLeft</Button>
             </ButtonGroup>
         </>
     );
@@ -92,16 +92,16 @@ import { IconToutiaoLogo, IconVigoLogo } from '@douyinfe/semi-icons';
     return (
         <>
             <h5>Default Icon</h5>
-            <Button type='primary' onClick={()=>Notification.success(opts)} style={{margin: 4}}>
+            <Button type='primary' onClick={()=>Notification.success(opts)} style={{ margin: 4 }}>
                 Success
             </Button>
-            <Button onClick={() => Notification.info(opts)} style={{margin: 4}}>
+            <Button onClick={() => Notification.info(opts)} style={{ margin: 4 }}>
                 Info
             </Button>
-            <Button type="warning" onClick={()=>Notification.warning(opts)} style={{margin: 4}}>
+            <Button type="warning" onClick={()=>Notification.warning(opts)} style={{ margin: 4 }}>
                 Warning
             </Button>
-            <Button type="danger" onClick={()=>Notification.error(opts)} style={{margin: 4}}>
+            <Button type="danger" onClick={()=>Notification.error(opts)} style={{ margin: 4 }}>
                 Error
             </Button>
             <h5>Customized Icon</h5>
@@ -122,7 +122,7 @@ import { IconToutiaoLogo, IconVigoLogo } from '@douyinfe/semi-icons';
             ></Button>
             <Button
                 icon={<IconVigoLogo />}
-                onClick={() => Notification.info({ ...opts, icon: <IconVigoLogo style={{ color: 'pink' }} />  })}
+                onClick={() => Notification.info({ ...opts, icon: <IconVigoLogo style={{ color: 'pink' }} /> })}
             ></Button>
         </>
     );
@@ -185,9 +185,9 @@ import { Notification, Button, Typography } from '@douyinfe/semi-ui';
         content: (
             <>
                 <div>Hi, Bytedance dance dance</div>
-                <div style={{marginTop: 8}}>
+                <div style={{ marginTop: 8 }}>
                     <Text link>More Info</Text>
-                    <Text link style={{marginLeft: 20}}>Show Later</Text>
+                    <Text link style={{ marginLeft: 20 }}>Show Later</Text>
                 </div>
             </>),
         duration: 3,

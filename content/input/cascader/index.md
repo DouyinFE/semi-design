@@ -231,7 +231,7 @@ import React from 'react';
 import { Cascader } from '@douyinfe/semi-ui';
 
 () => {
-    const [value, setValue] = useState(['zhejiang','ningbo','haishu']);
+    const [value, setValue] = useState(['zhejiang', 'ningbo', 'haishu']);
     const onChange = (val) => { setValue(val); };
     const treeData = [
         {
@@ -658,7 +658,7 @@ import { Cascader, Tag, Typography } from '@douyinfe/semi-ui';
                 placeholder="自定义回填时显示数据的格式"
                 displayRender={(item, idx) => (
                     <Tag
-                        style={{marginRight: 4}}
+                        style={{ marginRight: 4 }}
                         color='white'
                         key={`${idx}-${item.data.label}`}
                     >
@@ -994,7 +994,7 @@ class Demo extends React.Component {
         };
     }
     onChange(value) {
-        this.setState({value});
+        this.setState({ value });
     }
     render() {
         const treeData = [

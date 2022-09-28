@@ -90,14 +90,14 @@ import { Select } from '@douyinfe/semi-ui';
 
 () => (
     <>
-        <Select multiple style={{ width: '320px' }} defaultValue={['abc','ulikecam']}>
+        <Select multiple style={{ width: '320px' }} defaultValue={['abc', 'ulikecam']}>
             <Select.Option value='abc'>抖音</Select.Option>
             <Select.Option value='ulikecam'>轻颜相机</Select.Option>
             <Select.Option value='jianying'>剪映</Select.Option>
             <Select.Option value='xigua'>西瓜视频</Select.Option>
         </Select>
         <br/><br/>
-        <Select multiple style={{ width: '320px' }} defaultValue={['abc','ulikecam', 'jianying']} maxTagCount={2}>
+        <Select multiple style={{ width: '320px' }} defaultValue={['abc', 'ulikecam', 'jianying']} maxTagCount={2}>
             <Select.Option value='abc'>抖音</Select.Option>
             <Select.Option value='ulikecam'>轻颜相机</Select.Option>
             <Select.Option value='jianying'>剪映</Select.Option>
@@ -309,7 +309,7 @@ import { Select } from '@douyinfe/semi-ui';
             value: `rgba(var(--semi-${color}-4), 1)`,
             label: (
                 <span style={{ 
-                    color: `rgba(var(--semi-${color}-4), 1)`}}>
+                    color: `rgba(var(--semi-${color}-4), 1)` }}>
                     {`--semi-${color}-4`}
                 </span>
             )
@@ -547,7 +547,7 @@ import { Select, Button } from '@douyinfe/semi-ui';
     let [options, setOptions] = useState([1, 2, 3, 4]);
     function add() {
         let length = Math.ceil(Math.random() * 10);
-        let newOptions = Array.from({ length }, (v,i) => i+1);
+        let newOptions = Array.from({ length }, (v, i) => i+1);
         setOptions(newOptions);
     }
     return (
@@ -621,7 +621,7 @@ class Link extends React.Component {
                     ))}
                 </Select>
                 <Select
-                    style={{ width: '150px', margin: '10px'  }}
+                    style={{ width: '150px', margin: '10px' }}
                     value={city} onChange={this.cityChange}>
                     {citys.map(c => (
                         <Select.Option value={c} key={c}>{c}</Select.Option>
@@ -827,7 +827,7 @@ import { Select, Avatar, Tag } from '@douyinfe/semi-ui';
             paddingBottom: 10
         };
         return (
-            <Select.Option value={item.name} style={optionStyle} showTick={true}  {...item} key={item.email}>
+            <Select.Option value={item.name} style={optionStyle} showTick={true} {...item} key={item.email}>
                 <Avatar size="small" src={item.avatar} />
                 <div style={{ marginLeft: 8 }}>
                     <div style={{ fontSize: 14 }}>{item.name}</div>

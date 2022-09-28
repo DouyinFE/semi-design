@@ -1,5 +1,5 @@
-import {Checkbox, Table} from '@douyinfe/semi-ui';
-import React, {useCallback, useMemo, useState} from 'react';
+import { Checkbox, Table } from '@douyinfe/semi-ui';
+import React, { useCallback, useMemo, useState } from 'react';
 import * as _ from 'lodash';
 
 const getKey = (record, rowKey) => (typeof rowKey === 'function' ? rowKey(rowKey) : _.get(record, rowKey));
@@ -180,12 +180,12 @@ function ChildrenDataSelectedDemo(props = {}) {
                 key: 'name',
                 width: 300,
                 render: (text, record) => (
-                    <span style={{display: 'inline-flex', alignItems: 'center'}}>
+                    <span style={{ display: 'inline-flex', alignItems: 'center' }}>
                         {_.size(_.get(record, childrenRecordName)) ? (
                             <Checkbox
                                 checked={selectedRowKeys.includes(_.get(record, rowKey))}
                                 onChange={e => doSelect(record, e.target.checked)}
-                                style={{display: 'inline-flex', marginRight: 5}}
+                                style={{ display: 'inline-flex', marginRight: 5 }}
                             />
                         ) : null}
                         {text}

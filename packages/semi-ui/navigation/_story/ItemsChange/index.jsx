@@ -1,6 +1,6 @@
 import React from 'react';
 import { Nav, Button } from '@douyinfe/semi-ui';
-import {IconStar, IconSetting,IconUser} from '@douyinfe/semi-icons';
+import { IconStar, IconSetting, IconUser } from '@douyinfe/semi-icons';
 
 const items2 = [
     { itemKey: 'union', text: '公会中心', icon: <IconStar /> },
