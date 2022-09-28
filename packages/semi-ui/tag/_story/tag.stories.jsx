@@ -1,7 +1,7 @@
 /* argus-disable unPkgSensitiveInfo */
 import React, { useCallback, useState } from 'react';
 import withPropsCombinations from 'react-storybook-addon-props-combinations';
-import { BASE_CLASS_PREFIX } from '../../../semi-foundation/base/constants';
+import { BASE_CLASS_PREFIX } from '@douyinfe/semi-foundation/base/constants';
 
 import { Tag, TagGroup } from '../../index';
 import { Space } from '@douyinfe/semi-ui';

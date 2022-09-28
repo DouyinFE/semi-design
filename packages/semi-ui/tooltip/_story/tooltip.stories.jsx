@@ -872,7 +872,6 @@ export const leftTopOverDemo = () => {
 
   const commonProps = {
     content,
-    trigger: 'click',
     showArrow: false,
     visible:true,
     trigger: 'custom',
