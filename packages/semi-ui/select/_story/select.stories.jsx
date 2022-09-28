@@ -1259,7 +1259,6 @@ const ControlledSelect = () => {
           width: '250px',
         }}
         filter={customFilter}
-        onChange={v => console.log(v)}
         insetLabel="insetLabel"
         value={value5}
         onChange={setValue5}
@@ -2954,7 +2953,7 @@ export const RenderSelectedItemCallCount = () => {
             paddingBottom: 10
         }
         return (
-            <Select.Option key={index} value={item.name} style={optionStyle} showTick={true}  {...item} key={item.email}>
+            <Select.Option value={item.name} style={optionStyle} showTick={true}  {...item} key={item.email}>
                 <Avatar size="small" src={item.avatar} />
                 <div style={{ marginLeft: 8 }}>
                     <div style={{ fontSize: 14 }}>{item.name}</div>

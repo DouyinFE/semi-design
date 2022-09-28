@@ -23,7 +23,7 @@ import {
   ArrayField,
   Icon,
 } from '../../index';
-import { BasicDemoWithInit, LinkFieldForm, I18nDemo, DifferentDeclareUsage } from './demo';
+import { BasicDemoWithInit, LinkFieldForm, DifferentDeclareUsage } from './demo';
 const {
   Input,
   Select,

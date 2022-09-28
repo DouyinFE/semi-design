@@ -248,7 +248,7 @@ export function DropdownItemPropsDemo() {
             <Dropdown.Item disabled iconType="forward">
               Menu Item 3
             </Dropdown.Item>
-            <Dropdown.Item iconType="align_center" type="primary" iconType="branch">
+            <Dropdown.Item type="primary" iconType="branch">
               primary
             </Dropdown.Item>
             <Dropdown.Item iconType="color_palette" type="secondary">
@@ -291,7 +291,7 @@ export function DropdownItemPropsDemo() {
             <Dropdown.Item disabled iconType="forward">
               Menu Item 3
             </Dropdown.Item>
-            <Dropdown.Item iconType="align_center" type="primary" iconType="branch">
+            <Dropdown.Item type="primary" iconType="branch">
               primary
             </Dropdown.Item>
             <Dropdown.Item iconType="color_palette" type="secondary">
