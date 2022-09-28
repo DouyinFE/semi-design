@@ -64,6 +64,15 @@ $module: #{$prefix}-table;
             border-bottom: $width-table_header_border $border-table_base-borderStyle $color-table_th-border-default;
         }
         scrollbar-base-color: transparent;
+
+        &-sticky {
+            position: sticky;
+            z-index: $z-table_fixed_column + 1;
+
+            .semi-table-thead > .semi-table-row > .semi-table-row-head {
+                background-color: $color-table-bg-default;
+            }
+        }
     }
 
     &-body {
