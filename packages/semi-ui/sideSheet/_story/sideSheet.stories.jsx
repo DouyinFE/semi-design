@@ -203,7 +203,6 @@ const Popup = () => {
         visible={visible}
         title="sideSheet"
         height="100px"
-        placement={'right'}
         onCancel={handleCancel}
         placement={placement}
         getPopupContainer={() => document.querySelector('.sidesheet-container')}
@@ -273,7 +272,6 @@ const Combox = () => {
         visible={visible}
         title="sideSheet"
         height="100px"
-        placement={'right'}
         onCancel={handleCancel}
         placement={placement}
         mask={false}
