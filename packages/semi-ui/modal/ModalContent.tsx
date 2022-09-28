@@ -1,9 +1,9 @@
 /* eslint-disable eqeqeq */
-import React, {CSSProperties} from 'react';
+import React, { CSSProperties } from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
-import {cssClasses} from '@douyinfe/semi-foundation/modal/constants';
-import ConfigContext, {ContextValue} from '../configProvider/context';
+import { cssClasses } from '@douyinfe/semi-foundation/modal/constants';
+import ConfigContext, { ContextValue } from '../configProvider/context';
 import Button from '../iconButton';
 import Typography from '../typography';
 import BaseComponent from '../_base/baseComponent';
@@ -13,8 +13,8 @@ import ModalContentFoundation, {
     ModalContentProps,
     ModalContentState
 } from '@douyinfe/semi-foundation/modal/modalContentFoundation';
-import {get, isFunction, noop} from 'lodash';
-import {IconClose} from '@douyinfe/semi-icons';
+import { get, isFunction, noop } from 'lodash';
+import { IconClose } from '@douyinfe/semi-icons';
 import FocusTrapHandle from "@douyinfe/semi-foundation/utils/FocusHandle";
 
 let uuid = 0;
@@ -67,13 +67,13 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
                 this.props.onClose(e);
             },
             notifyDialogMouseDown: () => {
-                this.setState({dialogMouseDown: true});
+                this.setState({ dialogMouseDown: true });
             },
             notifyDialogMouseUp: () => {
                 if (this.state.dialogMouseDown) {
                     // Not setting setTimeout triggers close when modal external mouseUp
                     this.timeoutId = setTimeout(() => {
-                        this.setState({dialogMouseDown: false});
+                        this.setState({ dialogMouseDown: false });
                     }, 0);
                 }
             },
@@ -89,16 +89,16 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
             },
             getMouseState: () => this.state.dialogMouseDown,
             modalDialogFocus: () => {
-                const {preventScroll} = this.props;
+                const { preventScroll } = this.props;
                 let activeElementInDialog;
                 if (this.modalDialogRef) {
                     const activeElement = FocusTrapHandle.getActiveElement();
                     activeElementInDialog = this.modalDialogRef.current.contains(activeElement);
                     this.focusTrapHandle?.destroy();
-                    this.focusTrapHandle = new FocusTrapHandle(this.modalDialogRef.current, {preventScroll});
+                    this.focusTrapHandle = new FocusTrapHandle(this.modalDialogRef.current, { preventScroll });
                 }
                 if (!activeElementInDialog) {
-                    this.modalDialogRef?.current?.focus({preventScroll});
+                    this.modalDialogRef?.current?.focus({ preventScroll });
                 }
             },
             modalDialogBlur: () => {
@@ -106,10 +106,10 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
                 this.focusTrapHandle?.destroy();
             },
             prevFocusElementReFocus: () => {
-                const {prevFocusElement} = this.state;
-                const {preventScroll} = this.props;
+                const { prevFocusElement } = this.state;
+                const { preventScroll } = this.props;
                 const focus = get(prevFocusElement, 'focus');
-                isFunction(focus) && prevFocusElement.focus({preventScroll});
+                isFunction(focus) && prevFocusElement.focus({ preventScroll });
             }
         };
     }
@@ -153,8 +153,8 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
     };
 
     getMaskElement = () => {
-        const {...props} = this.props;
-        const {mask, maskClassName} = props;
+        const { ...props } = this.props;
+        const { mask, maskClassName } = props;
         if (mask) {
             const className = cls(`${cssClasses.DIALOG}-mask`, {
                 // [`${cssClasses.DIALOG}-mask-hidden`]: !props.visible,
@@ -189,7 +189,7 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
     };
 
     renderIcon = () => {
-        const {icon} = this.props;
+        const { icon } = this.props;
         return icon ? <span className={`${cssClasses.DIALOG}-icon-wrapper`} x-semi-prop="icon">{icon}</span> : null;
     };
 
@@ -197,7 +197,7 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
         if ('header' in this.props) {
             return this.props.header;
         }
-        const {title} = this.props;
+        const { title } = this.props;
         const closer = this.renderCloseBtn();
         const icon = this.renderIcon();
         return (title === null || title === undefined) ?
@@ -246,7 +246,7 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
     };
 
     getDialogElement = () => {
-        const {...props} = this.props;
+        const { ...props } = this.props;
         const style: CSSProperties = {};
         const digCls = cls(`${cssClasses.DIALOG}`, {
             [`${cssClasses.DIALOG}-centered`]: props.centered,
@@ -276,7 +276,7 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
                 key="dialog-element"
                 className={digCls}
                 onMouseDown={this.onDialogMouseDown}
-                style={{...props.style, ...style}}
+                style={{ ...props.style, ...style }}
                 id={this.dialogId}
             >
                 <div
@@ -288,13 +288,13 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
                     onAnimationEnd={props.onAnimationEnd}
                     className={cls([`${cssClasses.DIALOG}-content`,
                         props.contentClassName,
-                        {[`${cssClasses.DIALOG}-content-fullScreen`]: props.isFullScreen}])}>
+                        { [`${cssClasses.DIALOG}-content-fullScreen`]: props.isFullScreen }])}>
                     {header}
                     {body}
                     {footer}
                 </div>
             </div>
-        );
+        ); 
         // return props.visible ? dialogElement : null;
         return dialogElement;
     };
@@ -307,7 +307,7 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
             maskFixed,
             getContainerContext,
         } = this.props;
-        const {direction} = this.context;
+        const { direction } = this.context;
         const classList = cls(className, {
             [`${cssClasses.DIALOG}-popup`]: getPopupContainer && !maskFixed,
             [`${cssClasses.DIALOG}-fixed`]: maskFixed,
