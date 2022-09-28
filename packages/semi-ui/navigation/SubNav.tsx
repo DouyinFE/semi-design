@@ -195,9 +195,9 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
         const isOpen = this.adapter.getIsOpen();
 
         const iconElem = React.isValidElement(icon) ? (withTransition ? (
-            <OpenIconTransition isOpen={isOpen}>
-                {React.cloneElement(icon, { size: iconSize })}
-            </OpenIconTransition>
+            // @ts-ignore
+            <OpenIconTransition isOpen={isOpen}>{React.cloneElement(icon, { size: iconSize })}</OpenIconTransition>
+            //@ts-ignore
         ) : React.cloneElement(icon, { size: iconSize })) : null;
 
         return <i key={key} className={className}>{iconElem}</i>;

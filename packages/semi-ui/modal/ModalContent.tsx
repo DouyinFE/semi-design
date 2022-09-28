@@ -117,6 +117,11 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
     componentDidMount() {
         this.foundation.handleKeyDownEventListenerMount();
         this.foundation.modalDialogFocus();
+        const nodes = FocusTrapHandle.getFocusableElements(this.modalDialogRef.current);
+        if(!this.modalDialogRef.current.contains(document.activeElement)) {
+            // focus on first focusable element
+            nodes[0]?.focus();
+        }
     }
 
     componentWillUnmount() {
@@ -277,7 +282,7 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
                 <div
                     role="dialog"
                     ref={this.modalDialogRef}
-                    tabIndex={-1}
+                    // tabIndex={-1}
                     aria-modal="true"
                     aria-labelledby={`${cssClasses.DIALOG}-title`}
                     aria-describedby={`${cssClasses.DIALOG}-body`}
@@ -317,7 +322,7 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
                 {this.getMaskElement()}
                 <div
                     role="none"
-                    tabIndex={-1}
+                    // tabIndex={-1}
                     className={cls({
                         [`${cssClasses.DIALOG}-wrap`]:true,
                         [`${cssClasses.DIALOG}-wrap-center`]:this.props.centered

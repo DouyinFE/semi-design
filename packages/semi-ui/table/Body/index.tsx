@@ -432,7 +432,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
 
         return (
             <List<Array<FlattenData | GroupFlattenData>>
-                {...virtualized}
+                {...(typeof virtualized === 'object' ? virtualized : {})}
                 initialScrollOffset={this.state.cache.virtualizedScrollTop}
                 onScroll={this.handleVirtualizedScroll}
                 onItemsRendered={this.onItemsRendered}

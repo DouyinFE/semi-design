@@ -61,6 +61,7 @@ class Timeline extends PureComponent<TimelineProps> {
     addClassName = (items: React.ReactNode) => React.Children.map(items, (ele, idx) => {
         if (React.isValidElement(ele)) {
             return React.cloneElement(ele, {
+                // @ts-ignore
                 className: cls(
                     ele.props.className,
                     this.getPosCls(ele, idx)
