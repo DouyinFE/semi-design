@@ -12,6 +12,6 @@ const App = function (props) {
 
 App.parameters = {
     chromatic: { disableSnapshot: true },
-}
+};
 
 export default App;

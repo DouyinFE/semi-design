@@ -91,7 +91,7 @@ import { TimePicker, Button } from '@douyinfe/semi-ui';
 function Demo() {
     const [open, setOpen] = useState(false);
     const closePanel = () => setOpen(false);
-    const onOpenChange = (open) =>  {
+    const onOpenChange = (open) => {
         setOpen(open);
         console.log(open);
     };

@@ -50,7 +50,7 @@ import { Anchor } from '@douyinfe/semi-ui';
 import React from 'react';
 import { Anchor } from '@douyinfe/semi-ui';
 
-() =>  {
+() => {
     const getContainer = () => {
         return document.querySelector('window');
     };
@@ -61,7 +61,7 @@ import { Anchor } from '@douyinfe/semi-ui';
                 getContainer={getContainer}
                 offsetTop={100}
                 targetOffset={100} // v>=1.9
-                style={{ position: 'fixed', right: '20px', top: '100px', width: '200px', zIndex: 3}} >
+                style={{ position: 'fixed', right: '20px', top: '100px', width: '200px', zIndex: 3 }} >
                 <Anchor.Link href="#基本示例" title="我是固定的 Anchor" />
                 <Anchor.Link href="#综合使用" title="综合使用" />
                 <Anchor.Link href="#尺寸" title="尺寸" />

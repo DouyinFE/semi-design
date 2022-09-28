@@ -359,7 +359,7 @@ class BasicDemoWithInit extends React.Component {
                             <TagInput 
                                 field="product"
                                 label='产品（TagInput）'
-                                initValue={['abc','ulikeCam']}
+                                initValue={['abc', 'ulikeCam']}
                                 placeholder='请输入产品'
                                 style={style}
                             />
@@ -722,7 +722,7 @@ import { Form, Button, Space } from '@douyinfe/semi-ui';
             </Section>
             <Section text={'考试时间'} >
                 <DatePicker field='date' type='dateTime' initValue={new Date()} style={{ width:272 }} label={{ text:'开始时间', required: true }}/>
-                <div  style={{ display:'flex' }}>
+                <div style={{ display:'flex' }}>
                     <Input field='time' label='考试时长' style={{ width: 176 }} initValue={'60'} addonAfter='分钟'/>
                     <Checkbox initValue={true} noLabel field='auto' style={{ paddingTop: 30, marginLeft: 12 }}>到时间自动交卷</Checkbox>
                 </div>
@@ -755,14 +755,14 @@ import { Form, Button, Space } from '@douyinfe/semi-ui';
             </Section>
             <Section text={'考试人员'}>
                 <div style={{ display: 'flex' }}>
-                    <Switch field='open'  label={{ text:'对外开放', required: true }} checkedText='开' uncheckedText='关'></Switch>
+                    <Switch field='open' label={{ text:'对外开放', required: true }} checkedText='开' uncheckedText='关'></Switch>
                 </div>
                 <Select
                     field='users'
                     label={{ text:'考生', required: true }}
                     style={{ width: 560 }}
                     multiple
-                    initValue={['1','2','3', '4']}
+                    initValue={['1', '2', '3', '4']}
                 >
                     <Select.Option value='1'>曲晨一</Select.Option>
                     <Select.Option value='2'>夏可曼</Select.Option>
@@ -1416,10 +1416,10 @@ class PartValidAndResetDemo extends React.Component {
                             <div>
                                 <Form.Input field="a[1]" validate={this.validate} trigger="blur" />
                                 <Form.Input field="a[0]" validate={this.validate} trigger="blur" />
-                                <Form.Input field="b.name[0]" validate={this.validate} trigger="blur"  />
+                                <Form.Input field="b.name[0]" validate={this.validate} trigger="blur" />
                                 <Form.Input field="b.name[1]" validate={this.validate} trigger="blur" />
                                 <Form.Input field="b.type" validate={this.validate} trigger="blur" />
-                                <Form.Input field="c" validate={this.validate} trigger="blur"  />
+                                <Form.Input field="c" validate={this.validate} trigger="blur" />
                                 <Form.Input field="d" validate={this.validate} trigger="blur" />
                             </div>
                             <div>
@@ -1538,7 +1538,7 @@ class ArrayFieldDemo extends React.Component {
                     {({ add, arrayFields, addWithInitValue }) => (
                         <React.Fragment>
                             <Button onClick={add} icon={<IconPlusCircle />} theme='light'>新增空白行</Button>
-                            <Button  icon={<IconPlusCircle />} onClick={() => {addWithInitValue({ name: '自定义贴纸', type: '2D' });}} style={{ marginLeft:8 }}>新增带有初始值的行</Button>
+                            <Button icon={<IconPlusCircle />} onClick={() => {addWithInitValue({ name: '自定义贴纸', type: '2D' });}} style={{ marginLeft:8 }}>新增带有初始值的行</Button>
                             {
                                 arrayFields.map(({ field, key, remove }, i) => (
                                     <div key={key} style={{ width: 1000, display: 'flex' }}>

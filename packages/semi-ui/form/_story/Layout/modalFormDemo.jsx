@@ -91,4 +91,4 @@ class ModalFormDemo extends React.Component {
     }
 }
 
-export { ModalFormDemo }
+export { ModalFormDemo };

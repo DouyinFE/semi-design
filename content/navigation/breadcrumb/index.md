@@ -135,19 +135,19 @@ import { Breadcrumb, Typography } from '@douyinfe/semi-ui';
             <br/>
             <Text size="small">不截断</Text>
             <Breadcrumb
-                showTooltip={{width: 'auto'}}
+                showTooltip={{ width: 'auto' }}
                 routes={routes}
             />
             <br/>
             <Text size="small">从标题中间开始省略</Text>
             <Breadcrumb
-                showTooltip={{ellipsisPos: 'middle'}}
+                showTooltip={{ ellipsisPos: 'middle' }}
                 routes={routes}
             />
             <br/>
             <Text size="small">自定义 Tooltip 参数</Text>
             <Breadcrumb
-                showTooltip={{opts: {position: 'topLeft'}}}
+                showTooltip={{ opts: { position: 'topLeft' } }}
                 routes={routes}
             />
         </>

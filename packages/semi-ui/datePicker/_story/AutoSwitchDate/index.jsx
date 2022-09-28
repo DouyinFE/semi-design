@@ -1,5 +1,5 @@
 import React from 'react';
-import { DatePicker  } from '../../../index';
+import { DatePicker } from '../../../index';
 
 export default function Demo() {
     return (

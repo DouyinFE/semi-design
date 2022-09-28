@@ -4,7 +4,7 @@ const getWebpackConfig = require('../webpack.config');
 function compile() {
     return new Promise((resolve, reject) => {
         console.log('compile jsx start');
-        const config = getWebpackConfig({minimize: false});
+        const config = getWebpackConfig({ minimize: false });
         webpack(config, (err, stats) => {
             if (err) {
                 console.error(err);
@@ -30,7 +30,7 @@ function compile() {
 function compileMin() {
     return new Promise((resolve, reject) => {
         console.log('compile jsx with minimize start');
-        const config = getWebpackConfig({minimize: true});
+        const config = getWebpackConfig({ minimize: true });
         webpack(config, (err, stats) => {
             if (err) {
                 console.error(err);

@@ -61,12 +61,12 @@ const Demo = () => {
         width: 260,
         height: 420,
         border: '1px solid var(--semi-color-border)'
-    }
+    };
     return (
         <div>
-            <Tree filterTreeNode treeData={ treeData } style={ style } onChange={ (ev: any) => { console.log(ev) } } />
+            <Tree filterTreeNode treeData={ treeData } style={ style } onChange={ (ev: any) => { console.log(ev); } } />
         </div>
     );
-}
+};
 
-export default Demo
+export default Demo;

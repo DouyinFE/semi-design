@@ -358,7 +358,7 @@ class BasicDemoWithInit extends React.Component {
                         <TagInput 
                             field="product"
                             label='Product（TagInput）'
-                            initValue={['abc','hotsoon']}
+                            initValue={['abc', 'hotsoon']}
                             style={style}
                         />
                     </Col>
@@ -1276,7 +1276,7 @@ class ArrayDemo extends React.Component {
         if (!effects) {
             effects = [];
         }
-        effects.push({ name: '', type: '', key: this.id++  });
+        effects.push({ name: '', type: '', key: this.id++ });
         this.formApi.setValue('effects', effects);
     }
     remove(key) {

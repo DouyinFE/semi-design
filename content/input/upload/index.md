@@ -170,7 +170,7 @@ import { IconCamera } from '@douyinfe/semi-icons';
         color: 'var(--semi-color-white)',
     };
     
-    const hoverMask =  (<div style={style}>
+    const hoverMask = (<div style={style}>
         <IconCamera />
     </div>);
 
@@ -511,16 +511,16 @@ import { IconUpload, IconDownload, IconEyeOpened } from '@douyinfe/semi-icons';
         }
     ];
     const renderFileOperation = (fileItem) => (
-        <div style={{display: 'flex',columnGap: 8, padding: '0 8px'}}>
+        <div style={{ display: 'flex', columnGap: 8, padding: '0 8px' }}>
             <Button icon={<IconEyeOpened></IconEyeOpened>} type="tertiary" theme="borderless" size="small"></Button>
             <Button icon={<IconDownload></IconDownload>} type="tertiary" theme="borderless" size="small"></Button>
             <Button onClick={e=>fileItem.onRemove()} icon={<IconDelete></IconDelete>} type="tertiary" theme="borderless" size="small"></Button>
         </div>
-    )
-    return <Upload action={action} defaultFileList={defaultFileList} itemStyle={{width: 300}} renderFileOperation={renderFileOperation}>
-            <Button icon={<IconUpload />} theme="light">点击上传</Button>
-        </Upload>
-    }
+    );
+    return <Upload action={action} defaultFileList={defaultFileList} itemStyle={{ width: 300 }} renderFileOperation={renderFileOperation}>
+        <Button icon={<IconUpload />} theme="light">点击上传</Button>
+    </Upload>;
+};
 ```
 
 ### 默认文件列表
@@ -726,7 +726,7 @@ import { IconPlus, IconEyeOpened } from '@douyinfe/semi-icons';
     const handlePreview = (file) => {
         const feature = "width=300,height=300";
         window.open(file.url, 'imagePreview', feature);
-    }
+    };
     return (
         <>
             <Upload
@@ -737,7 +737,7 @@ import { IconPlus, IconEyeOpened } from '@douyinfe/semi-icons';
                 multiple
                 defaultFileList={defaultFileList}
                 onPreviewClick={handlePreview}
-                renderPicPreviewIcon={()=><IconEyeOpened style={{color: 'var(--semi-color-white)', fontSize: 24 }} />}
+                renderPicPreviewIcon={()=><IconEyeOpened style={{ color: 'var(--semi-color-white)', fontSize: 24 }} />}
             >
                 <IconPlus size="extra-large" />
             </Upload>

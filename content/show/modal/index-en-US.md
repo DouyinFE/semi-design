@@ -25,7 +25,7 @@ import { Modal, Button } from '@douyinfe/semi-ui';
 class modalDemo extends React.Component {
     constructor() {
         super();
-        this.state = {visible: false};
+        this.state = { visible: false };
         this.showDialog = this.showDialog.bind(this);
         this.handleOk = this.handleOk.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
@@ -84,7 +84,7 @@ import { Modal, Button } from '@douyinfe/semi-ui';
 class modalDemo extends React.Component {
     constructor() {
         super();
-        this.state = {visible: false};
+        this.state = { visible: false };
         this.showDialog = this.showDialog.bind(this);
         this.handleOk = this.handleOk.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
@@ -137,7 +137,7 @@ import { Modal, Button } from '@douyinfe/semi-ui';
 class modalDemo extends React.Component {
     constructor() {
         super();
-        this.state = {visible: false};
+        this.state = { visible: false };
         this.showDialog = this.showDialog.bind(this);
         this.handleOk = this.handleOk.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
@@ -189,7 +189,7 @@ import { Modal, Button } from '@douyinfe/semi-ui';
 class modalDemo extends React.Component {
     constructor() {
         super();
-        this.state = {visible: false};
+        this.state = { visible: false };
         this.showDialog = this.showDialog.bind(this);
         this.handleOk = this.handleOk.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
@@ -218,8 +218,8 @@ class modalDemo extends React.Component {
                     visible={this.state.visible}
                     onOk={this.handleOk}
                     onCancel={this.handleCancel}
-                    okButtonProps={{size: 'small', type: 'warning'}}
-                    cancelButtonProps={{size: 'small', disabled: true}}
+                    okButtonProps={{ size: 'small', type: 'warning' }}
+                    cancelButtonProps={{ size: 'small', disabled: true }}
                 >
                     <p>This is a modal with customized button props.</p>
                     <p>More content...</p>
@@ -241,7 +241,7 @@ import { Modal, Button } from '@douyinfe/semi-ui';
 class modalDemo extends React.Component {
     constructor() {
         super();
-        this.state = {visible: false};
+        this.state = { visible: false };
         this.showDialog = this.showDialog.bind(this);
         this.handleOk = this.handleOk.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
@@ -296,7 +296,7 @@ import { Modal, Button } from '@douyinfe/semi-ui';
 class modalDemo extends React.Component {
     constructor() {
         super();
-        this.state = {visible: false};
+        this.state = { visible: false };
         this.showDialog = this.showDialog.bind(this);
         this.handleOk = this.handleOk.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
@@ -326,10 +326,10 @@ class modalDemo extends React.Component {
                     onOk={this.handleOk}
                     onCancel={this.handleCancel}
                     centered
-                    bodyStyle={{overflow: 'auto', height: 200}}
+                    bodyStyle={{ overflow: 'auto', height: 200 }}
                 >
-                    <p style={{lineHeight: 1.8}}>Semi Design is a design system developed and maintained by IES Front-end Team and UED Team</p>
-                    <p style={{lineHeight: 1.8}}>Semi Design create a consistent, good-looking, easy-to-use, and efficient user experience with a user-centric, content-first, and human-friendly design system.
+                    <p style={{ lineHeight: 1.8 }}>Semi Design is a design system developed and maintained by IES Front-end Team and UED Team</p>
+                    <p style={{ lineHeight: 1.8 }}>Semi Design create a consistent, good-looking, easy-to-use, and efficient user experience with a user-centric, content-first, and human-friendly design system.
                     </p>
                     <ul>
                         <li><p>Content-first</p></li>
@@ -356,7 +356,7 @@ import { IconVigoLogo, IconSemiLogo } from '@douyinfe/semi-icons';
 class modalDemo extends React.Component {
     constructor() {
         super();
-        this.state = {visible: false};
+        this.state = { visible: false };
         this.showDialog = this.showDialog.bind(this);
         this.handleOk = this.handleOk.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
@@ -379,17 +379,17 @@ class modalDemo extends React.Component {
     render() {
         const data = [
             {
-                icon: <IconSemiLogo style={{fontSize: 48}} />,
+                icon: <IconSemiLogo style={{ fontSize: 48 }} />,
                 title: 'Boost new feature adoption with Integration',
                 content: 'Sample data is prepared for you to demostrate how Integration may be useful for your team'
             },
             {
-                icon: <IconVigoLogo style={{fontSize: 48}} />,
+                icon: <IconVigoLogo style={{ fontSize: 48 }} />,
                 title: 'Introducing Dark Mode',
                 content: 'Sample data is prepared for you to demostrate how Integration may be useful for your team'
             },
             {
-                icon: <IconSemiLogo style={{fontSize: 48}} />,
+                icon: <IconSemiLogo style={{ fontSize: 48 }} />,
                 title: 'New List Component',
                 content: 'Sample data is prepared for you to demostrate how Integration may be useful for your team'
             },
@@ -399,7 +399,7 @@ class modalDemo extends React.Component {
             margin: '4px 50px',
         };
         const footer = (
-            <div style={{textAlign: 'center'}}>
+            <div style={{ textAlign: 'center' }}>
                 <Button type="primary" theme="solid" onClick={this.handleOk} style={btnStyle}>
                     Continue
                 </Button>
@@ -418,7 +418,7 @@ class modalDemo extends React.Component {
                     onCancel={this.handleCancel}
                     footer={footer}
                 >
-                    <h3 style={{textAlign: 'center', fontSize: 24, margin: 40}}>Semi Design New Features</h3>
+                    <h3 style={{ textAlign: 'center', fontSize: 24, margin: 40 }}>Semi Design New Features</h3>
                     <List
                         dataSource={data}
                         split={false}
@@ -427,8 +427,8 @@ class modalDemo extends React.Component {
                                 header={item.icon}
                                 main={
                                     <div>
-                                        <h6 style={{margin: 0, fontSize: 16}}>{item.title}</h6>
-                                        <p style={{marginTop: 4, color: 'var(--semi-color-text-1)'}}>{item.content}</p>
+                                        <h6 style={{ margin: 0, fontSize: 16 }}>{item.title}</h6>
+                                        <p style={{ marginTop: 4, color: 'var(--semi-color-text-1)' }}>{item.content}</p>
                                     </div>
                                 }
                             />)
@@ -483,7 +483,7 @@ import { IconSend } from '@douyinfe/semi-icons';
 
 ModalComponent = function(props) {
     function success() {
-        Modal.success({ 'title': 'This is a success message', 'content': 'bla bla bla...'});
+        Modal.success({ 'title': 'This is a success message', 'content': 'bla bla bla...' });
     }
 
     function info() {

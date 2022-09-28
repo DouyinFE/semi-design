@@ -83,10 +83,10 @@ class I18nDemo extends React.Component {
         return (
             <>
                 <LocaleProvider locale={en_GB}>
-                    <Pagination total={100} showTotal showSizeChanger style={{margin: 20}} />
+                    <Pagination total={100} showTotal showSizeChanger style={{ margin: 20 }} />
                 </LocaleProvider>
                 <LocaleProvider locale={ja_JP}>
-                    <Pagination total={100} showTotal showSizeChanger style={{margin: 20}} />
+                    <Pagination total={100} showTotal showSizeChanger style={{ margin: 20 }} />
                 </LocaleProvider>
             </>
         );
@@ -250,10 +250,10 @@ class I18nDemo extends React.Component {
                         />
                     </div>
                     <h5>DatePicker</h5>
-                    <DatePicker style={{ ...style, width: 250}} />
-                    <DatePicker style={{ ...style, width: 300}} type='dateTime' />
-                    <DatePicker style={{ ...style, width: 300}} type='dateRange' />
-                    <DatePicker style={{ ...style, width: 450}} type='dateTimeRange' />
+                    <DatePicker style={{ ...style, width: 250 }} />
+                    <DatePicker style={{ ...style, width: 300 }} type='dateTime' />
+                    <DatePicker style={{ ...style, width: 300 }} type='dateRange' />
+                    <DatePicker style={{ ...style, width: 450 }} type='dateTimeRange' />
                     <h5>TimePicker</h5>
                     <TimePicker style={style} />
                     <TimePicker use12Hours style={style} /><br/><br/>
@@ -280,7 +280,7 @@ class I18nDemo extends React.Component {
         return (
             <>
                 <div style={{ borderBottom: '1px solid var(--semi-color-border)', paddingBottom: 20 }}>
-                    <Select onChange={this.onLanguageChange} insetLabel='切换语言' style={{width: 250}} defaultValue='zh_CN'>
+                    <Select onChange={this.onLanguageChange} insetLabel='切换语言' style={{ width: 250 }} defaultValue='zh_CN'>
                         <Select.Option value='zh_CN'>简体中文</Select.Option>
                         <Select.Option value='en_GB'>英语（英）</Select.Option>
                         <Select.Option value='ja_JP'>日语</Select.Option>

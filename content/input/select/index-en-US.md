@@ -747,7 +747,7 @@ import { Select, Avatar, Tag } from '@douyinfe/semi-ui';
             paddingBottom: 10
         };
         return (
-            <Select.Option value={item.name} style={optionStyle} showTick={true}  {...item} key={item.email}>
+            <Select.Option value={item.name} style={optionStyle} showTick={true} {...item} key={item.email}>
                 <Avatar size="small" src={item.avatar} />
                 <div style={{ marginLeft: 8 }}>
                     <div style={{ fontSize: 14 }}>{item.name}</div>

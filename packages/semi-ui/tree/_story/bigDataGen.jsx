@@ -63,7 +63,7 @@ class Gen extends React.Component {
     }
 
     onGen = (val) => {
-        const {x, y, z} = this.getVals( val.x, val.y, val.z );
+        const { x, y, z } = this.getVals( val.x, val.y, val.z );
         this.props.onGen(generateData(x, y, z));
         const total = calcTotal(x, y, z);
         this.setState({
