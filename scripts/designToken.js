@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const lodash = require('lodash');
-const { merge } = require("lodash");
+const { mergeWith } = require("lodash");
 
 
 const isComment = codeLine => lodash.startsWith(codeLine, '//') || lodash.startsWith(codeLine, '/*');
@@ -117,7 +117,11 @@ async function main() {
             animationVariablesMap[dirname.toLowerCase()] = scssCodeLineList.map(codeLine => codeLineSplit(codeLine));
         }
     });
-    merge(componentVariablesMap, animationVariablesMap);
+    mergeWith(componentVariablesMap, animationVariablesMap, (objValue, srcValue)=>{
+        if (Array.isArray(objValue)) {
+            return objValue.concat(srcValue);
+        }
+    });
     componentVariablesMap.global = getGlobalDesignToken();
     const [_, __, savePath] = process.argv;
     fs.writeFileSync(savePath || './designToken.json', JSON.stringify(componentVariablesMap));
