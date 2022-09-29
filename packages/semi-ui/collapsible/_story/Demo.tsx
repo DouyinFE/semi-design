@@ -38,4 +38,4 @@ class Demo extends React.Component {
     }
 }
 
-export default Demo
+export default Demo;

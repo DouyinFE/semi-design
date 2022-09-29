@@ -149,8 +149,8 @@ import { IconSemiLogo, IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, Ic
 () => {
     const { Header, Footer, Content } = Layout;
     return (
-        <Layout style={{border: '1px solid var(--semi-color-border)'}}>
-            <Header style={{backgroundColor: 'var(--semi-color-bg-1)'}}>
+        <Layout style={{ border: '1px solid var(--semi-color-border)' }}>
+            <Header style={{ backgroundColor: 'var(--semi-color-bg-1)' }}>
                 <div>
                     <Nav mode='horizontal' defaultSelectedKeys={['Home']}>
                         <Nav.Header>
@@ -221,11 +221,11 @@ import { IconSemiLogo, IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, Ic
                         alignItems: 'center',
                     }}
                 >
-                    <IconBytedanceLogo size='large' style={{marginRight: '8px'}}/>
+                    <IconBytedanceLogo size='large' style={{ marginRight: '8px' }}/>
                     <span>Copyright © 2019 ByteDance. All Rights Reserved. </span>
                 </span>
                 <span>
-                    <span style={{marginRight: '24px'}}>Customer Service</span>
+                    <span style={{ marginRight: '24px' }}>Customer Service</span>
                     <span>Feedback</span>
                 </span>
             </Footer>
@@ -244,12 +244,12 @@ import { IconSemiLogo, IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, Ic
 () => {
     const { Header, Footer, Sider, Content } = Layout;
     return (
-        <Layout style={{border: '1px solid var(--semi-color-border)'}}>
-            <Header style={{backgroundColor: 'var(--semi-color-bg-1)'}}>
+        <Layout style={{ border: '1px solid var(--semi-color-border)' }}>
+            <Header style={{ backgroundColor: 'var(--semi-color-bg-1)' }}>
                 <div >
                     <Nav mode='horizontal' defaultSelectedKeys={['Home']}>
                         <Nav.Header>
-                            <IconSemiLogo style={{fontSize: 36}} />
+                            <IconSemiLogo style={{ fontSize: 36 }} />
                         </Nav.Header>
                         <span
                             style={{
@@ -262,7 +262,7 @@ import { IconSemiLogo, IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, Ic
                                     color: 'var(--semi-color-text-0)',
                                     fontWeight: '600',
                                 }}>Semi Design</span>
-                            <span style={{marginRight: '24px'}}>Semi Theme</span>
+                            <span style={{ marginRight: '24px' }}>Semi Theme</span>
                             <span>Semi Blocks</span>
                         </span>
                         <Nav.Footer>
@@ -288,7 +288,7 @@ import { IconSemiLogo, IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, Ic
                 </div>
             </Header>
             <Layout >
-                <Sider style={{backgroundColor: 'var(--semi-color-bg-1)'}}>
+                <Sider style={{ backgroundColor: 'var(--semi-color-bg-1)' }}>
                     <Nav
                         style={{ maxWidth: 220, height: '100%' }}
                         defaultSelectedKeys={['Home']}
@@ -348,7 +348,7 @@ import { IconSemiLogo, IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, Ic
                     <span>Copyright © 2019 ByteDance. All Rights Reserved. </span>
                 </span>
                 <span>
-                    <span style={{marginRight: '24px'}}>Customer Service</span>
+                    <span style={{ marginRight: '24px' }}>Customer Service</span>
                     <span>Feedback</span>
                 </span>
             </Footer>
@@ -367,8 +367,8 @@ import { IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, IconHistogram, I
 () => {
     const { Header, Footer, Sider, Content } = Layout;
     return (
-        <Layout style={{border: '1px solid var(--semi-color-border)'}}>
-            <Sider style={{backgroundColor: 'var(--semi-color-bg-1)'}}>
+        <Layout style={{ border: '1px solid var(--semi-color-border)' }}>
+            <Sider style={{ backgroundColor: 'var(--semi-color-bg-1)' }}>
                 <Nav
                     defaultSelectedKeys={['Home']}
                     style={{ maxWidth: 220, height: '100%' }}
@@ -388,7 +388,7 @@ import { IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, IconHistogram, I
                 />
             </Sider>
             <Layout>
-                <Header style={{backgroundColor: 'var(--semi-color-bg-1)'}}>
+                <Header style={{ backgroundColor: 'var(--semi-color-bg-1)' }}>
                     <Nav
                         mode='horizontal'
                         footer={
@@ -459,7 +459,7 @@ import { IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, IconHistogram, I
                         <span>Copyright © 2019 ByteDance. All Rights Reserved. </span>
                     </span>
                     <span>
-                        <span style={{marginRight: '24px'}}>Customer Service</span>
+                        <span style={{ marginRight: '24px' }}>Customer Service</span>
                         <span>Feedback</span>
                     </span>
                 </Footer>

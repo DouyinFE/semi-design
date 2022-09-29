@@ -211,7 +211,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
     }
 
     componentDidUpdate(prevProps: BodyProps, prevState: BodyState) {
-        const { virtualized, dataSource, expandedRowKeys, columns, scroll  } = this.props;
+        const { virtualized, dataSource, expandedRowKeys, columns, scroll } = this.props;
         if (virtualized) {
             if (
                 prevProps.dataSource !== dataSource ||

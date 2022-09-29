@@ -1,7 +1,7 @@
 import React from 'react';
-import {Table, Tag, Tooltip} from '../../../index';
+import { Table, Tag, Tooltip } from '../../../index';
 
-const {Column} = Table;
+const { Column } = Table;
 
 function getRandomNumber(end = 100, start = 0) {
     const number = Math.ceil(Math.random() * (end - start)) + start;
@@ -26,18 +26,18 @@ function getData(total = 25) {
 
 function getGroupData() {
     const data = [
-        {city: 'Beijing', job: 'FE', department: 'IES'},
-        {city: 'Beijing', job: 'BE', department: 'IES'},
-        {city: 'Shanghai', job: 'Android', department: 'IES'},
-        {city: 'Tokyo', job: 'Android', department: 'IES'},
-        {city: 'Shanghai', job: 'IOS', department: 'EE'},
-        {city: 'LA', job: 'SE', department: 'EE'},
-        {city: 'Beijing', job: 'Android', department: 'EE'},
-        {city: 'Tokyo', job: 'IOS', department: 'EE'},
-        {city: 'Tokyo', job: 'SE', department: 'DATA'},
-        {city: 'Shanghai', job: 'BE', department: 'DATA'},
-        {city: 'LA', job: 'Android', department: 'DATA'},
-        {city: 'LA', job: 'IOS', department: 'DATA'},
+        { city: 'Beijing', job: 'FE', department: 'IES' },
+        { city: 'Beijing', job: 'BE', department: 'IES' },
+        { city: 'Shanghai', job: 'Android', department: 'IES' },
+        { city: 'Tokyo', job: 'Android', department: 'IES' },
+        { city: 'Shanghai', job: 'IOS', department: 'EE' },
+        { city: 'LA', job: 'SE', department: 'EE' },
+        { city: 'Beijing', job: 'Android', department: 'EE' },
+        { city: 'Tokyo', job: 'IOS', department: 'EE' },
+        { city: 'Tokyo', job: 'SE', department: 'DATA' },
+        { city: 'Shanghai', job: 'BE', department: 'DATA' },
+        { city: 'LA', job: 'Android', department: 'DATA' },
+        { city: 'LA', job: 'IOS', department: 'DATA' },
     ];
     return data;
 }
@@ -97,18 +97,18 @@ function getJSXColumns() {
 
 function getGroupColumns() {
     const columns = [
-        {dataIndex: 'city', title: 'City', width: 400, sorter: (a, b) => (a.city > b.city ? 1 : -1)},
+        { dataIndex: 'city', title: 'City', width: 400, sorter: (a, b) => (a.city > b.city ? 1 : -1) },
         {
             dataIndex: 'job',
             title: 'Job',
             width: 200,
             filters: [
-                {text: 'IOS', value: 'IOS'},
-                {text: 'Android', value: 'Android'},
+                { text: 'IOS', value: 'IOS' },
+                { text: 'Android', value: 'Android' },
             ],
             onFilter: (value, record) => record.job && record.job.indexOf(value) === 0,
         },
-        {dataIndex: 'department', title: 'Department'},
+        { dataIndex: 'department', title: 'Department' },
     ];
     return columns;
 }

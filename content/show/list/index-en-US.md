@@ -1098,8 +1098,8 @@ import { IconSearch } from '@douyinfe/semi-icons';
                 />
             </div>
         </div>
-    )
-}
+    );
+};
 ```
 
 ### Add delete item
@@ -1133,7 +1133,7 @@ import { IconMinusCircle, IconPlusCircle } from '@douyinfe/semi-icons';
         if (item) {
             newList = list.filter(i => item !== i);
         } else {
-            newList = list.concat(data.slice(list.length, list.length + 1))
+            newList = list.concat(data.slice(list.length, list.length + 1));
         }
         setList(newList);
     };
@@ -1154,8 +1154,8 @@ import { IconMinusCircle, IconPlusCircle } from '@douyinfe/semi-icons';
                         </div>
                     }
                 />
-                <div style={{ margin: 4, fontSize: 14  }} onClick={() => updateList()}>
-                    <Button theme='borderless'  icon={<IconPlusCircle />}  style={{ marginRight: 4, color: 'var(--semi-color-info)' }}>
+                <div style={{ margin: 4, fontSize: 14 }} onClick={() => updateList()}>
+                    <Button theme='borderless' icon={<IconPlusCircle />} style={{ marginRight: 4, color: 'var(--semi-color-info)' }}>
                     </Button>
                     Add book
                 </div>

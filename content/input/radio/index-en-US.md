@@ -262,13 +262,13 @@ import { RadioGroup, Radio } from '@douyinfe/semi-ui';
 
 () => (
     <RadioGroup type='card' defaultValue={1} direction='vertical' aria-label="RadioGroup demo" name="demo-radio-group-card">
-        <Radio value={1} extra='Radio description' style={{width:280}}>
+        <Radio value={1} extra='Radio description' style={{ width:280 }}>
             Radio Title
         </Radio>
-        <Radio value={2} disabled extra='Radio description' style={{width:280}}>
+        <Radio value={2} disabled extra='Radio description' style={{ width:280 }}>
             Radio Title
         </Radio>
-        <Radio value={3} extra='Radio description' style={{width:280}}>
+        <Radio value={3} extra='Radio description' style={{ width:280 }}>
             Radio Title
         </Radio>
     </RadioGroup>
@@ -288,13 +288,13 @@ import { RadioGroup, Radio } from '@douyinfe/semi-ui';
 
 () => (
     <RadioGroup type='pureCard' defaultValue={1} direction='vertical' aria-label="RadioGroup demo" name="demo-radio-group-pureCard">
-        <Radio value={1} extra='Radio description' style={{width:280}}>
+        <Radio value={1} extra='Radio description' style={{ width:280 }}>
             Radio Title
         </Radio>
-        <Radio value={2} disabled extra='Radio description' style={{width:280}}>
+        <Radio value={2} disabled extra='Radio description' style={{ width:280 }}>
             Radio Title
         </Radio>
-        <Radio value={3} extra='Radio description' style={{width:280}}>
+        <Radio value={3} extra='Radio description' style={{ width:280 }}>
             Radio Title
         </Radio>
     </RadioGroup>

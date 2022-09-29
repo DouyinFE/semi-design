@@ -57,7 +57,7 @@ const Demo = () => {
                 placeholder="可搜索的选择即改变"
             />
         </div>
-    )
-}
+    );
+};
 
-export default Demo
+export default Demo;

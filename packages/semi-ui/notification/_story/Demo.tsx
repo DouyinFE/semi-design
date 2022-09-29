@@ -23,7 +23,7 @@ const Demo = () => {
                 Can Not Close From Bottom
             </Button>
         </div>
-    )
-}
+    );
+};
 
-export default Demo
+export default Demo;

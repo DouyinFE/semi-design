@@ -1,8 +1,6 @@
 import React, { useState, useLayoutEffect } from 'react';
 import { storiesOf } from '@storybook/react';
-import { Button, Modal, TreeSelect, Row, Col, Avatar, TextArea } from '../../../index';
-import { Select as BasicSelect } from '../../../index';
-import {
+import { Button, Modal, TreeSelect, Row, Col, Avatar, TextArea, Select as BasicSelect,
     Form,
     useFormState,
     useFormApi,
@@ -80,8 +78,8 @@ class SetValuesWithArrayField extends React.Component {
     change() {
         let length = Math.floor(Math.random() * 100);
         let newEffect = Array.from({ length }, (v, i) => {
-            return { name: Math.random(), type: Math.random() }
-        })
+            return { name: Math.random(), type: Math.random() };
+        });
         this.formApi.setValues({ name: 'nike', notExist: '12', effects: newEffect }, { isOverride: true });
     }
 
@@ -105,13 +103,13 @@ class SetValuesWithArrayField extends React.Component {
                                                 <Form.Input
                                                     field={`${field}[name]`}
                                                     label={`名称：（${field}.name）`}
-                                                    style={{width: 200, marginRight: 16}}
+                                                    style={{ width: 200, marginRight: 16 }}
                                                 >
                                                 </Form.Input>
                                                 <Form.Input
                                                     field={`${field}[type]`}
                                                     label={`类型：（${field}.type）`}
-                                                    style={{width: 90}}
+                                                    style={{ width: 90 }}
                                                 >
                                                 </Form.Input>
                                                 <Button type='danger' onClick={remove} style={{ margin: 16 }}>remove</Button>
@@ -130,4 +128,4 @@ class SetValuesWithArrayField extends React.Component {
         );
     }
 }
-export { SetValuesDemo, SetValuesWithArrayField }
+export { SetValuesDemo, SetValuesWithArrayField };

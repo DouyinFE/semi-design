@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { Nav, Button } from '@douyinfe/semi-ui';
-import {IconAppCenter, IconArticle, IconFolder, IconPhoneStroke, IconSetting} from '@douyinfe/semi-icons';
+import { IconAppCenter, IconArticle, IconFolder, IconPhoneStroke, IconSetting } from '@douyinfe/semi-icons';
 
 const defaultItems = [
     {

@@ -16,7 +16,7 @@ const Demo = () => {
                 </AvatarGroup>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Demo
+export default Demo;

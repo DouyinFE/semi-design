@@ -177,14 +177,14 @@ function Demo(props = {}) {
                         <br/><br/>
                         <Input prefix="Prefix" showClear></Input>
                         <br/><br/>
-                        <Input suffix={<Typography.Text strong type='secondary' style={{margin: '0 8px'}}>Suffix</Typography.Text>} showClear></Input>
+                        <Input suffix={<Typography.Text strong type='secondary' style={{ margin: '0 8px' }}>Suffix</Typography.Text>} showClear></Input>
                         <br/><br/>
                         <TextArea placeholder="文本框" maxCount={100} />
                         <br/><br/>
                         <div style={flexStyle}>
                             <Switch style={{ marginRight: 8 }} defaultChecked={true}></Switch>
                             <Switch style={{ marginRight: 8 }}></Switch>
-                            <Switch disabled defaultChecked={true} style={{marginRight: 8}}></Switch>
+                            <Switch disabled defaultChecked={true} style={{ marginRight: 8 }}></Switch>
                         </div>
                         <div style={flexStyle}>
                             <Checkbox style={{ marginRight: 8 }} defaultChecked>多选框</Checkbox>
@@ -198,7 +198,7 @@ function Demo(props = {}) {
                         </div>
                     </Col>
                     <Col span={12}>
-                        <DatePicker onChange={(date, dateString) => console.log(dateString)} style={{width: '100%'}}/>
+                        <DatePicker onChange={(date, dateString) => console.log(dateString)} style={{ width: '100%' }}/>
                         <br/><br/>
                         <TimePicker style={{ width: '100%' }} />
                         <br/><br/>
@@ -316,12 +316,12 @@ function Demo(props = {}) {
                         <Tag color='white' style={tagStyle}> white tag </Tag>
                     </div>
                     <br/>
-                    <div style={{display: 'flex', alignItems: 'center'}}>
-                        <Popover content={'hi semi-design'} style={{padding: 8}}><Tag style={{marginRight: 8}}>I am Popover</Tag></Popover>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <Popover content={'hi semi-design'} style={{ padding: 8 }}><Tag style={{ marginRight: 8 }}>I am Popover</Tag></Popover>
                         <Tooltip content={'hi semi-design'}>
                             <Tag style={{ marginRight: 8 }}>I am Tooltip</Tag>
                         </Tooltip>
-                        <Rating defaultValue={3} size='small' style={{marginRight: 8}} />
+                        <Rating defaultValue={3} size='small' style={{ marginRight: 8 }} />
                     </div>
                     <br/>
                     <Timeline>
@@ -348,7 +348,7 @@ function Demo(props = {}) {
                         style={buttonStyle}
                         ghost={false}
                         icon={<IconVigoLogo />}
-                        onClick={() => Notification.info({ ...opts, icon: <IconVigoLogo style={{color: 'pink'}} /> })}
+                        onClick={() => Notification.info({ ...opts, icon: <IconVigoLogo style={{ color: 'pink' }} /> })}
                     />
                     <br/>
                     <Button type='primary' onClick={() => Modal.success(opts)} style={buttonStyle}>成功信息的弹窗</Button>

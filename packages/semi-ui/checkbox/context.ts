@@ -1,5 +1,5 @@
 import React from 'react';
-import {  BasicCheckboxEvent } from '@douyinfe/semi-foundation/checkbox/checkboxFoundation';
+import { BasicCheckboxEvent } from '@douyinfe/semi-foundation/checkbox/checkboxFoundation';
 type CheckboxContextType = {
     checkboxGroup?: {
         onChange: (evt: BasicCheckboxEvent) => void;

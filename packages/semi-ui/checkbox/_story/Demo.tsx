@@ -12,7 +12,7 @@ const Demo = () => {
 
     return (
         <div>
-            <Checkbox extra='绑定了回调' autoFocus onChange={ ()  => { alert('change') }}>
+            <Checkbox extra='绑定了回调' autoFocus onChange={ () => { alert('change'); }}>
                 autoFocus
             </Checkbox>
             <Checkbox extra='默认选中你' disabled defaultChecked>
@@ -21,7 +21,7 @@ const Demo = () => {
             <hr/>
             <CheckboxGroup options={ checkboxGroupOpiton } defaultValue={ ['Running', 'Movies'] } />
         </div>
-    )
-} 
+    );
+}; 
 
 export default Demo;

@@ -25,7 +25,7 @@ export interface StyledTransitionProps extends StyledAnimationProps {
 
 export interface StyledTransitionState {
     state: string | boolean;
-    lastChildren:  React.ReactNode | ((TransitionProps: ChildFCType) => React.ReactNode | any);
+    lastChildren: React.ReactNode | ((TransitionProps: ChildFCType) => React.ReactNode | any);
     currentChildren: React.ReactNode | ((TransitionProps: ChildFCType) => React.ReactNode | any);
 }
 

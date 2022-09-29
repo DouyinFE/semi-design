@@ -252,9 +252,9 @@ import { Calendar } from '@douyinfe/semi-ui';
         if (dateString === new Date(2019, 6, 23).toString()) {
             return (
                 <>
-                    <div style={{...dailyEventStyle, top: '500px', height: 50}}>Eating 🍰</div>
-                    <div style={{...dailyEventStyle, top: '0', height: 400}}>Sleeping 😪</div>
-                    <div style={{...dailyEventStyle, top: '700px', height: 100}}>Playstation 🎮</div>
+                    <div style={{ ...dailyEventStyle, top: '500px', height: 50 }}>Eating 🍰</div>
+                    <div style={{ ...dailyEventStyle, top: '0', height: 400 }}>Sleeping 😪</div>
+                    <div style={{ ...dailyEventStyle, top: '700px', height: 100 }}>Playstation 🎮</div>
                 </>
             );
         } else {

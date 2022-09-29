@@ -724,7 +724,7 @@ class Demo extends React.Component {
         };
     }
     onChange(value) {
-        this.setState({value});
+        this.setState({ value });
     }
     render() {
         const treeData = [
@@ -938,7 +938,7 @@ class Demo extends React.Component {
             const rec = n => (n >= 0 ? x * y ** n-- + rec(n) : 0);
             return rec(z + 1);
         }
-        return {gData, total: calcTotal(x, y, z)};
+        return { gData, total: calcTotal(x, y, z) };
     }
 
       

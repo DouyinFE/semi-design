@@ -33,12 +33,12 @@ function Demo() {
     const { Title } = Typography;
     return (
         <div>
-            <Title  style={{margin: '8px 0'}} >h1. Semi Design</Title>
-            <Title with={2} style={{margin: '8px 0'}} >h2. Semi Design</Title>
-            <Title heading={3} style={{margin: '8px 0'}} >h3. Semi Design</Title>
-            <Title heading={4} style={{margin: '8px 0'}} >h4. Semi Design</Title>
-            <Title heading={5} style={{margin: '8px 0'}} >h5. Semi Design</Title>
-            <Title heading={6} style={{margin: '8px 0'}} >h6. Semi Design</Title>
+            <Title style={{ margin: '8px 0' }} >h1. Semi Design</Title>
+            <Title with={2} style={{ margin: '8px 0' }} >h2. Semi Design</Title>
+            <Title heading={3} style={{ margin: '8px 0' }} >h3. Semi Design</Title>
+            <Title heading={4} style={{ margin: '8px 0' }} >h4. Semi Design</Title>
+            <Title heading={5} style={{ margin: '8px 0' }} >h5. Semi Design</Title>
+            <Title heading={6} style={{ margin: '8px 0' }} >h6. Semi Design</Title>
         </div>
     );
 }
@@ -188,11 +188,11 @@ function Demo() {
         <div>
             <Paragraph copyable>Click the right icon to copy text.</Paragraph>
             <Paragraph copyable={{ content: 'Hello, Semi Design!' }}>Click to copy text.</Paragraph>
-            <Paragraph copyable={{ onCopy: () => Toast.success({ content: 'Successfully copied.'}) }}>Click the right icon to copy.</Paragraph>
+            <Paragraph copyable={{ onCopy: () => Toast.success({ content: 'Successfully copied.' }) }}>Click the right icon to copy.</Paragraph>
             <br/>
             <Text type="secondary">Paste here: </Text>
             <br/>
-            <TextArea autosize style={{width: 320, marginTop: 4}} rows={3} />
+            <TextArea autosize style={{ width: 320, marginTop: 4 }} rows={3} />
         </div>
     );
 }
@@ -239,7 +239,7 @@ function Demo() {
                 {`Multi-line ellipsis: Life's but a walking shadow, a poor player, that struts and frets his hour upon the stage, and then is heard no more; it is a tale told by an idiot, full of sound and fury, signifying nothing.`}
             </Paragraph>
             <br/>
-            <Paragraph ellipsis={{ rows: 3, showTooltip: {type: 'popover', opts: {style: {width: 300}}} }} style={{ width: 300 }}>
+            <Paragraph ellipsis={{ rows: 3, showTooltip: { type: 'popover', opts: { style: { width: 300 } } } }} style={{ width: 300 }}>
                 {`With Popover: Life's but a walking shadow, a poor player, that struts and frets his hour upon the stage, and then is heard no more; it is a tale told by an idiot, full of sound and fury, signifying nothing.`}
             </Paragraph>
             <br/>
