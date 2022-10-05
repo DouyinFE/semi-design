@@ -8,7 +8,9 @@ const strings = {
     TYPE: ['primary', 'secondary', 'danger', 'warning', 'success', 'tertiary', 'quaternary'],
     SIZE: ['normal', 'small'],
     SPACING: ['normal', 'extended'],
-    HEADING: [1, 2, 3, 4, 5, 6]
+    HEADING: [1, 2, 3, 4, 5, 6],
+    RULE: ['text', 'numbers', 'bytes-decimal', 'bytes-binary', 'percentages', 'currency', 'exponential'],
+    MANTISSA_ROUND: ['ceil', 'floor', 'round'],
 } as const;
 
 export {
