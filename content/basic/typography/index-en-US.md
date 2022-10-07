@@ -149,7 +149,6 @@ function Demo() {
 
 ### Numeral
 
-[//]: # (基于Text组件，添加了属性: `rule`, `precision`, `truncate`, `parser`, 以提供需要单独处理文本中Numeral 的能力)
 Based on Text component, added properties: `rule`, `precision`, `truncate`, `parser`, to provide the ability to handle Numeral in text separately.
 
 ```jsx live=true

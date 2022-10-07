@@ -138,7 +138,9 @@ function Demo() {
 ```
 
 ### 数值组件
-基于Text组件，添加了属性: `rule`, `precision`, `truncate`, `parser`, 以提供需要单独处理文本中Numeral 的能力
+
+基于Text组件，添加了属性: `rule`, `precision`, `truncate`, `parser`, 以提供需要单独处理文本中数值的能力
+
 ```jsx live=true
 import React from 'react';
 import { Typography } from '@douyinfe/semi-ui';
