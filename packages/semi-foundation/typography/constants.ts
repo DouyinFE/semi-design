@@ -10,10 +10,7 @@ const strings = {
     SPACING: ['normal', 'extended'],
     HEADING: [1, 2, 3, 4, 5, 6],
     RULE: ['text', 'numbers', 'bytes-decimal', 'bytes-binary', 'percentages', 'currency', 'exponential'],
-    MANTISSA_ROUND: ['ceil', 'floor', 'round'],
+    TRUNCATE: ['ceil', 'floor', 'round'],
 } as const;
 
-export {
-    cssClasses,
-    strings
-};
+export { cssClasses, strings };

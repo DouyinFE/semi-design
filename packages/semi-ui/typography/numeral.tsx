@@ -16,7 +16,7 @@ type OmitNumeralProps = OmitTypographyProps;
 
 export interface NumeralProps extends Omit<React.HTMLAttributes<HTMLSpanElement>, OmitNumeralProps> {
     rule?: TypographyBaseRule;
-    mantissa?: number;
+    precision?: number;
     truncate?: TypographyBaseTruncate;
     parser?: (value: string) => string;
     children?: React.ReactNode;
@@ -39,8 +39,8 @@ export interface NumeralProps extends Omit<React.HTMLAttributes<HTMLSpanElement>
 export default class Numeral extends PureComponent<NumeralProps> {
     static propTypes = {
         rule: PropTypes.oneOf(strings.RULE),
-        mantissa: PropTypes.number,
-        truncate: PropTypes.oneOf(strings.MANTISSA_ROUND),
+        precision: PropTypes.number,
+        truncate: PropTypes.oneOf(strings.TRUNCATE),
         parser: PropTypes.func,
         copyable: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
         delete: PropTypes.bool,
@@ -60,7 +60,7 @@ export default class Numeral extends PureComponent<NumeralProps> {
 
     static defaultProps = {
         rule: 'text',
-        mantissa: 0,
+        precision: 0,
         truncate: 'round',
         parser: undefined,
         copyable: false,
@@ -88,7 +88,7 @@ export default class Numeral extends PureComponent<NumeralProps> {
                 return new FormatNumeral(
                     String(item),
                     this.props.rule,
-                    this.props.mantissa,
+                    this.props.precision,
                     this.props.truncate,
                     this.props.parser
                 ).format();

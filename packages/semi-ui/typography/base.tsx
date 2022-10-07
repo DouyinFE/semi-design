@@ -240,9 +240,9 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
             return false;
         }
         const updateOverflow =
-            rows <= 1 ?
-                this.wrapperRef.current.scrollWidth > this.wrapperRef.current.clientWidth :
-                this.wrapperRef.current.scrollHeight > this.wrapperRef.current.offsetHeight;
+            rows <= 1
+                ? this.wrapperRef.current.scrollWidth > this.wrapperRef.current.clientWidth
+                : this.wrapperRef.current.scrollHeight > this.wrapperRef.current.offsetHeight;
         return updateOverflow;
     };
 
@@ -527,7 +527,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
         const iconSize: Size = size === 'small' ? 'small' : 'default';
         return (
             <span className={`${prefixCls}-icon`} x-semi-prop="icon">
-                {isSemiIcon(icon) ? React.cloneElement((icon as React.ReactElement), { size: iconSize }) : icon}
+                {isSemiIcon(icon) ? React.cloneElement(icon as React.ReactElement, { size: iconSize }) : icon}
             </span>
         );
     }

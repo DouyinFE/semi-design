@@ -5,7 +5,7 @@ category: Basic
 title:  Typography
 subTitle: Typography
 icon: doc-typography
-brief: The basic format of text, images, and paragraphs.
+brief: The basic format of text, images, paragraphs, and numeric.
 ---
 
 
@@ -147,6 +147,49 @@ function Demo() {
 }
 ```
 
+### Numeral
+
+[//]: # (基于Text组件，添加了属性: `rule`, `precision`, `truncate`, `parser`, 以提供需要单独处理文本中Numeral 的能力)
+Based on Text component, added properties: `rule`, `precision`, `truncate`, `parser`, to provide the ability to handle Numeral in text separately.
+
+```jsx live=true
+import React from 'react';
+import { Typography } from '@douyinfe/semi-ui';
+
+function Demo() {
+    const { Numeral } = Typography;
+    return (
+        <div>
+            <Numeral rule="bytes-binary" truncate="floor" precision={2}>
+                <p>Used: 1224</p>
+                <p>
+                    Available: <b>{Number(2e12)}</b>
+                </p>
+            </Numeral>
+            <br />  
+            <Numeral rule="percentages">
+                <p>Favorable rating: .915</p>
+            </Numeral>
+            <Numeral type="danger" rule="currency">
+                <p>Price: $1200</p>
+            </Numeral>
+            <br />
+            <Numeral
+                link={{ href: 'javascript:;' }}
+                parser={oldVal =>
+                    oldVal
+                        .split(' ')
+                        .map(item => (item.match(/^\d{4}-\d{1,2}-\d{1,2}$/) ? new Date(item).toDateString() : item))
+                        .join(' ')
+                }
+            >
+              <div>&gt; 2022-6-18 Offer Details</div>
+            </Numeral>
+        </div>
+    );
+}
+```
+
 ### Size
 
 Paragraph and Text component support two sizes, `small`(12px) and `normal`(14px). By default it is set to `normal`。
@@ -182,13 +225,15 @@ import React from 'react';
 import { Typography, TextArea } from '@douyinfe/semi-ui';
 
 function Demo() {
-    const { Paragraph, Text } = Typography;
+    const { Paragraph, Text, Numeral } = Typography;
 
     return (
         <div>
             <Paragraph copyable>Click the right icon to copy text.</Paragraph>
             <Paragraph copyable={{ content: 'Hello, Semi Design!' }}>Click to copy text.</Paragraph>
             <Paragraph copyable={{ onCopy: () => Toast.success({ content: 'Successfully copied.'}) }}>Click the right icon to copy.</Paragraph>
+            Timestamp: <Numeral truncate="ceil" copyable underline>{new Date().getTime()/1000}s</Numeral>
+            <br/>
             <br/>
             <Text type="secondary">Paste here: </Text>
             <br/>
@@ -363,6 +408,27 @@ function Demo() {
 | type       | Type, one of `primary`, `secondary`, `warning`, `danger`, `tertiary`(**v>=1.2.0**), `quaternary`(**v>=1.2.0**), `success`(**v>=1.7.0**) | string                                                | `primary` | 0.27.0  |
 | underline  | Underlined style                                                                                                                        | boolean                                               | false     | 0.27.0  |
 
+### Typography.Numeral
+
+| Properties | Instructions                                                                                                                             | type                                                  | Default   | version |
+| ---------- |------------------------------------------------------------------------------------------------------------------------------------------| ----------------------------------------------------- | --------- | ------- |
+| rule      | Parsing rules, one of `text`, `numbers`, `bytes-decimal`, `bytes-binary`, `percentages`, `currency`, `exponential`                       | string                    | `text`                                     |        |
+| precision  | Number of decimal places retained                                                                                                        | number                    | 0                                          |        |
+| truncate  | Truncation of decimal places，one of `ceil`, `floor`, `round`                                                                             | string                    | `round`                                    |        |
+| parser    | Custom numeral parsing functions                                                                                                         | (str: string) => string | -                                          |        |
+| copyable   | Toggle whether to be copyable                                                                                                            | boolean \| object:[Copyable Config](#Copyable-Config) | false     | 0.27.0  |
+| code       | wrap with `code` element                                                                                                                 | boolean                                               | -         |         |
+| component  | Custom rendering html element                                                                                                            | html element                                          | span      |         |
+| delete     | Deleted style                                                                                                                            | boolean                                               | false     | 0.27.0  |
+| disabled   | Disabled style                                                                                                                           | boolean                                               | false     | 0.27.0  |
+| ellipsis   | Display ellipsis when text overflows                                                                                                     | boolean\|object:Ellipsis Config                       | false     | 0.34.0  |
+| icon       | Prefix icon.                                                                                                                             | ReactNode                                             | -         | 0.27.0  |
+| link       | Toggle whether to display as a link. When passing object, the attributes will be transparently passed to the a tag                       | boolean\|object                                       | false     | 0.27.0  |
+| mark       | Marked style                                                                                                                             | boolean                                               | false     | 0.27.0  |
+| size       | Size, one of `normal`，`small`                                                                                                            | string                                                | `normal`  | 0.27.0  |
+| strong     | Bold style                                                                                                                               | boolean                                               | false     | 0.27.0  |
+| type       | Type, one of `primary`, `secondary`, `warning`, `danger`, `tertiary`(**v>=1.2.0**) , `quaternary`(**v>=1.2.0**), `success`(**v>=1.7.0**) | string                                                | `primary` | 0.27.0  |
+| underline  | Underlined style                                                                                                                         | boolean                                               | false     | 0.27.0  |
 
 ### Ellipsis Config
 **v >= 0.34.0**

@@ -4,7 +4,7 @@ order: 17
 category: 基础
 title:  Typography 版式
 icon: doc-typography
-brief: 文字，图片，段落的基本格式。
+brief: 文字，图片，段落，数值的基本格式。
 ---
 
 ## 使用场景
@@ -137,6 +137,46 @@ function Demo() {
 }
 ```
 
+### 数值组件
+基于Text组件，添加了属性: `rule`, `precision`, `truncate`, `parser`, 以提供需要单独处理文本中Numeral 的能力
+```jsx live=true
+import React from 'react';
+import { Typography } from '@douyinfe/semi-ui';
+
+function Demo() {
+    const { Numeral } = Typography;
+    return (
+        <div>
+            <Numeral rule="bytes-binary" truncate="floor" precision={2}>
+                <p>已使用: 1224</p>
+                <p>
+                    未使用: <b>{Number(2e12)}</b>
+                </p>
+            </Numeral>
+            <br />
+            <Numeral rule="percentages">
+                <p>好评率: .915</p>
+            </Numeral>
+            <Numeral type="danger" rule="currency" precision={2}>
+                <p>价格: ¥8539.20</p>
+            </Numeral>
+            <br />
+            <Numeral
+                link={{ href: 'javascript:;' }}
+                parser={oldVal =>
+                    oldVal
+                        .split(' ')
+                        .map(item => (item.match(/^\d{4}-\d{1,2}-\d{1,2}$/) ? new Date(item).toDateString() : item))
+                        .join(' ')
+                }
+            >
+              <div>&gt; 2022-6-18 优惠详情</div>
+            </Numeral>
+        </div>
+    );
+}
+```
+
 ### 文本大小
 段落组件和文本组件支持两种尺寸，`small`（12px） 和 `normal`（14px），默认为`normal`。
 ```jsx live=true
@@ -168,17 +208,19 @@ import React from 'react';
 import { Typography, TextArea } from '@douyinfe/semi-ui';
 
 function Demo() {
-    const { Paragraph, Text } = Typography;
+    const { Paragraph, Text, Numeral } = Typography;
 
     return (
         <div>
-            <Paragraph copyable>点击右边的图标复制文本。</Paragraph>
-            <Paragraph copyable={{ content: 'Hello, Semi Design!' }}>点击复制文本。</Paragraph>
-            <Paragraph copyable={{ onCopy: () => Toast.success({ content: '复制文本成功'}) }}>点击右边的图标复制文本。</Paragraph>
-            <br/>
-            <Text type="secondary">粘贴区域：</Text>
-            <br/>
-            <TextArea autosize style={{width: 320, marginTop: 4}} rows={3} />
+          <Paragraph copyable>点击右边的图标复制文本。</Paragraph>
+          <Paragraph copyable={{ content: 'Hello, Semi Design!' }}>点击复制文本。</Paragraph>
+          <Paragraph copyable={{ onCopy: () => Toast.success({ content: '复制文本成功'}) }}>点击右边的图标复制文本。</Paragraph>
+          时间戳: <Numeral truncate="ceil" copyable underline>{new Date().getTime()/1000}s</Numeral>
+          <br/>
+          <br/>
+          <Text type="secondary">粘贴区域：</Text>
+          <br/>
+          <TextArea autosize style={{width: 320, marginTop: 4}} rows={3} />
         </div>
     );
 }
@@ -334,6 +376,7 @@ function Demo() {
 | underline | 添加下划线样式                                                                                                                            | boolean                           | false     | 0.27.0 |
 
 ### Typography.Paragraph
+
 | 属性      | 说明                                                                                                                                      | 类型                              | 默认值    | 版本   |
 | --------- | ----------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- | --------- | ------ |
 | component | 自定义渲染元素                                                                                                                            | html element                      | p         |        |
@@ -348,6 +391,29 @@ function Demo() {
 | strong    | 是否加粗                                                                                                                                  | boolean                           | false     | 0.27.0 |
 | type      | 文本类型，可选 `primary`, `secondary`, `warning`, `danger`, `tertiary`(**v>=1.2.0**), `quaternary`(**v>=1.2.0**), `success`(**v>=1.7.0**) | string                            | `primary` | 0.27.0 |
 | underline | 添加下划线样式                                                                                                                            | boolean                           | false     | 0.27.0 |
+
+### Typography.Numeral
+
+| 属性        | 说明                                                                                                                                 | 类型                        | 默认值                                        | 版本   |
+|-----------|------------------------------------------------------------------------------------------------------------------------------------|---------------------------|--------------------------------------------| ------ |
+| rule      | 解析规则，可选 `text`, `numbers`, `bytes-decimal`, `bytes-binary`, `percentages`, `currency`, `exponential`                               | string                    | `text`                                     |        |
+| precision  | 小数点后保留位数                                                                                                                           | number                    | 0                                          |        |
+| truncate  | 小数点后保留位截段取整方式，可选 `ceil`, `floor`, `round`                                                                                          | string                    | `round`                                    |        |
+| parser    | 自定义数值解析函数                                                                                                                          | (str: string) => string | -                                          |        |
+| component | 自定义渲染元素                                                                                                                            | html element              | span                                       |        |
+| code      | 是否被 `code` 元素包裹                                                                                                                    | boolean                   | -                                          |        |
+| copyable  | 是否可拷贝                                                                                                                              | boolean \                 | object:[Copyable Config](#Copyable-Config) | false     | 0.27.0 |
+| delete    | 添加删除线样式                                                                                                                            | boolean                   | false                                      | 0.27.0 |
+| disabled  | 禁用文本                                                                                                                               | boolean                   | false                                      | 0.27.0 |
+| ellipsis  | 设置自动溢出省略                                                                                                                           | boolean\                  | object:Ellipsis Config                     | false     | 0.34.0 |
+| icon      | 前缀图标                                                                                                                               | ReactNode                 | -                                          | 0.27.0 |
+| link      | 是否为链接，传object时，属性将透传给a标签                                                                                                           | boolean\                  | object                                     | false     | 0.27.0 |
+| mark      | 添加标记样式                                                                                                                             | boolean                   | false                                      | 0.27.0 |
+| size      | 文本大小，可选`normal`，`small`                                                                                                            | string                    | `normal`                                   | 0.27.0 |
+| strong    | 是否加粗                                                                                                                               | boolean                   | false                                      | 0.27.0 |
+| type      | 文本类型，可选 `primary`, `secondary`, `warning`, `danger`, `tertiary`(**v>=1.2.0**), `quaternary`(**v>=1.2.0**), `success`(**v>=1.7.0**) | string                    | `primary`                                  | 0.27.0 |
+| underline | 添加下划线样式                                                                                                                            | boolean                   | false                                      | 0.27.0 |
+
 
 ### Ellipsis Config
 **v >= 0.34.0**

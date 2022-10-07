@@ -2,7 +2,7 @@ import { strings } from './constants';
 
 // rule types: 'text' | 'numbers' | 'bytes-decimal' | 'bytes-binary' | 'percentages' | 'currency' | 'exponential'
 type Rule = typeof strings.RULE[number];
-type Truncate = typeof strings.MANTISSA_ROUND[number];
+type Truncate = typeof strings.TRUNCATE[number];
 type Parser = (value: string) => string;
 
 type RuleMethods = {
@@ -15,17 +15,12 @@ type TruncateMethods = {
 export default class FormatNumeral {
     private readonly content: string;
     private readonly rule: Rule;
-    private readonly mantissa: number;
+    private readonly precision: number;
     private readonly truncate: Truncate;
     private readonly parser: Parser | undefined;
     private readonly isDiyParser: boolean;
 
-    private readonly truncateMethods: TruncateMethods = {
-        ceil: Math.ceil,
-        floor: Math.floor,
-        round: Math.round,
-    };
-    // Collection of formatting methods;  Methods: Rule (strings.RULE);  Not included: 'text' & 'numbers'
+    // A collection of methods for formatting numbers;  Methods key: Rule (strings.RULE);  Not included: 'text' & 'numbers'
     private readonly ruleMethods: RuleMethods = {
         'bytes-decimal': (value: number) => {
             const units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
@@ -34,7 +29,7 @@ export default class FormatNumeral {
                 value /= 1000;
                 i++;
             }
-            return `${this.truncateMantissa(value)} ${units[i]}`;
+            return `${this.truncatePrecision(value)} ${units[i]}`;
         },
         'bytes-binary': (value: number) => {
             const units = ['B', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
@@ -43,52 +38,41 @@ export default class FormatNumeral {
                 value /= 1024;
                 i++;
             }
-            return `${this.truncateMantissa(value)} ${units[i]}`;
+            return `${this.truncatePrecision(value)} ${units[i]}`;
         },
         percentages: (value: number) => {
             const cArr = value.toString().split('.');
             if (Number(cArr[0]) === 0) {
-                return `${this.truncateMantissa(value * 100)}%`;
+                return `${this.truncatePrecision(value * 100)}%`;
             }
-            return `${this.truncateMantissa(value)}%`;
+            return `${this.truncatePrecision(value)}%`;
         },
         currency: (value: number) => {
-            const cArr = this.truncateMantissa(value).split('.');
+            const cArr = this.truncatePrecision(value).split('.');
             const cInt = cArr[0].replace(/\d{1,3}(?=(\d{3})+$)/g, '$&,');
             const cFloat = cArr[1] ? `.${cArr[1]}` : '';
             return `${cInt}${cFloat}`;
         },
         exponential: (value: number) => {
-            const vExponential = value.toExponential(this.mantissa + 2);
-            return this.truncateMantissa(vExponential);
+            const vExponential = value.toExponential(this.precision + 2);
+            const vArr = vExponential.split('e');
+            return `${this.truncatePrecision(Number(vArr[0]))}e${vArr[1]}`;
         },
     };
+    // A collection of methods for truncating numbers; Methods key: Truncate (strings.Truncate);
+    private readonly truncateMethods: TruncateMethods = {
+        ceil: Math.ceil,
+        floor: Math.floor,
+        round: Math.round,
+    };
 
-    constructor(content: string, rule: Rule, mantissa: number, truncate: Truncate, parser: Parser | undefined) {
+    constructor(content: string, rule: Rule, precision: number, truncate: Truncate, parser: Parser | undefined) {
         this.isDiyParser = typeof parser !== 'undefined';
         this.content = content;
         this.rule = rule;
-        this.mantissa = mantissa;
+        this.precision = precision;
         this.truncate = truncate;
         this.parser = parser;
-    }
-
-    private truncateMantissa(content: string | number): string {
-        // Truncation and selection of rounding methods for processing. function from: truncateMethods
-        const cTruncated =
-            this.truncateMethods[this.truncate](Number(content) * Math.pow(10, this.mantissa)) /
-            Math.pow(10, this.mantissa);
-        const cArr = cTruncated.toString().split('.');
-        // is an integer then the end number is normalised
-        if (cArr.length === 1) {
-            return cTruncated.toFixed(this.mantissa);
-        }
-        const cTLength = cArr[1].length;
-        // Fill in any missing `0` at the end.
-        if (cTLength < this.mantissa) {
-            return `${cArr[0]}.${cArr[1]}${'0'.repeat(this.mantissa - cTLength)}`;
-        }
-        return cTruncated.toString();
     }
 
     // Formatting numbers within a string.
@@ -96,25 +80,42 @@ export default class FormatNumeral {
         // Executed when a custom method exists
         if (this.isDiyParser) {
             return this.parser(this.content);
-        } else if (this.rule === 'text') {
-            return this.content;
         }
-        // Separate extraction of numbers when `rule` type is `numbers`.
+        //  When the `rule` is `text`, only the `truncatePrecision` method is executed for numeric processing.
+        if (this.rule === 'text') {
+            return extractNumbers(this.content)
+                .map(item => (checkIsNumeral(item) ? this.truncatePrecision(item) : item))
+                .join('');
+        }
+        // Separate extraction of numbers when `rule` is `numbers`.
         if (this.rule === 'numbers') {
             return extractNumbers(this.content)
                 .filter(item => checkIsNumeral(item))
-                .map(item => this.truncateMantissa(item))
+                .map(item => this.truncatePrecision(item))
                 .join(',');
         }
         // Run formatting methods that exist.
         return extractNumbers(this.content)
-            .map(item => {
-                if (checkIsNumeral(item)) {
-                    return this.ruleMethods[this.rule](Number(item));
-                }
-                return item;
-            })
+            .map(item => (checkIsNumeral(item) ? this.ruleMethods[this.rule](Number(item)) : item))
             .join('');
+    }
+
+    private truncatePrecision(content: string | number): string {
+        // Truncation and selection of rounding methods for processing. function from: truncateMethods
+        const cTruncated =
+            this.truncateMethods[this.truncate](Number(content) * Math.pow(10, this.precision)) /
+            Math.pow(10, this.precision);
+        const cArr = cTruncated.toString().split('.');
+        // is an integer then the end number is normalised
+        if (cArr.length === 1) {
+            return cTruncated.toFixed(this.precision);
+        }
+        const cTLength = cArr[1].length;
+        // Fill in any missing `0` at the end.
+        if (cTLength < this.precision) {
+            return `${cArr[0]}.${cArr[1]}${'0'.repeat(this.precision - cTLength)}`;
+        }
+        return cTruncated.toString();
     }
 }
 
@@ -125,5 +126,5 @@ function extractNumbers(content: string): Array<string> {
 }
 
 function checkIsNumeral(str: string): boolean {
-    return !(isNaN(Number(str)) && str.replace(/\s+/g, '') === '');
+    return !(isNaN(Number(str)) || str.replace(/\s+/g, '') === '');
 }
