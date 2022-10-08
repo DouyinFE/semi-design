@@ -8,25 +8,35 @@ import TopBar from "./components/topBar";
 import {compile, insertStyleToDocument, removeStyleFromDocument} from '../../utils/compileScss'
 // import { customCssVariables } from "./cutsomCssVariable";
 import { Spin } from "@douyinfe/semi-ui";
-import { larkTheme, douyinTheme, huoshanTheme } from "./theme";
+import { larkTheme, douyinTheme, huoshanTheme, capCutTheme } from "./theme";
+import { getLocale } from '../../../../utils/locale';
 
 const MAP_CLASS = {
     'lark': themeStyles.demoWrapperLark,
     'douyin': themeStyles.demoWrapperDouyin,
-    'huoshan': themeStyles.demoWrapperHuoshan
+    'huoshan': themeStyles.demoWrapperHuoshan,
+    'capCut': themeStyles.demoWrapperCapCut,
 }
 
 const MAP_THEME = {
     'lark': larkTheme,
     'douyin': douyinTheme,
-    'huoshan': huoshanTheme
+    'huoshan': huoshanTheme,
+    'capCut': capCutTheme,
 }
 
 
 function Theme(props) {
+    const [locale, setLocale] = useState('');
+
+    useEffect(() => {
+        return setLocale(getLocale());
+    }, [])
+
     // const cache = useRef({})
     const [themeType, setThemeType] = useState('default');
     const [loading, setLoading] = useState(false);
+    
     const onChangeTheme = useCallback(async (type) => {
         setThemeType(type)
         // 添加缓存
@@ -51,7 +61,9 @@ function Theme(props) {
     return (
         <div {...props} className={styles.frame14296}>
             <div className={styles.group4218}>
-                <p className={styles.text}>{_t("home.theme")}</p>
+                <p className={classnames(styles.text, {
+                    [`${styles.title_en}`]: locale === "en-US",
+                })}>{_t("home.theme")}</p>
                 <p className={styles.text_5f990524}>{_t("home.theme.desc")}</p>
                 <div className={styles.frame4150}>
                     <div onClick={() => onChangeTheme('default')} className={classnames(styles.selectTrigger, {[styles.selected]: themeType === 'default'})}>
@@ -83,6 +95,17 @@ function Theme(props) {
                         
                         <div className={styles.frame4155}>
                             <p className={styles.value_acee012f}>{_t("douyin_creative_service_theme", { }, "抖音创作服务主题")}</p>
+                        </div>
+                    </div>
+                    <div onClick={() => onChangeTheme('capCut')} className={classnames(styles.selectTrigger, {[styles.selected]: themeType === 'capCut'})}>
+                        {
+                            loading && themeType === 'capCut'
+                                ? <Spin wrapperClassName={styles.loadingSpin}></Spin>
+                                : <img src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/capcut.svg" className={styles.frame3059} />
+                        }
+                        
+                        <div className={styles.frame4155}>
+                            <p className={styles.value_79ae18fb}>{_t("capCut_theme", { }, "剪映主题")}</p>
                         </div>
                     </div>
                     <div onClick={() => onChangeTheme('huoshan')} className={classnames(styles.selectTrigger_042dad83, {[styles.selected]: themeType === 'huoshan'})}>

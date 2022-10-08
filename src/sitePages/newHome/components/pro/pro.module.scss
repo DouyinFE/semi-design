@@ -25,13 +25,18 @@
 .semiPro {
     // width: 321px;
     font-size: 32px;
-    font-family: Inter;
+    font-family: "Inter";
     color: var(--semi-color-white);
     line-height: 44px;
     font-weight: 700;
     letter-spacing: -1.28px;
     text-align: center;
     vertical-align: middle;
+    letter-spacing: 0em;
+}
+
+.title_en {
+    font-weight: 700;
 }
 
 .text {
@@ -47,7 +52,7 @@
 
 .text_4c571d3f {
     font-size: 18px;
-    font-family: PingFang SC;
+    font-family: "PingFang SC";
     color: var(--semi-color-white);
     line-height: 32px;
     font-weight: 400;
@@ -55,7 +60,7 @@
 
 .text_a65a6883 {
     font-size: 18px;
-    font-family: Inter;
+    font-family: "Inter";
     color: var(--semi-color-white);
     line-height: 32px;
     font-weight: 400;
@@ -74,7 +79,7 @@
 .text_001dc6a1 {
     min-width: 48px;
     font-size: 16px;
-    font-family: PingFang SC;
+    font-family: "PingFang SC";
     color: var(--semi-color-tertiary-hover);
     line-height: 22px;
     font-weight: 600;

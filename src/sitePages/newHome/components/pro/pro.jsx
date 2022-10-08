@@ -1,11 +1,18 @@
 import { _t } from 'src/utils/locale';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Tag } from '@douyinfe/semi-ui';
 import styles from './pro.module.scss';
 import { navigate } from 'gatsby-link';
 import { getLocale } from '../../../../utils/locale';
+import classnames from 'classnames';
 
 function Pro(props) {
+    const [locale, setLocale] = useState('');
+
+    useEffect(() => {
+        return setLocale(getLocale());
+    }, [])
+
     const goD2CStart = () => {
         navigate(`/code/${getLocale()}/start/quick-start`);
     };
@@ -15,7 +22,9 @@ function Pro(props) {
         <div {...props} className={styles.macBookPro2}>
             <div className={styles.frame14294}>
                 <div className={styles.frame4151}>
-                    <p className={styles.semiPro}>{_t('home.pro.title')}</p>
+                    <p className={classnames(styles.semiPro, {
+                        [`${styles.title_en}`]: locale === "en-US",
+                    })}>{_t('home.pro.title')}</p>
                     {isInternal && (
                         <Tag style={{ color: '#F0B114', background: '#41464C', marginLeft: 12 }}>
                             {_t('beta', {}, '公测')}
@@ -27,7 +36,7 @@ function Pro(props) {
                 </p>
                 {isInternal ? (
                     <Button onClick={goD2CStart} size="large" theme="solid" className={styles.extraLarge}>
-                        {_t('home.pro.start', {}, '快速开始')}
+                        {_t('home.pro.start', {}, '了解更多')}
                     </Button>
                 ) : (
                     <div className={styles.buttonSecondarySolid}>
