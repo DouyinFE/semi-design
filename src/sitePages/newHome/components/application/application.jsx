@@ -1,19 +1,13 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { _t } from "src/utils/locale";
 import { Carousel } from '@douyinfe/semi-ui';
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef } from 'react';
 import styles from "./application.module.scss";
 import { AnyWebBigSvg, StarRiverBigSvg, CapCutBigSvg } from '../svg.jsx';
 import { IconChevronLeft, IconChevronRight } from '@douyinfe/semi-icons';
-import { getLocale } from '../../../../utils/locale';
 import classnames from 'classnames';
 
 function Application(props) {
-    const [locale, setLocale] = useState('');
-
-    useEffect(() => {
-        return setLocale(getLocale());
-    }, [])
 
     const classForDarkImage = classnames(styles.showInDark, styles.hideInLight);
 
@@ -60,9 +54,7 @@ function Application(props) {
     return (
         <div {...props} className={styles.frame14373}>
             <div className={styles.titleWrapper}>
-                <p className={classnames(styles.title, {
-                    [`${styles.title_en}`]: locale,
-                })}>{_t("application_title")}</p>
+                <p className={styles.title} data-locale={"en-US"}>{_t("application_title")}</p>
                 <p className={styles.subTitle}>{_t("application_subtitle")}</p>
             </div>
             <div className={styles.container}>

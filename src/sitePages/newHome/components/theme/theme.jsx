@@ -9,7 +9,6 @@ import {compile, insertStyleToDocument, removeStyleFromDocument} from '../../uti
 // import { customCssVariables } from "./cutsomCssVariable";
 import { Spin } from "@douyinfe/semi-ui";
 import { larkTheme, douyinTheme, huoshanTheme, capCutTheme } from "./theme";
-import { getLocale } from '../../../../utils/locale';
 
 const MAP_CLASS = {
     'lark': themeStyles.demoWrapperLark,
@@ -27,11 +26,6 @@ const MAP_THEME = {
 
 
 function Theme(props) {
-    const [locale, setLocale] = useState('');
-
-    useEffect(() => {
-        return setLocale(getLocale());
-    }, [])
 
     // const cache = useRef({})
     const [themeType, setThemeType] = useState('default');
@@ -61,9 +55,7 @@ function Theme(props) {
     return (
         <div {...props} className={styles.frame14296}>
             <div className={styles.group4218}>
-                <p className={classnames(styles.text, {
-                    [`${styles.title_en}`]: locale === "en-US",
-                })}>{_t("home.theme")}</p>
+                <p className={styles.text} data-locale={"en-US"}>{_t("home.theme")}</p>
                 <p className={styles.text_5f990524}>{_t("home.theme.desc")}</p>
                 <div className={styles.frame4150}>
                     <div onClick={() => onChangeTheme('default')} className={classnames(styles.selectTrigger, {[styles.selected]: themeType === 'default'})}>

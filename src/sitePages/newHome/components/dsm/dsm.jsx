@@ -1,16 +1,9 @@
 import { _t } from "src/utils/locale";
 import { navigate } from 'gatsby-link';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styles from './dsm.module.scss';
-import classnames from 'classnames';
-import { getLocale } from '../../../../utils/locale';
 
 function Dsm(props) {
-    const [locale, setLocale] = useState('');
-
-    useEffect(() => {
-        return setLocale(getLocale());
-    }, [])
 
     const goDsm = () => {
         location.href = DSM_URL?DSM_URL:"https://semi.design/dsm/landing";
@@ -22,9 +15,7 @@ function Dsm(props) {
         <div {...props} className={styles.frame14293}>
             <div className={styles.frame14291}>
                 <div className={styles.autoWrapper}>
-                    <p className={classnames(styles.semiDSM, {
-                        [`${styles.title_en}`]: locale === "en-US",
-                    })}>{_t('semi_dsm',{},'Semi 设计系统管理')}</p>
+                    <p className={styles.semiDSM} data-locale={"en-US"}>{_t('semi_dsm',{},'Semi 设计系统管理')}</p>
                 </div>
                 <p className={styles.text_86d8f999}>{_t("powerful_theme_editor__real_time_effect__one_click_synchronization_of_design_too_d77f5776bf126331e801d6d6aa0146f2", { }, "强大的主题编辑器，实时生效，设计工具一键同步")}</p>
                 <div style={{display:'flex'}}>

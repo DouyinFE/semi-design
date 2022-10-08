@@ -1,22 +1,13 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { _t } from "../../../../utils/locale";
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styles from "./feature.module.scss";
-import classnames from 'classnames';
-import { getLocale } from '../../../../utils/locale';
 
 function Feature(props) {
-    const [locale, setLocale] = useState('');
-
-    useEffect(() => {
-        return setLocale(getLocale());
-    }, [])
 
     return (
         <div {...props} className={styles.frame14370}>
-            <p className={classnames(styles.title, {
-                    [`${styles.title_en}`]: locale === "en-US",
-                })}>{_t("feature_title")}</p>
+            <p className={styles.title} data-locale={"en-US"}>{_t("feature_title")}</p>
             <p className={styles.subtitle}>{_t("feature_subtitle")}</p>
             <div className={styles.featuresList}>
                 <div className={styles.row1}>

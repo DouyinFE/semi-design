@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Banner from './components/banner/banner.jsx';
 import Products from './components/products/products.jsx';
 import Feature from './components/feature/feature.jsx';
@@ -16,10 +16,16 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 
 function NewHome() {
-    const locale = getLocale();
+    const [locale, setLocale] = useState('');
+
     useEffect(() => {
         AOS.init();
     }, []);
+
+    useEffect(() => {
+        setLocale(getLocale());
+    }, []);
+
     return (
         <div className={classnames(styles.homePage, { [styles.homeEnglish]: locale === 'en-US' })}>
             <Banner></Banner>

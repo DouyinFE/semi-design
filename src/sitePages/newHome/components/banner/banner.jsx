@@ -1,24 +1,16 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { _t } from "src/utils/locale";
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styles from "./banner.module.scss";
 import OperateButton from '../operateButton/operateButton.jsx'
 import classnames from 'classnames';
-import { getLocale } from '../../../../utils/locale';
 
 function Banner() {
-    const [locale, setLocale] = useState('');
-
-    useEffect(() => {
-        return setLocale(getLocale());
-    }, [])
 
     return (
         <div className={classnames(styles.frame4565, styles.frame4565_pos)}>
             <div className={classnames(styles.content, styles.content_pos)}>
-                <p className={classnames(styles.title, {
-                    [`${styles.title_en}`]: locale === "en-US",
-                })}>{_t("enterprise_product_design_system")}</p>
+                <p className={styles.title} data-locale={"en-US"}>{_t("enterprise_product_design_system")}</p>
                 <p className={styles.subtitle}>{_t("home_banner_description")}</p>
                 <OperateButton />
                 <div className={styles.frameworksWrapper}>

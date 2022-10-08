@@ -1,9 +1,8 @@
 /* eslint-disable js./node_modules/src/utils/localee_modules/src/utils/localents-have-key-events */
 import { _t } from "src/utils/locale";
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styles from "./comments.module.scss";
 import classnames from 'classnames';
-import { getLocale } from '../../../../utils/locale';
 
 // 将 number 转换为千分位 string
 function getNumString(number) {
@@ -45,12 +44,6 @@ function numberAnimation(number, s, dom) {
 const realNumber = [6200, 400, 3000000, 60];
 
 function Comments(props) {
-    const [locale, setLocale] = useState('');
-
-    useEffect(() => {
-        return setLocale(getLocale());
-    }, [])
-
     useEffect(()=> {
         const allElement = ["starNum", "forkNum", "downloadNum", "contributorNum"].map((item) => document.getElementById(item));
         const observer = new IntersectionObserver(entries => {
@@ -72,9 +65,7 @@ function Comments(props) {
     
     return (
         <div {...props} className={styles.frame}>
-            <p className={classnames(styles.title, {
-                    [`${styles.title_en}`]: locale === "en-US",
-                })}>{_t("grow_with_users")}</p>
+            <p className={styles.title} data-locale={"en-US"}>{_t("grow_with_users")}</p>
             <p className={styles.text_008e1ad6}>{_t("grow_with_users_description")}</p>
             <div className={styles.data}>
                 <div className={styles.descriptionVerticalL}>

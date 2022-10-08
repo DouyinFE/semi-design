@@ -13,4 +13,8 @@ p {
     span {
         font-family: 'Inter' !important;
     }
+
+    *[data-locale=en-US] {
+        font-weight: 700;
+    }
 }

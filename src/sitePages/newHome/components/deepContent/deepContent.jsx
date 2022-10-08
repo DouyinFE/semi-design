@@ -1,17 +1,12 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { _t } from "../../../../utils/locale";
 import { navigate } from 'gatsby-link';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { getLocale } from '../../../../utils/locale';
 import styles from "./deepContent.module.scss";
 import classnames from 'classnames';
 
 function DeepContent(props) {
-    const [locale, setLocale] = useState('');
-
-    useEffect(() => {
-        return setLocale(getLocale());
-    }, [])
 
     const goA11y = () => {
         const local = getLocale();
@@ -28,9 +23,7 @@ function DeepContent(props) {
 
     return (
         <div {...props} className={styles.frame}>
-            <p className={classnames(styles.title, {
-                    [`${styles.title_en}`]: locale === "en-US",
-                })}>{_t("content_title")}</p>
+            <p className={styles.title} data-locale={"en-US"}>{_t("content_title")}</p>
             <p className={styles.subtitle}>{_t("content_subtitle")}</p>
             <div className={styles.autoWrapper}>
                 <div className={styles.frame1312316425} onClick={goA11y}> 

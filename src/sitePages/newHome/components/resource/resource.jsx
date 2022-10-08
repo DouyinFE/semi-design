@@ -1,18 +1,12 @@
 import { _t } from "src/utils/locale";
 import { navigate } from 'gatsby-link';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { getLocale } from '../../../../utils/locale';
 import styles from './resource.module.scss';
 import OperateButton from '../operateButton/operateButton.jsx';
 import classnames from 'classnames';
 
 function Resource(props) {
-    const [locale, setLocale] = useState('');
-
-    useEffect(() => {
-        return setLocale(getLocale());
-    }, [])
-
     const goComponentsOverview = () => {
         navigate(`/${getLocale()}/start/overview`);
     }
@@ -24,18 +18,14 @@ function Resource(props) {
     return (
         <div {...props} className={styles.container}>
             <div className={styles.frame1}>
-                <p className={classnames(styles.title, {
-                    [`${styles.text_en}`]: locale === "en-US",
-                })}>{_t("enterprise_product_design_system")}</p>
+                <p className={styles.title} data-locale={"en-US"}>{_t("enterprise_product_design_system")}</p>
                 <p className={styles.text_008e1ad6}>{_t("resource_subtitle")}</p>
                 <OperateButton />
             </div>
             <div className={styles.frame4574}>
                 <div className={styles.frame22}>
                     <div className={styles.group21}>
-                        <p className={classnames(styles.text, {
-                        [`${styles.text_en}`]: locale === "en-US",
-                        })}>{_t("home.resource.rd", { }, "研发")}</p>
+                        <p className={styles.text} data-locale={"en-US"}>{_t("home.resource.rd", { }, "研发")}</p>
                         <p className={styles.text_00d74f5e}>
                             <span className={styles.text_70c95f84}>{_t("home.resource.rd.desc")}</span>
                         </p>
@@ -44,9 +34,7 @@ function Resource(props) {
                 </div>
                 <div className={styles.frame23}>
                     <div className={styles.group20}>
-                        <p className={classnames(styles.text, {
-                        [`${styles.text_en}`]: locale === "en-US",
-                        })}>{_t("home.resource.design")}</p>
+                        <p className={styles.text} data-locale={"en-US"}>{_t("home.resource.design")}</p>
                         <p className={styles.text_00d74f5e}>
                             <span className={styles.text_70c95f84}>{_t("home.resource.design.desc")}</span>
                         </p>
