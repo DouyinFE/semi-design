@@ -523,16 +523,20 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
     }
 
     clearInput() {
-        this._adapter.updateInputValue('');
-        this._adapter.notifySearch('');
-        // reset options filter
-        const { options } = this.getStates();
-        const { remote } = this.getProps();
-        let optionsAfterFilter = options;
-        if (!remote) {
-            optionsAfterFilter = this._filterOption(options, '');
+        const { inputValue } = this.getStates();
+        // only when input is not null, select should notifySearch and updateOptions
+        if (inputValue !== ''){
+            this._adapter.updateInputValue('');
+            this._adapter.notifySearch('');
+            // reset options filter
+            const { options } = this.getStates();
+            const { remote } = this.getProps();
+            let optionsAfterFilter = options;
+            if (!remote) {
+                optionsAfterFilter = this._filterOption(options, '');
+            }
+            this._adapter.updateOptions(optionsAfterFilter);
         }
-        this._adapter.updateOptions(optionsAfterFilter);
     }
 
     focusInput() {
