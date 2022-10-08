@@ -16,6 +16,19 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 ---
 
+#### 🎉 2.21.0-beta.0 (2022-10-08)
+- 【Feat】
+  - Table 新增表头  sticky  API
+  - AutoComplete 新增 onKeyDown API
+  - Upload 组件对外暴露 openFileDialog 方法，使用户可以手动打开文件选择窗口。
+  - LocaleProvider 新增罗马尼亚语（ro） [@jacob-lcs](https://github.com/jacob-lcs)
+- 【Fix】
+  - 修复 Dropdown 下 children onKeydown 拿不到事件问题
+  - 修复 Carousel 通过左右按钮或者方法切换 index 时没有更新计时器问题
+  - 修复 Select 在 filter 为 true, input 框为空情况下，关闭面板后触发 onSearch 问题
+- 【Style】
+  - Avatar 方形头像增加圆角
+  
 #### 🎉 2.20.3 (2022-09-28)
 - 【Fix】
   - 修复 ButtonGroup 关于 key warning的问题

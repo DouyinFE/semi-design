@@ -16,6 +16,19 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.21.0-beta.0 (2022-10-08)
+- 【Feat】
+  - Table adds header sticky API
+  - AutoComplete add new API onKeyDown
+  - the Upload component exposes the openFileDialog method so that the user can manually open the file selection dialog.
+  - LocaleProvider added Romanian(ro) [@jacob-lcs](https://github.com/jacob-lcs)
+- 【Fix】
+  - fix the problem that children onKeydown cannot get events under Dropdown
+  - fix the problem that the timer is not updated when Carousel switches the index through the left and right buttons or methods
+  - fix Select when the filter is true and the input box is empty, after closing panel trigger onSearch function issue
+- 【Style】
+  - add rounded corners to square avatars
+
 #### 🎉 2.20.3 (2022-09-28)
 - 【Fix】
    - Fix the ButtonGroup key warning problem
