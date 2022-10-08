@@ -16,6 +16,10 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 ---
 
+#### 🎉 2.20.4 (2022-10-08)
+- 【Fix】
+  - 修复 scss 在 ImagePreview 中未导入问题
+
 #### 🎉 2.20.3 (2022-09-28)
 - 【Fix】
   - 修复 ButtonGroup 关于 key warning的问题

@@ -16,16 +16,20 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.20.4 (2022-10-08)
+- 【Fix】
+  - Fix scss not imported in ImagePreview
+
 #### 🎉 2.20.3 (2022-09-28)
 - 【Fix】
-   - Fix the ButtonGroup key warning problem
-   - Fix SSR setting withField、Form Field related problem with useLayoutEffect warning [#1140](https://github.com/DouyinFE/semi-design/pull/1140)
-   - Fix the problem of some type errors under typescript 4.8.3
-   - Modify the modal focus logic to automatically focus on the first focusable element in the pop-up window
+  - Fix the ButtonGroup key warning problem
+  - Fix SSR setting withField、Form Field related problem with useLayoutEffect warning [#1140](https://github.com/DouyinFE/semi-design/pull/1140)
+  - Fix the problem of some type errors under typescript 4.8.3
+  - Modify the modal focus logic to automatically focus on the first focusable element in the pop-up window
 
 #### 🎉 2.20.2 (2022-09-27)
 - 【Fix】
-   - Fix warning about corejs in @douyinfe/semi-icons 
+  - Fix warning about corejs in @douyinfe/semi-icons 
 
 #### 🎉 2.20.1 (2022-09-27)
 - 【Style】
