@@ -43,6 +43,7 @@ $colors: 'amber', 'blue', 'cyan', 'green', 'grey', 'indigo', 'light-blue', 'ligh
     &-extra-extra-small {
         width: $width-avatar_extra_extra_small;
         height: $width-avatar_extra_extra_small;
+        border-radius: $radius-avatar_extra_extra_small;
 
         .#{$module}-content {
             transform-origin: center;
@@ -58,6 +59,7 @@ $colors: 'amber', 'blue', 'cyan', 'green', 'grey', 'indigo', 'light-blue', 'ligh
     &-extra-small {
         width: $width-avatar_extra_small;
         height: $width-avatar_extra_small;
+        border-radius: $radius-avatar_extra_small;
 
         .#{$module}-content {
             transform-origin: center;
@@ -73,6 +75,7 @@ $colors: 'amber', 'blue', 'cyan', 'green', 'grey', 'indigo', 'light-blue', 'ligh
     &-small {
         width: $width-avatar_small;
         height: $width-avatar_small;
+        border-radius: $radius-avatar_small;
 
         .#{$module}-label {
             @include font-size-small;
@@ -82,6 +85,7 @@ $colors: 'amber', 'blue', 'cyan', 'green', 'grey', 'indigo', 'light-blue', 'ligh
     &-default {
         width: $width-avatar_default;
         height: $width-avatar_default;
+        border-radius: $radius-avatar_default;
 
         .#{$module}-label {
             @include font-size-header-5;
@@ -91,6 +95,7 @@ $colors: 'amber', 'blue', 'cyan', 'green', 'grey', 'indigo', 'light-blue', 'ligh
     &-medium {
         width: $width-avatar_medium;
         height: $width-avatar_medium;
+        border-radius: $radius-avatar_medium;
 
         .#{$module}-label {
             @include font-size-header-4;
@@ -100,6 +105,7 @@ $colors: 'amber', 'blue', 'cyan', 'green', 'grey', 'indigo', 'light-blue', 'ligh
     &-large {
         width: $width-avatar_large;
         height: $width-avatar_large;
+        border-radius: $radius-avatar_large;
 
         .#{$module}-label {
             @include font-size-header-1;
@@ -109,6 +115,7 @@ $colors: 'amber', 'blue', 'cyan', 'green', 'grey', 'indigo', 'light-blue', 'ligh
     &-extra-large {
         width: $width-avatar_extra_large;
         height: $width-avatar_extra_large;
+        border-radius: $radius-avatar_extra_large;
 
         .#{$module}-label {
             font-size: $font-avatar_extra_large-size;
