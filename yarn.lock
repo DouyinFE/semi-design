@@ -1445,6 +1445,15 @@
   resolved "https://registry.yarnpkg.com/@discoveryjs/json-ext/-/json-ext-0.5.7.tgz#1d572bfbbe14b7704e0ba0f39b74815b84870d70"
   integrity sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==
 
+"@douyinfe/semi-animation-react@2.20.4":
+  version "2.20.4"
+  resolved "https://registry.yarnpkg.com/@douyinfe/semi-animation-react/-/semi-animation-react-2.20.4.tgz#6d720de57e576fa453e0233fe2f1c25bf6c48d08"
+  integrity sha512-/O5v6jZVzXjLXpT7MkXacdvaq/ZfmK27QTQ43AlCcpJrX9S6lkOORlfCAjlCh4+erV5PwQjub7KVAjnZR/H3Uw==
+  dependencies:
+    "@douyinfe/semi-animation" "2.12.0"
+    "@douyinfe/semi-animation-styled" "2.20.4"
+    classnames "^2.2.6"
+
 "@douyinfe/semi-animation-react@2.9.1":
   version "2.9.1"
   resolved "https://registry.yarnpkg.com/@douyinfe/semi-animation-react/-/semi-animation-react-2.9.1.tgz#f2e4c6ef7899729ee6145edf0579598ba195bfdd"
@@ -1454,6 +1463,11 @@
     "@douyinfe/semi-animation" "2.9.1"
     "@douyinfe/semi-animation-styled" "2.9.1"
     classnames "^2.2.6"
+
+"@douyinfe/semi-animation-styled@2.20.4":
+  version "2.20.4"
+  resolved "https://registry.yarnpkg.com/@douyinfe/semi-animation-styled/-/semi-animation-styled-2.20.4.tgz#ac92786098ea2572538e00ed435a813f47726b62"
+  integrity sha512-6WbKn8n8M3IWyzQ+pw1DGxsCBi3zblp5+WHnTPAJ2fqlkskhZ/fBaCDCr1sIqkhkGb4eG3shOH5XLhsWBwDExA==
 
 "@douyinfe/semi-animation-styled@2.9.1":
   version "2.9.1"
@@ -1478,6 +1492,20 @@
     "@babel/runtime-corejs3" "^7.15.4"
     bezier-easing "^2.1.0"
 
+"@douyinfe/semi-foundation@2.20.4":
+  version "2.20.4"
+  resolved "https://registry.yarnpkg.com/@douyinfe/semi-foundation/-/semi-foundation-2.20.4.tgz#32739d97827c413854f51e4bf0d24e981fece9d2"
+  integrity sha512-Xw2YIbo2bE2LlXY/QXo7dcRDVYDb/UrI4VSc6IsjHj4aRk0E8IgqrVJafIG2HUJjUvDKFBstJH5KqULKmWX3hQ==
+  dependencies:
+    "@douyinfe/semi-animation" "2.12.0"
+    async-validator "^3.5.0"
+    classnames "^2.2.6"
+    date-fns "^2.9.0"
+    date-fns-tz "^1.0.10"
+    lodash "^4.17.21"
+    memoize-one "^5.2.1"
+    scroll-into-view-if-needed "^2.2.24"
+
 "@douyinfe/semi-foundation@2.9.1":
   version "2.9.1"
   resolved "https://registry.yarnpkg.com/@douyinfe/semi-foundation/-/semi-foundation-2.9.1.tgz#1300bb97d6ceb92274ca4c9e6c66c5c16dc284ea"
@@ -1492,6 +1520,13 @@
     lodash "^4.17.21"
     memoize-one "^5.2.1"
     scroll-into-view-if-needed "^2.2.24"
+
+"@douyinfe/semi-icons@2.20.4", "@douyinfe/semi-icons@^2.0.0":
+  version "2.20.4"
+  resolved "https://registry.yarnpkg.com/@douyinfe/semi-icons/-/semi-icons-2.20.4.tgz#6c93b07ba31b186af06b85e19747eb98edca2aa9"
+  integrity sha512-mxq6J3BR8oZh4nGeFCFAOyZ+gwoEen3Ae7fyKJjq2Y13a+/UHEikbkWo+vApnEzWtaCm/zPt8EvC5k6r/5pKPA==
+  dependencies:
+    classnames "^2.2.6"
 
 "@douyinfe/semi-icons@2.9.1", "@douyinfe/semi-icons@latest":
   version "2.9.1"
@@ -1571,12 +1606,44 @@
     monaco-themes "^0.3.3"
     react-live "^2.2.2"
 
+"@douyinfe/semi-theme-default@2.20.4":
+  version "2.20.4"
+  resolved "https://registry.yarnpkg.com/@douyinfe/semi-theme-default/-/semi-theme-default-2.20.4.tgz#c23b40415846713a7e740e770382f456670b4c10"
+  integrity sha512-XH9oRVD5hFqD0huZDvm/Y8H7OW1X8omJq2xWKuFnUnVwEvvrEbC7ZKqQXnLanPls3EeuxgY83czSBC7bIMGiCQ==
+  dependencies:
+    glob "^7.1.6"
+
 "@douyinfe/semi-theme-default@2.9.1":
   version "2.9.1"
   resolved "https://registry.yarnpkg.com/@douyinfe/semi-theme-default/-/semi-theme-default-2.9.1.tgz#734113e9783ca58b69afe1769005e7e57e5a4da7"
   integrity sha512-uCGr/wcjoApc62kAf8WTe2E7O3IUXbWgM9MJn+OcrWizvTh/qlxY4xHMJ+HgtJFGV4BXSu5I3KB4FEfT31JxoA==
   dependencies:
     glob "^7.1.6"
+
+"@douyinfe/semi-ui@^2.0.0":
+  version "2.20.4"
+  resolved "https://registry.yarnpkg.com/@douyinfe/semi-ui/-/semi-ui-2.20.4.tgz#661e298704769158d385b32104932ee5eba3c677"
+  integrity sha512-8Fhd8RvJf+gzN1F4XmLpFhdCCkJMwrWXjlbfD7m989DjRk+VcDBQrmj3PfcZ339OjY7eVOylox3RIv0m7aBOtw==
+  dependencies:
+    "@douyinfe/semi-animation" "2.12.0"
+    "@douyinfe/semi-animation-react" "2.20.4"
+    "@douyinfe/semi-foundation" "2.20.4"
+    "@douyinfe/semi-icons" "2.20.4"
+    "@douyinfe/semi-illustrations" "2.15.0"
+    "@douyinfe/semi-theme-default" "2.20.4"
+    async-validator "^3.5.0"
+    classnames "^2.2.6"
+    copy-text-to-clipboard "^2.1.1"
+    date-fns "^2.9.0"
+    date-fns-tz "^1.0.10"
+    lodash "^4.17.21"
+    prop-types "^15.7.2"
+    react-resizable "^1.8.0"
+    react-sortable-hoc "^2.0.0"
+    react-window "^1.8.2"
+    resize-observer-polyfill "^1.5.1"
+    scroll-into-view-if-needed "^2.2.24"
+    utility-types "^3.10.0"
 
 "@douyinfe/semi-ui@latest":
   version "2.9.1"
