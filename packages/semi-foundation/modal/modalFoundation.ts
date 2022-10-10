@@ -10,7 +10,7 @@ export interface ModalAdapter extends DefaultAdapter<ModalProps, ModalState> {
     notifyCancel: (e: any) => void;
     notifyOk: (e: any) => void;
     notifyClose: () => void;
-    toggleHidden: (hidden: boolean, callback?: (hidden: boolean) => void) => void;
+    toggleDisplayNone: (displayNone: boolean, callback?: (displayNone: boolean) => void) => void;
     notifyFullScreen: (isFullScreen: boolean) => void;
     getProps: () => ModalProps;
     setShouldRender:(shouldRender:boolean)=>void;
@@ -59,7 +59,7 @@ export interface ModalProps {
 }
 
 export interface ModalState {
-    hidden: boolean;
+    displayNone: boolean;
     isFullScreen: boolean;
     shouldRender:boolean
 }
@@ -98,8 +98,8 @@ export default class ModalFoundation extends BaseFoundation<ModalAdapter> {
     // }
 
 
-    toggleHidden = (hidden: boolean, callback?: (hidden: boolean) => void) => {
-        this._adapter.toggleHidden(hidden, callback);
+    toggleDisplayNone = (displayNone: boolean, callback?: (displayNone: boolean) => void) => {
+        this._adapter.toggleDisplayNone(displayNone, callback);
     };
 
     setShouldRender=(shouldRender)=>{

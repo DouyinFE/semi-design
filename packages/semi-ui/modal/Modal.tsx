@@ -119,7 +119,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
     constructor(props: ModalReactProps) {
         super(props);
         this.state = {
-            hidden: !props.visible,
+            displayNone: !props.visible,
             isFullScreen: props.fullScreen,
             shouldRender:this.props.visible || (this.props.keepDOM && !this.props.lazyRender)
         };
@@ -159,9 +159,9 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
             notifyClose: () => {
                 this.props.afterClose();
             },
-            toggleHidden: (hidden: boolean, callback?: (hidden: boolean) => void) => {
-                if (hidden !== this.state.hidden) {
-                    this.setState({ hidden }, callback || noop);
+            toggleDisplayNone: (displayNone: boolean, callback?: (hidden: boolean) => void) => {
+                if (displayNone !== this.state.displayNone) {
+                    this.setState({ displayNone: displayNone }, callback || noop);
                 }
             },
             notifyFullScreen: (isFullScreen: boolean) => {
@@ -185,12 +185,12 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         }
 
 
-        if (props.visible && prevState.hidden) {
-            newState.hidden = false;
+        if (props.visible && prevState.displayNone) {
+            newState.displayNone = false;
         }
 
-        if (!props.visible && !props.motion && !prevState.hidden) {
-            newState.hidden = true;
+        if (!props.visible && !props.motion && !prevState.displayNone) {
+            newState.displayNone = true;
         }
 
 
@@ -278,9 +278,9 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
     updateState = () => {
         const { visible } = this.props;
         if (!visible) {
-            this.foundation.toggleHidden(!visible);
+            this.foundation.toggleDisplayNone(!visible);
         } else if (visible) {
-            this.foundation.toggleHidden(!visible);
+            this.foundation.toggleDisplayNone(!visible);
         }
         const shouldRender = this.props.visible || (this.props.keepDOM && (!this.props.lazyRender || this._haveRendered));
         this.foundation.setShouldRender(shouldRender);
@@ -376,7 +376,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         }
 
         const classList = cls(className, {
-            [`${cssClasses.DIALOG}-displayNone`]: keepDOM && this.state.hidden,
+            [`${cssClasses.DIALOG}-displayNone`]: keepDOM && this.state.displayNone,
         });
 
         if (this.state.shouldRender){
