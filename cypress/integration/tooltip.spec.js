@@ -31,7 +31,7 @@ describe('tooltip', () => {
     it('position with over autoAdjustOverflow', () => {
         const viewportWidth = 600;
         const viewportHeight = 400;
-        const overList = ['leftTopOver', 'rightTopOver', 'rightBottomOver', 'leftBottomOver',];
+        const overList = ['leftTopOver', 'rightTopOver', 'rightBottomOver', 'leftBottomOver'];
 
         cy.visit('http://127.0.0.1:6006/iframe.html?id=tooltip--left-top-over-demo&args=&viewMode=story');
         cy.viewport(viewportWidth, viewportHeight);
@@ -118,6 +118,31 @@ describe('tooltip', () => {
             const dataSelector = `[data-cy=`+ bottomAndRight[i] + `]`;
             cy.get(dataSelector).click({ force: true });
             cy.get('[x-placement="'+ topAndLeft[i] +'"]').should('have.length', 1);
+        }
+    });
+
+    it('test position in tblr, fine tune to other directions', () => {
+        const viewportWidth = 1000;
+        const viewportHeight = 800;
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=tooltip--adjust-pos-if-need-tblr&args=&viewMode=story');
+        cy.viewport(viewportWidth, viewportHeight);
+        cy.get('div .semi-tag').eq(0).click({ force: true });
+        const posRow = ['top', 'bottom', 'left', 'right'];
+        const posList1 = ['topLeft', 'topRight', 'bottomLeft', 'bottomRight'];
+        const posList2 = ['leftTop', 'leftBottom', 'rightTop', 'rightBottom'];
+
+        for (let i = 0; i < posList1.length; i++) {
+            cy.get('div .semi-tag').contains(posRow[0] + ' to ' + posList1[i]).click({ force: true });
+            cy.get('[x-placement="' + posList1[i] + '"]').should('have.length', 1);
+            cy.get('div .semi-tag').contains(posRow[1] + ' to ' + posList1[i]).click({ force: true });
+            cy.get('[x-placement="' + posList1[i] + '"]').should('have.length', 1);
+        }
+
+        for (let i = 0; i < posList2.length; i++) {
+            cy.get('div .semi-tag').contains(posRow[2] + ' to ' + posList2[i]).click({ force: true });
+            cy.get('[x-placement="' + posList2[i] + '"]').should('have.length', 1);
+            cy.get('div .semi-tag').contains(posRow[3] + ' to ' + posList2[i]).click({ force: true });
+            cy.get('[x-placement="' + posList2[i] + '"]').should('have.length', 1);
         }
     });
 });

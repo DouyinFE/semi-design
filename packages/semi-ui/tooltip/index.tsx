@@ -60,6 +60,7 @@ export interface TooltipProps extends BaseProps {
     onVisibleChange?: (visible: boolean) => void;
     onClickOutSide?: (e: React.MouseEvent) => void;
     spacing?: number;
+    margin?: number;
     showArrow?: boolean | React.ReactNode;
     zIndex?: number;
     rePosKey?: string | number;
@@ -127,6 +128,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         onVisibleChange: PropTypes.func,
         onClickOutSide: PropTypes.func,
         spacing: PropTypes.number,
+        margin: PropTypes.number,
         showArrow: PropTypes.oneOfType([PropTypes.bool, PropTypes.node]),
         zIndex: PropTypes.number,
         rePosKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -157,6 +159,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         onVisibleChange: noop,
         onClickOutSide: noop,
         spacing: numbers.SPACING,
+        margin: numbers.MARGIN,
         showArrow: true,
         wrapWhenSpecial: true,
         zIndex: numbers.DEFAULT_Z_INDEX,

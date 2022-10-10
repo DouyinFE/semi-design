@@ -14,6 +14,9 @@ import {
   Space,
   Popover,
   Input,
+  RadioGroup,
+  Radio,
+  SideSheet
 } from '@douyinfe/semi-ui';
 
 import InTableDemo from './InTable';
@@ -1096,4 +1099,247 @@ export const TransitionDemo = () => {
     <Button onClick={() => setKey(Math.random())}>reset Demo</Button>
   </>
   )
+}
+
+export const marginDemo = () => {
+  const [visible, setVisible] = useState(false);
+  const change = () => {
+    setVisible(!visible);
+  };
+  return (
+    <>
+      <Button onClick={change}>Open SideSheet</Button>
+      <SideSheet title="滑动侧边栏" visible={visible} onCancel={change}>
+        <div style={{ height: '800px', overflow: 'scroll' }}>
+          <div
+            id='test'
+            style={{
+              height: '880px',
+              display: 'flex',
+              flexDirection: 'column-reverse',
+              position: 'relative'
+            }}
+          >
+            <Tooltip
+              getPopupContainer={() => document.querySelector('#test')}
+              content='cecece'
+              position='bottom'
+              margin={100}
+            >
+              <div style={{ marginBottom: 20 }}>
+                test
+              </div>
+            </Tooltip>
+          </div>
+        </div>
+        <footer style={{
+          position: 'sticky',
+          bottom: 0,
+          height: 36,
+          border: '1px solid pink'
+        }}>
+          i am footer
+        </footer>
+      </SideSheet>
+    </>
+  );
+};
+
+export const SmartPosAdjustDemo = () => {
+  const [pos, setPosition] = useState('top');
+  const onChange = (e) => {
+    setPosition(e.target.value);
+  };
+  return (
+    <div style={{ width: 800, height: 800 }}>
+      <Popover 
+        position={pos}
+        AdjustPosIfNeed
+        showArrow
+        trigger='click'
+        content={
+          <div style={{ minWidth: 900, height: 600, backgroundColor: 'lightblue' }}>
+            <article>
+              <p>hi semi! hi semi! hi semi!hi semi! hi semi</p>
+              <p>hi semi! hi semi! hi semi!hi semi! hi semi</p>
+              <p>hi semi! hi semi! hi semi!</p>
+            </article>
+          </div>
+        }
+      >
+        <Tag style={{ marginLeft: 450, marginTop: 550 }}>悬停此处</Tag>
+      </Popover>
+      <div style={{ marginLeft: 250, width: 300 }}>
+        <RadioGroup onChange={onChange} value={pos} aria-label="position" name="position">
+          <Radio value={'topLeft'}>TL </Radio>
+          <Radio value={'top'}>top </Radio>
+          <Radio value={'topRight'}>TR </Radio>
+          <Radio value={'bottomLeft'}>BL</Radio>
+          <Radio value={'bottom'}>Bottom</Radio>
+          <Radio value={'bottomRight'}>BR</Radio>
+          <Radio value={'leftTop'}>LT</Radio>
+          <Radio value={'left'}>Left</Radio>
+          <Radio value={'leftBottom'}>LB</Radio>
+          <Radio value={'rightTop'}>RT</Radio>
+          <Radio value={'right'}>Right</Radio>
+          <Radio value={'rightBottom'}>RB</Radio>
+        </RadioGroup>
+      </div>
+    </div>
+  )
+}
+
+export const AdjustPosIfNeedTBLR = () => {
+  
+  const content = <article>
+    Hi ByteDancer, this is a tooltip.
+    <br /> We have 2 lines.
+  </article>
+
+  const contentHigh = <article>
+    Hi ByteDancer, this is a tooltip.
+    <br /> We have 2 lines.
+    <br /> We have 2 lines.
+  </article>
+
+  return (
+    <div style={{ paddingLeft: 0, width: 800, height: 500 }}>
+      <Tooltip
+        showArrow
+        arrowPointAtCenter
+        content={content}
+        position={'top'}
+      >
+        <Tag style={{ position: 'absolute', left: 20, top: 40 }}>top to bottomLeft</Tag>
+      </Tooltip>
+      <Tooltip
+        showArrow
+        arrowPointAtCenter
+        content={content}
+        position={'top'}
+      >
+        <Tag style={{ position: 'absolute', right: 20, top: 40 }}>top to bottomRight</Tag>
+      </Tooltip>
+      <Tooltip
+        showArrow
+        arrowPointAtCenter
+        content={content}
+        position={'top'}
+      >
+        <Tag style={{ position: 'absolute', left: 20, top: 70 }}>top to topLeft</Tag>
+      </Tooltip>
+      <Tooltip
+        showArrow
+        arrowPointAtCenter
+        content={content}
+        position={'top'}
+      >
+        <Tag style={{ position: 'absolute', right: 20, top: 70 }}>top to topRight</Tag>
+      </Tooltip>
+      <Tooltip
+        showArrow
+        arrowPointAtCenter
+        content={content}
+        position={'bottom'}
+      >
+        <Tag data-cy={'bottom'} style={{ position: 'absolute', left: 20, bottom: 70 }}>bottom to bottomLeft</Tag>
+      </Tooltip>
+      <Tooltip
+        showArrow
+        arrowPointAtCenter
+        content={content}
+        position={'bottom'}
+      >
+        <Tag data-cy={'bottom'} style={{ position: 'absolute', right: 20, bottom: 70 }}>bottom to bottomRight</Tag>
+      </Tooltip>
+      <Tooltip
+        showArrow
+        arrowPointAtCenter
+        content={content}
+        position={'bottom'}
+      >
+        <Tag data-cy={'bottom'} style={{ position: 'absolute', left: 20, bottom: 40 }}>bottom to topLeft</Tag>
+      </Tooltip>
+      <Tooltip
+        showArrow
+        arrowPointAtCenter
+        content={content}
+        position={'bottom'}
+      >
+        <Tag data-cy={'bottom'} style={{ position: 'absolute', right: 20, bottom: 40 }}>bottom to topRight</Tag>
+      </Tooltip>
+      <Tooltip
+        showArrow
+        arrowPointAtCenter
+        content={contentHigh}
+        position={'left'}
+      >
+        <Tag style={{ position: 'absolute', left: 300, top: 20 }}>left to leftTop</Tag>
+      </Tooltip>
+      <Tooltip
+        showArrow
+        arrowPointAtCenter
+        content={contentHigh}
+        position={'left'}
+      >
+        <Tag style={{ position: 'absolute', left: 300, bottom: 20 }}>left to leftBottom</Tag>
+      </Tooltip>
+      <Tooltip
+        showArrow
+        arrowPointAtCenter
+        content={contentHigh}
+        position={'left'}
+      >
+        <Tag style={{ position: 'absolute', left: 180, top: 20 }}>left to rightTop</Tag>
+      </Tooltip>
+      <Tooltip
+        showArrow
+        arrowPointAtCenter
+        content={contentHigh}
+        position={'left'}
+      >
+        <Tag style={{ position: 'absolute', left: 180, bottom: 20 }}>left to rightBottom</Tag>
+      </Tooltip>
+      <Tooltip
+        showArrow
+        arrowPointAtCenter
+        content={contentHigh}
+        position={'right'}
+      >
+        <Tag style={{ position: 'absolute', right: 300, top: 20 }}>right to rightTop</Tag>
+      </Tooltip>
+      <Tooltip
+        showArrow
+        arrowPointAtCenter
+        content={contentHigh}
+        position={'right'}
+      >
+        <Tag style={{ position: 'absolute', right: 300, bottom: 20 }}>right to rightBottom</Tag>
+      </Tooltip>
+      <Tooltip
+        showArrow
+        arrowPointAtCenter
+        content={contentHigh}
+        position={'right'}
+      >
+        <Tag style={{ position: 'absolute', right: 180, top: 20 }}>right to leftTop</Tag>
+      </Tooltip>
+      <Tooltip
+        showArrow
+        arrowPointAtCenter
+        content={contentHigh}
+        position={'right'}
+      >
+        <Tag style={{ position: 'absolute', right: 180, bottom: 20 }}>right to leftBottom</Tag>
+      </Tooltip>
+      <Tooltip
+        showArrow
+        arrowPointAtCenter
+        content={contentHigh}
+        position={'rightTop'}
+      >
+        <Tag style={{ position: 'absolute', right: 180, bottom: 50 }}>right to leftBottom</Tag>
+      </Tooltip>
+    </div>
+  );
 }
