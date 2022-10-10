@@ -16,6 +16,10 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.21.0-beta.1 (2022-10-10)
+- 【Fix】
+  - fix AutoComplete e.target is null in onBlur callback
+
 #### 🎉 2.21.0-beta.0 (2022-10-08)
 - 【Feat】
   - Table adds header sticky API
