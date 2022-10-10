@@ -14,6 +14,7 @@ import LocaleConsumer from "../locale/localeConsumer";
 import { Locale } from "../locale/interface";
 import { isObject } from "lodash";
 import Skeleton from "../skeleton";
+import "@douyinfe/semi-foundation/image/image.scss";
 
 const prefixCls = cssClasses.PREFIX;
 
