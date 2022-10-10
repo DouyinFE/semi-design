@@ -1,13 +1,13 @@
 /* eslint-disable no-nested-ternary */
-import React, {CSSProperties} from 'react';
+import React, { CSSProperties } from 'react';
 import BaseComponent from '../_base/baseComponent';
 import PropTypes from 'prop-types';
 import Portal from '../_portal';
 import cls from 'classnames';
-import ConfigContext, {ContextValue} from '../configProvider/context';
-import {cssClasses, strings} from '@douyinfe/semi-foundation/sideSheet/constants';
+import ConfigContext, { ContextValue } from '../configProvider/context';
+import { cssClasses, strings } from '@douyinfe/semi-foundation/sideSheet/constants';
 import SideSheetContent from './SideSheetContent';
-import {noop} from 'lodash';
+import { noop } from 'lodash';
 import SideSheetFoundation, {
     SideSheetAdapter,
     SideSheetProps,
@@ -21,7 +21,6 @@ const defaultWidthList = strings.WIDTH;
 const defaultHeight = strings.HEIGHT;
 
 export type { SideSheetContentProps } from './SideSheetContent';
-export type { SideSheetTransitionProps } from './SideSheetTransition';
 
 export interface SideSheetReactProps extends SideSheetProps {
     bodyStyle?: CSSProperties;
@@ -87,7 +86,7 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
 
     constructor(props: SideSheetReactProps) {
         super(props);
-        this.state = {hidden: !this.props.visible, shouldRender: this.props.visible};
+        this.state = { displayNone: !this.props.visible, shouldRender: this.props.visible };
         this.foundation = new SideSheetFoundation(this.adapter);
     }
 
@@ -97,13 +96,13 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
         return {
             ...super.adapter,
             disabledBodyScroll: () => {
-                const {getPopupContainer} = this.props;
+                const { getPopupContainer } = this.props;
                 if (!getPopupContainer && document) {
                     document.body.style.overflow = 'hidden';
                 }
             },
             enabledBodyScroll: () => {
-                const {getPopupContainer} = this.props;
+                const { getPopupContainer } = this.props;
                 if (!getPopupContainer && document) {
                     document.body.style.overflow = '';
                 }
@@ -124,14 +123,14 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
                     window.removeEventListener('keydown', this.handleKeyDown);
                 }
             },
-            toggleHidden: (hidden: boolean) => {
-                if (hidden !== this.state.hidden) {
-                    this.setState({hidden});
+            toggleDisplayNone: (displayNone: boolean) => {
+                if (displayNone !== this.state.displayNone) {
+                    this.setState({ displayNone: displayNone });
                 }
             },
             setShouldRender: (shouldRender: boolean) => {
                 if (shouldRender !== this.state.shouldRender) {
-                    this.setState({shouldRender});
+                    this.setState({ shouldRender });
                 }
             }
         };
@@ -140,12 +139,12 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
     static getDerivedStateFromProps(props: SideSheetReactProps, prevState: SideSheetState) {
         const newState: Partial<SideSheetState> = {};
 
-        if (props.visible && prevState.hidden) {
-            newState.hidden = false;
+        if (props.visible && prevState.displayNone) {
+            newState.displayNone = false;
         }
 
-        if (!props.visible && !props.motion && !prevState.hidden) {
-            newState.hidden = true;
+        if (!props.visible && !props.motion && !prevState.displayNone) {
+            newState.displayNone = true;
         }
         return newState;
     }
@@ -172,8 +171,8 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
             this.foundation.setShouldRender(true);
         }
 
-        if (prevState.hidden !== this.state.hidden) {
-            this.foundation.onVisibleChange(!this.state.hidden);
+        if (prevState.displayNone !== this.state.displayNone) {
+            this.foundation.onVisibleChange(!this.state.displayNone);
         }
 
     }
@@ -195,7 +194,7 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
     updateState = () => {
         const shouldRender = (this.props.visible || this.props.keepDOM);
         this.foundation.setShouldRender(shouldRender);
-        this.foundation.toggleHidden(!this.props.visible);
+        this.foundation.toggleDisplayNone(!this.props.visible);
     }
 
     renderContent() {
@@ -215,7 +214,7 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
             keepDOM,
             ...props
         } = this.props;
-        const {direction} = this.context;
+        const { direction } = this.context;
         const isVertical = placement === 'left' || placement === 'right';
         const isHorizontal = placement === 'top' || placement === 'bottom';
         const sheetWidth = isVertical ? (width ? width : defaultWidthList[size]) : '100%';
@@ -225,7 +224,7 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
             [`${prefixCls}-popup`]: getPopupContainer,
             [`${prefixCls}-horizontal`]: isHorizontal,
             [`${prefixCls}-rtl`]: direction === 'rtl',
-            [`${prefixCls}-hidden`]: keepDOM && this.state.hidden,
+            [`${prefixCls}-hidden`]: keepDOM && this.state.displayNone,
         });
         const contentProps = {
             ...props,
@@ -243,23 +242,23 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
         } onAnimationEnd={this.updateState}>
             {
                 ({
-                     animationClassName: maskAnimationClassName,
-                     animationEventsNeedBind: maskAnimationEventsNeedBind
-                 }) => {
+                    animationClassName: maskAnimationClassName,
+                    animationEventsNeedBind: maskAnimationEventsNeedBind
+                }) => {
                     return <CSSAnimation
                         motion={this.props.motion}
                         animationState={visible ? 'enter' : 'leave'}
                         startClassName={visible ? `${prefixCls}-animation-content_show_${this.props.placement}` : `${prefixCls}-animation-content_hide_${this.props.placement}`}
                         onAnimationEnd={this.updateState /* for no mask case*/}
                     >
-                        {({animationClassName, animationStyle, animationEventsNeedBind}) => {
+                        {({ animationClassName, animationStyle, animationEventsNeedBind }) => {
                             return this.state.shouldRender ? <SideSheetContent
                                 {...contentProps}
                                 maskExtraProps={maskAnimationEventsNeedBind}
                                 wrapperExtraProps={animationEventsNeedBind}
                                 dialogClassName={animationClassName}
                                 maskClassName={maskAnimationClassName}
-                                style={{...animationStyle, ...style}}>
+                                style={{ ...animationStyle, ...style }}>
                                 {children}
                             </SideSheetContent> : <></>;
                         }}

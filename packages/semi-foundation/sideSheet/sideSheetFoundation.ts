@@ -33,7 +33,7 @@ export interface SideSheetProps {
 }
 
 export interface SideSheetState {
-    hidden: boolean;
+    displayNone: boolean;
     shouldRender: boolean;
 }
 
@@ -44,7 +44,7 @@ export interface SideSheetAdapter extends DefaultAdapter<SideSheetProps, SideShe
     notifyVisibleChange: (visible: boolean) => void;
     setOnKeyDownListener: () => void;
     removeKeyDownListener: () => void;
-    toggleHidden: (hidden: boolean) => void;
+    toggleDisplayNone: (displayNone: boolean) => void;
     setShouldRender: (shouldRender: boolean) => void;
 }
 
@@ -101,8 +101,8 @@ export default class SideSheetFoundation extends BaseFoundation<SideSheetAdapter
     }
 
 
-    toggleHidden = (hidden:boolean)=>{
-        this._adapter.toggleHidden(hidden);
+    toggleDisplayNone = (displayNone:boolean)=>{
+        this._adapter.toggleDisplayNone(displayNone);
     }
 
 }
