@@ -16,9 +16,10 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
-#### 🎉 2.20.4 (2022-10-08)
+
+#### 🎉 2.20.7 (2022-10-10)
 - 【Fix】
-  - Fix scss not imported in ImagePreview
+  - Fix the problem that the style is lost when only ImagePreview is introduced and used alone, and the Image component is not introduced[#1175](https://github.com/DouyinFE/semi-design/pull/1175)
 
 #### 🎉 2.20.3 (2022-09-28)
 - 【Fix】
