@@ -791,8 +791,8 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         if (mouseLeaveDelay > 0) {
             this._timer = setTimeout(() => {
                 // console.log('delayHide for ', mouseLeaveDelay, ' ms, ', ...args);
-                this.clearDelayTimer();
                 this.hide();
+                this.clearDelayTimer();
             }, mouseLeaveDelay);
         } else {
             this.hide();
