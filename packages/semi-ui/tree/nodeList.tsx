@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
 import { isEqual } from 'lodash';
 import TreeContext from './treeContext';
-import Collapse from './collapse';
 import { FlattenNode, NodeListProps, NodeListState, TransitionNodes } from './interface';
+import Collapsible from '../collapsible';
 
 const getTreeNodeKey = (treeNode: FlattenNode) => {
     const { data } = treeNode;
@@ -17,6 +17,7 @@ export default class NodeList extends PureComponent<NodeListProps, NodeListState
         super(props);
         this.state = {
             transitionNodes: [],
+            isOpen: false
         };
     }
 
@@ -45,11 +46,13 @@ export default class NodeList extends PureComponent<NodeListProps, NodeListState
             }
         });
         transitionNodes.splice(rangeStart, 0, transitionRange);
+        const isOpen = motionType === 'hide';
         newState = {
             transitionNodes,
             cachedData: flattenNodes,
             cachedMotionKeys: motionKeys,
-            cachedMotionType: motionType
+            cachedMotionType: motionType,
+            isOpen
         };
         return newState;
     }
@@ -59,9 +62,18 @@ export default class NodeList extends PureComponent<NodeListProps, NodeListState
         this.setState({ transitionNodes: [] });
     };
 
+    collapsibleRefCb = () => {
+        const { motionType } = this.props;
+        !isEqual(this.state.isOpen, motionType === 'show') && setTimeout(()=>{
+            this.setState({
+                isOpen: motionType === 'show',
+            });
+        }, 0);  
+    }
+
     render() {
         const { flattenNodes, motionType, searchTargetIsDeep, renderTreeNode } = this.props;
-        const { transitionNodes } = this.state;
+        const { transitionNodes, isOpen } = this.state;
         const mapData = transitionNodes.length && !searchTargetIsDeep ? transitionNodes : flattenNodes;
         const options = mapData.map(treeNode => {
             const isMotionNode = Array.isArray(treeNode);
@@ -71,14 +83,16 @@ export default class NodeList extends PureComponent<NodeListProps, NodeListState
             if (isMotionNode && (treeNode as FlattenNode[]).length) {
                 const nodeKey = getTreeNodeKey(treeNode[0]);
                 return (
-                    <Collapse
-                        motionType={motionType === 'show' ? 'enter' : 'leave'}
+                    <Collapsible
+                        duration={200}
+                        ref={this.collapsibleRefCb}
+                        isOpen={isOpen}
+                        motion={Boolean(motionType)}
                         key={`motion-${nodeKey}`}
                         onMotionEnd={this.onMotionEnd}
-                        motion={Boolean(motionType)}
                     >
                         {treeNode.map(node => renderTreeNode(node))}
-                    </Collapse>
+                    </Collapsible>
                 );
             }
             return renderTreeNode(treeNode as FlattenNode);
