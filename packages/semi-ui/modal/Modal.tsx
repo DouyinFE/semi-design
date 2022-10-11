@@ -277,11 +277,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
 
     updateState = () => {
         const { visible } = this.props;
-        if (!visible) {
-            this.foundation.toggleDisplayNone(!visible);
-        } else if (visible) {
-            this.foundation.toggleDisplayNone(!visible);
-        }
+        this.foundation.toggleDisplayNone(!visible);
         const shouldRender = this.props.visible || (this.props.keepDOM && (!this.props.lazyRender || this._haveRendered));
         this.foundation.setShouldRender(shouldRender);
     };
