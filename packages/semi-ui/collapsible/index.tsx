@@ -173,8 +173,8 @@ class Collapsible extends BaseComponent<CollapsibleProps, CollapsibleState> {
     render() {
         const wrapperStyle: React.CSSProperties = {
             overflow: 'hidden',
-            height: this.props.isOpen ? (this.props.collapseHeight || this.state.domHeight) : 0,
-            opacity: (this.props.isOpen || !this.props.fade) ? 1 : 0,
+            height: this.props.isOpen ? this.state.domHeight : this.props.collapseHeight,
+            opacity: (this.props.isOpen || !this.props.fade || this.props.collapseHeight!==0) ? 1 : 0,
             transitionDuration: `${this.props.motion && this.state.isTransitioning ? this.props.duration : 0}ms`,
             ...this.props.style
         };
@@ -194,7 +194,7 @@ class Collapsible extends BaseComponent<CollapsibleProps, CollapsibleState> {
                 id={this.props.id}
             >
                 {
-                    (this.props.keepDOM || this.state.visible || this.props.isOpen) && this.props.children
+                    (this.props.keepDOM || this.props.collapseHeight!==0 || this.state.visible || this.props.isOpen) && this.props.children
                 }
             </div>
         </div>;
