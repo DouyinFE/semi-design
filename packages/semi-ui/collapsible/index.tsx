@@ -143,7 +143,7 @@ class Collapsible extends BaseComponent<CollapsibleProps, CollapsibleState> {
         }
 
         if (this.props.motion && (prevProps.isOpen !== this.props.isOpen)) {
-            this.setState({ isTransitioning: true });
+            this.foundation.updateIsTransitioning(true);
         }
 
     }
