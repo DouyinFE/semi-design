@@ -74,18 +74,6 @@ class Collapsible extends BaseComponent<CollapsibleProps, CollapsibleState> {
                     this.setState({ visible });
                 }
             },
-            getState(key: string): any {
-                return this.state[key];
-            },
-            getProp(key: string): any {
-                return this.props[key];
-            },
-            getStates(): CollapsibleState {
-                return this.state;
-            },
-            getProps(): CollapsibleProps {
-                return this.props;
-            },
             setIsTransitioning: (isTransitioning) => {
                 if (this.state.isTransitioning !== isTransitioning) {
                     this.setState({ isTransitioning });
@@ -174,7 +162,7 @@ class Collapsible extends BaseComponent<CollapsibleProps, CollapsibleState> {
         const wrapperStyle: React.CSSProperties = {
             overflow: 'hidden',
             height: this.props.isOpen ? this.state.domHeight : this.props.collapseHeight,
-            opacity: (this.props.isOpen || !this.props.fade || this.props.collapseHeight!==0) ? 1 : 0,
+            opacity: (this.props.isOpen || !this.props.fade || this.props.collapseHeight !== 0) ? 1 : 0,
             transitionDuration: `${this.props.motion && this.state.isTransitioning ? this.props.duration : 0}ms`,
             ...this.props.style
         };
@@ -194,7 +182,7 @@ class Collapsible extends BaseComponent<CollapsibleProps, CollapsibleState> {
                 id={this.props.id}
             >
                 {
-                    (this.props.keepDOM || this.props.collapseHeight!==0 || this.state.visible || this.props.isOpen) && this.props.children
+                    (this.props.keepDOM || this.props.collapseHeight !== 0 || this.state.visible || this.props.isOpen) && this.props.children
                 }
             </div>
         </div>;
