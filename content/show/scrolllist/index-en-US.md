@@ -123,16 +123,16 @@ class ScrollListDemo extends React.Component {
 
 ### ScrollItem
 
-| Properties  | Instructions                                                                         | type                     | Default |
-| ----------- | ------------------------------------------------------------------------------------ | ------------------------ | ------- |
-| cycled      | Whether it is an infinite loop, effective only if the mode is "wheel"                | boolean                  | false   |
-| className   | classname of scroll item                | string                  | ''   |
-| list        | List content                                                                         | [Item Data](#ItemData)[] | []      |
-| motion      | Whether to start the scroll animation                                                | Motion                  | true    |
-| onSelect    | Select callback                                                                      | (data: [ItemData](#ItemData)) => void                 | NOOP    |
-| selectIndex | Index of selected items                                                              | number                   | 0       |
-| style | Inline style                                                              | CSSProperties                   | {}       |
-| transform   | For the Transformation of the selected item, the return value is displayed as a copy | (value: any, text: string) => string                 | v = > v |
+| Properties  | Instructions                                                                         | type                                  | Default |
+| ----------- | ------------------------------------------------------------------------------------ |---------------------------------------| ------- |
+| cycled      | Whether it is an infinite loop, effective only if the mode is "wheel"                | boolean                               | false   |
+| className   | classname of scroll item                | string                                | ''   |
+| list        | List content                                                                         | [Item Data](#ItemData)[]              | []      |
+| motion      | Whether to start the scroll animation                                                | boolean                               | true    |
+| onSelect    | Select callback                                                                      | (data: [ItemData](#ItemData)) => void | NOOP    |
+| selectIndex | Index of selected items                                                              | number                                | 0       |
+| style | Inline style                                                              | CSSProperties                         | {}       |
+| transform   | For the Transformation of the selected item, the return value is displayed as a copy | (value: any, text: string) => string  | v = > v |
 
 #### ItemData
 
