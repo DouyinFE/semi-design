@@ -28,10 +28,17 @@ class TabPane extends PureComponent<TabPaneProps> {
     ref = createRef<HTMLDivElement>();
     _active: boolean;
     context: TabContextValue;
-    firstRender: boolean = true;
+    rendered: boolean = true;
 
     componentDidMount(): void {
         this.lastActiveKey = this.context.activeKey;
+    }
+
+    componentDidUpdate(prevProps: Readonly<TabPaneProps>, prevState: any, snapshot?: any) {
+        // CATION: be careful of the tabPane state update
+        // Animation only play while it is not first rendering process.
+        // Update states multiple times in TabPane will cause children unwanted re-rendering and unwanted animation.
+        this.rendered = false; 
     }
 
     // get direction from current item key to activeKey
@@ -63,7 +70,7 @@ class TabPane extends PureComponent<TabPaneProps> {
     };
 
     render(): ReactNode {
-        const { tabPaneMotion: motion, tabPosition, isFirstRender } = this.context;
+        const { tabPaneMotion: motion, tabPosition } = this.context;
         const { className, style, children, itemKey, ...restProps } = this.props;
         const active = this.context.activeKey === itemKey;
         const classNames = cls(className, {
@@ -102,7 +109,7 @@ class TabPane extends PureComponent<TabPaneProps> {
                 x-semi-prop="children"
             >
 
-                <CSSAnimation motion={motion && active && !isFirstRender} animationState={active ? "enter" : "leave"}
+                <CSSAnimation motion={motion && active && !this.rendered} animationState={active ? "enter" : "leave"}
                     startClassName={startClassName}>
                     {
                         ({ animationClassName, animationEventsNeedBind }) => {

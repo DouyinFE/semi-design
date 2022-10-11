@@ -22,7 +22,6 @@ export * from './interface';
 export interface TabsState {
     activeKey: string;
     panes: Array<PlainTab>;
-    isFirstRender: boolean;
 }
 
 class Tabs extends BaseComponent<TabsProps, TabsState> {
@@ -78,7 +77,6 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
         this.state = {
             activeKey: this.foundation.getDefaultActiveKey(),
             panes: [],
-            isFirstRender:true
         };
         this.contentRef = createRef();
         this.contentHeight = 'auto';
@@ -163,12 +161,6 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
         return states;
     }
 
-    componentDidMount() {
-        super.componentDidMount();
-        this.setState({
-            isFirstRender: false,
-        })
-    }
 
     componentDidUpdate(prevProps: TabsProps): void {
         // Panes state acts on tab bar, no need to compare TabPane children
@@ -293,7 +285,6 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
                         panes,
                         tabPaneMotion,
                         tabPosition,
-                        isFirstRender:this.state.isFirstRender
                     }}
                 >
                     <div
