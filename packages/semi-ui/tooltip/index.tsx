@@ -254,11 +254,9 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             registerTriggerEvent: (triggerEventSet: Record<string, any>) => {
                 this.setState({ triggerEventSet });
             },
-            unregisterTriggerEvent: () => {},
             registerPortalEvent: (portalEventSet: Record<string, any>) => {
                 this.setState({ portalEventSet });
             },
-            unregisterPortalEvent: () => {},
             getTriggerBounding: () => {
                 // eslint-disable-next-line
                 // It may be a React component or an html element
@@ -484,10 +482,8 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
     // };
 
     didLeave = () => {
-        this.adapter.unregisterClickOutsideHandler();
-        this.adapter.unregisterScrollHandler();
-        this.adapter.unregisterResizeHandler();
-        this.adapter.removePortal();
+        this.foundation.removePortal();
+        this.foundation.unBindEvent();
     };
     /** for transition - end */
 
@@ -570,8 +566,9 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         const icon = this.renderIcon();
         const portalInnerStyle = omit(containerStyle, motion ? ['transformOrigin'] : undefined);
         const transformOrigin = get(containerStyle, 'transformOrigin');
-        const inner = motion && isPositionUpdated ? (
+        const inner =
             <CSSAnimation animationState={transitionState as "enter"|"leave"}
+                motion={motion && isPositionUpdated}
                 startClassName={transitionState==='enter'?`${prefixCls}-animation-show`:`${prefixCls}-animation-hide`}
                 onAnimationEnd={()=>{
                     if (transitionState === 'leave'){
@@ -584,7 +581,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
 
                             className={classNames(className, animationClassName)}
                             style={{
-                                visibility: 'visible',
+                                visibility: (motion && isPositionUpdated)?'visible':"hidden",
                                 ...animationStyle,
                                 transformOrigin,
                                 ...style,
@@ -600,13 +597,8 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                         </div>;
                     }
                 }
-            </CSSAnimation>
-        ) : (
-            <div className={className} {...portalEventSet} x-placement={placement} style={{ visibility: motion ? 'hidden' : 'visible', ...style }}>
-                {contentNode}
-                {icon}
-            </div>
-        );
+            </CSSAnimation>;
+
 
         return (
             <Portal getPopupContainer={this.props.getPopupContainer} style={{ zIndex }}>
