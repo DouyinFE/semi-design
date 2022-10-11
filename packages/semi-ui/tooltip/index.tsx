@@ -317,12 +317,8 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             togglePortalVisible: (visible: boolean, cb: () => void) => {
                 const willUpdateStates: Partial<TooltipState> = {};
 
-                if (this.adapter.canMotion()) {
-                    willUpdateStates.transitionState = visible ? 'enter' : 'leave';
-                    willUpdateStates.visible = visible;
-                } else {
-                    willUpdateStates.visible = visible;
-                }
+                willUpdateStates.transitionState = visible ? 'enter' : 'leave';
+                willUpdateStates.visible = visible;
                 this.mounted && this.setState(willUpdateStates as TooltipState, () => {
                     cb();
                 });
@@ -581,7 +577,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
 
                             className={classNames(className, animationClassName)}
                             style={{
-                                visibility: (motion && isPositionUpdated)?'visible':"hidden",
+                                visibility: isPositionUpdated?'visible':"hidden",
                                 ...animationStyle,
                                 transformOrigin,
                                 ...style,
