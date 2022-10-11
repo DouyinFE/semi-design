@@ -303,7 +303,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         onBlur: noop,
         onClear: noop,
         onListScroll: noop,
-        maxHeight: 270,
+        maxHeight: numbers.LIST_HEIGHT,
         dropdownMatchSelectWidth: true,
         defaultActiveFirstOption: true, // In order to meet the needs of A11y, change to true
         showArrow: true,
