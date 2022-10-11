@@ -242,16 +242,16 @@ class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
             >
                 {React.isValidElement(children) ?
                     React.cloneElement(children, {
-                        // @ts-ignore
+                        //@ts-ignore
                         className: classnames(get(children, 'props.className'), {
                             [`${prefixCls}-showing`]: popVisible,
                         }),
                         'aria-haspopup': true,
                         'aria-expanded': popVisible,
-                        onKeyDown: e => {
+                        onKeyDown: (e: React.KeyboardEvent) => {
                             this.foundation.handleKeyDown(e);
-                            const childrenKeyDown = get(children, 'props.onKeyDown');
-                            childrenKeyDown && childrenKeyDown();
+                            const childrenKeyDown: (e: React.KeyboardEvent) => void = get(children, 'props.onKeyDown');
+                            childrenKeyDown && childrenKeyDown(e);
                         }
                     }) :
                     children}
