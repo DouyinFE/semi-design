@@ -25,7 +25,7 @@ import CSSAnimation from "../_cssAnimation";
 // TODO: Automatic folding + unfolding function when there are more than N
 
 export interface NoticeReactProps extends NoticeProps {
-    style?: CSSProperties;
+    style?: CSSProperties
 }
 
 export type {
@@ -41,7 +41,7 @@ export type NoticesInPosition = {
     topRight: NoticeInstance[];
     bottom: NoticeInstance[];
     bottomLeft: NoticeInstance[];
-    bottomRight: NoticeInstance[];
+    bottomRight: NoticeInstance[]
 };
 
 

@@ -52,26 +52,26 @@ export type CommonFieldProps = {
     /** These declaration just hack for Subtract, not valid props in CommonFieldProps */
     defaultValue?: any;
     /** Whether to take over only the data stream, when true, it will not automatically insert modules such as ErrorMessage, Label, extraText, etc. The style and DOM structure are consistent with the original component */
-    pure?: boolean;
+    pure?: boolean
 };
 
 export type CommonexcludeType = {
     defaultValue?: any;
     value?: any;
     checked?: boolean;
-    defaultChecked?: boolean;
+    defaultChecked?: boolean
 };
 
 export type RadioCheckboxExcludeProps = {
     defaultValue?: any;
     chekced?: boolean;
     defaultChecked?: boolean;
-    field: string;
+    field: string
 };
 
 export type RCIncludeType = {
     // Need to take into account the use of Form. Checkbox, Form. Radio and Group scenarios
-    field?: string;
+    field?: string
 };
 
 export class FormSelect extends React.Component<Subtract<SelectProps & CommonFieldProps, CommonexcludeType>> {
@@ -81,7 +81,7 @@ export class FormSelect extends React.Component<Subtract<SelectProps & CommonFie
 
 export interface SelectStatic {
     Option: typeof Option;
-    OptGroup: typeof OptGroup;
+    OptGroup: typeof OptGroup
 }
 
 export class Field<P> extends React.Component<Subtract<P & CommonFieldProps, CommonexcludeType> & React.RefAttributes<any>> {}
@@ -90,16 +90,16 @@ export let FormCheckboxType: React.ComponentType<Subtract<CommonFieldProps, Radi
 export let FormRadioType: React.ComponentType<Subtract<CommonFieldProps, RadioCheckboxExcludeProps> & RadioProps & RCIncludeType>;
 
 export interface ErrorMsg {
-    [optionalKey: string]: FieldError;
+    [optionalKey: string]: FieldError
 }
 export interface FormFCChild<K extends Record<string, any> = any> {
     formState: FormState<K>;
     values: K;
-    formApi: FormApi<K>;
+    formApi: FormApi<K>
 }
 
 interface setValuesConfig {
-    isOverride: boolean;
+    isOverride: boolean
 }
 
 export interface BaseFormProps extends Omit<React.FormHTMLAttributes<HTMLFormElement>, 'children' | 'onChange'> {
@@ -130,5 +130,5 @@ export interface BaseFormProps extends Omit<React.FormHTMLAttributes<HTMLFormEle
     autoScrollToError?: boolean | scrollIntoViewOptions;
     disabled?: boolean;
     showValidateIcon?: boolean;
-    extraTextPosition?: 'middle' | 'bottom';
+    extraTextPosition?: 'middle' | 'bottom'
 }

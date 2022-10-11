@@ -28,20 +28,20 @@ export interface NoticeProps {
     onHookClose?: () => void;
     direction?: typeof strings.directions[number];
     className?: string;
-    style?: any;
+    style?: any
 }
 
 export interface NoticeState{
-    visible: boolean;
+    visible: boolean
 }
 
 export interface NoticeInstance extends NoticeProps{
-    motion?: Motion;
+    motion?: Motion
 }
 
 export interface NoticeAdapter extends DefaultAdapter<NoticeProps, NoticeState>{
     notifyWrapperToRemove: (id: string) => void;
-    notifyClose: () => void;
+    notifyClose: () => void
 }
 
 

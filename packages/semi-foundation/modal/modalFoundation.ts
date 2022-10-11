@@ -13,7 +13,7 @@ export interface ModalAdapter extends DefaultAdapter<ModalProps, ModalState> {
     toggleDisplayNone: (displayNone: boolean, callback?: (displayNone: boolean) => void) => void;
     notifyFullScreen: (isFullScreen: boolean) => void;
     getProps: () => ModalProps;
-    setShouldRender:(shouldRender:boolean)=>void;
+    setShouldRender:(shouldRender:boolean)=>void
 }
 
 export interface ModalProps {
@@ -55,7 +55,7 @@ export interface ModalProps {
     keepDOM?: boolean;
     direction?: any;
     fullScreen?: boolean;
-    preventScroll?: boolean;
+    preventScroll?: boolean
 }
 
 export interface ModalState {

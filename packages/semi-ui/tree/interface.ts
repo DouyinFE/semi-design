@@ -24,24 +24,24 @@ export interface DragTreeNode extends TreeNodeData {
      * treeData, such as the 0th node of the 2nd node of the 1st node
      * of the 0th layer: '0-1-2-0'
      */
-    pos: string;
+    pos: string
 }
 export interface DragProps {
     event: MouseEvent;
-    node: DragTreeNode;
+    node: DragTreeNode
 }
 export interface OnDragProps extends BasicOnDragProps {
     event: MouseEvent;
     node: DragTreeNode;
-    dragNode: DragTreeNode;
+    dragNode: DragTreeNode
 }
 
 export interface DragEnterProps extends DragProps {
-    expandedKeys?: string[];
+    expandedKeys?: string[]
 }
 
 export interface ExpandedOtherProps extends BasicExpandedOtherProps {
-    node: TreeNodeData;
+    node: TreeNodeData
 }
 export interface RenderFullLabelProps extends BasicRenderFullLabelProps {
     onClick: (e: MouseEvent) => void;
@@ -51,10 +51,10 @@ export interface RenderFullLabelProps extends BasicRenderFullLabelProps {
     data: TreeNodeData;
     style: React.CSSProperties;
     onCheck: (e: MouseEvent) => void;
-    expandIcon: ReactNode;
+    expandIcon: ReactNode
 }
 export interface SearchRenderProps extends BasicSearchRenderProps {
-    prefix: ReactNode;
+    prefix: ReactNode
 }
 export interface TreeProps extends BasicTreeProps {
     children?: ReactNode;
@@ -81,49 +81,49 @@ export interface TreeProps extends BasicTreeProps {
     onSelect?: (selectedKeys: string, selected: boolean, selectedNode: TreeNodeData) => void;
     renderDraggingNode?: (nodeInstance: HTMLElement, node: TreeNodeData) => HTMLElement;
     renderFullLabel?: (renderFullLabelProps: RenderFullLabelProps) => ReactNode;
-    renderLabel?: (label?: ReactNode, treeNode?: TreeNodeData) => ReactNode;
+    renderLabel?: (label?: ReactNode, treeNode?: TreeNodeData) => ReactNode
 }
 export interface OptionProps {
     index: number;
     style: React.CSSProperties;
-    data: KeyEntity;
+    data: KeyEntity
 }
 export interface KeyEntities extends BasicKeyEntities {
-    [key: string]: KeyEntity;
+    [key: string]: KeyEntity
 }
 export interface KeyEntity extends BasicKeyEntity {
     children?: KeyEntities;
     data?: TreeNodeData;
-    parent?: undefined | KeyEntity;
+    parent?: undefined | KeyEntity
 }
 export interface TreeState extends BasicTreeInnerData {
     keyEntities: KeyEntities;
     treeData: TreeNodeData[];
     flattenNodes: FlattenNode[];
     prevProps: null | TreeProps;
-    cachedFlattenNodes: FlattenNode[] | undefined;
+    cachedFlattenNodes: FlattenNode[] | undefined
 }
 
 /* TreeNode */
 export interface TreeNodeProps extends BasicTreeNodeProps{
     children?: TreeNodeData[];
-    icon?: ReactNode;
+    icon?: ReactNode
 }
 export interface TreeNodeState {
-    [x: string]: any;
+    [x: string]: any
 }
 
 /* NodeList */
 export interface TreeNodeData extends BasicTreeNodeData{
     label?: ReactNode;
     icon?: ReactNode;
-    children?: TreeNodeData[];
+    children?: TreeNodeData[]
 }
 export interface FlattenNode extends BasicFlattenNode {
     children?: FlattenNode[];
     data?: BasicTreeNodeData;
     label?: ReactNode;
-    parent?: null | FlattenNode;
+    parent?: null | FlattenNode
 }
 export interface NodeListProps {
     [x: string]: any;
@@ -132,17 +132,17 @@ export interface NodeListProps {
     motionType: string;
     flattenList: FlattenNode[] | undefined;
     searchTargetIsDeep?: boolean;
-    renderTreeNode: (treeNode: FlattenNode, ind?: number, style?: React.CSSProperties) => ReactNode;
+    renderTreeNode: (treeNode: FlattenNode, ind?: number, style?: React.CSSProperties) => ReactNode
 }
 export type TransitionNodes<T> = Array<T | Array<T>>;
 export interface NodeListState {
     transitionNodes: TransitionNodes<FlattenNode>;
     cachedMotionKeys?: Set<string>;
-    cachedData?: FlattenNode[];
+    cachedData?: FlattenNode[]
 }
 
 export interface ScrollData {
     key: string;
     // The align parameter is consistent with react-window
-    align?: 'center' | 'start' | 'end' | 'smart' | 'auto';
+    align?: 'center' | 'start' | 'end' | 'smart' | 'auto'
 }

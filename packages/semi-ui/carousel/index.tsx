@@ -17,7 +17,7 @@ export interface CarouselState {
     children: (ReactChild | ReactFragment | ReactPortal)[];
     preIndex: number;
     isReverse: boolean;
-    isInit: boolean;
+    isInit: boolean
 }
 
 class Carousel extends BaseComponent<CarouselProps, CarouselState> {

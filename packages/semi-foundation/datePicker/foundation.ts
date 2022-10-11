@@ -40,12 +40,12 @@ export type DayStatusType = {
 };
 export type DisabledDateOptions = {
     rangeStart?: string;
-    rangeEnd?: string;
+    rangeEnd?: string
 };
 export type PresetType = {
     start?: string | Date | number;
     end?: string | Date | number;
-    text?: string;
+    text?: string
 };
 
 export type TriggerRenderProps = {
@@ -57,7 +57,7 @@ export type TriggerRenderProps = {
     size?: InputSize;
     disabled?: boolean;
     inputReadOnly?: boolean;
-    componentProps?: DatePickerFoundationProps;
+    componentProps?: DatePickerFoundationProps
 };
 
 export type DateOffsetType = (selectedDate?: Date) => Date;
@@ -66,7 +66,7 @@ export type DisabledDateType = (date?: Date, options?: DisabledDateOptions) => b
 export type DisabledTimeType = (date?: Date | Date[], panelType?: string) => ({
     disabledHours?: () => number[];
     disabledMinutes?: (hour: number) => number[];
-    disabledSeconds?: (hour: number, minute: number) => number[];
+    disabledSeconds?: (hour: number, minute: number) => number[]
 });
 export type OnCancelType = (date: Date | Date[], dateStr: string | string[]) => void;
 export type OnPanelChangeType = (date: Date | Date[], dateStr: string | string[]) => void;
@@ -87,13 +87,13 @@ export interface ElementProps {
     bottomSlot?: any;
     insetLabel?: any;
     prefix?: any;
-    topSlot?: any;
+    topSlot?: any
 }
 
 export interface RenderProps {
     renderDate?: RenderDateType;
     renderFullDate?: RenderFullDateType;
-    triggerRender?: TriggerRenderType;
+    triggerRender?: TriggerRenderType
 }
 
 export type RangeType = 'rangeStart' | 'rangeEnd' | false;
@@ -111,7 +111,7 @@ export interface EventHandlerProps {
     onClear?: (e: any) => void;
     // onFocus?: React.MouseEventHandler<HTMLInputElement>;
     onFocus?: (e: any, rangType: RangeType) => void;
-    onPresetClick?: OnPresetClickType;
+    onPresetClick?: OnPresetClickType
 }
 
 export interface DatePickerFoundationProps extends ElementProps, RenderProps, EventHandlerProps {
@@ -165,7 +165,7 @@ export interface DatePickerFoundationProps extends ElementProps, RenderProps, Ev
     localeCode?: string;
     rangeSeparator?: string;
     insetInput?: boolean;
-    preventScroll?: boolean;
+    preventScroll?: boolean
 }
 
 export interface DatePickerFoundationState {
@@ -179,7 +179,7 @@ export interface DatePickerFoundationState {
     rangeInputFocus: RangeType;
     autofocus: boolean;
     insetInputValue: InsetInputValue;
-    triggerDisabled: boolean;
+    triggerDisabled: boolean
 }
 
 export { Type, DateInputFoundationProps };
@@ -208,7 +208,7 @@ export interface DatePickerAdapter extends DefaultAdapter<DatePickerFoundationPr
     isEventTarget: (e: any) => boolean;
     updateInsetInputValue: (insetInputValue: InsetInputValue) => void;
     setInsetInputFocus: () => void;
-    setTriggerDisabled: (disabled: boolean) => void;
+    setTriggerDisabled: (disabled: boolean) => void
 }
 
 
@@ -474,7 +474,7 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
      *  - inputValue（可以解析为合法日期时）
      *  - value（可以解析为合法日期时）
      */
-    handleInsetInputChange(options: { insetInputStr: string, format: string, insetInputValue: InsetInputValue }) {
+    handleInsetInputChange(options: { insetInputStr: string; format: string; insetInputValue: InsetInputValue }) {
         const { insetInputStr, format, insetInputValue } = options;
         const _isMultiple = this._isMultiple();
         const result = _isMultiple ? this.parseMultipleInput(insetInputStr, format) : this.parseInput(insetInputStr, format);

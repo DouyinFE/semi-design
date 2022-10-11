@@ -15,7 +15,7 @@ export type { ArrowProps };
 declare interface ArrowStyle {
     borderColor?: string;
     backgroundColor?: string;
-    borderOpacity?: string | number;
+    borderOpacity?: string | number
 }
 
 export interface PopoverProps extends BaseProps {
@@ -50,7 +50,7 @@ export interface PopoverProps extends BaseProps {
 }
 
 export interface PopoverState {
-    popConfirmVisible: boolean;
+    popConfirmVisible: boolean
 }
 const positionSet = strings.POSITION_SET;
 const triggerSet = strings.TRIGGER_SET;
@@ -126,7 +126,7 @@ class Popover extends React.PureComponent<PopoverProps, PopoverState> {
         );
     }
 
-    renderContentNode = (props: { content: TooltipProps['content'], initialFocusRef: RenderContentProps['initialFocusRef'] }) => {
+    renderContentNode = (props: { content: TooltipProps['content']; initialFocusRef: RenderContentProps['initialFocusRef'] }) => {
         const { initialFocusRef, content } = props;
         const contentProps = { initialFocusRef };
         return !isFunction(content) ? content : content(contentProps);

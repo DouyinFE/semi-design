@@ -18,7 +18,7 @@ const {
 export interface XhrError extends Error{
     status: XMLHttpRequest['status'];
     method: string;
-    url: string;
+    url: string
 }
 
 export type FileItemStatus = 'success' | 'uploadFail' | 'validateFail' | 'validating' | 'uploading' | 'wait';
@@ -39,13 +39,13 @@ export interface BaseFileItem {
     preview?: boolean;
     validateMessage?: any;
     shouldUpload?: boolean;
-    [key: string]: any;
+    [key: string]: any
 }
 
 export interface CustomFile extends File {
     uid?: string;
     _sizeInvalid?: boolean;
-    status?: string;
+    status?: string
 }
 
 export interface BeforeUploadObjectResult {
@@ -53,14 +53,14 @@ export interface BeforeUploadObjectResult {
     status?: string;
     autoRemove?: boolean;
     validateMessage?: unknown;
-    fileInstance?: CustomFile;
+    fileInstance?: CustomFile
 }
 
 export interface AfterUploadResult {
     autoRemove?: boolean;
     status?: string;
     validateMessage?: unknown;
-    name?: string;
+    name?: string
 }
 
 export interface UploadAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
@@ -84,7 +84,7 @@ export interface UploadAdapter<P = Record<string, any>, S = Record<string, any>>
     notifyClear: () => void;
     notifyPreviewClick: (file: any) => void;
     notifyDrop: (e: any, files: Array<File>, fileList: Array<BaseFileItem>) => void;
-    notifyAcceptInvalid: (invalidFiles: Array<File>) => void;
+    notifyAcceptInvalid: (invalidFiles: Array<File>) => void
 }
 
 class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<UploadAdapter<P, S>, P, S> {

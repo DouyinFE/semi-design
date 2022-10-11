@@ -29,15 +29,15 @@ export interface OnSelectedData {
     selectedKeys: React.ReactText[];
     selectedItems: (NavItemProps | SubNavProps)[];
     domEvent: React.MouseEvent;
-    isOpen: boolean;
+    isOpen: boolean
 }
 
 export interface SubNavPropsWithItems extends SubNavProps {
-    items?: (SubNavPropsWithItems | string)[];
+    items?: (SubNavPropsWithItems | string)[]
 }
 
 export interface NavItemPropsWithItems extends NavItemProps {
-    items?: (NavItemPropsWithItems | string)[];
+    items?: (NavItemPropsWithItems | string)[]
 }
 
 export type NavItems = (string | SubNavPropsWithItems | NavItemPropsWithItems)[];
@@ -68,7 +68,7 @@ export interface NavProps extends BaseProps {
     onCollapseChange?: (isCollapse: boolean) => void;
     onDeselect?: (data?: any) => void;
     onOpenChange?: (data: { itemKey: (string | number); openKeys: (string | number)[]; domEvent: MouseEvent; isOpen: boolean }) => void;
-    onSelect?: (data: OnSelectedData) => void;
+    onSelect?: (data: OnSelectedData) => void
 }
 
 export interface NavState {
@@ -77,7 +77,7 @@ export interface NavState {
     openKeys: (string | number)[];
     items: any[];
     itemKeysMap: { [itemKey: string]: (string | number)[] };
-    selectedKeys: (string | number)[];
+    selectedKeys: (string | number)[]
 }
 
 function createAddKeysFn(context: Nav, keyName: string | number) {

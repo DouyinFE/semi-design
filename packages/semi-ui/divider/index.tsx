@@ -10,7 +10,7 @@ export interface DividerProps {
     /** The position of title inside divider */
     align?: 'left' | 'right' | 'center';
     /** space between divider and surroundings **/
-    margin?: number | string
+    margin?: number | string;
     /** The wrapped title */
     children?: ReactNode;
     /** Style class name */
@@ -20,7 +20,7 @@ export interface DividerProps {
     /** The direction type of divider */
     layout?: 'horizontal' | 'vertical';
     /** Divider inline style */
-    style?: CSSProperties;
+    style?: CSSProperties
 }
 
 const Divider: React.FC<DividerProps> = props => {

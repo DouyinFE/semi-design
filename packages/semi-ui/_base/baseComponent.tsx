@@ -15,7 +15,7 @@ export type ValidateStatus = ArrayElement<typeof VALIDATE_STATUS>;
 export interface BaseProps {
     style?: React.CSSProperties;
     className?: string;
-    children?: ReactNode | undefined | any;
+    children?: ReactNode | undefined | any
 }
 
 // eslint-disable-next-line

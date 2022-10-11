@@ -18,7 +18,7 @@ export interface ToastReactProps extends ToastProps {
     icon?: React.ReactNode;
     content: React.ReactNode;
     onAnimationEnd?: (e:React.AnimationEvent) => void;
-    onAnimationStart?: (e:React.AnimationEvent) => void;
+    onAnimationStart?: (e:React.AnimationEvent) => void
 }
 
 class Toast extends BaseComponent<ToastReactProps, ToastState> {

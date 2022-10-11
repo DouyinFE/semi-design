@@ -26,7 +26,7 @@ export interface CheckboxInnerProps {
     focusInner?: boolean;
     onInputFocus?: (e: any) => void;
     onInputBlur?: (e: any) => void;
-    preventScroll?: boolean;
+    preventScroll?: boolean
 }
 
 class CheckboxInner extends PureComponent<CheckboxInnerProps> {

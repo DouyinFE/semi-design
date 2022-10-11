@@ -26,11 +26,11 @@ export interface RadioInnerProps extends BaseProps {
     focusInner?: boolean;
     onInputFocus?: (e: any) => void;
     onInputBlur?: (e: any) => void;
-    preventScroll?: boolean;
+    preventScroll?: boolean
 }
 
 interface RadioInnerState {
-    checked?: boolean;
+    checked?: boolean
 }
 
 class RadioInner extends BaseComponent<RadioInnerProps, RadioInnerState> {

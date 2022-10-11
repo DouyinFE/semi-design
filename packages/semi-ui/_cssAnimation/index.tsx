@@ -3,31 +3,31 @@ import { isEqual, noop } from "lodash";
 
 
 interface AnimationEventsNeedBind {
-    onAnimationStart?: (e: React.AnimationEvent) => void
-    onAnimationEnd?: (e: React.AnimationEvent) => void
+    onAnimationStart?: (e: React.AnimationEvent) => void;
+    onAnimationEnd?: (e: React.AnimationEvent) => void;
 
-    [key: string]: (e: any) => void;
+    [key: string]: (e: any) => void
 }
 
 interface AnimationProps {
     startClassName?: string;
     endClassName?: string;
     children: ({}: {
-        animationClassName: string,
-        animationStyle: CSSProperties,
-        animationEventsNeedBind: AnimationEventsNeedBind,
+        animationClassName: string;
+        animationStyle: CSSProperties;
+        animationEventsNeedBind: AnimationEventsNeedBind;
         isAnimating: boolean
-    }) => ReactNode
-    animationState: "enter" | "leave"
+    }) => ReactNode;
+    animationState: "enter" | "leave";
     onAnimationEnd?: () => void;
     onAnimationStart?: () => void;
     motion?: boolean;
-    replayKey?: string;
+    replayKey?: string
 }
 
 interface AnimationState {
-    currentClassName: string
-    extraStyle: CSSProperties,
+    currentClassName: string;
+    extraStyle: CSSProperties;
     isAnimating: boolean
 }
 

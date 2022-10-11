@@ -16,7 +16,7 @@ export interface FillStepsProps {
     style?: React.CSSProperties;
     children?: React.ReactNode;
     onChange?: (current: number) => void;
-    "aria-label"?: string;
+    "aria-label"?: string
 }
 
 const Steps = (props: FillStepsProps) => {

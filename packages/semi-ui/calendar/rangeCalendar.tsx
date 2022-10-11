@@ -26,7 +26,7 @@ const allDayCls = `${cssClasses.PREFIX}-all-day`;
 export interface RangeCalendarState {
     scrollHeight: number;
     parsedEvents: ParsedEvents;
-    cachedKeys: Array<string>;
+    cachedKeys: Array<string>
 }
 
 

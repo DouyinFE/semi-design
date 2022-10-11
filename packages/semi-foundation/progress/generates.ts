@@ -5,7 +5,7 @@ import { strings } from './constants';
 type Generate = {
     startColor: string;
     endColor: string;
-    size: number;
+    size: number
 };
 
 type StrokeSet = { percent: number; color: string };

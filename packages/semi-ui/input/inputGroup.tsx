@@ -23,7 +23,7 @@ export interface InputGroupProps {
     onFocus?: (e: React.FocusEvent<HTMLSpanElement>) => void;
     label?: LabelProps;
     labelPosition?: string;
-    disabled?: boolean;
+    disabled?: boolean
 }
 
 // eslint-disable-next-line

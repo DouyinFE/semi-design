@@ -20,12 +20,12 @@ export interface SpinProps {
     wrapperClassName?: string;
     style?: React.CSSProperties;
     childStyle?: React.CSSProperties;
-    children?: React.ReactNode;
+    children?: React.ReactNode
 }
 
 interface SpinState {
     delay: number;
-    loading: boolean;
+    loading: boolean
 }
 class Spin extends BaseComponent<SpinProps, SpinState> {
     static propTypes = {

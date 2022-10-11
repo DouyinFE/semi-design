@@ -35,12 +35,12 @@ export type { CascaderType, ShowNextType } from '@douyinfe/semi-foundation/casca
 export type { CascaderData, Entity, Data, CascaderItemProps } from './item';
 
 export interface ScrollPanelProps extends BasicScrollPanelProps {
-    activeNode: CascaderData;
+    activeNode: CascaderData
 }
 
 export interface TriggerRenderProps extends BasicTriggerRenderProps {
     componentProps: CascaderProps;
-    onClear: (e: React.MouseEvent) => void;
+    onClear: (e: React.MouseEvent) => void
 }
 
 /* The basic type of the value of Cascader */
@@ -83,13 +83,13 @@ export interface CascaderProps extends BasicCascaderProps {
     onBlur?: (e: MouseEvent) => void;
     onFocus?: (e: MouseEvent) => void;
     validateStatus?: ValidateStatus;
-    position?: Position;
+    position?: Position
 }
 
 export interface CascaderState extends BasicCascaderInnerData {
     keyEntities: Entities;
     prevProps: CascaderProps;
-    treeData?: Array<CascaderData>;
+    treeData?: Array<CascaderData>
 }
 
 const prefixcls = cssClasses.PREFIX;

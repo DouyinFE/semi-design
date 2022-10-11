@@ -7,8 +7,8 @@ type CheckboxContextType = {
         disabled: boolean;
         name: any;
         isCardType: boolean;
-        isPureCardType: boolean;
-    };
+        isPureCardType: boolean
+    }
 };
 const Context = React.createContext<CheckboxContextType>({});
 export { Context, CheckboxContextType };

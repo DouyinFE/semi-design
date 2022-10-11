@@ -41,7 +41,7 @@ export type TimeInputProps = Pick<TimePickerProps,
     defaultOpenValue?: boolean;
     currentSelectPanel?: string;
     timeStampValue?: any;
-    invalid?: boolean;
+    invalid?: boolean
 };
 
 class TimeInput extends BaseComponent<TimeInputProps, any> {

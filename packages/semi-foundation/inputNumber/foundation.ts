@@ -26,14 +26,14 @@ export interface InputNumberAdapter extends DefaultAdapter {
     restoreCursor: (str?: string) => boolean;
     fixCaret: (start: number, end: number) => void;
     setClickUpOrDown: (clicked: boolean) => void;
-    updateStates: (states: BaseInputNumberState, callback?: () => void) => void;
+    updateStates: (states: BaseInputNumberState, callback?: () => void) => void
 }
 
 export interface BaseInputNumberState {
     value?: number | string;
     number?: number | null;
     focusing?: boolean;
-    hovering?: boolean;
+    hovering?: boolean
 }
 
 class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {

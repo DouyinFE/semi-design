@@ -22,13 +22,13 @@ interface CollapsibleProps extends CollapsibleFoundationProps {
     style?: React.CSSProperties;
     collapseHeight?: number;
     reCalcKey?: number | string;
-    id?: string,
+    id?: string
 }
 
 interface CollapsibleState extends CollapsibleFoundationState {
-    domInRenderTree: boolean
-    domHeight: number
-    visible: boolean
+    domInRenderTree: boolean;
+    domHeight: number;
+    visible: boolean;
     isTransitioning: boolean
 }
 

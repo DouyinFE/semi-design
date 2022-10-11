@@ -26,7 +26,7 @@ export interface TableHeaderRowProps {
     style?: React.CSSProperties;
     columns?: any[];
     fixed?: Fixed;
-    selectedRowKeysSet: Set<any>;
+    selectedRowKeysSet: Set<any>
 }
 
 export default class TableHeaderRow extends BaseComponent<TableHeaderRowProps, Record<string, any>> {

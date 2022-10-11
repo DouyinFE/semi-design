@@ -12,12 +12,12 @@ export interface CollapseProps {
     children?: React.ReactNode[];
     duration?: number;
     onMotionEnd?: () => void;
-    motionType?: string;
+    motionType?: string
 }
 
 export interface TransitionStyle {
     [x: string]: any;
-    maxHeight?: number;
+    maxHeight?: number
 }
 
 const ease = 'cubicBezier(.25,.1,.25,1)';

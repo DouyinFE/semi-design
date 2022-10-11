@@ -20,7 +20,7 @@ export interface TableContextProps {
     renderExpandIcon?: (record: Record<string, any>, isNested?: boolean, groupKey?: string | number) => React.ReactNode;
     renderSelection?: (record?: Record<string, any>, isHeader?: boolean) => React.ReactNode;
     getVirtualizedListRef?: GetVirtualizedListRef;
-    setBodyHasScrollbar?: (bodyHasScrollBar: boolean) => void;
+    setBodyHasScrollbar?: (bodyHasScrollBar: boolean) => void
 }
 
 const TableContext = React.createContext<TableContextProps>({

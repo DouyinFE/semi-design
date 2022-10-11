@@ -47,7 +47,7 @@ export interface TooltipAdapter<P = Record<string, any>, S = Record<string, any>
         click: string;
         focus: string;
         blur: string;
-        keydown: string;
+        keydown: string
     };
     registerTriggerEvent(...args: any[]): void;
     getTriggerBounding(...args: any[]): DOMRect;
@@ -69,14 +69,14 @@ export interface TooltipAdapter<P = Record<string, any>, S = Record<string, any>
     setInitialFocus(): void;
     notifyEscKeydown(event: any): void;
     getTriggerNode(): any;
-    setId(): void;
+    setId(): void
 }
 
 export type Position = ArrayElement<typeof strings.POSITION_SET>;
 
 export interface PopupContainerDOMRect extends DOMRectLikeType {
     scrollLeft?: number;
-    scrollTop?: number;
+    scrollTop?: number
 }
 
 export default class Tooltip<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<TooltipAdapter<P, S>, P, S> {

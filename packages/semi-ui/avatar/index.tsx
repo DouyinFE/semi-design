@@ -18,7 +18,7 @@ export * from './interface';
 export interface AvatarState {
     isImgExist: boolean;
     hoverContent: React.ReactNode;
-    focusVisible: boolean;
+    focusVisible: boolean
 }
 
 export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {

@@ -8,7 +8,7 @@ interface KeyboardAdapter<P = Record<string, any>, S = Record<string, any>> exte
     registerKeyDown: (callback: (event: any) => void) => void;
     unregisterKeyDown: (callback: (event: any) => void) => void;
     updateFocusIndex: (focusIndex: number) => void;
-    notifyKeyDown: (e: any) => void;
+    notifyKeyDown: (e: any) => void
 }
 
 export interface DataItem {
@@ -19,7 +19,7 @@ export interface DataItem {
 
 export interface StateOptionItem extends DataItem {
     show?: boolean;
-    key?: string | number;
+    key?: string | number
 }
 
 export type AutoCompleteData = Array<DataItem | string>;
@@ -38,7 +38,7 @@ export interface AutoCompleteAdapter<P = Record<string, any>, S = Record<string,
     notifyClear: () => void;
     notifyFocus: (event?: any) => void;
     notifyBlur: (event?: any) => void;
-    rePositionDropdown: () => void;
+    rePositionDropdown: () => void
 }
 
 class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<AutoCompleteAdapter<P, S>, P, S> {

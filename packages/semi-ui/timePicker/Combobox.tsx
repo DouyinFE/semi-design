@@ -30,7 +30,7 @@ export type ComboboxProps = Pick<TimePickerProps, 'format' | 'prefixCls' | 'disa
     onChange?: (value: { isAM: boolean; value: string; timeStampValue: number }) => void;
     onCurrentSelectPanelChange?: (range: string) => void;
     isAM?: boolean;
-    timeStampValue?: any;
+    timeStampValue?: any
 };
 
 export interface ComboboxState {
@@ -39,13 +39,13 @@ export interface ComboboxState {
     showSecond: boolean;
     hourOptions: number[];
     minuteOptions: number[];
-    secondOptions: number[];
+    secondOptions: number[]
 }
 
 export type FormatOptionReturn = ReturnType<typeof formatOption>;
 export interface AMPMOptionItem {
     value: string;
-    text: string;
+    text: string
 }
 
 class Combobox extends BaseComponent<ComboboxProps, ComboboxState> {
@@ -120,7 +120,7 @@ class Combobox extends BaseComponent<ComboboxProps, ComboboxState> {
         });
     };
 
-    onItemChange = ({ type, value, disabled }: { type?: string; value: string; disabled?: boolean; }) => {
+    onItemChange = ({ type, value, disabled }: { type?: string; value: string; disabled?: boolean }) => {
         // eslint-disable-next-line prefer-const
         let { onChange, use12Hours, isAM, format, timeStampValue } = this.props;
         const transformValue = this.foundation.getDisplayDateFromTimeStamp(timeStampValue);

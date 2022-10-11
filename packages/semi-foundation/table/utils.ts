@@ -400,7 +400,7 @@ export type ExpandBtnShouldInRowProps = {
     dataSource: Record<string, any>[];
     hideExpandedColumn: boolean;
     childrenRecordName: string;
-    rowExpandable: (record?: Record<string, any>) => boolean;
+    rowExpandable: (record?: Record<string, any>) => boolean
 };
 
 /**
@@ -475,7 +475,7 @@ export interface GetAllDisabledRowKeysProps {
     dataSource: Record<string, any>[];
     getCheckboxProps: (record?: Record<string, any>) => any;
     childrenRecordName?: string;
-    rowKey?: string | number | ((record: Record<string, any>) => string | number);
+    rowKey?: string | number | ((record: Record<string, any>) => string | number)
 }
 
 export function warnIfNoDataIndex(column: Record<string, any>) {
@@ -490,7 +490,7 @@ export function warnIfNoDataIndex(column: Record<string, any>) {
 /**
  * Whether is tree table
  */
-export function isTreeTable({ dataSource, childrenRecordName = 'children' }: { dataSource: Record<string, any>; childrenRecordName?: string; }) {
+export function isTreeTable({ dataSource, childrenRecordName = 'children' }: { dataSource: Record<string, any>; childrenRecordName?: string }) {
     let flag = false;
     if (Array.isArray(dataSource)) {
         for (const data of dataSource) {

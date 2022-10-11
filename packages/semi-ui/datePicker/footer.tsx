@@ -9,7 +9,7 @@ interface FooterProps {
     locale: Locale['DatePicker'];
     localeCode: string;
     onCancelClick?: React.MouseEventHandler<HTMLButtonElement>;
-    onConfirmClick?: React.MouseEventHandler<HTMLButtonElement>;
+    onConfirmClick?: React.MouseEventHandler<HTMLButtonElement>
 }
 
 export default function Footer(props = {} as FooterProps) {

@@ -6,11 +6,11 @@ import fs from 'fs-extra';
 
 
 export interface Options {
-    foundationPath: string,
-    themePath: string,
-    iconPath: string,
-    outputPath: string
-    isMin?: boolean,
+    foundationPath: string;
+    themePath: string;
+    iconPath: string;
+    outputPath: string;
+    isMin?: boolean
 }
 
 const compile = ({ foundationPath, themePath, iconPath, outputPath, isMin = false }: Options) => {

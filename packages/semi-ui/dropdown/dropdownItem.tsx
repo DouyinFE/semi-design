@@ -22,7 +22,7 @@ export interface DropdownItemProps extends BaseProps {
     forwardRef?: (ele: HTMLLIElement) => void;
     type?: Type;
     active?: boolean;
-    icon?: React.ReactNode;
+    icon?: React.ReactNode
 }
 
 const prefixCls = css.PREFIX;

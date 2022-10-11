@@ -7,12 +7,12 @@ import ResizeObserver from 'resize-observer-polyfill';
 /** A parallel type to `ResizeObserverEntry` (from resize-observer-polyfill). */
 export interface ResizeEntry {
     contentRect: DOMRectReadOnly;
-    target: Element;
+    target: Element
 }
 
 export interface ReactResizeObserverProps extends BaseProps {
     onResize?: (entries: ResizeEntry[]) => void;
-    observeParent?: boolean;
+    observeParent?: boolean
 }
 
 export default class ReactResizeObserver extends BaseComponent<ReactResizeObserverProps> {

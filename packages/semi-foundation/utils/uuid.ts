@@ -38,7 +38,7 @@ function getUuidShort(options: GetUuidShortOptions = {}) {
 
 interface GetUuidShortOptions {
     prefix?: string;
-    length?: number;
+    length?: number
 }
 
 export { getUuid, getUuidv4, getUuidShort };

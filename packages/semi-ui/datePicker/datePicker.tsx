@@ -43,7 +43,7 @@ export interface DatePickerProps extends DatePickerFoundationProps {
     onFocus?: (e: React.MouseEvent, rangeType: RangeType) => void;
     onPresetClick?: (item: PresetType, e: React.MouseEvent<HTMLDivElement>) => void;
     locale?: Locale['DatePicker'];
-    dateFnsLocale?: Locale['dateFnsLocale'];
+    dateFnsLocale?: Locale['dateFnsLocale']
 }
 
 export type DatePickerState = DatePickerFoundationState;

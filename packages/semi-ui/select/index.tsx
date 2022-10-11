@@ -45,7 +45,7 @@ const key = 0;
 type ExcludeInputType = {
     value?: InputProps['value'];
     onFocus?: InputProps['onFocus'];
-    onChange?: InputProps['onChange'];
+    onChange?: InputProps['onChange']
 }
 
 type OnChangeValueType = string | number | Record<string, any>;
@@ -61,7 +61,7 @@ export interface optionRenderProps {
     disabled?: boolean;
     onMouseEnter?: (e: React.MouseEvent) => any;
     onClick?: (e: React.MouseEvent) => any;
-    [x: string]: any;
+    [x: string]: any
 }
 
 export interface selectMethod {
@@ -70,14 +70,14 @@ export interface selectMethod {
     deselectAll?: () => void;
     focus?: () => void;
     close?: () => void;
-    open?: () => void;
+    open?: () => void
 }
 export type SelectSize = 'small' | 'large' | 'default';
 
 export interface virtualListProps {
     itemSize?: number;
     height?: number;
-    width?: string | number;
+    width?: string | number
 }
 
 export type RenderSingleSelectedItemFn = (optionNode: Record<string, any>) => React.ReactNode;
@@ -152,7 +152,7 @@ export type SelectProps = {
     onBlur?: (e: React.FocusEvent) => void;
     onListScroll?: (e: React.UIEvent<HTMLDivElement>) => void;
     children?: React.ReactNode;
-    preventScroll?: boolean;
+    preventScroll?: boolean
 } & Pick<
 TooltipProps,
 | 'spacing'
@@ -177,7 +177,7 @@ export interface SelectState {
     keyboardEventSet: any; // {}
     optionGroups: Array<any>;
     isHovering: boolean;
-    isFocusInContainer: boolean;
+    isFocusInContainer: boolean
 }
 
 // Notes: Use the label of the option as the identifier, that is, the option in Select, the value is allowed to be the same, but the label must be unique

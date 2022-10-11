@@ -9,7 +9,7 @@ import { IconAlertCircle, IconAlertTriangle, IconHelpCircle, IconInfoCircle, Ico
 import { Motion } from '../_base/base';
 
 export interface ConfirmProps extends ModalReactProps {
-    type: 'success' | 'info' | 'warning' | 'error' | 'confirm';
+    type: 'success' | 'info' | 'warning' | 'error' | 'confirm'
 }
 
 export default function confirm<T>(props: ConfirmProps) {

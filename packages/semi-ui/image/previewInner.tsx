@@ -297,7 +297,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
         const { currentIndex, imgSrc, zoom, ratio, rotation, viewerVisible } = this.state;
         let wrapperStyle: {
             zIndex?: CSSProperties["zIndex"];
-            position?: CSSProperties["position"];
+            position?: CSSProperties["position"]
         } = {
             zIndex,
         };

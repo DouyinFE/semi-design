@@ -14,19 +14,19 @@ export interface CollapseProps{
     className?: string;
     keepDOM?: boolean;
     motion?: Motion;
-    expandIconPosition?: 'left' | 'right';
+    expandIconPosition?: 'left' | 'right'
 
 }
 
 export interface CollapseState{
-    activeSet: Set<string>;
+    activeSet: Set<string>
 }
 
 export interface CollapseAdapter extends DefaultAdapter<CollapseProps, CollapseState>{
     handleChange: (activeKey: CollapseProps['activeKey'], e: any) => void;
     // getStates: () => CollapseState;
     // getProps: () => CollapseProps;
-    addActiveKey: (newSet: CollapseState['activeSet']) => void;
+    addActiveKey: (newSet: CollapseState['activeSet']) => void
 }
 
 export default class CollapseFoundation extends BaseFoundation<CollapseAdapter> {

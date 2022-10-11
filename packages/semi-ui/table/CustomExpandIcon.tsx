@@ -17,7 +17,7 @@ export interface CustomExpandIconProps {
     onMouseLeave?: (e: React.MouseEvent<HTMLSpanElement>) => void;
     expandIcon?: ((expanded?: boolean) => React.ReactNode) | React.ReactNode;
     prefixCls?: string;
-    motion?: boolean;
+    motion?: boolean
 }
 
 /**

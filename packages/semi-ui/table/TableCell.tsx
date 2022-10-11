@@ -42,7 +42,7 @@ export interface TableCellProps extends BaseProps {
     selected?: boolean; // Whether the current row is selected
     expanded?: boolean; // Whether the current line is expanded
     disabled?: boolean;
-    colIndex?: number;
+    colIndex?: number
 }
 
 function isInvalidRenderCellText(text: any) {

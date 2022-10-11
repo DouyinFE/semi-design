@@ -35,7 +35,7 @@ export interface ModalReactProps extends ModalProps {
     footer?: ReactNode;
     header?: ReactNode;
     onCancel?: (e: React.MouseEvent) => void | Promise<any>;
-    onOk?: (e: React.MouseEvent) => void | Promise<any>;
+    onOk?: (e: React.MouseEvent) => void | Promise<any>
 }
 
 
@@ -360,7 +360,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         const renderFooter = 'footer' in this.props ? footer : this.renderFooter();
         let wrapperStyle: {
             zIndex?: CSSProperties['zIndex'];
-            position?: CSSProperties['position'];
+            position?: CSSProperties['position']
         } = {
             zIndex,
         };

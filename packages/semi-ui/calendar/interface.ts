@@ -18,7 +18,7 @@ export interface CalendarProps extends BaseProps {
     markWeekend?: boolean;
     width?: number | string;
     height?: number | string;
-    dateGridRender?: (dateString?: string, date?: Date) => React.ReactNode;
+    dateGridRender?: (dateString?: string, date?: Date) => React.ReactNode
 }
 
 export type DayCalendarProps = Omit<CalendarProps, 'mode'>;
@@ -28,7 +28,7 @@ export interface DayColProps extends Pick<CalendarProps, DayCalendarPropsKeys>, 
     scrollHeight: number;
     currPos: number;
     isWeekend: boolean;
-    handleClick: (e: React.MouseEvent, val: [Date, number, number, number]) => void;
+    handleClick: (e: React.MouseEvent, val: [Date, number, number, number]) => void
 }
 
 export type MonthCalendarProps = Omit<CalendarProps, 'range' | 'showCurrTime' | 'scrollTop' | 'renderTimeDisplay'>;
@@ -37,7 +37,7 @@ export type RangeCalendarProps = CalendarProps;
 
 export interface TimeColProps {
     className?: string;
-    renderTimeDisplay?: CalendarProps['renderTimeDisplay'];
+    renderTimeDisplay?: CalendarProps['renderTimeDisplay']
 }
 
 export type WeekCalendarProps = CalendarProps;

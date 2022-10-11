@@ -85,7 +85,20 @@ module.exports = {
                 'jsx-a11y/no-noninteractive-element-interactions': ['warn'],
                 'jsx-a11y/no-autofocus': ['warn'],
                 'object-curly-spacing': ['error', 'always'],
-                'semi-design/no-import': 'error'
+                'semi-design/no-import': 'error',
+                "@typescript-eslint/member-delimiter-style": [
+                    "error",
+                    {
+                        "multiline": {
+                            "delimiter": "semi",
+                            "requireLast": false
+                        },
+                        "singleline": {
+                            "delimiter": "semi",
+                            "requireLast": false
+                        }
+                    }
+                ],
             }
         },
     ],

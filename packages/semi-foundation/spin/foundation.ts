@@ -2,7 +2,7 @@ import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 
 
 export interface SpinAdapter extends Partial<DefaultAdapter> {
-    setLoading: (val: boolean) => void;
+    setLoading: (val: boolean) => void
 }
 
 class SpinFoundation extends BaseFoundation<SpinAdapter> {

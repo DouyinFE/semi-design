@@ -21,7 +21,7 @@ const tagType = strings.TAG_TYPE;
 const avatarShapeSet = strings.AVATAR_SHAPE;
 
 export interface TagState {
-    visible: boolean;
+    visible: boolean
 }
 
 export default class Tag extends Component<TagProps, TagState> {

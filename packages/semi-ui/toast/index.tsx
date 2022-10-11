@@ -23,7 +23,7 @@ export interface ToastReactProps extends ToastProps{
     id?: string;
     style?: CSSProperties;
     icon?: React.ReactNode;
-    content: React.ReactNode;
+    content: React.ReactNode
 }
 
 export type {

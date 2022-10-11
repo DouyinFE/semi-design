@@ -16,7 +16,7 @@ import { strings } from '../constants';
  * ' ~ 2022-02-15 00:00:00' => { monthLeft: { dateInput: '', timeInput: '' }, monthRight: { dateInput: '2022-02-15', timeInput: '00:00:00' } }
  * ```
  */
-export default function getInsetInputValueFromInsetInputStr(options: { inputValue: string; rangeSeparator: string, type: typeof strings.TYPE_SET[number] }) {
+export default function getInsetInputValueFromInsetInputStr(options: { inputValue: string; rangeSeparator: string; type: typeof strings.TYPE_SET[number] }) {
     const timeSeparator = ' ';
     const { inputValue = '', rangeSeparator, type } = options;
     let leftDateInput, leftTimeInput, rightDateInput, rightTimeInput;

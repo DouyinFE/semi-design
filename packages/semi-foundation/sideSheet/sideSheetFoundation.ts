@@ -29,12 +29,12 @@ export interface SideSheetProps {
     width?: number | string;
     zIndex?: number;
     children?: any;
-    'aria-label'?: string;
+    'aria-label'?: string
 }
 
 export interface SideSheetState {
     displayNone: boolean;
-    shouldRender: boolean;
+    shouldRender: boolean
 }
 
 export interface SideSheetAdapter extends DefaultAdapter<SideSheetProps, SideSheetState> {
@@ -45,7 +45,7 @@ export interface SideSheetAdapter extends DefaultAdapter<SideSheetProps, SideShe
     setOnKeyDownListener: () => void;
     removeKeyDownListener: () => void;
     toggleDisplayNone: (displayNone: boolean) => void;
-    setShouldRender: (shouldRender: boolean) => void;
+    setShouldRender: (shouldRender: boolean) => void
 }
 
 

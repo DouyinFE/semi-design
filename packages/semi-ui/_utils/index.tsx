@@ -110,7 +110,7 @@ export const getHighLightTextHTML = ({
 export interface RegisterMediaQueryOption {
     match?: (e: MediaQueryList | MediaQueryListEvent) => void;
     unmatch?: (e: MediaQueryList | MediaQueryListEvent) => void;
-    callInInit?: boolean;
+    callInInit?: boolean
 }
 
 /**
@@ -142,7 +142,7 @@ export const registerMediaQuery = (media: string, { match, unmatch, callInInit =
 export interface GetHighLightTextHTMLProps {
     sourceString?: string;
     searchWords?: any[];
-    option: HighLightTextHTMLOption;
+    option: HighLightTextHTMLOption
 }
 
 export interface HighLightTextHTMLOption {
@@ -150,13 +150,13 @@ export interface HighLightTextHTMLOption {
     highlightClassName?: string;
     highlightStyle?: Record<string, any>;
     caseSensitive: boolean;
-    autoEscape: boolean;
+    autoEscape: boolean
 }
 
 export interface HighLightTextHTMLChunk {
     start?: number;
     end?: number;
-    highlight?: any;
+    highlight?: any
 }
 
 /**

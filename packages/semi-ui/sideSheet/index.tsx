@@ -30,7 +30,7 @@ export interface SideSheetReactProps extends SideSheetProps {
     title?: React.ReactNode;
     footer?: React.ReactNode;
     children?: React.ReactNode;
-    onCancel?: (e: React.MouseEvent | React.KeyboardEvent) => void;
+    onCancel?: (e: React.MouseEvent | React.KeyboardEvent) => void
 }
 
 export type {

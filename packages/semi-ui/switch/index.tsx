@@ -27,13 +27,13 @@ export interface SwitchProps {
     size?: 'large' | 'default' | 'small';
     checkedText?: React.ReactNode;
     uncheckedText?: React.ReactNode;
-    id?: string;
+    id?: string
 } 
 
 export interface SwitchState {
     nativeControlChecked: boolean;
     nativeControlDisabled: boolean;
-    focusVisible: boolean;
+    focusVisible: boolean
 }
 
 class Switch extends BaseComponent<SwitchProps, SwitchState> {

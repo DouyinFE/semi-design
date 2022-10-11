@@ -22,7 +22,7 @@ import CSSAnimation from "../_cssAnimation";
 
 export interface ToggleIcon {
     open?: string;
-    closed?: string;
+    closed?: string
 }
 
 export interface SubNavProps extends BaseProps {
@@ -38,11 +38,11 @@ export interface SubNavProps extends BaseProps {
     onMouseEnter?: React.MouseEventHandler<HTMLLIElement>;
     onMouseLeave?: React.MouseEventHandler<HTMLLIElement>;
     text?: React.ReactNode;
-    toggleIcon?: ToggleIcon;
+    toggleIcon?: ToggleIcon
 }
 
 export interface SubNavState {
-    isHovered: boolean;
+    isHovered: boolean
 }
 
 export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {

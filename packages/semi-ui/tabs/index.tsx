@@ -21,7 +21,7 @@ export * from './interface';
 
 export interface TabsState {
     activeKey: string;
-    panes: Array<PlainTab>;
+    panes: Array<PlainTab>
 }
 
 class Tabs extends BaseComponent<TabsProps, TabsState> {

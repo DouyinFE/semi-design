@@ -11,7 +11,7 @@ export interface PlainTab {
     icon?: ReactNode;
     itemKey: string;
     tab?: ReactNode;
-    closable?: boolean;
+    closable?: boolean
 }
 
 
@@ -37,7 +37,7 @@ export interface TabsProps {
     tabPosition?: TabPosition;
     type?: TabType;
     onTabClose?: (tabKey: string) => void;
-    preventScroll?: boolean;
+    preventScroll?: boolean
 }
 
 export interface TabBarProps {
@@ -55,7 +55,7 @@ export interface TabBarProps {
     dropdownStyle?: CSSProperties;
     closable?: boolean;
     deleteTabItem?: (tabKey: string, event: MouseEvent<Element>) => void;
-    handleKeyDown?: (event: React.KeyboardEvent, itemKey: string, closable: boolean) => void;
+    handleKeyDown?: (event: React.KeyboardEvent, itemKey: string, closable: boolean) => void
 }
 
 export interface TabPaneProps {
@@ -66,7 +66,7 @@ export interface TabPaneProps {
     itemKey?: string;
     style?: CSSProperties;
     tab?: ReactNode;
-    closable?: boolean,
+    closable?: boolean
 }
 
 export interface TabPaneTransitionProps {
@@ -75,7 +75,7 @@ export interface TabPaneTransitionProps {
     children?: ((p: { transform?: string; opacity: number }) => ReactNode | undefined) | undefined;
     direction?: boolean;
     mode?: 'vertical' | 'horizontal';
-    motion?: Motion;
+    motion?: Motion
 }
 
 export interface TabContextValue {
@@ -83,5 +83,5 @@ export interface TabContextValue {
     lazyRender?: boolean;
     panes?: Array<PlainTab>;
     tabPaneMotion?: boolean;
-    tabPosition?: TabPosition;
+    tabPosition?: TabPosition
 }

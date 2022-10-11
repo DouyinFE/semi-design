@@ -32,11 +32,11 @@ export interface ArrowBounding {
     offsetX?: number;
     offsetY?: number;
     width?: number;
-    height?: number;
+    height?: number
 }
 
 export interface RenderContentProps {
-    initialFocusRef?: React.RefObject<HTMLElement>;
+    initialFocusRef?: React.RefObject<HTMLElement>
 }
 
 export type RenderContent = (props: RenderContentProps) => React.ReactNode;
@@ -77,23 +77,23 @@ export interface TooltipProps extends BaseProps {
     disableArrowKeyDown?: boolean;
     wrapperId?: string;
     preventScroll?: boolean;
-    disableFocusListener?: boolean;
+    disableFocusListener?: boolean
 }
 interface TooltipState {
     visible: boolean;
     transitionState: string;
     triggerEventSet: {
-        [key: string]: any;
+        [key: string]: any
     };
     portalEventSet: {
-        [key: string]: any;
+        [key: string]: any
     };
     containerStyle: React.CSSProperties;
     isInsert: boolean;
     placement: Position;
     transitionStyle: Record<string, any>;
     isPositionUpdated: boolean;
-    id: string;
+    id: string
 }
 
 const prefix = cssClasses.PREFIX;

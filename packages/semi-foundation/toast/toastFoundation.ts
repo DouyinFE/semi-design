@@ -13,7 +13,7 @@ export interface ConfigProps {
     right?: number | string;
     duration?: number;
     zIndex?: number;
-    getPopupContainer?: () => HTMLElement | null;
+    getPopupContainer?: () => HTMLElement | null
 }
 export interface ToastProps extends ConfigProps {
     onClose?: () => void;
@@ -26,13 +26,13 @@ export interface ToastProps extends ConfigProps {
     icon?: any;
     theme?: ToastTheme;
     direction?: Directions;
-    close?: (id: string) => void;
+    close?: (id: string) => void
 }
 
 
 export interface ToastInstance extends ToastProps{
     id?: string;
-    motion?: boolean;
+    motion?: boolean
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -43,7 +43,7 @@ export interface ToastState{
 
 export interface ToastAdapter extends DefaultAdapter<ToastProps, ToastState>{
     notifyWrapperToRemove: (id: string) => void;
-    notifyClose: () => void;
+    notifyClose: () => void
 }
 
 export default class ToastFoundation extends BaseFoundation<ToastAdapter> {

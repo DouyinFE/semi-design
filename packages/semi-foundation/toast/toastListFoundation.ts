@@ -9,11 +9,11 @@ export interface ToastListProps{
 export interface ToastListState{
     list: ToastInstance[];
     removedItems: ToastInstance[];
-    updatedItems: ToastInstance[];
+    updatedItems: ToastInstance[]
 }
 
 export interface ToastListAdapter extends DefaultAdapter<ToastListProps, ToastListState>{
-    updateToast: (list: ToastListState['list'], removedItems: ToastListState['removedItems'], updatedItems: ToastListState['updatedItems']) => void;
+    updateToast: (list: ToastListState['list'], removedItems: ToastListState['removedItems'], updatedItems: ToastListState['updatedItems']) => void
 }
 
 export default class ToastListFoundation extends BaseFoundation<ToastListAdapter> {

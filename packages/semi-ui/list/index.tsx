@@ -31,7 +31,7 @@ export interface ListProps<T> {
     loading?: boolean;
     loadMore?: React.ReactNode;
     onClick?: React.MouseEventHandler<HTMLLIElement>;
-    onRightClick?: React.MouseEventHandler<HTMLLIElement>;
+    onRightClick?: React.MouseEventHandler<HTMLLIElement>
 }
 
 const prefixCls = cssClasses.PREFIX;

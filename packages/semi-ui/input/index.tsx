@@ -64,7 +64,7 @@ export interface InputProps extends
     inputStyle?: React.CSSProperties;
     getValueLength?: (value: string) => number;
     forwardRef?: ((instance: any) => void) | React.MutableRefObject<any> | null;
-    preventScroll?: boolean;
+    preventScroll?: boolean
 }
 
 export interface InputState {
@@ -76,7 +76,7 @@ export interface InputState {
     isFocus: boolean;
     isHovering: boolean;
     eyeClosed: boolean;
-    minLength: number;
+    minLength: number
 }
 
 class Input extends BaseComponent<InputProps, InputState> {

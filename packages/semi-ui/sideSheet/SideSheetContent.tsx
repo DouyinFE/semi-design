@@ -29,7 +29,7 @@ export interface SideSheetContentProps {
     footer?: React.ReactNode;
     'aria-label'?: string;
     maskExtraProps?: {[key:string]: any};
-    wrapperExtraProps?: {[key:string]: any};
+    wrapperExtraProps?: {[key:string]: any}
 }
 
 export default class SideSheetContent extends React.PureComponent<SideSheetContentProps> {

@@ -43,38 +43,38 @@ export interface EventObject {
     start?: Date;
     end?: Date;
     // children?: React.ReactNode;
-    children?: any;
+    children?: any
 }
 
 export interface ParsedEventsWithArray {
     day: Array<any>;
-    allDay: Array<any>;
+    allDay: Array<any>
 }
 
 export interface ParsedEvents {
     day?: Map<string, Array<EventObject>>;
-    allDay?: Map<string, Array<EventObject>>;
+    allDay?: Map<string, Array<EventObject>>
 }
 
 export interface ParsedRangeEvent extends EventObject {
     leftPos?: number;
     width?: number;
-    topInd?: number;
+    topInd?: number
 }
 
 export interface MonthlyEvent {
     day: ParsedRangeEvent[][];
-    display: ParsedRangeEvent[];
+    display: ParsedRangeEvent[]
 }
 
 export interface RangeData {
     month: string;
-    week: any[];
+    week: any[]
 }
 
 export interface WeeklyData {
     month: string;
-    week: DateObj[];
+    week: DateObj[]
 }
 
 export type MonthData = Record<number, DateObj[]>;
@@ -103,7 +103,7 @@ export interface CalendarAdapter<P = Record<string, any>, S = Record<string, any
     getMonthlyData?: () => MonthData;
     notifyClose?: (e: any, key: string) => void;
     openCard?: (key: string, spacing: boolean) => void;
-    setItemLimit?: (itemLimit: number) => void;
+    setItemLimit?: (itemLimit: number) => void
 }
 
 export default class CalendarFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<CalendarAdapter<P, S>, P, S> {

@@ -50,7 +50,7 @@ export interface SelectAdapter<P = Record<string, any>, S = Record<string, any>>
     getFocusableElements(node: any): any[];
     getActiveElement(): any;
     setIsFocusInContainer(isFocusInContainer: boolean): void;
-    getIsFocusInContainer(): boolean;
+    getIsFocusInContainer(): boolean
 }
 
 type LabelValue = string | number;

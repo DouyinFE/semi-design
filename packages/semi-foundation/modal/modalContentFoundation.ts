@@ -6,16 +6,16 @@ export interface ModalContentProps extends ModalProps {
     onClose: (e: any) => void;
     getContainerContext: () => any;
     isFullScreen?: boolean;
-    contentClassName?: string,
+    contentClassName?: string;
     maskClassName?: string;
     onAnimationEnd?: (e:any) => void;
     maskExtraProps?:Record<string, any>;
-    contentExtraProps?:Record<string, any>;
+    contentExtraProps?:Record<string, any>
 }
 
 export interface ModalContentState {
     dialogMouseDown: boolean;
-    prevFocusElement: HTMLElement;
+    prevFocusElement: HTMLElement
 }
 
 export interface ModalContentAdapter extends DefaultAdapter<ModalContentProps, ModalContentState> {
@@ -27,7 +27,7 @@ export interface ModalContentAdapter extends DefaultAdapter<ModalContentProps, M
     getMouseState: () => boolean;
     modalDialogFocus: () => void;
     modalDialogBlur: () => void;
-    prevFocusElementReFocus: () => void;
+    prevFocusElementReFocus: () => void
 }
 
 export default class ModalContentFoundation extends BaseFoundation<ModalContentAdapter> {
