@@ -1,11 +1,11 @@
-import React, {createRef, PureComponent, ReactNode} from 'react';
+import React, { createRef, PureComponent, ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
-import {cssClasses} from '@douyinfe/semi-foundation/tabs/constants';
+import { cssClasses } from '@douyinfe/semi-foundation/tabs/constants';
 import getDataAttr from '@douyinfe/semi-foundation/utils/getDataAttr';
 import TabsContext from './tabs-context';
-import {TabContextValue} from './interface';
-import {PlainTab, TabPaneProps} from './interface';
+import { TabContextValue } from './interface';
+import { PlainTab, TabPaneProps } from './interface';
 import CSSAnimation from "../_cssAnimation";
 
 class TabPane extends PureComponent<TabPaneProps> {
@@ -55,16 +55,16 @@ class TabPane extends PureComponent<TabPaneProps> {
 
 
     shouldRender = (): boolean => {
-        const {itemKey} = this.props;
-        const {activeKey, lazyRender} = this.context;
+        const { itemKey } = this.props;
+        const { activeKey, lazyRender } = this.context;
         const active = activeKey === itemKey;
         this._active = this._active || active;
         return lazyRender ? this._active : true;
     };
 
     render(): ReactNode {
-        const {tabPaneMotion: motion, tabPosition,isFirstRender} = this.context;
-        const {className, style, children, itemKey, ...restProps} = this.props;
+        const { tabPaneMotion: motion, tabPosition, isFirstRender } = this.context;
+        const { className, style, children, itemKey, ...restProps } = this.props;
         const active = this.context.activeKey === itemKey;
         const classNames = cls(className, {
             [cssClasses.TABS_PANE_INACTIVE]: !active,
@@ -72,6 +72,22 @@ class TabPane extends PureComponent<TabPaneProps> {
             [cssClasses.TABS_PANE]: true,
         });
         const shouldRender = this.shouldRender();
+        const startClassName = (() => {
+            const direction = this.getDirection(this.context.activeKey, itemKey, this.context.panes);
+            if (tabPosition === 'top') {
+                if (direction) {
+                    return cssClasses.TABS_PANE_ANIMATE_RIGHT_SHOW;
+                } else {
+                    return cssClasses.TABS_PANE_ANIMATE_LEFT_SHOW;
+                }
+            } else {
+                if (direction) {
+                    return cssClasses.TABS_PANE_ANIMATE_BOTTOM_SHOW;
+                } else {
+                    return cssClasses.TABS_PANE_ANIMATE_TOP_SHOW;
+                }
+            }
+        })();
         return (
             <div
                 ref={this.ref}
@@ -87,31 +103,16 @@ class TabPane extends PureComponent<TabPaneProps> {
             >
 
                 <CSSAnimation motion={motion && active && !isFirstRender} animationState={active ? "enter" : "leave"}
-                              startClassName={(() => {
-                                  const direction = this.getDirection(this.context.activeKey, itemKey, this.context.panes);
-                                  if (tabPosition === 'top') {
-                                      if (direction) {
-                                          return cssClasses.TABS_PANE_ANIMATE_RIGHT_SHOW
-                                      } else {
-                                          return cssClasses.TABS_PANE_ANIMATE_LEFT_SHOW
-                                      }
-                                  } else {
-                                      if (direction) {
-                                          return cssClasses.TABS_PANE_ANIMATE_BOTTOM_SHOW
-                                      } else {
-                                          return cssClasses.TABS_PANE_ANIMATE_TOP_SHOW
-                                      }
-                                  }
-                              })()}>
+                    startClassName={startClassName}>
                     {
-                        ({animationClassName, animationEventsNeedBind}) => {
+                        ({ animationClassName, animationEventsNeedBind }) => {
                             return <div
                                 className={`${cssClasses.TABS_PANE_MOTION_OVERLAY} ${animationClassName}`}
                                 x-semi-prop="children"
                                 {...animationEventsNeedBind}
                             >
                                 {shouldRender ? children : null}
-                            </div>
+                            </div>;
                         }
                     }
                 </CSSAnimation>
