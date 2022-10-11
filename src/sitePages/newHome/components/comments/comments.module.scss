@@ -7,7 +7,6 @@
 }
 
 .text_008e1ad6 {
-    font-family: "PingFang SC";
     font-size: 18px;
     color: var(--semi-color-text-0);
     line-height: 32px;
@@ -35,7 +34,7 @@
 
 .key {
     flex-shrink: 0;
-    font-family: "Inter";
+    font-family: "Inter","PingFang SC";
     font-size: 14px;
     color: var(--semi-color-text-2);
     line-height: 20px;
@@ -75,7 +74,6 @@
 
 .title {
     min-width: 321px;
-    margin: 0 0 16px;
     font-size: 32px;
     color: var(--semi-color-text-0);
     line-height: 44px;

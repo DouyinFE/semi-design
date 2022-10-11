@@ -3,7 +3,7 @@ import Banner from './components/banner/banner.jsx';
 import Products from './components/products/products.jsx';
 import Feature from './components/feature/feature.jsx';
 import Comments from './components/comments/comments.jsx';
-import DeepContent from './components/deepContent/deepContent.jsx'
+import DeepContent from './components/deepContent/deepContent.jsx';
 import Resource from './components/resource/resource.jsx';
 import Dsm from './components/dsm/dsm.jsx';
 import Pro from './components/pro/pro.jsx';

@@ -1,4 +1,3 @@
-/* eslint-disable js./node_modules/src/utils/localee_modules/src/utils/localents-have-key-events */
 import { _t } from "src/utils/locale";
 import React, { useEffect } from 'react';
 import styles from "./comments.module.scss";
@@ -23,7 +22,7 @@ function getNumString(number) {
 // 出现在视口的回调函数，在 s 秒中完成数据从 0 递增到 number
 function numberAnimation(number, s, dom) {
     var handle, 
-    content = 0;
+        content = 0;
     // requestAnimationFrame 回调函数执行次数通常是每秒 60 次
     // time 为每次执行会调函数需要增加的大小
     var time = number / (s * 60); 
@@ -61,7 +60,7 @@ function Comments(props) {
         }
         );
         allElement.forEach(item => observer.observe(item));
-    }, [])
+    }, []);
     
     return (
         <div {...props} className={styles.frame}>
@@ -118,12 +117,14 @@ function Comments(props) {
                         className={`${styles.group3736dark}`} 
                     />
                 </span>
-                </div>
+            </div>
             <div className={styles.comment}>
                 <div className={styles.autoWrapper}>
                     <div className={styles.testimonial1}>
+                        {/* eslint-disable-next-line jsx-a11y/alt-text */}
                         <img src="https://lf9-static.semi.design/obj/semi-tos/images/7e1756c0-321a-11ec-adec-e911cea4cf98.png" className={styles.mColorCN} />
                         <div className={styles.frame4569}>
+                            {/* eslint-disable-next-line jsx-a11y/alt-text */}
                             <img src="https://lf9-static.semi.design/obj/semi-tos/images/7e19c7c0-321a-11ec-b393-ab4adc2e449f.svg" className={styles.quoteMark} />
                             <div className={styles.feedbackPersonDetail}>
                                 <p className={styles.feedback}><span className={styles.feedback_3a905c13}>{_t("access_is_simple_and_easy_to_use", { }, "接入简单易上手；")}</span></p>
@@ -137,11 +138,13 @@ function Comments(props) {
                     <div className={styles.testimonial1}>
                         <div className={styles.mColorCN_beba3295}>
                             <div className={styles.autoWrapper_4fa00029}>
+                                {/* eslint-disable-next-line jsx-a11y/alt-text */}
                                 <img src="https://lf9-static.semi.design/obj/semi-tos/images/7e17a4e1-321a-11ec-9c23-a9f1bde3758e.svg" className={styles.autoWrapper_4fa00029} />
                                 <p className={styles.text_b1d6cd66}>C</p>
                             </div>
                         </div>
                         <div className={styles.frame4569}>
+                            {/* eslint-disable-next-line jsx-a11y/alt-text */}
                             <img src="https://lf9-static.semi.design/obj/semi-tos/images/7e190470-321a-11ec-b008-15e09471f238.svg" className={styles.quoteMark} />
                             <div className={styles.feedbackPersonDetail}>
                                 <p className={styles.feedback}>{_t("the_components_are_quite_complete__covering_a_wide_range_and_the_overall_style_i_e10d9214b403886d249f00b8c4dbb975", { }, "组件挺全的，覆盖的比较广泛，整体风格也不错。")}</p>
@@ -155,11 +158,13 @@ function Comments(props) {
                     <div className={styles.testimonial7}>
                         <div className={styles.mColorCN_beba3295}>
                             <div className={styles.autoWrapper_4fa00029}>
+                                {/* eslint-disable-next-line jsx-a11y/alt-text */}
                                 <img src="https://lf9-static.semi.design/obj/semi-tos/images/7e1ab220-321a-11ec-ab65-77a60c02a0b5.svg" className={styles.autoWrapper_4fa00029} />
                                 <p className={styles.text_11043f46}>M</p>
                             </div>
                         </div>
                         <div className={styles.frame4569}>
+                            {/* eslint-disable-next-line jsx-a11y/alt-text */}
                             <img src="https://lf9-static.semi.design/obj/semi-tos/images/7e1ad930-321a-11ec-ab65-77a60c02a0b5.svg" className={styles.quoteMark} />
                             <div className={styles.feedbackPersonDetail}>
                                 <p className={styles.feedback_daa8760d}>{_t("design_resources_are_obviously_helpful_to_improve_efficiency_", { }, "设计资源对提效有明显帮助。")}</p>
@@ -175,11 +180,13 @@ function Comments(props) {
                     <div className={styles.testimonial1}>
                         <div className={styles.mColorCN_beba3295}>
                             <div className={styles.autoWrapper_4fa00029}>
+                                {/* eslint-disable-next-line jsx-a11y/alt-text */}
                                 <img src="https://lf9-static.semi.design/obj/semi-tos/images/7e190470-321a-11ec-8b14-8fb159794ae4.svg" className={styles.autoWrapper_4fa00029} />
                                 <p className={styles.text_f8842908}>Y</p>
                             </div>
                         </div>
                         <div className={styles.frame4569}>
+                            {/* eslint-disable-next-line jsx-a11y/alt-text */}
                             <img src="https://lf9-static.semi.design/obj/semi-tos/images/7e1b0040-321a-11ec-ab65-77a60c02a0b5.svg" className={styles.quoteMark} />
                             <div className={styles.feedbackPersonDetail}>
                                 <p className={styles.feedback}>{_t("there_are_many_other_business_uses_within_the_company__there_are_more_sample_ref_c5fe7051d5fbf1a547084c91f7c4fd8e", { }, "有很多公司内的其他业务使用，有比较多的样例参考，我们依托")}</p>
@@ -191,8 +198,10 @@ function Comments(props) {
                         </div>
                     </div>
                     <div className={styles.testimonial1}>
+                        {/* eslint-disable-next-line jsx-a11y/alt-text */}
                         <img src="https://lf9-static.semi.design/obj/semi-tos/images/7e190471-321a-11ec-b008-15e09471f238.png" className={styles.mColorCN} />
                         <div className={styles.frame4569}>
+                            {/* eslint-disable-next-line jsx-a11y/alt-text */}
                             <img src="https://lf9-static.semi.design/obj/semi-tos/images/7e1a15e0-321a-11ec-b393-ab4adc2e449f.svg" className={styles.quoteMark} />
                             <div className={styles.feedbackPersonDetail}>
                                 <p className={styles.feedback}>{_t("super_good!_strong_push_", { }, "超级好用！强推。")}</p>
@@ -204,8 +213,10 @@ function Comments(props) {
                         </div>
                     </div>
                     <div className={styles.testimonial7}>
+                        {/* eslint-disable-next-line jsx-a11y/alt-text */}
                         <img src="https://lf9-static.semi.design/obj/semi-tos/images/7e192b80-321a-11ec-8b14-8fb159794ae4.png" className={styles.mColorCN} />
                         <div className={styles.frame4569}>
+                            {/* eslint-disable-next-line jsx-a11y/alt-text */}
                             <img src="https://lf9-static.semi.design/obj/semi-tos/images/7e1979a0-321a-11ec-adec-e911cea4cf98.svg" className={styles.quoteMark} />
                             <div className={styles.feedbackPersonDetail}>
                                 <p className={styles.feedback}>{_t("as_an_excellent_benchmarking_industry", { }, "作为对标业界优秀的")}</p>
@@ -219,8 +230,10 @@ function Comments(props) {
                 </div>
                 <div className={styles.frame4571}>
                     <div className={styles.testimonial3}>
+                        {/* eslint-disable-next-line jsx-a11y/alt-text */}
                         <img src="https://lf9-static.semi.design/obj/semi-tos/images/7e1b2750-321a-11ec-ab65-77a60c02a0b5.png" className={styles.mColorCN} />
                         <div className={styles.frame4569}>
+                            {/* eslint-disable-next-line jsx-a11y/alt-text */}
                             <img src="https://lf9-static.semi.design/obj/semi-tos/images/7e1a3cf0-321a-11ec-b393-ab4adc2e449f.svg" className={styles.quoteMark} />
                             <div className={styles.feedbackPersonDetail}>
                                 <p className={styles.feedback}>{_t("easy_to_use__beautiful_style_", { }, "使用方便，样式美观。")}</p>
@@ -234,11 +247,13 @@ function Comments(props) {
                     <div className={styles.testimonial1}>
                         <div className={styles.mColorCN_beba3295}>
                             <div className={styles.autoWrapper_4fa00029}>
+                                {/* eslint-disable-next-line jsx-a11y/alt-text */}
                                 <img src="https://lf9-static.semi.design/obj/semi-tos/images/7e1b9c80-321a-11ec-ab65-77a60c02a0b5.svg" className={styles.autoWrapper_4fa00029} />
                                 <p className={styles.text_b1d6cd66}>G</p>
                             </div>
                         </div>
                         <div className={styles.frame4569}>
+                            {/* eslint-disable-next-line jsx-a11y/alt-text */}
                             <img src="https://lf9-static.semi.design/obj/semi-tos/images/7e19a0b0-321a-11ec-9c23-a9f1bde3758e.svg" className={styles.quoteMark} />
                             <div className={styles.feedbackPersonDetail}>
                                 <p className={styles.feedback}>{_t("uniform_style_and_high_fidelity_prototype_facilitate_communication_with_front_en_95d0c0ccece05c104b98ac0dae9fb53b", { }, "统一的样式，高保真的原型便于与前端同学进行沟通。")}</p>
@@ -250,8 +265,10 @@ function Comments(props) {
                         </div>
                     </div>
                     <div className={styles.testimonial7}>
+                        {/* eslint-disable-next-line jsx-a11y/alt-text */}
                         <img src="https://lf9-static.semi.design/obj/semi-tos/images/7e1979a1-321a-11ec-adec-e911cea4cf98.png" className={styles.mColorCN} />
                         <div className={styles.frame4569}>
+                            {/* eslint-disable-next-line jsx-a11y/alt-text */}
                             <img src="https://lf9-static.semi.design/obj/semi-tos/images/7e19c7c0-321a-11ec-9c23-a9f1bde3758e.svg" className={styles.quoteMark} />
                             <div className={styles.feedbackPersonDetail}>
                                 <p className={styles.feedback_daa8760d}>{_t("the_documentation_is_very_detailed_and_the_details_of_the_components_are_well_th_aadc51a1122c41cf69ebd4b15e83e864", { }, "文档非常详细，对组件的细节思考非常充足。")}</p>

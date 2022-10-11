@@ -20,7 +20,7 @@ const appLocale = {
 
         // footer
         'footer.component': 'React 组件库',
-        'footer.dsm': '主题与DSM',
+        'footer.dsm': '主题与 DSM',
 
         // search
         'search.belong.component': '组件',
