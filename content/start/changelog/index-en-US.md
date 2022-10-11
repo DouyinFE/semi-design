@@ -23,6 +23,8 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
   - The default maxHeight value of Select (the minimum height of the Option floating layer), the default height of virtualization is `300px` -> `270px`
   - Select Design Token changed, abandoned `$spacing-select_option_first-marginTop`、`$spacing-select_option_last-marginBottom` ；
 Change ：`$spacing-select_option_list-paddingTop` 、`$spacing-select_option_list-paddingBottom` ， from 0 to `$spacing-extra-tight` (4px)
+- 【Chore】
+    - Form export RuleItem Interface  
 
 
 
