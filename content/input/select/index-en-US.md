@@ -1172,7 +1172,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
     };
 
     const optionList = [
-        { value: 'abc', label: 'Semi', otherKey:0 },
+        { value: 'abc', label: 'Semi', otherKey: 0 },
         { value: 'capcut', label: 'Capcut', disabled: true, otherKey: 1 },
         { value: 'cam', label: 'UlikeCam', otherKey: 2 },
         { value: 'buzz', label: 'Buzz', otherKey: 3 },

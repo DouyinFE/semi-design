@@ -101,7 +101,7 @@ class Spin extends BaseComponent<SpinProps, SpinState> {
                 <SpinIcon />
             )}
             {tip ? <div x-semi-prop="tip">{tip}</div> : null}
-        </div>:null
+        </div>:null;
     }
 
     render() {

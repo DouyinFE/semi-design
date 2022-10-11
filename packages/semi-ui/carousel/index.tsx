@@ -23,7 +23,7 @@ export interface CarouselState {
 class Carousel extends BaseComponent<CarouselProps, CarouselState> {
     static propTypes = {
         activeIndex: PropTypes.number,
-        animation:PropTypes.oneOf(strings.ANIMATION_MAP),
+        animation: PropTypes.oneOf(strings.ANIMATION_MAP),
         arrowProps: PropTypes.object, 
         autoPlay: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
         className: PropTypes.string,
@@ -199,8 +199,8 @@ class Carousel extends BaseComponent<CarouselProps, CarouselState> {
                             [`${cssClasses.CAROUSEL_CONTENT}-item-current`]: isCurrent,
                             [`${cssClasses.CAROUSEL_CONTENT}-item`]: true,
                             [`${cssClasses.CAROUSEL_CONTENT}-item-active`]: isCurrent,
-                            [`${cssClasses.CAROUSEL_CONTENT}-item-slide-in`]:animation === 'slide' && !isInit && isCurrent,
-                            [`${cssClasses.CAROUSEL_CONTENT}-item-slide-out`]:animation === 'slide' && !isInit && index === preIndex,
+                            [`${cssClasses.CAROUSEL_CONTENT}-item-slide-in`]: animation === 'slide' && !isInit && isCurrent,
+                            [`${cssClasses.CAROUSEL_CONTENT}-item-slide-out`]: animation === 'slide' && !isInit && index === preIndex,
                         })
                     });
                 })}

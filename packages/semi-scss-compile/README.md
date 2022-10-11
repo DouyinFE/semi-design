@@ -37,19 +37,19 @@ function resolve(dir) {
 //eg
 
 compile({
-    foundationPath:resolve('semi-foundation/'),
-    themePath:resolve('semi-theme-default/'),
+    foundationPath: resolve('semi-foundation/'),
+    themePath: resolve('semi-theme-default/'),
     iconPath: resolve('node_modules/@douyinfe/semi-icons'),
-    outputPath:resolve('semi-ui/dist/css/semi.min.css'),
-    isMin:true
+    outputPath: resolve('semi-ui/dist/css/semi.min.css'),
+    isMin: true
 });
 
 compile({
-    foundationPath:resolve('semi-foundation/'),
-    themePath:resolve('semi-theme-default/'),
+    foundationPath: resolve('semi-foundation/'),
+    themePath: resolve('semi-theme-default/'),
     iconPath: resolve('node_modules/@douyinfe/semi-icons'),
-    outputPath:resolve('semi-ui/dist/css/semi.css'),
-    isMin:false
+    outputPath: resolve('semi-ui/dist/css/semi.css'),
+    isMin: false
 });
 ```
 

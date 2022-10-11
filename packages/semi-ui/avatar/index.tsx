@@ -184,7 +184,7 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
             const props = {
                 role: 'img',
                 'aria-label': finalAlt,
-                className:  cls(`${prefixCls}-label`,
+                className: cls(`${prefixCls}-label`,
                     {
                         [`${prefixCls}-no-focus-visible`]: clickable,
                     }

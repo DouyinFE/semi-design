@@ -9,7 +9,7 @@ import '@douyinfe/semi-foundation/navigation/navigation.scss';
 
 import isNullOrUndefined from '@douyinfe/semi-foundation/utils/isNullOrUndefined';
 import SubNavFoundation, { SubNavAdapter } from '@douyinfe/semi-foundation/navigation/subNavFoundation';
-import {strings, numbers, cssClasses} from '@douyinfe/semi-foundation/navigation/constants';
+import { strings, numbers, cssClasses } from '@douyinfe/semi-foundation/navigation/constants';
 import { IconChevronDown, IconChevronUp, IconChevronRight } from '@douyinfe/semi-icons';
 
 import NavItem from './Item';
@@ -17,7 +17,7 @@ import Dropdown, { DropdownProps } from '../dropdown';
 import NavContext, { NavContextType } from './nav-context';
 
 import { times, get } from 'lodash';
-import Collapsible from "../collapsible"
+import Collapsible from "../collapsible";
 import CSSAnimation from "../_cssAnimation";
 
 export interface ToggleIcon {
@@ -195,9 +195,9 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
 
         const iconElem = React.isValidElement(icon) ? (withTransition ? (
             <CSSAnimation animationState={isOpen?"enter":"leave"} startClassName={`${cssClasses.PREFIX}-icon-rotate-${isOpen?"0":"180"}`}>
-                {({animationClassName})=>{
+                {({ animationClassName })=>{
                     // @ts-ignore
-                    return React.cloneElement(icon, { size: iconSize,className:animationClassName })
+                    return React.cloneElement(icon, { size: iconSize, className: animationClassName });
                 }}
             </CSSAnimation>
             // @ts-ignore
@@ -293,7 +293,7 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
                     {children}
                 </ul>: null
             }
-        </Collapsible>
+        </Collapsible>;
 
 
         const finalDom = isHorizontal ? null : subNavMotion ? (

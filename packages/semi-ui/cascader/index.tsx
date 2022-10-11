@@ -171,7 +171,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         leafOnly: PropTypes.bool,
         enableLeafClick: PropTypes.bool,
         preventScroll: PropTypes.bool,
-        position:PropTypes.string
+        position: PropTypes.string
     };
 
     static defaultProps = {

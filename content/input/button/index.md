@@ -158,8 +158,8 @@ import { Button } from '@douyinfe/semi-ui';
 function ButtonDemo() {
     return (
         <div>
-            <Button size='large' style={{ marginRight:8 }}>大尺寸</Button>
-            <Button size='default' style={{ marginRight:8 }}>默认尺寸</Button>
+            <Button size='large' style={{ marginRight: 8 }}>大尺寸</Button>
+            <Button size='default' style={{ marginRight: 8 }}>默认尺寸</Button>
             <Button size='small'>小尺寸</Button>
         </div>
     );
@@ -407,9 +407,9 @@ function SplitButtonDemo(){
     ];
 
     const [btnVisible, setBtnVisible] = useState({
-        1:false,
-        2:false,
-        3:false
+        1: false,
+        2: false,
+        3: false
     });
 
     const handleVisibleChange = (key, visible)=>{
@@ -420,22 +420,22 @@ function SplitButtonDemo(){
 
     return (
         <div>
-            <SplitButtonGroup style={{ marginRight:10 }} aria-label="项目操作按钮组">
+            <SplitButtonGroup style={{ marginRight: 10 }} aria-label="项目操作按钮组">
                 <Button theme="solid" type="primary">分裂按钮</Button>
                 <Dropdown onVisibleChange={(v)=>handleVisibleChange(1, v)} menu={menu} trigger="click" position="bottomRight">
-                    <Button style={btnVisible[1] ? { background:'var(--semi-color-primary-hover)', padding:'8px 4px' } : { padding:'8px 4px' }} theme="solid" type="primary" icon={<IconTreeTriangleDown />}></Button>
+                    <Button style={btnVisible[1] ? { background: 'var(--semi-color-primary-hover)', padding: '8px 4px' } : { padding: '8px 4px' }} theme="solid" type="primary" icon={<IconTreeTriangleDown />}></Button>
                 </Dropdown>
             </SplitButtonGroup>
-            <SplitButtonGroup style={{ marginRight:10 }} aria-label="项目操作按钮组">
+            <SplitButtonGroup style={{ marginRight: 10 }} aria-label="项目操作按钮组">
                 <Button theme="light" type="primary">分裂按钮</Button>
                 <Dropdown onVisibleChange={(v)=>handleVisibleChange(2, v)} menu={menu} trigger="click" position="bottomRight">
-                    <Button style={btnVisible[2]?{ background:'var(--semi-color-fill-1)', padding:'8px 4px' }:{ padding:'8px 4px' }} theme="light" type="primary" icon={<IconTreeTriangleDown />}></Button>
+                    <Button style={btnVisible[2]?{ background: 'var(--semi-color-fill-1)', padding: '8px 4px' }:{ padding: '8px 4px' }} theme="light" type="primary" icon={<IconTreeTriangleDown />}></Button>
                 </Dropdown>
             </SplitButtonGroup>
             <SplitButtonGroup aria-label="项目操作按钮组">
-                <Button style={btnVisible[3]?{ background:'var(--semi-color-fill-0)' }:{}} theme="borderless" type="primary">分裂按钮</Button>
+                <Button style={btnVisible[3]?{ background: 'var(--semi-color-fill-0)' }:{}} theme="borderless" type="primary">分裂按钮</Button>
                 <Dropdown onVisibleChange={(v)=>handleVisibleChange(3, v)} menu={menu} trigger="click" position="bottomRight">
-                    <Button style={btnVisible[3]?{ background:'var(--semi-color-fill-1)', padding:'8px 4px' }:{ padding:'8px 4px' }} theme="borderless" type="primary" icon={<IconTreeTriangleDown />}></Button>
+                    <Button style={btnVisible[3]?{ background: 'var(--semi-color-fill-1)', padding: '8px 4px' }:{ padding: '8px 4px' }} theme="borderless" type="primary" icon={<IconTreeTriangleDown />}></Button>
                 </Dropdown>
             </SplitButtonGroup>
         </div>

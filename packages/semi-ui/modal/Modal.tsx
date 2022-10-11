@@ -121,7 +121,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         this.state = {
             displayNone: !props.visible,
             isFullScreen: props.fullScreen,
-            shouldRender:this.props.visible || (this.props.keepDOM && !this.props.lazyRender)
+            shouldRender: this.props.visible || (this.props.keepDOM && !this.props.lazyRender)
         };
         this.foundation = new ModalFoundation(this.adapter);
         this.modalRef = React.createRef();
@@ -169,7 +169,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
                     this.setState({ isFullScreen });
                 }
             },
-            setShouldRender:(shouldRender)=>{
+            setShouldRender: (shouldRender)=>{
                 if (shouldRender!==this.state.shouldRender){
                     this.setState({ shouldRender });
                 }
@@ -397,7 +397,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
                                 }}
                             >
                                 {
-                                    ({ animationClassName:maskAnimationClassName, animationEventsNeedBind:maskAnimationEventsNeedBind })=>{
+                                    ({ animationClassName: maskAnimationClassName, animationEventsNeedBind: maskAnimationEventsNeedBind })=>{
                                         return this.state.shouldRender ? <ModalContent
                                             {...restProps}
                                             contentExtraProps={animationEventsNeedBind}

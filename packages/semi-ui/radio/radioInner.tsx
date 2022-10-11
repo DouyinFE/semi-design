@@ -120,7 +120,7 @@ class RadioInner extends BaseComponent<RadioInnerProps, RadioInnerState> {
 
         const inner = classnames({
             [`${prefix}-focus`]: focusInner,
-            [`${prefix}-focus-border`]:  focusInner && !checked,
+            [`${prefix}-focus-border`]: focusInner && !checked,
             [`${prefix}-inner-display`]: !isButtonRadio,
         });
 

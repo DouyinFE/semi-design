@@ -83,7 +83,7 @@ class CheckboxInner extends PureComponent<CheckboxInnerProps> {
         const inner = classnames({
             [`${prefix}-inner-display`]: true,
             [`${prefix}-focus`]: focusInner,
-            [`${prefix}-focus-border`]:  focusInner && !checked,
+            [`${prefix}-focus-border`]: focusInner && !checked,
         });
 
         const icon = checked ? (
@@ -98,7 +98,7 @@ class CheckboxInner extends PureComponent<CheckboxInnerProps> {
             'aria-disabled': disabled,
             'aria-checked': checked,
             'aria-labelledby': addonId,
-            'aria-describedby':extraId || this.props['aria-describedby'],
+            'aria-describedby': extraId || this.props['aria-describedby'],
             'aria-invalid': this.props['aria-invalid'],
             'aria-errormessage': this.props['aria-errormessage'],
             'aria-required': this.props['aria-required'],

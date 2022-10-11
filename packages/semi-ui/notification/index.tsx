@@ -1,14 +1,14 @@
-import React, {CSSProperties} from 'react';
+import React, { CSSProperties } from 'react';
 import ReactDOM from 'react-dom';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
-import ConfigContext, {ContextValue} from '../configProvider/context';
+import ConfigContext, { ContextValue } from '../configProvider/context';
 import NotificationListFoundation, {
     ConfigProps, NotificationListAdapter,
     NotificationListProps,
     NotificationListState
 } from '@douyinfe/semi-foundation/notification/notificationListFoundation';
-import {cssClasses, strings} from '@douyinfe/semi-foundation/notification/constants';
+import { cssClasses, strings } from '@douyinfe/semi-foundation/notification/constants';
 import Notice from './notice';
 import BaseComponent from '../_base/baseComponent';
 import '@douyinfe/semi-foundation/notification/notification.scss';
@@ -90,7 +90,7 @@ class NotificationList extends BaseComponent<NotificationListProps, Notification
                 this.noticeStorage = [...notices];
                 this.removeItemStorage = [...removedItems];
                 // setState is async sometimes and react often merges state, so use "this" , make sure other code always get right data.
-                this.setState({notices, removedItems});
+                this.setState({ notices, removedItems });
             },
             getNotices: () => this.noticeStorage,
         };
@@ -99,7 +99,7 @@ class NotificationList extends BaseComponent<NotificationListProps, Notification
     static addNotice(notice: NoticeProps) {
         const id = getUuid('notification');
         if (!ref) {
-            const {getPopupContainer} = notice;
+            const { getPopupContainer } = notice;
             const div = document.createElement('div');
             if (!this.wrapperId) {
                 this.wrapperId = getUuid('notification-wrapper').slice(0, 32);
@@ -113,11 +113,11 @@ class NotificationList extends BaseComponent<NotificationListProps, Notification
             } else {
                 document.body.appendChild(div);
             }
-            ReactDOM.render(React.createElement(NotificationList, {ref: instance => (ref = instance)}), div, () => {
-                ref.add({...notice, id});
+            ReactDOM.render(React.createElement(NotificationList, { ref: instance => (ref = instance) }), div, () => {
+                ref.add({ ...notice, id });
             });
         } else {
-            ref.add({...notice, id});
+            ref.add({ ...notice, id });
         }
         return id;
     }
@@ -131,23 +131,23 @@ class NotificationList extends BaseComponent<NotificationListProps, Notification
     }
 
     static info(opts: NoticeProps) {
-        return this.addNotice({...defaultConfig, ...opts, type: 'info'});
+        return this.addNotice({ ...defaultConfig, ...opts, type: 'info' });
     }
 
     static success(opts: NoticeProps) {
-        return this.addNotice({...defaultConfig, ...opts, type: 'success'});
+        return this.addNotice({ ...defaultConfig, ...opts, type: 'success' });
     }
 
     static error(opts: NoticeProps) {
-        return this.addNotice({...defaultConfig, ...opts, type: 'error'});
+        return this.addNotice({ ...defaultConfig, ...opts, type: 'error' });
     }
 
     static warning(opts: NoticeProps) {
-        return this.addNotice({...defaultConfig, ...opts, type: 'warning'});
+        return this.addNotice({ ...defaultConfig, ...opts, type: 'warning' });
     }
 
     static open(opts: NoticeProps) {
-        return this.addNotice({...defaultConfig, ...opts, type: 'default'});
+        return this.addNotice({ ...defaultConfig, ...opts, type: 'default' });
     }
 
     static close(id: string) {
@@ -204,24 +204,24 @@ class NotificationList extends BaseComponent<NotificationListProps, Notification
                 // @ts-ignore
                 <div placement={position} key={position} className={className} style={style}>
                     {notices.map((notice, index) => {
-                            const isRemoved = removedItems.find(removedItem => removedItem.id === notice.id) !== undefined;
-                            return <CSSAnimation key={notice.id}
-                                                 animationState={isRemoved ? "leave" : "enter"}
-                                                 startClassName={`${cssClasses.NOTICE}-animation-${isRemoved ? "hide" : "show"}_${position}`}>
-                                {({animationClassName, animationEventsNeedBind, isAnimating}) => {
-                                    return isRemoved && !isAnimating ? null : <Notice
-                                        {...notice}
-                                        className={cls({
-                                            [notice.className]: Boolean(notice.className),
-                                            [animationClassName]: true,
-                                        })}
-                                        {...animationEventsNeedBind}
-                                        style={{...notice.style}}
-                                        close={this.remove}
-                                    />
-                                }}
-                            </CSSAnimation>
-                        }
+                        const isRemoved = removedItems.find(removedItem => removedItem.id === notice.id) !== undefined;
+                        return <CSSAnimation key={notice.id}
+                            animationState={isRemoved ? "leave" : "enter"}
+                            startClassName={`${cssClasses.NOTICE}-animation-${isRemoved ? "hide" : "show"}_${position}`}>
+                            {({ animationClassName, animationEventsNeedBind, isAnimating }) => {
+                                return isRemoved && !isAnimating ? null : <Notice
+                                    {...notice}
+                                    className={cls({
+                                        [notice.className]: Boolean(notice.className),
+                                        [animationClassName]: true,
+                                    })}
+                                    {...animationEventsNeedBind}
+                                    style={{ ...notice.style }}
+                                    close={this.remove}
+                                />;
+                            }}
+                        </CSSAnimation>;
+                    }
                     )}
                 </div>
             );
@@ -241,8 +241,8 @@ class NotificationList extends BaseComponent<NotificationListProps, Notification
     }
 
     render() {
-        let {notices} = this.state;
-        const {removedItems} = this.state;
+        let { notices } = this.state;
+        const { removedItems } = this.state;
         notices = Array.from(new Set([...notices, ...removedItems]));
         const noticesInPosition: NoticesInPosition = {
             top: [],

@@ -59,10 +59,10 @@ export default function CustomExpandIcon(props: CustomExpandIconProps) {
     if (motion) {
         const originIcon = icon;
         icon = <CSSAnimation animationState={expanded?"enter":"leave"} startClassName={`${cssClasses.PREFIX}-expandedIcon-${expanded?'show':"hide"}`}>
-            {({animationClassName})=>{
-                return React.cloneElement(originIcon,{className:(originIcon.props.className||"")+" "+animationClassName})
+            {({ animationClassName })=>{
+                return React.cloneElement(originIcon, { className: (originIcon.props.className||"")+" "+animationClassName });
             }}
-        </CSSAnimation>
+        </CSSAnimation>;
     }
 
     return (

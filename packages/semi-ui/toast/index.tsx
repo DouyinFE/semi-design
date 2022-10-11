@@ -224,14 +224,14 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
                     const isRemoved = removedItems.find(removedItem=>removedItem.id===item.id) !== undefined;
                     return <CSSAnimation key={item.id} motion={item.motion} animationState={isRemoved?"leave":"enter"} startClassName={isRemoved?`${cssClasses.PREFIX}-animation-hide`:`${cssClasses.PREFIX}-animation-show`}>
                         {
-                            ({animationClassName,animationEventsNeedBind,isAnimating})=>{
-                                return  (isRemoved && !isAnimating) ? null : <Toast {...item} className={cls({
-                                    [item.className]:Boolean(item.className),
-                                    [animationClassName]:true
-                                })} {...animationEventsNeedBind} style={{ ...item.style }} close={id => this.remove(id)} ref={refFn} />
+                            ({ animationClassName, animationEventsNeedBind, isAnimating })=>{
+                                return (isRemoved && !isAnimating) ? null : <Toast {...item} className={cls({
+                                    [item.className]: Boolean(item.className),
+                                    [animationClassName]: true
+                                })} {...animationEventsNeedBind} style={{ ...item.style }} close={id => this.remove(id)} ref={refFn} />;
                             }
                         }
-                    </CSSAnimation>
+                    </CSSAnimation>;
                 }
                 )}
             </React.Fragment>

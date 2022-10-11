@@ -73,9 +73,9 @@ module.exports = function ({ minimize }) {
             alias: {
                 "@douyinfe/semi-foundation": path.resolve(__dirname, "../semi-foundation"),
                 "@douyinfe/semi-icons": path.resolve(__dirname, "../semi-icons"),
-                "@douyinfe/semi-illustrations":path.resolve(__dirname, "../semi-illustrations"),
-                "@douyinfe/semi-animation":path.resolve(__dirname, "../semi-animation"),
-                "@douyinfe/semi-animation-react":path.resolve(__dirname, "../semi-animation-react")
+                "@douyinfe/semi-illustrations": path.resolve(__dirname, "../semi-illustrations"),
+                "@douyinfe/semi-animation": path.resolve(__dirname, "../semi-animation"),
+                "@douyinfe/semi-animation-react": path.resolve(__dirname, "../semi-animation-react")
             },
         },
         externals: {

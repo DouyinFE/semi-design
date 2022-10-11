@@ -64,7 +64,7 @@ import { Select } from '@douyinfe/semi-ui';
 
 () => {
     const list = [
-        { value: 'abc', label: '抖音', otherKey:0 },
+        { value: 'abc', label: '抖音', otherKey: 0 },
         { value: 'ulikecam', label: '轻颜相机', disabled: true, otherKey: 1 },
         { value: 'jianying', label: '剪映', otherKey: 2 },
         { value: 'toutiao', label: '今日头条', otherKey: 3 },
@@ -1003,7 +1003,7 @@ import { Select } from '@douyinfe/semi-ui';
                 multiple={true}
                 filter={true}
                 placeholder='With renderCreateItem'
-                renderCreateItem={input => <div style={{ padding:10 }}>Create Item：{input}</div>}
+                renderCreateItem={input => <div style={{ padding: 10 }}>Create Item：{input}</div>}
                 onChange={v => console.log(v)}
                 defaultActiveFirstOption
             >
@@ -1227,7 +1227,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
     };
 
     const optionList = [
-        { value: 'abc', label: '抖音', otherKey:0 },
+        { value: 'abc', label: '抖音', otherKey: 0 },
         { value: 'ulikecam', label: '轻颜相机', disabled: true, otherKey: 1 },
         { value: 'jianying', label: '剪映', otherKey: 2 },
         { value: 'toutiao', label: '今日头条', otherKey: 3 },

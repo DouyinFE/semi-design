@@ -75,16 +75,16 @@ import { IconHelpCircle } from '@douyinfe/semi-icons';
 
     return (
         <Form layout='horizontal' onValueChange={values=>console.log(values)}>
-            <Form.Input field='UserName' label='用户名' style={{ width:80 }}/>
+            <Form.Input field='UserName' label='用户名' style={{ width: 80 }}/>
             <Form.Input
                 field='Password'
                 label={{ 
                     text: '密码',
                     extra: <Tooltip content='详情'><IconHelpCircle style={{ color: 'var(--semi-color-text-2)' }}/></Tooltip> 
                 }}
-                style={{ width:176 }}
+                style={{ width: 176 }}
             />
-            <Form.Select field="Role" label={{ text: '角色', optional: true }} style={{ width:176 }}>
+            <Form.Select field="Role" label={{ text: '角色', optional: true }} style={{ width: 176 }}>
                 <Option value="admin">管理员</Option>
                 <Option value="user">普通用户</Option>
                 <Option value="guest">访客</Option>
@@ -144,13 +144,13 @@ import { Form } from '@douyinfe/semi-ui';
             {
                 ({ formState, values, formApi }) => (
                     <>
-                        <Form.Select field="Role" label='角色' style={{ width:176 }}>
+                        <Form.Select field="Role" label='角色' style={{ width: 176 }}>
                             <Form.Select.Option value="admin">管理员</Form.Select.Option>
                             <Form.Select.Option value="user">普通用户</Form.Select.Option>
                             <Form.Select.Option value="guest">访客</Form.Select.Option>
                         </Form.Select>
-                        <Form.Input field='UserName' label='用户名' style={{ width:80 }} />
-                        <Form.Input field='Password' label='密码' style={{ width:176 }}/>
+                        <Form.Input field='UserName' label='用户名' style={{ width: 80 }} />
+                        <Form.Input field='Password' label='密码' style={{ width: 176 }}/>
                         <code style={{ marginTop: 24 }}>{JSON.stringify(formState)}</code>
                     </>
                 )
@@ -171,9 +171,9 @@ import { Form } from '@douyinfe/semi-ui';
 () => {
     const fields = ({ formState, formApi, values }) => (
         <>
-            <Form.Input field='Role' style={{ width:176 }}/>
-            <Form.Input field='UserName' style={{ width:80 }}/>
-            <Form.Input field='Password' style={{ width:176 }}/>
+            <Form.Input field='Role' style={{ width: 176 }}/>
+            <Form.Input field='UserName' style={{ width: 80 }}/>
+            <Form.Input field='Password' style={{ width: 176 }}/>
             <code style={{ marginTop: 24 }}>{JSON.stringify(formState)}</code>
         </>
     );
@@ -218,7 +218,7 @@ class BasicDemoWithInit extends React.Component {
                         size: '222KB',
                         percent: 50,
                         preview: true,
-                        fileInstance:  new File([new ArrayBuffer(2048)], 'resso.jpeg', { type: 'image/jpeg' }),
+                        fileInstance: new File([new ArrayBuffer(2048)], 'resso.jpeg', { type: 'image/jpeg' }),
                         url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/Resso.png'
                     },
                     {
@@ -228,7 +228,7 @@ class BasicDemoWithInit extends React.Component {
                         size: '222KB',
                         percent: 50,
                         preview: true,
-                        fileInstance:  new File([new ArrayBuffer(2048)], 'dy.jpeg', { type: 'image/jpeg' }),
+                        fileInstance: new File([new ArrayBuffer(2048)], 'dy.jpeg', { type: 'image/jpeg' }),
                         url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png'
                     }
                 ]
@@ -514,7 +514,7 @@ import { Form, Toast, Button } from '@douyinfe/semi-ui';
                     <Form.Checkbox field='agree' noLabel>I have read and agree to the terms of service</Form.Checkbox>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <p>
-                            <span>Or</span><Button theme='borderless' style={{ color: 'var(--semi-color-primary)', marginLeft: 10, cursor:'pointer' }}>Sign up</Button>
+                            <span>Or</span><Button theme='borderless' style={{ color: 'var(--semi-color-primary)', marginLeft: 10, cursor: 'pointer' }}>Sign up</Button>
                         </p>
                         <Button disabled={!values.agree} htmlType='submit' type="tertiary">Log in</Button>
                     </div>
@@ -710,19 +710,19 @@ import { Form, Button, Space } from '@douyinfe/semi-ui';
 () => {
     const { Section, Input, DatePicker, TimePicker, Select, Switch, InputNumber, Checkbox, CheckboxGroup, RadioGroup, Radio } = Form;
     return (
-        <Form style={{ width:560 }}>
+        <Form style={{ width: 560 }}>
             <Section text={'基本信息'}>
                 <Input field='name' label='考试名称' initValue='TCS任务平台使用' style={{ width: 560 }}/>
             </Section>
             <Section text={'合格标准'} >
-                <div style={{ display:'flex' }}>
-                    <InputNumber field='pass' initValue={60} style={{ width:80 }} label={{ text:'及格正确率', required: true }}/>
-                    <InputNumber field='number' initValue={10} style={{ width:80 }} label={{ text:'合格人数', required: true }}/>
+                <div style={{ display: 'flex' }}>
+                    <InputNumber field='pass' initValue={60} style={{ width: 80 }} label={{ text: '及格正确率', required: true }}/>
+                    <InputNumber field='number' initValue={10} style={{ width: 80 }} label={{ text: '合格人数', required: true }}/>
                 </div>
             </Section>
             <Section text={'考试时间'} >
-                <DatePicker field='date' type='dateTime' initValue={new Date()} style={{ width:272 }} label={{ text:'开始时间', required: true }}/>
-                <div style={{ display:'flex' }}>
+                <DatePicker field='date' type='dateTime' initValue={new Date()} style={{ width: 272 }} label={{ text: '开始时间', required: true }}/>
+                <div style={{ display: 'flex' }}>
                     <Input field='time' label='考试时长' style={{ width: 176 }} initValue={'60'} addonAfter='分钟'/>
                     <Checkbox initValue={true} noLabel field='auto' style={{ paddingTop: 30, marginLeft: 12 }}>到时间自动交卷</Checkbox>
                 </div>
@@ -746,7 +746,7 @@ import { Form, Button, Space } from '@douyinfe/semi-ui';
                 >
                     <Radio value="always">自动放出</Radio>
                     <Radio value="user">
-                        <div style={{ display:'inline-block' }}>
+                        <div style={{ display: 'inline-block' }}>
                             自定义放出时间
                             <Form.DatePicker type='dateTimeRange' noLabel field='customTime' style={{ width: 464, display: 'inline-block' }}/>
                         </div>
@@ -755,11 +755,11 @@ import { Form, Button, Space } from '@douyinfe/semi-ui';
             </Section>
             <Section text={'考试人员'}>
                 <div style={{ display: 'flex' }}>
-                    <Switch field='open' label={{ text:'对外开放', required: true }} checkedText='开' uncheckedText='关'></Switch>
+                    <Switch field='open' label={{ text: '对外开放', required: true }} checkedText='开' uncheckedText='关'></Switch>
                 </div>
                 <Select
                     field='users'
-                    label={{ text:'考生', required: true }}
+                    label={{ text: '考生', required: true }}
                     style={{ width: 560 }}
                     multiple
                     initValue={['1', '2', '3', '4']}
@@ -1093,7 +1093,7 @@ class ModalFormDemo extends React.Component {
                                     field='region'
                                     label="国家/地区"
                                     placeholder='请选择'
-                                    style={{ width:'100%' }}
+                                    style={{ width: '100%' }}
                                     rules={[
                                         { required: true, message },
                                     ]}
@@ -1121,7 +1121,7 @@ class ModalFormDemo extends React.Component {
                                     field='area'
                                     label="投放区域"
                                     placeholder='请选择'
-                                    style={{ width:'100%' }}
+                                    style={{ width: '100%' }}
                                     rules={[
                                         { required: true, message },
                                     ]}
@@ -1538,7 +1538,7 @@ class ArrayFieldDemo extends React.Component {
                     {({ add, arrayFields, addWithInitValue }) => (
                         <React.Fragment>
                             <Button onClick={add} icon={<IconPlusCircle />} theme='light'>新增空白行</Button>
-                            <Button icon={<IconPlusCircle />} onClick={() => {addWithInitValue({ name: '自定义贴纸', type: '2D' });}} style={{ marginLeft:8 }}>新增带有初始值的行</Button>
+                            <Button icon={<IconPlusCircle />} onClick={() => {addWithInitValue({ name: '自定义贴纸', type: '2D' });}} style={{ marginLeft: 8 }}>新增带有初始值的行</Button>
                             {
                                 arrayFields.map(({ field, key, remove }, i) => (
                                     <div key={key} style={{ width: 1000, display: 'flex' }}>
@@ -1857,7 +1857,7 @@ const MyComponent = (props) => {
     };
     return (
         <div className='customField'>
-            <Input insetLabel='名称' value={name} onChange={v => handleChange(v, 'name')} style={{ width: 180, marginRight:12 }} />
+            <Input insetLabel='名称' value={name} onChange={v => handleChange(v, 'name')} style={{ width: 180, marginRight: 12 }} />
             <Select
                 insetLabel='角色'
                 value={role}
@@ -1883,7 +1883,7 @@ class WithFieldDemo2 extends React.Component {
     render() {
         return (
             <Form>
-                <CustomField field='baseInfo' label={{ text:'基本信息', required: true }} />
+                <CustomField field='baseInfo' label={{ text: '基本信息', required: true }} />
                 <ComponentUsingFormState />
             </Form>
         );
