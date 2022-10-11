@@ -51,6 +51,9 @@ class CSSAnimation extends React.Component<AnimationProps, AnimationState> {
 
 
     componentDidMount() {
+        // The purpose is to shield the impact of the presence or absence of animation on the other semi component life cycle.
+        // In order to make the component side do not need to manually call the next life cycle function when there is no animation,
+        // so when there is no animation , it is logically (and only logically) regarded as an animation with a duration of 0.
         this.props.onAnimationStart?.();
         if (!this.props.motion){
             this.props.onAnimationEnd?.();
