@@ -20,7 +20,7 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 - 【Fix】
   - Fixed the problem that the position of the first Option option is offset when the Select is virtualized  [#1178](https://github.com/DouyinFE/semi-design/pull/1178)
 - 【Style】
-  - The default maxHeight value of Select (the minimum height of the Option floating layer), the default height of virtualization is `300px` -> `270px`
+  - The default maxHeight value of Select (the max height of the Option floating layer), the default height of virtualization is `300px` -> `270px`
   - Select Design Token changed, abandoned `$spacing-select_option_first-marginTop`、`$spacing-select_option_last-marginBottom` ；
 Change ：`$spacing-select_option_list-paddingTop` 、`$spacing-select_option_list-paddingBottom` ， from 0 to `$spacing-extra-tight` (4px)
 - 【Chore】
