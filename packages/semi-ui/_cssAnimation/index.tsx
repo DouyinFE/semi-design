@@ -1,5 +1,5 @@
-import React, {CSSProperties, ReactNode} from 'react';
-import {isEqual, noop} from "lodash";
+import React, { CSSProperties, ReactNode } from 'react';
+import { isEqual, noop } from "lodash";
 
 
 interface AnimationEventsNeedBind {
@@ -47,6 +47,14 @@ class CSSAnimation extends React.Component<AnimationProps, AnimationState> {
             extraStyle: {},
             isAnimating: true
         };
+    }
+
+
+    componentDidMount() {
+        this.props.onAnimationStart?.();
+        if (!this.props.motion){
+            this.props.onAnimationEnd?.();
+        }
     }
 
 
@@ -103,7 +111,7 @@ class CSSAnimation extends React.Component<AnimationProps, AnimationState> {
                 animationStyle: {},
                 animationEventsNeedBind: {},
                 isAnimating: this.state.isAnimating
-            })
+            });
         }
     }
 }
