@@ -369,6 +369,14 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
         this.foundation.startUpload(fileList);
     };
 
+    /**
+     * ref method
+     * manual open file select dialog
+     */
+    openFileDialog = (): void => {
+        this.onClick();
+    };
+
     renderFile = (file: FileItem, index: number, locale: Locale['Upload']): ReactNode => {
         const { name, status, validateMessage, _sizeInvalid, uid } = file;
         const {

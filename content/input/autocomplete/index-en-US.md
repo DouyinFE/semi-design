@@ -388,6 +388,7 @@ import { IllustrationNoContent } from '@douyinfe/semi-illustrations';
 | onBlur | Callback when the focus is lost | Function(event) | |
 | onChange | Input box change / change when the candidate is selected | Function(value:string\|number) | | 1.23.0|
 | onFocus | The callback when the focus is obtained | Function(event) | |
+| onKeyDown | keydown callback | (e: React.KeyboardEvent) => void | | 2.21.0 |
 | onSearch | Callback when input changes | Function(value: string) | |
 | onSelect | Callback when the drop-down menu candidate is selected | Function(item: string\|number\|Item) | |
 

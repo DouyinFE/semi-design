@@ -1313,6 +1313,7 @@ interface FileItem {
 |----|----|----|----|
 | insert | Upload file, when index is passed, it will be inserted at the specified position, if not passed, it will be inserted at the end | (files: Array<File\>, index?: number) => void | 2.2.0 |
 | upload | Start upload manually, use with uploadTrigger="custom" | () => void | |
+| openFileDialog | open file select Dialog | () => void | 2.21.0 |
 
 ## Content Guidelines
 - Upload button
