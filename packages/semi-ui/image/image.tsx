@@ -8,13 +8,13 @@ import { cssClasses } from "@douyinfe/semi-foundation/image/constants";
 import cls from "classnames";
 import { IconUploadError, IconEyeOpened } from "@douyinfe/semi-icons";
 import PreviewInner from "./previewInner";
-import "@douyinfe/semi-foundation/image/image.scss";
 import { PreviewContext, PreviewContextProps } from "./previewContext";
 import ImageFoundation, { ImageAdapter } from "@douyinfe/semi-foundation/image/imageFoundation";
 import LocaleConsumer from "../locale/localeConsumer";
 import { Locale } from "../locale/interface";
 import { isObject } from "lodash";
 import Skeleton from "../skeleton";
+import "@douyinfe/semi-foundation/image/image.scss";
 
 const prefixCls = cssClasses.PREFIX;
 

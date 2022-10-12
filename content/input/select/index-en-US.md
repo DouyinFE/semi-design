@@ -955,7 +955,7 @@ import { Select } from '@douyinfe/semi-ui';
 Turn on list virtualization when passing in `virtualize` to optimize performance when there are a large number of Option nodes
 virtualize is an object containing the following values:
 
-- height: Option list height value, default 300
+- height: Option list height value, default 270 （before v2.20.8 was 300）
 - width: Option list width value, default 100%
 - itemSize: The height of each line of Option, must be passed
 
@@ -975,7 +975,7 @@ class VirtualizeDemo extends React.Component {
     render() {
         let { groups, optionList } = this.state;
         let virtualize = {
-            height: 300,
+            height: 270,
             width: '100%',
             itemSize: 36, // px
         };
@@ -1278,7 +1278,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | loading | Does the drop-down list show the loading animation | boolean | false |
 | max | Maximum number of choices, effective only in multi-selection mode | number |  |
 | maxTagCount | In multi-selection mode, when the option is beyond maxTag Count, the subsequent option is rendered in the form of + N | number |  |
-| maxHeight | Maximum height of `optionList` in the pop-up layer | string | number | 300 |
+| maxHeight | Maximum height of `optionList` in the pop-up layer | string | number | 270 |
 | multiple | Whether allow multiple selection | boolean | false |
 | outerBottomSlot | Rendered at the bottom of the pop-up layer, custom slot level with optionList | ReactNode |  |
 | outerTopSlot | Rendered at the top of the pop-up layer, custom slot level with optionList <br/>**supported after v1.6.0** |
