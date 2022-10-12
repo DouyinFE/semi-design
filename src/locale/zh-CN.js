@@ -6,8 +6,8 @@ const appLocale = {
     locale: 'zh-CN',
     messages: {
 
-        'apiDoc':'API 文档',
-        'designDoc':'设计文档',
+        "apiDoc": "API 文档",
+        "designDoc": "设计文档",
 
         // designToken
         'designToken.variable': '变量',
@@ -101,13 +101,29 @@ const appLocale = {
         "home.theme": "百变主题",
         "home.theme.desc": "快速克隆或深度定制，灵活调配符合品牌调性的设计风格",
         // page five: DSM
-        'semi_dsm':'Semi 设计系统管理',
+        "semi_dsm": "Semi 设计系统管理",
         "powerful_theme_editor__real_time_effect__one_click_synchronization_of_design_too_d77f5776bf126331e801d6d6aa0146f2": "强大的主题编辑器，实时生效，设计工具一键同步",
         // page six: C to D to C
         "home.pro.title": "让设计与代码同源",
         "home.pro.desc": "基于 40+ 真实组件代码设计，海量页面模板前端代码一键转",
         "home.pro.start": "了解更多",
         "beta": "公测",
+        "example_upload_report": "上传报告",
+        "example_doc_name_zh": "文档中文名",
+        "example_doc_name_zh_desc": "请输入文档中文名",
+        "example_doc_name_en": "文档英文名",
+        "example_doc_name_en_desc": "请输入文档英文名",
+        "example_doc_link": "文档链接",
+        "example_doc_lark_link": "请输入飞书云文档链接",
+        "example_report_tag": "报告标签",
+        "example_business_line": "请选择业务线",
+        "example_result": "结论",
+        "example_result_desc": "请输入结论",
+        "example_remark": "备注",
+        "example_remark_desc": "请输入备注",
+        "example_upload_consist": "连续上传",
+        "example_cancel": "取消",
+        "example_confirm": "确定",
         // page seven: Web application
         "application_title": "打造现代 Web 应用",
         "application_subtitle": "使用 Semi 与现代操作系统、浏览器更贴近的设计语言",
@@ -199,7 +215,7 @@ const appLocale = {
         "sender": "发信人",
         "private_message_content": "私信内容",
         "time_of_dispatch": "发信时间",
-        "theme_store":'主题商店',
+        "theme_store": "主题商店",
     },
 };
 

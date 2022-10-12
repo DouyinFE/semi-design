@@ -5,6 +5,7 @@ import styles from './pro.module.scss';
 import { navigate } from 'gatsby-link';
 import { getLocale } from '../../../../utils/locale';
 import classnames from 'classnames';
+import Component from './d2cApplication/index.jsx';
 
 function Pro(props) {
 
@@ -38,6 +39,7 @@ function Pro(props) {
                 )}
             </div>
             <div className={styles.autoWrapper}>
+                {/* eslint-disable-next-line */}
                 <img
                     src="https://lf9-static.semi.design/obj/semi-tos/images/homepage-pro-code.jpg"
                     className={styles.syntaxHighlighter}
@@ -45,18 +47,19 @@ function Pro(props) {
                 <div className={styles.rectangle1080}></div>
                 <div className={styles.frame14295}>
                     <div className={styles.autoWrapper}>
+                        {/* eslint-disable-next-line */}
                         <img
                             src="https://lf9-static.semi.design/obj/semi-tos/images/5de23960-3242-11ec-8b14-8fb159794ae4.png"
                             className={styles.chromeStandart}
                         />
+                        {/* eslint-disable-next-line */}
                         <img
                             src="https://lf9-static.semi.design/obj/semi-tos/images/5ddb0d70-3242-11ec-adec-e911cea4cf98.png"
                             className={styles.chromeStandart_2167fd7e}
                         />
-                        <img
-                            src="https://lf9-static.semi.design/obj/semi-tos/images/5ddc6d00-3242-11ec-9c23-a9f1bde3758e.png"
-                            className={styles.chromeStandart_07210c83}
-                        />
+                        <div className={styles.chromeStandart_07210c83}>
+                            <Component></Component>
+                        </div>
                     </div>
                 </div>
             </div>

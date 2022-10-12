@@ -6,8 +6,8 @@ const appLocale = {
     locale: 'en-US',
     messages: {
 
-        'apiDoc':'API doc',
-        'designDoc':'Design doc',
+        "apiDoc": "API doc",
+        "designDoc": "Design doc",
 
         // designToken
         'designToken.variable': 'variable',
@@ -99,13 +99,29 @@ const appLocale = {
         "home.theme": "Theming",
         "home.theme.desc": "Create variations of UI Styles that suit your brand with full flexibility",
         // page five: DSM
-        'semi_dsm':'Semi Design System Management',
+        "semi_dsm": "Semi Design System Management",
         "powerful_theme_editor__real_time_effect__one_click_synchronization_of_design_too_d77f5776bf126331e801d6d6aa0146f2": "Powerful theme editor, effective in real time, one-click synchronization of design tools",
         // page six: C to D to C
         "home.pro.title": "Make design and code homologous",
         "home.pro.desc": "Based on 40+ real component code design, massive page template front-end code one-click transfer",
         "home.pro.start": "Get Started",
         "beta": "public beta",
+        "example_upload_report": "Upload report",
+        "example_doc_name_zh": "Document Chinese name",
+        "example_doc_name_zh_desc": "Please enter the Chinese name of the document",
+        "example_doc_name_en": "Document English name",
+        "example_doc_name_en_desc": "Please enter the English name of the document",
+        "example_doc_link": "Documentation link",
+        "example_doc_lark_link": "Please enter the Feishu Cloud document link",
+        "example_report_tag": "Report tag",
+        "example_business_line": "Please select a line of business",
+        "example_result": "Conclusion",
+        "example_result_desc": "Please enter conclusion",
+        "example_remark": "Note",
+        "example_remark_desc": "Please enter a note",
+        "example_upload_consist": "Continuous upload",
+        "example_cancel": "Cancel",
+        "example_confirm": "Confirm",
         // page seven: Web application
         "application_title": "Build State of the Art Apps",
         "application_subtitle": "Modern design vibes compile with next-gen OS and browsers",
@@ -214,8 +230,8 @@ const appLocale = {
         "user": "User",
         "video_compression_algorithm": "Video compression algorithm",
         "volcano_little_helper": "Volcano Little",
-        "theme_store":'Theme Store',
-        'semi_dsm':'Managing Themes'
+        "theme_store": "Theme Store",
+        "semi_dsm": "Managing Themes"
     },
 };
 

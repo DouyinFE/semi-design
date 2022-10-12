@@ -18,12 +18,12 @@ function OperateButton() {
         <Button
             onClick={goGithub} 
             size="large"
-            type={'tertiary'}
+            type={"tertiary"}
             theme="borderless"
             style={{
-                border:'1px solid var(--semi-color-border)',
-                color:'var(--semi-color-text-0)',
-                marginLeft:'16px'
+                border: "1px solid var(--semi-color-border)",
+                color: "var(--semi-color-text-0)",
+                marginLeft: "16px"
             }}
             className={styles.extraLarge} 
             icon={<IconGithubLogo size={'large'}/>}
@@ -33,7 +33,7 @@ function OperateButton() {
                 <span className={styles.badge}>6.2k</span>
             </span>
         </Button>
-    </div>)
+    </div>);
 }
 
 export default OperateButton;

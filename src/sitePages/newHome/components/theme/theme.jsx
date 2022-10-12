@@ -126,7 +126,7 @@ function Theme(props) {
                     </div>
                 </div>
             </div>
-            <div className={styles.demoWrapper}>
+            <div className={styles.demoWrapper} data-theme={"theme"}>
                 <TopBar></TopBar>
                 <Demo className={MAP_CLASS[themeType]}></Demo>
             </div>
