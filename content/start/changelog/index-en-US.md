@@ -18,8 +18,7 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 #### 🎉 2.21.0 (2022-10-12)
 - 【Fix】
-  - ix the problem that the timer is not updated when carousel switches the index through the left and right buttons or methods
-
+  - fix the problem that the timer is not updated when Carousel switches the index through the left and right buttons or methods
 - 【Docs】
   - Update docsite homepage, add showcase
 

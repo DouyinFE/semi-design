@@ -94,7 +94,7 @@ const appLocale = {
         "feature_live_code": "Live Code 组件",
         "feature_live_code_description": "LiveCode 允许你使用在线代码编辑器即时演示你的 UI 组件",
         "feature_test": "稳定的质量保障",
-        "feature_test_description": "Semi 使用了单元测试等多种方法保证组件的稳定和质量，代码覆盖率达到 90%",
+        "feature_test_description": "Semi 使用了单元测试、E2E测试、视觉测试等多种方法保证组件的稳定和质量，代码覆盖率达到 90%",
         "feature_SSR": "支持 SSR",
         "feature_SSR_description": "Semi 组件库支持 SSR 场景，可以在 Next.js 和 Gatsby 等框架中使用",
         // page four: theme

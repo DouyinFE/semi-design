@@ -92,7 +92,7 @@ const appLocale = {
         "feature_live_code": "Live Code component",
         "feature_live_code_description": "LiveCode allows you to instantly demonstrate your UI components using an online code editor",
         "feature_test": "Stable quality assurance",
-        "feature_test_description": "Semi uses a variety of methods such as unit testing to ensure the stability and quality of components, and the code coverage rate reaches 90%",
+        "feature_test_description": "Semi uses a variety of methods such as Unit test、E2E test and Visual test to ensure the stability and quality of components, and the code coverage rate reaches 90%",
         "feature_SSR": "SSR support",
         "feature_SSR_description": "Semi component library supports SSR scenarios and can be used in frameworks like Next.js and Gatsby",
         // page four: Theme
