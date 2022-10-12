@@ -1,5 +1,40 @@
+.container {
+    margin-top: 92px;
+    width: 100%;
+    height: auto;
+}
+
+.frame1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 92px;
+}
+
+.title {
+    font-size: 32px;
+    letter-spacing: 0em;
+    color: var(--semi-color-text-0);
+    line-height: 44px;
+    letter-spacing: -1.28px;
+    text-align: center;
+    vertical-align: middle;
+    font-weight: 600;
+}
+
+.text_008e1ad6 {
+    font-size: 18px;
+    color: var(--semi-color-text-0);
+    line-height: 32px;
+    text-align: left;
+    vertical-align: top;
+    font-weight: 400;
+    margin-top: 16px;
+}
+
 .frame4574 {
-    margin-top: 72px;
+    margin-top: 40px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -22,13 +57,12 @@
 }
 
 .text {
-    width: 321px;
+    width: fit-content;
     margin: 0 0 16px;
     font-size: 32px;
-    font-family: PingFang SC;
     color: var(--semi-color-text-0);
     line-height: 44px;
-    font-weight: bold;
+    font-weight: 600;
     text-align: left;
     vertical-align: middle;
 }
@@ -51,18 +85,10 @@
     font-weight: 400;
 }
 
-.text_8e955bee {
-    font-size: 18px;
-    font-family: Inter;
-    color: var(--semi-color-text-0);
-    line-height: 32px;
-    font-weight: 400;
-}
 
 .text_0aedd7ef {
     min-width: 80px;
     font-size: 20px;
-    font-family: PingFang SC;
     color: var(--semi-color-primary);
     line-height: 32px;
     font-weight: 600;
@@ -94,7 +120,7 @@
 .figmaUIKit {
     min-width: 112px;
     font-size: 20px;
-    font-family: Inter;
+    font-family: "Inter";
     color: var(--semi-color-primary);
     line-height: 32px;
     font-weight: 600;
@@ -106,4 +132,8 @@
 .frame4573 {
     width: 632px;
     height: 269px;
+}
+
+.text_en {
+    font-weight: 700;
 }
