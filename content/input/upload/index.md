@@ -1314,6 +1314,7 @@ interface FileItem {
 |----|----|----|----|
 | insert | 上传文件，当index传入时，会插入到指定位置，不传则插入到最后 | (files: Array<File\>, index?: number) => void | 2.2.0 |
 | upload | 手动开始上传，配合uploadTrigger="custom"使用 | () => void | |
+| openFileDialog | 打开文件选择窗口 | () => void | 2.21.0 |
 
 ## Accessibility
 

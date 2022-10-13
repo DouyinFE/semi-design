@@ -50,6 +50,7 @@ import es from '@douyinfe/semi-ui/lib/es/locale/source/es';
 import it from '@douyinfe/semi-ui/lib/es/locale/source/it';
 import de from '@douyinfe/semi-ui/lib/es/locale/source/de';
 import fr from '@douyinfe/semi-ui/lib/es/locale/source/fr';
+import ro from '@douyinfe/semi-ui/lib/es/locale/source/ro';
 
 import { LocaleProvider } from '@douyinfe/semi-ui';
 
@@ -120,6 +121,7 @@ import es from '@douyinfe/semi-ui/lib/es/locale/source/es';
 import it from '@douyinfe/semi-ui/lib/es/locale/source/it';
 import de from '@douyinfe/semi-ui/lib/es/locale/source/de';
 import fr from '@douyinfe/semi-ui/lib/es/locale/source/fr';
+import ro from '@douyinfe/semi-ui/lib/es/locale/source/ro';
 import { LocaleProvider, ConfigProvider, Pagination, Modal, Button, Select, Cascader, DatePicker, TreeSelect, Table, TimePicker, List, Calendar, Typography } from '@douyinfe/semi-ui';
 
 class I18nDemo extends React.Component {
@@ -150,7 +152,8 @@ class I18nDemo extends React.Component {
             'es': es,
             de,
             it,
-            fr
+            fr,
+            ro
         };
         this.setState({ locale: language[code], localeCode: code });
     }
@@ -295,6 +298,7 @@ class I18nDemo extends React.Component {
                         <Select.Option value='de'>德语</Select.Option>
                         <Select.Option value='it'>意大利语</Select.Option>
                         <Select.Option value='fr'>法语</Select.Option>
+                        <Select.Option value='ro'>罗马尼亚语</Select.Option>
                     </Select>
                 </div>
                 <LocaleProvider locale={locale}>
