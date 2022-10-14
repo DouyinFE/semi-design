@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 37
+order: 38
 category: 导航类
 title:  Breadcrumb 面包屑
 icon: doc-breadcrumb
@@ -135,19 +135,19 @@ import { Breadcrumb, Typography } from '@douyinfe/semi-ui';
             <br/>
             <Text size="small">不截断</Text>
             <Breadcrumb
-                showTooltip={{width: 'auto'}}
+                showTooltip={{ width: 'auto' }}
                 routes={routes}
             />
             <br/>
             <Text size="small">从标题中间开始省略</Text>
             <Breadcrumb
-                showTooltip={{ellipsisPos: 'middle'}}
+                showTooltip={{ ellipsisPos: 'middle' }}
                 routes={routes}
             />
             <br/>
             <Text size="small">自定义 Tooltip 参数</Text>
             <Breadcrumb
-                showTooltip={{opts: {position: 'topLeft'}}}
+                showTooltip={{ opts: { position: 'topLeft' } }}
                 routes={routes}
             />
         </>
@@ -340,6 +340,11 @@ import { IconHome, IconArticle } from '@douyinfe/semi-icons';
 
 - Breadcrumb 支持传入 `aria-label` 来表示该 Breadcrumb 作用
 - Breadcrumb 会对当前项设置 `aria-current='page'`
+
+## 文案规范
+
+- 每个页面链接都应该很简短，并且清楚地反映它链接到的位置或链接的实体
+- 按句子大小写书写
 
 ## 设计变量
 <DesignToken/>

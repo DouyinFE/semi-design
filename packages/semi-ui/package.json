@@ -1,6 +1,6 @@
 {
     "name": "@douyinfe/semi-ui",
-    "version": "2.18.0",
+    "version": "2.21.0",
     "description": "",
     "main": "lib/cjs/index.js",
     "module": "lib/es/index.js",
@@ -12,14 +12,17 @@
         "build:css": "node scripts/compileScss.js",
         "prepublishOnly": "npm run clean && npm run build:lib && npm run build:js && npm run build:css"
     },
+    "files": [
+        "dist/*",
+        "lib/*"
+    ],
     "dependencies": {
-        "@babel/runtime-corejs3": "^7.15.4",
         "@douyinfe/semi-animation": "2.12.0",
-        "@douyinfe/semi-animation-react": "2.18.0",
-        "@douyinfe/semi-foundation": "2.18.0",
-        "@douyinfe/semi-icons": "2.18.0",
+        "@douyinfe/semi-animation-react": "2.21.0",
+        "@douyinfe/semi-foundation": "2.21.0",
+        "@douyinfe/semi-icons": "2.21.0",
         "@douyinfe/semi-illustrations": "2.15.0",
-        "@douyinfe/semi-theme-default": "2.18.0",
+        "@douyinfe/semi-theme-default": "2.21.0",
         "async-validator": "^3.5.0",
         "classnames": "^2.2.6",
         "copy-text-to-clipboard": "^2.1.1",
@@ -72,7 +75,7 @@
         "@babel/plugin-transform-runtime": "^7.15.8",
         "@babel/preset-env": "^7.15.8",
         "@babel/preset-react": "^7.14.5",
-        "@douyinfe/semi-scss-compile": "2.18.0",
+        "@douyinfe/semi-scss-compile": "2.21.0",
         "@storybook/addon-knobs": "^6.3.1",
         "@types/lodash": "^4.14.176",
         "@types/react": ">=16.0.0",
@@ -100,7 +103,7 @@
         "react-storybook-addon-props-combinations": "^1.1.0",
         "react-virtualized": "^9.22.3",
         "rimraf": "^3.0.2",
-        "sass": "1.45.0",
+        "sass": "1.54.9",
         "sinon": "^6.3.5",
         "terser-webpack-plugin": "^4.2.3",
         "through2": "^4.0.2",

@@ -3,5 +3,5 @@ import Col from './col';
 
 export { Row, Col };
 
-export { ColSize, ColProps } from './col';
-export { Breakpoint, Gutter, RowProps } from './row';
+export type { ColSize, ColProps } from './col';
+export type { Breakpoint, Gutter, RowProps } from './row';

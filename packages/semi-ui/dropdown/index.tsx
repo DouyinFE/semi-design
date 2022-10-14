@@ -21,10 +21,10 @@ import { Motion } from '../_base/base';
 const positionSet = strings.POSITION_SET;
 const triggerSet = strings.TRIGGER_SET;
 
-export { DropdownDividerProps } from './dropdownDivider';
-export { DropdownItemProps, Type } from './dropdownItem';
-export { DropdownMenuProps } from './dropdownMenu';
-export { DropdownTitleProps } from './dropdownTitle';
+export type { DropdownDividerProps } from './dropdownDivider';
+export type { DropdownItemProps, Type } from './dropdownItem';
+export type { DropdownMenuProps } from './dropdownMenu';
+export type { DropdownTitleProps } from './dropdownTitle';
 
 export interface DropDownMenuItemItem extends DropdownItemProps {
     node: 'item';
@@ -242,12 +242,17 @@ class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
             >
                 {React.isValidElement(children) ?
                     React.cloneElement(children, {
+                        //@ts-ignore
                         className: classnames(get(children, 'props.className'), {
                             [`${prefixCls}-showing`]: popVisible,
                         }),
                         'aria-haspopup': true,
                         'aria-expanded': popVisible,
-                        onKeyDown: e => this.foundation.handleKeyDown(e)
+                        onKeyDown: (e: React.KeyboardEvent) => {
+                            this.foundation.handleKeyDown(e);
+                            const childrenKeyDown: (e: React.KeyboardEvent) => void = get(children, 'props.onKeyDown');
+                            childrenKeyDown && childrenKeyDown(e);
+                        }
                     }) :
                     children}
             </Tooltip>

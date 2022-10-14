@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 56
+order: 58
 category: Show
 title: Popover
 subTitle: Popover

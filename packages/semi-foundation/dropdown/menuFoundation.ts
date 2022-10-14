@@ -54,7 +54,8 @@ export default class DropdownMenuFoundation extends BaseFoundation<Partial<Defau
             case ' ':
             case 'Enter':
                 event.target.click();
-                handlePrevent(event);
+                // user may use input to be the trigger and bind some key event on it, so do not stoppropagation
+                // handlePrevent(event);
                 break;
             case 'Escape':
                 this.handleEscape(menu);

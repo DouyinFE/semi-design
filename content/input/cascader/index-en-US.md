@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 19
+order: 20
 category: Input
 title:  Cascader
 subTitle: Cascade
@@ -126,7 +126,7 @@ import { Cascader } from '@douyinfe/semi-ui';
         }];
     return (
         <Cascader
-            defaultValue= {['impressionism','visualArts','Monet']}
+            defaultValue= {['impressionism', 'visualArts', 'Monet']}
             style={{ width: 400 }}
             treeData={treeData}
             placeholder="Please select"
@@ -221,11 +221,11 @@ class Demo extends React.Component {
     constructor() {
         super();
         this.state = {
-            value: ['impressionism','visualArts','Monet']
+            value: ['impressionism', 'visualArts', 'Monet']
         };
     }
     onChange(value) {
-        this.setState({value});
+        this.setState({ value });
     }
     render() {
         const treeData = [
@@ -653,7 +653,7 @@ import { Cascader, Tag, Typography } from '@douyinfe/semi-ui';
                 placeholder="Please select"
                 displayRender={(item, idx) => (
                     <Tag
-                        style={{marginRight: 4}}
+                        style={{ marginRight: 4 }}
                         color='white'
                         key={`${idx}-${item.data.label}`}
                     >
@@ -1013,7 +1013,7 @@ class Demo extends React.Component {
         };
     }
     onChange(value) {
-        this.setState({value});
+        this.setState({ value });
     }
     render() {
         const treeData = [
@@ -1078,7 +1078,7 @@ import React, { useState } from 'react';
 import { Cascader } from '@douyinfe/semi-ui';
 
 () => {
-    const [value, setValue] = useState(['impressionism','visualArts']);
+    const [value, setValue] = useState(['impressionism', 'visualArts']);
     const onChange = value => {
         setValue(value);
     };
@@ -1146,7 +1146,7 @@ import React, { useState } from 'react';
 import { Cascader } from '@douyinfe/semi-ui';
 
 () => {
-    const [value, setValue] = useState(['impressionism','visualArts']);
+    const [value, setValue] = useState(['impressionism', 'visualArts']);
     const onChange = value => {
         setValue(value);
     };

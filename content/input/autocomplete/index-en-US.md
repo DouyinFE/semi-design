@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 17
+order: 18
 category: Input
 title: AutoComplete
 icon: doc-autocomplete
@@ -346,7 +346,7 @@ import { IllustrationNoContent } from '@douyinfe/semi-illustrations';
         <AutoComplete
             loading={loading}
             data={data}
-            emptyContent={<Empty style={{ padding: 12, width: 300 }} image={<IllustrationNoContent style={{width: 150, height: 150}}/>} description={'no content yet'} />}
+            emptyContent={<Empty style={{ padding: 12, width: 300 }} image={<IllustrationNoContent style={{ width: 150, height: 150 }}/>} description={'no content yet'} />}
             onSearch={fetchData}
         />
     );
@@ -388,6 +388,7 @@ import { IllustrationNoContent } from '@douyinfe/semi-illustrations';
 | onBlur | Callback when the focus is lost | Function(event) | |
 | onChange | Input box change / change when the candidate is selected | Function(value:string\|number) | | 1.23.0|
 | onFocus | The callback when the focus is obtained | Function(event) | |
+| onKeyDown | keydown callback | (e: React.KeyboardEvent) => void | | 2.21.0 |
 | onSearch | Callback when input changes | Function(value: string) | |
 | onSelect | Callback when the drop-down menu candidate is selected | Function(item: string\|number\|Item) | |
 
@@ -400,5 +401,10 @@ import { IllustrationNoContent } from '@douyinfe/semi-illustrations';
    - Use `Esc` to close the menu
    - Use `Up Arrow` or `Down Arrow` to toggle options
    - The focused option can be selected with the `Enter` key and the panel will be collapsed
+
+## Content Guidelines
+- Content needs to be presented clearly so that users can clearly perceive the options available
+- Limit the number of options displayed at one time
+
 ## Design Token
 <DesignToken/>

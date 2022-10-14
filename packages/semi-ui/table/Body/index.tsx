@@ -211,7 +211,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
     }
 
     componentDidUpdate(prevProps: BodyProps, prevState: BodyState) {
-        const { virtualized, dataSource, expandedRowKeys, columns, scroll  } = this.props;
+        const { virtualized, dataSource, expandedRowKeys, columns, scroll } = this.props;
         if (virtualized) {
             if (
                 prevProps.dataSource !== dataSource ||
@@ -432,7 +432,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
 
         return (
             <List<Array<FlattenData | GroupFlattenData>>
-                {...virtualized}
+                {...(typeof virtualized === 'object' ? virtualized : {})}
                 initialScrollOffset={this.state.cache.virtualizedScrollTop}
                 onScroll={this.handleVirtualizedScroll}
                 onItemsRendered={this.onItemsRendered}

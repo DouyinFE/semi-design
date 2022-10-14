@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 59
+order: 61
 category: Show
 title: Table
 subTitle: Table
@@ -177,7 +177,8 @@ You can also use JSX syntax definitions `columns`, note that Table only supports
 
 ```jsx live=true noInline=true dir="column"
 import React from 'react';
-import { Table } from '@douyinfe/semi-ui';
+import { Table, Avatar } from '@douyinfe/semi-ui';
+import { IconMore } from '@douyinfe/semi-icons';
 
 const { Column } = Table;
 
@@ -903,6 +904,130 @@ function App() {
 render(App);
 ```
 
+The header can be fixed to the top of the page with the `sticky` property. v2.21 version support. When passing `top`, you can control the distance from the scroll container.
+
+<StickyHeaderTable />
+
+```jsx live=false noInline=true dir="column"
+import React, { useState, useMemo } from 'react';
+import { Table, Avatar } from '@douyinfe/semi-ui';
+import { IconMore } from '@douyinfe/semi-icons';
+import * as dateFns from 'date-fns';
+
+const DAY = 24 * 60 * 60 * 1000;
+const figmaIconUrl = 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png';
+
+const columns = [
+    {
+        title: '标题',
+        dataIndex: 'name',
+        fixed: true,
+        width: 250,
+        render: (text, record, index) => {
+            return (
+                <div>
+                    <Avatar size="small" shape="square" src={figmaIconUrl} style={{ marginRight: 12 }}></Avatar>
+                    {text}
+                </div>
+            );
+        },
+        filters: [
+            {
+                text: 'Semi Design 设计稿',
+                value: 'Semi Design 设计稿',
+            },
+            {
+                text: 'Semi Pro 设计稿',
+                value: 'Semi Pro 设计稿',
+            },
+        ],
+        onFilter: (value, record) => record.name.includes(value),
+    },
+    {
+        title: '大小',
+        dataIndex: 'size',
+        width: 200,
+        sorter: (a, b) => a.size - b.size > 0 ? 1 : -1,
+        render: (text) => `${text} KB`
+    },
+    {
+        title: '所有者',
+        dataIndex: 'owner',
+        width: 200,
+        render: (text, record, index) => {
+            return (
+                <div>
+                    <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>{typeof text === 'string' && text.slice(0, 1)}</Avatar>
+                    {text}
+                </div>
+            );
+        }
+
+    },
+    {
+        title: '更新日期',
+        dataIndex: 'updateTime',
+        width: 200,
+        sorter: (a, b) => a.updateTime - b.updateTime > 0 ? 1 : -1,
+        render: (value) => {
+            return dateFns.format(new Date(value), 'yyyy-MM-dd');
+        }
+    },
+    {
+        title: '',
+        dataIndex: 'operate',
+        fixed: 'right',
+        align: 'center',
+        width: 100,
+        render: () => {
+            return <IconMore />;
+        }
+    },
+];
+
+function App() {
+    const [dataSource, setData] = useState([]);
+
+    const scroll = useMemo(() => ({ y: 300, x: 1200 }), []);
+    const rowSelection = useMemo(() => ({
+        onChange: (selectedRowKeys, selectedRows) => {
+            console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+        },
+        getCheckboxProps: record => ({
+            disabled: record.name === 'Michael James', // Column configuration not to be checked
+            name: record.name,
+        }),
+        fixed: true,
+    }), []);
+
+    const getData = () => {
+        const data = [];
+        for (let i = 0; i < 46; i++) {
+            const isSemiDesign = i % 2 === 0;
+            const randomNumber = (i * 1000) % 199;
+            data.push({
+                key: '' + i,
+                name: isSemiDesign ? `Semi Design 设计稿${i}.fig` : `Semi Pro 设计稿${i}.fig`,
+                owner: isSemiDesign ? '姜鹏志' : '郝宣',
+                size: randomNumber,
+                updateTime: new Date().valueOf() + randomNumber * DAY,
+                avatarBg: isSemiDesign ? 'grey' : 'red'
+            });
+        }
+        return data;
+    };
+
+    useEffect(() => {
+        const data = getData();
+        setData(data);
+    }, []);
+
+    return <Table sticky={{ top: 60 }} columns={columns} dataSource={dataSource} rowSelection={rowSelection} scroll={scroll} />;
+}
+
+render(App);
+```
+
 ### Table Header With Sorting and Filtering Function
 
 Filters and sorting controls are integrated inside the table, and users can pass in the sorter display of the sorter open header by passing filters in Column and the filter control display of the onFilter open header.
@@ -1265,7 +1390,7 @@ const expandData = {
 function App() {
 
     const expandRowRender = (record, index) => {
-        return <Descriptions align="justify" data={expandData[index]} />
+        return <Descriptions align="justify" data={expandData[index]} />;
     };
 
     const rowSelection = {
@@ -1404,7 +1529,7 @@ const expandData = {
 function App() {
 
     const expandRowRender = (record, index) => {
-        return <Descriptions align="justify" data={expandData[index]} />
+        return <Descriptions align="justify" data={expandData[index]} />;
     };
 
     const rowSelection = {
@@ -1553,7 +1678,7 @@ const expandData = {
 function App() {
 
     const expandRowRender = (record, index) => {
-        return <Descriptions align="justify" data={expandData[index]} />
+        return <Descriptions align="justify" data={expandData[index]} />;
     };
 
     const rowSelection = {
@@ -2153,7 +2278,7 @@ In principle, the properties or events supported on tr / td / th can be defined.
 
 ```jsx live=true noInline=true dir="column"
 import React, { useMemo } from 'react';
-import { Table } from '@douyinfe/semi-ui/';
+import { Table, Avatar } from '@douyinfe/semi-ui/';
 import * as dateFns from 'date-fns';
 
 const DAY = 24 * 60 * 60 * 1000;
@@ -2276,6 +2401,7 @@ Use `OnRow` to set a background color for each row to create a zebra stripped ta
 ```jsx live=true noInline=true dir="column"
 import React from 'react';
 import { Table, Avatar } from '@douyinfe/semi-ui';
+import { IconMore } from '@douyinfe/semi-icons';
 
 function App() {
     const columns = [
@@ -2942,7 +3068,7 @@ function Demo() {
                         // onMouseLeave: () => {
                         //     console.log(`Grouped row mouse leave: `, group, index);
                         // },
-                        onClick: e => { console.log(`Grouped row clicked: `, group, index) }
+                        onClick: e => { console.log(`Grouped row clicked: `, group, index); }
                     };
                 }}
                 clickGroupedRowToExpand // if you want to click the entire row to expand
@@ -3051,7 +3177,7 @@ const getData = () => {
 const data = getData();
 
 function VirtualizedFixedDemo() {
-    let virtualizedListRef = useRef()
+    let virtualizedListRef = useRef();
     const scroll = { y: 400, x: 900 };
     const style = { width: 750, margin: '0 auto' };
 
@@ -3552,7 +3678,7 @@ class App extends React.Component {
 
             this.setState({ columns });
 
-            if(!checked) {
+            if (!checked) {
                 this.setPage(null, null, []);
             }
         };
@@ -4226,17 +4352,17 @@ const columns = [
             if (index === 0) {
                 renderObject.props = {
                     colSpan: 4,
-                }
+                };
             }
             if (index === 1) {
                 renderObject.props = {
                     rowSpan: 2,
-                }
+                };
             }
             if (index === 2) {
                 renderObject.props = {
                     rowSpan: 0,
-                }
+                };
             }
             return renderObject;
         },
@@ -4251,7 +4377,7 @@ const columns = [
                     props: {
                         colSpan: 0,
                     }
-                }
+                };
             }
             if (index === 1) {
                 return {
@@ -4259,7 +4385,7 @@ const columns = [
                     props: {
                         rowSpan: 2,
                     }
-                }
+                };
             }
             if (index === 2) {
                 return {
@@ -4267,7 +4393,7 @@ const columns = [
                     props: {
                         rowSpan: 0,
                     }
-                }
+                };
             }
             return `${text} KB`;
         }
@@ -4288,7 +4414,7 @@ const columns = [
                     props: {
                         colSpan: 0,
                     }
-                }
+                };
             }
             return children;
         }
@@ -4305,7 +4431,7 @@ const columns = [
                     props: {
                         colSpan: 0
                     }
-                }
+                };
             }
             if (index === 1) {
                 return {
@@ -4313,7 +4439,7 @@ const columns = [
                     props: {
                         rowSpan: 2
                     }
-                }
+                };
             }
             if (index === 2) {
                 return {
@@ -4321,7 +4447,7 @@ const columns = [
                     props: {
                         rowSpan: 0
                     }
-                }
+                };
             }
             return children;
         }
@@ -4399,6 +4525,7 @@ render(App);
 | scroll                  | Whether the table is scrollable, configure the width or height of the scroll area, see [scroll](#scroll)                  | object                                                                                                          | -          |
 | showHeader              | Does it show the header?                                                                                                  | boolean                                                                                                         | true       |
 | size                    | Table size, will effect the `padding` of the rows                                                                         | "default"\|"middle"\|"small"                                                                                    | "default"  | **1.0.0**                                                         |
+| sticky                  | fixed header                                                                    | boolean \| { top: number }                                                                                    | false  | **2.21.0**                               |
 | title                   | Table Title                                                                                                               | string<br/>\|ReactNode<br/>\|(pageData: RecordType[]) => string\|ReactNode                                            |            |
 | virtualized             | Virtualization settings                                                                                                   | Virtualized                                                                                                 | false      | **0.33.0**                                                 |
 | virtualized.itemSize    | Row height                                                                                                                | number\|(index: number) => number                                                                               | 56         | **0.33.0**                                                 |
@@ -4576,22 +4703,22 @@ type Filter = {
 
 ## scroll
 
-| Parameters               | Instructions                                                                                         | Type           | Default | Version       |
-| ------------------------ | ---------------------------------------------------------------------------------------------------- | -------------- | ------- | ------------- |
-| scrollToFirstRowOnChange | Whether to automatically scroll to the top of the table after paging, sorting, and filtering changes | boolean        | false   | 1.1.0 |
-| x                        | Set the width of the horizontal scroll area, which can be pixel value, percentage, or 'max-content'  | string\|number |         |               |
-| y                        | Set the height of the vertical scroll area, which can be a pixel value                               | number         |         |               |
+| Parameters               | Instructions                                                                                         | Type           | Default | Version |
+|--------------------------|------------------------------------------------------------------------------------------------------|----------------|---------|---------|
+| scrollToFirstRowOnChange | Whether to automatically scroll to the top of the table after paging, sorting, and filtering changes | boolean        | false   | 1.1.0   |
+| x                        | Set the width of the horizontal scroll area, which can be pixel value, percentage, or 'max-content'  | string\|number |         |         |
+| y                        | Set the height of the vertical scroll area, which can be a pixel value                               | number         |         |         |
 
 ## pagination
 
 Page-turning component configuration. Pagination suggests not to use literal value.
 
-| Parameters         | Instructions                                                                                                                                                                                                                                                | Type                                                                                         | Default  | Version             |
-| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------- | ------------------- |
-| currentPage        | Current page number                                                                                                                                                                                                                                         | number                                                                                       | -        |                     |
-| defaultCurrentPage | Default current page number                                                                                                                                                                                                                                 | number                                                                                       | 1        | **>=1.1.0** |
-| formatPageText     | Page-turning area copywriting custom formatting, pass false to close copywriting display; This item affects the copy display on the left of the page turning area of the form. It is different from the `showTotal` parameter of the`Pagination` component. | boolean\| ({ currentStart: number, currentEnd: number, total: number }) => string\|ReactNode | true     | **0.27.0**   |
-| pageSize           | Number of entries per page                                                                                                                                                                                                                                  | number                                                                                       | 10       |                     |
+| Parameters         | Instructions                                                                                                                                                                                                                                                | Type                                                                                         | Default | Version     |
+|--------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------|---------|-------------|
+| currentPage        | Current page number                                                                                                                                                                                                                                         | number                                                                                       | -       |             |
+| defaultCurrentPage | Default current page number                                                                                                                                                                                                                                 | number                                                                                       | 1       | **>=1.1.0** |
+| formatPageText     | Page-turning area copywriting custom formatting, pass false to close copywriting display; This item affects the copy display on the left of the page turning area of the form. It is different from the `showTotal` parameter of the`Pagination` component. | boolean\| ({ currentStart: number, currentEnd: number, total: number }) => string\|ReactNode | true    | **0.27.0**  |
+| pageSize           | Number of entries per page                                                                                                                                                                                                                                  | number                                                                                       | 10      |             |
 | position           | Location                                                                                                                                                                                                                                                    | 'bottom '\|'top '\|'both'                                                                    | 'bottom' |
 | total              | Total number of entries                                                                                                                                                                                                                                     | number                                                                                       | 0        | **>=0.25.0**        |
 
@@ -4602,7 +4729,7 @@ For other configurations, see [Pagination](/en-US/navigation/pagination#API-Refe
 The parameters of the resizable object type, which mainly include event methods when the table column is scaled. These event methods can return an object that merges with the final column.
 
 | Parameters    | Instructions                                               | Type                                             | Default |
-| ------------- | ---------------------------------------------------------- | ------------------------------------------------ | ------- |
+|---------------|------------------------------------------------------------|--------------------------------------------------|---------|
 | onResize      | Triggers when the table column changes its width           | (column: [Column](#Column)) => [Column](#Column) |         |
 | onResizeStart | Triggers when the table column starts to change the width. | (column: [Column](#Column)) => [Column](#Column) |         |
 | onResizeStop  | Triggers when the table column stops changing the width    | (column: [Column](#Column)) => [Column](#Column) |         |
@@ -4640,9 +4767,9 @@ function Demo() {
 }
 ```
 
-| Parameters           | Instructions                                                                                                                     | Version        |
-| -------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| getCurrentPageData() | Returns the data object of the current page: { dataSource: RecordType[], groups: Map<{groupKey: string, recordKeys: Set<string\>}> } | 0.37.0 |
+| Parameters           | Instructions                                                                                                                         | Version |
+|----------------------|--------------------------------------------------------------------------------------------------------------------------------------|---------|
+| getCurrentPageData() | Returns the data object of the current page: { dataSource: RecordType[], groups: Map<{groupKey: string, recordKeys: Set<string\>}> } | 0.37.0  |
 
 ## Accessibility
 
@@ -4657,6 +4784,19 @@ function Demo() {
 - The new aria-colindex of the cell indicates which column the current grid belongs to, and the first column is 1
 - Added aria-label to column filter and sort buttons, and added aria-label attribute to row select buttons
 
+
+## Content Guidelines
+- Table title
+   - The title of the table should clearly make the user perceive the purpose of the table;
+   - Add descriptions to complex tables to provide users with more contextual information about the table;
+   - use sentence case;
+- Column headers
+   - Keep column headings concise, it is recommended to use 1-2 words as column headings;
+   - When the column header is long, it is recommended to display it in 2 lines, and the remaining text is abbreviated and displayed completely in the Tooltip;
+   - Adopt the capitalization rules of Sentence case;
+   - Use sentence case for column headings;
+- Table operation area
+   - You can follow [Button's content Guidelines](/en-US/input/button)
 ## Design Tokens
 <DesignToken/>
 

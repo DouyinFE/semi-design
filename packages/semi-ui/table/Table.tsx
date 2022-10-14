@@ -258,9 +258,13 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             isAnyColumnFixed: (columns: ColumnProps<RecordType>[]) =>
                 some(this.getColumns(columns || this.props.columns, this.props.children), column => Boolean(column.fixed)),
             useFixedHeader: () => {
-                const { scroll } = this.props;
+                const { scroll, sticky } = this.props;
 
                 if (get(scroll, 'y')) {
+                    return true;
+                }
+
+                if (sticky) {
                     return true;
                 }
 
@@ -405,7 +409,6 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             hoveredRowKey: null,
         });
 
-        this.setScrollPosition('left');
         this.debouncedWindowResize = debounce(this.handleWindowResize, 150);
 
         this.cachedFilteredSortedDataSource = [];
@@ -473,6 +476,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
 
     componentDidMount() {
         super.componentDidMount();
+        this.setScrollPosition('left');
 
         if (this.adapter.isAnyColumnFixed() || (this.props.showHeader && this.adapter.useFixedHeader())) {
             this.handleWindowResize();
@@ -1099,6 +1103,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             dataSource,
             bodyHasScrollBar,
             disabledRowKeysSet,
+            sticky
         } = props;
         const selectedRowKeysSet = get(rowSelection, 'selectedRowKeysSet', new Set());
 
@@ -1119,6 +1124,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
                     onHeaderRow={onHeaderRow}
                     dataSource={dataSource}
                     bodyHasScrollBar={bodyHasScrollBar}
+                    sticky={sticky}
                 />
             ) : null;
 

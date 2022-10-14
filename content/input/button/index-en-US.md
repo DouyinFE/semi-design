@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 18
+order: 19
 category: Input
 title:  Button
 subTitle: Button
@@ -100,7 +100,7 @@ function ButtonDemo() {
                 <div key={idxTheme}>
                     <ul style={{ listStyle: 'none', display: 'flex', margin: 0, padding: 0 }}>
                         {types.map((type, idxType) => (
-                            <li key={'' + idxTheme + idxType} style={{margin:10}}>
+                            <li key={'' + idxTheme + idxType} style={{ margin:10 }}>
                                 <Button
                                     theme={theme[0]}
                                     type={type[0]}
@@ -133,7 +133,7 @@ function ButtonDemo() {
                 <div key={idxTheme}>
                     <ul style={{ listStyle: 'none', display: 'flex', margin: 0, padding: 0 }}>
                         {types.map((type, idxType) => (
-                            <li key={'' + idxTheme + idxType} style={{margin:10}}>
+                            <li key={'' + idxTheme + idxType} style={{ margin:10 }}>
                                 <Button
                                     theme={theme[0]}
                                     type={type[0]}
@@ -166,7 +166,7 @@ function ButtonDemo() {
                 <div key={idxTheme}>
                     <ul style={{ listStyle: 'none', display: 'flex', margin: 0, padding: 0 }}>
                         {types.map((type, idxType) => (
-                            <li key={'' + idxTheme + idxType} style={{margin:10}}>
+                            <li key={'' + idxTheme + idxType} style={{ margin:10 }}>
                                 <Button
                                     theme={theme[0]}
                                     type={type[0]}
@@ -338,7 +338,7 @@ function ButtonDemo() {
             <hr/>
             <Button loading={saveLoading} onClick={() => setSaveLoading(true)} style={{ marginRight: 14 }}>Save</Button>
             <Button loading={delLoading} icon={<IconDelete />} type="danger" onClick={() => setDelLoading(true)} style={{ marginRight: 14 }}>Delete</Button>
-            <div style={{ width: 200, display: 'inline-block'}}>
+            <div style={{ width: 200, display: 'inline-block' }}>
                 <Button loading={repLoading} type="warning" block theme="solid" onClick={() => setRepLoading(true)}>Revoke</Button>
             </div>
         </div>
@@ -447,36 +447,36 @@ function SplitButtonDemo(){
         { node: 'item', name: 'Delete', type: 'danger' },
     ];
 
-    const [btnVisible,setBtnVisible] = useState({
+    const [btnVisible, setBtnVisible] = useState({
         1:false,
         2:false,
         3:false
     });
 
-    const handleVisibleChange = (key,visible)=>{
-        newBtnVisible = {...btnVisible};
+    const handleVisibleChange = (key, visible)=>{
+        newBtnVisible = { ...btnVisible };
         newBtnVisible[key] = visible;
         setBtnVisible(newBtnVisible);
     };
 
     return (
         <div>
-            <SplitButtonGroup style={{marginRight:10}} aria-label="Project operate button group">
+            <SplitButtonGroup style={{ marginRight:10 }} aria-label="Project operate button group">
                 <Button theme="solid" type="primary">SplitButton</Button>
-                <Dropdown onVisibleChange={(v)=>handleVisibleChange(1,v)} menu={menu} trigger="click" position="bottomRight">
-                    <Button style={btnVisible[1]?{background:'var(--semi-color-primary-hover)',padding:'8px 4px'}:{padding:'8px 4px'}} theme="solid" type="primary" icon={<IconTreeTriangleDown size="small" />}></Button>
+                <Dropdown onVisibleChange={(v)=>handleVisibleChange(1, v)} menu={menu} trigger="click" position="bottomRight">
+                    <Button style={btnVisible[1]?{ background:'var(--semi-color-primary-hover)', padding:'8px 4px' }:{ padding:'8px 4px' }} theme="solid" type="primary" icon={<IconTreeTriangleDown size="small" />}></Button>
                 </Dropdown>
             </SplitButtonGroup>
-            <SplitButtonGroup style={{marginRight:10}} aria-label="Project operate button group">
+            <SplitButtonGroup style={{ marginRight:10 }} aria-label="Project operate button group">
                 <Button theme="light" type="primary">SplitButton</Button>
-                <Dropdown onVisibleChange={(v)=>handleVisibleChange(2,v)} menu={menu} trigger="click" position="bottomRight">
-                    <Button style={btnVisible[2]?{background:'var(--semi-color-fill-1)',padding:'8px 4px'}:{padding:'8px 4px'}}  theme="light" type="primary" icon={<IconTreeTriangleDown size="small" />}></Button>
+                <Dropdown onVisibleChange={(v)=>handleVisibleChange(2, v)} menu={menu} trigger="click" position="bottomRight">
+                    <Button style={btnVisible[2]?{ background:'var(--semi-color-fill-1)', padding:'8px 4px' }:{ padding:'8px 4px' }} theme="light" type="primary" icon={<IconTreeTriangleDown size="small" />}></Button>
                 </Dropdown>
             </SplitButtonGroup>
             <SplitButtonGroup aria-label="Project operate button group">
-                <Button style={btnVisible[3]?{background:'var(--semi-color-fill-0)'}:null} theme="borderless" type="primary">SplitButton</Button>
-                <Dropdown onVisibleChange={(v)=>handleVisibleChange(3,v)} menu={menu} trigger="click" position="bottomRight">
-                    <Button style={btnVisible[3]?{background:'var(--semi-color-fill-1)',padding:'8px 4px'}:{padding:'8px 4px'}}  theme="borderless" type="primary" icon={<IconTreeTriangleDown size="small" />}></Button>
+                <Button style={btnVisible[3]?{ background:'var(--semi-color-fill-0)' }:null} theme="borderless" type="primary">SplitButton</Button>
+                <Dropdown onVisibleChange={(v)=>handleVisibleChange(3, v)} menu={menu} trigger="click" position="bottomRight">
+                    <Button style={btnVisible[3]?{ background:'var(--semi-color-fill-1)', padding:'8px 4px' }:{ padding:'8px 4px' }} theme="borderless" type="primary" icon={<IconTreeTriangleDown size="small" />}></Button>
                 </Dropdown>
             </SplitButtonGroup>
         </div>
@@ -508,23 +508,24 @@ function SplitButtonDemo(){
 | onMouseEnter             | Mouse Enter                                                                                                   | Function(MouseEvent)                        |           |
 | onMouseLeave             | Mouse Leave                                                                                                   | Function(MouseEvent)                        |           |
 
-
 ### ButtonGroup
 
-| Properties | Instructions                                                                            | Type    | Default   |
-| ---------- | --------------------------------------------------------------------------------------- | ------- | --------- |
-| aria-label          | Label of the button group                                                                                      | string                            | -    |
-| disabled   | Disabled status                                                                         | boolean | false     |
-| size       | Button size, optional value: `"large"`,`"default"`,`"small"`                            | string  | "default" |
+| Properties | Instructions                | Type    | Default   | Version |
+| ---------- | ----------------------------| ------- | --------- |---------|
+| aria-label | Label of the button group   | string  | - | |
+| className  | Custom class name           | string   | - | |
+| disabled   | Disabled status             | boolean | false | |
+| size       | Button size, optional value: `"large"`,`"default"`,`"small"` | string  | "default" |
+| style      | Custom style                | CSSProperties   | - | 2.20.0 |
+| theme      | Button theme, optional values: `"solid"` (with background color), `"borderless"` (without background color), `"light"` (light background color) | string | "light"  | |
 | type       | Type, optional values: `"primary"`,`"secondary"`, `"tertiary"`, `"warning"`, `"danger"` | string  | "primary" |
-| className     | Custom class name                                  | string   |        |
 
 ### SplitButtonGroup **V1.12.0**
-| Properties   | Instructions                                                            | Type      | Default     |
-| -----------  | --------------------------------------------------------------  | -------- | --------- |
-| aria-label          | Label of the button group                                                                                       | string                            | -    |
-| style     | Custom style                                  | CSSProperties   |        |
-| className     | Custom class name                                  | string   |        |
+| Properties   | Instructions                     | Type     | Default   |
+| -----------  | ---------------------------------| -------- | --------- |
+| aria-label   | Label of the button group        | string   | -    |
+| className    | Custom class name                | string   | - |
+| style        | Custom style                     | CSSProperties | -  |
 
 ## Accessibility
 
@@ -538,6 +539,29 @@ function SplitButtonDemo(){
 - `Button`'s focus management is consistent with native `button`, keyboard users can use `Tab` and `Shift + Tab` to switch focus
 - The trigger of `Button` is the same as the native `button`, when the `button` is focused, it can be activated by `Enter` or `Space` key
 - The buttons in the `ButtonGroup` are managed in the same way as the focus of a single `button`, and can be switched by `Tab` and `Shift + Tab`
+
+## Content Guidelines
+
+- Buttons need to be clear and predictable, users should be able to predict what will happen when they click the button
+- Buttons should always start with a strong verb that encourages action
+- To give the user enough context, use {verb}+{noun} content formulas on buttons; in addition to common actions like "Done", "Close", "Cancel" or "OK"
+
+| ✅ Recommended usage | ❌ Deprecated usage |
+| --- | --- |
+| <div style={{ textAlign: 'center' }}><Empty image={<IllustrationNoAccess style={{ width: 150, height: 150 }} />} darkModeImage={<IllustrationNoAccessDark style={{ width: 150, height: 150 }} />} description={'No permission to view this page'}/><Button theme='solid' type='primary' style={{ marginTop: 12 }}>Apply permission</Button></div>|  <div style={{ textAlign: 'center' }}><Empty image={<IllustrationNoAccess style={{ width: 150, height: 150 }} />} darkModeImage={<IllustrationNoAccessDark style={{ width: 150, height: 150 }} />} description={'No permission to view this page'}/><Button theme='solid' type='primary' style={{ marginTop: 12 }}>Apply</Button></div>  |
+
+- When the button is combined with other components, the button can only display {verb}, such as "Add", "Create", if the other components (such as Modal and Sidesheet) already provide enough context for the information
+  
+| ✅ Recommended usage | ❌ Deprecated usage |
+| --- | --- |
+| <img src='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/content_guide/button-good-2.png' style={{ width: 350 }} />| <img src='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/content_guide/button-bad-2.png' style={{ width: 350 }} /> |
+
+- Always write in Sentence case
+
+| ✅ Recommended usage | ❌ Deprecated usage |
+| --- | --- |
+| Create project | Create <br/> Create a project|
+| Edit profile | Edit |
 
 ## Design Tokens
 <DesignToken/>

@@ -7,12 +7,26 @@ import ConfigContext from '../configProvider/context';
 import LocaleConsumer from '../locale/localeConsumer';
 import { Locale } from '../locale/interface';
 
-export { DateInputProps } from './dateInput';
-export { DatePickerProps } from './datePicker';
-export { MonthProps } from './month';
-export { MonthsGridProps } from './monthsGrid';
-export { QuickControlProps } from './quickControl';
-export { YearAndMonthProps } from './yearAndMonth';
+export type {
+    BaseValueType,
+    DayStatusType,
+    DisabledDateOptions,
+    DisabledDateType,
+    DisabledTimeType,
+    InputSize,
+    Position,
+    PresetType,
+    PresetsType,
+    TriggerRenderProps,
+    ValidateStatus,
+    ValueType,
+} from '@douyinfe/semi-foundation/datePicker/foundation';
+export type { DateInputProps } from './dateInput';
+export type { DatePickerProps } from './datePicker';
+export type { MonthProps } from './month';
+export type { MonthsGridProps } from './monthsGrid';
+export type { QuickControlProps } from './quickControl';
+export type { YearAndMonthProps } from './yearAndMonth';
 
 export default forwardStatics(
     React.forwardRef<DatePicker, DatePickerProps>((props, ref) => {
@@ -69,18 +83,3 @@ export default forwardStatics(
     }),
     DatePicker
 );
-
-export {
-    BaseValueType,
-    DayStatusType,
-    DisabledDateOptions,
-    DisabledDateType,
-    DisabledTimeType,
-    InputSize,
-    Position,
-    PresetType,
-    PresetsType,
-    TriggerRenderProps,
-    ValidateStatus,
-    ValueType,
-} from '@douyinfe/semi-foundation/datePicker/foundation';

@@ -181,20 +181,13 @@ export default class NavigationFoundation<P = Record<string, any>, S = Record<st
         return [...willOpenKeys];
     }
 
-    getItemKey(item: string | number, keyPropName = 'itemKey') {
-        if (item && typeof item === 'object') {
-            return item[keyPropName];
-        }
-        return item;
-    }
-
-    getShouldOpenKeys(itemKeysMap: ItemKey2ParentKeysMap = {}, selectedKeys: string | number[] = []) {
+    getShouldOpenKeys(itemKeysMap: ItemKey2ParentKeysMap = {}, selectedKeys: string | number[]= []) {
         const willOpenKeySet = new Set();
 
         if (Array.isArray(selectedKeys) && selectedKeys.length) {
             selectedKeys.forEach(item => {
                 if (item) {
-                    const parentKeys = get(itemKeysMap, this.getItemKey(item));
+                    const parentKeys = get(itemKeysMap, item);
 
                     if (Array.isArray(parentKeys)) {
                         parentKeys.forEach(k => willOpenKeySet.add(k));

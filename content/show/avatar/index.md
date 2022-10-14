@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 43
+order: 44
 category: 展示类
 title: Avatar 头像
 icon: doc-avatar
@@ -247,7 +247,7 @@ import { AvatarGroup, Avatar } from '@douyinfe/semi-ui';
             <AvatarGroup overlapFrom={'end'}>
                 <Avatar color="red" alt='Lisa LeBlanc'>LL</Avatar>
                 <Avatar alt='Caroline Xiao'>CX</Avatar>
-                <Avatar color="amber"  alt='Rafal Matin'>RM</Avatar>
+                <Avatar color="amber" alt='Rafal Matin'>RM</Avatar>
                 <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }} alt='Zank Lance'>ZL</Avatar>
                 <Avatar style={{ backgroundColor: '#87d068' }} alt='Youself Zhang'>YZ</Avatar>
             </AvatarGroup>

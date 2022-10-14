@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 18
+order: 19
 category: 输入类
 title:  Button 按钮
 icon: doc-button
@@ -298,7 +298,7 @@ function ButtonDemo() {
             <hr/>
             <Button loading={saveLoading} onClick={() => setSaveLoading(true)} style={{ marginRight: 14 }}>保存</Button>
             <Button loading={delLoading} icon={<IconDelete />} type="danger" onClick={() => setDelLoading(true)} style={{ marginRight: 14 }}>删除</Button>
-            <div style={{ width: 200, display: 'inline-block'}}>
+            <div style={{ width: 200, display: 'inline-block' }}>
                 <Button loading={repLoading} type="warning" block theme="solid" onClick={() => setRepLoading(true)}>撤销</Button>
             </div>
         </div>
@@ -406,36 +406,36 @@ function SplitButtonDemo(){
         { node: 'item', name: '删除项目', type: 'danger' },
     ];
 
-    const [btnVisible,setBtnVisible] = useState({
+    const [btnVisible, setBtnVisible] = useState({
         1:false,
         2:false,
         3:false
     });
 
-    const handleVisibleChange = (key,visible)=>{
-        newBtnVisible = {...btnVisible};
+    const handleVisibleChange = (key, visible)=>{
+        newBtnVisible = { ...btnVisible };
         newBtnVisible[key] = visible;
         setBtnVisible(newBtnVisible);
     };
 
     return (
         <div>
-            <SplitButtonGroup style={{marginRight:10}} aria-label="项目操作按钮组">
+            <SplitButtonGroup style={{ marginRight:10 }} aria-label="项目操作按钮组">
                 <Button theme="solid" type="primary">分裂按钮</Button>
-                <Dropdown onVisibleChange={(v)=>handleVisibleChange(1,v)} menu={menu} trigger="click" position="bottomRight">
-                    <Button style={btnVisible[1]?{background:'var(--semi-color-primary-hover)',padding:'8px 4px'}:{padding:'8px 4px'}} theme="solid" type="primary" icon={<IconTreeTriangleDown />}></Button>
+                <Dropdown onVisibleChange={(v)=>handleVisibleChange(1, v)} menu={menu} trigger="click" position="bottomRight">
+                    <Button style={btnVisible[1] ? { background:'var(--semi-color-primary-hover)', padding:'8px 4px' } : { padding:'8px 4px' }} theme="solid" type="primary" icon={<IconTreeTriangleDown />}></Button>
                 </Dropdown>
             </SplitButtonGroup>
-            <SplitButtonGroup style={{marginRight:10}} aria-label="项目操作按钮组">
+            <SplitButtonGroup style={{ marginRight:10 }} aria-label="项目操作按钮组">
                 <Button theme="light" type="primary">分裂按钮</Button>
-                <Dropdown onVisibleChange={(v)=>handleVisibleChange(2,v)} menu={menu} trigger="click" position="bottomRight">
-                    <Button style={btnVisible[2]?{background:'var(--semi-color-fill-1)',padding:'8px 4px'}:{padding:'8px 4px'}}  theme="light" type="primary" icon={<IconTreeTriangleDown />}></Button>
+                <Dropdown onVisibleChange={(v)=>handleVisibleChange(2, v)} menu={menu} trigger="click" position="bottomRight">
+                    <Button style={btnVisible[2]?{ background:'var(--semi-color-fill-1)', padding:'8px 4px' }:{ padding:'8px 4px' }} theme="light" type="primary" icon={<IconTreeTriangleDown />}></Button>
                 </Dropdown>
             </SplitButtonGroup>
             <SplitButtonGroup aria-label="项目操作按钮组">
-                <Button style={btnVisible[3]?{background:'var(--semi-color-fill-0)'}:{}} theme="borderless" type="primary">分裂按钮</Button>
-                <Dropdown onVisibleChange={(v)=>handleVisibleChange(3,v)} menu={menu} trigger="click" position="bottomRight">
-                    <Button style={btnVisible[3]?{background:'var(--semi-color-fill-1)',padding:'8px 4px'}:{padding:'8px 4px'}}  theme="borderless" type="primary" icon={<IconTreeTriangleDown />}></Button>
+                <Button style={btnVisible[3]?{ background:'var(--semi-color-fill-0)' }:{}} theme="borderless" type="primary">分裂按钮</Button>
+                <Dropdown onVisibleChange={(v)=>handleVisibleChange(3, v)} menu={menu} trigger="click" position="bottomRight">
+                    <Button style={btnVisible[3]?{ background:'var(--semi-color-fill-1)', padding:'8px 4px' }:{ padding:'8px 4px' }} theme="borderless" type="primary" icon={<IconTreeTriangleDown />}></Button>
                 </Dropdown>
             </SplitButtonGroup>
         </div>
@@ -470,34 +470,58 @@ function SplitButtonDemo(){
 
 ### ButtonGroup
 
-| 属性     | 说明                                                                   | 类型    | 默认值    |
-| -------- | ---------------------------------------------------------------------- | ------- | --------- |
-| aria-label          | 按钮组的标签                                                                                       | string                            | -    |
-| disabled | 禁用状态                                                               | boolean | false     |
-| size     | 按钮大小，可选值：`large`、`default`、`small`                          | string  | "default" |
-| theme               | 按钮主题，可选值：`solid`（有背景色）、 `borderless`（无背景色）、 `light`（浅背景色）                     | string                          | "light"   |
-| type     | 类型，可选值：`primary`、`secondary`、`tertiary`、`warning`、 `danger` | string  | "primary" |
-| className     | 自定义类名                               | string   |         |
+| 属性     | 说明          | 类型    | 默认值      | 版本 |
+| -------- | -------------| ------- | --------- |---- |
+| aria-label | 按钮组的标签 | string  | - | |
+| className  | 自定义类名   | string  | - | |
+| disabled   | 禁用状态     | boolean | false | |
+| size       | 按钮大小，可选值：`large`、`default`、`small` | string  | "default" | |
+| style      | 自定义样式   | CSSProperties   | - | 2.20.0 |
+| theme      | 按钮主题，可选值：`solid`（有背景色）、 `borderless`（无背景色）、 `light`（浅背景色） | string | "light"   | |
+| type     | 类型，可选值：`primary`、`secondary`、`tertiary`、`warning`、 `danger` | string  | "primary" | |
 
 ### SplitButtonGroup **V1.12.0新增**
-| 属性          | 说明                                                            | 类型      | 默认值     |
-| -----------  | --------------------------------------------------------------  | -------- | --------- |
-| aria-label          | 分裂按钮组的标签                                                                                       | string                            | -    |
-| style     | 自定义样式                               | CSSProperties   |         |
-| className     | 自定义类名                               | string   |         |
+| 属性          | 说明                 | 类型      | 默认值     |
+| -----------  | ---------------------| -------- | --------- |
+| aria-label   | 分裂按钮组的标签        | string   | - |
+| className    | 自定义类名             | string   | - |
+| style        | 自定义样式             | CSSProperties   | - |
 
 ## Accessibility
 
 ### ARIA
 
 - `aria-label` 用于表示按钮的作用，对于图标按钮，我们推荐使用此属性
-- `aria-disabled` 与 disabled 属性同步，表示按钮禁用 
+- `aria-disabled` 与 disabled 属性同步，表示按钮禁用
 
 ### 键盘和焦点
 
 - Button 的焦点管理与原生 button 一致，键盘用户可以使用 Tab 及  Shift + Tab 切换焦点
 - Button 的触发与原生 button 一致，当按钮聚焦时，可以通过 Enter 或 Space 键激活
 - ButtonGroup 中的按钮与单个按钮的焦点管理方式一致，可以通过 Tab 以及 Shift + Tab 进行切换
+
+
+## 文案规范
+- 按钮需要清晰可预测，用户应该能够预测他们点击按钮时会发生什么
+- 按钮应该总是以鼓励行动的强动词开头
+- 为了给用户提供足够的上下文，在按钮上使用 {动词}+{名词} 内容公式；除了常见的动作，如“Done”、“Close”、“Cancel”或“OK”
+
+| ✅ 推荐用法 | ❌ 不推荐用法 |   
+| --- | --- | 
+| <div style={{ textAlign: 'center' }}><Empty image={<IllustrationNoAccess style={{ width: 150, height: 150 }} />} darkModeImage={<IllustrationNoAccessDark style={{ width: 150, height: 150 }} />} description={'No permission to view this page'}/><Button theme='solid' type='primary' style={{ marginTop: 12 }}>Apply permission</Button></div>|  <div style={{ textAlign: 'center' }}><Empty image={<IllustrationNoAccess style={{ width: 150, height: 150 }} />} darkModeImage={<IllustrationNoAccessDark style={{ width: 150, height: 150 }} />} description={'No permission to view this page'}/><Button theme='solid' type='primary' style={{ marginTop: 12 }}>Apply</Button></div>  |
+
+- 当按钮和其他组件一起时候，如果其他组件（比如 Modal 和Sidesheet）已经提供了足够信息的上下文的话，按钮可以只展示 {动词}，如“Add”、“Create”；
+  
+| ✅ 推荐用法 | ❌ 不推荐用法 |   
+| --- | --- | 
+| <img src='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/content_guide/button-good-2.png' style={{ width: 350 }} />| <img src='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/content_guide/button-bad-2.png' style={{ width: 350 }} /> |
+
+- 始终按句子大小写（Sentence case）原则书写
+
+| ✅ 推荐用法 | ❌ 不推荐用法 |   
+| --- | --- | 
+| Create project | Create <br/> Create a project|
+| Edit profile | Edit |
 
 ## 设计变量
 <DesignToken/>

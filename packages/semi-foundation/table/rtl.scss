@@ -19,7 +19,7 @@ $module: #{$prefix}-table;
 
                             &.resizing {
                                 // rtl override mixin
-                                border-left: $border-table_resizer;
+                                border-left: $width-table_resizer_border solid $color-table_resizer-bg-default;
                             }
                         }
 
@@ -28,7 +28,7 @@ $module: #{$prefix}-table;
                             border-right: 1px solid $color-table_shadow-border-default;
 
                             &.resizing {
-                                border-left: $border-table_resizer;
+                                border-left: $width-table_resizer_border solid $color-table_resizer-bg-default;
                             }
 
                             &[x-type="column-scrollbar"] {
@@ -40,7 +40,7 @@ $module: #{$prefix}-table;
                 }
 
                 .resizing {
-                    border-left: $border-table_resizer;
+                    border-left: $width-table_resizer_border solid $color-table_resizer-bg-default;
                 }
 
                 .react-resizable-handle {
@@ -57,7 +57,7 @@ $module: #{$prefix}-table;
 
                     &.resizing {
                         border-right: 0;
-                        border-left: $border-table_resizer;
+                        border-left: $width-table_resizer_border solid $color-table_resizer-bg-default;
                     }
                 }
 
@@ -112,17 +112,17 @@ $module: #{$prefix}-table;
         &-bordered {
             .#{$module}-container {
                 border-left: 0;
-                border-right: $border-table;
+                border-right: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
             }
 
             .#{$module}-thead > .#{$module}-row > .#{$module}-row-head,
             .#{$module}-tbody > .#{$module}-row > .#{$module}-row-cell {
                 border-right: 0;
-                border-left: $border-table;
+                border-left: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
             }
 
             .#{$module}-placeholder {
-                border-left: $border-table;
+                border-left: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
                 border-right: 0;
             }
 
@@ -130,7 +130,7 @@ $module: #{$prefix}-table;
 
                 &::-webkit-scrollbar {
                     border-right: 0;
-                    border-left: $border-table;
+                    border-left: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
                 }
             }
         }

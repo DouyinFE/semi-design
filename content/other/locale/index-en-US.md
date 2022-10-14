@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 71
+order: 73
 category: Other
 title: LocaleProvider
 subTitle: LocaleProvider
@@ -52,6 +52,7 @@ import es from '@douyinfe/semi-ui/lib/es/locale/source/es';
 import it from '@douyinfe/semi-ui/lib/es/locale/source/it';
 import de from '@douyinfe/semi-ui/lib/es/locale/source/de';
 import fr from '@douyinfe/semi-ui/lib/es/locale/source/fr';
+import ro from '@douyinfe/semi-ui/lib/es/locale/source/fr';
 
 import { LocaleProvider } from '@douyinfe/semi-ui';
 
@@ -83,10 +84,10 @@ class I18nDemo extends React.Component {
         return (
             <>
                 <LocaleProvider locale={en_GB}>
-                    <Pagination total={100} showTotal showSizeChanger style={{margin: 20}} />
+                    <Pagination total={100} showTotal showSizeChanger style={{ margin: 20 }} />
                 </LocaleProvider>
                 <LocaleProvider locale={ja_JP}>
-                    <Pagination total={100} showTotal showSizeChanger style={{margin: 20}} />
+                    <Pagination total={100} showTotal showSizeChanger style={{ margin: 20 }} />
                 </LocaleProvider>
             </>
         );
@@ -118,6 +119,7 @@ import es from '@douyinfe/semi-ui/lib/es/locale/source/es';
 import it from '@douyinfe/semi-ui/lib/es/locale/source/it';
 import de from '@douyinfe/semi-ui/lib/es/locale/source/de';
 import fr from '@douyinfe/semi-ui/lib/es/locale/source/fr';
+import ro from '@douyinfe/semi-ui/lib/es/locale/source/ro';
 import { LocaleProvider, ConfigProvider, Pagination, Modal, Button, Select, Cascader, DatePicker, TreeSelect, Table, TimePicker, List, Calendar, Typography } from '@douyinfe/semi-ui';
 
 class I18nDemo extends React.Component {
@@ -146,7 +148,8 @@ class I18nDemo extends React.Component {
             es,
             de,
             it,
-            fr
+            fr,
+            ro
         };
         this.setState({ locale: language[code], localeCode: code });
     }
@@ -243,10 +246,10 @@ class I18nDemo extends React.Component {
                         />
                     </div>
                     <h5>DatePicker</h5>
-                    <DatePicker style={{ ...style, width: 250}} />
-                    <DatePicker style={{ ...style, width: 300}} type='dateTime' />
-                    <DatePicker style={{ ...style, width: 300}} type='dateRange' />
-                    <DatePicker style={{ ...style, width: 450}} type='dateTimeRange' />
+                    <DatePicker style={{ ...style, width: 250 }} />
+                    <DatePicker style={{ ...style, width: 300 }} type='dateTime' />
+                    <DatePicker style={{ ...style, width: 300 }} type='dateRange' />
+                    <DatePicker style={{ ...style, width: 450 }} type='dateTimeRange' />
                     <h5>TimePicker</h5>
                     <TimePicker style={style} />
                     <TimePicker use12Hours style={style} /><br/><br/>
@@ -267,7 +270,7 @@ class I18nDemo extends React.Component {
         return (
             <>
                 <div style={{ borderBottom: '1px solid var(--semi-color-border)', paddingBottom: 20 }}>
-                    <Select onChange={this.onLanguageChange} insetLabel='Switch Language' style={{width: 250}} defaultValue='en_GB'>
+                    <Select onChange={this.onLanguageChange} insetLabel='Switch Language' style={{ width: 250 }} defaultValue='en_GB'>
                         <Select.Option value='zh_CN'>Chinese</Select.Option>
                         <Select.Option value='en_GB'>English</Select.Option>
                         <Select.Option value='ja_JP'>Japanese</Select.Option>
@@ -283,6 +286,7 @@ class I18nDemo extends React.Component {
                         <Select.Option value='de'>German</Select.Option>
                         <Select.Option value='it'>Italian</Select.Option>
                         <Select.Option value='fr'>French</Select.Option>
+                        <Select.Option value='ro'>Romanian</Select.Option>
                     </Select>
                 </div>
                 <LocaleProvider locale={locale}>

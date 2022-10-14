@@ -1,7 +1,8 @@
+@import './animation.scss';
 @import './variables.scss';
 @import './mixin.scss';
 @import './operationPanel.scss';
-@import './animation.scss';
+
 
 $module: #{$prefix}-table;
 
@@ -60,9 +61,18 @@ $module: #{$prefix}-table;
 
         &::-webkit-scrollbar {
             background-color: transparent;
-            border-bottom: $border-table_head-bottom;
+            border-bottom: $width-table_header_border $border-table_base-borderStyle $color-table_th-border-default;
         }
         scrollbar-base-color: transparent;
+
+        &-sticky {
+            position: sticky;
+            z-index: $z-table_fixed_column + 1;
+
+            .semi-table-thead > .semi-table-row > .semi-table-row-head {
+                background-color: $color-table-bg-default;
+            }
+        }
     }
 
     &-body {
@@ -91,7 +101,7 @@ $module: #{$prefix}-table;
                 color: $color-table_th-text-default;
                 font-weight: $font-weight-bold;
                 text-align: left;
-                border-bottom: $border-table_head-bottom;
+                border-bottom: $width-table_header_border $border-table_base-borderStyle $color-table_th-border-default;
                 padding-left: $spacing-table_row_head-paddingX;
                 padding-right: $spacing-table_row_head-paddingX;
                 padding-top: $spacing-table_row_head-paddingY;
@@ -223,14 +233,14 @@ $module: #{$prefix}-table;
                 word-break: break-all;
                 border-left: none;
                 border-right: none;
-                border-bottom: $border-table;
+                border-bottom: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
                 padding: $spacing-table_tbody_rowCell-padding;
                 box-sizing: border-box;
                 position: relative;
                 vertical-align: middle;
 
                 &.resizing {
-                    border-right: $border-table_resizer;
+                    border-right: $width-table_resizer_border solid $color-table_resizer-bg-default;
                 }
             }
             &.#{$module}-row {
@@ -276,7 +286,7 @@ $module: #{$prefix}-table;
 
             & > .#{$module}-row-cell {
                 background-color: $color-table_selection-bg-default;
-                border-bottom: $border-table;
+                border-bottom: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
             }
 
             & > .#{$module}-row-cell:not(.#{$module}-column-selection) {
@@ -431,27 +441,27 @@ $module: #{$prefix}-table;
         .#{$module}-title {
             padding-left: $spacing-table_bordered_titler-paddingLeft;
             padding-right: $spacing-table_bordered_titler-paddingRight;
-            border-top: $border-table;
-            border-right: $border-table;
-            border-left: $border-table;
+            border-top: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
+            border-right: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
+            border-left: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
         }
 
         .#{$module}-container {
-            border: $border-table;
+            border: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
             border-right: 0;
             border-bottom: 0;
         }
 
         .#{$module}-header {
             &::-webkit-scrollbar {
-                border-right: $border-table;
+                border-right: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
             }
         }
 
         .#{$module}-footer {
-            border-left: $border-table;
-            border-right: $border-table;
-            border-bottom: $border-table;
+            border-left: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
+            border-right: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
+            border-bottom: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
         }
 
         .#{$module}-thead > .#{$module}-row > .#{$module}-row-head {
@@ -462,11 +472,11 @@ $module: #{$prefix}-table;
 
         .#{$module}-thead > .#{$module}-row > .#{$module}-row-head,
         .#{$module}-tbody > .#{$module}-row > .#{$module}-row-cell {
-            border-right: $border-table;
+            border-right: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
         }
 
         .#{$module}-placeholder {
-            border-right: $border-table;
+            border-right: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
         }
     }
 
@@ -478,7 +488,7 @@ $module: #{$prefix}-table;
         font-size: #{$font-table_base-fontSize};
         text-align: center;
         background: $color-table_pl-bg-default;
-        border-bottom: $border-table;
+        border-bottom: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
         border-radius: 0 0 #{$radius-table_base} #{$radius-table_base};
     }
 

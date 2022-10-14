@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 13
+order: 14
 category: 基础
 title: Layout 布局
 icon: doc-layout
@@ -147,7 +147,7 @@ import { Layout } from '@douyinfe/semi-ui';
 ```jsx live=true dir="column" hideInDSM
 import React from 'react';
 import { Layout, Nav, Button, Breadcrumb, Skeleton, Avatar } from '@douyinfe/semi-ui';
-import { IconSemiLogo, IconBell, IconHelpCircle, IconBytedanceLogo,IconHome,IconLive,IconSetting } from '@douyinfe/semi-icons';
+import { IconSemiLogo, IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, IconLive, IconSetting } from '@douyinfe/semi-icons';
 
 () => {
     const { Header, Footer, Content } = Layout;

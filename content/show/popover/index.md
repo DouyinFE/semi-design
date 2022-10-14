@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 56
+order: 58
 category: 展示类
 title: Popover 气泡卡片
 icon: doc-popover

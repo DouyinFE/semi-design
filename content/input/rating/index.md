@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 26
+order: 27
 category: 输入类
 title:  Rating 评分
 icon: doc-rating
@@ -92,7 +92,7 @@ import React, { useState } from 'react';
 import { Rating } from '@douyinfe/semi-ui';
 
 () => {
-    const [value,  setValue] = useState(0);
+    const [value, setValue] = useState(0);
     const change = (val) => setValue(val);
     const desc = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
     return (
@@ -119,10 +119,10 @@ import { IconLikeHeart } from '@douyinfe/semi-icons';
 
 () => (
     <div>
-        <Rating style={{color:'red'}} character={(<IconLikeHeart size="extra-large" />)} defaultValue={3}/>
+        <Rating style={{ color:'red' }} character={(<IconLikeHeart size="extra-large" />)} defaultValue={3}/>
         <br/>
         <br/>
-        <Rating style={{color:'red'}} size={48} allowHalf character={(<IconLikeHeart style={{ fontSize: 48 }} />)} defaultValue={3}/>
+        <Rating style={{ color:'red' }} size={48} allowHalf character={(<IconLikeHeart style={{ fontSize: 48 }} />)} defaultValue={3}/>
         <br/>
         <br/>
         <Rating character={'赞'} size={18} defaultValue={3}/>

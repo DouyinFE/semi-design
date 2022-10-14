@@ -4,7 +4,7 @@ title: Overview
 subTitle: Overview
 icon: doc-overview
 localeCode: en-US
-order: 9
+order: 10
 brief: Based on Semi design language, React UI desktop component library that can be debugged online, helps developers build applications efficiently.
 ---
 
@@ -66,6 +66,7 @@ Collapsible,
 Descriptions,
 Dropdown,
 Empty,
+Image,
 List,
 Modal,
 OverflowList,

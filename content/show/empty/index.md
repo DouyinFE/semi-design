@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 52
+order: 53
 category: 展示类
 title: Empty 空状态
 icon: doc-empty
@@ -29,8 +29,8 @@ import { IllustrationConstruction, IllustrationConstructionDark } from '@douyinf
 
 () => (
     <Empty
-        image={<IllustrationConstruction style={{width: 150, height: 150}} />}
-        darkModeImage={<IllustrationConstructionDark style={{width: 150, height: 150}} />}
+        image={<IllustrationConstruction style={{ width: 150, height: 150 }} />}
+        darkModeImage={<IllustrationConstructionDark style={{ width: 150, height: 150 }} />}
         title={'功能建设中'}
         description="当前功能暂未开放，敬请期待。"
     />
@@ -48,8 +48,8 @@ import { IllustrationNoContent, IllustrationNoContentDark } from '@douyinfe/semi
 
 () => (
     <Empty
-        image={<IllustrationNoContent style={{width: 150, height: 150}} />}
-        darkModeImage={<IllustrationNoContentDark style={{width: 150, height: 150}} />}
+        image={<IllustrationNoContent style={{ width: 150, height: 150 }} />}
+        darkModeImage={<IllustrationNoContentDark style={{ width: 150, height: 150 }} />}
         title="空状态标题"
         description="开始创建你的第一个仪表盘吧！"
     >
@@ -96,8 +96,8 @@ import { IllustrationSuccess, IllustrationSuccessDark } from '@douyinfe/semi-ill
 () => (
     <Empty
         title={'创建成功'}
-        image={<IllustrationSuccess style={{width: 150, height: 150}} />}
-        darkModeImage={<IllustrationSuccessDark style={{width: 150, height: 150}} />}
+        image={<IllustrationSuccess style={{ width: 150, height: 150 }} />}
+        darkModeImage={<IllustrationSuccessDark style={{ width: 150, height: 150 }} />}
         layout="horizontal"
         description="这是一段很长的描述文本，当文本过长的时候推荐使用这种布局形式。这是一段很长的描述文本，当文本过长的时候推荐使用这种布局形式。这是一段很长的描述文本，当文本过长的时候推荐使用这种布局形式。"
         style={{ width: 800, margin: '0 auto' }}
@@ -201,6 +201,16 @@ import { IllustrationIdle, IllustrationIdleDark, IllustrationConstructionDark, I
 
 - Empty 插图的 aria-hidden 为 true
 
+## 文案规范
+- 标题
+  - 标题应该简洁易懂
+- 正文
+  - 可以展示展示空状态的具体原因，也可以展示后续的操作行为去帮助用户消除空状态
+  - 不要重复标题上的内容
+  - 尽量保持正文在 1-2 句话内
+- 动作按钮
+  - 按钮文案需要足够清晰和容易理解
+  - 使用 动词 + 名词 的格式
 ## 设计变量
 
 <DesignToken/>

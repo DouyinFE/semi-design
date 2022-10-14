@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 30
+order: 31
 category: 输入类
 title: TagInput 标签输入框
 icon: doc-tagInput
@@ -24,7 +24,7 @@ import { TagInput } from '@douyinfe/semi-ui';
 
 () => (
     <TagInput
-        defaultValue={['抖音','火山','西瓜视频']}
+        defaultValue={['抖音', '火山', '西瓜视频']}
         placeholder='请输入...'
         onChange={v => console.log(v)}
     />
@@ -67,7 +67,7 @@ import { TagInput } from '@douyinfe/semi-ui';
 () => (
     <TagInput 
         showClear 
-        defaultValue={['抖音','火山']} 
+        defaultValue={['抖音', '火山']} 
         placeholder='请输入...'
         onChange={v => console.log(v)}
     />
@@ -84,7 +84,7 @@ import { TagInput } from '@douyinfe/semi-ui';
     <TagInput 
         disabled 
         showClear 
-        defaultValue={['抖音','火山','西瓜视频']} 
+        defaultValue={['抖音', '火山', '西瓜视频']} 
         placeholder='请输入...'
     />
 );
@@ -161,7 +161,7 @@ import { TagInput } from '@douyinfe/semi-ui';
 
 () => (
     <TagInput
-        defaultValue={['抖音','火山','西瓜视频']}
+        defaultValue={['抖音', '火山', '西瓜视频']}
         addOnBlur={true}
         placeholder='请输入...'
         onChange={v => console.log(v)}
@@ -179,7 +179,7 @@ import { TagInput } from '@douyinfe/semi-ui';
 
 () => (
     <TagInput
-        defaultValue={['抖音','火山','西瓜视频']}
+        defaultValue={['抖音', '火山', '西瓜视频']}
         allowDuplicates={false}
         placeholder='请输入...'
         onChange={v => console.log(v)}
@@ -235,7 +235,7 @@ import { TagInput } from '@douyinfe/semi-ui';
         maxTagCount={2}
         showRestTagsPopover={true}
         restTagsPopoverProps={{ position: 'top' }}
-        defaultValue={['抖音','火山','西瓜视频']}
+        defaultValue={['抖音', '火山', '西瓜视频']}
         onChange={v => console.log(v)}
     />
 );
@@ -293,7 +293,7 @@ class TagInputDemo extends React.Component {
         return (
             <TagInput
                 inputValue={this.state.value}
-                onInputChange={(v,e) => this.handleInputChange(v,e)}
+                onInputChange={(v, e) => this.handleInputChange(v, e)}
             />
         );
     }
@@ -315,8 +315,8 @@ import { TagInput } from '@douyinfe/semi-ui';
         onBlur={e => {console.log(`onBlur`);}} 
         onChange={tag => {console.log(`onChange,当前标签数组：${tag}`);}} 
         onAdd={tag => {console.log(`onAdd，新增：${tag}`);}} 
-        onRemove={(v,i) => {console.log(`onRemove，移除：${v}, 序号：${i}`);}} 
-        onInputChange={(input,e) => {console.log(`onInputChange，当前输入内容：${input}`);}} 
+        onRemove={(v, i) => {console.log(`onRemove，移除：${v}, 序号：${i}`);}} 
+        onInputChange={(input, e) => {console.log(`onInputChange，当前输入内容：${input}`);}} 
     />
 );
 ```
@@ -343,7 +343,7 @@ class TagInputDemo extends React.Component {
     render() {
         return (
             <>
-                <TagInput defaultValue={['抖音','火山']} ref={this.ref} />
+                <TagInput defaultValue={['抖音', '火山']} ref={this.ref} />
                 <Button style={{ marginTop:10 }} onClick={this.handleTagInputFocus}>
                     点击按钮聚焦
                 </Button>
@@ -373,10 +373,10 @@ class CustomRender extends React.Component {
             { "name": "曲晨一", "avatar":  "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dbf7351bb779433d17c4f50478cf42f7.jpg" },
             { "name": "文嘉茂", "avatar":  "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/7abf810ff060ac3387bd027ead92c4e0.jpg" },
         ];
-        this.mapList = new Map(this.list.map( item => [item.name,item]));
+        this.mapList = new Map(this.list.map( item => [item.name, item]));
     }
 
-    renderTagItem(value,index) {
+    renderTagItem(value, index) {
         const data = this.mapList.get(value);
         return (
             <div 
@@ -401,7 +401,7 @@ class CustomRender extends React.Component {
             <TagInput 
                 value={value} 
                 onChange={value => this.setState({ value })}
-                renderTagItem={(value,index) => this.renderTagItem(value,index)}
+                renderTagItem={(value, index) => this.renderTagItem(value, index)}
             />
         );
     }

@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 33
+order: 34
 category: 输入类
 title: TreeSelect 树选择器
 icon: doc-treeselect
@@ -682,7 +682,7 @@ class Demo extends React.Component {
         };
     }
     onChange(value) {
-        this.setState({value});
+        this.setState({ value });
     }
     render() {
         const treeData = [
@@ -900,7 +900,7 @@ class Demo extends React.Component {
             const rec = n => (n >= 0 ? x * y ** n-- + rec(n) : 0);
             return rec(z + 1);
         }
-        return {gData, total: calcTotal(x, y, z)};
+        return { gData, total: calcTotal(x, y, z) };
     }
 
       
@@ -1242,7 +1242,7 @@ function Demo() {
                 multiple
                 maxTagCount={2}
                 renderSelectedItem={(item, { index, onClose }) => {
-                    return  ({ 
+                    return ({ 
                         content: (
                             <Tag 
                                 key={index} 

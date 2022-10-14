@@ -32,7 +32,7 @@
 .text {
     min-width: 41px;
     font-size: 16px;
-    font-family: Inter;
+    font-family: "Inter";
     color: var(--semi-color-white);
     line-height: 22px;
     font-weight: 600;
@@ -45,20 +45,24 @@
     position: relative;
     width: 321px;
     font-size: 32px;
-    font-family: Inter;
+    font-family: "Inter";
     color: var(--semi-color-text-0);
     line-height: 44px;
     font-weight: 700;
-    letter-spacing: -1.28px;
+    letter-spacing: 0em;
     text-align: center;
     vertical-align: middle;
+}
+
+.title_en {
+    font-weight: 700;
 }
 
 .text_86d8f999 {
     min-width: 396px;
     margin: 0 0 32px;
     font-size: 18px;
-    font-family: PingFang SC;
+    font-family: "PingFang SC";
     color: var(--semi-color-text-0);
     line-height: 32px;
     font-weight: 400;
@@ -84,7 +88,7 @@
 .text_8f6c2dc2 {
     min-width: 64px;
     font-size: 16px;
-    font-family: PingFang SC;
+    font-family: "PingFang SC";
     color: var(--semi-color-text-0);
     line-height: 22px;
     font-weight: 600;
@@ -95,4 +99,5 @@
 .frame4160 {
     width: 1282px;
     height: 783px;
+    margin-top: -50px;
 }

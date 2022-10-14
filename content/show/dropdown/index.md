@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 51
+order: 52
 category: 展示类
 title: Dropdown 下拉框
 icon: doc-dropdown
@@ -494,6 +494,18 @@ function DropdownEvents() {
     - 使用 `Enter` 键 或 `Space` 键可以激活聚焦的菜单项, 若菜单项绑定了onClick，事件会被触发
 - 键盘用户可以通过按 `Esc` 关闭 Dropdown，关闭后焦点返回到触发器上
 - 键盘交互暂未完整支持嵌套场景
+
+## 文案规范
+
+- 下拉框内选项内容需要表述准确且包含信息，使用户在浏览时更加容易在选项中选择
+- 使用语句式的大小写，并且简洁明了地书写选项
+- 如果是动作选项，使用动词或者动词短语来描述用户选择该选项后会发生的动作。举个例子，"Move", "Log time", or "Hide labels" 
+- 不使用介词
+
+
+| ✅ 推荐用法 | ❌ 不推荐用法 |   
+| --- | --- | 
+| <div style={{ height: 150}}><Dropdown visible trigger={'custom'} autoAdjustOverflow={false} position={'bottomLeft'} menu={[{ node: 'item', name: 'Add text' },{ node: 'item', name: 'Add link' },{ node: 'item', name: 'Add image' },{ node: 'item', name: 'Add video' }]} /></div> | <div style={{ height: 150}}><Dropdown visible trigger={'custom'} autoAdjustOverflow={false} position={'bottomLeft'} menu={[{ node: 'item', name: 'Add a text' },{ node: 'item', name: 'Add a link' },{ node: 'item', name: 'Add a image' },{ node: 'item', name: 'Add a video' }]} /></div> |
 
 ## 设计变量
 

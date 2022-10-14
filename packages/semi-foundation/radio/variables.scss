@@ -67,7 +67,7 @@ $width-radio_inner: $width-icon-medium; // 单选按钮宽度
 $spacing-radio_addon-paddingLeft: $spacing-tight; //单选标题到单选按钮左侧边距
 $spacing-radio_addon-marginLeft: $width-radio_inner; //单选标题左侧整体外边距
 $spacing-radio_addon_buttonRadio_large-paddingX: $spacing-loose; // 大尺寸按钮式单选按钮水平内边距
-$spacing-radio_addon_buttonRadio_large-paddingY: $spacing-base-tight / 2; // 大尺寸按钮式单选按钮垂直内边距
+$spacing-radio_addon_buttonRadio_large-paddingY: $spacing-base-tight * 0.5; // 大尺寸按钮式单选按钮垂直内边距
 $spacing-radio_addon_buttonRadio_small-paddingX: $spacing-base; // 小尺寸按钮式单选按钮水平内边距
 $spacing-radio_addon_buttonRadio_small-paddingY: $spacing-super-tight; // 中尺寸按钮式单选按钮垂直内边距
 $spacing-radio_addon_buttonRadio_middle-paddingX: $spacing-base; // 中尺寸按钮式单选按钮水平内边距

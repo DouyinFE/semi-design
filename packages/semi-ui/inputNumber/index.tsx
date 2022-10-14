@@ -329,7 +329,7 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
                     this.foundation.updateStates({ number: null, value: newValue });
                 }
             }
-            if (isString(newValue) && newValue !== String(this.props.value)) {
+            if (newValue && isString(newValue) && newValue !== String(this.props.value)) {
                 this.foundation.notifyChange(newValue, null);
             }
         }

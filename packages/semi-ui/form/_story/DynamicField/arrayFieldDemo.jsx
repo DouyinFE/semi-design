@@ -90,7 +90,7 @@ class ArrayFieldWithFormInitValues extends React.Component {
 
     change = () => {
         let number = this.formApi.getValue('number');
-        let newData = Array.from({ length: 2 }, (v, i) => ({
+        let newData = Array.from({ length: number }, (v, i) => ({
             name: `${i}-name`,
             time: `${i}-time`
         }));

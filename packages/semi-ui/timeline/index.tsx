@@ -6,7 +6,7 @@ import { cssClasses, strings } from '@douyinfe/semi-foundation/timeline/constant
 import ConfigContext from '../configProvider/context';
 import Item, { TimelineItemProps } from './item';
 
-export { TimelineItemProps } from './item';
+export type { TimelineItemProps } from './item';
 
 export interface Data extends TimelineItemProps {
     content: React.ReactNode;
@@ -61,6 +61,7 @@ class Timeline extends PureComponent<TimelineProps> {
     addClassName = (items: React.ReactNode) => React.Children.map(items, (ele, idx) => {
         if (React.isValidElement(ele)) {
             return React.cloneElement(ele, {
+                // @ts-ignore
                 className: cls(
                     ele.props.className,
                     this.getPosCls(ele, idx)

@@ -126,7 +126,7 @@ export default class RatingFoundation<P = Record<string, any>, S = Record<string
         let tempValue: number;
         let newValue: number;
         if (key === 'ArrowRight' || key === 'ArrowUp') {
-            tempValue = value + (reverse ?  - step : step);
+            tempValue = value + (reverse ? - step : step);
         } else if (key === 'ArrowLeft' || key === 'ArrowDown') {
             tempValue = value + (reverse ? step : - step);
         }

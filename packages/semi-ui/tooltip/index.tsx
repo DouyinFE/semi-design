@@ -26,9 +26,9 @@ import TooltipTransition from './TooltipStyledTransition';
 import ArrowBoundingShape from './ArrowBoundingShape';
 import { Motion } from '../_base/base';
 
-export { TooltipTransitionProps } from './TooltipStyledTransition';
+export type { TooltipTransitionProps } from './TooltipStyledTransition';
 export type Trigger = ArrayElement<typeof strings.TRIGGER_SET>;
-
+export type { Position };
 export interface ArrowBounding {
     offsetX?: number;
     offsetY?: number;
@@ -723,7 +723,8 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                     ref.current = node;
                 }
             },
-            tabIndex:  (children as React.ReactElement).props.tabIndex || 0 // a11y keyboard, in some condition select's tabindex need to -1 or 0 
+            tabIndex: (children as React.ReactElement).props.tabIndex || 0, // a11y keyboard, in some condition select's tabindex need to -1 or 0 
+            'data-popupid': id
         });
 
         // If you do not add a layer of div, in order to bind the events and className in the tooltip, you need to cloneElement children, but this time it may overwrite the children's original ref reference
@@ -736,5 +737,3 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         );
     }
 }
-
-export { Position };

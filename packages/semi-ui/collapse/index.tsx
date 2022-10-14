@@ -15,7 +15,7 @@ import { noop } from '@douyinfe/semi-foundation/utils/function';
 import { isEqual } from 'lodash';
 import CollapseContext from './collapse-context';
 
-export { CollapsePanelProps } from './item';
+export type { CollapsePanelProps } from './item';
 
 export interface CollapseReactProps extends CollapseProps{
     expandIcon?: React.ReactNode;
@@ -26,7 +26,7 @@ export interface CollapseReactProps extends CollapseProps{
 }
 
 
-export { CollapseState };
+export type { CollapseState };
 
 class Collapse extends BaseComponent<CollapseReactProps, CollapseState> {
     static Panel = CollapsePanel;

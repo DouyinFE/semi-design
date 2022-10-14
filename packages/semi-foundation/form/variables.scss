@@ -1,5 +1,5 @@
-$spacing-form_label-paddingTop: ($height-control-default - 20px) / 2; // 水平布局表单标题顶部内边距
-$spacing-form_label_small-paddingTop: ($height-control-default - 24px) / 2; // 水平布局 小尺寸表单标题顶部内边距
+$spacing-form_label-paddingTop: ($height-control-default - 20px) * 0.5; // 水平布局表单标题顶部内边距
+$spacing-form_label_small-paddingTop: ($height-control-default - 24px) * 0.5; // 水平布局 小尺寸表单标题顶部内边距
 
 $spacing-form_field_horizontal-paddingRight: $spacing-base; // 水平布局表单标题右侧内边距
 $spacing-form_field_group_horizontal-paddingRight: $spacing-base; // 水平布局表单组标题右侧内边距

@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 38
+order: 39
 category: Navigation
 title:  Navigation
 subTitle: Navigation
@@ -340,7 +340,7 @@ class NavApp extends React.Component {
                                 </Dropdown.Menu>
                             }
                         >
-                            <Avatar size="small" color='light-blue' style={{margin: 4}}>BD</Avatar>
+                            <Avatar size="small" color='light-blue' style={{ margin: 4 }}>BD</Avatar>
                             <span>Bytedancer</span>
                         </Dropdown>
                     }
@@ -426,7 +426,7 @@ class NavApp extends React.Component {
                                 </Dropdown.Menu>
                             }
                         >
-                            <Avatar size="small" color='light-blue' style={{margin: 4}}>BD</Avatar>
+                            <Avatar size="small" color='light-blue' style={{ margin: 4 }}>BD</Avatar>
                             <span>Bytedancer</span>
                         </Dropdown>
                     </>
@@ -476,13 +476,13 @@ class NavApp extends React.Component {
                 defaultOpenKeys={['job']}
                 bodyStyle={{ height: 320 }}
                 items={[
-                    {itemKey:'user', text:'User Management', icon: <IconUser /> },
-                    {itemKey:'union', text:'guild center', icon: <IconStar /> },
+                    { itemKey:'user', text:'User Management', icon: <IconUser /> },
+                    { itemKey:'union', text:'guild center', icon: <IconStar /> },
                     {
                         text:'Task platform',
                         icon: <IconSetting />,
                         itemKey:'job',
-                        items: ['task management','user task query'],
+                        items: ['task management', 'user task query'],
                     },
                 ]}
                 onSelect={key => console.log(key)}
@@ -521,7 +521,7 @@ class NavApp extends React.Component {
                 defaultOpenKeys={['job']}
                 bodyStyle={{ height: 320 }}
                 items={[
-                    {itemKey:'user', text:'User Management', icon: <IconUser /> },
+                    { itemKey:'user', text:'User Management', icon: <IconUser /> },
                     {
                         text:'Task platform',
                         icon: <IconSetting />,
@@ -530,13 +530,13 @@ class NavApp extends React.Component {
                             text:'Task 1',
                             icon: <IconSetting />,
                             itemKey:'mission1',
-                            items: ['Task 2',{
+                            items: ['Task 2', {
                                 text:'Task 3 disassembly',
                                 icon: <IconSetting />,
                                 itemKey:'mission3',
-                                items: ['Subtask 1','Subtask 2'],
+                                items: ['Subtask 1', 'Subtask 2'],
                             }, ],
-                        },],
+                        }, ],
                     },
                 ]}
                 onSelect={key => console.log(key)}
@@ -767,6 +767,11 @@ function NavApp (props = {}) {
 | collapseButton | Do you show the bottom "put away the sidebar" button, mode = "vertical" and the child parameter of the Footer component is empty? | boolean\|ReactNode                        | false   |         |
 | collapseText   | Title of the collapse button                                                                                                      | (collapsed:boolean) => string\|ReactNode |         | 0.35.0  |
 | style          | Outermost style                                                                                                                   | object                                    |         |         |
+
+## Content Guidelines
+
+- Navigation bar menu uses sentence case format
+- Keep it as simple as possible
 
 ## Design Tokens
 <DesignToken/>

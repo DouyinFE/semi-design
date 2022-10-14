@@ -1,5 +1,6 @@
-@import "./variables.scss";
 @import "./animation.scss";
+@import "./variables.scss";
+
 
 $module: #{$prefix}-tagInput;
 
@@ -12,7 +13,7 @@ $module: #{$prefix}-tagInput;
     width: 100%;
     box-sizing: border-box;
     transition: background-color $transition_duration-tagInput-bg $transition_function-tagInput-bg $transition_delay-tagInput-bg,
-    border $transition_duration-tagInput-border $transition_function-tagInput-border $transition_delay-tagInput-border;
+        border $transition_duration-tagInput-border $transition_function-tagInput-border $transition_delay-tagInput-border;
 
     &-drag {
 
@@ -22,6 +23,7 @@ $module: #{$prefix}-tagInput;
         }
 
         &-handler {
+            color: $color-tagInput_handler-icon-default;
             margin-right: $spacing-tagInput_drag_handler-marginRight;
             cursor: move;
         }
@@ -31,7 +33,7 @@ $module: #{$prefix}-tagInput;
         background-color: $color-tagInput_default-bg-hover;
         border: $width-tagInput-border-hover $color-tagInput-border-hover solid;
     }
-    
+
     &-focus {
         background-color: $color-tagInput_default-bg-focus;
         border: $width-tagInput-border-focus $color-tagInput-border-focus solid;
@@ -60,7 +62,7 @@ $module: #{$prefix}-tagInput;
             background-color: $color-tagInput_danger-bg-hover;
             border-color: $color-tagInput_danger-border-hover;
         }
-        
+
         &.#{$module}-focus {
             background-color: $color-tagInput_danger-bg-focus;
             border-color: $color-tagInput_danger-border-focus;
@@ -88,7 +90,7 @@ $module: #{$prefix}-tagInput;
                 color: $color-tagInput_disabled-text-default;
             }
         }
-        
+
     }
 
     &-wrapper {
@@ -120,7 +122,7 @@ $module: #{$prefix}-tagInput;
                     margin-bottom: $spacing-tagInput_large-Y;
                 }
             }
-            
+
             &-icon {
                 padding-left: $spacing-tagInput_tag_icon_paddingLeft;
             }
@@ -153,7 +155,7 @@ $module: #{$prefix}-tagInput;
             width: min-content;
             min-width: 38px;
             border: none;
-            outline: none; 
+            outline: none;
             background-color: transparent;
             font-size: $font-size-regular;
 

@@ -3,15 +3,10 @@ import React, { ReactNode, CSSProperties, RefObject, ChangeEvent, DragEvent } fr
 import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { noop, pick } from 'lodash';
-import UploadFoundation, {
-    CustomFile,
-    UploadAdapter,
-    BeforeUploadObjectResult,
-    AfterUploadResult,
-} from '@douyinfe/semi-foundation/upload/foundation';
+import UploadFoundation from '@douyinfe/semi-foundation/upload/foundation';
 import { strings, cssClasses } from '@douyinfe/semi-foundation/upload/constants';
 import FileCard from './fileCard';
-import BaseComponent, { ValidateStatus } from '../_base/baseComponent';
+import BaseComponent from '../_base/baseComponent';
 import LocaleConsumer from '../locale/localeConsumer';
 import { IconUpload } from '@douyinfe/semi-icons';
 import {
@@ -27,6 +22,14 @@ import {
 } from './interface';
 import { Locale } from '../locale/interface';
 import '@douyinfe/semi-foundation/upload/upload.scss';
+
+import type {
+    CustomFile,
+    UploadAdapter,
+    BeforeUploadObjectResult,
+    AfterUploadResult,
+} from '@douyinfe/semi-foundation/upload/foundation';
+import type { ValidateStatus } from '../_base/baseComponent';
 
 const prefixCls = cssClasses.PREFIX;
 
@@ -364,6 +367,14 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
     upload = (): void => {
         const { fileList } = this.state;
         this.foundation.startUpload(fileList);
+    };
+
+    /**
+     * ref method
+     * manual open file select dialog
+     */
+    openFileDialog = (): void => {
+        this.onClick();
     };
 
     renderFile = (file: FileItem, index: number, locale: Locale['Upload']): ReactNode => {

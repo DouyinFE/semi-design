@@ -8,6 +8,7 @@ interface KeyboardAdapter<P = Record<string, any>, S = Record<string, any>> exte
     registerKeyDown: (callback: (event: any) => void) => void;
     unregisterKeyDown: (callback: (event: any) => void) => void;
     updateFocusIndex: (focusIndex: number) => void;
+    notifyKeyDown: (e: any) => void;
 }
 
 export interface DataItem {
@@ -336,6 +337,7 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
             default:
                 break;
         }
+        this._adapter.notifyKeyDown(event);
     }
 
     _getEnableFocusIndex(offset: number) {
@@ -413,7 +415,9 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
         this._adapter.notifyFocus(e);
     }
 
-    handleBlur(e: FocusEvent) {
+    handleBlur(e: any) {
+        // https://reactjs.org/docs/legacy-event-pooling.html
+        e.persist();
         // In order to handle the problem of losing onClick binding when clicking on the padding area, the onBlur event is triggered first to cause the react view to be updated
         // internal-issues:1231
         setTimeout(() => {

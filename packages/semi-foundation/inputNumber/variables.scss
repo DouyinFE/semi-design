@@ -1,9 +1,9 @@
 $height-inputNumber_button_default: $height-control-default; // 数字输入框高度 - 默认
 $height-inputNumber_button_large: $height-control-large; // 数字输入框高度 - 大
 $height-inputNumber_button_small: $height-control-small; // 数字输入框高度 - 小
-$height-inputNumber_button_inner_default: $height-input_default; // 隐藏步进器的数字输入框高度 - 默认
-$height-inputNumber_button_inner_large: $height-input_large; // 隐藏步进器的数字输入框高度 - 大
-$height-inputNumber_button_inner_small: $height-input_small; // 隐藏步进器的数字输入框高度 - 小
+$height-inputNumber_button_inner_default: $height-control-default - 2px; // 隐藏步进器的数字输入框高度 - 默认
+$height-inputNumber_button_inner_large: $height-control-large - 2px; // 隐藏步进器的数字输入框高度 - 大
+$height-inputNumber_button_inner_small: $height-control-small - 2px; // 隐藏步进器的数字输入框高度 - 小
 
 $width-inputNumber_button: 14px; // 步进器按钮宽度
 $radius-inputNumber: var(--semi-border-radius-small);

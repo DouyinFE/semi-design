@@ -523,16 +523,20 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
     }
 
     clearInput() {
-        this._adapter.updateInputValue('');
-        this._adapter.notifySearch('');
-        // reset options filter
-        const { options } = this.getStates();
-        const { remote } = this.getProps();
-        let optionsAfterFilter = options;
-        if (!remote) {
-            optionsAfterFilter = this._filterOption(options, '');
+        const { inputValue } = this.getStates();
+        // only when input is not null, select should notifySearch and updateOptions
+        if (inputValue !== ''){
+            this._adapter.updateInputValue('');
+            this._adapter.notifySearch('');
+            // reset options filter
+            const { options } = this.getStates();
+            const { remote } = this.getProps();
+            let optionsAfterFilter = options;
+            if (!remote) {
+                optionsAfterFilter = this._filterOption(options, '');
+            }
+            this._adapter.updateOptions(optionsAfterFilter);
         }
-        this._adapter.updateOptions(optionsAfterFilter);
     }
 
     focusInput() {
@@ -1025,8 +1029,8 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
         const { filter, autoFocus } = this.getProps();
         const { isOpen, isFocus } = this.getStates();
         // Under normal circumstances, blur will be accompanied by clickOutsideHandler, so the notify of blur can be called uniformly in clickOutsideHandler
-        // But when autoFocus, because clickOutsideHandler is not register, you need to listen for the trigger's blur and trigger the notify callback
-        if (autoFocus && isFocus && !isOpen) {
+        // But when autoFocus or the panel is close, because clickOutsideHandler is not register or unregister, you need to listen for the trigger's blur and trigger the notify callback
+        if (isFocus && !isOpen) {
             this._notifyBlur(e);
         }
     }

@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 40
+order: 41
 category: 导航类
 title:  Steps 步骤
 icon: doc-steps
@@ -67,8 +67,8 @@ import React from 'react';
 import { Steps } from '@douyinfe/semi-ui';
 
 () => (
-    <div style={{display:'flex',justifyContent:'center'}}>
-        <Steps type="nav" current={1} style={{margin:'auto'}}>
+    <div style={{ display:'flex', justifyContent:'center' }}>
+        <Steps type="nav" current={1} style={{ margin:'auto' }}>
             <Steps.Step title="注册账号" />
             <Steps.Step title="这个项目的文字比较多多多多" />
             <Steps.Step title="产品用途" />
@@ -101,8 +101,8 @@ import React from 'react';
 import { Steps } from '@douyinfe/semi-ui';
 
 () => (
-    <div style={{display:'flex',justifyContent:'center'}}>
-        <Steps type="nav" size="small" current={1} style={{margin:'auto'}}>
+    <div style={{ display:'flex', justifyContent:'center' }}>
+        <Steps type="nav" size="small" current={1} style={{ margin:'auto' }}>
             <Steps.Step title="注册账号" />
             <Steps.Step title="这个项目的文字比较多多多多" />
             <Steps.Step title="产品用途" />
@@ -164,7 +164,7 @@ class App extends React.Component {
                         <Step key={item.title} title={item.title} />
                     ))}
                 </Steps>
-                <div className="steps-content" style={{marginTop: 4, marginBottom: 4}}>{steps[current].content}</div>
+                <div className="steps-content" style={{ marginTop: 4, marginBottom: 4 }}>{steps[current].content}</div>
                 <div className="steps-action">
                     {current < steps.length - 1 && (
                         <Button type="primary" onClick={() => this.next()}>
@@ -198,7 +198,7 @@ import React from 'react';
 import { Steps } from '@douyinfe/semi-ui';
 
 () => (
-    <Steps direction="vertical" current={1} style={{width: 300}}>
+    <Steps direction="vertical" current={1} style={{ width: 300 }}>
         <Steps.Step title="Finished" description="This is a description" />
         <Steps.Step title="In Progress" description="This is a description" />
         <Steps.Step title="Waiting" description="This is a description" />
@@ -351,5 +351,14 @@ class App extends React.Component {
 | onClick     | 点击回调  | function | -   |    |
 | onKeyDown     | 回车事件回调  | function | -   |    |
 
+
+## 文案规范
+- 步骤标题
+  - 标题应保持简洁，避免截断和换行；
+  - 使用句子大小写书写；
+  - 不要包含标点符号
+- 描述
+  - 为标题补充上下文信息
+  - 不要以标点符号结尾
 ## 设计变量
 <DesignToken/>

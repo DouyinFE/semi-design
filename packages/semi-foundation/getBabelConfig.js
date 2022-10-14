@@ -19,18 +19,6 @@ module.exports = ({ isESM }) => {
         ],
         plugins: [
             'lodash',
-            [
-                '@babel/plugin-transform-runtime',
-                {
-                    corejs: 3
-                },
-            ],
-            [
-                '@babel/plugin-proposal-decorators',
-                {
-                    legacy: true,
-                },
-            ],
         ]
     };
 };

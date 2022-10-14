@@ -13,11 +13,11 @@ const ITEMS = [
 class Demo extends React.Component {
     renderOverflow = (items: any[]) => {
         // console.log('overflow items: ', items);
-        return (<Tag>{items.length}</Tag>)
+        return (<Tag>{items.length}</Tag>);
     }
     renderItem = (item: any, ind: number) => {
         // console.log('visible item: ', item);
-        return (<span key={item.key} style={{ marginRight: 8 }}>{item.key}</span>)
+        return (<span key={item.key} style={{ marginRight: 8 }}>{item.key}</span>);
     }
     render() {
         return (
@@ -33,4 +33,4 @@ class Demo extends React.Component {
     }
 }
 
-export default Demo
+export default Demo;

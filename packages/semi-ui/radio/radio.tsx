@@ -55,7 +55,7 @@ export interface RadioState {
     checked?: boolean;
 }
 
-export { RadioChangeEvent };
+export type { RadioChangeEvent };
 
 class Radio extends BaseComponent<RadioProps, RadioState> {
     static contextType = Context;

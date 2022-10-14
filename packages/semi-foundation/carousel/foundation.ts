@@ -47,6 +47,7 @@ class CarouselFoundation<P = Record<string, any>, S = Record<string, any>> exten
     }
 
     next(): void {
+        this.stop();
         const { activeIndex: stateActiveIndex } = this.getStates();
         const targetIndex = this.getValidIndex(stateActiveIndex + 1);
         this._adapter.setIsReverse(false);
@@ -56,9 +57,11 @@ class CarouselFoundation<P = Record<string, any>, S = Record<string, any>> exten
             this._notifyChange(targetIndex);
             this.handleNewActiveIndex(targetIndex);
         }
+        this.handleAutoPlay();
     }
 
     prev(): void {
+        this.stop();
         const { activeIndex: stateActiveIndex } = this.getStates();
         const targetIndex = this.getValidIndex(stateActiveIndex - 1);
         this._adapter.setIsReverse(true);
@@ -68,6 +71,7 @@ class CarouselFoundation<P = Record<string, any>, S = Record<string, any>> exten
             this._notifyChange(targetIndex);
             this.handleNewActiveIndex(targetIndex);
         }
+        this.handleAutoPlay();
     }
 
     destroy(): void {

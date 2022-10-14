@@ -25,18 +25,18 @@ import Spin from '../spin';
 import Trigger from '../trigger';
 import { IconChevronDown, IconClear } from '@douyinfe/semi-icons';
 import { isSemiIcon, getFocusableElements, getActiveElement } from '../_utils';
-import { Subtract } from 'utility-types';
-
 import warning from '@douyinfe/semi-foundation/utils/warning';
 import { getUuidShort } from '@douyinfe/semi-foundation/utils/uuid';
 
 import '@douyinfe/semi-foundation/select/select.scss';
-import { Locale } from '../locale/interface';
-import { Position, TooltipProps } from '../tooltip';
+import type { Locale } from '../locale/interface';
+import type { Position, TooltipProps } from '../tooltip';
+import type { Subtract } from 'utility-types';
 
-export { OptionProps } from './option';
-export { OptionGroupProps } from './optionGroup';
-export { VirtualRowProps } from './virtualRow';
+
+export type { OptionProps } from './option';
+export type { OptionGroupProps } from './optionGroup';
+export type { VirtualRowProps } from './virtualRow';
 
 const prefixcls = cssClasses.PREFIX;
 
@@ -303,7 +303,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         onBlur: noop,
         onClear: noop,
         onListScroll: noop,
-        maxHeight: 300,
+        maxHeight: numbers.LIST_HEIGHT,
         dropdownMatchSelectWidth: true,
         defaultActiveFirstOption: true, // In order to meet the needs of A11y, change to true
         showArrow: true,
@@ -867,8 +867,8 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             // eslint-disable-next-line jsx-a11y/no-static-element-interactions
             <div 
                 id={`${prefixcls}-${this.selectOptionListID}`} 
-                className={dropdownClassName} 
-                style={style} 
+                className={cls(`${prefixcls}-option-list-wrapper`, dropdownClassName)} 
+                style={style}
                 ref={this.setOptionContainerEl} 
                 onKeyDown={e => this.foundation.handleContainerKeyDown(e)}
             >

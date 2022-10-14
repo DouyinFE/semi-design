@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 58
+order: 60
 category: Show
 title: SideSheet
 subTitle: SideSheet

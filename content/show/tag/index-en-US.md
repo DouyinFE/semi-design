@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 60
+order: 62
 category: Show
 title: Tag
 subTitle: Tag
@@ -57,6 +57,22 @@ import { Tag } from '@douyinfe/semi-ui';
 );
 ```
 
+### Shape
+
+Supports two Shape: `square`（default）、`circle`。
+
+```jsx live=true
+import React from 'react';
+import { Tag, Space } from '@douyinfe/semi-ui';
+
+() => (
+    <Space>
+        <Tag size="small" shape='circle'> small circle tag </Tag>
+        <Tag size="large" shape='circle'> large circle tag </Tag>
+    </Space>
+);
+```
+
 ### Color
 
 Tag supports 16 colors including whites from Semi's palette: `amber`, `blue`, `cyan`, `green`, `grey`, `indigo`, `light-blue`, `light-green`, `lime`, `orange`, `pink`, `purple`, `red`, `teal`, `violet`, `yellow`, `white`. You can also customize color through `style`.
@@ -70,9 +86,9 @@ import { Tag, Space } from '@douyinfe/semi-ui';
         <Space wrap>
             {
                 ['amber', 'blue', 'cyan', 'green', 'grey', 'indigo',  
-                 'light-blue','light-green', 'lime', 'orange', 'pink',  
-                 'purple', 'red', 'teal','violet', 'yellow', 'white'
-                ].map(item => (<Tag color={item}> {item} tag</Tag>))
+                    'light-blue', 'light-green', 'lime', 'orange', 'pink',  
+                    'purple', 'red', 'teal', 'violet', 'yellow', 'white'
+                ].map(item => (<Tag color={item} key={item}> {item} tag</Tag>))
             }
         </Space>
     );
@@ -251,7 +267,7 @@ class TagGroupCloseableDemo extends React.Component {
         const closeTagIndex = newTagList.findIndex(t => t.tagKey === tagKey);
         newTagList.splice(closeTagIndex, 1);
         this.setState({
-          tagList: newTagList,
+            tagList: newTagList,
         });
     }
 
@@ -294,6 +310,7 @@ class TagGroupCloseableDemo extends React.Component {
 | className | Class name | string |  |  |
 | closable | Toggle whether the tag can be closed | boolean | false |  |
 | color | Color of tags, one of `amber`、 `blue`、 `cyan`、 `green`、 `grey`、 `indigo`、 `light-blue`、 `light-green`、 `lime`、 `orange`、 `pink`、 `purple`、 `red`、 `teal`、 `violet`、 `yellow`、 `white` | string | `grey` |  |
+| shape | Shape of tag, one of `square`、 `circle` | string | `square` | 2.20.0 |
 | size | Size, one of `small`, `large` | string | `small` |  |
 | style | Inline style | object |  |  |
 | type | Style type, one of `ghost`, `solid`, `light` | string | `light` |  |
@@ -325,9 +342,15 @@ class TagGroupCloseableDemo extends React.Component {
 ### Keyboard and Focus
 
 - If the current `Tag` is interactive, then this `Tag` can be focused. Such as:
-  - When the `onClick` attribute is used, the keyboard user can activate this `Tag` with the `Enter` keys
-  - When the `closable` property is `true`, keyboard users can delete this `Tag` by pressing the `Delete` key
-  - When a `Tag` is focused, keyboard users can use the `Esc` key to defocus the currently focused `Tag`
+   - When the `onClick` attribute is used, the keyboard user can activate this `Tag` with the `Enter` keys
+   - When the `closable` property is `true`, keyboard users can delete this `Tag` by pressing the `Delete` key
+   - When a `Tag` is focused, keyboard users can use the `Esc` key to defocus the currently focused `Tag`
+   
+
+## Content Guidelines
+- Due to limited space, label text should be as short as possible
+- avoid line breaks
+- use sentence case
 
 ## Design Tokens
 

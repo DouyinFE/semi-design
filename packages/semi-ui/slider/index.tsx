@@ -18,7 +18,7 @@ export interface SliderProps extends BasicSliceProps {
     railStyle?: CSSProperties;
 }
 
-export {
+export type {
     SliderState
 };
 
@@ -464,7 +464,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                         onKeyDown={e =>{
                             this.foundation.handleKeyDown(e, 'max');
                         }}
-                        onFocus={e =>  {
+                        onFocus={e => {
                             this.foundation.onFocus(e, 'max');
                         }}
                         onBlur={(e) => {
@@ -566,7 +566,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
 
 
     render() {
-        const { disabled, currentValue, min, max  } = this.state;
+        const { disabled, currentValue, min, max } = this.state;
         const { vertical, verticalReverse, style, railStyle, range, className } = this.props;
         const wrapperClass = cls(
             `${prefixCls}-wrapper`,

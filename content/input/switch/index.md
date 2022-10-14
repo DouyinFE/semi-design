@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 29
+order: 30
 category: 输入类
 title: Switch 开关
 icon: doc-switch
@@ -200,6 +200,11 @@ import { Switch } from '@douyinfe/semi-ui';
 -   键盘用户可以使用 `Tab` 及 `Shift + Tab` 切换焦点
 -   聚焦时可以通过 `Space` 键切换开启或关闭状态
 
+## 文案规范
+- 开关描述
+  - 首字母大写，不需要标点符号
+  - 间接明了地说明该设置的开启或关闭状态
+  - 如果需要，解释给用户开启和关闭状态所代表的情况
 ## 设计变量
 
 <DesignToken/>

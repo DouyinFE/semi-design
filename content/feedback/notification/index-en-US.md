@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 64
+order: 66
 category: Feedback
 title:  Notification
 subTitle: Notification
@@ -58,15 +58,15 @@ import { Notification, Button, ButtonGroup } from '@douyinfe/semi-ui';
     return (
         <>
             <ButtonGroup>
-                <Button onClick={() => Notification.info({...opts, Position: 'top'})}>top</Button>
-                <Button onClick={() => Notification.info({...opts, position: 'topLeft'})}>topLeft</Button>
+                <Button onClick={() => Notification.info({ ...opts, Position: 'top' })}>top</Button>
+                <Button onClick={() => Notification.info({ ...opts, position: 'topLeft' })}>topLeft</Button>
                 <Button onClick={() => Notification.info(opts)}>topRight</Button>
             </ButtonGroup>
             <br/><br/>
             <ButtonGroup>
-                <Button onClick={() => Notification.info({...opts, position: 'bottom'})}>bottom</Button>
-                <Button onClick={() => Notification.info({...opts, position: 'bottomRight'})}>bottomRight</Button>
-                <Button onClick={() => Notification.info({...opts, position: 'bottomLeft'})}>bottomLeft</Button>
+                <Button onClick={() => Notification.info({ ...opts, position: 'bottom' })}>bottom</Button>
+                <Button onClick={() => Notification.info({ ...opts, position: 'bottomRight' })}>bottomRight</Button>
+                <Button onClick={() => Notification.info({ ...opts, position: 'bottomLeft' })}>bottomLeft</Button>
             </ButtonGroup>
         </>
     );
@@ -92,16 +92,16 @@ import { IconToutiaoLogo, IconVigoLogo } from '@douyinfe/semi-icons';
     return (
         <>
             <h5>Default Icon</h5>
-            <Button type='primary' onClick={()=>Notification.success(opts)} style={{margin: 4}}>
+            <Button type='primary' onClick={()=>Notification.success(opts)} style={{ margin: 4 }}>
                 Success
             </Button>
-            <Button onClick={() => Notification.info(opts)} style={{margin: 4}}>
+            <Button onClick={() => Notification.info(opts)} style={{ margin: 4 }}>
                 Info
             </Button>
-            <Button type="warning" onClick={()=>Notification.warning(opts)} style={{margin: 4}}>
+            <Button type="warning" onClick={()=>Notification.warning(opts)} style={{ margin: 4 }}>
                 Warning
             </Button>
-            <Button type="danger" onClick={()=>Notification.error(opts)} style={{margin: 4}}>
+            <Button type="danger" onClick={()=>Notification.error(opts)} style={{ margin: 4 }}>
                 Error
             </Button>
             <h5>Customized Icon</h5>
@@ -122,7 +122,7 @@ import { IconToutiaoLogo, IconVigoLogo } from '@douyinfe/semi-icons';
             ></Button>
             <Button
                 icon={<IconVigoLogo />}
-                onClick={() => Notification.info({ ...opts, icon: <IconVigoLogo style={{ color: 'pink' }} />  })}
+                onClick={() => Notification.info({ ...opts, icon: <IconVigoLogo style={{ color: 'pink' }} /> })}
             ></Button>
         </>
     );
@@ -185,9 +185,9 @@ import { Notification, Button, Typography } from '@douyinfe/semi-ui';
         content: (
             <>
                 <div>Hi, Bytedance dance dance</div>
-                <div style={{marginTop: 8}}>
+                <div style={{ marginTop: 8 }}>
                     <Text link>More Info</Text>
-                    <Text link style={{marginLeft: 20}}>Show Later</Text>
+                    <Text link style={{ marginLeft: 20 }}>Show Later</Text>
                 </div>
             </>),
         duration: 3,
@@ -325,5 +325,31 @@ When you need access Context, you could use ``Notification.useNotification` to c
 - The `role` of the component is'alert'
 - The notification's `aria-labelledby` is marked as the corresponding notification title
 
+## Content Guidelines
+
+<div style={{ border: '1px solid var(--semi-color-border)', padding: 10, marginBottom: 24, justifyContent: 'center', display: 'flex' }}>
+    <NotificationCard
+        type='info'
+        title='Task completed'
+        content={
+            <div>
+                400 tasks succeed and 600 failed
+                <div style={{ color: 'var(--semi-color-primary)', marginTop: 4, fontWeight: 600 }}>Check failed tasks</div>
+            </div>
+        }
+    />
+</div>
+
+- Title
+  - Explain in clear and concise language
+  - Avoid punctuation such as commas, periods, etc.
+- Text
+  - On the premise of complete information transmission, try to compress the text to 1-2 sentences
+  - A detailed description or explanation of the title, rather than a repetition of the title
+  - Use correct punctuation, commas within sentences and periods between sentences
+- Operate
+  - The copy needs to show the specific meaning of the operation
+
 ## Design Tokens
+
 <DesignToken/>

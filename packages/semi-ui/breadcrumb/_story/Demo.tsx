@@ -18,7 +18,7 @@ const Demo = () => {
                 <Breadcrumb.Item icon="home"></Breadcrumb.Item>
             </Breadcrumb>
         </div>
-    )
-}
+    );
+};
 
-export default Demo
+export default Demo;

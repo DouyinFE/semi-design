@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 22
+order: 23
 category: 输入类
 title:  Form 表单
 icon: doc-form
@@ -359,7 +359,7 @@ class BasicDemoWithInit extends React.Component {
                             <TagInput 
                                 field="product"
                                 label='产品（TagInput）'
-                                initValue={['abc','ulikeCam']}
+                                initValue={['abc', 'ulikeCam']}
                                 placeholder='请输入产品'
                                 style={style}
                             />
@@ -722,7 +722,7 @@ import { Form, Button, Space } from '@douyinfe/semi-ui';
             </Section>
             <Section text={'考试时间'} >
                 <DatePicker field='date' type='dateTime' initValue={new Date()} style={{ width:272 }} label={{ text:'开始时间', required: true }}/>
-                <div  style={{ display:'flex' }}>
+                <div style={{ display:'flex' }}>
                     <Input field='time' label='考试时长' style={{ width: 176 }} initValue={'60'} addonAfter='分钟'/>
                     <Checkbox initValue={true} noLabel field='auto' style={{ paddingTop: 30, marginLeft: 12 }}>到时间自动交卷</Checkbox>
                 </div>
@@ -755,14 +755,14 @@ import { Form, Button, Space } from '@douyinfe/semi-ui';
             </Section>
             <Section text={'考试人员'}>
                 <div style={{ display: 'flex' }}>
-                    <Switch field='open'  label={{ text:'对外开放', required: true }} checkedText='开' uncheckedText='关'></Switch>
+                    <Switch field='open' label={{ text:'对外开放', required: true }} checkedText='开' uncheckedText='关'></Switch>
                 </div>
                 <Select
                     field='users'
                     label={{ text:'考生', required: true }}
                     style={{ width: 560 }}
                     multiple
-                    initValue={['1','2','3', '4']}
+                    initValue={['1', '2', '3', '4']}
                 >
                     <Select.Option value='1'>曲晨一</Select.Option>
                     <Select.Option value='2'>夏可曼</Select.Option>
@@ -1416,10 +1416,10 @@ class PartValidAndResetDemo extends React.Component {
                             <div>
                                 <Form.Input field="a[1]" validate={this.validate} trigger="blur" />
                                 <Form.Input field="a[0]" validate={this.validate} trigger="blur" />
-                                <Form.Input field="b.name[0]" validate={this.validate} trigger="blur"  />
+                                <Form.Input field="b.name[0]" validate={this.validate} trigger="blur" />
                                 <Form.Input field="b.name[1]" validate={this.validate} trigger="blur" />
                                 <Form.Input field="b.type" validate={this.validate} trigger="blur" />
-                                <Form.Input field="c" validate={this.validate} trigger="blur"  />
+                                <Form.Input field="c" validate={this.validate} trigger="blur" />
                                 <Form.Input field="d" validate={this.validate} trigger="blur" />
                             </div>
                             <div>
@@ -1538,7 +1538,7 @@ class ArrayFieldDemo extends React.Component {
                     {({ add, arrayFields, addWithInitValue }) => (
                         <React.Fragment>
                             <Button onClick={add} icon={<IconPlusCircle />} theme='light'>新增空白行</Button>
-                            <Button  icon={<IconPlusCircle />} onClick={() => {addWithInitValue({ name: '自定义贴纸', type: '2D' });}} style={{ marginLeft:8 }}>新增带有初始值的行</Button>
+                            <Button icon={<IconPlusCircle />} onClick={() => {addWithInitValue({ name: '自定义贴纸', type: '2D' });}} style={{ marginLeft:8 }}>新增带有初始值的行</Button>
                             {
                                 arrayFields.map(({ field, key, remove }, i) => (
                                     <div key={key} style={{ width: 1000, display: 'flex' }}>
@@ -2189,6 +2189,26 @@ const { ErrorMessage } = Form;
   - 当 Field 配置了 `helpText` 或 `extraText` 时，Field 组件会被自动添加 `aria-describedby` 属性，值为 helpText、extraText 所对应DOM元素的 id （格式：`${props.field}-helpText` 、`${props.field}-extraText`）
 
 
+## 文案规范
+
+- 表单标题
+  - 表单标题需要跟随标题的书写规范
+- 表单标签
+  - 标签是输入框的简短描述。标签不是注释信息（help text），因此不应该是输入框的填写说明
+  - 标签必须要：
+    - 放在输入框的上方或下方
+    - 简短（1-3个词）
+    - 使用语句的大小写规范（首字母大写，其他小写）
+- 帮助文本
+  - 帮助文本使用语句书写规范，首字母大写
+- 表单按钮
+  - 关于表单按钮的文案规范，参考[按钮Button组件的文案规范](/zh-CN/input/button#%E6%96%87%E6%A1%88%E8%A7%84%E8%8C%83) 
+
+
+| ✅ 推荐用法 | ❌ 不推荐用法 |   
+| --- | --- | 
+| <img src='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/content_guide/formdemogood.jpg' style={{ height: 280 }} />| <img src='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/content_guide/formdemobad.jpg' style={{ height: 280 }} /> |
+
 ## 设计变量
 <DesignToken/>
 
@@ -2225,7 +2245,7 @@ const { ErrorMessage } = Form;
     点击 <a href="https://github.com/DouyinFE/semi-design/issues/767" target="_blank">#767</a> 查看相关背景和内容。
     
 -   **表单会自动保存历史输入项，不想要这个功能怎么办？**    
-    在 v2.3 之前，Form 并没有严格按照 A11y 无障碍标准为输入控件配置`for`、`name`、`id` 等属性，因此在之前的版本并没有该功能。v2.3 后我们严格按照 W3C 标准进行了实现。如果你不希望浏览器自动保存历史输入项，也可以通过在 Form 级别或者 Field 级别设置 `autocomplete=off` 关掉
+    在 v2.3 之前，Form 并没有严格按照 A11y 无障碍标准为输入控件配置`for`、`name`、`id` 等属性，因此在之前的版本并没有该功能。v2.3 后我们严格按照 W3C 标准进行了实现。如果你不希望浏览器自动保存历史输入项，也可以通过在 Form 级别或者 Field 级别设置 `autoComplete=off` 关掉
 
 -   **[🔍 🧾 更多Form FAQ补充 & 问题自查手册](https://bytedance.feishu.cn/docs/doccnNKaGhZMqyu0FufD1JGHOjf)** 
     
