@@ -1805,6 +1805,8 @@ describe(`Table`, () => {
         const sortTable = mount(<Table columns={sortColumns} dataSource={sortData} onChange={onChange}/>);
         const firstCell = sortTable.find('.semi-table-tbody .semi-table-row .semi-table-row-cell').at(0);
         expect(firstCell.text()).toBe(name);
+
+        sortTable.unmount();
     });
 
     it('test defaultSortOrder descend', async () => {
@@ -1859,6 +1861,7 @@ describe(`Table`, () => {
         const {name: ascendTargetName} = ascendTargetData;
         const ascendFirstCell = sortTable.find('.semi-table-tbody .semi-table-row .semi-table-row-cell').at(0);
         expect(ascendFirstCell.text()).toBe(ascendTargetName);
+        sortTable.unmount();
     });
 
     it('test defaultSortOrder false', async () => {
@@ -1956,6 +1959,7 @@ describe(`Table`, () => {
         const {name: newDescendTargetName} = newDescendTargetData;
         const newDataFirstCell = sortTable.find('.semi-table-tbody .semi-table-row .semi-table-row-cell').at(0);
         expect(newDataFirstCell.text()).toBe(newDescendTargetName);
+        sortTable.unmount();
     });
 
     it(`test expandRowByClick`, async () => {
@@ -2086,6 +2090,7 @@ describe(`Table`, () => {
         expect(arg.filters.length).toBe(1);
         expect(arg.filters[0].defaultFilteredValue).toEqual(['Semi Pro 设计稿']);
         expect(arg.filters[0].filteredValue).toEqual(['Semi Pro 设计稿']);
+        tableNode.unmount();
     });
 
     it('test defaultSortOrder is in onChange when click filter', () => {
@@ -2159,10 +2164,12 @@ describe(`Table`, () => {
 
         const tableNode = mount(<Table columns={columns} dataSource={data} onChange={onChange}/>);
         tableNode.find('.semi-table-column-filter').simulate('click');
-        document.querySelector('.semi-checkbox-addon').click();
+        const filterNode = Array.from(document.querySelectorAll('.semi-checkbox-addon')).filter(node => node.textContent === 'Semi Design 设计稿');
+        filterNode[0].click();
         expect(onChange.calledOnce).toBe(true);
         const arg = onChange.getCall(0).args[0];
         expect(arg.sorter.defaultSortOrder).toBe(defaultSortOrder);
         expect(arg.sorter.sortOrder).toBe(defaultSortOrder);
+        tableNode.unmount();
     });
 });
