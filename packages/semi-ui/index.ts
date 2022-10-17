@@ -82,6 +82,7 @@ export { default as Transfer } from './transfer';
 
 
 export { default as LocaleProvider } from './locale/localeProvider';
+export { default as LocaleConsumer } from './locale/localeConsumer';
 
 /** Form */
 export {
