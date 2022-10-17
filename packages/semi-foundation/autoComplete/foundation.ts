@@ -8,6 +8,7 @@ interface KeyboardAdapter<P = Record<string, any>, S = Record<string, any>> exte
     registerKeyDown: (callback: (event: any) => void) => void;
     unregisterKeyDown: (callback: (event: any) => void) => void;
     updateFocusIndex: (focusIndex: number) => void;
+    notifyKeyDown: (e: any) => void;
 }
 
 export interface DataItem {
@@ -336,6 +337,7 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
             default:
                 break;
         }
+        this._adapter.notifyKeyDown(event);
     }
 
     _getEnableFocusIndex(offset: number) {

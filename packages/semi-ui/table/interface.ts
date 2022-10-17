@@ -70,6 +70,7 @@ export interface TableProps<RecordType extends Record<string, any> = any> extend
     onGroupedRow?: OnGroupedRow<RecordType>;
     onHeaderRow?: OnHeaderRow<RecordType>;
     onRow?: OnRow<RecordType>;
+    sticky?: Sticky;
 }
 
 export interface ColumnProps<RecordType extends Record<string, any> = any> {
@@ -319,3 +320,6 @@ export type BodyScrollPosition = 'both' | 'middle' | 'left' | 'right';
 export type TableLocale = Locale['Table'];
 export type Direction = CSSDirection;
 export type IncludeGroupRecord<RecordType> = BaseIncludeGroupRecord<RecordType>;
+export type Sticky = boolean | {
+    top?: number;
+}

@@ -76,6 +76,7 @@ export interface AutoCompleteProps<T extends AutoCompleteItems> {
     onChangeWithObject?: boolean;
     onSelectWithObject?: boolean;
     onDropdownVisibleChange?: (visible: boolean) => void;
+    onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
     prefix?: React.ReactNode;
     placeholder?: string;
     position?: Position;
@@ -137,6 +138,7 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
         onBlur: PropTypes.func,
         onFocus: PropTypes.func,
         onChange: PropTypes.func,
+        onKeyDown: PropTypes.func,
         position: PropTypes.oneOf(positionSet),
         placeholder: PropTypes.string,
         prefix: PropTypes.node,
@@ -185,6 +187,7 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
         validateStatus: 'default' as const,
         autoFocus: false,
         emptyContent: null as null,
+        onKeyDown: noop,
         // onPressEnter: () => undefined,
         // defaultOpen: false,
     };
@@ -282,6 +285,9 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
             },
             notifyBlur: (event: React.FocusEvent) => {
                 this.props.onBlur(event);
+            },
+            notifyKeyDown: e => {
+                this.props.onKeyDown(e);
             },
             rePositionDropdown: () => {
                 let { rePosKey } = this.state;

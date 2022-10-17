@@ -403,6 +403,7 @@ import { IllustrationNoContent } from '@douyinfe/semi-illustrations';
 | onBlur | 失去焦点时的回调 | Function(event) | |
 | onChange | 输入框变化/候选项选中时变化 | Function(value:string\|number) | |1.23.0 |
 | onFocus | 获得焦点时的回调 | Function(event) | |
+| onKeyDown | keydown 回调 | (e: React.KeyboardEvent) => void | | 2.21.0 |
 | onSearch | 输入变化时的回调 | Function(value: string) | |
 | onSelect | 下拉菜单候选项被选中时的回调 | Function(item: string\|number\|Item) | |
 
