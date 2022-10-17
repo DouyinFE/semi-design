@@ -207,7 +207,7 @@ export class RatingItemFoundation<P = Record<string, any>, S = Record<string, an
     }
 
     // e: FocusEvent
-    handleBlur = (e: FocusEvent, star: string) => {
+    handleBlur = (e: any, star: string) => {
         const { firstStarFocus, secondStarFocus } = this.getStates();
         if (star === 'first') {
             firstStarFocus && this._adapter.setFirstStarFocus(false);

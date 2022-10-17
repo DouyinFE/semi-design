@@ -241,7 +241,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
     }
 
     handleMouseUp = (e): void => {
-        this.foundation.handleMouseUp(e);
+        this.foundation.handleMouseUp(e.nativeEvent);
     }
 
     handleMouseMove = (e): void => {
