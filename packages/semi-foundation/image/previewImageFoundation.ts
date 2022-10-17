@@ -5,13 +5,14 @@ import { throttle, isUndefined } from "lodash";
 export interface PreviewImageAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     getOriginImageSize: () => { originImageWidth: number; originImageHeight: number; }; 
     setOriginImageSize: (size: { originImageWidth: number; originImageHeight: number; }) => void;
-    getContainerRef: () => any;
-    getImageRef: () => any;
+    getContainer: () => HTMLDivElement;
+    getImage: () => HTMLImageElement;
     getMouseMove: () => boolean;
     setStartMouseMove: (move: boolean) => void;
     getMouseOffset: () => { x: number; y: number };
     setStartMouseOffset: (offset: { x: number; y: number }) => void;
     setLoading: (loading: boolean) => void;
+    setImageCursor: (canDrag: boolean) => void;
 }
 
 export interface DragDirection {
@@ -29,6 +30,17 @@ export interface ImageOffset {
     y: number;
 }
 
+const DefaultDOMRect = {
+    bottom: 0,
+    height: 0,
+    left: 0,
+    right: 0,
+    top: 0,
+    width: 0,
+    x: 0,
+    y: 0,
+    toJSON: () => ({})
+};
 export default class PreviewImageFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<PreviewImageAdapter<P, S>, P, S> {
     constructor(adapter: PreviewImageAdapter<P, S>) {
         super({ ...adapter });
@@ -37,13 +49,19 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
     _isImageVertical = (): boolean => this.getProp("rotation") % 180 !== 0;
 
     _getImageBounds = (): DOMRect => {
-        const imageRef = this._adapter.getImageRef();
-        return imageRef?.getBoundingClientRect();
+        const imageDOM = this._adapter.getImage();
+        if (imageDOM) {
+            return imageDOM.getBoundingClientRect();
+        }
+        return DefaultDOMRect;
     };
 
     _getContainerBounds = (): DOMRect => {
-        const containerRef = this._adapter.getContainerRef();
-        return containerRef?.current?.getBoundingClientRect();
+        const containerDOM = this._adapter.getContainer();
+        if (containerDOM) {
+            return containerDOM.getBoundingClientRect();
+        }
+        return DefaultDOMRect;
     }
 
     _getOffset = (e: any): ImageOffset => {
@@ -98,8 +116,8 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
         const imgWidth = horizontal ? originImageWidth : originImageHeight;
         const imgHeight = horizontal ? originImageHeight : originImageWidth;
         const { onZoom } = this.getProps();
-        const containerRef = this._adapter.getContainerRef();
-        if (containerRef && containerRef.current) {
+        const containerDOM = this._adapter.getContainer();
+        if (containerDOM) {
             const { width: containerWidth, height: containerHeight } = this._getContainerBounds();
             const reservedWidth = containerWidth - 80;
             const reservedHeight = containerHeight - 80;
@@ -165,7 +183,7 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
     };
 
     handleZoomChange = (newZoom: number, e: any): void => {
-        const imageRef = this._adapter.getImageRef();
+        const imageDOM = this._adapter.getImage();
         const { originImageWidth, originImageHeight } = this._adapter.getOriginImageSize();
         const { canDragVertical, canDragHorizontal } = this.calcCanDragDirection();
         const canDrag = canDragVertical || canDragHorizontal;
@@ -203,7 +221,9 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
             top: newTop,
             currZoom: newZoom,
         } as any);
-        imageRef && (imageRef.style.cursor = canDrag ? "grab" : "default");
+        if (imageDOM) {
+            this._adapter.setImageCursor(canDrag);
+        }
     };
 
     calcExtremeBounds = (): ExtremeBounds => {
