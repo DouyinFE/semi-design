@@ -96,6 +96,11 @@ $module: #{$prefix}-navigation;
         &-indent {
             width: $width-navigation_icon_text_between + $width-navigation_icon_left;
         }
+
+        &:focus-visible {
+            outline: $width-navigation-outline solid $color-navigation_outline-focus;
+            outline-offset: $width-navigation-outlineOffset;
+        }
     }
 
     &-header-link,

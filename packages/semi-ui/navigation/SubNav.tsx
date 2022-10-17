@@ -247,7 +247,8 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
         const titleDiv = (
             <div
                 role="menuitem"
-                tabIndex={-1}
+                // to avoid nested horizontal navigation be focused
+                tabIndex={!isCollapsed && isInSubNav && mode === strings.MODE_HORIZONTAL ? -1 : 0}
                 ref={this.setTitleRef as any}
                 className={titleCls}
                 onClick={this.handleClick}
@@ -336,7 +337,7 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
                     className={subNavCls}
                     render={(
                         <Dropdown.Menu>
-                            <li className={`${prefixCls}-popover-crumb`} />
+                            {/* <li className={`${prefixCls}-popover-crumb`} /> */}
                             {children}
                         </Dropdown.Menu>
                     )}

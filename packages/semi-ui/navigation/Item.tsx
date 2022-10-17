@@ -217,7 +217,7 @@ export default class NavItem extends BaseComponent<NavItemProps, NavItemState> {
 
         if (typeof link === 'string') {
             itemChildren = (
-                <a className={`${prefixCls}-item-link`} href={link} {...(linkOptions as any)}>
+                <a className={`${prefixCls}-item-link`} href={link} tabIndex={-1} {...(linkOptions as any)}>
                     {itemChildren}
                 </a>
             );
@@ -244,6 +244,7 @@ export default class NavItem extends BaseComponent<NavItemProps, NavItemState> {
                     onMouseEnter={onMouseEnter}
                     onMouseLeave={onMouseLeave}
                     disabled={disabled}
+                    onKeyDown={this.handleKeyPress}
                 >
                     {itemChildren}
                 </Dropdown.Item>
@@ -268,7 +269,7 @@ export default class NavItem extends BaseComponent<NavItemProps, NavItemState> {
             itemDom = (
                 <li
                     role="menuitem"
-                    tabIndex={-1}
+                    tabIndex={isSubNav ? -1 : 0}
                     {...ariaProps}
                     style={style}
                     ref={this.setItemRef}
