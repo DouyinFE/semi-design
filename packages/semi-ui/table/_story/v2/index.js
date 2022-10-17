@@ -11,3 +11,4 @@ export { default as FixedVirtualizedEmpty } from './FixedVirtualizedEmpty';
 export { default as FixedFilter } from './FixedFilter';
 export { default as FixedSorter } from './FixedSorter';
 export { default as stickyHeaderTable } from './stickyHeader';
+export { default as Fixed1188 } from './Fixed1188';
