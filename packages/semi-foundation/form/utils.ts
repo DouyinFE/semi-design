@@ -47,6 +47,7 @@ export function isValid(errors: any): boolean {
         errors.$$typeof.toString() === 'Symbol(react.element)'
     ) {
         // when error message is reactNode
+        // only work with React Adapter
         valid = false;
     }
     return valid;

@@ -121,12 +121,14 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
         }
     };
 
-    handleWheel = (e: React.WheelEvent<HTMLImageElement>) => {
+    // e: WheelEvent<HTMLImageElement>
+    handleWheel = (e: any) => {
         this.onWheel(e);
         handlePrevent(e);
     }
 
-    onWheel = throttle((e: React.WheelEvent<HTMLImageElement>): void => {
+    // e: WheelEvent<HTMLImageElement>
+    onWheel = throttle((e: any): void => {
         const { onZoom, zoomStep, maxZoom, minZoom } = this.getProps();
         const { currZoom } = this.getStates();
         let _zoom:number;

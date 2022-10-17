@@ -21,6 +21,7 @@ export interface DefaultAdapter<P = Record<string, any>, S = Record<string, any>
     getCaches(): any;
     setCache(key: any, value: any): void;
     stopPropagation(e: any): void;
+    persistEvent: (event: any) => void;
 }
 
 class BaseFoundation<T extends Partial<DefaultAdapter<P, S>>, P = Record<string, any>, S = Record<string, any>> {
@@ -61,6 +62,7 @@ class BaseFoundation<T extends Partial<DefaultAdapter<P, S>>, P = Record<string,
             setCache: noop,
             getCaches: noop,
             stopPropagation: noop,
+            persistEvent: noop,
         };
     }
 
@@ -140,6 +142,11 @@ class BaseFoundation<T extends Partial<DefaultAdapter<P, S>>, P = Record<string,
     /* istanbul ignore next */
     log(text: string, ...rest: any) {
         log(text, ...rest);
+    }
+
+    _persistEvent(e: any) {
+        // only work for react adapter for now
+        this._adapter.persistEvent(e);
     }
 }
 export default BaseFoundation;
