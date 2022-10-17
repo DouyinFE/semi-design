@@ -22,7 +22,8 @@ interface CollapsibleProps extends CollapsibleFoundationProps {
     style?: React.CSSProperties;
     collapseHeight?: number;
     reCalcKey?: number | string;
-    id?: string
+    id?: string;
+    onMotionEnd?: () => void
 }
 
 interface CollapsibleState extends CollapsibleFoundationState {
@@ -174,6 +175,7 @@ class Collapsible extends BaseComponent<CollapsibleProps, CollapsibleState> {
                 this.foundation.updateVisible(false);
             }
             this.foundation.updateIsTransitioning(false);
+            this.props.onMotionEnd();
         }}>
             <div
                 x-semi-prop="children"
