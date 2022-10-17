@@ -1018,7 +1018,7 @@ import { Select } from '@douyinfe/semi-ui';
 传入`virtualize`时开启列表虚拟化，用于大量 Option 节点的情况优化性能  
 virtualize 是一个包含下列值的对象：
 
--   height: Option 列表高度值，默认 300
+-   height: Option 列表高度值，默认 270 (v2.20.8 前为 300)
 -   width: Option 列表宽度值，默认 100%
 -   itemSize: 每行 Option 的高度，必传
  
@@ -1051,7 +1051,7 @@ class VirtualizeDemo extends React.Component {
     render() {
         let { groups, optionList } = this.state;
         let virtualize = {
-            height: 300,
+            height: 270,
             width: '100%',
             itemSize: 36, // px
         };
@@ -1332,7 +1332,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | loading                  | 下拉列表是否展示加载动画                                                                                                                                                                                  | boolean                               | false                             |
 | maxTagCount              | 多选模式下，已选项超出 maxTagCount 时，后续选项会被渲染成+N 的形式                                                                                                                                        | number                                |                                   |
 | max                      | 最多可选几项，仅在多选模式下生效                                                                                                                                                                          | number                                |                                   |
-| maxHeight                | 下拉菜单中 `optionList` 的最大高度                                                                                                                                                                        | string\|number                        | 300                               |
+| maxHeight                | 下拉菜单中 `optionList` 的最大高度                                                                                                                                                                        | string\|number                        | 270                               |
 | multiple                 | 是否多选                                                                                                                                                                                                  | boolean                               | false                             |
 | outerTopSlot             | 渲染在弹出层顶部，与 optionList 平级的自定义 slot                                                                                                                          | ReactNode                             |                                   |
 | outerBottomSlot          | 渲染在弹出层底部，与 optionList 平级的自定义 slot                                                                                                                                                         | ReactNode                             |                                   |

@@ -4,8 +4,11 @@ import { Button, Tag } from '@douyinfe/semi-ui';
 import styles from './pro.module.scss';
 import { navigate } from 'gatsby-link';
 import { getLocale } from '../../../../utils/locale';
+import classnames from 'classnames';
+import Component from './d2cApplication.jsx';
 
 function Pro(props) {
+
     const goD2CStart = () => {
         navigate(`/code/${getLocale()}/start/quick-start`);
     };
@@ -15,7 +18,7 @@ function Pro(props) {
         <div {...props} className={styles.macBookPro2}>
             <div className={styles.frame14294}>
                 <div className={styles.frame4151}>
-                    <p className={styles.semiPro}>{_t('home.pro.title')}</p>
+                    <p className={styles.semiPro} data-locale={"en-US"}>{_t('home.pro.title')}</p>
                     {isInternal && (
                         <Tag style={{ color: '#F0B114', background: '#41464C', marginLeft: 12 }}>
                             {_t('beta', {}, '公测')}
@@ -27,7 +30,7 @@ function Pro(props) {
                 </p>
                 {isInternal ? (
                     <Button onClick={goD2CStart} size="large" theme="solid" className={styles.extraLarge}>
-                        {_t('home.pro.start', {}, '快速开始')}
+                        {_t('home.pro.start', {}, '了解更多')}
                     </Button>
                 ) : (
                     <div className={styles.buttonSecondarySolid}>
@@ -36,6 +39,7 @@ function Pro(props) {
                 )}
             </div>
             <div className={styles.autoWrapper}>
+                {/* eslint-disable-next-line */}
                 <img
                     src="https://lf9-static.semi.design/obj/semi-tos/images/homepage-pro-code.jpg"
                     className={styles.syntaxHighlighter}
@@ -43,18 +47,19 @@ function Pro(props) {
                 <div className={styles.rectangle1080}></div>
                 <div className={styles.frame14295}>
                     <div className={styles.autoWrapper}>
+                        {/* eslint-disable-next-line */}
                         <img
                             src="https://lf9-static.semi.design/obj/semi-tos/images/5de23960-3242-11ec-8b14-8fb159794ae4.png"
                             className={styles.chromeStandart}
                         />
+                        {/* eslint-disable-next-line */}
                         <img
                             src="https://lf9-static.semi.design/obj/semi-tos/images/5ddb0d70-3242-11ec-adec-e911cea4cf98.png"
                             className={styles.chromeStandart_2167fd7e}
                         />
-                        <img
-                            src="https://lf9-static.semi.design/obj/semi-tos/images/5ddc6d00-3242-11ec-9c23-a9f1bde3758e.png"
-                            className={styles.chromeStandart_07210c83}
-                        />
+                        <div className={styles.chromeStandart_07210c83}>
+                            <Component></Component>
+                        </div>
                     </div>
                 </div>
             </div>

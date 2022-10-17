@@ -79,12 +79,12 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
             },
             addKeyDownEventListener: () => {
                 if (this.props.closeOnEsc) {
-                    document.addEventListener('keydown', this.foundation.handleKeyDown.bind(this.foundation));
+                    document.addEventListener('keydown', this.foundation.handleKeyDown);
                 }
             },
             removeKeyDownEventListener: () => {
                 if (this.props.closeOnEsc) {
-                    document.removeEventListener('keydown', this.foundation.handleKeyDown.bind(this.foundation));
+                    document.removeEventListener('keydown', this.foundation.handleKeyDown);
                 }
             },
             getMouseState: () => this.state.dialogMouseDown,

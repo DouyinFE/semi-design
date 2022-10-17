@@ -16,6 +16,6 @@ const strings = {
     STATUS: VALIDATE_STATUS,
 } as const;
 
-const numbers = { LIST_HEIGHT: 300 };
+const numbers = { LIST_HEIGHT: 270 };
 
 export { cssClasses, strings, numbers };

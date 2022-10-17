@@ -85,11 +85,11 @@ $multiple: #{$module}-multiple;
         background-color: $color-select_option-bg-hover;
     }
 
-    &:first-of-type {
-        margin-top: $spacing-select_option_first-marginTop;
-    }
+    // &:first-of-type {
+    // margin-top: $spacing-select_option_first-marginTop;
+    // }
 
-    &:last-of-type {
-        margin-bottom: $spacing-select_option_last-marginBottom;
-    }
+    // &:last-of-type {
+    // margin-bottom: $spacing-select_option_last-marginBottom;
+    // }
 }

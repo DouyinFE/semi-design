@@ -16,6 +16,39 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.21.0 (2022-10-12)
+- 【Fix】
+  - Fix the problem that the timer is not updated when carousel switches the index through the left and right buttons or methods
+- 【Docs】
+  - Update docsite homepage, add showcase
+
+#### 🎉 2.21.0-beta.1 (2022-10-10)
+- 【Fix】
+  - fix AutoComplete e.target is null in onBlur callback
+
+#### 🎉 2.21.0-beta.0 (2022-10-08)
+- 【Feat】
+  - Table adds header sticky API
+  - AutoComplete add new API onKeyDown
+  - the Upload component exposes the openFileDialog method so that the user can manually open the file selection dialog.
+  - LocaleProvider added Romanian(ro) [@jacob-lcs](https://github.com/jacob-lcs)
+- 【Fix】
+  - fix the problem that children onKeydown cannot get events under Dropdown
+  - fix the problem that the timer is not updated when Carousel switches the index through the left and right buttons or methods
+  - fix Select when the filter is true and the input box is empty, after closing panel trigger onSearch function issue
+- 【Style】
+  - add rounded corners to square avatars
+#### 🎉 2.20.8 (2022-10-11)
+- 【Fix】
+  - Fixed the problem that the position of the first Option option is offset when the Select is virtualized  [#1178](https://github.com/DouyinFE/semi-design/pull/1178)
+- 【Style】
+  - The default maxHeight value of Select (the max height of the Option floating layer), the default height of virtualization is `300px` -> `270px`
+  - Select Design Token changed, abandoned `$spacing-select_option_first-marginTop`、`$spacing-select_option_last-marginBottom` ；
+Change ：`$spacing-select_option_list-paddingTop` 、`$spacing-select_option_list-paddingBottom` ， from 0 to `$spacing-extra-tight` (4px)
+- 【Chore】
+    - Form export RuleItem Interface  
+
+
 
 #### 🎉 2.20.7 (2022-10-10)
 - 【Fix】

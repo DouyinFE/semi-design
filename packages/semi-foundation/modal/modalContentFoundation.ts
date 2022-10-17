@@ -50,7 +50,7 @@ export default class ModalContentFoundation extends BaseFoundation<ModalContentA
         this._adapter.notifyDialogMouseUp();
     }
 
-    handleKeyDown(e: any) {
+    handleKeyDown = (e: any) => {
         const { closeOnEsc } = this.getProps();
         if (closeOnEsc && e.keyCode === KeyCode.ESC) {
             e.stopPropagation();
