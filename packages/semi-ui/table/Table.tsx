@@ -339,6 +339,19 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
                 if (bodyHasScrollBar !== this.state.bodyHasScrollBar) {
                     this.setState({ bodyHasScrollBar });
                 }
+            },
+            stopPropagation(e: TableSelectionCellEvent) {
+                // The event definition here is not very accurate for now, it belongs to a broad structure definition
+                if (e && typeof e === 'object') {
+                    if (typeof e.stopPropagation === 'function') {
+                        e.stopPropagation();
+                    }
+                    if (e.nativeEvent && typeof e.nativeEvent.stopPropagation === 'function') {
+                        e.nativeEvent.stopPropagation();
+                    } else if (typeof e.stopImmediatePropagation === 'function') {
+                        e.stopImmediatePropagation();
+                    }
+                }
             }
         };
     }

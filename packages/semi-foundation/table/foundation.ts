@@ -521,16 +521,7 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
     handleMouseLeave(e: any) { }
 
     stopPropagation(e: any) {
-        if (e && typeof e === 'object') {
-            if (typeof e.stopPropagation === 'function') {
-                e.stopPropagation();
-            }
-            if (e.nativeEvent && typeof e.nativeEvent.stopPropagation === 'function') {
-                e.nativeEvent.stopPropagation();
-            } else if (typeof e.stopImmediatePropagation === 'function') {
-                e.stopImmediatePropagation();
-            }
-        }
+        this._adapter.stopPropagation(e);
     }
 
     /**
