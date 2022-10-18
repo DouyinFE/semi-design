@@ -10,22 +10,24 @@ export interface BasicCheckboxEvent {
     target: BasicTargetObject;
     stopPropagation: () => void;
     preventDefault: () => void;
-    nativeEvent: {
-        stopImmediatePropagation: () => void;
-    }
+    [x: string]: any;
+    // nativeEvent: {
+    //     stopImmediatePropagation: () => void;
+    // }
 }
 export interface CheckboxAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     getIsInGroup: () => boolean;
     getGroupValue: () => any[];
-    notifyGroupChange: (event: BasicCheckboxEvent) => void;
+    notifyGroupChange: (e: any) => void;
     getGroupDisabled: () => boolean;
     setNativeControlChecked: (checked: boolean) => void;
     getState: noopFunction;
-    notifyChange: (event: BasicCheckboxEvent) => void;
+    notifyChange: (e: any) => void;
     setAddonId: () => void;
     setExtraId: () => void;
     setFocusVisible: (focusVisible: boolean) => void;
     focusCheckboxEntity: () => void;
+    generateEvent: (checked: boolean, e: any) => any; // 1.modify checked value 2.add nativeEvent on react adapter
 }
 
 class CheckboxFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<CheckboxAdapter<P, S>, P, S> {
@@ -46,32 +48,8 @@ class CheckboxFoundation<P = Record<string, any>, S = Record<string, any>> exten
         }
     }
 
-    getEvent(checked: boolean, e: any) {
-        const props = this.getProps();
-        const cbValue = {
-            target: {
-                ...props,
-                checked,
-            },
-            stopPropagation: () => {
-                e.stopPropagation();
-            },
-            preventDefault: () => {
-                e.preventDefault();
-            },
-            nativeEvent: {
-                stopImmediatePropagation: () => {
-                    if (e.nativeEvent && typeof e.nativeEvent.stopImmediatePropagation === 'function') {
-                        e.nativeEvent.stopImmediatePropagation();
-                    }
-                }
-            },
-        };
-        return cbValue;
-    }
-
     notifyChange(checked: boolean, e: any) {
-        const cbValue = this.getEvent(checked, e);
+        const cbValue = this._adapter.generateEvent(checked, e);
         this._adapter.notifyChange(cbValue);
     }
 
@@ -114,7 +92,7 @@ class CheckboxFoundation<P = Record<string, any>, S = Record<string, any>> exten
         const groupValue = this._adapter.getGroupValue();
         const checked = groupValue.includes(value);
         const newChecked = !checked;
-        const event = this.getEvent(newChecked, e);
+        const event = this._adapter.generateEvent(newChecked, e);
         this._adapter.notifyChange(event);
         this._adapter.notifyGroupChange(event);
     }
@@ -160,7 +138,7 @@ export interface BaseCheckboxProps {
     defaultChecked?: boolean;
     disabled?: boolean;
     indeterminate?: boolean;
-    onChange?: (e: BasicCheckboxEvent) => any;
+    onChange?: (e: any) => any;
     value?: any;
     style?: Record<string, any>;
     className?: string;
