@@ -293,9 +293,6 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
                 let { rePosKey } = this.state;
                 rePosKey = rePosKey + 1;
                 this.setState({ rePosKey });
-            },
-            persistEvent: (e: React.FocusEvent) => {
-                e && e.persist && typeof e.persist === 'function' ? e.persist() : null;
             }
         };
     }

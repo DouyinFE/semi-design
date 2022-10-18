@@ -223,9 +223,6 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
             updateStates: (states, callback) => {
                 this.setState(states, callback);
             },
-            persistEvent: (e: React.KeyboardEvent) => {
-                e && e.persist && typeof e.persist === 'function' ? e.persist() : null;
-            },
         };
     }
 
