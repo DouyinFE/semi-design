@@ -8,6 +8,22 @@ $module-list: #{$prefix}-scrolllist;
     &-panel {
         .#{$module-list}-body {
             height: $height-timePicker_panel_body;
+
+            .#{$module-list}-item-wheel .#{$module-list}-list-outer-nocycle,
+            .#{$module-list}-item {
+                & > ul {
+                    &:before {
+                        height: ($height-timePicker_panel_body - $height-scrollList_item) * 0.5;
+                    }
+                }
+            }
+
+            .#{$module-list}-item,
+            .#{$module-list}-item-wheel .#{$module-list}-list-outer {
+                & > ul {
+                    padding-bottom: ($height-timePicker_panel_body - $height-scrollList_item) * 0.5;
+                }
+            }
         }
 
         .#{$module-list}-item,
