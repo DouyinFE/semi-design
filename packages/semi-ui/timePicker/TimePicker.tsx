@@ -196,6 +196,7 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
         onKeyDown: noop,
         size: 'default' as const,
         type: strings.DEFAULT_TYPE,
+        motion: true,
         ...PanelShapeDefaults,
         // format: strings.DEFAULT_FORMAT,
         // open and value controlled
@@ -506,7 +507,7 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
         if (useCustomTrigger) {
             outerProps.onClick = this.openPanel;
         }
-
+        console.log("===>", disabled?false:open, motion);
         return (
             <div
                 ref={this.setTimePickerRef}

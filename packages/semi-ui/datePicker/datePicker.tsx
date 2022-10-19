@@ -754,14 +754,13 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             autoAdjustOverflow,
             spacing,
         } = this.props;
-        const mergedMotion = this.foundation.getMergedMotion(motion);
         return (
             <Popover
                 getPopupContainer={getPopupContainer}
                 // wrapWhenSpecial={false}
                 autoAdjustOverflow={autoAdjustOverflow}
                 zIndex={zIndex}
-                motion={mergedMotion}
+                motion={motion}
                 content={this.renderPanel(locale, localeCode, dateFnsLocale)}
                 trigger="custom"
                 position={position}
@@ -769,6 +768,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
                 stopPropagation={stopPropagation}
                 spacing={spacing}
                 onVisibleChange={this.handlePanelVisibleChange}
+                afterClose={()=>this.setState({ motionEnd: true }, ()=>this.setState({ motionEnd: false }))}
             >
                 {children}
             </Popover>

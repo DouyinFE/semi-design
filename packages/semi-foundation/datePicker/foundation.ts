@@ -1213,18 +1213,6 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
         return isSomeDateDisabled;
     }
 
-    getMergedMotion = (motion: any) => {
-        const mergedMotion = typeof motion === 'undefined' || motion ? {
-            ...motion,
-            didEnter: () => {
-                this._adapter.setMotionEnd(true);
-            },
-            didLeave: () => {
-                this._adapter.setMotionEnd(false);
-            }
-        } : false;
-        return mergedMotion;
-    };
 
     /**
      * Format locale date
