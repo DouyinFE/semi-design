@@ -94,19 +94,17 @@ describe(`Typography`, () => {
         );
         expect(numeral.find('.price').text()).toEqual('1.56-1.00,0.56');
         numeral = mount(
-            <Typography.Numeral rule={'currency'} truncate={'round'} precision={1}>
+            <Typography.Numeral rule={'exponential'} truncate={'floor'} precision={2}>
                 <div className="price">
                     Total revenue: <b>$ 1992.15</b>
                 </div>
             </Typography.Numeral>
-        );
-        expect(numeral.find('.price').text()).toEqual('Total revenue: $ 1,992.2');
-        numeral.setProps({ rule: 'exponential', truncate: 'floor', precision: 2 });
-        expect(numeral.find('.price').text()).toEqual('Total revenue: $ 1.99e+3');
+        )
+        expect(numeral.find('.price').text()).toEqual('Total revenue: $ 1.99e+3')
         // test: parser
         numeral.setProps({
-            parser: oldVal => oldVal.replace(/[^\d.]/g, ''),
-        });
-        expect(numeral.find('.price').text()).toEqual('1992.15');
-    });
+            parser: oldVal => oldVal.replace(/[^\d.]/g, '')
+        })
+        expect(numeral.find('.price').text()).toEqual('1992.15')
+    })
 });

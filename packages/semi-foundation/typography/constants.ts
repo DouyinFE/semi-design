@@ -9,7 +9,7 @@ const strings = {
     SIZE: ['normal', 'small'],
     SPACING: ['normal', 'extended'],
     HEADING: [1, 2, 3, 4, 5, 6],
-    RULE: ['text', 'numbers', 'bytes-decimal', 'bytes-binary', 'percentages', 'currency', 'exponential'],
+    RULE: ['text', 'numbers', 'bytes-decimal', 'bytes-binary', 'percentages', 'exponential'],
     TRUNCATE: ['ceil', 'floor', 'round'],
 } as const;
 

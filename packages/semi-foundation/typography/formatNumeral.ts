@@ -1,6 +1,7 @@
 import { strings } from './constants';
 
-// rule types: 'text' | 'numbers' | 'bytes-decimal' | 'bytes-binary' | 'percentages' | 'currency' | 'exponential'
+// rule types: 'text' | 'numbers' | 'bytes-decimal' | 'bytes-binary' | 'percentages' | 'exponential'
+// TODO: Refining the 'currency' type
 type Rule = typeof strings.RULE[number];
 type Truncate = typeof strings.TRUNCATE[number];
 type Parser = (value: string) => string;
@@ -46,12 +47,6 @@ export default class FormatNumeral {
                 return `${this.truncatePrecision(value * 100)}%`;
             }
             return `${this.truncatePrecision(value)}%`;
-        },
-        currency: (value: number) => {
-            const cArr = this.truncatePrecision(value).split('.');
-            const cInt = cArr[0].replace(/\d{1,3}(?=(\d{3})+$)/g, '$&,');
-            const cFloat = cArr[1] ? `.${cArr[1]}` : '';
-            return `${cInt}${cFloat}`;
         },
         exponential: (value: number) => {
             const vExponential = value.toExponential(this.precision + 2);
