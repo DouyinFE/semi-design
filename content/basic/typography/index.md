@@ -150,9 +150,9 @@ Numeral 组件在Text组件的基础上，添加了属性: `rule`, `precision`, 
 - 设为 `percentages` 会将数字自动转换为百分比形式展示
 - 设为 `bytes-decimal` 会将数字自动换算为字节对应的单位展示， 1 KB 定义为等于 1000 字节，（B, KB, MB, GB, TB, PB, EB, ZB, YB）
 - 设为 `bytes-binary` 会将数字自动换算为字节对应的单位展示，1 KiB 定义为等于 1024字节，（B, KiB, MiB, GiB, TiB, PiB, EiB, ZiB, YiB）
-- 设为 `text`时，
-- 设为 `numbers`时，
-- 设为 `exponential` 时,
+- 设为 `text`时，会将数字自动进行取整处理，根据 `precision` 和 `truncate` 属性
+- 设为 `numbers`时，会将非数字字符进行过滤，仅展示数字
+- 设为 `exponential` 时,会将数字自动转换为科学计数法形式展示
 
 ```jsx live=true
 import React from 'react';
