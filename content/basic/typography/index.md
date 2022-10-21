@@ -139,7 +139,20 @@ function Demo() {
 
 ### 数值组件
 
-基于Text组件，添加了属性: `rule`, `precision`, `truncate`, `parser`, 以提供需要单独处理文本中数值的能力
+Numeral 组件在Text组件的基础上，添加了属性: `rule`, `precision`, `truncate`, `parser`, 以提供需要单独处理文本中数值的能力。
+<Notice title='注意'>
+    Numeral 组件会递归遍历 Children 检测其中所有的数字文本进行转换展示，请注意控制渲染结构层级。
+</Notice>
+
+`precision` 可以设置小数点后保留位数, 用于设置精度  
+`truncate`  小数点后保留位截段取整方式，可选 `ceil`, `floor`, `round`，作用与  Math.ceil、Math.floor、Math.round 对齐  
+`rule`  用于设置解析规则  
+- 设为 `percentages` 会将数字自动转换为百分比形式展示
+- 设为 `bytes-decimal` 会将数字自动换算为字节对应的单位展示， 1 KB 定义为等于 1000 字节，（B, KB, MB, GB, TB, PB, EB, ZB, YB）
+- 设为 `bytes-binary` 会将数字自动换算为字节对应的单位展示，1 KiB 定义为等于 1024字节，（B, KiB, MiB, GiB, TiB, PiB, EiB, ZiB, YiB）
+- 设为 `text`时，
+- 设为 `numbers`时，
+- 设为 `exponential` 时,
 
 ```jsx live=true
 import React from 'react';
@@ -149,20 +162,38 @@ function Demo() {
     const { Numeral } = Typography;
     return (
         <div>
-            <Numeral rule="bytes-binary" truncate="floor" precision={2}>
-                <p>已使用: 1224</p>
-                <p>
-                    未使用: <b>{Number(2e12)}</b>
-                </p>
+            <Numeral rule="percentages" precision={2} style={{ marginBottom: 12 }}>
+                <p>好评率: 0.915</p>
             </Numeral>
-            <br />
-            <Numeral rule="percentages">
-                <p>好评率: .915</p>
+
+            <Numeral rule='percentages' style={{ marginBottom: 12 }}>
+                这场比赛我的胜率是60，输的概率是40
             </Numeral>
-            <Numeral type="danger" rule="currency" precision={2}>
-                <p>价格: ¥8539.20</p>
+
+            <Numeral rule="bytes-decimal" precision={2} truncate="floor">
+                <p>已使用: 1000</p>
+                <p>未使用: {1024*1000}</p> 
             </Numeral>
-            <br />
+            
+            <Numeral rule="bytes-binary" precision={2} truncate="floor">
+                <p>已使用: 1024</p>
+                <p>未使用: {2e12}</p>
+            </Numeral>
+        </div>
+    );
+}
+```
+
+可以通过 `parser` 自定义解析规则
+
+```jsx live=true
+import React from 'react';
+import { Typography } from '@douyinfe/semi-ui';
+
+function Demo() {
+    const { Numeral } = Typography;
+    return (
+        <div>
             <Numeral
                 link={{ href: 'javascript:;' }}
                 parser={oldVal =>
@@ -172,7 +203,7 @@ function Demo() {
                         .join(' ')
                 }
             >
-              <div>&gt; 2022-6-18 优惠详情</div>
+                <div>&gt; 2022-6-18 优惠详情</div>
             </Numeral>
         </div>
     );
@@ -214,15 +245,15 @@ function Demo() {
 
     return (
         <div>
-          <Paragraph copyable>点击右边的图标复制文本。</Paragraph>
-          <Paragraph copyable={{ content: 'Hello, Semi Design!' }}>点击复制文本。</Paragraph>
-          <Paragraph copyable={{ onCopy: () => Toast.success({ content: '复制文本成功'}) }}>点击右边的图标复制文本。</Paragraph>
-          时间戳: <Numeral truncate="ceil" copyable underline>{new Date().getTime()/1000}s</Numeral>
-          <br/>
-          <br/>
-          <Text type="secondary">粘贴区域：</Text>
-          <br/>
-          <TextArea autosize style={{width: 320, marginTop: 4}} rows={3} />
+            <Paragraph copyable>点击右边的图标复制文本。</Paragraph>
+            <Paragraph copyable={{ content: 'Hello, Semi Design!' }}>点击复制文本。</Paragraph>
+            <Paragraph copyable={{ onCopy: () => Toast.success({ content: '复制文本成功'}) }}>点击右边的图标复制文本。</Paragraph>
+            时间戳: <Numeral truncate="ceil" copyable underline>{new Date().getTime()/1000}s</Numeral>
+            <br/>
+            <br/>
+            <Text type="secondary">粘贴区域：</Text>
+            <br/>
+            <TextArea autosize style={{width: 320, marginTop: 4}} rows={3} />
         </div>
     );
 }
@@ -398,23 +429,23 @@ function Demo() {
 
 | 属性        | 说明                                                                                                                                 | 类型                        | 默认值                                        | 版本   |
 |-----------|------------------------------------------------------------------------------------------------------------------------------------|---------------------------|--------------------------------------------| ------ |
-| rule      | 解析规则，可选 `text`, `numbers`, `bytes-decimal`, `bytes-binary`, `percentages`, `currency`, `exponential`                               | string                    | `text`                                     |        |
-| precision  | 小数点后保留位数                                                                                                                           | number                    | 0                                          |        |
-| truncate  | 小数点后保留位截段取整方式，可选 `ceil`, `floor`, `round`                                                                                          | string                    | `round`                                    |        |
-| parser    | 自定义数值解析函数                                                                                                                          | (str: string) => string | -                                          |        |
-| component | 自定义渲染元素                                                                                                                            | html element              | span                                       |        |
-| code      | 是否被 `code` 元素包裹                                                                                                                    | boolean                   | -                                          |        |
-| copyable  | 是否可拷贝                                                                                                                              | boolean \                 | object:[Copyable Config](#Copyable-Config) | false     | 0.27.0 |
-| delete    | 添加删除线样式                                                                                                                            | boolean                   | false                                      | 0.27.0 |
-| disabled  | 禁用文本                                                                                                                               | boolean                   | false                                      | 0.27.0 |
-| ellipsis  | 设置自动溢出省略                                                                                                                           | boolean\                  | object:Ellipsis Config                     | false     | 0.34.0 |
-| icon      | 前缀图标                                                                                                                               | ReactNode                 | -                                          | 0.27.0 |
-| link      | 是否为链接，传object时，属性将透传给a标签                                                                                                           | boolean\                  | object                                     | false     | 0.27.0 |
-| mark      | 添加标记样式                                                                                                                             | boolean                   | false                                      | 0.27.0 |
-| size      | 文本大小，可选`normal`，`small`                                                                                                            | string                    | `normal`                                   | 0.27.0 |
-| strong    | 是否加粗                                                                                                                               | boolean                   | false                                      | 0.27.0 |
-| type      | 文本类型，可选 `primary`, `secondary`, `warning`, `danger`, `tertiary`(**v>=1.2.0**), `quaternary`(**v>=1.2.0**), `success`(**v>=1.7.0**) | string                    | `primary`                                  | 0.27.0 |
-| underline | 添加下划线样式                                                                                                                            | boolean                   | false                                      | 0.27.0 |
+| rule      | 解析规则，可选 `text`, `numbers`, `bytes-decimal`, `bytes-binary`, `percentages`, `currency`, `exponential`                               | string                    | `text`                                     | 2.22.0       |
+| precision  | 小数点后保留位数                                                                                                                           | number                    | 0                                          | 2.22.0       |
+| truncate  | 小数点后保留位截段取整方式，可选 `ceil`, `floor`, `round`                                                                                          | string                    | `round`                                    | 2.22.0       |
+| parser    | 自定义数值解析函数                                                                                                                          | (str: string) => string | -                                          | 2.22.0       |
+| component | 自定义渲染元素                                                                                                                            | html element              | span                                       | 2.22.0       |
+| code      | 是否被 `code` 元素包裹                                                                                                                    | boolean                   | -                                          |  2.22.0      |
+| copyable  | 是否可拷贝                                                                                                                              | boolean \| object:[Copyable Config](#Copyable-Config) | false     | 2.22.0 |
+| delete    | 添加删除线样式                                                                                                                            | boolean                   | false                                      | 2.22.0 |
+| disabled  | 禁用文本                                                                                                                               | boolean                   | false                                      | 2.22.0 |
+| ellipsis  | 设置自动溢出省略                                                                                                                           | boolean\| object:Ellipsis Config                     | false     | 2.22.0 |
+| icon      | 前缀图标                                                                                                                               | ReactNode                 | -                                          | 2.22.0 |
+| link      | 是否为链接，传object时，属性将透传给a标签                                                                                                           | boolean\|object                                     | false     | 2.22.0 |
+| mark      | 添加标记样式                                                                                                                             | boolean                   | false                                      | 2.22.0 |
+| size      | 文本大小，可选`normal`，`small`                                                                                                            | string                    | `normal`                                   | 2.22.0 |
+| strong    | 是否加粗                                                                                                                               | boolean                   | false                                      | 2.22.0 |
+| type      | 文本类型，可选 `primary`, `secondary`, `warning`, `danger`, `tertiary`, `quaternary`, `success` | string                    | `primary`                                  | 2.22.0 |
+| underline | 添加下划线样式                                                                                                                            | boolean                   | false                                      | 2.22.0 |
 
 
 ### Ellipsis Config
