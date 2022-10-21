@@ -83,5 +83,7 @@ export interface TabContextValue {
     lazyRender?: boolean;
     panes?: Array<PlainTab>;
     tabPaneMotion?: boolean;
-    tabPosition?: TabPosition
+    tabPosition?: TabPosition;
+    prevActiveKey: string|null;
+    forceDisableMotion: boolean
 }

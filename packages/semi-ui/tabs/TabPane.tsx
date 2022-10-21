@@ -4,8 +4,7 @@ import cls from 'classnames';
 import { cssClasses } from '@douyinfe/semi-foundation/tabs/constants';
 import getDataAttr from '@douyinfe/semi-foundation/utils/getDataAttr';
 import TabsContext from './tabs-context';
-import { TabContextValue } from './interface';
-import { PlainTab, TabPaneProps } from './interface';
+import { PlainTab, TabContextValue, TabPaneProps } from './interface';
 import CSSAnimation from "../_cssAnimation";
 
 class TabPane extends PureComponent<TabPaneProps> {
@@ -23,32 +22,19 @@ class TabPane extends PureComponent<TabPaneProps> {
         closable: PropTypes.bool
     };
 
-    lastActiveKey: string = null;
 
     ref = createRef<HTMLDivElement>();
     _active: boolean;
     context: TabContextValue;
-    rendered: boolean = true;
 
-    componentDidMount(): void {
-        this.lastActiveKey = this.context.activeKey;
-    }
-
-    componentDidUpdate(prevProps: Readonly<TabPaneProps>, prevState: any, snapshot?: any) {
-        // CATION: be careful of the tabPane state update
-        // Animation only play while it is not first rendering process.
-        // Update states multiple times in TabPane will cause children unwanted re-rendering and unwanted animation.
-        this.rendered = false; 
-    }
 
     // get direction from current item key to activeKey
-    getDirection = (activeKey: string, itemKey: string, panes: Array<PlainTab>): boolean => {
+    getDirection = (activeKey: string, itemKey: string, panes: Array<PlainTab>, lastActiveKey: string): boolean => {
         if (itemKey !== null && activeKey !== null && Array.isArray(panes) && panes.length) {
             const activeIndex = panes.findIndex(pane => pane.itemKey === activeKey);
             const itemIndex = panes.findIndex(pane => pane.itemKey === itemKey);
-            const lastActiveIndex = panes.findIndex(pane => pane.itemKey === this.lastActiveKey);
+            const lastActiveIndex = panes.findIndex(pane => pane.itemKey === lastActiveKey);
 
-            this.lastActiveKey = activeKey;
 
             if (activeIndex === itemIndex) {
                 return lastActiveIndex > activeIndex;
@@ -70,7 +56,7 @@ class TabPane extends PureComponent<TabPaneProps> {
     };
 
     render(): ReactNode {
-        const { tabPaneMotion: motion, tabPosition } = this.context;
+        const { tabPaneMotion: motion, tabPosition, prevActiveKey } = this.context;
         const { className, style, children, itemKey, ...restProps } = this.props;
         const active = this.context.activeKey === itemKey;
         const classNames = cls(className, {
@@ -80,7 +66,7 @@ class TabPane extends PureComponent<TabPaneProps> {
         });
         const shouldRender = this.shouldRender();
         const startClassName = (() => {
-            const direction = this.getDirection(this.context.activeKey, itemKey, this.context.panes);
+            const direction = this.getDirection(this.context.activeKey, itemKey, this.context.panes, prevActiveKey);
             if (tabPosition === 'top') {
                 if (direction) {
                     return cssClasses.TABS_PANE_ANIMATE_RIGHT_SHOW;
@@ -95,6 +81,9 @@ class TabPane extends PureComponent<TabPaneProps> {
                 }
             }
         })();
+
+        const isActivatedBecauseOtherTabPaneRemoved = !this.context.panes.find(tabPane => tabPane.itemKey === prevActiveKey);
+        const hasMotion = motion && active && !isActivatedBecauseOtherTabPaneRemoved && !this.context.forceDisableMotion;
         return (
             <div
                 ref={this.ref}
@@ -109,7 +98,7 @@ class TabPane extends PureComponent<TabPaneProps> {
                 x-semi-prop="children"
             >
 
-                <CSSAnimation motion={motion && active && !this.rendered} animationState={active ? "enter" : "leave"}
+                <CSSAnimation motion={hasMotion} animationState={active ? "enter" : "leave"}
                     startClassName={startClassName}>
                     {
                         ({ animationClassName, animationEventsNeedBind }) => {

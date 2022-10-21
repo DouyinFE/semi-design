@@ -19,7 +19,7 @@ interface AnimationProps {
         isAnimating: boolean
     }) => ReactNode;
     animationState: "enter" | "leave";
-    onAnimationEnd?: () => void;
+    onAnimationEnd?: (stoppedByAnother:boolean) => void;
     onAnimationStart?: () => void;
     motion?: boolean;
     replayKey?: string
@@ -56,7 +56,7 @@ class CSSAnimation extends React.Component<AnimationProps, AnimationState> {
         // so when there is no animation , it is logically (and only logically) regarded as an animation with a duration of 0.
         this.props.onAnimationStart?.();
         if (!this.props.motion){
-            this.props.onAnimationEnd?.();
+            this.props.onAnimationEnd?.(false);
         }
     }
 
@@ -73,7 +73,7 @@ class CSSAnimation extends React.Component<AnimationProps, AnimationState> {
             }, () => {
                 this.props.onAnimationStart?.();
                 if (!this.props.motion) {
-                    this.props.onAnimationEnd?.();
+                    this.props.onAnimationEnd?.(this.state.isAnimating);
                 }
             });
         }
@@ -92,7 +92,7 @@ class CSSAnimation extends React.Component<AnimationProps, AnimationState> {
             extraStyle: {},
             isAnimating: false
         }, () => {
-            this.props.onAnimationEnd?.();
+            this.props.onAnimationEnd?.(false);
         });
     }
 
