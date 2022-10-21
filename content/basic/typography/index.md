@@ -150,7 +150,7 @@ Numeral 组件在Text组件的基础上，添加了属性: `rule`, `precision`, 
 - 设为 `percentages` 会将数字自动转换为百分比形式展示
 - 设为 `bytes-decimal` 会将数字自动换算为字节对应的单位展示， 1 KB 定义为等于 1000 字节，（B, KB, MB, GB, TB, PB, EB, ZB, YB）
 - 设为 `bytes-binary` 会将数字自动换算为字节对应的单位展示，1 KiB 定义为等于 1024字节，（B, KiB, MiB, GiB, TiB, PiB, EiB, ZiB, YiB）
-- 设为 `text`时，会将数字自动进行取整处理，根据 `precision` 和 `truncate` 属性
+- 设为 `text`时，仅自动对数字进行取整，根据 `precision` 和 `truncate` 属性
 - 设为 `numbers`时，会将非数字字符进行过滤，仅展示数字
 - 设为 `exponential` 时,会将数字自动转换为科学计数法形式展示
 
@@ -162,11 +162,23 @@ function Demo() {
     const { Numeral } = Typography;
     return (
         <div>
+            <Numeral precision={1}>
+                <p>点赞量：1.6111e1 K</p>
+            </Numeral>
+            
+            <p>
+                播放量:
+                <Numeral rule="numbers" precision={1}>
+                    ���2.4444e2
+                </Numeral>
+                K
+            </p>
+            
             <Numeral rule="percentages" precision={2} style={{ marginBottom: 12 }}>
                 <p>好评率: 0.915</p>
             </Numeral>
 
-            <Numeral rule='percentages' style={{ marginBottom: 12 }}>
+            <Numeral rule="percentages" style={{ marginBottom: 12 }}>
                 这场比赛我的胜率是60，输的概率是40
             </Numeral>
 
@@ -192,18 +204,40 @@ import { Typography } from '@douyinfe/semi-ui';
 
 function Demo() {
     const { Numeral } = Typography;
+
+    function parserTCH(oldVal) {
+        console.log(oldVal);
+        return oldVal.split(' ').map(item =>
+            Number(item) ? `${item.replace(/(\d)(?=(?:\d{3})+(?:\.|$))/g, '$1,')}+` : item
+        ).join(' ');
+    }
+
+    function Infos() {
+        const data = [
+            { type: 'Stars', min: '6200' },
+            { type: 'Fork', min: '400' },
+            { type: '下载', min: '3000000' },
+            { type: '贡献者', min: '60' }
+        ];
+        return data.map(item =>
+            <p key={item.min}>
+                {item.type}：
+                <b style={{ color: 'rgba(var(--semi-violet-5),1)' }}>
+                    {item.min}
+                </b>
+            </p>
+        );
+    }
+
     return (
         <div>
-            <Numeral
-                link={{ href: 'javascript:;' }}
-                parser={oldVal =>
-                    oldVal
-                        .split(' ')
-                        .map(item => (item.match(/^\d{4}-\d{1,2}-\d{1,2}$/) ? new Date(item).toDateString() : item))
-                        .join(' ')
-                }
-            >
-                <div>&gt; 2022-6-18 优惠详情</div>
+            <Numeral parser={parserTCH} component="div">
+                Semi Design 重视我们的用户，加入并助力我们不断完善
+                {Infos}
+            </Numeral>
+            <br />
+            <Numeral link={{ href: 'https://semi.design', target: '_blank' }} parser={parserTCH}>
+                现已服务 {1e5} 用户，前往官网 &gt;&gt;
             </Numeral>
         </div>
     );
@@ -427,25 +461,25 @@ function Demo() {
 
 ### Typography.Numeral
 
-| 属性        | 说明                                                                                                                                 | 类型                        | 默认值                                        | 版本   |
-|-----------|------------------------------------------------------------------------------------------------------------------------------------|---------------------------|--------------------------------------------| ------ |
-| rule      | 解析规则，可选 `text`, `numbers`, `bytes-decimal`, `bytes-binary`, `percentages`, `currency`, `exponential`                               | string                    | `text`                                     | 2.22.0       |
-| precision  | 小数点后保留位数                                                                                                                           | number                    | 0                                          | 2.22.0       |
-| truncate  | 小数点后保留位截段取整方式，可选 `ceil`, `floor`, `round`                                                                                          | string                    | `round`                                    | 2.22.0       |
-| parser    | 自定义数值解析函数                                                                                                                          | (str: string) => string | -                                          | 2.22.0       |
-| component | 自定义渲染元素                                                                                                                            | html element              | span                                       | 2.22.0       |
-| code      | 是否被 `code` 元素包裹                                                                                                                    | boolean                   | -                                          |  2.22.0      |
-| copyable  | 是否可拷贝                                                                                                                              | boolean \| object:[Copyable Config](#Copyable-Config) | false     | 2.22.0 |
-| delete    | 添加删除线样式                                                                                                                            | boolean                   | false                                      | 2.22.0 |
-| disabled  | 禁用文本                                                                                                                               | boolean                   | false                                      | 2.22.0 |
-| ellipsis  | 设置自动溢出省略                                                                                                                           | boolean\| object:Ellipsis Config                     | false     | 2.22.0 |
-| icon      | 前缀图标                                                                                                                               | ReactNode                 | -                                          | 2.22.0 |
-| link      | 是否为链接，传object时，属性将透传给a标签                                                                                                           | boolean\|object                                     | false     | 2.22.0 |
-| mark      | 添加标记样式                                                                                                                             | boolean                   | false                                      | 2.22.0 |
-| size      | 文本大小，可选`normal`，`small`                                                                                                            | string                    | `normal`                                   | 2.22.0 |
-| strong    | 是否加粗                                                                                                                               | boolean                   | false                                      | 2.22.0 |
+| 属性        | 说明                                                                                                                             | 类型                        | 默认值                                        | 版本   |
+|-----------|--------------------------------------------------------------------------------------------------------------------------------|---------------------------|--------------------------------------------| ------ |
+| rule      | 解析规则，可选 `text`, `numbers`, `bytes-decimal`, `bytes-binary`, `percentages`, `exponential`                               | string                    | `text`                                     | 2.22.0       |
+| precision  | 可以设置小数点后保留位数, 用于设置精度                                                                                                                       | number                    | 0                                          | 2.22.0       |
+| truncate  | 小数点后保留位截段取整方式，可选 `ceil`, `floor`, `round`，作用与  Math.ceil、Math.floor、Math.round 对齐                                                                                      | string                    | `round`                                    | 2.22.0       |
+| parser    | 自定义数值解析函数                                                                                                                      | (str: string) => string | -                                          | 2.22.0       |
+| component | 自定义渲染元素                                                                                                                        | html element              | span                                       | 2.22.0       |
+| code      | 是否被 `code` 元素包裹                                                                                                                | boolean                   | -                                          |  2.22.0      |
+| copyable  | 是否可拷贝                                                                                                                          | boolean \| object:[Copyable Config](#Copyable-Config) | false     | 2.22.0 |
+| delete    | 添加删除线样式                                                                                                                        | boolean                   | false                                      | 2.22.0 |
+| disabled  | 禁用文本                                                                                                                           | boolean                   | false                                      | 2.22.0 |
+| ellipsis  | 设置自动溢出省略                                                                                                                       | boolean\| object:Ellipsis Config                     | false     | 2.22.0 |
+| icon      | 前缀图标                                                                                                                           | ReactNode                 | -                                          | 2.22.0 |
+| link      | 是否为链接，传object时，属性将透传给a标签                                                                                                       | boolean\|object                                     | false     | 2.22.0 |
+| mark      | 添加标记样式                                                                                                                         | boolean                   | false                                      | 2.22.0 |
+| size      | 文本大小，可选`normal`，`small`                                                                                                        | string                    | `normal`                                   | 2.22.0 |
+| strong    | 是否加粗                                                                                                                           | boolean                   | false                                      | 2.22.0 |
 | type      | 文本类型，可选 `primary`, `secondary`, `warning`, `danger`, `tertiary`, `quaternary`, `success` | string                    | `primary`                                  | 2.22.0 |
-| underline | 添加下划线样式                                                                                                                            | boolean                   | false                                      | 2.22.0 |
+| underline | 添加下划线样式                                                                                                                        | boolean                   | false                                      | 2.22.0 |
 
 
 ### Ellipsis Config
