@@ -222,7 +222,7 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
             },
             updateStates: (states, callback) => {
                 this.setState(states, callback);
-            }
+            },
         };
     }
 
