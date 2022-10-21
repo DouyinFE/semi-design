@@ -1753,7 +1753,7 @@ describe(`Table`, () => {
         expect(demo.find(`.${BASE_CLASS_PREFIX}-table-tbody .${BASE_CLASS_PREFIX}-table-row-section.on`).length).toBe(0);
     });
 
-    it('test defaultSortOrder', async () => {
+    it('test defaultSortOrder descend', async () => {
         const sortColumns = [
             {
                 title: 'Name',
@@ -1806,7 +1806,10 @@ describe(`Table`, () => {
         const firstCell = sortTable.find('.semi-table-tbody .semi-table-row .semi-table-row-cell').at(0);
         expect(firstCell.text()).toBe(name);
 
-        // test default ascend
+        sortTable.unmount();
+    });
+
+    it('test defaultSortOrder descend', async () => {
         const ascendOrderColumns = [
             {
                 title: 'Name',
@@ -1823,15 +1826,46 @@ describe(`Table`, () => {
                 dataIndex: 'address',
             }
         ];
-        sortTable.setProps({columns: ascendOrderColumns})
-        sortTable.update()
+        const sortData = [
+            {
+                key: '1',
+                name: 'long name',
+                age: 32,
+                address: 'New York No. 1 Lake Park',
+            },
+            {
+                key: '2',
+                name: 'longest name',
+                age: 42,
+                address: 'London No. 1 Lake Park',
+            },
+            {
+                key: '3',
+                name: 'longer name',
+                age: 32,
+                address: 'Sidney No. 1 Lake Park',
+            },
+            {
+                key: '4',
+                name: 'short',
+                age: 32,
+                address: 'London No. 2 Lake Park',
+            },
+        ];
+        const onChange = sinon.spy(() => {
+        });
+
+        const sortTable = mount(<Table columns={ascendOrderColumns} dataSource={sortData} onChange={onChange}/>);
+
         const ascendTargetData = sortData.reduce((a, b) => a.name.length < b.name.length ? a : b);
         const {name: ascendTargetName} = ascendTargetData;
         const ascendFirstCell = sortTable.find('.semi-table-tbody .semi-table-row .semi-table-row-cell').at(0);
         expect(ascendFirstCell.text()).toBe(ascendTargetName);
+        sortTable.unmount();
+    });
 
-        // test default false
-        const defaultOrderColumns = [
+    it('test defaultSortOrder false', async () => {
+        const sortColumns = [
             {
                 title: 'Name',
                 dataIndex: 'name',
@@ -1846,9 +1880,39 @@ describe(`Table`, () => {
                 title: 'Address',
                 dataIndex: 'address',
             }
-        ]
-        sortTable.setProps({columns: defaultOrderColumns})
-        sortTable.update()
+        ];
+        const sortData = [
+            {
+                key: '1',
+                name: 'long name',
+                age: 32,
+                address: 'New York No. 1 Lake Park',
+            },
+            {
+                key: '2',
+                name: 'longest name',
+                age: 42,
+                address: 'London No. 1 Lake Park',
+            },
+            {
+                key: '3',
+                name: 'longer name',
+                age: 32,
+                address: 'Sidney No. 1 Lake Park',
+            },
+            {
+                key: '4',
+                name: 'short',
+                age: 32,
+                address: 'London No. 2 Lake Park',
+            },
+        ];
+        const onChange = sinon.spy(() => {
+        });
+
+        const sortTable = mount(<Table columns={sortColumns} dataSource={sortData} onChange={onChange}/>);
+
+        // test default false
         const defaultTargetData = sortData[0]
         const {name: defaultTargetName} = defaultTargetData;
         const defaultFirstCell = sortTable.find('.semi-table-tbody .semi-table-row .semi-table-row-cell').at(0);
@@ -1895,6 +1959,7 @@ describe(`Table`, () => {
         const {name: newDescendTargetName} = newDescendTargetData;
         const newDataFirstCell = sortTable.find('.semi-table-tbody .semi-table-row .semi-table-row-cell').at(0);
         expect(newDataFirstCell.text()).toBe(newDescendTargetName);
+        sortTable.unmount();
     });
 
     it(`test expandRowByClick`, async () => {
@@ -1948,5 +2013,163 @@ describe(`Table`, () => {
         expandIcons.at(0).simulate('click');
         expandIcons.at(1).simulate('click');
         expect(expandedRowRender.calledTwice).toBeTruthy();
+    });
+
+    it('test defaultFilteredValue is in onChange when click sorter', () => {
+        const columns = [
+            {
+                title: '标题',
+                dataIndex: 'name',
+                width: 400,
+                render: (text, record, index) => {
+                    return (
+                        <div>
+                            {text}
+                        </div>
+                    );
+                },
+                filters: [
+                    {
+                        text: 'Semi Design 设计稿',
+                        value: 'Semi Design 设计稿',
+                    },
+                    {
+                        text: 'Semi Pro 设计稿',
+                        value: 'Semi Pro 设计稿',
+                    },
+                ],
+                onFilter: (value, record) => record.name.includes(value),
+                defaultFilteredValue: ['Semi Pro 设计稿'],
+            },
+            {
+                title: '大小',
+                dataIndex: 'size',
+                sorter: (a, b) => a.size - b.size > 0 ? 1 : -1,
+                defaultSortOrder: 'ascend',
+                render: (text) => `${text} KB`
+            },
+            {
+                title: '所有者',
+                dataIndex: 'owner',
+                render: (text, record, index) => {
+                    return (
+                        <div>
+                            {text}
+                        </div>
+                    );
+                }
+    
+            }
+        ];
+
+        const getData = (total) => {
+            const data = [];
+            for (let i = 0; i < total; i++) {
+                const isSemiDesign = i % 2 === 0;
+                const randomNumber = (i * 1000) % 199;
+                data.push({
+                    key: '' + i,
+                    name: isSemiDesign ? `Semi Design 设计稿${i}.fig` : `Semi Pro 设计稿${i}.fig`,
+                    owner: isSemiDesign ? '姜鹏志' : '郝宣',
+                    size: randomNumber,
+                    avatarBg: isSemiDesign ? 'grey' : 'red'
+                });
+            }
+            return data;
+        };
+
+        const data = getData(25);
+
+        const onChange = sinon.spy(() => {
+        });
+
+        const tableNode = mount(<Table columns={columns} dataSource={data} onChange={onChange}/>);
+        tableNode.find('.semi-table-column-sorter').simulate('click');
+        expect(onChange.calledOnce).toBe(true);
+        const arg = onChange.getCall(0).args[0];
+        expect(arg.filters.length).toBe(1);
+        expect(arg.filters[0].defaultFilteredValue).toEqual(['Semi Pro 设计稿']);
+        expect(arg.filters[0].filteredValue).toEqual(['Semi Pro 设计稿']);
+        tableNode.unmount();
+    });
+
+    it('test defaultSortOrder is in onChange when click filter', () => {
+        const defaultSortOrder = 'ascend';
+        const columns = [
+            {
+                title: '标题',
+                dataIndex: 'name',
+                width: 400,
+                render: (text, record, index) => {
+                    return (
+                        <div>
+                            {text}
+                        </div>
+                    );
+                },
+                filters: [
+                    {
+                        text: 'Semi Design 设计稿',
+                        value: 'Semi Design 设计稿',
+                    },
+                    {
+                        text: 'Semi Pro 设计稿',
+                        value: 'Semi Pro 设计稿',
+                    },
+                ],
+                onFilter: (value, record) => record.name.includes(value),
+                defaultFilteredValue: ['Semi Pro 设计稿'],
+            },
+            {
+                title: '大小',
+                dataIndex: 'size',
+                sorter: (a, b) => a.size - b.size > 0 ? 1 : -1,
+                defaultSortOrder: 'ascend',
+                render: (text) => `${text} KB`
+            },
+            {
+                title: '所有者',
+                dataIndex: 'owner',
+                render: (text, record, index) => {
+                    return (
+                        <div>
+                            {text}
+                        </div>
+                    );
+                }
+    
+            }
+        ];
+
+        const getData = (total) => {
+            const data = [];
+            for (let i = 0; i < total; i++) {
+                const isSemiDesign = i % 2 === 0;
+                const randomNumber = (i * 1000) % 199;
+                data.push({
+                    key: '' + i,
+                    name: isSemiDesign ? `Semi Design 设计稿${i}.fig` : `Semi Pro 设计稿${i}.fig`,
+                    owner: isSemiDesign ? '姜鹏志' : '郝宣',
+                    size: randomNumber,
+                    avatarBg: isSemiDesign ? 'grey' : 'red'
+                });
+            }
+            return data;
+        };
+
+        const data = getData(25);
+
+        const onChange = sinon.spy(() => {
+        });
+
+        const tableNode = mount(<Table columns={columns} dataSource={data} onChange={onChange}/>);
+        tableNode.find('.semi-table-column-filter').simulate('click');
+        const filterNode = Array.from(document.querySelectorAll('.semi-checkbox-addon')).filter(node => node.textContent === 'Semi Design 设计稿');
+        filterNode[0].click();
+        expect(onChange.calledOnce).toBe(true);
+        const arg = onChange.getCall(0).args[0];
+        expect(arg.sorter.defaultSortOrder).toBe(defaultSortOrder);
+        expect(arg.sorter.sortOrder).toBe(defaultSortOrder);
+        tableNode.unmount();
     });
 });

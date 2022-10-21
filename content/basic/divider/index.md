@@ -1,7 +1,7 @@
 ---
 localeCode: zh-CN
 order: 11
-category: 基础类 
+category: 基础 
 title:  Divider 分割线 
 icon: doc-divider 
 brief: 分割线是一个呈线状的轻量化组件，用于有逻辑的组织元素内容和页面结构或区域。
