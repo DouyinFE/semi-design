@@ -206,7 +206,6 @@ function Demo() {
     const { Numeral } = Typography;
 
     function parserTCH(oldVal) {
-        console.log(oldVal);
         return oldVal.split(' ').map(item =>
             Number(item) ? `${item.replace(/(\d)(?=(?:\d{3})+(?:\.|$))/g, '$1,')}+` : item
         ).join(' ');
