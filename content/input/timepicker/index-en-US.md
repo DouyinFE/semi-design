@@ -38,7 +38,7 @@ import React from 'react';
 import { TimePicker } from '@douyinfe/semi-ui';
 
 function Demo() {
-    return <TimePicker c={{ mode: "wheel", cycled: true }}/>;
+    return <TimePicker scrollItemProps={{ mode: "wheel", cycled: true }}/>;
 }
 ```
 
