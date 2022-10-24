@@ -15,7 +15,8 @@ export interface YearAndMonthFoundationProps {
     density?: string;
     presetPosition?: PresetPosition;
     renderQuickControls?: any;
-    renderDateInput?: any
+    renderDateInput?: any;
+    yearAndMonthOpts?: any
 }
 
 export interface YearAndMonthFoundationState {

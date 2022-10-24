@@ -36,11 +36,15 @@ export type DayStatusType = {
     isHover?: boolean; // Date between selection and hover date
     isOffsetRangeStart?: boolean; // Week selection start
     isOffsetRangeEnd?: boolean; // End of week selection
-    isHoverInOffsetRange?: boolean; // Hover in the week selection
+    isHoverInOffsetRange?: boolean // Hover in the week selection
 };
 export type DisabledDateOptions = {
     rangeStart?: string;
-    rangeEnd?: string
+    rangeEnd?: string;
+    /**
+     * current select of range type
+     */
+    rangeInputFocus?: 'rangeStart' | 'rangeEnd' | false
 };
 export type PresetType = {
     start?: string | Date | number;
@@ -208,7 +212,7 @@ export interface DatePickerAdapter extends DefaultAdapter<DatePickerFoundationPr
     setInsetInputFocus: () => void;
     setTriggerDisabled: (disabled: boolean) => void
 }
-
+ 
 
 /**
  * The datePicker foundation.js is responsible for maintaining the date value and the input box value, as well as the callback of both
@@ -1185,7 +1189,8 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
      */
     _someDateDisabled(value: Date[]) {
         const stateValue = this.getState('value');
-        const disabledOptions = { rangeStart: '', rangeEnd: '' };
+        const { rangeInputFocus } = this.getStates();
+        const disabledOptions = { rangeStart: '', rangeEnd: '', rangeInputFocus };
 
         // DisabledDate needs to pass the second parameter
         if (this._isRangeType() && Array.isArray(stateValue)) {
