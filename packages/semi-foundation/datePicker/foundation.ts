@@ -175,7 +175,6 @@ export interface DatePickerFoundationState {
     value: Date[];
     cachedSelectedValue: Date[];
     prevTimeZone: string | number;
-    motionEnd: boolean;
     rangeInputFocus: RangeType;
     autofocus: boolean;
     insetInputValue: InsetInputValue;
@@ -202,7 +201,6 @@ export interface DatePickerAdapter extends DefaultAdapter<DatePickerFoundationPr
     updateInputValue: (inputValue: string) => void;
     needConfirm: () => boolean;
     typeIsYearOrMonth: () => boolean;
-    setMotionEnd: (motionEnd: boolean) => void;
     setRangeInputFocus: (rangeInputFocus: DatePickerFoundationState['rangeInputFocus']) => void;
     couldPanelClosed: () => boolean;
     isEventTarget: (e: any) => boolean;

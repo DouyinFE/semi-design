@@ -188,7 +188,6 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             value: [], // The currently selected date, each date is a Date object
             cachedSelectedValue: null, // Save last selected date, maybe include null
             prevTimeZone: null,
-            motionEnd: false, // Monitor if popover animation ends
             rangeInputFocus: undefined, // Optional'rangeStart ',' rangeEnd ', false
             autofocus: props.autoFocus || (this.isRangeType(props.type, props.triggerRender) && (props.open || props.defaultOpen)),
             insetInputValue: null,
@@ -272,7 +271,6 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             needConfirm: () =>
                 ['dateTime', 'dateTimeRange'].includes(this.props.type) && this.props.needConfirm === true,
             typeIsYearOrMonth: () => ['month', 'year'].includes(this.props.type),
-            setMotionEnd: motionEnd => this.setState({ motionEnd }),
             setRangeInputFocus: rangeInputFocus => {
                 const { preventScroll } = this.props;
                 if (rangeInputFocus !== this.state.rangeInputFocus) {
@@ -420,7 +418,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             insetInput,
             presetPosition
         } = this.props;
-        const { cachedSelectedValue, motionEnd, rangeInputFocus } = this.state;
+        const { cachedSelectedValue, rangeInputFocus } = this.state;
 
         const defaultValue = cachedSelectedValue;
         return (
@@ -448,7 +446,6 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
                 startDateOffset={startDateOffset}
                 endDateOffset={endDateOffset}
                 autoSwitchDate={autoSwitchDate}
-                motionEnd={motionEnd}
                 density={density}
                 rangeInputFocus={rangeInputFocus}
                 setRangeInputFocus={this.handleSetRangeFocus}
@@ -768,7 +765,6 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
                 stopPropagation={stopPropagation}
                 spacing={spacing}
                 onVisibleChange={this.handlePanelVisibleChange}
-                afterClose={()=>this.setState({ motionEnd: true }, ()=>this.setState({ motionEnd: false }))}
             >
                 {children}
             </Popover>
