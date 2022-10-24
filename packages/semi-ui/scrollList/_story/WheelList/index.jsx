@@ -81,7 +81,7 @@ class ScrollListDemo extends React.Component {
             // mode: 'normal',
             mode: 'wheel',
             cycled: false,
-            motion: false,
+            motion: true,
         };
         return (
             <div>

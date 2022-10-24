@@ -20,6 +20,7 @@ import YearAndMonth from './yearAndMonth';
 import { IconClock, IconCalendar } from '@douyinfe/semi-icons';
 import { getDefaultFormatTokenByType } from '@douyinfe/semi-foundation/datePicker/_utils/getDefaultFormatToken';
 import getDefaultPickerDate from '@douyinfe/semi-foundation/datePicker/_utils/getDefaultPickerDate';
+import { ScrollItemProps } from '../scrollList/scrollItem';
 
 const prefixCls = cssClasses.PREFIX;
 
@@ -29,6 +30,7 @@ export interface MonthsGridProps extends MonthsGridFoundationProps, BaseProps {
     renderDate?: () => React.ReactNode;
     renderFullDate?: () => React.ReactNode;
     focusRecordsRef?: React.RefObject<{ rangeStart: boolean; rangeEnd: boolean }>;
+    yearAndMonthOpts?: ScrollItemProps<any>;
 }
 
 export type MonthsGridState = MonthsGridFoundationState;
@@ -508,7 +510,7 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
 
     renderYearAndMonth(panelType: PanelType, panelDetail: MonthInfo) {
         const { pickerDate } = panelDetail;
-        const { locale, localeCode, density } = this.props;
+        const { locale, localeCode, density, yearAndMonthOpts } = this.props;
         const y = pickerDate.getFullYear();
         const m = pickerDate.getMonth() + 1;
         return (
@@ -529,6 +531,7 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
                     }
                 }}
                 density={density}
+                yearAndMonthOpts={yearAndMonthOpts}
             />
         );
     }
@@ -569,13 +572,13 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
 
         const switchCls = classnames(`${prefixCls}-switch`);
         const dateCls = classnames({
-            [`${prefixCls }-switch-date`]: true,
-            [`${prefixCls }-switch-date-active`]: !isTimePickerOpen,
+            [`${prefixCls}-switch-date`]: true,
+            [`${prefixCls}-switch-date-active`]: !isTimePickerOpen,
         });
         const timeCls = classnames({
-            [`${prefixCls }-switch-time`]: true,
+            [`${prefixCls}-switch-time`]: true,
             [`${prefixCls}-switch-time-disabled`]: disabledTimePicker,
-            [`${prefixCls }-switch-date-active`]: isTimePickerOpen,
+            [`${prefixCls}-switch-date-active`]: isTimePickerOpen,
         });
         const textCls = classnames(`${prefixCls}-switch-text`);
 
@@ -608,7 +611,7 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
         const { monthLeft, monthRight } = this.state;
         const { type, insetInput, presetPosition, renderQuickControls, renderDateInput } = this.props;
         const monthGridCls = classnames({
-            [`${prefixCls }-month-grid`]: true,
+            [`${prefixCls}-month-grid`]: true,
         });
         const panelTypeLeft = strings.PANEL_TYPE_LEFT;
         const panelTypeRight = strings.PANEL_TYPE_RIGHT;

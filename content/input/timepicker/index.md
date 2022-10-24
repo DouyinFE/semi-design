@@ -28,6 +28,19 @@ function Demo() {
 }
 ```
 
+### 无限滚动
+
+版本V2.22.0开始，我们将 TimePicker 内的 ScrollItem 的默认模式从 `wheel` 变更为了 `normal`, 若想应用回无限滚动的效果，可参考以下示例。
+
+```jsx live=true
+import React from 'react';
+import { TimePicker } from '@douyinfe/semi-ui';
+
+function Demo() {
+    return <TimePicker c={{ mode: "wheel", cycled: true }}/>;
+}
+```
+
 ### 带内嵌标签
 
 ```jsx live=true

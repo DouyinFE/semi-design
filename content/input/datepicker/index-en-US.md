@@ -922,6 +922,7 @@ function Demo() {
 | onOpenChange       | Callback when popup open or close                                                                                                                                 | (isOpen) => void                                                                                                                                                                                 |                                                                                       |                           |
 | onPanelChange      | Callback when the year or date of the panel is switched|  <ApiType detail='(date: DateType \| DateType[], dateStr: StringType \| StringType[])=>void'>(date, dateStr) => void</ApiType>  |  |**1.28.0**|
 | onPresetClick      | Callback when click preset button                                                                          | <ApiType detail='(item: Object, e: Event) => void'>(item, e) => void</ApiType>       |   **1.24.0**                           |
+| yearAndMonthOpts | Other parameters that can be transparently passed to the year-month selector, see details in [ScrollList#API](/zh-CN/show/scrolllist#ScrollItem)|  | object | **2.20.0** |
 
 
 ## Interface Define

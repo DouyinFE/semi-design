@@ -29,6 +29,20 @@ function Demo() {
 }
 ```
 
+### Infinite Scroll
+
+Starting from version V2.22.0, we changed the default mode of ScrollItem in TimePicker from `wheel` to `normal`. If you want to apply the effect of infinite scrolling back, please refer to the following example.
+
+```jsx live=true
+import React from 'react';
+import { TimePicker } from '@douyinfe/semi-ui';
+
+function Demo() {
+    return <TimePicker c={{ mode: "wheel", cycled: true }}/>;
+}
+```
+
+
 ### With an Embedded Label
 
 ```jsx live=true
