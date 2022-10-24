@@ -706,6 +706,8 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
             this._adapter.updateFileList([]);
             this._adapter.notifyClear();
             this._adapter.notifyChange({ fileList: [] } as any);
+        }).catch(error => {
+            // if user pass reject promise, no need to do anything
         });
     }
 

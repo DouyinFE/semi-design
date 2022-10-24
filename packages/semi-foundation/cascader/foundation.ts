@@ -522,7 +522,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         this._adapter.notifyDropdownVisibleChange(false);
         this._adapter.unregisterClickOutsideHandler();
         if (this._isFilterable()) {
-            const { selectedKeys } = this.getStates();
+            const { selectedKeys, isSearching } = this.getStates();
             let inputValue = '';
             if (key && !multiple) {
                 inputValue = this.renderDisplayText(key);
@@ -532,6 +532,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
             this._adapter.updateStates({ inputValue });
             !multiple && this.toggle2SearchInput(false);
             !multiple && this._adapter.updateFocusState(false);
+            isSearching && this._adapter.updateStates({ isSearching: false });
         }
         this._notifyBlur(e);
     }

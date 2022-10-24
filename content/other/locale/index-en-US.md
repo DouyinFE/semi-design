@@ -95,6 +95,53 @@ class I18nDemo extends React.Component {
 }
 ```
 
+### Custom Internationalization Component
+
+```jsx live=true dir="column" hideInDSM
+import React from 'react';
+import zh_CN from '@douyinfe/semi-ui/lib/es/locale/source/zh_CN';
+import en_GB from '@douyinfe/semi-ui/lib/es/locale/source/en_GB';
+import { LocaleProvider, LocaleConsumer } from '@douyinfe/semi-ui';
+
+class I18nCustomDemo extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+    render() {
+        return (
+            <>
+                <LocaleProvider locale={zh_CN}>
+                    <CustomComponent />
+                </LocaleProvider>
+                <LocaleProvider locale={en_GB}>
+                    <CustomComponent />
+                </LocaleProvider>
+            </>
+        );
+    }
+}
+
+const CUSTOM_TEXT_MAP = {
+    'zh-CN': '你好',
+    'en-GB': 'hello'
+};
+
+class CustomComponent extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+    render() {
+        return <LocaleConsumer componentName="code">
+            {
+                (locale) => (
+                    CUSTOM_TEXT_MAP[locale || 'zh-CN']
+                )
+            }
+        </LocaleConsumer>;
+    }
+}
+```
+
 ### Components that support multilingualism
 
 The example gives all the current multilingual components
