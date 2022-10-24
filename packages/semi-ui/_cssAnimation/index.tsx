@@ -57,6 +57,7 @@ class CSSAnimation extends React.Component<AnimationProps, AnimationState> {
         this.props.onAnimationStart?.();
         if (!this.props.motion){
             this.props.onAnimationEnd?.(false);
+            this.setState({ isAnimating: false });
         }
     }
 
@@ -74,6 +75,7 @@ class CSSAnimation extends React.Component<AnimationProps, AnimationState> {
                 this.props.onAnimationStart?.();
                 if (!this.props.motion) {
                     this.props.onAnimationEnd?.(this.state.isAnimating);
+                    this.setState({ isAnimating: false });
                 }
             });
         }
