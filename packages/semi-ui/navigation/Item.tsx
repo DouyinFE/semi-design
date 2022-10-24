@@ -267,8 +267,10 @@ export default class NavItem extends BaseComponent<NavItemProps, NavItemState> {
             }
 
             itemDom = (
+                // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
                 <li
-                    role="menuitem"
+                    // if role = menuitem, the narration will read all expanded li
+                    role={isSubNav ? null : "menuitem"}
                     tabIndex={isSubNav ? -1 : 0}
                     {...ariaProps}
                     style={style}

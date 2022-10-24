@@ -775,6 +775,14 @@ function NavApp (props = {}) {
 | style          | 最外层样式                                                                               | CSSProperties                                    |        |  
 
 
+## Accessibility
+- ### 键盘和焦点
+- Navigation 内的每个可点击 item 都可以被聚焦，相互之间使用 `Tab` 及 `Shift  + Tab` 切换焦点，并且可以通过 `Enter` 键激活每个链接
+- 当某个 item 可被打开弹层时
+  - 打开弹层方式为 hover ：该 item 被聚焦时，弹层打开。键盘用户可以通过下箭头将焦点移动到弹层上，`Esc` 键可以将焦点返回到 item 上
+  - 打开弹层的方式为 click ：该 item 被聚焦时，点击 Enter 键，打开弹层。键盘用户可以通过下箭头将焦点移动到弹层上，`Esc` 键可以将焦点返回到 item 上
+  - 键盘交互暂未完整支持嵌套场景
+
 ## 文案规范
 
 - 导航栏菜单使用句子大小写格式
