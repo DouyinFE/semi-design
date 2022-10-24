@@ -11,7 +11,7 @@ export interface ColGroupProps {
     prefixCls?: string;
     className?: string;
     style?: React.CSSProperties;
-    components?: Record<string, any>;
+    components?: Record<string, any>
 }
 
 export default class ColGroup extends React.PureComponent<ColGroupProps> {

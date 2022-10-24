@@ -3,7 +3,7 @@ import Toast from '../toast';
 import { ToastInstance } from '@douyinfe/semi-foundation/toast/toastFoundation';
 
 interface HookToastProps extends ToastInstance{
-    afterClose: (id: string) => void;
+    afterClose: (id: string) => void
 }
 
 const HookToast = ({ afterClose, ...config }: HookToastProps, ref: React.Ref<any>) => {

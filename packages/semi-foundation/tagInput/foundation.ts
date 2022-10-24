@@ -17,7 +17,7 @@ export type TagInputMouseEvent = any;
 
 export interface OnSortEndProps {
     oldIndex: number;
-    newIndex: number;
+    newIndex: number
 }
 
 export interface TagInputAdapter extends DefaultAdapter {
@@ -36,7 +36,7 @@ export interface TagInputAdapter extends DefaultAdapter {
     notifyTagChange: (v: string[]) => void;
     notifyTagAdd: (v: string[]) => void;
     notifyTagRemove: (v: string, idx: number) => void;
-    notifyKeyDown: (e: TagInputMouseEvent) => void;
+    notifyKeyDown: (e: TagInputMouseEvent) => void
 }
 
 class TagInputFoundation extends BaseFoundation<TagInputAdapter> {

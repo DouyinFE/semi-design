@@ -16,7 +16,7 @@ export interface QuickControlProps {
     presetPosition: typeof strings.PRESET_POSITION_SET[number];
     onPresetClick: (preset: PresetType, e: React.MouseEvent) => void;
     type: string;
-    insetInput: boolean;
+    insetInput: boolean
 }
 
 class QuickControl extends PureComponent<QuickControlProps> {

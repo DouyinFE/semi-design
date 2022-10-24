@@ -28,7 +28,7 @@ export type { DropdownTitleProps } from './dropdownTitle';
 
 export interface DropDownMenuItemItem extends DropdownItemProps {
     node: 'item';
-    name?: string;
+    name?: string
 }
 export interface DropDownMenuItemDivider extends DropdownDividerProps {
     node: 'divider'
@@ -59,11 +59,11 @@ export interface DropdownProps extends TooltipProps {
     rePosKey?: string | number;
     showTick?: boolean;
     closeOnEsc?: TooltipProps['closeOnEsc'];
-    onEscKeyDown?: TooltipProps['onEscKeyDown'];
+    onEscKeyDown?: TooltipProps['onEscKeyDown']
 }
 
 interface DropdownState {
-    popVisible: boolean;
+    popVisible: boolean
 }
 
 class Dropdown extends BaseComponent<DropdownProps, DropdownState> {

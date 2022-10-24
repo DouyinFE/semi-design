@@ -16,7 +16,7 @@ const prefixCls = cssClasses.PREFIX;
 export interface MonthProps extends MonthFoundationProps, BaseProps {
     forwardRef: React.Ref<any>;
     locale: Locale['DatePicker'];
-    focusRecordsRef: React.RefObject<{ rangeStart: boolean; rangeEnd: boolean }>;
+    focusRecordsRef: React.RefObject<{ rangeStart: boolean; rangeEnd: boolean }>
 }
 
 export type MonthState = MonthFoundationState;

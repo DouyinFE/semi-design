@@ -21,7 +21,7 @@ import { strings } from '@douyinfe/semi-foundation/datePicker/constants';
 const prefixCls = `${BASE_CLASS_PREFIX}-datepicker`;
 
 export interface YearAndMonthProps extends YearAndMonthFoundationProps, BaseProps {
-    locale?: Locale['DatePicker'];
+    locale?: Locale['DatePicker']
 }
 
 export type YearAndMonthState = YearAndMonthFoundationState;

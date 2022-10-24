@@ -10,7 +10,7 @@ const typeMap = {
     default: {
         okType: 'primary',
         cancelType: 'primary',
-        icon:  <IconAlertTriangle />,
+        icon: <IconAlertTriangle />,
     },
     warning: {
         okType: 'warning',

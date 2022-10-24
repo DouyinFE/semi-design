@@ -6,7 +6,7 @@ import Paragraph from './paragraph';
 export type TypographyType = typeof BaseTypography & {
     Text: typeof Text;
     Title: typeof Title;
-    Paragraph: typeof Paragraph;
+    Paragraph: typeof Paragraph
 };
 
 const Typography = BaseTypography as TypographyType;

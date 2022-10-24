@@ -13,21 +13,21 @@ export interface BasicDataItem {
     value?: string | number;
     disabled?: boolean;
     style?: any;
-    className?: string;
+    className?: string
 }
 
 export type DataItemMap = Map<number | string, BasicDataItem>;
 
 export interface OnSortEndProps {
     oldIndex: number;
-    newIndex: number;
+    newIndex: number
 }
 
 export interface BasicResolvedDataItem extends BasicDataItem {
     _parent?: {
-        title: string;
+        title: string
     };
-    _optionKey?: string | number;
+    _optionKey?: string | number
 }
 
 export interface TransferAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
@@ -39,7 +39,7 @@ export interface TransferAdapter<P = Record<string, any>, S = Record<string, any
     notifyDeselect: (items: BasicDataItem) => void;
     updateInput: (input: string) => void;
     updateSearchResult: (searchResult: Set<number | string>) => void;
-    searchTree: (keyword: string) => void;
+    searchTree: (keyword: string) => void
 }
 
 // eslint-disable-next-line max-len

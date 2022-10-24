@@ -8,28 +8,28 @@ import { get } from 'lodash';
 import isNullOrUndefined from '../utils/isNullOrUndefined';
 
 export interface ItemKey2ParentKeysMap {
-    [key: string]: (string | number)[];
+    [key: string]: (string | number)[]
 }
 
 export interface OnClickData {
     itemKey: string | number;
     domEvent: any;
-    isOpen: boolean;
+    isOpen: boolean
 }
 
 export interface OnSelectData extends OnClickData {
     selectedKeys: (string | number)[];
-    selectedItems: ItemProps[];
+    selectedItems: ItemProps[]
 }
 
 export interface OnOpenChangeData extends OnClickData {
-    openKeys: (string | number)[];
+    openKeys: (string | number)[]
 }
 
 export interface NavItemType {
     props?: ItemProps;
     items?: NavItemType[];
-    [key: string]: any;
+    [key: string]: any
 }
 
 export interface NavigationAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
@@ -45,7 +45,7 @@ export interface NavigationAdapter<P = Record<string, any>, S = Record<string, a
     updateOpenKeys(keys: (string | number)[]): void;
     addOpenKeys(...keys: (string | number)[]): void;
     removeOpenKeys(...keys: (string | number)[]): void;
-    setItemsChanged(isChanged: boolean): void;
+    setItemsChanged(isChanged: boolean): void
 }
 
 export default class NavigationFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<NavigationAdapter<P, S>, P, S> {

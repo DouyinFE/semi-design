@@ -10,7 +10,7 @@ export interface CollapseButtonProps {
     locale?: Locale['Navigation'];
     collapseText?(isCollapsed: boolean): React.ReactNode;
     isCollapsed?: boolean;
-    onClick?(e: boolean): void;
+    onClick?(e: boolean): void
 }
 
 export default function CollapseButton({ prefixCls, locale, collapseText, isCollapsed, onClick = noop }: CollapseButtonProps) {

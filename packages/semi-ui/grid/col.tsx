@@ -14,7 +14,7 @@ export interface ColSize {
     order?: number;
     offset?: number;
     push?: number;
-    pull?: number;
+    pull?: number
 }
 
 export interface ColProps {
@@ -32,7 +32,7 @@ export interface ColProps {
     md?: number | ColSize;
     lg?: number | ColSize;
     xl?: number | ColSize;
-    xxl?: number | ColSize;
+    xxl?: number | ColSize
 }
 
 class Col extends React.Component<ColProps> {

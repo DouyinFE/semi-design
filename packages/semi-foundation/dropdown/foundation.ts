@@ -3,7 +3,7 @@ import { handlePrevent, setFocusToFirstItem, setFocusToLastItem } from '../utils
 
 export interface DropdownAdapter extends Partial<DefaultAdapter> {
     setPopVisible(visible: boolean): void;
-    notifyVisibleChange(visible: boolean): void;
+    notifyVisibleChange(visible: boolean): void
 }
 
 export default class DropdownFoundation extends BaseFoundation<DropdownAdapter> {

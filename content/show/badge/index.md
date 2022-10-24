@@ -41,7 +41,7 @@ import { IconLock } from '@douyinfe/semi-icons';
             </Badge>
             <br/>
             <br/>
-            <Badge count={<IconLock style={{ color:'var(--semi-color-primary)' }}/>}>
+            <Badge count={<IconLock style={{ color: 'var(--semi-color-primary)' }}/>}>
                 <Avatar color='light-blue' shape='square' style={style}>XZ</Avatar>
             </Badge>
             <br/>
@@ -177,7 +177,7 @@ import { Badge, Avatar } from '@douyinfe/semi-ui';
                     <Avatar color='lime' shape='square' style={style}>HW</Avatar>
                 </Badge>
             </div>
-            <div style={{ padding: '8px', borderRadius:'4px', backgroundColor: 'var(--semi-color-fill-0)' }}>
+            <div style={{ padding: '8px', borderRadius: '4px', backgroundColor: 'var(--semi-color-fill-0)' }}>
                 <Badge dot theme='inverted' >
                     <Avatar color='lime' shape='square' style={style}>XM</Avatar>
                 </Badge>

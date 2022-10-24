@@ -476,19 +476,19 @@ class NavApp extends React.Component {
                 defaultOpenKeys={['job']}
                 bodyStyle={{ height: 320 }}
                 items={[
-                    { itemKey:'user', text:'User Management', icon: <IconUser /> },
-                    { itemKey:'union', text:'guild center', icon: <IconStar /> },
+                    { itemKey: 'user', text: 'User Management', icon: <IconUser /> },
+                    { itemKey: 'union', text: 'guild center', icon: <IconStar /> },
                     {
-                        text:'Task platform',
+                        text: 'Task platform',
                         icon: <IconSetting />,
-                        itemKey:'job',
+                        itemKey: 'job',
                         items: ['task management', 'user task query'],
                     },
                 ]}
                 onSelect={key => console.log(key)}
                 header={{
                     logo: <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />,
-                    text:'Live broadcast operation background'
+                    text: 'Live broadcast operation background'
                 }}
                 footer={{
                     collapseButton: true,
@@ -521,19 +521,19 @@ class NavApp extends React.Component {
                 defaultOpenKeys={['job']}
                 bodyStyle={{ height: 320 }}
                 items={[
-                    { itemKey:'user', text:'User Management', icon: <IconUser /> },
+                    { itemKey: 'user', text: 'User Management', icon: <IconUser /> },
                     {
-                        text:'Task platform',
+                        text: 'Task platform',
                         icon: <IconSetting />,
-                        itemKey:'job',
+                        itemKey: 'job',
                         items: ['Task Management', {
-                            text:'Task 1',
+                            text: 'Task 1',
                             icon: <IconSetting />,
-                            itemKey:'mission1',
+                            itemKey: 'mission1',
                             items: ['Task 2', {
-                                text:'Task 3 disassembly',
+                                text: 'Task 3 disassembly',
                                 icon: <IconSetting />,
-                                itemKey:'mission3',
+                                itemKey: 'mission3',
                                 items: ['Subtask 1', 'Subtask 2'],
                             }, ],
                         }, ],
@@ -542,7 +542,7 @@ class NavApp extends React.Component {
                 onSelect={key => console.log(key)}
                 header={{
                     logo: <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />,
-                    text:'Live broadcast operation background'
+                    text: 'Live broadcast operation background'
                 }}
                 footer={{
                     collapseButton: true,

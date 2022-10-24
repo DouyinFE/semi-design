@@ -70,19 +70,19 @@ import { IconHelpCircle } from '@douyinfe/semi-icons';
 
 () => (
     <Form layout='horizontal'>
-        <Form.Input field='username' label='UserName' style={{ width:80 }}/>
+        <Form.Input field='username' label='UserName' style={{ width: 80 }}/>
         <Form.Input
             field='password'
             label={{ 
                 text: 'Password',
                 extra: <Tooltip content='More info xxx'><IconHelpCircle style={{ color: 'var(--semi-color-text-2)' }}/></Tooltip> 
             }}
-            style={{ width:176 }}
+            style={{ width: 176 }}
         />
         <Form.Select
             field="role"
             label={{ text: 'Role', optional: true }}
-            style={{ width:176 }}
+            style={{ width: 176 }}
             optionList={[
                 { label: 'Admin', value: 'admin' },
                 { label: 'User', value: 'user' },
@@ -107,7 +107,7 @@ import { Form } from '@douyinfe/semi-ui';
 () => (
     <Form render={({ formState, formApi, values }) => (
         <>
-            <Form.Select field="role" label='Role' style={{ width:120 }}>
+            <Form.Select field="role" label='Role' style={{ width: 120 }}>
                 <Form.Select.Option value="admin">Admin</Form.Select.Option>
                 <Form.Select.Option value="user">User</Form.Select.Option>
                 <Form.Select.Option value="guest">Guest</Form.Select.Option>
@@ -134,7 +134,7 @@ import { Form } from '@douyinfe/semi-ui';
         {
             ({ formState, values, formApi }) => (
                 <>
-                    <Form.Select field="role" label='Role' style={{ width:120 }}>
+                    <Form.Select field="role" label='Role' style={{ width: 120 }}>
                         <Form.Select.Option value="admin">Admin</Form.Select.Option>
                         <Form.Select.Option value="user">User</Form.Select.Option>
                         <Form.Select.Option value="guest">Guest</Form.Select.Option>
@@ -444,7 +444,7 @@ import { Form, Button, Toast } from '@douyinfe/semi-ui';
                     <Form.Checkbox field='agree' noLabel>I have read and agree to the terms of service</Form.Checkbox>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <p>
-                            <span>Or</span><Button theme='borderless' style={{ color: 'var(--semi-color-primary)', marginLeft: 10, cursor:'pointer' }}>Sign up</Button>
+                            <span>Or</span><Button theme='borderless' style={{ color: 'var(--semi-color-primary)', marginLeft: 10, cursor: 'pointer' }}>Sign up</Button>
                         </p>
                         <Button disabled={!values.agree} htmlType='submit' type="tertiary">Log in</Button>
                     </div>
@@ -851,7 +851,7 @@ class ModalFormDemo extends React.Component {
                                 <Form.Select
                                     field='region'
                                     label="Country/Region"
-                                    style={{ width:120 }}
+                                    style={{ width: 120 }}
                                     rules={[
                                         { required: true, message },
                                     ]}
@@ -879,7 +879,7 @@ class ModalFormDemo extends React.Component {
                                     field='area'
                                     label="Area"
                                     placeholder='Choose Area'
-                                    style={{ width:120 }}
+                                    style={{ width: 120 }}
                                     rules={[
                                         { required: true, message },
                                     ]}

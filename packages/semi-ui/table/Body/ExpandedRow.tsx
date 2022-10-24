@@ -31,7 +31,7 @@ export interface TableExpandedRowProps {
     renderExpandIcon?: (record?: Record<string, any>, isNested?: boolean) => ReactNode | null;
     store?: Store;
     style?: React.CSSProperties;
-    virtualized?: Virtualized;
+    virtualized?: Virtualized
 }
 
 /**

@@ -58,7 +58,7 @@ export interface TriggerRenderProps extends Omit<BasicTriggerRenderProps, 'compo
     [x: string]: any;
     componentProps: TreeSelectProps;
     value: TreeNodeData[];
-    onClear: (e: React.MouseEvent) => void;
+    onClear: (e: React.MouseEvent) => void
 }
 
 export interface OnChange {
@@ -69,7 +69,7 @@ export interface OnChange {
         e: React.MouseEvent
     ): void;
     /* onChangeWithObject is true */
-    (node: TreeNodeData[] | TreeNodeData, e: React.MouseEvent): void;
+    (node: TreeNodeData[] | TreeNodeData, e: React.MouseEvent): void
 }
 
 export type RenderSelectedItemInSingle = (treeNode: TreeNodeData) => React.ReactNode;
@@ -79,7 +79,7 @@ export type RenderSelectedItemInMultiple = (
     otherProps: { index: number | string; onClose: (tagContent: any, e: React.MouseEvent) => void }
 ) => {
     isRenderInTag: boolean;
-    content: React.ReactNode;
+    content: React.ReactNode
 };
 
 export type RenderSelectedItem = RenderSelectedItemInSingle | RenderSelectedItemInMultiple;
@@ -143,7 +143,7 @@ export interface TreeSelectProps extends Omit<BasicTreeSelectProps, OverrideComm
     onBlur?: (e: React.MouseEvent) => void;
     onChange?: OnChange;
     onFocus?: (e: React.MouseEvent) => void;
-    onVisibleChange?: (isVisible: boolean) => void;
+    onVisibleChange?: (isVisible: boolean) => void
 }
 
 export type OverrideCommonState =
@@ -160,7 +160,7 @@ export interface TreeSelectState extends Omit<BasicTreeSelectInnerData, Override
     rePosKey: number;
     dropdownMinWidth: null | number;
     isHovering: boolean;
-    prevProps: TreeSelectProps;
+    prevProps: TreeSelectProps
 }
 
 const prefixcls = cssClasses.PREFIX;

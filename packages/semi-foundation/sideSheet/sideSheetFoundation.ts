@@ -1,7 +1,6 @@
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import { get, noop } from 'lodash';
 import KeyCode from '../utils/keyCode';
-import { Motion } from '../utils/type';
 
 
 export interface SideSheetProps {
@@ -19,7 +18,7 @@ export interface SideSheetProps {
     mask?: boolean;
     maskClosable?: boolean;
     maskStyle?: Record<string, any>;
-    motion?: Motion;
+    motion?: boolean;
     onCancel?: (e: any) => void;
     placement?: 'top' | 'bottom' | 'left' | 'right';
     size?: 'small' | 'medium' | 'large';
@@ -29,11 +28,12 @@ export interface SideSheetProps {
     width?: number | string;
     zIndex?: number;
     children?: any;
-    'aria-label'?: string;
+    'aria-label'?: string
 }
 
 export interface SideSheetState {
-    hidden: boolean;
+    displayNone: boolean;
+    shouldRender: boolean
 }
 
 export interface SideSheetAdapter extends DefaultAdapter<SideSheetProps, SideSheetState> {
@@ -43,8 +43,10 @@ export interface SideSheetAdapter extends DefaultAdapter<SideSheetProps, SideShe
     notifyVisibleChange: (visible: boolean) => void;
     setOnKeyDownListener: () => void;
     removeKeyDownListener: () => void;
-    toggleHidden: (hidden: boolean) => void;
+    toggleDisplayNone: (displayNone: boolean) => void;
+    setShouldRender: (shouldRender: boolean) => void
 }
+
 
 
 export default class SideSheetFoundation extends BaseFoundation<SideSheetAdapter> {
@@ -89,43 +91,17 @@ export default class SideSheetFoundation extends BaseFoundation<SideSheetAdapter
         }
     }
 
-    mergeMotionProp = (motion: any, prop: string, cb: () => void) => {
-        const mergedMotion = typeof (motion) === 'undefined' || motion ? {
-            ...motion,
-            [prop]: (...args: any) => {
-                const curr = get(motion, prop);
-                if (typeof curr === 'function') {
-                    curr(...args);
-                }
-                cb();
-            },
-        } : false;
-        return mergedMotion;
-    };
+    setShouldRender(shouldRender: boolean) {
+        this._adapter.setShouldRender(shouldRender);
+    }
 
-    getMergedMotion = () => {
-        const {
-            motion,
-            visible,
-            keepDOM,
-        } = this.getProps();
-        let mergedMotion = this.mergeMotionProp(motion, 'didEnter', (...args) => {
-            const didEnter = get(motion, 'didEnter');
-            if (typeof didEnter === 'function') {
-                didEnter(...args);
-            }
-            this._adapter.notifyVisibleChange(visible);
-        });
-        mergedMotion = this.mergeMotionProp(mergedMotion, 'didLeave', (...args) => {
-            const didLeave = get(motion, 'didLeave');
-            if (typeof didLeave === 'function') {
-                didLeave(...args);
-            }
-            this._adapter.notifyVisibleChange(visible);
-        });
-        if (keepDOM) {
-            mergedMotion = this.mergeMotionProp(mergedMotion, 'didLeave', this._adapter.toggleHidden.bind(this, true));
-        }
-        return mergedMotion;
-    };
+    onVisibleChange(visible: boolean) {
+        this._adapter.notifyVisibleChange(visible);
+    }
+
+
+    toggleDisplayNone = (displayNone:boolean)=>{
+        this._adapter.toggleDisplayNone(displayNone);
+    }
+
 }

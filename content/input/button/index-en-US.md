@@ -100,7 +100,7 @@ function ButtonDemo() {
                 <div key={idxTheme}>
                     <ul style={{ listStyle: 'none', display: 'flex', margin: 0, padding: 0 }}>
                         {types.map((type, idxType) => (
-                            <li key={'' + idxTheme + idxType} style={{ margin:10 }}>
+                            <li key={'' + idxTheme + idxType} style={{ margin: 10 }}>
                                 <Button
                                     theme={theme[0]}
                                     type={type[0]}
@@ -133,7 +133,7 @@ function ButtonDemo() {
                 <div key={idxTheme}>
                     <ul style={{ listStyle: 'none', display: 'flex', margin: 0, padding: 0 }}>
                         {types.map((type, idxType) => (
-                            <li key={'' + idxTheme + idxType} style={{ margin:10 }}>
+                            <li key={'' + idxTheme + idxType} style={{ margin: 10 }}>
                                 <Button
                                     theme={theme[0]}
                                     type={type[0]}
@@ -166,7 +166,7 @@ function ButtonDemo() {
                 <div key={idxTheme}>
                     <ul style={{ listStyle: 'none', display: 'flex', margin: 0, padding: 0 }}>
                         {types.map((type, idxType) => (
-                            <li key={'' + idxTheme + idxType} style={{ margin:10 }}>
+                            <li key={'' + idxTheme + idxType} style={{ margin: 10 }}>
                                 <Button
                                     theme={theme[0]}
                                     type={type[0]}
@@ -198,8 +198,8 @@ import { Button } from '@douyinfe/semi-ui';
 function ButtonDemo() {
     return (
         <div>
-            <Button size='large' style={{ marginRight:8 }}>large</Button>
-            <Button size='default' style={{ marginRight:8 }}>default</Button>
+            <Button size='large' style={{ marginRight: 8 }}>large</Button>
+            <Button size='default' style={{ marginRight: 8 }}>default</Button>
             <Button size='small'>small</Button>
         </div>
     );
@@ -448,9 +448,9 @@ function SplitButtonDemo(){
     ];
 
     const [btnVisible, setBtnVisible] = useState({
-        1:false,
-        2:false,
-        3:false
+        1: false,
+        2: false,
+        3: false
     });
 
     const handleVisibleChange = (key, visible)=>{
@@ -461,22 +461,22 @@ function SplitButtonDemo(){
 
     return (
         <div>
-            <SplitButtonGroup style={{ marginRight:10 }} aria-label="Project operate button group">
+            <SplitButtonGroup style={{ marginRight: 10 }} aria-label="Project operate button group">
                 <Button theme="solid" type="primary">SplitButton</Button>
                 <Dropdown onVisibleChange={(v)=>handleVisibleChange(1, v)} menu={menu} trigger="click" position="bottomRight">
-                    <Button style={btnVisible[1]?{ background:'var(--semi-color-primary-hover)', padding:'8px 4px' }:{ padding:'8px 4px' }} theme="solid" type="primary" icon={<IconTreeTriangleDown size="small" />}></Button>
+                    <Button style={btnVisible[1]?{ background: 'var(--semi-color-primary-hover)', padding: '8px 4px' }:{ padding: '8px 4px' }} theme="solid" type="primary" icon={<IconTreeTriangleDown size="small" />}></Button>
                 </Dropdown>
             </SplitButtonGroup>
-            <SplitButtonGroup style={{ marginRight:10 }} aria-label="Project operate button group">
+            <SplitButtonGroup style={{ marginRight: 10 }} aria-label="Project operate button group">
                 <Button theme="light" type="primary">SplitButton</Button>
                 <Dropdown onVisibleChange={(v)=>handleVisibleChange(2, v)} menu={menu} trigger="click" position="bottomRight">
-                    <Button style={btnVisible[2]?{ background:'var(--semi-color-fill-1)', padding:'8px 4px' }:{ padding:'8px 4px' }} theme="light" type="primary" icon={<IconTreeTriangleDown size="small" />}></Button>
+                    <Button style={btnVisible[2]?{ background: 'var(--semi-color-fill-1)', padding: '8px 4px' }:{ padding: '8px 4px' }} theme="light" type="primary" icon={<IconTreeTriangleDown size="small" />}></Button>
                 </Dropdown>
             </SplitButtonGroup>
             <SplitButtonGroup aria-label="Project operate button group">
-                <Button style={btnVisible[3]?{ background:'var(--semi-color-fill-0)' }:null} theme="borderless" type="primary">SplitButton</Button>
+                <Button style={btnVisible[3]?{ background: 'var(--semi-color-fill-0)' }:null} theme="borderless" type="primary">SplitButton</Button>
                 <Dropdown onVisibleChange={(v)=>handleVisibleChange(3, v)} menu={menu} trigger="click" position="bottomRight">
-                    <Button style={btnVisible[3]?{ background:'var(--semi-color-fill-1)', padding:'8px 4px' }:{ padding:'8px 4px' }} theme="borderless" type="primary" icon={<IconTreeTriangleDown size="small" />}></Button>
+                    <Button style={btnVisible[3]?{ background: 'var(--semi-color-fill-1)', padding: '8px 4px' }:{ padding: '8px 4px' }} theme="borderless" type="primary" icon={<IconTreeTriangleDown size="small" />}></Button>
                 </Dropdown>
             </SplitButtonGroup>
         </div>

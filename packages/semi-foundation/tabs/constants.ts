@@ -18,6 +18,10 @@ const cssClasses = {
     TABS_PANE_ACTIVE: `${BASE_CLASS_PREFIX}-tabs-pane-active`,
     TABS_PANE_MOTION_OVERLAY: `${BASE_CLASS_PREFIX}-tabs-pane-motion-overlay`,
     TABS_PANE_ANIMATING: `${BASE_CLASS_PREFIX}-tabs-pane-animating`,
+    "TABS_PANE_ANIMATE_LEFT_SHOW": `${BASE_CLASS_PREFIX}-tabs-pane-animate-leftShow`,
+    "TABS_PANE_ANIMATE_RIGHT_SHOW": `${BASE_CLASS_PREFIX}-tabs-pane-animate-rightShow`,
+    "TABS_PANE_ANIMATE_TOP_SHOW": `${BASE_CLASS_PREFIX}-tabs-pane-animate-topShow`,
+    "TABS_PANE_ANIMATE_BOTTOM_SHOW": `${BASE_CLASS_PREFIX}-tabs-pane-animate-bottomShow`,
 };
 
 const numbers = {

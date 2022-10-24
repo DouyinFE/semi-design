@@ -30,7 +30,7 @@ export interface MonthsGridProps extends MonthsGridFoundationProps, BaseProps {
     renderDate?: () => React.ReactNode;
     renderFullDate?: () => React.ReactNode;
     focusRecordsRef?: React.RefObject<{ rangeStart: boolean; rangeEnd: boolean }>;
-    yearAndMonthOpts?: ScrollItemProps<any>;
+    yearAndMonthOpts?: ScrollItemProps<any>
 }
 
 export type MonthsGridState = MonthsGridFoundationState;
@@ -68,7 +68,6 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
         startDateOffset: PropTypes.func,
         endDateOffset: PropTypes.func,
         autoSwitchDate: PropTypes.bool,
-        motionEnd: PropTypes.bool,
         density: PropTypes.string,
         dateFnsLocale: PropTypes.object.isRequired,
         timeZone: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -171,7 +170,7 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
     }
 
     componentDidUpdate(prevProps: MonthsGridProps, prevState: MonthsGridState) {
-        const { defaultValue, defaultPickerValue, motionEnd } = this.props;
+        const { defaultValue, defaultPickerValue } = this.props;
         if (prevProps.defaultValue !== defaultValue) {
             // we should always update panel state when value changes
             this.foundation.updateSelectedFromProps(defaultValue);
@@ -181,12 +180,6 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
             this.foundation.initDefaultPickerValue();
         }
 
-        if (prevProps.motionEnd !== motionEnd && motionEnd === true) {
-            if (this.foundation.isRangeType()) {
-                const currentPanelHeight = this.calcScrollListHeight();
-                this.setState({ currentPanelHeight });
-            }
-        }
 
         const isRange = this.foundation.isRangeType();
         if (isRange) {
@@ -242,14 +235,10 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
      * Calculate the height of the scrolling list, if the animation is not over, return 0
      */
     calcScrollListHeight = () => {
-        const { motionEnd } = this.props;
-        let wrapLeft, wrapRight, switchLeft, switchRight;
-        if (motionEnd) {
-            wrapLeft = this.adapter.getCache(`wrap-${strings.PANEL_TYPE_LEFT}`);
-            wrapRight = this.adapter.getCache(`wrap-${strings.PANEL_TYPE_RIGHT}`);
-            switchLeft = this.adapter.getCache(`switch-${strings.PANEL_TYPE_LEFT}`);
-            switchRight = this.adapter.getCache(`switch-${strings.PANEL_TYPE_RIGHT}`);
-        }
+        const wrapLeft = this.adapter.getCache(`wrap-${strings.PANEL_TYPE_LEFT}`);
+        const wrapRight = this.adapter.getCache(`wrap-${strings.PANEL_TYPE_RIGHT}`);
+        const switchLeft = this.adapter.getCache(`switch-${strings.PANEL_TYPE_LEFT}`);
+        const switchRight = this.adapter.getCache(`switch-${strings.PANEL_TYPE_RIGHT}`);
 
         const leftRect = wrapLeft && wrapLeft.getBoundingClientRect();
         const rightRect = wrapRight && wrapRight.getBoundingClientRect();

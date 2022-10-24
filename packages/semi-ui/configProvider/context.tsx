@@ -6,7 +6,7 @@ export interface ContextValue {
     timeZone?: string | number;
     locale?: Locale;
     children?: React.ReactNode;
-    getPopupContainer?(): HTMLElement;
+    getPopupContainer?(): HTMLElement
 }
 
 const ConfigContext = React.createContext<ContextValue>({});

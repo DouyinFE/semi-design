@@ -7,7 +7,7 @@ import { Motion } from '../../_base/base';
 interface HookModalProps {
     afterClose: (...args: any[]) => void;
     config: ConfirmProps;
-    motion?: Motion;
+    motion?: Motion
 }
 
 export interface HookModalRef {

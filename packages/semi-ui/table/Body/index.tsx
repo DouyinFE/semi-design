@@ -74,23 +74,23 @@ export interface BodyProps extends BaseProps {
     rowExpandable?: RowExpandable<Record<string, any>>;
     renderExpandIcon: (record: Record<string, any>, isNested: boolean) => ReactNode | null;
     headerRef?: React.MutableRefObject<HTMLDivElement> | ((instance: any) => void);
-    onScroll?: VirtualizedOnScroll;
+    onScroll?: VirtualizedOnScroll
 }
 
 export interface BodyState {
     virtualizedData?: Array<FlattenData | GroupFlattenData>;
     cache?: {
         virtualizedScrollTop?: number;
-        virtualizedScrollLeft?: number;
+        virtualizedScrollLeft?: number
     };
     cachedExpandBtnShouldInRow?: boolean;
-    cachedExpandRelatedProps?: any[];
+    cachedExpandRelatedProps?: any[]
 }
 
 export interface BodyContext {
     getVirtualizedListRef: GetVirtualizedListRef;
     flattenedColumns: ColumnProps[];
-    getCellWidths: (flattenedColumns: ColumnProps[]) => number[];
+    getCellWidths: (flattenedColumns: ColumnProps[]) => number[]
 }
 
 class Body extends BaseComponent<BodyProps, BodyState> {
@@ -561,7 +561,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
             level?: number;
             expanded?: boolean;
             expandableRow?: boolean;
-            onRowClick?: (...args: any[]) => void;
+            onRowClick?: (...args: any[]) => void
         } = {
             level: undefined,
             expanded,
@@ -752,10 +752,10 @@ class Body extends BaseComponent<BodyProps, BodyState> {
         const bodyStyle: {
             maxHeight?: string | number;
             overflow?: string;
-            WebkitTransform?: string;
+            WebkitTransform?: string
         } = {};
         const tableStyle: {
-            width?: string | number;
+            width?: string | number
         } = {};
         const Table = get(components, 'body.outer', 'table');
         const BodyWrapper = get(components, 'body.wrapper') || 'tbody';
@@ -845,7 +845,7 @@ export interface RenderExpandedRowProps {
     index?: number;
     rowKey?: RowKey<Record<string, any>>;
     virtualized?: Virtualized;
-    level?: number;
+    level?: number
 }
 
 export interface RenderSectionRowProps {
@@ -855,5 +855,5 @@ export interface RenderSectionRowProps {
     group?: any;
     groupKey: string | number;
     index?: number;
-    expanded?: boolean;
+    expanded?: boolean
 }

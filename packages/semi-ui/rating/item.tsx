@@ -27,12 +27,12 @@ export interface RatingItemProps extends BaseProps {
     'aria-describedby'?: React.AriaAttributes['aria-describedby'];
     onFocus?: (e: React.FocusEvent) => void;
     onBlur?: (e: React.FocusEvent) => void;
-    preventScroll?: boolean;
+    preventScroll?: boolean
 }
 
 export interface RatingItemState {
-    firstStarFocus: boolean,
-    secondStarFocus: boolean,
+    firstStarFocus: boolean;
+    secondStarFocus: boolean
 }
 
 export default class Item extends BaseComponent<RatingItemProps, RatingItemState> {
@@ -182,7 +182,7 @@ export default class Item extends BaseComponent<RatingItemProps, RatingItemState
         const AriaSetSize = allowHalf ? count * 2 + 1 : count + 1;
         const firstStarProps = {
             ref: this.saveFirstStar as any,
-            role:"radio",
+            role: "radio",
             'aria-checked': value === index + 0.5,
             'aria-posinset': 2 * index + 1,
             'aria-setsize': AriaSetSize,
@@ -195,7 +195,7 @@ export default class Item extends BaseComponent<RatingItemProps, RatingItemState
             onFocus: (e) => {
                 this.onFocus(e, 'first');
             },
-            onBlur:(e) => {
+            onBlur: (e) => {
                 this.onBlur(e, 'first');
             },
         };
@@ -203,7 +203,7 @@ export default class Item extends BaseComponent<RatingItemProps, RatingItemState
         const secondStarTabIndex = !disabled && ((value === index + 1) || (isEmpty && value === 0)) ? 0 : -1;
         const secondStarProps = {
             ref: this.saveSecondStar as any,
-            role:"radio",
+            role: "radio",
             'aria-checked': isEmpty ? value === 0 : value === index + 1,
             'aria-posinset': allowHalf ? 2 * (index + 1) : index + 1,
             'aria-setsize': AriaSetSize, 
@@ -216,7 +216,7 @@ export default class Item extends BaseComponent<RatingItemProps, RatingItemState
             onFocus: (e) => {
                 this.onFocus(e, 'second');
             },
-            onBlur:(e) => {
+            onBlur: (e) => {
                 this.onBlur(e, 'second');
             },
         };

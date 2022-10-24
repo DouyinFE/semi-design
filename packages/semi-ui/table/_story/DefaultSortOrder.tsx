@@ -6,7 +6,7 @@ interface Record {
     title?: string;
     age?: number;
     address?: string;
-    name?: string;
+    name?: string
 }
 
 const columns: ColumnProps<Record>[] = [
@@ -87,7 +87,7 @@ const data2 = [
 interface OnChangeArgs {
     filters?: unknown[];
     sorter?: unknown;
-    extra?: unknown;
+    extra?: unknown
 }
 
 function App(): React.ReactElement {

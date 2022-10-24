@@ -22,7 +22,7 @@ export interface CollapseReactProps extends CollapseProps{
     collapseIcon?: React.ReactNode;
     children?: React.ReactNode;
     style?: CSSProperties;
-    onChange?: (activeKey: CollapseProps['activeKey'], e: React.MouseEvent) => void;
+    onChange?: (activeKey: CollapseProps['activeKey'], e: React.MouseEvent) => void
 }
 
 

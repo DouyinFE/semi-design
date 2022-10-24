@@ -28,12 +28,12 @@ export interface ScrollItemProps<T extends Item> {
     motion?: Motion;
     style?: React.CSSProperties;
     type?: string | number; // used to identify the scrollItem, used internally by the semi component, and does not need to be exposed to the user
-    'aria-label'?: AriaAttributes['aria-label'];
+    'aria-label'?: AriaAttributes['aria-label']
 }
 
 export interface ScrollItemState {
     prependCount: number;
-    appendCount: number;
+    appendCount: number
 }
 export default class ScrollItem<T extends Item> extends BaseComponent<ScrollItemProps<T>, ScrollItemState> {
     static propTypes = {

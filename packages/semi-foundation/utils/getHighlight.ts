@@ -6,12 +6,12 @@ interface ChunkQuery {
     autoEscape?: boolean;
     caseSensitive?: boolean;
     searchWords: string[];
-    sourceString: string;
+    sourceString: string
 }
 interface Chunk {
     start: number;
     end: number;
-    highlight: boolean;
+    highlight: boolean
 }
 /**
    * Examine text for any matches.

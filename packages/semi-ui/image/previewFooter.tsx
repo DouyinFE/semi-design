@@ -214,7 +214,7 @@ export default class Footer extends BaseComponent<FooterProps> {
             onClick={!disableDownload ? onDownload : undefined}
             className={cls(`${footerPrefixCls}-gap`,
                 {
-                    [`${footerPrefixCls}-disabled`] : disableDownload,
+                    [`${footerPrefixCls}-disabled`]: disableDownload,
                 },
             )}
         />;

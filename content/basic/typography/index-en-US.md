@@ -218,7 +218,7 @@ function Demo() {
             <br />
             <Text 
                 ellipsis={{ 
-                    showTooltip:{
+                    showTooltip: {
                         opts: { content: 'This is a supercalifragilisticexpialidocious tooltip' }
                     }
                 }}
@@ -266,7 +266,7 @@ function Demo() {
         <div>
             <Text 
                 ellipsis={{ 
-                    showTooltip:{
+                    showTooltip: {
                         opts: { content: 'Insfrastructure|Data-inf|bytegraph.cheetah.user_relation' }
                     }
                 }}
@@ -277,7 +277,7 @@ function Demo() {
             <br />
             <Text 
                 ellipsis={{ 
-                    showTooltip:{
+                    showTooltip: {
                         opts: { content: 'Insfrastructure|Data-inf|bytegraph.cheetah.user_relation', className: 'components-typography-demo' }
                     }
                 }}
@@ -288,7 +288,7 @@ function Demo() {
             <br />
             <Text 
                 ellipsis={{
-                    showTooltip:{
+                    showTooltip: {
                         opts: { content: 'Insfrastructure|Data-inf|bytegraph.cheetah.user_relation', style: { wordBreak: 'break-all' } }
                     }
                 }}

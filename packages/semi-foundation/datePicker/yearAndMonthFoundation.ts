@@ -16,35 +16,35 @@ export interface YearAndMonthFoundationProps {
     presetPosition?: PresetPosition;
     renderQuickControls?: any;
     renderDateInput?: any;
-    yearAndMonthOpts?: any;
+    yearAndMonthOpts?: any
 }
 
 export interface YearAndMonthFoundationState {
     years: Array<{ value: number; year: number }>;
     months: Array<{ value: number; month: number }>;
     currentYear: number;
-    currentMonth: number;
+    currentMonth: number
 }
 export interface YearAndMonthAdapter extends DefaultAdapter<YearAndMonthFoundationProps, YearAndMonthFoundationState> {
     setCurrentYear: (currentYear: number) => void;
     setCurrentMonth: (currentMonth: number) => void;
     notifySelectYear: (year: number) => void;
     notifySelectMonth: (month: number) => void;
-    notifyBackToMain: () => void;
+    notifyBackToMain: () => void
 }
 
 export interface MonthScrollItem {
     [k: string]: any;
     month: number;
     value: string;
-    disabled: boolean;
+    disabled: boolean
 }
 
 export interface YearScrollItem {
     [k: string]: any;
     year: number;
     value: number;
-    disabled: boolean;
+    disabled: boolean
 }
 
 export default class YearAndMonthFoundation extends BaseFoundation<YearAndMonthAdapter> {

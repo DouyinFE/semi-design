@@ -17,7 +17,7 @@ export interface NavStepProps {
     onClick?: React.MouseEventHandler<HTMLDivElement>;
     onKeyDown?: React.KeyboardEventHandler<HTMLDivElement>;
     "role"?: React.AriaRole;
-    "aria-label"?: React.AriaAttributes["aria-label"];
+    "aria-label"?: React.AriaAttributes["aria-label"]
 }
 
 const NavStep = (props: NavStepProps) => {

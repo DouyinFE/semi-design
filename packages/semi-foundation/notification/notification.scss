@@ -1,4 +1,4 @@
-//@import '../theme/variables.scss';
+@import "./animation.scss";
 @import './variables.scss';
 
 $module: #{$prefix}-notification;
@@ -46,6 +46,7 @@ $module: #{$prefix}-notification;
         bottom: 0;
         left: 0;
     }
+
 }
 
 .#{$module} {
@@ -164,6 +165,187 @@ $module: #{$prefix}-notification;
         &-later {
             text-align: center;
             flex-grow: 1;
+        }
+
+        @keyframes #{$module}-slideShow_top {
+            from {
+                opacity: $animation_opacity-notification-show;
+                transform: translateY(-100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes #{$module}-slideHide_top {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            to {
+                opacity: $animation_opacity-notification-hide;
+                transform: translateY(-100%);
+            }
+        }
+
+        @keyframes #{$module}-slideShow_topLeft {
+            from {
+                opacity: $animation_opacity-notification-show;
+                transform: translateX(-100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes #{$module}-slideHide_topLeft {
+            from {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            to {
+                opacity: $animation_opacity-notification-hide;
+                transform: translateX(-100%);
+            }
+        }
+
+        @keyframes #{$module}-slideShow_topRight {
+            from {
+                opacity: $animation_opacity-notification-show;
+                transform: translateX(100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes #{$module}-slideHide_topRight {
+            from {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            to {
+                opacity: $animation_opacity-notification-hide;
+                transform: translateX(100%);
+            }
+        }
+
+        @keyframes #{$module}-slideShow_bottom {
+            from {
+                opacity: $animation_opacity-notification-show;
+                transform: translateY(100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes #{$module}-slideHide_bottom {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            to {
+                opacity: $animation_opacity-notification-hide;
+                transform: translateY(100%);
+            }
+        }
+
+        @keyframes #{$module}-slideShow_bottomLeft {
+            from {
+                opacity: $animation_opacity-notification-show;
+                transform: translateX(-100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes #{$module}-slideHide_bottomLeft {
+            from {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            to {
+                opacity: $animation_opacity-notification-hide;
+                transform: translateX(-100%);
+            }
+        }
+
+        @keyframes #{$module}-slideShow_bottomRight {
+            from {
+                opacity: $animation_opacity-notification-show;
+                transform: translateX(100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes #{$module}-slideHide_bottomRight {
+            from {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            to {
+                opacity: $animation_opacity-notification-hide;
+                transform: translateX(100%);
+            }
+        }
+
+  
+
+        &-animation-show_top{
+            animation: #{$module}-slideShow_top $animation_duration-notification-show $animation_function-notification-show $animation_delay-notification-show;
+        }
+
+        &-animation-hide_top{
+            animation: #{$module}-slideHide_top $animation_duration-notification-hide $animation_function-notification-hide $animation_delay-notification-hide;
+        }
+
+        &-animation-show_topLeft{
+            animation: #{$module}-slideShow_topLeft $animation_duration-notification-show $animation_function-notification-show $animation_delay-notification-show;
+        }
+
+        &-animation-hide_topLeft{
+            animation: #{$module}-slideHide_topLeft $animation_duration-notification-hide $animation_function-notification-hide $animation_delay-notification-hide;
+        }
+
+        &-animation-show_topRight{
+            animation: #{$module}-slideShow_topRight $animation_duration-notification-show $animation_function-notification-show $animation_delay-notification-show;
+        }
+
+        &-animation-hide_topRight{
+            animation: #{$module}-slideHide_topRight $animation_duration-notification-hide $animation_function-notification-hide $animation_delay-notification-hide;
+        }
+
+        &-animation-show_bottom{
+            animation: #{$module}-slideShow_bottom $animation_duration-notification-show $animation_function-notification-show $animation_delay-notification-show;
+        }
+
+        &-animation-hide_bottom{
+            animation: #{$module}-slideHide_bottom $animation_duration-notification-hide $animation_function-notification-hide $animation_delay-notification-hide;
+        }
+
+        &-animation-show_bottomLeft{
+            animation: #{$module}-slideShow_bottomLeft $animation_duration-notification-show $animation_function-notification-show $animation_delay-notification-show;
+        }
+
+        &-animation-hide_bottomLeft{
+            animation: #{$module}-slideHide_bottomLeft $animation_duration-notification-hide $animation_function-notification-hide $animation_delay-notification-hide;
+        }
+        &-animation-show_bottomRight{
+            animation: #{$module}-slideShow_bottomRight $animation_duration-notification-show $animation_function-notification-show $animation_delay-notification-show;
+        }
+
+        &-animation-hide_bottomRight{
+            animation: #{$module}-slideHide_bottomRight $animation_duration-notification-hide $animation_function-notification-hide $animation_delay-notification-hide;
         }
     }
 }

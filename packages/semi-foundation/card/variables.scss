@@ -16,7 +16,7 @@ $font-card_title-fontSize: $font-size-header-6; // 卡片文字大小 - 标题
 
 $radius-card: var(--semi-border-radius-medium); // 卡片圆角
 
-$motion-card-transition_duration: 0.3s; // 卡片悬浮动画时长
+$motion-card-transition_duration: 300ms; // 卡片悬浮动画时长
 
 $width-card-border: $border-thickness-control; // 卡片描边宽度
 

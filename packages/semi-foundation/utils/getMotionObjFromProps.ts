@@ -11,7 +11,7 @@ export interface MergeMotionProps {
     didLeave?: () => void;
     onStart?: () => void;
     onRest?: () => void;
-    state?: Record<string, any>;
+    state?: Record<string, any>
 }
 
 /**

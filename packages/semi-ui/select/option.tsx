@@ -18,16 +18,16 @@ export interface OptionProps extends BasicOptionProps {
     disabled?: boolean;
     showTick?: boolean;
     className?: string;
-    style?: React.CSSProperties;
+    style?: React.CSSProperties
 }
 interface renderOptionContentArgument {
     config: {
         searchWords: any;
-        sourceString: React.ReactNode;
+        sourceString: React.ReactNode
     };
     children: React.ReactNode;
     inputValue: string;
-    prefixCls: string;
+    prefixCls: string
 }
 class Option extends PureComponent<OptionProps> {
     static isSelectOption = true;

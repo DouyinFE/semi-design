@@ -93,7 +93,7 @@ export interface DateObj {
     isToday: boolean;
     isWeekend: boolean;
     isSameMonth: boolean;
-    month: string;
+    month: string
 }
 
 export type weeekStartsOnEnum = 0 | 1 | 2 | 3 | 4 | 5 | 6;

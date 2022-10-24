@@ -20,12 +20,12 @@ export interface SpinProps {
     wrapperClassName?: string;
     style?: React.CSSProperties;
     childStyle?: React.CSSProperties;
-    children?: React.ReactNode;
+    children?: React.ReactNode
 }
 
 interface SpinState {
     delay: number;
-    loading: boolean;
+    loading: boolean
 }
 class Spin extends BaseComponent<SpinProps, SpinState> {
     static propTypes = {
@@ -91,22 +91,17 @@ class Spin extends BaseComponent<SpinProps, SpinState> {
     renderSpin() {
         const { indicator, tip } = this.props;
         const { loading } = this.state;
-        const spinIconCls = cls({
-            [`${prefixCls}-animate`]: loading,
-        });
 
-        return loading ? (
-            <div className={`${prefixCls}-wrapper`}>
-                {indicator ? (
-                    <div className={spinIconCls} x-semi-prop="indicator">
-                        {indicator}
-                    </div>
-                ) : (
-                    <SpinIcon />
-                )}
-                {tip ? <div x-semi-prop="tip">{tip}</div> : null}
-            </div>
-        ) : null;
+        return loading ? <div className={`${prefixCls}-wrapper`}>
+            {indicator ? (
+                <div className={`${prefixCls}-animate`} x-semi-prop="indicator">
+                    {indicator}
+                </div>
+            ) : (
+                <SpinIcon />
+            )}
+            {tip ? <div x-semi-prop="tip">{tip}</div> : null}
+        </div>:null;
     }
 
     render() {

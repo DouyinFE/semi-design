@@ -1,7 +1,7 @@
 import BaseFoundation, { DefaultAdapter } from "../base/foundation";
 
 export interface PreviewFooterAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
-    setStartMouseOffset: (time: number) => void;
+    setStartMouseOffset: (time: number) => void
 }
 
 export default class PreviewFooterFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<PreviewFooterAdapter<P, S>, P, S> {

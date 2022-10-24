@@ -41,7 +41,7 @@ export interface TreeContextValue {
     renderFullLabel?: (renderFullLabelProps: RenderFullLabelProps) => React.ReactNode;
     dragOverNodeKey?: string | string[];
     dropPosition?: number | null;
-    labelEllipsis?: boolean | Virtualize;
+    labelEllipsis?: boolean | Virtualize
 }
 
 const TreeContext = React.createContext<TreeContextValue>(null);

@@ -112,7 +112,7 @@ export interface UploadProps {
     uploadTrigger?: 'auto' | 'custom';
     validateMessage?: ReactNode;
     validateStatus?: ValidateStatus;
-    withCredentials?: boolean;
+    withCredentials?: boolean
 }
 
 export interface UploadState {
@@ -121,7 +121,7 @@ export interface UploadState {
     inputKey: number;
     localUrls: Array<string>;
     replaceIdx: number;
-    replaceInputKey: number;
+    replaceInputKey: number
 }
 
 class Upload extends BaseComponent<UploadProps, UploadState> {
