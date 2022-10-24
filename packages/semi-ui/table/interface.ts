@@ -150,6 +150,8 @@ export interface FilterDropdownItem {
 }
 export interface RenderOptions {
     expandIcon?: React.ReactNode;
+    selection?: React.ReactNode;
+    indentText?: React.ReactNode
 }
 export interface OnCellReturnObject extends React.TdHTMLAttributes<HTMLElement> {
     [x: string]: any;
