@@ -27,7 +27,6 @@ import Item, { CascaderData, Entities, Entity, Data } from './item';
 import Trigger from '../trigger';
 import Tag from '../tag';
 import TagInput from '../tagInput';
-import { Motion } from '../_base/base';
 import { isSemiIcon } from '../_utils';
 import { Position } from '../tooltip/index';
 
@@ -60,7 +59,7 @@ export interface CascaderProps extends BasicCascaderProps {
     defaultValue?: Value;
     dropdownStyle?: CSSProperties;
     emptyContent?: ReactNode;
-    motion?: Motion;
+    motion?: boolean;
     treeData?: Array<CascaderData>;
     restTagsPopoverProps?: PopoverProps;
     children?: React.ReactNode;
@@ -111,7 +110,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         dropdownClassName: PropTypes.string,
         dropdownStyle: PropTypes.object,
         emptyContent: PropTypes.node,
-        motion: PropTypes.oneOfType([PropTypes.bool, PropTypes.func, PropTypes.object]),
+        motion: PropTypes.bool,
         /* show search input, if passed in a function, used as custom filter */
         filterTreeNode: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
         filterLeafOnly: PropTypes.bool,
@@ -966,19 +965,19 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
             stopPropagation,
             mouseLeaveDelay,
             mouseEnterDelay,
-            position
+            position,
+            motion
         } = this.props;
         const { isOpen, rePosKey } = this.state;
         const { direction } = this.context;
         const content = this.renderContent();
         const selection = this.renderSelection();
         const pos = position ?? (direction === 'rtl' ? 'bottomRight' : 'bottomLeft');
-        const mergedMotion: Motion = this.foundation.getMergedMotion();
         return (
             <Popover
                 getPopupContainer={getPopupContainer}
                 zIndex={zIndex}
-                motion={mergedMotion}
+                motion={motion}
                 ref={this.optionsRef}
                 content={content}
                 visible={isOpen}
@@ -989,6 +988,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                 stopPropagation={stopPropagation}
                 mouseLeaveDelay={mouseLeaveDelay}
                 mouseEnterDelay={mouseEnterDelay}
+                afterClose={()=>this.foundation.updateSearching(false)}
             >
                 {selection}
             </Popover>

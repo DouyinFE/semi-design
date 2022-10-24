@@ -76,7 +76,6 @@ export interface MonthsGridFoundationProps extends MonthsGridElementProps {
     startDateOffset?: () => void;
     endDateOffset?: () => void;
     autoSwitchDate?: boolean;
-    motionEnd?: boolean;
     density?: string;
     dateFnsLocale?: any;
     timeZone?: string | number;

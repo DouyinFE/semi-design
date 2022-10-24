@@ -550,27 +550,10 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         this._adapter.updateFocusState(true);
     }
 
-    getMergedMotion = () => {
-        const { motion } = this.getProps();
-        const { isSearching } = this.getStates();
-        if (isSearching) {
-            const mergedMotion =
-                typeof motion === 'undefined' || motion ?
-                    {
-                        ...motion,
-                        didLeave: (...args: any) => {
-                            const didLeave = get(motion, 'didLeave');
-                            if (typeof didLeave === 'function') {
-                                didLeave(...args);
-                            }
-                            this._adapter.updateStates({ isSearching: false });
-                        },
-                    } :
-                    false;
-            return mergedMotion;
-        }
-        return motion;
-    };
+
+    updateSearching = (isSearching:boolean)=>{
+        this._adapter.updateStates({ isSearching: false });
+    }
 
     handleItemClick(e: any, item: BasicEntity | BasicData) {
         const isDisabled = this._isDisabled();
