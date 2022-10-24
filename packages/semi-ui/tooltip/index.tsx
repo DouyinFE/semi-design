@@ -43,7 +43,7 @@ export type RenderContent = (props: RenderContentProps) => React.ReactNode;
 
 export interface TooltipProps extends BaseProps {
     children?: React.ReactNode;
-    motion?: Motion;
+    motion?: boolean;
     autoAdjustOverflow?: boolean;
     position?: Position;
     getPopupContainer?: () => HTMLElement;
@@ -108,7 +108,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
 
     static propTypes = {
         children: PropTypes.node,
-        motion: PropTypes.oneOfType([PropTypes.bool, PropTypes.object, PropTypes.func]),
+        motion: PropTypes.bool,
         autoAdjustOverflow: PropTypes.bool,
         position: PropTypes.oneOf(positionSet),
         getPopupContainer: PropTypes.func,

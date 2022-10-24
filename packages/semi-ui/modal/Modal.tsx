@@ -70,7 +70,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         header: PropTypes.node,
         footer: PropTypes.node,
         hasCancel: PropTypes.bool,
-        motion: PropTypes.oneOfType([PropTypes.bool, PropTypes.func, PropTypes.object]),
+        motion: PropTypes.bool,
         children: PropTypes.node,
         getPopupContainer: PropTypes.func,
         getContainerContext: PropTypes.func,

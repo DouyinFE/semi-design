@@ -134,7 +134,7 @@ export interface DatePickerFoundationProps extends ElementProps, RenderProps, Ev
     inputReadOnly?: boolean;
     inputStyle?: Record<string, any>;
     max?: number;
-    motion?: Motion;
+    motion?: boolean;
     multiple?: boolean;
     needConfirm?: boolean;
     onChangeWithDateFirst?: boolean;

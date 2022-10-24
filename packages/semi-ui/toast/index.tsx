@@ -36,7 +36,7 @@ export type {
 const createBaseToast = () => class ToastList extends BaseComponent<ToastListProps, ToastListState> {
     static ref: ToastList;
     static useToast: typeof useToast;
-    static defaultOpts: ToastReactProps & { motion: Motion } = {
+    static defaultOpts: ToastReactProps & { motion: boolean } = {
         motion: true,
         zIndex: 1010,
         content: '',

@@ -114,7 +114,7 @@ export interface BasicCascaderProps {
     dropdownStyle?: any;
     emptyContent?: any;
     filterLeafOnly?: boolean;
-    motion?: Motion;
+    motion?: boolean;
     filterTreeNode?: ((inputValue: string, treeNodeString: string) => boolean) | boolean;
     placeholder?: string;
     searchPlaceholder?: string;

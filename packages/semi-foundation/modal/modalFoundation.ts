@@ -1,5 +1,4 @@
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
-import { Motion } from '../utils/type';
 
 export type OKType = 'primary' | 'secondary' | 'tertiary' | 'warning' | 'danger';
 export type Size = 'small' | 'medium' | 'large' | 'full-width';

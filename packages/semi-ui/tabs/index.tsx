@@ -45,7 +45,7 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
         tabBarExtraContent: PropTypes.node,
         tabBarStyle: PropTypes.object,
         tabList: PropTypes.array,
-        tabPaneMotion: PropTypes.oneOfType([PropTypes.bool, PropTypes.object, PropTypes.func]),
+        tabPaneMotion: PropTypes.bool,
         tabPosition: PropTypes.oneOf(strings.POSITION_MAP),
         type: PropTypes.oneOf(strings.TYPE_MAP),
         onTabClose: PropTypes.func,

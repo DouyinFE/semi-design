@@ -1,7 +1,6 @@
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import { isNumber } from 'lodash';
 import { strings } from '../notification/constants';
-import { Motion } from '../utils/type';
 
 
 export type NoticePosition = 'top' | 'bottom' | 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight';
@@ -36,7 +35,7 @@ export interface NoticeState{
 }
 
 export interface NoticeInstance extends NoticeProps{
-    motion?: Motion
+    motion?: boolean
 }
 
 export interface NoticeAdapter extends DefaultAdapter<NoticeProps, NoticeState>{

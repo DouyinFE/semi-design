@@ -236,7 +236,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         triggerRender: PropTypes.func,
         stopPropagation: PropTypes.bool,
         // motion doesn't need to be exposed
-        motion: PropTypes.oneOfType([PropTypes.func, PropTypes.bool, PropTypes.object]),
+        motion: PropTypes.bool,
 
         onChangeWithObject: PropTypes.bool,
 

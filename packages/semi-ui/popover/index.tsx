@@ -23,7 +23,7 @@ export interface PopoverProps extends BaseProps {
     content?: TooltipProps['content'];
     visible?: boolean;
     autoAdjustOverflow?: boolean;
-    motion?: Motion;
+    motion?: boolean;
     position?: Position;
     mouseEnterDelay?: number;
     mouseLeaveDelay?: number;
@@ -63,7 +63,7 @@ class Popover extends React.PureComponent<PopoverProps, PopoverState> {
         content: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
         visible: PropTypes.bool,
         autoAdjustOverflow: PropTypes.bool,
-        motion: PropTypes.oneOfType([PropTypes.bool, PropTypes.object, PropTypes.func]),
+        motion: PropTypes.bool,
         position: PropTypes.oneOf(positionSet),
         // getPopupContainer: PropTypes.func,
         mouseEnterDelay: PropTypes.number,

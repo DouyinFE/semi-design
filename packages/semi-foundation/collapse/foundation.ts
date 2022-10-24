@@ -13,7 +13,7 @@ export interface CollapseProps{
     style?: any;
     className?: string;
     keepDOM?: boolean;
-    motion?: Motion;
+    motion?: boolean;
     expandIconPosition?: 'left' | 'right'
 
 }
