@@ -21,6 +21,7 @@ import YearAndMonth, { YearAndMonthProps } from './yearAndMonth';
 import '@douyinfe/semi-foundation/datePicker/datePicker.scss';
 import { Locale } from '../locale/interface';
 import { TimePickerProps } from '../timePicker/TimePicker';
+import { ScrollItemProps } from '../scrollList/scrollItem';
 import { InsetInputValue, InsetInputChangeProps } from '@douyinfe/semi-foundation/datePicker/inputFoundation';
 
 export interface DatePickerProps extends DatePickerFoundationProps {
@@ -44,6 +45,7 @@ export interface DatePickerProps extends DatePickerFoundationProps {
     onPresetClick?: (item: PresetType, e: React.MouseEvent<HTMLDivElement>) => void;
     locale?: Locale['DatePicker'];
     dateFnsLocale?: Locale['dateFnsLocale'];
+    yearAndMonthOpts?: ScrollItemProps<any>;
 }
 
 export type DatePickerState = DatePickerFoundationState;
@@ -127,6 +129,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
         onPanelChange: PropTypes.func,
         rangeSeparator: PropTypes.string,
         preventScroll: PropTypes.bool,
+        yearAndMonthOpts: PropTypes.object
     };
 
     static defaultProps = {
@@ -418,7 +421,8 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             timeZone,
             triggerRender,
             insetInput,
-            presetPosition
+            presetPosition,
+            yearAndMonthOpts
         } = this.props;
         const { cachedSelectedValue, motionEnd, rangeInputFocus } = this.state;
 
@@ -462,6 +466,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
                 presetPosition={presetPosition}
                 renderQuickControls={this.renderQuickControls()}
                 renderDateInput={this.renderDateInput()}
+                yearAndMonthOpts={yearAndMonthOpts}
             />
         );
     }
@@ -708,7 +713,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
     };
 
     renderYearMonthPanel = (locale: Locale['DatePicker'], localeCode: string) => {
-        const { density, presetPosition } = this.props;
+        const { density, presetPosition, yearAndMonthOpts } = this.props;
 
         const date = this.state.value[0];
         let year = 0;
@@ -733,6 +738,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
                 presetPosition={presetPosition}
                 renderQuickControls={this.renderQuickControls()}
                 renderDateInput={this.renderDateInput()}
+                yearAndMonthOpts={yearAndMonthOpts}
             />
         );
     };

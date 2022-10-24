@@ -145,16 +145,17 @@ class ScrollListDemo extends React.Component {
 
 ### ScrollItem
 
-| 属性        | 说明                                        | 类型                    | 默认值 |
-| ----------- | ------------------------------------------- | ----------------------- | ------ |
-| className   | 样式类名 | string             | ''  |
-| cycled      | 是否为无限循环，仅在 mode 为 "wheel" 时生效 | boolean             | false  |
-| list        | 列表内容                                    | [ItemData](#ItemData)[] | []     |
-| motion      | 是否开启滚动动画                            | Motion                 | true   |
-| onSelect    | 选中回调                                    | (data: [ItemData](#ItemData)) => void                | NOOP   |
-| selectIndex | 选中项的索引                                | number                  | 0      |
-| style       | 内联样式                                   | CSSProperties                  | {}      |
-| transform   | 对选中项的变换，返回值会作为文案进行显示    | (value: any, text: string) => string                | v => v |
+| 属性        | 说明                                                | 类型                                | 默认值 |
+| ----------- | -------------------------------------------------- | ----------------------------------- | ------ |
+| className   | 样式类名 | string                                   | ''                                  |
+| cycled      | 是否为无限循环，仅在 mode 为 "wheel" 时生效 | boolean  | false                                |
+| list        | 列表内容                                            | [ItemData](#ItemData)[]              | []     |
+| mode        | 模式选择                                            | "normal" \| "wheel"                  | "wheel"|
+| motion      | 是否开启滚动动画                                     | Motion                                | true   |
+| onSelect    | 选中回调                                            | (data: [ItemData](#ItemData)) => void| NOOP   |
+| selectIndex | 选中项的索引                                         | number                               | 0      |
+| style       | 内联样式                                            | CSSProperties                        | {}      |
+| transform   | 对选中项的变换，返回值会作为文案进行显示                  | (value: any, text: string) => string | v => v |
 
 #### ItemData
 

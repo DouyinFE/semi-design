@@ -892,6 +892,7 @@ function Demo() {
 | onOpenChange | 面板显示或隐藏状态切换的回调 | <ApiType detail='(isOpen: boolean) => void'>(isOpen) => void</ApiType> |  |  |
 | onPanelChange | 切换面板的年份或者日期时的回调 | <ApiType detail='(date: DateType \| DateType[], dateStr: StringType \| StringType[])=>void'>(date, dateStr) => void</ApiType> | function | **1.28.0** |
 | onPresetClick | 点击快捷选择按钮的回调 | <ApiType detail='(item: Object, e: Event) => void'>(item, e) => void</ApiType> | () => {}  | **1.24.0** |
+| yearAndMonthOpts | 其他可以透传给年月选择器的参数，详见 [ScrollList#API](/zh-CN/show/scrolllist#ScrollItem)|  | object | **2.20.0** |
 
 ## 类型定义
 

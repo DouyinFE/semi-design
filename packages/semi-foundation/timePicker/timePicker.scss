@@ -24,6 +24,12 @@ $module-list: #{$prefix}-scrolllist;
                     padding-bottom: ($height-timePicker_panel_body - $height-scrollList_item) * 0.5;
                 }
             }
+            .#{$module-list}-item {
+                &::-webkit-scrollbar {
+                    display: none;
+                }
+            }
+
         }
 
         .#{$module-list}-item,
