@@ -9,3 +9,4 @@ export { default as InputFormatDisabled } from './InputFormatDisabled';
 export { default as AutoFillTime } from './AutoFillTime';
 export { default as InputFormatConfirm } from './InputFormatConfirm';
 export { default as FixedTriggerRender } from './FixTriggerRender';
+export { default as FixMotionFalse } from './FixMotionFalse';
