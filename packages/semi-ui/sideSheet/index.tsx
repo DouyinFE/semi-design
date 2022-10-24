@@ -258,6 +258,7 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
                                 wrapperExtraProps={animationEventsNeedBind}
                                 dialogClassName={animationClassName}
                                 maskClassName={maskAnimationClassName}
+                                maskStyle={{ ...maskStyle }}
                                 style={{ ...animationStyle, ...style }}>
                                 {children}
                             </SideSheetContent> : <></>;
