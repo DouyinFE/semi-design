@@ -41,6 +41,10 @@ export type DayStatusType = {
 export type DisabledDateOptions = {
     rangeStart?: string;
     rangeEnd?: string;
+    /**
+     * current select of range type
+     */
+    rangeInputFocus?: 'rangeStart' | 'rangeEnd' | false;
 };
 export type PresetType = {
     start?: string | Date | number;
@@ -1187,7 +1191,8 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
      */
     _someDateDisabled(value: Date[]) {
         const stateValue = this.getState('value');
-        const disabledOptions = { rangeStart: '', rangeEnd: '' };
+        const { rangeInputFocus } = this.getStates();
+        const disabledOptions = { rangeStart: '', rangeEnd: '', rangeInputFocus };
 
         // DisabledDate needs to pass the second parameter
         if (this._isRangeType() && Array.isArray(stateValue)) {

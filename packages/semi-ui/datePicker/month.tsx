@@ -100,8 +100,9 @@ export default class Month extends BaseComponent<MonthProps, MonthState> {
     }
 
     getSingleDayStatus(options: Partial<MonthProps> & { fullDate: string; todayText: string }) {
+        const { rangeInputFocus } = this.props;
         const { fullDate, todayText, selected, disabledDate, rangeStart, rangeEnd } = options;
-        const disabledOptions = { rangeStart, rangeEnd };
+        const disabledOptions = { rangeStart, rangeEnd, rangeInputFocus };
         const isToday = fullDate === todayText;
         const isSelected = selected.has(fullDate);
 

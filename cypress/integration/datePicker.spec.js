@@ -572,4 +572,16 @@ describe('DatePicker', () => {
         cy.get('.semi-popover .semi-datepicker-day-selected-start').contains('8');
         cy.get('.semi-popover .semi-datepicker-day-selected-end').contains('9');
     });
+
+    it('disabledDate by focus state', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--disabled-range&args=&viewMode=story');
+        cy.get('.semi-input').eq(0).click();
+        cy.get('.semi-datepicker-month-grid-left .semi-datepicker-day.semi-datepicker-day-disabled').should('have.length', 5);
+        cy.get('.semi-datepicker-month-grid-left .semi-datepicker-day.semi-datepicker-day-disabled').eq(0).contains('18');
+        cy.get('.semi-datepicker-month-grid-left .semi-datepicker-day.semi-datepicker-day-disabled').eq(4).contains('22');
+        cy.get('.semi-input').eq(1).click();
+        cy.get('.semi-datepicker-month-grid-left .semi-datepicker-day.semi-datepicker-day-disabled').should('have.length', 7);
+        cy.get('.semi-datepicker-month-grid-left .semi-datepicker-day.semi-datepicker-day-disabled').eq(0).contains('17');
+        cy.get('.semi-datepicker-month-grid-left .semi-datepicker-day.semi-datepicker-day-disabled').eq(6).contains('23');
+    });
 });
