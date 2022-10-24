@@ -608,6 +608,40 @@ class App extends React.Component {
 }
 ```
 
+When `type` contains `range`, dates can be disabled based on the focus state. The focus state is passed through the `rangeInputFocus` parameter in `options`.
+
+```jsx live=true
+import React from 'react';
+import { DatePicker } from '@douyinfe/semi-ui';
+import * as dateFns from 'date-fns';
+
+function App() {
+    const today = new Date();
+    const disabledDate = (date, options) => {
+        const { rangeInputFocus } = options;
+        const baseDate = dateFns.set(today, { hours: 0, minutes: 0, seconds: 0, milliseconds: 0 });
+        if (rangeInputFocus === 'rangeStart') {
+            const disabledStart = dateFns.subDays(baseDate, 2);
+            const disabledEnd = dateFns.addDays(baseDate, 2);
+            return disabledStart <= date && date <= disabledEnd;
+        } else if (rangeInputFocus === 'rangeEnd') {
+            const disabledStart = dateFns.subDays(baseDate, 3);
+            const disabledEnd = dateFns.addDays(baseDate, 3);
+            return disabledStart <= date && date <= disabledEnd;
+        } else {
+            return false;
+        }
+    };
+
+    return (
+        <div>
+            <h4>{`Start date disables 2 days before and 2 days after today, end date disables 3 days before and 3 days after today`}</h4>
+            <DatePicker motion={false} type='dateRange' disabledDate={disabledDate} defaultPickerValue={today} />
+        </div>
+    );
+}
+```
+
 ### Custom Display Format
 
 Pass parameter `format` to custom display format.
@@ -831,19 +865,19 @@ function Demo() {
 
 ## API Reference
 
-| Properties         | Instructions                                                                                                                                                                              | Type                                             | Default | Version    |
-|--------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------|---------|------------|
-| autoAdjustOverflow | Whether the floating layer automatically adjusts its direction when it is blocked                                                                                                         | boolean                                          | true    | **0.34.0** |
-| autoFocus          | Automatic access to focus                                                                                                                                                                 | boolean                                          | false   | **1.10.0** |
-| autoSwitchDate     | When the year and month are changed through the left and right buttons and the drop-down menu at the top of the panel, the date is automatically switched. Only valid for `date` type. | boolean                                          | true    | **1.13.0** |
-| bottomSlot         | Render the bottom extra area                                                                                                                                                              | ReactNode                                        |         | **1.22.0** |
-| className          | Class name                                                                                                                                                                                | string                                           | -       |            |
-| defaultOpen        | Panel displays or hides by default                                                                                                                                                        | boolean                                          | false   |            |
-| defaultPickerValue | Default panel date                                                                                                                                                                        | ValueType |         |            |
+| Properties         | Instructions                                                                                                                                                                           | Type      | Default | Version    |
+|--------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------|---------|------------|
+| autoAdjustOverflow | Whether the floating layer automatically adjusts its direction when it is blocked                                                                                                      | boolean   | true    | **0.34.0** |
+| autoFocus          | Automatic access to focus                                                                                                                                                              | boolean   | false   | **1.10.0** |
+| autoSwitchDate     | When the year and month are changed through the left and right buttons and the drop-down menu at the top of the panel, the date is automatically switched. Only valid for `date` type. | boolean   | true    | **1.13.0** |
+| bottomSlot         | Render the bottom extra area                                                                                                                                                           | ReactNode |         | **1.22.0** |
+| className          | Class name                                                                                                                                                                             | string    | -       |            |
+| defaultOpen        | Panel displays or hides by default                                                                                                                                                     | boolean   | false   |            |
+| defaultPickerValue | Default panel date                                                                                                                                                                     | ValueType |         |            |
 | defaultValue       | Default value                                                                                                                                                                            | ValueType                                                                                                                                                                                                    |                                             |                           |  |
 | density            | Density of picker panel, one of `default`, `compact`                                                                 | string                                                                                                                                                                                                    | default                                        | **1.17.0**              |
 | disabled           | Is it disabled?                                                                                                                                                                           | boolean                                                                                                                                                                                                   | false                                                                                 |                           |
-| disabledDate       | The date is prohibited from the judgment method, and the date is prohibited when returned to true. Options parameter supported after 1.9.0 and rangeEnd supported after 1.29            | <ApiType detail='(date: Date, options: { rangeStart: string, rangeEnd: string }) => boolean'>(date, options) => boolean</ApiType>     | () = > false                                                                          |                           |
+| disabledDate       | The date is prohibited from the judgment method, and the date is prohibited when returned to true. Options parameter supported after 1.9.0, rangeEnd supported after 1.29 and rangeInputFocus is supported since 2.22            | <ApiType detail='(date: Date, options: { rangeStart: string, rangeEnd: string, rangeInputFocus: "rangeStart" \| "rangeEnd" \| false }) => boolean'>(date, options) => boolean</ApiType>     | () = > false                                                                          |                           |
 | disabledTime       | Time prohibition configuration, the return value will be transparently passed to [`TimePicker`](/en-US/input/timepicker#API_Reference) as a parameter    | <ApiType detail='(date: Date \| Date[], panelType?: string) => ({ disabledHours:() => number[], disabledMinutes: (hour: number) => number[], disabledSeconds: (hour: number, minute: number) => number[] })'>(date, panelType) => object</ApiType> | () => false        | **0.36.0**                |
 | disabledTimePicker | Disable time selection or not.                                                                                                                                                            | boolean                                                                                                                                                                                                   |                                                                                       | **0.32.0**                |
 | dropdownClassName  | CSS classname for drop-down menu                                                                                                                                                          | string                                                               |                                 | **1.13.0** |

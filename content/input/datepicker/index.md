@@ -578,6 +578,40 @@ import * as dateFns from 'date-fns';
 );
 ```
 
+范围选择时，可以根据 focus 状态禁用日期。focus 状态通过 options 中的 rangeInputFocus 参数传递。
+
+```jsx live=true
+import React from 'react';
+import { DatePicker } from '@douyinfe/semi-ui';
+import * as dateFns from 'date-fns';
+
+function App() {
+    const today = new Date();
+    const disabledDate = (date, options) => {
+        const { rangeInputFocus } = options;
+        const baseDate = dateFns.set(today, { hours: 0, minutes: 0, seconds: 0, milliseconds: 0 });
+        if (rangeInputFocus === 'rangeStart') {
+            const disabledStart = dateFns.subDays(baseDate, 2);
+            const disabledEnd = dateFns.addDays(baseDate, 2);
+            return disabledStart <= date && date <= disabledEnd;
+        } else if (rangeInputFocus === 'rangeEnd') {
+            const disabledStart = dateFns.subDays(baseDate, 3);
+            const disabledEnd = dateFns.addDays(baseDate, 3);
+            return disabledStart <= date && date <= disabledEnd;
+        } else {
+            return false;
+        }
+    };
+
+    return (
+        <div>
+            <h4>{`开始日期禁用今天前2日和后2日，结束日期禁用今天前3天和后3天`}</h4>
+            <DatePicker motion={false} type='dateRange' disabledDate={disabledDate} defaultPickerValue={today} />
+        </div>
+    );
+}
+```
+
 ### 自定义显示格式
 
 可以通过 `format` 自定义显示格式
@@ -794,19 +828,19 @@ function Demo() {
 
 ## API 参考
 
-| 属性 | 说明 | 类型 | 默认值 | 版本 |
-| --- | --- | --- | --- | --- |
-| autoAdjustOverflow | 浮层被遮挡时是否自动调整方向 | boolean | true | **0.34.0** |
-| autoFocus | 自动获取焦点 | boolean | false | **1.10.0** |
-| autoSwitchDate | 通过面板上方左右按钮、下拉菜单更改年月时，自动切换日期。仅对 date type 生效。 | boolean | true | **1.13.0** |
-| bottomSlot | 渲染底部额外区域 | ReactNode |  | **1.22.0** |
-| className | 类名 | string | - |  |
-| defaultOpen | 面板默认显示或隐藏 | boolean | false |  |
-| defaultPickerValue | 默认面板日期 | ValueType |  |  |
-| defaultValue | 默认值 | ValueType |  |  |
-| density | 面板的尺寸，可选值：`default`, `compact` | string | default | **1.17.0** |
-| disabled | 是否禁用 | boolean | false |  |
-| disabledDate | 日期禁止判断方法，返回为 true 时禁止该日期，options 参数 1.9.0 后支持，rangeEnd 1.29 后支持 | <ApiType detail='(date: Date, options: { rangeStart: string, rangeEnd: string }) => boolean'>(date, options) => boolean</ApiType> | () => false   |
+| 属性               | 说明                                                                      | 类型      | 默认值  | 版本       |
+|--------------------|-------------------------------------------------------------------------|-----------|---------|------------|
+| autoAdjustOverflow | 浮层被遮挡时是否自动调整方向                                              | boolean   | true    | **0.34.0** |
+| autoFocus          | 自动获取焦点                                                              | boolean   | false   | **1.10.0** |
+| autoSwitchDate     | 通过面板上方左右按钮、下拉菜单更改年月时，自动切换日期。仅对 date type 生效。 | boolean   | true    | **1.13.0** |
+| bottomSlot         | 渲染底部额外区域                                                          | ReactNode |         | **1.22.0** |
+| className          | 类名                                                                      | string    | -       |            |
+| defaultOpen        | 面板默认显示或隐藏                                                        | boolean   | false   |            |
+| defaultPickerValue | 默认面板日期                                                              | ValueType |         |            |
+| defaultValue       | 默认值                                                                    | ValueType |         |            |
+| density            | 面板的尺寸，可选值：`default`, `compact`                                    | string    | default | **1.17.0** |
+| disabled           | 是否禁用                                                                  | boolean   | false   |            |
+| disabledDate | 日期禁止判断方法，返回为 true 时禁止该日期，options 参数 1.9.0 后支持，其中 rangeEnd 1.29 后支持，rangeInputFocus 2.22 后支持 | <ApiType detail='(date: Date, options: { rangeStart: string, rangeEnd: string, rangeInputFocus: "rangeStart" \| "rangeEnd" \| false }) => boolean'>(date, options) => boolean</ApiType> | () => false   |
 | disabledTime | 时间禁止配置，返回值将会作为参数透传给 [`TimePicker`](/zh-CN/input/timepicker#API_参考) | <ApiType detail='(date: Date \| Date[], panelType?: string) => ({ disabledHours:() => number[], disabledMinutes: (hour: number) => number[], disabledSeconds: (hour: number, minute: number) => number[] })'>(date, panelType) => object</ApiType> | () => false | **0.36.0** |
 | disabledTimePicker | 是否禁止时间选择 | boolean |  | **0.32.0** |
 | dropdownClassName | 下拉列表的 CSS 类名 | string |  | **1.13.0** |
