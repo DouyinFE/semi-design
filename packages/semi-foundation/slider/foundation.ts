@@ -82,8 +82,8 @@ export interface SliderAdapter extends DefaultAdapter<SliderProps, SliderState>{
     setDragging: (value: boolean[]) => void;
     updateCurrentValue: (value: SliderState['currentValue']) => void;
     setOverallVars: (key: string, value: any) => void;
-    getMinHandleEl: () => { current: HTMLElement };
-    getMaxHandleEl: () => { current: HTMLElement };
+    getMinHandleEl: () => HTMLSpanElement;
+    getMaxHandleEl: () => HTMLSpanElement;
     onHandleDown: (e: any) => any;
     onHandleMove: (mousePos: number, isMin: boolean, stateChangeCallback?: () => void, clickTrack?: boolean, outPutValue?: number | number[]) => boolean | void;
     setEventDefault: (e: any) => void;
@@ -520,8 +520,8 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
 
     // run when user touch left or right handle.
     onHandleTouchStart = (e: any, handler: 'min' | 'max') => {
-        const handleMinDom = this._adapter.getMinHandleEl().current;
-        const handleMaxDom = this._adapter.getMaxHandleEl().current;
+        const handleMinDom = this._adapter.getMinHandleEl();
+        const handleMaxDom = this._adapter.getMaxHandleEl();
         if (e.target === handleMinDom || e.target === handleMaxDom) {
             handlePrevent(e);
             const touch = touchEventPolyfill(e.touches[0], e);
@@ -531,8 +531,8 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
     };
 
     onHandleTouchMove = (e: any) => {
-        const handleMinDom = this._adapter.getMinHandleEl().current;
-        const handleMaxDom = this._adapter.getMaxHandleEl().current;
+        const handleMinDom = this._adapter.getMinHandleEl();
+        const handleMaxDom = this._adapter.getMaxHandleEl();
         if (e.target === handleMinDom || e.target === handleMaxDom) {
             const touch = touchEventPolyfill(e.touches[0], e);
             this.onHandleMove(touch);

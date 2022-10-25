@@ -74,8 +74,8 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
         verticalReverse: false
     };
     private sliderEl: React.RefObject<HTMLDivElement>;
-    private minHanleEl: React.RefObject<HTMLDivElement>;
-    private maxHanleEl: React.RefObject<HTMLDivElement>;
+    private minHanleEl: React.RefObject<HTMLSpanElement>;
+    private maxHanleEl: React.RefObject<HTMLSpanElement>;
     private dragging: boolean[];
     private eventListenerSet: Set<() => void>;
     foundation: SliderFoundation;
@@ -185,8 +185,8 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
             setOverallVars: (key: string, value: any) => {
                 this[key] = value;
             },
-            getMinHandleEl: () => this.minHanleEl,
-            getMaxHandleEl: () => this.maxHanleEl,
+            getMinHandleEl: () => this.minHanleEl.current,
+            getMaxHandleEl: () => this.maxHanleEl.current,
             onHandleDown: (e: React.MouseEvent) => {
                 this._addEventListener(document.body, 'mousemove', this.foundation.onHandleMove, false);
                 this._addEventListener(document.body, 'mouseup', this.foundation.onHandleUp, false);

@@ -300,7 +300,7 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
         }
         this._adapter.setClickUpOrDown(true);
         if (event) {
-            event.persist();
+            this._persistEvent(event);
             event.stopPropagation();
             // Prevent native blurring events
             this._preventDefault(event);
@@ -321,7 +321,7 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
         }
         this._adapter.setClickUpOrDown(true);
         if (event) {
-            event.persist();
+            this._persistEvent(event);
             event.stopPropagation();
             this._preventDefault(event);
         }

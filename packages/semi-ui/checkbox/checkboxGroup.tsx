@@ -74,8 +74,8 @@ class CheckboxGroup extends BaseComponent<CheckboxGroupProps, CheckboxGroupState
             updateGroupValue: value => {
                 this.setState({ value });
             },
-            notifyChange: evt => {
-                this.props.onChange && this.props.onChange(evt);
+            notifyChange: value => {
+                this.props.onChange && this.props.onChange(value);
             },
         };
     }

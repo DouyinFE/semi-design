@@ -241,7 +241,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
     }
 
     handleMouseUp = (e): void => {
-        this.foundation.handleMouseUp(e);
+        this.foundation.handleMouseUp(e.nativeEvent);
     }
 
     handleMouseMove = (e): void => {
@@ -333,8 +333,8 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
                     onMouseDown={this.handleMouseDown}
                     onMouseUp={this.handleMouseUp}
                     onMouseMove={this.handleMouseMove}
-                    onMouseOver={(e): void => this.handleMouseEvent(e, "over")}
-                    onMouseOut={(e): void => this.handleMouseEvent(e, "out")}
+                    onMouseOver={(e): void => this.handleMouseEvent(e.nativeEvent, "over")}
+                    onMouseOut={(e): void => this.handleMouseEvent(e.nativeEvent, "out")}
                 >
                     <Header className={cls(hideViewerCls)} onClose={this.handlePreviewClose} renderHeader={renderHeader}/>
                     <PreviewImage 

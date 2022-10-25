@@ -66,6 +66,9 @@ export default class BaseComponent<P extends BaseProps = {}, S = {}> extends Com
                 } catch (error) {
 
                 }
+            },
+            persistEvent: (e: React.KeyboardEvent | React.MouseEvent) => {
+                e && e.persist && typeof e.persist === 'function' ? e.persist() : null;
             }
         };
     }

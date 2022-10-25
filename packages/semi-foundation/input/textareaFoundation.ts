@@ -7,7 +7,6 @@ import {
 } from 'lodash';
 import calculateNodeHeight from './util/calculateNodeHeight';
 import getSizingData from './util/getSizingData';
-import isEnterPress from '../utils/isEnterPress';
 
 export interface TextAreaDefaultAdapter {
     notifyChange: noopFunction;
@@ -24,7 +23,7 @@ export interface TextAreaDefaultAdapter {
 export interface TextAreaAdapter extends Partial<DefaultAdapter>, Partial<TextAreaDefaultAdapter> {
     setMinLength(length: number): void;
     notifyPressEnter(e: any): void;
-    getRef(): any;
+    getRef(): HTMLInputElement;
     notifyHeightUpdate(e: any): void
 }
 
@@ -175,7 +174,7 @@ export default class TextAreaFoundation extends BaseFoundation<TextAreaAdapter> 
     resizeTextarea = (cb?: any) => {
         const { height } = this.getStates();
         const { rows } = this.getProps();
-        const node = this._adapter.getRef().current;
+        const node = this._adapter.getRef();
         const nodeSizingData = getSizingData(node);
 
         if (!nodeSizingData) {
@@ -199,11 +198,13 @@ export default class TextAreaFoundation extends BaseFoundation<TextAreaAdapter> 
         cb && cb();
     };
 
-    handleMouseEnter(e) {
+    // e: MouseEvent
+    handleMouseEnter(e: any) {
         this._adapter.toggleHovering(true);
     }
 
-    handleMouseLeave(e) {
+    // e: MouseEvent
+    handleMouseLeave(e: any) {
         this._adapter.toggleHovering(false);
     }
 

@@ -17,7 +17,8 @@ import {
     filter,
     isMap,
     slice,
-    isEqual
+    isEqual,
+    isUndefined
 } from 'lodash';
 import memoizeOne from 'memoize-one';
 
@@ -113,6 +114,46 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
     memoizedFilterColumns: (columns: BaseColumnProps<RecordType>[], ignoreKeys?: string[]) => BaseColumnProps<RecordType>[];
     memoizedFlattenFnsColumns: (columns: BaseColumnProps<RecordType>[], childrenColumnName?: string) => BaseColumnProps<RecordType>[];
     memoizedPagination: (pagination: BasePagination) => BasePagination;
+
+    /**
+     * update columns in place, and use default values as initial values if the sorting and filtering columns have no values
+     */
+    static initColumnsFilteredValueAndSorterOrder(columns: BaseColumnProps<unknown>[]) {
+        columns.forEach(column => {
+            TableFoundation.initFilteredValue(column);
+            TableFoundation.initSorterOrder(column);
+        });
+        return columns;
+    }
+
+    /**
+     * init filteredValue of filtering column, use defaultFilteredValue or [] when it is undefined
+     */
+    static initFilteredValue(column: BaseColumnProps<unknown>) {
+        const { defaultFilteredValue, filteredValue, filters } = column;
+        const hasFilter = Array.isArray(filters) && filters.length;
+        if (hasFilter && isUndefined(filteredValue)) {
+            if (Array.isArray(defaultFilteredValue) && defaultFilteredValue.length) {
+                column.filteredValue = defaultFilteredValue;
+            } else {
+                column.filteredValue = [];
+            }
+        }
+    }
+
+    /**
+     * init sortOrder of sorting column, use defaultSortOrder or [] when it is undefined
+     */
+    static initSorterOrder(column: BaseColumnProps<unknown>) {
+        const { defaultSortOrder, sortOrder, sorter } = column;
+        if (sorter && isUndefined(sortOrder)) {
+            if (!isUndefined(defaultSortOrder)) {
+                column.sortOrder = defaultSortOrder;
+            } else {
+                column.sortOrder = false;
+            }
+        }
+    }
 
     constructor(adapter: TableAdapter<RecordType>) {
         super({ ...adapter });
@@ -521,16 +562,7 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
     handleMouseLeave(e: any) { }
 
     stopPropagation(e: any) {
-        if (e && typeof e === 'object') {
-            if (typeof e.stopPropagation === 'function') {
-                e.stopPropagation();
-            }
-            if (e.nativeEvent && typeof e.nativeEvent.stopPropagation === 'function') {
-                e.nativeEvent.stopPropagation();
-            } else if (typeof e.stopImmediatePropagation === 'function') {
-                e.stopImmediatePropagation();
-            }
-        }
+        this._adapter.stopPropagation(e);
     }
 
     /**

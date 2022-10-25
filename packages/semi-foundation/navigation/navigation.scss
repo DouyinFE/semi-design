@@ -699,4 +699,10 @@ $module: #{$prefix}-navigation;
     }
 }
 
+.#{$prefix}-dropdown-menu {
+    .#{$module}-item-sub {
+        padding: $spacing-navigation_item_sub-padding;
+    }
+}
+
 @import "./rtl.scss";

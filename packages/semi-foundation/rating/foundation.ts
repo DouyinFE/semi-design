@@ -170,7 +170,8 @@ export default class RatingFoundation<P = Record<string, any>, S = Record<string
         }
     }
 
-    handleStarBlur = (event: React.FocusEvent) => {
+    // e: FocusEvent
+    handleStarBlur = (e: any) => {
         const { emptyStarFocusVisible } = this.getStates();
         if (emptyStarFocusVisible) {
             this._adapter.setEmptyStarFocusVisible(false);
@@ -205,7 +206,8 @@ export class RatingItemFoundation<P = Record<string, any>, S = Record<string, an
         }
     }
 
-    handleBlur = (event: React.FocusEvent, star: string) => {
+    // e: FocusEvent
+    handleBlur = (e: any, star: string) => {
         const { firstStarFocus, secondStarFocus } = this.getStates();
         if (star === 'first') {
             firstStarFocus && this._adapter.setFirstStarFocus(false);

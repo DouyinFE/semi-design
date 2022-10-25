@@ -97,7 +97,6 @@
         "jsdom": "^15.2.1",
         "merge2": "^1.4.1",
         "null-loader": "^3.0.0",
-        "prop-types": "15.7.2",
         "react-dnd": "^9.5.1",
         "react-infinite-scroller": "^1.2.4",
         "react-storybook-addon-props-combinations": "^1.1.0",
