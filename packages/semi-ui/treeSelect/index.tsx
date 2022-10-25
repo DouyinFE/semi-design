@@ -36,7 +36,6 @@ import ConfigContext, { ContextValue } from '../configProvider/context';
 import TagGroup from '../tag/group';
 import Tag, { TagProps } from '../tag/index';
 import Input, { InputProps } from '../input/index';
-import Popover from '../popover/index';
 import AutoSizer from '../tree/autoSizer';
 import TreeContext from '../tree/treeContext';
 import TreeNode from '../tree/treeNode';
@@ -51,6 +50,7 @@ import { OptionProps, TreeProps, TreeState, FlattenNode, TreeNodeData, TreeNodeP
 import { Motion } from '../_base/base';
 import { IconChevronDown, IconClear, IconSearch } from '@douyinfe/semi-icons';
 import CheckboxGroup from '../checkbox/checkboxGroup';
+import Popover, { PopoverProps } from '../popover/index';
 
 export type ExpandAction = false | 'click' | 'doubleClick';
 
@@ -135,6 +135,7 @@ export interface TreeSelectProps extends Omit<BasicTreeSelectProps, OverrideComm
     zIndex?: number;
     searchPosition?: string;
     stopPropagation?: boolean | string;
+    restTagsPopoverProps?: PopoverProps;
     searchRender?: boolean | ((inputProps: InputProps) => React.ReactNode);
     onSelect?: (selectedKeys: string, selected: boolean, selectedNode: TreeNodeData) => void;
     renderSelectedItem?: RenderSelectedItem;
@@ -254,6 +255,8 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         renderSelectedItem: PropTypes.func,
         checkRelation: PropTypes.string,
         'aria-label': PropTypes.string,
+        showRestTagsPopover: PropTypes.bool,
+        restTagsPopoverProps: PropTypes.object,
     };
 
     static defaultProps: Partial<TreeSelectProps> = {
@@ -282,7 +285,9 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         clickToHide: true,
         searchAutoFocus: false,
         checkRelation: 'related',
-        'aria-label': 'TreeSelect'
+        'aria-label': 'TreeSelect',
+        showRestTagsPopover: false,
+        restTagsPopoverProps: {},
     };
     inputRef: React.RefObject<typeof Input>;
     tagInputRef: React.RefObject<TagInput>;
@@ -817,6 +822,8 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             maxTagCount,
             searchPosition,
             filterTreeNode,
+            showRestTagsPopover, 
+            restTagsPopoverProps 
         } = this.props;
         const isTriggerPositionSearch = filterTreeNode && searchPosition === strings.SEARCH_POSITION_TRIGGER;
         // searchPosition = trigger
@@ -840,6 +847,8 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 tagList={tagList}
                 size="large"
                 mode="custom"
+                showPopover={showRestTagsPopover}
+                popoverProps={restTagsPopoverProps}
             />
         );
     };
@@ -1085,6 +1094,8 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             placeholder,
             maxTagCount,
             checkRelation,
+            showRestTagsPopover, 
+            restTagsPopoverProps
         } = this.props;
         const {
             keyEntities,
@@ -1108,6 +1119,9 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 value={keyList}
                 inputValue={inputValue}
                 size={size}
+                showRestTagsPopover={showRestTagsPopover}
+                restTagsPopoverProps={restTagsPopoverProps}
+                // eslint-disable-next-line jsx-a11y/no-autofocus
                 autoFocus={searchAutoFocus}
                 renderTagItem={(itemKey, index) => this.renderTagItem(itemKey, index)}
                 onRemove={itemKey => this.removeTag(itemKey)}
