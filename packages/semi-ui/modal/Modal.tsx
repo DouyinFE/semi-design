@@ -188,10 +188,10 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         if (props.visible && prevState.displayNone) {
             newState.displayNone = false;
         }
-
-        if (!props.visible && !props.motion && !prevState.displayNone) {
-            newState.displayNone = true;
-        }
+        //
+        // if (!props.visible && !props.motion && !prevState.displayNone) {
+        //     newState.displayNone = true;
+        // }
 
 
         return newState;
@@ -250,14 +250,14 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         if (!prevProps.visible && this.props.visible) {
             this.foundation.beforeShow();
         }
-        // show => hide
-        if (prevProps.visible && !this.props.visible) {
-            this.foundation.afterHide();
-        }
 
         const shouldRender = this.props.visible || (this.props.keepDOM && (!this.props.lazyRender || this._haveRendered));
         if (shouldRender === true && this.state.shouldRender === false) {
             this.foundation.setShouldRender(true);
+        }
+
+        if (!prevState.displayNone && this.state.displayNone){
+            this.foundation.afterHide();
         }
     }
 
