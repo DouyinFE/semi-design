@@ -768,6 +768,14 @@ function NavApp (props = {}) {
 | collapseText   | Title of the collapse button                                                                                                      | (collapsed:boolean) => string\|ReactNode |         | 0.35.0  |
 | style          | Outermost style                                                                                                                   | object                                    |         |         |
 
+## Accessibility
+- ### Keyboard and Focus
+- Each clickable item in the Navigation can be focused, use `Tab` and `Shift + Tab` to switch focus between each other, and each link can be activated by the `Enter` key
+- When an item can be opened popup
+  - The way to open the popup layer is hover : when the item is focused, the popup layer opens. Keyboard users can use the down arrow to move the focus to the bullet layer, and the Esc key can return the focus to the item
+  - The way to open the popup layer is click : when the item is focused, click the Enter key to open the popup layer. Keyboard users can use the down arrow to move the focus to the bullet layer, and the Esc key can return the focus to the item
+  -Keyboard interaction does not fully support nested scenes
+
 ## Content Guidelines
 
 - Navigation bar menu uses sentence case format
