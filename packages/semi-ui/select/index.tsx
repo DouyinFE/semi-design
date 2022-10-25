@@ -12,7 +12,7 @@ import { isEqual, isString, noop, get, isNumber } from 'lodash';
 import Tag from '../tag/index';
 import TagGroup from '../tag/group';
 import LocaleConsumer from '../locale/localeConsumer';
-import Popover from '../popover/index';
+import Popover, { PopoverProps } from '../popover/index';
 import { numbers as popoverNumbers } from '@douyinfe/semi-foundation/popover/constants';
 import { FixedSizeList as List } from 'react-window';
 import { getOptionsFromGroup } from './utils';
@@ -152,7 +152,9 @@ export type SelectProps = {
     onBlur?: (e: React.FocusEvent) => void;
     onListScroll?: (e: React.UIEvent<HTMLDivElement>) => void;
     children?: React.ReactNode;
-    preventScroll?: boolean
+    preventScroll?: boolean;
+    showRestTagsPopover?: boolean;
+    restTagsPopoverProps: PopoverProps
 } & Pick<
 TooltipProps,
 | 'spacing'
@@ -311,7 +313,9 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         remote: false,
         autoAdjustOverflow: true,
         autoClearSearchValue: true,
-        arrowIcon: <IconChevronDown aria-label='' />
+        arrowIcon: <IconChevronDown aria-label='' />,
+        showRestTagsPopover: false,
+        restTagsPopoverProps: {},
         // Radio selection is different from the default renderSelectedItem for multiple selection, so it is not declared here
         // renderSelectedItem: (optionNode) => optionNode.label,
         // The default creator rendering is related to i18, so it is not declared here
@@ -930,6 +934,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
 
     renderMultipleSelection(selections: Map<OptionProps['label'], any>, filterable: boolean) {
         let { renderSelectedItem } = this.props;
+        const { showRestTagsPopover, restTagsPopoverProps } = this.props;
         const { placeholder, maxTagCount, size } = this.props;
         const { inputValue } = this.state;
         const selectDisabled = this.props.disabled;
@@ -944,9 +949,9 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             });
         }
 
-        const mapItems = maxTagCount ? selectedItems.slice(0, maxTagCount) : selectedItems; // no need to render rest tag when maxTagCount is setting
+        // const mapItems = maxTagCount ? selectedItems.slice(0, maxTagCount) : selectedItems; // no need to render rest tag when maxTagCount is setting
 
-        const tags = mapItems.map((item, i) => {
+        const tags = selectedItems.map((item, i) => {
             const label = item[0];
             const { value } = item[1];
             const disabled = item[1].disabled || selectDisabled;
@@ -990,7 +995,16 @@ class Select extends BaseComponent<SelectProps, SelectState> {
 
         const NotOneLine = !maxTagCount; // Multiple lines (that is, do not set maxTagCount), do not use TagGroup, directly traverse with Tag, otherwise Input cannot follow the correct position
 
-        const tagContent = NotOneLine ? tags : <TagGroup<"custom"> tagList={tags} maxTagCount={n} restCount={maxTagCount ? selectedItems.length - maxTagCount : undefined} size="large" mode="custom"/>;
+        const tagContent = NotOneLine ? tags : (
+            <TagGroup<"custom"> 
+                tagList={tags} 
+                maxTagCount={n} 
+                // restCount={maxTagCount ? selectedItems.length - maxTagCount : undefined} 
+                size="large" 
+                mode="custom"
+                showPopover={showRestTagsPopover}
+                popoverProps={restTagsPopoverProps}
+            />);
 
         return (
             <>
