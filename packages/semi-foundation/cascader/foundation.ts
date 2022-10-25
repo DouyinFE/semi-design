@@ -532,7 +532,6 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
             this._adapter.updateStates({ inputValue });
             !multiple && this.toggle2SearchInput(false);
             !multiple && this._adapter.updateFocusState(false);
-            isSearching && this._adapter.updateStates({ isSearching: false });
         }
         this._notifyBlur(e);
     }
