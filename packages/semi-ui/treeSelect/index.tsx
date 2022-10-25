@@ -1125,6 +1125,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 autoFocus={searchAutoFocus}
                 renderTagItem={(itemKey, index) => this.renderTagItem(itemKey, index)}
                 onRemove={itemKey => this.removeTag(itemKey)}
+                expandRestTagsOnClick={false}
             />
         );
     };

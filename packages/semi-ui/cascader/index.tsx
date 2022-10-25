@@ -171,7 +171,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         leafOnly: PropTypes.bool,
         enableLeafClick: PropTypes.bool,
         preventScroll: PropTypes.bool,
-        position:PropTypes.string
+        position: PropTypes.string
     };
 
     static defaultProps = {
@@ -557,6 +557,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                 // TODO Modify logic, not modify type
                 onRemove={v => this.handleTagRemove(null, (v as unknown) as (string | number)[])}
                 placeholder={placeholder}
+                expandRestTagsOnClick={false}
             />
         );
     }
