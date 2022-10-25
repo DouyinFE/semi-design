@@ -50,7 +50,6 @@ import { isSemiIcon } from '../_utils';
 import { OptionProps, TreeProps, TreeState, FlattenNode, TreeNodeData, TreeNodeProps } from '../tree/interface';
 import { IconChevronDown, IconClear, IconSearch } from '@douyinfe/semi-icons';
 import CheckboxGroup from '../checkbox/checkboxGroup';
-import { boolean } from "@storybook/addon-knobs";
 
 export type ExpandAction = false | 'click' | 'doubleClick';
 
