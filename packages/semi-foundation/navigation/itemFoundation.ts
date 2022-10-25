@@ -100,13 +100,11 @@ export default class ItemFoundation<P = Record<string, any>, S = Record<string, 
      */
     handleKeyPress(e: any) {
         if (isEnterPress(e)) {
-            if (isEnterPress(e)) {
-                const { link, linkOptions } = this.getProps();
-                const target = get(linkOptions, 'target', '_self');
-                this.handleClick(e);
-                if (typeof link === 'string') {
-                    target === '_blank' ? window.open(link) : window.location.href = link;
-                }
+            const { link, linkOptions } = this.getProps();
+            const target = get(linkOptions, 'target', '_self');
+            this.handleClick(e);
+            if (typeof link === 'string') {
+                target === '_blank' ? window.open(link) : window.location.href = link;
             }
         }
     }

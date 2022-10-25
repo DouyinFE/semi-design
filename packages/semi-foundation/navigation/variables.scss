@@ -16,8 +16,8 @@ $width-navigation_dropdown_item_nav_item-minWidth: 150px; // 导航栏菜单项�
 $width-navigation_border: 1px; // 导航栏描边宽度
 $width-navigation_footer_border: 1px; // 导航栏 footer 描边宽度
 $width-navigation_icon_left-minWidth: 20px; // 导航栏菜单项展开收起按钮最小宽度
-$width-navigation-outline: 2px;
-$width-navigation-outlineOffset: -2px;
+$width-navigation-outline: 2px; // 导航栏聚焦outline宽度
+$width-navigation-outlineOffset: -2px; // 导航栏聚焦outline偏移
 
 // Spacing
 $spacing-navigation-paddingX: $spacing-tight; // 侧边导航栏水平方向内边距
@@ -110,7 +110,7 @@ $color-navigation_itemLn-text-hover: var(--semi-color-text-0); // 导航栏子�
 $color-navigation_itemLn-bg-active: var(--semi-color-fill-1); // 导航栏子级菜单项按下态背景颜色
 $color-navigation_itemLn-text-active: var(--semi-color-text-0); // 导航栏子级菜单项按下态文字颜色
 $color-navigation_itemLn_selected-bg-default: var(--semi-color-primary-light-default); // 导航栏子级菜单项选中态背景颜色
-$color-navigation_outline-focus: var(--semi-color-primary-light-active);
+$color-navigation_outline-focus: var(--semi-color-primary-light-active); // 导航栏子级菜单键盘聚焦颜色
 
 // Transition
 $motion-navigation_item_title: opacity 100ms 100s ease-out; // 导航栏菜单项标题收起时渐隐动画
