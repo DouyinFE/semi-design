@@ -28,12 +28,12 @@ function Demo() {
     const { Title } = Typography;
     return (
         <div>
-            <Title  style={{margin: '8px 0'}} >h1. Semi Design</Title>
-            <Title heading={2} style={{margin: '8px 0'}} >h2. Semi Design</Title>
-            <Title heading={3} style={{margin: '8px 0'}} >h3. Semi Design</Title>
-            <Title heading={4} style={{margin: '8px 0'}} >h4. Semi Design</Title>
-            <Title heading={5} style={{margin: '8px 0'}} >h5. Semi Design</Title>
-            <Title heading={6} style={{margin: '8px 0'}} >h6. Semi Design</Title>
+            <Title style={{ margin: '8px 0' }} >h1. Semi Design</Title>
+            <Title heading={2} style={{ margin: '8px 0' }} >h2. Semi Design</Title>
+            <Title heading={3} style={{ margin: '8px 0' }} >h3. Semi Design</Title>
+            <Title heading={4} style={{ margin: '8px 0' }} >h4. Semi Design</Title>
+            <Title heading={5} style={{ margin: '8px 0' }} >h5. Semi Design</Title>
+            <Title heading={6} style={{ margin: '8px 0' }} >h6. Semi Design</Title>
         </div>
     );
 }
@@ -286,7 +286,7 @@ function Demo() {
             <br/>
             <Text type="secondary">粘贴区域：</Text>
             <br/>
-            <TextArea autosize style={{width: 320, marginTop: 4}} rows={3} />
+            <TextArea autosize style={{ width: 320, marginTop: 4 }} rows={3} />
         </div>
     );
 }
@@ -312,7 +312,7 @@ function Demo() {
             <br />
             <Text 
                 ellipsis={{ 
-                    showTooltip:{
+                    showTooltip: {
                         opts: { content: '这是自定义要展示的内容' }
                     }
                 }}
@@ -334,7 +334,7 @@ function Demo() {
                 这是一个多行截断的例子：Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统。设计系统包含设计语言以及一整套可复用的前端组件，帮助设计师与开发者更容易地打造高质量的、用户体验一致的、符合设计规范的 Web 应用。
             </Paragraph>
             <br/>
-            <Paragraph ellipsis={{ rows: 3, showTooltip: {type: 'popover', opts: {style: {width: 300}}} }} style={{ width: 300 }}>
+            <Paragraph ellipsis={{ rows: 3, showTooltip: { type: 'popover', opts: { style: { width: 300 } } } }} style={{ width: 300 }}>
                 多行截断，展示 Popover：Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统。设计系统包含设计语言以及一整套可复用的前端组件，帮助设计师与开发者更容易地打造高质量的、用户体验一致的、符合设计规范的 Web 应用。
             </Paragraph>
             <br/>
@@ -361,7 +361,7 @@ function Demo() {
         <div>
             <Text 
                 ellipsis={{ 
-                    showTooltip:{
+                    showTooltip: {
                         opts: { content: '架构|Semi-inf|graph.cheet.relation' }
                     }
                 }}
@@ -372,7 +372,7 @@ function Demo() {
             <br />
             <Text 
                 ellipsis={{ 
-                    showTooltip:{
+                    showTooltip: {
                         opts: { content: '架构|Semi-inf|graph.cheet.relation', className: 'components-typography-demo' }
                     }
                 }}
@@ -383,7 +383,7 @@ function Demo() {
             <br />
             <Text 
                 ellipsis={{
-                    showTooltip:{
+                    showTooltip: {
                         opts: { content: '架构|Semi-inf|graph.cheet.relation', style: { wordBreak: 'break-all' } }
                     }
                 }}

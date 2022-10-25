@@ -126,6 +126,7 @@ $module: #{$prefix}-scrolllist;
 
             .#{$module}-item-selected {
                 font-weight: $font-scrollList_item_wheel_item_selected-fontWeight;
+                color: var(--semi-color-primary) !important;
             }
 
             .#{$module}-list-outer {

@@ -49,6 +49,8 @@ import transContent, { getAnotherSideUrl, isHaveUedDocs, isJumpToDesignSite } fr
 import ImageBox from 'components/ImageBox';
 import './toUEDUtils/toUED.scss';
 import { debounce } from 'lodash';
+import StickyHeaderTable from '../demos/StickyHeaderTable';
+
 const Text = ({ lang, letterSpacing, size, lineHeight, text }) => {
     letterSpacing = letterSpacing || 'auto';
     return (
@@ -458,6 +460,7 @@ const components = {
         // }
     },
     ApiType,
+    StickyHeaderTable
 };
 
 const getPrevAndNext = pageContext => {

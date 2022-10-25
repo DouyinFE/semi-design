@@ -14,7 +14,7 @@ export interface ScrollListProps extends BaseProps {
     footer?: React.ReactNode;
     children?: React.ReactNode;
     bodyHeight?: number | string;
-    prefixCls?: string;
+    prefixCls?: string
 }
 
 // eslint-disable-next-line @typescript-eslint/ban-types

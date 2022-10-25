@@ -46,7 +46,7 @@ import {
 const prefix = cssClasses.PREFIX;
 
 interface BaseFormState {
-    formId: string;
+    formId: string
 }
 class Form extends BaseComponent<BaseFormProps, BaseFormState> {
     static propTypes = {

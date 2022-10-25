@@ -18,7 +18,7 @@ const prefixCls = `${cssClasses.PREFIX}-day`;
 export interface DayCalendarState {
     scrollHeight: number;
     parsedEvents: ParsedEventsWithArray;
-    cachedKeys: Array<string>;
+    cachedKeys: Array<string>
 }
 
 export default class DayCalendar extends BaseComponent<DayCalendarProps, DayCalendarState> {

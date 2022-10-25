@@ -123,7 +123,7 @@ import { IconToutiaoLogo, IconVigoLogo } from '@douyinfe/semi-icons';
             ></Button>
             <Button
                 icon={<IconVigoLogo />}
-                onClick={() => Notification.info({ ...opts, icon: <IconVigoLogo style={{ color: 'pink' }} />  })}
+                onClick={() => Notification.info({ ...opts, icon: <IconVigoLogo style={{ color: 'pink' }} /> })}
             ></Button>
         </>
     );

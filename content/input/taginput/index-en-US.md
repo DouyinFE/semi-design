@@ -25,7 +25,7 @@ import { TagInput } from '@douyinfe/semi-ui';
 
 () => (
     <TagInput
-        defaultValue={['Semi','Hotsoon','Pipixia']}
+        defaultValue={['Semi', 'Hotsoon', 'Pipixia']}
         placeholder='Please enter...'
         onChange={v => console.log(v)}
     />
@@ -68,7 +68,7 @@ import { TagInput } from '@douyinfe/semi-ui';
 () => (
     <TagInput 
         showClear 
-        defaultValue={['Semi','Hotsoon']} 
+        defaultValue={['Semi', 'Hotsoon']} 
         placeholder='Please enter...'
         onChange={v => console.log(v)}
     />
@@ -86,7 +86,7 @@ import { TagInput } from '@douyinfe/semi-ui';
     <TagInput 
         disabled 
         showClear 
-        defaultValue={['Semi','Hotsoon','Pipixia']} 
+        defaultValue={['Semi', 'Hotsoon', 'Pipixia']} 
         placeholder='Please enter...'
     />
 );
@@ -145,11 +145,11 @@ import { IconVigoLogo, IconGift } from '@douyinfe/semi-icons';
     <>
         <TagInput prefix={<IconVigoLogo />} showClear/>
         <br/><br/>
-        <TagInput  prefix="Prefix" showClear/>
+        <TagInput prefix="Prefix" showClear/>
         <br/><br/>
         <TagInput suffix={<IconGift />}/>
         <br/><br/>
-        <TagInput  suffix="Suffix" showClear/>
+        <TagInput suffix="Suffix" showClear/>
     </>
 );
 ``` 
@@ -165,7 +165,7 @@ import { TagInput } from '@douyinfe/semi-ui';
 () => (
     <TagInput
         allowDuplicates={false}
-        defaultValue={['Semi','Hotsoon','Pipixia']} 
+        defaultValue={['Semi', 'Hotsoon', 'Pipixia']} 
         placeholder='Please enter...'
         onChange={v => console.log(v)}
     />
@@ -183,7 +183,7 @@ import { TagInput } from '@douyinfe/semi-ui';
 () => (
     <TagInput
         addOnBlur={true}
-        defaultValue={['Semi','Hotsoon','Pipixia']} 
+        defaultValue={['Semi', 'Hotsoon', 'Pipixia']} 
         placeholder='Please enter...'
         onChange={v => console.log(v)}
     />
@@ -238,7 +238,7 @@ import { TagInput } from '@douyinfe/semi-ui';
         maxTagCount={2}
         showRestTagsPopover={true}
         restTagsPopoverProps={{ position: 'top' }}
-        defaultValue={['Semi','Hotsoon','Pipixia']} 
+        defaultValue={['Semi', 'Hotsoon', 'Pipixia']} 
     />
 );
 ```
@@ -294,7 +294,7 @@ class TagInputDemo extends React.Component {
         return (
             <TagInput
                 inputValue={this.state.value}
-                onInputChange={(v,e) => this.handleInputChange(v,e)}
+                onInputChange={(v, e) => this.handleInputChange(v, e)}
             />
         );
     }
@@ -309,14 +309,14 @@ import { TagInput } from '@douyinfe/semi-ui';
 
 () => (
     <TagInput 
-        defaultValue={['Semi','Hotsoon','Pipixia']} 
+        defaultValue={['Semi', 'Hotsoon', 'Pipixia']} 
         showClear 
         onFocus={e =>{console.log(`onFocus`);}} 
         onBlur={e=>{console.log(`onBlur`);}} 
         onChange={tag=>{console.log(`onChange ：${tag}`);}} 
         onAdd={tag=>{console.log(`onAdd ：${tag}`);}} 
-        onRemove={(v,i)=>{console.log(`onRemove ：${v}, index：${i}`);}} 
-        onInputChange={(input,e)=>{console.log(`onInputChange ：${input}`);}} 
+        onRemove={(v, i)=>{console.log(`onRemove ：${v}, index：${i}`);}} 
+        onInputChange={(input, e)=>{console.log(`onInputChange ：${input}`);}} 
     />
 );
 ```
@@ -343,7 +343,7 @@ class TagInputDemo extends React.Component {
     render() {
         return (
             <>
-                <TagInput defaultValue={['Semi','Hotsoon']} ref={this.ref} />
+                <TagInput defaultValue={['Semi', 'Hotsoon']} ref={this.ref} />
                 <Button style={{ marginTop: 10 }} onClick={this.handleTagInputFocus}>
                     focus
                 </Button>
@@ -365,18 +365,18 @@ class CustomRender extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            value : ['xiakeman']
+            value: ['xiakeman']
         };
         this.list = [
-            { "name": "xiakeman", "avatar":  "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg" },
-            { "name": "shenyue", "avatar":  "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg" },
-            { "name": "quchenyi", "avatar":  "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dbf7351bb779433d17c4f50478cf42f7.jpg" },
-            { "name": "wenjiamao", "avatar":  "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/7abf810ff060ac3387bd027ead92c4e0.jpg" },
+            { "name": "xiakeman", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg" },
+            { "name": "shenyue", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg" },
+            { "name": "quchenyi", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dbf7351bb779433d17c4f50478cf42f7.jpg" },
+            { "name": "wenjiamao", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/7abf810ff060ac3387bd027ead92c4e0.jpg" },
         ];
-        this.mapList = new Map(this.list.map( item => [item.name,item]));
+        this.mapList = new Map(this.list.map( item => [item.name, item]));
     }
 
-    renderTagItem(value,index) {
+    renderTagItem(value, index) {
         const data = this.mapList.get(value);
         return (
             <div 
@@ -401,7 +401,7 @@ class CustomRender extends React.Component {
             <TagInput 
                 value={value} 
                 onChange={value=>this.setState({ value })}
-                renderTagItem={(value,index)=>this.renderTagItem(value,index)}
+                renderTagItem={(value, index)=>this.renderTagItem(value, index)}
             />
         );
     }
@@ -422,7 +422,7 @@ import { TagInput } from '@douyinfe/semi-ui';
     <TagInput
         draggable
         allowDuplicates={false}
-        defaultValue={['Semi','Hotsoon','Pipixia']}
+        defaultValue={['Semi', 'Hotsoon', 'Pipixia']}
         placeholder='please enter...'
         onChange={v => console.log(v)}
     />

@@ -64,7 +64,7 @@ import { Select } from '@douyinfe/semi-ui';
 
 () => {
     const list = [
-        { value: 'abc', label: '抖音', otherKey:0 },
+        { value: 'abc', label: '抖音', otherKey: 0 },
         { value: 'ulikecam', label: '轻颜相机', disabled: true, otherKey: 1 },
         { value: 'jianying', label: '剪映', otherKey: 2 },
         { value: 'toutiao', label: '今日头条', otherKey: 3 },
@@ -90,14 +90,14 @@ import { Select } from '@douyinfe/semi-ui';
 
 () => (
     <>
-        <Select multiple style={{ width: '320px' }} defaultValue={['abc','ulikecam']}>
+        <Select multiple style={{ width: '320px' }} defaultValue={['abc', 'ulikecam']}>
             <Select.Option value='abc'>抖音</Select.Option>
             <Select.Option value='ulikecam'>轻颜相机</Select.Option>
             <Select.Option value='jianying'>剪映</Select.Option>
             <Select.Option value='xigua'>西瓜视频</Select.Option>
         </Select>
         <br/><br/>
-        <Select multiple style={{ width: '320px' }} defaultValue={['abc','ulikecam', 'jianying']} maxTagCount={2}>
+        <Select multiple style={{ width: '320px' }} defaultValue={['abc', 'ulikecam', 'jianying']} maxTagCount={2}>
             <Select.Option value='abc'>抖音</Select.Option>
             <Select.Option value='ulikecam'>轻颜相机</Select.Option>
             <Select.Option value='jianying'>剪映</Select.Option>
@@ -309,7 +309,7 @@ import { Select } from '@douyinfe/semi-ui';
             value: `rgba(var(--semi-${color}-4), 1)`,
             label: (
                 <span style={{ 
-                    color: `rgba(var(--semi-${color}-4), 1)`}}>
+                    color: `rgba(var(--semi-${color}-4), 1)` }}>
                     {`--semi-${color}-4`}
                 </span>
             )
@@ -547,7 +547,7 @@ import { Select, Button } from '@douyinfe/semi-ui';
     let [options, setOptions] = useState([1, 2, 3, 4]);
     function add() {
         let length = Math.ceil(Math.random() * 10);
-        let newOptions = Array.from({ length }, (v,i) => i+1);
+        let newOptions = Array.from({ length }, (v, i) => i+1);
         setOptions(newOptions);
     }
     return (
@@ -621,7 +621,7 @@ class Link extends React.Component {
                     ))}
                 </Select>
                 <Select
-                    style={{ width: '150px', margin: '10px'  }}
+                    style={{ width: '150px', margin: '10px' }}
                     value={city} onChange={this.cityChange}>
                     {citys.map(c => (
                         <Select.Option value={c} key={c}>{c}</Select.Option>
@@ -827,7 +827,7 @@ import { Select, Avatar, Tag } from '@douyinfe/semi-ui';
             paddingBottom: 10
         };
         return (
-            <Select.Option value={item.name} style={optionStyle} showTick={true}  {...item} key={item.email}>
+            <Select.Option value={item.name} style={optionStyle} showTick={true} {...item} key={item.email}>
                 <Avatar size="small" src={item.avatar} />
                 <div style={{ marginLeft: 8 }}>
                     <div style={{ fontSize: 14 }}>{item.name}</div>
@@ -1003,7 +1003,7 @@ import { Select } from '@douyinfe/semi-ui';
                 multiple={true}
                 filter={true}
                 placeholder='With renderCreateItem'
-                renderCreateItem={input => <div style={{ padding:10 }}>Create Item：{input}</div>}
+                renderCreateItem={input => <div style={{ padding: 10 }}>Create Item：{input}</div>}
                 onChange={v => console.log(v)}
                 defaultActiveFirstOption
             >
@@ -1018,7 +1018,7 @@ import { Select } from '@douyinfe/semi-ui';
 传入`virtualize`时开启列表虚拟化，用于大量 Option 节点的情况优化性能  
 virtualize 是一个包含下列值的对象：
 
--   height: Option 列表高度值，默认 300
+-   height: Option 列表高度值，默认 270 (v2.20.8 前为 300)
 -   width: Option 列表宽度值，默认 100%
 -   itemSize: 每行 Option 的高度，必传
  
@@ -1051,7 +1051,7 @@ class VirtualizeDemo extends React.Component {
     render() {
         let { groups, optionList } = this.state;
         let virtualize = {
-            height: 300,
+            height: 270,
             width: '100%',
             itemSize: 36, // px
         };
@@ -1227,7 +1227,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
     };
 
     const optionList = [
-        { value: 'abc', label: '抖音', otherKey:0 },
+        { value: 'abc', label: '抖音', otherKey: 0 },
         { value: 'ulikecam', label: '轻颜相机', disabled: true, otherKey: 1 },
         { value: 'jianying', label: '剪映', otherKey: 2 },
         { value: 'toutiao', label: '今日头条', otherKey: 3 },
@@ -1332,7 +1332,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | loading                  | 下拉列表是否展示加载动画                                                                                                                                                                                  | boolean                               | false                             |
 | maxTagCount              | 多选模式下，已选项超出 maxTagCount 时，后续选项会被渲染成+N 的形式                                                                                                                                        | number                                |                                   |
 | max                      | 最多可选几项，仅在多选模式下生效                                                                                                                                                                          | number                                |                                   |
-| maxHeight                | 下拉菜单中 `optionList` 的最大高度                                                                                                                                                                        | string\|number                        | 300                               |
+| maxHeight                | 下拉菜单中 `optionList` 的最大高度                                                                                                                                                                        | string\|number                        | 270                               |
 | multiple                 | 是否多选                                                                                                                                                                                                  | boolean                               | false                             |
 | outerTopSlot             | 渲染在弹出层顶部，与 optionList 平级的自定义 slot                                                                                                                          | ReactNode                             |                                   |
 | outerBottomSlot          | 渲染在弹出层底部，与 optionList 平级的自定义 slot                                                                                                                                                         | ReactNode                             |                                   |

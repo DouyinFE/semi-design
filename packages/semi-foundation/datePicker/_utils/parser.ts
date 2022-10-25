@@ -46,7 +46,7 @@ export function isValueParseValid(options: {
     value: string;
     formatToken: string;
     baseDate?: Date;
-    locale?: Locale;
+    locale?: Locale
 }) {
     const { value, locale, formatToken } = options;
     const baseDate = options.baseDate || new Date();

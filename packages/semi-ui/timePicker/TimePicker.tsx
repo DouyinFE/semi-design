@@ -28,7 +28,7 @@ import { Motion } from '../_base/base';
 
 export interface Panel {
     panelHeader?: React.ReactNode;
-    panelFooter?: React.ReactNode;
+    panelFooter?: React.ReactNode
 }
 
 export type BaseValueType = string | number | Date;
@@ -93,7 +93,7 @@ export type TimePickerProps = {
     onChange?: TimePickerAdapter['notifyChange'];
     onChangeWithDateFirst?: boolean;
     onFocus?: React.FocusEventHandler<HTMLInputElement>;
-    onOpenChange?: (open: boolean) => void;
+    onOpenChange?: (open: boolean) => void
 };
 
 export interface TimePickerState {
@@ -105,7 +105,7 @@ export interface TimePickerState {
     showHour: boolean;
     showMinute: boolean;
     showSecond: boolean;
-    invalid: boolean;
+    invalid: boolean
 }
 
 export default class TimePicker extends BaseComponent<TimePickerProps, TimePickerState> {
@@ -196,6 +196,7 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
         onKeyDown: noop,
         size: 'default' as const,
         type: strings.DEFAULT_TYPE,
+        motion: true,
         ...PanelShapeDefaults,
         // format: strings.DEFAULT_FORMAT,
         // open and value controlled
@@ -506,7 +507,7 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
         if (useCustomTrigger) {
             outerProps.onClick = this.openPanel;
         }
-
+        console.log("===>", disabled?false:open, motion);
         return (
             <div
                 ref={this.setTimePickerRef}

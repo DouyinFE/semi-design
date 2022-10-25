@@ -112,7 +112,7 @@ export interface UploadProps {
     uploadTrigger?: 'auto' | 'custom';
     validateMessage?: ReactNode;
     validateStatus?: ValidateStatus;
-    withCredentials?: boolean;
+    withCredentials?: boolean
 }
 
 export interface UploadState {
@@ -121,7 +121,7 @@ export interface UploadState {
     inputKey: number;
     localUrls: Array<string>;
     replaceIdx: number;
-    replaceInputKey: number;
+    replaceInputKey: number
 }
 
 class Upload extends BaseComponent<UploadProps, UploadState> {
@@ -367,6 +367,14 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
     upload = (): void => {
         const { fileList } = this.state;
         this.foundation.startUpload(fileList);
+    };
+
+    /**
+     * ref method
+     * manual open file select dialog
+     */
+    openFileDialog = (): void => {
+        this.onClick();
     };
 
     renderFile = (file: FileItem, index: number, locale: Locale['Upload']): ReactNode => {

@@ -18,14 +18,14 @@ export interface TextAreaDefaultAdapter {
     notifyKeyDown: noopFunction;
     notifyEnterPress: noopFunction;
     toggleHovering(hovering: boolean): void;
-    notifyClear(e: any): void;
+    notifyClear(e: any): void
 }
 
 export interface TextAreaAdapter extends Partial<DefaultAdapter>, Partial<TextAreaDefaultAdapter> {
     setMinLength(length: number): void;
     notifyPressEnter(e: any): void;
     getRef(): any;
-    notifyHeightUpdate(e: any): void;
+    notifyHeightUpdate(e: any): void
 }
 
 export default class TextAreaFoundation extends BaseFoundation<TextAreaAdapter> {

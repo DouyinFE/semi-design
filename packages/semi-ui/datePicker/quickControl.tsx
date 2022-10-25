@@ -16,7 +16,7 @@ export interface QuickControlProps {
     presetPosition: typeof strings.PRESET_POSITION_SET[number];
     onPresetClick: (preset: PresetType, e: React.MouseEvent) => void;
     type: string;
-    insetInput: boolean;
+    insetInput: boolean
 }
 
 class QuickControl extends PureComponent<QuickControlProps> {
@@ -38,7 +38,7 @@ class QuickControl extends PureComponent<QuickControlProps> {
         const { presets, onPresetClick, type, presetPosition, insetInput } = this.props;
         const isTypeRange = type === 'dateRange' || type === 'dateTimeRange';
         const isPanelTopAndBottom = presetPosition === 'top' || presetPosition === 'bottom';
-        const isMonth =  type === 'month';
+        const isMonth = type === 'month';
         const isTopAndBottomRange = isPanelTopAndBottom && isTypeRange;
         const isTopAndBottomMonth = isPanelTopAndBottom && isMonth;
 

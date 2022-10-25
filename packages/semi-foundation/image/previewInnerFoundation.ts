@@ -16,9 +16,9 @@ export interface PreviewInnerAdapter<P = Record<string, any>, S = Record<string,
     getMouseActiveTime: () => number;
     getStopTiming: () => boolean;
     setStopTiming: (value: boolean) => void;
-    getStartMouseDown: () => {x: number, y: number};
+    getStartMouseDown: () => {x: number; y: number};
     setStartMouseDown: (x: number, y: number) => void;
-    setMouseActiveTime: (time: number) => void;
+    setMouseActiveTime: (time: number) => void
 }
 
 const NOT_CLOSE_TARGETS = ["icon", "footer"];

@@ -14,12 +14,12 @@ import { getUuidv4 } from '@douyinfe/semi-foundation/utils/uuid';
 export interface TabBarState {
     endInd: number;
     rePosKey: number;
-    startInd: number;
+    startInd: number
 }
 
 export interface OverflowItem extends PlainTab {
     key: string;
-    active: boolean;
+    active: boolean
 }
 
 class TabBar extends React.Component<TabBarProps, TabBarState> {

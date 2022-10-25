@@ -25,14 +25,14 @@ import Spin from '../spin';
 import Trigger from '../trigger';
 import { IconChevronDown, IconClear } from '@douyinfe/semi-icons';
 import { isSemiIcon, getFocusableElements, getActiveElement } from '../_utils';
-import { Subtract } from 'utility-types';
-
 import warning from '@douyinfe/semi-foundation/utils/warning';
 import { getUuidShort } from '@douyinfe/semi-foundation/utils/uuid';
 
 import '@douyinfe/semi-foundation/select/select.scss';
-import { Locale } from '../locale/interface';
-import { Position, TooltipProps } from '../tooltip';
+import type { Locale } from '../locale/interface';
+import type { Position, TooltipProps } from '../tooltip';
+import type { Subtract } from 'utility-types';
+
 
 export type { OptionProps } from './option';
 export type { OptionGroupProps } from './optionGroup';
@@ -45,7 +45,7 @@ const key = 0;
 type ExcludeInputType = {
     value?: InputProps['value'];
     onFocus?: InputProps['onFocus'];
-    onChange?: InputProps['onChange'];
+    onChange?: InputProps['onChange']
 }
 
 type OnChangeValueType = string | number | Record<string, any>;
@@ -61,7 +61,7 @@ export interface optionRenderProps {
     disabled?: boolean;
     onMouseEnter?: (e: React.MouseEvent) => any;
     onClick?: (e: React.MouseEvent) => any;
-    [x: string]: any;
+    [x: string]: any
 }
 
 export interface selectMethod {
@@ -70,14 +70,14 @@ export interface selectMethod {
     deselectAll?: () => void;
     focus?: () => void;
     close?: () => void;
-    open?: () => void;
+    open?: () => void
 }
 export type SelectSize = 'small' | 'large' | 'default';
 
 export interface virtualListProps {
     itemSize?: number;
     height?: number;
-    width?: string | number;
+    width?: string | number
 }
 
 export type RenderSingleSelectedItemFn = (optionNode: Record<string, any>) => React.ReactNode;
@@ -152,7 +152,7 @@ export type SelectProps = {
     onBlur?: (e: React.FocusEvent) => void;
     onListScroll?: (e: React.UIEvent<HTMLDivElement>) => void;
     children?: React.ReactNode;
-    preventScroll?: boolean;
+    preventScroll?: boolean
 } & Pick<
 TooltipProps,
 | 'spacing'
@@ -177,7 +177,7 @@ export interface SelectState {
     keyboardEventSet: any; // {}
     optionGroups: Array<any>;
     isHovering: boolean;
-    isFocusInContainer: boolean;
+    isFocusInContainer: boolean
 }
 
 // Notes: Use the label of the option as the identifier, that is, the option in Select, the value is allowed to be the same, but the label must be unique
@@ -236,7 +236,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         triggerRender: PropTypes.func,
         stopPropagation: PropTypes.bool,
         // motion doesn't need to be exposed
-        motion: PropTypes.oneOfType([PropTypes.func, PropTypes.bool, PropTypes.object]),
+        motion: PropTypes.bool,
 
         onChangeWithObject: PropTypes.bool,
 
@@ -303,7 +303,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         onBlur: noop,
         onClear: noop,
         onListScroll: noop,
-        maxHeight: 300,
+        maxHeight: numbers.LIST_HEIGHT,
         dropdownMatchSelectWidth: true,
         defaultActiveFirstOption: true, // In order to meet the needs of A11y, change to true
         showArrow: true,
@@ -867,8 +867,8 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             // eslint-disable-next-line jsx-a11y/no-static-element-interactions
             <div 
                 id={`${prefixcls}-${this.selectOptionListID}`} 
-                className={dropdownClassName} 
-                style={style} 
+                className={cls(`${prefixcls}-option-list-wrapper`, dropdownClassName)} 
+                style={style}
                 ref={this.setOptionContainerEl} 
                 onKeyDown={e => this.foundation.handleContainerKeyDown(e)}
             >

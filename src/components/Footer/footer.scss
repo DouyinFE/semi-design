@@ -1,6 +1,6 @@
 body[theme-mode='dark'] {
     .footer {
-        background: #1C1F23;
+        background: #1c1f23;
     }
 }
 .footerMini8 {
@@ -28,7 +28,7 @@ body[theme-mode='dark'] {
         min-width: 48px;
         margin: 0px 80px 0px 0px;
         font-size: 16px;
-        font-family: PingFang SC;
+        font-family: 'Inter', 'PingFang SC';
         color: #ffffffff;
         line-height: 26px;
         font-weight: 400;
@@ -61,7 +61,7 @@ body[theme-mode='dark'] {
 
     .text_8b88424e {
         font-size: 16px;
-        font-family: PingFang SC;
+        font-family: 'Inter', 'PingFang SC';
         color: #ffffffff;
         line-height: 26px;
         font-weight: 400;
@@ -97,7 +97,7 @@ body[theme-mode='dark'] {
         align-items: center;
         justify-content: space-between;
     }
-    .icpWrapper{
+    .icpWrapper {
         display: flex;
     }
     .a2021SemiDesignAllRi {
@@ -110,14 +110,14 @@ body[theme-mode='dark'] {
         text-align: left;
         vertical-align: top;
     }
-    
+
     .image45 {
         width: 20px;
         height: 20px;
         margin: 0px 4px 0px 0px;
     }
 
-    .beianText{
+    .beianText {
         margin-right: 8px;
         font-size: 14px;
         font-family: Inter;
@@ -155,5 +155,5 @@ body[theme-mode='dark'] {
         &:hover {
             color: #01ffc3ff;
         }
-    } 
+    }
 }

@@ -9,7 +9,7 @@ import '@douyinfe/semi-foundation/navigation/navigation.scss';
 
 import isNullOrUndefined from '@douyinfe/semi-foundation/utils/isNullOrUndefined';
 import SubNavFoundation, { SubNavAdapter } from '@douyinfe/semi-foundation/navigation/subNavFoundation';
-import { strings, numbers } from '@douyinfe/semi-foundation/navigation/constants';
+import { strings, numbers, cssClasses } from '@douyinfe/semi-foundation/navigation/constants';
 import { IconChevronDown, IconChevronUp, IconChevronRight } from '@douyinfe/semi-icons';
 
 import NavItem from './Item';
@@ -17,13 +17,12 @@ import Dropdown, { DropdownProps } from '../dropdown';
 import NavContext, { NavContextType } from './nav-context';
 
 import { times, get } from 'lodash';
-
-import SubNavTransition from './SubNavTransition';
-import OpenIconTransition from './OpenIconTransition';
+import Collapsible from "../collapsible";
+import CSSAnimation from "../_cssAnimation";
 
 export interface ToggleIcon {
     open?: string;
-    closed?: string;
+    closed?: string
 }
 
 export interface SubNavProps extends BaseProps {
@@ -39,11 +38,11 @@ export interface SubNavProps extends BaseProps {
     onMouseEnter?: React.MouseEventHandler<HTMLLIElement>;
     onMouseLeave?: React.MouseEventHandler<HTMLLIElement>;
     text?: React.ReactNode;
-    toggleIcon?: ToggleIcon;
+    toggleIcon?: ToggleIcon
 }
 
 export interface SubNavState {
-    isHovered: boolean;
+    isHovered: boolean
 }
 
 export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
@@ -107,8 +106,8 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
         isOpen: false,
         maxHeight: numbers.DEFAULT_SUBNAV_MAX_HEIGHT,
         toggleIcon: {
-            open: <IconChevronUp />,
-            closed: <IconChevronDown />,
+            open: <IconChevronUp aria-hidden={true} />,
+            closed: <IconChevronDown aria-hidden={true} />,
         },
         disabled: false,
     };
@@ -195,9 +194,13 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
         const isOpen = this.adapter.getIsOpen();
 
         const iconElem = React.isValidElement(icon) ? (withTransition ? (
-            <OpenIconTransition isOpen={isOpen}>
-                {React.cloneElement(icon, { size: iconSize })}
-            </OpenIconTransition>
+            <CSSAnimation animationState={isOpen?"enter":"leave"} startClassName={`${cssClasses.PREFIX}-icon-rotate-${isOpen?"0":"180"}`}>
+                {({ animationClassName })=>{
+                    // @ts-ignore
+                    return React.cloneElement(icon, { size: iconSize, className: animationClassName });
+                }}
+            </CSSAnimation>
+            // @ts-ignore
         ) : React.cloneElement(icon, { size: iconSize })) : null;
 
         return <i key={key} className={className}>{iconElem}</i>;
@@ -207,6 +210,8 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
         const { text, icon, itemKey, indent, disabled, level } = this.props;
 
         const { mode, isInSubNav, isCollapsed, prefixCls, subNavMotion, limitIndent } = this.context;
+
+        const isOpen = this.adapter.getIsOpen();
 
         const titleCls = cls(`${prefixCls}-sub-title`, {
             [`${prefixCls}-sub-title-selected`]: this.adapter.getIsSelected(itemKey),
@@ -224,9 +229,9 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
             }
         } else if (mode === strings.MODE_HORIZONTAL) {
             if (isInSubNav) {
-                toggleIconType = <IconChevronRight />;
+                toggleIconType = <IconChevronRight aria-hidden={true} />;
             } else {
-                toggleIconType = <IconChevronDown />;
+                toggleIconType = <IconChevronDown aria-hidden={true} />;
                 // Horizontal mode does not require animation fix#1198
                 // withTransition = true;
             }
@@ -234,7 +239,7 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
             if (subNavMotion) {
                 withTransition = true;
             }
-            toggleIconType = <IconChevronDown />;
+            toggleIconType = <IconChevronDown aria-hidden={true} />;
         }
 
         let placeholderIcons = null;
@@ -244,14 +249,18 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
             placeholderIcons = times(iconAmount, index => this.renderIcon(null, strings.ICON_POS_RIGHT, false, false, index));
         }
 
+        const isIconChevronRightShow = (!isCollapsed && isInSubNav && mode === strings.MODE_HORIZONTAL) || (isCollapsed && isInSubNav);
+
         const titleDiv = (
             <div
                 role="menuitem"
-                tabIndex={-1}
+                // to avoid nested horizontal navigation be focused
+                tabIndex={isIconChevronRightShow ? -1 : 0}
                 ref={this.setTitleRef as any}
                 className={titleCls}
                 onClick={this.handleClick}
                 onKeyPress={this.handleKeyPress}
+                aria-expanded={isOpen ? 'true' : 'false'}
             >
                 <div className={`${prefixCls}-item-inner`}>
                     {placeholderIcons}
@@ -282,20 +291,16 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
             [`${prefixCls}-sub-popover`]: isCollapsed || isHorizontal,
         });
 
-        const ulWithMotion = (
-            <SubNavTransition motion={subNavMotion} isCollapsed={isCollapsed} maxHeight={maxHeight}>
-                {!isCollapsed && isOpen
-                    ? (transitionStyle: any) => (
-                        <ul
-                            style={{ ...transitionStyle, visibility: isCollapsed ? 'hidden' : 'visible' }}
-                            className={subNavCls}
-                        >
-                            {children}
-                        </ul>
-                    )
-                    : null}
-            </SubNavTransition>
-        );
+        const ulWithMotion = <Collapsible motion={subNavMotion} isOpen={isOpen} keepDOM={false} fade={true}>
+            {
+                !isCollapsed ? <ul
+                    className={subNavCls}
+                >
+                    {children}
+                </ul>: null
+            }
+        </Collapsible>;
+
 
         const finalDom = isHorizontal ? null : subNavMotion ? (
             ulWithMotion
@@ -336,7 +341,7 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
                     className={subNavCls}
                     render={(
                         <Dropdown.Menu>
-                            <li className={`${prefixCls}-popover-crumb`} />
+                            {/* <li className={`${prefixCls}-popover-crumb`} /> */}
                             {children}
                         </Dropdown.Menu>
                     )}

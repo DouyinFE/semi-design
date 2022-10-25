@@ -25,7 +25,7 @@ interface NavigationProps {
     // Whether to switch synchronously for two panels
     shouldBimonthSwitch?: boolean;
     // Panel type, divided into left panel and right panel
-    panelType?: PanelType;
+    panelType?: PanelType
 }
 
 export default class Navigation extends PureComponent<NavigationProps> {
@@ -80,7 +80,7 @@ export default class Navigation extends PureComponent<NavigationProps> {
         const btnNoHorizontalPadding = true;
         const buttonSize = density === 'compact' ? 'small' : 'default';
         const isLeftPanel = panelType === strings.PANEL_TYPE_LEFT;
-        const isRightPanel =  panelType === strings.PANEL_TYPE_RIGHT;
+        const isRightPanel = panelType === strings.PANEL_TYPE_RIGHT;
 
         // syncSwitchMonth and the current panel is the left
         const hiddenLeftPanelRightButtons = shouldBimonthSwitch && isLeftPanel;

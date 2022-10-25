@@ -4,22 +4,22 @@ import shouldUseBezier from './shouldUseBezier';
 
 export interface Value {
     easing: string;
-    duration: number | string;
+    duration: number | string
 }
 
 export interface DefaultConfig extends PresetsItem {
-    precision: number;
+    precision: number
 }
 
 export interface Config {
     easing?: string;
     duration?: number | string;
-    delay?: string;
+    delay?: string
 }
 
 export interface Wrapped extends DefaultConfig, Config {
     done: boolean;
-    val?: Value;
+    val?: Value
 }
 
 const defaultConfig: DefaultConfig = {

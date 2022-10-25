@@ -63,7 +63,7 @@ import { IconAlertTriangle } from '@douyinfe/semi-icons';
         <Timeline.Item time='2019-07-14 10:35'>Default Style</Timeline.Item>
         <Timeline.Item time='2019-06-13 16:17' dot={(<IconAlertTriangle />)} type='warning'>Customized Icon</Timeline.Item>
         <Timeline.Item time='2019-05-14 18:34' color='pink'>Customized Color</Timeline.Item>
-        <Timeline.Item time='2019-04-10 12:20'><span style={{fontSize: '18px'}}>Customized Node Style</span></Timeline.Item>
+        <Timeline.Item time='2019-04-10 12:20'><span style={{ fontSize: '18px' }}>Customized Node Style</span></Timeline.Item>
     </Timeline>
 );
 ```
@@ -148,29 +148,29 @@ import { IconAlertTriangle } from '@douyinfe/semi-icons';
         mode='alternate' 
         dataSource={[
             {
-                time:'2019-07-14 10:35',
-                extra:'Extra Information',
-                content:'First Node Content',
-                type:'ongoing',
+                time: '2019-07-14 10:35',
+                extra: 'Extra Information',
+                content: 'First Node Content',
+                type: 'ongoing',
             },
             {
-                time:'2019-06-13 16:17',
-                extra:'Extra Information',
-                content:<span style={{fontSize: '18px'}}>Second Node Content</span>,
-                color:'pink',
+                time: '2019-06-13 16:17',
+                extra: 'Extra Information',
+                content: <span style={{ fontSize: '18px' }}>Second Node Content</span>,
+                color: 'pink',
             },
             {
-                time:'2019-05-14 18:34',
-                extra:'Extra Information',
-                dot:<IconAlertTriangle />,
-                content:'Third Node Content',
-                type:'warning',
+                time: '2019-05-14 18:34',
+                extra: 'Extra Information',
+                dot: <IconAlertTriangle />,
+                content: 'Third Node Content',
+                type: 'warning',
             },
             {
-                time:'2019-05-09 09:12',
-                extra:'Extra Information',
-                content:'Forth Node Content',
-                type:'success',
+                time: '2019-05-09 09:12',
+                extra: 'Extra Information',
+                content: 'Forth Node Content',
+                type: 'success',
             }    
         ]} 
     />

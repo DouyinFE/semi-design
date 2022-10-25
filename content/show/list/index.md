@@ -1159,7 +1159,7 @@ import { IconMinusCircle, IconPlusCircle } from '@douyinfe/semi-icons';
                         </div>
                     }
                 />
-                <div style={{ margin: 4, fontSize: 14  }} onClick={() => updateList()}>
+                <div style={{ margin: 4, fontSize: 14 }} onClick={() => updateList()}>
                     <Button theme='borderless' icon={<IconPlusCircle />} style={{ marginRight: 4, color: 'var(--semi-color-info)' }}>
                     </Button>
                     新增书籍

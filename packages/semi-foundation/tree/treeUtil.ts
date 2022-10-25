@@ -6,18 +6,18 @@
 import { difference, uniq, max, isObject, isNull, isUndefined, isEmpty, pick, get } from 'lodash';
 
 export interface KeyEntities {
-    [x: string]: any;
+    [x: string]: any
 }
 
 export interface TreeDataSimpleJson {
-    [x: string]: string | TreeDataSimpleJson;
+    [x: string]: string | TreeDataSimpleJson
 }
 
 export interface NodeData {
     key: any;
     label: any;
     value: any;
-    children?: any;
+    children?: any
 }
 
 const DRAG_OFFSET = 0.45;

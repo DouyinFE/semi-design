@@ -15,13 +15,13 @@ export interface TransitionProps extends AnimationProps {
     willLeave?: (value: any) => void;
     didLeave?: (value: any) => void;
     onRest?: (value: any) => void;
-    onStart?: (value: any) => void;
+    onStart?: (value: any) => void
 }
 
 export interface TransitionState {
     state: string | boolean;
     lastChildren: React.ReactNode | ((TransitionProps: any) => React.ReactNode | any);
-    currentChildren: React.ReactNode | ((TransitionProps: any) => React.ReactNode | any);
+    currentChildren: React.ReactNode | ((TransitionProps: any) => React.ReactNode | any)
 }
 
 export default class Transition extends Component<TransitionProps, TransitionState> {

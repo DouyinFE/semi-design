@@ -147,7 +147,7 @@ import { Layout } from '@douyinfe/semi-ui';
 ```jsx live=true dir="column" hideInDSM
 import React from 'react';
 import { Layout, Nav, Button, Breadcrumb, Skeleton, Avatar } from '@douyinfe/semi-ui';
-import { IconSemiLogo, IconBell, IconHelpCircle, IconBytedanceLogo,IconHome,IconLive,IconSetting } from '@douyinfe/semi-icons';
+import { IconSemiLogo, IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, IconLive, IconSetting } from '@douyinfe/semi-icons';
 
 () => {
     const { Header, Footer, Content } = Layout;

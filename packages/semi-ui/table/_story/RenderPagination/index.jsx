@@ -11,11 +11,11 @@ export default class RenderPagination extends React.Component {
         };
 
         this.renderPagination = pagination => {
-            return <Pagination {...pagination} />
-        }
+            return <Pagination {...pagination} />;
+        };
 
         this.switchPagination = position => {
-            let { pagination }  = this.state;
+            let { pagination } = this.state;
 
             const positions = ['bottom', 'top', 'both'];
 
@@ -30,7 +30,7 @@ export default class RenderPagination extends React.Component {
 
         this.toggleRenderPagination = checked => {
             this.setState({ customPagination: checked });
-        }
+        };
 
         this.TableSwitch = function TableSwitch({
             text,

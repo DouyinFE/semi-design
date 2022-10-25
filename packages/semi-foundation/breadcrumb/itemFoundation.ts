@@ -4,7 +4,7 @@ export interface BreadcrumbItemInfo {
     name?: any; // maybe reactNode, string, number
     href?: string;
     icon?: any;
-    path?: string;
+    path?: string
 }
 
 export interface Route {
@@ -12,12 +12,12 @@ export interface Route {
     path?: string;
     href?: string;
     name?: string;
-    icon?: any;
+    icon?: any
 }
 
 export interface BreadcrumbItemAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     notifyClick: (item: BreadcrumbItemInfo, e: any) => void;
-    notifyParent: (item: BreadcrumbItemInfo, e: any) => void;
+    notifyParent: (item: BreadcrumbItemInfo, e: any) => void
 }
 
 export default class BreadcrumbItemFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<BreadcrumbItemAdapter<P, S>, P, S> {

@@ -44,7 +44,7 @@ const DirectorySvg: FC<SVGProps<SVGSVGElement>> = (props = {}) => (
 
 export interface FileCardProps extends RenderFileItemProps {
     className?: string;
-    style?: CSSProperties;
+    style?: CSSProperties
 }
 
 

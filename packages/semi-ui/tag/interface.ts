@@ -54,5 +54,5 @@ export interface TagGroupProps<T> {
     popoverProps?: PopoverProps;
     avatarShape?: AvatarShape;
     mode?: string;
-    onTagClose: (tagChildren: React.ReactNode, event: React.MouseEvent<HTMLElement>, tagKey: string | number) => void;
+    onTagClose: (tagChildren: React.ReactNode, event: React.MouseEvent<HTMLElement>, tagKey: string | number) => void
 }

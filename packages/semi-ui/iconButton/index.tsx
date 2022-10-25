@@ -25,7 +25,7 @@ export interface IconButtonProps extends ButtonProps {
     className?: string;
     disabled?: boolean;
     noHorizontalPadding?: boolean | HorizontalPaddingType | HorizontalPaddingType[];
-    prefixCls?: string;
+    prefixCls?: string
 }
 
 // TODO: add a buttonGroup component

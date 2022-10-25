@@ -33,7 +33,7 @@ const statusSet = strings.STATUS;
  */
 
 export interface BaseDataItem extends DataItem {
-    label?: React.ReactNode;
+    label?: React.ReactNode
 }
 
 export type AutoCompleteItems = BaseDataItem | string | number;
@@ -76,6 +76,7 @@ export interface AutoCompleteProps<T extends AutoCompleteItems> {
     onChangeWithObject?: boolean;
     onSelectWithObject?: boolean;
     onDropdownVisibleChange?: (visible: boolean) => void;
+    onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
     prefix?: React.ReactNode;
     placeholder?: string;
     position?: Position;
@@ -89,11 +90,11 @@ export interface AutoCompleteProps<T extends AutoCompleteItems> {
     stopPropagation?: boolean | string;
     value?: string | number;
     validateStatus?: ValidateStatus;
-    zIndex?: number;
+    zIndex?: number
 }
 
 interface KeyboardEventType {
-    onKeyDown?: React.KeyboardEventHandler;
+    onKeyDown?: React.KeyboardEventHandler
 }
 
 interface AutoCompleteState {
@@ -104,7 +105,7 @@ interface AutoCompleteState {
     focusIndex: number;
     selection: Map<any, any>;
     rePosKey: number;
-    keyboardEventSet?: KeyboardEventType;
+    keyboardEventSet?: KeyboardEventType
 }
 
 class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoCompleteProps<T>, AutoCompleteState> {
@@ -137,6 +138,7 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
         onBlur: PropTypes.func,
         onFocus: PropTypes.func,
         onChange: PropTypes.func,
+        onKeyDown: PropTypes.func,
         position: PropTypes.oneOf(positionSet),
         placeholder: PropTypes.string,
         prefix: PropTypes.node,
@@ -185,6 +187,7 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
         validateStatus: 'default' as const,
         autoFocus: false,
         emptyContent: null as null,
+        onKeyDown: noop,
         // onPressEnter: () => undefined,
         // defaultOpen: false,
     };
@@ -282,6 +285,9 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
             },
             notifyBlur: (event: React.FocusEvent) => {
                 this.props.onBlur(event);
+            },
+            notifyKeyDown: e => {
+                this.props.onKeyDown(e);
             },
             rePositionDropdown: () => {
                 let { rePosKey } = this.state;

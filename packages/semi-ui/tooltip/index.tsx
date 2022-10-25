@@ -22,29 +22,28 @@ import Portal from '../_portal/index';
 import ConfigContext, { ContextValue } from '../configProvider/context';
 import TriangleArrow from './TriangleArrow';
 import TriangleArrowVertical from './TriangleArrowVertical';
-import TooltipTransition from './TooltipStyledTransition';
 import ArrowBoundingShape from './ArrowBoundingShape';
 import { Motion } from '../_base/base';
+import CSSAnimation from "../_cssAnimation";
 
-export type { TooltipTransitionProps } from './TooltipStyledTransition';
 export type Trigger = ArrayElement<typeof strings.TRIGGER_SET>;
 export type { Position };
 export interface ArrowBounding {
     offsetX?: number;
     offsetY?: number;
     width?: number;
-    height?: number;
+    height?: number
 }
 
 export interface RenderContentProps {
-    initialFocusRef?: React.RefObject<HTMLElement>;
+    initialFocusRef?: React.RefObject<HTMLElement>
 }
 
 export type RenderContent = (props: RenderContentProps) => React.ReactNode;
 
 export interface TooltipProps extends BaseProps {
     children?: React.ReactNode;
-    motion?: Motion;
+    motion?: boolean;
     autoAdjustOverflow?: boolean;
     position?: Position;
     getPopupContainer?: () => HTMLElement;
@@ -75,26 +74,27 @@ export interface TooltipProps extends BaseProps {
     guardFocus?: boolean;
     returnFocusOnClose?: boolean;
     onEscKeyDown?: (e: React.KeyboardEvent) => void;
-    disableArrowKeyDown?: boolean; 
+    disableArrowKeyDown?: boolean;
     wrapperId?: string;
     preventScroll?: boolean;
     disableFocusListener?: boolean;
+    afterClose?:()=>void
 }
 interface TooltipState {
     visible: boolean;
     transitionState: string;
     triggerEventSet: {
-        [key: string]: any;
+        [key: string]: any
     };
     portalEventSet: {
-        [key: string]: any;
+        [key: string]: any
     };
     containerStyle: React.CSSProperties;
     isInsert: boolean;
     placement: Position;
     transitionStyle: Record<string, any>;
     isPositionUpdated: boolean;
-    id: string;
+    id: string
 }
 
 const prefix = cssClasses.PREFIX;
@@ -108,7 +108,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
 
     static propTypes = {
         children: PropTypes.node,
-        motion: PropTypes.oneOfType([PropTypes.bool, PropTypes.object, PropTypes.func]),
+        motion: PropTypes.bool,
         autoAdjustOverflow: PropTypes.bool,
         position: PropTypes.oneOf(positionSet),
         getPopupContainer: PropTypes.func,
@@ -255,11 +255,9 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             registerTriggerEvent: (triggerEventSet: Record<string, any>) => {
                 this.setState({ triggerEventSet });
             },
-            unregisterTriggerEvent: () => {},
             registerPortalEvent: (portalEventSet: Record<string, any>) => {
                 this.setState({ portalEventSet });
             },
-            unregisterPortalEvent: () => {},
             getTriggerBounding: () => {
                 // eslint-disable-next-line
                 // It may be a React component or an html element
@@ -320,12 +318,8 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             togglePortalVisible: (visible: boolean, cb: () => void) => {
                 const willUpdateStates: Partial<TooltipState> = {};
 
-                if (this.adapter.canMotion()) {
-                    willUpdateStates.transitionState = visible ? 'enter' : 'leave';
-                    willUpdateStates.visible = visible;
-                } else {
-                    willUpdateStates.visible = visible;
-                }
+                willUpdateStates.transitionState = visible ? 'enter' : 'leave';
+                willUpdateStates.visible = visible;
                 this.mounted && this.setState(willUpdateStates as TooltipState, () => {
                     cb();
                 });
@@ -432,7 +426,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                 const focusRefNode = get(this, 'initialFocusRef.current');
                 if (focusRefNode && 'focus' in focusRefNode) {
                     focusRefNode.focus({ preventScroll });
-                } 
+                }
             },
             notifyEscKeydown: (event: React.KeyboardEvent) => {
                 this.props.onEscKeyDown(event);
@@ -485,10 +479,8 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
     // };
 
     didLeave = () => {
-        this.adapter.unregisterClickOutsideHandler();
-        this.adapter.unregisterScrollHandler();
-        this.adapter.unregisterResizeHandler();
-        this.adapter.removePortal();
+        this.foundation.removePortal();
+        this.foundation.unBindEvent();
     };
     /** for transition - end */
 
@@ -571,38 +563,40 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         const icon = this.renderIcon();
         const portalInnerStyle = omit(containerStyle, motion ? ['transformOrigin'] : undefined);
         const transformOrigin = get(containerStyle, 'transformOrigin');
-        const inner = motion && isPositionUpdated ? (
-            <TooltipTransition position={placement} didLeave={this.didLeave} motion={motion}>
+        const inner =
+            <CSSAnimation animationState={transitionState as "enter"|"leave"}
+                motion={motion && isPositionUpdated}
+                startClassName={transitionState==='enter'?`${prefix}-animation-show`:`${prefix}-animation-hide`}
+                onAnimationEnd={()=>{
+                    if (transitionState === 'leave'){
+                        this.didLeave();
+                        this.props.afterClose?.();
+                    }
+                }}>
                 {
-                    transitionState === 'enter' ?
-                        ({ animateCls, animateStyle, animateEvents }) => (
-                            <div
-                                className={classNames(className, animateCls)}
-                                style={{
-                                    visibility: 'visible',
-                                    ...animateStyle,
-                                    transformOrigin,
-                                    ...style,
-                                }}
-                                {...portalEventSet}
-                                {...animateEvents}
-                                role={role}
-                                x-placement={placement}
-                                id={id}
-                            >
-                                {contentNode}
-                                {icon}
-                            </div>
-                        ) :
-                        null
+                    ({ animationStyle, animationClassName, animationEventsNeedBind })=>{
+                        return <div
+
+                            className={classNames(className, animationClassName)}
+                            style={{
+                                visibility: isPositionUpdated?'visible':"hidden",
+                                ...animationStyle,
+                                transformOrigin,
+                                ...style,
+                            }}
+                            {...portalEventSet}
+                            {...animationEventsNeedBind}
+                            role={role}
+                            x-placement={placement}
+                            id={id}
+                        >
+                            {contentNode}
+                            {icon}
+                        </div>;
+                    }
                 }
-            </TooltipTransition>
-        ) : (
-            <div className={className} {...portalEventSet} x-placement={placement} style={{ visibility: motion ? 'hidden' : 'visible', ...style }}>
-                {contentNode}
-                {icon}
-            </div>
-        );
+            </CSSAnimation>;
+
 
         return (
             <Portal getPopupContainer={this.props.getPopupContainer} style={{ zIndex }}>
@@ -720,7 +714,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                     ref.current = node;
                 }
             },
-            tabIndex: (children as React.ReactElement).props.tabIndex || 0, // a11y keyboard, in some condition select's tabindex need to -1 or 0 
+            tabIndex: (children as React.ReactElement).props.tabIndex || 0, // a11y keyboard, in some condition select's tabindex need to -1 or 0
             'data-popupid': id
         });
 

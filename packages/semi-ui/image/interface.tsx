@@ -5,7 +5,7 @@ import React from "react";
 export interface ImageStates {
     src: string;
     loadStatus: "loading" | "success" | "error";
-    previewVisible: boolean;
+    previewVisible: boolean
 }
 
 export interface ImageProps extends BaseProps{
@@ -19,8 +19,8 @@ export interface ImageProps extends BaseProps{
     onError?: (event: Event) => void;
     onLoad?: (event: Event) => void;
     crossOrigin?: "anonymous"| "use-credentials";
-    children?: ReactNode,
-    imageID?: number;
+    children?: ReactNode;
+    imageID?: number
 }
 
 export interface PreviewProps extends BaseProps {
@@ -51,12 +51,12 @@ export interface PreviewProps extends BaseProps {
     viewerVisibleDelay?: number;
     disableDownload?: boolean;
     zIndex?: number;
-    children?: ReactNode,
+    children?: ReactNode;
     renderHeader?: (info: any) => ReactNode;
     renderPreviewMenu?: (props: MenuProps) => ReactNode;
     getPopupContainer?: () => HTMLElement;
     onVisibleChange?: (visible: boolean) => void;
-    onChange?: (index: number) => void
+    onChange?: (index: number) => void;
     onClose?: () => void;
     onZoomIn?: (zoom: number) => void;
     onZoomOut?: (zoom: number) => void;
@@ -64,7 +64,7 @@ export interface PreviewProps extends BaseProps {
     onNext?: (index: number) => void;
     onRatioChange?: (type: RatioType) => void;
     onRotateChange?: (angle: number) => void;
-    onDownload?: (src: string, index: number) => void;
+    onDownload?: (src: string, index: number) => void
 }
 
 export interface MenuProps {
@@ -74,18 +74,18 @@ export interface MenuProps {
     curPage?: number;
     totalNum?: number; 
     zoom?: number;
-    ratio?: RatioType,
-    disabledPrev?: boolean,
-    disabledNext?: boolean,
-    disableDownload?: boolean,
-    onDownload?: () => void,
-    onNext?: () => void,
-    onPrev?: () => void,
-    onZoomIn?: () => void,
-    onZoomOut?: () => void,
-    onRatioClick?: () => void,
-    onRotateLeft?: () => void,
-    onRotateRight?: () => void,
+    ratio?: RatioType;
+    disabledPrev?: boolean;
+    disabledNext?: boolean;
+    disableDownload?: boolean;
+    onDownload?: () => void;
+    onNext?: () => void;
+    onPrev?: () => void;
+    onZoomIn?: () => void;
+    onZoomOut?: () => void;
+    onRatioClick?: () => void;
+    onRotateLeft?: () => void;
+    onRotateRight?: () => void
 }
 
 export type RatioType = "adaptation" | "realSize";
@@ -100,21 +100,21 @@ export interface PreviewInnerStates {
     viewerVisible?: boolean;
     visible?: boolean;
     preloadAfterVisibleChange?: boolean;
-    direction?: string;
+    direction?: string
 }
 
 export interface SliderProps {
     max?: number;
     min?: number;
-    step?: number;
+    step?: number
 }
 
 export interface HeaderProps {
-    renderHeader?: (info: any) => ReactNode,
+    renderHeader?: (info: any) => ReactNode;
     title?: string;
     titleStyle?: React.CSSProperties;
     className?: string;
-    onClose?: () => void;
+    onClose?: () => void
 }
 
 export interface FooterProps extends SliderProps {
@@ -142,7 +142,7 @@ export interface FooterProps extends SliderProps {
     onAdjustRatio?: (type: RatioType) => void;
     onRotate?: (direction: string) => void;
     onDownload?: () => void;
-    renderPreviewMenu?: (props: MenuProps) => ReactNode;
+    renderPreviewMenu?: (props: MenuProps) => ReactNode
 }
 
 export interface PreviewImageProps {
@@ -159,12 +159,12 @@ export interface PreviewImageProps {
     setRatio?: (type: RatioType) => void;
     onZoom?: (zoom: number) => void;
     onLoad?: (src: string) => void;
-    onError?: (src: string) => void;
+    onError?: (src: string) => void
 }
 
 export interface ImageOffset {
     x: number;
-    y: number;
+    y: number
 }
 
 export interface PreviewImageStates {
@@ -174,21 +174,21 @@ export interface PreviewImageStates {
     offset: ImageOffset;
     currZoom: number;
     top: number;
-    left: number;
+    left: number
 }
 
 export interface DragDirection {
     canDragVertical: boolean;
-    canDragHorizontal: boolean;
+    canDragHorizontal: boolean
 }
 
 export interface ExtremeBounds {
     left: number;
-    top: number;
+    top: number
 }
 
 export interface PreviewState {
     currentIndex: number;
-    visible: boolean;
+    visible: boolean
 }
 

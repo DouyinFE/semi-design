@@ -18,7 +18,7 @@ function pad(d: number) {
 
 export interface DayColState {
     currPos: number;
-    showCurrTime: boolean;
+    showCurrTime: boolean
 }
 
 export default class DayCol extends BaseComponent<DayColProps, DayColState> {

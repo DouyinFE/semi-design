@@ -7,7 +7,7 @@ import { BaseProps } from '../_base/baseComponent';
 const prefixCls = cssClasses.PREFIX;
 interface TypographyProps extends BaseProps{
     component?: React.ElementType;
-    forwardRef?: React.RefObject<any>;
+    forwardRef?: React.RefObject<any>
 }
 class Typography extends PureComponent<TypographyProps> {
     static defaultProps = {

@@ -15,7 +15,7 @@ export type Size = 'default' | 'small' | 'large';
 export type Theme = 'solid' | 'borderless' | 'light';
 export type Type = 'primary' | 'secondary' | 'tertiary' | 'warning' | 'danger';
 
-export interface ButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>,'type'>{
+export interface ButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'type'>{
     id?: string;
     block?: boolean;
     circle?: boolean;
@@ -35,7 +35,7 @@ export interface ButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonE
     onMouseDown?: React.MouseEventHandler<HTMLButtonElement>;
     onMouseEnter?: React.MouseEventHandler<HTMLButtonElement>;
     onMouseLeave?: React.MouseEventHandler<HTMLButtonElement>;
-    'aria-label'?: React.AriaAttributes['aria-label'];
+    'aria-label'?: React.AriaAttributes['aria-label']
 }
 
 // TODO: icon configuration

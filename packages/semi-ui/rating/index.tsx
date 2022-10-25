@@ -41,7 +41,7 @@ export interface RatingProps {
     size?: 'small' | 'default' | number;
     tooltips?: string[];
     id?: string;
-    preventScroll?: boolean;
+    preventScroll?: boolean
 }
 
 export interface RatingState {
@@ -49,7 +49,7 @@ export interface RatingState {
     hoverValue: number;
     focused: boolean;
     clearedValue: number;
-    emptyStarFocusVisible: boolean;
+    emptyStarFocusVisible: boolean
 }
 
 export default class Rating extends BaseComponent<RatingProps, RatingState> {

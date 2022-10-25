@@ -16,6 +16,60 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 ---
 
+#### 🎉 2.21.0 (2022-10-12)
+- 【Fix】
+  - 修复 Carousel 通过左右按钮或者方法切换 index 时没有更新计时器问题
+- 【Docs】
+  - 文档站点首页更新，增加 showcase
+
+
+#### 🎉 2.21.0-beta.1 (2022-10-10)
+- 【Fix】
+  - 修复 AutoComplete 在 onBlur 回调中 e.target 是 null 的问题
+
+#### 🎉 2.21.0-beta.0 (2022-10-08)
+- 【Feat】
+  - Table 新增表头 sticky API
+  - AutoComplete 新增 onKeyDown API
+  - Upload 组件对外暴露 openFileDialog 方法，使用户可以手动打开文件选择窗口。
+  - LocaleProvider 新增罗马尼亚语（ro） [@jacob-lcs](https://github.com/jacob-lcs)
+- 【Fix】
+  - 修复 Dropdown 下 children onKeydown 拿不到事件问题
+  - 修复 Carousel 通过左右按钮或者方法切换 index 时没有更新计时器问题
+  - 修复 Select 在 filter 为 true, input 框为空情况下，关闭面板后触发 onSearch 问题
+- 【Style】
+  - Avatar 方形头像增加圆角
+  
+#### 🎉 2.20.8 (2022-10-11)
+- 【Fix】
+  - 修复 Select 虚拟化时，第一个 Option 选项位置偏移的问题  [#1178](https://github.com/DouyinFE/semi-design/pull/1178)
+- 【Style】
+  - Select 的 maxHeight 默认值 （Option 浮层最大高度）、虚拟化默认高度由 300px -> 270px
+  - Select Design Token 变更，废弃 `$spacing-select_option_first-marginTop`、`$spacing-select_option_last-marginBottom` 两个 Token ；
+修改 以下 Token 默认值：`$spacing-select_option_list-paddingTop` 、`$spacing-select_option_list-paddingBottom` ， 由 0 变更为 `$spacing-extra-tight` (4px)
+- 【Chore】
+    - Form 增加 RuleItem Interface export 
+
+
+#### 🎉 2.20.7 (2022-10-10)
+- 【Fix】
+  - 修复只引入 ImagePreview 单独使用，未引入 Image 组件时样式丢失的问题 [#1175](https://github.com/DouyinFE/semi-design/pull/1175)
+
+#### 🎉 2.20.3 (2022-09-28)
+- 【Fix】
+  - 修复 ButtonGroup 关于 key warning的问题
+  - 修复 SSR 场景下 withField、Form Field 相关组件关于  useLayoutEffect warning 的问题 [#1140](https://github.com/DouyinFE/semi-design/pull/1140)
+  - 修复 typescript 4.8.3 下部分类型报错的问题
+  - 修改 modal 聚焦逻辑，自动聚焦到弹窗内第一个可被聚焦的元素上
+  
+#### 🎉 2.20.2 (2022-09-27)
+- 【Fix】
+  - 修复 @douyinfe/semi-icons 关于 corejs 报错的问题
+
+#### 🎉 2.20.1 (2022-09-27)
+- 【Style】
+  - Image 全局 sass 变量加上 !default 用于主题配置容错 [#1151](https://github.com/DouyinFE/semi-design/pull/1151)
+
 #### 🎉 2.20.0 (2022-09-23)
 - 【Fix】
   - 修复 Form.InputGroup 不支持 FormProps.wrapperCol 、 labelCol 布局的问题
@@ -33,7 +87,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 #### 🎉 2.20.0-beta.0 (2022-09-19)
 
 - 【New Component】
-    - 新增 Image 组件 [#344](https://github.com/DouyinFE/semi-design/issues/344)
+   - 新增 Image 组件（新增了基础 sass、全局 sass 变量，使用自定义主题的需要重新发布） [#344](https://github.com/DouyinFE/semi-design/issues/344) 
 - 【Feat】
     - Tag 新增 shape 选择，可选 square、circle [#89](https://github.com/DouyinFE/semi-design/issues/89)
     - Progress 支持根据进度自动填充渐变颜色，根据进度预设自动切换颜色 [#1092](https://github.com/DouyinFE/semi-design/issues/1092) [@uiuing](https://github.com/uiuing)

@@ -65,7 +65,7 @@ import { IconSearch, IconHelpCircle, IconAlertCircle, IconMinusCircle, IconPlusC
     const types = [<IconSearch />, <IconHelpCircle />, <IconAlertCircle />, <IconMinusCircle />, <IconPlusCircle />, <IconPlus />, <IconRefresh />];
     const sizes = ['extra-small', 'small', 'default', 'large', 'extra-large'];
     let icons = types.map((type, i) => {
-        return <div key={i} style={{ marginBottom: 4 }}>{sizes.map(size => React.cloneElement(type, {size, key:size}))}</div>;
+        return <div key={i} style={{ marginBottom: 4 }}>{sizes.map(size => React.cloneElement(type, { size, key: size }))}</div>;
     });
     return icons;
 };
@@ -81,14 +81,14 @@ import { IconLikeHeart, IconFlag, IconLock, IconUnlock } from '@douyinfe/semi-ic
 
 () => (
     <div>
-        <div style={{color:'#E91E63'}} >
+        <div style={{ color: '#E91E63' }} >
             <IconLikeHeart size="extra-large"/>
             <IconFlag size="extra-large"/>
         </div>
         <br/>
         <div>
-            <IconLock style={{color:'#6A3AC7'}} size="extra-large" />
-            <IconUnlock style={{color:'#9C27B0'}} size="extra-large"/>
+            <IconLock style={{ color: '#6A3AC7' }} size="extra-large" />
+            <IconUnlock style={{ color: '#9C27B0' }} size="extra-large"/>
         </div>
     </div>
 );

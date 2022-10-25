@@ -27,15 +27,15 @@ export interface RatingItemProps extends BaseProps {
     'aria-describedby'?: React.AriaAttributes['aria-describedby'];
     onFocus?: (e: React.FocusEvent) => void;
     onBlur?: (e: React.FocusEvent) => void;
-    preventScroll?: boolean;
+    preventScroll?: boolean
 }
 
 export interface RatingItemState {
-    firstStarFocus: boolean,
-    secondStarFocus: boolean,
+    firstStarFocus: boolean;
+    secondStarFocus: boolean
 }
 
-export default class Item extends BaseComponent<RatingItemProps, RatingItemState>  {
+export default class Item extends BaseComponent<RatingItemProps, RatingItemState> {
     static propTypes = {
         value: PropTypes.number,
         index: PropTypes.number,
@@ -98,13 +98,13 @@ export default class Item extends BaseComponent<RatingItemProps, RatingItemState
         onClick(e, index);
     };
 
-    onFocus =  (e, star) => {
+    onFocus = (e, star) => {
         const { onFocus } = this.props;
         onFocus && onFocus(e);
         this.foundation.handleFocusVisible(e, star);
     } 
 
-    onBlur =  (e, star) => {
+    onBlur = (e, star) => {
         const { onBlur } = this.props;
         onBlur && onBlur(e);
         this.foundation.handleBlur(e, star);
@@ -169,12 +169,12 @@ export default class Item extends BaseComponent<RatingItemProps, RatingItemState
         const iconSize = isCustomSize ? 'inherit' : (size === 'small' ? 'default' : 'extra-large');
         const content = character ? character : <IconStar size={iconSize} style={{ display: 'block' }}/>;
         const isEmpty = index === count;
-        const starWrapCls = cls(`${prefixCls}-wrapper`,{
+        const starWrapCls = cls(`${prefixCls}-wrapper`, {
             [`${prefixCls}-disabled`]: disabled,
             [`${cssClasses.PREFIX}-focus`]: (firstStarFocus || secondStarFocus) && value !== 0,
         });
         const starWrapProps = {
-            onClick: disabled ? null : this.onClick ,
+            onClick: disabled ? null : this.onClick,
             onKeyDown: disabled ? null : this.onKeyDown,
             onMouseMove: disabled ? null : this.onHover,
             className: starWrapCls,
@@ -182,7 +182,7 @@ export default class Item extends BaseComponent<RatingItemProps, RatingItemState
         const AriaSetSize = allowHalf ? count * 2 + 1 : count + 1;
         const firstStarProps = {
             ref: this.saveFirstStar as any,
-            role:"radio",
+            role: "radio",
             'aria-checked': value === index + 0.5,
             'aria-posinset': 2 * index + 1,
             'aria-setsize': AriaSetSize,
@@ -190,12 +190,12 @@ export default class Item extends BaseComponent<RatingItemProps, RatingItemState
             'aria-label': `${index + 0.5} ${ariaLabelPrefix}s`,
             'aria-labelledby': this.props['aria-describedby'],
             'aria-describedby': this.props['aria-describedby'],
-            className: cls(`${prefixCls}-first`,`${cssClasses.PREFIX}-no-focus`),
+            className: cls(`${prefixCls}-first`, `${cssClasses.PREFIX}-no-focus`),
             tabIndex: !disabled && value === index + 0.5 ? 0 : -1,
             onFocus: (e) => {
                 this.onFocus(e, 'first');
             },
-            onBlur:(e) => {
+            onBlur: (e) => {
                 this.onBlur(e, 'first');
             },
         };
@@ -203,7 +203,7 @@ export default class Item extends BaseComponent<RatingItemProps, RatingItemState
         const secondStarTabIndex = !disabled && ((value === index + 1) || (isEmpty && value === 0)) ? 0 : -1;
         const secondStarProps = {
             ref: this.saveSecondStar as any,
-            role:"radio",
+            role: "radio",
             'aria-checked': isEmpty ? value === 0 : value === index + 1,
             'aria-posinset': allowHalf ? 2 * (index + 1) : index + 1,
             'aria-setsize': AriaSetSize, 
@@ -211,12 +211,12 @@ export default class Item extends BaseComponent<RatingItemProps, RatingItemState
             'aria-label': `${isEmpty ? 0 : index + 1} ${ariaLabelPrefix}${index === 0 ? '' : 's'}`,
             'aria-labelledby': this.props['aria-describedby'],
             'aria-describedby': this.props['aria-describedby'],
-            className: cls(`${prefixCls}-second`,`${cssClasses.PREFIX}-no-focus`),
+            className: cls(`${prefixCls}-second`, `${cssClasses.PREFIX}-no-focus`),
             tabIndex: secondStarTabIndex,
             onFocus: (e) => {
                 this.onFocus(e, 'second');
             },
-            onBlur:(e) => {
+            onBlur: (e) => {
                 this.onBlur(e, 'second');
             },
         };

@@ -18,12 +18,12 @@ const App = () => {
 
     return (
         <Form onSubmit={() => { console.log('submit');} }>
-            <Form.Select field="Role" label='角色' style={{ width:176 }}>
+            <Form.Select field="Role" label='角色' style={{ width: 176 }}>
                 <Option value="admin">管理员</Option>
                 <Option value="user">普通用户</Option>
                 <Option value="guest">访客</Option>
             </Form.Select>
-            <Form.Input field='UserName' label='用户名' style={{ width:80 }} onKeyDown={e => {
+            <Form.Input field='UserName' label='用户名' style={{ width: 80 }} onKeyDown={e => {
                 if (e.key === 'Enter') {
                     e.preventDefault();
                 }
@@ -34,7 +34,7 @@ const App = () => {
                     text: '密码',
                     extra: <Tooltip content='详情'><IconHelpCircle style={{ color: '--semi-color-text-1' }}/></Tooltip> 
                 }}
-                style={{ width:176 }}
+                style={{ width: 176 }}
             />
             <Button>提交</Button>
         </Form>

@@ -4,7 +4,7 @@ import Collapse from '../index';
 const Demo = () => {
     return (
         <div>
-            <Collapse accordion defaultActiveKey="byte" onChange={ (val: any) => { console.log(val) } }>
+            <Collapse accordion defaultActiveKey="byte" onChange={ (val: any) => { console.log(val); } }>
                 <Collapse.Panel itemKey="semi">
                     <p>
                         semi-ui
@@ -22,7 +22,7 @@ const Demo = () => {
                 </Collapse.Panel>
             </Collapse>
         </div>
-    )
-}
+    );
+};
 
-export default Demo
+export default Demo;

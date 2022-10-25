@@ -3,7 +3,7 @@ import { isObject } from "lodash";
 
 
 export interface ImageAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
-    getIsInGroup: () => boolean;
+    getIsInGroup: () => boolean
 }
 
 

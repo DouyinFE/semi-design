@@ -20,7 +20,7 @@ export interface DefaultAdapter<P = Record<string, any>, S = Record<string, any>
     getCache(c: string): any;
     getCaches(): any;
     setCache(key: any, value: any): void;
-    stopPropagation(e: any): void;
+    stopPropagation(e: any): void
 }
 
 class BaseFoundation<T extends Partial<DefaultAdapter<P, S>>, P = Record<string, any>, S = Record<string, any>> {

@@ -371,7 +371,7 @@ import { IllustrationNoContent } from '@douyinfe/semi-illustrations';
 | getPopupContainer | Specify the parent DOM, the floating layer of the drop-down list will be rendered into the DOM, and the customization needs to set `position: relative` | () => HTMLElement | () => document.body |
 | loading | Whether the drop-down list shows loading animation | boolean | false |
 | maxHeight | The maximum height of the drop-down list | number\|string | 300 |
-| motion | Is there an animation when the drop-down list appears/hidden | boolean\|object | true |
+| motion | Is there an animation when the drop-down list appears/hidden | boolean | true |
 | onSelectWithObject | When clicking on the candidate, whether to add other attributes of the selected item option as callback parameters. When set to true, the input parameter type of onSelect will change from `string` to object: {value, label, ...rest} | boolean | false | 1.23.0|
 | placeholder | Input box prompt | string | |
 | position | The display position of the drop-down menu, the optional values are the same as the tooltip component | string | 'bottomLeft' |
@@ -388,6 +388,7 @@ import { IllustrationNoContent } from '@douyinfe/semi-illustrations';
 | onBlur | Callback when the focus is lost | Function(event) | |
 | onChange | Input box change / change when the candidate is selected | Function(value:string\|number) | | 1.23.0|
 | onFocus | The callback when the focus is obtained | Function(event) | |
+| onKeyDown | keydown callback | (e: React.KeyboardEvent) => void | | 2.21.0 |
 | onSearch | Callback when input changes | Function(value: string) | |
 | onSelect | Callback when the drop-down menu candidate is selected | Function(item: string\|number\|Item) | |
 

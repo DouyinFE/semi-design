@@ -8,6 +8,7 @@ import PreviewFoundation from "@douyinfe/semi-foundation/image/previewFoundation
 import { getUuidShort } from "@douyinfe/semi-foundation/utils/uuid";
 import { cssClasses } from "@douyinfe/semi-foundation/image/constants";
 import { isObject } from "lodash";
+import "@douyinfe/semi-foundation/image/image.scss";
 
 const prefixCls = cssClasses.PREFIX;
 
@@ -28,10 +29,10 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
         closeOnEsc: PropTypes.bool,
         prevTip: PropTypes.string,
         nextTip: PropTypes.string,
-        zoomInTip:PropTypes.string,
+        zoomInTip: PropTypes.string,
         zoomOutTip: PropTypes.string,
         downloadTip: PropTypes.string,
-        adaptiveTip:PropTypes.string,
+        adaptiveTip: PropTypes.string,
         originTip: PropTypes.string,
         lazyLoad: PropTypes.bool,
         lazyLoadMargin: PropTypes.string,

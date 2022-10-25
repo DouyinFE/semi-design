@@ -66,7 +66,7 @@ gulp.task('compileScss', function compileScss() {
                 const animationStr = `@import "${rootPath}/packages/semi-theme-default/scss/animation.scss";\n`;
                 const animationBuffer = Buffer.from(animationStr);
                 const scssBuffer = Buffer.from(scssVarStr);
-                const buffers = [scssBuffer,animationBuffer];
+                const buffers = [scssBuffer, animationBuffer];
                 if (/_base\/base\.scss/.test(chunk.path)) {
                     buffers.push(Buffer.from(cssVarStr));
                 }
@@ -82,7 +82,7 @@ gulp.task('compileScss', function compileScss() {
                     const semiUIPath = path.join(rootPath, 'packages/semi-foundation');
                     realUrl = url.replace(/~@douyinfe\/semi-foundation/, semiUIPath);
                 }
-                done({ file:realUrl });
+                done({ file: realUrl });
             },
             charset: false
         }).on('error', sass.logError))

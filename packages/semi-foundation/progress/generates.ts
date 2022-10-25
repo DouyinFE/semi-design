@@ -5,7 +5,7 @@ import { strings } from './constants';
 type Generate = {
     startColor: string;
     endColor: string;
-    size: number;
+    size: number
 };
 
 type StrokeSet = { percent: number; color: string };
@@ -217,9 +217,9 @@ const REG_S = {
 // From src/components/palette.js
 const SEMI_DESIGN_TOKENS = {
     // No sequence
-    ALONG:["black", "white"],
+    ALONG: ["black", "white"],
     // Sequence: 0-9
-    SEQUENCE:[
+    SEQUENCE: [
         "amber",
         "blue",
         "cyan",

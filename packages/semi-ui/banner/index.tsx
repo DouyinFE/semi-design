@@ -28,11 +28,11 @@ export interface BannerProps {
     closeIcon?: React.ReactNode;
     style?: React.CSSProperties;
     bordered?: boolean;
-    onClose?(e: React.MouseEvent):void;
+    onClose?(e: React.MouseEvent):void
 }
 
 export interface BannerState {
-    visible: boolean;
+    visible: boolean
 }
 
 export default class Banner extends BaseComponent<BannerProps, BannerState> {

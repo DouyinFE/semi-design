@@ -21,7 +21,7 @@ let uuid = 0;
 
 
 export interface ModalContentReactProps extends ModalContentProps {
-    children?: React.ReactNode;
+    children?: React.ReactNode
 }
 
 export default class ModalContent extends BaseComponent<ModalContentReactProps, ModalContentState> {
@@ -79,12 +79,12 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
             },
             addKeyDownEventListener: () => {
                 if (this.props.closeOnEsc) {
-                    document.addEventListener('keydown', this.foundation.handleKeyDown.bind(this.foundation));
+                    document.addEventListener('keydown', this.foundation.handleKeyDown);
                 }
             },
             removeKeyDownEventListener: () => {
                 if (this.props.closeOnEsc) {
-                    document.removeEventListener('keydown', this.foundation.handleKeyDown.bind(this.foundation));
+                    document.removeEventListener('keydown', this.foundation.handleKeyDown);
                 }
             },
             getMouseState: () => this.state.dialogMouseDown,
@@ -117,6 +117,11 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
     componentDidMount() {
         this.foundation.handleKeyDownEventListenerMount();
         this.foundation.modalDialogFocus();
+        const nodes = FocusTrapHandle.getFocusableElements(this.modalDialogRef.current);
+        if (!this.modalDialogRef.current.contains(document.activeElement)) {
+            // focus on first focusable element
+            nodes[0]?.focus();
+        }
     }
 
     componentWillUnmount() {
@@ -154,7 +159,7 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
             const className = cls(`${cssClasses.DIALOG}-mask`, {
                 // [`${cssClasses.DIALOG}-mask-hidden`]: !props.visible,
             });
-            return <div key="mask" className={cls(className, maskClassName)} style={props.maskStyle}/>;
+            return <div key="mask" {...this.props.maskExtraProps} className={cls(className, maskClassName)} style={props.maskStyle}/>;
         }
         return null;
     };
@@ -166,7 +171,7 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
         } = this.props;
         let closer;
         if (closable) {
-            const iconType = closeIcon || <IconClose x-semi-prop="closeIcon" />;
+            const iconType = closeIcon || <IconClose x-semi-prop="closeIcon"/>;
             closer = (
                 <Button
                     aria-label="close"
@@ -277,7 +282,6 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
                 <div
                     role="dialog"
                     ref={this.modalDialogRef}
-                    tabIndex={-1}
                     aria-modal="true"
                     aria-labelledby={`${cssClasses.DIALOG}-title`}
                     aria-describedby={`${cssClasses.DIALOG}-body`}
@@ -290,7 +294,7 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
                     {footer}
                 </div>
             </div>
-        );
+        ); 
         // return props.visible ? dialogElement : null;
         return dialogElement;
     };
@@ -317,13 +321,13 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
                 {this.getMaskElement()}
                 <div
                     role="none"
-                    tabIndex={-1}
                     className={cls({
-                        [`${cssClasses.DIALOG}-wrap`]:true,
-                        [`${cssClasses.DIALOG}-wrap-center`]:this.props.centered
+                        [`${cssClasses.DIALOG}-wrap`]: true,
+                        [`${cssClasses.DIALOG}-wrap-center`]: this.props.centered
                     })}
                     onClick={maskClosable ? this.onMaskClick : null}
                     onMouseUp={maskClosable ? this.onMaskMouseUp : null}
+                    {...this.props.contentExtraProps}
                 >
                     {this.getDialogElement()}
                 </div>

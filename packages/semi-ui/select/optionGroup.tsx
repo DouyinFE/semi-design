@@ -9,7 +9,7 @@ export interface OptionGroupProps {
     children?: React.ReactNode;
     label?: React.ReactNode;
     className?: string;
-    style?: React.CSSProperties;
+    style?: React.CSSProperties
 }
 const prefixCls = cssClasses.PREFIX_GROUP;
 

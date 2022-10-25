@@ -31,7 +31,7 @@ export interface BasicProps {
     className?: string;
     tagName?: keyof HTMLElementTagNameMap;
     type?: string;
-    children?: React.ReactNode | undefined;
+    children?: React.ReactNode | undefined
 }
 
 class Basic extends React.PureComponent<BasicProps> {
@@ -62,11 +62,11 @@ export interface BasicLayoutProps {
     className?: string;
     children?: React.ReactNode | undefined;
     hasSider?: boolean;
-    tagName?: keyof HTMLElementTagNameMap;
+    tagName?: keyof HTMLElementTagNameMap
 }
 
 export interface BasicLayoutState {
-    siders: Array<string>;
+    siders: Array<string>
 }
 
 class Layout extends React.Component<BasicLayoutProps, BasicLayoutState> {

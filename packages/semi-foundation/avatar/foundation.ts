@@ -5,7 +5,7 @@ export interface AvatarAdapter<P = Record<string, any>, S = Record<string, any>>
     notifyImgState(isImgExist: boolean): void;
     notifyLeave(event: any): void;
     notifyEnter(event: any): void;
-    setFocusVisible: (focusVisible: boolean) => void;
+    setFocusVisible: (focusVisible: boolean) => void
 }
 
 export default class AvatarFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<AvatarAdapter<P, S>, P, S> {

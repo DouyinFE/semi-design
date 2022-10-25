@@ -17,7 +17,7 @@ export interface ButtonGroupProps extends BaseProps {
     theme?: Theme;
     className?: string;
     children?: React.ReactNode;
-    'aria-label'?: React.AriaAttributes['aria-label'];
+    'aria-label'?: React.AriaAttributes['aria-label']
 }
 
 const prefixCls = cssClasses.PREFIX;
@@ -44,22 +44,22 @@ export default class ButtonGroup extends BaseComponent<ButtonGroupProps> {
         const innerWithLine: ReactNode[] = [];
         let lineCls = `${prefixCls}-group-line`;
         if (inner.length > 1) {
-            inner.slice(0, -1).forEach(item => {
+            inner.slice(0, -1).forEach((item, index) => {
                 const isButtonType = get(item, 'type.elementType') === 'Button';
                 const buttonProps = get(item, 'props') as ButtonProps;
                 if (buttonProps) {
                     const { type, theme, disabled } = buttonProps;
                     lineCls = classNames(
                         `${prefixCls}-group-line`,
-                        `${prefixCls}-group-line-${theme ?? 'light'}`, 
-                        `${prefixCls}-group-line-${type ?? 'primary'}`, 
+                        `${prefixCls}-group-line-${theme ?? 'light'}`,
+                        `${prefixCls}-group-line-${type ?? 'primary'}`,
                         {
                             [`${prefixCls}-group-line-disabled`]: disabled,
                         }
                     );
                 }
                 if (isButtonType) {
-                    innerWithLine.push(item, <span className={lineCls} />);
+                    innerWithLine.push(item, <span className={lineCls} key={`line-${index}`} />);
                 } else {
                     innerWithLine.push(item);
                 }
@@ -80,7 +80,7 @@ export default class ButtonGroup extends BaseComponent<ButtonGroupProps> {
         if (children) {
             inner = ((Array.isArray(children) ? children : [children])).map((itm: React.ReactNode, index) => (
                 isValidElement(itm)
-                    ? cloneElement(itm, { disabled, size, type, ...itm.props, ...rest, key: index })
+                    ? cloneElement(itm, { disabled, size, type, ...itm.props, ...rest, key: itm.key ?? index })
                     : itm
             ));
             innerWithLine = this.getInnerWithLine(inner);

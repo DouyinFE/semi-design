@@ -28,7 +28,7 @@ export type { DropdownTitleProps } from './dropdownTitle';
 
 export interface DropDownMenuItemItem extends DropdownItemProps {
     node: 'item';
-    name?: string;
+    name?: string
 }
 export interface DropDownMenuItemDivider extends DropdownDividerProps {
     node: 'divider'
@@ -59,11 +59,11 @@ export interface DropdownProps extends TooltipProps {
     rePosKey?: string | number;
     showTick?: boolean;
     closeOnEsc?: TooltipProps['closeOnEsc'];
-    onEscKeyDown?: TooltipProps['onEscKeyDown'];
+    onEscKeyDown?: TooltipProps['onEscKeyDown']
 }
 
 interface DropdownState {
-    popVisible: boolean;
+    popVisible: boolean
 }
 
 class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
@@ -242,15 +242,16 @@ class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
             >
                 {React.isValidElement(children) ?
                     React.cloneElement(children, {
+                        //@ts-ignore
                         className: classnames(get(children, 'props.className'), {
                             [`${prefixCls}-showing`]: popVisible,
                         }),
                         'aria-haspopup': true,
                         'aria-expanded': popVisible,
-                        onKeyDown: e => {
+                        onKeyDown: (e: React.KeyboardEvent) => {
                             this.foundation.handleKeyDown(e);
-                            const childrenKeyDown = get(children, 'props.onKeyDown');
-                            childrenKeyDown && childrenKeyDown();
+                            const childrenKeyDown: (e: React.KeyboardEvent) => void = get(children, 'props.onKeyDown');
+                            childrenKeyDown && childrenKeyDown(e);
                         }
                     }) :
                     children}

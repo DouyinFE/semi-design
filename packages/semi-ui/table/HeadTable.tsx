@@ -23,7 +23,7 @@ export interface HeadTableProps {
     selectedRowKeysSet: Set<any>;
     showHeader?: boolean;
     onDidUpdate?: (ref: React.MutableRefObject<any>) => void;
-    onHeaderRow?: OnHeaderRow<any>;
+    onHeaderRow?: OnHeaderRow<any>
 }
 
 /**
@@ -70,7 +70,8 @@ class HeadTable extends React.PureComponent<HeadTableProps> {
             onDidUpdate,
             showHeader,
             anyColumnFixed,
-            bodyHasScrollBar
+            bodyHasScrollBar,
+            sticky
         } = this.props;
 
         if (!showHeader) {
@@ -95,11 +96,20 @@ class HeadTable extends React.PureComponent<HeadTableProps> {
             <TableHeader {...this.props} columns={columns} components={components} onDidUpdate={onDidUpdate} />
         );
 
+        const headTableCls = classnames(`${prefixCls}-header`, {
+            [`${prefixCls}-header-sticky`]: sticky,
+        });
+
+        const stickyTop = get(sticky, 'top', 0);
+        if (typeof stickyTop === 'number') {
+            headStyle.top = stickyTop;
+        }
+
         return (
             <div
                 key="headTable"
                 style={headStyle}
-                className={`${prefixCls}-header`}
+                className={headTableCls}
                 ref={forwardedRef}
                 onScroll={handleBodyScroll}
             >

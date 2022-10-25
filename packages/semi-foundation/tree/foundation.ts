@@ -39,7 +39,7 @@ export interface BasicTreeNodeProps {
     directory?: boolean;
     selectedKey?: string;
     motionKey?: string[] | string;
-    eventKey?: string;
+    eventKey?: string
 }
 
 export interface BasicTreeNodeData {
@@ -50,11 +50,11 @@ export interface BasicTreeNodeData {
     icon?: any;
     disabled?: boolean;
     isLeaf?: boolean;
-    children?: BasicTreeNodeData[];
+    children?: BasicTreeNodeData[]
 }
 
 export interface BasicKeyEntities {
-    [key: string]: BasicKeyEntity;
+    [key: string]: BasicKeyEntity
 }
 
 export interface BasicKeyEntity {
@@ -65,7 +65,7 @@ export interface BasicKeyEntity {
     level?: number;
     parent?: undefined | BasicKeyEntity;
     parentPos?: null | string;
-    pos?: string;
+    pos?: string
 }
 
 export interface BasicDragTreeNode extends BasicTreeNodeData {
@@ -75,7 +75,7 @@ export interface BasicDragTreeNode extends BasicTreeNodeData {
      * treeData, such as the 0th node of the 2nd node of the 1st node
      * of the 0th layer: '0-1-2-0'
      */
-    pos: string;
+    pos: string
 }
 
 export interface BasicFlattenNode {
@@ -86,16 +86,16 @@ export interface BasicFlattenNode {
     label?: any;
     parent?: null | BasicFlattenNode;
     pos?: string;
-    value?: string;
+    value?: string
 }
 
 export interface BasicDragProps {
     event: any;
-    node: BasicDragTreeNode;
+    node: BasicDragTreeNode
 }
 
 export interface BasicDragEnterProps extends BasicDragProps {
-    expandedKeys?: string[];
+    expandedKeys?: string[]
 }
 
 export type ExpandAction = false | 'click' | 'doubleClick';
@@ -119,7 +119,7 @@ export interface BasicOnDragProps {
      * Indicates whether the dragged node is dropped between nodes, if
      *  it is false, it is dropped above a node
      */
-    dropToGap: boolean;
+    dropToGap: boolean
 }
 
 export interface BasicRenderFullLabelProps {
@@ -148,15 +148,15 @@ export interface BasicRenderFullLabelProps {
         /* Whether to select in the multi-select state */
         checked: boolean;
         /* Whether to half-select in the multi-select state */
-        halfChecked: boolean;
+        halfChecked: boolean
     };
     /* Expand status */
     expandStatus: {
         /* Has it been expanded */
         expanded: boolean;
         /* Is it unfolding */
-        loading: boolean;
-    };
+        loading: boolean
+    }
 }
 
 export interface BasicSearchRenderProps {
@@ -165,17 +165,17 @@ export interface BasicSearchRenderProps {
     prefix: any;
     showClear?: boolean;
     value: string;
-    onChange: (value: string) => void;
+    onChange: (value: string) => void
 }
 
 export interface TreeDataSimpleJson {
-    [x: string]: string | TreeDataSimpleJson;
+    [x: string]: string | TreeDataSimpleJson
 }
 
 export interface Virtualize {
     itemSize: number;
     height?: number | string;
-    width?: number | string;
+    width?: number | string
 }
 
 export type CheckRelation = 'related' | 'unRelated';
@@ -237,7 +237,7 @@ export interface BasicTreeProps {
     virtualize?: Virtualize;
     icon?: any;
     checkRelation?: CheckRelation;
-    'aria-label'?: string;
+    'aria-label'?: string
 }
 
 /* Data maintained internally. At the React framework level, corresponding to state */
@@ -288,26 +288,26 @@ export interface BasicTreeInnerData {
     /* DragOver node */
     dragOverNodeKey: string[] | string | null;
     /* Drag position */
-    dropPosition: number | null;
+    dropPosition: number | null
 }
 
 export interface BasicExpandedOtherProps {
     expanded: boolean;
-    node: BasicTreeNodeData;
+    node: BasicTreeNodeData
 }
 
 export interface TreeAdapter extends DefaultAdapter<BasicTreeProps, BasicTreeInnerData> {
     updateInputValue: (value: string) => void;
     focusInput: () => void;
     updateState: (states: Partial<BasicTreeInnerData>) => void;
-    notifyExpand: (expandedKeys: Set<string>, { expanded: bool, node }: BasicExpandedOtherProps) => void;
+    notifyExpand: (expandedKeys: Set<string>, { expanded, node }: BasicExpandedOtherProps) => void;
     notifySelect: (selectKey: string, bool: boolean, node: BasicTreeNodeData) => void;
     notifyChange: (value: BasicValue) => void;
     notifySearch: (input: string) => void;
     notifyRightClick: (e: any, node: BasicTreeNodeData) => void;
     notifyDoubleClick: (e: any, node: BasicTreeNodeData) => void;
     cacheFlattenNodes: (bool: boolean) => void;
-    setDragNode: (treeNode: any) => void;
+    setDragNode: (treeNode: any) => void
 }
 
 export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTreeProps, BasicTreeInnerData> {

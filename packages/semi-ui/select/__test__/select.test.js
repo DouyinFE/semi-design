@@ -5,6 +5,7 @@ const OptGroup = Select.OptGroup;
 import { IconClear, IconChevronDown } from '@douyinfe/semi-icons';
 import { BASE_CLASS_PREFIX } from '../../../semi-foundation/base/constants';
 import keyCode from '../../../semi-foundation/utils/keyCode';
+import {sleep} from "../../_test_/utils";
 
 const defaultList = [
     { value: 'abc', label: 'Abc' },
@@ -472,19 +473,22 @@ describe('Select', () => {
         expect(select.exists(`.${BASE_CLASS_PREFIX}-select-option-list`)).toEqual(false);
     });
 
-    it('onDropdownVisibleChange & clickToHide', () => {
+    it('onDropdownVisibleChange & clickToHide', async () => {
         let onDropdownVisible = () => {};
         let spyOnDV = sinon.spy(onDropdownVisible);
         const props = {
             onDropdownVisibleChange: spyOnDV,
             clickToHide: true,
+            motion: false
         };
         const select = getSelect(props);
         select.find(`.${BASE_CLASS_PREFIX}-select`).simulate('click', {});
+        await sleep(1000);
         expect(select.exists(`.${BASE_CLASS_PREFIX}-select-option-list`)).toEqual(true);
         expect(spyOnDV.calledOnce).toEqual(true);
         expect(spyOnDV.calledWithMatch(true)).toEqual(true);
         select.find(`.${BASE_CLASS_PREFIX}-select`).simulate('click', {});
+        await sleep(1000);
         expect(select.exists(`.${BASE_CLASS_PREFIX}-select-option-list`)).toEqual(false);
         expect(spyOnDV.calledWithMatch(false)).toEqual(true);
     });

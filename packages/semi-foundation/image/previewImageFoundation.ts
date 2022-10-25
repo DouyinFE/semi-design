@@ -3,30 +3,30 @@ import { handlePrevent } from "../utils/a11y";
 import { throttle, isUndefined } from "lodash";
 
 export interface PreviewImageAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
-    getOriginImageSize: () => { originImageWidth: number; originImageHeight: number; }; 
-    setOriginImageSize: (size: { originImageWidth: number; originImageHeight: number; }) => void;
+    getOriginImageSize: () => { originImageWidth: number; originImageHeight: number }; 
+    setOriginImageSize: (size: { originImageWidth: number; originImageHeight: number }) => void;
     getContainerRef: () => any;
     getImageRef: () => any;
     getMouseMove: () => boolean;
     setStartMouseMove: (move: boolean) => void;
     getMouseOffset: () => { x: number; y: number };
     setStartMouseOffset: (offset: { x: number; y: number }) => void;
-    setLoading: (loading: boolean) => void;
+    setLoading: (loading: boolean) => void
 }
 
 export interface DragDirection {
     canDragVertical: boolean;
-    canDragHorizontal: boolean;
+    canDragHorizontal: boolean
 }
 
 export interface ExtremeBounds {
     left: number;
-    top: number;
+    top: number
 }
 
 export interface ImageOffset {
     x: number;
-    y: number;
+    y: number
 }
 
 export default class PreviewImageFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<PreviewImageAdapter<P, S>, P, S> {

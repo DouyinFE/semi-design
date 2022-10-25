@@ -16,7 +16,7 @@ import { getDefaultFormatTokenByType } from './getDefaultFormatToken';
  * 'yyyy-MM-dd HH:mm' => 'yyyy-MM-dd HH:mm'
  * 'Pp' => 'yyyy-MM-dd'
  */
-export default function getInsetInputFormatToken(options: { format: string, type: typeof strings.TYPE_SET[number]; }) {
+export default function getInsetInputFormatToken(options: { format: string; type: typeof strings.TYPE_SET[number] }) {
     const { format, type } = options;
     const dateReg = /([yMd]{0,4}[^a-z\s]*[yMd]{0,4}[^a-z\s]*[yMd]{0,4})/i;
     const dateTimeReg = /([yMd]{0,4}[^a-z\s]*[yMd]{0,4}[^a-z\s]*[yMd]{0,4}) (H{0,2}[^a-z\s]*m{0,2}[^a-z\s]*s{0,2})/i;

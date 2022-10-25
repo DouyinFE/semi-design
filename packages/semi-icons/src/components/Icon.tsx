@@ -11,7 +11,7 @@ export interface IconProps extends DetailedHTMLProps<React.HTMLAttributes<HTMLSp
     spin?: boolean;
     rotate?: number;
     prefixCls?: string;
-    type?: string;
+    type?: string
 }
 
 const Icon = React.forwardRef<HTMLSpanElement, IconProps>((props, ref) => {

@@ -32,7 +32,7 @@ export interface MonthCalendarState {
     itemLimit: number;
     showCard: Record<string, [boolean] | [boolean, string]>;
     parsedEvents: MonthlyEvent;
-    cachedKeys: Array<string>;
+    cachedKeys: Array<string>
 }
 
 export default class monthCalendar extends BaseComponent<MonthCalendarProps, MonthCalendarState> {

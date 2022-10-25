@@ -28,11 +28,11 @@ export interface ProgressProps {
     strokeWidth?: number;
     style?: React.CSSProperties;
     type?: 'line' | 'circle';
-    width?: number;
+    width?: number
 }
 
 export interface ProgressState {
-    percentNumber: number;
+    percentNumber: number
 }
 
 class Progress extends Component<ProgressProps, ProgressState> {
