@@ -14,7 +14,6 @@ import '@douyinfe/semi-foundation/toast/toast.scss';
 import getUuid from '@douyinfe/semi-foundation/utils/uuid';
 import useToast from './useToast';
 import { ConfigProps, ToastInstance, ToastProps, ToastState } from '@douyinfe/semi-foundation/toast/toastFoundation';
-import { Motion } from '../_base/base';
 import CSSAnimation from '../_cssAnimation';
 import cls from 'classnames';
 

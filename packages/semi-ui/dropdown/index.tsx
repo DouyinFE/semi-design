@@ -16,7 +16,6 @@ import DropdownTitle, { DropdownTitleProps } from './dropdownTitle';
 import DropdownContext, { DropdownContextType } from './context';
 import '@douyinfe/semi-foundation/dropdown/dropdown.scss';
 import { noop, get } from 'lodash';
-import { Motion } from '../_base/base';
 
 const positionSet = strings.POSITION_SET;
 const triggerSet = strings.TRIGGER_SET;
@@ -51,7 +50,7 @@ export interface DropdownProps extends TooltipProps {
     menu?: DropDownMenuItem[];
     trigger?: Trigger;
     zIndex?: number;
-    motion?: Motion;
+    motion?: boolean;
     className?: string;
     contentClassName?: string | any[];
     style?: React.CSSProperties;

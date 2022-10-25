@@ -23,7 +23,6 @@ import ConfigContext, { ContextValue } from '../configProvider/context';
 import TriangleArrow from './TriangleArrow';
 import TriangleArrowVertical from './TriangleArrowVertical';
 import ArrowBoundingShape from './ArrowBoundingShape';
-import { Motion } from '../_base/base';
 import CSSAnimation from "../_cssAnimation";
 
 export type Trigger = ArrayElement<typeof strings.TRIGGER_SET>;

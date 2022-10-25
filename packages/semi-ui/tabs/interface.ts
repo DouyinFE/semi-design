@@ -84,6 +84,6 @@ export interface TabContextValue {
     panes?: Array<PlainTab>;
     tabPaneMotion?: boolean;
     tabPosition?: TabPosition;
-    prevActiveKey: string|null;
-    forceDisableMotion: boolean
+    prevActiveKey?: string|null;
+    forceDisableMotion?: boolean
 }

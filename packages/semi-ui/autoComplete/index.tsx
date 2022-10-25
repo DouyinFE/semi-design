@@ -17,7 +17,6 @@ import Trigger from '../trigger';
 import Option from './option';
 import warning from '@douyinfe/semi-foundation/utils/warning';
 import '@douyinfe/semi-foundation/autoComplete/autoComplete.scss';
-import { Motion } from '../_base/base';
 
 const prefixCls = cssClasses.PREFIX;
 const sizeSet = strings.SIZE;
@@ -63,7 +62,7 @@ export interface AutoCompleteProps<T extends AutoCompleteItems> {
     insetLabelId?: string;
     id?: string;
     loading?: boolean;
-    motion?: Motion;
+    motion?: boolean;
     maxHeight?: string | number;
     mouseEnterDelay?: number;
     mouseLeaveDelay?: number;

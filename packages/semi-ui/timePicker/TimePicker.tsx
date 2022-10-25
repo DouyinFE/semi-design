@@ -24,7 +24,6 @@ import { InputSize } from '../input';
 import { Position } from '../tooltip';
 import { ScrollItemProps } from '../scrollList/scrollItem';
 import { Locale } from '../locale/interface';
-import { Motion } from '../_base/base';
 
 export interface Panel {
     panelHeader?: React.ReactNode;
@@ -65,7 +64,7 @@ export type TimePickerProps = {
     locale?: Locale['TimePicker'];
     localeCode?: string;
     minuteStep?: number;
-    motion?: Motion;
+    motion?: boolean;
     open?: boolean;
     panelFooter?: React.ReactNode;
     panelHeader?: React.ReactNode;

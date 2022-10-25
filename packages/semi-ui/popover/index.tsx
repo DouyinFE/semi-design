@@ -7,7 +7,6 @@ import Tooltip, { ArrowBounding, Position, TooltipProps, Trigger, RenderContentP
 import Arrow from './Arrow';
 import '@douyinfe/semi-foundation/popover/popover.scss';
 import { BaseProps } from '../_base/baseComponent';
-import { Motion } from '../_base/base';
 import { isFunction, noop } from 'lodash';
 
 import type { ArrowProps } from './Arrow';
