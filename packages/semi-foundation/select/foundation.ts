@@ -1084,5 +1084,13 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
     updateScrollTop() {
         this._adapter.updateScrollTop();
     }
-    
+
+    updateIsFullTags() {
+        const { isFullTags } = this.getStates();
+        if (!isFullTags) {
+            this._adapter.setState({ 
+                isFullTags: true,
+            });
+        }
+    }
 }

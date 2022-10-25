@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 /* eslint-disable max-lines-per-function */
-import React, { Fragment, MouseEvent, ReactInstance } from 'react';
+import React, { Fragment, MouseEvent, ReactInstance, ReactNode } from 'react';
 import ReactDOM from 'react-dom';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
@@ -12,7 +12,7 @@ import { isEqual, isString, noop, get, isNumber } from 'lodash';
 import Tag from '../tag/index';
 import TagGroup from '../tag/group';
 import LocaleConsumer from '../locale/localeConsumer';
-import Popover from '../popover/index';
+import Popover, { PopoverProps } from '../popover/index';
 import { numbers as popoverNumbers } from '@douyinfe/semi-foundation/popover/constants';
 import { FixedSizeList as List } from 'react-window';
 import { getOptionsFromGroup } from './utils';
@@ -152,7 +152,9 @@ export type SelectProps = {
     onBlur?: (e: React.FocusEvent) => void;
     onListScroll?: (e: React.UIEvent<HTMLDivElement>) => void;
     children?: React.ReactNode;
-    preventScroll?: boolean
+    preventScroll?: boolean;
+    showRestTagsPopover?: boolean;
+    restTagsPopoverProps: PopoverProps
 } & Pick<
 TooltipProps,
 | 'spacing'
@@ -177,7 +179,8 @@ export interface SelectState {
     keyboardEventSet: any; // {}
     optionGroups: Array<any>;
     isHovering: boolean;
-    isFocusInContainer: boolean
+    isFocusInContainer: boolean;
+    isFullTags: boolean
 }
 
 // Notes: Use the label of the option as the identifier, that is, the option in Select, the value is allowed to be the same, but the label must be unique
@@ -311,7 +314,9 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         remote: false,
         autoAdjustOverflow: true,
         autoClearSearchValue: true,
-        arrowIcon: <IconChevronDown aria-label='' />
+        arrowIcon: <IconChevronDown aria-label='' />,
+        showRestTagsPopover: false,
+        restTagsPopoverProps: {},
         // Radio selection is different from the default renderSelectedItem for multiple selection, so it is not declared here
         // renderSelectedItem: (optionNode) => optionNode.label,
         // The default creator rendering is related to i18, so it is not declared here
@@ -345,6 +350,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             optionGroups: [],
             isHovering: false,
             isFocusInContainer: false,
+            isFullTags: false,
         };
         /* Generate random string */
         this.selectOptionListID = '';
@@ -928,11 +934,38 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         );
     }
 
+    getTagItem = (item: any, i: number, renderSelectedItem: RenderSelectedItemFn) => {
+        const { size, disabled: selectDisabled } = this.props;
+        const label = item[0];
+        const { value } = item[1];
+        const disabled = item[1].disabled || selectDisabled;
+        const onClose = (tagContent: React.ReactNode, e: MouseEvent) => {
+            if (e && typeof e.preventDefault === 'function') {
+                e.preventDefault(); // make sure that tag will not hidden immediately in controlled mode
+            }
+            this.foundation.removeTag({ label, value });
+        };
+        const { content, isRenderInTag } = (renderSelectedItem as RenderMultipleSelectedItemFn)(item[1], { index: i, disabled, onClose });
+        const basic = {
+            disabled,
+            closable: !disabled,
+            onClose,
+        };
+        if (isRenderInTag) {
+            return (
+                <Tag {...basic} color="white" size={size || 'large'} key={value} tabIndex={-1}>
+                    {content}
+                </Tag>
+            );
+        } else {
+            return <Fragment key={value}>{content}</Fragment>;
+        }
+    }
+
     renderMultipleSelection(selections: Map<OptionProps['label'], any>, filterable: boolean) {
         let { renderSelectedItem } = this.props;
-        const { placeholder, maxTagCount, size } = this.props;
-        const { inputValue } = this.state;
-        const selectDisabled = this.props.disabled;
+        const { showRestTagsPopover, restTagsPopoverProps, placeholder, maxTagCount } = this.props;
+        const { inputValue, isFullTags } = this.state;
         const renderTags = [];
 
         const selectedItems = [...selections];
@@ -944,34 +977,62 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             });
         }
 
-        const mapItems = maxTagCount ? selectedItems.slice(0, maxTagCount) : selectedItems; // no need to render rest tag when maxTagCount is setting
+        let mapItems = [];
+        let tags = [];
+        let tagContent: ReactNode;
 
-        const tags = mapItems.map((item, i) => {
-            const label = item[0];
-            const { value } = item[1];
-            const disabled = item[1].disabled || selectDisabled;
-            const onClose = (tagContent: React.ReactNode, e: MouseEvent) => {
-                if (e && typeof e.preventDefault === 'function') {
-                    e.preventDefault(); // make sure that tag will not hidden immediately in controlled mode
-                }
-                this.foundation.removeTag({ label, value });
-            };
-            const { content, isRenderInTag } = (renderSelectedItem as RenderMultipleSelectedItemFn)(item[1], { index: i, disabled, onClose });
-            const basic = {
-                disabled,
-                closable: !disabled,
-                onClose,
-            };
-            if (isRenderInTag) {
-                return (
-                    <Tag {...basic} color="white" size={size || 'large'} key={value} tabIndex={-1}>
-                        {content}
-                    </Tag>
+        if (!isNumber(maxTagCount)) {
+            // maxTagCount is not set, all tags are displayed
+            mapItems = selectedItems;
+            tags = mapItems.map((item, i) => {
+                return this.getTagItem(item, i, renderSelectedItem);
+            });
+            tagContent = tags;
+        } else {
+            // maxTagCount is set
+            if (showRestTagsPopover) {
+                // showRestTagsPopover = true，
+                mapItems = isFullTags ? selectedItems : selectedItems.slice(0, maxTagCount);
+                tags = mapItems.map((item, i) => {
+                    return this.getTagItem(item, i, renderSelectedItem);
+                });
+                const n = selectedItems.length > maxTagCount ? maxTagCount : undefined;
+
+                tagContent = (
+                    <TagGroup<"custom"> 
+                        tagList={tags} 
+                        maxTagCount={n} 
+                        restCount={isFullTags ? undefined : (selectedItems.length - maxTagCount)}
+                        size="large" 
+                        mode="custom"
+                        showPopover={showRestTagsPopover}
+                        popoverProps={restTagsPopoverProps}
+                        onPlusNMouseEnter={() => { 
+                            this.foundation.updateIsFullTags();
+                        }}
+                    />
                 );
             } else {
-                return <Fragment key={value}>{content}</Fragment>;
+                // If maxTagCount is set, showRestTagsPopover is false/undefined, 
+                // then there is no popover when hovering, no extra Tags are displayed, 
+                // only the tags and restCount displayed in the trigger need to be passed in
+                mapItems = selectedItems.slice(0, maxTagCount);
+                const n = selectedItems.length > maxTagCount ? maxTagCount : undefined;
+                tags = mapItems.map((item, i) => {
+                    return this.getTagItem(item, i, renderSelectedItem);
+                });
+
+                tagContent = (
+                    <TagGroup<"custom"> 
+                        tagList={tags} 
+                        maxTagCount={n} 
+                        restCount={selectedItems.length - maxTagCount} 
+                        size="large" 
+                        mode="custom"
+                    />
+                );
             }
-        });
+        }
 
         const contentWrapperCls = cls({
             [`${prefixcls}-content-wrapper`]: true,
@@ -986,11 +1047,6 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             // [prefixcls + '-selection-text-inactive']: !inputValue && !tags.length,
         });
         const placeholderText = placeholder && !inputValue ? <span className={spanCls}>{placeholder}</span> : null;
-        const n = selectedItems.length > maxTagCount ? maxTagCount : undefined;
-
-        const NotOneLine = !maxTagCount; // Multiple lines (that is, do not set maxTagCount), do not use TagGroup, directly traverse with Tag, otherwise Input cannot follow the correct position
-
-        const tagContent = NotOneLine ? tags : <TagGroup<"custom"> tagList={tags} maxTagCount={n} restCount={maxTagCount ? selectedItems.length - maxTagCount : undefined} size="large" mode="custom"/>;
 
         return (
             <>
