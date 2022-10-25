@@ -17,6 +17,7 @@ export default class TagGroup<T> extends PureComponent<TagGroupProps<T>> {
         size: tagSize[0],
         avatarShape: 'square',
         onTagClose: () => undefined,
+        onPlusNMouseEnter: () => undefined,
     };
 
     static propTypes = {
@@ -35,7 +36,7 @@ export default class TagGroup<T> extends PureComponent<TagGroupProps<T>> {
     };
 
     renderNTag(n: number, restTags: React.ReactNode) {
-        const { size, showPopover, popoverProps } = this.props;
+        const { size, showPopover, popoverProps, onPlusNMouseEnter } = this.props;
         let nTag = (
             <Tag
                 closable={false}
@@ -43,6 +44,7 @@ export default class TagGroup<T> extends PureComponent<TagGroupProps<T>> {
                 color="grey"
                 style={{ backgroundColor: 'transparent' }}
                 key="_+n"
+                onMouseEnter={onPlusNMouseEnter}
             >
                 +{n}
             </Tag>

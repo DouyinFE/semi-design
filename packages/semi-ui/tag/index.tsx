@@ -33,6 +33,7 @@ export default class Tag extends Component<TagProps, TagState> {
         type: tagType[0] as TagType,
         onClose: () => undefined,
         onClick: () => undefined,
+        onMouseEnter: () => undefined,
         style: {},
         className: '',
         shape: 'square',
