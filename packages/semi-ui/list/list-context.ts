@@ -7,7 +7,7 @@ export interface Grid extends RowProps, ColProps {}
 export interface ListContextValue {
     onRightClick?: React.MouseEventHandler<HTMLLIElement>;
     onClick?: React.MouseEventHandler<HTMLLIElement>;
-    grid?: Grid;
+    grid?: Grid
 }
 
 const ListContext = React.createContext<ListContextValue>(null);

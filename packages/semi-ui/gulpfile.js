@@ -82,7 +82,7 @@ gulp.task('compileScss', function compileScss() {
                     const semiUIPath = path.join(rootPath, 'packages/semi-foundation');
                     realUrl = url.replace(/~@douyinfe\/semi-foundation/, semiUIPath);
                 }
-                done({ file:realUrl });
+                done({ file: realUrl });
             },
             charset: false
         }).on('error', sass.logError))

@@ -31,11 +31,11 @@ export type CheckboxGroupProps = {
     className?: string;
     type?: CheckboxType;
     id?: string;
-    'aria-label'?: React.AriaAttributes['aria-label'];
+    'aria-label'?: React.AriaAttributes['aria-label']
 };
 
 export type CheckboxGroupState = {
-    value?: any[];
+    value?: any[]
 };
 class CheckboxGroup extends BaseComponent<CheckboxGroupProps, CheckboxGroupState> {
 

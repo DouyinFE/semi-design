@@ -90,7 +90,20 @@ module.exports = {
                 'jsx-a11y/mouse-events-have-key-events': ["warn"],
                 'jsx-a11y/html-has-lang': ['warn'],
                 'object-curly-spacing': ['error', 'always'],
-                'semi-design/no-import': 'error'
+                'semi-design/no-import': 'error',
+                "@typescript-eslint/member-delimiter-style": [
+                    "error",
+                    {
+                        "multiline": {
+                            "delimiter": "semi",
+                            "requireLast": false
+                        },
+                        "singleline": {
+                            "delimiter": "semi",
+                            "requireLast": false
+                        }
+                    }
+                ],
             }
         },
     ],

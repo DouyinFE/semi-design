@@ -9,7 +9,7 @@ export interface ReactIntersectionObserverProps {
     root?: IntersectionObserverInit['root'];
     threshold?: IntersectionObserverInit['threshold'];
     rootMargin?: IntersectionObserverInit['rootMargin'];
-    items?: Record<string, Element>;
+    items?: Record<string, Element>
 }
 
 export default class ReactIntersectionObserver extends React.PureComponent<ReactIntersectionObserverProps> {

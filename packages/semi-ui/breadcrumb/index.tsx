@@ -21,7 +21,7 @@ export type { RouteProps, BreadcrumbItemProps, BreadcrumbItemInfo } from './item
 export interface showToolTipProps {
     width?: string | number;
     ellipsisPos?: 'end' | 'middle';
-    opts?: TooltipProps;
+    opts?: TooltipProps
 }
 
 export type MoreType = 'default' | 'popover';
@@ -41,11 +41,11 @@ export interface BreadcrumbProps extends BaseProps {
     renderMore?: (restItem: Array<React.ReactNode>) => React.ReactNode;
     /* Style type for ellipsis area */
     moreType?: MoreType;
-    'aria-label'?: React.AriaAttributes['aria-label'];
+    'aria-label'?: React.AriaAttributes['aria-label']
 }
 
 interface BreadcrumbState {
-    isCollapsed: boolean;
+    isCollapsed: boolean
 }
 
 class Breadcrumb extends BaseComponent<BreadcrumbProps, BreadcrumbState> {

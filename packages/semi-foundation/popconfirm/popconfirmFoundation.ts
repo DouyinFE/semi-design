@@ -10,7 +10,7 @@ export interface PopconfirmAdapter<P = Record<string, any>, S = Record<string, a
     notifyConfirm: (e: any) => Promise<any> | void;
     notifyCancel: (e: any) => Promise<any> | void;
     notifyVisibleChange: (visible: boolean) => void;
-    notifyClickOutSide: (e: any) => void;
+    notifyClickOutSide: (e: any) => void
 }
 
 export default class PopConfirmFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<PopconfirmAdapter<P, S>, P, S> {

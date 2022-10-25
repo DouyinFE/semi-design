@@ -38,17 +38,17 @@ export interface PopconfirmProps extends PopoverProps {
     onCancel?: (e: React.MouseEvent) => Promise<any> | void;
     onConfirm?: (e: React.MouseEvent) => Promise<any> | void;
     onVisibleChange?: (visible: boolean) => void;
-    onClickOutSide?: (e: React.MouseEvent) => void;
+    onClickOutSide?: (e: React.MouseEvent) => void
 }
 
 export interface PopconfirmState {
     visible: boolean;
     cancelLoading: boolean;
-    confirmLoading: boolean;
+    confirmLoading: boolean
 }
 
 interface PopProps {
-    [x: string]: any;
+    [x: string]: any
 }
 
 export default class Popconfirm extends BaseComponent<PopconfirmProps, PopconfirmState> {

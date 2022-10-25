@@ -119,10 +119,10 @@ import { IconLikeHeart } from '@douyinfe/semi-icons';
 
 () => (
     <div>
-        <Rating style={{ color:'red' }} character={(<IconLikeHeart size="extra-large" />)} defaultValue={3}/>
+        <Rating style={{ color: 'red' }} character={(<IconLikeHeart size="extra-large" />)} defaultValue={3}/>
         <br/>
         <br/>
-        <Rating style={{ color:'red' }} size={48} allowHalf character={(<IconLikeHeart style={{ fontSize: 48 }} />)} defaultValue={3}/>
+        <Rating style={{ color: 'red' }} size={48} allowHalf character={(<IconLikeHeart style={{ fontSize: 48 }} />)} defaultValue={3}/>
         <br/>
         <br/>
         <Rating character={'赞'} size={18} defaultValue={3}/>

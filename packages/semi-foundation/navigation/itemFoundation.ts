@@ -14,7 +14,7 @@ export interface ItemProps {
     link?: string;
     linkOptions?: Record<string, any>;
     disabled?: boolean;
-    children?: any;
+    children?: any
 }
 
 export interface SelectedItemProps<Props = ItemProps> {
@@ -22,7 +22,7 @@ export interface SelectedItemProps<Props = ItemProps> {
     text?: any;
     selectedKeys?: string | number[];
     selectedItems?: Props[];
-    domEvent?: any;
+    domEvent?: any
 }
 
 export interface ItemAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
@@ -39,7 +39,7 @@ export interface ItemAdapter<P = Record<string, any>, S = Record<string, any>> e
     notifyMouseLeave(e: any): void;
     getIsCollapsed(): boolean;
     getSelected(): boolean;
-    getIsOpen(): boolean;
+    getIsOpen(): boolean
 }
 
 export default class ItemFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<ItemAdapter<P, S>, P, S> {

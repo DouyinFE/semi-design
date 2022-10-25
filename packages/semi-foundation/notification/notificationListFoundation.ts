@@ -11,12 +11,12 @@ export interface NotificationListProps {
 
 export interface NotificationListState {
     notices: NoticeInstance[];
-    removedItems: NoticeInstance[];
+    removedItems: NoticeInstance[]
 }
 
 export interface NotificationListAdapter extends DefaultAdapter<NotificationListProps, NotificationListState> {
     updateNotices: (notices: NoticeInstance[], removedItems?: NoticeInstance[]) => void;
-    getNotices: () => NoticeInstance[];
+    getNotices: () => NoticeInstance[]
 }
 
 
@@ -28,7 +28,7 @@ export interface ConfigProps {
     duration?: number;
     position?: NoticePosition;
     zIndex?: number;
-    direction?: typeof strings.directions[number];
+    direction?: typeof strings.directions[number]
 }
 
 

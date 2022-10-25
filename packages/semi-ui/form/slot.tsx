@@ -17,7 +17,7 @@ export interface SlotProps {
     noLabel?: boolean;
     labelPosition?: 'top' | 'left';
     error?: ErrorMessageProps;
-    children?: React.ReactNode;
+    children?: React.ReactNode
 }
 
 const FormSlot = (props: SlotProps) => {

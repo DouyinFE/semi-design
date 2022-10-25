@@ -302,7 +302,7 @@ describe('modal', () => {
         // set false but still exist
         modal.setProps({ visible: false });
         modal.update(); // 必须调用一次update
-        expect(modal.state().hidden).toEqual(true);
+        expect(modal.state().displayNone).toEqual(true);
         expect(modal.exists(`div.${BASE_CLASS_PREFIX}-modal`)).toEqual(true);
     });
 
@@ -318,7 +318,7 @@ describe('modal', () => {
         // set false but still exist
         modal.setProps({ visible: false });
         modal.update(); // 必须调用一次update
-        expect(modal.state().hidden).toEqual(true);
+        expect(modal.state().displayNone).toEqual(true);
         expect(modal.exists(`div.${BASE_CLASS_PREFIX}-modal`)).toEqual(true);
     });
 })

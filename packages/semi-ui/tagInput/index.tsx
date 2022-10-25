@@ -78,7 +78,7 @@ export interface TagInputProps {
     value?: string[] | undefined;
     autoFocus?: boolean;
     'aria-label'?: string;
-    preventScroll?: boolean;
+    preventScroll?: boolean
 }
 
 export interface TagInputState {
@@ -86,7 +86,7 @@ export interface TagInputState {
     inputValue?: string;
     focusing?: boolean;
     hovering?: boolean;
-    active?: boolean;
+    active?: boolean
 }
 
 const prefixCls = cssClasses.PREFIX;

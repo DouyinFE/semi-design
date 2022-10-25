@@ -1,4 +1,5 @@
 //@import '../theme/variables.scss';
+@import "./animation.scss";
 @import './variables.scss';
 
 $module: #{$prefix}-tooltip;
@@ -48,6 +49,8 @@ $module-icon: #{$module}-icon-arrow;
     }
 }
 
+
+
 .#{$module} {
     &-wrapper {
         position: relative;
@@ -85,6 +88,15 @@ $module-icon: #{$module}-icon-arrow;
         justify-content: center;
         box-sizing: border-box;
     }
+
+    &-animation-show{
+        animation: #{$module}-zoomIn $animation_duration-tooltip_in $animation_function-tooltip_in;
+    }
+
+    &-animation-hide{
+        animation: #{$module}-zoomOut $animation_duration-tooltip_out $animation_function-tooltip_out;
+    }
+
 }
 
 @import './arrow.scss';

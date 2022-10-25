@@ -44,7 +44,7 @@ export type RadioProps = {
     addonId?: string;
     extraId?: string;
     name?: string;
-    preventScroll?: boolean;
+    preventScroll?: boolean
 };
 
 export interface RadioState {
@@ -52,7 +52,7 @@ export interface RadioState {
     addonId?: string;
     extraId?: string;
     focusVisible?: boolean;
-    checked?: boolean;
+    checked?: boolean
 }
 
 export type { RadioChangeEvent };

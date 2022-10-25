@@ -16,7 +16,7 @@ function Feature(props) {
                         <div className={styles.details}>
                             <p className={styles.headline}>{_t("feature_FA")}</p>
                             <p className={styles.description}>
-                            {_t("feature_FA_description")}
+                                {_t("feature_FA_description")}
                             </p>
                         </div>
                     </div>

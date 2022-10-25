@@ -37,7 +37,7 @@ export interface BaseTypographyProps extends BaseProps {
     children?: React.ReactNode;
     component?: React.ElementType;
     spacing?: string;
-    heading?: string;
+    heading?: string
 }
 
 interface BaseTypographyState {
@@ -48,7 +48,7 @@ interface BaseTypographyState {
     expanded: boolean;
     isTruncated: boolean;
     first: boolean;
-    prevChildren: React.ReactNode;
+    prevChildren: React.ReactNode
 }
 const prefixCls = cssClasses.PREFIX;
 const ELLIPSIS_STR = '...';

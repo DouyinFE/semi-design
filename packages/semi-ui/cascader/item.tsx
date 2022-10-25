@@ -18,7 +18,7 @@ import {
 } from '@douyinfe/semi-foundation/cascader/foundation';
 
 export interface CascaderData extends BasicCascaderData {
-    label: React.ReactNode;
+    label: React.ReactNode
 }
 
 export interface Entity extends BasicEntity {
@@ -27,16 +27,16 @@ export interface Entity extends BasicEntity {
     /* treedata */
     data: CascaderData;
     /* parent data */
-    parent?: Entity;
+    parent?: Entity
 }
 
 export interface Entities {
-    [idx: string]: Entity;
+    [idx: string]: Entity
 }
 
 export interface Data extends BasicData {
     data: CascaderData;
-    searchText: React.ReactNode[];
+    searchText: React.ReactNode[]
 }
 
 export interface CascaderItemProps {
@@ -58,7 +58,7 @@ export interface CascaderItemProps {
     separator: string;
     multiple: boolean;
     checkedKeys: Set<string>;
-    halfCheckedKeys: Set<string>;
+    halfCheckedKeys: Set<string>
 }
 
 const prefixcls = cssClasses.PREFIX_OPTION;

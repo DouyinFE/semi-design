@@ -6,7 +6,7 @@ import { ENTER_KEY } from './../utils/keyCode';
 
 export interface InputDefaultAdapter {
     notifyChange: noopFunction;
-    setValue: noopFunction;
+    setValue: noopFunction
 }
 
 export interface InputAdapter extends Partial<DefaultAdapter>, Partial<InputDefaultAdapter> {
@@ -22,7 +22,7 @@ export interface InputAdapter extends Partial<DefaultAdapter>, Partial<InputDefa
     notifyKeyPress(e: any): void;
     notifyEnterPress(e: any): void;
     setPaddingLeft(paddingLeft: string): void;
-    isEventTarget(e: any): boolean;
+    isEventTarget(e: any): boolean
 }
 
 class InputFoundation extends BaseFoundation<InputAdapter> {

@@ -5,7 +5,7 @@ import { IconUser, IconStar, IconUserGroup, IconEdit, IconApps, IconSetting } fr
 function AppNav({ shouldRender = true }) {
     const [selectedKeys, setSelectedKeys] = useState([]);
     const navItems = [
-        { itemKey: 'user', text: '用户管理', icon:  <IconUser /> },
+        { itemKey: 'user', text: '用户管理', icon: <IconUser /> },
         { itemKey: 'union', text: '公会中心', icon: <IconStar /> },
         {
             itemKey: 'union-management',

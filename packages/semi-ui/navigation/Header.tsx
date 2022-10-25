@@ -16,7 +16,7 @@ export interface NavHeaderProps extends BaseProps {
     linkOptions?: React.AnchorHTMLAttributes<HTMLAnchorElement>;
     logo?: Logo;
     prefixCls?: string;
-    text?: React.ReactNode;
+    text?: React.ReactNode
 }
 
 export default class NavHeader extends PureComponent<NavHeaderProps> {

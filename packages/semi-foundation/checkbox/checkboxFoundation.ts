@@ -4,14 +4,14 @@ import warning from '../utils/warning';
 
 export interface BasicTargetObject {
     [x: string]: any;
-    checked?: boolean;
+    checked?: boolean
 }
 export interface BasicCheckboxEvent {
     target: BasicTargetObject;
     stopPropagation: () => void;
     preventDefault: () => void;
     nativeEvent: {
-        stopImmediatePropagation: () => void;
+        stopImmediatePropagation: () => void
     }
 }
 export interface CheckboxAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
@@ -25,7 +25,7 @@ export interface CheckboxAdapter<P = Record<string, any>, S = Record<string, any
     setAddonId: () => void;
     setExtraId: () => void;
     setFocusVisible: (focusVisible: boolean) => void;
-    focusCheckboxEntity: () => void;
+    focusCheckboxEntity: () => void
 }
 
 class CheckboxFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<CheckboxAdapter<P, S>, P, S> {
@@ -170,7 +170,7 @@ export interface BaseCheckboxProps {
     extra?: any;
     addonId?: string;
     extraId?: string;
-    preventScroll?: boolean;
+    preventScroll?: boolean
 }
 
 export default CheckboxFoundation;

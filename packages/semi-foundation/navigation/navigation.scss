@@ -323,6 +323,17 @@ $module: #{$prefix}-navigation;
             height: inherit;
         }
     }
+
+
+    &-icon-rotate-0{
+        transition: transform 200ms ease-in-out;
+        transform: rotate(0);
+    }
+    &-icon-rotate-180{
+        transition: transform 200ms ease-in-out;
+        transform: rotate(-180deg);
+    }
+
 }
 
 /* Header、Footer-Common */

@@ -2,11 +2,21 @@
 @import "./variables.scss";
 
 $module: #{$prefix}-datepicker;
+$module-list: #{$prefix}-scrolllist;
 
 .#{$module} {
     box-sizing: border-box;
     display: inline-block;
     vertical-align: top;
+
+    .#{$module-list}-body {
+
+        .#{$module-list}-item {
+            &::-webkit-scrollbar {
+                display: none;
+            }
+        }
+    }
 
     // 双月网格
 

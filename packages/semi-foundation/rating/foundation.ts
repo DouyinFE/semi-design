@@ -11,7 +11,7 @@ export interface RatingAdapter<P = Record<string, any>, S = Record<string, any>>
     notifyFocus: (e: any) => void;
     notifyBlur: (e: any) => void;
     notifyKeyDown: (e: any) => void;
-    setEmptyStarFocusVisible: (focusVisible: boolean) => void;
+    setEmptyStarFocusVisible: (focusVisible: boolean) => void
 }
 
 export default class RatingFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<RatingAdapter<P, S>, P, S> {
@@ -180,7 +180,7 @@ export default class RatingFoundation<P = Record<string, any>, S = Record<string
 
 export interface RatingItemAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     setFirstStarFocus: (value: boolean) => void;
-    setSecondStarFocus: (value: boolean) => void;
+    setSecondStarFocus: (value: boolean) => void
 }
 
 export class RatingItemFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<RatingItemAdapter<P, S>, P, S> {

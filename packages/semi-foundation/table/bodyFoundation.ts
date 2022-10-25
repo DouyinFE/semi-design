@@ -8,7 +8,7 @@ export interface BodyAdapter<P = Record<string, any>, S = Record<string, any>> e
     setCachedExpandBtnShouldInRow: (cachedExpandBtnShouldInRow: boolean) => void;
     setCachedExpandRelatedProps: (cachedExpandRelatedProps: string[]) => void;
     observeBodyResize: (bodyWrapDOM: any) => void;
-    unobserveBodyResize: () => void;
+    unobserveBodyResize: () => void
 }
 
 export default class TableBodyFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<BodyAdapter<P, S>, P, S> {
@@ -130,7 +130,7 @@ export interface GroupFlattenData {
     sectionRow: boolean;
     group: Map<string, Record<string, any>[]>;
     groupKey: number;
-    expanded: boolean;
+    expanded: boolean
 }
 
 export interface FlattenData {
@@ -140,5 +140,5 @@ export interface FlattenData {
     parentKeys?: any[];
     childrenKeys?: any[];
     expandedRow?: boolean;
-    sectionRow?: boolean;
+    sectionRow?: boolean
 }

@@ -6,7 +6,7 @@ import { Locale } from './interface';
 
 export interface LocaleProviderProps {
     children?: React.ReactNode;
-    locale?: Locale;
+    locale?: Locale
 }
 
 export default class LocaleProvider extends Component<LocaleProviderProps> {

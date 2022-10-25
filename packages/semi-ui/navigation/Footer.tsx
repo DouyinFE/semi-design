@@ -11,7 +11,7 @@ import { BaseProps } from '../_base/baseComponent';
 
 export interface NavFooterProps extends BaseProps {
     collapseButton?: React.ReactNode;
-    collapseText?: (collapsed?: boolean) => React.ReactNode;
+    collapseText?: (collapsed?: boolean) => React.ReactNode
 }
 
 export default class NavFooter extends PureComponent<NavFooterProps> {

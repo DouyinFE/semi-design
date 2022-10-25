@@ -1,3 +1,4 @@
+@import "./animation.scss";
 @import './variables.scss';
 $module: #{$prefix}-skeleton;
 
@@ -97,7 +98,7 @@ $module: #{$prefix}-skeleton;
                 $color-skeleton_default-bg-default 88%
             );
             background-size: 400% 100%;
-            animation: skeleton-loading 1.4s ease infinite;
+            animation: $animation_duration-skeleton-highlight skeleton-loading $animation_function-skeleton-highlight infinite;
         }
     }
 

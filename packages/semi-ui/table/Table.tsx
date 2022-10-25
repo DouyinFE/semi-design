@@ -95,7 +95,7 @@ export interface NormalTableState<RecordType extends Record<string, any> = Data>
     bodyHasScrollBar?: boolean;
     prePropRowSelection?: TableStateRowSelection<RecordType>;
     tableWidth?: number;
-    prePagination?: Pagination;
+    prePagination?: Pagination
 }
 
 export type TableStateRowSelection<RecordType extends Record<string, any> = Data> = (RowSelectionProps<RecordType> & { selectedRowKeysSet?: Set<(string | number)> }) | boolean;
@@ -105,7 +105,7 @@ export interface RenderTableProps<RecordType> extends HeadTableProps, BodyProps 
     useFixedHeader: boolean;
     bodyRef: React.MutableRefObject<HTMLDivElement> | ((instance: any) => void);
     rowSelection: TableStateRowSelection<RecordType>;
-    bodyHasScrollBar: boolean;
+    bodyHasScrollBar: boolean
 }
 
 class Table<RecordType extends Record<string, any>> extends BaseComponent<NormalTableProps<RecordType>, NormalTableState<RecordType>> {

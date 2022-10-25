@@ -204,7 +204,7 @@ function Demo() {
             <br />
             <Text 
                 ellipsis={{ 
-                    showTooltip:{
+                    showTooltip: {
                         opts: { content: '这是自定义要展示的内容' }
                     }
                 }}
@@ -253,7 +253,7 @@ function Demo() {
         <div>
             <Text 
                 ellipsis={{ 
-                    showTooltip:{
+                    showTooltip: {
                         opts: { content: '架构|Semi-inf|graph.cheet.relation' }
                     }
                 }}
@@ -264,7 +264,7 @@ function Demo() {
             <br />
             <Text 
                 ellipsis={{ 
-                    showTooltip:{
+                    showTooltip: {
                         opts: { content: '架构|Semi-inf|graph.cheet.relation', className: 'components-typography-demo' }
                     }
                 }}
@@ -275,7 +275,7 @@ function Demo() {
             <br />
             <Text 
                 ellipsis={{
-                    showTooltip:{
+                    showTooltip: {
                         opts: { content: '架构|Semi-inf|graph.cheet.relation', style: { wordBreak: 'break-all' } }
                     }
                 }}

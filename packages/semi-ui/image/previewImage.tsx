@@ -43,7 +43,7 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
         return {
             ...super.adapter,
             getOriginImageSize: () => ({ originImageWidth, originImageHeight }),
-            setOriginImageSize: (size: { originImageWidth: number; originImageHeight: number; }) => {
+            setOriginImageSize: (size: { originImageWidth: number; originImageHeight: number }) => {
                 originImageWidth = size.originImageWidth;
                 originImageHeight = size.originImageHeight;
             },

@@ -18,7 +18,7 @@ export interface BasicStepsProps {
     hasLine?: boolean;
     children?: React.ReactNode;
     onChange?: (current: number) => void;
-    "aria-label"?: string;
+    "aria-label"?: string
 }
 
 const Steps = (props: BasicStepsProps) => {

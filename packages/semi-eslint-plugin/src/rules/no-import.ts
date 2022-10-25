@@ -78,14 +78,14 @@ function isRelativePath(path: string) {
     return path.includes('../');
 }
 
-function isImportRelativePackage(options: { path: string, fileName: string }) {
+function isImportRelativePackage(options: { path: string; fileName: string }) {
     const { path, fileName } = options;
     const currentPackageName = SEMI_PACKAGE_REG.exec(fileName)[0];
     const importPackageName = SEMI_PACKAGE_REG.exec(path)[0];
     return currentPackageName !== importPackageName && isRelativePath(path);
 }
 
-function isImportSelf(options: { path: string, fileName: string }) {
+function isImportSelf(options: { path: string; fileName: string }) {
     const { path, fileName } = options;
     const currentPackageName = SEMI_PACKAGE_REG.exec(fileName)[0];
     const importPackageName = SEMI_PACKAGE_REG.exec(path)[0];

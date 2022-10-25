@@ -88,7 +88,7 @@ function Demo() {
                         </article>
                     }
                 >
-                    <IconInfoCircle style={{ color:'var(--semi-color-primary)' }}/>
+                    <IconInfoCircle style={{ color: 'var(--semi-color-primary)' }}/>
                 </Popover>
             </Card>
         </>
@@ -199,7 +199,7 @@ function Demo() {
                         </article>
                     }
                 >
-                    <IconInfoCircle style={{ color:'var(--semi-color-primary)' }}/>
+                    <IconInfoCircle style={{ color: 'var(--semi-color-primary)' }}/>
                 </Popover>
             </Card>
             <br/>
@@ -231,7 +231,7 @@ function Demo() {
                         </article>
                     }
                 >
-                    <IconInfoCircle style={{ color:'var(--semi-color-primary)' }}/>
+                    <IconInfoCircle style={{ color: 'var(--semi-color-primary)' }}/>
                 </Popover>
             </Card>
         </div>
@@ -443,7 +443,7 @@ function Demo() {
                     <Meta 
                         title={
                             <Skeleton
-                                style={{ width:80 }}
+                                style={{ width: 80 }}
                                 placeholder={<Title />}
                                 loading={loading}
                             >
@@ -454,7 +454,7 @@ function Demo() {
                         } 
                         description={
                             <Skeleton 
-                                style={{ width:150, marginTop: 12 }} 
+                                style={{ width: 150, marginTop: 12 }} 
                                 placeholder={<Paragraph rows={1} />} 
                                 loading={loading}
                             >
@@ -587,7 +587,7 @@ function Demo() {
                 defaultValue={12}
                 max={40}
                 min={10}
-                style={{ width:360 }}
+                style={{ width: 360 }}
                 onChange={v=> setSpacing(v)}
             />
             <br />
@@ -599,7 +599,7 @@ function Demo() {
                             shadows='hover'
                             title='Card title'
                             headerLine={false}
-                            style={{ width:260 }}
+                            style={{ width: 260 }}
                             headerExtraContent={
                                 <Text link>
                                     More
@@ -637,7 +637,7 @@ function Demo() {
                         shadows='hover'
                         title='Card title'
                         headerLine={false}
-                        style={{ width:260 }}
+                        style={{ width: 260 }}
                         headerExtraContent={
                             <Text link>
                                 More

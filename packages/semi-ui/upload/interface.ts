@@ -8,18 +8,18 @@ export type UploadListType = ArrayElement<typeof strings.LIST_TYPE>;
 
 export interface BeforeUploadProps {
     file: FileItem;
-    fileList: Array<FileItem>;
+    fileList: Array<FileItem>
 }
 
 export interface AfterUploadProps {
     file: FileItem;
     fileList: Array<FileItem>;
-    response: any;
+    response: any
 }
 
 export interface OnChangeProps {
     fileList: Array<FileItem>;
-    currentFile: FileItem;
+    currentFile: FileItem
 }
 
 export interface customRequestArgs {
@@ -37,11 +37,11 @@ export interface customRequestArgs {
 export interface CustomError extends Error {
     status: number;
     method: string;
-    url: string;
+    url: string
 }
 
 export interface FileItem extends BaseFileItem {
-    validateMessage?: ReactNode;
+    validateMessage?: ReactNode
 }
 
 export interface RenderFileItemProps extends FileItem {
@@ -60,5 +60,5 @@ export interface RenderFileItemProps extends FileItem {
     showReplace?: boolean;
     style?: CSSProperties;
     disabled: boolean;
-    onPreviewClick: () => void;
+    onPreviewClick: () => void
 }

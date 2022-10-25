@@ -15,6 +15,7 @@ export interface SideSheetContentProps {
     mask?: boolean;
     maskStyle?: CSSProperties;
     maskClosable?: boolean;
+    maskClassName?: string;
     title?: React.ReactNode;
     closable?: boolean;
     headerStyle?: CSSProperties;
@@ -23,9 +24,12 @@ export interface SideSheetContentProps {
     style: CSSProperties;
     bodyStyle?: CSSProperties;
     className: string;
+    dialogClassName?:string;
     children?: React.ReactNode;
     footer?: React.ReactNode;
     'aria-label'?: string;
+    maskExtraProps?: {[key:string]: any};
+    wrapperExtraProps?: {[key:string]: any}
 }
 
 export default class SideSheetContent extends React.PureComponent<SideSheetContentProps> {
@@ -70,9 +74,10 @@ export default class SideSheetContent extends React.PureComponent<SideSheetConte
                 <div
                     aria-hidden={true}
                     key="mask"
-                    className={`${prefixCls}-mask`}
+                    className={cls(`${prefixCls}-mask`, this.props.maskClassName ?? "")}
                     style={maskStyle}
                     onClick={maskClosable ? this.onMaskClick : null}
+                    {...this.props.maskExtraProps}
                 />
             );
         }
@@ -133,9 +138,10 @@ export default class SideSheetContent extends React.PureComponent<SideSheetConte
                 key="dialog-element"
                 role="dialog"
                 tabIndex={-1}
-                className={`${prefixCls}-inner ${prefixCls}-inner-wrap`}
+                className={cls(`${prefixCls}-inner`, `${prefixCls}-inner-wrap`, this.props.dialogClassName??"")}
                 // onMouseDown={this.onDialogMouseDown}
                 style={{ ...props.style, ...style }}
+                {...this.props.wrapperExtraProps}
                 // id={this.dialogId}
             >
                 <div className={`${prefixCls}-content`}>

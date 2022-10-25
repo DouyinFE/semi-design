@@ -12,7 +12,7 @@ export type DescriptionsSize = 'small' | 'medium' | 'large';
 export interface Data {
     key?: React.ReactNode;
     value?: (() => React.ReactNode) | React.ReactNode;
-    hidden?: boolean;
+    hidden?: boolean
 }
 export interface DescriptionsProps {
     align?: DescriptionsAlign;
@@ -21,7 +21,7 @@ export interface DescriptionsProps {
     style?: React.CSSProperties;
     className?: string;
     children?: React.ReactNode | undefined;
-    data?: Data[];
+    data?: Data[]
 }
 
 const prefixCls = cssClasses.PREFIX;

@@ -35,15 +35,15 @@ export interface NavItemProps extends ItemProps, BaseProps {
     tooltipShowDelay?: number;
     onClick?(clickItems: SelectedData): void;
     onMouseEnter?: React.MouseEventHandler<HTMLLIElement>;
-    onMouseLeave?: React.MouseEventHandler<HTMLLIElement>;
+    onMouseLeave?: React.MouseEventHandler<HTMLLIElement>
 }
 
 export interface SelectedData extends SelectedItemProps<NavItemProps> {
-    text?: React.ReactNode;
+    text?: React.ReactNode
 }
 
 export interface NavItemState {
-    tooltipShow: boolean;
+    tooltipShow: boolean
 }
 
 export default class NavItem extends BaseComponent<NavItemProps, NavItemState> {

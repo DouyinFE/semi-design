@@ -17,7 +17,7 @@ export interface CardGroupProps {
     /** Card group inline style */
     style?: React.CSSProperties;
     /** Card set type */
-    type?: CardGroupType;
+    type?: CardGroupType
 }
 
 class CardGroup extends PureComponent<CardGroupProps> {

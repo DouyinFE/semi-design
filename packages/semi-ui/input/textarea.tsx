@@ -49,7 +49,7 @@ export interface TextAreaProps extends
     onPressEnter?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
     onResize?: (data: {height: number}) => void;
     getValueLength?: (value: string) => number;
-    forwardRef?: ((instance: HTMLTextAreaElement) => void) | React.MutableRefObject<HTMLTextAreaElement> | null;
+    forwardRef?: ((instance: HTMLTextAreaElement) => void) | React.MutableRefObject<HTMLTextAreaElement> | null
 }
 
 export interface TextAreaState {
@@ -58,7 +58,7 @@ export interface TextAreaState {
     isHover: boolean;
     height: number;
     minLength: number;
-    cachedValue?: string;
+    cachedValue?: string
 }
 
 class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {

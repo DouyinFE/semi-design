@@ -9,16 +9,16 @@ function DeepContent(props) {
 
     const goA11y = () => {
         const local = getLocale();
-        if(local === 'zh-CN') {
+        if (local === 'zh-CN') {
             window.open("https://mp.weixin.qq.com/s/O3js-SZDNPEOjGxh-aAkbw");
         } else {
             window.open("https://medium.com/@semi-design/accessibility-1808f1ed34d2");
         }
-    }
+    };
 
     const goTheme = () => {
         window.open('https://mp.weixin.qq.com/s/noHoWRuA25PgqFNcurhIUA');
-    }
+    };
 
     return (
         <div {...props} className={styles.frame}>
