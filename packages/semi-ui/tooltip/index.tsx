@@ -570,9 +570,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                 onAnimationEnd={()=>{
                     if (transitionState === 'leave'){
                         this.didLeave();
-                        if (this.props.motion){
-                            this.props.afterClose?.();
-                        }
+                        this.props.afterClose?.();
                     }
                 }}>
                 {
