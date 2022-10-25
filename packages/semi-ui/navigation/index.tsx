@@ -15,7 +15,6 @@ import Header, { NavHeaderProps } from './Header';
 import NavContext from './nav-context';
 import LocaleConsumer from '../locale/localeConsumer';
 import '@douyinfe/semi-foundation/navigation/navigation.scss';
-import { Motion } from '../_base/base';
 
 export type { CollapseButtonProps } from './CollapseButton';
 export type { NavFooterProps } from './Footer';

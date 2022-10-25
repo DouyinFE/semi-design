@@ -4,9 +4,7 @@ import { destroyFns, ModalReactProps } from './Modal';
 import ConfirmModal from './ConfirmModal';
 
 import '@douyinfe/semi-foundation/modal/modal.scss';
-import { get } from 'lodash';
 import { IconAlertCircle, IconAlertTriangle, IconHelpCircle, IconInfoCircle, IconTickCircle } from '@douyinfe/semi-icons';
-import { Motion } from '../_base/base';
 
 export interface ConfirmProps extends ModalReactProps {
     type: 'success' | 'info' | 'warning' | 'error' | 'confirm'

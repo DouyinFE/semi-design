@@ -15,7 +15,6 @@ import ConfigContext, { ContextValue } from '../configProvider/context';
 import LocaleConsumer from '../locale/localeConsumer';
 import { Locale as LocaleObject } from '../locale/interface';
 import '@douyinfe/semi-foundation/popconfirm/popconfirm.scss';
-import { Motion } from '../_base/base';
 
 export interface PopconfirmProps extends PopoverProps {
     cancelText?: string;
@@ -28,7 +27,7 @@ export interface PopconfirmProps extends PopoverProps {
     okText?: string;
     okType?: ButtonType;
     okButtonProps?: ButtonProps;
-    motion?: Motion;
+    motion?: boolean;
     title?: React.ReactNode;
     visible?: boolean;
     prefixCls?: string;

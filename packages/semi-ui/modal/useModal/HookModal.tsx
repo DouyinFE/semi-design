@@ -2,12 +2,11 @@ import React, { PropsWithChildren } from 'react';
 import ConfirmModal from '../ConfirmModal';
 import { get } from 'lodash';
 import { ConfirmProps } from '../confirm';
-import { Motion } from '../../_base/base';
 
 interface HookModalProps {
     afterClose: (...args: any[]) => void;
     config: ConfirmProps;
-    motion?: Motion
+    motion?: boolean
 }
 
 export interface HookModalRef {

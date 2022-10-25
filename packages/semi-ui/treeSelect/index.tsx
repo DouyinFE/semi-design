@@ -48,9 +48,9 @@ import Trigger from '../trigger';
 import TagInput from '../tagInput';
 import { isSemiIcon } from '../_utils';
 import { OptionProps, TreeProps, TreeState, FlattenNode, TreeNodeData, TreeNodeProps } from '../tree/interface';
-import { Motion } from '../_base/base';
 import { IconChevronDown, IconClear, IconSearch } from '@douyinfe/semi-icons';
 import CheckboxGroup from '../checkbox/checkboxGroup';
+import { boolean } from "@storybook/addon-knobs";
 
 export type ExpandAction = false | 'click' | 'doubleClick';
 
@@ -106,7 +106,7 @@ export interface TreeSelectProps extends Omit<BasicTreeSelectProps, OverrideComm
     'aria-invalid'?: React.AriaAttributes['aria-invalid'];
     'aria-labelledby'?: React.AriaAttributes['aria-labelledby'];
     'aria-required'?: React.AriaAttributes['aria-required'];
-    motion?: Motion;
+    motion?: boolean;
     mouseEnterDelay?: number;
     mouseLeaveDelay?: number;
     arrowIcon?: React.ReactNode;
@@ -221,7 +221,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         ),
         dropdownClassName: PropTypes.string,
         dropdownStyle: PropTypes.object,
-        motion: PropTypes.oneOfType([PropTypes.bool, PropTypes.object, PropTypes.func]),
+        motion: PropTypes.bool,
         placeholder: PropTypes.string,
         maxTagCount: PropTypes.number,
         size: PropTypes.oneOf<TreeSelectProps['size']>(strings.SIZE_SET),
