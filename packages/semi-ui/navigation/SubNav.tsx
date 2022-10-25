@@ -106,8 +106,8 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
         isOpen: false,
         maxHeight: numbers.DEFAULT_SUBNAV_MAX_HEIGHT,
         toggleIcon: {
-            open: <IconChevronUp />,
-            closed: <IconChevronDown />,
+            open: <IconChevronUp aria-hidden={true} />,
+            closed: <IconChevronDown aria-hidden={true} />,
         },
         disabled: false,
     };
@@ -211,6 +211,8 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
 
         const { mode, isInSubNav, isCollapsed, prefixCls, subNavMotion, limitIndent } = this.context;
 
+        const isOpen = this.adapter.getIsOpen();
+
         const titleCls = cls(`${prefixCls}-sub-title`, {
             [`${prefixCls}-sub-title-selected`]: this.adapter.getIsSelected(itemKey),
             [`${prefixCls}-sub-title-disabled`]: disabled,
@@ -227,9 +229,9 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
             }
         } else if (mode === strings.MODE_HORIZONTAL) {
             if (isInSubNav) {
-                toggleIconType = <IconChevronRight />;
+                toggleIconType = <IconChevronRight aria-hidden={true} />;
             } else {
-                toggleIconType = <IconChevronDown />;
+                toggleIconType = <IconChevronDown aria-hidden={true} />;
                 // Horizontal mode does not require animation fix#1198
                 // withTransition = true;
             }
@@ -237,7 +239,7 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
             if (subNavMotion) {
                 withTransition = true;
             }
-            toggleIconType = <IconChevronDown />;
+            toggleIconType = <IconChevronDown aria-hidden={true} />;
         }
 
         let placeholderIcons = null;
@@ -247,14 +249,18 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
             placeholderIcons = times(iconAmount, index => this.renderIcon(null, strings.ICON_POS_RIGHT, false, false, index));
         }
 
+        const isIconChevronRightShow = (!isCollapsed && isInSubNav && mode === strings.MODE_HORIZONTAL) || (isCollapsed && isInSubNav);
+
         const titleDiv = (
             <div
                 role="menuitem"
-                tabIndex={-1}
+                // to avoid nested horizontal navigation be focused
+                tabIndex={isIconChevronRightShow ? -1 : 0}
                 ref={this.setTitleRef as any}
                 className={titleCls}
                 onClick={this.handleClick}
                 onKeyPress={this.handleKeyPress}
+                aria-expanded={isOpen ? 'true' : 'false'}
             >
                 <div className={`${prefixCls}-item-inner`}>
                     {placeholderIcons}
@@ -335,7 +341,7 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
                     className={subNavCls}
                     render={(
                         <Dropdown.Menu>
-                            <li className={`${prefixCls}-popover-crumb`} />
+                            {/* <li className={`${prefixCls}-popover-crumb`} /> */}
                             {children}
                         </Dropdown.Menu>
                     )}
