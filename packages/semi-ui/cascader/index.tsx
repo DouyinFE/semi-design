@@ -556,6 +556,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                 // TODO Modify logic, not modify type
                 onRemove={v => this.handleTagRemove(null, (v as unknown) as (string | number)[])}
                 placeholder={placeholder}
+                expandRestTagsOnClick={false}
             />
         );
     }

@@ -125,6 +125,8 @@ export interface BasicTreeSelectProps extends Pick<BasicTreeProps,
     searchPosition?: string;
     stopPropagation?: boolean | string;
     loadedKeys?: string[];
+    showRestTagsPopover?: boolean;
+    restTagsPopoverProps?: any;
     loadData?: (data: BasicTreeNodeData) => Promise<void>;
     onSelect?: (selectedKeys: string, selected: boolean, selectedNode: BasicTreeNodeData) => void;
     searchRender?: (inputProps: any) => any;
