@@ -24,9 +24,15 @@ $module-list: #{$prefix}-scrolllist;
                     padding-bottom: ($height-timePicker_panel_body - $height-scrollList_item) * 0.5;
                 }
             }
+
             .#{$module-list}-item {
+                -ms-overflow-style: none; /* Internet Explorer 10+ */
+                scrollbar-width: none; /* Firefox */
+                
                 &::-webkit-scrollbar {
                     display: none;
+                    width: 0;
+                    height: 0;
                 }
             }
 
