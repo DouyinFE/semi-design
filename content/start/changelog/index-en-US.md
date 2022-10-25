@@ -16,6 +16,32 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.22.0-beta.0 (2022-10-25)
+- 【Feat】
+  - Typography adds a new Numeral component, based on the Text component, and adds attributes: rule, precision, truncate, parser, to provide the ability to process numerical values ​​in text separately [@uiuing](https://github.com/uiuing)
+  - TreeSelect adds showRestTagsPopover and restTagsPopoverProps parameters to support displaying redundant tags through popover
+  - Select added showRestTagsPopover and restTagsPopoverProps to support displaying redundant tags through popover
+  - Navigation add a11y support
+  - Modal SideSheet Tabs and Popover Tooltip and other pop-up layer components animation effects are changed from javascript to css. Added animation Token, which can support custom animation in DSM in the form of themes
+  - Optimize the animation effect of ScrollList in wheel mode
+  - The yearAndMonthOpts API has been added to DatePicker, which can be used to control the ScrollListItem of the year-month picker
+  - The second parameter of DatePicker disabledDate API adds the rangeInputFocus parameter to dynamically disable the date based on the current selection state
+  - Export LocaleConsumer Component [@Hokori23](https://github.com/Hokori23)
+- 【Style】
+  - Fixed the issue that the padding of NavItem in Dropdown is not as expected due to some packaging strategies
+- 【Fix】
+  - Fix hooks Modal motion=false not take effect bug
+  - Update the type of render of the Columns property of the Table component [@Assone](https://github.com/Assone)
+  - Fix when motion is false, after searching for the selected value, the panel display is still the searched option after the panel is collapsed and then opened  [#1199 ](https://github.com/DouyinFE/semi-design/issues/1199) 
+  - Fix Table defaultFiltertedValue and defaultSortOrder not included in onChange  [#1188](https://github.com/DouyinFE/semi-design/issues/1188)
+  - Fixed the issue that Childern display would be triggered twice when popover, ToolTip, Dropdown and other popup components were set to true
+  - Change the component that implements the expand/collapse animation in NodeList from the Collapse component in the Tree to the public Collapsible component
+- 【Docs】
+  - Update the documentation of the Columns property of the Table component [@Assone](https://github.com/Assone)
+- 【Breaking Change】
+  - Changed the ScrollListItem used in TimePicker and DatePicker from mode wheel to mode normal to make it more suitable for PC
+
+
 #### 🎉 2.21.0 (2022-10-12)
 - 【Fix】
   - Fix the problem that the timer is not updated when carousel switches the index through the left and right buttons or methods
