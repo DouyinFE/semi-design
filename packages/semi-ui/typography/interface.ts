@@ -25,3 +25,5 @@ export type OmitTypographyProps = 'dangerouslySetInnerHTML';
 export type TypographyBaseType = ArrayElement<typeof strings.TYPE>;
 export type TypographyBaseSize = ArrayElement<typeof strings.SIZE>;
 export type TypographyBaseSpacing = ArrayElement<typeof strings.SPACING>;
+export type TypographyBaseRule = ArrayElement<typeof strings.RULE>;
+export type TypographyBaseTruncate = ArrayElement<typeof strings.TRUNCATE>;
