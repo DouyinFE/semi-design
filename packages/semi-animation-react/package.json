@@ -1,6 +1,6 @@
 {
   "name": "@douyinfe/semi-animation-react",
-  "version": "2.22.0-beta.2",
+  "version": "2.22.0-beta.3",
   "description": "motion library for semi-ui-react",
   "keywords": [
     "motion",
@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "@douyinfe/semi-animation": "2.12.0",
-    "@douyinfe/semi-animation-styled": "2.22.0-beta.2",
+    "@douyinfe/semi-animation-styled": "2.22.0-beta.3",
     "classnames": "^2.2.6"
   },
   "devDependencies": {
