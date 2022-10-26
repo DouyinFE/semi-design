@@ -36,10 +36,18 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
   - Fix Table defaultFiltertedValue and defaultSortOrder not included in onChange  [#1188](https://github.com/DouyinFE/semi-design/issues/1188)
   - Fixed the issue that Childern display would be triggered twice when popover, ToolTip, Dropdown and other popup components were set to true
   - Change the component that implements the expand/collapse animation in NodeList from the Collapse component in the Tree to the public Collapsible component
+  - Fixed an issue where the removal of the Collapsible ancestor element from the render tree caused the height calculation to be abnormal and unable to expand
+  - Fixed that when the Collapsible content area was removed from the render tree, the height calculation was abnormal and it could not be expanded
+  - Fixed the height change of the Collapsible content area causing the collapse animation of the height change area to not be displayed when collapsed
 - 【Docs】
   - Update the documentation of the Columns property of the Table component [@Assone](https://github.com/Assone)
 - 【Breaking Change】
   - Changed the ScrollListItem used in TimePicker and DatePicker from mode wheel to mode normal to make it more suitable for PC
+
+#### 🎉 2.21.1 (2022-10-13)
+- 【Fix】
+  - fix Modal esc key trigger event callback after closed
+
 
 
 #### 🎉 2.21.0 (2022-10-12)
