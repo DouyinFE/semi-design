@@ -16,6 +16,10 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.22.0-beta.2 (2022-10-26)
+- 【Fix】
+  - Fix the problem that the restTagsPopoverProps API in Select is not set as optional, causing ts to report an error
+
 #### 🎉 2.22.0-beta.1 (2022-10-26)
 - 【Feat】
   - Typography adds a new Numeral component, based on the Text component, and adds attributes: rule, precision, truncate, parser, to provide the ability to process numerical values ​​in text separately [@uiuing](https://github.com/uiuing) [#1136](https://github.com/DouyinFE/semi-design/issues/1136)
