@@ -16,7 +16,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 ---
 
-#### 🎉 2.22.0-beta.0 (2022-10-25)
+#### 🎉 2.22.0-beta.1 (2022-10-26)
 - 【Feat】
   - Typography 新增 Numeral 组件，基于 Text 组件，添加了属性: rule, precision, truncate, parser, 以提供需要单独处理文本中数值的能力 [@uiuing](https://github.com/uiuing)
   - 导出 LocaleConsumer 组件 [@Hokori23](https://github.com/Hokori23)

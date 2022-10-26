@@ -16,7 +16,7 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
-#### 🎉 2.22.0-beta.0 (2022-10-25)
+#### 🎉 2.22.0-beta.1 (2022-10-26)
 - 【Feat】
   - Typography adds a new Numeral component, based on the Text component, and adds attributes: rule, precision, truncate, parser, to provide the ability to process numerical values ​​in text separately [@uiuing](https://github.com/uiuing)
   - TreeSelect adds showRestTagsPopover and restTagsPopoverProps parameters to support displaying redundant tags through popover
