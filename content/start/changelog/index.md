@@ -35,12 +35,21 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
   - 修复 Table defaultFiltertedValue 和 defaultSortOrder 未包含在 onChange 中问题  [#1188](https://github.com/DouyinFE/semi-design/issues/1188)
   - 修复 Popover、ToolTip、Dropdown 等弹层组件在 motion 为 true 时，Childern 展示会触发两次的问题
   - 将 NodeList 中实现展开/收起动画的组件由 Tree 中的 Collapse 组件改为公共的 Collapsible 组件
-- 【Style】
+  - 修复 Collapsible 祖先元素从渲染树中移除导致高度计算异常，无法展开的问题
+  - 修复 Collapsible 内容区从渲染树移除导致高度计算异常，无法展开的问题
+  - 修复 Collapsible 内容区域高度变化导致收起时高度变化区域的收起动画不展示的问题
+-  【Style】
   - 修复某些打包策略导致 Dropdown 中的 NavItem 的 padding 不符合预期问题
 - 【Docs】
   - 更新 Table 组件 Columns 属性的文档 [@Assone](https://github.com/Assone)
 - 【Breaking Change】
   - **将 TimePicker 和 DatePicker 中用到的 ScrollListItem 由 mode wheel 改为 mode normal，使其更好适配 PC 端**
+
+
+#### 🎉 2.21.1 (2022-10-13)
+- 【Fix】
+  - 修复 Modal 在 关闭后 esc 触发事件回调的问题
+
 
 
 #### 🎉 2.21.0 (2022-10-12)
