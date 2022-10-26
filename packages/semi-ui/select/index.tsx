@@ -154,7 +154,7 @@ export type SelectProps = {
     children?: React.ReactNode;
     preventScroll?: boolean;
     showRestTagsPopover?: boolean;
-    restTagsPopoverProps: PopoverProps
+    restTagsPopoverProps?: PopoverProps
 } & Pick<
 TooltipProps,
 | 'spacing'
