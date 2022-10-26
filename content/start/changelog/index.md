@@ -19,19 +19,19 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 #### 🎉 2.22.0-beta.0 (2022-10-25)
 - 【Feat】
   - Typography 新增 Numeral 组件，基于 Text 组件，添加了属性: rule, precision, truncate, parser, 以提供需要单独处理文本中数值的能力 [@uiuing](https://github.com/uiuing)
+  - 导出 LocaleConsumer 组件 [@Hokori23](https://github.com/Hokori23)
+  - Navigation 新增 A11y 键盘和焦点适配 
   - TreeSelect 增加 showRestTagsPopover 和 restTagsPopoverProps 参数，支持通过 popover 展示多余 tag
   - Select 中增加 showRestTagsPopover 和 restTagsPopoverProps，支持通过 popover 展示多余 tag
-  - Navigation 新增 A11y 键盘和焦点适配 
   - Modal SideSheet Tabs 和 Popover Tooltip 等弹层组件动画效果从 js 改为 css 实现，新增动画 Token，可支持在 DSM 中以主题形式自定义动画
   - 优化 ScrollList 在 wheel 模式下的动画效果
   - DatePicker 中新增 yearAndMonthOpts API，可用于控制年月选择器的 ScrollListItem
   - DatePicker disabledDate API 第二个参数新增 rangeInputFocus 参数，用于根据当前选择状态动态禁用日期
-  - 导出 LocaleConsumer 组件 [@Hokori23](https://github.com/Hokori23)
 - 【Fix】
-  - 修复 hook 方式使用 Modal  motion=false 不生效的问题
+  - 修复 hook 方式使用 Modal motion=false 不生效的问题
   - 更新 Table 组件 Columns 属性的 render 的类型 [@Assone](https://github.com/Assone)
-  - 修复当 motion 为 false 时，搜索选中值后，在面板收起后再打开面板显示仍然是搜索后的选项  [#1199 ](https://github.com/DouyinFE/semi-design/issues/1199)
-  - 修复 Foundation 代码中含有 React 特有 API 调用的问题
+  - 修复 Cascader 当 motion 为 false 时，搜索选中值后，在面板收起后再打开面板显示仍然是搜索后的选项 [#1199](https://github.com/DouyinFE/semi-design/issues/1199)
+  - 修复 Foundation 代码中含有 React 特有 API 调用的问题 [#1189](https://github.com/DouyinFE/semi-design/issues/1189)
   - 修复 Table defaultFiltertedValue 和 defaultSortOrder 未包含在 onChange 中问题  [#1188](https://github.com/DouyinFE/semi-design/issues/1188)
   - 修复 Popover、ToolTip、Dropdown 等弹层组件在 motion 为 true 时，Childern 展示会触发两次的问题
   - 将 NodeList 中实现展开/收起动画的组件由 Tree 中的 Collapse 组件改为公共的 Collapsible 组件
@@ -40,7 +40,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 - 【Docs】
   - 更新 Table 组件 Columns 属性的文档 [@Assone](https://github.com/Assone)
 - 【Breaking Change】
-  - 将 TimePicker 和 DatePicker 中用到的 ScrollListItem 由 mode wheel 改为 mode normal，使其更好适配 PC 端
+  - **将 TimePicker 和 DatePicker 中用到的 ScrollListItem 由 mode wheel 改为 mode normal，使其更好适配 PC 端**
 
 
 #### 🎉 2.21.0 (2022-10-12)
