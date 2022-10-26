@@ -175,7 +175,7 @@ class Collapsible extends BaseComponent<CollapsibleProps, CollapsibleState> {
                 this.foundation.updateVisible(false);
             }
             this.foundation.updateIsTransitioning(false);
-            this.props.onMotionEnd();
+            this.props.onMotionEnd?.();
         }}>
             <div
                 x-semi-prop="children"
