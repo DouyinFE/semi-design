@@ -18,36 +18,37 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 #### 🎉 2.22.0-beta.1 (2022-10-26)
 - 【Feat】
-  - Typography adds a new Numeral component, based on the Text component, and adds attributes: rule, precision, truncate, parser, to provide the ability to process numerical values ​​in text separately [@uiuing](https://github.com/uiuing)
-  - TreeSelect adds showRestTagsPopover and restTagsPopoverProps parameters to support displaying redundant tags through popover
-  - Select added showRestTagsPopover and restTagsPopoverProps to support displaying redundant tags through popover
-  - Navigation add a11y support
-  - Modal SideSheet Tabs and Popover Tooltip and other pop-up layer components animation effects are changed from javascript to css. Added animation Token, which can support custom animation in DSM in the form of themes
-  - Optimize the animation effect of ScrollList in wheel mode
-  - The yearAndMonthOpts API has been added to DatePicker, which can be used to control the ScrollListItem of the year-month picker
-  - The second parameter of DatePicker disabledDate API adds the rangeInputFocus parameter to dynamically disable the date based on the current selection state
-  - Export LocaleConsumer Component [@Hokori23](https://github.com/Hokori23)
-- 【Style】
-  - Fixed the issue that the padding of NavItem in Dropdown is not as expected due to some packaging strategies
+  - Typography adds a new Numeral component, based on the Text component, and adds attributes: rule, precision, truncate, parser, to provide the ability to process numerical values ​​in text separately [@uiuing](https://github.com/uiuing) [#1136](https://github.com/DouyinFE/semi-design/issues/1136)
+  - TreeSelect adds showRestTagsPopover and restTagsPopoverProps parameters to support displaying redundant tags through popover [#1210](https://github.com/DouyinFE/semi-design/pull/1210)
+  - Select added showRestTagsPopover and restTagsPopoverProps to support displaying redundant tags through popover [#1212](https://github.com/DouyinFE/semi-design/pull/1212)
+  - Navigation add a11y support [#1195](https://github.com/DouyinFE/semi-design/pull/1195)
+  - Modal SideSheet Tabs and Popover Tooltip and other pop-up layer components animation effects are changed from javascript to css. Added animation Token, which can support custom animation in DSM in the form of themes [#1150](https://github.com/DouyinFE/semi-design/pull/1150)
+  - Optimize the animation effect of ScrollList in wheel mode [#1211](https://github.com/DouyinFE/semi-design/pull/1211)
+  - The yearAndMonthOpts API has been added to DatePicker, which can be used to control the ScrollListItem of the year-month picker [#1211](https://github.com/DouyinFE/semi-design/pull/1211)
+  - The second parameter of DatePicker disabledDate API adds the rangeInputFocus parameter to dynamically disable the date based on the current selection state [#1198](https://github.com/DouyinFE/semi-design/pull/1198)
+  - Export LocaleConsumer Component [@Hokori23](https://github.com/Hokori23) [#1196](https://github.com/DouyinFE/semi-design/pull/1196)
 - 【Fix】
-  - Fix hooks Modal motion=false not take effect bug
-  - Update the type of render of the Columns property of the Table component [@Assone](https://github.com/Assone)
-  - Fix when motion is false, after searching for the selected value, the panel display is still the searched option after the panel is collapsed and then opened  [#1199 ](https://github.com/DouyinFE/semi-design/issues/1199) 
+  - Fix hooks Modal motion=false not take effect bug [#1217](https://github.com/DouyinFE/semi-design/pull/1217)
+  - Update the type of render of the Columns property of the Table component [@Assone](https://github.com/Assone) [#1209](https://github.com/DouyinFE/semi-design/pull/1209)
+  - Fix when motion is false in Cascader, after searching for the selected value, the panel display is still the searched option after the panel is collapsed and then opened  [#1199 ](https://github.com/DouyinFE/semi-design/issues/1199) 
+  - Fixed an issue with React-specific API calls in Foundation code [#1189](https://github.com/DouyinFE/semi-design/issues/1189)
   - Fix Table defaultFiltertedValue and defaultSortOrder not included in onChange  [#1188](https://github.com/DouyinFE/semi-design/issues/1188)
-  - Fixed the issue that Childern display would be triggered twice when popover, ToolTip, Dropdown and other popup components were set to true
-  - Change the component that implements the expand/collapse animation in NodeList from the Collapse component in the Tree to the public Collapsible component
-  - Fixed an issue where the removal of the Collapsible ancestor element from the render tree caused the height calculation to be abnormal and unable to expand
-  - Fixed that when the Collapsible content area was removed from the render tree, the height calculation was abnormal and it could not be expanded
-  - Fixed the height change of the Collapsible content area causing the collapse animation of the height change area to not be displayed when collapsed
+  - Fixed the issue that Children display would be triggered twice when popover, ToolTip, Dropdown and other popup components were set to true [#1174](https://github.com/DouyinFE/semi-design/issues/1174)
+  - Change the component that implements the expand/collapse animation in NodeList from the Collapse component in the Tree to the public Collapsible component [#1182](https://github.com/DouyinFE/semi-design/pull/1182)
+  - Fixed an issue where the removal of the Collapsible ancestor element from the render tree caused the height calculation to be abnormal and unable to expand [#1174](https://github.com/DouyinFE/semi-design/issues/1174)
+  - Fixed that when the Collapsible content area was removed from the render tree, the height calculation was abnormal and it could not be expanded [#1174](https://github.com/DouyinFE/semi-design/issues/1174)
+  - Fixed the height change of the Collapsible content area causing the collapse animation of the height change area to not be displayed when collapsed [#1174](https://github.com/DouyinFE/semi-design/issues/1174)
+- 【Style】
+  - Fixed the problem that some packaging strategies caused the padding of NavItem in Dropdown to not meet expectations [#1204](https://github.com/DouyinFE/semi-design/pull/1204)
 - 【Docs】
-  - Update the documentation of the Columns property of the Table component [@Assone](https://github.com/Assone)
+  - Update the documentation of the Columns property of the Table component [@Assone](https://github.com/Assone) [#1209](https://github.com/DouyinFE/semi-design/pull/1209)
 - 【Breaking Change】
-  - Changed the ScrollListItem used in TimePicker and DatePicker from mode wheel to mode normal to make it more suitable for PC
+  - Changed the ScrollListItem used in TimePicker and DatePicker from mode wheel to mode normal to make it more suitable for PC [#1211](https://github.com/DouyinFE/semi-design/pull/1211)
+
 
 #### 🎉 2.21.1 (2022-10-13)
 - 【Fix】
   - fix Modal esc key trigger event callback after closed
-
 
 
 #### 🎉 2.21.0 (2022-10-12)
