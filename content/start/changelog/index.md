@@ -36,8 +36,8 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
   - 修复 Popover、ToolTip、Dropdown 等弹层组件在 motion 为 true 时，Childern 展示会触发两次的问题
   - 将 NodeList 中实现展开/收起动画的组件由 Tree 中的 Collapse 组件改为公共的 Collapsible 组件
   - 修复 Collapsible 祖先元素从渲染树中移除导致高度计算异常，无法展开的问题
-  - 修复 Collapsible 内容区从渲染树移除导致高度计算异常，无法展开
-  - 修复 Collapsible 内容区域高度变化导致收起时高度变化区域的收起动画不展示
+  - 修复 Collapsible 内容区从渲染树移除导致高度计算异常，无法展开的问题
+  - 修复 Collapsible 内容区域高度变化导致收起时高度变化区域的收起动画不展示的问题
 -  【Style】
   - 修复某些打包策略导致 Dropdown 中的 NavItem 的 padding 不符合预期问题
 - 【Docs】
