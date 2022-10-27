@@ -42,12 +42,17 @@ a {
     align-items: center;
 
     .anchor-link-button-icon {
-        display: none;
+        display: inline;
+        opacity: 0;
+        &:focus-visible {
+            opacity: 1;
+        }
     }
 
     &:hover {
         .anchor-link-button-icon {
             display: inline;
+            opacity: 1;
         }
     }
 }
@@ -56,7 +61,11 @@ a {
     align-items: center;
 
     .anchor-link-button-icon {
-        display: none;
+        display: inline;
+        opacity: 0;
+        &:focus-visible {
+            opacity: 1;
+        }
     }
 
     &:hover {

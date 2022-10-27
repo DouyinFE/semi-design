@@ -49,6 +49,12 @@ const AppLayout = ({ type, location, children }) => {
         if (window.insertSlardarAndHornbill) {
             return;
         }
+
+        // remove the tabIndex of the gatsby-focus-wrapper div, to prevent the focus from starting after a mouse click 
+        const gatsbyFocusWrapper = document.getElementById('gatsby-focus-wrapper');
+        if (gatsbyFocusWrapper) {
+            gatsbyFocusWrapper.removeAttribute('tabIndex');
+        }
     
         Promise.resolve()
             .then(() => {
@@ -144,13 +150,10 @@ const AppLayout = ({ type, location, children }) => {
             <IntlProvider locale={locale} messages={messages}>
                 <LocaleProvider locale={semiLocaleSource}>
                     <div style={{ position: 'fixed', width: '100%', top: 0, zIndex: 999 }}>
+                        <a className="skip-to-content-link" href='#main-content'>{locale === "zh-CN" ? '跳转到内容' : 'skip to content'}</a>
                         <SemiSiteBanner ref={bannerRef} type="black" style={{ height: 32 }} icon={null} />
                         {/* ssr, can't use location directly, get location from layout and pass to children */}
                         <Header style={headerStyle} location={location} localeCode={locale} />
-                    </div>
-                    <div className="content-area" style={contentAeraStyle}>
-                        {children}
-                        {!/showcase|teams/.test(location.pathname) && <Footer />}
                     </div>
                     {showSideNav ? (
                         <>
@@ -158,6 +161,10 @@ const AppLayout = ({ type, location, children }) => {
                             {/* {footer} */}
                         </>
                     ) : null}
+                    <div className="content-area" style={contentAeraStyle} id="main-content">
+                        {children}
+                        {!/showcase|teams/.test(location.pathname) && <Footer />}
+                    </div>
                 </LocaleProvider>
             </IntlProvider>
         </>
