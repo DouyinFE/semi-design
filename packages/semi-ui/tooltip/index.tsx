@@ -578,7 +578,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
 
                             className={classNames(className, animationClassName)}
                             style={{
-                                visibility: isPositionUpdated?'visible':"hidden",
+                                opacity: isPositionUpdated?'1':"0",
                                 ...animationStyle,
                                 transformOrigin,
                                 ...style,
