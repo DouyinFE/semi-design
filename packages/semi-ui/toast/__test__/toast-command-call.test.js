@@ -22,6 +22,7 @@ describe('Toast - 2', () => {
         let opts = {
             content: 'close by manual',
             duration: 0,
+            motion:false
         };
         let id = Toast.info(opts);
         let toast = document.getElementsByClassName(`${BASE_CLASS_PREFIX}-toast-info`);

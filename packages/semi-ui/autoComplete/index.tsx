@@ -17,7 +17,6 @@ import Trigger from '../trigger';
 import Option from './option';
 import warning from '@douyinfe/semi-foundation/utils/warning';
 import '@douyinfe/semi-foundation/autoComplete/autoComplete.scss';
-import { Motion } from '../_base/base';
 
 const prefixCls = cssClasses.PREFIX;
 const sizeSet = strings.SIZE;
@@ -33,7 +32,7 @@ const statusSet = strings.STATUS;
  */
 
 export interface BaseDataItem extends DataItem {
-    label?: React.ReactNode;
+    label?: React.ReactNode
 }
 
 export type AutoCompleteItems = BaseDataItem | string | number;
@@ -63,7 +62,7 @@ export interface AutoCompleteProps<T extends AutoCompleteItems> {
     insetLabelId?: string;
     id?: string;
     loading?: boolean;
-    motion?: Motion;
+    motion?: boolean;
     maxHeight?: string | number;
     mouseEnterDelay?: number;
     mouseLeaveDelay?: number;
@@ -90,11 +89,11 @@ export interface AutoCompleteProps<T extends AutoCompleteItems> {
     stopPropagation?: boolean | string;
     value?: string | number;
     validateStatus?: ValidateStatus;
-    zIndex?: number;
+    zIndex?: number
 }
 
 interface KeyboardEventType {
-    onKeyDown?: React.KeyboardEventHandler;
+    onKeyDown?: React.KeyboardEventHandler
 }
 
 interface AutoCompleteState {
@@ -105,7 +104,7 @@ interface AutoCompleteState {
     focusIndex: number;
     selection: Map<any, any>;
     rePosKey: number;
-    keyboardEventSet?: KeyboardEventType;
+    keyboardEventSet?: KeyboardEventType
 }
 
 class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoCompleteProps<T>, AutoCompleteState> {

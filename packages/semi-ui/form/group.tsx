@@ -17,11 +17,11 @@ interface GroupErrorProps {
     showValidateIcon?: boolean;
     isInInputGroup?: boolean;
     error?: ReactFieldError;
-    fieldSet?: string[];
+    fieldSet?: string[]
 }
 export interface InputGroupProps extends BacisInputGroupProps {
     label?: LabelProps;
-    labelPosition?: 'left' | 'top';
+    labelPosition?: 'left' | 'top'
 }
 
 const prefix = cssClasses.PREFIX;

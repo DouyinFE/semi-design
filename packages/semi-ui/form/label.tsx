@@ -24,7 +24,7 @@ export interface LabelProps {
     width?: number | string;
     style?: React.CSSProperties;
     extra?: React.ReactNode;
-    optional?: boolean;
+    optional?: boolean
 }
 
 export default class Label extends PureComponent<LabelProps> {

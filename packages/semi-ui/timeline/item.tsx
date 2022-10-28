@@ -15,7 +15,7 @@ export interface TimelineItemProps {
     position?: 'left' | 'right';
     className?: string;
     style?: React.CSSProperties;
-    onClick?: React.MouseEventHandler<HTMLLIElement>;
+    onClick?: React.MouseEventHandler<HTMLLIElement>
 }
 
 const prefixCls = cssClasses.ITEM;

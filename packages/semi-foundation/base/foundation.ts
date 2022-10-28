@@ -21,7 +21,7 @@ export interface DefaultAdapter<P = Record<string, any>, S = Record<string, any>
     getCaches(): any;
     setCache(key: any, value: any): void;
     stopPropagation(e: any): void;
-    persistEvent: (event: any) => void;
+    persistEvent: (event: any) => void
 }
 
 class BaseFoundation<T extends Partial<DefaultAdapter<P, S>>, P = Record<string, any>, S = Record<string, any>> {

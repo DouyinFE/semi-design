@@ -11,18 +11,18 @@ import { cssClasses, strings } from '@douyinfe/semi-foundation/toast/constants';
 import BaseComponent from '../_base/baseComponent';
 import Toast from './toast';
 import '@douyinfe/semi-foundation/toast/toast.scss';
-import ToastTransition from './ToastTransition';
 import getUuid from '@douyinfe/semi-foundation/utils/uuid';
 import useToast from './useToast';
 import { ConfigProps, ToastInstance, ToastProps, ToastState } from '@douyinfe/semi-foundation/toast/toastFoundation';
-import { Motion } from '../_base/base';
+import CSSAnimation from '../_cssAnimation';
+import cls from 'classnames';
 
-export type { ToastTransitionProps } from './ToastTransition';
+
 export interface ToastReactProps extends ToastProps{
     id?: string;
     style?: CSSProperties;
     icon?: React.ReactNode;
-    content: React.ReactNode;
+    content: React.ReactNode
 }
 
 export type {
@@ -35,7 +35,7 @@ export type {
 const createBaseToast = () => class ToastList extends BaseComponent<ToastListProps, ToastListState> {
     static ref: ToastList;
     static useToast: typeof useToast;
-    static defaultOpts: ToastReactProps & { motion: Motion } = {
+    static defaultOpts: ToastReactProps & { motion: boolean } = {
         motion: true,
         zIndex: 1010,
         content: '',
@@ -56,7 +56,7 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
         this.state = {
             list: [],
             removedItems: [],
-            updatedItems: []
+            updatedItems: [],
         };
         this.foundation = new ToastListFoundation(this.adapter);
     }
@@ -219,23 +219,19 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
 
         return (
             <React.Fragment>
-                {list.map((item, index) =>
-                    (item.motion ? (
-                        <ToastTransition key={item.id || index} motion={item.motion}>
-                            {removedItems.find(removedItem => removedItem.id === item.id) ?
-                                null :
-                                transitionStyle => (
-                                    <Toast
-                                        {...item}
-                                        style={{ ...transitionStyle, ...item.style }}
-                                        close={id => this.remove(id)}
-                                        ref={refFn}
-                                    />
-                                )}
-                        </ToastTransition>
-                    ) : (
-                        <Toast {...item} style={{ ...item.style }} close={id => this.remove(id)} ref={refFn} />
-                    ))
+                {list.map((item, index) =>{
+                    const isRemoved = removedItems.find(removedItem=>removedItem.id===item.id) !== undefined;
+                    return <CSSAnimation key={item.id} motion={item.motion} animationState={isRemoved?"leave":"enter"} startClassName={isRemoved?`${cssClasses.PREFIX}-animation-hide`:`${cssClasses.PREFIX}-animation-show`}>
+                        {
+                            ({ animationClassName, animationEventsNeedBind, isAnimating })=>{
+                                return (isRemoved && !isAnimating) ? null : <Toast {...item} className={cls({
+                                    [item.className]: Boolean(item.className),
+                                    [animationClassName]: true
+                                })} {...animationEventsNeedBind} style={{ ...item.style }} close={id => this.remove(id)} ref={refFn} />;
+                            }
+                        }
+                    </CSSAnimation>;
+                }
                 )}
             </React.Fragment>
         );

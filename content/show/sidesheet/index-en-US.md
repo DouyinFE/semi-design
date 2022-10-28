@@ -315,7 +315,7 @@ class Demo extends React.Component {
 | mask | Toggle whether to show mask. After `v0.29.0`, when `mask={false}`, you could continue operations outside SideSheet | boolean | true | - |
 | maskClosable | Toggle whether to allow closing when clicking mask | boolean | true | - |
 | maskStyle | Mask style | CSSProperties | - | - |
-| motion | Toggle whether to turn on animation | object \| boolean | true | - |
+| motion | Toggle whether to turn on animation | boolean | true | - |
 | placement | Sliding position, one of `top`, `bottom`, `left`, `right` | string | `right` | - |
 | size | Size, one of `small`(400px)， `medium`(684px), `large`(920px), only take effects when placement is set to `left` or `right` | string | `small` | 0.29.0 |
 | style | Inline style | CSSProperties | - | - |

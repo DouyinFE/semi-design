@@ -58,7 +58,7 @@ export interface BaseColumnProps<RecordType> {
     sorter?: BaseSorter<RecordType>;
     title?: any;
     useFullRender?: boolean;
-    width?: string | number;
+    width?: string | number
 }
 
 export interface TableAdapter<RecordType> extends DefaultAdapter {
@@ -100,7 +100,7 @@ export interface TableAdapter<RecordType> extends DefaultAdapter {
     getNormalizeColumns: () => (columns: BaseColumnProps<RecordType>[], children: any) => BaseColumnProps<RecordType>[];
     getHandleColumns: () => (queries: BaseColumnProps<RecordType>[], cachedColumns: BaseColumnProps<RecordType>[]) => BaseColumnProps<RecordType>[];
     getMergePagination: () => (pagination: BasePagination) => BasePagination;
-    setBodyHasScrollbar: (bodyHasScrollBar: boolean) => void;
+    setBodyHasScrollbar: (bodyHasScrollBar: boolean) => void
 }
 
 class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType>> {
@@ -1176,11 +1176,11 @@ export interface BasePagination {
     pageSize?: number;
     position?: ArrayElement<typeof strings.PAGINATION_POSITIONS>;
     defaultCurrentPage?: number;
-    formatPageText?: any;
+    formatPageText?: any
 }
 export interface BaseHeadWidth {
     width: number;
-    key: string;
+    key: string
 }
 export interface BasePageData<RecordType> {
     dataSource?: RecordType[];
@@ -1188,7 +1188,7 @@ export interface BasePageData<RecordType> {
     pagination?: BasePagination;
     disabledRowKeys?: BaseRowKeyType[];
     allRowKeys?: BaseRowKeyType[];
-    queries?: BaseColumnProps<RecordType>[];
+    queries?: BaseColumnProps<RecordType>[]
 }
 
 export type GetCheckboxProps<RecordType> = (record?: RecordType) => BaseCheckboxProps;
@@ -1198,7 +1198,7 @@ export interface BaseSorterInfo<RecordType> {
     [x: string]: any;
     dataIndex?: string;
     sortOrder?: BaseSortOrder;
-    sorter?: BaseSorter<RecordType>;
+    sorter?: BaseSorter<RecordType>
 }
 export type BaseSortOrder = boolean | ArrayElement<typeof strings.SORT_DIRECTIONS>;
 export type BaseSorter<RecordType> = boolean | ((a?: RecordType, b?: RecordType) => number);
@@ -1211,12 +1211,12 @@ export interface BaseChangeInfoFilter<RecordType> {
     filteredValue?: any[];
     defaultFilteredValue?: any[];
     children?: BaseFilter[];
-    filterChildrenRecord?: boolean;
+    filterChildrenRecord?: boolean
 }
 export interface BaseFilter {
     value?: any;
     text?: any;
-    children?: BaseFilter[];
+    children?: BaseFilter[]
 }
 export type BaseFixed = ArrayElement<typeof strings.FIXED_SET>;
 export type BaseAlign = ArrayElement<typeof strings.ALIGNS>;
@@ -1225,7 +1225,7 @@ export interface BaseOnCellReturnObject {
     [x: string]: any;
     style?: Record<string, any>;
     className?: string;
-    onClick?: (e: any) => void;
+    onClick?: (e: any) => void
 }
 export type BaseOnFilter<RecordType> = (filteredValue?: any, record?: RecordType) => boolean;
 
@@ -1237,13 +1237,13 @@ export interface BaseOnHeaderCellReturnObject {
     [x: string]: any;
     style?: Record<string, any>;
     className?: string;
-    onClick?: (e: any) => void;
+    onClick?: (e: any) => void
 }
 export interface BaseChangeInfoSorter<RecordType> {
     [x: string]: any;
     dataIndex: string;
     sortOrder: BaseSortOrder;
-    sorter: BaseSorter<RecordType>;
+    sorter: BaseSorter<RecordType>
 }
 
 export type BaseIncludeGroupRecord<RecordType> = RecordType | { groupKey: string };

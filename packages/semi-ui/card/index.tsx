@@ -52,7 +52,7 @@ export interface CardProps {
     /** Title */
     title?: ReactNode;
     /** aria label */
-    'aria-label'?: string;
+    'aria-label'?: string
 }
 
 class Card extends PureComponent<CardProps> {

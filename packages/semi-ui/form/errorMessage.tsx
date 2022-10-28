@@ -18,7 +18,7 @@ export interface ErrorMessageProps {
     helpText?: React.ReactNode;
     isInInputGroup?: boolean;
     errorMessageId?: string;
-    helpTextId?: string;
+    helpTextId?: string
 }
 
 export default class ErrorMessage extends PureComponent<ErrorMessageProps> {

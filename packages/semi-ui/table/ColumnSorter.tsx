@@ -15,7 +15,7 @@ export interface ColumnSorterProps {
     onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
     prefixCls?: string;
     sortOrder?: SortOrder;
-    title?: React.ReactNode;
+    title?: React.ReactNode
 }
 
 export default class ColumnSorter extends PureComponent<ColumnSorterProps> {

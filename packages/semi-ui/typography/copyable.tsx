@@ -18,11 +18,11 @@ export interface CopyableProps extends BaseProps {
     duration?: number;
     forwardRef?: React.RefObject<any>;
     successTip?: React.ReactNode;
-    onCopy?: (e: React.MouseEvent, content: string, res: boolean) => void;
+    onCopy?: (e: React.MouseEvent, content: string, res: boolean) => void
 }
 interface CopyableState {
     copied: boolean;
-    item: string;
+    item: string
 }
 export class Copyable extends React.PureComponent<CopyableProps, CopyableState> {
     static propTypes = {

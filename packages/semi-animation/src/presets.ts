@@ -6,7 +6,7 @@
 
 export interface PresetsItem {
     tension: number;
-    friction: number;
+    friction: number
 }
 export interface Presets {
     default: PresetsItem;
@@ -14,7 +14,7 @@ export interface Presets {
     wobbly: PresetsItem;
     stiff: PresetsItem;
     slow: PresetsItem;
-    molasses: PresetsItem;
+    molasses: PresetsItem
 }
 export default {
     default: { tension: 170, friction: 26 }, // the default, if nothing provided

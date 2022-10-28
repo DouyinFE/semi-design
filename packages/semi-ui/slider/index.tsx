@@ -15,7 +15,7 @@ const prefixCls = cssClasses.PREFIX;
 
 export interface SliderProps extends BasicSliceProps {
     style?: CSSProperties;
-    railStyle?: CSSProperties;
+    railStyle?: CSSProperties
 }
 
 export type {

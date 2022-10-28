@@ -33,7 +33,7 @@ export interface DateInputProps extends DateInputFoundationProps, BaseProps {
     onFocus?: (e: React.MouseEvent<HTMLInputElement>, rangeType?: RangeType) => void;
     onClear?: (e: React.MouseEvent<HTMLDivElement>) => void;
     onInsetInputChange?: (options: InsetInputChangeProps) => void;
-    value?: Date[];
+    value?: Date[]
 }
 
 // eslint-disable-next-line @typescript-eslint/ban-types

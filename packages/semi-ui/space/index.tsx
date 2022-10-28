@@ -18,7 +18,7 @@ export type SpaceProps = {
     spacing?: Spacing | Spacing[];
     children?: ReactNode;
     style?: CSSProperties;
-    className?: string;
+    className?: string
 };
 
 class Space extends PureComponent<SpaceProps> {

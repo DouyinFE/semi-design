@@ -11,7 +11,7 @@ export interface CopyableConfig {
     content?: string;
     copyTip?: React.ReactNode;
     successTip?: React.ReactNode;
-    onCopy?(e: React.MouseEvent, content: string, res: boolean): void;
+    onCopy?(e: React.MouseEvent, content: string, res: boolean): void
 }
 
 export type LinkType = React.AnchorHTMLAttributes<HTMLAnchorElement> | boolean;
@@ -29,7 +29,7 @@ export interface TitleProps extends Omit<React.HTMLAttributes<HTMLHeadingElement
     strong?: boolean;
     style?: React.CSSProperties;
     type?: TypographyBaseType;
-    underline?: boolean;
+    underline?: boolean
 }
 export default class Title extends PureComponent<TitleProps> {
     static propTypes = {

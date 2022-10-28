@@ -35,7 +35,7 @@ export default class VirtualizedFixedDemo extends React.Component {
                 dataIndex: 'address',
                 onCell: (record, index) => {
                     return {
-                        style:{ color:'red' },
+                        style: { color: 'red' },
                         className: 'test-red'
                     };
                 }

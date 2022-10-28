@@ -15,15 +15,12 @@ import Header, { NavHeaderProps } from './Header';
 import NavContext from './nav-context';
 import LocaleConsumer from '../locale/localeConsumer';
 import '@douyinfe/semi-foundation/navigation/navigation.scss';
-import { Motion } from '../_base/base';
 
 export type { CollapseButtonProps } from './CollapseButton';
 export type { NavFooterProps } from './Footer';
 export type { NavHeaderProps } from './Header';
 export type { NavItemProps } from './Item';
-export type { OpenIconTransitionProps } from './OpenIconTransition';
 export type { ToggleIcon, SubNavProps } from './SubNav';
-export type { SubNavTransitionProps } from './SubNavTransition';
 export type Mode = 'vertical' | 'horizontal';
 
 export interface OnSelectedData {
@@ -31,15 +28,15 @@ export interface OnSelectedData {
     selectedKeys: React.ReactText[];
     selectedItems: (NavItemProps | SubNavProps)[];
     domEvent: React.MouseEvent;
-    isOpen: boolean;
+    isOpen: boolean
 }
 
 export interface SubNavPropsWithItems extends SubNavProps {
-    items?: (SubNavPropsWithItems | string)[];
+    items?: (SubNavPropsWithItems | string)[]
 }
 
 export interface NavItemPropsWithItems extends NavItemProps {
-    items?: (NavItemPropsWithItems | string)[];
+    items?: (NavItemPropsWithItems | string)[]
 }
 
 export type NavItems = (string | SubNavPropsWithItems | NavItemPropsWithItems)[];
@@ -61,7 +58,7 @@ export interface NavProps extends BaseProps {
     prefixCls?: string;
     selectedKeys?: React.ReactText[];
     subNavCloseDelay?: number;
-    subNavMotion?: Motion;
+    subNavMotion?: boolean;
     subNavOpenDelay?: number;
     toggleIconPosition?: string;
     tooltipHideDelay?: number;
@@ -70,7 +67,7 @@ export interface NavProps extends BaseProps {
     onCollapseChange?: (isCollapse: boolean) => void;
     onDeselect?: (data?: any) => void;
     onOpenChange?: (data: { itemKey: (string | number); openKeys: (string | number)[]; domEvent: MouseEvent; isOpen: boolean }) => void;
-    onSelect?: (data: OnSelectedData) => void;
+    onSelect?: (data: OnSelectedData) => void
 }
 
 export interface NavState {
@@ -79,7 +76,7 @@ export interface NavState {
     openKeys: (string | number)[];
     items: any[];
     itemKeysMap: { [itemKey: string]: (string | number)[] };
-    selectedKeys: (string | number)[];
+    selectedKeys: (string | number)[]
 }
 
 function createAddKeysFn(context: Nav, keyName: string | number) {

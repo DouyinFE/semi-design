@@ -9,11 +9,11 @@ import classnames from 'classnames';
 function Resource(props) {
     const goComponentsOverview = () => {
         navigate(`/${getLocale()}/start/overview`);
-    }
+    };
 
     const goFigma = () => {
-        window.open('https://figma.com/@semi')
-    }
+        window.open('https://figma.com/@semi');
+    };
 
     return (
         <div {...props} className={styles.container}>

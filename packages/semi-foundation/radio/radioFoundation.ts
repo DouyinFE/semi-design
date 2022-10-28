@@ -6,7 +6,7 @@ export interface RadioAdapter extends DefaultAdapter {
     setChecked: (checked: boolean) => void;
     setAddonId: () => void;
     setExtraId: () => void;
-    setFocusVisible: (focusVisible: boolean) => void;
+    setFocusVisible: (focusVisible: boolean) => void
 }
 export default class RadioFoundation extends BaseFoundation<RadioAdapter> {
     init() {

@@ -164,7 +164,7 @@ import { IconSemiLogo, IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, Ic
                                 theme="borderless"
                                 icon = {<IconBell size="large"/>}
                                 style={{
-                                    color:'var(--semi-color-text-2)',
+                                    color: 'var(--semi-color-text-2)',
                                     marginRight: '12px',
                                 }}
                             />
@@ -172,7 +172,7 @@ import { IconSemiLogo, IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, Ic
                                 theme="borderless"
                                 icon = {<IconHelpCircle size="large"/>}
                                 style={{
-                                    color:'var(--semi-color-text-2)',
+                                    color: 'var(--semi-color-text-2)',
                                     marginRight: '12px',
                                 }}
                             />
@@ -270,7 +270,7 @@ import { IconSemiLogo, IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, Ic
                                 theme="borderless"
                                 icon = {<IconBell size="large"/>}
                                 style={{
-                                    color:'var(--semi-color-text-2)',
+                                    color: 'var(--semi-color-text-2)',
                                     marginRight: '12px',
                                 }}
                             />
@@ -278,7 +278,7 @@ import { IconSemiLogo, IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, Ic
                                 theme="borderless"
                                 icon = {<IconHelpCircle size="large"/>}
                                 style={{
-                                    color:'var(--semi-color-text-2)',
+                                    color: 'var(--semi-color-text-2)',
                                     marginRight: '12px',
                                 }}
                             />
@@ -397,7 +397,7 @@ import { IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, IconHistogram, I
                                     theme="borderless"
                                     icon = {<IconBell size="large" />}
                                     style={{
-                                        color:'var(--semi-color-text-2)',
+                                        color: 'var(--semi-color-text-2)',
                                         marginRight: '12px',
                                     }}
                                 />
@@ -405,7 +405,7 @@ import { IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, IconHistogram, I
                                     theme="borderless"
                                     icon = {<IconHelpCircle size="large" />}
                                     style={{
-                                        color:'var(--semi-color-text-2)',
+                                        color: 'var(--semi-color-text-2)',
                                         marginRight: '12px',
                                     }}
                                 />

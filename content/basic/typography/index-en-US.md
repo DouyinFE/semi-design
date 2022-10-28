@@ -5,7 +5,7 @@ category: Basic
 title:  Typography
 subTitle: Typography
 icon: doc-typography
-brief: The basic format of text, images, and paragraphs.
+brief: The basic format of text, images, paragraphs, and numeric.
 ---
 
 
@@ -147,6 +147,112 @@ function Demo() {
 }
 ```
 
+### Numeral
+
+Based on Text component, added properties: `rule`, `precision`, `truncate`, `parser`, to provide the ability to handle Numeral in text separately.
+<Notice title='Note'>
+    The Numeral component recursively traverses Children to detect all numeric text within it for conversion and display, taking care to control the rendering structure hierarchy.
+</Notice>
+
+`precision` allows you to set the number of decimal places to be retained, used to set precision  
+`truncate` The truncation of the number of decimal places, optionally `ceil`, `floor`, `round`, aligned with Math.ceil, Math.floor, Math.round  
+`rule` for setting the parsing rules
+- set to `percentages` to automatically convert numbers to percentages
+- set to `bytes-decimal` to automatically convert numbers to bytes, 1 KB is defined as 1000 bytes, (B, KB, MB, GB, TB, PB, EB, ZB, YB)
+- Set to `bytes-binary` automatically converts the number to the unit of display corresponding to bytes, 1 KiB is defined as equal to 1024 bytes, (B, KiB, MiB, GiB, TiB, PiB, EiB, ZiB, YiB)
+- When set to `text`, Automatic rounding of numbers only, based on the `precision` and `truncate` attributes
+- When set to `numbers`, non-numeric characters will be filtered and only numbers will be displayed
+- When set to `exponential`, numbers are automatically converted to scientific notation
+
+```jsx live=true
+import React from 'react';
+import { Typography } from '@douyinfe/semi-ui';
+
+function Demo() {
+    const { Numeral } = Typography;
+    return (
+        <div>
+            <Numeral precision={1}>
+                <p>Liked：1.6111e1 K</p>
+            </Numeral>
+
+            <p>
+                Views:
+                <Numeral rule="numbers" precision={1}>
+                    ���2.4444e2
+                </Numeral>
+                K
+            </p>
+            
+            <Numeral rule="percentages" precision={2} style={{ marginBottom: 12 }}>
+                <p>Favorable rating: 0.915</p>
+            </Numeral>
+
+            <Numeral rule="percentages" style={{ marginBottom: 12 }}>
+                My odds of winning this game are 60 and my odds of losing are 40.
+            </Numeral>
+
+            <Numeral rule="bytes-decimal" precision={2} truncate="floor">
+                <p>Used: 1000</p>
+                <p>Available: {1024*1000}</p> 
+            </Numeral>
+            
+            <Numeral rule="bytes-binary" precision={2} truncate="floor">
+                <p>Used: 1024</p>
+                <p>Available: {2e12}</p>
+            </Numeral>
+        </div>
+    );
+}
+```
+
+Parsing rules can be customised via `parser`.
+
+```jsx live=true
+import React from 'react';
+import { Typography } from '@douyinfe/semi-ui';
+
+function Demo() {
+    const { Numeral } = Typography;
+
+    function parserTCH(oldVal) {
+        return oldVal.split(' ').map(item =>
+            Number(item) ? `${item.replace(/(\d)(?=(?:\d{3})+(?:\.|$))/g, '$1,')}+` : item
+        ).join(' ');
+    }
+
+    function Infos() {
+        const data = [
+            { type: 'Stars', min: '6200' },
+            { type: 'Fork', min: '400' },
+            { type: 'Downloads', min: '3000000' },
+            { type: 'Contributors', min: '60' }
+        ];
+        return data.map(item =>
+            <p key={item.min}>
+                {item.type}：
+                <b style={{ color: 'rgba(var(--semi-violet-5),1)' }}>
+                    {item.min}
+                </b>
+            </p>
+        );
+    }
+
+    return (
+        <div>
+            <Numeral parser={parserTCH} component="div">
+                Semi Design value our users, any kind of contribution is welcome
+                {Infos}
+            </Numeral>
+            <br />
+            <Numeral link={{ href: 'https://semi.design', target: '_blank' }} parser={parserTCH}>
+                Trusted by {1e5} users, Go to website &gt;&gt;
+            </Numeral>
+        </div>
+    );
+}
+```
+
 ### Size
 
 Paragraph and Text component support two sizes, `small`(12px) and `normal`(14px). By default it is set to `normal`。
@@ -182,13 +288,15 @@ import React from 'react';
 import { Typography, TextArea } from '@douyinfe/semi-ui';
 
 function Demo() {
-    const { Paragraph, Text } = Typography;
+    const { Paragraph, Text, Numeral } = Typography;
 
     return (
         <div>
             <Paragraph copyable>Click the right icon to copy text.</Paragraph>
             <Paragraph copyable={{ content: 'Hello, Semi Design!' }}>Click to copy text.</Paragraph>
-            <Paragraph copyable={{ onCopy: () => Toast.success({ content: 'Successfully copied.' }) }}>Click the right icon to copy.</Paragraph>
+            <Paragraph copyable={{ onCopy: () => Toast.success({ content: 'Successfully copied.'}) }}>Click the right icon to copy.</Paragraph>
+            Timestamp: <Numeral truncate="ceil" copyable underline>{new Date().getTime()/1000}s</Numeral>
+            <br/>
             <br/>
             <Text type="secondary">Paste here: </Text>
             <br/>
@@ -218,7 +326,7 @@ function Demo() {
             <br />
             <Text 
                 ellipsis={{ 
-                    showTooltip:{
+                    showTooltip: {
                         opts: { content: 'This is a supercalifragilisticexpialidocious tooltip' }
                     }
                 }}
@@ -266,7 +374,7 @@ function Demo() {
         <div>
             <Text 
                 ellipsis={{ 
-                    showTooltip:{
+                    showTooltip: {
                         opts: { content: 'Insfrastructure|Data-inf|bytegraph.cheetah.user_relation' }
                     }
                 }}
@@ -277,7 +385,7 @@ function Demo() {
             <br />
             <Text 
                 ellipsis={{ 
-                    showTooltip:{
+                    showTooltip: {
                         opts: { content: 'Insfrastructure|Data-inf|bytegraph.cheetah.user_relation', className: 'components-typography-demo' }
                     }
                 }}
@@ -288,7 +396,7 @@ function Demo() {
             <br />
             <Text 
                 ellipsis={{
-                    showTooltip:{
+                    showTooltip: {
                         opts: { content: 'Insfrastructure|Data-inf|bytegraph.cheetah.user_relation', style: { wordBreak: 'break-all' } }
                     }
                 }}
@@ -363,6 +471,27 @@ function Demo() {
 | type       | Type, one of `primary`, `secondary`, `warning`, `danger`, `tertiary`(**v>=1.2.0**), `quaternary`(**v>=1.2.0**), `success`(**v>=1.7.0**) | string                                                | `primary` | 0.27.0  |
 | underline  | Underlined style                                                                                                                        | boolean                                               | false     | 0.27.0  |
 
+### Typography.Numeral
+
+| Properties | Instructions                                                                                                                            | type                  | Default                                    | version |
+| ---------- |-----------------------------------------------------------------------------------------------------------------------------------------|-----------------------|--------------------------------------------|---------|
+| rule      | Parsing rules, one of `text`, `numbers`, `bytes-decimal`, `bytes-binary`, `percentages`, `currency`, `exponential`                      | string                | `text`                                     | 2.22.0  |
+| precision  | allows you to set the number of decimal places to be retained, used to set precision                                                    | number                | 0                                          | 2.22.0  |
+| truncate  | The truncation of the number of decimal places, optionally `ceil`, `floor`, `round`, aligned with Math.ceil, Math.floor, Math.round       | string                | `round`                                    | 2.22.0  |
+| parser    | Custom numeral parsing functions                                                                                                        | (str: string) => string | -                                          | 2.22.0  |
+| copyable   | Toggle whether to be copyable                                                                                                           | boolean \| object:[Copyable Config](#Copyable-Config) | false   | 2.22.0 |
+| code       | wrap with `code` element                                                                                                                | boolean               | -                                          | 2.22.0  |
+| component  | Custom rendering html element                                                                                                           | html element          | span                                       | 2.22.0  |
+| delete     | Deleted style                                                                                                                           | boolean               | false                                      | 2.22.0  |
+| disabled   | Disabled style                                                                                                                          | boolean               | false                                      | 2.22.0  |
+| ellipsis   | Display ellipsis when text overflows                                                                                                    | boolean \| object:Ellipsis Config     | false                      | 2.22.0  |
+| icon       | Prefix icon.                                                                                                                            | ReactNode             | -                                          | 2.22.0  |
+| link       | Toggle whether to display as a link. When passing object, the attributes will be transparently passed to the a tag                      | boolean \| object      |  false  | 2.22.0  |
+| mark       | Marked style                                                                                                                            | boolean               | false                                      | 2.22.0  |
+| size       | Size, one of `normal`，`small`                                                                                                           | string                | `normal`                                   | 2.22.0  |
+| strong     | Bold style                                                                                                                              | boolean               | false                                      | 2.22.0  |
+| type       | Type, one of `primary`, `secondary`, `warning`, `danger`, `tertiary`(**v>=1.2.0**) , `quaternary`(**v>=1.2.0**), `success`(**v>=1.7.0**) | string                | `primary`                                  | 2.22.0  |
+| underline  | Underlined style                                                                                                                        | boolean               | false                                      | 2.22.0  |
 
 ### Ellipsis Config
 **v >= 0.34.0**

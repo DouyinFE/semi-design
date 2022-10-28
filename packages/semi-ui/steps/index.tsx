@@ -17,13 +17,13 @@ export type { NavStepsProps } from './navSteps';
 export type { StepProps } from './step';
 
 export interface FillStepsAllProps extends FillStepsProps {
-    type?: 'fill';
+    type?: 'fill'
 }
 export interface BasicStepsAllProps extends BasicStepsProps {
-    type?: 'basic';
+    type?: 'basic'
 }
 export interface NavStepsAllProps extends NavStepsProps {
-    type?: 'nav';
+    type?: 'nav'
 }
 export type StepsProps = FillStepsAllProps | BasicStepsAllProps | NavStepsAllProps;
 

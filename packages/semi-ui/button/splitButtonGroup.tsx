@@ -9,7 +9,7 @@ const prefixCls = cssClasses.PREFIX;
 
 // eslint-disable-next-line
 export interface SplitButtonGroupProps extends BaseProps {
-    'aria-label'?: React.AriaAttributes['aria-label'];
+    'aria-label'?: React.AriaAttributes['aria-label']
 }
 
 export default class SplitButtonGroup extends BaseComponent<SplitButtonGroupProps> {

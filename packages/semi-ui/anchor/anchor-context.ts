@@ -5,7 +5,7 @@ export type AnchorContextType = Pick<AnchorProps, 'showTooltip' | 'position' | '
 & Pick<AnchorState, 'activeLink'>
 & Pick<Anchor, 'addLink' | 'removeLink' | 'childMap'>
 & {
-    onClick: Anchor['handleClick'];
+    onClick: Anchor['handleClick']
 };
 
 const AnchorContext = React.createContext<AnchorContextType>(null);

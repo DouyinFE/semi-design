@@ -11,7 +11,7 @@ import { registerMediaQuery } from '../_utils';
 const responsiveArray = ['xxl', 'xl', 'lg', 'md', 'sm', 'xs'];
 
 export interface RowContextType {
-    gutters?: Gutter | [Gutter, Gutter];
+    gutters?: Gutter | [Gutter, Gutter]
 }
 
 export const RowContext = React.createContext<RowContextType>(null);
@@ -28,11 +28,11 @@ export interface RowProps {
     style?: React.CSSProperties;
     children?: React.ReactNode;
     gutter?: Gutter | [Gutter, Gutter];
-    prefixCls?: string;
+    prefixCls?: string
 }
 
 export interface RowState {
-    screens: Partial<Record<Breakpoint, boolean>>;
+    screens: Partial<Record<Breakpoint, boolean>>
 }
 
 const responsiveMap = {

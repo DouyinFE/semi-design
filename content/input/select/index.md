@@ -64,7 +64,7 @@ import { Select } from '@douyinfe/semi-ui';
 
 () => {
     const list = [
-        { value: 'abc', label: '抖音', otherKey:0 },
+        { value: 'abc', label: '抖音', otherKey: 0 },
         { value: 'ulikecam', label: '轻颜相机', disabled: true, otherKey: 1 },
         { value: 'jianying', label: '剪映', otherKey: 2 },
         { value: 'toutiao', label: '今日头条', otherKey: 3 },
@@ -82,6 +82,8 @@ import { Select } from '@douyinfe/semi-ui';
 
 配置 `maxTagCount` 可以限制已选项展示的数量，超出部分将以+N 的方式展示
 
+使用 `showRestTagsPopover` (>= v2.22.0) 可以设置在超出 `maxTagCount` 后，hover +N 是否显示 Popover，默认为 `false`。并且，还可以在 `restTagsPopoverProps` 属性中配置 Popover。
+
 配置 `max` 属性可限制最大可选的数量，超出最大限制数量后无法选中，同时会触发`onExceed`回调
 
 ```jsx live=true
@@ -97,7 +99,7 @@ import { Select } from '@douyinfe/semi-ui';
             <Select.Option value='xigua'>西瓜视频</Select.Option>
         </Select>
         <br/><br/>
-        <Select multiple style={{ width: '320px' }} defaultValue={['abc', 'ulikecam', 'jianying']} maxTagCount={2}>
+        <Select multiple maxTagCount={2} showRestTagsPopover={true} restTagsPopoverProps={{ position: 'top' }} style={{ width: '320px' }} defaultValue={['abc', 'ulikecam', 'jianying']} >
             <Select.Option value='abc'>抖音</Select.Option>
             <Select.Option value='ulikecam'>轻颜相机</Select.Option>
             <Select.Option value='jianying'>剪映</Select.Option>
@@ -432,6 +434,7 @@ import { Select } from '@douyinfe/semi-ui';
 ```
 
 通过 outerTopSlot 将内容插入顶部插槽
+
 ```jsx live=true
 import React from 'react';
 import { Select } from '@douyinfe/semi-ui';
@@ -1003,7 +1006,7 @@ import { Select } from '@douyinfe/semi-ui';
                 multiple={true}
                 filter={true}
                 placeholder='With renderCreateItem'
-                renderCreateItem={input => <div style={{ padding:10 }}>Create Item：{input}</div>}
+                renderCreateItem={input => <div style={{ padding: 10 }}>Create Item：{input}</div>}
                 onChange={v => console.log(v)}
                 defaultActiveFirstOption
             >
@@ -1227,7 +1230,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
     };
 
     const optionList = [
-        { value: 'abc', label: '抖音', otherKey:0 },
+        { value: 'abc', label: '抖音', otherKey: 0 },
         { value: 'ulikecam', label: '轻颜相机', disabled: true, otherKey: 1 },
         { value: 'jianying', label: '剪映', otherKey: 2 },
         { value: 'toutiao', label: '今日头条', otherKey: 3 },
@@ -1306,8 +1309,8 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 
 ### Select Props
 
-| 属性                     | 说明                                                                                                                                                                                                      | 类型                                  | 默认值                            |
-| ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------- | --------------------------------- |
+| 属性    | 说明     | 类型      | 默认值     |  版本     |
+| -------| -------- | ---------| --------- |--------- |
 | allowCreate              | 是否允许用户创建新条目，需配合 filter 使用                                                                                                                                                                | boolean                               | false                             |
 | arrowIcon            | 自定义右侧下拉箭头Icon，当showClear开关打开且当前有选中值时，hover会优先显示clear icon <br/>**v1.15.0 后提供**                                                                                                                                                                 | ReactNode     |                             |
 | autoAdjustOverflow       | 浮层被遮挡时是否自动调整方向（暂时仅支持竖直方向，且插入的父级为 body）                                                                                                            | boolean                               | true                              |
@@ -1356,6 +1359,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | renderCreateItem         | allowCreate 为 true 时，可自定义创建标签的渲染                                                                                                                                 | function(inputValue:string)           | inputValue => '创建' + inputValue |
 | renderSelectedItem       | 通过 renderSelectedItem 自定义选择框中已选项标签的渲染                                                                                                                          | function(option)                      |                                   |
 | renderOptionItem         | 通过 renderOptionItem 完全自定义下拉列表中候选项的渲染                                                                                                                          | function(props) 入参详见Demo                      |                                   |
+| restTagsPopoverProps    | Popover 的配置属性，可以控制 position、zIndex、trigger 等，具体参考[Popover](/zh-CN/show/popover#API%20%E5%8F%82%E8%80%83) | PopoverProps | {} | 2.22.0 |
 | remote                   | 是否开启远程搜索，当 remote 为 true 时，input 内容改变后不会进行本地筛选匹配                                                                                                     | boolean                               | false                             |
 | size                     | 大小，可选值 `default`/`small`/`large`                                                                                                                                                                    | string                                | 'default'       |
 | style                    | 样式                                                                                                                                                                                                      | object                                |                 |
@@ -1363,6 +1367,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | suffix                   | 选择框的后缀标签                                                                                                                                                                  | ReactNode                             |                                   |
 | showClear                | 是否展示清除按钮                                                                                                                                                                 | boolean                               | false                             |
 | showArrow                | 是否展示下拉箭头                                                                                                                                                                | boolean                               | true                              |
+| showRestTagsPopover | 当超过 maxTagCount，hover 到 +N 时，是否通过 Popover 显示剩余内容 | boolean | false | 2.22.0 | 
 | spacing                  | 浮层与选择器的距离                                                                                                                                                             | number                                | 4                                 |
 | triggerRender            | 自定义触发器渲染                                                                                                                                                          | function                              |                                   |
 | value                    | 当前选中的的值,传入该值时将作为受控组件，配合 `onChange` 使用                                                                                                                                             | string\|number\|array                 |                                   |

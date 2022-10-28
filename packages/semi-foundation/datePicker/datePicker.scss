@@ -2,11 +2,36 @@
 @import "./variables.scss";
 
 $module: #{$prefix}-datepicker;
+$module-list: #{$prefix}-scrolllist;
 
 .#{$module} {
     box-sizing: border-box;
     display: inline-block;
     vertical-align: top;
+
+    .#{$module-list}-body {
+        .#{$module-list}-item {
+            -ms-overflow-style: none; /* Internet Explorer 10+ */
+            scrollbar-width: none; /* Firefox */
+
+            &::-webkit-scrollbar {
+                display: none;
+                width: 0;
+                height: 0;
+            }
+        }
+
+        .#{$module-list}-list-outer {
+            -ms-overflow-style: none; /* Internet Explorer 10+ */
+            scrollbar-width: none; /* Firefox */
+
+            &::-webkit-scrollbar {
+                display: none;
+                width: 0;
+                height: 0;
+            }
+        }
+    }
 
     // 双月网格
 
@@ -160,11 +185,22 @@ $module: #{$prefix}-datepicker;
                 }
             }
 
+            &-item {
+                & > ul > li {
+                    // add paddingRight to make the same width under wheel and normal mode
+                    min-width: $width-datepicker_panel_yam_scrolllist_li_min + $spacing-scrollList_item_wheel_list_outer-paddingRight;
+                }
+            }
+
             &-body {
                 padding: 0;
                 overflow: hidden;
 
                 .#{$prefix}-scrolllist-item-wheel {
+                    border: none;
+                }
+
+                .#{$prefix}-scrolllist-item {
                     border: none;
                 }
             }

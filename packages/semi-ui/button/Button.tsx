@@ -35,7 +35,7 @@ export interface ButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonE
     onMouseDown?: React.MouseEventHandler<HTMLButtonElement>;
     onMouseEnter?: React.MouseEventHandler<HTMLButtonElement>;
     onMouseLeave?: React.MouseEventHandler<HTMLButtonElement>;
-    'aria-label'?: React.AriaAttributes['aria-label'];
+    'aria-label'?: React.AriaAttributes['aria-label']
 }
 
 // TODO: icon configuration

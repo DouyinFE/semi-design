@@ -41,7 +41,7 @@ export interface TimePickerAdapter<P = Record<string, any>, S = Record<string, a
     notifyChange(input: string | string[], value: Date | Date[]): void;
     notifyFocus: (e: any) => void;
     notifyBlur: (e: any) => void;
-    isRangePicker: () => boolean;
+    isRangePicker: () => boolean
 }
 
 // TODO: split, timePicker different components cannot share a foundation

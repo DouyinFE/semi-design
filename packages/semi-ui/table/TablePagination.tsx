@@ -12,7 +12,7 @@ export interface TablePaginationProps {
     prefixCls?: string;
     pagination?: PaginationProps;
     info?: React.ReactNode;
-    renderPagination?: RenderPagination;
+    renderPagination?: RenderPagination
 }
 
 export default class TablePagination extends PureComponent<TablePaginationProps> {

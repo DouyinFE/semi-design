@@ -8,7 +8,7 @@ export interface TabsAdapter<P = Record<string, any>, S = Record<string, any>> e
     notifyChange: (activeKey: string) => void;
     setNewActiveKey: (activeKey: string) => void;
     getDefaultActiveKeyFromChildren: () => string;
-    notifyTabDelete: (tabKey: string) => void;
+    notifyTabDelete: (tabKey: string) => void
 }
 
 class TabsFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<TabsAdapter<P, S>, P, S> {

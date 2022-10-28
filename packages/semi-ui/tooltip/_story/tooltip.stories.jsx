@@ -24,7 +24,6 @@ import ArrowPointAtCenter from './ArrowPointAtCenter';
 import CustomContainer from './CustomContainer';
 import ContainerPosition from './ContainerPosition';
 import { IconList, IconSidebar, IconEdit } from '@douyinfe/semi-icons';
-import TooltipTransition from '../TooltipStyledTransition';
 
 export default {
   title: 'Tooltip',

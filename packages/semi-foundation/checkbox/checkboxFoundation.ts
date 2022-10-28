@@ -4,13 +4,13 @@ import warning from '../utils/warning';
 
 export interface BasicTargetObject {
     [x: string]: any;
-    checked?: boolean;
+    checked?: boolean
 }
 export interface BasicCheckboxEvent {
     target: BasicTargetObject;
     stopPropagation: () => void;
     preventDefault: () => void;
-    [x: string]: any;
+    [x: string]: any
     // nativeEvent: {
     //     stopImmediatePropagation: () => void;
     // }
@@ -27,7 +27,7 @@ export interface CheckboxAdapter<P = Record<string, any>, S = Record<string, any
     setExtraId: () => void;
     setFocusVisible: (focusVisible: boolean) => void;
     focusCheckboxEntity: () => void;
-    generateEvent: (checked: boolean, e: any) => any; // 1.modify checked value 2.add nativeEvent on react adapter
+    generateEvent: (checked: boolean, e: any) => any // 1.modify checked value 2.add nativeEvent on react adapter
 }
 
 class CheckboxFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<CheckboxAdapter<P, S>, P, S> {
@@ -148,7 +148,7 @@ export interface BaseCheckboxProps {
     extra?: any;
     addonId?: string;
     extraId?: string;
-    preventScroll?: boolean;
+    preventScroll?: boolean
 }
 
 export default CheckboxFoundation;

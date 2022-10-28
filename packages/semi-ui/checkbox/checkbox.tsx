@@ -15,7 +15,7 @@ import { CheckboxType } from './checkboxGroup';
 
 export interface CheckboxEvent extends BasicCheckboxEvent {
     nativeEvent: {
-        stopImmediatePropagation: () => void;
+        stopImmediatePropagation: () => void
     }
 }
 export type TargetObject = BasicTargetObject;
@@ -38,13 +38,13 @@ export interface CheckboxProps extends BaseCheckboxProps {
     tabIndex?: number; // a11y: wrapper tabIndex
     addonId?: string;
     extraId?: string;
-    type?: CheckboxType;
+    type?: CheckboxType
 }
 interface CheckboxState {
     checked: boolean;
     addonId?: string;
     extraId?: string;
-    focusVisible?: boolean;
+    focusVisible?: boolean
 }
 class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
     static contextType = Context;

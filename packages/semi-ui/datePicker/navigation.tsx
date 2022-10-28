@@ -25,7 +25,7 @@ interface NavigationProps {
     // Whether to switch synchronously for two panels
     shouldBimonthSwitch?: boolean;
     // Panel type, divided into left panel and right panel
-    panelType?: PanelType;
+    panelType?: PanelType
 }
 
 export default class Navigation extends PureComponent<NavigationProps> {

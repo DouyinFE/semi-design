@@ -40,7 +40,7 @@ export interface SectionRowProps {
     renderExpandIcon?: (record: Record<string, any>, isNested: boolean, groupKey: string | number) => ReactNode | null;
     className?: string;
     store?: Store;
-    rowKey?: RowKey<any>;
+    rowKey?: RowKey<any>
 }
 
 /**
