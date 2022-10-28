@@ -15,6 +15,9 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+#### 🎉 2.22.0 (2022-10-28)
+- 【Fix】
+    - fix the issue of inconsistent width when the year-month selection mode is normal and wheel under DatePicker type="month"
 
 #### 🎉 2.22.0-beta.2 (2022-10-26)
 - 【Fix】
