@@ -9,15 +9,17 @@ export type FieldValidateTriggerType = BasicTriggerType | Array<BasicTriggerType
 
 export type CommonFieldError = boolean | string | Array<any> | undefined | unknown;
 
-export interface BaseFormAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
+export type FieldError = Array<any> | React.ReactNode;
+
+export interface BaseFormAdapter<P = Record<string, any>, S = Record<string, any>, Values extends object = any> extends DefaultAdapter<P, S> {
     cloneDeep: (val: any, ...rest: any[]) => any;
     notifySubmit: (values: any) => void;
-    notifySubmitFail: (errors: Record<string, any>, values: any) => void;
+    notifySubmitFail: (errors: Record<keyof Values, FieldError>, values: Partial<Values>) => void;
     forceUpdate: (callback?: () => void) => void;
     notifyChange: (formState: FormState) => void;
     notifyValueChange: (values: any, changedValues: any) => void;
     notifyReset: () => void;
-    getInitValues: () => Record<string, any>;
+    getInitValues: () => Partial<Values>;
     getFormProps: (keys: undefined | string | Array<string>) => any;
     getAllErrorDOM: () => NodeList;
     getFieldDOM: (field: string) => Node;

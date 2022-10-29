@@ -102,19 +102,19 @@ interface setValuesConfig {
     isOverride: boolean
 }
 
-export interface BaseFormProps extends Omit<React.FormHTMLAttributes<HTMLFormElement>, 'children' | 'onChange'> {
+export interface BaseFormProps <Values extends Record<string | number | symbol, any> = any> extends Omit<React.FormHTMLAttributes<HTMLFormElement>, 'children' | 'onChange' | 'onSubmit'> {
     'aria-label'?: React.AriaAttributes['aria-label'];
-    onSubmit?: (values: Record<string, any>) => void;
-    onSubmitFail?: (errors: Record<string, FieldError>, values: any) => void;
+    onSubmit?: (values: Values) => void;
+    onSubmitFail?: (errors: Record<keyof Values, FieldError>, values: Partial<Values>) => void;
     onReset?: () => void;
-    onValueChange?: (values: Record<string, any>, changedValue: Record<string, any>) => void;
-    onChange?: (formState: FormState) => void;
-    validateFields?: (values: Record<string, any>) => string | Record<string, any>;
+    onValueChange?: (values: Values, changedValue: Partial<Values>) => void;
+    onChange?: (formState: FormState<Values>) => void;
+    validateFields?: (values: Values) => string | Partial<Values>;
     /** Use this if you want to populate the form with initial values. */
-    initValues?: Record<string, any>;
+    initValues?: Values;
     id?: string;
     /** getFormApi will be call once when Form mounted, u can save formApi reference in your component  */
-    getFormApi?: (formApi: FormApi) => void;
+    getFormApi?: (formApi: FormApi<Values>) => void;
     style?: React.CSSProperties;
     className?: string;
     layout?: 'horizontal' | 'vertical';
