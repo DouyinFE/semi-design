@@ -77,7 +77,7 @@ export interface TooltipProps extends BaseProps {
     wrapperId?: string;
     preventScroll?: boolean;
     disableFocusListener?: boolean;
-    afterClose?:()=>void
+    afterClose?: () => void
 }
 interface TooltipState {
     visible: boolean;
@@ -563,22 +563,24 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         const portalInnerStyle = omit(containerStyle, motion ? ['transformOrigin'] : undefined);
         const transformOrigin = get(containerStyle, 'transformOrigin');
         const inner =
-            <CSSAnimation animationState={transitionState as "enter"|"leave"}
+            <CSSAnimation
+                fillMode="forwards"
+                animationState={transitionState as "enter" | "leave"}
                 motion={motion && isPositionUpdated}
-                startClassName={transitionState==='enter'?`${prefix}-animation-show`:`${prefix}-animation-hide`}
-                onAnimationEnd={()=>{
-                    if (transitionState === 'leave'){
+                startClassName={transitionState === 'enter' ? `${prefix}-animation-show` : `${prefix}-animation-hide`}
+                onAnimationEnd={() => {
+                    if (transitionState === 'leave') {
                         this.didLeave();
                         this.props.afterClose?.();
                     }
                 }}>
                 {
-                    ({ animationStyle, animationClassName, animationEventsNeedBind })=>{
+                    ({ animationStyle, animationClassName, animationEventsNeedBind }) => {
                         return <div
 
                             className={classNames(className, animationClassName)}
                             style={{
-                                opacity: isPositionUpdated?'1':"0",
+                                opacity: isPositionUpdated ? '1' : "0",
                                 ...animationStyle,
                                 transformOrigin,
                                 ...style,
