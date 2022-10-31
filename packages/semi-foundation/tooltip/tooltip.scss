@@ -67,11 +67,11 @@ $module-icon: #{$module}-icon-arrow;
         top: 0;
 
         @include font-size-regular;
-        visibility: hidden;
+        opacity: 0;
         max-width: $width-tooltip;
 
         &-show {
-            visibility: visible;
+            opacity: 1;
         }
     }
 
