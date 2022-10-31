@@ -12,17 +12,18 @@ interface AnimationEventsNeedBind {
 interface AnimationProps {
     startClassName?: string;
     endClassName?: string;
-    children: ({}: {
+    children: ({ }: {
         animationClassName: string;
         animationStyle: CSSProperties;
         animationEventsNeedBind: AnimationEventsNeedBind;
         isAnimating: boolean
     }) => ReactNode;
     animationState: "enter" | "leave";
-    onAnimationEnd?: (stoppedByAnother:boolean) => void;
+    onAnimationEnd?: (stoppedByAnother: boolean) => void;
     onAnimationStart?: () => void;
     motion?: boolean;
-    replayKey?: string
+    replayKey?: string;
+    fillMode?: "backwards" | "both" | "forwards" | "none"
 }
 
 interface AnimationState {
@@ -44,7 +45,9 @@ class CSSAnimation extends React.Component<AnimationProps, AnimationState> {
 
         this.state = {
             currentClassName: this.props.startClassName,
-            extraStyle: {},
+            extraStyle: {
+                animationFillMode: this.props.fillMode,
+            },
             isAnimating: true
         };
     }
@@ -55,7 +58,7 @@ class CSSAnimation extends React.Component<AnimationProps, AnimationState> {
         // In order to make the component side do not need to manually call the next life cycle function when there is no animation,
         // so when there is no animation , it is logically (and only logically) regarded as an animation with a duration of 0.
         this.props.onAnimationStart?.();
-        if (!this.props.motion){
+        if (!this.props.motion) {
             this.props.onAnimationEnd?.(false);
             this.setState({ isAnimating: false });
         }
@@ -69,7 +72,9 @@ class CSSAnimation extends React.Component<AnimationProps, AnimationState> {
         if (changedKeys.includes("startClassName") || changedKeys.includes('replayKey') || changedKeys.includes("motion")) {
             this.setState({
                 currentClassName: this.props.startClassName,
-                extraStyle: {},
+                extraStyle: {
+                    animationFillMode: this.props.fillMode,
+                },
                 isAnimating: true
             }, () => {
                 this.props.onAnimationStart?.();
@@ -91,7 +96,9 @@ class CSSAnimation extends React.Component<AnimationProps, AnimationState> {
     handleAnimationEnd = () => {
         this.setState({
             currentClassName: this.props.endClassName,
-            extraStyle: {},
+            extraStyle: {
+                animationFillMode: this.props.fillMode,
+            },
             isAnimating: false
         }, () => {
             this.props.onAnimationEnd?.(false);
