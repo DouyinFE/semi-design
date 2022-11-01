@@ -135,23 +135,39 @@ body[theme-mode="dark"] {
     }
 }
 
-.skip-to-content-link {
-    height: 20px;
-    padding: 8px 16px;
+.skip-to-content {
+    width: 122px;
+    padding: 12px;
     position: absolute;
     left: 30px;
     transform: translateY(-100%);   
     transition: transform 0.3s;
     background-color: #fff;
-    color: var(--semi-color-primary);
-    font-weight: 600;
+    font-size: 14px;
     border-radius: 3px;
     z-index: 999;
+
+    ol {
+        margin-top: 0px;
+        padding-left: 0px;
+        list-style-type: none;
+        list-style-position: outside;
+
+        li {
+            margin-top: 8px;
+            line-height: 20px;
+            color: var(--semi-color-primary);
+        }
+    }
+}
+
+.skip-to-content:focus-within {
+    transform: translateY(0%);
+    top: 12px;
+    outline: 2px solid var( --semi-color-border);
 }
 
 .skip-to-content-link:focus {
-    transform: translateY(0%);
-    top: 12px;
     outline: 2px solid var(--semi-color-primary-light-active);
 }
 

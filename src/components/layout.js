@@ -150,7 +150,16 @@ const AppLayout = ({ type, location, children }) => {
             <IntlProvider locale={locale} messages={messages}>
                 <LocaleProvider locale={semiLocaleSource}>
                     <div style={{ position: 'fixed', width: '100%', top: 0, zIndex: 999 }}>
-                        <a className="skip-to-content-link" href='#main-content'>{locale === "zh-CN" ? '跳转到内容' : 'skip to content'}</a>
+                        <div className="skip-to-content">
+                            <div>{locale === "zh-CN" ? '跳转到:' : 'skip to:'}</div>
+                            <ol>
+                                {
+                                    showSideNav ? (<li><a className="skip-to-content-link" href='#side-nav'>{locale === "zh-CN" ? '跳转到侧边导航' : 'skip to navigation'}</a></li>):null
+                                }
+                                <li><a className="skip-to-content-link" href='#main-content'>{locale === "zh-CN" ? '跳转到主内容' : 'skip to main content'}</a></li>
+                                <li><a className="skip-to-content-link" href='#footer'>{locale === "zh-CN" ? '跳转到页脚' : 'skip to footer'}</a></li>
+                            </ol>
+                        </div>
                         <SemiSiteBanner ref={bannerRef} type="black" style={{ height: 32 }} icon={null} />
                         {/* ssr, can't use location directly, get location from layout and pass to children */}
                         <Header style={headerStyle} location={location} localeCode={locale} />

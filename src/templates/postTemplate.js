@@ -710,8 +710,8 @@ export default function Template(args) {
                             setTabValue('rd');
                         }
                     }}>
-                        <TabPane tab={intl.formatMessage({ id: 'apiDoc' })} itemKey={'rd'} />
-                        <TabPane tab={intl.formatMessage({ id: 'designDoc' })} itemKey={'ued'} />
+                        <TabPane tab={intl.formatMessage({ id: 'apiDoc' })} itemKey={'rd'} tabIndex={-1}/>
+                        <TabPane tab={intl.formatMessage({ id: 'designDoc' })} itemKey={'ued'} tabIndex={-1} />
                     </Tabs>
                 )}
             </div>

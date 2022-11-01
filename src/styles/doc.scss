@@ -1,4 +1,8 @@
 // ??? 这里的主要是啥样式，得整理一下。
+a:focus-visible {
+    outline: 2px solid var(--semi-color-primary-light-active);
+    border-radius: 3px;
+}
 
 .header-tinyTitle {
     font-size: 18px;
@@ -46,6 +50,8 @@ a {
         opacity: 0;
         &:focus-visible {
             opacity: 1;
+            border-radius: 3px;
+            outline: 2px solid var(--semi-color-primary-light-active);
         }
     }
 
@@ -65,6 +71,8 @@ a {
         opacity: 0;
         &:focus-visible {
             opacity: 1;
+            border-radius: 3px;
+            outline: 2px solid var(--semi-color-primary-light-active);
         }
     }
 
