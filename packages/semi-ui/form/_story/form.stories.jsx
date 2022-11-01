@@ -94,6 +94,9 @@ import { FieldPathWithArrayDemo } from './Debug/bugDemo';
 import ChildDidMount from './Debug/childDidMount';
 export { default as FormSubmit } from './FormSubmit';
 
+// c2d
+export * from './C2D';
+
 export default {
   title: 'Form'
 }
