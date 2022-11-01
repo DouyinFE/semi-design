@@ -60,7 +60,7 @@ export interface TooltipProps extends BaseProps {
     onVisibleChange?: (visible: boolean) => void;
     onClickOutSide?: (e: React.MouseEvent) => void;
     spacing?: number;
-    margin?: number;
+    margin?: number | { marginLeft: number, marginTop: number, marginRight: number, marginBottom: number };
     showArrow?: boolean | React.ReactNode;
     zIndex?: number;
     rePosKey?: string | number;
@@ -76,7 +76,7 @@ export interface TooltipProps extends BaseProps {
     guardFocus?: boolean;
     returnFocusOnClose?: boolean;
     onEscKeyDown?: (e: React.KeyboardEvent) => void;
-    disableArrowKeyDown?: boolean; 
+    disableArrowKeyDown?: boolean;
     wrapperId?: string;
     preventScroll?: boolean;
     disableFocusListener?: boolean;
@@ -128,7 +128,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         onVisibleChange: PropTypes.func,
         onClickOutSide: PropTypes.func,
         spacing: PropTypes.number,
-        margin: PropTypes.number,
+        margin: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
         showArrow: PropTypes.oneOfType([PropTypes.bool, PropTypes.node]),
         zIndex: PropTypes.number,
         rePosKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -258,11 +258,11 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             registerTriggerEvent: (triggerEventSet: Record<string, any>) => {
                 this.setState({ triggerEventSet });
             },
-            unregisterTriggerEvent: () => {},
+            unregisterTriggerEvent: () => { },
             registerPortalEvent: (portalEventSet: Record<string, any>) => {
                 this.setState({ portalEventSet });
             },
-            unregisterPortalEvent: () => {},
+            unregisterPortalEvent: () => { },
             getTriggerBounding: () => {
                 // eslint-disable-next-line
                 // It may be a React component or an html element
@@ -435,7 +435,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                 const focusRefNode = get(this, 'initialFocusRef.current');
                 if (focusRefNode && 'focus' in focusRefNode) {
                     focusRefNode.focus({ preventScroll });
-                } 
+                }
             },
             notifyEscKeydown: (event: React.KeyboardEvent) => {
                 this.props.onEscKeyDown(event);

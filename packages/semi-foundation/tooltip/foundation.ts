@@ -143,6 +143,21 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         this._adapter.unregisterResizeHandler(this.onResize);
     }
 
+    _adjustPos(position = '', isVertical = false, ajustType = 'reverse', concatPos?: any) {
+        switch (ajustType) {
+            case 'reverse':
+                return this._reversePos(position, isVertical);
+            case 'expand':
+                // only happens when postion is top/bottom/left/right
+                return this._expandPos(position, concatPos);
+            case 'reduce':
+                // only happens when postion other than top/bottom/left/right
+                return this._reducePos(position);
+            default:
+                return this._reversePos(position, isVertical);
+        }
+    }
+
     _reversePos(position = '', isVertical = false) {
         if (isVertical) {
             if (REGS.TOP.test(position)) {
@@ -158,21 +173,14 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         return position;
     }
 
-    _adjustPos(position = '', shouldReverseArr = [true, false], isVertical = false) {
-        if (isVertical) {
-            if (shouldReverseArr[0]) {
-                return position.concat('Right'); // top -> topRight
-            } else if (shouldReverseArr[1]) {
-                return position.concat('Left'); // top -> topLeft
-            }
-        } else {
-            if (shouldReverseArr[0]) {
-                return position.concat('Bottom'); // left -> leftBottom
-            } else if ( shouldReverseArr[1]) {
-                return position.concat('Top'); // left -> leftTop
-            }
-        }
-        return position;
+    _expandPos(position = '', concatPos: string) {
+        return position.concat(concatPos);
+    }
+
+    _reducePos(position = '') {
+        // if cur position consists of two directions, remove the last position
+        const found = ['Top', 'Bottom', 'Left', 'Right'].find(pos => position.endsWith(pos));
+        return found ? position.replace(found, ''): position;
     }
 
     clearDelayTimer() {
@@ -451,7 +459,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
                 // left = triggerRect.left - SPACING;
                 // top = middleY;
                 // left = isWitdhOverFlow? containerRect.right - SPACING : triggerRect.left - SPACING;
-                left = isWitdhOverFlow ? containerRect.right + offsetWidth - SPACING : triggerRect.left - SPACING;
+                left = isWitdhOverFlow ? containerRect.right + offsetWidth - SPACING + offsetXWithArrow : triggerRect.left - SPACING;
                 top = isHeightOverFlow ? (isTriggerNearTop ? containerRect.top + wrapperRect.height / 2 : containerRect.bottom - wrapperRect.height / 2 + offsetHeight): middleY;
                 translateX = -1;
                 translateY = -0.5;
@@ -459,14 +467,14 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
             case 'leftTop':
                 // left = triggerRect.left - SPACING;
                 // top = pointAtCenter ? middleY - offsetYWithArrow : triggerRect.top;
-                left = isWitdhOverFlow ? containerRect.right + offsetWidth - SPACING : triggerRect.left - SPACING;
+                left = isWitdhOverFlow ? containerRect.right + offsetWidth - SPACING + offsetXWithArrow : triggerRect.left - SPACING;
                 top = isHeightOverFlow ? containerRect.top : (pointAtCenter ? middleY - offsetYWithArrow : triggerRect.top);
                 translateX = -1;
                 break;
             case 'leftBottom':
                 // left = triggerRect.left - SPACING;
                 // top = pointAtCenter ? middleY + offsetYWithArrow : triggerRect.bottom;
-                left = isWitdhOverFlow ? containerRect.right + offsetWidth - SPACING: triggerRect.left - SPACING;
+                left = isWitdhOverFlow ? containerRect.right + offsetWidth - SPACING + offsetXWithArrow: triggerRect.left - SPACING;
                 top = isHeightOverFlow ? containerRect.bottom + offsetHeight: (pointAtCenter ? middleY + offsetYWithArrow : triggerRect.bottom);
                 translateX = -1;
                 translateY = -1;
@@ -679,18 +687,28 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         return posSpace < size || negSpace < size;
     }
 
-    getReverse(viewOvf: boolean, cntrOvf: boolean, shouldRevView: boolean, shouldRevCntr: boolean) {
+    isHalfAllEnough(posSpace: number, negSpace: number, size: number){
+        // 正半空间和负半空间都足够，即表示可以从 topLeft/topRight 变成 top
+        return posSpace >= size || negSpace >= size;
+    }
+
+    getReverse(viewOverFlow: boolean, cntrOverFlow: boolean, shouldReverseView: boolean, shouldReverseContanier: boolean) {
         // 基于视口和容器一起判断，以下几种情况允许从原方向转到反方向，以判断是否应该由top->bottom为例子
         // 1. 视口上下空间不足 且 容器上空间❌下空间✅
         // 2. 视口上空间❌下空间✅ 且 容器上下空间不足
         // 3. 视口上空间❌下空间✅ 且 容器上空间❌下空间✅
-        return (viewOvf && shouldRevCntr) || (shouldRevView && cntrOvf) || (shouldRevView && shouldRevCntr);
+        return (viewOverFlow && shouldReverseContanier) || (shouldReverseView && cntrOverFlow) || (shouldReverseView && shouldReverseContanier);
     }
 
     // place the dom correctly
     adjustPosIfNeed(position: Position | string, style: Record<string, any>, triggerRect: DOMRect, wrapperRect: DOMRect, containerRect: PopupContainerDOMRect) {
         const { innerWidth, innerHeight } = window;
-        const { spacing } = this.getProps();
+        const { spacing, margin } = this.getProps();
+
+        const marginLeft = typeof margin === 'number' ? margin : margin.marginLeft;
+        const marginTop = typeof margin === 'number' ? margin : margin.marginTop;
+        const marginRight = typeof margin === 'number' ? margin : margin.marginRight;
+        const marginBottom = typeof margin === 'number' ? margin : margin.marginBottom;
 
         let isHeightOverFlow = false;
         let isWidthOverFlow = false;
@@ -724,12 +742,12 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
             // The wrapperR ect.top|bottom equivalent cannot be directly used here for comparison, which is easy to cause jitter
 
             // 基于视口的微调判断
-            const shouldViewReverseTop = clientTop < wrapperRect.height + spacing && restClientBottom > wrapperRect.height + spacing;
-            const shouldViewReverseLeft = clientLeft < wrapperRect.width + spacing && restClientRight > wrapperRect.width + spacing;
-            const shouldViewReverseBottom = restClientBottom < wrapperRect.height + spacing && clientTop > wrapperRect.height + spacing;
-            const shouldViewReverseRight = restClientRight < wrapperRect.width + spacing && clientLeft > wrapperRect.width + spacing;
-            const shouldViewReverseTopOver = restClientTop < wrapperRect.height + spacing && clientBottom > wrapperRect.height + spacing;
-            const shouldViewReverseBottomOver = clientBottom < wrapperRect.height + spacing && restClientTop > wrapperRect.height + spacing;
+            const shouldViewReverseTop = clientTop - marginTop < wrapperRect.height + spacing && restClientBottom - marginBottom > wrapperRect.height + spacing;
+            const shouldViewReverseLeft = clientLeft - marginLeft < wrapperRect.width + spacing && restClientRight - marginRight > wrapperRect.width + spacing;
+            const shouldViewReverseBottom = restClientBottom - marginBottom < wrapperRect.height + spacing && clientTop - marginTop > wrapperRect.height + spacing;
+            const shouldViewReverseRight = restClientRight - marginRight < wrapperRect.width + spacing && clientLeft - marginLeft > wrapperRect.width + spacing;
+            const shouldViewReverseTopOver = restClientTop - marginBottom< wrapperRect.height + spacing && clientBottom - marginTop> wrapperRect.height + spacing;
+            const shouldViewReverseBottomOver = clientBottom - marginTop < wrapperRect.height + spacing && restClientTop - marginBottom > wrapperRect.height + spacing;
 
             const shouldViewReverseTopSide = restClientTop < wrapperRect.height && clientBottom > wrapperRect.height;
             const shouldViewReverseBottomSide = clientBottom < wrapperRect.height && restClientTop > wrapperRect.height;
@@ -740,215 +758,244 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
             const shouldReverseRightOver = clientRight < wrapperRect.width && restClientLeft > wrapperRect.width;
 
             // 基于容器的微调判断
-            const clientTopInCntr = clientTop - containerRect.top;
-            const clientLeftInCntr = clientLeft - containerRect.left;
-            const clientBottomInCntr = clientTopInCntr + triggerRect.height;
-            const clientRightInCntr = clientLeftInCntr + triggerRect.width;
+            const clientTopInContanier = clientTop - containerRect.top;
+            const clientLeftInContanier = clientLeft - containerRect.left;
+            const clientBottomInContanier = clientTopInContanier + triggerRect.height;
+            const clientRightInContanier = clientLeftInContanier + triggerRect.width;
 
-            const restClientBottomInCntr = containerRect.bottom - clientBottom;
-            const restClientRightInCntr = containerRect.right - clientRight;
-            const restClientTopInCntr = restClientBottomInCntr + triggerRect.height;
-            const restClientLeftInCntr = restClientRightInCntr + triggerRect.width;
+            const restClientBottomInContanier = containerRect.bottom - clientBottom;
+            const restClientRightInContanier = containerRect.right - clientRight;
+            const restClientTopInContanier = restClientBottomInContanier + triggerRect.height;
+            const restClientLeftInContanier = restClientRightInContanier + triggerRect.width;
 
             // 当原空间不足，反向空间足够时，可以反向。
-            const shouldCntrReverseTop = this.isReverse(clientTopInCntr, restClientBottomInCntr, wrapperRect.height + spacing);
-            const shouldCntrReverseLeft = this.isReverse(clientLeftInCntr, restClientRightInCntr, wrapperRect.width + spacing);
-            const shouldCntrReverseBottom = this.isReverse(restClientBottomInCntr, clientTopInCntr, wrapperRect.height + spacing);
-            const shouldCntrReverseRight = this.isReverse(restClientRightInCntr, clientLeftInCntr, wrapperRect.width + spacing);
-            const shouldCntrReverseTopOver = this.isReverse(restClientTopInCntr, clientBottomInCntr, wrapperRect.height + spacing);
-            const shouldCntrReverseBottomOver = this.isReverse(clientBottomInCntr, restClientTopInCntr, wrapperRect.height + spacing);
+            const shouldContanierReverseTop = this.isReverse(clientTopInContanier - marginTop, restClientBottomInContanier - marginBottom, wrapperRect.height + spacing);
+            const shouldContanierReverseLeft = this.isReverse(clientLeftInContanier - marginLeft, restClientRightInContanier - marginRight, wrapperRect.width + spacing);
+            const shouldContanierReverseBottom = this.isReverse(restClientBottomInContanier - marginBottom, clientTopInContanier - marginTop, wrapperRect.height + spacing);
+            const shouldContanierReverseRight = this.isReverse(restClientRightInContanier - marginRight, clientLeftInContanier - marginLeft, wrapperRect.width + spacing);
+            const shouldContanierReverseTopOver = this.isReverse(restClientTopInContanier - marginBottom, clientBottomInContanier - marginTop, wrapperRect.height + spacing);
+            const shouldContanierReverseBottomOver = this.isReverse(clientBottomInContanier - marginTop, restClientTopInContanier - marginBottom, wrapperRect.height + spacing);
 
-            const shouldCntrReverseTopSide = this.isReverse(restClientTopInCntr, clientBottomInCntr, wrapperRect.height);
-            const shouldCntrReverseBottomSide = this.isReverse(clientBottomInCntr, restClientTopInCntr, wrapperRect.height);
-            const shouldCntrReverseLeftSide = this.isReverse(restClientLeftInCntr, clientRightInCntr, wrapperRect.width);
-            const shouldCntrReverseRightSide = this.isReverse(clientRightInCntr, restClientLeftInCntr, wrapperRect.width);
+            const shouldContanierReverseTopSide = this.isReverse(restClientTopInContanier, clientBottomInContanier, wrapperRect.height);
+            const shouldContanierReverseBottomSide = this.isReverse(clientBottomInContanier, restClientTopInContanier, wrapperRect.height);
+            const shouldContanierReverseLeftSide = this.isReverse(restClientLeftInContanier, clientRightInContanier, wrapperRect.width);
+            const shouldContanierReverseRightSide = this.isReverse(clientRightInContanier, restClientLeftInContanier, wrapperRect.width);
 
             const halfHeight = triggerRect.height / 2;
             const halfWidth = triggerRect.width / 2;
 
             // 视口, 原空间与反向空间是否都不足判断
-            const isViewYOvf = this.isOverFlow(clientTop, restClientBottom, wrapperRect.height + spacing);
-            const isViewXOvf = this.isOverFlow(clientLeft, restClientRight, wrapperRect.width + spacing);
-            const isViewYOvfSide = this.isOverFlow(clientBottom, restClientTop, wrapperRect.height + spacing);
-            const isViewXOvfSide = this.isOverFlow(clientRight, restClientLeft, wrapperRect.width + spacing);
-            const isViewYOvfSideHalf = this.isHalfOverFlow(clientBottom - halfHeight, restClientTop - halfHeight, wrapperRect.height / 2);
-            const isViewXOvfSideHalf = this.isHalfOverFlow(clientRight - halfWidth, restClientLeft - halfWidth, wrapperRect.width / 2);
+            const isViewYOverFlow = this.isOverFlow(clientTop - marginTop, restClientBottom - marginBottom, wrapperRect.height + spacing);
+            const isViewXOverFlow = this.isOverFlow(clientLeft - marginLeft, restClientRight - marginRight, wrapperRect.width + spacing);
+            const isViewYOverFlowSide = this.isOverFlow(clientBottom - marginTop, restClientTop - marginBottom, wrapperRect.height + spacing);
+            const isViewXOverFlowSide = this.isOverFlow(clientRight - marginLeft, restClientLeft - marginRight, wrapperRect.width + spacing);
+            const isViewYOverFlowSideHalf = this.isHalfOverFlow(clientBottom - halfHeight, restClientTop - halfHeight, wrapperRect.height / 2);
+            const isViewXOverFlowSideHalf = this.isHalfOverFlow(clientRight - halfWidth, restClientLeft - halfWidth, wrapperRect.width / 2);
+            const isViewYEnoughSideHalf = this.isHalfAllEnough(clientBottom - halfHeight, restClientTop - halfHeight, wrapperRect.height / 2);
+            const isViewXEnoughSideHalf = this.isHalfAllEnough(clientRight - halfWidth, restClientLeft - halfWidth, wrapperRect.width / 2);
 
             // 容器, 原空间与反向空间是否都不足判断
-            const isCntrYOvf = this.isOverFlow(clientTopInCntr, restClientBottomInCntr, wrapperRect.height + spacing);
-            const isCntrXOvf = this.isOverFlow(clientLeftInCntr, restClientRightInCntr, wrapperRect.width + spacing);
-            const isCntrYOvfSide = this.isOverFlow(clientBottomInCntr, restClientTopInCntr, wrapperRect.height + spacing);
-            const isCntrXOvfSide = this.isOverFlow(clientRightInCntr, restClientLeftInCntr, wrapperRect.width + spacing);
-            const isCntrYOvfSideHalf = this.isHalfOverFlow(clientBottomInCntr - halfHeight, restClientTopInCntr - halfHeight, wrapperRect.height / 2);
-            const isCntrXOvfSideHalf = this.isHalfOverFlow(clientRightInCntr - halfWidth, restClientLeftInCntr - halfWidth, wrapperRect.width / 2);
+            const isContanierYOverFlow = this.isOverFlow(clientTopInContanier - marginTop, restClientBottomInContanier - marginBottom, wrapperRect.height + spacing);
+            const isContanierXOverFlow = this.isOverFlow(clientLeftInContanier - marginLeft, restClientRightInContanier - marginRight, wrapperRect.width + spacing);
+            const isContanierYOverFlowSide = this.isOverFlow(clientBottomInContanier - marginTop, restClientTopInContanier - marginBottom, wrapperRect.height + spacing);
+            const isContanierXOverFlowSide = this.isOverFlow(clientRightInContanier - marginLeft, restClientLeftInContanier - marginRight, wrapperRect.width + spacing);
+            const isContanierYOverFlowSideHalf = this.isHalfOverFlow(clientBottomInContanier - halfHeight, restClientTopInContanier - halfHeight, wrapperRect.height / 2);
+            const isContanierXOverFlowSideHalf = this.isHalfOverFlow(clientRightInContanier - halfWidth, restClientLeftInContanier - halfWidth, wrapperRect.width / 2);
+            const isContanierYEnoughSideHalf = this.isHalfAllEnough(clientBottomInContanier - halfHeight, restClientTopInContanier - halfHeight, wrapperRect.height / 2);
+            const isContanierXEnoughSideHalf = this.isHalfAllEnough(clientRightInContanier - halfWidth, restClientLeftInContanier - halfWidth, wrapperRect.width / 2);
 
             // 综合 viewport + container 判断微调，即视口 + 容器都放置不行时才能考虑位置调整
-            const shouldReverseTop = this.getReverse(isViewYOvf, isCntrYOvf, shouldViewReverseTop, shouldCntrReverseTop);
-            const shouldReverseLeft = this.getReverse(isViewXOvf, isCntrXOvf, shouldViewReverseLeft, shouldCntrReverseLeft);
-            const shouldReverseBottom = this.getReverse(isViewYOvf, isCntrYOvf, shouldViewReverseBottom, shouldCntrReverseBottom);
-            const shouldReverseRight = this.getReverse(isViewXOvf, isCntrXOvf, shouldViewReverseRight, shouldCntrReverseRight);
+            const shouldReverseTop = this.getReverse(isViewYOverFlow, isContanierYOverFlow, shouldViewReverseTop, shouldContanierReverseTop);
+            const shouldReverseLeft = this.getReverse(isViewXOverFlow, isContanierXOverFlow, shouldViewReverseLeft, shouldContanierReverseLeft);
+            const shouldReverseBottom = this.getReverse(isViewYOverFlow, isContanierYOverFlow, shouldViewReverseBottom, shouldContanierReverseBottom);
+            const shouldReverseRight = this.getReverse(isViewXOverFlow, isContanierXOverFlow, shouldViewReverseRight, shouldContanierReverseRight);
 
-            const shouldReverseTopOver = this.getReverse(isViewYOvfSide, isCntrYOvfSide, shouldViewReverseTopOver, shouldCntrReverseTopOver);
-            const shouldReverseBottomOver = this.getReverse(isViewYOvfSide, isCntrYOvfSide, shouldViewReverseBottomOver, shouldCntrReverseBottomOver);
+            const shouldReverseTopOver = this.getReverse(isViewYOverFlowSide, isContanierYOverFlowSide, shouldViewReverseTopOver, shouldContanierReverseTopOver);
+            const shouldReverseBottomOver = this.getReverse(isViewYOverFlowSide, isContanierYOverFlowSide, shouldViewReverseBottomOver, shouldContanierReverseBottomOver);
 
-            const shouldReverseTopSide = this.getReverse(isViewYOvfSide, isCntrYOvfSide, shouldViewReverseTopSide, shouldCntrReverseTopSide);
-            const shouldReverseBottomSide = this.getReverse(isViewYOvfSide, isCntrYOvfSide, shouldViewReverseBottomSide, shouldCntrReverseBottomSide);
-            const shouldReverseLeftSide = this.getReverse(isViewXOvfSide, isCntrXOvfSide, shouldViewReverseLeftSide, shouldCntrReverseLeftSide);
-            const shouldReverseRightSide = this.getReverse(isViewXOvfSide, isCntrXOvfSide, shouldViewReverseRightSide, shouldCntrReverseRightSide);
+            const shouldReverseTopSide = this.getReverse(isViewYOverFlowSide, isContanierYOverFlowSide, shouldViewReverseTopSide, shouldContanierReverseTopSide);
+            const shouldReverseBottomSide = this.getReverse(isViewYOverFlowSide, isContanierYOverFlowSide, shouldViewReverseBottomSide, shouldContanierReverseBottomSide);
+            const shouldReverseLeftSide = this.getReverse(isViewXOverFlowSide, isContanierXOverFlowSide, shouldViewReverseLeftSide, shouldContanierReverseLeftSide);
+            const shouldReverseRightSide = this.getReverse(isViewXOverFlowSide, isContanierXOverFlowSide, shouldViewReverseRightSide, shouldContanierReverseRightSide);
 
-            console.log('shouldReverseBottom', shouldReverseBottom, shouldViewReverseBottom, shouldCntrReverseBottom);
-            
-            // 判断溢出
-            // 上下方向
-            if (this.isTB(position)){
-                isHeightOverFlow = isViewYOvf && isCntrYOvf;
-                if (position === 'top' || position === 'bottom') {
-                    isWidthOverFlow = isViewXOvfSideHalf && isCntrXOvfSideHalf;
-                } else {
-                    isWidthOverFlow = isViewXOvfSide && isCntrXOvfSide;
-                }
-            }
-            // 左右方向
-            if (this.isLR(position)){
-                isWidthOverFlow = isViewXOvf && isCntrXOvf;
-                if (position === 'left' || position === 'right') {
-                    isHeightOverFlow = isViewYOvfSideHalf && isCntrYOvfSideHalf;
-                } else {
-                    isHeightOverFlow = isViewYOvfSide && isCntrYOvfSide;
-                }
-            }
+            const isYOverFlowSideHalf = isViewYOverFlowSideHalf && isContanierYOverFlowSideHalf;
+            const isXOverFlowSideHalf = isViewXOverFlowSideHalf && isContanierXOverFlowSideHalf;
 
             switch (position) {
                 case 'top':
                     if (shouldReverseTop) {
-                        position = this._reversePos(position, true);
+                        position = this._adjustPos(position, true);
                     }
-                    if (shouldReverseLeftSide || shouldReverseRightSide) {
-                        position = this._adjustPos(position, [shouldReverseLeftSide, shouldReverseRightSide], true);
+                    if (isXOverFlowSideHalf && (shouldReverseLeftSide || shouldReverseRightSide)) {
+                        position = this._adjustPos(position, true, 'expand', shouldReverseLeftSide ? 'Right' : 'Left');
                     }
                     break;
                 case 'topLeft':
                     if (shouldReverseTop) {
-                        position = this._reversePos(position, true);
+                        position = this._adjustPos(position, true);
                     }
                     if (shouldReverseLeftSide && widthIsBigger) {
-                        position = this._reversePos(position);
+                        position = this._adjustPos(position, true);
+                    }
+                    if (isWidthOverFlow && (isViewXEnoughSideHalf || isContanierXEnoughSideHalf)) {
+                        position = this._adjustPos(position, true, 'reduce');
                     }
                     break;
                 case 'topRight':
                     if (shouldReverseTop) {
-                        position = this._reversePos(position, true);
+                        position = this._adjustPos(position, true);
                     }
                     if (shouldReverseRightSide && widthIsBigger) {
-                        position = this._reversePos(position);
+                        position = this._adjustPos(position);
+                    }
+                    if (isWidthOverFlow && (isViewXEnoughSideHalf || isContanierXEnoughSideHalf)) {
+                        position = this._adjustPos(position, true, 'reduce');
                     }
                     break;
                 case 'left':
                     if (shouldReverseLeft) {
-                        position = this._reversePos(position);
+                        position = this._adjustPos(position);
                     }
-                    if (shouldReverseTopSide || shouldReverseBottomSide) {
-                        position = this._adjustPos(position, [shouldReverseTopSide, shouldReverseBottomSide]);
+                    if (isYOverFlowSideHalf && (shouldReverseTopSide || shouldReverseBottomSide)) {
+                        position = this._adjustPos(position, false, 'expand', shouldReverseTopSide ? 'Bottom' : 'Top');
                     }
                     break;
                 case 'leftTop':
                     if (shouldReverseLeft) {
-                        position = this._reversePos(position);
+                        position = this._adjustPos(position);
                     }
                     if (shouldReverseTopSide && heightIsBigger) {
-                        position = this._reversePos(position, true);
+                        position = this._adjustPos(position, true); 
+                    }
+                    if (isHeightOverFlow && (isViewYEnoughSideHalf || isContanierYEnoughSideHalf)) {
+                        position = this._adjustPos(position, false, 'reduce');
                     }
                     break;
                 case 'leftBottom':
                     if (shouldReverseLeft) {
-                        position = this._reversePos(position);
+                        position = this._adjustPos(position);
                     }
                     if (shouldReverseBottomSide && heightIsBigger) {
-                        position = this._reversePos(position, true);
+                        position = this._adjustPos(position, true);
+                    }
+                    if (isHeightOverFlow && (isViewYEnoughSideHalf || isContanierYEnoughSideHalf)) {
+                        position = this._adjustPos(position, false, 'reduce');
                     }
                     break;
                 case 'bottom':
                     if (shouldReverseBottom) {
-                        position = this._reversePos(position, true);
+                        position = this._adjustPos(position, true);
                     }
-                    if (shouldReverseLeftSide || shouldReverseRightSide) {
-                        position = this._adjustPos(position, [shouldReverseLeftSide, shouldReverseRightSide], true);
+                    if (isXOverFlowSideHalf && (shouldReverseLeftSide || shouldReverseRightSide)) {
+                        position = this._adjustPos(position, true, 'expand', shouldReverseLeftSide ? 'Right' : 'Left');
                     }
                     break;
                 case 'bottomLeft':
                     if (shouldReverseBottom) {
-                        position = this._reversePos(position, true);
+                        position = this._adjustPos(position, true);
                     }
                     if (shouldReverseLeftSide && widthIsBigger) {
-                        position = this._reversePos(position);
+                        position = this._adjustPos(position);
+                    }
+                    if (isWidthOverFlow && (isViewXEnoughSideHalf || isContanierXEnoughSideHalf)) {
+                        position = this._adjustPos(position, true, 'reduce');
                     }
                     break;
                 case 'bottomRight':
                     if (shouldReverseBottom) {
-                        position = this._reversePos(position, true);
+                        position = this._adjustPos(position, true);
                     }
                     if (shouldReverseRightSide && widthIsBigger) {
-                        position = this._reversePos(position);
+                        position = this._adjustPos(position);
+                    }
+                    if (isWidthOverFlow && (isViewXEnoughSideHalf || isContanierXEnoughSideHalf)) {
+                        position = this._adjustPos(position, true, 'reduce');
                     }
                     break;
                 case 'right':
                     if (shouldReverseRight) {
-                        position = this._reversePos(position);
+                        position = this._adjustPos(position);
                     }
-                    if (shouldReverseTopSide || shouldReverseBottomSide) {
-                        position = this._adjustPos(position, [shouldReverseTopSide, shouldReverseBottomSide]);
+                    if (isYOverFlowSideHalf && (shouldReverseTopSide || shouldReverseBottomSide)) {
+                        position = this._adjustPos(position, false, 'expand', shouldReverseTopSide ? 'Bottom' : 'Top');
                     }
                     break;
                 case 'rightTop':
                     if (shouldReverseRight) {
-                        position = this._reversePos(position);
+                        position = this._adjustPos(position);
                     }
                     if (shouldReverseTopSide && heightIsBigger) {
-                        position = this._reversePos(position, true);
+                        position = this._adjustPos(position, true);
+                    }
+                    if (isHeightOverFlow && (isViewYEnoughSideHalf || isContanierYEnoughSideHalf)) {
+                        position = this._adjustPos(position, false, 'reduce');
                     }
                     break;
                 case 'rightBottom':
                     if (shouldReverseRight) {
-                        position = this._reversePos(position);
+                        position = this._adjustPos(position);
                     }
                     if (shouldReverseBottomSide && heightIsBigger) {
-                        position = this._reversePos(position, true);
+                        position = this._adjustPos(position, true);
+                    }
+                    if (isHeightOverFlow && (isViewYEnoughSideHalf || isContanierYEnoughSideHalf)) {
+                        position = this._adjustPos(position, false, 'reduce');
                     }
                     break;
                 case 'leftTopOver':
                     if (shouldReverseTopOver) {
-                        position = this._reversePos(position, true);
+                        position = this._adjustPos(position, true);
                     }
                     if (shouldReverseLeftOver) {
-                        position = this._reversePos(position);
+                        position = this._adjustPos(position);
                     }
                     break;
                 case 'leftBottomOver':
                     if (shouldReverseBottomOver) {
-                        position = this._reversePos(position, true);
+                        position = this._adjustPos(position, true);
                     }
                     if (shouldReverseLeftOver) {
-                        position = this._reversePos(position);
+                        position = this._adjustPos(position);
                     }
                     break;
                 case 'rightTopOver':
                     if (shouldReverseTopOver) {
-                        position = this._reversePos(position, true);
+                        position = this._adjustPos(position, true);
                     }
                     if (shouldReverseRightOver) {
-                        position = this._reversePos(position);
+                        position = this._adjustPos(position);
                     }
                     break;
                 case 'rightBottomOver':
                     if (shouldReverseBottomOver) {
-                        position = this._reversePos(position, true);
+                        position = this._adjustPos(position, true);
                     }
                     if (shouldReverseRightOver) {
-                        position = this._reversePos(position);
+                        position = this._adjustPos(position);
                     }
                     break;
                 default:
                     break;
+            }
+
+            // 判断溢出
+            // 上下方向
+            if (this.isTB(position)){
+                isHeightOverFlow = isViewYOverFlow && isContanierYOverFlow;
+                if (position === 'top' || position === 'bottom') {
+                    isWidthOverFlow = isViewXOverFlowSideHalf && isContanierXOverFlowSideHalf;
+                } else {
+                    isWidthOverFlow = isViewXOverFlowSide && isContanierXOverFlowSide;
+                }
+            }
+            // 左右方向
+            if (this.isLR(position)){
+                isWidthOverFlow = isViewXOverFlow && isContanierXOverFlow;
+                if (position === 'left' || position === 'right') {
+                    isHeightOverFlow = isViewYOverFlowSideHalf && isContanierYOverFlowSideHalf;
+                } else {
+                    isHeightOverFlow = isViewYOverFlowSide && isContanierYOverFlowSide;
+                }
             }
         }
 
