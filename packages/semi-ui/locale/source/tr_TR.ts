@@ -83,8 +83,8 @@ const local: Locale = {
             Wed: 'Çar',
             Thu: 'Perş',
             Fri: 'Cum',
-            Sat: 'Oturdu',
-            Sun: 'Güneş'
+            Sat: 'Cmt',
+            Sun: 'Paz'
         },
         localeFormatToken: {
             FORMAT_SWITCH_DATE: 'yyyy-MM-dd',
