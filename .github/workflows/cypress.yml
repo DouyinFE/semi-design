@@ -28,7 +28,7 @@ jobs:
         if: ${{ github.repository_owner == 'DouyinFE' }}
         steps:
             - name: Checkout
-              uses: actions/checkout@v2
+              uses: actions/checkout@3
             - name: Install global packages
               run: npm i -g lerna yarn
             - name: Build storybook
@@ -54,7 +54,7 @@ jobs:
         needs: install
         steps:
             - name: Checkout
-              uses: actions/checkout@v2
+              uses: actions/checkout@v3
             - name: Download the build folders
               uses: actions/download-artifact@v2
               with:
@@ -86,7 +86,7 @@ jobs:
         needs: install
         steps:
             - name: Checkout
-              uses: actions/checkout@v2
+              uses: actions/checkout@v3
             - name: Download the build folders
               uses: actions/download-artifact@v2
               with:
