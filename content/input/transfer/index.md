@@ -927,7 +927,7 @@ import { Transfer } from '@douyinfe/semi-ui';
 | draggable | 是否开启拖拽排序 | boolean | false |  |
 | emptyContent | 自定义空状态的提示文本，search 为无搜索结果时展示的文本，left 为左侧无源数据时的文本，right 为无勾选数据时的提示文本 | {left: ReactNode; right: ReactNode; search: ReactNode;} |  |  |
 | filter | 自定义筛选逻辑, 当为 false 时，不展示搜索框 | boolean \| (input:string, item: Item) => boolean | true |  |
-| inputProps | 可用于自定义搜索框 Input，可配置属性参考 Input 组件 | [InputProps](/zh-CN/input/input#API%20%E5%8F%82%E8%80%83) |  |  |
+| inputProps | 可用于自定义搜索框 Input，可配置属性参考 Input 组件，其中 value 和 onChange 参数在 Transfer 内部会被使用，用户请勿使用，如需通过外部数据进行搜索，可调用 Transfer 的 search 方法 | [InputProps](/zh-CN/input/input#API%20%E5%8F%82%E8%80%83) |  |  |
 | loading | 是否正在加载左侧选项 | boolean | - |  |
 | onChange | 选中值发生变化时触发的回调, 拖拽排序变化后也会触发该回调 | (values: Array<string\|number>, items: Array<Item\>) => void |  |  |
 | onDeselect | 取消勾选时的回调 | (item: Item) => void | |  |
@@ -970,6 +970,10 @@ TreeItem 继承 Item 的所有属性
 | 属性     | 说明   | 类型             | 默认值 |
 | -------- | ------ | ---------------- | ------ |
 | children | 子元素 | Array<TreeItem\> |        |
+
+### Method
+
+- search(value: string)：可通过 ref 调用该方法进行搜索，该搜索值会被置给 Input。
 
 ## 设计变量
 <DesignToken/>

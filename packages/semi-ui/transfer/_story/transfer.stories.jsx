@@ -1,5 +1,5 @@
-import React, { useState, useRef } from 'react';
-import { Transfer, Button } from '../../index';
+import React, { useState, useRef, useMemo } from 'react';
+import { Transfer, Button, Select } from '../../index';
 import Table from '../../table';
 import Avatar from '../../avatar';
 import Checkbox from '../../checkbox';
@@ -784,4 +784,149 @@ export const CustomRenderWithDragSort = () => <CustomRenderDragDemo />;
 
 CustomRenderWithDragSort.story = {
   name: 'customRender with drag sort',
+};
+
+export const RefMethodSearch = () => {
+  const transferRef1 = useRef(null);
+  const transferRef2 = useRef(null);
+  
+  const data = useMemo(() => (Array.from({ length: 100 }, (v, i) => {
+      return {
+          label: `选项名称 ${i}`,
+          value: i,
+          disabled: false,
+          key: i,
+      };
+  })), []);
+
+  const treeData = [
+      {
+          label: 'Asia',
+          value: 'Asia',
+          key: '0',
+          children: [
+              {
+                  label: 'AreaOne',
+                  value: 'AreaOne',
+                  key: '0-0',
+                  children: [
+                      {
+                          label: 'Beijing',
+                          value: 'Beijing',
+                          key: '0-0-0',
+                      },
+                      {
+                          label: 'Shanghai',
+                          value: 'Shanghai',
+                          key: '0-0-1',
+                      },
+                      {
+                          label: 'Chengdu',
+                          value: 'Chengdu',
+                          key: '0-0-2',
+                      },
+                  ],
+              },
+              {
+                  label: 'Japan',
+                  value: 'Japan',
+                  key: '0-1',
+                  children: [
+                      {
+                          label: 'Osaka',
+                          value: 'Osaka',
+                          key: '0-1-0',
+                      },
+                  ],
+              },
+          ],
+      },
+      {
+          label: 'North America',
+          value: 'North America',
+          key: '1',
+          children: [
+              {
+                  label: 'United States',
+                  value: 'United States',
+                  key: '1-0',
+              },
+              {
+                  label: 'Canada',
+                  value: 'Canada',
+                  key: '1-1',
+              },
+              {
+                  label: 'Mexico',
+                  value: 'Mexico',
+                  disabled: true,
+                  key: '1-2',
+              },
+              {
+                  label: 'Cuba',
+                  value: 'Cuba',
+                  key: '1-3',
+              },
+          ],
+      },
+  ];
+
+  const [v, $v] = useState(['Shanghai']);
+
+  const list = [
+      { value: '0', label: '0', otherKey: 0 },
+      { value: '1', label: '1',  otherKey: 1 },
+      { value: '2', label: '2', otherKey: 2 },
+      { value: '3', label: '3', otherKey: 3 },
+  ];
+
+  const list2 = [
+      { value: 'Canada', label: 'Canada', otherKey: 0 },
+      { value: 'Shanghai', label: 'Shanghai',  otherKey: 1 },
+  ]
+
+  return (
+      <>
+          <p>通过 Transfer 的 search 方法进行筛选, 左侧 list 需要显示筛选结果</p>
+          <Select 
+              placeholder={'选择项目可改变transfer中input值'}
+              style={{ width: 300 }} 
+              optionList={list}
+              onSelect={(value) => {
+                  transferRef1 && transferRef1.current && transferRef1.current.search(value);
+              }}
+              showClear
+          />
+          <Transfer
+              ref={transferRef1}
+              style={{ width: 568, height: 416 }}
+              dataSource={data}
+              onChange={(values, items) => console.log(values, items)}
+              onSearch={(value) => {
+                console.log('search value', value);
+              }}
+          />
+          <p>通过 Transfer 的 search 方法进行筛选, 左侧 tree 应当呈现筛选结果</p>
+          <Select 
+              placeholder={'选择项目可改变transfer中input值'}
+              style={{ width: 300 }} 
+              optionList={list2}
+              onSelect={(value) => {
+                  transferRef2 && transferRef2.current && transferRef2.current.search(value);
+              }}
+              showClear
+          />
+          <Transfer 
+              ref={transferRef2}
+              dataSource={treeData} 
+              style={{ width: 568, height: 416 }}
+              type="treeList" 
+              value={v} 
+              onChange={$v} 
+              onSearch={(value) => {
+                console.log('search value', value);
+              }}
+          />
+      </>
+  );
 };
