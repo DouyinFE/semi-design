@@ -48,7 +48,7 @@ const prefix = cssClasses.PREFIX;
 interface BaseFormState {
     formId: string
 }
-class Form<Values extends Record<string | number | symbol, any> = any> extends BaseComponent<BaseFormProps<Values>, BaseFormState> {
+class Form<Values extends Record<string, any> = any> extends BaseComponent<BaseFormProps<Values>, BaseFormState> {
     static propTypes = {
         'aria-label': PropTypes.string,
         onSubmit: PropTypes.func,
