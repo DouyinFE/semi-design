@@ -19,7 +19,7 @@ import {
     isTreeTable
 } from '@douyinfe/semi-foundation/table/utils';
 import BodyFoundation, { BodyAdapter, FlattenData, GroupFlattenData } from '@douyinfe/semi-foundation/table/bodyFoundation';
-import { strings } from '@douyinfe/semi-foundation/table/constants';
+import { strings, numbers } from '@douyinfe/semi-foundation/table/constants';
 import Store from '@douyinfe/semi-foundation/utils/Store';
 
 import BaseComponent, { BaseProps } from '../../_base/baseComponent';
@@ -391,8 +391,9 @@ class Body extends BaseComponent<BodyProps, BodyState> {
                 }}
             >
                 <div style={{ width: tableWidth }} className={tableCls}>
-                    {size(dataSource) === 0 ? emptySlot : children}
+                    {children}
                 </div>
+                {size(dataSource) === 0 && emptySlot}
             </div>
         );
     });
@@ -423,7 +424,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
 
         const listStyle = {
             width: '100%',
-            height: virtualizedData?.length ? y : 0,
+            height: virtualizedData?.length ? y : numbers.DEFAULT_EMPTYSLOT_HEIGHT,
             overflowX: 'auto',
             overflowY: 'auto',
         } as const;
@@ -789,7 +790,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
                 onScroll={handleBodyScroll}
             >
                 <Table
-                    role={ isMap(groups) || isFunction(expandedRowRender) || isTreeTable({ dataSource }) ? 'treegrid' : 'grid'}
+                    role={isMap(groups) || isFunction(expandedRowRender) || isTreeTable({ dataSource }) ? 'treegrid' : 'grid'}
                     aria-rowcount={dataSource && dataSource.length}
                     aria-colcount={columns && columns.length}
                     style={tableStyle}
