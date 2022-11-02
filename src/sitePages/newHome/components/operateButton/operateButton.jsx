@@ -14,7 +14,9 @@ function OperateButton() {
         window.open('https://github.com/DouyinFE/semi-design');
     };
     return (<div className={styles.group2835}>
-        <Button onClick={goStart} size="large" theme="solid" className={styles.extraLarge}>{_t("start_using", { }, "开始使用")}</Button>
+        <a href={`/${getLocale()}/start/getting-started`}>
+            <Button tabindex={-1} onClick={goStart} size="large" theme="solid" className={styles.extraLarge}>{_t("start_using", { }, "开始使用")}</Button>
+        </a>
         <Button
             onClick={goGithub} 
             size="large"
