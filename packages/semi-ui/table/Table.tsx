@@ -1091,8 +1091,8 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
                 headerRef: this._cacheHeaderRef,
                 bodyRef: this.bodyWrapRef,
                 includeHeader: !useFixedHeader,
+                emptySlot
             }),
-            emptySlot,
             this.renderFooter(props),
         ];
 
@@ -1119,7 +1119,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             dataSource,
             bodyHasScrollBar,
             disabledRowKeysSet,
-            sticky
+            sticky,
         } = props;
         const selectedRowKeysSet = get(rowSelection, 'selectedRowKeysSet', new Set());
 

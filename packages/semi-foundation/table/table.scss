@@ -481,7 +481,8 @@ $module: #{$prefix}-table;
     }
 
     &-placeholder {
-        position: relative;
+        position: sticky;
+        left: 0px;
         z-index: 1;
         padding: #{$spacing-table-paddingY} #{$spacing-table-paddingX};
         color: $color-table_placeholder-text-default;
