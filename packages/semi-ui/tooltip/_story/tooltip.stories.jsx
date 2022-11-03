@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, PureComponent } from 'react';
 import Tooltip from '../index';
 import './story.scss';
 import {
@@ -27,7 +27,13 @@ import ArrowPointAtCenter from './ArrowPointAtCenter';
 import CustomContainer from './CustomContainer';
 import ContainerPosition from './ContainerPosition';
 import { IconList, IconSidebar, IconEdit } from '@douyinfe/semi-icons';
-import TooltipTransition from '../TooltipStyledTransition';
+import {  
+  Right2Left, Right2LeftTop, Right2LeftBottom, Right2RightTop, Right2RightBottom,
+  Left2Right, Left2RightTop, Left2RightBottom, Left2LeftTop, Left2LeftBottom,
+  Top2Bottom, Top2BottomLeft, Top2BottomRight, Top2TopLeft, Top2TopRight,
+  Bottom2Top, Bottom2TopLeft, Bottom2TopRight, Bottom2BottomLeft, Bottom2BottomRight,
+ } from './AutoAdjustOverflow';
+
 
 export default {
   title: 'Tooltip',
@@ -1362,3 +1368,70 @@ export const reducePosition = () => {
       </div>
   );
 }
+
+
+// right -> other
+export const AutoRight2LeftDemo = () => <Right2Left />;
+AutoRight2LeftDemo.storyName = `❌ auto : right -> left`;
+
+export const AutoRight2LeftBottomDemo = () => <Right2LeftBottom />;
+AutoRight2LeftBottomDemo.storyName = `❌ auto : right -> leftBottom`;
+
+export const AutoRight2LeftTopDemo = () => <Right2LeftTop />;
+AutoRight2LeftTopDemo.storyName = `✅ auto : riht -> leftTop`;
+
+export const AutoRight2RightBottomDemo = () => <Right2RightBottom />;
+AutoRight2RightBottomDemo.storyName = `✅ auto : right -> rightBottom`;
+
+export const AutoRight2RightTopDemo = () => <Right2RightTop />;
+AutoRight2RightTopDemo.storyName = `✅ auto : riht -> rightTop`;
+
+
+// left -> other
+export const Left2RightDemo = () => <Left2Right />;
+Left2RightDemo.storyName = `✅ auto : left -> right`;
+
+export const Left2LeftBottomDemo = () => <Left2LeftBottom />;
+Left2LeftBottomDemo.storyName = `❌ auto : left -> leftBottom`;
+
+export const Left2LeftTopDemo = () => <Left2LeftTop />;
+Left2LeftTopDemo.storyName = `✅ auto : left -> leftTop`;
+
+export const Left2RightBottomDemo = () => <Left2RightBottom />;
+Left2RightBottomDemo.storyName = `✅ auto : left -> rightBottom`;
+
+export const Left2RightTopDemo = () => <Left2RightTop />;
+Left2RightTopDemo.storyName = `✅ auto : left -> rightTop`;
+
+// top -> other
+export const Top2BottomDemo = () => <Top2Bottom />;
+Top2BottomDemo.storyName = `✅ auto : top -> bottom`;
+
+export const Top2BottomLeftDemo = () => <Top2BottomLeft />;
+Top2BottomLeftDemo.storyName = `✅ auto : top -> bottomLeft`;
+
+export const Top2BottomRightDemo = () => <Top2BottomRight />;
+Top2BottomRightDemo.storyName = `✅ auto : top -> bottomRight`;
+
+export const Top2TopLeftDemo = () => <Top2TopLeft />;
+Top2TopLeftDemo.storyName = `❌ auto : top -> topLeft`;
+
+export const Top2TopRightDemo = () => <Top2TopRight />;
+Top2TopRightDemo.storyName = `✅ auto : top -> topRight`;
+
+
+// bottom -> other
+export const Bottom2TopDemo = () => <Bottom2Top />;
+Bottom2TopDemo.storyName = `✅ auto : bottom -> top`;
+
+export const Bottom2TopLeftDemo = () => <Bottom2TopLeft />;
+Bottom2TopLeftDemo.storyName = `✅ auto : bottom -> topLeft`;
+
+export const Bottom2TopRightDemo = () => <Bottom2TopRight />;
+Bottom2TopRightDemo.storyName = `❌ auto : bottom -> topRight`;
+
+export const Bottom2BottomLeftDemo = () => <Bottom2BottomLeft />;
+Bottom2BottomLeftDemo.storyName = `✅ auto : bottom -> bottomLeft`;
+
+export const Bottom2BottomRightDemo = () => <Bottom2BottomRight />;
+Bottom2BottomRightDemo.storyName = `✅ auto : bottom -> bottomRight`;

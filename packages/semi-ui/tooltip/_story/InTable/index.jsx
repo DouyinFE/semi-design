@@ -15,13 +15,13 @@ export default function InTableDemo(props = {}) {
                 return (
                     <div id="dropdown-wrap" style={{ position: 'relative' }}>
                         <Dropdown
-                            getPopupContainer={getPopupContainer}
+                            // getPopupContainer={getPopupContainer}
                             position="rightTop"
                             trigger="click"
                             render={
                                 <Dropdown.Menu>
                                     <Dropdown
-                                        getPopupContainer={getPopupContainer}
+                                        // getPopupContainer={getPopupContainer}
                                         position="rightTop"
                                         render={
                                             <Dropdown.Menu>
