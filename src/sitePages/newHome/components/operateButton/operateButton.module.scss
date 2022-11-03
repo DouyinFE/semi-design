@@ -5,6 +5,11 @@
     align-items: center;
     height: 48px;
     margin-top: 80px;
+
+    a:focus-visible {
+        border-radius: 6px;
+        outline-offset: -1px;
+    }
 }
 
 .extraLarge {

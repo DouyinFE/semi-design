@@ -1515,10 +1515,10 @@
   dependencies:
     "@babel/runtime-corejs3" "^7.15.4"
 
-"@douyinfe/semi-site-banner@^0.0.2":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@douyinfe/semi-site-banner/-/semi-site-banner-0.0.2.tgz#e0cd338e89659c02e45fb7235374407a1a718576"
-  integrity sha512-UxTlAHEXo4fYZOjRtR5MiydJEPHWnqJvyqflixpawm9dpXRkgbdDgMsMimBe5nx0blvWx+Z4+85BAcWhTKLbEQ==
+"@douyinfe/semi-site-banner@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@douyinfe/semi-site-banner/-/semi-site-banner-0.1.0.tgz#d6fbffb71a5c3ba88f8148ac6eab0cbfadbc12bd"
+  integrity sha512-/eN6vwo8scZkYFdK0jOdh74IEHq1a0YWWlg2vNVgCEnq978fOYL14jKtJdXvVcOG9+GbESU25c9lQIgk8OfIPQ==
   dependencies:
     "@douyinfe/semi-icons" latest
     "@douyinfe/semi-ui" latest
@@ -1532,10 +1532,10 @@
   resolved "https://registry.yarnpkg.com/@douyinfe/semi-site-doc-style/-/semi-site-doc-style-0.0.1.tgz#c3c803014218ec00441dac32db9a875f6222ed0b"
   integrity sha512-y7Jc1i9q/O2idfaqckSJvghpt4AboQJgZ4iTEK8UMqjQkyWmb5I/NRzVWjOP9S0LEbJNs76OKfZil7DwsOmY/A==
 
-"@douyinfe/semi-site-header@^0.0.10":
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/@douyinfe/semi-site-header/-/semi-site-header-0.0.10.tgz#082a03b4f7efb929e5dd4c743fd434f652083475"
-  integrity sha512-ubJUfm+xM7m3WU7hKcKgC90KtM+O3oP9C2zcZedTCiK11aeYHqDxbmdZwikkfV9ecQR0au0XllmjraTilsW/6A==
+"@douyinfe/semi-site-header@^0.0.13":
+  version "0.0.13"
+  resolved "https://registry.yarnpkg.com/@douyinfe/semi-site-header/-/semi-site-header-0.0.13.tgz#2e44fcd59b3112b9e6678334346b35dc2c852e4d"
+  integrity sha512-HYLlYXcS/e3TjQ/etRbYEP7LGyiqPY2fnBzKG4gWlAZ0vq4D6qCmhuliZ2XUKwjXyP19Sx1XqQluowPNXE+EwA==
   dependencies:
     "@douyinfe/semi-icons" "^2.0.0"
     "@douyinfe/semi-ui" "^2.0.0"
@@ -1546,20 +1546,20 @@
     lodash-es "^4.17.21"
     react-i18next "^11.12.0"
 
-"@douyinfe/semi-site-markdown-blocks@^0.0.8":
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/@douyinfe/semi-site-markdown-blocks/-/semi-site-markdown-blocks-0.0.8.tgz#692cf395ce399dc544d1c6ab7310b36c47734724"
-  integrity sha512-7OLcwhwGhzyL//lcgYSQ/pxIa193LVixv/QouN1Tf+ulK4fSz1EfDH3uLE+yC4w2LRqtkLNVkE+t5hVpauDseA==
+"@douyinfe/semi-site-markdown-blocks@^0.0.9":
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/@douyinfe/semi-site-markdown-blocks/-/semi-site-markdown-blocks-0.0.9.tgz#df0c02b0867b08e499143b26a189280c909bb438"
+  integrity sha512-mEKHb9LNlo5QjDK6Rw3RkjGBmE5Ivg5ChCAPeqtNsBkzNcF78D7SvrL5U8U6R/F4iIfTqw7gHfvuMte1L559iw==
   dependencies:
-    "@douyinfe/semi-site-playground" "0.0.8"
+    "@douyinfe/semi-site-playground" "0.0.9"
     classnames "^2.2.6"
     prism-react-renderer "^1.0.1"
     prop-types "^15.7.2"
 
-"@douyinfe/semi-site-playground@0.0.8":
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/@douyinfe/semi-site-playground/-/semi-site-playground-0.0.8.tgz#faf19a7c3e36d2737148e4dda01ea081e1d9a9f0"
-  integrity sha512-u2EF4GNfW5AsCu1HfczIfkyjdoKYxk+jq30lZqQ04hVv9eD65kKMkG6YIPllemLmf63/dG9XBhFMbGPsYO6smw==
+"@douyinfe/semi-site-playground@0.0.9":
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/@douyinfe/semi-site-playground/-/semi-site-playground-0.0.9.tgz#cb1362c636f73f7251c887a1e2b03e4e34153ee3"
+  integrity sha512-ojp5HQUN/2PD5CQEszUdU5oXsQIYUacZhbzfSw+Y7YdU1UPh/L31GmXfOjXccziIYZoqAyk6foqLIU1wtg+Ipw==
   dependencies:
     "@douyinfe/semi-icons" "^2.0.0"
     "@douyinfe/semi-ui" "^2.0.0"

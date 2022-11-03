@@ -15,6 +15,9 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+#### 🎉 2.22.3 (2022-11-02)
+- 【Docs】
+    - Added accessibility (A11y) support to Semi site
 
 #### 🎉 2.22.2 (2022-10-31)
 - 【Fix】
