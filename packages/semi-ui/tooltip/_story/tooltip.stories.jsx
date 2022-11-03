@@ -1316,9 +1316,9 @@ export const SmartPosAdjustDemo = () => {
         position={pos}
         AdjustPosIfNeed
         showArrow
-        // trigger='click'
+        trigger='click'
         content={
-          <div style={{ minWidth: 900, height: 600, backgroundColor: 'lightblue' }}>
+          <div style={{ minWidth: 900, height: 900, backgroundColor: 'lightblue' }}>
             <article>
               <p>hi semi! hi semi! hi semi!hi semi! hi semi</p>
               <p>hi semi! hi semi! hi semi!hi semi! hi semi</p>
@@ -1347,26 +1347,6 @@ export const SmartPosAdjustDemo = () => {
       </div>
     </div>
   )
-}
-
-export const reducePosition = () => {
-   const content = <article>
-    Hi ByteDancer, this is a tooltip.
-    <br /> We have 2 lines.
-  </article>
-
-  return (
-      <div style={{ paddingLeft: 50, width: 50 }}>
-      <Tooltip
-        showArrow
-        arrowPointAtCenter
-        content={content}
-        position={'topRight'}
-      >
-        <Tag style={{ position: 'absolute', left: 60, top: 40 }}>top to bottomLeft</Tag>
-      </Tooltip>
-      </div>
-  );
 }
 
 

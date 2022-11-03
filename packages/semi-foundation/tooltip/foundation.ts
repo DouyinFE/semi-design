@@ -268,6 +268,9 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
     onResize = () => {
         // this.log('resize');
         // rePosition when window resize
+        // In order to exclude the influence of the resize scroll bar on the calculated position
+        // the first time is off-screen rendering, and the second time is normal rendering
+        this.calcPosition(null, null, null, true, true);
         this.calcPosition();
     };
 
@@ -315,7 +318,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
             this._togglePortalVisible(true);
         });
 
-        const position = this.calcPosition(null, null, null, false);
+        const position = this.calcPosition(null, null, null, false, true);
 
         this._adapter.insertPortal(content, position);
 
@@ -388,7 +391,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         return null;
     }
 
-    calcPosStyle(triggerRect: DOMRect, wrapperRect: DOMRect, containerRect: PopupContainerDOMRect, position?: Position, spacing?: number, isOverFlow?: [boolean, boolean]) {
+    calcPosStyle(triggerRect: DOMRect, wrapperRect: DOMRect, containerRect: PopupContainerDOMRect, offScreen: boolean, position?: Position, spacing?: number, isOverFlow?: [boolean, boolean]) {
         triggerRect = (isEmpty(triggerRect) ? triggerRect : this._adapter.getTriggerBounding()) || { ...defaultRect as any };
         containerRect = (isEmpty(containerRect) ? containerRect : this._adapter.getPopupContainerRect()) || {
             ...defaultRect,
@@ -436,7 +439,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
                 // left = middleX;
                 // top = triggerRect.top - SPACING;
                 left = isWitdhOverFlow ? (isTriggerNearLeft ? containerRect.left + wrapperRect.width / 2 : containerRect.right - wrapperRect.width / 2 + offsetWidth): middleX;
-                top = isHeightOverFlow ? containerRect.bottom - SPACING + offsetHeight : triggerRect.top - SPACING;
+                top = isHeightOverFlow ? containerRect.bottom + offsetHeight : triggerRect.top - SPACING;
                 translateX = -0.5;
                 translateY = -1;
                 break;
@@ -444,14 +447,14 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
                 // left = pointAtCenter ? middleX - offsetXWithArrow : triggerRect.left;
                 // top = triggerRect.top - SPACING;
                 left = isWitdhOverFlow ? containerRect.left : (pointAtCenter ? middleX - offsetXWithArrow : triggerRect.left);
-                top = isHeightOverFlow ? containerRect.bottom - SPACING + offsetHeight : triggerRect.top - SPACING;
+                top = isHeightOverFlow ? containerRect.bottom + offsetHeight : triggerRect.top - SPACING;
                 translateY = -1;
                 break;
             case 'topRight':
                 // left = pointAtCenter ? middleX + offsetXWithArrow : triggerRect.right;
                 // top = triggerRect.top - SPACING;
                 left = isWitdhOverFlow ? containerRect.right + offsetWidth : (pointAtCenter ? middleX + offsetXWithArrow : triggerRect.right);
-                top = isHeightOverFlow ? containerRect.bottom - SPACING + offsetHeight : triggerRect.top - SPACING;
+                top = isHeightOverFlow ? containerRect.bottom + offsetHeight : triggerRect.top - SPACING;
                 translateY = -1;
                 translateX = -1;
                 break;
@@ -483,7 +486,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
                 // left = middleX;
                 // top = triggerRect.top + triggerRect.height + SPACING;
                 left = isWitdhOverFlow ? (isTriggerNearLeft ? containerRect.left + wrapperRect.width / 2 : containerRect.right - wrapperRect.width / 2 + offsetWidth): middleX;
-                top = isHeightOverFlow ? containerRect.top - SPACING + offsetYWithArrow : triggerRect.top + triggerRect.height + SPACING;
+                top = isHeightOverFlow ? containerRect.top + offsetYWithArrow - SPACING: triggerRect.top + triggerRect.height + SPACING;
                 translateX = -0.5;
                 break;
             case 'bottomLeft':
@@ -569,6 +572,11 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         left = _containerIsBody ? left : left + containerRect.scrollLeft;
         top = _containerIsBody ? top : top + containerRect.scrollTop;
 
+        if (offScreen){
+            left = -9999;
+            top= -9999;
+        }
+
         const triggerHeight = triggerRect.height;
 
         if (
@@ -632,7 +640,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
      * - decide whether to automatically adjust the position according to the current position and the boundingClient of wrapper
      * - adjust the current style according to the current position, the boundingClient of trigger and motion.handle Style
      */
-    calcPosition = (triggerRect?: DOMRect, wrapperRect?: DOMRect, containerRect?: PopupContainerDOMRect, shouldUpdatePos = true) => {
+    calcPosition = (triggerRect?: DOMRect, wrapperRect?: DOMRect, containerRect?: PopupContainerDOMRect, shouldUpdatePos = true, offScreen = false) => {
         triggerRect = (isEmpty(triggerRect) ? this._adapter.getTriggerBounding() : triggerRect) || { ...defaultRect as any };
         containerRect = (isEmpty(containerRect) ? this._adapter.getPopupContainerRect() : containerRect) || {
             ...defaultRect,
@@ -641,7 +649,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
 
         // console.log('containerRect: ', containerRect, 'triggerRect: ', triggerRect, 'wrapperRect: ', wrapperRect);
 
-        let style = this.calcPosStyle(triggerRect, wrapperRect, containerRect);
+        let style = this.calcPosStyle(triggerRect, wrapperRect, containerRect, offScreen);
 
         let position = this.getProp('position');
 
@@ -652,7 +660,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
             if (position !== adjustedPos || isHeightOverFlow || isWidthOverFlow) {
                 position = adjustedPos;
 
-                style = this.calcPosStyle(triggerRect, wrapperRect, containerRect, position, null, [ isHeightOverFlow, isWidthOverFlow ]);
+                style = this.calcPosStyle(triggerRect, wrapperRect, containerRect, false, position, null, [ isHeightOverFlow, isWidthOverFlow ]);
             }
         }
 

@@ -116,7 +116,7 @@ const Top2TopLeft = () => {
                 h={100}
                 style={{
                     position: 'absolute',
-                    top: 220,
+                    bottom: 0,
                 }}
             />
         </Tooltip>

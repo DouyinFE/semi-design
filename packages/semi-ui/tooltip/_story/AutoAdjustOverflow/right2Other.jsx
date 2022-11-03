@@ -26,7 +26,7 @@ const Right2Left = () => {
                 style={{
                     position: 'absolute',
                     right: 0,
-                    bottom: 0
+                    bottom: 300
                 }}
             >
                 pos: {pos}
