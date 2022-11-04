@@ -32,4 +32,17 @@ describe('inputNumber', () => {
         cy.get('input[data-cy=step]').trigger('keydown', { eventConstructor: 'KeyboardEvent', key: 'downArrow', keyCode: 40, shiftKey: true });
         cy.get('input[data-cy=step]').should('have.value', '5');
     });
+
+    it.only('click prefix/suffix to focus', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=inputnumber--prefix-suffix&args=&viewMode=story');
+        cy.get('.semi-input-wrapper').eq(0).children('.semi-input-prefix').click();
+        cy.get('.semi-input-wrapper').eq(0).children('input').should('be.focused');
+        cy.get('body').click();
+        cy.get('.semi-input-wrapper').eq(0).children('input').should('not.be.focused');
+
+        cy.get('.semi-input-wrapper').eq(0).children('.semi-input-suffix').click();
+        cy.get('.semi-input-wrapper').eq(0).children('input').should('be.focused');
+        cy.get('body').click();
+        cy.get('.semi-input-wrapper').eq(0).children('input').should('not.be.focused');
+    });
 });
