@@ -4,7 +4,7 @@ import { getPreloadImagArr, downloadImage, isTargetEmit } from "./utils";
 
 export interface PreviewInnerAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     getIsInGroup: () => boolean;
-    notifyChange: (index: number) => void;
+    notifyChange: (index: number, direction: string) => void;
     notifyZoom: (zoom: number, increase: boolean) => void;
     notifyClose: () => void;
     notifyVisibleChange: (visible: boolean) => void;
@@ -119,7 +119,7 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
                 currentIndex: newIndex,
             } as any);
         }
-        this._adapter.notifyChange(newIndex);
+        this._adapter.notifyChange(newIndex, direction);
         this.setState({
             direction,
             rotation: 0,

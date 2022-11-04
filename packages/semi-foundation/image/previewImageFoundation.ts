@@ -257,7 +257,6 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
             }
             if (canDragVertical) {
                 newY = newY > 0 ? 0 : newY < extremeTop ? extremeTop : newY;
-
             }
             const _offset = {
                 x: newX,
