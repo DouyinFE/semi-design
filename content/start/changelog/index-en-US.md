@@ -16,6 +16,14 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.22.2 (2022-10-31)
+- 【Fix】
+    - Fix the flickering problem when Tooltip and Popover components are closed (affecting v2.22) [#1225](https://github.com/DouyinFE/semi-design/issues/1225)
+
+#### 🎉 2.22.0 (2022-10-28)
+- 【Fix】
+    - fix the issue of inconsistent width when the year-month selection mode is normal and wheel under DatePicker type="month"
+
 #### 🎉 2.22.0-beta.2 (2022-10-26)
 - 【Fix】
   - Fix the problem that the restTagsPopoverProps API in Select is not set as optional, causing ts to report an error

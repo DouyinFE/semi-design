@@ -925,7 +925,7 @@ import { Transfer } from '@douyinfe/semi-ui';
 | draggable | Whether to enable drag sorting | boolean | false | |
 | emptyContent | Custom empty state prompt text, search is the text displayed when there are no search results, left is the text when there is no source data on the left, and right is the prompt text when no data is checked | {left: ReactNode; right: ReactNode; search: ReactNode;} | | |
 | filter | Custom filter logic, when false, the search box is not displayed | boolean \| (input:string, item: Item) => boolean | true | |
-| inputProps | Can be used to customize the search box Input, the configurable properties refer to the Input component | [InputProps](/en-US/input/input#Input) | | |
+| inputProps | Can be used to customize the search box Input, the configurable properties refer to the Input component, the value and onChange parameters will be used inside Transfer, users should not use them. If you want to search through external data, you can call the search method of Transfer | [InputProps](/en-US/input/input#Input) | | |
 | loading | Whether the left option is being loaded | boolean |-| |
 | onChange | The callback that is triggered when the selected value changes, and the callback is also triggered after the drag sort changes | (values: Array<string\|number>, items: Array<Item\>) => void | | |
 | onDeselect | Callback when unchecking | (item: Item) => void | | |
@@ -968,6 +968,10 @@ TreeItem inherits all the properties of Item
 | props    | description    | data type        | default |
 | -------- | -------------- | ---------------- | ------- |
 | children | Children Items | array<TreeItem\> |         |
+
+### Method
+
+- search(value: string): You can call this method through ref to search, and the search value will be set to Input.
 
 ## Design Tokens
 <DesignToken/>

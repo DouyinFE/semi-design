@@ -194,7 +194,7 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
         const isOpen = this.adapter.getIsOpen();
 
         const iconElem = React.isValidElement(icon) ? (withTransition ? (
-            <CSSAnimation animationState={isOpen?"enter":"leave"} startClassName={`${cssClasses.PREFIX}-icon-rotate-${isOpen?"0":"180"}`}>
+            <CSSAnimation animationState={isOpen?"enter":"leave"} startClassName={`${cssClasses.PREFIX}-icon-rotate-${isOpen?"180":"0"}`}>
                 {({ animationClassName })=>{
                     // @ts-ignore
                     return React.cloneElement(icon, { size: iconSize, className: animationClassName });
