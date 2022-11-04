@@ -7,7 +7,7 @@ import { cssClasses, strings } from '@douyinfe/semi-foundation/input/constants';
 import { isSemiIcon } from '../_utils';
 import BaseComponent from '../_base/baseComponent';
 import '@douyinfe/semi-foundation/input/input.scss';
-import { isString, noop, isFunction } from 'lodash';
+import { isString, noop, isFunction, isUndefined } from 'lodash';
 import { IconClear, IconEyeOpened, IconEyeClosedSolid } from '@douyinfe/semi-icons';
 
 const prefixCls = cssClasses.PREFIX;
@@ -396,6 +396,22 @@ class Input extends BaseComponent<InputProps, InputState> {
         );
     }
 
+    getInputRef() {
+        const { forwardRef } = this.props;
+        if (!isUndefined(forwardRef)) {
+            if (typeof forwardRef === 'function') {
+                return (node: HTMLInputElement) => {
+                    forwardRef(node);
+                    this.inputRef = { current: node } ;
+                };
+            } else if (Object.prototype.toString.call(forwardRef) === '[object Object]') {
+                this.inputRef = forwardRef;
+                return forwardRef;
+            }
+        }
+        return this.inputRef;
+    }
+
     render() {
         const {
             addonAfter,
@@ -429,7 +445,7 @@ class Input extends BaseComponent<InputProps, InputState> {
         const { value, isFocus, minLength: stateMinLength } = this.state;
         const suffixAllowClear = this.showClearBtn();
         const suffixIsIcon = isSemiIcon(suffix);
-        const ref = forwardRef || this.inputRef;
+        const ref = this.getInputRef();
         const wrapperPrefix = `${prefixCls}-wrapper`;
         const wrapperCls = cls(wrapperPrefix, className, {
             [`${prefixCls}-wrapper__with-prefix`]: prefix || insetLabel,
