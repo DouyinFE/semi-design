@@ -355,11 +355,12 @@ class TagInputDemo extends React.Component {
 
 ### 自定义标签渲染
 
-可以使用 `renderTagItem` 自定义标签渲染。
+可以使用 `renderTagItem` 自定义标签渲染。 `renderTagItem(value: string, index: number, onClose: function ) => React.ReactNode` 第三个参数 `onClose` 于 2.23.0 版本开始提供。
 
 ```jsx live=true
 import React from 'react';
 import { TagInput, Avatar } from '@douyinfe/semi-ui';
+import { IconClose } from '@douyinfe/semi-ui-icons';
 
 class CustomRender extends React.Component {
     constructor(props) {
@@ -376,7 +377,7 @@ class CustomRender extends React.Component {
         this.mapList = new Map(this.list.map( item => [item.name, item]));
     }
 
-    renderTagItem(value, index) {
+    renderTagItem(value, index, onClose) {
         const data = this.mapList.get(value);
         return (
             <div 
@@ -391,6 +392,7 @@ class CustomRender extends React.Component {
                 <span style={{ marginLeft: 8 }}>
                     {`${value}@semi.com`}
                 </span>
+                <IconClose onClick={onClose} />
             </div>
         );
     }
@@ -401,12 +403,12 @@ class CustomRender extends React.Component {
             <TagInput 
                 value={value} 
                 onChange={value => this.setState({ value })}
-                renderTagItem={(value, index) => this.renderTagItem(value, index)}
+                renderTagItem={(value, index, onClose) => this.renderTagItem(value, index, onClose)}
             />
         );
     }
 }
-``` 
+```
 
 ### 拖拽排序
 
@@ -449,7 +451,7 @@ import { TagInput } from '@douyinfe/semi-ui';
 |placeholder  |占位默认值                                         |string                         | -         |1.19.0|
 |prefix       |前缀标签                                           |ReactNode                      |-          |1.19.0|
 | preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法 | boolean |  |  |
-|renderTagItem|自定义标签渲染                                      |(value: string, index: number) => React.ReactNode | -        |1.19.0|
+|renderTagItem|自定义标签渲染, 参数 onClose 于版本2.23.0版本提供     | <ApiType detail='(value: string, index: number, onClose: function) => React.ReactNode'>(params) => React.ReactNode</ApiType> | -  |1.19.0|
 |separator    |设置批量输入时的分隔符                               |string\|string[]                         |,    |1.19.0, string[]是从1.29.0开始支持|
 |showClear    |是否支持一键删除所有标签和输入内容                     |boolean                        |false      |1.19.0|
 |size         |设置输入框尺寸,可选: `small`、`large`、`default`     |string                          |`default` |1.19.0|
