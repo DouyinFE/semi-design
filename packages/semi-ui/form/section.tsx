@@ -10,7 +10,7 @@ export interface SectionProps {
     className?: string;
     style?: React.CSSProperties;
     text?: React.ReactNode;
-    children?: React.ReactNode;
+    children?: React.ReactNode
 }
 
 export default class Section extends PureComponent<SectionProps> {

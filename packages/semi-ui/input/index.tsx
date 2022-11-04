@@ -16,8 +16,8 @@ const sizeSet = strings.SIZE;
 const statusSet = strings.STATUS;
 const modeSet = strings.MODE;
 
-export { InputGroupProps } from './inputGroup';
-export { TextAreaProps } from './textarea';
+export type { InputGroupProps } from './inputGroup';
+export type { TextAreaProps } from './textarea';
 export type InputSize = 'small' | 'large' | 'default';
 export type InputMode = 'password';
 // still keep success as ValidateStatus optional value because form will pass success as props.validateStatus in sometime
@@ -64,6 +64,7 @@ export interface InputProps extends
     inputStyle?: React.CSSProperties;
     getValueLength?: (value: string) => number;
     forwardRef?: ((instance: any) => void) | React.MutableRefObject<any> | null;
+    preventScroll?: boolean
 }
 
 export interface InputState {
@@ -75,7 +76,7 @@ export interface InputState {
     isFocus: boolean;
     isHovering: boolean;
     eyeClosed: boolean;
-    minLength: number;
+    minLength: number
 }
 
 class Input extends BaseComponent<InputProps, InputState> {
@@ -117,6 +118,7 @@ class Input extends BaseComponent<InputProps, InputState> {
         insetLabelId: PropTypes.string,
         inputStyle: PropTypes.object,
         getValueLength: PropTypes.func,
+        preventScroll: PropTypes.bool,
     };
 
     static defaultProps = {
@@ -124,7 +126,6 @@ class Input extends BaseComponent<InputProps, InputState> {
         addonAfter: '',
         prefix: '',
         suffix: '',
-        disabled: false,
         readonly: false,
         type: 'text',
         showClear: false,
@@ -174,9 +175,10 @@ class Input extends BaseComponent<InputProps, InputState> {
             setValue: (value: string) => this.setState({ value }),
             setEyeClosed: (value: boolean) => this.setState({ eyeClosed: value }),
             toggleFocusing: (isFocus: boolean) => {
+                const { preventScroll } = this.props;
                 const input = this.inputRef && this.inputRef.current;
                 if (isFocus) {
-                    input && input.focus();
+                    input && input.focus({ preventScroll });
                 } else {
                     input && input.blur();
                 }
@@ -424,6 +426,7 @@ class Input extends BaseComponent<InputProps, InputState> {
             forwardRef,
             maxLength,
             getValueLength,
+            preventScroll,
             ...rest
         } = this.props;
         const { value, paddingLeft, isFocus, minLength: stateMinLength } = this.state;

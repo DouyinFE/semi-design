@@ -129,8 +129,8 @@ export default function App() {
                     address: `London, Park Lane no. ${i}`,
                 });
             }
-            setDataSource(data)
-        }, [pagination])
+            setDataSource(data);
+        }, [pagination]);
         // const pagination = useMemo(() => {
         //     console.log('pagination', pageSize, currentPage);
         //     return {

@@ -13,7 +13,7 @@ export interface StepProps {
     title?: React.ReactNode;
     className?: string;
     style?: React.CSSProperties;
-    onClick?: React.MouseEventHandler<HTMLDivElement>;
+    onClick?: React.MouseEventHandler<HTMLDivElement>
 }
 
 const Step = (props: StepProps) => {

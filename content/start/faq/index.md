@@ -3,8 +3,11 @@ category: 开始
 title: FAQ 常见问题
 icon: doc-faq
 localeCode: zh-CN
-order: 8
+order: 9
 ---
+
+#### Semi 提供了 Figma UI Kit，考虑提供 Sketch 或基于其他设计工具的版本吗？
+- 目前没有这方面的计划，具体原因请参考 [Issue 74](https://github.com/DouyinFE/semi-design/issues/74)
 
 #### Semi 2.x 与 Semi 1.x 有什么不同？
 
@@ -44,7 +47,7 @@ Semi 组件中，所有的 defaultValue、defaultXXX 传参只会在组件被 mo
 
 #### Semi 支持 i18n 吗？
 
-Semi 目前支持 14 种语言，具体使用可以查阅 [Semi·LocaleProvider](/zh-CN/other/locale)
+Semi 目前支持 17 种语言，具体使用可以查阅 [Semi·LocaleProvider](/zh-CN/other/locale)
 
 #### Semi 的样式是基于 Scss 还是 Less ？为什么不用 CSS Module？
 

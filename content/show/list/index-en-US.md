@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 53
+order: 55
 category: Show
 title: List
 subTitle: List
@@ -13,7 +13,7 @@ brief: Lists display a set of related contents
 
 ### How to import
 
-```jsx import 
+```jsx import
 import { List } from '@douyinfe/semi-ui';
 ```
 
@@ -1098,8 +1098,8 @@ import { IconSearch } from '@douyinfe/semi-icons';
                 />
             </div>
         </div>
-    )
-}
+    );
+};
 ```
 
 ### Add delete item
@@ -1133,7 +1133,7 @@ import { IconMinusCircle, IconPlusCircle } from '@douyinfe/semi-icons';
         if (item) {
             newList = list.filter(i => item !== i);
         } else {
-            newList = list.concat(data.slice(list.length, list.length + 1))
+            newList = list.concat(data.slice(list.length, list.length + 1));
         }
         setList(newList);
     };
@@ -1154,8 +1154,8 @@ import { IconMinusCircle, IconPlusCircle } from '@douyinfe/semi-icons';
                         </div>
                     }
                 />
-                <div style={{ margin: 4, fontSize: 14  }} onClick={() => updateList()}>
-                    <Button theme='borderless'  icon={<IconPlusCircle />}  style={{ marginRight: 4, color: 'var(--semi-color-info)' }}>
+                <div style={{ margin: 4, fontSize: 14 }} onClick={() => updateList()}>
+                    <Button theme='borderless' icon={<IconPlusCircle />} style={{ marginRight: 4, color: 'var(--semi-color-info)' }}>
                     </Button>
                     Add book
                 </div>
@@ -1390,6 +1390,12 @@ body > .component-list-demo-drag-item {
 | onClick      | Callback function when click an item **v>=1.0.0**                                                       | function  | -            |
 | onRightClick | Callback function when right click an item **v>=1.0.0**                                                 | function  | -            |
 | style        | Inline style                                                                                            | CSSProperties    | -            |
+
+## Content Guidelines
+
+- Capitalize the first letter
+- do not follow punctuation at the end
+- Grammatical parallelism: mixed use of active and passive, declarative and imperative sentences
 
 ## Design Tokens
 <DesignToken/>

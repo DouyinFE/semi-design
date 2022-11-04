@@ -1,6 +1,6 @@
+@use "sass:math";
 // mixins for clearfix
 // ------------------------
-
 //TODO 提出到公共mixin
 @mixin clearfix() {
     zoom: 1;
@@ -21,8 +21,8 @@
 @mixin make-row($gutter: $width-grid_gutter) {
     position: relative;
     height: auto;
-    margin-right: ($gutter / -2);
-    margin-left: ($gutter / -2);
+    margin-right: ($gutter * -0.5);
+    margin-left: ($gutter * -0.5);
     @include clearfix();
 }
 
@@ -35,8 +35,8 @@
         #{$item} {
             position: relative;
             min-height: 1px;
-            padding-right: ($width-grid_gutter / 2);
-            padding-left: ($width-grid_gutter / 2);
+            padding-right: ($width-grid_gutter * 0.5);
+            padding-left: ($width-grid_gutter * 0.5);
         }
     }
 }
@@ -59,19 +59,19 @@
         .#{$module}-col#{$class}-#{$i} {
             display: block;
             box-sizing: border-box;
-            width: percentage(($i / $width-grid_columns));
+            width: percentage(math.div($i , $width-grid_columns));
         }
 
         .#{$module}-col#{$class}-push-#{$i} {
-            left: percentage(($i / $width-grid_columns));
+            left: percentage(math.div($i , $width-grid_columns));
         }
 
         .#{$module}-col#{$class}-pull-#{$i} {
-            right: percentage(($i / $width-grid_columns));
+            right: percentage(math.div($i , $width-grid_columns));
         }
 
         .#{$module}-col#{$class}-offset-#{$i} {
-            margin-left: percentage(($i / $width-grid_columns));
+            margin-left: percentage(math.div($i , $width-grid_columns));
         }
 
         .#{$module}-col#{$class}-order-#{$i} {
@@ -101,7 +101,7 @@
         .#{$module}-col#{$class}-offset-#{$i} {
             .#{$prefix}-rtl & {
                 margin-left: auto;
-                margin-right: percentage(($i / $width-grid_columns));
+                margin-right: percentage(math.div($i , $width-grid_columns));
             }
         }
     }

@@ -9,7 +9,7 @@ export interface IconProps {
     component?: React.ReactNode;
     size?: number;
     className?: string;
-    type?: string;
+    type?: string
 }
 
 function Icon(props: IconProps = {}) {

@@ -1,4 +1,5 @@
-@import "./variables.scss";
+@import './animation.scss';
+@import './variables.scss';
 
 $module: #{$prefix}-carousel;
 
@@ -23,22 +24,20 @@ $module: #{$prefix}-carousel;
             &-current {
                 z-index: 1;
             }
-
         }
 
         &-fade {
-            
             > * {
                 opacity: 0;
             }
-    
+
             .#{$module}-content-item-current {
                 opacity: 1;
             }
         }
 
         &-slide {
-            &>*:not(.#{$module}-content-item-current) {
+            & > *:not(.#{$module}-content-item-current) {
                 visibility: hidden;
             }
 
@@ -46,21 +45,20 @@ $module: #{$prefix}-carousel;
                 display: block;
                 animation: #{$module}-content-item-keyframe-slide-out;
             }
-        
+
             .#{$module}-content-item-slide-in {
                 display: block;
                 animation: #{$module}-content-item-keyframe-slide-in;
             }
-          
         }
 
         &-reverse {
             .#{$module}-content-item-slide-out {
-                animation: #{$module}-content-item-keyframe-slide-out-reverse ;
+                animation: #{$module}-content-item-keyframe-slide-out-reverse;
             }
-    
+
             .#{$module}-content-item-slide-in {
-                animation: #{$module}-content-item-keyframe-slide-in-reverse ;
+                animation: #{$module}-content-item-keyframe-slide-in-reverse;
             }
         }
     }
@@ -89,7 +87,6 @@ $module: #{$prefix}-carousel;
             bottom: $spacing-carousel_indicator-padding;
         }
 
-    
         &-dot {
             .#{$module}-indicator-item {
                 border-radius: $radius-carousel_indicator_dot;
@@ -102,7 +99,6 @@ $module: #{$prefix}-carousel;
                 &-small {
                     width: $width-carousel_indicator_dot_small;
                     height: $width-carousel_indicator_dot_small;
-                   
                 }
 
                 &-medium {
@@ -112,6 +108,8 @@ $module: #{$prefix}-carousel;
 
                 &-primary {
                     background-color: $color-carousel_indicator_theme_primary-bg-default;
+                    transition: background-color $transition_duration-carousel_indicator-bg
+                        $transition_function-carousel_indicator-bg $transition_delay-carousel_indicator-bg;
 
                     &.#{$module}-indicator-item-active {
                         background: $color-carousel_indicator_theme_primary-bg-active;
@@ -127,8 +125,9 @@ $module: #{$prefix}-carousel;
                 }
 
                 &-light {
-
                     background-color: $color-carousel_indicator_theme_light-bg-default;
+                    transition: background-color $transition_duration-carousel_indicator-bg
+                        $transition_function-carousel_indicator-bg $transition_delay-carousel_indicator-bg;
 
                     &.#{$module}-indicator-item-active {
                         background: $color-carousel_indicator_theme_light-bg-active;
@@ -145,6 +144,8 @@ $module: #{$prefix}-carousel;
 
                 &-dark {
                     background-color: $color-carousel_indicator_theme_dark-bg-default;
+                    transition: background-color $transition_duration-carousel_indicator-bg
+                        $transition_function-carousel_indicator-bg $transition_delay-carousel_indicator-bg;
 
                     &.#{$module}-indicator-item-active {
                         background-color: $color-carousel_indicator_theme_dark-bg-active;
@@ -159,14 +160,13 @@ $module: #{$prefix}-carousel;
                     }
                 }
             }
-
         }
 
         &-line {
             width: $width-carousel_indicator_line;
 
             .#{$module}-indicator-item {
-                flex: 1; 
+                flex: 1;
                 cursor: pointer;
 
                 &:not(:last-child) {
@@ -175,7 +175,6 @@ $module: #{$prefix}-carousel;
 
                 &-small {
                     height: $height-carousel_indicator_line_small;
-                   
                 }
 
                 &-medium {
@@ -199,7 +198,6 @@ $module: #{$prefix}-carousel;
                 }
 
                 &-light {
-
                     background-color: $color-carousel_indicator_theme_light-bg-default;
 
                     &.#{$module}-indicator-item-active {
@@ -216,7 +214,6 @@ $module: #{$prefix}-carousel;
                 }
 
                 &-dark {
-
                     background-color: $color-carousel_indicator_theme_dark-bg-default;
 
                     &.#{$module}-indicator-item-active {
@@ -231,15 +228,13 @@ $module: #{$prefix}-carousel;
                         background: $color-carousel_indicator_theme_dark-bg-active;
                     }
                 }
-        
             }
-
         }
 
         &-columnar {
             .#{$module}-indicator-item {
                 cursor: pointer;
-                
+
                 &:not(:last-child) {
                     margin-right: $spacing-carousel_indicator_columnar-marginX;
                 }
@@ -262,10 +257,8 @@ $module: #{$prefix}-carousel;
                     }
                 }
 
-
                 &-primary {
                     background-color: $color-carousel_indicator_theme_primary-bg-default;
-
 
                     &.#{$module}-indicator-item-active {
                         background: $color-carousel_indicator_theme_primary-bg-active;
@@ -298,7 +291,7 @@ $module: #{$prefix}-carousel;
 
                 &-dark {
                     background-color: $color-carousel_indicator_theme_dark-bg-default;
-                    
+
                     &.#{$module}-indicator-item-active {
                         background: $color-carousel_indicator_theme_dark-bg-active;
                     }
@@ -311,9 +304,7 @@ $module: #{$prefix}-carousel;
                         background: $color-carousel_indicator_theme_dark-bg-active;
                     }
                 }
-        
             }
-
         }
     }
 
@@ -340,15 +331,18 @@ $module: #{$prefix}-carousel;
 
         &-light {
             color: $color-carousel_arrow_theme_light-bg-default;
+            transition: color $transition_duration-carousel_arrow-bg $transition_funciton_carousel_arrow-bg
+                $transition_delay-carousel_arrow-bg;
 
             &:hover {
                 color: $color-carousel_arrow_theme_light-bg-hover;
             }
         }
 
-
         &-primary {
             color: $color-carousel_arrow_theme_primary-bg-default;
+            transition: color $transition_duration-carousel_arrow-bg $transition_funciton_carousel_arrow-bg
+                $transition_delay-carousel_arrow-bg;
 
             &:hover {
                 color: $color-carousel_arrow_theme_primary-bg-hover;
@@ -357,20 +351,20 @@ $module: #{$prefix}-carousel;
 
         &-dark {
             color: $color-carousel_arrow_theme_dark-bg-default;
+            transition: color $transition_duration-carousel_arrow-bg $transition_funciton_carousel_arrow-bg
+                $transition_delay-carousel_arrow-bg;
 
             &:hover {
                 color: $color-carousel_arrow_theme_dark-bg-hover;
             }
         }
-
     }
 
     &-arrow-hover div {
         z-index: 2;
         opacity: 0;
-        transition: all .3s;
     }
-    
+
     &:hover {
         .#{$module}-arrow-hover div {
             opacity: 1;
@@ -379,47 +373,43 @@ $module: #{$prefix}-carousel;
 }
 
 @keyframes #{$module}-content-item-keyframe-slide-in {
-
     from {
         transform: translateX(100%);
     }
-    
+
     to {
         transform: translateX(0);
     }
 }
 
 @keyframes #{$module}-content-item-keyframe-slide-out {
-
     from {
         transform: translateX(0);
     }
-    
+
     to {
         transform: translateX(-100%);
     }
 }
 
 @keyframes #{$module}-content-item-keyframe-slide-in-reverse {
-
     from {
         transform: translateX(-100%);
     }
-  
+
     to {
         transform: translateX(0);
     }
 }
-  
-@keyframes #{$module}-content-item-keyframe-slide-out-reverse {
 
+@keyframes #{$module}-content-item-keyframe-slide-out-reverse {
     from {
         transform: translateX(0);
     }
-  
+
     to {
         transform: translateX(100%);
     }
 }
 
-@import "./rtl.scss";
+@import './rtl.scss';

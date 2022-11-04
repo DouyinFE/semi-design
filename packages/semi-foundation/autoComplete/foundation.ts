@@ -8,17 +8,18 @@ interface KeyboardAdapter<P = Record<string, any>, S = Record<string, any>> exte
     registerKeyDown: (callback: (event: any) => void) => void;
     unregisterKeyDown: (callback: (event: any) => void) => void;
     updateFocusIndex: (focusIndex: number) => void;
+    notifyKeyDown: (e: any) => void
 }
 
 export interface DataItem {
     [x: string]: any;
     value?: string | number;
-    label?: any; // reactNode
+    label?: any // reactNode
 }
 
 export interface StateOptionItem extends DataItem {
     show?: boolean;
-    key?: string | number;
+    key?: string | number
 }
 
 export type AutoCompleteData = Array<DataItem | string>;
@@ -38,6 +39,7 @@ export interface AutoCompleteAdapter<P = Record<string, any>, S = Record<string,
     notifyFocus: (event?: any) => void;
     notifyBlur: (event?: any) => void;
     rePositionDropdown: () => void;
+    persistEvent: (event: any) => void
 }
 
 class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<AutoCompleteAdapter<P, S>, P, S> {
@@ -153,6 +155,9 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
         this._adapter.notifySearch(inputValue);
         this._adapter.notifyChange(inputValue);
         this._modifyFocusIndex(inputValue);
+        if (!this.isPanelOpen){
+            this.openDropdown();
+        }
     }
 
     handleSelect(option: StateOptionItem, optionIndex?: number): void {
@@ -333,6 +338,7 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
             default:
                 break;
         }
+        this._adapter.notifyKeyDown(event);
     }
 
     _getEnableFocusIndex(offset: number) {
@@ -389,7 +395,7 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
         if (!visible){
             this.openDropdown();
         } else {
-            if (focusIndex !== undefined  && focusIndex !== -1 && options.length !== 0) {
+            if (focusIndex !== undefined && focusIndex !== -1 && options.length !== 0) {
                 const visibleOptions = options.filter((item: StateOptionItem) => item.show);
                 const selectedOption = visibleOptions[focusIndex];
                 this.handleSelect(selectedOption, focusIndex);
@@ -410,7 +416,10 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
         this._adapter.notifyFocus(e);
     }
 
-    handleBlur(e: FocusEvent) {
+    handleBlur(e: any) {
+        // only need persist on react adapter
+        // https://reactjs.org/docs/legacy-event-pooling.html
+        this._persistEvent(e);
         // In order to handle the problem of losing onClick binding when clicking on the padding area, the onBlur event is triggered first to cause the react view to be updated
         // internal-issues:1231
         setTimeout(() => {

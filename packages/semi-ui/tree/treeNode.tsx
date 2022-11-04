@@ -221,7 +221,7 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
     }
 
     renderCheckbox() {
-        const { checked, halfChecked } = this.props;
+        const { checked, halfChecked, eventKey } = this.props;
         const disabled = this.isDisabled();
         return (
             <div
@@ -231,6 +231,7 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
             >
                 <Checkbox
                     aria-label='Toggle the checked state of checkbox'
+                    value={eventKey}
                     indeterminate={halfChecked}
                     checked={checked}
                     disabled={Boolean(disabled)}

@@ -9,7 +9,7 @@ export interface DescriptionsItemProps {
     className?: string;
     children?: React.ReactNode | (() => React.ReactNode);
     style?: React.CSSProperties;
-    itemKey?: React.ReactNode;
+    itemKey?: React.ReactNode
 }
 
 const prefixCls = cssClasses.PREFIX;

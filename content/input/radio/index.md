@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 25
+order: 26
 category: 输入类
 title: Radio 单选框
 icon: doc-radio
@@ -115,7 +115,7 @@ import React from 'react';
 import { RadioGroup, Radio } from '@douyinfe/semi-ui';
 
 () => {
-    const [value,  setValue] = useState(1);
+    const [value, setValue] = useState(1);
     const onChange = (e) => {
         console.log('radio checked', e.target.value);
         setValue(e.target.value);
@@ -196,13 +196,13 @@ import { RadioGroup, Radio } from '@douyinfe/semi-ui';
 
 () => (
     <RadioGroup type='card' defaultValue={2} direction='vertical' aria-label="单选组合示例" name="demo-radio-group-card">
-        <Radio value={1} disabled extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{width:280}}>
+        <Radio value={1} disabled extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 280 }}>
             单选框标题
         </Radio>
-        <Radio value={2} extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{width:280}}>
+        <Radio value={2} extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 280 }}>
             单选框标题
         </Radio>
-        <Radio value={3} extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{width:280}}>
+        <Radio value={3} extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 280 }}>
             单选框标题
         </Radio>
     </RadioGroup>
@@ -220,13 +220,13 @@ import { RadioGroup, Radio } from '@douyinfe/semi-ui';
 
 () => (
     <RadioGroup type='pureCard' defaultValue={2} direction='vertical' aria-label="单选组合示例" name="demo-radio-group-pureCard">
-        <Radio value={1} disabled extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{width:280}}>
+        <Radio value={1} disabled extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 280 }}>
             单选框标题
         </Radio>
-        <Radio value={2} extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{width:280}}>
+        <Radio value={2} extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 280 }}>
             单选框标题
         </Radio>
-        <Radio value={3} extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{width:280}}>
+        <Radio value={3} extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 280 }}>
             单选框标题
         </Radio>
     </RadioGroup>
@@ -321,19 +321,21 @@ class App extends React.Component {
 
 | 属性           | 说明                                                                   | 类型              | 默认值  |
 |----------------|-----------------------------------------------------------------------|------------------|--------|
-| addonClassName | 包裹内容容器的样式类名  **v1.16.0 后提供**                                 | string            |       |
-| addonId | addon 节点 id，aria-labelledby 指向这个 id，若无设置会随机生成一个 id  **v2.11.0 后提供**                                 | string            |       |
-| addonStyle     | 包裹内容容器的内联样式  **v1.16.0 后提供**                                 | CSSProperties     |       |
+| addonClassName | 包裹内容容器的样式类名  <br/>**v1.16.0 后提供**                                 | string            |       |
+| addonId | addon 节点 id，aria-labelledby 指向这个 id，若无设置会随机生成一个 id  <br/>**v2.11.0 后提供**                                 | string            |       |
+| addonStyle     | 包裹内容容器的内联样式  <br/>**v1.16.0 后提供**                                 | CSSProperties     |       |
 | aria-label      | Radio 的 label                                                            | string           | -  |
 | name         | Radio组件中`input[type="radio"]`的`name`属性，具有相同`name`的Radio属于同一个RadioGroup，`name`属性可参考[MDN Radio](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/Input/radio#%E5%80%BC)                              | string         | -  |
 | autoFocus      | 自动获取焦点                                                            | boolean           | false  |
 | checked        | 指定当前是否选中                                                         | boolean           | false  |
+|type            |设置 radio的样式类型，可选值为：`default`、`button`、`card`、`pureCard` <br/>**该 api 在 v2.18.0 后提供**    |string|`default`|
 | className      | 样式类名                                                                | string            |        |
 | defaultChecked | 初始是否选中                                                             | boolean           | false  |
 | disabled       | 禁选单选框                                                              |boolean            | false    |
 | extra          | 副文本，只对type='default'生效<br/>**v0.25.0 后提供**                     | ReactNode         | -      |
 | extraId        | 副文本的 id，aria-describedby 指向这个 id，若无设置会随机生成一个 id <br/>**v2.11.0 后提供**                     | ReactNode         | -      |
 | mode           | 高级和普通模式，高级模式可以在 checked 时点击变成 unchecked，可选值 advanced   | string            | -      |
+| preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法 | boolean |  |  |
 | style          | 内联样式                                                                 | CSSProperties    |        |
 | value          | 根据 value 进行比较，判断是否选中                                          | string \| number               | -      |
 | onChange       | 选项变化时的回调函数                                                      | function(e:Event) | -      |
@@ -380,17 +382,21 @@ class App extends React.Component {
 WAI-ARIA: https://www.w3.org/WAI/ARIA/apg/patterns/radiobutton/
 
 - RadioGroup 可以被获取焦点，初始焦点设置：
-  - 当 RadioGroup 中没有被选择项时，初始焦点为第一个 Radio 项上；
-  - 当 RadioGroup 中有选中项时，初始焦点为选中的 Radio 项上。
+  - 当 RadioGroup 中没有被选择项时，初始焦点为第一个 Radio 项上
+  - 当 RadioGroup 中有选中项时，初始焦点为选中的 Radio 项上
 - 在同一个 radiogroup 内
-  - 可以通过 `右箭头` 或 `下箭头` 将焦点移动到下一个 Radio 项上，同时取消先前的 Radio 项的选中状态，并选中当前聚焦的 Radio 项；
-  - 可以通过 `左箭头` 或 `上箭头` 将焦点移动到上一个 Radio 项上，同时取消先前的 Radio 项的选中状态，并选中当前聚焦的 Radio 项。
-- 若 RadioGroup 中没有选中项，可以 `Space` 键选中初始焦点。
+  - 可以通过 `右箭头` 或 `下箭头` 将焦点移动到下一个 Radio 项上，同时取消先前的 Radio 项的选中状态，并选中当前聚焦的 Radio 项
+  - 可以通过 `左箭头` 或 `上箭头` 将焦点移动到上一个 Radio 项上，同时取消先前的 Radio 项的选中状态，并选中当前聚焦的 Radio 项
+- 若 RadioGroup 中没有选中项，可以 `Space` 键选中初始焦点
 
 <!-- ## 相关物料
 ```material
 123
 ``` -->
+
+## 文案规范
+- 首字母大写
+- 不使用标点符号
 
 ## 设计变量
 <DesignToken/>

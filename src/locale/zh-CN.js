@@ -6,8 +6,8 @@ const appLocale = {
     locale: 'zh-CN',
     messages: {
 
-        'apiDoc':'API 文档',
-        'designDoc':'设计文档',
+        "apiDoc": "API 文档",
+        "designDoc": "设计文档",
 
         // designToken
         'designToken.variable': '变量',
@@ -17,9 +17,11 @@ const appLocale = {
 
         // app
         'app.next': '下一步',
+
         // footer
         'footer.component': 'React 组件库',
-        'footer.dsm': '主题与DSM',
+        'footer.dsm': '主题与 DSM',
+
         // search
         'search.belong.component': '组件',
         'search.belong.material': '物料',
@@ -34,6 +36,7 @@ const appLocale = {
         'search.msg.peopleSearch': '大家在搜',
         'search.input.placeholder': '搜索组件/物料/资源',
 
+        // common
         component: '组件',
         themeStore: '主题商店',
         designLanguage: '设计语言',
@@ -73,20 +76,77 @@ const appLocale = {
         'icon.list.tab.stroked': '线性图标',
 
         // new  Home
-        // "comprehensive__easy_to_use_and_high_quality": "全面、易用、优质的",
+        // page one
         "enterprise_product_design_system": "连接设计师与开发者",
-        "home.banner.description": "由抖音前端与 UED 团队维护，易于定制的现代化设计系统，帮助设计师与开发者打造高质量产品。",
+        "home_banner_description": "由抖音前端与 UED 团队维护，易于定制的现代化设计系统，帮助设计师与开发者打造高质量产品。",
         "start_using": "开始使用",
+        // page two: products
         "now_serving_100_000": "现已服务 10 万 + 用户",
-        "user": "用户",
-        "smart_translation": "智能翻译",
-        "live_open_platform": "直播开放平台",
-        "experience_monitoring": "体验监测",
-        "content_security": "内容安全",
+        // page three: feature
+        "feature_title": "完善的开发者体验",
+        "feature_subtitle": "开箱即用的底层能力支持，为开发者节省精力，避免重造",
+        "feature_FA": "易于贡献的 FA 架构",
+        "feature_FA_description": "Semi 基于 FA 架构设计，主逻辑抽为 Foundation 包，易于迁移到其他框架",
+        "feature_a11y": "完备的无障碍支持",
+        "feature_a11y_description": "Semi 遵循 W3C 标准为所有组件提供键盘交互、焦点管理和语义化",
+        "feature_language": "国际化与多语言",
+        "feature_language_description": "Semi 提供完备的多语言、多时区、RTL支持，轻松打造全球化应用",
+        "feature_live_code": "Live Code 组件",
+        "feature_live_code_description": "LiveCode 允许你使用在线代码编辑器即时演示你的 UI 组件",
+        "feature_test": "稳定的质量保障",
+        "feature_test_description": "Semi 使用了单元测试等多种方法保证组件的稳定和质量，代码覆盖率达到 90%",
+        "feature_SSR": "支持 SSR",
+        "feature_SSR_description": "Semi 组件库支持 SSR 场景，可以在 Next.js 和 Gatsby 等框架中使用",
+        // page four: theme
+        "home.theme": "百变主题",
+        "home.theme.desc": "快速克隆或深度定制，灵活调配符合品牌调性的设计风格",
+        // page five: DSM
+        "semi_dsm": "Semi 设计系统管理",
+        "powerful_theme_editor__real_time_effect__one_click_synchronization_of_design_too_d77f5776bf126331e801d6d6aa0146f2": "强大的主题编辑器，实时生效，设计工具一键同步",
+        // page six: C to D to C
+        "home.pro.title": "让设计与代码同源",
+        "home.pro.desc": "基于 40+ 真实组件代码设计，海量页面模板前端代码一键转",
+        "home.pro.start": "了解更多",
+        "beta": "公测",
+        "example_upload_report": "上传报告",
+        "example_doc_name_zh": "文档中文名",
+        "example_doc_name_zh_desc": "请输入文档中文名",
+        "example_doc_name_en": "文档英文名",
+        "example_doc_name_en_desc": "请输入文档英文名",
+        "example_doc_link": "文档链接",
+        "example_doc_lark_link": "请输入飞书云文档链接",
+        "example_report_tag": "报告标签",
+        "example_business_line": "请选择业务线",
+        "example_result": "结论",
+        "example_result_desc": "请输入结论",
+        "example_remark": "备注",
+        "example_remark_desc": "请输入备注",
+        "example_upload_consist": "连续上传",
+        "example_cancel": "取消",
+        "example_confirm": "确定",
+        // page seven: Web application
+        "application_title": "打造现代 Web 应用",
+        "application_subtitle": "使用 Semi 与现代操作系统、浏览器更贴近的设计语言",
+        "feishu_program": "飞书项目是 2022 年春季飞书发布的单品，支持大型团队将复杂项目拆解流程并可视化，直观呈现协作标准，让成员明晰权责，轻松掌握上下游信息。",
+        "douyin_creator": "抖音创作服务平台是抖音创作者的专属服务平台，支持用户作为创作者和管理机构两种登录方式，提供多种功能助力用户高效运营",
+        "anyweb": "Anyweb 是一个免费的网站构建器，可以轻松创建专业网站。无需编程技能，您可以通过 Anyweb 拖放编辑器快速轻松地设置自定义网站。",
+        "star_river": "炙热星河是抖音旗下一站式音乐人服务平台，在音乐的·浩瀚星河，让有温度的音乐创作人入驻，为优秀音乐作品创造价值。",
+        "cap_cut": "剪映黑罐头连接视频创作产业链中的所有参与者，构建素材库（模板、道具、音效、花字、特效等），提供素材分享、合作交流、商业变现等服务。",
+        // page eight: deep content
+        "content_title": "内容深度解读",
+        "content_subtitle": "了解我们在无障碍、主题定制、自动化方案背后的思考",
+        "content_a11y": "Semi Design 中的无障碍设计",
+        "content_ally_info": "「不支持 Accessibility 的前端开源 UI 组件库，就是灾难」",
+        "content_theme": "深入浅出 Semi 主题化方案",
+        "content_theme_info": "兼容多元的品牌语言和产品形态，避免无意义的重造",
+        // page nine: comment
         "grow_with_users": "与用户共同成长",
-        "pay_attention_to_our_users__join_and_help_us_to_continuously_improve": "重视我们的用户，加入并助力我们不断完善",
-        "access_is_simple_and_easy_to_use;": "接入简单易上手；Semi UI 样式美观，主题统一；API 丰富全面。",
-        "beautiful_style_and_unified_theme;": "样式美观，主题统一；",
+        "grow_with_users_description": "Semi Design 重视我们的用户，加入并助力我们不断完善",
+        "download": "下载",
+        "contributor": "贡献者",
+        "thanks": "特别鸣谢",
+        "access_is_simple_and_easy_to_use": "接入简单易上手；Semi UI 样式美观，主题统一；API 丰富全面。",
+        "beautiful_style_and_unified_theme": "样式美观，主题统一；",
         "rich_and_comprehensive_": "丰富全面。",
         "front_end__bytedance": "前端, 字节跳动",
         "the_components_are_quite_complete__covering_a_wide_range_and_the_overall_style_i_e10d9214b403886d249f00b8c4dbb975": "Semi 组件挺全的，覆盖的比较广泛，整体风格也不错。",
@@ -101,28 +161,42 @@ const appLocale = {
         "easy_to_use__beautiful_style_": "Semi Design使用方便，样式美观。",
         "uniform_style_and_high_fidelity_prototype_facilitate_communication_with_front_en_95d0c0ccece05c104b98ac0dae9fb53b": "Semi 统一的样式，高保真的原型便于与前端同学进行沟通。",
         "the_documentation_is_very_detailed_and_the_details_of_the_components_are_well_th_aadc51a1122c41cf69ebd4b15e83e864": "文档非常详细，对组件的细节思考非常充足。",
-        "powerful_theme_editor__real_time_effect__one_click_synchronization_of_design_too_d77f5776bf126331e801d6d6aa0146f2": "强大的主题编辑器，实时生效，设计工具一键同步",
-        "learn_more": "了解更多",
-        "based_on": "基于",
-        "real_component_code_design__massive_page_template_front_end_code_one_click": "真实组件代码设计，海量页面模板前端代码一键转",
-        "under_construction": "建设中",
-        "home.resource.rd": "研发",
+        // page ten: resource
+        "resource_subtitle": "今天起，在下一个项目中使用 Semi Design",
+        "home.resource.rd": "我是开发者",
         "home.resource.rd.desc": "基于设计语言开发，能够在线调试的 React UI 组件库, 帮助开发者高效构建应用",
         "component_documentation": "组件文档",
-        "home.resource.design": "设计",
+        "home.resource.design": "我是设计师",
         "home.resource.design.desc": "基于 Figma 构建，与组件库代码完全对齐的设计资源，使用 Semi 设计出色的中后台企业应用",
+        
+        "user": "用户",
+        // "smart_translation": "智能翻译",
+        // "live_open_platform": "直播开放平台",
+        // "experience_monitoring": "体验监测",
+        // "content_security": "内容安全",
+       
+       
+        "learn_more": "了解更多",
+        // "based_on": "基于",
+        // "real_component_code_design__massive_page_template_front_end_code_one_click": "真实组件代码设计，海量页面模板前端代码一键转",
+        "under_construction": "建设中",
+        
 
-        "excellent_design_of_mid_background_enterprise_applications": "设计出色的中后台企业应用",
-        "home.theme": "百变主题",
-        "home.theme.desc": "快速克隆或深度定制，灵活调配符合品牌调性的设计风格",
-        "home.pro.desc": "基于 40+ 真实组件代码设计，海量页面模板前端代码一键转",
+        // "excellent_design_of_mid_background_enterprise_applications": "设计出色的中后台企业应用",
+
+        // "home.pro.title": "Semi Design 设计稿转代码",
+        // "home.pro.desc": "基于 40+ 真实组件代码设计，海量页面模板前端代码一键转",
+        // "home.pro.start": "快速开始",
+        // "beta": "公测",
 
         "default": "默认",
+        "design": "设计",
         "feishu_universe_design_theme": "飞书 Universe Design 主题",
         "douyin_creative_service_theme": "抖音创作服务主题",
+        "capCut_theme": "剪映主题",
         "volcengine_theme": "火山引擎主题",
         "system_notification": "系统通知",
-        "#nezha_s_magic_child_descent_#topic_activity_is_now_open!_according_to_the_rules_e2fe356bd395679eb176daa81ef0d082": "#哪吒之魔童降世# 话题活动开讲啦！根据活动规则，恭喜 13 位...",
+        "semi_design_share_2code": "#Semi Design2Code# 技术分享开讲啦！根据活动规则，恭喜 13 位...",
         "semi_design_share_presentation": "Semi Design 分享演示文稿",
         "beijing__china": "中国 北京",
         "douyin_certification": "官方认证",
@@ -141,8 +215,7 @@ const appLocale = {
         "sender": "发信人",
         "private_message_content": "私信内容",
         "time_of_dispatch": "发信时间",
-        "theme_store":'主题商店',
-        'semi_dsm':'Semi 设计系统管理'
+        "theme_store": "主题商店",
     },
 };
 

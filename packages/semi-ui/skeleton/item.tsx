@@ -10,24 +10,26 @@ export type BasicProps = {
     prefixCls?: string;
     className?: string;
     style?: CSSProperties;
-    type?: string;
+    type?: string
 };
 
 export interface ParagraphProps extends BasicProps {
-    rows?: number;
+    rows?: number
 }
 
 export interface AvatarProps extends BasicProps {
     size?: typeof strings.SIZE[number];
+    shape?: string
 }
 
 export type GenericProps = BasicProps & AvatarProps;
 
 const sizeSet = strings.SIZE;
+const shapeSet = strings.SHAPE;
 
-const generator = <T extends BasicProps >(type: string) =>
-    (BasicComponent: ComponentType<T>): FC<T> =>
-        (props): ReactElement => <BasicComponent type={type} {...props} />;
+const generator = <T extends BasicProps>(type: string) => (BasicComponent: ComponentType<T>): FC<T> => (
+    props
+): ReactElement => <BasicComponent type={type} {...props} />;
 
 class Generic extends PureComponent<GenericProps> {
     static propTypes = {
@@ -36,18 +38,27 @@ class Generic extends PureComponent<GenericProps> {
         style: PropTypes.object,
         className: PropTypes.string,
         size: PropTypes.oneOf(sizeSet),
+        shape: PropTypes.oneOf(shapeSet),
     };
 
     static defaultProps = {
         prefixCls: cssClasses.PREFIX,
-        size: 'medium'
+        size: 'medium',
+        shape: 'circle',
     };
 
     render() {
-        const { prefixCls, className, type, size, ...others } = this.props;
-        const classString = cls(className, `${prefixCls}-${type}`, {
-            [`${prefixCls}-${type}-${size}`]: type.toUpperCase() === 'AVATAR'
-        });
+        const { prefixCls, className, type, size, shape, ...others } = this.props;
+        const classString = cls(
+            className,
+            `${prefixCls}-${type}`,
+            {
+                [`${prefixCls}-${type}-${size}`]: type.toUpperCase() === 'AVATAR',
+            },
+            {
+                [`${prefixCls}-${type}-${shape}`]: type.toUpperCase() === 'AVATAR',
+            }
+        );
         return React.createElement('div', { className: classString, ...others });
     }
 }
@@ -75,7 +86,9 @@ export class Paragraph extends PureComponent<ParagraphProps> {
         const classString = cls(className, `${prefixCls}-paragraph`);
         return (
             <ul className={classString} style={style}>
-                {[...Array(rows)].map((e, i) => <li key={i} />)}
+                {[...Array(rows)].map((e, i) => (
+                    <li key={i} />
+                ))}
             </ul>
         );
     }

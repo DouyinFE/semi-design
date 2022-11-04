@@ -10,7 +10,7 @@ import { Locale } from './interface';
 type ChildrenRender<T> = (componentLocal: T, localeCode: string, dateFnsLocale: dateFns) => React.ReactNode;
 export interface LocaleConsumerProps<T> {
     componentName: string;
-    children?: ChildrenRender<T>;
+    children?: ChildrenRender<T>
 }
 
 export default class LocaleConsumer<T> extends Component<LocaleConsumerProps<T>> {

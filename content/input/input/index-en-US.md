@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 23
+order: 24
 category: Input
 title:  Input
 subTitle: Input
@@ -405,6 +405,7 @@ Answers to some questions:
 | mode              | The mode of the input box. The optional value is `password`                                   | string                          |           |
 | mode              | mode of input，optional: `password` **>= v1.3.0**                                              | string                          |           |
 | prefix            | Prefix                                                                                        | ReactNode                       |           |
+| preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
 | showClear         | Show clear button **>=1.0.0**                                                                 | boolean                         | false     |
 | size              | Size, one of `large`, `default`, `small`                                                      | string                          | `default` |
 | style             | Inline style                                                                                  | CSSProperties                   |           |
@@ -439,6 +440,7 @@ Answers to some questions:
 | getValueLength    | Custom calculated character string length                                                                              | (value: string) => number       |         |
 | maxCount          | The maximum number of characters and display count                                                                     | number                          | -       |
 | placeholder       | Content to be appear by default                                                                                        | string                          | -       |
+| preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
 | readonly          | Read-only, not editable                                                                                                | boolean                         | false   |
 | rows              | The number of visible text lines for the control.                                                                      | number                          | 4       |
 | showClear         | Display the clear button when the input box has content and hover or focus **>=1.30.0**                                                                                         | boolean                         | false   |
@@ -455,7 +457,7 @@ Answers to some questions:
 
 ### InputGroup
 
-Common attributes will be set to the child elements of InputGroup, such as disabled, onFocus, etc. If the child sets the same attribute separately, the child has a higher priority.
+Common attributes will be set to the child elements of InputGroup, such as disabled, onFocus, etc. If you set onFocus, onBlur or disabled on the child, it will override the corresponding property value of InputGroup.
 
 
 | Property      | Instructions                                | Type                                                          | Default |

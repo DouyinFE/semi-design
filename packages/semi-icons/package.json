@@ -1,6 +1,6 @@
 {
   "name": "@douyinfe/semi-icons",
-  "version": "2.14.0",
+  "version": "2.22.2",
   "description": "semi icons",
   "keywords": [
     "semi",
@@ -30,15 +30,12 @@
     "prepublishOnly": "npm run clean && npm run build:js"
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.15.4",
     "classnames": "^2.2.6"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-decorators": "^7.15.8",
-    "@babel/plugin-transform-runtime": "^7.15.8",
     "@babel/preset-env": "^7.15.8",
     "@babel/preset-react": "^7.14.5",
-    "@douyinfe/semi-webpack-plugin": "2.14.0",
+    "@douyinfe/semi-webpack-plugin": "2.22.2",
     "babel-loader": "^8.2.2",
     "css-loader": "4.3.0",
     "del": "^6.0.0",
@@ -50,8 +47,6 @@
     "merge2": "^1.4.1",
     "mini-css-extract-plugin": "0.11.3",
     "rimraf": "^3.0.2",
-    "sass": "1.32.2",
-    "sass-loader": "^10.0.5",
     "terser-webpack-plugin": "^4.2.3",
     "through2": "^4.0.2",
     "ts-loader": "^5.4.5",

@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable max-len, max-depth,  */
 import { format, isValid, isSameSecond, isEqual as isDateEqual, isDate } from 'date-fns';
-import { get, isObject, isString, isEqual } from 'lodash';
+import { get, isObject, isString, isEqual, isFunction } from 'lodash';
 
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import { isValidDate, isTimestamp } from './_utils/index';
@@ -12,16 +12,18 @@ import { getDefaultFormatTokenByType } from './_utils/getDefaultFormatToken';
 import { strings } from './constants';
 import { strings as inputStrings } from '../input/constants';
 
-import { Type, DateInputFoundationProps, InsetInputValue } from './inputFoundation';
-import { MonthsGridFoundationProps } from './monthsGridFoundation';
-import { WeekStartNumber } from './_utils/getMonthTable';
-import { ArrayElement, Motion } from '../utils/type';
 import getInsetInputFormatToken from './_utils/getInsetInputFormatToken';
 import getInsetInputValueFromInsetInputStr from './_utils/getInsetInputValueFromInsetInputStr';
+
+import type { ArrayElement, Motion } from '../utils/type';
+import type { Type, DateInputFoundationProps, InsetInputValue } from './inputFoundation';
+import type { MonthsGridFoundationProps } from './monthsGridFoundation';
+import type { WeekStartNumber } from './_utils/getMonthTable';
 
 export type ValidateStatus = ArrayElement<typeof strings.STATUS>;
 export type InputSize = ArrayElement<typeof strings.SIZE_SET>;
 export type Position = ArrayElement<typeof strings.POSITION_SET>;
+export type PresetPosition = ArrayElement<typeof strings.PRESET_POSITION_SET>;
 
 export type BaseValueType = string | number | Date;
 export type DayStatusType = {
@@ -34,16 +36,20 @@ export type DayStatusType = {
     isHover?: boolean; // Date between selection and hover date
     isOffsetRangeStart?: boolean; // Week selection start
     isOffsetRangeEnd?: boolean; // End of week selection
-    isHoverInOffsetRange?: boolean; // Hover in the week selection
+    isHoverInOffsetRange?: boolean // Hover in the week selection
 };
 export type DisabledDateOptions = {
     rangeStart?: string;
     rangeEnd?: string;
+    /**
+     * current select of range type
+     */
+    rangeInputFocus?: 'rangeStart' | 'rangeEnd' | false
 };
 export type PresetType = {
     start?: string | Date | number;
     end?: string | Date | number;
-    text?: string;
+    text?: string
 };
 
 export type TriggerRenderProps = {
@@ -55,7 +61,7 @@ export type TriggerRenderProps = {
     size?: InputSize;
     disabled?: boolean;
     inputReadOnly?: boolean;
-    componentProps?: DatePickerFoundationProps;
+    componentProps?: DatePickerFoundationProps
 };
 
 export type DateOffsetType = (selectedDate?: Date) => Date;
@@ -64,7 +70,7 @@ export type DisabledDateType = (date?: Date, options?: DisabledDateOptions) => b
 export type DisabledTimeType = (date?: Date | Date[], panelType?: string) => ({
     disabledHours?: () => number[];
     disabledMinutes?: (hour: number) => number[];
-    disabledSeconds?: (hour: number, minute: number) => number[];
+    disabledSeconds?: (hour: number, minute: number) => number[]
 });
 export type OnCancelType = (date: Date | Date[], dateStr: string | string[]) => void;
 export type OnPanelChangeType = (date: Date | Date[], dateStr: string | string[]) => void;
@@ -85,13 +91,13 @@ export interface ElementProps {
     bottomSlot?: any;
     insetLabel?: any;
     prefix?: any;
-    topSlot?: any;
+    topSlot?: any
 }
 
 export interface RenderProps {
     renderDate?: RenderDateType;
     renderFullDate?: RenderFullDateType;
-    triggerRender?: TriggerRenderType;
+    triggerRender?: TriggerRenderType
 }
 
 export type RangeType = 'rangeStart' | 'rangeEnd' | false;
@@ -109,7 +115,7 @@ export interface EventHandlerProps {
     onClear?: (e: any) => void;
     // onFocus?: React.MouseEventHandler<HTMLInputElement>;
     onFocus?: (e: any, rangType: RangeType) => void;
-    onPresetClick?: OnPresetClickType;
+    onPresetClick?: OnPresetClickType
 }
 
 export interface DatePickerFoundationProps extends ElementProps, RenderProps, EventHandlerProps {
@@ -132,7 +138,7 @@ export interface DatePickerFoundationProps extends ElementProps, RenderProps, Ev
     inputReadOnly?: boolean;
     inputStyle?: Record<string, any>;
     max?: number;
-    motion?: Motion;
+    motion?: boolean;
     multiple?: boolean;
     needConfirm?: boolean;
     onChangeWithDateFirst?: boolean;
@@ -141,6 +147,7 @@ export interface DatePickerFoundationProps extends ElementProps, RenderProps, Ev
     position?: Position;
     prefixCls?: string;
     presets?: PresetsType;
+    presetPosition?: PresetPosition;
     showClear?: boolean;
     size?: InputSize;
     spacing?: number;
@@ -162,6 +169,7 @@ export interface DatePickerFoundationProps extends ElementProps, RenderProps, Ev
     localeCode?: string;
     rangeSeparator?: string;
     insetInput?: boolean;
+    preventScroll?: boolean
 }
 
 export interface DatePickerFoundationState {
@@ -171,11 +179,10 @@ export interface DatePickerFoundationState {
     value: Date[];
     cachedSelectedValue: Date[];
     prevTimeZone: string | number;
-    motionEnd: boolean;
     rangeInputFocus: RangeType;
     autofocus: boolean;
     insetInputValue: InsetInputValue;
-    triggerDisabled: boolean;
+    triggerDisabled: boolean
 }
 
 export { Type, DateInputFoundationProps };
@@ -198,15 +205,14 @@ export interface DatePickerAdapter extends DefaultAdapter<DatePickerFoundationPr
     updateInputValue: (inputValue: string) => void;
     needConfirm: () => boolean;
     typeIsYearOrMonth: () => boolean;
-    setMotionEnd: (motionEnd: boolean) => void;
     setRangeInputFocus: (rangeInputFocus: DatePickerFoundationState['rangeInputFocus']) => void;
     couldPanelClosed: () => boolean;
     isEventTarget: (e: any) => boolean;
     updateInsetInputValue: (insetInputValue: InsetInputValue) => void;
     setInsetInputFocus: () => void;
-    setTriggerDisabled: (disabled: boolean) => void;
+    setTriggerDisabled: (disabled: boolean) => void
 }
-
+ 
 
 /**
  * The datePicker foundation.js is responsible for maintaining the date value and the input box value, as well as the callback of both
@@ -245,6 +251,23 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
         this._adapter.updateInputValue(null);
         this._adapter.updateValue(result);
         this.resetCachedSelectedValue(result);
+        this.initRangeInputFocus(result);
+
+        if (this._adapter.needConfirm()) {
+            this._adapter.updateCachedSelectedValue(result);
+        }
+    }
+
+    /**
+     * 如果用户传了一个空的 value，需要把 range input focus 设置为 rangeStart，这样用户可以清除完之后继续从开始选择
+     * 
+     * If the user passes an empty value, you need to set the range input focus to rangeStart, so that the user can continue to select from the beginning after clearing
+     */
+    initRangeInputFocus(result: Date[]) {
+        const { triggerRender } = this.getProps();
+        if (this._isRangeType() && isFunction(triggerRender) && result.length === 0) {
+            this._adapter.setRangeInputFocus('rangeStart');
+        }
     }
 
     parseWithTimezone(value: ValueType, timeZone: string | number, prevTimeZone: string | number) {
@@ -453,7 +476,7 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
      *  - inputValue（可以解析为合法日期时）
      *  - value（可以解析为合法日期时）
      */
-    handleInsetInputChange(options: { insetInputStr: string, format: string, insetInputValue: InsetInputValue }) {
+    handleInsetInputChange(options: { insetInputStr: string; format: string; insetInputValue: InsetInputValue }) {
         const { insetInputStr, format, insetInputValue } = options;
         const _isMultiple = this._isMultiple();
         const result = _isMultiple ? this.parseMultipleInput(insetInputStr, format) : this.parseInput(insetInputStr, format);
@@ -936,7 +959,7 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
             if (insetInput) {
                 const insetInputFormatToken = getInsetInputFormatToken({ format, type });
                 const insetInputStr = this._isMultiple() ? this.formatMultipleDates(dates, undefined, insetInputFormatToken) : this.formatDates(dates, insetInputFormatToken);
-                insetInputValue = getInsetInputValueFromInsetInputStr({ inputValue: insetInputStr, type, rangeSeparator  });
+                insetInputValue = getInsetInputValueFromInsetInputStr({ inputValue: insetInputStr, type, rangeSeparator });
             }
             const isRangeTypeAndInputIncomplete = this._isRangeType() && !this._isRangeValueComplete(dates);
             /**
@@ -1166,7 +1189,8 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
      */
     _someDateDisabled(value: Date[]) {
         const stateValue = this.getState('value');
-        const disabledOptions = { rangeStart: '', rangeEnd: '' };
+        const { rangeInputFocus } = this.getStates();
+        const disabledOptions = { rangeStart: '', rangeEnd: '', rangeInputFocus };
 
         // DisabledDate needs to pass the second parameter
         if (this._isRangeType() && Array.isArray(stateValue)) {
@@ -1192,18 +1216,6 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
         return isSomeDateDisabled;
     }
 
-    getMergedMotion = (motion: any) => {
-        const mergedMotion = typeof motion === 'undefined' || motion ? {
-            ...motion,
-            didEnter: () => {
-                this._adapter.setMotionEnd(true);
-            },
-            didLeave: () => {
-                this._adapter.setMotionEnd(false);
-            }
-        } : false;
-        return mergedMotion;
-    };
 
     /**
      * Format locale date
@@ -1285,7 +1297,7 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
      * @returns
      */
     handleTriggerWrapperClick(e: any) {
-        const { disabled } = this._adapter.getProps();
+        const { disabled, triggerRender } = this._adapter.getProps();
         const { rangeInputFocus } = this._adapter.getStates();
         if (disabled) {
             return;
@@ -1297,12 +1309,18 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
          * - When type is not range type, Input component will automatically focus in the same case
          * - isEventTarget is used to judge whether the event is a bubbling event
          */
-        if (this._isRangeType() && !rangeInputFocus && this._adapter.isEventTarget(e)) {
-            setTimeout(() => {
-                // using setTimeout get correct state value 'rangeInputFocus'
-                this.handleInputFocus(e, 'rangeStart');
-                this.openPanel();
-            }, 0);
+        if (this._isRangeType() && !rangeInputFocus) {
+            if (this._adapter.isEventTarget(e)) {
+                setTimeout(() => {
+                    // using setTimeout get correct state value 'rangeInputFocus'
+                    this.handleInputFocus(e, 'rangeStart');
+                }, 0);
+            } else if (isFunction(triggerRender)) {
+                // 如果是 triggerRender 场景，因为没有 input，因此打开面板时默认 focus 在 rangeStart
+                // If it is a triggerRender scene, because there is no input, the default focus is rangeStart when the panel is opened
+                this._adapter.setRangeInputFocus('rangeStart');
+            }
+            this.openPanel();
         } else {
             this.openPanel();
         }

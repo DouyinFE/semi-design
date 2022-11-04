@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 58
+order: 60
 category: 展示类
 title: SideSheet 滑动侧边栏
 icon: doc-sidesheet
@@ -314,7 +314,7 @@ class Demo extends React.Component {
 | mask | 是否显示遮罩，在 `0.29.0` 版本之后，当 `mask={false}` 时允许对外部区域进行操作 | boolean | true | - |
 | maskClosable | 是否允许通过点击遮罩来关闭面板 | boolean | true | - |
 | maskStyle | 遮罩的样式 | CSSProperties | - | - |
-| motion | 是否允许动画 | object \| boolean | true | - |
+| motion | 是否允许动画 | boolean | true | - |
 | placement | 侧边栏滑出位置，支持`top`, `bottom`, `left`, `right` | string | `right` | - |
 | size | 尺寸，支持 `small`(448px)， `medium`(684px), `large`(920px)，仅在 `left` 或 `right` 时生效 | string | `small` | 0.29.0 |
 | style | 可用于设置样式 | CSSProperties | - | - |

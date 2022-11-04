@@ -1,4 +1,6 @@
+@import "./animation.scss";
 @import './variables.scss';
+
 
 $module: #{$prefix}-switch;
 
@@ -11,7 +13,9 @@ $module: #{$prefix}-switch;
     cursor: pointer;
     background-color: $color-switch_default-bg-default;
     // box-shadow: inset 0 0 0 0 $color-switch_default-bg-success;
-    transition: background-color $motion-switch-transitionDuration ease-in-out;
+    //transition: background-color $motion-switch-transitionDuration ease-in-out;
+    transition: background-color $transition_duration-switch-bg $transition_function-switch-bg $transition_delay_switch-bg;
+
     width: $width-switch;
     height: $height-switch;
 
@@ -66,7 +70,7 @@ $module: #{$prefix}-switch;
         &:active {
             background-color: $color-switch_disabled-bg-active;
         }
-        
+
         .#{$module}-knob {
             cursor: not-allowed;
             @include shadow-0;
@@ -86,7 +90,7 @@ $module: #{$prefix}-switch;
     &-knob {
         @include shadow-knob;
         cursor: pointer;
-        border-radius: $width-switch_knob_default / 2;
+        border-radius: $width-switch_knob_default * 0.5;
         background-color: $color-switch_knob-bg-default;
         box-sizing: border-box;
         position: absolute;
@@ -103,8 +107,8 @@ $module: #{$prefix}-switch;
     &-native-control {
 
         &[type="checkbox"] {
-            width: 100%;
-            height: 100%;
+            width: inherit;
+            height: inherit;
         }
         width: 100%;
         height: 100%;
@@ -219,7 +223,7 @@ $module: #{$prefix}-switch;
         width: $width-switch_knob_large;
         height: $width-switch_knob_large;
         top: $spacing-switch_knob_large-padding;
-        border-radius: $width-switch_knob_large / 2;
+        border-radius: $width-switch_knob_large * 0.5;
         transform: translateX($motion-switch_unchecked_large-translateX);
     }
     &.#{$module}-checked {
@@ -254,7 +258,7 @@ $module: #{$prefix}-switch;
         width: $width-switch_knob_large_small;
         height: $width-switch_knob_large_small;
         top: $spacing-switch_knob_small-padding;
-        border-radius: $width-switch_knob_large_small / 2;
+        border-radius: $width-switch_knob_large_small * 0.5;
         transform: translateX($motion-switch_unchecked_small-translateX);
     }
     &.#{$module}-checked {

@@ -1,4 +1,5 @@
 /* argus-disable unPkgSensitiveInfo */
+import { get } from 'lodash';
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import isEnterPress from '../utils/isEnterPress';
 
@@ -13,7 +14,7 @@ export interface ItemProps {
     link?: string;
     linkOptions?: Record<string, any>;
     disabled?: boolean;
-    children?: any;
+    children?: any
 }
 
 export interface SelectedItemProps<Props = ItemProps> {
@@ -21,7 +22,7 @@ export interface SelectedItemProps<Props = ItemProps> {
     text?: any;
     selectedKeys?: string | number[];
     selectedItems?: Props[];
-    domEvent?: any;
+    domEvent?: any
 }
 
 export interface ItemAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
@@ -38,7 +39,7 @@ export interface ItemAdapter<P = Record<string, any>, S = Record<string, any>> e
     notifyMouseLeave(e: any): void;
     getIsCollapsed(): boolean;
     getSelected(): boolean;
-    getIsOpen(): boolean;
+    getIsOpen(): boolean
 }
 
 export default class ItemFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<ItemAdapter<P, S>, P, S> {
@@ -99,7 +100,12 @@ export default class ItemFoundation<P = Record<string, any>, S = Record<string, 
      */
     handleKeyPress(e: any) {
         if (isEnterPress(e)) {
+            const { link, linkOptions } = this.getProps();
+            const target = get(linkOptions, 'target', '_self');
             this.handleClick(e);
+            if (typeof link === 'string') {
+                target === '_blank' ? window.open(link) : window.location.href = link;
+            }
         }
     }
 }

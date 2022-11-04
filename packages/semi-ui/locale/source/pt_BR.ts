@@ -158,6 +158,22 @@ const local: Locale = {
         total: 'Total de ${total} itens',
         selected: '${total} itens selecionados',
     },
+    Form: {
+        optional: '(opcional)',
+    },
+    Image: {
+        preview: 'Visualizar',
+        loading: 'Carregando',
+        loadError: 'Falha ao carregar',
+        prevTip: 'Anterior',
+        nextTip: 'Próximo',
+        zoomInTip: 'Ampliar',
+        zoomOutTip: 'reduzir',
+        rotateTip: 'Girar',
+        downloadTip: 'baixar',
+        adaptiveTip: 'Adaptar à página',
+        originTip: 'Tamanho original',
+    },
 };
 
 // 葡萄牙语

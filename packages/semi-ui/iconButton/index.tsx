@@ -25,7 +25,7 @@ export interface IconButtonProps extends ButtonProps {
     className?: string;
     disabled?: boolean;
     noHorizontalPadding?: boolean | HorizontalPaddingType | HorizontalPaddingType[];
-    prefixCls?: string;
+    prefixCls?: string
 }
 
 // TODO: add a buttonGroup component
@@ -80,6 +80,9 @@ class IconButton extends PureComponent<IconButtonProps> {
         } else if (noHorizontalPadding === true) {
             style.paddingLeft = 0;
             style.paddingRight = 0;
+        } else if (typeof noHorizontalPadding === 'string') {
+            noHorizontalPadding === 'left' && (style.paddingLeft = 0);
+            noHorizontalPadding === 'right' && (style.paddingRight = 0);
         }
 
         let finalChildren = null;

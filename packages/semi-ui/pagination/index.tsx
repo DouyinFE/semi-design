@@ -49,7 +49,7 @@ export interface PaginationProps {
     style?: React.CSSProperties;
     className?: string;
     hideOnSinglePage?: boolean;
-    hoverShowPageSelect?: boolean;
+    hoverShowPageSelect?: boolean
 }
 
 export interface PaginationState {
@@ -62,12 +62,12 @@ export interface PaginationState {
     quickJumpPage: string | number;
     nextDisabled: boolean;
     restLeftPageList: number[];
-    restRightPageList: number[];
+    restRightPageList: number[]
 }
 
 export type PaginationLocale = Locale['Pagination'];
 export type PopoverPosition = Position;
-export { PageList };
+export type { PageList };
 
 export default class Pagination extends BaseComponent<PaginationProps, PaginationState> {
     static contextType = ConfigContext;

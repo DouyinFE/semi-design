@@ -38,7 +38,7 @@ class CarouselFoundation<P = Record<string, any>, S = Record<string, any>> exten
         const { activeIndex: stateActiveIndex } = this.getStates();
         const targetIndex = this.getValidIndex(activeIndex);
         this._adapter.setIsReverse(stateActiveIndex > targetIndex);
-        if (this.getIsControledComponent()) {
+        if (this.getIsControlledComponent()) {
             this._notifyChange(targetIndex);
         } else {
             this._notifyChange(targetIndex);
@@ -47,27 +47,31 @@ class CarouselFoundation<P = Record<string, any>, S = Record<string, any>> exten
     }
 
     next(): void {
+        this.stop();
         const { activeIndex: stateActiveIndex } = this.getStates();
         const targetIndex = this.getValidIndex(stateActiveIndex + 1);
         this._adapter.setIsReverse(false);
-        if (this.getIsControledComponent()) {
+        if (this.getIsControlledComponent()) {
             this._notifyChange(targetIndex);
         } else {
             this._notifyChange(targetIndex);
             this.handleNewActiveIndex(targetIndex);
         }
+        this.handleAutoPlay();
     }
 
     prev(): void {
+        this.stop();
         const { activeIndex: stateActiveIndex } = this.getStates();
         const targetIndex = this.getValidIndex(stateActiveIndex - 1);
         this._adapter.setIsReverse(true);
-        if (this.getIsControledComponent()) {
+        if (this.getIsControlledComponent()) {
             this._notifyChange(targetIndex);
         } else {
             this._notifyChange(targetIndex);
             this.handleNewActiveIndex(targetIndex);
         }
+        this.handleAutoPlay();
     }
 
     destroy(): void {
@@ -110,7 +114,7 @@ class CarouselFoundation<P = Record<string, any>, S = Record<string, any>> exten
         return speed;
     }
 
-    getIsControledComponent(): boolean {
+    getIsControlledComponent(): boolean {
         return this._isInProps('activeIndex');
     }
 
@@ -135,7 +139,7 @@ class CarouselFoundation<P = Record<string, any>, S = Record<string, any>> exten
         const { activeIndex: stateActiveIndex } = this.getStates();
         this._adapter.setIsReverse(stateActiveIndex > activeIndex);
         this._notifyChange(activeIndex);
-        if (!this.getIsControledComponent()) {
+        if (!this.getIsControlledComponent()) {
             this.handleNewActiveIndex(activeIndex);
         }
     }

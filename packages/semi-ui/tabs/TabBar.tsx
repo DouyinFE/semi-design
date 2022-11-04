@@ -14,12 +14,12 @@ import { getUuidv4 } from '@douyinfe/semi-foundation/utils/uuid';
 export interface TabBarState {
     endInd: number;
     rePosKey: number;
-    startInd: number;
+    startInd: number
 }
 
 export interface OverflowItem extends PlainTab {
     key: string;
-    active: boolean;
+    active: boolean
 }
 
 class TabBar extends React.Component<TabBarProps, TabBarState> {
@@ -147,7 +147,13 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
 
     renderCollapse = (items: Array<OverflowItem>, icon: ReactNode, pos: 'start' | 'end'): ReactNode => {
         if (isEmpty(items)) {
-            return null;
+            return (
+                <Button
+                    disabled={true}
+                    icon={icon}
+                    theme="borderless"
+                />
+            );
         }
         const { dropdownClassName, dropdownStyle } = this.props;
         const { rePosKey } = this.state;

@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 69
+order: 71
 category: 反馈类
 title: Toast 提示
 icon: doc-toast
@@ -69,7 +69,7 @@ function Demo() {
 
     return (
         <>
-            <Button style={{color:`var(--semi-color-success)`}} onClick={() => Toast.success('Hi,Bytedance dance dance')}>Success</Button>
+            <Button style={{ color: `var(--semi-color-success)` }} onClick={() => Toast.success('Hi,Bytedance dance dance')}>Success</Button>
             <br />
             <br />
             <Button type="warning" onClick={() => Toast.warning(opts)}>
@@ -106,7 +106,7 @@ function Demo() {
             <Button onClick={() => Toast.info(opts)}>Info</Button>
             <br />
             <br />
-            <Button style={{color:`var(--semi-color-success)`}} onClick={() => Toast.success(opts)}>Success</Button>
+            <Button style={{ color: `var(--semi-color-success)` }} onClick={() => Toast.success(opts)}>Success</Button>
             <br />
             <br />
             <Button type="warning" onClick={() => Toast.warning(opts)}>
@@ -232,6 +232,33 @@ function Demo() {
                 Hide Toast
             </Button>
         </>
+    );
+}
+
+render(Demo);
+```
+
+### 更新消息内容
+
+可以通过唯一的 `id` 来更新内容。
+
+```jsx live=true noInline=true hideInDSM
+import React, { useState } from 'react';
+import { Toast, Button } from '@douyinfe/semi-ui';
+
+function Demo() {
+    function show() {
+        const id = 'toastid';
+        Toast.info({ content: 'Update Content By Id', id });
+        setTimeout(() => {
+            Toast.success({ content: 'Id By Content Update', id });
+        }, 1000);
+    }
+
+    return (
+        <Button type="primary" onClick={show}>
+            Update Content By Id
+        </Button>
     );
 }
 
@@ -415,6 +442,32 @@ HookToast ( >= 1.2.0 )：
 ### ARIA
 
 - Toast 的 role 为 alert
+
+## 文案规范
+
+
+<div style={{ border: '1px solid var(--semi-color-border)', padding: 10, marginBottom: 24, justifyContent: 'center', display: 'flex' }}>
+    <ToastCard type='success' content='Ticket transferred' />
+</div>
+
+
+- 保持简洁
+- 句尾不使用句号
+- 使用 名词 + 动词 的格式进行说明
+
+| ✅ 推荐用法 | ❌ 不推荐用法 |   
+| --- | --- | 
+| Language added | New language has been added successfully |
+| Ticket transfer failed | Can't transfer ticket |
+
+- 提供动作的提示消息
+  - 只提供一个动作
+  - 不使用类似于「已读」类的动作，例如 OK, Got it, Dismiss, Cancel
+
+
+| ✅ 推荐用法 | ❌ 不推荐用法 |
+| --- | --- |
+|  <ToastCard type='error' content={<div>Ticket transfer failed <span style={{ color: 'var(--semi-color-primary)', marginLeft: 4, cursor: 'pointer' }}>Retry</span> </div>} /> |  <ToastCard type='error' content={<div>Ticket transfer failed <span style={{ color: 'var(--semi-color-primary)', marginLeft: 4, cursor: 'pointer' }}>Dismiss</span> </div>} /> |
 
 ## 设计变量
 

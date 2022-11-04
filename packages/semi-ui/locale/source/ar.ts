@@ -150,6 +150,22 @@ const local: Locale = {
         total: 'مجموع ${total} العناصر',
         selected: '${total} العناصر المحدد',
     },
+    Form: {
+        optional: '(اختياري)',
+    },
+    Image: {
+        preview: 'معاينة',
+        loading: 'جار التحميل',
+        loadError: 'فشل في التحميل',
+        prevTip: "السابق",
+        nextTip: "التالي",
+        zoomInTip: "تكبير",
+        zoomOutTip: "تصغير",
+        rotateTip: "استدارة",
+        downloadTip: "تنزيل",
+        adaptiveTip: "التكيف مع الصفحة",
+        originTip: "الحجم الأصلي",
+    },
 };
 
 // [i18n-Arabic]

@@ -3,7 +3,7 @@ category: 开始
 title: Update 从 1.x 到 2.0
 icon: doc-updateV2
 localeCode: zh-CN
-order: 7
+order: 8
 ---
 
 ### 升级准备
@@ -108,7 +108,8 @@ const replaceReg = /--semi-$1/;
 
 ##### 5.更新主题包
 
-若你的项目中使用了自定义主题包，需要前往 [Semi DSM](https://semi.design/dsm) （即原 Semi 主题商店的升级版）进行 2.x 版本主题包的发布。并将新版主题 npm 包安装至项目内
+若你的项目中使用了自定义主题包，需要前往 [Semi DSM](https://semi.design/dsm) （即原 Semi 主题商店的升级版）进行 2.x 版本主题包的发布。并将新版主题 npm 包安装至项目内。
+注意 Semi V1 的主题包 与 Semi V2 并不兼容，请务必重新发布。
 
 ##### 6. 运行你的项目，进行dev构建。对抛出error的代码段 进行修改
 
@@ -197,15 +198,18 @@ import en_GB from '@douyinfe/semi-ui/lib/es/locale/source/en_GB';
 如果你使用 Semi 插件，如 `@ies/semi-ui-plugin-webpack` 或 `@ies/semi-ui-plugin-eden` 等进行了高级配置，需要了解以下变更：
 
 -   svg 相关
-    -   2.x 不再支持 iconLazyLoad、svgPaths、srcSvgPaths 配置；
+    -   2.x 不再支持 iconLazyLoad （因为已经支持Shaking）
+    -   svgPaths、srcSvgPaths 配置不再支持，你可以通过使用 svgr webpack 插件作为替换，详细可参考 [Icon组件](/zh-CN/basic/icon#%E4%BD%BF%E7%94%A8svgr%E5%B0%86svg%E6%96%87%E4%BB%B6%E8%BD%AC%E6%88%90ReactComponent)
+
 -   暗色模式相关
     -   2.x 默认已支持局部暗色模式、亮色模式，不再需要在插件配置 themeScope 属性。使用方式由添加 id #semi-always-xxx 更新为添加 class .semi-always-xxx。
+
 
 ### 其他调整
 
 #### Icon/插画使用调整
 
-在 0.x/1.x 版本的 Semi 中，我们强依赖 svg-sprite-loader 将 svg 文件转换为 svg symbol 并在运行时插入 body，使得我们可以仅通过 <Icon type='xxx' / > 以字符串的方式去使用 Icon 图标。在便捷使用的同时，也带来了一些问题：icon 默认全量引入，无法被 shaking；svg-sprite-loader 与 Webpack 强绑定，无法便捷地支持 Rollup、Vite、Snowpack 等其他构建方案。因此 2.0 中，我们去除了与 svg-sprite-loader 的强绑定，Icon 的消费方式需要变更：
+在 0.x/1.x 版本的 Semi 中，我们强依赖 svg-sprite-loader 将 svg 文件转换为 svg symbol 并在运行时插入 body，使得我们可以仅通过 <Icon type='xxx' / > 以字符串的方式去使用 Icon 图标。在便捷使用的同时，也带来了一些问题：icon 默认全量引入，无法被 shaking；svg-sprite-loader 与 Webpack 强绑定，无法便捷地支持 Rollup、Vite 等其他构建方案。因此 2.0 中，我们去除了与 svg-sprite-loader 的强绑定，Icon 的消费方式需要变更：
 
 Icon 使用调整：
 
@@ -270,6 +274,9 @@ id 具有语义上全局唯一的特点，class 则没有这个特点，使用 c
 
 使用插画时，1.x 的插画宽高是 `300 * 150px`，是由于插画 svg 外层嵌套 svg 导致，这一状况导致，原有的插画左右多了空白，不太符合预期。
 
+### 其他与字节内部框架的兼容问题？
+字节跳动用户，请查阅对应[飞书文档](https://bytedance.feishu.cn/docx/doxcnkrOpKFwK9ugkkcfAsUJqYd)
+ 
 ## 遇到问题
 
 我们列出了已知的所有不兼容变化和相关影响，但是有可能还是有一些场景我们没有考虑到。如果你在升级过程中遇到了问题，欢迎随时通过客服群进行反馈沟通

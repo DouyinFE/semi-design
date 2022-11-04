@@ -24,11 +24,11 @@ export interface BasicData {
     data: BasicCascaderData;
     disabled: boolean;
     key: string;
-    searchText: any[];
+    searchText: any[]
 }
 
 export interface BasicEntities {
-    [idx: string]: BasicEntity;
+    [idx: string]: BasicEntity
 }
 
 export interface BasicEntity {
@@ -50,7 +50,7 @@ export interface BasicEntity {
     /* key path */
     path: Array<string>;
     /* value path */
-    valuePath: Array<string>;
+    valuePath: Array<string>
 }
 
 export interface BasicCascaderData {
@@ -60,7 +60,7 @@ export interface BasicCascaderData {
     disabled?: boolean;
     isLeaf?: boolean;
     loading?: boolean;
-    children?: BasicCascaderData[];
+    children?: BasicCascaderData[]
 }
 
 export type CascaderType = 'large' | 'small' | 'default';
@@ -92,12 +92,12 @@ export interface BasicTriggerRenderProps {
      * with Cascader. */
     onChange: (inputValue: string) => void;
     /* Function to clear the value */
-    onClear: (e: any) => void;
+    onClear: (e: any) => void
 }
 
 export interface BasicScrollPanelProps {
     panelIndex: number;
-    activeNode: BasicCascaderData;
+    activeNode: BasicCascaderData
 }
 
 export interface BasicCascaderProps {
@@ -114,7 +114,7 @@ export interface BasicCascaderProps {
     dropdownStyle?: any;
     emptyContent?: any;
     filterLeafOnly?: boolean;
-    motion?: Motion;
+    motion?: boolean;
     filterTreeNode?: ((inputValue: string, treeNodeString: string) => boolean) | boolean;
     placeholder?: string;
     searchPlaceholder?: string;
@@ -145,6 +145,7 @@ export interface BasicCascaderProps {
     disableStrictly?: boolean;
     leafOnly?: boolean;
     enableLeafClick?: boolean;
+    preventScroll?: boolean;
     onClear?: () => void;
     triggerRender?: (props: BasicTriggerRenderProps) => any;
     onListScroll?: (e: any, panel: BasicScrollPanelProps) => void;
@@ -158,7 +159,7 @@ export interface BasicCascaderProps {
     onExceed?: (checkedItem: BasicEntity[]) => void;
     displayRender?: (selected: Array<string> | BasicEntity, idx?: number) => any;
     onBlur?: (e: any) => void;
-    onFocus?: (e: any) => void;
+    onFocus?: (e: any) => void
 }
 
 export interface BasicCascaderInnerData {
@@ -183,6 +184,7 @@ export interface BasicCascaderInnerData {
     isFocus?: boolean;
     isInput?: boolean;
     disabledKeys?: Set<string>;
+    showInput?: boolean
 }
 
 export interface CascaderAdapter extends DefaultAdapter<BasicCascaderProps, BasicCascaderInnerData> {
@@ -208,6 +210,8 @@ export interface CascaderAdapter extends DefaultAdapter<BasicCascaderProps, Basi
     notifyOnLoad: (newLoadedKeys: Set<string>, data: BasicCascaderData) => void;
     notifyListScroll: (e: any, panel: BasicScrollPanelProps) => void;
     notifyOnExceed: (data: BasicEntity[]) => void;
+    toggleInputShow: (show: boolean, cb: () => void) => void;
+    updateFocusState: (focus: boolean) => void
 }
 
 // eslint-disable-next-line max-len
@@ -484,9 +488,11 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
 
     open() {
         const filterable = this._isFilterable();
+        const { multiple } = this.getProps();
         this._adapter.openMenu();
         if (filterable) {
             this._clearInput();
+            !multiple && this.toggle2SearchInput(true);
         }
         if (this._isControlledComponent()) {
             this.reCalcActiveKeys();
@@ -516,7 +522,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         this._adapter.notifyDropdownVisibleChange(false);
         this._adapter.unregisterClickOutsideHandler();
         if (this._isFilterable()) {
-            const { selectedKeys } = this.getStates();
+            const { selectedKeys, isSearching } = this.getStates();
             let inputValue = '';
             if (key && !multiple) {
                 inputValue = this.renderDisplayText(key);
@@ -524,31 +530,29 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
                 inputValue = this.renderDisplayText([...selectedKeys][0]);
             }
             this._adapter.updateStates({ inputValue });
+            !multiple && this.toggle2SearchInput(false);
+            !multiple && this._adapter.updateFocusState(false);
         }
         this._notifyBlur(e);
     }
 
-    getMergedMotion = () => {
-        const { motion } = this.getProps();
-        const { isSearching } = this.getStates();
-        if (isSearching) {
-            const mergedMotion =
-                typeof motion === 'undefined' || motion ?
-                    {
-                        ...motion,
-                        didLeave: (...args: any) => {
-                            const didLeave = get(motion, 'didLeave');
-                            if (typeof didLeave === 'function') {
-                                didLeave(...args);
-                            }
-                            this._adapter.updateStates({ isSearching: false });
-                        },
-                    } :
-                    false;
-            return mergedMotion;
+    toggle2SearchInput(isShow: boolean) {
+        if (isShow) {
+            this._adapter.toggleInputShow(isShow, () => this.focusInput());
+        } else {
+            this._adapter.toggleInputShow(isShow, () => undefined);
         }
-        return motion;
-    };
+    }
+
+    focusInput() {
+        this._adapter.focusInput();
+        this._adapter.updateFocusState(true);
+    }
+
+
+    updateSearching = (isSearching:boolean)=>{
+        this._adapter.updateStates({ isSearching: false });
+    }
 
     handleItemClick(e: any, item: BasicEntity | BasicData) {
         const isDisabled = this._isDisabled();

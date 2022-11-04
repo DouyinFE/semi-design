@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 50
+order: 51
 category: 展示类
 title: Descriptions 描述列表
 icon: doc-descriptions
@@ -169,6 +169,11 @@ import { Descriptions } from '@douyinfe/semi-ui';
 | hidden    | 该数据是否需要展示        | boolean           | -      |
 | className | 类名                      | string            | -     |
 | style     | 列表的样式                | CSSProperties            | -     |
+
+
+
+## 文案规范
+- 字段名和值都按 Sentence case 原则书写大小写
 
 ## 设计变量
 

@@ -2,7 +2,7 @@ import { NextConfig } from 'next';
 import SemiWebpackPlugin from '@douyinfe/semi-webpack-plugin';
 
 export interface SemiNextOptions {
-    omitCss?: boolean;
+    omitCss?: boolean
 }
 
 export default function(options: SemiNextOptions = {}) {

@@ -2,10 +2,13 @@ import React from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses as css, strings } from '@douyinfe/semi-foundation/dropdown/constants';
-import DropdownContext, { DropdownContextType } from './context';
-import BaseComponent, { BaseProps } from '../_base/baseComponent';
+import DropdownContext from './context';
+import BaseComponent from '../_base/baseComponent';
 import { IconTick } from '@douyinfe/semi-icons';
 import { noop } from 'lodash';
+
+import type { BaseProps } from '../_base/baseComponent';
+import type { DropdownContextType } from './context';
 
 export type Type = 'primary' | 'secondary' | 'tertiary' | 'warning' | 'danger';
 
@@ -20,6 +23,7 @@ export interface DropdownItemProps extends BaseProps {
     type?: Type;
     active?: boolean;
     icon?: React.ReactNode;
+    onKeyDown?: (e: React.KeyboardEvent) => void;
 }
 
 const prefixCls = css.PREFIX;
@@ -57,7 +61,7 @@ class DropdownItem extends BaseComponent<DropdownItemProps> {
 
 
     render() {
-        const { children, disabled, className, forwardRef, style, type, active, icon } = this.props;
+        const { children, disabled, className, forwardRef, style, type, active, icon, onKeyDown } = this.props;
         const { showTick } = this.context;
         const itemclass = cls(className, {
             [`${prefixCls}-item`]: true,
@@ -94,7 +98,7 @@ class DropdownItem extends BaseComponent<DropdownItemProps> {
             );
         }
         return (
-            <li role="menuitem" tabIndex={-1} aria-disabled={disabled} {...events} ref={ref => forwardRef(ref)} className={itemclass} style={style}>
+            <li role="menuitem" tabIndex={-1} aria-disabled={disabled} {...events} onKeyDown={onKeyDown} ref={ref => forwardRef(ref)} className={itemclass} style={style}>
                 {tick}
                 {iconContent}
                 {children}

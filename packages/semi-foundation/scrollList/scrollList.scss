@@ -1,6 +1,8 @@
 //@import '../theme/variables.scss';
 // @import '../theme/_font.scss';
-@import "./variables.scss";
+@import './animation.scss';
+@import './variables.scss';
+
 
 $module: #{$prefix}-scrolllist;
 
@@ -38,14 +40,12 @@ $module: #{$prefix}-scrolllist;
 
         .#{$module}-item-wheel .#{$module}-list-outer-nocycle,
         .#{$module}-item {
-
             & > ul {
-
                 &:before {
-                    content: "";
+                    content: '';
                     display: block;
                     width: 100%;
-                    height: ($height-scrollList - $height-scrollList_item) / 2;
+                    height: ($height-scrollList - $height-scrollList_item) * 0.5;
                 }
             }
         }
@@ -63,7 +63,6 @@ $module: #{$prefix}-scrolllist;
 
         .#{$module}-item,
         .#{$module}-item-wheel .#{$module}-list-outer {
-
             & > ul {
                 box-sizing: border-box;
                 width: 100%;
@@ -84,7 +83,7 @@ $module: #{$prefix}-scrolllist;
                     // padding: 8px 18px;
                     cursor: pointer;
                     background-color: $color-scrollList_item-bg;
-
+                    transition: background-color $transition_duration-scrollList_selected_item-bg $transition_function-scrollList_selected_item-bg $transition_delay-scrollList_selected_item-bg;
                     &.#{$module}-item-sel {
                         background: $color-scrollList_selected_item-bg;
                         color: $color-scrollList_selected_item-text;
@@ -127,6 +126,7 @@ $module: #{$prefix}-scrolllist;
 
             .#{$module}-item-selected {
                 font-weight: $font-scrollList_item_wheel_item_selected-fontWeight;
+                color: var(--semi-color-primary) !important;
             }
 
             .#{$module}-list-outer {
@@ -147,14 +147,14 @@ $module: #{$prefix}-scrolllist;
                     top: 0;
                     margin-top: $spacing-scrollList_item_wheel_list_shade_pre-marginTop;
                     background: $color-scrollList-bg;
-                    opacity: .5;
+                    opacity: 0.5;
                 }
 
                 &-post {
                     top: 50%;
                     margin-top: $spacing-scrollList_item_wheel_list_shade_post-marginTop;
                     background: $color-scrollList-bg;
-                    opacity: .5;
+                    opacity: 0.5;
                 }
             }
 
@@ -180,4 +180,4 @@ $module: #{$prefix}-scrolllist;
     }
 }
 
-@import "./rtl.scss";
+@import './rtl.scss';

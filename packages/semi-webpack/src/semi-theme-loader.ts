@@ -8,6 +8,14 @@ export default function SemiThemeLoader(source: string) {
     const scssVarStr = `@import "~${theme}/scss/index.scss";\n`;
     // inject once
     const cssVarStr = `@import "~${theme}/scss/global.scss";\n`;
+    let animationStr = `@import "~${theme}/scss/animation.scss";\n`;
+
+    try {
+        require.resolve(`${theme}/scss/animation.scss`);
+    } catch (e) {
+        animationStr = ""; // fallback to empty string
+    }
+
 
     const shouldInject = source.includes('semi-base');
 
@@ -16,7 +24,8 @@ export default function SemiThemeLoader(source: string) {
     let componentVariables: string | boolean;
     try {
         componentVariables = resolve.sync(this.context, `${theme}/scss/local.scss`);
-    } catch (e) {}
+    } catch (e) {
+    }
 
     if (query.include || query.variables || componentVariables) {
         let localImport = '';
@@ -36,7 +45,8 @@ export default function SemiThemeLoader(source: string) {
                 fileSplit.splice(fileSplit.length - 1, 0, localImport);
                 fileStr = fileSplit.join('');
             }
-        } catch (error) {}
+        } catch (error) {
+        }
     }
 
     // inject prefix
@@ -45,7 +55,7 @@ export default function SemiThemeLoader(source: string) {
     const prefixClsStr = `$prefix: '${prefixCls}';\n`;
 
     if (shouldInject) {
-        return `${cssVarStr}${scssVarStr}${prefixClsStr}${fileStr}`;
+        return `${animationStr}${cssVarStr}${scssVarStr}${prefixClsStr}${fileStr}`;
     } else {
         return `${scssVarStr}${prefixClsStr}${fileStr}`;
     }

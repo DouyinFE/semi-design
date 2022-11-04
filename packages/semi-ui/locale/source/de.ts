@@ -150,6 +150,22 @@ const local: Locale = {
         total: 'Gesamt ${total} Artikel',
         selected: '${total} ausgewählte Artikel',
     },
+    Form: {
+        optional: '(Optional)',
+    },
+    Image: {
+        preview: 'Vorschau',
+        loading: 'Wird geladen',
+        loadError: 'Laden fehlgeschlagen',
+        prevTip: 'Zurück',
+        nextTip: 'Weiter',
+        zoomInTip: 'Vergrößern',
+        zoomOutTip: 'herauszoomen',
+        rotateTip: 'Drehen',
+        downloadTip: 'herunterladen',
+        adaptiveTip: 'An die Seite anpassen',
+        originTip: 'Originalgröße',
+    },
 };
 
 // [i18n-German]

@@ -7,7 +7,7 @@ const OverflowDirection = strings.OVERFLOW_DIR;
 export interface OverflowListAdapter extends DefaultAdapter {
     updateStates: (state: any) => void;
     updateVisibleState: (visible: Map<string, boolean>) => void;
-    notifyIntersect: (res: any) => void;
+    notifyIntersect: (res: any) => void
 }
 
 class OverflowListFoundation extends BaseFoundation<OverflowListAdapter> {

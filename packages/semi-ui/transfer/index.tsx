@@ -20,32 +20,32 @@ import { Value as TreeValue, TreeProps } from '../tree/interface';
 
 export interface DataItem extends BasicDataItem {
     label?: React.ReactNode;
-    style?: React.CSSProperties;
+    style?: React.CSSProperties
 }
 
 export interface GroupItem {
     title?: string;
-    children?: Array<DataItem>;
+    children?: Array<DataItem>
 }
 
 export interface TreeItem extends DataItem {
-    children: Array<TreeItem>;
+    children: Array<TreeItem>
 }
 
 export interface RenderSourceItemProps extends DataItem {
     checked: boolean;
-    onChange?: () => void;
+    onChange?: () => void
 }
 
 export interface RenderSelectedItemProps extends DataItem {
     onRemove?: () => void;
-    sortableHandle?: typeof SortableHandle;
+    sortableHandle?: typeof SortableHandle
 }
 
 export interface EmptyContent {
     left?: React.ReactNode;
     right?: React.ReactNode;
-    search?: React.ReactNode;
+    search?: React.ReactNode
 }
 
 export type Type = 'list' | 'groupList' | 'treeList';
@@ -61,7 +61,7 @@ export interface SourcePanelProps {
     /* All items */
     sourceData: Array<DataItem>;
     /* transfer props' dataSource */
-    propsDataSource: DataSource,
+    propsDataSource: DataSource;
     /* Whether to select all */
     allChecked: boolean;
     /* Number of filtered results */
@@ -77,7 +77,7 @@ export interface SourcePanelProps {
     /* The function that should be called when selecting or deleting a single option */
     onSelectOrRemove: (item: DataItem) => void;
     /* The function that should be called when selecting an option, */
-    onSelect: (value: Array<string | number>) => void;
+    onSelect: (value: Array<string | number>) => void
 }
 
 export type OnSortEnd = ({ oldIndex, newIndex }: OnSortEndProps) => void;
@@ -92,14 +92,20 @@ export interface SelectedPanelProps {
     /* The function that should be called when a single option is deleted */
     onRemove: (item: DataItem) => void;
     /* The function that should be called when reordering the results */
-    onSortEnd: OnSortEnd;
+    onSortEnd: OnSortEnd
 }
 
 export interface ResolvedDataItem extends DataItem {
     _parent?: {
-        title: string;
+        title: string
     };
-    _optionKey?: string | number;
+    _optionKey?: string | number
+}
+
+export interface DraggableResolvedDataItem {
+    key?: string | number;
+    index?: number;
+    item?: ResolvedDataItem
 }
 
 export type DataSource = Array<DataItem> | Array<GroupItem> | Array<TreeItem>;
@@ -109,14 +115,14 @@ interface HeaderConfig {
     allContent: string;
     onAllClick: () => void;
     type: string;
-    showButton: boolean;
+    showButton: boolean
 }
 
 export interface TransferState {
     data: Array<ResolvedDataItem>;
     selectedItems: Map<number | string, ResolvedDataItem>;
     searchResult: Set<number | string>;
-    inputValue: string;
+    inputValue: string
 }
 
 export interface TransferProps {
@@ -141,7 +147,7 @@ export interface TransferProps {
     renderSourceItem?: (item: RenderSourceItemProps) => React.ReactNode;
     renderSelectedItem?: (item: RenderSelectedItemProps) => React.ReactNode;
     renderSourcePanel?: (sourcePanelProps: SourcePanelProps) => React.ReactNode;
-    renderSelectedPanel?: (selectedPanelProps: SelectedPanelProps) => React.ReactNode;
+    renderSelectedPanel?: (selectedPanelProps: SelectedPanelProps) => React.ReactNode
 }
 
 const prefixcls = cssClasses.PREFIX;
@@ -276,7 +282,13 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
     }
 
     onInputChange(value: string) {
-        this.foundation.handleInputChange(value);
+        this.foundation.handleInputChange(value, true);
+    }
+
+    search(value: string) {
+        // The search method is used to provide the user with a manually triggered search
+        // Since the method is manually called by the user, setting the second parameter to false does not trigger the onSearch callback to notify the user
+        this.foundation.handleInputChange(value, false);
     }
 
     onSelectOrRemove(item: ResolvedDataItem) {
@@ -387,7 +399,9 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
         const noMatch = inSearchMode && searchResult.size === 0;
         const emptySearch = emptyContent.search ? emptyContent.search : locale.emptySearch;
         const emptyLeft = emptyContent.left ? emptyContent.left : locale.emptyLeft;
-        const emptyCom = this.renderEmpty('left', inputValue ? emptySearch : emptyLeft);
+        const emptyDataCom = this.renderEmpty('left', emptyLeft);
+        const emptySearchCom = this.renderEmpty('left', emptySearch);
+
         const loadingCom = <Spin />;
 
         let content: React.ReactNode = null;
@@ -396,7 +410,10 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
                 content = loadingCom;
                 break;
             case noMatch:
-                content = emptyCom;
+                content = emptySearchCom;
+                break;
+            case data.length === 0:
+                content = emptyDataCom;
                 break;
             case type === strings.TYPE_TREE_TO_LIST:
                 content = (
@@ -511,12 +528,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
 
     renderRightItem(item: ResolvedDataItem): React.ReactNode {
         const { renderSelectedItem, draggable, type, showPath } = this.props;
-        let newItem = item;
-        if (draggable) {
-            newItem = { ...item, key: item._optionKey };
-            delete newItem._optionKey;
-        }
-        const onRemove = () => this.foundation.handleSelectOrRemove(newItem);
+        const onRemove = () => this.foundation.handleSelectOrRemove(item);
         const rightItemCls = cls({
             [`${prefixcls}-item`]: true,
             [`${prefixcls}-right-item`]: true,
@@ -536,7 +548,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
 
         return (
             // https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex
-            <div role="listitem" className={rightItemCls} key={newItem.key}>
+            <div role="listitem" className={rightItemCls} key={item.key}>
                 {draggable ? <DragHandle /> : null}
                 <div className={`${prefixcls}-right-item-text`}>{label}</div>
                 <IconClose
@@ -562,14 +574,13 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
     renderRightSortableList(selectedData: Array<ResolvedDataItem>) {
         // when choose some items && draggable is true
         const SortableItem = SortableElement((
-            (item: ResolvedDataItem) => this.renderRightItem(item)) as React.FC<ResolvedDataItem>
+            (props: DraggableResolvedDataItem) => this.renderRightItem(props.item)) as React.FC<DraggableResolvedDataItem>
         );
         const SortableList = SortableContainer(({ items }: { items: Array<ResolvedDataItem> }) => (
             <div className={`${prefixcls}-right-list`} role="list" aria-label="Selected list">
                 {items.map((item, index: number) => (
-                    // sortableElement will take over the property 'key', so use another '_optionKey' to pass
                     // @ts-ignore skip SortableItem type check
-                    <SortableItem key={item.label} index={index} {...item} _optionKey={item.key} />
+                    <SortableItem key={item.label} index={index} item={item} />
                 ))}
             </div>
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment

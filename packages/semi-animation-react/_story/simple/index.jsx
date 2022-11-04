@@ -53,14 +53,14 @@ export default class SimpleAnimation extends React.Component {
                 {({ value }) => {
                     const ratio = value / 50;
                     // hsl(48, 16%, 57%) => hsl(71, 100%, 87%)
-                    const start = `hsl(${(71 - 48) * ratio + 48}, ${(100 - 16) * ratio + 16}%, ${(87 - 57) * ratio
-                        + 57}%)`;
+                    const start = `hsl(${(71 - 48) * ratio + 48}, ${(100 - 16) * ratio + 16}%, ${(87 - 57) * ratio +
+                        57}%)`;
                     const stop = `${value}%`;
                     const end = `hsl(${value * 5 + 50}, 90%, 60%)`;
                     // hsl(170, 40%, 60%) => hsl(198, 63%, 38%)
                     // const color = `hsl(${value * 6 + 40}, 90%, 60%)`;
-                    const color = `hsl(${(198 - 170) * ratio + 170}, ${(63 - 40) * ratio + 40}%, ${(38 - 60) * ratio
-                        + 60}%)`;
+                    const color = `hsl(${(198 - 170) * ratio + 170}, ${(63 - 40) * ratio + 40}%, ${(38 - 60) * ratio +
+                        60}%)`;
                     const scale = 0.1 * ratio + 0.3;
                     const rotation = 45 * ratio + 'deg';
                     const coords = [value, value];

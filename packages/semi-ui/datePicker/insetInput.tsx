@@ -14,7 +14,7 @@ export interface InsetDateInputProps {
     placeholder: string;
     valuePath: string;
     onChange: (options: InsetInputChangeFoundationProps) => void;
-    onFocus: InputProps['onFocus'];
+    onFocus: InputProps['onFocus']
 }
 
 export interface InsetTimeInputProps {
@@ -24,7 +24,7 @@ export interface InsetTimeInputProps {
     valuePath: string;
     type: Type;
     onChange: (options: InsetInputChangeFoundationProps) => void;
-    onFocus: InputProps['onFocus'];
+    onFocus: InputProps['onFocus']
 }
 
 export function InsetDateInput(props: InsetDateInputProps) {

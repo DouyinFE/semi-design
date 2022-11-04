@@ -12,7 +12,7 @@ export interface TriggerProps {
     placeholder?: string | string[];
     className?: string;
     style?: React.CSSProperties;
-    [x: string]: any;
+    [x: string]: any
 }
 /**
  * `Trigger` is a HOC that will cover the inner of components which have popups

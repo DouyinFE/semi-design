@@ -151,6 +151,22 @@ const local: Locale = {
         total: '총 {total} 개 항목',
         selected: '선택된 {Total} 개 항목',
     },
+    Form: {
+        optional: '(선택 과목)',
+    },
+    Image: {
+        preview: '시사',
+        loading: '로딩 중',
+        loadError: '불러 오지 못했습니다',
+        prevTip: '이전',
+        nextTip: '다음',
+        zoomInTip: '확대',
+        zoomOutTip: '축소',
+        rotateTip: '회전',
+        downloadTip: '다운로드',
+        adaptiveTip: '페이지에 맞게 조정',
+        originTip: '원래 크기',
+    },
 };
 
 // [i18n-Korea]

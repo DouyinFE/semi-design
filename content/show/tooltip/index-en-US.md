@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 62
+order: 64
 category: Show
 title: Tooltip
 subTitle: Tooltip
@@ -406,12 +406,14 @@ import { Popconfirm, Tooltip, Button } from '@douyinfe/semi-ui';
 | className | Pop-up layer classname | string |  |  |
 | content | Pop-up layer content | string | ReactNode |  |
 | clickToHide | Whether to automatically close the elastic layer when clicking on the floating layer and any element inside | boolean | false | **0.24.0** |
+| disableFocusListener | When trigger is `hover`, does not respond to the keyboard focus popup event, see details at [issue#977](https://github.com/DouyinFE/semi-design/issues/977) | boolean | false | **2.17.0** |
 | getPopupContainer | Specifies the parent DOM, and the bullet layer will be rendered to the DOM | () => HTMLElement | () => document.body |
 | mouseEnterDelay | After the mouse is moved in, the display delay time, in milliseconds (only effective when the trigger is hover/focus) | number | 50 |  |
 | mouseLeaveDelay | The time for the delay to disappear after the mouse is moved out, in milliseconds (only effective when the trigger is hover/focus), and is not less than mouseEnterDelay | number | 50 |  |
 | motion | Whether to show the pop-up motion | boolean | true |  |
 | position | Pop-up layer display position, optional value: `top`, `topLeft`, `topRight`, `left`, `leftTop`, `leftBottom`, `right`, `rightTop`, `rightBottom`, `bottom`, `bottomLeft`, `bottomRight` | string | 'top' |  |
 | prefixCls | The `className` prefix of the pop-up layer wrapper div. When this item is set, the pop-up layer will no longer have the style of Tooltip. | string | 'semi-tooltip ' |  |
+| preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
 | rePosKey | This value can be updated to manually trigger the repositioning of the pop-up layer. | string | number |  |
 | style | Pop-up layer inline style | object |  |  |
 | spacing | The distance between the pop-up layer and the `children` element | number |  |  |
@@ -448,6 +450,11 @@ import { Popconfirm, Tooltip, Button } from '@douyinfe/semi-ui';
 </Tooltip>
 ```
 
+## Content Guidelines
+
+- Only display information description and guidance, do not display error information
+- Only extra links and buttons not in tooltip
+- Try to simplify the description to one sentence without showing punctuation marks
 
 ## Design Tokens
 

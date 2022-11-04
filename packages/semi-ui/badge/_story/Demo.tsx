@@ -10,7 +10,7 @@ const Demo = () => {
                 <div>132456</div>
             </Badge>
         </div>
-    )
-}
+    );
+};
 
-export default Demo
+export default Demo;

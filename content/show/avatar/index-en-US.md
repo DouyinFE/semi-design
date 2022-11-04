@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 43
+order: 44
 category: Show
 title:  Avatar
 subTitle: avatar
@@ -84,13 +84,13 @@ import { Avatar } from '@douyinfe/semi-ui';
     <div>
         <Avatar
             alt="beautiful cat"
-            src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"
+            src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png"
             style={{ margin: 4 }}
         />
         <Avatar
             alt="cute cat"
             size="small"
-            src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"
+            src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png"
             style={{ margin: 4 }}
         />
     </div>
@@ -248,7 +248,7 @@ import { Avatar, AvatarGroup } from '@douyinfe/semi-ui';
             <AvatarGroup overlapFrom={'end'}>
                 <Avatar color="red" alt='Lisa LeBlanc'>LL</Avatar>
                 <Avatar alt='Caroline Xiao'>CX</Avatar>
-                <Avatar color="amber"  alt='Rafal Matin'>RM</Avatar>
+                <Avatar color="amber" alt='Rafal Matin'>RM</Avatar>
                 <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }} alt='Zank Lance'>ZL</Avatar>
                 <Avatar style={{ backgroundColor: '#87d068' }} alt='Youself Zhang'>YZ</Avatar>
             </AvatarGroup>
@@ -305,24 +305,24 @@ import { Avatar } from '@douyinfe/semi-ui';
             {/* Good case */ }
             <Avatar
                 alt="A cut cat"
-                src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"
+                src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png"
                 style={{ margin: 4 }}
             />
             <Avatar
                 alt="Jiang Pengzhi"
-                src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"
+                src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png"
                 style={{ margin: 4 }}
             />
             {/* Bad case: empty content */ }
             <Avatar
                 alt=""
-                src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"
+                src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png"
                 style={{ margin: 4 }}
             />
             {/* Bad case: no need to include picture or image in alt */ }
             <Avatar
                 alt="Picture of Jiang Pengzhi"
-                src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"
+                src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png"
                 style={{ margin: 4 }}
             />
         </>

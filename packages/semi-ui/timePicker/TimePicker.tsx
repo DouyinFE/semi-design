@@ -24,11 +24,10 @@ import { InputSize } from '../input';
 import { Position } from '../tooltip';
 import { ScrollItemProps } from '../scrollList/scrollItem';
 import { Locale } from '../locale/interface';
-import { Motion } from '../_base/base';
 
 export interface Panel {
     panelHeader?: React.ReactNode;
-    panelFooter?: React.ReactNode;
+    panelFooter?: React.ReactNode
 }
 
 export type BaseValueType = string | number | Date;
@@ -65,7 +64,7 @@ export type TimePickerProps = {
     locale?: Locale['TimePicker'];
     localeCode?: string;
     minuteStep?: number;
-    motion?: Motion;
+    motion?: boolean;
     open?: boolean;
     panelFooter?: React.ReactNode;
     panelHeader?: React.ReactNode;
@@ -75,6 +74,7 @@ export type TimePickerProps = {
     popupStyle?: React.CSSProperties;
     position?: Position;
     prefixCls?: string;
+    preventScroll?: boolean;
     rangeSeparator?: string;
     scrollItemProps?: ScrollItemProps<any>;
     secondStep?: number;
@@ -92,7 +92,7 @@ export type TimePickerProps = {
     onChange?: TimePickerAdapter['notifyChange'];
     onChangeWithDateFirst?: boolean;
     onFocus?: React.FocusEventHandler<HTMLInputElement>;
-    onOpenChange?: (open: boolean) => void;
+    onOpenChange?: (open: boolean) => void
 };
 
 export interface TimePickerState {
@@ -104,7 +104,7 @@ export interface TimePickerState {
     showHour: boolean;
     showMinute: boolean;
     showSecond: boolean;
-    invalid: boolean;
+    invalid: boolean
 }
 
 export default class TimePicker extends BaseComponent<TimePickerProps, TimePickerState> {
@@ -164,6 +164,7 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
         autoAdjustOverflow: PropTypes.bool,
         ...PanelShape,
         inputStyle: PropTypes.object,
+        preventScroll: PropTypes.bool,
     };
 
     static defaultProps = {
@@ -194,6 +195,7 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
         onKeyDown: noop,
         size: 'default' as const,
         type: strings.DEFAULT_TYPE,
+        motion: true,
         ...PanelShapeDefaults,
         // format: strings.DEFAULT_FORMAT,
         // open and value controlled
@@ -246,7 +248,7 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
                         this.timePickerRef.current.contains(e.target as Node);
                     if (!isInTimepicker && !isInPanel) {
                         const clickedOutside = true;
-                        this.foundation.hanldePanelClose(clickedOutside, e);
+                        this.foundation.handlePanelClose(clickedOutside, e);
                     }
                 };
                 document.addEventListener('mousedown', this.clickOutSideHandler);
@@ -504,7 +506,7 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
         if (useCustomTrigger) {
             outerProps.onClick = this.openPanel;
         }
-
+        console.log("===>", disabled?false:open, motion);
         return (
             <div
                 ref={this.setTimePickerRef}

@@ -21,6 +21,7 @@ import YearAndMonth, { YearAndMonthProps } from './yearAndMonth';
 import '@douyinfe/semi-foundation/datePicker/datePicker.scss';
 import { Locale } from '../locale/interface';
 import { TimePickerProps } from '../timePicker/TimePicker';
+import { ScrollItemProps } from '../scrollList/scrollItem';
 import { InsetInputValue, InsetInputChangeProps } from '@douyinfe/semi-foundation/datePicker/inputFoundation';
 
 export interface DatePickerProps extends DatePickerFoundationProps {
@@ -44,6 +45,7 @@ export interface DatePickerProps extends DatePickerFoundationProps {
     onPresetClick?: (item: PresetType, e: React.MouseEvent<HTMLDivElement>) => void;
     locale?: Locale['DatePicker'];
     dateFnsLocale?: Locale['dateFnsLocale'];
+    yearAndMonthOpts?: ScrollItemProps<any>
 }
 
 export type DatePickerState = DatePickerFoundationState;
@@ -76,6 +78,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
         max: PropTypes.number, // only work when multiple is true
         placeholder: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
         presets: PropTypes.array,
+        presetPosition: PropTypes.oneOf(strings.PRESET_POSITION_SET),
         onChange: PropTypes.func,
         onChangeWithDateFirst: PropTypes.bool,
         weekStartsOn: PropTypes.number,
@@ -125,6 +128,8 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
         // Callback function for panel date switching
         onPanelChange: PropTypes.func,
         rangeSeparator: PropTypes.string,
+        preventScroll: PropTypes.bool,
+        yearAndMonthOpts: PropTypes.object
     };
 
     static defaultProps = {
@@ -133,12 +138,12 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
         stopPropagation: true,
         motion: true,
         prefixCls: cssClasses.PREFIX,
+        presetPosition: 'bottom',
         // position: 'bottomLeft',
         zIndex: popoverNumbers.DEFAULT_Z_INDEX,
         type: 'date',
         size: 'default',
         density: 'default',
-        disabled: false,
         multiple: false,
         defaultOpen: false,
         disabledHours: noop,
@@ -186,7 +191,6 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             value: [], // The currently selected date, each date is a Date object
             cachedSelectedValue: null, // Save last selected date, maybe include null
             prevTimeZone: null,
-            motionEnd: false, // Monitor if popover animation ends
             rangeInputFocus: undefined, // Optional'rangeStart ',' rangeEnd ', false
             autofocus: props.autoFocus || (this.isRangeType(props.type, props.triggerRender) && (props.open || props.defaultOpen)),
             insetInputValue: null,
@@ -270,15 +274,15 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             needConfirm: () =>
                 ['dateTime', 'dateTimeRange'].includes(this.props.type) && this.props.needConfirm === true,
             typeIsYearOrMonth: () => ['month', 'year'].includes(this.props.type),
-            setMotionEnd: motionEnd => this.setState({ motionEnd }),
             setRangeInputFocus: rangeInputFocus => {
+                const { preventScroll } = this.props;
                 if (rangeInputFocus !== this.state.rangeInputFocus) {
                     this.setState({ rangeInputFocus });
                 }
                 switch (rangeInputFocus) {
                     case 'rangeStart':
                         const inputStartNode = get(this, 'rangeInputStartRef.current');
-                        inputStartNode && inputStartNode.focus();
+                        inputStartNode && inputStartNode.focus({ preventScroll });
                         /**
                          * 解决选择完startDate，切换到endDate后panel被立马关闭的问题。
                          * 用户打开panel，选了startDate后，会执行setRangeInputFocus('rangeEnd'),focus到endDateInput，
@@ -298,7 +302,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
                         break;
                     case 'rangeEnd':
                         const inputEndNode = get(this, 'rangeInputEndRef.current');
-                        inputEndNode && inputEndNode.focus();
+                        inputEndNode && inputEndNode.focus({ preventScroll });
                         /**
                          * 解决选择完startDate，切换到endDate后panel被立马关闭的问题。
                          * 用户打开panel，选了startDate后，会执行setRangeInputFocus('rangeEnd'),focus到endDateInput，
@@ -323,19 +327,20 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             couldPanelClosed: () => this.focusRecordsRef.current.rangeStart && this.focusRecordsRef.current.rangeEnd,
             isEventTarget: e => e && e.target === e.currentTarget,
             setInsetInputFocus: () => {
+                const { preventScroll } = this.props;
                 const { rangeInputFocus } = this.state;
                 switch (rangeInputFocus) {
                     case 'rangeEnd':
                         if (document.activeElement !== this.rangeInputEndRef.current) {
                             const inputEndNode = get(this, 'rangeInputEndRef.current');
-                            inputEndNode && inputEndNode.focus();
+                            inputEndNode && inputEndNode.focus({ preventScroll });
                         }
                         break;
                     case 'rangeStart':
                     default:
                         if (document.activeElement !== this.rangeInputStartRef.current) {
                             const inputStartNode = get(this, 'rangeInputStartRef.current');
-                            inputStartNode && inputStartNode.focus();
+                            inputStartNode && inputStartNode.focus({ preventScroll });
                         }
                         break;
                 }
@@ -413,9 +418,11 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             onPanelChange,
             timeZone,
             triggerRender,
-            insetInput
+            insetInput,
+            presetPosition,
+            yearAndMonthOpts
         } = this.props;
-        const { cachedSelectedValue, motionEnd, rangeInputFocus } = this.state;
+        const { cachedSelectedValue, rangeInputFocus } = this.state;
 
         const defaultValue = cachedSelectedValue;
         return (
@@ -443,7 +450,6 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
                 startDateOffset={startDateOffset}
                 endDateOffset={endDateOffset}
                 autoSwitchDate={autoSwitchDate}
-                motionEnd={motionEnd}
                 density={density}
                 rangeInputFocus={rangeInputFocus}
                 setRangeInputFocus={this.handleSetRangeFocus}
@@ -454,19 +460,48 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
                 focusRecordsRef={this.focusRecordsRef}
                 triggerRender={triggerRender}
                 insetInput={insetInput}
+                presetPosition={presetPosition}
+                renderQuickControls={this.renderQuickControls()}
+                renderDateInput={this.renderDateInput()}
+                yearAndMonthOpts={yearAndMonthOpts}
             />
         );
     }
 
     renderQuickControls() {
-        const { presets, type } = this.props;
+        const { presets, type, presetPosition, insetInput } = this.props;
         return (
             <QuickControl
                 type={type}
                 presets={presets}
+                insetInput={insetInput}
+                presetPosition={presetPosition}
                 onPresetClick={(item, e) => this.foundation.handlePresetClick(item, e)}
             />
         );
+    }
+
+    renderDateInput() {
+        const { insetInput, dateFnsLocale, density, type, format, rangeSeparator, defaultPickerValue } = this.props;
+        const { insetInputValue, value } = this.state;
+
+        const insetInputProps = {
+            dateFnsLocale,
+            format,
+            insetInputValue,
+            rangeSeparator,
+            type,
+            value: value as Date[],
+            handleInsetDateFocus: this.handleInsetDateFocus,
+            handleInsetTimeFocus: this.handleInsetTimeFocus,
+            onInsetInputChange: this.handleInsetInputChange,
+            rangeInputStartRef: this.rangeInputStartRef,
+            rangeInputEndRef: this.rangeInputEndRef,
+            density,
+            defaultPickerValue
+        };
+
+        return insetInput ? <DateInput {...insetInputProps} insetInput={true} /> : null;
     }
 
     handleOpenPanel = () => this.foundation.openPanel();
@@ -576,7 +611,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             onRangeBlur: this.handleRangeInputBlur,
             onRangeClear: this.handleRangeInputClear,
             onRangeEndTabPress: this.handleRangeEndTabPress,
-            rangeInputStartRef: insetInput ? null :  this.rangeInputStartRef,
+            rangeInputStartRef: insetInput ? null : this.rangeInputStartRef,
             rangeInputEndRef: insetInput ? null : this.rangeInputEndRef,
         };
 
@@ -624,7 +659,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
     };
 
     renderPanel = (locale: Locale['DatePicker'], localeCode: string, dateFnsLocale: Locale['dateFnsLocale']) => {
-        const { dropdownClassName, dropdownStyle, density, topSlot, bottomSlot, insetInput, type, format, rangeSeparator, defaultPickerValue } = this.props;
+        const { dropdownClassName, dropdownStyle, density, topSlot, bottomSlot, insetInput, type, format, rangeSeparator, defaultPickerValue, presetPosition } = this.props;
         const { insetInputValue, value } = this.state;
         const wrapCls = classnames(
             cssClasses.PREFIX,
@@ -652,17 +687,18 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
         };
 
         return (
-            <div ref={this.panelRef} className={wrapCls} style={dropdownStyle}>
+            <div ref={this.panelRef} className={wrapCls} style={dropdownStyle} >
                 {topSlot && (
                     <div className={`${cssClasses.PREFIX}-topSlot`} x-semi-prop="topSlot">
                         {topSlot}
                     </div>
                 )}
-                {insetInput && <DateInput {...insetInputProps} insetInput={true} />}
+                {presetPosition === "top" && this.renderQuickControls()}
+                {/* {insetInput && <DateInput {...insetInputProps} insetInput={true} />} */}
                 {this.adapter.typeIsYearOrMonth()
                     ? this.renderYearMonthPanel(locale, localeCode)
                     : this.renderMonthGrid(locale, localeCode, dateFnsLocale)}
-                {this.renderQuickControls()}
+                {presetPosition === "bottom" && this.renderQuickControls()}
                 {bottomSlot && (
                     <div className={`${cssClasses.PREFIX}-bottomSlot`} x-semi-prop="bottomSlot">
                         {bottomSlot}
@@ -674,7 +710,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
     };
 
     renderYearMonthPanel = (locale: Locale['DatePicker'], localeCode: string) => {
-        const { density } = this.props;
+        const { density, presetPosition, yearAndMonthOpts } = this.props;
 
         const date = this.state.value[0];
         let year = 0;
@@ -696,6 +732,10 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
                 currentYear={year}
                 currentMonth={month}
                 density={density}
+                presetPosition={presetPosition}
+                renderQuickControls={this.renderQuickControls()}
+                renderDateInput={this.renderDateInput()}
+                yearAndMonthOpts={yearAndMonthOpts}
             />
         );
     };
@@ -717,14 +757,13 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             autoAdjustOverflow,
             spacing,
         } = this.props;
-        const mergedMotion = this.foundation.getMergedMotion(motion);
         return (
             <Popover
                 getPopupContainer={getPopupContainer}
                 // wrapWhenSpecial={false}
                 autoAdjustOverflow={autoAdjustOverflow}
                 zIndex={zIndex}
-                motion={mergedMotion}
+                motion={motion}
                 content={this.renderPanel(locale, localeCode, dateFnsLocale)}
                 trigger="custom"
                 position={position}

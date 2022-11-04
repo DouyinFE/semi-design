@@ -11,7 +11,7 @@ import {
 } from 'lodash';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/tagInput/constants';
 import '@douyinfe/semi-foundation/tagInput/tagInput.scss';
-import TagInputFoundation, { TagInputAdapter } from '@douyinfe/semi-foundation/tagInput/foundation';
+import TagInputFoundation, { TagInputAdapter, OnSortEndProps } from '@douyinfe/semi-foundation/tagInput/foundation';
 import { ArrayElement } from '../_base/base';
 import { isSemiIcon } from '../_utils';
 import BaseComponent from '../_base/baseComponent';
@@ -19,11 +19,26 @@ import Tag from '../tag';
 import Input from '../input';
 import Popover, { PopoverProps } from '../popover';
 import Paragraph from '../typography/paragraph';
-import { IconClear } from '@douyinfe/semi-icons';
+import { IconClear, IconHandle } from '@douyinfe/semi-icons';
+import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 
 export type Size = ArrayElement<typeof strings.SIZE_SET>;
 export type RestTagsPopoverProps = PopoverProps;
 type ValidateStatus = "default" | "error" | "warning";
+
+const SortableItem = SortableElement(props => props.item);
+
+const SortableList = SortableContainer(
+    ({ items }) => {
+        return (
+            <div style={{ display: 'flex', flexFlow: 'row wrap', }}>
+                {items.map((item, index) => (
+                    // @ts-ignore skip SortableItem type check
+                    <SortableItem key={item.key} index={index} item={item.item}></SortableItem>
+                ))}
+            </div>
+        );
+    });
 
 export interface TagInputProps {
     className?: string;
@@ -38,6 +53,8 @@ export interface TagInputProps {
     showContentTooltip?: boolean;
     allowDuplicates?: boolean;
     addOnBlur?: boolean;
+    draggable?: boolean;
+    expandRestTagsOnClick?: boolean;
     onAdd?: (addedValue: string[]) => void;
     onBlur?: (e: React.MouseEvent<HTMLInputElement>) => void;
     onChange?: (value: string[]) => void;
@@ -61,6 +78,7 @@ export interface TagInputProps {
     value?: string[] | undefined;
     autoFocus?: boolean;
     'aria-label'?: string;
+    preventScroll?: boolean
 }
 
 export interface TagInputState {
@@ -68,6 +86,7 @@ export interface TagInputState {
     inputValue?: string;
     focusing?: boolean;
     hovering?: boolean;
+    active?: boolean
 }
 
 const prefixCls = cssClasses.PREFIX;
@@ -92,6 +111,8 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
         separator: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
         showClear: PropTypes.bool,
         addOnBlur: PropTypes.bool,
+        draggable: PropTypes.bool,
+        expandRestTagsOnClick: PropTypes.bool,
         autoFocus: PropTypes.bool,
         renderTagItem: PropTypes.func,
         onBlur: PropTypes.func,
@@ -108,6 +129,7 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
         prefix: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
         suffix: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
         'aria-label': PropTypes.string,
+        preventScroll: PropTypes.bool,
     };
 
     static defaultProps = {
@@ -116,6 +138,8 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
         allowDuplicates: true,
         showRestTagsPopover: true,
         autoFocus: false,
+        draggable: false,
+        expandRestTagsOnClick: true,
         showContentTooltip: true,
         separator: ',',
         size: 'default' as const,
@@ -132,7 +156,9 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
     };
 
     inputRef: React.RefObject<HTMLInputElement>;
+    tagInputRef: React.RefObject<HTMLDivElement>;
     foundation: TagInputFoundation;
+    clickOutsideHandler: any;
 
     constructor(props: TagInputProps) {
         super(props);
@@ -141,9 +167,12 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
             tagsArray: props.defaultValue || [],
             inputValue: '',
             focusing: false,
-            hovering: false
+            hovering: false,
+            active: false,
         };
         this.inputRef = React.createRef();
+        this.tagInputRef = React.createRef();
+        this.clickOutsideHandler = null;
     }
 
     static getDerivedStateFromProps(nextProps: TagInputProps, prevState: TagInputState) {
@@ -176,9 +205,10 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
                 this.setState({ focusing });
             },
             toggleFocusing: (isFocus: boolean) => {
+                const { preventScroll } = this.props;
                 const input = this.inputRef && this.inputRef.current;
                 if (isFocus) {
-                    input && input.focus();
+                    input && input.focus({ preventScroll });
                 } else {
                     input && input.blur();
                 }
@@ -186,6 +216,12 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
             },
             setHovering: (hovering: boolean) => {
                 this.setState({ hovering });
+            },
+            setActive: (active: boolean) => {
+                this.setState({ active });
+            },
+            getClickOutsideHandler: () => {
+                return this.clickOutsideHandler;
             },
             notifyBlur: (e: React.MouseEvent<HTMLInputElement>) => {
                 this.props.onBlur(e);
@@ -208,14 +244,31 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
             notifyKeyDown: e => {
                 this.props.onKeyDown(e);
             },
+            registerClickOutsideHandler: cb => {
+                const clickOutsideHandler = (e: Event) => {
+                    const tagInputDom = this.tagInputRef && this.tagInputRef.current;
+                    const target = e.target as Element;
+                    if (tagInputDom && !tagInputDom.contains(target)) {
+                        cb(e);
+                    }
+                };
+                this.clickOutsideHandler = clickOutsideHandler;
+                document.addEventListener('click', clickOutsideHandler, false);
+            },
+            unregisterClickOutsideHandler: () => {
+                document.removeEventListener('click', this.clickOutsideHandler, false);
+                this.clickOutsideHandler = null;
+            },
         };
     }
 
     componentDidMount() {
-        const { disabled, autoFocus } = this.props;
+        const { disabled, autoFocus, preventScroll } = this.props;
         if (!disabled && autoFocus) {
-            this.inputRef.current.focus();
+            this.inputRef.current.focus({ preventScroll });
+            this.foundation.handleClick();
         }
+        this.foundation.init();
     }
 
     handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -249,6 +302,10 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
 
     handleInputMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
         this.foundation.handleInputMouseLeave();
+    };
+
+    handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        this.foundation.handleClick(e);
     };
 
     handleInputMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -335,34 +392,37 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
         );
     }
 
-    renderTags() {
+    getAllTags = () => {
         const {
             size,
             disabled,
             renderTagItem,
-            maxTagCount,
             showContentTooltip,
-            showRestTagsPopover,
-            restTagsPopoverProps = {},
+            draggable,
         } = this.props;
-        const { tagsArray } = this.state;
+        const { tagsArray, active } = this.state;
+        const showIconHandler = active && draggable;
         const tagCls = cls(`${prefixCls}-wrapper-tag`, {
             [`${prefixCls}-wrapper-tag-size-${size}`]: size,
+            [`${prefixCls}-wrapper-tag-icon`]: showIconHandler,
         });
         const typoCls = cls(`${prefixCls}-wrapper-typo`, {
-            [`${prefixCls}-wrapper-typo-disabled`]: disabled
+            [`${prefixCls}-wrapper-typo-disabled`]: disabled,
         });
-        const restTagsCls = cls(`${prefixCls}-wrapper-n`, {
-            [`${prefixCls}-wrapper-n-disabled`]: disabled
+        const itemWrapperCls = cls({
+            [`${prefixCls}-drag-item`]: showIconHandler,
+            [`${prefixCls}-wrapper-tag-icon`]: showIconHandler,
         });
-        const restTags: Array<React.ReactNode> = [];
-        const tags: Array<React.ReactNode> = [];
-        tagsArray.forEach((value, index) => {
-            let item = null;
+        const DragHandle = SortableHandle(() => <IconHandle className={`${prefixCls}-drag-handler`}></IconHandle>);
+        return tagsArray.map((value, index) => {
+            const elementKey = showIconHandler ? value : `${index}${value}`;
             if (isFunction(renderTagItem)) {
-                item = renderTagItem(value, index);
+                return showIconHandler? (<div className={itemWrapperCls} key={elementKey}>
+                    <DragHandle />
+                    {renderTagItem(value, index)}
+                </div>) : renderTagItem(value, index);
             } else {
-                item = (
+                return (
                     <Tag
                         className={tagCls}
                         color="white"
@@ -372,10 +432,11 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
                             !disabled && this.handleTagClose(index);
                         }}
                         closable={!disabled}
-                        key={`${index}${value}`}
+                        key={elementKey}
                         visible
                         aria-label={`${!disabled ? 'Closable ' : ''}Tag: ${value}`}
                     >
+                        {showIconHandler && <DragHandle />}
                         <Paragraph
                             className={typoCls}
                             ellipsis={{ showTooltip: showContentTooltip, rows: 1 }}
@@ -385,17 +446,47 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
                     </Tag>
                 );
             }
-            if (maxTagCount && index >= maxTagCount) {
-                restTags.push(item);
-            } else {
-                tags.push(item);
-            }
         });
+    }
 
+    onSortEnd = (callbackProps: OnSortEndProps) => {
+        this.foundation.handleSortEnd(callbackProps);
+    }
+
+    renderTags() {
+        const {
+            disabled,
+            maxTagCount,
+            showRestTagsPopover,
+            restTagsPopoverProps = {},
+            draggable,
+            expandRestTagsOnClick,
+        } = this.props;
+        const { tagsArray, active } = this.state;
+        const restTagsCls = cls(`${prefixCls}-wrapper-n`, {
+            [`${prefixCls}-wrapper-n-disabled`]: disabled,
+        });
+        const allTags = this.getAllTags();
+        let restTags: Array<React.ReactNode> = [];
+        let tags: Array<React.ReactNode> = [...allTags];
+        if (( !active || !expandRestTagsOnClick) && maxTagCount && maxTagCount < allTags.length){
+            tags = allTags.slice(0, maxTagCount);
+            restTags = allTags.slice(maxTagCount);
+        }
+    
         const restTagsContent = (
             <span className={restTagsCls}>+{tagsArray.length - maxTagCount}</span>
         );
 
+        const sortableListItems = allTags.map((item, index) => ({
+            item: item,
+            key: tagsArray[index],
+        }));
+
+        if (active && draggable && sortableListItems.length > 0) {
+            // @ts-ignore skip SortableItem type check
+            return <SortableList useDragHandle items={sortableListItems} onSortEnd={this.onSortEnd} axis={"xy"} />;
+        } 
         return (
             <>
                 {tags}
@@ -423,10 +514,17 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
 
     blur() {
         this.inputRef.current.blur();
+        // unregister clickOutside event 
+        this.foundation.clickOutsideCallBack();
     }
 
     focus() {
-        this.inputRef.current.focus();
+        const { preventScroll, disabled } = this.props;
+        this.inputRef.current.focus({ preventScroll });
+        if (!disabled) {
+            // register clickOutside event 
+            this.foundation.handleClick();
+        }
     }
 
     render() {
@@ -443,11 +541,12 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
             focusing,
             hovering,
             tagsArray,
-            inputValue
+            inputValue,
+            active,
         } = this.state;
 
         const tagInputCls = cls(prefixCls, className, {
-            [`${prefixCls}-focus`]: focusing,
+            [`${prefixCls}-focus`]: focusing || active,
             [`${prefixCls}-disabled`]: disabled,
             [`${prefixCls}-hover`]: hovering && !disabled,
             [`${prefixCls}-error`]: validateStatus === 'error',
@@ -459,7 +558,9 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
         const wrapperCls = cls(`${prefixCls}-wrapper`);
 
         return (
+            // eslint-disable-next-line 
             <div
+                ref={this.tagInputRef}
                 style={style}
                 className={tagInputCls}
                 aria-disabled={disabled}
@@ -470,6 +571,9 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
                 }}
                 onMouseLeave={e => {
                     this.handleInputMouseLeave(e);
+                }}
+                onClick={e => {   
+                    this.handleClick(e);
                 }}
             >
                 {this.renderPrefix()}

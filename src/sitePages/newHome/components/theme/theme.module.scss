@@ -16,19 +16,24 @@
     width: 321px;
     margin: 0 0 16px;
     font-size: 32px;
-    font-family: PingFang SC;
+    font-family: "PingFang SC";
     color: var(--semi-color-text-0);
     line-height: 44px;
     font-weight: bold;
     text-align: center;
     vertical-align: middle;
+    letter-spacing: 0em;
+}
+
+.title_en {
+    font-weight: 700;
 }
 
 .text_5f990524 {
     min-width: 450px;
     margin: 0 0 32px;
     font-size: 18px;
-    font-family: PingFang SC;
+    font-family: "PingFang SC";
     color: var(--semi-color-text-0);
     line-height: 32px;
     font-weight: 400;
@@ -81,7 +86,7 @@
 
 .value_c28b964d {
     font-size: 14px;
-    font-family: Inter;
+    font-family: "Inter";
     color: var(--semi-color-text-0);
     line-height: 20px;
     font-weight: 400;
@@ -90,10 +95,11 @@
 
 .value_79ae18fb {
     font-size: 14px;
-    font-family: PingFang SC;
+    font-family: "PingFang SC";
     color: var(--semi-color-text-0);
     line-height: 20px;
     font-weight: 400;
+    white-space: nowrap;
 }
 
 .selectTrigger_eecab517 {
@@ -115,7 +121,7 @@
 .value_ee5552b6 {
     min-width: 169px;
     font-size: 14px;
-    font-family: Inter;
+    font-family: "Inter";
     color: var(--semi-color-text-0);
     line-height: 20px;
     font-weight: 400;
@@ -146,7 +152,7 @@
 .value_acee012f {
     min-width: 112px;
     font-size: 14px;
-    font-family: PingFang SC;
+    font-family: "PingFang SC";
     color: var(--semi-color-text-0);
     line-height: 20px;
     font-weight: 400;
@@ -182,7 +188,7 @@
 .value_2b63d90d {
     min-width: 84px;
     font-size: 14px;
-    font-family: PingFang SC;
+    font-family: "PingFang SC";
     color: var(--semi-color-text-0);
     line-height: 20px;
     font-weight: 400;
@@ -206,4 +212,16 @@
     width: 30px;
     height: 30px;
     margin-right: 8px;
+}
+
+.imageWrapper {
+    width: 30px;
+    height: 30px;
+    box-sizing: border-box;
+    border: 1px solid var(--semi-color-border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #FFFFFF
 }

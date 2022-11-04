@@ -1,13 +1,12 @@
 {
     "name": "@douyinfe/semi-foundation",
-    "version": "2.14.0",
+    "version": "2.22.2",
     "description": "",
     "scripts": {
         "build:lib": "node ./scripts/compileLib.js",
         "prepublishOnly": "npm run build:lib"
     },
     "dependencies": {
-        "@babel/runtime-corejs3": "^7.15.4",
         "@douyinfe/semi-animation": "2.12.0",
         "async-validator": "^3.5.0",
         "classnames": "^2.2.6",
@@ -26,7 +25,6 @@
     ],
     "gitHead": "eb34a4f25f002bb4cbcfa51f3df93bed868c831a",
     "devDependencies": {
-        "@babel/plugin-proposal-decorators": "^7.15.8",
         "@babel/plugin-transform-runtime": "^7.15.8",
         "@babel/preset-env": "^7.15.8",
         "@types/lodash": "^4.14.176",
@@ -38,7 +36,6 @@
         "gulp-sass": "^5.0.0",
         "gulp-typescript": "^6.0.0-alpha.1",
         "merge2": "^1.4.1",
-        "sass": "1.45.0",
         "through2": "^4.0.2"
     }
 }

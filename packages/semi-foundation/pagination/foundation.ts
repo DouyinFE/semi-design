@@ -14,7 +14,7 @@ export interface PaginationAdapter<P = Record<string, any>, S = Record<string, a
     unregisterKeyDownHandler: (handler: KeyDownHandler) => void;
     notifyPageChange: (pageIndex: number) => void;
     notifyPageSizeChange: (pageSize: number) => void;
-    notifyChange: (pageIndex: number, pageSize: number) => void;
+    notifyChange: (pageIndex: number, pageSize: number) => void
 }
 
 export type PageRenderText = number | '...';
@@ -23,7 +23,7 @@ export type PageList = PageRenderText[];
 export interface AdapterPageList {
     pageList: PageRenderText[];
     restLeftPageList: number[];
-    restRightPageList: number[];
+    restRightPageList: number[]
 }
 
 export type KeyDownHandler = any;

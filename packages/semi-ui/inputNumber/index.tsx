@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
 /* eslint-disable max-depth */
@@ -51,9 +52,10 @@ export interface InputNumberProps extends InputProps {
     onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
     onKeyDown?: React.KeyboardEventHandler;
     onNumberChange?: (value: number, e?: React.ChangeEvent) => void;
-    onUpClick?: (value: string, e: React.MouseEvent<HTMLButtonElement>) => void;
+    onUpClick?: (value: string, e: React.MouseEvent<HTMLButtonElement>) => void
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface InputNumberState extends BaseInputNumberState {}
 
 class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
@@ -82,6 +84,7 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
         prefixCls: PropTypes.string,
         pressInterval: PropTypes.number,
         pressTimeout: PropTypes.number,
+        preventScroll: PropTypes.bool,
         shiftStep: PropTypes.number,
         step: PropTypes.number,
         style: PropTypes.object,
@@ -96,7 +99,6 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
     };
 
     static defaultProps: InputNumberProps = {
-        disabled: false,
         forwardedRef: noop,
         innerButtons: false,
         keepFocus: false,
@@ -220,7 +222,7 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
             },
             updateStates: (states, callback) => {
                 this.setState(states, callback);
-            }
+            },
         };
     }
 
@@ -246,7 +248,7 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
     }
 
     componentDidUpdate(prevProps: InputNumberProps) {
-        const { value } = this.props;
+        const { value, preventScroll } = this.props;
         const { focusing } = this.state;
         let newValue;
         /**
@@ -327,7 +329,7 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
                     this.foundation.updateStates({ number: null, value: newValue });
                 }
             }
-            if (isString(newValue) && newValue !== String(this.props.value)) {
+            if (newValue && isString(newValue) && newValue !== String(this.props.value)) {
                 this.foundation.notifyChange(newValue, null);
             }
         }
@@ -338,7 +340,7 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
 
         if (this.props.keepFocus && this.state.focusing) {
             if (document.activeElement !== this.inputNode) {
-                this.inputNode.focus();
+                this.inputNode.focus({ preventScroll });
             }
         }
     }

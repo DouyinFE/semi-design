@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 14
+order: 15
 category: 基础
 title:  Tokens 设计变量
 icon: doc-token
@@ -149,12 +149,12 @@ brief: Semi Design Tokens
 ```css
 @font-face {
   font-family: "Inter";
-  src: url("https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/slepweh7nupqpognuhbo/Inter-Regular.ttf") format("ttf");
+  src: url("https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/slepweh7nupqpognuhbo/Inter-Regular.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "Inter-Bold";
-  src: url("https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/slepweh7nupqpognuhbo/Inter-Bold.ttf") format("ttf");
+  src: url("https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/slepweh7nupqpognuhbo/Inter-Bold.ttf") format("truetype");
 }
 
 ```
@@ -201,6 +201,10 @@ brief: Semi Design Tokens
 
 <DesignToken componentName='global' reg={/z-/}/>
 
+## 动画
+
+<DesignToken componentName="global" isAnimation={true} />
+
 ## 尚未支持的变量
 目前，Semi 尚未支持以下类别的全局变量，如果你有相关需求，可以通过issue进行反馈，详细描述你的预期需求，我们会在评估后进行处理
 
@@ -208,7 +212,6 @@ brief: Semi Design Tokens
 
 **字间距 letter spacing**
 
-**时长 duration**
 
 **媒体查询 media query**
 

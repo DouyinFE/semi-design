@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 33
+order: 34
 category: 输入类
 title: TreeSelect 树选择器
 icon: doc-treeselect
@@ -66,7 +66,8 @@ import { TreeSelect } from '@douyinfe/semi-ui';
 
 ### 多选
 
-设置 `multiple`，可以进行多选。多选情况下所有子项都被选择时，自动勾选显示其父项。通过设置 `maxTagCount` 属性，可以设置显示的标签数量上限。通过设置 `leafOnly` (>= v0.32.0) 属性，可以设置只展示叶子节点，同时 onChange 的回调入参也会只有叶子节点的值。
+设置 `multiple`，可以进行多选。多选情况下所有子项都被选择时，自动勾选显示其父项。  
+通过 `leafOnly` (>= v0.32.0) 属性，可以设置只展示叶子节点，同时 onChange 的回调入参也会只有叶子节点的值。  
 
 ```jsx live=true
 import React from 'react';
@@ -148,18 +149,111 @@ import { TreeSelect } from '@douyinfe/semi-ui';
                 dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
                 treeData={treeData}
                 multiple
-                maxTagCount={2}
-                placeholder="当选中标签超过两个将折叠"
+                leafOnly
+                placeholder="只渲染叶子节点"
             />
             <br/>
             <br/>
+        </div>
+    );
+};
+```
+
+### 限制标签展示数量
+
+在多选的场景中，利用 `maxTagCount` 可以限制展示的标签数量，超出部分将以 +N 的方式展示。  
+使用 `showRestTagsPopover` (>= v2.22.0) 可以设置在超出 `maxTagCount` 后，hover +N 是否显示 Popover，默认为 `false`。并且，还可以在 `restTagsPopoverProps` 属性中配置 Popover。
+
+```jsx live=true
+import React from 'react';
+import { TreeSelect } from '@douyinfe/semi-ui';
+() => {
+    const treeData = [
+        {
+            label: 'Asia',
+            value: 'Asia',
+            key: '0',
+            children: [
+                {
+                    label: 'China',
+                    value: 'China',
+                    key: '0-0',
+                    children: [
+                        {
+                            label: 'Beijing',
+                            value: 'Beijing',
+                            key: '0-0-0',
+                        },
+                        {
+                            label: 'Shanghai',
+                            value: 'Shanghai',
+                            key: '0-0-1',
+                        },
+                        {
+                            label: 'Chengdu',
+                            value: 'Chengdu',
+                            key: '0-0-2',
+                        },
+                    ],
+                },
+                {
+                    label: 'Japan',
+                    value: 'Japan',
+                    key: '0-1',
+                    children: [
+                        {
+                            label: 'Osaka',
+                            value: 'Osaka',
+                            key: '0-1-0'
+                        }
+                    ]
+                },
+            ],
+        },
+        {
+            label: 'North America',
+            value: 'North America',
+            key: '1',
+            children: [
+                {
+                    label: 'United States',
+                    value: 'United States',
+                    key: '1-0'
+                },
+                {
+                    label: 'Canada',
+                    value: 'Canada',
+                    key: '1-1'
+                }
+            ]
+        }
+    ];
+
+    const textStyle = { margin: '20px 0 10px' };
+
+    return ( 
+        <div>
+            <h4 style={textStyle}>maxTagCount=2:</h4>
             <TreeSelect
+                multiple
+                maxTagCount={2}
                 style={{ width: 300 }}
                 dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
                 treeData={treeData}
+                placeholder="当选中标签超过两个将折叠"
+                defaultValue={['Beijing', 'Chengdu', 'Canada']}
+            />
+            <h4 style={textStyle}>maxTagCount=2, showRestTagsPopover:</h4>
+            <TreeSelect
+                showRestTagsPopover={true}
+                restTagsPopoverProps={{ position: 'top' }}
                 multiple
-                leafOnly
-                placeholder="只渲染叶子节点"
+                maxTagCount={2}
+                style={{ width: 300 }}
+                dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                treeData={treeData}
+                placeholder="hover +N 查看"
+                defaultValue={['Beijing', 'Chengdu', 'Canada']}
             />
         </div>
     );
@@ -682,7 +776,7 @@ class Demo extends React.Component {
         };
     }
     onChange(value) {
-        this.setState({value});
+        this.setState({ value });
     }
     render() {
         const treeData = [
@@ -900,7 +994,7 @@ class Demo extends React.Component {
             const rec = n => (n >= 0 ? x * y ** n-- + rec(n) : 0);
             return rec(z + 1);
         }
-        return {gData, total: calcTotal(x, y, z)};
+        return { gData, total: calcTotal(x, y, z) };
     }
 
       
@@ -1242,7 +1336,7 @@ function Demo() {
                 multiple
                 maxTagCount={2}
                 renderSelectedItem={(item, { index, onClose }) => {
-                    return  ({ 
+                    return ({ 
                         content: (
                             <Tag 
                                 key={index} 
@@ -1302,14 +1396,17 @@ function Demo() {
 | outerTopSlot| 渲染在弹出层顶部，与 optionList 平级的自定义 slot，注意如果开启了 filterTreeNode 会取代搜索框，可以通过 search 方法来自行处理 |  ReactNode  |  - | 1.9.0|
 | placeholder | 选择框默认文字 | string | - | - |
 | prefix | 前缀标签 | ReactNode | - |0.28.0 |
+| preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法 | boolean |  |  |
 | renderFullLabel | 完全自定义label的渲染函数，[入参及用法详见](/zh-CN/navigation/tree#高级定制) | (obj) => ReactNode | - | 1.7.0 | 
 | renderLabel | 自定义label的渲染函数，[入参及用法详见](/zh-CN/navigation/tree#自定义节点内容)  | (label:ReactNode, data:TreeNode) => ReactNode | - | 1.6.0 | 
 | renderSelectedItem | 自定义渲染已选项 | Function | - | 1.26.0 | 
+| restTagsPopoverProps | Popover 的配置属性，可以控制 position、zIndex、trigger 等，具体参考[Popover](/zh-CN/show/popover#API%20%E5%8F%82%E8%80%83) | PopoverProps     | {} | 2.22.0 |
 | searchAutoFocus | 搜索框自动聚焦 | boolean | false | 1.27.0 |
 | searchPlaceholder | 搜索框默认文字 | string | - | - |
 | searchPosition | 设置搜索框的位置，可选: `dropdown`、`trigger` | string | `dropdown` | 1.29.0 |
 | showClear | 当值不为空时，trigger 是否展示清除按钮  | boolean | false |  |
 | showFilteredOnly | 搜索状态下是否只展示过滤后的结果 | boolean | false | 0.32.0 |
+| showRestTagsPopover | 当超过 maxTagCount，hover 到 +N 时，是否通过 Popover 显示剩余内容 | boolean | false | 2.22.0 |
 | showSearchClear | 是否显示搜索框的清除按钮 | boolean | true | 0.35.0 |
 | size | 选择框大小，可选 `large`，`small`，`default` | string | `default` | - |
 | style | 选择框的样式  | CSSProperties | - | - |

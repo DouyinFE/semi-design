@@ -14,10 +14,9 @@ import Popover from '../popover';
 import Input from '../input';
 import Trigger from '../trigger';
 
-import Option from '../select/option';
+import Option from './option';
 import warning from '@douyinfe/semi-foundation/utils/warning';
 import '@douyinfe/semi-foundation/autoComplete/autoComplete.scss';
-import { Motion } from '../_base/base';
 
 const prefixCls = cssClasses.PREFIX;
 const sizeSet = strings.SIZE;
@@ -33,7 +32,7 @@ const statusSet = strings.STATUS;
  */
 
 export interface BaseDataItem extends DataItem {
-    label?: React.ReactNode;
+    label?: React.ReactNode
 }
 
 export type AutoCompleteItems = BaseDataItem | string | number;
@@ -63,7 +62,7 @@ export interface AutoCompleteProps<T extends AutoCompleteItems> {
     insetLabelId?: string;
     id?: string;
     loading?: boolean;
-    motion?: Motion;
+    motion?: boolean;
     maxHeight?: string | number;
     mouseEnterDelay?: number;
     mouseLeaveDelay?: number;
@@ -76,6 +75,7 @@ export interface AutoCompleteProps<T extends AutoCompleteItems> {
     onChangeWithObject?: boolean;
     onSelectWithObject?: boolean;
     onDropdownVisibleChange?: (visible: boolean) => void;
+    onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
     prefix?: React.ReactNode;
     placeholder?: string;
     position?: Position;
@@ -89,11 +89,11 @@ export interface AutoCompleteProps<T extends AutoCompleteItems> {
     stopPropagation?: boolean | string;
     value?: string | number;
     validateStatus?: ValidateStatus;
-    zIndex?: number;
+    zIndex?: number
 }
 
 interface KeyboardEventType {
-    onKeyDown?: React.KeyboardEventHandler;
+    onKeyDown?: React.KeyboardEventHandler
 }
 
 interface AutoCompleteState {
@@ -104,7 +104,7 @@ interface AutoCompleteState {
     focusIndex: number;
     selection: Map<any, any>;
     rePosKey: number;
-    keyboardEventSet?: KeyboardEventType;
+    keyboardEventSet?: KeyboardEventType
 }
 
 class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoCompleteProps<T>, AutoCompleteState> {
@@ -137,6 +137,7 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
         onBlur: PropTypes.func,
         onFocus: PropTypes.func,
         onChange: PropTypes.func,
+        onKeyDown: PropTypes.func,
         position: PropTypes.oneOf(positionSet),
         placeholder: PropTypes.string,
         prefix: PropTypes.node,
@@ -169,7 +170,6 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
         position: 'bottomLeft' as const,
         data: [] as [],
         showClear: false,
-        disabled: false,
         size: 'default' as const,
         onFocus: noop,
         onSearch: noop,
@@ -186,6 +186,7 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
         validateStatus: 'default' as const,
         autoFocus: false,
         emptyContent: null as null,
+        onKeyDown: noop,
         // onPressEnter: () => undefined,
         // defaultOpen: false,
     };
@@ -284,11 +285,14 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
             notifyBlur: (event: React.FocusEvent) => {
                 this.props.onBlur(event);
             },
+            notifyKeyDown: e => {
+                this.props.onKeyDown(e);
+            },
             rePositionDropdown: () => {
                 let { rePosKey } = this.state;
                 rePosKey = rePosKey + 1;
                 this.setState({ rePosKey });
-            },
+            }
         };
     }
 
@@ -362,6 +366,8 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
             ref: this.triggerRef,
             id,
             ...keyboardEventSet,
+            // tooltip give tabindex 0 to children by default, autoComplete just need the input get focus, so outer div's tabindex set to -1
+            tabIndex: -1
         };
 
         const innerProps = {

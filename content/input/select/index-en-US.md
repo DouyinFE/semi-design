@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 27
+order: 28
 category: Input
 title: Select
 subTitle: Select
@@ -73,6 +73,8 @@ Configuration `multiple` properties that can support multi-selection
 
 Configuration `maxTagCount`. You can limit the number of options displayed, and the excess will be displayed in the form of + N
 
+Use `showRestTagsPopover` (>= v2.22.0) to set whether hover +N displays Popover after exceeding `maxTagCount`, the default is `false`. Also, popovers can be configured in the `restTagsPopoverProps` property
+
 Configuration `max` Properties can limit the maximum number of options and cannot be selected beyond the maximum limit, while triggering`On Exceed`callback
 
 ```jsx live=true
@@ -89,7 +91,7 @@ import { Select } from '@douyinfe/semi-ui';
         </Select>
         <br />
         <br />
-        <Select multiple style={{ width: '320px' }} defaultValue={['abc', 'hotsoon', 'pipixia']} maxTagCount={2}>
+        <Select multiple maxTagCount={2} showRestTagsPopover={true} restTagsPopoverProps={{ position: 'top' }} style={{ width: '320px' }} defaultValue={['abc', 'hotsoon', 'pipixia']} >
             <Select.Option value="abc">Semi</Select.Option>
             <Select.Option value="hotsoon">Hotsoon</Select.Option>
             <Select.Option value="pipixia">Pipixia</Select.Option>
@@ -113,6 +115,7 @@ import { Select } from '@douyinfe/semi-ui';
     </>
 );
 ```
+
 ### With Group
 
 Grouping Option with `OptGroup`(Only supports the declaration of children through jsx, and does not support pass in through optionList)
@@ -589,83 +592,60 @@ A multi-select example with remote search, request debounce, loading status.
 
 ```jsx live=true
 import React from 'react';
-import { Select } from '@douyinfe/semi-ui';
 import { debounce } from 'lodash-es';
+import { Select } from '@douyinfe/semi-ui';
 
-class SearchDemo extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            Loading: false,
-            optionList: [
-                { value: 'abc', label: 'Semi', type: 1 },
-                { value: 'capcut', label: 'Capcut', type: 2 },
-                { value: 'xigua', label: 'BuzzVideo', type: 4 },
-            ],
-            value: '',
-            multipleValue: [],
-        };
-        this.handleSearch = debounce(this.handleSearch, 800).bind(this);
-        this.onChange = this.onChange.bind(this);
-        this.onMultipleChange = this.onMultipleChange.bind(this);
-    }
+() => {
+    const [loading, setLoading] = useState(false);
+    const optionList = [
+        { value: 'dsm', label: 'Semi DSM', type: 1 },
+        { value: 'd2c', label: 'Semi DesignToCode', type: 2 },
+        { value: 'c2d', label: 'Semi CodeToDesign', type: 3 },
+        { value: 'plugin', label: 'Semi Plugin', type: 4 },
+    ];
+    const [list, setList] = useState(optionList);
+    const [value, setValue] = useState('');
+    
+    const handleMultipleChange = (newValue) => {
+        setValue(newValue);
+    };
 
-    handleSearch(inputValue) {
-        this.setState({ loading: true });
-        let length = Math.ceil(Math.random() * 100);
-        let result = Array.from({ length }, (v, i) => {
-            return { value: inputValue + i, label: inputValue + '-new line-' + i, type: i + 1 };
-        });
-        setTimeout(() => {
-            this.setState({ optionList: result, loading: false });
-        }, 2000);
-    }
+    const handleSearch = (inputValue) => {
+        setLoading(true);
+        let result = [];
+        if (inputValue) {
+            let length = Math.ceil(Math.random()*100);
+            result = Array.from({ length }, (v, i) => {
+                return { value: inputValue + i, label: `Relative: ${inputValue}${i}`, type: i + 1 };
+            });
+            setTimeout(() => {
+                setLoading(false);
+                setList(result);
+            }, 1000);
+        } else {
+            setLoading(false);
+        }
+    };
 
-    onChange(value) {
-        this.setState({ value });
-    }
-
-    onMultipleChange(multipleValue) {
-        this.setState({ multipleValue });
-    }
-
-    render() {
-        const { loading, optionList, value, multipleValue } = this.state;
-        return (
-            <div>
-                <Select
-                    style={{ width: 300 }}
-                    filter
-                    remote
-                    onChangeWithObject
-                    onSearch={this.handleSearch}
-                    optionList={optionList}
-                    loading={loading}
-                    onChange={this.onChange}
-                    value={value}
-                    emptyContent={null}
-                ></Select>
-                <br />
-                <br />
-                <Select
-                    style={{ width: 300 }}
-                    filter
-                    remote
-                    onChangeWithObject
-                    multiple
-                    value={multipleValue}
-                    onSearch={this.handleSearch}
-                    optionList={optionList}
-                    loading={loading}
-                    onChange={this.onMultipleChange}
-                    placeholder="Multiple Select"
-                    emptyContent={null}
-                ></Select>
-            </div>
-        );
-    }
-}
+    return (
+        <Select
+            style={{ width: 300 }}
+            filter
+            remote
+            onChangeWithObject
+            multiple
+            value={value}
+            onSearch={debounce(handleSearch, 1000)}
+            optionList={list}
+            loading={loading}
+            onChange={handleMultipleChange}
+            emptyContent={null}
+        >
+        </Select>
+    );
+};
 ```
+
 ### Custom search strategy
 
 By default, the user's search input will be compared with the option's label value as a string include.  
@@ -710,9 +690,9 @@ import { Select, Avatar, Tag } from '@douyinfe/semi-ui';
 
 () => {
     const list = [
-        { "name": "Keman Xia", "email": "xiakeman@example.com", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg" },
+        { "name": "Keman Xia", "email": "xiakeman@example.com", "avatar": "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bag.jpeg" },
         { "name": "Yue Shen", "email": "shenyue@example.com", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg" },
-        { "name": "Chenyi Qu", "email": "quchenyi@example.com", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/8bd8224511db085ed74fea37205aede5.jpg" },
+        { "name": "Chenyi Qu", "email": "quchenyi@example.com", "avatar": "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/Viamaker.png" },
         { "name": "Jiamao Wen", "email": "wenjiamao@example.com", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/6fbafc2d-e3e6-4cff-a1e2-17709c680624.png" },
     ];
 
@@ -770,7 +750,7 @@ import { Select, Avatar, Tag } from '@douyinfe/semi-ui';
             paddingBottom: 10
         };
         return (
-            <Select.Option value={item.name} style={optionStyle} showTick={true}  {...item} key={item.email}>
+            <Select.Option value={item.name} style={optionStyle} showTick={true} {...item} key={item.email}>
                 <Avatar size="small" src={item.avatar} />
                 <div style={{ marginLeft: 8 }}>
                     <div style={{ fontSize: 14 }}>{item.name}</div>
@@ -978,7 +958,7 @@ import { Select } from '@douyinfe/semi-ui';
 Turn on list virtualization when passing in `virtualize` to optimize performance when there are a large number of Option nodes
 virtualize is an object containing the following values:
 
-- height: Option list height value, default 300
+- height: Option list height value, default 270 （before v2.20.8 was 300）
 - width: Option list width value, default 100%
 - itemSize: The height of each line of Option, must be passed
 
@@ -998,7 +978,7 @@ class VirtualizeDemo extends React.Component {
     render() {
         let { groups, optionList } = this.state;
         let virtualize = {
-            height: 300,
+            height: 270,
             width: '100%',
             itemSize: 36, // px
         };
@@ -1195,7 +1175,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
     };
 
     const optionList = [
-        { value: 'abc', label: 'Semi', otherKey:0 },
+        { value: 'abc', label: 'Semi', otherKey: 0 },
         { value: 'capcut', label: 'Capcut', disabled: true, otherKey: 1 },
         { value: 'cam', label: 'UlikeCam', otherKey: 2 },
         { value: 'buzz', label: 'Buzz', otherKey: 3 },
@@ -1275,18 +1255,18 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 
 ### Select Props
 
-| Properties | Instructions | Type | Default |
-| --- | --- | --- | --- |
+| Properties | Instructions | Type | Default | version |
+| --- | --- | --- | --- | --- |
 | allowCreate | Whether to allow the user to create new entries. Needs to be used with `filter` | boolean | false |
 | arrowIcon | Customize the right drop-down arrow Icon, when the showClear switch is turned on and there is currently a selected value, hover will give priority to the clear icon <br/>**supported after v1.15.0** | ReactNode |  |
 | autoAdjustOverflow | Whether the pop-up layer automatically adjusts the direction when it is obscured (only vertical direction is supported for the time being, and the inserted parent is body) | boolean | true |
-| autoClearSearchValue     |  After selecting the option, whether to automatically clear the search keywords, it will take effect when mutilple and filter are both enabled.<br/>**supported after v2.3.0** | boolean                      | true                                |
+| autoClearSearchValue     |  After selecting the option, whether to automatically clear the search keywords, it will take effect when mutilple and filter are both enabled.<br/>**supported after v2.3.0** | boolean   | true  |
 | autoFocus | Whether automatically focus when component mount | boolean | false |
 | className | The CSS class name of the wrapper element | string |  |
 | clickToHide | When expanded, click on the selection box to automatically put away the drop-down list | boolean | false |
 | defaultValue | Originally selected value when component mount | string\|number\|array |  |
 | defaultOpen | Whether show dropdown when component mounted | boolean | false |
-| defaultActiveFirstOption | Whether to highlight the first option by default (press Enter to select directly) | boolean | false |
+| defaultActiveFirstOption | Whether to highlight the first option by default (press Enter to select directly) | boolean | true |
 | disabled | Whether disabled component | boolean | false |
 | dropdownClassName | ClassName of the pop-up layer | string |  |
 | dropdownMatchSelectWidth | Is the minimum width of the drop-down menu equal to Select | boolean | true |
@@ -1301,7 +1281,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | loading | Does the drop-down list show the loading animation | boolean | false |
 | max | Maximum number of choices, effective only in multi-selection mode | number |  |
 | maxTagCount | In multi-selection mode, when the option is beyond maxTag Count, the subsequent option is rendered in the form of + N | number |  |
-| maxHeight | Maximum height of `optionList` in the pop-up layer | string | number | 300 |
+| maxHeight | Maximum height of `optionList` in the pop-up layer | string \| number | 270 |
 | multiple | Whether allow multiple selection | boolean | false |
 | outerBottomSlot | Rendered at the bottom of the pop-up layer, custom slot level with optionList | ReactNode |  |
 | outerTopSlot | Rendered at the top of the pop-up layer, custom slot level with optionList <br/>**supported after v1.6.0** |
@@ -1309,18 +1289,21 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | placeholder | placeholder | ReactNode |  |
 | position | Pop-up layer position, refer to [Popover·API reference·position](/en-US/show/popover#API%20Reference) | string | 'bottomLeft' |
 | prefix | An input helper rendered before | ReactNode |  |
+| preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
 | remote | Whether to turn on remote search, when remote is true, the input content will not be locally filtered and matched | boolean | false |
 | renderCreateItem | When allowCreate is true, you can customize the rendering of the creation label | function(inputValue: string) | InputValue => 'Create' + InputValue |
 | renderSelectedItem | Customize the rendering of selected tabs in the selection box | function(option) |  |
+| restTagsPopoverProps | The configuration properties of the [Popover](/en-US/show/popover#API%20Reference)     | PopoverProps     | {}        | 2.22.0 |
 | showArrow | Whether to show arrow icon | boolean | true |
 | showClear | Whether to show the clear button | boolean | false |
+| showRestTagsPopover | When the number of tags exceeds maxTagCount and hover reaches +N, whether to display the remaining content through Popover | boolean | false | 2.22.0 |
 | size | Size, optional value `default` / `small` / `large` | string | 'default' |
 | spacing | Spacing between popup layer and trigger | number | 4 |
 | stopPropagation | Whether to prevent click events on the popup layer from bubbling | boolean | true | |
 | style | Inline Style | object |  |
 | suffix | An input helper rendered after | ReactNode |  |
 | triggerRender | Custom DOM of trigger | function |  |
-| virtualize | List virtualization, used to optimize performance in the case of a large number of nodes, composed of height, width, and itemSize <br/>** supported after v0.37.0 ** | object |  |
+| virtualize | List virtualization, used to optimize performance in the case of a large number of nodes, composed of height, width, and itemSize <br/>** supported after v0.37.0 ** | object |  | |
 | validateStatus | Verification result, optional `warning`, `error`, `default` (only affect the style background color) | string | 'default' |
 | value | The currently selected value is passed as a controlled component, used in conjunction with `onchange` | string\|number\|array |  |
 | zIndex | Popup layer z-index | number | 1030 |
@@ -1376,7 +1359,38 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 - Select trigger has aria-haspopup, aria-expanded, and aria-controls properties, indicating the relationship between trigger and popup layer
 - When multiple selections are made, listbox aria-multiselectable is true, indicating that multiple selections are currently available
 - aria-selected is true when Option is selected; aria-disabled is true when Option is disabled
+- The attribute aria-activedescendant ensures that the currently selected option is recognized when the narration is spoken(for more information, please refer to [Managing Focus in Composites Using aria-activedescendant](https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/#kbd_focus_activedescendant))
 
+### Keyboard and Focus
+**Select without Filter:**
+- After Select is focused, keyboard users can open the dropdown menu with the `Up Arrow` or `Down Arrow` or `Enter` keys and automatically focus on the first option in the dropdown menu (`defaultActiveFirstOption` defaults to true)
+- When the dropdown menu is open:
+  - Use `Esc` key or `Tab` key to close the menu
+  - Use `Up Arrow` or `Down Arrow` to toggle options
+  - The focused option can be selected with the Enter key and the panel is collapsed
+- When the focus is on the dropdown menu and the user uses an `innerBottomSlot` or `outerBottomSlot` attribute with a custom slot with an interactive element:
+  - You can use the `Tab` key to switch to these interactive elements
+  - When the focus is on the first interactive element of the custom slot, use `Shift` + `Tab` to return the focus to the Select box
+
+**Select with Filter function:**
+- When Select is focused, keyboard users can open dropdown menus with `Up Arrow` or `Down Arrow` or `Enter` keys. At this point, the focus is still on the Select box, the user can enter content, and can also use the `up arrow` or `down arrow` to switch options
+- When the dropdown menu is open: the keyboard interaction is the same as Select without the Filter function
+- When the focus is on the Select box, and the user uses an `innerBottomSlot` or `outerBottomSlot` property with a custom slot with an interactive element:
+  - You can use the `Tab` key to switch to these interactive elements
+  - When the focus is on the first interactive element of the custom slot, use `Shift` + `Tab` to return the focus to the Select box
+
+## Content Guidelines
+- Selector trigger
+   - Describe in 1-3 words the input that the user needs to make
+   - Use statement writing conventions (first letter uppercase, rest lowercase)
+   - Avoid punctuation and prepositions ("the", "an", "a")
+   - Labels need to be independent statements. Don't let the label be the first half of the statement and the option the second half of the statement.
+   - Use descriptive sentences, not indicative ones. Help text is available under the select box if the option needs more explanation.
+- Selector options
+   - If there is no default option, use "Select" as placeholder copy
+   - Options should be in alphabetical order or other logical order to make it easier for users to find options
+   - Use statement writing conventions (first letter uppercase, rest lowercase), avoid commas and semicolons at the end of sentences
+   - Clearly articulate the purpose of the choice indicated by the option
 ## Design Tokens
 
 <DesignToken/>
@@ -1401,7 +1415,16 @@ MinWidth will be given, but width will not be written dead. If necessary, you ca
     allowCreate is mainly used for locally created scenarios. When this item is turned on, it is equivalent to forcibly taking over optionList/children, and will no longer respond to external updates to these two types of values. Otherwise, how the currently created options are combined with the latest props.optionList, and whether the strategy is overwritten or merged depends largely on the business scenario logic, and it is inappropriate to force presets by the component layer.
 
 -   **Why Semi's Select requires that the label must be unique, but not the value?**
+
     First of all, we must need a unique identifier to make a selection judgment. For almost all UI libraries, when using Select.Option, the minimum requirements will only require the two values of label and value to be passed in, instead of requiring a separate key (too cumbersome). Semi continues this setting.    
     So why is label instead of value in semi's select?  
     The label of the option is what the user perceives. From an interactive point of view, if there are two options that are exactly the same on the display, to the user’s perception, they look the same and cannot be distinguished, but the selected effects are different (for example, one value is 0, the other As 1), it is unreasonable. (Users' first reaction is often repeated, and there may be a bug)
 Unique label and repeated value are more common in daily use. For example, a selector that selects the company id based on the app name, value is the company id corresponding to the app, and label is the name of the app.
+We don't recommend showing the user a duplicate label option, but if you're sure you need to, you can bypass this restriction when you pass a ReactNode type to the label.
+
+- **Why is the blur event not fired after a radio selection option?**
+
+    Before V2.17.0, after Select radio is selected, the blur event of Select will be triggered.
+    After V2.17.0, Select has added A11y support, which will not trigger Select's blur event.
+    In single-selection selection, the Select floating layer is closed, and the focus is still on the trigger (at this time, the Select floating layer can be opened again by pressing the Enter key)
+    No matter single selection or multiple selection, press Esc, only the Select floating layer is closed, and the trigger keeps the focus (the Select floating layer can be opened again by pressing the Enter key at this time)

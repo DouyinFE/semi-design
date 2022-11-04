@@ -122,7 +122,7 @@ const local: Locale = {
     Upload: {
         mainText: 'Cliquez pour télécharger le fichier ou faites glisser le fichier vers ici',
         illegalTips: 'Ce type de fichier n\'est pas pris en charge',
-        legalTips: 'Libérer et commencer le téléchargement',
+        legalTips: 'Libérer et commencer le chargement',
         retry: 'Réessayer',
         replace: 'Remplacer le fichier',
         clear: 'Supprimer',
@@ -149,6 +149,22 @@ const local: Locale = {
         clearSelectAll: 'Désélectionner tout',
         total: 'Totale ${total} articles',
         selected: '${total} articles sélectionnés',
+    },
+    Form: {
+        optional: '(optionnel)',
+    },
+    Image: {
+        preview: 'Aperçu',
+        loading: 'Chargement',
+        loadError: 'Échec du chargement',
+        prevTip: 'Précédent',
+        nextTip: 'Suivant',
+        zoomInTip: 'Zoom avant',
+        zoomOutTip: 'Zoom arrière',
+        rotateTip: 'Rotation',
+        downloadTip: 'Télécharger',
+        adaptiveTip: 'Adapter à la page',
+        originTip: 'Taille d\'origine',
     },
 };
 

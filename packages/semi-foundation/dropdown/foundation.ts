@@ -3,7 +3,7 @@ import { handlePrevent, setFocusToFirstItem, setFocusToLastItem } from '../utils
 
 export interface DropdownAdapter extends Partial<DefaultAdapter> {
     setPopVisible(visible: boolean): void;
-    notifyVisibleChange(visible: boolean): void;
+    notifyVisibleChange(visible: boolean): void
 }
 
 export default class DropdownFoundation extends BaseFoundation<DropdownAdapter> {
@@ -13,7 +13,7 @@ export default class DropdownFoundation extends BaseFoundation<DropdownAdapter> 
     }
 
     getMenuItemNodes(target: any): HTMLElement[] {
-        const id = target.attributes['data-popupId'].value;
+        const id = target.attributes['data-popupid'].value;
         const menuWrapper = document.getElementById(id);
         // if has dropdown item, the item must wrapped by li
         return menuWrapper ? Array.from(menuWrapper.getElementsByTagName('li')).filter(item => item.ariaDisabled === "false") : null;
@@ -34,7 +34,8 @@ export default class DropdownFoundation extends BaseFoundation<DropdownAdapter> 
             case ' ':
             case 'Enter':
                 event.target.click();
-                handlePrevent(event);
+                // user may use input to be the trigger and bind some key event on it, so do not stoppropagation
+                // handlePrevent(event);
                 break;
             case 'ArrowDown':
                 this.setFocusToFirstMenuItem(event.target);

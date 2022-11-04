@@ -41,7 +41,7 @@ export interface TimePickerAdapter<P = Record<string, any>, S = Record<string, a
     notifyChange(input: string | string[], value: Date | Date[]): void;
     notifyFocus: (e: any) => void;
     notifyBlur: (e: any) => void;
-    isRangePicker: () => boolean;
+    isRangePicker: () => boolean
 }
 
 // TODO: split, timePicker different components cannot share a foundation
@@ -203,27 +203,26 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
 
     refreshProps(props: any = {}) {
         const { value, timeZone, __prevTimeZone } = props;
-        if (!isNullOrUndefined(value)) {
-            let dates = this.parseValue(value);
-            const invalid = this.validateDates(dates);
+        
+        let dates = this.parseValue(value);
+        const invalid = this.validateDates(dates);
 
-            if (!invalid) {
-                if (this.isValidTimeZone(timeZone)) {
-                    dates = dates.map(date =>
-                        utcToZonedTime(
-                            this.isValidTimeZone(__prevTimeZone) ? zonedTimeToUtc(date, __prevTimeZone) : date,
-                            timeZone
-                        )
-                    );
-                }
-                const inputValue = this.formatValue(dates);
-
-                this.setState({
-                    value: dates,
-                    invalid,
-                    inputValue,
-                } as any);
+        if (!invalid) {
+            if (this.isValidTimeZone(timeZone)) {
+                dates = dates.map(date =>
+                    utcToZonedTime(
+                        this.isValidTimeZone(__prevTimeZone) ? zonedTimeToUtc(date, __prevTimeZone) : date,
+                        timeZone
+                    )
+                );
             }
+            const inputValue = this.formatValue(dates);
+
+            this.setState({
+                value: dates,
+                invalid,
+                inputValue,
+            } as any);
         }
     }
 
@@ -250,7 +249,7 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
         this._adapter.notifyOpenChange(true);
     }
 
-    hanldePanelClose(clickedOutside: boolean, e: any) {
+    handlePanelClose(clickedOutside: boolean, e: any) {
         if (!this._isControlledComponent('open')) {
             this._adapter.unregisterClickOutSide();
             this.setPanel(false);

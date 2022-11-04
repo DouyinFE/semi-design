@@ -85,7 +85,7 @@ describe('Rating', () => {
         expect(spyOnChange.calledWithMatch(1)).toBe(true);
     });
 
-    it('controled value', () => {
+    it('controlled value', () => {
         const R = getRating({ value: 2 });
         expect(R.state().value).toEqual(2);
         expect(R.find(`.${BASE_CLASS_PREFIX}-rating-star-full`).length).toEqual(2);

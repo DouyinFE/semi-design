@@ -15,10 +15,10 @@ const prefixCls = cssClasses.PREFIX;
 
 export interface SliderProps extends BasicSliceProps {
     style?: CSSProperties;
-    railStyle?: CSSProperties;
+    railStyle?: CSSProperties
 }
 
-export {
+export type {
     SliderState
 };
 
@@ -51,6 +51,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
         showBoundary: PropTypes.bool,
         railStyle: PropTypes.object,
         verticalReverse: PropTypes.bool,
+        getAriaValueText: PropTypes.func,
     } as any;
 
     static defaultProps: Partial<SliderProps> = {
@@ -73,11 +74,10 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
         verticalReverse: false
     };
     private sliderEl: React.RefObject<HTMLDivElement>;
-    private minHanleEl: React.RefObject<HTMLDivElement>;
-    private maxHanleEl: React.RefObject<HTMLDivElement>;
+    private minHanleEl: React.RefObject<HTMLSpanElement>;
+    private maxHanleEl: React.RefObject<HTMLSpanElement>;
     private dragging: boolean[];
     private eventListenerSet: Set<() => void>;
-    private chooseMovePos: 'min' | 'max';
     foundation: SliderFoundation;
 
     constructor(props: SliderProps) {
@@ -98,14 +98,14 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
             isDrag: false,
             clickValue: 0,
             showBoundary: false,
-            isInRenderTree: true
+            isInRenderTree: true,
+            firstDotFocusVisible: false,
+            secondDotFocusVisible: false,
         };
         this.sliderEl = React.createRef();
         this.minHanleEl = React.createRef();
         this.maxHanleEl = React.createRef();
         this.dragging = [false, false];
-        // this.chooseMovePos = 'min';
-        // this.isDrag = false;
         this.foundation = new SliderFoundation(this.adapter);
         this.eventListenerSet = new Set();
     }
@@ -165,7 +165,6 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
             },
             getOverallVars: () => ({
                 dragging: this.dragging,
-                chooseMovePos: this.chooseMovePos,
             }),
             updateDisabled: (disabled: boolean) => {
                 this.setState({ disabled });
@@ -186,11 +185,9 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
             setOverallVars: (key: string, value: any) => {
                 this[key] = value;
             },
-            getMinHandleEl: () => this.minHanleEl,
-            getMaxHandleEl: () => this.maxHanleEl,
+            getMinHandleEl: () => this.minHanleEl.current,
+            getMaxHandleEl: () => this.maxHanleEl.current,
             onHandleDown: (e: React.MouseEvent) => {
-                e.stopPropagation();
-                e.preventDefault();
                 this._addEventListener(document.body, 'mousemove', this.foundation.onHandleMove, false);
                 this._addEventListener(document.body, 'mouseup', this.foundation.onHandleUp, false);
                 this._addEventListener(document.body, 'touchmove', this.foundation.onHandleTouchMove, false);
@@ -287,7 +284,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
 
     renderHandle = () => {
         const { vertical, range, tooltipVisible, tipFormatter, 'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, 'aria-valuetext': ariaValueText, getAriaValueText, disabled } = this.props;
-        const { chooseMovePos, isDrag, isInRenderTree } = this.state;
+        const { chooseMovePos, isDrag, isInRenderTree, firstDotFocusVisible, secondDotFocusVisible } = this.state;
         const stylePos = vertical ? 'top' : 'left';
         const percentInfo = this.foundation.getMinAndMaxPercent(this.state.currentValue);
         const minPercent = percentInfo.min;
@@ -307,7 +304,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
         const { min, max, currentValue } = this.state;
 
         const commonAria = {
-            'aria-label': ariaLabel,
+            'aria-label': ariaLabel ?? (disabled ? 'Disabled Slider' : undefined),
             'aria-labelledby': ariaLabelledby,
             'aria-disabled': disabled
         };
@@ -319,7 +316,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                 position="top"
                 trigger="custom"
                 rePosKey={minPercent}
-                visible={isInRenderTree && tipVisible.min}
+                visible={isInRenderTree && (tipVisible.min || firstDotFocusVisible)}
                 className={`${cssClasses.HANDLE}-tooltip`}
             >
                 <span
@@ -352,24 +349,32 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                     onTouchEnd={e => {
                         this.foundation.onHandleUp(e);
                     }}
-                    onFocus={e => this.foundation.onFocus(e, 'min')}
+                    onKeyDown={(e)=>{
+                        this.foundation.handleKeyDown(e, 'min');
+                    }}
+                    onFocus={e => {
+                        this.foundation.onFocus(e, 'min');
+                    }}
+                    onBlur={(e) => { 
+                        this.foundation.onBlur(e, 'min');
+                    }}
                     role="slider"
-                    tabIndex={0}
+                    aria-valuetext={getAriaValueText ? getAriaValueText(currentValue as number, 0) : ariaValueText}
+                    tabIndex={disabled ? -1 : 0}
                     {...commonAria}
                     aria-valuenow={currentValue as number}
                     aria-valuemax={max}
                     aria-valuemin={min}
-                    aria-valuetext={getAriaValueText ? getAriaValueText(currentValue as number) : ariaValueText}
                 />
             </Tooltip>
         ) : (
             <React.Fragment>
-                <Tooltip
+                <Tooltip    
                     content={tipChildren.min}
                     position="top"
                     trigger="custom"
                     rePosKey={minPercent}
-                    visible={isInRenderTree && tipVisible.min}
+                    visible={isInRenderTree && (tipVisible.min || firstDotFocusVisible)}
                     className={`${cssClasses.HANDLE}-tooltip`}
                 >
                     <span
@@ -401,12 +406,20 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                         onTouchEnd={e => {
                             this.foundation.onHandleUp(e);
                         }}
-                        onFocus={e => this.foundation.onFocus(e, 'min')}
+                        onKeyDown={(e)=>{
+                            this.foundation.handleKeyDown(e, 'min');
+                        }}
+                        onFocus={e => {
+                            this.foundation.onFocus(e, 'min');
+                        }}
+                        onBlur={(e) => { 
+                            this.foundation.onBlur(e, 'min');
+                        }}
                         role="slider"
-                        tabIndex={0}
+                        tabIndex={disabled ? -1 : 0}
                         {...commonAria}
+                        aria-valuetext={getAriaValueText ? getAriaValueText(currentValue[0], 0) : ariaValueText}
                         aria-valuenow={currentValue[0]}
-                        aria-valuetext={getAriaValueText ? getAriaValueText(currentValue[0]) : ariaValueText}
                         aria-valuemax={currentValue[1]}
                         aria-valuemin={min}
                     />
@@ -416,7 +429,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                     position="top"
                     trigger="custom"
                     rePosKey={maxPercent}
-                    visible={isInRenderTree && tipVisible.max}
+                    visible={isInRenderTree && (tipVisible.max || secondDotFocusVisible)}
                     className={`${cssClasses.HANDLE}-tooltip`}
                 >
                     <span
@@ -448,12 +461,20 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                         onTouchEnd={e => {
                             this.foundation.onHandleUp(e);
                         }}
-                        onFocus={e => this.foundation.onFocus(e, 'min')}
+                        onKeyDown={e =>{
+                            this.foundation.handleKeyDown(e, 'max');
+                        }}
+                        onFocus={e => {
+                            this.foundation.onFocus(e, 'max');
+                        }}
+                        onBlur={(e) => {
+                            this.foundation.onBlur(e, 'max');
+                        }}
                         role="slider"
-                        tabIndex={0}
+                        tabIndex={disabled ? -1 : 0}
                         {...commonAria}
+                        aria-valuetext={getAriaValueText ? getAriaValueText(currentValue[1], 1) : ariaValueText}
                         aria-valuenow={currentValue[1]}
-                        aria-valuetext={getAriaValueText ? getAriaValueText(currentValue[1]) : ariaValueText}
                         aria-valuemax={max}
                         aria-valuemin={currentValue[0]}
                     />
@@ -538,29 +559,38 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
         return labelContent;
     };
 
+    _getAriaValueText = (value: number, index?: number) => {
+        const { getAriaValueText } = this.props;
+        return getAriaValueText ? getAriaValueText(value, index) : value;
+    }
+
 
     render() {
+        const { disabled, currentValue, min, max } = this.state;
+        const { vertical, verticalReverse, style, railStyle, range, className } = this.props;
         const wrapperClass = cls(
             `${prefixCls}-wrapper`,
             {
-                [`${prefixCls}-disabled`]: this.state.disabled,
-                [`${cssClasses.VERTICAL}-wrapper`]: this.props.vertical,
-                [`${prefixCls}-reverse`]: this.props.vertical && this.props.verticalReverse
+                [`${prefixCls}-disabled`]: disabled,
+                [`${cssClasses.VERTICAL}-wrapper`]: vertical,
+                [`${prefixCls}-reverse`]: vertical && verticalReverse
             },
-            this.props.className
+            className
         );
         const boundaryClass = cls(`${prefixCls}-boundary`, {
             [`${prefixCls}-boundary-show`]: this.props.showBoundary && this.state.showBoundary,
         });
         const sliderCls = cls({
-            [`${prefixCls}`]: !this.props.vertical,
-            [cssClasses.VERTICAL]: this.props.vertical,
+            [`${prefixCls}`]: !vertical,
+            [cssClasses.VERTICAL]: vertical,
         });
+        const ariaLabel = range ? `Range: ${this._getAriaValueText(currentValue[0], 0)} to ${this._getAriaValueText(currentValue[1], 1)}` : undefined;
         const slider = (
             <div
                 className={wrapperClass}
-                style={this.props.style}
+                style={style}
                 ref={this.sliderEl}
+                aria-label={ariaLabel}
                 onMouseEnter={() => this.foundation.handleWrapperEnter()}
                 onMouseLeave={() => this.foundation.handleWrapperLeave()}
             >
@@ -568,7 +598,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                     <div
                         className={`${prefixCls}-rail`}
                         onClick={this.foundation.handleWrapClick}
-                        style={this.props.railStyle}
+                        style={railStyle}
                     />
                 }
                 {this.renderTrack()}
@@ -576,12 +606,12 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                 <div>{this.renderHandle()}</div>
                 {this.renderLabel()}
                 <div className={boundaryClass}>
-                    <span className={`${prefixCls}-boundary-min`}>{this.state.min}</span>
-                    <span className={`${prefixCls}-boundary-max`}>{this.state.max}</span>
+                    <span className={`${prefixCls}-boundary-min`}>{min}</span>
+                    <span className={`${prefixCls}-boundary-max`}>{max}</span>
                 </div>
             </div>
         );
-        if (!this.props.vertical) {
+        if (!vertical) {
             return <div className={sliderCls}>{slider}</div>;
         }
         return slider;

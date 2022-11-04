@@ -1,9 +1,6 @@
 import React, { useState, useLayoutEffect, Component } from 'react';
 import { storiesOf } from '@storybook/react';
-import { Button, Modal, TreeSelect, Row, Col, Avatar } from '../../../index';
-import { Select as BasicSelect } from '../../../index';
-import { format } from 'date-fns';
-import {
+import { Button, Modal, TreeSelect, Row, Col, Avatar, Select as BasicSelect,
     Form,
     useFormState,
     useFormApi,
@@ -17,6 +14,7 @@ import {
     Collapse,
     Icon,
 } from '../../../index';
+import { format } from 'date-fns';
 import { ComponentUsingFormState } from '../Hook/hookDemo';
 const { Input, Select, DatePicker, Switch, Slider, CheckboxGroup, Checkbox, RadioGroup, Radio, TimePicker, InputNumber, InputGroup } = Form;
 
@@ -48,7 +46,7 @@ class NestArrayField extends React.Component {
                 { name: Math.random().toString().slice(0, 3), items: [ { itemName: Math.random(), type: '0-1' } ] },
                 // { name: Math.random(), items: [ { itemName: Math.random(), type: '0-1' } ] },
             ]
-        }
+        };
         this.formApi.setValues(newData, { isOverride: true });
     }
 
@@ -71,7 +69,7 @@ class NestArrayField extends React.Component {
                                     <Button onClick={() => addWithInitValue({ name: 1 })} type='primary'>Add level-1</Button>
                                     <Button onClick={this.change}>改变</Button>
                                     {
-                                        arrayFields.map(({ field, key, remove}, i) => (
+                                        arrayFields.map(({ field, key, remove }, i) => (
                                             <div key={key} style={{ width: 1000 }}>
                                                 <Input
                                                     field={`${field}[name]`}
@@ -85,10 +83,10 @@ class NestArrayField extends React.Component {
                                                             <Button onClick={() => addWithInitValue({ itemName: '2-1' })} type='primary'>add via api</Button>
                                                             <Button onClick={add} type='primary'>add via props.initvalues</Button>
                                                             {
-                                                                arrayFields.map(({ field, key, remove}, i) => (
+                                                                arrayFields.map(({ field, key, remove }, i) => (
                                                                     <div key={key}>
                                                                         <Input
-                                                                            style={{ width: 150}}
+                                                                            style={{ width: 150 }}
                                                                             field={`${field}.itemName`}
                                                                             label={`${field}.itemName`}
                                                                             initValue='2d'
@@ -126,12 +124,12 @@ class Child extends React.Component {
         super(props);
         this.state = {
             ts: format(new Date(), 'yyyy-MM-dd HH:mm:ss')
-        }
+        };
     }
     render() {
         return <div>
             {this.state.ts}
-        </div>
+        </div>;
     }
 }
 
@@ -152,7 +150,7 @@ class Parent extends React.Component {
                 </div>
             ))}
             <Button onClick={this.click}>change</Button>
-        </div>
+        </div>;
     }
 }
 

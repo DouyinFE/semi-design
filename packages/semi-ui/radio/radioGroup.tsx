@@ -18,7 +18,7 @@ export interface OptionItem {
     disabled?: boolean;
     extra?: React.ReactNode;
     style?: React.CSSProperties;
-    className?: string;
+    className?: string
 }
 export type Options = string[] | Array<OptionItem>;
 
@@ -43,11 +43,11 @@ export type RadioGroupProps = {
     'aria-invalid'?: React.AriaAttributes['aria-invalid'];
     'aria-labelledby'?: React.AriaAttributes['aria-labelledby'];
     'aria-required'?: React.AriaAttributes['aria-required'];
-    id?: string;
+    id?: string
 };
 
 export interface RadioGroupState {
-    value?: any;
+    value?: any
 }
 
 class RadioGroup extends BaseComponent<RadioGroupProps, RadioGroupState> {
@@ -88,7 +88,7 @@ class RadioGroup extends BaseComponent<RadioGroupProps, RadioGroupState> {
     constructor(props: RadioGroupProps) {
         super(props);
         this.state = {
-            value: undefined,
+            value: props.value || props.defaultValue,
         };
         this.foundation = new RadioGroupFoundation(this.adapter);
     }

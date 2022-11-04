@@ -3,7 +3,7 @@ category: 开始
 title: Overview 组件总览
 icon: doc-overview
 localeCode: zh-CN
-order: 9
+order: 10
 brief: 基于Semi 设计语言开发，能够在线调试的React UI 桌面端组件库，帮助开发者高效构建应用
 ---
 
@@ -11,7 +11,7 @@ brief: 基于Semi 设计语言开发，能够在线调试的React UI 桌面端�
 
 ```overview
 Divider 分割线,
-Grid 布局,
+Grid 栅格,
 Icon 图标,
 Layout 布局,
 Space 间距,
@@ -67,6 +67,7 @@ Collapsible 折叠,
 Descriptions 描述列表,
 Dropdown 下拉框,
 Empty 空状态,
+Image 图片,
 List 列表,
 Modal 模态对话框,
 OverflowList 折叠列表,

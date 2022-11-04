@@ -39,11 +39,13 @@ import {
     TreeNodeData,
     FlattenNode,
     KeyEntity,
-    OptionProps
+    OptionProps,
+    ScrollData,
 } from './interface';
+import CheckboxGroup from '../checkbox/checkboxGroup';
 
 export * from './interface';
-export { AutoSizerProps } from './autoSizer';
+export type { AutoSizerProps } from './autoSizer';
 
 const prefixcls = cssClasses.PREFIX;
 
@@ -114,6 +116,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
         labelEllipsis: PropTypes.bool,
         checkRelation: PropTypes.string,
         'aria-label': PropTypes.string,
+        preventScroll: PropTypes.bool,
     };
 
     static defaultProps = {
@@ -144,6 +147,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
     onNodeClick: any;
     onMotionEnd: any;
     context: ContextValue;
+    virtualizedListRef: React.RefObject<any>;
 
     constructor(props: TreeProps) {
         super(props);
@@ -177,6 +181,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
         this.optionsRef = React.createRef();
         this.foundation = new TreeFoundation(this.adapter);
         this.dragNode = null;
+        this.virtualizedListRef = React.createRef();
     }
 
     /**
@@ -276,13 +281,28 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
                     props.multiple,
                     valueEntities
                 );
-            } else if ((!prevProps || (!isExpandControlled && dataUpdated)) && props.value) {
+            } else if (!prevProps && props.value) {
                 newState.expandedKeys = calcExpandedKeysForValues(
                     props.value,
                     keyEntities,
                     props.multiple,
                     valueEntities
                 );
+            } else if ((!isExpandControlled && dataUpdated) && props.value) {
+                // 当 treeData 已经设置具体的值，并且设置了 props.loadData ，则认为 treeData 的更新是因为 loadData 导致的
+                // 如果是因为 loadData 导致 treeData改变， 此时在这里重新计算 key 会导致为未选中的展开项目被收起
+                // 所以此时不需要重新计算 expandedKeys，因为在点击展开按钮时候已经把被展开的项添加到 expandedKeys 中
+                // When treeData has a specific value and props.loadData is set, it is considered that the update of treeData is caused by loadData
+                // If the treeData is changed because of loadData, recalculating the key here will cause the unselected expanded items to be collapsed
+                // So there is no need to recalculate expandedKeys at this time, because the expanded item has been added to expandedKeys when the expand button is clicked
+                if (!(prevState.treeData && prevState.treeData?.length > 0 && props.loadData)) {
+                    newState.expandedKeys = calcExpandedKeysForValues(
+                        props.value,
+                        keyEntities,
+                        props.multiple,
+                        valueEntities
+                    );
+                }
             }
 
             if (!newState.expandedKeys) {
@@ -445,8 +465,9 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
                 this.setState({ inputValue: value });
             },
             focusInput: () => {
+                const { preventScroll } = this.props;
                 if (this.inputRef && this.inputRef.current) {
-                    (this.inputRef.current as any).focus();
+                    (this.inputRef.current as any).focus({ preventScroll });
                 }
             },
         };
@@ -489,6 +510,17 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
     search = (value: string) => {
         this.foundation.handleInputChange(value);
     };
+
+    scrollTo = (scrollData: ScrollData) => {
+        const { key, align = 'center' } = scrollData;
+        const { flattenNodes } = this.state;
+        if (key) {
+            const index = flattenNodes?.findIndex((node) => {
+                return node.key === key;
+            });
+            index >= 0 && (this.virtualizedListRef.current as any)?.scrollToItem(index, align);
+        }
+    }
 
     renderInput() {
         const {
@@ -661,6 +693,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
             <AutoSizer defaultHeight={virtualize.height} defaultWidth={virtualize.width}>
                 {({ height, width }: { width: string | number; height: string | number }) => (
                     <VirtualList
+                        ref={this.virtualizedListRef}
                         itemCount={flattenNodes.length}
                         itemSize={virtualize.itemSize}
                         height={height}
@@ -686,6 +719,8 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
             filteredKeys,
             dragOverNodeKey,
             dropPosition,
+            checkedKeys, 
+            realCheckedKeys,
         } = this.state;
 
         const {
@@ -706,6 +741,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
             renderFullLabel,
             labelEllipsis,
             virtualize,
+            checkRelation,
         } = this.props;
         const wrapperCls = cls(`${prefixcls}-wrapper`, className);
         const listCls = cls(`${prefixcls}-option-list`, {
@@ -760,7 +796,12 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
                 <div aria-label={this.props['aria-label']} className={wrapperCls} style={style}>
                     {filterTreeNode ? this.renderInput() : null}
                     <div className={listCls} {...ariaAttr}>
-                        {noData ? this.renderEmpty() : this.renderNodeList()}
+                        {noData ? this.renderEmpty() : (multiple ? 
+                            (<CheckboxGroup value={Array.from(checkRelation === 'related' ? checkedKeys : realCheckedKeys)}>
+                                {this.renderNodeList()}
+                            </CheckboxGroup>) : 
+                            this.renderNodeList()
+                        )}
                     </div>
                 </div>
             </TreeContext.Provider>

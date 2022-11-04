@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 26
+order: 27
 category: 输入类
 title:  Rating 评分
 icon: doc-rating
@@ -92,7 +92,7 @@ import React, { useState } from 'react';
 import { Rating } from '@douyinfe/semi-ui';
 
 () => {
-    const [value,  setValue] = useState(0);
+    const [value, setValue] = useState(0);
     const change = (val) => setValue(val);
     const desc = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
     return (
@@ -119,10 +119,10 @@ import { IconLikeHeart } from '@douyinfe/semi-icons';
 
 () => (
     <div>
-        <Rating style={{color:'red'}} character={(<IconLikeHeart size="extra-large" />)} defaultValue={3}/>
+        <Rating style={{ color: 'red' }} character={(<IconLikeHeart size="extra-large" />)} defaultValue={3}/>
         <br/>
         <br/>
-        <Rating style={{color:'red'}} size={48} allowHalf character={(<IconLikeHeart style={{ fontSize: 48 }} />)} defaultValue={3}/>
+        <Rating style={{ color: 'red' }} size={48} allowHalf character={(<IconLikeHeart style={{ fontSize: 48 }} />)} defaultValue={3}/>
         <br/>
         <br/>
         <Rating character={'赞'} size={18} defaultValue={3}/>
@@ -145,15 +145,16 @@ import { IconLikeHeart } from '@douyinfe/semi-icons';
 | count | star 总数 | number | 5 |
 | defaultValue | 默认值 | number | 0 |
 | disabled | 只读，无法进行交互 | boolean | false |
+| preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法 | boolean |  |  |
+| size | 尺寸， `default`， `small`，**v >= 0.35.0** 后支持传入 number 类型自定义尺寸 | string \| number | `default` |
+| style | 自定义样式对象 | object | - |
+| tooltips | 自定义每项的提示信息 | string[] | - |
+| value | 当前受控值 | number | - |
 | onBlur | 失去焦点时的回调 | function() | - |
 | onChange | 选择时的回调 | function(value: number) | - |
 | onFocus | 获取焦点时的回调 | function() | - |
 | onHoverChange | 鼠标经过时数值变化的回调 | function(value: number) | - |
 | onKeyDown | 按键回调 | function(e: event) | - |
-| size | 尺寸， `default`， `small`，**v >= 0.35.0** 后支持传入 number 类型自定义尺寸 | string \| number | `default` |
-| style | 自定义样式对象 | object | - |
-| tooltips | 自定义每项的提示信息 | string[] | - |
-| value | 当前受控值 | number | - |
 
 ## Accessibility
 

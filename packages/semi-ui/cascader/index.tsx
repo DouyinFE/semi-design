@@ -27,19 +27,19 @@ import Item, { CascaderData, Entities, Entity, Data } from './item';
 import Trigger from '../trigger';
 import Tag from '../tag';
 import TagInput from '../tagInput';
-import { Motion } from '../_base/base';
 import { isSemiIcon } from '../_utils';
+import { Position } from '../tooltip/index';
 
-export { CascaderType, ShowNextType } from '@douyinfe/semi-foundation/cascader/foundation';
-export { CascaderData, Entity, Data, CascaderItemProps } from './item';
+export type { CascaderType, ShowNextType } from '@douyinfe/semi-foundation/cascader/foundation';
+export type { CascaderData, Entity, Data, CascaderItemProps } from './item';
 
 export interface ScrollPanelProps extends BasicScrollPanelProps {
-    activeNode: CascaderData;
+    activeNode: CascaderData
 }
 
 export interface TriggerRenderProps extends BasicTriggerRenderProps {
     componentProps: CascaderProps;
-    onClear: (e: React.MouseEvent) => void;
+    onClear: (e: React.MouseEvent) => void
 }
 
 /* The basic type of the value of Cascader */
@@ -59,7 +59,7 @@ export interface CascaderProps extends BasicCascaderProps {
     defaultValue?: Value;
     dropdownStyle?: CSSProperties;
     emptyContent?: ReactNode;
-    motion?: Motion;
+    motion?: boolean;
     treeData?: Array<CascaderData>;
     restTagsPopoverProps?: PopoverProps;
     children?: React.ReactNode;
@@ -82,12 +82,13 @@ export interface CascaderProps extends BasicCascaderProps {
     onBlur?: (e: MouseEvent) => void;
     onFocus?: (e: MouseEvent) => void;
     validateStatus?: ValidateStatus;
+    position?: Position
 }
 
 export interface CascaderState extends BasicCascaderInnerData {
     keyEntities: Entities;
     prevProps: CascaderProps;
-    treeData?: Array<CascaderData>;
+    treeData?: Array<CascaderData>
 }
 
 const prefixcls = cssClasses.PREFIX;
@@ -109,7 +110,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         dropdownClassName: PropTypes.string,
         dropdownStyle: PropTypes.object,
         emptyContent: PropTypes.node,
-        motion: PropTypes.oneOfType([PropTypes.bool, PropTypes.func, PropTypes.object]),
+        motion: PropTypes.bool,
         /* show search input, if passed in a function, used as custom filter */
         filterTreeNode: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
         filterLeafOnly: PropTypes.bool,
@@ -168,6 +169,8 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         disableStrictly: PropTypes.bool,
         leafOnly: PropTypes.bool,
         enableLeafClick: PropTypes.bool,
+        preventScroll: PropTypes.bool,
+        position: PropTypes.string
     };
 
     static defaultProps = {
@@ -180,7 +183,6 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         showClear: false,
         autoClearSearchValue: true,
         changeOnSelect: false,
-        disabled: false,
         disableStrictly: false,
         autoMergeValue: true,
         multiple: false,
@@ -248,6 +250,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
             loadingKeys: new Set(),
             /* Mark whether this rendering has triggered asynchronous loading of data */
             loading: false,
+            showInput: false,
         };
         this.options = {};
         this.isEmpty = false;
@@ -268,15 +271,16 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                 this.setState({ inputPlaceHolder: value });
             },
             focusInput: () => {
+                const { preventScroll } = this.props;
                 if (this.inputRef && this.inputRef.current) {
                     // TODO: check the reason
-                    (this.inputRef.current as any).focus();
+                    (this.inputRef.current as any).focus({ preventScroll });
                 }
             },
         };
         const cascaderAdapter: Pick<
-            CascaderAdapter,
-            'registerClickOutsideHandler' | 'unregisterClickOutsideHandler' | 'rePositionDropdown'
+        CascaderAdapter,
+        'registerClickOutsideHandler' | 'unregisterClickOutsideHandler' | 'rePositionDropdown'
         > = {
             registerClickOutsideHandler: cb => {
                 const clickOutsideHandler = (e: Event) => {
@@ -363,6 +367,14 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
             },
             notifyOnExceed: data => this.props.onExceed(data),
             notifyClear: () => this.props.onClear(),
+            toggleInputShow: (showInput: boolean, cb: (...args: any) => void) => {
+                this.setState({ showInput }, () => {
+                    cb();
+                });
+            },
+            updateFocusState: (isFocus: boolean) => {
+                this.setState({ isFocus });
+            },
         };
     }
 
@@ -381,6 +393,34 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
             const treeDataHasChange = prevProps && prevProps.treeData !== props.treeData;
             return firstInProps || treeDataHasChange;
         };
+        const getRealKeys = (realValue: Value, keyEntities: Entities) => {
+            // normallizedValue is used to save the value in two-dimensional array format
+            let normallizedValue: SimpleValueType[][] = [];
+            if (Array.isArray(realValue)) {
+                normallizedValue = Array.isArray(realValue[0])
+                    ? (realValue as SimpleValueType[][])
+                    : ([realValue] as SimpleValueType[][]);
+            } else {
+                if (realValue !== undefined) {
+                    normallizedValue = [[realValue]];
+                }
+            }
+            // formatValuePath is used to save value of valuePath
+            const formatValuePath: (string | number)[][] = [];
+            normallizedValue.forEach((valueItem: SimpleValueType[]) => {
+                const formatItem: (string | number)[] = onChangeWithObject ?
+                    (valueItem as CascaderData[]).map(i => i?.value) :
+                    valueItem as (string | number)[];
+                formatValuePath.push(formatItem);
+            });
+            // formatKeys is used to save key of value
+            const formatKeys: any[] = [];
+            formatValuePath.forEach(v => {
+                const formatKeyItem = findKeysForValues(v, keyEntities);
+                !isEmpty(formatKeyItem) && formatKeys.push(formatKeyItem);
+            });
+            return formatKeys;
+        };
         const needUpdateTreeData = needUpdate('treeData') || needUpdateData();
         const needUpdateValue = needUpdate('value') || (isEmpty(prevProps) && defaultValue);
         if (multiple) {
@@ -395,34 +435,15 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                 let realKeys: Array<string> | Set<string> = prevState.checkedKeys;
                 // when data was updated
                 if (needUpdateValue) {
-                    // normallizedValue is used to save the value in two-dimensional array format
-                    let normallizedValue: SimpleValueType[][] = [];
                     const realValue = needUpdate('value') ? value : defaultValue;
-                    // eslint-disable-next-line max-depth
-                    if (Array.isArray(realValue)) {
-                        normallizedValue = Array.isArray(realValue[0])
-                            ? (realValue as SimpleValueType[][])
-                            : ([realValue] as SimpleValueType[][]);
-                    } else {
-                        if (realValue !==  undefined) {
-                            normallizedValue = [[realValue]];
-                        }
+                    realKeys = getRealKeys(realValue, keyEntities);
+                } else {
+                    // needUpdateValue is false
+                    // if treeData is updated & Cascader is controlled, realKeys should be recalculated
+                    if (needUpdateTreeData && 'value' in props) {
+                        const realValue = value;
+                        realKeys = getRealKeys(realValue, keyEntities);
                     }
-                    // formatValuePath is used to save value of valuePath
-                    const formatValuePath: (string | number)[][] = [];
-                    normallizedValue.forEach((valueItem: SimpleValueType[]) => {
-                        const formatItem: (string | number)[] = onChangeWithObject ?
-                            (valueItem as CascaderData[]).map(i => i?.value) :
-                            valueItem as (string | number)[];
-                        formatValuePath.push(formatItem);
-                    });
-                    // formatKeys is used to save key of value
-                    const formatKeys: any[] = [];
-                    formatValuePath.forEach(v => {
-                        const formatKeyItem = findKeysForValues(v, keyEntities);
-                        !isEmpty(formatKeyItem) && formatKeys.push(formatKeyItem);
-                    });
-                    realKeys = formatKeys;
                 }
                 if (isSet(realKeys)) {
                     realKeys = [...realKeys];
@@ -535,6 +556,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                 // TODO Modify logic, not modify type
                 onRemove={v => this.handleTagRemove(null, (v as unknown) as (string | number)[])}
                 placeholder={placeholder}
+                expandRestTagsOnClick={false}
             />
         );
     }
@@ -542,20 +564,28 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
     renderInput() {
         const { size, disabled } = this.props;
         const inputcls = cls(`${prefixcls}-input`);
-        const { inputValue, inputPlaceHolder } = this.state;
+        const { inputValue, inputPlaceHolder, showInput } = this.state;
         const inputProps = {
             disabled,
             value: inputValue,
             className: inputcls,
             onChange: this.handleInputChange,
-            placeholder: inputPlaceHolder,
         };
         const wrappercls = cls({
             [`${prefixcls}-search-wrapper`]: true,
         });
+
+        const displayText = this.renderDisplayText();
+        const spanCls = cls({
+            [`${prefixcls}-selection-placeholder`]: !displayText,
+            [`${prefixcls}-selection-text-hide`]: showInput && inputValue,
+            [`${prefixcls}-selection-text-inactive`]: showInput && !inputValue,
+        });
+
         return (
             <div className={wrappercls}>
-                <Input ref={this.inputRef as any} size={size} {...inputProps} />
+                <span className={spanCls}>{displayText ? displayText : inputPlaceHolder}</span>
+                {showInput && <Input ref={this.inputRef as any} size={size} {...inputProps} />}
             </div>
         );
     }
@@ -866,40 +896,40 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         const { isOpen, isFocus, isInput, checkedKeys } = this.state;
         const filterable = Boolean(filterTreeNode);
         const useCustomTrigger = typeof triggerRender === 'function';
-        const classNames = useCustomTrigger
-            ? cls(className)
-            : cls(prefixcls, className, {
-                  [`${prefixcls}-focus`]: isFocus || (isOpen && !isInput),
-                  [`${prefixcls}-disabled`]: disabled,
-                  [`${prefixcls}-single`]: true,
-                  [`${prefixcls}-filterable`]: filterable,
-                  [`${prefixcls}-error`]: validateStatus === 'error',
-                  [`${prefixcls}-warning`]: validateStatus === 'warning',
-                  [`${prefixcls}-small`]: size === 'small',
-                  [`${prefixcls}-large`]: size === 'large',
-                  [`${prefixcls}-with-prefix`]: prefix || insetLabel,
-                  [`${prefixcls}-with-suffix`]: suffix,
-              });
-        const mouseEvent = showClear
-            ? {
-                  onMouseEnter: () => this.handleMouseOver(),
-                  onMouseLeave: () => this.handleMouseLeave(),
-              }
-            : {};
+        const classNames = useCustomTrigger ?
+            cls(className) :
+            cls(prefixcls, className, {
+                [`${prefixcls}-focus`]: isFocus || (isOpen && !isInput),
+                [`${prefixcls}-disabled`]: disabled,
+                [`${prefixcls}-single`]: true,
+                [`${prefixcls}-filterable`]: filterable,
+                [`${prefixcls}-error`]: validateStatus === 'error',
+                [`${prefixcls}-warning`]: validateStatus === 'warning',
+                [`${prefixcls}-small`]: size === 'small',
+                [`${prefixcls}-large`]: size === 'large',
+                [`${prefixcls}-with-prefix`]: prefix || insetLabel,
+                [`${prefixcls}-with-suffix`]: suffix,
+            });
+        const mouseEvent = showClear ?
+            {
+                onMouseEnter: () => this.handleMouseOver(),
+                onMouseLeave: () => this.handleMouseLeave(),
+            } :
+            {};
         const sectionCls = cls(`${prefixcls}-selection`, {
             [`${prefixcls}-selection-multiple`]: multiple && !isEmpty(checkedKeys),
         });
         const inner = useCustomTrigger
             ? this.renderCustomTrigger()
             : [
-                  <Fragment key={'prefix'}>{prefix || insetLabel ? this.renderPrefix() : null}</Fragment>,
-                  <Fragment key={'selection'}>
-                      <div className={sectionCls}>{this.renderSelectContent()}</div>
-                  </Fragment>,
-                  <Fragment key={'clearbtn'}>{this.renderClearBtn()}</Fragment>,
-                  <Fragment key={'suffix'}>{suffix ? this.renderSuffix() : null}</Fragment>,
-                  <Fragment key={'arrow'}>{this.renderArrow()}</Fragment>,
-              ];
+                <Fragment key={'prefix'}>{prefix || insetLabel ? this.renderPrefix() : null}</Fragment>,
+                <Fragment key={'selection'}>
+                    <div className={sectionCls}>{this.renderSelectContent()}</div>
+                </Fragment>,
+                <Fragment key={'clearbtn'}>{this.renderClearBtn()}</Fragment>,
+                <Fragment key={'suffix'}>{suffix ? this.renderSuffix() : null}</Fragment>,
+                <Fragment key={'arrow'}>{this.renderArrow()}</Fragment>,
+            ];
         /**
          * Reasons for disabling the a11y eslint rule:
          * The following attributes(aria-controls,aria-expanded) will be automatically added by Tooltip, no need to declare here
@@ -936,18 +966,19 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
             stopPropagation,
             mouseLeaveDelay,
             mouseEnterDelay,
+            position,
+            motion
         } = this.props;
         const { isOpen, rePosKey } = this.state;
         const { direction } = this.context;
         const content = this.renderContent();
         const selection = this.renderSelection();
-        const pos = direction === 'rtl' ? 'bottomRight' : 'bottomLeft';
-        const mergedMotion: Motion = this.foundation.getMergedMotion();
+        const pos = position ?? (direction === 'rtl' ? 'bottomRight' : 'bottomLeft');
         return (
             <Popover
                 getPopupContainer={getPopupContainer}
                 zIndex={zIndex}
-                motion={mergedMotion}
+                motion={motion}
                 ref={this.optionsRef}
                 content={content}
                 visible={isOpen}
@@ -958,6 +989,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                 stopPropagation={stopPropagation}
                 mouseLeaveDelay={mouseLeaveDelay}
                 mouseEnterDelay={mouseEnterDelay}
+                afterClose={()=>this.foundation.updateSearching(false)}
             >
                 {selection}
             </Popover>

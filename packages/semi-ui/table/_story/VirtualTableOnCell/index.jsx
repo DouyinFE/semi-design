@@ -33,11 +33,11 @@ export default class VirtualizedFixedDemo extends React.Component {
                 title: 'Address',
                 // width: 200,
                 dataIndex: 'address',
-                onCell: (record,index) => {
+                onCell: (record, index) => {
                     return {
-                        style:{ color:'red'},
+                        style: { color: 'red' },
                         className: 'test-red'
-                    }
+                    };
                 }
             },
             {

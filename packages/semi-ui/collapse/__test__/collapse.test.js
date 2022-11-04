@@ -3,11 +3,13 @@ import { BASE_CLASS_PREFIX } from '../../../semi-foundation/base/constants'; // 
 
 import { IconPlus, IconMinus, IconCopy } from '@douyinfe/semi-icons';
 
-let getCollapse = collapseProps => {
+let getCollapse = (collapseProps, panel1Props) => {
     let props = collapseProps ? collapseProps : {};
+    let panelProps = panel1Props ? panel1Props : {};
+
     return (
         <Collapse {...collapseProps}>
-            <Collapse.Panel header="This is panel header 1" itemKey="1">
+            <Collapse.Panel header="This is panel header 1" itemKey="1" {...panelProps}>
                 <p>Hi, bytedance dance dance. This is the docsite of Semi UI. </p>
             </Collapse.Panel>
             <Collapse.Panel header="This is panel header 2" itemKey="2">
@@ -144,5 +146,23 @@ describe('Collapse', () => {
         expect(headers.at(0).getDOMNode().getAttribute(expandAttr)).toEqual("false");
         expect(headers.at(1).getDOMNode().getAttribute(expandAttr)).toEqual("false");
         expect(headers.at(2).getDOMNode().getAttribute(expandAttr)).toEqual("true");
+    });
+
+    it('disable Collapse', () => {
+        let props = {
+            disabled: true,
+        };
+        const disabledPanel = mount(getCollapse({}, props));
+        expect(disabledPanel.exists('.semi-collapse-header-disabled')).toEqual(true);
+    });
+
+    it('hide the panel icon', () => {
+        const hidePanelArrow = mount( 
+        <Collapse >
+            <Collapse.Panel header="This is panel header 1" itemKey="1" showArrow={false}>
+                <p>Hi, bytedance dance dance. This is the docsite of Semi UI. </p>
+            </Collapse.Panel>
+        </Collapse>);
+        expect(hidePanelArrow.exists('.semi-collapse-header-icon')).toEqual(false);
     });
 });

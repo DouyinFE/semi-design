@@ -153,6 +153,22 @@ const local: Locale = {
         total: 'Всего ${total} элементов',
         selected: 'Выбрано ${total} элементов',
     },
+    Form: {
+        optional: '(по желанию)',
+    },
+    Image: {
+        preview: 'предварительный просмотр',
+        loading: 'Загрузка',
+        loadError: 'Ошибка загрузки',
+        prevTip: 'Предыдущий',
+        nextTip: 'Далее',
+        zoomInTip: 'Увеличить',
+        zoomOutTip: 'уменьшить масштаб',
+        rotateTip: 'Повернуть',
+        downloadTip: 'скачать',
+        adaptiveTip: 'Адаптировать к странице',
+        originTip: 'Исходный размер',
+    },
 };
 
 // [i18n-Russia] 俄罗斯语

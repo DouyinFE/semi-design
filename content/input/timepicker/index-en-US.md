@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 31
+order: 32
 category: Input
 title: TimePicker
 subTitle: TimePicker
@@ -28,6 +28,20 @@ function Demo() {
     return <TimePicker />;
 }
 ```
+
+### Infinite Scroll
+
+Starting from version V2.22.0, we changed the default mode of ScrollItem in TimePicker from `wheel` to `normal`. If you want to apply the effect of infinite scrolling back, please refer to the following example.
+
+```jsx live=true
+import React from 'react';
+import { TimePicker } from '@douyinfe/semi-ui';
+
+function Demo() {
+    return <TimePicker scrollItemProps={{ mode: "wheel", cycled: true }}/>;
+}
+```
+
 
 ### With an Embedded Label
 
@@ -301,6 +315,7 @@ function Demo(props = {}) {
 | popupStyle | Pop-up layer style object | object | - |
 | position | Floating position | string | type="timeRange" => "bottom"<br/>type="time" => "bottomLeft" |
 | prefixCls | Prefix content | string\|ReactNode |  |  |
+| preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
 | rangeSeparator | time range delimiter | string | "~" |
 | scrollItemProps | The props passed through to ScrollItem. The optional values are the same as [ScrollList#API](/zh-CN/show/scrolllist#ScrollItem) | object |  | **0.31.0** |
 | secondStep | Second option interval | number | 1 |
@@ -323,6 +338,9 @@ function Demo(props = {}) {
 | blur()  | Remove focus  |
 | focus() | Get the focus |
 
+## Content Guidelines
+- The time selector includes at least hours and minutes, such as: 11:30, which can be adapted to 12-hour or 24-hour format during localization
+- When 12-hour clock is selected, it needs to be used together with AM/PM
 ## Design Tokens
 
 <DesignToken/>

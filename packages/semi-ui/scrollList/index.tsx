@@ -8,13 +8,13 @@ import Foundation from '@douyinfe/semi-foundation/scrollList/foundation';
 
 import '@douyinfe/semi-foundation/scrollList/scrollList.scss';
 
-export { ScrollItemProps } from './scrollItem';
+export type { ScrollItemProps } from './scrollItem';
 export interface ScrollListProps extends BaseProps {
     header?: React.ReactNode;
     footer?: React.ReactNode;
     children?: React.ReactNode;
     bodyHeight?: number | string;
-    prefixCls?: string;
+    prefixCls?: string
 }
 
 // eslint-disable-next-line @typescript-eslint/ban-types

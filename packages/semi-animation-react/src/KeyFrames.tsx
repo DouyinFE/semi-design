@@ -11,12 +11,12 @@ export interface KeyFramesProps {
     forwardInstance?: (value: any) => void;
     onFrame?: (value: any) => void;
     onKeyRest?: (value: Record<string, any>) => void;
-    onRest?: (value: Record<string, any>) => void;
+    onRest?: (value: Record<string, any>) => void
 }
 
 export interface KeyFramesStates {
     currentStyle: Record<string, any>;
-    frameIndex: number;
+    frameIndex: number
 }
 
 export default class KeyFrames extends Component<KeyFramesProps, KeyFramesStates> {

@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 51
+order: 52
 category: Show
 title: Dropdown
 subTitle: Dropdown
@@ -427,7 +427,7 @@ function DropdownEvents() {
 | children | Child elements wrapped by the drop layer | ReactNode |  |  |
 | clickToHide | Whether to close the drop-down layer automatically when clicking on the drop-down layer | boolean |  | **0.24.0** |
 | contentClassName | Drop-down menu root element class name | string |  |  |
-| getPopupContainer | Specifies the parent DOM, and the bullet layer will be rendered to the DOM, you need to set 'position: relative` | function():HTMLElement | () = > document.body |
+| getPopupContainer | Specifies the parent DOM, and the bullet layer will be rendered to the DOM, you need to set 'position: relative` | function():HTMLElement | () => document.body |
 | mouseEnterDelay | After the mouse is moved into the Trigger, the display time is delayed, in milliseconds (only effective when the trigger is hover/focus) | number | 50 |  |
 | mouseLeaveDelay | The time for the delay to disappear after the mouse moves out of the pop-up layer, in milliseconds (only effective when the trigger is hover/focus) | number | 50 |  |
 | menu | Menu content config | Array<DropdownMenuItem\> | [] | **1.12.0** |
@@ -500,9 +500,26 @@ function DropdownEvents() {
 - Keyboard users can close the Dropdown by pressing `Esc`, after which the focus returns to the trigger
 - Keyboard interaction does not yet fully support nested scenes
 
+## Content Guidelines
+- The content of the options in the drop-down box needs to be expressed accurately and contain information to make it easier for users to choose among the options when browsing
+- Use statement-like capitalization and write options concisely and clearly
+- In the case of an action option, use a verb or verb phrase to describe the action that will occur when the user selects the option. For example, "Move", "Log time", or "Hide labels"
+- do not use prepositions
+
+| ✅ Recommended usage| ❌ Deprecated usage |  
+| --- | --- | 
+| <div style={{ height: 150}}><Dropdown visible trigger={'custom'} autoAdjustOverflow={false} position={'bottomLeft'} menu={[{ node: 'item', name: 'Add text' },{ node: 'item', name: 'Add link' },{ node: 'item', name: 'Add image' },{ node: 'item', name: 'Add video' }]} /></div> | <div style={{ height: 150}}><Dropdown visible trigger={'custom'} autoAdjustOverflow={false} position={'bottomLeft'} menu={[{ node: 'item', name: 'Add a text' },{ node: 'item', name: 'Add a link' },{ node: 'item', name: 'Add a image' },{ node: 'item', name: 'Add a video' }]} /></div> |
+
+
+
 ## Design Tokens
 
 <DesignToken/>
+
+## FAQ
+- **Why does the Dropdown layer accidentally wrap when the width is not enough near the screen border?**
+
+    After Chromium 104, the wrapping rendering strategy when the width of the screen border text is not enough has changed. For details, see [issue #1022](https://github.com/DouyinFE/semi-design/issues/1022), the semi-side has been This problem was fixed in v2.17.0.
 
 <!-- ## Related Material
 

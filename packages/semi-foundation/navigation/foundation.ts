@@ -8,28 +8,28 @@ import { get } from 'lodash';
 import isNullOrUndefined from '../utils/isNullOrUndefined';
 
 export interface ItemKey2ParentKeysMap {
-    [key: string]: (string | number)[];
+    [key: string]: (string | number)[]
 }
 
 export interface OnClickData {
     itemKey: string | number;
     domEvent: any;
-    isOpen: boolean;
+    isOpen: boolean
 }
 
 export interface OnSelectData extends OnClickData {
     selectedKeys: (string | number)[];
-    selectedItems: ItemProps[];
+    selectedItems: ItemProps[]
 }
 
 export interface OnOpenChangeData extends OnClickData {
-    openKeys: (string | number)[];
+    openKeys: (string | number)[]
 }
 
 export interface NavItemType {
     props?: ItemProps;
     items?: NavItemType[];
-    [key: string]: any;
+    [key: string]: any
 }
 
 export interface NavigationAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
@@ -45,7 +45,7 @@ export interface NavigationAdapter<P = Record<string, any>, S = Record<string, a
     updateOpenKeys(keys: (string | number)[]): void;
     addOpenKeys(...keys: (string | number)[]): void;
     removeOpenKeys(...keys: (string | number)[]): void;
-    setItemsChanged(isChanged: boolean): void;
+    setItemsChanged(isChanged: boolean): void
 }
 
 export default class NavigationFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<NavigationAdapter<P, S>, P, S> {
@@ -181,20 +181,13 @@ export default class NavigationFoundation<P = Record<string, any>, S = Record<st
         return [...willOpenKeys];
     }
 
-    getItemKey(item: string | number, keyPropName = 'itemKey') {
-        if (item && typeof item === 'object') {
-            return item[keyPropName];
-        }
-        return item;
-    }
-
-    getShouldOpenKeys(itemKeysMap: ItemKey2ParentKeysMap = {}, selectedKeys: string | number[] = []) {
+    getShouldOpenKeys(itemKeysMap: ItemKey2ParentKeysMap = {}, selectedKeys: string | number[]= []) {
         const willOpenKeySet = new Set();
 
         if (Array.isArray(selectedKeys) && selectedKeys.length) {
             selectedKeys.forEach(item => {
                 if (item) {
-                    const parentKeys = get(itemKeysMap, this.getItemKey(item));
+                    const parentKeys = get(itemKeysMap, item);
 
                     if (Array.isArray(parentKeys)) {
                         parentKeys.forEach(k => willOpenKeySet.add(k));

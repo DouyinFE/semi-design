@@ -21,7 +21,7 @@ export interface AnchorAdapter<P = Record<string, any>, S = Record<string, any>>
     getContentNode: (selector: string) => HTMLElement;
     notifyChange: (currentLink: string, previousLink: string) => void;
     notifyClick: (e: any, link: string) => void;
-    canSmoothScroll: () => boolean;
+    canSmoothScroll: () => boolean
 }
 
 export default class AnchorFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<AnchorAdapter<P, S>, P, S> {

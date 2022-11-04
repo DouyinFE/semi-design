@@ -11,7 +11,7 @@ const prefixCls = cssClasses.PREFIX;
 interface SVGNode {
     id?: string;
     viewBox?: string;
-    url?: string;
+    url?: string
 }
 
 export interface EmptyProps {
@@ -23,11 +23,11 @@ export interface EmptyProps {
     darkModeImage?: React.ReactNode | SVGNode;
     style?: React.CSSProperties;
     className?: string;
-    children?: React.ReactNode;
+    children?: React.ReactNode
 }
 
 interface EmptyState {
-    mode: any;
+    mode: any
 }
 
 export default class Empty extends BaseComponent<EmptyProps, EmptyState> {
@@ -79,17 +79,17 @@ export default class Empty extends BaseComponent<EmptyProps, EmptyState> {
         const { className, image, description, style, title, imageStyle, children, layout, darkModeImage } = this.props;
 
         const alt = typeof description === 'string' ? description : 'empty';
-        const imgSrc = this.state.mode && darkModeImage ? darkModeImage : image;
+        const imgSrc = ((this.state.mode === 'dark') && darkModeImage) ? darkModeImage : image;
         let imageNode = null;
         if (typeof imgSrc === 'string') {
-            imageNode = <img alt={alt} src={imgSrc} />;
+            imageNode = <img alt={alt} src={imgSrc}/>;
         } else if (imgSrc && 'id' in (imgSrc as any)) {
             imageNode = (
                 <svg
                     // className={iconCls}
                     aria-hidden="true"
                 >
-                    <use xlinkHref={`#${(imgSrc as any).id}`} />
+                    <use xlinkHref={`#${(imgSrc as any).id}`}/>
                 </svg>
             );
         } else {

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Motion } from '../_base/base';
 
 
 export interface CollapseContextType{
@@ -9,7 +8,7 @@ export interface CollapseContextType{
     keepDOM: boolean;
     expandIconPosition: 'left' | 'right';
     onClick: (activeKey: string, e: React.MouseEvent) => void;
-    motion: Motion;
+    motion: boolean
 }
 
 

@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 54
+order: 56
 category: Show
 title:  Modal
 subTitle: Modal
@@ -25,7 +25,7 @@ import { Modal, Button } from '@douyinfe/semi-ui';
 class modalDemo extends React.Component {
     constructor() {
         super();
-        this.state = {visible: false};
+        this.state = { visible: false };
         this.showDialog = this.showDialog.bind(this);
         this.handleOk = this.handleOk.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
@@ -84,7 +84,7 @@ import { Modal, Button } from '@douyinfe/semi-ui';
 class modalDemo extends React.Component {
     constructor() {
         super();
-        this.state = {visible: false};
+        this.state = { visible: false };
         this.showDialog = this.showDialog.bind(this);
         this.handleOk = this.handleOk.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
@@ -137,7 +137,7 @@ import { Modal, Button } from '@douyinfe/semi-ui';
 class modalDemo extends React.Component {
     constructor() {
         super();
-        this.state = {visible: false};
+        this.state = { visible: false };
         this.showDialog = this.showDialog.bind(this);
         this.handleOk = this.handleOk.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
@@ -189,7 +189,7 @@ import { Modal, Button } from '@douyinfe/semi-ui';
 class modalDemo extends React.Component {
     constructor() {
         super();
-        this.state = {visible: false};
+        this.state = { visible: false };
         this.showDialog = this.showDialog.bind(this);
         this.handleOk = this.handleOk.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
@@ -218,8 +218,8 @@ class modalDemo extends React.Component {
                     visible={this.state.visible}
                     onOk={this.handleOk}
                     onCancel={this.handleCancel}
-                    okButtonProps={{size: 'small', type: 'warning'}}
-                    cancelButtonProps={{size: 'small', disabled: true}}
+                    okButtonProps={{ size: 'small', type: 'warning' }}
+                    cancelButtonProps={{ size: 'small', disabled: true }}
                 >
                     <p>This is a modal with customized button props.</p>
                     <p>More content...</p>
@@ -241,7 +241,7 @@ import { Modal, Button } from '@douyinfe/semi-ui';
 class modalDemo extends React.Component {
     constructor() {
         super();
-        this.state = {visible: false};
+        this.state = { visible: false };
         this.showDialog = this.showDialog.bind(this);
         this.handleOk = this.handleOk.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
@@ -296,7 +296,7 @@ import { Modal, Button } from '@douyinfe/semi-ui';
 class modalDemo extends React.Component {
     constructor() {
         super();
-        this.state = {visible: false};
+        this.state = { visible: false };
         this.showDialog = this.showDialog.bind(this);
         this.handleOk = this.handleOk.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
@@ -326,10 +326,10 @@ class modalDemo extends React.Component {
                     onOk={this.handleOk}
                     onCancel={this.handleCancel}
                     centered
-                    bodyStyle={{overflow: 'auto', height: 200}}
+                    bodyStyle={{ overflow: 'auto', height: 200 }}
                 >
-                    <p style={{lineHeight: 1.8}}>Semi Design is a design system developed and maintained by IES Front-end Team and UED Team</p>
-                    <p style={{lineHeight: 1.8}}>Semi Design create a consistent, good-looking, easy-to-use, and efficient user experience with a user-centric, content-first, and human-friendly design system.
+                    <p style={{ lineHeight: 1.8 }}>Semi Design is a design system developed and maintained by IES Front-end Team and UED Team</p>
+                    <p style={{ lineHeight: 1.8 }}>Semi Design create a consistent, good-looking, easy-to-use, and efficient user experience with a user-centric, content-first, and human-friendly design system.
                     </p>
                     <ul>
                         <li><p>Content-first</p></li>
@@ -356,7 +356,7 @@ import { IconVigoLogo, IconSemiLogo } from '@douyinfe/semi-icons';
 class modalDemo extends React.Component {
     constructor() {
         super();
-        this.state = {visible: false};
+        this.state = { visible: false };
         this.showDialog = this.showDialog.bind(this);
         this.handleOk = this.handleOk.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
@@ -379,17 +379,17 @@ class modalDemo extends React.Component {
     render() {
         const data = [
             {
-                icon: <IconSemiLogo style={{fontSize: 48}} />,
+                icon: <IconSemiLogo style={{ fontSize: 48 }} />,
                 title: 'Boost new feature adoption with Integration',
                 content: 'Sample data is prepared for you to demostrate how Integration may be useful for your team'
             },
             {
-                icon: <IconVigoLogo style={{fontSize: 48}} />,
+                icon: <IconVigoLogo style={{ fontSize: 48 }} />,
                 title: 'Introducing Dark Mode',
                 content: 'Sample data is prepared for you to demostrate how Integration may be useful for your team'
             },
             {
-                icon: <IconSemiLogo style={{fontSize: 48}} />,
+                icon: <IconSemiLogo style={{ fontSize: 48 }} />,
                 title: 'New List Component',
                 content: 'Sample data is prepared for you to demostrate how Integration may be useful for your team'
             },
@@ -399,7 +399,7 @@ class modalDemo extends React.Component {
             margin: '4px 50px',
         };
         const footer = (
-            <div style={{textAlign: 'center'}}>
+            <div style={{ textAlign: 'center' }}>
                 <Button type="primary" theme="solid" onClick={this.handleOk} style={btnStyle}>
                     Continue
                 </Button>
@@ -418,7 +418,7 @@ class modalDemo extends React.Component {
                     onCancel={this.handleCancel}
                     footer={footer}
                 >
-                    <h3 style={{textAlign: 'center', fontSize: 24, margin: 40}}>Semi Design New Features</h3>
+                    <h3 style={{ textAlign: 'center', fontSize: 24, margin: 40 }}>Semi Design New Features</h3>
                     <List
                         dataSource={data}
                         split={false}
@@ -427,8 +427,8 @@ class modalDemo extends React.Component {
                                 header={item.icon}
                                 main={
                                     <div>
-                                        <h6 style={{margin: 0, fontSize: 16}}>{item.title}</h6>
-                                        <p style={{marginTop: 4, color: 'var(--semi-color-text-1)'}}>{item.content}</p>
+                                        <h6 style={{ margin: 0, fontSize: 16 }}>{item.title}</h6>
+                                        <p style={{ marginTop: 4, color: 'var(--semi-color-text-1)' }}>{item.content}</p>
                                     </div>
                                 }
                             />)
@@ -483,7 +483,7 @@ import { IconSend } from '@douyinfe/semi-icons';
 
 ModalComponent = function(props) {
     function success() {
-        Modal.success({ 'title': 'This is a success message', 'content': 'bla bla bla...'});
+        Modal.success({ 'title': 'This is a success message', 'content': 'bla bla bla...' });
     }
 
     function info() {
@@ -589,6 +589,7 @@ function Demo(props = {}) {
 | okButtonProps     | Properties for confirm button                      | [ButtonProps](/en-US/input/button#API-reference) | -       |
 | okText            | Text for confirm button                            | string | -       |
 | okType            | Type for confirm button, optional: 'primary'、'secondary'、'tertiary'、'warning'、'danger'                            | string | primary |
+| preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
 | size | Size of modal, one of `small`(448px), `medium`(684px), `large`(920px), `full-width`(100vw - 64px) <br/>**>= v1.0.0**  | string | 'small' |
 | style             | Inline style                                       | CSSProperties | -       |
 | title             | Title                                              | ReactNode | -       |
@@ -630,9 +631,11 @@ function Demo(props = {}) {
 | title             | Title                                              | ReactNode            | -       |
 | width             | Width                                              | number            | 520     |
 | zIndex            | Z-index value for mask                             | number            | 1000    |
-Creating modal with the above methods will return a reference to the instance. You could use it to update or close the modal.|
 | onCancel          | Callback function when clicking cancel button      | (e: any) => void \| Promise<any\>          | -       |
 | onOk              | Callback function when clicking confirm button     | (e: any) => void \| Promise<any\>          | -       |
+
+Creating modal with the above methods will return a reference to the instance. You could use it to update or close the modal.|
+
 
 ```
 const modal = Modal.info();
@@ -669,16 +672,39 @@ WAI-ARIA: https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog/
 - By adding autoFocus to the form element that needs to be focused in the Modal content, the Modal can automatically focus on the element when it is opened (the autoFocus of cancelButtonProps needs to be set to false at the same time).
 - Modify the default value of closeOnEsc to true, allowing users to directly close Modal through the keyboard for a better experience
 
+## Content Guidelines
+
+- Imperative Modal and Default Modal The title of the two modal dialogs uses the format of verb + noun, whether it is a declarative sentence or a question sentence
+
+| ✅ Recommended usage | ❌ Deprecated usage |   
+| --- | --- | 
+| Edit ticket | Edit |
+| Delete form？ | Are you sure you want to delete form? |
+
+- The operation buttons of the two modal dialog boxes only need to use the verbs in the title under the premise of ensuring that the title description is clear
+
+| ✅ Recommended usage | ❌ Deprecated usage |   
+| --- | --- | 
+| Edit | Edit ticket |
+
+- Text specification for imperative Modal
+  - Give a specific explanation to the title, do not repeat the information of the title
+  - Make sure users know how to act if necessary
+
 ## Design Tokens
 <DesignToken/>
 
 ## FAQ
 
--   Why the button texts in Modal.confirm are not internationalized even when I use LocaleProvider? 
+- #### Why the button texts in Modal.confirm are not internationalized even when I use LocaleProvider? 
     In version >= 1.2.0, you could use `Modal.useModal` to create a `contextHolder` that is accessible to config from ConfigProvider or LocaleProvider.
 
     For version before 1.2 or if you don't want to use Hooks, you could also use `okText` and `cancelText` to set i18 texts at this moment.  
-    
+
+- #### Why is the spacing between title and content different under imperative and non-imperative calls?
+    In the imperative call scenario, the title and content are more closely related, so expressing this strong correlation with a closer distance is in line with expectations. If users don't want this effect, they can do their own style overrides.
+
+
 <!-- ## Related Material
 ```material
 1, 55

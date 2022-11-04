@@ -6,7 +6,6 @@ import Progress from '../index';
 const getProgress = (props = {}) => mount(<Progress {...props} />);
 
 describe('Progress', () => {
-
     it('percent pass invalid value like NaN', () => {
         const p = getProgress({ percent: 30 });
         function testNaN() {
@@ -34,7 +33,6 @@ describe('Progress', () => {
         }, 500);
     });
 
-
     it('classname & style', () => {
         const p = getProgress({ className: 'test', color: 'red' });
         const node = p.find(`.${BASE_CLASS_PREFIX}-progress`);
@@ -49,10 +47,76 @@ describe('Progress', () => {
         let props = {
             stroke: '#fc8800',
             size: 'small',
-            orbitStroke: '#f93920'
+            orbitStroke: '#f93920',
         };
         const p = getProgress(props);
-        expect(p.exists('.semi-progress-large'))
+        expect(p.exists('.semi-progress-large'));
+    });
+
+    it('Gradient Accuracy [strokeGradient true & stroke type is Array]', () => {
+        let props = {
+            stroke: [
+                {
+                    percent: 50,
+                    color: '#fff',
+                },
+                {
+                    percent: 52,
+                    color: 'rgba(0, 0, 0, 0)',
+                },
+            ],
+            strokeGradient: true,
+            percent: 51,
+            type: 'circle',
+        };
+        const p = getProgress(props);
+        const _stroke = p
+            .find('.semi-progress-circle-ring-inner')
+            .at(0)
+            .getDOMNode()
+            .getAttribute('stroke');
+        expect(_stroke).toEqual('#8080807f');
+    });
+
+    it('Gradient Accuracy [strokeGradient false & stroke type is Array]', () => {
+        let props = {
+            stroke: [
+                {
+                    percent: 3,
+                    color: '#fff',
+                },
+            ],
+            percent: 90,
+            type: 'circle',
+        };
+        const p = getProgress(props);
+        const _stroke = p
+            .find('.semi-progress-circle-ring-inner')
+            .at(0)
+            .getDOMNode()
+            .getAttribute('stroke');
+        expect(_stroke).toEqual('#ffffffff');
+    });
+
+    it('Gradient Compatibility [strokeGradient true & stroke type is Array]', () => {
+        let props = {
+            stroke: [
+                { percent: 0, color: 'red' },
+                { percent: 10, color: '#b2140c' },
+                { percent: 50, color: 'rgb(0, 99, 167)' },
+                { percent: 100, color: 'hsla(125, 50%, 46% / 1)' },
+            ],
+            strokeGradient: true,
+            percent: 55,
+            type: 'circle',
+        };
+        const p = getProgress(props);
+        const _stroke = p
+            .find('.semi-progress-circle-ring-inner')
+            .at(0)
+            .getDOMNode()
+            .getAttribute('stroke');
+        expect(_stroke).toEqual('#066b9dff');
     });
 
     it('direction', () => {
@@ -79,7 +143,10 @@ describe('Progress', () => {
             strokeWidth: 10,
         };
         const p = getProgress(props);
-        let firstCircle = p.find('circle').at(0).getDOMNode();
+        let firstCircle = p
+            .find('circle')
+            .at(0)
+            .getDOMNode();
         expect(firstCircle.getAttribute('stroke-linecap')).toEqual('square');
         expect(firstCircle.getAttribute('stroke-width')).toEqual('10');
     });
@@ -87,10 +154,13 @@ describe('Progress', () => {
     it('width', () => {
         let props = {
             width: 120,
-            type: 'circle'
-        }
+            type: 'circle',
+        };
         const p = getProgress(props);
-        let svgRing = p.find('.semi-progress-circle-ring').at(0).getDOMNode();
+        let svgRing = p
+            .find('.semi-progress-circle-ring')
+            .at(0)
+            .getDOMNode();
         expect(svgRing.getAttribute('width')).toEqual('120');
     });
 
@@ -98,8 +168,8 @@ describe('Progress', () => {
         let props = {
             motion: false,
             percent: 70,
-            showInfo: true
-        }
+            showInfo: true,
+        };
         const p = getProgress(props);
         expect(p.find('.semi-progress-line-text').text()).toEqual('70%');
         p.setProps({ percent: 80 });
@@ -124,4 +194,3 @@ describe('Progress', () => {
         expect(minp.find('.semi-progress-line-text').text()).toEqual('0%');
     });
 });
-

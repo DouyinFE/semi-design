@@ -66,6 +66,20 @@ $rating: #{$prefix}-rating;
                 }
             }
         }
+
+        .#{$field}-group {
+            .#{$col} {
+                &-right {
+                    display: flex;
+                    justify-content: flex-end;
+                }
+                &-left {
+                    display: flex;
+                    justify-content: flex-start;
+                }
+            }
+        }
+
         .#{$field}-pure {
             // padding-top: 0;
             // padding-bottom: 0;
@@ -109,12 +123,13 @@ $rating: #{$prefix}-rating;
                     font-weight: $font-form_requiredMark-fontWeight;
                 }
             }
-            // .#{$field}-label-extra {
-            // }
-
             &-disabled {
                 color: $color-form_requiredMark_disabled-text-default;
             }
+        }
+
+        &-optional-text {
+            color: $color-form_label_optional-text-default;
         }
 
         &-left {

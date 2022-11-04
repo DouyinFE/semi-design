@@ -9,6 +9,8 @@ $color-anchor_title-text-hover: var(--semi-color-tertiary-hover); // 文字颜�
 $color-anchor_title-text-active: var(--semi-color-text-0); // 文字颜色 - 选中
 $color-anchor_title-text-disabled: var(--semi-color-disabled-text); // 文字颜色 - 禁用
 
+$color-anchor_title-outline-focus: var(--semi-color-primary-light-active); // 轮廓 - 聚焦
+
 // Spacing
 $spacing-anchor_slide-left: $spacing-none; // 滑轨左侧位置
 $spacing-anchor_slide-top: $spacing-none; // 滑轨顶部位置
@@ -25,3 +27,8 @@ $height-anchor_slide_small: 16px; // 选项高度 - 小尺寸
 
 // Radius
 $radius-anchor_slide: 1px; // 滑轨圆角
+
+// Witdh
+$width-anchor-outline: 2px; // anchor轮廓宽度
+$width-anchor-outlineOffset: -2px; // anchor轮廓 outline-offset 宽度
+$width-anchor-outline_border_radius: 3px; // anchor轮廓圆角

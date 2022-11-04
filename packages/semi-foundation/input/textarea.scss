@@ -1,3 +1,4 @@
+@import "./animation.scss";
 @import "./variables.scss";
 
 $module: #{$prefix}-input;
@@ -12,6 +13,8 @@ $module: #{$prefix}-input;
     border-radius: $radius-input_wrapper;
     vertical-align: bottom;
     background-color: $color-input_default-bg-default;
+    transition: background-color $transition_duration-input-bg $transition_function-input-bg $transition_delay-input-bg,
+    border $transition_duration-input-border $transition_function-input-border $transition_delay-input-border;
 
     &:hover {
         background-color: $color-input_default-bg-hover;
@@ -90,7 +93,7 @@ $module: #{$prefix}-input;
 
         &:active {
             background-color: $color-input_danger-bg-active;
-            border-color: $color-input_danger-border-active;
+            border-color: $color-input_danger-border-focus;
         }
     }
 
@@ -110,7 +113,7 @@ $module: #{$prefix}-input;
 
         &:active {
             background-color: $color-input_warning-bg-active;
-            border-color: $color-input_warning-border-active;
+            border-color: $color-input_warning-border-focus;
         }
     }
 
@@ -141,7 +144,7 @@ $module: #{$prefix}-input;
     cursor: text;
     box-sizing: border-box;
     color: $color-input_default-text-default;
-    
+
     &:hover {
         border-color: $color-textarea-border-hover;
     }

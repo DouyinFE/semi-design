@@ -21,7 +21,7 @@ const tagType = strings.TAG_TYPE;
 const avatarShapeSet = strings.AVATAR_SHAPE;
 
 export interface TagState {
-    visible: boolean;
+    visible: boolean
 }
 
 export default class Tag extends Component<TagProps, TagState> {
@@ -33,13 +33,16 @@ export default class Tag extends Component<TagProps, TagState> {
         type: tagType[0] as TagType,
         onClose: () => undefined,
         onClick: () => undefined,
+        onMouseEnter: () => undefined,
         style: {},
         className: '',
+        shape: 'square',
         avatarShape: 'square',
     };
 
     static propTypes = {
         children: PropTypes.node,
+        tagKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         size: PropTypes.oneOf(tagSize),
         color: PropTypes.oneOf(tagColors),
         type: PropTypes.oneOf(tagType),
@@ -79,11 +82,11 @@ export default class Tag extends Component<TagProps, TagState> {
         }
     }
 
-    close(e: React.MouseEvent<HTMLElement>, value: React.ReactNode) {
+    close(e: React.MouseEvent<HTMLElement>, value: React.ReactNode, tagKey: string | number) {
         const { onClose } = this.props;
         e.stopPropagation();
         e.nativeEvent.stopImmediatePropagation();
-        onClose && onClose(value, e);
+        onClose && onClose(value, e, tagKey);
         // when user call e.preventDefault() in onClick callback, tag will not hidden
         if (e.defaultPrevented) {
             return;
@@ -96,7 +99,7 @@ export default class Tag extends Component<TagProps, TagState> {
         switch (event.key) {
             case "Backspace":
             case "Delete":
-                closable && this.close(event, this.props.children);
+                closable && this.close(event, this.props.children, this.props.tagKey);
                 handlePrevent(event);
                 break;
             case "Enter":
@@ -119,10 +122,11 @@ export default class Tag extends Component<TagProps, TagState> {
     }
 
     render() {
-        const { children, size, color, closable, visible, onClose, onClick, className, type, avatarSrc, avatarShape, ...attr } = this.props;
+        const { tagKey, children, size, color, closable, visible, onClose, onClick, className, type, shape, avatarSrc, avatarShape, tabIndex, ...attr } = this.props;
         const { visible: isVisible } = this.state;
         const clickable = onClick !== Tag.defaultProps.onClick || closable;
-        const a11yProps = { role: 'button', tabIndex: 0, onKeyDown: this.handleKeyDown };
+        // only when the Tag is clickable or closable, the value of tabIndex is allowed to be passed in. 
+        const a11yProps = { role: 'button', tabIndex: tabIndex | 0, onKeyDown: this.handleKeyDown };
         const baseProps = {
             ...attr,
             onClick,
@@ -132,6 +136,8 @@ export default class Tag extends Component<TagProps, TagState> {
                     [`${prefixCls}-default`]: size === 'default',
                     [`${prefixCls}-small`]: size === 'small',
                     [`${prefixCls}-large`]: size === 'large',
+                    [`${prefixCls}-square`]: shape === 'square',
+                    [`${prefixCls}-circle`]: shape === 'circle',
                     [`${prefixCls}-${type}`]: type,
                     [`${prefixCls}-${color}-${type}`]: color && type,
                     [`${prefixCls}-closable`]: closable,
@@ -144,7 +150,7 @@ export default class Tag extends Component<TagProps, TagState> {
         const wrapProps = clickable ? ({ ...baseProps, ...a11yProps }) : baseProps;
         const closeIcon = closable ? (
             // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-            <div className={`${prefixCls}-close`} onClick={e => this.close(e, children)}>
+            <div className={`${prefixCls}-close`} onClick={e => this.close(e, children, tagKey)}>
                 <IconClose size="small" />
             </div>
         ) : null;

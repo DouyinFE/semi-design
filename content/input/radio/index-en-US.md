@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 25
+order: 26
 category: Input
 title: Radio
 subTitle: Radio
@@ -262,13 +262,13 @@ import { RadioGroup, Radio } from '@douyinfe/semi-ui';
 
 () => (
     <RadioGroup type='card' defaultValue={1} direction='vertical' aria-label="RadioGroup demo" name="demo-radio-group-card">
-        <Radio value={1} extra='Radio description' style={{width:280}}>
+        <Radio value={1} extra='Radio description' style={{ width: 280 }}>
             Radio Title
         </Radio>
-        <Radio value={2} disabled extra='Radio description' style={{width:280}}>
+        <Radio value={2} disabled extra='Radio description' style={{ width: 280 }}>
             Radio Title
         </Radio>
-        <Radio value={3} extra='Radio description' style={{width:280}}>
+        <Radio value={3} extra='Radio description' style={{ width: 280 }}>
             Radio Title
         </Radio>
     </RadioGroup>
@@ -288,13 +288,13 @@ import { RadioGroup, Radio } from '@douyinfe/semi-ui';
 
 () => (
     <RadioGroup type='pureCard' defaultValue={1} direction='vertical' aria-label="RadioGroup demo" name="demo-radio-group-pureCard">
-        <Radio value={1} extra='Radio description' style={{width:280}}>
+        <Radio value={1} extra='Radio description' style={{ width: 280 }}>
             Radio Title
         </Radio>
-        <Radio value={2} disabled extra='Radio description' style={{width:280}}>
+        <Radio value={2} disabled extra='Radio description' style={{ width: 280 }}>
             Radio Title
         </Radio>
-        <Radio value={3} extra='Radio description' style={{width:280}}>
+        <Radio value={3} extra='Radio description' style={{ width: 280 }}>
             Radio Title
         </Radio>
     </RadioGroup>
@@ -376,18 +376,20 @@ class App extends React.Component {
 | PROPERTIES | Instructions | Type | Default |
 | --- | --- | --- | --- |
 | addonClassName | classname of content wrapper<br/>**provided after v1.16.0** | string |  |
-| addonId | id of addon node, aria-labelledby refers to this id, if not set, it will generate an id randomly  **provided after v2.11.0**                                 | string            |       |
+| addonId | id of addon node, aria-labelledby refers to this id, if not set, it will generate an id randomly  <br/>**provided after v2.11.0**                                 | string            |       |
 | addonStyle | inline style of content wrapper<br/>**provided after v1.16.0** | object |  |
 | aria-label      | Label of Radio                                                            | string           | -  |
 | name         | The `name` attribute passed to `input[type="radio"]` in the Radio component, Radios with the same `name` belong to the same RadioGroup,The `name` attribute can refer to [MDN Radio](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input/radio#value)   | string         | -  |
 | autoFocus | Automatically focus the form control when the page is loaded | boolean | false |
 | checked | Specify whether it is currently selected | boolean | false |
+| type | Set the type of radio, one of `default`, `button`, `card`, `pureCard` <br/>**This api is provided after v2.18.0**| string | `default` |
 | className | Class name | string |  |
 | defaultChecked | Checked by default | boolean | false |
 | disabled | Disable the radio | boolean | false |
 | extra | Extra information displayed <br/>**provided after v0.25.0** | ReactNode | - |
 | extraId        | id of extra node. aria-describedby refers to this id, if not set, it will randomly generate an id <br/>**provided after v2.11.0**                     | ReactNode         | -      |
 | mode | In advanced mode, options can be clicked to uncheck, one of `advanced` | string | - |
+| preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
 | style | Inline style | CSSProperties |  |
 | value | Compared based on value to determine whether the option is selected | string \| number | - |
 | onChange | Callback function when the selected option changes | Function (e: Event) | - |
@@ -443,6 +445,11 @@ WAI-ARIA: https://www.w3.org/WAI/ARIA/apg/patterns/radiobutton/
 ```material
 123
 ``` -->
+
+## Content Guidelines
+
+- Capitalize the first letter
+- No punctuation
 
 ## Design Tokens
 

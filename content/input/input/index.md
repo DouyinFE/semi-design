@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 23
+order: 24
 category: 输入类
 title:  Input 输入框
 icon: doc-input
@@ -414,6 +414,7 @@ import { Input, Typography, Form, TextArea, Button } from '@douyinfe/semi-ui';
 | hideSuffix     | 清除按钮与后缀标签并存时隐藏后缀标签，默认为false两者并列        | boolean                         | false     |
 | mode           | 输入框的模式，可选值password **>=v1.3.0**                        | string                          |           |
 | prefix         | 前缀标签                                                        | ReactNode               |           |
+| preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法 | boolean |  |  |
 | showClear      | 输入框有内容且 hover 或 focus 时展示清除按钮 **>=1.0.0**                                            | boolean                         | false     |
 | size           | 输入框大小，large、default、small                                  | string                          | 'default' |
 | style          | 样式                                                            | CSSProperties                          |           |
@@ -464,7 +465,7 @@ import { Input, Typography, Form, TextArea, Button } from '@douyinfe/semi-ui';
 
 ### InputGroup
 
-通用属性将设置到 InputGroup 的子级元素上，例如 disabled、onFocus 等，如果子级单独设置了相同属性，子级的优先级更高。
+通用属性将设置到 InputGroup 的子级元素上，例如 disabled、onFocus 等。如果你在子级设置了 onFocus、onBlur 或 disabled，会覆盖掉 InputGroup 对应属性值。
 
 
 | 属性          | 说明                           | 类型                                                          | 默认值    |

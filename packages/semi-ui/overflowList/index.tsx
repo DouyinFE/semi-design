@@ -17,7 +17,7 @@ const Boundary = strings.BOUNDARY_MAP;
 const OverflowDirection = strings.OVERFLOW_DIR;
 const RenderMode = strings.MODE_MAP;
 
-export { ReactIntersectionObserverProps } from './intersectionObserver';
+export type { ReactIntersectionObserverProps } from './intersectionObserver';
 export type OverflowItem = Record<string, any>;
 
 export interface OverflowListProps {
@@ -33,7 +33,7 @@ export interface OverflowListProps {
     threshold?: number;
     visibleItemRenderer?: (item: OverflowItem, index: number) => ReactElement;
     wrapperClassName?: string;
-    wrapperStyle?: CSSProperties;
+    wrapperStyle?: CSSProperties
 }
 
 export interface OverflowListState {
@@ -42,7 +42,7 @@ export interface OverflowListState {
     overflow?: Array<OverflowItem>;
     visible?: Array<OverflowItem>;
     visibleState?: Map<string, boolean>;
-    prevProps?: OverflowListProps;
+    prevProps?: OverflowListProps
 }
 
 // reference to https://github.com/palantir/blueprint/blob/1aa71605/packages/core/src/components/overflow-list/overflowList.tsx#L34

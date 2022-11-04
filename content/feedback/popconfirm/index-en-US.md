@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 65
+order: 67
 category: Feedback
 title:  Popconfirm
 subTitle: Popconfirm
@@ -109,38 +109,86 @@ function TypesConfirmDemo(props = {}) {
 }
 ```
 
+
+### Delay hide
+
+`onOk` and `onCancel` can be closed after click through return Promise (supported after v2.19). When onCancel and onOk are triggered, the corresponding Button will automatically switch to `loading: true`  
+promise solve will close the bubble confirmation box, the bubble will remain when promise reject, and button loading will automatically switch to false  
+
+```jsx live=true
+import React from 'react';
+import { Popconfirm, Button, Toast } from '@douyinfe/semi-ui';
+
+() => {
+    const onConfirm = () => {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                console.log('resolve, close popconfirm');
+                resolve();
+            }, 2000);
+        });
+    };
+
+    const onCancel = () => {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                console.log('reject, popconfirm still exist');
+                reject();
+            }, 2000);
+        });
+    };
+
+    return (
+        <Popconfirm
+            title="Are you sure to save this modification?"
+            content="This modification will be irreversible"
+            onConfirm={onConfirm}
+            onCancel={onCancel}
+        >
+            <Button>Save</Button>
+        </Popconfirm>
+    );
+};
+```
+
 ### Use with Tooltip or Popover
 
 Please refer to [Use with Tooltip/Popover](/en-US/show/tooltip#Use-with-Popver-or-Popconfirm)
 
 ## API Reference
 
-| Properties         | Instructions                                                                                                                                                          | Type                       | Default             | Version           |
-| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------- | ------------------- | ----------------- |
-| arrowPointAtCenter | Whether the "small triangle" points to the center of the element, you need to pass in "showArrow = true" at the same time                                             | boolean                    | false               | **0.34.0** |
-| cancelText         | Cancel button text                                                                                                                                                    | string                     | "Cancel"            |
-| cancelButtonProps  | Properties for cancel button                                                                                                                                          | object                     |                     | **0.29.0**        |
-| cancelType         | Cancel button type                                                                                                                                                    | string                     | "tertiary"          |
+| Properties         | Instructions                                                                                                                                                          | Type                     | Default             | Version           |
+| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------ | ------------------- | ----------------- |
+| arrowPointAtCenter | Whether the "small triangle" points to the center of the element, you need to pass in "showArrow = true" at the same time                                             | boolean                  | false               | **0.34.0** |
+| cancelText         | Cancel button text                                                                                                                                                    | string                   | "Cancel"            |
+| cancelButtonProps  | Properties for cancel button                                                                                                                                          | object                   |                     | **0.29.0**        |
+| cancelType         | Cancel button type                                                                                                                                                    | string                   | "tertiary"          |
 | content            | Content displayed                                                                                                                                                     | string \| ReactNode        |                     |
-| defaultVisible     | Bubble box is displayed by default                                                                                                                                    | boolean                    |                     | **0.19.0**        |
-| disabled           | Click on the Pop confirmation box to see if the bubbles pop up.                                                                                                       | boolean                    | false               |
-| getPopupContainer  | Specify the parent DOM, and the pop-up layer will be rendered into the DOM. Customization needs to set `position: relative`                                                                                                       | Function():HTMLElement           | () => document.body |
-| icon               | Custom pop bubble Icon icon                                                                                                                                           |  ReactNode        | <IconAlertTriangle size="extra-large" />    |
-| motion             | Whether there is animation when the drop-down list appears/hidden. You can customize animation by passing in an object that conforms to the structure | boolean\|object | true |
-| position           | Directions, optional values: `top`, `topLeft`, `topRight`, `leftTop`, `leftBottom`, `rightTop`, `rightTop`, `rightBottom`, `bottomLeft`, `bottomRight`, `bottomRight` | string                     | "bottomLeft"        |
-| okText             | Confirm button text                                                                                                                                | string                           | "Confirm"              |
-| okType             | Confirm button type                                                                                                                                | string                           | "primary"           |
-| okButtonProps      | Confirm button props                                                                                                                            | object                           |                     | **0.29.0**        |
-| showArrow          | Whether to show arrow triangle                                                                                                                         | boolean                          | false               |                   |
-| stopPropagation    | Whether to prevent the click event on the bomb layer from bubbling                                                                                                                | boolean                          | true                | **0.34.0** |
-| position           | Popup layer position，Optional value：`top`,`topLeft`,`topRight`,`left`,`leftTop`,`leftBottom`,<br/>`right`,`rightTop`,`rightBottom`,`bottom`,`bottomLeft`,`bottomRight` | string                           | "bottomLeft"        |
+| defaultVisible     | Bubble box is displayed by default                                                                                                                                    | boolean                  |                     | **0.19.0**        |
+| disabled           | Click on the Pop confirmation box to see if the bubbles pop up.                                                                                                       | boolean                  | false               |
+| getPopupContainer  | Specify the parent DOM, and the pop-up layer will be rendered into the DOM. Customization needs to set `position: relative`                                                                                                       | Function():HTMLElement         | () => document.body |
+| icon               | Custom pop bubble Icon icon                                                                                                                                           |  ReactNode      | <IconAlertTriangle size="extra-large" />    |
+| motion             | Whether there is animation when the drop-down list appears/hidden. You can customize animation by passing in an object that conforms to the structure | boolean | true |
+| position           | Directions, optional values: `top`, `topLeft`, `topRight`, `leftTop`, `leftBottom`, `rightTop`, `rightTop`, `rightBottom`, `bottomLeft`, `bottomRight`, `bottomRight` | string                   | "bottomLeft"        |
+| okText             | Confirm button text                                                                                                                                | string                         | "Confirm"              |
+| okType             | Confirm button type                                                                                                                                | string                         | "primary"           |
+| okButtonProps      | Confirm button props                                                                                                                            | object                         |                     | **0.29.0**        |
+| showArrow          | Whether to show arrow triangle                                                                                                                         | boolean                        | false               |                   |
+| stopPropagation    | Whether to prevent the click event on the bomb layer from bubbling                                                                                                                | boolean                        | true                | **0.34.0** |
+| position           | Popup layer position，Optional value：`top`,`topLeft`,`topRight`,`left`,`leftTop`,`leftBottom`,<br/>`right`,`rightTop`,`rightBottom`,`bottom`,`bottomLeft`,`bottomRight` | string                         | "bottomLeft"        |
 | title              | Displayed title                                                                                                                                  | string\|ReactNode                |                     |
-| trigger            | Timing to trigger the display, optional value：hover / focus / click / custom                                                                                         | string                |   'click'                  |
-| visible            | Whether the bubble box displays controlled attributes                                                                                                                   | boolean                          |                     | **0.19.0**        |
-| zIndex             | Floating layer z-index value                                                                                                                                          | number                     | 1030                |
-| onConfirm          | Click the confirmation button to call back.                                                                                                                           | (e) => void                |                     |
-| onCancel           | Click the Cancel button to call back.                                                                                                                                 | (e) => void                |                     |
+| trigger            | Timing to trigger the display, optional value：hover / focus / click / custom                                                                                         | string              |   'click'                  |
+| visible            | Whether the bubble box displays controlled attributes                                                                                                                   | boolean                        |                     | **0.19.0**        |
+| zIndex             | Floating layer z-index value                                                                                                                                          | number                   | 1030                |
+| onConfirm          | Click the confirmation button to call back. Promise support after v2.19                                                                                                                           | (e) => void \| Promise                |                     |
+| onCancel           | Click the Cancel button to call back. Promise support after v2.19                                                                                                                          | (e) => void \| Promise                |                     |
 | onVisibleChange    | Bubble box toggle shows hidden callbacks                                                                                                                              | (visible: boolean) => void | () => {}            | **0.19.0**        |
-| onClickOutSide     | Callback when the pop-up layer is in the display state and the non-Children, non-floating layer inner area is clicked                                                 | (e: event) => void         |                     | **2.1.0**        |
+| onClickOutSide     | Callback when the pop-up layer is in the display state and the non-Children, non-floating layer inner area is clicked                                                 | (e: event) => void       |                     | **2.1.0**        |
 ## Design Tokens
 <DesignToken/>
+
+## FAQ
+
+- **Why does the Popconfirm floating layer lose its width and wrap unexpectedly when the width is not enough near the screen border?**
+
+    After Chromium 104, the wrapping rendering strategy when the width of the screen border text is not enough has changed. For details, see [issue #1022](https://github.com/DouyinFE/semi-design/issues/1022), the semi-side has been This problem was fixed in v2.17.0.

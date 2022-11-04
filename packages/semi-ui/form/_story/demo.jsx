@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React, { Component } from 'react';
 import { Button, Row, Col, InputGroup as BasicInputGroup, AutoComplete } from '../../index';
-import { Form, useFormState, ArrayField, Label, withField } from '../index';
+import { Form, useFormState, ArrayField, withField } from '../index';
 import BasicSelect from '../../select/index';
 import BasicInput from '../../input/index';
 import BasicInputNumber from '../../inputNumber/index';

@@ -1,13 +1,10 @@
 import React, { PropsWithChildren } from 'react';
 import ConfirmModal from '../ConfirmModal';
-import { get } from 'lodash';
 import { ConfirmProps } from '../confirm';
-import { Motion } from '../../_base/base';
 
 interface HookModalProps {
     afterClose: (...args: any[]) => void;
-    config: ConfirmProps;
-    motion?: Motion;
+    config: ConfirmProps
 }
 
 export interface HookModalRef {
@@ -34,28 +31,15 @@ const HookModal = ({ afterClose, config, ...props }: PropsWithChildren<HookModal
         },
     }));
 
-    const { motion } = props;
-    /* istanbul ignore next */
-    const mergedMotion =
-        typeof motion === 'undefined' || motion ?
-            {
-                ...(motion as any),
-                didLeave: (...args: any[]) => {
-                    const didLeave = get(props.motion, 'didLeave');
-
-                    if (typeof didLeave === 'function') {
-                        didLeave(...args);
-                    }
-                    afterClose();
-                },
-            } :
-            false;
-
+    const mergeAfterClose = () => {
+        config?.afterClose?.();
+        afterClose();
+    }; 
     return (
         <ConfirmModal
             {...innerConfig}
+            afterClose={mergeAfterClose}
             // visible={!visible ? visible : undefined}
-            motion={mergedMotion}
         />
     );
 };

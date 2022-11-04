@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 69
+order: 71
 category: Feedback
 title: Toast
 subTitle: Toast
@@ -68,7 +68,7 @@ function Demo() {
 
     return (
         <>
-            <Button style={{color:`var(--semi-color-success)`}} onClick={() => Toast.success('Hi,Bytedance dance dance')}>Success</Button>
+            <Button style={{ color: `var(--semi-color-success)` }} onClick={() => Toast.success('Hi,Bytedance dance dance')}>Success</Button>
             <br />
             <br />
             <Button type="warning" onClick={() => Toast.warning(opts)}>
@@ -105,7 +105,7 @@ function Demo() {
             <Button onClick={() => Toast.info(opts)}>Info</Button>
             <br />
             <br />
-            <Button style={{color:`var(--semi-color-success)`}} onClick={() => Toast.success(opts)}>Success</Button>
+            <Button style={{ color: `var(--semi-color-success)` }} onClick={() => Toast.success(opts)}>Success</Button>
             <br />
             <br />
             <Button type="warning" onClick={() => Toast.warning(opts)}>
@@ -231,6 +231,33 @@ function Demo() {
                 Hide Toast
             </Button>
         </>
+    );
+}
+
+render(Demo);
+```
+
+### Update Toast Content
+
+Use unique Toast `id` to update toast content.
+
+```jsx live=true noInline=true hideInDSM
+import React, { useState } from 'react';
+import { Toast, Button } from '@douyinfe/semi-ui';
+
+function Demo() {
+    function show() {
+        const id = 'toastid';
+        Toast.info({ content: 'Update Content By Id', id });
+        setTimeout(() => {
+            Toast.success({ content: 'Id By Content Update', id });
+        }, 1000);
+    }
+
+    return (
+        <Button type="primary" onClick={show}>
+            Update Content By Id
+        </Button>
     );
 }
 
@@ -414,6 +441,29 @@ HookToast
 ### ARIA
 
 - The role of Toast is alert
+
+## Content Guidelines
+
+<div style={{ border: '1px solid var(--semi-color-border)', padding: 10, marginBottom: 24, justifyContent: 'center', display: 'flex' }}>
+    <ToastCard type='success' content='Ticket transferred' />
+</div>
+
+- Keep it simple
+- Do not use periods at the end of sentences
+- Explain using the noun + verb format
+
+| ✅ Recommended usage | ❌ Deprecated usage |
+| --- | --- |
+| Language added | New language has been added successfully |
+| Ticket transfer failed | Can't transfer ticket |
+
+- Provide prompt message for action
+  - only provide one action
+  - Don't use actions like "read" like OK, Got it, Dismiss, Cancel
+
+| ✅ Recommended usage | ❌ Deprecated usage |
+| --- | --- |
+|  <ToastCard type='error' content={<div>Ticket transfer failed <span style={{ color: 'var(--semi-color-primary)', marginLeft: 4, cursor: 'pointer' }}>Retry</span> </div>} /> |  <ToastCard type='error' content={<div>Ticket transfer failed <span style={{ color: 'var(--semi-color-primary)', marginLeft: 4, cursor: 'pointer' }}>Dismiss</span> </div>} /> |
 
 ## Design Tokens
 

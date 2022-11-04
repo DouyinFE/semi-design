@@ -149,7 +149,23 @@ const local: Locale = {
         clearSelectAll: 'Tümünün seçimini kaldır',
         total: 'Toplam ${total} öğe',
         selected: '${total} öğe seçildi'
-    }
+    },
+    Form: {
+        optional: '(isteğe bağlı)',
+    },
+    Image: {
+        preview: 'Ön izleme',
+        loading: 'Yükleniyor',
+        loadError: 'Yükleme başarısız',
+        prevTip: 'Önceki',
+        nextTip: 'Sonraki',
+        zoomInTip: 'Yakınlaştır',
+        zoomOutTip: 'uzaklaştır',
+        rotateTip: 'Döndür',
+        downloadTip: 'indir',
+        adaptiveTip: 'Sayfaya uyarla',
+        originTip: 'Orijinal boyut',
+    },
 };
 
 // [i18n-Turkish] 

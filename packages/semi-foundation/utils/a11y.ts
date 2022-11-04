@@ -1,6 +1,6 @@
 import { get } from "lodash";
 
-export function handlePrevent(event: any)  {
+export function handlePrevent(event: any) {
     event.stopPropagation();
     event.preventDefault();
 }
@@ -47,7 +47,7 @@ export function setFocusToPreviousMenuItem (itemNodes: HTMLElement[], currentIte
 }
 
 // set focus to the next item in item list
-export function  setFocusToNextMenuitem (itemNodes: HTMLElement[], currentItem: HTMLElement): void {
+export function setFocusToNextMenuitem (itemNodes: HTMLElement[], currentItem: HTMLElement): void {
     let newMenuItem: HTMLElement, index: number;
 
     if (itemNodes.length > 0){
@@ -97,10 +97,10 @@ export function getAncestorNodeByRole(curElement: Element, role: string): Elemen
     return curElement.parentElement;
 }
 
-// According to the Id, find the corresponding data-popupId element
+// According to the Id, find the corresponding data-popupid element
 export function getMenuButton(focusableEle: NodeListOf<HTMLElement>, Id: string): HTMLElement{
     for (let i = 0; i < focusableEle.length; i++){
-        const curAriDescribedby = focusableEle[i].attributes['data-popupId'];
+        const curAriDescribedby = focusableEle[i].attributes['data-popupid'];
         if (curAriDescribedby && curAriDescribedby.value === Id){
             return focusableEle[i];
         }

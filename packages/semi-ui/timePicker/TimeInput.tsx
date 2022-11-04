@@ -33,14 +33,15 @@ export type TimeInputProps = Pick<TimePickerProps,
 'locale' |
 'localeCode' |
 'insetLabel' |
-'validateStatus'> & BaseProps & {
+'validateStatus' |
+'preventScroll'> & BaseProps & {
     onChange?: (value: string) => void;
     onEsc?: () => void;
     onClick?: React.MouseEventHandler;
     defaultOpenValue?: boolean;
     currentSelectPanel?: string;
     timeStampValue?: any;
-    invalid?: boolean;
+    invalid?: boolean
 };
 
 class TimeInput extends BaseComponent<TimeInputProps, any> {
@@ -69,6 +70,7 @@ class TimeInput extends BaseComponent<TimeInputProps, any> {
         localeCode: PropTypes.string,
         insetLabel: PropTypes.node,
         validateStatus: PropTypes.string,
+        preventScroll: PropTypes.bool,
     };
 
     static defaultProps = {
@@ -96,13 +98,13 @@ class TimeInput extends BaseComponent<TimeInputProps, any> {
 
     componentDidMount() {
         super.componentDidMount();
-        const { focusOnOpen } = this.props;
+        const { focusOnOpen, preventScroll } = this.props;
         if (focusOnOpen) {
             const requestAnimationFrame = window.requestAnimationFrame || window.setTimeout;
             requestAnimationFrame(() => {
                 const inputNode = this.adapter.getCache('inputNode');
                 if (inputNode) {
-                    inputNode.focus();
+                    inputNode.focus({ preventScroll });
                     inputNode.select();
                 }
             });

@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 14
+order: 15
 category: Basic
 title: Tokens 
 icon: doc-token
@@ -196,6 +196,10 @@ The spacing variable is applied in each component or between components to adjus
 It is used to describe the sequence of interface elements
 
 <DesignToken componentName='global' reg={/z-/}/>
+
+## Animation
+
+<DesignToken componentName="global" isAnimation={true} />
 
 ## Variables not yet supported
 

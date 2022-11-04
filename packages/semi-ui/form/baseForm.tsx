@@ -46,9 +46,9 @@ import {
 const prefix = cssClasses.PREFIX;
 
 interface BaseFormState {
-    formId: string;
+    formId: string
 }
-class Form extends BaseComponent<BaseFormProps, BaseFormState> {
+class Form<Values extends Record<string, any> = any> extends BaseComponent<BaseFormProps<Values>, BaseFormState> {
     static propTypes = {
         'aria-label': PropTypes.string,
         onSubmit: PropTypes.func,
@@ -117,9 +117,9 @@ class Form extends BaseComponent<BaseFormProps, BaseFormState> {
     static Label = Label;
     static Section = Section;
 
-    formApi: FormApi;
+    formApi: FormApi<Values>;
 
-    constructor(props: BaseFormProps) {
+    constructor(props: BaseFormProps<Values>) {
         super(props);
         this.state = {
             formId: '',
@@ -151,17 +151,16 @@ class Form extends BaseComponent<BaseFormProps, BaseFormState> {
 
     componentWillUnmount() {
         this.foundation.destroy();
-        this.formApi = null;
     }
 
-    get adapter(): BaseFormAdapter<BaseFormProps, BaseFormState> {
+    get adapter(): BaseFormAdapter<BaseFormProps<Values>, BaseFormState, Values> {
         return {
             ...super.adapter,
             cloneDeep,
-            notifySubmit: (values: any) => {
+            notifySubmit: (values: Values) => {
                 this.props.onSubmit(values);
             },
-            notifySubmitFail: (errors: ErrorMsg, values: any) => {
+            notifySubmitFail: (errors, values) => {
                 this.props.onSubmitFail(errors, values);
             },
             forceUpdate: (callback?: () => void) => {
@@ -170,7 +169,7 @@ class Form extends BaseComponent<BaseFormProps, BaseFormState> {
             notifyChange: (formState: FormState) => {
                 this.props.onChange(formState);
             },
-            notifyValueChange: (values: any, changedValues: any) => {
+            notifyValueChange: (values: Values, changedValues: Partial<Values>) => {
                 this.props.onValueChange(values, changedValues);
             },
             notifyReset: () => {

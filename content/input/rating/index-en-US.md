@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 26
+order: 27
 category: Input
 title: Rating
 subTitle: Rating
@@ -168,15 +168,16 @@ import { IconLikeHeart } from '@douyinfe/semi-icons';
 | count         | Number of stars or characters                                                         | number                  | 5                                        |
 | defaultValue  | Default value                                                                         | number                  | 0                                        |
 | disabled      | Read-only, disable interaction.                                                       | boolean                 | false                                    |
+| preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
+| size          | Size, one of `default`, `small`, **v >= 0.35.0** could use number for customized size | string\| number         | `default`                                |
+| style         | Inline style                                                                          | object                  | -                                        |
+| tooltips      | Customize prompted information for each item                                          | String[]                | -                                        |
+| value         | Controlled value                                                                      | number                  | -                                        |
 | onBlur        | Callback function when losing focus.                                                  | function()              | -                                        |
 | onChange      | Callback function at the time of selection                                            | function(value: number) | -                                        |
 | onFocus       | Callback function when getting focus                                                  | function()              | -                                        |
 | onHoverChange | Callback function of numerical changes when the mouse hovers                          | function(value: number) | -                                        |
 | onKeyDown     | Callback function when key down                                                       | function(e: event)      | -                                        |
-| size          | Size, one of `default`, `small`, **v >= 0.35.0** could use number for customized size | string\| number         | `default`                                |
-| style         | Inline style                                                                          | object                  | -                                        |
-| tooltips      | Customize prompted information for each item                                          | String[]                | -                                        |
-| value         | Controlled value                                                                      | number                  | -                                        |
 
 ## Accessibility
 

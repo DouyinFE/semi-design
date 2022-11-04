@@ -1,4 +1,6 @@
+@import "./animation.scss";
 @import "./variables.scss";
+
 
 $module: #{$prefix}-transfer;
 
@@ -41,7 +43,7 @@ $module: #{$prefix}-transfer;
         min-width: inherit;
         height: inherit;
     }
-    
+
     &-header {
         @include font-size-small;
         @include ver-center;
@@ -75,6 +77,9 @@ $module: #{$prefix}-transfer;
         flex-wrap: nowrap;
         color: $color-transfer_item-text;
         cursor: pointer;
+        transition: background-color $transition_duration_transfer_item-bg $transition_function-transfer_item-bg $transition_delay-transfer_item-bg;
+
+
 
         &:hover {
             background-color: $color-transfer_item-bg-hover;

@@ -12,11 +12,11 @@ export interface PortalProps {
     prefixCls?: string;
     className?: string;
     getPopupContainer?: () => HTMLElement;
-    didUpdate?: (props: PortalProps) => void;
+    didUpdate?: (props: PortalProps) => void
 }
 
 export interface PortalState {
-    container: undefined | HTMLElement;
+    container: undefined | HTMLElement
 }
 
 const defaultGetContainer = () => document.body;

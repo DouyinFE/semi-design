@@ -17,7 +17,8 @@ import {
     filter,
     isMap,
     slice,
-    isEqual
+    isEqual,
+    isUndefined
 } from 'lodash';
 import memoizeOne from 'memoize-one';
 
@@ -57,7 +58,7 @@ export interface BaseColumnProps<RecordType> {
     sorter?: BaseSorter<RecordType>;
     title?: any;
     useFullRender?: boolean;
-    width?: string | number;
+    width?: string | number
 }
 
 export interface TableAdapter<RecordType> extends DefaultAdapter {
@@ -99,7 +100,7 @@ export interface TableAdapter<RecordType> extends DefaultAdapter {
     getNormalizeColumns: () => (columns: BaseColumnProps<RecordType>[], children: any) => BaseColumnProps<RecordType>[];
     getHandleColumns: () => (queries: BaseColumnProps<RecordType>[], cachedColumns: BaseColumnProps<RecordType>[]) => BaseColumnProps<RecordType>[];
     getMergePagination: () => (pagination: BasePagination) => BasePagination;
-    setBodyHasScrollbar: (bodyHasScrollBar: boolean) => void;
+    setBodyHasScrollbar: (bodyHasScrollBar: boolean) => void
 }
 
 class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType>> {
@@ -113,6 +114,46 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
     memoizedFilterColumns: (columns: BaseColumnProps<RecordType>[], ignoreKeys?: string[]) => BaseColumnProps<RecordType>[];
     memoizedFlattenFnsColumns: (columns: BaseColumnProps<RecordType>[], childrenColumnName?: string) => BaseColumnProps<RecordType>[];
     memoizedPagination: (pagination: BasePagination) => BasePagination;
+
+    /**
+     * update columns in place, and use default values as initial values if the sorting and filtering columns have no values
+     */
+    static initColumnsFilteredValueAndSorterOrder(columns: BaseColumnProps<unknown>[]) {
+        columns.forEach(column => {
+            TableFoundation.initFilteredValue(column);
+            TableFoundation.initSorterOrder(column);
+        });
+        return columns;
+    }
+
+    /**
+     * init filteredValue of filtering column, use defaultFilteredValue or [] when it is undefined
+     */
+    static initFilteredValue(column: BaseColumnProps<unknown>) {
+        const { defaultFilteredValue, filteredValue, filters } = column;
+        const hasFilter = Array.isArray(filters) && filters.length;
+        if (hasFilter && isUndefined(filteredValue)) {
+            if (Array.isArray(defaultFilteredValue) && defaultFilteredValue.length) {
+                column.filteredValue = defaultFilteredValue;
+            } else {
+                column.filteredValue = [];
+            }
+        }
+    }
+
+    /**
+     * init sortOrder of sorting column, use defaultSortOrder or [] when it is undefined
+     */
+    static initSorterOrder(column: BaseColumnProps<unknown>) {
+        const { defaultSortOrder, sortOrder, sorter } = column;
+        if (sorter && isUndefined(sortOrder)) {
+            if (!isUndefined(defaultSortOrder)) {
+                column.sortOrder = defaultSortOrder;
+            } else {
+                column.sortOrder = false;
+            }
+        }
+    }
 
     constructor(adapter: TableAdapter<RecordType>) {
         super({ ...adapter });
@@ -393,8 +434,8 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
                     dataSource = Array.from(filteredData && filteredData.values());
                     filteredData = new Map();
                 }
-                each(currentFilteredValue, value => {
-                    each(dataSource, record => {
+                each(dataSource, record => {
+                    each(currentFilteredValue, value => {
                         const childrenRecords = get(record, childrenRecordName);
                         const recordKey = this.getRecordKey(record);
 
@@ -521,16 +562,7 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
     handleMouseLeave(e: any) { }
 
     stopPropagation(e: any) {
-        if (e && typeof e === 'object') {
-            if (typeof e.stopPropagation === 'function') {
-                e.stopPropagation();
-            }
-            if (e.nativeEvent && typeof e.nativeEvent.stopPropagation === 'function') {
-                e.nativeEvent.stopPropagation();
-            } else if (typeof e.stopImmediatePropagation === 'function') {
-                e.stopImmediatePropagation();
-            }
-        }
+        this._adapter.stopPropagation(e);
     }
 
     /**
@@ -1144,11 +1176,11 @@ export interface BasePagination {
     pageSize?: number;
     position?: ArrayElement<typeof strings.PAGINATION_POSITIONS>;
     defaultCurrentPage?: number;
-    formatPageText?: any;
+    formatPageText?: any
 }
 export interface BaseHeadWidth {
     width: number;
-    key: string;
+    key: string
 }
 export interface BasePageData<RecordType> {
     dataSource?: RecordType[];
@@ -1156,7 +1188,7 @@ export interface BasePageData<RecordType> {
     pagination?: BasePagination;
     disabledRowKeys?: BaseRowKeyType[];
     allRowKeys?: BaseRowKeyType[];
-    queries?: BaseColumnProps<RecordType>[];
+    queries?: BaseColumnProps<RecordType>[]
 }
 
 export type GetCheckboxProps<RecordType> = (record?: RecordType) => BaseCheckboxProps;
@@ -1166,7 +1198,7 @@ export interface BaseSorterInfo<RecordType> {
     [x: string]: any;
     dataIndex?: string;
     sortOrder?: BaseSortOrder;
-    sorter?: BaseSorter<RecordType>;
+    sorter?: BaseSorter<RecordType>
 }
 export type BaseSortOrder = boolean | ArrayElement<typeof strings.SORT_DIRECTIONS>;
 export type BaseSorter<RecordType> = boolean | ((a?: RecordType, b?: RecordType) => number);
@@ -1179,12 +1211,12 @@ export interface BaseChangeInfoFilter<RecordType> {
     filteredValue?: any[];
     defaultFilteredValue?: any[];
     children?: BaseFilter[];
-    filterChildrenRecord?: boolean;
+    filterChildrenRecord?: boolean
 }
 export interface BaseFilter {
     value?: any;
     text?: any;
-    children?: BaseFilter[];
+    children?: BaseFilter[]
 }
 export type BaseFixed = ArrayElement<typeof strings.FIXED_SET>;
 export type BaseAlign = ArrayElement<typeof strings.ALIGNS>;
@@ -1193,7 +1225,7 @@ export interface BaseOnCellReturnObject {
     [x: string]: any;
     style?: Record<string, any>;
     className?: string;
-    onClick?: (e: any) => void;
+    onClick?: (e: any) => void
 }
 export type BaseOnFilter<RecordType> = (filteredValue?: any, record?: RecordType) => boolean;
 
@@ -1205,13 +1237,13 @@ export interface BaseOnHeaderCellReturnObject {
     [x: string]: any;
     style?: Record<string, any>;
     className?: string;
-    onClick?: (e: any) => void;
+    onClick?: (e: any) => void
 }
 export interface BaseChangeInfoSorter<RecordType> {
     [x: string]: any;
     dataIndex: string;
     sortOrder: BaseSortOrder;
-    sorter: BaseSorter<RecordType>;
+    sorter: BaseSorter<RecordType>
 }
 
 export type BaseIncludeGroupRecord<RecordType> = RecordType | { groupKey: string };

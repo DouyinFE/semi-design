@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 68
+order: 70
 category: Feedback
 title: Spin
 subTitle: Spin
@@ -163,6 +163,10 @@ import { Spin, Button } from '@douyinfe/semi-ui';
 ## Design Tokens
 
 <DesignToken/>
+
+## Content Guidelines
+- Precisely state the loading status, using words such as "Loading", "Submitting", "Processing", etc.
+- Use as few words as possible to describe the state
 
 ## FAQ
 

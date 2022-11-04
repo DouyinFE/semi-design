@@ -12,7 +12,7 @@ import Spin from '../spin';
 import ListContext, { Grid } from './list-context';
 import BaseComponent from '../_base/baseComponent';
 
-export { ListItemProps } from './item';
+export type { ListItemProps } from './item';
 
 export interface ListProps<T> {
     style?: React.CSSProperties;
@@ -31,7 +31,7 @@ export interface ListProps<T> {
     loading?: boolean;
     loadMore?: React.ReactNode;
     onClick?: React.MouseEventHandler<HTMLLIElement>;
-    onRightClick?: React.MouseEventHandler<HTMLLIElement>;
+    onRightClick?: React.MouseEventHandler<HTMLLIElement>
 }
 
 const prefixCls = cssClasses.PREFIX;

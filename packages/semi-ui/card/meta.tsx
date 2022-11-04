@@ -17,7 +17,7 @@ export interface MetaProps {
     /** Inline style */
     style?: React.CSSProperties;
     /** Title */
-    title?: React.ReactNode;
+    title?: React.ReactNode
 }
 
 class Meta extends PureComponent<MetaProps> {

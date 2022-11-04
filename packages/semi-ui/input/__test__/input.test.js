@@ -3,6 +3,7 @@ import Icon from '../../icons/index';
 import { BASE_CLASS_PREFIX } from '../../../semi-foundation/base/constants';
 import GraphemeSplitter from 'grapheme-splitter';
 import { isString, isFunction } from 'lodash';
+import { InputGroup, InputNumber } from '../../index';
 
 function getValueLength(str) {
   if (isString(str)) {
@@ -250,5 +251,35 @@ describe('Input', () => {
     for (let [value, length, fc, result] of testCases) {
       expect(truncateValue(value, length, fc)).toBe(result);
     }
+  })
+
+  it('input group', () => {
+    const groupFocus = sinon.spy(() => {
+      console.log('group focus');
+    });
+    const groupBlur = sinon.spy(() => {
+      console.log('group focus');
+    });
+    const inputFocus = sinon.spy(() => {
+      console.log('input focus');
+    });
+    const inputBlur = sinon.spy(() => {
+      console.log('input blur');
+    });
+    const inputGroup = mount(
+      <InputGroup disabled={true} onFocus={groupFocus} onBlur={groupBlur}>
+          <Input disabled={false} onFocus={inputFocus} onBlur={inputBlur} placeholder="Name" style={{ width: 100 }} />
+          <InputNumber placeholder="Score" style={{ width: 140 }} />
+      </InputGroup>
+    );
+
+    inputGroup.find('input').at(0).simulate('focus');
+    expect(inputFocus.called).toBe(true);
+    expect(groupFocus.called).toBe(true);
+    inputGroup.find('input').at(0).simulate('blur');
+    expect(inputBlur.called).toBe(true);
+    expect(groupBlur.called).toBe(true);
+    expect(inputGroup.find('input').at(0).instance().disabled).toBe(false);
+    expect(inputGroup.find('input').at(1).instance().disabled).toBe(true);
   })
 });

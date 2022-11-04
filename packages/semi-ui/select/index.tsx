@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 /* eslint-disable max-lines-per-function */
-import React, { Fragment, MouseEvent, ReactInstance } from 'react';
+import React, { Fragment, MouseEvent, ReactInstance, ReactNode } from 'react';
 import ReactDOM from 'react-dom';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
@@ -12,7 +12,7 @@ import { isEqual, isString, noop, get, isNumber } from 'lodash';
 import Tag from '../tag/index';
 import TagGroup from '../tag/group';
 import LocaleConsumer from '../locale/localeConsumer';
-import Popover from '../popover/index';
+import Popover, { PopoverProps } from '../popover/index';
 import { numbers as popoverNumbers } from '@douyinfe/semi-foundation/popover/constants';
 import { FixedSizeList as List } from 'react-window';
 import { getOptionsFromGroup } from './utils';
@@ -24,19 +24,19 @@ import OptionGroup from './optionGroup';
 import Spin from '../spin';
 import Trigger from '../trigger';
 import { IconChevronDown, IconClear } from '@douyinfe/semi-icons';
-import { isSemiIcon } from '../_utils';
-import { Subtract } from 'utility-types';
-
+import { isSemiIcon, getFocusableElements, getActiveElement } from '../_utils';
 import warning from '@douyinfe/semi-foundation/utils/warning';
 import { getUuidShort } from '@douyinfe/semi-foundation/utils/uuid';
 
 import '@douyinfe/semi-foundation/select/select.scss';
-import { Locale } from '../locale/interface';
-import { Position, TooltipProps } from '../tooltip';
+import type { Locale } from '../locale/interface';
+import type { Position, TooltipProps } from '../tooltip';
+import type { Subtract } from 'utility-types';
 
-export { OptionProps } from './option';
-export { OptionGroupProps } from './optionGroup';
-export { VirtualRowProps } from './virtualRow';
+
+export type { OptionProps } from './option';
+export type { OptionGroupProps } from './optionGroup';
+export type { VirtualRowProps } from './virtualRow';
 
 const prefixcls = cssClasses.PREFIX;
 
@@ -45,7 +45,7 @@ const key = 0;
 type ExcludeInputType = {
     value?: InputProps['value'];
     onFocus?: InputProps['onFocus'];
-    onChange?: InputProps['onChange'];
+    onChange?: InputProps['onChange']
 }
 
 type OnChangeValueType = string | number | Record<string, any>;
@@ -61,7 +61,7 @@ export interface optionRenderProps {
     disabled?: boolean;
     onMouseEnter?: (e: React.MouseEvent) => any;
     onClick?: (e: React.MouseEvent) => any;
-    [x: string]: any;
+    [x: string]: any
 }
 
 export interface selectMethod {
@@ -70,14 +70,14 @@ export interface selectMethod {
     deselectAll?: () => void;
     focus?: () => void;
     close?: () => void;
-    open?: () => void;
+    open?: () => void
 }
 export type SelectSize = 'small' | 'large' | 'default';
 
 export interface virtualListProps {
     itemSize?: number;
     height?: number;
-    width?: string | number;
+    width?: string | number
 }
 
 export type RenderSingleSelectedItemFn = (optionNode: Record<string, any>) => React.ReactNode;
@@ -152,6 +152,9 @@ export type SelectProps = {
     onBlur?: (e: React.FocusEvent) => void;
     onListScroll?: (e: React.UIEvent<HTMLDivElement>) => void;
     children?: React.ReactNode;
+    preventScroll?: boolean;
+    showRestTagsPopover?: boolean;
+    restTagsPopoverProps?: PopoverProps
 } & Pick<
 TooltipProps,
 | 'spacing'
@@ -176,6 +179,8 @@ export interface SelectState {
     keyboardEventSet: any; // {}
     optionGroups: Array<any>;
     isHovering: boolean;
+    isFocusInContainer: boolean;
+    isFullTags: boolean
 }
 
 // Notes: Use the label of the option as the identifier, that is, the option in Select, the value is allowed to be the same, but the label must be unique
@@ -234,7 +239,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         triggerRender: PropTypes.func,
         stopPropagation: PropTypes.bool,
         // motion doesn't need to be exposed
-        motion: PropTypes.oneOfType([PropTypes.func, PropTypes.bool, PropTypes.object]),
+        motion: PropTypes.bool,
 
         onChangeWithObject: PropTypes.bool,
 
@@ -271,6 +276,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         renderOptionItem: PropTypes.func,
         onListScroll: PropTypes.func,
         arrowIcon: PropTypes.node,
+        preventScroll: PropTypes.bool,
     // open: PropTypes.bool,
     // tagClosable: PropTypes.bool,
     };
@@ -300,15 +306,17 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         onBlur: noop,
         onClear: noop,
         onListScroll: noop,
-        maxHeight: 300,
+        maxHeight: numbers.LIST_HEIGHT,
         dropdownMatchSelectWidth: true,
-        defaultActiveFirstOption: false,
+        defaultActiveFirstOption: true, // In order to meet the needs of A11y, change to true
         showArrow: true,
         showClear: false,
         remote: false,
         autoAdjustOverflow: true,
         autoClearSearchValue: true,
-        arrowIcon: <IconChevronDown />
+        arrowIcon: <IconChevronDown aria-label='' />,
+        showRestTagsPopover: false,
+        restTagsPopoverProps: {},
         // Radio selection is different from the default renderSelectedItem for multiple selection, so it is not declared here
         // renderSelectedItem: (optionNode) => optionNode.label,
         // The default creator rendering is related to i18, so it is not declared here
@@ -317,9 +325,11 @@ class Select extends BaseComponent<SelectProps, SelectState> {
 
     inputRef: React.RefObject<HTMLInputElement>;
     triggerRef: React.RefObject<HTMLDivElement>;
+    optionContainerEl: React.RefObject<HTMLDivElement>;
     optionsRef: React.RefObject<any>;
     virtualizeListRef: React.RefObject<any>;
     selectOptionListID: string;
+    selectID: string;
     clickOutsideHandler: (e: MouseEvent) => void;
     foundation: SelectFoundation;
     context: ContextValue;
@@ -339,13 +349,17 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             keyboardEventSet: {},
             optionGroups: [],
             isHovering: false,
+            isFocusInContainer: false,
+            isFullTags: false,
         };
         /* Generate random string */
         this.selectOptionListID = '';
+        this.selectID = '';
         this.virtualizeListRef = React.createRef();
         this.inputRef = React.createRef();
         this.triggerRef = React.createRef();
         this.optionsRef = React.createRef();
+        this.optionContainerEl = React.createRef();
         this.clickOutsideHandler = null;
         this.onSelect = this.onSelect.bind(this);
         this.onClear = this.onClear.bind(this);
@@ -353,7 +367,6 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         this.onMouseLeave = this.onMouseLeave.bind(this);
         this.renderOption = this.renderOption.bind(this);
         this.onKeyPress = this.onKeyPress.bind(this);
-        this.onClearBtnEnterPress = this.onClearBtnEnterPress.bind(this);
 
         this.foundation = new SelectFoundation(this.adapter);
 
@@ -367,6 +380,8 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             '[Semi Select] \'labelInValue\' has already been deprecated, please use \'onChangeWithObject\' instead.'
         );
     }
+
+    setOptionContainerEl = (node: HTMLDivElement) => (this.optionContainerEl = { current: node });
 
     get adapter(): SelectAdapter<SelectProps, SelectState> {
         const keyboardAdapter = {
@@ -396,8 +411,9 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 });
             },
             focusInput: () => {
+                const { preventScroll } = this.props;
                 if (this.inputRef && this.inputRef.current) {
-                    this.inputRef.current.focus();
+                    this.inputRef.current.focus({ preventScroll });
                 }
             },
         };
@@ -526,11 +542,27 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             },
             focusTrigger: () => {
                 try {
+                    const { preventScroll } = this.props;
                     const el = (this.triggerRef.current) as any;
-                    el.focus();
+                    el.focus({ preventScroll });
                 } catch (error) {
 
                 }
+            },
+            getContainer: () => {
+                return this.optionContainerEl && this.optionContainerEl.current;
+            },
+            getFocusableElements: (node: HTMLDivElement) => {
+                return getFocusableElements(node);
+            },
+            getActiveElement: () => {
+                return getActiveElement();
+            },
+            setIsFocusInContainer: (isFocusInContainer: boolean) => {
+                this.setState({ isFocusInContainer });
+            },
+            getIsFocusInContainer: () => {
+                return this.state.isFocusInContainer;
             },
             updateScrollTop: (index?: number) => {
                 // eslint-disable-next-line max-len
@@ -561,6 +593,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
     componentDidMount() {
         this.foundation.init();
         this.selectOptionListID = getUuidShort();
+        this.selectID = this.props.id || getUuidShort();
     }
 
     componentWillUnmount() {
@@ -591,13 +624,13 @@ class Select extends BaseComponent<SelectProps, SelectState> {
     handleInputChange = (value: string) => this.foundation.handleInputChange(value);
 
     renderInput() {
-        const { size, multiple, disabled, inputProps } = this.props;
+        const { size, multiple, disabled, inputProps, filter } = this.props;
         const inputPropsCls = get(inputProps, 'className');
         const inputcls = cls(`${prefixcls}-input`, {
             [`${prefixcls}-input-single`]: !multiple,
             [`${prefixcls}-input-multiple`]: multiple,
         }, inputPropsCls);
-        const { inputValue } = this.state;
+        const { inputValue, focusIndex } = this.state;
 
         const selectInputProps: Record<string, any> = {
             value: inputValue,
@@ -619,11 +652,18 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             <Input
                 ref={this.inputRef as any}
                 size={size}
+                aria-activedescendant={focusIndex !== -1 ? `${this.selectID}-option-${focusIndex}`: ''}
                 onFocus={(e: React.FocusEvent<HTMLInputElement>) => {
+                    // if multiple and filter, when use tab key to let select get focus
+                    // need to manual update state isFocus to let the focus style take effect
+                    if (multiple && Boolean(filter)){
+                        this.setState({ isFocus: true });
+                    }
                     // prevent event bubbling which will fire trigger onFocus event
                     e.stopPropagation();
                     // e.nativeEvent.stopImmediatePropagation();
                 }}
+                onBlur={e => this.foundation.handleInputBlur(e)}
                 {...selectInputProps}
             />
         );
@@ -662,10 +702,6 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         this.foundation.handleClearClick(e as any);
     }
 
-    /* istanbul ignore next */
-    onClearBtnEnterPress(e: React.KeyboardEvent) {
-        this.foundation.handleClearBtnEnterPress(e as any);
-    }
 
     renderEmpty() {
         return <Option empty={true} emptyContent={this.props.emptyContent} />;
@@ -708,6 +744,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                     key={option.key || option.label as string + option.value as string + optionIndex}
                     renderOptionItem={renderOptionItem}
                     inputValue={inputValue}
+                    id={`${this.selectID}-option-${optionIndex}`}
                 >
                     {option.label}
                 </Option>
@@ -833,7 +870,14 @@ class Select extends BaseComponent<SelectProps, SelectState> {
 
         const isEmpty = !options.length || !options.some(item => item._show);
         return (
-            <div id={`${prefixcls}-${this.selectOptionListID}`} className={dropdownClassName} style={style}>
+            // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+            <div 
+                id={`${prefixcls}-${this.selectOptionListID}`} 
+                className={cls(`${prefixcls}-option-list-wrapper`, dropdownClassName)} 
+                style={style}
+                ref={this.setOptionContainerEl} 
+                onKeyDown={e => this.foundation.handleContainerKeyDown(e)}
+            >
                 {outerTopSlot}
                 <div
                     style={{ maxHeight: `${maxHeight}px` }}
@@ -890,11 +934,38 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         );
     }
 
+    getTagItem = (item: any, i: number, renderSelectedItem: RenderSelectedItemFn) => {
+        const { size, disabled: selectDisabled } = this.props;
+        const label = item[0];
+        const { value } = item[1];
+        const disabled = item[1].disabled || selectDisabled;
+        const onClose = (tagContent: React.ReactNode, e: MouseEvent) => {
+            if (e && typeof e.preventDefault === 'function') {
+                e.preventDefault(); // make sure that tag will not hidden immediately in controlled mode
+            }
+            this.foundation.removeTag({ label, value });
+        };
+        const { content, isRenderInTag } = (renderSelectedItem as RenderMultipleSelectedItemFn)(item[1], { index: i, disabled, onClose });
+        const basic = {
+            disabled,
+            closable: !disabled,
+            onClose,
+        };
+        if (isRenderInTag) {
+            return (
+                <Tag {...basic} color="white" size={size || 'large'} key={value} tabIndex={-1}>
+                    {content}
+                </Tag>
+            );
+        } else {
+            return <Fragment key={value}>{content}</Fragment>;
+        }
+    }
+
     renderMultipleSelection(selections: Map<OptionProps['label'], any>, filterable: boolean) {
         let { renderSelectedItem } = this.props;
-        const { placeholder, maxTagCount, size } = this.props;
-        const { inputValue } = this.state;
-        const selectDisabled = this.props.disabled;
+        const { showRestTagsPopover, restTagsPopoverProps, placeholder, maxTagCount } = this.props;
+        const { inputValue, isFullTags } = this.state;
         const renderTags = [];
 
         const selectedItems = [...selections];
@@ -906,34 +977,62 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             });
         }
 
-        const mapItems = maxTagCount ? selectedItems.slice(0, maxTagCount) : selectedItems; // no need to render rest tag when maxTagCount is setting
+        let mapItems = [];
+        let tags = [];
+        let tagContent: ReactNode;
 
-        const tags = mapItems.map((item, i) => {
-            const label = item[0];
-            const { value } = item[1];
-            const disabled = item[1].disabled || selectDisabled;
-            const onClose = (tagContent: React.ReactNode, e: MouseEvent) => {
-                if (e && typeof e.preventDefault === 'function') {
-                    e.preventDefault(); // make sure that tag will not hidden immediately in controlled mode
-                }
-                this.foundation.removeTag({ label, value });
-            };
-            const { content, isRenderInTag } = (renderSelectedItem as RenderMultipleSelectedItemFn)(item[1], { index: i, disabled, onClose });
-            const basic = {
-                disabled,
-                closable: !disabled,
-                onClose,
-            };
-            if (isRenderInTag) {
-                return (
-                    <Tag {...basic} color="white" size={size || 'large'} key={value}>
-                        {content}
-                    </Tag>
+        if (!isNumber(maxTagCount)) {
+            // maxTagCount is not set, all tags are displayed
+            mapItems = selectedItems;
+            tags = mapItems.map((item, i) => {
+                return this.getTagItem(item, i, renderSelectedItem);
+            });
+            tagContent = tags;
+        } else {
+            // maxTagCount is set
+            if (showRestTagsPopover) {
+                // showRestTagsPopover = true，
+                mapItems = isFullTags ? selectedItems : selectedItems.slice(0, maxTagCount);
+                tags = mapItems.map((item, i) => {
+                    return this.getTagItem(item, i, renderSelectedItem);
+                });
+                const n = selectedItems.length > maxTagCount ? maxTagCount : undefined;
+
+                tagContent = (
+                    <TagGroup<"custom"> 
+                        tagList={tags} 
+                        maxTagCount={n} 
+                        restCount={isFullTags ? undefined : (selectedItems.length - maxTagCount)}
+                        size="large" 
+                        mode="custom"
+                        showPopover={showRestTagsPopover}
+                        popoverProps={restTagsPopoverProps}
+                        onPlusNMouseEnter={() => { 
+                            this.foundation.updateIsFullTags();
+                        }}
+                    />
                 );
             } else {
-                return <Fragment key={value}>{content}</Fragment>;
+                // If maxTagCount is set, showRestTagsPopover is false/undefined, 
+                // then there is no popover when hovering, no extra Tags are displayed, 
+                // only the tags and restCount displayed in the trigger need to be passed in
+                mapItems = selectedItems.slice(0, maxTagCount);
+                const n = selectedItems.length > maxTagCount ? maxTagCount : undefined;
+                tags = mapItems.map((item, i) => {
+                    return this.getTagItem(item, i, renderSelectedItem);
+                });
+
+                tagContent = (
+                    <TagGroup<"custom"> 
+                        tagList={tags} 
+                        maxTagCount={n} 
+                        restCount={selectedItems.length - maxTagCount} 
+                        size="large" 
+                        mode="custom"
+                    />
+                );
             }
-        });
+        }
 
         const contentWrapperCls = cls({
             [`${prefixcls}-content-wrapper`]: true,
@@ -948,11 +1047,6 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             // [prefixcls + '-selection-text-inactive']: !inputValue && !tags.length,
         });
         const placeholderText = placeholder && !inputValue ? <span className={spanCls}>{placeholder}</span> : null;
-        const n = selectedItems.length > maxTagCount ? maxTagCount : undefined;
-
-        const NotOneLine = !maxTagCount; // Multiple lines (that is, do not set maxTagCount), do not use TagGroup, directly traverse with Tag, otherwise Input cannot follow the correct position
-
-        const tagContent = NotOneLine ? tags : <TagGroup<"custom"> tagList={tags} maxTagCount={n} restCount={maxTagCount ? selectedItems.length - maxTagCount : undefined} size="large" mode="custom" />;
 
         return (
             <>
@@ -1051,7 +1145,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             arrowIcon,
         } = this.props;
 
-        const { selections, isOpen, keyboardEventSet, inputValue, isHovering, isFocus } = this.state;
+        const { selections, isOpen, keyboardEventSet, inputValue, isHovering, isFocus, showInput, focusIndex } = this.state;
         const useCustomTrigger = typeof triggerRender === 'function';
         const filterable = Boolean(filter); // filter（boolean || function）
         const selectionCls = useCustomTrigger ?
@@ -1105,32 +1199,31 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                     </div>
                 </Fragment>,
                 <Fragment key="clearicon">
-                    {showClear ? (
-                        <div
-                            role="button"
-                            aria-label="Clear selected value"
-                            tabIndex={0}
-                            className={cls(`${prefixcls}-clear`)}
-                            onClick={this.onClear}
-                            onKeyPress={this.onClearBtnEnterPress}
-                        >
-                            <IconClear />
-                        </div>
-                    ) : arrowContent}
+                    {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+                    {showClear ? ( <div className={cls(`${prefixcls}-clear`)} onClick={this.onClear}><IconClear /></div>) : arrowContent}
                 </Fragment>,
                 <Fragment key="suffix">{suffix ? this.renderSuffix() : null}</Fragment>,
             ]
         );
 
-        const tabIndex = disabled ? null : 0;
+        /**
+         * 
+         * In disabled, searchable single-selection and display input, and searchable multi-selection
+         * make combobox not focusable by tab key
+         * 
+         * 在disabled，可搜索单选且显示input框，以及可搜索多选情况下
+         * 让combobox无法通过tab聚焦
+         */
+        const tabIndex = (disabled || (filterable && showInput) || (filterable && multiple)) ? -1 : 0;
         return (
+            /* eslint-disable-next-line jsx-a11y/aria-activedescendant-has-tabindex */
             <div
                 role="combobox"
                 aria-disabled={disabled}
                 aria-expanded={isOpen}
                 aria-controls={`${prefixcls}-${this.selectOptionListID}`}
                 aria-haspopup="listbox"
-                aria-label="select value"
+                aria-label={selections.size ? 'selected' : ''} // if there is a value, expect the narration to speak selected
                 aria-invalid={this.props['aria-invalid']}
                 aria-errormessage={this.props['aria-errormessage']}
                 aria-labelledby={this.props['aria-labelledby']}
@@ -1140,11 +1233,12 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 ref={ref => ((this.triggerRef as any).current = ref)}
                 onClick={e => this.foundation.handleClick(e)}
                 style={style}
-                id={id}
+                id={this.selectID}
                 tabIndex={tabIndex}
+                aria-activedescendant={focusIndex !== -1 ? `${this.selectID}-option-${focusIndex}`: ''}
                 onMouseEnter={this.onMouseEnter}
                 onMouseLeave={this.onMouseLeave}
-                // onFocus={e => this.foundation.handleTriggerFocus(e)}
+                onFocus={e => this.foundation.handleTriggerFocus(e)}
                 onBlur={e => this.foundation.handleTriggerBlur(e as any)}
                 onKeyPress={this.onKeyPress}
                 {...keyboardEventSet}
@@ -1189,6 +1283,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 position={position}
                 spacing={spacing}
                 stopPropagation={stopPropagation}
+                disableArrowKeyDown={true}
                 onVisibleChange={status => this.handlePopoverVisibleChange(status)}
             >
                 {selection}

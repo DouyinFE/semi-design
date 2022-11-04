@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 41
+order: 42
 category: Navigation
 title: Tabs
 subTitle: Tabs
@@ -499,17 +499,17 @@ class App extends React.Component {
         super(props);
         this.state = {
             tabList: [
-                {tab: 'Doc', itemKey:'1', text:'Doc', closable:true},
-                {tab: 'Quick Start', itemKey:'2', text:'Quick Start', closable:true},
-                {tab: 'Help', itemKey:'3', text:'Help'},
+                { tab: 'Doc', itemKey: '1', text: 'Doc', closable: true },
+                { tab: 'Quick Start', itemKey: '2', text: 'Quick Start', closable: true },
+                { tab: 'Help', itemKey: '3', text: 'Help' },
             ]
-        }
+        };
     }
     close(key){
         const newTabList = [...this.state.tabList];
         const closeIndex = newTabList.findIndex(t=>t.itemKey===key);
         newTabList.splice(closeIndex, 1);
-        this.setState({tabList:newTabList});
+        this.setState({ tabList: newTabList });
     }
     render() {
         return (
@@ -537,6 +537,7 @@ defaultActiveKey | Initialize the key value of the selected tab page | string | 
 keepDOM | Whether to render the DOM structure of the hidden panel when using TabPane writing, **>=1.0.0** | boolean | true |
 lazyRender | Lazy rendering, only when the panel is activated will it be rendered in the DOM tree, **>=1.0.0** | boolean | false |
 renderTabBar | Used for secondary packaging tab bar | (tabBarProps: object, defaultTabBar: React.ComponentType) => ReactNode | None |
+preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
 size | Size, providing three types of `large`, `medium`, and `small`, **>=1.11.0, currently only supports linear Tabs** | string | `large` |
 style | style object | CSSProperties | None |
 tabBarExtraContent | Used to extend the content of the tab bar | ReactNode | None |
@@ -590,6 +591,12 @@ WAI-ARIA: https://www.w3.org/WAI/ARIA/apg/patterns/tabpanel/
 - When a tab is allowed to be deleted:
   - Users can use `Delete` keys to delete tab
   - After deletion, the focus is transferred to the next element of the deleted tab element; if the deleted element has no subsequent element, it is transferred to the previous element
+
+## Content Guidelines
+- Label copy needs to explain the label content accurately and clearly
+- Use short, easily distinguishable labels
+- try to stay within one word
+
 
 ## Design Token
 

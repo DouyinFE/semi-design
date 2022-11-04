@@ -1,4 +1,6 @@
+@import "./animation.scss";
 @import './variables.scss';
+
 
 $module: #{$prefix}-rating;
 
@@ -37,6 +39,7 @@ $module: #{$prefix}-rating;
         color: inherit;
         cursor: pointer;
         transition: all 0.5s;
+        transform:scale($transform-scale-rating);
 
         &:not(:last-child) {
             margin-right: $spacing-rating_item-marginRight;
@@ -75,6 +78,7 @@ $module: #{$prefix}-rating;
 
         &-first,
         &-second {
+            transition: color $transition_duration-rating-color $transition_function-rating-color $transition_delay-rating-color;
             color: $color-rating-bg-default;
             user-select: none;
         }
