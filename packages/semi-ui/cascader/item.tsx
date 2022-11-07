@@ -139,19 +139,19 @@ export default class Item extends PureComponent<CascaderItemProps> {
         return state;
     };
 
-    renderIcon = (type: string, havePaddingLeft = false) => {
-        const finalStyle = (style: string) => {
-            return style + (havePaddingLeft ? ` ${prefixcls}-icon-left` : '');
+    renderIcon = (type: string, haveMarginLeft = false) => {
+        const finalCls = (style: string) => {
+            return style + (haveMarginLeft ? ` ${prefixcls}-icon-left` : '');
         };
         switch (type) {
             case 'child':
-                return (<IconChevronRight className={finalStyle(`${prefixcls}-icon ${prefixcls}-icon-expand`)} />);
+                return (<IconChevronRight className={finalCls(`${prefixcls}-icon ${prefixcls}-icon-expand`)} />);
             case 'tick':
-                return (<IconTick className={finalStyle(`${prefixcls}-icon ${prefixcls}-icon-active`)} />);
+                return (<IconTick className={finalCls(`${prefixcls}-icon ${prefixcls}-icon-active`)} />);
             case 'loading':
-                return <Spin wrapperClassName={finalStyle(`${prefixcls}-spin-icon`)} />;
+                return <Spin wrapperClassName={finalCls(`${prefixcls}-spin-icon`)} />;
             case 'empty':
-                return (<span aria-hidden={true} className={finalStyle(`${prefixcls}-icon ${prefixcls}-icon-empty`)} />);
+                return (<span aria-hidden={true} className={finalCls(`${prefixcls}-icon ${prefixcls}-icon-empty`)} />);
             default:
                 return null;
         }
