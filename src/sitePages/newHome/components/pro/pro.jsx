@@ -22,13 +22,13 @@ function BetaTag({ style }) {
 function Pro(props) {
 
     const goD2CStart = () => {
-        navigate(`/code/${getLocale()}/start/quick-start`);
+        navigate(`/code/${getLocale()}`);
     };
 
     return (
-        <div {...props} className={styles.macBookPro2}>
+        <div {...props} className={`${styles.macBookPro2}`}>
             <div className={styles.frame14294}>
-                <div className={styles.frame4151}>
+                <div className={`${styles.frame4151} semi-always-dark`}>
                     <Badge count={<BetaTag style={{ right: -14, top: 4 }} />}>
                         <p className={styles.semiPro} data-locale={"en-US"}>{_t('home.pro.title')}</p>
                     </Badge>
@@ -36,7 +36,7 @@ function Pro(props) {
                 <p className={styles.text}>
                     <span className={styles.text_4c571d3f}>{_t('home.pro.desc', {}, '使用真实组件设计，前端代码一键转')}</span>
                 </p>
-                <Button onClick={goD2CStart} size="large" theme="solid" className={styles.extraLarge}>
+                <Button onClick={goD2CStart} size="large" theme="solid" className={`${styles.extraLarge} semi-always-dark`}>
                     {_t('home.pro.start', {}, '了解更多')}
                 </Button>
             </div>
