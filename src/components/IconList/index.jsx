@@ -31,6 +31,8 @@ const IconList = props => {
               }
         }
     `);
+    // debugger;
+    console.log(data);
     const { iconData, pkgJson } = data.semiIconNodeType;
     const [iconFilterData, $iconFilterData] = useState(iconData);
     const search = keyword => {
