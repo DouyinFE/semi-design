@@ -24,7 +24,7 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
         zoomStep: PropTypes.number,
         zoom: PropTypes.number,
         ratio: PropTypes.string,
-        disableDownload: PropTypes.number,
+        disableDownload: PropTypes.bool,
         clickZoom: PropTypes.number,
         setRatio: PropTypes.func,
         onZoom: PropTypes.func,

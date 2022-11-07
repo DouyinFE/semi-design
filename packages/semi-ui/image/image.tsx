@@ -12,7 +12,7 @@ import { PreviewContext, PreviewContextProps } from "./previewContext";
 import ImageFoundation, { ImageAdapter } from "@douyinfe/semi-foundation/image/imageFoundation";
 import LocaleConsumer from "../locale/localeConsumer";
 import { Locale } from "../locale/interface";
-import { isObject } from "lodash";
+import { isBoolean, isObject } from "lodash";
 import Skeleton from "../skeleton";
 import "@douyinfe/semi-foundation/image/image.scss";
 
@@ -68,6 +68,13 @@ export default class Image extends BaseComponent<ImageProps, ImageStates> {
         if (props.src !== state.src) {
             willUpdateStates.src = props.src;
             willUpdateStates.loadStatus = "loading";
+        }
+        
+        if (isObject(props.preview)) {
+            const { visible } = props.preview;
+            if (isBoolean(visible)) {
+                willUpdateStates.previewVisible = visible;
+            }
         }
 
         return willUpdateStates;
