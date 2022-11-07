@@ -17,26 +17,30 @@ const App = () => {
     const { Option } = Form.Select;
 
     return (
-        <Form onSubmit={() => { console.log('submit');} }>
-            <Form.Select field="Role" label='角色' style={{ width:176 }}>
+        <Form
+            onSubmit={() => console.log('submit')}
+            onSubmitFail={(errors, values) => console.log(errors, values)}
+        >
+            <Form.Select field="Role" label='角色' style={{ width: 176 }}>
                 <Option value="admin">管理员</Option>
                 <Option value="user">普通用户</Option>
                 <Option value="guest">访客</Option>
             </Form.Select>
-            <Form.Input field='UserName' label='用户名' style={{ width:80 }} onKeyDown={e => {
+            <Form.Input field='UserName' label='用户名' style={{ width: 80 }} onKeyDown={e => {
                 if (e.key === 'Enter') {
                     e.preventDefault();
                 }
             }} />
             <Form.Input
                 field='Password'
-                label={{ 
+                label={{
                     text: '密码',
-                    extra: <Tooltip content='详情'><IconHelpCircle style={{ color: '--semi-color-text-1' }}/></Tooltip> 
+                    extra: <Tooltip content='详情'><IconHelpCircle style={{ color: '--semi-color-text-1' }} /></Tooltip>
                 }}
-                style={{ width:176 }}
+                rules={[{ message: '密码长度至少为6位', validator: (_, value) => value?.length >= 6 }]}
+                style={{ width: 176 }}
             />
-            <Button>提交</Button>
+            <Button htmlType="submit">提交</Button>
         </Form>
     );
 };

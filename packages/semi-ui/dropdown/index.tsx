@@ -16,7 +16,6 @@ import DropdownTitle, { DropdownTitleProps } from './dropdownTitle';
 import DropdownContext, { DropdownContextType } from './context';
 import '@douyinfe/semi-foundation/dropdown/dropdown.scss';
 import { noop, get } from 'lodash';
-import { Motion } from '../_base/base';
 
 const positionSet = strings.POSITION_SET;
 const triggerSet = strings.TRIGGER_SET;
@@ -28,7 +27,7 @@ export type { DropdownTitleProps } from './dropdownTitle';
 
 export interface DropDownMenuItemItem extends DropdownItemProps {
     node: 'item';
-    name?: string;
+    name?: string
 }
 export interface DropDownMenuItemDivider extends DropdownDividerProps {
     node: 'divider'
@@ -51,7 +50,7 @@ export interface DropdownProps extends TooltipProps {
     menu?: DropDownMenuItem[];
     trigger?: Trigger;
     zIndex?: number;
-    motion?: Motion;
+    motion?: boolean;
     className?: string;
     contentClassName?: string | any[];
     style?: React.CSSProperties;
@@ -59,11 +58,11 @@ export interface DropdownProps extends TooltipProps {
     rePosKey?: string | number;
     showTick?: boolean;
     closeOnEsc?: TooltipProps['closeOnEsc'];
-    onEscKeyDown?: TooltipProps['onEscKeyDown'];
+    onEscKeyDown?: TooltipProps['onEscKeyDown']
 }
 
 interface DropdownState {
-    popVisible: boolean;
+    popVisible: boolean
 }
 
 class Dropdown extends BaseComponent<DropdownProps, DropdownState> {

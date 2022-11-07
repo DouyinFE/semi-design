@@ -95,7 +95,7 @@ export interface NormalTableState<RecordType extends Record<string, any> = Data>
     bodyHasScrollBar?: boolean;
     prePropRowSelection?: TableStateRowSelection<RecordType>;
     tableWidth?: number;
-    prePagination?: Pagination;
+    prePagination?: Pagination
 }
 
 export type TableStateRowSelection<RecordType extends Record<string, any> = Data> = (RowSelectionProps<RecordType> & { selectedRowKeysSet?: Set<(string | number)> }) | boolean;
@@ -105,7 +105,7 @@ export interface RenderTableProps<RecordType> extends HeadTableProps, BodyProps 
     useFixedHeader: boolean;
     bodyRef: React.MutableRefObject<HTMLDivElement> | ((instance: any) => void);
     rowSelection: TableStateRowSelection<RecordType>;
-    bodyHasScrollBar: boolean;
+    bodyHasScrollBar: boolean
 }
 
 class Table<RecordType extends Record<string, any>> extends BaseComponent<NormalTableProps<RecordType>, NormalTableState<RecordType>> {
@@ -201,11 +201,13 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
                 }
             },
             setSelectedRowKeys: selectedRowKeys => {
-                this.setState({ rowSelection: {
-                    ...this.state.rowSelection as Record<string, any>,
-                    selectedRowKeys: [...selectedRowKeys],
-                    selectedRowKeysSet: new Set(selectedRowKeys),
-                } });
+                this.setState({
+                    rowSelection: {
+                        ...this.state.rowSelection as Record<string, any>,
+                        selectedRowKeys: [...selectedRowKeys],
+                        selectedRowKeysSet: new Set(selectedRowKeys),
+                    }
+                });
             },
             setDisabledRowKeys: disabledRowKeys => {
                 this.setState({ disabledRowKeys, disabledRowKeysSet: new Set(disabledRowKeys) });
@@ -339,6 +341,19 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
                 if (bodyHasScrollBar !== this.state.bodyHasScrollBar) {
                     this.setState({ bodyHasScrollBar });
                 }
+            },
+            stopPropagation(e: TableSelectionCellEvent) {
+                // The event definition here is not very accurate for now, it belongs to a broad structure definition
+                if (e && typeof e === 'object') {
+                    if (typeof e.stopPropagation === 'function') {
+                        e.stopPropagation();
+                    }
+                    if (e.nativeEvent && typeof e.nativeEvent.stopPropagation === 'function') {
+                        e.nativeEvent.stopPropagation();
+                    } else if (typeof e.stopImmediatePropagation === 'function') {
+                        e.stopImmediatePropagation();
+                    }
+                }
             }
         };
     }
@@ -364,6 +379,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
         // columns cannot be deepClone, otherwise the comparison will be false
         const columns = this.getColumns(props.columns, props.children);
         const cachedflattenColumns = flattenColumns(columns);
+        const queries = TableFoundation.initColumnsFilteredValueAndSorterOrder(cloneDeep(cachedflattenColumns));
         this.state = {
             /**
              * Cached props
@@ -376,7 +392,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             /**
              * State calculated based on prop
              */
-            queries: cloneDeep(cachedflattenColumns), // flatten columns, update when sorting or filtering
+            queries, // flatten columns, update when sorting or filtering
             dataSource: [], // data after paging
             flattenData: [],
             expandedRowKeys: [...(props.expandedRowKeys || []), ...(props.defaultExpandedRowKeys || [])], // cached expandedRowKeys

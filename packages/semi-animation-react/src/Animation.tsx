@@ -21,7 +21,7 @@ export interface AnimationProps {
     config?: Record<string, any>;
     autoStart?: boolean;
     forwardInstance?: (value: any) => void;
-    immediate?: boolean;
+    immediate?: boolean
 }
 
 export default class Animation extends PureComponent<AnimationProps> {

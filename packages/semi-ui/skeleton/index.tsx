@@ -15,7 +15,7 @@ export interface SkeletonProps {
     className?: string;
     loading?: boolean;
     placeholder?: ReactNode;
-    style?: CSSProperties;
+    style?: CSSProperties
 }
 
 class Skeleton extends PureComponent<SkeletonProps> {

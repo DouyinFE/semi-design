@@ -14,7 +14,7 @@ export interface MotionObject {
     didLeave?: () => void;
     onStart?: () => void;
     onRest?: () => void;
-    state?: string;
+    state?: string
 }
 
 export interface MotionChildrenProps {
@@ -26,11 +26,11 @@ export interface MotionChildrenProps {
         animationDelay?: number | string;
         animationIterationCount?: number | string;
         animationDirection?: 'alternate' | 'normal';
-        animationFillMode?: string;
+        animationFillMode?: string
     };
     animateEvents?: {
         onAnimationIteration?: React.AnimationEventHandler<any> | undefined;
         onAnimationStart?: React.AnimationEventHandler<any> | undefined;
-        onAnimationEnd?: React.AnimationEventHandler<any> | undefined;
-    };
+        onAnimationEnd?: React.AnimationEventHandler<any> | undefined
+    }
 }

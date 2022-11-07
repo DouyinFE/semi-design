@@ -103,7 +103,7 @@ const ComponentUsingFormState = () => {
     const formState = useFormState();
     return (
         <pre>
-            <code style={{ wordBreak:'break-all', width: 600, whiteSpace: 'normal' }}>{JSON.stringify(formState)}</code>
+            <code style={{ wordBreak: 'break-all', width: 600, whiteSpace: 'normal' }}>{JSON.stringify(formState)}</code>
             {/* <code style={{wordBreak:'break-all', width: 600, whiteSpace: 'normal'}}>{CustomStringify(formState)}</code> */}
         </pre>
     );

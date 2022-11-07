@@ -26,7 +26,6 @@ const defaultRect = {
 
 export interface TooltipAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     registerPortalEvent(portalEventSet: any): void;
-    unregisterPortalEvent(): void;
     registerResizeHandler(onResize: () => void): void;
     unregisterResizeHandler(onResize?: () => void): void;
     on(arg0: string, arg1: () => void): void;
@@ -47,7 +46,7 @@ export interface TooltipAdapter<P = Record<string, any>, S = Record<string, any>
         click: string;
         focus: string;
         blur: string;
-        keydown: string;
+        keydown: string
     };
     registerTriggerEvent(...args: any[]): void;
     getTriggerBounding(...args: any[]): DOMRect;
@@ -56,7 +55,6 @@ export interface TooltipAdapter<P = Record<string, any>, S = Record<string, any>
     togglePortalVisible(...args: any[]): void;
     registerClickOutsideHandler(...args: any[]): void;
     unregisterClickOutsideHandler(...args: any[]): void;
-    unregisterTriggerEvent(): void;
     containerIsRelative(): boolean;
     containerIsRelativeOrAbsolute(): boolean;
     getDocumentElementBounding(): DOMRect;
@@ -69,14 +67,14 @@ export interface TooltipAdapter<P = Record<string, any>, S = Record<string, any>
     setInitialFocus(): void;
     notifyEscKeydown(event: any): void;
     getTriggerNode(): any;
-    setId(): void;
+    setId(): void
 }
 
 export type Position = ArrayElement<typeof strings.POSITION_SET>;
 
 export interface PopupContainerDOMRect extends DOMRectLikeType {
     scrollLeft?: number;
-    scrollTop?: number;
+    scrollTop?: number
 }
 
 export default class Tooltip<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<TooltipAdapter<P, S>, P, S> {
@@ -101,7 +99,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
 
     destroy() {
         this._mounted = false;
-        this._unBindEvent();
+        this.unBindEvent();
     }
 
     _bindEvent() {
@@ -112,35 +110,32 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         this._bindResizeEvent();
     }
 
-    _unBindEvent() {
-        this._unBindTriggerEvent();
-        this._unBindPortalEvent();
-        this._unBindResizeEvent();
-        this._unBindScrollEvent();
+    unBindEvent() {
+        this._adapter.unregisterClickOutsideHandler();
+        this.unBindResizeEvent();
+        this.unBindScrollEvent();
     }
 
     _bindTriggerEvent(triggerEventSet: Record<string, any>) {
         this._adapter.registerTriggerEvent(triggerEventSet);
     }
 
-    _unBindTriggerEvent() {
-        this._adapter.unregisterTriggerEvent();
-    }
 
     _bindPortalEvent(portalEventSet: Record<string, any>) {
         this._adapter.registerPortalEvent(portalEventSet);
     }
 
-    _unBindPortalEvent() {
-        this._adapter.unregisterPortalEvent();
-    }
 
     _bindResizeEvent() {
         this._adapter.registerResizeHandler(this.onResize);
     }
 
-    _unBindResizeEvent() {
+    unBindResizeEvent() {
         this._adapter.unregisterResizeHandler(this.onResize);
+    }
+  
+    removePortal = () => {
+        this._adapter.removePortal();
     }
 
     _adjustPos(position = '', isVertical = false, ajustType = 'reverse', concatPos?: any) {
@@ -1044,13 +1039,6 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         this._adapter.off('portalInserted');
         this._adapter.off('positionUpdated');
 
-        if (!this._adapter.canMotion()) {
-            this._adapter.removePortal();
-            // When the portal is removed, the global click outside event binding is also removed
-            this._adapter.unregisterClickOutsideHandler();
-            this._unBindScrollEvent();
-            this._unBindResizeEvent();
-        }
     };
 
     _bindScrollEvent() {
@@ -1059,7 +1047,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         // (By determining whether the e.target contains the triggerDom of the current tooltip) If so, the pop-up layer will also be affected and needs to be repositioned
     }
 
-    _unBindScrollEvent() {
+    unBindScrollEvent() {
         this._adapter.unregisterScrollHandler();
     }
 

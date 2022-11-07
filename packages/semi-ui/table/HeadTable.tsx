@@ -23,7 +23,7 @@ export interface HeadTableProps {
     selectedRowKeysSet: Set<any>;
     showHeader?: boolean;
     onDidUpdate?: (ref: React.MutableRefObject<any>) => void;
-    onHeaderRow?: OnHeaderRow<any>;
+    onHeaderRow?: OnHeaderRow<any>
 }
 
 /**

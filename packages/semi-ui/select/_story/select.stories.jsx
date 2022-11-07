@@ -632,6 +632,7 @@ export const SelectMultiple = () => (
     <br />
     <br />
     maxTagCount = 3
+    <br />
     <Select
       multiple={true}
       maxTagCount={3}
@@ -655,7 +656,34 @@ export const SelectMultiple = () => (
     </Select>
     <br />
     <br />
+    maxTagCount = 3, showRestTagsPopover
+    <br />
+    <Select
+      multiple={true}
+      maxTagCount={3}
+      style={{
+        width: '350px',
+      }}
+      defaultValue={[1, 2, 3]}
+      placeholder="fefe"
+      insetLabel="标签"
+      onSelect={(...res) => console.log(res)}
+      onDeselect={(...res) => console.log(res)}
+      showRestTagsPopover={true}
+    >
+      <Option value={1}>opt1</Option>
+      <Option value={2}>opt2</Option>
+      <Option value={3}>opt3</Option>
+      <Option value="4">opt4</Option>
+      <Option value={5}>opt5</Option>
+      <Option value={6}>opt6</Option>
+      <Option value={7}>opt7</Option>
+      <Option value={8}>opt8</Option>
+    </Select>
+    <br />
+    <br />
     maxTagCount = 3, max=5
+    <br />
     <Select
       multiple={true}
       maxTagCount={3}

@@ -17,7 +17,7 @@ export interface ListItemProps {
     onClick?: React.MouseEventHandler<HTMLLIElement>;
     onRightClick?: React.MouseEventHandler<HTMLLIElement>;
     onMouseLeave?: React.MouseEventHandler<HTMLLIElement>;
-    onMouseEnter?: React.MouseEventHandler<HTMLLIElement>;
+    onMouseEnter?: React.MouseEventHandler<HTMLLIElement>
 }
 
 const prefixCls = cssClasses.PREFIX;

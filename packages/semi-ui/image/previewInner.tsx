@@ -42,10 +42,10 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
         closeOnEsc: PropTypes.bool,
         prevTip: PropTypes.string,
         nextTip: PropTypes.string,
-        zoomInTip:PropTypes.string,
+        zoomInTip: PropTypes.string,
         zoomOutTip: PropTypes.string,
         downloadTip: PropTypes.string,
-        adaptiveTip:PropTypes.string,
+        adaptiveTip: PropTypes.string,
         originTip: PropTypes.string,
         lazyLoad: PropTypes.bool,
         preLoad: PropTypes.bool,
@@ -241,7 +241,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
     }
 
     handleMouseUp = (e): void => {
-        this.foundation.handleMouseUp(e);
+        this.foundation.handleMouseUp(e.nativeEvent);
     }
 
     handleMouseMove = (e): void => {
@@ -297,7 +297,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
         const { currentIndex, imgSrc, zoom, ratio, rotation, viewerVisible } = this.state;
         let wrapperStyle: {
             zIndex?: CSSProperties["zIndex"];
-            position?: CSSProperties["position"];
+            position?: CSSProperties["position"]
         } = {
             zIndex,
         };
@@ -333,8 +333,8 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
                     onMouseDown={this.handleMouseDown}
                     onMouseUp={this.handleMouseUp}
                     onMouseMove={this.handleMouseMove}
-                    onMouseOver={(e): void => this.handleMouseEvent(e, "over")}
-                    onMouseOut={(e): void => this.handleMouseEvent(e, "out")}
+                    onMouseOver={(e): void => this.handleMouseEvent(e.nativeEvent, "over")}
+                    onMouseOut={(e): void => this.handleMouseEvent(e.nativeEvent, "out")}
                 >
                     <Header className={cls(hideViewerCls)} onClose={this.handlePreviewClose} renderHeader={renderHeader}/>
                     <PreviewImage 

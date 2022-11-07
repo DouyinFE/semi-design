@@ -52,7 +52,7 @@ export interface InputNumberProps extends InputProps {
     onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
     onKeyDown?: React.KeyboardEventHandler;
     onNumberChange?: (value: number, e?: React.ChangeEvent) => void;
-    onUpClick?: (value: string, e: React.MouseEvent<HTMLButtonElement>) => void;
+    onUpClick?: (value: string, e: React.MouseEvent<HTMLButtonElement>) => void
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -222,7 +222,7 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
             },
             updateStates: (states, callback) => {
                 this.setState(states, callback);
-            }
+            },
         };
     }
 

@@ -11,7 +11,13 @@ import { Context, CheckboxContextType } from './context';
 import { isUndefined, isBoolean, noop } from 'lodash';
 import { getUuidShort } from '@douyinfe/semi-foundation/utils/uuid';
 import { CheckboxType } from './checkboxGroup';
-export type CheckboxEvent = BasicCheckboxEvent;
+
+
+export interface CheckboxEvent extends BasicCheckboxEvent {
+    nativeEvent: {
+        stopImmediatePropagation: () => void
+    }
+}
 export type TargetObject = BasicTargetObject;
 
 export interface CheckboxProps extends BaseCheckboxProps {
@@ -32,13 +38,13 @@ export interface CheckboxProps extends BaseCheckboxProps {
     tabIndex?: number; // a11y: wrapper tabIndex
     addonId?: string;
     extraId?: string;
-    type?: CheckboxType;
+    type?: CheckboxType
 }
 interface CheckboxState {
     checked: boolean;
     addonId?: string;
     extraId?: string;
-    focusVisible?: boolean;
+    focusVisible?: boolean
 }
 class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
     static contextType = Context;
@@ -95,6 +101,29 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
             notifyChange: cbContent => {
                 const { onChange } = this.props;
                 onChange && onChange(cbContent);
+            },
+            generateEvent: (checked, e) => {
+                const { props } = this;
+                const cbValue = {
+                    target: {
+                        ...props,
+                        checked,
+                    },
+                    stopPropagation: () => {
+                        e.stopPropagation();
+                    },
+                    preventDefault: () => {
+                        e.preventDefault();
+                    },
+                    nativeEvent: {
+                        stopImmediatePropagation: () => {
+                            if (e.nativeEvent && typeof e.nativeEvent.stopImmediatePropagation === 'function') {
+                                e.nativeEvent.stopImmediatePropagation();
+                            }
+                        }
+                    },
+                };
+                return cbValue;
             },
             getIsInGroup: () => this.isInGroup(),
             getGroupValue: () => (this.context && this.context.checkboxGroup.value) || [],

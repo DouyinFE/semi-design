@@ -6,14 +6,14 @@ export interface CarouselMethod {
     prev?: () => void;
     goTo?: (tagetIndex: number) => void;
     play?: () => void;
-    stop?: () => void;
+    stop?: () => void
 }
 
 export interface CarouselProps {
     activeIndex?: number;
     animation?: typeof strings.ANIMATION_MAP[number];
     arrowProps?: ArrowProps; 
-    autoPlay?: boolean | {interval?: number, hoverToPause?: boolean};
+    autoPlay?: boolean | {interval?: number; hoverToPause?: boolean};
     arrowType?: typeof strings.ARROW_MAP[number];
     children?: ReactNode | Array<ReactNode>;
     className?: string;
@@ -28,7 +28,7 @@ export interface CarouselProps {
     slideDirection?: typeof strings.DIRECTION[number];
     speed?: number;
     style?: React.CSSProperties;
-    trigger?: typeof strings.TRIGGER[number];
+    trigger?: typeof strings.TRIGGER[number]
 }
 
 export interface CarouselIndicatorProps {
@@ -42,7 +42,7 @@ export interface CarouselIndicatorProps {
     type?: typeof strings.TYPE_MAP[number];
     onIndicatorChange?: (activeIndex: number) => void;
     style?: React.CSSProperties;
-    trigger?: typeof strings.TRIGGER[number];
+    trigger?: typeof strings.TRIGGER[number]
 }
 
 export interface CarouselArrowProps {
@@ -50,14 +50,14 @@ export interface CarouselArrowProps {
     theme?: typeof strings.THEME_MAP[number];
     prev?: () => void;
     next?: () => void;
-    arrowProps?: ArrowProps;
+    arrowProps?: ArrowProps
 }
 
 export interface ArrowButton {
     props?: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
-    children?: React.ReactNode;
+    children?: React.ReactNode
 }
 export interface ArrowProps {
     leftArrow?: ArrowButton;
-    rightArrow?: ArrowButton;
+    rightArrow?: ArrowButton
 }

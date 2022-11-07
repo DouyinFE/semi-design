@@ -13,21 +13,21 @@ export interface BasicDataItem {
     value?: string | number;
     disabled?: boolean;
     style?: any;
-    className?: string;
+    className?: string
 }
 
 export type DataItemMap = Map<number | string, BasicDataItem>;
 
 export interface OnSortEndProps {
     oldIndex: number;
-    newIndex: number;
+    newIndex: number
 }
 
 export interface BasicResolvedDataItem extends BasicDataItem {
     _parent?: {
-        title: string;
+        title: string
     };
-    _optionKey?: string | number;
+    _optionKey?: string | number
 }
 
 export interface TransferAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
@@ -39,7 +39,7 @@ export interface TransferAdapter<P = Record<string, any>, S = Record<string, any
     notifyDeselect: (items: BasicDataItem) => void;
     updateInput: (input: string) => void;
     updateSearchResult: (searchResult: Set<number | string>) => void;
-    searchTree: (keyword: string) => void;
+    searchTree: (keyword: string) => void
 }
 
 // eslint-disable-next-line max-len
@@ -61,13 +61,13 @@ export default class TransferFoundation<P = Record<string, any>, S = Record<stri
         return path.map((p: any) => p.label).join(' > ');
     }
 
-    handleInputChange(inputVal: string) {
+    handleInputChange(inputVal: string, notify: boolean) {
         const { data } = this.getStates();
         const { filter, type } = this.getProps();
         if (type === strings.TYPE_TREE_TO_LIST) {
             const searchResult = new Set(data.map((item: BasicResolvedDataItem) => item.key)) as Set<number | string>;
             this._adapter.searchTree(inputVal);
-            this._adapter.notifySearch(inputVal);
+            notify && this._adapter.notifySearch(inputVal);
             this._adapter.updateInput(inputVal);
             this._adapter.updateSearchResult(searchResult);
             return;
@@ -77,7 +77,7 @@ export default class TransferFoundation<P = Record<string, any>, S = Record<stri
             (item: BasicResolvedDataItem) => typeof item.label === 'string' && item.label.includes(inputVal);
         const searchData = data.filter(filterFunc);
         const searchResult = new Set(searchData.map((item: BasicResolvedDataItem) => item.key)) as Set<number | string>;
-        this._adapter.notifySearch(inputVal);
+        notify && this._adapter.notifySearch(inputVal);
         this._adapter.updateInput(inputVal);
         this._adapter.updateSearchResult(searchResult);
     }

@@ -1,7 +1,7 @@
-import React from 'react';
-import { Toast, Icon, Button, Avatar, Form } from '@douyinfe/semi-ui/';
+import React, { useState } from 'react';
+import { Toast, Icon, Button, Avatar, Form, Switch } from '@douyinfe/semi-ui/';
 import TagInput from '../index';
-import { IconGift, IconVigoLogo } from '@douyinfe/semi-icons';
+import { IconGift, IconVigoLogo, IconClose } from '@douyinfe/semi-icons';
 const style = {
   width: 400,
   marginTop: 10,
@@ -344,6 +344,7 @@ class CustomRender extends React.Component {
   constructor() {
     super();
     this.state = {
+      draggable: false,
       list: [
         {
           name: 'semi',
@@ -355,7 +356,7 @@ class CustomRender extends React.Component {
     };
   }
 
-  renderTagItem(node, index) {
+  renderTagItem(node, index, onClose) {
     return (
       <div
         key={index}
@@ -376,6 +377,7 @@ class CustomRender extends React.Component {
         >
           {node.email}
         </span>
+        <IconClose onClick={onClose} />
       </div>
     );
   }
@@ -393,15 +395,28 @@ class CustomRender extends React.Component {
     });
   }
 
+  onSwitchChange(value) {
+    this.setState({
+      draggable: value
+    });
+  }
+
   render() {
-    const { list } = this.state;
+    const { list, draggable } = this.state;
     return (
-      <TagInput
-        style={style}
-        value={list}
-        onChange={value => this.handleChange(value)}
-        renderTagItem={(node, index) => this.renderTagItem(node, index)}
-      />
+      <>
+        <div style={{ display: 'flex', alignItems: 'center', marginBottom: 20 }}>
+          <span>是否可拖拽：</span>
+          <Switch checked={draggable} onChange={(value) => this.onSwitchChange(value)} />
+        </div>
+        <TagInput
+          draggable={draggable}
+          style={style}
+          value={list}
+          onChange={value => this.handleChange(value)}
+          renderTagItem={(node, index, onClose) => this.renderTagItem(node, index, onClose)}
+        />
+      </>
     );
   }
 }

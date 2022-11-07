@@ -7,7 +7,6 @@ import Tooltip, { ArrowBounding, Position, TooltipProps, Trigger, RenderContentP
 import Arrow from './Arrow';
 import '@douyinfe/semi-foundation/popover/popover.scss';
 import { BaseProps } from '../_base/baseComponent';
-import { Motion } from '../_base/base';
 import { isFunction, noop } from 'lodash';
 
 import type { ArrowProps } from './Arrow';
@@ -15,7 +14,7 @@ export type { ArrowProps };
 declare interface ArrowStyle {
     borderColor?: string;
     backgroundColor?: string;
-    borderOpacity?: string | number;
+    borderOpacity?: string | number
 }
 
 export interface PopoverProps extends BaseProps {
@@ -23,7 +22,7 @@ export interface PopoverProps extends BaseProps {
     content?: TooltipProps['content'];
     visible?: boolean;
     autoAdjustOverflow?: boolean;
-    motion?: Motion;
+    motion?: boolean;
     position?: Position;
     mouseEnterDelay?: number;
     mouseLeaveDelay?: number;
@@ -46,11 +45,12 @@ export interface PopoverProps extends BaseProps {
     returnFocusOnClose?: TooltipProps['returnFocusOnClose'];
     onEscKeyDown?: TooltipProps['onEscKeyDown'];
     clickToHide?:TooltipProps['clickToHide'];
-    disableFocusListener?: boolean
+    disableFocusListener?: boolean;
+    afterClose?:()=>void
 }
 
 export interface PopoverState {
-    popConfirmVisible: boolean;
+    popConfirmVisible: boolean
 }
 const positionSet = strings.POSITION_SET;
 const triggerSet = strings.TRIGGER_SET;
@@ -62,7 +62,7 @@ class Popover extends React.PureComponent<PopoverProps, PopoverState> {
         content: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
         visible: PropTypes.bool,
         autoAdjustOverflow: PropTypes.bool,
-        motion: PropTypes.oneOfType([PropTypes.bool, PropTypes.object, PropTypes.func]),
+        motion: PropTypes.bool,
         position: PropTypes.oneOf(positionSet),
         // getPopupContainer: PropTypes.func,
         mouseEnterDelay: PropTypes.number,
@@ -126,7 +126,7 @@ class Popover extends React.PureComponent<PopoverProps, PopoverState> {
         );
     }
 
-    renderContentNode = (props: { content: TooltipProps['content'], initialFocusRef: RenderContentProps['initialFocusRef'] }) => {
+    renderContentNode = (props: { content: TooltipProps['content']; initialFocusRef: RenderContentProps['initialFocusRef'] }) => {
         const { initialFocusRef, content } = props;
         const contentProps = { initialFocusRef };
         return !isFunction(content) ? content : content(contentProps);

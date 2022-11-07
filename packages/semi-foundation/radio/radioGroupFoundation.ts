@@ -4,7 +4,7 @@ import { RadioChangeEvent } from './radioInnerFoundation';
 export interface RadioGroupAdapter extends DefaultAdapter {
     isInProps?: (name: string) => boolean;
     notifyChange?: (e: RadioChangeEvent) => void;
-    setValue?: (value: any) => void;
+    setValue?: (value: any) => void
 }
 
 export default class RadioGroupFoundation extends BaseFoundation<RadioGroupAdapter> {

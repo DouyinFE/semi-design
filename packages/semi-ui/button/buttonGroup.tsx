@@ -17,7 +17,7 @@ export interface ButtonGroupProps extends BaseProps {
     theme?: Theme;
     className?: string;
     children?: React.ReactNode;
-    'aria-label'?: React.AriaAttributes['aria-label'];
+    'aria-label'?: React.AriaAttributes['aria-label']
 }
 
 const prefixCls = cssClasses.PREFIX;

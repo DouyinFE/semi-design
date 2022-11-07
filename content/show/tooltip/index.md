@@ -444,7 +444,7 @@ function Demo() {
 | margin | 计算溢出时的增加的冗余值，详见[issue#549](https://github.com/DouyinFE/semi-design/issues/549) | number ｜ { marginLeft: number, marginTop: number, marginRight: number, marginBottom: number } | 0 |  **2.23.0**|
 | mouseEnterDelay | 鼠标移入后，延迟显示的时间，单位毫秒（仅当 trigger 为 hover/focus 时生效） | number | 50 |  |
 | mouseLeaveDelay | 鼠标移出后，延迟消失的时间，单位毫秒（仅当 trigger 为 hove/focus 时生效），不小于 mouseEnterDelay | number | 50 |  |
-| motion | 是否展示弹出层动画 | boolean\|object | true |  |
+| motion | 是否展示弹出层动画 | boolean | true |  |
 | position | 弹出层展示位置，可选值：`top`, `topLeft`, `topRight`, `left`, `leftTop`, `leftBottom`, `right`, `rightTop`, `rightBottom`, `bottom`, `bottomLeft`, `bottomRight` | string | 'top' |  |
 | prefixCls | 弹出层 wrapper div 的 `className` 前缀，设置该项时，弹出层将不再带 Tooltip 的样式 | string | 'semi-tooltip' |  |
 | preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法 | boolean |  |  |

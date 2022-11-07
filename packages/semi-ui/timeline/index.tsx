@@ -9,7 +9,7 @@ import Item, { TimelineItemProps } from './item';
 export type { TimelineItemProps } from './item';
 
 export interface Data extends TimelineItemProps {
-    content: React.ReactNode;
+    content: React.ReactNode
 }
 
 export interface TimelineProps extends Pick<React.AriaAttributes, 'aria-label'> {
@@ -17,7 +17,7 @@ export interface TimelineProps extends Pick<React.AriaAttributes, 'aria-label'> 
     className?: string;
     style?: React.CSSProperties;
     dataSource?: Data[];
-    children?: React.ReactNode;
+    children?: React.ReactNode
 }
 
 const prefixCls = cssClasses.PREFIX;

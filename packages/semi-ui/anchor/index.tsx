@@ -34,7 +34,7 @@ export interface AnchorProps {
     targetOffset?: number;
     onChange?: (currentLink: string, previousLink: string) => void;
     onClick?: (e: React.MouseEvent<HTMLElement>, currentLink: string) => void;
-    'aria-label'?: React.AriaAttributes['aria-label'];
+    'aria-label'?: React.AriaAttributes['aria-label']
 }
 
 export interface AnchorState {
@@ -42,7 +42,7 @@ export interface AnchorState {
     links: string[];
     clickLink: boolean;
     scrollHeight: string;
-    slideBarTop: string;
+    slideBarTop: string
 }
 
 class Anchor extends BaseComponent<AnchorProps, AnchorState> {

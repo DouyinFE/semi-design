@@ -10,16 +10,16 @@ export type BasicProps = {
     prefixCls?: string;
     className?: string;
     style?: CSSProperties;
-    type?: string;
+    type?: string
 };
 
 export interface ParagraphProps extends BasicProps {
-    rows?: number;
+    rows?: number
 }
 
 export interface AvatarProps extends BasicProps {
     size?: typeof strings.SIZE[number];
-    shape?: string;
+    shape?: string
 }
 
 export type GenericProps = BasicProps & AvatarProps;

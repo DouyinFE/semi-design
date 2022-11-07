@@ -43,14 +43,14 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
         return {
             ...super.adapter,
             getOriginImageSize: () => ({ originImageWidth, originImageHeight }),
-            setOriginImageSize: (size: { originImageWidth: number; originImageHeight: number; }) => {
+            setOriginImageSize: (size: { originImageWidth: number; originImageHeight: number }) => {
                 originImageWidth = size.originImageWidth;
                 originImageHeight = size.originImageHeight;
             },
-            getContainerRef: () => {
-                return this.containerRef;
+            getContainer: () => {
+                return this.containerRef.current;
             },
-            getImageRef: () => {
+            getImage: () => {
                 return this.imageRef;
             },
             getMouseMove: () => startMouseMove,
@@ -62,11 +62,14 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
                     loading,
                 });
             },
+            setImageCursor: (canDrag: boolean) => {
+                this.imageRef.style.cursor = canDrag ? "grab" : "default";
+            }
         };
     }
 
     containerRef: React.RefObject<HTMLDivElement>;
-    imageRef: React.RefObject<HTMLImageElement>;
+    imageRef: HTMLImageElement | null;
     foundation: PreviewImageFoundation;
 
     constructor(props) {
@@ -81,7 +84,7 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
             left: 0,
         };
         this.containerRef = React.createRef<HTMLDivElement>();
-        this.imageRef = React.createRef<HTMLImageElement>();
+        this.imageRef = null;
         this.foundation = new PreviewImageFoundation(this.adapter);
     }
 
@@ -161,7 +164,7 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
     // https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#improving_scrolling_performance_with_passive_listeners。
     
     registryImageRef = (ref): void => {
-        if (this.imageRef && this.imageRef.current) {
+        if (this.imageRef) {
             (this.imageRef as any).removeEventListener("wheel", this.handleWheel);
         }
         if (ref) {

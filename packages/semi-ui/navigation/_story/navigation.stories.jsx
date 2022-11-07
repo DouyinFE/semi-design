@@ -57,14 +57,14 @@ export const Default = () => {
             <Nav.Item key={k} itemKey={String(k)} text={'Option ' + k} />
           ))}
         </Nav.Sub>
-        <Nav.Item itemKey={'6'} text={'Option 6 (with link)'} icon={<IconStar />} link="/star" />
+        <Nav.Item itemKey={'6'} text={'Option 6 (with link)'} icon={<IconStar />} link="/?path=/story/navigation--collapse-expand" linkOptions={{target: '_blank'}}/>
         <Nav.Sub text={'Group 7'} icon={<IconFolder />} stayWhenClick={true} itemKey={'7'}>
           {['7-1', '7-2'].map(k => (
             <Nav.Item
               key={k}
               itemKey={String(k)}
               text={'Option ' + k + ' (with link)'}
-              link={`folder/${k}`}
+              link={`/?path=/story/navigation--collapse-expand`}
             />
           ))}
           <Nav.Item itemKey={'7-3'} text={'Option 7-3'} />
@@ -158,7 +158,7 @@ export const Horizontal = () => (
           text: 'Group 3',
           itemKey: '3',
           icon: <IconFile />,
-          items: ['3-1', '3-2', { text: 'Group 3-3', items: ['3-3-1', '3-3-2'] }],
+          items: ['3-1', {text: '3-2',  link: `/?path=/story/navigation--collapse-expand`}, { text: 'Group 3-3', items: ['3-3-1', '3-3-2'] }],
         },
       ]}
       onSelect={key => console.log(key)}

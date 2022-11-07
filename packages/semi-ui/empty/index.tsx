@@ -11,7 +11,7 @@ const prefixCls = cssClasses.PREFIX;
 interface SVGNode {
     id?: string;
     viewBox?: string;
-    url?: string;
+    url?: string
 }
 
 export interface EmptyProps {
@@ -23,11 +23,11 @@ export interface EmptyProps {
     darkModeImage?: React.ReactNode | SVGNode;
     style?: React.CSSProperties;
     className?: string;
-    children?: React.ReactNode;
+    children?: React.ReactNode
 }
 
 interface EmptyState {
-    mode: any;
+    mode: any
 }
 
 export default class Empty extends BaseComponent<EmptyProps, EmptyState> {

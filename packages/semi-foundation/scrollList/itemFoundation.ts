@@ -8,7 +8,7 @@ export interface Item {
     transform?: (value: any, text: string) => string;
     value: any;
     text?: string;
-    disabled?: boolean;
+    disabled?: boolean
 }
 
 export interface ScrollItemAdapter<P = Record<string, any>, S = Record<string, any>, I = Item> extends DefaultAdapter<P, S> {
@@ -17,7 +17,7 @@ export interface ScrollItemAdapter<P = Record<string, any>, S = Record<string, a
     setSelectedNode: (el: HTMLElement) => void;
     isDisabledIndex: (i: number) => boolean;
     notifySelectItem: (data: I) => void;
-    scrollToCenter: (selectedNode: Element, scrollWrapper?: Element, duration?: number) => void;
+    scrollToCenter: (selectedNode: Element, scrollWrapper?: Element, duration?: number) => void
 }
 
 export default class ItemFoundation<P = Record<string, any>, S = Record<string, any>, I = Item> extends BaseFoundation<ScrollItemAdapter<P, S, I>, P, S> {

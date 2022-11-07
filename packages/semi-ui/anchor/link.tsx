@@ -17,7 +17,7 @@ export interface LinkProps {
     style?: React.CSSProperties;
     disabled?: boolean;
     level?: number;
-    direction?: 'ltr' | 'rtl';
+    direction?: 'ltr' | 'rtl'
 }
 
 // eslint-disable-next-line @typescript-eslint/ban-types

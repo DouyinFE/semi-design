@@ -50,5 +50,5 @@ type BaseValueType = string | number | Date;
 interface GetDefaultPickerValueDateOptions {
     defaultPickerValue?: BaseValueType | BaseValueType[];
     format: string;
-    dateFnsLocale: dateFnsLocale;
+    dateFnsLocale: dateFnsLocale
 }

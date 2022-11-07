@@ -12,7 +12,7 @@ function Products(props) {
             <div className={styles.frame14369}>
                 <div key='douyinCreator'>
                     <img src="https://lf9-static.semi.design/obj/semi-tos/images/16cf36e0-321a-11ec-b393-ab4adc2e449f.png" className={classnames(styles.image42, styles.hideInDark)} />          
-                    <img className={classForDarkImage} src="https://lf9-static.semi.design/obj/semi-tos/images/a50bd6f0-3474-11ec-b008-15e09471f238.png" style={{width: 155, height: 36}} />              
+                    <img className={classForDarkImage} src="https://lf9-static.semi.design/obj/semi-tos/images/a50bd6f0-3474-11ec-b008-15e09471f238.png" style={{ width: 155, height: 36 }} />              
                 </div>
                 <div key="lark" className={classnames(styles.group720)}>
                     <img src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/lark.png" className={styles.logo_lark} />

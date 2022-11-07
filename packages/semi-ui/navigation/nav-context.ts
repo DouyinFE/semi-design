@@ -18,7 +18,7 @@ export interface NavContextType {
     subNavMotion?: NavProps['subNavMotion'];
     subNavCloseDelay?: NavProps['subNavCloseDelay'];
     subNavOpenDelay?: NavProps['subNavOpenDelay'];
-    canUpdateOpenKeys?: boolean;
+    canUpdateOpenKeys?: boolean
 }
 
 const NavContext = React.createContext<NavContextType>({

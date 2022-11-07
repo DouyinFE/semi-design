@@ -11,7 +11,7 @@ export interface AutoSizerProps {
 }
 
 export interface AutoSizerState {
-    height: number | string;
+    height: number | string
 }
 
 const prefixcls = cssClasses.PREFIX;

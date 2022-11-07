@@ -75,7 +75,6 @@ import { TagInput } from '@douyinfe/semi-ui';
 );
 ```
 
-
 ### Disabled
 
 ```jsx live=true
@@ -355,28 +354,29 @@ class TagInputDemo extends React.Component {
 
 ### Custom TagInput rendering
 
-You can use `renderTagItem` to customize tag rendering.
+You can use `renderTagItem` to customize tag rendering. `renderTagItem(value: string, index: number, onClose: function ) => React.ReactNode` The third parameter `onClose` is available since version 2.23.0.
 
 ```jsx live=true
 import React from 'react';
 import { TagInput, Avatar } from '@douyinfe/semi-ui';
+import { IconClose } from '@douyinfe/semi-ui-icons';
 
 class CustomRender extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            value : ['xiakeman']
+            value: ['xiakeman']
         };
         this.list = [
-            { "name": "xiakeman", "avatar":  "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg" },
-            { "name": "shenyue", "avatar":  "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg" },
-            { "name": "quchenyi", "avatar":  "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dbf7351bb779433d17c4f50478cf42f7.jpg" },
-            { "name": "wenjiamao", "avatar":  "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/7abf810ff060ac3387bd027ead92c4e0.jpg" },
+            { "name": "xiakeman", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg" },
+            { "name": "shenyue", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg" },
+            { "name": "quchenyi", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dbf7351bb779433d17c4f50478cf42f7.jpg" },
+            { "name": "wenjiamao", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/7abf810ff060ac3387bd027ead92c4e0.jpg" },
         ];
         this.mapList = new Map(this.list.map( item => [item.name, item]));
     }
 
-    renderTagItem(value, index) {
+    renderTagItem(value, index, onClose) {
         const data = this.mapList.get(value);
         return (
             <div 
@@ -391,6 +391,7 @@ class CustomRender extends React.Component {
                 <span style={{ marginLeft: 8 }}>
                     {`${value}@semi.com`}
                 </span>
+                <IconClose onClick={onClose} />
             </div>
         );
     }
@@ -401,12 +402,12 @@ class CustomRender extends React.Component {
             <TagInput 
                 value={value} 
                 onChange={value=>this.setState({ value })}
-                renderTagItem={(value, index)=>this.renderTagItem(value, index)}
+                renderTagItem={(value, index, onClose) => this.renderTagItem(value, index, onClose)}
             />
         );
     }
 }
-``` 
+```
 
 ### Drag to sort
 
@@ -449,7 +450,7 @@ import { TagInput } from '@douyinfe/semi-ui';
 |placeholder   |Content to be appear by default                  |string                                                           | -         |1.19.0|
 |prefix        |Prefix                                           |ReactNode                                                        |-          |1.19.0|
 | preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
-|renderTagItem |Customize the rendering of items                 |(value: string, index: number) => React.ReactNode                | -        |1.19.0|
+|renderTagItem |Customize the rendering of items, The parameter onClose is available in version 2.23.0  |<ApiType detail='(value: string, index: number, onClose: function) => React.ReactNode'>(params) => React.ReactNode</ApiType> | -        |1.19.0|
 |separator     |Customize the separator                          |string\|string[]                                                 |,          |1.19.0,string[] is supported since 1.29.0|
 |showClear     |Whether to show the clear button                 |boolean                                                          |false      |1.19.0|
 |size          |Size, one of `small`、`large`、`default`          |string                                                           |`default` |1.19.0|

@@ -16,6 +16,54 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 ---
 
+#### 🎉 2.22.2 (2022-10-31)
+- 【Fix】
+    - 修复 Tooltip、Popover 组件关闭时闪烁问题（影响 v2.22）[#1225](https://github.com/DouyinFE/semi-design/issues/1225)
+
+#### 🎉 2.22.0 (2022-10-28)
+- 【Fix】
+    - 修复 DatePicker type="month" 下 年月选择模式为 normal 和 wheel 时， 宽度不一致问题
+
+#### 🎉 2.22.0-beta.2 (2022-10-26)
+- 【Fix】
+  - 修复 Select 中 restTagsPopoverProps API 未设置为可选导致 ts 报错问题
+
+#### 🎉 2.22.0-beta.1 (2022-10-26)
+- 【Feat】
+  - Navigation 新增 A11y 键盘和焦点适配 [#1195](https://github.com/DouyinFE/semi-design/pull/1195)
+  - Typography 新增 Numeral 组件，基于 Text 组件，添加了属性: rule, precision, truncate, parser, 以提供需要单独处理文本中数值的能力 [@uiuing](https://github.com/uiuing) [#1136](https://github.com/DouyinFE/semi-design/issues/1136)
+  - 导出 LocaleConsumer 组件 [@Hokori23](https://github.com/Hokori23) [#1196](https://github.com/DouyinFE/semi-design/pull/1196)
+  - TreeSelect 增加 showRestTagsPopover 和 restTagsPopoverProps 参数，支持通过 popover 展示多余 tag [#1210](https://github.com/DouyinFE/semi-design/pull/1210)
+  - Select 中增加 showRestTagsPopover 和 restTagsPopoverProps，支持通过 popover 展示多余 tag [#1212](https://github.com/DouyinFE/semi-design/pull/1212)
+  - Modal、SideSheet、Tabs、 Popover 和 Tooltip 等弹层组件动画效果从 js 改为 css 实现，新增动画 Token，可支持在 DSM 中以主题形式自定义动画 [#1150](https://github.com/DouyinFE/semi-design/pull/1150)
+  - 优化 ScrollList 在 wheel 模式下的动画效果 [#1211](https://github.com/DouyinFE/semi-design/pull/1211)
+  - DatePicker 中新增 yearAndMonthOpts API，可用于控制年月选择器的 ScrollListItem [#1211](https://github.com/DouyinFE/semi-design/pull/1211)
+  - DatePicker disabledDate API 第二个参数新增 rangeInputFocus 参数，用于根据当前选择状态动态禁用日期 [#1198](https://github.com/DouyinFE/semi-design/pull/1198)
+- 【Fix】
+  - 修复 hook 方式使用 Modal  motion=false 不生效的问题 [#1217](https://github.com/DouyinFE/semi-design/pull/1217)
+  - 更新 Table 组件 Columns 属性的 render 的类型 [@Assone](https://github.com/Assone) [#1209](https://github.com/DouyinFE/semi-design/pull/1209)
+  - 修复 Cascader 当 motion 为 false 时，搜索选中值后，在面板收起后再打开面板显示仍然是搜索后的选项  [#1199](https://github.com/DouyinFE/semi-design/issues/1199)
+  - 修复 Foundation 代码中含有 React 特有 API 调用的问题 [#1189](https://github.com/DouyinFE/semi-design/issues/1189)
+  - 修复 Table defaultFiltertedValue 和 defaultSortOrder 未包含在 onChange 中问题  [#1188](https://github.com/DouyinFE/semi-design/issues/1188)
+  - 修复 Popover、ToolTip、Dropdown 等弹层组件在 motion 为 true 时，Children 展示会触发两次的问题 [#1174](https://github.com/DouyinFE/semi-design/issues/1174)
+  - 将 NodeList 中实现展开/收起动画的组件由 Tree 中的 Collapse 组件改为公共的 Collapsible 组件 [#1182](https://github.com/DouyinFE/semi-design/pull/1182)
+  - 修复 Collapsible 祖先元素从渲染树中移除导致高度计算异常，无法展开的问题 [#1174](https://github.com/DouyinFE/semi-design/issues/1174)
+  - 修复 Collapsible 内容区从渲染树移除导致高度计算异常，无法展开的问题 [#1174](https://github.com/DouyinFE/semi-design/issues/1174)
+  - 修复 Collapsible 内容区域高度变化导致收起时高度变化区域的收起动画不展示的问题 [#1174](https://github.com/DouyinFE/semi-design/issues/1174)
+- 【Style】
+  - 修复某些打包策略导致 Dropdown 中的 NavItem 的 padding 不符合预期问题 [#1204](https://github.com/DouyinFE/semi-design/pull/1204)
+- 【Docs】
+  - 更新 Table 组件 Columns 属性的文档 [@Assone](https://github.com/Assone) [#1209](https://github.com/DouyinFE/semi-design/pull/1209)
+- 【Breaking Change】
+  - **将 TimePicker 和 DatePicker 中用到的 ScrollListItem 由 mode wheel 改为 mode normal，使其更好适配 PC 端**
+
+
+#### 🎉 2.21.1 (2022-10-13)
+- 【Fix】
+  - 修复 Modal 在 关闭后 esc 触发事件回调的问题
+
+
+
 #### 🎉 2.21.0 (2022-10-12)
 - 【Fix】
   - 修复 Carousel 通过左右按钮或者方法切换 index 时没有更新计时器问题
@@ -31,7 +79,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 - 【Feat】
   - Table 新增表头 sticky API
   - AutoComplete 新增 onKeyDown API
-  - Upload 组件对外暴露 openFileDialog 方法，使用户可以手动打开文件选择窗口。
+  - Upload 组件对外暴露 openFileDialog 方法，使用户可以手动打开文件选择窗口
   - LocaleProvider 新增罗马尼亚语（ro） [@jacob-lcs](https://github.com/jacob-lcs)
 - 【Fix】
   - 修复 Dropdown 下 children onKeydown 拿不到事件问题

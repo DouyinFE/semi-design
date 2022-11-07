@@ -164,7 +164,7 @@ import { Tag, Button } from '@douyinfe/semi-ui';
     return (
         <div>
             <Button onClick={toggleVisible}>{visible ? 'Hide Tag': 'Show Tag'}</Button>
-            <div style={{ marginTop:10 }}>
+            <div style={{ marginTop: 10 }}>
                 <Tag visible={visible}>Invisible tag </Tag>
             </div>
         </div>

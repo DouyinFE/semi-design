@@ -21,7 +21,7 @@ export interface ResponsiveMap {
     md: string;
     lg: string;
     xl: string;
-    xxl: string;
+    xxl: string
 }
 
 const generateId = ((): () => string => {

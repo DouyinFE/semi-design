@@ -7,7 +7,7 @@ import warning from '../utils/warning';
 import { handlePrevent } from '../utils/a11y';
 
 export interface Marks{
-    [key: number]: string;
+    [key: number]: string
 }
 
 export type tipFormatterBasicType = string | number | boolean | null;
@@ -35,7 +35,7 @@ export interface SliderProps{
     'aria-label'?: string;
     'aria-labelledby'?: string;
     'aria-valuetext'?: string;
-    getAriaValueText?: (value: number, index?: number) => string;
+    getAriaValueText?: (value: number, index?: number) => string
 }
 
 export interface SliderState {
@@ -51,23 +51,23 @@ export interface SliderState {
     showBoundary: boolean;
     isInRenderTree: boolean;
     firstDotFocusVisible: boolean;
-    secondDotFocusVisible: boolean;
+    secondDotFocusVisible: boolean
 }
 
 export interface SliderLengths{
     sliderX: number;
     sliderY: number;
     sliderWidth: number;
-    sliderHeight: number;
+    sliderHeight: number
 }
 
 export interface ScrollParentVal{
     scrollTop: number;
-    scrollLeft: number;
+    scrollLeft: number
 }
 
 export interface OverallVars{
-    dragging: boolean[];
+    dragging: boolean[]
 }
 
 export interface SliderAdapter extends DefaultAdapter<SliderProps, SliderState>{
@@ -82,8 +82,8 @@ export interface SliderAdapter extends DefaultAdapter<SliderProps, SliderState>{
     setDragging: (value: boolean[]) => void;
     updateCurrentValue: (value: SliderState['currentValue']) => void;
     setOverallVars: (key: string, value: any) => void;
-    getMinHandleEl: () => { current: HTMLElement };
-    getMaxHandleEl: () => { current: HTMLElement };
+    getMinHandleEl: () => HTMLSpanElement;
+    getMaxHandleEl: () => HTMLSpanElement;
     onHandleDown: (e: any) => any;
     onHandleMove: (mousePos: number, isMin: boolean, stateChangeCallback?: () => void, clickTrack?: boolean, outPutValue?: number | number[]) => boolean | void;
     setEventDefault: (e: any) => void;
@@ -93,7 +93,7 @@ export interface SliderAdapter extends DefaultAdapter<SliderProps, SliderState>{
     onHandleUpBefore: (e: any) => void;
     onHandleUpAfter: () => void;
     unSubscribeEventListener: () => void;
-    checkAndUpdateIsInRenderTreeState: () => boolean;
+    checkAndUpdateIsInRenderTreeState: () => boolean
 }
 
 export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
@@ -520,8 +520,8 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
 
     // run when user touch left or right handle.
     onHandleTouchStart = (e: any, handler: 'min' | 'max') => {
-        const handleMinDom = this._adapter.getMinHandleEl().current;
-        const handleMaxDom = this._adapter.getMaxHandleEl().current;
+        const handleMinDom = this._adapter.getMinHandleEl();
+        const handleMaxDom = this._adapter.getMaxHandleEl();
         if (e.target === handleMinDom || e.target === handleMaxDom) {
             handlePrevent(e);
             const touch = touchEventPolyfill(e.touches[0], e);
@@ -531,8 +531,8 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
     };
 
     onHandleTouchMove = (e: any) => {
-        const handleMinDom = this._adapter.getMinHandleEl().current;
-        const handleMaxDom = this._adapter.getMaxHandleEl().current;
+        const handleMinDom = this._adapter.getMinHandleEl();
+        const handleMaxDom = this._adapter.getMaxHandleEl();
         if (e.target === handleMinDom || e.target === handleMaxDom) {
             const touch = touchEventPolyfill(e.touches[0], e);
             this.onHandleMove(touch);

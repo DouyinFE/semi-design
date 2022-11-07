@@ -31,12 +31,12 @@ describe('timePicker', () => {
 
     it('clear', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?id=timepicker--range-picker&args=&viewMode=story');
-        cy.get('.semi-input').eq(0).click();
+        cy.get('.semi-input').eq(1).click();
         cy.wait(500);
 
-        cy.get('.semi-input').eq(0).trigger('mouseover');
+        cy.get('.semi-input').eq(1).trigger('mouseover');
         cy.get('.semi-input-clearbtn').click();
-        cy.get('.semi-input').eq(0).should('have.value', '');
+        cy.get('.semi-input').eq(1).should('have.value', '');
     });
 
     it('custom trigger', () => {
@@ -44,13 +44,13 @@ describe('timePicker', () => {
         cy.get('.semi-button-content').click();
         cy.wait(500);
 
-        cy.get('.semi-timepicker-panel-list-hour .semi-scrolllist-list-outer').scrollTo('top');
-        cy.get('#root').trigger('mousedown','right');
+        cy.get('.semi-timepicker-panel-list-hour').scrollTo('top');
+        cy.get('#root').trigger('mousedown', 'right');
     });
 
     it('blur', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?id=timepicker--time-picker-panel-default&args=&viewMode=story');
-        cy.get('.semi-input-default').eq(1).click();
+        cy.get('.semi-input-default').eq(1).click(); 
         cy.get('body').click('right');
         cy.get('.semi-input-default').eq(1).should('have.value', '10:24:18');
 

@@ -9,28 +9,32 @@ export type FieldValidateTriggerType = BasicTriggerType | Array<BasicTriggerType
 
 export type CommonFieldError = boolean | string | Array<any> | undefined | unknown;
 
-export interface BaseFormAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
+export type BasicFieldError = Array<any>;
+
+export interface BaseFormAdapter<P = Record<string, any>, S = Record<string, any>, Values extends object = any> extends DefaultAdapter<P, S> {
     cloneDeep: (val: any, ...rest: any[]) => any;
     notifySubmit: (values: any) => void;
-    notifySubmitFail: (errors: Record<string, any>, values: any) => void;
+    notifySubmitFail: (errors: Record<keyof Values, BasicFieldError>, values: Partial<Values>) => void;
     forceUpdate: (callback?: () => void) => void;
     notifyChange: (formState: FormState) => void;
     notifyValueChange: (values: any, changedValues: any) => void;
     notifyReset: () => void;
-    getInitValues: () => Record<string, any>;
+    getInitValues: () => Partial<Values>;
     getFormProps: (keys: undefined | string | Array<string>) => any;
     getAllErrorDOM: () => NodeList;
     getFieldDOM: (field: string) => Node;
-    initFormId: () => void;
+    initFormId: () => void
 }
+
+export type AllErrors<T> = T extends Record<string, any> ? { [K in keyof T]?: string } : Record<string, any>;
 
 export interface FormState<T extends Record<string, any> = any> {
     values?: T extends Record<string, any> ? T : Record<string, any>;
-    errors?: T extends Record<string, any> ? { [K in keyof T]?: string } : Record<string, any>;
-    touched?: T extends Record<string, any> ? { [K in keyof T]?: boolean } : Record<string, any>;
+    errors?: AllErrors<T>;
+    touched?: T extends Record<string, any> ? { [K in keyof T]?: boolean } : Record<string, any>
 }
 export interface setValuesConfig {
-    isOverride: boolean;
+    isOverride: boolean
 }
 
 // use object replace Record<string, any>, fix issue 933
@@ -62,25 +66,25 @@ export interface BaseFormApi<T extends object = any> {
     getValues: () => T;
     /** set value of multiple fields */
     setValues: (fieldsValue: Partial<T>, config?: setValuesConfig) => void;
-    scrollToField: <K extends keyof T>(field: K, scrollConfig?: scrollIntoViewOptions) => void;
+    scrollToField: <K extends keyof T>(field: K, scrollConfig?: scrollIntoViewOptions) => void
 }
 
 export interface CallOpts {
     [x: string]: any;
     notNotify?: boolean;
     notUpdate?: boolean;
-    needClone?: boolean;
+    needClone?: boolean
 }
 
 export interface ComponentProps {
-    [x: string]: any;
+    [x: string]: any
 }
 
 export interface FieldState {
     value?: any;
     touched?: any;
     error?: any;
-    status?: 'error' | 'success';
+    status?: 'error' | 'success'
 }
 
 export interface WithFieldOption {
@@ -89,7 +93,7 @@ export interface WithFieldOption {
     valuePath?: string;
     maintainCursor?: boolean;
     shouldMemo?: boolean;
-    shouldInject?: boolean;
+    shouldInject?: boolean
 }
 
 export interface InternalFieldApi {
@@ -97,20 +101,20 @@ export interface InternalFieldApi {
     setTouched: (isTouched: boolean, opts: CallOpts) => void;
     setError: (errors: any, opts: CallOpts) => void;
     reset: () => void;
-    validate: (val: any, opts: CallOpts) => Promise<unknown>;
+    validate: (val: any, opts: CallOpts) => Promise<unknown>
 }
 
 export interface FieldStaff {
     field: string;
     fieldApi: InternalFieldApi;
     keepState: boolean;
-    allowEmpty: boolean;
+    allowEmpty: boolean
 }
 
 export interface ArrayFieldStaff {
     field: string;
     updateKey?: string;
-    initValue?: any;
+    initValue?: any
 }
 export interface FormUpdaterContextType {
     register: (field: string, fieldState: FieldState, fieldStuff: FieldStaff) => void;
@@ -128,6 +132,6 @@ export interface FormUpdaterContextType {
     registerArrayField: (arrayFieldPath: string, val: any) => void;
     unRegisterArrayField: (arrayField: string) => void;
     getArrayField: (arrayField: string) => ArrayFieldStaff;
-    updateArrayField: (arrayField: string, updateValue: any) => void;
+    updateArrayField: (arrayField: string, updateValue: any) => void
 }
 

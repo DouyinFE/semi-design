@@ -8,18 +8,18 @@ interface KeyboardAdapter<P = Record<string, any>, S = Record<string, any>> exte
     registerKeyDown: (callback: (event: any) => void) => void;
     unregisterKeyDown: (callback: (event: any) => void) => void;
     updateFocusIndex: (focusIndex: number) => void;
-    notifyKeyDown: (e: any) => void;
+    notifyKeyDown: (e: any) => void
 }
 
 export interface DataItem {
     [x: string]: any;
     value?: string | number;
-    label?: any; // reactNode
+    label?: any // reactNode
 }
 
 export interface StateOptionItem extends DataItem {
     show?: boolean;
-    key?: string | number;
+    key?: string | number
 }
 
 export type AutoCompleteData = Array<DataItem | string>;
@@ -39,6 +39,7 @@ export interface AutoCompleteAdapter<P = Record<string, any>, S = Record<string,
     notifyFocus: (event?: any) => void;
     notifyBlur: (event?: any) => void;
     rePositionDropdown: () => void;
+    persistEvent: (event: any) => void
 }
 
 class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<AutoCompleteAdapter<P, S>, P, S> {
@@ -416,8 +417,9 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
     }
 
     handleBlur(e: any) {
+        // only need persist on react adapter
         // https://reactjs.org/docs/legacy-event-pooling.html
-        e.persist();
+        this._persistEvent(e);
         // In order to handle the problem of losing onClick binding when clicking on the padding area, the onBlur event is triggered first to cause the react view to be updated
         // internal-issues:1231
         setTimeout(() => {

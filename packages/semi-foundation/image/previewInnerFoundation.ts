@@ -16,9 +16,9 @@ export interface PreviewInnerAdapter<P = Record<string, any>, S = Record<string,
     getMouseActiveTime: () => number;
     getStopTiming: () => boolean;
     setStopTiming: (value: boolean) => void;
-    getStartMouseDown: () => {x: number, y: number};
+    getStartMouseDown: () => {x: number; y: number};
     setStartMouseDown: (x: number, y: number) => void;
-    setMouseActiveTime: (time: number) => void;
+    setMouseActiveTime: (time: number) => void
 }
 
 const NOT_CLOSE_TARGETS = ["icon", "footer"];
@@ -57,7 +57,7 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
     }
 
     handleMouseMoveEvent = (e: any, event: string) => {
-        const isTarget = isTargetEmit(e.nativeEvent, STOP_CLOSE_TARGET);
+        const isTarget = isTargetEmit(e, STOP_CLOSE_TARGET);
         if (isTarget && event === "over") {
             this._adapter.setStopTiming(true);
         } else if (isTarget && event === "out") {
@@ -74,7 +74,7 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
 
     handleMouseUp = (e: any) => {
         const { maskClosable } = this.getProps();
-        let couldClose = !isTargetEmit(e.nativeEvent, NOT_CLOSE_TARGETS);
+        let couldClose = !isTargetEmit(e, NOT_CLOSE_TARGETS);
         const { clientX, clientY } = e;
         const { x, y } = this._adapter.getStartMouseDown();
         // 对鼠标移动做容错处理，当 x 和 y 方向在 mouseUp 的时候移动距离都小于等于 5px 时候就可以关闭预览
