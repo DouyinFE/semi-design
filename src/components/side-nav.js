@@ -51,7 +51,9 @@ const SideNav = ({ location = null, type = null, itemsArr, edges, style, hasBann
                 <Nav.Sub {...rest} key={rest.itemKey}>
                     {items.map(item=>{
                         return (
-                            <Nav.Item {...item} link={item.itemKey} key={item.itemKey} />
+                            <Link to={item.itemKey} key={item.itemKey} >
+                                <Nav.Item {...item} tabIndex={-1}/>
+                            </Link>
                         );
                     })}
                 </Nav.Sub>
