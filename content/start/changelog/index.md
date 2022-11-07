@@ -21,7 +21,6 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
   - 修复 Navigation item 在有参数 link 情况下跳转链接热区与 onSelect 热区不一致问题
   - 更正 DatePicker 在土耳其语（tr_TR）展示时周六、周日翻译的文本 [@habibokumus](https://github.com/habibokumus)
   - 修复 Table 在固定列情况下，滚动条位置不符合预期问题。
-
 - 【Feat】
   - TagInput 的 renderTagItem API 增加 onClose 参数支持删除标签  [#1219 ](https://github.com/DouyinFE/semi-design/issues/1219)
   - Transfer 提供 search 方法支持用户手动触发搜索
