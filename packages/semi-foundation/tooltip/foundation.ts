@@ -315,9 +315,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
             this._togglePortalVisible(true);
         });
 
-        const position = this.calcPosition(null, null, null, false, true);
-
-        this._adapter.insertPortal(content, position);
+        this._adapter.insertPortal(content, { left: -9990, top: -9999 }); // offscreen rendering
 
         if (trigger === 'custom') {
             // eslint-disable-next-line
@@ -388,14 +386,15 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         return null;
     }
 
-    calcPosStyle(triggerRect: DOMRect, wrapperRect: DOMRect, containerRect: PopupContainerDOMRect, position?: Position, spacing?: number, isOverFlow?: [boolean, boolean]) {
-        triggerRect = (isEmpty(triggerRect) ? triggerRect : this._adapter.getTriggerBounding()) || { ...defaultRect as any };
-        containerRect = (isEmpty(containerRect) ? containerRect : this._adapter.getPopupContainerRect()) || {
+    calcPosStyle(props: {triggerRect: DOMRect, wrapperRect: DOMRect, containerRect: PopupContainerDOMRect, position?: Position, spacing?: number, isOverFlow?: [boolean, boolean]}) {
+        const { spacing, isOverFlow } = props;
+        const triggerRect = (isEmpty(props.triggerRect) ? props.triggerRect : this._adapter.getTriggerBounding()) || { ...defaultRect as any };
+        const containerRect = (isEmpty(props.containerRect) ? props.containerRect : this._adapter.getPopupContainerRect()) || {
             ...defaultRect,
         };
-        wrapperRect = (isEmpty(wrapperRect) ? wrapperRect : this._adapter.getWrapperBounding()) || { ...defaultRect as any };
+        const wrapperRect = (isEmpty(props.wrapperRect) ? props.wrapperRect : this._adapter.getWrapperBounding()) || { ...defaultRect as any };
         // eslint-disable-next-line
-        position = position != null ? position : this.getProp('position');
+        const position = props.position != null ? props.position : this.getProp('position');
         // eslint-disable-next-line
         const SPACING = spacing != null ? spacing : this.getProp('spacing');
         const { arrowPointAtCenter, showArrow, arrowBounding } = this.getProps();
@@ -632,7 +631,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
      * - decide whether to automatically adjust the position according to the current position and the boundingClient of wrapper
      * - adjust the current style according to the current position, the boundingClient of trigger and motion.handle Style
      */
-    calcPosition = (triggerRect?: DOMRect, wrapperRect?: DOMRect, containerRect?: PopupContainerDOMRect, shouldUpdatePos = true, offScreen = false) => {
+    calcPosition = (triggerRect?: DOMRect, wrapperRect?: DOMRect, containerRect?: PopupContainerDOMRect, shouldUpdatePos = true) => {
         triggerRect = (isEmpty(triggerRect) ? this._adapter.getTriggerBounding() : triggerRect) || { ...defaultRect as any };
         containerRect = (isEmpty(containerRect) ? this._adapter.getPopupContainerRect() : containerRect) || {
             ...defaultRect,
@@ -641,7 +640,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
 
         // console.log('containerRect: ', containerRect, 'triggerRect: ', triggerRect, 'wrapperRect: ', wrapperRect);
 
-        let style = offScreen ? { left: -9990, top: -9999 } : this.calcPosStyle(triggerRect, wrapperRect, containerRect);
+        let style = this.calcPosStyle({ triggerRect, wrapperRect, containerRect });
 
         let position = this.getProp('position');
 
@@ -652,7 +651,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
             if (position !== adjustedPos || isHeightOverFlow || isWidthOverFlow) {
                 position = adjustedPos;
 
-                style = this.calcPosStyle(triggerRect, wrapperRect, containerRect, position, null, [ isHeightOverFlow, isWidthOverFlow ]);
+                style = this.calcPosStyle({ triggerRect, wrapperRect, containerRect, position, spacing: null, isOverFlow: [ isHeightOverFlow, isWidthOverFlow ] });
             }
         }
 
