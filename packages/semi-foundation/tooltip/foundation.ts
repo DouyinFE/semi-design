@@ -381,7 +381,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         return null;
     }
 
-    calcPosStyle(props: {triggerRect: DOMRect, wrapperRect: DOMRect, containerRect: PopupContainerDOMRect, position?: Position, spacing?: number, isOverFlow?: [boolean, boolean]}) {
+    calcPosStyle(props: {triggerRect: DOMRect; wrapperRect: DOMRect; containerRect: PopupContainerDOMRect; position?: Position; spacing?: number; isOverFlow?: [boolean, boolean]}) {
         const { spacing, isOverFlow } = props;
         const triggerRect = (isEmpty(props.triggerRect) ? props.triggerRect : this._adapter.getTriggerBounding()) || { ...defaultRect as any };
         const containerRect = (isEmpty(props.containerRect) ? props.containerRect : this._adapter.getPopupContainerRect()) || {
@@ -762,6 +762,9 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
             const shouldViewReverseLeftSide = restClientLeft < wrapperRect.width && clientRight > wrapperRect.width;
             const shouldViewReverseRightSide = clientRight < wrapperRect.width && restClientLeft > wrapperRect.width;
 
+            const shouldReverseTopOver = restClientTop < wrapperRect.height + spacing && clientBottom > wrapperRect.height + spacing;
+            const shouldReverseBottomOver = clientBottom < wrapperRect.height + spacing && restClientTop > wrapperRect.height + spacing;
+
             const shouldReverseLeftOver = restClientLeft < wrapperRect.width && clientRight > wrapperRect.width;
             const shouldReverseRightOver = clientRight < wrapperRect.width && restClientLeft > wrapperRect.width;
 
@@ -823,8 +826,8 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
             const shouldReverseBottom = this.getReverse(isViewYOverFlow, isContanierYOverFlow, shouldViewReverseBottom, shouldContanierReverseBottom);
             const shouldReverseRight = this.getReverse(isViewXOverFlow, isContanierXOverFlow, shouldViewReverseRight, shouldContanierReverseRight);
 
-            const shouldReverseTopOver = this.getReverse(isViewYOverFlowSide, isContanierYOverFlowSide, shouldViewReverseTopOver, shouldContanierReverseTopOver);
-            const shouldReverseBottomOver = this.getReverse(isViewYOverFlowSide, isContanierYOverFlowSide, shouldViewReverseBottomOver, shouldContanierReverseBottomOver);
+            // const shouldReverseTopOver = this.getReverse(isViewYOverFlowSide, isContanierYOverFlowSide, shouldViewReverseTopOver, shouldContanierReverseTopOver);
+            // const shouldReverseBottomOver = this.getReverse(isViewYOverFlowSide, isContanierYOverFlowSide, shouldViewReverseBottomOver, shouldContanierReverseBottomOver);
 
             const shouldReverseTopSide = this.getReverse(isViewYOverFlowSide, isContanierYOverFlowSide, shouldViewReverseTopSide, shouldContanierReverseTopSide);
             const shouldReverseBottomSide = this.getReverse(isViewYOverFlowSide, isContanierYOverFlowSide, shouldViewReverseBottomSide, shouldContanierReverseBottomSide);

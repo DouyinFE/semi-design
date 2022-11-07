@@ -58,7 +58,7 @@ export interface TooltipProps extends BaseProps {
     onVisibleChange?: (visible: boolean) => void;
     onClickOutSide?: (e: React.MouseEvent) => void;
     spacing?: number;
-    margin?: number | { marginLeft: number, marginTop: number, marginRight: number, marginBottom: number };
+    margin?: number | { marginLeft: number; marginTop: number; marginRight: number; marginBottom: number };
     showArrow?: boolean | React.ReactNode;
     zIndex?: number;
     rePosKey?: string | number;

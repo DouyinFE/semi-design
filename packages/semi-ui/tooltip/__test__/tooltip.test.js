@@ -57,6 +57,7 @@ describe(`Tooltip`, () => {
         expect(document.querySelectorAll(`.${BASE_CLASS_PREFIX}-tooltip-wrapper`).length).toBe(1);
 
         // scroll
+        await sleep(100);
         const deltaY = 50;
         const scrollContainer = demo.find(`#${scrollContainerId}`);
         const oldTop = window.getComputedStyle(tooltipOuter).top;

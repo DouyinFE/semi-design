@@ -408,7 +408,7 @@ import { Popconfirm, Tooltip, Button } from '@douyinfe/semi-ui';
 | clickToHide | Whether to automatically close the elastic layer when clicking on the floating layer and any element inside | boolean | false | **0.24.0** |
 | disableFocusListener | When trigger is `hover`, does not respond to the keyboard focus popup event, see details at [issue#977](https://github.com/DouyinFE/semi-design/issues/977) | boolean | false | **2.17.0** |
 | getPopupContainer | Specifies the parent DOM, and the bullet layer will be rendered to the DOM | () => HTMLElement | () => document.body |
-| margin | Calculate the added redundancy value when overflowing, see [issue#549](https://github.com/DouyinFE/semi-design/issues/549) | number ｜ { marginLeft: number, marginTop: number, marginRight: number, marginBottom: number } | 0 |  **2.23.0**|
+| margin | Calculate the added redundancy value when overflowing, see [issue#549](https://github.com/DouyinFE/semi-design/issues/549) | number ｜ { marginLeft: number; marginTop: number; marginRight: number; marginBottom: number } | 0 |  **2.23.0**|
 | mouseEnterDelay | After the mouse is moved in, the display delay time, in milliseconds (only effective when the trigger is hover/focus) | number | 50 |  |
 | mouseLeaveDelay | The time for the delay to disappear after the mouse is moved out, in milliseconds (only effective when the trigger is hover/focus), and is not less than mouseEnterDelay | number | 50 |  |
 | motion | Whether to show the pop-up motion | boolean | true |  |
