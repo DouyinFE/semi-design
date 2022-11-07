@@ -139,16 +139,19 @@ export default class Item extends PureComponent<CascaderItemProps> {
         return state;
     };
 
-    renderIcon = (type: string) => {
+    renderIcon = (type: string, havePaddingLeft = false) => {
+        const finalStyle = (style: string) => {
+            return style + (havePaddingLeft ? ` ${prefixcls}-icon-left` : '');
+        };
         switch (type) {
             case 'child':
-                return (<IconChevronRight className={`${prefixcls}-icon ${prefixcls}-icon-expand`} />);
+                return (<IconChevronRight className={finalStyle(`${prefixcls}-icon ${prefixcls}-icon-expand`)} />);
             case 'tick':
-                return (<IconTick className={`${prefixcls}-icon ${prefixcls}-icon-active`} />);
+                return (<IconTick className={finalStyle(`${prefixcls}-icon ${prefixcls}-icon-active`)} />);
             case 'loading':
-                return <Spin wrapperClassName={`${prefixcls}-spin-icon`} />;
+                return <Spin wrapperClassName={finalStyle(`${prefixcls}-spin-icon`)} />;
             case 'empty':
-                return (<span aria-hidden={true} className={`${prefixcls}-icon ${prefixcls}-icon-empty`} />);
+                return (<span aria-hidden={true} className={finalStyle(`${prefixcls}-icon ${prefixcls}-icon-empty`)} />);
             default:
                 return null;
         }
@@ -273,7 +276,7 @@ export default class Item extends PureComponent<CascaderItemProps> {
                                 )}
                                 <span>{label}</span>
                             </span>
-                            {showExpand ? this.renderIcon(loading ? 'loading' : 'child') : null}
+                            {showExpand ? this.renderIcon(loading ? 'loading' : 'child', true) : null}
                         </li>
                     );
                 })}
