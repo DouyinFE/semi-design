@@ -15,6 +15,20 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+
+
+#### 🎉 2.23.0-beta.0 (2022-11-07)
+- 【Fix】
+  - fix the inconsistency between the jump link hotspot and the onSelect hotspot when the Navigation item has a parameter link
+  - Corrected Saturday, Sunday translated text of DatePicker when displayed in Turkish (tr_TR) [@habibokumus](https://github.com/habibokumus)
+  - fix the scroll bar position not as expected when Table has fixed columns.
+- 【Feat】
+  - Add the onClose parameter to the renderTagItem API of TagInput to support deleting tags  [#1219 ](https://github.com/DouyinFE/semi-design/issues/1219)
+  - Transfer provides a search method to allow users to manually trigger searches
+- 【Chore】
+  - Update Form interface, add generic pass to define values type [@Hokori23](https://github.com/Hokori23)
+  - Add test case for Image component  [#1216 ](https://github.com/DouyinFE/semi-design/issues/1216)
+
 #### 🎉 2.22.3 (2022-11-02)
 - 【Docs】
     - Added accessibility (A11y) support to Semi site
