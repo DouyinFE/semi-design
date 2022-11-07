@@ -4,6 +4,14 @@ a:focus-visible {
     border-radius: 3px;
 }
 
+ul {
+    a:focus-visible {
+        outline: 2px auto var(--semi-color-primary-light-active);
+        border-radius: 3px;
+        outline-offset: -1px;
+    }
+}
+
 .header-tinyTitle {
     font-size: 18px;
     line-height: 1.33;
