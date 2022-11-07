@@ -51,8 +51,8 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
         onPrev: PropTypes.func,
         onNext: PropTypes.func,
         onDownload: PropTypes.func,
+        onRotateLeft: PropTypes.func,
         onRatioChange: PropTypes.func,
-        onRotateChange: PropTypes.func,
     }
 
     static defaultProps = {

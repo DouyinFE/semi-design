@@ -32,7 +32,7 @@ const SideNav = ({ location = null, type = null, itemsArr, edges, style, hasBann
                 navData[categoryIndex].items.push({
                     itemKey: `/${node.fields.slug}`,
                     text: node.frontmatter.title,
-                    icon: <Icon svg={<IconNode />} size={'extra-large'} /> || '',
+                    icon: <Icon svg={<IconNode />} size={'extra-large'} aria-hidden={true} /> || '',
                     order: node.frontmatter.order || 0,
                     // link: `/${node.fields.slug}`,
                     // linkOptions: {
@@ -46,19 +46,19 @@ const SideNav = ({ location = null, type = null, itemsArr, edges, style, hasBann
             }
         });
         return navData.map(category=>{
-            const { items, ...rest } = category
+            const { items, ...rest } = category;
             return (
                 <Nav.Sub {...rest} key={rest.itemKey}>
                     {items.map(item=>{
                         return (
                             <Link to={item.itemKey} key={item.itemKey} >
-                                <Nav.Item {...item} />
+                                <Nav.Item {...item} tabIndex={-1}/>
                             </Link>
-                        )
+                        );
                     })}
                 </Nav.Sub>
-            )
-        })
+            );
+        });
     }
 
     const computedNavData = useMemo(() => getNavData(itemsArr), [itemsArr, localeCode]);
@@ -95,7 +95,7 @@ const SideNav = ({ location = null, type = null, itemsArr, edges, style, hasBann
     };
 
     return (
-        <div className={'side-nav'} style={style}>
+        <div id="side-nav" className={'side-nav'} style={style}>
             <Nav
                 style={{
                     width: '100%',

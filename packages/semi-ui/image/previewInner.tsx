@@ -65,7 +65,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
         onNext: PropTypes.func,
         onDownload: PropTypes.func,
         onRatioChange: PropTypes.func,
-        onRotateChange: PropTypes.func,
+        onRotateLeft: PropTypes.func,
     }
 
     static defaultProps = {
@@ -85,9 +85,14 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
         return {
             ...super.adapter,
             getIsInGroup: () => this.isInGroup(),
-            notifyChange: (index: number) => {
-                const { onChange } = this.props;
+            notifyChange: (index: number, direction: string) => {
+                const { onChange, onPrev, onNext } = this.props;
                 isFunction(onChange) && onChange(index);
+                if (direction === "prev") {
+                    onPrev && onPrev(index);
+                } else {
+                    onNext && onNext(index);
+                }
             },
             notifyZoom: (zoom: number, increase: boolean) => {
                 const { onZoomIn, onZoomOut } = this.props;
@@ -110,8 +115,8 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
                 isFunction(onRatioChange) && onRatioChange(type);
             },
             notifyRotateChange: (angle: number) => {
-                const { onRotateChange } = this.props;
-                isFunction(onRotateChange) && onRotateChange(angle);   
+                const { onRotateLeft } = this.props;
+                isFunction(onRotateLeft) && onRotateLeft(angle);   
             },
             notifyDownload: (src: string, index: number) => {
                 const { onDownload } = this.props;

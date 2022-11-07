@@ -10,7 +10,7 @@ export class Footer extends Component {
 
     render() {
         return (
-            <div className='footerMini8'><img alt="semi logo" aria-hidden src="https://lf9-static.semi.design/obj/semi-tos/images/a5768a90-324e-11ec-b393-ab4adc2e449f.svg" className='group6' />
+            <div className='footerMini8' id="footer"><img alt="semi logo" aria-hidden src="https://lf9-static.semi.design/obj/semi-tos/images/a5768a90-324e-11ec-b393-ab4adc2e449f.svg" className='group6' />
                 <div className='links'>
                     <a href={`/${getLocale()}/start/getting-started`} className='text'>{_t('footer.component')}</a>
                     <a href='https://figma.com/@semi' className='figmaUIKit' target="_blank" rel="noreferrer">Figma UIKit</a>

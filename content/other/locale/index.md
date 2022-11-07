@@ -96,7 +96,7 @@ class I18nDemo extends React.Component {
 
 ### 自定义国际化组件
 
-```jsx live=true dir="column" hideInDSM
+```jsx live=true dir="column" noInline=true
 import React from 'react';
 import zh_CN from '@douyinfe/semi-ui/lib/es/locale/source/zh_CN';
 import en_GB from '@douyinfe/semi-ui/lib/es/locale/source/en_GB';
@@ -139,6 +139,8 @@ class CustomComponent extends React.Component {
         </LocaleConsumer>;
     }
 }
+
+render(CustomComponent);
 ```
 
 ### 支持多语言的组件

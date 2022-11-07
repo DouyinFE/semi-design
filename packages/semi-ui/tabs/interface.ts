@@ -66,7 +66,8 @@ export interface TabPaneProps {
     itemKey?: string;
     style?: CSSProperties;
     tab?: ReactNode;
-    closable?: boolean
+    closable?: boolean;
+    tabIndex?: number
 }
 
 export interface TabPaneTransitionProps {

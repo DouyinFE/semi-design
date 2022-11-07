@@ -1,42 +1,44 @@
 import { _t } from 'src/utils/locale';
 import React from 'react';
-import { Button, Tag } from '@douyinfe/semi-ui';
+import { Button, Tag, Badge } from '@douyinfe/semi-ui';
 import styles from './pro.module.scss';
 import { navigate } from 'gatsby-link';
 import { getLocale } from '../../../../utils/locale';
-import classnames from 'classnames';
 import Component from './d2cApplication.jsx';
+
+function BetaTag({ style }) {
+    return (
+        <Tag style={{ 
+            color: 'var(--semi-color-white)', 
+            background: 'rgba(var(--semi-violet-4), 1)', 
+            fontWeight: 600,
+            ...style
+        }}>
+            {_t('BETA', {}, 'BETA')}
+        </Tag>
+    );
+}
 
 function Pro(props) {
 
     const goD2CStart = () => {
-        navigate(`/code/${getLocale()}/start/quick-start`);
+        navigate(`/code/${getLocale()}`);
     };
-    const isInternal = process.env.D2C_URL;
 
     return (
-        <div {...props} className={styles.macBookPro2}>
+        <div {...props} className={`${styles.macBookPro2}`}>
             <div className={styles.frame14294}>
-                <div className={styles.frame4151}>
-                    <p className={styles.semiPro} data-locale={"en-US"}>{_t('home.pro.title')}</p>
-                    {isInternal && (
-                        <Tag style={{ color: '#F0B114', background: '#41464C', marginLeft: 12 }}>
-                            {_t('beta', {}, '公测')}
-                        </Tag>
-                    )}
+                <div className={`${styles.frame4151} semi-always-dark`}>
+                    <Badge count={<BetaTag style={{ right: -14, top: 4 }} />}>
+                        <p className={styles.semiPro} data-locale={"en-US"}>{_t('home.pro.title')}</p>
+                    </Badge>
                 </div>
                 <p className={styles.text}>
-                    <span className={styles.text_4c571d3f}>{_t('home.pro.desc', {}, '基于')}</span>
+                    <span className={styles.text_4c571d3f}>{_t('home.pro.desc', {}, '使用真实组件设计，前端代码一键转')}</span>
                 </p>
-                {isInternal ? (
-                    <Button onClick={goD2CStart} size="large" theme="solid" className={styles.extraLarge}>
-                        {_t('home.pro.start', {}, '了解更多')}
-                    </Button>
-                ) : (
-                    <div className={styles.buttonSecondarySolid}>
-                        <p className={styles.text_001dc6a1}>{_t('under_construction', {}, '建设中')}</p>
-                    </div>
-                )}
+                <Button onClick={goD2CStart} size="large" theme="solid" className={`${styles.extraLarge} semi-always-dark`}>
+                    {_t('home.pro.start', {}, '了解更多')}
+                </Button>
             </div>
             <div className={styles.autoWrapper}>
                 {/* eslint-disable-next-line */}

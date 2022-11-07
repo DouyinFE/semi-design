@@ -20,9 +20,9 @@ export default class PreviewFooterFoundation<P = Record<string, any>, S = Record
     handleValueChange = (value: number): void => {
         const { onZoomIn, onZoomOut, zoom } = this.getProps();
         if (value > zoom) {
-            onZoomIn(value / 100);
+            onZoomIn(Number((value / 100).toFixed(2)));
         } else {
-            onZoomOut(value / 100);
+            onZoomOut(Number((value / 100).toFixed(2)));
         }
         this._adapter.setStartMouseOffset(value);
     };
