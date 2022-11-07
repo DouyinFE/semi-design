@@ -27,7 +27,7 @@ describe('carousel', () => {
 
     });
 
-    it('ref method without control', () => {
+    it.skip('ref method without control', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?id=carousel--ref-usage&args=&viewMode=story');
         cy.get('.semi-carousel-content-item-active h3').contains('1');
 
