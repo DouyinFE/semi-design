@@ -46,7 +46,7 @@
     color: var(--semi-color-white);
     line-height: 32px;
     font-weight: 400;
-    text-align: left;
+    text-align: center;
     vertical-align: top;
 }
 
@@ -91,7 +91,7 @@
     height: 48px;
     padding: 12px 24px;
     border-radius: 6px;
-    background-color: rgba(84, 169, 255, 1);
+    background-color: var(--semi-color-primary);
 
     :global(.semi-button-content) {
         font-size: 16px;
