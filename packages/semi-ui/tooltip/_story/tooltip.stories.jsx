@@ -1314,9 +1314,8 @@ export const SmartPosAdjustDemo = () => {
     <div style={{ width: 800, height: 800 }}>
       <Popover 
         position={pos}
-        AdjustPosIfNeed
         showArrow
-        trigger='click'
+ 
         content={
           <div style={{ minWidth: 900, height: 900, backgroundColor: 'lightblue' }}>
             <article>
@@ -1352,10 +1351,10 @@ export const SmartPosAdjustDemo = () => {
 
 // right -> other
 export const AutoRight2LeftDemo = () => <Right2Left />;
-AutoRight2LeftDemo.storyName = `❌ auto : right -> left`;
+AutoRight2LeftDemo.storyName = `✅ auto : right -> left`;
 
 export const AutoRight2LeftBottomDemo = () => <Right2LeftBottom />;
-AutoRight2LeftBottomDemo.storyName = `❌ auto : right -> leftBottom`;
+AutoRight2LeftBottomDemo.storyName = `✅ auto : right -> leftBottom`;
 
 export const AutoRight2LeftTopDemo = () => <Right2LeftTop />;
 AutoRight2LeftTopDemo.storyName = `✅ auto : riht -> leftTop`;
@@ -1372,7 +1371,7 @@ export const Left2RightDemo = () => <Left2Right />;
 Left2RightDemo.storyName = `✅ auto : left -> right`;
 
 export const Left2LeftBottomDemo = () => <Left2LeftBottom />;
-Left2LeftBottomDemo.storyName = `❌ auto : left -> leftBottom`;
+Left2LeftBottomDemo.storyName = `✅ auto : left -> leftBottom`;
 
 export const Left2LeftTopDemo = () => <Left2LeftTop />;
 Left2LeftTopDemo.storyName = `✅ auto : left -> leftTop`;
@@ -1394,7 +1393,7 @@ export const Top2BottomRightDemo = () => <Top2BottomRight />;
 Top2BottomRightDemo.storyName = `✅ auto : top -> bottomRight`;
 
 export const Top2TopLeftDemo = () => <Top2TopLeft />;
-Top2TopLeftDemo.storyName = `❌ auto : top -> topLeft`;
+Top2TopLeftDemo.storyName = `✅ auto : top -> topLeft`;
 
 export const Top2TopRightDemo = () => <Top2TopRight />;
 Top2TopRightDemo.storyName = `✅ auto : top -> topRight`;
@@ -1408,7 +1407,7 @@ export const Bottom2TopLeftDemo = () => <Bottom2TopLeft />;
 Bottom2TopLeftDemo.storyName = `✅ auto : bottom -> topLeft`;
 
 export const Bottom2TopRightDemo = () => <Bottom2TopRight />;
-Bottom2TopRightDemo.storyName = `❌ auto : bottom -> topRight`;
+Bottom2TopRightDemo.storyName = `✅ auto : bottom -> topRight`;
 
 export const Bottom2BottomLeftDemo = () => <Bottom2BottomLeft />;
 Bottom2BottomLeftDemo.storyName = `✅ auto : bottom -> bottomLeft`;
