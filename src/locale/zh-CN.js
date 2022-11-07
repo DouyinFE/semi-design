@@ -105,7 +105,7 @@ const appLocale = {
         "powerful_theme_editor__real_time_effect__one_click_synchronization_of_design_too_d77f5776bf126331e801d6d6aa0146f2": "强大的主题编辑器，实时生效，设计工具一键同步",
         // page six: C to D to C
         "home.pro.title": "让设计与代码同源",
-        "home.pro.desc": "基于 40+ 真实组件代码设计，海量页面模板前端代码一键转",
+        "home.pro.desc": "使用真实组件设计，前端代码一键转",
         "home.pro.start": "了解更多",
         "beta": "公测",
         "example_upload_report": "上传报告",
