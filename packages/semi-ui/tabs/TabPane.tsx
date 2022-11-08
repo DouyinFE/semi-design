@@ -57,7 +57,7 @@ class TabPane extends PureComponent<TabPaneProps> {
 
     render(): ReactNode {
         const { tabPaneMotion: motion, tabPosition, prevActiveKey } = this.context;
-        const { className, style, children, itemKey, ...restProps } = this.props;
+        const { className, style, children, itemKey, tabIndex, ...restProps } = this.props;
         const active = this.context.activeKey === itemKey;
         const classNames = cls(className, {
             [cssClasses.TABS_PANE_INACTIVE]: !active,
@@ -93,7 +93,7 @@ class TabPane extends PureComponent<TabPaneProps> {
                 className={classNames}
                 style={style}
                 aria-hidden={active ? 'false' : 'true'}
-                tabIndex={0}
+                tabIndex={tabIndex ? tabIndex : 0}
                 {...getDataAttr(restProps)}
                 x-semi-prop="children"
             >

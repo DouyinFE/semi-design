@@ -97,7 +97,7 @@ class I18nDemo extends React.Component {
 
 ### Custom Internationalization Component
 
-```jsx live=true dir="column" hideInDSM
+```jsx live=true dir="column" noInline=true
 import React from 'react';
 import zh_CN from '@douyinfe/semi-ui/lib/es/locale/source/zh_CN';
 import en_GB from '@douyinfe/semi-ui/lib/es/locale/source/en_GB';
@@ -140,6 +140,9 @@ class CustomComponent extends React.Component {
         </LocaleConsumer>;
     }
 }
+
+render(CustomComponent);
+
 ```
 
 ### Components that support multilingualism

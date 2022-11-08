@@ -50,7 +50,7 @@ export default class ImageFoundation<P = Record<string, any>, S = Record<string,
         if (isObject(preview)) {
             const { onVisibleChange } = preview as any;
             onVisibleChange && onVisibleChange(newVisible);
-            if (!("visible" in this.getProps())) {
+            if (!("visible" in preview)) {
                 this.setState({
                     previewVisible: newVisible,
                 } as any);

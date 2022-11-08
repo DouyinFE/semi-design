@@ -16,6 +16,22 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 ---
 
+#### 🎉 2.23.0-beta.0 (2022-11-07)
+- 【Fix】
+  - 修复 Navigation item 在有参数 link 情况下跳转链接热区与 onSelect 热区不一致问题
+  - 更正 DatePicker 在土耳其语（tr_TR）展示时周六、周日翻译的文本 [@habibokumus](https://github.com/habibokumus)
+  - 修复 Table 在固定列情况下，滚动条位置不符合预期问题。
+- 【Feat】
+  - TagInput 的 renderTagItem API 增加 onClose 参数支持删除标签  [#1219 ](https://github.com/DouyinFE/semi-design/issues/1219)
+  - Transfer 提供 search 方法支持用户手动触发搜索
+- 【Chore】
+  - Form interface 更新，Form标签增加泛型传入，指定 Values类型 [@Hokori23](https://github.com/Hokori23)
+  - 增加 Image 组件的测试用例  [#1216 ](https://github.com/DouyinFE/semi-design/issues/1216)
+  
+#### 🎉 2.22.3 (2022-11-02)
+- 【Docs】
+    - 站点新增无障碍（A11y）支持
+
 #### 🎉 2.22.2 (2022-10-31)
 - 【Fix】
     - 修复 Tooltip、Popover 组件关闭时闪烁问题（影响 v2.22）[#1225](https://github.com/DouyinFE/semi-design/issues/1225)

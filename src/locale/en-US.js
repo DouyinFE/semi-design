@@ -103,7 +103,7 @@ const appLocale = {
         "powerful_theme_editor__real_time_effect__one_click_synchronization_of_design_too_d77f5776bf126331e801d6d6aa0146f2": "Powerful theme editor, effective in real time, one-click synchronization of design tools",
         // page six: C to D to C
         "home.pro.title": "Make design and code homologous",
-        "home.pro.desc": "Based on 40+ real component code design, massive page template front-end code one-click transfer",
+        "home.pro.desc": "Use real components to draw design drafts and transfer front-end code with one click",
         "home.pro.start": "Get Started",
         "beta": "public beta",
         "example_upload_report": "Upload report",
