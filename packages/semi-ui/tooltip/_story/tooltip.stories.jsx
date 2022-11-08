@@ -15,7 +15,6 @@ import {
   Popover,
   Input,
   RadioGroup,
-  Radio,
   SideSheet
 } from '@douyinfe/semi-ui';
 
@@ -1314,8 +1313,7 @@ export const SmartPosAdjustDemo = () => {
     <div style={{ width: 800, height: 800 }}>
       <Popover 
         position={pos}
-        showArrow
- 
+        showArrow={true}
         content={
           <div style={{ minWidth: 900, height: 900, backgroundColor: 'lightblue' }}>
             <article>
