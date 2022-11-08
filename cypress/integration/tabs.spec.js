@@ -28,7 +28,7 @@ describe('tabs', () => {
         cy.viewport(800, 800);
         cy.get('.semi-tabs-content').eq(0).contains('Content of card tab 0');
         cy.get('.semi-button').eq(1).trigger('mouseover');
-        cy.get('.semi-dropdown').contains('Tab-6').click();
+        cy.get('.semi-dropdown').contains('Tab-6').click({ force: true });
         cy.get('.semi-tabs-content').eq(0).contains('Content of card tab 6');
 
         // Tab-10 visible
