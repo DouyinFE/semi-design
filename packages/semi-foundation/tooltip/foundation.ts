@@ -138,15 +138,15 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         this._adapter.removePortal();
     }
 
-    _adjustPos(position = '', isVertical = false, ajustType = 'reverse', concatPos?: any) {
-        switch (ajustType) {
+    _adjustPos(position = '', isVertical = false, adjustType = 'reverse', concatPos?: any) {
+        switch (adjustType) {
             case 'reverse':
                 return this._reversePos(position, isVertical);
             case 'expand':
-                // only happens when postion is top/bottom/left/right
+                // only happens when position is top/bottom/left/right
                 return this._expandPos(position, concatPos);
             case 'reduce':
-                // only happens when postion other than top/bottom/left/right
+                // only happens when position other than top/bottom/left/right
                 return this._reducePos(position);
             default:
                 return this._reversePos(position, isVertical);
@@ -419,7 +419,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         const offsetHeight = heightDifference > 0 ? heightDifference : 0;
         const offsetWidth = widthDifference > 0 ? widthDifference : 0;
         const isHeightOverFlow = isOverFlow && isOverFlow[0];
-        const isWitdhOverFlow = isOverFlow && isOverFlow[1];
+        const isWidthOverFlow = isOverFlow && isOverFlow[1];
 
         const isTriggerNearLeft = middleX - containerRect.left < containerRect.right - middleX;
         const isTriggerNearTop = middleY - containerRect.top < containerRect.bottom - middleY;
@@ -429,7 +429,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
             case 'top':
                 // left = middleX;
                 // top = triggerRect.top - SPACING;
-                left = isWitdhOverFlow ? (isTriggerNearLeft ? containerRect.left + wrapperRect.width / 2 : containerRect.right - wrapperRect.width / 2 + offsetWidth): middleX;
+                left = isWidthOverFlow ? (isTriggerNearLeft ? containerRect.left + wrapperRect.width / 2 : containerRect.right - wrapperRect.width / 2 + offsetWidth): middleX;
                 top = isHeightOverFlow ? containerRect.bottom + offsetHeight : triggerRect.top - SPACING;
                 translateX = -0.5;
                 translateY = -1;
@@ -437,14 +437,14 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
             case 'topLeft':
                 // left = pointAtCenter ? middleX - offsetXWithArrow : triggerRect.left;
                 // top = triggerRect.top - SPACING;
-                left = isWitdhOverFlow ? containerRect.left : (pointAtCenter ? middleX - offsetXWithArrow : triggerRect.left);
+                left = isWidthOverFlow ? containerRect.left : (pointAtCenter ? middleX - offsetXWithArrow : triggerRect.left);
                 top = isHeightOverFlow ? containerRect.bottom + offsetHeight : triggerRect.top - SPACING;
                 translateY = -1;
                 break;
             case 'topRight':
                 // left = pointAtCenter ? middleX + offsetXWithArrow : triggerRect.right;
                 // top = triggerRect.top - SPACING;
-                left = isWitdhOverFlow ? containerRect.right + offsetWidth : (pointAtCenter ? middleX + offsetXWithArrow : triggerRect.right);
+                left = isWidthOverFlow ? containerRect.right + offsetWidth : (pointAtCenter ? middleX + offsetXWithArrow : triggerRect.right);
                 top = isHeightOverFlow ? containerRect.bottom + offsetHeight : triggerRect.top - SPACING;
                 translateY = -1;
                 translateX = -1;
@@ -452,8 +452,8 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
             case 'left':
                 // left = triggerRect.left - SPACING;
                 // top = middleY;
-                // left = isWitdhOverFlow? containerRect.right - SPACING : triggerRect.left - SPACING;
-                left = isWitdhOverFlow ? containerRect.right + offsetWidth - SPACING + offsetXWithArrow : triggerRect.left - SPACING;
+                // left = isWidthOverFlow? containerRect.right - SPACING : triggerRect.left - SPACING;
+                left = isWidthOverFlow ? containerRect.right + offsetWidth - SPACING + offsetXWithArrow : triggerRect.left - SPACING;
                 top = isHeightOverFlow ? (isTriggerNearTop ? containerRect.top + wrapperRect.height / 2 : containerRect.bottom - wrapperRect.height / 2 + offsetHeight): middleY;
                 translateX = -1;
                 translateY = -0.5;
@@ -461,14 +461,14 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
             case 'leftTop':
                 // left = triggerRect.left - SPACING;
                 // top = pointAtCenter ? middleY - offsetYWithArrow : triggerRect.top;
-                left = isWitdhOverFlow ? containerRect.right + offsetWidth - SPACING + offsetXWithArrow : triggerRect.left - SPACING;
+                left = isWidthOverFlow ? containerRect.right + offsetWidth - SPACING + offsetXWithArrow : triggerRect.left - SPACING;
                 top = isHeightOverFlow ? containerRect.top : (pointAtCenter ? middleY - offsetYWithArrow : triggerRect.top);
                 translateX = -1;
                 break;
             case 'leftBottom':
                 // left = triggerRect.left - SPACING;
                 // top = pointAtCenter ? middleY + offsetYWithArrow : triggerRect.bottom;
-                left = isWitdhOverFlow ? containerRect.right + offsetWidth - SPACING + offsetXWithArrow: triggerRect.left - SPACING;
+                left = isWidthOverFlow ? containerRect.right + offsetWidth - SPACING + offsetXWithArrow: triggerRect.left - SPACING;
                 top = isHeightOverFlow ? containerRect.bottom + offsetHeight: (pointAtCenter ? middleY + offsetYWithArrow : triggerRect.bottom);
                 translateX = -1;
                 translateY = -1;
@@ -476,40 +476,40 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
             case 'bottom':
                 // left = middleX;
                 // top = triggerRect.top + triggerRect.height + SPACING;
-                left = isWitdhOverFlow ? (isTriggerNearLeft ? containerRect.left + wrapperRect.width / 2 : containerRect.right - wrapperRect.width / 2 + offsetWidth): middleX;
+                left = isWidthOverFlow ? (isTriggerNearLeft ? containerRect.left + wrapperRect.width / 2 : containerRect.right - wrapperRect.width / 2 + offsetWidth): middleX;
                 top = isHeightOverFlow ? containerRect.top + offsetYWithArrow - SPACING: triggerRect.top + triggerRect.height + SPACING;
                 translateX = -0.5;
                 break;
             case 'bottomLeft':
                 // left = pointAtCenter ? middleX - offsetXWithArrow : triggerRect.left;
                 // top = triggerRect.bottom + SPACING;
-                left = isWitdhOverFlow ? containerRect.left : (pointAtCenter ? middleX - offsetXWithArrow : triggerRect.left);
+                left = isWidthOverFlow ? containerRect.left : (pointAtCenter ? middleX - offsetXWithArrow : triggerRect.left);
                 top = isHeightOverFlow ? containerRect.top + offsetYWithArrow - SPACING : triggerRect.top + triggerRect.height + SPACING;
                 break;
             case 'bottomRight':
                 // left = pointAtCenter ? middleX + offsetXWithArrow : triggerRect.right;
                 // top = triggerRect.bottom + SPACING;
-                left = isWitdhOverFlow ? containerRect.right + offsetWidth : (pointAtCenter ? middleX + offsetXWithArrow : triggerRect.right);
+                left = isWidthOverFlow ? containerRect.right + offsetWidth : (pointAtCenter ? middleX + offsetXWithArrow : triggerRect.right);
                 top = isHeightOverFlow ? containerRect.top + offsetYWithArrow - SPACING : triggerRect.top + triggerRect.height + SPACING;
                 translateX = -1;
                 break;
             case 'right':
                 // left = triggerRect.right + SPACING;
                 // top = middleY;
-                left = isWitdhOverFlow ? containerRect.left - SPACING + offsetXWithArrow : triggerRect.right + SPACING;
+                left = isWidthOverFlow ? containerRect.left - SPACING + offsetXWithArrow : triggerRect.right + SPACING;
                 top = isHeightOverFlow ? (isTriggerNearTop ? containerRect.top + wrapperRect.height / 2 : containerRect.bottom - wrapperRect.height / 2 + offsetHeight) : middleY;
                 translateY = -0.5;
                 break;
             case 'rightTop':
                 // left = triggerRect.right + SPACING;
                 // top = pointAtCenter ? middleY - offsetYWithArrow : triggerRect.top;
-                left = isWitdhOverFlow ? containerRect.left - SPACING + offsetXWithArrow : triggerRect.right + SPACING;
+                left = isWidthOverFlow ? containerRect.left - SPACING + offsetXWithArrow : triggerRect.right + SPACING;
                 top = isHeightOverFlow ? containerRect.top : (pointAtCenter ? middleY - offsetYWithArrow : triggerRect.top);
                 break;
             case 'rightBottom':
                 // left = triggerRect.right + SPACING;
                 // top = pointAtCenter ? middleY + offsetYWithArrow : triggerRect.bottom;
-                left = isWitdhOverFlow ? containerRect.left - SPACING + offsetXWithArrow : triggerRect.right + SPACING;
+                left = isWidthOverFlow ? containerRect.left - SPACING + offsetXWithArrow : triggerRect.right + SPACING;
                 top = isHeightOverFlow ? containerRect.bottom + offsetHeight : (pointAtCenter ? middleY + offsetYWithArrow : triggerRect.bottom);
                 translateY = -1;
                 break;
@@ -690,7 +690,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         return posSpace >= size || negSpace >= size;
     }
 
-    getReverse(viewOverFlow: boolean, cntrOverFlow: boolean, shouldReverseView: boolean, shouldReverseContanier: boolean) {
+    getReverse(viewOverFlow: boolean, containerOverFlow: boolean, shouldReverseView: boolean, shouldReverseContainer: boolean) {
         /**
          * 基于视口和容器一起判断，以下几种情况允许从原方向转到反方向，以判断是否应该由top->bottom为例子
          *
@@ -704,7 +704,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
          * 2. The space above the viewport ❌ the space below ✅ and the space above and below the container is insufficient
          * 3. Viewport upper space ❌ lower space✅ and container upper space ❌ lower space✅
          */
-        return (viewOverFlow && shouldReverseContanier) || (shouldReverseView && cntrOverFlow) || (shouldReverseView && shouldReverseContanier);
+        return (viewOverFlow && shouldReverseContainer) || (shouldReverseView && containerOverFlow) || (shouldReverseView && shouldReverseContainer);
     }
 
     // place the dom correctly
@@ -770,29 +770,29 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
 
             // 基于容器的微调判断
             // Fine-tuning judgment based on container
-            const clientTopInContanier = clientTop - containerRect.top;
-            const clientLeftInContanier = clientLeft - containerRect.left;
-            const clientBottomInContanier = clientTopInContanier + triggerRect.height;
-            const clientRightInContanier = clientLeftInContanier + triggerRect.width;
+            const clientTopInContainer = clientTop - containerRect.top;
+            const clientLeftInContainer = clientLeft - containerRect.left;
+            const clientBottomInContainer = clientTopInContainer + triggerRect.height;
+            const clientRightInContainer = clientLeftInContainer + triggerRect.width;
 
-            const restClientBottomInContanier = containerRect.bottom - clientBottom;
-            const restClientRightInContanier = containerRect.right - clientRight;
-            const restClientTopInContanier = restClientBottomInContanier + triggerRect.height;
-            const restClientLeftInContanier = restClientRightInContanier + triggerRect.width;
+            const restClientBottomInContainer = containerRect.bottom - clientBottom;
+            const restClientRightInContainer = containerRect.right - clientRight;
+            const restClientTopInContainer = restClientBottomInContainer + triggerRect.height;
+            const restClientLeftInContainer = restClientRightInContainer + triggerRect.width;
 
             // 当原空间不足，反向空间足够时，可以反向。
             // When the original space is insufficient and the reverse space is sufficient, the reverse can be performed.
-            const shouldContanierReverseTop = this.isReverse(clientTopInContanier - marginTop, restClientBottomInContanier - marginBottom, wrapperRect.height + spacing);
-            const shouldContanierReverseLeft = this.isReverse(clientLeftInContanier - marginLeft, restClientRightInContanier - marginRight, wrapperRect.width + spacing);
-            const shouldContanierReverseBottom = this.isReverse(restClientBottomInContanier - marginBottom, clientTopInContanier - marginTop, wrapperRect.height + spacing);
-            const shouldContanierReverseRight = this.isReverse(restClientRightInContanier - marginRight, clientLeftInContanier - marginLeft, wrapperRect.width + spacing);
-            const shouldContanierReverseTopOver = this.isReverse(restClientTopInContanier - marginBottom, clientBottomInContanier - marginTop, wrapperRect.height + spacing);
-            const shouldContanierReverseBottomOver = this.isReverse(clientBottomInContanier - marginTop, restClientTopInContanier - marginBottom, wrapperRect.height + spacing);
+            const shouldContainerReverseTop = this.isReverse(clientTopInContainer - marginTop, restClientBottomInContainer - marginBottom, wrapperRect.height + spacing);
+            const shouldContainerReverseLeft = this.isReverse(clientLeftInContainer - marginLeft, restClientRightInContainer - marginRight, wrapperRect.width + spacing);
+            const shouldContainerReverseBottom = this.isReverse(restClientBottomInContainer - marginBottom, clientTopInContainer - marginTop, wrapperRect.height + spacing);
+            const shouldContainerReverseRight = this.isReverse(restClientRightInContainer - marginRight, clientLeftInContainer - marginLeft, wrapperRect.width + spacing);
+            const shouldContainerReverseTopOver = this.isReverse(restClientTopInContainer - marginBottom, clientBottomInContainer - marginTop, wrapperRect.height + spacing);
+            const shouldContainerReverseBottomOver = this.isReverse(clientBottomInContainer - marginTop, restClientTopInContainer - marginBottom, wrapperRect.height + spacing);
 
-            const shouldContanierReverseTopSide = this.isReverse(restClientTopInContanier, clientBottomInContanier, wrapperRect.height);
-            const shouldContanierReverseBottomSide = this.isReverse(clientBottomInContanier, restClientTopInContanier, wrapperRect.height);
-            const shouldContanierReverseLeftSide = this.isReverse(restClientLeftInContanier, clientRightInContanier, wrapperRect.width);
-            const shouldContanierReverseRightSide = this.isReverse(clientRightInContanier, restClientLeftInContanier, wrapperRect.width);
+            const shouldContainerReverseTopSide = this.isReverse(restClientTopInContainer, clientBottomInContainer, wrapperRect.height);
+            const shouldContainerReverseBottomSide = this.isReverse(clientBottomInContainer, restClientTopInContainer, wrapperRect.height);
+            const shouldContainerReverseLeftSide = this.isReverse(restClientLeftInContainer, clientRightInContainer, wrapperRect.width);
+            const shouldContainerReverseRightSide = this.isReverse(clientRightInContainer, restClientLeftInContainer, wrapperRect.width);
 
             const halfHeight = triggerRect.height / 2;
             const halfWidth = triggerRect.width / 2;
@@ -810,32 +810,32 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
 
             // 容器, 原空间与反向空间是否都不足判断
             // container, whether the original space and the reverse space are insufficient to judge
-            const isContanierYOverFlow = this.isOverFlow(clientTopInContanier - marginTop, restClientBottomInContanier - marginBottom, wrapperRect.height + spacing);
-            const isContanierXOverFlow = this.isOverFlow(clientLeftInContanier - marginLeft, restClientRightInContanier - marginRight, wrapperRect.width + spacing);
-            const isContanierYOverFlowSide = this.isOverFlow(clientBottomInContanier - marginTop, restClientTopInContanier - marginBottom, wrapperRect.height + spacing);
-            const isContanierXOverFlowSide = this.isOverFlow(clientRightInContanier - marginLeft, restClientLeftInContanier - marginRight, wrapperRect.width + spacing);
-            const isContanierYOverFlowSideHalf = this.isHalfOverFlow(clientBottomInContanier - halfHeight, restClientTopInContanier - halfHeight, wrapperRect.height / 2);
-            const isContanierXOverFlowSideHalf = this.isHalfOverFlow(clientRightInContanier - halfWidth, restClientLeftInContanier - halfWidth, wrapperRect.width / 2);
-            const isContanierYEnoughSideHalf = this.isHalfAllEnough(clientBottomInContanier - halfHeight, restClientTopInContanier - halfHeight, wrapperRect.height / 2);
-            const isContanierXEnoughSideHalf = this.isHalfAllEnough(clientRightInContanier - halfWidth, restClientLeftInContanier - halfWidth, wrapperRect.width / 2);
+            const isContainerYOverFlow = this.isOverFlow(clientTopInContainer - marginTop, restClientBottomInContainer - marginBottom, wrapperRect.height + spacing);
+            const isContainerXOverFlow = this.isOverFlow(clientLeftInContainer - marginLeft, restClientRightInContainer - marginRight, wrapperRect.width + spacing);
+            const isContainerYOverFlowSide = this.isOverFlow(clientBottomInContainer - marginTop, restClientTopInContainer - marginBottom, wrapperRect.height + spacing);
+            const isContainerXOverFlowSide = this.isOverFlow(clientRightInContainer - marginLeft, restClientLeftInContainer - marginRight, wrapperRect.width + spacing);
+            const isContainerYOverFlowSideHalf = this.isHalfOverFlow(clientBottomInContainer - halfHeight, restClientTopInContainer - halfHeight, wrapperRect.height / 2);
+            const isContainerXOverFlowSideHalf = this.isHalfOverFlow(clientRightInContainer - halfWidth, restClientLeftInContainer - halfWidth, wrapperRect.width / 2);
+            const isContainerYEnoughSideHalf = this.isHalfAllEnough(clientBottomInContainer - halfHeight, restClientTopInContainer - halfHeight, wrapperRect.height / 2);
+            const isContainerXEnoughSideHalf = this.isHalfAllEnough(clientRightInContainer - halfWidth, restClientLeftInContainer - halfWidth, wrapperRect.width / 2);
 
             // 综合 viewport + container 判断微调，即视口 + 容器都放置不行时才能考虑位置调整
             // Comprehensive viewport + container judgment fine-tuning, that is, the position adjustment can only be considered when the viewport + container cannot be placed.
-            const shouldReverseTop = this.getReverse(isViewYOverFlow, isContanierYOverFlow, shouldViewReverseTop, shouldContanierReverseTop);
-            const shouldReverseLeft = this.getReverse(isViewXOverFlow, isContanierXOverFlow, shouldViewReverseLeft, shouldContanierReverseLeft);
-            const shouldReverseBottom = this.getReverse(isViewYOverFlow, isContanierYOverFlow, shouldViewReverseBottom, shouldContanierReverseBottom);
-            const shouldReverseRight = this.getReverse(isViewXOverFlow, isContanierXOverFlow, shouldViewReverseRight, shouldContanierReverseRight);
+            const shouldReverseTop = this.getReverse(isViewYOverFlow, isContainerYOverFlow, shouldViewReverseTop, shouldContainerReverseTop);
+            const shouldReverseLeft = this.getReverse(isViewXOverFlow, isContainerXOverFlow, shouldViewReverseLeft, shouldContainerReverseLeft);
+            const shouldReverseBottom = this.getReverse(isViewYOverFlow, isContainerYOverFlow, shouldViewReverseBottom, shouldContainerReverseBottom);
+            const shouldReverseRight = this.getReverse(isViewXOverFlow, isContainerXOverFlow, shouldViewReverseRight, shouldContainerReverseRight);
 
-            // const shouldReverseTopOver = this.getReverse(isViewYOverFlowSide, isContanierYOverFlowSide, shouldViewReverseTopOver, shouldContanierReverseTopOver);
-            // const shouldReverseBottomOver = this.getReverse(isViewYOverFlowSide, isContanierYOverFlowSide, shouldViewReverseBottomOver, shouldContanierReverseBottomOver);
+            // const shouldReverseTopOver = this.getReverse(isViewYOverFlowSide, isContainerYOverFlowSide, shouldViewReverseTopOver, shouldContainerReverseTopOver);
+            // const shouldReverseBottomOver = this.getReverse(isViewYOverFlowSide, isContainerYOverFlowSide, shouldViewReverseBottomOver, shouldContainerReverseBottomOver);
 
-            const shouldReverseTopSide = this.getReverse(isViewYOverFlowSide, isContanierYOverFlowSide, shouldViewReverseTopSide, shouldContanierReverseTopSide);
-            const shouldReverseBottomSide = this.getReverse(isViewYOverFlowSide, isContanierYOverFlowSide, shouldViewReverseBottomSide, shouldContanierReverseBottomSide);
-            const shouldReverseLeftSide = this.getReverse(isViewXOverFlowSide, isContanierXOverFlowSide, shouldViewReverseLeftSide, shouldContanierReverseLeftSide);
-            const shouldReverseRightSide = this.getReverse(isViewXOverFlowSide, isContanierXOverFlowSide, shouldViewReverseRightSide, shouldContanierReverseRightSide);
+            const shouldReverseTopSide = this.getReverse(isViewYOverFlowSide, isContainerYOverFlowSide, shouldViewReverseTopSide, shouldContainerReverseTopSide);
+            const shouldReverseBottomSide = this.getReverse(isViewYOverFlowSide, isContainerYOverFlowSide, shouldViewReverseBottomSide, shouldContainerReverseBottomSide);
+            const shouldReverseLeftSide = this.getReverse(isViewXOverFlowSide, isContainerXOverFlowSide, shouldViewReverseLeftSide, shouldContainerReverseLeftSide);
+            const shouldReverseRightSide = this.getReverse(isViewXOverFlowSide, isContainerXOverFlowSide, shouldViewReverseRightSide, shouldContainerReverseRightSide);
 
-            const isYOverFlowSideHalf = isViewYOverFlowSideHalf && isContanierYOverFlowSideHalf;
-            const isXOverFlowSideHalf = isViewXOverFlowSideHalf && isContanierXOverFlowSideHalf;
+            const isYOverFlowSideHalf = isViewYOverFlowSideHalf && isContainerYOverFlowSideHalf;
+            const isXOverFlowSideHalf = isViewXOverFlowSideHalf && isContainerXOverFlowSideHalf;
 
             switch (position) {
                 case 'top':
@@ -853,7 +853,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
                     if (shouldReverseLeftSide && widthIsBigger) {
                         position = this._adjustPos(position, true);
                     }
-                    if (isWidthOverFlow && (isViewXEnoughSideHalf || isContanierXEnoughSideHalf)) {
+                    if (isWidthOverFlow && (isViewXEnoughSideHalf || isContainerXEnoughSideHalf)) {
                         position = this._adjustPos(position, true, 'reduce');
                     }
                     break;
@@ -864,7 +864,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
                     if (shouldReverseRightSide && widthIsBigger) {
                         position = this._adjustPos(position);
                     }
-                    if (isWidthOverFlow && (isViewXEnoughSideHalf || isContanierXEnoughSideHalf)) {
+                    if (isWidthOverFlow && (isViewXEnoughSideHalf || isContainerXEnoughSideHalf)) {
                         position = this._adjustPos(position, true, 'reduce');
                     }
                     break;
@@ -883,7 +883,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
                     if (shouldReverseTopSide && heightIsBigger) {
                         position = this._adjustPos(position, true); 
                     }
-                    if (isHeightOverFlow && (isViewYEnoughSideHalf || isContanierYEnoughSideHalf)) {
+                    if (isHeightOverFlow && (isViewYEnoughSideHalf || isContainerYEnoughSideHalf)) {
                         position = this._adjustPos(position, false, 'reduce');
                     }
                     break;
@@ -894,7 +894,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
                     if (shouldReverseBottomSide && heightIsBigger) {
                         position = this._adjustPos(position, true);
                     }
-                    if (isHeightOverFlow && (isViewYEnoughSideHalf || isContanierYEnoughSideHalf)) {
+                    if (isHeightOverFlow && (isViewYEnoughSideHalf || isContainerYEnoughSideHalf)) {
                         position = this._adjustPos(position, false, 'reduce');
                     }
                     break;
@@ -913,7 +913,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
                     if (shouldReverseLeftSide && widthIsBigger) {
                         position = this._adjustPos(position);
                     }
-                    if (isWidthOverFlow && (isViewXEnoughSideHalf || isContanierXEnoughSideHalf)) {
+                    if (isWidthOverFlow && (isViewXEnoughSideHalf || isContainerXEnoughSideHalf)) {
                         position = this._adjustPos(position, true, 'reduce');
                     }
                     break;
@@ -924,7 +924,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
                     if (shouldReverseRightSide && widthIsBigger) {
                         position = this._adjustPos(position);
                     }
-                    if (isWidthOverFlow && (isViewXEnoughSideHalf || isContanierXEnoughSideHalf)) {
+                    if (isWidthOverFlow && (isViewXEnoughSideHalf || isContainerXEnoughSideHalf)) {
                         position = this._adjustPos(position, true, 'reduce');
                     }
                     break;
@@ -943,7 +943,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
                     if (shouldReverseTopSide && heightIsBigger) {
                         position = this._adjustPos(position, true);
                     }
-                    if (isHeightOverFlow && (isViewYEnoughSideHalf || isContanierYEnoughSideHalf)) {
+                    if (isHeightOverFlow && (isViewYEnoughSideHalf || isContainerYEnoughSideHalf)) {
                         position = this._adjustPos(position, false, 'reduce');
                     }
                     break;
@@ -954,7 +954,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
                     if (shouldReverseBottomSide && heightIsBigger) {
                         position = this._adjustPos(position, true);
                     }
-                    if (isHeightOverFlow && (isViewYEnoughSideHalf || isContanierYEnoughSideHalf)) {
+                    if (isHeightOverFlow && (isViewYEnoughSideHalf || isContainerYEnoughSideHalf)) {
                         position = this._adjustPos(position, false, 'reduce');
                     }
                     break;
@@ -997,20 +997,20 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
             // 判断溢出 Judgment overflow
             // 上下方向 top and bottom
             if (this.isTB(position)){
-                isHeightOverFlow = isViewYOverFlow && isContanierYOverFlow;
+                isHeightOverFlow = isViewYOverFlow && isContainerYOverFlow;
                 if (position === 'top' || position === 'bottom') {
-                    isWidthOverFlow = isViewXOverFlowSideHalf && isContanierXOverFlowSideHalf;
+                    isWidthOverFlow = isViewXOverFlowSideHalf && isContainerXOverFlowSideHalf;
                 } else {
-                    isWidthOverFlow = isViewXOverFlowSide && isContanierXOverFlowSide;
+                    isWidthOverFlow = isViewXOverFlowSide && isContainerXOverFlowSide;
                 }
             }
             // 左右方向 left and right
             if (this.isLR(position)){
-                isWidthOverFlow = isViewXOverFlow && isContanierXOverFlow;
+                isWidthOverFlow = isViewXOverFlow && isContainerXOverFlow;
                 if (position === 'left' || position === 'right') {
-                    isHeightOverFlow = isViewYOverFlowSideHalf && isContanierYOverFlowSideHalf;
+                    isHeightOverFlow = isViewYOverFlowSideHalf && isContainerYOverFlowSideHalf;
                 } else {
-                    isHeightOverFlow = isViewYOverFlowSide && isContanierYOverFlowSide;
+                    isHeightOverFlow = isViewYOverFlowSide && isContainerYOverFlowSide;
                 }
             }
         }
