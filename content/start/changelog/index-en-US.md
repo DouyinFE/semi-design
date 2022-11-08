@@ -15,7 +15,12 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
-
+#### 🎉 2.23.0-beta.1 (2022-11-08)
+- 【Feat】
+    - Tooltip adds a margin parameter to calculate the increased redundancy value when overflowing, and autoAdjustOverflow provides a more intelligent position adjustment strategy when it is blocked
+    - added IconConnectionPoint1、IconConnectionPoint2、 IconCalendarStroked、IconConfigStroked 、IconIssueStroked 、IconStoryStroked 、IconVersionStroked and other icons.
+- 【Style】
+    - Cascader 的菜单项中右侧图标增加左侧外边距
 
 #### 🎉 2.23.0-beta.0 (2022-11-07)
 - 【Fix】

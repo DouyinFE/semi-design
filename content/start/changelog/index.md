@@ -16,6 +16,13 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 ---
 
+#### 🎉 2.23.0-beta.1 (2022-11-08)
+- 【Feat】
+    - Tooltip 新增 margin 参数，计算溢出时的增加的冗余值，autoAdjustOverflow 提供更智能的位置调整策略
+    - 新增 IconConnectionPoint1、IconConnectionPoint2、 IconCalendarStroked、IconConfigStroked 、IconIssueStroked 、IconStoryStroked 、IconVersionStroked 等 icon
+- 【Style】
+    - Cascader 的菜单项中右侧图标增加左侧外边距
+
 #### 🎉 2.23.0-beta.0 (2022-11-07)
 - 【Fix】
   - 修复 Navigation item 在有参数 link 情况下跳转链接热区与 onSelect 热区不一致问题
