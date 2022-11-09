@@ -45,6 +45,9 @@ $z-tooltip: 1060; // tooltip 组件 z-index
 $z-image_preview: 1070; // Image 组件预览层z-index
 $z-image_preview_header: 1; // Image 组件预览层中 header 部分 z-index
 
+// 正在拖拽中的元素的 z-index，需要高于所有的弹出层组件 z-index
+$z-transfer_right_item_drag_item_move: 2000; // 穿梭框右侧面板中正在拖拽元素的z-index
+$z-tagInput_drag_item_move: 2000; // 标签输入框中正在拖拽元素的z-index
 
 // font
 $font-family-regular: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI',

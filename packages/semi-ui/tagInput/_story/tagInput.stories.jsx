@@ -1,6 +1,5 @@
-import React from 'react';
-import { Toast, Icon, Button, Avatar, Form } from '@douyinfe/semi-ui/';
-import TagInput from '../index';
+import React, { useState, useCallback } from 'react';
+import { Toast, Icon, Button, Avatar, Form, Popover, SideSheet, Modal, TagInput } from '../../index';
 import { IconGift, IconVigoLogo } from '@douyinfe/semi-icons';
 const style = {
   width: 400,
@@ -443,3 +442,73 @@ export const TagInputInForm = () => (
 PrefixSuffix.story = {
   name: 'TagInputInForm'
 };
+
+export const TagInputInPopover = () => {
+  // 在弹出层中点击item，可拖拽item被遮挡问题：https://github.com/DouyinFE/semi-design/issues/1149
+  const [sideSheetVisible, setSideSheetVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const sideSheetChange = useCallback(() => {
+    setSideSheetVisible(!sideSheetVisible);
+  }, [sideSheetVisible]);
+
+  const showDialog = () => {
+    setModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setModalVisible(false);
+  };
+
+  const data = Array.from({ length: 30 }, (v, i) => {
+    return {
+      label: `选项名称 ${i}`,
+      value: i,
+      disabled: false,
+      key: i
+    };
+  });
+
+  const tagInputNode = (<TagInput
+    draggable
+    allowDuplicates={false}
+    defaultValue={['抖音', '火山', '西瓜视频']}
+    placeholder='请输入...'
+    onChange={v => console.log(v)}
+  />);
+
+  return (
+    <div className="App">
+      <p>issues 1149: 在弹出层中点击item，可拖拽item被遮挡问题</p>
+      <Popover
+        trigger="click"
+        position='rightTop'
+        content={<div style={{ padding: 100 }}>{tagInputNode}</div>}
+      >
+        <Button>TagInput In Popover</Button>
+      </Popover>
+      <br /><br />
+       {/* 弹出层：sideSheet */}
+       <Button onClick={sideSheetChange}>TagInput In SideSheet</Button>
+        <SideSheet title="滑动侧边栏" visible={sideSheetVisible} onCancel={sideSheetChange} size="medium">
+          {tagInputNode}
+        </SideSheet>
+        <br /><br />
+        {/* 弹出层：Modal */}
+        <Button onClick={showDialog}>TagInput in Modal</Button>
+        <Modal
+          title="基本对话框"
+          visible={modalVisible}
+          onOk={handleOk}
+          onCancel={handleCancel}
+          closeOnEsc={true}
+        >
+          {tagInputNode}
+        </Modal>
+    </div>
+  );
+}
+
