@@ -1,6 +1,6 @@
 /* eslint-disable max-lines-per-function */
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
-import React, { Children } from 'react';
+import React, { Children, ReactElement, ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
 import { noop, get, isEqual } from 'lodash';
@@ -67,7 +67,8 @@ export interface NavProps extends BaseProps {
     onCollapseChange?: (isCollapse: boolean) => void;
     onDeselect?: (data?: any) => void;
     onOpenChange?: (data: { itemKey: (string | number); openKeys: (string | number)[]; domEvent: MouseEvent; isOpen: boolean }) => void;
-    onSelect?: (data: OnSelectedData) => void
+    onSelect?: (data: OnSelectedData) => void;
+    renderWrapper?: ({ itemElement, isSubNav, isInSubNav, props }: { itemElement: ReactElement;isInSubNav:boolean; isSubNav: boolean; props: NavItemProps | SubNavProps }) => ReactNode
 }
 
 export interface NavState {
@@ -299,7 +300,8 @@ class Nav extends BaseComponent<NavProps, NavState> {
             footer,
             header,
             toggleIconPosition,
-            limitIndent
+            limitIndent,
+            renderWrapper
         } = this.props;
 
         const { selectedKeys, openKeys, items, isCollapsed } = this.state;
@@ -397,7 +399,8 @@ class Nav extends BaseComponent<NavProps, NavState> {
                             locale,
                             prefixCls,
                             toggleIconPosition,
-                            limitIndent
+                            limitIndent,
+                            renderWrapper
                         } as any}
                     >
                         <div className={finalCls} style={finalStyle}>
