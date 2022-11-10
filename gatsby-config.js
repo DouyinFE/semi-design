@@ -1,6 +1,7 @@
 const path = require('path');
 module.exports = {
     pathPrefix: '/',
+    assetPrefix: `/${process.env['CDN_OUTER_CN']}/semi_main`,
     siteMetadata: {
         title: 'Gatsby Default Starter',
         description: 'Create a consistent, good-looking, easy-to-use, and efficient user experience with a user-centric, content-first, and human-friendly design system',
