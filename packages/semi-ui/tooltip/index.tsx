@@ -3,7 +3,7 @@ import React, { isValidElement, cloneElement } from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import { throttle, noop, get, omit, each, isEmpty, isFunction } from 'lodash';
+import { throttle, noop, get, omit, each, isEmpty, isFunction, isEqual } from 'lodash';
 
 import { BASE_CLASS_PREFIX } from '@douyinfe/semi-foundation/base/constants';
 import warning from '@douyinfe/semi-foundation/utils/warning';
@@ -498,7 +498,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         if (prevProps.visible !== this.props.visible) {
             this.props.visible ? this.foundation.delayShow() : this.foundation.delayHide();
         }
-        if (prevProps.rePosKey !== this.props.rePosKey) {
+        if (!isEqual(prevProps.rePosKey, this.props.rePosKey)) {
             this.rePosition();
         }
     }

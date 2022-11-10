@@ -612,7 +612,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         }
 
         // Add isOptionChanged: There may be cases where the value is unchanged, but the optionList is updated. At this time, the label corresponding to the value may change, and the selected item needs to be updated
-        if (prevProps.value !== this.props.value || isOptionsChanged) {
+        if (!isEqual(this.props.value, prevProps.value) || isOptionsChanged) {
             if ('value' in this.props) {
                 this.foundation.handleValueChange(this.props.value as any);
             } else {
