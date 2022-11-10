@@ -99,7 +99,7 @@ const local: Locale = {
     },
     Table: {
         emptyText: 'Không kết quả',
-        pageText: 'Hiển thị $ {currentStart} đến $ {currentEnd} trong tổng số $ {total}}',
+        pageText: 'Hiển thị ${currentStart} đến ${currentEnd} trong tổng số ${total}}',
     },
     Select: {
         emptyText: 'Không kết quả',
