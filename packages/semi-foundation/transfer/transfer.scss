@@ -165,9 +165,15 @@ $module: #{$prefix}-transfer;
                 word-break: break-all;
             }
 
-            &-drag-handler {
-                margin-right: $spacing-transfer_right_item_drag_handler-marginRight;
-                flex-shrink: 0;
+            &-drag {
+                &-handler {
+                    margin-right: $spacing-transfer_right_item_drag_handler-marginRight;
+                    flex-shrink: 0;
+                }
+
+                &-item-move {
+                    z-index: $z-transfer_right_item_drag_item_move;
+                }            
             }
         }
 

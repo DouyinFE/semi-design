@@ -17,7 +17,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 ---
 
 
-#### 🎉 2.23.0 (2022-11-11)
+#### 🎉 2.23.1 (2022-11-11)
 - 【Fix】
     - 修复 Popover 中的 Transfer 在拖拽时导致 Popover 意外关闭问题  [#1226](https://github.com/DouyinFE/semi-design/issues/1226)
     - 修复 弹出层中的 Transfer/ TagInput 在拖拽时被拖拽项消失问题  [#1149](https://github.com/DouyinFE/semi-design/issues/1149)

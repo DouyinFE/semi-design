@@ -152,6 +152,22 @@ export interface TransferProps {
 
 const prefixcls = cssClasses.PREFIX;
 
+// SortableItem & SortableList should not be assigned inside of the render function
+const SortableItem = SortableElement((
+    (props: DraggableResolvedDataItem) => (props.item.node as React.FC<DraggableResolvedDataItem>)
+));
+
+const SortableList = SortableContainer(({ items }: { items: Array<ResolvedDataItem> }) => (
+    <div className={`${prefixcls}-right-list`} role="list" aria-label="Selected list">
+        {items.map((item, index: number) => (
+            // @ts-ignore skip SortableItem type check
+            <SortableItem key={item.label} index={index} item={item} />
+        ))}
+    </div>
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore see reasons: https://github.com/clauderic/react-sortable-hoc/issues/206
+), { distance: 10 });
+
 class Transfer extends BaseComponent<TransferProps, TransferState> {
     static propTypes = {
         style: PropTypes.object,
@@ -572,22 +588,14 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
     }
 
     renderRightSortableList(selectedData: Array<ResolvedDataItem>) {
-        // when choose some items && draggable is true
-        const SortableItem = SortableElement((
-            (props: DraggableResolvedDataItem) => this.renderRightItem(props.item)) as React.FC<DraggableResolvedDataItem>
-        );
-        const SortableList = SortableContainer(({ items }: { items: Array<ResolvedDataItem> }) => (
-            <div className={`${prefixcls}-right-list`} role="list" aria-label="Selected list">
-                {items.map((item, index: number) => (
-                    // @ts-ignore skip SortableItem type check
-                    <SortableItem key={item.label} index={index} item={item} />
-                ))}
-            </div>
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore see reasons: https://github.com/clauderic/react-sortable-hoc/issues/206
-        ), { distance: 10 });
+        const sortableListItems = selectedData.map(item => ({
+            ...item,
+            node: this.renderRightItem(item)
+        }));
+
+        // helperClass：add styles to the helper(item being dragged) https://github.com/clauderic/react-sortable-hoc/issues/87
         // @ts-ignore skip SortableItem type check
-        const sortList = <SortableList useDragHandle onSortEnd={this.onSortEnd} items={selectedData} />;
+        const sortList = <SortableList useDragHandle helperClass={`${prefixcls}-right-item-drag-item-move`} onSortEnd={this.onSortEnd} items={sortableListItems} />;
         return sortList;
     }
 

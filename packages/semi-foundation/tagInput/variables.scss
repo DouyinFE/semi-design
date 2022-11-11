@@ -47,3 +47,5 @@ $width-tagInput-border-hover: $width-tagInput-border-default; // 标签输入框
 $width-tagInput-border-focus: $border-thickness-control-focus; // 标签输入框描边宽度 - 选中态
 
 $radius-tagInput: var(--semi-border-radius-small); // 标签输入框圆角
+
+$z-tagInput_drag_item_move: 2000 !default; // 标签输入框中正在拖拽元素的z-index

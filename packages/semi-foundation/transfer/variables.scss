@@ -53,3 +53,5 @@ $radius-transfer: var(--semi-border-radius-medium); // 穿梭框圆角
 
 // Font
 $font-transfer_header_all-fontWeight: 600; // 穿梭框字重
+
+$z-transfer_right_item_drag_item_move: 2000 !default; // 穿梭框右侧面板中正在拖拽元素的z-index

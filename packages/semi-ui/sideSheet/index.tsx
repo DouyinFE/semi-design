@@ -86,7 +86,7 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
 
     constructor(props: SideSheetReactProps) {
         super(props);
-        this.state = { displayNone: !this.props.visible, shouldRender: this.props.visible };
+        this.state = { displayNone: !this.props.visible };
         this.foundation = new SideSheetFoundation(this.adapter);
     }
 
@@ -128,11 +128,6 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
                     this.setState({ displayNone: displayNone });
                 }
             },
-            setShouldRender: (shouldRender: boolean) => {
-                if (shouldRender !== this.state.shouldRender) {
-                    this.setState({ shouldRender });
-                }
-            }
         };
     }
 
@@ -166,10 +161,6 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
         }
 
 
-        const shouldRender = (this.props.visible || this.props.keepDOM);
-        if (shouldRender === true && this.state.shouldRender === false) {
-            this.foundation.setShouldRender(true);
-        }
 
         if (prevState.displayNone !== this.state.displayNone) {
             this.foundation.onVisibleChange(!this.state.displayNone);
@@ -192,8 +183,6 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
     };
 
     updateState = () => {
-        const shouldRender = (this.props.visible || this.props.keepDOM);
-        this.foundation.setShouldRender(shouldRender);
         this.foundation.toggleDisplayNone(!this.props.visible);
     }
 
@@ -235,7 +224,7 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
             height: sheetHeight,
             onClose: this.handleCancel,
         };
-
+        const shouldRender = (this.props.visible || this.props.keepDOM) || (this.props.motion && !this.state.displayNone /* When there is animation, we use displayNone to judge whether animation is ended and judge whether to unmount content */);
         // Since user could change animate duration , we don't know which animation end first. So we call updateState func twice.
         return <CSSAnimation motion={this.props.motion} animationState={visible ? 'enter' : 'leave'} startClassName={
             visible ? `${prefixCls}-animation-mask_show` : `${prefixCls}-animation-mask_hide`
@@ -252,7 +241,7 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
                         onAnimationEnd={this.updateState /* for no mask case*/}
                     >
                         {({ animationClassName, animationStyle, animationEventsNeedBind }) => {
-                            return this.state.shouldRender ? <SideSheetContent
+                            return shouldRender ? <SideSheetContent
                                 {...contentProps}
                                 maskExtraProps={maskAnimationEventsNeedBind}
                                 wrapperExtraProps={animationEventsNeedBind}
