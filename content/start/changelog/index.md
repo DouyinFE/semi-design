@@ -15,6 +15,38 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 
 ---
+
+
+#### 🎉 2.23.1 (2022-11-11)
+- 【Fix】
+    - 修复 Popover 中的 Transfer 在拖拽时导致 Popover 意外关闭问题  [#1226](https://github.com/DouyinFE/semi-design/issues/1226)
+    - 修复 弹出层中的 Transfer/ TagInput 在拖拽时被拖拽项消失问题  [#1149](https://github.com/DouyinFE/semi-design/issues/1149)
+    - 更正 Table 分页器 在越南语 (vi_VN) 展示时翻译错误问题 [#1252](https://github.com/DouyinFE/semi-design/pull/1252) [@MrFatMeow](https://github.com/MrFatMeow) 
+    - 修复 Select和Tooltip组件未处理props.value / props.rePosKey 传入NaN的情况 [#763](https://github.com/DouyinFE/semi-design/issues/763)  [@edc-hui](https://github.com/edc-hui)
+    - 修复 SideSheet 中挂载 children 时机延迟的问题（影响版本 v2.22.beta.0 - v2.23.beta.0） [#1255](https://github.com/DouyinFE/semi-design/pull/1255)
+- 【Style】
+    - Form 组件 Design Token更新，`$spacing-form_label_small-paddingTop` 修正为 `$spacing-form_switch_rating_marginY`，去掉无实际作用的 `$spacing-form_label-paddingRight`；更正更准确的中文描述 [#1258](https://github.com/DouyinFE/semi-design/pull/1258)
+    - Tabs 组件 Design Token更新，增加折叠箭头按钮相关的 Token，允许单独对 Tabs中的箭头按钮定制样式 [#1251](https://github.com/DouyinFE/semi-design/pull/1251)
+
+#### 🎉 2.23.0-beta.1 (2022-11-08)
+- 【Feat】
+    - Tooltip 新增 margin 参数，计算溢出时的增加的冗余值，autoAdjustOverflow 提供更智能的位置调整策略
+    - 新增 IconConnectionPoint1、IconConnectionPoint2、 IconCalendarStroked、IconConfigStroked 、IconIssueStroked 、IconStoryStroked 、IconVersionStroked 等 icon
+- 【Style】
+    - Cascader 的菜单项中右侧图标增加左侧外边距
+
+#### 🎉 2.23.0-beta.0 (2022-11-07)
+- 【Fix】
+  - 修复 Navigation item 在有参数 link 情况下跳转链接热区与 onSelect 热区不一致问题
+  - 更正 DatePicker 在土耳其语（tr_TR）展示时周六、周日翻译的文本 [@habibokumus](https://github.com/habibokumus)
+  - 修复 Table 在固定列情况下，滚动条位置不符合预期问题。
+- 【Feat】
+  - TagInput 的 renderTagItem API 增加 onClose 参数支持删除标签  [#1219](https://github.com/DouyinFE/semi-design/issues/1219)
+  - Transfer 提供 search 方法支持用户手动触发搜索
+- 【Chore】
+  - Form interface 更新，Form标签增加泛型传入，指定 Values类型 [@Hokori23](https://github.com/Hokori23)
+  - 增加 Image 组件的测试用例  [#1216](https://github.com/DouyinFE/semi-design/issues/1216)
+  
 #### 🎉 2.22.3 (2022-11-02)
 - 【Docs】
     - 站点新增无障碍（A11y）支持

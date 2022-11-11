@@ -19,7 +19,7 @@ describe('anchor', () => {
         cy.get('.semi-anchor-link-title-active').contains('doc1');
         cy.wait(500);
         cy.get('#box').scrollTo('top');
-        cy.get('h1').contains('whatever').click();
+        cy.get('h1').contains('whatever').click({ force: true });
     });
 
     it('click', () => {

@@ -97,52 +97,73 @@ class I18nDemo extends React.Component {
 
 ### Custom Internationalization Component
 
+When your custom component also wants to consume the localeCode in the Semi LocaleProvider Context or read the i18n text localeData of a specific component, you can use LocaleConsumer to get it
+
 ```jsx live=true dir="column" noInline=true
 import React from 'react';
 import zh_CN from '@douyinfe/semi-ui/lib/es/locale/source/zh_CN';
 import en_GB from '@douyinfe/semi-ui/lib/es/locale/source/en_GB';
+import ko_KR from '@douyinfe/semi-ui/lib/es/locale/source/ko_KR';
 import { LocaleProvider, LocaleConsumer } from '@douyinfe/semi-ui';
 
-class I18nCustomDemo extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-    render() {
-        return (
-            <>
-                <LocaleProvider locale={zh_CN}>
-                    <CustomComponent />
-                </LocaleProvider>
-                <LocaleProvider locale={en_GB}>
-                    <CustomComponent />
-                </LocaleProvider>
-            </>
-        );
-    }
-}
 
-const CUSTOM_TEXT_MAP = {
-    'zh-CN': '你好',
-    'en-GB': 'hello'
-};
-
-class CustomComponent extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+class GetLocaleFromSemi extends React.Component {
     render() {
-        return <LocaleConsumer componentName="code">
+        return <LocaleConsumer componentName="TimePicker">
             {
-                (locale) => (
-                    CUSTOM_TEXT_MAP[locale || 'zh-CN']
+                (localeData, localeCode, dateFnsLocale) => (
+                    <div>{localeCode} : {localeData.begin}</div>
                 )
             }
         </LocaleConsumer>;
     }
 }
 
-render(CustomComponent);
+class ExtractComponent extends React.Component {
+    render() {
+        return <LocaleConsumer componentName="ComponentA">
+            {
+                (localeData, localeCode, dateFnsLocale) => (
+                    <div>{localeData.customKey}</div>
+                )
+            }
+        </LocaleConsumer>;
+    }
+}
 
+
+class I18nCustomDemo extends React.Component {
+    render() {
+        const new_zh_CN = { ...zh_CN, ComponentA: { customKey: 'semi' } };
+        const new_ko_KR = { ...ko_KR, ComponentA: { customKey: 'design' } };
+        const new_en_GB = { ...en_GB, ComponentA: { customKey: 'dsm' } };
+
+        return (
+            <>
+                <LocaleProvider locale={new_zh_CN}>
+                    <GetLocaleFromSemi />
+                </LocaleProvider>
+                <LocaleProvider locale={new_ko_KR}>
+                    <GetLocaleFromSemi />
+                </LocaleProvider>
+                <LocaleProvider locale={new_en_GB}>
+                    <GetLocaleFromSemi />
+                </LocaleProvider>
+                <LocaleProvider locale={new_zh_CN}>
+                    <ExtractComponent />
+                </LocaleProvider>
+                <LocaleProvider locale={new_ko_KR}>
+                    <ExtractComponent />
+                </LocaleProvider>
+                <LocaleProvider locale={new_en_GB}>
+                    <ExtractComponent />
+                </LocaleProvider>
+            </>
+        );
+    }
+}
+
+render(I18nCustomDemo);
 ```
 
 ### Components that support multilingualism

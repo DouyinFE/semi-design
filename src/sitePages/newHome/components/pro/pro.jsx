@@ -8,12 +8,15 @@ import Component from './d2cApplication.jsx';
 
 function BetaTag({ style }) {
     return (
-        <Tag style={{ 
-            color: 'var(--semi-color-white)', 
-            background: 'rgba(var(--semi-violet-4), 1)', 
-            fontWeight: 600,
-            ...style
-        }}>
+        <Tag
+            className='semi-always-dark'
+            style={{ 
+                color: 'var(--semi-color-white)', 
+                background: 'rgba(var(--semi-violet-4), 1)', 
+                fontWeight: 600,
+                ...style
+            }}
+        >
             {_t('BETA', {}, 'BETA')}
         </Tag>
     );
@@ -28,7 +31,7 @@ function Pro(props) {
     return (
         <div {...props} className={`${styles.macBookPro2}`}>
             <div className={styles.frame14294}>
-                <div className={`${styles.frame4151} semi-always-dark`}>
+                <div className={`${styles.frame4151}`}>
                     <Badge count={<BetaTag style={{ right: -14, top: 4 }} />}>
                         <p className={styles.semiPro} data-locale={"en-US"}>{_t('home.pro.title')}</p>
                     </Badge>
