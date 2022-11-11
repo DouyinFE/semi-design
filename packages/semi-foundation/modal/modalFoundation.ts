@@ -11,8 +11,7 @@ export interface ModalAdapter extends DefaultAdapter<ModalProps, ModalState> {
     notifyClose: () => void;
     toggleDisplayNone: (displayNone: boolean, callback?: (displayNone: boolean) => void) => void;
     notifyFullScreen: (isFullScreen: boolean) => void;
-    getProps: () => ModalProps;
-    setShouldRender:(shouldRender:boolean)=>void
+    getProps: () => ModalProps
 }
 
 export interface ModalProps {
@@ -59,8 +58,7 @@ export interface ModalProps {
 
 export interface ModalState {
     displayNone: boolean;
-    isFullScreen: boolean;
-    shouldRender:boolean
+    isFullScreen: boolean
 }
 
 export default class ModalFoundation extends BaseFoundation<ModalAdapter> {
@@ -101,9 +99,6 @@ export default class ModalFoundation extends BaseFoundation<ModalAdapter> {
         this._adapter.toggleDisplayNone(displayNone, callback);
     };
 
-    setShouldRender=(shouldRender)=>{
-        this._adapter.setShouldRender(shouldRender);
-    }
 
     // // eslint-disable-next-line max-len
     // mergeMotionProp = (motion: Motion, prop: string, cb: () => void) => {

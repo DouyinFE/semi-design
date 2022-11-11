@@ -121,7 +121,6 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         this.state = {
             displayNone: !props.visible,
             isFullScreen: props.fullScreen,
-            shouldRender: this.props.visible || (this.props.keepDOM && !this.props.lazyRender)
         };
         this.foundation = new ModalFoundation(this.adapter);
         this.modalRef = React.createRef();
@@ -169,11 +168,6 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
                     this.setState({ isFullScreen });
                 }
             },
-            setShouldRender: (shouldRender)=>{
-                if (shouldRender!==this.state.shouldRender){
-                    this.setState({ shouldRender });
-                }
-            }
         };
     }
 
@@ -251,11 +245,6 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
             this.foundation.beforeShow();
         }
 
-        const shouldRender = this.props.visible || (this.props.keepDOM && (!this.props.lazyRender || this._haveRendered));
-        if (shouldRender === true && this.state.shouldRender === false) {
-            this.foundation.setShouldRender(true);
-        }
-
         if (!prevState.displayNone && this.state.displayNone){
             this.foundation.afterHide();
         }
@@ -278,8 +267,6 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
     updateState = () => {
         const { visible } = this.props;
         this.foundation.toggleDisplayNone(!visible);
-        const shouldRender = this.props.visible || (this.props.keepDOM && (!this.props.lazyRender || this._haveRendered));
-        this.foundation.setShouldRender(shouldRender);
     };
 
     renderFooter = (): ReactNode => {
@@ -375,9 +362,12 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
             [`${cssClasses.DIALOG}-displayNone`]: keepDOM && this.state.displayNone,
         });
 
-        if (this.state.shouldRender){
+        const shouldRender = this.props.visible || (this.props.keepDOM && (!this.props.lazyRender || this._haveRendered)) || (this.props.motion && !this.state.displayNone /* When there is animation, we use displayNone to judge whether animation is ended and judge whether to unmount content */);
+
+        if (shouldRender){
             this._haveRendered = true;
         }
+
         return (
             <Portal style={wrapperStyle} getPopupContainer={getPopupContainer}>
                 <CSSAnimation
@@ -398,7 +388,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
                             >
                                 {
                                     ({ animationClassName: maskAnimationClassName, animationEventsNeedBind: maskAnimationEventsNeedBind })=>{
-                                        return this.state.shouldRender ? <ModalContent
+                                        return shouldRender ? <ModalContent
                                             {...restProps}
                                             contentExtraProps={animationEventsNeedBind}
                                             maskExtraProps={maskAnimationEventsNeedBind}
