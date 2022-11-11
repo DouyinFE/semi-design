@@ -83,8 +83,8 @@ const local: Locale = {
             Wed: 'Çar',
             Thu: 'Perş',
             Fri: 'Cum',
-            Sat: 'Oturdu',
-            Sun: 'Güneş'
+            Sat: 'Cmt',
+            Sun: 'Paz'
         },
         localeFormatToken: {
             FORMAT_SWITCH_DATE: 'yyyy-MM-dd',
@@ -152,6 +152,19 @@ const local: Locale = {
     },
     Form: {
         optional: '(isteğe bağlı)',
+    },
+    Image: {
+        preview: 'Ön izleme',
+        loading: 'Yükleniyor',
+        loadError: 'Yükleme başarısız',
+        prevTip: 'Önceki',
+        nextTip: 'Sonraki',
+        zoomInTip: 'Yakınlaştır',
+        zoomOutTip: 'uzaklaştır',
+        rotateTip: 'Döndür',
+        downloadTip: 'indir',
+        adaptiveTip: 'Sayfaya uyarla',
+        originTip: 'Orijinal boyut',
     },
 };
 

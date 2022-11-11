@@ -6,7 +6,7 @@ import isNullOrUndefined from '@douyinfe/semi-foundation/utils/isNullOrUndefined
 import { cssClasses } from '@douyinfe/semi-foundation/navigation/constants';
 import '@douyinfe/semi-foundation/navigation/navigation.scss';
 
-import NavContext, { NavContextType }  from './nav-context';
+import NavContext, { NavContextType } from './nav-context';
 import { BaseProps } from '../_base/baseComponent';
 
 export type Logo = React.ReactNode;
@@ -16,7 +16,7 @@ export interface NavHeaderProps extends BaseProps {
     linkOptions?: React.AnchorHTMLAttributes<HTMLAnchorElement>;
     logo?: Logo;
     prefixCls?: string;
-    text?: React.ReactNode;
+    text?: React.ReactNode
 }
 
 export default class NavHeader extends PureComponent<NavHeaderProps> {

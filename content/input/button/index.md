@@ -158,8 +158,8 @@ import { Button } from '@douyinfe/semi-ui';
 function ButtonDemo() {
     return (
         <div>
-            <Button size='large' style={{ marginRight:8 }}>大尺寸</Button>
-            <Button size='default' style={{ marginRight:8 }}>默认尺寸</Button>
+            <Button size='large' style={{ marginRight: 8 }}>大尺寸</Button>
+            <Button size='default' style={{ marginRight: 8 }}>默认尺寸</Button>
             <Button size='small'>小尺寸</Button>
         </div>
     );
@@ -298,7 +298,7 @@ function ButtonDemo() {
             <hr/>
             <Button loading={saveLoading} onClick={() => setSaveLoading(true)} style={{ marginRight: 14 }}>保存</Button>
             <Button loading={delLoading} icon={<IconDelete />} type="danger" onClick={() => setDelLoading(true)} style={{ marginRight: 14 }}>删除</Button>
-            <div style={{ width: 200, display: 'inline-block'}}>
+            <div style={{ width: 200, display: 'inline-block' }}>
                 <Button loading={repLoading} type="warning" block theme="solid" onClick={() => setRepLoading(true)}>撤销</Button>
             </div>
         </div>
@@ -406,13 +406,13 @@ function SplitButtonDemo(){
         { node: 'item', name: '删除项目', type: 'danger' },
     ];
 
-    const [btnVisible,setBtnVisible] = useState({
-        1:false,
-        2:false,
-        3:false
+    const [btnVisible, setBtnVisible] = useState({
+        1: false,
+        2: false,
+        3: false
     });
 
-    const handleVisibleChange = (key,visible)=>{
+    const handleVisibleChange = (key, visible)=>{
         newBtnVisible = { ...btnVisible };
         newBtnVisible[key] = visible;
         setBtnVisible(newBtnVisible);
@@ -420,22 +420,22 @@ function SplitButtonDemo(){
 
     return (
         <div>
-            <SplitButtonGroup style={{ marginRight:10 }} aria-label="项目操作按钮组">
+            <SplitButtonGroup style={{ marginRight: 10 }} aria-label="项目操作按钮组">
                 <Button theme="solid" type="primary">分裂按钮</Button>
-                <Dropdown onVisibleChange={(v)=>handleVisibleChange(1,v)} menu={menu} trigger="click" position="bottomRight">
-                    <Button style={btnVisible[1] ? { background:'var(--semi-color-primary-hover)',padding:'8px 4px' } : { padding:'8px 4px'}} theme="solid" type="primary" icon={<IconTreeTriangleDown />}></Button>
+                <Dropdown onVisibleChange={(v)=>handleVisibleChange(1, v)} menu={menu} trigger="click" position="bottomRight">
+                    <Button style={btnVisible[1] ? { background: 'var(--semi-color-primary-hover)', padding: '8px 4px' } : { padding: '8px 4px' }} theme="solid" type="primary" icon={<IconTreeTriangleDown />}></Button>
                 </Dropdown>
             </SplitButtonGroup>
-            <SplitButtonGroup style={{marginRight:10}} aria-label="项目操作按钮组">
+            <SplitButtonGroup style={{ marginRight: 10 }} aria-label="项目操作按钮组">
                 <Button theme="light" type="primary">分裂按钮</Button>
-                <Dropdown onVisibleChange={(v)=>handleVisibleChange(2,v)} menu={menu} trigger="click" position="bottomRight">
-                    <Button style={btnVisible[2]?{background:'var(--semi-color-fill-1)',padding:'8px 4px'}:{padding:'8px 4px'}}  theme="light" type="primary" icon={<IconTreeTriangleDown />}></Button>
+                <Dropdown onVisibleChange={(v)=>handleVisibleChange(2, v)} menu={menu} trigger="click" position="bottomRight">
+                    <Button style={btnVisible[2]?{ background: 'var(--semi-color-fill-1)', padding: '8px 4px' }:{ padding: '8px 4px' }} theme="light" type="primary" icon={<IconTreeTriangleDown />}></Button>
                 </Dropdown>
             </SplitButtonGroup>
             <SplitButtonGroup aria-label="项目操作按钮组">
-                <Button style={btnVisible[3]?{background:'var(--semi-color-fill-0)'}:{}} theme="borderless" type="primary">分裂按钮</Button>
-                <Dropdown onVisibleChange={(v)=>handleVisibleChange(3,v)} menu={menu} trigger="click" position="bottomRight">
-                    <Button style={btnVisible[3]?{background:'var(--semi-color-fill-1)',padding:'8px 4px'}:{padding:'8px 4px'}}  theme="borderless" type="primary" icon={<IconTreeTriangleDown />}></Button>
+                <Button style={btnVisible[3]?{ background: 'var(--semi-color-fill-0)' }:{}} theme="borderless" type="primary">分裂按钮</Button>
+                <Dropdown onVisibleChange={(v)=>handleVisibleChange(3, v)} menu={menu} trigger="click" position="bottomRight">
+                    <Button style={btnVisible[3]?{ background: 'var(--semi-color-fill-1)', padding: '8px 4px' }:{ padding: '8px 4px' }} theme="borderless" type="primary" icon={<IconTreeTriangleDown />}></Button>
                 </Dropdown>
             </SplitButtonGroup>
         </div>
@@ -470,28 +470,29 @@ function SplitButtonDemo(){
 
 ### ButtonGroup
 
-| 属性     | 说明                                                                   | 类型    | 默认值    |
-| -------- | ---------------------------------------------------------------------- | ------- | --------- |
-| aria-label          | 按钮组的标签                                                                                       | string                            | -    |
-| disabled | 禁用状态                                                               | boolean | false     |
-| size     | 按钮大小，可选值：`large`、`default`、`small`                          | string  | "default" |
-| theme               | 按钮主题，可选值：`solid`（有背景色）、 `borderless`（无背景色）、 `light`（浅背景色）                     | string                          | "light"   |
-| type     | 类型，可选值：`primary`、`secondary`、`tertiary`、`warning`、 `danger` | string  | "primary" |
-| className     | 自定义类名                               | string   |         |
+| 属性     | 说明          | 类型    | 默认值      | 版本 |
+| -------- | -------------| ------- | --------- |---- |
+| aria-label | 按钮组的标签 | string  | - | |
+| className  | 自定义类名   | string  | - | |
+| disabled   | 禁用状态     | boolean | false | |
+| size       | 按钮大小，可选值：`large`、`default`、`small` | string  | "default" | |
+| style      | 自定义样式   | CSSProperties   | - | 2.20.0 |
+| theme      | 按钮主题，可选值：`solid`（有背景色）、 `borderless`（无背景色）、 `light`（浅背景色） | string | "light"   | |
+| type     | 类型，可选值：`primary`、`secondary`、`tertiary`、`warning`、 `danger` | string  | "primary" | |
 
 ### SplitButtonGroup **V1.12.0新增**
-| 属性          | 说明                                                            | 类型      | 默认值     |
-| -----------  | --------------------------------------------------------------  | -------- | --------- |
-| aria-label          | 分裂按钮组的标签                                                                                       | string                            | -    |
-| style     | 自定义样式                               | CSSProperties   |         |
-| className     | 自定义类名                               | string   |         |
+| 属性          | 说明                 | 类型      | 默认值     |
+| -----------  | ---------------------| -------- | --------- |
+| aria-label   | 分裂按钮组的标签        | string   | - |
+| className    | 自定义类名             | string   | - |
+| style        | 自定义样式             | CSSProperties   | - |
 
 ## Accessibility
 
 ### ARIA
 
 - `aria-label` 用于表示按钮的作用，对于图标按钮，我们推荐使用此属性
-- `aria-disabled` 与 disabled 属性同步，表示按钮禁用 
+- `aria-disabled` 与 disabled 属性同步，表示按钮禁用
 
 ### 键盘和焦点
 

@@ -15,10 +15,10 @@ const prefixCls = cssClasses.PREFIX;
 
 export interface SliderProps extends BasicSliceProps {
     style?: CSSProperties;
-    railStyle?: CSSProperties;
+    railStyle?: CSSProperties
 }
 
-export {
+export type {
     SliderState
 };
 
@@ -74,8 +74,8 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
         verticalReverse: false
     };
     private sliderEl: React.RefObject<HTMLDivElement>;
-    private minHanleEl: React.RefObject<HTMLDivElement>;
-    private maxHanleEl: React.RefObject<HTMLDivElement>;
+    private minHanleEl: React.RefObject<HTMLSpanElement>;
+    private maxHanleEl: React.RefObject<HTMLSpanElement>;
     private dragging: boolean[];
     private eventListenerSet: Set<() => void>;
     foundation: SliderFoundation;
@@ -185,8 +185,8 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
             setOverallVars: (key: string, value: any) => {
                 this[key] = value;
             },
-            getMinHandleEl: () => this.minHanleEl,
-            getMaxHandleEl: () => this.maxHanleEl,
+            getMinHandleEl: () => this.minHanleEl.current,
+            getMaxHandleEl: () => this.maxHanleEl.current,
             onHandleDown: (e: React.MouseEvent) => {
                 this._addEventListener(document.body, 'mousemove', this.foundation.onHandleMove, false);
                 this._addEventListener(document.body, 'mouseup', this.foundation.onHandleUp, false);
@@ -464,7 +464,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                         onKeyDown={e =>{
                             this.foundation.handleKeyDown(e, 'max');
                         }}
-                        onFocus={e =>  {
+                        onFocus={e => {
                             this.foundation.onFocus(e, 'max');
                         }}
                         onBlur={(e) => {
@@ -566,7 +566,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
 
 
     render() {
-        const { disabled, currentValue, min, max  } = this.state;
+        const { disabled, currentValue, min, max } = this.state;
         const { vertical, verticalReverse, style, railStyle, range, className } = this.props;
         const wrapperClass = cls(
             `${prefixCls}-wrapper`,

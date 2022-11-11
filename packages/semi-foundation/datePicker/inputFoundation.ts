@@ -30,12 +30,12 @@ export interface DateInputEventHandlerProps {
     onClear?: (e: any) => void;
     onRangeInputClear?: (e: any) => void;
     onRangeEndTabPress?: (e: any) => void;
-    onInsetInputChange?: (options: InsetInputChangeProps) => void;
+    onInsetInputChange?: (options: InsetInputChangeProps) => void
 }
 
 export interface DateInputElementProps {
     insetLabel?: any;
-    prefix?: any;
+    prefix?: any
 }
 
 export interface DateInputFoundationProps extends DateInputElementProps, DateInputEventHandlerProps {
@@ -54,17 +54,17 @@ export interface DateInputFoundationProps extends DateInputElementProps, DateInp
     insetInput?: boolean;
     insetInputValue?: InsetInputValue;
     density?: typeof strings.DENSITY_SET[number];
-    defaultPickerValue?: ValueType;
+    defaultPickerValue?: ValueType
 }
 
 export interface InsetInputValue {
     monthLeft: {
         dateInput: string;
-        timeInput: string;
-    },
+        timeInput: string
+    };
     monthRight: {
         dateInput: string;
-        timeInput: string;
+        timeInput: string
     }
 }
 
@@ -72,13 +72,13 @@ export interface InsetInputChangeFoundationProps {
     value: string;
     insetInputValue: InsetInputValue;
     event: any;
-    valuePath: string;
+    valuePath: string
 }
 
 export interface InsetInputChangeProps { 
     insetInputStr: string;
     format: string;
-    insetInputValue: InsetInputValue;
+    insetInputValue: InsetInputValue
 }
 
 export interface DateInputAdapter extends DefaultAdapter {
@@ -92,7 +92,7 @@ export interface DateInputAdapter extends DefaultAdapter {
     notifyFocus: DateInputFoundationProps['onFocus'];
     notifyRangeInputClear: DateInputFoundationProps['onRangeInputClear'];
     notifyRangeInputFocus: DateInputFoundationProps['onFocus'];
-    notifyTabPress: DateInputFoundationProps['onRangeEndTabPress'];
+    notifyTabPress: DateInputFoundationProps['onRangeEndTabPress']
 }
 
 export default class InputFoundation extends BaseFoundation<DateInputAdapter> {
@@ -186,11 +186,11 @@ export default class InputFoundation extends BaseFoundation<DateInputAdapter> {
         this._adapter.notifyInsetInputChange({ insetInputValue: newInsetInputValue, format: insetFormatToken, insetInputStr: newInputValue });
     }
 
-    _autoFillTimeToInsetInputValue(options: { insetInputValue: InsetInputValue; format: string; valuePath: string;}) {
+    _autoFillTimeToInsetInputValue(options: { insetInputValue: InsetInputValue; format: string; valuePath: string}) {
         const { valuePath, insetInputValue, format } = options;
         const { type, defaultPickerValue, dateFnsLocale } = this._adapter.getProps();
         const insetInputValueWithTime = cloneDeep(insetInputValue);
-        const { nowDate, nextDate } = getDefaultPickerDate({ defaultPickerValue, format, dateFnsLocale  });
+        const { nowDate, nextDate } = getDefaultPickerDate({ defaultPickerValue, format, dateFnsLocale });
 
         if (type.includes('Time')) {
             let timeStr = '';

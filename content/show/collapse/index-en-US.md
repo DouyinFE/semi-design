@@ -180,7 +180,7 @@ import { IconCopy } from '@douyinfe/semi-icons';
 | defaultActiveKey | Key of the expanded panel when initialized | string \| string[] | - | - |
 | expandIcon | Custom expanding icon | ReactNode | `<IconChevronUp />` | - |
 | keepDOM | Whether to keep the hidden panel in DOM tree, destroyed by default | boolean | `false` | 0.25.0 |
-| motion | Toggle whether to have animation | object \| boolean | `true` | 1.4.0 |
+| motion | Toggle whether to have animation | boolean | `true` | 1.4.0 |
 | expandIconPosition | Expand icon position | `left`, `right` | `right` | 1.12.0 |
 | style | Inline CSS style | CSSProperties | {} | - |
 | onChange | Callback function when switching panel | function(activeKey: string \| string[], e: event) | - | - |

@@ -16,8 +16,8 @@ const sizeSet = strings.SIZE;
 const statusSet = strings.STATUS;
 const modeSet = strings.MODE;
 
-export { InputGroupProps } from './inputGroup';
-export { TextAreaProps } from './textarea';
+export type { InputGroupProps } from './inputGroup';
+export type { TextAreaProps } from './textarea';
 export type InputSize = 'small' | 'large' | 'default';
 export type InputMode = 'password';
 // still keep success as ValidateStatus optional value because form will pass success as props.validateStatus in sometime
@@ -64,7 +64,7 @@ export interface InputProps extends
     inputStyle?: React.CSSProperties;
     getValueLength?: (value: string) => number;
     forwardRef?: ((instance: any) => void) | React.MutableRefObject<any> | null;
-    preventScroll?: boolean;
+    preventScroll?: boolean
 }
 
 export interface InputState {
@@ -76,7 +76,7 @@ export interface InputState {
     isFocus: boolean;
     isHovering: boolean;
     eyeClosed: boolean;
-    minLength: number;
+    minLength: number
 }
 
 class Input extends BaseComponent<InputProps, InputState> {

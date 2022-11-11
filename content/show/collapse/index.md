@@ -180,7 +180,7 @@ import { IconCopy } from '@douyinfe/semi-icons';
 | expandIcon | 自定义展开图标 | ReactNode | `<IconChevronUp />` | - |
 | expandIconPosition | 展开图标位置 | `left`, `right` | `right` | 1.12.0 |
 | keepDOM | 是否保留隐藏的面板 DOM 树，默认销毁 | bool | `false` | 0.25.0 |
-| motion | 是否开启动画 | object \| boolean | `true` | 1.4.0 |
+| motion | 是否开启动画 | boolean | `true` | 1.4.0 |
 | style | 内联 CSS 样式 | CSSProperties | {} | - |
 | onChange | 切换面板的回调 | function(activeKey: string \| string[], e: event) | 无 | - |
 

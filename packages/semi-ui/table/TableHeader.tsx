@@ -100,7 +100,7 @@ export interface TableHeaderProps extends BaseProps {
     onDidUpdate?: (ref: React.MutableRefObject<any>) => void;
     onHeaderRow?: OnHeaderRow<any>;
     prefixCls?: string;
-    selectedRowKeysSet: Set<any>;
+    selectedRowKeysSet: Set<any>
 }
 
 
@@ -177,7 +177,7 @@ export interface TableHeaderCell {
     hasSubColumns?: boolean;
     rowSpan?: number;
     colSpan?: number;
-    colEnd?: number;
+    colEnd?: number
 }
 
 export default React.forwardRef<HTMLDivElement, Omit<TableHeaderProps, 'forwardedRef'>>((props, ref) => <TableHeader {...props} forwardedRef={ref} />);

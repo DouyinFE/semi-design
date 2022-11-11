@@ -11,10 +11,10 @@ import { merge, isUndefined, isNull } from 'lodash';
 
 const clsPrefix = cssClasses.PREFIX;
 
-export { BreadcrumbItemInfo };
+export type { BreadcrumbItemInfo };
 
 export interface RouteProps extends Route {
-    icon?: React.ReactNode;
+    icon?: React.ReactNode
 }
 export interface BreadcrumbItemProps extends BaseProps {
     onClick?: (item: RouteProps, e: React.MouseEvent) => void;
@@ -24,7 +24,7 @@ export interface BreadcrumbItemProps extends BaseProps {
     noLink?: boolean;
     active?: boolean;
     shouldRenderSeparator?: boolean;
-    route?: RouteProps;
+    route?: RouteProps
 }
 
 type BreadcrumbItemState = Record<string, never>;
@@ -32,7 +32,7 @@ type BreadcrumbItemState = Record<string, never>;
 interface GetTooltipOptType {
     width: number;
     ellipsisPos: EllipsisPos;
-    opts?: ShowTooltipType['opts'];
+    opts?: ShowTooltipType['opts']
 }
 
 export default class BreadcrumbItem extends BaseComponent<BreadcrumbItemProps, BreadcrumbItemState> {
@@ -89,6 +89,7 @@ export default class BreadcrumbItem extends BaseComponent<BreadcrumbItemProps, B
         const iconSize = compact ? 'small' : 'default';
         const className = `${clsPrefix}-item-icon`;
         if (React.isValidElement(iconType)) {
+            //@ts-ignore
             return React.cloneElement(iconType, { className, size: iconSize });
         }
         return iconType;

@@ -11,7 +11,7 @@ export interface RatingAdapter<P = Record<string, any>, S = Record<string, any>>
     notifyFocus: (e: any) => void;
     notifyBlur: (e: any) => void;
     notifyKeyDown: (e: any) => void;
-    setEmptyStarFocusVisible: (focusVisible: boolean) => void;
+    setEmptyStarFocusVisible: (focusVisible: boolean) => void
 }
 
 export default class RatingFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<RatingAdapter<P, S>, P, S> {
@@ -126,7 +126,7 @@ export default class RatingFoundation<P = Record<string, any>, S = Record<string
         let tempValue: number;
         let newValue: number;
         if (key === 'ArrowRight' || key === 'ArrowUp') {
-            tempValue = value + (reverse ?  - step : step);
+            tempValue = value + (reverse ? - step : step);
         } else if (key === 'ArrowLeft' || key === 'ArrowDown') {
             tempValue = value + (reverse ? step : - step);
         }
@@ -170,7 +170,8 @@ export default class RatingFoundation<P = Record<string, any>, S = Record<string
         }
     }
 
-    handleStarBlur = (event: React.FocusEvent) => {
+    // e: FocusEvent
+    handleStarBlur = (e: any) => {
         const { emptyStarFocusVisible } = this.getStates();
         if (emptyStarFocusVisible) {
             this._adapter.setEmptyStarFocusVisible(false);
@@ -180,7 +181,7 @@ export default class RatingFoundation<P = Record<string, any>, S = Record<string
 
 export interface RatingItemAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     setFirstStarFocus: (value: boolean) => void;
-    setSecondStarFocus: (value: boolean) => void;
+    setSecondStarFocus: (value: boolean) => void
 }
 
 export class RatingItemFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<RatingItemAdapter<P, S>, P, S> {
@@ -205,7 +206,8 @@ export class RatingItemFoundation<P = Record<string, any>, S = Record<string, an
         }
     }
 
-    handleBlur = (event: React.FocusEvent, star: string) => {
+    // e: FocusEvent
+    handleBlur = (e: any, star: string) => {
         const { firstStarFocus, secondStarFocus } = this.getStates();
         if (star === 'first') {
             firstStarFocus && this._adapter.setFirstStarFocus(false);

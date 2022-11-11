@@ -78,7 +78,7 @@ export interface TagInputProps {
     value?: string[] | undefined;
     autoFocus?: boolean;
     'aria-label'?: string;
-    preventScroll?: boolean;
+    preventScroll?: boolean
 }
 
 export interface TagInputState {
@@ -86,7 +86,7 @@ export interface TagInputState {
     inputValue?: string;
     focusing?: boolean;
     hovering?: boolean;
-    active?: boolean;
+    active?: boolean
 }
 
 const prefixCls = cssClasses.PREFIX;
@@ -484,8 +484,9 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
         }));
 
         if (active && draggable && sortableListItems.length > 0) {
+            // helperClass：add styles to the helper(item being dragged) https://github.com/clauderic/react-sortable-hoc/issues/87
             // @ts-ignore skip SortableItem type check
-            return <SortableList useDragHandle items={sortableListItems} onSortEnd={this.onSortEnd} axis={"xy"} />;
+            return <SortableList useDragHandle helperClass={`${prefixCls}-drag-item-move`} items={sortableListItems} onSortEnd={this.onSortEnd} axis={"xy"} />;
         } 
         return (
             <>

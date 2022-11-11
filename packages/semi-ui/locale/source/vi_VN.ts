@@ -99,7 +99,7 @@ const local: Locale = {
     },
     Table: {
         emptyText: 'Không kết quả',
-        pageText: 'Hiển thị $ {currentStart} đến $ {currentEnd} trong tổng số $ {total}}',
+        pageText: 'Hiển thị ${currentStart} đến ${currentEnd} trong tổng số ${total}}',
     },
     Select: {
         emptyText: 'Không kết quả',
@@ -155,6 +155,19 @@ const local: Locale = {
     },
     Form: {
         optional: '(không bắt buộc)',
+    },
+    Image: {
+        preview: 'xem trước',
+        loading: 'Đang tải',
+        loadError: 'Không tải được',
+        prevTip: 'Trước đó',
+        nextTip: 'Next',
+        zoomInTip: 'Phóng to',
+        zoomOutTip: 'thu nhỏ',
+        rotateTip: 'Xoay',
+        downloadTip: 'download',
+        adaptiveTip: 'Thích ứng với trang',
+        originTip: 'Kích thước ban đầu',
     },
 };
 

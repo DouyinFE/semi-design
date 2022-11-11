@@ -5,7 +5,7 @@ export interface SwitchAdapter<P = Record<string, any>, S = Record<string, any>>
     setNativeControlChecked: (nativeControlChecked: boolean | undefined) => void;
     setNativeControlDisabled: (nativeControlDisabled: boolean | undefined) => void;
     setFocusVisible: (focusVisible: boolean) => void;
-    notifyChange: (checked: boolean, e: any) => void;
+    notifyChange: (checked: boolean, e: any) => void
 }
 
 export default class SwitchFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<SwitchAdapter<P, S>, P, S> {

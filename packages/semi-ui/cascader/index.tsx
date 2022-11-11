@@ -27,20 +27,19 @@ import Item, { CascaderData, Entities, Entity, Data } from './item';
 import Trigger from '../trigger';
 import Tag from '../tag';
 import TagInput from '../tagInput';
-import { Motion } from '../_base/base';
 import { isSemiIcon } from '../_utils';
 import { Position } from '../tooltip/index';
 
-export { CascaderType, ShowNextType } from '@douyinfe/semi-foundation/cascader/foundation';
-export { CascaderData, Entity, Data, CascaderItemProps } from './item';
+export type { CascaderType, ShowNextType } from '@douyinfe/semi-foundation/cascader/foundation';
+export type { CascaderData, Entity, Data, CascaderItemProps } from './item';
 
 export interface ScrollPanelProps extends BasicScrollPanelProps {
-    activeNode: CascaderData;
+    activeNode: CascaderData
 }
 
 export interface TriggerRenderProps extends BasicTriggerRenderProps {
     componentProps: CascaderProps;
-    onClear: (e: React.MouseEvent) => void;
+    onClear: (e: React.MouseEvent) => void
 }
 
 /* The basic type of the value of Cascader */
@@ -60,7 +59,7 @@ export interface CascaderProps extends BasicCascaderProps {
     defaultValue?: Value;
     dropdownStyle?: CSSProperties;
     emptyContent?: ReactNode;
-    motion?: Motion;
+    motion?: boolean;
     treeData?: Array<CascaderData>;
     restTagsPopoverProps?: PopoverProps;
     children?: React.ReactNode;
@@ -83,13 +82,13 @@ export interface CascaderProps extends BasicCascaderProps {
     onBlur?: (e: MouseEvent) => void;
     onFocus?: (e: MouseEvent) => void;
     validateStatus?: ValidateStatus;
-    position?: Position;
+    position?: Position
 }
 
 export interface CascaderState extends BasicCascaderInnerData {
     keyEntities: Entities;
     prevProps: CascaderProps;
-    treeData?: Array<CascaderData>;
+    treeData?: Array<CascaderData>
 }
 
 const prefixcls = cssClasses.PREFIX;
@@ -111,7 +110,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         dropdownClassName: PropTypes.string,
         dropdownStyle: PropTypes.object,
         emptyContent: PropTypes.node,
-        motion: PropTypes.oneOfType([PropTypes.bool, PropTypes.func, PropTypes.object]),
+        motion: PropTypes.bool,
         /* show search input, if passed in a function, used as custom filter */
         filterTreeNode: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
         filterLeafOnly: PropTypes.bool,
@@ -171,7 +170,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         leafOnly: PropTypes.bool,
         enableLeafClick: PropTypes.bool,
         preventScroll: PropTypes.bool,
-        position:PropTypes.string
+        position: PropTypes.string
     };
 
     static defaultProps = {
@@ -402,7 +401,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                     ? (realValue as SimpleValueType[][])
                     : ([realValue] as SimpleValueType[][]);
             } else {
-                if (realValue !==  undefined) {
+                if (realValue !== undefined) {
                     normallizedValue = [[realValue]];
                 }
             }
@@ -557,6 +556,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                 // TODO Modify logic, not modify type
                 onRemove={v => this.handleTagRemove(null, (v as unknown) as (string | number)[])}
                 placeholder={placeholder}
+                expandRestTagsOnClick={false}
             />
         );
     }
@@ -966,19 +966,19 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
             stopPropagation,
             mouseLeaveDelay,
             mouseEnterDelay,
-            position
+            position,
+            motion
         } = this.props;
         const { isOpen, rePosKey } = this.state;
         const { direction } = this.context;
         const content = this.renderContent();
         const selection = this.renderSelection();
         const pos = position ?? (direction === 'rtl' ? 'bottomRight' : 'bottomLeft');
-        const mergedMotion: Motion = this.foundation.getMergedMotion();
         return (
             <Popover
                 getPopupContainer={getPopupContainer}
                 zIndex={zIndex}
-                motion={mergedMotion}
+                motion={motion}
                 ref={this.optionsRef}
                 content={content}
                 visible={isOpen}
@@ -989,6 +989,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                 stopPropagation={stopPropagation}
                 mouseLeaveDelay={mouseLeaveDelay}
                 mouseEnterDelay={mouseEnterDelay}
+                afterClose={()=>this.foundation.updateSearching(false)}
             >
                 {selection}
             </Popover>

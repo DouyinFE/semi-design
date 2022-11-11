@@ -84,16 +84,21 @@ $spacing-select_option-paddingLeft: $spacing-base-tight; // 选择器菜单项�
 $spacing-select_option-paddingRight: $spacing-base-tight; // 选择器菜单项右侧内边距
 $spacing-select_option-paddingTop: $spacing-tight; // 选择器菜单项顶部内边距
 $spacing-select_option-paddingBottom: $spacing-tight; // 选择器菜单项底部内边距
-$spacing-select_option_first-marginTop: $spacing-extra-tight; // 选择器第一个菜单项顶部外边距
-$spacing-select_option_last-marginBottom: $spacing-extra-tight; // 选择器最后一个菜单项顶部外边距
+
+
+// $spacing-select_option_first-marginTop: $spacing-extra-tight; // 选择器第一个菜单项顶部外边距
+// $spacing-select_option_last-marginBottom: $spacing-extra-tight; // 选择器最后一个菜单项顶部外边距
+
+
 $spacing-select_tag-marginTop: $spacing-super-tight - 1px; // 多项选择器标签顶部外边距
 $spacing-select_tag-marginRight: $spacing-extra-tight; // 多项选择器标签右侧外边距
 $spacing-select_tag-marginBottom: $spacing-super-tight - 1px; // 多项选择器标签底部外边距
 $spacing-select_selection-marginLeft: $spacing-base-tight; // 选择器内容区左侧外边距
 $spacing-select_insetLabel-marginRight: $spacing-base-tight; // 选择器内嵌标签右侧外边距
-$spacing-select_option_list-paddingTop: 0px; // 选择器内容区顶部内边距
+
+$spacing-select_option_list-paddingTop: $spacing-extra-tight; // 选择器内容区顶部内边距
 $spacing-select_option_list-paddingRight: 0px; // 选择器内容区右侧内边距
-$spacing-select_option_list-paddingBottom: 0px; // 选择器内容区底部内边距
+$spacing-select_option_list-paddingBottom: $spacing-extra-tight; // 选择器内容区底部内边距
 $spacing-select_option_list-paddingLeft: 0px; // 选择器内容区左侧内边距
 
 // Radius

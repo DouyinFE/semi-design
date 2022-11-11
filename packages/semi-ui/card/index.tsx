@@ -13,9 +13,9 @@ const prefixcls = cssClasses.PREFIX;
 
 export type Shadows = 'hover' | 'always';
 
-export { MetaProps } from './meta';
+export type { MetaProps } from './meta';
 
-export { CardGroupProps } from './cardGroup';
+export type { CardGroupProps } from './cardGroup';
 
 export interface CardProps {
     /** Operation group at the bottom of the card content area */
@@ -52,7 +52,7 @@ export interface CardProps {
     /** Title */
     title?: ReactNode;
     /** aria label */
-    'aria-label'?: string;
+    'aria-label'?: string
 }
 
 class Card extends PureComponent<CardProps> {

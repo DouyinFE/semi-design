@@ -4,20 +4,21 @@ import { Tabs, Table } from '@douyinfe/semi-ui';
 import { useIntl } from 'react-intl';
 import { Link } from 'gatsby';
 import lodash from 'lodash-es';
-interface Props{
+interface Props {
     componentName?: string;
     isColorPalette?: boolean;
     reg?: RegExp;
+    isAnimation?: boolean
 }
 
-interface Token{
+interface Token {
     key: string;
     value: string;
     category: string;
     raw: string;
 }
 
-interface DesignToken{
+interface DesignToken {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     global: {
@@ -30,18 +31,19 @@ interface DesignToken{
             dark: Token[];
         };
         normal: Token[];
+        animation: Token[];
     };
     [key: string]: Token[];
 
 }
 
 
-interface TokenMayWithColor extends Token{
+interface TokenMayWithColor extends Token {
     color?: string;
 }
 
 
-const JumpLink = ({ value, availableKeySet }: {value: string;availableKeySet: Set<string>}): ReactElement => {
+const JumpLink = ({ value, availableKeySet }: { value: string; availableKeySet: Set<string> }): ReactElement => {
     const { locale } = useIntl();
     const originValue = value;
     if (value.startsWith('var')) {
@@ -57,7 +59,7 @@ const JumpLink = ({ value, availableKeySet }: {value: string;availableKeySet: Se
     }
 };
 
-const TokenTable = ({ tokenList, designToken, currentTab,mode='light' }: {mode?:'light'|'dark',tokenList: TokenMayWithColor[];designToken: DesignToken; currentTab?: string; }): React.ReactElement => {
+const TokenTable = ({ tokenList, designToken, currentTab, mode = 'light' }: { mode?: 'light' | 'dark', tokenList: TokenMayWithColor[]; designToken: DesignToken; currentTab?: string; }): React.ReactElement => {
     const intl = useIntl();
     const globalTokenJumpAvailableSet = useMemo(() => {
         const global = designToken?.global;
@@ -76,7 +78,7 @@ const TokenTable = ({ tokenList, designToken, currentTab,mode='light' }: {mode?:
                         <div data-token={lodash.trim(text, '$')} style={{ fontWeight: 600 }}> <div style={{
                             width: 16, height: 16, display: 'inline-block', borderRadius: 3, backgroundColor: color,
                             transform: 'translateY(0.3rem)', marginRight: 8
-                        }} className={mode==='dark'?'semi-always-dark':'semi-always-light'}
+                        }} className={mode === 'dark' ? 'semi-always-dark' : 'semi-always-light'}
                         /> {text}
                         </div>
                     );
@@ -98,14 +100,14 @@ const TokenTable = ({ tokenList, designToken, currentTab,mode='light' }: {mode?:
                 <div>{text || intl.formatMessage({ id: 'designToken.WIP' })}</div>
         },
 
-    ], [intl.locale,mode]);
+    ], [intl.locale, mode]);
     if (!tokenList) {
         return null;
     }
     return <Table key={currentTab} columns={columns} dataSource={tokenList} />;
 };
 
-const TokenTab = ({ designToken, componentName }: {designToken: DesignToken;componentName: string}): React.ReactElement => {
+const TokenTab = ({ designToken, componentName }: { designToken: DesignToken; componentName: string }): React.ReactElement => {
     const componentDesignTokenList = useMemo(() => designToken[componentName], [designToken, componentName]);
     const tabList = useMemo(() => {
         const categorySet = new Set();
@@ -126,9 +128,9 @@ const TokenTab = ({ designToken, componentName }: {designToken: DesignToken;comp
     );
 };
 
-const GlobalTokenTab = ({ designToken, isColorPalette = false, reg }: {designToken: DesignToken;isColorPalette?: boolean;reg: RegExp}): React.ReactElement => {
+const GlobalTokenTab = ({ designToken, isColorPalette = false, reg }: { designToken: DesignToken; isColorPalette?: boolean; reg: RegExp }): React.ReactElement => {
     const { global, palette, normal } = designToken.global;
-    const [currentTab, setCurrentTab] = useState<'light'|'dark'>('light');
+    const [currentTab, setCurrentTab] = useState<'light' | 'dark'>('light');
     const [hasTab, setHasTab] = useState(true);
     const tokenList: TokenMayWithColor[] = useMemo(() => {
         if (!isColorPalette) {
@@ -151,13 +153,43 @@ const GlobalTokenTab = ({ designToken, isColorPalette = false, reg }: {designTok
     return (
         <>
             {hasTab ? (
-                <Tabs defaultActiveKey={'light'} tabList={[{ tab: 'Light', itemKey: 'light' }, { tab: 'Dark', itemKey: 'dark' }]} onChange={(key:typeof currentTab): void => setCurrentTab(key)}>
-                    <TokenTable designToken={designToken} tokenList={tokenList} mode={currentTab}/>
+                <Tabs defaultActiveKey={'light'} tabList={[{ tab: 'Light', itemKey: 'light' }, { tab: 'Dark', itemKey: 'dark' }]} onChange={(key: typeof currentTab): void => setCurrentTab(key)}>
+                    <TokenTable designToken={designToken} tokenList={tokenList} mode={currentTab} />
                 </Tabs>
             ) : <TokenTable designToken={designToken} tokenList={tokenList} mode={currentTab} />}
         </>
     );
 };
+
+
+const GlobalAnimationToken = ({ designToken }: { designToken: DesignToken }) => {
+    const animationList = useMemo(() => designToken?.global?.animation ?? [], [designToken]);
+    const tokenMap = useMemo(() => {
+        const tokenMap = {};
+        animationList.forEach(token => {
+            const tab = token['key'].match(/--semi-transition_([\w\W]+)-/)?.[1] ?? "other";
+            tokenMap[tab] = [...(tokenMap[tab] ?? []), token];
+        })
+        return tokenMap;
+    }, [animationList]);
+
+
+
+    return <>
+        <Tabs defaultActiveKey={Object.keys(tokenMap)[0]} >
+            {Object.entries(tokenMap).map(([category, tokenList]) => {
+                return <Tabs.TabPane tab={category} itemKey={category} key={category}>
+                    <TokenTable designToken={designToken} tokenList={tokenList} />
+                </Tabs.TabPane>
+            })}
+        </Tabs>
+    </>
+
+
+
+
+}
+
 
 const DesignToken = (props: Props): React.ReactElement => {
 
@@ -195,9 +227,13 @@ const DesignToken = (props: Props): React.ReactElement => {
 
     return (
         <div>
-            {designToken && componentName && (props.componentName === 'global' ?
+            {designToken && componentName && !props.isAnimation && (props.componentName === 'global' ?
                 <GlobalTokenTab designToken={designToken} reg={props.reg} isColorPalette={props.isColorPalette} /> :
                 <TokenTab designToken={designToken} componentName={componentName} />)}
+
+            {
+                props.isAnimation && <GlobalAnimationToken designToken={designToken} />
+            }
         </div>
     );
 };

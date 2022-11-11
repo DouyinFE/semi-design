@@ -141,6 +141,7 @@ $font-button-fontWeight: $font-weight-bold; // 按钮文字字重
 $height-button_large: $height-control-large; // 按钮高度 - 大尺寸
 $height-button_small: $height-control-small; // 按钮高度 - 小尺寸
 $height-button_default: $height-control-default; // 按钮高度 - 默认
+$height-button_group_line_default: 20px; // 分割线高度 - 默认
 
 $width-button-border: $border-thickness; // 按钮描边宽度
 $radius-button: var(--semi-border-radius-small); // 按钮圆角大小

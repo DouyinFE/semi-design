@@ -1,7 +1,7 @@
 //@import '../theme/variables.scss';
 // @import '../theme/mixin.scss';
-@import "./variables.scss";
 @import "./animation.scss";
+@import "./variables.scss";
 @import "./mixin.scss";
 
 $module: #{$prefix}-checkbox;
@@ -11,13 +11,14 @@ $module: #{$prefix}-checkbox;
     // box-sizing: border-box;
     position: relative;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     flex-wrap: wrap;
     @include font-size-regular;
     cursor: pointer;
     transition: background-color $transition_duration-checkbox-bg $transition_function-checkbox-bg $transition_delay-checkbox-bg,
     border $transition_duration-checkbox-border $transition_function-checkbox-border $transition_delay-checkbox-border;
     transform: scale($transform_scale-checkbox);
+    column-gap: $spacing-checkbox_label-paddingLeft;
 
     input[type="checkbox"] {
         position: absolute;
@@ -29,11 +30,17 @@ $module: #{$prefix}-checkbox;
         opacity: 0;
     }
 
+    &-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        row-gap: $spacing-checkbox_extra-marginTop;
+    }
+
     &-addon {
         display: flex;
         flex: 1;
         align-items: center;
-        padding-left: $spacing-checkbox_label-paddingLeft;
         color: $color-checkbox_label-text-default;
         line-height: $font-checkbox_label-lineHeight;
         user-select: none;
@@ -192,7 +199,6 @@ $module: #{$prefix}-checkbox;
                 background: $color-checkbox_cardType_inner-bg-default;
             }
 
-            margin-right: $spacing-checkbox_cardType_inner-marginRight;
             flex-shrink: 0;
         }
 
@@ -202,7 +208,6 @@ $module: #{$prefix}-checkbox;
             // input focus/blur cannot take effect when display: none
             opacity: 0;
             width: 0;
-            margin-right: 0;
         }
 
         .#{$module}-addon {
@@ -210,8 +215,6 @@ $module: #{$prefix}-checkbox;
             font-size: $font-checkbox_cardType_addon-size;
             line-height: $font-checkbox_cardType_addon-lineHeight;
             color: $color-checkbox_cardType_addon-text-default;
-            margin-left: 0;
-            padding-left: 0;
         }
 
         .#{$module}-extra {
@@ -219,7 +222,6 @@ $module: #{$prefix}-checkbox;
             font-size: $font-checkbox_cardType_extra-size;
             line-height: $font-checkbox_cardType_extra-lineHeight;
             color: $color-checkbox_cardType_extra-text-default;
-            padding-left: 0;
 
             &.#{$module}-cardType_extra_noChildren {
                 margin-top: 0;
@@ -359,9 +361,7 @@ $module: #{$prefix}-checkbox;
         flex-grow: 1;
         flex-basis: 100%;
         box-sizing: border-box;
-        padding-left: $spacing-checkbox_extra-paddingLeft;
         color: $color-checkbox_extra-text-default;
-        margin-top: $spacing-checkbox_extra-marginTop;
     }
 
     &-focus {
@@ -385,28 +385,28 @@ $module: #{$prefix}-checkbox;
     }
 
     &-horizontal {
-        .#{$module} {
-            margin-right: $spacing-checkbox_group_horizontal-marginRight;
-            display: inline-flex;
+        display: flex;
+        flex-wrap: wrap;
+        gap: $spacing-checkbox_group_horizontal-marginRight;
 
-            &:last-of-type {
-                margin-right: 0;
-            }
+        .#{$module} {
+            display: inline-flex;
         }
     }
 
     &-vertical {
-        .#{$module} {
-            margin-bottom: $spacing-checkbox_group_vertical_item-marginBottom;
-
-            &:last-of-type {
-                margin-bottom: 0;
-            }
-        }
+        display: flex;
+        flex-direction: column;
+        row-gap: $spacing-checkbox_group_vertical_item-marginBottom;
 
         &-cardType {
+            row-gap: $spacing-checkbox_card_group_vertical-marginBottom;
+        }
+
+
+        &-pureCardType {
             .#{$module} {
-                margin-bottom: $spacing-checkbox_card_group_vertical-marginBottom;
+                column-gap: 0;
             }
         }
     }

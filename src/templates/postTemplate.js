@@ -45,9 +45,12 @@ import cls from 'classnames';
 import { IconLink, IconFile, IconHelpCircle } from '@douyinfe/semi-icons';
 import { Switch, TabPane, Tabs } from '../../packages/semi-ui';
 import DesignPageAnchor from 'components/DesignPageAnchor';
-import transContent, {getAnotherSideUrl, isHaveUedDocs, isJumpToDesignSite} from './toUEDUtils/toUED';
+import transContent, { getAnotherSideUrl, isHaveUedDocs, isJumpToDesignSite } from './toUEDUtils/toUED';
 import ImageBox from 'components/ImageBox';
 import './toUEDUtils/toUED.scss';
+import { debounce } from 'lodash';
+import StickyHeaderTable from '../demos/StickyHeaderTable';
+
 const Text = ({ lang, letterSpacing, size, lineHeight, text }) => {
     letterSpacing = letterSpacing || 'auto';
     return (
@@ -88,7 +91,7 @@ const SemiComponents = {
         </Tooltip>
     ),
     Notice,
-    CustomH4, 
+    CustomH4,
     CustomH5,
     Checkbox,
     Radio,
@@ -187,6 +190,7 @@ const code = ({ ...props }) => {
             delete lodashScope.default;
             newProps.scope = { ...newProps.scope, ...lodashScope, _: { ...lodash_es } };
             setComponent(() => content.default);
+            window.postMessage("oneCodeLoaded")
         }, 0);
         return () => {
             ref.current.mounted = false;
@@ -208,23 +212,32 @@ const components = {
     ...Blocks,
     code,
     pre,
-    hr: ({}) => <hr className={'gatsby-hr'} />,
+    hr: ({ }) => <hr className={'gatsby-hr'} />,
     h2: ({ children }) => {
         const intl = useIntl();
+        const onIconLinkClick = () => {
+            copy(`${window.location.href.replace(window.location.hash, '')}#${window.encodeURI(children)}`);
+            Toast.success({
+                content: intl.formatMessage({
+                    id: 'editor.copy.success',
+                }),
+                duration: 3,
+            });
+        }
         return (
             <h2 className="md markdown gatsby-h2" id={makeAnchorId(children)}>
                 {children}
                 {
-                    children === '设计变量'?
+                    children === '设计变量' ?
                         <Tooltip content={
                             <span>
                                 如何使用可查阅：
                                 <a href='https://semi.design/dsm_manual/zh-CN/web/componentToken' target="_blank">Semi DSM 手册</a>
                             </span>}
                         >
-                            <IconHelpCircle size='large' type="help_circle" style={{ color: ' --semi-color-tertiary-light-default', marginLeft: 4 }}/>
+                            <IconHelpCircle size='large' type="help_circle" style={{ color: ' --semi-color-tertiary-light-default', marginLeft: 4 }} />
                         </Tooltip>
-                    : null
+                        : null
                 }
                 {
                     children === 'Design Tokens' ? <Tooltip content={
@@ -237,14 +250,13 @@ const components = {
                 }
                 <IconLink
                     className={'anchor-link-button-icon'}
-                    onClick={() => {
-                        copy(`${window.location.href.replace(window.location.hash, '')}#${window.encodeURI(children)}`);
-                        Toast.success({
-                            content: intl.formatMessage({
-                                id: 'editor.copy.success',
-                            }),
-                            duration: 3,
-                        });
+                    tabIndex={0}
+                    role="button"
+                    onClick={onIconLinkClick}
+                    onKeyPress={(e) => {
+                        if (['Enter', ' '].includes(e?.key)) {
+                            onIconLinkClick(e);
+                    }
                     }}
                 />
             </h2>
@@ -253,19 +265,27 @@ const components = {
     blockquote: ({ children }) => <blockquote className={'gatsby-blockquote'}>{children}</blockquote>,
     h3: ({ children }) => {
         const intl = useIntl();
+        const onIconLinkClick = () => {
+            copy(`${window.location.href.replace(window.location.hash, '')}#${window.encodeURI(children)}`);
+            Toast.success({
+                content: intl.formatMessage({
+                    id: 'editor.copy.success',
+                }),
+                duration: 3,
+            });
+        }
         return (
             <h3 className="md markdown gatsby-h3" id={makeAnchorId(children)}>
                 {children}
                 <IconLink
+                    tabIndex={0}
+                    role="button"
                     className={'anchor-link-button-icon'}
-                    onClick={() => {
-                        copy(`${window.location.href.replace(window.location.hash, '')}#${window.encodeURI(children)}`);
-                        Toast.success({
-                            content: intl.formatMessage({
-                                id: 'editor.copy.success',
-                            }),
-                            duration: 3,
-                        });
+                    onClick={onIconLinkClick}
+                    onKeyPress={(e) => {
+                        if (['Enter', ' '].includes(e?.key)) {
+                            onIconLinkClick(e);
+                        }
                     }}
                 />
             </h3>
@@ -276,7 +296,7 @@ const components = {
         return (
             <h4 className="md markdown gatsby-h4" id={makeAnchorId(children)}>
                 {children}
-                { version && <SemiSiteChangeLogDiff style={{ marginLeft: 16 }} hoverContent={children} /> }
+                {version && <SemiSiteChangeLogDiff style={{ marginLeft: 16 }} hoverContent={children} />}
             </h4>
         );
     },
@@ -307,9 +327,9 @@ const components = {
     li: ({ children }) => {
         if (Array.isArray(children)) {
             children = [...children];
-            
+
             // For convience of adding new feature in different type, we use "if else" group instead of object or map.
-            
+
             if (children[0] === '【Feature】' || children[0] === '【Feat】') {
                 children[0] = <div className={'changelog-title'}>🎁【Feature】</div>;
             }
@@ -388,7 +408,7 @@ const components = {
                         duration: 3,
                         textMaxWidth: 300
                     })) : noop}
-                    >
+                >
                     {props.children}
                 </a>
             );
@@ -422,9 +442,9 @@ const components = {
             })
             return dataSource;
         }
-        
+
         let tableCls = 'md markdown gatsby-table';
-        
+
         try {
             const columns = getColumnsFromFiber(columnsFiber);
             const dataSource = getDataFromFiber(dataFiber);
@@ -448,14 +468,15 @@ const components = {
         //         </div>
         //     );
         // } catch {
-            return (
-                <div className='table-container gatsby-table-container'>
-                    <table className={tableCls}>{children}</table>
-                </div>
-            );
+        return (
+            <div className='table-container gatsby-table-container'>
+                <table className={tableCls}>{children}</table>
+            </div>
+        );
         // }
     },
     ApiType,
+    StickyHeaderTable
 };
 
 const getPrevAndNext = pageContext => {
@@ -510,21 +531,38 @@ const getCNtype = type => {
 };
 
 export default function Template(args) {
-    const { pageContext, data,location }=args
+    const { pageContext, data, location } = args
     useEffect(() => {
         const { hash } = window.location;
 
         try {
             if (hash === '') {
-                window.scrollTo({
-                    top: 0,
-                });
+                // window.scrollTo({
+                //     top: 0,
+                // });
             } else {
                 const id = `#${makeAnchorId(window.decodeURI(hash.slice(1)))}`; // console.log('id', id);
 
                 const dom = document.querySelector(id);
                 if (dom) {
-                    setTimeout(()=>dom.scrollIntoView());
+                    let timer = null;
+                    const scrollIntoView = debounce(()=>{
+                        window.scroll(0, dom.offsetTop);
+                    },100)
+                    const messageHandle = (e) => {
+                        if (e.data === "oneCodeLoaded") {
+                            // dom.scrollIntoView();
+                            setTimeout(() => {
+                                scrollIntoView();
+                                clearTimeout(timer);
+                                timer = setTimeout(() => {
+                                    window.removeEventListener('message', messageHandle);
+                                }, 5000)
+                            },100)
+                        }
+                    }
+                    window.addEventListener('message', messageHandle);
+
                 }
             }
         } catch (e) {
@@ -591,39 +629,47 @@ export default function Template(args) {
         window.EvaluateSDK && window.EvaluateSDK(appKey, email, options);
     };
 
-    const [iframeAnchorData,setIframeAnchorData]=useState(null);
+    const [iframeAnchorData, setIframeAnchorData] = useState(null);
 
-    useEffect(()=>{
-        const handleMessage=(e)=>{
-            if(e.data==='toRD'){
+    useEffect(() => {
+        const handleMessage = (e) => {
+            if (e.data === 'toRD') {
                 transContent('main');
                 return;
             }
 
             let data;
-            try{
-                data=JSON.parse(e.data);
-            }catch (e){
+            try {
+                data = JSON.parse(e.data);
+            } catch (e) {
                 return;
             }
-            if(data.type==='anchorData'){
+            if (data.type === 'anchorData') {
                 setIframeAnchorData(data.value);
             }
 
         }
-        window.addEventListener('message',handleMessage);
-        return ()=>window.removeEventListener('message',handleMessage);
-    },[]);
+        window.addEventListener('message', handleMessage);
+        return () => window.removeEventListener('message', handleMessage);
+    }, []);
 
 
     const isComponentPage = COMPONENT_LIST.some(item => item.toLowerCase() === enTitle.toLowerCase());
-    const haveUedDoc=isHaveUedDocs(location?.pathname || window.location.pathname);
-    const jumpToDesignSite=isJumpToDesignSite(location?.pathname || window.location.pathname);
-    const [tabValue,setTabValue]=useState('rd');
+    const haveUedDoc = isHaveUedDocs(location?.pathname || window.location.pathname);
+    const jumpToDesignSite = isJumpToDesignSite(location?.pathname || window.location.pathname);
+    const [tabValue, setTabValue] = useState('rd');
     return (
         <div className={calcClassName()}>
             <SEO lang="zh-CN" title={`${current.frontmatter.title} - Semi Design`} />
-            <div className="title-area" style={haveUedDoc?{}:{borderBottom:`1px solid var(--semi-color-border)`}}>
+            <div className={'pageAnchor'}>
+                {(tabValue === 'rd' || (["Accessibility "].includes(enTitle))) && (
+                    <PageAnchor slug={pageContext.slug} data={current.tableOfContents.items} />
+                )}
+                {
+                    iframeAnchorData && tabValue === 'ued' && <DesignPageAnchor data={iframeAnchorData} />
+                }
+            </div>
+            <div className="title-area" style={haveUedDoc ? {} : { borderBottom: `1px solid var(--semi-color-border)` }}>
                 <div>
                     {current.frontmatter.draft ? (
                         <Tag className="article-tag" color="orange">
@@ -635,9 +681,8 @@ export default function Template(args) {
                     <div className="header-tinyTitle">
                         {intl.locale === 'zh-CN'
                             ? `${getCNtype(current.fields.type)} · ${enTitle}`
-                            : `${current.fields.type[0].toUpperCase() + current.fields.type.slice(1)} · ${
-                                  current.frontmatter.title
-                              }`}
+                            : `${current.fields.type[0].toUpperCase() + current.fields.type.slice(1)} · ${current.frontmatter.title
+                            }`}
                     </div>
                     <div className="header-title">{intl.locale === 'zh-CN' ? cnTitle : current.frontmatter.title}</div>
                     <div className="article-brief">{current.frontmatter.brief}</div>
@@ -650,34 +695,25 @@ export default function Template(args) {
                         />
                     )}
                 </div>
-
-                {current.fields.type !== 'start' && haveUedDoc  &&  (
-                    <Tabs activeKey={tabValue} onTabClick={(key)=>{
-                        if(key==='ued'){
-                            if(jumpToDesignSite){
+                {current.fields.type !== 'start' && haveUedDoc && (
+                    <Tabs activeKey={tabValue} onTabClick={(key) => {
+                        if (key === 'ued') {
+                            if (jumpToDesignSite) {
                                 window.open(getAnotherSideUrl('design'));
-                            }else{
+                            } else {
                                 transContent('design');
                                 setTabValue('ued');
                             }
 
-                        }else{
+                        } else {
                             transContent('rd');
                             setTabValue('rd');
                         }
                     }}>
-                        <TabPane tab={intl.formatMessage({id:'apiDoc'})} itemKey={'rd'}/>
-                        <TabPane tab={intl.formatMessage({id:'designDoc'})} itemKey={'ued'}/>
+                        <TabPane tab={intl.formatMessage({ id: 'apiDoc' })} itemKey={'rd'} tabIndex={-1}/>
+                        <TabPane tab={intl.formatMessage({ id: 'designDoc' })} itemKey={'ued'} tabIndex={-1} />
                     </Tabs>
                 )}
-            </div>
-            <div className={'pageAnchor'}>
-                {(tabValue==='rd' || (["Accessibility "].includes(enTitle))) && (
-                    <PageAnchor slug={pageContext.slug} data={current.tableOfContents.items} />
-                )}
-                {
-                    iframeAnchorData && tabValue==='ued' && <DesignPageAnchor data={iframeAnchorData}/>
-                }
             </div>
             <div className="main-article">
                 <MDXProvider components={components}>

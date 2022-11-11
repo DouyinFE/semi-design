@@ -1,7 +1,7 @@
 //@import '../theme/variables.scss';
-@import './variables.scss';
 @import "./animation.scss";
 @import './option.scss';
+@import './variables.scss';
 @import './mixin.scss';
 
 $module: #{$prefix}-select;
@@ -22,9 +22,8 @@ $multiple: #{$module}-multiple;
     position: relative;
     outline: none;
     cursor: pointer;
-    transition: background-color $transition_duration-select-bg $transition_function-select-bg $transition_delay-select-bg,
-    border $transition_duration-select-border $transition_function-select-border $transition_delay-select-border;
-    transform:scale($transform_scale-select);
+    transition: background-color $transition_duration-select-bg $transition_function-select-bg $transition_delay-select-bg, border $transition_duration-select-border $transition_function-select-border $transition_delay-select-border;
+    transform: scale($transform_scale-select);
     &:hover {
         background-color: $color-select-bg-hover;
         border: $width-select-border-hover solid $color-select-border-hover;
@@ -394,10 +393,16 @@ $multiple: #{$module}-multiple;
     }
 }
 
+.#{$module}-option-list-wrapper {
+    padding-top: $spacing-select_option_list-paddingTop;
+    padding-bottom: $spacing-select_option_list-paddingBottom;
+    padding-left: $spacing-select_option_list-paddingLeft;
+    padding-right: $spacing-select_option_list-paddingRight;
+}
+
 .#{$module}-option-list {
     overflow-x: hidden;
     overflow-y: auto;
-    padding: $spacing-select_option_list-paddingTop $spacing-select_option_list-paddingRight $spacing-select_option_list-paddingBottom $spacing-select_option_list-paddingLeft;
     &-chosen {
         .#{$module}-option-icon {
             display: flex;

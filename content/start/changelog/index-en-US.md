@@ -15,7 +15,170 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+#### 🎉 2.22.3 (2022-11-02)
+- 【Docs】
+    - Added accessibility (A11y) support to Semi site
 
+#### 🎉 2.22.2 (2022-10-31)
+- 【Fix】
+    - Fix the flickering problem when Tooltip and Popover components are closed (affecting v2.22) [#1225](https://github.com/DouyinFE/semi-design/issues/1225)
+
+#### 🎉 2.22.0 (2022-10-28)
+- 【Fix】
+    - fix the issue of inconsistent width when the year-month selection mode is normal and wheel under DatePicker type="month"
+
+#### 🎉 2.22.0-beta.2 (2022-10-26)
+- 【Fix】
+  - Fix the problem that the restTagsPopoverProps API in Select is not set as optional, causing ts to report an error
+
+#### 🎉 2.22.0-beta.1 (2022-10-26)
+- 【Feat】
+  - Typography adds a new Numeral component, based on the Text component, and adds attributes: rule, precision, truncate, parser, to provide the ability to process numerical values ​​in text separately [@uiuing](https://github.com/uiuing) [#1136](https://github.com/DouyinFE/semi-design/issues/1136)
+  - TreeSelect adds showRestTagsPopover and restTagsPopoverProps parameters to support displaying redundant tags through popover [#1210](https://github.com/DouyinFE/semi-design/pull/1210)
+  - Select added showRestTagsPopover and restTagsPopoverProps to support displaying redundant tags through popover [#1212](https://github.com/DouyinFE/semi-design/pull/1212)
+  - Navigation add a11y support [#1195](https://github.com/DouyinFE/semi-design/pull/1195)
+  - Modal SideSheet Tabs and Popover Tooltip and other pop-up layer components animation effects are changed from javascript to css. Added animation Token, which can support custom animation in DSM in the form of themes [#1150](https://github.com/DouyinFE/semi-design/pull/1150)
+  - Optimize the animation effect of ScrollList in wheel mode [#1211](https://github.com/DouyinFE/semi-design/pull/1211)
+  - The yearAndMonthOpts API has been added to DatePicker, which can be used to control the ScrollListItem of the year-month picker [#1211](https://github.com/DouyinFE/semi-design/pull/1211)
+  - The second parameter of DatePicker disabledDate API adds the rangeInputFocus parameter to dynamically disable the date based on the current selection state [#1198](https://github.com/DouyinFE/semi-design/pull/1198)
+  - Export LocaleConsumer Component [@Hokori23](https://github.com/Hokori23) [#1196](https://github.com/DouyinFE/semi-design/pull/1196)
+- 【Fix】
+  - Fix hooks Modal motion=false not take effect bug [#1217](https://github.com/DouyinFE/semi-design/pull/1217)
+  - Update the type of render of the Columns property of the Table component [@Assone](https://github.com/Assone) [#1209](https://github.com/DouyinFE/semi-design/pull/1209)
+  - Fix when motion is false in Cascader, after searching for the selected value, the panel display is still the searched option after the panel is collapsed and then opened  [#1199 ](https://github.com/DouyinFE/semi-design/issues/1199) 
+  - Fixed an issue with React-specific API calls in Foundation code [#1189](https://github.com/DouyinFE/semi-design/issues/1189)
+  - Fix Table defaultFiltertedValue and defaultSortOrder not included in onChange  [#1188](https://github.com/DouyinFE/semi-design/issues/1188)
+  - Fixed the issue that Children display would be triggered twice when popover, ToolTip, Dropdown and other popup components were set to true [#1174](https://github.com/DouyinFE/semi-design/issues/1174)
+  - Change the component that implements the expand/collapse animation in NodeList from the Collapse component in the Tree to the public Collapsible component [#1182](https://github.com/DouyinFE/semi-design/pull/1182)
+  - Fixed an issue where the removal of the Collapsible ancestor element from the render tree caused the height calculation to be abnormal and unable to expand [#1174](https://github.com/DouyinFE/semi-design/issues/1174)
+  - Fixed that when the Collapsible content area was removed from the render tree, the height calculation was abnormal and it could not be expanded [#1174](https://github.com/DouyinFE/semi-design/issues/1174)
+  - Fixed the height change of the Collapsible content area causing the collapse animation of the height change area to not be displayed when collapsed [#1174](https://github.com/DouyinFE/semi-design/issues/1174)
+- 【Style】
+  - Fixed the problem that some packaging strategies caused the padding of NavItem in Dropdown to not meet expectations [#1204](https://github.com/DouyinFE/semi-design/pull/1204)
+- 【Docs】
+  - Update the documentation of the Columns property of the Table component [@Assone](https://github.com/Assone) [#1209](https://github.com/DouyinFE/semi-design/pull/1209)
+- 【Breaking Change】
+  - Changed the ScrollListItem used in TimePicker and DatePicker from mode wheel to mode normal to make it more suitable for PC [#1211](https://github.com/DouyinFE/semi-design/pull/1211)
+
+
+#### 🎉 2.21.1 (2022-10-13)
+- 【Fix】
+  - fix Modal esc key trigger event callback after closed
+
+
+#### 🎉 2.21.0 (2022-10-12)
+- 【Fix】
+  - Fix the problem that the timer is not updated when carousel switches the index through the left and right buttons or methods
+- 【Docs】
+  - Update docsite homepage, add showcase
+
+#### 🎉 2.21.0-beta.1 (2022-10-10)
+- 【Fix】
+  - fix AutoComplete e.target is null in onBlur callback
+
+#### 🎉 2.21.0-beta.0 (2022-10-08)
+- 【Feat】
+  - Table adds header sticky API
+  - AutoComplete add new API onKeyDown
+  - the Upload component exposes the openFileDialog method so that the user can manually open the file selection dialog.
+  - LocaleProvider added Romanian(ro) [@jacob-lcs](https://github.com/jacob-lcs)
+- 【Fix】
+  - fix the problem that children onKeydown cannot get events under Dropdown
+  - fix the problem that the timer is not updated when Carousel switches the index through the left and right buttons or methods
+  - fix Select when the filter is true and the input box is empty, after closing panel trigger onSearch function issue
+- 【Style】
+  - add rounded corners to square avatars
+#### 🎉 2.20.8 (2022-10-11)
+- 【Fix】
+  - Fixed the problem that the position of the first Option option is offset when the Select is virtualized  [#1178](https://github.com/DouyinFE/semi-design/pull/1178)
+- 【Style】
+  - The default maxHeight value of Select (the max height of the Option floating layer), the default height of virtualization is `300px` -> `270px`
+  - Select Design Token changed, abandoned `$spacing-select_option_first-marginTop`、`$spacing-select_option_last-marginBottom` ；
+Change ：`$spacing-select_option_list-paddingTop` 、`$spacing-select_option_list-paddingBottom` ， from 0 to `$spacing-extra-tight` (4px)
+- 【Chore】
+    - Form export RuleItem Interface  
+
+
+
+#### 🎉 2.20.7 (2022-10-10)
+- 【Fix】
+  - Fix the problem that the style is lost when only ImagePreview is introduced and used alone, and the Image component is not introduced[#1175](https://github.com/DouyinFE/semi-design/pull/1175)
+
+#### 🎉 2.20.3 (2022-09-28)
+- 【Fix】
+  - Fix the ButtonGroup key warning problem
+  - Fix SSR setting withField、Form Field related problem with useLayoutEffect warning [#1140](https://github.com/DouyinFE/semi-design/pull/1140)
+  - Fix the problem of some type errors under typescript 4.8.3
+  - Modify the modal focus logic to automatically focus on the first focusable element in the pop-up window
+
+#### 🎉 2.20.2 (2022-09-27)
+- 【Fix】
+  - Fix warning about corejs in @douyinfe/semi-icons 
+
+#### 🎉 2.20.1 (2022-09-27)
+- 【Style】
+  - Image global variable plus !default is used for theme configuration fault tolerance [#1151](https://github.com/DouyinFE/semi-design/pull/1151)
+
+#### 🎉 2.20.0 (2022-09-23)
+- 【Fix】
+  - fix the issue that Form.InputGroup does not support FormProps.wrapperCol , labelCol layout
+  - fix the drag and drop problem after the Image preview is enlarged
+  - fix DataPicker component foundation contains React related type definitions [@rashagu](https://github.com/rashagu)
+  - fix the problem that the foundation of Navigation and Tree components reports errors in high versions of typescript [@rashagu](https://github.com/rashagu)
+  - fix the expansion of the controlled tree when the data was loaded remotely unsuccessfully [#1124](https://github.com/DouyinFE/semi-design/issues/1124)
+  - fix ButtonGroup does not support style API issue
+  - fix the problem that when the virtualized Table has a fixed column on the left, the first rendering of the fixed column on the left will have an extra box-shadow [#1134](https://github.com/DouyinFE/semi-design/issues/1134)
+
+
+#### 🎉 2.20.0-beta.1 (2022-09-20)
+- 【Fix】
+    - Fix the issue that `@douyinfe/semi-foundation` Image relative file not export
+
+#### 🎉 2.20.0-beta.0 (2022-09-19)
+
+- 【New Component】
+    - Add Image Component(Added basic sass, global sass variables, need to republish if using a custom theme) [#344](https://github.com/DouyinFE/semi-design/issues/344)
+- 【Feat】
+    - Tag add shape property, supports `square`、`circle` [#89](https://github.com/DouyinFE/semi-design/issues/89)
+    - Progress supports automatically filling gradient colors according to progress, and automatically switching colors according to progress presets [#1092](https://github.com/DouyinFE/semi-design/issues/1092) [@uiuing](https://github.com/uiuing)
+    - Toast supports dynamic modification of content by ID [#1035](https://github.com/DouyinFE/semi-design/issues/1035) [@gwsbhqt](https://github.com/gwsbhqt)
+    - Skeleton.Avatar supports shape property [#1117](https://github.com/DouyinFE/semi-design/issues/1117) [@MuxinFeng](https://github.com/MuxinFeng)
+- 【Chore】
+    - Remove the ts source code in the package product of @douyinfe/semi-ui, leaving only the lib and dist directories
+    - Modify the writing of some components scss, convert division into multiplication and math.div syntax, to avoid the problem of repeatedly throwing warnings when compiling higher versions of sass
+  
+#### 🎉 2.19.0 (2022-09-09)
+- 【Fix】
+    - fix the issue that the keyboard focus style is blocked after the Anchor spacing can trigger the selection
+    - fix the issue that the Select onblur event was not triggered when the panel was closed
+    - fix Anchor spacing in front of anchor text cannot trigger selection [@edc-hui](https://github.com/edc-hui)
+    - fix the problem that the location of event rendering did not change after Calendar weekStartsOn was changed
+    - fix the problem that Input onEnterPress event does not take effect when using Input in DropDown
+    - fix the problem that tagGroup pollutes incoming tagList data  [#1107 ](https://github.com/DouyinFE/semi-design/issues/1107)
+    - fix DatePicker time will be set 8:00 when switch month and type is dateTime [@rojer95](https://github.com/rojer95)
+- 【Chore】
+    - Remove corejs deps in semi-foundation semi-ui.
+
+
+#### 🎉 2.19.0-beta.0 (2022-09-05)
+- 【Feat】
+  - Popconfirm's onOk and onCancel support Promise type return value and close asynchronously [#1056](https://github.com/DouyinFE/semi-design/issues/1056)
+- 【Fix】
+  - Fix Popconfirm multiline content style bug [#868](https://github.com/DouyinFE/semi-design/issues/868)
+  - Fix DefaultTabBar type error [#1077](https://github.com/DouyinFE/semi-design/pull/1077)
+  - Fix the TS error when the Form level is set to autoComplete to false
+  - Fix an issue where Slider was incorrectly positioned when passing in partial steps values [#1043](https://github.com/DouyinFE/semi-design/issues/1043)
+  - Fix Tag tagKey type definition error problem [#1081](https://github.com/DouyinFE/semi-design/pull/1081)
+  - Fix incorrect value when RadioGroup was first rendered [#1060](https://github.com/DouyinFE/semi-design/pull/1060)
+- 【Style】
+  - Add overflow: auto default style to Sidesheet body, you no longer need to add overflow related styles through props.bodyStyle when the content exceeds [#1098](https://github.com/DouyinFE/semi-design/pull/1098)
+- 【Refactor】
+  - Replace margin layout in Checkbox with flex layout and gap [#1073](https://github.com/DouyinFE/semi-design/pull/1073)
+  - Dividers in ButtonGroup use span tags instead of border-right [#1065](https://github.com/DouyinFE/semi-design/pull/1065)
+  - Refactored Radio's layout, removed some absolute positioning, and used flex layout instead [#1060](https://github.com/DouyinFE/semi-design/pull/1060)
+- 【Breaking Change】
+  - When using CheckboxGroup, if the child Checkbox is nested with a layer of elements such as div or span, then the Checkbox will not have margin-bottom. Styling each Checkbox nested element individually is unaffected [#1073](https://github.com/DouyinFE/semi-design/pull/1073)
+  
 #### 🎉 2.18.2 (2022-08-31)
 
 - 【Fix】

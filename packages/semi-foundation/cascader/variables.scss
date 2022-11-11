@@ -51,6 +51,7 @@ $spacing-cascader_selection_tagInput-marginLeft: - $spacing-extra-tight; // 级�
 $spacing-cascader_selection_input-marginLeft: $spacing-extra-tight; // 级联选择触发器多选搜索时输入框的左外边距
 $spacing-cascader_selection_n-marginRight: $spacing-extra-tight; // 超出 maxTagCount 后，+n 的右外边距
 $spacing-cascader_clearBtn-marginRight: 12px; // 级联选择触发器清空按钮右侧外边距
+$spacing-cascader_option-icon-marginLeft: 8px; // 级联选择菜单项图标左侧外边距
 
 $color-cascader_selection_n-text-default: var(--semi-color-text-0); // 超出 maxTagCount 后，+n 的文字默认颜色
 $color-cascader_selection_n-text-disabled: var(--semi-color-disabled-text); // 超出 maxTagCount 后，+n 的文字disabled颜色

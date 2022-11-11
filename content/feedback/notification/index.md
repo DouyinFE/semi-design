@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 65
+order: 66
 category: 反馈类
 title: Notification 通知
 icon: doc-notification
@@ -123,7 +123,7 @@ import { IconToutiaoLogo, IconVigoLogo } from '@douyinfe/semi-icons';
             ></Button>
             <Button
                 icon={<IconVigoLogo />}
-                onClick={() => Notification.info({ ...opts, icon: <IconVigoLogo style={{ color: 'pink' }} />  })}
+                onClick={() => Notification.info({ ...opts, icon: <IconVigoLogo style={{ color: 'pink' }} /> })}
             ></Button>
         </>
     );

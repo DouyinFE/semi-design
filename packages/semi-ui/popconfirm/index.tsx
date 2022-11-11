@@ -15,7 +15,6 @@ import ConfigContext, { ContextValue } from '../configProvider/context';
 import LocaleConsumer from '../locale/localeConsumer';
 import { Locale as LocaleObject } from '../locale/interface';
 import '@douyinfe/semi-foundation/popconfirm/popconfirm.scss';
-import { Motion } from '../_base/base';
 
 export interface PopconfirmProps extends PopoverProps {
     cancelText?: string;
@@ -28,25 +27,27 @@ export interface PopconfirmProps extends PopoverProps {
     okText?: string;
     okType?: ButtonType;
     okButtonProps?: ButtonProps;
-    motion?: Motion;
+    motion?: boolean;
     title?: React.ReactNode;
     visible?: boolean;
     prefixCls?: string;
     zIndex?: number;
     trigger?: Trigger;
     position?: Position;
-    onCancel?: (e: React.MouseEvent) => void;
-    onConfirm?: (e: React.MouseEvent) => void;
+    onCancel?: (e: React.MouseEvent) => Promise<any> | void;
+    onConfirm?: (e: React.MouseEvent) => Promise<any> | void;
     onVisibleChange?: (visible: boolean) => void;
-    onClickOutSide?: (e: React.MouseEvent) => void;
+    onClickOutSide?: (e: React.MouseEvent) => void
 }
 
 export interface PopconfirmState {
     visible: boolean;
+    cancelLoading: boolean;
+    confirmLoading: boolean
 }
 
 interface PopProps {
-    [x: string]: any;
+    [x: string]: any
 }
 
 export default class Popconfirm extends BaseComponent<PopconfirmProps, PopconfirmState> {
@@ -99,6 +100,8 @@ export default class Popconfirm extends BaseComponent<PopconfirmProps, Popconfir
         super(props);
 
         this.state = {
+            cancelLoading: false,
+            confirmLoading: false,
             visible: props.defaultVisible || false,
         };
 
@@ -122,8 +125,10 @@ export default class Popconfirm extends BaseComponent<PopconfirmProps, Popconfir
         return {
             ...super.adapter,
             setVisible: (visible: boolean): void => this.setState({ visible }),
-            notifyConfirm: (e: React.MouseEvent): void => this.props.onConfirm(e),
-            notifyCancel: (e: React.MouseEvent): void => this.props.onCancel(e),
+            updateConfirmLoading: (loading: boolean): void => this.setState({ confirmLoading: loading }),
+            updateCancelLoading: (loading: boolean): void => this.setState({ cancelLoading: loading }),
+            notifyConfirm: (e: React.MouseEvent): Promise<any> | void => this.props.onConfirm(e),
+            notifyCancel: (e: React.MouseEvent): Promise<any> | void => this.props.onCancel(e),
             notifyVisibleChange: (visible: boolean): void => this.props.onVisibleChange(visible),
             notifyClickOutSide: (e: React.MouseEvent) => this.props.onClickOutSide(e),
         };
@@ -141,14 +146,15 @@ export default class Popconfirm extends BaseComponent<PopconfirmProps, Popconfir
 
     renderControls() {
         const { okText, cancelText, okType, cancelType, cancelButtonProps, okButtonProps } = this.props;
+        const { cancelLoading, confirmLoading } = this.state;
         return (
             <LocaleConsumer componentName="Popconfirm">
                 {(locale: LocaleObject['Popconfirm'], localeCode: string) => (
                     <>
-                        <Button type={cancelType} onClick={this.handleCancel} {...cancelButtonProps}>
+                        <Button type={cancelType} onClick={this.handleCancel} loading={cancelLoading} {...cancelButtonProps}>
                             {cancelText || get(locale, 'cancel')}
                         </Button>
-                        <Button type={okType} theme="solid" onClick={this.handleConfirm} {...okButtonProps}>
+                        <Button type={okType} theme="solid" onClick={this.handleConfirm} loading={confirmLoading} {...okButtonProps}>
                             {okText || get(locale, 'confirm')}
                         </Button>
                     </>
@@ -171,6 +177,7 @@ export default class Popconfirm extends BaseComponent<PopconfirmProps, Popconfir
         const showContent = !(content === null || typeof content === 'undefined');
 
         return (
+            // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
             <div className={popCardCls} onClick={this.stopImmediatePropagation} style={style}>
                 <div className={`${prefixCls}-inner`}>
                     <div className={`${prefixCls}-header`}>

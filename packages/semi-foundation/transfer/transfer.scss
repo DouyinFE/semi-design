@@ -1,5 +1,6 @@
-@import "./variables.scss";
 @import "./animation.scss";
+@import "./variables.scss";
+
 
 $module: #{$prefix}-transfer;
 
@@ -42,7 +43,7 @@ $module: #{$prefix}-transfer;
         min-width: inherit;
         height: inherit;
     }
-    
+
     &-header {
         @include font-size-small;
         @include ver-center;
@@ -164,9 +165,15 @@ $module: #{$prefix}-transfer;
                 word-break: break-all;
             }
 
-            &-drag-handler {
-                margin-right: $spacing-transfer_right_item_drag_handler-marginRight;
-                flex-shrink: 0;
+            &-drag {
+                &-handler {
+                    margin-right: $spacing-transfer_right_item_drag_handler-marginRight;
+                    flex-shrink: 0;
+                }
+
+                &-item-move {
+                    z-index: $z-transfer_right_item_drag_item_move;
+                }            
             }
         }
 

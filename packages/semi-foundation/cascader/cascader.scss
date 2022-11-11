@@ -1,5 +1,6 @@
-@import './variables.scss';
 @import "./animation.scss";
+@import './variables.scss';
+
 
 $module: #{$prefix}-cascader;
 
@@ -406,6 +407,21 @@ $module: #{$prefix}-cascader;
             &-active,
             &-empty {
                 margin-right: $spacing-cascader_empty_icon-marginRight;
+            }
+
+            &-left {
+                margin-left: $spacing-cascader_option-icon-marginLeft;
+            }
+        }
+
+        &-spin-icon {
+            width: $width-cascader-icon;
+            height: $width-cascader-icon;
+            line-height: 0;
+
+            & svg {
+                width: $width-cascader-icon;
+                height: $width-cascader-icon;
             }
         }
 

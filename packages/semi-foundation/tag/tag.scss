@@ -30,6 +30,13 @@ $types: "ghost", "solid", "light";
         }
     }
 
+    &-square {
+        border-radius: $radius-tag;
+    }
+    &-circle {
+        border-radius: $radius-tag_circle;
+    }
+
     &-large {
         @include font-size-small;
         padding: $spacing-tag_large-paddingY $spacing-tag_large-paddingX;
@@ -102,7 +109,7 @@ $types: "ghost", "solid", "light";
     &-avatar-circle.#{$module}-small,
     &-avatar-circle.#{$module}-default {
         // when avatarShape=circle change tag border radius
-        border-radius: $height-tag_small / 2 + 1;
+        border-radius: $height-tag_small * 0.5 + 1;
 
         .#{$prefix}-avatar {
             width: $width-tag_avatar_circle_small;
@@ -111,7 +118,7 @@ $types: "ghost", "solid", "light";
     }
 
     &-avatar-circle.#{$module}-large {
-        border-radius: $height-tag_large / 2 + 1;
+        border-radius: $height-tag_large * 0.5 + 1;
 
         .#{$prefix}-avatar {
             width: $width-tag_avatar_circle_large;

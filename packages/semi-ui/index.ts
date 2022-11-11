@@ -82,6 +82,7 @@ export { default as Transfer } from './transfer';
 
 
 export { default as LocaleProvider } from './locale/localeProvider';
+export { default as LocaleConsumer } from './locale/localeConsumer';
 
 /** Form */
 export {
@@ -95,3 +96,6 @@ export {
     withField,
     ArrayField,
 } from './form';
+
+export { default as Image } from './image'; 
+export { Preview as ImagePreview } from './image';

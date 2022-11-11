@@ -1,5 +1,6 @@
-@import './variables.scss';
 @import "./animation.scss";
+@import './variables.scss';
+
 
 $module: #{$prefix}-tree;
 
@@ -253,6 +254,10 @@ $module: #{$prefix}-tree;
         color: $color-tree_option_disabled-text-default;
         user-select: none;
         cursor: not-allowed;
+    }
+
+    .#{$prefix}-checkboxGroup-vertical {
+        row-gap: 0;
     }
 }
 

@@ -1,6 +1,6 @@
 {
   "name": "@douyinfe/semi-animation-styled",
-  "version": "2.18.2",
+  "version": "2.22.3",
   "description": "semi styled animation",
   "keywords": [
     "semi",
@@ -28,9 +28,6 @@
     "test": "echo \"Error: run tests from root\" && exit 1",
     "build:lib": "node scripts/compileLib",
     "prepublishOnly": "npm run build:lib"
-  },
-  "dependencies": {
-    "@babel/runtime-corejs3": "^7.15.4"
   },
   "devDependencies": {
     "@babel/plugin-proposal-decorators": "^7.15.8",

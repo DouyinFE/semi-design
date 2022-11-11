@@ -5,9 +5,9 @@ import { without } from "lodash";
 type FocusRedirectListener = (element: HTMLElement) => boolean;
 
 interface HandleOptions {
-    enable?: boolean
-    onFocusRedirectListener?: FocusRedirectListener | FocusRedirectListener[]
-    preventScroll?: boolean;
+    enable?: boolean;
+    onFocusRedirectListener?: FocusRedirectListener | FocusRedirectListener[];
+    preventScroll?: boolean
 }
 
 /*

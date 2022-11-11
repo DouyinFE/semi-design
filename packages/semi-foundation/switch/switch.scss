@@ -1,5 +1,6 @@
-@import './variables.scss';
 @import "./animation.scss";
+@import './variables.scss';
+
 
 $module: #{$prefix}-switch;
 
@@ -69,7 +70,7 @@ $module: #{$prefix}-switch;
         &:active {
             background-color: $color-switch_disabled-bg-active;
         }
-        
+
         .#{$module}-knob {
             cursor: not-allowed;
             @include shadow-0;
@@ -89,7 +90,7 @@ $module: #{$prefix}-switch;
     &-knob {
         @include shadow-knob;
         cursor: pointer;
-        border-radius: $width-switch_knob_default / 2;
+        border-radius: $width-switch_knob_default * 0.5;
         background-color: $color-switch_knob-bg-default;
         box-sizing: border-box;
         position: absolute;
@@ -222,7 +223,7 @@ $module: #{$prefix}-switch;
         width: $width-switch_knob_large;
         height: $width-switch_knob_large;
         top: $spacing-switch_knob_large-padding;
-        border-radius: $width-switch_knob_large / 2;
+        border-radius: $width-switch_knob_large * 0.5;
         transform: translateX($motion-switch_unchecked_large-translateX);
     }
     &.#{$module}-checked {
@@ -257,7 +258,7 @@ $module: #{$prefix}-switch;
         width: $width-switch_knob_large_small;
         height: $width-switch_knob_large_small;
         top: $spacing-switch_knob_small-padding;
-        border-radius: $width-switch_knob_large_small / 2;
+        border-radius: $width-switch_knob_large_small * 0.5;
         transform: translateX($motion-switch_unchecked_small-translateX);
     }
     &.#{$module}-checked {

@@ -26,7 +26,7 @@ const allDayCls = `${cssClasses.PREFIX}-all-day`;
 export interface WeekCalendarState {
     scrollHeight: number;
     parsedEvents: ParsedEvents;
-    cachedKeys: Array<string>;
+    cachedKeys: Array<string>
 }
 
 export default class WeekCalendar extends BaseComponent<WeekCalendarProps, WeekCalendarState> {

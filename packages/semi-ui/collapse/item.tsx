@@ -15,8 +15,8 @@ export interface CollapsePanelProps {
     children?: React.ReactNode;
     reCalcKey?: number | string;
     style?: CSSProperties;
-    showArrow?: boolean,
-    disabled?: boolean,
+    showArrow?: boolean;
+    disabled?: boolean
 }
 
 export default class CollapsePanel extends PureComponent<CollapsePanelProps> {

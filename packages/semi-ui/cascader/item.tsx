@@ -18,7 +18,7 @@ import {
 } from '@douyinfe/semi-foundation/cascader/foundation';
 
 export interface CascaderData extends BasicCascaderData {
-    label: React.ReactNode;
+    label: React.ReactNode
 }
 
 export interface Entity extends BasicEntity {
@@ -27,16 +27,16 @@ export interface Entity extends BasicEntity {
     /* treedata */
     data: CascaderData;
     /* parent data */
-    parent?: Entity;
+    parent?: Entity
 }
 
 export interface Entities {
-    [idx: string]: Entity;
+    [idx: string]: Entity
 }
 
 export interface Data extends BasicData {
     data: CascaderData;
-    searchText: React.ReactNode[];
+    searchText: React.ReactNode[]
 }
 
 export interface CascaderItemProps {
@@ -58,7 +58,7 @@ export interface CascaderItemProps {
     separator: string;
     multiple: boolean;
     checkedKeys: Set<string>;
-    halfCheckedKeys: Set<string>;
+    halfCheckedKeys: Set<string>
 }
 
 const prefixcls = cssClasses.PREFIX_OPTION;
@@ -139,16 +139,19 @@ export default class Item extends PureComponent<CascaderItemProps> {
         return state;
     };
 
-    renderIcon = (type: string) => {
+    renderIcon = (type: string, haveMarginLeft = false) => {
+        const finalCls = (style: string) => {
+            return style + (haveMarginLeft ? ` ${prefixcls}-icon-left` : '');
+        };
         switch (type) {
             case 'child':
-                return (<IconChevronRight className={`${prefixcls}-icon ${prefixcls}-icon-expand`} />);
+                return (<IconChevronRight className={finalCls(`${prefixcls}-icon ${prefixcls}-icon-expand`)} />);
             case 'tick':
-                return (<IconTick className={`${prefixcls}-icon ${prefixcls}-icon-active`} />);
+                return (<IconTick className={finalCls(`${prefixcls}-icon ${prefixcls}-icon-active`)} />);
             case 'loading':
-                return <Spin wrapperClassName={`${prefixcls}-spin-icon`} />;
+                return <Spin wrapperClassName={finalCls(`${prefixcls}-spin-icon`)} />;
             case 'empty':
-                return (<span aria-hidden={true} className={`${prefixcls}-icon ${prefixcls}-icon-empty`} />);
+                return (<span aria-hidden={true} className={finalCls(`${prefixcls}-icon ${prefixcls}-icon-empty`)} />);
             default:
                 return null;
         }
@@ -273,7 +276,7 @@ export default class Item extends PureComponent<CascaderItemProps> {
                                 )}
                                 <span>{label}</span>
                             </span>
-                            {showExpand ? this.renderIcon(loading ? 'loading' : 'child') : null}
+                            {showExpand ? this.renderIcon(loading ? 'loading' : 'child', true) : null}
                         </li>
                     );
                 })}

@@ -4,9 +4,8 @@ import cls from 'classnames';
 import { cssClasses } from '@douyinfe/semi-foundation/tabs/constants';
 import getDataAttr from '@douyinfe/semi-foundation/utils/getDataAttr';
 import TabsContext from './tabs-context';
-import { TabContextValue } from './interface';
-import TabPaneTransition from './TabPaneTransition';
-import { PlainTab, TabPaneProps } from './interface';
+import { PlainTab, TabContextValue, TabPaneProps } from './interface';
+import CSSAnimation from "../_cssAnimation";
 
 class TabPane extends PureComponent<TabPaneProps> {
     static isTabPane = true;
@@ -23,25 +22,19 @@ class TabPane extends PureComponent<TabPaneProps> {
         closable: PropTypes.bool
     };
 
-    lastActiveKey: string = null;
 
     ref = createRef<HTMLDivElement>();
-    isAnimating: boolean;
     _active: boolean;
     context: TabContextValue;
 
-    componentDidMount(): void {
-        this.lastActiveKey = this.context.activeKey;
-    }
 
     // get direction from current item key to activeKey
-    getDirection = (activeKey: string, itemKey: string, panes: Array<PlainTab>): boolean => {
+    getDirection = (activeKey: string, itemKey: string, panes: Array<PlainTab>, lastActiveKey: string): boolean => {
         if (itemKey !== null && activeKey !== null && Array.isArray(panes) && panes.length) {
             const activeIndex = panes.findIndex(pane => pane.itemKey === activeKey);
             const itemIndex = panes.findIndex(pane => pane.itemKey === itemKey);
-            const lastActiveIndex = panes.findIndex(pane => pane.itemKey === this.lastActiveKey);
+            const lastActiveIndex = panes.findIndex(pane => pane.itemKey === lastActiveKey);
 
-            this.lastActiveKey = activeKey;
 
             if (activeIndex === itemIndex) {
                 return lastActiveIndex > activeIndex;
@@ -53,21 +46,6 @@ class TabPane extends PureComponent<TabPaneProps> {
         return false;
     };
 
-    /* istanbul ignore next */
-    hideScroll = (): void => {
-        if (this.ref && this.ref.current) {
-            this.ref.current.style.overflow = 'hidden';
-            this.isAnimating = true;
-        }
-    };
-
-    /* istanbul ignore next */
-    autoScroll = (): void => {
-        if (this.ref && this.ref.current) {
-            this.ref.current.style.overflow = '';
-            this.isAnimating = false;
-        }
-    };
 
     shouldRender = (): boolean => {
         const { itemKey } = this.props;
@@ -78,8 +56,8 @@ class TabPane extends PureComponent<TabPaneProps> {
     };
 
     render(): ReactNode {
-        const { tabPaneMotion: motion, tabPosition } = this.context;
-        const { className, style, children, itemKey, ...restProps } = this.props;
+        const { tabPaneMotion: motion, tabPosition, prevActiveKey } = this.context;
+        const { className, style, children, itemKey, tabIndex, ...restProps } = this.props;
         const active = this.context.activeKey === itemKey;
         const classNames = cls(className, {
             [cssClasses.TABS_PANE_INACTIVE]: !active,
@@ -87,6 +65,25 @@ class TabPane extends PureComponent<TabPaneProps> {
             [cssClasses.TABS_PANE]: true,
         });
         const shouldRender = this.shouldRender();
+        const startClassName = (() => {
+            const direction = this.getDirection(this.context.activeKey, itemKey, this.context.panes, prevActiveKey);
+            if (tabPosition === 'top') {
+                if (direction) {
+                    return cssClasses.TABS_PANE_ANIMATE_RIGHT_SHOW;
+                } else {
+                    return cssClasses.TABS_PANE_ANIMATE_LEFT_SHOW;
+                }
+            } else {
+                if (direction) {
+                    return cssClasses.TABS_PANE_ANIMATE_BOTTOM_SHOW;
+                } else {
+                    return cssClasses.TABS_PANE_ANIMATE_TOP_SHOW;
+                }
+            }
+        })();
+
+        const isActivatedBecauseOtherTabPaneRemoved = !this.context.panes.find(tabPane => tabPane.itemKey === prevActiveKey);
+        const hasMotion = motion && active && !isActivatedBecauseOtherTabPaneRemoved && !this.context.forceDisableMotion;
         return (
             <div
                 ref={this.ref}
@@ -96,30 +93,25 @@ class TabPane extends PureComponent<TabPaneProps> {
                 className={classNames}
                 style={style}
                 aria-hidden={active ? 'false' : 'true'}
-                tabIndex={0}
+                tabIndex={tabIndex ? tabIndex : 0}
                 {...getDataAttr(restProps)}
                 x-semi-prop="children"
             >
-                {motion ? (
-                    <TabPaneTransition
-                        direction={this.getDirection(this.context.activeKey, itemKey, this.context.panes)}
-                        motion={motion}
-                        mode={tabPosition === 'top' ? 'horizontal' : 'vertical'}
-                        state={active ? 'enter' : 'leave'}
-                    >
-                        {(transitionStyle): ReactNode => (
-                            <div
-                                className={`${cssClasses.TABS_PANE_MOTION_OVERLAY}`}
-                                style={{ ...transitionStyle }}
+
+                <CSSAnimation motion={hasMotion} animationState={active ? "enter" : "leave"}
+                    startClassName={startClassName}>
+                    {
+                        ({ animationClassName, animationEventsNeedBind }) => {
+                            return <div
+                                className={`${cssClasses.TABS_PANE_MOTION_OVERLAY} ${animationClassName}`}
                                 x-semi-prop="children"
+                                {...animationEventsNeedBind}
                             >
                                 {shouldRender ? children : null}
-                            </div>
-                        )}
-                    </TabPaneTransition>
-                ) : shouldRender ? (
-                    children
-                ) : null}
+                            </div>;
+                        }
+                    }
+                </CSSAnimation>
             </div>
         );
     }

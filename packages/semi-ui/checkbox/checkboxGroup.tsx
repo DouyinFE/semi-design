@@ -31,11 +31,11 @@ export type CheckboxGroupProps = {
     className?: string;
     type?: CheckboxType;
     id?: string;
-    'aria-label'?: React.AriaAttributes['aria-label'];
+    'aria-label'?: React.AriaAttributes['aria-label']
 };
 
 export type CheckboxGroupState = {
-    value?: any[];
+    value?: any[]
 };
 class CheckboxGroup extends BaseComponent<CheckboxGroupProps, CheckboxGroupState> {
 
@@ -74,8 +74,8 @@ class CheckboxGroup extends BaseComponent<CheckboxGroupProps, CheckboxGroupState
             updateGroupValue: value => {
                 this.setState({ value });
             },
-            notifyChange: evt => {
-                this.props.onChange && this.props.onChange(evt);
+            notifyChange: value => {
+                this.props.onChange && this.props.onChange(value);
             },
         };
     }
@@ -120,6 +120,7 @@ class CheckboxGroup extends BaseComponent<CheckboxGroupProps, CheckboxGroupState
             [`${prefix }-wrapper`]: true,
             [`${prefix }-${ direction}`]: direction,
             [`${prefix}-${direction}-cardType`]: direction && isCardType,
+            [`${prefix}-${direction}-pureCardType`]: direction && isPureCardType,
         }, className);
 
         const realValue = this.state.value.slice();

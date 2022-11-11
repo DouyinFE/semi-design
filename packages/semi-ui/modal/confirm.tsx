@@ -4,12 +4,10 @@ import { destroyFns, ModalReactProps } from './Modal';
 import ConfirmModal from './ConfirmModal';
 
 import '@douyinfe/semi-foundation/modal/modal.scss';
-import { get } from 'lodash';
 import { IconAlertCircle, IconAlertTriangle, IconHelpCircle, IconInfoCircle, IconTickCircle } from '@douyinfe/semi-icons';
-import { Motion } from '../_base/base';
 
 export interface ConfirmProps extends ModalReactProps {
-    type: 'success' | 'info' | 'warning' | 'error' | 'confirm';
+    type: 'success' | 'info' | 'warning' | 'error' | 'confirm'
 }
 
 export default function confirm<T>(props: ConfirmProps) {
@@ -36,22 +34,9 @@ export default function confirm<T>(props: ConfirmProps) {
         }
     };
 
-    const mergedMotion: Motion = typeof (props.motion) === 'undefined' || props.motion ? {
-        ...(props.motion as any),
-        didLeave: (...args: any) => {
-            const didLeave = get(props.motion, 'didLeave');
-
-            if (typeof didLeave === 'function') {
-                didLeave(...args);
-            }
-
-            destroy();
-        }
-
-    } : false;
 
     function render(renderProps: ConfirmProps) {
-        ReactDOM.render(<ConfirmModal {...renderProps} motion={mergedMotion}/>, div);
+        ReactDOM.render(<ConfirmModal {...renderProps} motion={props.motion}/>, div);
     }
 
     function close() {

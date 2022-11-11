@@ -16,8 +16,8 @@ export interface RadioContextValue {
         onChange?: (e: RadioChangeEvent) => void;
         buttonSize?: RadioGroupButtonSize;
         isCardRadio?: boolean;
-        isPureCardRadio?: boolean;
-    };
+        isPureCardRadio?: boolean
+    }
 }
 
 const Context = React.createContext<RadioContextValue>(null);

@@ -19,10 +19,10 @@ import ReactDOM from 'react-dom';
 import { Button, Switch } from '@douyinfe/semi-ui';
 
 const App = () => (
-  <>
-    <Button type="primary">primary button</Button>
-    <Switch size='large' />
-  </>
+    <>
+        <Button type="primary">primary button</Button>
+        <Switch size='large' />
+    </>
 );
 
 ReactDOM.render(<App />, document.querySelector('#app'));

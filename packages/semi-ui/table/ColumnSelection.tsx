@@ -20,7 +20,7 @@ export interface TableSelectionCellProps {
     indeterminate?: boolean; // Intermediate state, shown as a solid horizontal line
     prefixCls?: string;
     className?: string;
-    'aria-label'?: React.AriaAttributes['aria-label'];
+    'aria-label'?: React.AriaAttributes['aria-label']
 }
 
 /**

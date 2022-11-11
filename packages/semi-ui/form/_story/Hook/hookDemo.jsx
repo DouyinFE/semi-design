@@ -1,8 +1,6 @@
 import React, { useState, useLayoutEffect, Component } from 'react';
 import { storiesOf } from '@storybook/react';
-import { Button, Modal, TreeSelect, Row, Col, Avatar } from '../../../index';
-import { Select as BasicSelect } from '../../../index';
-import {
+import { Button, Modal, TreeSelect, Row, Col, Avatar, Select as BasicSelect,
     Form,
     useFormState,
     useFormApi,
@@ -105,7 +103,7 @@ const ComponentUsingFormState = () => {
     const formState = useFormState();
     return (
         <pre>
-            <code style={{wordBreak:'break-all', width: 600, whiteSpace: 'normal'}}>{JSON.stringify(formState)}</code>
+            <code style={{ wordBreak: 'break-all', width: 600, whiteSpace: 'normal' }}>{JSON.stringify(formState)}</code>
             {/* <code style={{wordBreak:'break-all', width: 600, whiteSpace: 'normal'}}>{CustomStringify(formState)}</code> */}
         </pre>
     );
@@ -192,4 +190,4 @@ const WithFormApiDemo = () => {
     );
 };
 
-export { UseFormApiDemo, UseFormStateDemo, UseFieldApiDemo,  UseFieldStateDemo, WithFormStateDemo, WithFormApiDemo, ComponentUsingFormState, CustomStringify }
+export { UseFormApiDemo, UseFormStateDemo, UseFieldApiDemo, UseFieldStateDemo, WithFormStateDemo, WithFormApiDemo, ComponentUsingFormState, CustomStringify };

@@ -3,13 +3,13 @@ import React from 'react';
 import BaseButton, { ButtonProps as BaseButtonProps } from './Button';
 import IconButton, { IconButtonProps } from '../iconButton';
 
-export { ButtonProps as BaseButtonProps, HtmlType, Size, Theme, Type } from './Button';
+export type { ButtonProps as BaseButtonProps, HtmlType, Size, Theme, Type } from './Button';
 
-export { HorizontalPaddingType } from '../iconButton';
+export type { HorizontalPaddingType } from '../iconButton';
 
-export { ButtonGroupProps } from './buttonGroup';
+export type { ButtonGroupProps } from './buttonGroup';
 
-export { SplitButtonGroupProps } from './splitButtonGroup';
+export type { SplitButtonGroupProps } from './splitButtonGroup';
 
 // eslint-disable-next-line 
 export interface ButtonProps extends IconButtonProps {} // TODO check
@@ -18,6 +18,7 @@ class Button extends React.PureComponent<ButtonProps> {
         ...BaseButton.propTypes,
         ...IconButton.propTypes,
     };
+    static elementType: string;
     constructor(props = {}) {
         super(props);
     }
@@ -34,5 +35,6 @@ class Button extends React.PureComponent<ButtonProps> {
         }
     }
 }
+Button.elementType = 'Button';
 
 export default Button;

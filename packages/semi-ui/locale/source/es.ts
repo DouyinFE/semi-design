@@ -158,6 +158,19 @@ const locale: Locale = {
     Form: {
         optional: '(opcional)',
     },
+    Image: {
+        preview: 'Avance',
+        loading: 'Cargando',
+        loadError: 'Falló al cargar',
+        prevTip: 'Anterior',
+        nextTip: 'Siguiente',
+        zoomInTip: 'Acercar',
+        zoomOutTip: 'alejar',
+        rotateTip: 'Rotar',
+        downloadTip: 'descargar',
+        adaptiveTip: 'Adaptarse a la página',
+        originTip: 'Tamaño original',
+    },
 };
 
 export default locale;

@@ -3,7 +3,7 @@ import { AnchorAdapter } from './foundation';
 
 export interface LinkAdapter extends DefaultAdapter {
     addLink: AnchorAdapter['addLink'];
-    removeLink: AnchorAdapter['removeLink'];
+    removeLink: AnchorAdapter['removeLink']
 }
 
 export default class LinkFoundation extends BaseFoundation<LinkAdapter> {

@@ -30,20 +30,21 @@ export interface NavItemProps extends ItemProps, BaseProps {
     level?: number;
     link?: string;
     linkOptions?: React.AnchorHTMLAttributes<HTMLAnchorElement>;
+    tabIndex?: number; // on the site we change the tabindex to -1 in order to use gatsby's navigate link
     text?: React.ReactNode;
     tooltipHideDelay?: number;
     tooltipShowDelay?: number;
     onClick?(clickItems: SelectedData): void;
     onMouseEnter?: React.MouseEventHandler<HTMLLIElement>;
-    onMouseLeave?: React.MouseEventHandler<HTMLLIElement>;
+    onMouseLeave?: React.MouseEventHandler<HTMLLIElement>
 }
 
 export interface SelectedData extends SelectedItemProps<NavItemProps> {
-    text?: React.ReactNode;
+    text?: React.ReactNode
 }
 
 export interface NavItemState {
-    tooltipShow: boolean;
+    tooltipShow: boolean
 }
 
 export default class NavItem extends BaseComponent<NavItemProps, NavItemState> {
@@ -67,6 +68,7 @@ export default class NavItem extends BaseComponent<NavItemProps, NavItemState> {
         link: PropTypes.string,
         linkOptions: PropTypes.object,
         disabled: PropTypes.bool,
+        tabIndex: PropTypes.number
     };
 
     static defaultProps = {
@@ -78,6 +80,7 @@ export default class NavItem extends BaseComponent<NavItemProps, NavItemState> {
         onMouseEnter: noop,
         onMouseLeave: noop,
         disabled: false,
+        tabIndex: 0
     };
 
     foundation: ItemFoundation;
@@ -185,6 +188,7 @@ export default class NavItem extends BaseComponent<NavItemProps, NavItemState> {
             linkOptions,
             disabled,
             level = 0,
+            tabIndex
         } = this.props;
 
         const { mode, isInSubNav, prefixCls, limitIndent } = this.context;
@@ -217,7 +221,7 @@ export default class NavItem extends BaseComponent<NavItemProps, NavItemState> {
 
         if (typeof link === 'string') {
             itemChildren = (
-                <a className={`${prefixCls}-item-link`} href={link} {...(linkOptions as any)}>
+                <a className={`${prefixCls}-item-link`} href={link} tabIndex={-1} {...(linkOptions as any)}>
                     {itemChildren}
                 </a>
             );
@@ -244,6 +248,7 @@ export default class NavItem extends BaseComponent<NavItemProps, NavItemState> {
                     onMouseEnter={onMouseEnter}
                     onMouseLeave={onMouseLeave}
                     disabled={disabled}
+                    onKeyDown={this.handleKeyPress}
                 >
                     {itemChildren}
                 </Dropdown.Item>
@@ -256,6 +261,7 @@ export default class NavItem extends BaseComponent<NavItemProps, NavItemState> {
                 [`${clsPrefix}-selected`]: selected && !isSubNav,
                 [`${clsPrefix}-collapsed`]: isCollapsed,
                 [`${clsPrefix}-disabled`]: disabled,
+                [`${clsPrefix}-has-link`]: typeof link === 'string',
             });
             const ariaProps = {
                 'aria-disabled': disabled,
@@ -266,9 +272,11 @@ export default class NavItem extends BaseComponent<NavItemProps, NavItemState> {
             }
 
             itemDom = (
+                // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
                 <li
-                    role="menuitem"
-                    tabIndex={-1}
+                    // if role = menuitem, the narration will read all expanded li
+                    role={isSubNav ? null : "menuitem"}
+                    tabIndex={isSubNav ? -1 : tabIndex}
                     {...ariaProps}
                     style={style}
                     ref={this.setItemRef}

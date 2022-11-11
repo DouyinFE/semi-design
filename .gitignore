@@ -26,6 +26,7 @@ storybook-static/
 *.zip
 cypress/videos/
 cypress/screenshots/
+cypress/downloads/
 
 # misc
 .env.local

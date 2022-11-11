@@ -16,7 +16,8 @@ $width-navigation_dropdown_item_nav_item-minWidth: 150px; // 导航栏菜单项�
 $width-navigation_border: 1px; // 导航栏描边宽度
 $width-navigation_footer_border: 1px; // 导航栏 footer 描边宽度
 $width-navigation_icon_left-minWidth: 20px; // 导航栏菜单项展开收起按钮最小宽度
-
+$width-navigation-outline: 2px; // 导航栏聚焦outline宽度
+$width-navigation-outlineOffset: -2px; // 导航栏聚焦outline偏移
 
 // Spacing
 $spacing-navigation-paddingX: $spacing-tight; // 侧边导航栏水平方向内边距
@@ -46,9 +47,9 @@ $spacing-navigation_dropdown_item_nav_sub_title-paddingY: $spacing-tight; // 导
 $spacing-navigation_dropdown_item_nav_item-marginTop: 0; // 导航栏下拉菜单项顶部外边距
 $spacing-navigation_dropdown_item_nav_item-marginBottom: 0; // 导航栏下拉菜单项底部外边距
 $spacing-navigation_vertical_nav_item_last-marginBottom: 0; // 侧边导航栏下拉最后一个菜单项底部外边距
-$spacing-navigation_vertical_nav_header-paddingLeft:  ($width-navigation_container_collapsed - $spacing-base-tight - $width-navigation_border - $height-navigation_header_logo_collapsed) / 2; // 侧边导航栏 header 左侧内边距
+$spacing-navigation_vertical_nav_header-paddingLeft:  ($width-navigation_container_collapsed - $spacing-base-tight - $width-navigation_border - $height-navigation_header_logo_collapsed) * 0.5; // 侧边导航栏 header 左侧内边距
 $spacing-navigation_vertical_nav_header-paddingRight: $spacing-tight; // 侧边导航栏 header 右侧内边距
-$spacing-navigation_vertical_nav_header_collapsed-paddingLeft: ($width-navigation_container_collapsed - $spacing-base-tight - $width-navigation_border - $height-navigation_header_logo_collapsed) / 2; // 侧边导航栏收起后 header 左侧内边距
+$spacing-navigation_vertical_nav_header_collapsed-paddingLeft: ($width-navigation_container_collapsed - $spacing-base-tight - $width-navigation_border - $height-navigation_header_logo_collapsed) * 0.5; // 侧边导航栏收起后 header 左侧内边距
 $spacing-navigation_vertical_nav_header_collapsed-paddingRight: 0; // 侧边导航栏收起后 header 右侧内边距
 $spacing-navigation_vertical_footer-paddingLeft: $spacing-tight; // 侧边导航栏 footer 左侧内边距
 $spacing-navigation_vertical_footer-paddingRight: $spacing-tight; // 侧边导航栏 footer 右侧内边距
@@ -109,7 +110,7 @@ $color-navigation_itemLn-text-hover: var(--semi-color-text-0); // 导航栏子�
 $color-navigation_itemLn-bg-active: var(--semi-color-fill-1); // 导航栏子级菜单项按下态背景颜色
 $color-navigation_itemLn-text-active: var(--semi-color-text-0); // 导航栏子级菜单项按下态文字颜色
 $color-navigation_itemLn_selected-bg-default: var(--semi-color-primary-light-default); // 导航栏子级菜单项选中态背景颜色
-
+$color-navigation_outline-focus: var(--semi-color-primary-light-active); // 导航栏子级菜单键盘聚焦颜色
 
 // Transition
 $motion-navigation_item_title: opacity 100ms 100s ease-out; // 导航栏菜单项标题收起时渐隐动画

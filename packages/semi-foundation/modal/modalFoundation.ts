@@ -1,5 +1,4 @@
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
-import { Motion } from '../utils/type';
 
 export type OKType = 'primary' | 'secondary' | 'tertiary' | 'warning' | 'danger';
 export type Size = 'small' | 'medium' | 'large' | 'full-width';
@@ -10,9 +9,9 @@ export interface ModalAdapter extends DefaultAdapter<ModalProps, ModalState> {
     notifyCancel: (e: any) => void;
     notifyOk: (e: any) => void;
     notifyClose: () => void;
-    toggleHidden: (hidden: boolean, callback?: (hidden: boolean) => void) => void;
+    toggleDisplayNone: (displayNone: boolean, callback?: (displayNone: boolean) => void) => void;
     notifyFullScreen: (isFullScreen: boolean) => void;
-    getProps: () => ModalProps;
+    getProps: () => ModalProps
 }
 
 export interface ModalProps {
@@ -34,7 +33,7 @@ export interface ModalProps {
     maskClosable?: boolean;
     maskStyle?: Record<string, any>;
     maskFixed?: boolean;
-    motion?: Motion;
+    motion?: boolean;
     okButtonProps?: any;
     okText?: string;
     okType?: OKType;
@@ -54,12 +53,12 @@ export interface ModalProps {
     keepDOM?: boolean;
     direction?: any;
     fullScreen?: boolean;
-    preventScroll?: boolean;
+    preventScroll?: boolean
 }
 
 export interface ModalState {
-    hidden: boolean;
-    isFullScreen: boolean;
+    displayNone: boolean;
+    isFullScreen: boolean
 }
 
 export default class ModalFoundation extends BaseFoundation<ModalAdapter> {
@@ -88,16 +87,18 @@ export default class ModalFoundation extends BaseFoundation<ModalAdapter> {
 
     afterHide() {
         this._adapter.enabledBodyScroll();
-    }
-
-    afterClose() {
         this._adapter.notifyClose();
     }
 
+    // afterClose() {
+    //     this._adapter.notifyClose();
+    // }
 
-    toggleHidden = (hidden: boolean, callback?: (hidden: boolean) => void) => {
-        this._adapter.toggleHidden(hidden, callback);
+
+    toggleDisplayNone = (displayNone: boolean, callback?: (displayNone: boolean) => void) => {
+        this._adapter.toggleDisplayNone(displayNone, callback);
     };
+
 
     // // eslint-disable-next-line max-len
     // mergeMotionProp = (motion: Motion, prop: string, cb: () => void) => {

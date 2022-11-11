@@ -23,7 +23,7 @@ export interface InputGroupProps {
     onFocus?: (e: React.FocusEvent<HTMLSpanElement>) => void;
     label?: LabelProps;
     labelPosition?: string;
-    disabled?: boolean;
+    disabled?: boolean
 }
 
 // eslint-disable-next-line
@@ -97,7 +97,7 @@ export default class inputGroup extends BaseComponent<InputGroupProps, InputGrou
             inner = (Array.isArray(children) ? children : [children]).map((item, index) => {
                 if (item) {
                     const { onBlur: itemOnBlur, onFocus: itemOnFocus, disabled: itemDisabled } = (item as any).props;
-                    const onBlur = isFunction(itemOnBlur) && get(itemOnBlur, 'name') !== 'noop'  ? itemOnBlur : groupOnBlur;
+                    const onBlur = isFunction(itemOnBlur) && get(itemOnBlur, 'name') !== 'noop' ? itemOnBlur : groupOnBlur;
                     const onFocus = isFunction(itemOnFocus) && get(itemOnFocus, 'name') !== 'noop' ? itemOnFocus : groupOnFocus;
                     const disabled = typeof itemDisabled === 'boolean' ? itemDisabled : groupDisabled;
                     return React.cloneElement(item as any, { key: index, ...rest, size, onBlur, onFocus, disabled });

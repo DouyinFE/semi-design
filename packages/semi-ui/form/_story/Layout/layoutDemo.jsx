@@ -88,7 +88,7 @@ class LayoutDemo extends React.Component {
                     />
                     <Form.Switch field="agree" />
                     <Form.InputNumber field="price" />
-                    <Form.Select field="name">
+                    <Form.Select field="name" style={{ width: 300 }}>
                         <Option value="mike">mike</Option>
                         <Option value="jane">jane</Option>
                         <Option value="kate">kate</Option>
@@ -107,6 +107,10 @@ class LayoutDemo extends React.Component {
                     <Form.Slot label={{ text: 'texxt', required: true }}>
                         <div>slot</div>
                     </Form.Slot>
+                    <Form.InputGroup label='group text' style={{ width: 600 }}>
+                        <Form.Input field='inGroupName' style={{ width: 200 }}></Form.Input>
+                        <Form.Input field='inGroupType' style={{ width: 390 }}></Form.Input>
+                    </Form.InputGroup>
                 </Form>
             </>
         );

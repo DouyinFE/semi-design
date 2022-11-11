@@ -1,5 +1,5 @@
-@import './variables.scss';
 @import './animation.scss';
+@import './variables.scss';
 @import './splitButtonGroup.scss';
 
 $module: #{$prefix}-button;
@@ -202,6 +202,9 @@ $module: #{$prefix}-button;
     }
 
     &-group {
+        display: flex;
+        flex-wrap: wrap;
+
         & > .#{$module} {
             margin: 0;
             padding-left: 0;
@@ -257,14 +260,48 @@ $module: #{$prefix}-button;
                 border-top-left-radius: $radius-button_group;
                 border-bottom-left-radius: $radius-button_group;
             }
-            &:not(:last-child) {
-                .#{$prefix}-button-content {
-                    border-right: $width-button_group-border $color-button_group-border-default solid;
-                }
-            }
             &:last-child {
                 border-top-right-radius: $radius-button_group;
                 border-bottom-right-radius: $radius-button_group;
+            }
+        }
+
+        &-line {
+            display: inline-flex;
+            align-items: center;
+            background-color: $color-button_group-border-default;
+
+            &-primary {
+                background-color: $color-button_primary-bg-default;
+            }
+            &-secondary {
+                background-color: $color-button_secondary-bg-default;
+            }
+            &-tertiary {
+                background-color: $color-button_tertiary-bg-default;
+            }
+            &-warning {
+                background-color: $color-button_warning-bg-default;
+            }
+            &-danger {
+                background-color: $color-button_danger-bg-default;
+            }
+            &-disabled {
+                background-color: $color-button_disabled-bg-default;
+            }
+            &-light {
+                background-color: $color-button_light-bg-default;
+            }
+            &-borderless {
+                background-color: transparent;
+            }
+
+            &::before {
+                display: block;
+                content: '';
+                width: $width-button_group-border;
+                height: $height-button_group_line_default;
+                background-color: $color-button_group-border-default;
             }
         }
     }

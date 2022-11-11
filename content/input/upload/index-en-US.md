@@ -166,7 +166,7 @@ import { IconCamera } from '@douyinfe/semi-icons';
         color: 'var(--semi-color-white)',
     };
     
-    const hoverMask =  (<div style={style}>
+    const hoverMask = (<div style={style}>
         <IconCamera />
     </div>);
 
@@ -507,7 +507,7 @@ import { IconUpload, IconDownload, IconEyeOpened, IconDelete } from '@douyinfe/s
         }
     ];
     const renderFileOperation = (fileItem) => (
-        <div style={{ display: 'flex',columnGap: 8, padding: '0 8px' }}>
+        <div style={{ display: 'flex', columnGap: 8, padding: '0 8px' }}>
             <Button icon={<IconEyeOpened></IconEyeOpened>} type="tertiary" theme="borderless" size="small"></Button>
             <Button icon={<IconDownload></IconDownload>} type="tertiary" theme="borderless" size="small"></Button>
             <Button onClick={e=>fileItem.onRemove()} icon={<IconDelete></IconDelete>} type="tertiary" theme="borderless" size="small"></Button>
@@ -1313,6 +1313,7 @@ interface FileItem {
 |----|----|----|----|
 | insert | Upload file, when index is passed, it will be inserted at the specified position, if not passed, it will be inserted at the end | (files: Array<File\>, index?: number) => void | 2.2.0 |
 | upload | Start upload manually, use with uploadTrigger="custom" | () => void | |
+| openFileDialog | open file select Dialog | () => void | 2.21.0 |
 
 ## Content Guidelines
 - Upload button

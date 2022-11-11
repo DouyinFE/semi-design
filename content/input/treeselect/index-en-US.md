@@ -75,7 +75,8 @@ import { TreeSelect } from '@douyinfe/semi-ui';
 
 ### Multi-choice
 
-You could use `multiple` to set mode to multi-choice. When all child items are selected, the parent item will be selected. Use `maxTagCount` to set the cap number of tags displayed. Use `leafOnly` (>= v0.32.0) if you prefer to render leaf nodes only and the corresponding params for onChange will also be leaf nodes values.
+You could use `multiple` to set mode to multi-choice. When all child items are selected, the parent item will be selected.  
+Use `leafOnly` (>= v0.32.0) if you prefer to render leaf nodes only and the corresponding params for onChange will also be leaf nodes values.  
 
 ```jsx live=true
 import React from 'react';
@@ -158,18 +159,109 @@ import { TreeSelect } from '@douyinfe/semi-ui';
                 dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
                 treeData={treeData}
                 multiple
-                maxTagCount={2}
-                placeholder="Display at most two tags"
+                leafOnly
+                placeholder="Display leaf nodes only"
             />
-            <br/>
-            <br/>
+        </div>
+    );
+};
+```
+
+### Limit Tags Number
+
+In the multi-selection scenario, `maxTagCount` can be used to limit the number of tags displayed, and the excess part will be displayed in the form of +N.  
+Use `showRestTagsPopover` (>= v2.22.0) to set whether hover +N displays Popover after exceeding `maxTagCount`, the default is `false`. Also, popovers can be configured in the `restTagsPopoverProps` property.  
+
+```jsx live=true
+import React from 'react';
+import { TreeSelect } from '@douyinfe/semi-ui';
+() => {
+    const treeData = [
+        {
+            label: 'Asia',
+            value: 'Asia',
+            key: '0',
+            children: [
+                {
+                    label: 'China',
+                    value: 'China',
+                    key: '0-0',
+                    children: [
+                        {
+                            label: 'Beijing',
+                            value: 'Beijing',
+                            key: '0-0-0',
+                        },
+                        {
+                            label: 'Shanghai',
+                            value: 'Shanghai',
+                            key: '0-0-1',
+                        },
+                        {
+                            label: 'Chengdu',
+                            value: 'Chengdu',
+                            key: '0-0-2',
+                        },
+                    ],
+                },
+                {
+                    label: 'Japan',
+                    value: 'Japan',
+                    key: '0-1',
+                    children: [
+                        {
+                            label: 'Osaka',
+                            value: 'Osaka',
+                            key: '0-1-0'
+                        }
+                    ]
+                },
+            ],
+        },
+        {
+            label: 'North America',
+            value: 'North America',
+            key: '1',
+            children: [
+                {
+                    label: 'United States',
+                    value: 'United States',
+                    key: '1-0'
+                },
+                {
+                    label: 'Canada',
+                    value: 'Canada',
+                    key: '1-1'
+                }
+            ]
+        }
+    ];
+
+    const textStyle = { margin: '20px 0 10px' };
+
+    return ( 
+        <div>
+            <h4 style={textStyle}>maxTagCount=2:</h4>
             <TreeSelect
+                multiple
+                maxTagCount={2}
                 style={{ width: 300 }}
                 dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
                 treeData={treeData}
+                placeholder="When more than two tabs are selected it will collapse"
+                defaultValue={['Beijing', 'Chengdu', 'Canada']}
+            />
+            <h4 style={textStyle}>maxTagCount=2, showRestTagsPopover:</h4>
+            <TreeSelect
+                showRestTagsPopover={true}
+                restTagsPopoverProps={{ position: 'top' }}
                 multiple
-                leafOnly
-                placeholder="Display leaf nodes only"
+                maxTagCount={2}
+                style={{ width: 300 }}
+                dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                treeData={treeData}
+                placeholder="hover +N to view"
+                defaultValue={['Beijing', 'Chengdu', 'Canada']}
             />
         </div>
     );
@@ -724,7 +816,7 @@ class Demo extends React.Component {
         };
     }
     onChange(value) {
-        this.setState({value});
+        this.setState({ value });
     }
     render() {
         const treeData = [
@@ -938,7 +1030,7 @@ class Demo extends React.Component {
             const rec = n => (n >= 0 ? x * y ** n-- + rec(n) : 0);
             return rec(z + 1);
         }
-        return {gData, total: calcTotal(x, y, z)};
+        return { gData, total: calcTotal(x, y, z) };
     }
 
       
@@ -1325,11 +1417,13 @@ function Demo() {
 | renderFullLabel | Custom option render function, [Detailed Params and Usage](/en-US/navigation/tree#Advanced%20FullRender) | (obj) => ReactNode | 1.7.0 |
 | renderLabel | Custom label render function | (label:ReactNode, data:TreeNode) => ReactNode | 1.6.0 | 
 | renderSelectedItem | render selected item | Function | - | 1.26.0 | 
+| restTagsPopoverProps | The configuration properties of the [Popover](/en-US/show/popover#API%20Reference)     | PopoverProps     | {}        | 2.22.0 |
 | searchAutoFocus        | Whether autofocus for search box           | boolean      | false           | 1.27.0       |
 | searchPlaceholder        | Placeholder for search box                                                          | string                                                            | -           | -       |
 | searchPosition | Set the position of the search box, one of: `dropdown`、`trigger` | string | `dropdown` | 1.29.0 |
 | showClear | When the value is not empty, whether the trigger displays the clear button | boolean | false |  |
 | showFilteredOnly | Toggle whether to displayed filtered result only in search mode | boolean | false | 0.32.0 |
+| showRestTagsPopover | When the number of tags exceeds maxTagCount and hover reaches +N, whether to display the remaining content through Popover | boolean | false | 2.22.0 |
 | showSearchClear | Toggle whether to support clear search box | boolean | true | 0.35.0 |
 | size                     | Size for input box，one of `large`，`small`，`default`                              | string                                                            | `default`   | -       |
 | style                    | Inline style                                                                        | CSSProperties                                                            | -           | -       |

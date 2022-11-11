@@ -12,7 +12,6 @@ import {
     withFormApi,
     withField,
     ArrayField,
-    Icon
 } from '../../index';
 
 import {

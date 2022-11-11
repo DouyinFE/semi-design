@@ -1,6 +1,6 @@
 //@import '../theme/variables.scss';
-@import './variables.scss';
 @import './animation.scss';
+@import './variables.scss';
 
 $module: #{$prefix}-dropdown;
 
@@ -12,10 +12,10 @@ $module: #{$prefix}-dropdown;
         z-index: $z-dropdown;
         border-radius: $radius-dropdown;
         background: $color-dropdown-bg-default;
-        visibility: hidden;
+        opacity: 0;
         // min-width: 150px;
         &-show {
-            visibility: visible;
+            opacity: 1;
         }
     }
     &-trigger {

@@ -16,19 +16,18 @@ import DropdownTitle, { DropdownTitleProps } from './dropdownTitle';
 import DropdownContext, { DropdownContextType } from './context';
 import '@douyinfe/semi-foundation/dropdown/dropdown.scss';
 import { noop, get } from 'lodash';
-import { Motion } from '../_base/base';
 
 const positionSet = strings.POSITION_SET;
 const triggerSet = strings.TRIGGER_SET;
 
-export { DropdownDividerProps } from './dropdownDivider';
-export { DropdownItemProps, Type } from './dropdownItem';
-export { DropdownMenuProps } from './dropdownMenu';
-export { DropdownTitleProps } from './dropdownTitle';
+export type { DropdownDividerProps } from './dropdownDivider';
+export type { DropdownItemProps, Type } from './dropdownItem';
+export type { DropdownMenuProps } from './dropdownMenu';
+export type { DropdownTitleProps } from './dropdownTitle';
 
 export interface DropDownMenuItemItem extends DropdownItemProps {
     node: 'item';
-    name?: string;
+    name?: string
 }
 export interface DropDownMenuItemDivider extends DropdownDividerProps {
     node: 'divider'
@@ -51,7 +50,7 @@ export interface DropdownProps extends TooltipProps {
     menu?: DropDownMenuItem[];
     trigger?: Trigger;
     zIndex?: number;
-    motion?: Motion;
+    motion?: boolean;
     className?: string;
     contentClassName?: string | any[];
     style?: React.CSSProperties;
@@ -59,11 +58,11 @@ export interface DropdownProps extends TooltipProps {
     rePosKey?: string | number;
     showTick?: boolean;
     closeOnEsc?: TooltipProps['closeOnEsc'];
-    onEscKeyDown?: TooltipProps['onEscKeyDown'];
+    onEscKeyDown?: TooltipProps['onEscKeyDown']
 }
 
 interface DropdownState {
-    popVisible: boolean;
+    popVisible: boolean
 }
 
 class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
@@ -242,12 +241,17 @@ class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
             >
                 {React.isValidElement(children) ?
                     React.cloneElement(children, {
+                        //@ts-ignore
                         className: classnames(get(children, 'props.className'), {
                             [`${prefixCls}-showing`]: popVisible,
                         }),
                         'aria-haspopup': true,
                         'aria-expanded': popVisible,
-                        onKeyDown: e => this.foundation.handleKeyDown(e)
+                        onKeyDown: (e: React.KeyboardEvent) => {
+                            this.foundation.handleKeyDown(e);
+                            const childrenKeyDown: (e: React.KeyboardEvent) => void = get(children, 'props.onKeyDown');
+                            childrenKeyDown && childrenKeyDown(e);
+                        }
                     }) :
                     children}
             </Tooltip>

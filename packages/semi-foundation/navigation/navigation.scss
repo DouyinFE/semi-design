@@ -1,7 +1,7 @@
 //@import '../theme/variables.scss';
+@import "./animation.scss";
 @import "./variables.scss";
 @import "./mixin.scss";
-@import "./animation.scss";
 
 $module: #{$prefix}-navigation;
 
@@ -96,6 +96,11 @@ $module: #{$prefix}-navigation;
         &-indent {
             width: $width-navigation_icon_text_between + $width-navigation_icon_left;
         }
+
+        &:focus-visible {
+            outline: $width-navigation-outline solid $color-navigation_outline-focus;
+            outline-offset: $width-navigation-outlineOffset;
+        }
     }
 
     &-header-link,
@@ -106,6 +111,15 @@ $module: #{$prefix}-navigation;
         text-decoration: none;
         align-items: center;
         justify-content: flex-start;
+    }
+
+    // when item has link, add the padding to link instead of item
+    &-item-has-link {
+        padding: 0;
+
+        .#{$module}-item-link {
+            padding: $spacing-navigation_item-paddingY $spacing-navigation_item-paddingX;
+        }
     }
 
     &-item-sub {
@@ -318,6 +332,17 @@ $module: #{$prefix}-navigation;
             height: inherit;
         }
     }
+
+
+    &-icon-rotate-0{
+        transition: transform 200ms ease-in-out;
+        transform: rotate(0);
+    }
+    &-icon-rotate-180{
+        transition: transform 200ms ease-in-out;
+        transform: rotate(-180deg);
+    }
+
 }
 
 /* Header、Footer-Common */
@@ -680,6 +705,12 @@ $module: #{$prefix}-navigation;
         margin-top: $spacing-navigation_dropdown_item_nav_item-marginTop;
         margin-bottom: $spacing-navigation_dropdown_item_nav_item-marginBottom;
         min-width: $width-navigation_dropdown_item_nav_item-minWidth;
+    }
+}
+
+.#{$prefix}-dropdown-menu {
+    .#{$module}-item-sub {
+        padding: $spacing-navigation_item_sub-padding;
     }
 }
 

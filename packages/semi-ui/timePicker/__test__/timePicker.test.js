@@ -33,7 +33,7 @@ describe(`TimePicker`, () => {
                 locale={Locale.TimePicker}
                 localeCode={Locale.code}
                 defaultOpen={true}
-                scrollItemProps={{ cycled: false }}
+                scrollItemProps={{ mode: 'wheel', cycled: false }}
                 format={'HH:mm:ss'}
                 defaultValue={`${defaultHour}:${defaultMinute}:${defaultSeconds}`}
                 panelFooter={<strong>Select Time</strong>}
@@ -303,7 +303,7 @@ describe(`TimePicker`, () => {
             autofocus: true,
             locale: Locale.TimePicker,
             localeCode: Locale.code,
-            scrollItemProps: { cycled: false }
+            scrollItemProps: { mode: 'wheel', cycled: false }
         };
         const elem = mount(<TimePicker {...props} />);
         // click minute

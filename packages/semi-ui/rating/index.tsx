@@ -12,7 +12,7 @@ import RatingFoundation, { RatingAdapter } from '@douyinfe/semi-foundation/ratin
 
 import '@douyinfe/semi-foundation/rating/rating.scss';
 
-export { RatingItemProps } from './item';
+export type { RatingItemProps } from './item';
 export interface RatingProps {
     'aria-describedby'?: string;
     'aria-errormessage'?: string;
@@ -41,7 +41,7 @@ export interface RatingProps {
     size?: 'small' | 'default' | number;
     tooltips?: string[];
     id?: string;
-    preventScroll?: boolean;
+    preventScroll?: boolean
 }
 
 export interface RatingState {
@@ -49,7 +49,7 @@ export interface RatingState {
     hoverValue: number;
     focused: boolean;
     clearedValue: number;
-    emptyStarFocusVisible: boolean;
+    emptyStarFocusVisible: boolean
 }
 
 export default class Rating extends BaseComponent<RatingProps, RatingState> {
@@ -270,7 +270,7 @@ export default class Rating extends BaseComponent<RatingProps, RatingState> {
     }
 
     getItemList = (ariaLabelPrefix: string) => {
-        const { count, allowHalf, prefixCls, disabled,  character, size, tooltips } =this.props;
+        const { count, allowHalf, prefixCls, disabled, character, size, tooltips } =this.props;
         const { value, hoverValue, focused } = this.state;
         // index == count is for Empty rating
         const itemList = [...Array(count + 1).keys()].map(ind => {

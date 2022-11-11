@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 68
+order: 69
 category: 反馈类
 title: Skeleton 骨架屏
 icon: doc-skeleton
@@ -9,7 +9,7 @@ brief: 在需要等待加载内容的位置提供的占位组件。
 
 ## 概述
 
--   `Avatar`：占位头像，默认为圆形，默认尺寸：Avatar medium: `width: 48px`，`height: 48px`。支持 Avatar 的 size 属性 （**v>=1.0**)
+-   `Avatar`：占位头像，默认为圆形，默认尺寸：Avatar medium: `width: 48px`，`height: 48px`。支持 Avatar 的 size（v1.0后支持)、shape 属性 (v2.20后支持)
 -   `Image`：占位图像，默认尺寸：`width: 100%`，`height: 100%`。
 -   `Title`：占位标题，默认尺寸：`width: 100%`， `height: 24px`。
 -   `Paragraph`：占位内容部分，默认尺寸：`width: 100%`，`height: 16px`，`margin-bottom: 10px`。
@@ -364,37 +364,36 @@ import { Skeleton, Avatar } from '@douyinfe/semi-ui';
 
 ### Skeleton
 
-| 属性        | 说明                                       | 类型       | 默认值 |
-| ----------- | ------------------------------------------ | ---------- | ------ |
-| active      | 是否展示动画效果                           | boolean    | false  |
-| className   | 类名                                       | string     | -      |
-| loading     | 为 true 时，显示占位元素。反之则显示子组件 | boolean    | true   |
-| placeholder | 加载等待时的占位元素                       | ReactNode | -      |
-| style       | 样式                                       | CSSProperties     | -      |
+| 属性        | 说明                                       | 类型          | 默认值 |
+| ----------- | ------------------------------------------ | ------------- | ------ |
+| active      | 是否展示动画效果                           | boolean       | false  |
+| className   | 类名                                       | string        | -      |
+| loading     | 为 true 时，显示占位元素。反之则显示子组件 | boolean       | true   |
+| placeholder | 加载等待时的占位元素                       | ReactNode     | -      |
+| style       | 样式                                       | CSSProperties | -      |
 
 ### Skeleton.Avatar
 
-> `Skeleton.Image`，`Skeleton.Title`，`Skeleton.Button` API 与 `Skeleton.Avatar` 相同
+> `Skeleton.Image`，`Skeleton.Title`，`Skeleton.Button` 大部分API 与 `Skeleton.Avatar` 相同。其中 shape 仅 `Skeleton.Avatar支持`
 
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | className | 类名 | string | - |
 | size | 设置头像的大小，支持 `extra-extra-small`, `extra-small`、`small`、`medium`、`large`、`extra-large` **v>=1.0** | string | `medium` |
 | style | 样式 | CSSProperties | - |
+| shape | 指定头像的形状，支持 `circle`、`square` | string | `circle` |
 
 ### Skeleton.Paragraph
 
-| 属性      | 说明                 | 类型   | 默认值 |
-| --------- | -------------------- | ------ | ------ |
-| className | 类名                 | string | -      |
-| rows      | 设置段落占位图的行数 | number | 4      |
+| 属性      | 说明                 | 类型          | 默认值 |
+| --------- | -------------------- | ------------- | ------ |
+| className | 类名                 | string        | -      |
+| rows      | 设置段落占位图的行数 | number        | 4      |
 | style     | 样式                 | CSSProperties | -      |
 
 ## 文案规范
-- 不变的固定内容直接展示固定内容，可变的内容使用骨架屏展示
 
-
-
+-   不变的固定内容直接展示固定内容，可变的内容使用骨架屏展示
 
 ## 设计变量
 

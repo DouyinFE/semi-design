@@ -6,7 +6,7 @@ export interface ResizableHeaderCellProps {
     onResize?: ResizeFn;
     onResizeStart?: ResizeFn;
     onResizeStop?: ResizeFn;
-    width?: number | string;
+    width?: number | string
 }
 
 class ResizableHeaderCell extends React.PureComponent<ResizableHeaderCellProps> {

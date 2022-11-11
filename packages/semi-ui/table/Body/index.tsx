@@ -19,7 +19,7 @@ import {
     isTreeTable
 } from '@douyinfe/semi-foundation/table/utils';
 import BodyFoundation, { BodyAdapter, FlattenData, GroupFlattenData } from '@douyinfe/semi-foundation/table/bodyFoundation';
-import { strings } from '@douyinfe/semi-foundation/table/constants';
+import { strings, numbers } from '@douyinfe/semi-foundation/table/constants';
 import Store from '@douyinfe/semi-foundation/utils/Store';
 
 import BaseComponent, { BaseProps } from '../../_base/baseComponent';
@@ -74,23 +74,23 @@ export interface BodyProps extends BaseProps {
     rowExpandable?: RowExpandable<Record<string, any>>;
     renderExpandIcon: (record: Record<string, any>, isNested: boolean) => ReactNode | null;
     headerRef?: React.MutableRefObject<HTMLDivElement> | ((instance: any) => void);
-    onScroll?: VirtualizedOnScroll;
+    onScroll?: VirtualizedOnScroll
 }
 
 export interface BodyState {
     virtualizedData?: Array<FlattenData | GroupFlattenData>;
     cache?: {
         virtualizedScrollTop?: number;
-        virtualizedScrollLeft?: number;
+        virtualizedScrollLeft?: number
     };
     cachedExpandBtnShouldInRow?: boolean;
-    cachedExpandRelatedProps?: any[];
+    cachedExpandRelatedProps?: any[]
 }
 
 export interface BodyContext {
     getVirtualizedListRef: GetVirtualizedListRef;
     flattenedColumns: ColumnProps[];
-    getCellWidths: (flattenedColumns: ColumnProps[]) => number[];
+    getCellWidths: (flattenedColumns: ColumnProps[]) => number[]
 }
 
 class Body extends BaseComponent<BodyProps, BodyState> {
@@ -211,7 +211,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
     }
 
     componentDidUpdate(prevProps: BodyProps, prevState: BodyState) {
-        const { virtualized, dataSource, expandedRowKeys, columns, scroll  } = this.props;
+        const { virtualized, dataSource, expandedRowKeys, columns, scroll } = this.props;
         if (virtualized) {
             if (
                 prevProps.dataSource !== dataSource ||
@@ -391,8 +391,9 @@ class Body extends BaseComponent<BodyProps, BodyState> {
                 }}
             >
                 <div style={{ width: tableWidth }} className={tableCls}>
-                    {size(dataSource) === 0 ? emptySlot : children}
+                    {children}
                 </div>
+                {size(dataSource) === 0 && emptySlot}
             </div>
         );
     });
@@ -423,7 +424,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
 
         const listStyle = {
             width: '100%',
-            height: virtualizedData?.length ? y : 0,
+            height: virtualizedData?.length ? y : numbers.DEFAULT_EMPTYSLOT_HEIGHT,
             overflowX: 'auto',
             overflowY: 'auto',
         } as const;
@@ -432,7 +433,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
 
         return (
             <List<Array<FlattenData | GroupFlattenData>>
-                {...virtualized}
+                {...(typeof virtualized === 'object' ? virtualized : {})}
                 initialScrollOffset={this.state.cache.virtualizedScrollTop}
                 onScroll={this.handleVirtualizedScroll}
                 onItemsRendered={this.onItemsRendered}
@@ -561,7 +562,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
             level?: number;
             expanded?: boolean;
             expandableRow?: boolean;
-            onRowClick?: (...args: any[]) => void;
+            onRowClick?: (...args: any[]) => void
         } = {
             level: undefined,
             expanded,
@@ -752,10 +753,10 @@ class Body extends BaseComponent<BodyProps, BodyState> {
         const bodyStyle: {
             maxHeight?: string | number;
             overflow?: string;
-            WebkitTransform?: string;
+            WebkitTransform?: string
         } = {};
         const tableStyle: {
-            width?: string | number;
+            width?: string | number
         } = {};
         const Table = get(components, 'body.outer', 'table');
         const BodyWrapper = get(components, 'body.wrapper') || 'tbody';
@@ -789,7 +790,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
                 onScroll={handleBodyScroll}
             >
                 <Table
-                    role={ isMap(groups) || isFunction(expandedRowRender) || isTreeTable({ dataSource }) ? 'treegrid' : 'grid'}
+                    role={isMap(groups) || isFunction(expandedRowRender) || isTreeTable({ dataSource }) ? 'treegrid' : 'grid'}
                     aria-rowcount={dataSource && dataSource.length}
                     aria-colcount={columns && columns.length}
                     style={tableStyle}
@@ -845,7 +846,7 @@ export interface RenderExpandedRowProps {
     index?: number;
     rowKey?: RowKey<Record<string, any>>;
     virtualized?: Virtualized;
-    level?: number;
+    level?: number
 }
 
 export interface RenderSectionRowProps {
@@ -855,5 +856,5 @@ export interface RenderSectionRowProps {
     group?: any;
     groupKey: string | number;
     index?: number;
-    expanded?: boolean;
+    expanded?: boolean
 }

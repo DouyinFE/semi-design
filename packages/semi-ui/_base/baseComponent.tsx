@@ -15,7 +15,7 @@ export type ValidateStatus = ArrayElement<typeof VALIDATE_STATUS>;
 export interface BaseProps {
     style?: React.CSSProperties;
     className?: string;
-    children?: ReactNode | undefined | any;
+    children?: ReactNode | undefined | any
 }
 
 // eslint-disable-next-line
@@ -66,6 +66,9 @@ export default class BaseComponent<P extends BaseProps = {}, S = {}> extends Com
                 } catch (error) {
 
                 }
+            },
+            persistEvent: (e: React.KeyboardEvent | React.MouseEvent) => {
+                e && e.persist && typeof e.persist === 'function' ? e.persist() : null;
             }
         };
     }

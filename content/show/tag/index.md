@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 61
+order: 62
 category: 展示类
 title: Tag 标签
 icon: doc-tag
@@ -49,6 +49,22 @@ import { Tag, Space } from '@douyinfe/semi-ui';
     <Space>
         <Tag size="small"> small tag </Tag>
         <Tag size="large"> large tag </Tag>
+    </Space>
+);
+```
+
+### 形状
+
+默认定义了两种形状：`square`（默认）、`circle`。
+
+```jsx live=true
+import React from 'react';
+import { Tag, Space } from '@douyinfe/semi-ui';
+
+() => (
+    <Space>
+        <Tag size="small" shape='circle'> small circle tag </Tag>
+        <Tag size="large" shape='circle'> large circle tag </Tag>
     </Space>
 );
 ```
@@ -148,7 +164,7 @@ import { Tag, Button } from '@douyinfe/semi-ui';
     return (
         <div>
             <Button onClick={toggleVisible}>{visible ? 'Hide Tag': 'Show Tag'}</Button>
-            <div style={{ marginTop:10 }}>
+            <div style={{ marginTop: 10 }}>
                 <Tag visible={visible}>Invisible tag </Tag>
             </div>
         </div>
@@ -167,17 +183,17 @@ import { TagGroup } from '@douyinfe/semi-ui';
 
 () => {
     const tagList = [
-        { color: 'white', children:'抖音' },
-        { color: 'white', children:'火山' },
-        { color: 'white', children:'剪映' },
-        { color: 'white', children:'醒图' },
+        { color: 'white', children: '抖音' },
+        { color: 'white', children: '火山' },
+        { color: 'white', children: '剪映' },
+        { color: 'white', children: '醒图' },
     ];
     const src = 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png';
     const tagList2 = [
-        { color: 'white', children:'Douyin', avatarSrc:src },
-        { color: 'white', children:'Hotsoon', avatarSrc:src },
-        { color: 'white', children:'Capcut', avatarSrc:src },
-        { color: 'white', children:'Xingtu', avatarSrc:src },
+        { color: 'white', children: 'Douyin', avatarSrc: src },
+        { color: 'white', children: 'Hotsoon', avatarSrc: src },
+        { color: 'white', children: 'Capcut', avatarSrc: src },
+        { color: 'white', children: 'Xingtu', avatarSrc: src },
     ];
     const divStyle = {
         backgroundColor: 'var(--semi-color-fill-0)',
@@ -282,6 +298,7 @@ class TagGroupCloseableDemo extends React.Component {
 | className | 类名 | string |     | |
 | closable | 标签是否可以关闭 | boolean  |  false   | |
 | color  | 标签的颜色，可选 `amber`、 `blue`、 `cyan`、 `green`、 `grey`、 `indigo`、 `light-blue`、 `light-green`、 `lime`、 `orange`、 `pink`、 `purple`、 `red`、 `teal`、 `violet`、 `yellow`、 `white` | string  | `grey`| |
+| shape | 标签的形状，可选 `square`、 `circle` | string | `square` | 2.20.0 |
 | size | 标签的尺寸，可选 `small`、 `large` | string | `small` | |
 | style | 样式 | CSSProperties |     | |
 | type  | 标签的样式类型，可选 `ghost`、 `solid`、 `light` | string  | `light`     | |

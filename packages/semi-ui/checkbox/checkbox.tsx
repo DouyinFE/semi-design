@@ -11,7 +11,13 @@ import { Context, CheckboxContextType } from './context';
 import { isUndefined, isBoolean, noop } from 'lodash';
 import { getUuidShort } from '@douyinfe/semi-foundation/utils/uuid';
 import { CheckboxType } from './checkboxGroup';
-export type CheckboxEvent = BasicCheckboxEvent;
+
+
+export interface CheckboxEvent extends BasicCheckboxEvent {
+    nativeEvent: {
+        stopImmediatePropagation: () => void
+    }
+}
 export type TargetObject = BasicTargetObject;
 
 export interface CheckboxProps extends BaseCheckboxProps {
@@ -32,13 +38,13 @@ export interface CheckboxProps extends BaseCheckboxProps {
     tabIndex?: number; // a11y: wrapper tabIndex
     addonId?: string;
     extraId?: string;
-    type?: CheckboxType;
+    type?: CheckboxType
 }
 interface CheckboxState {
     checked: boolean;
     addonId?: string;
     extraId?: string;
-    focusVisible?: boolean;
+    focusVisible?: boolean
 }
 class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
     static contextType = Context;
@@ -81,6 +87,8 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
         onMouseLeave: noop,
         type: 'default',
     };
+    static elementType: string;
+
     checkboxEntity: CheckboxInner;
     context: CheckboxContextType;
 
@@ -93,6 +101,29 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
             notifyChange: cbContent => {
                 const { onChange } = this.props;
                 onChange && onChange(cbContent);
+            },
+            generateEvent: (checked, e) => {
+                const { props } = this;
+                const cbValue = {
+                    target: {
+                        ...props,
+                        checked,
+                    },
+                    stopPropagation: () => {
+                        e.stopPropagation();
+                    },
+                    preventDefault: () => {
+                        e.preventDefault();
+                    },
+                    nativeEvent: {
+                        stopImmediatePropagation: () => {
+                            if (e.nativeEvent && typeof e.nativeEvent.stopImmediatePropagation === 'function') {
+                                e.nativeEvent.stopImmediatePropagation();
+                            }
+                        }
+                    },
+                };
+                return cbValue;
             },
             getIsInGroup: () => this.isInGroup(),
             getGroupValue: () => (this.context && this.context.checkboxGroup.value) || [],
@@ -235,20 +266,27 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
         const name = inGroup && this.context.checkboxGroup.name;
         const xSemiPropChildren = this.props['x-semi-children-alias'] || 'children';
 
-        const renderContent = () => (
-            <>
-                {children ? (
-                    <span id={addonId} className={`${prefix}-addon`} x-semi-prop={xSemiPropChildren}>
-                        {children}
-                    </span>
-                ) : null}
-                {extra ? (
-                    <div id={extraId} className={extraCls} x-semi-prop="extra">
-                        {extra}
-                    </div>
-                ) : null}
-            </>
-        );
+        const renderContent = () => {
+            if (!children && !extra) {
+                return null;
+            }
+
+            return (
+                <div className={`${prefix}-content`}>
+                    {children ? (
+                        <span id={addonId} className={`${prefix}-addon`} x-semi-prop={xSemiPropChildren}>
+                            {children}
+                        </span>
+                    ) : null}
+                    {extra ? (
+                        <div id={extraId} className={extraCls} x-semi-prop="extra">
+                            {extra}
+                        </div>
+                    ) : null}
+                </div>
+            );
+        };
+
         return (
             // label is better than span, however span is here which is to solve gitlab issue #364
             <span
@@ -276,15 +314,11 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
                     onInputFocus={this.handleFocusVisible}
                     onInputBlur={this.handleBlur}
                 />
-                {
-                    props.isCardType ?
-                        <div>{renderContent()}</div> :
-                        renderContent()
-                }
+                {renderContent()}
             </span>
         );
     }
 }
-
+Checkbox.elementType = 'Checkbox';
 
 export default Checkbox;

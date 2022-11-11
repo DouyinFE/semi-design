@@ -138,7 +138,7 @@ export interface ColumnFilterProps {
     renderFilterDropdown?: (props: RenderDropdownProps, options: { iconElem: React.ReactNode }) => React.ReactElement;
     filterDropdownProps?: DropdownProps;
     onFilterDropdownVisibleChange?: OnFilterDropdownVisibleChange;
-    onSelect?: (data: OnSelectData) => void;
+    onSelect?: (data: OnSelectData) => void
 }
 
 export default function ColumnFilter(props: ColumnFilterProps = {}): React.ReactElement {
@@ -194,7 +194,7 @@ export interface OnSelectData {
     value: any;
     filteredValue: any;
     included: boolean;
-    domEvent: React.MouseEvent<HTMLElement>;
+    domEvent: React.MouseEvent<HTMLElement>
 }
 
 export interface RenderDropdownProps {
@@ -206,5 +206,5 @@ export interface RenderDropdownProps {
     onFilterDropdownVisibleChange?: OnFilterDropdownVisibleChange;
     trigger?: Trigger;
     position?: Position;
-    renderFilterDropdownItem?: RenderFilterDropdownItem;
+    renderFilterDropdownItem?: RenderFilterDropdownItem
 }

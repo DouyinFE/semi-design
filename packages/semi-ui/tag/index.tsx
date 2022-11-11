@@ -21,7 +21,7 @@ const tagType = strings.TAG_TYPE;
 const avatarShapeSet = strings.AVATAR_SHAPE;
 
 export interface TagState {
-    visible: boolean;
+    visible: boolean
 }
 
 export default class Tag extends Component<TagProps, TagState> {
@@ -33,14 +33,16 @@ export default class Tag extends Component<TagProps, TagState> {
         type: tagType[0] as TagType,
         onClose: () => undefined,
         onClick: () => undefined,
+        onMouseEnter: () => undefined,
         style: {},
         className: '',
+        shape: 'square',
         avatarShape: 'square',
     };
 
     static propTypes = {
         children: PropTypes.node,
-        tagKey: PropTypes.oneOf([PropTypes.string, PropTypes.number]),
+        tagKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         size: PropTypes.oneOf(tagSize),
         color: PropTypes.oneOf(tagColors),
         type: PropTypes.oneOf(tagType),
@@ -120,7 +122,7 @@ export default class Tag extends Component<TagProps, TagState> {
     }
 
     render() {
-        const { tagKey, children, size, color, closable, visible, onClose, onClick, className, type, avatarSrc, avatarShape, tabIndex, ...attr } = this.props;
+        const { tagKey, children, size, color, closable, visible, onClose, onClick, className, type, shape, avatarSrc, avatarShape, tabIndex, ...attr } = this.props;
         const { visible: isVisible } = this.state;
         const clickable = onClick !== Tag.defaultProps.onClick || closable;
         // only when the Tag is clickable or closable, the value of tabIndex is allowed to be passed in. 
@@ -134,6 +136,8 @@ export default class Tag extends Component<TagProps, TagState> {
                     [`${prefixCls}-default`]: size === 'default',
                     [`${prefixCls}-small`]: size === 'small',
                     [`${prefixCls}-large`]: size === 'large',
+                    [`${prefixCls}-square`]: shape === 'square',
+                    [`${prefixCls}-circle`]: shape === 'circle',
                     [`${prefixCls}-${type}`]: type,
                     [`${prefixCls}-${color}-${type}`]: color && type,
                     [`${prefixCls}-closable`]: closable,

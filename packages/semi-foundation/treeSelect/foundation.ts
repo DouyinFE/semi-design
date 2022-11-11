@@ -35,7 +35,7 @@ export type BasicRenderSelectedItemInMultiple = (
     otherProps: { index: number | string; onClose: (tagContent: any, e: any) => void }
 ) => {
     isRenderInTag: boolean;
-    content: any;
+    content: any
 };
 export type BasicRenderSelectedItemInSingle = (treeNode: BasicTreeNodeData) => any;
 export type BasicRenderSelectedItem = BasicRenderSelectedItemInSingle | BasicRenderSelectedItemInMultiple;
@@ -47,7 +47,7 @@ export interface BasicTriggerRenderProps {
     inputValue: string;
     placeholder: string;
     value: BasicTreeNodeData[];
-    onClear: (e: any) => void;
+    onClear: (e: any) => void
 }
 
 export type BasicOnChangeWithObject = (node: BasicTreeNodeData[] | BasicTreeNodeData, e: any) => void;
@@ -63,7 +63,7 @@ export interface BasicOnChange {
         value: BasicTreeNodeData['value'] | Array<BasicTreeNodeData['value']>,
         node: BasicTreeNodeData[] | BasicTreeNodeData,
         e: any
-    ): void;
+    ): void
 }
 
 export interface BasicTreeSelectProps extends Pick<BasicTreeProps,
@@ -125,6 +125,8 @@ export interface BasicTreeSelectProps extends Pick<BasicTreeProps,
     searchPosition?: string;
     stopPropagation?: boolean | string;
     loadedKeys?: string[];
+    showRestTagsPopover?: boolean;
+    restTagsPopoverProps?: any;
     loadData?: (data: BasicTreeNodeData) => Promise<void>;
     onSelect?: (selectedKeys: string, selected: boolean, selectedNode: BasicTreeNodeData) => void;
     searchRender?: (inputProps: any) => any;
@@ -136,7 +138,7 @@ export interface BasicTreeSelectProps extends Pick<BasicTreeProps,
     onChange?: BasicOnChange;
     onFocus?: (e: any) => void;
     onVisibleChange?: (isVisible: boolean) => void;
-    onLoad?: (keys: Set<string>, data: BasicTreeNodeData) => void;
+    onLoad?: (keys: Set<string>, data: BasicTreeNodeData) => void
 }
 
 export interface BasicTreeSelectInnerData extends Pick<BasicTreeInnerData,
@@ -165,7 +167,7 @@ export interface BasicTreeSelectInnerData extends Pick<BasicTreeInnerData,
     rePosKey: number;
     dropdownMinWidth: null | number;
     isHovering: boolean;
-    prevProps: BasicTreeSelectProps;
+    prevProps: BasicTreeSelectProps
 }
 
 export interface TreeSelectAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
@@ -189,7 +191,7 @@ export interface TreeSelectAdapter<P = Record<string, any>, S = Record<string, a
     toggleHovering: (bool: boolean) => void;
     notifyLoad: (newLoadedKeys: Set<string>, data: BasicTreeNodeData) => void;
     updateInputFocus: (bool: boolean) => void;
-    updateLoadKeys: (data: BasicTreeNodeData, resolve: (value?: any) => void) => void;
+    updateLoadKeys: (data: BasicTreeNodeData, resolve: (value?: any) => void) => void
 }
 
 // eslint-disable-next-line max-len

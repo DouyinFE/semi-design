@@ -66,6 +66,20 @@ $rating: #{$prefix}-rating;
                 }
             }
         }
+
+        .#{$field}-group {
+            .#{$col} {
+                &-right {
+                    display: flex;
+                    justify-content: flex-end;
+                }
+                &-left {
+                    display: flex;
+                    justify-content: flex-start;
+                }
+            }
+        }
+
         .#{$field}-pure {
             // padding-top: 0;
             // padding-bottom: 0;
