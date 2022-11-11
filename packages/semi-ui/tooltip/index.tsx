@@ -652,6 +652,10 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         return mergedEvents;
     };
 
+    getPopupId = () => {
+        return this.state.id;
+    }
+
     render() {
         const { isInsert, triggerEventSet, visible, id } = this.state;
         const { wrapWhenSpecial, role, trigger } = this.props;
