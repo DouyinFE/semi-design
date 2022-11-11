@@ -18,11 +18,15 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 
 #### 🎉 2.23.0 (2022-11-11)
-- 【fix】
+- 【Fix】
     - 修复 Popover 中的 Transfer 在拖拽时导致 Popover 意外关闭问题  [#1226](https://github.com/DouyinFE/semi-design/issues/1226)
     - 修复 弹出层中的 Transfer/ TagInput 在拖拽时被拖拽项消失问题  [#1149](https://github.com/DouyinFE/semi-design/issues/1149)
-    - 更正 Table 分页器 在越南语 (vi_VN) 展示时翻译错误问题 [@MrFatMeow](https://github.com/MrFatMeow) [#1252](https://github.com/DouyinFE/semi-design/pull/1252)
-    - 修复 Select和Tooltip组件未处理props.value / props.rePosKey 传入NaN的情况 [@edc-hui](https://github.com/edc-hui)[#763](https://github.com/DouyinFE/semi-design/issues/763) 
+    - 更正 Table 分页器 在越南语 (vi_VN) 展示时翻译错误问题 [#1252](https://github.com/DouyinFE/semi-design/pull/1252) [@MrFatMeow](https://github.com/MrFatMeow) 
+    - 修复 Select和Tooltip组件未处理props.value / props.rePosKey 传入NaN的情况 [#763](https://github.com/DouyinFE/semi-design/issues/763)  [@edc-hui](https://github.com/edc-hui)
+    - 修复 SideSheet 中挂载 children 时机延迟的问题（影响版本 v2.22.beta.0 - v2.23.beta.0） [#1255](https://github.com/DouyinFE/semi-design/pull/1255)
+- 【Style】
+    - Form 组件 Design Token更新，`$spacing-form_label_small-paddingTop` 修正为 `$spacing-form_switch_rating_marginY`，去掉无实际作用的 `$spacing-form_label-paddingRight`；更正更准确的中文描述 [#1258](https://github.com/DouyinFE/semi-design/pull/1258)
+    - Tabs 组件 Design Token更新，增加折叠箭头按钮相关的 Token，允许单独对 Tabs中的箭头按钮定制样式 [#1251](https://github.com/DouyinFE/semi-design/pull/1251)
 
 #### 🎉 2.23.0-beta.1 (2022-11-08)
 - 【Feat】

@@ -17,11 +17,14 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 ---
 
 #### 🎉 2.23.0 (2022-11-11)
-- 【fix】
+- 【Fix】
     - Fixed the problem that Transfer in Popover caused Popover to close unexpectedly when dragging [#1226](https://github.com/DouyinFE/semi-design/issues/1226)
     - Fixed the issue that the Transfer/ TagInput in the pop-up layer disappeared when the dragged item was dragged  [#1149](https://github.com/DouyinFE/semi-design/issues/1149)
     - Correct the translation error of the Table pager when it is displayed in Vietnamese (vi_VN) [@MrFatMeow](https://github.com/MrFatMeow) [#1252](https://github.com/DouyinFE/semi-design/pull/1252)
     - fix the case that the Select and Tooltip components did not process the incoming NaN [@edc-hui](https://github.com/edc-hui)[#763](https://github.com/DouyinFE/semi-design/issues/763) 
+- 【Style】
+    - Updated Form component Design Token, `$spacing-form_label_small-paddingTop` is corrected to `$spacing-form_switch_rating_marginY`, and the useless `$spacing-form_label-paddingRight` is removed; Correct the more accurate description [#1258](https://github.com/DouyinFE/semi-design/pull/1258)
+    - Updated Tabs component Design Token, adding the Token related to the collapsed arrow button, allowing to customize the style of the arrow buttons in Tabs separately [#1251](https://github.com/DouyinFE/semi-design/pull/1251)
 
 #### 🎉 2.23.0-beta.1 (2022-11-08)
 - 【Feat】
