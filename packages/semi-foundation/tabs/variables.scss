@@ -54,11 +54,16 @@ $color-tabs_tab-pane_arrow-bg-default:transparent; // 滚动折叠箭头背景�
 
 $color-tabs_tab-pane_arrow-text-hover: var(--semi-color-primary); // 滚动折叠箭头颜色 - 悬浮
 $color-tabs_tab-pane_arrow-border-hover: transparent; // 滚动折叠箭头边框颜色 - 悬浮
-$color-tabs_tab-pane_arrow-bg-hover:var(--semi-color-fill-0); // 滚动折叠箭头背景色 - 悬浮
+$color-tabs_tab-pane_arrow-bg-hover: var(--semi-color-fill-0); // 滚动折叠箭头背景色 - 悬浮
 
 $color-tabs_tab-pane_arrow-text-active: var(--semi-color-primary); // 滚动折叠箭头颜色 - 按下
 $color-tabs_tab-pane_arrow-border-active: transparent; // 滚动折叠箭头边框颜色 - 按下
-$color-tabs_tab-pane_arrow-bg-active:var(--semi-color-fill-1); // 滚动折叠箭头背景色 - 按下
+$color-tabs_tab-pane_arrow-bg-active: var(--semi-color-fill-1); // 滚动折叠箭头背景色 - 按下
+
+$color-tabs_tab-pane_arrow_disabled-bg-default: transparent;
+$color-tabs_tab-pane_arrow_disabled-bg-hover:  transparent;
+$color-tabs_tab-pane_arrow_disabled-text-default: var(--semi-color-disabled-text);
+$color-tabs_tab-pane_arrow_disabled-text-hover:  var(--semi-color-disabled-text);
 
 $font-tabs_tab-fontWeight: $font-weight-regular; // 页签文本字重 - 默认
 $font-tabs_tab_active-fontWeight: $font-weight-bold; // 页签文本字重 - 选中
