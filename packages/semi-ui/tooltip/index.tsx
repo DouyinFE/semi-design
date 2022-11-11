@@ -3,7 +3,7 @@ import React, { isValidElement, cloneElement } from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import { throttle, noop, get, omit, each, isEmpty, isFunction } from 'lodash';
+import { throttle, noop, get, omit, each, isEmpty, isFunction, isEqual } from 'lodash';
 
 import { BASE_CLASS_PREFIX } from '@douyinfe/semi-foundation/base/constants';
 import warning from '@douyinfe/semi-foundation/utils/warning';
@@ -58,6 +58,7 @@ export interface TooltipProps extends BaseProps {
     onVisibleChange?: (visible: boolean) => void;
     onClickOutSide?: (e: React.MouseEvent) => void;
     spacing?: number;
+    margin?: number | { marginLeft: number; marginTop: number; marginRight: number; marginBottom: number };
     showArrow?: boolean | React.ReactNode;
     zIndex?: number;
     rePosKey?: string | number;
@@ -126,6 +127,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         onVisibleChange: PropTypes.func,
         onClickOutSide: PropTypes.func,
         spacing: PropTypes.number,
+        margin: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
         showArrow: PropTypes.oneOfType([PropTypes.bool, PropTypes.node]),
         zIndex: PropTypes.number,
         rePosKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -156,6 +158,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         onVisibleChange: noop,
         onClickOutSide: noop,
         spacing: numbers.SPACING,
+        margin: numbers.MARGIN,
         showArrow: true,
         wrapWhenSpecial: true,
         zIndex: numbers.DEFAULT_Z_INDEX,
@@ -495,7 +498,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         if (prevProps.visible !== this.props.visible) {
             this.props.visible ? this.foundation.delayShow() : this.foundation.delayHide();
         }
-        if (prevProps.rePosKey !== this.props.rePosKey) {
+        if (!isEqual(prevProps.rePosKey, this.props.rePosKey)) {
             this.rePosition();
         }
     }
@@ -648,6 +651,10 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
 
         return mergedEvents;
     };
+
+    getPopupId = () => {
+        return this.state.id;
+    }
 
     render() {
         const { isInsert, triggerEventSet, visible, id } = this.state;

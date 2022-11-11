@@ -298,7 +298,13 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
     }
 
     onInputChange(value: string) {
-        this.foundation.handleInputChange(value);
+        this.foundation.handleInputChange(value, true);
+    }
+
+    search(value: string) {
+        // The search method is used to provide the user with a manually triggered search
+        // Since the method is manually called by the user, setting the second parameter to false does not trigger the onSearch callback to notify the user
+        this.foundation.handleInputChange(value, false);
     }
 
     onSelectOrRemove(item: ResolvedDataItem) {

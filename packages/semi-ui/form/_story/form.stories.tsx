@@ -150,7 +150,11 @@ interface FData {
     test: boolean;
     test2: boolean;
     test3: string;
-    // [x: string]: unknown;
+    test4: {
+        event: string,
+    },
+    testK: boolean;
+    // [x: string]: any;
 }
 class Demo extends React.Component<IProps, IState> {
     constructor(props:any) {
@@ -166,8 +170,12 @@ class Demo extends React.Component<IProps, IState> {
       const { visible } = this.state;
       return (
         <>
-          <Form getFormApi={this.getFormApi}>
-
+          <Form<FData>
+            getFormApi={this.getFormApi}
+            onSubmit={values => console.log(values.test2)}
+            onChange={formState => formState.values.test}
+            validateFields={values => ({ test4: 'test4 empty', test2: '' }) }
+        >
           </Form>
         </>
       );
