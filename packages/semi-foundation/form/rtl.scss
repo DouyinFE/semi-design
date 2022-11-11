@@ -33,7 +33,6 @@ $rating: #{$prefix}-rating;
     
         &-field-label {
             padding-right: 0;
-            padding-left: $spacing-form_label-paddingRight;
     
             &-with-extra {
                 .#{$field}-label-extra {
