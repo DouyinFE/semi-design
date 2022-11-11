@@ -7,16 +7,6 @@ export default class DropdownMenuFoundation extends BaseFoundation<Partial<Defau
     menuItemNodes: HTMLElement[] = null;
     firstChars: string[] = [];
 
-    // if trigger is click, auto focus to the first menu item
-    autoFocus(ulElement: any): void {
-        const trigger = this._adapter.getContext('trigger');
-        if (trigger === 'click'){
-            // find all non-disabled li under this menu and set focus to the first menu
-            this.menuItemNodes = [...ulElement.getElementsByTagName('li')].filter(item => item.ariaDisabled !== "true");
-            setFocusToFirstItem(this.menuItemNodes);
-        }
-    }
-
     handleEscape(menu: Element): void {
         const trigger = this._adapter.getContext('trigger');
         if (trigger === 'custom'){
