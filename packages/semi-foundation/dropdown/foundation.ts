@@ -3,33 +3,40 @@ import { handlePrevent, setFocusToFirstItem, setFocusToLastItem } from '../utils
 
 export interface DropdownAdapter extends Partial<DefaultAdapter> {
     setPopVisible(visible: boolean): void;
-    notifyVisibleChange(visible: boolean): void
+    notifyVisibleChange(visible: boolean): void;
+    getPopupId(): string
 }
 
 export default class DropdownFoundation extends BaseFoundation<DropdownAdapter> {
     handleVisibleChange(visible: boolean) {
         this._adapter.setPopVisible(visible);
         this._adapter.notifyVisibleChange(visible);
+
+        const { trigger } = this.getProps();
+        if (visible && trigger === "click"){
+            const popupId = this._adapter.getPopupId();
+            this.setFocusToFirstMenuItem(popupId);
+        }
     }
 
-    getMenuItemNodes(target: any): HTMLElement[] {
-        const id = target.attributes['data-popupid'].value;
+    getMenuItemNodes(id: string): HTMLElement[] {
         const menuWrapper = document.getElementById(id);
         // if has dropdown item, the item must wrapped by li
         return menuWrapper ? Array.from(menuWrapper.getElementsByTagName('li')).filter(item => item.ariaDisabled === "false") : null;
     }
 
-    setFocusToFirstMenuItem(target: any): void {
-        const menuItemNodes = this.getMenuItemNodes(target);
+    setFocusToFirstMenuItem(id: string): void {
+        const menuItemNodes = this.getMenuItemNodes(id);
         menuItemNodes && setFocusToFirstItem(menuItemNodes);
     }
 
-    setFocusToLastMenuItem(target: any): void {
-        const menuItemNodes = this.getMenuItemNodes(target);
+    setFocusToLastMenuItem(id: string): void {
+        const menuItemNodes = this.getMenuItemNodes(id);
         menuItemNodes && setFocusToLastItem(menuItemNodes);
     }
 
     handleKeyDown(event: any): void {
+        const id = event.target?.attributes['data-popupid']?.value;
         switch (event.key) {
             case ' ':
             case 'Enter':
@@ -38,11 +45,11 @@ export default class DropdownFoundation extends BaseFoundation<DropdownAdapter> 
                 // handlePrevent(event);
                 break;
             case 'ArrowDown':
-                this.setFocusToFirstMenuItem(event.target);
+                this.setFocusToFirstMenuItem(id);
                 handlePrevent(event);
                 break;
             case 'ArrowUp':
-                this.setFocusToLastMenuItem(event.target);
+                this.setFocusToLastMenuItem(id);
                 handlePrevent(event);
                 break;
             default:

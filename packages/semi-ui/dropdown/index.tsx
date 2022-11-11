@@ -111,6 +111,8 @@ class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
         onEscKeyDown: noop,
     };
 
+    tooltipRef: React.RefObject<Tooltip>
+
     constructor(props: DropdownProps) {
         super(props);
 
@@ -119,6 +121,7 @@ class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
         };
 
         this.foundation = new Foundation(this.adapter);
+        this.tooltipRef = React.createRef();
     }
 
     context: DropdownContextType;
@@ -128,6 +131,7 @@ class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
             ...super.adapter,
             setPopVisible: (popVisible: boolean) => this.setState({ popVisible }),
             notifyVisibleChange: (visible: boolean) => this.props.onVisibleChange(visible),
+            getPopupId: () => this.tooltipRef.current.getPopupId()
         };
     }
 
@@ -237,6 +241,7 @@ class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
                 onVisibleChange={this.handleVisibleChange}
                 showArrow={false}
                 returnFocusOnClose={true}
+                ref={this.tooltipRef}
                 {...attr}
             >
                 {React.isValidElement(children) ?
