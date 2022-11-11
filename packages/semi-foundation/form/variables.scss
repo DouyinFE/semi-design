@@ -34,7 +34,7 @@ $font-form_requiredMark-fontWeight: $font-weight-bold; // 表单必填标识字�
 
 // form errormessage
 $color-form_message_error-text-default: var(--semi-color-danger); // 错误提示颜色
-$color-form_alertIcon-icon-default: var(--semi-color-warning); // 表单项警告图标颜色
+$color-form_alertIcon-icon-default: var(--semi-color-warning); // 警告图标颜色
 $spacing-form_statusIcon-marginRight: $spacing-extra-tight;  // 表单校验状态图标右侧外边距
 $spacing-form_message-marginTop: $spacing-extra-tight; // 表单错误信息、辅助文字顶部外边距
 
