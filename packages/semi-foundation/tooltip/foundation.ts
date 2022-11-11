@@ -294,6 +294,10 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         const content = this.getProp('content');
         const trigger = this.getProp('trigger');
         const clickTriggerToHide = this.getProp('clickTriggerToHide');
+        const { visible } = this.getStates();
+        if (visible) {
+            return ;
+        }
 
         this.clearDelayTimer();
 
@@ -310,7 +314,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
             this._togglePortalVisible(true);
         });
 
-        this._adapter.insertPortal(content, { left: -9990, top: -9999 }); // offscreen rendering
+        this._adapter.insertPortal(content, { left: -9999, top: -9999 }); // offscreen rendering
 
         if (trigger === 'custom') {
             // eslint-disable-next-line

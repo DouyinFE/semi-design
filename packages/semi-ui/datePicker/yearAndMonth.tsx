@@ -170,7 +170,6 @@ class YearAndMonth extends BaseComponent<YearAndMonthProps, YearAndMonthState> {
     renderColMonth() {
         const { months, currentMonth, currentYear } = this.state;
         const { locale, localeCode, monthCycled, disabledDate, yearAndMonthOpts } = this.props;
-        console.log('yearAndMonthOpts', yearAndMonthOpts);
         let transform = (val: string) => val;
         const currentDate = setYear(Date.now(), currentYear);
         if (localeCode === 'zh-CN' || localeCode === 'zh-TW') {

@@ -19,12 +19,10 @@ class DropdownMenu extends BaseComponent<DropdownMenuProps> {
 
     static contextType = DropdownContext;
 
-    menuRef: React.RefObject<HTMLUListElement>
 
     constructor(props: DropdownMenuProps) {
         super(props);
 
-        this.menuRef = React.createRef();
         this.foundation = new Foundation(this.adapter);
     }
 
@@ -34,14 +32,10 @@ class DropdownMenu extends BaseComponent<DropdownMenuProps> {
         };
     }
 
-    componentDidMount() {
-        this.foundation.autoFocus(this.menuRef.current);
-    }
-
     render() {
         const { children, className, style, ...rest } = this.props;
         return (
-            <ul role="menu" aria-orientation="vertical" ref={this.menuRef} {...rest} className={classnames(`${prefixCls}-menu`, className)} style={style} onKeyDown={e => this.foundation.onMenuKeydown(e)}>
+            <ul role="menu" aria-orientation="vertical" {...rest} className={classnames(`${prefixCls}-menu`, className)} style={style} onKeyDown={e => this.foundation.onMenuKeydown(e)}>
                 {children}
             </ul>
         );
