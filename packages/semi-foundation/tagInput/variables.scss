@@ -40,6 +40,9 @@ $spacing-tagInput_tag_icon_paddingLeft: 4px; // tag中有handler icon时tag的�
 $height-tagInput-large: $height-control-large; // 大尺寸标签输入框高度
 $height-tagInput-default: $height-control-default; // 默认尺寸标签输入框高度
 $height-tagInput-small: $height-control-small; // 小尺寸标签输入框高度
+$height-tagInput_input_small: 20px; // 小尺寸标签输入框Input框高度
+$height-tagInput_input_default: 24px; // 默认尺寸标签输入框Input框高度
+$height-tagInput_input_large: 24px; // 大尺寸标签输入框Input框高度
 
 $width-tagInput-clear-medium: $width-icon-medium * 2; // 标签输入框清空按钮宽度
 $width-tagInput-border-default: $border-thickness-control; // 标签输入框描边描边宽度 - 默认

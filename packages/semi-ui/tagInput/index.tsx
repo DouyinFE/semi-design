@@ -553,9 +553,9 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
             [`${prefixCls}-warning`]: validateStatus === 'warning'
         });
 
-        const inputCls = cls(`${prefixCls}-wrapper-input`);
+        const inputCls = cls(`${prefixCls}-wrapper-input`, `${prefixCls}-wrapper-input-${size}`);
 
-        const wrapperCls = cls(`${prefixCls}-wrapper`);
+        const wrapperCls = cls(`${prefixCls}-wrapper`, `${prefixCls}-wrapper-${size}`);
 
         return (
             // eslint-disable-next-line 
