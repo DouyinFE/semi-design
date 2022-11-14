@@ -72,7 +72,6 @@ export interface InputState {
     cachedValue: React.ReactText;
     disabled: boolean;
     props: Record<string, any>;
-    paddingLeft: string;
     isFocus: boolean;
     isHovering: boolean;
     eyeClosed: boolean;
@@ -157,7 +156,6 @@ class Input extends BaseComponent<InputProps, InputState> {
             cachedValue: null, // Cache current props.value value
             disabled: false,
             props: {},
-            paddingLeft: '',
             isFocus: false,
             isHovering: false,
             eyeClosed: props.mode === 'password',
@@ -195,7 +193,6 @@ class Input extends BaseComponent<InputProps, InputState> {
             notifyKeyUp: (e: React.KeyboardEvent<HTMLInputElement>) => this.props.onKeyUp(e),
             notifyEnterPress: (e: React.KeyboardEvent<HTMLInputElement>) => this.props.onEnterPress(e),
             notifyClear: (e: React.MouseEvent<HTMLDivElement>) => this.props.onClear(e),
-            setPaddingLeft: (paddingLeft: string) => this.setState({ paddingLeft }),
             setMinLength: (minLength: number) => this.setState({ minLength }),
             isEventTarget: (e: React.MouseEvent) => e && e.target === e.currentTarget,
         };
@@ -429,7 +426,7 @@ class Input extends BaseComponent<InputProps, InputState> {
             preventScroll,
             ...rest
         } = this.props;
-        const { value, paddingLeft, isFocus, minLength: stateMinLength } = this.state;
+        const { value, isFocus, minLength: stateMinLength } = this.state;
         const suffixAllowClear = this.showClearBtn();
         const suffixIsIcon = isSemiIcon(suffix);
         const ref = forwardRef || this.inputRef;
@@ -462,7 +459,7 @@ class Input extends BaseComponent<InputProps, InputState> {
         const inputValue = value === null || value === undefined ? '' : value;
         const inputProps: React.InputHTMLAttributes<HTMLInputElement> = {
             ...rest,
-            style: { paddingLeft, ...inputStyle },
+            style: inputStyle,
             autoFocus: autofocus,
             className: inputCls,
             disabled,
