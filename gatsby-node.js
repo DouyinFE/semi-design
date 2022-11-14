@@ -12,21 +12,7 @@ const items = ['basic', 'chart'];
 const sha1 = require('sha1');
 const hash = sha1(`${new Date().getTime()}${Math.random()}`);
 const glob = require('glob');
-const addPageDataVersion = async file => {
-    const stats = fs.statSync(file);
-    if (stats.isFile()) {
-        console.log(`Adding version to page-data.json app-data.json designToken.json in ${file}..`);
-        let content = fs.readFileSync(file, 'utf8');
-        const result = content.replace(
-            /page-data.json(\?v=[a-f0-9]{32})?/g,
-            `page-data.json?v=${hash}`
-        ).replace(/app-data.json(\?v=[a-f0-9]{32})?/g,
-            `app-data.json?v=${hash}`
-        ).replace(/designToken.json(\?v=[a-f0-9]{32})?/g,
-            `designToken.json?v=${hash}`);
-        fs.writeFileSync(file, result, 'utf8');
-    }
-};
+
 
 function resolve(dir) {
     return path.resolve(__dirname, dir);
@@ -298,15 +284,40 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     });
 };
 
-exports.onPostBootstrap = async () => {
-    const loader = path.join(__dirname, 'node_modules/gatsby/cache-dir/loader.js');
-    await addPageDataVersion(loader);
-};
 
 exports.onPostBuild = async () => {
     const publicPath = path.join(__dirname, 'public');
+
+    const pageDataFiles = glob.sync(`${publicPath}/page-data/**/page-data.json`);
+    for (let file of pageDataFiles) {
+        console.log(file);
+        const newFilename = file.replace(`page-data.json`, `page-data.${hash}.json`);
+        fs.renameSync(file, newFilename);
+    }
+
+    const appDataFiles = glob.sync(`${publicPath}/page-data/**/app-data.json`);
+    for (let file of appDataFiles) {
+        console.log(file);
+        const newFilename = file.replace(`app-data.json`, `app-data.${hash}.json`);
+        fs.renameSync(file, newFilename);
+    }
+
     const htmlAndJSFiles = glob.sync(`${publicPath}/**/*.{html,js}`);
     for (let file of htmlAndJSFiles) {
-        await addPageDataVersion(file);
+        const stats = fs.statSync(file);
+        if (stats.isFile()) {
+            console.log(`Adding version to page-data.json app-data.json designToken.json in ${file}..`);
+            let content = fs.readFileSync(file, 'utf8');
+            const result = content.replace(
+                /page-data.json(\?v=[a-f0-9]*)?/g,
+                `page-data.${hash}.json`
+            ).replace(/app-data.json(\?v=[a-f0-9]*)?/g,
+                `app-data.${hash}.json`
+            ).replace(/designToken.json(\?v=[a-f0-9]*)?/g,
+                `designToken.json?v=${hash}`);
+            fs.writeFileSync(file, result, 'utf8');
+        }
     }
+
+
 };
