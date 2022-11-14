@@ -542,16 +542,20 @@ $module: #{$prefix}-tabs;
 
     &-pane-animate-leftShow{
         animation: $animation_duration-tabs_tabPanel-show #{$module}-panel-keyframe-leftShow $animation_function-tabs_tabPanel-show $animation_delay-tabs_tabPanel-show;
+        animation-fill-mode: forwards;
     }
     &-pane-animate-rightShow{
         animation: $animation_duration-tabs_tabPanel-show #{$module}-panel-keyframe-rightShow $animation_function-tabs_tabPanel-show $animation_delay-tabs_tabPanel-show;
+        animation-fill-mode: forwards;
     }
 
     &-pane-animate-topShow{
         animation: $animation_duration-tabs_tabPanel-show #{$module}-panel-keyframe-topShow $animation_function-tabs_tabPanel-show $animation_delay-tabs_tabPanel-show;
+        animation-fill-mode: forwards;
     }
     &-pane-animate-bottomShow{
         animation: $animation_duration-tabs_tabPanel-show #{$module}-panel-keyframe-bottomShow $animation_function-tabs_tabPanel-show $animation_delay-tabs_tabPanel-show;
+        animation-fill-mode: forwards;
     }
 }
 

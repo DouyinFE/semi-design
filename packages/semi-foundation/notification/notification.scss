@@ -299,53 +299,65 @@ $module: #{$prefix}-notification;
             }
         }
 
-  
+
 
         &-animation-show_top{
             animation: #{$module}-slideShow_top $animation_duration-notification-show $animation_function-notification-show $animation_delay-notification-show;
+            animation-fill-mode: forwards;
         }
 
         &-animation-hide_top{
             animation: #{$module}-slideHide_top $animation_duration-notification-hide $animation_function-notification-hide $animation_delay-notification-hide;
+            animation-fill-mode: forwards;
         }
 
         &-animation-show_topLeft{
             animation: #{$module}-slideShow_topLeft $animation_duration-notification-show $animation_function-notification-show $animation_delay-notification-show;
+            animation-fill-mode: forwards;
         }
 
         &-animation-hide_topLeft{
             animation: #{$module}-slideHide_topLeft $animation_duration-notification-hide $animation_function-notification-hide $animation_delay-notification-hide;
+            animation-fill-mode: forwards;
         }
 
         &-animation-show_topRight{
             animation: #{$module}-slideShow_topRight $animation_duration-notification-show $animation_function-notification-show $animation_delay-notification-show;
+            animation-fill-mode: forwards;
         }
 
         &-animation-hide_topRight{
             animation: #{$module}-slideHide_topRight $animation_duration-notification-hide $animation_function-notification-hide $animation_delay-notification-hide;
+            animation-fill-mode: forwards;
         }
 
         &-animation-show_bottom{
             animation: #{$module}-slideShow_bottom $animation_duration-notification-show $animation_function-notification-show $animation_delay-notification-show;
+            animation-fill-mode: forwards;
         }
 
         &-animation-hide_bottom{
             animation: #{$module}-slideHide_bottom $animation_duration-notification-hide $animation_function-notification-hide $animation_delay-notification-hide;
+            animation-fill-mode: forwards;
         }
 
         &-animation-show_bottomLeft{
             animation: #{$module}-slideShow_bottomLeft $animation_duration-notification-show $animation_function-notification-show $animation_delay-notification-show;
+            animation-fill-mode: forwards;
         }
 
         &-animation-hide_bottomLeft{
             animation: #{$module}-slideHide_bottomLeft $animation_duration-notification-hide $animation_function-notification-hide $animation_delay-notification-hide;
+            animation-fill-mode: forwards;
         }
         &-animation-show_bottomRight{
             animation: #{$module}-slideShow_bottomRight $animation_duration-notification-show $animation_function-notification-show $animation_delay-notification-show;
+            animation-fill-mode: forwards;
         }
 
         &-animation-hide_bottomRight{
             animation: #{$module}-slideHide_bottomRight $animation_duration-notification-hide $animation_function-notification-hide $animation_delay-notification-hide;
+            animation-fill-mode: forwards;
         }
     }
 }

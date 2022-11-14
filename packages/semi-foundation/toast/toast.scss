@@ -90,10 +90,12 @@ $icon: #{$prefix}-toast-icon;
 
     &-animation-show{
         animation: $animation_duration-toast-show #{$module}-keyframe-toast-show $animation_function-toast-show $animation_delay-toast-show ;
+        animation-fill-mode: forwards;
     }
 
     &-animation-hide{
         animation: $animation_duration-toast-hide #{$module}-keyframe-toast-hide $animation_function-toast-hide $animation_delay-toast-hide ;
+        animation-fill-mode: forwards;
     }
 
     @keyframes #{$module}-keyframe-toast-show{

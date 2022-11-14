@@ -91,10 +91,12 @@ $module-icon: #{$module}-icon-arrow;
 
     &-animation-show{
         animation: #{$module}-zoomIn $animation_duration-tooltip_in $animation_function-tooltip_in;
+        animation-fill-mode: forwards;
     }
 
     &-animation-hide{
         animation: #{$module}-zoomOut $animation_duration-tooltip_out $animation_function-tooltip_out;
+        animation-fill-mode: forwards;
     }
 
 }
