@@ -459,6 +459,10 @@ function withField<
                 'aria-labelledby': labelId,
             };
 
+            if (name) {
+                newProps['name'] = name;
+            }
+
             if (helpText) {
                 newProps['aria-describedby'] = extraText ? `${helpTextId} ${extraTextId}` : helpTextId;
             }
