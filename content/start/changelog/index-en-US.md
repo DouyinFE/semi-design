@@ -16,6 +16,13 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.23.2 (2022-11-14)
+- 【Fix】
+    - Fix the problem of the `Input` component reporting style props error in React 18 + NextJS SSR environment [#1262](https://github.com/DouyinFE/semi-design/issues/1262) [#1181](https://github.com/DouyinFE/semi-design/issues/1181)
+- 【Style】
+    - Fixed the problem that the spacing between the last line and other lines was inconsistent when there were multiple lines of content in `TagInput` [#1263](https://github.com/DouyinFE/semi-design/pull/1263)
+    - The Switch component Design Token is updated, adding `$spacing-switch_knob-left`; `$motion-switch_unchecked-translateX` is corrected to more semantically `$spacing-switch_unchecked-translateX` [#1267](https://github.com/DouyinFE/semi-design/pull/1267)
+
 #### 🎉 2.23.1 (2022-11-11)
 - 【Fix】
     - Fixed the problem that Transfer in Popover caused Popover to close unexpectedly when dragging [#1226](https://github.com/DouyinFE/semi-design/issues/1226)
