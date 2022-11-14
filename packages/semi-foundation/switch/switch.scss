@@ -94,14 +94,14 @@ $module: #{$prefix}-switch;
         background-color: $color-switch_knob-bg-default;
         box-sizing: border-box;
         position: absolute;
-        left: 0;
+        left: $spacing-switch_knob-left;
         right: auto;
         transition: transform $motion-switch-transitionDuration ease-in-out, width $motion-switch-transitionDuration ease-in-out;
 
         width: $width-switch_knob_default;
         height: $width-switch_knob_default;
         top: $spacing-switch_knob-padding;
-        transform: translateX($motion-switch_unchecked-translateX);
+        transform: translateX($spacing-switch_unchecked-translateX);
     }
 
     &-native-control {
