@@ -106,6 +106,18 @@ $module: #{$prefix}-tagInput;
         padding-right: $spacing-extra-tight;
         overflow: hidden;
 
+        &-small {
+            min-height: $height-tagInput-small;
+        }
+
+        &-default {
+            min-height: $height-tagInput-default;
+        }
+
+        &-large {
+            min-height: $height-tagInput-large;
+        }
+
         &-tag {
             margin-right: $spacing-extra-tight;
             white-space: pre;
@@ -169,6 +181,42 @@ $module: #{$prefix}-tagInput;
 
             &:not(:first-child) > input {
                 padding-left: 0;
+            }
+
+            &-small {
+                height: $height-tagInput_input_small;
+                margin-top: $spacing-tagInput_small-Y;
+                margin-bottom: $spacing-tagInput_small-Y;
+                line-height: $height-tagInput_input_small;
+
+                & .#{$prefix}-input-small {
+                    height: $height-tagInput_input_small;
+                    line-height: $height-tagInput_input_small;
+                }
+            }
+
+            &-default {
+                height: $height-tagInput_input_default;
+                margin-top: $spacing-tagInput_default-Y;
+                margin-bottom: $spacing-tagInput_default-Y;
+                line-height: $height-tagInput_input_default;
+
+                & .#{$prefix}-input-default {
+                    height: $height-tagInput_input_default;
+                    line-height: $height-tagInput_input_default;
+                }
+            }
+
+            &-large {
+                height: $height-tagInput_input_large;
+                margin-top: $spacing-tagInput_large-Y;
+                margin-bottom: $spacing-tagInput_large-Y;
+                line-height: $height-tagInput_input_large;
+
+                & .#{$prefix}-input-large {
+                    height: $height-tagInput_input_large;
+                    line-height: $height-tagInput_input_large;
+                }
             }
         }
     }
