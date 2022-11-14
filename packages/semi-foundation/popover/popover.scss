@@ -79,10 +79,12 @@ $module-icon: #{$module}-icon-arrow;
     }
     &-animation-show{
         animation: #{$module}-zoomIn $animation_duration-popover-in $animation_function-popover-in;
+        animation-fill-mode: forwards;
     }
 
     &-animation-hide{
         animation: #{$module}-zoomOut $animation_duration-popover-out $animation_function-popover-out;
+        animation-fill-mode: forwards;
     }
 }
 
