@@ -20,7 +20,7 @@ $module: #{$prefix}-switch;
         &-knob {
             right: 0;
             left: auto;
-            transform: translateX(-$motion-switch_unchecked-translateX);
+            transform: translateX(-1 * $spacing-switch_unchecked-translateX);
         }
 
         &-native-control {
