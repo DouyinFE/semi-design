@@ -21,7 +21,6 @@ export interface InputAdapter extends Partial<DefaultAdapter>, Partial<InputDefa
     notifyKeyUp(e: any): void;
     notifyKeyPress(e: any): void;
     notifyEnterPress(e: any): void;
-    setPaddingLeft(paddingLeft: string): void;
     isEventTarget(e: any): boolean
 }
 
@@ -264,10 +263,6 @@ class InputFoundation extends BaseFoundation<InputAdapter> {
         if (e.key === ENTER_KEY) {
             this._adapter.notifyEnterPress(e);
         }
-    }
-
-    setPaddingLeft(paddingLeft: string) {
-        this._adapter.setPaddingLeft(paddingLeft);
     }
 
     isAllowClear() {
