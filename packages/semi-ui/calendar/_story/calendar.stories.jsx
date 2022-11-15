@@ -563,14 +563,7 @@ export const WeekStartsOnDemo = () => {
                 mode="month"
                 weekStartsOn={1}
                 events={events}
-                dateGridRender={(dateString, date) => {
-                    if (dateString === new Date(2019, 6, 16).toString()) {
-                    return (
-                        <div style={{ backgroundColor: 'red', height: '100%', width: '100%' }}>123test</div>
-                    );
-                    }
-                    return null;
-                }}
+                displayValue={new Date(2022, 8, 5, 14, 45, 0)} 
             ></Calendar>
       </div>
     )
