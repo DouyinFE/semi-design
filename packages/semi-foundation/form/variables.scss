@@ -16,9 +16,10 @@ $spacing-form_label_posLeft-marginRight: 0; // 表单项左侧标签右侧外边
 $spacing-form_label_posLeft-marginBottom: 0; // 表单项左侧标签底部外边距
 $spacing-form_label_posTop-paddingTop: $spacing-extra-tight; // 表单项顶部标签顶部边距
 $spacing-form_label_posTop-paddingBottom: $spacing-extra-tight; // 表单项顶部标签底部边距
-$spacing-form_label_extra_posMid-marginTop: $spacing-extra-tight; // 表单项标签 图标/可选标记 顶部外边距
-$spacing-form_label_extra_posMid-marginBottom: $spacing-extra-tight; // 表单项标签 图标/可选标记 底部外边距 - 居中
-$spacing-form_label_extra_posBottom-marginTop: $spacing-extra-tight; // 表单项标签 图标/可选标记 顶部外边距 - 底部
+
+$spacing-form_extra_posMid-marginTop: $spacing-extra-tight; // 表单项额外提示信息顶部外边距 - 额外信息处于中间时
+$spacing-form_extra_posMid-marginBottom: $spacing-extra-tight; // 表单项额外提示信息底部外边距 - 额外信息处于中间时
+$spacing-form_extra_posBottom-marginTop: $spacing-extra-tight; //表单项额外提示信息顶部外边距 - 额外信息处于底部时
 
 // form switch rating需要额外margin以对齐高度 32px
 $spacing-form_switch_rating_marginY: ($height-control-default - 24px) * 0.5; // Switch / Rating 表单项顶部内边距（水平布局）
