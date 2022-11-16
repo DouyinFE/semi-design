@@ -2,6 +2,7 @@ import React from 'react';
 
 import { NavProps } from './index';
 import { Locale } from '../locale/interface';
+ 
 export interface NavContextType {
     isCollapsed?: boolean;
     mode?: NavProps['mode'];
@@ -18,7 +19,8 @@ export interface NavContextType {
     subNavMotion?: NavProps['subNavMotion'];
     subNavCloseDelay?: NavProps['subNavCloseDelay'];
     subNavOpenDelay?: NavProps['subNavOpenDelay'];
-    canUpdateOpenKeys?: boolean
+    canUpdateOpenKeys?: boolean;
+    renderWrapper?: NavProps['renderWrapper']
 }
 
 const NavContext = React.createContext<NavContextType>({
