@@ -89,7 +89,7 @@ And [Semi UI Doc Site](https://semi.design/en-US/) has hundreds of editable exam
 
 # 📌 Documentation
 * [Semi DSM](https://semi.design/dsm)
-* [Semi Design2Code](https://semi.design/code)
+* [Semi Design2Code](https://semi.design/code/en-US)
 * [Semi Figma Plugin](https://www.figma.com/community/plugin/1166339852662786534/Semi-Design-%E8%AE%BE%E8%AE%A1%E8%BD%AC%E4%BB%A3%E7%A0%81)
 * [Quick Start](https://semi.design/zh-CN/start/getting-started)
 * [Components Overview](https://semi.design/zh-CN/start/overview)
