@@ -88,6 +88,8 @@ import {
   EffectDemo,
   ModalFormSelectWithObject,
 } from './Performance/performanceDemo';
+import { RerenderOnDemand } from './Performance/rerenderNeed';
+
 import { SetValuesDemo, SetValuesWithArrayField } from './FormApi/setValuesDemo';
 import { SetValueUsingParentPath } from './FormApi/formApiDemo';
 import { FieldPathWithArrayDemo } from './Debug/bugDemo';
@@ -315,6 +317,11 @@ export const PerformanceModalFormSelectWithObject = () => <ModalFormSelectWithOb
 
 PerformanceModalFormSelectWithObject.story = {
   name: 'Performance-ModalFormSelectWithObject',
+};
+
+export const RerenderOnDemandDemo = () => <RerenderOnDemand />;
+RerenderOnDemandDemo.story = {
+  name: 'Performance-RerenderOnDemand',
 };
 
 export const FiledPropConvert = () => <ConvertDemo />;

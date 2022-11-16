@@ -71,6 +71,7 @@ class ManyFieldDemo extends React.Component {
             <Form.Input
                 key={`No${item}`}
                 field={`No${item}`}
+                // validate={val => 'always error'}
                 rules={[
                     { required: true, message: 'required error' },
                     {
