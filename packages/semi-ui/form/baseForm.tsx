@@ -196,8 +196,10 @@ class Form<Values extends Record<string, any> = any> extends BaseComponent<BaseF
             },
             getAllErrorDOM: () => {
                 const { formId } = this.state;
+                const { id } = this.props;
+                const xId = id ? id : formId;
                 return document.querySelectorAll(
-                    `form[x-form-id="${formId}"] .${cssClasses.PREFIX}-field-error-message`
+                    `form[x-form-id="${xId}"] .${cssClasses.PREFIX}-field-error-message`
                 );
             },
             getFieldDOM: (field: string) =>
@@ -240,6 +242,7 @@ class Form<Values extends Record<string, any> = any> extends BaseComponent<BaseF
         const formState = this.foundation.getFormState(needClone);
         const updaterApi = this.foundation.getModifyFormStateApi();
         const { formId } = this.state;
+        const { id } = this.props;
         const {
             children,
             getFormApi,
@@ -279,7 +282,7 @@ class Form<Values extends Record<string, any> = any> extends BaseComponent<BaseF
                 onReset={this.reset}
                 onSubmit={this.submit}
                 className={formCls}
-                x-form-id={formId}
+                x-form-id={id ? id : formId}
             >
                 {this.content}
             </form>
