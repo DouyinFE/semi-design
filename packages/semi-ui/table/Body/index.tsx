@@ -424,7 +424,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
 
         const listStyle = {
             width: '100%',
-            height: virtualizedData?.length ? y : '100%',
+            height: virtualizedData?.length ? y : null,
             overflowX: 'auto',
             overflowY: 'auto',
         } as const;
