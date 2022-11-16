@@ -434,7 +434,7 @@ function withField<
         const extraTextId = `${a11yId}-extraText`;
         const errorMessageId = `${a11yId}-errormessage`;
 
-        let FieldComponent = (() => {
+        const FieldComponent = () => {
             // prefer to use validateStatus which pass by user throught props
             let blockStatus = validateStatus ? validateStatus : status;
 
@@ -580,7 +580,7 @@ function withField<
                     )}
                 </div>
             );
-        })();
+        };
 
         // !important optimization
         const shouldUpdate = [
@@ -593,10 +593,10 @@ function withField<
         ];
         if (options.shouldMemo) {
             // eslint-disable-next-line react-hooks/exhaustive-deps
-            return useMemo(() => FieldComponent, [...shouldUpdate]);
+            return useMemo(FieldComponent, [...shouldUpdate]);
         } else {
             // Some Custom Component with inner state shouldn't be memo, otherwise the component will not updated when the internal state is updated
-            return FieldComponent;
+            return FieldComponent();
         }
     };
     SemiField = forwardRef(SemiField);
