@@ -1,21 +1,20 @@
 name: release
 
-on:
-  create
+on: create
 
 jobs:
-  release:
-    runs-on: ubuntu-latest
-    if: github.event.ref_type == 'tag' && !contains(github.event.ref, 'alpha')
-    steps:
-      - uses: actions/checkout@v2
-      - name: release
-        uses: actions/setup-node@v2
-        with:
-          node-version: 14
-      - run: |
-            npm i -g lerna && npm run bootstrap
-            node scripts/release.js
-        env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            CHANGELOG_PATH: content/start/changelog/index.md, content/start/changelog/index-en-US.md
+    release:
+        runs-on: ubuntu-latest
+        if: github.event.ref_type == 'tag' && !contains(github.event.ref, 'alpha')
+        steps:
+            - uses: actions/checkout@v3
+            - name: release
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 16
+            - run: |
+                  npm i -g lerna && npm run bootstrap
+                  node scripts/release.js
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  CHANGELOG_PATH: content/start/changelog/index.md, content/start/changelog/index-en-US.md

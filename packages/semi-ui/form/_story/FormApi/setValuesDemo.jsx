@@ -39,7 +39,7 @@ class SetValuesDemo extends React.Component {
     render() {
         const { flag } = this.state;
         return (
-            <Form getFormApi={this.getFormApi} onChange={v => console.log(v)} onSubmit={v => console.log(v)}>
+            <Form getFormApi={this.getFormApi} onChange={v => console.log('onChange', v)} onSubmit={v => console.log('onSubmit', v)}>
                 {({ formState }) => (
                     <>
                         <Input field="name" initValue=""></Input>
@@ -90,7 +90,11 @@ class SetValuesWithArrayField extends React.Component {
     render() {
         const { flag } = this.state;
         return (
-            <Form getFormApi={this.getFormApi} onValueChange={v => console.log(v)} onSubmit={v => console.log(v)}>
+            <Form
+                getFormApi={this.getFormApi}
+                onValueChange={(values, changedValue) => console.log('onValueChange', { values, changedValue })}
+                onSubmit={v => console.log(v)}
+            >
                 {({ formState }) => (
                     <>
                         <ArrayField field='effects' initValue={[]}>

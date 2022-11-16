@@ -3,19 +3,19 @@
 import * as React from 'react';
 import { Subtract } from 'utility-types';
 import type { RuleItem } from 'async-validator';
-import { Options as scrollIntoViewOptions } from 'scroll-into-view-if-needed';
+import type { Options as scrollIntoViewOptions } from 'scroll-into-view-if-needed';
 
-import { BaseFormApi as FormApi, FormState, WithFieldOption } from '@douyinfe/semi-foundation/form/interface';
-import { SelectProps } from '../select/index';
+import type { BaseFormApi as FormApi, FormState, WithFieldOption, AllErrors } from '@douyinfe/semi-foundation/form/interface';
+import type { SelectProps } from '../select/index';
 import Option from '../select/option';
 import OptGroup from '../select/optionGroup';
-import { CheckboxProps } from '../checkbox/index';
-import { RadioProps } from '../radio/index';
+import type { CheckboxProps } from '../checkbox/index';
+import type { RadioProps } from '../radio/index';
 
 import { ErrorMessageProps, ReactFieldError as FieldError } from './errorMessage';
-import { LabelProps } from './label';
+import type { LabelProps } from './label';
 
-export { FormState, FormApi, WithFieldOption, RuleItem };
+export type { FormState, FormApi, WithFieldOption, RuleItem };
 
 export type CommonFieldProps = {
     /** Field is required (except Form. Checkbox within the Group, Form. Radio) */
@@ -98,23 +98,21 @@ export interface FormFCChild<K extends Record<string, any> = any> {
     formApi: FormApi<K>
 }
 
-interface setValuesConfig {
-    isOverride: boolean
-}
 
-export interface BaseFormProps extends Omit<React.FormHTMLAttributes<HTMLFormElement>, 'children' | 'onChange'> {
+
+export interface BaseFormProps <Values extends Record<string, any> = any> extends Omit<React.FormHTMLAttributes<HTMLFormElement>, 'children' | 'onChange' | 'onSubmit' | 'onReset'> {
     'aria-label'?: React.AriaAttributes['aria-label'];
-    onSubmit?: (values: Record<string, any>) => void;
-    onSubmitFail?: (errors: Record<string, FieldError>, values: any) => void;
+    onSubmit?: (values: Values) => void;
+    onSubmitFail?: (errors: Record<keyof Values, FieldError>, values: Partial<Values>) => void;
     onReset?: () => void;
-    onValueChange?: (values: Record<string, any>, changedValue: Record<string, any>) => void;
-    onChange?: (formState: FormState) => void;
-    validateFields?: (values: Record<string, any>) => string | Record<string, any>;
+    onValueChange?: (values: Values, changedValue: Partial<Values>) => void;
+    onChange?: (formState: FormState<Values>) => void;
+    validateFields?: (values: Values) => string | Partial<AllErrors<Values>>;
     /** Use this if you want to populate the form with initial values. */
-    initValues?: Record<string, any>;
+    initValues?: Values;
     id?: string;
     /** getFormApi will be call once when Form mounted, u can save formApi reference in your component  */
-    getFormApi?: (formApi: FormApi) => void;
+    getFormApi?: (formApi: FormApi<Values>) => void;
     style?: React.CSSProperties;
     className?: string;
     layout?: 'horizontal' | 'vertical';

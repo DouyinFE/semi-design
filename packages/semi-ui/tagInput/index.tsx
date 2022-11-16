@@ -68,7 +68,7 @@ export interface TagInputProps {
     insetLabel?: React.ReactNode;
     insetLabelId?: string;
     prefix?: React.ReactNode;
-    renderTagItem?: (value: string, index: number) => React.ReactNode;
+    renderTagItem?: (value: string, index: number, onClose: () => void) => React.ReactNode;
     separator?: string | string[] | null;
     showClear?: boolean;
     size?: Size;
@@ -416,11 +416,14 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
         const DragHandle = SortableHandle(() => <IconHandle className={`${prefixCls}-drag-handler`}></IconHandle>);
         return tagsArray.map((value, index) => {
             const elementKey = showIconHandler ? value : `${index}${value}`;
+            const onClose = () => {
+                !disabled && this.handleTagClose(index);
+            };
             if (isFunction(renderTagItem)) {
                 return showIconHandler? (<div className={itemWrapperCls} key={elementKey}>
                     <DragHandle />
-                    {renderTagItem(value, index)}
-                </div>) : renderTagItem(value, index);
+                    {renderTagItem(value, index, onClose)}
+                </div>) : renderTagItem(value, index, onClose);
             } else {
                 return (
                     <Tag
@@ -428,9 +431,7 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
                         color="white"
                         size={size === 'small' ? 'small' : 'large'}
                         type="light"
-                        onClose={() => {
-                            !disabled && this.handleTagClose(index);
-                        }}
+                        onClose={onClose}
                         closable={!disabled}
                         key={elementKey}
                         visible
@@ -484,8 +485,9 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
         }));
 
         if (active && draggable && sortableListItems.length > 0) {
+            // helperClass：add styles to the helper(item being dragged) https://github.com/clauderic/react-sortable-hoc/issues/87
             // @ts-ignore skip SortableItem type check
-            return <SortableList useDragHandle items={sortableListItems} onSortEnd={this.onSortEnd} axis={"xy"} />;
+            return <SortableList useDragHandle helperClass={`${prefixCls}-drag-item-move`} items={sortableListItems} onSortEnd={this.onSortEnd} axis={"xy"} />;
         } 
         return (
             <>

@@ -20,3 +20,9 @@ import '@cypress/code-coverage/support';
 require('cypress-plugin-tab');
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+
+Cypress.on('uncaught:exception', (err, runnable) => {
+    // returning false here prevents Cypress from
+    // failing the test
+    return false;
+});

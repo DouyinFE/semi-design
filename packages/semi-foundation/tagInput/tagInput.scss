@@ -20,6 +20,10 @@ $module: #{$prefix}-tagInput;
         &-item {
             display: flex;
             align-items: center;
+
+            &-move {
+                z-index: $z-tagInput_drag_item_move;
+            }
         }
 
         &-handler {

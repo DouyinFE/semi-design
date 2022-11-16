@@ -16,6 +16,39 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.23.1 (2022-11-11)
+- 【Fix】
+    - Fixed the problem that Transfer in Popover caused Popover to close unexpectedly when dragging [#1226](https://github.com/DouyinFE/semi-design/issues/1226)
+    - Fixed the issue that the Transfer/ TagInput in the pop-up layer disappeared when the dragged item was dragged  [#1149](https://github.com/DouyinFE/semi-design/issues/1149)
+    - Correct the translation error of the Table pager when it is displayed in Vietnamese (vi_VN) [@MrFatMeow](https://github.com/MrFatMeow) [#1252](https://github.com/DouyinFE/semi-design/pull/1252)
+    - fix the case that the Select and Tooltip components did not process the incoming NaN [@edc-hui](https://github.com/edc-hui)[#763](https://github.com/DouyinFE/semi-design/issues/763) 
+- 【Style】
+    - Updated Form component Design Token, `$spacing-form_label_small-paddingTop` is corrected to `$spacing-form_switch_rating_marginY`, and the useless `$spacing-form_label-paddingRight` is removed; Correct the more accurate description [#1258](https://github.com/DouyinFE/semi-design/pull/1258)
+    - Updated Tabs component Design Token, adding the Token related to the collapsed arrow button, allowing to customize the style of the arrow buttons in Tabs separately [#1251](https://github.com/DouyinFE/semi-design/pull/1251)
+
+#### 🎉 2.23.0-beta.1 (2022-11-08)
+- 【Feat】
+    - Tooltip adds a margin parameter to calculate the increased redundancy value when overflowing, and autoAdjustOverflow provides a more intelligent position adjustment strategy when it is blocked
+    - added IconConnectionPoint1、IconConnectionPoint2、 IconCalendarStroked、IconConfigStroked 、IconIssueStroked 、IconStoryStroked 、IconVersionStroked and other icons.
+- 【Style】
+    - The right icon in the Cascader menu item increases the left margin
+
+#### 🎉 2.23.0-beta.0 (2022-11-07)
+- 【Fix】
+  - fix the inconsistency between the jump link hotspot and the onSelect hotspot when the Navigation item has a parameter link
+  - Corrected Saturday, Sunday translated text of DatePicker when displayed in Turkish (tr_TR) [@habibokumus](https://github.com/habibokumus)
+  - fix the scroll bar position not as expected when Table has fixed columns.
+- 【Feat】
+  - Add the onClose parameter to the renderTagItem API of TagInput to support deleting tags  [#1219 ](https://github.com/DouyinFE/semi-design/issues/1219)
+  - Transfer provides a search method to allow users to manually trigger searches
+- 【Chore】
+  - Update Form interface, add generic pass to define values type [@Hokori23](https://github.com/Hokori23)
+  - Add test case for Image component  [#1216 ](https://github.com/DouyinFE/semi-design/issues/1216)
+
+#### 🎉 2.22.3 (2022-11-02)
+- 【Docs】
+    - Added accessibility (A11y) support to Semi site
+
 #### 🎉 2.22.2 (2022-10-31)
 - 【Fix】
     - Fix the flickering problem when Tooltip and Popover components are closed (affecting v2.22) [#1225](https://github.com/DouyinFE/semi-design/issues/1225)

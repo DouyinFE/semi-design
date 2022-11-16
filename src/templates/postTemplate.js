@@ -215,6 +215,15 @@ const components = {
     hr: ({ }) => <hr className={'gatsby-hr'} />,
     h2: ({ children }) => {
         const intl = useIntl();
+        const onIconLinkClick = () => {
+            copy(`${window.location.href.replace(window.location.hash, '')}#${window.encodeURI(children)}`);
+            Toast.success({
+                content: intl.formatMessage({
+                    id: 'editor.copy.success',
+                }),
+                duration: 3,
+            });
+        }
         return (
             <h2 className="md markdown gatsby-h2" id={makeAnchorId(children)}>
                 {children}
@@ -241,14 +250,13 @@ const components = {
                 }
                 <IconLink
                     className={'anchor-link-button-icon'}
-                    onClick={() => {
-                        copy(`${window.location.href.replace(window.location.hash, '')}#${window.encodeURI(children)}`);
-                        Toast.success({
-                            content: intl.formatMessage({
-                                id: 'editor.copy.success',
-                            }),
-                            duration: 3,
-                        });
+                    tabIndex={0}
+                    role="button"
+                    onClick={onIconLinkClick}
+                    onKeyPress={(e) => {
+                        if (['Enter', ' '].includes(e?.key)) {
+                            onIconLinkClick(e);
+                    }
                     }}
                 />
             </h2>
@@ -257,19 +265,27 @@ const components = {
     blockquote: ({ children }) => <blockquote className={'gatsby-blockquote'}>{children}</blockquote>,
     h3: ({ children }) => {
         const intl = useIntl();
+        const onIconLinkClick = () => {
+            copy(`${window.location.href.replace(window.location.hash, '')}#${window.encodeURI(children)}`);
+            Toast.success({
+                content: intl.formatMessage({
+                    id: 'editor.copy.success',
+                }),
+                duration: 3,
+            });
+        }
         return (
             <h3 className="md markdown gatsby-h3" id={makeAnchorId(children)}>
                 {children}
                 <IconLink
+                    tabIndex={0}
+                    role="button"
                     className={'anchor-link-button-icon'}
-                    onClick={() => {
-                        copy(`${window.location.href.replace(window.location.hash, '')}#${window.encodeURI(children)}`);
-                        Toast.success({
-                            content: intl.formatMessage({
-                                id: 'editor.copy.success',
-                            }),
-                            duration: 3,
-                        });
+                    onClick={onIconLinkClick}
+                    onKeyPress={(e) => {
+                        if (['Enter', ' '].includes(e?.key)) {
+                            onIconLinkClick(e);
+                        }
                     }}
                 />
             </h3>
@@ -645,6 +661,14 @@ export default function Template(args) {
     return (
         <div className={calcClassName()}>
             <SEO lang="zh-CN" title={`${current.frontmatter.title} - Semi Design`} />
+            <div className={'pageAnchor'}>
+                {(tabValue === 'rd' || (["Accessibility "].includes(enTitle))) && (
+                    <PageAnchor slug={pageContext.slug} data={current.tableOfContents.items} />
+                )}
+                {
+                    iframeAnchorData && tabValue === 'ued' && <DesignPageAnchor data={iframeAnchorData} />
+                }
+            </div>
             <div className="title-area" style={haveUedDoc ? {} : { borderBottom: `1px solid var(--semi-color-border)` }}>
                 <div>
                     {current.frontmatter.draft ? (
@@ -671,7 +695,6 @@ export default function Template(args) {
                         />
                     )}
                 </div>
-
                 {current.fields.type !== 'start' && haveUedDoc && (
                     <Tabs activeKey={tabValue} onTabClick={(key) => {
                         if (key === 'ued') {
@@ -687,18 +710,10 @@ export default function Template(args) {
                             setTabValue('rd');
                         }
                     }}>
-                        <TabPane tab={intl.formatMessage({ id: 'apiDoc' })} itemKey={'rd'} />
-                        <TabPane tab={intl.formatMessage({ id: 'designDoc' })} itemKey={'ued'} />
+                        <TabPane tab={intl.formatMessage({ id: 'apiDoc' })} itemKey={'rd'} tabIndex={-1}/>
+                        <TabPane tab={intl.formatMessage({ id: 'designDoc' })} itemKey={'ued'} tabIndex={-1} />
                     </Tabs>
                 )}
-            </div>
-            <div className={'pageAnchor'}>
-                {(tabValue === 'rd' || (["Accessibility "].includes(enTitle))) && (
-                    <PageAnchor slug={pageContext.slug} data={current.tableOfContents.items} />
-                )}
-                {
-                    iframeAnchorData && tabValue === 'ued' && <DesignPageAnchor data={iframeAnchorData} />
-                }
             </div>
             <div className="main-article">
                 <MDXProvider components={components}>

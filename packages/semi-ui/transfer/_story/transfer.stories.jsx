@@ -1,11 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Transfer, Button } from '../../index';
-import Table from '../../table';
-import Avatar from '../../avatar';
-import Checkbox from '../../checkbox';
-import Icon from '../../icons';
-import Tree from '../../tree';
-import Input from '../../input';
+import { Transfer, Button, Popover, SideSheet, Avatar, Checkbox, Tree, Input } from '../../index';
 import { omit, values } from 'lodash';
 import './transfer.scss';
 import { SortableContainer, SortableElement, sortableHandle } from 'react-sortable-hoc';
@@ -785,3 +779,52 @@ export const CustomRenderWithDragSort = () => <CustomRenderDragDemo />;
 CustomRenderWithDragSort.story = {
   name: 'customRender with drag sort',
 };
+
+export const TransferInPopover = () => {
+  // 点击可拖拽item，导致弹出层消失问题：https://github.com/DouyinFE/semi-design/issues/1226
+  // 在弹出层中点击item，导致可拖拽item被遮挡问题：https://github.com/DouyinFE/semi-design/issues/1149
+  const [visible, setVisible] = useState(false);
+  const change = () => {
+      setVisible(!visible);
+  };
+
+  const data = Array.from({ length: 30 }, (v, i) => {
+    return {
+      label: `选项名称 ${i}`,
+      value: i,
+      disabled: false,
+      key: i
+    };
+  });
+
+  const transferNode = (
+    <Transfer
+      style={{ width: 568, height: 416 }}
+      dataSource={data}
+      defaultValue={[2, 4]}
+      draggable
+      onChange={(values, items) => console.log(values, items)}
+    />
+  );
+
+  return (
+    <div className="App">
+      <>
+        {/* 弹出层：Popover */}
+        <Popover
+          trigger="click"
+          position='rightTop'
+          content={transferNode}
+        >
+          <Button>Transfer In Popover</Button>
+        </Popover>
+        {/* 弹出层：sideSheet */}
+        <br /><br />
+        <Button onClick={change}>Transfer In SideSheet</Button>
+        <SideSheet title="滑动侧边栏" visible={visible} onCancel={change} size="medium">
+          {transferNode}
+        </SideSheet>
+      </>
+    </div>
+  );
+}

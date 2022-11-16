@@ -134,14 +134,55 @@ $module: #{$prefix}-tabs;
                     outline-offset: $width-tabs-outline-offset;
                 }
             }
+            & > .#{$prefix}-button-disabled{
+                color: $color-tabs_tab-pane_arrow_disabled-text-default;
+                background-color: $color-tabs_tab-pane_arrow_disabled-bg-default;
+                &:hover{
+                    color: $color-tabs_tab-pane_arrow_disabled-text-hover;
+                    background-color: $color-tabs_tab-pane_arrow_disabled-bg-hover;
+                }
+            }
         }
 
         .#{$module}-bar-arrow-start {
             margin-right: $spacing-tabs_overflow_icon-marginRight;
+            & > .#{$prefix}-button{
+                color: $color-tabs_tab-pane_arrow-text-default;
+                padding: $spacing-tabs_tab-pane_arrow;
+                border: $width-tabs_tab-pane_arrow-border solid $color-tabs_tab-pane_arrow-border-default;
+                background-color: $color-tabs_tab-pane_arrow-bg-default;
+                &:hover{
+                    background-color: var(--semi-color-fill-0);
+                    color: $color-tabs_tab-pane_arrow-text-hover;
+                    border-color: $color-tabs_tab-pane_arrow-border-hover;
+                }
+                &:active{
+                    background-color: var(--semi-color-fill-1);
+                    color: $color-tabs_tab-pane_arrow-text-active;
+                    border-color: $color-tabs_tab-pane_arrow-border-active;
+                }
+            }
+
         }
 
         .#{$module}-bar-arrow-end {
             margin-left: $spacing-tabs_overflow_icon-marginLeft;
+            & > .#{$prefix}-button{
+                color: $color-tabs_tab-pane_arrow-text-default;
+                padding: $spacing-tabs_tab-pane_arrow;
+                border: $width-tabs_tab-pane_arrow-border solid $color-tabs_tab-pane_arrow-border-default;
+                background-color: $color-tabs_tab-pane_arrow-bg-default;
+                &:hover{
+                    background-color: var(--semi-color-fill-0);
+                    color: $color-tabs_tab-pane_arrow-text-hover;
+                    border-color: $color-tabs_tab-pane_arrow-border-hover;
+                }
+                &:active{
+                    background-color: var(--semi-color-fill-1);
+                    color: $color-tabs_tab-pane_arrow-text-active;
+                    border-color: $color-tabs_tab-pane_arrow-border-active;
+                }
+            }
         }
     }
 
@@ -160,13 +201,13 @@ $module: #{$prefix}-tabs;
     &-bar-line {
         &.#{$module}-bar-top {
             border-bottom: $width-tabs_bar_line-border solid $color-tabs_tab_line_default-border-default;
-            transition: color $transition_duration-tabs_tab_line-text $transition_function-tabs_tab_line-text $transition_delay-tabs_tab_line-text;//线条式tabs的 color的transition
+            transition: color $transition_duration-tabs_tab_line-text $transition_function-tabs_tab_line-text $transition_delay-tabs_tab_line-text; //线条式tabs的 color的transition
             transform:scale($transform_scale-tabs_tab_line-item);
 
             .#{$module}-tab {
                 padding: $spacing-tabs_bar_line_tab-paddingTop $spacing-tabs_bar_line_tab-paddingRight $spacing-tabs_bar_line_tab-paddingBottom $spacing-tabs_bar_line_tab-paddingLeft;
                 transition: border-bottom-color $transition_duration-tabs_tab_line-border $transition_function-tabs_tab_line-border $transition_delay-tabs_tab_line-border,
-                color $transition_duration-tabs_tab_line-text $transition_function-tabs_tab_line-text $transition_delay-tabs_tab_line-text;//线条式tabs的border-color 的 transition
+                color $transition_duration-tabs_tab_line-text $transition_function-tabs_tab_line-text $transition_delay-tabs_tab_line-text; //线条式tabs的border-color 的 transition
                 &:nth-of-type(1) {
                     padding-left: 0;
                 }

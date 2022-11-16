@@ -9,24 +9,28 @@ export type FieldValidateTriggerType = BasicTriggerType | Array<BasicTriggerType
 
 export type CommonFieldError = boolean | string | Array<any> | undefined | unknown;
 
-export interface BaseFormAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
+export type BasicFieldError = Array<any>;
+
+export interface BaseFormAdapter<P = Record<string, any>, S = Record<string, any>, Values extends object = any> extends DefaultAdapter<P, S> {
     cloneDeep: (val: any, ...rest: any[]) => any;
     notifySubmit: (values: any) => void;
-    notifySubmitFail: (errors: Record<string, any>, values: any) => void;
+    notifySubmitFail: (errors: Record<keyof Values, BasicFieldError>, values: Partial<Values>) => void;
     forceUpdate: (callback?: () => void) => void;
     notifyChange: (formState: FormState) => void;
     notifyValueChange: (values: any, changedValues: any) => void;
     notifyReset: () => void;
-    getInitValues: () => Record<string, any>;
+    getInitValues: () => Partial<Values>;
     getFormProps: (keys: undefined | string | Array<string>) => any;
     getAllErrorDOM: () => NodeList;
     getFieldDOM: (field: string) => Node;
     initFormId: () => void
 }
 
+export type AllErrors<T> = T extends Record<string, any> ? { [K in keyof T]?: string } : Record<string, any>;
+
 export interface FormState<T extends Record<string, any> = any> {
     values?: T extends Record<string, any> ? T : Record<string, any>;
-    errors?: T extends Record<string, any> ? { [K in keyof T]?: string } : Record<string, any>;
+    errors?: AllErrors<T>;
     touched?: T extends Record<string, any> ? { [K in keyof T]?: boolean } : Record<string, any>
 }
 export interface setValuesConfig {

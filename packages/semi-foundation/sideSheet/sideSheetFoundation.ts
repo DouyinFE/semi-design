@@ -32,8 +32,7 @@ export interface SideSheetProps {
 }
 
 export interface SideSheetState {
-    displayNone: boolean;
-    shouldRender: boolean
+    displayNone: boolean
 }
 
 export interface SideSheetAdapter extends DefaultAdapter<SideSheetProps, SideSheetState> {
@@ -43,8 +42,7 @@ export interface SideSheetAdapter extends DefaultAdapter<SideSheetProps, SideShe
     notifyVisibleChange: (visible: boolean) => void;
     setOnKeyDownListener: () => void;
     removeKeyDownListener: () => void;
-    toggleDisplayNone: (displayNone: boolean) => void;
-    setShouldRender: (shouldRender: boolean) => void
+    toggleDisplayNone: (displayNone: boolean) => void
 }
 
 
@@ -91,9 +89,6 @@ export default class SideSheetFoundation extends BaseFoundation<SideSheetAdapter
         }
     }
 
-    setShouldRender(shouldRender: boolean) {
-        this._adapter.setShouldRender(shouldRender);
-    }
 
     onVisibleChange(visible: boolean) {
         this._adapter.notifyVisibleChange(visible);

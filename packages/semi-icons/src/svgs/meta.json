@@ -32,6 +32,14 @@
         "category": "Objects"
     },
     {
+        "name": "connection_point_1",
+        "category": "Objects"
+    },
+    {
+        "name": "connection_point_2",
+        "category": "Objects"
+    },
+    {
         "name": "xigua_logo",
         "category": "Brands"
     },
@@ -1326,6 +1334,26 @@
     {
         "name": "bottom_right_stroked",
         "category": "Magic Customized"
+    },
+    {
+        "name": "issue_stroked",
+        "category": "Basic"
+    },
+    {
+        "name": "version_stroked",
+        "category": "Basic"
+    },
+    {
+        "name": "calendar_stroked",
+        "category": "Basic"
+    },
+    {
+        "name": "config_stroked",
+        "category": "Basic"
+    },
+    {
+        "name": "story_stroked",
+        "category": "Basic"
     },
     {
         "name": "gift_stroked",
