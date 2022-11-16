@@ -9,7 +9,7 @@ export {
     Preview,
 }; 
 
-export {
+export type {
     ImageProps,
     PreviewImageProps,
     PreviewProps,
