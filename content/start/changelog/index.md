@@ -16,6 +16,17 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 ---
 
+#### 🎉 2.23.3 (2022-11-15)
+- 【Style】
+    - Form 组件 Design Token 修正，`$spacing-form_label_extra_posBottom-marginTop`、`$spacing-form_label_extra_posMid-marginBottom`、`$spacing-form_label_extra_posMid-marginTop`更正为更符合语义的 `$spacing-form_extra_posBottom-marginTop`、`$spacing-form_extra_posMid-marginBottom`、`$spacing-form_extra_posMid-marginTop`，并更正相关文档描述 [#1272](https://github.com/DouyinFE/semi-design/pull/1272)
+
+#### 🎉 2.23.2 (2022-11-14)
+- 【Fix】
+    - 修复 React 18 + NextJS SSR 环境下 Input 组件关于 style props报错的问题 [#1262](https://github.com/DouyinFE/semi-design/issues/1262) [#1181](https://github.com/DouyinFE/semi-design/issues/1181)
+- 【Style】
+    - 修复 TagInput 中多行内容时，最后一行与其他行行间距不一致的问题 [#1263](https://github.com/DouyinFE/semi-design/pull/1263)
+    - 修复 Form Label 标签右侧边距丢失的问题（影响范围 v2.23.1） [#1258](https://github.com/DouyinFE/semi-design/pull/1258)
+    - Switch 组件 Design Token更新，新增 `$spacing-switch_knob-left`；`$motion-switch_unchecked-translateX`更正为更符合语义的 `$spacing-switch_unchecked-translateX`; [#1267](https://github.com/DouyinFE/semi-design/pull/1267)
 
 #### 🎉 2.23.1 (2022-11-11)
 - 【Fix】

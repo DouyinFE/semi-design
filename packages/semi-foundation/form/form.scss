@@ -92,6 +92,7 @@ $rating: #{$prefix}-rating;
         font-weight: $font-form_label-fontWeight;
         color: $color-form_label-text-default;
         margin-bottom: $spacing-form_label-marginBottom;
+        padding-right: $spacing-form_label-paddingRight;
         display: inline-block;
         vertical-align: middle;
         @include font-size-regular;
@@ -210,14 +211,14 @@ $rating: #{$prefix}-rating;
 
     &[x-extra-pos="middle"] {
         .#{$field}-extra {
-            margin-top: $spacing-form_label_extra_posMid-marginTop;
-            margin-bottom: $spacing-form_label_extra_posMid-marginBottom;
+            margin-top: $spacing-form_extra_posMid-marginTop;
+            margin-bottom: $spacing-form_extra_posMid-marginBottom;
         }
     }
 
     &[x-extra-pos="bottom"] {
         .#{$field}-extra {
-            margin-top: $spacing-form_label_extra_posBottom-marginTop;
+            margin-top: $spacing-form_extra_posBottom-marginTop;
         }
     }
 

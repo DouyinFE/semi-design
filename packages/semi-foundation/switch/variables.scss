@@ -1,5 +1,5 @@
 // Other
-$motion-switch_unchecked-translateX: 2px; // 未选中开关右侧偏移量 - 动画用
+$spacing-switch_unchecked-translateX: 2px; // 未选中开关右侧偏移量
 $motion-switch_spin_unchecked-translateX: 2px; // 未选中开关加载图标右侧偏移量 - 动画用
 $motion-switch_checked-translateX: 18px; // 选中开关右侧偏移量
 $motion-switch_spin_checked-translateX: 16px; // 选中开关加载图标右侧偏移量
@@ -62,9 +62,10 @@ $width-switch-outline: 2px; // 开关轮廓宽度
 
 
 // Spacing
-$spacing-switch_knob-padding: 2px; // 开关按钮内边距
+$spacing-switch_knob-padding: 2px; // 开关按钮顶部边距
 $spacing-switch_knob_large-padding: 3px; // 大尺寸开关按钮内边距
 $spacing-switch_knob_small-padding: 1px; // 小尺寸开关按钮内边距
+$spacing-switch_knob-left: 0px; // 开关左侧偏移距离
 
 // Radius
 $radius-switch: $height-switch * 0.5; // 开关圆角

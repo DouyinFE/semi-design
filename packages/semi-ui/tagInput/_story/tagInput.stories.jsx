@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
-import { Toast, Icon, Button, Avatar, Form, Popover, SideSheet, Modal, TagInput } from '../../index';
-import { IconGift, IconVigoLogo } from '@douyinfe/semi-icons';
+import { Toast, Icon, Button, Avatar, Form, Popover, SideSheet, Modal, TagInput, Switch } from '../../index';
+import { IconGift, IconVigoLogo, IconClose } from '@douyinfe/semi-icons';
 const style = {
   width: 400,
   marginTop: 10,

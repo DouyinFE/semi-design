@@ -441,7 +441,7 @@ function withField<
             const extraCls = classNames(`${prefix}-field-extra`, {
                 [`${prefix}-field-extra-string`]: typeof extraText === 'string',
                 [`${prefix}-field-extra-middle`]: mergeExtraPos === 'middle',
-                [`${prefix}-field-extra-botttom`]: mergeExtraPos === 'bottom',
+                [`${prefix}-field-extra-bottom`]: mergeExtraPos === 'bottom',
             });
 
             const extraContent = extraText ? <div className={extraCls} id={extraTextId} x-semi-prop="extraText">{extraText}</div> : null;
