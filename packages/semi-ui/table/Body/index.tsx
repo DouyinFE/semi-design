@@ -19,7 +19,7 @@ import {
     isTreeTable
 } from '@douyinfe/semi-foundation/table/utils';
 import BodyFoundation, { BodyAdapter, FlattenData, GroupFlattenData } from '@douyinfe/semi-foundation/table/bodyFoundation';
-import { strings, numbers } from '@douyinfe/semi-foundation/table/constants';
+import { strings } from '@douyinfe/semi-foundation/table/constants';
 import Store from '@douyinfe/semi-foundation/utils/Store';
 
 import BaseComponent, { BaseProps } from '../../_base/baseComponent';
