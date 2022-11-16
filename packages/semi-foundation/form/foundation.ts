@@ -8,7 +8,7 @@ import scrollIntoView, { Options as scrollIntoViewOptions } from 'scroll-into-vi
 
 import { BaseFormAdapter, FormState, CallOpts, FieldState, FieldStaff, ComponentProps, setValuesConfig, ArrayFieldStaff } from './interface';
 
-export { BaseFormAdapter };
+export type { BaseFormAdapter };
 
 export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
 

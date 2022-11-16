@@ -9,7 +9,7 @@ import FileCard from './fileCard';
 import BaseComponent from '../_base/baseComponent';
 import LocaleConsumer from '../locale/localeConsumer';
 import { IconUpload } from '@douyinfe/semi-icons';
-import {
+import type {
     FileItem,
     RenderFileItemProps,
     UploadListType,
@@ -33,7 +33,7 @@ import type { ValidateStatus } from '../_base/baseComponent';
 
 const prefixCls = cssClasses.PREFIX;
 
-export {
+export type {
     FileItem,
     RenderFileItemProps,
     UploadListType,
