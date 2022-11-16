@@ -229,37 +229,42 @@ class NavApp extends React.Component {
 
 ### Use react-router like router lib
 
-Use renderWrapper to wrap custom navigation components around each navigation item [check out this CodeSandBox](https://codesandbox.io/s/semi-navigation-with-react-router-9kk9dm?file=/src/App.js)
+In order to use routing components such as react-router, NavItem can be wrapped in the Link or NavLink provided by the routing component to let users click NavItem to trigger the routing component. We need to customize rendering.
 
+Use renderWrapper to customize navigation components in each navigation item. [See CodeSandBox demo](https://codesandbox.io/s/semi-navigation-with-react-router-9kk9dm?file=/src/App.js)
 ```jsx
-  <Nav
+import { Link } from "react-router-dom";
+
+()=>{
+    return <Nav
         renderWrapper={({ itemElement, isSubNav, isInSubNav, props }) => {
-          const routerMap = {
-            Home: "/",
-            About: "/about",
-            Dashboard: "/dashboard",
-            "Nothing Here": "/nothing-here"
-          };
-          return (
-            <Link
-              style={{ textDecoration: "none" }}
-              to={routerMap[props.itemKey]}
-            >
-              {itemElement}
-            </Link>
-          );
+            const routerMap = {
+                Home: "/",
+                About: "/about",
+                Dashboard: "/dashboard",
+                "Nothing Here": "/nothing-here"
+            };
+            return (
+                <Link
+                    style={{ textDecoration: "none" }}
+                    to={routerMap[props.itemKey]}
+                >
+                    {itemElement}
+                </Link>
+            );
         }}
         items={[
-          { itemKey: "Home", text: "Home" },
-          { itemKey: "About", text: "About" },
-          {
-            text: "Sub",
+            { itemKey: "Home", text: "Home" },
+            { itemKey: "About", text: "About" },
+            {
+                text: "Sub",
 
-            itemKey: "Sub",
-            items: ["Dashboard", "Nothing Here"]
-          }
+                itemKey: "Sub",
+                items: ["Dashboard", "Nothing Here"]
+            }
         ]}
-      ></Nav>
+    ></Nav>
+}
 ```
 
 
@@ -740,7 +745,7 @@ function NavApp (props = {}) {
 | onOpenChange        | Triggers when switching the hidden state of a sub navigation project                                                                                                                       | ({ itemKey: string, openKeys: string[], domEvent: MouseEvent, isOpen: boolean }) => void                                         | () = > {}  |
 | onSelect            | Triggers the first time you select an optional navigation project, where the selected Items field version > = 0.17.0 is supported                                                          | ({ itemKey: string, selectedKeys: string[], selectedItems: [Item](#Nav.Item)[], domEvent: MouseEvent, isOpen: boolean }) => void | () = > {}  |
 | openKeys            | Controlled open sub navigation `itemKey` array, expanded with `onOpenChange` callback control sub navigation items, valid only `mode = "vertical"`and the sidebar is in an unfolding state | string[]                                                                                                                         |            |
-| renderWrapper       | Custom navigation item outer component  >=2.23.0                                                                                                                                                                       | (data:{ itemElement:ReactElement, isSubNav:boolean, isInSubNav:boolean, props:SubNavProps\| ItemProps })=>ReactNode | |
+| renderWrapper       | Custom navigation item outer component  >=2.24.0                                                                                                                                           | (data:{ itemElement:ReactElement, isSubNav:boolean, isInSubNav:boolean, props:SubNavProps\| ItemProps })=>ReactNode | |
 | prefixCls           | classsname prefix                                                                                                                                                                          | string                                                                                                                                                              | `semi`                  |
 | selectedKeys        | Controlled navigation item `itemKey` array, with `onSelect` callback control navigation item selection                                                                                     | string[]                                                                                                                         |            |
 | style               | Custom styles for outermost elements                                                                                                                                                       | object                                                                                                                           |            |

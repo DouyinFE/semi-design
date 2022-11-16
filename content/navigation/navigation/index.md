@@ -230,39 +230,45 @@ class NavApp extends React.Component {
 
 ```
 
-###  使用 react-router 等路由组件
+###  配合 react-router 等路由组件
+
+为了在使用 react-router 等路由组件时，能将 NavItem 包裹在路由组件提供的 Link 或者 NavLink 中来让用户点击 NavItem 时候触发路由组件的点击事件， 我们需要自定义渲染。
 
 使用 renderWrapper 在每个导航项外包裹自定义导航组件 [查看此 CodeSandBox](https://codesandbox.io/s/semi-navigation-with-react-router-9kk9dm?file=/src/App.js)
 
 ```jsx
-  <Nav
+import { Link } from "react-router-dom";
+
+()=>{
+    return <Nav
         renderWrapper={({ itemElement, isSubNav, isInSubNav, props }) => {
-          const routerMap = {
-            Home: "/",
-            About: "/about",
-            Dashboard: "/dashboard",
-            "Nothing Here": "/nothing-here"
-          };
-          return (
-            <Link
-              style={{ textDecoration: "none" }}
-              to={routerMap[props.itemKey]}
-            >
-              {itemElement}
-            </Link>
-          );
+            const routerMap = {
+                Home: "/",
+                About: "/about",
+                Dashboard: "/dashboard",
+                "Nothing Here": "/nothing-here"
+            };
+            return (
+                <Link
+                    style={{ textDecoration: "none" }}
+                    to={routerMap[props.itemKey]}
+                >
+                    {itemElement}
+                </Link>
+            );
         }}
         items={[
-          { itemKey: "Home", text: "Home" },
-          { itemKey: "About", text: "About" },
-          {
-            text: "Sub",
+            { itemKey: "Home", text: "Home" },
+            { itemKey: "About", text: "About" },
+            {
+                text: "Sub",
 
-            itemKey: "Sub",
-            items: ["Dashboard", "Nothing Here"]
-          }
+                itemKey: "Sub",
+                items: ["Dashboard", "Nothing Here"]
+            }
         ]}
-      ></Nav>
+    ></Nav>
+}
 ```
 
 
@@ -743,7 +749,7 @@ function NavApp (props = {}) {
 | mode                | 导航类型，目前支持横向与竖直，可选值：`vertical`/                                                          | `horizontal`                                                                                                                                                        | string                  | `vertical`           |
 | openKeys            | 受控的打开的子导航 `itemKey` 数组，配合 `onOpenChange` 回调控制子导航项展开，仅 `mode = "vertical"` 且侧边栏处于展开状态时有效 | string[]                                                                                                                                                            |                         |
 | prefixCls           | 类名前缀                                                                                    | string                                                                                                                                                              | `semi`                  |
-| renderWrapper       | 自定义导航项外层组件  >=2.23.0                                                                    | (data:{ itemElement:ReactElement, isSubNav:boolean, isInSubNav:boolean, props:SubNavProps\| ItemProps })=>ReactNode | |
+| renderWrapper       | 自定义导航项外层组件  >=2.24.0                                                                    | (data:{ itemElement:ReactElement, isSubNav:boolean, isInSubNav:boolean, props:SubNavProps\| ItemProps })=>ReactNode | |
 | selectedKeys        | 受控的导航项 `itemKey` 数组，配合 `onSelect` 回调控制导航项选择                                             | string[]                                                                                                                                                            |                         |
 | style               | 最外层元素的自定义样式                                                                             | CSSProperties                                                                                                                                                       |                         |
 | subNavCloseDelay    | 子导航浮层关闭的延迟。collapse 为 true 或 mode 为 "horizontal" 时有效，单位为 ms                             | number                                                                                                                                                              | 100                     |
