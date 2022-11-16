@@ -424,7 +424,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
 
         const listStyle = {
             width: '100%',
-            height: virtualizedData?.length ? y : numbers.DEFAULT_EMPTYSLOT_HEIGHT,
+            height: virtualizedData?.length ? y : '100%',
             overflowX: 'auto',
             overflowY: 'auto',
         } as const;
@@ -440,7 +440,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
                 ref={this.listRef}
                 className={wrapCls}
                 outerRef={this.forwardRef}
-                height={listStyle.height}
+                height={virtualizedData?.length ? y : 0}
                 width={listStyle.width}
                 itemData={virtualizedData}
                 itemSize={this.itemSize}
