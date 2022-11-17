@@ -50,7 +50,11 @@ export interface SelectAdapter<P = Record<string, any>, S = Record<string, any>>
     getFocusableElements(node: any): any[];
     getActiveElement(): any;
     setIsFocusInContainer(isFocusInContainer: boolean): void;
-    getIsFocusInContainer(): boolean
+    getIsFocusInContainer(): boolean;
+    on(eventName: string, eventCallback: () => void): void;
+    off(eventName: string): void;
+    emit(eventName: string): void;
+    once(eventName, eventCallback: () => void): void
 }
 
 type LabelValue = string | number;
@@ -364,14 +368,8 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
         }
     }
 
-    close(e?: any) {
+    close(e?: any, closeCb?: () => void) {
         // to support A11y, closing the panel trigger does not necessarily lose focus
-        const isFilterable = this._isFilterable();
-        if (isFilterable) {
-            // this.unBindKeyBoardEvent();
-            this.clearInput();
-            this.toggle2SearchInput(false);
-        }
 
         this._adapter.closeMenu();
         this._adapter.notifyDropdownVisibleChange(false);
@@ -380,6 +378,17 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
         // this._notifyBlur(e);
         this._adapter.unregisterClickOutsideHandler();
         // this._adapter.updateFocusState(false);
+
+        this._adapter.once('popoverClose', () => {
+            const isFilterable = this._isFilterable();
+            if (isFilterable) {
+                this.clearInput();
+                this.toggle2SearchInput(false);
+            }
+            if (closeCb) {
+                closeCb();
+            }
+        });
     }
 
     onSelect(option: BasicOptionProps, optionIndex: number, event: MouseEvent | KeyboardEvent) {
@@ -409,16 +418,20 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
         this._notifySelect(value, { value, label, ...rest });
 
         // If it is a controlled component, directly notify
+        // Make sure that the operations of updating updateOptions are done after the animation ends
+        // otherwise the content will be updated when the popup layer is not collapsed, and it looks like it will flash once when it is closed
         if (this._isControlledComponent()) {
-            this._notifyChange(selections);
-            this.close(event);
+            this.close(event, () => {
+                this._notifyChange(selections);
+            });
         } else {
-            this._adapter.updateSelection(selections);
-            // notify user
-            this._notifyChange(selections);
-            // Update the selected item in the drop-down box
-            this.close(event);
-            this.updateOptionsActiveStatus(selections);
+            this.close(event, () => {
+                // Update the selected item in the drop-down box
+                this._adapter.updateSelection(selections);
+                // notify user
+                this.updateOptionsActiveStatus(selections);
+                this._notifyChange(selections);
+            });
         }
     }
 
@@ -1092,5 +1105,9 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
                 isFullTags: true,
             });
         }
+    }
+
+    handlePopoverClose() {
+        this._adapter.emit('popoverClose');
     }
 }
