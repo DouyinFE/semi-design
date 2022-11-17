@@ -426,11 +426,11 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
         } else {
             this.close(event, () => {
                 this.updateOptionsActiveStatus(selections);
-                // notify user
-                this._notifyChange(selections);
             });
             // Update the selected item in the drop-down box
             this._adapter.updateSelection(selections);
+            // notify user
+            this._notifyChange(selections);
         }
     }
 
