@@ -416,7 +416,6 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
         const selections = new Map().set(label, { value, label, ...rest });
         // First trigger onSelect, then trigger onChange
         this._notifySelect(value, { value, label, ...rest });
-
         // If it is a controlled component, directly notify
         // Make sure that the operations of updating updateOptions are done after the animation ends
         // otherwise the content will be updated when the popup layer is not collapsed, and it looks like it will flash once when it is closed
@@ -426,12 +425,12 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
             });
         } else {
             this.close(event, () => {
-                // Update the selected item in the drop-down box
-                this._adapter.updateSelection(selections);
-                // notify user
                 this.updateOptionsActiveStatus(selections);
+                // notify user
                 this._notifyChange(selections);
             });
+            // Update the selected item in the drop-down box
+            this._adapter.updateSelection(selections);
         }
     }
 
