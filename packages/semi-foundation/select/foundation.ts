@@ -54,7 +54,7 @@ export interface SelectAdapter<P = Record<string, any>, S = Record<string, any>>
     on(eventName: string, eventCallback: () => void): void;
     off(eventName: string): void;
     emit(eventName: string): void;
-    once(eventName, eventCallback: () => void): void
+    once(eventName: string, eventCallback: () => void): void
 }
 
 type LabelValue = string | number;
