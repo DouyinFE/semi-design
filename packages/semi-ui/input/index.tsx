@@ -173,14 +173,12 @@ class Input extends BaseComponent<InputProps, InputState> {
             setValue: (value: string) => this.setState({ value }),
             setEyeClosed: (value: boolean) => this.setState({ eyeClosed: value }),
             toggleFocusing: (isFocus: boolean) => {
+                this.setState({ isFocus });
+            },
+            focusInput: () => {
                 const { preventScroll } = this.props;
                 const input = this.inputRef && this.inputRef.current;
-                if (isFocus) {
-                    input && input.focus({ preventScroll });
-                } else {
-                    input && input.blur();
-                }
-                this.setState({ isFocus });
+                input && input.focus({ preventScroll });
             },
             toggleHovering: (isHovering: boolean) => this.setState({ isHovering }),
             getIfFocusing: () => this.state.isFocus,
