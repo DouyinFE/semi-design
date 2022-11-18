@@ -397,6 +397,8 @@ export const WithPrefixSuffixInsetLabelShowClearShowArrow = () => (
       style={{
         width: '250px',
       }}
+      motion={false}
+      filter
       optionList={options}
       prefix={<IconSearch />}
       suffix={<IconGift></IconGift>}

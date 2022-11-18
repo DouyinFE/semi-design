@@ -21,6 +21,7 @@ brief: 国际化组件，为 Semi 组件提供多语言支持
 | v1.28.0     | 繁体中文: zh_TW       |
 | v2.2.0     | 西班牙语: es       |
 | v2.15.0     | 意大利语: it、法语：fr、德语：de   |
+| v2.21.0     | 罗马尼亚语: ro   |
 ## 已支持组件
 
 > DatePicker、TimePicker、Modal、Pagination、Select、Table、Cascader、Calendar、TreeSelect、List、Typography、Transfer、Nav、Upload
