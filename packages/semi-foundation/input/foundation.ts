@@ -15,6 +15,7 @@ export interface InputAdapter extends Partial<DefaultAdapter>, Partial<InputDefa
     notifyBlur(value: any, e: any): void;
     setEyeClosed(eyeClosed: boolean): void;
     toggleFocusing(focused: boolean): void;
+    focusInput(): void;
     notifyFocus(value: any, e: any): void;
     notifyInput(e: any): void;
     notifyKeyDown(e: any): void;
@@ -199,6 +200,7 @@ class InputFoundation extends BaseFoundation<InputAdapter> {
         }
         // do not handle bubbling up events
         if (this._adapter.isEventTarget(e)) {
+            this._adapter.focusInput();
             this._adapter.toggleFocusing(true);
         }
     }
@@ -213,6 +215,7 @@ class InputFoundation extends BaseFoundation<InputAdapter> {
 
     handleClickEye(e: any) {
         const eyeClosed = this._adapter.getState('eyeClosed');
+        this._adapter.focusInput();
         this._adapter.toggleFocusing(true);
         this._adapter.setEyeClosed(!eyeClosed);
     }
@@ -281,6 +284,7 @@ class InputFoundation extends BaseFoundation<InputAdapter> {
         const { disabled } = this._adapter.getProps();
         const { isFocus } = this._adapter.getStates();
         if (!disabled && !isFocus) {
+            this._adapter.focusInput();
             this._adapter.toggleFocusing(true);
         }
     }
@@ -293,6 +297,7 @@ class InputFoundation extends BaseFoundation<InputAdapter> {
         if (e && isFunction(e.preventDefault)) {
             e.preventDefault();
         }
+        e.stopPropagation();
     }
 
     /**
