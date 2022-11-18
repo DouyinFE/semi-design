@@ -506,7 +506,7 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
         if (useCustomTrigger) {
             outerProps.onClick = this.openPanel;
         }
-        console.log("===>", disabled?false:open, motion);
+
         return (
             <div
                 ref={this.setTimePickerRef}
