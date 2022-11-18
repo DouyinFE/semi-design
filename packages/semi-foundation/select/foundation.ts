@@ -379,11 +379,14 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
         this._adapter.unregisterClickOutsideHandler();
         // this._adapter.updateFocusState(false);
 
+        const isFilterable = this._isFilterable();
+        if (isFilterable) {
+            this.toggle2SearchInput(false);
+        }
+
         this._adapter.once('popoverClose', () => {
-            const isFilterable = this._isFilterable();
             if (isFilterable) {
                 this.clearInput();
-                this.toggle2SearchInput(false);
             }
             if (closeCb) {
                 closeCb();
@@ -427,6 +430,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
             this._adapter.updateSelection(selections);
             // notify user
             this._notifyChange(selections);
+
             this.close(event, () => {
                 // Update the selected item in the drop-down box
                 this.updateOptionsActiveStatus(selections);
