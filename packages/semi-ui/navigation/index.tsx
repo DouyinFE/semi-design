@@ -63,6 +63,7 @@ export interface NavProps extends BaseProps {
     toggleIconPosition?: string;
     tooltipHideDelay?: number;
     tooltipShowDelay?: number;
+    getPopupContainer?: () => HTMLElement;
     onClick?: (data: { itemKey: React.ReactText; domEvent: MouseEvent; isOpen: boolean }) => void;
     onCollapseChange?: (isCollapse: boolean) => void;
     onDeselect?: (data?: any) => void;
@@ -147,7 +148,8 @@ class Nav extends BaseComponent<NavProps, NavState> {
         prefixCls: PropTypes.string,
         header: PropTypes.oneOfType([PropTypes.node, PropTypes.object]),
         footer: PropTypes.oneOfType([PropTypes.node, PropTypes.object]),
-        limitIndent: PropTypes.bool
+        limitIndent: PropTypes.bool,
+        getPopupContainer: PropTypes.func,
     };
 
     static defaultProps = {
@@ -301,7 +303,8 @@ class Nav extends BaseComponent<NavProps, NavState> {
             header,
             toggleIconPosition,
             limitIndent,
-            renderWrapper
+            renderWrapper,
+            getPopupContainer
         } = this.props;
 
         const { selectedKeys, openKeys, items, isCollapsed } = this.state;
@@ -400,7 +403,8 @@ class Nav extends BaseComponent<NavProps, NavState> {
                             prefixCls,
                             toggleIconPosition,
                             limitIndent,
-                            renderWrapper
+                            renderWrapper,
+                            getPopupContainer
                         } as any}
                     >
                         <div className={finalCls} style={finalStyle}>
