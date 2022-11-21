@@ -23,7 +23,7 @@ export default class Event {
         }
     }
 
-    off(event: string, callback: null | (() => void)) {
+    off(event: string, callback?: null | (() => void)) {
         if (event) {
             if (typeof callback === 'function') {
                 const callbacks = this._eventMap.get(event);

@@ -44,12 +44,12 @@ $module: #{$prefix}-switch;
         }
 
         .#{$module}-knob {
-            transform: translateX($motion-switch_checked-translateX);
+            transform: translateX($spacing-switch_checked-translateX);
         }
 
         &:active {
             .#{$module}-knob {
-                transform: translateX($motion-switch_checked-translateX - $width-switch_knob_expand);
+                transform: translateX($spacing-switch_checked-translateX - $width-switch_knob_expand);
             }
         }
     }
@@ -94,14 +94,14 @@ $module: #{$prefix}-switch;
         background-color: $color-switch_knob-bg-default;
         box-sizing: border-box;
         position: absolute;
-        left: 0;
+        left: $spacing-switch_knob-left;
         right: auto;
         transition: transform $motion-switch-transitionDuration ease-in-out, width $motion-switch-transitionDuration ease-in-out;
 
         width: $width-switch_knob_default;
         height: $width-switch_knob_default;
         top: $spacing-switch_knob-padding;
-        transform: translateX($motion-switch_unchecked-translateX);
+        transform: translateX($spacing-switch_unchecked-translateX);
     }
 
     &-native-control {
@@ -157,7 +157,7 @@ $module: #{$prefix}-switch;
 .#{$module}-loading {
 
     .#{$module}-loading-spin {
-        transform: translateX($motion-switch_spin_unchecked-translateX);
+        transform: translateX($spacing-switch_spin_unchecked-translateX);
 
         &>.#{$prefix}-spin-wrapper>svg{
             width: $width-switch_spin-default;
@@ -169,7 +169,7 @@ $module: #{$prefix}-switch;
         background-color: $color-switch_spin_checked-bg-default;
 
         .#{$module}-loading-spin {
-            transform: translateX($motion-switch_spin_checked-translateX);
+            transform: translateX($spacing-switch_spin_checked-translateX);
         }
     }
 }
@@ -177,7 +177,7 @@ $module: #{$prefix}-switch;
 .#{$module}-loading.#{$module}-small {
 
     .#{$module}-loading-spin {
-        transform: translateX($motion-switch_spin_unchecked_small-translateX);
+        transform: translateX($spacing-switch_spin_unchecked_small-translateX);
 
         &>.#{$prefix}-spin-wrapper>svg{
             width: $width-switch_spin-small;
@@ -187,7 +187,7 @@ $module: #{$prefix}-switch;
     &.#{$module}-checked{
 
         .#{$module}-loading-spin {
-            transform: translateX($motion-switch_spin_checked_small-translateX);
+            transform: translateX($spacing-switch_spin_checked_small-translateX);
         }
     }
 }
@@ -195,7 +195,7 @@ $module: #{$prefix}-switch;
 .#{$module}-loading.#{$module}-large {
 
     .#{$module}-loading-spin {
-        transform: translateX($motion-switch_spin_unchecked_large-translateX);
+        transform: translateX($spacing-switch_spin_unchecked_large-translateX);
 
         &>.#{$prefix}-spin-wrapper>svg{
             width: $width-switch_spin-large;
@@ -206,7 +206,7 @@ $module: #{$prefix}-switch;
     &.#{$module}-checked {
 
         .#{$module}-loading-spin {
-            transform: translateX($motion-switch_spin_checked_large-translateX);
+            transform: translateX($spacing-switch_spin_checked_large-translateX);
         }
     }
 }
@@ -224,16 +224,16 @@ $module: #{$prefix}-switch;
         height: $width-switch_knob_large;
         top: $spacing-switch_knob_large-padding;
         border-radius: $width-switch_knob_large * 0.5;
-        transform: translateX($motion-switch_unchecked_large-translateX);
+        transform: translateX($spacing-switch_unchecked_large-translateX);
     }
     &.#{$module}-checked {
         .#{$module}-knob {
-            transform: translateX($motion-switch_checked_large-translateX);
+            transform: translateX($spacing-switch_checked_large-translateX);
         }
 
         &:active {
             .#{$module}-knob {
-                transform: translateX($motion-switch_checked_large-translateX - $motion-switch_expand_large-translateX);
+                transform: translateX($spacing-switch_checked_large-translateX - $spacing-switch_expand_large-translateX);
             }
         }
     }
@@ -259,16 +259,16 @@ $module: #{$prefix}-switch;
         height: $width-switch_knob_large_small;
         top: $spacing-switch_knob_small-padding;
         border-radius: $width-switch_knob_large_small * 0.5;
-        transform: translateX($motion-switch_unchecked_small-translateX);
+        transform: translateX($spacing-switch_unchecked_small-translateX);
     }
     &.#{$module}-checked {
         .#{$module}-knob {
-            transform: translateX($motion-switch_checked_small-translateX);
+            transform: translateX($spacing-switch_checked_small-translateX);
         }
 
         &:active {
             .#{$module}-knob {
-                transform: translateX($motion-switch_checked_small-translateX - $motion-switch_expand_small-translateX);
+                transform: translateX($spacing-switch_checked_small-translateX - $spacing-switch_expand_small-translateX);
             }
         }
     }

@@ -14,6 +14,7 @@ import TagGroup from '../tag/group';
 import LocaleConsumer from '../locale/localeConsumer';
 import Popover, { PopoverProps } from '../popover/index';
 import { numbers as popoverNumbers } from '@douyinfe/semi-foundation/popover/constants';
+import Event from '@douyinfe/semi-foundation/utils/Event';
 import { FixedSizeList as List } from 'react-window';
 import { getOptionsFromGroup } from './utils';
 import VirtualRow from './virtualRow';
@@ -333,6 +334,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
     clickOutsideHandler: (e: MouseEvent) => void;
     foundation: SelectFoundation;
     context: ContextValue;
+    eventManager: Event;
 
     constructor(props: SelectProps) {
         super(props);
@@ -367,6 +369,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         this.onMouseLeave = this.onMouseLeave.bind(this);
         this.renderOption = this.renderOption.bind(this);
         this.onKeyPress = this.onKeyPress.bind(this);
+        this.eventManager = new Event();
 
         this.foundation = new SelectFoundation(this.adapter);
 
@@ -457,6 +460,10 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             ...keyboardAdapter,
             ...filterAdapter,
             ...multipleAdapter,
+            on: (eventName, eventCallback) => this.eventManager.on(eventName, eventCallback),
+            off: (eventName) => this.eventManager.off(eventName),
+            once: (eventName, eventCallback) => this.eventManager.once(eventName, eventCallback),
+            emit: (eventName) => this.eventManager.emit(eventName),
             // Collect all subitems, each item is visible by default when collected, and is not selected
             getOptionsFromChildren: (children = this.props.children) => {
                 let optionGroups = [];
@@ -1285,6 +1292,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 stopPropagation={stopPropagation}
                 disableArrowKeyDown={true}
                 onVisibleChange={status => this.handlePopoverVisibleChange(status)}
+                afterClose={() => this.foundation.handlePopoverClose()}
             >
                 {selection}
             </Popover>

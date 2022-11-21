@@ -3,7 +3,7 @@
     <p align="center"><img width="300" src="https://lf1-cdn-tos.bytescm.com/obj/ttfe/ies/semi/SemiLogo/Logo_1576122865926.png" /></p>
     <h1 style="width: 100%; text-align: center;">Semi-UI</h1>
     <p>
-        现代、全面、灵活的设计系统和 UI 库。 快速搭建美观的 React 应用。
+        现代、全面、灵活的设计系统和 UI 库。 致力打通 DesignOps & DevOps ，快速搭建美观的 React 应用。
     </p>
 </article>
     
@@ -44,11 +44,15 @@
 
 # 🎉 特性
 
-- 💪 58+高质量组件
-- 💅 强大的主题定制，多达两千多个 Design Token，深入定制每一处细节
-- 🌍 国际化支持 14 种语言
-- 👏 使用 TypeScript，良好的类型定义
+- 💪 60+高质量组件
+- 💕 完善的无障碍支持，为所有组件提供遵循 W3C 标准的键盘交互、焦点管理和语义化
+- 🎨 设计系统管理工具 Semi DSM，多达2000+ Design Token，快速定制你的专属设计系统
+- 🌍 国际化支持 17 种语言，提供完备的多语言、多时区、RTL支持
+- 💅 Code2Design，根据不同主题自动生成 Figma UI Kit，保持代码与设计同源
+- 🚀 强大的 Design2Code支持，设计稿一键转代码，快速构建应用
+- ⚙️ 稳定的质量保障，覆盖单元测试、E2E测试、视觉回归测试等多种测试手段
 - 🥳 支持 SSR
+- 👏 使用 TypeScript, 良好的类型定义，基于 Foundation / Adapter 架构，源码易于阅读 / 贡献
 
 # 🔥 安装
 
@@ -71,10 +75,10 @@ import ReactDOM from 'react-dom';
 import { Button, Switch } from '@douyinfe/semi-ui';
 
 const App = () => (
-  <>
-    <Button type='primary'>primary button</Button>
-    <Switch size='large' />
-  </>
+    <>
+        <Button type='primary'>primary button</Button>
+        <Switch size='large' />
+    </>
 );
 
 ReactDOM.render(<App />, document.querySelector('#app'));
@@ -83,10 +87,13 @@ ReactDOM.render(<App />, document.querySelector('#app'));
 [Semi UI 官网](https://semi.design) 拥有上千个支持实时调试的例子，欢迎体验使用。
 
 # 📌 文档
-
+* [Semi DSM](https://semi.design/dsm)
+* [Semi Design2Code](https://semi.design/code)
+* [Semi Figma Plugin](https://www.figma.com/community/plugin/1166339852662786534/Semi-Design-%E8%AE%BE%E8%AE%A1%E8%BD%AC%E4%BB%A3%E7%A0%81)
 * [快速开始](https://semi.design/zh-CN/start/getting-started)
 * [组件总览](https://semi.design/zh-CN/start/overview)
 * [自定义主题](https://semi.design/zh-CN/start/customize-theme)
+* [DSM主题商店](https://semi.design/dsm_store)
 * [Design Tokens](https://semi.design/zh-CN/basic/tokens)
 * [暗色模式](https://semi.design/zh-CN/start/dark-mode)
 * [Icons](https://semi.design/zh-CN/basic/icon)
