@@ -1,9 +1,9 @@
 ---
 localeCode: zh-CN
-order: 55
+order: 54
 category: 展示类
 title: Highlight 高亮文本
-icon: doc-list
+icon: doc-highlight
 dir: column
 noInline: true
 brief: 高亮特定内容
@@ -40,7 +40,7 @@ import { Highlight } from '@douyinfe/semi-ui';
 
 ### 指定高亮样式
 
-默认情况下，高亮文本会自带文本样式，文字颜色为 color-primary, 背景颜色为 transparent 透明。  
+默认情况下，高亮文本会自带文本样式，文字颜色为 --semi-yellow-4, 背景颜色为 transparent 透明。  
 当你需要自定义不同的高亮样式时，你可以通过 `highlightClassName`, `highlightStyle`来指定
 
 ```jsx live=true dir="column"
@@ -51,21 +51,40 @@ import { Highlight } from '@douyinfe/semi-ui';
     const sourceString = '从 Semi Design，到 Any Design 快速定义你的设计系统，并应用在设计稿和代码中';
     const searchWords = ['设计系统', 'Semi Design'];
     
-    return (<h2>
-        <Highlight
-            sourceString={sourceString}
-            searchWords={searchWords}
-            highlightStyle={{
-                borderRadius: 6,
-                marginLeft: 4,
-                marginRight: 4,
-                paddingLeft: 4,
-                paddingRight: 4,
-                backgroundColor: 'rgba(var(--semi-teal-5), 1)',
-                color: 'rgba(var(--semi-white), 1)'
-            }}
-        />
-    </h2>);
+    return (
+        <>
+            <h2>
+                <Highlight
+                    sourceString={sourceString}
+                    searchWords={searchWords}
+                    highlightStyle={{
+                        borderRadius: 6,
+                        marginLeft: 4,
+                        marginRight: 4,
+                        paddingLeft: 4,
+                        paddingRight: 4,
+                        backgroundColor: 'rgba(var(--semi-teal-5), 1)',
+                        color: 'rgba(var(--semi-white), 1)'
+                    }}
+                />
+            </h2>
+            <h2>
+                <Highlight
+                    sourceString={sourceString}
+                    searchWords={searchWords}
+                    highlightStyle={{
+                        borderRadius: 6,
+                        marginLeft: 4,
+                        marginRight: 4,
+                        paddingLeft: 4,
+                        paddingRight: 4,
+                        backgroundColor: 'var(--semi-color-primary)',
+                        color: 'rgba(var(--semi-white), 1)'
+                    }}
+                />
+            </h2>
+        </>
+    );
 };
 ```
 

@@ -1,9 +1,9 @@
 ---
 localeCode: en-US
-order: 55
+order: 54
 category: Show
 title: Highlight 
-icon: doc-list
+icon: doc-highlight
 dir: column
 noInline: true
 brief: highlight specific content
@@ -41,7 +41,7 @@ import { Highlight } from '@douyinfe/semi-ui';
 
 ### Specify highlight style
 
-By default, the highlighted text will have its own text style, the text color is color-primary, and the background color is transparent.
+By default, the highlighted text will have its own text style, the text color is --semi-yellow-4, and the background color is transparent.
 When you need to customize different highlight styles, you can specify them through `highlightClassName`, `highlightStyle`
 
 ```jsx live=true dir="column"

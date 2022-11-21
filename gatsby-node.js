@@ -110,7 +110,7 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions }) =>
                 'context': resolve('src/context'),
                 'components': resolve('src/components'),
                 'locale': resolve('src/locale'),
-                'src':resolve('src')
+                'src': resolve('src')
             },
         },
         module: {
