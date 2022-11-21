@@ -18,7 +18,9 @@ export interface PreviewInnerAdapter<P = Record<string, any>, S = Record<string,
     setStopTiming: (value: boolean) => void;
     getStartMouseDown: () => {x: number; y: number};
     setStartMouseDown: (x: number, y: number) => void;
-    setMouseActiveTime: (time: number) => void
+    setMouseActiveTime: (time: number) => void;
+    disabledBodyScroll: () => void;
+    enabledBodyScroll: () => void
 }
 
 const NOT_CLOSE_TARGETS = ["icon", "footer"];
@@ -31,10 +33,12 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
 
     beforeShow() {
         this._adapter.registerKeyDownListener();
+        this._adapter.disabledBodyScroll();
     }
 
     afterHide() {
         this._adapter.unregisterKeyDownListener();
+        this._adapter.enabledBodyScroll();
     }
 
     handleRatio(type: string) {
@@ -125,7 +129,7 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
             rotation: 0,
         } as any);
         this._adapter.notifyRotateChange(0);
-    }  
+    }
 
     handleDownload = () => {
         const { currentIndex, imgSrc } = this.getStates();
@@ -194,7 +198,7 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
             callback(e);
         };
         Img.onerror = callback;
-        Img.src = preloadImages[0];  
+        Img.src = preloadImages[0];
     }
 
     // 在切换左右图片时，当被切换图片完成加载后，根据方向决定下一个预加载的图片
@@ -260,5 +264,5 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
         } else {
             this.preloadSingleImage();
         }
-    }   
+    }
 }
