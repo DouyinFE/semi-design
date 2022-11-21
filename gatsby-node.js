@@ -11,6 +11,7 @@ const fs = require('fs');
 const items = ['basic', 'chart'];
 const sha1 = require('sha1');
 const hash = sha1(`${new Date().getTime()}${Math.random()}`);
+const numHash = Math.round(Math.random()*1000000);
 const glob = require('glob');
 
 
@@ -162,12 +163,12 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions }) =>
                 }
             ],
         },
-        plugins: [plugins.extractText(),plugins.define({
-            "THEME_SWITCHER_URL":JSON.stringify(process.env['THEME_SWITCHER_URL']),
-            "SEMI_SEARCH_URL":JSON.stringify(process.env['SEMI_SEARCH_URL']),
-            "DSM_URL":JSON.stringify(process.env['DSM_URL']),
-            'process.env.SEMI_SITE_HEADER':JSON.stringify(process.env.SEMI_SITE_HEADER),
-            'process.env.SEMI_SITE_BANNER':JSON.stringify(process.env.SEMI_SITE_BANNER),
+        plugins: [plugins.extractText(), plugins.define({
+            "THEME_SWITCHER_URL": JSON.stringify(process.env['THEME_SWITCHER_URL']),
+            "SEMI_SEARCH_URL": JSON.stringify(process.env['SEMI_SEARCH_URL']),
+            "DSM_URL": JSON.stringify(process.env['DSM_URL']),
+            'process.env.SEMI_SITE_HEADER': JSON.stringify(process.env.SEMI_SITE_HEADER),
+            'process.env.SEMI_SITE_BANNER': JSON.stringify(process.env.SEMI_SITE_BANNER),
             'process.env.D2C_URL': JSON.stringify(process.env.D2C_URL),
         })],
     });
@@ -287,37 +288,60 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
 
 exports.onPostBuild = async () => {
     const publicPath = path.join(__dirname, 'public');
-
-    const pageDataFiles = glob.sync(`${publicPath}/page-data/**/page-data.json`);
+    const replacedNameSet = new Set();
+    const pageDataFiles = glob.sync(`${publicPath}/page-data/**/*.json`);
     for (let file of pageDataFiles) {
-        console.log(file);
-        const newFilename = file.replace(`page-data.json`, `page-data.${hash}.json`);
+        const newFilename = file.replace(/([a-zA-Z0-9\-]+)\.json/g, (_, p1)=> {
+            replacedNameSet.add(p1);
+            return `${p1}${/^\d+$/.test(p1)?numHash:`.${hash}`}.json`;
+        });
         fs.renameSync(file, newFilename);
     }
-
-    const appDataFiles = glob.sync(`${publicPath}/page-data/**/app-data.json`);
-    for (let file of appDataFiles) {
-        console.log(file);
-        const newFilename = file.replace(`app-data.json`, `app-data.${hash}.json`);
-        fs.renameSync(file, newFilename);
-    }
-
+    
     const htmlAndJSFiles = glob.sync(`${publicPath}/**/*.{html,js}`);
     for (let file of htmlAndJSFiles) {
         const stats = fs.statSync(file);
         if (stats.isFile()) {
-            console.log(`Adding version to page-data.json app-data.json designToken.json in ${file}..`);
+            if (file.includes("public/editor")){
+                continue;
+            }
             let content = fs.readFileSync(file, 'utf8');
-            const result = content.replace(
-                /page-data.json(\?v=[a-f0-9]*)?/g,
-                `page-data.${hash}.json`
-            ).replace(/app-data.json(\?v=[a-f0-9]*)?/g,
-                `app-data.${hash}.json`
-            ).replace(/designToken.json(\?v=[a-f0-9]*)?/g,
+            let result = content.replace(/([a-zA-Z0-9\-]+)\.json/g, (_, p1)=>{
+                if (replacedNameSet.has(p1) && !/^\d+$/.test(p1)){
+                    const newFileName = `${p1}.${hash}.json`;
+                    console.log(`Add hash to json in ${file} from ${p1}.json to ${newFileName} ..`);
+                    return newFileName;
+                } else {
+                    return `${p1}.json`;
+                }
+            });
+            result=result.replace(/designToken.json(\?v=[a-f0-9]*)?/g,
                 `designToken.json?v=${hash}`);
             fs.writeFileSync(file, result, 'utf8');
         }
     }
 
+    //only match nav json (only number)
+    const jsonFiles = glob.sync(`${publicPath}/**/*.{js,html,json}`);
+    for (let file of jsonFiles) {
+        const stats = fs.statSync(file);
+        if (stats.isFile()) {
+            console.log("Notice: Add Hash to JSON File "+ file);
+            if (file.includes("public/editor")){
+                continue;
+            }
+            let result = fs.readFileSync(file, 'utf8');
+
+            for (let name of replacedNameSet){
+                if (/^\d+$/.test(name)){
+                    result = result.replaceAll(name, `${name}${numHash}`);
+                }
+
+            }
+            result=result.replace(/designToken.json(\?v=[a-f0-9]*)?/g,
+                `designToken.json?v=${hash}`);
+            fs.writeFileSync(file, result, 'utf8');
+        }
+    }
 
 };
