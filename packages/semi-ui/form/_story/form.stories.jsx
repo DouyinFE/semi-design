@@ -66,6 +66,7 @@ import {
 
 // field props
 import { ConvertDemo } from './FieldProps/convert';
+import { NameDemo } from './FieldProps/name';
 import { HelpAndExtra, ExtraPositionDemo } from './FieldProps/helpAndExtra';
 import { BigNumberFieldDemo } from './FieldProps/bigNumberFieldPath';
 import { UpdateDemo, RuleupdateDemo } from './FieldProps/rulesUpdateDemo';
@@ -321,6 +322,12 @@ export const FiledPropConvert = () => <ConvertDemo />;
 
 FiledPropConvert.story = {
   name: 'Filed Prop-convert',
+};
+
+export const FieldPropsName = () => <NameDemo />;
+
+FieldPropsName.story = {
+  name: 'Filed Prop-name',
 };
 
 export const FiledPropHelpTextExtraTextExtraTextPosition = () => (
