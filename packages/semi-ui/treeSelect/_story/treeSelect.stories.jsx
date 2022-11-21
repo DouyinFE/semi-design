@@ -4,6 +4,7 @@ import TreeSelect from '../index';
 import { flattenDeep } from 'lodash';
 import CustomTrigger from './CustomTrigger';
 import { IconCreditCard } from '@douyinfe/semi-icons';
+import { setFocusToPreviousMenuItem } from '@douyinfe/semi-foundation/utils/a11y';
 const TreeNode = TreeSelect.TreeNode;
 const { Title } = Typography;
 
@@ -97,6 +98,71 @@ const treeData2 = [
         key: 'jianada',
       },
     ],
+  },
+];
+
+const treeData3 = [
+  {
+    label: 'Node1',
+    value: '0-0',
+    key: '0-0',
+    children: [
+      {
+        label: 'Child Node1',
+        value: '0-0-1',
+        key: '0-0-1',
+      },
+      {
+        label: 'Child Node2',
+        value: '0-0-2',
+        key: '0-0-2',
+      },
+      {
+        label: 'Child Node3',
+        value: '0-0-3',
+        key: '0-0-3',
+      },
+      {
+        label: 'Child Node4',
+        value: '0-0-4',
+        key: '0-0-4',
+      },
+      {
+        label: 'Child Node5',
+        value: '0-0-5',
+        key: '0-0-5',
+      },
+      {
+        label: 'Child Node6',
+        value: '0-0-6',
+        key: '0-0-6',
+      },
+      {
+        label: 'Child Node7',
+        value: '0-0-7',
+        key: '0-0-7',
+      },
+      {
+        label: 'Child Node8',
+        value: '0-0-8',
+        key: '0-0-8',
+      },
+      {
+        label: 'Child Node9',
+        value: '0-0-9',
+        key: '0-0-9',
+      },
+      {
+        label: 'Child Node10',
+        value: '0-0-10',
+        key: '0-0-10',
+      },
+    ],
+  },
+  {
+    label: 'Node2',
+    value: '0-1',
+    key: '0-1',
   },
 ];
 
@@ -1658,4 +1724,24 @@ export const loadDataAndLoadedkeys = () => {
             placeholder="请选择"
         />
     );
+}
+
+export const size = () => {
+  const props = {
+    style: { width: 300 },
+    dropdownStyle: { maxHeight: 400, overflow: 'auto' },
+    defaultValue: ['0-0-1', '0-0-2', '0-0-3', '0-0-4', '0-0-5', '0-0-6', '0-0-7'],
+    treeData: treeData3,
+    multiple: true,
+    filterTreeNode: true,
+    searchPosition: "trigger"
+  };
+
+  return (<>
+    <TreeSelect {...props} size={'small'} placeholder={'small'} />
+    <br/><br/>
+    <TreeSelect {...props} size={'default'} placeholder={'default'} />
+    <br/><br/>
+    <TreeSelect {...props} size={'large'} placeholder={'large'} />
+  </>);
 }

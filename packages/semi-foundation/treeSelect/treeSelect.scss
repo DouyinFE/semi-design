@@ -172,24 +172,46 @@ $module: #{$prefix}-tree-select;
             border: hidden;
             background: transparent;
 
-            .#{$prefix}-tagInput-wrapper{
+            .#{$prefix}-tagInput-wrapper {
                 padding-left: $spacing-treeSelect_selection_tagInput_wrapper-paddingX;
                 padding-right: $spacing-treeSelect_selection_tagInput_wrapper-paddingX;
 
-                .#{$prefix}-input-wrapper {
-                    height: $height-treeSelect_selection_tagInput_input_default;
+                &-default {
+                    min-height: $height-treeSelect_selection_tagInput_wrapper_default;
+                }
     
+                &-small {
+                    min-height: $height-treeSelect_selection_tagInput_wrapper_small;
+                }
+
+                &-large {
+                    min-height: $height-treeSelect_selection_tagInput_wrapper_large;
+                }
+
+                .#{$prefix}-input-wrapper {
+                    // height: $height-treeSelect_selection_tagInput_input_default;
+
                     .#{$prefix}-input {
                         padding-left: 0;
                     }
+
+                    &-default {
+                        margin-top: $spacing-treeSelect_tag-marginY;
+                        margin-bottom: $spacing-treeSelect_tag-marginY;
+                    }
+        
+                    &-large {
+                        margin-top: $spacing-treeSelect_tag-marginY;
+                        margin-bottom: $spacing-treeSelect_tag-marginY;
+                    }
                 }
     
-                .#{$prefix}-input-wrapper-small {
-                    height: $height-treeSelect_selection_tagInput_input_small;
-                }
-                .#{$prefix}-input-wrapper-large {
-                    height: $height-treeSelect_selection_tagInput_input_large;
-                }
+                // .#{$prefix}-input-wrapper-small {
+                //     height: $height-treeSelect_selection_tagInput_input_small;
+                // }
+                // .#{$prefix}-input-wrapper-large {
+                //     height: $height-treeSelect_selection_tagInput_input_large;
+                // }
             }
         }
     }
