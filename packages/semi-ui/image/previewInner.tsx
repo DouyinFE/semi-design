@@ -286,6 +286,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
             style, 
             infinite, 
             zoomStep,
+            crossOrigin,
             prevTip,
             nextTip,
             zoomInTip,
@@ -342,7 +343,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
                     onMouseOut={(e): void => this.handleMouseEvent(e.nativeEvent, "out")}
                 >
                     <Header className={cls(hideViewerCls)} onClose={this.handlePreviewClose} renderHeader={renderHeader}/>
-                    <PreviewImage 
+                    <PreviewImage
                         src={imgSrc[currentIndex]}
                         onZoom={this.handleZoomImage}
                         disableDownload={disableDownload}
@@ -351,6 +352,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
                         ratio={ratio}
                         zoomStep={zoomStep}
                         rotation={rotation}
+                        crossOrigin={crossOrigin} 
                         onError={this.onImageError}
                         onLoad={this.onImageLoad}
                     />
