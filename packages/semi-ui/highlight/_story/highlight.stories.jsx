@@ -14,7 +14,7 @@ export default {
 export const HighlightTag = () => (
   <h2>
     <Highlight
-        highlightTag='span'
+        component='span'
         sourceString='semi design connect designOps & devOps'
         searchWords={['semi']}
         />
@@ -28,7 +28,7 @@ HighlightTag.story = {
 export const HighlightStyle = () => (
   <h2>
     <Highlight
-        highlightTag='span'
+        component='span'
         sourceString='semi design connect designOps & devOps'
         searchWords={['semi', 'design']}
         highlightStyle={{ backgroundColor: 'var(--semi-color-warning)', borderRadius: 4 }}
