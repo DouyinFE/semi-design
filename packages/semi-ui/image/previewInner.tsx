@@ -25,7 +25,7 @@ let timer = null;
 
 export default class PreviewInner extends BaseComponent<PreviewInnerProps, PreviewInnerStates> {
     static contextType = PreviewContext;
-    
+
     static propTypes = {
         style: PropTypes.object,
         className: PropTypes.string,
@@ -74,17 +74,36 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
         infinite: false,
         closeOnEsc: true,
         lazyLoad: false,
-        preLoad: true, 
+        preLoad: true,
         preLoadGap: 2,
         zIndex: 1000,
         maskClosable: true,
         viewerVisibleDelay: 10000,
     };
 
+    private bodyOverflow: string;
+    private scrollBarWidth: number;
+    private originBodyWidth: string;
+
     get adapter(): PreviewInnerAdapter<PreviewInnerProps, PreviewInnerStates> {
         return {
             ...super.adapter,
             getIsInGroup: () => this.isInGroup(),
+            disabledBodyScroll: () => {
+                const { getPopupContainer } = this.props;
+                this.bodyOverflow = document.body.style.overflow || '';
+                if (!getPopupContainer && this.bodyOverflow !== 'hidden') {
+                    document.body.style.overflow = 'hidden';
+                    document.body.style.width = `calc(${this.originBodyWidth || '100%'} - ${this.scrollBarWidth}px)`;
+                }
+            },
+            enabledBodyScroll: () => {
+                const { getPopupContainer } = this.props;
+                if (!getPopupContainer && this.bodyOverflow !== 'hidden') {
+                    document.body.style.overflow = this.bodyOverflow;
+                    document.body.style.width = this.originBodyWidth;
+                }
+            },
             notifyChange: (index: number, direction: string) => {
                 const { onChange, onPrev, onNext } = this.props;
                 isFunction(onChange) && onChange(index);
@@ -116,11 +135,11 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
             },
             notifyRotateChange: (angle: number) => {
                 const { onRotateLeft } = this.props;
-                isFunction(onRotateLeft) && onRotateLeft(angle);   
+                isFunction(onRotateLeft) && onRotateLeft(angle);
             },
             notifyDownload: (src: string, index: number) => {
                 const { onDownload } = this.props;
-                isFunction(onDownload) && onDownload(src, index);  
+                isFunction(onDownload) && onDownload(src, index);
             },
             registerKeyDownListener: () => {
                 window && window.addEventListener("keydown", this.handleKeyDown);
@@ -147,7 +166,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
                 mouseActiveTime = time;
             },
         };
-        
+
     }
 
     timer;
@@ -167,8 +186,11 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
             visible: false,
             preloadAfterVisibleChange: true,
             direction: "",
-        }; 
+        };
         this.foundation = new PreviewInnerFoundation(this.adapter);
+        this.bodyOverflow = '';
+        this.originBodyWidth = '100%';
+        this.scrollBarWidth = 0;
     }
 
     static getDerivedStateFromProps(props: PreviewInnerProps, state: PreviewInnerStates) {
@@ -177,7 +199,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
         if (props.visible) {
             // if src in props
             src = Array.isArray(props.src) ? props.src : [props.src];
-        } 
+        }
         if (!isEqual(src, state.imgSrc)) {
             willUpdateStates.imgSrc = src;
         }
@@ -191,6 +213,22 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
             willUpdateStates.currentIndex = props.currentIndex;
         }
         return willUpdateStates;
+    }
+
+    static getScrollbarWidth() {
+        if (globalThis && Object.prototype.toString.call(globalThis) === '[object Window]') {
+            return window.innerWidth - document.documentElement.clientWidth;
+        }
+        return 0;
+    }
+
+    componentDidMount() {
+
+        this.scrollBarWidth = PreviewInner.getScrollbarWidth();
+        this.originBodyWidth = document.body.style.width;
+        if (this.props.visible) {
+            this.foundation.beforeShow();
+        }
     }
 
     componentDidUpdate(prevProps: PreviewInnerProps, prevState: PreviewInnerStates) {
@@ -267,8 +305,8 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
 
     onImageLoad = (src) => {
         this.foundation.onImageLoad(src);
-    }   
-    
+    }
+
     handleMouseDown = (e): void => {
         this.foundation.handleMouseDown(e);
     }
@@ -278,13 +316,13 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
     }
 
     render() {
-        const { 
-            getPopupContainer, 
-            zIndex, 
-            visible, 
-            className, 
-            style, 
-            infinite, 
+        const {
+            getPopupContainer,
+            zIndex,
+            visible,
+            className,
+            style,
+            infinite,
             zoomStep,
             crossOrigin,
             prevTip,
@@ -315,7 +353,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
             };
         }
         const previewPrefixCls = `${prefixCls}-preview`;
-        const previewWrapperCls = cls(previewPrefixCls, 
+        const previewWrapperCls = cls(previewPrefixCls,
             {
                 [`${prefixCls}-hide`]: !visible,
                 [`${previewPrefixCls}-popup`]: getPopupContainer,
@@ -324,16 +362,16 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
         );
         const hideViewerCls = !viewerVisible ? `${previewPrefixCls}-hide` : "";
         const total = imgSrc.length;
-        const showPrev = total !== 1 && (infinite || currentIndex !== 0); 
+        const showPrev = total !== 1 && (infinite || currentIndex !== 0);
         const showNext = total !== 1 && (infinite || currentIndex !== total - 1);
         return (
-            <Portal 
+            <Portal
                 getPopupContainer={getPopupContainer}
                 style={wrapperStyle}
             >
-                {visible && 
+                {visible &&
                 // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events,jsx-a11y/no-static-element-interactions
-                <div 
+                <div
                     className={previewWrapperCls}
                     style={style}
                     onMouseDown={this.handleMouseDown}

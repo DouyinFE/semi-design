@@ -113,7 +113,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
     private readonly modalRef: LegacyRef<ModalContent>;
     private bodyOverflow: string;
     private scrollBarWidth: number;
-    private originBodyWith: string;
+    private originBodyWidth: string;
     private _haveRendered: boolean;
 
     constructor(props: ModalReactProps) {
@@ -126,7 +126,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         this.modalRef = React.createRef();
         this.bodyOverflow = '';
         this.scrollBarWidth = 0;
-        this.originBodyWith = '100%';
+        this.originBodyWidth = '100%';
 
     }
 
@@ -139,14 +139,14 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
                 this.bodyOverflow = document.body.style.overflow || '';
                 if (!getPopupContainer && this.bodyOverflow !== 'hidden') {
                     document.body.style.overflow = 'hidden';
-                    document.body.style.width = `calc(${this.originBodyWith || '100%'} - ${this.scrollBarWidth}px)`;
+                    document.body.style.width = `calc(${this.originBodyWidth || '100%'} - ${this.scrollBarWidth}px)`;
                 }
             },
             enabledBodyScroll: () => {
                 const { getPopupContainer } = this.props;
                 if (!getPopupContainer && this.bodyOverflow !== 'hidden') {
                     document.body.style.overflow = this.bodyOverflow;
-                    document.body.style.width = this.originBodyWith;
+                    document.body.style.width = this.originBodyWidth;
                 }
             },
             notifyCancel: (e: React.MouseEvent) => {
@@ -232,7 +232,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
     componentDidMount() {
 
         this.scrollBarWidth = Modal.getScrollbarWidth();
-        this.originBodyWith = document.body.style.width;
+        this.originBodyWidth = document.body.style.width;
         if (this.props.visible) {
             this.foundation.beforeShow();
         }
