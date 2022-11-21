@@ -320,8 +320,9 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             togglePortalVisible: (visible: boolean, cb: () => void) => {
                 const willUpdateStates: Partial<TooltipState> = {};
 
-                willUpdateStates.transitionState = visible ? 'enter' : 'leave';
-                willUpdateStates.visible = visible;
+                const _visible = typeof this.props.visible === 'boolean' ? this.props.visible : visible;
+                willUpdateStates.transitionState = _visible ? 'enter' : 'leave';
+                willUpdateStates.visible = _visible;
                 this.mounted && this.setState(willUpdateStates as TooltipState, () => {
                     cb();
                 });
@@ -730,7 +731,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         // So if the user adds ref to the content, you need to use callback ref: https://github.com/facebook/react/issues/8873
         return (
             <React.Fragment>
-                {isInsert ? this.renderPortal() : null}
+                {(isInsert && this.state.visible) ? this.renderPortal() : null}
                 {newChild}
             </React.Fragment>
         );
