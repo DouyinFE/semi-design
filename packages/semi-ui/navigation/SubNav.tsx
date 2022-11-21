@@ -315,7 +315,7 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
         let _elem: React.ReactNode = elem;
         const { children, dropdownStyle, disabled } = this.props;
 
-        const { mode, isInSubNav, isCollapsed, subNavCloseDelay, subNavOpenDelay, prefixCls } = this.context;
+        const { mode, isInSubNav, isCollapsed, subNavCloseDelay, subNavOpenDelay, prefixCls, getPopupContainer } = this.context;
 
         const isOpen = this.adapter.getIsOpen();
         const openKeysIsControlled = this.adapter.getOpenKeysIsControlled();
@@ -332,6 +332,10 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
         if (openKeysIsControlled) {
             dropdownProps.trigger = 'custom';
             dropdownProps.visible = isOpen;
+        }
+
+        if (getPopupContainer) {
+            dropdownProps.getPopupContainer = getPopupContainer;
         }
 
         if (isCollapsed || mode === strings.MODE_HORIZONTAL) {

@@ -113,7 +113,7 @@ class NavApp extends React.Component {
 ```jsx live=true dir="column"
 import React from 'react';
 import { Nav } from '@douyinfe/semi-ui';
-import { IconUser, IconStar, IconSetting } from '@douyinfe/semi-icons';
+import { IconUser, IconStar, IconSetting, IconSemiLogo } from '@douyinfe/semi-icons';
 
 class NavApp extends React.Component {
     render() {
@@ -133,7 +133,7 @@ class NavApp extends React.Component {
                 ]}
                 onSelect={key => console.log(key)}
                 header={{
-                    logo: <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />,
+                    logo: <IconSemiLogo style={{ height: '36px', fontSize: 36 }} />,
                     text: 'Semi 运营后台'
                 }}
                 footer={{
@@ -154,7 +154,7 @@ Navigation 目前提供了个两个参数用于定义导航样式：`style` 和 
 ```jsx live=true dir="column"
 import React from 'react';
 import { Nav } from '@douyinfe/semi-ui';
-import { IconUser, IconStar, IconSetting, IconFolder } from '@douyinfe/semi-icons';
+import { IconUser, IconStar, IconSetting, IconFolder, IconSemiLogo } from '@douyinfe/semi-icons';
 
 class NavApp extends React.Component {
     render() {
@@ -181,7 +181,7 @@ class NavApp extends React.Component {
                 ]}
                 onSelect={key => console.log(key)}
                 header={{
-                    logo: <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />,
+                    logo: <IconSemiLogo style={{ height: '36px', fontSize: 36 }} />,
                     text: 'Semi 运营后台'
                 }}
                 footer={{
@@ -200,7 +200,7 @@ class NavApp extends React.Component {
 ```jsx live=true dir="column"
 import React from 'react';
 import { Nav } from '@douyinfe/semi-ui';
-import { IconStar, IconUser, IconUserGroup } from '@douyinfe/semi-icons';
+import { IconStar, IconUser, IconUserGroup, IconSemiLogo } from '@douyinfe/semi-icons';
 
 class NavApp extends React.Component {
     render() {
@@ -211,7 +211,7 @@ class NavApp extends React.Component {
                 onSelect={data => console.log('trigger onSelect: ', data)}
                 onClick={data => console.log('trigger onClick: ', data)}
             >
-                <Nav.Header logo={<img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />} text={'Semi 运营后台'} />
+                <Nav.Header logo={<IconSemiLogo style={{ height: '36px', fontSize: 36 }} />} text={'Semi 运营后台'} />
                 <Nav.Item itemKey={'union'} text={'活动管理'} icon={<IconStar />} />
                 <Nav.Sub itemKey={'user'} text="用户管理" icon={<IconUser />}>
                     <Nav.Item itemKey={'active'} text={'活跃用户'} />
@@ -238,36 +238,39 @@ class NavApp extends React.Component {
 
 ```jsx
 import { Link } from "react-router-dom";
+import React from 'react';
+import { Nav } from '@douyinfe/semi-ui';
 
-()=>{
-    return <Nav
-        renderWrapper={({ itemElement, isSubNav, isInSubNav, props }) => {
-            const routerMap = {
-                Home: "/",
-                About: "/about",
-                Dashboard: "/dashboard",
-                "Nothing Here": "/nothing-here"
-            };
-            return (
-                <Link
-                    style={{ textDecoration: "none" }}
-                    to={routerMap[props.itemKey]}
-                >
-                    {itemElement}
-                </Link>
-            );
-        }}
-        items={[
-            { itemKey: "Home", text: "Home" },
-            { itemKey: "About", text: "About" },
-            {
-                text: "Sub",
-
-                itemKey: "Sub",
-                items: ["Dashboard", "Nothing Here"]
-            }
-        ]}
-    ></Nav>
+() => {
+    return (
+        <Nav
+            renderWrapper={({ itemElement, isSubNav, isInSubNav, props }) => {
+                const routerMap = {
+                    Home: "/",
+                    About: "/about",
+                    Dashboard: "/dashboard",
+                    "Nothing Here": "/nothing-here"
+                };
+                return (
+                    <Link
+                        style={{ textDecoration: "none" }}
+                        to={routerMap[props.itemKey]}
+                    >
+                        {itemElement}
+                    </Link>
+                );
+            }}
+            items={[
+                { itemKey: "Home", text: "Home" },
+                { itemKey: "About", text: "About" },
+                {
+                    text: "Sub",
+                    itemKey: "Sub",
+                    items: ["Dashboard", "Nothing Here"]
+                }
+            ]}
+        ></Nav>
+    );
 }
 ```
 
@@ -292,7 +295,7 @@ Navigation 目前提供两种方向的导航：
 ```jsx live=true dir="column"
 import React from 'react';
 import { Nav } from '@douyinfe/semi-ui';
-import { IconStar, IconUser, IconUserGroup, IconSetting } from '@douyinfe/semi-icons';
+import { IconStar, IconUser, IconUserGroup, IconSetting, IconSemiLogo } from '@douyinfe/semi-icons';
 
 class NavApp extends React.Component {
     render() {
@@ -318,7 +321,7 @@ class NavApp extends React.Component {
                     ]}
                     onSelect={key => console.log(key)}
                     header={{
-                        logo: <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />,
+                        logo: <IconSemiLogo style={{ height: '36px', fontSize: 36 }} />,
                         text: 'Semi 运营后台'
                     }}
                     footer={{
@@ -336,7 +339,7 @@ class NavApp extends React.Component {
 ```jsx live=true dir="column"
 import React from 'react';
 import { Nav, Avatar, Dropdown } from '@douyinfe/semi-ui';
-import { IconStar, IconUser, IconUserGroup, IconSetting, IconEdit } from '@douyinfe/semi-icons';
+import { IconStar, IconUser, IconUserGroup, IconSetting, IconEdit, IconSemiLogo } from '@douyinfe/semi-icons';
 
 class NavApp extends React.Component {
     render() {
@@ -372,7 +375,7 @@ class NavApp extends React.Component {
                     ]}
                     onSelect={key => console.log(key)}
                     header={{
-                        logo: <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />,
+                        logo: <IconSemiLogo style={{ height: '36px', fontSize: 36 }} />,
                         text: 'Semi 运营后台'
                     }}
                     footer={
@@ -403,7 +406,7 @@ class NavApp extends React.Component {
 ```jsx live=true dir="column"
 import React from 'react';
 import { Nav, Avatar, Dropdown, Select, Button } from '@douyinfe/semi-ui';
-import { IconStar, IconUser, IconUserGroup, IconSetting, IconEdit, IconLanguage } from '@douyinfe/semi-icons';
+import { IconStar, IconUser, IconUserGroup, IconSetting, IconEdit, IconLanguage, IconSemiLogo } from '@douyinfe/semi-icons';
 
 class NavApp extends React.Component {
     constructor() {
@@ -450,7 +453,7 @@ class NavApp extends React.Component {
                 mode={'horizontal'}
                 onSelect={key => console.log(key)}
                 header={{
-                    logo: <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />,
+                    logo: <IconSemiLogo style={{ height: '36px', fontSize: 36 }} />,
                     text: 'Semi 运营后台'
                 }}
                 footer={
@@ -511,7 +514,7 @@ class NavApp extends React.Component {
 ```jsx live=true dir=column
 import React from 'react';
 import { Nav } from '@douyinfe/semi-ui';
-import { IconUser, IconStar, IconSetting } from '@douyinfe/semi-icons';
+import { IconUser, IconStar, IconSetting, IconSemiLogo } from '@douyinfe/semi-icons';
 
 class NavApp extends React.Component {
     render() {
@@ -532,7 +535,7 @@ class NavApp extends React.Component {
                 ]}
                 onSelect={key => console.log(key)}
                 header={{
-                    logo: <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />,
+                    logo: <IconSemiLogo style={{ height: '36px', fontSize: 36 }} />,
                     text: 'Semi 运营后台'
                 }}
                 footer={{
@@ -556,7 +559,7 @@ limitIndent 只在 竖直方向生效
 ```jsx live=true dir=column
 import React from 'react';
 import { Nav } from '@douyinfe/semi-ui';
-import { IconUser, IconStar, IconSetting } from '@douyinfe/semi-icons';
+import { IconUser, IconStar, IconSetting, IconSemiLogo } from '@douyinfe/semi-icons';
 
 class NavApp extends React.Component {
     render() {
@@ -588,7 +591,7 @@ class NavApp extends React.Component {
                 ]}
                 onSelect={key => console.log(key)}
                 header={{
-                    logo: <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />,
+                    logo: <IconSemiLogo style={{ height: '36px', fontSize: 36 }} />,
                     text: 'Semi 运营后台'
                 }}
                 footer={{
@@ -612,7 +615,7 @@ class NavApp extends React.Component {
 ```jsx live=true dir="column"
 import React from 'react';
 import { Nav } from '@douyinfe/semi-ui';
-import { IconUser, IconStar, IconUserGroup, IconSetting } from '@douyinfe/semi-icons';
+import { IconUser, IconStar, IconUserGroup, IconSetting, IconSemiLogo } from '@douyinfe/semi-icons';
 
 class NavApp extends React.Component {
     render() {
@@ -639,7 +642,7 @@ class NavApp extends React.Component {
                     },
                 ]}
                 header={{
-                    logo: <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />,
+                    logo: <IconSemiLogo style={{ height: '36px', fontSize: 36 }} />,
                     text: 'Semi 运营后台'
                 }}
                 footer={{
@@ -671,7 +674,7 @@ Navigation 组件提供了几个受控属性，配合各种回调，可以很轻
 ```jsx live=true dir="column"
 import React, { useMemo, useState } from 'react';
 import { Nav } from '@douyinfe/semi-ui';
-import { IconUser, IconStar, IconUserGroup, IconSetting } from '@douyinfe/semi-icons';
+import { IconUser, IconStar, IconUserGroup, IconSetting, IconSemiLogo } from '@douyinfe/semi-icons';
 
 function NavApp (props = {}) {
     const [openKeys, setOpenKeys] = useState(['union-management', 'job']);
@@ -716,7 +719,7 @@ function NavApp (props = {}) {
             bodyStyle={{ height: 360 }}
             items={items}
             header={{
-                logo: <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />,
+                logo: <IconSemiLogo style={{ height: '36px', fontSize: 36 }} />,
                 text: 'Semi 运营后台'
             }}
             footer={{
@@ -742,6 +745,7 @@ function NavApp (props = {}) {
 | defaultOpenKeys     | 初始打开的子导航 `itemKey` 数组，仅 `mode = "vertical"` 且侧边栏处于展开状态时有效                               | string[]                                                                                                                                                            | []                      |
 | defaultSelectedKeys | 初始选中的导航项 `itemKey` 数组                                                                   | string[]                                                                                                                                                            | []                      |
 | footer              | 底部区域配置对象或元素，详见 [Nav.Footer](#Nav.Footer)                                                | object\                                                                                                                                                             | ReactNode               |                      |
+| getPopupContainer   | 垂直 Nav 折叠或 水平 Nav中 Dropdown 的 getPopupContainer 配置，可指定弹出层容器, >=2.24.0                        | Function |                      |
 | header              | 头部区域配置对象或元素，详见 [Nav.Header](#Nav.Header)                                                | object\                                                                                                                                                             | ReactNode               |                      |
 | isCollapsed         | 是否处于收起状态的受控属性，仅 `mode = "vertical"` 时有效                                                 | boolean                                                                                                                                                             |                         |
 | items               | 导航项目列表，每一项可以继续带有 items 属性。如果为 string 数组，则会取每一项作为 text 和 itemKey                         | object\                                                                                                                                                             | string[] \              | [Item](#Nav.Item)[] \| [Sub](#Nav.Sub)[] |  |

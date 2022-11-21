@@ -51,7 +51,7 @@ function Demo() {
             body.setAttribute('theme-mode', 'dark');
             window.setMode('dark');
         }
-    }
+    };
 
     return (
         <Button
@@ -99,8 +99,8 @@ Semi 2.0 原生支持局部暗色/亮色模式。使用时，在顶级元素上�
 
 ```jsx live=true dir="column" hideInDSM
 import React from 'react';
-import { Layout, Nav, Button, Breadcrumb, Avatar } from '@douyinfe/semi-ui';
-import { IconSemiLogo, IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, IconHistogram, IconLive, IconSetting } from '@douyinfe/semi-icons';
+import { Layout, Nav, Button, Breadcrumb, Avatar, Steps, Pagination, Row, Badge, Tag, Rating, Tooltip, Timeline, Popover } from '@douyinfe/semi-ui';
+import { IconSemiLogo, IconCamera, IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, IconHistogram, IconLive, IconSetting, IconEdit, IconList } from '@douyinfe/semi-icons';
 
 () => {
     const { Header, Footer, Sider, Content } = Layout;
@@ -214,8 +214,10 @@ import { IconSemiLogo, IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, Ic
                             }}
                         >
                             <Row style={rowStyle}>
+                                <div id='popup-layer'></div>
                                 <Nav
                                     mode={'horizontal'}
+                                    getPopupContainer={() => document.querySelector('#popup-layer')}
                                     items={[
                                         { itemKey: 'user', text: 'Option1', icon: <IconEdit /> },
                                         { itemKey: 'union', text: 'Option2', icon: <IconCamera /> },
