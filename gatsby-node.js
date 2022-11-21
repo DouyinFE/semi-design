@@ -321,9 +321,14 @@ exports.onPostBuild = async () => {
         }
     }
 
+    console.log("Num json set ", Array.from(replacedNameSet));
+
     //only match nav json (only number)
     const jsonFiles = glob.sync(`${publicPath}/**/*.{js,html,json}`);
     for (let file of jsonFiles) {
+        if (file.includes("public/editor")){
+            continue;
+        }
         const stats = fs.statSync(file);
         if (stats.isFile()) {
             console.log("Notice: Add Hash to JSON File "+ file);
