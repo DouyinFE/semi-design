@@ -73,7 +73,7 @@ import { Highlight } from '@douyinfe/semi-ui';
 
 ### Specify the highlight tag
 
-Semi will wrap the text matching searchWork in sourceString with mark tag by default, you can also re-specify the tag through `component`
+Semi will wrap the text matching searchWords in sourceString with mark tag by default, you can also re-specify the tag through `component`
 
 ```jsx live=true dir="column"
 import React from 'react';

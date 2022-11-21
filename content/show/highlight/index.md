@@ -91,7 +91,7 @@ import { Highlight } from '@douyinfe/semi-ui';
 
 ### 指定高亮标签
 
-Semi 默认会将 sourceString 中与 searchWork 匹配的文本用 mark 标签包裹，你也可以通过 `component` 重新指定标签
+Semi 默认会将 sourceString 中与 searchWords 匹配的文本用 mark 标签包裹，你也可以通过 `component` 重新指定标签
 
 ```jsx live=true dir="column"
 import React from 'react';
