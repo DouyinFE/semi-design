@@ -292,7 +292,6 @@ class InputFoundation extends BaseFoundation<InputAdapter> {
         if (e && isFunction(e.preventDefault)) {
             e.preventDefault();
         }
-        e.stopPropagation();
     }
 
     /**
