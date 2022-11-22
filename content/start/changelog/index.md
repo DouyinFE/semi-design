@@ -15,6 +15,12 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 
 ---
+
+#### 🎉 2.24.0-beta.1 (2022-11-22)
+- 【Style】
+    - 调整 Highlight 样式, 默认背景高亮
+    - Design Token 调整，@douyinfe/semi-theme-default 新增全局Token `--semi-color-highlight-bg`、`--semi-color-highlight`
+
 #### 🎉 2.24.0-beta.0 (2022-11-21)
 - 【New Component】
     - 新增 Highlight 组件 [#1281](https://github.com/DouyinFE/semi-design/pull/1281)

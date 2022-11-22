@@ -29,7 +29,7 @@ import React from 'react';
 import { Highlight } from '@douyinfe/semi-ui';
 
 () => {
-    const sourceString = '从 Semi Design，到 Any Design 快速定义你的设计系统，并应用在设计稿和代码中';
+    const sourceString = '从 Semi Design 到 Any Design  快速定义你的设计系统，并应用在设计稿和代码中';
     const searchWords = ['设计系统', 'Semi Design'];
     
     return (<h2>
@@ -40,15 +40,16 @@ import { Highlight } from '@douyinfe/semi-ui';
 
 ### 指定高亮样式
 
-默认情况下，高亮文本会自带文本样式，文字颜色为 --semi-yellow-4, 背景颜色为 transparent 透明。  
-当你需要自定义不同的高亮样式时，你可以通过 `highlightClassName`, `highlightStyle`来指定
+默认情况下，高亮文本会自带文本样式，背景颜色 --semi-yellow-4, 文本颜色为黑色  
+暗色模式下，背景颜色为 --semi-yellow-2，文本颜色为白色   
+当你需要自定义不同的高亮样式时，你可以通过 `highlightClassName`, `highlightStyle`来指定 
 
 ```jsx live=true dir="column"
 import React from 'react';
 import { Highlight } from '@douyinfe/semi-ui';
 
 () => {
-    const sourceString = '从 Semi Design，到 Any Design 快速定义你的设计系统，并应用在设计稿和代码中';
+    const sourceString = '从 Semi Design 到 Any Design 快速定义你的设计系统，并应用在设计稿和代码中';
     const searchWords = ['设计系统', 'Semi Design'];
     
     return (
@@ -98,7 +99,7 @@ import React from 'react';
 import { Highlight } from '@douyinfe/semi-ui';
 
 () => {
-    const sourceString = '从 Semi Design，到 Any Design 快速定义你的设计系统，并应用在设计稿和代码中';
+    const sourceString = '从 Semi Design 到 Any Design  快速定义你的设计系统，并应用在设计稿和代码中';
     const searchWords = ['设计系统', 'Semi Design'];
     
     return (<h2>
