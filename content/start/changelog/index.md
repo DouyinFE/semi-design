@@ -23,7 +23,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
     - ImagePreview 新增 crossOrigin 参数  [#1284 ](https://github.com/DouyinFE/semi-design/issues/1284)
     - Form Field 组件增加将 props.name 透传至底层组件消费的功能，不再进行拦截（可影响 Form.Input、Form.Upload、Form.CheckboxGroup、Form.RadioGroup 及其他用 withField 封装的自定义组件）。原有对 field wrapper classname 的影响依然保留  [#1266](https://github.com/DouyinFE/semi-design/issues/1266)
     - Navigation 新增 renderWrapper API 用于更便捷地与 react-router、next、gatsby 等路由库结合 [#1249](https://github.com/DouyinFE/semi-design/pull/1249)
-- 【Refactor】
+- 【Perf】
     - 缓存 withField HOC 中的 FieldComponent 组件，在默认 shouldMemo 场景下避免组件重复计算，降低复杂表单场景下带来的重复性能消耗 [#1228](https://github.com/DouyinFE/semi-design/pull/1228)
 - 【Style】
     - 修改 Cascader/TreeSelect 中用到的 TagInput 的样式 [#1278](https://github.com/DouyinFE/semi-design/pull/1278)
