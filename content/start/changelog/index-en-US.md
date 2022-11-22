@@ -16,6 +16,11 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.24.0-beta.1 (2022-11-22)
+- 【Style】
+    - Adjust Highlight style, default highlight background
+    - Design Token : `@douyinfe/semi-theme-default` add global design Token `--semi-color-highlight-bg`、`--semi-color-highlight`
+
 #### 🎉 2.24.0-beta.0 (2022-11-21)
 - 【New Component】
     - Add Highlight Component [#1281](https://github.com/DouyinFE/semi-design/pull/1281)
