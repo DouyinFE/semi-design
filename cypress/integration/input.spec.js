@@ -19,7 +19,7 @@ describe('input', () => {
         cy.get('[data-cy=password]').should('have.value', 'Semi Design');
     });
 
-    it.only('input--forward-ref-focus', () => {
+    it('input--forward-ref-focus', () => {
         cy.visit('http://localhost:6006/iframe.html?id=input--forward-ref-focus&args=&viewMode=story');
         // 无 ref, 点击 prefix, suffix 是否聚集
         cy.get('.semi-input-wrapper').eq(0).children('.semi-input-prefix').click();
