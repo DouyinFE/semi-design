@@ -24,7 +24,7 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
     - ImagePreview added crossOrigin parameter  [#1284 ](https://github.com/DouyinFE/semi-design/issues/1284)
     - The Form Field component transparently transmitting props.name to the underlying component for consumption, and no longer intercepts. The original influence on the field wrapper classname remains  [#1266](https://github.com/DouyinFE/semi-design/issues/1266)
     - Navigation adds renderWrapper API for easier use of routing libraries such as react-router [#1249](https://github.com/DouyinFE/semi-design/pull/1249)
-- 【Refactor】
+- 【Perf】
     - Cache the FieldComponent component in the withField HOC to avoid repeated calculation of components in the default shouldMemo scenario and reduce repeated performance consumption in complex form scenarios [#1228](https://github.com/DouyinFE/semi-design/pull/1228)
 - 【Style】
     - Modify the style of TagInput used in Cascader/TreeSelect [#1278](https://github.com/DouyinFE/semi-design/pull/1278)
