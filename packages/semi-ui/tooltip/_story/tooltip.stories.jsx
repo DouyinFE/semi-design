@@ -1346,6 +1346,62 @@ export const SmartPosAdjustDemo = () => {
   )
 }
 
+export const OcclusionDemo = () => {
+  return (
+  <div>
+    <Tooltip
+      position='left'
+      content={
+        <div
+          style={{
+            width: 520,
+            height: 360
+          }}
+        >
+          我的上侧被遮挡啦！但是我可以正常显示！ 我的上侧被遮挡啦！但是我可以正常显示！我的上侧被遮挡啦！但是我可以正常显示！
+        </div>
+      }
+    >
+      <div
+        style={{
+          position: "absolute",
+          top: -120,
+          width: 150,
+          height: 200,
+          backgroundColor: "lightBlue",
+        }}
+      >
+        我的上侧被遮挡啦！我的上侧被遮挡啦！我的上侧被遮挡啦！我的上侧被遮挡啦！我的上侧被遮挡啦！我的上侧被遮挡啦！我的上侧被遮挡啦！我的上侧被遮挡啦！我的上侧被遮挡啦！
+      </div>
+    </Tooltip>
+      <Tooltip
+      content={
+        <div
+          style={{
+            width: 520,
+            height: 360
+          }}
+        >
+          我的右侧被遮挡啦！但是我可以正常显示！ 我的右侧被遮挡啦！但是我可以正常显示！ 我的右侧被遮挡啦！但是我可以正常显示！
+        </div>
+      }
+    >
+      <div
+        style={{
+          position: "absolute",
+          right: -120,
+          width: 150,
+          height: 20,
+          lineHeight: "20px",
+          backgroundColor: "lightBlue",
+        }}
+      >
+        我的右侧被遮挡啦！
+      </div>
+    </Tooltip>
+  </div>
+  );
+}
 
 // right -> other
 export const AutoRight2LeftDemo = () => <Right2Left />;
