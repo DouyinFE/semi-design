@@ -1002,6 +1002,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
             // 上下方向 top and bottom
             if (this.isTB(position)){
                 isHeightOverFlow = isViewYOverFlow && isContainerYOverFlow;
+                // Related PR: https://github.com/DouyinFE/semi-design/pull/1297
                 // If clientRight or restClientRight less than 0, means that the left and right parts of the trigger are blocked
                 // Then the display of the wrapper will also be affected, make width overflow to offset the wrapper
                 if (position === 'top' || position === 'bottom') {
