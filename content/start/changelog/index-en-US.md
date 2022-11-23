@@ -15,6 +15,9 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+#### 🎉 2.23.6 (2022-11-23)
+- 【Fix】
+    - Fix the problem when trigger be blocked the wrapper did not offset in Tooltip
 
 #### 🎉 2.23.3 (2022-11-15)
 - 【Style】
