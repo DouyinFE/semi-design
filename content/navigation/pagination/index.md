@@ -15,9 +15,10 @@ brief: 分页器帮助用户在多个页之间进行导航
 ```jsx import
 import { Pagination } from '@douyinfe/semi-ui';
 ```
+
 ### 基本
 
-基础分页，通过 `total` 设置总页数，`pageSize` 设置每页容量
+基础分页，通过 `total` 设置总条数，`pageSize` 设置每页容量
 
 ```jsx live=true width=60%
 import React from 'react';
