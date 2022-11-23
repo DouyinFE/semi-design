@@ -1002,19 +1002,23 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
             // 上下方向 top and bottom
             if (this.isTB(position)){
                 isHeightOverFlow = isViewYOverFlow && isContainerYOverFlow;
+                // If clientRight or restClientRight less than 0, means that the left and right parts of the trigger are blocked
+                // Then the display of the wrapper will also be affected, make width overflow to offset the wrapper
                 if (position === 'top' || position === 'bottom') {
-                    isWidthOverFlow = isViewXOverFlowSideHalf && isContainerXOverFlowSideHalf;
+                    isWidthOverFlow = isViewXOverFlowSideHalf && isContainerXOverFlowSideHalf || (clientRight < 0 || restClientRight < 0);
                 } else {
-                    isWidthOverFlow = isViewXOverFlowSide && isContainerXOverFlowSide;
+                    isWidthOverFlow = isViewXOverFlowSide && isContainerXOverFlowSide || (clientRight < 0 || restClientRight < 0);
                 }
             }
             // 左右方向 left and right
             if (this.isLR(position)){
                 isWidthOverFlow = isViewXOverFlow && isContainerXOverFlow;
+                // If clientTop or restClientTop less than 0, means that the top and bottom parts of the trigger are blocked
+                // Then the display of the wrapper will also be affected, make height overflow to offset the wrapper
                 if (position === 'left' || position === 'right') {
-                    isHeightOverFlow = isViewYOverFlowSideHalf && isContainerYOverFlowSideHalf;
+                    isHeightOverFlow = isViewYOverFlowSideHalf && isContainerYOverFlowSideHalf || (clientTop < 0 || restClientTop < 0);
                 } else {
-                    isHeightOverFlow = isViewYOverFlowSide && isContainerYOverFlowSide;
+                    isHeightOverFlow = isViewYOverFlowSide && isContainerYOverFlowSide || (clientTop < 0 || restClientTop < 0);
                 }
             }
         }
