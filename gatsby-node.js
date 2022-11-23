@@ -349,34 +349,73 @@ exports.onPostBuild = async () => {
         }
     }
 
-    const jsFiles = glob.sync(`${publicPath}/*.js`);
+    (()=>{
+        const jsFiles = glob.sync(`${publicPath}/*.js`);
 
-    const replaceNames = {};
-    for (let file of jsFiles) {
-        const filename = path.basename(file);
-        const fileNameWithoutExt = filename.split('.')[0];
-        const originHash = fileNameWithoutExt.split('-').at(-1);
+        const replaceNames = {};
+        for (let file of jsFiles) {
+            const filename = path.basename(file);
+            const fileNameWithoutExt = filename.split('.')[0];
+            const originHash = fileNameWithoutExt.split('-').at(-1);
 
-        if (originHash && originHash!==fileNameWithoutExt){
-            let fileNameWithoutExtWithHash = fileNameWithoutExt.replace(originHash, `${originHash}${numHash}`);
-            replaceNames[originHash] = `${originHash}${numHash}`;
-            fs.renameSync(file, path.join(path.dirname(file), `${fileNameWithoutExtWithHash}.js`));
-        } else {
-            let finalFileName = `${fileNameWithoutExt}${numHash}.js`;
-            replaceNames[filename] = finalFileName;
-            fs.renameSync(file, path.join(path.dirname(file), finalFileName));
-        }
-    }
-    const allFiles = glob.sync(`${publicPath}/**/*.{js,html,json}`);
-    for (let file of allFiles) {
-        const stats = fs.statSync(file);
-        if (stats.isFile()) {
-            let result = fs.readFileSync(file, 'utf8');
-            for (let [oldName, newName] of Object.entries(replaceNames)) {
-                result = result.replaceAll(oldName, newName);
+            if (originHash && originHash!==fileNameWithoutExt){
+                let fileNameWithoutExtWithHash = fileNameWithoutExt.replace(originHash, `${originHash}${numHash}`);
+                replaceNames[originHash] = `${originHash}${numHash}`;
+                fs.renameSync(file, path.join(path.dirname(file), `${fileNameWithoutExtWithHash}.js`));
+            } else {
+                let finalFileName = `${fileNameWithoutExt}${numHash}.js`;
+                replaceNames[filename] = finalFileName;
+                fs.renameSync(file, path.join(path.dirname(file), finalFileName));
             }
-            fs.writeFileSync(file, result, 'utf8');
         }
-    }
+        const allFiles = glob.sync(`${publicPath}/**/*.{js,html,json}`);
+        for (let file of allFiles) {
+            const stats = fs.statSync(file);
+            if (stats.isFile()) {
+                let result = fs.readFileSync(file, 'utf8');
+                for (let [oldName, newName] of Object.entries(replaceNames)) {
+                    result = result.replaceAll(oldName, newName);
+                }
+                fs.writeFileSync(file, result, 'utf8');
+            }
+        }
+    })();
+
+
+
+    (()=>{
+        const cssFiles = glob.sync(`${publicPath}/*.css`);
+
+        const replaceNames = {};
+        for (let file of cssFiles) {
+            const { base: filename, name: fileNameWithoutExt } = path.parse(file);
+            const originHash = fileNameWithoutExt.split('.').at(-1);
+
+
+            if (originHash && originHash!==fileNameWithoutExt){
+                let fileNameWithoutExtWithHash = fileNameWithoutExt.replace(originHash, `${originHash}${numHash}`);
+                replaceNames[originHash] = `${originHash}${numHash}`;
+                fs.renameSync(file, path.join(path.dirname(file), `${fileNameWithoutExtWithHash}.css`));
+            } else {
+                let finalFileName = `${fileNameWithoutExt}${numHash}.css`;
+                replaceNames[filename] = finalFileName;
+                fs.renameSync(file, path.join(path.dirname(file), finalFileName));
+            }
+
+        }
+        const allFiles = glob.sync(`${publicPath}/**/*.{js,html,json}`);
+        for (let file of allFiles) {
+            const stats = fs.statSync(file);
+            if (stats.isFile()) {
+                let result = fs.readFileSync(file, 'utf8');
+                for (let [oldName, newName] of Object.entries(replaceNames)) {
+                    result = result.replaceAll(oldName, newName);
+                }
+                fs.writeFileSync(file, result, 'utf8');
+            }
+        }
+    })();
+
+
 
 };
