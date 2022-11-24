@@ -4796,40 +4796,43 @@ type Filter = {
 
 ## rowSelection
 
-| 属性 | 说明 | 类型 | 默认值 | 版本 |
-| --- | --- | --- | --- | --- |
-| className | 所处列样式名 | string |  |  |
-| disabled | 表头的 `Checkbox` 是否禁用 | boolean | false | **0.32.0** |
-| fixed | 把选择框列固定在左边 | boolean | false |  |
-| getCheckboxProps | 选择框的默认属性配置 | (record: RecordType) => object |  |  |
-| hidden | 是否隐藏选择列 | boolean | false | **0.34.0** |
-| selectedRowKeys | 指定选中项的 key 数组，需要和 onChange 进行配合 | string[] |  |  |
-| title | 自定义列表选择框标题 | string\|ReactNode |  |  |
-| width | 自定义列表选择框宽度 | string\|number |  |  |
-| onChange | 选中项发生变化时的回调。第一个参数会保存上次选中的 row keys，即使你做了分页受控或更新了 dataSource [FAQ](#faq) | (selectedRowKeys: number[]\|string[], selectedRows: RecordType[]) => void |  |  |
-| onSelect | 用户手动点击某行选择框的回调 | (record: RecordType, selected: boolean, selectedRows: RecordType[], nativeEvent: MouseEvent) => void |  |  |
-| onSelectAll | 用户手动点击表头选择框的回调，会选中/取消选中 dataSource 里的所有可选行 | (selected: boolean, selectedRows: RecordType[], changedRows: RecordType[]) => void |  |  |
+| 属性             | 说明                                                                                                         | 类型                                                                                                 | 默认值 | 版本       |
+|------------------|------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|--------|------------|
+| className        | 所处列样式名                                                                                                 | string                                                                                               |        |            |
+| disabled         | 表头的 `Checkbox` 是否禁用                                                                                   | boolean                                                                                              | false  | **0.32.0** |
+| fixed            | 把选择框列固定在左边                                                                                         | boolean                                                                                              | false  |            |
+| getCheckboxProps | 选择框的默认属性配置                                                                                         | (record: RecordType) => object                                                                       |        |            |
+| hidden           | 是否隐藏选择列                                                                                               | boolean                                                                                              | false  | **0.34.0** |
+| selectedRowKeys  | 指定选中项的 key 数组，需要和 onChange 进行配合                                                               | string[]                                                                                             |        |            |
+| title            | 自定义列表选择框标题                                                                                         | string\|ReactNode                                                                                    |        |            |
+| width            | 自定义列表选择框宽度                                                                                         | string\|number                                                                                       |        |            |
+| onChange         | 选中项发生变化时的回调。第一个参数会保存上次选中的 row keys，即使你做了分页受控或更新了 dataSource [FAQ](#faq) | (selectedRowKeys: number[]\|string[], selectedRows: RecordType[]) => void                            |        |            |
+| onSelect         | 用户手动点击某行选择框的回调                                                                                 | (record: RecordType, selected: boolean, selectedRows: RecordType[], nativeEvent: MouseEvent) => void |        |            |
+| onSelectAll      | 用户手动点击表头选择框的回调，会选中/取消选中 dataSource 里的所有可选行                                       | (selected: boolean, selectedRows: RecordType[], changedRows: RecordType[]) => void                   |        |            |
 
 ## scroll
 
-| 属性 | 说明 | 类型 | 默认值 | 版本 |
-| --- | --- | --- | --- | --- |
-| scrollToFirstRowOnChange | 当分页、排序、筛选变化后是否自动滚动到表格顶部 | boolean | false | **1.1.0** |
-| x | 设置横向滚动区域的宽，可以为像素值、百分比或 'max-content' | string\|number |  |  |
-| y | 设置纵向滚动区域的高，可以为像素值 | number |  |  |
+| 属性                     | 说明                                                     | 类型           | 默认值 | 版本      |
+|--------------------------|--------------------------------------------------------|----------------|--------|-----------|
+| scrollToFirstRowOnChange | 当分页、排序、筛选变化后是否自动滚动到表格顶部             | boolean        | false  | **1.1.0** |
+| x                        | 设置横向滚动区域的宽，可以为像素值、百分比或 'max-content' | string\|number |        |           |
+| y                        | 设置纵向滚动区域的高，可以为像素值                        | number         |        |           |
 
 ## pagination
 
 翻页组件配置。`pagination` 建议不要使用字面量写法。
 
-| 属性 | 说明 | 类型 | 默认值 | 版本 |
-| --- | --- | --- | --- | --- |
-| currentPage | 当前页码 | number | - |  |
-| defaultCurrentPage | 默认的当前页码 | number | 1 | **>=1.1.0** |
-| formatPageText | 翻页区域文案自定义格式化，传 false 关闭文案显示；该项影响表格翻页区域左侧文案显示，不同于 `Pagination` 组件的 `showTotal` 参数，请注意甄别。 | boolean \| ({ currentStart: number, currentEnd: number, total: number }) => string\|ReactNode | true | **>=0.27.0** |
-| pageSize | 每页条数 | number | 10 |  |
-| position | 位置 | 'bottom'\|'top'\|'both' | 'bottom' |  |
-| total | 数据总数 | number | 0 | **>=0.25.0** |
+注意：pagination.onChange 设置后，Table onChange 不再响应分页器变化。
+
+| 属性               | 说明                                                                                                                                    | 类型                                                                                          | 默认值   | 版本         |
+|--------------------|---------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|----------|--------------|
+| currentPage        | 当前页码                                                                                                                                | number                                                                                        | -        |              |
+| defaultCurrentPage | 默认的当前页码                                                                                                                          | number                                                                                        | 1        | **>=1.1.0**  |
+| formatPageText     | 翻页区域文案自定义格式化，传 false 关闭文案显示；该项影响表格翻页区域左侧文案显示，不同于 `Pagination` 组件的 `showTotal` 参数，请注意甄别。 | boolean \| ({ currentStart: number, currentEnd: number, total: number }) => string\|ReactNode | true     | **>=0.27.0** |
+| pageSize           | 每页条数                                                                                                                                | number                                                                                        | 10       |              |
+| position           | 位置                                                                                                                                    | 'bottom'\|'top'\|'both'                                                                       | 'bottom' |              |
+| total              | 数据总数                                                                                                                                | number                                                                                        | 0        | **>=0.25.0** |
+
 
 其他配置详见[Pagination](/zh-CN/navigation/pagination#API参考)
 
@@ -4838,7 +4841,7 @@ type Filter = {
 `resizable` 对象型的参数，主要包括一些表格列伸缩时的事件方法。这些事件方法都可以返回一个对象，该对象会和最终的 column 合并。
 
 | 属性          | 说明                     | 类型                                             | 默认值 |
-| ------------- | ------------------------ | ------------------------------------------------ | ------ |
+|---------------|------------------------|--------------------------------------------------|--------|
 | onResize      | 表格列改变宽度时触发     | (column: [Column](#Column)) => [Column](#Column) |        |
 | onResizeStart | 表格列开始改变宽度时触发 | (column: [Column](#Column)) => [Column](#Column) |        |
 | onResizeStop  | 表格列停止改变宽度时触发 | (column: [Column](#Column)) => [Column](#Column) |        |
@@ -4876,8 +4879,8 @@ function Demo() {
 }
 ```
 
-| 名称 | 描述 | 版本 |
-| --- | --- | --- |
+| 名称                 | 描述                                                                                                         | 版本   |
+|----------------------|------------------------------------------------------------------------------------------------------------|--------|
 | getCurrentPageData() | 返回当前页的数据对象：{ dataSource: RecordType[], groups: Map<{groupKey: string, recordKeys: Set<string\>}> } | 0.37.0 |
 
 ## Accessibility
