@@ -631,7 +631,23 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             toggleHovering: bool => {
                 this.setState({ isHovering: bool });
             },
-            updateInputFocus: bool => { } // eslint-disable-line
+            updateInputFocus: bool => { 
+                if (bool) {
+                    if (this.inputRef && this.inputRef.current) {
+                        (this.inputRef.current as any).focus();
+                    }
+                    if (this.tagInputRef && this.tagInputRef.current) {
+                        this.tagInputRef.current.focus();
+                    }
+                } else {
+                    if (this.inputRef && this.inputRef.current) {
+                        (this.inputRef.current as any).blur();
+                    }
+                    if (this.tagInputRef && this.tagInputRef.current) {
+                        this.tagInputRef.current.blur();
+                    }
+                }
+            } // eslint-disable-line
         };
     }
 
@@ -1094,7 +1110,9 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             maxTagCount,
             checkRelation,
             showRestTagsPopover, 
-            restTagsPopoverProps
+            restTagsPopoverProps,
+            searchPosition,
+            filterTreeNode
         } = this.props;
         const {
             keyEntities,
@@ -1108,6 +1126,14 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         } else if (checkRelation === 'unRelated') {
             keyList = [...realCheckedKeys];
         }
+        // auto focus search input divide into two parts
+        // 1. filterTreeNode && searchPosition === strings.SEARCH_POSITION_TRIGGER
+        //    Implemented by passing autofocus to the underlying input's autofocus
+        // 2. filterTreeNode && searchPosition === strings.SEARCH_POSITION_DROPDOWN
+        //    Due to the off-screen rendering in the tooltip implementation mechanism, if it is implemented through the 
+        //    autofocus of the input, when the option panel is opened, the page will scroll to top, so it is necessary 
+        //    to call the focus method through ref in the onVisibleChange callback of the Popover to achieve focus
+        const autoFocus = (filterTreeNode && searchPosition === strings.SEARCH_POSITION_TRIGGER) ? searchAutoFocus : undefined;
         return (
             <TagInput
                 maxTagCount={maxTagCount}
@@ -1121,7 +1147,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 showRestTagsPopover={showRestTagsPopover}
                 restTagsPopoverProps={restTagsPopoverProps}
                 // eslint-disable-next-line jsx-a11y/no-autofocus
-                autoFocus={searchAutoFocus}
+                autoFocus={autoFocus}
                 renderTagItem={(itemKey, index) => this.renderTagItem(itemKey, index)}
                 onRemove={itemKey => this.removeTag(itemKey)}
                 expandRestTagsOnClick={false}
@@ -1156,6 +1182,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             prefix: <IconSearch />,
         };
         const inputTriggerProps = {
+            autofocus: searchAutoFocus,
             onFocus: (e: React.FocusEvent) => this.foundation.handleInputTriggerFocus(),
             onBlur: (e: React.FocusEvent) => this.foundation.handleInputTriggerBlur(),
             disabled,
@@ -1183,7 +1210,6 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                             <Input
                                 aria-label='Filter TreeSelect item'
                                 ref={this.inputRef as any}
-                                autofocus={searchAutoFocus}
                                 placeholder={placeholder}
                                 {...baseInputProps}
                                 {...realInputProps}
@@ -1243,10 +1269,13 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
 
     /* Event handler function after popover is closed */
     handlePopoverClose = isVisible => {
-        const { filterTreeNode } = this.props;
+        const { filterTreeNode, searchAutoFocus, searchPosition } = this.props;
         if (isVisible === false && Boolean(filterTreeNode)) {
             this.foundation.clearInput();
         }
+        if (filterTreeNode && searchPosition === strings.SEARCH_POSITION_DROPDOWN && isVisible && searchAutoFocus) {
+            this.foundation.focusInput(true);
+        } 
     }
 
     renderTreeNode = (treeNode: FlattenNode, ind: number, style: React.CSSProperties) => {
