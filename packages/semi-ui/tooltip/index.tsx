@@ -186,8 +186,9 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
 
     constructor(props: TooltipProps) {
         super(props);
+        const initVisible = typeof this.props.visible === 'boolean' ? this.props.visible : false;
         this.state = {
-            visible: false,
+            visible: initVisible,
             /**
              *
              * Note: The transitionState parameter is equivalent to isInsert
@@ -198,7 +199,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             containerStyle: {
                 // zIndex: props.zIndex,
             },
-            isInsert: false,
+            isInsert: initVisible,
             placement: props.position || 'top',
             transitionStyle: {},
             isPositionUpdated: false,
