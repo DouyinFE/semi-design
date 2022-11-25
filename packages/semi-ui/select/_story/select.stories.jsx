@@ -4,7 +4,6 @@ import './select.scss';
 import { Input, Select, Button, Icon, Avatar, Checkbox, Form, withField, Space, Tag } from '../../index';
 import CustomTrigger from './CustomTrigger';
 import classNames from 'classnames';
-import { getHighLightTextHTML } from '../../_utils/index';
 const Option = Select.Option;
 import { IconSearch, IconGift } from '@douyinfe/semi-icons';
 
@@ -2824,26 +2823,6 @@ export const Value0 = () => <ValueZeroDemo />;
 
 Value0.story = {
   name: 'value=0',
-};
-
-const Highlight = () => {
-  const searchWords = ['do', 'dollar'];
-  const sourceString = 'aaa do dollar aaa';
-  const result = getHighLightTextHTML({
-    searchWords,
-    sourceString,
-  });
-  const result2 = getHighLightTextHTML({
-    searchWords: ['z'],
-    sourceString: 'aaazaaazaaa',
-  });
-  return result2;
-};
-
-export const _Highlight = () => <Highlight />;
-
-_Highlight.story = {
-  name: 'highlight',
 };
 
 export const ScrollIntoView = () => (

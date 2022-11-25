@@ -23,6 +23,28 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 - 【Fix】
     - 修复 Tooltip trigger 被遮挡时弹层也被遮挡问题
 
+#### 🎉 2.24.0-beta.1 (2022-11-22)
+- 【Style】
+    - 调整 Highlight 样式, 默认背景高亮
+    - Design Token 调整，@douyinfe/semi-theme-default 新增全局Token `--semi-color-highlight-bg`、`--semi-color-highlight`
+
+#### 🎉 2.24.0-beta.0 (2022-11-21)
+- 【New Component】
+    - 新增 Highlight 组件 [#1281](https://github.com/DouyinFE/semi-design/pull/1281)
+- 【Feat】
+    - Nav 支持透传 getPopupContainer，可用于局部暗色模式下指定弹出层容器,  [#1277](https://github.com/DouyinFE/semi-design/issues/1277)
+    - ImagePreview 新增 crossOrigin 参数  [#1284 ](https://github.com/DouyinFE/semi-design/issues/1284)
+    - Form Field 组件增加将 props.name 透传至底层组件消费的功能，不再进行拦截（可影响 Form.Input、Form.Upload、Form.CheckboxGroup、Form.RadioGroup 及其他用 withField 封装的自定义组件）。原有对 field wrapper classname 的影响依然保留  [#1266](https://github.com/DouyinFE/semi-design/issues/1266)
+    - Navigation 新增 renderWrapper API 用于更便捷地与 react-router、next、gatsby 等路由库结合 [#1249](https://github.com/DouyinFE/semi-design/pull/1249)
+- 【Perf】
+    - 缓存 withField HOC 中的 FieldComponent 组件，在默认 shouldMemo 场景下避免组件重复计算，降低复杂表单场景下带来的重复性能消耗 [#1228](https://github.com/DouyinFE/semi-design/pull/1228)
+- 【Style】
+    - 修改 Cascader/TreeSelect 中用到的 TagInput 的样式 [#1278](https://github.com/DouyinFE/semi-design/pull/1278)
+- 【Fix】
+    - 修复 Image 组件在预览图片的时候，鼠标滚轮事件会穿透弹层，导致弹层之下的内容滚动问题 [#1289](https://github.com/DouyinFE/semi-design/pull/1289) [@edc-hui](https://github.com/edc-hui)
+    - TimePicker 在生产环境输出 console log [@jukrb0x](https://github.com/jukrb0x)
+    - 修复 Select 单选模式下，filter 开启情况下，点击选择收起列表时，会闪烁一次的问题 [#1207](https://github.com/DouyinFE/semi-design/issues/1207)
+
 #### 🎉 2.23.3 (2022-11-15)
 - 【Style】
     - Form 组件 Design Token 修正，`$spacing-form_label_extra_posBottom-marginTop`、`$spacing-form_label_extra_posMid-marginBottom`、`$spacing-form_label_extra_posMid-marginTop`更正为更符合语义的 `$spacing-form_extra_posBottom-marginTop`、`$spacing-form_extra_posMid-marginBottom`、`$spacing-form_extra_posMid-marginTop`，并更正相关文档描述 [#1272](https://github.com/DouyinFE/semi-design/pull/1272)

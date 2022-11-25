@@ -76,7 +76,8 @@ SideSheet,
 Table,
 Tag,
 Timeline,
-Tooltip
+Tooltip,
+Highlight
 ```
 
 ## Feedback

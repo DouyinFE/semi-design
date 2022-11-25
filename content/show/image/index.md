@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 54
+order: 55
 category: 展示类
 title: Image 图片
 icon: doc-image
@@ -444,6 +444,7 @@ import { Image, ImagePreview } from '@douyinfe/semi-ui';
 | className         | 自定义样式类名            | string           | - | |
 | closable          | 是否显示关闭按钮           | boolean        | true | |
 | closeOnEsc        | 点击 esc 关闭预览         | boolean        | true | |
+| crossOrigin       | 透传给预览图片的原生 img 标签的 crossorigin  | 'anonymous'｜'use-credentials'| - | |
 | currentIndex      | 受控属性，当前预览图片下标  | number               | - | |
 | defaultCurrentIndex | 首次展示图片下标        | number             | - | |
 | defaultVisible    | 首次是否开启预览           | boolean         | - | |
