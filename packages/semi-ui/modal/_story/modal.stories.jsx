@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import en_GB from '../../locale/source/en_GB';
 
-import { Select, Modal, Button, Tooltip, Popover, ConfigProvider, Tag, Space } from '../../index';
+import { Select, Modal, Button, Tooltip, Popover, ConfigProvider, Tag, Space, LocaleProvider } from '../../index';
 import CollapsibleInModal from './CollapsibleInModal';
 import DynamicContextDemo from './DynamicContext';
 
@@ -88,7 +88,7 @@ function info() {
 }
 
 function error() {
-  Modal.error({ title: 'Unfortunately, there is an error', content: 'bla bla bla...' });
+  Modal.error({ title: 'Unfortunately, there is an error', content: 'bla bla bla...', okText: '好的' });
 }
 
 function warning() {
@@ -100,13 +100,13 @@ function confirm() {
 }
 
 export const ConfirmModal = () => (
-  <div>
+  <LocaleProvider locale={en_GB}>
     <Button onClick={info}>Info</Button>
     <Button onClick={success}>Success</Button>
     <Button onClick={error}>Error</Button>
     <Button onClick={warning}>Warning</Button>
     <Button onClick={confirm}>Confirm</Button>
-  </div>
+  </LocaleProvider>
 );
 
 ConfirmModal.story = {

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { changeConfirmLocale } from '../modal/local';
 import LocaleContext from './context';
 import DefaultLocale from './source/zh_CN';
 import { Locale } from './interface';
@@ -22,6 +23,17 @@ export default class LocaleProvider extends Component<LocaleProviderProps> {
     constructor(props: LocaleProviderProps) {
         super(props);
         this.state = {};
+        changeConfirmLocale(props.locale?.Modal);
+    }
+
+    componentDidUpdate(prevProps: Readonly<LocaleProviderProps>): void {
+        if (prevProps.locale?.Modal !== this.props.locale?.Modal) {
+            changeConfirmLocale(this.props.locale.Modal);
+        }
+    }
+
+    componentWillUnmount(): void {
+        changeConfirmLocale();
     }
 
     render() {

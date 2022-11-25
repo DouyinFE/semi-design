@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { destroyFns, ModalReactProps } from './Modal';
 import ConfirmModal from './ConfirmModal';
+import { getConfirmLocale } from './local';
 
 import '@douyinfe/semi-foundation/modal/modal.scss';
 import { IconAlertCircle, IconAlertTriangle, IconHelpCircle, IconInfoCircle, IconTickCircle } from '@douyinfe/semi-icons';
@@ -36,7 +37,16 @@ export default function confirm<T>(props: ConfirmProps) {
 
 
     function render(renderProps: ConfirmProps) {
-        ReactDOM.render(<ConfirmModal {...renderProps} motion={props.motion}/>, div);
+        const runtimeLocale = getConfirmLocale();
+        ReactDOM.render(
+            <ConfirmModal
+                okText={runtimeLocale.confirm}
+                cancelText={runtimeLocale.cancel}
+                {...renderProps}
+                motion={props.motion}
+            />,
+            div
+        );
     }
 
     function close() {
