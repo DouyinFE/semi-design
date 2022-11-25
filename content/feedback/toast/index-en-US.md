@@ -366,6 +366,8 @@ The static methods provided are as follows: Display: You can pass in `options` o
 -   `Toast.error(options || string)`
 -   `Toast.warning(options || string)`
 -   `Toast.success(options || string)`
+-   `Toast.close(toastId)`  Close Manually ( `toastId` is the return value of the display methods)
+-   `Toast.config(config)`  The global configuration is set before any method call, and takes effect only once (>= 0.25.0)
 
 **The following APIs can take effect without calling additional ToastFactory.create(config) to create a new Toast**
 
@@ -389,40 +391,6 @@ The static methods provided are as follows: Display: You can pass in `options` o
 | right | Pop-up position right | number \| string | - | 0.25.0 |
 | top | Pop-up position top | number \| string | - | 0.25.0 |
 | zIndex | Z-index value | number | 1010 |  |
-
-Close Manually ( `toastId` is the return value of the display methods)
-
--   `Toast.close(toastId)`
-
-| Properties | Instructions | type | Default | version |
-| --- | --- | --- | --- | --- |
-| bottom | Pop-up position bottom | number \| string | - | 0.25.0 |
-| content | Toast content | string | ReactNode | '' |  |
-| duration | Automatic close delay, no auto-close when set to 0 | number | 3 |  |
-| getPopupContainer | Specifies the parent DOM, and the bullet layer will be rendered to the DOM, you need to set container and inner .semi-toast-wrapper  'position: relative` | () => HTMLElement \| null | () => document.body | 0.34.0 |
-| icon | Custom icons | ReactNode |  | 0.25.0 |
-| left | Pop-up position left | number \| string | - | 0.25.0 |
-| right | Pop-up position right | number \| string | - | 0.25.0 |
-| showClose | Toggle Whether show close button | boolean | true | 0.25.0 |
-| textMaxWidth | Maximum width of content | number \| string | 450 | 0.25.0 |
-| theme | Style of background fill, one of `light`, `normal` | string | `normal` | 1.0.0 |
-| top | Pop-up position top | number \| string | - | 0.25.0 |
-| zIndex | Z-index value | number | 1010 |  |
-| onClose | Callback function when closing toast | () => void |  |  |
-
-The global configuration is set before any method call, and takes effect only once (>= 0.25.0):
-
--   `Toast.config(config)`
-
-| Properties | Instructions                                                                                                                                              | type | Default | version |
-| --- |-----------------------------------------------------------------------------------------------------------------------------------------------------------| --- | --- | --- |
-| bottom | Bottom, absolute position                                                                                                                                 | number \| string | - | 0.25.0 |
-| duration | Automatic close delay, no auto-close when set to 0                                                                                                        | number(second) | 3 | 0.25.0 |
-| getPopupContainer | Specifies the parent DOM, and the bullet layer will be rendered to the DOM, you need to set container and inner .semi-toast-wrapper  'position: relative` | () => HTMLElement \| null | () => document.body | 1.23.0 |
-| left | Left, absolute position                                                                                                                                   | number \| string | - | 0.25.0 |
-| right | Right, absolute position                                                                                                                                  | number \| string | - | 0.25.0 |
-| top | Top, absolute position                                                                                                                                    | number \| string | - | 0.25.0 |
-| zIndex | Z-index                                                                                                                                                   | number | 1010 | 0.25.0 |
 
 -   `ToastFactory.create(config) => Toast`  
     If you need Toast with different configs in your application, you can use ToastFactory.create(config)to create a new Toast (>= 1.23):
