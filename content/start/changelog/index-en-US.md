@@ -15,6 +15,13 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+#### 🎉 2.24.0 (2022-11-25)
+- 【Fix】
+    - Fix the page scrolling problem caused by opening the option panel when searchAutoFocus is true and searchPosition is in dropdown in TreeSelect  [#1306 ](https://github.com/DouyinFE/semi-design/issues/1306)
+    - fix the excessive page scrolling interference caused by the scrollIntoView parameter when Tabs is collapsed and scrolled
+    - fix other components derived from Input that click prefix/suffix will not focus Input properly  [#1237 ](https://github.com/DouyinFE/semi-design/issues/1237)
+    - fix focus style issue when InputNumber sets innerButtons to true  [#1144 ](https://github.com/DouyinFE/semi-design/issues/1144)
+
 #### 🎉 2.23.7 (2022-11-23)
 - 【Fix】
     - Fix the problem that the custom Header cannot be displayed when previewing a single image

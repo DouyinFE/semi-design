@@ -15,6 +15,13 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 
 ---
+#### 🎉 2.24.0 (2022-11-25)
+- 【Fix】
+    - 修复 TreeSelect 中当 searchAutoFocus 为 true ，并且 searchPosition 在 dropdown 中，打开选项面板导致页面滚动问题  [#1306 ](https://github.com/DouyinFE/semi-design/issues/1306)
+    - 修复 Tabs 折叠滚动情况下，因为 scrollIntoView 参数带来的过多页面滚动干扰
+    - 修复Input 派生的其他 Input 类组件（如 InputNumber）点击前/后缀不会正常聚焦 Input  [#1237 ](https://github.com/DouyinFE/semi-design/issues/1237)
+    - 修复 InputNumber 设置 innerButtons 为 true 时聚焦样式问题  [#1144 ](https://github.com/DouyinFE/semi-design/issues/1144)
+
 #### 🎉 2.23.7 (2022-11-23)
 - 【Fix】
     - 修复单张图片在预览时无法显示自定义 Header 问题
