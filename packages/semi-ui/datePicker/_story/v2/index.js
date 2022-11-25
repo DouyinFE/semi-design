@@ -10,3 +10,4 @@ export { default as AutoFillTime } from './AutoFillTime';
 export { default as InputFormatConfirm } from './InputFormatConfirm';
 export { default as FixedTriggerRender } from './FixTriggerRender';
 export { default as DisabledRange } from './DisabledRange';
+export { default as FixDisabledMonth } from './FixDisabledMonth';
