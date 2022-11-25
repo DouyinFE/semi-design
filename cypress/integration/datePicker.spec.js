@@ -208,8 +208,8 @@ describe('DatePicker', () => {
         cy.get('.semi-popover .semi-datepicker-month-grid-left').contains('15').click({ force: true });
         // 查看输入框联动
         cy.get('[data-cy=dateTimeRange]').click({ force: true });
-        cy.get('[data-cy=dateTimeRange] .semi-input').eq(0).should("have.value", "2021-12-05 00:00:00");
-        cy.get('[data-cy=dateTimeRange] .semi-input').eq(1).should("have.value", "2021-12-15 00:00:00");
+        cy.get('[data-cy=dateTimeRange] .semi-input').eq(0).should("have.value", "2021-12-15 00:00:00");
+        cy.get('[data-cy=dateTimeRange] .semi-input').eq(1).should("have.value", "2022-01-20 00:00:00");
     });
 
     it('insetInput + dateTimeRange + check click range start ', () => {
