@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import GraphemeSplitter from 'grapheme-splitter';
 import { isFunction, isString } from 'lodash';
 
@@ -959,3 +959,53 @@ export const FixInputGroup = () => {
     </InputGroup>
   );
 }
+
+export const forwardRefFocus = () => {
+  const myRef = useRef(null);
+  let myRef2 = null;
+  const commonProps = {
+    prefix: 'Prefix',
+    suffix: "Suffix",
+    style: { width: 200 },
+    defaultValue: 'hi' 
+  }
+  const rowStyle = { display: 'flex', alignItems: 'center', justifyContents: 'flex-start', marginTop: 20 };
+
+  return (
+    <>
+    <p>无 ref</p>
+    <div style={rowStyle}>
+      <Input {...commonProps} />
+    </div>
+    <p>对象式 ref，点击按钮通过 ref.current.focus()聚焦</p>
+    <div style={rowStyle}>
+      <Button
+        style={{ marginRight: 20 }}
+        onClick={() => {
+          console.log(myRef);
+          myRef && myRef.current && myRef.current.focus();
+        }}
+      >
+        聚焦
+      </Button>
+      <Input  ref={myRef} {...commonProps}/>
+    </div>
+    <p>函数式 ref， 点击按钮通过 ref.focus()聚焦</p>
+    <div style={rowStyle}>
+      <Button
+        style={{ marginRight: 20 }} 
+        onClick={() => {
+          myRef2 && myRef2.focus();
+        }}
+      >
+        聚焦
+      </Button>
+      <Input 
+        ref={(node) => {
+          myRef2 = node
+        }}
+        {...commonProps}
+      />
+    </div>
+  </>
+)};

@@ -765,3 +765,9 @@ export const InputNumberA11y = () => {
   );
 }
 InputNumberA11y.storyName = "inputNumber a11y";
+
+export const PrefixSuffix = () => {
+  return (
+    <InputNumber prefix="年龄" suffix='岁' />
+  );
+}
