@@ -15,6 +15,11 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+
+#### 🎉 2.24.1 (2022-11-25)
+- 【Fix】
+    - Fix DatePicker disabledDate interaction is not easy to use when type is month [#520](https://github.com/DouyinFE/semi-design/issues/520)
+
 #### 🎉 2.24.0 (2022-11-25)
 - 【Fix】
     - Fix the page scrolling problem caused by opening the option panel when searchAutoFocus is true and searchPosition is in dropdown in TreeSelect  [#1306 ](https://github.com/DouyinFE/semi-design/issues/1306)
