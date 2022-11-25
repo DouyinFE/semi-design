@@ -15,6 +15,11 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 
 ---
+
+#### 🎉 2.24.1 (2022-11-25)
+- 【Fix】
+    - 修复 DatePicker 月份选择 disabledDate 交互问题  [#520](https://github.com/DouyinFE/semi-design/issues/520)
+
 #### 🎉 2.24.0 (2022-11-25)
 - 【Fix】
     - 修复 TreeSelect 中当 searchAutoFocus 为 true ，并且 searchPosition 在 dropdown 中，打开选项面板导致页面滚动问题  [#1306 ](https://github.com/DouyinFE/semi-design/issues/1306)
