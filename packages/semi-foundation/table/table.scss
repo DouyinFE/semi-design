@@ -550,6 +550,8 @@ $module: #{$prefix}-table;
 }
 
 .#{$module}-expand-icon {
+    float: left;
+    margin-top: (20px - $font-size-regular) / 2;
     color: $color-table_expanded_icon-default;
     cursor: pointer;
     display: inline-flex;
