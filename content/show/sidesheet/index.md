@@ -118,7 +118,7 @@ import { SideSheet, RadioGroup, Radio, Button } from '@douyinfe/semi-ui';
 在 `0.29.0` 版本之后，当 `mask={false}`时允许对外部区域进行操作。
 
 <Notice title='注意'>
-当 SideSheet 是默认渲染在 body 中时（即不传入 getPopupContainer 参数），会在打开时自动给 body 添加 `overflow: hidden` 来禁止滚动，可以配合 `disableScroll={false}` 允许滚动。
+当 SideSheet 是默认渲染在 body 中时（即不传入 getPopupContainer 参数），会在打开时自动给 body 添加 overflow: hidden 来禁止滚动。如果你希望外部区域依然可滚动，可以将 disableScroll 设为false
 </Notice>
 
 ```jsx live=true
@@ -131,10 +131,14 @@ import { SideSheet, TextArea, Button } from '@douyinfe/semi-ui';
     return (
         <>
             <Button onClick={() => setVisible(true)}>Open SideSheet</Button>
-            <br />
-            <br />
-            <TextArea placeholder="Please enter something" onChange={value => setValue(value)} />
-            <SideSheet title="可操作外部的侧边栏" visible={visible} onCancel={() => setVisible(false)} mask={false}>
+            <TextArea placeholder="Please enter something" onChange={value => setValue(value)} style={{ marginTop: 12 }}/>
+            <SideSheet
+                title="可操作外部的侧边栏"
+                visible={visible}
+                onCancel={() => setVisible(false)}
+                mask={false}
+                disableScroll={false}
+            >
                 <p>这里是输入的内容：</p>
                 <p>{value}</p>
             </SideSheet>
