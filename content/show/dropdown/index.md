@@ -228,7 +228,7 @@ function Demo() {
 
 ### 触发方式
 
-默认是移入触发，可通过获取焦点，点击或自定义事件触发菜单展开。
+默认是移入触发，可通过获取焦点(focus)，点击(click)或自定义事件触发菜单展开。
 
 ```jsx live=true
 import React from 'react';
@@ -263,7 +263,14 @@ function Demo() {
                     </Dropdown.Menu>
                 }
             >
-                <Input style={{ width: 120 }} placeholder="点击此处" />
+                <div style={{
+                    border: '1px solid var(--semi-color-border)',
+                    borderRadius: 4,
+                    height: 36,
+                    width: 220
+                }}>
+                    Please use Tab to focus this div
+                </div>
             </Dropdown>
             <br />
             <br />
