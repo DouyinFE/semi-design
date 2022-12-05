@@ -16,6 +16,10 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.24.3 (2022-12-05)
+- 【Chore】
+    - Improve type define of Form HOC : `withFormState`、`withFormApi`  [#1323](https://github.com/DouyinFE/semi-design/pull/1323)
+    - Improve TS type define of Nav, add optional for callback params
 #### 🎉 2.24.1 (2022-11-25)
 - 【Fix】
     - Fix DatePicker disabledDate interaction is not easy to use when type is month [#520](https://github.com/DouyinFE/semi-design/issues/520)
