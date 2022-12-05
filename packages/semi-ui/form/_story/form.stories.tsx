@@ -1,10 +1,12 @@
 import React, { FunctionComponent } from 'react';
 import { storiesOf } from '@storybook/react';
-import { Form, useFormState, useFormApi, withField, Input, Button, Upload } from '../../index';
+import { Form, useFormState, useFormApi, withField, Input, Button, Upload, withFormApi, withFormState } from '../../index';
 import { values } from 'lodash';
 const stories = storiesOf('Form', module);
+import { FormApiContext } from '../context';
 
-import { FormApi, FormFCChild } from '../interface';
+
+import type { FormApi, FormFCChild, FormState } from '../interface';
 
 const treeData = [
     {
@@ -187,13 +189,45 @@ class Demo extends React.Component<IProps, IState> {
 stories.add('Form render', () => <Form render={({values, formApi, formState}) => <div></div>}></Form>);
 
 
+
+interface CodeProps {
+    type?: 'email' | 'phone';
+    test?: 'a' | 'b' | 'c';
+    onSend?: () => Promise<void>
+}
+
+class CodeC extends React.Component<CodeProps & { formState?: FormState, formApi?: FormApi }, IState> {
+    state: IState = {
+        visible: false,
+    };
+    render() {
+        const { formState } = this.props;
+
+        return <div>
+            t
+        </div>;
+    }
+}
+
+
+const t = () => (<CodeC type='email'></CodeC>);
+const DoubleWrap = withFormState(withFormApi(CodeC));
+const OneWrap = withFormApi(CodeC);
+
+
 stories.add('Form children', () => <Form>
     {({ formState, formApi, values }) => (
         <>
         <Form.Input field='fe'>
         </Form.Input>
+        
+        <DoubleWrap type='email' test='c'></DoubleWrap>
+        <OneWrap type='email'></OneWrap>
+        <CodeC type='email'></CodeC>
+        
         <Form.DatePicker field='role'/>
         </>
         )
     }
 </Form>);
+
