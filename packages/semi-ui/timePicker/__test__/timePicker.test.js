@@ -219,6 +219,8 @@ describe(`TimePicker`, () => {
                 defaultValue={defaultValue}
                 scrollItemProps={{ cycled: false, mode: 'normal' }}
                 defaultOpen
+                panelHeader={['start header', 'end header']}
+                panelFooter={['start footer', 'end footer']}
             />
         );
 
@@ -226,6 +228,38 @@ describe(`TimePicker`, () => {
 
         const all = elem.find(`.${BASE_CLASS_PREFIX}-scrolllist`);
         expect(all.length).toBe(2);
+        
+        // pannel
+        const startItem = all.at(0);
+        const endItem = all.at(1);
+        // start header
+        expect(
+            startItem
+                .find(`.${BASE_CLASS_PREFIX}-scrolllist-header`)
+                .getDOMNode()
+                .textContent
+        ).toEqual('start header');
+        // start footer
+        expect(
+            startItem
+                .find(`.${BASE_CLASS_PREFIX}-scrolllist-footer`)
+                .getDOMNode()
+                .textContent
+        ).toEqual('start footer');
+        // end header
+        expect(
+            endItem
+                .find(`.${BASE_CLASS_PREFIX}-scrolllist-header`)
+                .getDOMNode()
+                .textContent
+        ).toEqual('end header');
+        // end footer
+        expect(
+            endItem
+                .find(`.${BASE_CLASS_PREFIX}-scrolllist-footer`)
+                .getDOMNode()
+                .textContent
+        ).toEqual('end footer');
 
         // click hour list to change hour to 11
         const newHour = 9;

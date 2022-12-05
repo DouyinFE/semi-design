@@ -109,7 +109,25 @@ function Demo() {
         console.log(open);
     };
 
-    return <TimePicker open={open} onOpenChange={onOpenChange} panelHeader={'Time Select'} panelFooter={<Button onClick={closePanel}>close</Button>}/>;
+    return (
+        <div>
+            <TimePicker
+                open={open}
+                onOpenChange={onOpenChange}
+                panelHeader={'Time Select'}
+                panelFooter={<Button onClick={closePanel}>close</Button>}
+            />
+            <br/><br/>
+            <TimePicker
+                type='timeRange'
+                panelHeader={['start header', 'end header']}
+                panelFooter={[
+                    <Button key="1" onClick={() => {console.log('start footer');}}>start footer</Button>, 
+                    <Button key="2" onClick={() => {console.log('end footer');}}>end footer</Button>
+                ]}
+            />
+        </div>
+    );
 }
 ```
 
@@ -292,8 +310,8 @@ function Demo(props = {}) {
 | minuteStep          | 分钟选项间隔                                           | number                                                                            | 1                                                                 |                    |
 | motion | 是否展示弹出层动画 | boolean | true |  |
 | open                | 面板是否打开的受控属性                                 | boolean                                                                           |                                                                   |                    |
-| panelFooter         | 面板底部 addon                                         | ReactNode\|string                                                                 | 无                                                                |                    |
-| panelHeader         | 面板头部 addon                                         | ReactNode\|string                                                                 | 无                                                                |                    |
+| panelFooter         | 面板底部 addon                                         | ReactNode\|ReactNode[]\|string                                                                 | 无                                                                |                    |
+| panelHeader         | 面板头部 addon                                         | ReactNode\|ReactNode[]\|string                                                                 | 无                                                                |                    |
 | placeholder         | 没有值的时候显示的内容                                 | string                                                                            | "请选择时间"                                                      |                    |
 | popupClassName      | 弹出层类名                                             | string                                                                            | ''                                                                |                    |
 | popupStyle          | 弹出层样式对象                                         | object                                                                            | -                                                                 |                    |
