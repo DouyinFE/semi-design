@@ -52,6 +52,7 @@ export interface PreviewProps extends BaseProps {
     disableDownload?: boolean;
     zIndex?: number;
     children?: ReactNode;
+    crossOrigin?: "anonymous"| "use-credentials";
     renderHeader?: (info: any) => ReactNode;
     renderPreviewMenu?: (props: MenuProps) => ReactNode;
     getPopupContainer?: () => HTMLElement;
@@ -156,6 +157,7 @@ export interface PreviewImageProps {
     ratio?: RatioType;
     disableDownload?: boolean;
     clickZoom?: number;
+    crossOrigin?: "anonymous"| "use-credentials";
     setRatio?: (type: RatioType) => void;
     onZoom?: (zoom: number) => void;
     onLoad?: (src: string) => void;

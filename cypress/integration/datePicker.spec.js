@@ -208,8 +208,8 @@ describe('DatePicker', () => {
         cy.get('.semi-popover .semi-datepicker-month-grid-left').contains('15').click({ force: true });
         // 查看输入框联动
         cy.get('[data-cy=dateTimeRange]').click({ force: true });
-        cy.get('[data-cy=dateTimeRange] .semi-input').eq(0).should("have.value", "2021-12-05 00:00:00");
-        cy.get('[data-cy=dateTimeRange] .semi-input').eq(1).should("have.value", "2021-12-15 00:00:00");
+        cy.get('[data-cy=dateTimeRange] .semi-input').eq(0).should("have.value", "2021-12-15 00:00:00");
+        cy.get('[data-cy=dateTimeRange] .semi-input').eq(1).should("have.value", "2022-01-20 00:00:00");
     });
 
     it('insetInput + dateTimeRange + check click range start ', () => {
@@ -583,5 +583,25 @@ describe('DatePicker', () => {
         cy.get('.semi-datepicker-month-grid-left .semi-datepicker-day.semi-datepicker-day-disabled').should('have.length', 7);
         cy.get('.semi-datepicker-month-grid-left .semi-datepicker-day.semi-datepicker-day-disabled').eq(0).contains('17');
         cy.get('.semi-datepicker-month-grid-left .semi-datepicker-day.semi-datepicker-day-disabled').eq(6).contains('23');
+    });
+
+    it('auto scroll to no disabled month', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--fix-disabled-month&viewMode=story');
+        cy.get('.semi-input').eq(0).click();
+        cy.wait(100);
+
+        cy.get('.semi-scrolllist-body .semi-scrolllist-item:nth-child(2) li').contains('10').click({ force: true });
+        cy.get('.semi-scrolllist-body .semi-scrolllist-item:nth-child(1) li').contains('2021').click({ force: true });
+        cy.wait(100);
+        cy.get('.semi-scrolllist-body .semi-scrolllist-item:nth-child(1) .semi-scrolllist-item-sel').should('contain.text', '2021年');
+        cy.get('.semi-scrolllist-body .semi-scrolllist-item:nth-child(2) .semi-scrolllist-item-sel').should('contain.text', '11月');
+        cy.get('.semi-input').eq(0).should('have.value', '2021-11');
+        
+        cy.get('.semi-scrolllist-body .semi-scrolllist-item:nth-child(2) li').contains('12').click({ force: true });
+        cy.get('.semi-scrolllist-body .semi-scrolllist-item:nth-child(1) li').contains('2022').click({ force: true });
+        cy.wait(100);
+        cy.get('.semi-scrolllist-body .semi-scrolllist-item:nth-child(1) .semi-scrolllist-item-sel').should('contain.text', '2022年');
+        cy.get('.semi-scrolllist-body .semi-scrolllist-item:nth-child(2) .semi-scrolllist-item-sel').should('contain.text', '1月');
+        cy.get('.semi-input').eq(0).should('have.value', '2022-01');
     });
 });

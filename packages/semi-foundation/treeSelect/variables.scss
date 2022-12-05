@@ -87,6 +87,6 @@ $font-treeSelect_insertLabel-fontWeight: 600; // 带搜索的树前缀标签文�
 $width-treeSelect_arrow: 32px; // 树选择器展开箭头宽度
 $width-treeSelect_option:  230px; // 树选择器菜单项宽度
 $height-treeSelect_popover: 300px; // 树选择器菜单高度
-$height-treeSelect_selection_tagInput_input_small: 22px; // 树选择器多选标签高度 - 小尺寸
-$height-treeSelect_selection_tagInput_input_default: 30px; // 树选择器多选标签高度 - 默认尺寸
-$height-treeSelect_selection_tagInput_input_large: 38px; // 树选择器多选标签高度 - 大尺寸
+$height-treeSelect_selection_tagInput_wrapper_small: 22px; // 树选择器多选搜索，搜索框在选择框时选择框最小高度 - 小尺寸
+$height-treeSelect_selection_tagInput_wrapper_default: 30px; // 树选择器多选搜索，搜索框在选择框时选择框最小高度 - 默认尺寸
+$height-treeSelect_selection_tagInput_wrapper_large: 38px; // 树选择器多选搜索，搜索框在选择框时选择框最小高度 - 大尺寸

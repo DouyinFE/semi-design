@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 64
+order: 65
 category: Show
 title: Tooltip
 subTitle: Tooltip
@@ -19,57 +19,200 @@ import { Tooltip } from '@douyinfe/semi-ui';
 
 ### Cautions
 
-In order to calculate the positioning, ToolTip needs to obtain the real DOM elements of the children, so the ToolTip type currently supports the following two types of children
+Tooltip needs to apply DOM event listeners to children. If the child element is a custom component, you need to ensure that it can pass properties to the underlying DOM element 
 
-1. The Jsx type of the real dom node, such as span, div, p...
-2. Use the FunctionComponent wrapped by forwardRef to pass props and ref to the real dom node
+At the same time, in order to calculate the positioning of the popup layer, it is necessary to obtain the real DOM elements of the children, so Tooltip supports the following types of children 
 
-```jsx live=true hideInDSM
+1. Class Component, it is not mandatory to bind ref, but you need to ensure that props can be transparently transmitted to the real DOM node 
+2. Use the functional component wrapped by forwardRef to transparently transmit props and ref to the real DOM node in children 
+3. Real DOM nodes, such as span, div, p...  
+
+```jsx live=true noInline=true dir="column"
 import React, { forwardRef } from 'react';
-import { Tooltip } from '@douyinfe/semi-ui';
+import { Tooltip, Space } from '@douyinfe/semi-ui';
+
+const style={ border: '2px solid var(--semi-color-border)', paddingLeft: 4, paddingRight: 4, borderRadius: 4 };
+
+// Spread the props to the underlying DOM element. binding ref
+const FCChildren = forwardRef((props, ref) => {
+    return (<span {...props} ref={ref} style={style}>Functional Component</span>);
+});
+
+// Spread the props to the underlying DOM element.
+class MyComponent extends React.Component {
+    render() {
+        return (<span {...this.props} style={style}>ClassComponent</span>);
+    }
+};
 
 function Demo() {
-    const Test = forwardRef((props, ref) => (
-        <span {...props} ref={ref}>
-            Test
-        </span>
-    ));
     return (
-        <Tooltip content={'hi bytedance'}>
-            <Test />
-        </Tooltip>
+        <Space>
+            <Tooltip content={'semi design'}>
+                <FCChildren />
+            </Tooltip>
+            <Tooltip content={'semi design'}>
+                <MyComponent />
+            </Tooltip>
+            <Tooltip content={'semi design'}>
+                <span style={style}>DOM</span>
+            </Tooltip>
+        </Space>
     );
 }
+render(Demo);
+
 ```
 
-### Basic Usage
+### Position
 
-You can use Tooltip to wrap any support `onClick`/`onMouseEnter`/`onMouseLeave` The components.
+The direction and alignment position of the popup layer can be configured through `position`. For detailed optional values of position, please refer to the API document below 
 
-Of course, the components of the package may be bound to their own. `onClick`/`onMouseEnter`/`onMouseLeave` Wait for the event, in which case you need to choose the right Trigger time for Tooltip.
+When configured as `topLeft`, it pops up, and the popup layer is left-aligned with the children (when arrowPointAtCenter=false) . 
+When configured as `topRight`, it pops up, and the popup layer is right-aligned with the children (when arrowPointAtCenter=false) . 
+Same for other directions
 
-For example:
-
--   The component has been bound to the `onClick` event, so Tooltip's `trigger`parameter value is best passed to `hover`.
--   The component has been bound to the `onMouseEnter`/`onMouseLeave` event, and the `trigger` parameter value of Tooltip is best transmitted to `click`.
-
-```jsx live=true hideInDSM
+```jsx live=true dir="column"
 import React from 'react';
 import { Tooltip, Tag } from '@douyinfe/semi-ui';
 
 function Demo() {
+    const tops = [
+        ['topLeft', 'TL'],
+        ['top', 'Top'],
+        ['topRight', 'TR'],
+    ];
+    const lefts = [
+        ['leftTop', 'LT'],
+        ['left', 'Left'],
+        ['leftBottom', 'LB'],
+    ];
+    const rights = [
+        ['rightTop', 'RT'],
+        ['right', 'Right'],
+        ['rightBottom', 'RB'],
+    ];
+    const bottoms = [
+        ['bottomLeft', 'BL'],
+        ['bottom', 'Bottom'],
+        ['bottomRight', 'BR'],
+    ];
+
     return (
-        <Tooltip content={'hi bytedance'}>
-            <Tag>Hover here</Tag>
-        </Tooltip>
+        <div>
+            <div style={{ marginLeft: 80, whiteSpace: 'nowrap' }}>
+                {tops.map((pos, index) => (
+                    <Tooltip
+                        content={
+                            <article>
+                                <p>hi bytedance</p>
+                                <p>hi bytedance</p>
+                            </article>
+                        }
+                        arrowPointAtCenter={false}
+                        position={Array.isArray(pos) ? pos[0] : pos}
+                        key={index}
+                    >
+                        <Tag style={{ margin: 8, padding: 20 }}>{Array.isArray(pos) ? pos[1] : pos}</Tag>
+                    </Tooltip>
+                ))}
+            </div>
+            <div style={{ width: 80, float: 'left' }}>
+                {lefts.map((pos, index) => (
+                    <Tooltip
+                        content={
+                            <article>
+                                <p>hi bytedance</p>
+                                <p>hi bytedance</p>
+                            </article>
+                        }
+                        arrowPointAtCenter={false}
+                        position={Array.isArray(pos) ? pos[0] : pos}
+                        key={index}
+                    >
+                        <Tag style={{ margin: 8, padding: 20, width: 60 }}>{Array.isArray(pos) ? pos[1] : pos}</Tag>
+                    </Tooltip>
+                ))}
+            </div>
+            <div style={{ width: 40, marginLeft: 300 }}>
+                {rights.map((pos, index) => (
+                    <Tooltip
+                        content={
+                            <article>
+                                <p>hi bytedance</p>
+                                <p>hi bytedance</p>
+                            </article>
+                        }
+                        arrowPointAtCenter={false}
+                        position={Array.isArray(pos) ? pos[0] : pos}
+                        key={index}
+                    >
+                        <Tag style={{ margin: 8, padding: 20, width: 60 }}>{Array.isArray(pos) ? pos[1] : pos}</Tag>
+                    </Tooltip>
+                ))}
+            </div>
+            <div style={{ marginLeft: 80, clear: 'both', whiteSpace: 'nowrap' }}>
+                {bottoms.map((pos, index) => (
+                    <Tooltip
+                        content={
+                            <article>
+                                <p>hi bytedance</p>
+                                <p>hi bytedance</p>
+                            </article>
+                        }
+                        arrowPointAtCenter={false}
+                        position={Array.isArray(pos) ? pos[0] : pos}
+                        key={index}
+                    >
+                        <Tag style={{ margin: 8, padding: 20, width: 60 }}>{Array.isArray(pos) ? pos[1] : pos}</Tag>
+                    </Tooltip>
+                ))}
+            </div>
+        </div>
     );
 }
 ```
 
+
+### Arrow Point at Center
+
+By default `arrowPointAtCenter=true`, the small triangle always points to the center of the children element.  
+You can set it to false and the little triangle will no longer keep pointing to the center of the element. The popover is aligned to the edges of the children 
+
+```jsx live=true
+import React from 'react';
+import { Tooltip, Button } from '@douyinfe/semi-ui';
+
+function Demo() {
+    return (
+        <>
+            <div>
+                <Tooltip
+                    position='topLeft'
+                    content='semi design tooltip'>
+                    <Button type='secondary' style={{ marginRight: 8 }}>Arrow Point at Center</Button>
+                </Tooltip>
+            </div>
+
+            <div style={{ marginTop: 20 }}>
+                <Tooltip
+                    content='semi design tooltip'
+                    arrowPointAtCenter={false}
+                    position='topLeft'
+                >
+                    <Button type='secondary' style={{ marginRight: 8, width: 120 }}>Edge align</Button>
+                </Tooltip>
+            </div>
+        </>
+    );
+};
+
+```
+
 ### Trigger Timing
 
--   Configure the timing of the trigger display, the default is `hover`, optional `hover` / `focus` / `click` / `custom`
--   When set to `custom`, it needs to be used in conjunction with the `visible`attribute, at which point the display is completely controlled
+-   Configure the timing of the trigger display, the default is `hover`, optional `hover` / `focus` / `click` / `custom` . 
+-   When set to `custom`, it needs to be used in conjunction with the `visible`attribute, at which point the display is completely controlled 
 
 ```jsx live=true hideInDSM
 import React, { useState } from 'react';
@@ -137,107 +280,6 @@ import { Tooltip, Tag } from '@douyinfe/semi-ui';
 };
 ```
 
-### Position
-
-Support pop-up layers are displayed in different directions in 12 directions
-
-```jsx live=true hideInDSM
-import React from 'react';
-import { Tooltip, Tag } from '@douyinfe/semi-ui';
-
-function Demo() {
-    const tops = [
-        ['topLeft', 'TL'],
-        ['top', 'Top'],
-        ['topRight', 'TR'],
-    ];
-    const lefts = [
-        ['leftTop', 'LT'],
-        ['left', 'Left'],
-        ['leftBottom', 'LB'],
-    ];
-    const rights = [
-        ['rightTop', 'RT'],
-        ['right', 'Right'],
-        ['rightBottom', 'RB'],
-    ];
-    const bottoms = [
-        ['bottomLeft', 'BL'],
-        ['bottom', 'Bottom'],
-        ['bottomRight', 'BR'],
-    ];
-
-    return (
-        <div style={{ paddingLeft: 40 }}>
-            <div style={{ marginLeft: 40, whiteSpace: 'nowrap' }}>
-                {tops.map((pos, index) => (
-                    <Tooltip
-                        content={
-                            <article>
-                                <p>hi bytedance</p>
-                                <p>hi bytedance</p>
-                            </article>
-                        }
-                        position={Array.isArray(pos) ? pos[0] : pos}
-                        key={index}
-                    >
-                        <Tag style={{ marginRight: '8px' }}>{Array.isArray(pos) ? pos[1] : pos}</Tag>
-                    </Tooltip>
-                ))}
-            </div>
-            <div style={{ width: 40, float: 'left' }}>
-                {lefts.map((pos, index) => (
-                    <Tooltip
-                        content={
-                            <article>
-                                <p>hi bytedance</p>
-                                <p>hi bytedance</p>
-                            </article>
-                        }
-                        position={Array.isArray(pos) ? pos[0] : pos}
-                        key={index}
-                    >
-                        <Tag style={{ marginBottom: '8px' }}>{Array.isArray(pos) ? pos[1] : pos}</Tag>
-                    </Tooltip>
-                ))}
-            </div>
-            <div style={{ width: 40, marginLeft: 180 }}>
-                {rights.map((pos, index) => (
-                    <Tooltip
-                        content={
-                            <article>
-                                <p>hi bytedance</p>
-                                <p>hi bytedance</p>
-                            </article>
-                        }
-                        position={Array.isArray(pos) ? pos[0] : pos}
-                        key={index}
-                    >
-                        <Tag style={{ marginBottom: '8px' }}>{Array.isArray(pos) ? pos[1] : pos}</Tag>
-                    </Tooltip>
-                ))}
-            </div>
-            <div style={{ marginLeft: 40, clear: 'both', whiteSpace: 'nowrap' }}>
-                {bottoms.map((pos, index) => (
-                    <Tooltip
-                        content={
-                            <article>
-                                <p>hi bytedance</p>
-                                <p>hi bytedance</p>
-                            </article>
-                        }
-                        position={Array.isArray(pos) ? pos[0] : pos}
-                        key={index}
-                    >
-                        <Tag style={{ marginRight: '8px' }}>{Array.isArray(pos) ? pos[1] : pos}</Tag>
-                    </Tooltip>
-                ))}
-            </div>
-        </div>
-    );
-}
-```
-
 ### Render to Specified DOM
 
 With `getPopupContainer` the bullet layer will be rendered to the DOM returned by the function.
@@ -264,117 +306,6 @@ function Demo() {
 }
 ```
 
-### Arrow Point at Center
-
-**Version:** >= 0.34.0
-
-Under the condition of **showArrow=true**, you can pass in `arrowPointAtCenter=true` so that the small triangle always points to the center of the element.
-
-```jsx live=true hideInDSM
-import React from 'react';
-import { Tooltip, Tag } from '@douyinfe/semi-ui';
-
-function Demo() {
-    const tops = [
-        ['topLeft', 'TL'],
-        ['top', 'Top'],
-        ['topRight', 'TR'],
-    ];
-    const lefts = [
-        ['leftTop', 'LT'],
-        ['left', 'Left'],
-        ['leftBottom', 'LB'],
-    ];
-    const rights = [
-        ['rightTop', 'RT'],
-        ['right', 'Right'],
-        ['rightBottom', 'RB'],
-    ];
-    const bottoms = [
-        ['bottomLeft', 'BL'],
-        ['bottom', 'Bottom'],
-        ['bottomRight', 'BR'],
-    ];
-
-    return (
-        <div style={{ paddingLeft: 40 }}>
-            <div style={{ marginLeft: 40, whiteSpace: 'nowrap' }}>
-                {tops.map((pos, index) => (
-                    <Tooltip
-                        showArrow
-                        arrowPointAtCenter
-                        content={
-                            <article>
-                                Hi ByteDancer, this is a tooltip.
-                                <br /> We have 2 lines.
-                            </article>
-                        }
-                        position={Array.isArray(pos) ? pos[0] : pos}
-                        key={index}
-                    >
-                        <Tag style={{ marginRight: '8px' }}>{Array.isArray(pos) ? pos[1] : pos}</Tag>
-                    </Tooltip>
-                ))}
-            </div>
-            <div style={{ width: 40, float: 'left' }}>
-                {lefts.map((pos, index) => (
-                    <Tooltip
-                        showArrow
-                        arrowPointAtCenter
-                        content={
-                            <article>
-                                Hi ByteDancer, this is a tooltip.
-                                <br /> We have 2 lines.
-                            </article>
-                        }
-                        position={Array.isArray(pos) ? pos[0] : pos}
-                        key={index}
-                    >
-                        <Tag style={{ marginBottom: '8px' }}>{Array.isArray(pos) ? pos[1] : pos}</Tag>
-                    </Tooltip>
-                ))}
-            </div>
-            <div style={{ width: 40, marginLeft: 180 }}>
-                {rights.map((pos, index) => (
-                    <Tooltip
-                        showArrow
-                        arrowPointAtCenter
-                        content={
-                            <article>
-                                Hi ByteDancer, this is a tooltip.
-                                <br /> We have 2 lines.
-                            </article>
-                        }
-                        position={Array.isArray(pos) ? pos[0] : pos}
-                        key={index}
-                    >
-                        <Tag style={{ marginBottom: '8px' }}>{Array.isArray(pos) ? pos[1] : pos}</Tag>
-                    </Tooltip>
-                ))}
-            </div>
-            <div style={{ marginLeft: 40, clear: 'both', whiteSpace: 'nowrap' }}>
-                {bottoms.map((pos, index) => (
-                    <Tooltip
-                        showArrow
-                        arrowPointAtCenter
-                        content={
-                            <article>
-                                Hi ByteDancer, this is a tooltip.
-                                <br /> We have 2 lines.
-                            </article>
-                        }
-                        position={Array.isArray(pos) ? pos[0] : pos}
-                        key={index}
-                    >
-                        <Tag style={{ marginRight: '8px' }}>{Array.isArray(pos) ? pos[1] : pos}</Tag>
-                    </Tooltip>
-                ))}
-            </div>
-        </div>
-    );
-}
-```
-
 ### Use with Popver or Popconfirm
 
 Tooltip, Popconfirm, and Popover all need to hijack related events of children (onMouseEnter / onMouseLeave / onClick ....) to configure `trigger`. If used directly, it will invalidate the outer trigger.  
@@ -385,7 +316,7 @@ import React from 'react';
 import { Popconfirm, Tooltip, Button } from '@douyinfe/semi-ui';
 
 () => (
-    <Popconfirm content="Confirm Delete">
+    <Popconfirm content="Are you sure to delete this comment" title='Confirm Delete'>
         <span style={{ display: 'inline-block' }}>
             <Tooltip content={'Delete Comment'}>
                 <Button type="danger">Delete</Button>
@@ -425,7 +356,7 @@ import { Popconfirm, Tooltip, Button } from '@douyinfe/semi-ui';
 | visible | Whether to show the pop-up layer | boolean |  |  |
 | wrapperClassName | When children are disabled or children are multiple elements, the outer layer will wrap a layer of span elements, and the api is used to set the style class name of this span | string |  | 1.32.0 |
 | wrapperId | The id of the wrapper node of the popup layer. The aria attribute of the trigger points to this id. | string |  | 2.11.0  |
-| zIndex              | Bullet levels.                                                                                                                                                                                                                               | number                      | 1060                |            |
+| zIndex              | Bullet levels.           | number                      | 1060                |            |
 | onVisibleChange     | A callback triggered when the pop-up layer is displayed/hidden                                                                                                                                                                               | (isVisible: boolean) => void |                     |            |
 | onClickOutSide      | Callback when the pop-up layer is in the display state and the non-Children, non-floating layer inner area is clicked (only valid when trigger is custom, click)                                                                             | (e:event) => void           |                     | **2.1.0** |
 

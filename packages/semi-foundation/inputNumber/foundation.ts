@@ -343,7 +343,8 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
 
     _preventDefault(event: any) {
         const keepFocus = this._adapter.getProp('keepFocus');
-        if (keepFocus) {
+        const innerButtons = this._adapter.getProp('innerButtons');
+        if (keepFocus || innerButtons) {
             event.preventDefault();
         }
     }

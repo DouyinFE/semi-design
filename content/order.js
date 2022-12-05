@@ -52,6 +52,7 @@ const order = [
     'descriptions',
     'dropdown',
     'empty',
+    'highlight',
     'image',
     'list',
     'modal',

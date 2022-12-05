@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 61
+order: 62
 category: Show
 title: Table
 subTitle: Table
@@ -4804,22 +4804,24 @@ type Filter = {
 
 ## scroll
 
-| Parameters | Instructions | Type | Default | Version |
-| --- | --- | --- | --- | --- |
-| scrollToFirstRowOnChange | Whether to automatically scroll to the top of the table after paging, sorting, and filtering changes | boolean | false | 1.1.0 |
-| x | Set the width of the horizontal scroll area, which can be pixel value, percentage, or 'max-content' | string\|number |  |  |
-| y | Set the height of the vertical scroll area, which can be a pixel value | number |  |  |
+| Parameters               | Instructions                                                                                         | Type           | Default | Version |
+|--------------------------|------------------------------------------------------------------------------------------------------|----------------|---------|---------|
+| scrollToFirstRowOnChange | Whether to automatically scroll to the top of the table after paging, sorting, and filtering changes | boolean        | false   | 1.1.0   |
+| x                        | Set the width of the horizontal scroll area, which can be pixel value, percentage, or 'max-content'  | string\|number |         |         |
+| y                        | Set the height of the vertical scroll area, which can be a pixel value                               | number         |         |         |
 
 ## pagination
 
 Page-turning component configuration. Pagination suggests not to use literal value.
 
-| Parameters | Instructions | Type | Default | Version |
-| --- | --- | --- | --- | --- |
-| currentPage | Current page number | number | - |  |
-| defaultCurrentPage | Default current page number | number | 1 | **>=1.1.0** |
-| formatPageText | Page-turning area copywriting custom formatting, pass false to close copywriting display; This item affects the copy display on the left of the page turning area of the form. It is different from the `showTotal` parameter of the`Pagination` component. | boolean\| ({ currentStart: number, currentEnd: number, total: number }) => string\|ReactNode | true | **0.27.0** |
-| pageSize | Number of entries per page | number | 10 |  |
+Note: After pagination.onChange is set, Table onChange no longer responds to pagination changes.
+
+| Parameters         | Instructions                                                                                                                                                                                                                                                | Type                                                                                         | Default | Version     |
+|--------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------|---------|-------------|
+| currentPage        | Current page number                                                                                                                                                                                                                                         | number                                                                                       | -       |             |
+| defaultCurrentPage | Default current page number                                                                                                                                                                                                                                 | number                                                                                       | 1       | **>=1.1.0** |
+| formatPageText     | Page-turning area copywriting custom formatting, pass false to close copywriting display; This item affects the copy display on the left of the page turning area of the form. It is different from the `showTotal` parameter of the`Pagination` component. | boolean\| ({ currentStart: number, currentEnd: number, total: number }) => string\|ReactNode | true    | **0.27.0**  |
+| pageSize           | Number of entries per page                                                                                                                                                                                                                                  | number                                                                                       | 10      |             |
 | position | Location | 'bottom '\|'top '\|'both' | 'bottom' |
 | total | Total number of entries | number | 0 | **>=0.25.0** |
 
@@ -4829,11 +4831,11 @@ For other configurations, see [Pagination](/en-US/navigation/pagination#API-Refe
 
 The parameters of the resizable object type, which mainly include event methods when the table column is scaled. These event methods can return an object that merges with the final column.
 
-| Parameters | Instructions | Type | Default |
-| --- | --- | --- | --- |
-| onResize | Triggers when the table column changes its width | (column: [Column](#Column)) => [Column](#Column) |  |
-| onResizeStart | Triggers when the table column starts to change the width. | (column: [Column](#Column)) => [Column](#Column) |  |
-| onResizeStop | Triggers when the table column stops changing the width | (column: [Column](#Column)) => [Column](#Column) |  |
+| Parameters    | Instructions                                               | Type                                             | Default |
+|---------------|------------------------------------------------------------|--------------------------------------------------|---------|
+| onResize      | Triggers when the table column changes its width           | (column: [Column](#Column)) => [Column](#Column) |         |
+| onResizeStart | Triggers when the table column starts to change the width. | (column: [Column](#Column)) => [Column](#Column) |         |
+| onResizeStop  | Triggers when the table column stops changing the width    | (column: [Column](#Column)) => [Column](#Column) |         |
 
 ## Methods
 
@@ -4868,9 +4870,9 @@ function Demo() {
 }
 ```
 
-| Parameters | Instructions | Version |
-| --- | --- | --- |
-| getCurrentPageData() | Returns the data object of the current page: { dataSource: RecordType[], groups: Map<{groupKey: string, recordKeys: Set<string\>}> } | 0.37.0 |
+| Parameters           | Instructions                                                                                                                         | Version |
+|----------------------|--------------------------------------------------------------------------------------------------------------------------------------|---------|
+| getCurrentPageData() | Returns the data object of the current page: { dataSource: RecordType[], groups: Map<{groupKey: string, recordKeys: Set<string\>}> } | 0.37.0  |
 
 ## Accessibility
 
