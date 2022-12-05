@@ -16,6 +16,11 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 ---
 
+#### 🎉 2.24.3 (2022-12-05)
+- 【Chore】
+    - 优化 Form HOC：`withFormState`、`withFormApi`的类型定义  [#1323](https://github.com/DouyinFE/semi-design/pull/1323)
+    - 优化 Nav 的类型定义，callback类 props 入参增加可选类型
+
 #### 🎉 2.24.1 (2022-11-25)
 - 【Fix】
     - 修复 DatePicker 月份选择 disabledDate 交互问题  [#520](https://github.com/DouyinFE/semi-design/issues/520)
@@ -24,7 +29,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 - 【Fix】
     - 修复 TreeSelect 中当 searchAutoFocus 为 true ，并且 searchPosition 在 dropdown 中，打开选项面板导致页面滚动问题  [#1306 ](https://github.com/DouyinFE/semi-design/issues/1306)
     - 修复 Tabs 折叠滚动情况下，因为 scrollIntoView 参数带来的过多页面滚动干扰
-    - 修复Input 派生的其他 Input 类组件（如 InputNumber）点击前/后缀不会正常聚焦 Input  [#1237 ](https://github.com/DouyinFE/semi-design/issues/1237)
+    - 修复 Input 派生的其他 Input 类组件（如 InputNumber）点击前/后缀不会正常聚焦 Input  [#1237 ](https://github.com/DouyinFE/semi-design/issues/1237)
     - 修复 InputNumber 设置 innerButtons 为 true 时聚焦样式问题  [#1144 ](https://github.com/DouyinFE/semi-design/issues/1144)
 
 #### 🎉 2.23.7 (2022-11-23)
