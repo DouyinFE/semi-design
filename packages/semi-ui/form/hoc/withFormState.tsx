@@ -7,15 +7,15 @@ function withFormState<
     T extends React.ComponentProps<C> & React.RefAttributes<any>,
     R extends React.ComponentType<T>
 >(Component: C) {
-    let WithStateC = (props: any, ref: React.MutableRefObject<any> | ((instance: any) => void)) => {
+    let WithStateCom = (props: any, ref: React.MutableRefObject<any> | ((instance: any) => void)) => {
         return (
             <FormStateContext.Consumer>
                 {(formState: FormState) => <Component formState={formState} ref={ref} {...props} />}
             </FormStateContext.Consumer>
         );
     };
-    WithStateC = forwardRef(WithStateC);
-    return WithStateC as R;
+    WithStateCom = forwardRef(WithStateCom);
+    return WithStateCom as R;
 }
 
 export default withFormState;
