@@ -845,6 +845,7 @@ function Demo() {
 | disabledTimePicker | 是否禁止时间选择 | boolean |  | **0.32.0** |
 | dropdownClassName | 下拉列表的 CSS 类名 | string |  | **1.13.0** |
 | dropdownStyle | 下拉列表的内联样式 | object |  | **1.13.0** |
+| dropdownMargin | 下拉列表算溢出时的增加的冗余值，详见[issue#549](https://github.com/DouyinFE/semi-design/issues/549)，作用同 Tooltip margin      | object\|number  |  | **2.25.0**
 | endDateOffset | type 为 dateRange 时，设置单击选择范围的结束日期 | (selectedDate?: Date) => Date; | - | **1.10.0** |
 | format | 在输入框内展现的日期串格式 | string | 与 type 对应：详见[日期时间格式](#日期时间格式) |  |
 | getPopupContainer | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 `position: relative` | function():HTMLElement | () => document.body |  |
