@@ -19,7 +19,7 @@ import {
     isTreeTable
 } from '@douyinfe/semi-foundation/table/utils';
 import BodyFoundation, { BodyAdapter, FlattenData, GroupFlattenData } from '@douyinfe/semi-foundation/table/bodyFoundation';
-import { strings, numbers } from '@douyinfe/semi-foundation/table/constants';
+import { strings } from '@douyinfe/semi-foundation/table/constants';
 import Store from '@douyinfe/semi-foundation/utils/Store';
 
 import BaseComponent, { BaseProps } from '../../_base/baseComponent';
@@ -424,7 +424,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
 
         const listStyle = {
             width: '100%',
-            height: virtualizedData?.length ? y : numbers.DEFAULT_EMPTYSLOT_HEIGHT,
+            height: virtualizedData?.length ? y : null,
             overflowX: 'auto',
             overflowY: 'auto',
         } as const;
@@ -440,7 +440,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
                 ref={this.listRef}
                 className={wrapCls}
                 outerRef={this.forwardRef}
-                height={listStyle.height}
+                height={virtualizedData?.length ? y : 0}
                 width={listStyle.width}
                 itemData={virtualizedData}
                 itemSize={this.itemSize}

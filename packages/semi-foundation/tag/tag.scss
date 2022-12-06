@@ -63,6 +63,14 @@ $types: "ghost", "solid", "light";
         color: $color-tag_close-icon-default;
         padding-left: $spacing-tag_close-paddingLeft;
         cursor: pointer;
+
+        :hover {
+            color: $color-tag_close-icon-hover
+        }
+
+        :active {
+            color: $color-tag_close-icon-active
+        }
     }
 
     &-closable {

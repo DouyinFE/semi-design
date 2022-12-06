@@ -96,6 +96,7 @@ export type SelectProps = {
     autoFocus?: boolean;
     autoClearSearchValue?: boolean;
     arrowIcon?: React.ReactNode;
+    clearIcon?: React.ReactNode;
     defaultValue?: string | number | any[] | Record<string, any>;
     value?: string | number | any[] | Record<string, any>;
     placeholder?: React.ReactNode;
@@ -116,6 +117,7 @@ export type SelectProps = {
     onSearch?: (value: string) => void;
     dropdownClassName?: string;
     dropdownStyle?: React.CSSProperties;
+    dropdownMargin?: PopoverProps['margin'];
     outerTopSlot?: React.ReactNode;
     innerTopSlot?: React.ReactNode;
     outerBottomSlot?: React.ReactNode;
@@ -202,6 +204,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         autoFocus: PropTypes.bool,
         autoClearSearchValue: PropTypes.bool,
         children: PropTypes.node,
+        clearIcon: PropTypes.node,
         defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object]),
         value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object]),
         placeholder: PropTypes.node,
@@ -226,6 +229,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         getPopupContainer: PropTypes.func,
         dropdownClassName: PropTypes.string,
         dropdownStyle: PropTypes.object,
+        dropdownMargin: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
         outerTopSlot: PropTypes.node,
         innerTopSlot: PropTypes.node,
         inputProps: PropTypes.object,
@@ -1150,6 +1154,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             placeholder,
             triggerRender,
             arrowIcon,
+            clearIcon
         } = this.props;
 
         const { selections, isOpen, keyboardEventSet, inputValue, isHovering, isFocus, showInput, focusIndex } = this.state;
@@ -1183,6 +1188,9 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         ) : (
             <div className={`${prefixcls}-arrow-empty`} />
         );
+
+        const clear = clearIcon ? clearIcon : <IconClear />;
+
         const inner = useCustomTrigger ? (
             <Trigger
                 value={Array.from(selections.values())}
@@ -1207,7 +1215,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 </Fragment>,
                 <Fragment key="clearicon">
                     {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-                    {showClear ? ( <div className={cls(`${prefixcls}-clear`)} onClick={this.onClear}><IconClear /></div>) : arrowContent}
+                    {showClear ? (<div className={cls(`${prefixcls}-clear`)} onClick={this.onClear}>{clear}</div>) : arrowContent}
                 </Fragment>,
                 <Fragment key="suffix">{suffix ? this.renderSuffix() : null}</Fragment>,
             ]
@@ -1269,6 +1277,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             mouseEnterDelay,
             spacing,
             stopPropagation,
+            dropdownMargin,
         } = this.props;
         const { isOpen, optionKey } = this.state;
         const optionList = this.renderOptions(children);
@@ -1277,6 +1286,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             <Popover
                 getPopupContainer={getPopupContainer}
                 motion={motion}
+                margin={dropdownMargin}
                 autoAdjustOverflow={autoAdjustOverflow}
                 mouseLeaveDelay={mouseLeaveDelay}
                 mouseEnterDelay={mouseEnterDelay}

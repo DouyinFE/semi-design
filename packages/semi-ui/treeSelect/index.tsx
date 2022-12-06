@@ -111,10 +111,12 @@ export interface TreeSelectProps extends Omit<BasicTreeSelectProps, OverrideComm
     arrowIcon?: React.ReactNode;
     autoAdjustOverflow?: boolean;
     clickToHide?: boolean;
+    clearIcon?: React.ReactNode;
     defaultOpen?: boolean;
     dropdownClassName?: string;
     dropdownMatchSelectWidth?: boolean;
     dropdownStyle?: React.CSSProperties;
+    dropdownMargin?: PopoverProps['margin'];
     insetLabel?: React.ReactNode;
     insetLabelId?: string;
     maxTagCount?: number;
@@ -181,6 +183,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         loadData: PropTypes.func,
         onLoad: PropTypes.func,
         arrowIcon: PropTypes.node,
+        clearIcon: PropTypes.node,
         defaultOpen: PropTypes.bool,
         defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
         defaultExpandAll: PropTypes.bool,
@@ -221,6 +224,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         ),
         dropdownClassName: PropTypes.string,
         dropdownStyle: PropTypes.object,
+        dropdownMargin: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
         motion: PropTypes.bool,
         placeholder: PropTypes.string,
         maxTagCount: PropTypes.number,
@@ -914,6 +918,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
 
     renderClearBtn = () => {
         const showClearBtn = this.showClearBtn();
+        const { clearIcon } = this.props;
         const clearCls = cls(`${prefixcls}-clearbtn`);
         if (showClearBtn) {
             return (
@@ -925,7 +930,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                     onClick={this.handleClear}
                     onKeyPress={this.handleClearEnterPress}
                 >
-                    <IconClear />
+                    { clearIcon ? clearIcon : <IconClear />}
                 </div>
             );
         }
@@ -1430,6 +1435,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             autoAdjustOverflow,
             stopPropagation,
             getPopupContainer,
+            dropdownMargin,
         } = this.props;
         const { isOpen, rePosKey } = this.state;
         const selection = this.renderSelection();
@@ -1440,6 +1446,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 getPopupContainer={getPopupContainer}
                 zIndex={zIndex}
                 motion={motion}
+                margin={dropdownMargin}
                 ref={this.optionsRef}
                 content={content}
                 visible={isOpen}

@@ -7,7 +7,7 @@ import { noop, get } from 'lodash';
 import ConfigContext from '../configProvider/context';
 import BaseComponent, { ValidateStatus } from '../_base/baseComponent';
 import { strings, cssClasses } from '@douyinfe/semi-foundation/timePicker/constants';
-import Popover from '../popover';
+import Popover, { PopoverProps } from '../popover';
 import { numbers as popoverNumbers } from '@douyinfe/semi-foundation/popover/constants';
 import TimePickerFoundation, { TimePickerAdapter } from '@douyinfe/semi-foundation/timePicker/foundation';
 import isNullOrUndefined from '@douyinfe/semi-foundation/utils/isNullOrUndefined';
@@ -26,8 +26,8 @@ import { ScrollItemProps } from '../scrollList/scrollItem';
 import { Locale } from '../locale/interface';
 
 export interface Panel {
-    panelHeader?: React.ReactNode;
-    panelFooter?: React.ReactNode
+    panelHeader?: React.ReactNode | React.ReactNode[];
+    panelFooter?: React.ReactNode | React.ReactNode[]
 }
 
 export type BaseValueType = string | number | Date;
@@ -44,6 +44,7 @@ export type TimePickerProps = {
     autoFocus?: boolean; // TODO: autoFocus did not take effect
     className?: string;
     clearText?: string;
+    clearIcon?: React.ReactNode;
     dateFnsLocale?: Locale['dateFnsLocale'];
     defaultOpen?: boolean;
     defaultValue?: BaseValueType | BaseValueType[];
@@ -51,6 +52,7 @@ export type TimePickerProps = {
     disabledHours?: () => number[];
     disabledMinutes?: (selectedHour: number) => number[];
     disabledSeconds?: (selectedHour: number, selectedMinute: number) => number[];
+    dropdownMargin?: PopoverProps['margin'];
     focusOnOpen?: boolean;
     format?: string;
     getPopupContainer?: () => HTMLElement;
@@ -66,8 +68,8 @@ export type TimePickerProps = {
     minuteStep?: number;
     motion?: boolean;
     open?: boolean;
-    panelFooter?: React.ReactNode;
-    panelHeader?: React.ReactNode;
+    panelFooter?: React.ReactNode | React.ReactNode[];
+    panelHeader?: React.ReactNode | React.ReactNode[];
     panels?: Panel[]; // FIXME:
     placeholder?: string;
     popupClassName?: string;
@@ -117,6 +119,7 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
         'aria-required': PropTypes.bool,
         prefixCls: PropTypes.string,
         clearText: PropTypes.string,
+        clearIcon: PropTypes.node,
         value: TimeShape,
         inputReadOnly: PropTypes.bool,
         disabled: PropTypes.bool,
@@ -136,6 +139,7 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
         disabledHours: PropTypes.func,
         disabledMinutes: PropTypes.func,
         disabledSeconds: PropTypes.func,
+        dropdownMargin: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
         hideDisabledOptions: PropTypes.bool,
         onChange: PropTypes.func,
         use12Hours: PropTypes.bool,
@@ -323,9 +327,9 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
             panelProps.panelHeader = get(
                 panels,
                 index,
-                isNullOrUndefined(panelHeader) ? get(defaultHeaderMap, index, null) : panelHeader
+                isNullOrUndefined(panelHeader) ? get(defaultHeaderMap, index, null) : Array.isArray(panelHeader) ? panelHeader[index] : panelHeader
             );
-            panelProps.panelFooter = get(panels, index, panelFooter) as React.ReactNode;
+            panelProps.panelFooter = get(panels, index, Array.isArray(panelFooter) ? panelFooter[index] : panelFooter) as React.ReactNode;
         }
 
         return panelProps;
@@ -436,6 +440,7 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
             placeholder,
             disabled,
             defaultValue,
+            dropdownMargin,
             className,
             popupStyle,
             size,
@@ -525,6 +530,7 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
                     position={position}
                     visible={disabled ? false : Boolean(open)}
                     motion={motion}
+                    margin={dropdownMargin}
                     autoAdjustOverflow={autoAdjustOverflow}
                 >
                     {useCustomTrigger ? (
