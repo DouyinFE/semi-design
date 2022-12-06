@@ -111,6 +111,7 @@ export interface TreeSelectProps extends Omit<BasicTreeSelectProps, OverrideComm
     arrowIcon?: React.ReactNode;
     autoAdjustOverflow?: boolean;
     clickToHide?: boolean;
+    clearIcon?: React.ReactNode;
     defaultOpen?: boolean;
     dropdownClassName?: string;
     dropdownMatchSelectWidth?: boolean;
@@ -182,6 +183,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         loadData: PropTypes.func,
         onLoad: PropTypes.func,
         arrowIcon: PropTypes.node,
+        clearIcon: PropTypes.node,
         defaultOpen: PropTypes.bool,
         defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
         defaultExpandAll: PropTypes.bool,
@@ -916,6 +918,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
 
     renderClearBtn = () => {
         const showClearBtn = this.showClearBtn();
+        const { clearIcon } = this.props;
         const clearCls = cls(`${prefixcls}-clearbtn`);
         if (showClearBtn) {
             return (
@@ -927,7 +930,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                     onClick={this.handleClear}
                     onKeyPress={this.handleClearEnterPress}
                 >
-                    <IconClear />
+                    { clearIcon ? clearIcon : <IconClear />}
                 </div>
             );
         }

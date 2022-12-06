@@ -56,6 +56,7 @@ export interface CascaderProps extends BasicCascaderProps {
     'aria-required'?: React.AriaAttributes['aria-required'];
     'aria-label'?: React.AriaAttributes['aria-label'];
     arrowIcon?: ReactNode;
+    clearIcon?: ReactNode;
     defaultValue?: Value;
     dropdownStyle?: CSSProperties;
     dropdownMargin?: PopoverProps['margin'];
@@ -105,6 +106,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         'aria-required': PropTypes.bool,
         'aria-label': PropTypes.string,
         arrowIcon: PropTypes.node,
+        clearIcon: PropTypes.node,
         changeOnSelect: PropTypes.bool,
         defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
         disabled: PropTypes.bool,
@@ -849,6 +851,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
 
     renderClearBtn = () => {
         const clearCls = cls(`${prefixcls}-clearbtn`);
+        const { clearIcon } = this.props;
         const allowClear = this.showClearBtn();
         if (allowClear) {
             return (
@@ -859,7 +862,9 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                     role="button"
                     tabIndex={0}
                 >
-                    <IconClear />
+                    {
+                        clearIcon ? clearIcon : <IconClear />
+                    }
                 </div>
             );
         }

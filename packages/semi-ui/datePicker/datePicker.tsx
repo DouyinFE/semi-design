@@ -30,6 +30,7 @@ export interface DatePickerProps extends DatePickerFoundationProps {
     'aria-invalid'?: React.AriaAttributes['aria-invalid'];
     'aria-labelledby'?: React.AriaAttributes['aria-labelledby'];
     'aria-required'?: React.AriaAttributes['aria-required'];
+    clearIcon?: React.ReactNode;
     timePickerOpts?: TimePickerProps;
     bottomSlot?: React.ReactNode;
     insetLabel?: React.ReactNode;
@@ -61,6 +62,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
         'aria-required': PropTypes.bool,
         type: PropTypes.oneOf(strings.TYPE_SET),
         size: PropTypes.oneOf(strings.SIZE_SET),
+        clearIcon: PropTypes.node,
         density: PropTypes.oneOf(strings.DENSITY_SET),
         defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object, PropTypes.array]),
         value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object, PropTypes.array]),
@@ -547,6 +549,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
 
     renderInner(extraProps?: Partial<DatePickerProps>) {
         const {
+            clearIcon,
             type,
             format,
             multiple,
@@ -583,6 +586,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
         const props = {
             ...extraProps,
             placeholder: phText,
+            clearIcon,
             disabled: inputDisabled,
             inputValue,
             value: value as Date[],
