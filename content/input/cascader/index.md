@@ -1519,6 +1519,7 @@ function Demo() {
 | disabled           | 是否禁用                                                                             | boolean                                                                        | false                            | -                                |
 | displayProp        | 设置回填选项显示的属性值                                                                 | string                                                                         | `label`                          | -                                |
 | displayRender      | 设置回填格式                                                                 | (selected: string[] \| Entity, idx?: number) => ReactNode                                                        | selected => selected.join(' / ') | -      |
+| dropdownMargin     | 下拉菜单计算溢出时的增加的冗余值，详见[issue#549](https://github.com/DouyinFE/semi-design/issues/549)，作用同 Tooltip margin      | object\|number                           |                                   | 2.25.0
 | dropdownClassName  | 下拉菜单的 className 属性                                                            | string                                                                         | -                                | -                                |
 | dropdownStyle      | 下拉菜单的样式                                                                       | object                                                                         | -                                | -                                |
 | emptyContent       | 当搜索无结果时展示的内容                                                             | ReactNode                                                                      | `暂无数据`                       | -                                |
@@ -1535,7 +1536,7 @@ function Demo() {
 | mouseLeaveDelay | 鼠标移出后，延迟消失下拉框的时间，单位毫秒 | number | 50 | -                                |
 | multiple | 设置多选 | boolean | false | 1.28.0                           |
 | placeholder        | 选择框默认文字                                                                       | string                                                                         | -                                | -                                |
-| position           | 方向，可选值：`top`,`topLeft`,`topRight`,`left`,`leftTop`,`leftBottom`,`right`,`rightTop`,`rightBottom`,`bottom`,`bottomLeft`,`bottomRight` | string                   | "bottom"                                    | 2.16.0-beta.0                    |
+| position           | 方向，可选值：`top`,`topLeft`,`topRight`,`left`,`leftTop`,`leftBottom`,`right`,`rightTop`,`rightBottom`,`bottom`,`bottomLeft`,`bottomRight` | string                   | "bottom"                                    | 2.16.0                    |
 | prefix             | 前缀标签                                                                             | ReactNode                                                                      | -                                | 0.28.0                           |
 | preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法 | boolean |  |                                  |
 |restTagsPopoverProps |Popover 的配置属性，可以控制 position、zIndex、trigger 等，具体参考[Popover](/zh-CN/show/popover#API%20%E5%8F%82%E8%80%83)           |PopoverProps   | {}        | 1.28.0                           |
