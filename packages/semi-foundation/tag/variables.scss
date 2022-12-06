@@ -29,6 +29,8 @@ $spacing-tag_large-paddingY: 4px; // 大尺寸标签垂直方向内边距
 $spacing-tag_large-paddingX: $spacing-tight; // 大尺寸标签水平方向内边距
 
 $color-tag_close-icon-default: var(--semi-color-text-2); // 可删除的标签删除按钮颜色
+$color-tag_close-icon-hover: var(--semi-color-text-1); // 可删除的标签删除按钮颜色 - 悬浮
+$color-tag_close-icon-active: var(--semi-color-text-0); // 可删除的标签删除按钮颜色 - 按下
 $color-tag_close-icon_deep-default: var(--semi-color-white); // 深色模式下可删除的标签删除按钮颜色
 $spacing-tag_close-paddingLeft: $spacing-extra-tight; // 可删除的标签删除按钮左侧内边距
 $spacing-tag_closable-paddingTop: $spacing-extra-tight; // 可删除的标签删除按钮顶部内边距
