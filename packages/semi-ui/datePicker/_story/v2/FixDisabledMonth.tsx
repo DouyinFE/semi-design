@@ -8,7 +8,7 @@ import { set } from 'date-fns';
 export default function App() {
     const disabledDate = (date: Date) => {
         const isBefore = date < set(date, { year: 2021, month: 10 });
-        const isAfter = date > set(date, { year: new Date().getFullYear(), month: new Date().getMonth() });
+        const isAfter = date > set(date, { year: 2022, month: 10 });
         return isBefore || isAfter;
     };
 
