@@ -7,7 +7,7 @@ import { noop, get } from 'lodash';
 import ConfigContext from '../configProvider/context';
 import BaseComponent, { ValidateStatus } from '../_base/baseComponent';
 import { strings, cssClasses } from '@douyinfe/semi-foundation/timePicker/constants';
-import Popover from '../popover';
+import Popover, { PopoverProps } from '../popover';
 import { numbers as popoverNumbers } from '@douyinfe/semi-foundation/popover/constants';
 import TimePickerFoundation, { TimePickerAdapter } from '@douyinfe/semi-foundation/timePicker/foundation';
 import isNullOrUndefined from '@douyinfe/semi-foundation/utils/isNullOrUndefined';
@@ -51,6 +51,7 @@ export type TimePickerProps = {
     disabledHours?: () => number[];
     disabledMinutes?: (selectedHour: number) => number[];
     disabledSeconds?: (selectedHour: number, selectedMinute: number) => number[];
+    dropdownMargin?: PopoverProps['margin'];
     focusOnOpen?: boolean;
     format?: string;
     getPopupContainer?: () => HTMLElement;
@@ -136,6 +137,7 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
         disabledHours: PropTypes.func,
         disabledMinutes: PropTypes.func,
         disabledSeconds: PropTypes.func,
+        dropdownMargin: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
         hideDisabledOptions: PropTypes.bool,
         onChange: PropTypes.func,
         use12Hours: PropTypes.bool,
@@ -436,6 +438,7 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
             placeholder,
             disabled,
             defaultValue,
+            dropdownMargin,
             className,
             popupStyle,
             size,
@@ -525,6 +528,7 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
                     position={position}
                     visible={disabled ? false : Boolean(open)}
                     motion={motion}
+                    margin={dropdownMargin}
                     autoAdjustOverflow={autoAdjustOverflow}
                 >
                     {useCustomTrigger ? (

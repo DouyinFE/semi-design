@@ -116,6 +116,7 @@ export type SelectProps = {
     onSearch?: (value: string) => void;
     dropdownClassName?: string;
     dropdownStyle?: React.CSSProperties;
+    dropdownMargin?: PopoverProps['margin'];
     outerTopSlot?: React.ReactNode;
     innerTopSlot?: React.ReactNode;
     outerBottomSlot?: React.ReactNode;
@@ -226,6 +227,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         getPopupContainer: PropTypes.func,
         dropdownClassName: PropTypes.string,
         dropdownStyle: PropTypes.object,
+        dropdownMargin: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
         outerTopSlot: PropTypes.node,
         innerTopSlot: PropTypes.node,
         inputProps: PropTypes.object,
@@ -1269,6 +1271,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             mouseEnterDelay,
             spacing,
             stopPropagation,
+            dropdownMargin,
         } = this.props;
         const { isOpen, optionKey } = this.state;
         const optionList = this.renderOptions(children);
@@ -1277,6 +1280,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             <Popover
                 getPopupContainer={getPopupContainer}
                 motion={motion}
+                margin={dropdownMargin}
                 autoAdjustOverflow={autoAdjustOverflow}
                 mouseLeaveDelay={mouseLeaveDelay}
                 mouseEnterDelay={mouseEnterDelay}
