@@ -25,6 +25,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
   - Select、Cascader、Input、InputNumber、TreeSelect、AutoComplete、Datepicker、TimePicker 增加 clearIcon，允许覆盖清除按钮,  [#1309 ](https://github.com/DouyinFE/semi-design/issues/1309)
   - Cascader、Select、DatePicker、TimePicker、TreeSelect 增加 dropdownMargin 配置，Dropdown、Popover增加 margin 配置，作用同 tooltip margin
   - type为timeRange的TimePicker组件，支持传入数组格式的panelHeader和panelFooter来设置不同的头部和底部。https://github.com/DouyinFE/semi-design/issues/1316 [@zk8080](https://github.com/zk8080)
+  - TreeSelect增加 position参数控制弹出层方向 
 - 【Style】
   - Tag 关闭按钮增加 hover 态和 active 态颜色
   - 优化 Tag 在内容超出长度时的展示方式，自动省略  [@SyMind](https://github.com/SyMind)

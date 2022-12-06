@@ -24,6 +24,7 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
   - Select、Cascader、Input、InputNumber、TreeSelect、AutoComplete、Datepicker、TImepicker add clearIcon, allow override default clear icon,  [#1309 ](https://github.com/DouyinFE/semi-design/issues/1309)
   - Cascader、Select、DatePicker、TimePicker、TreeSelect add dropdownMargin ，Dropdown、Popover add margin ，use same as tooltip margin
   - The TimePicker component whose type is timeRange supports passing in panelHeader and panelFooter in array format to set different headers and bottoms. https://github.com/DouyinFE/semi-design/issues/1316 [@zk8080](https://github.com/zk8080)
+  - TreeSelect adds a position parameter to control the direction of the pop-up layer 
 - 【Style】
   - Tag close button add hover and active color
   - Optimize the display method of Tag when the content exceeds the length, and automatically omit it  [@SyMind](https://github.com/SyMind)
