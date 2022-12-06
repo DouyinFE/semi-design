@@ -17,6 +17,8 @@ import { Popconfirm } from '@douyinfe/semi-ui';
 
 ### 基本使用
 
+Popconfirm 底层基于 Tooltip 封装，Children 支持类型同 Tooltip，注意事项详情可查阅 [Tooltip注意事项](/zh-CN/show/tooltip#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9)
+
 ```jsx live=true
 import React from 'react';
 import { Popconfirm, Button, Toast } from '@douyinfe/semi-ui';

@@ -1036,7 +1036,8 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
 
     handleTriggerFocus(e) {
         this.bindKeyBoardEvent();
-        this._adapter.updateFocusState(true);
+        // close the tag in multiple select did not trigger select focus, but trigger TriggerFocus, so not need to updateFocusState in this function
+        // this._adapter.updateFocusState(true);
         this._adapter.setIsFocusInContainer(false);
     }
 

@@ -64,10 +64,10 @@ export interface NavProps extends BaseProps {
     tooltipHideDelay?: number;
     tooltipShowDelay?: number;
     getPopupContainer?: () => HTMLElement;
-    onClick?: (data: { itemKey: React.ReactText; domEvent: MouseEvent; isOpen: boolean }) => void;
+    onClick?: (data: { itemKey?: React.ReactText; domEvent?: MouseEvent; isOpen?: boolean }) => void;
     onCollapseChange?: (isCollapse: boolean) => void;
     onDeselect?: (data?: any) => void;
-    onOpenChange?: (data: { itemKey: (string | number); openKeys: (string | number)[]; domEvent: MouseEvent; isOpen: boolean }) => void;
+    onOpenChange?: (data: { itemKey?: (string | number); openKeys?: (string | number)[]; domEvent?: MouseEvent; isOpen?: boolean }) => void;
     onSelect?: (data: OnSelectedData) => void;
     renderWrapper?: ({ itemElement, isSubNav, isInSubNav, props }: { itemElement: ReactElement;isInSubNav:boolean; isSubNav: boolean; props: NavItemProps | SubNavProps }) => ReactNode
 }
