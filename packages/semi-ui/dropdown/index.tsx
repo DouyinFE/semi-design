@@ -77,25 +77,26 @@ class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
     static contextType = DropdownContext;
 
     static propTypes = {
-        render: PropTypes.node,
         children: PropTypes.node,
-        visible: PropTypes.bool,
-        position: PropTypes.oneOf(positionSet),
+        contentClassName: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+        className: PropTypes.string,
         getPopupContainer: PropTypes.func,
+        margin: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
         mouseEnterDelay: PropTypes.number,
         mouseLeaveDelay: PropTypes.number,
-        trigger: PropTypes.oneOf(triggerSet),
-        zIndex: PropTypes.number,
-        motion: PropTypes.oneOfType([PropTypes.bool, PropTypes.func, PropTypes.object]),
-        className: PropTypes.string,
-        contentClassName: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
-        style: PropTypes.object,
-        onVisibleChange: PropTypes.func,
-        rePosKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-        showTick: PropTypes.bool,
-        prefixCls: PropTypes.string,
-        spacing: PropTypes.number,
         menu: PropTypes.array,
+        motion: PropTypes.oneOfType([PropTypes.bool, PropTypes.func, PropTypes.object]),
+        onVisibleChange: PropTypes.func,
+        prefixCls: PropTypes.string,
+        position: PropTypes.oneOf(positionSet),
+        rePosKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        render: PropTypes.node,
+        spacing: PropTypes.number,
+        showTick: PropTypes.bool,
+        style: PropTypes.object,
+        trigger: PropTypes.oneOf(triggerSet),
+        visible: PropTypes.bool,
+        zIndex: PropTypes.number,
     };
 
     static defaultProps = {
@@ -213,6 +214,7 @@ class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
             zIndex,
             className,
             motion,
+            margin,
             style,
             prefixCls,
             ...attr
@@ -232,6 +234,7 @@ class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
             <Tooltip
                 zIndex={zIndex}
                 motion={motion}
+                margin={margin}
                 content={pop}
                 className={className}
                 prefixCls={prefixCls}
