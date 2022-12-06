@@ -19,8 +19,8 @@ Semi 会自动在 body 元素上挂载全局色盘，我们内置了一些常用
 ```css
 // css
 body {
-    color: 'var(--semi-color-text-0)';
-    background-color: 'var( --semi-color-bg-0)';
+    color: var(--semi-color-text-0);
+    background-color: var( --semi-color-bg-0);
 }
 ```
 
