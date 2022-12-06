@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 67
+order: 68
 category: Feedback
 title:  Popconfirm
 subTitle: Popconfirm
@@ -17,6 +17,8 @@ brief: Used when the operation of the target element requires further confirmati
 import { Popconfirm } from '@douyinfe/semi-ui';
 ```
 ### Basic Usage
+
+`Popconfirm` is based on the `Tooltip` component. Children support the same type as `Tooltip`. For details, please refer to [Tooltip Cautions](/en-US/show/tooltip#Cautions)
 
 ```jsx live=true
 import React from 'react';

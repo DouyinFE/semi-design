@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 71
+order: 72
 category: 反馈类
 title: Toast 提示
 icon: doc-toast
@@ -367,40 +367,32 @@ render(Demo);
 -   `Toast.error(options || string)`
 -   `Toast.warning(options || string)`
 -   `Toast.success(options || string)`
+-   `Toast.close(toastId)` 手动关闭 （ `toastId` 为展示方法的返回值）
+-   `Toast.config(config)` 全局配置在调用前提前配置，全局一次生效 ( >= 0.25.0 )
 
-手动关闭 （ `toastId` 为展示方法的返回值）
+**以下API无需调用额外的 ToastFactory.create(config) 创建新 Toast 即能生效设置**
 
--   `Toast.close(toastId)`
+| 属性 | 说明                                                                                       | 类型 | 默认值 | 版本 |
+| --- |------------------------------------------------------------------------------------------| --- | --- | --- |
+| content | 提示内容                                                                                     | ReactNode | '' |  |
+| duration | 自动关闭的延时，单位 s，设为 0 时不自动关闭                                                                 | number | 3 |  |
+| icon | 自定义图标                                                                                    | ReactNode |  | 0.25.0 |
+| showClose | 是否展示关闭按钮                                                                                 | boolean | true | 0.25.0 |
+| textMaxWidth | 内容的最大宽度                                                                                  | number \| string | 450 | 0.25.0 |
+| theme | 填充样式，支持 `light`, `normal`                                                                | string | `normal` | 1.0.0 |
+| onClose | toast 关闭的回调函数                                                                            | () => void |  |  |
+
+**若未在 Toast.config(config) 中特别声明，以下API需要调用额外的 ToastFactory.create(config) 创建新 Toast 生效设置**
 
 | 属性 | 说明                                                                                       | 类型 | 默认值 | 版本 |
 | --- |------------------------------------------------------------------------------------------| --- | --- | --- |
 | bottom | 弹出位置 bottom                                                                              | number \| string | - | 0.25.0 |
-| content | 提示内容                                                                                     | ReactNode | '' |  |
-| duration | 自动关闭的延时，单位 s，设为 0 时不自动关闭                                                                 | number | 3 |  |
 | getPopupContainer | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 container 和 内部的 .semi-toast-wrapper `position: relative` | () => HTMLElement \| null | () => document.body | 0.34.0 |
-| icon | 自定义图标                                                                                    | ReactNode |  | 0.25.0 |
 | left | 弹出位置 left                                                                                | number \| string | - | 0.25.0 |
 | right | 弹出位置 right                                                                               | number \| string | - | 0.25.0 |
-| showClose | 是否展示关闭按钮                                                                                 | boolean | true | 0.25.0 |
-| textMaxWidth | 内容的最大宽度                                                                                  | number \| string | 450 | 0.25.0 |
-| theme | 填充样式，支持 `light`, `normal`                                                                | string | `normal` | 1.0.0 |
 | top | 弹出位置 top                                                                                 | number \| string | - | 0.25.0 |
 | zIndex | 弹层 z-index 值                                                                             | number | 1010 |  |
-| onClose | toast 关闭的回调函数                                                                            | () => void |  |  |
 
-全局配置在调用前提前配置，全局一次生效 ( >= 0.25.0 )：
-
--   `Toast.config(config)`
-
-| 属性 | 说明 | 类型 | 默认值 | 版本 |
-| --- | --- | --- | --- | --- |
-| bottom | 弹出位置 bottom | number \| string | - | 0.25.0 |
-| duration | 自动关闭的延时，单位 s，设为 0 时不自动关闭 | number | 3 | 0.25.0 |
-| getPopupContainer | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 container 和 内部的 .semi-toast-wrapper `position: relative` | () => HTMLElement \| null | () => document.body | 1.23.0 |
-| left | 弹出位置 left | number \| string | - | 0.25.0 |
-| right | 弹出位置 right | number \| string | - | 0.25.0 |
-| top | 弹出位置 top | number \| string | - | 0.25.0 |
-| zIndex | 弹层 z-index 值 | number | 1010 | 0.25.0 |
 
 -   `ToastFactory.create(config) => Toast`  
     如果您的应用中需要使用不同 config 的 Toast，可以使用 ToastFactory.create(config)创建新的 Toast (>= 1.23):
