@@ -159,8 +159,8 @@ export default class Tag extends Component<TagProps, TagState> {
                 <div className={`${prefixCls}-content`}>
                     {avatarSrc ? this.renderAvatar() : null}
                     {children}
-                    {closeIcon}
                 </div>
+                {closeIcon}
             </div>
         );
     }
