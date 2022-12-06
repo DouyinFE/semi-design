@@ -18,6 +18,8 @@ import { Popconfirm } from '@douyinfe/semi-ui';
 ```
 ### Basic Usage
 
+`Popconfirm` is based on the `Tooltip` component. Children support the same type as `Tooltip`. For details, please refer to [Tooltip Cautions](/en-US/show/tooltip#Cautions)
+
 ```jsx live=true
 import React from 'react';
 import { Popconfirm, Button, Toast } from '@douyinfe/semi-ui';
