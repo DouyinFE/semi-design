@@ -16,6 +16,18 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.25.0-beta.0 (2022-12-06)
+- 【Fix】
+  - fix the problem that the height display is incorrect when the virtualized Table has no data
+  - fix tooltip flush when setting opacity through style
+- 【Feat】
+  - Select、Cascader、Input、InputNumber、TreeSelect、AutoComplete、Datepicker、TImepicker add clearIcon, allow override default clear icon,  [#1309 ](https://github.com/DouyinFE/semi-design/issues/1309)
+  - Cascader、Select、DatePicker、TimePicker、TreeSelect add dropdownMargin ，Dropdown、Popover add margin ，use same as tooltip margin
+  - The TimePicker component whose type is timeRange supports passing in panelHeader and panelFooter in array format to set different headers and bottoms. https://github.com/DouyinFE/semi-design/issues/1316 [@zk8080](https://github.com/zk8080)
+- 【Style】
+  - Tag close button add hover and active color
+  - Optimize the display method of Tag when the content exceeds the length, and automatically omit it  [@SyMind](https://github.com/SyMind)
+
 #### 🎉 2.24.3 (2022-12-05)
 - 【Chore】
     - Improve type define of Form HOC : `withFormState`、`withFormApi`  [#1323](https://github.com/DouyinFE/semi-design/pull/1323)
