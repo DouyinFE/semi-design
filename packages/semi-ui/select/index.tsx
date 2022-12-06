@@ -96,6 +96,7 @@ export type SelectProps = {
     autoFocus?: boolean;
     autoClearSearchValue?: boolean;
     arrowIcon?: React.ReactNode;
+    clearIcon?: React.ReactNode;
     defaultValue?: string | number | any[] | Record<string, any>;
     value?: string | number | any[] | Record<string, any>;
     placeholder?: React.ReactNode;
@@ -203,6 +204,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         autoFocus: PropTypes.bool,
         autoClearSearchValue: PropTypes.bool,
         children: PropTypes.node,
+        clearIcon: PropTypes.node,
         defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object]),
         value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object]),
         placeholder: PropTypes.node,
@@ -1152,6 +1154,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             placeholder,
             triggerRender,
             arrowIcon,
+            clearIcon
         } = this.props;
 
         const { selections, isOpen, keyboardEventSet, inputValue, isHovering, isFocus, showInput, focusIndex } = this.state;
@@ -1185,6 +1188,9 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         ) : (
             <div className={`${prefixcls}-arrow-empty`} />
         );
+
+        const clear = clearIcon ? clearIcon : <IconClear />;
+
         const inner = useCustomTrigger ? (
             <Trigger
                 value={Array.from(selections.values())}
@@ -1209,7 +1215,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 </Fragment>,
                 <Fragment key="clearicon">
                     {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-                    {showClear ? ( <div className={cls(`${prefixcls}-clear`)} onClick={this.onClear}><IconClear /></div>) : arrowContent}
+                    {showClear ? (<div className={cls(`${prefixcls}-clear`)} onClick={this.onClear}>{clear}</div>) : arrowContent}
                 </Fragment>,
                 <Fragment key="suffix">{suffix ? this.renderSuffix() : null}</Fragment>,
             ]

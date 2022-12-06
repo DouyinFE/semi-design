@@ -44,6 +44,7 @@ export type TimePickerProps = {
     autoFocus?: boolean; // TODO: autoFocus did not take effect
     className?: string;
     clearText?: string;
+    clearIcon?: React.ReactNode;
     dateFnsLocale?: Locale['dateFnsLocale'];
     defaultOpen?: boolean;
     defaultValue?: BaseValueType | BaseValueType[];
@@ -118,6 +119,7 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
         'aria-required': PropTypes.bool,
         prefixCls: PropTypes.string,
         clearText: PropTypes.string,
+        clearIcon: PropTypes.node,
         value: TimeShape,
         inputReadOnly: PropTypes.bool,
         disabled: PropTypes.bool,
