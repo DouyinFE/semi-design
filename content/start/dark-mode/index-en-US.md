@@ -20,8 +20,8 @@ We recommend that you configure `color` and `background-color` on the body, your
 ````css
 // css
 body {
-     color: 'var(--semi-color-text-0)';
-     background-color: 'var( --semi-color-bg-0)';
+     color: var(--semi-color-text-0);
+     background-color: var( --semi-color-bg-0);
 }
 ````
 
