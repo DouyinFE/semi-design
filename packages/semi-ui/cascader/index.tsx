@@ -58,6 +58,7 @@ export interface CascaderProps extends BasicCascaderProps {
     arrowIcon?: ReactNode;
     defaultValue?: Value;
     dropdownStyle?: CSSProperties;
+    dropdownMargin?: PopoverProps['margin'];
     emptyContent?: ReactNode;
     motion?: boolean;
     treeData?: Array<CascaderData>;
@@ -109,6 +110,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         disabled: PropTypes.bool,
         dropdownClassName: PropTypes.string,
         dropdownStyle: PropTypes.object,
+        dropdownMargin: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
         emptyContent: PropTypes.node,
         motion: PropTypes.bool,
         /* show search input, if passed in a function, used as custom filter */
@@ -967,7 +969,8 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
             mouseLeaveDelay,
             mouseEnterDelay,
             position,
-            motion
+            motion,
+            dropdownMargin,
         } = this.props;
         const { isOpen, rePosKey } = this.state;
         const { direction } = this.context;
@@ -979,6 +982,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                 getPopupContainer={getPopupContainer}
                 zIndex={zIndex}
                 motion={motion}
+                margin={dropdownMargin}
                 ref={this.optionsRef}
                 content={content}
                 visible={isOpen}

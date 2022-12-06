@@ -115,6 +115,7 @@ export interface TreeSelectProps extends Omit<BasicTreeSelectProps, OverrideComm
     dropdownClassName?: string;
     dropdownMatchSelectWidth?: boolean;
     dropdownStyle?: React.CSSProperties;
+    dropdownMargin?: PopoverProps['margin'];
     insetLabel?: React.ReactNode;
     insetLabelId?: string;
     maxTagCount?: number;
@@ -221,6 +222,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         ),
         dropdownClassName: PropTypes.string,
         dropdownStyle: PropTypes.object,
+        dropdownMargin: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
         motion: PropTypes.bool,
         placeholder: PropTypes.string,
         maxTagCount: PropTypes.number,
@@ -1430,6 +1432,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             autoAdjustOverflow,
             stopPropagation,
             getPopupContainer,
+            dropdownMargin,
         } = this.props;
         const { isOpen, rePosKey } = this.state;
         const selection = this.renderSelection();
@@ -1440,6 +1443,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 getPopupContainer={getPopupContainer}
                 zIndex={zIndex}
                 motion={motion}
+                margin={dropdownMargin}
                 ref={this.optionsRef}
                 content={content}
                 visible={isOpen}

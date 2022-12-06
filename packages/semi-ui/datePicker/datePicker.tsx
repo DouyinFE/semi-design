@@ -11,7 +11,7 @@ import DatePickerFoundation, { DatePickerAdapter, DatePickerFoundationProps, Dat
 import { cssClasses, strings, numbers } from '@douyinfe/semi-foundation/datePicker/constants';
 import { strings as popoverStrings, numbers as popoverNumbers } from '@douyinfe/semi-foundation/popover/constants';
 import BaseComponent from '../_base/baseComponent';
-import Popover from '../popover/index';
+import Popover, { PopoverProps } from '../popover/index';
 import DateInput, { DateInputProps } from './dateInput';
 import MonthsGrid, { MonthsGridProps } from './monthsGrid';
 import QuickControl from './quickControl';
@@ -45,7 +45,8 @@ export interface DatePickerProps extends DatePickerFoundationProps {
     onPresetClick?: (item: PresetType, e: React.MouseEvent<HTMLDivElement>) => void;
     locale?: Locale['DatePicker'];
     dateFnsLocale?: Locale['dateFnsLocale'];
-    yearAndMonthOpts?: ScrollItemProps<any>
+    yearAndMonthOpts?: ScrollItemProps<any>;
+    dropdownMargin?: PopoverProps['margin']
 }
 
 export type DatePickerState = DatePickerFoundationState;
@@ -120,6 +121,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
         autoSwitchDate: PropTypes.bool,
         dropdownClassName: PropTypes.string,
         dropdownStyle: PropTypes.object,
+        dropdownMargin: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
         topSlot: PropTypes.node,
         bottomSlot: PropTypes.node,
         dateFnsLocale: PropTypes.object, // isRequired, but no need to add isRequired key. ForwardStatics function pass static properties to index.jsx, so there is no need for user to pass the prop.
@@ -756,6 +758,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             stopPropagation,
             autoAdjustOverflow,
             spacing,
+            dropdownMargin
         } = this.props;
         return (
             <Popover
@@ -764,6 +767,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
                 autoAdjustOverflow={autoAdjustOverflow}
                 zIndex={zIndex}
                 motion={motion}
+                margin={dropdownMargin}
                 content={this.renderPanel(locale, localeCode, dateFnsLocale)}
                 trigger="custom"
                 position={position}
