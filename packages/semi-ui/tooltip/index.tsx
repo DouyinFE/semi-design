@@ -565,6 +565,9 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         const icon = this.renderIcon();
         const portalInnerStyle = omit(containerStyle, motion ? ['transformOrigin'] : undefined);
         const transformOrigin = get(containerStyle, 'transformOrigin');
+        const userOpacity = get(style, 'opacity');
+        const opacity = userOpacity ? userOpacity : 1;
+
         const inner =
             <CSSAnimation
                 fillMode="forwards"
@@ -580,13 +583,12 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                 {
                     ({ animationStyle, animationClassName, animationEventsNeedBind }) => {
                         return <div
-
                             className={classNames(className, animationClassName)}
                             style={{
-                                opacity: isPositionUpdated ? '1' : "0",
                                 ...animationStyle,
                                 transformOrigin,
                                 ...style,
+                                opacity: isPositionUpdated ? opacity : "0",
                             }}
                             {...portalEventSet}
                             {...animationEventsNeedBind}
