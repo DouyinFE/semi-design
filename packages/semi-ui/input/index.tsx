@@ -7,7 +7,7 @@ import { cssClasses, strings } from '@douyinfe/semi-foundation/input/constants';
 import { isSemiIcon } from '../_utils';
 import BaseComponent from '../_base/baseComponent';
 import '@douyinfe/semi-foundation/input/input.scss';
-import { isString, noop, isFunction } from 'lodash';
+import { isString, noop, isFunction, isUndefined } from 'lodash';
 import { IconClear, IconEyeOpened, IconEyeClosedSolid } from '@douyinfe/semi-icons';
 
 const prefixCls = cssClasses.PREFIX;
@@ -50,6 +50,7 @@ export interface InputProps extends
     insetLabelId?: string;
     size?: InputSize;
     className?: string;
+    clearIcon?: React.ReactNode;
     style?: React.CSSProperties;
     validateStatus?: ValidateStatus;
     onClear?: (e: React.MouseEvent<HTMLDivElement>) => void;
@@ -88,6 +89,7 @@ class Input extends BaseComponent<InputProps, InputState> {
         'aria-required': PropTypes.bool,
         addonBefore: PropTypes.node,
         addonAfter: PropTypes.node,
+        clearIcon: PropTypes.node,
         prefix: PropTypes.node,
         suffix: PropTypes.node,
         mode: PropTypes.oneOf(modeSet),
@@ -173,14 +175,12 @@ class Input extends BaseComponent<InputProps, InputState> {
             setValue: (value: string) => this.setState({ value }),
             setEyeClosed: (value: boolean) => this.setState({ eyeClosed: value }),
             toggleFocusing: (isFocus: boolean) => {
+                this.setState({ isFocus });
+            },
+            focusInput: () => {
                 const { preventScroll } = this.props;
                 const input = this.inputRef && this.inputRef.current;
-                if (isFocus) {
-                    input && input.focus({ preventScroll });
-                } else {
-                    input && input.blur();
-                }
-                this.setState({ isFocus });
+                input && input.focus({ preventScroll });
             },
             toggleHovering: (isHovering: boolean) => this.setState({ isHovering }),
             getIfFocusing: () => this.state.isFocus,
@@ -296,6 +296,7 @@ class Input extends BaseComponent<InputProps, InputState> {
 
     renderClearBtn() {
         const clearCls = cls(`${prefixCls}-clearbtn`);
+        const { clearIcon } = this.props;
         const allowClear = this.foundation.isAllowClear();
         // use onMouseDown to fix issue 1203
         if (allowClear) {
@@ -305,7 +306,7 @@ class Input extends BaseComponent<InputProps, InputState> {
                     className={clearCls}
                     onMouseDown={this.handleClear}
                 >
-                    <IconClear />
+                    { clearIcon ? clearIcon : <IconClear />}
                 </div>
             );
         }
@@ -396,11 +397,28 @@ class Input extends BaseComponent<InputProps, InputState> {
         );
     }
 
+    getInputRef() {
+        const { forwardRef } = this.props;
+        if (!isUndefined(forwardRef)) {
+            if (typeof forwardRef === 'function') {
+                return (node: HTMLInputElement) => {
+                    forwardRef(node);
+                    this.inputRef = { current: node } ;
+                };
+            } else if (Object.prototype.toString.call(forwardRef) === '[object Object]') {
+                this.inputRef = forwardRef;
+                return forwardRef;
+            }
+        }
+        return this.inputRef;
+    }
+
     render() {
         const {
             addonAfter,
             addonBefore,
             autofocus,
+            clearIcon,
             className,
             disabled,
             defaultValue,
@@ -429,7 +447,7 @@ class Input extends BaseComponent<InputProps, InputState> {
         const { value, isFocus, minLength: stateMinLength } = this.state;
         const suffixAllowClear = this.showClearBtn();
         const suffixIsIcon = isSemiIcon(suffix);
-        const ref = forwardRef || this.inputRef;
+        const ref = this.getInputRef();
         const wrapperPrefix = `${prefixCls}-wrapper`;
         const wrapperCls = cls(wrapperPrefix, className, {
             [`${prefixCls}-wrapper__with-prefix`]: prefix || insetLabel,

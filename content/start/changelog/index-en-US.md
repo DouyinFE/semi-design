@@ -16,6 +16,51 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.24.3 (2022-12-05)
+- 【Chore】
+    - Improve type define of Form HOC : `withFormState`、`withFormApi`  [#1323](https://github.com/DouyinFE/semi-design/pull/1323)
+    - Improve TS type define of Nav, add optional for callback params
+#### 🎉 2.24.1 (2022-11-25)
+- 【Fix】
+    - Fix DatePicker disabledDate interaction is not easy to use when type is month [#520](https://github.com/DouyinFE/semi-design/issues/520)
+
+#### 🎉 2.24.0 (2022-11-25)
+- 【Fix】
+    - Fix the page scrolling problem caused by opening the option panel when searchAutoFocus is true and searchPosition is in dropdown in TreeSelect  [#1306 ](https://github.com/DouyinFE/semi-design/issues/1306)
+    - fix the excessive page scrolling interference caused by the scrollIntoView parameter when Tabs is collapsed and scrolled
+    - fix other components derived from Input that click prefix/suffix will not focus Input properly  [#1237 ](https://github.com/DouyinFE/semi-design/issues/1237)
+    - fix focus style issue when InputNumber sets innerButtons to true  [#1144 ](https://github.com/DouyinFE/semi-design/issues/1144)
+
+#### 🎉 2.23.7 (2022-11-23)
+- 【Fix】
+    - Fix the problem that the custom Header cannot be displayed when previewing a single image
+
+#### 🎉 2.23.6 (2022-11-23)
+- 【Fix】
+    - Fix the problem when trigger be blocked the wrapper did not offset in Tooltip
+
+#### 🎉 2.24.0-beta.1 (2022-11-22)
+- 【Style】
+    - Adjust Highlight style, default highlight background
+    - Design Token : `@douyinfe/semi-theme-default` add global design Token `--semi-color-highlight-bg`、`--semi-color-highlight`
+
+#### 🎉 2.24.0-beta.0 (2022-11-21)
+- 【New Component】
+    - Add Highlight Component [#1281](https://github.com/DouyinFE/semi-design/pull/1281)
+- 【Feat】
+    - Nav add getPopupContainer, can be used to specify a popover container in partial dark mode [#1277 ](https://github.com/DouyinFE/semi-design/issues/1277)
+    - ImagePreview added crossOrigin parameter  [#1284 ](https://github.com/DouyinFE/semi-design/issues/1284)
+    - The Form Field component transparently transmitting props.name to the underlying component for consumption, and no longer intercepts. The original influence on the field wrapper classname remains  [#1266](https://github.com/DouyinFE/semi-design/issues/1266)
+    - Navigation adds renderWrapper API for easier use of routing libraries such as react-router [#1249](https://github.com/DouyinFE/semi-design/pull/1249)
+- 【Perf】
+    - Cache the FieldComponent component in the withField HOC to avoid repeated calculation of components in the default shouldMemo scenario and reduce repeated performance consumption in complex form scenarios [#1228](https://github.com/DouyinFE/semi-design/pull/1228)
+- 【Style】
+    - Modify the style of TagInput used in Cascader/TreeSelect [#1278](https://github.com/DouyinFE/semi-design/pull/1278)
+- 【Fix】
+    - Fix the problem that when the Image component is previewing the image, the mouse wheel event will penetrate the popup layer, causing the content scrolling problem under the popup layer [#1289](https://github.com/DouyinFE/semi-design/pull/1289) [@edc-hui](https://github.com/edc-hui)
+    - Remove TimePicker console.log [@jukrb0x](https://github.com/jukrb0x)
+    - Fix the issue that in the Select radio mode, when the filter is enabled, when you click to select to close the list, it will flash once  [#1207](https://github.com/DouyinFE/semi-design/issues/1207)
+
 #### 🎉 2.23.3 (2022-11-15)
 - 【Style】
     - Form Design Token is updated，`$spacing-form_label_extra_posBottom-marginTop`、`$spacing-form_label_extra_posMid-marginBottom`、`$spacing-form_label_extra_posMid-marginTop` is corrected to more semantically `$spacing-form_extra_posBottom-marginTop`、`$spacing-form_extra_posMid-marginBottom`、`$spacing-form_extra_posMid-marginTop` [#1272](https://github.com/DouyinFE/semi-design/pull/1272)

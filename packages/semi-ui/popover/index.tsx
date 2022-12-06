@@ -18,12 +18,13 @@ declare interface ArrowStyle {
 }
 
 export interface PopoverProps extends BaseProps {
+    autoAdjustOverflow?: boolean;
     children?: React.ReactNode;
     content?: TooltipProps['content'];
     visible?: boolean;
-    autoAdjustOverflow?: boolean;
-    motion?: boolean;
     position?: Position;
+    motion?: boolean;
+    margin?: TooltipProps['margin'];
     mouseEnterDelay?: number;
     mouseLeaveDelay?: number;
     trigger?: Trigger;
@@ -65,6 +66,7 @@ class Popover extends React.PureComponent<PopoverProps, PopoverState> {
         motion: PropTypes.bool,
         position: PropTypes.oneOf(positionSet),
         // getPopupContainer: PropTypes.func,
+        margin: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
         mouseEnterDelay: PropTypes.number,
         mouseLeaveDelay: PropTypes.number,
         trigger: PropTypes.oneOf(triggerSet).isRequired,

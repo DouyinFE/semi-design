@@ -141,14 +141,14 @@ export const registerMediaQuery = (media: string, { match, unmatch, callInInit =
 };
 export interface GetHighLightTextHTMLProps {
     sourceString?: string;
-    searchWords?: any[];
+    searchWords?: string[];
     option: HighLightTextHTMLOption
 }
 
 export interface HighLightTextHTMLOption {
     highlightTag?: string;
     highlightClassName?: string;
-    highlightStyle?: Record<string, any>;
+    highlightStyle?: React.CSSProperties;
     caseSensitive: boolean;
     autoEscape: boolean
 }

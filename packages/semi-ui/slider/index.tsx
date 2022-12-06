@@ -275,6 +275,8 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
             const nextValue = this.props.value;
             const prevValue = this.state.currentValue;
             this.foundation.handleValueChange(prevValue, nextValue);
+            // trigger onAfterChange when value is controlled and changed
+            this.props.onAfterChange(this.props.value);
         }
     }
 

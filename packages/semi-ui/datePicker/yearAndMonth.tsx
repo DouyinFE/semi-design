@@ -13,7 +13,7 @@ import { IconChevronLeft } from '@douyinfe/semi-icons';
 import { BASE_CLASS_PREFIX } from '@douyinfe/semi-foundation/base/constants';
 
 import { noop, stubFalse } from 'lodash';
-import { setYear, setMonth } from 'date-fns';
+import { setYear, setMonth, set } from 'date-fns';
 import { Locale } from '../locale/interface';
 import { strings } from '@douyinfe/semi-foundation/datePicker/constants';
 
@@ -87,7 +87,7 @@ class YearAndMonth extends BaseComponent<YearAndMonthProps, YearAndMonthState> {
             ...super.adapter,
             // updateYears: years => this.setState({ years }),
             // updateMonths: months => this.setState({ months }),
-            setCurrentYear: currentYear => this.setState({ currentYear }),
+            setCurrentYear: (currentYear, cb) => this.setState({ currentYear }, cb),
             setCurrentMonth: currentMonth => this.setState({ currentMonth }),
             notifySelectYear: year =>
                 this.props.onSelect({
@@ -119,14 +119,19 @@ class YearAndMonth extends BaseComponent<YearAndMonthProps, YearAndMonthState> {
     }
 
     renderColYear() {
-        const { years, currentYear, currentMonth } = this.state;
+        const { years, currentYear, currentMonth, months } = this.state;
         const { disabledDate, localeCode, yearCycled, yearAndMonthOpts } = this.props;
         const currentDate = setMonth(Date.now(), currentMonth - 1);
-        const list: any[] = years.map(({ value, year }) => ({
-            year,
-            value, // Actual rendered text
-            disabled: disabledDate(setYear(currentDate, year)),
-        }));
+        const list: any[] = years.map(({ value, year }) => {
+            const isAllMonthDisabled = months.every(({ month }) => {
+                return disabledDate(set(currentDate, { year, month: month - 1 }));
+            });
+            return ({
+                year,
+                value, // Actual rendered text
+                disabled: isAllMonthDisabled,
+            });
+        });
         let transform = (val: string) => val;
         if (localeCode === 'zh-CN' || localeCode === 'zh-TW') {
             // Only Chinese needs to add [year] after the selected year

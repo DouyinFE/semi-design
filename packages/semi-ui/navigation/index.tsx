@@ -1,6 +1,6 @@
 /* eslint-disable max-lines-per-function */
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
-import React, { Children } from 'react';
+import React, { Children, ReactElement, ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
 import { noop, get, isEqual } from 'lodash';
@@ -63,11 +63,13 @@ export interface NavProps extends BaseProps {
     toggleIconPosition?: string;
     tooltipHideDelay?: number;
     tooltipShowDelay?: number;
-    onClick?: (data: { itemKey: React.ReactText; domEvent: MouseEvent; isOpen: boolean }) => void;
+    getPopupContainer?: () => HTMLElement;
+    onClick?: (data: { itemKey?: React.ReactText; domEvent?: MouseEvent; isOpen?: boolean }) => void;
     onCollapseChange?: (isCollapse: boolean) => void;
     onDeselect?: (data?: any) => void;
-    onOpenChange?: (data: { itemKey: (string | number); openKeys: (string | number)[]; domEvent: MouseEvent; isOpen: boolean }) => void;
-    onSelect?: (data: OnSelectedData) => void
+    onOpenChange?: (data: { itemKey?: (string | number); openKeys?: (string | number)[]; domEvent?: MouseEvent; isOpen?: boolean }) => void;
+    onSelect?: (data: OnSelectedData) => void;
+    renderWrapper?: ({ itemElement, isSubNav, isInSubNav, props }: { itemElement: ReactElement;isInSubNav:boolean; isSubNav: boolean; props: NavItemProps | SubNavProps }) => ReactNode
 }
 
 export interface NavState {
@@ -146,7 +148,8 @@ class Nav extends BaseComponent<NavProps, NavState> {
         prefixCls: PropTypes.string,
         header: PropTypes.oneOfType([PropTypes.node, PropTypes.object]),
         footer: PropTypes.oneOfType([PropTypes.node, PropTypes.object]),
-        limitIndent: PropTypes.bool
+        limitIndent: PropTypes.bool,
+        getPopupContainer: PropTypes.func,
     };
 
     static defaultProps = {
@@ -299,7 +302,9 @@ class Nav extends BaseComponent<NavProps, NavState> {
             footer,
             header,
             toggleIconPosition,
-            limitIndent
+            limitIndent,
+            renderWrapper,
+            getPopupContainer
         } = this.props;
 
         const { selectedKeys, openKeys, items, isCollapsed } = this.state;
@@ -397,7 +402,9 @@ class Nav extends BaseComponent<NavProps, NavState> {
                             locale,
                             prefixCls,
                             toggleIconPosition,
-                            limitIndent
+                            limitIndent,
+                            renderWrapper,
+                            getPopupContainer
                         } as any}
                     >
                         <div className={finalCls} style={finalStyle}>

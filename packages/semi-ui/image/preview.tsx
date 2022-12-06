@@ -168,7 +168,7 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
         return (
             <PreviewContext.Provider
                 value={{
-                    isGroup: finalSrcList.length > 1,
+                    isGroup: true,
                     previewSrc: finalSrcList,
                     titles: titles,
                     currentIndex,

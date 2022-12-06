@@ -159,6 +159,60 @@ const treeData4 = [
     },
 ];
 
+const treeData5 = [
+  {
+    label: 'Node1',
+    value: '0-0',
+    children: [
+      {
+        label: 'Child Node1',
+        value: '0-0-1',
+      },
+      {
+        label: 'Child Node2',
+        value: '0-0-2',
+        key: '0-0-2',
+      },
+      {
+        label: 'Child Node3',
+        value: '0-0-3',
+      },
+      {
+        label: 'Child Node4',
+        value: '0-0-4',
+      },
+      {
+        label: 'Child Node5',
+        value: '0-0-5',
+      },
+      {
+        label: 'Child Node6',
+        value: '0-0-6',
+      },
+      {
+        label: 'Child Node7',
+        value: '0-0-7',
+      },
+      {
+        label: 'Child Node8',
+        value: '0-0-8',
+      },
+      {
+        label: 'Child Node9',
+        value: '0-0-9',
+      },
+      {
+        label: 'Child Node10',
+        value: '0-0-10',
+      },
+    ],
+  },
+  {
+    label: 'Node2',
+    value: '0-1',
+  },
+];
+
 const treeOrder = [
     {
         label: '-1',
@@ -1583,3 +1637,27 @@ export const SuperLongList = () => {
         />
     );
 };
+
+export const size = () => {
+  const props = {
+    // defaultValue: [
+    //   ["0-0","0-0-1"],["0-0","0-0-2"],["0-0","0-0-3"],["0-0","0-0-4"],["0-0","0-0-5"],
+    //   ["0-0","0-0-6"],["0-0","0-0-7"],["0-0","0-0-8"],["0-0","0-0-9"]
+    // ],
+     defaultValue: [["0-0","0-0-9"]
+    ],
+    style: { width: 300 },
+    treeData: treeData5,
+    multiple: true,
+    filterTreeNode: true,
+    leafOnly: true,
+  };
+
+  return (<>
+    <Cascader {...props} size={'small'} />
+    <br/><br/>
+    <Cascader {...props} size={'default'} />
+    <br/><br/>
+    <Cascader {...props} size={'large'}/>
+  </>);
+}

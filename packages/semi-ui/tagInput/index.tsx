@@ -42,6 +42,7 @@ const SortableList = SortableContainer(
 
 export interface TagInputProps {
     className?: string;
+    clearIcon?: React.ReactNode;
     defaultValue?: string[];
     disabled?: boolean;
     inputValue?: string;
@@ -94,6 +95,7 @@ const prefixCls = cssClasses.PREFIX;
 class TagInput extends BaseComponent<TagInputProps, TagInputState> {
     static propTypes = {
         children: PropTypes.node,
+        clearIcon: PropTypes.node,
         style: PropTypes.object,
         className: PropTypes.string,
         disabled: PropTypes.bool,
@@ -323,7 +325,7 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
 
     renderClearBtn() {
         const { hovering, tagsArray, inputValue } = this.state;
-        const { showClear, disabled } = this.props;
+        const { showClear, disabled, clearIcon } = this.props;
         const clearCls = cls(`${prefixCls}-clearBtn`, {
             [`${prefixCls}-clearBtn-invisible`]: !hovering || (inputValue === '' && tagsArray.length === 0) || disabled,
         });
@@ -337,7 +339,7 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
                     onClick={e => this.handleClearBtn(e)}
                     onKeyPress={e => this.handleClearEnterPress(e)}
                 >
-                    <IconClear />
+                    { clearIcon ? clearIcon : <IconClear />}
                 </div>
             );
         }

@@ -34,7 +34,9 @@ export interface NavItemProps extends ItemProps, BaseProps {
     text?: React.ReactNode;
     tooltipHideDelay?: number;
     tooltipShowDelay?: number;
+
     onClick?(clickItems: SelectedData): void;
+
     onMouseEnter?: React.MouseEventHandler<HTMLLIElement>;
     onMouseLeave?: React.MouseEventHandler<HTMLLIElement>
 }
@@ -85,6 +87,7 @@ export default class NavItem extends BaseComponent<NavItemProps, NavItemState> {
 
     foundation: ItemFoundation;
     context: NavContextType;
+
     constructor(props: NavItemProps) {
         super(props);
         this.state = {
@@ -295,7 +298,14 @@ export default class NavItem extends BaseComponent<NavItemProps, NavItemState> {
         if (isCollapsed && !isInSubNav && !isSubNav || isCollapsed && isSubNav && disabled) {
             itemDom = this.wrapTooltip(itemDom);
         }
-
+        if (typeof this.context.renderWrapper === 'function') {
+            return this.context.renderWrapper({
+                itemElement: itemDom,
+                isSubNav: isSubNav,
+                isInSubNav: isInSubNav,
+                props: this.props
+            });
+        }
         return itemDom;
     }
 }

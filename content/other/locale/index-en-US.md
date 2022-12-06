@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 73
+order: 74
 category: Other
 title: LocaleProvider
 subTitle: LocaleProvider
@@ -22,6 +22,7 @@ brief: Internationalized components to provide multilingual support for Semi com
 | v1.28.0     | Traditional Chinese: zh_TW       |
 | v2.2.0     | Spanish: es       |
 | v2.15.0     | Italian: it、French：fr、German：de   |
+| v2.21.0     | Romanian: ro   |
 
 ## Components supported
 

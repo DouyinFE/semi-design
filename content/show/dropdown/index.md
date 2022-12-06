@@ -228,7 +228,7 @@ function Demo() {
 
 ### 触发方式
 
-默认是移入触发，可通过获取焦点，点击或自定义事件触发菜单展开。
+默认是移入触发，可通过获取焦点(focus)，点击(click)或自定义事件触发菜单展开。
 
 ```jsx live=true
 import React from 'react';
@@ -263,7 +263,14 @@ function Demo() {
                     </Dropdown.Menu>
                 }
             >
-                <Input style={{ width: 120 }} placeholder="点击此处" />
+                <div style={{
+                    border: '1px solid var(--semi-color-border)',
+                    borderRadius: 4,
+                    height: 36,
+                    width: 220
+                }}>
+                    Please use Tab to focus this div
+                </div>
             </Dropdown>
             <br />
             <br />
@@ -425,6 +432,7 @@ function DropdownEvents() {
 | clickToHide | 在弹出层内点击时是否自动关闭弹出层 | boolean |  | **0.24.0** |
 | contentClassName | 下拉菜单根元素类名 | string |  |  |
 | getPopupContainer | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 `position: relative` | function():HTMLElement | () => document.body |  |
+| margin| 弹出层计算溢出时的增加的冗余值，详见[issue#549](https://github.com/DouyinFE/semi-design/issues/549)，作用同 Tooltip margin  | number\|object  |  |  **2.25.0**   |
 | mouseEnterDelay | 鼠标移入 Trigger 后，延迟显示的时间，单位毫秒（仅当 trigger 为 hover/focus 时生效） | number | 50 |  |
 | mouseLeaveDelay | 鼠标移出弹出层后，延迟消失的时间，单位毫秒（仅当 trigger 为 hover/focus 时生效） | number | 50 |  |
 | menu | 通过传入 JSON Array 来快速配置 Dropdown 内容 | Array<DropdownMenuItem\> | [] | **1.12.0** |
