@@ -112,12 +112,23 @@ function Demo() {
     };
 
     return (
-        <TimePicker
-            open={open}
-            onOpenChange={onOpenChange}
-            panelHeader={'Time Select'}
-            panelFooter={<Button onClick={closePanel}>close</Button>}
-        />
+        <div>
+            <TimePicker
+                open={open}
+                onOpenChange={onOpenChange}
+                panelHeader={'Time Select'}
+                panelFooter={<Button onClick={closePanel}>close</Button>}
+            />
+            <br/><br/>
+            <TimePicker
+                type='timeRange'
+                panelHeader={['start header', 'end header']}
+                panelFooter={[
+                    <Button key="1" onClick={() => {console.log('start footer');}}>start footer</Button>, 
+                    <Button key="2" onClick={() => {console.log('end footer');}}>end footer</Button>
+                ]}
+            />
+        </div>
     );
 }
 ```
@@ -308,8 +319,8 @@ function Demo(props = {}) {
 | minuteStep | Minute option interval | number | 1 |
 | motion | Whether to display the pop-up layer animation | boolean | true |  |
 | open | Controlled property of whether the panel is open | boolean |  |
-| panelFooter | Addon at the bottom of the panel | ReactNode\|string |  |
-| panelHeader | Panel head addon | ReactNode\|string |  |
+| panelFooter | Addon at the bottom of the panel | ReactNode\|ReactNode[]\|string |  |
+| panelHeader | Panel head addon | ReactNode\|ReactNode[]\|string |  |
 | placeholder | What's displayed when it's not worth it. | string | "Select time" |
 | popupClassName | Pop-up class name | string | '' |
 | popupStyle | Pop-up layer style object | object | - |
