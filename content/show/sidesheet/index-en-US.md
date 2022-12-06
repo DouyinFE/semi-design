@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 60
+order: 61
 category: Show
 title: SideSheet
 subTitle: SideSheet
@@ -118,7 +118,7 @@ import { SideSheet, RadioGroup, Radio, Button } from '@douyinfe/semi-ui';
 After `v0.29.0`, you could set `mask={false}` to continue working on the area outside SideSheet.
 
 <Notice title='Tips'>
-  By default, if you are not setting `getPopupContainer`, SideSheet is rendered inside `body`. If you want `body` element to be able to scroll, you could set `disableScroll={false}` and the component will not add `overflow: hidden` to it.
+  By default, if you are not setting `getPopupContainer`, SideSheet is rendered inside body. If you want body element to be able to scroll, you could set disableScroll to false and the component will not add `overflow: hidden` to it.
 </Notice>
 
 ```jsx live=true
@@ -131,10 +131,8 @@ import { SideSheet, Button, TextArea } from '@douyinfe/semi-ui';
     return (
         <>
             <Button onClick={() => setVisible(true)}>Open SideSheet</Button>
-            <br />
-            <br />
-            <TextArea placeholder="Please enter something" onChange={value => setValue(value)} />
-            <SideSheet title="SideSheet" visible={visible} onCancel={() => setVisible(false)} mask={false}>
+            <TextArea placeholder="Please enter something" onChange={value => setValue(value)} style={{ marginTop: 12 }}/>
+            <SideSheet title="SideSheet" visible={visible} onCancel={() => setVisible(false)} mask={false} disableScroll={false}>
                 <p>Here is what you entered: </p>
                 <p>{value}</p>
             </SideSheet>

@@ -101,6 +101,8 @@ body, body[theme-mode="dark"] .semi-always-light {
     --semi-border-radius-large: 12px; // 大圆角, 用于 modal
     --semi-border-radius-circle: 50%; // 全圆角, 用于 avatar, badge 等组件
     --semi-border-radius-full: 9999px; // 用于创建全尺寸圆角，如胶囊标签等
+    --semi-color-highlight-bg: rgba(var(--semi-yellow-4), 1); // 高亮文本背景色
+    --semi-color-highlight: rgba(var(--semi-black), 1); // 高亮文本色
 }
 
 body[theme-mode="dark"], body .semi-always-dark {
@@ -189,4 +191,6 @@ body[theme-mode="dark"], body .semi-always-dark {
     --semi-border-radius-large: 12px;
     --semi-border-radius-circle: 50%;
     --semi-border-radius-full: 9999px;
+    --semi-color-highlight-bg: rgba(var(--semi-yellow-2), 1); // 高亮文本背景色
+    --semi-color-highlight: rgba(var(--semi-white), 1); // 高亮文本色
 }

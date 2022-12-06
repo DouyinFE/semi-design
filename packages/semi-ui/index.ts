@@ -79,7 +79,7 @@ export { default as TreeSelect } from './treeSelect';
 export { default as Upload } from './upload';
 export { default as Typography } from './typography';
 export { default as Transfer } from './transfer';
-
+export { default as Highlight } from './highlight';
 
 export { default as LocaleProvider } from './locale/localeProvider';
 export { default as LocaleConsumer } from './locale/localeConsumer';

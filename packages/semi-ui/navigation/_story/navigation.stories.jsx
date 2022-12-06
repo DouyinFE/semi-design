@@ -11,6 +11,7 @@ import WithChildren from './WithChildren';
 import ItemsChange from './ItemsChange';
 import DisabledNav from './DisabledNav';
 import Button from '../../button';
+import GetPopupNav from './Popup';
 
 import {
   IconMail,
@@ -327,4 +328,9 @@ ItemsChangeDemo.story = {
 export const DisabledNavDemo = () => <DisabledNav />;
 DisabledNavDemo.story = {
   name: 'disabled nav'
+}
+
+export const PopupDemo = () => <GetPopupNav />;
+PopupDemo.story = {
+  name: 'getPopupContainer'
 }

@@ -12,7 +12,7 @@ import { PreviewContext, PreviewContextProps } from "./previewContext";
 import ImageFoundation, { ImageAdapter } from "@douyinfe/semi-foundation/image/imageFoundation";
 import LocaleConsumer from "../locale/localeConsumer";
 import { Locale } from "../locale/interface";
-import { isBoolean, isObject } from "lodash";
+import { isBoolean, isObject, isUndefined } from "lodash";
 import Skeleton from "../skeleton";
 import "@douyinfe/semi-foundation/image/image.scss";
 
@@ -209,6 +209,7 @@ export default class Image extends BaseComponent<ImageProps, ImageStates> {
                         src={previewSrc}
                         visible={previewVisible}
                         onVisibleChange={this.handlePreviewVisibleChange}
+                        crossOrigin={!isUndefined(crossOrigin) ? crossOrigin : previewProps?.crossOrigin}
                     />
                 }
             </div>
