@@ -20,6 +20,56 @@ Popover 气泡卡片是由用户自主打开的临时性浮层卡片，能够承
 ```jsx import
 import { Popover } from '@douyinfe/semi-ui';
 ```
+
+### 注意事项
+
+Popover 需要将 DOM 事件监听器应用到 children 中，如果子元素是自定义的组件，你需要确保它能将属性传递至底层的 DOM 元素
+
+同时为了计算弹出层的定位，需要获取到 children 的真实 DOM 元素，因此 Tooltip 支持如下类型的 children
+
+1. Class Component，不强制绑定ref，但需要确保 props 可被透传至真实的 DOM 节点上
+2. 使用 forwardRef 包裹后的函数式组件，将 props 与 ref 透传到 children 内真实的 DOM 节点上
+3. 真实 DOM 节点, 如 span，div，p...
+
+```jsx live=true noInline=true dir="column"
+import React, { forwardRef } from 'react';
+import { Popover, Space } from '@douyinfe/semi-ui';
+
+const style={ border: '2px solid var(--semi-color-border)', paddingLeft: 4, paddingRight: 4, borderRadius: 4 };
+
+// 将props属性传递，绑定ref
+const FCChildren = forwardRef((props, ref) => {
+    return (<span {...props} ref={ref} style={style}>Functional Component</span>);
+});
+
+// 将props属性传递
+class MyComponent extends React.Component {
+    render() {
+        return (<span {...this.props} style={style}>ClassComponent</span>);
+    }
+};
+
+const content = (<article style={{ padding: 12 }}> Hi ByteDancer, this is a popover. <br /> We have 2 lines.</article>);
+
+function Demo() {
+    return (
+        <Space>
+            <Popover content={content}>
+                <FCChildren />
+            </Popover>
+            <Popover content={content}>
+                <MyComponent />
+            </Popover>
+            <Popover content={content}>
+                <span style={style}>DOM</span>
+            </Popover>
+        </Space>
+    );
+}
+render(Demo);
+
+
+```
 ### 基本使用
 
 将浮层的触发器 Trigger 作为`children`，使用 Popover 包裹（如下的例子中触发器为 Tag 元素）。浮层内容通过`content`传入   
