@@ -126,6 +126,7 @@ export interface TreeSelectProps extends Omit<BasicTreeSelectProps, OverrideComm
     outerTopSlot?: React.ReactNode;
     placeholder?: string;
     prefix?: React.ReactNode;
+    position?: PopoverProps['position'];
     searchAutoFocus?: boolean;
     searchPlaceholder?: string;
     showSearchClear?: boolean;
@@ -1436,10 +1437,11 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             stopPropagation,
             getPopupContainer,
             dropdownMargin,
+            position,
         } = this.props;
         const { isOpen, rePosKey } = this.state;
         const selection = this.renderSelection();
-        const pos = 'bottomLeft';
+        const pos = position ? position : 'bottomLeft';
         return (
             <Popover
                 stopPropagation={stopPropagation}
