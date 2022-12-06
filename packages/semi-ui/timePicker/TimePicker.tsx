@@ -26,8 +26,8 @@ import { ScrollItemProps } from '../scrollList/scrollItem';
 import { Locale } from '../locale/interface';
 
 export interface Panel {
-    panelHeader?: React.ReactNode;
-    panelFooter?: React.ReactNode
+    panelHeader?: React.ReactNode | React.ReactNode[];
+    panelFooter?: React.ReactNode | React.ReactNode[]
 }
 
 export type BaseValueType = string | number | Date;
@@ -68,8 +68,8 @@ export type TimePickerProps = {
     minuteStep?: number;
     motion?: boolean;
     open?: boolean;
-    panelFooter?: React.ReactNode;
-    panelHeader?: React.ReactNode;
+    panelFooter?: React.ReactNode | React.ReactNode[];
+    panelHeader?: React.ReactNode | React.ReactNode[];
     panels?: Panel[]; // FIXME:
     placeholder?: string;
     popupClassName?: string;
@@ -327,9 +327,9 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
             panelProps.panelHeader = get(
                 panels,
                 index,
-                isNullOrUndefined(panelHeader) ? get(defaultHeaderMap, index, null) : panelHeader
+                isNullOrUndefined(panelHeader) ? get(defaultHeaderMap, index, null) : Array.isArray(panelHeader) ? panelHeader[index] : panelHeader
             );
-            panelProps.panelFooter = get(panels, index, panelFooter) as React.ReactNode;
+            panelProps.panelFooter = get(panels, index, Array.isArray(panelFooter) ? panelFooter[index] : panelFooter) as React.ReactNode;
         }
 
         return panelProps;
