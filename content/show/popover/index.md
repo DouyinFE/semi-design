@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 58
+order: 59
 category: 展示类
 title: Popover 气泡卡片
 icon: doc-popover
@@ -20,9 +20,60 @@ Popover 气泡卡片是由用户自主打开的临时性浮层卡片，能够承
 ```jsx import
 import { Popover } from '@douyinfe/semi-ui';
 ```
+
+### 注意事项
+
+Popover 需要将 DOM 事件监听器应用到 children 中，如果子元素是自定义的组件，你需要确保它能将属性传递至底层的 DOM 元素
+
+同时为了计算弹出层的定位，需要获取到 children 的真实 DOM 元素，因此 Tooltip 支持如下类型的 children
+
+1. Class Component，不强制绑定ref，但需要确保 props 可被透传至真实的 DOM 节点上
+2. 使用 forwardRef 包裹后的函数式组件，将 props 与 ref 透传到 children 内真实的 DOM 节点上
+3. 真实 DOM 节点, 如 span，div，p...
+
+```jsx live=true noInline=true dir="column"
+import React, { forwardRef } from 'react';
+import { Popover, Space } from '@douyinfe/semi-ui';
+
+const style={ border: '2px solid var(--semi-color-border)', paddingLeft: 4, paddingRight: 4, borderRadius: 4 };
+
+// 将props属性传递，绑定ref
+const FCChildren = forwardRef((props, ref) => {
+    return (<span {...props} ref={ref} style={style}>Functional Component</span>);
+});
+
+// 将props属性传递
+class MyComponent extends React.Component {
+    render() {
+        return (<span {...this.props} style={style}>ClassComponent</span>);
+    }
+};
+
+const content = (<article style={{ padding: 12 }}> Hi ByteDancer, this is a popover. <br /> We have 2 lines.</article>);
+
+function Demo() {
+    return (
+        <Space>
+            <Popover content={content}>
+                <FCChildren />
+            </Popover>
+            <Popover content={content}>
+                <MyComponent />
+            </Popover>
+            <Popover content={content}>
+                <span style={style}>DOM</span>
+            </Popover>
+        </Space>
+    );
+}
+render(Demo);
+
+
+```
 ### 基本使用
 
-将浮层的触发器 Trigger 作为`children`，使用 Popover 包裹（如下的例子中触发器为 Tag 元素）。浮层内容通过`content`传入
+将浮层的触发器 Trigger 作为`children`，使用 Popover 包裹（如下的例子中触发器为 Tag 元素）。浮层内容通过`content`传入   
+注意事项同 [Tooltip](/zh-CN/show/tooltip#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9) 
 
 ```jsx live=true
 import React from 'react';
@@ -74,69 +125,56 @@ function Demo() {
         ['bottomRight', 'BR'],
     ];
 
+    const article = (
+        <article style={{ padding: 12 }}>
+            Hi ByteDancer, this is a popover.
+            <br /> We have 2 lines.
+        </article>
+    );
+
     return (
-        <div style={{ paddingLeft: 40 }} className="tag-margin-right">
-            <div style={{ marginLeft: 40, whiteSpace: 'nowrap' }}>
+        <div>
+            <div style={{ marginLeft: 80, whiteSpace: 'nowrap' }}>
                 {tops.map((pos, index) => (
                     <Popover
-                        content={
-                            <article style={{ padding: 12 }}>
-                                Hi ByteDancer, this is a popover.
-                                <br /> We have 2 lines.
-                            </article>
-                        }
+                        content={article}
                         position={Array.isArray(pos) ? pos[0] : pos}
                         key={index}
                     >
-                        <Tag>{Array.isArray(pos) ? pos[1] : pos}</Tag>
+                        <Tag style={{ margin: 8, padding: 20 }}>{Array.isArray(pos) ? pos[1] : pos}</Tag>
                     </Popover>
                 ))}
             </div>
-            <div style={{ width: 40, float: 'left' }}>
+            <div style={{ width: 80, float: 'left' }}>
                 {lefts.map((pos, index) => (
                     <Popover
-                        content={
-                            <article style={{ padding: 12 }}>
-                                Hi ByteDancer, this is a popover.
-                                <br /> We have 2 lines.
-                            </article>
-                        }
+                        content={article}
                         position={Array.isArray(pos) ? pos[0] : pos}
                         key={index}
                     >
-                        <Tag>{Array.isArray(pos) ? pos[1] : pos}</Tag>
+                        <Tag style={{ margin: 8, padding: 20, width: 60 }}>{Array.isArray(pos) ? pos[1] : pos}</Tag>
                     </Popover>
                 ))}
             </div>
-            <div style={{ width: 40, marginLeft: 180 }}>
+            <div style={{ width: 40, marginLeft: 300 }}>
                 {rights.map((pos, index) => (
                     <Popover
-                        content={
-                            <article style={{ padding: 12 }}>
-                                Hi ByteDancer, this is a popover.
-                                <br /> We have 2 lines.
-                            </article>
-                        }
+                        content={article}
                         position={Array.isArray(pos) ? pos[0] : pos}
                         key={index}
                     >
-                        <Tag>{Array.isArray(pos) ? pos[1] : pos}</Tag>
+                        <Tag style={{ margin: 8, padding: 20, width: 60 }}>{Array.isArray(pos) ? pos[1] : pos}</Tag>
                     </Popover>
                 ))}
             </div>
-            <div style={{ marginLeft: 40, clear: 'both', whiteSpace: 'nowrap' }}>
+            <div style={{ marginLeft: 80, clear: 'both', whiteSpace: 'nowrap' }}>
                 {bottoms.map((pos, index) => (
                     <Popover
-                        content={
-                            <article style={{ padding: 12 }}>
-                                Hi ByteDancer, this is a popover.
-                                <br /> We have 2 lines.
-                            </article>
-                        }
+                        content={article}
                         position={Array.isArray(pos) ? pos[0] : pos}
                         key={index}
                     >
-                        <Tag>{Array.isArray(pos) ? pos[1] : pos}</Tag>
+                        <Tag style={{ margin: 8, padding: 20, width: 60 }}>{Array.isArray(pos) ? pos[1] : pos}</Tag>
                     </Popover>
                 ))}
             </div>
@@ -429,12 +467,9 @@ function Demo() {
             content={
                 <article style={{ padding: 4 }}>
                     Hi ByteDancer, this is a popover.
-                    <br /> We have 2 lines.
                 </article>
             }
-            trigger="custom"
             position='right'
-            visible
             showArrow
             style={{
                 backgroundColor: 'rgba(var(--semi-blue-4),1)',
@@ -444,10 +479,18 @@ function Demo() {
                 borderStyle: 'solid',
             }}
         >
-            <Tag>点击此处</Tag>
+            <Tag
+                style={{
+                    backgroundColor: 'rgba(var(--semi-blue-4),1)',
+                    color: 'var(--semi-color-white)'
+                }}
+            >
+                点击此处
+            </Tag>
         </Popover>
     );
 }
+
 ```
 
 ### 初始化弹出层焦点位置
@@ -538,11 +581,13 @@ import { Button, Input, Popover, Space } from '@douyinfe/semi-ui';
 ## FAQ
 
 -   **为什么 Popover 浮层卡片的位置和浮层的触发器的相对位置不符合预期?**  
-    Popover 底层依赖了 Tooltip，Tooltip 为了计算定位，需要获取到 children 的真实 DOM 元素，因此 Popover 类型目前支持如下两种类型的 children：
-    1. 真实 dom 节点的 jsx 类型，如 span，div，p...
-    2. 使用 forwardRef 包裹后的函数式组件，将 props 与 ref 透传到真实的 dom 节点上
+    Popover 底层依赖了 Tooltip，Tooltip 为了计算定位，需要获取到 children 的真实 DOM 元素，因此 Popover 类型目前支持如下类型的 children：
 
-    若以带有前缀的 Semi Input 作为 children，即使设置了 Input 和 Popover content等宽，浮层卡片的位置仍是相对于不包含前缀部分的 input 框进行定位，此时只要在 Input 外层再套一个 div 就能解决问题。
+    1. Class Component，不强制绑定ref，但需要确保 props 可被透传至真实的 DOM 节点上
+    2. 使用 forwardRef 包裹后的函数式组件，将 props 与 ref 透传到 children 内真实的 DOM 节点上
+    3. 真实 DOM 节点, 如 span，div，p...
+
+    若通过 ref 或 findDOMNode 获取到的真实 DOM 节点宽高并非是你的 children 元素的全部，则位置可能有出入。例如设置了 prefix、suffix 的 Input，Popover位置仍是相对于不包含前缀部分的 input 框进行定位，此时只要在 Input 外层再套一个 div 就能解决问题。
 
 -   **为什么 Popover 浮层卡片在靠近屏幕边界宽度不够时，丢失宽度意外换行?**  
     在 chromium 104 后 对于屏幕边界文本宽度不够时的换行渲染策略发生变化，详细原因可查看 [issue #1022](https://github.com/DouyinFE/semi-design/issues/1022)，semi侧已经在v2.17.0版本修复了这个问题。

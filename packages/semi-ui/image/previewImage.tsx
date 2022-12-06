@@ -182,7 +182,7 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
     };
 
     render() {
-        const { src, rotation } = this.props;
+        const { src, rotation, crossOrigin } = this.props;
         const { loading, width, height, top, left } = this.state;
         const imgStyle = {
             position: "absolute",
@@ -213,6 +213,7 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
                     onLoad={this.handleLoad}
                     onError={this.handleError}
                     style={imgStyle as React.CSSProperties}
+                    crossOrigin={crossOrigin}
                 />
                 {loading && <Spin size={"large"} wrapperClassName={`${preViewImgPrefixCls}-spin`}/>}
             </div>

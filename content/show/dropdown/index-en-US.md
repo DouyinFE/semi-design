@@ -264,7 +264,14 @@ function Demo() {
                     </Dropdown.Menu>
                 }
             >
-                <Input style={{ width: 120 }} placeholder="click here" />
+                <div style={{
+                    border: '1px solid var(--semi-color-border)',
+                    borderRadius: 4,
+                    height: 36,
+                    width: 220
+                }}>
+                    Please use Tab to focus this div
+                </div>
             </Dropdown>
             <br />
             <br />

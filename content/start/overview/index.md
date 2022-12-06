@@ -77,7 +77,8 @@ SideSheet 滑动侧边栏,
 Table 表格,
 Tag 标签,
 Timeline 时间轴,
-Tooltip 工具提示
+Tooltip 工具提示,
+Highlight 高亮文本
 ```
 
 ## 反馈类

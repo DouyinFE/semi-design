@@ -134,7 +134,6 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
     renderTabComponents = (list: Array<PlainTab>): Array<ReactNode> => list.map(panel => this.renderTabItem(panel));
 
     handleArrowClick = (items: Array<OverflowItem>, pos: 'start' | 'end'): void => {
-        const inline = pos === 'start' ? 'end' : 'start';
         const lastItem = pos === 'start' ? items.pop() : items.shift();
         if (!lastItem) {
             return;
@@ -142,7 +141,7 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
         const key = this._getItemKey(lastItem.itemKey);
         // eslint-disable-next-line max-len
         const tabItem = document.querySelector(`[data-uuid="${this.uuid}"] .${cssClasses.TABS_TAB}[data-scrollkey="${key}"]`);
-        tabItem.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline });
+        tabItem.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
     };
 
     renderCollapse = (items: Array<OverflowItem>, icon: ReactNode, pos: 'start' | 'end'): ReactNode => {
