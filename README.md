@@ -9,11 +9,12 @@
     
 <div align="center">
 
-[![NPM][npm-badge]][npm-url] [![FIGMA][figma-badge]][figma-url] [![LICENSE][license-badge]][license-url]
+[![NPM][npm-badge]][npm-url] [![CONTRIBUTORS][contributors-badge]][contributors-url] [![FIGMA][figma-badge]][figma-url] [![LICENSE][license-badge]][license-url]
 [![BUILD-JS][build-js-badge]][build-js-url] [![BUILD-CSS][build-css-badge]][build-css-url] [![CODECOV][codecov-badge]][codecov-url] [![Chromatic][chromatic-badge]][chromatic-url] [![Cypress][cypress-badge]][cypress-url]
 
-
 [npm-badge]: https://img.shields.io/npm/v/@douyinfe/semi-ui.svg
+[contributors-badge]: https://img.shields.io/github/contributors/DouyinFE/semi-design
+[contributors-url]: https://github.com/DouyinFE/semi-design/graphs/contributors
 [npm-url]: https://www.npmjs.com/package/@douyinfe/semi-ui
 [figma-badge]: https://img.shields.io/badge/Figma-UIKit-%2318a0fb
 [figma-url]: https://www.figma.com/@semi
