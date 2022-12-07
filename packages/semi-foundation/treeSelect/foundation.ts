@@ -262,7 +262,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         return Boolean(inputValue) && showFilteredOnly;
     }
 
-    finDataForValue(findValue: string) {
+    findDataForValue(findValue: string) {
         const { value, defaultValue } = this.getProps();
         let valueArr = [];
         if (value) {
@@ -286,7 +286,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
     getDataForKeyNotInKeyEntities(value: string) {
         const { onChangeWithObject } = this.getProps();
         if (onChangeWithObject) {
-            return this.finDataForValue(value);
+            return this.findDataForValue(value);
         } else {
             return this.constructDataForValue(value);
         }
