@@ -182,7 +182,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         onLoad: PropTypes.func,
         arrowIcon: PropTypes.node,
         defaultOpen: PropTypes.bool,
-        defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+        defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]),
         defaultExpandAll: PropTypes.bool,
         defaultExpandedKeys: PropTypes.array,
         expandAll: PropTypes.bool,
@@ -711,6 +711,10 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         this.foundation.handleClick(e);
     };
 
+    getDataForKeyNotInKeyEntities = (key: string) => {
+        return this.foundation.getDataForKeyNotInKeyEntities(key);
+    }
+
     /* istanbul ignore next */
     handleSelectionEnterPress = (e: React.KeyboardEvent<HTMLDivElement>) => {
         this.foundation.handleSelectionEnterPress(e);
@@ -759,14 +763,14 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             });
         let renderKeys = [];
         if (checkRelation === 'related') {
-            renderKeys = normalizeKeyList([...checkedKeys], keyEntities, leafOnly);
+            renderKeys = normalizeKeyList([...checkedKeys], keyEntities, leafOnly, true);
         } else if (checkRelation === 'unRelated' && Object.keys(keyEntities).length > 0) {
             renderKeys = [...realCheckedKeys];
         }
         const tagList: Array<React.ReactNode> = [];
         // eslint-disable-next-line @typescript-eslint/no-shadow
         renderKeys.forEach((key: TreeNodeData['key']) => {
-            const item = keyEntities[key].data;
+            const item = keyEntities[key] ? keyEntities[key].data : this.getDataForKeyNotInKeyEntities(key);
             const onClose = (tagContent: any, e: React.MouseEvent) => {
                 if (e && typeof e.preventDefault === 'function') {
                     // make sure that tag will not hidden immediately in controlled mode
@@ -774,7 +778,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 }
                 this.removeTag(key);
             };
-            const { content, isRenderInTag } = (treeNodeLabelProp in item && item) ?
+            const { content, isRenderInTag } = (item && treeNodeLabelProp in item) ?
                 (renderSelectedItem as RenderSelectedItemInMultiple)(item, { index: key, onClose }) :
                 null;
             if (!content) {
@@ -984,7 +988,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 },
                 className
             );
-        const triggerRenderKeys = multiple ? normalizeKeyList([...checkedKeys], keyEntities, leafOnly) : selectedKeys;
+        const triggerRenderKeys = multiple ? normalizeKeyList([...checkedKeys], keyEntities, leafOnly, true) : selectedKeys;
         const inner = useCustomTrigger ? (
             <Trigger
                 inputValue={inputValue}
@@ -1055,8 +1059,8 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             renderSelectedItem: propRenderSelectedItem,
             treeNodeLabelProp
         } = this.props;
-        const keyList = normalizeKeyList([key], keyEntities, leafOnly);
-        const nodes = keyList.map(i => keyEntities[i].data);
+        const keyList = normalizeKeyList([key], keyEntities, leafOnly, true);
+        const nodes = keyList.map(i => keyEntities[key] ? keyEntities[key].data : this.getDataForKeyNotInKeyEntities(key));
         const value = getValueOrKey(nodes);
         const tagCls = cls(`${prefixcls}-selection-tag`, {
             [`${prefixcls}-selection-tag-disabled`]: disabled,
@@ -1084,7 +1088,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 content: get(selectedItem, treeNodeLabelProp, null)
             });
         if (isFunction(renderSelectedItem)) {
-            const { content, isRenderInTag } = treeNodeLabelProp in item && item ?
+            const { content, isRenderInTag } = item && treeNodeLabelProp in item ?
                 (renderSelectedItem as RenderSelectedItemInMultiple)(item, { index: idx, onClose }) :
                 null;
             if (isRenderInTag) {
@@ -1122,7 +1126,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         } = this.state;
         let keyList = [];
         if (checkRelation === 'related') {
-            keyList = normalizeKeyList(checkedKeys, keyEntities, leafOnly);
+            keyList = normalizeKeyList(checkedKeys, keyEntities, leafOnly, true);
         } else if (checkRelation === 'unRelated') {
             keyList = [...realCheckedKeys];
         }

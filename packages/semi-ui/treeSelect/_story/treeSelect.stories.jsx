@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Icon, Button, Form, Popover, Tag, Typography, CheckboxGroup } from '../../index';
 import TreeSelect from '../index';
 import { flattenDeep } from 'lodash';
@@ -1745,3 +1745,240 @@ export const size = () => {
     <TreeSelect {...props} size={'large'} placeholder={'large'} />
   </>);
 }
+
+export const valueNotInTreeDataIssue = () => {
+  const treeData = [
+      {
+          key: "test",
+          label: "测试标签",
+          children: [
+              {
+                  key: "test_2",
+                  label: "测试二级标签"
+              },
+              {
+                  key: "jzr_test",
+                  label: "之睿测试"
+              }
+          ]
+      },
+  
+      {
+          key: "create",
+          label: "创作构思",
+          children: [
+              {
+                  key: "material",
+                  label: "素材积累"
+              },
+              {
+                  key: "lens_script",
+                  label: "分镜脚本"
+              }
+          ]
+      }
+  ];
+
+  const treeDataWithValue = [
+    {
+        value: "test",
+        key: "0",
+        label: "测试标签",
+        children: [
+            {
+                value: "test_2",
+                key: "0-1",
+                label: "测试二级标签"
+            },
+            {
+              value: "jzr_test",
+                key: "0-2",
+                label: "之睿测试"
+            }
+        ]
+    },
+
+    {
+        value: "create",
+        key: "1",
+        label: "创作构思",
+        children: [
+            {
+                value: "material",
+                key: "1-1",
+                label: "素材积累"
+            },
+            {
+                value: "lens_script",
+                key: "1-2",
+                label: "分镜脚本"
+            }
+        ]
+    }
+  ];
+
+  const commonProps = useMemo(() => {
+    return {
+      multiple: true,
+      style: { width: 300 },
+      dropdownStyle: { maxHeight: 400, overflow: 'auto' },
+      onChange: (value) => {
+        console.log('onChange', value);
+      },
+      onSelect: (value) => {
+        console.log('onSelect', value); 
+      },
+    };
+  }, []);
+  
+  return (
+    <>
+      <p style={{ backgroundColor: 'yellowgreen', width: 'fit-content' }}>多选，无 value</p>
+      <p>checkRelation='related'</p>
+        <TreeSelect
+          defaultExpandAll
+          defaultValue={["test_2", "fish"]}
+          treeData={treeData}
+          {...commonProps}
+        />
+        <p>checkRelation='unRelated'</p>
+        <TreeSelect
+          defaultExpandAll
+          defaultValue={["test_2", "fish"]}
+          checkRelation='unRelated'
+          treeData={treeData}
+          {...commonProps}
+        />
+        <p>onChangeWithObject, checkRelation='related'</p>
+        <TreeSelect
+          defaultExpandAll
+          onChangeWithObject
+          defaultValue={[
+            {
+              key: "test_2",
+              label: "测试二级标签"
+            },
+            {
+              key: "fish",
+              label: "鱼"
+            }
+          ]}
+          treeData={treeData}
+          {...commonProps}
+        />
+        <p>onChangeWithObject, checkRelation='unRelated'</p>
+        <TreeSelect
+          defaultExpandAll
+          onChangeWithObject
+          defaultValue={[
+            {
+              key: "test_2",
+              label: "测试二级标签"
+            },
+            {
+              key: "fish",
+              label: "鱼"
+            }
+          ]}
+          treeData={treeData}
+          {...commonProps}
+        />
+        <p style={{ backgroundColor: 'yellowgreen', width: 'fit-content' }}>多选，有 value</p>
+        <p>checkRelation='related'</p>
+        <TreeSelect
+          defaultExpandAll
+          defaultValue={["test", "fish"]}
+          treeData={treeDataWithValue}
+          {...commonProps}
+        />
+        <p>checkRelation='unRelated'</p>
+        <TreeSelect
+          defaultExpandAll
+          defaultValue={["test", "fish"]}
+          checkRelation='unRelated'
+          treeData={treeDataWithValue}
+          {...commonProps}
+        />
+        <p>onChangeWithObject, checkRelation='unRelated'</p>
+        <TreeSelect
+          defaultExpandAll
+          onChangeWithObject
+          defaultValue={[
+            {
+              value: "test_2",
+              key: "0-1",
+              label: "测试二级标签"
+            },
+            {
+              key: "fish",
+              value: "Fish",
+              label: "鱼"
+            }
+          ]}
+          treeData={treeDataWithValue}
+          {...commonProps}
+        />
+        <p>onChangeWithObject, checkRelation='unRelated'</p>
+        <TreeSelect
+          defaultExpandAll
+          onChangeWithObject
+          defaultValue={[
+            {
+              value: "test_2",
+              key: "0-1",
+              label: "测试二级标签"
+            },
+            {
+              key: "fish",
+              value: "Fish",
+              label: "鱼"
+            }
+          ]}
+          treeData={treeDataWithValue}
+          {...commonProps}
+        />
+        <p style={{ backgroundColor: 'yellowgreen', width: 'fit-content' }}>单选，无 value</p>
+        <TreeSelect
+          defaultExpandAll
+          defaultValue={"fish"}
+          treeData={treeData}
+          {...commonProps}
+          multiple={false}
+        />
+        <p>onChangeWithObject</p>
+        <TreeSelect
+          defaultExpandAll
+          defaultValue={{
+            key: "fish",
+            value: "Fish",
+            label: "鱼"
+          }}
+          treeData={treeData}
+          {...commonProps}
+          multiple={false}
+          onChangeWithObject
+        />
+        <p style={{ backgroundColor: 'yellowgreen', width: 'fit-content' }}>单选，有 value</p>
+        <TreeSelect
+          defaultExpandAll
+          defaultValue={"fish"}
+          treeData={treeDataWithValue}
+          {...commonProps}
+          multiple={false}
+        />
+        <p>onChangeWithObject</p>
+        <TreeSelect
+          defaultExpandAll
+          defaultValue={{
+            key: "fish",
+            value: "Fish",
+            label: "鱼"
+          }}
+          treeData={treeDataWithValue}
+          {...commonProps}
+          multiple={false}
+          onChangeWithObject
+        />
+    </>
+  );
+};

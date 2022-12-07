@@ -117,6 +117,59 @@ const treeData3 = [
     }
 ];
 
+const treeChildrenWithoutValue = [
+    {
+        label: '北京',
+        key: 'beijing',
+    },
+    {
+        label: '上海',
+        key: 'shanghai',
+    },
+];
+
+const treeDataWithoutValue = [
+    {
+        label: '亚洲',
+        key: 'yazhou',
+        children: [
+            {
+                label: '中国',
+                key: 'zhongguo',
+                children: treeChildrenWithoutValue,
+            },
+            {
+                label: '日本',
+                key: 'riben',
+                children: [
+                    {
+                        label: '东京',
+                        key: 'dongjing'
+                    },
+                    {
+                        label: '大阪',
+                        key: 'daban'
+                    }
+                ]
+            },
+        ],
+    },
+    {
+        label: '北美洲',
+        key: 'beimeizhou',
+        children: [
+            {
+                label: '美国',
+                key: 'meiguo'
+            },
+            {
+                label: '加拿大',
+                key: 'jianada'
+            }
+        ]
+    },
+];
+
 let commonProps = {
     motion: false,
     motionExpand: false,
@@ -905,12 +958,13 @@ describe('TreeSelect', () => {
         ).toEqual('北京');
         treeSelect.setProps({ treeData: treeData3});
         treeSelect.update();
+        // If the value exists, but not in the treeData, the value will be displayed in the trigger
         expect(
             treeSelect
             .find(`.${BASE_CLASS_PREFIX}-tree-select .${BASE_CLASS_PREFIX}-tree-select-selection span`)
             .getDOMNode()
             .textContent
-        ).toEqual('');
+        ).toEqual('Beijing');
     });
 
     it('treeData is updated should not clear value when controlled mode and multiple selection', () => {
@@ -945,7 +999,7 @@ describe('TreeSelect', () => {
             .at(0)
             .find(`.${BASE_CLASS_PREFIX}-tag-content`)
             .length
-        ).toEqual(0);
+        ).toEqual(1);
     });
 
     it('expandedKeys controlled + filterTreeNode', () => {
@@ -965,4 +1019,69 @@ describe('TreeSelect', () => {
         expect(topNode.at(0).hasClass(`${BASE_CLASS_PREFIX}-tree-option-collapsed`)).toEqual(true);
         expect(topNode.at(1).hasClass(`${BASE_CLASS_PREFIX}-tree-option-collapsed`)).toEqual(true);
     });
+    
+    it('option not in treeData + treeData item with value', () => {
+        const spyOnSelect = sinon.spy(() => { });
+        const spyOnChange = sinon.spy(() => { });
+        let treeSelect = getTreeSelect({
+            defaultValue: 'fish',
+            defaultExpandAll: true,
+            onSelect: spyOnSelect,
+            onChange: spyOnChange,
+        });
+        expect(treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-select-selection`).getDOMNode().textContent).toEqual('fish');
+        // beijing
+        let topNodeBeijing = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-3`).at(0);
+        topNodeBeijing.simulate('click');
+        expect(spyOnChange.calledWithMatch("Beijing")).toEqual(true);
+        treeSelect.unmount(); 
+
+        // onChangeWithObject
+        treeSelect = getTreeSelect({
+            defaultValue: { label: '鱼', value: 'Fish', key: 'fish' },
+            onChangeWithObject: true,
+            defaultExpandAll: true,
+            onSelect: spyOnSelect,
+            onChange: spyOnChange,
+        });
+        expect(treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-select-selection`).getDOMNode().textContent).toEqual('鱼');
+        // beijing
+        topNodeBeijing = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-3`).at(0);
+        topNodeBeijing.simulate('click');
+        expect(spyOnChange.calledWithMatch({ label: '北京', value: 'Beijing', key: 'beijing' })).toEqual(true);
+        treeSelect.unmount(); 
+    })
+
+    it('option not in treeData + treeData item without value', () => {
+        const spyOnSelect = sinon.spy(() => { });
+        const spyOnChange = sinon.spy(() => { });
+        let treeSelect = getTreeSelect({
+            treeData: treeDataWithoutValue,
+            defaultValue: 'fish',
+            defaultExpandAll: true,
+            onSelect: spyOnSelect,
+            onChange: spyOnChange,
+        });
+        expect(treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-select-selection`).getDOMNode().textContent).toEqual('fish');
+        // beijing
+        let topNodeBeijing = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-3`).at(0);
+        topNodeBeijing.simulate('click');
+        expect(spyOnChange.calledWithMatch("beijing")).toEqual(true);
+        treeSelect.unmount(); 
+
+        // onChangeWithObject
+        treeSelect = getTreeSelect({
+            defaultValue: { label: '鱼', key: 'fish' },
+            onChangeWithObject: true,
+            defaultExpandAll: true,
+            onSelect: spyOnSelect,
+            onChange: spyOnChange,
+        });
+        expect(treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-select-selection`).getDOMNode().textContent).toEqual('鱼');
+        // beijing
+        topNodeBeijing = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-3`).at(0);
+        topNodeBeijing.simulate('click');
+        expect(spyOnChange.calledWithMatch({ label: '北京', key: 'beijing' })).toEqual(true);
+        treeSelect.unmount(); 
+    })
 })

@@ -15,6 +15,19 @@ const treeChildren = [
     },
 ];
 
+const treeChildrenWithFakeObj = [
+    {
+        label: '北京',
+        value: 'Beijing',
+        key: 'beijing',
+    },
+    {
+        label: '鱼',
+        value: 'Fish',
+        key: 'fish',
+    },
+]
+
 const treeData = [
     {
         label: '亚洲',
@@ -101,6 +114,59 @@ const treeDataWithDisabled = [
         value: 'North America',
         key: '1',
     }
+];
+
+const treeChildrenWithoutValue = [
+    {
+        label: '北京',
+        key: 'beijing',
+    },
+    {
+        label: '上海',
+        key: 'shanghai',
+    },
+];
+
+const treeDataWithoutValue = [
+    {
+        label: '亚洲',
+        key: 'yazhou',
+        children: [
+            {
+                label: '中国',
+                key: 'zhongguo',
+                children: treeChildrenWithoutValue,
+            },
+            {
+                label: '日本',
+                key: 'riben',
+                children: [
+                    {
+                        label: '东京',
+                        key: 'dongjing'
+                    },
+                    {
+                        label: '大阪',
+                        key: 'daban'
+                    }
+                ]
+            },
+        ],
+    },
+    {
+        label: '北美洲',
+        key: 'beimeizhou',
+        children: [
+            {
+                label: '美国',
+                key: 'meiguo'
+            },
+            {
+                label: '加拿大',
+                key: 'jianada'
+            }
+        ]
+    },
 ];
 
 let commonProps = {
@@ -597,7 +663,6 @@ describe('TreeSelect', () => {
                 defaultOpen
                 defaultExpandAll
                 disableStrictly
-                multiple
                 leafOnly
                 treeData={treeData}
                 {...commonProps}
@@ -616,7 +681,6 @@ describe('TreeSelect', () => {
                 defaultOpen
                 defaultExpandAll
                 disableStrictly
-                multiple
                 treeData={treeDataWithDisabled}
                 {...commonProps}
             />
@@ -771,5 +835,174 @@ describe('TreeSelect', () => {
         expect(spyOnSelect.calledOnce).toBe(true);
         // onSelect first args is key, not value
         expect(spyOnSelect.calledWithMatch('zhongguo')).toEqual(true);
+    });
+
+    it('option not in treeData + treeData item with value', () => {
+        const spyOnSelect = sinon.spy(() => { });
+        const spyOnChange = sinon.spy(() => { });
+        const treeSelect = getTreeSelect({
+            defaultValue: ['Beijing', 'fish'],
+            onSelect: spyOnSelect,
+            onChange: spyOnChange,
+        });
+
+        // Nodes that do not exist in treeData also appear in the tag input box
+        let tagGroup = treeSelect.find(`.${BASE_CLASS_PREFIX}-tag`);
+        expect(tagGroup.length).toEqual(2);
+        expect(tagGroup.at(0).instance().textContent).toEqual('北京');
+        expect(tagGroup.at(1).instance().textContent).toEqual('fish');
+
+        // Only one item is selected in the panel
+        let selectedNodes = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-3`);
+        let selectedNode = selectedNodes.at(0);
+        expect(selectedNode.find(`.${BASE_CLASS_PREFIX}-checkbox-inner-checked`).exists()).toEqual(true);
+        expect(selectedNode.find(`.${BASE_CLASS_PREFIX}-tree-option-label-text`).instance().textContent).toEqual('北京');
+       
+        // Check for fish in onSelect and onChange
+        let closeBtn = tagGroup.at(0).find(`.${BASE_CLASS_PREFIX}-tag-close`);
+        const nativeEvent = { nativeEvent: { stopImmediatePropagation: () => { } } }
+        closeBtn.simulate('click', nativeEvent);
+        tagGroup = treeSelect.find(`.${BASE_CLASS_PREFIX}-tag`);
+        expect(tagGroup.length).toEqual(1);
+        expect(tagGroup.at(0).instance().textContent).toEqual('fish');
+        expect(spyOnChange.calledOnce).toBe(true);
+        expect(spyOnChange.calledWithMatch(['fish'])).toEqual(true);
+        
+        let nodeChina = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-2`).at(0);
+        // select China
+        nodeChina.simulate('click');
+        expect(spyOnSelect.calledWithMatch('zhongguo')).toEqual(true);
+        expect(spyOnChange.calledWithMatch(['fish', 'Zhongguo'])).toEqual(true);
+
+    });
+
+    it('option not in treeData + treeData item has value + onChangeWithObject', () => {
+        const spyOnSelect = sinon.spy(() => { });
+        const spyOnChange = sinon.spy(() => { });
+        const treeSelect = getTreeSelect({
+            defaultValue: treeChildrenWithFakeObj,
+            onSelect: spyOnSelect,
+            onChange: spyOnChange,
+            defaultExpandAll: true,
+            onChangeWithObject: true
+        });
+
+        // Nodes that do not exist in treeData also appear in the tag input box
+        let tagGroup = treeSelect.find(`.${BASE_CLASS_PREFIX}-tag`);
+        expect(tagGroup.length).toEqual(2);
+        expect(tagGroup.at(0).instance().textContent).toEqual('北京');
+        expect(tagGroup.at(1).instance().textContent).toEqual('鱼');
+
+        // Only one item is selected in the panel
+        let selectedNodes = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-3`);
+        let selectedNode = selectedNodes.at(0);
+        expect(selectedNode.find(`.${BASE_CLASS_PREFIX}-checkbox-inner-checked`).exists()).toEqual(true);
+        expect(selectedNode.find(`.${BASE_CLASS_PREFIX}-tree-option-label-text`).instance().textContent).toEqual('北京');
+    
+        // Check for fish in onSelect and onChange
+        let closeBtn = tagGroup.at(0).find(`.${BASE_CLASS_PREFIX}-tag-close`);
+        const nativeEvent = { nativeEvent: { stopImmediatePropagation: () => { } } }
+        closeBtn.simulate('click', nativeEvent);
+        tagGroup = treeSelect.find(`.${BASE_CLASS_PREFIX}-tag`);
+        expect(tagGroup.length).toEqual(1);
+        expect(tagGroup.at(0).instance().textContent).toEqual('鱼');
+        expect(spyOnChange.calledOnce).toBe(true);
+        expect(spyOnChange.calledWithMatch([{ label: '鱼', value: 'Fish',  key: 'fish' }])).toEqual(true);
+        
+        let nodeChina = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-3`).at(0);
+        // select China
+        nodeChina.simulate('click');
+        expect(spyOnSelect.calledWithMatch('beijing')).toEqual(true);
+        expect(spyOnChange.calledWithMatch([
+            { label: '鱼', value: 'Fish',  key: 'fish' }, 
+            { label: '北京', value: 'Beijing', key: 'beijing' }
+        ])).toEqual(true);
+    });
+
+    it('option not in treeData + treeData item without value ', () => {
+        const spyOnSelect = sinon.spy(() => { });
+        const spyOnChange = sinon.spy(() => { });
+        const treeSelect = getTreeSelect({
+            treeData: treeDataWithoutValue,
+            defaultValue: ['beijing', 'fish'],
+            onSelect: spyOnSelect,
+            onChange: spyOnChange,
+        });
+
+        // Nodes that do not exist in treeData also appear in the tag input box
+        let tagGroup = treeSelect.find(`.${BASE_CLASS_PREFIX}-tag`);
+        expect(tagGroup.length).toEqual(2);
+        expect(tagGroup.at(0).instance().textContent).toEqual('北京');
+        expect(tagGroup.at(1).instance().textContent).toEqual('fish');
+
+        // Only one item is selected in the panel
+        let selectedNodes = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-3`);
+        let selectedNode = selectedNodes.at(0);
+        expect(selectedNode.find(`.${BASE_CLASS_PREFIX}-checkbox-inner-checked`).exists()).toEqual(true);
+        expect(selectedNode.find(`.${BASE_CLASS_PREFIX}-tree-option-label-text`).instance().textContent).toEqual('北京');
+       
+        // Check for fish in onSelect and onChange
+        let closeBtn = tagGroup.at(0).find(`.${BASE_CLASS_PREFIX}-tag-close`);
+        const nativeEvent = { nativeEvent: { stopImmediatePropagation: () => { } } }
+        closeBtn.simulate('click', nativeEvent);
+        tagGroup = treeSelect.find(`.${BASE_CLASS_PREFIX}-tag`);
+        expect(tagGroup.length).toEqual(1);
+        expect(tagGroup.at(0).instance().textContent).toEqual('fish');
+        expect(spyOnChange.calledOnce).toBe(true);
+        expect(spyOnChange.calledWithMatch(['fish'])).toEqual(true);
+        
+        let nodeChina = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-2`).at(0);
+        // select China
+        nodeChina.simulate('click');
+        expect(spyOnSelect.calledWithMatch('zhongguo')).toEqual(true);
+        expect(spyOnChange.calledWithMatch(['fish', 'zhongguo'])).toEqual(true);
+
+    });
+
+    it('option not in treeData + treeData item without value + onChangeWithObject', () => {
+        const spyOnSelect = sinon.spy(() => { });
+        const spyOnChange = sinon.spy(() => { });
+        const treeSelect = getTreeSelect({
+            treeData: treeDataWithoutValue,
+            defaultValue: [
+                { label: '北京',  key: 'beijing' },
+                { label: '鱼', key: 'fish' }
+            ],
+            onSelect: spyOnSelect,
+            onChange: spyOnChange,
+            defaultExpandAll: true,
+            onChangeWithObject: true
+        });
+
+        // Nodes that do not exist in treeData also appear in the tag input box
+        let tagGroup = treeSelect.find(`.${BASE_CLASS_PREFIX}-tag`);
+        expect(tagGroup.length).toEqual(2);
+        expect(tagGroup.at(0).instance().textContent).toEqual('北京');
+        expect(tagGroup.at(1).instance().textContent).toEqual('鱼');
+
+        // Only one item is selected in the panel
+        let selectedNodes = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-3`);
+        let selectedNode = selectedNodes.at(0);
+        expect(selectedNode.find(`.${BASE_CLASS_PREFIX}-checkbox-inner-checked`).exists()).toEqual(true);
+        expect(selectedNode.find(`.${BASE_CLASS_PREFIX}-tree-option-label-text`).instance().textContent).toEqual('北京');
+    
+        // Check for fish in onSelect and onChange
+        let closeBtn = tagGroup.at(0).find(`.${BASE_CLASS_PREFIX}-tag-close`);
+        const nativeEvent = { nativeEvent: { stopImmediatePropagation: () => { } } }
+        closeBtn.simulate('click', nativeEvent);
+        tagGroup = treeSelect.find(`.${BASE_CLASS_PREFIX}-tag`);
+        expect(tagGroup.length).toEqual(1);
+        expect(tagGroup.at(0).instance().textContent).toEqual('鱼');
+        expect(spyOnChange.calledOnce).toBe(true);
+        expect(spyOnChange.calledWithMatch([{ label: '鱼', key: 'fish' }])).toEqual(true);
+        
+        let nodeChina = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-3`).at(0);
+        // select China
+        nodeChina.simulate('click');
+        expect(spyOnSelect.calledWithMatch('beijing')).toEqual(true);
+        expect(spyOnChange.calledWithMatch([
+            { label: '鱼',  key: 'fish' }, 
+            { label: '北京', key: 'beijing' }
+        ])).toEqual(true);
     });
 })
