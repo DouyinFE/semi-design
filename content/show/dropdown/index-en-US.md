@@ -435,6 +435,7 @@ function DropdownEvents() {
 | clickToHide | Whether to close the drop-down layer automatically when clicking on the drop-down layer | boolean |  | **0.24.0** |
 | contentClassName | Drop-down menu root element class name | string |  |  |
 | getPopupContainer | Specifies the parent DOM, and the bullet layer will be rendered to the DOM, you need to set 'position: relative` | function():HTMLElement | () => document.body |
+| margin | Popup layer calculates the size of the safe area when the current direction overflows, used in scenes covered by fixed elements, more detail refer to [issue#549](https://github.com/DouyinFE/semi-design/issues/549), same as Tooltip margin | object\|number |  | 2.25.0 |
 | mouseEnterDelay | After the mouse is moved into the Trigger, the display time is delayed, in milliseconds (only effective when the trigger is hover/focus) | number | 50 |  |
 | mouseLeaveDelay | The time for the delay to disappear after the mouse moves out of the pop-up layer, in milliseconds (only effective when the trigger is hover/focus) | number | 50 |  |
 | menu | Menu content config | Array<DropdownMenuItem\> | [] | **1.12.0** |

@@ -1367,6 +1367,7 @@ function Demo() {
 | autoExpandParent | 是否自动展开父节点 | boolean | false | 0.34.0 |
 | checkRelation | 多选时，节点之间选中状态的关系，可选：'related'、'unRelated' | string | 'related' | 2.5.0 |
 | className | 选择框的 `className` 属性 | string | - | - |
+| clearIcon | 可用于自定义清除按钮, showClear为true时有效 | ReactNode | |2.25.0  |
 | clickToHide  | 选择后是否自动关闭下拉弹层，仅单选模式有效  | boolean    | true | 1.5.0      |
 | defaultExpandAll | 设置在初始化时是否展开所有节点。而如果后续数据(`treeData`)发生改变，这个 api 是无法影响节点的展开情况的，如果有这个需要可以使用 `expandAll` | boolean | false | 0.32.0 |
 | defaultExpandedKeys | 默认展开的节点，显示其直接子级 | string\[] | - | 0.32.0 |
@@ -1396,6 +1397,7 @@ function Demo() {
 | outerBottomSlot          | 渲染在弹出层底部，与 optionList 平级的自定义 slot   | ReactNode  |  - | 1.1.0|
 | outerTopSlot| 渲染在弹出层顶部，与 optionList 平级的自定义 slot，注意如果开启了 filterTreeNode 会取代搜索框，可以通过 search 方法来自行处理 |  ReactNode  |  - | 1.9.0|
 | placeholder | 选择框默认文字 | string | - | - |
+| position | 下拉菜单位置，可选值参考 Tooltip position | string | bottomLeft | 2.25.0 |
 | prefix | 前缀标签 | ReactNode | - |0.28.0 |
 | preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法 | boolean |  |  |
 | renderFullLabel | 完全自定义label的渲染函数，[入参及用法详见](/zh-CN/navigation/tree#高级定制) | (obj) => ReactNode | - | 1.7.0 | 

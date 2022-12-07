@@ -203,6 +203,7 @@ function Demo () {
 | ------------ | ----------------------------------------------------------------------------------------------- | --------------------------------- | --------- | ---------- |
 | autofocus    | Automatic access to focus                                                                       | boolean                           | false     |            |
 | className    | class name of InputNumber                                                               | string  | -      |
+| clearIcon    | Can be used to customize the clear button, valid when showClear is true                       | ReactNode                       |     | 2.25.0 |
 | defaultValue | Default                                                                                         | number                            |           |            |
 | disabled     | Disabled status                                                                                 | boolean                           | false     |            |
 | formatter    | Specifies the format of the input box to display the value                                      | (value: number\|string) => string | -         |            |

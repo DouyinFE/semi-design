@@ -541,6 +541,7 @@ Please refer to [Use with Tooltip/Popconfirm](/en-US/show/tooltip#%E6%90%AD%E9%8
 | disableFocusListener | When trigger is `hover`, does not respond to the keyboard focus popup event, see details at [issue#977](https://github.com/DouyinFE/semi-design/issues/977) | boolean | true | **2.17.0** |
 | getPopupContainer | Specifies the parent DOM, and the bullet layer will be rendered to the DOM, you need to set 'position: relative` | () => HTMLElement | () => document.body |
 | guardFocus | When the focus is in the popup layer, toggle whether the Tab makes the focus loop in the popup layer | boolean | true | **2.8.0** |
+| margin | Popup layer calculates the size of the safe area when the current direction overflows, used in scenes covered by fixed elements, more detail refer to [issue#549](https://github.com/DouyinFE/semi-design/issues/549), same as Tooltip margin | object\|number |  | 2.25.0 |
 | mouseEnterDelay | After the mouse is moved in, the display delay time, in milliseconds (only effective when the trigger is hover/focus) | number | 50 |  |
 | mouseLeaveDelay | The time for the delay to disappear after the mouse is moved out, in milliseconds (only effective when the trigger is hover/focus) | number | 50 |  |
 | rePosKey | You can update the value of this item to manually trigger the repositioning of the pop-up layer | string\|number |  |  |

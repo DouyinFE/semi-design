@@ -302,6 +302,7 @@ function Demo(props = {}) {
 | autoAdjustOverflow | Whether the floating layer automatically adjusts its direction when it is blocked | boolean | true | **0.34.0** |
 | autoFocus | Automatic access to focus | boolean | false |
 | className | Outer style name | string |  |
+| clearIcon | Can be used to customize the clear button, valid when showClear is true | ReactNode |  |  **2.25.0**|
 | clearText | Clear button prompt copy | string | Clear |
 | defaultOpen | Whether the panel is open by default | boolean |  | **0.19.0** |
 | defaultValue | Default time | Date\|timeStamp\|string (array when type = "timeRange") |  |
@@ -309,6 +310,7 @@ function Demo(props = {}) {
 | disabledHours | Prohibited selection of partial hour options | () => number [] |  |
 | disabledMinutes | Prohibited to select some minute options | (selectedHour: number) => number[] |  |
 | disabledSeconds | Unable to select partial second option | (selectedHour: number, selectedMinute: number) => number[] |  |
+| dropdownMargin | Popup layer calculates the size of the safe area when the current direction overflows, used in scenes covered by fixed elements, more detail refer to [issue#549](https://github.com/DouyinFE/semi-design/issues/549), same as Tooltip margin | object\|number |  | **2.25.0** |
 | focusOnOpen     | Whether to open the panel and focus the input box when mounting                         | boolean                                                                            | false                                                     |                    |
 | format | Time format of presentation | string | "HH: mm: ss." |  |
 | getPopupContainer | Specifies the container and the floating layer will be rendered into the element, you need to set 'position: relative` | () => HTMLElement | () => document.body |
@@ -330,7 +332,7 @@ function Demo(props = {}) {
 | rangeSeparator | time range delimiter | string | "~" |
 | scrollItemProps | The props passed through to ScrollItem. The optional values are the same as [ScrollList#API](/zh-CN/show/scrolllist#ScrollItem) | object |  | **0.31.0** |
 | secondStep | Second option interval | number | 1 |
-| showClear | Do you show the clear button? **v>=0.35.0** | boolean | true |
+| showClear | Whether to show the clear button | boolean | true | **0.35.0**|
 | size  | Size of input box, one of 'default', 'small' and 'large'          | string                                                                   | 'default'                                                              |                    |
 | triggerRender | Custom trigger rendering method | ({ placeholder: string }) => ReactNode |  | **0.34.0** |
 | type | type | "time"\|"timeRange" | "time" |

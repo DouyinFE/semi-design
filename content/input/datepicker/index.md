@@ -835,6 +835,7 @@ function Demo() {
 | autoSwitchDate     | 通过面板上方左右按钮、下拉菜单更改年月时，自动切换日期。仅对 date type 生效。 | boolean   | true    | **1.13.0** |
 | bottomSlot         | 渲染底部额外区域                                                          | ReactNode |         | **1.22.0** |
 | className          | 类名                                                                      | string    | -       |            |
+| clearIcon | 可用于自定义清除按钮, showClear为true时有效 | ReactNode |   | **2.25.0**|
 | defaultOpen        | 面板默认显示或隐藏                                                        | boolean   | false   |            |
 | defaultPickerValue | 默认面板日期                                                              | ValueType |         |            |
 | defaultValue       | 默认值                                                                    | ValueType |         |            |
