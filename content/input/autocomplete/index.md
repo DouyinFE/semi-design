@@ -375,6 +375,7 @@ import { IllustrationNoContent } from '@douyinfe/semi-illustrations';
 | autoFocus | 是否自动聚焦 | bool | false | 1.16.0|
 | autoAdjustOverflow | 浮层被遮挡时是否自动调整方向 | bool | true | 0.27.0|
 | className | 样式类名 | string | |
+| clearIcon | 可用于自定义清除按钮, showClear为true时有效 | ReactNode | 2.25.0  |
 | data | 候选项的数据源，可以为字符串数组或对象数组 | array | [] |
 | defaultActiveFirstOption | 是否默认高亮第一个选项（按回车可直接选中） | bool | false |
 | defaultOpen | 是否默认展开下拉菜单 | boolean | false |

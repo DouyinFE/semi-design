@@ -1514,6 +1514,7 @@ function Demo() {
 | bottomSlot | 底部插槽 | ReactNode | - | 1.27.0                           |
 | changeOnSelect     | 是否允许选择非叶子节点                                                                   | boolean                                                                        | false                            | -                                |
 | className          | 选择框的 className 属性                                                              | string                                                                         | -                                | -                                |
+| clearIcon | 可用于自定义清除按钮, showClear为true时有效 | ReactNode | 2.25.0  |
 | defaultOpen       | 设置是否默认打开下拉菜单              | boolean | false                                | -                                |
 | defaultValue       | 指定默认选中的条目                                                                   | string\|number\| TreeNode\                        |(string\|number\|TreeNode)[]                                                                           | -                                | -      |
 | disabled           | 是否禁用                                                                             | boolean                                                                        | false                            | -                                |

@@ -293,6 +293,7 @@ function Demo(props = {}) {
 | autoAdjustOverflow  | 浮层被遮挡时是否自动调整方向                           | boolean                                                                           | true                                                              | **0.34.0** |
 | autoFocus           | 自动获取焦点                                           | boolean                                                                           | false                                                             |                    |
 | className           | 外层样式名                                             | string                                                                            |                                                                   |                    |
+| clearIcon | 可用于自定义清除按钮, showClear为true时有效 | ReactNode |  |**2.25.0**  |
 | clearText           | 清除按钮的提示文案                                     | string                                                                            | clear                                                             |                    |
 | defaultOpen         | 面板是否默认打开                                       | boolean                                                                           |                                                                   | **0.19.0**         |
 | defaultValue        | 默认时间                                               | Date\|timeStamp\|String（type="timeRange"时为数组）                               |                                                                   |                    |
