@@ -413,8 +413,16 @@ const components = {
                 </a>
             );
         } else {
+            const assetPrefix = ASSET_PREFIX.replace("//","/")
+            const assetPrefixStart = props.href.indexOf(assetPrefix)
+            let href = props.href;
+            if(assetPrefixStart!==-1){
+                const assetPrefixEnd = assetPrefixStart + assetPrefix.length
+                href = props.href.slice(assetPrefixEnd)
+            }
+
             return (
-                <Link className="md markdown gatsby-a" to={props.href} target={props.target}>
+                <Link className="md markdown gatsby-a" to={href} target={props.target}>
                     {props.children}
                 </Link>
             );

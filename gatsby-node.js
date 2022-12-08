@@ -170,6 +170,7 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions }) =>
             'process.env.SEMI_SITE_HEADER': JSON.stringify(process.env.SEMI_SITE_HEADER),
             'process.env.SEMI_SITE_BANNER': JSON.stringify(process.env.SEMI_SITE_BANNER),
             'process.env.D2C_URL': JSON.stringify(process.env.D2C_URL),
+            "ASSET_PREFIX":JSON.stringify((process.env['CDN_OUTER_CN'] || process.env['CDN_INNER_CN']) ? `https://${(process.env['CDN_OUTER_CN'] || process.env['CDN_INNER_CN'])}/${process.env['CDN_PATH_PREFIX']}`: ""),
         })],
     });
 };
