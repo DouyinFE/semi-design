@@ -1808,6 +1808,7 @@ const { Slot } = Form;
 | className  | Classname of Slot Wrapper                                                                                                                                                                              | string         |         |
 | style      | Slot inline style                                                                                                                                                                                       | object         |         |
 | children   | Content of slot. You can place your custom component here                                                                                                                                               | ReactNode      |         |
+| error      | ErrorMessage of Slot       | ErrorMessage\|ReactNode      |
 
 ## Form.ErrorMessage
 
