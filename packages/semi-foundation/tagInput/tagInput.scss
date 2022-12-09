@@ -11,9 +11,18 @@ $module: #{$prefix}-tagInput;
     display: inline-flex;
     font-weight: $font-weight-regular;
     width: 100%;
+    min-height: $height-tagInput-default;
     box-sizing: border-box;
     transition: background-color $transition_duration-tagInput-bg $transition_function-tagInput-bg $transition_delay-tagInput-bg,
         border $transition_duration-tagInput-border $transition_function-tagInput-border $transition_delay-tagInput-border;
+
+    &-small {
+        min-height: $height-tagInput-small;
+    }
+
+    &-large {
+        min-height: $height-tagInput-large;
+    }
 
     &-drag {
 
@@ -105,18 +114,6 @@ $module: #{$prefix}-tagInput;
         padding-left: $spacing-extra-tight;
         padding-right: $spacing-extra-tight;
         overflow: hidden;
-
-        &-small {
-            min-height: $height-tagInput-small;
-        }
-
-        &-default {
-            min-height: $height-tagInput-default;
-        }
-
-        &-large {
-            min-height: $height-tagInput-large;
-        }
 
         &-tag {
             margin-right: $spacing-extra-tight;

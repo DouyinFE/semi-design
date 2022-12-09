@@ -360,10 +360,10 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
         });
         return (
             // eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events
-            <div 
-                className={prefixWrapperCls} 
-                onMouseDown={this.handlePreventMouseDown} 
-                onClick={this.handleClickPrefixOrSuffix} 
+            <div
+                className={prefixWrapperCls}
+                onMouseDown={this.handlePreventMouseDown}
+                onClick={this.handleClickPrefixOrSuffix}
                 id={insetLabelId} x-semi-prop="prefix"
             >
                 {labelNode}
@@ -476,7 +476,7 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
             tags = allTags.slice(0, maxTagCount);
             restTags = allTags.slice(maxTagCount);
         }
-    
+
         const restTagsContent = (
             <span className={restTagsCls}>+{tagsArray.length - maxTagCount}</span>
         );
@@ -490,7 +490,7 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
             // helperClass：add styles to the helper(item being dragged) https://github.com/clauderic/react-sortable-hoc/issues/87
             // @ts-ignore skip SortableItem type check
             return <SortableList useDragHandle helperClass={`${prefixCls}-drag-item-move`} items={sortableListItems} onSortEnd={this.onSortEnd} axis={"xy"} />;
-        } 
+        }
         return (
             <>
                 {tags}
@@ -518,7 +518,7 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
 
     blur() {
         this.inputRef.current.blur();
-        // unregister clickOutside event 
+        // unregister clickOutside event
         this.foundation.clickOutsideCallBack();
     }
 
@@ -526,7 +526,7 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
         const { preventScroll, disabled } = this.props;
         this.inputRef.current.focus({ preventScroll });
         if (!disabled) {
-            // register clickOutside event 
+            // register clickOutside event
             this.foundation.handleClick();
         }
     }
@@ -554,15 +554,17 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
             [`${prefixCls}-disabled`]: disabled,
             [`${prefixCls}-hover`]: hovering && !disabled,
             [`${prefixCls}-error`]: validateStatus === 'error',
-            [`${prefixCls}-warning`]: validateStatus === 'warning'
+            [`${prefixCls}-warning`]: validateStatus === 'warning',
+            [`${prefixCls}-small`]: size === 'small',
+            [`${prefixCls}-large`]: size === 'large',
         });
 
         const inputCls = cls(`${prefixCls}-wrapper-input`, `${prefixCls}-wrapper-input-${size}`);
 
-        const wrapperCls = cls(`${prefixCls}-wrapper`, `${prefixCls}-wrapper-${size}`);
+        const wrapperCls = cls(`${prefixCls}-wrapper`);
 
         return (
-            // eslint-disable-next-line 
+            // eslint-disable-next-line
             <div
                 ref={this.tagInputRef}
                 style={style}
@@ -576,7 +578,7 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
                 onMouseLeave={e => {
                     this.handleInputMouseLeave(e);
                 }}
-                onClick={e => {   
+                onClick={e => {
                     this.handleClick(e);
                 }}
             >

@@ -32,6 +32,7 @@
 
 .#{$prefix}-icon-spinning {
     animation: $motion-icon_spin-animationDuration linear infinite #{$prefix}-icon-animation-rotate;
+    animation-fill-mode: forwards;
 }
 
 @keyframes #{$prefix}-icon-animation-rotate {
