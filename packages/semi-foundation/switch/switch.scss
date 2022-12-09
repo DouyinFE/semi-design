@@ -76,6 +76,11 @@ $module: #{$prefix}-switch;
             @include shadow-0;
             border: $width-switch_knob_disabled-border $color-switch_knob-border-default solid;
         }
+        
+        .#{$module}-native-control {
+            pointer-events: none;
+            cursor: not-allowed;
+        }
 
         &.#{$module}-checked {
             border-color: $color-switch_checked_disabled-border-default;
