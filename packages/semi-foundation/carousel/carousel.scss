@@ -44,21 +44,25 @@ $module: #{$prefix}-carousel;
             .#{$module}-content-item-slide-out {
                 display: block;
                 animation: #{$module}-content-item-keyframe-slide-out;
+                animation-fill-mode: forwards;
             }
 
             .#{$module}-content-item-slide-in {
                 display: block;
                 animation: #{$module}-content-item-keyframe-slide-in;
+                animation-fill-mode: forwards;
             }
         }
 
         &-reverse {
             .#{$module}-content-item-slide-out {
                 animation: #{$module}-content-item-keyframe-slide-out-reverse;
+                animation-fill-mode: forwards;
             }
 
             .#{$module}-content-item-slide-in {
                 animation: #{$module}-content-item-keyframe-slide-in-reverse;
+                animation-fill-mode: forwards;
             }
         }
     }

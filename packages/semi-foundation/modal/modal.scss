@@ -209,18 +209,22 @@ $module: #{$prefix}-modal;
 
 .#{$module}-content-animate-show {
     animation: $animation_duration-modal-show #{$module}-content-keyframe-show $animation_function-modal-show $animation_delay-modal-show forwards;
+    animation-fill-mode: forwards;
 }
 
 .#{$module}-content-animate-hide {
     animation: $animation_duration-modal-hide #{$module}-content-keyframe-hide $animation_function-modal-hide $animation_delay-modal-hide forwards;
+    animation-fill-mode: forwards;
 }
 
 .#{$module}-mask-animate-show {
     animation: $animation_duration-modal_mask-show #{$module}-mask-keyframe-show $animation_function-modal_mask-show $animation_delay-modal_mask-show forwards;
+    animation-fill-mode: forwards;
 }
 
 .#{$module}-mask-animate-hide {
     animation: $animation_duration-modal_mask-hide #{$module}-mask-keyframe-hide $animation_function-modal_mask-hide $animation_delay-modal_mask-hide forwards;
+    animation-fill-mode: forwards;
 }
 
 

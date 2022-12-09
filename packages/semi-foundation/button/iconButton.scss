@@ -25,6 +25,7 @@ $module: #{$prefix}-button;
                 width: 16px;
                 height: 16px;
                 animation: .6s linear infinite #{$prefix}-animation-rotate;
+                animation-fill-mode: forwards;
             }
         }
     }
