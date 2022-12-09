@@ -28,6 +28,7 @@ $module: #{$prefix}-spin;
 
         & > svg {
             animation: $animation_duration-spin_wrapper-spin linear infinite #{$prefix}-animation-rotate;
+            animation-fill-mode: forwards;
             @include size($width-spin_middle);
         }
     }
@@ -35,6 +36,7 @@ $module: #{$prefix}-spin;
     &-animate {
         display: inline-flex;
         animation: $animation_duration-spin_customChildren-spin linear infinite #{$prefix}-animation-rotate;
+        animation-fill-mode: forwards;
     }
 
     &-children {
