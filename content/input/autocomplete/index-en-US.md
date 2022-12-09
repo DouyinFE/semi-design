@@ -360,6 +360,7 @@ import { IllustrationNoContent } from '@douyinfe/semi-illustrations';
 | autoFocus | Whether to auto focus | bool | false | 1.16.0|
 | autoAdjustOverflow | Whether to automatically adjust the direction when the floating layer is blocked<br/>| bool | true | 0.27.0|
 | className | Style class name | string | |
+| clearIcon | Can be used to customize the clear button, valid when showClear is true | ReactNode | |  2.25.0|
 | data | The data source of the candidates, which can be a string array or an object array | array | [] |
 | defaultActiveFirstOption | Whether to highlight the first option by default (press enter to select directly) | bool | false |
 | defaultOpen | Whether to expand the drop-down menu by default | boolean | false |

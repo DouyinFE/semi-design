@@ -23,6 +23,7 @@ import { ArrayElement } from '../_base/base';
 export interface InputNumberProps extends InputProps {
     autofocus?: boolean;
     className?: string;
+    clearIcon?: React.ReactNode;
     defaultValue?: number | string;
     disabled?: boolean;
     formatter?: (value: number | string) => string;
@@ -67,6 +68,7 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
         'aria-describedby': PropTypes.string,
         'aria-required': PropTypes.bool,
         autofocus: PropTypes.bool,
+        clearIcon: PropTypes.node,
         className: PropTypes.string,
         defaultValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         disabled: PropTypes.bool,

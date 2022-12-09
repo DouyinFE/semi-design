@@ -50,6 +50,7 @@ export interface InputProps extends
     insetLabelId?: string;
     size?: InputSize;
     className?: string;
+    clearIcon?: React.ReactNode;
     style?: React.CSSProperties;
     validateStatus?: ValidateStatus;
     onClear?: (e: React.MouseEvent<HTMLDivElement>) => void;
@@ -88,6 +89,7 @@ class Input extends BaseComponent<InputProps, InputState> {
         'aria-required': PropTypes.bool,
         addonBefore: PropTypes.node,
         addonAfter: PropTypes.node,
+        clearIcon: PropTypes.node,
         prefix: PropTypes.node,
         suffix: PropTypes.node,
         mode: PropTypes.oneOf(modeSet),
@@ -294,6 +296,7 @@ class Input extends BaseComponent<InputProps, InputState> {
 
     renderClearBtn() {
         const clearCls = cls(`${prefixCls}-clearbtn`);
+        const { clearIcon } = this.props;
         const allowClear = this.foundation.isAllowClear();
         // use onMouseDown to fix issue 1203
         if (allowClear) {
@@ -303,7 +306,7 @@ class Input extends BaseComponent<InputProps, InputState> {
                     className={clearCls}
                     onMouseDown={this.handleClear}
                 >
-                    <IconClear />
+                    { clearIcon ? clearIcon : <IconClear />}
                 </div>
             );
         }
@@ -415,6 +418,7 @@ class Input extends BaseComponent<InputProps, InputState> {
             addonAfter,
             addonBefore,
             autofocus,
+            clearIcon,
             className,
             disabled,
             defaultValue,

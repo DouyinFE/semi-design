@@ -91,7 +91,14 @@ import { Select } from '@douyinfe/semi-ui';
         </Select>
         <br />
         <br />
-        <Select multiple maxTagCount={2} showRestTagsPopover={true} restTagsPopoverProps={{ position: 'top' }} style={{ width: '320px' }} defaultValue={['abc', 'hotsoon', 'pipixia']} >
+        <Select
+            multiple
+            maxTagCount={2}
+            showRestTagsPopover={true}
+            restTagsPopoverProps={{ position: 'top' }}
+            style={{ width: '320px' }}
+            defaultValue={['abc', 'hotsoon', 'pipixia']}
+        >
             <Select.Option value="abc">Semi</Select.Option>
             <Select.Option value="hotsoon">Hotsoon</Select.Option>
             <Select.Option value="pipixia">Pipixia</Select.Option>
@@ -406,8 +413,8 @@ import { Select } from '@douyinfe/semi-ui';
     };
 
     const [key, setKey] = useState('component');
-    const [value, setValue] = useState({ value: 'faq', label: 'FAQ' },);
-    const handleTabClick = (itemKey) => {
+    const [value, setValue] = useState({ value: 'faq', label: 'FAQ' });
+    const handleTabClick = itemKey => {
         setKey(itemKey);
     };
 
@@ -425,7 +432,7 @@ import { Select } from '@douyinfe/semi-ui';
         display: 'flex',
         paddingTop: 8,
         paddingLeft: 32,
-        borderBottom: '0.5px solid var(--semi-color-border)'
+        borderBottom: '0.5px solid var(--semi-color-border)',
     };
     const tabOptions = [
         { itemKey: 'component', label: '组件' },
@@ -435,14 +442,14 @@ import { Select } from '@douyinfe/semi-ui';
 
     const outerTopSlotNode = (
         <div style={tabWrapper}>
-            {
-                tabOptions.map((item, index) => {
-                    style = item.itemKey === key ? tabActiveStyle : tabStyle;
-                    return (
-                        <div style={style} key={item.itemKey} onClick={() => handleTabClick(item.itemKey)}>{item.label}</div>
-                    );
-                })
-            }
+            {tabOptions.map((item, index) => {
+                style = item.itemKey === key ? tabActiveStyle : tabStyle;
+                return (
+                    <div style={style} key={item.itemKey} onClick={() => handleTabClick(item.itemKey)}>
+                        {item.label}
+                    </div>
+                );
+            })}
         </div>
     );
     return (
@@ -570,16 +577,23 @@ import { Select } from '@douyinfe/semi-ui';
         </Select>
         <br />
         <br />
-        <Select filter multiple style={{ width: 350 }} placeholder="Searchable Multiple Select" autoClearSearchValue={false}>
-            <Select.Option value='semi-0'>Semi-0</Select.Option>
-            <Select.Option value='semi-1'>Semi-1</Select.Option>
-            <Select.Option value='semi-2'>Semi-2</Select.Option>
-            <Select.Option value='semi-3'>Semi-3</Select.Option>
-            <Select.Option value='semi-4'>Semi-4</Select.Option>
+        <Select
+            filter
+            multiple
+            style={{ width: 350 }}
+            placeholder="Searchable Multiple Select"
+            autoClearSearchValue={false}
+        >
+            <Select.Option value="semi-0">Semi-0</Select.Option>
+            <Select.Option value="semi-1">Semi-1</Select.Option>
+            <Select.Option value="semi-2">Semi-2</Select.Option>
+            <Select.Option value="semi-3">Semi-3</Select.Option>
+            <Select.Option value="semi-4">Semi-4</Select.Option>
         </Select>
     </>
 );
 ```
+
 ### Remote search
 
 A multi-select example with remote search, request debounce, loading status.
@@ -605,16 +619,16 @@ import { Select } from '@douyinfe/semi-ui';
     ];
     const [list, setList] = useState(optionList);
     const [value, setValue] = useState('');
-    
-    const handleMultipleChange = (newValue) => {
+
+    const handleMultipleChange = newValue => {
         setValue(newValue);
     };
 
-    const handleSearch = (inputValue) => {
+    const handleSearch = inputValue => {
         setLoading(true);
         let result = [];
         if (inputValue) {
-            let length = Math.ceil(Math.random()*100);
+            let length = Math.ceil(Math.random() * 100);
             result = Array.from({ length }, (v, i) => {
                 return { value: inputValue + i, label: `Relative: ${inputValue}${i}`, type: i + 1 };
             });
@@ -640,8 +654,7 @@ import { Select } from '@douyinfe/semi-ui';
             loading={loading}
             onChange={handleMultipleChange}
             emptyContent={null}
-        >
-        </Select>
+        ></Select>
     );
 };
 ```
@@ -673,7 +686,6 @@ import { Select } from '@douyinfe/semi-ui';
 };
 ```
 
-
 ### Custom selection rendering
 
 By default, the content of `option.label` or `option.children` will be backfilled into the selection box when the option is selected.  
@@ -690,15 +702,37 @@ import { Select, Avatar, Tag } from '@douyinfe/semi-ui';
 
 () => {
     const list = [
-        { "name": "Keman Xia", "email": "xiakeman@example.com", "avatar": "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bag.jpeg" },
-        { "name": "Yue Shen", "email": "shenyue@example.com", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg" },
-        { "name": "Chenyi Qu", "email": "quchenyi@example.com", "avatar": "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/Viamaker.png" },
-        { "name": "Jiamao Wen", "email": "wenjiamao@example.com", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/6fbafc2d-e3e6-4cff-a1e2-17709c680624.png" },
+        {
+            name: 'Keman Xia',
+            email: 'xiakeman@example.com',
+            avatar:
+                'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bag.jpeg',
+        },
+        {
+            name: 'Yue Shen',
+            email: 'shenyue@example.com',
+            avatar:
+                'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg',
+        },
+        {
+            name: 'Chenyi Qu',
+            email: 'quchenyi@example.com',
+            avatar:
+                'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/Viamaker.png',
+        },
+        {
+            name: 'Jiamao Wen',
+            email: 'wenjiamao@example.com',
+            avatar:
+                'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/6fbafc2d-e3e6-4cff-a1e2-17709c680624.png',
+        },
     ];
 
     const renderSelectedItem = optionNode => (
         <div key={optionNode.email} style={{ display: 'flex', alignItems: 'center' }}>
-            <Avatar src={optionNode.avatar} size="small">{optionNode.abbr}</Avatar>
+            <Avatar src={optionNode.avatar} size="small">
+                {optionNode.abbr}
+            </Avatar>
             <span style={{ marginLeft: 8 }}>{optionNode.email}</span>
         </div>
     );
@@ -708,10 +742,10 @@ import { Select, Avatar, Tag } from '@douyinfe/semi-ui';
         const content = (
             <Tag
                 avatarSrc={optionNode.avatar}
-                avatarShape='circle'
+                avatarShape="circle"
                 closable={true}
                 onClose={onClose}
-                size='large'
+                size="large"
                 key={optionNode.name}
             >
                 {optionNode.name}
@@ -719,7 +753,7 @@ import { Select, Avatar, Tag } from '@douyinfe/semi-ui';
         );
         return {
             isRenderInTag: false,
-            content
+            content,
         };
     };
 
@@ -727,10 +761,10 @@ import { Select, Avatar, Tag } from '@douyinfe/semi-ui';
         const content = (
             <Tag
                 avatarSrc={optionNode.avatar}
-                avatarShape='square'
+                avatarShape="square"
                 closable={true}
                 onClose={onClose}
-                size='large'
+                size="large"
                 key={optionNode.name}
             >
                 {optionNode.name}
@@ -738,7 +772,7 @@ import { Select, Avatar, Tag } from '@douyinfe/semi-ui';
         );
         return {
             isRenderInTag: false,
-            content
+            content,
         };
     };
 
@@ -747,14 +781,18 @@ import { Select, Avatar, Tag } from '@douyinfe/semi-ui';
             display: 'flex',
             paddingLeft: 24,
             paddingTop: 10,
-            paddingBottom: 10
+            paddingBottom: 10,
         };
         return (
             <Select.Option value={item.name} style={optionStyle} showTick={true} {...item} key={item.email}>
                 <Avatar size="small" src={item.avatar} />
                 <div style={{ marginLeft: 8 }}>
                     <div style={{ fontSize: 14 }}>{item.name}</div>
-                    <div style={{ color: 'var(--color-text-2)', fontSize: 12, lineHeight: '16px', fontWeight: 'normal' }}>{item.email}</div>
+                    <div
+                        style={{ color: 'var(--color-text-2)', fontSize: 12, lineHeight: '16px', fontWeight: 'normal' }}
+                    >
+                        {item.email}
+                    </div>
                 </div>
             </Select.Option>
         );
@@ -763,7 +801,7 @@ import { Select, Avatar, Tag } from '@douyinfe/semi-ui';
     return (
         <>
             <Select
-                placeholder='Please select...'
+                placeholder="Please select..."
                 style={{ width: 280, height: 40 }}
                 onChange={v => console.log(v)}
                 defaultValue={'Keman Xia'}
@@ -772,7 +810,7 @@ import { Select, Avatar, Tag } from '@douyinfe/semi-ui';
                 {list.map((item, index) => renderCustomOption(item, index))}
             </Select>
             <Select
-                placeholder='Please select...'
+                placeholder="Please select..."
                 maxTagCount={2}
                 style={{ width: 280, marginTop: 20 }}
                 onChange={v => console.log(v)}
@@ -783,7 +821,7 @@ import { Select, Avatar, Tag } from '@douyinfe/semi-ui';
                 {list.map((item, index) => renderCustomOption(item, index))}
             </Select>
             <Select
-                placeholder='Please select...'
+                placeholder="Please select..."
                 maxTagCount={2}
                 style={{ width: 280, marginTop: 20 }}
                 onChange={v => console.log(v)}
@@ -849,7 +887,6 @@ import { Select, Button } from '@douyinfe/semi-ui';
 };
 ```
 
-
 ### Get all attribute of selected option
 
 By default, through `onChange` uou can only get value attribute of selected option.  
@@ -901,8 +938,7 @@ import { Select, TextArea } from '@douyinfe/semi-ui';
                     optionList={list}
                     onChange={onMultipleChange}
                     placeholder="Multiple Select"
-                >
-                </Select>
+                ></Select>
                 <h4>onChange callback:</h4>
                 <TextArea style={{ width: 320 }} autosize value={JSON.stringify(multipleCbValue)} />
             </div>
@@ -910,7 +946,6 @@ import { Select, TextArea } from '@douyinfe/semi-ui';
     );
 };
 ```
-
 
 ### Create entries
 
@@ -955,12 +990,12 @@ import { Select } from '@douyinfe/semi-ui';
 ```
 
 ### Virtualize
-Turn on list virtualization when passing in `virtualize` to optimize performance when there are a large number of Option nodes
-virtualize is an object containing the following values:
 
-- height: Option list height value, default 270 （before v2.20.8 was 300）
-- width: Option list width value, default 100%
-- itemSize: The height of each line of Option, must be passed
+Turn on list virtualization when passing in `virtualize` to optimize performance when there are a large number of Option nodes virtualize is an object containing the following values:
+
+-   height: Option list height value, default 270 （before v2.20.8 was 300）
+-   width: Option list width value, default 100%
+-   itemSize: The height of each line of Option, must be passed
 
 ```jsx live=true hideInDSM
 import React from 'react';
@@ -1127,13 +1162,13 @@ import { IconAppCenter, IconChevronDown } from '@douyinfe/semi-icons';
 
 ### Custom Option Render
 
-- Simple customization: Pass the label property of Option or children into ReactNode, you can control the rendering of the candidates, and the content will automatically bring styles such as padding, background color, etc.  
-- Complete customization: By passing in `renderOptionItem`, you can completely take over the rendering of the candidates in the list, and get the relevant state values from the callback input parameters. Achieve a higher degree of freedom of structural rendering  
-  Notice:
-  1. The style passed in by props needs to be consumed on wrapper dom, otherwise it will not be able to be used normally in virtualization scenarios  
-  2. The styles of selected, focused, disabled, etc. state need to be added by yourself, and you can get the relative boolean value from props
-  3. onMouseEnter needs to be bound on the wrapper dom, otherwise the display will be problematic when the upper and lower keyboards are operated
-  4. If your custom item is Select.Option, you need to pass renderProps.onClick transparently to the onSelect prop of Option
+-   Simple customization: Pass the label property of Option or children into ReactNode, you can control the rendering of the candidates, and the content will automatically bring styles such as padding, background color, etc.
+-   Complete customization: By passing in `renderOptionItem`, you can completely take over the rendering of the candidates in the list, and get the relevant state values from the callback input parameters. Achieve a higher degree of freedom of structural rendering  
+    Notice:
+    1. The style passed in by props needs to be consumed on wrapper dom, otherwise it will not be able to be used normally in virtualization scenarios
+    2. The styles of selected, focused, disabled, etc. state need to be added by yourself, and you can get the relative boolean value from props
+    3. onMouseEnter needs to be bound on the wrapper dom, otherwise the display will be problematic when the upper and lower keyboards are operated
+    4. If your custom item is Select.Option, you need to pass renderProps.onClick transparently to the onSelect prop of Option
 
 ```jsx live=true
 import React from 'react';
@@ -1166,12 +1201,12 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
         // 2. The styles of selected (selected), focused (focused), disabled (disabled) and other states need to be added by yourself, you can get the relative boolean value from props
         // 3.onMouseEnter needs to be bound on the wrapper dom, otherwise the display will be problematic when the upper and lower keyboards are operated
 
-        return <div style={style} className={optionCls} onClick={() => onClick()} onMouseEnter={(e) => onMouseEnter()}>
-            <Checkbox checked={selected} />
-            <div className='option-right'>
-                {label}
+        return (
+            <div style={style} className={optionCls} onClick={() => onClick()} onMouseEnter={e => onMouseEnter()}>
+                <Checkbox checked={selected} />
+                <div className="option-right">{label}</div>
             </div>
-        </div>;
+        );
     };
 
     const optionList = [
@@ -1181,28 +1216,30 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
         { value: 'buzz', label: 'Buzz', otherKey: 3 },
     ];
 
-    return <>
-        <Select
-            filter
-            defaultOpen
-            defaultValue='abc'
-            dropdownClassName='components-select-demo-renderOptionItem'
-            optionList={optionList}
-            style={{ width: 180 }}
-            renderOptionItem={renderOptionItem}
-        />
-        <br/>
-        <br/>
-        <Select
-            filter
-            placeholder='multiple'
-            multiple
-            dropdownClassName='components-select-demo-renderOptionItem'
-            optionList={optionList}
-            style={{ width: 320, marginTop: 180 }}
-            renderOptionItem={renderOptionItem}
-        />
-    </>;
+    return (
+        <>
+            <Select
+                filter
+                defaultOpen
+                defaultValue="abc"
+                dropdownClassName="components-select-demo-renderOptionItem"
+                optionList={optionList}
+                style={{ width: 180 }}
+                renderOptionItem={renderOptionItem}
+            />
+            <br />
+            <br />
+            <Select
+                filter
+                placeholder="multiple"
+                multiple
+                dropdownClassName="components-select-demo-renderOptionItem"
+                optionList={optionList}
+                style={{ width: 320, marginTop: 180 }}
+                renderOptionItem={renderOptionItem}
+            />
+        </>
+    );
 };
 ```
 
@@ -1258,11 +1295,12 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | Properties | Instructions | Type | Default | version |
 | --- | --- | --- | --- | --- |
 | allowCreate | Whether to allow the user to create new entries. Needs to be used with `filter` | boolean | false |
-| arrowIcon | Customize the right drop-down arrow Icon, when the showClear switch is turned on and there is currently a selected value, hover will give priority to the clear icon <br/>**supported after v1.15.0** | ReactNode |  |
+| arrowIcon | Customize the right drop-down arrow Icon, when the showClear switch is turned on and there is currently a selected value, hover will give priority to the clear icon  | ReactNode |  | 1.15.0|
 | autoAdjustOverflow | Whether the pop-up layer automatically adjusts the direction when it is obscured (only vertical direction is supported for the time being, and the inserted parent is body) | boolean | true |
-| autoClearSearchValue     |  After selecting the option, whether to automatically clear the search keywords, it will take effect when mutilple and filter are both enabled.<br/>**supported after v2.3.0** | boolean   | true  |
+| autoClearSearchValue | After selecting the option, whether to automatically clear the search keywords, it will take effect when mutilple and filter are both enabled | boolean | true | 2.3.0|
 | autoFocus | Whether automatically focus when component mount | boolean | false |
 | className | The CSS class name of the wrapper element | string |  |
+| clearIcon    | Can be used to customize the clear button, valid when showClear is true                       | ReactNode                       |   | 2.25.0 |
 | clickToHide | When expanded, click on the selection box to automatically put away the drop-down list | boolean | false |
 | defaultValue | Originally selected value when component mount | string\|number\|array |  |
 | defaultOpen | Whether show dropdown when component mounted | boolean | false |
@@ -1270,11 +1308,12 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | disabled | Whether disabled component | boolean | false |
 | dropdownClassName | ClassName of the pop-up layer | string |  |
 | dropdownMatchSelectWidth | Is the minimum width of the drop-down menu equal to Select | boolean | true |
+| dropdownMargin | Popup layer calculates the size of the safe area when the current direction overflows, used in scenes covered by fixed elements, more detail refer to [issue#549](https://github.com/DouyinFE/semi-design/issues/549), same as Tooltip margin | object\|number |  | 2.25.0 |
 | dropdownStyle | The inline style of the pop-up layer | object |  |
 | emptyContent | Content displayed when there is no result. When set to null, the drop-down list will not be displayed | string | ReactNode |  |
 | filter | Whether searchable or not, the default is false. When `true` is passed, it means turn on search ability, default filtering policy is whether the label matches search input<br/>When the input type is function, the function arguments are searchInput, option. It should return true when the option meets the filtering conditions, otherwise it returns false. | false | boolean\|function |  |
 | getPopupContainer | Specifies the parent DOM, and the popup layer will be rendered to the DOM, you need to set 'position: relative`| function(): HTMLElement | () => document.body |
-| inputProps | When filter is true, the additional configuration parameters of the input, please refer to the Input component for specific configurable properties (note: please do not pass in `value`, `ref`, `onChange`, `onFocus`, otherwise it will override Select related callbacks and affect component behavior) <br/>**supported after v2.2.0** | object | 
+| inputProps | When filter is true, the additional configuration parameters of the input, please refer to the Input component for specific configurable properties (note: please do not pass in `value`, `ref`, `onChange`, `onFocus`, otherwise it will override Select related callbacks and affect component behavior)  | object | | 2.2.0|
 | innerTopSlot | Render at the top of the pop-up layer, custom slot inside the optionList | ReactNode |  |
 | innerBottomSlot | Render at the bottom of the pop-up layer, custom slot inside the optionList | ReactNode |  |
 | insetLabel | Same to `prefix`, just an alias | ReactNode |  |
@@ -1283,8 +1322,8 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | maxTagCount | In multi-selection mode, when the option is beyond maxTag Count, the subsequent option is rendered in the form of + N | number |  |
 | maxHeight | Maximum height of `optionList` in the pop-up layer | string \| number | 270 |
 | multiple | Whether allow multiple selection | boolean | false |
-| outerBottomSlot | Rendered at the bottom of the pop-up layer, custom slot level with optionList | ReactNode |  |
-| outerTopSlot | Rendered at the top of the pop-up layer, custom slot level with optionList <br/>**supported after v1.6.0** |
+| outerBottomSlot | Rendered at the bottom of the popup layer, custom slot level with optionList | ReactNode |  |
+| outerTopSlot | Rendered at the top of the pop-up layer, custom slot level with optionList | ReactNode | |1.6.0 |
 | optionList | You can pass Option through this property, make sure that each element in the array has `label`, `value` properties | Array (\[{value, label}\]) |  |
 | placeholder | placeholder | ReactNode |  |
 | position | Pop-up layer position, refer to [Popover·API reference·position](/en-US/show/popover#API%20Reference) | string | 'bottomLeft' |
@@ -1293,17 +1332,17 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | remote | Whether to turn on remote search, when remote is true, the input content will not be locally filtered and matched | boolean | false |
 | renderCreateItem | When allowCreate is true, you can customize the rendering of the creation label | function(inputValue: string) | InputValue => 'Create' + InputValue |
 | renderSelectedItem | Customize the rendering of selected tabs in the selection box | function(option) |  |
-| restTagsPopoverProps | The configuration properties of the [Popover](/en-US/show/popover#API%20Reference)     | PopoverProps     | {}        | 2.22.0 |
+| restTagsPopoverProps | The configuration properties of the [Popover](/en-US/show/popover#API%20Reference) | PopoverProps | {} | 2.22.0 |
 | showArrow | Whether to show arrow icon | boolean | true |
 | showClear | Whether to show the clear button | boolean | false |
 | showRestTagsPopover | When the number of tags exceeds maxTagCount and hover reaches +N, whether to display the remaining content through Popover | boolean | false | 2.22.0 |
 | size | Size, optional value `default` / `small` / `large` | string | 'default' |
 | spacing | Spacing between popup layer and trigger | number | 4 |
-| stopPropagation | Whether to prevent click events on the popup layer from bubbling | boolean | true | |
+| stopPropagation | Whether to prevent click events on the popup layer from bubbling | boolean | true |  |
 | style | Inline Style | object |  |
 | suffix | An input helper rendered after | ReactNode |  |
 | triggerRender | Custom DOM of trigger | function |  |
-| virtualize | List virtualization, used to optimize performance in the case of a large number of nodes, composed of height, width, and itemSize <br/>** supported after v0.37.0 ** | object |  | |
+| virtualize | List virtualization, used to optimize performance in the case of a large number of nodes, composed of height, width, and itemSize  | object |  | 0.37.0 |
 | validateStatus | Verification result, optional `warning`, `error`, `default` (only affect the style background color) | string | 'default' |
 | value | The currently selected value is passed as a controlled component, used in conjunction with `onchange` | string\|number\|array |  |
 | zIndex | Popup layer z-index | number | 1030 |
@@ -1355,42 +1394,47 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 
 ### ARIA
 
-- The role of the Select trigger is combobox, the role of the popup layer is listbox, and the role of the option is option
-- Select trigger has aria-haspopup, aria-expanded, and aria-controls properties, indicating the relationship between trigger and popup layer
-- When multiple selections are made, listbox aria-multiselectable is true, indicating that multiple selections are currently available
-- aria-selected is true when Option is selected; aria-disabled is true when Option is disabled
-- The attribute aria-activedescendant ensures that the currently selected option is recognized when the narration is spoken(for more information, please refer to [Managing Focus in Composites Using aria-activedescendant](https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/#kbd_focus_activedescendant))
+-   The role of the Select trigger is combobox, the role of the popup layer is listbox, and the role of the option is option
+-   Select trigger has aria-haspopup, aria-expanded, and aria-controls properties, indicating the relationship between trigger and popup layer
+-   When multiple selections are made, listbox aria-multiselectable is true, indicating that multiple selections are currently available
+-   aria-selected is true when Option is selected; aria-disabled is true when Option is disabled
+-   The attribute aria-activedescendant ensures that the currently selected option is recognized when the narration is spoken(for more information, please refer to [Managing Focus in Composites Using aria-activedescendant](https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/#kbd_focus_activedescendant))
 
 ### Keyboard and Focus
+
 **Select without Filter:**
-- After Select is focused, keyboard users can open the dropdown menu with the `Up Arrow` or `Down Arrow` or `Enter` keys and automatically focus on the first option in the dropdown menu (`defaultActiveFirstOption` defaults to true)
-- When the dropdown menu is open:
-  - Use `Esc` key or `Tab` key to close the menu
-  - Use `Up Arrow` or `Down Arrow` to toggle options
-  - The focused option can be selected with the Enter key and the panel is collapsed
-- When the focus is on the dropdown menu and the user uses an `innerBottomSlot` or `outerBottomSlot` attribute with a custom slot with an interactive element:
-  - You can use the `Tab` key to switch to these interactive elements
-  - When the focus is on the first interactive element of the custom slot, use `Shift` + `Tab` to return the focus to the Select box
+
+-   After Select is focused, keyboard users can open the dropdown menu with the `Up Arrow` or `Down Arrow` or `Enter` keys and automatically focus on the first option in the dropdown menu (`defaultActiveFirstOption` defaults to true)
+-   When the dropdown menu is open:
+    -   Use `Esc` key or `Tab` key to close the menu
+    -   Use `Up Arrow` or `Down Arrow` to toggle options
+    -   The focused option can be selected with the Enter key and the panel is collapsed
+-   When the focus is on the dropdown menu and the user uses an `innerBottomSlot` or `outerBottomSlot` attribute with a custom slot with an interactive element:
+    -   You can use the `Tab` key to switch to these interactive elements
+    -   When the focus is on the first interactive element of the custom slot, use `Shift` + `Tab` to return the focus to the Select box
 
 **Select with Filter function:**
-- When Select is focused, keyboard users can open dropdown menus with `Up Arrow` or `Down Arrow` or `Enter` keys. At this point, the focus is still on the Select box, the user can enter content, and can also use the `up arrow` or `down arrow` to switch options
-- When the dropdown menu is open: the keyboard interaction is the same as Select without the Filter function
-- When the focus is on the Select box, and the user uses an `innerBottomSlot` or `outerBottomSlot` property with a custom slot with an interactive element:
-  - You can use the `Tab` key to switch to these interactive elements
-  - When the focus is on the first interactive element of the custom slot, use `Shift` + `Tab` to return the focus to the Select box
+
+-   When Select is focused, keyboard users can open dropdown menus with `Up Arrow` or `Down Arrow` or `Enter` keys. At this point, the focus is still on the Select box, the user can enter content, and can also use the `up arrow` or `down arrow` to switch options
+-   When the dropdown menu is open: the keyboard interaction is the same as Select without the Filter function
+-   When the focus is on the Select box, and the user uses an `innerBottomSlot` or `outerBottomSlot` property with a custom slot with an interactive element:
+    -   You can use the `Tab` key to switch to these interactive elements
+    -   When the focus is on the first interactive element of the custom slot, use `Shift` + `Tab` to return the focus to the Select box
 
 ## Content Guidelines
-- Selector trigger
-   - Describe in 1-3 words the input that the user needs to make
-   - Use statement writing conventions (first letter uppercase, rest lowercase)
-   - Avoid punctuation and prepositions ("the", "an", "a")
-   - Labels need to be independent statements. Don't let the label be the first half of the statement and the option the second half of the statement.
-   - Use descriptive sentences, not indicative ones. Help text is available under the select box if the option needs more explanation.
-- Selector options
-   - If there is no default option, use "Select" as placeholder copy
-   - Options should be in alphabetical order or other logical order to make it easier for users to find options
-   - Use statement writing conventions (first letter uppercase, rest lowercase), avoid commas and semicolons at the end of sentences
-   - Clearly articulate the purpose of the choice indicated by the option
+
+-   Selector trigger
+    -   Describe in 1-3 words the input that the user needs to make
+    -   Use statement writing conventions (first letter uppercase, rest lowercase)
+    -   Avoid punctuation and prepositions ("the", "an", "a")
+    -   Labels need to be independent statements. Don't let the label be the first half of the statement and the option the second half of the statement.
+    -   Use descriptive sentences, not indicative ones. Help text is available under the select box if the option needs more explanation.
+-   Selector options
+    -   If there is no default option, use "Select" as placeholder copy
+    -   Options should be in alphabetical order or other logical order to make it easier for users to find options
+    -   Use statement writing conventions (first letter uppercase, rest lowercase), avoid commas and semicolons at the end of sentences
+    -   Clearly articulate the purpose of the choice indicated by the option
+
 ## Design Tokens
 
 <DesignToken/>
@@ -1404,11 +1448,11 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 -   **Use jsx to declare Option, label is the content after i18n, fail to re-render after switching locale** When the children jsx method declares Options, because it is ReactNode, it is impossible to use deepEqual to compare whether the content is updated (excessive performance consumption), so the key of children ReactNode will be collected. When the key is unchanged, it is considered that Options have not occurred. Changes will not go through the process of re-collecting data. You can also use locale as part of the Option key.  
     The problem can also be solved by using `optionList` to pass in. Because the key is relatively limited for the object form, isEqual is used inside Select to determine whether there is a change
 
--   **Use jsx to declare Option, and fail to re-render after dynamically switching the disabled attribute**   
+-   **Use jsx to declare Option, and fail to re-render after dynamically switching the disabled attribute**  
     The reason is the same as above, you can set a different key value for Option again, or use optionList to declare candidate options
 
--   **Will Select automatically limit the width of the drop-down menu?**   
-MinWidth will be given, but width will not be written dead. If necessary, you can add it yourself through dropdownStyle.
+-   **Will Select automatically limit the width of the drop-down menu?**  
+    MinWidth will be given, but width will not be written dead. If necessary, you can add it yourself through dropdownStyle.
 
 -   **After setting allowCreate, dynamically updating optionList or children does not take effect**
 
@@ -1416,15 +1460,12 @@ MinWidth will be given, but width will not be written dead. If necessary, you ca
 
 -   **Why Semi's Select requires that the label must be unique, but not the value?**
 
-    First of all, we must need a unique identifier to make a selection judgment. For almost all UI libraries, when using Select.Option, the minimum requirements will only require the two values of label and value to be passed in, instead of requiring a separate key (too cumbersome). Semi continues this setting.    
-    So why is label instead of value in semi's select?  
-    The label of the option is what the user perceives. From an interactive point of view, if there are two options that are exactly the same on the display, to the user’s perception, they look the same and cannot be distinguished, but the selected effects are different (for example, one value is 0, the other As 1), it is unreasonable. (Users' first reaction is often repeated, and there may be a bug)
-Unique label and repeated value are more common in daily use. For example, a selector that selects the company id based on the app name, value is the company id corresponding to the app, and label is the name of the app.
-We don't recommend showing the user a duplicate label option, but if you're sure you need to, you can bypass this restriction when you pass a ReactNode type to the label.
+        First of all, we must need a unique identifier to make a selection judgment. For almost all UI libraries, when using Select.Option, the minimum requirements will only require the two values of label and value to be passed in, instead of requiring a separate key (too cumbersome). Semi continues this setting.
+        So why is label instead of value in semi's select?
+        The label of the option is what the user perceives. From an interactive point of view, if there are two options that are exactly the same on the display, to the user’s perception, they look the same and cannot be distinguished, but the selected effects are different (for example, one value is 0, the other As 1), it is unreasonable. (Users' first reaction is often repeated, and there may be a bug)
 
-- **Why is the blur event not fired after a radio selection option?**
+    Unique label and repeated value are more common in daily use. For example, a selector that selects the company id based on the app name, value is the company id corresponding to the app, and label is the name of the app. We don't recommend showing the user a duplicate label option, but if you're sure you need to, you can bypass this restriction when you pass a ReactNode type to the label.
 
-    Before V2.17.0, after Select radio is selected, the blur event of Select will be triggered.
-    After V2.17.0, Select has added A11y support, which will not trigger Select's blur event.
-    In single-selection selection, the Select floating layer is closed, and the focus is still on the trigger (at this time, the Select floating layer can be opened again by pressing the Enter key)
-    No matter single selection or multiple selection, press Esc, only the Select floating layer is closed, and the trigger keeps the focus (the Select floating layer can be opened again by pressing the Enter key at this time)
+-   **Why is the blur event not fired after a radio selection option?**
+
+    Before V2.17.0, after Select radio is selected, the blur event of Select will be triggered. After V2.17.0, Select has added A11y support, which will not trigger Select's blur event. In single-selection selection, the Select floating layer is closed, and the focus is still on the trigger (at this time, the Select floating layer can be opened again by pressing the Enter key) No matter single selection or multiple selection, press Esc, only the Select floating layer is closed, and the trigger keeps the focus (the Select floating layer can be opened again by pressing the Enter key at this time)

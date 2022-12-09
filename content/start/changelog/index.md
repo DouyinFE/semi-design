@@ -16,6 +16,21 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 ---
 
+
+#### 🎉 2.25.0-beta.0 (2022-12-06)
+- 【Feat】
+  - Select、Cascader、Input、InputNumber、TreeSelect、AutoComplete、Datepicker、TimePicker 增加 clearIcon，允许覆盖清除按钮 [#1309](https://github.com/DouyinFE/semi-design/issues/1309)
+  - Cascader、Select、DatePicker、TimePicker、TreeSelect 增加 dropdownMargin 配置，Dropdown、Popover增加 margin 配置，作用同 tooltip margin
+  - type为timeRange的TimePicker组件，支持传入数组格式的panelHeader和panelFooter来设置不同的头部和底部[#1316](https://github.com/DouyinFE/semi-design/issues/1316) [@zk8080](https://github.com/zk8080)
+  - TreeSelect增加 position 参数控制弹出层方向 
+- 【Fix】
+  - 修复虚拟化 Table 无数据时高度展示不正确问题
+  - 修复 Tooltip 通过 style 定制 opacity 透明度时可能导致的闪烁的问题
+- 【Style】
+  - Tag 关闭按钮增加 hover 态和 active 态颜色
+  - 优化 Tag 在内容超出长度时的展示方式，自动省略 [@SyMind](https://github.com/SyMind)
+
+
 #### 🎉 2.24.3 (2022-12-05)
 - 【Chore】
     - 优化 Form HOC：`withFormState`、`withFormApi`的类型定义  [#1323](https://github.com/DouyinFE/semi-design/pull/1323)

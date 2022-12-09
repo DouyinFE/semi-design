@@ -177,6 +177,7 @@ function Demo () {
 | ------------ | -------------------------------------------------------------- | --------------------------------- | --------- | --------- |
 | autofocus    | 自动获取焦点                                                   | boolean                           | false     |           |
 | className | 类名                                                               | string  | -      |
+| clearIcon | 可用于自定义清除按钮, showClear为true时有效 | ReactNode |   | 2.25.0|
 | defaultValue | 默认值                                                         | number                            |           |           |
 | disabled     | 禁用                                                           | boolean                           | false     |           |
 | formatter    | 指定输入框展示值的格式                                         | (value: number\|string) => string | -         |           |

@@ -47,6 +47,7 @@ export interface AutoCompleteProps<T extends AutoCompleteItems> {
     autoAdjustOverflow?: boolean;
     autoFocus?: boolean;
     className?: string;
+    clearIcon?: ReactNode;
     children?: ReactNode | undefined;
     data?: T[];
     disabled?: boolean;
@@ -118,6 +119,7 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
         autoFocus: PropTypes.bool,
         autoAdjustOverflow: PropTypes.bool,
         className: PropTypes.string,
+        clearIcon: PropTypes.node,
         children: PropTypes.node,
         data: PropTypes.array,
         defaultOpen: PropTypes.bool,
@@ -346,6 +348,7 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
             autoFocus,
             value,
             id,
+            clearIcon
         } = this.props;
         const { inputValue, keyboardEventSet, selection } = this.state;
 
@@ -391,6 +394,7 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
             size,
             onBlur: this.onBlur,
             onFocus: this.onFocus,
+            clearIcon,
         };
 
         return (
