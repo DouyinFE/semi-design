@@ -20,10 +20,11 @@ export interface BackTopProps {
     onClick?: (e: React.MouseEvent) => void;
     style?: React.CSSProperties;
     className?: string;
+    children?: React.ReactNode | undefined
 }
 
 export interface BackTopState {
-    visible?: boolean;
+    visible?: boolean
 }
 
 
@@ -100,13 +101,18 @@ export default class BackTop extends BaseComponent<BackTopProps, BackTopState> {
             className
         );
         const backtopBtn = children ? children : this.renderDefault();
-        const content = visible ?
-            (
-                <div {...others} className={preCls} style={style} onClick={e => this.handleClick(e)}>
-                    {backtopBtn}
-                </div>
-            ) :
-            null;
+        const content = visible ? (
+            // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+            <div
+                {...others} 
+                className={preCls} 
+                style={style} 
+                onClick={e => this.handleClick(e)} 
+                x-semi-prop="children"
+            >
+                {backtopBtn}
+            </div>
+        ) : null;
         return content;
     }
 }

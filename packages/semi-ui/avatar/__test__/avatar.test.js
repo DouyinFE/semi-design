@@ -261,7 +261,7 @@ describe('Avatar', () => {
     it('src', () => {
         const element = (
            <Avatar
-                src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"
+                src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png"
                 style={{ margin: 4 }}
             />
         );
@@ -272,7 +272,7 @@ describe('Avatar', () => {
                 .at(0)
                 .props()
                 .src
-        ).toEqual('https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg');
+        ).toEqual('https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png');
     });
 
     it('shape', () => {
@@ -320,7 +320,7 @@ describe('Avatar', () => {
         const avatar = mount(
             <Avatar 
                 onError={spyOnError}
-                src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"
+                src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png"
             />
         );
         avatar

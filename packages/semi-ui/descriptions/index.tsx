@@ -4,16 +4,15 @@ import PropTypes from 'prop-types';
 import { strings, cssClasses } from '@douyinfe/semi-foundation/descriptions/constants';
 import '@douyinfe/semi-foundation/descriptions/descriptions.scss';
 import { isPlainObject } from 'lodash';
-import DescriptionsContext, { DescriptionsAlign } from './descriptions-context';
+import DescriptionsContext, { DescriptionsAlign, DescriptionsContextValue } from './descriptions-context';
 import Item from './item';
 
-export { DescriptionsItemProps } from './item';
+export type { DescriptionsItemProps } from './item';
 export type DescriptionsSize = 'small' | 'medium' | 'large';
 export interface Data {
-    [x: string]: any;
-    key?: string | number;
+    key?: React.ReactNode;
     value?: (() => React.ReactNode) | React.ReactNode;
-    hidden?: boolean;
+    hidden?: boolean
 }
 export interface DescriptionsProps {
     align?: DescriptionsAlign;
@@ -21,12 +20,13 @@ export interface DescriptionsProps {
     size?: DescriptionsSize;
     style?: React.CSSProperties;
     className?: string;
-    data?: Data[];
+    children?: React.ReactNode | undefined;
+    data?: Data[]
 }
 
 const prefixCls = cssClasses.PREFIX;
 
-class Descriptions extends PureComponent<DescriptionsProps > {
+class Descriptions extends PureComponent<DescriptionsProps> {
     static Item = Item;
 
     static contextType = DescriptionsContext;
@@ -61,8 +61,8 @@ class Descriptions extends PureComponent<DescriptionsProps > {
             [`${prefixCls}-double-${size}`]: row,
         });
         const childrenList = data && data.length ?
-            data.map(item => (
-                isPlainObject(item) ? <Item key={item.key} itemKey={item.key} {...item}>{item.value}</Item> : null
+            data.map((item, index) => (
+                isPlainObject(item) ? <Item itemKey={item.key} {...item} key={index}>{item.value}</Item> : null
             )) :
             children;
         return (

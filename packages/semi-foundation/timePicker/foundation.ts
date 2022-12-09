@@ -11,7 +11,7 @@ import {
     isTimeFormatLike
 } from './utils';
 import { split } from 'lodash';
-import { isValid, format } from 'date-fns';
+import { isValid, format, getHours } from 'date-fns';
 import { utcToZonedTime, zonedTimeToUtc } from '../utils/date-fns-extra';
 import isNullOrUndefined from '../utils/isNullOrUndefined';
 
@@ -41,7 +41,7 @@ export interface TimePickerAdapter<P = Record<string, any>, S = Record<string, a
     notifyChange(input: string | string[], value: Date | Date[]): void;
     notifyFocus: (e: any) => void;
     notifyBlur: (e: any) => void;
-    isRangePicker: () => boolean;
+    isRangePicker: () => boolean
 }
 
 // TODO: split, timePicker different components cannot share a foundation
@@ -94,7 +94,7 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
         if (this._isInProps('format')) {
             return this.getProp('format');
         } else if (this.getProp('use12Hours')) {
-            return strings.DEFAULT_FROMAT_A;
+            return strings.DEFAULT_FORMAT_A;
         } else {
             return strings.DEFAULT_FORMAT;
         }
@@ -125,6 +125,11 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
             }
         });
 
+        const isAM = [true, false];
+        parsedValues.map((item, idx)=>{
+            isAM[idx]= getHours(item) < 12;
+        });
+
         if (parsedValues.length === value.length) {
             value = parsedValues;
         } else {
@@ -142,6 +147,7 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
         }
 
         this.setState({
+            isAM,
             value,
             inputValue,
             invalid,
@@ -176,6 +182,9 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
             isAM[index] = panelIsAM;
             const inputValue = this.formatValue(value);
 
+            if (this.getState('isAM')[index] !== result.isAM){
+                this.setState({ isAM } as any);
+            }
             if (!this._isControlledComponent('value')) {
                 const invalid = this.validateDates(value);
                 this.setState({
@@ -194,27 +203,26 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
 
     refreshProps(props: any = {}) {
         const { value, timeZone, __prevTimeZone } = props;
-        if (!isNullOrUndefined(value)) {
-            let dates = this.parseValue(value);
-            const invalid = this.validateDates(dates);
+        
+        let dates = this.parseValue(value);
+        const invalid = this.validateDates(dates);
 
-            if (!invalid) {
-                if (this.isValidTimeZone(timeZone)) {
-                    dates = dates.map(date =>
-                        utcToZonedTime(
-                            this.isValidTimeZone(__prevTimeZone) ? zonedTimeToUtc(date, __prevTimeZone) : date,
-                            timeZone
-                        )
-                    );
-                }
-                const inputValue = this.formatValue(dates);
-
-                this.setState({
-                    value: dates,
-                    invalid,
-                    inputValue,
-                } as any);
+        if (!invalid) {
+            if (this.isValidTimeZone(timeZone)) {
+                dates = dates.map(date =>
+                    utcToZonedTime(
+                        this.isValidTimeZone(__prevTimeZone) ? zonedTimeToUtc(date, __prevTimeZone) : date,
+                        timeZone
+                    )
+                );
             }
+            const inputValue = this.formatValue(dates);
+
+            this.setState({
+                value: dates,
+                invalid,
+                inputValue,
+            } as any);
         }
     }
 
@@ -241,7 +249,7 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
         this._adapter.notifyOpenChange(true);
     }
 
-    hanldePanelClose(clickedOutside: boolean, e: any) {
+    handlePanelClose(clickedOutside: boolean, e: any) {
         if (!this._isControlledComponent('open')) {
             this._adapter.unregisterClickOutSide();
             this.setPanel(false);
@@ -250,6 +258,7 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
         this._adapter.notifyBlur(e);
     }
 
+    /* istanbul ignore next */
     handleVisibleChange(visible: boolean) {
         if (!this._isControlledComponent('open')) {
             this._adapter.togglePanel(visible);
@@ -296,6 +305,7 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
         }
     }
 
+    /* istanbul ignore next */
     doValidate(args: string | Array<Date>) {
         if (typeof args === 'string') {
             return this.validateStr(args);
@@ -307,7 +317,7 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
 
     validateStr(inputValue = '') {
         const dates = this.parseInput(inputValue);
-
+    
         return this.validateDates(dates);
     }
 
@@ -405,7 +415,6 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
 
         if (this.isValidTimeZone() && _value) {
             const formatToken = this.getValidFormat();
-
             if (Array.isArray(_value)) {
                 _value = _value.map(v => zonedTimeToUtc(v, timeZone));
                 str = _value.map(v => format(v, formatToken));

@@ -6,12 +6,12 @@ import { strings, cssClasses } from '@douyinfe/semi-foundation/navigation/consta
 import CollapseButton from './CollapseButton';
 import '@douyinfe/semi-foundation/navigation/navigation.scss';
 
-import NavContext from './nav-context';
+import NavContext, { NavContextType } from './nav-context';
 import { BaseProps } from '../_base/baseComponent';
 
 export interface NavFooterProps extends BaseProps {
-    collapseButton?: React.ReactNode | boolean;
-    collapseText?: (collapsed?: boolean) => React.ReactNode;
+    collapseButton?: React.ReactNode;
+    collapseText?: (collapsed?: boolean) => React.ReactNode
 }
 
 export default class NavFooter extends PureComponent<NavFooterProps> {
@@ -29,6 +29,8 @@ export default class NavFooter extends PureComponent<NavFooterProps> {
         collapseButton: false,
     };
 
+    context: NavContextType;
+
     renderCollapseButton = () => {
         const { collapseButton, collapseText } = this.props;
 
@@ -45,7 +47,6 @@ export default class NavFooter extends PureComponent<NavFooterProps> {
                 locale={locale}
                 onClick={onCollapseChange}
                 collapseText={collapseText}
-                {...collapseButton}
             />
         );
     };

@@ -1,11 +1,10 @@
 ---
 localeCode: en-US
-order: 35
+order: 37
 category: Navigation
 title: BackTop
 subTitle: BackTop
 icon: doc-backtop
-brief: The BackTop component is a button used to return to the top of the page.
 ---
 
 ## Demos

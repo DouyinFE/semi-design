@@ -1,13 +1,13 @@
 ---
 localeCode: zh-CN
-order: 47
+order: 50
 category: 展示类
 title: Collapsible 折叠
 icon: doc-collapsible
 brief: 行为组件，是一个用于展开或折叠内容的容器。
 ---
 
-## 何时使用
+## 使用场景
 
 -   `Collapsible` 是一个行为组件，默认开启动画效果。它被用于 Semi 的各种组件中，如：`Navigation`， `Collapse`, `Tree`， `TreeSelect`，以及 `Typography` 中。
 -   当上述组件不能满足需求或者需要自定义一些折叠行为时，可以使用 `Collapsible` 来包裹需要展开或者折叠的内容。
@@ -29,7 +29,7 @@ import React, { useState } from 'react';
 import { Collapsible, Button } from '@douyinfe/semi-ui';
 
 () => {
-    const [isOpen ,setOpen] = useState();
+    const [isOpen, setOpen] = useState();
     const toggle = () => {
         setOpen(!isOpen);
     };
@@ -209,13 +209,14 @@ import { Collapsible, Button } from '@douyinfe/semi-ui';
 ## API 参考
 
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
-| --- | --- | --- | --- | --- |
+| -- | --- | --- | --- | --- |
 | className | 类名 | string | - | 0.34.0 |
 | collapseHeight | 折叠高度 | number | 0 | 1.0.0 |
 | duration | 动画执行的时间 | number | 250 | - |
+| fade | 是否开启淡入淡出 | boolean | false | 2.21.0 |
 | isOpen | 是否展开内容区域 | boolean | `false` | - |
 | keepDOM | 是否保留隐藏的面板 DOM 树，默认销毁 | boolean | `false` | 0.25.0 |
-| motion | 是否开启动画 | Motion | `true` | - |
+| motion | 是否开启动画 | boolean | `true` | - |
 | reCalcKey | 当 reCalcKey 改变时，将重新计算子节点的高度，用于优化动态渲染时的计算 | number \| string | - | 1.5.0 |
 | style | 样式 | CSSProperties | - | 0.34.0 |
 | id | id | html id string type | - | 2.3.0 |
@@ -231,14 +232,14 @@ import Collapsible from './index';
 
 ()=>{
     const collapseId = 'myCollapsible';
-    const [visible,setVisible]=useState(false);
+    const [visible, setVisible]=useState(false);
     return <>
         <Button onClick={()=>setVisible(!visible)} aria-controls={`${collapseId}`}>{visible?'hide':'show'}</Button>    
         <Collapsible isOpen={visible} id={collapseId}>
             <div>hide content</div>
         </Collapsible>
-    </>
-}
+    </>;
+};
 
 ```
 

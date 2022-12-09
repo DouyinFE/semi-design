@@ -25,7 +25,17 @@ export interface StyledAnimationProps {
     prefixCls?: string;
     timing?: string;
     duration?: string | number;
-    fillMode?: string;
+    fillMode?: string
+}
+
+export interface StyledAnimateStyleType {
+    animationTimingFunction: string;
+    animationName: any;
+    animationDuration: string | number;
+    animationDelay: string | number;
+    animationIterationCount: string | number;
+    animationDirection: string;
+    animationFillMode: string
 }
 
 const types: any = Object.values(styledTypes).reduce((arr, cur) => [...arr as any, ...cur as any], []);

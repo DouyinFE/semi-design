@@ -13,13 +13,15 @@ import { IconChevronLeft } from '@douyinfe/semi-icons';
 import { BASE_CLASS_PREFIX } from '@douyinfe/semi-foundation/base/constants';
 
 import { noop, stubFalse } from 'lodash';
-import { setYear, setMonth } from 'date-fns';
+import { setYear, setMonth, set } from 'date-fns';
 import { Locale } from '../locale/interface';
+import { strings } from '@douyinfe/semi-foundation/datePicker/constants';
+
 
 const prefixCls = `${BASE_CLASS_PREFIX}-datepicker`;
 
 export interface YearAndMonthProps extends YearAndMonthFoundationProps, BaseProps {
-    locale?: Locale['DatePicker'];
+    locale?: Locale['DatePicker']
 }
 
 export type YearAndMonthState = YearAndMonthFoundationState;
@@ -36,6 +38,9 @@ class YearAndMonth extends BaseComponent<YearAndMonthProps, YearAndMonthState> {
         noBackBtn: PropTypes.bool,
         disabledDate: PropTypes.func,
         density: PropTypes.string,
+        presetPosition: PropTypes.oneOf(strings.PRESET_POSITION_SET),
+        renderQuickControls: PropTypes.node,
+        renderDateInput: PropTypes.node
     };
 
     static defaultProps = {
@@ -82,7 +87,7 @@ class YearAndMonth extends BaseComponent<YearAndMonthProps, YearAndMonthState> {
             ...super.adapter,
             // updateYears: years => this.setState({ years }),
             // updateMonths: months => this.setState({ months }),
-            setCurrentYear: currentYear => this.setState({ currentYear }),
+            setCurrentYear: (currentYear, cb) => this.setState({ currentYear }, cb),
             setCurrentMonth: currentMonth => this.setState({ currentMonth }),
             notifySelectYear: year =>
                 this.props.onSelect({
@@ -114,18 +119,23 @@ class YearAndMonth extends BaseComponent<YearAndMonthProps, YearAndMonthState> {
     }
 
     renderColYear() {
-        const { years, currentYear, currentMonth } = this.state;
-        const { disabledDate, localeCode, yearCycled } = this.props;
+        const { years, currentYear, currentMonth, months } = this.state;
+        const { disabledDate, localeCode, yearCycled, yearAndMonthOpts } = this.props;
         const currentDate = setMonth(Date.now(), currentMonth - 1);
-        const list: any[] = years.map(({ value, year }) => ({
-            year,
-            value, // Actual rendered text
-            disabled: disabledDate(setYear(currentDate, year)),
-        }));
+        const list: any[] = years.map(({ value, year }) => {
+            const isAllMonthDisabled = months.every(({ month }) => {
+                return disabledDate(set(currentDate, { year, month: month - 1 }));
+            });
+            return ({
+                year,
+                value, // Actual rendered text
+                disabled: isAllMonthDisabled,
+            });
+        });
         let transform = (val: string) => val;
         if (localeCode === 'zh-CN' || localeCode === 'zh-TW') {
             // Only Chinese needs to add [year] after the selected year
-            transform = val => `${val }年`;
+            transform = val => `${val}年`;
         }
         return (
             <ScrollItem
@@ -136,6 +146,8 @@ class YearAndMonth extends BaseComponent<YearAndMonthProps, YearAndMonthState> {
                 selectedIndex={years.findIndex(item => item.value === currentYear)}
                 type="year"
                 onSelect={this.selectYear}
+                mode="normal"
+                {...yearAndMonthOpts}
             />
         );
     }
@@ -162,12 +174,12 @@ class YearAndMonth extends BaseComponent<YearAndMonthProps, YearAndMonthState> {
 
     renderColMonth() {
         const { months, currentMonth, currentYear } = this.state;
-        const { locale, localeCode, monthCycled, disabledDate } = this.props;
+        const { locale, localeCode, monthCycled, disabledDate, yearAndMonthOpts } = this.props;
         let transform = (val: string) => val;
         const currentDate = setYear(Date.now(), currentYear);
         if (localeCode === 'zh-CN' || localeCode === 'zh-TW') {
             // Only Chinese needs to add [month] after the selected month
-            transform = val => `${val }月`;
+            transform = val => `${val}月`;
         }
         // i18n
         const list: MonthScrollItem[] = months.map(({ value, month }) => ({
@@ -185,6 +197,8 @@ class YearAndMonth extends BaseComponent<YearAndMonthProps, YearAndMonthState> {
                 selectedIndex={selectedIndex}
                 type="month"
                 onSelect={this.selectMonth}
+                mode='normal'
+                {...yearAndMonthOpts}
             />
         );
     }
@@ -195,7 +209,7 @@ class YearAndMonth extends BaseComponent<YearAndMonthProps, YearAndMonthState> {
     };
 
     render() {
-        const { locale, noBackBtn, density } = this.props;
+        const { locale, noBackBtn, density, presetPosition, renderQuickControls, renderDateInput } = this.props;
         const prefix = `${prefixCls}-yearmonth-header`;
         // i18n
         const selectDateText = locale.selectDate;
@@ -208,7 +222,7 @@ class YearAndMonth extends BaseComponent<YearAndMonthProps, YearAndMonthState> {
                     <div className={prefix}>
                         <IconButton
                             noHorizontalPadding={false}
-                            icon={<IconChevronLeft size={iconSize} />}
+                            icon={<IconChevronLeft aria-hidden size={iconSize} />}
                             size={buttonSize}
                             onClick={this.backToMain}
                         >
@@ -216,10 +230,28 @@ class YearAndMonth extends BaseComponent<YearAndMonthProps, YearAndMonthState> {
                         </IconButton>
                     </div>
                 )}
-                <ScrollList>
-                    {this.renderColYear()}
-                    {this.renderColMonth()}
-                </ScrollList>
+                {
+                    presetPosition ? (
+                        <div style={{ display: 'flex' }}>
+                            {presetPosition === "left" && renderQuickControls}
+                            <div>
+                                {renderDateInput}
+                                <ScrollList>
+                                    {this.renderColYear()}
+                                    {this.renderColMonth()}
+                                </ScrollList>
+                            </div>
+                            {presetPosition === "right" && renderQuickControls}
+                        </div>
+                    ) :
+                        <>
+                            {renderDateInput}
+                            <ScrollList>
+                                {this.renderColYear()}
+                                {this.renderColMonth()}
+                            </ScrollList>
+                        </>
+                }
             </React.Fragment>
         );
     }

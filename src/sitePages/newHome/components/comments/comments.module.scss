@@ -1,3 +1,70 @@
+.frame {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    padding: 120px 120px 0;
+}
+
+.text_008e1ad6 {
+    font-size: 18px;
+    color: var(--semi-color-text-0);
+    line-height: 32px;
+    text-align: left;
+    vertical-align: top;
+    font-weight: 400;
+    margin-top: 16px;
+}
+
+.data {
+    display: flex;
+    align-items: flex-start;
+    column-gap: 120px;
+    margin-top: 48px;
+}
+
+.descriptionVerticalL {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    overflow: hidden;
+    width: 180px;
+}
+
+.key {
+    flex-shrink: 0;
+    font-family: "Inter","PingFang SC";
+    font-size: 14px;
+    color: var(--semi-color-text-2);
+    line-height: 20px;
+    text-align: left;
+    vertical-align: top;
+    font-weight: 400;
+}
+
+.value {
+    flex-shrink: 0;
+    font-family: "Inter";
+    font-size: 32px;
+    color: rgba(var(--semi-violet-5), 1);
+    line-height: 44px;
+    letter-spacing: -1.28px;
+    text-align: left;
+    vertical-align: top;
+    font-weight: 600;
+}
+
+.text_2 {
+    margin-top: 64px;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 32px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: var(--semi-color-text-0);
+}
+
 .frame4571 {
     display: flex;
     flex-direction: column;
@@ -5,100 +72,25 @@
     margin-bottom: 120px;
 }
 
-.frame4570 {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0 0 72px;
-}
-
-.text {
+.title {
     min-width: 321px;
-    margin: 0 0 16px;
     font-size: 32px;
-    font-family: PingFang SC;
     color: var(--semi-color-text-0);
     line-height: 44px;
-    font-weight: bold;
+    font-weight: 600;
     text-align: center;
     vertical-align: middle;
 }
 
-.text_cd35ea6d {
-    min-width: 453px;
-    margin: 0 0 32px;
-    font-size: 18px;
-    color: var(--semi-color-text-0);
-    line-height: 32px;
-    font-weight: 400;
-    text-align: left;
-    vertical-align: top;
+.title_en {
+    font-weight: 700;
 }
 
-.text_8e955bee {
-    font-size: 18px;
-    font-family: Inter;
-    color: var(--semi-color-text-0);
-    line-height: 32px;
-    font-weight: 400;
-}
-
-.text_70c95f84 {
-    font-size: 18px;
-    font-family: PingFang SC;
-    color: var(--semi-color-text-0);
-    line-height: 32px;
-    font-weight: 400;
-}
-
-.group3737 {
+.comment {
     display: flex;
     flex-direction: row;
-    align-items: center;
-}
-
-.extraLarge {
-    height: 48px;
-    padding: 12px 24px;
-    border-radius: 6px;
-    margin-right: 16px;
-
-    :global(.semi-button-content) {
-        font-size: 16px;
-        line-height: 22px;
-    }
-}
-
-.buttonSecondarySolid_4427b030 {
-    border-radius: 6px;
-    border: 1px solid var(--semi-color-border);
-    padding: 11px 23px;
-    background-color: var(--semi-bg-2);
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    cursor: pointer;
-
-    &:hover {
-        background-color: var(--semi-color-fill-0);
-    }
-}
-
-.semiIconsGithubLogo {
-    margin: 0 8px 0 0;
-}
-
-.text_bff7eaeb {
-    min-width: 52px;
-    margin-left: 9px;
-    font-size: 16px;
-    font-family: Inter;
-    color: var(--semi-color-text-0);
-    line-height: 22px;
-    font-weight: 600;
-    letter-spacing: -.32px;
-    text-align: left;
-    vertical-align: top;
+    align-items: flex-start;
+    margin-top: 80px;
 }
 
 .frame4569 {
@@ -154,19 +146,11 @@
 
 .feedback_3a905c13 {
     font-size: 16px;
-    font-family: PingFang SC;
     color: var(--semi-color-text-0);
     line-height: 24px;
     font-weight: 400;
 }
 
-.feedback_c8d9f421 {
-    font-size: 16px;
-    font-family: Inter;
-    color: var(--semi-color-text-0);
-    line-height: 24px;
-    font-weight: 400;
-}
 
 .personDetails {
     display: flex;
@@ -178,7 +162,7 @@
 .aMengzhou {
     min-width: 113px;
     font-size: 18px;
-    font-family: Inter;
+    font-family: "Inter";
     color: var(--semi-color-text-0);
     line-height: 28px;
     font-weight: 700;
@@ -189,7 +173,7 @@
 .text_18f690df {
     min-width: 92px;
     font-size: 14px;
-    font-family: Inter;
+    font-family: "Inter";
     color: var(--semi-color-disabled-text);
     line-height: 24px;
     font-weight: 500;
@@ -214,7 +198,7 @@
     top: 12px;
     min-width: 14px;
     font-size: 18px;
-    font-family: Inter;
+    font-family: "Inter";
     color: var(--semi-color-white);
     line-height: 24px;
     font-weight: 600;
@@ -226,7 +210,7 @@
 .aChangyi {
     min-width: 92px;
     font-size: 18px;
-    font-family: Inter;
+    font-family: "Inter";
     color: var(--semi-color-text-0);
     line-height: 28px;
     font-weight: 700;
@@ -250,7 +234,7 @@
     top: 12px;
     min-width: 17px;
     font-size: 18px;
-    font-family: Inter;
+    font-family: "Inter";
     color: var(--semi-color-white);
     line-height: 24px;
     font-weight: 600;
@@ -274,7 +258,7 @@
 .aMiaomiao {
     min-width: 105px;
     font-size: 18px;
-    font-family: Inter;
+    font-family: "Inter";
     color: var(--semi-color-text-0);
     line-height: 28px;
     font-weight: 700;
@@ -288,7 +272,7 @@
     top: 12px;
     min-width: 13px;
     font-size: 18px;
-    font-family: Inter;
+    font-family: "Inter";
     color: var(--semi-color-white);
     line-height: 24px;
     font-weight: 600;
@@ -307,7 +291,7 @@
 .aYinfeng {
     min-width: 88px;
     font-size: 18px;
-    font-family: Inter;
+    font-family: "Inter";
     color: var(--semi-color-text-0);
     line-height: 28px;
     font-weight: 700;
@@ -318,7 +302,7 @@
 .text_05913fb1 {
     min-width: 120px;
     font-size: 14px;
-    font-family: Inter;
+    font-family: "Inter";
     color: var(--semi-color-disabled-text);
     line-height: 24px;
     font-weight: 500;
@@ -329,7 +313,7 @@
 .aJingyu {
     min-width: 79px;
     font-size: 18px;
-    font-family: Inter;
+    font-family: "Inter";
     color: var(--semi-color-text-0);
     line-height: 28px;
     font-weight: 700;
@@ -351,7 +335,7 @@
 .aYucang {
     min-width: 86px;
     font-size: 18px;
-    font-family: Inter;
+    font-family: "Inter";
     color: var(--semi-color-text-0);
     line-height: 28px;
     font-weight: 700;
@@ -362,7 +346,7 @@
 .aGuangye {
     min-width: 98px;
     font-size: 18px;
-    font-family: Inter;
+    font-family: "Inter";
     color: var(--semi-color-text-0);
     line-height: 28px;
     font-weight: 700;
@@ -373,10 +357,31 @@
 .aBaifu {
     min-width: 64px;
     font-size: 18px;
-    font-family: Inter;
+    font-family: "Inter";
     color: var(--semi-color-text-0);
     line-height: 28px;
     font-weight: 700;
     text-align: left;
     vertical-align: top;
+}
+
+.group3736 {
+    position: relative;
+    height: 41px;
+}
+
+.group3736dark {
+    display: none;
+    position: relative;
+    height: 41px;
+}
+
+body[theme-mode='dark'] {
+    .group3736 {
+        display: none;
+    }
+
+    .group3736dark {
+        display: inline;
+    }
 }

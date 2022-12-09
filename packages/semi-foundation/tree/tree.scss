@@ -1,28 +1,10 @@
+@import "./animation.scss";
 @import './variables.scss';
+
 
 $module: #{$prefix}-tree;
 
 .#{$module} {
-    box-sizing: border-box;
-    border-radius: $radius-tree;
-    border: 1px solid $color-tree_default-border-default;
-    height: $height-tree_default;
-    line-height: $height-tree_default;
-    font-weight: $font-tree_default-fontWeight;
-    background-color: $color-tree_default-bg-default;
-    display: inline-block;
-    vertical-align: middle;
-    position: relative;
-    cursor: pointer;
-
-    &:hover {
-        background-color: $color-tree_default-bg-hover;
-    }
-
-    &-focus {
-        border: $width-tree_focus-border solid $color-tree_default-border-focus;
-        outline: 0;
-    }
 
     &-search-wrapper {
         padding: $spacing-tree_search_wrapper-paddingY $spacing-tree_search_wrapper-paddingX;
@@ -73,6 +55,8 @@ $module: #{$prefix}-tree;
         display: flex;
         align-items: center;
         cursor: pointer;
+        transition: background-color $transition_duration-tree_option-bg $transition_function-tree_option-bg $transition_delay-tree_option-bg;
+        transform:scale($transform_scale-tree-option);
 
         @include font-size-regular;
         word-break: break-word;
@@ -270,6 +254,10 @@ $module: #{$prefix}-tree;
         color: $color-tree_option_disabled-text-default;
         user-select: none;
         cursor: not-allowed;
+    }
+
+    .#{$prefix}-checkboxGroup-vertical {
+        row-gap: 0;
     }
 }
 

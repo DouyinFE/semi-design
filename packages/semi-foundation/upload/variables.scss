@@ -13,6 +13,14 @@ $color-upload_drag_area_disabled-text: var(--semi-color-disabled-text); // 上�
 $color-upload_drag_area-bg: var(--semi-color-tertiary-light-default); // 上传可拖拽区域背景颜色 - 默认
 $color-upload_drag_area_icon: var(--semi-color-primary); // 上传可拖拽区域图标颜色
 $color-upload_drag_area_tips-text: var(--semi-color-primary); // 上传可拖拽区域背景颜色 - 悬浮
+
+$color-upload_drag_area_main-text-default: var(--semi-color-text-0); // 上传可拖拽区主要提示文本颜色 - 默认
+$color-upload_drag_area_main-text-hover: var(--semi-color-text-0); // 上传可拖拽区主要提示文本颜色 - 悬浮
+$color-upload_drag_area_main-text-active: var(--semi-color-text-0); // 上传可拖拽区主要提示文本颜色 - 按下
+$color-upload_drag_area_sub-text-default: var(--semi-color-text-0); // 上传可拖拽区次要提示文本颜色 - 默认
+$color-upload_drag_area_sub-text-hover: var(--semi-color-text-0); // 上传可拖拽区次要提示文本颜色 - 悬浮
+$color-upload_drag_area_sub-text-active: var(--semi-color-text-0); // 上传可拖拽区次要提示文本颜色 - 按下
+
 $color-upload_file_card_fail_info-text: var(--semi-color-danger); // 上传文件卡片失败提示信息文本颜色
 $color-upload_file_card_preview_placeholder-bg: rgba(var(--semi-grey-3), 1); // 文件卡片默认预览背景颜色
 $color-upload_file_card_preview_placeholder-text: rgba(var(--semi-white), 1); // 文件卡片默认预览图颜色

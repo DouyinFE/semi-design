@@ -17,7 +17,7 @@ import { numbers as popoverNumbers } from '@douyinfe/semi-foundation/popover/con
 import { IconChevronLeft, IconChevronRight } from '@douyinfe/semi-icons';
 import warning from '@douyinfe/semi-foundation/utils/warning';
 
-import ConfigContext from '../configProvider/context';
+import ConfigContext, { ContextValue } from '../configProvider/context';
 import LocaleConsumer from '../locale/localeConsumer';
 import { Locale } from '../locale/interface';
 import Select from '../select/index';
@@ -49,7 +49,7 @@ export interface PaginationProps {
     style?: React.CSSProperties;
     className?: string;
     hideOnSinglePage?: boolean;
-    hoverShowPageSelect?: boolean;
+    hoverShowPageSelect?: boolean
 }
 
 export interface PaginationState {
@@ -62,12 +62,12 @@ export interface PaginationState {
     quickJumpPage: string | number;
     nextDisabled: boolean;
     restLeftPageList: number[];
-    restRightPageList: number[];
+    restRightPageList: number[]
 }
 
 export type PaginationLocale = Locale['Pagination'];
 export type PopoverPosition = Position;
-export { PageList };
+export type { PageList };
 
 export default class Pagination extends BaseComponent<PaginationProps, PaginationState> {
     static contextType = ConfigContext;
@@ -134,6 +134,8 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
             '[Semi Pagination] You should not use showSizeChanger and hideOnSinglePage in ths same time. At this time, hideOnSinglePage no longer takes effect, otherwise there may be a problem that the switch entry disappears'
         );
     }
+
+    context: ContextValue;
 
     get adapter(): PaginationAdapter<PaginationProps, PaginationState> {
         return {
@@ -214,7 +216,14 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
             [`${prefixCls}-item-disabled`]: prevDisabled,
         });
         return (
-            <li role="button" aria-disabled={prevDisabled ? true : false} aria-label="Previous" onClick={e => !prevDisabled && this.foundation.goPrev(e)} className={preClassName}>
+            <li
+                role="button"
+                aria-disabled={prevDisabled ? true : false}
+                aria-label="Previous"
+                onClick={e => !prevDisabled && this.foundation.goPrev(e)}
+                className={preClassName}
+                x-semi-prop="prevText"
+            >
                 {prevText || <IconChevronLeft size="large" />}
             </li>
         );
@@ -229,7 +238,14 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
             [`${prefixCls}-next`]: true,
         });
         return (
-            <li role="button" aria-disabled={nextDisabled ? true : false} aria-label="Next" onClick={e => !nextDisabled && this.foundation.goNext(e)} className={nextClassName}>
+            <li
+                role="button"
+                aria-disabled={nextDisabled ? true : false}
+                aria-label="Next"
+                onClick={e => !nextDisabled && this.foundation.goNext(e)}
+                className={nextClassName}
+                x-semi-prop="prevText"
+            >
                 {nextText || <IconChevronRight size="large" />}
             </li>
         );
@@ -371,6 +387,7 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
         const itemHeight = 32;
         const listHeight = count >= 5 ? itemHeight * 5 : itemHeight * count;
         return (
+            // @ts-ignore skip type check cause react-window not update with @types/react 18
             <List
                 className={`${prefixCls}-rest-list`}
                 itemData={restList}

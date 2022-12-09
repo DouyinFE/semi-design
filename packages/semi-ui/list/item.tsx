@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/list/constants';
 import { noop } from 'lodash';
 import { Col } from '../grid';
-import ListContext from './list-context';
+import ListContext, { ListContextValue } from './list-context';
 
 export interface ListItemProps {
     extra?: React.ReactNode;
@@ -12,11 +12,12 @@ export interface ListItemProps {
     main?: React.ReactNode;
     align?: 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch';
     className?: string;
+    children?: React.ReactNode;
     style?: React.CSSProperties;
     onClick?: React.MouseEventHandler<HTMLLIElement>;
     onRightClick?: React.MouseEventHandler<HTMLLIElement>;
     onMouseLeave?: React.MouseEventHandler<HTMLLIElement>;
-    onMouseEnter?: React.MouseEventHandler<HTMLLIElement>;
+    onMouseEnter?: React.MouseEventHandler<HTMLLIElement>
 }
 
 const prefixCls = cssClasses.PREFIX;
@@ -29,6 +30,7 @@ export default class ListItem extends PureComponent<ListItemProps> {
         main: PropTypes.node,
         align: PropTypes.oneOf(strings.ALIGN),
         className: PropTypes.string,
+        children: PropTypes.node,
         style: PropTypes.object,
         onClick: PropTypes.func,
         onRightClick: PropTypes.func,
@@ -41,6 +43,8 @@ export default class ListItem extends PureComponent<ListItemProps> {
         onMouseEnter: noop,
         onMouseLeave: noop,
     };
+
+    context: ListContextValue;
 
     wrapWithGrid(content: React.ReactNode) {
         const { grid } = this.context;
@@ -85,6 +89,7 @@ export default class ListItem extends PureComponent<ListItemProps> {
             );
         }
         let content = (
+            // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
             <li
                 className={itemCls}
                 style={style}

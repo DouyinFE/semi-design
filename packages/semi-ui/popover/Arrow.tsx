@@ -8,7 +8,7 @@ export interface ArrowProps {
     position?: string;
     className?: string;
     arrowStyle?: React.CSSProperties;
-    popStyle?: React.CSSProperties;
+    popStyle?: React.CSSProperties
 }
 
 const Arrow: React.FC<ArrowProps> = (props = {}) => {

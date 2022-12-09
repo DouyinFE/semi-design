@@ -5,24 +5,22 @@
     },
     "[javascript]": {
         "editor.formatOnSave": false,
-        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+        "editor.defaultFormatter": "vscode.typescript-language-features"
     },
     "[scss]": {
         "editor.formatOnPaste": false
     },
     "[javascriptreact]": {
-        "editor.defaultFormatter": "carlsirce.vscode-eden-plugin",
         "editor.defaultFormatter": "dbaeumer.vscode-eslint"
     },
     "[less]": {
         "editor.defaultFormatter": "michelemelluso.code-beautifier"
     },
     "[typescriptreact]": {
-        "editor.defaultFormatter": "carlsirce.vscode-eden-plugin",
-        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+        "editor.defaultFormatter": "vscode.typescript-language-features"
     },
     "typescript.updateImportsOnFileMove.enabled": "always",
-    "files.autoSave": "off",
+    "files.autoSave": "onFocusChange",
     "[json]": {
         "editor.defaultFormatter": "vscode.json-language-features"
     },

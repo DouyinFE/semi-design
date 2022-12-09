@@ -1,11 +1,11 @@
 ---
 localeCode: zh-CN
-order: 44
+order: 46
 category: 展示类
 title: Calendar 日历
 icon: doc-calendar
 dir: column
-brief: 按照日历形式展示数据的容器。
+brief: 日历组件，允许以日/周/月视图展示对应事件
 ---
 
 ## 代码演示
@@ -49,6 +49,35 @@ import { Calendar } from '@douyinfe/semi-ui';
 () => <Calendar mode="month"></Calendar>;
 ```
 
+### 设置周起始日
+可以通过 weekStartsOn 设置周几作为每周第一天，0 代表周日，1 代表周一，以此类推。默认为周日。weekStartsOn 自 v2.18 起提供，对月视图、周视图生效。
+```jsx live=true dir="column"
+import React, { useState } from 'react';
+import { RadioGroup, Calendar, Radio } from '@douyinfe/semi-ui';
+
+() => {
+    const [v, setV] = useState(0);
+    return (
+        <div>
+            <RadioGroup defaultValue={v} aria-label="周起始日" name="demo-radio-group-vertical" onChange={e => setV(e.target.value)}>
+                <Radio value={0}>周日</Radio>
+                <Radio value={1}>周一</Radio>
+                <Radio value={2}>周二</Radio>
+                <Radio value={3}>周三</Radio>
+                <Radio value={4}>周四</Radio>
+                <Radio value={5}>周五</Radio>
+                <Radio value={6}>周六</Radio>
+            </RadioGroup>
+            <Calendar
+                style={{ marginTop: 20 }}
+                mode="month"
+                weekStartsOn={v}
+            ></Calendar>
+        </div>
+    );
+};
+```
+
 ### 多日视图
 
 **>=1.5.0**  
@@ -60,6 +89,7 @@ import { Calendar } from '@douyinfe/semi-ui';
 
 () => <Calendar mode="range" range={[new Date(2020, 8, 26), new Date(2020, 8, 31)]} />;
 ```
+
 
 ### 事件渲染用法
 
@@ -278,6 +308,7 @@ import { Calendar } from '@douyinfe/semi-ui';
 | scrollTop | 日视图和周视图模式下，设置展示内容默认的滚动高度 | number | 400 |
 | showCurrTime | 显示当前时间 | boolean | true |
 | width | 日历宽度 | string\|number | - |
+| weekStartsOn | 以周几作为每周第一天，0 代表周日，1 代表周一，以此类推。v2.18后支持 | number | 0 |
 
 ### Event Object
 
@@ -295,6 +326,11 @@ import { Calendar } from '@douyinfe/semi-ui';
 | end      | 事情结束的时间                    | Date | -      |
 | key      | required 且要求唯一, **v>=1.0.0** | string      | -      |
 | start    | 事情起始的时间                    | Date | -      |
+
+## 文案规范
+- 当需要显示时间时，12 小时制和 24 小时制都是可以使用的
+- 如果采用12小时制，需要搭配 AM/PM 一起使用，具体内容可参考 [时间规范](/zh-CN/start/content-guidelines#8.%20%E6%97%A5%E6%9C%9F%E4%B8%8E%E6%97%B6%E9%97%B4)
+- 关于月份、星期、时间的缩写使用规则，可参考 [缩写规范](/zh-CN/start/content-guidelines#1.%20%E7%BC%A9%E5%86%99)
 
 ## 设计变量
 

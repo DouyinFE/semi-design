@@ -151,6 +151,22 @@ const local: Locale = {
         total: '共 ${total} 項',
         selected: '已選 ${total} 項',
     },
+    Form: {
+        optional: '（可選）',
+    },
+    Image: {
+        preview: '預覽',
+        loading: '加載中',
+        loadError: '加載失敗',
+        prevTip: '上一張',
+        nextTip: '下一張',
+        zoomInTip: '放大',
+        zoomOutTip: '縮小',
+        rotateTip: '旋轉',
+        downloadTip: '下載',
+        adaptiveTip: '適應頁面',
+        originTip: '原始尺寸',
+    },
 };
 
 // 中文

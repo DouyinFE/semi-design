@@ -1,11 +1,11 @@
 ---
 localeCode: en-US
-order: 23
+order: 25
 category: Input
 title:  InputNumber
 subTitle: InputNumber
 icon: doc-inputnumber
-brief: Enter values within range through a mouse or keyboard.
+brief: Through the mouse or keyboard, input the value in the range. Unlike Input, it has a stepper operation area for digital scenes, and it can display more complex content formats when used with Parser.
 ---
 
 
@@ -69,16 +69,12 @@ class App extends React.Component {
                 <InputNumber defaultValue={2} disabled />
                 <br/><br/>
 
-                <label>Set autofocus to true </label>
-                <InputNumber defaultValue={3} autofocus />
-                <br/><br/>
-
                 <label>Set precision to 2 </label>
                 <InputNumber precision={2} defaultValue={1.234} />
                 <br/><br/>
 
                 <label>Set innerButtons=true </label>
-                <InputNumber innerButtons={true} suffix={'Hour'} defaultValue={1} style={{ width: 190}} />
+                <InputNumber innerButtons={true} suffix={'Hour'} defaultValue={1} style={{ width: 190 }} />
                 <br/>
 
             </div>
@@ -97,7 +93,7 @@ import React from 'react';
 import { InputNumber } from '@douyinfe/semi-ui';
 
 () => (
-    <InputNumber innerButtons style={{ width: 190}} />
+    <InputNumber innerButtons style={{ width: 190 }} />
 );
 ```
 
@@ -108,7 +104,7 @@ import React from 'react';
 import { InputNumber } from '@douyinfe/semi-ui';
 
 () => (
-    <InputNumber hideButtons style={{ width: 190}} />
+    <InputNumber hideButtons style={{ width: 190 }} />
 );
 
 ```
@@ -221,7 +217,8 @@ function Demo () {
 | prefixCls    | Prefix content                                                                                  | string\|ReactNode                 |           |            |
 | pressInterval| How often will the click event be triggered when the button is long pressed, in milliseconds                                   | number                 |   250        |           |
 | pressTimeout | When the button is long pressed, how long will the click event be triggered after the delay, in milliseconds                                               | number                 |     250      |           |
-| shiftStep    | Step size for pressing the shift key, it can be a decimal.                            | number                            | 1         | **1.5.0** |
+| preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
+| shiftStep    | Step size for pressing the shift key, it can be a decimal. The default value was adjusted from 1 to 10 in v2.13                     | number                            | 10         | **1.5.0** |
 | showClear    | Do you show the clear button?                                                                   | boolean                           | false     | **0.35.0** |
 | size         | Enter box size, optional value: "default"\|"small"\|"large"                                     | string                            | 'default' |            |
 | step         | Each time you change the number of steps, it can be a decimal.                                  | number                            | 1         |            |
@@ -241,10 +238,20 @@ function Demo () {
 | focus() | Get the focus.  |
 
 ## Accessibility
+
+Guideline: https://www.w3.org/WAI/ARIA/apg/patterns/spinbutton/
+
 ### ARIA
 
-- Added button role to the increase and decrease buttons to indicate that it is a button that can be clicked
-- Use aria-valuenow for the current value, aria-valuemax for the maximum acceptable value, and aria-valuemin for the minimum acceptable value
+- InputNumber has `spinbutton` role
+- spinbutton uses `aria-valuenow` for current value, `aria-valuemax` for acceptable maximum value, and `aria-valuemin` for acceptable minimum value
+- When InputNumber is used in Form, the value of the input box's `aria-labeledby` reference is Field label
+
+### Keyboard and Focus
+
+- InputNumber can get focus, keyboard users can use `Tab` and `Shift + Tab` to switch focus (Increase and decrease buttons are not focusable)
+- Keyboard users can press up key ⬆️ or down key ⬇️ and the input value will increase or decrease by `step` (default is 1)
+- Hold down Shift + Up ⬆️ or Down ⬇️ , the input value will increase or decrease by `shiftStep` (default is 10)
 
 ## Design Tokens
 <DesignToken/>

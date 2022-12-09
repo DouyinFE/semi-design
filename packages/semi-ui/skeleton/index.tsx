@@ -5,7 +5,7 @@ import { cssClasses } from '@douyinfe/semi-foundation/skeleton/constants';
 import '@douyinfe/semi-foundation/skeleton/skeleton.scss';
 import { Avatar, Image, Title, Button, Paragraph } from './item';
 
-export { ParagraphProps, AvatarProps, GenericProps } from './item';
+export type { ParagraphProps, AvatarProps, GenericProps } from './item';
 
 const prefixCls = cssClasses.PREFIX;
 
@@ -15,7 +15,7 @@ export interface SkeletonProps {
     className?: string;
     loading?: boolean;
     placeholder?: ReactNode;
-    style?: CSSProperties;
+    style?: CSSProperties
 }
 
 class Skeleton extends PureComponent<SkeletonProps> {
@@ -48,7 +48,7 @@ class Skeleton extends PureComponent<SkeletonProps> {
         let content;
         if (loading) {
             content = (
-                <div className={skCls} style={style} {...others}>
+                <div className={skCls} style={style} {...others} x-semi-prop="placeholder">
                     {placeholder}
                 </div>
             );

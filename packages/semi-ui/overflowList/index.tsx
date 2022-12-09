@@ -17,7 +17,7 @@ const Boundary = strings.BOUNDARY_MAP;
 const OverflowDirection = strings.OVERFLOW_DIR;
 const RenderMode = strings.MODE_MAP;
 
-export { ReactIntersectionObserverProps } from './intersectionObserver';
+export type { ReactIntersectionObserverProps } from './intersectionObserver';
 export type OverflowItem = Record<string, any>;
 
 export interface OverflowListProps {
@@ -34,7 +34,7 @@ export interface OverflowListProps {
     visibleItemRenderer?: (item: OverflowItem, index: number) => ReactElement;
     wrapperClassName?: string;
     wrapperStyle?: CSSProperties;
-    itemKey?: Key | ((item: OverflowItem) => Key);
+    itemKey?: Key | ((item: OverflowItem) => Key)
 }
 
 export interface OverflowListState {
@@ -49,7 +49,7 @@ export interface OverflowListState {
     maxCount?: number;
     overflowStatus?: 'calculating' | 'overflowed' | 'normal';
     pivot?: number;
-    overflowWidth?: number;
+    overflowWidth?: number
 }
 
 // reference to https://github.com/palantir/blueprint/blob/1aa71605/packages/core/src/components/overflow-list/overflowList.tsx#L34
@@ -114,7 +114,7 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
             // reset visible state if the above props change.
             newState.direction = OverflowDirection.GROW;
             newState.lastOverflowCount = 0;
-            if (props.renderMode === RenderMode.SCROLL){
+            if (props.renderMode === RenderMode.SCROLL) {
                 newState.visible = props.items;
                 newState.overflow = [];
             } else {
@@ -166,11 +166,11 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
         }
 
         const { overflow, containerWidth, visible, overflowStatus } = this.state;
-        
+
         if (this.isScrollMode() || overflowStatus !== "calculating") {
             return;
         }
-        if (visible.length === 0 && overflow.length === 0 && this.props.items.length !== 0){
+        if (visible.length === 0 && overflow.length === 0 && this.props.items.length !== 0) {
             // 推测container最多能渲染的数量
             // Figure out the maximum number of items in this container
             const maxCount = Math.min(this.props.items.length, Math.floor(containerWidth / numbers.MINIMUM_HTML_ELEMENT_WIDTH));
@@ -230,15 +230,15 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
 
         const { visible, overflowStatus } = this.state;
         let overflow = this.renderOverflow();
-        if (!this.isScrollMode()){
-            if (Array.isArray(overflow)){
+        if (!this.isScrollMode()) {
+            if (Array.isArray(overflow)) {
                 overflow = (
                     <>
                         {overflow}
                     </>
                 );
             }
-            if (React.isValidElement(overflow)){
+            if (React.isValidElement(overflow)) {
                 const child = React.cloneElement(overflow);
                 overflow = (<ResizeObserver
                     onResize={([entry]) => {
@@ -319,7 +319,7 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
         const width = this.itemSizeMap.get(key);
         if (!width) {
             this.itemSizeMap.set(key, entry.target.clientWidth);
-        } else if (width !== entry.target.clientWidth){
+        } else if (width !== entry.target.clientWidth) {
             // 某个item发生resize后，重新计算
             this.itemSizeMap.set(key, entry.target.clientWidth);
             this.setState({
@@ -329,7 +329,7 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
         const { maxCount } = this.state;
         // 已经按照最大值maxCount渲染完毕，触发真正的渲染。(-1 是overflow部分会占1)
         // Already rendered maxCount items, trigger the real rendering. (-1 for the overflow part)
-        if (this.itemSizeMap.size === maxCount-1){
+        if (this.itemSizeMap.size === maxCount - 1) {
             this.setState({
                 overflowStatus: 'calculating'
             });

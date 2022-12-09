@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 41
+order: 43
 category: Navigation
 title:  Tree
 subTitle: Tree
@@ -272,6 +272,163 @@ class Demo extends React.Component {
 }
 ```
 
+After setting the `filterTreeNode` property to enable search, you can customize the rendering method of the search box by setting `searchRender`. When set to `false`, the search box can be hidden.
+```jsx live=true
+import React from 'react';
+import { Tree, Input } from '@douyinfe/semi-ui';
+
+() => {
+    const treeData = [
+        {
+            label: 'Asia',
+            value: 'Asia',
+            key: '0',
+            children: [
+                {
+                    label: 'China',
+                    value: 'China',
+                    key: '0-0',
+                    children: [
+                        {
+                            label: 'Beijing',
+                            value: 'Beijing',
+                            key: '0-0-0',
+                        },
+                        {
+                            label: 'Shanghai',
+                            value: 'Shanghai',
+                            key: '0-0-1',
+                        },
+                    ],
+                },
+                {
+                    label: 'Japan',
+                    value: 'Japan',
+                    key: '0-1',
+                    children: [
+                        {
+                            label: 'Osaka',
+                            value: 'Osaka',
+                            key: '0-1-0'
+                        }
+                    ]
+                },
+            ],
+        },
+        {
+            label: 'North America',
+            value: 'North America',
+            key: '1',
+            children: [
+                {
+                    label: 'United States',
+                    value: 'United States',
+                    key: '1-0'
+                },
+                {
+                    label: 'Canada',
+                    value: 'Canada',
+                    key: '1-1'
+                }
+            ]
+        }
+    ];
+
+    return (
+        <Tree
+            filterTreeNode
+            searchRender={({ prefix, ...restProps }) => (
+                <Input
+                    prefix='Search'
+                    {...restProps}
+                />
+            )}
+            treeData={treeData}
+        />
+    );
+};
+
+```
+
+### Trigger search manually
+Use ref to get tree instance，you can call `search` method of tree to trigger search manually. Note that you need to set `filterTreeNode` to enable search at the same time.If the search box is outside the tree, you can hide the search box inside the tree by setting `searchRender=false`.
+```jsx live=true
+import React from 'react';
+import { Tree, Input } from '@douyinfe/semi-ui';
+
+() => {
+    const ref = useRef();
+    const treeData = [
+        {
+            label: 'Asia',
+            value: 'Asia',
+            key: '0',
+            children: [
+                {
+                    label: 'China',
+                    value: 'China',
+                    key: '0-0',
+                    children: [
+                        {
+                            label: 'Beijing',
+                            value: 'Beijing',
+                            key: '0-0-0',
+                        },
+                        {
+                            label: 'Shanghai',
+                            value: 'Shanghai',
+                            key: '0-0-1',
+                        },
+                    ],
+                },
+                {
+                    label: 'Japan',
+                    value: 'Japan',
+                    key: '0-1',
+                    children: [
+                        {
+                            label: 'Osaka',
+                            value: 'Osaka',
+                            key: '0-1-0',
+                        },
+                    ],
+                },
+            ],
+        },
+        {
+            label: 'North America',
+            value: 'North America',
+            key: '1',
+            children: [
+                {
+                    label: 'United States',
+                    value: 'United States',
+                    key: '1-0',
+                },
+                {
+                    label: 'Canada',
+                    value: 'Canada',
+                    key: '1-1',
+                },
+            ],
+        },
+    ];
+    return (
+        <div>
+            <Input aria-label='filter tree' prefix="Search" showClear onChange={v => ref.current.search(v)} />
+            <div style={{ marginTop: 20 }}>search result：</div>
+            <Tree
+                ref={ref}
+                filterTreeNode
+                searchRender={false}
+                treeData={treeData}
+                blockNode={false}
+            />
+        </div>
+    );
+};
+```
+
 ### JSON TreeData
 
 You could use `treeDataSimpleJson` to pass in `treeNodes` data in JSON format. In this case, key will be used as `key` and `label`, and value will be used as `value` correspondingly. Return value includes JSON data in selected nodes.
@@ -297,8 +454,8 @@ import { Tree } from '@douyinfe/semi-ui';
         <Tree
             treeDataSimpleJson={json}
             multiple
-            onChange={e => console.log('All selected values: ',e)}
-            onSelect={e => console.log('Current item: ',e)}
+            onChange={e => console.log('All selected values: ', e)}
+            onSelect={e => console.log('Current item: ', e)}
             style={style}
         />
 
@@ -487,19 +644,19 @@ import { IconMapPin } from '@douyinfe/semi-icons';
             label: 'Asia',
             value: 'Asia',
             key: '0',
-            icon: (<IconMapPin style={{color: 'var(--semi-color-text-2)'}}/>),
+            icon: (<IconMapPin style={{ color: 'var(--semi-color-text-2)' }}/>),
             children: [
                 {
                     label: 'China',
                     value: 'China',
                     key: '0-0',
-                    icon: (<IconMapPin style={{color: 'var(--semi-color-text-2)'}}/>)
+                    icon: (<IconMapPin style={{ color: 'var(--semi-color-text-2)' }}/>)
                 },
                 {
                     label: 'Japan',
                     value: 'Japan',
                     key: '0-1',
-                    icon: (<IconMapPin style={{color: 'var(--semi-color-text-2)'}}/>)
+                    icon: (<IconMapPin style={{ color: 'var(--semi-color-text-2)' }}/>)
                 },
             ],
         }
@@ -850,7 +1007,7 @@ class Demo extends React.Component {
         };
     }
     onChange(value) {
-        this.setState({value});
+        this.setState({ value });
     }
     render() {
         const treeData = [
@@ -938,11 +1095,11 @@ class Demo extends React.Component {
     constructor() {
         super();
         this.state = {
-            expandedKeys: ['0','0-0']
+            expandedKeys: ['0', '0-0']
         };
     }
     onExpand(value) {
-        this.setState({expandedKeys: value});
+        this.setState({ expandedKeys: value });
     }
     render() {
         const treeData = [
@@ -1051,7 +1208,7 @@ class Demo extends React.Component {
             const rec = n => (n >= 0 ? x * y ** n-- + rec(n) : 0);
             return rec(z + 1);
         }
-        return {gData, total: calcTotal(x, y, z)};
+        return { gData, total: calcTotal(x, y, z) };
     }
 
       
@@ -1147,7 +1304,7 @@ class Demo extends React.Component {
                     treeData={this.state.treeData}
                 />
                 <br/>
-                <Button onClick={this.add} style={{margin: 20}}>
+                <Button onClick={this.add} style={{ margin: 20 }}>
                     Update Data
                 </Button>
             </div>
@@ -1227,8 +1384,38 @@ import { Tree } from '@douyinfe/semi-ui';
 
 ### Draggable Tree
 You could use `draggable` along with `onDrop` to achieve a draggable Tree.
-**Virtualized not supported at this moment**
-**v>=1.8.0**
+
+<Notice title='Notice'>
+    Drag and drop is available since v 1.8.0. Simultaneous use with virtualization is currently not supported
+</Notice>
+
+The callback input parameters of the drag event are as follows:
+```
+- onDragEnd: function({ event, node:treeNode })
+- onDragEnter:function({ event, node:treeNode, expandedKeys:string[] })
+- onDragLeave:function({ event, node:treeNode })
+- onDragOver:function({ event, node:treeNode })
+- onDragStart: function({ event, node })
+- onDrop:function({ event, node, dragNode:treeNode, dragNodesKeys:string[], dropPosition:number, dropToGap:Boolean })
+```
+
+The node, in addition to the original data originalData, also contains:
+```
+treeNode {
+    expanded: Boolean,
+    pos: string
+    value?: string | number;
+    label?: React.ReactNode;
+    disabled?: boolean;
+    isLeaf?: boolean;
+    [key: string]: any;
+}
+```
+
+- `pos` refers to the positional relationship of the current node in the entire treeData, such as the 0th node of the 2nd node of the 1st node of the 0th layer: '0-1-2-0'
+- `dropPosition` refers to the position where the dragged node is dropped in the current hierarchy. If it is inserted before the 0th node of the same level, it will be -1, and after the 0th node, it will be 1, and it will fall on it. is 0, and so on. With dropToGap, a more complete judgment can be obtained.
+- `dropToGap` refers to whether the dragged node is dropped between nodes, if false, it is dropped above a node
+
 ```jsx live=true
 import React, { useState } from 'react';
 import { Tree } from '@douyinfe/semi-ui';
@@ -1363,14 +1550,38 @@ import { Tree } from '@douyinfe/semi-ui';
 
 You could use `renderFullLabel` for advanced rendering to render the entire option on you own.
 
+```
+{
+    onClick: Function, // Click the callback of the entire row to control the expansion behavior and selection
+    onContextMenu: Function, // Callback for right-clicking the entire row
+    onDoubleClick: Function,  // Callback for double-clicking the entire row
+    className: strings, // Class name, including built-in styles such as indent, expand button, filter, disable, check, etc.
+    onExpand: Function, // Expand callback
+    data: object, // The original data of the row
+    level: number, // The level where the line is located, which can be used to customize the indentation value
+    style: object, // The style required for virtualization, if virtualization is used, the style must be assigned to the DOM element
+    onCheck: Function, // Multiple selection click callback
+    expandIcon: ReactNode, // Expand button
+    checkStatus: {
+        checked: Boolean, // Whether it is selected in the multi-select state
+        halfChecked: Boolean, // Whether half-selected in multi-select state
+    },
+    expandStatus: {
+        expanded,
+        loading,
+    },
+}
+```
+
 <Notice type="primary" title="Important">
 <div>If virtualized is set to true, be sure to apply `style` to targeted ReactNode to correctly render virtualized list.</div>
 </Notice>
 
 Here are some demos.
 
-First is to render Parent node as separator and only allow leaf nodes to be selected.
-⚠️：renderFullLabel only takes care of the UI rendering and won't affect inside data logic. But you could choose info to your needs and use it with controlled mode for advanced usage.
+First is to render Parent node as separator and only allow leaf nodes to be selected.  
+renderFullLabel only takes care of the UI rendering and won't affect inside data logic. But you could choose info to your needs and use it with controlled mode for advanced usage.
+
 ```jsx live=true
 import React from 'react';
 import { Tree, Checkbox } from '@douyinfe/semi-ui';
@@ -1390,6 +1601,7 @@ import { Tree, Checkbox } from '@douyinfe/semi-ui';
         const { label } = data;
         const isLeaf = !(data.children && data.children.length);
         return (
+            // eslint-disable-next-line jsx-a11y/click-events-have-key-events
             <li
                 className={className}
                 role="treeitem"
@@ -1402,7 +1614,7 @@ import { Tree, Checkbox } from '@douyinfe/semi-ui';
                     <Checkbox
                         indeterminate={checkStatus.halfChecked}
                         checked={checkStatus.checked}
-                        style={{marginRight: 8}}
+                        style={{ marginRight: 8 }}
                     />
                 </div> : null}
                 <span>{label}</span>
@@ -1687,7 +1899,7 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
                 onClick={onClick}
                 style={style}
             >
-                {isLeaf ? <span style={{width: 24}}></span> : expandIcon}
+                {isLeaf ? <span style={{ width: 24 }}></span> : expandIcon}
                 {icon}
                 <span>{label}</span>
             </li>
@@ -1924,6 +2136,7 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
 | loadedKeys | （Controlled）Mark node as loaded, working with `loadData` | string[] | - | 1.0.0|
 | motion              | Toggle whether to turn on animation| boolean                     | true    | - |
 | multiple            | Toggle whether in multi-choice mode| boolean                     | false   | - |
+| preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
 | renderDraggingNode | Custom render function to render html element of dragImg for dragging node | (nodeInstance: HTMLElement, node: TreeNode) => HTMLElement | - | 1.8.0 | 
 | renderFullLabel | Custom option render function | (data: object) => ReactNode | - | 1.7.0 | 
 | renderLabel | Custom label render function | (label: ReactNode, data: TreeNode) => ReactNode | - | 1.6.0 | 
@@ -1979,8 +2192,11 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
 | itemSize | Height for each line of treeNode, required | number | - |
 | width | Width | number\|string | '100%' |
 
-### Ref Method
-- search(sugInput) => void
+### Methods
+|Name | Description | Type | Version |
+|----|----|----|----|
+| search | Trigger search manually | (value: string) => void |-|
+| scrollTo | In a virtualized Tree, make the specified node(Which is an expanded node in the tree) scroll to view | （{key: string; align?: 'center' \| 'start' \| 'end' \| 'smart' \| 'auto';}) => void | 2.18.0|
 
 
 ## Accessibility
@@ -1998,6 +2214,12 @@ Demo:
         aria-label='example tree'
     />
 ```
+
+
+## Content Guidelines
+- Try to use phrases, capitalize the first letter
+- Keep the same form of terminology between levels, such as all place names or country names
+
 
 ## Design Tokens
 <DesignToken/>

@@ -10,7 +10,11 @@ import { registerMediaQuery } from '../_utils';
 
 const responsiveArray = ['xxl', 'xl', 'lg', 'md', 'sm', 'xs'];
 
-export const RowContext = React.createContext<{ gutters: Gutter | [Gutter, Gutter] }>(null);
+export interface RowContextType {
+    gutters?: Gutter | [Gutter, Gutter]
+}
+
+export const RowContext = React.createContext<RowContextType>(null);
 
 export type Breakpoint = 'xxl' | 'xl' | 'lg' | 'md' | 'sm' | 'xs';
 
@@ -24,11 +28,11 @@ export interface RowProps {
     style?: React.CSSProperties;
     children?: React.ReactNode;
     gutter?: Gutter | [Gutter, Gutter];
-    prefixCls?: string;
+    prefixCls?: string
 }
 
 export interface RowState {
-    screens: Partial<Record<Breakpoint, boolean>>;
+    screens: Partial<Record<Breakpoint, boolean>>
 }
 
 const responsiveMap = {
@@ -163,7 +167,7 @@ class Row extends React.Component<RowProps, RowState> {
                     gutters,
                 }}
             >
-                <div {...otherProps} className={classes} style={rowStyle}>
+                <div {...otherProps} className={classes} style={rowStyle} x-semi-prop="children">
                     {children}
                 </div>
             </RowContext.Provider>

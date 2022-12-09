@@ -86,7 +86,7 @@ export async function mapFileTree(items: Array<DataTransferItem>): Promise<Array
         const result = await Promise.all(promises);
         return result;
     } catch (error) {
-        console.warn('Catched error while loop directory.');
+        console.warn('Captured error while loop directory.');
         console.error(error);
         return [];
     }

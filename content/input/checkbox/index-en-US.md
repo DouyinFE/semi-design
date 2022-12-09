@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 19
+order: 21
 category: Input
 title:  Checkbox
 subTitle: Checkbox
@@ -136,9 +136,9 @@ class App extends React.Component {
         const plainOptions = ['semi', 'vigo', 'helo'];
         const options = [
             { label: 'Aim for the highest', value: '1', extra: "Raise the bar. Wait for bigger gains. Find the best solutions by widening your perspective. Be attentive. Distill ideas down to their fundamental truths. Keep learning and growing" },
-            { label: 'Be grounded & courageous', value: '2', extra:"Make your own discoveries. Dive deep into facts. Stay level-headed. Focus on impact. Assume ownership, take risks, break the mold. Rapid iterations, multiple possibilities." },
+            { label: 'Be grounded & courageous', value: '2', extra: "Make your own discoveries. Dive deep into facts. Stay level-headed. Focus on impact. Assume ownership, take risks, break the mold. Rapid iterations, multiple possibilities." },
             { label: 'Be open & humble', value: '3', extra: "Trust yourself, trust each other. Be willing to offer and ask for help. Collaboration creates value. Approach problems with the big picture in mind. Be mindful and check your ego; stay open to different ideas." },
-            { label: 'Be candid & clear', value: '4', extra: "Dare to share your honest opinions. It's okay to make mistakes. Own it when you do. Stick to the facts, identify issues, and avoid \'leader-pleasing.\' Be accurate and forthright; be methodical and focused."}
+            { label: 'Be candid & clear', value: '4', extra: "Dare to share your honest opinions. It's okay to make mistakes. Own it when you do. Stick to the facts, identify issues, and avoid \'leader-pleasing.\' Be accurate and forthright; be methodical and focused." }
         ];
         const optionsWithDisabled = [
             { label: 'Photography', value: 'Photography' },
@@ -295,7 +295,7 @@ import { Checkbox, CheckboxGroup } from '@douyinfe/semi-ui';
                 </Checkbox>
             </div>
             <CheckboxGroup
-                style={{marginTop:6}}
+                style={{ marginTop: 6 }}
                 options={plainOptions}
                 value={checkedList}
                 onChange={onChange}
@@ -319,16 +319,16 @@ import { CheckboxGroup, Checkbox } from '@douyinfe/semi-ui';
 
 () => (
     <CheckboxGroup type='card' defaultValue={['1', '3']} direction='vertical' aria-label="Checkbox demo">
-        <Checkbox value={'1'} disabled extra='Checkbox Description' style={{width:280}}>
+        <Checkbox value={'1'} disabled extra='Checkbox Description' style={{ width: 280 }}>
             Checkbox Title
         </Checkbox>
-        <Checkbox value={'2'} disabled extra='Checkbox Description' style={{width:280}}>
+        <Checkbox value={'2'} disabled extra='Checkbox Description' style={{ width: 280 }}>
             Checkbox Title
         </Checkbox>
-        <Checkbox value={'3'} extra='Checkbox Description' style={{width:280}}>
+        <Checkbox value={'3'} extra='Checkbox Description' style={{ width: 280 }}>
             Checkbox Title
         </Checkbox>
-        <Checkbox value={'4'} extra='Checkbox Description' style={{width:280}}>
+        <Checkbox value={'4'} extra='Checkbox Description' style={{ width: 280 }}>
             Checkbox Title
         </Checkbox>
     </CheckboxGroup>
@@ -346,16 +346,16 @@ import { CheckboxGroup, Checkbox } from '@douyinfe/semi-ui';
 
 () => (
     <CheckboxGroup type='pureCard' defaultValue={['1', '3']} direction='vertical' aria-label="Checkbox demo">
-        <Checkbox value={'1'} disabled extra='Checkbox Description' style={{width:280}}>
+        <Checkbox value={'1'} disabled extra='Checkbox Description' style={{ width: 280 }}>
             Checkbox Title
         </Checkbox>
-        <Checkbox value={'2'} disabled extra='Checkbox Description' style={{width:280}}>
+        <Checkbox value={'2'} disabled extra='Checkbox Description' style={{ width: 280 }}>
             Checkbox Title
         </Checkbox>
-        <Checkbox value={'3'} extra='Checkbox Description' style={{width:280}}>
+        <Checkbox value={'3'} extra='Checkbox Description' style={{ width: 280 }}>
             Checkbox Title
         </Checkbox>
-        <Checkbox value={'4'} extra='Checkbox Description' style={{width:280}}>
+        <Checkbox value={'4'} extra='Checkbox Description' style={{ width: 280 }}>
             Checkbox Title
         </Checkbox>
     </CheckboxGroup>
@@ -393,29 +393,23 @@ import { CheckboxGroup, Checkbox, Row, Col } from '@douyinfe/semi-ui';
 );
 ```
 
-## Accessibility
-
-### ARIA
-- The role of Checkbox is `checkbox`, the role of CheckboxGroup is `list`, and its direct child element is `listitem`
-- `aria-label`: When using the Checkbox alone, if Children have no text, it is recommended to pass in the `aria-label` prop to describe the function of the Checkbox in one sentence, which will make the screen reader read out the content of this label. If you are using Form.Checkbox, you can use the label provided by Form without passing in `aria-label`
-- `aria-labelledby` points to the `addon` node, used to explain the role of the current Checkbox
-- `aria-describedby` points to the `extra` node, which is used to supplement the explanation of the current Checkbox
-- `aria-disabled` indicates the current disabled state, which is consistent with the value of the `disabled` prop
-- `aria-checked` indicates the current checked state
-
 ## API Reference
 
 ### Checkbox
 
 | PROPERTIES     | Instructions                                                 | type               | Default |
 | -------------- | ------------------------------------------------------------ | ------------------ | ------- |
+| addonId | id of addon node, aria-labelledby refers to this id, if not set, it will generate an id randomly  <br/>**provided after v2.11.0**                                 | string            |       |
 | aria-label     | Define label of the Checkbox  | string | - |
 | checked        | Specify whether the current Checkbox is selected (it is invalid when used in Group)                     | boolean            | false   |
+| type           | Set the type of checkboxe, one of: `default`、`card`、`pureCard` <br/>**provided after v2.18.0** | string        | `default`  |
 | defaultChecked | Whether Checked by default (it is invalid when used in Group)                                           | boolean            | false   |
 | disabled       | Disabled state                                               | boolean            | false   |
 | extra          | Provide extra information <br/>**>= v0.25.0**                | ReactNode          | -       |
+| extraId        | id of extra node. aria-describedby refers to this id, if not set, it will randomly generate an id <br/>**provided after v2.11.0**                     | ReactNode         | -      |
 | value          | The value that the checkbox represents in the CheckboxGroup  | any | - |
 | indeterminate  | Set to indeterminate state, style control only               | boolean            | false   |
+| preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
 | onChange       | Callback function when change                                | function(e: Event) | -       |
 
 ### CheckboxGroup
@@ -427,7 +421,7 @@ import { CheckboxGroup, Checkbox, Row, Col } from '@douyinfe/semi-ui';
 | disabled     | Disable the entire group                                                | boolean                | false      |
 | name         | The `name` attribute for all `input[type="checkbox"]` in Checkbox Group | string                 | -          |
 | options      | Specify optional                                                        | any\[]              | \[]        |
-| type         | Set the type of checkboxes, one of: `default`、`card`、`pureCard` **provided after v1.30.0**	| string        | `default`  |
+| type         | Set the type of checkboxes, one of: `default`、`card`、`pureCard` <br/>**provided after v1.30.0**	| string        | `default`  |
 | value        | Specify selected options                                                | any\[]              | \[]        |
 | onChange     | Callback function when selected options change                          | function(checkedValue) | -          |
 
@@ -439,6 +433,38 @@ import { CheckboxGroup, Checkbox, Row, Col } from '@douyinfe/semi-ui';
 | ------- | ------------ |
 | blur()  | Remove focus |
 | focus() | Get focus    |
+
+## Accessibility
+
+### ARIA
+- The role of Checkbox is `checkbox`, the role of CheckboxGroup is `list`, and its direct child element is `listitem`
+- `aria-label`: When using the Checkbox alone, if Children have no text, it is recommended to pass in the `aria-label` prop to describe the function of the Checkbox in one sentence, which will make the screen reader read out the content of this label. If you are using Form.Checkbox, you can use the label provided by Form without passing in `aria-label`
+- `aria-labelledby` points to the `addon` node, used to explain the role of the current Checkbox
+- `aria-describedby` points to the `extra` node, which is used to supplement the explanation of the current Checkbox
+- `aria-disabled` indicates the current disabled state, which is consistent with the value of the `disabled` prop
+- `aria-checked` indicates the current checked state
+
+### Keyboard and focus
+- Checkbox can be focused, keyboard users can use Tab and Shift + Tab to switch focus.
+- The Checkbox that gets the focus can switch the selected and unselected states through Space.
+- The click area of ​​Checkbox is larger than the box itself and contains the text behind the box; for checkboxes with auxiliary text, the auxiliary text is also included in the click area.
+- Disabled Checkbox is not focusable.
+
+## Content Guidelines
+
+<div style={{ border: '1px solid var(--semi-color-border)', padding: 10, marginBottom: 24 }}>
+    <p style={{ fontWeight: 600, fontSize: 16  }}>Checkbox Content Demo</p>
+    <CheckboxGroup options={[
+        { label: 'Call', value: 'abc' },
+        { label: 'IM', value: 'c' },
+        { label: 'Ticket', value: 'd' },
+        { label: 'Offline', value: 'e' },
+        { label: 'Buzz', value: 'f' }
+    ]} direction='horizontal' aria-label="CheckboxGroup 示例" style={{ marginTop: 10 }}/>
+</div>
+
+- Capitalize the first letter
+- No punctuation
 
 ## Design Tokens
 <DesignToken/>

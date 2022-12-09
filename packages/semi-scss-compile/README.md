@@ -27,7 +27,7 @@ semi-build-scss -f "path/to/foundation" -t "path/to/theme" -i "path/to/'@douyinf
 
 ```js
 
-const {compile} = require('@douyinfe/semi-scss-compile');
+const { compile } = require('@douyinfe/semi-scss-compile');
 const path = require('path');
 
 function resolve(dir) {
@@ -37,31 +37,31 @@ function resolve(dir) {
 //eg
 
 compile({
-    foundationPath:resolve('semi-foundation/'),
-    themePath:resolve('semi-theme-default/'),
+    foundationPath: resolve('semi-foundation/'),
+    themePath: resolve('semi-theme-default/'),
     iconPath: resolve('node_modules/@douyinfe/semi-icons'),
-    outputPath:resolve('semi-ui/dist/css/semi.min.css'),
-    isMin:true
-})
+    outputPath: resolve('semi-ui/dist/css/semi.min.css'),
+    isMin: true
+});
 
 compile({
-    foundationPath:resolve('semi-foundation/'),
-    themePath:resolve('semi-theme-default/'),
+    foundationPath: resolve('semi-foundation/'),
+    themePath: resolve('semi-theme-default/'),
     iconPath: resolve('node_modules/@douyinfe/semi-icons'),
-    outputPath:resolve('semi-ui/dist/css/semi.css'),
-    isMin:false
-})
+    outputPath: resolve('semi-ui/dist/css/semi.css'),
+    isMin: false
+});
 ```
 
 ### Advanced API
 
 ```js
-const {generateScssMap, writeFile, compilerFromScssMap} = require('@douyinfe/semi-scss-compile');
+const { generateScssMap, writeFile, compilerFromScssMap } = require('@douyinfe/semi-scss-compile');
 const fs = require('fs-extra');
 
 const isMin = false;
-const scssMap = generateScssMap("path/to/foundation", "path/to/theme","path/to/'@douyinfe/semi-icons'");
-const tempDir = writeFile(scssMap)
+const scssMap = generateScssMap("path/to/foundation", "path/to/theme", "path/to/'@douyinfe/semi-icons'");
+const tempDir = writeFile(scssMap);
 const result = compilerFromScssMap(path.join(tempDir, 'index.scss'), isMin);
 fs.outputFileSync(outputPath, result.css);
 

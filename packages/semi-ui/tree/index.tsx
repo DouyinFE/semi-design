@@ -1,8 +1,8 @@
 /* eslint-disable max-lines-per-function */
-import React, { MouseEvent } from 'react';
+import React, { MouseEvent, KeyboardEvent } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
-import ConfigContext from '../configProvider/context';
+import ConfigContext, { ContextValue } from '../configProvider/context';
 import TreeFoundation, { TreeAdapter } from '@douyinfe/semi-foundation/tree/foundation';
 import {
     convertDataToEntities,
@@ -39,11 +39,13 @@ import {
     TreeNodeData,
     FlattenNode,
     KeyEntity,
-    OptionProps
+    OptionProps,
+    ScrollData,
 } from './interface';
+import CheckboxGroup from '../checkbox/checkboxGroup';
 
 export * from './interface';
-export { AutoSizerProps } from './autoSizer';
+export type { AutoSizerProps } from './autoSizer';
 
 const prefixcls = cssClasses.PREFIX;
 
@@ -114,6 +116,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
         labelEllipsis: PropTypes.bool,
         checkRelation: PropTypes.string,
         'aria-label': PropTypes.string,
+        preventScroll: PropTypes.bool,
     };
 
     static defaultProps = {
@@ -143,6 +146,8 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
     dragNode: any;
     onNodeClick: any;
     onMotionEnd: any;
+    context: ContextValue;
+    virtualizedListRef: React.RefObject<any>;
 
     constructor(props: TreeProps) {
         super(props);
@@ -176,6 +181,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
         this.optionsRef = React.createRef();
         this.foundation = new TreeFoundation(this.adapter);
         this.dragNode = null;
+        this.virtualizedListRef = React.createRef();
     }
 
     /**
@@ -192,6 +198,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
         const newState: Partial<TreeState> = {
             prevProps: props,
         };
+        const isExpandControlled = 'expandedKeys' in props;
 
         // Accept a props field as a parameter to determine whether to update the field
         const needUpdate = (name: string) => {
@@ -239,7 +246,8 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
                 newState.motionType = null;
             }
         }
-        const expandAllWhenDataChange = (needUpdate('treeDataSimpleJson') || needUpdate('treeData')) && props.expandAll;
+        const dataUpdated = needUpdate('treeDataSimpleJson') || needUpdate('treeData');
+        const expandAllWhenDataChange = dataUpdated && props.expandAll;
         if (!isSeaching) {
             // Update expandedKeys
             if (needUpdate('expandedKeys') || (prevProps && needUpdate('autoExpandParent'))) {
@@ -280,6 +288,21 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
                     props.multiple,
                     valueEntities
                 );
+            } else if ((!isExpandControlled && dataUpdated) && props.value) {
+                // 当 treeData 已经设置具体的值，并且设置了 props.loadData ，则认为 treeData 的更新是因为 loadData 导致的
+                // 如果是因为 loadData 导致 treeData改变， 此时在这里重新计算 key 会导致为未选中的展开项目被收起
+                // 所以此时不需要重新计算 expandedKeys，因为在点击展开按钮时候已经把被展开的项添加到 expandedKeys 中
+                // When treeData has a specific value and props.loadData is set, it is considered that the update of treeData is caused by loadData
+                // If the treeData is changed because of loadData, recalculating the key here will cause the unselected expanded items to be collapsed
+                // So there is no need to recalculate expandedKeys at this time, because the expanded item has been added to expandedKeys when the expand button is clicked
+                if (!(prevState.treeData && prevState.treeData?.length > 0 && props.loadData)) {
+                    newState.expandedKeys = calcExpandedKeysForValues(
+                        props.value,
+                        keyEntities,
+                        props.multiple,
+                        valueEntities
+                    );
+                }
             }
 
             if (!newState.expandedKeys) {
@@ -442,8 +465,9 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
                 this.setState({ inputValue: value });
             },
             focusInput: () => {
+                const { preventScroll } = this.props;
                 if (this.inputRef && this.inputRef.current) {
-                    (this.inputRef.current as any).focus();
+                    (this.inputRef.current as any).focus({ preventScroll });
                 }
             },
         };
@@ -486,6 +510,17 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
     search = (value: string) => {
         this.foundation.handleInputChange(value);
     };
+
+    scrollTo = (scrollData: ScrollData) => {
+        const { key, align = 'center' } = scrollData;
+        const { flattenNodes } = this.state;
+        if (key) {
+            const index = flattenNodes?.findIndex((node) => {
+                return node.key === key;
+            });
+            index >= 0 && (this.virtualizedListRef.current as any)?.scrollToItem(index, align);
+        }
+    }
 
     renderInput() {
         const {
@@ -543,7 +578,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
         }
     };
 
-    onNodeSelect = (e: MouseEvent, treeNode: TreeNodeProps) => {
+    onNodeSelect = (e: MouseEvent | KeyboardEvent, treeNode: TreeNodeProps) => {
         this.foundation.handleNodeSelect(e, treeNode);
     };
 
@@ -556,11 +591,11 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
         })
     );
 
-    onNodeCheck = (e: MouseEvent, treeNode: TreeNodeProps) => {
+    onNodeCheck = (e: MouseEvent | KeyboardEvent, treeNode: TreeNodeProps) => {
         this.foundation.handleNodeSelect(e, treeNode);
     };
 
-    onNodeExpand = (e: MouseEvent, treeNode: TreeNodeProps) => {
+    onNodeExpand = (e: MouseEvent | KeyboardEvent, treeNode: TreeNodeProps) => {
         this.foundation.handleNodeExpand(e, treeNode);
     };
 
@@ -572,27 +607,27 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
         this.foundation.handleNodeDoubleClick(e, treeNode);
     };
 
-    onNodeDragStart = (e: React.DragEvent<HTMLDivElement>, treeNode: TreeNodeProps) => {
+    onNodeDragStart = (e: React.DragEvent<HTMLLIElement>, treeNode: TreeNodeProps) => {
         this.foundation.handleNodeDragStart(e, treeNode);
     };
 
-    onNodeDragEnter = (e: React.DragEvent<HTMLDivElement>, treeNode: TreeNodeProps) => {
+    onNodeDragEnter = (e: React.DragEvent<HTMLLIElement>, treeNode: TreeNodeProps) => {
         this.foundation.handleNodeDragEnter(e, treeNode, this.dragNode);
     };
 
-    onNodeDragOver = (e: React.DragEvent<HTMLDivElement>, treeNode: TreeNodeProps) => {
+    onNodeDragOver = (e: React.DragEvent<HTMLLIElement>, treeNode: TreeNodeProps) => {
         this.foundation.handleNodeDragOver(e, treeNode, this.dragNode);
     };
 
-    onNodeDragLeave = (e: React.DragEvent<HTMLDivElement>, treeNode: TreeNodeProps) => {
+    onNodeDragLeave = (e: React.DragEvent<HTMLLIElement>, treeNode: TreeNodeProps) => {
         this.foundation.handleNodeDragLeave(e, treeNode);
     };
 
-    onNodeDragEnd = (e: React.DragEvent<HTMLDivElement>, treeNode: TreeNodeProps) => {
+    onNodeDragEnd = (e: React.DragEvent<HTMLLIElement>, treeNode: TreeNodeProps) => {
         this.foundation.handleNodeDragEnd(e, treeNode);
     };
 
-    onNodeDrop = (e: React.DragEvent<HTMLDivElement>, treeNode: TreeNodeProps) => {
+    onNodeDrop = (e: React.DragEvent<HTMLLIElement>, treeNode: TreeNodeProps) => {
         this.foundation.handleNodeDrop(e, treeNode, this.dragNode);
     };
 
@@ -658,6 +693,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
             <AutoSizer defaultHeight={virtualize.height} defaultWidth={virtualize.width}>
                 {({ height, width }: { width: string | number; height: string | number }) => (
                     <VirtualList
+                        ref={this.virtualizedListRef}
                         itemCount={flattenNodes.length}
                         itemSize={virtualize.itemSize}
                         height={height}
@@ -683,6 +719,8 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
             filteredKeys,
             dragOverNodeKey,
             dropPosition,
+            checkedKeys, 
+            realCheckedKeys,
         } = this.state;
 
         const {
@@ -703,6 +741,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
             renderFullLabel,
             labelEllipsis,
             virtualize,
+            checkRelation,
         } = this.props;
         const wrapperCls = cls(`${prefixcls}-wrapper`, className);
         const listCls = cls(`${prefixcls}-option-list`, {
@@ -757,7 +796,12 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
                 <div aria-label={this.props['aria-label']} className={wrapperCls} style={style}>
                     {filterTreeNode ? this.renderInput() : null}
                     <div className={listCls} {...ariaAttr}>
-                        {noData ? this.renderEmpty() : this.renderNodeList()}
+                        {noData ? this.renderEmpty() : (multiple ? 
+                            (<CheckboxGroup value={Array.from(checkRelation === 'related' ? checkedKeys : realCheckedKeys)}>
+                                {this.renderNodeList()}
+                            </CheckboxGroup>) : 
+                            this.renderNodeList()
+                        )}
                     </div>
                 </div>
             </TreeContext.Provider>

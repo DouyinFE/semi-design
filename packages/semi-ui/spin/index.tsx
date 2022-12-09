@@ -20,12 +20,12 @@ export interface SpinProps {
     wrapperClassName?: string;
     style?: React.CSSProperties;
     childStyle?: React.CSSProperties;
-    children?: React.ReactNode;
+    children?: React.ReactNode
 }
 
 interface SpinState {
     delay: number;
-    loading: boolean;
+    loading: boolean
 }
 class Spin extends BaseComponent<SpinProps, SpinState> {
     static propTypes = {
@@ -91,18 +91,17 @@ class Spin extends BaseComponent<SpinProps, SpinState> {
     renderSpin() {
         const { indicator, tip } = this.props;
         const { loading } = this.state;
-        const spinIconCls = cls({
-            [`${prefixCls}-animate`]: loading,
-        });
 
-        return (
-            loading ? (
-                <div className={`${prefixCls}-wrapper`}>
-                    {indicator ? <div className={spinIconCls}>{indicator}</div> : <SpinIcon />}
-                    {tip ? <div>{tip}</div> : null}
+        return loading ? <div className={`${prefixCls}-wrapper`}>
+            {indicator ? (
+                <div className={`${prefixCls}-animate`} x-semi-prop="indicator">
+                    {indicator}
                 </div>
-            ) : null
-        );
+            ) : (
+                <SpinIcon />
+            )}
+            {tip ? <div x-semi-prop="tip">{tip}</div> : null}
+        </div>:null;
     }
 
     render() {
@@ -122,7 +121,9 @@ class Spin extends BaseComponent<SpinProps, SpinState> {
         return (
             <div className={spinCls} style={style}>
                 {this.renderSpin()}
-                <div className={`${prefixCls}-children`} style={childStyle}>{children}</div>
+                <div className={`${prefixCls}-children`} style={childStyle} x-semi-prop="children">
+                    {children}
+                </div>
             </div>
         );
     }

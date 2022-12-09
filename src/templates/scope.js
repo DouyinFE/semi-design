@@ -27,6 +27,10 @@ import tr_TR from '@douyinfe/semi-ui/locale/source/tr_TR';
 import pt_BR from '@douyinfe/semi-ui/locale/source/pt_BR';
 import zh_TW from '@douyinfe/semi-ui/locale/source/zh_TW';
 import es from '@douyinfe/semi-ui/locale/source/es';
+import de from '@douyinfe/semi-ui/locale/source/de';
+import it from '@douyinfe/semi-ui/locale/source/it';
+import fr from '@douyinfe/semi-ui/locale/source/fr';
+import ro from '@douyinfe/semi-ui/locale/source/ro';
 import { SortableContainer, SortableElement, sortableHandle } from 'react-sortable-hoc';
 import GraphemeSplitter from 'grapheme-splitter';
 
@@ -118,4 +122,4 @@ export {
 
 export { debounce, throttle, range, get, filter, map, some };
 
-export { zh_CN, en_GB, en_US, ko_KR, ja_JP, ar, vi_VN, ru_RU, id_ID, ms_MY, th_TH, tr_TR, pt_BR, zh_TW, es };
+export { zh_CN, en_GB, en_US, ko_KR, ja_JP, ar, vi_VN, ru_RU, id_ID, ms_MY, th_TH, tr_TR, pt_BR, zh_TW, es, de, it, fr, ro };

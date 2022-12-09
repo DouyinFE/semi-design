@@ -1,10 +1,9 @@
 ---
 localeCode: zh-CN
-order: 35
+order: 37
 category: 导航类
 title: BackTop 回到顶部
 icon: doc-backtop
-brief: 返回页面顶部的操作按钮。
 ---
 
 ## 代码演示

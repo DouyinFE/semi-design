@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 38
+order: 40
 category: Navigation
 title:  Pagination
 subTitle: Pagination
@@ -18,7 +18,7 @@ import { Pagination } from '@douyinfe/semi-ui';
 ```
 ### Basic Usage
 
-Set the total number of pages via `Total`, Set capacity per page via `pageSize`.
+Set the total number via `Total`, Set capacity per page via `pageSize`.
 
 ```jsx live=true width=55%
 import React from 'react';
@@ -196,7 +196,7 @@ import { Pagination } from '@douyinfe/semi-ui';
 | showSizeChanger    | Whether to show a selector to switch the capacity of each page                                              | boolean                                         | false               |              |
 | showQuickJumper    | Whether to show a input to type the page number, supported after v1.31                                      | boolean                                         | false               |   1.31.0     |
 | showTotal          | Whether to show total page number                                                                           | boolean                                         | 3                   |              |
-| total              | Total number of entries                                                                                     | number                                          | 1                   |              |
+| total              | Total number                                                                                     | number                                          | 1                   |              |
 | onChange           | The callback function when page number or capacity per page changes                                         | function(currentPage: number, pageSize: number) |                     |              |
 | onPageChange       | A callback function for page number changes                                                                 | function(currentPage: number)                   |                     |              |
 | onPageSize Change  | Callback function when capacity changes per page                                                            | function(pageSize: number)                      |                     |              |

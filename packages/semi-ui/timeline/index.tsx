@@ -6,10 +6,10 @@ import { cssClasses, strings } from '@douyinfe/semi-foundation/timeline/constant
 import ConfigContext from '../configProvider/context';
 import Item, { TimelineItemProps } from './item';
 
-export { TimelineItemProps } from './item';
+export type { TimelineItemProps } from './item';
 
 export interface Data extends TimelineItemProps {
-    content: React.ReactNode;
+    content: React.ReactNode
 }
 
 export interface TimelineProps extends Pick<React.AriaAttributes, 'aria-label'> {
@@ -17,6 +17,7 @@ export interface TimelineProps extends Pick<React.AriaAttributes, 'aria-label'> 
     className?: string;
     style?: React.CSSProperties;
     dataSource?: Data[];
+    children?: React.ReactNode
 }
 
 const prefixCls = cssClasses.PREFIX;
@@ -60,6 +61,7 @@ class Timeline extends PureComponent<TimelineProps> {
     addClassName = (items: React.ReactNode) => React.Children.map(items, (ele, idx) => {
         if (React.isValidElement(ele)) {
             return React.cloneElement(ele, {
+                // @ts-ignore
                 className: cls(
                     ele.props.className,
                     this.getPosCls(ele, idx)

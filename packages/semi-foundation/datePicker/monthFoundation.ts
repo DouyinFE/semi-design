@@ -28,35 +28,36 @@ export interface MonthFoundationProps {
     focusRecordsRef: any;
     locale: any;
     localeCode: string;
+    multiple: boolean
 }
 
 export type MonthDayInfo = {
     dayNumber: number;
     dayNumberFull?: string;
-    fullDate: string;
+    fullDate: string
 } | {
     dayNumber: string;
     dayNumberFull?: string;
-    fullDate: string;
+    fullDate: string
 };
 
 export interface MonthInfo {
     weeks: Array<MonthDayInfo[]>;
     monthText: string ;
-    month?: Date;
+    month?: Date
 }
 
 export interface MonthFoundationState {
     weekdays: string[];
     month: MonthInfo;
     todayText: string;
-    weeksRowNum: number;
+    weeksRowNum: number
 }
 
 export interface MonthTable {
     monthText: string;
     weeks: unknown;
-    month: unknown;
+    month: unknown
 }
 
 export interface MonthAdapter extends DefaultAdapter<MonthFoundationProps, MonthFoundationState>{
@@ -66,7 +67,7 @@ export interface MonthAdapter extends DefaultAdapter<MonthFoundationProps, Month
     updateMonthTable: (month: MonthInfo) => void;
     notifyDayClick: MonthFoundationProps['onDayClick'];
     notifyDayHover: MonthFoundationProps['onDayHover'];
-    notifyWeeksRowNumChange: MonthFoundationProps['onWeeksRowNumChange'];
+    notifyWeeksRowNumChange: MonthFoundationProps['onWeeksRowNumChange']
 }
 
 export default class CalendarMonthFoundation extends BaseFoundation<MonthAdapter> {

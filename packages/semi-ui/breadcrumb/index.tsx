@@ -11,17 +11,17 @@ import { noop } from '@douyinfe/semi-foundation/utils/function';
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
 import Popover from '../popover';
 import BreadcrumbItem, { RouteProps, BreadcrumbItemInfo } from './item';
-import BreadContext, { BreadContextProps } from './bread-context';
+import BreadContext, { BreadContextType } from './bread-context';
 import { TooltipProps } from '../tooltip';
 import { IconMore } from '@douyinfe/semi-icons';
 
 const clsPrefix = cssClasses.PREFIX;
 
-export { RouteProps, BreadcrumbItemProps, BreadcrumbItemInfo } from './item';
+export type { RouteProps, BreadcrumbItemProps, BreadcrumbItemInfo } from './item';
 export interface showToolTipProps {
     width?: string | number;
     ellipsisPos?: 'end' | 'middle';
-    opts?: TooltipProps;
+    opts?: TooltipProps
 }
 
 export type MoreType = 'default' | 'popover';
@@ -41,15 +41,15 @@ export interface BreadcrumbProps extends BaseProps {
     renderMore?: (restItem: Array<React.ReactNode>) => React.ReactNode;
     /* Style type for ellipsis area */
     moreType?: MoreType;
-    'aria-label'?: React.AriaAttributes['aria-label'];
+    'aria-label'?: React.AriaAttributes['aria-label']
 }
 
 interface BreadcrumbState {
-    isCollapsed: boolean;
+    isCollapsed: boolean
 }
 
 class Breadcrumb extends BaseComponent<BreadcrumbProps, BreadcrumbState> {
-    static contextType: React.Context<BreadContextProps> = BreadContext;
+    static contextType: React.Context<BreadContextType> = BreadContext;
 
     static Item: typeof BreadcrumbItem = BreadcrumbItem;
 
@@ -167,9 +167,9 @@ class Breadcrumb extends BaseComponent<BreadcrumbProps, BreadcrumbState> {
             <span className={`${clsPrefix}-collapse`} key={`more-${itemsLen}`}>
                 <span className={`${clsPrefix}-item-wrap`}>
                     <span
-                        role='button'
+                        role="button"
                         tabIndex={0}
-                        aria-label='Expand breadcrumb items'
+                        aria-label="Expand breadcrumb items"
                         className={`${clsPrefix}-item ${clsPrefix}-item-more`}
                         onClick={item => this.foundation.handleExpand(item)}
                         onKeyPress={e => this.foundation.handleExpandEnterPress(e)}
@@ -178,7 +178,9 @@ class Breadcrumb extends BaseComponent<BreadcrumbProps, BreadcrumbState> {
                         {!hasRenderMore && moreType === 'default' && <IconMore />}
                         {!hasRenderMore && moreType === 'popover' && this.renderPopoverMore(restItem)}
                     </span>
-                    <span className={`${clsPrefix}-separator`}>{this.props.separator}</span>
+                    <span className={`${clsPrefix}-separator`} x-semi-prop="separator">
+                        {this.props.separator}
+                    </span>
                 </span>
             </span>
         );

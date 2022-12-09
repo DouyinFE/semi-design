@@ -1,8 +1,8 @@
 ---
 localeCode: zh-CN
-order: 10
+order: 12
 category: 基础
-title:  Grid 布局
+title:  Grid 栅格
 icon: doc-grid
 dir: column
 brief: 24 栅格系统。
@@ -290,7 +290,7 @@ import { Col, Row } from '@douyinfe/semi-ui';
 
 () => (
     <div className="grid">
-        <Row gutter={{xs:16,sm:16,md:16,lg:24,xl:24,xxl:24}}>
+        <Row gutter={{ xs: 16, sm: 16, md: 16, lg: 24, xl: 24, xxl: 24 }}>
             <Col xs={2} sm={4} md={6} lg={8} xl={10}><div className="col-content">Col</div></Col>
             <Col xs={20} sm={16} md={12} lg={8} xl={4}><div className="col-content">Col</div></Col>
             <Col xs={2} sm={4} md={6} lg={8} xl={10}><div className="col-content">Col</div></Col>

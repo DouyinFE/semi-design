@@ -21,6 +21,20 @@ Enzyme.configure({
     adapter: new Adapter(),
 });
 
+class ResizeObserver {
+    observe() {
+        // do nothing
+    }
+    unobserve() {
+        // do nothing
+    }
+    disconnect() {
+        // do nothing
+    }
+}
+
+global.ResizeObserver = ResizeObserver;
+
 // Define globals to cut down on imports in test file
 global.React = React;
 global.shallow = shallow;

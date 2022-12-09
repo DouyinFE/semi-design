@@ -1,17 +1,12 @@
 ---
 localeCode: en-US
-order: 53
+order: 58
 category: Show
 title: OverflowList
 subTitle: OverflowList
 icon: doc-overflowList
-brief: The OverflowList component is a container component used to take list of items and display as many items as can fit inside itself.
+brief: OverflowList is a behavior component used to take list of items and display as many items as can fit inside itself. Overflowed items that do not fit are collected and rendered by callback function. The visible items will be recomputed when a resize is detected.
 ---
-
-## When to use
-
-`OverflowList` is a behavior component used to take list of items and display as many items as can fit inside itself. Overflowed items that do not fit are collected and rendered by callback function. The visible items will be recomputed when a resize is detected.
-
 ## Demos
 
 ### How to import

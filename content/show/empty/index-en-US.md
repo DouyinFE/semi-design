@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 50
+order: 53
 category: Show
 title: Empty
 subTitle: Empty
@@ -30,8 +30,8 @@ import { IllustrationConstruction, IllustrationConstructionDark } from '@douyinf
 
 () => (
     <Empty
-        image={<IllustrationConstruction style={{width: 150, height: 150}} />}
-        darkModeImage={<IllustrationConstructionDark style={{width: 150, height: 150}} />}
+        image={<IllustrationConstruction style={{ width: 150, height: 150 }} />}
+        darkModeImage={<IllustrationConstructionDark style={{ width: 150, height: 150 }} />}
         title={'Function under construction'}
         description="The current function is not yet open, so stay tuned."
     />
@@ -49,8 +49,8 @@ import { IllustrationNoContent, IllustrationNoContentDark } from '@douyinfe/semi
 
 () => (
     <Empty
-        image={<IllustrationNoContent style={{width: 150, height: 150}} />}
-        darkModeImage={<IllustrationNoContentDark style={{width: 150, height: 150}} />}
+        image={<IllustrationNoContent style={{ width: 150, height: 150 }} />}
+        darkModeImage={<IllustrationNoContentDark style={{ width: 150, height: 150 }} />}
         title="Empty status header"
         description="Start creating your first dashboard!"
     >
@@ -97,8 +97,8 @@ import { IllustrationSuccess, IllustrationSuccessDark } from '@douyinfe/semi-ill
 () => (
     <Empty
         title={'Created successfully'}
-        image={<IllustrationSuccess style={{width: 150, height: 150}} />}
-        darkModeImage={<IllustrationSuccessDark style={{width: 150, height: 150}} />}
+        image={<IllustrationSuccess style={{ width: 150, height: 150 }} />}
+        darkModeImage={<IllustrationSuccessDark style={{ width: 150, height: 150 }} />}
         layout="horizontal"
         description="This is a very long description text. This layout is recommended when the text is too long. This is a very long description text. This layout is recommended when the text is too long. This is a very long description text. This layout is recommended when the text is too long."
         style={{ width: 800, margin: '0 auto' }}
@@ -197,6 +197,18 @@ import { IllustrationIdle, IllustrationIdleDark, IllustrationConstructionDark, I
 ### ARIA
 
 - aria-hidden for Empty illustrations is true
+
+## Content Guidelines
+
+- Title
+  - The title should be concise and easy to understand
+- Text
+  - The specific reasons for displaying the empty state can be displayed, and the subsequent operation behavior can also be displayed to help the user eliminate the empty state
+  - Don't repeat the content on the title
+  - Try to keep the body text within 1-2 sentences
+- Action button
+  - Button copy needs to be clear and easy to understand
+  - Use the verb + noun format
 
 ## Design Token
 

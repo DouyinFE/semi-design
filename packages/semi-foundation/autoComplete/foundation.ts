@@ -8,17 +8,18 @@ interface KeyboardAdapter<P = Record<string, any>, S = Record<string, any>> exte
     registerKeyDown: (callback: (event: any) => void) => void;
     unregisterKeyDown: (callback: (event: any) => void) => void;
     updateFocusIndex: (focusIndex: number) => void;
+    notifyKeyDown: (e: any) => void
 }
 
 export interface DataItem {
     [x: string]: any;
     value?: string | number;
-    label?: any; // reactNode
+    label?: any // reactNode
 }
 
 export interface StateOptionItem extends DataItem {
     show?: boolean;
-    key?: string | number;
+    key?: string | number
 }
 
 export type AutoCompleteData = Array<DataItem | string>;
@@ -38,6 +39,7 @@ export interface AutoCompleteAdapter<P = Record<string, any>, S = Record<string,
     notifyFocus: (event?: any) => void;
     notifyBlur: (event?: any) => void;
     rePositionDropdown: () => void;
+    persistEvent: (event: any) => void
 }
 
 class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<AutoCompleteAdapter<P, S>, P, S> {
@@ -46,6 +48,8 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
     constructor(adapter: AutoCompleteAdapter<P, S>) {
         super({ ...adapter });
     }
+
+    isPanelOpen = false;
 
     init(): void {
         this._setDropdownWidth();
@@ -62,7 +66,7 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
         }
 
         // When both defaultValue and value exist, finally the value of value will be taken as initValue
-        let initValue = '';
+        let initValue: string;
         if (typeof defaultValue !== 'undefined') {
             initValue = defaultValue;
         }
@@ -76,7 +80,7 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
 
     destroy(): void {
         // this._adapter.unregisterClickOutsideHandler();
-        this.unBindKeyBoardEvent();
+        // this.unBindKeyBoardEvent();
     }
 
     _setDropdownWidth(): void {
@@ -97,24 +101,31 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
     handleInputClick(e?: MouseEvent): void {
         const { options } = this.getStates();
         const { disabled } = this.getProps();
-        if (options.length && !disabled) {
-            this.openDropdown();
+        if (!disabled) {
+            if (this.isPanelOpen) {
+                this.closeDropdown();
+            } else {
+                this.openDropdown();
+            }
         }
     }
 
     openDropdown(): void {
+        this.isPanelOpen = true;
         this._adapter.toggleListVisible(true);
         this._setDropdownWidth();
         // this._adapter.registerClickOutsideHandler(e => this.closeDropdown(e));
         this._adapter.notifyDropdownVisibleChange(true);
-        this.bindKeyBoardEvent();
+        this._modifyFocusIndexOnPanelOpen();
     }
 
     closeDropdown(e?: any): void {
+        this.isPanelOpen = false;
         this._adapter.toggleListVisible(false);
         // this._adapter.unregisterClickOutsideHandler();
         this._adapter.notifyDropdownVisibleChange(false);
-        this.unBindKeyBoardEvent();
+        // After closing the panel, you can still open the panel by pressing the enter key
+        // this.unBindKeyBoardEvent();
     }
 
     // props.data => optionList
@@ -143,6 +154,10 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
         this._adapter.updateInputValue(inputValue);
         this._adapter.notifySearch(inputValue);
         this._adapter.notifyChange(inputValue);
+        this._modifyFocusIndex(inputValue);
+        if (!this.isPanelOpen){
+            this.openDropdown();
+        }
     }
 
     handleSelect(option: StateOptionItem, optionIndex?: number): void {
@@ -156,7 +171,7 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
                 'Warning: [Semi AutoComplete] renderSelectedItem must return string, please check your function return'
             );
         } else {
-            newInputValue = option.label;
+            newInputValue = option.value;
         }
 
         // 1. trigger onSelect
@@ -207,7 +222,7 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
     }
 
     handleValueChange(propValue: any) {
-        let { data } = this.getProps();
+        let { data, defaultActiveFirstOption } = this.getProps();
         let selectedValue = '';
         if (this._backwardLabelInValue() && Object.prototype.toString.call(propValue) === '[object Object]') {
             selectedValue = propValue.value;
@@ -219,10 +234,10 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
 
         const options = this._generateList(data);
         // Get the option whose value match from options
-        let selectedOption: StateOptionItem | Array<StateOptionItem> = options.filter(option => option.value === selectedValue);
+        let selectedOption: StateOptionItem | Array<StateOptionItem> = options.filter(option => renderSelectedItem(option) === selectedValue);
         const canMatchInData = selectedOption.length;
 
-        const selectedOptionIndex = options.findIndex(option => option.value === selectedValue);
+        const selectedOptionIndex = options.findIndex(option => renderSelectedItem(option) === selectedValue);
 
         let inputValue = '';
         if (canMatchInData) {
@@ -234,15 +249,45 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
         }
         this._adapter.updateInputValue(inputValue);
         this.updateSelection(canMatchInData ? selectedOption : null);
-        this._adapter.updateFocusIndex(selectedOptionIndex);
+        if (selectedOptionIndex === -1 && defaultActiveFirstOption) {
+            this._adapter.updateFocusIndex(0);
+        } else {
+            this._adapter.updateFocusIndex(selectedOptionIndex);
+        }
     }
 
+    _modifyFocusIndex(searchValue) {
+        let { focusIndex } = this.getStates();
+
+        let { data, defaultActiveFirstOption } = this.getProps();
+
+        let renderSelectedItem = this._getRenderSelectedItem();
+
+        const options = this._generateList(data);
+
+        const selectedOptionIndex = options.findIndex(option => renderSelectedItem(option) === searchValue);
+
+        if (selectedOptionIndex === -1 && defaultActiveFirstOption) {
+            if (focusIndex !== 0) {
+                this._adapter.updateFocusIndex(0);
+            }
+        } else {
+            if (selectedOptionIndex !== focusIndex) {
+                this._adapter.updateFocusIndex(selectedOptionIndex);
+            }
+        }
+    }
+
+    _modifyFocusIndexOnPanelOpen() {
+        let { inputValue } = this.getStates();
+        this._modifyFocusIndex(inputValue);
+    }
 
     _getRenderSelectedItem() {
         let { renderSelectedItem } = this.getProps();
 
         if (typeof renderSelectedItem === 'undefined') {
-            renderSelectedItem = (option: any) => option.label;
+            renderSelectedItem = (option: any) => option.value;
         } else if (renderSelectedItem && typeof renderSelectedItem === 'function') {
             // do nothing
         }
@@ -261,19 +306,16 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
         this._adapter.registerKeyDown(this._keydownHandler);
     }
 
-    unBindKeyBoardEvent() {
-        if (this._keydownHandler) {
-            this._adapter.unregisterKeyDown(this._keydownHandler);
-        }
-    }
+    // unBindKeyBoardEvent() {
+    //     if (this._keydownHandler) {
+    //         this._adapter.unregisterKeyDown(this._keydownHandler);
+    //     }
+    // }
 
     _handleKeyDown(event: KeyboardEvent) {
         const key = event.keyCode;
         const { visible } = this.getStates();
 
-        if (!visible) {
-            return;
-        }
         switch (key) {
             case KeyCode.UP:
                 // Prevent Input's cursor from following the movement
@@ -286,6 +328,8 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
                 this._handleArrowKeyDown(1);
                 break;
             case KeyCode.ENTER:
+                // when custom trigger, prevent outer open panel again
+                event.preventDefault();
                 this._handleEnterKeyDown();
                 break;
             case KeyCode.ESC:
@@ -294,6 +338,7 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
             default:
                 break;
         }
+        this._adapter.notifyKeyDown(event);
     }
 
     _getEnableFocusIndex(offset: number) {
@@ -337,17 +382,26 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
     }
 
     _handleArrowKeyDown(offset: number): void {
-        this._getEnableFocusIndex(offset);
+        const { visible } = this.getStates();
+        if (!visible){
+            this.openDropdown();
+        } else {
+            this._getEnableFocusIndex(offset);  
+        }
     }
 
     _handleEnterKeyDown() {
         const { visible, options, focusIndex } = this.getStates();
-        if (focusIndex !== -1 && options.length !== 0) {
-            const visibleOptions = options.filter((item: StateOptionItem) => item.show);
-            const selectedOption = visibleOptions[focusIndex];
-            this.handleSelect(selectedOption);
-        } else if (visible) {
-            // this.close();
+        if (!visible){
+            this.openDropdown();
+        } else {
+            if (focusIndex !== undefined && focusIndex !== -1 && options.length !== 0) {
+                const visibleOptions = options.filter((item: StateOptionItem) => item.show);
+                const selectedOption = visibleOptions[focusIndex];
+                this.handleSelect(selectedOption, focusIndex);
+            } else {
+                this.closeDropdown();
+            }
         }
     }
 
@@ -356,11 +410,16 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
     }
 
     handleFocus(e: FocusEvent) {
+        // If you get the focus through the tab key, you need to manually bind keyboard events
+        // Then you can open the panel by pressing the enter key
+        this.bindKeyBoardEvent();
         this._adapter.notifyFocus(e);
-        this.openDropdown();
     }
 
-    handleBlur(e: FocusEvent) {
+    handleBlur(e: any) {
+        // only need persist on react adapter
+        // https://reactjs.org/docs/legacy-event-pooling.html
+        this._persistEvent(e);
         // In order to handle the problem of losing onClick binding when clicking on the padding area, the onBlur event is triggered first to cause the react view to be updated
         // internal-issues:1231
         setTimeout(() => {

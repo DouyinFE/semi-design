@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 49
+order: 52
 category: 展示类
 title: Dropdown 下拉框
 icon: doc-dropdown
@@ -228,7 +228,7 @@ function Demo() {
 
 ### 触发方式
 
-默认是移入触发，可通过获取焦点，点击或自定义事件触发菜单展开。
+默认是移入触发，可通过获取焦点(focus)，点击(click)或自定义事件触发菜单展开。
 
 ```jsx live=true
 import React from 'react';
@@ -263,7 +263,14 @@ function Demo() {
                     </Dropdown.Menu>
                 }
             >
-                <Input style={{ width: 120 }} placeholder="点击此处" />
+                <div style={{
+                    border: '1px solid var(--semi-color-border)',
+                    borderRadius: 4,
+                    height: 36,
+                    width: 220
+                }}>
+                    Please use Tab to focus this div
+                </div>
             </Dropdown>
             <br />
             <br />
@@ -412,13 +419,6 @@ function DropdownEvents() {
 }
 ```
 
-## Accessibility
-
-### ARIA
-
-- Dropdown.Menu `role` 设置为 `menu`，`aria-orientatio` 设置为 `vertical`
-- Dropdown.Item `role` 设置为 `menuitem`
-
 ## API 参考
 
 ### Dropdown
@@ -426,6 +426,7 @@ function DropdownEvents() {
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
 | autoAdjustOverflow | 弹出层被遮挡时是否自动调整方向 | boolean | true |  |
+| closeOnEsc | 在 trigger 或 弹出层按 Esc 键是否关闭面板，受控时不生效 | boolean | true ｜ **2.13.0** |
 | className | 下拉弹层外层样式类名 | string |  |  |
 | children | 触发弹出层的 Trigger 元素 | ReactNode |  |  |
 | clickToHide | 在弹出层内点击时是否自动关闭弹出层 | boolean |  | **0.24.0** |
@@ -445,6 +446,7 @@ function DropdownEvents() {
 | visible | 是否显示菜单，需配合 trigger custom 使用 | boolean | 无 |  |
 | zIndex | 弹出层 z-index 值 | number | 1050 |  |
 | onClickOutSide | 当弹出层处于展示状态，点击非Children、非弹出层内部区域时的回调（仅trigger为custom、click时有效）| function(e:event) |  | **2.1.0** |
+| onEscKeyDown |  在 trigger 或 弹出层按 Esc 键时调用 |  function(e:event) |  |  **2.13.0** | 
 | onVisibleChange | 弹出层显示状态改变时的回调 | function(visible: boolean) |  |  |
 
 ### Dropdown.Menu
@@ -485,9 +487,40 @@ function DropdownEvents() {
 | name                                     | 菜单文本，标题或 Item 的内容               | string |        |
 | 其他属性与 Title、Item、Divider 属性对应 |                                            |        |        |
 
+## Accessibility
+
+### ARIA
+- Dropdown.Menu `role` 设置为 `menu`，`aria-orientatio` 设置为 `vertical`
+- Dropdown.Item `role` 设置为 `menuitem`
+- ### 键盘和焦点
+- Dropdown 的触发器可被聚焦，目前支持 3 种触发方式：
+    - 触发方式设置为 hover 或 focus 时：鼠标悬浮或聚焦时打开 Dropdown，Dropdown 打开后，用户可以使用 `下箭头` 将焦点移动到Dropdown 内
+    - 触发方式设置为 click 时：点击触发器或聚焦时使用 `Enter` 或 `Space` 键可以打开 Dropdown，此时焦点自动聚焦到 Dropdown 中的第一个非禁用项上
+- 当焦点位于 Dropdown 内的菜单项上时：
+    - 键盘用户可以使用键盘 `上箭头` 或 `下箭头` 切换可交互元素
+    - 使用 `Enter` 键 或 `Space` 键可以激活聚焦的菜单项, 若菜单项绑定了onClick，事件会被触发
+- 键盘用户可以通过按 `Esc` 关闭 Dropdown，关闭后焦点返回到触发器上
+- 键盘交互暂未完整支持嵌套场景
+
+## 文案规范
+
+- 下拉框内选项内容需要表述准确且包含信息，使用户在浏览时更加容易在选项中选择
+- 使用语句式的大小写，并且简洁明了地书写选项
+- 如果是动作选项，使用动词或者动词短语来描述用户选择该选项后会发生的动作。举个例子，"Move", "Log time", or "Hide labels" 
+- 不使用介词
+
+
+| ✅ 推荐用法 | ❌ 不推荐用法 |   
+| --- | --- | 
+| <div style={{ height: 150}}><Dropdown visible trigger={'custom'} autoAdjustOverflow={false} position={'bottomLeft'} menu={[{ node: 'item', name: 'Add text' },{ node: 'item', name: 'Add link' },{ node: 'item', name: 'Add image' },{ node: 'item', name: 'Add video' }]} /></div> | <div style={{ height: 150}}><Dropdown visible trigger={'custom'} autoAdjustOverflow={false} position={'bottomLeft'} menu={[{ node: 'item', name: 'Add a text' },{ node: 'item', name: 'Add a link' },{ node: 'item', name: 'Add a image' },{ node: 'item', name: 'Add a video' }]} /></div> |
+
 ## 设计变量
 
 <DesignToken/>
+
+## FAQ
+-   **为什么 Dropdown 浮层在靠近屏幕边界宽度不够时，丢失宽度意外换行?**  
+    在 chromium 104 后 对于屏幕边界文本宽度不够时的换行渲染策略发生变化，详细原因可查看 [issue #1022](https://github.com/DouyinFE/semi-design/issues/1022)，semi侧已经在v2.17.0版本修复了这个问题。
 
 <!--
 ## 相关物料

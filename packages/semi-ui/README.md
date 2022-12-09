@@ -19,10 +19,10 @@ import ReactDOM from 'react-dom';
 import { Button, Switch } from '@douyinfe/semi-ui';
 
 const App = () => (
-  <>
-    <Button type="primary">primary button</Button>
-    <Switch size='large' />
-  </>
+    <>
+        <Button type="primary">primary button</Button>
+        <Switch size='large' />
+    </>
 );
 
 ReactDOM.render(<App />, document.querySelector('#app'));
@@ -33,7 +33,7 @@ And [Semi UI Doc Site](https://semi.design/en-US/) have hundreds editable exampl
 ## Documentation
 
 More to see [Semi Design Site](https://semi.design/en-US/).
-
+ 
 ## License
 
 [MIT](LICENSE)

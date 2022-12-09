@@ -2,7 +2,6 @@ import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import { isArray, get } from 'lodash';
 import scrollIntoView, { CustomBehaviorOptions } from 'scroll-into-view-if-needed';
 import { cssClasses } from './constants';
-import React from 'react';
 
 const prefixCls = cssClasses.PREFIX;
 
@@ -21,8 +20,8 @@ export interface AnchorAdapter<P = Record<string, any>, S = Record<string, any>>
     getAnchorNode: (selector: string) => HTMLElement;
     getContentNode: (selector: string) => HTMLElement;
     notifyChange: (currentLink: string, previousLink: string) => void;
-    notifyClick: (e: React.MouseEvent<HTMLElement>, link: string) => void;
-    canSmoothScroll: () => boolean;
+    notifyClick: (e: any, link: string) => void;
+    canSmoothScroll: () => boolean
 }
 
 export default class AnchorFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<AnchorAdapter<P, S>, P, S> {

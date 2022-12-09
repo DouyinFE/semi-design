@@ -3,7 +3,7 @@ import React, { CSSProperties } from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
 import { cssClasses } from '@douyinfe/semi-foundation/modal/constants';
-import ConfigContext from '../configProvider/context';
+import ConfigContext, { ContextValue } from '../configProvider/context';
 import Button from '../iconButton';
 import Typography from '../typography';
 import BaseComponent from '../_base/baseComponent';
@@ -13,20 +13,26 @@ import ModalContentFoundation, {
     ModalContentProps,
     ModalContentState
 } from '@douyinfe/semi-foundation/modal/modalContentFoundation';
-import { noop, isFunction, get } from 'lodash';
+import { get, isFunction, noop } from 'lodash';
 import { IconClose } from '@douyinfe/semi-icons';
-import { getActiveElement } from '../_utils';
+import FocusTrapHandle from "@douyinfe/semi-foundation/utils/FocusHandle";
 
 let uuid = 0;
 
-export default class ModalContent extends BaseComponent<ModalContentProps, ModalContentState> {
+
+export interface ModalContentReactProps extends ModalContentProps {
+    children?: React.ReactNode
+}
+
+export default class ModalContent extends BaseComponent<ModalContentReactProps, ModalContentState> {
     static contextType = ConfigContext;
     static propTypes = {
         close: PropTypes.func,
         getContainerContext: PropTypes.func,
         contentClassName: PropTypes.string,
         maskClassName: PropTypes.string,
-        onAnimationEnd: PropTypes.func
+        onAnimationEnd: PropTypes.func,
+        preventScroll: PropTypes.bool,
     };
 
     static defaultProps = {
@@ -40,11 +46,14 @@ export default class ModalContent extends BaseComponent<ModalContentProps, Modal
 
     modalDialogRef: React.MutableRefObject<HTMLDivElement>;
     foundation: ModalContentFoundation;
+    context: ContextValue;
+    focusTrapHandle: FocusTrapHandle;
+
     constructor(props: ModalContentProps) {
         super(props);
         this.state = {
             dialogMouseDown: false,
-            prevFocusElement: getActiveElement(),
+            prevFocusElement: FocusTrapHandle.getActiveElement(),
         };
         this.foundation = new ModalContentFoundation(this.adapter);
         this.dialogId = `dialog-${uuid++}`;
@@ -70,32 +79,37 @@ export default class ModalContent extends BaseComponent<ModalContentProps, Modal
             },
             addKeyDownEventListener: () => {
                 if (this.props.closeOnEsc) {
-                    document.addEventListener('keydown', this.foundation.handleKeyDown.bind(this.foundation));
+                    document.addEventListener('keydown', this.foundation.handleKeyDown);
                 }
             },
             removeKeyDownEventListener: () => {
                 if (this.props.closeOnEsc) {
-                    document.removeEventListener('keydown', this.foundation.handleKeyDown.bind(this.foundation));
+                    document.removeEventListener('keydown', this.foundation.handleKeyDown);
                 }
             },
             getMouseState: () => this.state.dialogMouseDown,
             modalDialogFocus: () => {
+                const { preventScroll } = this.props;
                 let activeElementInDialog;
                 if (this.modalDialogRef) {
-                    const activeElement = getActiveElement();
+                    const activeElement = FocusTrapHandle.getActiveElement();
                     activeElementInDialog = this.modalDialogRef.current.contains(activeElement);
+                    this.focusTrapHandle?.destroy();
+                    this.focusTrapHandle = new FocusTrapHandle(this.modalDialogRef.current, { preventScroll });
                 }
                 if (!activeElementInDialog) {
-                    this.modalDialogRef && this.modalDialogRef.current.focus();
+                    this.modalDialogRef?.current?.focus({ preventScroll });
                 }
             },
             modalDialogBlur: () => {
-                this.modalDialogRef && this.modalDialogRef.current.blur();
+                this.modalDialogRef?.current.blur();
+                this.focusTrapHandle?.destroy();
             },
             prevFocusElementReFocus: () => {
                 const { prevFocusElement } = this.state;
+                const { preventScroll } = this.props;
                 const focus = get(prevFocusElement, 'focus');
-                isFunction(focus) && prevFocusElement.focus();
+                isFunction(focus) && prevFocusElement.focus({ preventScroll });
             }
         };
     }
@@ -103,6 +117,11 @@ export default class ModalContent extends BaseComponent<ModalContentProps, Modal
     componentDidMount() {
         this.foundation.handleKeyDownEventListenerMount();
         this.foundation.modalDialogFocus();
+        const nodes = FocusTrapHandle.getFocusableElements(this.modalDialogRef.current);
+        if (!this.modalDialogRef.current.contains(document.activeElement)) {
+            // focus on first focusable element
+            nodes[0]?.focus();
+        }
     }
 
     componentWillUnmount() {
@@ -140,7 +159,7 @@ export default class ModalContent extends BaseComponent<ModalContentProps, Modal
             const className = cls(`${cssClasses.DIALOG}-mask`, {
                 // [`${cssClasses.DIALOG}-mask-hidden`]: !props.visible,
             });
-            return <div key="mask" className={cls(className, maskClassName)} style={props.maskStyle}/>;
+            return <div key="mask" {...this.props.maskExtraProps} className={cls(className, maskClassName)} style={props.maskStyle}/>;
         }
         return null;
     };
@@ -152,7 +171,7 @@ export default class ModalContent extends BaseComponent<ModalContentProps, Modal
         } = this.props;
         let closer;
         if (closable) {
-            const iconType = closeIcon || <IconClose/>;
+            const iconType = closeIcon || <IconClose x-semi-prop="closeIcon"/>;
             closer = (
                 <Button
                     aria-label="close"
@@ -171,7 +190,7 @@ export default class ModalContent extends BaseComponent<ModalContentProps, Modal
 
     renderIcon = () => {
         const { icon } = this.props;
-        return icon ? <span className={`${cssClasses.DIALOG}-icon-wrapper`}>{icon}</span> : null;
+        return icon ? <span className={`${cssClasses.DIALOG}-icon-wrapper`} x-semi-prop="icon">{icon}</span> : null;
     };
 
     renderHeader = () => {
@@ -186,7 +205,14 @@ export default class ModalContent extends BaseComponent<ModalContentProps, Modal
             (
                 <div className={`${cssClasses.DIALOG}-header`}>
                     {icon}
-                    <Typography.Title heading={5} className={`${cssClasses.DIALOG}-title`} id={`${cssClasses.DIALOG}-title`}>{title}</Typography.Title>
+                    <Typography.Title
+                        heading={5}
+                        className={`${cssClasses.DIALOG}-title`}
+                        id={`${cssClasses.DIALOG}-title`}
+                        x-semi-prop="title"
+                    >
+                        {title}
+                    </Typography.Title>
                     {closer}
                 </div>
             );
@@ -204,16 +230,19 @@ export default class ModalContent extends BaseComponent<ModalContentProps, Modal
         const closer = this.renderCloseBtn();
         const icon = this.renderIcon();
         const hasHeader = title !== null && title !== undefined || 'header' in this.props;
-        return hasHeader ?
-            <div className={bodyCls} id={`${cssClasses.DIALOG}-body`} style={bodyStyle}>{children}</div> :
-            (
-                <div className={`${cssClasses.DIALOG}-body-wrapper`}>
-                    {icon}
-                    <div className={bodyCls} style={bodyStyle}>{children}</div>
-                    {closer}
+        return hasHeader ? (
+            <div className={bodyCls} id={`${cssClasses.DIALOG}-body`} style={bodyStyle} x-semi-prop="children">
+                {children}
+            </div>
+        ) : (
+            <div className={`${cssClasses.DIALOG}-body-wrapper`}>
+                {icon}
+                <div className={bodyCls} style={bodyStyle} x-semi-prop="children">
+                    {children}
                 </div>
-            );
-
+                {closer}
+            </div>
+        );
     };
 
     getDialogElement = () => {
@@ -236,7 +265,11 @@ export default class ModalContent extends BaseComponent<ModalContentProps, Modal
         }
         const body = this.renderBody();
         const header = this.renderHeader();
-        const footer = props.footer ? <div className={`${cssClasses.DIALOG}-footer`}>{props.footer}</div> : null;
+        const footer = props.footer ? (
+            <div className={`${cssClasses.DIALOG}-footer`} x-semi-prop="footer">
+                {props.footer}
+            </div>
+        ) : null;
         const dialogElement = (
             // eslint-disable-next-line jsx-a11y/no-static-element-interactions
             <div
@@ -255,13 +288,13 @@ export default class ModalContent extends BaseComponent<ModalContentProps, Modal
                     onAnimationEnd={props.onAnimationEnd}
                     className={cls([`${cssClasses.DIALOG}-content`,
                         props.contentClassName,
-                        {[`${cssClasses.DIALOG}-content-fullScreen`]: props.isFullScreen }])}>
+                        { [`${cssClasses.DIALOG}-content-fullScreen`]: props.isFullScreen }])}>
                     {header}
                     {body}
                     {footer}
                 </div>
             </div>
-        );
+        ); 
         // return props.visible ? dialogElement : null;
         return dialogElement;
     };
@@ -288,17 +321,19 @@ export default class ModalContent extends BaseComponent<ModalContentProps, Modal
                 {this.getMaskElement()}
                 <div
                     role="none"
-                    tabIndex={-1}
-                    className={`${cssClasses.DIALOG}-wrap`}
+                    className={cls({
+                        [`${cssClasses.DIALOG}-wrap`]: true,
+                        [`${cssClasses.DIALOG}-wrap-center`]: this.props.centered
+                    })}
                     onClick={maskClosable ? this.onMaskClick : null}
                     onMouseUp={maskClosable ? this.onMaskMouseUp : null}
+                    {...this.props.contentExtraProps}
                 >
                     {this.getDialogElement()}
                 </div>
             </div>
         );
 
-        // @ts-ignore Unreachable branch
         // eslint-disable-next-line max-len
         return containerContext && containerContext.Provider ?
             <containerContext.Provider value={containerContext.value}>{elem}</containerContext.Provider> : elem;

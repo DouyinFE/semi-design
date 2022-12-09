@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 21
+order: 23
 category: Input
 title:  Form
 subTitle: Form
@@ -56,21 +56,40 @@ Semi Form supports multiple writing at the same time.
 Add `field` property to each field component.
 You can also set label` properties for each field, by default is the same as field
 
-> Note: The field attribute is required props
+`label` can be passed in a string directly, or declared in the form of an object, configure `extra`, `required`, `optional` and other attributes to deal with more complex scenarios
+
+<Notice type='primary' title='Notice'>
+    The field attribute is required props
+</Notice>
+
 
 ```jsx live=true dir="column"
 import React from 'react';
-import { Form } from '@douyinfe/semi-ui';
+import { Form, Tooltip } from '@douyinfe/semi-ui';
+import { IconHelpCircle } from '@douyinfe/semi-icons';
 
 () => (
     <Form layout='horizontal'>
-        <Form.Select field="role" label='UserRole' style={{width:120}}>
-            <Form.Select.Option value="admin">Admin</Form.Select.Option>
-            <Form.Select.Option value="user">User</Form.Select.Option>
-            <Form.Select.Option value="guest">Guest</Form.Select.Option>
+        <Form.Input field='username' label='UserName' style={{ width: 80 }}/>
+        <Form.Input
+            field='password'
+            label={{ 
+                text: 'Password',
+                extra: <Tooltip content='More info xxx'><IconHelpCircle style={{ color: 'var(--semi-color-text-2)' }}/></Tooltip> 
+            }}
+            style={{ width: 176 }}
+        />
+        <Form.Select
+            field="role"
+            label={{ text: 'Role', optional: true }}
+            style={{ width: 176 }}
+            optionList={[
+                { label: 'Admin', value: 'admin' },
+                { label: 'User', value: 'user' },
+                { label: 'Guest', value: 'guest' },
+            ]}
+        >
         </Form.Select>
-        <Form.Input field='userName' label='UserName' />
-        <Form.Input field='password' label='Password' />
     </Form>
 );
 ```
@@ -88,14 +107,14 @@ import { Form } from '@douyinfe/semi-ui';
 () => (
     <Form render={({ formState, formApi, values }) => (
         <>
-            <Form.Select field="role" label='Role' style={{width:120}}>
+            <Form.Select field="role" label='Role' style={{ width: 120 }}>
                 <Form.Select.Option value="admin">Admin</Form.Select.Option>
                 <Form.Select.Option value="user">User</Form.Select.Option>
                 <Form.Select.Option value="guest">Guest</Form.Select.Option>
             </Form.Select>
             <Form.Input field='userName' label='UserName' />
             <Form.Input field='password' label='Password' />
-            <code style={{marginTop: 30}}>{JSON.stringify(formState)}</code>
+            <code style={{ marginTop: 30 }}>{JSON.stringify(formState)}</code>
         </>
     )} layout='horizontal'>
     </Form>
@@ -115,14 +134,14 @@ import { Form } from '@douyinfe/semi-ui';
         {
             ({ formState, values, formApi }) => (
                 <>
-                    <Form.Select field="role" label='Role' style={{width:120}}>
+                    <Form.Select field="role" label='Role' style={{ width: 120 }}>
                         <Form.Select.Option value="admin">Admin</Form.Select.Option>
                         <Form.Select.Option value="user">User</Form.Select.Option>
                         <Form.Select.Option value="guest">Guest</Form.Select.Option>
                     </Form.Select>
                     <Form.Input field='userName' label='UserName' />
                     <Form.Input field='password' label='Password' />
-                    <code style={{marginTop: 30}}>{JSON.stringify(formState)}</code>
+                    <code style={{ marginTop: 30 }}>{JSON.stringify(formState)}</code>
                 </>
             )
         }
@@ -146,7 +165,7 @@ class Demo extends React.Component {
                 <Form.Input field='Role'/>
                 <Form.Input field='UserName' />
                 <Form.Input field='Password' />
-                <code style={{marginTop: 30}}>{JSON.stringify(formState)}</code>
+                <code style={{ marginTop: 30 }}>{JSON.stringify(formState)}</code>
             </>
         );
         return <Form component={fields} layout='horizontal'/>;
@@ -339,7 +358,7 @@ class BasicDemoWithInit extends React.Component {
                         <TagInput 
                             field="product"
                             label='Product（TagInput）'
-                            defaultValue={['abc','hotsoon']}
+                            initValue={['abc', 'hotsoon']}
                             style={style}
                         />
                     </Col>
@@ -391,7 +410,7 @@ import { Form, Row, Col, Toast, TextArea } from '@douyinfe/semi-ui';
                         <Form.Input field='parents[0].name' placeholder='Try input something'/>
                         <Form.Input field="parents[1]['name']" placeholder='Try input something'/>
                     </Col>
-                    <Col span={10} offset={1} style={{marginTop: 12}}>
+                    <Col span={10} offset={1} style={{ marginTop: 12 }}>
                         <Form.Label text='formState.values in real time：'></Form.Label>
                         <TextArea value={JSON.stringify(formState.values)}></TextArea>
                     </Col>
@@ -417,15 +436,15 @@ import { Form, Button, Toast } from '@douyinfe/semi-ui';
         Toast.info('Submit Success');
     };
     return (
-        <Form onSubmit={values => handleSubmit(values)} style={{width: 400}}>
-            {({formState, values, formApi}) => (
+        <Form onSubmit={values => handleSubmit(values)} style={{ width: 400 }}>
+            {({ formState, values, formApi }) => (
                 <>
                     <Form.Input field='phone' label='PhoneNumber' style={{ width: '100%' }} placeholder='Enter your phone number'></Form.Input>
                     <Form.Input field='password' label='Password' style={{ width: '100%' }} placeholder='Enter your password'></Form.Input>
                     <Form.Checkbox field='agree' noLabel>I have read and agree to the terms of service</Form.Checkbox>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <p>
-                            <span>Or</span><Button theme='borderless' style={{ color: 'var(--semi-color-primary)', marginLeft: 10, cursor:'pointer' }}>Sign up</Button>
+                            <span>Or</span><Button theme='borderless' style={{ color: 'var(--semi-color-primary)', marginLeft: 10, cursor: 'pointer' }}>Sign up</Button>
                         </p>
                         <Button disabled={!values.agree} htmlType='submit' type="tertiary">Log in</Button>
                     </div>
@@ -484,14 +503,14 @@ class BasicDemo extends React.Component {
         const { labelPosition, labelAlign, labelWidth } = this.state;
         return (
             <>
-                <div style={{borderBottom: '1px solid var(--semi-color-text-3)', paddingBottom: 10 }}>
+                <div style={{ borderBottom: '1px solid var(--semi-color-text-3)', paddingBottom: 10 }}>
                     <Form.Label style={{ marginLeft: 10 }}>Switch Label Position:</Form.Label>
-                    <Select onChange={this.changeLabelPos} value={labelPosition} style={{width: 100}}>
+                    <Select onChange={this.changeLabelPos} value={labelPosition} style={{ width: 100 }}>
                         <Select.Option value='top'>top</Select.Option>
                         <Select.Option value='left'>left</Select.Option>
                     </Select>
                     <Form.Label style={{ marginLeft: 10 }}>Switch Label Text Align</Form.Label>
-                    <Select onChange={this.changeLabelAlign} value={labelAlign} style={{width: 100}}>
+                    <Select onChange={this.changeLabelAlign} value={labelAlign} style={{ width: 100 }}>
                         <Select.Option value='left'>left</Select.Option>
                         <Select.Option value='right'>right</Select.Option>
                     </Select>
@@ -505,7 +524,7 @@ class BasicDemo extends React.Component {
                         field="input"
                         label="PhoneNumber"
                         trigger='blur'
-                        style={{width: 200}}
+                        style={{ width: 200 }}
                         rules={[
                             { required: true, message: 'required Error' },
                             { type: 'string', message: 'type error' },
@@ -513,11 +532,11 @@ class BasicDemo extends React.Component {
                         ]}
                     />
                     <Form.Switch label="Agree" field='agree'/>
-                    <Form.InputNumber field='price' label='price' style={{width: 200}}/>
-                    <Form.Select label="Name" field='name' style={{width: 200}}>
-                        <Option value="mike">mike</Option>
-                        <Option value="jane">jane</Option>
-                        <Option value="kate">kate</Option>
+                    <Form.InputNumber field='price' label='price' style={{ width: 200 }}/>
+                    <Form.Select label="Name" field='name' style={{ width: 200 }}>
+                        <Form.Select.Option value="mike">mike</Form.Select.Option>
+                        <Form.Select.Option value="jane">jane</Form.Select.Option>
+                        <Form.Select.Option value="kate">kate</Form.Select.Option>
                     </Form.Select>
                     <Form.CheckboxGroup label="Role" field='role' direction='horizontal'>
                         <Checkbox value="admin">admin</Checkbox>
@@ -626,8 +645,8 @@ import { Form } from '@douyinfe/semi-ui';
         labelPosition='left'
         labelAlign='right'
     >
-        <Form.Input field='name' style={{width: 250}} label='Name' placeholder='Input Name' trigger='blur' />
-        <Form.Select field="role" label='Role' placeholder='Choose Role' style={{width: 250}}>
+        <Form.Input field='name' style={{ width: 250 }} label='Name' placeholder='Input Name' trigger='blur' />
+        <Form.Select field="role" label='Role' placeholder='Choose Role' style={{ width: 250 }}>
             <Form.Select.Option value="qa">Quality Assurance</Form.Select.Option>
             <Form.Select.Option value="rd">Software Engineer</Form.Select.Option>
             <Form.Select.Option value="pm">Product Manager</Form.Select.Option>
@@ -647,7 +666,7 @@ import { Form } from '@douyinfe/semi-ui';
 
 () => (
     <Form onSubmit={(values) => console.log(values)} style={{ width: 400 }}>
-        <Form.Input field='name' label='UserName' trigger='blur' noLabel={true} style={{width: 250}} placeholder='Input userName'/>
+        <Form.Input field='name' label='UserName' trigger='blur' noLabel={true} style={{ width: 250 }} placeholder='Input userName'/>
         <Form.Select field="role" label='UserRole' style={{ width: '250px' }} noLabel={true} placeholder='Choose role'>
             <Form.Select.Option value="qa">Quality Assurance</Form.Select.Option>
             <Form.Select.Option value="rd">Software Engineer</Form.Select.Option>
@@ -688,13 +707,13 @@ class AssistComponent extends React.Component {
             <Form
                 onChange={v=>console.log(v)}
                 onSubmit={v=>console.log(v)}
-                style={{width: 600}}
+                style={{ width: 600 }}
                 labelPosition='left'
                 labelWidth={100}
             >
-                <Form.Input field='effectName' label='EffectName' style={{width: 250}}/>
+                <Form.Input field='effectName' label='EffectName' style={{ width: 250 }}/>
                 <Form.Select
-                    style={{width: 300}}
+                    style={{ width: 300 }}
                     field="type"
                     label="EffectType"
                 >
@@ -703,12 +722,12 @@ class AssistComponent extends React.Component {
                 </Form.Select>
                 <Form.ErrorMessage />
                 <Form.Slot label={{ text: 'SlotA' }}>
-                    <div style={{display: 'flex', alignItems: 'center', height: '100%'}}>
+                    <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
                         {`I'm Semi Form SlotA, a custom ReactNode`}
                     </div>
                 </Form.Slot>
                 <Form.Slot label={{ text: 'SlotB', width: 160, align: 'right' }}>
-                    <div style={{display: 'flex', alignItems: 'center', height: '100%'}}>
+                    <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
                         {`I'm Semi Form SlotA, i have different labelWidth and textAlign.`}
                     </div>
                 </Form.Slot>
@@ -726,7 +745,7 @@ import React from 'react';
 import { Form } from '@douyinfe/semi-ui';
 () => (
     <Form labelPosition='inset' layout='horizontal'>
-        <Form.Input field='name' label='UserName' trigger='blur' style={{width: 250}} placeholder='Input userName'/>
+        <Form.Input field='name' label='UserName' trigger='blur' style={{ width: 250 }} placeholder='Input userName'/>
         <Form.Select field="role" label='UserRole' style={{ width: '250px' }}>
             <Form.Select.Option value="qa">Quality Assurance</Form.Select.Option>
             <Form.Select.Option value="rd">Software Engineer</Form.Select.Option>
@@ -821,7 +840,7 @@ class ModalFormDemo extends React.Component {
                     title="New"
                     visible={visible}
                     onOk={this.handleOk}
-                    style={{width: 600}}
+                    style={{ width: 600 }}
                     onCancel={this.handleCancel}
                 >
                     <Form
@@ -832,15 +851,17 @@ class ModalFormDemo extends React.Component {
                                 <Form.Select
                                     field='region'
                                     label="Country/Region"
-                                    style={{width:120}}
+                                    style={{ width: 120 }}
                                     rules={[
                                         { required: true, message },
                                     ]}
+                                    optionList={[
+                                        { label: 'China', value: 'China' },
+                                        { label: 'USA', value: 'US' },
+                                        { label: 'Europe', value: 'Europe' },
+                                        { label: 'Japan', value: 'Japan' },
+                                    ]}
                                 >
-                                    <Option value="China">China</Option>
-                                    <Option value="US">USA</Option>
-                                    <Option value="Europe">Europe</Option>
-                                    <Option value="Japan">Japan</Option>
                                 </Form.Select>
                             </Col>
                             <Col span={17}>
@@ -858,7 +879,7 @@ class ModalFormDemo extends React.Component {
                                     field='area'
                                     label="Area"
                                     placeholder='Choose Area'
-                                    style={{width:120}}
+                                    style={{ width: 120 }}
                                     rules={[
                                         { required: true, message },
                                     ]}
@@ -981,7 +1002,7 @@ class FormLevelValidateSync extends React.Component {
                 <Form.Input field='familyName[0].before' trigger='blur'></Form.Input>
                 <Form.Input field='familyName[0].after' trigger='blur'></Form.Input>
                 <Form.Input field='familyName[1]' trigger='blur'></Form.Input>
-                <div style={{display: 'flex', alignItems: 'flex-end'}}>
+                <div style={{ display: 'flex', alignItems: 'flex-end' }}>
                     <Button type="primary" htmlType="submit" className="btn-margin-right">
                         Submit
                     </Button>
@@ -1028,7 +1049,7 @@ class FormLevelValidateAsync extends React.Component {
                 <Form.Input field='familyName[0].before' trigger='blur'></Form.Input>
                 <Form.Input field='familyName[1]' trigger='blur'></Form.Input>
                 <Form.Input field='sex' trigger='blur'></Form.Input>
-                <div style={{display: 'flex', alignItems: 'flex-end'}}>
+                <div style={{ display: 'flex', alignItems: 'flex-end' }}>
                     <Button type="primary" htmlType="submit" className="btn-margin-right">
                         Submit
                     </Button>
@@ -1182,7 +1203,7 @@ class ArrayFieldDemo extends React.Component {
         const ComponentUsingFormState = () => {
             const formState = useFormState();
             return (
-                <TextArea style={{marginTop: 10}} value={JSON.stringify(formState)} />
+                <TextArea style={{ marginTop: 10 }} value={JSON.stringify(formState)} />
             );
         };
         return (
@@ -1197,13 +1218,13 @@ class ArrayFieldDemo extends React.Component {
                                         <Form.Input
                                             field={`${field}[name]`}
                                             label={`Effect Name：`}
-                                            style={{width: 200, marginRight: 16}}
+                                            style={{ width: 200, marginRight: 16 }}
                                         >
                                         </Form.Input>
                                         <Form.Select
                                             field={`${field}[type]`}
                                             label={`Effect Type：`}
-                                            style={{width: 90}}
+                                            style={{ width: 90 }}
                                         >
                                             <Form.Select.Option value='2D'>2D</Form.Select.Option>
                                             <Form.Select.Option value='3D'>3D</Form.Select.Option>
@@ -1255,7 +1276,7 @@ class ArrayDemo extends React.Component {
         if (!effects) {
             effects = [];
         }
-        effects.push({ name: '', type: '', key: this.id++  });
+        effects.push({ name: '', type: '', key: this.id++ });
         this.formApi.setValue('effects', effects);
     }
     remove(key) {
@@ -1269,8 +1290,8 @@ class ArrayDemo extends React.Component {
     renderItems(formState, values) {
         return values.effects && values.effects.map((effect, i) => (
             <div key={effect.key} style={{ width: 1000, display: 'flex' }}>
-                <Form.Input field={`effects[${i}].name`} style={{width: 200, marginRight: 16}}></Form.Input>
-                <Form.Select field={`effects[${i}].type`} style={{width: 90}}>
+                <Form.Input field={`effects[${i}].name`} style={{ width: 200, marginRight: 16 }}></Form.Input>
+                <Form.Select field={`effects[${i}].type`} style={{ width: 90 }}>
                     <Form.Select.Option value='2D'>2D</Form.Select.Option>
                     <Form.Select.Option value='3D'>3D</Form.Select.Option>
                 </Form.Select>
@@ -1292,7 +1313,7 @@ class ArrayDemo extends React.Component {
                     <>
                         <Button onClick={this.add}>add</Button>
                         {this.renderItems(formState, values)}
-                        <TextArea style={{marginTop: 10}} value={JSON.stringify(formState.values)} />
+                        <TextArea style={{ marginTop: 10 }} value={JSON.stringify(formState.values)} />
                     </>
                 )}
             </Form>
@@ -1565,28 +1586,28 @@ class CustomFieldDemo extends React.Component {
 
 | Properties        | Instructions                                                                                                                                                                                                                                                                                                        | Type                                            | Default    |
 | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------- | ---------- |
+| autoScrollToError | If setting true，when submit or call formApi.validate () fails verification, it will automatically scroll to the wrong field, object config refer to [options](https://github.com/stipsan/scroll-into-view-if-needed#options)                                                                                       | boolean\| object                                | false      |
+| allowEmpty        | Whether to keep the key of the null field in the values, keep the key when true, and remove the key when false    | boolean                                         | false      |
+| component         | For declaring fields, not used at the same time as render, props.children                                                                                                                                                                                                                                           | ReactNode                                       |
+| className         | Classname for form tag                                                                                                                                                                                                                                                                                              | string                                          |
+| disabled          | If true, all fields inside the form structure will automatically inherit the disabled attribute                                                                                                                                                                                                                     | boolean                                         | false      |
+| extraTextPosition | The extraTextPosition property applied to each Field uniformly controls the display position of extraText. Middle (the vertical direction is displayed in the order of Label, extraText, and Field), bottom (the vertical direction is displayed in the order of Label, Field, and extraText) <br/>**since v1.9.0** | string                                          | 'bottom'   |
 | getFormApi        | This function will be executed once when the form is mounted and returns formApi. <br/>formApi can be used to modify the internal state of the form (value, touched, error)                                                                                                                                         | function (formApi: object)                      |            |
 | initValues        | Used to uniformly set the initial value of the form <br/>(will be consumed only once when form is mount)                                                                                                                                                                                                            | object                                          |            |
+| layout            | The layout of fields, optional `horizontal` or `vertical`                                                                                                                                                                                                                                                           | string                                          | 'vertical' |
+| labelCol          | Uniformly applied to the label label layout of each Field, with [Col Component](/en-US/basic/grid#Col), <br/>set `span`, `span` values, such as {span: 6, selected: 2}                                                                                                                     | object                                          |
+| labelAlign        | Text-align value of label                                                                                                                                                                                                                                                                                           | string                                          | 'left'     |
+| labelPosition     | Location of label in Field, optional 'top', 'left', 'inset' <br/> (inset label only partial component support)                                                                                                                                                                                                      | string                                          | 'top'      |
+| labelWidth        | Width of field'r label                                                                                                                                                                                                                                                                                              | string\|number                                  |            |
 | onChange          | Callback invoked when form update, including Fields mount/unmount / value change / <br/> blur / validation status change / error status change.                                                                                                                                                                     | function (formState: object)                    |            |
 | onValueChange     | Callback invoked when form values update                                                                                                                                                                                                                                                                            | function (values: object, changedValue: object) |
 | onReset           | Callback invoked after clicked on reset button or executed `formApi.reset()`                                                                                                                                                                                                                                        | function ()                                     |            |
 | onSubmit          | Callback invoked after clicked on submit button or executed `formApi.submit()`, <br/>and all validation pass.                                                                                                                                                                                                        | function (values: object)                       |            |
 | onSubmitFail      | Callback invoked after clicked on submit button or executed `formApi.submit()`,<br/> but validate failed.                                                                                                                                                                                                            | function (object, values: object)               |            |
-| validateFields    | Form-level custom validate functions are called at submit or formApi.validate(). <br/>Supported synchronous / asynchronous function                                                                                                                                                                                 | function (values)                               |            |
-| component         | For declaring fields, not used at the same time as render, props.children                                                                                                                                                                                                                                           | ReactNode                                       |
 | render            | For declaring fields, not used at the same time as component, props.children                                                                                                                                                                                                                                        | function                                        |
-| allowEmpty        | Whether to keep the key of the null field in the values, keep the key when true, and remove the key when false    | boolean                                         | false      |
-| layout            | The layout of fields, optional `horizontal` or `vertical`                                                                                                                                                                                                                                                           | string                                          | 'vertical' |
-| labelPosition     | Location of label in Field, optional 'top', 'left', 'inset' <br/> (inset label only partial component support)                                                                                                                                                                                                      | string                                          | 'top'      |
-| labelWidth        | Width of field'r label                                                                                                                                                                                                                                                                                              | string\|number                                  |            |
-| labelAlign        | Text-align value of label                                                                                                                                                                                                                                                                                           | string                                          | 'left'     |
-| className         | Classname for form tag                                                                                                                                                                                                                                                                                              | string                                          |
-| wrapperCol        | Uniformly apply the layout on each Field, with [Col component](/en-US/basic/grid#Col), <br/>set `span`, `span` values, such as {span: 20, selected: 4}                                                                                                                                     | object                                          |
-| labelCol          | Uniformly applied to the label label layout of each Field, with [Col Component](/en-US/basic/grid#Col), <br/>set `span`, `span` values, such as {span: 6, selected: 2}                                                                                                                     | object                                          |
-| autoScrollToError | If setting true，when submit or call formApi.validate () fails verification, it will automatically scroll to the wrong field, object config refer to [options](https://github.com/stipsan/scroll-into-view-if-needed#options)                                                                                       | boolean\| object                                | false      |
-| disabled          | If true, all fields inside the form structure will automatically inherit the disabled attribute                                                                                                                                                                                                                     | boolean                                         | false      |
 | showValidateIcon  | Whether the verification information block in the field automatically adds the corresponding status icon display <br/>**since v1.0.0**                                                                                                                                                                              | boolean                                         | true       |
-| extraTextPosition | The extraTextPosition property applied to each Field uniformly controls the display position of extraText. Middle (the vertical direction is displayed in the order of Label, extraText, and Field), bottom (the vertical direction is displayed in the order of Label, Field, and extraText) <br/>**since v1.9.0** | string                                          | 'bottom'   |
+| validateFields    | Form-level custom validate functions are called at submit or formApi.validate(). <br/>Supported synchronous / asynchronous function                                                                                                                                                                                 | function (values)                               |            |
+| wrapperCol        | Uniformly apply the layout on each Field, with [Col component](/en-US/basic/grid#Col), <br/>set `span`, `span` values, such as {span: 20, selected: 4}                                                                                                                                     | object                                          |
 
 ## FormState
 
@@ -1655,9 +1676,9 @@ class FormApiDemo extends React.Component {
 
     changeValues() {
         // use formApi to update formA
-        this.formApi.setValues({ a: 1});
+        this.formApi.setValues({ a: 1 });
         // use formApi to update formB
-        this.formBRef.current.formApi.setValues({ b: 2});
+        this.formBRef.current.formApi.setValues({ b: 2 });
     }
 
     render() {
@@ -1705,18 +1726,18 @@ import { Form, Button } from '@douyinfe/semi-ui';
 | labelAlign            | Text-align of the label text of this field                                                                                                                                                                                               | string                                 |           |
 | labelWidth            | The width of the label text of this field                                                                                                                                                                                                | string\|number                         |           |
 | noLabel               | When you don't need to add label automatically, you can set this value to true                                                                                                                                                           | boolean                                |           |
-| name                  | Field name. When passed in, the corresponding className will be automatically added to the corresponding field div, such as: money => '.semi-form-field-money'                                                                           | string                                 |           |
+| name                  | Field name. When passed in, the corresponding className will be automatically added to the field wrapper div, such as: money => '.semi-form-field-money'. After v2.24, the name will also be transparently transmitted to the underlying component for consumption. For example, you can configure the name attribute of input                                                                           | string                                 |           |
 | fieldClassName        | The className of the entire fieldWrapper is the same as the name parameter, except that the prefix is ​​not automatically appended                                                                                                       | string                                 |           |
 | fieldStyle            | The inline style of the entire fieldWrapper <br/>**since v1.9.0**                                                                                                      | object                                 |           |
 | initValue             | The initial value of the field (consumed only once when Field mounted, subsequent updates are invalid), it has higher priority than the values ​​in Form's initValues ​​                                                                 | any(type depends on current component) |           |
 | validate              | The custom validation function for this form control. Supports synchronous and asynchronous verification. <br/> Rules does not take effect when validate is set                                                                           | function(fieldValue, values)           |           | (fieldValue) => fieldValue.length>5? 'error balabala': ''          |
 | rules                 | validation rules, validation library based on [async-validator](https://github.com/yiminghe/async-validator)                                                                                                                             | array                                  |           | const rules = \[{type:' string ', message:' invalidate string'} \] |
 | validateStatus        | The validation result status of this form control, optional: `success` / `error` / `warning` / `default`                                                                                                                                 | string                                 | 'default' |
-| trigger               | The timing of triggering the verification, optional: `blur` / `change` / `custom` / `mount` <br/> 1. When set to custom, only formApi will trigger the verification <br/> 2。mount (triggered once when mounting)                          | string                                 | 'change'  |
+| trigger               | The timing of triggering the verification, optional: `blur` / `change` / `custom` / `mount` <br/> 1. When set to custom, only formApi will trigger the verification <br/> 2.mount (triggered once when mounting)                          | string                                 | 'change'  |
 | onChange              | Callback invoked when this field value changes                                                                                                                                                                                           |
 | transform             | transform field values before validation                                                                                                                                                                                                 | function(fieldValue)                   |           | (value) => Number(value)                                           |
 | allowEmptyString      | Whether to allow values to be empty strings. <br/>When the value is '' by default, the key corresponding to this field will be removed from `values`. <br/>If you want to keep the key, you need to set allowEmptyString to true           | boolean                                |           | false                                                              |
-| convert               | After the field value changes, before rerender, update the value of filed                                                                                                                                                                | function(fieldValue)                   |           | (value) => newValue(value)                                         |
+| convert               | After the field value changes, before rerender, update the value of filed                                                                                                                                                                | function(fieldValue)                   |           | (value) => newValue                                        |
 | stopValidateWithError | When it is true, the rules check is used. After encountering the first rule that fails the check, it will no longer trigger the check of subsequent rules<br/>**since v0.35.0**                                                          | boolean                                |           | false                                                              |
 | helpText              | Custom prompt information, which is displayed in the same block as the verification information. When both have values, the verification information is displayed first<br/>**since v1.0.0**                                             | ReactNode                              |           |                                                                    |
 | extraText             | Additional prompt information, you can use this when both error information and prompt copy are required, after helpText/errorMessage<br/>**since v1.0.0**                                                                               | ReactNode                              |           |                                                                    |
@@ -1772,6 +1793,7 @@ const { Label } = Form;
 | className  | Classname of label wrapper      | string    |         |
 | style      | Inline style                    | string    |         |
 | width      | Label width                     | number    |         |
+| optional  | Whether to automatically append the "(optional)" text mark after the text (automatically switch the same semantic text according to different languages configured by Locale). When this item is true, the required \* will no longer be displayed.  | boolean    | false | v2.18.0 |
 
 ## Form.Slot
 
@@ -1828,6 +1850,21 @@ const { ErrorMessage } = Form;
 - [aria-describedby](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-describedby_attribute)
   - When the Field is configured with `helpText` or `extraText`, the Field component will be automatically added with the `aria-describedby` attribute, whose value is the id of the DOM element corresponding to helpText and extraText (format like: `${props.field}-helpText` , `${props.field}-extraText`)
 
+## Content Guidelines
+
+- Form title
+  - The title of the form needs to follow the writing specification of the title
+- Form label
+  - The label is a short description of the input box. The label is not a help text, so it should not be a description of the input
+  - Labels must:
+    - Place it above or below the input box
+    - Short (1-3 words)
+    - Use case conventions for statements (first letter uppercase, others lowercase)
+- Help text
+  - Help text use statement writing conventions, capitalized
+- Form button
+  - For the content Guidelines of the form button, refer to [Button component](/en-US/input/button) 
+
 ## Design Tokens
 
 <DesignToken/>
@@ -1848,5 +1885,14 @@ const { ErrorMessage } = Form;
 -   **Why can't getValues get a certain field?**
 
     If the field has no initial value, `getValues` cannot get this item. You can set `initValues`/`initValue` or set the `allowEmpty` attribute to the form.
+
+-   **Why does hitting enter on the input box trigger the form's submit?**
+
+    This is standard HTML behavior. We do not plan to intervene and we will remain the same as the HTML. If there is really only one input element in the form, and you don't want to trigger the submit callback when you press Enter, it is recommended to use preventDefault for the enter of the keydown event of input to prevent the default behavior.
+
+    Click <a href="https://github.com/DouyinFE/semi-design/issues/767" target="_blank">#767</a> for background and content.
+
+-   **The form will automatically save the historical input items, what should I do if I don't want this function?**    
+    Before v2.3, Form did not configure `for`, `name`, `id` and other attributes for input controls strictly according to the A11y accessibility standard, so this function was not available in previous versions. After v2.3, we implemented it strictly according to the W3C standard. If you don't want the browser to automatically save history input items, you can also turn it off by setting `autoComplete=off` at the Form level or Field level
 
 -   **[🔍 🧾 More FAQ](https://bytedance.feishu.cn/docs/doccnNKaGhZMqyu0FufD1JGHOjf)**

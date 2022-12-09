@@ -16,7 +16,7 @@ npm install @douyinfe/semi-animation
 
 `semi-animation` provides a class called  `Animation` . It has a complete life cycle hook and control method to support operating animation like audio and video.
 
--   Use in JS
+-  Use in JS
 
 ```js
 import { Animation } from '@douyinfe/semi-animation';
@@ -181,11 +181,11 @@ animation.on('frame', currentState => {
 });
 
 // The callbacks such as start and pause are the same as the frame above, and the parameters are also the same.
-animation.on('start', currentState => { /* ... */ })
-animation.on('pause', currentState => { /* ... */ })
-animation.on('resume', currentState => { /* ... */ })
-animation.on('rest', currentState => { /* ... */ })
-animation.on('stop', currentState => { /* ... */ })
+animation.on('start', currentState => { /* ... */ });
+animation.on('pause', currentState => { /* ... */ });
+animation.on('resume', currentState => { /* ... */ });
+animation.on('rest', currentState => { /* ... */ });
+animation.on('stop', currentState => { /* ... */ });
 ```
 
 ## Licence

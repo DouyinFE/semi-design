@@ -49,7 +49,7 @@ export interface TextAreaProps extends
     onPressEnter?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
     onResize?: (data: {height: number}) => void;
     getValueLength?: (value: string) => number;
-    forwardRef?: ((instance: HTMLTextAreaElement) => void) | React.MutableRefObject<HTMLTextAreaElement> | null;
+    forwardRef?: ((instance: HTMLTextAreaElement) => void) | React.MutableRefObject<HTMLTextAreaElement> | null
 }
 
 export interface TextAreaState {
@@ -58,7 +58,7 @@ export interface TextAreaState {
     isHover: boolean;
     height: number;
     minLength: number;
-    cachedValue?: string;
+    cachedValue?: string
 }
 
 class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
@@ -98,7 +98,7 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
     };
 
     focusing: boolean;
-    libRef: React.RefObject<React.ReactNode>;
+    libRef: React.RefObject<HTMLInputElement>;
     _resizeLock: boolean;
     _resizeListener: any;
     foundation: TextAreaFoundation;
@@ -115,7 +115,7 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
         this.focusing = false;
         this.foundation = new TextAreaFoundation(this.adapter);
 
-        this.libRef = React.createRef();
+        this.libRef = React.createRef<HTMLInputElement>();
         this._resizeLock = false;
     }
 
@@ -127,7 +127,7 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
                     this.foundation.resizeTextarea();
                 }
             }),
-            getRef: () => this.libRef,
+            getRef: () => this.libRef.current,
             toggleFocusing: (focusing: boolean) => this.setState({ isFocus: focusing }),
             toggleHovering: (hovering: boolean) => this.setState({ isHover: hovering }),
             notifyChange: (val: string, e: React.MouseEvent<HTMLTextAreaElement>) => {
@@ -198,10 +198,6 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
         this.foundation.handleClear(e);
     };
 
-    handleClearEnterPress = (e: React.KeyboardEvent<HTMLDivElement>) => {
-        this.foundation.handleClearEnterPress(e);
-    }
-
     renderClearBtn() {
         const { showClear } = this.props;
         const displayClearBtn = this.foundation.isAllowClear();
@@ -210,13 +206,10 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
         });
         if (showClear) {
             return (
+                // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
                 <div
-                    role="button"
-                    tabIndex={0}
-                    aria-label="Clear textarea value"
                     className={clearCls}
                     onClick={this.handleClear}
-                    onKeyPress={this.handleClearEnterPress}
                 >
                     <IconClear />
                 </div>
@@ -243,12 +236,7 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
                 }
             );
             counter = (
-                <div
-                    aria-label="Textarea value length counter"
-                    aria-valuemax={maxCount}
-                    aria-valuenow={current}
-                    className={countCls}
-                >
+                <div className={countCls}>
                     {current}{total ? '/' : null}{total}
                 </div>
             );

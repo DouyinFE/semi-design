@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 22
+order: 24
 category: Input
 title:  Input
 subTitle: Input
@@ -25,7 +25,7 @@ import React from 'react';
 import { Input } from '@douyinfe/semi-ui';
 
 () => (
-    <Input defaultValue='hi' autofocus></Input>
+    <Input defaultValue='hi'></Input>
 );
 ```
 
@@ -387,65 +387,108 @@ Answers to some questions:
 
 > Other attributes are same with html `<input>`
 
-| Property       | Instructions                                                                                  | type                            | Default   |
-|----------------|-----------------------------------------------------------------------------------------------|---------------------------------|-----------|
-| addonAfter     | Addon after input box                                                                         | ReactNode               |           |
-| addonBefore    | Addon before input box                                                                        | ReactNode               |           |
-| className      | Class name                                                                                    | string                          |           |
-| defaultValue   | Default value                                                                                 | ReactText                          |           |
-| disabled       | Toggle whether to disable input                                                               | boolean                         | false     |
-| getValueLength | Custom calculated character string length                                            | (value: string) => number        |      |
-| hideSuffix     | Toggle whether to hide suffix if clear icon is shown，by default the two icon are side by side | boolean                         | false     |
-| mode           | The mode of the input box. The optional value is `password`                                   | string                          |           |
-| mode           | mode of input，optional: `password` **>= v1.3.0**                                              | string                          |           |
-| prefix         | Prefix                                                                                        | ReactNode               |           |
-| showClear      | Show clear button **>=1.0.0**                                                                 | boolean                         | false     |
-| size           | Size, one of `large`, `default`, `small`                                                      | string                          | `default` |
-| style          | Inline style                                                                                  | CSSProperties                          |           |
-| suffix         | Suffix                                                                                        | ReactNode               |           |
-| type           | Input type attribute, same with html `<input>`                                                | string                          | text      |
-| validateStatus | Validate status for styling only, one of `default`, `error`, `warning`                        | string                          | `default` |
-| value          | Current value of input box                                                                    | ReactText                          |           |
-| onBlur         | Callback invoked when input loses focus                                                       | function(e:event)                        |           |
-| onChange       | Callback invoked when input value changes                                                     | function(value:string, e:event) |           |
-| onClear        | Callback invoked when clicking clear icon                                                     | function(e:event)                        |           |
-| onEnterPress   | Callback invoked when pressing enter（keypress）                                                | function(e:event)               |           |
-| onFocus        | Callback invoked when input gets focus                                                        | function(e:event)                        |           |
-| onKeyDown      | Callback invoked when keydown                                                                 | function(e:event)               |           |
-| onKeyPress     | Callback invoked when keypress                                                                | function(e:event)               |           |
-| onKeyUp        | Callback invoked when keyup                                                                   | function(e:event)               |           |
+| Property          | Instructions                                                                                  | type                            | Default   |
+|-------------------|-----------------------------------------------------------------------------------------------|---------------------------------|-----------|
+| aria-describedby  | Set the aria-describedby property                                                             | string                          | -         |
+| aria-errormessage | Set the aria-errormessage property                                                            | string                          | -         |
+| aria-invalid      | Set aria-invalid property                                                                     | string                          | -         |
+| aria-label        | Set aria-label properties                                                                     | string                          | -         |
+| aria-labelledby   | Set aria-labelledby properties                                                                | string                          | -         |
+| aria-required     | Set aria-required properties                                                                  | string                          | -         |
+| addonAfter        | Addon after input box                                                                         | ReactNode                       |           |
+| addonBefore       | Addon before input box                                                                        | ReactNode                       |           |
+| className         | Class name                                                                                    | string                          |           |
+| defaultValue      | Default value                                                                                 | ReactText                       |           |
+| disabled          | Toggle whether to disable input                                                               | boolean                         | false     |
+| getValueLength    | Custom calculated character string length                                                     | (value: string) => number       |           |
+| hideSuffix        | Toggle whether to hide suffix if clear icon is shown，by default the two icon are side by side | boolean                         | false     |
+| mode              | The mode of the input box. The optional value is `password`                                   | string                          |           |
+| mode              | mode of input，optional: `password` **>= v1.3.0**                                              | string                          |           |
+| prefix            | Prefix                                                                                        | ReactNode                       |           |
+| preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
+| showClear         | Show clear button **>=1.0.0**                                                                 | boolean                         | false     |
+| size              | Size, one of `large`, `default`, `small`                                                      | string                          | `default` |
+| style             | Inline style                                                                                  | CSSProperties                   |           |
+| suffix            | Suffix                                                                                        | ReactNode                       |           |
+| type              | Input type attribute, same with html `<input>`                                                | string                          | text      |
+| validateStatus    | Validate status for styling only, one of `default`, `error`, `warning`                        | string                          | `default` |
+| value             | Current value of input box                                                                    | ReactText                       |           |
+| onBlur            | Callback invoked when input loses focus                                                       | function(e:event)               |           |
+| onChange          | Callback invoked when input value changes                                                     | function(value:string, e:event) |           |
+| onClear           | Callback invoked when clicking clear icon                                                     | function(e:event)               |           |
+| onEnterPress      | Callback invoked when pressing enter（keypress）                                                | function(e:event)               |           |
+| onFocus           | Callback invoked when input gets focus                                                        | function(e:event)               |           |
+| onKeyDown         | Callback invoked when keydown                                                                 | function(e:event)               |           |
+| onKeyPress        | Callback invoked when keypress                                                                | function(e:event)               |           |
+| onKeyUp           | Callback invoked when keyup                                                                   | function(e:event)               |           |
 ### TextArea
 
 > Other attributes are same with html `<textarea>`
 
-| Property     | Instructions                                                                                                           | type                            | Default |
-|--------------|------------------------------------------------------------------------------------------------------------------------|---------------------------------|---------|
-| autosize     | Toggle whether to allow autosize when content height changes                                                           | boolean                         | false   |
-| className    | Class name                                                                                                             | string                          | -       |
-| cols         | The visible width of the text control, in average character widths. If it is specified, it must be a positive integer. | number                          | -       |
-| disabled     | Disabled                                                                                                               | boolean                         | false   |
-| getValueLength | Custom calculated character string length                                            | (value: string) => number        |      |
-| maxCount     | The maximum number of characters and display count                                                                     | number                          | -       |
-| placeholder  | Content to be appear by default                                                                                        | string                          | -       |
-| readonly     | Read-only, not editable                                                                                                | boolean                         | false   |
-| rows         | The number of visible text lines for the control.                                                                      | number                          | 4       |
-| showClear      | Show clear button **>=1.30.0**                                                                 | boolean                         | false     |
-| style        | Inline style                                                                                                           | CSSProperties                          | -       |
-| onBlur       | Callback invoked when input loses focus                                                                                | (e:event) => void               | -       |
-| onChange     | Callback invoked when input value changes                                                                              | (value:string, e:event) => void  |         |
-| onClear      | Callback invoked when clicking clear icon  **>=1.30.0**                                                       | (e:event) => void                        |           |
-| onEnterPress | Callback invoked when pressing enter                                                                                   | (e:event) => void                        | -       |
-| onFocus      | Callback invoked when input gets focus                                                                                 | (e:event) => void               | -       |
-| onKeyDown    | Callback invoked when keydown, html event                                                                              | (e:event) => void               | -       |
-| onKeyPress   | Callback invoked when keypress, html event                                                                             | (e:event) => void               | -       |
-| onKeyUp      | Callback invoked when keyup, html event                                                                                | (e:event) => void               | -       |
-| onResize     | Callback invoked when height changes in autosize mode **v>=0.37.0**                                                    | ({ height:number }) => void     | -       |
+| Property          | Instructions                                                                                                           | Type                            | Default |
+|-------------------|------------------------------------------------------------------------------------------------------------------------|---------------------------------|---------|
+| aria-describedby  | Set the aria-describedby property                                                                                      | string                          | -       |
+| aria-errormessage | Set the aria-errormessage property                                                                                     | string                          | -       |
+| aria-invalid      | Set aria-invalid property                                                                                              | string                          | -       |
+| aria-label        | Set aria-label properties                                                                                              | string                          | -       |
+| aria-labelledby   | Set aria-labelledby properties                                                                                         | string                          | -       |
+| aria-required     | Set aria-required properties                                                                                           | string                          | -       |
+| autosize          | Toggle whether to allow autosize when content height changes                                                           | boolean                         | false   |
+| className         | Class name                                                                                                             | string                          | -       |
+| cols              | The visible width of the text control, in average character widths. If it is specified, it must be a positive integer. | number                          | -       |
+| disabled          | Disabled                                                                                                               | boolean                         | false   |
+| getValueLength    | Custom calculated character string length                                                                              | (value: string) => number       |         |
+| maxCount          | The maximum number of characters and display count                                                                     | number                          | -       |
+| placeholder       | Content to be appear by default                                                                                        | string                          | -       |
+| preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
+| readonly          | Read-only, not editable                                                                                                | boolean                         | false   |
+| rows              | The number of visible text lines for the control.                                                                      | number                          | 4       |
+| showClear         | Display the clear button when the input box has content and hover or focus **>=1.30.0**                                                                                         | boolean                         | false   |
+| style             | Inline style                                                                                                           | CSSProperties                   | -       |
+| onBlur            | Callback invoked when input loses focus                                                                                | (e:event) => void               | -       |
+| onChange          | Callback invoked when input value changes                                                                              | (value:string, e:event) => void |         |
+| onClear           | Callback invoked when clicking clear icon  **>=1.30.0**                                                                | (e:event) => void               |         |
+| onEnterPress      | Callback invoked when pressing enter                                                                                   | (e:event) => void               | -       |
+| onFocus           | Callback invoked when input gets focus                                                                                 | (e:event) => void               | -       |
+| onKeyDown         | Callback invoked when keydown, html event                                                                              | (e:event) => void               | -       |
+| onKeyPress        | Callback invoked when keypress, html event                                                                             | (e:event) => void               | -       |
+| onKeyUp           | Callback invoked when keyup, html event                                                                                | (e:event) => void               | -       |
+| onResize          | Callback invoked when height changes in autosize mode **v>=0.37.0**                                                    | ({ height:number }) => void     | -       |
+
+### InputGroup
+
+Common attributes will be set to the child elements of InputGroup, such as disabled, onFocus, etc. If you set onFocus, onBlur or disabled on the child, it will override the corresponding property value of InputGroup.
+
+
+| Property      | Instructions                                | Type                                                          | Default |
+|---------------|--------------------------------------------|---------------------------------------------------------------|---------------|
+| className     | class name of the group                    | string                                                        | -             |
+| disabled      | disabled                                   | boolean                                                       | -             |
+| label         | Label property of InputGroup               | [LabelProps](https://semi.design/en-US/input/form#Form.Label) | -             |
+| labelPosition | label position, optional top or left       | string                                                        | -             |
+| size          | input box size, large, default, small      | string                                                        | 'default'     |
+| style         | styles for the group                       | CSSProperties                                                 | -             |
+| onBlur        | Callback when input box loses focus        | (e:event) => void                                             | -             |
+| onFocus       | The callback when the input box is focused | (e:event) => void                                             | -             |
+
 ## Methods
 
 | Name    | Description  |
 |---------|--------------|
 | blur()  | Remove focus |
 | focus() | Get focus    |
+
+## Accessibility
+
+### ARIA
+
+- When validateStatus is error, the aria-invalid of the input box is true
+- When used in Form, field label is Input's aria-label
+
+### Keyboard and focus
+
+- Input can be focused, keyboard users can use Tab and Shift + Tab to switch focus
+- The password button can be focused and activated with Enter or Space key after focusing
 
 ## Design Tokens
 <DesignToken/>

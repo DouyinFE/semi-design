@@ -1,6 +1,7 @@
-import { Tree, Icon } from '../../index';
-import { BASE_CLASS_PREFIX } from '../../../semi-foundation/base/constants';
+import { isEqual } from 'lodash';
 import { IconMapPin } from '@douyinfe/semi-icons';
+import { BASE_CLASS_PREFIX } from '../../../semi-foundation/base/constants';
+import { Tree, Button } from '../../index';
 
 const treeChildren = [
     {
@@ -670,6 +671,90 @@ describe('Tree', () => {
         // should not select item
         expect(topNodeAsia.hasClass(`${BASE_CLASS_PREFIX}-tree-option-selected`)).toEqual(false);
         expect(tree.state().selectedKeys.length).toEqual(0);
+    });
+
+
+    /**
+     * Detect whether the expanded item will be expanded according to the value when the value
+     *  or treeData is changed, when expandedKeys is not controlled
+     */
+     const treeJsonData1 = {
+        "Node0": {
+            "Child Node0-0": '0-0',
+            "Child Node0-1": '0-1',
+        },
+        "Node1": {
+            "Child Node1-0": '1-0',
+            "Child Node1-1": '1-1',
+        }
+    };
+    const treeJsonData2 = {
+        "Updated Node0": { 
+            "Updated Child Node0-0": {
+                'Updated Child Node0-0-0':'0-0'
+            }, 
+            "Updated Child Node0-1": '0-1', 
+        },
+        "Updated Node1": { 
+            "Updated Child Node1-0": '1-0', 
+            "Updated Child Node1-1": '1-1', 
+        }
+    };
+
+    it('expandedKeys when treeDataSimpleJson update', () => {
+        const tree = mount(
+            <Tree
+                value='0-0'
+                multiple
+                treeDataSimpleJson={treeJsonData1}
+            />,
+            {
+                attachTo: document.getElementById('container')
+            }
+        );
+        const treeDataButton = mount(
+            <Button
+                onClick={() => {
+                    if (isEqual(tree.props().treeDataSimpleJson, treeJsonData1)) {
+                        tree.setProps({ treeDataSimpleJson: treeJsonData2 });
+                        tree.update();
+                    } else {
+                        tree.setProps({ treeDataSimpleJson: treeJsonData1 });
+                        tree.update();
+                    }
+                }}
+            >
+                update treeData
+            </Button>
+        );
+        expect(
+            tree
+            .find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-1`)
+            .at(0)
+            .hasClass(`${BASE_CLASS_PREFIX}-tree-option-collapsed`)
+        ).toEqual(false);
+        expect(
+            tree
+            .find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-2`)
+            .at(0)
+            .hasClass(`${BASE_CLASS_PREFIX}-tree-option-collapsed`)
+        ).toEqual(true);
+        expect(
+            tree
+            .find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-1`)
+            .at(1)
+            .hasClass(`${BASE_CLASS_PREFIX}-tree-option-collapsed`)
+        ).toEqual(true);
+        treeDataButton.simulate('click');
+        expect(
+            tree
+            .find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-2`)
+            .at(0)
+            .hasClass(`${BASE_CLASS_PREFIX}-tree-option-collapsed`)
+        ).toEqual(false);
+        treeDataButton.simulate('click');
+        tree.unmount();
+        treeDataButton.unmount();
     });
 
     it('expandAction = false / default behavior', () => {

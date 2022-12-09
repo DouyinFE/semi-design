@@ -3,17 +3,18 @@
     <p align="center"><img width="300" src="https://lf1-cdn-tos.bytescm.com/obj/ttfe/ies/semi/SemiLogo/Logo_1576122865926.png" /></p>
     <h1 style="width: 100%; text-align: center;">Semi-UI</h1>
     <p>
-        A modern, comprehensive, flexible design system and UI library. Quickly build beautiful React apps.
+        A modern, comprehensive, flexible design system and UI library. Connect DesignOps & DevOps. Quickly build beautiful React apps.
     </p>
 </article>
     
 <div align="center">
 
-[![NPM][npm-badge]][npm-url] [![FIGMA][figma-badge]][figma-url] [![LICENSE][license-badge]][license-url]
+[![NPM][npm-badge]][npm-url] [![CONTRIBUTORS][contributors-badge]][contributors-url] [![FIGMA][figma-badge]][figma-url] [![LICENSE][license-badge]][license-url]
 [![BUILD-JS][build-js-badge]][build-js-url] [![BUILD-CSS][build-css-badge]][build-css-url] [![CODECOV][codecov-badge]][codecov-url] [![Chromatic][chromatic-badge]][chromatic-url] [![Cypress][cypress-badge]][cypress-url]
 
-
 [npm-badge]: https://img.shields.io/npm/v/@douyinfe/semi-ui.svg
+[contributors-badge]: https://img.shields.io/github/contributors/DouyinFE/semi-design
+[contributors-url]: https://github.com/DouyinFE/semi-design/graphs/contributors
 [npm-url]: https://www.npmjs.com/package/@douyinfe/semi-ui
 [figma-badge]: https://img.shields.io/badge/Figma-UIKit-%2318a0fb
 [figma-url]: https://www.figma.com/@semi
@@ -22,7 +23,7 @@
 [license-url]: https://github.com/DouyinFE/semi-design/blob/main/LICENSE
 [codecov-badge]: https://img.shields.io/codecov/c/gh/DouyinFE/semi-design
 [codecov-url]: https://app.codecov.io/gh/DouyinFE/semi-design
-[chromatic-badge]: https://img.shields.io/badge/test-chromatic-f52
+[chromatic-badge]: https://img.shields.io/badge/test-chromatic-brightgreen
 [chromatic-url]: https://www.chromatic.com/
 [cypress-badge]: https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/simple/k83u7j&style=flat&logo=cypress
 [cypress-url]: https://dashboard.cypress.io/projects/k83u7j/runs
@@ -45,10 +46,14 @@ English | [简体中文](./README-zh_CN.md)
 
 # 🎉 Features
 
-- 💪 Up to 58 high-quality Components.
-- 💅 2000+ Design Tokens. Flexible custom render structure. Build your own design system.
-- 🌍 Internationalization Support for Dozens of Languages.
-- 👏 Written in Typescript, Friendly Static Type Support.
+- 💪 Up to 60+ high-quality Components.
+- 💕 Complete A11y support, follows W3C standards to provide keyboard interaction, focus management and ARIA for all components
+- 💅 Design system management Semi DSM, up to 2000+ Design Tokens, build your own design system quickly.
+- 🌍 Internationalization Support for Dozens of Languages, timezone, RTL support
+- 💅 Code2Design, automatically generate Figma UI Kit according to different themes, keep same between design and code
+- 🚀 Powerful Design2Code support, convert figma draft to code in a few seconds
+- ⚙️ Strict quality assurance, covering unit testing, E2E testing, visual testing
+- 👏 Written in Typescript, friendly Static Type Support. Based on Foundation/Adapter architecture, easy to read and contribute
 - 🥳 SSR (Server Side Rendering) Compatible.
 
 # 🔥 Install
@@ -72,10 +77,10 @@ import ReactDOM from 'react-dom';
 import { Button, Switch } from '@douyinfe/semi-ui';
 
 const App = () => (
-  <>
-    <Button type='primary'>primary button</Button>
-    <Switch size='large' />
-  </>
+    <>
+        <Button type='primary'>primary button</Button>
+        <Switch size='large' />
+    </>
 );
 
 ReactDOM.render(<App />, document.querySelector('#app'));
@@ -84,7 +89,9 @@ ReactDOM.render(<App />, document.querySelector('#app'));
 And [Semi UI Doc Site](https://semi.design/en-US/) has hundreds of editable examples and live preview, welcome to play with those examples.
 
 # 📌 Documentation
-
+* [Semi DSM](https://semi.design/dsm)
+* [Semi Design2Code](https://semi.design/code/en-US)
+* [Semi Figma Plugin](https://www.figma.com/community/plugin/1166339852662786534/Semi-Design-%E8%AE%BE%E8%AE%A1%E8%BD%AC%E4%BB%A3%E7%A0%81)
 * [Quick Start](https://semi.design/zh-CN/start/getting-started)
 * [Components Overview](https://semi.design/zh-CN/start/overview)
 * [Customizing Themes](https://semi.design/zh-CN/start/customize-theme)

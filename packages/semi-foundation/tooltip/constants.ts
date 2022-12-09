@@ -39,6 +39,7 @@ const numbers = {
     MOUSE_ENTER_DELAY: 50,
     MOUSE_LEAVE_DELAY: 50,
     SPACING: 8, // Values are consistent with spacing-tight in scss
+    MARGIN: 0,
 } as const;
 
 export { cssClasses, strings, numbers };

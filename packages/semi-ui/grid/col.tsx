@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { RowContext } from './row';
+import { RowContext, RowContextType } from './row';
 import classnames from 'classnames';
 import { cssClasses } from '@douyinfe/semi-foundation/grid/constants';
 
@@ -14,7 +14,7 @@ export interface ColSize {
     order?: number;
     offset?: number;
     push?: number;
-    pull?: number;
+    pull?: number
 }
 
 export interface ColProps {
@@ -32,7 +32,7 @@ export interface ColProps {
     md?: number | ColSize;
     lg?: number | ColSize;
     xl?: number | ColSize;
-    xxl?: number | ColSize;
+    xxl?: number | ColSize
 }
 
 class Col extends React.Component<ColProps> {
@@ -58,6 +58,8 @@ class Col extends React.Component<ColProps> {
     static defaultProps = {
         prefixCls: cssClasses.PREFIX,
     };
+
+    context: RowContextType;
 
     render() {
         const { props } = this;
@@ -123,7 +125,7 @@ class Col extends React.Component<ColProps> {
         };
 
         return (
-            <div {...others} style={style} className={classes}>
+            <div {...others} style={style} className={classes} x-semi-prop="children">
                 {children}
             </div>
         );

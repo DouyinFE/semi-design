@@ -23,15 +23,20 @@
 }
 
 .semiPro {
-    width: 321px;
+    // width: 321px;
     font-size: 32px;
-    font-family: Inter;
-    color: var(--semi-color-white);
+    font-family: 'Inter';
+    color: #FFF;
     line-height: 44px;
     font-weight: 700;
     letter-spacing: -1.28px;
     text-align: center;
     vertical-align: middle;
+    letter-spacing: 0em;
+}
+
+.title_en {
+    font-weight: 700;
 }
 
 .text {
@@ -41,21 +46,21 @@
     color: var(--semi-color-white);
     line-height: 32px;
     font-weight: 400;
-    text-align: left;
+    text-align: center;
     vertical-align: top;
 }
 
 .text_4c571d3f {
     font-size: 18px;
-    font-family: PingFang SC;
-    color: var(--semi-color-white);
+    font-family: 'PingFang SC';
+    color: #FFF;
     line-height: 32px;
     font-weight: 400;
 }
 
 .text_a65a6883 {
     font-size: 18px;
-    font-family: Inter;
+    font-family: 'Inter';
     color: var(--semi-color-white);
     line-height: 32px;
     font-weight: 400;
@@ -74,12 +79,24 @@
 .text_001dc6a1 {
     min-width: 48px;
     font-size: 16px;
-    font-family: PingFang SC;
+    font-family: 'PingFang SC';
     color: var(--semi-color-tertiary-hover);
     line-height: 22px;
     font-weight: 600;
     text-align: left;
     vertical-align: top;
+}
+
+.extraLarge {
+    height: 48px;
+    padding: 12px 24px;
+    border-radius: 6px;
+    background-color: var(--semi-color-primary);
+
+    :global(.semi-button-content) {
+        font-size: 16px;
+        line-height: 22px;
+    }
 }
 
 .autoWrapper {
@@ -89,7 +106,7 @@
 
 .syntaxHighlighter {
     position: absolute;
-    left: 340px;
+    left: 310px;
     top: -117px;
     width: 579px;
     height: 398px;
@@ -112,6 +129,7 @@
     flex-direction: row;
     align-items: center;
     margin-top: -30px;
+    overflow: hidden;
 }
 
 .chromeStandart {
@@ -131,7 +149,9 @@
 }
 
 .chromeStandart_07210c83 {
+    margin-top: 30px;
     position: relative;
-    width: 839px;
-    height: 454px;
+    height: 410px;
+    box-sizing: content-box;
+    border-radius: 12px 12px 0px 0px;
 }

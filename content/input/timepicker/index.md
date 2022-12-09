@@ -1,16 +1,12 @@
 ---
 localeCode: zh-CN
-order: 30
+order: 32
 category: 输入类
 title: TimePicker 时间选择器
 icon: doc-timepicker
 brief: 用户使用时间选择器可以方便地选择某一符合要求的、格式化的时间点
 ---
 
-
-## 何时使用
-
-当用户需要输入一个时间，可以点击标准输入框，弹出时间面板进行选择。
 
 ## 代码演示
 
@@ -29,6 +25,19 @@ import { TimePicker } from '@douyinfe/semi-ui';
 
 function Demo() {
     return <TimePicker />;
+}
+```
+
+### 无限滚动
+
+版本V2.22.0开始，我们将 TimePicker 内的 ScrollItem 的默认模式从 `wheel` 变更为了 `normal`, 若想应用回无限滚动的效果，可参考以下示例。
+
+```jsx live=true
+import React from 'react';
+import { TimePicker } from '@douyinfe/semi-ui';
+
+function Demo() {
+    return <TimePicker scrollItemProps={{ mode: "wheel", cycled: true }}/>;
 }
 ```
 
@@ -95,7 +104,7 @@ import { TimePicker, Button } from '@douyinfe/semi-ui';
 function Demo() {
     const [open, setOpen] = useState(false);
     const closePanel = () => setOpen(false);
-    const onOpenChange = (open) =>  {
+    const onOpenChange = (open) => {
         setOpen(open);
         console.log(open);
     };
@@ -290,6 +299,7 @@ function Demo(props = {}) {
 | popupStyle          | 弹出层样式对象                                         | object                                                                            | -                                                                 |                    |
 | position            | 浮层位置                                               | string                                                                            | type="timeRange"时默认为"bottom"，type="time"时默认为"bottomLeft" |                    |
 | prefixCls              | 前缀内容                                               | string\|ReactNode                                                                 |                                                                   |                    |
+| preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法 | boolean |  |  |
 | rangeSeparator      | 时间范围分隔符                                         | string                                                                            | " ~ "                                                             |                    |
 | scrollItemProps     | 透传给 scrollItem 的属性，可选值同[ScrollList#API](/zh-CN/show/scrolllist#ScrollItem)                                                | object                                                           | | **0.31.0**         |
 | secondStep          | 秒选项间隔                                             | number                                                                            | 1                                                                 |                    |
@@ -312,5 +322,8 @@ function Demo(props = {}) {
 | blur()  | 移除焦点 |
 | focus() | 获取焦点 |
 
+## 文案规范
+- 时间选择器至少包括时和分，如：11:30，它在本地化过程中，可以适应为12小时制或者24小时制
+- 当选择12小时制，需要和AM/PM一起搭配使用
 ## 设计变量
 <DesignToken/>

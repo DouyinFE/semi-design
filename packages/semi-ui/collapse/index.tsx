@@ -15,17 +15,18 @@ import { noop } from '@douyinfe/semi-foundation/utils/function';
 import { isEqual } from 'lodash';
 import CollapseContext from './collapse-context';
 
-export { CollapsePanelProps } from './item';
+export type { CollapsePanelProps } from './item';
 
 export interface CollapseReactProps extends CollapseProps{
     expandIcon?: React.ReactNode;
     collapseIcon?: React.ReactNode;
+    children?: React.ReactNode;
     style?: CSSProperties;
-    onChange?: (activeKey: CollapseProps['activeKey'], e: React.MouseEvent) => void;
+    onChange?: (activeKey: CollapseProps['activeKey'], e: React.MouseEvent) => void
 }
 
 
-export { CollapseState };
+export type { CollapseState };
 
 class Collapse extends BaseComponent<CollapseReactProps, CollapseState> {
     static Panel = CollapsePanel;

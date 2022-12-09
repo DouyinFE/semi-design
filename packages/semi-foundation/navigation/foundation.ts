@@ -8,28 +8,28 @@ import { get } from 'lodash';
 import isNullOrUndefined from '../utils/isNullOrUndefined';
 
 export interface ItemKey2ParentKeysMap {
-    [key: string]: (string | number)[];
+    [key: string]: (string | number)[]
 }
 
 export interface OnClickData {
     itemKey: string | number;
     domEvent: any;
-    isOpen: boolean;
+    isOpen: boolean
 }
 
 export interface OnSelectData extends OnClickData {
     selectedKeys: (string | number)[];
-    selectedItems: ItemProps[];
+    selectedItems: ItemProps[]
 }
 
 export interface OnOpenChangeData extends OnClickData {
-    openKeys: (string | number)[];
+    openKeys: (string | number)[]
 }
 
 export interface NavItemType {
     props?: ItemProps;
     items?: NavItemType[];
-    [key: string]: any;
+    [key: string]: any
 }
 
 export interface NavigationAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
@@ -45,7 +45,7 @@ export interface NavigationAdapter<P = Record<string, any>, S = Record<string, a
     updateOpenKeys(keys: (string | number)[]): void;
     addOpenKeys(...keys: (string | number)[]): void;
     removeOpenKeys(...keys: (string | number)[]): void;
-    setItemsChanged(isChanged: boolean): void;
+    setItemsChanged(isChanged: boolean): void
 }
 
 export default class NavigationFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<NavigationAdapter<P, S>, P, S> {
@@ -53,6 +53,7 @@ export default class NavigationFoundation<P = Record<string, any>, S = Record<st
         super({ ...adapter });
     }
 
+    /* istanbul ignore next */
     static getZeroParentKeys(itemKeysMap = {}, ...itemKeys: (string | number)[]) {
         const willAddKeys = [];
         if (itemKeys.length) {
@@ -118,7 +119,7 @@ export default class NavigationFoundation<P = Record<string, any>, S = Record<st
     init(lifecycle: string) {
         const { defaultSelectedKeys, selectedKeys } = this.getProps();
         let willSelectedKeys = selectedKeys || defaultSelectedKeys || [];
-        const { itemKeysMap, willOpenKeys, formatedItems } = this.getCalcState();
+        const { itemKeysMap, willOpenKeys, formattedItems } = this.getCalcState();
         const parentSelectKeys = this.selectLevelZeroParentKeys(itemKeysMap, willSelectedKeys);
         willSelectedKeys = willSelectedKeys.concat(parentSelectKeys);
 
@@ -127,13 +128,13 @@ export default class NavigationFoundation<P = Record<string, any>, S = Record<st
                 selectedKeys: willSelectedKeys,
                 itemKeysMap,
                 openKeys: willOpenKeys,
-                items: formatedItems,
+                items: formattedItems,
             };
         } else {
             this._adapter.updateSelectedKeys(willSelectedKeys);
             this._adapter.setItemKeysMap(itemKeysMap);
             this._adapter.updateOpenKeys(willOpenKeys);
-            this._adapter.updateItems(formatedItems);
+            this._adapter.updateItems(formattedItems);
             this._adapter.setItemsChanged(true);
         }
         return undefined;
@@ -143,22 +144,22 @@ export default class NavigationFoundation<P = Record<string, any>, S = Record<st
      * Get the state to be calculated
      */
     getCalcState() {
-        const { itemKeysMap, formatedItems } = this.getFormatedItems();
+        const { itemKeysMap, formattedItems } = this.getFormattedItems();
         const willOpenKeys = this.getWillOpenKeys(itemKeysMap);
-        return { itemKeysMap, willOpenKeys, formatedItems };
+        return { itemKeysMap, willOpenKeys, formattedItems };
     }
 
     /**
      * Calculate formatted items and itemsKeyMap
      */
-    getFormatedItems() {
+    getFormattedItems() {
         const { items, children } = this.getProps();
-        const formatedItems = this.formatItems(items);
-        const willHandleItems = Array.isArray(items) && items.length ? formatedItems : children;
+        const formattedItems = this.formatItems(items);
+        const willHandleItems = Array.isArray(items) && items.length ? formattedItems : children;
         const itemKeysMap = NavigationFoundation.buildItemKeysMap(willHandleItems);
         return {
             itemKeysMap,
-            formatedItems
+            formattedItems
         };
     }
 
@@ -180,20 +181,13 @@ export default class NavigationFoundation<P = Record<string, any>, S = Record<st
         return [...willOpenKeys];
     }
 
-    getItemKey(item: string | number, keyPropName = 'itemKey') {
-        if (item && typeof item === 'object') {
-            return item[keyPropName];
-        }
-        return item;
-    }
-
-    getShouldOpenKeys(itemKeysMap: ItemKey2ParentKeysMap = {}, selectedKeys: string | number[] = []) {
+    getShouldOpenKeys(itemKeysMap: ItemKey2ParentKeysMap = {}, selectedKeys: string | number[]= []) {
         const willOpenKeySet = new Set();
 
         if (Array.isArray(selectedKeys) && selectedKeys.length) {
             selectedKeys.forEach(item => {
                 if (item) {
-                    const parentKeys = get(itemKeysMap, this.getItemKey(item));
+                    const parentKeys = get(itemKeysMap, item);
 
                     if (Array.isArray(parentKeys)) {
                         parentKeys.forEach(k => willOpenKeySet.add(k));
@@ -229,17 +223,18 @@ export default class NavigationFoundation<P = Record<string, any>, S = Record<st
     }
 
     formatItems(items: ItemProps[] = []) {
-        const formatedItems = [];
+        const formattedItems = [];
         for (const item of items) {
-            formatedItems.push(new NavItem(item));
+            formattedItems.push(new NavItem(item));
         }
-        return formatedItems;
+        return formattedItems;
     }
 
     handleSelect(data: OnSelectData) {
         this._adapter.notifySelect(data);
     }
 
+    /* istanbul ignore next */
     judgeIfOpen(openKeys: (string | number)[], items: NavItemType[]): boolean {
         let shouldBeOpen = false;
 

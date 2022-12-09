@@ -1,10 +1,10 @@
 ---
 localeCode: zh-CN
-order: 15
+order: 17
 category: 基础
 title:  Typography 版式
 icon: doc-typography
-brief: 文字，图片，段落的基本格式。
+brief: 文字，图片，段落，数值的基本格式。
 ---
 
 ## 使用场景
@@ -28,12 +28,12 @@ function Demo() {
     const { Title } = Typography;
     return (
         <div>
-            <Title  style={{margin: '8px 0'}} >h1. Semi Design</Title>
-            <Title heading={2} style={{margin: '8px 0'}} >h2. Semi Design</Title>
-            <Title heading={3} style={{margin: '8px 0'}} >h3. Semi Design</Title>
-            <Title heading={4} style={{margin: '8px 0'}} >h4. Semi Design</Title>
-            <Title heading={5} style={{margin: '8px 0'}} >h5. Semi Design</Title>
-            <Title heading={6} style={{margin: '8px 0'}} >h6. Semi Design</Title>
+            <Title style={{ margin: '8px 0' }} >h1. Semi Design</Title>
+            <Title heading={2} style={{ margin: '8px 0' }} >h2. Semi Design</Title>
+            <Title heading={3} style={{ margin: '8px 0' }} >h3. Semi Design</Title>
+            <Title heading={4} style={{ margin: '8px 0' }} >h4. Semi Design</Title>
+            <Title heading={5} style={{ margin: '8px 0' }} >h5. Semi Design</Title>
+            <Title heading={6} style={{ margin: '8px 0' }} >h6. Semi Design</Title>
         </div>
     );
 }
@@ -137,6 +137,112 @@ function Demo() {
 }
 ```
 
+### 数值组件
+
+Numeral 组件在Text组件的基础上，添加了属性: `rule`, `precision`, `truncate`, `parser`, 以提供需要单独处理文本中数值的能力。
+<Notice title='注意'>
+    Numeral 组件会递归遍历 Children 检测其中所有的数字文本进行转换展示，请注意控制渲染结构层级。
+</Notice>
+
+`precision` 可以设置小数点后保留位数, 用于设置精度  
+`truncate`  小数点后保留位截段取整方式，可选 `ceil`, `floor`, `round`，作用与  Math.ceil、Math.floor、Math.round 对齐  
+`rule`  用于设置解析规则  
+- 设为 `percentages` 会将数字自动转换为百分比形式展示
+- 设为 `bytes-decimal` 会将数字自动换算为字节对应的单位展示， 1 KB 定义为等于 1000 字节，（B, KB, MB, GB, TB, PB, EB, ZB, YB）
+- 设为 `bytes-binary` 会将数字自动换算为字节对应的单位展示，1 KiB 定义为等于 1024字节，（B, KiB, MiB, GiB, TiB, PiB, EiB, ZiB, YiB）
+- 设为 `text`时，仅自动对数字进行取整，根据 `precision` 和 `truncate` 属性
+- 设为 `numbers`时，会将非数字字符进行过滤，仅展示数字
+- 设为 `exponential` 时,会将数字自动转换为科学计数法形式展示
+
+```jsx live=true
+import React from 'react';
+import { Typography } from '@douyinfe/semi-ui';
+
+function Demo() {
+    const { Numeral } = Typography;
+    return (
+        <div>
+            <Numeral precision={1}>
+                <p>点赞量：1.6111e1 K</p>
+            </Numeral>
+            
+            <p>
+                播放量:
+                <Numeral rule="numbers" precision={1}>
+                    ���2.4444e2
+                </Numeral>
+                K
+            </p>
+            
+            <Numeral rule="percentages" precision={2} style={{ marginBottom: 12 }}>
+                <p>好评率: 0.915</p>
+            </Numeral>
+
+            <Numeral rule="percentages" style={{ marginBottom: 12 }}>
+                这场比赛我的胜率是60，输的概率是40
+            </Numeral>
+
+            <Numeral rule="bytes-decimal" precision={2} truncate="floor">
+                <p>已使用: 1000</p>
+                <p>未使用: {1024*1000}</p> 
+            </Numeral>
+            
+            <Numeral rule="bytes-binary" precision={2} truncate="floor">
+                <p>已使用: 1024</p>
+                <p>未使用: {2e12}</p>
+            </Numeral>
+        </div>
+    );
+}
+```
+
+可以通过 `parser` 自定义解析规则
+
+```jsx live=true
+import React from 'react';
+import { Typography } from '@douyinfe/semi-ui';
+
+function Demo() {
+    const { Numeral } = Typography;
+
+    function parserTCH(oldVal) {
+        return oldVal.split(' ').map(item =>
+            Number(item) ? `${item.replace(/(\d)(?=(?:\d{3})+(?:\.|$))/g, '$1,')}+` : item
+        ).join(' ');
+    }
+
+    function Infos() {
+        const data = [
+            { type: 'Stars', min: '6200' },
+            { type: 'Fork', min: '400' },
+            { type: '下载', min: '3000000' },
+            { type: '贡献者', min: '60' }
+        ];
+        return data.map(item =>
+            <p key={item.min}>
+                {item.type}：
+                <b style={{ color: 'rgba(var(--semi-violet-5),1)' }}>
+                    {item.min}
+                </b>
+            </p>
+        );
+    }
+
+    return (
+        <div>
+            <Numeral parser={parserTCH} component="div">
+                Semi Design 重视我们的用户，加入并助力我们不断完善
+                {Infos}
+            </Numeral>
+            <br />
+            <Numeral link={{ href: 'https://semi.design', target: '_blank' }} parser={parserTCH}>
+                现已服务 {1e5} 用户，前往官网 &gt;&gt;
+            </Numeral>
+        </div>
+    );
+}
+```
+
 ### 文本大小
 段落组件和文本组件支持两种尺寸，`small`（12px） 和 `normal`（14px），默认为`normal`。
 ```jsx live=true
@@ -168,17 +274,19 @@ import React from 'react';
 import { Typography, TextArea } from '@douyinfe/semi-ui';
 
 function Demo() {
-    const { Paragraph, Text } = Typography;
+    const { Paragraph, Text, Numeral } = Typography;
 
     return (
         <div>
             <Paragraph copyable>点击右边的图标复制文本。</Paragraph>
             <Paragraph copyable={{ content: 'Hello, Semi Design!' }}>点击复制文本。</Paragraph>
             <Paragraph copyable={{ onCopy: () => Toast.success({ content: '复制文本成功'}) }}>点击右边的图标复制文本。</Paragraph>
+            时间戳: <Numeral truncate="ceil" copyable underline>{new Date().getTime()/1000}s</Numeral>
+            <br/>
             <br/>
             <Text type="secondary">粘贴区域：</Text>
             <br/>
-            <TextArea autosize style={{width: 320, marginTop: 4}} rows={3} />
+            <TextArea autosize style={{ width: 320, marginTop: 4 }} rows={3} />
         </div>
     );
 }
@@ -204,7 +312,7 @@ function Demo() {
             <br />
             <Text 
                 ellipsis={{ 
-                    showTooltip:{
+                    showTooltip: {
                         opts: { content: '这是自定义要展示的内容' }
                     }
                 }}
@@ -226,7 +334,7 @@ function Demo() {
                 这是一个多行截断的例子：Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统。设计系统包含设计语言以及一整套可复用的前端组件，帮助设计师与开发者更容易地打造高质量的、用户体验一致的、符合设计规范的 Web 应用。
             </Paragraph>
             <br/>
-            <Paragraph ellipsis={{ rows: 3, showTooltip: {type: 'popover', opts: {style: {width: 300}}} }} style={{ width: 300 }}>
+            <Paragraph ellipsis={{ rows: 3, showTooltip: { type: 'popover', opts: { style: { width: 300 } } } }} style={{ width: 300 }}>
                 多行截断，展示 Popover：Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统。设计系统包含设计语言以及一整套可复用的前端组件，帮助设计师与开发者更容易地打造高质量的、用户体验一致的、符合设计规范的 Web 应用。
             </Paragraph>
             <br/>
@@ -253,8 +361,8 @@ function Demo() {
         <div>
             <Text 
                 ellipsis={{ 
-                    showTooltip:{
-                        opts: { content: '架构|Data-inf|bytegraph.cheetah.user_relation' }
+                    showTooltip: {
+                        opts: { content: '架构|Semi-inf|graph.cheet.relation' }
                     }
                 }}
                 style={{ width: 150 }}
@@ -264,8 +372,8 @@ function Demo() {
             <br />
             <Text 
                 ellipsis={{ 
-                    showTooltip:{
-                        opts: { content: '架构|Data-inf|bytegraph.cheetah.user_relation', className: 'components-typography-demo' }
+                    showTooltip: {
+                        opts: { content: '架构|Semi-inf|graph.cheet.relation', className: 'components-typography-demo' }
                     }
                 }}
                 style={{ width: 150 }}
@@ -275,8 +383,8 @@ function Demo() {
             <br />
             <Text 
                 ellipsis={{
-                    showTooltip:{
-                        opts: { content: '架构|Data-inf|bytegraph.cheetah.user_relation', style: { wordBreak: 'break-all' } }
+                    showTooltip: {
+                        opts: { content: '架构|Semi-inf|graph.cheet.relation', style: { wordBreak: 'break-all' } }
                     }
                 }}
                 style={{ width: 150 }}
@@ -334,6 +442,7 @@ function Demo() {
 | underline | 添加下划线样式                                                                                                                            | boolean                           | false     | 0.27.0 |
 
 ### Typography.Paragraph
+
 | 属性      | 说明                                                                                                                                      | 类型                              | 默认值    | 版本   |
 | --------- | ----------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- | --------- | ------ |
 | component | 自定义渲染元素                                                                                                                            | html element                      | p         |        |
@@ -348,6 +457,29 @@ function Demo() {
 | strong    | 是否加粗                                                                                                                                  | boolean                           | false     | 0.27.0 |
 | type      | 文本类型，可选 `primary`, `secondary`, `warning`, `danger`, `tertiary`(**v>=1.2.0**), `quaternary`(**v>=1.2.0**), `success`(**v>=1.7.0**) | string                            | `primary` | 0.27.0 |
 | underline | 添加下划线样式                                                                                                                            | boolean                           | false     | 0.27.0 |
+
+### Typography.Numeral
+
+| 属性        | 说明                                                                                                                             | 类型                        | 默认值                                        | 版本   |
+|-----------|--------------------------------------------------------------------------------------------------------------------------------|---------------------------|--------------------------------------------| ------ |
+| rule      | 解析规则，可选 `text`, `numbers`, `bytes-decimal`, `bytes-binary`, `percentages`, `exponential`                               | string                    | `text`                                     | 2.22.0       |
+| precision  | 可以设置小数点后保留位数, 用于设置精度                                                                                                                       | number                    | 0                                          | 2.22.0       |
+| truncate  | 小数点后保留位截段取整方式，可选 `ceil`, `floor`, `round`，作用与  Math.ceil、Math.floor、Math.round 对齐                                                                                      | string                    | `round`                                    | 2.22.0       |
+| parser    | 自定义数值解析函数                                                                                                                      | (str: string) => string | -                                          | 2.22.0       |
+| component | 自定义渲染元素                                                                                                                        | html element              | span                                       | 2.22.0       |
+| code      | 是否被 `code` 元素包裹                                                                                                                | boolean                   | -                                          |  2.22.0      |
+| copyable  | 是否可拷贝                                                                                                                          | boolean \| object:[Copyable Config](#Copyable-Config) | false     | 2.22.0 |
+| delete    | 添加删除线样式                                                                                                                        | boolean                   | false                                      | 2.22.0 |
+| disabled  | 禁用文本                                                                                                                           | boolean                   | false                                      | 2.22.0 |
+| ellipsis  | 设置自动溢出省略                                                                                                                       | boolean\| object:Ellipsis Config                     | false     | 2.22.0 |
+| icon      | 前缀图标                                                                                                                           | ReactNode                 | -                                          | 2.22.0 |
+| link      | 是否为链接，传object时，属性将透传给a标签                                                                                                       | boolean\|object                                     | false     | 2.22.0 |
+| mark      | 添加标记样式                                                                                                                         | boolean                   | false                                      | 2.22.0 |
+| size      | 文本大小，可选`normal`，`small`                                                                                                        | string                    | `normal`                                   | 2.22.0 |
+| strong    | 是否加粗                                                                                                                           | boolean                   | false                                      | 2.22.0 |
+| type      | 文本类型，可选 `primary`, `secondary`, `warning`, `danger`, `tertiary`, `quaternary`, `success` | string                    | `primary`                                  | 2.22.0 |
+| underline | 添加下划线样式                                                                                                                        | boolean                   | false                                      | 2.22.0 |
+
 
 ### Ellipsis Config
 **v >= 0.34.0**
@@ -371,6 +503,42 @@ function Demo() {
 | copyTip    | 复制图标的 tooltip 展示内容 | React.node                                     | -      | 1.0.0  |
 | successTip | 复制成功的展示内容          | React.node                                     | -      | 0.33.0 |
 | onCopy     | 复制回调                    | Function(e:Event, content:string, res:boolean) | -      | 0.27.0 |
+
+
+## 文案规范
+- Link
+  - 文字链接需要清晰且可预测，用户应该能够预测他们点击链接时会发生什么
+  - 切勿通过错误标记链接来误导用户
+  - 避免使用“Click here”或“Here”作为独立链接
+
+| ✅ 推荐用法 | ❌ 不推荐用法 |   
+| --- | --- | 
+| No spaces yet? <PureA> Create space </PureA>| No spaces yet? <PureA>Click here</PureA> |
+
+- 避免将整个句子作为可点击的文字链接，而是将描述具体去向的文字作为链接内容
+
+| ✅ 推荐用法 | ❌ 不推荐用法 |   
+| --- | --- | 
+| Views <PureA>user documentation</PureA> for details|<PureA>View user documentation for details</PureA> |
+
+- 使用短术语或词作为链接文本会更有利于国际化，以避免由于不同的语言的语法和语序不同，而出现链接文字被拆分的问题
+
+| ✅ 推荐用法 | ❌ 不推荐用法 |   
+| --- | --- | 
+| Manage <PureA>notifications </PureA>to| <PureA>Manage notifications</PureA> to |
+
+- 以文字链接结尾时，不需要跟随标点符号，除了问号“？”
+
+| ✅ 推荐用法 | ❌ 不推荐用法 |   
+| --- | --- | 
+| No spaces yet? <PureA> Create space </PureA> | No spaces yet? <PureA>Click here</PureA> |
+| <PureA> Forgot password ？</PureA> |<PureA>Forgot password</PureA> |
+
+- 链接文字不要包含冠词“the, a, an”
+
+| ✅ 推荐用法 | ❌ 不推荐用法 |   
+| --- | --- | 
+| View <PureA> user documentation </PureA> for details| View the<PureA> user documentation</PureA> for details |
 
 ## 设计变量
 <DesignToken/>

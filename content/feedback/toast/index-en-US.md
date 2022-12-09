@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 67
+order: 72
 category: Feedback
 title: Toast
 subTitle: Toast
@@ -68,7 +68,7 @@ function Demo() {
 
     return (
         <>
-            <Button style={{color:`var(--semi-color-success)`}} onClick={() => Toast.success('Hi,Bytedance dance dance')}>Success</Button>
+            <Button style={{ color: `var(--semi-color-success)` }} onClick={() => Toast.success('Hi,Bytedance dance dance')}>Success</Button>
             <br />
             <br />
             <Button type="warning" onClick={() => Toast.warning(opts)}>
@@ -105,7 +105,7 @@ function Demo() {
             <Button onClick={() => Toast.info(opts)}>Info</Button>
             <br />
             <br />
-            <Button style={{color:`var(--semi-color-success)`}} onClick={() => Toast.success(opts)}>Success</Button>
+            <Button style={{ color: `var(--semi-color-success)` }} onClick={() => Toast.success(opts)}>Success</Button>
             <br />
             <br />
             <Button type="warning" onClick={() => Toast.warning(opts)}>
@@ -237,6 +237,33 @@ function Demo() {
 render(Demo);
 ```
 
+### Update Toast Content
+
+Use unique Toast `id` to update toast content.
+
+```jsx live=true noInline=true hideInDSM
+import React, { useState } from 'react';
+import { Toast, Button } from '@douyinfe/semi-ui';
+
+function Demo() {
+    function show() {
+        const id = 'toastid';
+        Toast.info({ content: 'Update Content By Id', id });
+        setTimeout(() => {
+            Toast.success({ content: 'Id By Content Update', id });
+        }, 1000);
+    }
+
+    return (
+        <Button type="primary" onClick={show}>
+            Update Content By Id
+        </Button>
+    );
+}
+
+render(Demo);
+```
+
 ### useToast Hooks
 
 You could use `Toast.useToast` to create a `contextHolder` that could access context. Created toast will be inserted to where contextHolder is placed.
@@ -339,40 +366,31 @@ The static methods provided are as follows: Display: You can pass in `options` o
 -   `Toast.error(options || string)`
 -   `Toast.warning(options || string)`
 -   `Toast.success(options || string)`
+-   `Toast.close(toastId)`  Close Manually ( `toastId` is the return value of the display methods)
+-   `Toast.config(config)`  The global configuration is set before any method call, and takes effect only once (>= 0.25.0)
 
-Close Manually ( `toastId` is the return value of the display methods)
+**The following APIs can take effect without calling additional ToastFactory.create(config) to create a new Toast**
 
--   `Toast.close(toastId)`
+| Properties | Instructions | type | Default | version |
+| --- | --- | --- | --- | --- |
+| content | Toast content | string | ReactNode | '' |  |
+| duration | Automatic close delay, no auto-close when set to 0 | number | 3 |  |
+| icon | Custom icons | ReactNode |  | 0.25.0 |
+| showClose | Toggle Whether show close button | boolean | true | 0.25.0 |
+| textMaxWidth | Maximum width of content | number \| string | 450 | 0.25.0 |
+| theme | Style of background fill, one of `light`, `normal` | string | `normal` | 1.0.0 |
+| onClose | Callback function when closing toast | () => void |  |  |
+
+**If not specifically declared in Toast.config(config), the following APIs need to call additional ToastFactory.create(config) to create new Toast settings**
 
 | Properties | Instructions | type | Default | version |
 | --- | --- | --- | --- | --- |
 | bottom | Pop-up position bottom | number \| string | - | 0.25.0 |
-| content | Toast content | string | ReactNode | '' |  |
-| duration | Automatic close delay, no auto-close when set to 0 | number | 3 |  |
-| getPopupContainer | Specifies the parent DOM, and the bullet layer will be rendered to the DOM, you need to set 'position: relative` | () => HTMLElement \| null | () => document.body | 0.34.0 |
-| icon | Custom icons | ReactNode |  | 0.25.0 |
+| getPopupContainer | Specifies the parent DOM, and the bullet layer will be rendered to the DOM, you need to set container and inner .semi-toast-wrapper  'position: relative` | () => HTMLElement \| null | () => document.body | 0.34.0 |
 | left | Pop-up position left | number \| string | - | 0.25.0 |
 | right | Pop-up position right | number \| string | - | 0.25.0 |
-| showClose | Toggle Whether show close button | boolean | true | 0.25.0 |
-| textMaxWidth | Maximum width of content | number \| string | 450 | 0.25.0 |
-| theme | Style of background fill, one of `light`, `normal` | string | `normal` | 1.0.0 |
 | top | Pop-up position top | number \| string | - | 0.25.0 |
 | zIndex | Z-index value | number | 1010 |  |
-| onClose | Callback function when closing toast | () => void |  |  |
-
-The global configuration is set before any method call, and takes effect only once (>= 0.25.0):
-
--   `Toast.config(config)`
-
-| Properties | Instructions | type | Default | version |
-| --- | --- | --- | --- | --- |
-| bottom | Bottom, absolute position | number \| string | - | 0.25.0 |
-| duration | Automatic close delay, no auto-close when set to 0 | number(second) | 3 | 0.25.0 |
-| getPopupContainer | Specifies the parent DOM, and the bullet layer will be rendered to the DOM, you need to set 'position: relative` | () => HTMLElement \| null | () => document.body | 1.23.0 |
-| left | Left, absolute position | number \| string | - | 0.25.0 |
-| right | Right, absolute position | number \| string | - | 0.25.0 |
-| top | Top, absolute position | number \| string | - | 0.25.0 |
-| zIndex | Z-index | number | 1010 | 0.25.0 |
 
 -   `ToastFactory.create(config) => Toast`  
     If you need Toast with different configs in your application, you can use ToastFactory.create(config)to create a new Toast (>= 1.23):
@@ -414,6 +432,29 @@ HookToast
 ### ARIA
 
 - The role of Toast is alert
+
+## Content Guidelines
+
+<div style={{ border: '1px solid var(--semi-color-border)', padding: 10, marginBottom: 24, justifyContent: 'center', display: 'flex' }}>
+    <ToastCard type='success' content='Ticket transferred' />
+</div>
+
+- Keep it simple
+- Do not use periods at the end of sentences
+- Explain using the noun + verb format
+
+| ✅ Recommended usage | ❌ Deprecated usage |
+| --- | --- |
+| Language added | New language has been added successfully |
+| Ticket transfer failed | Can't transfer ticket |
+
+- Provide prompt message for action
+  - only provide one action
+  - Don't use actions like "read" like OK, Got it, Dismiss, Cancel
+
+| ✅ Recommended usage | ❌ Deprecated usage |
+| --- | --- |
+|  <ToastCard type='error' content={<div>Ticket transfer failed <span style={{ color: 'var(--semi-color-primary)', marginLeft: 4, cursor: 'pointer' }}>Retry</span> </div>} /> |  <ToastCard type='error' content={<div>Ticket transfer failed <span style={{ color: 'var(--semi-color-primary)', marginLeft: 4, cursor: 'pointer' }}>Dismiss</span> </div>} /> |
 
 ## Design Tokens
 

@@ -7,7 +7,7 @@ import { isValid, parseISO, parse, Locale } from 'date-fns';
 /**
  * Parsing value to Date object
  */
-export function compatiableParse(
+export function compatibleParse(
     value: string,
     formatToken?: string,
     baseDate?: Date,
@@ -31,4 +31,25 @@ export function compatiableParse(
         }
     }
     return result;
+}
+
+
+/**
+ * whether value can be parsed with date-fns `parse`
+ * 
+ * @example
+ * isValueParseValid({ value: '2021-01-01', formatToken: 'yyyy-MM-dd' }); // true
+ * isValueParseValid({ value: '2021-01-0', formatToken: 'yyyy-MM-dd' }); // false
+ * isValueParseValid({ value: '2021-01', formatToken: 'yyyy-MM-dd' }); // false
+ */
+export function isValueParseValid(options: {
+    value: string;
+    formatToken: string;
+    baseDate?: Date;
+    locale?: Locale
+}) {
+    const { value, locale, formatToken } = options;
+    const baseDate = options.baseDate || new Date();
+    const result = parse(value, formatToken, baseDate, { locale });
+    return isValid(result);
 }

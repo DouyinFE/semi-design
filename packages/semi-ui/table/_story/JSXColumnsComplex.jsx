@@ -27,7 +27,7 @@ export default class JSXColumnsComplex extends React.Component {
             this.data.push({
                 key: `${i}`,
                 name: `Edward King ${i}`,
-                age: (i * 1000) % 149 ,
+                age: (i * 1000) % 149,
                 address: `London, Park Lane no. ${i}`,
             });
         }

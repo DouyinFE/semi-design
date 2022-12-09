@@ -8,7 +8,7 @@ import scrollIntoView, { Options as scrollIntoViewOptions } from 'scroll-into-vi
 
 import { BaseFormAdapter, FormState, CallOpts, FieldState, FieldStaff, ComponentProps, setValuesConfig, ArrayFieldStaff } from './interface';
 
-export { BaseFormAdapter };
+export type { BaseFormAdapter };
 
 export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
 
@@ -73,6 +73,10 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
         this.getFormProps = this.getFormProps.bind(this);
         this.getFieldExist = this.getFieldExist.bind(this);
         this.scrollToField = this.scrollToField.bind(this);
+    }
+
+    init() {
+        this._adapter.initFormId();
     }
 
     getField(field: string): FieldStaff | undefined {
@@ -290,7 +294,7 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
     _getOperateFieldMap(fieldPaths?: Array<string>): Map<string, FieldStaff> {
         let targetFields = new Map();
         if (!isUndefined(fieldPaths)) {
-            // reset or validate spcific fields
+            // reset or validate specific fields
             fieldPaths.forEach(path => {
                 const field = this.fields.get(path);
                 // may be undefined, if exists two fields like 'a[0]'、'a[1]', but user directly call reset(['a']) / validate(['a'])
@@ -396,8 +400,8 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
                 this.updateArrayField(path, { updateKey: new Date().valueOf() });
             });
         }
-        // When isOverrid is true, there may be a non-existent field in the values passed in, directly synchronized to formState.values
-        // 当isOverrid为true，传入的values中可能存在不存在的field时，直接将其同步到formState.values中
+        // When isOverride is true, there may be a non-existent field in the values passed in, directly synchronized to formState.values
+        // 当isOverride为true，传入的values中可能存在不存在的field时，直接将其同步到formState.values中
         if (isOverride) {
             this.data.values = _values;
         }
@@ -410,7 +414,7 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
     }
 
     // update formState value
-    updateStateValue(field: string, value: any, opts: CallOpts): void {
+    updateStateValue(field: string, value: any, opts: CallOpts, callback?: () => void): void {
         const notNotify = opts && opts.notNotify;
         const notUpdate = opts && opts.notUpdate;
         const fieldAllowEmpty = opts && opts.fieldAllowEmpty;
@@ -442,7 +446,7 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
         }
 
         if (!notUpdate) {
-            this._adapter.forceUpdate();
+            this._adapter.forceUpdate(callback);
         }
     }
 
@@ -455,7 +459,7 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
     }
 
     // update formState touched
-    updateStateTouched(field: string, isTouched: boolean, opts?: CallOpts): void {
+    updateStateTouched(field: string, isTouched: boolean, opts?: CallOpts, callback?: () => void): void {
         const notNotify = opts && opts.notNotify;
         const notUpdate = opts && opts.notUpdate;
         ObjectUtil.set(this.data.touched, field, isTouched);
@@ -464,7 +468,7 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
             this._adapter.notifyChange(this.data);
         }
         if (!notUpdate) {
-            this._adapter.forceUpdate();
+            this._adapter.forceUpdate(callback);
         }
     }
 
@@ -477,7 +481,7 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
     }
 
     // update formState error
-    updateStateError(field: string, error: any, opts: CallOpts): void {
+    updateStateError(field: string, error: any, opts: CallOpts, callback?: () => void): void {
         const notNotify = opts && opts.notNotify;
         const notUpdate = opts && opts.notUpdate;
         ObjectUtil.set(this.data.errors, field, error);
@@ -488,7 +492,7 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
         }
 
         if (!notUpdate) {
-            this._adapter.forceUpdate();
+            this._adapter.forceUpdate(callback);
         }
     }
 
@@ -506,16 +510,18 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
                 // At this time, first modify formState directly, then find out the subordinate fields and drive them to update
                 // Eg: peoples: [0, 2, 3]. Each value of the peoples array corresponds to an Input Field
                 // When the user directly calls formA pi.set Value ('peoples', [2,3])
-                this.updateStateValue(field, newValue, opts);
-                let nestedFields = this._getNestedField(field);
-                if (nestedFields.size) {
-                    nestedFields.forEach(fieldStaff => {
-                        let fieldPath = fieldStaff.field;
-                        let newFieldVal = ObjectUtil.get(this.data.values, fieldPath);
-                        let nestedBatchUpdateOpts = { notNotify: true, notUpdate: true };
-                        fieldStaff.fieldApi.setValue(newFieldVal, nestedBatchUpdateOpts);
-                    });
-                }
+                this.updateStateValue(field, newValue, opts, () => {
+                    let nestedFields = this._getNestedField(field);
+                    if (nestedFields.size) {
+                        nestedFields.forEach(fieldStaff => {
+                            let fieldPath = fieldStaff.field;
+                            let newFieldVal = ObjectUtil.get(this.data.values, fieldPath);
+                            let nestedBatchUpdateOpts = { notNotify: true, notUpdate: true };
+                            fieldStaff.fieldApi.setValue(newFieldVal, nestedBatchUpdateOpts);
+                        });
+                    }
+                });
+
                 // If the reset happens to be, then update the updateKey corresponding to ArrayField to render it again
                 if (this.getArrayField(field)) {
                     this.updateArrayField(field, { updateKey: new Date().valueOf() });
@@ -528,16 +534,17 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
             if (fieldApi) {
                 fieldApi.setError(newError, opts);
             } else {
-                this.updateStateError(field, newError, opts);
-                let nestedFields = this._getNestedField(field);
-                if (nestedFields.size) {
-                    nestedFields.forEach(fieldStaff => {
-                        let fieldPath = fieldStaff.field;
-                        let newFieldError = ObjectUtil.get(this.data.errors, fieldPath);
-                        let nestedBatchUpdateOpts = { notNotify: true, notUpdate: true };
-                        fieldStaff.fieldApi.setError(newFieldError, nestedBatchUpdateOpts);
-                    });
-                }
+                this.updateStateError(field, newError, opts, () => {
+                    let nestedFields = this._getNestedField(field);
+                    if (nestedFields.size) {
+                        nestedFields.forEach(fieldStaff => {
+                            let fieldPath = fieldStaff.field;
+                            let newFieldError = ObjectUtil.get(this.data.errors, fieldPath);
+                            let nestedBatchUpdateOpts = { notNotify: true, notUpdate: true };
+                            fieldStaff.fieldApi.setError(newFieldError, nestedBatchUpdateOpts);
+                        });
+                    }
+                });
                 if (this.getArrayField(field)) {
                     this.updateArrayField(field, { updateKey: new Date().valueOf() });
                 }
@@ -545,20 +552,21 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
         };
         const setTouched = (field: string, isTouched: boolean, opts: CallOpts) => {
             const fieldApi = this.fields.get(field) ? this.fields.get(field).fieldApi : undefined;
-            // touched is boolean variable, no need to execu deepClone like setValue
+            // touched is boolean variable, no need to exec deepClone like setValue
             if (fieldApi) {
                 fieldApi.setTouched(isTouched, opts);
             } else {
-                this.updateStateTouched(field, isTouched, opts);
-                let nestedFields = this._getNestedField(field);
-                if (nestedFields.size) {
-                    nestedFields.forEach(fieldStaff => {
-                        let fieldPath = fieldStaff.field;
-                        let newFieldTouch = ObjectUtil.get(this.data.touched, fieldPath);
-                        let nestedBatchUpdateOpts = { notNotify: true, notUpdate: true };
-                        fieldStaff.fieldApi.setTouched(newFieldTouch, nestedBatchUpdateOpts);
-                    });
-                }
+                this.updateStateTouched(field, isTouched, opts, () => {
+                    let nestedFields = this._getNestedField(field);
+                    if (nestedFields.size) {
+                        nestedFields.forEach(fieldStaff => {
+                            let fieldPath = fieldStaff.field;
+                            let newFieldTouch = ObjectUtil.get(this.data.touched, fieldPath);
+                            let nestedBatchUpdateOpts = { notNotify: true, notUpdate: true };
+                            fieldStaff.fieldApi.setTouched(newFieldTouch, nestedBatchUpdateOpts);
+                        });
+                    }
+                });
                 if (this.getArrayField(field)) {
                     this.updateArrayField(field, { updateKey: new Date().valueOf() });
                 }
@@ -615,7 +623,7 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
     }
 
     getFormState(needClone = false): FormState {
-        // NOTES：这里如果直接返回this.data，forceUpdae触发Formrerender时，通过context传下去的formState会被认为是同一个对象【应该是浅对比的原因】
+        // NOTES：这里如果直接返回this.data，forceUpdate 触发 Form rerender 时，通过context传下去的formState会被认为是同一个对象【应该是浅对比的原因】
         // 使用了useFormState相关的component都不会触发重新渲染。所以使用...复制一次
 
         /*

@@ -8,6 +8,8 @@ $col: #{$form}-col;
 
 $checkboxGroup: #{$prefix}-checkboxGroup;
 $radioGroup: #{$prefix}-radioGroup;
+$buttonRadioGroup: #{$prefix}-radioGroup-buttonRadio;
+
 $switch: #{$prefix}-switch;
 $rating: #{$prefix}-rating;
 
@@ -64,6 +66,20 @@ $rating: #{$prefix}-rating;
                 }
             }
         }
+
+        .#{$field}-group {
+            .#{$col} {
+                &-right {
+                    display: flex;
+                    justify-content: flex-end;
+                }
+                &-left {
+                    display: flex;
+                    justify-content: flex-start;
+                }
+            }
+        }
+
         .#{$field}-pure {
             // padding-top: 0;
             // padding-bottom: 0;
@@ -72,35 +88,33 @@ $rating: #{$prefix}-rating;
     }
 
     &-field-label {
-        // padding-left: $spacing-base;
         box-sizing: border-box;
-        padding-right: $spacing-form_label-paddingRight;
         font-weight: $font-form_label-fontWeight;
         color: $color-form_label-text-default;
         margin-bottom: $spacing-form_label-marginBottom;
+        padding-right: $spacing-form_label-paddingRight;
         display: inline-block;
         vertical-align: middle;
         @include font-size-regular;
         flex-shrink: 0;
-        user-select: none;
 
         &-disabled {
             color: $color-form_label_disabled-text-default;
         }
 
         &-with-extra {
-            .#{$field}-label-text,
-            .#{$field}-label-extra {
+            .#{$field}-label-text {
                 display: inline-block;
             }
             .#{$field}-label-extra {
+                display: flex;
+                align-items: center;
                 margin-left: $spacing-form_label_extra-marginLeft;
             }
         }
 
         &-required {
             .#{$field}-label-text {
-
                 &::after {
                     content: "*";
                     margin-left: $spacing-form_label_required-marginLeft;
@@ -108,12 +122,13 @@ $rating: #{$prefix}-rating;
                     font-weight: $font-form_requiredMark-fontWeight;
                 }
             }
-            // .#{$field}-label-extra {
-            // }
-
             &-disabled {
                 color: $color-form_requiredMark_disabled-text-default;
             }
+        }
+
+        &-optional-text {
+            color: $color-form_label_optional-text-default;
         }
 
         &-left {
@@ -130,6 +145,7 @@ $rating: #{$prefix}-rating;
         @include font-size-regular;
         display: flex;
         align-items: center;
+        // TODO help text margin token?
         margin-top: $spacing-form_message-marginTop;
         .#{$prefix}-icon-alert_triangle {
             color: $color-form_alertIcon-icon-default;
@@ -154,6 +170,10 @@ $rating: #{$prefix}-rating;
             padding-top: $spacing-form_label_posTop-paddingTop;
             padding-bottom: $spacing-form_label_posTop-paddingBottom;
         }
+        .#{$field}-label-with-extra {
+            display: flex;
+            align-items: center;
+        }
 
     }
 
@@ -167,30 +187,38 @@ $rating: #{$prefix}-rating;
             padding-top: $spacing-form_label-paddingTop;
             padding-bottom: $spacing-form_label-paddingTop;
         }
-
+        .#{$field}-label-with-extra {
+            display: flex;
+            align-items: center;
+        }
         .#{$checkboxGroup},
         .#{$radioGroup} {
             padding-top: $spacing-form_label-paddingTop;
             padding-bottom: $spacing-form_label-paddingTop;
         }
+        // no need to adjust height for button radio, already 32px
+        .#{$buttonRadioGroup} {
+            padding-top: 0;
+            padding-bottom: 0;
+        }
         .#{$switch},
         .#{$rating} {
             vertical-align: middle;
-            margin-top: $spacing-form_label_small-paddingTop;
-            margin-bottom: $spacing-form_label_small-paddingTop;
+            margin-top: $spacing-form_switch_rating_marginY;
+            margin-bottom: $spacing-form_switch_rating_marginY;
         }
     }
 
     &[x-extra-pos="middle"] {
         .#{$field}-extra {
-            margin-top: $spacing-form_label_extra_posMid-marginTop;
-            margin-bottom: $spacing-form_label_extra_posMid-marginBottom;
+            margin-top: $spacing-form_extra_posMid-marginTop;
+            margin-bottom: $spacing-form_extra_posMid-marginBottom;
         }
     }
 
     &[x-extra-pos="bottom"] {
         .#{$field}-extra {
-            margin-top: $spacing-form_label_extra_posBottom-marginTop;
+            margin-top: $spacing-form_extra_posBottom-marginTop;
         }
     }
 

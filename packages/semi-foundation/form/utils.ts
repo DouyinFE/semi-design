@@ -5,7 +5,11 @@ import AsyncValidator from 'async-validator';
 import { cloneDeep, toPath } from 'lodash';
 import { FieldValidateTriggerType, BasicTriggerType, ComponentProps, WithFieldOption } from './interface';
 
-export function getDisplayName(WrappedComponent: React.ComponentType | any) {
+/**
+ * 
+ * @param WrappedComponent React.ComponentType | any
+ */
+export function getDisplayName(WrappedComponent: any) {
     const originName = WrappedComponent.displayName || WrappedComponent.name;
     return originName ? `SemiField${originName}` : 'SemiField';
 }
@@ -43,6 +47,7 @@ export function isValid(errors: any): boolean {
         errors.$$typeof.toString() === 'Symbol(react.element)'
     ) {
         // when error message is reactNode
+        // only work with React Adapter
         valid = false;
     }
     return valid;

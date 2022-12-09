@@ -1,11 +1,11 @@
 ---
 localeCode: zh-CN
-order: 12
+order: 14
 category: 基础
 title: Layout 布局
 icon: doc-layout
 dir: column
-brief: 协助进行页面级整体布局。
+brief: 用于快捷划分页面整体布局
 ---
 
 ## 概述
@@ -147,7 +147,7 @@ import { Layout } from '@douyinfe/semi-ui';
 ```jsx live=true dir="column" hideInDSM
 import React from 'react';
 import { Layout, Nav, Button, Breadcrumb, Skeleton, Avatar } from '@douyinfe/semi-ui';
-import { IconSemiLogo, IconBell, IconHelpCircle, IconBytedanceLogo,IconHome,IconLive,IconSetting } from '@douyinfe/semi-icons';
+import { IconSemiLogo, IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, IconLive, IconSetting } from '@douyinfe/semi-icons';
 
 () => {
     const { Header, Footer, Content } = Layout;

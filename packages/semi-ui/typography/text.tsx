@@ -23,7 +23,7 @@ export interface TextProps extends Omit<React.HTMLAttributes<HTMLSpanElement>, O
     strong?: boolean;
     style?: React.CSSProperties;
     type?: TypographyBaseType;
-    underline?: boolean;
+    underline?: boolean
 }
 
 export default class Text extends PureComponent<TextProps> {

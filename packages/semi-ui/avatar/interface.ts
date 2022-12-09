@@ -34,11 +34,11 @@ export interface AvatarProps extends BaseProps {
     onClick?: React.MouseEventHandler;
     onMouseEnter?: React.MouseEventHandler;
     onMouseLeave?: React.MouseEventHandler;
-    imgAttr?: React.ImgHTMLAttributes<HTMLImageElement>;
+    imgAttr?: React.ImgHTMLAttributes<HTMLImageElement>
 }
 
 export type AvatarGroupShape = 'circle' | 'square';
-export type AvatarGroupSize = 'extra-extra-small' | 'extra-small' | 'small' | 'medium' | 'large' | 'extra-large';
+export type AvatarGroupSize = 'extra-extra-small' | 'extra-small' | 'small' | 'default' | 'medium' | 'large' | 'extra-large';
 export type AvatarGroupOverlapFrom = 'start' | 'end';
 
 export interface AvatarGroupProps {
@@ -47,5 +47,5 @@ export interface AvatarGroupProps {
     size?: AvatarGroupSize;
     overlapFrom?: AvatarGroupOverlapFrom;
     maxCount?: number;
-    renderMore?: (restNumber?: number, restAvatars?: React.ReactNode[]) => React.ReactNode;
+    renderMore?: (restNumber?: number, restAvatars?: React.ReactNode[]) => React.ReactNode
 }

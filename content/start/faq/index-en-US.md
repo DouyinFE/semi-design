@@ -4,10 +4,12 @@ title:  Frequently Asked Questions
 subTitle: Frequently Asked Questions
 icon: doc-faq
 localeCode: en-US
-order: 8
+order: 9
 ---
 
 
+#### Semi now offers Figma UI Kit, will Sketch or other design tool based versions be available in the future?
+- There is no plan in this regard, please refer to [Issue 74](https://github.com/DouyinFE/semi-design/issues/74)
 
 #### What is the relationship between Semi 2.x (open source version) and Semi 1.x?
  - The Semi v2.0 version is refactored based on v1.x using ts, which brings a better ts experience, bettter a11y support and a more out-of-the-box engineering solution, which solves the coexistence of multi-component libraries in the micro front-end scenario Style conflict issues, etc. All subsequent long-term work of the Semi team will be based on the v2.x version
@@ -25,8 +27,11 @@ order: 8
 
 #### Semi's default theme style does not match the positioning of our system. Can i configure another theme?
 
-- Please refer to [Custom theme](/en-US/start/customize-theme). Semi provides **up to 2300+ Design Tokens to allow users to perform in-depth customization**, whether you are a R&D or a designer, you can easily configure the style layer in [Semi DSM](/dsm), and in code, Figma always keep two-way sync. Based on Semi, you can **customize your own Design System at low cost** 
+- Please refer to [Custom theme](/en-US/start/customize-theme). Semi provides **up to 2300+ Design Tokens to allow users to perform in-depth customization**, whether you are a R&D or a designer, you can easily configure the style layer in [Semi DSM](/dsm), and in code, Figma always keep two-way sync. Based on Semi, you can **customize your own Design System at low cost**  Make `Semi Design` to `Any Design`
 - And when using, you only need to specify the theme package name used in webpack.config.js to complete the access (the Semi plugin needs to be connected).
+
+#### TS type check reports an error, indicating that the attribute children does not exist on xxx or that XXX cannot be used as a JSX component
+This is due to the breaking changes of `@types/react` v18. In most cases, two different versions of @types/react will be installed in your project, resulting in no match. Please refer to [Issue 793](https://github.com/DouyinFE/semi-design/issues/793) to lock the version, ensure that only a single version exists
 
 #### Why is defaultValue, default XXX not working?
 
@@ -34,7 +39,7 @@ Property like `defaultValue`, `defaultXXX` will only be consumed once when the c
 Or force React to remount the component by passing in a different `key`.
 
 #### Does Semi support i18n?
-As of 2021-10, Semi supports 14 languages. See [Semi·LocaleProvider](/en-US/other/locale) for details.
+As of 2022-07, Semi supports 17 languages. See [Semi·LocaleProvider](/en-US/other/locale) for details.
 
 #### Who should I look for if there is a new component requirement, or an existing component Feature does not meet my business needs?
 

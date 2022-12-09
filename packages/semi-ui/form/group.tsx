@@ -11,16 +11,17 @@ import { FormUpdaterContext } from './context';
 import { useFormState } from './hooks/index';
 import InputGroup, { InputGroupProps as BacisInputGroupProps } from '../input/inputGroup';
 import { BaseFormProps, FormState } from './interface';
-
+import { FormUpdaterContextType } from '@douyinfe/semi-foundation/form/interface';
+import { Col, Row } from '../grid/index';
 interface GroupErrorProps {
     showValidateIcon?: boolean;
     isInInputGroup?: boolean;
     error?: ReactFieldError;
-    fieldSet?: string[];
+    fieldSet?: string[]
 }
 export interface InputGroupProps extends BacisInputGroupProps {
     label?: LabelProps;
-    labelPosition?: 'left' | 'top';
+    labelPosition?: 'left' | 'top'
 }
 
 const prefix = cssClasses.PREFIX;
@@ -44,6 +45,7 @@ const GroupError = (props: GroupErrorProps) => {
 
 class FormInputGroup extends Component<InputGroupProps> {
     static contextType = FormUpdaterContext;
+    context: FormUpdaterContextType;
     renderLabel(label: LabelProps, formProps: BaseFormProps) {
         if (label) {
             if (isString(label)) {
@@ -58,7 +60,7 @@ class FormInputGroup extends Component<InputGroupProps> {
     render() {
         const { children, label, ...rest } = this.props;
         const updater = this.context;
-        const formProps = updater.getFormProps(['labelPosition', 'labelWidth', 'labelAlign', 'showValidateIcon']);
+        const formProps = updater.getFormProps(['labelPosition', 'labelWidth', 'labelAlign', 'showValidateIcon', 'wrapperCol', 'labelCol']);
         const labelPosition = this.props.labelPosition || formProps.labelPosition;
         const groupFieldSet: Array<string> = [];
         const inner = React.Children.map(children, (child: any) => {
@@ -72,18 +74,78 @@ class FormInputGroup extends Component<InputGroupProps> {
             }
             return null;
         });
+
         const groupCls = classNames({
             [`${prefix}-field-group`]: true
         });
+
+        const labelCol = formProps.labelCol;
+        const wrapperCol = formProps.wrapperCol;
+        const labelAlign = formProps.labelAlign;
+        const appendCol = labelCol && wrapperCol;
+
+        const labelColCls = labelCol ? `${prefix}-col-${labelAlign}` : '';
+
+        const labelContent = this.renderLabel(label, formProps);
+        const inputGroupContent = (
+            <InputGroup {...rest}>
+                {inner}
+            </InputGroup>
+        );
+        const groupErrorContent = (<GroupError fieldSet={groupFieldSet} showValidateIcon={formProps.showValidateIcon} isInInputGroup />);
+
+        let content: any;
+
+        switch (true) {
+            case !appendCol:
+                content = (
+                    <>
+                        {labelContent}
+                        <div>
+                            {inputGroupContent}
+                            {groupErrorContent}
+                        </div>
+                    </>
+                );
+                break;
+            case appendCol && labelPosition === 'top':
+                // When labelPosition is top, you need to add an overflow hidden div to the label, otherwise it will be arranged horizontally
+                content = (
+                    <>
+                        <div style={{ overflow: 'hidden' }}>
+                            <Col {...labelCol} className={labelColCls}>
+                                {labelContent}
+                            </Col>
+                        </div>
+                        <Col {...wrapperCol}>
+                            {inputGroupContent}
+                            {groupErrorContent}
+                        </Col>
+                    </>
+                );
+                break;
+            case appendCol && labelPosition !== 'top':
+                content = (
+                    <>
+                        <Col {...labelCol} className={labelColCls}>
+                            {labelContent}
+                        </Col>
+                        <Col {...wrapperCol}>
+                            {inputGroupContent}
+                            {groupErrorContent}
+                        </Col>
+                    </>
+                );
+                break;
+            default:
+                break;
+        }
+
+
+
         return (
             <div x-label-pos={labelPosition} className={groupCls}>
-                {this.renderLabel(label, formProps)}
-                <div>
-                    <InputGroup {...rest}>
-                        {inner}
-                    </InputGroup>
-                    <GroupError fieldSet={groupFieldSet} showValidateIcon={formProps.showValidateIcon} isInInputGroup />
-                </div>
+                {content}
             </div>
         );
     }

@@ -12,8 +12,11 @@ export interface CollapsePanelProps {
     extra?: ReactNode;
     header?: ReactNode;
     className?: string;
+    children?: React.ReactNode;
     reCalcKey?: number | string;
     style?: CSSProperties;
+    showArrow?: boolean;
+    disabled?: boolean
 }
 
 export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
@@ -31,12 +34,22 @@ export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
             PropTypes.string,
             PropTypes.number,
         ]),
+        showArrow: PropTypes.bool,
+        disabled: PropTypes.bool,
+    };
+
+    static defaultProps = {
+        showArrow: true,
+        disabled: false,
     };
 
     private ariaID = getUuidShort({});
 
+    context: CollapseContextType;
+
     renderHeader(active: boolean, expandIconEnable = true) {
         const {
+            showArrow,
             header,
             extra,
         } = this.props;
@@ -62,20 +75,20 @@ export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
         if (typeof header === 'string') {
             return (
                 <>
-                    {iconPosLeft ? icon : null}
+                    {showArrow && (iconPosLeft ? icon : null)}
                     <span>{header}</span>
                     <span className={`${cssClasses.PREFIX}-header-right`}>
                         <span>{extra}</span>
-                        {iconPosLeft ? null : icon}
+                        {showArrow && (iconPosLeft ? null : icon)}
                     </span>
                 </>
             );
         }
         return (
             <>
-                {iconPosLeft ? icon : null}
+                {showArrow && (iconPosLeft ? icon : null)}
                 {header}
-                {iconPosLeft ? null : icon}
+                {showArrow && (iconPosLeft ? null : icon)}
             </>
         );
     }
@@ -86,6 +99,10 @@ export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
             children,
             itemKey,
             reCalcKey,
+            header,
+            extra,
+            showArrow,
+            disabled,
             ...restProps
         } = this.props;
         const {
@@ -101,6 +118,7 @@ export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
         });
         const headerCls = cls({
             [`${cssClasses.PREFIX}-header`]: true,
+            [`${cssClasses.PREFIX}-header-disabled`]: disabled,
             [`${cssClasses.PREFIX}-header-iconLeft`]: expandIconPosition === 'left',
         });
         const contentCls = cls({
@@ -115,11 +133,12 @@ export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
                     role="button"
                     tabIndex={0}
                     className={headerCls}
+                    aria-disabled={disabled}
                     aria-expanded={active ? 'true' : 'false'}
                     aria-owns={this.ariaID}
-                    onClick={e => onClick(itemKey, e)}
+                    onClick={e => !disabled && onClick(itemKey, e)}
                 >
-                    {this.renderHeader(active, children !== undefined)}
+                    {this.renderHeader(active, children !== undefined && !disabled)}
                 </div>
                 {
                     children && (

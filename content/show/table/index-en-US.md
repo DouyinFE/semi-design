@@ -1,18 +1,13 @@
 ---
 localeCode: en-US
-order: 57
+order: 62
 category: Show
 title: Table
 subTitle: Table
 icon: doc-table
 dir: column
-brief: Show row data.
+brief: Tables are used to present structured data content, usually accompanied by the ability to manipulate the data (sort, search, paginate...).
 ---
-
-## When to Use
-
--   When there is a large amount of structured data to be presented;
--   When complex behaviors such as sorting, searching, paging and customizing data need to be performed.
 
 ## How to Use
 
@@ -37,12 +32,11 @@ function App() {
         {
             title: 'Owner',
             dataIndex: 'owner',
-
         },
         {
             title: 'Update',
             dataIndex: 'updateTime',
-        }
+        },
     ];
     const data = [
         {
@@ -52,7 +46,7 @@ function App() {
             size: '2M',
             owner: 'Jiang Pengzhi',
             updateTime: '2020-02-02 05:13',
-            avatarBg: 'grey'
+            avatarBg: 'grey',
         },
         {
             key: '2',
@@ -61,7 +55,7 @@ function App() {
             size: '2M',
             owner: 'Hao Xuan',
             updateTime: '2020-01-17 05:31',
-            avatarBg: 'red'
+            avatarBg: 'red',
         },
         {
             key: '3',
@@ -70,7 +64,7 @@ function App() {
             size: '34KB',
             owner: 'Zoey Edwards',
             updateTime: '2020-01-26 11:01',
-            avatarBg: 'light-blue'
+            avatarBg: 'light-blue',
         },
     ];
 
@@ -97,11 +91,16 @@ function App() {
             render: (text, record, index) => {
                 return (
                     <div>
-                        <Avatar size="small" shape="square" src={record.nameIconSrc} style={{ marginRight: 12 }}></Avatar>
+                        <Avatar
+                            size="small"
+                            shape="square"
+                            src={record.nameIconSrc}
+                            style={{ marginRight: 12 }}
+                        ></Avatar>
                         {text}
                     </div>
                 );
-            }
+            },
         },
         {
             title: 'Size',
@@ -119,8 +118,7 @@ function App() {
                         {text}
                     </div>
                 );
-            }
-
+            },
         },
         {
             title: 'Update',
@@ -131,7 +129,7 @@ function App() {
             dataIndex: 'operate',
             render: () => {
                 return <IconMore />;
-            }
+            },
         },
     ];
     const data = [
@@ -142,7 +140,7 @@ function App() {
             size: '2M',
             owner: 'Jiang Pengzhi',
             updateTime: '2020-02-02 05:13',
-            avatarBg: 'grey'
+            avatarBg: 'grey',
         },
         {
             key: '2',
@@ -151,7 +149,7 @@ function App() {
             size: '2M',
             owner: 'Hao Xuan',
             updateTime: '2020-01-17 05:31',
-            avatarBg: 'red'
+            avatarBg: 'red',
         },
         {
             key: '3',
@@ -160,7 +158,7 @@ function App() {
             size: '34KB',
             owner: 'Zoey Edwards',
             updateTime: '2020-01-26 11:01',
-            avatarBg: 'light-blue'
+            avatarBg: 'light-blue',
         },
     ];
 
@@ -182,7 +180,8 @@ You can also use JSX syntax definitions `columns`, note that Table only supports
 
 ```jsx live=true noInline=true dir="column"
 import React from 'react';
-import { Table } from '@douyinfe/semi-ui';
+import { Table, Avatar } from '@douyinfe/semi-ui';
+import { IconMore } from '@douyinfe/semi-icons';
 
 const { Column } = Table;
 
@@ -195,7 +194,7 @@ function App() {
             size: '2M',
             owner: 'Jiang Pengzhi',
             updateTime: '2020-02-02 05:13',
-            avatarBg: 'grey'
+            avatarBg: 'grey',
         },
         {
             key: '2',
@@ -204,7 +203,7 @@ function App() {
             size: '2M',
             owner: 'Hao Xuan',
             updateTime: '2020-01-17 05:31',
-            avatarBg: 'red'
+            avatarBg: 'red',
         },
         {
             key: '3',
@@ -213,7 +212,7 @@ function App() {
             size: '34KB',
             owner: 'Zoey Edwards',
             updateTime: '2020-01-26 11:01',
-            avatarBg: 'light-blue'
+            avatarBg: 'light-blue',
         },
     ];
 
@@ -255,8 +254,8 @@ render(App);
 
 This feature can be turned on by passing in `rowSelection`.
 
-- Click the selection box in the header, and all rows in the `dataSource` that are not in the state of `disabled` will be selected. The callback function for selecting all rows is `onSelectAll`;
-- Clicking on the row selection box will select the current row. Its callback function is `onSelect`;
+-   Click the selection box in the header, and all rows in the `dataSource` that are not in the state of `disabled` will be selected. The callback function for selecting all rows is `onSelectAll`;
+-   Clicking on the row selection box will select the current row. Its callback function is `onSelect`;
 
 > Note: Be sure to provide a "key" for each row of data that is different from other row values, or use the rowKey parameter to specify a property name as the primary key.
 
@@ -274,11 +273,16 @@ function App() {
             render: (text, record, index) => {
                 return (
                     <div>
-                        <Avatar size="small" shape="square" src={record.nameIconSrc} style={{ marginRight: 12 }}></Avatar>
+                        <Avatar
+                            size="small"
+                            shape="square"
+                            src={record.nameIconSrc}
+                            style={{ marginRight: 12 }}
+                        ></Avatar>
                         {text}
                     </div>
                 );
-            }
+            },
         },
         {
             title: 'Size',
@@ -290,12 +294,13 @@ function App() {
             render: (text, record, index) => {
                 return (
                     <div>
-                        <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>{typeof text === 'string' && text.slice(0, 1)}</Avatar>
+                        <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>
+                            {typeof text === 'string' && text.slice(0, 1)}
+                        </Avatar>
                         {text}
                     </div>
                 );
-            }
-
+            },
         },
         {
             title: 'Update',
@@ -306,7 +311,7 @@ function App() {
             dataIndex: 'operate',
             render: () => {
                 return <IconMore />;
-            }
+            },
         },
     ];
     const data = [
@@ -317,8 +322,7 @@ function App() {
             size: '2M',
             owner: 'Jiang Pengzhi',
             updateTime: '2020-02-02 05:13',
-            avatarBg: 'grey'
-
+            avatarBg: 'grey',
         },
         {
             key: '2',
@@ -327,7 +331,7 @@ function App() {
             size: '2M',
             owner: 'Hao Xuan',
             updateTime: '2020-01-17 05:31',
-            avatarBg: 'red'
+            avatarBg: 'red',
         },
         {
             key: '3',
@@ -336,7 +340,7 @@ function App() {
             size: '34KB',
             owner: 'Zoey Edwards',
             updateTime: '2020-01-26 11:01',
-            avatarBg: 'light-blue'
+            avatarBg: 'light-blue',
         },
         {
             key: '4',
@@ -345,8 +349,7 @@ function App() {
             size: '2M',
             owner: 'Jiang Pengzhi',
             updateTime: '2020-02-02 05:13',
-            avatarBg: 'grey'
-
+            avatarBg: 'grey',
         },
         {
             key: '5',
@@ -355,7 +358,7 @@ function App() {
             size: '2M',
             owner: 'Hao Xuan',
             updateTime: '2020-01-17 05:31',
-            avatarBg: 'red'
+            avatarBg: 'red',
         },
         {
             key: '6',
@@ -364,7 +367,7 @@ function App() {
             size: '34KB',
             owner: 'Zoey Edwards',
             updateTime: '2020-01-26 11:01',
-            avatarBg: 'light-blue'
+            avatarBg: 'light-blue',
         },
     ];
     const rowSelection = {
@@ -383,9 +386,12 @@ function App() {
         },
     };
 
-    const pagination = useMemo(() => ({
-        pageSize: 3
-    }), []);
+    const pagination = useMemo(
+        () => ({
+            pageSize: 3,
+        }),
+        []
+    );
 
     return <Table columns={columns} dataSource={data} rowSelection={rowSelection} pagination={pagination} />;
 }
@@ -412,8 +418,7 @@ const raw = [
         size: '2M',
         owner: 'Jiang Pengzhi',
         updateTime: '2020-02-02 05:13',
-        avatarBg: 'grey'
-
+        avatarBg: 'grey',
     },
     {
         key: '2',
@@ -422,7 +427,7 @@ const raw = [
         size: '2M',
         owner: 'Hao Xuan',
         updateTime: '2020-01-17 05:31',
-        avatarBg: 'red'
+        avatarBg: 'red',
     },
     {
         key: '3',
@@ -431,7 +436,7 @@ const raw = [
         size: '34KB',
         owner: 'Zoey Edwards',
         updateTime: '2020-01-26 11:01',
-        avatarBg: 'light-blue'
+        avatarBg: 'light-blue',
     },
     {
         key: '4',
@@ -440,14 +445,14 @@ const raw = [
         size: '34KB',
         owner: 'Jiang Qi',
         updateTime: '2020-01-26 11:01',
-        avatarBg: 'green'
-    }
+        avatarBg: 'green',
+    },
 ];
 
 function App() {
     const [dataSource, setData] = useState(raw);
 
-    const removeRecord = (key) => {
+    const removeRecord = key => {
         let newDataSource = [...dataSource];
         if (key != null) {
             let idx = newDataSource.findIndex(data => data.key === key);
@@ -471,14 +476,19 @@ function App() {
             render: (text, record, index) => {
                 return (
                     <span style={{ display: 'flex', alignItems: 'center' }}>
-                        <Avatar size="small" shape="square" src={record.nameIconSrc} style={{ marginRight: 12 }}></Avatar>
+                        <Avatar
+                            size="small"
+                            shape="square"
+                            src={record.nameIconSrc}
+                            style={{ marginRight: 12 }}
+                        ></Avatar>
                         {/* The width calculation method is the cell setting width minus the non-text content width */}
                         <Text heading={5} ellipsis={{ showTooltip: true }} style={{ width: 'calc(400px - 76px)' }}>
                             {text}
                         </Text>
                     </span>
                 );
-            }
+            },
         },
         {
             title: 'Size',
@@ -492,12 +502,13 @@ function App() {
             render: (text, record, index) => {
                 return (
                     <div>
-                        <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>{typeof text === 'string' && text.slice(0, 1)}</Avatar>
+                        <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>
+                            {typeof text === 'string' && text.slice(0, 1)}
+                        </Avatar>
                         {text}
                     </div>
                 );
-            }
-
+            },
         },
         {
             title: 'Update',
@@ -507,7 +518,9 @@ function App() {
         {
             title: '',
             dataIndex: 'operate',
-            render: (text, record) => <Button icon={<IconDelete />} theme='borderless' onClick={() => removeRecord(record.key)} />
+            render: (text, record) => (
+                <Button icon={<IconDelete />} theme="borderless" onClick={() => removeRecord(record.key)} />
+            ),
         },
     ];
 
@@ -519,11 +532,18 @@ function App() {
         />
     );
 
-
     return (
         <>
-            <Button onClick={resetData} style={{ marginBottom: 10 }}>Reset</Button>
-            <Table style={{ minHeight: 350 }} columns={columns} dataSource={dataSource} pagination={false} empty={empty} />
+            <Button onClick={resetData} style={{ marginBottom: 10 }}>
+                Reset
+            </Button>
+            <Table
+                style={{ minHeight: 350 }}
+                columns={columns}
+                dataSource={dataSource}
+                pagination={false}
+                empty={empty}
+            />
         </>
     );
 }
@@ -574,8 +594,8 @@ const columns = [
     {
         title: 'Size',
         dataIndex: 'size',
-        sorter: (a, b) => a.size - b.size > 0 ? 1 : -1,
-        render: (text) => `${text} KB`
+        sorter: (a, b) => (a.size - b.size > 0 ? 1 : -1),
+        render: text => `${text} KB`,
     },
     {
         title: 'Owner',
@@ -583,21 +603,22 @@ const columns = [
         render: (text, record, index) => {
             return (
                 <div>
-                    <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>{typeof text === 'string' && text.slice(0, 1)}</Avatar>
+                    <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>
+                        {typeof text === 'string' && text.slice(0, 1)}
+                    </Avatar>
                     {text}
                 </div>
             );
-        }
-
+        },
     },
     {
         title: 'Update',
         dataIndex: 'updateTime',
-        sorter: (a, b) => a.updateTime - b.updateTime > 0 ? 1 : -1,
-        render: (value) => {
+        sorter: (a, b) => (a.updateTime - b.updateTime > 0 ? 1 : -1),
+        render: value => {
             return dateFns.format(new Date(value), 'yyyy-MM-dd');
-        }
-    }
+        },
+    },
 ];
 
 const DAY = 24 * 60 * 60 * 1000;
@@ -605,15 +626,18 @@ const DAY = 24 * 60 * 60 * 1000;
 function App() {
     const [dataSource, setData] = useState([]);
 
-    const rowSelection = useMemo(() => ({
-        onChange: (selectedRowKeys, selectedRows) => {
-            console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-        },
-        getCheckboxProps: record => ({
-            disabled: record.name === 'Michael James', // Column configuration not to be checked
-            name: record.name,
+    const rowSelection = useMemo(
+        () => ({
+            onChange: (selectedRowKeys, selectedRows) => {
+                console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+            },
+            getCheckboxProps: record => ({
+                disabled: record.name === 'Michael James', // Column configuration not to be checked
+                name: record.name,
+            }),
         }),
-    }), []);
+        []
+    );
     const scroll = useMemo(() => ({ y: 300 }), []);
 
     const getData = () => {
@@ -627,7 +651,7 @@ function App() {
                 owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
                 size: randomNumber,
                 updateTime: new Date().valueOf() + randomNumber * DAY,
-                avatarBg: isSemiDesign ? 'grey' : 'red'
+                avatarBg: isSemiDesign ? 'grey' : 'red',
             });
         }
         return data;
@@ -643,6 +667,7 @@ function App() {
 
 render(App);
 ```
+
 ### Pull Remote Data
 
 Under normal circumstances, the data is often not obtained at one time. We will retrieve the data from the interface when clicking on the page number, filter or sort button. In this case, please use **Controlled mode** To handle pagination. The user needs to pass in the `pagination.currentPage` field, where the rendering of the pagination component depends entirely on the incoming pagination object.
@@ -689,8 +714,8 @@ const columns = [
     {
         title: 'Size',
         dataIndex: 'size',
-        sorter: (a, b) => a.size - b.size > 0 ? 1 : -1,
-        render: (text) => `${text} KB`
+        sorter: (a, b) => (a.size - b.size > 0 ? 1 : -1),
+        render: text => `${text} KB`,
     },
     {
         title: 'Owner',
@@ -698,21 +723,22 @@ const columns = [
         render: (text, record, index) => {
             return (
                 <div>
-                    <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>{typeof text === 'string' && text.slice(0, 1)}</Avatar>
+                    <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>
+                        {typeof text === 'string' && text.slice(0, 1)}
+                    </Avatar>
                     {text}
                 </div>
             );
-        }
-
+        },
     },
     {
         title: 'Update',
         dataIndex: 'updateTime',
-        sorter: (a, b) => a.updateTime - b.updateTime > 0 ? 1 : -1,
-        render: (value) => {
+        sorter: (a, b) => (a.updateTime - b.updateTime > 0 ? 1 : -1),
+        render: value => {
             return dateFns.format(new Date(value), 'yyyy-MM-dd');
-        }
-    }
+        },
+    },
 ];
 
 const getData = () => {
@@ -726,7 +752,7 @@ const getData = () => {
             owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
             size: randomNumber,
             updateTime: new Date().valueOf() + randomNumber * DAY,
-            avatarBg: isSemiDesign ? 'grey' : 'red'
+            avatarBg: isSemiDesign ? 'grey' : 'red',
         });
     }
     return data;
@@ -770,7 +796,7 @@ function App() {
                 currentPage,
                 pageSize: 5,
                 total: data.length,
-                onPageChange: handlePageChange
+                onPageChange: handlePageChange,
             }}
             loading={loading}
         />
@@ -827,8 +853,8 @@ const columns = [
         title: 'Size',
         dataIndex: 'size',
         width: 200,
-        sorter: (a, b) => a.size - b.size > 0 ? 1 : -1,
-        render: (text) => `${text} KB`
+        sorter: (a, b) => (a.size - b.size > 0 ? 1 : -1),
+        render: text => `${text} KB`,
     },
     {
         title: 'Owner',
@@ -837,21 +863,22 @@ const columns = [
         render: (text, record, index) => {
             return (
                 <div>
-                    <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>{typeof text === 'string' && text.slice(0, 1)}</Avatar>
+                    <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>
+                        {typeof text === 'string' && text.slice(0, 1)}
+                    </Avatar>
                     {text}
                 </div>
             );
-        }
-
+        },
     },
     {
         title: 'Update',
         dataIndex: 'updateTime',
         width: 200,
-        sorter: (a, b) => a.updateTime - b.updateTime > 0 ? 1 : -1,
-        render: (value) => {
+        sorter: (a, b) => (a.updateTime - b.updateTime > 0 ? 1 : -1),
+        render: value => {
             return dateFns.format(new Date(value), 'yyyy-MM-dd');
-        }
+        },
     },
     {
         title: '',
@@ -861,7 +888,7 @@ const columns = [
         width: 100,
         render: () => {
             return <IconMore />;
-        }
+        },
     },
 ];
 
@@ -869,16 +896,19 @@ function App() {
     const [dataSource, setData] = useState([]);
 
     const scroll = useMemo(() => ({ y: 300, x: 1200 }), []);
-    const rowSelection = useMemo(() => ({
-        onChange: (selectedRowKeys, selectedRows) => {
-            console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-        },
-        getCheckboxProps: record => ({
-            disabled: record.name === 'Michael James', // Column configuration not to be checked
-            name: record.name,
+    const rowSelection = useMemo(
+        () => ({
+            onChange: (selectedRowKeys, selectedRows) => {
+                console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+            },
+            getCheckboxProps: record => ({
+                disabled: record.name === 'Michael James', // Column configuration not to be checked
+                name: record.name,
+            }),
+            fixed: true,
         }),
-        fixed: true,
-    }), []);
+        []
+    );
 
     const getData = () => {
         const data = [];
@@ -891,7 +921,7 @@ function App() {
                 owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
                 size: randomNumber,
                 updateTime: new Date().valueOf() + randomNumber * DAY,
-                avatarBg: isSemiDesign ? 'grey' : 'red'
+                avatarBg: isSemiDesign ? 'grey' : 'red',
             });
         }
         return data;
@@ -903,6 +933,142 @@ function App() {
     }, []);
 
     return <Table columns={columns} dataSource={dataSource} rowSelection={rowSelection} scroll={scroll} />;
+}
+
+render(App);
+```
+
+The header can be fixed to the top of the page with the `sticky` property. v2.21 version support. When passing `top`, you can control the distance from the scroll container.
+
+<StickyHeaderTable />
+
+```jsx live=false noInline=true dir="column"
+import React, { useState, useMemo } from 'react';
+import { Table, Avatar } from '@douyinfe/semi-ui';
+import { IconMore } from '@douyinfe/semi-icons';
+import * as dateFns from 'date-fns';
+
+const DAY = 24 * 60 * 60 * 1000;
+const figmaIconUrl = 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png';
+
+const columns = [
+    {
+        title: '标题',
+        dataIndex: 'name',
+        fixed: true,
+        width: 250,
+        render: (text, record, index) => {
+            return (
+                <div>
+                    <Avatar size="small" shape="square" src={figmaIconUrl} style={{ marginRight: 12 }}></Avatar>
+                    {text}
+                </div>
+            );
+        },
+        filters: [
+            {
+                text: 'Semi Design 设计稿',
+                value: 'Semi Design 设计稿',
+            },
+            {
+                text: 'Semi Pro 设计稿',
+                value: 'Semi Pro 设计稿',
+            },
+        ],
+        onFilter: (value, record) => record.name.includes(value),
+    },
+    {
+        title: '大小',
+        dataIndex: 'size',
+        width: 200,
+        sorter: (a, b) => (a.size - b.size > 0 ? 1 : -1),
+        render: text => `${text} KB`,
+    },
+    {
+        title: '所有者',
+        dataIndex: 'owner',
+        width: 200,
+        render: (text, record, index) => {
+            return (
+                <div>
+                    <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>
+                        {typeof text === 'string' && text.slice(0, 1)}
+                    </Avatar>
+                    {text}
+                </div>
+            );
+        },
+    },
+    {
+        title: '更新日期',
+        dataIndex: 'updateTime',
+        width: 200,
+        sorter: (a, b) => (a.updateTime - b.updateTime > 0 ? 1 : -1),
+        render: value => {
+            return dateFns.format(new Date(value), 'yyyy-MM-dd');
+        },
+    },
+    {
+        title: '',
+        dataIndex: 'operate',
+        fixed: 'right',
+        align: 'center',
+        width: 100,
+        render: () => {
+            return <IconMore />;
+        },
+    },
+];
+
+function App() {
+    const [dataSource, setData] = useState([]);
+
+    const scroll = useMemo(() => ({ y: 300, x: 1200 }), []);
+    const rowSelection = useMemo(
+        () => ({
+            onChange: (selectedRowKeys, selectedRows) => {
+                console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+            },
+            getCheckboxProps: record => ({
+                disabled: record.name === 'Michael James', // Column configuration not to be checked
+                name: record.name,
+            }),
+            fixed: true,
+        }),
+        []
+    );
+
+    const getData = () => {
+        const data = [];
+        for (let i = 0; i < 46; i++) {
+            const isSemiDesign = i % 2 === 0;
+            const randomNumber = (i * 1000) % 199;
+            data.push({
+                key: '' + i,
+                name: isSemiDesign ? `Semi Design 设计稿${i}.fig` : `Semi Pro 设计稿${i}.fig`,
+                owner: isSemiDesign ? '姜鹏志' : '郝宣',
+                size: randomNumber,
+                updateTime: new Date().valueOf() + randomNumber * DAY,
+                avatarBg: isSemiDesign ? 'grey' : 'red',
+            });
+        }
+        return data;
+    };
+
+    useEffect(() => {
+        const data = getData();
+        setData(data);
+    }, []);
+
+    return (
+        <Table
+            sticky={{ top: 60 }}
+            columns={columns}
+            dataSource={dataSource}
+            rowSelection={rowSelection}
+            scroll={scroll}
+        />
+    );
 }
 
 render(App);
@@ -946,13 +1112,13 @@ const columns = [
             },
         ],
         onFilter: (value, record) => record.name.includes(value),
-        sorter: (a, b) => a.name.length - b.name.length > 0 ? 1 : -1,
+        sorter: (a, b) => (a.name.length - b.name.length > 0 ? 1 : -1),
     },
     {
         title: 'Size',
         dataIndex: 'size',
-        sorter: (a, b) => a.size - b.size > 0 ? 1 : -1,
-        render: (text) => `${text} KB`
+        sorter: (a, b) => (a.size - b.size > 0 ? 1 : -1),
+        render: text => `${text} KB`,
     },
     {
         title: 'Owner',
@@ -960,35 +1126,39 @@ const columns = [
         render: (text, record, index) => {
             return (
                 <div>
-                    <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>{typeof text === 'string' && text.slice(0, 1)}</Avatar>
+                    <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>
+                        {typeof text === 'string' && text.slice(0, 1)}
+                    </Avatar>
                     {text}
                 </div>
             );
-        }
-
+        },
     },
     {
         title: 'Update',
         dataIndex: 'updateTime',
-        sorter: (a, b) => a.updateTime - b.updateTime > 0 ? 1 : -1,
-        render: (value) => {
+        sorter: (a, b) => (a.updateTime - b.updateTime > 0 ? 1 : -1),
+        render: value => {
             return dateFns.format(new Date(value), 'yyyy-MM-dd');
-        }
-    }
+        },
+    },
 ];
 
 function App() {
     const [dataSource, setData] = useState([]);
 
-    const rowSelection = useMemo(() => ({
-        onChange: (selectedRowKeys, selectedRows) => {
-            console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-        },
-        getCheckboxProps: record => ({
-            disabled: record.name === 'Michael James', // Column configuration not to be checked
-            name: record.name,
+    const rowSelection = useMemo(
+        () => ({
+            onChange: (selectedRowKeys, selectedRows) => {
+                console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+            },
+            getCheckboxProps: record => ({
+                disabled: record.name === 'Michael James', // Column configuration not to be checked
+                name: record.name,
+            }),
         }),
-    }), []);
+        []
+    );
     const scroll = useMemo(() => ({ y: 300 }), []);
 
     const getData = () => {
@@ -1002,7 +1172,7 @@ function App() {
                 owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
                 size: randomNumber,
                 updateTime: new Date().valueOf() + randomNumber * DAY,
-                avatarBg: isSemiDesign ? 'grey' : 'red'
+                avatarBg: isSemiDesign ? 'grey' : 'red',
             });
         }
         return data;
@@ -1018,7 +1188,6 @@ function App() {
 
 render(App);
 ```
-
 
 ### Custom Filter Item Rendering
 
@@ -1074,13 +1243,13 @@ const columns = [
         filterDropdownProps: {
             showTick: true,
         },
-        sorter: (a, b) => a.name.length - b.name.length > 0 ? 1 : -1,
+        sorter: (a, b) => (a.name.length - b.name.length > 0 ? 1 : -1),
     },
     {
         title: 'Size',
         dataIndex: 'size',
-        sorter: (a, b) => a.size - b.size > 0 ? 1 : -1,
-        render: (text) => `${text} KB`
+        sorter: (a, b) => (a.size - b.size > 0 ? 1 : -1),
+        render: text => `${text} KB`,
     },
     {
         title: 'Owner',
@@ -1088,35 +1257,39 @@ const columns = [
         render: (text, record, index) => {
             return (
                 <div>
-                    <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>{typeof text === 'string' && text.slice(0, 1)}</Avatar>
+                    <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>
+                        {typeof text === 'string' && text.slice(0, 1)}
+                    </Avatar>
                     {text}
                 </div>
             );
-        }
-
+        },
     },
     {
         title: 'Update',
         dataIndex: 'updateTime',
-        sorter: (a, b) => a.updateTime - b.updateTime > 0 ? 1 : -1,
-        render: (value) => {
+        sorter: (a, b) => (a.updateTime - b.updateTime > 0 ? 1 : -1),
+        render: value => {
             return dateFns.format(new Date(value), 'yyyy-MM-dd');
-        }
-    }
+        },
+    },
 ];
 
 function App() {
     const [dataSource, setData] = useState([]);
 
-    const rowSelection = useMemo(() => ({
-        onChange: (selectedRowKeys, selectedRows) => {
-            console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-        },
-        getCheckboxProps: record => ({
-            disabled: record.name === 'Michael James', // Column configuration not to be checked
-            name: record.name,
+    const rowSelection = useMemo(
+        () => ({
+            onChange: (selectedRowKeys, selectedRows) => {
+                console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+            },
+            getCheckboxProps: record => ({
+                disabled: record.name === 'Michael James', // Column configuration not to be checked
+                name: record.name,
+            }),
         }),
-    }), []);
+        []
+    );
     const scroll = useMemo(() => ({ y: 300 }), []);
 
     const getData = () => {
@@ -1130,7 +1303,7 @@ function App() {
                 owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
                 size: randomNumber,
                 updateTime: new Date().valueOf() + randomNumber * DAY,
-                avatarBg: isSemiDesign ? 'grey' : 'red'
+                avatarBg: isSemiDesign ? 'grey' : 'red',
             });
         }
         return data;
@@ -1145,7 +1318,6 @@ function App() {
 }
 
 render(App);
-
 ```
 
 ### A Table That Can Be Expanded
@@ -1179,7 +1351,7 @@ const columns = [
                     {text}
                 </span>
             );
-        }
+        },
     },
     {
         title: 'Size',
@@ -1197,8 +1369,7 @@ const columns = [
                     {text}
                 </div>
             );
-        }
-
+        },
     },
     {
         title: 'Update',
@@ -1209,7 +1380,7 @@ const columns = [
         dataIndex: 'operate',
         render: () => {
             return <IconMore />;
-        }
+        },
     },
 ];
 
@@ -1221,7 +1392,7 @@ const data = [
         size: '2M',
         owner: 'Jiang Pengzhi',
         updateTime: '2020-02-02 05:13',
-        avatarBg: 'grey'
+        avatarBg: 'grey',
     },
     {
         key: '2',
@@ -1230,7 +1401,7 @@ const data = [
         size: '2M',
         owner: 'Hao Xuan',
         updateTime: '2020-01-17 05:31',
-        avatarBg: 'red'
+        avatarBg: 'red',
     },
     {
         key: '3',
@@ -1239,7 +1410,7 @@ const data = [
         size: '34KB',
         owner: 'Zoey Edwards',
         updateTime: '2020-01-26 11:01',
-        avatarBg: 'light-blue'
+        avatarBg: 'light-blue',
     },
 ];
 
@@ -1264,13 +1435,12 @@ const expandData = {
         { key: 'Security Level', value: '2级' },
         { key: 'Vertical label', value: <Tag style={{ margin: 0 }}>Docs</Tag> },
         { key: 'Certification', value: 'Verified' },
-    ]
+    ],
 };
 
 function App() {
-
     const expandRowRender = (record, index) => {
-        return <Descriptions align="justify" data={expandData[index]} />
+        return <Descriptions align="justify" data={expandData[index]} />;
     };
 
     const rowSelection = {
@@ -1289,7 +1459,16 @@ function App() {
         },
     };
 
-    return <Table rowKey="name" columns={columns} dataSource={data} expandedRowRender={expandRowRender} rowSelection={rowSelection} pagination={false} />;
+    return (
+        <Table
+            rowKey="name"
+            columns={columns}
+            dataSource={data}
+            expandedRowRender={expandRowRender}
+            rowSelection={rowSelection}
+            pagination={false}
+        />
+    );
 }
 
 render(App);
@@ -1318,7 +1497,7 @@ const columns = [
                     {text}
                 </span>
             );
-        }
+        },
     },
     {
         title: 'Size',
@@ -1336,8 +1515,7 @@ const columns = [
                     {text}
                 </div>
             );
-        }
-
+        },
     },
     {
         title: 'Update',
@@ -1348,7 +1526,7 @@ const columns = [
         dataIndex: 'operate',
         render: () => {
             return <IconMore />;
-        }
+        },
     },
 ];
 
@@ -1360,7 +1538,7 @@ const data = [
         size: '2M',
         owner: 'Jiang Pengzhi',
         updateTime: '2020-02-02 05:13',
-        avatarBg: 'grey'
+        avatarBg: 'grey',
     },
     {
         key: '2',
@@ -1369,7 +1547,7 @@ const data = [
         size: '2M',
         owner: 'Hao Xuan',
         updateTime: '2020-01-17 05:31',
-        avatarBg: 'red'
+        avatarBg: 'red',
     },
     {
         key: '3',
@@ -1378,7 +1556,7 @@ const data = [
         size: '34KB',
         owner: 'Zoey Edwards',
         updateTime: '2020-01-26 11:01',
-        avatarBg: 'light-blue'
+        avatarBg: 'light-blue',
     },
 ];
 
@@ -1403,13 +1581,12 @@ const expandData = {
         { key: 'Security Level', value: '2级' },
         { key: 'Vertical label', value: <Tag style={{ margin: 0 }}>Docs</Tag> },
         { key: 'Certification', value: 'Verified' },
-    ]
+    ],
 };
 
 function App() {
-
     const expandRowRender = (record, index) => {
-        return <Descriptions align="justify" data={expandData[index]} />
+        return <Descriptions align="justify" data={expandData[index]} />;
     };
 
     const rowSelection = {
@@ -1467,7 +1644,7 @@ const columns = [
                     {text}
                 </span>
             );
-        }
+        },
     },
     {
         title: 'Size',
@@ -1485,8 +1662,7 @@ const columns = [
                     {text}
                 </div>
             );
-        }
-
+        },
     },
     {
         title: 'Update',
@@ -1497,7 +1673,7 @@ const columns = [
         dataIndex: 'operate',
         render: () => {
             return <IconMore />;
-        }
+        },
     },
 ];
 
@@ -1509,7 +1685,7 @@ const data = [
         size: '2M',
         owner: 'Jiang Pengzhi',
         updateTime: '2020-02-02 05:13',
-        avatarBg: 'grey'
+        avatarBg: 'grey',
     },
     {
         key: '2',
@@ -1518,7 +1694,7 @@ const data = [
         size: '2M',
         owner: 'Hao Xuan',
         updateTime: '2020-01-17 05:31',
-        avatarBg: 'red'
+        avatarBg: 'red',
     },
     {
         key: '3',
@@ -1527,7 +1703,7 @@ const data = [
         size: '34KB',
         owner: 'Zoey Edwards',
         updateTime: '2020-01-26 11:01',
-        avatarBg: 'light-blue'
+        avatarBg: 'light-blue',
     },
 ];
 
@@ -1552,13 +1728,12 @@ const expandData = {
         { key: 'Security Level', value: '2级' },
         { key: 'Vertical label', value: <Tag style={{ margin: 0 }}>Docs</Tag> },
         { key: 'Certification', value: 'Verified' },
-    ]
+    ],
 };
 
 function App() {
-
     const expandRowRender = (record, index) => {
-        return <Descriptions align="justify" data={expandData[index]} />
+        return <Descriptions align="justify" data={expandData[index]} />;
     };
 
     const rowSelection = {
@@ -1583,7 +1758,7 @@ function App() {
             columns={columns}
             dataSource={data}
             expandedRowRender={expandRowRender}
-            rowExpandable={ record => record.name !== 'Design docs' }
+            rowExpandable={record => record.name !== 'Design docs'}
             hideExpandedColumn={false}
             rowSelection={rowSelection}
             pagination={false}
@@ -1673,7 +1848,7 @@ function App() {
                             default: 'None',
                         },
                     ],
-                }
+                },
             ],
         },
         {
@@ -1699,19 +1874,13 @@ function App() {
                     type: 'String',
                     description: 'Description of video',
                     default: 'None',
-                }
+                },
             ],
         },
     ];
 
-    return (
-        <Table
-            columns={columns}
-            defaultExpandAllRows
-            dataSource={data}
-        />
-    );
-};
+    return <Table columns={columns} defaultExpandAllRows dataSource={data} />;
+}
 
 render(App);
 ```
@@ -1760,7 +1929,7 @@ const raw = [
                         default: 'None',
                     },
                 ],
-            }
+            },
         ],
     },
     {
@@ -1786,13 +1955,13 @@ const raw = [
                 type: 'String',
                 description: 'Description of video',
                 default: 'None',
-            }
+            },
         ],
     },
 ];
 
-const rowKey= 'key';
-const childrenRecordName= 'children';
+const rowKey = 'key';
+const childrenRecordName = 'children';
 
 function App() {
     const [expandedRowKeys, setExpandedRowKeys] = useState([1, 2]);
@@ -1938,7 +2107,7 @@ function App() {
             onExpandedRowsChange={rows => setExpandedRowKeys(rows.map(item => item[rowKey]))}
         />
     );
-};
+}
 
 render(App);
 ```
@@ -2030,7 +2199,7 @@ const ChildrenDataSelectedDemo = () => {
                                 default: 'None',
                             },
                         ],
-                    }
+                    },
                 ],
             },
             {
@@ -2056,14 +2225,14 @@ const ChildrenDataSelectedDemo = () => {
                         type: 'String',
                         description: 'Description of video',
                         default: 'None',
-                    }
+                    },
                 ],
             },
         ],
         []
     );
 
-    const isRecordDisabled = (record) => {
+    const isRecordDisabled = record => {
         return false;
     };
 
@@ -2106,11 +2275,14 @@ const ChildrenDataSelectedDemo = () => {
         return shouldSelectRowKeys;
     };
 
-    const doSelect = useCallback((record, selected) => {
-        const rowKeys = findShouldSelectRowKeys(record, selected);
-        setSelectedRowKeys(rowKeys);
-        console.log('select', record, rowKeys);
-    }, [selectedRowKeys, rowKey, childrenRecordName]);
+    const doSelect = useCallback(
+        (record, selected) => {
+            const rowKeys = findShouldSelectRowKeys(record, selected);
+            setSelectedRowKeys(rowKeys);
+            console.log('select', record, rowKeys);
+        },
+        [selectedRowKeys, rowKey, childrenRecordName]
+    );
 
     const doSelectAll = useCallback((selected, selectedRows) => {
         console.log(selected);
@@ -2158,7 +2330,7 @@ In principle, the properties or events supported on tr / td / th can be defined.
 
 ```jsx live=true noInline=true dir="column"
 import React, { useMemo } from 'react';
-import { Table } from '@douyinfe/semi-ui/';
+import { Table, Avatar } from '@douyinfe/semi-ui/';
 import * as dateFns from 'date-fns';
 
 const DAY = 24 * 60 * 60 * 1000;
@@ -2194,8 +2366,8 @@ function EventTable(props = {}) {
             {
                 title: 'Size',
                 dataIndex: 'size',
-                sorter: (a, b) => a.size - b.size > 0 ? 1 : -1,
-                render: (text) => `${text} KB`
+                sorter: (a, b) => (a.size - b.size > 0 ? 1 : -1),
+                render: text => `${text} KB`,
             },
             {
                 title: 'Owner',
@@ -2203,21 +2375,22 @@ function EventTable(props = {}) {
                 render: (text, record, index) => {
                     return (
                         <div>
-                            <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>{typeof text === 'string' && text.slice(0, 1)}</Avatar>
+                            <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>
+                                {typeof text === 'string' && text.slice(0, 1)}
+                            </Avatar>
                             {text}
                         </div>
                     );
-                }
-        
+                },
             },
             {
                 title: 'Update',
                 dataIndex: 'updateTime',
-                sorter: (a, b) => a.updateTime - b.updateTime > 0 ? 1 : -1,
-                render: (value) => {
+                sorter: (a, b) => (a.updateTime - b.updateTime > 0 ? 1 : -1),
+                render: value => {
                     return dateFns.format(new Date(value), 'yyyy-MM-dd');
-                }
-            }
+                },
+            },
         ],
         []
     );
@@ -2233,7 +2406,7 @@ function EventTable(props = {}) {
                 owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
                 size: randomNumber,
                 updateTime: new Date().valueOf() + randomNumber * DAY,
-                avatarBg: isSemiDesign ? 'grey' : 'red'
+                avatarBg: isSemiDesign ? 'grey' : 'red',
             });
         }
         return _data;
@@ -2281,6 +2454,7 @@ Use `OnRow` to set a background color for each row to create a zebra stripped ta
 ```jsx live=true noInline=true dir="column"
 import React from 'react';
 import { Table, Avatar } from '@douyinfe/semi-ui';
+import { IconMore } from '@douyinfe/semi-icons';
 
 function App() {
     const columns = [
@@ -2291,11 +2465,16 @@ function App() {
             render: (text, record, index) => {
                 return (
                     <div>
-                        <Avatar size="small" shape="square" src={record.nameIconSrc} style={{ marginRight: 12 }}></Avatar>
+                        <Avatar
+                            size="small"
+                            shape="square"
+                            src={record.nameIconSrc}
+                            style={{ marginRight: 12 }}
+                        ></Avatar>
                         {text}
                     </div>
                 );
-            }
+            },
         },
         {
             title: 'Size',
@@ -2307,12 +2486,13 @@ function App() {
             render: (text, record, index) => {
                 return (
                     <div>
-                        <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>{typeof text === 'string' && text.slice(0, 1)}</Avatar>
+                        <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>
+                            {typeof text === 'string' && text.slice(0, 1)}
+                        </Avatar>
                         {text}
                     </div>
                 );
-            }
-
+            },
         },
         {
             title: 'Update',
@@ -2323,7 +2503,7 @@ function App() {
             dataIndex: 'operate',
             render: () => {
                 return <IconMore />;
-            }
+            },
         },
     ];
     const data = [
@@ -2334,8 +2514,7 @@ function App() {
             size: '2M',
             owner: 'Jiang Pengzhi',
             updateTime: '2020-02-02 05:13',
-            avatarBg: 'grey'
-
+            avatarBg: 'grey',
         },
         {
             key: '2',
@@ -2344,7 +2523,7 @@ function App() {
             size: '2M',
             owner: 'Hao Xuan',
             updateTime: '2020-01-17 05:31',
-            avatarBg: 'red'
+            avatarBg: 'red',
         },
         {
             key: '3',
@@ -2353,7 +2532,7 @@ function App() {
             size: '34KB',
             owner: 'Zoey Edwards',
             updateTime: '2020-01-26 11:01',
-            avatarBg: 'light-blue'
+            avatarBg: 'light-blue',
         },
         {
             key: '4',
@@ -2362,8 +2541,7 @@ function App() {
             size: '2M',
             owner: 'Jiang Pengzhi',
             updateTime: '2020-02-02 05:13',
-            avatarBg: 'grey'
-
+            avatarBg: 'grey',
         },
         {
             key: '5',
@@ -2372,7 +2550,7 @@ function App() {
             size: '2M',
             owner: 'Hao Xuan',
             updateTime: '2020-01-17 05:31',
-            avatarBg: 'red'
+            avatarBg: 'red',
         },
         {
             key: '6',
@@ -2381,7 +2559,7 @@ function App() {
             size: '34KB',
             owner: 'Zoey Edwards',
             updateTime: '2020-01-26 11:01',
-            avatarBg: 'light-blue'
+            avatarBg: 'light-blue',
         },
     ];
 
@@ -2390,7 +2568,7 @@ function App() {
             return {
                 style: {
                     background: 'var(--semi-color-fill-0)',
-                }
+                },
             };
         } else {
             return {};
@@ -2456,8 +2634,8 @@ function ResizableDemo() {
             title: 'Size',
             dataIndex: 'size',
             width: 200,
-            sorter: (a, b) => a.size - b.size > 0 ? 1 : -1,
-            render: (text) => `${text} KB`
+            sorter: (a, b) => (a.size - b.size > 0 ? 1 : -1),
+            render: text => `${text} KB`,
         },
         {
             title: 'Owner',
@@ -2466,21 +2644,22 @@ function ResizableDemo() {
             render: (text, record, index) => {
                 return (
                     <div>
-                        <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>{typeof text === 'string' && text.slice(0, 1)}</Avatar>
+                        <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>
+                            {typeof text === 'string' && text.slice(0, 1)}
+                        </Avatar>
                         {text}
                     </div>
                 );
-            }
-
+            },
         },
         {
             title: 'Update',
             dataIndex: 'updateTime',
-            sorter: (a, b) => a.updateTime - b.updateTime > 0 ? 1 : -1,
-            render: (value) => {
+            sorter: (a, b) => (a.updateTime - b.updateTime > 0 ? 1 : -1),
+            render: value => {
                 return dateFns.format(new Date(value), 'yyyy-MM-dd');
-            }
-        }
+            },
+        },
     ];
 
     const data = useMemo(() => {
@@ -2494,7 +2673,7 @@ function ResizableDemo() {
                 owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
                 size: randomNumber,
                 updateTime: new Date().valueOf() + randomNumber * DAY,
-                avatarBg: isSemiDesign ? 'grey' : 'red'
+                avatarBg: isSemiDesign ? 'grey' : 'red',
             });
         }
         return _data;
@@ -2555,8 +2734,8 @@ function ResizableDemo() {
             title: 'Size',
             dataIndex: 'size',
             width: 200,
-            sorter: (a, b) => a.size - b.size > 0 ? 1 : -1,
-            render: (text) => `${text} KB`
+            sorter: (a, b) => (a.size - b.size > 0 ? 1 : -1),
+            render: text => `${text} KB`,
         },
         {
             title: 'Owner',
@@ -2565,21 +2744,22 @@ function ResizableDemo() {
             render: (text, record, index) => {
                 return (
                     <div>
-                        <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>{typeof text === 'string' && text.slice(0, 1)}</Avatar>
+                        <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>
+                            {typeof text === 'string' && text.slice(0, 1)}
+                        </Avatar>
                         {text}
                     </div>
                 );
-            }
-
+            },
         },
         {
             title: 'Update',
             dataIndex: 'updateTime',
-            sorter: (a, b) => a.updateTime - b.updateTime > 0 ? 1 : -1,
-            render: (value) => {
+            sorter: (a, b) => (a.updateTime - b.updateTime > 0 ? 1 : -1),
+            render: value => {
                 return dateFns.format(new Date(value), 'yyyy-MM-dd');
-            }
-        }
+            },
+        },
     ];
 
     const data = useMemo(() => {
@@ -2593,7 +2773,7 @@ function ResizableDemo() {
                 owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
                 size: randomNumber,
                 updateTime: new Date().valueOf() + randomNumber * DAY,
-                avatarBg: isSemiDesign ? 'grey' : 'red'
+                avatarBg: isSemiDesign ? 'grey' : 'red',
             });
         }
         return _data;
@@ -2609,7 +2789,7 @@ function ResizableDemo() {
             const className = removeClass(curColumn.className, 'my-resizing');
 
             return { className };
-        }
+        },
     };
 
     return (
@@ -2734,8 +2914,8 @@ const columns = [
         title: 'Size',
         dataIndex: 'size',
         width: 200,
-        sorter: (a, b) => a.size - b.size > 0 ? 1 : -1,
-        render: (text) => `${text} KB`
+        sorter: (a, b) => (a.size - b.size > 0 ? 1 : -1),
+        render: text => `${text} KB`,
     },
     {
         title: 'Owner',
@@ -2744,21 +2924,22 @@ const columns = [
         render: (text, record, index) => {
             return (
                 <div>
-                    <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>{typeof text === 'string' && text.slice(0, 1)}</Avatar>
+                    <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>
+                        {typeof text === 'string' && text.slice(0, 1)}
+                    </Avatar>
                     {text}
                 </div>
             );
-        }
-
+        },
     },
     {
         title: 'Update',
         dataIndex: 'updateTime',
-        sorter: (a, b) => a.updateTime - b.updateTime > 0 ? 1 : -1,
-        render: (value) => {
+        sorter: (a, b) => (a.updateTime - b.updateTime > 0 ? 1 : -1),
+        render: value => {
             return dateFns.format(new Date(value), 'yyyy-MM-dd');
-        }
-    }
+        },
+    },
 ];
 
 const initData = [];
@@ -2771,7 +2952,7 @@ for (let i = 0; i < 46; i++) {
         owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
         size: randomNumber,
         updateTime: new Date().valueOf() + randomNumber * DAY,
-        avatarBg: isSemiDesign ? 'grey' : 'red'
+        avatarBg: isSemiDesign ? 'grey' : 'red',
     });
 }
 
@@ -2780,11 +2961,14 @@ function DragSortingTableDemo(props) {
     const [currentPage, setCurrentPage] = useState(1);
     const [pageData, setPageData] = useState(data.slice(0, PAGE_SIZE));
 
-    const components = useMemo(() => ({
-        body: {
-            row: DraggableBodyRow,
-        },
-    }), []);
+    const components = useMemo(
+        () => ({
+            body: {
+                row: DraggableBodyRow,
+            },
+        }),
+        []
+    );
 
     const moveRow = (dragIndex, hoverIndex) => {
         const totalDragIndex = (currentPage - 1) * PAGE_SIZE + dragIndex;
@@ -2797,7 +2981,7 @@ function DragSortingTableDemo(props) {
         setPageData(newData.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE));
     };
 
-    const handlePageChange = (pageNum) => {
+    const handlePageChange = pageNum => {
         console.log(pageNum);
         setCurrentPage(pageNum);
         setPageData(data.slice((pageNum - 1) * PAGE_SIZE, pageNum * PAGE_SIZE));
@@ -2813,7 +2997,7 @@ function DragSortingTableDemo(props) {
                         pageSize: PAGE_SIZE,
                         total: data.length,
                         currentPage,
-                        onPageChange: handlePageChange
+                        onPageChange: handlePageChange,
                     }}
                     components={components}
                     onRow={(record, index) => ({
@@ -2883,8 +3067,8 @@ const columns = [
     {
         title: 'Size',
         dataIndex: 'size',
-        sorter: (a, b) => a.size - b.size > 0 ? 1 : -1,
-        render: (text) => `${text} KB`
+        sorter: (a, b) => (a.size - b.size > 0 ? 1 : -1),
+        render: text => `${text} KB`,
     },
     {
         title: 'Owner',
@@ -2892,28 +3076,29 @@ const columns = [
         render: (text, record, index) => {
             return (
                 <div>
-                    <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>{typeof text === 'string' && text.slice(0, 1)}</Avatar>
+                    <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>
+                        {typeof text === 'string' && text.slice(0, 1)}
+                    </Avatar>
                     {text}
                 </div>
             );
-        }
-
+        },
     },
     {
         title: 'Update',
         dataIndex: 'updateTime',
-        sorter: (a, b) => a.updateTime - b.updateTime > 0 ? 1 : -1,
-        render: (value) => {
+        sorter: (a, b) => (a.updateTime - b.updateTime > 0 ? 1 : -1),
+        render: value => {
             return dateFns.format(new Date(value), 'yyyy-MM-dd');
-        }
-    }
+        },
+    },
 ];
 
 const getData = () => {
     const data = [];
     for (let i = 0; i < 46; i++) {
         const isSemiDesign = i % 2 === 0;
-        const randomNumber = i * 1000 % 19 + 100;
+        const randomNumber = ((i * 1000) % 19) + 100;
         data.push({
             key: '' + i,
             name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi Pro design draft${i}.fig`,
@@ -2929,7 +3114,8 @@ const getData = () => {
 const data = getData();
 
 function Demo() {
-    const rowKey = record => `${record.owner && record.owner.toLowerCase()}-${record.name && record.name.toLowerCase()}`;
+    const rowKey = record =>
+        `${record.owner && record.owner.toLowerCase()}-${record.name && record.name.toLowerCase()}`;
 
     return (
         <div style={{ padding: '20px 0px' }}>
@@ -2947,7 +3133,9 @@ function Demo() {
                         // onMouseLeave: () => {
                         //     console.log(`Grouped row mouse leave: `, group, index);
                         // },
-                        onClick: e => { console.log(`Grouped row clicked: `, group, index) }
+                        onClick: e => {
+                            console.log(`Grouped row clicked: `, group, index);
+                        },
                     };
                 }}
                 clickGroupedRowToExpand // if you want to click the entire row to expand
@@ -2986,11 +3174,7 @@ const columns = [
         width: 200,
         fixed: true,
         render: (text, record, index) => {
-            return (
-                <div>
-                    {text}
-                </div>
-            );
+            return <div>{text}</div>;
         },
         filters: [
             {
@@ -3008,8 +3192,8 @@ const columns = [
         title: 'Size',
         dataIndex: 'size',
         width: 150,
-        sorter: (a, b) => a.size - b.size > 0 ? 1 : -1,
-        render: (text) => `${text} KB`
+        sorter: (a, b) => (a.size - b.size > 0 ? 1 : -1),
+        render: text => `${text} KB`,
     },
     {
         title: 'Owner',
@@ -3017,23 +3201,24 @@ const columns = [
         render: (text, record, index) => {
             return (
                 <div>
-                    <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>{typeof text === 'string' && text.slice(0, 1)}</Avatar>
+                    <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>
+                        {typeof text === 'string' && text.slice(0, 1)}
+                    </Avatar>
                     {text}
                 </div>
             );
-        }
-
+        },
     },
     {
         title: 'Update',
         dataIndex: 'updateTime',
         fixed: 'right',
         width: 150,
-        sorter: (a, b) => a.updateTime - b.updateTime > 0 ? 1 : -1,
-        render: (value) => {
+        sorter: (a, b) => (a.updateTime - b.updateTime > 0 ? 1 : -1),
+        render: value => {
             return dateFns.format(new Date(value), 'yyyy-MM-dd');
-        }
-    }
+        },
+    },
 ];
 
 const getData = () => {
@@ -3047,7 +3232,7 @@ const getData = () => {
             owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
             size: randomNumber,
             updateTime: new Date().valueOf() + randomNumber * DAY,
-            avatarBg: isSemiDesign ? 'grey' : 'red'
+            avatarBg: isSemiDesign ? 'grey' : 'red',
         });
     }
     return data;
@@ -3056,7 +3241,7 @@ const getData = () => {
 const data = getData();
 
 function VirtualizedFixedDemo() {
-    let virtualizedListRef = useRef()
+    let virtualizedListRef = useRef();
     const scroll = { y: 400, x: 900 };
     const style = { width: 750, margin: '0 auto' };
 
@@ -3070,7 +3255,7 @@ function VirtualizedFixedDemo() {
                 scroll={scroll}
                 style={style}
                 virtualized
-                getVirtualizedListRef={ref => virtualizedListRef = ref}
+                getVirtualizedListRef={ref => (virtualizedListRef = ref)}
             />
         </>
     );
@@ -3097,11 +3282,7 @@ const columns = [
         width: 200,
         fixed: true,
         render: (text, record, index) => {
-            return (
-                <div>
-                    {text}
-                </div>
-            );
+            return <div>{text}</div>;
         },
         filters: [
             {
@@ -3119,8 +3300,8 @@ const columns = [
         title: 'Size',
         dataIndex: 'size',
         width: 150,
-        sorter: (a, b) => a.size - b.size > 0 ? 1 : -1,
-        render: (text) => `${text} KB`
+        sorter: (a, b) => (a.size - b.size > 0 ? 1 : -1),
+        render: text => `${text} KB`,
     },
     {
         title: 'Owner',
@@ -3128,23 +3309,24 @@ const columns = [
         render: (text, record, index) => {
             return (
                 <div>
-                    <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>{typeof text === 'string' && text.slice(0, 1)}</Avatar>
+                    <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>
+                        {typeof text === 'string' && text.slice(0, 1)}
+                    </Avatar>
                     {text}
                 </div>
             );
-        }
-
+        },
     },
     {
         title: 'Update',
         dataIndex: 'updateTime',
         fixed: 'right',
         width: 150,
-        sorter: (a, b) => a.updateTime - b.updateTime > 0 ? 1 : -1,
-        render: (value) => {
+        sorter: (a, b) => (a.updateTime - b.updateTime > 0 ? 1 : -1),
+        render: value => {
             return dateFns.format(new Date(value), 'yyyy-MM-dd');
-        }
-    }
+        },
+    },
 ];
 
 function InfiniteScrollDemo() {
@@ -3166,7 +3348,7 @@ function InfiniteScrollDemo() {
                 owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
                 size: randomNumber,
                 updateTime: new Date().valueOf() + randomNumber * DAY,
-                avatarBg: isSemiDesign ? 'grey' : 'red'
+                avatarBg: isSemiDesign ? 'grey' : 'red',
             });
         }
         setData(newData);
@@ -3203,7 +3385,6 @@ function InfiniteScrollDemo() {
 }
 
 render(InfiniteScrollDemo);
-
 ```
 
 ### Controlled Dynamic Tables
@@ -3248,8 +3429,8 @@ class App extends React.Component {
             {
                 title: 'Size',
                 dataIndex: 'size',
-                sorter: (a, b) => a.size - b.size > 0 ? 1 : -1,
-                render: (text) => `${text} KB`
+                sorter: (a, b) => (a.size - b.size > 0 ? 1 : -1),
+                render: text => `${text} KB`,
             },
             {
                 title: 'Owner',
@@ -3257,21 +3438,22 @@ class App extends React.Component {
                 render: (text, record, index) => {
                     return (
                         <div>
-                            <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>{typeof text === 'string' && text.slice(0, 1)}</Avatar>
+                            <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>
+                                {typeof text === 'string' && text.slice(0, 1)}
+                            </Avatar>
                             {text}
                         </div>
                     );
-                }
-        
+                },
             },
             {
                 title: 'Update',
                 dataIndex: 'updateTime',
-                sorter: (a, b) => a.updateTime - b.updateTime > 0 ? 1 : -1,
-                render: (value) => {
+                sorter: (a, b) => (a.updateTime - b.updateTime > 0 ? 1 : -1),
+                render: value => {
                     return dateFns.format(new Date(value), 'yyyy-MM-dd');
-                }
-            }
+                },
+            },
         ];
 
         this.getData = () => {
@@ -3285,7 +3467,7 @@ class App extends React.Component {
                     owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
                     size: randomNumber,
                     updateTime: new Date().valueOf() + randomNumber * DAY,
-                    avatarBg: isSemiDesign ? 'grey' : 'red'
+                    avatarBg: isSemiDesign ? 'grey' : 'red',
                 });
             }
             return data;
@@ -3557,7 +3739,7 @@ class App extends React.Component {
 
             this.setState({ columns });
 
-            if(!checked) {
+            if (!checked) {
                 this.setPage(null, null, []);
             }
         };
@@ -3636,11 +3818,11 @@ class App extends React.Component {
             let pagination = checked
                 ? false
                 : {
-                    currentPage: 1,
-                    pageSize: 8,
-                    total: data.length,
-                    onPageChange: page => this.setPage(page),
-                };
+                      currentPage: 1,
+                      pageSize: 8,
+                      total: data.length,
+                      onPageChange: page => this.setPage(page),
+                  };
 
             this.setState({ pagination });
         };
@@ -3890,8 +4072,8 @@ const columns = [
     {
         title: 'Size',
         dataIndex: 'size',
-        sorter: (a, b) => a.size - b.size > 0 ? 1 : -1,
-        render: (text) => `${text} KB`
+        sorter: (a, b) => (a.size - b.size > 0 ? 1 : -1),
+        render: text => `${text} KB`,
     },
     {
         title: 'Owner',
@@ -3899,24 +4081,25 @@ const columns = [
         render: (text, record, index) => {
             return (
                 <div>
-                    <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>{typeof text === 'string' && text.slice(0, 1)}</Avatar>
+                    <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>
+                        {typeof text === 'string' && text.slice(0, 1)}
+                    </Avatar>
                     {text}
                 </div>
             );
-        }
-
+        },
     },
     {
         title: 'Update',
         dataIndex: 'updateTime',
-        sorter: (a, b) => a.updateTime - b.updateTime > 0 ? 1 : -1,
-        render: (value) => {
+        sorter: (a, b) => (a.updateTime - b.updateTime > 0 ? 1 : -1),
+        render: value => {
             return dateFns.format(new Date(value), 'yyyy-MM-dd');
-        }
-    }
+        },
+    },
 ];
 
-const getData = (total) => {
+const getData = total => {
     const data = [];
     for (let i = 0; i < total; i++) {
         const isSemiDesign = i % 2 === 0;
@@ -3927,7 +4110,7 @@ const getData = (total) => {
             owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
             size: randomNumber,
             updateTime: new Date().valueOf() + randomNumber * DAY,
-            avatarBg: isSemiDesign ? 'grey' : 'red'
+            avatarBg: isSemiDesign ? 'grey' : 'red',
         });
     }
     return data;
@@ -3936,9 +4119,12 @@ const getData = (total) => {
 function Demo() {
     const [dataSource, setDataSource] = useState([]);
     const total = 46;
-    const pagination = useMemo(() => ({
-        pageSize: 12,
-    }), []);
+    const pagination = useMemo(
+        () => ({
+            pageSize: 12,
+        }),
+        []
+    );
 
     const rowSelection = useMemo(() => {
         return {
@@ -4019,10 +4205,10 @@ const columns = [
                 dataIndex: 'size',
                 width: 100,
                 fixed: true,
-                sorter: (a, b) => a.size - b.size > 0 ? 1 : -1,
-                render: (text) => `${text} KB`
+                sorter: (a, b) => (a.size - b.size > 0 ? 1 : -1),
+                render: text => `${text} KB`,
             },
-        ]
+        ],
     },
     {
         title: 'Others Info',
@@ -4033,22 +4219,23 @@ const columns = [
                 render: (text, record, index) => {
                     return (
                         <div>
-                            <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>{typeof text === 'string' && text.slice(0, 1)}</Avatar>
+                            <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>
+                                {typeof text === 'string' && text.slice(0, 1)}
+                            </Avatar>
                             {text}
                         </div>
                     );
-                }
-        
+                },
             },
             {
                 title: 'Update',
                 dataIndex: 'updateTime',
-                sorter: (a, b) => a.updateTime - b.updateTime > 0 ? 1 : -1,
-                render: (value) => {
+                sorter: (a, b) => (a.updateTime - b.updateTime > 0 ? 1 : -1),
+                render: value => {
                     return dateFns.format(new Date(value), 'yyyy-MM-dd');
-                }
-            }
-        ]
+                },
+            },
+        ],
     },
     {
         title: 'More',
@@ -4058,11 +4245,11 @@ const columns = [
         dataIndex: 'operate',
         render: () => {
             return <IconMore />;
-        }
+        },
     },
 ];
 
-const getData = (total) => {
+const getData = total => {
     const data = [];
     for (let i = 0; i < total; i++) {
         const isSemiDesign = i % 2 === 0;
@@ -4073,7 +4260,7 @@ const getData = (total) => {
             owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
             size: randomNumber,
             updateTime: new Date().valueOf() + randomNumber * DAY,
-            avatarBg: isSemiDesign ? 'grey' : 'red'
+            avatarBg: isSemiDesign ? 'grey' : 'red',
         });
     }
     return data;
@@ -4112,7 +4299,7 @@ const DAY = 24 * 60 * 60 * 1000;
 const figmaIconUrl = 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png';
 const Column = Table.Column;
 
-const getData = (total) => {
+const getData = total => {
     const data = [];
     for (let i = 0; i < total; i++) {
         const isSemiDesign = i % 2 === 0;
@@ -4123,7 +4310,7 @@ const getData = (total) => {
             owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
             size: randomNumber,
             updateTime: new Date().valueOf() + randomNumber * DAY,
-            avatarBg: isSemiDesign ? 'grey' : 'red'
+            avatarBg: isSemiDesign ? 'grey' : 'red',
         });
     }
     return data;
@@ -4158,7 +4345,9 @@ function Demo() {
     const renderOwner = (text, record, index) => {
         return (
             <div>
-                <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>{typeof text === 'string' && text.slice(0, 1)}</Avatar>
+                <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>
+                    {typeof text === 'string' && text.slice(0, 1)}
+                </Avatar>
                 {text}
             </div>
         );
@@ -4173,14 +4362,41 @@ function Demo() {
             onChange={(...args) => console.log(...args)}
         >
             <Column title="Basic Info" fixed="left">
-                <Column title="Title" dataIndex="name" width={300} fixed render={renderName} filters={nameFilters} onFilter={(value, record) => record.name.includes(value)} />
-                <Column title="Size" dataIndex="size" width={100} fixed render={(text) => `${text} KB`} sorter={(a, b) => a.size - b.size > 0 ? 1 : -1} ></Column>
+                <Column
+                    title="Title"
+                    dataIndex="name"
+                    width={300}
+                    fixed
+                    render={renderName}
+                    filters={nameFilters}
+                    onFilter={(value, record) => record.name.includes(value)}
+                />
+                <Column
+                    title="Size"
+                    dataIndex="size"
+                    width={100}
+                    fixed
+                    render={text => `${text} KB`}
+                    sorter={(a, b) => (a.size - b.size > 0 ? 1 : -1)}
+                ></Column>
             </Column>
             <Column title="Others Info">
                 <Column title="Owner" dataIndex="owner" render={renderOwner} />
-                <Column title="Update" dataIndex="updateTime" sorter={(a, b) => a.updateTime - b.updateTime > 0 ? 1 : -1} render={(value) => dateFns.format(new Date(value), 'yyyy-MM-dd')}></Column>
+                <Column
+                    title="Update"
+                    dataIndex="updateTime"
+                    sorter={(a, b) => (a.updateTime - b.updateTime > 0 ? 1 : -1)}
+                    render={value => dateFns.format(new Date(value), 'yyyy-MM-dd')}
+                ></Column>
             </Column>
-            <Column title="More" dataIndex="operate" fixed="right" width={100} align="center" render={() => <IconMore />} />
+            <Column
+                title="More"
+                dataIndex="operate"
+                fixed="right"
+                width={100}
+                align="center"
+                render={() => <IconMore />}
+            />
         </Table>
     );
 }
@@ -4188,20 +4404,25 @@ function Demo() {
 render(Demo);
 ```
 
-### colSpan and rowSpan 
+### colSpan and rowSpan
 
-- In addition to merging the headers by writing children, you can merge the headers by setting column.colSpan.
-- Table supports row/column merging. When the cell attribute colSpan or rowSpan in render is set to 0, the set table will not be rendered.
+-   In addition to merging the headers by writing children, you can merge the headers by setting column.colSpan.
+-   Table supports row/column merging. When the cell attribute colSpan or rowSpan in render is set to 0, the set table will not be rendered.
 
 ```tsx
-type Render = (text: string, record: Object, index: number, options?: RenderOptions) => {
+type Render = (
+    text: string,
+    record: Object,
+    index: number,
+    options?: RenderOptions
+) => {
     children: React.ReactNode;
     props: {
-        colSpan?: number,
-        rowSpan?: number,
-    },
+        colSpan?: number;
+        rowSpan?: number;
+    };
     [x: string]: any;
-}
+};
 
 interface RenderOptions {
     expandIcon?: React.ReactNode;
@@ -4231,17 +4452,17 @@ const columns = [
             if (index === 0) {
                 renderObject.props = {
                     colSpan: 4,
-                }
+                };
             }
             if (index === 1) {
                 renderObject.props = {
                     rowSpan: 2,
-                }
+                };
             }
             if (index === 2) {
                 renderObject.props = {
                     rowSpan: 0,
-                }
+                };
             }
             return renderObject;
         },
@@ -4255,27 +4476,27 @@ const columns = [
                     children: `${text} KB`,
                     props: {
                         colSpan: 0,
-                    }
-                }
+                    },
+                };
             }
             if (index === 1) {
                 return {
                     children: `${text} KB`,
                     props: {
                         rowSpan: 2,
-                    }
-                }
+                    },
+                };
             }
             if (index === 2) {
                 return {
                     children: `${text} KB`,
                     props: {
                         rowSpan: 0,
-                    }
-                }
+                    },
+                };
             }
             return `${text} KB`;
-        }
+        },
     },
     {
         title: 'Owner',
@@ -4283,7 +4504,9 @@ const columns = [
         render: (text, record, index) => {
             const children = (
                 <div>
-                    <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>{typeof text === 'string' && text.slice(0, 1)}</Avatar>
+                    <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>
+                        {typeof text === 'string' && text.slice(0, 1)}
+                    </Avatar>
                     {text}
                 </div>
             );
@@ -4292,45 +4515,45 @@ const columns = [
                     children,
                     props: {
                         colSpan: 0,
-                    }
-                }
+                    },
+                };
             }
             return children;
-        }
+        },
     },
     {
         title: 'Update',
         dataIndex: 'updateTime',
-        sorter: (a, b) => a.updateTime - b.updateTime > 0 ? 1 : -1,
+        sorter: (a, b) => (a.updateTime - b.updateTime > 0 ? 1 : -1),
         render: (value, record, index) => {
             const children = dateFns.format(new Date(value), 'yyyy-MM-dd');
             if (index === 0) {
                 return {
                     children,
                     props: {
-                        colSpan: 0
-                    }
-                }
+                        colSpan: 0,
+                    },
+                };
             }
             if (index === 1) {
                 return {
                     children,
                     props: {
-                        rowSpan: 2
-                    }
-                }
+                        rowSpan: 2,
+                    },
+                };
             }
             if (index === 2) {
                 return {
                     children,
                     props: {
-                        rowSpan: 0
-                    }
-                }
+                        rowSpan: 0,
+                    },
+                };
             }
             return children;
-        }
-    }
+        },
+    },
 ];
 
 const DAY = 24 * 60 * 60 * 1000;
@@ -4338,7 +4561,7 @@ const DAY = 24 * 60 * 60 * 1000;
 function App() {
     const [dataSource, setData] = useState([]);
 
-    const getData = (total) => {
+    const getData = total => {
         const data = [];
         for (let i = 0; i < total; i++) {
             const isSemiDesign = i % 2 === 0;
@@ -4349,7 +4572,7 @@ function App() {
                 owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
                 size: randomNumber,
                 updateTime: new Date().valueOf() + randomNumber * DAY,
-                avatarBg: isSemiDesign ? 'grey' : 'red'
+                avatarBg: isSemiDesign ? 'grey' : 'red',
             });
         }
         return data;
@@ -4366,67 +4589,55 @@ function App() {
 render(App);
 ```
 
-## Accessibility
-
-### ARIA
-
-- The role of the table is grid, and the role of the tree table is treegrid
-- the row's role is row, and the cell's role is gridcell
-- Added aria-rowcount and aria-colcount attributes to the table to indicate the number of rows and columns
-- The row has added aria-rowindex to indicate which row it currently belongs to, and the first row is 1
-- The row of the tree table has aria-level representing the tree level of the current row, the first level is 1
-- Expandable table rows have the aria-expanded attribute, indicating whether the current row is expanded
-- The new aria-colindex of the cell indicates which column the current grid belongs to, and the first column is 1
-- Added aria-label to column filter and sort buttons, and added aria-label attribute to row select buttons
-
 ## API Reference
 
 ## Table
 
-| Properties              | Instructions                                                                                                              | Type                                                                                                            | Default    | Version                                                           |
-| ----------------------- | ------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | ---------- | ----------------------------------------------------------------- |
-| bordered                | Whether to display outer and column borders                                                                               | boolean                                                                                                         | false      |
-| className               | Outermost style name                                                                                                      | string                                                                                                          |            |
-| clickGroupedRowToExpand | Group content expands or collapses when the group header row is clicked                                                   | boolean                                                                                                         |            | **0.29.0**                                                 |
-| columns                 | For a configuration description of the table column, see [Column](#Column)                                              | Column []                                                                                                       | []         |
-| dataSource              | Data                                                                                                                      | RecordType[]                                                                                                 | []         |
-| defaultExpandAllRows    | All rows are expanded by default                                                                                          | boolean                                                                                                         | false      |
-| defaultExpandAllGroupRows  | All grouped rows are expanded by default                                                          | boolean                                                                                                         | false      | **1.30.0**
-| defaultExpandedRowKeys  | Default expansion of row key array                                                                                        | Array <\*>                                                                                                      | []         |
-| empty                   | Content displayed when there is no data                                                                                   | ReactNode                                                                                                          | ReactNode  | 'No data yet. '                                                   |
-| expandCellFixed         | Whether the column of the expansion icon is fixed or not, the same value as the fixed value in Column                     | boolean\|string                                                                                                 | false      |
-| expandIcon              | Custom expansion icon, hidden when it is `false`                                                                          | boolean <br/>\|ReactNode <br/>\| (expanded: boolean) => ReactNode                                               |            |
-| expandedRowKeys         | Expanded rows, the row expansion function will be controlled when this parameter is introduced.                           | (string | number)[]                                                                                                 |            |
-| expandedRowRender       | Extra unfolding lines                                                                                                     | (record: object, index: number, expanded: boolean) => ReactNode                                                 |            |
-| expandAllRows           | All rows are expanded                                                           | boolean                                                                                                         | false      | **1.30.0**
-| expandAllGroupRows      | All grouped rows are expanded                                                           | boolean                                                                                                         | false      | **1.30.0**
-| expandRowByClick        | Expand row when click row                                                         | boolean                                                                                    |  false  | **1.31.0**
-| footer                  | End of form                                                                                                               | string<br/>\|ReactNode<br/>\|(pageData: object) => string\|ReactNode                                            |            |
-| groupBy                 | Grouping basis, generally a method of a key name or a return value of a string or number in the dataSource element        | string\|number<br/>\|(record: any) => string\|number                                                                    |            | **0.29.0**                                                 |
-| hideExpandedColumn      | Whether to hide the expansion button column and turn off the rendering of the expansion button when it is turned on       | boolean                                                                                                         | true      |
-| indentSize              | indent size of TableCell                         | number                                                                                                         | 20      |
-| loading                 | Table is loading or not                                                                                                   | boolean                                                                                                         | false      |
-| pagination              | Paging component configuration                                                                                            | boolean\|TablePaginationProps                                                                                                 | true       |
-| prefixCls               | Style name prefix                                                                                                         | string                                                                                                          |            |
-| renderGroupSection      | Header rendering method                                                                                                   | (groupKey?: string \| number, group?: string[] \| number[]) => ReactNode                                        |            | **0.29.0**                                                 |
-| renderPagination        | Customize the rendering method of pagination.                                                                             | (paginationProps?: TablePaginationProps) => ReactNode                                        |            | **1.13.0**                              |
-| resizable               | Whether to turn on the telescopic column function, the column that needs to be telescopic must provide the value of width | boolean\|[Resizable](#Resizable)                                                                                | false      |
-| rowExpandable           | Whether the row can be expanded, turning off the rendering of the expandable button when the value is false               | (record: RecordType): => boolean                                                                                    | () => true | **0.27.0**                                                 |
-| rowKey                  | The value of the table row key, which can be a string or a function.                                                      | string \| (record: RecordType) => string                                                                               | 'key'      |
-| rowSelection            | See [rowSelection](#rowSelection)                                                                                         | object                                                                                                          | null       |
-| scroll                  | Whether the table is scrollable, configure the width or height of the scroll area, see [scroll](#scroll)                  | object                                                                                                          | -          |
-| showHeader              | Does it show the header?                                                                                                  | boolean                                                                                                         | true       |
-| size                    | Table size, will effect the `padding` of the rows                                                                         | "default"\|"middle"\|"small"                                                                                    | "default"  | **1.0.0**                                                         |
-| title                   | Table Title                                                                                                               | string<br/>\|ReactNode<br/>\|(pageData: RecordType[]) => string\|ReactNode                                            |            |
-| virtualized             | Virtualization settings                                                                                                   | Virtualized                                                                                                 | false      | **0.33.0**                                                 |
-| virtualized.itemSize    | Row height                                                                                                                | number\|(index: number) => number                                                                               | 56         | **0.33.0**                                                 |
-| virtualized.onScroll    | Virtualization scroll callback method                                                                                     | ( scrollDirection?: 'forward' \| 'backward', scrollOffset?: number, scrollUpdateWasRequested?: boolean ) => void |            | **0.33.0**                                                 |
-| onChange                | Trigger when paging, sorting, filtering changes                                                                           | ({ pagination: TablePaginationProps, <br/>filters: Array<\*>, sorter: object, extra: any }) => void                           |            |
-| onExpand                | Trigger when clicking on the row expansion icon                                                                           | (expanded: boolean, record: RecordType, DOMEvent: MouseEvent) => void                                               |            | The third parameter DOMEvent requires version **>=0.28.0** |
-| onExpandedRowsChange    | Triggers when unfolding row changes                                                                                       | (rows: RecordType[]) => void                                                                                        |            |
-| onGroupedRow            | Similar to onRow, but this parameter is used to define the row attribute of the grouping header alone                     | (record: RecordType, index: number) => object                                                                       |            | **0.29.0**                                                 |
-| onHeaderRow             | Set the header row property, and the returned object is merged to the header line                                         | (columns: Column[], index: number) => object                                                                       |            |
-| onRow                   | Set the row property, and the returned object is merged to the table row                                                  | (record: RecordType, index: number) => object                                                                       |            |
+| Properties | Instructions | Type | Default | Version |
+| --- | --- | --- | --- | --- |
+| bordered | Whether to display outer and column borders | boolean | false |
+| className | Outermost style name | string |  |
+| clickGroupedRowToExpand | Group content expands or collapses when the group header row is clicked | boolean |  | **0.29.0** |
+| columns | For a configuration description of the table column, see [Column](#Column) | Column [] | [] |
+| dataSource | Data | RecordType[] | [] |
+| defaultExpandAllRows | All rows are expanded by default | boolean | false |
+| defaultExpandAllGroupRows | All grouped rows are expanded by default | boolean | false | **1.30.0** |
+| defaultExpandedRowKeys | Default expansion of row key array | Array <\*> | [] |
+| empty | Content displayed when there is no data | ReactNode | ReactNode | 'No data yet. ' |
+| expandCellFixed | Whether the column of the expansion icon is fixed or not, the same value as the fixed value in Column | boolean\|string | false |
+| expandIcon | Custom expansion icon, hidden when it is `false` | boolean <br/>\|ReactNode <br/>\| (expanded: boolean) => ReactNode |  |
+| expandedRowKeys | Expanded rows, the row expansion function will be controlled when this parameter is introduced. | (string \| number)[] |  |
+| expandedRowRender | Extra unfolding lines | (record: object, index: number, expanded: boolean) => ReactNode |  |
+| expandAllRows | All rows are expanded | boolean | false | **1.30.0** |
+| expandAllGroupRows | All grouped rows are expanded | boolean | false | **1.30.0** |
+| expandRowByClick | Expand row when click row | boolean | false | **1.31.0** |
+| footer | End of form | string<br/>\|ReactNode<br/>\|(pageData: object) => string\|ReactNode |  |
+| groupBy | Grouping basis, generally a method of a key name or a return value of a string or number in the dataSource element | string\|number<br/>\|(record: any) => string\|number |  | **0.29.0** |
+| hideExpandedColumn | Whether to hide the expansion button column and turn off the rendering of the expansion button when it is turned on | boolean | true |
+| indentSize | indent size of TableCell | number | 20 |
+| loading | Table is loading or not | boolean | false |
+| pagination | Paging component configuration | boolean\|TablePaginationProps | true |
+| prefixCls | Style name prefix | string |  |
+| renderGroupSection | Header rendering method | (groupKey?: string \| number, group?: string[] \| number[]) => ReactNode |  | **0.29.0** |
+| renderPagination | Customize the rendering method of pagination. | (paginationProps?: TablePaginationProps) => ReactNode |  | **1.13.0** |
+| resizable | Whether to turn on the telescopic column function, the column that needs to be telescopic must provide the value of width | boolean\|[Resizable](#Resizable) | false |
+| rowExpandable | Whether the row can be expanded, turning off the rendering of the expandable button when the value is false | (record: RecordType): => boolean | () => true | **0.27.0** |
+| rowKey | The value of the table row key, which can be a string or a function. | string \| (record: RecordType) => string | 'key' |
+| rowSelection | See [rowSelection](#rowSelection) | object | null |
+| scroll | Whether the table is scrollable, configure the width or height of the scroll area, see [scroll](#scroll) | object | - |
+| showHeader | Does it show the header? | boolean | true |
+| size | Table size, will effect the `padding` of the rows | "default"\|"middle"\|"small" | "default" | **1.0.0** |
+| sticky | fixed header | boolean \| { top: number } | false | **2.21.0** |
+| title | Table Title | string<br/>\|ReactNode<br/>\|(pageData: RecordType[]) => string\|ReactNode |  |
+| virtualized | Virtualization settings | Virtualized | false | **0.33.0** |
+| virtualized.itemSize | Row height | number\|(index: number) => number | 56 | **0.33.0** |
+| virtualized.onScroll | Virtualization scroll callback method | ( scrollDirection?: 'forward' \| 'backward', scrollOffset?: number, scrollUpdateWasRequested?: boolean ) => void |  | **0.33.0** |
+| onChange | Trigger when paging, sorting, filtering changes | ({ pagination: TablePaginationProps, <br/>filters: Array<\*>, sorter: object, extra: any }) => void |  |
+| onExpand | Trigger when clicking on the row expansion icon | (expanded: boolean, record: RecordType, DOMEvent: MouseEvent) => void |  | The third parameter DOMEvent requires version **>=0.28.0** |
+| onExpandedRowsChange | Triggers when unfolding row changes | (rows: RecordType[]) => void |  |
+| onGroupedRow | Similar to onRow, but this parameter is used to define the row attribute of the grouping header alone | (record: RecordType, index: number) => object |  | **0.29.0** |
+| onHeaderRow | Set the header row property, and the returned object is merged to the header line | (columns: Column[], index: number) => object |  |
+| onRow | Set the row property, and the returned object is merged to the table row | (record: RecordType, index: number) => object |  |
 
 Some of the type definitions used above:
 
@@ -4446,11 +4657,13 @@ type VirtualizedOnScrollArgs = {
 };
 type VirtualizedOnScroll = (object: VirtualizedOnScrollArgs) => void;
 
-type Virtualized = boolean | {
-    mode?: VirtualizedMode;
-    itemSize?: number | VirtualizedItemSizeFn;
-    onScroll?: VirtualizedOnScroll;
-};
+type Virtualized =
+    | boolean
+    | {
+          mode?: VirtualizedMode;
+          itemSize?: number | VirtualizedItemSizeFn;
+          onScroll?: VirtualizedOnScroll;
+      };
 ```
 
 RecordType is a generic parameter of Table and Column, and the default is object type. You can use RecordType like this:
@@ -4470,12 +4683,12 @@ interface Record {
 }
 
 const columns: ColumnProps<Record>[] = [
-        {
-            title: 'Name',
-            dataIndex: 'name',
-            width: 200,
-        },
-        // ...
+    {
+        title: 'Name',
+        dataIndex: 'name',
+        width: 200,
+    },
+    // ...
 ];
 
 const data: Record[] = [
@@ -4489,10 +4702,7 @@ const data: Record[] = [
 ];
 
 function App() {
-
-    return (
-        <Table<Record> columns={columns} dataSource={data} />
-    );
+    return <Table<Record> columns={columns} dataSource={data} />;
 }
 ```
 
@@ -4512,8 +4722,8 @@ import { Table } from '@douyinfe/semi-ui';
                 onMouseEnter: event => {},
                 onMouseLeave: event => {},
                 className: '',
-            // ...
-            // Other attributes or events that can be applied to tr
+                // ...
+                // Other attributes or events that can be applied to tr
             };
         }}
         onHeaderRow={(columns, index) => {
@@ -4522,8 +4732,8 @@ import { Table } from '@douyinfe/semi-ui';
                 onMouseEnter: event => {},
                 onMouseLeave: event => {},
                 className: '',
-            // ...
-            // Other attributes or events that can be applied to th
+                // ...
+                // Other attributes or events that can be applied to th
             };
         }}
     />
@@ -4532,37 +4742,37 @@ import { Table } from '@douyinfe/semi-ui';
 
 ## Column
 
-| Parameters                    | Instructions                                                                                                                                                                                         | Type                                                                                               | Default | Version                                   |
-| ----------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | ------- | ----------------------------------------- |
-| align                         | Setting the alignment of columns                                                                                                                                                                     | 'left '\| 'right '\| 'center'                                                                      | 'left'  |
-| children                      | Settings for sub-columns when the header is merged                                                                                            | Column[]                                                                                          |        |
-| className                     | Column style name                                                                                                                                                                                    | string                                                                                             |         |
-| colSpan                       | When header columns merge, set to 0, do not render                                                                                                                                                   | number                                                                                             |         |
-| dataIndex                     | The key corresponding to the column data in the data item. It is required when using sorter or filter.                                                                                                                                           | string                                                                                             |         |
-| defaultFilteredValue          | Default value of the filter, the filter state of the external control column with a value of the screened value array                            | any[]                                                                                           |        | **2.5.0** |
-| defaultSortOrder              | The default value of sortOrder, one of 'ascend'\|'descend'\|false                                         | boolean\| string                                                                                          |  false  | **1.31.0**
-| filterChildrenRecord          | Whether the child data needs to be filtered locally. If this function is enabled, if the child meets the filtering criteria, the parent will retain it even if it does not meet the criteria.        | boolean                                                                                            |         | **0.29.0**                         |
-| filterDropdown                | You can customize the filter menu. This function is only responsible for rendering the layer and needs to write a variety of interactions.                                                           | ReactNode                                                                                          |         |
-| filterDropdownProps           | Props passing to Dropdown, see more in [Dropdown API](/en-US/show/dropdown#Dropdown)                                                                       | object                                                                                        |        |
-| filterDropdownVisible         | Visible of Dropdown, see more in [Dropdown API](/en-US/show/dropdown#Dropdown)                                                                      | boolean                                                                                        |        |
-| filterIcon                    | Custom filter icon                                                                                                                                                                                   | boolean\|ReactNode\|(filtered: boolean) => ReactNode                                               |         |
-| filterMultiple                | Whether to choose more                                                                                                                                                                               | boolean                                                                                            | true    |
-| filteredValue                 | Controlled property of the filter, the filter state of the external control column with a value of the screened value array                                                                          | any[]                                                                                              |         |
-| filters                       | Filter menu items for the header                                                                                                                                                                     | Filter[]                                                                                           |         |
-| fixed                         | Whether the column is fixed, optional true (equivalent to left) 'left' 'right'                                                                                                                       | boolean\|string                                                                                    | false   |
-| key                           | The key required by React, if a unique dataIndex has been set, can ignore this property                                                                                                              | string                                                                                             |         |
-| render                        | A rendering function that generates complex data, the parameters are the value of the current row, the current row data, the row index, and the table row / column merge can be set in return object | (text: any, record: RecordType, index: number, { expandIcon?: ReactNode }) => React\|object         |         |
-| renderFilterDropdownItem      | Customize the rendering method of each filter item. For usage details, see [Custom Filter Item Rendering](#Custom-Filter-Item-Rendering)                                                             | ({ value: any, text: any, onChange: Function, level: number, ...otherProps }) => ReactNode         | -       | **1.1.0**                         |
-| sortChildrenRecord            | Whether to sort child data locally                                                                                                                                                                   | boolean                                                                                            |         | **0.29.0**                         |
-| sortOrder                     | The controlled property of the sorting, the sorting of this control column can be set to 'ascend'\|'descended '\|false                                                                               | boolean                                                                                            | false   |
-| sorter                        | Sorting function, local sorting uses a function (refer to the compreFunction of Array.sort), requiring a server-side sorting can be set to true                                                      | boolean\|(r1: RecordType, r2: RecordType) => number                                                        | true    |
-| title                         | Column header displays text. When a function is passed in, title will use the return value of the function; when other types are passed in, they will be aggregated with sorter and filter           | string \| ReactNode\|({ filter: ReactNode, sorter: ReactNode, selection: ReactNode }) => ReactNode |         | Function type requires **0.34.0** |
-| useFullRender                 | Whether to completely customize the rendering, see [Full Custom Rendering](#Fully-custom-rendering) for usage details                                                                                 | boolean                                                                                            | false   | **0.34.0**                        |
-| width                         | Column width                                                                                                                                                                                         | string \| number                                                                                   |         |
-| onCell                        | Set cell properties                                                                                                                                                                                  | (record: RecordType, rowIndex: number) => object                                                       |         |
-| onFilter                      | Determine the running function of the filter in local mode                                                                                                                                           | (filteredValue: any[], record: RecordType) => boolean                                                  |         |
-| onFilterDropdownVisibleChange | A callback when a custom filter menu is visible                                                                                                                                                      | (visible: boolean) => void                                                                         |         |
-| onHeaderCell                  | Set the head cell property                                                                                                                                                                           | (column: RecordType, columnIndex: number) => object                                                    |         |
+| Parameters | Instructions | Type | Default | Version |
+| --- | --- | --- | --- | --- |
+| align | Setting the alignment of columns | 'left '\| 'right '\| 'center' | 'left' |
+| children | Settings for sub-columns when the header is merged | Column[] |  |
+| className | Column style name | string |  |
+| colSpan | When header columns merge, set to 0, do not render | number |  |
+| dataIndex | The key corresponding to the column data in the data item. It is required when using sorter or filter. | string |  |
+| defaultFilteredValue | Default value of the filter, the filter state of the external control column with a value of the screened value array | any[] |  | **2.5.0** |
+| defaultSortOrder | The default value of sortOrder, one of 'ascend'\|'descend'\|false | boolean\| string | false | **1.31.0** |
+| filterChildrenRecord | Whether the child data needs to be filtered locally. If this function is enabled, if the child meets the filtering criteria, the parent will retain it even if it does not meet the criteria. | boolean |  | **0.29.0** |
+| filterDropdown | You can customize the filter menu. This function is only responsible for rendering the layer and needs to write a variety of interactions. | ReactNode |  |
+| filterDropdownProps | Props passing to Dropdown, see more in [Dropdown API](/en-US/show/dropdown#Dropdown) | object |  |
+| filterDropdownVisible | Visible of Dropdown, see more in [Dropdown API](/en-US/show/dropdown#Dropdown) | boolean |  |
+| filterIcon | Custom filter icon | boolean\|ReactNode\|(filtered: boolean) => ReactNode |  |
+| filterMultiple | Whether to choose more | boolean | true |
+| filteredValue | Controlled property of the filter, the filter state of the external control column with a value of the screened value array | any[] |  |
+| filters | Filter menu items for the header | Filter[] |  |
+| fixed | Whether the column is fixed, optional true (equivalent to left) 'left' 'right' | boolean\|string | false |
+| key | The key required by React, if a unique dataIndex has been set, can ignore this property | string |  |
+| render | A rendering function that generates complex data, the parameters are the value of the current row, the current row data, the row index, and the table row / column merge can be set in return object | (text: any, record: RecordType, index: number, { expandIcon?: ReactNode, selection?: ReactNode, indentText?: ReactNode }) => React\|object |  |
+| renderFilterDropdownItem | Customize the rendering method of each filter item. For usage details, see [Custom Filter Item Rendering](#Custom-Filter-Item-Rendering) | ({ value: any, text: any, onChange: Function, level: number, ...otherProps }) => ReactNode | - | **1.1.0** |
+| sortChildrenRecord | Whether to sort child data locally | boolean |  | **0.29.0** |
+| sortOrder | The controlled property of the sorting, the sorting of this control column can be set to 'ascend'\|'descended '\|false | boolean | false |
+| sorter | Sorting function, local sorting uses a function (refer to the compreFunction of Array.sort), requiring a server-side sorting can be set to true | boolean\|(r1: RecordType, r2: RecordType) => number | true |
+| title | Column header displays text. When a function is passed in, title will use the return value of the function; when other types are passed in, they will be aggregated with sorter and filter | string \| ReactNode\|({ filter: ReactNode, sorter: ReactNode, selection: ReactNode }) => ReactNode |  | Function type requires **0.34.0** |
+| useFullRender | Whether to completely customize the rendering, see [Full Custom Rendering](#Fully-custom-rendering) for usage details | boolean | false | **0.34.0** |
+| width | Column width | string \| number |  |
+| onCell | Set cell properties | (record: RecordType, rowIndex: number) => object |  |
+| onFilter | Determine the running function of the filter in local mode | (filteredValue: any[], record: RecordType) => boolean |  |
+| onFilterDropdownVisibleChange | A callback when a custom filter menu is visible | (visible: boolean) => void |  |
+| onHeaderCell | Set the head cell property | (column: RecordType, columnIndex: number) => object |  |
 
 Some of the type definitions used above:
 
@@ -4578,40 +4788,42 @@ type Filter = {
 
 ## rowSelection
 
-| Parameters       | Instructions                                                                    | Type                                                                                         | Default   | Version            |
-| ---------------- | ------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | --------- | ------------------ |
-| className        | Style name listed                                                               | string                                                                                       |           |
-| disabled         | Disabled `Checkbox` in `Table` header or not.                                   | boolean                                                                                      | false     | **0.32.0**  |
-| fixed            | Secure the selection box column to the left.                                    | boolean                                                                                      | false     |
-| getCheckboxProps | Default property configuration for the selection box                            | (record: RecordType) => object                                                                   |           |                    |
-| hidden           | Hide selection column or not                                                    | boolean                                                                                      | false     | **0.34.0** |
-| selectedRowKeys  | Specifies the key array of the selected item, which needs to work with onChange | string []                                                                                    |           |                    |
-| title            | Custom List Selection Box Title                                                 | string                                                                                       | ReactNode |                    |
-| width            | Custom list selection box width                                                 | string                                                                                       | number    |                    |
-| onChange         | A callback in the event of a change in the selected item. The first parameter will save the row keys selected last time, even if you do paging control or update the dataSource [FAQ](#faq) | (selectedRowKeys: number[]\|string[], selectedRows: RecordType[]) => void                        |           |                    |
-| onSelect         | Callback when the user manually clicks the selection box of a row               | (record: RecordType, selected: boolean, selectedRows: RecordType[], nativeEvent: MouseEvent) => void |           |                    |
-| onSelectAll      | The user manually clicks the callback of the header selection box, and all optional rows in the dataSource will be selected/unselected                        | (selected: boolean, selectedRows: RecordType[], changedRows: RecordType[]) => void                   |           |                    |
+| Parameters | Instructions | Type | Default | Version |
+| --- | --- | --- | --- | --- |
+| className | Style name listed | string |  |
+| disabled | Disabled `Checkbox` in `Table` header or not. | boolean | false | **0.32.0** |
+| fixed | Secure the selection box column to the left. | boolean | false |
+| getCheckboxProps | Default property configuration for the selection box | (record: RecordType) => object |  |  |
+| hidden | Hide selection column or not | boolean | false | **0.34.0** |
+| selectedRowKeys | Specifies the key array of the selected item, which needs to work with onChange | string [] |  |  |
+| title | Custom List Selection Box Title | string | ReactNode |  |
+| width | Custom list selection box width | string | number |  |
+| onChange | A callback in the event of a change in the selected item. The first parameter will save the row keys selected last time, even if you do paging control or update the dataSource [FAQ](#faq) | (selectedRowKeys: number[]\|string[], selectedRows: RecordType[]) => void |  |  |
+| onSelect | Callback when the user manually clicks the selection box of a row | (record: RecordType, selected: boolean, selectedRows: RecordType[], nativeEvent: MouseEvent) => void |  |  |
+| onSelectAll | The user manually clicks the callback of the header selection box, and all optional rows in the dataSource will be selected/unselected | (selected: boolean, selectedRows: RecordType[], changedRows: RecordType[]) => void |  |  |
 
 ## scroll
 
-| Parameters               | Instructions                                                                                         | Type           | Default | Version       |
-| ------------------------ | ---------------------------------------------------------------------------------------------------- | -------------- | ------- | ------------- |
-| scrollToFirstRowOnChange | Whether to automatically scroll to the top of the table after paging, sorting, and filtering changes | boolean        | false   | 1.1.0 |
-| x                        | Set the width of the horizontal scroll area, which can be pixel value, percentage, or 'max-content'  | string\|number |         |               |
-| y                        | Set the height of the vertical scroll area, which can be a pixel value                               | number         |         |               |
+| Parameters               | Instructions                                                                                         | Type           | Default | Version |
+|--------------------------|------------------------------------------------------------------------------------------------------|----------------|---------|---------|
+| scrollToFirstRowOnChange | Whether to automatically scroll to the top of the table after paging, sorting, and filtering changes | boolean        | false   | 1.1.0   |
+| x                        | Set the width of the horizontal scroll area, which can be pixel value, percentage, or 'max-content'  | string\|number |         |         |
+| y                        | Set the height of the vertical scroll area, which can be a pixel value                               | number         |         |         |
 
 ## pagination
 
 Page-turning component configuration. Pagination suggests not to use literal value.
 
-| Parameters         | Instructions                                                                                                                                                                                                                                                | Type                                                                                         | Default  | Version             |
-| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------- | ------------------- |
-| currentPage        | Current page number                                                                                                                                                                                                                                         | number                                                                                       | -        |                     |
-| defaultCurrentPage | Default current page number                                                                                                                                                                                                                                 | number                                                                                       | 1        | **>=1.1.0** |
-| formatPageText     | Page-turning area copywriting custom formatting, pass false to close copywriting display; This item affects the copy display on the left of the page turning area of the form. It is different from the `showTotal` parameter of the`Pagination` component. | boolean\| ({ currentStart: number, currentEnd: number, total: number }) => string\|ReactNode | true     | **0.27.0**   |
-| pageSize           | Number of entries per page                                                                                                                                                                                                                                  | number                                                                                       | 10       |                     |
-| position           | Location                                                                                                                                                                                                                                                    | 'bottom '\|'top '\|'both'                                                                    | 'bottom' |
-| total              | Total number of entries                                                                                                                                                                                                                                     | number                                                                                       | 0        | **>=0.25.0**        |
+Note: After pagination.onChange is set, Table onChange no longer responds to pagination changes.
+
+| Parameters         | Instructions                                                                                                                                                                                                                                                | Type                                                                                         | Default | Version     |
+|--------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------|---------|-------------|
+| currentPage        | Current page number                                                                                                                                                                                                                                         | number                                                                                       | -       |             |
+| defaultCurrentPage | Default current page number                                                                                                                                                                                                                                 | number                                                                                       | 1       | **>=1.1.0** |
+| formatPageText     | Page-turning area copywriting custom formatting, pass false to close copywriting display; This item affects the copy display on the left of the page turning area of the form. It is different from the `showTotal` parameter of the`Pagination` component. | boolean\| ({ currentStart: number, currentEnd: number, total: number }) => string\|ReactNode | true    | **0.27.0**  |
+| pageSize           | Number of entries per page                                                                                                                                                                                                                                  | number                                                                                       | 10      |             |
+| position | Location | 'bottom '\|'top '\|'both' | 'bottom' |
+| total | Total number of entries | number | 0 | **>=0.25.0** |
 
 For other configurations, see [Pagination](/en-US/navigation/pagination#API-Reference)
 
@@ -4620,7 +4832,7 @@ For other configurations, see [Pagination](/en-US/navigation/pagination#API-Refe
 The parameters of the resizable object type, which mainly include event methods when the table column is scaled. These event methods can return an object that merges with the final column.
 
 | Parameters    | Instructions                                               | Type                                             | Default |
-| ------------- | ---------------------------------------------------------- | ------------------------------------------------ | ------- |
+|---------------|------------------------------------------------------------|--------------------------------------------------|---------|
 | onResize      | Triggers when the table column changes its width           | (column: [Column](#Column)) => [Column](#Column) |         |
 | onResizeStart | Triggers when the table column starts to change the width. | (column: [Column](#Column)) => [Column](#Column) |         |
 | onResizeStop  | Triggers when the table column stops changing the width    | (column: [Column](#Column)) => [Column](#Column) |         |
@@ -4658,50 +4870,83 @@ function Demo() {
 }
 ```
 
-| Parameters           | Instructions                                                                                                                     | Version        |
-| -------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| getCurrentPageData() | Returns the data object of the current page: { dataSource: RecordType[], groups: Map<{groupKey: string, recordKeys: Set<string\>}> } | 0.37.0 |
+| Parameters           | Instructions                                                                                                                         | Version |
+|----------------------|--------------------------------------------------------------------------------------------------------------------------------------|---------|
+| getCurrentPageData() | Returns the data object of the current page: { dataSource: RecordType[], groups: Map<{groupKey: string, recordKeys: Set<string\>}> } | 0.37.0  |
+
+## Accessibility
+
+### ARIA
+
+-   The role of the table is grid, and the role of the tree table is treegrid
+-   the row's role is row, and the cell's role is gridcell
+-   Added aria-rowcount and aria-colcount attributes to the table to indicate the number of rows and columns
+-   The row has added aria-rowindex to indicate which row it currently belongs to, and the first row is 1
+-   The row of the tree table has aria-level representing the tree level of the current row, the first level is 1
+-   Expandable table rows have the aria-expanded attribute, indicating whether the current row is expanded
+-   The new aria-colindex of the cell indicates which column the current grid belongs to, and the first column is 1
+-   Added aria-label to column filter and sort buttons, and added aria-label attribute to row select buttons
+
+## Content Guidelines
+
+-   Table title
+    -   The title of the table should clearly make the user perceive the purpose of the table;
+    -   Add descriptions to complex tables to provide users with more contextual information about the table;
+    -   use sentence case;
+-   Column headers
+    -   Keep column headings concise, it is recommended to use 1-2 words as column headings;
+    -   When the column header is long, it is recommended to display it in 2 lines, and the remaining text is abbreviated and displayed completely in the Tooltip;
+    -   Adopt the capitalization rules of Sentence case;
+    -   Use sentence case for column headings;
+-   Table operation area
+    -   You can follow [Button's content Guidelines](/en-US/input/button)
 
 ## Design Tokens
+
 <DesignToken/>
 
 ## FAQ
-- **Why is the table data not updated?**  
-    At present, all parameters of the table component are shallow comparison. That is to say, if the parameter value type is an array or object, you need to manually change its reference to trigger the update. Similarly, if you don't want to trigger additional updates, try not to use literal values when passing parameters directly or define reference parameter values in the render process:
+
+-   **Why is the table data not updated?**  
+     At present, all parameters of the table component are shallow comparison. That is to say, if the parameter value type is an array or object, you need to manually change its reference to trigger the update. Similarly, if you don't want to trigger additional updates, try not to use literal values when passing parameters directly or define reference parameter values in the render process:
+
     ```text
     // ...render() {
         <Table dataSource={[/*...*/]} columns={[/*...*/]} />
     // }
     ```
-    The above writing method will trigger the update of data in the table every time render (the current selected row will be cleared and the row key array will be expanded, etc.). In order to improve performance and avoid some exceptions, please define some reference type parameters outside the render method as far as possible (if hooks are used, please use useMemo or useState for storage).**
 
-- **Why can't my form line be selected and expanded?**
+    The above writing method will trigger the update of data in the table every time render (the current selected row will be cleared and the row key array will be expanded, etc.). In order to improve performance and avoid some exceptions, please define some reference type parameters outside the render method as far as possible (if hooks are used, please use useMemo or useState for storage).\*\*
+
+-   **Why can't my form line be selected and expanded?**
 
     Please specify a rowKey or set a different "key" attribute for each item of the dataSource. **All rows related operations in the table need to be used.**
 
-- **How to implement custom sorting or pass parameters to the server for sorting when clicking the sort button?**
-    
+-   **How to implement custom sorting or pass parameters to the server for sorting when clicking the sort button?**
+
     The input parameters of the onChange method include pagination, filters, and sorter. Users can customize the sorting of the dataSource according to the sorter.
 
-- **How to add className to a row?**
-    
+-   **How to add className to a row?**
+
     Use onRow or onHeaderRow.
 
-- **How to style the table cell?**
-    
+-   **How to style the table cell?**
+
     It can be controlled by column.onHeaderCell and column.onCell.
 
-- **Why cache the previously selected keys for the first parameter of `rowSelection` `onChange`?**
-    
+-   **Why cache the previously selected keys for the first parameter of `rowSelection` `onChange`?**
+
     This is for the scenario where the selected row keys are lost when data is selected on the first page during paging, and then the data is selected on the second page. If you don't want to use the cached keys, you can filter it from the current dataSource or use the second parameter of `rowSelection` `onChange`.
 
-- **How is Table implemented, I want to know more details?**
+-   **Does it support single row selection?**
+
+    Table currently does not support single-row selection function, and users can implement single selection in a custom way. Please check the FAQ.
+
+-   **How is Table implemented, I want to know more details?**
 
     Please click <a href="https://bytedance.feishu.cn/docs/doccnqLgNefWGMZHFz7j70GKqpY" target="_blank">Semi Table component design</a>
 
 See more Table FAQ and demos, please click <a href="https://bytedance.feishu.cn/docs/doccnsYk1qUmsIDP1ihJ9zjG0Ch" target="_blank">Table FAQ</a>
-
-
 
 <!-- ## Related Material
 ```material

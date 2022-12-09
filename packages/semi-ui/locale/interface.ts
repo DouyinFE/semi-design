@@ -8,16 +8,16 @@ export interface Locale {
         page: string;
         pageSize: string;
         total: string;
-        jumpTo: string;
+        jumpTo: string
     };
     Modal: {
         confirm: string;
-        cancel: string;
+        cancel: string
     };
     TimePicker: {
         placeholder: {
             time: string;
-            timeRange: string;
+            timeRange: string
         };
         begin: string;
         end: string;
@@ -25,18 +25,18 @@ export interface Locale {
         minute: string;
         second: string;
         AM: string;
-        PM: string;
+        PM: string
     };
     DatePicker: {
         placeholder: {
             date: string;
             dateTime: string;
             dateRange: [string, string];
-            dateTimeRange: [string, string];
+            dateTimeRange: [string, string]
         };
         footer: {
             confirm: string;
-            cancel: string;
+            cancel: string
         };
         selectDate: string;
         selectTime: string;
@@ -56,7 +56,7 @@ export interface Locale {
             9: string;
             10: string;
             11: string;
-            12: string;
+            12: string
         };
         fullMonths: {
             1: string;
@@ -70,7 +70,7 @@ export interface Locale {
             9: string;
             10: string;
             11: string;
-            12: string;
+            12: string
         };
         weeks: {
             Mon: string;
@@ -79,44 +79,44 @@ export interface Locale {
             Thu: string;
             Fri: string;
             Sat: string;
-            Sun: string;
+            Sun: string
         };
         localeFormatToken: {
-            FORMAT_SWITCH_DATE: string;
-        };
+            FORMAT_SWITCH_DATE: string
+        }
     };
     Navigation: {
         collapseText: string;
-        expandText: string;
+        expandText: string
     };
     Popconfirm: {
         confirm: string;
-        cancel: string;
+        cancel: string
     };
     Table: {
         emptyText: string;
-        pageText: string;
+        pageText: string
     };
     Select: {
         emptyText: string;
-        createText: string;
+        createText: string
     };
     Cascader: {
-        emptyText: string;
+        emptyText: string
     };
     Tree: {
         emptyText: string;
-        searchPlaceholder: string;
+        searchPlaceholder: string
     };
     List: {
-        emptyText: string;
+        emptyText: string
     };
     Calendar: {
         allDay: string;
         AM: string;
         PM: string;
         datestring: string;
-        remaining: string;
+        remaining: string
     };
     Upload: {
         mainText: string;
@@ -127,16 +127,16 @@ export interface Locale {
         selectedFiles: string;
         replace: string;
         illegalSize: string;
-        fail: string;
+        fail: string
     };
     TreeSelect: {
-        searchPlaceholder: string;
+        searchPlaceholder: string
     };
     Typography: {
         copy: string;
         copied: string;
         expand: string;
-        collapse: string;
+        collapse: string
     };
     Transfer: {
         emptyLeft: string;
@@ -147,6 +147,22 @@ export interface Locale {
         selectAll: string;
         clearSelectAll: string;
         total: string;
-        selected: string;
+        selected: string
     };
+    Form: {
+        optional: string
+    };
+    Image: {
+        preview: string;
+        loading: string;
+        loadError: string;
+        prevTip: string;
+        nextTip: string;
+        zoomInTip: string;
+        zoomOutTip: string;
+        rotateTip: string;
+        downloadTip: string;
+        adaptiveTip: string;
+        originTip: string
+    }
 }

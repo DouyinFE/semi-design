@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import { BASE_CLASS_PREFIX } from '@douyinfe/semi-foundation/base/constants';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import ConfigContext from '../configProvider/context';
+import ConfigContext, { ContextValue } from '../configProvider/context';
 import '@douyinfe/semi-foundation/_portal/portal.scss';
 
 export interface PortalProps {
@@ -12,11 +12,11 @@ export interface PortalProps {
     prefixCls?: string;
     className?: string;
     getPopupContainer?: () => HTMLElement;
-    didUpdate?: (props: PortalProps) => void;
+    didUpdate?: (props: PortalProps) => void
 }
 
 export interface PortalState {
-    container: undefined | HTMLElement;
+    container: undefined | HTMLElement
 }
 
 const defaultGetContainer = () => document.body;
@@ -37,6 +37,7 @@ class Portal extends PureComponent<PortalProps, PortalState> {
     };
 
     el: HTMLElement;
+    context: ContextValue;
     constructor(props: PortalProps) {
         super(props);
         try {

@@ -1,22 +1,26 @@
 /* eslint-disable max-len */
 import React from 'react';
 import { noop } from 'lodash';
-import { ColumnProps, GetVirtualizedListRef } from './interface';
+import { ColumnProps, GetVirtualizedListRef, RowKey } from './interface';
+import {
+    BaseRowKeyType,
+    BaseHeadWidth,
+} from '@douyinfe/semi-foundation/table/foundation';
 
 export interface TableContextProps {
     children?: React.ReactNode;
     anyColumnFixed?: boolean;
     flattenedColumns?: ColumnProps[];
-    tableWidth?: number[];
-    headWidths?: number[];
-    setHeadWidths?: (headWidth?: number[], index?: number) => void;
+    tableWidth?: number;
+    headWidths?: BaseHeadWidth[][];
+    setHeadWidths?: (headWidth?: BaseHeadWidth[], index?: number) => void;
     getHeadWidths?: (index?: number) => number[];
     getCellWidths?: (flattenColumns: ColumnProps[], flattenedWidths?: number[], ignoreScrollBarKey?: boolean) => number[];
-    handleRowExpanded?: (expanded: boolean, realKey: string, domEvent: React.MouseEvent<HTMLElement>) => void;
+    handleRowExpanded?: (expanded: boolean, realKey: RowKey<any>, domEvent: React.MouseEvent<HTMLElement>) => void;
     renderExpandIcon?: (record: Record<string, any>, isNested?: boolean, groupKey?: string | number) => React.ReactNode;
-    renderSelection?: (record: Record<string, any>, isHeader?: boolean) => React.ReactNode;
+    renderSelection?: (record?: Record<string, any>, isHeader?: boolean) => React.ReactNode;
     getVirtualizedListRef?: GetVirtualizedListRef;
-    setBodyHasScrollbar?: (bodyHasScrollBar: boolean) => void;
+    setBodyHasScrollbar?: (bodyHasScrollBar: boolean) => void
 }
 
 const TableContext = React.createContext<TableContextProps>({

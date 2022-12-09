@@ -3,8 +3,11 @@ category: 开始
 title: FAQ 常见问题
 icon: doc-faq
 localeCode: zh-CN
-order: 8
+order: 9
 ---
+
+#### Semi 提供了 Figma UI Kit，考虑提供 Sketch 或基于其他设计工具的版本吗？
+- 目前没有这方面的计划，具体原因请参考 [Issue 74](https://github.com/DouyinFE/semi-design/issues/74)
 
 #### Semi 2.x 与 Semi 1.x 有什么不同？
 
@@ -23,7 +26,7 @@ order: 8
 
 #### Semi 的默认的主题风格跟我们系统的定位不符，可以配置另外的主题吗？
 
-- 具体请参考 [定制主题](/zh-CN/start/customize-theme) 。Semi 提供**多达 2300+ Design Token 允许用户进行深度定制**，无论你是研发还是设计师，在[Semi DSM](/dsm) 里可以非常方便地进行样式层配置，并在代码、设计稿始终保持双向同步。基于 Semi 你可以**低成本定制属于你自己的 Design System**
+- 具体请参考 [定制主题](/zh-CN/start/customize-theme) 。Semi 提供**多达 2300+ Design Token 允许用户进行深度定制**，无论你是研发还是设计师，在[Semi DSM](/dsm) 里可以非常方便地进行样式层配置，并在代码、设计稿始终保持双向同步。基于 Semi 你可以**低成本定制属于你自己的 Design System** 将 `Semi Design` 定制为 `Any Design`
 - 并且在使用时，你也只需要在 webpack.config.js 里指定使用的主题包名即可完成接入（需接入 Semi 插件）。
 
 #### Semi 是否支持 Tree Shaking
@@ -35,13 +38,16 @@ order: 8
 
 Semi 组件中，所有的 defaultValue、defaultXXX 传参只会在组件被 mounted 时进行消费（即仅消费一次）。如果你的 defaultXXX 属性是后期进行异步更新的，组件不会重新进行消费该值。如有需要，你应该使用受控的 value，受控的 xxx。或者直接通过传入一个不一样的`key`值，强制 React 重新挂载该组件。
 
+#### TS 类型检查报错，提示 xxx 上不存在属性 children 或 XXX 不能用作 JSX 组件
+这是由于 `@types/react` v18 进行了 breaking change，大部分情况下你的项目里会安装了两个不同版本的 @types/react，导致无法匹配。请参考 [Issue 793](https://github.com/DouyinFE/semi-design/issues/793) 锁定版本确保只有单个版本存在
+
 #### 安装新版本 Semi 后，提示 can't resolve date-fns/esm/\_libs/cloneObject.js 或其他有 date-fns 相关的依赖错误
 
 检查下项目中的 package-lock.json，是否有其他包依赖了 date-fns（大概率是 1.x 的），导致 semi 依赖声明的 date-fns 2.x 没有被安装上。手动 install date-fns，确保是 2.x 版本的即可 `npm install date-fns date-fns-tz`
 
 #### Semi 支持 i18n 吗？
 
-Semi 目前支持 14 种语言，具体使用可以查阅 [Semi·LocaleProvider](/zh-CN/other/locale)
+Semi 目前支持 17 种语言，具体使用可以查阅 [Semi·LocaleProvider](/zh-CN/other/locale)
 
 #### Semi 的样式是基于 Scss 还是 Less ？为什么不用 CSS Module？
 

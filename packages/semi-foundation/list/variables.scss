@@ -1,7 +1,8 @@
 $color-list_default-border-default: var(--semi-color-border); // 列表描边颜色
 $color-list_empty-text-default: var(--semi-color-text-2); // 空状态下列表文字颜色
 
-$spacing-list_empty-padding: $spacing-base-tight; // 空状态列表内边距
+$spacing-list_empty-paddingX: 0px; // 空状态列表水平内边距
+$spacing-list_empty-paddingY: $spacing-base-tight; // 空状态列表垂直内边距
 $spacing-list_footer-paddingX: $spacing-base-tight; // 列表 footer 水平内边距
 $spacing-list_footer-paddingY: $spacing-loose; // 列表 footer 垂直内边距
 $spacing-list_item-paddingX: $spacing-base-tight; // 列表 item 水平内边距 - 默认尺寸

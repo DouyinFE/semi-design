@@ -1,5 +1,6 @@
-import { ComponentType, CSSProperties, MouseEvent, ReactNode } from 'react';
+import React, { ComponentType, CSSProperties, MouseEvent, ReactNode } from 'react';
 import { Motion } from '../_base/base';
+import TabBar from './TabBar';
 
 export type TabType = 'line' | 'card' | 'button';
 export type TabSize = 'small' | 'medium' | 'large';
@@ -10,7 +11,7 @@ export interface PlainTab {
     icon?: ReactNode;
     itemKey: string;
     tab?: ReactNode;
-    closable?: boolean;
+    closable?: boolean
 }
 
 
@@ -25,7 +26,7 @@ export interface TabsProps {
     lazyRender?: boolean;
     onChange?: (activeKey: string) => void;
     onTabClick?: (activeKey: string, e: MouseEvent<Element>) => void;
-    renderTabBar?: (tabBarProps: TabBarProps, defaultTabBar: ComponentType) => ReactNode;
+    renderTabBar?: (tabBarProps: TabBarProps, defaultTabBar: typeof TabBar) => ReactNode;
     size?: TabSize;
     style?: CSSProperties;
     tabBarClassName?: string;
@@ -36,6 +37,7 @@ export interface TabsProps {
     tabPosition?: TabPosition;
     type?: TabType;
     onTabClose?: (tabKey: string) => void;
+    preventScroll?: boolean
 }
 
 export interface TabBarProps {
@@ -53,16 +55,19 @@ export interface TabBarProps {
     dropdownStyle?: CSSProperties;
     closable?: boolean;
     deleteTabItem?: (tabKey: string, event: MouseEvent<Element>) => void;
+    handleKeyDown?: (event: React.KeyboardEvent, itemKey: string, closable: boolean) => void
 }
 
 export interface TabPaneProps {
     className?: string;
+    children?: React.ReactNode | undefined;
     disabled?: boolean;
     icon?: ReactNode;
     itemKey?: string;
     style?: CSSProperties;
     tab?: ReactNode;
-    closable?: boolean,
+    closable?: boolean;
+    tabIndex?: number
 }
 
 export interface TabPaneTransitionProps {
@@ -71,7 +76,7 @@ export interface TabPaneTransitionProps {
     children?: ((p: { transform?: string; opacity: number }) => ReactNode | undefined) | undefined;
     direction?: boolean;
     mode?: 'vertical' | 'horizontal';
-    motion?: Motion;
+    motion?: Motion
 }
 
 export interface TabContextValue {
@@ -80,4 +85,6 @@ export interface TabContextValue {
     panes?: Array<PlainTab>;
     tabPaneMotion?: boolean;
     tabPosition?: TabPosition;
+    prevActiveKey?: string|null;
+    forceDisableMotion?: boolean
 }

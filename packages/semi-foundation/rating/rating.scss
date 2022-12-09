@@ -1,4 +1,6 @@
-@import "./variables.scss";
+@import "./animation.scss";
+@import './variables.scss';
+
 
 $module: #{$prefix}-rating;
 
@@ -7,10 +9,19 @@ $module: #{$prefix}-rating;
     margin: $spacing-rating-margin;
     padding: $spacing-rating-padding;
     color: $color-rating-icon-default;
-    font-size: $font-rating-fontSize;
-    line-height: unset;
+    // font-size: $font-rating-fontSize;
+    // line-height: unset;
     list-style: none;
     outline: none;
+    border-radius: 3px;
+
+    &-focus {
+        outline: $width-rating-outline-focus solid $color-rating-outline-focus;
+    }
+
+    &-no-focus {
+        outline: none;
+    }
 
     &-disabled &-star {
         cursor: default;
@@ -28,19 +39,20 @@ $module: #{$prefix}-rating;
         color: inherit;
         cursor: pointer;
         transition: all 0.5s;
+        transform:scale($transform-scale-rating);
 
         &:not(:last-child) {
             margin-right: $spacing-rating_item-marginRight;
         }
 
         & > div {
-            &:focus {
-                outline: 0;
-            }
-
             &:hover,
             &:focus {
                 transform: scale(1.1);
+            }
+
+            &.#{$module}-star-disabled {
+                transform: none;
             }
         }
 
@@ -58,10 +70,15 @@ $module: #{$prefix}-rating;
 
         &-wrapper {
             position: relative;
+            overflow: hidden;
+            border-radius: 3px;
+            width: 100%;
+            height: 100%;
         }
 
         &-first,
         &-second {
+            transition: color $transition_duration-rating-color $transition_function-rating-color $transition_delay-rating-color;
             color: $color-rating-bg-default;
             user-select: none;
         }
@@ -88,4 +105,4 @@ $module: #{$prefix}-rating;
     }
 }
 
-@import "./rtl.scss";
+@import './rtl.scss';

@@ -1,17 +1,16 @@
 ---
 localeCode: en-US
-order: 56
+order: 61
 category: Show
 title: SideSheet
 subTitle: SideSheet
 icon: doc-sidesheet
-brief: SideSheet is a panel which slides in from the edge of the screen.
+brief: An overlay panel that slides out from the edge of the screen, typically used to host secondary action pages.
 ---
 
 ## Demos
 
 ### How to import
-
 ```jsx import
 import { SideSheet } from '@douyinfe/semi-ui';
 ```
@@ -119,7 +118,7 @@ import { SideSheet, RadioGroup, Radio, Button } from '@douyinfe/semi-ui';
 After `v0.29.0`, you could set `mask={false}` to continue working on the area outside SideSheet.
 
 <Notice title='Tips'>
-  By default, if you are not setting `getPopupContainer`, SideSheet is rendered inside `body`. If you want `body` element to be able to scroll, you could set `disableScroll={false}` and the component will not add `overflow: hidden` to it.
+  By default, if you are not setting `getPopupContainer`, SideSheet is rendered inside body. If you want body element to be able to scroll, you could set disableScroll to false and the component will not add `overflow: hidden` to it.
 </Notice>
 
 ```jsx live=true
@@ -132,10 +131,8 @@ import { SideSheet, Button, TextArea } from '@douyinfe/semi-ui';
     return (
         <>
             <Button onClick={() => setVisible(true)}>Open SideSheet</Button>
-            <br />
-            <br />
-            <TextArea placeholder="Please enter something" onChange={value => setValue(value)} />
-            <SideSheet title="SideSheet" visible={visible} onCancel={() => setVisible(false)} mask={false}>
+            <TextArea placeholder="Please enter something" onChange={value => setValue(value)} style={{ marginTop: 12 }}/>
+            <SideSheet title="SideSheet" visible={visible} onCancel={() => setVisible(false)} mask={false} disableScroll={false}>
                 <p>Here is what you entered: </p>
                 <p>{value}</p>
             </SideSheet>
@@ -298,12 +295,6 @@ class Demo extends React.Component {
 }
 ```
 
-## Accessibility
-
-### ARIA
-
-- SideSheet has a `dialog` role to indicate that it is a pop-up component, and the internal header has a `heading` role to indicate that it is a header.
-
 ## API Reference
 
 | Properties | Instructions | type | Default | Version |
@@ -322,7 +313,7 @@ class Demo extends React.Component {
 | mask | Toggle whether to show mask. After `v0.29.0`, when `mask={false}`, you could continue operations outside SideSheet | boolean | true | - |
 | maskClosable | Toggle whether to allow closing when clicking mask | boolean | true | - |
 | maskStyle | Mask style | CSSProperties | - | - |
-| motion | Toggle whether to turn on animation | object \| boolean | true | - |
+| motion | Toggle whether to turn on animation | boolean | true | - |
 | placement | Sliding position, one of `top`, `bottom`, `left`, `right` | string | `right` | - |
 | size | Size, one of `small`(400px)， `medium`(684px), `large`(920px), only take effects when placement is set to `left` or `right` | string | `small` | 0.29.0 |
 | style | Inline style | CSSProperties | - | - |
@@ -331,6 +322,12 @@ class Demo extends React.Component {
 | width | Width, takes effect when `placement` is set to `left` or `right` | number \| string | 448 | - |
 | zIndex | Z-index value for SideSheet | number | 1000 | 0.29.0 |
 | onCancel | Callback function when clicking cancel button | (e: MouseEvent) => void | - | - |
+
+## Accessibility
+
+### ARIA
+
+- SideSheet has a `dialog` role to indicate that it is a pop-up component, and the internal header has a `heading` role to indicate that it is a header.
 
 ## Design Tokens
 

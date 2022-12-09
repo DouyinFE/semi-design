@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 22
+order: 24
 category: 输入类
 title:  Input 输入框
 icon: doc-input
@@ -25,7 +25,7 @@ import React from 'react';
 import { Input } from '@douyinfe/semi-ui';
 
 () => (
-    <Input defaultValue='hi' autofocus></Input>
+    <Input defaultValue='hi'></Input>
 );
 ```
 
@@ -399,6 +399,12 @@ import { Input, Typography, Form, TextArea, Button } from '@douyinfe/semi-ui';
 
 | 属性           | 说明                                                            | 类型                            | 默认值    |
 |----------------|---------------------------------------------------------------|---------------------------------|-----------|
+| aria-describedby   | 设置 aria-describedby 属性           | string                         | -  |
+| aria-errormessage   | 设置 aria-errormessage 属性           | string                         | -  |
+| aria-invalid   | 设置 aria-invalid 属性           | string                         | -  |
+| aria-label   | 设置 aria-label 属性           | string                         | -  |
+| aria-labelledby   | 设置 aria-labelledby 属性           | string                         | -  |
+| aria-required   | 设置 aria-required 属性           | string                         | -  |
 | addonAfter     | 后置标签                                                        | ReactNode               |           |
 | addonBefore    | 前置标签                                                        | ReactNode               |           |
 | className      | 类名                                                            | string                          |           |
@@ -408,7 +414,8 @@ import { Input, Typography, Form, TextArea, Button } from '@douyinfe/semi-ui';
 | hideSuffix     | 清除按钮与后缀标签并存时隐藏后缀标签，默认为false两者并列        | boolean                         | false     |
 | mode           | 输入框的模式，可选值password **>=v1.3.0**                        | string                          |           |
 | prefix         | 前缀标签                                                        | ReactNode               |           |
-| showClear      | 支持清除 **>=1.0.0**                                            | boolean                         | false     |
+| preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法 | boolean |  |  |
+| showClear      | 输入框有内容且 hover 或 focus 时展示清除按钮 **>=1.0.0**                                            | boolean                         | false     |
 | size           | 输入框大小，large、default、small                                  | string                          | 'default' |
 | style          | 样式                                                            | CSSProperties                          |           |
 | suffix         | 后缀标签                                                        | ReactNode               |           |
@@ -429,6 +436,12 @@ import { Input, Typography, Form, TextArea, Button } from '@douyinfe/semi-ui';
 
 | 属性         | 说明                               | 类型                            | 默认值 |
 |--------------|----------------------------------|---------------------------------|--------|
+| aria-describedby   | 设置 aria-describedby 属性           | string                         | -  |
+| aria-errormessage   | 设置 aria-errormessage 属性           | string                         | -  |
+| aria-invalid   | 设置 aria-invalid 属性           | string                         | -  |
+| aria-label   | 设置 aria-label 属性           | string                         | -  |
+| aria-labelledby   | 设置 aria-labelledby 属性           | string                         | -  |
+| aria-required   | 设置 aria-required 属性           | string                         | -  |
 | autosize     | 是否随着自动适应内容高度           | boolean                         | false  |
 | className    | 类名                               | string                          | -      |
 | cols         | 默认列数                           | number                          | 无     |
@@ -449,12 +462,42 @@ import { Input, Typography, Form, TextArea, Button } from '@douyinfe/semi-ui';
 | onKeyPress   | keypress 回调，html 事件            | (e:event) => void               | -      |
 | onKeyUp      | keyup 回调，html 事件               | (e:event) => void               | -      |
 | onResize     | 触发高度变化时的回调 **>=v0.37.0** | ({ height:number }) => void    | -      |
+
+### InputGroup
+
+通用属性将设置到 InputGroup 的子级元素上，例如 disabled、onFocus 等。如果你在子级设置了 onFocus、onBlur 或 disabled，会覆盖掉 InputGroup 对应属性值。
+
+
+| 属性          | 说明                           | 类型                                                          | 默认值    |
+|---------------|------------------------------|---------------------------------------------------------------|-----------|
+| className     | 组的类名                       | string                                                        | -         |
+| disabled      | 禁用                           | boolean                                                       | -         |
+| label         | InputGroup 的 label 属性       | [LabelProps](https://semi.design/zh-CN/input/form#Form.Label) | -         |
+| labelPosition | label 位置，可选 top 或 left    | string                                                        | -         |
+| size          | 输入框大小，large、default、small | string                                                        | 'default' |
+| style         | 组的样式                       | CSSProperties                                                 | -         |
+| onBlur        | 输入框失去焦点时的回调         | (e:event) => void                                             | -         |
+| onFocus       | 输入框 focus 时的回调          | (e:event) => void                                             | -         |
+
 ## Methods
 
 | 名称    | 描述     |
 |---------|--------|
 | blur()  | 移出焦点 |
 | focus() | 获取焦点 |
+
+## Accessibility
+
+### ARIA
+
+- 当 validateStatus 为 error 时，输入框的 aria-invalid 为 true
+- 在 Form 中使用时，field label 是 Input 的 aria-label
+
+### 键盘和焦点
+
+- Input 可被获取焦点，键盘用户可以使用 Tab 及 Shift  + Tab 切换焦点
+- 密码按钮可以被聚焦，聚焦后使用 Enter 或者空格键激活
+
 
 ## 设计变量
 <DesignToken/>

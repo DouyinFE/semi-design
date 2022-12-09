@@ -3,7 +3,7 @@ import Notice from '../notice';
 import { NoticeInstance } from '@douyinfe/semi-foundation/notification/notificationFoundation';
 
 export interface HookNoticeProps extends NoticeInstance{
-    afterClose: (id: string) => void;
+    afterClose: (id: string) => void
 }
 
 const HookNotice = ({ afterClose, ...config }: HookNoticeProps, ref: React.Ref<any>) => {

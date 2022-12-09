@@ -1,5 +1,5 @@
-$horizontal-rate: 0.24; // 水平方向矫正因子
-$vertical-rate: 0; // 垂直方向矫正因子
+$horizontal-rate: 0.24; // 水平方向矫正因子 ignore-semi-css-trans
+$vertical-rate: 0; // 垂直方向矫正因子 ignore-semi-css-trans
 
 $motion-zoom_scale-from: 0.8; // 初始缩放 - 动画用
 $motion-zoom_opacity-from: 0; // 初始透明度 - 动画用
@@ -19,13 +19,14 @@ $spacing-tooltip_content-paddingBottom: $spacing-tight; // 工具提示内容底
 
 $font-tooltip-fontSize: $font-size-regular; // 工具提示文本字号
 $width-tooltip: 240px; // 工具提示宽度 - 默认
-$width-tooltip_arrow: 24px; // 工具提示小三角箭头宽度 - 水平
+$width-tooltip_arrow: 24px; // 工具提示小三角箭头宽度 - 水平 ignore-semi-css-trans
 $height-tooltip_arrow: 7px; // 工具提示小三角箭头高度 - 水平
 
 $height-tooltip_arrow_vertical: 24px; // 工具提示小三角箭头高度 - 垂直
 $width-tooltip_arrow_vertical: 7px; // 工具提示小三角箭头宽度度 - 垂直
-$spacing-tooltip_arrow_offset-x: 1; // 水平方向渲染会有缝隙，所以加个偏移量
-$spacing-tooltip_arrow_offset-y: 1; // 垂直方向渲染会有缝隙，所以加个偏移量
+$spacing-tooltip_arrow_offset-x: 1px; // 水平方向渲染会有缝隙，所以加个偏移量
+$spacing-tooltip_arrow_offset-y: 1px; // 垂直方向渲染会有缝隙，所以加个偏移量
 
-$spacing-tooltip_arrow_adjusted_offset-y: 5; // 垂直方向上的校正偏移量，主要修正三角形有棱角的问题
-$spacing-tooltip_arrow_adjusted_offset-x: round($horizontal-rate * $width-tooltip_arrow); // 水平方向上的校正偏移量，主要修正三角形有棱角的问题
+$spacing-tooltip_arrow_adjusted_offset-y: 5px; // 垂直方向上的校正偏移量，主要修正三角形有棱角的问题
+
+$spacing-tooltip_arrow_adjusted_offset-x: round($horizontal-rate * $width-tooltip_arrow); // 水平方向上的校正偏移量，主要修正三角形有棱角的问题 ignore-semi-css-trans

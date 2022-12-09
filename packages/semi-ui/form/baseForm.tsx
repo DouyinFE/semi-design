@@ -18,7 +18,8 @@ import ErrorMessage from './errorMessage';
 import FormInputGroup from './group';
 import { noop } from 'lodash';
 import '@douyinfe/semi-foundation/form/form.scss';
-import { FormInput,
+import {
+    FormInput,
     FormInputNumber,
     FormTextArea,
     FormSelect,
@@ -45,9 +46,9 @@ import {
 const prefix = cssClasses.PREFIX;
 
 interface BaseFormState {
-    formId: string;
+    formId: string
 }
-class Form extends BaseComponent<BaseFormProps, BaseFormState> {
+class Form<Values extends Record<string, any> = any> extends BaseComponent<BaseFormProps<Values>, BaseFormState> {
     static propTypes = {
         'aria-label': PropTypes.string,
         onSubmit: PropTypes.func,
@@ -116,12 +117,12 @@ class Form extends BaseComponent<BaseFormProps, BaseFormState> {
     static Label = Label;
     static Section = Section;
 
-    formApi: FormApi;
+    formApi: FormApi<Values>;
 
-    constructor(props: BaseFormProps) {
+    constructor(props: BaseFormProps<Values>) {
         super(props);
         this.state = {
-            formId: getUuidv4(),
+            formId: '',
         };
         warning(
             Boolean(props.component && props.render),
@@ -144,33 +145,40 @@ class Form extends BaseComponent<BaseFormProps, BaseFormState> {
         }
     }
 
-    componentWillUnmount() {
-        this.foundation.destroy();
-        this.foundation = null;
-        this.formApi = null;
+    componentDidMount() {
+        this.foundation.init();
     }
 
-    get adapter(): BaseFormAdapter<BaseFormProps, BaseFormState> {
+    componentWillUnmount() {
+        this.foundation.destroy();
+    }
+
+    get adapter(): BaseFormAdapter<BaseFormProps<Values>, BaseFormState, Values> {
         return {
             ...super.adapter,
             cloneDeep,
-            notifySubmit: (values: any) => {
+            notifySubmit: (values: Values) => {
                 this.props.onSubmit(values);
             },
-            notifySubmitFail: (errors: ErrorMsg, values: any) => {
+            notifySubmitFail: (errors, values) => {
                 this.props.onSubmitFail(errors, values);
             },
-            forceUpdate: () => {
-                this.forceUpdate();
+            forceUpdate: (callback?: () => void) => {
+                this.forceUpdate(callback);
             },
             notifyChange: (formState: FormState) => {
                 this.props.onChange(formState);
             },
-            notifyValueChange: (values: any, changedValues: any) => {
+            notifyValueChange: (values: Values, changedValues: Partial<Values>) => {
                 this.props.onValueChange(values, changedValues);
             },
             notifyReset: () => {
                 this.props.onReset();
+            },
+            initFormId: () => {
+                this.setState({
+                    formId: getUuidv4()
+                });
             },
             getInitValues: () => this.props.initValues,
             getFormProps: (keys: undefined | string | Array<string>) => {
@@ -206,7 +214,7 @@ class Form extends BaseComponent<BaseFormProps, BaseFormState> {
             values: formState.values,
         };
         if (component) {
-            return React.createElement(component, props, children);
+            return React.createElement(component, props);
         }
         if (render) {
             return render(props);

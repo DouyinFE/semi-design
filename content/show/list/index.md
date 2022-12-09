@@ -1,17 +1,13 @@
 ---
 localeCode: zh-CN
-order: 51
+order: 56
 category: 展示类
 title: List 列表
 icon: doc-list
 dir: column
 noInline: true
-brief: 基础列表组件。
+brief: 基础列表组件
 ---
-
-## 使用场景
-
-最基础的列表展示，可展现文字、列表、图片、段落等，常用于后台数据展示页面。
 
 ## 代码演示
 
@@ -1163,7 +1159,7 @@ import { IconMinusCircle, IconPlusCircle } from '@douyinfe/semi-icons';
                         </div>
                     }
                 />
-                <div style={{ margin: 4, fontSize: 14  }} onClick={() => updateList()}>
+                <div style={{ margin: 4, fontSize: 14 }} onClick={() => updateList()}>
                     <Button theme='borderless' icon={<IconPlusCircle />} style={{ marginRight: 4, color: 'var(--semi-color-info)' }}>
                     </Button>
                     新增书籍
@@ -1201,7 +1197,7 @@ import { List, Input, Button, Checkbox, Radio, RadioGroup, CheckboxGroup } from 
     ];
 
     const [page, onPageChange] = useState(1);
-    const [checkboxVal, setCV] = useState(data[0]);
+    const [checkboxVal, setCV] = useState([...data[0]]);
     const [radioVal, setRV] = useState(data[0]);
 
     let pageSize = 8;
@@ -1402,5 +1398,12 @@ body > .component-list-demo-drag-item {
 | onClick      | 点击回调事件 **v>=1.0.0**                                                                           | (e: event) => void  | -            |
 | onRightClick | 右键点击回调事件 **v>=1.0.0**                                                                       | (e: event) => void  | -            |
 
+
+## 文案规范
+
+- 首字母大写
+- 结尾不跟随标点符号
+- 语法平行：如主动态与被动态、陈述句与祈使句混合使用
+  
 ## 设计变量
 <DesignToken/>

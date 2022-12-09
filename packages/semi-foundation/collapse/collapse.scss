@@ -61,6 +61,14 @@ $module: #{$prefix}-collapse;
             background-color: $color-collapse_header-bg-active;
         }
 
+        &-disabled {
+            color: $color-collapse_header-text-disabled;
+
+            &:hover {
+                background-color: transparent;
+            }
+        }
+
     }
 
     &-content {

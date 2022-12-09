@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 33
+order: 35
 category: Input
 title: Upload
 icon: doc-upload
@@ -149,7 +149,7 @@ import { Upload, Avatar, Toast } from '@douyinfe/semi-ui';
 import { IconCamera } from '@douyinfe/semi-icons';
 
 () => {
-    const [url, setUrl] = useState('https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg');
+    const [url, setUrl] = useState('https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png');
     const onSuccess = (response, file) => {
         Toast.success('Avatar updated successfully');
         // const url = response.url;
@@ -166,7 +166,7 @@ import { IconCamera } from '@douyinfe/semi-icons';
         color: 'var(--semi-color-white)',
     };
     
-    const hoverMask =  (<div style={style}>
+    const hoverMask = (<div style={style}>
         <IconCamera />
     </div>);
 
@@ -491,7 +491,7 @@ When `listType` is `list`, you can customize the list operation area by passing 
 ```jsx live=true width=48%
 import React from 'react';
 import { Upload, Button } from '@douyinfe/semi-ui';
-import { IconUpload, IconDownload, IconEyeOpened } from '@douyinfe/semi-icons';
+import { IconUpload, IconDownload, IconEyeOpened, IconDelete } from '@douyinfe/semi-icons';
 
 () => {
     let action = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
@@ -507,16 +507,18 @@ import { IconUpload, IconDownload, IconEyeOpened } from '@douyinfe/semi-icons';
         }
     ];
     const renderFileOperation = (fileItem) => (
-        <div style={{display: 'flex',columnGap: 8, padding: '0 8px'}}>
+        <div style={{ display: 'flex', columnGap: 8, padding: '0 8px' }}>
             <Button icon={<IconEyeOpened></IconEyeOpened>} type="tertiary" theme="borderless" size="small"></Button>
             <Button icon={<IconDownload></IconDownload>} type="tertiary" theme="borderless" size="small"></Button>
             <Button onClick={e=>fileItem.onRemove()} icon={<IconDelete></IconDelete>} type="tertiary" theme="borderless" size="small"></Button>
         </div>
-    )
-    return <Upload action={action} defaultFileList={defaultFileList} itemStyle={{width: 300}} renderFileOperation={renderFileOperation}>
+    );
+    return (
+        <Upload action={action} defaultFileList={defaultFileList} itemStyle={{ width: 300 }} renderFileOperation={renderFileOperation}>
             <Button icon={<IconUpload />} theme="light">Upload</Button>
         </Upload>
-    }
+    );
+};
 ```
 
 ### Default file list
@@ -584,12 +586,12 @@ import { IconUpload } from '@douyinfe/semi-icons';
         },
         {
             uid: '2',
-            name: 'jiafang2.jpeg',
+            name: 'dy.jpeg',
             status: 'uploading',
             size: '222KB',
             percent: 50,
             preview: true,
-            fileInstance: new File([new ArrayBuffer(2048)], 'jiafang2.jpeg', { type: 'image/jpeg' }),
+            fileInstance: new File([new ArrayBuffer(2048)], 'dy2.jpeg', { type: 'image/jpeg' }),
             url:
                 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png',
         },
@@ -634,7 +636,7 @@ import { IconPlus } from '@douyinfe/semi-icons';
     const defaultFileList = [
         {
             uid: '1',
-            name: 'jiafang.png',
+            name: 'dy.png',
             status: 'success',
             size: '130KB',
             preview: true,
@@ -702,18 +704,18 @@ import { IconPlus, IconEyeOpened } from '@douyinfe/semi-icons';
     const defaultFileList = [
         {
             uid: '1',
-            name: 'jiafang.png',
+            name: 'dy.png',
             status: 'success',
             size: '130KB',
             preview: true,
             url:
-                'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/e82f3b261133d2b20d85e8483c203112.jpg',
+                'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png',
         },
     ];
     const handlePreview = (file) => {
         const feature = "width=300,height=300";
         window.open(file.url, 'imagePreview', feature);
-    }
+    };
     return (
         <>
             <Upload
@@ -724,7 +726,7 @@ import { IconPlus, IconEyeOpened } from '@douyinfe/semi-icons';
                 multiple
                 defaultFileList={defaultFileList}
                 onPreviewClick={handlePreview}
-                renderPicPreviewIcon={()=><IconEyeOpened style={{color: 'var(--semi-color-white)', fontSize: 24}} />}
+                renderPicPreviewIcon={()=><IconEyeOpened style={{ color: 'var(--semi-color-white)', fontSize: 24 }} />}
             >
                 <IconPlus size="extra-large" />
             </Upload>
@@ -745,12 +747,12 @@ import { IconPlus, IconEyeOpened } from '@douyinfe/semi-icons';
     const defaultFileList = [
         {
             uid: '1',
-            name: 'jiafang.png',
+            name: 'dy.png',
             status: 'success',
             size: '130KB',
             preview: true,
             url:
-                'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/e82f3b261133d2b20d85e8483c203112.jpg',
+                'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png',
         },
     ];
     const handlePreview = (file) => {
@@ -870,6 +872,10 @@ class ManulUploadDemo extends React.Component {
 
 `draggable='true'`, you can use the drag and drop function
 
+<Notice type="primary" title="Notice">
+    <div>When the directory is true, because the browser automatically imposes restrictions, it is not allowed to select a single file when clicking upload. When dragging, we think it is more reasonable to allow folders and files to be dragged, so no additional interception processing is performed.</div>
+</Notice>
+
 ```jsx live=true width=48%
 import React from 'react';
 import { Upload } from '@douyinfe/semi-ui';
@@ -918,8 +924,9 @@ import { IconBolt } from '@douyinfe/semi-icons';
 >
     <div className="components-upload-demo-drag-area">
         <img
-            src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/0f2a32f27eab90a296814fbc26103b2b.jpg"
+            src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png"
             height="96"
+            alt="upload"
             style={{ borderRadius: 4 }}
         />
         <div
@@ -1196,15 +1203,6 @@ import { IconUpload } from '@douyinfe/semi-icons';
 };
 ```
 
-## Accessibility
-
-The Upload component is an interactive control that can trigger file selection when clicking or dragging. After the file is selected, the status will be displayed in the file list.
-
-### ARIA
-
-- Add `role="button"` to clickable elements
-- Add `role="list"` to the file list and describe it with `aria-label`
-
 ## API Reference
 
 ---
@@ -1272,6 +1270,15 @@ The Upload component is an interactive control that can trigger file selection w
 |validateMessage | Upload the overall error message | ReactNode | | 1.0.0 |
 |withCredentials | Whether to bring cookie information | boolean | false | |
 
+## Accessibility
+
+The Upload component is an interactive control that can trigger file selection when clicking or dragging. After the file is selected, the status will be displayed in the file list.
+
+### ARIA
+
+- Add `role="button"` to clickable elements
+- Add `role="list"` to the file list and describe it with `aria-label`
+
 ## Interfaces
 
 ### FileItem Interface
@@ -1306,6 +1313,17 @@ interface FileItem {
 |----|----|----|----|
 | insert | Upload file, when index is passed, it will be inserted at the specified position, if not passed, it will be inserted at the end | (files: Array<File\>, index?: number) => void | 2.2.0 |
 | upload | Start upload manually, use with uploadTrigger="custom" | () => void | |
+| openFileDialog | open file select Dialog | () => void | 2.21.0 |
+
+## Content Guidelines
+- Upload button
+   - For the copywriting specification of the form button, refer to [The content Guidelines of the Button component]()
+- Help text
+   - The help text is written in sentences, the first letter is capitalized, and periods may not be required
+- Error message
+   - Clearly tell the user why the file cannot be uploaded, and tell the user how to upload it successfully
+   - Help texts are written using sentences, capitalized
+   - Concise language that users can read at a glance, such as `File size must be less than 20MB`, `File type must be .gif, .jpg, .png or .svg`
 
 ## Design Tokens
 <DesignToken/>

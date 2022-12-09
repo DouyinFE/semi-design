@@ -29,7 +29,7 @@ export interface ParagraphProps extends Omit<React.HTMLAttributes<HTMLParagraphE
     strong?: boolean;
     style?: React.CSSProperties;
     type?: TypographyBaseType;
-    underline?: boolean;
+    underline?: boolean
 }
 
 const prefixCls = cssClasses.PREFIX;

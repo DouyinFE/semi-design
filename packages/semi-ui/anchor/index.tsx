@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/anchor/constants';
@@ -10,13 +10,16 @@ import '@douyinfe/semi-foundation/anchor/anchor.scss';
 import { noop, debounce, throttle } from 'lodash';
 import getUuid from '@douyinfe/semi-foundation/utils/uuid';
 import { ArrayElement } from '../_base/base';
+import ConfigContext, { ContextValue } from '../configProvider/context';
 
 const prefixCls = cssClasses.PREFIX;
 
-export { LinkProps } from './link';
+export type { LinkProps } from './link';
+
 export interface AnchorProps {
     autoCollapse?: boolean;
     className?: string;
+    children?: ReactNode | undefined;
     defaultAnchor?: string;
     getContainer?: () => HTMLElement | Window;
     maxHeight?: string | number;
@@ -31,7 +34,7 @@ export interface AnchorProps {
     targetOffset?: number;
     onChange?: (currentLink: string, previousLink: string) => void;
     onClick?: (e: React.MouseEvent<HTMLElement>, currentLink: string) => void;
-    'aria-label'?: React.AriaAttributes['aria-label'];
+    'aria-label'?: React.AriaAttributes['aria-label']
 }
 
 export interface AnchorState {
@@ -39,10 +42,11 @@ export interface AnchorState {
     links: string[];
     clickLink: boolean;
     scrollHeight: string;
-    slideBarTop: string;
+    slideBarTop: string
 }
 
 class Anchor extends BaseComponent<AnchorProps, AnchorState> {
+    static contextType = ConfigContext;
     static Link = Link;
     static PropTypes = {
         size: PropTypes.oneOf(strings.SIZE),
@@ -87,6 +91,7 @@ class Anchor extends BaseComponent<AnchorProps, AnchorState> {
     childMap: Record<string, Set<string>>;
     handler: () => void;
     clickHandler: () => void;
+    context: ContextValue;
 
     constructor(props: AnchorProps) {
         super(props);
@@ -95,7 +100,7 @@ class Anchor extends BaseComponent<AnchorProps, AnchorState> {
             links: [],
             clickLink: false,
             scrollHeight: '100%',
-            slideBarTop: '0'
+            slideBarTop: '0',
         };
 
         this.foundation = new AnchorFoundation(this.adapter);
@@ -106,9 +111,7 @@ class Anchor extends BaseComponent<AnchorProps, AnchorState> {
         return {
             ...super.adapter,
             addLink: value => {
-                this.setState(prevState => (
-                    { links: [...prevState.links, value] }
-                ));
+                this.setState(prevState => ({ links: [...prevState.links, value] }));
             },
             removeLink: link => {
                 this.setState(prevState => {
@@ -217,6 +220,28 @@ class Anchor extends BaseComponent<AnchorProps, AnchorState> {
         this.foundation.updateChildMap(prevState, state);
     };
 
+    renderChildren = () => {
+        const loop = (children, level = 1) => {
+            return React.Children.map(children, child => {
+                if (React.isValidElement(child)) {
+                    const childProps = {
+                        direction: this.context.direction,
+                        level,
+                        children: [],
+                    };
+                    const { children } = child.props as any;
+                    const hasChildren = children && React.Children.count(children) > 0;
+                    if (hasChildren) {
+                        childProps.children = loop(children, level + 1);
+                    }
+                    return React.cloneElement(child, childProps);
+                }
+                return null;
+            });
+        };
+        return loop(this.props.children);
+    };
+
     componentDidMount() {
         const { defaultAnchor = '' } = this.props;
         this.anchorID = getUuid('semi-anchor').replace('.', '');
@@ -285,11 +310,19 @@ class Anchor extends BaseComponent<AnchorProps, AnchorState> {
                     removeLink: this.removeLink,
                 }}
             >
-                <div role="navigation" aria-label={ ariaLabel || 'Side navigation'} className={wrapperCls} style={wrapperStyle} id={this.anchorID}>
+                <div
+                    role="navigation"
+                    aria-label={ariaLabel || 'Side navigation'}
+                    className={wrapperCls}
+                    style={wrapperStyle}
+                    id={this.anchorID}
+                >
                     <div aria-hidden className={slideCls} style={{ height: scrollHeight }}>
                         <span className={slideBarCls} style={{ top: slideBarTop }} />
                     </div>
-                    <div className={anchorWrapper}>{children}</div>
+                    <div className={anchorWrapper} role="list">
+                        {this.renderChildren()}
+                    </div>
                 </div>
             </AnchorContext.Provider>
         );

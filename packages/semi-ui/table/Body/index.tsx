@@ -19,7 +19,7 @@ import {
     isTreeTable
 } from '@douyinfe/semi-foundation/table/utils';
 import BodyFoundation, { BodyAdapter, FlattenData, GroupFlattenData } from '@douyinfe/semi-foundation/table/bodyFoundation';
-import { strings } from '@douyinfe/semi-foundation/table/constants';
+import { strings, numbers } from '@douyinfe/semi-foundation/table/constants';
 import Store from '@douyinfe/semi-foundation/utils/Store';
 
 import BaseComponent, { BaseProps } from '../../_base/baseComponent';
@@ -30,7 +30,7 @@ import ExpandedRow from './ExpandedRow';
 import SectionRow from './SectionRow';
 import TableHeader from '../TableHeader';
 import ConfigContext from '../../configProvider/context';
-import TableContext from '../table-context';
+import TableContext, { TableContextProps } from '../table-context';
 import {
     ExpandedRowRender,
     Virtualized,
@@ -74,21 +74,23 @@ export interface BodyProps extends BaseProps {
     rowExpandable?: RowExpandable<Record<string, any>>;
     renderExpandIcon: (record: Record<string, any>, isNested: boolean) => ReactNode | null;
     headerRef?: React.MutableRefObject<HTMLDivElement> | ((instance: any) => void);
-    onScroll?: VirtualizedOnScroll;
+    onScroll?: VirtualizedOnScroll
 }
 
 export interface BodyState {
     virtualizedData?: Array<FlattenData | GroupFlattenData>;
     cache?: {
         virtualizedScrollTop?: number;
-        virtualizedScrollLeft?: number;
+        virtualizedScrollLeft?: number
     };
     cachedExpandBtnShouldInRow?: boolean;
-    cachedExpandRelatedProps?: any[];
+    cachedExpandRelatedProps?: any[]
 }
 
 export interface BodyContext {
     getVirtualizedListRef: GetVirtualizedListRef;
+    flattenedColumns: ColumnProps[];
+    getCellWidths: (flattenedColumns: ColumnProps[]) => number[]
 }
 
 class Body extends BaseComponent<BodyProps, BodyState> {
@@ -128,6 +130,9 @@ class Body extends BaseComponent<BodyProps, BodyState> {
     listRef: React.MutableRefObject<any>;
     observer: ResizeObserver;
     foundation: BodyFoundation;
+    cellWidths: number[];
+    flattenedColumns: ColumnProps[];
+    context: TableContextProps;
     constructor(props: BodyProps, context: BodyContext) {
         super(props);
         this.ref = React.createRef();
@@ -142,7 +147,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
         };
 
         this.listRef = React.createRef();
-        const { getVirtualizedListRef } = context;
+        const { getVirtualizedListRef, flattenedColumns, getCellWidths } = context;
         if (getVirtualizedListRef) {
             if (props.virtualized) {
                 getVirtualizedListRef(this.listRef);
@@ -152,6 +157,8 @@ class Body extends BaseComponent<BodyProps, BodyState> {
             }
         }
         this.foundation = new BodyFoundation(this.adapter);
+        this.flattenedColumns = flattenedColumns;
+        this.cellWidths = getCellWidths(flattenedColumns);
         this.observer = null;
     }
 
@@ -199,12 +206,12 @@ class Body extends BaseComponent<BodyProps, BodyState> {
                     this.observer.unobserve(bodyWrapDOM);
                     this.observer = null;
                 }
-            }
+            },
         };
     }
 
     componentDidUpdate(prevProps: BodyProps, prevState: BodyState) {
-        const { virtualized, dataSource, expandedRowKeys, columns, scroll  } = this.props;
+        const { virtualized, dataSource, expandedRowKeys, columns, scroll } = this.props;
         if (virtualized) {
             if (
                 prevProps.dataSource !== dataSource ||
@@ -265,7 +272,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
 
     itemKey = (index: number, data: Array<FlattenData | GroupFlattenData>) => get(data, [index, 'key'], index);
 
-    handleRowClick = (rowKey: RowKey<any>, e: React.MouseEvent, expand: boolean) => {
+    handleRowClick = (rowKey: RowKey<any>, e: React.MouseEvent<HTMLElement>, expand: boolean) => {
         const { handleRowExpanded } = this.context;
         handleRowExpanded(!expand, rowKey, e);
     };
@@ -384,8 +391,9 @@ class Body extends BaseComponent<BodyProps, BodyState> {
                 }}
             >
                 <div style={{ width: tableWidth }} className={tableCls}>
-                    {size(dataSource) === 0 ? emptySlot : children}
+                    {children}
                 </div>
+                {size(dataSource) === 0 && emptySlot}
             </div>
         );
     });
@@ -416,7 +424,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
 
         const listStyle = {
             width: '100%',
-            height: y,
+            height: virtualizedData?.length ? y : numbers.DEFAULT_EMPTYSLOT_HEIGHT,
             overflowX: 'auto',
             overflowY: 'auto',
         } as const;
@@ -425,7 +433,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
 
         return (
             <List<Array<FlattenData | GroupFlattenData>>
-                {...virtualized}
+                {...(typeof virtualized === 'object' ? virtualized : {})}
                 initialScrollOffset={this.state.cache.virtualizedScrollTop}
                 onScroll={this.handleVirtualizedScroll}
                 onItemsRendered={this.onItemsRendered}
@@ -494,7 +502,12 @@ class Body extends BaseComponent<BodyProps, BodyState> {
         }
 
         const { flattenedColumns, getCellWidths } = this.context;
-        const cellWidths = getCellWidths(flattenedColumns);
+
+        // we use memoized cellWidths to avoid re-render expanded row (fix #686)
+        if (flattenedColumns !== this.flattenedColumns) {
+            this.flattenedColumns = flattenedColumns;
+            this.cellWidths = getCellWidths(flattenedColumns);
+        }
 
         return (
             <ExpandedRow
@@ -508,7 +521,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
                 index={index}
                 virtualized={virtualized}
                 key={genExpandedRowKey(key)}
-                cellWidths={cellWidths}
+                cellWidths={this.cellWidths}
             />
         );
     };
@@ -549,7 +562,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
             level?: number;
             expanded?: boolean;
             expandableRow?: boolean;
-            onRowClick?: (...args: any[]) => void;
+            onRowClick?: (...args: any[]) => void
         } = {
             level: undefined,
             expanded,
@@ -740,10 +753,10 @@ class Body extends BaseComponent<BodyProps, BodyState> {
         const bodyStyle: {
             maxHeight?: string | number;
             overflow?: string;
-            WebkitTransform?: string;
+            WebkitTransform?: string
         } = {};
         const tableStyle: {
-            width?: string | number;
+            width?: string | number
         } = {};
         const Table = get(components, 'body.outer', 'table');
         const BodyWrapper = get(components, 'body.wrapper') || 'tbody';
@@ -777,7 +790,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
                 onScroll={handleBodyScroll}
             >
                 <Table
-                    role={ isMap(groups) || isFunction(expandedRowRender) || isTreeTable({ dataSource }) ? 'treegrid' : 'grid'}
+                    role={isMap(groups) || isFunction(expandedRowRender) || isTreeTable({ dataSource }) ? 'treegrid' : 'grid'}
                     aria-rowcount={dataSource && dataSource.length}
                     aria-colcount={columns && columns.length}
                     style={tableStyle}
@@ -833,7 +846,7 @@ export interface RenderExpandedRowProps {
     index?: number;
     rowKey?: RowKey<Record<string, any>>;
     virtualized?: Virtualized;
-    level?: number;
+    level?: number
 }
 
 export interface RenderSectionRowProps {
@@ -843,5 +856,5 @@ export interface RenderSectionRowProps {
     group?: any;
     groupKey: string | number;
     index?: number;
-    expanded?: boolean;
+    expanded?: boolean
 }

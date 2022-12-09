@@ -24,9 +24,9 @@ class ArrayDemo extends React.Component {
         this.state = {
             initValues: {
                 effects: [
-                    { name: '脸部贴纸', type: '2D', key: 0 },
-                    { name: '美妆', type: '2D', key: 1 },
-                    { name: '前景贴纸', type: '3D', key: 2 },
+                    { name: '1-name', type: '1-type', key: 0 },
+                    { name: '2-name', type: '2-type', key: 1 },
+                    { name: '3-name', type: '3-type', key: 2 },
                 ]
             }
         };
@@ -59,10 +59,7 @@ class ArrayDemo extends React.Component {
         return values.effects && values.effects.map((effect, i) => (
             <div key={effect.key} style={{ width: 1000, display: 'flex' }}>
                 <Form.Input field={`effects[${i}].name`} style={{ width: 200, marginRight: 16 }} />
-                <Form.Select field={`effects[${i}].type`} style={{ width: 90 }}>
-                    <Form.Select.Option value="2D">2D</Form.Select.Option>
-                    <Form.Select.Option value="3D">3D</Form.Select.Option>
-                </Form.Select>
+                <Form.Input field={`effects[${i}].type`} style={{ width: 90 }} />
                 <Button type="danger" onClick={() => this.remove(effect.key)} style={{ margin: 16 }}>Remove</Button>
             </div>
         ));

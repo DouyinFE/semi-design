@@ -42,5 +42,7 @@ export default [
     "pagination",
     "steps",
     "tabs",
-    "tree"
-]
+    "tree",
+    "treeselect",
+    "upload"
+];

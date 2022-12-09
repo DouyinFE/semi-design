@@ -1,6 +1,7 @@
 //@import '../theme/variables.scss';
 // @import '../theme/mixin.scss';
 // @import '../theme/_font.scss';
+@import "./animation.scss";
 @import './variables.scss';
 
 $module: #{$prefix}-breadcrumb;
@@ -24,7 +25,7 @@ $module: #{$prefix}-breadcrumb;
     &-item-wrap {
         display: inline-flex;
         align-items: center;
-        margin: $spacing-breadcrumb_item_wrap-marginY 0;
+        margin: $spacing-breadcrumb_item_wrap-marginY 0px;
         margin-right: $spacing-breadcrumb_item_wrap-marginRight;
     }
 
@@ -88,6 +89,8 @@ $module: #{$prefix}-breadcrumb;
         align-items: center;
         column-gap: 4px;
         text-decoration: inherit;
+        transition: color $transition_duration-breadcrumb_link-text $transition-function_breadcrumb_link-text $transition_delay-breadcrumb_link-text;
+        transform: scale($transform_scale-breadcrumb_link-text);
 
         &:hover {
             color: $color-breadcrumb_default-text-hover;

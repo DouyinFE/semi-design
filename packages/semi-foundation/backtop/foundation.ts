@@ -10,7 +10,7 @@ export interface BackTopAdapter extends DefaultAdapter {
     notifyClick: (e: BackTopClickEvent) => void;
     targetIsWindow: (target: any) => boolean;
     isWindowUndefined: () => boolean;
-    targetScrollToTop: (targetNode: any, scrollTop: number) => void;
+    targetScrollToTop: (targetNode: any, scrollTop: number) => void
 }
 
 export default class BackTopFoundation extends BaseFoundation<BackTopAdapter> {

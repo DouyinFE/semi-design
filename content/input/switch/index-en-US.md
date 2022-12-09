@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 28
+order: 30
 category: Input
 title: Switch
 subTitle: Switch
@@ -151,7 +151,7 @@ import { Switch } from '@douyinfe/semi-ui';
         />
     );
 
-}
+};
 ```
 
 ### loading
@@ -197,6 +197,16 @@ import { Switch } from '@douyinfe/semi-ui';
 - Switch has a `switch` role, when checked is true, `aria-checked` will be automatically set to true, and vice versa.
 - As a form field, it should have a Label, which will be automatically brought on when you use Form.Switch.
 - If you use Switch alone, it is recommended to use `aria-label` to describe the current label function.
+
+### Keyboard and Focus
+- Keyboard users can use `Tab` and `Shift + Tab` to switch focus.
+- When focusing, you can switch on or off by pressing the `Space` key.
+
+## Content Guidelines
+- Switch description
+  - First letter is capitalized, no punctuation is required
+  - Indirectly and explicitly state whether the setting is on or off
+  - If needed, explain to the user what the on and off states represent
 ## Design Tokens
 
 <DesignToken/>

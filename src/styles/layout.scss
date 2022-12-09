@@ -135,6 +135,42 @@ body[theme-mode="dark"] {
     }
 }
 
+.skip-to-content {
+    width: 122px;
+    padding: 12px;
+    position: absolute;
+    left: 30px;
+    transform: translateY(-100%);   
+    transition: transform 0.3s;
+    background-color: #fff;
+    font-size: 14px;
+    border-radius: 3px;
+    z-index: 9999;
+
+    ol {
+        margin-top: 0px;
+        padding-left: 0px;
+        list-style-type: none;
+        list-style-position: outside;
+
+        li {
+            margin-top: 8px;
+            line-height: 20px;
+            color: var(--semi-color-primary);
+        }
+    }
+}
+
+.skip-to-content:focus-within {
+    transform: translateY(0%);
+    top: 12px;
+    outline: 2px solid var( --semi-color-border);
+}
+
+.skip-to-content-link:focus {
+    outline: 2px solid var(--semi-color-primary-light-active);
+}
+
 .content-area {
     display: flex;
     justify-content: flex-start;
@@ -458,4 +494,12 @@ $spCol: var(--semi-color-primary);
     .pageAnchor {
         display: none;
     }
+}
+
+
+.reset-font-style {
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    letter-spacing: unset;
+    line-height: unset;
 }

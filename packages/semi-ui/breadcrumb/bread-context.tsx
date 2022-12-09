@@ -1,13 +1,13 @@
 import React from 'react';
 import { showToolTipProps } from './index';
 import { BreadcrumbItemInfo } from './item';
-export interface BreadContextProps {
+export interface BreadContextType {
     onClick?: (info: BreadcrumbItemInfo, event: React.MouseEvent) => void;
     showTooltip?: boolean | showToolTipProps;
     compact?: boolean;
-    separator?: string | React.ReactNode;
+    separator?: React.ReactNode
 }
 
-const BreadContext = React.createContext<BreadContextProps>({});
+const BreadContext = React.createContext<BreadContextType>({});
 
 export default BreadContext;

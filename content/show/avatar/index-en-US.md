@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 42
+order: 44
 category: Show
 title:  Avatar
 subTitle: avatar
@@ -26,23 +26,23 @@ import { Avatar } from '@douyinfe/semi-ui';
 
 () => (
     <div>
-        <Avatar size="extra-extra-small" style={{ margin: 4 }}>
+        <Avatar size="extra-extra-small" style={{ margin: 4 }} alt='User'>
             U
         </Avatar>
-        <Avatar size="extra-small" style={{ margin: 4 }}>
+        <Avatar size="extra-small" style={{ margin: 4 }} alt='User'>
             U
         </Avatar>
-        <Avatar size="small" style={{ margin: 4 }}>
+        <Avatar size="small" style={{ margin: 4 }} alt='User'>
             U
         </Avatar>
-        <Avatar size="default" style={{ margin: 4 }}>
+        <Avatar size="default" style={{ margin: 4 }} alt='User'>
             U
         </Avatar>
-        <Avatar style={{ margin: 4 }}>U</Avatar>
-        <Avatar size="large" style={{ margin: 4 }}>
+        <Avatar style={{ margin: 4 }} alt='User'>U</Avatar>
+        <Avatar size="large" style={{ margin: 4 }} alt='User'>
             U
         </Avatar>
-        <Avatar size="extra-large" style={{ margin: 4 }}>
+        <Avatar size="extra-large" style={{ margin: 4 }} alt='User'>
             U
         </Avatar>
     </div>
@@ -59,15 +59,15 @@ import { Avatar } from '@douyinfe/semi-ui';
 
 () => (
     <div>
-        <Avatar style={{ margin: 4 }}>AS</Avatar>
-        <Avatar color="red" style={{ margin: 4 }}>
+        <Avatar style={{ margin: 4 }} alt='Alice Swift'>AS</Avatar>
+        <Avatar color="red" style={{ margin: 4 }} alt='Bob Matteo'>
             BM
         </Avatar>
-        <Avatar color="light-blue" style={{ margin: 4 }}>
+        <Avatar color="light-blue" style={{ margin: 4 }} alt='Taylor Joy'>
             TJ
         </Avatar>
-        <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf', margin: 4 }}>ZL</Avatar>
-        <Avatar style={{ backgroundColor: '#87d068', margin: 4 }}>YZ</Avatar>
+        <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf', margin: 4 }} alt='Zank Lance'>ZL</Avatar>
+        <Avatar style={{ backgroundColor: '#87d068', margin: 4 }} alt='Youself Zhang'>YZ</Avatar>
     </div>
 );
 ```
@@ -83,14 +83,14 @@ import { Avatar } from '@douyinfe/semi-ui';
 () => (
     <div>
         <Avatar
-            alt="a cat"
-            src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"
+            alt="beautiful cat"
+            src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png"
             style={{ margin: 4 }}
         />
         <Avatar
-            alt="a cat"
+            alt="cute cat"
             size="small"
-            src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"
+            src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png"
             style={{ margin: 4 }}
         />
     </div>
@@ -107,8 +107,8 @@ import { Avatar } from '@douyinfe/semi-ui';
 
 () => (
     <div>
-        <Avatar style={{ margin: 4 }}>U</Avatar>
-        <Avatar shape="square" style={{ margin: 4 }}>
+        <Avatar style={{ margin: 4 }} alt="User">U</Avatar>
+        <Avatar shape="square" style={{ margin: 4 }} alt="User">
             U
         </Avatar>
     </div>
@@ -141,7 +141,7 @@ import { IconCamera } from '@douyinfe/semi-icons';
     );
 
     return (
-        <Avatar hoverMask={hover} color="red">
+        <Avatar hoverMask={hover} color="red" alt='Bob Downton'>
             BD
         </Avatar>
     );
@@ -156,14 +156,17 @@ You can use `AvatarGroup` component to display avatars as a group.
 import React from 'react';
 import { Avatar, AvatarGroup } from '@douyinfe/semi-ui';
 
+import React from 'react';
+import { AvatarGroup, Avatar } from '@douyinfe/semi-ui';
+
 () => (
     <div>
         <AvatarGroup>
-            <Avatar color="red">LL</Avatar>
-            <Avatar>CX</Avatar>
-            <Avatar color="amber">RM</Avatar>
-            <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>ZL</Avatar>
-            <Avatar style={{ backgroundColor: '#87d068' }}>YZ</Avatar>
+            <Avatar color="red" alt='Lisa LeBlanc'>LL</Avatar>
+            <Avatar alt='Caroline Xiao'>CX</Avatar>
+            <Avatar color="amber" alt='Rafal Matin'>RM</Avatar>
+            <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }} alt='Zank Lance'>ZL</Avatar>
+            <Avatar style={{ backgroundColor: '#87d068' }} alt='Youself Zhang'>YZ</Avatar>
         </AvatarGroup>
     </div>
 );
@@ -177,11 +180,11 @@ import { Avatar, AvatarGroup } from '@douyinfe/semi-ui';
 () => (
     <div>
         <AvatarGroup maxCount={3}>
-            <Avatar color="red">LL</Avatar>
-            <Avatar>CX</Avatar>
-            <Avatar color="amber">RM</Avatar>
-            <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>ZL</Avatar>
-            <Avatar style={{ backgroundColor: '#87d068' }}>YZ</Avatar>
+            <Avatar color="red" alt='Lisa LeBlanc'>LL</Avatar>
+            <Avatar alt='Caroline Xiao'>CX</Avatar>
+            <Avatar color="amber" alt='Rafal Matin'>RM</Avatar>
+            <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }} alt='Zank Lance'>ZL</Avatar>
+            <Avatar style={{ backgroundColor: '#87d068' }} alt='Youself Zhang'>YZ</Avatar>
         </AvatarGroup>
     </div>
 );
@@ -215,11 +218,11 @@ function Demo() {
 
     return (
         <AvatarGroup maxCount={3} renderMore={renderMore}>
-            <Avatar color='red'>LL</Avatar>
-            <Avatar >CX</Avatar>
-            <Avatar color='amber'>RM</Avatar>
-            <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>ZL</Avatar>
-            <Avatar style={{ backgroundColor: '#87d068' }} >YZ</Avatar>
+            <Avatar color="red" alt='Lisa LeBlanc'>LL</Avatar>
+            <Avatar alt='Caroline Xiao'>CX</Avatar>
+            <Avatar color="amber" alt='Rafal Matin'>RM</Avatar>
+            <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }} alt='Zank Lance'>ZL</Avatar>
+            <Avatar style={{ backgroundColor: '#87d068' }} alt='Youself Zhang'>YZ</Avatar>
         </AvatarGroup>
     );
 }
@@ -234,63 +237,24 @@ import { Avatar, AvatarGroup } from '@douyinfe/semi-ui';
     <div>
         <div>
             <AvatarGroup overlapFrom={'start'}>
-                <Avatar color="red">LL</Avatar>
-                <Avatar>CX</Avatar>
-                <Avatar color="amber">RM</Avatar>
-                <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>ZL</Avatar>
-                <Avatar style={{ backgroundColor: '#87d068' }}>YZ</Avatar>
+                <Avatar color="red" alt='Lisa LeBlanc'>LL</Avatar>
+                <Avatar alt='Caroline Xiao'>CX</Avatar>
+                <Avatar color="amber" alt='Rafal Matin'>RM</Avatar>
+                <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }} alt='Zank Lance'>ZL</Avatar>
+                <Avatar style={{ backgroundColor: '#87d068' }} alt='Youself Zhang'>YZ</Avatar>
             </AvatarGroup>
         </div>
         <div>
             <AvatarGroup overlapFrom={'end'}>
-                <Avatar color="red">LL</Avatar>
-                <Avatar>CX</Avatar>
-                <Avatar color="amber">RM</Avatar>
-                <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>ZL</Avatar>
-                <Avatar style={{ backgroundColor: '#87d068' }}>YZ</Avatar>
+                <Avatar color="red" alt='Lisa LeBlanc'>LL</Avatar>
+                <Avatar alt='Caroline Xiao'>CX</Avatar>
+                <Avatar color="amber" alt='Rafal Matin'>RM</Avatar>
+                <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }} alt='Zank Lance'>ZL</Avatar>
+                <Avatar style={{ backgroundColor: '#87d068' }} alt='Youself Zhang'>YZ</Avatar>
             </AvatarGroup>
         </div>
     </div>
 );
-```
-
-## Accessibility
-
-- `alt`：When using a picture avatar, please use the `alt` attribute to explain the content of the picture
-
-```jsx
-import React from 'react';
-import { Avatar } from '@douyinfe/semi-ui';
-
-() => {
-    return (
-        <>
-            {/* Good case */ }
-            <Avatar
-                alt="A cut cat"
-                src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"
-                style={{ margin: 4 }}
-            />
-            <Avatar
-                alt="Jiang Pengzhi"
-                src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"
-                style={{ margin: 4 }}
-            />
-            {/* Bad case: empty content */ }
-            <Avatar
-                alt=""
-                src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"
-                style={{ margin: 4 }}
-            />
-            {/* Bad case: no need to include picture or image in alt */ }
-            <Avatar
-                alt="Picture of Jiang Pengzhi"
-                src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"
-                style={{ margin: 4 }}
-            />
-        </>
-    );
-};
 ```
 
 ## API Reference
@@ -325,6 +289,46 @@ import { Avatar } from '@douyinfe/semi-ui';
 | renderMore | Customize the more tag  | (restNumber: number, restAvatars: ReactNode[]) => ReactNode | - |
 | shape      | Shape of the avatar, one of `circle`, `square`                                      | string | `circle` |
 | size       | Size of the avatar, one of `extra-extra-small`, `extra-small`, `small`, `default`, `medium`, `large`, `extra-large` | string | `medium` |
+
+## Accessibility
+
+- Avatars are generally not used for operations and do not need to be focused. But when the Avatar can be clicked (such as the avatar on the Semi official website), it needs to be focused and respond to the keyboard `Enter` event.
+- When Avatar is used in combination with other components, also check the accessibility guidelines for that component.
+- Avatar's `alt` attribute can be read by screen readers, when using the avatar component, please use the `alt` attribute to explain the content of the image.
+```jsx
+import React from 'react';
+import { Avatar } from '@douyinfe/semi-ui';
+
+() => {
+    return (
+        <>
+            {/* Good case */ }
+            <Avatar
+                alt="A cut cat"
+                src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png"
+                style={{ margin: 4 }}
+            />
+            <Avatar
+                alt="Jiang Pengzhi"
+                src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png"
+                style={{ margin: 4 }}
+            />
+            {/* Bad case: empty content */ }
+            <Avatar
+                alt=""
+                src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png"
+                style={{ margin: 4 }}
+            />
+            {/* Bad case: no need to include picture or image in alt */ }
+            <Avatar
+                alt="Picture of Jiang Pengzhi"
+                src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png"
+                style={{ margin: 4 }}
+            />
+        </>
+    );
+};
+```
 
 ## Design Tokens
 <DesignToken/>

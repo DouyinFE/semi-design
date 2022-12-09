@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 43
+order: 45
 category: Show
 title:  Badge
 subTitle: Badge
@@ -30,7 +30,6 @@ import { IconLock } from '@douyinfe/semi-icons';
         width: '42px',
         height: '42px',
         borderRadius: '4px',
-        display: 'inline-block',
     };
     return (
         <div>
@@ -44,7 +43,7 @@ import { IconLock } from '@douyinfe/semi-icons';
             </Badge>
             <br/>
             <br/>
-            <Badge count={<IconLock style={{color:'var(--semi-color-primary)'}}/>}>
+            <Badge count={<IconLock style={{ color: 'var(--semi-color-primary)' }}/>}>
                 <Avatar color='light-blue' shape='square' style={style}>XZ</Avatar>
             </Badge>
             <br/>
@@ -70,7 +69,6 @@ import { Badge, Avatar } from '@douyinfe/semi-ui';
         width: '42px',
         height: '42px',
         borderRadius: '4px',
-        display: 'inline-block',
     };
     return (
         <div>
@@ -110,7 +108,6 @@ import { Badge, Avatar } from '@douyinfe/semi-ui';
         width: '42px',
         height: '42px',
         borderRadius: '4px',
-        display: 'inline-block',
     };
     return (
         <div>
@@ -153,10 +150,9 @@ import { Badge, Avatar } from '@douyinfe/semi-ui';
         width: '42px',
         height: '42px',
         borderRadius: '4px',
-        display: 'inline-block',
     };
     return (
-        <div style={{display: 'flex'}}>
+        <div style={{ display: 'flex' }}>
             <div style={bgStyle}>
                 <Badge count={5} theme='solid' >
                     <Avatar color='indigo' shape='square' style={style}>XZ</Avatar>
@@ -183,7 +179,7 @@ import { Badge, Avatar } from '@douyinfe/semi-ui';
                     <Avatar color='lime' shape='square' style={style}>HW</Avatar>
                 </Badge>
             </div>
-            <div style={{padding: '8px', borderRadius:'4px', backgroundColor: 'var(--semi-color-fill-0)'}}>
+            <div style={{ padding: '8px', borderRadius: '4px', backgroundColor: 'var(--semi-color-fill-0)' }}>
                 <Badge dot theme='inverted' >
                     <Avatar color='lime' shape='square' style={style}>XM</Avatar>
                 </Badge>
@@ -207,10 +203,9 @@ import { Badge, Avatar } from '@douyinfe/semi-ui';
         width: '42px',
         height: '42px',
         borderRadius: '4px',
-        display: 'inline-block',
     };
     return (
-        <div style={{display: 'flex'}}>
+        <div style={{ display: 'flex' }}>
             <div style={bgStyle}>
                 <Badge count={5} type='primary' >
                     <Avatar color='violet' shape='square' style={style}>MR</Avatar>
@@ -228,7 +223,7 @@ import { Badge, Avatar } from '@douyinfe/semi-ui';
             </div>
             <br/>
             <div style={bgStyle}>
-                <Badge count={5}  type='warning' >
+                <Badge count={5} type='warning' >
                     <Avatar color='red' shape='square' style={style}>JL</Avatar>
                 </Badge>
             </div>
@@ -270,7 +265,7 @@ import { Badge } from '@douyinfe/semi-ui';
         <br/>
         <span><Badge dot type='tertiary' /> info</span>
         <br/>
-        <span><Badge dot style={{ backgroundColor: 'var(--semi-color-success)'}} /> success</span>
+        <span><Badge dot style={{ backgroundColor: 'var(--semi-color-success)' }} /> success</span>
         <br/>
         <span><Badge dot type='warning' /> warning</span>
         <br/>
@@ -291,6 +286,10 @@ import { Badge } from '@douyinfe/semi-ui';
 | style         | style                                                                           | CSSProperties     | -          |
 | theme         | Badge theme, one of `solid`, `light`, `inverted`                                | string     | `solid`    |
 | type          | Badge type, one of `primary`, `secondary`, `sense`, `danger`, `warning`         | string     | `primary`  |
+
+## Content Guidelines
+
+- Capitalize the first letter
 
 ## Design Tokens
 <DesignToken/>

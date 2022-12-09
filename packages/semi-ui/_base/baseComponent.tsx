@@ -2,7 +2,7 @@
  * The Semi Foundation / Adapter architecture split was inspired by Material Component For Web. （https://github.com/material-components/material-components-web）
  * We re-implemented our own code based on the principle and added more functions we need according to actual needs.
  */
-import React, { Component } from 'react';
+import React, { Component, ReactNode } from 'react';
 import log from '@douyinfe/semi-foundation/utils/log';
 import { DefaultAdapter } from '@douyinfe/semi-foundation/base/foundation';
 import { VALIDATE_STATUS } from '@douyinfe/semi-foundation/base/constants';
@@ -15,6 +15,7 @@ export type ValidateStatus = ArrayElement<typeof VALIDATE_STATUS>;
 export interface BaseProps {
     style?: React.CSSProperties;
     className?: string;
+    children?: ReactNode | undefined | any
 }
 
 // eslint-disable-next-line
@@ -65,6 +66,9 @@ export default class BaseComponent<P extends BaseProps = {}, S = {}> extends Com
                 } catch (error) {
 
                 }
+            },
+            persistEvent: (e: React.KeyboardEvent | React.MouseEvent) => {
+                e && e.persist && typeof e.persist === 'function' ? e.persist() : null;
             }
         };
     }

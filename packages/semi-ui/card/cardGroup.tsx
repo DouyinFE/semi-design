@@ -11,12 +11,13 @@ export type CardGroupType = 'grid';
 export interface CardGroupProps {
     /** Card group style class name */
     className?: string;
+    children?: React.ReactNode;
     /** Card Spacing */
     spacing?: number | number[];
     /** Card group inline style */
     style?: React.CSSProperties;
     /** Card set type */
-    type?: CardGroupType;
+    type?: CardGroupType
 }
 
 class CardGroup extends PureComponent<CardGroupProps> {

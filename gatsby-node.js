@@ -8,26 +8,12 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const path = require('path');
 const fs = require('fs');
-const processGraphQLData = require('./search/generator');
 const items = ['basic', 'chart'];
 const sha1 = require('sha1');
 const hash = sha1(`${new Date().getTime()}${Math.random()}`);
+const numHash = Math.round(Math.random()*1000000);
 const glob = require('glob');
-const addPageDataVersion = async file => {
-    const stats = fs.statSync(file);
-    if (stats.isFile()) {
-        console.log(`Adding version to page-data.json app-data.json designToken.json in ${file}..`);
-        let content = fs.readFileSync(file, 'utf8');
-        const result = content.replace(
-            /page-data.json(\?v=[a-f0-9]{32})?/g,
-            `page-data.json?v=${hash}`
-        ).replace(/app-data.json(\?v=[a-f0-9]{32})?/g,
-            `app-data.json?v=${hash}`
-        ).replace(/designToken.json(\?v=[a-f0-9]{32})?/g,
-            `designToken.json?v=${hash}`);
-        fs.writeFileSync(file, result, 'utf8');
-    }
-};
+
 
 function resolve(dir) {
     return path.resolve(__dirname, dir);
@@ -125,7 +111,7 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions }) =>
                 'context': resolve('src/context'),
                 'components': resolve('src/components'),
                 'locale': resolve('src/locale'),
-                'src':resolve('src')
+                'src': resolve('src')
             },
         },
         module: {
@@ -177,11 +163,13 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions }) =>
                 }
             ],
         },
-        plugins: [plugins.extractText(),plugins.define({
-            "THEME_SWITCHER_URL":JSON.stringify(process.env['THEME_SWITCHER_URL']),
-            "DSM_URL":JSON.stringify(process.env['DSM_URL']),
-            'process.env.SEMI_SITE_HEADER':JSON.stringify(process.env.SEMI_SITE_HEADER),
-            'process.env.SEMI_SITE_BANNER':JSON.stringify(process.env.SEMI_SITE_BANNER),
+        plugins: [plugins.extractText(), plugins.define({
+            "THEME_SWITCHER_URL": JSON.stringify(process.env['THEME_SWITCHER_URL']),
+            "SEMI_SEARCH_URL": JSON.stringify(process.env['SEMI_SEARCH_URL']),
+            "DSM_URL": JSON.stringify(process.env['DSM_URL']),
+            'process.env.SEMI_SITE_HEADER': JSON.stringify(process.env.SEMI_SITE_HEADER),
+            'process.env.SEMI_SITE_BANNER': JSON.stringify(process.env.SEMI_SITE_BANNER),
+            'process.env.D2C_URL': JSON.stringify(process.env.D2C_URL),
         })],
     });
 };
@@ -232,35 +220,6 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
 
     const blogPostTemplate = path.resolve('src/templates/postTemplate.js');
 
-    // 开始处理搜索数据
-    // console.log('building search data.');
-    const searchData = await graphql(`
-       query MyQuery {
-         allMdx {
-           nodes {
-             id
-             fields {
-               slug
-               type
-               typeOrder
-             }
-             frontmatter {
-             brief
-               localeCode
-               title
-             }
-             tableOfContents
-             mdxAST
-           }
-         }
-       }`);
-
-    // 在此你可以处理searchData(GraphQL查询的raw数据) 或者传入回调 处理运算后的数据
-    processGraphQLData(searchData, processedData => {});
-    // 搜索有用到，但是目前没有搜索，先注释掉，不然影响文档站的本地调试
-    // fs.copyFileSync('./search/data_client.json', './static/search_data_client.json');
-    //   console.log('building search data success.')
-    // 搜索数据处理结束
     const result = await graphql(`
          query {
              allMdx(
@@ -326,15 +285,137 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     });
 };
 
-exports.onPostBootstrap = async () => {
-    const loader = path.join(__dirname, 'node_modules/gatsby/cache-dir/loader.js');
-    await addPageDataVersion(loader);
-};
 
 exports.onPostBuild = async () => {
     const publicPath = path.join(__dirname, 'public');
+    const replacedNameSet = new Set();
+    const pageDataFiles = glob.sync(`${publicPath}/page-data/**/*.json`);
+    for (let file of pageDataFiles) {
+        const newFilename = file.replace(/([a-zA-Z0-9\-]+)\.json/g, (_, p1)=> {
+            replacedNameSet.add(p1);
+            return `${p1}${/^\d+$/.test(p1)?numHash:`.${hash}`}.json`;
+        });
+        fs.renameSync(file, newFilename);
+    }
+    
     const htmlAndJSFiles = glob.sync(`${publicPath}/**/*.{html,js}`);
     for (let file of htmlAndJSFiles) {
-        await addPageDataVersion(file);
+        const stats = fs.statSync(file);
+        if (stats.isFile()) {
+            if (file.includes("public/editor")){
+                continue;
+            }
+            let content = fs.readFileSync(file, 'utf8');
+            let result = content.replace(/([a-zA-Z0-9\-]+)\.json/g, (_, p1)=>{
+                if (replacedNameSet.has(p1) && !/^\d+$/.test(p1)){
+                    const newFileName = `${p1}.${hash}.json`;
+                    console.log(`Add hash to json in ${file} from ${p1}.json to ${newFileName} ..`);
+                    return newFileName;
+                } else {
+                    return `${p1}.json`;
+                }
+            });
+            result=result.replace(/designToken.json(\?v=[a-f0-9]*)?/g,
+                `designToken.json?v=${hash}`);
+            fs.writeFileSync(file, result, 'utf8');
+        }
     }
+
+    console.log("Num json set ", Array.from(replacedNameSet));
+
+    //only match nav json (only number)
+    const jsonFiles = glob.sync(`${publicPath}/**/*.{js,html,json}`);
+    for (let file of jsonFiles) {
+        if (file.includes("public/editor")){
+            continue;
+        }
+        const stats = fs.statSync(file);
+        if (stats.isFile()) {
+            console.log("Notice: Add Hash to JSON File "+ file);
+            if (file.includes("public/editor")){
+                continue;
+            }
+            let result = fs.readFileSync(file, 'utf8');
+
+            for (let name of replacedNameSet){
+                if (/^\d+$/.test(name)){
+                    result = result.replaceAll(name, `${name}${numHash}`);
+                }
+
+            }
+            result=result.replace(/designToken.json(\?v=[a-f0-9]*)?/g,
+                `designToken.json?v=${hash}`);
+            fs.writeFileSync(file, result, 'utf8');
+        }
+    }
+
+    (()=>{
+        const jsFiles = glob.sync(`${publicPath}/*.js`);
+
+        const replaceNames = {};
+        for (let file of jsFiles) {
+            const filename = path.basename(file);
+            const fileNameWithoutExt = filename.split('.')[0];
+            const originHash = fileNameWithoutExt.split('-').at(-1);
+
+            if (originHash && originHash!==fileNameWithoutExt){
+                let fileNameWithoutExtWithHash = fileNameWithoutExt.replace(originHash, `${originHash}${numHash}`);
+                replaceNames[originHash] = `${originHash}${numHash}`;
+                fs.renameSync(file, path.join(path.dirname(file), `${fileNameWithoutExtWithHash}.js`));
+            } else {
+                let finalFileName = `${fileNameWithoutExt}${numHash}.js`;
+                replaceNames[filename] = finalFileName;
+                fs.renameSync(file, path.join(path.dirname(file), finalFileName));
+            }
+        }
+        const allFiles = glob.sync(`${publicPath}/**/*.{js,html,json}`);
+        for (let file of allFiles) {
+            const stats = fs.statSync(file);
+            if (stats.isFile()) {
+                let result = fs.readFileSync(file, 'utf8');
+                for (let [oldName, newName] of Object.entries(replaceNames)) {
+                    result = result.replaceAll(oldName, newName);
+                }
+                fs.writeFileSync(file, result, 'utf8');
+            }
+        }
+    })();
+
+
+
+    (()=>{
+        const cssFiles = glob.sync(`${publicPath}/*.css`);
+
+        const replaceNames = {};
+        for (let file of cssFiles) {
+            const { base: filename, name: fileNameWithoutExt } = path.parse(file);
+            const originHash = fileNameWithoutExt.split('.').at(-1);
+
+
+            if (originHash && originHash!==fileNameWithoutExt){
+                let fileNameWithoutExtWithHash = fileNameWithoutExt.replace(originHash, `${originHash}${numHash}`);
+                replaceNames[originHash] = `${originHash}${numHash}`;
+                fs.renameSync(file, path.join(path.dirname(file), `${fileNameWithoutExtWithHash}.css`));
+            } else {
+                let finalFileName = `${fileNameWithoutExt}${numHash}.css`;
+                replaceNames[filename] = finalFileName;
+                fs.renameSync(file, path.join(path.dirname(file), finalFileName));
+            }
+
+        }
+        const allFiles = glob.sync(`${publicPath}/**/*.{js,html,json}`);
+        for (let file of allFiles) {
+            const stats = fs.statSync(file);
+            if (stats.isFile()) {
+                let result = fs.readFileSync(file, 'utf8');
+                for (let [oldName, newName] of Object.entries(replaceNames)) {
+                    result = result.replaceAll(oldName, newName);
+                }
+                fs.writeFileSync(file, result, 'utf8');
+            }
+        }
+    })();
+
+
+
 };

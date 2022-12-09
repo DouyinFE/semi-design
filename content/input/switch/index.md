@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 28
+order: 30
 category: 输入类
 title: Switch 开关
 icon: doc-switch
@@ -191,10 +191,20 @@ import { Switch } from '@douyinfe/semi-ui';
 
 ### ARIA
 
--   Switch 具有 `switch` role，当 checked 为 true 时，`aria-checked` 将被自动设置为 true，反之亦然.
--   作为表单控件应该带有 Label，当你使用 Form.Switch 时会自动被带上。
--   如果你单独使用 Switch，建议使用 `aria-label` 描述当前标签作用。
+-   Switch 具有 `switch` role，当 checked 为 true 时，`aria-checked` 将被自动设置为 true，反之亦然
+-   作为表单控件应该带有 Label，当你使用 Form.Switch 时会自动被带上
+-   如果你单独使用 Switch，建议使用 `aria-label` 描述当前标签作用
 
+### 键盘和焦点
+
+-   键盘用户可以使用 `Tab` 及 `Shift + Tab` 切换焦点
+-   聚焦时可以通过 `Space` 键切换开启或关闭状态
+
+## 文案规范
+- 开关描述
+  - 首字母大写，不需要标点符号
+  - 间接明了地说明该设置的开启或关闭状态
+  - 如果需要，解释给用户开启和关闭状态所代表的情况
 ## 设计变量
 
 <DesignToken/>

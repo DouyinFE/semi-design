@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 55
+order: 60
 category: Show
 title:  ScrollList
 subTitle: ScrollList
@@ -128,6 +128,7 @@ class ScrollListDemo extends React.Component {
 | cycled      | Whether it is an infinite loop, effective only if the mode is "wheel"                | boolean                  | false   |
 | className   | classname of scroll item                | string                  | ''   |
 | list        | List content                                                                         | [Item Data](#ItemData)[] | []      |
+| mode        | mode selection                                                                       | "normal" \| "wheel"      | "wheel"|
 | motion      | Whether to start the scroll animation                                                | Motion                  | true    |
 | onSelect    | Select callback                                                                      | (data: [ItemData](#ItemData)) => void                 | NOOP    |
 | selectIndex | Index of selected items                                                              | number                   | 0       |
@@ -142,6 +143,15 @@ class ScrollListDemo extends React.Component {
 | text       | The copy of each item.                                                                                                                                                                                          | string   |         |
 | transform  | When the transformation is in the selected state, the return value is displayed as a copy, and if the ScrollItem component is passed at the same time, the transform method in ItemData will be selected first. | (value: any, text: string) => string | v = > v |
 | value      | The value of each item                                                                                                                                                                                          | any       |         |
+
+
+## Accessibility
+
+### ARIA
+
+- `ScrollItem` support `aria-label`, indicates the label of current column.
+- `ScrollItem` uses `aria-disabled` to indicate whether the item is disabled
+- `ScrollItem` uses `aria-selected` to indicate whether the item is selected
 
 ## Design Tokens
 <DesignToken/>

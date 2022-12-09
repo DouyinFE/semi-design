@@ -5,7 +5,7 @@ import HookNotice from './HookNotice';
 import '@douyinfe/semi-foundation/notification/notification.scss';
 import getUuid from '@douyinfe/semi-foundation/utils/uuid';
 import { NoticeInstance, NoticePosition, NoticeProps } from '@douyinfe/semi-foundation/notification/notificationFoundation';
-import { NoticesInPosition } from '@douyinfe/semi-ui/notification/index';
+import { NoticesInPosition } from '../';
 // TODO: Automatic folding + unfolding function when there are more than N
 
 const defaultConfig = {
@@ -59,8 +59,8 @@ export default function useNotification() {
     const [elements, patchElement] = usePatchElement();
     const noticeRef = new Map<string, { close: () => void } & ReactElement>();
 
-    const id = getUuid('semi_notice_');
     const addNotice = (config: NoticeProps) => {
+        const id = getUuid('semi_notice_');
         const mergeConfig = {
             ...config,
             id,

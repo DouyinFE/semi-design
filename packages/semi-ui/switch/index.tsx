@@ -1,4 +1,4 @@
-/* eslint-disable max-len, jsx-a11y/role-supports-aria-props */
+/* eslint-disable max-len */
 import React from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
@@ -27,12 +27,13 @@ export interface SwitchProps {
     size?: 'large' | 'default' | 'small';
     checkedText?: React.ReactNode;
     uncheckedText?: React.ReactNode;
-    id?: string;
+    id?: string
 } 
 
 export interface SwitchState {
     nativeControlChecked: boolean;
     nativeControlDisabled: boolean;
+    focusVisible: boolean
 }
 
 class Switch extends BaseComponent<SwitchProps, SwitchState> {
@@ -74,6 +75,7 @@ class Switch extends BaseComponent<SwitchProps, SwitchState> {
         this.state = {
             nativeControlChecked: false,
             nativeControlDisabled: false,
+            focusVisible: false
         };
         this.switchRef = React.createRef();
         this.foundation = new SwitchFoudation(this.adapter);
@@ -105,14 +107,25 @@ class Switch extends BaseComponent<SwitchProps, SwitchState> {
             setNativeControlDisabled: (nativeControlDisabled: boolean): void => {
                 this.setState({ nativeControlDisabled });
             },
+            setFocusVisible: (focusVisible: boolean): void => {
+                this.setState({ focusVisible });
+            },
             notifyChange: (checked: boolean, e: React.ChangeEvent<HTMLInputElement>): void => {
                 this.props.onChange(checked, e);
             },
         };
     }
 
+    handleFocusVisible = (event: React.FocusEvent) => {
+        this.foundation.handleFocusVisible(event);
+    }
+
+    handleBlur = (event: React.FocusEvent) => {
+        this.foundation.handleBlur();
+    }
+
     render() {
-        const { nativeControlChecked, nativeControlDisabled } = this.state;
+        const { nativeControlChecked, nativeControlDisabled, focusVisible } = this.state;
         const { className, style, onMouseEnter, onMouseLeave, size, checkedText, uncheckedText, loading, id } = this.props;
         const wrapperCls = cls(className, {
             [cssClasses.PREFIX]: true,
@@ -121,10 +134,10 @@ class Switch extends BaseComponent<SwitchProps, SwitchState> {
             [cssClasses.LARGE]: size === 'large',
             [cssClasses.SMALL]: size === 'small',
             [cssClasses.LOADING]: loading,
+            [cssClasses.FOCUS]: focusVisible,
         });
         const switchProps = {
             type: 'checkbox',
-            role: 'switch',
             className: cssClasses.NATIVE_CONTROL,
             disabled: nativeControlDisabled || loading,
             checked: nativeControlChecked || false,
@@ -133,23 +146,18 @@ class Switch extends BaseComponent<SwitchProps, SwitchState> {
         const showUncheckedText = uncheckedText && !nativeControlChecked && size !== 'small';
         return (
             <div className={wrapperCls} style={style} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-                {
-                    loading
-                        ? (
-                            <Spin
-                                wrapperClassName={cssClasses.LOADING_SPIN}
-                                size={size === 'default' ? 'middle' : size}
-                            />
-                        )
-                        : <div className={cssClasses.KNOB} aria-hidden={true} />
-                }
+                {loading ? (
+                    <Spin wrapperClassName={cssClasses.LOADING_SPIN} size={size === 'default' ? 'middle' : size} />
+                ) : (
+                    <div className={cssClasses.KNOB} aria-hidden={true} />
+                )}
                 {showCheckedText ? (
-                    <div className={cssClasses.CHECKED_TEXT}>
+                    <div className={cssClasses.CHECKED_TEXT} x-semi-prop="checkedText">
                         {checkedText}
                     </div>
                 ) : null}
                 {showUncheckedText ? (
-                    <div className={cssClasses.UNCHECKED_TEXT}>
+                    <div className={cssClasses.UNCHECKED_TEXT} x-semi-prop="uncheckedText">
                         {uncheckedText}
                     </div>
                 ) : null}
@@ -157,13 +165,17 @@ class Switch extends BaseComponent<SwitchProps, SwitchState> {
                     {...switchProps}
                     ref={this.switchRef}
                     id={id}
+                    role="switch"
                     aria-checked={nativeControlChecked}
                     aria-invalid={this.props['aria-invalid']}
                     aria-errormessage={this.props['aria-errormessage']}
                     aria-label={this.props['aria-label']}
                     aria-labelledby={this.props['aria-labelledby']}
-                    aria-describedby={this.props["aria-describedby"]}
+                    aria-describedby={this.props['aria-describedby']}
+                    aria-disabled={this.props['disabled']}
                     onChange={e => this.foundation.handleChange(e.target.checked, e)}
+                    onFocus={e => this.handleFocusVisible(e)}
+                    onBlur={e => this.handleBlur(e)}
                 />
             </div>
         );

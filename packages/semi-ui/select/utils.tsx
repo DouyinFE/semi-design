@@ -28,7 +28,7 @@ const getOptionsFromGroup = (selectChildren: React.ReactNode) => {
     const emptyGroup: {
         label: string;
         children: OptionProps[];
-        _show: boolean;
+        _show: boolean
     } = { label: '', children: [], _show: false };
 
     // avoid null
@@ -68,7 +68,7 @@ const getOptionsFromGroup = (selectChildren: React.ReactNode) => {
         }
     });
     if (type === 'option') {
-        optionGroups = [emptyGroup];
+        optionGroups = [emptyGroup] as OptionGroupProps[];
     }
     return { optionGroups, options };
 };

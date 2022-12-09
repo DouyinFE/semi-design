@@ -3,12 +3,12 @@ import { transformPath } from './utils';
 const _NormalModule_ = require('webpack/lib/NormalModule');
 
 export interface WebpackContext {
-    NormalModule?: any;
+    NormalModule?: any
 }
 
 export interface ExtractCssOptions {
     loader: string;
-    loaderOptions?: any;
+    loaderOptions?: any
 }
 export interface SemiWebpackPluginOptions {
     theme?: string | SemiThemeOptions;
@@ -17,11 +17,11 @@ export interface SemiWebpackPluginOptions {
     include?: string;
     omitCss?: boolean;
     webpackContext?: WebpackContext;
-    extractCssOptions?: ExtractCssOptions;
+    extractCssOptions?: ExtractCssOptions
 }
 
 export interface SemiThemeOptions {
-    name?: string;
+    name?: string
 }
 
 export default class SemiWebpackPlugin {

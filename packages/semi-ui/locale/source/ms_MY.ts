@@ -150,6 +150,22 @@ const local: Locale = {
         total: 'Jumlah ${total} item',
         selected: '${total} projek dipilih',
     },
+    Form: {
+        optional: '(pilihan)',
+    },
+    Image: {
+        preview: 'Pratonton',
+        loading: 'Memuatkan',
+        loadError: 'Gagal memuatkan',
+        prevTip: 'Sebelumnya',
+        nextTip: 'Seterusnya',
+        zoomInTip: 'Zum masuk',
+        zoomOutTip: 'zum keluar',
+        rotateTip: 'Putar',
+        downloadTip: 'muat turun',
+        adaptiveTip: 'Menyesuaikan diri dengan halaman',
+        originTip: 'Saiz asal',
+    },
 };
 
 // [i18n-Malaysia(MY)]

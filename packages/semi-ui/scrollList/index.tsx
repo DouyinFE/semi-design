@@ -8,13 +8,13 @@ import Foundation from '@douyinfe/semi-foundation/scrollList/foundation';
 
 import '@douyinfe/semi-foundation/scrollList/scrollList.scss';
 
-export { ScrollItemProps } from './scrollItem';
+export type { ScrollItemProps } from './scrollItem';
 export interface ScrollListProps extends BaseProps {
     header?: React.ReactNode;
     footer?: React.ReactNode;
     children?: React.ReactNode;
     bodyHeight?: number | string;
-    prefixCls?: string;
+    prefixCls?: string
 }
 
 // eslint-disable-next-line @typescript-eslint/ban-types
@@ -49,14 +49,30 @@ class ScrollList extends BaseComponent<ScrollListProps, {}> {
             <div className={clsWrapper} style={style}>
                 {header ? (
                     <div className={clsHeader}>
-                        <div className={`${clsHeader}-title`}>{header}</div>
+                        <div 
+                            className={`${clsHeader}-title`} 
+                            x-semi-prop={this.props['x-semi-header-alias'] || "header"}
+                        >
+                            {header}
+                        </div>
                         <div className={`${clsWrapper}-line`} />
                     </div>
                 ) : null}
-                <div className={`${clsWrapper}-body`} style={{ height: bodyHeight ? bodyHeight : '' }}>
+                <div
+                    className={`${clsWrapper}-body`}
+                    style={{ height: bodyHeight ? bodyHeight : '' }}
+                    x-semi-prop="children"
+                >
                     {children}
                 </div>
-                {footer ? <div className={`${clsWrapper}-footer`}>{footer}</div> : null}
+                {footer ? (
+                    <div
+                        className={`${clsWrapper}-footer`}
+                        x-semi-prop={this.props['x-semi-footer-alias'] || "footer"}
+                    >
+                        {footer}
+                    </div>
+                ) : null}
             </div>
         );
     }

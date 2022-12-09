@@ -14,12 +14,12 @@ import { getUuidv4 } from '@douyinfe/semi-foundation/utils/uuid';
 export interface TabBarState {
     endInd: number;
     rePosKey: number;
-    startInd: number;
+    startInd: number
 }
 
 export interface OverflowItem extends PlainTab {
     key: string;
-    active: boolean;
+    active: boolean
 }
 
 class TabBar extends React.Component<TabBarProps, TabBarState> {
@@ -70,7 +70,7 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
         if (tabBarExtraContent) {
             const tabBarStyle = { ...tabBarExtraContentDefaultStyle, ...tabBarExtraContentStyle };
             return (
-                <div className={extraCls} style={tabBarStyle}>
+                <div className={extraCls} style={tabBarStyle} x-semi-prop="tabBarExtraContent">
                     {tabBarExtraContent}
                 </div>
             );
@@ -87,6 +87,10 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
             tabItem.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
         }
     };
+
+    handleKeyDown = (event: React.KeyboardEvent, itemKey: string, closable: boolean) => {
+        this.props.handleKeyDown(event, itemKey, closable);
+    }
 
     renderTabItem = (panel: PlainTab): ReactNode => {
         const { size, type, deleteTabItem } = this.props;
@@ -110,9 +114,12 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
             <div
                 role="tab"
                 id={`semiTab${key}`}
+                data-tabkey={`semiTab${key}`}
                 aria-controls={`semiTabPanel${key}`}
                 aria-disabled={panel.disabled ? 'true' : 'false'}
                 aria-selected={isSelected ? 'true' : 'false'}
+                tabIndex={isSelected ? 0 : -1}
+                onKeyDown={e => this.handleKeyDown(e, key, panel.closable)}
                 {...events}
                 className={className}
                 key={this._getItemKey(key)}
@@ -127,7 +134,6 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
     renderTabComponents = (list: Array<PlainTab>): Array<ReactNode> => list.map(panel => this.renderTabItem(panel));
 
     handleArrowClick = (items: Array<OverflowItem>, pos: 'start' | 'end'): void => {
-        const inline = pos === 'start' ? 'end' : 'start';
         const lastItem = pos === 'start' ? items.pop() : items.shift();
         if (!lastItem) {
             return;
@@ -135,12 +141,18 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
         const key = this._getItemKey(lastItem.itemKey);
         // eslint-disable-next-line max-len
         const tabItem = document.querySelector(`[data-uuid="${this.uuid}"] .${cssClasses.TABS_TAB}[data-scrollkey="${key}"]`);
-        tabItem.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline });
+        tabItem.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
     };
 
     renderCollapse = (items: Array<OverflowItem>, icon: ReactNode, pos: 'start' | 'end'): ReactNode => {
         if (isEmpty(items)) {
-            return null;
+            return (
+                <Button
+                    disabled={true}
+                    icon={icon}
+                    theme="borderless"
+                />
+            );
         }
         const { dropdownClassName, dropdownStyle } = this.props;
         const { rePosKey } = this.state;

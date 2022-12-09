@@ -1,17 +1,13 @@
 ---
 localeCode: en-US
-order: 39
+order: 41
 category: Navigation
 title: Steps
 subTitle: Steps
 icon: doc-steps
 dir: column
-brief: When a long process needs to be step by step, use the step component to let the user know its current progress
+brief: Decompose complex tasks or tasks with prior relationships, use step components to guide users to operate according to the prescribed process, and let them know their current progress
 ---
-
-## When to use
-
-When the task is complex or has a sequential relationship, it is broken down into a series of steps to simplify the task.
 
 ## Demos
 
@@ -311,13 +307,6 @@ class App extends React.Component {
 }
 ```
 
-## Accessibility
-
-### ARIA
-
-- Steps and Step components support passing in the `aria-label` attribute to represent the description of Steps and Steps
-- Step component has an `aria-current` `step` attribute, indicating that this is a step in the step bar
-
 ## API reference
 
 ### Steps
@@ -350,6 +339,22 @@ Step in the step bar.
 | title | Title | ReactNode |  | - |  |
 | onClick | Callback of click | function | - |  |
 | onKeyDown     | Callback ok keyDown  | function | -   |    |
+
+## Accessibility
+
+### ARIA
+
+- Steps and Step components support passing in the `aria-label` attribute to represent the description of Steps and Steps
+- Step component has an `aria-current` `step` attribute, indicating that this is a step in the step bar
+
+## Content Guidelines
+- Step title
+  - title should be kept concise, avoiding truncation and line breaks
+  - use sentence capitalization
+  - do not include punctuation
+- Step description
+  - supplementary contextual information for the title
+  - don't end with punctuation
 
 ## Design Tokens
 

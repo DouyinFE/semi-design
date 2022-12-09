@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 49
+order: 52
 category: Show
 title: Dropdown
 subTitle: Dropdown
@@ -264,7 +264,14 @@ function Demo() {
                     </Dropdown.Menu>
                 }
             >
-                <Input style={{ width: 120 }} placeholder="click here" />
+                <div style={{
+                    border: '1px solid var(--semi-color-border)',
+                    borderRadius: 4,
+                    height: 36,
+                    width: 220
+                }}>
+                    Please use Tab to focus this div
+                </div>
             </Dropdown>
             <br />
             <br />
@@ -415,13 +422,6 @@ function DropdownEvents() {
 }
 ```
 
-## Accessibility
-
-### ARIA
-
-- Dropdown.Menu `role` is set to `menu`, `aria-orientatio` is set to `vertical`
-- Dropdown.Item `role` is set to `menuitem`
-
 ## API Reference
 
 ### Dropdown
@@ -430,10 +430,11 @@ function DropdownEvents() {
 | --- | --- | --- | --- | --- |
 | autoAdjustOverflow | Whether the pop-up layer automatically adjusts its direction when it is blocked | boolean | true |  |
 | className | classname of the outer style of the pop-up layer | string |  |  |
+| closeOnEsc | Whether to close the panel by pressing the Esc key in the trigger or popup layer. It does not take effect when visible is under controlled | boolean | true | **2.13.0** |
 | children | Child elements wrapped by the drop layer | ReactNode |  |  |
 | clickToHide | Whether to close the drop-down layer automatically when clicking on the drop-down layer | boolean |  | **0.24.0** |
 | contentClassName | Drop-down menu root element class name | string |  |  |
-| getPopupContainer | Specifies the parent DOM, and the bullet layer will be rendered to the DOM, you need to set 'position: relative` | function():HTMLElement | () = > document.body |
+| getPopupContainer | Specifies the parent DOM, and the bullet layer will be rendered to the DOM, you need to set 'position: relative` | function():HTMLElement | () => document.body |
 | mouseEnterDelay | After the mouse is moved into the Trigger, the display time is delayed, in milliseconds (only effective when the trigger is hover/focus) | number | 50 |  |
 | mouseLeaveDelay | The time for the delay to disappear after the mouse moves out of the pop-up layer, in milliseconds (only effective when the trigger is hover/focus) | number | 50 |  |
 | menu | Menu content config | Array<DropdownMenuItem\> | [] | **1.12.0** |
@@ -448,6 +449,7 @@ function DropdownEvents() {
 | visible | Display the menu or not, need to be used with trigger custom | boolean |  |  |
 | zIndex | Pop-up layer z-index value | number | 1050 |  |
 | onClickOutSide  | Callback when the pop-up layer is in the display state and the non-Children, non-floating layer inner area is clicked (only valid when trigger is custom, click)  | (e:event) => void | | **2.1.0** |
+| onEscKeyDown | Called when Esc key is pressed in trigger or popup layer | function(e:event) | | **2.13.0** |
 | onVisibleChange | Callback when the pop-up layer display state changes | function |  |  |
 
 ### Dropdown.Menu
@@ -488,9 +490,43 @@ function DropdownEvents() {
 | name                                           | menu content                        | string |
 | Other Properties refer to Title、Item、Divider |                                     |        |
 
+
+## Accessibility
+
+### ARIA
+- Dropdown.Menu `role` is set to `menu`, `aria-orientatio` is set to `vertical`
+- Dropdown.Item `role` is set to `menuitem`
+
+### Keyboard and Focus
+- Dropdown triggers can be focused, currently supports 3 triggering methods:
+    - When the trigger method is set to hover or focus: the Dropdown is opened when the mouse is hovering or focused. After the Dropdown is opened, the user can use the `Down Arrow` to move the focus to the Dropdown
+    - When the trigger method is set to click: Use the `Enter` or `Space` key to open the Dropdown when clicking the trigger or focusing, and the focus will automatically focus on the first non-disabled item in the Dropdown
+- When the focus is on the menu item inside the Dropdown:
+    - Keyboard users can use the keyboard `Up Arrow` or `Down Arrow` to switch between interactable elements
+    - Use the `Enter` key or the `Space` key to activate the focused menu item, if the menu item is bound to onClick, the event will be fired
+- Keyboard users can close the Dropdown by pressing `Esc`, after which the focus returns to the trigger
+- Keyboard interaction does not yet fully support nested scenes
+
+## Content Guidelines
+- The content of the options in the drop-down box needs to be expressed accurately and contain information to make it easier for users to choose among the options when browsing
+- Use statement-like capitalization and write options concisely and clearly
+- In the case of an action option, use a verb or verb phrase to describe the action that will occur when the user selects the option. For example, "Move", "Log time", or "Hide labels"
+- do not use prepositions
+
+| ✅ Recommended usage| ❌ Deprecated usage |  
+| --- | --- | 
+| <div style={{ height: 150}}><Dropdown visible trigger={'custom'} autoAdjustOverflow={false} position={'bottomLeft'} menu={[{ node: 'item', name: 'Add text' },{ node: 'item', name: 'Add link' },{ node: 'item', name: 'Add image' },{ node: 'item', name: 'Add video' }]} /></div> | <div style={{ height: 150}}><Dropdown visible trigger={'custom'} autoAdjustOverflow={false} position={'bottomLeft'} menu={[{ node: 'item', name: 'Add a text' },{ node: 'item', name: 'Add a link' },{ node: 'item', name: 'Add a image' },{ node: 'item', name: 'Add a video' }]} /></div> |
+
+
+
 ## Design Tokens
 
 <DesignToken/>
+
+## FAQ
+- **Why does the Dropdown layer accidentally wrap when the width is not enough near the screen border?**
+
+    After Chromium 104, the wrapping rendering strategy when the width of the screen border text is not enough has changed. For details, see [issue #1022](https://github.com/DouyinFE/semi-design/issues/1022), the semi-side has been This problem was fixed in v2.17.0.
 
 <!-- ## Related Material
 

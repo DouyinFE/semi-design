@@ -1,18 +1,11 @@
 ---
 localeCode: zh-CN
-order: 63
+order: 68
 category: 反馈类
 title:  Popconfirm 气泡确认框
 icon: doc-popconfirm
-brief: 点击元素，弹出气泡式的确认框。
+brief: 目标元素的操作需要用户进一步的确认时使用。与 Popover 相比它内置了一系列可配置的操作按钮，与 Modal 相比它不强制全屏居中显示，交互也更轻量
 ---
-
-
-## 何时使用
-
-目标元素的操作需要用户进一步的确认时，在目标元素附近弹出浮层提示，询问用户。
-
-和 `Modal.confirm` 弹出的全屏居中模态对话框相比，交互形式更轻量。
 
 ## 代码演示
 
@@ -23,6 +16,8 @@ import { Popconfirm } from '@douyinfe/semi-ui';
 ```
 
 ### 基本使用
+
+Popconfirm 底层基于 Tooltip 封装，Children 支持类型同 Tooltip，注意事项详情可查阅 [Tooltip注意事项](/zh-CN/show/tooltip#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9)
 
 ```jsx live=true
 import React from 'react';
@@ -115,38 +110,85 @@ function TypesConfirmDemo(props = {}) {
 }
 ```
 
+### 延时关闭
+
+onOk、onCancel 可以通过 return Promise 实现点击后延时关闭 （v2.19后支持）。 onCancel、onOk 被触发时，对应的 Button 会自动切换为 loading: true  
+promise solve 会关闭气泡确认框， promise reject时气泡依然保留，同时 button loading 自动切换为 false
+
+```jsx live=true
+import React from 'react';
+import { Popconfirm, Button, Toast } from '@douyinfe/semi-ui';
+
+() => {
+    const onConfirm = () => {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                console.log('resolve, close popconfirm');
+                resolve();
+            }, 2000);
+        });
+    };
+
+    const onCancel = () => {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                console.log('reject, popconfirm still exist');
+                reject();
+            }, 2000);
+        });
+    };
+
+    return (
+        <Popconfirm
+            title="确定是否要保存此修改？"
+            content="此修改将不可逆"
+            onConfirm={onConfirm}
+            onCancel={onCancel}
+        >
+            <Button>保存</Button>
+        </Popconfirm>
+    );
+};
+```
+
+
 ### 搭配 Tooltip 或 Popover 使用
 
 请参考[搭配使用](/zh-CN/show/tooltip#%E6%90%AD%E9%85%8D-popover-%E6%88%96-popconfirm-%E4%BD%BF%E7%94%A8)
 
 ## API 参考
 
-| 属性               | 说明                                                                                                                                        | 类型                             | 默认值              | 版本              |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------- | ------------------- | ----------------- |
-| arrowPointAtCenter | “小三角”是否指向元素中心，需要同时传入"showArrow=true"                                                                                      | boolean                          | false               | **0.34.0** |
-| cancelText         | 取消按钮文字                                                                                                                                | string                           | "取消"              |
-| cancelButtonProps  | 取消按钮的 props                                                                                                                            | object                           |                     | **0.29.0**        |
-| cancelType         | 取消按钮类型                                                                                                                                | string                           | "tertiary"          |
+| 属性               | 说明                                                                                                                                        | 类型                           | 默认值              | 版本              |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ | ------------------- | ----------------- |
+| arrowPointAtCenter | “小三角”是否指向元素中心，需要同时传入"showArrow=true"                                                                                      | boolean                        | false               | **0.34.0** |
+| cancelText         | 取消按钮文字                                                                                                                                | string                         | "取消"              |
+| cancelButtonProps  | 取消按钮的 props                                                                                                                            | object                         |                     | **0.29.0**        |
+| cancelType         | 取消按钮类型                                                                                                                                | string                         | "tertiary"          |
 | content            | 显示的内容                                                                                                                                  | string\|ReactNode                |                     |
-| defaultVisible     | 气泡框默认是否展示                                                                                                                          | boolean                          |                     | **0.19.0**        |
-| disabled           | 点击 Popconfirm 子元素是否弹出气泡确认框                                                                                                    | boolean                          | false               |
-| getPopupContainer  | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义时容器需要设置 `position: relative`                                                                                                       | Function():HTMLElement           | () => document.body |
-| icon               | 自定义弹出气泡 Icon 图标                                                                                                                    | ReactNode                | <IconAlertTriangle size="extra-large" />    |
-| motion             | 下拉列表出现/隐藏时，是否有动画 | boolean\|object | true |
-| okText             | 确认按钮文字                                                                                                                                | string                           | "确认"              |
-| okType             | 确认按钮类型                                                                                                                                | string                           | "primary"           |
-| okButtonProps      | 确认按钮的 props                                                                                                                            | object                           |                     | **0.29.0**        |
-| position           | 方向，可选值：`top`,`topLeft`,`topRight`,`left`,`leftTop`,`leftBottom`,<br/>`right`,`rightTop`,`rightBottom`,`bottom`,`bottomLeft`,`bottomRight` | string                           | "bottomLeft"        |
-| showArrow          | 是否显示箭头三角形                                                                                                                          | boolean                          | false               |                   |
-| stopPropagation    | 是否阻止弹层上的点击事件冒泡                                                                                                                | boolean                          | true                | **0.34.0** |
+| defaultVisible     | 气泡框默认是否展示                                                                                                                          | boolean                        |                     | **0.19.0**        |
+| disabled           | 点击 Popconfirm 子元素是否弹出气泡确认框                                                                                                    | boolean                        | false               |
+| getPopupContainer  | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义时容器需要设置 `position: relative`                                                                                                       | Function():HTMLElement         | () => document.body |
+| icon               | 自定义弹出气泡 Icon 图标                                                                                                                    | ReactNode              | <IconAlertTriangle size="extra-large" />    |
+| motion             | 下拉列表出现/隐藏时，是否有动画 | boolean | true |
+| okText             | 确认按钮文字                                                                                                                                | string                         | "确认"              |
+| okType             | 确认按钮类型                                                                                                                                | string                         | "primary"           |
+| okButtonProps      | 确认按钮的 props                                                                                                                            | object                         |                     | **0.29.0**        |
+| position           | 方向，可选值：`top`,`topLeft`,`topRight`,`left`,`leftTop`,`leftBottom`,<br/>`right`,`rightTop`,`rightBottom`,`bottom`,`bottomLeft`,`bottomRight` | string                         | "bottomLeft"        |
+| showArrow          | 是否显示箭头三角形                                                                                                                          | boolean                        | false               |                   |
+| stopPropagation    | 是否阻止弹层上的点击事件冒泡                                                                                                                | boolean                        | true                | **0.34.0** |
 | title              | 显示的标题                                                                                                                                  | string\|ReactNode                |                     |
-| trigger            | 触发展示的时机，可选值：hover / focus / click / custom                                                                                         | string                |   'click'                  |
-| visible            | 气泡框是否展示的受控属性                                                                                                                    | boolean                          |                     | **0.19.0**        |
-| zIndex             | 浮层 z-index 值                                                                                                                             | number                           | 1030                |
-| onConfirm          | 点击确认按钮回调                                                                                                                            | Function(e)                      |                     |
-| onCancel           | 点击取消按钮回调                                                                                                                            | Function(e)                      |                     |
-| onClickOutSide     | 当弹出层处于展示状态，点击非Children、非浮层内部区域时的回调                                                                                      | Function(e)                      |  **2.1.0**      |
+| trigger            | 触发展示的时机，可选值：hover / focus / click / custom                                                                                         | string              |   'click'                  |
+| visible            | 气泡框是否展示的受控属性                                                                                                                    | boolean                        |                     | **0.19.0**        |
+| zIndex             | 浮层 z-index 值                                                                                                                             | number                         | 1030                |
+| onConfirm          | 点击确认按钮回调,  Promise类型于 v 2.19后支持                                                                                                                          | Function(e): void \| Promise                      |                     |
+| onCancel           | 点击取消按钮回调，Promise类型于 v 2.19后支持                                                                                                                            | Function(e): void \| Promise                      |                     |
+| onClickOutSide     | 当弹出层处于展示状态，点击非Children、非浮层内部区域时的回调                                                                                      | Function(e)                    |  **2.1.0**      |
 | onVisibleChange    | 气泡框切换显示隐藏的回调                                                                                                               | Function(visible: boolean): void | () => {}            | **0.19.0**        |
 
 ## 设计变量
 <DesignToken/>
+
+## FAQ
+
+-   **为什么 Popconfirm 浮层在靠近屏幕边界宽度不够时，丢失宽度意外换行?**  
+    在 chromium 104 后 对于屏幕边界文本宽度不够时的换行渲染策略发生变化，详细原因可查看 [issue #1022](https://github.com/DouyinFE/semi-design/issues/1022)，semi侧已经在v2.17.0版本修复了这个问题。

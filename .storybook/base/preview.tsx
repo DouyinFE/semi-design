@@ -19,6 +19,10 @@ import tr_TR from '@douyinfe/semi-ui/locale/source/tr_TR';
 import pt_BR from '@douyinfe/semi-ui/locale/source/pt_BR';
 import zh_TW from '@douyinfe/semi-ui/locale/source/zh_TW';
 import es from '@douyinfe/semi-ui/locale/source/es';
+import de from '@douyinfe/semi-ui/locale/source/de';
+import it from '@douyinfe/semi-ui/locale/source/it';
+import fr from '@douyinfe/semi-ui/locale/source/fr';
+import ro from '@douyinfe/semi-ui/locale/source/ro';
 
 export const globalTypes = {
     direction: {
@@ -45,7 +49,7 @@ export const globalTypes = {
       defaultValue: 'zh_CN',
       toolbar: {
           icon: 'google',
-          items:  ['zh_CN', 'en_GB', 'ko_KR', 'ja_JP', 'ar', 'vi_VN', 'ru_RU', 'id_ID', 'ms_MY', 'th_TH', 'tr_TR', 'pt_BR', 'zh_TW', 'es'],
+          items: ['zh_CN', 'en_GB', 'ko_KR', 'ja_JP', 'ar', 'vi_VN', 'ru_RU', 'id_ID', 'ms_MY', 'th_TH', 'tr_TR', 'pt_BR', 'zh_TW', 'es', 'de', 'it', 'fr', 'ro'],
       },
     }
 };
@@ -57,20 +61,24 @@ const switchMode = (theme: 'light' | 'dark') => {
 
 const getLocale = code => {
   let language = {
-      'zh_CN': zh_CN,
-      'en_GB': en_GB,
-      'ko_KR': ko_KR,
-      'ja_JP': ja_JP,
-      'ar': ar,
-      'vi_VN': vi_VN,
-      'ru_RU': ru_RU,
-      'id_ID': id_ID,
-      'ms_MY': ms_MY,
-      'th_TH': th_TH,
-      'tr_TR': tr_TR,
-      'pt_BR': pt_BR,
-      'zh_TW': zh_TW,
-      'es': es,
+      zh_CN,
+      en_GB,
+      ko_KR,
+      ja_JP,
+      ar,
+      vi_VN,
+      ru_RU,
+      id_ID,
+      ms_MY,
+      th_TH,
+      tr_TR,
+      pt_BR,
+      zh_TW,
+      es,
+      de,
+      it,
+      fr,
+      ro
   };
 
   return language[code];

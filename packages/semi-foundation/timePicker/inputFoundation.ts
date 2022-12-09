@@ -4,7 +4,7 @@ import isNullOrUndefined from '../utils/isNullOrUndefined';
 export interface TimeInputAdapter extends DefaultAdapter{
     notifyChange: (e: any) => void;
     notifyFocus: (e: any) => void;
-    notifyBlur: (e: any) => void;
+    notifyBlur: (e: any) => void
 }
 
 class TimePickerFoundation extends BaseFoundation<TimeInputAdapter> {

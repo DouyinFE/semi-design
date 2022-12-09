@@ -1,10 +1,9 @@
-@import "./variables.scss";
-@import "./mixin.scss";
+@import './variables.scss';
+@import './mixin.scss';
 
 $module: #{$prefix}-avatar;
-$colors: "amber", "blue", "cyan", "green", "grey", "indigo", "light-blue", "light-green", "lime", "orange", "pink",
-    "purple", "red", "teal", "violet", "yellow";
-
+$colors: 'amber', 'blue', 'cyan', 'green', 'grey', 'indigo', 'light-blue', 'light-green', 'lime', 'orange', 'pink',
+    'purple', 'red', 'teal', 'violet', 'yellow';
 
 .#{$module} {
     position: relative;
@@ -16,6 +15,20 @@ $colors: "amber", "blue", "cyan", "green", "grey", "indigo", "light-blue", "ligh
     text-align: center;
     vertical-align: middle;
 
+    &:focus-visible {
+        outline: $width-avatar-outline solid $color-avatar-outline-focus;
+    }
+
+    &-focus {
+        outline: $width-avatar-outline solid $color-avatar-outline-focus;
+    }
+
+    &-no-focus-visible {
+        &:focus-visible {
+            outline: none;
+        }
+    }
+
     .#{$module}-label {
         display: flex;
         align-items: center;
@@ -24,21 +37,17 @@ $colors: "amber", "blue", "cyan", "green", "grey", "indigo", "light-blue", "ligh
     }
 
     &-content {
-        position: absolute;
         user-select: none;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        transform-origin: center;
     }
 
     &-extra-extra-small {
         width: $width-avatar_extra_extra_small;
         height: $width-avatar_extra_extra_small;
+        border-radius: $radius-avatar_extra_extra_small;
 
         .#{$module}-content {
             transform-origin: center;
-            transform: scale(.8) translate(-62.5%, -62.5%);
+            transform: scale(0.8);
         }
 
         .#{$module}-label {
@@ -50,10 +59,11 @@ $colors: "amber", "blue", "cyan", "green", "grey", "indigo", "light-blue", "ligh
     &-extra-small {
         width: $width-avatar_extra_small;
         height: $width-avatar_extra_small;
+        border-radius: $radius-avatar_extra_small;
 
         .#{$module}-content {
             transform-origin: center;
-            transform: scale(.8) translate(-62.5%, -62.5%);
+            transform: scale(0.8);
         }
 
         .#{$module}-label {
@@ -65,6 +75,7 @@ $colors: "amber", "blue", "cyan", "green", "grey", "indigo", "light-blue", "ligh
     &-small {
         width: $width-avatar_small;
         height: $width-avatar_small;
+        border-radius: $radius-avatar_small;
 
         .#{$module}-label {
             @include font-size-small;
@@ -74,6 +85,7 @@ $colors: "amber", "blue", "cyan", "green", "grey", "indigo", "light-blue", "ligh
     &-default {
         width: $width-avatar_default;
         height: $width-avatar_default;
+        border-radius: $radius-avatar_default;
 
         .#{$module}-label {
             @include font-size-header-5;
@@ -83,6 +95,7 @@ $colors: "amber", "blue", "cyan", "green", "grey", "indigo", "light-blue", "ligh
     &-medium {
         width: $width-avatar_medium;
         height: $width-avatar_medium;
+        border-radius: $radius-avatar_medium;
 
         .#{$module}-label {
             @include font-size-header-4;
@@ -92,6 +105,7 @@ $colors: "amber", "blue", "cyan", "green", "grey", "indigo", "light-blue", "ligh
     &-large {
         width: $width-avatar_large;
         height: $width-avatar_large;
+        border-radius: $radius-avatar_large;
 
         .#{$module}-label {
             @include font-size-header-1;
@@ -101,6 +115,7 @@ $colors: "amber", "blue", "cyan", "green", "grey", "indigo", "light-blue", "ligh
     &-extra-large {
         width: $width-avatar_extra_large;
         height: $width-avatar_extra_large;
+        border-radius: $radius-avatar_extra_large;
 
         .#{$module}-label {
             font-size: $font-avatar_extra_large-size;
@@ -202,4 +217,4 @@ $colors: "amber", "blue", "cyan", "green", "grey", "indigo", "light-blue", "ligh
     }
 }
 
-@import "./rtl.scss";
+@import './rtl.scss';

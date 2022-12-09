@@ -44,12 +44,20 @@ let config = {
     // 是否收集测试覆盖率
     //   collectCoverage: true, // 是否收集测试时的覆盖率信息
     collectCoverageFrom: [
-        'packages/semi-ui/*/*.{js,jsx,mjs,ts,tsx}',
-        'packages/semi-foundation/*/*.{js,jsx,mjs,ts,tsx}',
+        'packages/semi-ui/**/*.{js,jsx,mjs,ts,tsx}',
+        'packages/semi-foundation/**/*.{js,jsx,mjs,ts,tsx}',
         '!packages/semi-ui/scripts/**',
         '!packages/semi-ui/types/**',
         '!packages/semi-foundation/scripts/**',
-
+        '!packages/**/__test__/**',
+        '!packages/**/_story/**',
+        "!packages/**/getBabelConfig.js",
+        "!packages/**/gulpfile.js",
+        "!packages/**/webpack.config.js",
+        "!packages/semi-ui/index.ts",
+        '!packages/**/_test_/**',
+        '!packages/**/dist/**',
+        '!packages/semi-ui/locale/**',
     ], // 哪些文件需要收集覆盖率信息
     coverageDirectory: '<rootDir>/test/coverage', // 输出覆盖信息文件的目录
     coveragePathIgnorePatterns: ['/node_modules/', '<rootDir>/packages/*/index.js'], // 统计覆盖信息时需要忽略的文件

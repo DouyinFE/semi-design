@@ -2,7 +2,7 @@ import React, { CSSProperties } from 'react';
 import ReactDOM from 'react-dom';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
-import ConfigContext from '../configProvider/context';
+import ConfigContext, { ContextValue } from '../configProvider/context';
 import NotificationListFoundation, {
     ConfigProps, NotificationListAdapter,
     NotificationListProps,
@@ -12,30 +12,36 @@ import { cssClasses, strings } from '@douyinfe/semi-foundation/notification/cons
 import Notice from './notice';
 import BaseComponent from '../_base/baseComponent';
 import '@douyinfe/semi-foundation/notification/notification.scss';
-import NoticeTransition from './NoticeTransition';
 import getUuid from '@douyinfe/semi-foundation/utils/uuid';
 import useNotification from './useNotification';
-import { NoticeInstance, NoticePosition, NoticeProps, NoticeState } from '@douyinfe/semi-foundation/notification/notificationFoundation';
+import {
+    NoticeInstance,
+    NoticePosition,
+    NoticeProps,
+    NoticeState
+} from '@douyinfe/semi-foundation/notification/notificationFoundation';
+import CSSAnimation from "../_cssAnimation";
+
 // TODO: Automatic folding + unfolding function when there are more than N
 
-export { NoticeTransitionProps } from './NoticeTransition';
-export interface NoticeReactProps extends NoticeProps{
-    style?: CSSProperties;
+export interface NoticeReactProps extends NoticeProps {
+    style?: CSSProperties
 }
 
-export {
+export type {
     NoticeState,
     NotificationListProps,
     NotificationListState,
     ConfigProps
 };
 
-export type NoticesInPosition = { top: NoticeInstance[];
+export type NoticesInPosition = {
+    top: NoticeInstance[];
     topLeft: NoticeInstance[];
     topRight: NoticeInstance[];
     bottom: NoticeInstance[];
     bottomLeft: NoticeInstance[];
-    bottomRight: NoticeInstance[];
+    bottomRight: NoticeInstance[]
 };
 
 
@@ -74,6 +80,8 @@ class NotificationList extends BaseComponent<NotificationListProps, Notification
 
         this.foundation = new NotificationListFoundation(this.adapter);
     }
+
+    context: ContextValue;
 
     get adapter(): NotificationListAdapter {
         return {
@@ -195,23 +203,25 @@ class NotificationList extends BaseComponent<NotificationListProps, Notification
             return (
                 // @ts-ignore
                 <div placement={position} key={position} className={className} style={style}>
-                    {notices.map((notice, index) =>
-                        (notice.motion ? (
-                            <NoticeTransition key={notice.id || index} position={position} motion={notice.motion}>
-                                {removedItems.find(item => item.id === notice.id) ?
-                                    null :
-                                    transitionStyle => (
-                                        <Notice
-                                            {...notice}
-                                            style={{ ...transitionStyle, ...notice.style }}
-                                            key={notice.id}
-                                            close={this.remove}
-                                        />
-                                    )}
-                            </NoticeTransition>
-                        ) : (
-                            <Notice {...notice} style={{ ...notice.style }} key={notice.id} close={this.remove} />
-                        ))
+                    {notices.map((notice, index) => {
+                        const isRemoved = removedItems.find(removedItem => removedItem.id === notice.id) !== undefined;
+                        return <CSSAnimation key={notice.id}
+                            animationState={isRemoved ? "leave" : "enter"}
+                            startClassName={`${cssClasses.NOTICE}-animation-${isRemoved ? "hide" : "show"}_${position}`}>
+                            {({ animationClassName, animationEventsNeedBind, isAnimating }) => {
+                                return isRemoved && !isAnimating ? null : <Notice
+                                    {...notice}
+                                    className={cls({
+                                        [notice.className]: Boolean(notice.className),
+                                        [animationClassName]: true,
+                                    })}
+                                    {...animationEventsNeedBind}
+                                    style={{ ...notice.style }}
+                                    close={this.remove}
+                                />;
+                            }}
+                        </CSSAnimation>;
+                    }
                     )}
                 </div>
             );

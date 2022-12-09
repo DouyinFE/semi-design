@@ -13,22 +13,21 @@ import DropdownItem, { DropdownItemProps } from './dropdownItem';
 import DropdownDivider, { DropdownDividerProps } from './dropdownDivider';
 import DropdownTitle, { DropdownTitleProps } from './dropdownTitle';
 
-import DropdownContext from './context';
+import DropdownContext, { DropdownContextType } from './context';
 import '@douyinfe/semi-foundation/dropdown/dropdown.scss';
 import { noop, get } from 'lodash';
-import { Motion } from '../_base/base';
 
 const positionSet = strings.POSITION_SET;
 const triggerSet = strings.TRIGGER_SET;
 
-export { DropdownDividerProps } from './dropdownDivider';
-export { DropdownItemProps, Type } from './dropdownItem';
-export { DropdownMenuProps } from './dropdownMenu';
-export { DropdownTitleProps } from './dropdownTitle';
+export type { DropdownDividerProps } from './dropdownDivider';
+export type { DropdownItemProps, Type } from './dropdownItem';
+export type { DropdownMenuProps } from './dropdownMenu';
+export type { DropdownTitleProps } from './dropdownTitle';
 
 export interface DropDownMenuItemItem extends DropdownItemProps {
     node: 'item';
-    name?: string;
+    name?: string
 }
 export interface DropDownMenuItemDivider extends DropdownDividerProps {
     node: 'divider'
@@ -51,17 +50,19 @@ export interface DropdownProps extends TooltipProps {
     menu?: DropDownMenuItem[];
     trigger?: Trigger;
     zIndex?: number;
-    motion?: Motion;
+    motion?: boolean;
     className?: string;
     contentClassName?: string | any[];
     style?: React.CSSProperties;
     onVisibleChange?: (visible: boolean) => void;
     rePosKey?: string | number;
     showTick?: boolean;
+    closeOnEsc?: TooltipProps['closeOnEsc'];
+    onEscKeyDown?: TooltipProps['onEscKeyDown']
 }
 
 interface DropdownState {
-    popVisible: boolean;
+    popVisible: boolean
 }
 
 class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
@@ -106,7 +107,11 @@ class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
         position: 'bottom',
         mouseLeaveDelay: strings.DEFAULT_LEAVE_DELAY,
         showTick: false,
+        closeOnEsc: true,
+        onEscKeyDown: noop,
     };
+
+    tooltipRef: React.RefObject<Tooltip>
 
     constructor(props: DropdownProps) {
         super(props);
@@ -116,23 +121,27 @@ class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
         };
 
         this.foundation = new Foundation(this.adapter);
+        this.tooltipRef = React.createRef();
     }
+
+    context: DropdownContextType;
 
     get adapter() {
         return {
             ...super.adapter,
             setPopVisible: (popVisible: boolean) => this.setState({ popVisible }),
             notifyVisibleChange: (visible: boolean) => this.props.onVisibleChange(visible),
+            getPopupId: () => this.tooltipRef.current.getPopupId()
         };
     }
 
     handleVisibleChange = (visible: boolean) => this.foundation.handleVisibleChange(visible);
 
     renderContent() {
-        const { render, menu, contentClassName, style, showTick, prefixCls } = this.props;
+        const { render, menu, contentClassName, style, showTick, prefixCls, trigger } = this.props;
         const className = classnames(prefixCls, contentClassName);
         const { level = 0 } = this.context;
-        const contextValue = { showTick, level: level + 1 };
+        const contextValue = { showTick, level: level + 1, trigger };
         let content = null;
         if (React.isValidElement(render)) {
             content = render;
@@ -142,7 +151,7 @@ class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
         return (
             <DropdownContext.Provider value={contextValue}>
                 <div className={className} style={style}>
-                    <div className={`${prefixCls}-content`}>{content}</div>
+                    <div className={`${prefixCls}-content`} x-semi-prop="render">{content}</div>
                 </div>
             </DropdownContext.Provider>
         );
@@ -231,13 +240,23 @@ class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
                 trigger={trigger}
                 onVisibleChange={this.handleVisibleChange}
                 showArrow={false}
+                returnFocusOnClose={true}
+                ref={this.tooltipRef}
                 {...attr}
             >
                 {React.isValidElement(children) ?
                     React.cloneElement(children, {
+                        //@ts-ignore
                         className: classnames(get(children, 'props.className'), {
                             [`${prefixCls}-showing`]: popVisible,
                         }),
+                        'aria-haspopup': true,
+                        'aria-expanded': popVisible,
+                        onKeyDown: (e: React.KeyboardEvent) => {
+                            this.foundation.handleKeyDown(e);
+                            const childrenKeyDown: (e: React.KeyboardEvent) => void = get(children, 'props.onKeyDown');
+                            childrenKeyDown && childrenKeyDown(e);
+                        }
                     }) :
                     children}
             </Tooltip>

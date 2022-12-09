@@ -1,8 +1,10 @@
-import React, { isValidElement, cloneElement } from 'react';
+import React, { isValidElement, cloneElement, ReactNode } from 'react';
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/button/constants';
-import { Type, Size } from './Button';
+import { get } from 'lodash';
+import { Type, Size, ButtonProps } from './Button';
 
 import '@douyinfe/semi-foundation/button/button.scss';
 
@@ -13,7 +15,9 @@ export interface ButtonGroupProps extends BaseProps {
     type?: Type;
     size?: Size;
     theme?: Theme;
-    'aria-label'?: React.AriaAttributes['aria-label'];
+    className?: string;
+    children?: React.ReactNode;
+    'aria-label'?: React.AriaAttributes['aria-label']
 }
 
 const prefixCls = cssClasses.PREFIX;
@@ -30,22 +34,57 @@ export default class ButtonGroup extends BaseComponent<ButtonGroupProps> {
     };
 
     static defaultProps = {
+        // There are default values ​​for type and theme in Button. 
+        // In order to allow users to individually customize the type and theme of the Button through the parameters of the Button in the ButtonGroup,
+        // the default value of type and theme is not given in the ButtonGroup。
         size: 'default',
-        type: 'primary',
-        theme: 'light',
     };
 
+    getInnerWithLine(inner) {
+        const innerWithLine: ReactNode[] = [];
+        let lineCls = `${prefixCls}-group-line`;
+        if (inner.length > 1) {
+            inner.slice(0, -1).forEach((item, index) => {
+                const isButtonType = get(item, 'type.elementType') === 'Button';
+                const buttonProps = get(item, 'props') as ButtonProps;
+                if (buttonProps) {
+                    const { type, theme, disabled } = buttonProps;
+                    lineCls = classNames(
+                        `${prefixCls}-group-line`,
+                        `${prefixCls}-group-line-${theme ?? 'light'}`,
+                        `${prefixCls}-group-line-${type ?? 'primary'}`,
+                        {
+                            [`${prefixCls}-group-line-disabled`]: disabled,
+                        }
+                    );
+                }
+                if (isButtonType) {
+                    innerWithLine.push(item, <span className={lineCls} key={`line-${index}`} />);
+                } else {
+                    innerWithLine.push(item);
+                }
+            });
+            innerWithLine.push(inner.slice(-1));
+            return innerWithLine;
+        } else {
+            return inner;
+        }
+    }
+
     render() {
-        const { children, disabled, size, type, 'aria-label': ariaLabel, ...rest } = this.props;
-        let inner;
+        const { children, disabled, size, type, className, style, 'aria-label': ariaLabel, ...rest } = this.props;
+        let inner: ReactNode[];
+        let innerWithLine: ReactNode[] = [];
+        const cls = classNames(`${prefixCls}-group`, className);
 
         if (children) {
-            inner = ((Array.isArray(children) ? children : [children])).map((itm, index) => (
+            inner = ((Array.isArray(children) ? children : [children])).map((itm: React.ReactNode, index) => (
                 isValidElement(itm)
-                    ? cloneElement(itm, { disabled, size, type, ...itm.props, ...rest, key: index })
+                    ? cloneElement(itm, { disabled, size, type, ...itm.props, ...rest, key: itm.key ?? index })
                     : itm
             ));
+            innerWithLine = this.getInnerWithLine(inner);
         }
-        return <div className={`${prefixCls}-group`} role="group" aria-label={ariaLabel}>{inner}</div>;
+        return <div className={cls} style={style} role="group" aria-label={ariaLabel}>{innerWithLine}</div>;
     }
 }

@@ -23,7 +23,7 @@ export interface BasicStepProps {
     onClick?: React.MouseEventHandler<HTMLDivElement>;
     onKeyDown?: React.KeyboardEventHandler<HTMLDivElement>;
     "role"?: React.AriaRole;
-    "aria-label"?: React.AriaAttributes["aria-label"];
+    "aria-label"?: React.AriaAttributes["aria-label"]
 }
 export enum stepSizeMapIconSize {
     small = 'large',

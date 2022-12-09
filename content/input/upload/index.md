@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 33
+order: 35
 category: 输入类
 title: Upload 上传
 icon: doc-upload
@@ -105,7 +105,7 @@ import { IconPlus } from '@douyinfe/semi-icons';
     const defaultFileList = [
         {
             uid: '1',
-            name: 'jiafang1.jpeg',
+            name: 'dy.jpeg',
             status: 'success',
             size: '130kb',
             url:
@@ -113,7 +113,7 @@ import { IconPlus } from '@douyinfe/semi-icons';
         },
         {
             uid: '5',
-            name: 'jiafang3.jpeg',
+            name: 'resso.jpeg',
             percent: 50,
             size: '222kb',
             url:
@@ -154,7 +154,7 @@ import { Upload, Avatar, Toast } from '@douyinfe/semi-ui';
 import { IconCamera } from '@douyinfe/semi-icons';
 
 () => {
-    const [url, setUrl] = useState('https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg');
+    const [url, setUrl] = useState('https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png');
     const onSuccess = (response, file) => {
         Toast.success('头像更新成功');
         setUrl('https://sf6-cdn-tos.douyinstatic.com/obj/ttfe/ies/semi/ttmoment.jpeg');
@@ -170,7 +170,7 @@ import { IconCamera } from '@douyinfe/semi-icons';
         color: 'var(--semi-color-white)',
     };
     
-    const hoverMask =  (<div style={style}>
+    const hoverMask = (<div style={style}>
         <IconCamera />
     </div>);
 
@@ -511,16 +511,16 @@ import { IconUpload, IconDownload, IconEyeOpened } from '@douyinfe/semi-icons';
         }
     ];
     const renderFileOperation = (fileItem) => (
-        <div style={{display: 'flex',columnGap: 8, padding: '0 8px'}}>
+        <div style={{ display: 'flex', columnGap: 8, padding: '0 8px' }}>
             <Button icon={<IconEyeOpened></IconEyeOpened>} type="tertiary" theme="borderless" size="small"></Button>
             <Button icon={<IconDownload></IconDownload>} type="tertiary" theme="borderless" size="small"></Button>
             <Button onClick={e=>fileItem.onRemove()} icon={<IconDelete></IconDelete>} type="tertiary" theme="borderless" size="small"></Button>
         </div>
-    )
-    return <Upload action={action} defaultFileList={defaultFileList} itemStyle={{width: 300}} renderFileOperation={renderFileOperation}>
-            <Button icon={<IconUpload />} theme="light">点击上传</Button>
-        </Upload>
-    }
+    );
+    return <Upload action={action} defaultFileList={defaultFileList} itemStyle={{ width: 300 }} renderFileOperation={renderFileOperation}>
+        <Button icon={<IconUpload />} theme="light">点击上传</Button>
+    </Upload>;
+};
 ```
 
 ### 默认文件列表
@@ -593,12 +593,12 @@ import { IconUpload } from '@douyinfe/semi-icons';
         },
         {
             uid: '2',
-            name: 'jiafang.jpeg',
+            name: 'dy.jpeg',
             status: 'uploading',
             size: '222KB',
             percent: 50,
             preview: true,
-            fileInstance: new File([new ArrayBuffer(2048)], 'jiafang.jpeg', { type: 'image/jpeg' }),
+            fileInstance: new File([new ArrayBuffer(2048)], 'dy.jpeg', { type: 'image/jpeg' }),
             url:
                 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png',
         },
@@ -643,7 +643,7 @@ import { IconPlus } from '@douyinfe/semi-icons';
     const defaultFileList = [
         {
             uid: '1',
-            name: 'jiafang.png',
+            name: 'dy.png',
             status: 'success',
             size: '130KB',
             preview: true,
@@ -715,18 +715,18 @@ import { IconPlus, IconEyeOpened } from '@douyinfe/semi-icons';
     const defaultFileList = [
         {
             uid: '1',
-            name: 'jiafang.png',
+            name: 'resso.png',
             status: 'success',
             size: '130KB',
             preview: true,
             url:
-                'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/e82f3b261133d2b20d85e8483c203112.jpg',
+                'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/Resso.png',
         },
     ];
     const handlePreview = (file) => {
         const feature = "width=300,height=300";
         window.open(file.url, 'imagePreview', feature);
-    }
+    };
     return (
         <>
             <Upload
@@ -737,7 +737,7 @@ import { IconPlus, IconEyeOpened } from '@douyinfe/semi-icons';
                 multiple
                 defaultFileList={defaultFileList}
                 onPreviewClick={handlePreview}
-                renderPicPreviewIcon={()=><IconEyeOpened style={{color: 'var(--semi-color-white)', fontSize: 24}} />}
+                renderPicPreviewIcon={()=><IconEyeOpened style={{ color: 'var(--semi-color-white)', fontSize: 24 }} />}
             >
                 <IconPlus size="extra-large" />
             </Upload>
@@ -758,12 +758,12 @@ import { IconPlus, IconEyeOpened } from '@douyinfe/semi-icons';
     const defaultFileList = [
         {
             uid: '1',
-            name: 'jiafang.png',
+            name: 'resso.png',
             status: 'success',
             size: '130KB',
             preview: true,
             url:
-                'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/e82f3b261133d2b20d85e8483c203112.jpg',
+                'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/Resso.png',
         },
     ];
     const handlePreview = (file) => {
@@ -773,7 +773,7 @@ import { IconPlus, IconEyeOpened } from '@douyinfe/semi-icons';
     const [hotSpotLocation, $hotSpotLocation] = useState('end');
     return (
         <>
-            <Select value={hotSpotLocation} onChange={$hotSpotLocation} style={{ width: 120 }}>
+            <Select value={hotSpotLocation} insetLabel='hotSpotLocation' onChange={$hotSpotLocation} style={{ width: 250 }}>
                 <Select.Option value='start'>开始</Select.Option>
                 <Select.Option value='end'>结尾</Select.Option>
             </Select>
@@ -882,6 +882,9 @@ class ManulUploadDemo extends React.Component {
 ### 拖拽上传
 
 `draggable='true'`，可以使用拖拽功能
+<Notice type="primary" title="注意事项">
+    <div>在directory为true的情况下，因为浏览器自动做了限制，所以点击上传时不允许选单个文件，拖拽时我们认为同时允许文件夹、文件都能拖动更合理，所以不做另外的拦截处理。</div>
+</Notice>
 
 ```jsx live=true width=48%
 import React from 'react';
@@ -931,7 +934,7 @@ import { IconBolt } from '@douyinfe/semi-icons';
 >
     <div className="components-upload-demo-drag-area">
         <img
-            src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/0f2a32f27eab90a296814fbc26103b2b.jpg"
+            src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png"
             height="96"
             alt='demo img'
             style={{ borderRadius: 4 }}
@@ -1210,15 +1213,6 @@ import { IconUpload } from '@douyinfe/semi-icons';
 };
 ```
 
-## Accessibility
-
-Upload组件是一个可交互的控件，在点击或拖拽时触发文件选择，文件选中后会在文件列表内展示状态。
-
-### ARIA
-
-- 为可点击元素添加 `role="button"`
-- 文件列表添加 `role="list"`，并用 `aria-label` 描述
-
 ## API 参考
 
 ---
@@ -1320,6 +1314,27 @@ interface FileItem {
 |----|----|----|----|
 | insert | 上传文件，当index传入时，会插入到指定位置，不传则插入到最后 | (files: Array<File\>, index?: number) => void | 2.2.0 |
 | upload | 手动开始上传，配合uploadTrigger="custom"使用 | () => void | |
+| openFileDialog | 打开文件选择窗口 | () => void | 2.21.0 |
+
+## Accessibility
+
+Upload组件是一个可交互的控件，在点击或拖拽时触发文件选择，文件选中后会在文件列表内展示状态。
+
+### ARIA
+
+- 为可点击元素添加 `role="button"`
+- 文件列表添加 `role="list"`，并用 `aria-label` 描述
+
+
+## 文案规范
+- 上传按钮
+  - 关于表单按钮的文案规范，参考[按钮Button组件的文案规范](/zh-CN/input/button#%E6%96%87%E6%A1%88%E8%A7%84%E8%8C%83) 
+- 帮助文本
+  - 帮助文本使用语句书写规范，首字母大写，可以不需要句号
+- 用户出错提示
+  - 清晰地告诉用户为什么文件无法被上传，并且告知用户如何操作能够成功上传
+  - 帮助文本使用语句书写规范，首字母大写
+  - 简洁的用语让用户能够一眼读懂，比如 `File size must be less than 20MB`, `File type must be .gif, .jpg, .png or .svg`
 
 ## 设计变量
 <DesignToken/>

@@ -7,15 +7,20 @@ $color-tag_white-border-default: rgba(var(--semi-grey-2), 0.7); // 白色标签�
 $color-tag_white-text-default: var(--semi-color-text-0); // 白色标签文字颜色 - 默认
 $color-tag_white-icon-default: var(--semi-color-text-2); // 白色标签图标颜色 - 默认
 
+$color-tag-outline-focus: var(--semi-color-primary-light-active); // 标签轮廓 - 聚焦
+
 $width-tag_avatar_circle_small: 16px; // 头像标签圆角 - 小尺寸
 $width-tag_avatar_circle_large: 20px; // 头像标签圆角 - 大尺寸
 
 $width-tag-border: 1px; // 标签描边宽度
 $width-tag_avatar-border: $width-tag-border; // 头像标签描边宽度
 
+$width-tag-outline: 2px; // 标签轮廓宽度
+
 $height-tag_small: 20px; // 小尺寸标签高度
 $height-tag_large: 24px; // 大尺寸标签高度
 $radius-tag: var(--semi-border-radius-small); // 标签圆角大小
+$radius-tag_circle: var(--semi-border-radius-full); // 胶囊标签圆角大小
 
 $spacing-tag_small-paddingY: 2px; // 小尺寸标签垂直方向内边距
 $spacing-tag_small-paddingX: $spacing-tight; // 小尺寸标签水平方向内边距
@@ -24,6 +29,7 @@ $spacing-tag_large-paddingY: 4px; // 大尺寸标签垂直方向内边距
 $spacing-tag_large-paddingX: $spacing-tight; // 大尺寸标签水平方向内边距
 
 $color-tag_close-icon-default: var(--semi-color-text-2); // 可删除的标签删除按钮颜色
+$color-tag_close-icon_deep-default: var(--semi-color-white); // 深色模式下可删除的标签删除按钮颜色
 $spacing-tag_close-paddingLeft: $spacing-extra-tight; // 可删除的标签删除按钮左侧内边距
 $spacing-tag_closable-paddingTop: $spacing-extra-tight; // 可删除的标签删除按钮顶部内边距
 $spacing-tag_closable-paddingRight: $spacing-extra-tight; // 可删除的标签删除按钮右侧内边距

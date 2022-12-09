@@ -2,7 +2,7 @@
 import React, { CSSProperties } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
-import ConfigContext from '../configProvider/context';
+import ConfigContext, { ContextValue } from '../configProvider/context';
 import ToastFoundation, { ToastAdapter, ToastState, ToastProps } from '@douyinfe/semi-foundation/toast/toastFoundation';
 import { numbers, cssClasses, strings } from '@douyinfe/semi-foundation/toast/constants';
 import BaseComponent from '../_base/baseComponent';
@@ -17,9 +17,12 @@ export interface ToastReactProps extends ToastProps {
     style?: CSSProperties;
     icon?: React.ReactNode;
     content: React.ReactNode;
+    onAnimationEnd?: (e:React.AnimationEvent) => void;
+    onAnimationStart?: (e:React.AnimationEvent) => void
 }
 
 class Toast extends BaseComponent<ToastReactProps, ToastState> {
+
     static contextType = ConfigContext;
     static propTypes = {
         onClose: PropTypes.func,
@@ -52,6 +55,8 @@ class Toast extends BaseComponent<ToastReactProps, ToastState> {
         this.foundation = new ToastFoundation(this.adapter);
     }
 
+    context: ContextValue;
+
     get adapter(): ToastAdapter {
         return {
             ...super.adapter,
@@ -83,6 +88,10 @@ class Toast extends BaseComponent<ToastReactProps, ToastState> {
     startCloseTimer = () => {
         this.foundation.startCloseTimer_();
     };
+
+    restartCloseTimer = () => {
+        this.foundation.restartCloseTimer();
+    }
 
     renderIcon() {
         const { type, icon } = this.props;
@@ -118,16 +127,18 @@ class Toast extends BaseComponent<ToastReactProps, ToastState> {
         const btnSize = 'small';
         return (
             <div
-                role='alert'
+                role="alert"
                 aria-label={`${type ? type : 'default'} type`}
                 className={toastCls}
                 style={style}
                 onMouseEnter={this.clearCloseTimer}
                 onMouseLeave={this.startCloseTimer}
+                onAnimationStart={this.props.onAnimationStart}
+                onAnimationEnd={this.props.onAnimationEnd}
             >
                 <div className={`${prefixCls}-content`}>
                     {this.renderIcon()}
-                    <span className={`${prefixCls}-content-text`} style={textStyle}>
+                    <span className={`${prefixCls}-content-text`} style={textStyle} x-semi-prop="content">
                         {content}
                     </span>
                     {showClose && (
@@ -135,7 +146,7 @@ class Toast extends BaseComponent<ToastReactProps, ToastState> {
                             <Button
                                 onClick={e => this.close(e)}
                                 type="tertiary"
-                                icon={<IconClose />}
+                                icon={<IconClose x-semi-prop="icon" />}
                                 theme={btnTheme}
                                 size={btnSize}
                             />

@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 59
+order: 64
 category: 展示类
 title: Timeline 时间轴
 icon: doc-timeline
@@ -249,7 +249,7 @@ import { IconAlertTriangle } from '@douyinfe/semi-icons';
 ### ARIA
 - 组件中时间点的连线以及时间点本身被设置了 `aria-hidden`，不会响应 Accessibility API
 - 可以通过传入 `aria-label` 设置 TimeLine 组件的标签
-```js
+```text
 <Timeline aria-label="xx事故处理过程时间线">
     <Timeline.Item time="2015-09-01">创建服务现场</Timeline.Item>
     <Timeline.Item time="2015-09-02">初步排除网络异常</Timeline.Item>

@@ -1,11 +1,12 @@
 ---
 localeCode: en-US
-order: 32
+order: 34
 category: Input
 title:  TreeSelect
 subTitle: TreeSelect
 icon: doc-treeselect
-brief: A tree view component for selection.
+brief: TreeSelector is used for structured display & selection of multi-level tree data, such as displaying a list of folders and files, displaying a list of organizational structure members, and so on.
+---
 ---
 
 
@@ -74,7 +75,8 @@ import { TreeSelect } from '@douyinfe/semi-ui';
 
 ### Multi-choice
 
-You could use `multiple` to set mode to multi-choice. When all child items are selected, the parent item will be selected. Use `maxTagCount` to set the cap number of tags displayed. Use `leafOnly` (>= v0.32.0) if you prefer to render leaf nodes only and the corresponding params for onChange will also be leaf nodes values.
+You could use `multiple` to set mode to multi-choice. When all child items are selected, the parent item will be selected.  
+Use `leafOnly` (>= v0.32.0) if you prefer to render leaf nodes only and the corresponding params for onChange will also be leaf nodes values.  
 
 ```jsx live=true
 import React from 'react';
@@ -157,18 +159,109 @@ import { TreeSelect } from '@douyinfe/semi-ui';
                 dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
                 treeData={treeData}
                 multiple
-                maxTagCount={2}
-                placeholder="Display at most two tags"
+                leafOnly
+                placeholder="Display leaf nodes only"
             />
-            <br/>
-            <br/>
+        </div>
+    );
+};
+```
+
+### Limit Tags Number
+
+In the multi-selection scenario, `maxTagCount` can be used to limit the number of tags displayed, and the excess part will be displayed in the form of +N.  
+Use `showRestTagsPopover` (>= v2.22.0) to set whether hover +N displays Popover after exceeding `maxTagCount`, the default is `false`. Also, popovers can be configured in the `restTagsPopoverProps` property.  
+
+```jsx live=true
+import React from 'react';
+import { TreeSelect } from '@douyinfe/semi-ui';
+() => {
+    const treeData = [
+        {
+            label: 'Asia',
+            value: 'Asia',
+            key: '0',
+            children: [
+                {
+                    label: 'China',
+                    value: 'China',
+                    key: '0-0',
+                    children: [
+                        {
+                            label: 'Beijing',
+                            value: 'Beijing',
+                            key: '0-0-0',
+                        },
+                        {
+                            label: 'Shanghai',
+                            value: 'Shanghai',
+                            key: '0-0-1',
+                        },
+                        {
+                            label: 'Chengdu',
+                            value: 'Chengdu',
+                            key: '0-0-2',
+                        },
+                    ],
+                },
+                {
+                    label: 'Japan',
+                    value: 'Japan',
+                    key: '0-1',
+                    children: [
+                        {
+                            label: 'Osaka',
+                            value: 'Osaka',
+                            key: '0-1-0'
+                        }
+                    ]
+                },
+            ],
+        },
+        {
+            label: 'North America',
+            value: 'North America',
+            key: '1',
+            children: [
+                {
+                    label: 'United States',
+                    value: 'United States',
+                    key: '1-0'
+                },
+                {
+                    label: 'Canada',
+                    value: 'Canada',
+                    key: '1-1'
+                }
+            ]
+        }
+    ];
+
+    const textStyle = { margin: '20px 0 10px' };
+
+    return ( 
+        <div>
+            <h4 style={textStyle}>maxTagCount=2:</h4>
             <TreeSelect
+                multiple
+                maxTagCount={2}
                 style={{ width: 300 }}
                 dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
                 treeData={treeData}
+                placeholder="When more than two tabs are selected it will collapse"
+                defaultValue={['Beijing', 'Chengdu', 'Canada']}
+            />
+            <h4 style={textStyle}>maxTagCount=2, showRestTagsPopover:</h4>
+            <TreeSelect
+                showRestTagsPopover={true}
+                restTagsPopoverProps={{ position: 'top' }}
                 multiple
-                leafOnly
-                placeholder="Display leaf nodes only"
+                maxTagCount={2}
+                style={{ width: 300 }}
+                dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                treeData={treeData}
+                placeholder="hover +N to view"
+                defaultValue={['Beijing', 'Chengdu', 'Canada']}
             />
         </div>
     );
@@ -723,7 +816,7 @@ class Demo extends React.Component {
         };
     }
     onChange(value) {
-        this.setState({value});
+        this.setState({ value });
     }
     render() {
         const treeData = [
@@ -824,6 +917,62 @@ import { TreeSelect } from '@douyinfe/semi-ui';
 };
 ```
 
+### Controlled Expansion with Search
+When `expandedKeys` is passed in, it is a controlled expansion component, which can be used with `onExpand`. When the expansion is controlled, if the `filterTreeNode` is turned on and the search is performed, the node will no longer be automatically expanded. At this time, the expansion of the node is completely controlled by the `expandedKeys`. You can use the parameter `filteredExpandedKeys` (version: >= 2.6.0) of `onSearch` to realize the search expansion effect when the expansion is controlled.
+
+```jsx live=true hideInDSM
+import React, { useState } from 'react';
+import { TreeSelect } from '@douyinfe/semi-ui';
+
+() => {
+    const [expandedKeys, setExpandedKeys] = useState([]);
+    const treeData = [
+        {
+            label: 'Asia',
+            value: 'Asia',
+            key: '0',
+            children: [
+                {
+                    label: 'China',
+                    value: 'China',
+                    key: '0-0',
+                    children: [
+                        {
+                            label: 'Beijing',
+                            value: 'Beijing',
+                            key: '0-0-0',
+                        },
+                        {
+                            label: 'Shanghai',
+                            value: 'Shanghai',
+                            key: '0-0-1',
+                        },
+                    ],
+                },
+            ],
+        },
+        {
+            label: 'North America',
+            value: 'North America',
+            key: '1',
+        }
+    ];
+    return (
+        <TreeSelect
+            style={{ width: 300 }}
+            dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+            treeData={treeData}
+            filterTreeNode
+            expandedKeys={expandedKeys}
+            onExpand={expandedKeys => setExpandedKeys(expandedKeys)}
+            onSearch={(inputValue, filteredExpandedKeys) => {
+                setExpandedKeys([...filteredExpandedKeys, ...expandedKeys]);
+            }}
+        />
+    );
+};
+```
+
 ### Virtualized TreeSelect
 If you need to render large sets of tree structured data, you could use virtualized tree. In virtualized mode, animation / motion is disabled for better performance. 
 
@@ -881,7 +1030,7 @@ class Demo extends React.Component {
             const rec = n => (n >= 0 ? x * y ** n-- + rec(n) : 0);
             return rec(z + 1);
         }
-        return {gData, total: calcTotal(x, y, z)};
+        return { gData, total: calcTotal(x, y, z) };
     }
 
       
@@ -1264,14 +1413,17 @@ function Demo() {
 | outerTopSlot| Rendered at the top of the pop-up layer, custom slot level with optionList. If turn on filterTreeNode, it will replace search box as well. You could use static search method to customize instead. |  ReactNode  |  - | 1.9.0|
 | placeholder              | Placeholder for input box                                                           | string                                                            | -           | -       |
 | prefix                   | Prefix                                                                              | ReactNode                                                         | -           | 0.28.0  |
+| preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
 | renderFullLabel | Custom option render function, [Detailed Params and Usage](/en-US/navigation/tree#Advanced%20FullRender) | (obj) => ReactNode | 1.7.0 |
 | renderLabel | Custom label render function | (label:ReactNode, data:TreeNode) => ReactNode | 1.6.0 | 
 | renderSelectedItem | render selected item | Function | - | 1.26.0 | 
+| restTagsPopoverProps | The configuration properties of the [Popover](/en-US/show/popover#API%20Reference)     | PopoverProps     | {}        | 2.22.0 |
 | searchAutoFocus        | Whether autofocus for search box           | boolean      | false           | 1.27.0       |
 | searchPlaceholder        | Placeholder for search box                                                          | string                                                            | -           | -       |
 | searchPosition | Set the position of the search box, one of: `dropdown`、`trigger` | string | `dropdown` | 1.29.0 |
 | showClear | When the value is not empty, whether the trigger displays the clear button | boolean | false |  |
 | showFilteredOnly | Toggle whether to displayed filtered result only in search mode | boolean | false | 0.32.0 |
+| showRestTagsPopover | When the number of tags exceeds maxTagCount and hover reaches +N, whether to display the remaining content through Popover | boolean | false | 2.22.0 |
 | showSearchClear | Toggle whether to support clear search box | boolean | true | 0.35.0 |
 | size                     | Size for input box，one of `large`，`small`，`default`                              | string                                                            | `default`   | -       |
 | style                    | Inline style                                                                        | CSSProperties                                                            | -           | -       |
@@ -1289,8 +1441,8 @@ function Demo() {
 | onChange                 | Callback function when the tree node is selected, return the value property of data | Function                           | -           | -       |
 | onChangeWithObject        | Toggle whether to return all properties in an option as a return value. When set to true, onChange turn to Function(node, e)   | boolean                     | false   | 1.0.0 |
 | onExpand                 | Callback function when expand or collapse a node                                    | function(expandedKeys:array, {expanded: bool, node})              | -           | -       |
-| onLoad | Callback function when a node is loaded | (loadedKeys: Set< string >, treeNode: TreeNode) => void | - | 1.32.0|
-| onSearch                 | Callback function when search value changes                                         | function(sugInput: string)                                        | -           | -       |
+| onLoad | Callback function when a node is loaded | (loadedKeys: Set<string\>, treeNode: TreeNode) => void | - | 1.32.0|
+| onSearch                 | Callback function when search value changes. `filteredExpandedKeys` represents the key of the node expanded due to search or value/defaultValue, which can be used when expandedKeys is controlled                                         | function(sugInput: string, filteredExpandedKeys: string[])                                        | -           | filteredExpandedKeys is supported in 2.6.0       |
 | onSelect                 | Callback function when selected, return the key property of data                    | function(selectedKey:string, selected: bool, selectedNode: TreeNode)                      | -           | -       |
 | onVisibleChange     | A callback triggered when the pop-up layer is displayed/hidden   | function(isVisible:boolean) |     |   1.4.0  |
 

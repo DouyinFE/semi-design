@@ -7,7 +7,7 @@ const cssClasses = {
 
 const strings = {
     SIZE_SET: ['small', 'large', 'default'],
-    VALIDATE_STATUS: ['default', 'error', 'warning'] as const,
+    VALIDATE_STATUS: ['success', 'default', 'error', 'warning'] as const,
     IS_KEY: 'isKey',
     IS_VALUE: 'isValue',
     SHOW_NEXT_BY_CLICK: 'click',

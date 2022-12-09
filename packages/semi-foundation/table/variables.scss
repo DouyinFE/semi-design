@@ -36,8 +36,8 @@ $radius-table_base: 4px;
 $width-table_column_selection: 48px; // 表格默认列宽
 $width-table_column_sorter-icon: 16px; // 表格排序按钮宽度
 $height-table_column_sorter-icon: 16px; // 表格排序按钮高度
-$width-table_column_filter-icon: 12px; // 表格过滤按钮宽度
-$height-table_column_filter-icon: 12px; // 表格过滤按钮高度
+$width-table_column_filter-icon: 16px; // 表格过滤按钮宽度
+$height-table_column_filter-icon: 16px; // 表格过滤按钮高度
 $width-table_cell_fixed_left_last: 1px; // 表格左上角单元格底部描边宽度
 $width-table_cell_fixed_right_first: 1px; // 表格左上角单元格右侧描边宽度
 $width-table_react_resizable_handle: 9px; // 表格伸缩列调节热区宽度
@@ -73,15 +73,13 @@ $color-table_sorter-text-hover: var(--semi-color-text-2); // 表格排序按钮�
 $color-table_page-text-default: var(--semi-color-text-2); // 表格翻页器文本颜色
 $color-table_resizer-bg-default: var(--semi-color-primary); // 表格拉伸标示线颜色
 $color-table_selection-bg-default: rgba(var(--semi-grey-0), 1); // 表格分组背景色
+$color-table_placeholder-text-default: var(--semi-color-text-2); // 表格空数据文本颜色
 
 // Other
 $font-table_base-fontSize: 14px; // 表格默认文本字号
 $border-table_base-borderStyle: solid; // 表格描边样式
 $shadow-table_left: -3px 0 0 0 $color-table_shadow-bg-default; // 表格滚动阴影 - 左侧
 $shadow-table_right: 3px 0 0 0 $color-table_shadow-bg-default; // 表格滚动阴影 - 右侧
-$border-table: $width-table_base_border $border-table_base-borderStyle $color-table-border-default; // 表格默认描边
-$border-table_head-bottom: $width-table_header_border $border-table_base-borderStyle $color-table_th-border-default; // 表头单元格描边 - 底部
-$border-table_resizer: $width-table_resizer_border solid $color-table_resizer-bg-default; // 表格拉伸标识描边
 
 $z-table-fixed: 101!default; // fixed列的zIndex值
 $z-table_fixed_column: $z-table-fixed; // fixed列的zIndex值

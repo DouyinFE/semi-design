@@ -30,6 +30,11 @@ const fields = (
     </>
 );
 
+const getDomValue = (field, form) => {
+    let inputDOM = form.find(`[x-field-id="${field}"] input`).getDOMNode();
+    return inputDOM.getAttribute("value");
+};
+
 describe('Form-formApi', () => {
     beforeEach(() => {
         document.body.innerHTML = '';
@@ -415,6 +420,183 @@ describe('Form-formApi', () => {
         await sleep(300);
         expect(formApi.getFormState().touched).toEqual({ a: { b: true, c: true }});
     })
+
+        it('formApi-setValue, field path precise', () => {
+        // case like:
+        // Exist 3 Field: a.b、a.c、a.d
+        // formApi.setValue('a.b', '123');
+        let formApi = null;
+        const fields = (
+            <>
+                <Form.Input field='a.b' />
+                <Form.Input field='a.c' />
+                <Form.Input field='a.d' />
+            </>
+        );
+        const props = {
+            children: fields,
+            getFormApi: api => {
+                formApi = api;
+            },
+        };
+        const form = getForm(props);
+        formApi.setValue('a.c', 'semi');
+        // check formState.values
+        let val = formApi.getValue('a.c');
+        expect(val).toEqual('semi');
+        form.update();
+        // check dom render
+        expect(getDomValue('a.c', form)).toEqual('semi');
+    });
+
+    it('formApi-setValue, field path belongs to parent aggregate', () => {
+        // case like:
+        // Exist 3 Field: a.b、a.c、a.d
+        // formApi.setValue('a', { b: 'semi', c: 'design' });
+        let formApi = null;
+        const fields = (
+            <>
+                <Form.Input field='a.b' />
+                <Form.Input field='a.c' />
+                <Form.Input field='a.d' />
+            </>
+        );
+        const props = {
+            children: fields,
+            getFormApi: api => {
+                formApi = api;
+            },
+        };
+        const form = getForm(props);
+        formApi.setValue('a', { b: 'semi', c: 'design' });
+        let acVal = formApi.getValue('a.c');
+        let abVal = formApi.getValue('a.b');
+        expect(abVal).toEqual('semi');
+        expect(acVal).toEqual('design');
+        form.update();
+
+        // check dom render
+        expect(getDomValue('a.b', form)).toEqual('semi');
+        expect(getDomValue('a.c', form)).toEqual('design');
+    });
+
+    it('formApi-setValue with array field path, 0 -> 3', () => {
+
+        const fields = ({ formState, values }) => {
+
+            return values.a && values.a.map((effect, i) => (
+                <div key={effect.key}>
+                    <Form.Input field={`a[${i}].name`} />
+                    <Form.Input field={`a[${i}].type`}  />
+                </div>
+            ));
+        };
+        let formApi = null;
+        const props = {
+            children: fields,
+            getFormApi: api => {
+                formApi = api;
+            },
+        };
+        const form = getForm(props);
+        let targetValue = [
+            { name: '0-name', type: '0-type' },
+            { name: '1-name', type: '1-type' },
+            { name: '2-name', type: '2-type' },
+        ];
+        formApi.setValue('a', targetValue);
+        let formStateValues = formApi.getValue();
+        form.update();
+        // check dom render
+        expect(getDomValue('a[0].name', form)).toEqual('0-name');
+        expect(getDomValue('a[0].type', form)).toEqual('0-type');
+        expect(getDomValue('a[1].name', form)).toEqual('1-name');
+        expect(getDomValue('a[1].type', form)).toEqual('1-type');
+        expect(getDomValue('a[2].name', form)).toEqual('2-name');
+        expect(getDomValue('a[2].type', form)).toEqual('2-type');
+    });
+
+    // // this case result was different in cypress / jest, jest result is wrong
+    // it('formApi-setValue with array field path, 3 -> 2, delete some field', done => {
+    //     const fields = ({ formState, values }) => {
+    //         return values.a && values.a.map((item, i) => (
+    //             <div key={item.key} style={{ width: 300 }}>
+    //                 <Form.Input field={`a[${i}].name`} />
+    //                 <Form.Input field={`a[${i}].type`} />
+    //             </div>
+    //         ));
+    //     };
+    //     let formApi = null;
+    //     const props = {
+    //         children: fields,
+    //         initValues: {
+    //             a: [
+    //                 { name: '0-name', type: '0-type', key: 0 },
+    //                 { name: '1-name', type: '1-type', key: 1 },
+    //                 { name: '2-name', type: '2-type', key: 2 },
+    //             ]
+    //         },
+    //         getFormApi: api => {
+    //             formApi = api;
+    //         },
+    //     };
+    //     let form = getForm(props);
+    //     // remove middle one
+    //     formApi.setValue('a', [
+    //         { name: '0-name', type: '0-type', key: 0 },
+    //         { name: '2-name', type: '2-type', key: 2 },
+    //     ]);
+    //     let formStateValues = formApi.getValue();
+    //     form.update();
+
+    //     setTimeout(() => {
+    //         // check dom render
+    //         expect(getDomValue('a[0].name', form)).toEqual('0-name');
+    //         expect(getDomValue('a[0].type', form)).toEqual('0-type');
+    //         expect(getDomValue('a[1].name', form)).toEqual('2-name');
+    //         expect(getDomValue('a[1].type', form)).toEqual('2-type');
+
+    //         expect(form.exists(`[x-field-id="a[2].name"] input`)).toEqual(false);
+    //         expect(form.exists(`[x-field-id="a[2].type"] input`)).toEqual(false);
+    //         done();
+    //     }, 5000);
+    // });
+
+    it('formApi-setValue with array field path, 1 -> 3, add some field', () => {
+        const fields = ({ formState, values }) => {
+            return values.a && values.a.map((effect, i) => (
+                <div key={effect.key}>
+                    <Form.Input field={`a[${i}].name`} />
+                    <Form.Input field={`a[${i}].type`} />
+                </div>
+            ));
+        };
+        let formApi = null;
+        const props = {
+            children: fields,
+            initValues: {
+                a: [{ name: 'semi', type: 'design' }]
+            },
+            getFormApi: api => {
+                formApi = api;
+            },
+        };
+        let form = getForm(props);
+        formApi.setValue('a', [
+            { name: '0-name', type: '0-type' },
+            { name: '1-name', type: '1-type' },
+            { name: '2-name', type: '2-type' },
+        ]);
+        let formStateValues = formApi.getValue();
+        form.update();
+        // check dom render
+        expect(getDomValue('a[0].name', form)).toEqual('0-name');
+        expect(getDomValue('a[0].type', form)).toEqual('0-type');
+        expect(getDomValue('a[1].name', form)).toEqual('1-name');
+        expect(getDomValue('a[1].type', form)).toEqual('1-type');
+        expect(getDomValue('a[2].name', form)).toEqual('2-name');
+        expect(getDomValue('a[2].type', form)).toEqual('2-type');
+    });
 
     // it('formApi-submitForm', () => {
     //     // submit should call validate first

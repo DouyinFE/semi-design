@@ -15,6 +15,7 @@ export interface ColumnSorterProps {
     onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
     prefixCls?: string;
     sortOrder?: SortOrder;
+    title?: React.ReactNode
 }
 
 export default class ColumnSorter extends PureComponent<ColumnSorterProps> {
@@ -33,9 +34,9 @@ export default class ColumnSorter extends PureComponent<ColumnSorterProps> {
     };
 
     render() {
-        const { prefixCls, onClick, sortOrder, style } = this.props;
+        const { prefixCls, onClick, sortOrder, style, title } = this.props;
 
-        const iconBtnSize = 'small';
+        const iconBtnSize = 'default';
 
         const upCls = cls(`${prefixCls}-column-sorter-up`, {
             on: sortOrder === strings.SORT_DIRECTIONS[0],
@@ -58,17 +59,22 @@ export default class ColumnSorter extends PureComponent<ColumnSorterProps> {
                 role='button'
                 {...ariaProps}
                 tabIndex={-1}
-                style={style}
-                className={`${prefixCls}-column-sorter`}
+                className={`${prefixCls}-column-sorter-wrapper`}
                 onClick={onClick}
                 onKeyPress={e => isEnterPress(e) && onClick(e as any)}
             >
-                <span className={`${upCls}`}>
-                    <IconCaretup size={iconBtnSize} />
-                </span>
-                <span className={`${downCls}`}>
-                    <IconCaretdown size={iconBtnSize} />
-                </span>
+                {title}
+                <div
+                    style={style}
+                    className={`${prefixCls}-column-sorter`}
+                >
+                    <span className={`${upCls}`}>
+                        <IconCaretup size={iconBtnSize} />
+                    </span>
+                    <span className={`${downCls}`}>
+                        <IconCaretdown size={iconBtnSize} />
+                    </span>
+                </div>
             </div>
         );
     }

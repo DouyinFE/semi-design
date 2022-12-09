@@ -1,11 +1,11 @@
 ---
 localeCode: en-US
-order: 27
+order: 29
 category: Input
 title:  Slider
 subTitle: Slider
 icon: doc-slider
-brief: Slider is used to help users quickly enter a numeric value or range.
+brief: Selector to quickly select a number or range of values using drag interaction, more intuitive than InputNumber
 ---
 
 
@@ -75,7 +75,7 @@ class InputSlider extends React.Component {
                 <div style={{ width: 320, marginRight: 15 }}>
                     <Slider step={1} value={value} onChange={(value) => (this.getSliderValue(value))} ></Slider>
                 </div>
-                <InputNumber onChange={(v) => this.getSliderValue(v)} style={{width: 100}} value={value} min={0} max={100} />
+                <InputNumber onChange={(v) => this.getSliderValue(v)} style={{ width: 100 }} value={value} min={0} max={100} />
             </div>
         );
     }
@@ -119,11 +119,11 @@ import { Slider } from '@douyinfe/semi-ui';
         <br/>
         <br/>
         <div>Marks</div>
-        <Slider marks={{ 20: '20c', 40: '40c' }} defaultValue={[0, 100]} range={true} ></Slider>
+        <Slider marks={{ 20: '20°C', 40: '40°C' }} defaultValue={[0, 100]} range={true} tipFormatter={v => (`${v}°C`)} getAriaValueText={(value) => `${value}°C`}></Slider>
         <br/>
         <br/>
         <div>Inclued</div>
-        <Slider marks={{ 20: '20c', 40: '40c' }} included={false} defaultValue={[0, 100]} range={true}></Slider>
+        <Slider marks={{ 20: '20°C', 40: '40°C' }} included={false} defaultValue={[0, 100]} range={true} tipFormatter={v => (`${v}°C`)} getAriaValueText={(value) => `${value}°C`}></Slider>
     </div>
 );
 ```
@@ -216,23 +216,23 @@ import { Slider } from '@douyinfe/semi-ui';
 
 () => (
     <div>
-        <div style={{height: 300, marginLeft: 30, marginTop: 10, paddingRight: 30, display: 'inline-block'}}>
+        <div style={{ height: 300, marginLeft: 30, marginTop: 10, paddingRight: 30, display: 'inline-block' }}>
             <Slider vertical></Slider>
         </div>
-        <div style={{height: 300, marginLeft: 30, marginTop: 10, paddingRight: 30, display: 'inline-block'}}>
+        <div style={{ height: 300, marginLeft: 30, marginTop: 10, paddingRight: 30, display: 'inline-block' }}>
             <Slider vertical verticalReverse></Slider>
         </div>
-        <div style={{height: 300, marginLeft: 30, marginTop: 10, paddingRight: 30, display: 'inline-block'}}>
+        <div style={{ height: 300, marginLeft: 30, marginTop: 10, paddingRight: 30, display: 'inline-block' }}>
             <Slider vertical range defaultValue={[20, 60]}></Slider>
         </div>
-        <div style={{height: 300, marginLeft: 30, marginTop: 10, paddingRight: 30, display: 'inline-block'}}>
+        <div style={{ height: 300, marginLeft: 30, marginTop: 10, paddingRight: 30, display: 'inline-block' }}>
             <Slider vertical verticalReverse range defaultValue={[20, 60]}></Slider>
         </div>
-        <div style={{height: 300, marginLeft: 30, marginTop: 10, paddingRight: 30, display: 'inline-block'}}>
-            <Slider vertical range marks={{ 20: '20c', 40: '40c' }} step={10} defaultValue={[20, 60]}></Slider>
+        <div style={{ height: 300, marginLeft: 30, marginTop: 10, paddingRight: 30, display: 'inline-block' }}>
+            <Slider vertical range marks={{ 20: '20°C', 40: '40°C' }} step={10} defaultValue={[20, 60]}></Slider>
         </div>
-        <div style={{height: 300, marginLeft: 30, marginTop: 10, paddingRight: 30, display: 'inline-block'}}>
-            <Slider vertical verticalReverse range marks={{ 20: '20c', 40: '40c' }} step={10} defaultValue={[20, 60]}></Slider>
+        <div style={{ height: 300, marginLeft: 30, marginTop: 10, paddingRight: 30, display: 'inline-block' }}>
+            <Slider vertical verticalReverse range marks={{ 20: '20°C', 40: '40°C' }} step={10} defaultValue={[20, 60]}></Slider>
         </div>
     </div>
 );
@@ -240,26 +240,29 @@ import { Slider } from '@douyinfe/semi-ui';
 
 ## API Reference
 
-| Property       | Instructions                                                                               | type          | Default | Version | 
-| -------------- | ------------------------------------------------------------------------------------------ | ------------- | ------- |------ |
-| defaultValue   | Default value                                                                              | number \| number[] | 0       |- |
-| disabled       | Disable slider                                                                             | boolean       | false   |- |
-| included       | Takes effect when `marks` is not null, true means containment and false means coordination | boolean       | true    |- |
-| marks          | Tick mark of Slider, type of key must be number, and must in closed interval [min, max]    | Record<number, string \>        | -       |- |
-| max            | Maximum value of the slider.                                                               | number        | 100     |- |
-| min            | Minimum value of the slider.                                                               | number        | 0       |- |
-| railStyle | Style for slide rail | CSSProperties | - |0.31.0|
-| range          | Toggle whether it is allow to move slider from both sides                                  | boolean       | false   |- |
-| showBoundary   | Toggle whether show max/min value when hover                                               | boolean       | false   |- |
-| step           | Increment between successive values                                                        | number        | 1       |- |
-| tipFormatter   | Format Tooltip content, by default display current value                                   | (value: string \| number \| boolean \| (string \| number \| boolean)[]) => any      | v => v  |- |
-| tooltipVisible | Toggle whether to display tooltip all the time                                             | boolean       | -       |- |
-| value          | Set current value, used in controlled component                                            | number \| number[] |         |- |
-| vertical       | Toggle whether to display slider vertically                                                | boolean       | false   |- |
-| verticalReverse | Vertical but reverse direction >=1.29.0| boolean | false |-|
-| onAfterChange  | Triggered when onmouseup is invoked, passed in current value as params                     | (value: number \| number[]) => void      | -       |- |
-| onChange       | Callback function when slider value changes                                                | (value: number \| number[]) => void      | -       |- |
-
+| Property       | Instructions                                                                                                                                                                                                                                                                                          | type          | Default | Version | 
+| -------------- |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| ------------- | ------- |------ |
+| aria-label| [aria-label](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label) used to define a string that labels the current element. Use it in cases where a text label is not visible on the screen                                                                          | string |-|-|
+| aria-labelledby | [aria-labelledby](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-labelledby) attribute establishes relationships between objects and their label(s), and its value should be one or more element IDs, which refer to elements that have the text needed for labeling | string |-|-|
+| aria-valuetext| [aria-valuetext](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuetext) used to provide a user-friendly name for the current value of the slider                                                                                                                  | string |-|-|
+| defaultValue   | Default value                                                                                                                                                                                                                                                                                         | number \| number[] | 0       |- |
+| disabled       | Disable slider                                                                                                                                                                                                                                                                                        | boolean       | false   |- |
+| included       | Takes effect when `marks` is not null, true means containment and false means coordination                                                                                                                                                                                                            | boolean       | true    |- |
+| marks          | Tick mark of Slider, type of key must be number, and must in closed interval [min, max]                                                                                                                                                                                                               | Record<number, string \>        | -       |- |
+| max            | Maximum value of the slider.                                                                                                                                                                                                                                                                          | number        | 100     |- |
+| min            | Minimum value of the slider.                                                                                                                                                                                                                                                                          | number        | 0       |- |
+| railStyle | Style for slide rail                                                                                                                                                                                                                                                                                  | CSSProperties | - |0.31.0|
+| range          | Toggle whether it is allow to move slider from both sides                                                                                                                                                                                                                                             | boolean       | false   |- |
+| showBoundary   | Toggle whether show max/min value when hover                                                                                                                                                                                                                                                          | boolean       | false   |- |
+| step           | Increment between successive values                                                                                                                                                                                                                                                                   | number        | 1       |- |
+| tipFormatter   | Format Tooltip content, by default display current value                                                                                                                                                                                                                                              | (value: string \| number \| boolean \| (string \| number \| boolean)[]) => any      | v => v  |- |
+| tooltipVisible | Toggle whether to display tooltip all the time                                                                                                                                                                                                                                                        | boolean       | -       |- |
+| value          | Set current value, used in controlled component                                                                                                                                                                                                                                                       | number \| number[] |         |- |
+| vertical       | Toggle whether to display slider vertically                                                                                                                                                                                                                                                           | boolean       | false   |- |
+| verticalReverse | Vertical but reverse direction >=1.29.0                                                                                                                                                                                                                                                               | boolean | false |-|
+| onAfterChange  | Triggered when slider changed, passed in current value as params                                                                                                                                                                                                                                      | (value: number \| number[]) => void      | -       |- |
+| onChange       | Callback function when slider value changes                                                                                                                                                                                                                                                           | (value: number \| number[]) => void      | -       |- |
+| getAriaValueText | Used to provide a user-friendly name for the current value of the slider, important for screen reader users,  The parameters value and index are the current slider value, order                                                                                                                      | (value: number, index?: number) => string |-|-|
 ## Accessibility
 
 ### ARIA
@@ -269,8 +272,27 @@ import { Slider } from '@douyinfe/semi-ui';
 - The slider element has the `aria-valuemin` property set to a decimal value representing the minimum allowed value of the slider.
 - The slider element has the `aria-valuemax` property set to a decimal value representing the maximum allowed value of the slider.
 - If the slider is vertically oriented, it has `aria-orientation` set to vertical.
-- If the value of `aria-valuenow` is not user-friendly, e.g., the day of the week is represented by a number, support setting API `aria-valuetext` property to a string that makes the slider value understandable, e.g., "Monday". And you can use API `getAriaValueText(value)` to specify `aria-valuetext`.
+- If the value of `aria-valuenow` is not user-friendly, e.g., the day of the week is represented by a number, support setting API `aria-valuetext` property to a string that makes the slider value understandable, e.g., "Monday". And you can use API `getAriaValueText(value, index)` to specify `aria-valuetext`.
 - Supporting API `aria-label` `aria-labelledby` to specify Slider label.
+
+### Keyboard and Focus
+
+- The slider of Slider can get the focus and display the prompt information of the current slider, and this information needs to be read by assistive technology.
+- When the user uses the `range` API, you can use `Tab` and `Shift` + `Tab` to switch the focus of the left and right sliders.
+- Keyboard users can use `Up Arrow` or `Right Arrow` to increase the slider value, `Down Arrow` or `Left Arrow` to decrease the slider value.
+- If you want the slider to change more than the step size， Slider supports 10*step changes:
+  - Windows users： `Page Up` for increasing, `Page Down` for decreasing;
+  - Mac users：`Fn` + `Up Arrow` for increasing, `Fn` + `Down Arrow` for decreasing;
+  - When the user uses the `range` property, the Page Up key of the previous slider is only supported until it meets the next slider, and then using the Page Up key on the previous slider will not respond. The same is true for the latter slider. After encountering, there is no response to the Page Down key.
+- To move the slider to the minimum value of the slider:
+  - Windows users: `Home`;
+  - Mac users: `Fn` + `left arrow`;
+  - When the user uses the `range` property, the `Home`(`Fn` + `left arrow`) button of the latter slider only supports until it meets the previous slider, and the `Home`(`Fn` + `left arrow`) button is unresponsive after the overlap.
+- To move the slider to the maximum value of the slider:
+  - Windows users: `End`;
+  - Mac users: `Fn` + `right arrow`;
+  - When the user uses the `range` property, the `End`(`Fn` + `right arrow`) key of the previous slider is only supported until it meets the next slider, and the `End`(`Fn` + `right arrow`) key is unresponsive after the overlap.
+
 
 ## Design Tokens
 <DesignToken/>

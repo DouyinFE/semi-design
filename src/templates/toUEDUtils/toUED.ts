@@ -20,7 +20,7 @@ const getAnotherSideUrl=(site:'design'|'main')=>{
 };
 
 
-const cache={scrollHeight:null};
+const cache={ scrollHeight:null };
 
 const transContent=(site:'main'|'design')=>{
     const url=`${getAnotherSideUrl('design')}?concisemode=true`;
@@ -57,6 +57,8 @@ const transContent=(site:'main'|'design')=>{
                         iframeContainer.style['height']=`${data['scrollHeight']}px`;
                         console.log('height===>',data['scrollHeight']);
                         cache['scrollHeight']=`${data['scrollHeight']}px`;
+                        // @ts-ignore
+                        iframeDOM?.contentWindow?.semidoc?.setDarkmode(document.body.getAttribute('theme-mode')==='dark');
                     }
                 } catch (e){
                     console.log('getMessage ====>',e);
@@ -66,6 +68,7 @@ const transContent=(site:'main'|'design')=>{
 
             const contentAreaDOM=document.querySelector('.article-wrapper');
             contentAreaDOM.appendChild(iframeContainer);
+
         }
 
 
@@ -88,7 +91,7 @@ const isHaveUedDocs=(pathName:string)=>{
 };
 
 const isJumpToDesignSite=(pathName:string)=>{
-    const components=['toast','popconfirm','scrolllist','popover','select','dropdown'];
+    const components=['toast','popconfirm','scrolllist','popover','select','dropdown','treeselect'];
     if (pathName){
         const urlSplitArray=pathName.split('/').filter(v=>v);
         const componentName=urlSplitArray[urlSplitArray.length-1];

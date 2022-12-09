@@ -1,5 +1,5 @@
 /* eslint-disable max-lines-per-function, react-hooks/rules-of-hooks, prefer-const, max-len */
-import React, { useState, useLayoutEffect, useMemo, useRef, forwardRef } from 'react';
+import React, { useState, useLayoutEffect, useEffect, useMemo, useRef, forwardRef } from 'react';
 import classNames from 'classnames';
 import { cssClasses } from '@douyinfe/semi-foundation/form/constants';
 import { isValid, generateValidatesFromRules, mergeOptions, mergeProps, getDisplayName } from '@douyinfe/semi-foundation/form/utils';
@@ -15,8 +15,13 @@ import { Col } from '../../grid';
 import { CallOpts, WithFieldOption } from '@douyinfe/semi-foundation/form/interface';
 import { CommonFieldProps, CommonexcludeType } from '../interface';
 import { Subtract } from 'utility-types';
+import { noop } from "lodash";
 
 const prefix = cssClasses.PREFIX;
+
+// To avoid useLayoutEffect warning when ssr, refer: https://gist.github.com/gaearon/e7d97cdf38a2907924ea12e4ebdf3c85
+// Fix issue 1140
+const useIsomorphicEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 
 /**
  * withFiled is used to inject components
@@ -27,7 +32,7 @@ const prefix = cssClasses.PREFIX;
 
 function withField<
     C extends React.ElementType,
-    T extends Subtract<React.ComponentProps<C>, CommonexcludeType> & CommonFieldProps,
+    T extends Subtract<React.ComponentProps<C>, CommonexcludeType> & CommonFieldProps & React.RefAttributes<any>,
     R extends React.ComponentType<T>
 >(Component: C, opts?: WithFieldOption): R {
     let SemiField = (props: any, ref: React.MutableRefObject<any> | ((instance: any) => void)) => {
@@ -109,6 +114,7 @@ function withField<
             }
         } catch (err) {}
 
+        // FIXME typeof initVal
         const [value, setValue, getVal] = useStateWithGetter(typeof initVal !== undefined ? initVal : null);
         const validateOnMount = trigger.includes('mount');
 
@@ -121,6 +127,7 @@ function withField<
         const [status, setStatus] = useState(validateStatus); // use props.validateStatus to init
 
         const rulesRef = useRef(rules);
+        const validateRef = useRef(validate);
 
         // notNotify is true means that the onChange of the Form does not need to be triggered
         // notUpdate is true means that this operation does not need to trigger the forceUpdate
@@ -221,7 +228,7 @@ function withField<
                 let maybePromisedErrors;
                 // let errorThrowSync;
                 try {
-                    maybePromisedErrors = validate(val, values);
+                    maybePromisedErrors = validateRef.current(val, values);
                 } catch (err) {
                     // error throw by syncValidate
                     maybePromisedErrors = err;
@@ -258,7 +265,7 @@ function withField<
             if (transform) {
                 finalVal = transform(val);
             }
-            if (validate) {
+            if (validateRef.current) {
                 return _validate(finalVal, updater.getValue(), callOpts);
             } else if (latestRules) {
                 return _validateInternal(finalVal, callOpts);
@@ -355,12 +362,13 @@ function withField<
         };
 
         // avoid hooks capture value, fixed issue 346
-        useLayoutEffect(() => {
+        useIsomorphicEffect(() => {
             rulesRef.current = rules;
-        }, [rules]);
+            validateRef.current = validate;
+        }, [rules, validate]);
 
         // exec validate once when trigger inlcude 'mount'
-        useLayoutEffect(() => {
+        useIsomorphicEffect(() => {
             if (validateOnMount) {
                 fieldValidate(value);
             }
@@ -369,19 +377,31 @@ function withField<
 
         // register when mounted，unregister when unmounted
         // register again when field change
-        useLayoutEffect(() => {
+        useIsomorphicEffect(() => {
             // register
             if (typeof field === 'undefined') {
                 // eslint-disable-next-line @typescript-eslint/no-empty-function
                 return () => {};
             }
             // log('register: ' + field);
-            updater.register(field, fieldState, {
+
+            // field value may change after field component mounted, we use ref value here to get changed value
+            const refValue = getVal();
+            updater.register(
                 field,
-                fieldApi,
-                keepState,
-                allowEmpty: allowEmpty || allowEmptyString,
-            });
+                {
+                    value: refValue,
+                    error,
+                    touched,
+                    status,
+                },
+                {
+                    field,
+                    fieldApi,
+                    keepState,
+                    allowEmpty: allowEmpty || allowEmptyString,
+                }
+            );
             // return unRegister cb
             return () => {
                 updater.unRegister(field);
@@ -414,17 +434,17 @@ function withField<
         const extraTextId = `${a11yId}-extraText`;
         const errorMessageId = `${a11yId}-errormessage`;
 
-        let FieldComponent = (() => {
+        const FieldComponent = () => {
             // prefer to use validateStatus which pass by user throught props
             let blockStatus = validateStatus ? validateStatus : status;
 
             const extraCls = classNames(`${prefix}-field-extra`, {
                 [`${prefix}-field-extra-string`]: typeof extraText === 'string',
                 [`${prefix}-field-extra-middle`]: mergeExtraPos === 'middle',
-                [`${prefix}-field-extra-botttom`]: mergeExtraPos === 'bottom',
+                [`${prefix}-field-extra-bottom`]: mergeExtraPos === 'bottom',
             });
 
-            const extraContent = extraText ? <div className={extraCls} id={extraTextId}>{extraText}</div> : null;
+            const extraContent = extraText ? <div className={extraCls} id={extraTextId} x-semi-prop="extraText">{extraText}</div> : null;
 
             let newProps: Record<string, any> = {
                 id: a11yId,
@@ -439,14 +459,18 @@ function withField<
                 'aria-labelledby': labelId,
             };
 
+            if (name) {
+                newProps['name'] = name;
+            }
+
             if (helpText) {
                 newProps['aria-describedby'] = extraText ? `${helpTextId} ${extraTextId}` : helpTextId;
             }
-            
+
             if (extraText) {
                 newProps['aria-describedby'] = helpText ? `${helpTextId} ${extraTextId}` : extraTextId;
             }
-            
+
             if (status === 'error') {
                 newProps['aria-errormessage'] = errorMessageId;
                 newProps['aria-invalid'] = true;
@@ -499,7 +523,7 @@ function withField<
                         text={label || field}
                         id={labelId}
                         required={required}
-                        name={name || field}
+                        name={a11yId || name || field}
                         width={mergeLabelWidth}
                         align={mergeLabelAlign}
                         {...needSpread}
@@ -560,7 +584,7 @@ function withField<
                     )}
                 </div>
             );
-        })();
+        };
 
         // !important optimization
         const shouldUpdate = [
@@ -573,14 +597,14 @@ function withField<
         ];
         if (options.shouldMemo) {
             // eslint-disable-next-line react-hooks/exhaustive-deps
-            return useMemo(() => FieldComponent, [...shouldUpdate]);
+            return useMemo(FieldComponent, [...shouldUpdate]);
         } else {
             // Some Custom Component with inner state shouldn't be memo, otherwise the component will not updated when the internal state is updated
-            return FieldComponent;
+            return FieldComponent();
         }
     };
     SemiField = forwardRef(SemiField);
-    (SemiField as React.SFC).displayName = getDisplayName(Component);
+    (SemiField as React.FC).displayName = getDisplayName(Component);
     return SemiField as any;
 }
 

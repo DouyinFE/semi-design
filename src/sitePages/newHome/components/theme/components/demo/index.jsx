@@ -1,16 +1,16 @@
 import { _t } from "src/utils/locale";
 import React from 'react';
 import styles from './index.module.scss';
-import {Descriptions, Typography, Form, Button, Avatar, Table} from '@douyinfe/semi-ui'
-import {IconBell, IconFeishuLogo, IconMail, IconMapPin, IconSemiLogo, IconUserCircle} from '@douyinfe/semi-icons'
-import avatarPng from './images/avatar.png'
-import classnames from 'classnames'
+import { Descriptions, Typography, Form, Button, Avatar, Table } from '@douyinfe/semi-ui';
+import { IconBell, IconFeishuLogo, IconMail, IconMapPin, IconSemiLogo, IconUserCircle } from '@douyinfe/semi-icons';
+import avatarPng from './images/avatar.png';
+import classnames from 'classnames';
 
 const { Title, Text } = Typography;
-const {Select, TextArea } = Form
-const {Option} = Select;
+const { Select, TextArea } = Form;
+const { Option } = Select;
 
-const {Column} = Table;
+const { Column } = Table;
 
 function Demo(props) {
     const data = [
@@ -20,20 +20,20 @@ function Demo(props) {
                 <span>
                     <Avatar 
                         size='small' 
-                        style={{backgroundColor: 'rgb(var(--semi-pink-5))', marginRight: 12}}>
+                        style={{ backgroundColor: 'rgb(var(--semi-pink-5))', marginRight: 12 }}>
                         <IconFeishuLogo></IconFeishuLogo>
                     </Avatar>{_t("system_notification", { }, "系统通知")}</span>
             ),
-            content: <Text>{_t("#nezha_s_magic_child_descent_#topic_activity_is_now_open!_according_to_the_rules_e2fe356bd395679eb176daa81ef0d082", { }, "#哪吒之魔童降世# 话题活动开讲啦！根据活动规则，恭喜 13 位...")}</Text>,
+            content: <Text>{_t("semi_design_share_2code", { }, "#Semi Design2Code# 技术分享开讲啦！根据活动规则，恭喜 13 位...")}</Text>,
             time: '2020-02-02 05:13',
         },
         {
             key: '2',
             sender: (
                 <span>
-                    <Avatar 
+                    <Avatar
                         size='small' 
-                        style={{backgroundColor: 'rgb(var(--semi-teal-5))', marginRight: 12}}>
+                        style={{ backgroundColor: 'rgb(var(--semi-teal-5))', marginRight: 12 }}>
                         <IconBell></IconBell>
                     </Avatar>{_t("system_notification", { }, "系统通知")}</span>
             ),
@@ -46,23 +46,23 @@ function Demo(props) {
                 <span>
                     <Avatar 
                         size='small' 
-                        style={{backgroundColor: 'rgb(var(--semi-grey-9))', marginRight: 12}}>
+                        style={{ backgroundColor: 'rgb(var(--semi-grey-9))', marginRight: 12 }}>
                         <IconSemiLogo></IconSemiLogo>
                     </Avatar>{_t("system_notification", { }, "系统通知")}</span>
             ),
             content: <Text>{_t("design", { }, "设计")}</Text>,
             time: '2020-01-26 11:01',
         }
-    ]
+    ];
     const tabaleData = [...Array(11)].map(() => data).flat();
 
-    const classes = classnames(styles.themeDemoContainer, props.className)
+    const classes = classnames(styles.themeDemoContainer, props.className);
     return (
         <div className={classes}>
             <section className={styles.profile}>
                 <header className={styles.profileHeader}>
                     <Avatar src={avatarPng} className={styles.avatar}></Avatar>
-                    <Title heading={4} style={{marginTop: 16}}>Richard Hendricks</Title>
+                    <Title heading={4} style={{ marginTop: 16 }}>Richard Hendricks</Title>
                     <Text className={styles.nickname}>@RichardHendricks</Text>
                 </header>
                 <main className={styles.profileMain}>
@@ -73,7 +73,7 @@ function Demo(props) {
                 </main>
                 <footer className={styles.profileFooter}>
                     <Text className={classnames(styles.badge1, styles.badge)} strong>{_t("official_topics", { }, "官方话题")}</Text>
-                    <Text className={classnames(styles.badge2, styles.badge)} strong>{_t("commercialization", { }, "商业化")}</Text>
+                    {/* <Text className={classnames(styles.badge2, styles.badge)} strong>{_t("commercialization", { }, "商业化")}</Text> */}
                     <Text className={classnames(styles.badge3, styles.badge)} strong>{_t("big_v", { }, "大 V")}</Text>
                 </footer>
             </section>
@@ -81,11 +81,11 @@ function Demo(props) {
                 <section className={styles.descriptionSection}>
                     <Title heading={4}>{_t("private_message_management", { }, "私信管理")}</Title>
                     <main className={styles.descriptionsWrapper}>
-                        <Descriptions align="left" style={{marginRight: 48, width: 338}}>
+                        <Descriptions align="left" style={{ marginRight: 48, width: 338 }}>
                             <Descriptions.Item itemKey={_t("apple_account", { }, "Apple 账号")}>richard@icloud.com</Descriptions.Item>
                             <Descriptions.Item itemKey={_t("google_account", { }, "Google 账号")}>richard@gmail.com</Descriptions.Item>
                         </Descriptions>
-                        <Descriptions align="left" style={{width: 338}}>
+                        <Descriptions align="left" style={{ width: 338 }}>
                             <Descriptions.Item itemKey='Instagram'>richard_aaa</Descriptions.Item>
                             <Descriptions.Item itemKey='Facebook'>Richard Hendricks</Descriptions.Item>
                         </Descriptions>
@@ -93,15 +93,15 @@ function Demo(props) {
                 </section>
                 <section className={styles.dataSection}>
                     <div>
-                        <Form layout="horizontal" initValues={{type: 'abc'}}>
+                        <Form layout="horizontal" initValues={{ type: 'abc' }}>
                             <Select field="type" noLabel={true}>
                                 <Option value="abc">{_t("douyin_little_assistant", { }, "抖音小助手")}</Option>
                                 <Option value="huoshan">{_t("volcano_little_helper", { }, "火山小助手")}</Option>
                             </Select>
-                            <TextArea field="content" placeholder='placeholder' noLabel={true} style={{width: 556, height: 75}} className={styles.textarea}></TextArea>
+                            <TextArea field="content" placeholder='placeholder' noLabel={true} style={{ width: 556, height: 75 }} className={styles.textarea}></TextArea>
                             <Button theme='solid' icon={<IconFeishuLogo />}>{_t("send", { }, "发送")}</Button>
                         </Form>
-                        <Table dataSource={tabaleData} pagination={{total: 33, pageSize: 3, formatPageText: false}} className={styles.table}>
+                        <Table dataSource={tabaleData} pagination={{ total: 33, pageSize: 3, formatPageText: false }} className={styles.table}>
                             <Column title={_t("sender", { }, "发信人")} dataIndex="sender" key="sender" />
                             <Column title={_t("private_message_content", { }, "私信内容")} dataIndex="content" key="content" />
                             <Column title={_t("time_of_dispatch", { }, "发信时间")} dataIndex="time" key="time" />

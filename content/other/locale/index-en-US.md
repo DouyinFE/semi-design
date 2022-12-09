@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 69
+order: 74
 category: Other
 title: LocaleProvider
 subTitle: LocaleProvider
@@ -21,6 +21,8 @@ brief: Internationalized components to provide multilingual support for Semi com
 | v1.17.0     | Portuguese: pt_BR       |
 | v1.28.0     | Traditional Chinese: zh_TW       |
 | v2.2.0     | Spanish: es       |
+| v2.15.0     | Italian: it、French：fr、German：de   |
+| v2.21.0     | Romanian: ro   |
 
 ## Components supported
 
@@ -48,6 +50,10 @@ import pt_BR from '@douyinfe/semi-ui/lib/es/locale/source/pt_BR';
 import zh_TW from '@douyinfe/semi-ui/lib/es/locale/source/zh_TW';
 import ar from '@douyinfe/semi-ui/lib/es/locale/source/ar';
 import es from '@douyinfe/semi-ui/lib/es/locale/source/es';
+import it from '@douyinfe/semi-ui/lib/es/locale/source/it';
+import de from '@douyinfe/semi-ui/lib/es/locale/source/de';
+import fr from '@douyinfe/semi-ui/lib/es/locale/source/fr';
+import ro from '@douyinfe/semi-ui/lib/es/locale/source/fr';
 
 import { LocaleProvider } from '@douyinfe/semi-ui';
 
@@ -79,15 +85,86 @@ class I18nDemo extends React.Component {
         return (
             <>
                 <LocaleProvider locale={en_GB}>
-                    <Pagination total={100} showTotal showSizeChanger style={{margin: 20}} />
+                    <Pagination total={100} showTotal showSizeChanger style={{ margin: 20 }} />
                 </LocaleProvider>
                 <LocaleProvider locale={ja_JP}>
-                    <Pagination total={100} showTotal showSizeChanger style={{margin: 20}} />
+                    <Pagination total={100} showTotal showSizeChanger style={{ margin: 20 }} />
                 </LocaleProvider>
             </>
         );
     }
 }
+```
+
+### Custom Internationalization Component
+
+When your custom component also wants to consume the localeCode in the Semi LocaleProvider Context or read the i18n text localeData of a specific component, you can use LocaleConsumer to get it
+
+```jsx live=true dir="column" noInline=true
+import React from 'react';
+import zh_CN from '@douyinfe/semi-ui/lib/es/locale/source/zh_CN';
+import en_GB from '@douyinfe/semi-ui/lib/es/locale/source/en_GB';
+import ko_KR from '@douyinfe/semi-ui/lib/es/locale/source/ko_KR';
+import { LocaleProvider, LocaleConsumer } from '@douyinfe/semi-ui';
+
+
+class GetLocaleFromSemi extends React.Component {
+    render() {
+        return <LocaleConsumer componentName="TimePicker">
+            {
+                (localeData, localeCode, dateFnsLocale) => (
+                    <div>{localeCode} : {localeData.begin}</div>
+                )
+            }
+        </LocaleConsumer>;
+    }
+}
+
+class ExtractComponent extends React.Component {
+    render() {
+        return <LocaleConsumer componentName="ComponentA">
+            {
+                (localeData, localeCode, dateFnsLocale) => (
+                    <div>{localeData.customKey}</div>
+                )
+            }
+        </LocaleConsumer>;
+    }
+}
+
+
+class I18nCustomDemo extends React.Component {
+    render() {
+        const new_zh_CN = { ...zh_CN, ComponentA: { customKey: 'semi' } };
+        const new_ko_KR = { ...ko_KR, ComponentA: { customKey: 'design' } };
+        const new_en_GB = { ...en_GB, ComponentA: { customKey: 'dsm' } };
+
+        return (
+            <>
+                <LocaleProvider locale={new_zh_CN}>
+                    <GetLocaleFromSemi />
+                </LocaleProvider>
+                <LocaleProvider locale={new_ko_KR}>
+                    <GetLocaleFromSemi />
+                </LocaleProvider>
+                <LocaleProvider locale={new_en_GB}>
+                    <GetLocaleFromSemi />
+                </LocaleProvider>
+                <LocaleProvider locale={new_zh_CN}>
+                    <ExtractComponent />
+                </LocaleProvider>
+                <LocaleProvider locale={new_ko_KR}>
+                    <ExtractComponent />
+                </LocaleProvider>
+                <LocaleProvider locale={new_en_GB}>
+                    <ExtractComponent />
+                </LocaleProvider>
+            </>
+        );
+    }
+}
+
+render(I18nCustomDemo);
 ```
 
 ### Components that support multilingualism
@@ -111,6 +188,10 @@ import pt_BR from '@douyinfe/semi-ui/lib/es/locale/source/pt_BR';
 import zh_TW from '@douyinfe/semi-ui/lib/es/locale/source/zh_TW';
 import ar from '@douyinfe/semi-ui/lib/es/locale/source/ar';
 import es from '@douyinfe/semi-ui/lib/es/locale/source/es';
+import it from '@douyinfe/semi-ui/lib/es/locale/source/it';
+import de from '@douyinfe/semi-ui/lib/es/locale/source/de';
+import fr from '@douyinfe/semi-ui/lib/es/locale/source/fr';
+import ro from '@douyinfe/semi-ui/lib/es/locale/source/ro';
 import { LocaleProvider, ConfigProvider, Pagination, Modal, Button, Select, Cascader, DatePicker, TreeSelect, Table, TimePicker, List, Calendar, Typography } from '@douyinfe/semi-ui';
 
 class I18nDemo extends React.Component {
@@ -137,6 +218,10 @@ class I18nDemo extends React.Component {
             'th_TH': th_TH,
             'tr_TR': tr_TR,
             es,
+            de,
+            it,
+            fr,
+            ro
         };
         this.setState({ locale: language[code], localeCode: code });
     }
@@ -233,10 +318,10 @@ class I18nDemo extends React.Component {
                         />
                     </div>
                     <h5>DatePicker</h5>
-                    <DatePicker style={{ ...style, width: 250}} />
-                    <DatePicker style={{ ...style, width: 300}} type='dateTime' />
-                    <DatePicker style={{ ...style, width: 300}} type='dateRange' />
-                    <DatePicker style={{ ...style, width: 450}} type='dateTimeRange' />
+                    <DatePicker style={{ ...style, width: 250 }} />
+                    <DatePicker style={{ ...style, width: 300 }} type='dateTime' />
+                    <DatePicker style={{ ...style, width: 300 }} type='dateRange' />
+                    <DatePicker style={{ ...style, width: 450 }} type='dateTimeRange' />
                     <h5>TimePicker</h5>
                     <TimePicker style={style} />
                     <TimePicker use12Hours style={style} /><br/><br/>
@@ -257,7 +342,7 @@ class I18nDemo extends React.Component {
         return (
             <>
                 <div style={{ borderBottom: '1px solid var(--semi-color-border)', paddingBottom: 20 }}>
-                    <Select onChange={this.onLanguageChange} insetLabel='Switch Language' style={{width: 250}} defaultValue='en_GB'>
+                    <Select onChange={this.onLanguageChange} insetLabel='Switch Language' style={{ width: 250 }} defaultValue='en_GB'>
                         <Select.Option value='zh_CN'>Chinese</Select.Option>
                         <Select.Option value='en_GB'>English</Select.Option>
                         <Select.Option value='ja_JP'>Japanese</Select.Option>
@@ -270,6 +355,10 @@ class I18nDemo extends React.Component {
                         <Select.Option value='th_TH'>Thai</Select.Option>
                         <Select.Option value='tr_TR'>Turkish</Select.Option>
                         <Select.Option value='es'>Spanish</Select.Option>
+                        <Select.Option value='de'>German</Select.Option>
+                        <Select.Option value='it'>Italian</Select.Option>
+                        <Select.Option value='fr'>French</Select.Option>
+                        <Select.Option value='ro'>Romanian</Select.Option>
                     </Select>
                 </div>
                 <LocaleProvider locale={locale}>

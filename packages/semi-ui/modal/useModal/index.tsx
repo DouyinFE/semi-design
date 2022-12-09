@@ -19,7 +19,15 @@ function usePatchElement(): ([ReactNode[], (element: ReactNode) => () => void]) 
     return [elements, patchElement];
 }
 
-export default function useModal() {
+type UseModalReturnHooksType = (config: ModalReactProps) => { destroy: () => void; update: (newConfig: ConfirmProps) => void };
+
+export default function useModal(): [{
+    info: UseModalReturnHooksType;
+    success: UseModalReturnHooksType;
+    error:UseModalReturnHooksType;
+    warning: UseModalReturnHooksType;
+    confirm: UseModalReturnHooksType
+}, ReactNode] {
     const [elements, patchElement] = usePatchElement();
 
     // eslint-disable-next-line max-len

@@ -1,16 +1,12 @@
 ---
 localeCode: en-US
-order: 20
+order: 22
 category: Input
 title: DatePicker
 subTitle: Date Selector
 icon: doc-datepicker
 brief: The date selector is used to help the user select a compliant, formatted date (time) or date (time) range.
 ---
-
-## When to Use
-
-When the user needs to enter a date, you can click on the standard input box and pop up the date panel to select.
 
 ## Demos
 
@@ -132,8 +128,56 @@ import { DatePicker } from '@douyinfe/semi-ui';
 
 class App extends React.Component {
     render() {
-        return <DatePicker type="dateTimeRange" style={{ width: 380 }} onChange={console.log} />;
+        return <DatePicker type="dateTimeRange" style={{ width: 400 }} onChange={console.log} />;
     }
+}
+```
+
+### Input in Panel
+
+Use `insetInput` to control whether the date panel is inset with the input box, the default is `false`. Supported since `v2.7.0`. Inset input boxes are suitable for the following scenarios:
+
+- Date and time selection, you can directly input the time through the embedded input box, no need to select the time through the scroll wheel
+- When `triggerRender`+ range selection, use the inset input box to modify the start and end dates independently
+
+After `insetInput` is turned on, it includes the following functions:
+
+- After clicking the trigger, the panel will pop up in the original position by default. You can customize the popup position by `position`
+- Click the embedded date input box, the panel switches to date selection; click the embedded time input box, the panel switches to time selection
+- Consistent with the external input box, if an illegal date is entered, the date will return to the previous legal date after the panel is closed
+
+<Notice type="primary" title="Notes">
+     <div>Note that some adjustments and restrictions will be made to the components after opening insetInput:</div>
+     <div>1. Trigger style: the trigger is read-only when the panel is not open, and the trigger is disabled when it is open</div>
+     <div>2. Panel style: when type includes time, hide the toggle button at the bottom</div>
+     <div>3. After insetInput is enabled, the `format` API only supports the `dateFormat[ timeFormat]` format. Using other formats will affect the display of the inset input box placeholder and trigger text</div>
+</Notice>
+
+```jsx live=true
+import React from 'react';
+import { DatePicker } from '@douyinfe/semi-ui';
+
+function Demo() {
+    return (
+        <div>
+            <DatePicker type="date" insetInput />
+            <br />
+            <br />
+            <DatePicker type="dateTime" insetInput />
+            <br />
+            <br />
+            <DatePicker type="dateRange" insetInput style={{ width: 260 }} />
+            <br />
+            <br />
+            <DatePicker type="dateTimeRange" insetInput style={{ width: 400 }} />
+            <br />
+            <br />
+            <DatePicker type="month" placeholder="please input month" insetInput style={{ width: 140 }} />
+            <br />
+            <br />
+            <DatePicker type="dateTime" format="yyyy-MM-dd HH:mm" insetInput />
+        </div>
+    );
 }
 ```
 
@@ -155,7 +199,7 @@ class App extends React.Component {
             <DatePicker
                 syncSwitchMonth={true}
                 type="dateTimeRange"
-                style={{ width: 380 }}
+                style={{ width: 400 }}
             />
         );
     }
@@ -178,7 +222,7 @@ class App extends React.Component {
             <DatePicker
                 syncSwitchMonth={true}
                 type="dateTimeRange"
-                style={{ width: 380 }}
+                style={{ width: 400 }}
                 onPanelChange={(date, dateString) => console.log(date, dateString)}
             />
         );
@@ -317,7 +361,7 @@ class App extends React.Component {
     }
 
     render() {
-        return <DatePicker type="dateTime" presets={this.presets} />;
+        return <DatePicker type="dateTime" presets={this.presets} presetPosition="left"/>;
     }
 }
 ```
@@ -418,7 +462,7 @@ function Demo() {
             <DatePicker 
                 type="dateTimeRange"
                 bottomSlot={<BottomSlot />}
-                style={{ width: 380 }}
+                style={{ width: 400 }}
                 placeholder="Please select a time range"
             />
         </div>
@@ -519,7 +563,7 @@ class App extends React.Component {
                         type="dateTimeRange"
                         hideDisabledOptions={false}
                         disabledTime={this.disabledTime2}
-                        style={{ width: 380 }}
+                        style={{ width: 400 }}
                     />
                 </div>
                 <div>
@@ -528,7 +572,7 @@ class App extends React.Component {
                         type="dateTimeRange"
                         disabledDate={this.disabledDate}
                         defaultPickerValue={this.nextValidMonth()}
-                        style={{ width: 380 }}
+                        style={{ width: 400 }}
                     />
                 </div>
             </div>
@@ -564,6 +608,40 @@ class App extends React.Component {
 }
 ```
 
+When `type` contains `range`, dates can be disabled based on the focus state. The focus state is passed through the `rangeInputFocus` parameter in `options`.
+
+```jsx live=true
+import React from 'react';
+import { DatePicker } from '@douyinfe/semi-ui';
+import * as dateFns from 'date-fns';
+
+function App() {
+    const today = new Date();
+    const disabledDate = (date, options) => {
+        const { rangeInputFocus } = options;
+        const baseDate = dateFns.set(today, { hours: 0, minutes: 0, seconds: 0, milliseconds: 0 });
+        if (rangeInputFocus === 'rangeStart') {
+            const disabledStart = dateFns.subDays(baseDate, 2);
+            const disabledEnd = dateFns.addDays(baseDate, 2);
+            return disabledStart <= date && date <= disabledEnd;
+        } else if (rangeInputFocus === 'rangeEnd') {
+            const disabledStart = dateFns.subDays(baseDate, 3);
+            const disabledEnd = dateFns.addDays(baseDate, 3);
+            return disabledStart <= date && date <= disabledEnd;
+        } else {
+            return false;
+        }
+    };
+
+    return (
+        <div>
+            <h4>{`Start date disables 2 days before and 2 days after today, end date disables 3 days before and 3 days after today`}</h4>
+            <DatePicker motion={false} type='dateRange' disabledDate={disabledDate} defaultPickerValue={today} />
+        </div>
+    );
+}
+```
+
 ### Custom Display Format
 
 Pass parameter `format` to custom display format.
@@ -584,6 +662,8 @@ class App extends React.Component {
 **Version:** >=0.34.0
 
 By default we use the `Input` component as the trigger for the `DatePicker` component. You can customize this trigger by passing the `triggerRender` method.
+
+The custom trigger is a complete customization of the trigger, the default clear button will not take effect, if you need clear function, please customize a clear button.
 
 ```jsx live=true
 import React, { useState, useCallback, useMemo } from 'react';
@@ -614,6 +694,55 @@ function Demo() {
             triggerRender={({ placeholder }) => (
                 <Button theme={'light'} icon={closeIcon} iconPosition={'right'}>
                     {(date && dateFns.format(date, formatToken)) || placeholder}
+                </Button>
+            )}
+        />
+    );
+}
+```
+
+<Notice type="primary" title="Note">
+    <div>When DatePicker is range type, the default date selected after the panel is opened is the start date, and it will switch to the end date selection after selection. The focus is reset when the panel is closed.</div>
+    <div>We recommend providing a clear button, when you pass null value to DatePicker, DatePicker will also reset focus internally. This allows the user to reselect the date range after clearing. (from v2.15)</div>
+</Notice>
+
+```jsx live=true hideInDSM
+import React, { useState, useCallback, useMemo } from 'react';
+import { DatePicker, Button, Icon } from '@douyinfe/semi-ui';
+import { IconClose, IconChevronDown } from '@douyinfe/semi-icons';
+
+function Demo() {
+    const [date, setDate] = useState();
+    const formatToken = 'yyyy-MM-dd HH:mm:ss';
+    const onChange = useCallback(date => {
+        setDate(date);
+        console.log(date);
+    }, []);
+    const onClear = useCallback(e => {
+        e && e.stopPropagation();
+        setDate();
+    }, []);
+
+    const closeIcon = useMemo(() => {
+        return date ? <IconClose onClick={onClear} /> : <IconChevronDown />;
+    }, [date]);
+
+    const triggerContent = (placeholder) => {
+        if (Array.isArray(date) && date.length) {
+            return `${dateFns.format(date[0], formatToken)} ~ ${dateFns.format(date[1], formatToken)}`;
+        } else {
+            return 'Please select a date range';
+        }
+    };
+
+    return (
+        <DatePicker
+            type='dateTimeRange'
+            onChange={onChange}
+            value={date}
+            triggerRender={({ placeholder }) => (
+                <Button theme={'light'} icon={closeIcon} iconPosition={'right'}>
+                    {triggerContent(placeholder)}
                 </Button>
             )}
         />
@@ -667,7 +796,7 @@ function Demo() {
 
 `dayStatus` is this status of current date box. The included keys are as follows.
 
-```tsx
+```md
 type DayStatusType = {
     isToday?: boolean,
     isSelected?: boolean,
@@ -736,20 +865,20 @@ function Demo() {
 
 ## API Reference
 
-| Properties         | Instructions                                                                                                                                                                              | Type                                             | Default | Version    |
-|--------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------|---------|------------|
-| autoAdjustOverflow | Whether the floating layer automatically adjusts its direction when it is blocked                                                                                                         | boolean                                          | true    | **0.34.0** |
-| autoFocus          | Automatic access to focus                                                                                                                                                                 | boolean                                          | false   | **1.10.0** |
-| autoSwitchDate     | When false is passed in, the date will not be automatically switched when the year and year are changed through the left and right buttons on the top of the panel and the drop-down menu | boolean                                          | true    | **1.13.0** |
-| bottomSlot         | Render the bottom extra area                                                                                                                                                              | ReactNode                                        |         | **1.22.0** |
-| className          | Class name                                                                                                                                                                                | string                                           | -       |            |
-| defaultOpen        | Panel displays or hides by default                                                                                                                                                        | boolean                                          | false   |            |
-| defaultPickerValue | Default panel date                                                                                                                                                                        | string\|Date\|number\|string[]\|Date[]\|number[] |         |            |
-| defaultValue       | Default                                                                                                                                                                                   | string                                                                                                                                                                                                    | Date\|number\|string[]\|Date[]\|number[]                                              |                           |  |
+| Properties         | Instructions                                                                                                                                                                           | Type      | Default | Version    |
+|--------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------|---------|------------|
+| autoAdjustOverflow | Whether the floating layer automatically adjusts its direction when it is blocked                                                                                                      | boolean   | true    | **0.34.0** |
+| autoFocus          | Automatic access to focus                                                                                                                                                              | boolean   | false   | **1.10.0** |
+| autoSwitchDate     | When the year and month are changed through the left and right buttons and the drop-down menu at the top of the panel, the date is automatically switched. Only valid for `date` type. | boolean   | true    | **1.13.0** |
+| bottomSlot         | Render the bottom extra area                                                                                                                                                           | ReactNode |         | **1.22.0** |
+| className          | Class name                                                                                                                                                                             | string    | -       |            |
+| defaultOpen        | Panel displays or hides by default                                                                                                                                                     | boolean   | false   |            |
+| defaultPickerValue | Default panel date                                                                                                                                                                     | ValueType |         |            |
+| defaultValue       | Default value                                                                                                                                                                            | ValueType                                                                                                                                                                                                    |                                             |                           |  |
 | density            | Density of picker panel, one of `default`, `compact`                                                                 | string                                                                                                                                                                                                    | default                                        | **1.17.0**              |
 | disabled           | Is it disabled?                                                                                                                                                                           | boolean                                                                                                                                                                                                   | false                                                                                 |                           |
-| disabledDate       | The date is prohibited from the judgment method, and the date is prohibited when returned to true. Options parameter supported after 1.9.0 and rangeEnd supported after 1.29            | (date: Date, options: { rangeStart: string, rangeEnd: string }) => boolean                                                                                                                                                  | () = > false                                                                          |                           |
-| disabledTime       | Time prohibition configuration, the return value will be transparently passed to [`TimePicker`](/en-US/input/timepicker#API_Reference) as a parameter                                | (date: Date \| Date[], panelType?: string) => ({ <br/>disabledHours:() => number[], <br/>disabledMinutes: (hour: number) => number[], <br/>disabledSeconds: (hour: number, minute: number) => number[] }) | () => false                                                                           | **0.36.0**                |
+| disabledDate       | The date is prohibited from the judgment method, and the date is prohibited when returned to true. Options parameter supported after 1.9.0, rangeEnd supported after 1.29 and rangeInputFocus is supported since 2.22            | <ApiType detail='(date: Date, options: { rangeStart: string, rangeEnd: string, rangeInputFocus: "rangeStart" \| "rangeEnd" \| false }) => boolean'>(date, options) => boolean</ApiType>     | () = > false                                                                          |                           |
+| disabledTime       | Time prohibition configuration, the return value will be transparently passed to [`TimePicker`](/en-US/input/timepicker#API_Reference) as a parameter    | <ApiType detail='(date: Date \| Date[], panelType?: string) => ({ disabledHours:() => number[], disabledMinutes: (hour: number) => number[], disabledSeconds: (hour: number, minute: number) => number[] })'>(date, panelType) => object</ApiType> | () => false        | **0.36.0**                |
 | disabledTimePicker | Disable time selection or not.                                                                                                                                                            | boolean                                                                                                                                                                                                   |                                                                                       | **0.32.0**                |
 | dropdownClassName  | CSS classname for drop-down menu                                                                                                                                                          | string                                                               |                                 | **1.13.0** |
 | dropdownStyle      | Inline style of drop-down menu                                                                                                                                                           | object                                                               |                                  | **1.13.0** |
@@ -757,16 +886,19 @@ function Demo() {
 | format             | Date string format displayed in the input box                                                                                                                                             | string                                                                                                                                                                                                    | Corresponding to type: For details, see [Date and Time Format](#Date%20and%20Time%20Format) |                           |
 | getPopupContainer | Specifies the parent DOM, and the bullet layer will be rendered to the DOM, you need to set 'position: relative` | function():HTMLElement | () = > document.body |
 | inputReadOnly      | Is the text box readonly                                                                                                                                                                  | boolean                                                                                                                                                                                                   | false                                                                                 |                           |
+| insetInput        | Whether the input box is embedded in the panel                                                                                                                                            | boolean                                                                                                                                                                                                   | false                                                                                 | **2.7.0**                          |
 | inputStyle         | Input box style                                                                                                                                                                           | object                                                                                                                                                                                                    |                                                                                       |                           |
 | insetLabel         | Prefix label, lower priority than `prefix`                                                                                                                                                | string\|ReactNode                                                                                                                                                                                         |                                                                                       |                           |
 | max                | When multiple is set to true, the number of selected, non-pass or value is null\|undefined, unlimited.                                                                                     | number                                                                                                                                                                                                    | -                                                                                     |                           |
 | multiple           | Whether you can choose multiple, only type = "date" is supported                                                                                                                          | boolean                                                                                                                                                                                                   | false                                                                                 |                           |
-| needConfirm        | Do you need to "confirm selection", only `type= "dateTime"|"dateTimeRange"` works.                                                                                                        | boolean                                                                                                                                                                                                   |                                                                                       | **0.18.0**                |
+| needConfirm        | Do you need to "confirm selection", only `type= "dateTime"\| "dateTimeRange"` works.       | boolean                                                                                                                                                                                                   |                                                                                       | **0.18.0**                |
 | open               | Controlled properties displayed or hidden by panels                                                                                                                                       | boolean                                                                                                                                                                                                   |                                                                                       |                           |
 | placeholder        | Input box prompts text                                                                                                                                                                    | string                                                                                                                                                                                                    | 'Select date'                                                                         |                           |
 | position           | Floating layer position, optional value with [Popover #API Reference · position](/en-US/show/popover#API%20Reference)                                                                 | string                                                                                                                                                                                                    | 'bottomLeft'                                                                          |                           |
 | prefix             | Prefix content                                                                                                                                                                            | string\|ReactNode                                                                                                                                                                                         |                                                                                       |                           |
-| presets            | Date Time Shortcut                                                                                                                                                                        | Array < {start: string\|Date\|number, end: string\|Date\|number, text: string}\| function(): {start: string\|Date\|number, end: string\|Date\|number, text: string} >                                     | []                                                                                    |                           |
+| presets            | Date Time Shortcut     |  <ApiType detail='Array< { start: BaseValueType, end :BaseValueType, text: string } \| () => { start:B aseValueType, end: BaseValueType, text: string }>'>Array</ApiType>                                  | []                                                                                    |                           |
+| preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
+| presetPosition     | Date time shortcut panel position, optional 'left', 'right', 'top', 'bottom' | 'bottom' | **2.18.0** |
 | rangeSeparator     | Custom range type picker separator of input trigger | string | '~' | **1.31.0** 
 | renderDate         | Custom date display content                                                                                                                                                               | (dayNumber, fullDate) => ReactNode                                                                                                                                                                        | -                                                                                     | **1.4.0**            |
 | renderFullDate     | Custom display date box                                                                                                                                                                   | (dayNumber, fullDate, dayStatus) => ReactNode                                                                                                                                                             | -                                                                                     | **1.4.0**            |
@@ -777,19 +909,51 @@ function Demo() {
 | syncSwitchMonth    | In the scene of range, it supports synchronous switching of the month of the dual panel|boolean|false|**1.28.0**|
 | timePickerOpts     | For other parameters that can be transparently passed to the time selector, see [TimePicker·API Reference](/en-US/input/timepicker#API%20Reference)                                    |                                                                                                                                                                                                           | object                                                                                | **1.1.0**                 |
 | topSlot            | Render the top extra area                                                                                 | ReactNode                                                                                                                                                                                                 |                                                | **1.22.0**                   |
-| triggerRender      | Custom trigger rendering method                                                                                                                                                           | ({ placeholder: string }) => ReactNode                                                                                                                                                                    |                                                                                       | **0.34.0**                |
-| type               | Type, optional value: "date", "dateRange", "dateTime", "dateTimeRange", "month"                                                                                                           | string                                                                                                                                                                                                    | 'date'                                                                                | (type "month") **0.21.0** |
-| value              | Controlled value                                                                                                                                                                          | string\| Date\|number\| string[]\|Date[]\|number[]                                                                                                                                                        |                                                                                       |                           |
+| triggerRender      | Custom trigger rendering method                                                                                                                                                           | (TriggerRenderProps) => ReactNode                                                                                                                                                                    |                                                                                       | **0.34.0**                |
+| type               | Type, optional value: "date", "dateRange", "dateTime", "dateTimeRange", "month"                                                                                                           | string                                                                                                                                                                                                    | 'date'                                                                                |  |
+| value              | Controlled value                                                                                                                                                                          | ValueType                                                                                                                                                     |                                                                                       |                           |
 | weekStartsOn       | Take the day of the week as the first day of the week, 0 for Sunday, 1 for Monday, and so on.                                                                                             | number                                                                                                                                                                                                    | 0                                                                                     |                           |
-| onBlur             | Callback when focus is lost                                                                                                                                                               | (e: domEvent) => void                                                                                                                                                                                     | () => {}                                                                              | **1.0.0**                 |
-| onCancel           | Cancel the callback when selected, enter the reference as the value of the last confirmed selection, only `type` equals "dateTime"or "dateTimeRange" and `needConfirm` equals true        | (date: Date\|Date[], dateStr: string\|string[]) => void) <br/>Before 1.0.0, it was (dateStr: string\|string [], date: Date\|Date[]) => void                                                               |                                                                                       | **0.18.0**                |
-| onChange           | A callback when the value changes                                                                                                                                                         | (date: Date\|Date[], dateStr: string\|string[]) => void) <br/>Before 1.0.0, it was (dateStr: string\|string [], date: Date\|Date[]) => void                                                               |                                                                                       |                           |
-| onClear            | A callback when click the clear button                                                                                                                                                    | (e: domEvent) => void                                                                                                                                                                                     | () => {}                                                                              | **1.16.0**           |
-| onConfirm          | Confirm the callback at the time of selection, enter the reference as the value of the current selection, only `type` equals "dateTime" or "dateTimeRange" and `needConfirm` equals true  | (date: Date\|Date[], dateStr: string\|string[]) => void) <br/>Before 1.0.0, it was (dateStr: string\|string [], date: Date\|Date[]) => void                                                               |                                                                                       | **0.18.0**                |
-| onFocus            | Callback when focus is obtained                                                                                                                                                           | (e: domEvent) => void                                                                                                                                                                                     | () => {}                                                                              | **1.0.0**                 |
-| onOpenChange       | Panel displays or hides callbacks to state switches                                                                                                                                       | (status: boolean) => void                                                                                                                                                                                 |                                                                                       |                           |
-| onPanelChange      | Callback when the year or date of the panel is switched|(date: DateType\|DateType[], dateStr: StringType\|StringType[])=>void|true|**1.28.0**|
-| onPresetClick      | Callback when click preset button                                                                          | (item: Object, e: Event) => void                                                                                                                                                                                 | () => {}                                               |   **1.24.0**                           |
+| onBlur             | Callback when focus is lost                                                                                                                                                               | (event) => void                                                                                                                                                                                     | () => {}                                                                              | **1.0.0**                 |
+| onCancel           | Cancel the callback when selected, enter the reference as the value of the last confirmed selection, only `type` equals "dateTime"or "dateTimeRange" and `needConfirm` equals true        | <ApiType detail='(date: DateType, dateStr: StringType) => void'>(date, dateString) => void</ApiType>                                                              |                                                                                       | **0.18.0**                |
+| onChange           | A callback when the value changes |   <ApiType detail='(date: DateType, dateString: StringType) => void'>(date, dateString) => void</ApiType>       |                                                                                       |                           |
+| onClear            | A callback when click the clear button                                                                                                                                                    | (event) => void                                                                                                                                                                                     | () => {}                                                                              | **1.16.0**           |
+| onConfirm          | Confirm the callback at the time of selection, enter the reference as the value of the current selection, only `type` equals "dateTime" or "dateTimeRange" and `needConfirm` equals true  |  <ApiType detail='(date: DateType, dateStr: StringType) => void'>(date, dateString) => void</ApiType>|                                                                                       | **0.18.0**                |
+| onFocus            | Callback when focus is obtained                                                                                                                                                           | (event) => void                                                                                                                                                                                     | () => {}                                                                              | **1.0.0**                 |
+| onOpenChange       | Callback when popup open or close                                                                                                                                 | (isOpen) => void                                                                                                                                                                                 |                                                                                       |                           |
+| onPanelChange      | Callback when the year or date of the panel is switched|  <ApiType detail='(date: DateType \| DateType[], dateStr: StringType \| StringType[])=>void'>(date, dateStr) => void</ApiType>  |  |**1.28.0**|
+| onPresetClick      | Callback when click preset button                                                                          | <ApiType detail='(item: Object, e: Event) => void'>(item, e) => void</ApiType>       |   **1.24.0**                           |
+| yearAndMonthOpts | Other parameters that can be transparently passed to the year-month selector, see details in [ScrollList#API](/zh-CN/show/scrolllist#ScrollItem)|  | object | **2.22.0** |
+
+
+## Interface Define
+
+```typescript
+type BaseValueType = string | number | Date;
+type ValueType = BaseValueType | BaseValueType[];
+type DateType = Date | Date[];
+type StringType = string | string[];
+type TriggerRenderProps = {
+    value?: ValueType;
+    inputValue?: string;
+    placeholder?: string | string[];
+    autoFocus?: boolean;
+    size?: InputSize;
+    disabled?: boolean;
+    inputReadOnly?: boolean;
+    componentProps?: DatePickerProps;
+    [x: string]: any;
+};
+```
+
+## Accessibility
+
+### ARIA
+
+- When a date is not selected, the `aria-label` of the trigger is `Choose date`, and when a date is selected, the `aria-label` of the trigger is `Change date`
+- The role of the month in the date panel is `grid`, the role of the week is set to `row`, and the date cell is set to `gridcell`
+- `aria-disabled` is true for the corresponding option when date and time are disabled
+- When multi-selected, `aria-multiselectable` of month is true, and `aria-selected` of date grid is true when selected
+- Some decorative icons in the panel, their `aria-hidden` is true
 
 ## Date and Time Format
 
@@ -815,6 +979,12 @@ Multiple dates or times are used by default `","` (English comma) separated.
 
 > More token available [Date-fns official website](https://date-fns.org/v2.9.0/docs/Unicode-Tokens)
 
+## Content Guidelines
+
+- Date picker is recommended to be used with tags
+- Use concise labels to indicate what the date selection refers to
+- Please refer to [Date and Time](/en-US/start/content-guidelines#8.%20%E6%97%A5%E6%9C%9F%E4%B8%8E%E6%97%B6%E9%97%B4)
+
 ## Design Tokens
 <DesignToken/>
 
@@ -825,3 +995,7 @@ Multiple dates or times are used by default `","` (English comma) separated.
 
 -   **How to set the default display time when the panel is opened?**  
     You can use the defaultPickerValue property.
+
+- **Date time selection, range date selection, after inputting some dates, the panel does not echo the date?**
+
+     The input box needs to be entered completely before it is showed to the panel. For example, for `dateTime` type, the full requested date and time have been entered. For `dateRange` type, full requires start and end dates to be entered.

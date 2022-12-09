@@ -87,6 +87,7 @@ export const toIANA = (tz: string | number) => {
  * @param {string} [options.timeZone]
  * @returns {Date}
  */
+/* istanbul ignore next */
 const parse = (date: string | number | Date, formatToken: string, options?: any) => {
     if (typeof date === 'string') {
         date = dateFnsParse(date, formatToken, new Date(), options);
@@ -106,6 +107,7 @@ const parse = (date: string | number | Date, formatToken: string, options?: any)
  * @param {object} [options]
  * @param {string} [options.timeZone]
  */
+/* istanbul ignore next */
 const format = (date: string | number | Date, formatToken: string, options?: any) => {
     if (options && options.timeZone != null && options.timeZone !== '') {
         const timeZone = toIANA(options.timeZone);

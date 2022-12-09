@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-to-interactive-role */
 import React, { ReactInstance } from 'react';
 import ReactDOM from 'react-dom';
 import cls from 'classnames';
@@ -31,7 +32,7 @@ export interface MonthCalendarState {
     itemLimit: number;
     showCard: Record<string, [boolean] | [boolean, string]>;
     parsedEvents: MonthlyEvent;
-    cachedKeys: Array<string>;
+    cachedKeys: Array<string>
 }
 
 export default class monthCalendar extends BaseComponent<MonthCalendarProps, MonthCalendarState> {
@@ -180,16 +181,16 @@ export default class monthCalendar extends BaseComponent<MonthCalendarProps, Mon
         const { markWeekend, displayValue } = this.props;
         this.monthlyData = this.foundation.getMonthlyData(displayValue, dateFnsLocale);
         return (
-            <div className={`${prefixCls}-header`}>
-                <div role="gridcell" className={`${prefixCls}-grid`}>
-                    <ul className={`${prefixCls}-grid-row`}>
+            <div className={`${prefixCls}-header`} role="presentation">
+                <div role="presentation" className={`${prefixCls}-grid`}>
+                    <ul role="row" className={`${prefixCls}-grid-row`}>
                         {this.monthlyData[0].map(day => {
                             const { weekday } = day;
                             const listCls = cls({
                                 [`${cssClasses.PREFIX}-weekend`]: markWeekend && day.isWeekend,
                             });
                             return (
-                                <li key={`${weekday}-monthheader`} className={listCls}>
+                                <li role="columnheader" aria-label={weekday} key={`${weekday}-monthheader`} className={listCls}>
                                     <span>{weekday}</span>
                                 </li>
                             );
@@ -268,7 +269,7 @@ export default class monthCalendar extends BaseComponent<MonthCalendarProps, Mon
         const pos = showCard && showCard[key] ? showCard[key][1] : 'leftTopOver';
         const text = (
             <LocaleConsumer componentName="Calendar">
-                {(locale: Locale['Calendar']) => (
+                {(locale: Locale['Calendar']) => (// eslint-disable-next-line jsx-a11y/no-static-element-interactions
                     <div
                         className={`${cardCls}-wrapper`}
                         style={{ bottom: 0 }}
@@ -330,8 +331,8 @@ export default class monthCalendar extends BaseComponent<MonthCalendarProps, Mon
         const { itemLimit } = this.state;
         const { display, day } = events;
         return (
-            <div role="gridcell" className={`${prefixCls}-weekrow`} ref={this.cellDom} key={`${index}-weekrow`}>
-                <ul className={`${prefixCls}-skeleton`}>
+            <div role="presentation" className={`${prefixCls}-weekrow`} ref={this.cellDom} key={`${index}-weekrow`}>
+                <ul role="row" className={`${prefixCls}-skeleton`}>
                     {weekDay.map(each => {
                         const { date, dayString, isToday, isSameMonth, isWeekend, month, ind } = each;
                         const listCls = cls({
@@ -341,7 +342,7 @@ export default class monthCalendar extends BaseComponent<MonthCalendarProps, Mon
                         });
                         const shouldRenderCollapsed = Boolean(day && day[ind] && day[ind].length > itemLimit);
                         const inner = (
-                            <li key={`${date}-weeksk`} className={listCls} onClick={e => this.handleClick(e, [date])}>
+                            <li role="gridcell" aria-label={date.toLocaleDateString()} aria-current={isToday ? "date" : false} key={`${date}-weeksk`} className={listCls} onClick={e => this.handleClick(e, [date])}>
                                 {this.formatDayString(month, dayString)}
                                 {this.renderCusDateGrid(date)}
                             </li>
@@ -362,8 +363,8 @@ export default class monthCalendar extends BaseComponent<MonthCalendarProps, Mon
     renderMonthGrid = () => {
         const { parsedEvents } = this.state;
         return (
-            <div role="gridcell" className={`${prefixCls}-week`}>
-                <ul className={`${prefixCls}-grid-col`}>
+            <div role="presentation" className={`${prefixCls}-week`}>
+                <ul role="presentation" className={`${prefixCls}-grid-col`}>
                     {Object.keys(this.monthlyData).map(weekInd =>
                         this.renderWeekRow(weekInd, this.monthlyData[weekInd], parsedEvents[weekInd])
                     )}
@@ -383,12 +384,12 @@ export default class monthCalendar extends BaseComponent<MonthCalendarProps, Mon
         return (
             <LocaleConsumer componentName="Calendar">
                 {(locale: Locale['Calendar'], localeCode: string, dateFnsLocale: Locale['dateFnsLocale']) => (
-                    <div className={monthCls} key={this.state.itemLimit} style={monthStyle}>
-                        <div className={`${prefixCls}-sticky-top`}>
+                    <div role="grid" className={monthCls} key={this.state.itemLimit} style={monthStyle}>
+                        <div role="presentation" className={`${prefixCls}-sticky-top`}>
                             {header}
                             {this.renderHeader(dateFnsLocale)}
                         </div>
-                        <div className={`${prefixCls}-grid-wrapper`}>
+                        <div role="presentation" className={`${prefixCls}-grid-wrapper`}>
                             {this.renderMonthGrid()}
                         </div>
                     </div>

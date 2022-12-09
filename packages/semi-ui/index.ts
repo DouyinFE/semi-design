@@ -12,6 +12,7 @@ export { default as ButtonGroup } from './button/buttonGroup';
 export { default as Calendar } from './calendar';
 export { default as Card } from './card';
 export { default as CardGroup } from './card/cardGroup';
+export { default as Carousel } from './carousel';
 export { default as Cascader } from './cascader';
 export { default as Checkbox } from './checkbox';
 export { default as CheckboxGroup } from './checkbox/checkboxGroup';
@@ -20,6 +21,7 @@ export { default as Collapsible } from './collapsible';
 export { default as ConfigProvider } from './configProvider';
 export { default as DatePicker } from './datePicker';
 export { default as Descriptions } from './descriptions';
+export { default as Divider } from './divider';
 export { default as Empty } from './empty';
 export { default as Modal } from './modal';
 export { default as Dropdown } from './dropdown';
@@ -77,8 +79,10 @@ export { default as TreeSelect } from './treeSelect';
 export { default as Upload } from './upload';
 export { default as Typography } from './typography';
 export { default as Transfer } from './transfer';
+export { default as Highlight } from './highlight';
 
 export { default as LocaleProvider } from './locale/localeProvider';
+export { default as LocaleConsumer } from './locale/localeConsumer';
 
 /** Form */
 export {
@@ -92,3 +96,6 @@ export {
     withField,
     ArrayField,
 } from './form';
+
+export { default as Image } from './image'; 
+export { Preview as ImagePreview } from './image';

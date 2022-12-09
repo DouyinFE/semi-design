@@ -1,10 +1,6 @@
 /* eslint-disable no-param-reassign */
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
-
-const KeyCode = {
-    LEFT: 37,
-    RIGHT: 39
-};
+import warning from '../utils/warning';
 
 export interface RatingAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     focus: () => void;
@@ -15,6 +11,7 @@ export interface RatingAdapter<P = Record<string, any>, S = Record<string, any>>
     notifyFocus: (e: any) => void;
     notifyBlur: (e: any) => void;
     notifyKeyDown: (e: any) => void;
+    setEmptyStarFocusVisible: (focusVisible: boolean) => void
 }
 
 export default class RatingFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<RatingAdapter<P, S>, P, S> {
@@ -121,37 +118,101 @@ export default class RatingFoundation<P = Record<string, any>, S = Record<string
     }
 
     handleKeyDown(event: any, value: number) {
-        const { keyCode } = event;
+        const { key } = event;
         const { count, allowHalf } = this.getProps();
         const direction = this._adapter.getContext('direction');
         const reverse = direction === 'rtl';
-        if (keyCode === KeyCode.RIGHT && value < count && !reverse) {
-            if (allowHalf) {
-                value += 0.5;
-            } else {
-                value += 1;
-            }
-        } else if (keyCode === KeyCode.LEFT && value > 0 && !reverse) {
-            if (allowHalf) {
-                value -= 0.5;
-            } else {
-                value -= 1;
-            }
-        } else if (keyCode === KeyCode.RIGHT && value > 0 && reverse) {
-            if (allowHalf) {
-                value -= 0.5;
-            } else {
-                value -= 1;
-            }
-        } else if (keyCode === KeyCode.LEFT && value < count && reverse) {
-            if (allowHalf) {
-                value += 0.5;
-            } else {
-                value += 1;
-            }
+        const step = allowHalf ? 0.5 : 1;
+        let tempValue: number;
+        let newValue: number;
+        if (key === 'ArrowRight' || key === 'ArrowUp') {
+            tempValue = value + (reverse ? - step : step);
+        } else if (key === 'ArrowLeft' || key === 'ArrowDown') {
+            tempValue = value + (reverse ? step : - step);
         }
-        this._adapter.updateValue(value);
-        event.preventDefault();
-        this._adapter.notifyKeyDown(event);
+        if (tempValue > count) {
+            newValue = 0;
+        } else if (tempValue < 0) {
+            newValue = count;
+        } else {
+            newValue = tempValue;
+        }
+        if (['ArrowRight', 'ArrowUp', 'ArrowLeft', 'ArrowDown'].includes(key)) {
+            this._adapter.notifyKeyDown(event);
+            this._adapter.updateValue(newValue);
+            this.changeFocusStar(newValue, event);
+            event.preventDefault();
+            this._adapter.notifyHoverChange(undefined, null);
+        }
+    }
+
+    changeFocusStar(value: number, event: any) {
+        const { count, allowHalf, preventScroll } = this.getProps();
+        const index = Math.ceil(value) - 1;
+        const starElement = [...event.currentTarget.childNodes].map(item => item.childNodes[0].childNodes);
+        if (index < 0) {
+            starElement[count][0].focus({ preventScroll });
+        } else {
+            starElement[index][allowHalf ? (value * 10 % 10 === 5 ? 0 : 1) : 0].focus({ preventScroll });
+        }
+    }
+
+    handleStarFocusVisible = (event: any) => {
+        const { target } = event;
+        const { count } = this.getProps();
+        // when rating 0 is focus visible
+        try {
+            if (target.matches(':focus-visible')) {
+                this._adapter.setEmptyStarFocusVisible(true);
+            }
+        } catch (error) {
+            warning(true, 'Warning: [Semi Rating] The current browser does not support the focus-visible'); 
+        }
+    }
+
+    // e: FocusEvent
+    handleStarBlur = (e: any) => {
+        const { emptyStarFocusVisible } = this.getStates();
+        if (emptyStarFocusVisible) {
+            this._adapter.setEmptyStarFocusVisible(false);
+        } 
+    }
+}
+
+export interface RatingItemAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
+    setFirstStarFocus: (value: boolean) => void;
+    setSecondStarFocus: (value: boolean) => void
+}
+
+export class RatingItemFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<RatingItemAdapter<P, S>, P, S> {
+
+    constructor(adapter: RatingItemAdapter<P, S>) {
+        super({ ...RatingItemFoundation.defaultAdapter, ...adapter });
+    }
+
+    handleFocusVisible = (event: any, star: string) => {
+        const { target } = event;
+        // when rating 0 is focus visible
+        try {
+            if (target.matches(':focus-visible')) {
+                if (star === 'first') {
+                    this._adapter.setFirstStarFocus(true);
+                } else {
+                    this._adapter.setSecondStarFocus(true);
+                }
+            }
+        } catch (error) {
+            warning(true, 'Warning: [Semi Rating] The current browser does not support the focus-visible'); 
+        }
+    }
+
+    // e: FocusEvent
+    handleBlur = (e: any, star: string) => {
+        const { firstStarFocus, secondStarFocus } = this.getStates();
+        if (star === 'first') {
+            firstStarFocus && this._adapter.setFirstStarFocus(false);
+        } else {
+            secondStarFocus && this._adapter.setSecondStarFocus(false);
+        }
     }
 }

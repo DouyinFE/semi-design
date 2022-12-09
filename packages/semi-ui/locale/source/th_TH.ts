@@ -154,6 +154,22 @@ const local: Locale = {
         total: 'รวม ${total} รายการ',
         selected: 'เลือก ${total} รายการ',
     },
+    Form: {
+        optional: '(ไม่จำเป็น)',
+    },
+    Image: {
+        preview: 'ดูตัวอย่าง',
+        loading: 'กำลังโหลด',
+        loadError: 'โหลดไม่สำเร็จ',
+        prevTip: 'ก่อนหน้า',
+        nextTip: 'ถัดไป',
+        zoomInTip: 'ซูมเข้า',
+        zoomOutTip: 'ซูมออก',
+        rotateTip: 'หมุน',
+        downloadTip: 'ดาวน์โหลด',
+        adaptiveTip: 'ปรับให้เข้ากับหน้า',
+        originTip: 'ขนาดเดิม',
+    },
 };
 
 // [i18n-Thai]

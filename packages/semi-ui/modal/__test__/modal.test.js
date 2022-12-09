@@ -287,7 +287,7 @@ describe('modal', () => {
     it('centered without motion', () => {
         let com = getModal({ centered: true, visible: true, motion: false });
         let modal = mount(com, { attachTo: document.getElementById('container') });
-        expect(modal.find(`div.${BASE_CLASS_PREFIX}-modal`)).toHaveStyle({ transform: 'translateY(-50%)', top: '50%' });
+        expect(modal.find(`div.${BASE_CLASS_PREFIX}-modal-wrap`)).toHaveClassName(`${BASE_CLASS_PREFIX}-modal-wrap-center`)
     });
 
     it('keepDOM', () => {
@@ -302,7 +302,7 @@ describe('modal', () => {
         // set false but still exist
         modal.setProps({ visible: false });
         modal.update(); // 必须调用一次update
-        expect(modal.state().hidden).toEqual(true);
+        expect(modal.state().displayNone).toEqual(true);
         expect(modal.exists(`div.${BASE_CLASS_PREFIX}-modal`)).toEqual(true);
     });
 
@@ -318,7 +318,7 @@ describe('modal', () => {
         // set false but still exist
         modal.setProps({ visible: false });
         modal.update(); // 必须调用一次update
-        expect(modal.state().hidden).toEqual(true);
+        expect(modal.state().displayNone).toEqual(true);
         expect(modal.exists(`div.${BASE_CLASS_PREFIX}-modal`)).toEqual(true);
     });
 })

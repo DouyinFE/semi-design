@@ -552,6 +552,17 @@ describe('TreeSelect', () => {
         searchWrapper.find('input').simulate('change', event);
         expect(spyOnSearch.calledOnce).toBe(true);
         expect(spyOnSearch.calledWithMatch(searchValue)).toBe(true);
+
+        /* Check the input parameters of onSearch */
+        searchValue = '北京';
+        event = { target: { value: searchValue } };
+        searchWrapper.find('input').simulate('change', event);
+        expect(spyOnSearch.callCount).toBe(2);
+        const firstCall = spyOnSearch.getCall(1);
+        const args = firstCall.args;
+        expect(args[0]).toEqual('北京');
+        expect(args[1].includes('yazhou')).toEqual(true);
+        expect(args[1].includes('zhongguo')).toEqual(true);
     });
 
     it('filterTreeNode shows correct result', () => {
@@ -937,4 +948,21 @@ describe('TreeSelect', () => {
         ).toEqual(0);
     });
 
+    it('expandedKeys controlled + filterTreeNode', () => {
+        const spyOnExpand = sinon.spy(() => { });
+        const treeSelect = getTreeSelect({
+            expandedKeys: [],
+            onExpand: spyOnExpand,
+            filterTreeNode: true,
+        });
+        const searchWrapper = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-search-wrapper`);
+        const searchValue = '北京';
+        const event = { target: { value: searchValue } };
+        searchWrapper.find('input').simulate('change', event);
+        expect(spyOnExpand.callCount).toBe(0);
+        /* filter won't impact on the expansion of node when expandedKeys is controlled */
+        const topNode = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-1`);
+        expect(topNode.at(0).hasClass(`${BASE_CLASS_PREFIX}-tree-option-collapsed`)).toEqual(true);
+        expect(topNode.at(1).hasClass(`${BASE_CLASS_PREFIX}-tree-option-collapsed`)).toEqual(true);
+    });
 })

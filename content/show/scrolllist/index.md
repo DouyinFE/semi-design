@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 55
+order: 60
 category: 展示类
 title: ScrollList 滚动列表
 icon: doc-scrolllist
@@ -145,16 +145,17 @@ class ScrollListDemo extends React.Component {
 
 ### ScrollItem
 
-| 属性        | 说明                                        | 类型                    | 默认值 |
-| ----------- | ------------------------------------------- | ----------------------- | ------ |
-| className   | 样式类名 | string             | ''  |
-| cycled      | 是否为无限循环，仅在 mode 为 "wheel" 时生效 | boolean             | false  |
-| list        | 列表内容                                    | [ItemData](#ItemData)[] | []     |
-| motion      | 是否开启滚动动画                            | Motion                 | true   |
-| onSelect    | 选中回调                                    | (data: [ItemData](#ItemData)) => void                | NOOP   |
-| selectIndex | 选中项的索引                                | number                  | 0      |
-| style       | 内联样式                                   | CSSProperties                  | {}      |
-| transform   | 对选中项的变换，返回值会作为文案进行显示    | (value: any, text: string) => string                | v => v |
+| 属性        | 说明                                                | 类型                                | 默认值 |
+| ----------- | -------------------------------------------------- | ----------------------------------- | ------ |
+| className   | 样式类名 | string                                   | ''                                  |
+| cycled      | 是否为无限循环，仅在 mode 为 "wheel" 时生效 | boolean  | false                                |
+| list        | 列表内容                                            | [ItemData](#ItemData)[]              | []     |
+| mode        | 模式选择                                            | "normal" \| "wheel"                  | "wheel"|
+| motion      | 是否开启滚动动画                                     | Motion                                | true   |
+| onSelect    | 选中回调                                            | (data: [ItemData](#ItemData)) => void| NOOP   |
+| selectIndex | 选中项的索引                                         | number                               | 0      |
+| style       | 内联样式                                            | CSSProperties                        | {}      |
+| transform   | 对选中项的变换，返回值会作为文案进行显示                  | (value: any, text: string) => string | v => v |
 
 #### ItemData
 
@@ -164,6 +165,15 @@ class ScrollListDemo extends React.Component {
 | text | 每一项的文案 | string |  |
 | transform | 该项处于选中状态时的变换，返回值会作为文案进行显示，ScrollItem 组件如果同时传入会优先选择 ItemData 中的 transform 方法 | (value: any, text: string) => string | v => v |
 | value | 每一项的值 | any |  |
+
+
+## Accessibility
+
+### ARIA
+
+- `ScrollItem` 支持传入 `aria-label`, 指定该列标签
+- `ScrollItem` 使用 `aria-disabled` 表示该项目是否被禁用
+- `ScrollItem` 使用 `aria-selected` 表示该项目是否被选中
 
 ## 设计变量
 

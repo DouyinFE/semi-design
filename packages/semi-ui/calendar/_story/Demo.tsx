@@ -14,7 +14,7 @@ const Demo = () => {
 
             </Calendar>
         </div>
-    )
-}
+    );
+};
 
-export default Demo
+export default Demo;

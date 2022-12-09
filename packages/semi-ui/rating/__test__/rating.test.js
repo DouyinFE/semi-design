@@ -23,7 +23,7 @@ describe('Rating', () => {
 
     it('custom count', () => {
         const R1 = mount(<Rating count={10} />);
-        expect(R1.find(`.${BASE_CLASS_PREFIX}-rating`).children().length).toEqual(10);
+        expect(R1.find(`.${BASE_CLASS_PREFIX}-rating`).children().length).toEqual(11);
     });
 
     it('different sizes', () => {
@@ -61,7 +61,7 @@ describe('Rating', () => {
         };
         const R = getRating(props);
         expect(
-            R.find(`.${BASE_CLASS_PREFIX}-rating-star-first`)
+            R.find(`.${BASE_CLASS_PREFIX}-rating-star-second`)
                 .at(0)
                 .getDOMNode().textContent
         ).toEqual('赞');
@@ -85,7 +85,7 @@ describe('Rating', () => {
         expect(spyOnChange.calledWithMatch(1)).toBe(true);
     });
 
-    it('controled value', () => {
+    it('controlled value', () => {
         const R = getRating({ value: 2 });
         expect(R.state().value).toEqual(2);
         expect(R.find(`.${BASE_CLASS_PREFIX}-rating-star-full`).length).toEqual(2);
@@ -119,7 +119,7 @@ describe('Rating', () => {
             allowHalf: true
         };
         const R = getRating(props);
-        let stars = R.find('div[role="radio"]');
+        let stars = R.find(`.${BASE_CLASS_PREFIX}-rating-star-wrapper`);
         const event = {};
         stars.at(1).simulate('mouseMove', event);
         expect(spyHoverChange.calledWithMatch(2)).toBe(true);
@@ -173,20 +173,6 @@ describe('Rating', () => {
         expect(spyOnBlur.calledOnce).toBe(true);
     });
 
-    it('autoFocus &  ref.focus() & ref.blur()', () => {
-        let onFocus = () => {};
-        let spyOnFocus = sinon.spy(onFocus);
-        let props = {
-            autoFocus: true,
-        };
-        const R = getRating(props);
-        expect(document.activeElement.tagName).toEqual('UL');
-        R.instance().blur();
-        expect(document.activeElement.tagName).toEqual('BODY');
-        R.instance().focus();
-        expect(document.activeElement.tagName).toEqual('UL');
-    });
-
     it('onKeyDown', () => {
         let onKeyDown = () => {};
         let spyOnKeydown = sinon.spy(onKeyDown);
@@ -196,11 +182,9 @@ describe('Rating', () => {
         };
         const R = getRating(props);
         let ul = R.find('ul');
-        let keyCodeLeft = 37;
-        let keyCodeRight = 39;
-        ul.simulate('keyDown', { keyCode: keyCodeLeft });
+        ul.simulate('keyDown', { key: 'ArrowLeft' });
         expect(R.state().value).toEqual(1);
-        ul.simulate('keyDown', { keyCode: keyCodeRight });
+        ul.simulate('keyDown', { key: 'ArrowRight' });
         expect(R.state().value).toEqual(2);
         expect(spyOnKeydown.callCount).toEqual(2);
         let allowHalfProps = {
@@ -209,10 +193,10 @@ describe('Rating', () => {
         };
         const HalfR = getRating(allowHalfProps);
         let halfUl = HalfR.find('ul');
-        halfUl.simulate('keyDown', { keyCode: keyCodeLeft });
+        halfUl.simulate('keyDown', { key: 'ArrowLeft' });
         expect(HalfR.state().value).toEqual(2);
-        halfUl.simulate('keyDown', { keyCode: keyCodeRight });
-        halfUl.simulate('keyDown', { keyCode: keyCodeRight });
+        halfUl.simulate('keyDown', { key: 'ArrowRight' });
+        halfUl.simulate('keyDown', { key: 'ArrowRight' });
         expect(HalfR.state().value).toEqual(3);
     });
 
@@ -227,12 +211,10 @@ describe('Rating', () => {
         };
         const RWithWrapper = mount(<ConfigProvider direction='rtl'><Rating {...props}/></ConfigProvider>);
         let ul = RWithWrapper.find('ul');
-        let keyCodeLeft = 37;
-        let keyCodeRight = 39;
-        ul.simulate('keyDown', { keyCode: keyCodeLeft });
+        ul.simulate('keyDown', { key: 'ArrowLeft' });
         let R = RWithWrapper.find(Rating);
         expect(R.state().value).toEqual(3);
-        ul.simulate('keyDown', { keyCode: keyCodeRight });
+        ul.simulate('keyDown', { key: 'ArrowRight' });
         expect(R.state().value).toEqual(2);
         // allowHalf
         let allowHalfProps = {
@@ -244,10 +226,10 @@ describe('Rating', () => {
         let HalfR = HalfRWithWrapper.find(Rating);
         let stars = HalfR.find('div[role="radio"]');
 
-        halfUl.simulate('keyDown', { keyCode: keyCodeLeft });
+        halfUl.simulate('keyDown', { key: 'ArrowLeft' });
         expect(HalfR.state().value).toEqual(3);
-        halfUl.simulate('keyDown', { keyCode: keyCodeRight });
-        halfUl.simulate('keyDown', { keyCode: keyCodeRight });
+        halfUl.simulate('keyDown', { key: 'ArrowRight' });
+        halfUl.simulate('keyDown', { key: 'ArrowRight' });
         expect(HalfR.state().value).toEqual(2);
     })
 

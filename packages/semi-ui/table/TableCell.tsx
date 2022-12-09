@@ -10,9 +10,9 @@ import TableCellFoundation, { TableCellAdapter } from '@douyinfe/semi-foundation
 import { isSelectionColumn, isExpandedColumn } from '@douyinfe/semi-foundation/table/utils';
 
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
-import Context from './table-context';
+import Context, { TableContextProps } from './table-context';
 import { amendTableWidth } from './utils';
-import { Align, ColumnProps } from './interface';
+import { Align, ColumnProps, ExpandIcon } from './interface';
 
 export interface TableCellProps extends BaseProps {
     record?: Record<string, any>;
@@ -30,7 +30,7 @@ export interface TableCellProps extends BaseProps {
       * When hideExpandedColumn is true or isSection is true
       * expandIcon is a custom icon or true
       */
-    expandIcon?: ReactNode | boolean;
+    expandIcon?: ExpandIcon;
     renderExpandIcon?: (record: Record<string, any>) => ReactNode;
     hideExpandedColumn?: boolean;
     component?: any;
@@ -42,7 +42,7 @@ export interface TableCellProps extends BaseProps {
     selected?: boolean; // Whether the current row is selected
     expanded?: boolean; // Whether the current line is expanded
     disabled?: boolean;
-    colIndex?: number;
+    colIndex?: number
 }
 
 function isInvalidRenderCellText(text: any) {
@@ -100,6 +100,8 @@ export default class TableCell extends BaseComponent<TableCellProps, Record<stri
     }
 
     ref: React.MutableRefObject<any>;
+    context: TableContextProps;
+
     constructor(props: TableCellProps) {
         super(props);
         this.ref = createRef();
@@ -242,7 +244,7 @@ export default class TableCell extends BaseComponent<TableCellProps, Record<stri
         ) : null;
 
         // column.render
-        const realExpandIcon = typeof renderExpandIcon === 'function' ? renderExpandIcon(record) : expandIcon;
+        const realExpandIcon = (typeof renderExpandIcon === 'function' ? renderExpandIcon(record) : expandIcon) as React.ReactNode;
         if (render) {
             const renderOptions = {
                 expandIcon: realExpandIcon,

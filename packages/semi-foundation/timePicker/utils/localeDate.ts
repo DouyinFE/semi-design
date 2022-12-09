@@ -1,5 +1,6 @@
 import { format as dateFnsFormat, parse as dateFnsParse } from 'date-fns';
 
+/* istanbul ignore next */
 const replace = function replace(str, replacements) {
     let _str = str;
     for (const key of Object.keys(replacements)) {
@@ -11,6 +12,7 @@ const replace = function replace(str, replacements) {
     return _str;
 };
 
+/* istanbul ignore next */
 export function localeFormat(date, format, locale = {}, options = {}) {
     let str = dateFnsFormat(date, format, options);
 
@@ -19,6 +21,7 @@ export function localeFormat(date, format, locale = {}, options = {}) {
     return str;
 }
 
+/* istanbul ignore next */
 export function localeParse(dateString, format, locale = {}, defaultDate = null, options = {}) {
     // const invertedLocale = invert(locale);
 

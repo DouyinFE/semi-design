@@ -6,7 +6,7 @@ import '@douyinfe/semi-foundation/layout/layout.scss';
 import LayoutContext, { ContextType } from './layout-context';
 import Sider from './Sider';
 
-export { ResponsiveMap, SiderProps } from './Sider';
+export type { ResponsiveMap, SiderProps } from './Sider';
 
 const htmlTag = {
     Header: 'header',
@@ -20,8 +20,7 @@ function generator<P extends { type?: string; tagName?: string; role?: AriaRole;
     const typeName = type.toLowerCase();
     return (BasicComponent): ComponentClass<P> => class Adapter extends React.PureComponent<P> {
         render() {
-            return <BasicComponent role={this.props.role} aria-label={this.props['aria-label']} type={typeName}
-                tagName={tagName} {...this.props} />;
+            return <BasicComponent role={this.props.role} aria-label={this.props['aria-label']} type={typeName} tagName={tagName} {...this.props} />;
         }
     };
 }
@@ -32,6 +31,7 @@ export interface BasicProps {
     className?: string;
     tagName?: keyof HTMLElementTagNameMap;
     type?: string;
+    children?: React.ReactNode | undefined
 }
 
 class Basic extends React.PureComponent<BasicProps> {
@@ -60,12 +60,13 @@ export interface BasicLayoutProps {
     prefixCls?: string;
     style?: CSSProperties;
     className?: string;
+    children?: React.ReactNode | undefined;
     hasSider?: boolean;
-    tagName?: keyof HTMLElementTagNameMap;
+    tagName?: keyof HTMLElementTagNameMap
 }
 
 export interface BasicLayoutState {
-    siders: Array<string>;
+    siders: Array<string>
 }
 
 class Layout extends React.Component<BasicLayoutProps, BasicLayoutState> {

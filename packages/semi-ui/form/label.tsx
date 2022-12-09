@@ -2,25 +2,29 @@ import React, { PureComponent } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses } from '@douyinfe/semi-foundation/form/constants';
+import LocaleConsumer from '../locale/localeConsumer';
+import { Locale } from '../locale/interface';
 
 const prefixCls = cssClasses.PREFIX;
 
 export interface LabelProps {
+    /** text-align of label */
+    align?: string;
+    className?: string;
+    children?: React.ReactNode;
+    disabled?: boolean;
     id?: string;
     /** Whether to display the required * symbol */
     required?: boolean;
     /** Content of label */
     text?: React.ReactNode;
-    disabled?: boolean;
     /** Used to configure the htmlFor attribute of the label tag */
     name?: string;
-    /** text-align of label */
-    align?: string;
     /** width of label */
     width?: number | string;
     style?: React.CSSProperties;
-    className?: string;
     extra?: React.ReactNode;
+    optional?: boolean
 }
 
 export default class Label extends PureComponent<LabelProps> {
@@ -28,7 +32,8 @@ export default class Label extends PureComponent<LabelProps> {
         required: false,
         name: '',
         align: 'left',
-        className: ''
+        className: '',
+        optional: false,
     };
 
     static propTypes = {
@@ -43,10 +48,11 @@ export default class Label extends PureComponent<LabelProps> {
         style: PropTypes.object,
         className: PropTypes.string,
         extra: PropTypes.node,
+        optional: PropTypes.bool,
     };
 
     render() {
-        const { children, required, text, disabled, name, width, align, style, className, extra, id } = this.props;
+        const { children, required, text, disabled, name, width, align, style, className, extra, id, optional } = this.props;
 
         const labelCls = classNames(className, {
             [`${prefixCls}-field-label`]: true,
@@ -59,9 +65,18 @@ export default class Label extends PureComponent<LabelProps> {
         const labelStyle = style ? style : {};
         width ? labelStyle.width = width : null;
 
+        const optionalText = (
+            <LocaleConsumer<Locale['Form']> componentName="Form" >
+                {(locale: Locale['Form']) => (
+                    <span className={`${prefixCls}-field-label-optional-text`}>{locale.optional}</span>
+                )}
+            </LocaleConsumer>
+        );
+
         const textContent = (
-            <div className={`${prefixCls}-field-label-text`}>
+            <div className={`${prefixCls}-field-label-text`} x-semi-prop="label">
                 {typeof text !== 'undefined' ? text : children}
+                {optional ? optionalText : null}
             </div>
         );
 

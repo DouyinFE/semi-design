@@ -18,7 +18,7 @@ export type SpaceProps = {
     spacing?: Spacing | Spacing[];
     children?: ReactNode;
     style?: CSSProperties;
-    className?: string;
+    className?: string
 };
 
 class Space extends PureComponent<SpaceProps> {
@@ -85,7 +85,7 @@ class Space extends PureComponent<SpaceProps> {
         });
         const childrenNodes = flatten(children);
         return (
-            <div className={classNames} style={realStyle}>
+            <div className={classNames} style={realStyle} x-semi-prop="children">
                 {childrenNodes}
             </div>
         );

@@ -3,31 +3,21 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/tag/constants';
 import Tag from './index';
-import Popover, { PopoverProps } from '../popover/index';
-import { AvatarShape, TagProps } from './interface';
+import Popover from '../popover/index';
+import { AvatarShape, TagProps, TagGroupProps } from './interface';
 
 const prefixCls = cssClasses.PREFIX;
 const tagSize = strings.TAG_SIZE;
 const avatarShapeSet = strings.AVATAR_SHAPE;
 
-export interface TagGroupProps {
-    style?: React.CSSProperties;
-    className?: string;
-    maxTagCount?: number;
-    tagList?: (TagProps | React.ReactNode)[];
-    size?: 'small' | 'large';
-    showPopover?: boolean;
-    popoverProps?: PopoverProps;
-    avatarShape?: AvatarShape;
-    mode?: string; // TODO: This API is not in the check file
-}
-
-export default class TagGroup extends PureComponent<TagGroupProps> {
+export default class TagGroup<T> extends PureComponent<TagGroupProps<T>> {
     static defaultProps = {
         style: {},
         className: '',
         size: tagSize[0],
         avatarShape: 'square',
+        onTagClose: () => undefined,
+        onPlusNMouseEnter: () => undefined,
     };
 
     static propTypes = {
@@ -35,16 +25,18 @@ export default class TagGroup extends PureComponent<TagGroupProps> {
         style: PropTypes.object,
         className: PropTypes.string,
         maxTagCount: PropTypes.number,
+        restCount: PropTypes.number,
         tagList: PropTypes.array,
         size: PropTypes.oneOf(tagSize),
         mode: PropTypes.string,
+        onTagClose: PropTypes.func,
         showPopover: PropTypes.bool,
         popoverProps: PropTypes.object,
         avatarShape: PropTypes.oneOf(avatarShapeSet),
     };
 
-    renderNTag(n: number, restTags: (Tag | React.ReactNode)[]) {
-        const { size, showPopover, popoverProps } = this.props;
+    renderNTag(n: number, restTags: React.ReactNode) {
+        const { size, showPopover, popoverProps, onPlusNMouseEnter } = this.props;
         let nTag = (
             <Tag
                 closable={false}
@@ -52,6 +44,7 @@ export default class TagGroup extends PureComponent<TagGroupProps> {
                 color="grey"
                 style={{ backgroundColor: 'transparent' }}
                 key="_+n"
+                onMouseEnter={onPlusNMouseEnter}
             >
                 +{n}
             </Tag>
@@ -77,12 +70,12 @@ export default class TagGroup extends PureComponent<TagGroupProps> {
     }
 
     renderMergeTags(tags: (Tag | React.ReactNode)[]) {
-        const { maxTagCount, tagList } = this.props;
-        const n = tagList.length - maxTagCount;
+        const { maxTagCount, tagList, restCount } = this.props;
+        const n = restCount ? restCount : tagList.length - maxTagCount;
         let renderTags: (Tag | React.ReactNode)[] = tags;
 
         const normalTags: (Tag | React.ReactNode)[] = tags.slice(0, maxTagCount);
-        const restTags = tags.slice(maxTagCount);
+        const restTags = tags.slice(maxTagCount) as React.ReactNode;
         let nTag = null;
         if (n > 0) {
             nTag = this.renderNTag(n, restTags);
@@ -93,18 +86,33 @@ export default class TagGroup extends PureComponent<TagGroupProps> {
     }
 
     renderAllTags() {
-        const { tagList, size, mode, avatarShape } = this.props;
-        const renderTags: (Tag | React.ReactNode)[] = tagList.map((tag, index): (Tag | React.ReactNode) => {
+        const { tagList, size, mode, avatarShape, onTagClose } = this.props;
+        const renderTags = tagList.map((tag): (Tag | React.ReactNode) => {
             if (mode === 'custom') {
-                return tag;
+                return tag as React.ReactNode;
             }
-            if (!(tag as TagProps).size) {
-                (tag as TagProps).size = size;
+            const newTag = { ...(tag as TagProps) }; 
+            if (!(newTag as TagProps).size) {
+                (newTag as TagProps).size = size;
             }
-            if (!(tag as TagProps).avatarShape) {
-                (tag as TagProps).avatarShape = avatarShape;
+            
+            if (!(newTag as TagProps).avatarShape) {
+                (newTag as TagProps).avatarShape = avatarShape;
             }
-            return <Tag key={`${index}-tag`} {...(tag as TagProps)} />;
+
+            if (!(newTag as TagProps).tagKey) {
+                if (typeof (newTag as TagProps).children === 'string' || typeof (newTag as TagProps).children === 'number') {
+                    (newTag as TagProps).tagKey = (newTag as TagProps).children as string | number;
+                } else {
+                    (newTag as TagProps).tagKey = Math.random();
+                }
+            }
+            return <Tag {...(newTag as TagProps)} key={(newTag as TagProps).tagKey} onClose={(tagChildren, e, tagKey) => {
+                if ((newTag as TagProps).onClose) {
+                    (newTag as TagProps).onClose(tagChildren, e, tagKey);
+                }
+                onTagClose && onTagClose(tagChildren, e, tagKey);
+            }} />;
         });
         return renderTags;
     }
@@ -120,7 +128,7 @@ export default class TagGroup extends PureComponent<TagGroupProps> {
         }, className);
 
         const tags = this.renderAllTags();
-        const tagContents = typeof maxTagCount === 'undefined' ? tags : this.renderMergeTags(tags);
+        const tagContents = (typeof maxTagCount === 'undefined' ? tags : this.renderMergeTags(tags)) as React.ReactNode;
 
         return (
             <div style={style} className={groupCls}>

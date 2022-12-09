@@ -18,16 +18,16 @@ export interface OptionProps extends BasicOptionProps {
     disabled?: boolean;
     showTick?: boolean;
     className?: string;
-    style?: React.CSSProperties;
+    style?: React.CSSProperties
 }
 interface renderOptionContentArgument {
     config: {
         searchWords: any;
-        sourceString: React.ReactNode;
+        sourceString: React.ReactNode
     };
     children: React.ReactNode;
     inputValue: string;
-    prefixCls: string;
+    prefixCls: string
 }
 class Option extends PureComponent<OptionProps> {
     static isSelectOption = true;
@@ -88,6 +88,7 @@ class Option extends PureComponent<OptionProps> {
             prefixCls,
             renderOptionItem,
             inputValue,
+            id,
             ...rest
         } = this.props;
         const optionClassName = classNames(prefixCls, {
@@ -105,7 +106,11 @@ class Option extends PureComponent<OptionProps> {
             }
             return (
                 <LocaleConsumer<Locale['Select']> componentName="Select">
-                    {(locale: Locale['Select']) => <div className={optionClassName}>{emptyContent || locale.emptyText}</div>}
+                    {(locale: Locale['Select']) => (
+                        <div className={optionClassName} x-semi-prop="emptyContent">
+                            {emptyContent || locale.emptyText}
+                        </div>
+                    )}
                 </LocaleConsumer>
             );
         }
@@ -142,6 +147,7 @@ class Option extends PureComponent<OptionProps> {
                 }}
                 onMouseEnter={e => onMouseEnter && onMouseEnter(e)}
                 role="option"
+                id={id}
                 aria-selected={selected ? "true" : "false"}
                 aria-disabled={disabled ? "true" : "false"}
                 style={style}

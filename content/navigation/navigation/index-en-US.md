@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 37
+order: 39
 category: Navigation
 title:  Navigation
 subTitle: Navigation
@@ -9,11 +9,6 @@ width: 650px
 dir: column
 brief: A menu list that provides navigation for pages and features.
 ---
-
-
-## When to Use
-
-The navigation menu is the soul of a website, and users rely on navigation to jump in various pages. It is generally divided into top navigation and side navigation, top navigation provides global categories and functions, and side navigation provides a multi-level structure to accommodate and arrange the website architecture.
 
 ## Demos
 
@@ -232,6 +227,47 @@ class NavApp extends React.Component {
 
 ```
 
+### Use react-router like router lib
+
+In order to use routing components such as react-router, NavItem can be wrapped in the Link or NavLink provided by the routing component to let users click NavItem to trigger the routing component. We need to customize rendering.
+
+Use renderWrapper to customize navigation components in each navigation item. [See CodeSandBox demo](https://codesandbox.io/s/semi-navigation-with-react-router-9kk9dm?file=/src/App.js)
+```jsx
+import { Link } from "react-router-dom";
+
+()=>{
+    return <Nav
+        renderWrapper={({ itemElement, isSubNav, isInSubNav, props }) => {
+            const routerMap = {
+                Home: "/",
+                About: "/about",
+                Dashboard: "/dashboard",
+                "Nothing Here": "/nothing-here"
+            };
+            return (
+                <Link
+                    style={{ textDecoration: "none" }}
+                    to={routerMap[props.itemKey]}
+                >
+                    {itemElement}
+                </Link>
+            );
+        }}
+        items={[
+            { itemKey: "Home", text: "Home" },
+            { itemKey: "About", text: "About" },
+            {
+                text: "Sub",
+
+                itemKey: "Sub",
+                items: ["Dashboard", "Nothing Here"]
+            }
+        ]}
+    ></Nav>
+}
+```
+
+
 ### Navigation Direction
 
 Navigation currently offers navigation in two directions:
@@ -345,7 +381,7 @@ class NavApp extends React.Component {
                                 </Dropdown.Menu>
                             }
                         >
-                            <Avatar size="small" color='light-blue' style={{margin: 4}}>BD</Avatar>
+                            <Avatar size="small" color='light-blue' style={{ margin: 4 }}>BD</Avatar>
                             <span>Bytedancer</span>
                         </Dropdown>
                     }
@@ -431,7 +467,7 @@ class NavApp extends React.Component {
                                 </Dropdown.Menu>
                             }
                         >
-                            <Avatar size="small" color='light-blue' style={{margin: 4}}>BD</Avatar>
+                            <Avatar size="small" color='light-blue' style={{ margin: 4 }}>BD</Avatar>
                             <span>Bytedancer</span>
                         </Dropdown>
                     </>
@@ -481,19 +517,19 @@ class NavApp extends React.Component {
                 defaultOpenKeys={['job']}
                 bodyStyle={{ height: 320 }}
                 items={[
-                    {itemKey:'user', text:'User Management', icon: <IconUser /> },
-                    {itemKey:'union', text:'guild center', icon: <IconStar /> },
+                    { itemKey: 'user', text: 'User Management', icon: <IconUser /> },
+                    { itemKey: 'union', text: 'guild center', icon: <IconStar /> },
                     {
-                        text:'Task platform',
+                        text: 'Task platform',
                         icon: <IconSetting />,
-                        itemKey:'job',
-                        items: ['task management','user task query'],
+                        itemKey: 'job',
+                        items: ['task management', 'user task query'],
                     },
                 ]}
                 onSelect={key => console.log(key)}
                 header={{
                     logo: <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />,
-                    text:'Live broadcast operation background'
+                    text: 'Live broadcast operation background'
                 }}
                 footer={{
                     collapseButton: true,
@@ -526,28 +562,28 @@ class NavApp extends React.Component {
                 defaultOpenKeys={['job']}
                 bodyStyle={{ height: 320 }}
                 items={[
-                    {itemKey:'user', text:'User Management', icon: <IconUser /> },
+                    { itemKey: 'user', text: 'User Management', icon: <IconUser /> },
                     {
-                        text:'Task platform',
+                        text: 'Task platform',
                         icon: <IconSetting />,
-                        itemKey:'job',
+                        itemKey: 'job',
                         items: ['Task Management', {
-                            text:'Task 1',
+                            text: 'Task 1',
                             icon: <IconSetting />,
-                            itemKey:'mission1',
-                            items: ['Task 2',{
-                                text:'Task 3 disassembly',
+                            itemKey: 'mission1',
+                            items: ['Task 2', {
+                                text: 'Task 3 disassembly',
                                 icon: <IconSetting />,
-                                itemKey:'mission3',
-                                items: ['Subtask 1','Subtask 2'],
+                                itemKey: 'mission3',
+                                items: ['Subtask 1', 'Subtask 2'],
                             }, ],
-                        },],
+                        }, ],
                     },
                 ]}
                 onSelect={key => console.log(key)}
                 header={{
                     logo: <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />,
-                    text:'Live broadcast operation background'
+                    text: 'Live broadcast operation background'
                 }}
                 footer={{
                     collapseButton: true,
@@ -693,22 +729,25 @@ function NavApp (props = {}) {
 ### Nav
 
 | Properties          | Type                                                                                                                                                                                       | Description                                                                                                                      | Default    |
-| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| ------------------- |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| -------------------------------------------------------------------------------------------------------------------------------- | ---------- |
 | bodyStyle           | Custom style for navigation item list                                                                                                                                                      | object                                                                                                                           |            |
 | className           | Style name of outermost element                                                                                                                                                            | boolean                                                                                                                          |            |
 | defaultIsCollapsed  | Whether the default is put away, valid only when `mode = "vertical"`                                                                                                                       | boolean                                                                                                                          | false      |
 | defaultOpenKeys     | Initially open sub navigation `itemKey` array, valid only `mode = "vertical"`and the sidebar is in an expanded state                                                                       | string[]                                                                                                                         | []         |
 | defaultSelectedKeys | Originally selected navigation item `itemKey` array                                                                                                                                        | string[]                                                                                                                         | []         |
 | footer              | The bottom area configure objects or elements, see [Nav.Footer](#Nav.Footer)                                                                                                               | object\|ReactNode                                                                                                                |            |
+| getPopupContainer   | Dropdown's getPopupContainer config of vertical collapsed Nav or horizontal Nav. >= v2.24     | Function |                      |
 | header              | Head area configuration objects or elements, see [Nav.Header](#Nav.Header)                                                                                                                 | object\|ReactNode                                                                                                                |            |
 | isCollapsed         | A controlled attribute of whether it is in a put-away state, valid only when `mode = "vertical"`                                                                                           | boolean                                                                                                                          |            |
 | items               | Navigate the list of items, each item can continue with the items property. If it is a string array, each item is taken as text and itemKey                                                | object\|string[]\|[Item](#Nav.Item)[]\|[Sub](#Nav.Sub)[]                                                                         |            |
-| mode                | Navigation type, currently supports horizontal and vertical, optional value: `vertical`\|`horizontal`                                                                                      | string                                                                                                                           | `vertical` |
-| onClick             | Trigger when clicking on any navigation item                                                                                                                                               | ({ itemKey: string, domEvent: MouseEvent, isOpen: boolean }) => void                                                             | () = > {}  |
-| onCollapseChange    | The callback when the state changes.                                                                                                                                                       | (is Collapsed: boolean) => void                                                                                                  | () = > {}  |
-| onOpenChange        | Triggers when switching the hidden state of a sub navigation project                                                                                                                       | ({ itemKey: string, openKeys: string[], domEvent: MouseEvent, isOpen: boolean }) => void                                         | () = > {}  |
-| onSelect            | Triggers the first time you select an optional navigation project, where the selected Items field version > = 0.17.0 is supported                                                          | ({ itemKey: string, selectedKeys: string[], selectedItems: [Item](#Nav.Item)[], domEvent: MouseEvent, isOpen: boolean }) => void | () = > {}  |
+| mode                | Navigation type, currently supports horizontal and vertical, optional value: `vertical`\                                                                                                   |`horizontal`                                                                                      | string                                                                                                                           | `vertical` |
+| onClick             | Trigger when clicking on any navigation item | <ApiType detail='({ itemKey: string, domEvent: MouseEvent, isOpen: boolean }) => void'>(itemKey, event, isOpen) => void</ApiType>           | () = > {}  |
+| onCollapseChange    | The callback when the state changes.                                                                                                                                                       | <ApiType detail='(isCollapsed: boolean) => void'>(isCollapsed) => void </ApiType>                                                                                         | () = > {}  |
+| onOpenChange        | Triggers when switching the hidden state of a sub navigation project                                                                                                                       |<ApiType detail='({ itemKey: string, openKeys: string[], domEvent: MouseEvent, isOpen: boolean }) => void'> ({itemKey, openKeys, event, isOpen}) => void </ApiType>                                         | () = > {}  |
+| onSelect            | Triggers the first time you select an optional navigation project, where the selected Items field version > = 0.17.0 is supported                                                          | <ApiType detail='({ itemKey: string, selectedKeys: string[], selectedItems: Item[], domEvent: MouseEvent, isOpen: boolean }) => void'>(onSelectProps) => void </ApiType>  | () = > {}  |
 | openKeys            | Controlled open sub navigation `itemKey` array, expanded with `onOpenChange` callback control sub navigation items, valid only `mode = "vertical"`and the sidebar is in an unfolding state | string[]                                                                                                                         |            |
+| renderWrapper       | Custom navigation item outer component  >=2.24.0                                                                                                                                           |<ApiType detail='(data:{ itemElement:ReactElement, isSubNav:boolean, isInSubNav:boolean, props:SubNavProps\| ItemProps }) => ReactNode'>(data) => ReactNode</ApiType>  | |
+| prefixCls           | classsname prefix                                                                                                                                                                          | string                                                                                                                                                              | `semi`                  |
 | selectedKeys        | Controlled navigation item `itemKey` array, with `onSelect` callback control navigation item selection                                                                                     | string[]                                                                                                                         |            |
 | style               | Custom styles for outermost elements                                                                                                                                                       | object                                                                                                                           |            |
 | subNavCloseDelay    | Delay of sub navigation floating layer closure. Effective when the limit is true or mode is "limit" in MS                                                                                  | number                                                                                                                           | 100        |
@@ -769,9 +808,22 @@ function NavApp (props = {}) {
 | -------------- | --------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------- | ------- | ------- |
 | children       | Sub element                                                                                                                       | ReactNode                                 |         |         |
 | className      | Outermost style name                                                                                                              | string                                    |         |         |
-| collapseButton | Do you show the bottom "put away the sidebar" button, mode = "vertical" and the child parameter of the Footer component is empty? | boolean\|ReactNode                        | false   |         |
+| collapseButton | Whether to display the bottom "collapse sidebar" button, only work when mode="vertical" and the children parameter of the Footer component is empty | boolean\|ReactNode      | false   |         |
 | collapseText   | Title of the collapse button                                                                                                      | (collapsed:boolean) => string\|ReactNode |         | 0.35.0  |
 | style          | Outermost style                                                                                                                   | object                                    |         |         |
+
+## Accessibility
+- ### Keyboard and Focus
+- Each clickable item in the Navigation can be focused, use `Tab` and `Shift + Tab` to switch focus between each other, and each link can be activated by the `Enter` key
+- When an item can be opened popup
+  - The way to open the popup layer is hover : when the item is focused, the popup layer opens. Keyboard users can use the down arrow to move the focus to the bullet layer, and the Esc key can return the focus to the item
+  - The way to open the popup layer is click : when the item is focused, click the Enter key to open the popup layer. Keyboard users can use the down arrow to move the focus to the bullet layer, and the Esc key can return the focus to the item
+  -Keyboard interaction does not fully support nested scenes
+
+## Content Guidelines
+
+- Navigation bar menu uses sentence case format
+- Keep it as simple as possible
 
 ## Design Tokens
 <DesignToken/>

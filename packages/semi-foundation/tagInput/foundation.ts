@@ -8,24 +8,35 @@ import {
 } from 'lodash';
 import getSplitedArray from './utils/getSplitedArray';
 import isEnterPress from '../utils/isEnterPress';
+import arrayMove from '../utils/arrayMove';
 
 export type TagInputChangeEvent = any;
 export type TagInputCursorEvent = any;
 export type TagInputKeyboardEvent = any;
 export type TagInputMouseEvent = any;
 
+export interface OnSortEndProps {
+    oldIndex: number;
+    newIndex: number
+}
+
 export interface TagInputAdapter extends DefaultAdapter {
     setInputValue: (inputValue: string) => void;
     setTagsArray: (tagsArray: string[]) => void;
     setFocusing: (focusing: boolean) => void;
+    toggleFocusing(focused: boolean): void;
     setHovering: (hovering: boolean) => void;
+    setActive: (active: boolean) => void;
+    getClickOutsideHandler: () => any;
+    registerClickOutsideHandler: (cb: any) => void;
+    unregisterClickOutsideHandler: () => void;
     notifyBlur: (e: TagInputCursorEvent) => void;
     notifyFocus: (e: TagInputCursorEvent) => void;
     notifyInputChange: (v: string, e: TagInputChangeEvent) => void;
     notifyTagChange: (v: string[]) => void;
     notifyTagAdd: (v: string[]) => void;
     notifyTagRemove: (v: string, idx: number) => void;
-    notifyKeyDown: (e: TagInputMouseEvent) => void;
+    notifyKeyDown: (e: TagInputMouseEvent) => void
 }
 
 class TagInputFoundation extends BaseFoundation<TagInputAdapter> {
@@ -83,8 +94,11 @@ class TagInputFoundation extends BaseFoundation<TagInputAdapter> {
             tagsArray
         } = this._adapter.getStates();
         const code = e.keyCode;
-        if (code === keyCode.ENTER && inputValue !== '') {
-            this._handleAddTags(e);
+        if (code === keyCode.ENTER) {
+            e.preventDefault(); // prevent trigger submit when using in form
+            if (inputValue !== '') {
+                this._handleAddTags(e);
+            }
         }
         const { length } = tagsArray;
         if (code === keyCode.BACKSPACE && inputValue === '' && length > 0) {
@@ -147,6 +161,7 @@ class TagInputFoundation extends BaseFoundation<TagInputAdapter> {
     /**
      * A11y: simulate clear button click
      */
+    /* istanbul ignore next */
     handleClearEnterPress(e: TagInputKeyboardEvent) {
         if (isEnterPress(e)) {
             this.handleClearBtn(e);
@@ -162,6 +177,8 @@ class TagInputFoundation extends BaseFoundation<TagInputAdapter> {
         if (inputValue.length > 0) {
             this._onInputChange('', e);
         }
+        // Prevent event propagate to TagInput outermost div
+        e.stopPropagation();
     }
 
     handleTagClose(index: number) {
@@ -180,6 +197,36 @@ class TagInputFoundation extends BaseFoundation<TagInputAdapter> {
         this._adapter.setHovering(false);
     }
 
+    handleClick(e?: any) {
+        const { disabled } = this.getProps();
+        if (disabled) {
+            return;
+        }
+        const clickOutsideHandler = this._adapter.getClickOutsideHandler();
+        if (!clickOutsideHandler) {
+            this._adapter.setActive(true);
+            this._adapter.registerClickOutsideHandler(e => this.clickOutsideCallBack());
+        } 
+    }
+
+    clickOutsideCallBack() {
+        this._adapter.unregisterClickOutsideHandler();
+        this._adapter.setActive(false);
+    }
+
+    handleClickPrefixOrSuffix(e: any) {
+        const { disabled } = this._adapter.getProps();
+        const { isFocus } = this._adapter.getStates();
+        if (!disabled && !isFocus) {
+            this._adapter.toggleFocusing(true);
+        }
+    }
+
+    handlePreventMouseDown(e: any) {
+        if (e && isFunction(e.preventDefault)) {
+            e.preventDefault();
+        }
+    }
     /**
      * handler of delete tag
      */
@@ -208,6 +255,16 @@ class TagInputFoundation extends BaseFoundation<TagInputAdapter> {
     _onInputChange(value: string, e: TagInputChangeEvent) {
         this._adapter.setInputValue(value);
         this._adapter.notifyInputChange(value, e);
+    }
+
+    handleSortEnd(callbackProps: OnSortEndProps) {
+        const { oldIndex, newIndex } = callbackProps;
+        const { tagsArray } = this.getStates();
+        const newTagsArray = arrayMove(tagsArray, oldIndex, newIndex);
+        if (!this._isControlledComponent()) {
+            this._adapter.setTagsArray(newTagsArray);
+        } 
+        this._adapter.notifyTagChange(newTagsArray);
     }
 }
 

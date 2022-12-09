@@ -1,7 +1,7 @@
-import { EventObject } from '@douyinfe/semi-foundation/calendar/foundation';
 import { strings } from '@douyinfe/semi-foundation/calendar/constants';
-import { ArrayElement } from '../_base/base';
-import { BaseProps } from '../_base/baseComponent';
+import type { ArrayElement } from '../_base/base';
+import type { BaseProps } from '../_base/baseComponent';
+import type { EventObject, weeekStartsOnEnum } from '@douyinfe/semi-foundation/calendar/foundation';
 
 export interface CalendarProps extends BaseProps {
     displayValue?: Date;
@@ -10,6 +10,7 @@ export interface CalendarProps extends BaseProps {
     events?: EventObject[];
     mode?: ArrayElement<typeof strings.MODE>;
     showCurrTime?: boolean;
+    weekStartsOn?: weeekStartsOnEnum;
     scrollTop?: number;
     onClick?: (e: React.MouseEvent, value: Date) => void;
     onClose?: (e: React.MouseEvent) => void;
@@ -17,7 +18,7 @@ export interface CalendarProps extends BaseProps {
     markWeekend?: boolean;
     width?: number | string;
     height?: number | string;
-    dateGridRender?: (dateString?: string, date?: Date) => React.ReactNode;
+    dateGridRender?: (dateString?: string, date?: Date) => React.ReactNode
 }
 
 export type DayCalendarProps = Omit<CalendarProps, 'mode'>;
@@ -27,7 +28,7 @@ export interface DayColProps extends Pick<CalendarProps, DayCalendarPropsKeys>, 
     scrollHeight: number;
     currPos: number;
     isWeekend: boolean;
-    handleClick: (e: React.MouseEvent, val: [Date, number, number, number]) => void;
+    handleClick: (e: React.MouseEvent, val: [Date, number, number, number]) => void
 }
 
 export type MonthCalendarProps = Omit<CalendarProps, 'range' | 'showCurrTime' | 'scrollTop' | 'renderTimeDisplay'>;
@@ -36,7 +37,7 @@ export type RangeCalendarProps = CalendarProps;
 
 export interface TimeColProps {
     className?: string;
-    renderTimeDisplay?: CalendarProps['renderTimeDisplay'];
+    renderTimeDisplay?: CalendarProps['renderTimeDisplay']
 }
 
 export type WeekCalendarProps = CalendarProps;

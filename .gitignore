@@ -5,8 +5,6 @@ server/view/
 .expo/
 
 # json
-static/search_data_client.json
-search/data_client.json
 static/changeLog.json
 static/designToken.json
 
@@ -27,6 +25,8 @@ public
 storybook-static/
 *.zip
 cypress/videos/
+cypress/screenshots/
+cypress/downloads/
 
 # misc
 .env.local
@@ -94,6 +94,7 @@ lib-cov
 
 # Coverage directory used by tools like istanbul
 coverage
+test/merged
 
 # nyc test coverage
 .nyc_output
@@ -221,9 +222,13 @@ fastlane/readme.md
 
 ### VisualStudioCode ###
 # .vscode/
+.history
 
 # metro
 tmp
 
 # test
 /__snapshots__/
+
+
+.vscode

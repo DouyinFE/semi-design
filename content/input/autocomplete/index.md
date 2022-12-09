@@ -1,13 +1,13 @@
 ---
 localeCode: zh-CN
-order: 16
+order: 18
 category: 输入类
 title: AutoComplete 自动完成
 icon: doc-autocomplete
 brief: 输入框自动填充。
 ---
 
-## 何时使用
+## 使用场景
 
 用于对输入框提供输入建议，进行自动补全的操作
 
@@ -264,22 +264,36 @@ import { AutoComplete } from '@douyinfe/semi-ui';
 import React from 'react';
 import { AutoComplete } from '@douyinfe/semi-ui';
 
-() => (
-    <div>
-        <AutoComplete
-            data={[1, 2, 3, 4]}
-            position="top"
-            placeholder="选项菜单在上方显示"
-            style={{ width: 200, margin: 10 }}
-        ></AutoComplete>
-        <AutoComplete
-            data={[1, 2, 3, 4]}
-            position="rightTop"
-            placeholder="选项菜单在右侧显示"
-            style={{ width: 200, margin: 10 }}
-        ></AutoComplete>
-    </div>
-);
+() => {
+    const [data, setData] = useState([]);
+
+    const change = (input) => {
+        let newData = ['gmail.com', '163.com', 'qq.com'].map(domain => `${input}@${domain}`);
+        if (!input) {
+            newData = [];
+        }
+        setData(newData);
+    };
+    return (
+        <div>
+            <AutoComplete
+                data={data}
+                position="top"
+                onSearch={change}
+                placeholder="选项菜单在上方显示"
+                style={{ width: 200, margin: 10 }}
+            ></AutoComplete>
+            <AutoComplete
+                data={data}
+                position="rightTop"
+                onSearch={change}
+                placeholder="选项菜单在右侧显示"
+                style={{ width: 200, margin: 10 }}
+            ></AutoComplete>
+        </div>
+    );
+};
+
 ```
 
 ### 禁用
@@ -347,7 +361,7 @@ import { IllustrationNoContent } from '@douyinfe/semi-illustrations';
         <AutoComplete
             loading={loading}
             data={data}
-            emptyContent={<Empty style={{ padding: 12, width: 300 }} image={<IllustrationNoContent style={{width: 150, height: 150}}/>} description={'暂无内容'} />}
+            emptyContent={<Empty style={{ padding: 12, width: 300 }} image={<IllustrationNoContent style={{ width: 150, height: 150 }}/>} description={'暂无内容'} />}
             onSearch={fetchData}
         />
     );
@@ -372,7 +386,7 @@ import { IllustrationNoContent } from '@douyinfe/semi-illustrations';
 | getPopupContainer | 指定父级 DOM，下拉列表浮层将会渲染至该 DOM 中，自定义需要设置 `position: relative` | () => HTMLElement | () => document.body |
 | loading | 下拉列表是否展示加载动画 | boolean | false |
 | maxHeight | 下拉列表的最大高度 | number\|string | 300 |
-| motion | 下拉列表出现/隐藏时，是否有动画 | boolean\|object | true |
+| motion | 下拉列表出现/隐藏时，是否有动画 | boolean | true |
 | onSelectWithObject | 点击候选项时，是否将选中项 option 的其他属性也作为回调入参。设为 true 时，onSelect 的入参类型会从 `string` 变为 object: { value, label, ...rest }| boolean | false |1.23.0 |
 | placeholder | 输入框提示 | string | |
 | position | 下拉菜单的显示位置，可选值同 tooltip 组件 | string | 'bottomLeft' |
@@ -389,8 +403,24 @@ import { IllustrationNoContent } from '@douyinfe/semi-illustrations';
 | onBlur | 失去焦点时的回调 | Function(event) | |
 | onChange | 输入框变化/候选项选中时变化 | Function(value:string\|number) | |1.23.0 |
 | onFocus | 获得焦点时的回调 | Function(event) | |
+| onKeyDown | keydown 回调 | (e: React.KeyboardEvent) => void | | 2.21.0 |
 | onSearch | 输入变化时的回调 | Function(value: string) | |
 | onSelect | 下拉菜单候选项被选中时的回调 | Function(item: string\|number\|Item) | |
+
+## Accessibility
+### 键盘和焦点
+
+- AutoComplete 的 input 框可被聚焦，聚焦后，键盘用户可以通过 `上箭头` 或 `下箭头` 打开选项面板（如有）
+- AutoComplete 也支持通过 `Enter` 键打开和收起面板
+- 若用户将 defaultActiveFirstOption 属性设置为 true 时，选项面板打开后默认高亮第一个选项
+- 若下拉菜单打开时：
+  - 使用 `Esc` 可以关闭菜单
+  - 使用 `上箭头` 或 `下箭头` 可以切换选项
+  - 被聚焦的选项可以通过 `Enter` 键选中，并收起面板
+
+## 文案规范
+- 需要清晰地展示内容，让用户显而易见地感知到可用的各个选项
+- 限制一次性展示的选项数量
 
 ## 设计变量
 <DesignToken/>

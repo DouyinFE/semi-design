@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 42
+order: 44
 category: 展示类
 title: Avatar 头像
 icon: doc-avatar
@@ -25,23 +25,23 @@ import { Avatar } from '@douyinfe/semi-ui';
 
 () => (
     <div>
-        <Avatar size="extra-extra-small" style={{ margin: 4 }}>
+        <Avatar size="extra-extra-small" style={{ margin: 4 }} alt='User'>
             U
         </Avatar>
-        <Avatar size="extra-small" style={{ margin: 4 }}>
+        <Avatar size="extra-small" style={{ margin: 4 }} alt='User'>
             U
         </Avatar>
-        <Avatar size="small" style={{ margin: 4 }}>
+        <Avatar size="small" style={{ margin: 4 }} alt='User'>
             U
         </Avatar>
-        <Avatar size="default" style={{ margin: 4 }}>
+        <Avatar size="default" style={{ margin: 4 }} alt='User'>
             U
         </Avatar>
-        <Avatar style={{ margin: 4 }}>U</Avatar>
-        <Avatar size="large" style={{ margin: 4 }}>
+        <Avatar style={{ margin: 4 }} alt='User'>U</Avatar>
+        <Avatar size="large" style={{ margin: 4 }} alt='User'>
             U
         </Avatar>
-        <Avatar size="extra-large" style={{ margin: 4 }}>
+        <Avatar size="extra-large" style={{ margin: 4 }} alt='User'>
             U
         </Avatar>
     </div>
@@ -58,15 +58,15 @@ import { Avatar } from '@douyinfe/semi-ui';
 
 () => (
     <div>
-        <Avatar style={{ margin: 4 }}>AS</Avatar>
-        <Avatar color="red" style={{ margin: 4 }}>
+        <Avatar style={{ margin: 4 }} alt='Alice Swift'>AS</Avatar>
+        <Avatar color="red" style={{ margin: 4 }} alt='Bob Matteo'>
             BM
         </Avatar>
-        <Avatar color="light-blue" style={{ margin: 4 }}>
+        <Avatar color="light-blue" style={{ margin: 4 }} alt='Taylor Joy'>
             TJ
         </Avatar>
-        <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf', margin: 4 }}>ZL</Avatar>
-        <Avatar style={{ backgroundColor: '#87d068', margin: 4 }}>YZ</Avatar>
+        <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf', margin: 4 }} alt='Zank Lance'>ZL</Avatar>
+        <Avatar style={{ backgroundColor: '#87d068', margin: 4 }} alt='Youself Zhang'>YZ</Avatar>
     </div>
 );
 ```
@@ -82,14 +82,14 @@ import { Avatar } from '@douyinfe/semi-ui';
 () => (
     <div>
         <Avatar
-            alt="a cat"
-            src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"
+            alt="beautiful cat"
+            src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png"
             style={{ margin: 4 }}
         />
         <Avatar
-            alt="a cat"
+            alt="cute cat"
             size="small"
-            src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"
+            src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png"
             style={{ margin: 4 }}
         />
     </div>
@@ -106,8 +106,8 @@ import { Avatar } from '@douyinfe/semi-ui';
 
 () => (
     <div>
-        <Avatar style={{ margin: 4 }}>U</Avatar>
-        <Avatar shape="square" style={{ margin: 4 }}>
+        <Avatar style={{ margin: 4 }} alt="User">U</Avatar>
+        <Avatar shape="square" style={{ margin: 4 }} alt="User">
             U
         </Avatar>
     </div>
@@ -139,7 +139,7 @@ import { IconCamera } from '@douyinfe/semi-icons';
     );
 
     return (
-        <Avatar hoverMask={hover} color="red">
+        <Avatar hoverMask={hover} color="red" alt='Bob Downton'>
             BD
         </Avatar>
     );
@@ -157,11 +157,11 @@ import { AvatarGroup, Avatar } from '@douyinfe/semi-ui';
 () => (
     <div>
         <AvatarGroup>
-            <Avatar color="red">LL</Avatar>
-            <Avatar>CX</Avatar>
-            <Avatar color="amber">RM</Avatar>
-            <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>ZL</Avatar>
-            <Avatar style={{ backgroundColor: '#87d068' }}>YZ</Avatar>
+            <Avatar color="red" alt='Lisa LeBlanc'>LL</Avatar>
+            <Avatar alt='Caroline Xiao'>CX</Avatar>
+            <Avatar color="amber" alt='Rafal Matin'>RM</Avatar>
+            <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }} alt='Zank Lance'>ZL</Avatar>
+            <Avatar style={{ backgroundColor: '#87d068' }} alt='Youself Zhang'>YZ</Avatar>
         </AvatarGroup>
     </div>
 );
@@ -176,11 +176,11 @@ import { AvatarGroup, Avatar } from '@douyinfe/semi-ui';
 () => (
     <div>
         <AvatarGroup maxCount={3}>
-            <Avatar color="red">LL</Avatar>
-            <Avatar>CX</Avatar>
-            <Avatar color="amber">RM</Avatar>
-            <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>ZL</Avatar>
-            <Avatar style={{ backgroundColor: '#87d068' }}>YZ</Avatar>
+            <Avatar color="red" alt='Lisa LeBlanc'>LL</Avatar>
+            <Avatar alt='Caroline Xiao'>CX</Avatar>
+            <Avatar color="amber" alt='Rafal Matin'>RM</Avatar>
+            <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }} alt='Zank Lance'>ZL</Avatar>
+            <Avatar style={{ backgroundColor: '#87d068' }} alt='Youself Zhang'>YZ</Avatar>
         </AvatarGroup>
     </div>
 );
@@ -216,11 +216,11 @@ function Demo() {
 
     return (
         <AvatarGroup maxCount={3} renderMore={renderMore}>
-            <Avatar color="red">LL</Avatar>
-            <Avatar>CX</Avatar>
-            <Avatar color="amber">RM</Avatar>
-            <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>ZL</Avatar>
-            <Avatar style={{ backgroundColor: '#87d068' }}>YZ</Avatar>
+            <Avatar color="red" alt='Lisa LeBlanc'>LL</Avatar>
+            <Avatar alt='Caroline Xiao'>CX</Avatar>
+            <Avatar color="amber" alt='Rafal Matin'>RM</Avatar>
+            <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }} alt='Zank Lance'>ZL</Avatar>
+            <Avatar style={{ backgroundColor: '#87d068' }} alt='Youself Zhang'>YZ</Avatar>
         </AvatarGroup>
     );
 }
@@ -236,62 +236,24 @@ import { AvatarGroup, Avatar } from '@douyinfe/semi-ui';
     <div>
         <div>
             <AvatarGroup overlapFrom={'start'}>
-                <Avatar color="red">LL</Avatar>
-                <Avatar>CX</Avatar>
-                <Avatar color="amber">RM</Avatar>
-                <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>ZL</Avatar>
-                <Avatar style={{ backgroundColor: '#87d068' }}>YZ</Avatar>
+                <Avatar color="red" alt='Lisa LeBlanc'>LL</Avatar>
+                <Avatar alt='Caroline Xiao'>CX</Avatar>
+                <Avatar color="amber" alt='Rafal Matin'>RM</Avatar>
+                <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }} alt='Zank Lance'>ZL</Avatar>
+                <Avatar style={{ backgroundColor: '#87d068' }} alt='Youself Zhang'>YZ</Avatar>
             </AvatarGroup>
         </div>
         <div>
             <AvatarGroup overlapFrom={'end'}>
-                <Avatar color="red">LL</Avatar>
-                <Avatar>CX</Avatar>
-                <Avatar color="amber">RM</Avatar>
-                <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>ZL</Avatar>
-                <Avatar style={{ backgroundColor: '#87d068' }}>YZ</Avatar>
+                <Avatar color="red" alt='Lisa LeBlanc'>LL</Avatar>
+                <Avatar alt='Caroline Xiao'>CX</Avatar>
+                <Avatar color="amber" alt='Rafal Matin'>RM</Avatar>
+                <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }} alt='Zank Lance'>ZL</Avatar>
+                <Avatar style={{ backgroundColor: '#87d068' }} alt='Youself Zhang'>YZ</Avatar>
             </AvatarGroup>
         </div>
     </div>
 );
-```
-
-## Accessibility
-
-- `alt`：使用图片头像时，请使用 `alt` 属性解释图片的内容
-
-```jsx
-import React from 'react';
-import { Avatar } from '@douyinfe/semi-ui';
-
-() => {
-    return (
-        <>
-            {/* Good case */ }
-            <Avatar
-                alt="一只可爱的猫咪"
-                src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"
-                style={{ margin: 4 }}
-            />
-            <Avatar
-                alt="姜鹏志"
-                src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"
-                style={{ margin: 4 }}
-            />
-            {/* Bad case */ }
-            <Avatar
-                alt=""
-                src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"
-                style={{ margin: 4 }}
-            />
-            <Avatar
-                alt="姜鹏志的图片"
-                src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"
-                style={{ margin: 4 }}
-            />
-        </>
-    );
-};
 ```
 
 ## API 参考
@@ -326,6 +288,45 @@ import { Avatar } from '@douyinfe/semi-ui';
 | renderMore | 自定义渲染 more 标签 | (restNumber: number, restAvatars: ReactNode[]) => ReactNode | - |
 | shape | 指定头像的形状，支持`circle`、`square` | string | `circle` |
 | size | 设置头像的大小，支持 `extra-extra-small`, `extra-small`、`small`、`default`、`medium`、`large`、`extra-large` | string | `medium` |
+
+## Accessibility
+
+- Avatar 一般不用于操作，不需要被获取焦点。但当 Avatar 可以被点击操作时（如：Semi 官网上方的头像）需要被聚焦，并响应键盘 `Enter` 事件。
+- 当 Avatar 与其他组件结合使用时，需要同时检查该组件的可访问性指南。
+- Avatar的`alt`属性可以被屏幕阅读器读取，使用头像组件时，请使用`alt` 属性解释头像的内容。
+```jsx
+import React from 'react';
+import { Avatar } from '@douyinfe/semi-ui';
+
+() => {
+    return (
+        <>
+            {/* Good case */ }
+            <Avatar
+                alt="一只可爱的猫咪"
+                src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png"
+                style={{ margin: 4 }}
+            />
+            <Avatar
+                alt="姜鹏志"
+                src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png"
+                style={{ margin: 4 }}
+            />
+            {/* Bad case */ }
+            <Avatar
+                alt=""
+                src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png"
+                style={{ margin: 4 }}
+            />
+            <Avatar
+                alt="姜鹏志的图片"
+                src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png"
+                style={{ margin: 4 }}
+            />
+        </>
+    );
+};
+```
 
 ## 设计变量
 

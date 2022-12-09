@@ -1,7 +1,6 @@
-//@import '../theme/variables.scss';
-@import "./variables.scss";
-@import "./mixin.scss";
-@import "../keyframes/rotate.scss";
+@import "./animation.scss";
+@import './variables.scss';
+@import './mixin.scss';
 
 $module: #{$prefix}-spin;
 
@@ -10,23 +9,32 @@ $module: #{$prefix}-spin;
     display: inline-block;
     @include size($width-spin_middle);
 
+    @keyframes #{$prefix}-animation-rotate {
+        from {
+            transform: rotate(0);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
     &-wrapper {
         text-align: center;
         position: absolute;
         width: 100%;
-        transform: $motion-spin_wrapper-translate;
-        top: $spacing-spin_wrapper-top;
+        transform: translateY(-50%);
+        top: 50%;
         color: $color-spin-bg;
 
-        &>svg {
-            animation: $motion-spin_wrapper_svg-animationDuration linear infinite #{$prefix}-animation-rotate;
+        & > svg {
+            animation: $animation_duration-spin_wrapper-spin linear infinite #{$prefix}-animation-rotate;
             @include size($width-spin_middle);
         }
     }
 
     &-animate {
         display: inline-flex;
-        animation: $motion-spin_animate_svg-animationDuration linear infinite #{$prefix}-animation-rotate;
+        animation: $animation_duration-spin_customChildren-spin linear infinite #{$prefix}-animation-rotate;
     }
 
     &-children {
@@ -40,7 +48,7 @@ $module: #{$prefix}-spin;
         // 添加一个遮罩解决嵌套 Spin 穿透问题
 
         &::after {
-            content: "";
+            content: '';
             position: absolute;
             top: 0;
             left: 0;
@@ -60,13 +68,12 @@ $module: #{$prefix}-spin;
     }
 
     &-hidden {
-
         &::after {
             content: none;
         }
 
         // 考虑到嵌套，.spin-chidren 节点的 opacity 由直接父级节点的 .spin-hidden 决定
-        &>.#{$module}-children {
+        & > .#{$module}-children {
             opacity: 1;
             user-select: auto;
         }
@@ -76,7 +83,7 @@ $module: #{$prefix}-spin;
 .#{$module}-small {
     @include size($width-spin_small);
 
-    &>.#{$module}-wrapper svg {
+    & > .#{$module}-wrapper svg {
         @include size($width-spin_small);
     }
 }
@@ -84,7 +91,7 @@ $module: #{$prefix}-spin;
 .#{$module}-middle {
     @include size($width-spin_middle);
 
-    &>.#{$module}-wrapper svg {
+    & > .#{$module}-wrapper svg {
         @include size($width-spin_middle);
     }
 }
@@ -92,7 +99,7 @@ $module: #{$prefix}-spin;
 .#{$module}-large {
     @include size($width-spin_large);
 
-    &>.#{$module}-wrapper svg {
+    & > .#{$module}-wrapper svg {
         @include size($width-spin_large);
     }
 }
@@ -101,4 +108,4 @@ $module: #{$prefix}-spin;
     overflow: hidden;
 }
 
-@import "./rtl.scss";
+@import './rtl.scss';

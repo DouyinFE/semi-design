@@ -1,20 +1,27 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable max-lines-per-function */
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
+
 import DateInputFoundation, {
     DateInputAdapter,
     DateInputFoundationProps,
-    RangeType
+    RangeType,
+    InsetInputChangeProps,
+    InsetInputChangeFoundationProps,
 } from '@douyinfe/semi-foundation/datePicker/inputFoundation';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/datePicker/constants';
 import { noop } from '@douyinfe/semi-foundation/utils/function';
 import isNullOrUndefined from '@douyinfe/semi-foundation/utils/isNullOrUndefined';
-import BaseComponent, { BaseProps } from '../_base/baseComponent';
-import Input from '../input/index';
 import { IconCalendar, IconCalendarClock, IconClear } from '@douyinfe/semi-icons';
 import { BaseValueType, ValueType } from '@douyinfe/semi-foundation/datePicker/foundation';
+
+import BaseComponent, { BaseProps } from '../_base/baseComponent';
+import Input from '../input/index';
+import { InsetDateInput, InsetTimeInput } from './insetInput';
 
 export interface DateInputProps extends DateInputFoundationProps, BaseProps {
     insetLabel?: React.ReactNode;
@@ -25,8 +32,9 @@ export interface DateInputProps extends DateInputFoundationProps, BaseProps {
     onBlur?: (e: React.MouseEvent<HTMLInputElement>) => void;
     onFocus?: (e: React.MouseEvent<HTMLInputElement>, rangeType?: RangeType) => void;
     onClear?: (e: React.MouseEvent<HTMLDivElement>) => void;
+    onInsetInputChange?: (options: InsetInputChangeProps) => void;
+    value?: Date[]
 }
-
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 export default class DateInput extends BaseComponent<DateInputProps, {}> {
@@ -40,7 +48,6 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
         value: PropTypes.array,
         disabled: PropTypes.bool,
         type: PropTypes.oneOf(strings.TYPE_SET),
-        multiple: PropTypes.bool,
         showClear: PropTypes.bool,
         format: PropTypes.string, // Attributes not used
         inputStyle: PropTypes.object,
@@ -55,6 +62,14 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
         rangeInputStartRef: PropTypes.object,
         rangeInputEndRef: PropTypes.object,
         rangeSeparator: PropTypes.string,
+        insetInput: PropTypes.bool,
+        insetInputValue: PropTypes.object,
+        defaultPickerValue: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.number,
+            PropTypes.object,
+            PropTypes.array,
+        ]),
     };
 
     static defaultProps = {
@@ -65,7 +80,6 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
         onBlur: noop,
         onClear: noop,
         onFocus: noop,
-        multiple: false,
         type: 'date',
         inputStyle: {},
         inputReadOnly: false,
@@ -92,6 +106,7 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
             notifyRangeInputClear: (...args) => this.props.onRangeClear(...args),
             notifyRangeInputFocus: (...args) => this.props.onFocus(...args),
             notifyTabPress: (...args) => this.props.onRangeEndTabPress(...args),
+            notifyInsetInputChange: options => this.props.onInsetInputChange(options),
         };
     }
 
@@ -140,6 +155,10 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
         this.handleRangeInputFocus(e, 'rangeStart');
     };
 
+    handleInsetInputChange = (options: InsetInputChangeFoundationProps) => {
+        this.foundation.handleInsetInputChange(options);
+    };
+
     getRangeInputValue = (rangeStart: string, rangeEnd: string) => {
         const { rangeSeparator } = this.props;
         const rangeInputValue = `${rangeStart}${rangeSeparator}${rangeEnd}`;
@@ -153,6 +172,7 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
             <div
                 className={`${prefixCls}-range-input-prefix`}
                 onClick={e => !disabled && !rangeInputFocus && this.handleRangeStartFocus(e)}
+                x-semi-prop="prefix,insetLabel"
             >
                 {labelNode}
             </div>
@@ -177,9 +197,12 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
         const allowClear = (rangeStart || rangeEnd) && showClear;
         return allowClear && !disabled ? (
             <div
+                role="button"
+                tabIndex={0}
+                aria-label="Clear range input value"
                 className={`${prefixCls}-range-input-clearbtn`}
                 onMouseDown={e => !disabled && this.handleRangeInputClear(e)}>
-                <IconClear />
+                <IconClear aria-hidden />
             </div>
         ) : null;
     }
@@ -223,11 +246,11 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
         const rangePlaceholder = Array.isArray(placeholder) ? placeholder : [placeholder, placeholder];
         const [rangeStartPlaceholder, rangeEndPlaceholder] = rangePlaceholder;
         const inputLeftWrapperCls = cls(`${prefixCls}-range-input-wrapper-start`, `${prefixCls}-range-input-wrapper`, {
-            [`${prefixCls}-range-input-wrapper-active`]: rangeInputFocus === 'rangeStart',
-            [`${prefixCls}-range-input-wrapper-start-with-prefix`]: this.props.prefix || this.props.insetLabel
+            [`${prefixCls}-range-input-wrapper-active`]: rangeInputFocus === 'rangeStart' && !disabled,
+            [`${prefixCls}-range-input-wrapper-start-with-prefix`]: this.props.prefix || this.props.insetLabel,
         });
         const inputRightWrapperCls = cls(`${prefixCls}-range-input-wrapper-end`, `${prefixCls}-range-input-wrapper`, {
-            [`${prefixCls}-range-input-wrapper-active`]: rangeInputFocus === 'rangeEnd'
+            [`${prefixCls}-range-input-wrapper-active`]: rangeInputFocus === 'rangeEnd' && !disabled,
         });
         return (
             <>
@@ -279,7 +302,72 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
         );
     }
 
-    render() {
+    renderInputInset() {
+        const {
+            type,
+            handleInsetDateFocus,
+            handleInsetTimeFocus,
+            value,
+            insetInputValue,
+            prefixCls,
+            rangeInputStartRef,
+            rangeInputEndRef,
+            density,
+        } = this.props;
+
+        const _isRangeType = type.includes('Range');
+        const newInsetInputValue = this.foundation.getInsetInputValue({ value, insetInputValue });
+        const { datePlaceholder, timePlaceholder } = this.foundation.getInsetInputPlaceholder();
+
+        const insetInputWrapperCls = `${prefixCls}-inset-input-wrapper`;
+        const separatorCls = `${prefixCls}-inset-input-separator`;
+
+        return (
+            <div className={insetInputWrapperCls} x-type={type}>
+                <InsetDateInput
+                    forwardRef={rangeInputStartRef}
+                    insetInputValue={newInsetInputValue}
+                    placeholder={datePlaceholder}
+                    valuePath={'monthLeft.dateInput'}
+                    onChange={this.handleInsetInputChange}
+                    onFocus={e => handleInsetDateFocus(e, 'rangeStart')}
+                />
+                <InsetTimeInput
+                    disabled={!newInsetInputValue.monthLeft.dateInput}
+                    insetInputValue={newInsetInputValue}
+                    placeholder={timePlaceholder}
+                    type={type}
+                    valuePath={'monthLeft.timeInput'}
+                    onChange={this.handleInsetInputChange}
+                    onFocus={handleInsetTimeFocus}
+                />
+                {_isRangeType && (
+                    <>
+                        <div className={separatorCls}>{density === 'compact' ? null : '-'}</div>
+                        <InsetDateInput
+                            forwardRef={rangeInputEndRef}
+                            insetInputValue={newInsetInputValue}
+                            placeholder={datePlaceholder}
+                            valuePath={'monthRight.dateInput'}
+                            onChange={this.handleInsetInputChange}
+                            onFocus={e => handleInsetDateFocus(e, 'rangeEnd')}
+                        />
+                        <InsetTimeInput
+                            disabled={!newInsetInputValue.monthRight.dateInput}
+                            insetInputValue={newInsetInputValue}
+                            placeholder={timePlaceholder}
+                            type={type}
+                            valuePath={'monthRight.timeInput'}
+                            onChange={this.handleInsetInputChange}
+                            onFocus={handleInsetTimeFocus}
+                        />
+                    </>
+                )}
+            </div>
+        );
+    }
+
+    renderTriggerInput() {
         const {
             placeholder,
             type,
@@ -293,6 +381,7 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
             validateStatus,
             block,
             prefixCls,
+            multiple, // Whether to allow multiple values for email and file types
             dateFnsLocale, // No need to pass to input
             onBlur,
             onClear,
@@ -308,10 +397,13 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
             onRangeEndTabPress,
             rangeInputFocus,
             rangeSeparator,
+            insetInput,
+            insetInputValue,
+            defaultPickerValue,
             ...rest
         } = this.props;
-        const dateIcon = <IconCalendar />;
-        const dateTimeIcon = <IconCalendarClock />;
+        const dateIcon = <IconCalendar aria-hidden />;
+        const dateTimeIcon = <IconCalendarClock aria-hidden />;
         const suffix = type.includes('Time') ? dateTimeIcon : dateIcon;
         let text = '';
 
@@ -354,5 +446,10 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
                 onFocus={onFocus as any}
             />
         );
+    }
+
+    render() {
+        const { insetInput } = this.props;
+        return insetInput ? this.renderInputInset() : this.renderTriggerInput();
     }
 }

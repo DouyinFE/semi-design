@@ -2,12 +2,11 @@ import BaseFoundation, { DefaultAdapter, noopFunction } from '../base/foundation
 import { strings } from './constants';
 import { noop, set, isNumber, isString, isFunction } from 'lodash';
 
-import isEnterPress from '../utils/isEnterPress';
 import { ENTER_KEY } from './../utils/keyCode';
 
 export interface InputDefaultAdapter {
     notifyChange: noopFunction;
-    setValue: noopFunction;
+    setValue: noopFunction
 }
 
 export interface InputAdapter extends Partial<DefaultAdapter>, Partial<InputDefaultAdapter> {
@@ -16,14 +15,14 @@ export interface InputAdapter extends Partial<DefaultAdapter>, Partial<InputDefa
     notifyBlur(value: any, e: any): void;
     setEyeClosed(eyeClosed: boolean): void;
     toggleFocusing(focused: boolean): void;
+    focusInput(): void;
     notifyFocus(value: any, e: any): void;
     notifyInput(e: any): void;
     notifyKeyDown(e: any): void;
     notifyKeyUp(e: any): void;
     notifyKeyPress(e: any): void;
     notifyEnterPress(e: any): void;
-    setPaddingLeft(paddingLeft: string): void;
-    isEventTarget(e: any): boolean;
+    isEventTarget(e: any): boolean
 }
 
 class InputFoundation extends BaseFoundation<InputAdapter> {
@@ -200,6 +199,7 @@ class InputFoundation extends BaseFoundation<InputAdapter> {
         }
         // do not handle bubbling up events
         if (this._adapter.isEventTarget(e)) {
+            this._adapter.focusInput();
             this._adapter.toggleFocusing(true);
         }
     }
@@ -214,6 +214,7 @@ class InputFoundation extends BaseFoundation<InputAdapter> {
 
     handleClickEye(e: any) {
         const eyeClosed = this._adapter.getState('eyeClosed');
+        this._adapter.focusInput();
         this._adapter.toggleFocusing(true);
         this._adapter.setEyeClosed(!eyeClosed);
     }
@@ -267,10 +268,6 @@ class InputFoundation extends BaseFoundation<InputAdapter> {
         }
     }
 
-    setPaddingLeft(paddingLeft: string) {
-        this._adapter.setPaddingLeft(paddingLeft);
-    }
-
     isAllowClear() {
         const { value, isFocus, isHovering } = this._adapter.getStates();
         const { showClear, disabled } = this._adapter.getProps();
@@ -282,6 +279,7 @@ class InputFoundation extends BaseFoundation<InputAdapter> {
         const { disabled } = this._adapter.getProps();
         const { isFocus } = this._adapter.getStates();
         if (!disabled && !isFocus) {
+            this._adapter.focusInput();
             this._adapter.toggleFocusing(true);
         }
     }
@@ -297,19 +295,12 @@ class InputFoundation extends BaseFoundation<InputAdapter> {
     }
 
     /**
-     * A11y: simulate clear button click
-     */
-    handleClearEnterPress(e: any) {
-        if (isEnterPress(e)) {
-            this.handleClear(e);
-        }
-    }
-
-    /**
      * A11y: simulate password button click
      */
     handleModeEnterPress(e: any) {
-        if (isEnterPress(e)) {
+        // trigger by Enter or Space key
+        if (['Enter', ' '].includes(e?.key)) {
+            this.handlePreventMouseDown(e);
             this.handleClickEye(e);
         }
     }

@@ -2,6 +2,7 @@ import { Icon, Dropdown, Tag } from '../../index';
 import { string } from 'prop-types';
 import { noop, drop } from 'lodash';
 import { BASE_CLASS_PREFIX } from '../../../semi-foundation/base/constants';
+import {sleep} from "../../_test_/utils";
 
 const defaultItems = [{ children: 'Menu Item 1' }, { children: 'Menu Item 2' }, { children: 'Menu Item 3' }];
 
@@ -76,7 +77,7 @@ describe('Dropdown', () => {
         expect(Number(document.querySelector(`.${BASE_CLASS_PREFIX}-portal`).style.zIndex)).toEqual(zIndex);
     });
 
-    it('Dropdown-trigger-hover', () => {
+    it('Dropdown-trigger-hover', async () => {
         let props = {
             trigger: 'hover',
         };
@@ -87,8 +88,10 @@ describe('Dropdown', () => {
         dropdown.find(`.${BASE_CLASS_PREFIX}-tag`).simulate('mouseEnter', {});
         expect(dropdown.exists(el_portal_inner)).toEqual(true);
         expect(dropdown.find(el_item)).toHaveLength(3);
+        await sleep(1000);
         // auto hide
         dropdown.find(`.${BASE_CLASS_PREFIX}-tag`).simulate('mouseLeave', {});
+        await sleep(1000);
         expect(dropdown.exists(el_portal_inner)).toEqual(false);
         expect(dropdown.find(el_item)).toHaveLength(0);
     });
