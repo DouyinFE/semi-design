@@ -16,6 +16,13 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.25.0 (2022-12-09)
+- 【Fix】
+   - Fixed the problem that when the disabled switch is wrapped by Tooltip or Popover and the trigger is hover, it cannot be hidden correctly after the mouse is moved under the chrome browser [#1333](https://github.com/DouyinFE/semi-design/pull/1333)
+   - Fix the problem that the redundant parameters of Image are not transparently transmitted to the img node [#1334](https://github.com/DouyinFE/semi-design/pull/1334)
+   - Fix the problem of animation flickering of some components under React18 [#1270](https://github.com/DouyinFE/semi-design/pull/1270), [#1257](https://github.com/DouyinFE/semi-design/issues/1257)
+   - Fix the problem that Timepicker、TagInput with wrong borderRadius and height when using in InputGroup [#1268](https://github.com/DouyinFE/semi-design/issues/1268) [@edc-hui](https://github.com/edc-hui)
+
 #### 🎉 2.25.0-beta.0 (2022-12-06)
 - 【Feat】
   - Select、Cascader、Input、InputNumber、TreeSelect、AutoComplete、Datepicker、TImepicker add clearIcon, allow override default clear icon,  [#1309](https://github.com/DouyinFE/semi-design/issues/1309)
