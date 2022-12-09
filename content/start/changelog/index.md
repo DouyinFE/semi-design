@@ -16,7 +16,12 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 ---
 
-
+#### 🎉 2.25.0 (2022-12-09)
+- 【Fix】
+  - 修复 disabled switch 被 Tooltip或 Popover等组件包裹，且trigger为hover时，在chrome浏览器下，鼠标移开后未能正确隐藏的问题 [#1333](https://github.com/DouyinFE/semi-design/pull/1333)
+  - 修复 Image 多余参数未透传至 img节点的问题 [#1334](https://github.com/DouyinFE/semi-design/pull/1334)
+  - 修复 部分组件在 React18 下动画闪烁的问题 [#1270](https://github.com/DouyinFE/semi-design/pull/1270), [#1257](https://github.com/DouyinFE/semi-design/issues/1257)
+  - 修复 TimePicker、TagInput 在 InputGroup中圆角以及高度不对的问题 [#1268](https://github.com/DouyinFE/semi-design/issues/1268) [@edc-hui](https://github.com/edc-hui)
 #### 🎉 2.25.0-beta.0 (2022-12-06)
 - 【Feat】
   - Select、Cascader、Input、InputNumber、TreeSelect、AutoComplete、Datepicker、TimePicker 增加 clearIcon，允许覆盖清除按钮 [#1309](https://github.com/DouyinFE/semi-design/issues/1309)
