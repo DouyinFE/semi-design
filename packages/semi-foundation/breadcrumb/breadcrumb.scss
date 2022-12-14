@@ -15,10 +15,12 @@ $module: #{$prefix}-breadcrumb;
 
         &-loose {
             @include font-size-regular;
+            font-size: $font-breadcrumb_loose-text-size;
         }
 
         &-compact {
             @include font-size-small;
+            font-size: $font-breadcrumb_compact-text-size;
         }
     }
 
