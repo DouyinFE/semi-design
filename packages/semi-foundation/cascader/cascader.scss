@@ -161,22 +161,17 @@ $module: #{$prefix}-cascader;
         }
         
         .#{$prefix}-tagInput {
-            &-wrapper {
-                &-default {
-                    min-height: $height-cascader_selection_tagInput_wrapper_default;
-                }
-    
-                &-small {
-                    min-height: $height-cascader_selection_tagInput_wrapper_small;
-                }
-    
-                &-large {
-                    min-height: $height-cascader_selection_tagInput_wrapper_large;
-                }
+            min-height: $height-cascader_selection_tagInput_wrapper_default;
+
+            &-small {
+                min-height: $height-cascader_selection_tagInput_wrapper_small;
+            }
+
+            &-large {
+                min-height: $height-cascader_selection_tagInput_wrapper_large;
             }
 
             .#{$prefix}-input-wrapper {
-                // height: $height-cascader_selection_tagInput_input_default;
 
                 margin-left: $spacing-cascader_selection_input-marginLeft;
                 .#{$prefix}-input {
@@ -193,13 +188,6 @@ $module: #{$prefix}-cascader;
                     margin-bottom: $spacing-cascader_selection_tag-marginY;
                 }
             }
-
-            // .#{$prefix}-input-wrapper-small {
-            //     height: $height-cascader_selection_tagInput_input_small;
-            // }
-            // .#{$prefix}-input-wrapper-large {
-            //     height: $height-cascader_selection_tagInput_input_large;
-            // }
         }
 
         &-text {
