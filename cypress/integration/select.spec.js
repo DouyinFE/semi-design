@@ -47,6 +47,13 @@ describe('Select', () => {
         cy.get('@consoleLog').should('be.calledWith', 'onBlur');
     });
 
+    it('emptyContent=null', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/select--empty-content');
+        // when emptyContent = null， The dropdown list will not be displayed
+        // so element(which class has semi-popover-wrapper) show have 0px height;
+        cy.get('.semi-popover-wrapper').eq(0).should('have.css', 'height', '0px');
+    });
+
     // it('should trigger onSearch when click x icon', () => {
     //     cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/select--select-filter-single');
     //     cy.get('.semi-select').eq(0).click();
