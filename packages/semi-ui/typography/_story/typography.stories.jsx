@@ -432,9 +432,19 @@ export const EllipsisChaos = () => (
 EllipsisChaos.story = {
   name: 'Ellipsis chaos',
 };
-
 export const EllipsisCollapsible = () => (
   <div>
+    <Paragraph
+      ellipsis={{
+        rows: 1,
+        expandable: true,
+        collapsible: true,
+      }}
+      style={{ width: 300 }}
+    >
+      {''}
+    </Paragraph>
+    <br />
     <Paragraph
       ellipsis={{
         rows: 3,
