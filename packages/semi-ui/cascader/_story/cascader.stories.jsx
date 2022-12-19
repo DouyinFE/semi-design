@@ -523,17 +523,16 @@ export const Searchable = () => {
       <br />
       <br />
       <div>
-          v2.5 起，filterTreeNode=false，且 label 为 ReactNode
-          时，无配合displayRender 使用，回显到input的内容也是符合预期
-        </div>
-        <Cascader
-          style={{ width: 300 }}
-          treeData={treedataWithNodeLabel}
-          placeholder="宁波为 ReactNode"
-          
-          defaultValue={['zhejiang', 'ningbo', 'jiangbei']}
-        />
+        v2.5 起，filterTreeNode=false，且 label 为 ReactNode
+        时，无配合displayRender 使用，回显到input的内容也是符合预期
       </div>
+      <Cascader
+        style={{ width: 300 }}
+        treeData={treedataWithNodeLabel}
+        placeholder="宁波为 ReactNode"
+        defaultValue={['zhejiang', 'ningbo', 'jiangbei']}
+      />
+    </div>
   );
 };
 Searchable.parameters = {

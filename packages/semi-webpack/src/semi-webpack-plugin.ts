@@ -97,7 +97,10 @@ export default class SemiWebpackPlugin {
                 module.loaders = [
                     lastLoader,
                     {
-                        loader: cssLoader
+                        loader: cssLoader,
+                        options: {
+                            sourceMap: false,
+                        }
                     }, {
                         loader: scssLoader
                     },
