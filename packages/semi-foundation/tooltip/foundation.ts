@@ -855,7 +855,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
                         position = this._adjustPos(position, true);
                     }
                     if (shouldReverseLeftSide && widthIsBigger) {
-                        position = this._adjustPos(position, true);
+                        position = this._adjustPos(position);
                     }
                     if (isWidthOverFlow && (isViewXEnoughSideHalf || isContainerXEnoughSideHalf)) {
                         position = this._adjustPos(position, true, 'reduce');
