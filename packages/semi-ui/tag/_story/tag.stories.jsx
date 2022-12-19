@@ -366,3 +366,21 @@ export const TagShape = () => {
 TagShape.story = {
   name: 'tag shape',
 };
+
+export const maxWidth = () => {
+  const src = 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png';
+  return (
+  <>
+    <Tag style={{maxWidth: 100}} >
+      李白李白李白李白李白
+    </Tag>
+    <br /><br />
+    <Tag style={{maxWidth: 100}} closable={true}>
+      李白李白李白李白李白
+    </Tag>
+    <br /><br />
+    <Tag style={{maxWidth: 100}} avatarSrc={src} avatarShape={'square'} onClick={()=>{console.log('如果能重来，我要做李白')}}>
+      李白李白李白李白李白
+    </Tag>
+  </>
+)}

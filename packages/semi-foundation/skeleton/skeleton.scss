@@ -99,6 +99,7 @@ $module: #{$prefix}-skeleton;
             );
             background-size: 400% 100%;
             animation: $animation_duration-skeleton-highlight skeleton-loading $animation_function-skeleton-highlight infinite;
+            animation-fill-mode: forwards;
         }
     }
 

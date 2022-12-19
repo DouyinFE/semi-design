@@ -10,7 +10,6 @@ $types: "ghost", "solid", "light";
 
 .#{$module} {
     box-sizing: border-box;
-    display: inline-block;
     border-radius: $radius-tag;
     background-color: transparent;
     position: relative;
@@ -19,6 +18,8 @@ $types: "ghost", "solid", "light";
     overflow: hidden;
     white-space: nowrap;
     vertical-align: bottom;
+    @include all-center;
+    display: inline-flex;
 
     &-default,
     &-small {
@@ -51,9 +52,10 @@ $types: "ghost", "solid", "light";
     }
 
     &-content {
-        display: flex;
-        @include all-center;
-        height: 100%;
+        flex: 1;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
     }
 
     &-close {
@@ -61,6 +63,14 @@ $types: "ghost", "solid", "light";
         color: $color-tag_close-icon-default;
         padding-left: $spacing-tag_close-paddingLeft;
         cursor: pointer;
+
+        :hover {
+            color: $color-tag_close-icon-hover
+        }
+
+        :active {
+            color: $color-tag_close-icon-active
+        }
     }
 
     &-closable {

@@ -881,8 +881,8 @@ class AssistComponent extends React.Component {
                 labelWidth={100}
             >
                 <Form.Input field='特效名称' style={{ width: 250 }}/>
-                <Form.Slot label={{ text: 'SlotA' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
+                <Form.Slot label={{ text: 'SlotA' }} error='我是SlotA的ErrorMessage'>
+                    <div style={{ display: 'flex', alignItems: 'center', height: 32, marginTop: 8 }}>
                         我是Semi Form SlotA, 我是自定义的ReactNode
                     </div>
                 </Form.Slot>
@@ -2143,6 +2143,7 @@ const { Slot } = Form;
 | className     | slot 样式类名                                                                                                                      | string         |
 | style         | slot 内联样式                                                                                                                      | object         |
 | children      | slot 的主体内容                                                                                                                    | ReactNode      |
+| error         | slot 的错误提示信息                                                                                                                 | ErrorMessage\|ReactNode      |
 
 ## Form.ErrorMessage
 

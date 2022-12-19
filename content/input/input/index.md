@@ -408,6 +408,7 @@ import { Input, Typography, Form, TextArea, Button } from '@douyinfe/semi-ui';
 | addonAfter     | 后置标签                                                        | ReactNode               |           |
 | addonBefore    | 前置标签                                                        | ReactNode               |           |
 | className      | 类名                                                            | string                          |           |
+| clearIcon | 可用于自定义清除按钮, showClear为true时有效 **>=2.25.0** | ReactNode |  |
 | defaultValue   | 输入框内容默认值                                                | ReactText                          |           |
 | disabled       | 是否禁用，默认为false                                            | boolean                         | false     |
 | getValueLength| 自定义计算字符串长度                                            | (value: string) => number        |      |

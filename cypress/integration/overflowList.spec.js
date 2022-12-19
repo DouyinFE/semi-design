@@ -3,9 +3,9 @@ describe('overflowList', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?id=overflowlist--overlap-overflow-list&args=&viewMode=story');
         cy.viewport(500, 500);
         cy.get('.semi-tag').eq(0).contains('0');
-        cy.get('.semi-tag').eq(1).contains('3');
+        cy.get('.semi-tag').eq(1).contains('9');
         cy.get('.semi-overflow-list-scroll-wrapper').scrollTo('right');
-        cy.get('.semi-tag').eq(0).contains('4');
+        cy.get('.semi-tag').eq(0).contains('10');
     });
 
     it('resize', () => {

@@ -13,7 +13,7 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
             aria-hidden={true}
             {...props}
         >
-            <g clipPath="url(#clip0)">
+            <g clipPath="url(#clip_user_add)">
                 <path
                     fillRule="evenodd"
                     clipRule="evenodd"
@@ -34,7 +34,7 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
                 />
             </g>
             <defs>
-                <clipPath id="clip0">
+                <clipPath id="clip_user_add">
                     <rect width={24} height={24} fill="currentColor" />
                 </clipPath>
             </defs>

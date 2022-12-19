@@ -109,7 +109,25 @@ function Demo() {
         console.log(open);
     };
 
-    return <TimePicker open={open} onOpenChange={onOpenChange} panelHeader={'Time Select'} panelFooter={<Button onClick={closePanel}>close</Button>}/>;
+    return (
+        <div>
+            <TimePicker
+                open={open}
+                onOpenChange={onOpenChange}
+                panelHeader={'Time Select'}
+                panelFooter={<Button onClick={closePanel}>close</Button>}
+            />
+            <br/><br/>
+            <TimePicker
+                type='timeRange'
+                panelHeader={['start header', 'end header']}
+                panelFooter={[
+                    <Button key="1" onClick={() => {console.log('start footer');}}>start footer</Button>, 
+                    <Button key="2" onClick={() => {console.log('end footer');}}>end footer</Button>
+                ]}
+            />
+        </div>
+    );
 }
 ```
 
@@ -275,6 +293,7 @@ function Demo(props = {}) {
 | autoAdjustOverflow  | 浮层被遮挡时是否自动调整方向                           | boolean                                                                           | true                                                              | **0.34.0** |
 | autoFocus           | 自动获取焦点                                           | boolean                                                                           | false                                                             |                    |
 | className           | 外层样式名                                             | string                                                                            |                                                                   |                    |
+| clearIcon | 可用于自定义清除按钮, showClear为true时有效 | ReactNode |  |**2.25.0**  |
 | clearText           | 清除按钮的提示文案                                     | string                                                                            | clear                                                             |                    |
 | defaultOpen         | 面板是否默认打开                                       | boolean                                                                           |                                                                   | **0.19.0**         |
 | defaultValue        | 默认时间                                               | Date\|timeStamp\|String（type="timeRange"时为数组）                               |                                                                   |                    |
@@ -282,6 +301,7 @@ function Demo(props = {}) {
 | disabledHours       | 禁止选择部分小时选项                                   | Function(): number[]                                                              |                                                                   |                    |
 | disabledMinutes     | 禁止选择部分分钟选项                                   | Function(selectedHour: number): number[]                                          |                                                                   |                    |
 | disabledSeconds     | 禁止选择部分秒选项                                     | Function(selectedHour: number, selectedMinute: number): number[]                  |                                                                   |                    |
+| dropdownMargin      | 浮层算溢出时的增加的冗余值，详见[issue#549](https://github.com/DouyinFE/semi-design/issues/549)，作用同 Tooltip margin      | object\|number  |  | **2.25.0**
 | focusOnOpen         | 挂载时是否打开面板并focus输入框                         | boolean                                                                            | false                                                     |                    |
 | format              | 展示的时间格式                                         | string                                                                            | "HH:mm:ss"                                                        |                    |
 | getPopupContainer   | 指定容器，浮层将会渲染至该元素内，自定义需要设置 `position: relative`                       | Function(): HTMLElement                                                           | () => document.body                                               |                    |
@@ -292,8 +312,8 @@ function Demo(props = {}) {
 | minuteStep          | 分钟选项间隔                                           | number                                                                            | 1                                                                 |                    |
 | motion | 是否展示弹出层动画 | boolean | true |  |
 | open                | 面板是否打开的受控属性                                 | boolean                                                                           |                                                                   |                    |
-| panelFooter         | 面板底部 addon                                         | ReactNode\|string                                                                 | 无                                                                |                    |
-| panelHeader         | 面板头部 addon                                         | ReactNode\|string                                                                 | 无                                                                |                    |
+| panelFooter         | 面板底部 addon                                         | ReactNode\|ReactNode[]\|string                                                                 | 无                                                                |                    |
+| panelHeader         | 面板头部 addon                                         | ReactNode\|ReactNode[]\|string                                                                 | 无                                                                |                    |
 | placeholder         | 没有值的时候显示的内容                                 | string                                                                            | "请选择时间"                                                      |                    |
 | popupClassName      | 弹出层类名                                             | string                                                                            | ''                                                                |                    |
 | popupStyle          | 弹出层样式对象                                         | object                                                                            | -                                                                 |                    |

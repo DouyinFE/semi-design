@@ -15,6 +15,30 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+#### 🎉 2.25.2 (2022-12-19)
+- 【Fix】
+    - fix the problem that the automatic adjustment position is incorrect when the Tooltip position is topLeft
+    - fix the wrong style of TagInput when it is draggable
+
+#### 🎉 2.25.0 (2022-12-09)
+- 【Fix】
+   - Fixed the problem that when the disabled switch is wrapped by Tooltip or Popover and the trigger is hover, it cannot be hidden correctly after the mouse is moved under the chrome browser [#1333](https://github.com/DouyinFE/semi-design/pull/1333)
+   - Fix the problem that the redundant parameters of Image are not transparently transmitted to the img node [#1334](https://github.com/DouyinFE/semi-design/pull/1334)
+   - Fix the problem of animation flickering of some components under React18 [#1270](https://github.com/DouyinFE/semi-design/pull/1270), [#1257](https://github.com/DouyinFE/semi-design/issues/1257)
+   - Fix the problem that Timepicker、TagInput with wrong borderRadius and height when using in InputGroup [#1268](https://github.com/DouyinFE/semi-design/issues/1268) [@edc-hui](https://github.com/edc-hui)
+
+#### 🎉 2.25.0-beta.0 (2022-12-06)
+- 【Feat】
+  - Select、Cascader、Input、InputNumber、TreeSelect、AutoComplete、Datepicker、TImepicker add clearIcon, allow override default clear icon,  [#1309](https://github.com/DouyinFE/semi-design/issues/1309)
+  - Cascader、Select、DatePicker、TimePicker、TreeSelect add dropdownMargin ，Dropdown、Popover add margin ，use same as tooltip margin
+  - The TimePicker component whose type is timeRange supports passing in panelHeader and panelFooter in array format to set different headers and bottoms. [#1316](https://github.com/DouyinFE/semi-design/issues/1316) [@zk8080](https://github.com/zk8080)
+  - TreeSelect adds a position parameter to control the direction of the pop-up layer 
+- 【Fix】
+  - fix the problem that the height display is incorrect when the virtualized Table has no data
+  - fix tooltip flush when setting opacity through style
+- 【Style】
+  - Tag close button add hover and active color
+  - Optimize the display method of Tag when the content exceeds the length, and automatically omit it [@SyMind](https://github.com/SyMind)
 
 #### 🎉 2.24.3 (2022-12-05)
 - 【Chore】

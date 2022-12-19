@@ -193,7 +193,7 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
     }
 
     renderRangeClearBtn(rangeStart: string, rangeEnd: string) {
-        const { showClear, prefixCls, disabled } = this.props;
+        const { showClear, prefixCls, disabled, clearIcon } = this.props;
         const allowClear = (rangeStart || rangeEnd) && showClear;
         return allowClear && !disabled ? (
             <div
@@ -202,7 +202,7 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
                 aria-label="Clear range input value"
                 className={`${prefixCls}-range-input-clearbtn`}
                 onMouseDown={e => !disabled && this.handleRangeInputClear(e)}>
-                <IconClear aria-hidden />
+                {clearIcon ? clearIcon :<IconClear aria-hidden />}
             </div>
         ) : null;
     }

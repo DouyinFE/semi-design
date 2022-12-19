@@ -398,6 +398,7 @@ Answers to some questions:
 | addonAfter        | Addon after input box                                                                         | ReactNode                       |           |
 | addonBefore       | Addon before input box                                                                        | ReactNode                       |           |
 | className         | Class name                                                                                    | string                          |           |
+| clearIcon         | Can be used to customize the clear button, valid when showClear is true  **>=2.25**           | ReactNode                       |           |
 | defaultValue      | Default value                                                                                 | ReactText                       |           |
 | disabled          | Toggle whether to disable input                                                               | boolean                         | false     |
 | getValueLength    | Custom calculated character string length                                                     | (value: string) => number       |           |

@@ -33,6 +33,13 @@ jobs:
               run: |
                   git config --global user.name 'semi-bot'
                   git config --global user.email 'semi-bot@users.noreply.github.com'
+                  if [ -n "$(git status --porcelain)" ]; then
+                    echo "there are changes";
+                    git add .
+                    git commit --no-verify -m "chore: publish ${{ env.RELEASE_VERSION }}"
+                  else
+                    echo "no changes";
+                  fi
                   npm config set registry=https://registry.npmjs.org/
                   npm config set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
                   npm whoami
