@@ -15,6 +15,10 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+#### 🎉 2.25.2 (2022-12-19)
+- 【Fix】
+    - fix the problem that the automatic adjustment position is incorrect when the Tooltip position is topLeft
+    - fix the wrong style of TagInput when it is draggable
 
 #### 🎉 2.25.0 (2022-12-09)
 - 【Fix】
