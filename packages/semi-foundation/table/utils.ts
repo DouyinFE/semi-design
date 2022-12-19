@@ -480,9 +480,9 @@ export interface GetAllDisabledRowKeysProps {
 
 export function warnIfNoDataIndex(column: Record<string, any>) {
     if (typeof column === 'object' && column !== null) {
-        const { filters, sorter, dataIndex } = column;
+        const { filters, sorter, dataIndex, onFilter } = column;
         const logger = new Logger('[@douyinfe/semi-ui Table]');
-        if ((Array.isArray(filters) || isFunction(sorter)) && isNullOrUndefined(dataIndex) ) {
+        if ((Array.isArray(filters) || isFunction(onFilter) || isFunction(sorter)) && isNullOrUndefined(dataIndex) ) {
             logger.warn(`The column with sorter or filter must pass the 'dataIndex' prop`);
         }
     }
